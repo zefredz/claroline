@@ -31,7 +31,6 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 include($includePath . '/conf/user_profile.conf.php'); // find this file to modify values.
 
@@ -249,34 +248,32 @@ echo claro_disp_tool_title( array( 'mainTitle' =>$nameTools
 
 if(isset($dialogBox))
 {
-    echo claro_disp_message_box($dialogBox);
+    echo claro_html::message_box($dialogBox);
 }
-?>
 
-<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<table width="100%" >
-<tr>
-<td><?php echo get_lang('UserStatus')?> : </td>
-<td>
-<input type="radio" name="status_form" value="student" id="status_form_student" <?php if ($isStudent) { echo "checked"; }?> >
-<label for="status_form_student"><?php echo get_lang('Student')?></label>
-<input type="radio" name="status_form" value="teacher" id="status_form_teacher" <?php if ($isCourseManager) { echo "checked"; }?> >
-<label for="status_form_teacher"><?php echo get_lang('Course manager')?></label>
-<input type="hidden" name="uidToEdit" value="<?php echo $user_id?>">
-<input type="hidden" name="cidToEdit" value="<?php echo $cidToEdit?>">
-<input type="submit" name="applyChange" value="<?php echo get_lang('SaveChanges')?>">
-<input type="hidden" name="cmd" value="changeStatus">
-<input type="hidden" name="cfrom" value="<?php echo $cfrom?>">
-<input type="hidden" name="ccfrom" value="<?php echo $ccfrom?>">
-</td>
-</tr>
-</table>
-</form>
-
-<?php
-// display TOOL links :
-echo claro_html::menu_horizontal($cmd_menu);
-// display footer
+echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" class="claroTableForm" >' . "\n"
+.    '<table width="100%" >' . "\n"
+.    '<tr>' . "\n"
+.    '<td>' . "\n"
+.    get_lang('UserStatus') . "\n"
+.    ' : </td>' . "\n"
+.    '<td>' . "\n"
+.    '<input type="radio" name="status_form" value="student" id="status_form_student" ' . ($isStudent ? 'checked' : '' ) . ' />' . "\n"
+.    '<label for="status_form_student">' . get_lang('Student') . '</label>'               . "\n"
+.    '<input type="radio" name="status_form" value="teacher" id="status_form_teacher" ' . ($isCourseManager ? 'checked' : '') . ' />' . "\n"
+.    '<label for="status_form_teacher">' . get_lang('Course manager') . '</label>'        . "\n"
+.    '<input type="hidden" name="uidToEdit" value="' . $user_id . '" />'                  . "\n"
+.    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '" />'                . "\n"
+.    '<input type="submit" name="applyChange" value="' . get_lang('SaveChanges') . '" />' . "\n"
+.    '<input type="hidden" name="cmd"    value="changeStatus" / >'                        . "\n"
+.    '<input type="hidden" name="cfrom"  value="' . $cfrom .  '" />'                      . "\n"
+.    '<input type="hidden" name="ccfrom" value="' . $ccfrom . '" />'                      . "\n"
+.    '</td>'    . "\n"
+.    '</tr>'    . "\n"
+.    '</table>' . "\n"
+.    '</form>'  . "\n"
+.    claro_html::menu_horizontal($cmd_menu)
+;
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

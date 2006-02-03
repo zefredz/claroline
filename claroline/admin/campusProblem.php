@@ -32,7 +32,6 @@ define('DISP_NOT_ALLOWED',__LINE__);
 require '../inc/claro_init_global.inc.php';
 
 include_once $includePath . '/lib/statsUtils.lib.inc.php';
-include_once $includePath . '/lib/claro_html.class.php';
 include_once $includePath . '/lib/pear/Lite.php';
 
 
@@ -173,15 +172,8 @@ switch ($display)
             .    ' '
             .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
             .    '</small>'
-            .    '<br>'
+            .    '<br />' . "\n"
             ;
-
-
-            //--  multiple logins |
-            //--     multiple logins are not possible in the new version but this page can be used with previous versions
-
-
-            echo '<br />' . "\n";
         }
         else
         {
@@ -221,11 +213,12 @@ switch ($display)
 
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
-                $sql = "SELECT DISTINCT email , count(*) as nb
-                    FROM `" . $tbl_user . "`
-                    GROUP BY email
-                    HAVING nb > 1
-                    ORDER BY nb DESC";
+                $sql = "SELECT DISTINCT             email ,
+                                        count(*) AS nb
+                        FROM `" . $tbl_user . "`
+                        GROUP BY email
+                        HAVING nb > 1
+                        ORDER BY nb DESC";
                 $option['colTitleList'] = array(get_lang('email'), get_lang('count'));
                 $data = claro_sql_query_fetch_all($sql);
                 if (!is_array($data) || sizeof($data)==0) $data[] = array( '-', '-');
@@ -339,9 +332,10 @@ switch ($display)
 
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
-                $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
-                    FROM `" . $tbl_course . "` c
-                    LEFT JOIN `" . $tbl_rel_course_user . "` cu
+                $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'),
+                               count( cu.user_id ) AS nbu
+                    FROM `" . $tbl_course . "`               AS c
+                    LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
                         ON c.code = cu.code_cours
                         AND cu.statut = 5
                     GROUP BY c.code, statut
@@ -400,8 +394,9 @@ switch ($display)
 
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
-                $sql = "SELECT `us`.`username`, MAX(`lo`.`login_date`)
-                    FROM `" . $tbl_user . "` AS us
+                $sql = "SELECT `us`.`username`,
+                               MAX(`lo`.`login_date`)
+                    FROM `" . $tbl_user . "`               AS us
                     LEFT JOIN `" . $tbl_track_e_login . "` AS lo
                     ON`lo`.`login_user_id` = `us`.`user_id`
                     GROUP BY `us`.`username`

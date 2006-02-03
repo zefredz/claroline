@@ -33,17 +33,6 @@ $nameTools=get_lang('UserSettings');
 $dialogBox = '';
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-
-//declare needed tables
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_admin           = $tbl_mdb_names['admin'           ];
-$tbl_course           = $tbl_mdb_names['course'           ];
-$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-$tbl_course_nodes     = $tbl_mdb_names['category'         ];
-$tbl_user             = $tbl_mdb_names['user'             ];
-
-// see which user we are working with ...
-
 $user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------
@@ -85,7 +74,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $use
  * DISPLAY
  */
 
-include $includePath.'/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title(get_lang('UserUnregistered'));
 
@@ -93,7 +82,7 @@ echo claro_disp_tool_title(get_lang('UserUnregistered'));
 
 if ( !empty($dialogBox) )
 {
-    echo claro_disp_message_box($dialogBox);
+    echo claro_html::message_box($dialogBox);
 }
 
 echo claro_html::menu_horizontal($cmd_menu);

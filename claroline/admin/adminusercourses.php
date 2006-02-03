@@ -26,7 +26,6 @@ require '../inc/claro_init_global.inc.php';
 
 include_once $includePath . '/lib/admin.lib.inc.php';
 include_once $includePath . '/lib/user.lib.php';
-include_once $includePath . '/lib/claro_html.class.php';
 
 include $includePath . '/conf/user_profile.conf.php';
 
@@ -231,7 +230,7 @@ echo claro_disp_tool_title($nameTools);
 
 if ( !empty($dialogBox) )
 {
-    echo claro_disp_message_box($dialogBox);
+    echo claro_html::message_box($dialogBox);
 }
 
 

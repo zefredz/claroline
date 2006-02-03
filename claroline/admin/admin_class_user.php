@@ -19,7 +19,6 @@ require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/class.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -111,8 +110,8 @@ switch ($cmd)
 
 $sqlclass = "SELECT *
              FROM `" . $tbl_class . "`
-             WHERE `id`='". (int)$_SESSION['admin_user_class_id']."'";
-list($classinfo) = claro_sql_query_fetch_all($sqlclass);
+             WHERE `id`=" . (int) $_SESSION['admin_user_class_id'];
+$classinfo = claro_sql_query_get_single_row($sqlclass);
 
 //find this class current content
 
@@ -122,10 +121,12 @@ $classes_list[] = $_SESSION['admin_user_class_id'];
 $sql = "SELECT distinct U.user_id      AS user_id,
                         U.nom          AS nom,
                         U.prenom       AS prenom,
+                        U.nom          AS lastname,
+                        U.prenom       AS firstname,
                         U.email        AS email,
                         U.officialCode AS officialCode
         FROM `" . $tbl_user . "` AS U
-            LEFT JOIN `" . $tbl_class_user . "` AS CU
+        LEFT JOIN `" . $tbl_class_user . "` AS CU
             ON U.`user_id`= CU.`user_id`
         WHERE `CU`.`class_id`
             in (" . implode($classes_list,",") . ")";
@@ -177,7 +178,7 @@ $interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => 
 $nameTools = get_lang('Class members');
 
 $cmd_menu[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
-.             '?class='.$classinfo['id'].'">'
+.             '?class=' . $classinfo['id'] . '">'
 .             '<img src="'.$imgRepositoryWeb . 'enroll.gif" border="0"/> '
 .             get_lang('Register a user for this class') . '</a>'
 ;
@@ -206,7 +207,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools . ' : ' . $classinfo['name']);
 
-if (isset($dialogBox))  echo claro_disp_message_box($dialogBox). '<br />';
+if (isset($dialogBox))  echo claro_html::message_box($dialogBox). '<br />';
 
 echo claro_html::menu_horizontal($cmd_menu)
 .    '<br /><br />'

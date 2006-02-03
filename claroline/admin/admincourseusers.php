@@ -39,14 +39,10 @@ $dialogBox = '';
 require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/datagrid.lib.php';
 
 include $includePath . '/conf/user_profile.conf.php';
 
-//TABLES
 $tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_user        = $tbl_mdb_names['user'  ];
-$tbl_course_user = $tbl_mdb_names['rel_course_user' ];
 
 /**
  * Manage incoming.
@@ -61,6 +57,9 @@ else $cidToEdit = $_REQUEST['cidToEdit'];
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
 $pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0';
+
+
+
 
 /**
  * COMMAND
@@ -98,8 +97,8 @@ $sql = "SELECT u.user_id  AS user_id,
                u.prenom   AS firstname,
                u.username AS username,
                IF(CU.statut=1,'COURSE_MANAGER','STUDENT') AS `status`
-        FROM  `" . $tbl_user . "` AS U
-            , `" . $tbl_course_user . "` AS CU
+        FROM  `" . $tbl_mdb_names['user'] . "` AS U
+            , `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
           WHERE CU.`user_id` = U.`user_id`
             AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'";
 
@@ -111,9 +110,13 @@ $myPager->set_sort_key($sortKey, $sortDir);
 $myPager->set_pager_call_param_name('pager_offset');
 
 $userList = $myPager->get_result_list();
+if(count($userList))
+{
 
+}
 // Start the list of users...
 $userDataList = array();
+
 foreach($userList as $lineId => $user)
 {
      $userDataList[$lineId]['user_id']         = $user['user_id'];
@@ -135,7 +138,7 @@ foreach($userList as $lineId => $user)
 
 } // end display users table
 
-/**
+/****************
  * Prepare output
  */
 
@@ -154,7 +157,6 @@ $htmlHeadXtra[] =
 // Config Datagrid
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
-
 
 $dg_opt_list['idLineShift'] = $myPager->offset + 1;
 $dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Userid') . '</a>'
@@ -185,30 +187,29 @@ $nameTools = get_lang('AllUsersOfThisCourse');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-
-//------------------------------------
-// DISPLAY
-//------------------------------------
-// Display tool title
-include($includePath . '/claro_init_header.inc.php');
-echo claro_disp_tool_title($nameTools);
-if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
-
-//Display selectbox, alphabetic choice, and advanced search link search
-echo '<a class="claroCmd" href="adminregisteruser.php'
+$command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 .    '?cidToEdit=' . $cidToEdit . '">'
 .    get_lang('Enroll a user')
 .    '</a>'
 ;
 if (isset($cfrom) && ($cfrom=='clist'))
 {
-    echo ' | <a class="claroCmd" href="admincourses.php">' . get_lang('BackToCourseList') . '</a>';
+    $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('BackToCourseList') . '</a>';
 }
 
-/** DISPLAY : LIST of data */
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
-echo claro_disp_datagrid($userDataList, $dg_opt_list);
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
+/*********
+ * DISPLAY
+ */
+
+include($includePath . '/claro_init_header.inc.php');
+echo claro_disp_tool_title($nameTools);
+if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+
+echo claro_html::menu_horizontal($command_list)
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
+.    claro_disp_datagrid($userDataList, $dg_opt_list)
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
+;
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

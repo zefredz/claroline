@@ -21,7 +21,6 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 //------------------------
 //  USED SESSION VARIABLES
@@ -139,10 +138,10 @@ function get_menu_item_list($type)
     .                   '</small>'
     .                   '</form>'
     ;
-$menuAdminUser[] =  array('type'=>'link', 'url'=>'adminusers.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ListUsers'));
-$menuAdminUser[] =  array('type'=>'link', 'url'=>'adminaddnewuser.php',       'attribute'=>'class="toollink"', 'label'=> get_lang('CreateUser'));
-$menuAdminUser[] =  array('type'=>'link', 'url'=>'admin_class.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ManageClasses'));
-$menuAdminUser[] =  array('type'=>'link', 'url'=>'../user/AddCSVusers.php?AddType=adminTool',       'attribute'=>'class="toollink"', 'label'=> get_lang('AddCSVUsers'));
+$menuAdminUser[] = claro_html::tool_link('adminusers.php',       get_lang('ListUsers'));
+$menuAdminUser[] = claro_html::tool_link('adminaddnewuser.php',  get_lang('CreateUser'));
+$menuAdminUser[] = claro_html::tool_link('admin_class.php',      get_lang('ManageClasses'));
+$menuAdminUser[] = claro_html::tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('AddCSVUsers'));
 
 
 $menuAdminCourse[] = '<form name="searchCourse" action="admincourses.php" method="GET" >' . "\n"
@@ -153,30 +152,30 @@ $menuAdminCourse[] = '<form name="searchCourse" action="admincourses.php" method
 .                    '</form>'
 ;
 
-$menuAdminCourse[] =  array('type'=>'link', 'url'=>'admincourses.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('CourseList'));
-$menuAdminCourse[] =  array('type'=>'link', 'url'=>'../course/create.php?fromAdmin=yes',       'attribute'=>'class="toollink"', 'label'=>get_lang('CreateCourse'));
-$menuAdminCourse[] =  array('type'=>'link', 'url'=>'admincats.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('ManageCourseCategories'));
+$menuAdminCourse[] = claro_html::tool_link('admincourses.php',                   get_lang('CourseList'));
+$menuAdminCourse[] = claro_html::tool_link('../course/create.php?fromAdmin=yes', get_lang('CreateCourse'));
+$menuAdminCourse[] = claro_html::tool_link('admincats.php',                      get_lang('ManageCourseCategories'));
 
 
 
-$menuAdminPlatform[] =  array('type'=>'link', 'url'=>'tool/config_list.php',       'attribute'=>'class="toollink"', 'label'=>get_lang('Configuration'));
-$menuAdminPlatform[] =  array('type'=>'link', 'url'=>'managing/editFile.php',      'attribute'=>'class="toollink"', 'label'=>get_lang('Home page text zones'));
-$menuAdminPlatform[] =  array('type'=>'link', 'url'=>'campusLog.php',              'attribute'=>'class="toollink"', 'label'=>get_lang('Platform statistics'));
-$menuAdminPlatform[] =  array('type'=>'link', 'url'=>'campusProblem.php',          'attribute'=>'class="toollink"', 'label'=>get_lang('Scan technical fault'));
-$menuAdminPlatform[] =  array('type'=>'link', 'url'=>'maintenance/repaircats.php', 'attribute'=>'class="toollink"', 'label'=>get_lang('CategoriesRepairs'));
-$menuAdminPlatform[] =  array('type'=>'link', 'url'=>'upgrade/index.php',          'attribute'=>'class="toollink"', 'label'=>get_lang('Upgrade'));
+$menuAdminPlatform[] = claro_html::tool_link('tool/config_list.php', get_lang('Configuration'));
+$menuAdminPlatform[] = claro_html::tool_link('managing/editFile.php',get_lang('Home page text zones'));
+$menuAdminPlatform[] = claro_html::tool_link('campusLog.php',        get_lang('Platform statistics'));
+$menuAdminPlatform[] = claro_html::tool_link('campusProblem.php',    get_lang('Scan technical fault'));
+$menuAdminPlatform[] = claro_html::tool_link('maintenance/repaircats.php', get_lang('CategoriesRepairs'));
+$menuAdminPlatform[] = claro_html::tool_link('upgrade/index.php',    get_lang('Upgrade'));
 
 
-$menuAdminClaroline[] =  array('type'=>'link', 'url'=>'registerCampus.php',            'attribute'=>'class="toollink"', 'label'=>get_lang('RegisterMyCampus'));
-$menuAdminClaroline[] =  array('type'=>'link', 'url'=>'http://www.claroline.net/forum','attribute'=>'class="extlink"','label'=>get_lang('SupportForum'));
-$menuAdminClaroline[] =  array('type'=>'link', 'url'=>'clarolinenews.php',             'attribute'=>'class="extlink"','label'=>get_lang('Claroline.net news'));
+$menuAdminClaroline[] = claro_html::tool_link('registerCampus.php',  get_lang('RegisterMyCampus'));
+$menuAdminClaroline[] = claro_html::tool_link('http://www.claroline.net/forum', get_lang('SupportForum'));
+$menuAdminClaroline[] = claro_html::tool_link('clarolinenews.php',              get_lang('Claroline.net news'));
 
 $menuAdminModule[]    = array('type'=>'link','url'=>'module/module_list.php','attribute'=>'class="toollink"', 'label'=>get_lang('Module list'));
 
-if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menuAdminSDK[] =  array('type'=>'link', 'url'=>'xtra/sdk/translation_index.php', 'attribute'=>'class="toollink"', 'label'=>get_lang('TranslationTools'));
+if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menuAdminSDK[] = claro_html::tool_link('xtra/sdk/translation_index.php', get_lang('TranslationTools'));
 if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 {
-    $menuAdminSDK[] =  array('type'=>'link', 'url' => 'devTools', 'attribute'=>'class="toollink"', 'label'=>get_lang('DevTools'));
+    $menuAdminSDK[] =  claro_html::tool_link('devTools', get_lang('DevTools'));
 }
 
 

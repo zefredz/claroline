@@ -26,7 +26,6 @@ include $includePath . '/conf/user_profile.conf.php';
 
 // Include libraries
 require_once $includePath . '/lib/user.lib.php';
-include_once $includePath . '/lib/claro_html.class.php';
 
 
 // Initialise variables
@@ -168,7 +167,7 @@ echo claro_disp_tool_title($nameTools);
 // Display Forms or dialog box(if needed)
 if ( count($messageList) > 0 )
 {
-    echo claro_disp_message_box(implode('<br />', $messageList));
+    echo claro_html::message_box(implode('<br />', $messageList));
 }
 
 // Display "form and info" about the user

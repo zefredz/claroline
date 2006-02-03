@@ -87,16 +87,16 @@ class category_browser
         $tbl_courses   = $tbl_mdb_names['course'];
         $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-        $sql = "SELECT intitule   AS title,
-                       titulaires AS titular,
-                       code       AS sysCode,
-                       fake_code  AS officialCode,
-                                     directory,
-                                     visible
+        $sql = "SELECT intitule                              AS title,
+                       titulaires                            AS titular,
+                       code                                  AS sysCode,
+                       fake_code                             AS officialCode,
+                                                                directory,
+                                                                visible,
                        "
-              .       ( $this->userId ? ", cu.user_id AS enrolled " : "")
+              . ( $this->userId ? "cu.user_id" : "NULL") . " AS enrolled "
 
-              . " FROM `".$tbl_courses."` AS c
+              . " FROM `" . $tbl_courses . "` AS c
                 "
               . ($this->userId
                  ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS `cu`
@@ -105,7 +105,7 @@ class category_browser
                    "
                  : " ")
 
-              . "WHERE c.`faculte` = '".addslashes($this->categoryCode)."'
+              . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
                  ORDER BY UPPER(c.fake_code)";
 
         return claro_sql_query_fetch_all($sql);

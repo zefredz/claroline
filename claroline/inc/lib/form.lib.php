@@ -32,8 +32,6 @@
 
 function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0, $formatMonth = 'numeric' )
 {
-    global $langMonthNames;
-
     if( $selectedDate == 0)
     {
         // if not date in parameters us 'today'
@@ -59,11 +57,14 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
     }
     elseif( $formatMonth == 'long' )
     {
+        $langMonthNames['long'] = get_lang_month_name_list('long');
+
         for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
           $available_months[$monthCounter] = $langMonthNames['long'][$monthCounter-1];
     }
     elseif( $formatMonth == 'short' )
     {
+        $langMonthNames['short'] = get_lang_month_name_list('short');
         for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
           $available_months[$monthCounter] = $langMonthNames['short'][$monthCounter-1];
     }

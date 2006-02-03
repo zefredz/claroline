@@ -191,7 +191,7 @@ echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class
 .    '<br /><br />'
 ;
 
-if (isset($cfrom) && ($cfrom=="clist")) echo claro_disp_button("admincourses.php", get_lang('BackToCourseList'));
+if (isset($cfrom) && ($cfrom=="clist")) echo claro_html::cmd_button('admincourses.php', get_lang('BackToCourseList'));
 
 //Pager
 
@@ -218,7 +218,9 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 foreach($resultList as $list)
 {
      echo '<tr>'
-     .    '<td align="center"><a name="u' . $list['user_id'] . '"></a>' . $list['user_id'] . '</td>' . "\n"
+     .    '<td align="center">'
+     .    '<a name="u' . $list['user_id'] . '"></a>' // no label in the a it's a target.
+     .    $list['user_id'] . '</td>' . "\n"
      .    '<td align="left">' . $list['nom']    . '</td>' . "\n"
      .    '<td align="left">' . $list['prenom'] . '</td>' . "\n"
      ;
@@ -235,7 +237,7 @@ foreach($resultList as $list)
      }
      else
      {
-         echo '<td align="center">'."\n"
+         echo '<td align="center">' . "\n"
          .    '<small>'.get_lang('UserAlreadyInClass').'</small>' . "\n"
          .    '</td>' . "\n"
          ;
@@ -245,11 +247,11 @@ foreach($resultList as $list)
 
      if ($list['id']!=null)
      {
-         echo '<td align="center">'."\n"
-         .    '<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">'."\n"
-         .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" border="0" alt="'.get_lang('UnsubscribeClass').'" />'."\n"
-         .    '</a>'."\n"
-         .    '</td>'."\n"
+         echo '<td align="center">' . "\n"
+         .    '<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">' . "\n"
+         .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('UnsubscribeClass').'" />' . "\n"
+         .    '</a>' . "\n"
+         .    '</td>' . "\n"
          ;
      }
      else

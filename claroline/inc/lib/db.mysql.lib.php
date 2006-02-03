@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 /**
  * CLAROLINE
  *
@@ -46,6 +46,10 @@ function claro_sql_get_main_tbl()
         'sso'                       => $mainDbName . '`.`' . $mainTblPrefix . 'sso',
         'notify'                    => $mainDbName . '`.`' . $mainTblPrefix . 'notify',
         'upgrade_status'            => $mainDbName . '`.`' . $mainTblPrefix . 'upgrade_status',
+        'module'                    => $mainDbName . '`.`' . $mainTblPrefix . 'module',
+        'module_info'               => $mainDbName . '`.`' . $mainTblPrefix . 'module_info',
+        'dock'                      => $mainDbName . '`.`' . $mainTblPrefix . 'dock',
+
         'track_e_default'           => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_default',
         'track_e_login'             => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_login',
         'track_e_open'              => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_open'
