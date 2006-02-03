@@ -135,11 +135,11 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
 $courseName = '<div id="course"> <h2 id="courseName"><a href="'. $coursesRepositoryWeb . $_course['path'] .'/index.php" target="_top">'.$_course['name'] .'</a></h2>';
 $courseBannerLeftDock->addOutput($courseName);
 
-$courseCode = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>
+$courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>
 </div>
 <div id="courseToolList">';
 
-$courseBannerLeftDock->addOutput($courseCode);
+$courseBannerLeftDock->addOutput($courseCodeDisplay);
 
 echo $courseBannerLeftDock->render();
 
