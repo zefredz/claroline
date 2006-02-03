@@ -439,11 +439,15 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
     $tbl_user            = $tbl_mdb_names['user'  ];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
-    $sql = "SELECT    u.nom lastName, u.prenom firstName,
-                    u.email, u.pictureUri picture, cu.role,
-                    cu.`statut` `status`, cu.tutor
-            FROM    `" . $tbl_user . "` u,
-                    `" . $tbl_rel_course_user . "` cu
+    $sql = "SELECT  u.nom        AS lastName,
+                    u.prenom     AS firstName,
+                    u.email      AS email,
+                    u.pictureUri AS picture,
+                    cu.role      AS role,
+                    cu.`statut`  AS `status`,
+                    cu.tutor     AS tutor
+            FROM    `" . $tbl_user            . "` AS u,
+                    `" . $tbl_rel_course_user . "` AS cu
             WHERE   u.user_id = cu.user_id
             AND     u.user_id = " . (int) $user_id . "
             AND     cu.code_cours = '" . $courseCode . "'";
@@ -461,28 +465,31 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
 
 /**
  * get the user content of a categories plus the categories definition
- * @param  int $userId - id of the user
- * @param  int $catId - id of the categories
+ * @param  integer $userId id of the user
+ * @param  integer $catId  id of the categories
  *
  * @return array containing 'catId', 'title', 'comment',
  *           'nbline', 'contentId' and 'content'
  *
  */
 
-function claro_user_info_get_cat_content($userId, $catId, $course_id=NULL)
+function claro_user_info_get_cat_content($userId, $catId, $course_id = NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_userinfo_def     = $tbl_cdb_names['userinfo_def'];
     $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
 
-    $sql = "SELECT    cat.id catId,    cat.title,
-                    cat.comment ,    cat.nbline,
-                    content.id contentId,     content.content
-            FROM      `" . $tbl_userinfo_def . "` cat
-            LEFT JOIN `" . $tbl_userinfo_content . "` content
+    $sql = "SELECT cat.id catId    AS catId
+                   cat.title       AS title
+                   cat.comment     AS comment
+                   cat.nbline      AS nbline,
+                   content.id      AS contentId,
+                   content.content AS content
+            FROM      `" . $tbl_userinfo_def . "`     AS cat
+            LEFT JOIN `" . $tbl_userinfo_content . "` AS content
             ON cat.id = content.def_id
-            AND content.user_id = '" . (int) $userId . "'
-            WHERE cat.id = '" . (int) $catId ."' ";
+            AND content.user_id = " . (int) $userId . "
+            WHERE cat.id = " . (int) $catId ;
 
     $result = claro_sql_query($sql);
 

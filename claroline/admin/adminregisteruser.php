@@ -240,21 +240,21 @@ if( isset($dialogBox) )
 }
 
 
-echo '<table width="100%" >'
+echo '<table width="100%" class="claroTableForm" >'
 .    '<tr>'
 .    '<td align="left">' . "\n"
-.    '<b>'.$title.'</b>' . "\n"
+.    '<b>' . $title . '</b>' . "\n"
 .    '<small>' . "\n"
 .    $isSearched . "\n"
 .    '</small>' . "\n"
 .    '</td>' . "\n"
 .    '<td align="right">' . "\n"
-.    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+.    '<form action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
 .    '<label for="search">' . get_lang('MakeSearch') . '</label> :' . "\n"
-.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" >' . "\n"
-.    '<input type="submit" value=" ' . get_lang('Ok') . ' ">' . "\n"
-.    '<input type="hidden" name="newsearch" value="yes">' . "\n"
-.    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '">' . "\n"
+.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
+.    '<input type="submit" value=" ' . get_lang('Ok') . ' "/>' . "\n"
+.    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
+.    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '" />' . "\n"
 .    '</form>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
@@ -263,15 +263,13 @@ echo '<table width="100%" >'
 .    '<a class="claroCmd" href="admincourseusers.php?cidToEdit='.$cidToEdit.'">'
 .    get_lang('AllUsersOfThisCourse')
 .    '</a><br /><br />'
-;
-
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL)
 
 // Display list of users
 // start table...
 //columns titles...
 
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+.    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">' . "\n"
 .    '<th>'
@@ -388,8 +386,8 @@ foreach($userList as $user)
     echo '</tr>';
 }
 // end display users table
-echo '</tbody></table>';
-//Pager
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
+echo '</tbody></table>'
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
+
 include $includePath . '/claro_init_footer.inc.php';
 ?>
