@@ -490,7 +490,7 @@ if ($is_allowedToEdit)
         <td>&nbsp;</td>
         <td>
           <input type="submit" name="submitAssignment" value="<?php echo get_lang('Ok'); ?>">
-          <?php echo claro_disp_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')); ?>
+          <?php echo claro_html::cmd_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')); ?>
         </td>
       </tr>
       </table>

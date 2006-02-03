@@ -299,7 +299,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                     .             '<td></td>'
                     .             '<td>'
                     .             '<input type="submit" name="submitImage" value="' . get_lang('Ok') . '"> '
-                    .             claro_disp_button($_SERVER['PHP_SELF']
+                    .             claro_html::cmd_button($_SERVER['PHP_SELF']
                     .            '?cmd=exChDir&file=' . htmlspecialchars($_REQUEST['cwd']), get_lang('Cancel') )
                     .             '</td>'
                     .             '</tr>'
@@ -369,7 +369,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= "<input style=\"font-weight: bold\" type=\"submit\" value=\"".get_lang('Ok')."\"> "
-                   .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                   .claro_html::cmd_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
                                       get_lang('Cancel'))
                    ."</form>";
     }
@@ -576,7 +576,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= "<input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
-                     .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                     .claro_html::cmd_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
                                        get_lang('Cancel'))
                      ."</form>\n";
 
@@ -823,7 +823,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= "<br /><input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
-                      .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars(claro_dirname($_REQUEST['file'])),
+                      .claro_html::cmd_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars(claro_dirname($_REQUEST['file'])),
                                          get_lang('Cancel'))
                      ."</form>\n";
 
@@ -891,7 +891,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                       ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
                       ."<br />\n"
                       ."<input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
-                      .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                      .claro_html::cmd_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
                                                 get_lang('Cancel'))
                       ."</form>\n";
     }
@@ -932,7 +932,7 @@ if ($cmd == 'rqSearch')
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\"><br />\n"
                     ."<input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
-                    .claro_disp_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                    .claro_html::cmd_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
                                        get_lang('Cancel'))
 
                     ."</form>\n";
@@ -1448,7 +1448,7 @@ echo claro_disp_tool_title($titleElement,
 
 
         // Image description table
-        echo "<table class=\"claroTable\" width=\"100%\">\n";
+        echo '<table class="claroTable" width="100%">' . "\n";
 
         // View Mode Bar
 
@@ -1458,9 +1458,10 @@ echo claro_disp_tool_title($titleElement,
         }
         elseif ($curDirName)
         {
-               $curDirLine = "<img src=\"".$imgRepositoryWeb."opendir.gif\" "
-                ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
-                .$dspCurDirName."\n";
+               $curDirLine = '<img src="' . $imgRepositoryWeb . 'opendir.gif" '
+               .             'align="absbottom" vspace="2" hspace="5" alt="" />' . "\n"
+               .             $dspCurDirName . "\n"
+               ;
         }
         else
         {
@@ -1469,14 +1470,15 @@ echo claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = "<span class=\"claroCmdDisabled\">".get_lang('Files')."</span>\n | ";
+            $docViewToolbar = '<span class="claroCmdDisabled">' . get_lang('Files') . '</span>' . "\n" . ' | ';
         }
         else
         {
-            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
-                 . "?docView=files&amp;cmd=exChDir&amp;file=". $curDirPath . $searchCmdUrl ."\">"
+            $docViewToolbar = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+            .                 '?docView=files&amp;cmd=exChDir&amp;file=' . $curDirPath . $searchCmdUrl . '">'
                  //."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
-                 . get_lang('Files') ."</a>\n | ";
+            .                 get_lang('Files') . '</a>' . "\n" . ' | '
+            ;
         }
         if( $docView == 'thumbnails' )
         {

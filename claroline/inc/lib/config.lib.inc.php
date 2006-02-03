@@ -727,7 +727,7 @@ class Config
             $form .= '<tr>' ."\n"
                    . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
                    . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
-                   . claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+                   . claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
                    . '</tr>' . "\n";
 
             // display end form

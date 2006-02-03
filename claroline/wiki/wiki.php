@@ -464,7 +464,7 @@
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
                 . '<input type="submit" name="action[exDelete]" value="' . get_lang('Continue') . '" />' . "\n"
-                . claro_disp_button ($_SERVER['PHP_SELF'], get_lang('Cancel') )
+                . claro_html::cmd_button ($_SERVER['PHP_SELF'], get_lang('Cancel') )
                 . '</div>'
                 ;
 

@@ -213,7 +213,7 @@ echo claro_disp_tool_title( array('supraTitle' => get_lang('Groups'), 'mainTitle
     <tr>
         <td valign="top">
             <input type="submit" name="properties" value="<?php echo get_lang('Ok') ?>"> 
-            <?php echo claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')); ?>
+            <?php echo claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')); ?>
         </td>
     </tr>
 </table>

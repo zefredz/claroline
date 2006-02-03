@@ -965,7 +965,7 @@ function disp_search_box()
         .            get_lang('Search') . ' : <br />'
         .            '<input type="text" name="searchPattern"><br />'
         .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
-        .            claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+        .            claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
         );
     }

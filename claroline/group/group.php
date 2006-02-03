@@ -190,7 +190,7 @@ if ( $is_allowedToManage )
         .          '</td>'                                                           ."\n"
         .          '<td>'                                                            ."\n"
         .          '<input type="submit" value="'.get_lang('Ok').'" name="creation" id="creation"> '
-        .          claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
+        .          claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
         .          '</td>'                                                           ."\n"
         .          '</tr>'                                                           ."\n"
 

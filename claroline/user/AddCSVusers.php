@@ -422,7 +422,7 @@ switch ( $display )
         .    '<input type="file" name="CSVfile" />' . "\n"
         .    '<br /><br />' . "\n"
         .    '<input type="submit" name="submitCSV" value="' . get_lang('_add_user_list') . '" />' . "\n"
-        .    claro_disp_button($backButtonUrl,get_lang('Cancel'))  . "\n"
+        .    claro_html::cmd_button($backButtonUrl,get_lang('Cancel'))  . "\n"
         .    '<input type="hidden" name="cmd" value="exImp" />' . "\n"
         .    '</form>' . "\n"
         ;
@@ -474,13 +474,13 @@ switch ( $display )
             .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
             .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
             .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
-            .    claro_disp_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
+            .    claro_html::cmd_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
             .   '</form>' . "\n";
 
         }
         else
         {
-            echo '<br>' . claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '<br>';
+            echo '<br>' . claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '<br>';
         }
     } break;
 

@@ -20,48 +20,6 @@
  *
  */
 
-/**
- * Prepare the display of a clikcable button
- *
- * This function is needed because claroline buttons rely on javascript.
- * The function return an optionnal behavior fo browser where javascript
- * isn't  available.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- *
- * @param string $url url inserted into the 'href' part of the tag
- * @param string $text text inserted between the two <a>...</a> tags (note : it
- *        could also be an image ...)
- * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
- * @return string the button
- */
-
-function claro_disp_button($url, $text, $confirmMessage = '')
-{
-
-    if (   claro_is_javascript_enabled()
-    && ! preg_match('~^Mozilla/4\.[1234567]~', $_SERVER['HTTP_USER_AGENT']))
-    {
-        if ($confirmMessage != '')
-        {
-            $onClickCommand = "if(confirm('" . clean_str_for_javascript($confirmMessage) . "')){document.location='" . $url . "';return false}";
-        }
-        else
-        {
-            $onClickCommand = "document.location='".$url."';return false";
-        }
-
-        return '<button class="claroButton" onclick="' . $onClickCommand . '">'
-        .      $text
-        .      '</button>&nbsp;' . "\n"
-        ;
-    }
-    else
-    {
-        return '<nobr>[ <a href="' . $url . '">' . $text . '</a> ]</nobr>';
-    }
-}
-
 class claro_html
 {
 
@@ -398,8 +356,6 @@ class claro_html
             else        echo   claro_html::message_box($msgBox);
         }
     }
-
-
 }
 
 /**
