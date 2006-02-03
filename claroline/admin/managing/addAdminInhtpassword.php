@@ -209,7 +209,7 @@ else
 
 include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
-claro_disp_msg_arr($controlMsg);
+claro_html::msg_list($controlMsg);
 
 if ($display == NO_WAY)
 {

@@ -346,7 +346,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                      ."</tr>"
                      ."<tr>"
                      ."<td><small>Disk space available</small></td>"
-                     ."<td><small>  : ".claro_disp_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) .' '.format_file_size($maxFilledSpace - $spaceAlreadyOccupied)."</small></td>"
+                     ."<td><small>  : ".claro_html::progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) .' '.format_file_size($maxFilledSpace - $spaceAlreadyOccupied)."</small></td>"
                      ."</tr>"
                      ."</table>\n";
 

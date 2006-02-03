@@ -249,7 +249,7 @@ class claro_html
     }
 
 
-/**
+    /**
  * Prepare display of the message box appearing on the top of the window,
  * just    below the tool title. It is recommended to use this function
  * to display any confirmation or error messages, or to ask to the user
@@ -274,7 +274,7 @@ class claro_html
     }
 
 
-/**
+    /**
  * Allows to easily display a breadcrumb trail
  *
  * @param array $nameList bame of each breadcrumb
@@ -286,48 +286,118 @@ class claro_html
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
-function breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
-{
-    // trail of only one element has no sense ...
-    if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
-
-    $breadCrumbList = array();
-
-    foreach($nameList as $thisKey => $thisName)
+    function breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
     {
-        if (   array_key_exists($thisKey, $urlList)
-        && ! is_null($urlList[$thisKey])       )
+        // trail of only one element has no sense ...
+        if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
+
+        $breadCrumbList = array();
+
+        foreach($nameList as $thisKey => $thisName)
         {
-            $startAnchorTag = '<a href="' . $urlList[$thisKey] . '" target="_top">';
-            $endAnchorTag   = '</a>';
-        }
-        else
-        {
-            $startAnchorTag = '';
-            $endAnchorTag   = '';
+            if (   array_key_exists($thisKey, $urlList)
+            && ! is_null($urlList[$thisKey])       )
+            {
+                $startAnchorTag = '<a href="' . $urlList[$thisKey] . '" target="_top">';
+                $endAnchorTag   = '</a>';
+            }
+            else
+            {
+                $startAnchorTag = '';
+                $endAnchorTag   = '';
+            }
+
+            $htmlizedName = is_htmlspecialcharized($thisName)
+            ? $thisName
+            : htmlspecialchars($thisName);
+
+            $breadCrumbList [] = $startAnchorTag
+            . $htmlizedName
+            . $endAnchorTag;
         }
 
-        $htmlizedName = is_htmlspecialcharized($thisName)
-        ? $thisName
-        : htmlspecialchars($thisName);
+        // Embed the last bread crumb entry of the list.
 
-        $breadCrumbList [] = $startAnchorTag
-        . $htmlizedName
-        . $endAnchorTag;
+        $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
+        .end($breadCrumbList)
+        .'</strong>';
+
+        return  '<div class="breadcrumbTrail">'
+        . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
+        . implode($separator, $breadCrumbList)
+        . '</div>';
     }
 
-    // Embed the last bread crumb entry of the list.
 
-    $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
-    .end($breadCrumbList)
-    .'</strong>';
+    /**
+ * Function used to draw a progression bar
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ *
+ * @param integer $progress progression in pourcent
+ * @param integer $factor will be multiply by 100 to have the full size of the bar
+ * (i.e. 1 will give a 100 pixel wide bar)
+ */
 
-    return  '<div class="breadcrumbTrail">'
-    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
-    . implode($separator, $breadCrumbList)
-    . '</div>';
-}
+    function progress_bar ($progress, $factor)
+    {
+        global $clarolineRepositoryWeb, $imgRepositoryWeb;
+        $maxSize  = $factor * 100; //pixels
+        $barwidth = $factor * $progress ;
 
+        // display progress bar
+        // origin of the bar
+        $progressBar = '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
+
+        if($progress != 0)
+        $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="" />';
+        // display 100% bar
+
+        if($progress!= 100 && $progress != 0)
+        $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1m.gif" width="1" height="12" alt="" />';
+
+        if($progress != 100)
+        $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
+        // end of the bar
+        $progressBar .=  '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
+
+        return $progressBar;
+    }
+
+
+    /**
+    Display    list of    messages
+
+    @param $msgArrBody array of messages
+    @author Christophe Gesché <moosh@claroline.net>
+    @version 1.0
+
+    Example    code for using this    in your    tools:
+    $msgArrBody["nameOfCssClass"][]="foo";
+.    css    class can be defined in    script but try to use
+    class from    generic    css    ()
+    error success warning
+    ...
+*/
+
+    function msg_list($msgArrBody, $return=true)
+    {
+        $msgBox = '';
+        if (is_array($msgArrBody) && count($msgArrBody) > 0)
+        {
+            foreach ($msgArrBody as $classMsg => $thisMsgArr)
+            {
+                if( is_array($thisMsgArr) && count($thisMsgArr) > 0 )
+                {
+                    $msgBox .= '<div class="' . $classMsg . '">';
+                    foreach ($thisMsgArr as $anotherThis) $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
+                    $msgBox .= '</div>';
+                }
+            }
+            if($return) return claro_html::message_box($msgBox);
+            else        echo   claro_html::message_box($msgBox);
+        }
+    }
 
 
 }
@@ -669,40 +739,6 @@ function claro_disp_tool_view_option($viewModeRequested = false)
     return true;
 }
 
-/**
-    Display    list of    messages
-
-    @param $msgArrBody array of messages
-    @author Christophe Gesché <moosh@claroline.net>
-    @version 1.0
-
-    Example    code for using this    in your    tools:
-    $msgArrBody["nameOfCssClass"][]="foo";
-.    css    class can be defined in    script but try to use
-    class from    generic    css    ()
-    error success warning
-    ...
-*/
-
-function claro_disp_msg_arr($msgArrBody, $return=true)
-{
-    $msgBox = '';
-    if (is_array($msgArrBody) && count($msgArrBody) > 0)
-    {
-        foreach ($msgArrBody as $classMsg => $thisMsgArr)
-        {
-            if( is_array($thisMsgArr) && count($thisMsgArr) > 0 )
-            {
-                $msgBox .= '<div class="' . $classMsg . '">';
-                foreach ($thisMsgArr as $anotherThis) $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
-                $msgBox .= '</div>';
-            }
-        }
-        if($return) return claro_html::message_box($msgBox);
-        else        echo   claro_html::message_box($msgBox);
-    }
-}
-
 
 /**
  * Route the script to an auhtentication form if user id is missing.
@@ -749,40 +785,6 @@ function claro_disp_auth_form($cidRequired = false)
     die(); // necessary to prevent any continuation of the application
 }
 
-/**
- * Function used to draw a progression bar
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- *
- * @param integer $progress progression in pourcent
- * @param integer $factor will be multiply by 100 to have the full size of the bar
- * (i.e. 1 will give a 100 pixel wide bar)
- */
-
-function claro_disp_progress_bar ($progress, $factor)
-{
-    global $clarolineRepositoryWeb, $imgRepositoryWeb;
-    $maxSize  = $factor * 100; //pixels
-    $barwidth = $factor * $progress ;
-
-    // display progress bar
-    // origin of the bar
-    $progressBar = '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="">';
-
-    if($progress != 0)
-    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="">';
-    // display 100% bar
-
-    if($progress!= 100 && $progress != 0)
-    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1m.gif" width="1" height="12" alt="">';
-
-    if($progress != 100)
-    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="">';
-    // end of the bar
-    $progressBar .=  '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="">';
-
-    return $progressBar;
-}
 
 /**
  * convert a duration in seconds to a human readable duration

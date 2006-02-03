@@ -762,7 +762,7 @@ switch ($display_form)
     case DISP_FORM_CREATE :
     {
         echo claro_disp_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => get_lang('SubTitleCreate')))
-        .    claro_disp_msg_arr($controlMsg,1)
+        .    claro_html::msg_list($controlMsg,1)
         .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exCreate" >' . "\n"
         .    '<table border="0">' . "\n"
@@ -844,7 +844,7 @@ switch ($display_form)
          */
 
         echo claro_disp_tool_title(array('mainTitle' => $nameTools,'subTitle' => get_lang('SubTitleEdit')))
-        .    claro_disp_msg_arr($controlMsg,1)
+        .    claro_html::msg_list($controlMsg,1)
 
         .    '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
@@ -915,7 +915,7 @@ switch ($display_form)
      */
 
         echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_lang('SubTitleChangeParent') . $editedCat_Code))
-        .    claro_disp_msg_arr($controlMsg,1)
+        .    claro_html::msg_list($controlMsg,1)
         .    '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
         .    '<table border="0">' . "\n"
@@ -954,7 +954,7 @@ switch ($display_form)
     default :
     {
         echo claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>get_lang('ManageCourseCategories')))
-        .    claro_disp_msg_arr($controlMsg,1)
+        .    claro_html::msg_list($controlMsg,1)
         ;
     }
 }

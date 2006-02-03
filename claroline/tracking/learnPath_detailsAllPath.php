@@ -114,7 +114,7 @@ if ( $is_trackingEnabled )
             echo '<tr>'."\n"
                 .'<td><a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$user['user_id'].'&amp;view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                 .'<td align="right">'
-                .claro_disp_progress_bar($total, 1)
+                .claro_html::progress_bar($total, 1)
                 .'</td>'."\n"
                    .'<td align="left"><small>'.$total.'%</small></td>'."\n"
                 .'</tr>'."\n\n";

@@ -452,7 +452,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         .    '<tr>' . "\n"
                         .    '<td><a href="lp_modules_details.php?uInfo='.$_GET['uInfo'].'&path_id='.$lpDetails['learnPath_id'].'">'.htmlspecialchars($lpDetails['name']).'</a></td>' . "\n"
                         .    '<td align="right">' . "\n"
-                        .claro_disp_progress_bar($lpProgress, 1)
+                        .claro_html::progress_bar($lpProgress, 1)
                         .    '</td>' . "\n"
                         .    '<td align="left"><small>'.$lpProgress.'%</small></td>' . "\n"
                         .    '</tr>' . "\n"

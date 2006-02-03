@@ -861,10 +861,13 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             $globalprog += $prog;
         }
-        echo "<td align=\"right\">".claro_disp_progress_bar($prog, 1)."</td>";
-        echo "<td align=\"left\">
-              <small> ".$prog."% </small>
-              </td>";
+        echo '<td align="right">'
+        .    claro_html::progress_bar($prog, 1)
+        .    '</td>' . "\n"
+        .    '<td align="left">'
+        .    '<small>' . $prog . '% </small>'
+        .    '</td>'
+        ;
     }
     echo "</tr>";
     $iterator++;
@@ -887,7 +890,7 @@ elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
           ".get_lang('PathsInCourseProg')." :
           </td>
           <td align=\"right\" >".
-          claro_disp_progress_bar($total, 1).
+          claro_html::progress_bar($total, 1).
           "</td>
           <td align=\"left\">
           <small> ".$total."% </small>

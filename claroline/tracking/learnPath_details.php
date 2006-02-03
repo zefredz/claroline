@@ -107,7 +107,7 @@ if ( $is_trackingEnabled )
                 echo '<tr>'."\n"
                     .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                     .'<td align="right">'
-                    .claro_disp_progress_bar($lpProgress, 1)
+                    .claro_html::progress_bar($lpProgress, 1)
                       .'</td>'."\n"
                     .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
                     .'</tr>'."\n\n";

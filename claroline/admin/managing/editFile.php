@@ -105,7 +105,7 @@ $titles = array('mainTitle'=>$nameTools);
 if (isset($subtitle)) $titles['subTitle'] = $subtitle;
 
 echo claro_disp_tool_title($titles)
-.    claro_disp_msg_arr($controlMsg,1)
+.    claro_html::msg_list($controlMsg,1)
 ;
 
 //OUTPUT

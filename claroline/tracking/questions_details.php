@@ -353,7 +353,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 
                 echo '</td>'."\n"
                           .'<td>'.$result['reponse'].'</td>'."\n"
-                          .'<td align="right">'.claro_disp_progress_bar($pourcent,1).'</td>'."\n"
+                          .'<td align="right">'.claro_html::progress_bar($pourcent,1).'</td>'."\n"
                         .'<td align="left"><small>'.$result['nbr'].'&nbsp;(&nbsp;'.$pourcent.'%&nbsp;)</small></td>'."\n"
                         .'</tr>'."\n";
             }
@@ -392,7 +392,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                         else                        $pourcent = round(100 * $result['nbr'] / $fillInBlanksTotal[$i]);
 
                         echo '</td>'."\n"
-                            .'<td align="right">'.claro_disp_progress_bar($pourcent,1).'</td>'."\n"
+                            .'<td align="right">'.claro_html::progress_bar($pourcent,1).'</td>'."\n"
                             .'<td align="left"><small>'.$result['nbr'].'&nbsp;(&nbsp;'.$pourcent.'%&nbsp;)</small></td>'."\n"
                             .'</tr>';
                     }

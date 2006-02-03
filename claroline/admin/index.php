@@ -76,7 +76,7 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 
 include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools)
-.    claro_disp_msg_arr( $controlMsg,1) . "\n\n"
+.    claro_html::msg_list( $controlMsg,1) . "\n\n"
 ;
 
 echo '<table cellspacing="5" align="center">' . "\n"

@@ -300,7 +300,7 @@ if($module['contentType'] != CTLABEL_) //
         {
             echo '<tr>'."\n"
                 .'<td>'.get_lang('YourBestScore').'</td>'."\n"
-                .'<td>'.claro_disp_progress_bar($raw, 1).' '.$raw.'%</td>'."\n"
+                .'<td>'.claro_html::progress_bar($raw, 1).' '.$raw.'%</td>'."\n"
                 .'</tr>'."\n\n";
         }
 

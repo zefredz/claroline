@@ -136,7 +136,7 @@ switch ($view)
     case DISP_ANALYSE :
     {
         echo claro_disp_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
-        .    claro_disp_msg_arr($analyseTreeResultMsg, 1)
+        .    claro_html::msg_list($analyseTreeResultMsg, 1)
         .    claro_disp_datagrid($dataAnalyseResult, array('idLineType' => 'numeric'))
         .    ($errorCounter?claro_html::cmd_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
         .    claro_disp_tool_title('Course ownance')
@@ -150,7 +150,7 @@ switch ($view)
     case  DISP_REPAIR_RESULT :
     {
         echo claro_disp_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
-        .    claro_disp_msg_arr($repairResultMsg, 1)
+        .    claro_html::msg_list($repairResultMsg, 1)
         .    claro_html::cmd_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
         ;
     }

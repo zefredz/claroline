@@ -177,7 +177,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             $barwidth = $factor * $pourcent ;
             echo '<tr>' . "\n"
                 .'<td align="center" width="15%">'.$periodPiece.'</td>' . "\n"
-                .'<td width="60%" align="center">'.claro_disp_progress_bar($pourcent, 4).'</td>' . "\n"
+                .'<td width="60%" align="center">'.claro_html::progress_bar($pourcent, 4).'</td>' . "\n"
                 .'<td align="center" width="10%">'.$cpt.'</td>' . "\n"
                 .'<td align="center" width="15%">'.$pourcent.' %</td>' . "\n"
                 .'</tr>' . "\n\n";
