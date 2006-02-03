@@ -56,7 +56,7 @@ else $userIdViewed = 0;
 Connection API between Claroline and the current script
 --------------------------------------------------------*/
 
-$courseSysCode           = $_course['sysCode'];
+$course_id               = $_course['sysCode'];
 $tbl_mdb_names           = claro_sql_get_main_tbl();
 $tbl_crs_names           = claro_sql_get_course_tbl();
 $tbl_rel_course_user     = $tbl_mdb_names['rel_course_user'    ];
@@ -195,7 +195,7 @@ if ($allowedToEditDef)
         }
         else
         {
-            user_update_course_properties($userIdViewed, $courseSysCode, $userProperties);
+            user_update_course_properties($userIdViewed, $course_id, $userProperties);
             $displayMode = "viewContentList";
         }
     }
@@ -408,7 +408,7 @@ elseif ($displayMode =="viewMainInfoEdit")
 {
     /*>>>>>>>>>>>> CATEGORIES MAIN INFO : EDIT <<<<<<<<<<<<*/
 
-    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $courseSysCode);
+    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $course_id);
 
 
     if ($mainUserInfo)
@@ -475,7 +475,7 @@ elseif ($displayMode == "viewContentList") // default display
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : LIST <<<<<<<<<<<<*/
 
-    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $courseSysCode);
+    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $course_id);
 
     if ($mainUserInfo)
     {
