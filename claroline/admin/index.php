@@ -55,6 +55,7 @@ $menuAdminCourse    = get_menu_item_list('AdminCourse');
 $menuAdminClaroline = get_menu_item_list('AdminClaroline');
 $menuAdminPlatform  = get_menu_item_list('AdminPlatform');
 $menuAdminSDK       = get_menu_item_list('AdminSDK');
+$menuAdminModule    = get_menu_item_list('AdminModule');
 
 //----------------------------------
 // DISPLAY
@@ -100,31 +101,24 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    claro_html::menu_vertical($menuAdminClaroline)
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
-;
+.    '<tr valign="top">' . "\n"
+.    '<td nowrap="nowrap">' . "\n"
+.    claro_html::tool_title('<img src="' . $imgRepositoryWeb . 'exe.gif" alt="" />&nbsp;'.get_lang('Modules'))
+.    claro_html::menu_vertical($menuAdminModule)
+.    '</td>' . "\n";
 
 if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
 || ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
 {
-    echo '<tr valign="top">'
-    .    '<td nowrap="nowrap">'
+    echo '<td nowrap="nowrap">'
     .    claro_html::tool_title('<img src="' . $imgRepositoryWeb . 'exe.gif" alt="" />&nbsp;'.get_lang('SDK')) . "\n"
     .    claro_html::menu_vertical($menuAdminSDK)
-    .    '<ul>'
+    .    '</td>'
     ;
-?>
-</ul>
-</td>
-<td nowrap="nowrap">
-<h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" alt="" />&nbsp;Modules</h4>
-<ul>
-<li><a href="module/module_list.php">Module list</a></li>
-<li><a href="module/module.php">Add a module</a></li>
-</ul>
-</td>
-</tr>
-<?php
 }
+echo '</tr>';
 ?>
+
 </table>
 <?php
 include $includePath . '/claro_init_footer.inc.php';
@@ -177,6 +171,7 @@ $menuAdminClaroline[] =  array('type'=>'link', 'url'=>'registerCampus.php',     
 $menuAdminClaroline[] =  array('type'=>'link', 'url'=>'http://www.claroline.net/forum','attribute'=>'class="extlink"','label'=>get_lang('SupportForum'));
 $menuAdminClaroline[] =  array('type'=>'link', 'url'=>'clarolinenews.php',             'attribute'=>'class="extlink"','label'=>get_lang('Claroline.net news'));
 
+$menuAdminModule[]    = array('type'=>'link','url'=>'module/module_list.php','attribute'=>'class="toollink"', 'label'=>get_lang('Module list'));
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menuAdminSDK[] =  array('type'=>'link', 'url'=>'xtra/sdk/translation_index.php', 'attribute'=>'class="toollink"', 'label'=>get_lang('TranslationTools'));
 if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
@@ -192,6 +187,7 @@ if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
         case 'AdminClaroline' : { $item_list = $menuAdminClaroline; } break;
         case 'AdminPlatform'  : { $item_list = $menuAdminPlatform;  } break;
         case 'AdminSDK'       : { $item_list = $menuAdminSDK;       } break;
+        case 'AdminModule'    : { $item_list = $menuAdminModule;    } break;
         default : $item_list=array();
     }
     return $item_list;
