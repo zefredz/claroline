@@ -264,7 +264,7 @@ echo $backLink;
 
 echo claro_disp_tool_title(get_lang('EditToolList'));
 
-if ($msg) echo claro_disp_message_box($msg);
+if ($msg) echo claro_html::message_box($msg);
 
 echo '<p>'.get_lang('IntroEditToolList').'</p>'."\n"
     .'<blockquote>'."\n"
@@ -353,7 +353,7 @@ foreach($toolList as $thisTool)
 echo '</tbody>'."\n"
     . '</table>'."\n\n"
     . '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '" >'."\n"
-    . claro_disp_button( $clarolineRepositoryWeb 
+    . claro_disp_button( $clarolineRepositoryWeb
                         . 'course/index.php?cidReset=true&amp;cid='
                         . htmlspecialchars($_cid) ,
                          get_lang('Cancel'))

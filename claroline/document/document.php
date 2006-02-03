@@ -1,5 +1,4 @@
 <?php // $Id$
-
 /**
  * CLAROLINE
  *
@@ -186,7 +185,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
         else
         {
-            if (   isset($_REQUEST['uncompress']) 
+            if (   isset($_REQUEST['uncompress'])
                 && $_REQUEST['uncompress'] == 1
                 && $is_allowedToUnzip)                $unzip = 'unzip';
             else                                      $unzip = '';
@@ -218,15 +217,15 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $uploadFailure = claro_failure::get_last_failure();
                 switch ( $uploadFailure )
                 {
-                    case 'not_enough_space': 
+                    case 'not_enough_space':
                         $dialogBox .= get_lang('NoSpace');
                         break;
-                    case 'php_file_in_zip_file': 
+                    case 'php_file_in_zip_file':
                         $dialogBox .= get_lang('ZipNoPhp');
                         break;
                     case 'file_exceeds_php_upload_max_filesize' :
-                        $dialogBox .= 'File size exeeds.' 
-                                   .  '<br />'.get_lang('Notice') . ' : ' . get_lang('MaxFileSize') 
+                        $dialogBox .= 'File size exeeds.'
+                                   .  '<br />'.get_lang('Notice') . ' : ' . get_lang('MaxFileSize')
                                    . ' ' . get_cfg_var('upload_max_filesize');
                         break;
                     case 'file_exceeds_html_max_file_size':
@@ -321,17 +320,17 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         $spaceAlreadyOccupied = dir_total_space($baseWorkDir);
 
         /*
-         * Technical note: 'cmd=exUpload' is added into the 'action' 
-         * attributes of the form, rather than simply put in a post 
-         * hidden input. That way, this parameter is concatenated with 
-         * the URL, and it guarantees than it will be received by the 
-         * server. The reason of this trick, is because, sometimes, 
-         * when file upload fails, no form data are received at all by 
-         * the server. For example when the size of the sent file is so 
-         * huge that its reception exceeds the max execution time 
-         * allowed for the script. When no 'cmd' argument are sent it is 
-         * impossible to manage this error gracefully. That's why, 
-         * exceptionally, we pass 'cmd' in the 'action' attribute of 
+         * Technical note: 'cmd=exUpload' is added into the 'action'
+         * attributes of the form, rather than simply put in a post
+         * hidden input. That way, this parameter is concatenated with
+         * the URL, and it guarantees than it will be received by the
+         * server. The reason of this trick, is because, sometimes,
+         * when file upload fails, no form data are received at all by
+         * the server. For example when the size of the sent file is so
+         * huge that its reception exceeds the max execution time
+         * allowed for the script. When no 'cmd' argument are sent it is
+         * impossible to manage this error gracefully. That's why,
+         * exceptionally, we pass 'cmd' in the 'action' attribute of
          * the form.
          */
 
@@ -991,7 +990,7 @@ if ($cmd == 'exDownload')
 
     $downloadArchive     = new PclZip($downloadArchivePath);
 
-    $downloadArchive->add($filePathList, 
+    $downloadArchive->add($filePathList,
                           PCLZIP_OPT_REMOVE_PATH,
                           $baseWorkDir.$requestDownloadPath);
 
@@ -1394,10 +1393,7 @@ echo claro_disp_tool_title($titleElement,
                            DIALOG BOX SECTION
       --------------------------------------------------------------------*/
 
-    if (isset($dialogBox) && $dialogBox != "")
-    {
-                echo claro_disp_message_box($dialogBox);
-    }
+    if (isset($dialogBox) && $dialogBox != '') echo claro_html::message_box($dialogBox);
 
     $is_allowedToEdit ? $colspan = 7 : $colspan = 3;
 

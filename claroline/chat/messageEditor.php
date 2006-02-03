@@ -19,7 +19,6 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-require_once $includePath . '/lib/claro_html.class.php';
 $is_allowedToManage = $is_courseAdmin || (isset($_gid) && $is_groupTutor) ;
 
 // header

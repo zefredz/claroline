@@ -42,7 +42,6 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 require_once $includePath . '/lib/group.lib.inc.php' ;
 require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 //stats
 event_access_tool($_tid, $_courseTool['label']);
@@ -507,10 +506,7 @@ echo claro_disp_tool_title($nameTools);
   MESSAGE BOX
  -------------*/
 
-if ( !empty($message) )
-{
-    echo claro_disp_message_box($message);
-}
+if ( !empty($message) ) echo claro_html::message_box($message);
 
 /*==========================
 COURSE ADMIN ONLY

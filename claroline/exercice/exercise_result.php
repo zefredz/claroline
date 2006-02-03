@@ -69,16 +69,16 @@ if( !isset($exerciseResult) || !is_array($exerciseResult)
     || !is_object($_SESSION['objExercise'])
     )
 {
-        include ($includePath.'/claro_init_header.inc.php');
-        echo '<br />'.claro_disp_message_box(get_lang('ExerciseNotFound')).'<br />';
-        include ($includePath.'/claro_init_footer.inc.php');
+        include $includePath . '/claro_init_header.inc.php';
+        echo '<br />' . claro_html::message_box(get_lang('ExerciseNotFound')) . '<br />';
+        include $includePath . '/claro_init_footer.inc.php' ;
         die();
 }
 
-$exerciseTitle        = $_SESSION['objExercise']->selectTitle();
-$showAnswers         = $_SESSION['objExercise']->get_show_answer();
-$exerciseMaxTime     = $_SESSION['objExercise']->get_max_time();
-$exerciseMaxAttempt    = $_SESSION['objExercise']->get_max_attempt();
+$exerciseTitle      = $_SESSION['objExercise']->selectTitle();
+$showAnswers        = $_SESSION['objExercise']->get_show_answer();
+$exerciseMaxTime    = $_SESSION['objExercise']->get_max_time();
+$exerciseMaxAttempt = $_SESSION['objExercise']->get_max_attempt();
 
 $nameTools = $_SESSION['objExercise']->exercise;
 
@@ -92,7 +92,7 @@ if (isset($_SESSION['exeStartTime']))
 
 if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )          // learning path mode
 {
-    include($includePath."/lib/learnPath.lib.inc.php");
+    require_once $includePath . '/lib/learnPath.lib.inc.php';
     $is_allowedToEdit = false; // do not allow to be in admin mode during a path progression
     // need to include the learningPath langfile for the added interbredcrump
     // echo minimal html page header so that the page is valid
@@ -102,20 +102,21 @@ if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )          // lear
 else                                        // normal exercise mode
 {
     $is_allowedToEdit = true; // allow to be in admin mode
-    $interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
+    $interbredcrump[] = array('url' => 'exercice.php', 'name' => get_lang('Exercices'));
 }
-include($includePath.'/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Result') );
 
     if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] ) // exercise mode
     {
-            echo "<form method=\"get\" action=\"exercice.php\">";
+            echo '<form method="get" action="exercice.php">';
     }
     else    // Learning path mode
     {
-            echo "<form method=\"get\" action=\"../learnPath/navigation/backFromExercise.php\">\n
-            <input type=\"hidden\" name=\"op\" value=\"finish\">";
+            echo '<form method="get" action="../learnPath/navigation/backFromExercise.php">' . "\n"
+            .    '<input type="hidden" name="op" value="finish" />'
+            ;
     }
 
     $i = 0;
@@ -125,8 +126,8 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
     // check if max allowed time has been respected
     if ( $exerciseMaxTime > 0 && $exerciseMaxTime < $timeToCompleteExe )
     {
-        $displayAnswers     = false;
-        $displayScore         = false;
+        $displayAnswers = false;
+        $displayScore   = false;
     }
     else
     {

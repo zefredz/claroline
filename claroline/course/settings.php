@@ -36,7 +36,6 @@ include_once $includePath . '/lib/auth.lib.inc.php';
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/form.lib.php';
 include_once $includePath . '/conf/course_main.conf.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 /**
  * Configuration array , define here which field can be left empty or not
@@ -267,7 +266,7 @@ else
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title($nameTools);
-if ( ! empty ($dialogBox) ) echo claro_disp_message_box($dialogBox);
+if ( ! empty ($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 
 

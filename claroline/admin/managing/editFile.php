@@ -27,8 +27,6 @@ require '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-include($includePath . '/lib/debug.lib.inc.php');
-
 $controlMsg = array();
 //The name of the files
 $filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html');
@@ -83,10 +81,11 @@ if( isset($_REQUEST['file']) )
     else
     {
         if ( trim( strip_tags( $textContent,'<img>' ) ) == '' )
-        $textContent = '<blockquote>'."\n"
-        .              '<font color="#808080">- <em>'."\n"
-        .              get_lang('NoContent')."\n"
-        .              '</em> -</font><br />'."\n".'</blockquote>'."\n"
+        $textContent = '<blockquote>' . "\n"
+        .              '<font color="#808080">- <em>' . "\n"
+        .              get_lang('NoContent') . "\n"
+        .              '</em> -</font><br />' . "\n" 
+        .              '</blockquote>' . "\n"
         ;
         $subtitle = 'Preview : '.basename($filenameList[$_REQUEST['file']]);
         $display = DISP_VIEW_FILE;
@@ -98,7 +97,7 @@ if( isset($_REQUEST['file']) )
 $nameTools = get_lang('HomePageTextZone');
 $interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
-include($includePath . '/claro_init_header.inc.php');
+include $includePath . '/claro_init_header.inc.php';
 
 //display titles
 
@@ -148,20 +147,15 @@ if($display==DISP_FILE_LIST
 
 if( $display == DISP_EDIT_FILE )
 {
-    echo '<h4>' . basename($filenameList[$_REQUEST['file']]) . '</h4>';
-
-    ?>
-
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-<?php
-echo claro_disp_html_area('textContent', $textContent);
-?>
-            <br /><br /> &nbsp;&nbsp;
-            <input type="hidden" name="file" value="<?php echo htmlspecialchars($_REQUEST['file']); ?>">
-            <input type="submit" class="claroButton" name="modify" value=" <?php echo get_lang('Ok'); ?>">
-            <?php   echo claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel')); ?>
-        </form>
-    <?php
+    echo '<h4>' . basename($filenameList[$_REQUEST['file']]) . '</h4>'
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">'
+    .    claro_disp_html_area('textContent', $textContent)
+    .    '<br /><br /> &nbsp;&nbsp;' . "\n"
+    .    '<input type="hidden" name="file" value="' . htmlspecialchars($_REQUEST['file']) . '" />' . "\n"
+    .    '<input type="submit" class="claroButton" name="modify" value="' . get_lang('Ok') . '" />' . "\n"
+    .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+    .    '</form>' . "\n"
+    ;
 }
 elseif( $display == DISP_VIEW_FILE )
 {

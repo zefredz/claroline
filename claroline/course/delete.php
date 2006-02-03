@@ -31,7 +31,6 @@ if ( ! $isAllowedToDelete ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 // in case of admin access (from admin tool) to the script, we must determine which course we are working with
 $addToURL = '';

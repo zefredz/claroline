@@ -65,7 +65,6 @@ require_once $includePath . '/lib/announcement.lib.php';
 require_once $includePath . '/lib/claro_mail.lib.inc.php';
 require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 require_once $includePath . '/conf/rss.conf.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 claro_set_display_mode_available(TRUE);
 
@@ -449,7 +448,7 @@ echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTi
 ACTION MESSAGE
 ----------------------------------------------------------------------------*/
 
-if ( !empty($message) ) echo claro_disp_message_box($message);
+if ( !empty($message) ) echo claro_html::message_box($message);
 
 /*----------------------------------------------------------------------------
 MAIN COMMANDS LINE
@@ -517,9 +516,8 @@ if ( $displayForm )
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
-    echo claro_disp_button ($_SERVER['PHP_SELF'], 'Cancel');
-
-    echo '</td>'
+    echo claro_html::cmd_button($_SERVER['PHP_SELF'], 'Cancel')
+    .    '</td>'
     .    '<tr>' . "\n"
     .    '</table>'
     .    '</form>' . "\n"

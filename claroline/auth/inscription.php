@@ -19,11 +19,6 @@ define('DISP_REGISTRATION_AGREEMENT',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
-// Registration not allowed
-if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE )
-{
-    claro_die(get_lang('MessageRegistrationNotAllowed'));
-}
 
 // Already logged
 if ( isset($_uid) )
@@ -37,99 +32,107 @@ include $includePath . '/conf/user_profile.conf.php';
 include $includePath . '/lib/user.lib.php';
 include $includePath . '/lib/claro_mail.lib.inc.php';
 
-// Initialise variables
 
-$error = false;
-$messageList = array();
-
-// Initialise field variable from subscription form
-
-$user_data = user_initialise();
-
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = '';
-
-/*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-  Main Section
-  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-
-if ( $cmd == 'registration' )
+if ( get_conf('allowSelfReg',false) )
 {
+    // Initialise variables
+    $error = false;
+    $messageList = array();
 
-    // get params from the form
 
-    if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = strip_tags(trim($_REQUEST['lastname'])) ;
-    if ( isset($_REQUEST['firstname']) )     $user_data['firstname']  = strip_tags(trim($_REQUEST['firstname'])) ;
-    if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
-    if ( isset($_REQUEST['username']) )      $user_data['username']  = strip_tags(trim($_REQUEST['username']));
-    if ( isset($_REQUEST['password']) )      $user_data['password']  = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf']  = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) )         $user_data['email']  = strip_tags(trim($_REQUEST['email'])) ;
-    if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['status']) )        $user_data['status']  = (int) $_REQUEST['status'];
+    // Initialise field variable from subscription form
 
-    // validate forum params
+    $user_data = user_initialise();
 
-    $messageList = user_validate_form_registration($user_data);
+    if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+    else                           $cmd = '';
 
-    if ( count($messageList) == 0 )
+    /**
+     * Main Section
+     */
+
+    if ( $cmd == 'registration' )
     {
-        // register the new user in the claroline platform
+        // get params from the form
 
-        $_uid = user_add($user_data);
+        if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = strip_tags(trim($_REQUEST['lastname'])) ;
+        if ( isset($_REQUEST['firstname']) )     $user_data['firstname']  = strip_tags(trim($_REQUEST['firstname'])) ;
+        if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
+        if ( isset($_REQUEST['username']) )      $user_data['username']  = strip_tags(trim($_REQUEST['username']));
+        if ( isset($_REQUEST['password']) )      $user_data['password']  = trim($_REQUEST['password']);
+        if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf']  = trim($_REQUEST['password_conf']);
+        if ( isset($_REQUEST['email']) )         $user_data['email']  = strip_tags(trim($_REQUEST['email'])) ;
+        if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
+        if ( isset($_REQUEST['status']) )        $user_data['status']  = (int) $_REQUEST['status'];
 
-        if ( $_uid )
+        // validate forum params
+
+        $messageList = user_validate_form_registration($user_data);
+
+        if ( count($messageList) == 0 )
         {
-            // add value in session
-            $_user['firstName']     = $user_data['firstname'];
-            $_user['lastName' ]     = $user_data['lastname'];
-            $_user['mail'     ]     = $user_data['email'];
-            $_user['lastLogin']     = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
-            $is_allowedCreateCourse = ($user_data['status'] == 1) ? TRUE : FALSE ;
+            // register the new user in the claroline platform
 
-            $_SESSION['_uid'] = $_uid;
-            $_SESSION['_user'] = $_user;
-            $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
+            $_uid = user_add($user_data);
+            $user_data['password'] .= 'x';
+            $_uid = user_add($user_data);
 
-            // track user login
-            event_login();
+            if ( $_uid )
+            {
+                // add value in session
+                $_user['firstName']     = $user_data['firstname'];
+                $_user['lastName' ]     = $user_data['lastname'];
+                $_user['mail'     ]     = $user_data['email'];
+                $_user['lastLogin']     = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+                $is_allowedCreateCourse = ($user_data['status'] == 1) ? TRUE : FALSE ;
 
-            // last user login date is now
-            $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
-            $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
+                $_SESSION['_uid'] = $_uid;
+                $_SESSION['_user'] = $_user;
+                $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
 
-            // send info to user by email
-            user_send_registration_mail($_uid, $user_data);
+                // track user login
+                event_login();
 
-        } // if _uid
+                // last user login date is now
+                $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
+                $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
 
-    } // end register user
-    else
-    {
-        // user validate form return error messages
-        $error = true;
+                // send info to user by email
+                user_send_registration_mail($_uid, $user_data);
+
+            } // if _uid
+
+        } // end register user
+        else
+        {
+            // user validate form return error messages
+            $error = true;
+        }
+
     }
 
-}
-
-
-if ( $cmd == 'registration' && $error == false )
-{
+    if ( $cmd == 'registration' && $error == false )
+    {
         $display = DISP_REGISTRATION_SUCCEED;
-}
-elseif ( $cmd == 'agree' || ! get_conf('show_agreement_panel') || $cmd == 'registration' )
-{
+    }
+    elseif ( $cmd == 'agree' || ! get_conf('show_agreement_panel') || $cmd == 'registration' )
+    {
         $display = DISP_REGISTRATION_FORM;
+    }
+    else
+    {
+        $display = DISP_REGISTRATION_AGREEMENT;
+    }
 }
 else
 {
-        $display = DISP_REGISTRATION_AGREEMENT;
+    $display = DISP_REGISTRATION_AGREEMENT;
 }
 
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-  Display Section
-  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+Display Section
+= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 $interbredcrump[]= array ('url' => 'inscription.php', 'name' => get_lang('CreateUserAccount'));
 
@@ -143,23 +146,17 @@ echo claro_disp_tool_title(get_lang('CreateUserAccount'));
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
-        // registration succeeded
+    // registration succeeded
 
-        printf(get_lang('MessageSubscribeDone_p_firstname_lastname'), $user_data['firstname'], $user_data['lastname']);
+    printf(get_lang('MessageSubscribeDone_p_firstname_lastname'), $user_data['firstname'], $user_data['lastname']);
 
-        if ( $is_allowedCreateCourse )
-        {
-            echo '<p>' . get_lang('NowGoCreateYourCourse') . '</p>' . "\n";
-        }
-        else
-        {
-            echo '<p>' . get_lang('NowGoChooseYourCourses') . '</p>' . "\n";
-        }
+    if ( $is_allowedCreateCourse ) echo '<p>' . get_lang('NowGoCreateYourCourse') . '</p>' . "\n";
+    else                           echo '<p>' . get_lang('NowGoChooseYourCourses') . '</p>' . "\n";
 
-        echo '<form action="../../index.php?cidReset=1" >'
-        .    '<input type="submit" name="next" value="' . get_lang('Next') . '" />' . "\n"
-        .    '</form>' . "\n"
-        ;
+    echo '<form action="../../index.php?cidReset=1" >'
+    .    '<input type="submit" name="next" value="' . get_lang('Next') . '" />' . "\n"
+    .    '</form>' . "\n"
+    ;
 }
 elseif ( $display == DISP_REGISTRATION_AGREEMENT )
 {
@@ -185,7 +182,7 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
-    .    claro_disp_button( $rootWeb, get_lang('Cancel') )
+    .    claro_html::cmd_button( $rootWeb, get_lang('Cancel') )
     .    '</form>' . "\n"
     ;
 }

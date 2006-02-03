@@ -252,7 +252,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title(get_lang('CreateSite'));
 
-if ( count($errorList) > 0 ) echo claro_disp_message_box(implode('<br />', $errorList));
+if ( count($errorList) > 0 ) echo claro_html::message_box(implode('<br />', $errorList));
 
 /*----------------------------------------------------------------------------
                                     FORM DISPLAY
@@ -392,7 +392,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 </td>
 <td>
 <input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo get_lang('Ok')?>">
-<?php echo claro_disp_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')); ?>
+<?php echo claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')); ?>
 </td>
 </tr>
 <tr>
@@ -415,9 +415,9 @@ if( $display == DISP_COURSE_CREATION_FORM )
 if ($display == DISP_COURSE_CREATION_FAILED)
 {
     if (count ($errorList) > 0 ) $errorString = implode ('<br />', $errorList);
-    else                        $errorString = '';
+    else                         $errorString = '';
 
-    echo claro_disp_message_box('<p>Course Creation failed.</p>'
+    echo claro_html::message_box('<p>Course Creation failed.</p>'
                                 . $errorString );
 }
 
@@ -436,7 +436,7 @@ if( $display == DISP_COURSE_CREATION_SUCCEED)
     .            '</strong>'
     ;
 
-    echo claro_disp_message_box($dialogBox)
+    echo claro_html::message_box($dialogBox)
     .    '<br />'
     .    '<a class="claroCmd" href="../../index.php">'
     .    get_lang('Back to my course list')
@@ -451,14 +451,16 @@ if( $display == DISP_COURSE_CREATION_SUCCEED)
 
 if ( $display == DISP_COURSE_CREATION_PROGRESS )
 {
-    echo claro_disp_message_box(  get_lang('CreatingCourse')
-                                .'<br />'
-                                .'<p align="center">'
-                                .'<img src="' . $imgRepositoryWeb . '/processing.gif" / alt="">'
-                                .'</p>'
-                                .'<p>'
-                                . sprintf(get_lang('_p_IfNothingHappendClickHere'),$paramString)
-                                .'</p>');
+    $msg = get_lang('CreatingCourse')
+    .      '<br />'
+    .      '<p align="center">'
+    .      '<img src="' . $imgRepositoryWeb . '/processing.gif" / alt="">'
+    .      '</p>'
+    .      '<p>'
+    .      sprintf(get_lang('_p_IfNothingHappendClickHere'),$paramString)
+    .      '</p>'
+    ;
+    echo claro_disp_message_box( $msg );
 }
 
 

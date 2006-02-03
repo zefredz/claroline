@@ -31,8 +31,6 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
-include_once $includePath . '/lib/datagrid.inc.php';
-include_once $includePath . '/lib/claro_html.class.php';
 // build bredcrump
 $nameTools        = get_lang('CategoriesRepairs');
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -82,7 +80,7 @@ switch($cmd)
         if ($errorCounter == 1)    $analyseTreeResultMsg['error'][] = get_lang('One error found');
         elseif ($errorCounter > 1) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
         // analyse Course onwance
-        $sql = "SELECT c.code    AS `Course code`, 
+        $sql = "SELECT c.code    AS `Course code`,
                        c.faculte AS `Unknow faculty`
         FROM  `" . $tbl_course . "` AS c
         LEFT JOIN  `" . $tbl_course_node. "` AS f
@@ -140,7 +138,7 @@ switch ($view)
         echo claro_disp_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_disp_msg_arr($analyseTreeResultMsg, 1)
         .    claro_disp_datagrid($dataAnalyseResult, array('idLineType' => 'numeric'))
-        .    ($errorCounter?claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
+        .    ($errorCounter?claro_html::cmd_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
         .    claro_disp_tool_title('Course ownance')
         .    claro_disp_datagrid($courseOwnanceCheck , array('idLineType' => 'numeric'
                                                             ,'colTitleList' => array( get_lang('Code')
@@ -153,7 +151,7 @@ switch ($view)
     {
         echo claro_disp_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_disp_msg_arr($repairResultMsg, 1)
-        .    claro_disp_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
+        .    claro_html::cmd_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
         ;
     }
     break;

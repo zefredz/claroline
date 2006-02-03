@@ -1,12 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This modules allows to send messages to some chosen users groups from a course
  *
  * @todo keep trace of message sent
  * @todo translate spanish code
- * @todo factorise direct sql 
+ * @todo factorise direct sql
  * @todo this code must works without js
  * @todo abstract sending following preffered notification way of user
  * @todo add roles as types of target to send to "all tutor, course_admin, students,.."
@@ -16,7 +16,7 @@
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLANN
  *
@@ -77,7 +77,7 @@ function move(fbox,    tbox)
         {
             arrTbox[tLength] = fbox.options[i].text;
             tLength++;
-        } 
+        }
         else
         {
             arrFbox[fLength] = fbox.options[i].text;
@@ -116,7 +116,7 @@ function valida()
         alert(\"" . clean_str_for_javascript(get_lang('You must select some users')) . "\");
         return false;
     }
-    for    (var i=0; i<f.elements[3].length; i++)    
+    for    (var i=0; i<f.elements[3].length; i++)
         f.elements[3][i].selected = f.elements[3][i].checked = true
 
     dat=f.emailContent.value;
@@ -126,9 +126,9 @@ function valida()
         alert(\"" . clean_str_for_javascript(get_lang('You must introduce the message text')) . "\");
         f.emailContent.focus();
         f.emailContent.select();
-        return false;    
+        return false;
     }
-    
+
     f.submit();
     return true;
 }
@@ -242,10 +242,10 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . get_lang('Message from your lecturer');
 
             // email content
-            $emailBody = $_REQUEST['emailContent'] . "\n" . "\n" 
-            .            '--' . "\n" 
-            .            $senderFirstName . ' ' . $senderLastName . "\n" 
-            .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" 
+            $emailBody = $_REQUEST['emailContent'] . "\n" . "\n"
+            .            '--' . "\n"
+            .            $senderFirstName . ' ' . $senderLastName . "\n"
+            .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n"
             .            $siteName . "\n"
             .            '(' . get_lang('Message from your lecturer') . ')'
             ;
@@ -293,9 +293,8 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 
 if ( !empty($message) )
 {
-    echo claro_disp_message_box($message);
-
-    echo '<br />' . "\n"
+    echo claro_html::message_box($message)
+    .    '<br />' . "\n"
     .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Return to the list') . '</a>'
     .    '<br />' . "\n"
     ;

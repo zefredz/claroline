@@ -191,7 +191,7 @@ echo claro_disp_tool_title(array('mainTitle' => $nameTools));
 
 if ( isset($dialogBox) && ! empty($dialogBox) )
 {
-    echo claro_disp_message_box($dialogBox)
+    echo claro_html::message_box($dialogBox)
     .    '<br />' . "\n"
     ;
 }

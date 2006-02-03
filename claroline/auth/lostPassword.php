@@ -1,19 +1,19 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * This script allows users to retrieve the password of their profile(s) 
- * on the basis of their e-mail address. The password is send via email 
+ * This script allows users to retrieve the password of their profile(s)
+ * on the basis of their e-mail address. The password is send via email
  * to the user.
  *
- * Special case : If the password are encrypted in the database, we have 
+ * Special case : If the password are encrypted in the database, we have
  * to generate a new one.
  *
  * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLAUTH
  *
@@ -68,7 +68,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
     {
         for ($i = 0, $j = count($user); $i < $j; $i++)
         {
-            if ( in_array(strtolower($user[$i]['authSource']), 
+            if ( in_array(strtolower($user[$i]['authSource']),
                           array('claroline', 'clarocrypt')))
             {
                 if ($userPasswordCrypted)
@@ -79,7 +79,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
                      */
 
                     $user[$i]['password'] = generate_passwd();
-                    
+
                     // UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
                     $sql = 'UPDATE `'.$tbl_user.'`
@@ -92,7 +92,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
             }
             else
             {
-                unset($user[$i]); // remove 
+                unset($user[$i]); // remove
                 $extAuthPasswordCount ++;
             }
         }
@@ -111,7 +111,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         // mail body
         foreach($user as $thisUser)
         {
-            $userAccountList [] = 
+            $userAccountList [] =
                 $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
                 ."\t" . get_lang('UserName') . ' : ' . $thisUser['loginName'] . "\r\n"
                 ."\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n";
@@ -153,7 +153,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         if ( count ($user) > 0 )
         {
             $msg .= '<p>'
-                 .  'Passwords of some of your user account(s) are recorded an in external 
+                 .  'Passwords of some of your user account(s) are recorded an in external
                     authentication system outside the platform.
                     <br />For more information take contact with the platform administrator.'
                  .  '</p>';
@@ -161,8 +161,8 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         else
         {
             $msg .= '<p>'
-                 . 'Your password(s) is (are) recorded in an external authentication 
-                   system outside the platform. 
+                 . 'Your password(s) is (are) recorded in an external authentication
+                   system outside the platform.
                    <br />For more information take contact with the platform administrator.'
                  . '</p>';
         }
@@ -170,14 +170,14 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 }
 else
 {
-    $msg = '<p>'.get_lang('EnterMail').'</p>';
+    $msg = '<p>' . get_lang('EnterMail') . '</p>';
 }
 
 
 ////////////////////////////////////////////////////
 // display section
 
-include($includePath . '/claro_init_header.inc.php');
+include$includePath . '/claro_init_header.inc.php';
 
 // display title
 
@@ -186,19 +186,20 @@ echo claro_disp_tool_title($nameTools);
 // display message box
 
 if ( ! $passwordFound )
-{ 
+{
     $msg .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-         .  '<input type="hidden" name="searchPassword" value="1">'
-         .  '<label for="Femail">' . get_lang('Email') . ' : </label>'
-         .  '<br />'
-         .  '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="'. htmlspecialchars($Femail).'">'
-         .  '<br /><br />'
-         .  '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '"> '
-         .  claro_disp_button('../../index.php', get_lang('Cancel'))
-         .  '</form>';
+    .       '<input type="hidden" name="searchPassword" value="1" />'
+    .       '<label for="Femail">' . get_lang('Email') . ' : </label>'
+    .       '<br />'
+    .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($Femail) . '" />'
+    .       '<br /><br />'
+    .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" /> '
+    .       claro_html::cmd_button('../../index.php', get_lang('Cancel'))
+    .       '</form>'
+    ;
 }
 
-if ( ! empty($msg) ) echo claro_disp_message_box($msg);
+if ( ! empty($msg) ) echo claro_html::message_box($msg);
 
 // display form
 

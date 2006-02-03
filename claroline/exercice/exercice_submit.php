@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This script allows to run an exercise. According to the exercise type, questions
  * can be on an unique page, or one per page with a Next button.
@@ -20,7 +20,7 @@
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author claro team <info@claroline.net>
  */
@@ -77,9 +77,9 @@ if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_o
        )
     {
         include ($includePath.'/claro_init_header.inc.php');
-        echo '<br />'.claro_disp_message_box(get_lang('ExerciseNotFound')).'<br />';
+        echo '<br />' . claro_html::message_box(get_lang('ExerciseNotFound')) . '<br />';
         include ($includePath.'/claro_init_footer.inc.php');
-        die(); 
+        die();
     }
 
     // saves the object into the session
@@ -180,7 +180,7 @@ $exerciseType        = $_SESSION['objExercise']->selectType();
 $exerciseMaxTime     = $_SESSION['objExercise']->get_max_time();
 $exerciseMaxAttempt    = $_SESSION['objExercise']->get_max_attempt();
 
-// count number of attempts of the user 
+// count number of attempts of the user
 $sql="SELECT count(`exe_result`) AS `tryQty`
         FROM `".$tbl_track_e_exercises."`
        WHERE `exe_user_id` = '". (int)$_uid."'
@@ -239,10 +239,10 @@ $errMsg = "";
 $showExerciseForm = true;
 // MAX ALLOWED TIME
 // display actual time only if exercise is sequential, it will always be
-// zero in non sequential mode 
+// zero in non sequential mode
 
-if($exerciseType == 2) 
-{ 
+if($exerciseType == 2)
+{
     $statusMsg .= get_lang('CurrentTime')." : ".(time() - $_SESSION['exeStartTime']);
 }
 
@@ -254,7 +254,7 @@ else
 {
   $statusMsg .= " ".get_lang('NoTimeLimit');
 }
-    
+
 // MAX ALLOWED ATTEMPTS
 // display maximum attempts number only if != 0 (0 means unlimited attempts)
 // always display user attempts count
@@ -286,7 +286,7 @@ if($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59")
     $statusMsg   .= " ".get_lang('Until')." "
                         .claro_disp_localised_date($dateTimeFormatLong,$timeEndDate);
 }
-                      
+
 if( $timeStartDate > $mktimeNow )
 {
     $showExerciseForm = false;
@@ -315,7 +315,7 @@ if( $showExerciseForm || $is_allowedToEdit )
     if( $is_allowedToEdit && ( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) )
     {
         echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="" />'.get_lang('ModifyExercise').'</a>';
-    }    
+    }
 ?>
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
   <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?<?php echo SID ?>" autocomplete="off">
@@ -327,14 +327,14 @@ if( $showExerciseForm || $is_allowedToEdit )
   <input type="hidden" name="nbrQuestions" value="<?php echo $nbrQuestions; ?>">
   <tr>
     <td>
-  
+
   <?php
   $i=0;
-  
+
   foreach( $_SESSION['questionList'] as $questionId )
   {
     $i++;
-  
+
     // for sequential exercises
     if($exerciseType == 2)
     {
@@ -388,7 +388,7 @@ if( $showExerciseForm || $is_allowedToEdit )
     }
   }    // end foreach()
   ?>
-  
+
     </td>
   </tr>
   <tr>
@@ -407,7 +407,7 @@ else
 }
 
 if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
-{    
+{
     // echo minimal html footer so that the page is valid
     $hide_footer = true;
 }

@@ -11,7 +11,6 @@
  * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLCAL
@@ -26,7 +25,6 @@ require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 require_once $includePath . '/lib/agenda.lib.php';
 require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/conf/rss.conf.php';
-require_once $includePath . '/lib/claro_html.class.php';
 
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
@@ -334,7 +332,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 
 if ($display_form)
@@ -349,7 +347,7 @@ if ($display_form)
     $content = $editedEvent['content'];
 
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
-    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '">'
+    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
     .    '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
     .    '<table>' . "\n"
@@ -359,9 +357,10 @@ if ($display_form)
     .    '<tr valign="top">' . "\n"
     .    '<td align="right">' . get_lang('Date') . ' : '
     .    '</td>' . "\n"
-    .    '<td>' . claro_disp_date_form('fday', 'fmonth', 'fyear', $date, 'long' ) . ' '
-    .    claro_disp_time_form('fhour','fminute', $time)
-    .    '&nbsp;<small>' . get_lang('ChooseDateHelper') . '</small>'
+    .    '<td>'
+    .    claro_disp_date_form('fday', 'fmonth', 'fyear', $date, 'long' ) . ' '
+    .    claro_disp_time_form('fhour','fminute', $time) . '&nbsp;'
+    .    '<small>' . get_lang('ChooseDateHelper') . '</small>'
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -430,7 +429,7 @@ if ($display_form)
 
     // linker
     //---------------------
-    echo claro_disp_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
+    echo claro_html::cmd_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>' . "\n"

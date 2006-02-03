@@ -151,7 +151,7 @@ echo claro_disp_tool_title($nameTools);
 
 if ( count($messageList) > 0 )
 {
-    echo claro_disp_message_box( implode('<br />', $messageList) );
+    echo claro_html::message_box( implode('<br />', $messageList) );
 }
 
 switch ( $display )
@@ -201,7 +201,7 @@ switch ( $display )
             .    '<tr valign="top">'
             .    '<td>' . get_lang('Submit') . ': </td>'
             .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
-            .    claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'
@@ -232,7 +232,7 @@ switch ( $display )
             .    '<tr valign="top">'
             .    '<td>' . get_lang('Submit') . ': </td>'
             .    '<td><input type="submit" value="' . get_lang('DeleteMyAccount') . '"> '
-            .    claro_disp_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'

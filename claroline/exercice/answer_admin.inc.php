@@ -126,7 +126,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
             $reponse[$i] = trim($reponse[$i]);
             $comment[$i] = trim($comment[$i]);
             $weighting[$i] = (float)$weighting[$i];
-            
+
 
             if($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)
             {
@@ -252,25 +252,25 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
                         // default is no help
                         $reponse .= '::1';
                     }
-                    
+
                     // add list of false answers
                     $reponse .= '::';
-                    
+
                     // split wrongAnswers and build the list for db storage
                     // we have to remove blank lines
                     $wrongAnswers = explode("\n", $wrongAnswers);
                     $temp = array();
-                    
+
                     // replace some forbidden chars by their hexadecimal encoded value
                     $charsToReplace = array('::','[',']','<','>');
                     $replacingChars = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
-                    
+
                     for( $j = 0; $j < count($wrongAnswers); $j++)
                     {
                         if( trim($wrongAnswers[$j]) != "" )
                         {
                             $temp[] = str_replace($charsToReplace,$replacingChars,trim($wrongAnswers[$j]));
-                            
+
                         }
                       }
                      $reponse .= implode('[',$temp);
@@ -493,12 +493,12 @@ if( isset($modifyAnswers) )
 
                 $explodedResponse = explode( '::',$reponse);
                 $reponse = (isset($explodedResponse[0]))?$explodedResponse[0]:'';
-                
+
                 // replace special entities by correct chars for display
                 $charsToReplace = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
                 $replacingChars = array('::','\[','\]','<','>');
                 $reponse = str_replace($charsToReplace, $replacingChars, $reponse);
-                
+
                 $weighting = (isset($explodedResponse[1]))?$explodedResponse[1]:'';
 
                 $fillType = (!empty($explodedResponse[2]))?$explodedResponse[2]:1;
@@ -639,7 +639,7 @@ if( isset($modifyAnswers) )
             // if there is an error message
             if(!empty($msgErr))
             {
-                echo claro_disp_message_box($msgErr);
+                echo claro_html::message_box($msgErr);
             }
 ?>
 
@@ -746,10 +746,7 @@ if( isset($modifyAnswers) )
 
 <?php
                 // if there is an error message
-                if(!empty($msgErr))
-                {
-                    echo claro_disp_message_box($msgErr);
-                }
+                if(!empty($msgErr)) echo claro_html::message_box($msgErr);
 ?>
 <p>
     <?php echo get_lang('TypeTextBelow').', '.get_lang('And').' '.get_lang('UseTagForBlank'); ?>&nbsp;:
@@ -846,10 +843,7 @@ if( isset($modifyAnswers) )
 <?php
 
             // if there is an error message
-            if(!empty($msgErr))
-            {
-                echo claro_disp_message_box($msgErr);
-            }
+            if(!empty($msgErr)) echo claro_html::message_box($msgErr);
 
             $listeOptions=Array();
 

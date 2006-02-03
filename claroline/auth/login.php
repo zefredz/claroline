@@ -1,6 +1,6 @@
 <?php # $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This script allows users to log on platform and back to requested ressource
  *
@@ -8,7 +8,7 @@
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLAUTH
  *
@@ -19,15 +19,15 @@
 
 require '../inc/claro_init_global.inc.php';
 
-/* Capture the source of the authentication trigger to get back to it 
- * if the authentication succeeds 
+/* Capture the source of the authentication trigger to get back to it
+ * if the authentication succeeds
  */
 
 if ( isset($_REQUEST['sourceUrl']) )
 {
     $sourceUrl = $_REQUEST['sourceUrl'];
 }
-elseif ( isset($_SERVER ['HTTP_REFERER']) 
+elseif ( isset($_SERVER ['HTTP_REFERER'])
          &&   basename($_SERVER ['HTTP_REFERER']) != basename($_SERVER['PHP_SELF'])
          && ! strstr($_SERVER ['HTTP_REFERER'], 'logout=true') )
 {
@@ -55,7 +55,7 @@ else
     $sourceUrlFormField = '';
 }
 
-if ($_cid) 
+if ($_cid)
 {
     $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars($_cid) . '">';
 }
@@ -93,18 +93,11 @@ if ( is_null($_uid) && $uidRequired )
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
-            if ( ! isset($allowSelfReg) || $allowSelfReg == FALSE)
-            {
-                echo claro_disp_message_box(get_lang('InvalidId'));
-            }
-            else
-            {
-                echo claro_disp_message_box(sprintf(get_lang('InvalidIdSelfReg'),
-                                                    $urlAppend.'/claroline/auth/inscription.php') )
-                .    '<br />';
-            }
+            if ( get_conf('allowSelfReg',false)) echo claro_disp_message_box(sprintf(get_lang('InvalidIdSelfReg'),
+                                                    $urlAppend . '/claroline/auth/inscription.php') );
+            else                                 echo claro_disp_message_box(sprintf(get_lang('InvalidId'),
+                                                    $urlAppend . '/claroline/auth/inscription.php') );
         }
-
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
         .    '<fieldset>'                                                 ."\n"
@@ -121,7 +114,7 @@ if ( is_null($_uid) && $uidRequired )
         .    '<input type="password" name="password" id="password"><br />'."\n"
         .    '<br />'
         .    '<input type="submit" value="'.get_lang('Ok').'"> '                 ."\n"
-        .    claro_disp_button($clarolineRepositoryWeb, get_lang('Cancel'))
+        .    claro_html::cmd_button($clarolineRepositoryWeb, get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
         ;
@@ -140,15 +133,15 @@ if ( is_null($_uid) && $uidRequired )
         .    '</a>'
         .    '</div>';
     } // end if claro_CASEnabled
-    
+
     // Display footer
     require $includePath . '/claro_init_footer.inc.php';
 }
 elseif ( is_null($_cid) && $cidRequired )
 {
     /*
-     * The script the user is trying to access 
-     * is only able to work inside a course 
+     * The script the user is trying to access
+     * is only able to work inside a course
      * and no course are set.
      */
 
@@ -156,11 +149,11 @@ elseif ( is_null($_cid) && $cidRequired )
     $tbl_courses            = $mainTbl['course'         ];
     $tbl_rel_user_courses   = $mainTbl['rel_course_user'];
 
-    $sql = "SELECT c.code                                  `value`, 
-                   CONCAT(c.intitule,' (',c.fake_code,')') `name` 
-            FROM `" . $tbl_courses."`          c ,  
+    $sql = "SELECT c.code                                  `value`,
+                   CONCAT(c.intitule,' (',c.fake_code,')') `name`
+            FROM `" . $tbl_courses."`          c ,
                  `" . $tbl_rel_user_courses . "` cu
-            WHERE c.code= cu.code_cours 
+            WHERE c.code= cu.code_cours
               AND cu.user_id = '" . (int) $_uid . "'" ;
 
     $courseList = claro_sql_query_fetch_all($sql);
@@ -182,8 +175,8 @@ elseif ( is_null($_cid) && $cidRequired )
         .    $sourceGidFormField                                     ."\n"
         .    '<tr>'                                                  ."\n"
         .    '<td>'                                                  ."\n"
-        .    '<label for="selectCourse">' 
-        .    get_lang('Course') 
+        .    '<label for="selectCourse">'
+        .    get_lang('Course')
         .    '</label> : '                                           ."\n"
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
@@ -197,7 +190,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
         .    '<input type="submit" value="' . get_lang('Ok') . '">'         ."\n"
-        .    claro_disp_button($rootWeb, get_lang('Cancel'))
+        .    claro_html::cmd_button($rootWeb, get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"
         .    '</table>'                                              ."\n"
@@ -205,7 +198,7 @@ elseif ( is_null($_cid) && $cidRequired )
         ;
     }
     else
-    {            
+    {
         // Display link to student to enrol to this course
         echo '<p align="center">'           ."\n"
         .    get_lang('_if_you_wish_to_enroll_to_this_course')
@@ -265,7 +258,7 @@ else
                 echo '<br />Please contact course titular(s) : '.$_course['titular']
                 .    '<br /><small>e-mail address : <a href="mailto:' . $_course['email'] .'">' . $_course['email']. '</a>'
                 ;
-               
+
             }
 
             echo '</p>'                                     ."\n";
@@ -279,16 +272,16 @@ else
     {
         if (isset($_REQUEST['sourceCid']) )
         {
-            $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?') 
+            $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
                        .  'cidReq=' . $_REQUEST['sourceCid'];
         }
-        
+
         if (isset($_REQUEST['sourceGid']))
         {
             $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
                        .  'gidReq=' . $_REQUEST['sourceGid'];
         }
-        
+
         header('Location: ' . http_response_splitting_workaround( $sourceUrl ) );
     }
     elseif ( $_cid )
