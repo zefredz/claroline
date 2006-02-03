@@ -1,6 +1,6 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
  * This script edit userlist of a group and group propreties
  *
@@ -8,7 +8,7 @@
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLGRP
  *
@@ -20,12 +20,13 @@
 
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
+require_once $includePath . '/lib/form.lib.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 $is_allowedToManage = $is_courseAdmin;
 
-if ( ! $is_allowedToManage ) 
+if ( ! $is_allowedToManage )
 {
     claro_die(get_lang('Not allowed'));
 }
@@ -146,11 +147,11 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     $sql = "UPDATE`" . $tbl_group_team . "`
             SET `name`        = '" . addslashes($name) . "',
                 `description` = '" . addslashes($description) . "',
-                `maxStudent`  = ". (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember ."'") .",
+                `maxStudent`  = " . (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember . "'") .",
                 `tutor`       = '" . (int) $tutor ."'
             WHERE `id`        = '" . (int) $_gid . "'";
-    
-    
+
+
     // Update main group settings
     $updateStudentGroup = claro_sql_query($sql);
 
@@ -183,9 +184,9 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 
         for ($i = 0; $i <= $numberMembers; $i++)
         {
-            $sql = 'INSERT INTO `' . $tbl_group_rel_team_user . '`
-                    SET user = "' . (int) $ingroup[$i] . '",
-                        team = "' . (int) $_gid . '"';
+            $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
+                    SET user = " . (int) $ingroup[$i] . ",
+                        team = " . (int) $_gid ;
 
             $registerUserGroup = claro_sql_query($sql);
         }
@@ -197,11 +198,94 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     $gidReset = TRUE;
     $gidReq   = $_gid;
 
-    include($includePath . '/claro_init_local.inc.php');
+    include $includePath . '/claro_init_local.inc.php';
 
     $myStudentGroup = $_group;
 
 }    // end if $modify
+// SELECT TUTORS
+
+$sql = "SELECT `user`.`user_id` AS `user_id` ,
+                   `user`.`nom`     AS `nom`,
+                   `user`.`prenom`  AS `prenom`
+            FROM `" . $tbl_user . "` AS `user`,
+                 `" . $tbl_rel_user_course . "` AS `cours_user`
+            WHERE `cours_user`.`user_id`    = `user`.`user_id`
+            AND   `cours_user`.`tutor`      = 1
+            AND   `cours_user`.`code_cours` = '" . $currentCourseId . "'";
+
+$resultTutor = claro_sql_query_fetch_all($sql);
+
+// AND student_group.id='$_gid'    // This statement is DEACTIVATED
+
+$tutor_list=array();
+foreach ($resultTutor as $myTutor)
+{
+    $tutor_list[$myTutor['user_id']]= htmlspecialchars($myTutor['nom'] . ' ' . $myTutor['prenom']);
+}
+$tutor_list[0] = get_lang('GroupNoTutor');
+
+$sql = "SELECT `ug`.`id`     AS id,
+               `u`.`user_id` AS user_id,
+               `u`.`nom`     AS name,
+               `u`.`prenom`  AS firstname,
+               `u`.`email`   AS email
+        FROM `" . $tbl_user . "`                AS u
+           , `" . $tbl_group_rel_team_user . "` AS ug
+        WHERE `ug`.`team` = " . (int) $_gid . "
+        AND   `ug`.`user` = `u`.`user_id`
+        ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
+
+$resultMember = claro_sql_query_fetch_all($sql);
+$usersInGroupList=array();
+foreach ($resultMember as $thisMember )
+{
+    $usersInGroupList[$thisMember['user_id']]= htmlspecialchars(ucwords(strtolower($thisMember['name'])) . ' ' . ucwords(strtolower($thisMember['firstname'])));
+}
+
+// Student registered to the course but inserted in no group
+
+$limitNumOfGroups = (is_null($nbMaxGroupPerUser) ? "" :  " AND nbg < " . (int) $nbMaxGroupPerUser);
+
+$sql = "SELECT `u`.`user_id`        AS `user_id`,
+               `u`.`nom`            AS `lastName`,
+               `u`.`prenom`         AS `firstName`,
+               COUNT(`ug`.`id`)     AS `nbg`,
+               COUNT(`ugbloc`.`id`) AS `BLOCK`
+
+        FROM `" . $tbl_user . "`                     AS u
+           , `" . $tbl_rel_user_course . "`          AS cu
+
+        LEFT JOIN `" . $tbl_group_rel_team_user . "` AS ug
+        ON `u`.`user_id`=`ug`.`user`
+
+        LEFT JOIN `" . $tbl_group_rel_team_user . "` AS `ugbloc`
+        ON  `u`.`user_id`=`ugbloc`.`user` AND `ugbloc`.`team` = " . (int) $_gid . "
+
+        WHERE `cu`.`code_cours` = '" . $currentCourseId . "'
+        AND   `cu`.`user_id`    = `u`.`user_id`
+        AND ( `cu`.`statut`     = 5            OR `cu`.`statut` IS NULL)
+        AND   `cu`.`tutor`      = 0
+        AND ( `ug`.`team`       <> " . (int) $_gid . " OR `ug`.`team` IS NULL )
+
+        GROUP BY `u`.`user_id`
+        HAVING `BLOCK` = 0
+        " . $limitNumOfGroups . "
+        ORDER BY
+        #`nbg`, #disabled because different of  right box
+        UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
+
+$result = claro_sql_query_fetch_all($sql);
+foreach ($result AS $myNotMember )
+{
+    $userNotInGroupList[$myNotMember['user_id']] =
+    htmlspecialchars(ucwords(strtolower($myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'])))
+    .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
+    ;
+}
+$thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
+
+
 
 
 $interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang('Groups'));
@@ -212,226 +296,80 @@ include($includePath . '/claro_init_header.inc.php');
 echo claro_disp_tool_title(array('supraTitle' => get_lang('Groups'),
 'mainTitle' => $nameTools));
 
-if ( isset($messageGroupEdited) )
-{
-    echo claro_disp_message_box($messageGroupEdited);
-}
+if ( isset($messageGroupEdited) ) echo claro_html::message_box($messageGroupEdited);
 
-?>
-<form name="groupedit" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>?edit=yes&gidReq=<?php echo $_gid; ?>">
 
-<table border="0" cellspacing="3" cellpadding="5">
+echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . $_gid . '">' . "\n"
+.    '<table border="0" cellspacing="3" cellpadding="5">' . "\n"
+.    '<tr valign="top">' . "\n"
+.    '<td align="right">' . "\n"
+.    '<label for="name" >' . get_lang('GroupName') . '</label> : ' . "\n"
+.    '</td>' . "\n"
+.    '<td colspan="2">' . "\n"
+.    '<input type="text" name="name" id="name" size="40" value="' . htmlspecialchars($myStudentGroup['name']) . '">' . "\n"
+.    '</td>' . "\n"
+.    '<td>' . "\n"
+.    '<a href="group_space.php?gidReq=' . $_gid . '">' . "\n"
+.    '<img src="' . $imgRepositoryWeb . 'group.gif" />' . "\n"
+.    '&nbsp;' . get_lang('GroupThisSpace') . '</a>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr valign="top">' . "\n"
+.    '<td align="right">' . "\n"
+.    '<label for="description">' . "\n"
+.    get_lang('GroupDescription') . ' ' . get_lang('Uncompulsory') . "\n"
+.    '</label> :' . "\n"
+.    '<td colspan="3">' . "\n"
+.    '<textarea name="description" id="description" rows="4 "cols="70" wrap="virtual">' . "\n"
+.    htmlspecialchars($myStudentGroup['description']) . "\n"
+.    '</textarea>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '' . "\n"
+.    '<tr valign="top">' . "\n"
+.    '<td align="right">' . "\n"
+.    '<label for="tutor">' . "\n"
+.    get_lang('GroupTutor') . '</label> : ' . "\n"
+.    '</td>' . "\n"
+.    '<td colspan="2">' . "\n"
+.    claro_html_form_select('tutor',$tutor_list,$myStudentGroup['tutorId'],array('id'=>'tutor')) . "\n"
+.    '&nbsp;&nbsp;'
+.    '<small><a href="../user/user.php">' . get_lang('ListUsers') . '</a></small>'
+.    '<td>'
+.    '<label for="maxMember">' . get_lang('Max') . '</label> '
 
-<tr valign="top">
-<td align="right">
-<label for="name" ><?php echo get_lang('GroupName'); ?></label> : 
-</td>
-<td colspan="2">
-<input type="text" name="name" id="name" size="40" value="<?php echo htmlspecialchars($myStudentGroup['name']); ?>">
-</td>
+.   '<input type="text" name="maxMember" id="maxMember" size="2" value="' .  htmlspecialchars($thisGroupMaxMember) . '" / >' . "\n"
 
-<td>
-<a href="group_space.php?gidReq=<?php echo $_gid ?>"><?php echo '<img src="'.$imgRepositoryWeb.'group.gif" />&nbsp;' . get_lang('GroupThisSpace') ?></a>
-</td>
-</tr>
-
-<tr valign="top">
-<td align="right">
-<label for="description"><?php echo get_lang('GroupDescription') . ' ' . get_lang('Uncompulsory'); ?></label> :
-<td colspan="3">
-<textarea name="description" id="description" rows="4 "cols="70" wrap="virtual"><?php echo htmlspecialchars($myStudentGroup['description']); ?></textarea>
-</td>
-</tr>
-
-<tr valign="top">
-<td align="right"><label for="tutor"><?php echo get_lang('GroupTutor') ?></label> : </td>
-<td colspan="2">
-<select name="tutor" id="tutor" >
-<?php
-
-    // SELECT TUTORS
-
-    $sql = 'SELECT `user`.`user_id` `user_id` ,
-                   `user`.`nom`     `nom`,
-                   `user`.`prenom`  `prenom`
-            FROM `' . $tbl_user . '`    `user`,
-                `' . $tbl_rel_user_course . '` `cours_user`
-            WHERE `cours_user`.`user_id`    = `user`.`user_id`
-            AND   `cours_user`.`tutor`      = 1
-            AND   `cours_user`.`code_cours` = "' . $currentCourseId . '"';
-
-    $resultTutor = claro_sql_query($sql);
-
-    // AND student_group.id='$_gid'    // This statement is DEACTIVATED
-
-    $tutorExists = FALSE;
-
-    while ( $myTutor = mysql_fetch_array($resultTutor) )
-    {
-        //  Present tutor appears first in select box
-
-        if ( $myStudentGroup['tutorId'] == $myTutor['user_id'] )
-        {
-            $tutorExists   = TRUE;
-            $selectedState = 'selected="selected"';
-        }
-        else
-        {
-            $selectedState = '';
-        }
-
-        echo '<option value = "' . $myTutor['user_id'] . '" '.$selectedState.'>'
-        .    htmlspecialchars($myTutor['nom'] . ' ' . $myTutor['prenom'])
-        .    '</option>' . "\n"
-        ;
-    }
-
-    if ( $tutorExists )
-    {
-        $selectedState = '';
-    }
-    else
-    {
-        $selectedState = 'selected="selected"';
-    }
-
-    echo '<option value="0" ' . $selectedState . '>'
-    .    get_lang('GroupNoTutor')
-    .    '</option>'
-    .    '</select>'
-    .    '&nbsp;&nbsp;'
-    .    '<small><a href="../user/user.php">' . get_lang('ListUsers') . '</a></small>'
-    .    '<td>'
-    .    '<label for="maxMember">' . get_lang('Max') . '</label> ';
-
-    if ( is_null($myStudentGroup['maxMember']) )
-    {
-        echo '<input type="text" name="maxMember" id="maxMember" size="2" value = "-">' . "\n";
-    }
-    else
-    {
-        echo '<input type="text" name="maxMember" id="maxMember" size="2" '
-        .    ' value="' . htmlspecialchars($myStudentGroup['maxMember']) . '">' . "\n"
-        ;
-    }
-
-    echo get_lang('GroupPlacesThis')
-    .    '</td>'
-    .    '</tr>'
+.    get_lang('GroupPlacesThis')
+.    '</td>'
+.    '</tr>'
 ################### STUDENTS IN AND OUT GROUPS #######################
-    .    '<tr valign="top">'
-    .    '<td align="right"><Label for="inGroup">' . get_lang('GroupMembers') . '</Label> : </td>'
-    .    '<td>'
-    .    '<select id="ingroup" name="ingroup[]" size="8" multiple>'
-    ;
+.    '<tr valign="top">'
+.    '<td align="right"><label for="inGroup">' . get_lang('GroupMembers') . '</label> : </td>' . "\n"
+.    '<td>'
+.    claro_html_form_select('ingroup[]',$usersInGroupList,'',array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'))
+.    '<br />' . "\n"
+.    '<br />' . "\n"
+.    '<input type=submit value="' . get_lang('Ok') . '" name="modify" onClick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
+.    '</td>' . "\n"
+.    '<td>' . "\n"
+.    '<!-- ' . "\n"
+.    'WATCH OUT ! form elements are called by numbers "form.element[3]"...' . "\n"
+.    'because select name contains "[]" causing a javascript element name problem' . "\n"
+.    ' -->' . "\n"
+.    '<br />' . "\n"
+.    '<br />' . "\n"
+.    '<input type="button" onClick="move(this.form.elements[\'ingroup\'],this.form.elements[\'nogroup\'])" value="   >>   " />' . "\n"
+.    '<br />' . "\n"
+.    '<input type="button" onClick="move(this.form.elements[\'nogroup\'],this.form.elements[\'ingroup\'])" value="   <<   " / >' . "\n"
+.    '</td>' . "\n"
+.    '<td>' . "\n"
+.    claro_html_form_select('nogroup[]',$userNotInGroupList,'',array('id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple')) . "\n"
+.    '<br />' . "\n"
+;
 
-$sql = 'SELECT `ug`.`id`,
-               `u`.`user_id`,
-               `u`.`nom`        `name`,
-               `u`.`prenom`     `firstname`,
-               `u`.`email`
-        FROM `'.$tbl_user.'` u, `'.$tbl_group_rel_team_user.'` ug
-        WHERE `ug`.`team` = "'.$_gid.'"
-        AND   `ug`.`user` = `u`.`user_id`
-        ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`)';
-
-$resultMember = claro_sql_query($sql);
-
-while ( $myMember = mysql_fetch_array($resultMember) )
-{
-    $userIngroupId = $myMember['user_id'];
-
-    echo '<option value="'.$userIngroupId.'">'
-       . htmlspecialchars(ucwords(strtolower($myMember['name'])) . ' ' . ucwords(strtolower($myMember['firstname'])))
-       . '</option>'."\n"
-       ;
-}
-
-?>
-</select>
-<br />
-<br />
-<input type=submit value="<?php echo get_lang('Ok') ?>" name="modify" onClick="selectAll(this.form.elements['ingroup'],true)">
-
-</td>
-
-<td>
-<!--
-WATCH OUT ! form elements are called by numbers "form.element[3]"...
-because select name contains "[]" causing a javascript element name problem
--->
-<br />
-<br />
-<input type="button" onClick="move(this.form.elements['ingroup'],this.form.elements['nogroup'])" value="   >>   ">
-<br />
-<input type="button" onClick="move(this.form.elements['nogroup'],this.form.elements['ingroup'])" value="   <<   ">
-</td>
-
-<td>
-<select id="nogroup" name="nogroup[]" size="8" multiple>
-<?php
-// Student registered to the course but inserted in no group
-
-if (is_null($nbMaxGroupPerUser))
-{
-    $limitNumOfGroups = '';
-}
-else
-{
-    $limitNumOfGroups = "and nbg < '" . (int)$nbMaxGroupPerUser . "'";
-}
-
-
-$sql = "SELECT `u`.`user_id` ,
-               `u`.`nom` `lastName`,
-               `u`.`prenom` `firstName`,
-               COUNT(`ug`.`id`) AS `nbg`,
-               COUNT(`ugbloc`.`id`) AS `BLOCK`
-
-        FROM `".$tbl_user."` u, `".$tbl_rel_user_course."` cu
-
-        LEFT JOIN `".$tbl_group_rel_team_user."` ug
-        ON `u`.`user_id`=`ug`.`user`
-
-        LEFT JOIN `".$tbl_group_rel_team_user."` `ugbloc`
-        ON  `u`.`user_id`=`ugbloc`.`user` AND `ugbloc`.`team` = '".$_gid."'
-
-        WHERE `cu`.`code_cours` = '".$currentCourseId."'
-        AND   `cu`.`user_id`    = `u`.`user_id`
-        AND ( `cu`.`statut`     = 5            OR `cu`.`statut` IS NULL)
-        AND   `cu`.`tutor`      = 0
-        AND ( `ug`.`team`       <> '".$_gid."' OR `ug`.`team` IS NULL )
-
-        GROUP BY `u`.`user_id`
-        HAVING `BLOCK` = 0
-        ".$limitNumOfGroups."
-        ORDER BY 
-        #`nbg`, #disabled because different of  right box
-        UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
-
-$resultNotMember = claro_sql_query($sql);
-
-while ( $myNotMember = mysql_fetch_array($resultNotMember) )
-{
-    echo '<option value="' . $myNotMember['user_id'] . '">'
-    .    htmlspecialchars(ucwords(strtolower($myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName']))) 
-    .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
-    .    '</option>' . "\n"
-    ;
-}    // while loop
-
-?>
-</select>
-<br />
-<?php
-if ( get_conf('multiGroupAllowed') )
-{
-    echo get_lang('StudentsNotInThisGroups');
-}
-else
-{
-    echo get_lang('NoGroupStudents');
-}
+if ( get_conf('multiGroupAllowed') ) echo get_lang('StudentsNotInThisGroups');
+else                                 echo get_lang('NoGroupStudents');
 ?>
 </td>
 </tr>
@@ -442,4 +380,5 @@ else
 </form>
 
 <?php
-include $includePath . '/claro_init_footer.inc.php';?>
+include $includePath . '/claro_init_footer.inc.php';
+?>
