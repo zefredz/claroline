@@ -85,6 +85,10 @@ require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/fileUpload.lib.php';
 require_once 'module.inc.php';
 
+$typeList[] = 'applet';
+$typeList[] = 'coursetool';
+
+
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
@@ -158,7 +162,7 @@ switch ( $cmd )
         $sql = "UPDATE `" . $tbl_dock . "`
                 SET `rank` = `rank` - 1
                 WHERE `module_id` != " . $module_id . "
-                  AND `name` = '". addslashes($dockname) . "'
+                  AND `name` = '" . addslashes($dockname) . "'
                   AND `rank` = " . (int) $result['rank'] . " + 1
                   AND `rank` > 1";
         claro_sql_query($sql);
@@ -176,27 +180,27 @@ switch ( $cmd )
     case 'uninstall' :
     {
         $result_log = uninstall_module($module_id);
-        $dialogBox  = "Module uninstallation : <br>";
+        $dialogBox  = get_lang('Module uninstallation.') . ' : <br>';
+        foreach ( $result_log as $log) $dialogBox .= $log . '<br>';
 
-        foreach ( $result_log as $log)
-        {
-            $dialogBox .=$log."<br>";
-        }
     }
     break;
 
     case 'show_install' :
     {
         $dialogBox = '<p>'
-        .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.<br>'
-        .            'Find more available modules <a href="http://www.claroline.net/">here</a>.</p>'
+        .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br>'
+        .            get_lang('Find more available modules <a href="http://www.claroline.net/">here</a>.')
+        .            '</p>'
         .            '<form enctype="multipart/form-data" action="" method="post">'
         .            '<input name="uploadedModule" type="file" /><br><br>'
         .            '<input name="cmd" type="hidden" value="do_install" />'
         .            '<input type="submit" value="cancel" />'
-        .            '<input value="Install Module" type="submit" /><br><br>'
-        .            '<small>Max file size :  2&nbsp;MB</small>'
-        .            '</form>');
+        .            '<input value="' . get_lang('Install Module') . '" type="submit" />'
+        .            '<br><br>'
+        .            '<small>' . get_lang('Max file size') . ' :  2&nbsp;MB</small>'
+        .            '</form>'
+        ;
     }
     break;
 
@@ -272,20 +276,19 @@ echo claro_disp_tool_title($nameTools);
 if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 //display action links
+echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install a module') . '<a>'
+.    '<br/><br/>'
 
-echo "<a class=\"claroCmd\" href=\"module_list.php?cmd=show_install\">Install a module<a><br/><br/>";
 
 //display tabbed navbar
 
-echo '<div id="moduletypecontainer">
-        <ul id="moduletypelist">';
+.    '<div id="moduletypecontainer">'
+.    '<ul id="moduletypelist">'
+;
 
 //display the module type tabbed naviguation bar
 
-$types[] = 'applet';
-$types[] = 'coursetool';
-
-foreach ($types as $type)
+foreach ($typeList as $type)
 {
     if ($selected_type == $type)
     {
@@ -300,27 +303,27 @@ foreach ($types as $type)
 echo '  </ul>
       </div>';
 
-//Display list
+//Display list  EXIST
 
 //Display Pager list
 
 echo $myPager->disp_pager_tool_bar('module_list.php?selected_type='.$selected_type);
 
-$sortUrlList = $myPager->get_sort_url_list('module_list.php?selected_type='.$selected_type);
+// $sortUrlList = $myPager->get_sort_url_list('module_list.php?selected_type='.$selected_type);
 
 // start table...
 
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th>'. get_lang('Id') . '</th>'
-.    '<th>'. get_lang('Icon') . '</th>'
-.    '<th>'. get_lang('Module name').'</th>'
-.    '<th>'. get_lang('Display').'</th>'
-.    '<th>'. get_lang('Activation').'</th>'
-.    '<th colspan="2">'. get_lang('Reorder').'</th>'
-.    '<th>'. get_lang('Edit settings').'</th>'
-.    '<th>'. get_lang('Uninstall').'</th>'
+.    '<th>' .  get_lang('Id')                 . '</th>'
+.    '<th>' .  get_lang('Icon')               . '</th>'
+.    '<th>' .  get_lang('Module name')        . '</th>'
+.    '<th>' . get_lang('Display')             . '</th>'
+.    '<th>' . get_lang('Activation')          . '</th>'
+.    '<th colspan="2">' . get_lang('Reorder') . '</th>'
+.    '<th>' . get_lang('Edit settings')       .'</th>'
+.    '<th>' . get_lang('Uninstall')           .'</th>'
 .    '</tr><tbody>'
 ;
 
@@ -328,93 +331,88 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 
 foreach($moduleList as $module)
 {
-
     //display settings...
-
     $class_css= ($module['activation']=='activated' ? 'item' : 'invisible item');
+    //icon column
+    if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+    {
+        $icon = '<img src="' . $rootWeb . 'claroline/module/' . $module['label'] . '/icon.png" />';
+    }
+    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
+    {
+        $icon = '<img src="' . $rootWeb . 'claroline/module/' . $module['label'] . '/icon.gif" />';
+    }
+    else $icon = '<small>' . get_lang('No icon') . '</small>';
+
 
     //module_id column
 
     echo '<tr>'
-    .    '<td align="center">' . $module['id'] . '</td>' . "\n";
-
-    //icon column
-
-    if (file_exists($includePath.'/../module/'.$module['label'].'/icon.png'))
-    {
-        $icon = '<img src="'.$rootWeb.'claroline/module/'.$module['label'].'/icon.png" />';
-    }
-    elseif (file_exists($includePath.'/../module/'.$module['label'].'/icon.gif'))
-    {
-        $icon = '<img src="'.$rootWeb.'claroline/module/'.$module['label'].'/icon.gif" />';
-    }
-    else
-    {
-        $icon = '<small>'.get_lang('No icon').'</small>';
-    }
-
-    echo     '<td align="center">'.$icon.'</td>' . "\n";
-
+    .    '<td align="center">' . $module['id'] . '</td>' . "\n"
+    .    '<td align="center">' . $icon . '</td>' . "\n"
     //name column
-
-    echo '<td align="left" class="'.$class_css.'" >'   . $module['name'] . '</td>' . "\n";
-
+    .    '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n"
     //displaying location column
-
-    echo     '<td align="left" class="'.$class_css.'"><small>' . $module['dockname'] . '</small></td>' . "\n";
-
+    .    '<td align="left" class="' . $class_css . '"><small>' . $module['dockname'] . '</small></td>' . "\n"
     //activation link
+    .    '<td align="center" >'
+    ;
 
-    echo     '<td align="center" >';
-
-    if ($module['activation']=='activated')
+    if ($module['activation'] == 'activated')
     {
-        echo '<a class="item" href="module_list.php?cmd=desactiv&module_id='.$module['id'].'&selected_type='.$selected_type.'"><img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Activated') . '" /></a>';
+        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;selected_type=' . $selected_type . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Activated') . '" /></a>'
+        ;
     }
     else
     {
-        echo '<a class="invisible item" href="module_list.php?cmd=activ&module_id='.$module['id'].'&selected_type='.$selected_type.'"><img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('Desactivated') . '" /></a>';
+        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'"><img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('Desactivated') . '" /></a>';
     }
 
-    echo     '</td>' . "\n";
+    echo '</td>' . "\n"
+    .    '<td align="center">' . "\n"
+    ;
 
     //reorder column
 
     //up
 
-    if ($firstmodules[$module['dockname']] == $module['id'])
+    if ($firstmodules[$module['dockname']] != $module['id'])
     {
-        echo '<td align="center"></td>' . "\n";
-    }
-    else
-    {
-        echo '<td align="center"><a href="module_list.php?cmd=up&module_id='.$module['id'].'&selected_type='.$selected_type.'&dockname='.urlencode($module['dockname']).'"><img src="' . $imgRepositoryWeb . 'up.gif" border="0" alt="' . get_lang('Up') . '" /></a></td>' . "\n";
+        echo '<a href="module_list.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;selected_type=' . $selected_type.'&dockname='.urlencode($module['dockname']).'">'
+        .    '<img src="' . $imgRepositoryWeb . 'up.gif" border="0" alt="' . get_lang('Up') . '" />'
+        .    '</a>' . "\n"
+        ;
     }
 
     //down
+    echo '</td>' . "\n"
+    .    '<td align="center">' . "\n"
+    ;
 
-    if ($lastmodules[$module['dockname']] == $module['id'])
+    if ($lastmodules[$module['dockname']] != $module['id'])
     {
-        echo '<td align="center"></td>' . "\n";
+        echo '<a href="module_list.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;selected_type=' . $selected_type . '&amp;dockname=' . urlencode($module['dockname']) . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
+        .    '</a>'
+        ;
     }
-    else
-    {
-        echo '<td align="center"><a href="module_list.php?cmd=down&module_id='.$module['id'].'&selected_type='.$selected_type.'&dockname='.urlencode($module['dockname']).'"><img src="' . $imgRepositoryWeb . 'down.gif" border="0" alt="' . get_lang('Down') . '" /></a></td>' . "\n";
-    }
 
-    echo     '</td>' . "\n";
-
-
+    echo '</td>' . "\n"
     //edit settings link
-
-    echo     '<td align="center"><a href="module.php?module_id='.$module['id'].'"><img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" /></a></td>' . "\n";
-
+    .    '<td align="center">'
+    .    '<a href="module.php?module_id='.$module['id'].'">'
+    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+    .    '</a>'
+    .    '</td>' . "\n"
     //uninstall link
-
-    echo     '<td align="center"><a href="module_list.php?cmd=up&module_id='.$module['id'].'&selected_type='.$selected_type.'&cmd=uninstall"><img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" /></a></td>' . "\n";
-
-
-    echo    '</tr>';
+    .    '<td align="center">'
+    .    '<a href="module_list.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'&cmd=uninstall">'
+    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+    .    '</a>'
+    .    '</td>' . "\n"
+    .    '</tr>'
+    ;
 }
 
 //end table...

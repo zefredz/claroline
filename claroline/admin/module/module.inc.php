@@ -28,11 +28,11 @@ function activate_module($module_id)
 
     //2- change related entry in the main DB
 
-    $sql = "UPDATE `".$tbl_module."` as M
-                   SET M.`activation` = 'activated'
-                 WHERE M.`id`=".$module_id."";
+    $sql = "UPDATE `" . $tbl_module."`
+            SET `activation` = 'activated'
+            WHERE `id` = " . (int) $module_id;
 
-    claro_sql_query($sql);
+    return claro_sql_query($sql);
 }
 
 /**
@@ -53,17 +53,18 @@ function desactivate_module($module_id)
     $tbl_module = $tbl_name['module'];
 
     $sql = "UPDATE `" . $tbl_module . "`
-               SET `activation` = 'desactivated'
-             WHERE `id`= " . (int) $module_id;
+            SET `activation` = 'desactivated'
+            WHERE `id`= " . (int) $module_id;
 
-    claro_sql_query($sql);
+    return claro_sql_query($sql);
 }
 
 /**
  * function to set the dock in which the module displays its content
  *
+ * @param unknown_type $module_id
+ * @param unknown_type $new_dock
  */
-
 function set_module_dock($module_id, $new_dock)
 {
     $tbl_name = claro_sql_get_main_tbl();
@@ -117,7 +118,7 @@ function set_module_dock($module_id, $new_dock)
     else
     {
         // the module has not dock, we create an entry in the DB for it
-        $sql = "INSERT INTO `".$tbl_dock."` (
+        $sql = "INSERT INTO `" . $tbl_dock . "` (
                    module_id,
                    name,
                    rank
@@ -270,7 +271,6 @@ function install_module()
     {
         array_push ($backlog_message, get_lang('Manifest open : manifest.xml'));
         $data = fread($fp, filesize($file));
-
     }
 
     //parse manifest
@@ -341,9 +341,9 @@ function install_module()
                 '" . $module_info['CLARO_VERSION'] . "',
                 '" . $module_info['AUTHOR_NAME'  ] . "',
                 '" . $module_info['AUTHOR_EMAIL' ] . "',
-                '".$module_info['AUTHOR_WEB'   ]."',
-                '".$module_info['DESCRIPTION'  ]."',
-                '".$module_info['LICENSE'      ]."'
+                '" . $module_info['AUTHOR_WEB'   ] . "',
+                '" . $module_info['DESCRIPTION'  ] . "',
+                '" . $module_info['LICENSE'      ] . "'
                 )";
     $module_info_id =  claro_sql_query_insert_id($sql);
 
