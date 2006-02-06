@@ -123,8 +123,7 @@ class Assignment
      * @return boolean load successfull ?
      */   
     function load($assignment_id)
-    {
-    		
+    {    		
 	    $sql = "SELECT
 					`id`,
 	                `title`,
@@ -273,17 +272,21 @@ class Assignment
      */
 	function delete()
 	{		
-			// TODO $this->getSubmissionList() and delete each submission of this assignment using $submission->delete();
-			foreach( $this->getSubmissionList() as $submission )
-			{
-				SUBMISSION::delete($submission['id'],$this->assigDirSys.$submission['filename']);
-			}
-			// TODO if no error : delete assignment directory
-			return false; // if error	    
+		/*
+		// TODO $this->getSubmissionList() and delete each submission of this assignment using $submission->delete();
+		foreach( $this->getSubmissionList() as $submission )
+		{
+			SUBMISSION::delete($submission['id'],$this->assigDirSys.$submission['filename']);
+		}
+		// if no error : delete assignment directory
+		//return false; // if error	    
+		*/
 
-		$sql = "DELETE FROM `".$this->tblAssignment."` WHERE `assignment_id`= '".$this->id."'";
+		$sql = "DELETE FROM `".$this->tblAssignment."`
+				WHERE `id` = '".$this->id."'";
+				
 		claro_sql_query($sql);
-		
+		// is it required to empty the fields of the object ?		
 		return true;
 	}
 
@@ -312,6 +315,7 @@ class Assignment
 		
 		return false;
     }
+    
 	/**
      * get submission list of assignment
      *
@@ -329,26 +333,76 @@ class Assignment
 		
 		return claro_sql_query_fetch_all($sql);
     }
-    /*
-		//TODO get unique filename function 
-		while( file_exists($assigDirSys.$filename.'_'.$i.$extension) ) $i++;
 
-        $prefillDocPath = $filename.'_'.$i.$extension;
+	/**
+     * builds required paths and sets values in assigDirSys and assigDirWeb
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
      */
-    // getter and setter
-    // TODO getter and setter as unix timestamp AND as datetime for date
+	function buildDirPaths()
+	{
+		global $_course;
+		
+		$this->assigDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'work/assig_'.$this->id.'/';
+		$this->assigDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'work/assig_'.$this->id.'/';			
+	}
+	
+	/**
+     * get a unique filename for the new file to add
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string unique filename with extension  
+     */
+	function createUniqueFilename($filename)
+	{
+		$dotPosition = strrpos($filename, '.');
 
+        if( $dotPosition !== false &&  $dotPosition != 0 )
+        {
+            // if a dot was found and not as first letter (case of files like .blah)
+            $basename = substr($filename, 0, $dotPosition );
+            $extension = substr($filename, $dotPosition);
+        }
+        else
+        {
+            // if we have no extension
+            $basename = $filename;
+            $extension = '';
+        }
+		$i = 1;
+		while( file_exists($this->assigDirSys.$basename.'_'.$i.$extension) ) $i++;
+		
+		return $basename.'_'.$i.$extension;		
+	}
+	
+	/**
+     * get title
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	 
 	function getTitle()
 	{
 		return $this->title;		
 	}
 	
+	/**
+     * set title
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @param string $value   
+     */	 	
 	function setTitle($value)
 	{
 		$this->title = $value;	
 	}
 	
-	 
+	/**
+     * get description
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	  
 	function getDescription()
 	{
 		return $this->description;	
@@ -359,7 +413,12 @@ class Assignment
 		$this->description = $value;	
 	}
 	
-	 
+	/**
+     * get visibility ('VISIBLE', 'INVISIBLE')
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	 	 
 	function getVisibility()
 	{
 		return $this->visibility;
@@ -377,7 +436,12 @@ class Assignment
 		return false;
 	}
 	
-	 
+	/**
+     * get default submission visibility ('VISIBLE', 'INVISIBLE')
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	 
 	function getDefaultSubmissionVisibility()
 	{
 		return $this->defaultSubmissionVisibility;
@@ -395,7 +459,12 @@ class Assignment
 		return false;
 	}
 	
-	 
+	/**
+     * get assignment type ('INDIVIDUAL', 'GROUP')
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	  
 	function getAssignmentType()
 	{
 		return $this->assignmentType;
@@ -413,7 +482,12 @@ class Assignment
 		return false;
 	}
 	
-	 
+	/**
+     * get submission type ('TEXT', 'TEXTFILE', 'FILE')
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	  
 	function getSubmissionType()
 	{
 		return $this->submissionType;
@@ -431,7 +505,12 @@ class Assignment
 		return false;
 	}
 	
-	 
+	/**
+     * get value of allow late upload ('YES', 'NO')
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	  
 	function getAllowLateUpload()
 	{
 		return $this->allowLateUpload;
@@ -449,7 +528,12 @@ class Assignment
 		return false;			
 	}
 	
-	 
+	/**
+     * get start date (as unix timestamp)
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return integer a unix time stamp   
+     */	  
 	function getStartDate()
 	{
 		return $this->startDate;
@@ -460,6 +544,12 @@ class Assignment
 		$this->startDate = (int) $value;
 	}
 	
+	/**
+     * get end date (as unix timestamp)
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return integer a unix time stamp      
+     */	 
 	function getEndDate()
 	{
 		return $this->endDate;
@@ -469,7 +559,13 @@ class Assignment
 	{
 		$this->endDate = (int) $value;
 	}
-	 
+	
+	/**
+     * get text auto submitted feedback
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	  
 	function getAutoFeedbackText()
 	{
 		return $this->autoFeedbackText;	
@@ -480,7 +576,12 @@ class Assignment
 		$this->autoFeedbackText = $value;
 	}
 	
-	 
+	/**
+     * get filename of a file (if exists) attached to the auto submitted feedback
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	  
 	function getAutoFeedbackFilename()
 	{
 		return $this->autoFeedbackFilename;
@@ -491,7 +592,12 @@ class Assignment
 		$this->autoFeedbackFilename = $value;
 	}
 	
-	
+	/**
+     * get the method of submission of auto submitted feedbacks ('ENDDATE', 'AFTERPOST')
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string    
+     */	 
 	function getAutoFeedbackSubmitMethod()
 	{
 		return $this->autoFeedbackSubmitMethod;
@@ -508,15 +614,5 @@ class Assignment
 		}
 		return false;	
 	}
-
-	function buildDirPaths()
-	{
-		global $_course;
-		
-		$this->assigDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'work/assig_'.$this->id.'/';
-		$this->assigDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'work/assig_'.$this->id.'/';
-			
-	}
-
 }
 ?>
