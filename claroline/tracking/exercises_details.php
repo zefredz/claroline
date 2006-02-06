@@ -172,19 +172,26 @@ if ( $is_trackingEnabled )
     // display tab content
     foreach( $exo_users_details as $exo_users_detail )
     {
-        if ( $exo_users_detail['minimum'] == '' )
+        if ( $exo_users_detail['attempts'] == 0 )
         {
-            $exo_users_detail['minimum'] = 0;
-            $exo_users_detail['maximum'] = 0;
+            $exo_users_detail['minimum'] = '-';
+            $exo_users_detail['maximum'] = '-';
+            $displayedAverage = '-';
+            $displayedAvgTime = '-';
+        }
+        else
+        {
+        	$displayedAverage = round($exo_users_detail['average']*100)/100;
+        	$displayedAvgTime = claro_disp_duration(floor($exo_users_detail['avgTime']));	
         }
         echo      '<tr>'."\n"
                   .'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->selectId().'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
-                  .'<td>'.(round($exo_users_detail['average']*100)/100).'</td>'."\n"
+                  .'<td>'.$displayedAverage.'</td>'."\n"
                   .'<td>'.$exo_users_detail['attempts'].'</td>'."\n"
-                  .'<td>'.claro_disp_duration(floor($exo_users_detail['avgTime'])).'</td>'."\n"
+                  .'<td>'.$displayedAvgTime.'</td>'."\n"
                 .'</tr>'."\n\n";
     }
     // foot of table
