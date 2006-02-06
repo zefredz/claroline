@@ -23,7 +23,7 @@
 class claro_html
 {
 
-    /**
+/**
  * display a item list as vertical menu.
  *
  * @param array $itemList each item are include in a list.
@@ -32,16 +32,20 @@ class claro_html
  */
     function menu_vertical($itemList)
     {
-        // class="toollink"
-        $htmlStream = '<UL class="menu vmenu">' . "\n";
-        foreach($itemList as $item )
+        if (is_array($itemList)&&count($itemList))
         {
-            $htmlStream .= '<LI>' . "\n"
-            .              $item
-            .              '</LI>' . "\n"
-            ;
+            $htmlStream = '<ul class="menu vmenu">' . "\n";
+            foreach($itemList as $item )
+            {
+                $htmlStream .= '<li>' . "\n"
+                .              $item
+                .              '</li>' . "\n"
+                ;
+            }
+            $htmlStream .= '</ul>' . "\n";
         }
-        $htmlStream .= '</UL>' . "\n";
+        else
+        $htmlStream ='';
         return $htmlStream;
     }
 
@@ -66,7 +70,7 @@ class claro_html
         return $htmlStream;
     }
 
-    /**
+/**
  * Return the claroline sytled url for a link to a tool
  *
  * @param string $url
@@ -79,9 +83,10 @@ class claro_html
         $attributeConcat = 'class="toollink" ';
         if (is_array($attributeList))
         {
-            foreach ($attributeList as $attribute)
+            foreach ($attributeList as $key => $attribute)
             {
-                $attributeConcat .= $attribute['name'].'="'.$attribute['value'].'" ';
+                $attributeConcat .= (is_array($attribute) ? $attribute['name'].'="'.$attribute['value'].'" ' : $key.'="'.$attribute.'" ');
+
             }
 
         }
@@ -287,7 +292,7 @@ class claro_html
     }
 
 
-    /**
+/**
  * Function used to draw a progression bar
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
@@ -356,6 +361,41 @@ class claro_html
             else        echo   claro_html::message_box($msgBox);
         }
     }
+
+
+
+/**
+ * prepare the 'option' html tag for the claro_disp_nested_select_menu()
+ * function
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param array $elementList
+ * @param integer  $deepness (optionnal, default is 0)
+ * @return array of option list
+ */
+
+
+    function nestedArrayToOptionList($elementList, $deepness = 0)
+    {
+        foreach($elementList as $thisElement)
+        {
+            $tab = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $deepness);
+
+            $optionTagList[$thisElement['value']] =  $tab.$thisElement['name'] ;
+            if (   isset( $thisElement['children'] )
+            && sizeof($thisElement['children'] ) > 0)
+            {
+                $optionTagList = array_merge( $optionTagList,
+                prepare_option_tags($thisElement['children'],
+                $deepness + 1 ) );
+            }
+        }
+
+        return  $optionTagList;
+    }
+
+
 }
 
 /**
@@ -665,9 +705,9 @@ function claro_disp_tool_view_option($viewModeRequested = false)
     {
         case 'COURSE_ADMIN' :
 
-        $studentButton     = '<a href="' . $url . '&amp;viewMode=STUDENT">'
-        . get_lang('Student')
-        . '</a>'
+        $studentButton = '<a href="' . $url . '&amp;viewMode=STUDENT">'
+        .                get_lang('Student')
+        .                '</a>'
         ;
         $courseAdminButton = '<b>' . get_lang('Course manager') . '</b>';
 
