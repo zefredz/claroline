@@ -205,15 +205,12 @@ function install_module()
     //unzip files
 
     $baseWorkDir = $rootSys . 'claroline/module/';
-    $uploadDir   = 'tmp/';
-    $workDir     = $baseWorkDir . $uploadDir;
 
-    if (!claro_mkdir($workDir))
-    {
-        array_push ($backlog_message,get_lang('Repository creation failed for the new module :'.$workDir));
-        claro_delete_file($workDir);
-        return $backlog_message;
-    }
+    //create temp dir for upload
+
+    $uploadDirFullPath   = tempdir($baseWorkDir);
+    $uploadDir           = str_replace($baseWorkDir,'',$uploadDirFullPath);
+    $workDir             = $baseWorkDir.$uploadDir.'/';
 
     if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) && treat_uploaded_file($_FILES['uploadedModule'],$baseWorkDir, $uploadDir, $maxFilledSpaceForModule,'unzip',true))
     {
@@ -639,4 +636,21 @@ function elementData($parser,$data)
 
     }
 }
+
+/**
+ * function to create a temporary directory
+ */
+
+function tempdir($dir, $prefix='tmp', $mode=0777)
+  {
+   if (substr($dir, -1) != '/') $dir .= '/';
+
+   do
+   {
+     $path = $dir.$prefix.mt_rand(0, 9999999);
+   } while (!claro_mkdir($path, $mode));
+   
+   return $path;
+  }
+
 ?>
