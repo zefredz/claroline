@@ -215,21 +215,17 @@ if ( isset($_POST['claroFormId']) )
 }
 
 /*----------------------------------------------------------------------
-  Find MODULES's includes to add and include them
+  Find MODULES's includes to add and include them using a cache system
  ----------------------------------------------------------------------*/
 
-$sql = "SELECT * FROM `".$tbl_module."` AS M
-                WHERE M.`activation` = 'activated'";
+$module_cache_filename = '/module_cache.php';
 
-$module_list = claro_sql_query_fetch_all($sql);
-
-foreach($module_list as $module)
+if (!file_exists($includePath.$module_cache_filename))
 {
-   if (file_exists($includePath.'/../module/'.$module['label'].'/functions.php'))
-   {
-       require $includePath.'/../module/'.$module['label'].'/functions.php';
-       
-   }
+    require_once $includePath . '/../admin/module/module.inc.php';
+    generate_module_cache();
 }
+
+include $includePath.$module_cache_filename;
 
 ?>
