@@ -18,8 +18,8 @@ $_tid='deletecourse';
 
 
 define('DISP_CONFIRM_DELETE', __LINE__);
-define('DISP_DELETE_RESULT', __LINE__);
-define('DISP_NOT_ALLOWED', __LINE__);
+define('DISP_DELETE_RESULT',  __LINE__);
+define('DISP_NOT_ALLOWED',    __LINE__);
 
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
