@@ -56,7 +56,13 @@ function desactivate_module($module_id)
             SET `activation` = 'desactivated'
             WHERE `id`= " . (int) $module_id;
 
-    return claro_sql_query($sql);
+    $result = claro_sql_query($sql);
+
+    //3- cache file with the module's include must be renewed after desactivation of the module
+
+    generate_module_cache();
+
+    return $result;
 }
 
 /**
@@ -390,7 +396,11 @@ function install_module()
         array_push ($backlog_message, get_lang('<b>install.php</b> file found and called in the module repository'));
     }
 
-    //6- return the backlog
+    //6- cache file with the module's include must be renewed after installation of the module
+
+    generate_module_cache();
+
+    //7- return the backlog
 
     return $backlog_message;
 }
@@ -465,6 +475,10 @@ function uninstall_module($module_id)
     // 4- remove all docks entries in which the module displays
 
     remove_module_dock($module_id);
+
+    //5- cache file with the module's include must be renewed after uninstallation of the module
+
+    generate_module_cache();
 
     return $backlog_message;
 
@@ -652,5 +666,53 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
    
    return $path;
   }
+
+/**
+ * Function to generate the cache php file with the needed include of activated module of the platform.
+ *
+ *
+ */
+
+function generate_module_cache()
+{
+    global $includePath;
+    global $module_cache_filename;
+
+    $tbl_name = claro_sql_get_main_tbl();
+    $tbl_module = $tbl_name['module'];
+
+    $sql = "SELECT M.`label` AS `label`
+              FROM `".$tbl_module."` AS M
+             WHERE M.`activation` = 'activated'";
+    $module_list = claro_sql_query_fetch_all($sql);
+
+    if (is_writable($includePath))
+    {
+        $handle = fopen($includePath.$module_cache_filename,'w');
+    }
+    else
+    {
+        echo 'ERROR: directory is not writable';
+    }
+
+    fwrite($handle, '<?php '."\n");
+
+    foreach($module_list as $module)
+    {
+        if (file_exists($includePath.'/../module/'.$module['label'].'/functions.php'))
+        {
+            $dock_include = 'require "'.$includePath.'/../module/'.$module['label'].'/functions.php"; '."\n";
+
+            if (fwrite($handle, $dock_include) === FALSE)
+            {
+                echo "ERROR: could not write in (".$filename.")";
+            }
+        }
+    }
+
+    fwrite($handle, '?>'."\n");
+    fclose($handle);
+    echo 'cache regenerated';
+}
 
 ?>

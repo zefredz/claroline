@@ -83,7 +83,7 @@ $debug_mode = true;
 
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/fileUpload.lib.php';
-require_once 'module.inc.php';
+require_once $includePath . '/../admin/module/module.inc.php';
 
 $typeList[] = 'applet';
 $typeList[] = 'coursetool';
