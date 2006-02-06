@@ -59,7 +59,7 @@ echo $campusBannerRightDock->render();
 ?>
 <div class="spacer"></div>
 </div>
-<?
+<?php
 
 /******************************************************************************
                                   USER SECTION
