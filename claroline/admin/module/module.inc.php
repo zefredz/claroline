@@ -74,9 +74,9 @@ function set_module_dock($module_id, $new_dock)
 
     //find info about this module in DB
 
-    $sql = "SELECT *,
-                   D.`name` AS old_dockname,
-                   D.`rank` AS old_rank
+    $sql = "SELECT D.`name` AS old_dockname,
+                   D.`rank` AS old_rank,
+                   D.`module_id` AS module_id
             FROM `" . $tbl_module . "` AS M
                , `" . $tbl_dock   . "` AS D
             WHERE M.`id` = D.`module_id`
@@ -215,7 +215,7 @@ function install_module()
         return $backlog_message;
     }
 
-    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) && unzip_uploaded_file($_FILES['uploadedModule'], $uploadDir, $baseWorkDir, $maxFilledSpaceForModule,true))
+    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) && treat_uploaded_file($_FILES['uploadedModule'],$baseWorkDir, $uploadDir, $maxFilledSpaceForModule,'unzip',true))
     {
         array_push ($backlog_message, get_lang('Files dezipped sucessfully in ' . $workDir));
 
@@ -257,7 +257,7 @@ function install_module()
     xml_set_element_handler($xml_parser, 'startElement', 'endElement');
     xml_set_character_data_handler($xml_parser, 'elementData');
 
-    $file = "manifest.xml";
+    $file = $workDir. 'manifest.xml';
 
     //open manifest
 
@@ -274,7 +274,6 @@ function install_module()
     }
 
     //parse manifest
-
 
     if (!xml_parse($xml_parser, $data, feof($fp)))
     {
@@ -380,9 +379,12 @@ function install_module()
 
     if (file_exists($baseWorkDir . $module_info['LABEL'] . '/install/install.sql'))
     {
-        $sql = file_get_contents($baseWorkDir . $module_info['LABEL'] . '/install/install.sql');
-        if (!empty($sql)) claro_sql_query($sql);
-        array_push ($backlog_message, get_lang('<b>install.sql</b> file found and called in the module repository'));
+        $sql = file_get_contents($baseWorkDir.$module_info['LABEL'].'/install/install.sql');
+        if (!empty($sql))
+        {
+            claro_sql_query($sql); //multiquery should be assumed here
+        }
+        array_push ($backlog_message, get_lang("<b>install.sql</b> file found and called in the module repository"));
     }
 
     if (file_exists($baseWorkDir . $module_info['LABEL'] . '/install/install.php'))
@@ -434,7 +436,7 @@ function uninstall_module($module_id)
         $sql = file_get_contents($baseWorkDir . $module['label'] . '/uninstall/uninstall.sql');
         if (!empty($sql))
         {
-            claro_sql_query($sql);
+            claro_sql_query($sql); //multiquery should be assumed here
         }
         array_push ($backlog_message, get_lang('<b>uninstall.sql</b> file found and called in the module repository'));
     }
@@ -492,7 +494,7 @@ function get_max_rank_in_dock($dockname)
     $tbl_dock = $tbl_name['dock'];
 
     $sql = "SELECT MAX(rank) AS mrank
-            FROM `" . $tbl_dock . "`
+            FROM `" . $tbl_dock . "` AS D
             WHERE D . `name` = '" . addslashes($dockname) . "'";
     $max_rank = claro_sql_query_get_single_value($sql);
     return (int) $max_rank;
