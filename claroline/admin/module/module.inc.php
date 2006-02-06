@@ -712,7 +712,6 @@ function generate_module_cache()
 
     fwrite($handle, '?>'."\n");
     fclose($handle);
-    echo 'cache regenerated';
 }
 
 ?>
