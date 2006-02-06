@@ -102,7 +102,9 @@ if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )          // lear
 else                                        // normal exercise mode
 {
     $is_allowedToEdit = true; // allow to be in admin mode
-    $interbredcrump[] = array('url' => 'exercice.php', 'name' => get_lang('Exercices'));
+
+    $interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
+    $noPHP_SELF = true;
 }
 include $includePath . '/claro_init_header.inc.php';
 
