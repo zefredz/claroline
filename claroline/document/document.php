@@ -1470,27 +1470,29 @@ echo claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = '<span class="claroCmdDisabled">' . get_lang('Files') . '</span>' . "\n" . ' | ';
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                . get_lang('Files')
+                . "</span>\n | ";
         }
         else
         {
-            $docViewToolbar = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-            .                 '?docView=files&amp;cmd=exChDir&amp;file=' . $curDirPath . $searchCmdUrl . '">'
-                 //."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
-            .                 get_lang('Files') . '</a>' . "\n" . ' | '
-            ;
+            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+                 . "?docView=files&amp;cmd=exChDir&amp;file=". $curDirPath . $searchCmdUrl ."\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                 . get_lang('Files') ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
         {
             $docViewToolbar .= "<span class=\"claroCmdDisabled\">"
-                ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
-                .get_lang('Thumbnails')."</span>\n";
+                . "<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                . get_lang('Thumbnails')."</span>\n";
         }
         else
         {
             $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
-                 . "?docView=thumbnails&amp;cwd=". $curDirPath . $offset . $searchCmdUrl ."\">"
-                 ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
+                 . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
                  . get_lang('Thumbnails')."</a>\n";
         }
 
@@ -1643,26 +1645,29 @@ echo claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = "<span class=\"claroCmdDisabled\">". get_lang('Files') . "</span>\n | ";
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                . get_lang('Files')
+                . "</span>\n | ";
         }
         else
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
                  . "?docView=files&amp;cmd=exChDir&amp;file=". $curDirPath . $searchCmdUrl ."\">"
-                 //."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
                  . get_lang('Files') ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"."<img src=\"".$imgRepositoryWeb
-                ."image.gif\" border=\"0\" alt=\"\">\n"
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
                 . get_lang('Thumbnails')."</span>\n";
         }
         else
         {
             $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
-                 . "?docView=thumbnails&amp;cwd=". $curDirPath . $searchCmdUrl ."\">"
-                 ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
+                 . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
                  . get_lang('Thumbnails')."</a>\n";
         }
 
@@ -1848,26 +1853,29 @@ echo claro_disp_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar = "<span class=\"claroCmdDisabled\">".get_lang('Files')."</span>\n | ";
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                . get_lang('Files')
+                . "</span>\n | ";
         }
         else
         {
             $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
                  . "?docView=files&amp;cmd=exChDir&amp;file=". $curDirPath . $searchCmdUrl ."\">"
-                 //."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
                  . get_lang('Files') ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"."<img src=\"".$imgRepositoryWeb
-                ."image.gif\" border=\"0\" alt=\"\">\n"
-                .get_lang('Thumbnails')."</span>\n";
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                . get_lang('Thumbnails')."</span>\n";
         }
         else
         {
             $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
                  . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
-                 ."<img src=\"".$imgRepositoryWeb."image.gif\" border=\"0\" alt=\"\">\n"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
                  . get_lang('Thumbnails')."</a>\n";
         }
 
