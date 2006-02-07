@@ -31,8 +31,13 @@ function activate_module($module_id)
     $sql = "UPDATE `" . $tbl_module."`
             SET `activation` = 'activated'
             WHERE `id` = " . (int) $module_id;
+    $result = claro_sql_query($sql);
 
-    return claro_sql_query($sql);
+    //3- cache file with the module's include must be renewed after activation of the module
+
+    generate_module_cache();
+
+    return $result;
 }
 
 /**
@@ -118,7 +123,7 @@ function set_module_dock($module_id, $new_dock)
         else
         {
             //we are not changing the dock!
-            echo get_lang('we are not changing dock');
+            //echo get_lang('we are not changing dock');
         }
     }
     else
