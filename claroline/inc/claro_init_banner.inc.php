@@ -132,21 +132,21 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
 ?>
 <div id="courseBanner">
 <?php
-$courseName = '<div id="course"> <h2 id="courseName"><a href="'. $coursesRepositoryWeb . $_course['path'] .'/index.php" target="_top">'.$_course['name'] .'</a></h2>';
-$courseBannerLeftDock->addOutput($courseName);
+    $courseName = '<div id="course"> <h2 id="courseName"><a href="'. $coursesRepositoryWeb . $_course['path'] .'/index.php" target="_top">'.$_course['name'] .'</a></h2>';
+    $courseBannerLeftDock->addOutput($courseName);
 
-$courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>
-</div>
-<div id="courseToolList">';
+    $courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>
+        </div>
+    <div id="courseToolList">';
 
-$courseBannerLeftDock->addOutput($courseCodeDisplay);
+    $courseBannerLeftDock->addOutput($courseCodeDisplay);
 
-echo $courseBannerLeftDock->render();
+    echo $courseBannerLeftDock->render();
 
 
-//COURSE BANNER LEFT DOCK declaration
+    //COURSE BANNER LEFT DOCK declaration
 
-$courseBannerRightDock = new Dock('courseBannerRight');
+    $courseBannerRightDock = new Dock('courseBannerRight');
 
     /*------------------------------------------------------------------------
                              COURSE TOOLS SELECTOR
@@ -189,17 +189,14 @@ if (is_array($_courseToolList) && $is_courseAllowed)
             ;
         }
     } // end if is_array _courseToolList
-    $courseToolSelector .=
-'</select>
-<noscript>
-<input type="submit" name="gotool" value="go">
-</noscript>
-
-</form>';
+    $courseToolSelector .='</select>
+                            <noscript>
+                            <input type="submit" name="gotool" value="go">
+                            </noscript>
+                            </form>';
+    $courseBannerRightDock->addOutput($courseToolSelector);
 
 } // end if is_array($courseTooList) && $isCourseAllowed
-
-$courseBannerRightDock->addOutput($courseToolSelector);
 
 echo $courseBannerRightDock->render();
 
