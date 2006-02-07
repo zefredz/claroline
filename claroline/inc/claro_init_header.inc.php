@@ -50,7 +50,6 @@ $titlePage .= $siteName;
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Type" content="text/HTML; charset=<?php echo $charset; ?>"  />
 
-<link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/compatible.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="screen, projection, tv" />
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/print.css" media="print" />
 
