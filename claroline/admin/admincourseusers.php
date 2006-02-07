@@ -92,10 +92,10 @@ $courseData = claro_get_course_data($cidToEdit);
 //----------------------------------
 // Build query and find info in db
 //----------------------------------
-$sql = "SELECT u.user_id  AS user_id,
-               u.nom      AS name,
-               u.prenom   AS firstname,
-               u.username AS username,
+$sql = "SELECT U.user_id  AS user_id,
+               U.nom      AS name,
+               U.prenom   AS firstname,
+               U.username AS username,
                IF(CU.statut=1,'COURSE_MANAGER','STUDENT') AS `status`
         FROM  `" . $tbl_mdb_names['user'] . "` AS U
             , `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
