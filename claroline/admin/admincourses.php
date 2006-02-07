@@ -91,9 +91,9 @@ $addToURL = '';
 /**
  * Check incoming data
  */
-$offsetC = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC']       : '0';
-$cmd     = isset($_REQUEST['cmd'])     ? $_REQUEST['cmd']           : null;
-$delCode = isset($_REQUEST['delCode']) ? (int) $_REQUEST['delCode'] : null;
+$offsetC = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
+$cmd     = isset($_REQUEST['cmd'])     ? $_REQUEST['cmd']     : null;
+$delCode = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
 
 /**
  * @todo TODO Guim would  documentate this following test
