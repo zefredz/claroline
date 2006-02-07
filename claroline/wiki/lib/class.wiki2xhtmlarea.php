@@ -48,7 +48,7 @@
             
             $attributeList = array();
             $attributeList['name'] = $name;
-            $attributeList['id'] = $name;
+            $attributeList['id'  ] = $name;
             $attributeList['cols'] = $cols;
             $attributeList['rows'] = $rows;
             

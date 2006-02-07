@@ -158,16 +158,21 @@
                 }
                  
                 $attr = ' src="'.$this->protectAttr($this->protectUrls($url ) ).'"' . $attr .= (count($data) > 1 )
-                ? ' alt="'.$this->protectAttr($content ).'"' :
-                ' alt=""' ;
+                    ? ' alt="'.$this->protectAttr($content ).'"' 
+                    : ' alt=""'
+                    ;
                 $attr .= ($lang )
-                ? ' lang="'.$lang.'"' :
-                '' ;
+                    ? ' lang="'.$lang.'"'
+                    : ''
+                    ;
                 $attr .= ($title )
-                ? ' title="'.$this->protectAttr($title).'"' :
-                '' ;
-                $attr .= (is_array($img_size ) ) ? ' '.$img_size[3] :
-                '';
+                    ? ' title="'.$this->protectAttr($title).'"'
+                    : ''
+                    ;
+                $attr .= (is_array($img_size ) ) 
+                    ? ' '.$img_size[3]
+                    : ''
+                    ;
                  
                 $tag = 'img';
                 $type = 'close';
@@ -194,11 +199,13 @@
                 }
 
                 $attr .= ($lang)
-                ? ' hreflang="'.$lang.'"' :
-                '' ;
+                    ? ' hreflang="'.$lang.'"' 
+                    : ''
+                    ;
                 $attr .= ($title)
-                ? ' title="'.$this->protectAttr($title ).'"' :
-                '' ;
+                    ? ' title="'.$this->protectAttr($title ).'"' 
+                    : ''
+                    ;
                  
                 return $content;
             }
@@ -268,43 +275,56 @@
           );
 
           # Suppression des tags selon les options
-          if (!$this->getOpt('active_urls')) {
+          if (!$this->getOpt('active_urls'))
+          {
             unset($this->tags['a']);
           }
-          if (!$this->getOpt('active_img')) {
+          if (!$this->getOpt('active_img'))
+          {
             unset($this->tags['img']);
           }
-          if (!$this->getOpt('active_anchor')) {
+          if (!$this->getOpt('active_anchor'))
+          {
             unset($this->tags['anchor']);
           }
-          if (!$this->getOpt('active_em')) {
+          if (!$this->getOpt('active_em'))
+          {
             unset($this->tags['em']);
           }
-          if (!$this->getOpt('active_strong')) {
+          if (!$this->getOpt('active_strong'))
+          {
             unset($this->tags['strong']);
           }
-          if (!$this->getOpt('active_q')) {
+          if (!$this->getOpt('active_q'))
+          {
             unset($this->tags['q']);
           }
-          if (!$this->getOpt('active_code')) {
+          if (!$this->getOpt('active_code'))
+          {
             unset($this->tags['code']);
           }
-          if (!$this->getOpt('active_acronym')) {
+          if (!$this->getOpt('active_acronym'))
+          {
             unset($this->tags['acronym']);
           }
-          if (!$this->getOpt('active_ins')) {
+          if (!$this->getOpt('active_ins'))
+          {
             unset($this->tags['ins']);
           }
-          if (!$this->getOpt('active_del')) {
+          if (!$this->getOpt('active_del'))
+          {
             unset($this->tags['del']);
           }
-          if (!$this->getOpt('active_footnotes')) {
+          if (!$this->getOpt('active_footnotes'))
+          {
             unset($this->tags['note']);
           }
-          if (!$this->getOpt('active_wikiwords')) {
+          if (!$this->getOpt('active_wikiwords'))
+          {
             unset($this->tags['word']);
           }
-          if (!$this->getOpt('active_macros')) {
+          if (!$this->getOpt('active_macros'))
+          {
             unset($this->tags['macro']);
           }
 
