@@ -97,9 +97,7 @@ $sql = "SELECT M.`label`      AS label,
 $module = claro_sql_query_get_single_row($sql);
 
 $sql = "SELECT D.`name` AS `dockname`
-        FROM `" . $tbl_module      . "` AS M
-           , `" . $tbl_module_info . "` AS MI
-           , `" . $tbl_dock        . "` AS D
+        FROM `" . $tbl_dock        . "` AS D
         WHERE  D.`module_id` = " . (int) $module_id;
 
 $module_dock = claro_sql_query_get_single_row($sql);
