@@ -61,9 +61,19 @@ $titlePage .= $siteName;
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
 <link href="http://www.claroline.net" rel="Copyright" />
 
-<script type="text/javascript">document.cookie="javascriptEnabled=true";</script>
+<script type="text/javascript">
+document.cookie="javascriptEnabled=true";
+function claro_session_loss_countdown(sessionLifeTime){
+    chrono = setTimeout('warn_of_session_loss()', sessionLifeTime * 1000);
+}
+
+function claro_warn_of_session_loss() {
+    alert('WARNING ! You have just lost your session on the server. \n Copy any text you are currently writing and paste it outside the browser.');
+}
+</script>
+
 <?php
-if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
+if ( isset($htmlHeadXtra) && is_array($htmlHeadXtra) )
 {
     foreach($htmlHeadXtra as $thisHtmlHead)
     {
@@ -75,19 +85,9 @@ if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 
 <?php
 
-//add onload javascript function calls to body
-if( isset($claroBodyOnload) && is_array($claroBodyOnload) && count($claroBodyOnload) > 0 )
-{
-    $onload = ' onload="';
-    $onload .= implode('', $claroBodyOnload );
-    $onload .= '"';
-} 
-else
-{
-    $onload = '';
-}
+$claroBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
 
-echo '<body dir="' . $text_dir . '" ' . $onload . '>';
+echo '<body dir="' . $text_dir . '" onload="' . implode('', $claroBodyOnload ) . '">';
 
 //  Banner
 
