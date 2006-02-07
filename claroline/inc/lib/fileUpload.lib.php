@@ -93,8 +93,7 @@ function php2phps ($fileName)
 
 function htaccess2txt($fileName)
 {
-    $fileName = str_replace('.htaccess', 'htaccess.txt', $fileName);
-    $fileName = str_replace('.HTACCESS', 'HTACCESS.txt', $fileName);
+    $fileName = str_ireplace('.htaccess', 'htaccess.txt', $fileName);
     return $fileName;
 }
 
