@@ -138,6 +138,12 @@ if ($statsDbName == '')
 }
 
 /*----------------------------------------------------------------------
+  Include the event manager declarations for the notification system
+  ----------------------------------------------------------------------*/
+
+require $includePath . '/lib/event/init_event_manager.inc.php';
+
+/*----------------------------------------------------------------------
   Include the events library for tracking
   ----------------------------------------------------------------------*/
 
@@ -148,12 +154,6 @@ require $includePath . '/lib/events.lib.inc.php';
   ----------------------------------------------------------------------*/
 
 require $includePath . '/claro_init_local.inc.php';
-
-/*----------------------------------------------------------------------
-  Include the event manager declarations for the notification system
-  ----------------------------------------------------------------------*/
-
-require $includePath . '/lib/event/init_event_manager.inc.php';
 
 /*----------------------------------------------------------------------
   Load language translation and locale settings
