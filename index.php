@@ -26,7 +26,16 @@ require_once $includePath . '/lib/courselist.lib.php'; // conf file
 
 
 // logout request : delete session data
-if (isset($_REQUEST['logout'])) session_destroy();
+
+if (isset($_REQUEST['logout']))
+{
+    // notify that a user has just loggued out
+    if (isset($logout_uid))
+    {
+        $eventNotifier->notifyEvent('user_logout', array('uid' => $logout_uid));
+    }
+    session_destroy();
+}
 
 // CLAROLINE HEADER AND BANNER
 require $includePath . '/claro_init_header.inc.php';
