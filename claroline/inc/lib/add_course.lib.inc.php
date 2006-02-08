@@ -261,76 +261,90 @@ function update_db_course($courseDbName)
     global $courseTablePrefix;
     global $dbGlu;
 
-    if(!$singleDbEnabled)
+    if (!$singleDbEnabled)
     {
         claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
-        if (mysql_errno() > 0)
-            return CLARO_ERROR_CANT_CREATE_DB;
+        if (mysql_errno() > 0) return CLARO_ERROR_CANT_CREATE_DB;
     }
 
     $courseDbName = $courseTablePrefix . $courseDbName . $dbGlu;
-    /**
-        Here function claro_sql_get_course_tbl() from main lib would be
-        called to replace the table name assignement
-    */
 
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
 
-    $TABLECOURSEHOMEPAGE    = $tbl_cdb_names['tool'];
-    $TABLEINTROS            = $tbl_cdb_names['tool_intro'];
+    // Tool list
+    $TABLECOURSEHOMEPAGE = $tbl_cdb_names['tool'];
+    $TABLEINTROS         = $tbl_cdb_names['tool_intro'];
 
-    $TABLEGROUPS            = $tbl_cdb_names['group_team'];// $courseDbName."group_team";
-    $TABLEGROUPUSER         = $tbl_cdb_names['group_rel_team_user'];//$courseDbName."group_rel_team_user";
-    $TABLEGROUPPROPERTIES   = $tbl_cdb_names['group_property'];// $courseDbName."group_property";
+    // Group
+    $TABLEGROUPS          = $tbl_cdb_names['group_team'];
+    $TABLEGROUPUSER       = $tbl_cdb_names['group_rel_team_user'];
+    $TABLEGROUPPROPERTIES = $tbl_cdb_names['group_property'];
 
-    $TABLETOOLUSERINFOCONTENT = $tbl_cdb_names['userinfo_content'];// $courseDbName."userinfo_content";
-    $TABLETOOLUSERINFODEF     = $tbl_cdb_names['userinfo_def'];// $courseDbName."userinfo_def";
+    // User Info
+    $TABLETOOLUSERINFOCONTENT = $tbl_cdb_names['userinfo_content'];
+    $TABLETOOLUSERINFODEF     = $tbl_cdb_names['userinfo_def'];
 
-    $TABLETOOLCOURSEDESC    = $tbl_cdb_names['course_description'];// $courseDbName."course_description";
-    $TABLETOOLAGENDA        = $tbl_cdb_names['calendar_event'];// $courseDbName."calendar_event";
-    $TABLETOOLANNOUNCEMENTS = $tbl_cdb_names['announcement'];// $courseDbName."announcement";
-    $TABLETOOLDOCUMENT      = $tbl_cdb_names['document'];// $courseDbName."document";
-    $TABLETOOLWRKASSIGNMENT = $tbl_cdb_names['wrk_assignment'];// $courseDbName."wrk_assignment";
-    $TABLETOOLWRKSUBMISSION = $tbl_cdb_names['wrk_submission'];// $courseDbName."wrk_submission";
+    // Course
+    $TABLETOOLCOURSEDESC    = $tbl_cdb_names['course_description'];
 
-    $TABLEQUIZ              = $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
-    $TABLEQUIZQUESTION      = $tbl_cdb_names['quiz_rel_test_question'];
-    $TABLEQUIZQUESTIONLIST  = $tbl_cdb_names['quiz_question'];//  "quiz_question";
-    $TABLEQUIZANSWERSLIST   = $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
+    // Calendar
+    $TABLETOOLAGENDA        = $tbl_cdb_names['calendar_event'];
 
-    $TABLEPHPBBCATEGORIES   = $tbl_cdb_names['bb_categories'];//  "bb_categories";
-    $TABLEPHPBBFORUMS       = $tbl_cdb_names['bb_forums'];//  "bb_forums";
-    $TABLEPHPBBNOTIFY       = $tbl_cdb_names['bb_rel_topic_userstonotify'];//  "bb_rel_topic_userstonotify"; //added for notification by email sytem for claroline 1.5
-    $TABLEPHPBBPOSTS        = $tbl_cdb_names['bb_posts'];//  "bb_posts";
-    $TABLEPHPBBPRIVMSG      = $tbl_cdb_names['bb_priv_msgs'];//  "bb_priv_msgs";
-    $TABLEPHPBBTOPICS       = $tbl_cdb_names['bb_topics'];//  "bb_topics";
-    $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];//  "bb_users";
-    $TABLEPHPBBWHOSONLINE   = $tbl_cdb_names['bb_whosonline'];//  "bb_whosonline";
+    // Announcement
+    $TABLETOOLANNOUNCEMENTS = $tbl_cdb_names['announcement'];
 
-    //linker
-    $TABLELINKS               = $tbl_cdb_names['links'];//  "lnk_links";
-    $TABLERESOURCES           = $tbl_cdb_names['resources'];//  "lnk_resources";
+    // Documents and links
+    $TABLETOOLDOCUMENT      = $tbl_cdb_names['document'];
 
-    $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
-    $TABLEMODULE             = $tbl_cdb_names['lp_module'];//  "lp_module";
-    $TABLELEARNPATHMODULE    = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
-    $TABLEASSET              = $tbl_cdb_names['lp_asset'];//  "lp_asset";
-    $TABLEUSERMODULEPROGRESS = $tbl_cdb_names['lp_user_module_progress'];//  "lp_user_module_progress";
-    // stats
-    $TABLETRACKACCESS     = $tbl_cdb_names['track_e_access'];//  "track_e_access";
-    $TABLETRACKDOWNLOADS  = $tbl_cdb_names['track_e_downloads'];//  "track_e_downloads";
-    $TABLETRACKUPLOADS    = $tbl_cdb_names['track_e_uploads'];//  "track_e_uploads";
-    $TABLETRACKEXERCICES  = $tbl_cdb_names['track_e_exercices'];//  "track_e_exercices";
-    $TABLETRACKEXEDETAILS = $tbl_cdb_names['track_e_exe_details']; //"track_e_exe_details"
-    $TABLETRACKEXEANSWERS = $tbl_cdb_names['track_e_exe_answers']; //"track_e_exe_details"
+    // Assignment
+    $TABLETOOLWRKASSIGNMENT = $tbl_cdb_names['wrk_assignment'];
+    $TABLETOOLWRKSUBMISSION = $tbl_cdb_names['wrk_submission'];
 
-    //wiki
-    $TABLEWIKIPROPERTIES   = $tbl_cdb_names['wiki_properties']; // "wiki_properties"
-    $TABLEWIKIACLS         = $tbl_cdb_names['wiki_acls']; // "wiki_acls"
-    $TABLEWIKIPAGES        = $tbl_cdb_names['wiki_pages']; // "wiki_pages"
-    $TABLEWIKIPAGESCONTENT = $tbl_cdb_names['wiki_pages_content']; // "wiki_pages_content"
+    // Exercise
+    $TABLEQUIZ             = $tbl_cdb_names['quiz_test'];
+    $TABLEQUIZQUESTION     = $tbl_cdb_names['quiz_rel_test_question'];
+    $TABLEQUIZQUESTIONLIST = $tbl_cdb_names['quiz_question'];
+    $TABLEQUIZANSWERSLIST  = $tbl_cdb_names['quiz_answer'];
 
-    $sqlList[] ="
+    // Forums
+    $TABLEPHPBBCATEGORIES   = $tbl_cdb_names['bb_categories'];
+    $TABLEPHPBBFORUMS       = $tbl_cdb_names['bb_forums'];
+    $TABLEPHPBBNOTIFY       = $tbl_cdb_names['bb_rel_topic_userstonotify']; // added for notification by email
+    $TABLEPHPBBPOSTS        = $tbl_cdb_names['bb_posts'];
+    $TABLEPHPBBPOSTSTEXT    = $tbl_cdb_names['bb_posts_text'];
+
+    $TABLEPHPBBPRIVMSG      = $tbl_cdb_names['bb_priv_msgs'];
+    $TABLEPHPBBTOPICS       = $tbl_cdb_names['bb_topics'];
+    $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];
+    $TABLEPHPBBWHOSONLINE   = $tbl_cdb_names['bb_whosonline'];
+
+    // Linker
+    $TABLELINKS               = $tbl_cdb_names['links'];
+    $TABLERESOURCES           = $tbl_cdb_names['resources'];
+
+    // Learning Path
+    $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];
+    $TABLEMODULE             = $tbl_cdb_names['lp_module'];
+    $TABLELEARNPATHMODULE    = $tbl_cdb_names['lp_rel_learnPath_module'];
+    $TABLEASSET              = $tbl_cdb_names['lp_asset'];
+    $TABLEUSERMODULEPROGRESS = $tbl_cdb_names['lp_user_module_progress'];
+
+    // Tracking
+    $TABLETRACKACCESS     = $tbl_cdb_names['track_e_access'];
+    $TABLETRACKDOWNLOADS  = $tbl_cdb_names['track_e_downloads'];
+    $TABLETRACKUPLOADS    = $tbl_cdb_names['track_e_uploads'];
+    $TABLETRACKEXERCICES  = $tbl_cdb_names['track_e_exercices'];
+    $TABLETRACKEXEDETAILS = $tbl_cdb_names['track_e_exe_details'];
+    $TABLETRACKEXEANSWERS = $tbl_cdb_names['track_e_exe_answers'];
+
+    // Wiki
+    $TABLEWIKIPROPERTIES   = $tbl_cdb_names['wiki_properties'];
+    $TABLEWIKIACLS         = $tbl_cdb_names['wiki_acls'];
+    $TABLEWIKIPAGES        = $tbl_cdb_names['wiki_pages'];
+    $TABLEWIKIPAGESCONTENT = $tbl_cdb_names['wiki_pages_content'];
+
+    // Announcements
+    $sqlList[] = "
     CREATE TABLE `".$TABLETOOLANNOUNCEMENTS."` (
       `id` mediumint(11) NOT NULL auto_increment,
       `title` varchar(80) default NULL,
@@ -339,9 +353,10 @@ function update_db_course($courseDbName)
       `ordre` mediumint(11) NOT NULL default '0',
       `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
       PRIMARY KEY  (`id`)
-    ) TYPE=MyISAM COMMENT='announcements table'";
+    ) COMMENT='announcements table'";
 
-    $sqlList[] ="
+    // User Info
+    $sqlList[] = "
     CREATE TABLE `".$TABLETOOLUSERINFOCONTENT."` (
        `id` int(10) unsigned NOT NULL auto_increment,
        `user_id` mediumint(8) unsigned NOT NULL default '0',
@@ -351,10 +366,9 @@ function update_db_course($courseDbName)
        `content` text,
        PRIMARY KEY  (`id`),
        KEY `user_id` (`user_id`)
-    ) TYPE=MyISAM COMMENT='content of users information - organisation based on
-    userinf'";
+    ) COMMENT='content of users information - organisation based on userinfo'";
 
-    $sqlList[] ="
+    $sqlList[] = "
     CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
        `id` int(10) unsigned NOT NULL auto_increment,
        `title` varchar(80) NOT NULL default '',
@@ -364,6 +378,7 @@ function update_db_course($courseDbName)
        PRIMARY KEY  (`id`)
     ) TYPE=MyISAM COMMENT='categories definition for user information of a course'";
 
+    // Forum
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBCATEGORIES."` (
         cat_id int(10) NOT NULL auto_increment,
@@ -385,9 +400,9 @@ function update_db_course($courseDbName)
         forum_last_post_id int(10) DEFAULT '0' NOT NULL,
         cat_id int(10),
         forum_type int(10) DEFAULT '0',
+        forum_order int(10) DEFAULT '0',
     PRIMARY KEY (forum_id),
-        KEY forum_last_post_id (forum_last_post_id),
-        forum_order int(10) DEFAULT '0'
+    KEY forum_last_post_id (forum_last_post_id)
     )";
 
     $sqlList[] = "
@@ -401,14 +416,19 @@ function update_db_course($courseDbName)
         nom varchar(30),
         prenom varchar(30),
     PRIMARY KEY (post_id),
-        KEY post_id (post_id),
-        KEY forum_id (forum_id),
-        KEY topic_id (topic_id),
-        KEY poster_id (poster_id)
+    KEY post_id (post_id),
+    KEY forum_id (forum_id),
+    KEY topic_id (topic_id),
+    KEY poster_id (poster_id)
     )";
 
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
+        post_id int(10) DEFAULT '0' NOT NULL,
+        post_text text,
+    PRIMARY KEY (post_id)
+    )";
 
-//  Structure de la table 'priv_msgs'
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBPRIVMSG."` (
         msg_id int(10) NOT NULL auto_increment,
@@ -419,12 +439,10 @@ function update_db_course($courseDbName)
         msg_status int(10) DEFAULT '0',
         msg_text text,
     PRIMARY KEY (msg_id),
-        KEY msg_id (msg_id),
-        KEY to_userid (to_userid)
+    KEY msg_id (msg_id),
+    KEY to_userid (to_userid)
     )";
 
-
-//  Structure de la table 'topics'
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBTOPICS."` (
         topic_id int(10) NOT NULL auto_increment,
@@ -440,13 +458,11 @@ function update_db_course($courseDbName)
         nom varchar(30),
         prenom varchar(30),
     PRIMARY KEY (topic_id),
-        KEY topic_id (topic_id),
-        KEY forum_id (forum_id),
-        KEY topic_last_post_id (topic_last_post_id)
+    KEY topic_id (topic_id),
+    KEY forum_id (forum_id),
+    KEY topic_last_post_id (topic_last_post_id)
     )";
 
-
-//  Structure de la table 'users'
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBUSERS."` (
         user_id int(10) NOT NULL auto_increment,
@@ -478,8 +494,6 @@ function update_db_course($courseDbName)
     PRIMARY KEY (user_id)
     )";
 
-
-//  Structure de la table 'whosonline'
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBWHOSONLINE."` (
         id int(3) NOT NULL auto_increment,
@@ -492,7 +506,6 @@ function update_db_course($courseDbName)
     PRIMARY KEY (id)
     )";
 
-
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBNOTIFY."` (
     `notify_id` int(10) NOT NULL auto_increment,
@@ -502,8 +515,7 @@ function update_db_course($courseDbName)
     KEY `SECONDARY` (`user_id`,`topic_id`)
     )";
 
-
-//  EXERCICES
+    // Exercises
     $sqlList[] = "
     CREATE TABLE `".$TABLEQUIZ."` (
         `id` mediumint(8) unsigned NOT NULL auto_increment,
@@ -513,15 +525,15 @@ function update_db_course($courseDbName)
         `random` smallint(6) NOT NULL default '0',
         `active` tinyint(4) unsigned NOT NULL default '0',
         `max_time` smallint(5) unsigned NOT NULL default '0',
-  `max_attempt` tinyint(3) unsigned NOT NULL default '0',
-  `show_answer` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
-  `anonymous_attempts` enum('YES','NO') NOT NULL default 'YES',
-  `start_date` datetime NOT NULL default '0000-00-00 00:00:00',
-  `end_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `max_attempt` tinyint(3) unsigned NOT NULL default '0',
+        `show_answer` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
+        `anonymous_attempts` enum('YES','NO') NOT NULL default 'YES',
+        `start_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `end_date` datetime NOT NULL default '0000-00-00 00:00:00',
     PRIMARY KEY  (id)
     )";
 
-//  QUESTIONS
+    // Questions
     $sqlList[] = "
     CREATE TABLE `".$TABLEQUIZQUESTIONLIST."` (
         id mediumint(8) unsigned NOT NULL auto_increment,
@@ -530,11 +542,11 @@ function update_db_course($courseDbName)
         ponderation float unsigned default NULL,
         q_position mediumint(8) unsigned NOT NULL default '1',
         type tinyint(3) unsigned NOT NULL default '2',
-   attached_file varchar(50) default '',
+        attached_file varchar(50) default '',
     PRIMARY KEY  (id)
     )";
 
-//  REPONSES
+    // Answers
     $sqlList[] = "
     CREATE TABLE `".$TABLEQUIZANSWERSLIST."` (
         id mediumint(8) unsigned NOT NULL default '0',
@@ -547,7 +559,7 @@ function update_db_course($courseDbName)
     PRIMARY KEY  (id, question_id)
     )";
 
-//  EXERCICE_QUESTION
+    // Exercises Questions
     $sqlList[] = "
     CREATE TABLE `".$TABLEQUIZQUESTION."` (
         question_id mediumint(8) unsigned NOT NULL default '0',
@@ -555,7 +567,7 @@ function update_db_course($courseDbName)
     PRIMARY KEY  (question_id,exercice_id)
     )";
 
-#######################COURSE_DESCRIPTION ################################
+    // Course description
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLCOURSEDESC."` (
         `id` TINYINT UNSIGNED DEFAULT '0' NOT NULL,
@@ -563,26 +575,23 @@ function update_db_course($courseDbName)
         `content` TEXT,
         `upDate` DATETIME NOT NULL,
         `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
-        UNIQUE (`id`)
-    )
-    COMMENT = 'for course description tool';";
+    UNIQUE (`id`)
+    ) COMMENT = 'for course description tool' ";
 
-####################### TOOL_LIST ###########################################
+    // Tool List
     $sqlList[] = "
     CREATE TABLE `".$TABLECOURSEHOMEPAGE."` (
-      `id` int(11) NOT NULL auto_increment,
-      `tool_id` int(10) unsigned default NULL,
-      `rank` int(10) unsigned NOT NULL,
-      `access` enum('ALL','PLATFORM_MEMBER','COURSE_MEMBER','COURSE_TUTOR','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
-      `script_url` varchar(255) default NULL,
-      `script_name` varchar(255) default NULL,
-      PRIMARY KEY  (`id`)) ";
+        `id` int(11) NOT NULL auto_increment,
+        `tool_id` int(10) unsigned default NULL,
+        `rank` int(10) unsigned NOT NULL,
+          `access` enum('ALL','PLATFORM_MEMBER','COURSE_MEMBER','COURSE_TUTOR','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
+        `script_url` varchar(255) default NULL,
+        `script_name` varchar(255) default NULL,
+        `addedTool` ENUM('YES','NO') DEFAULT 'YES',
+    PRIMARY KEY  (`id`)
+    ) ";
 
-    $sqlList[] =
-        "ALTER TABLE `".$TABLECOURSEHOMEPAGE."`
-         ADD `addedTool` ENUM('YES','NO') DEFAULT 'YES';";
-
-#################################### AGENDA ################################
+    // Agenda
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLAGENDA."` (
         `id` int(11) NOT NULL auto_increment,
@@ -592,9 +601,10 @@ function update_db_course($courseDbName)
         `hour` time NOT NULL default '00:00:00',
         `lasting` varchar(20),
         `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
-    PRIMARY KEY (id))";
+    PRIMARY KEY (id)
+    )";
 
-############################# DOCUMENTS ###########################################
+    // Documents and Links
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLDOCUMENT."` (
         id int(4) NOT NULL auto_increment,
@@ -603,9 +613,7 @@ function update_db_course($courseDbName)
         comment varchar(255),
     PRIMARY KEY (id))";
 
-############################# WORKS ###########################################
-// original_id is used to store the author id of the original work if this is a feedback
-// private_feedback
+    // Assignments
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLWRKSUBMISSION."` (
         `id` int(11) NOT NULL auto_increment,
@@ -623,8 +631,8 @@ function update_db_course($courseDbName)
         `private_feedback` text default NULL,
         `original_id` int(11) default NULL,
         `score` smallint(3) NULL default NULL,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM;";
+    PRIMARY KEY  (`id`)
+    )";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLWRKASSIGNMENT."` (
@@ -641,13 +649,13 @@ function update_db_course($courseDbName)
         `prefill_text` text NOT NULL,
         `prefill_doc_path` varchar(200) NOT NULL default '',
         `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
-        PRIMARY KEY  (`id`)
-    ) TYPE=MyISAM;";
+    PRIMARY KEY  (`id`)
+    )";
 
-    ########## GROUPPS ###############
+    // Groups
     $sqlList[] = "
     CREATE TABLE `".$TABLEGROUPS."` (
-    id int(11) NOT NULL auto_increment,
+        id int(11) NOT NULL auto_increment,
         name varchar(100) default NULL,
         description text,
         tutor int(11) default NULL,
@@ -679,204 +687,200 @@ function update_db_course($courseDbName)
     PRIMARY KEY  (id)
     )";
 
-############################## INTRODUCTION #######################################
-
+    // Tool intro
     $sqlList[] = "
     CREATE TABLE `".$TABLEINTROS."` (
-  `id` int(11) NOT NULL auto_increment,
-  `tool_id` int(11) NOT NULL default '0',
-  `title` varchar(255) default NULL,
-  `display_date` datetime default NULL,
-  `content` text,
-  `rank` int(11) default '1',
-  `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
-  PRIMARY KEY  (`id`)
-)";
+        `id` int(11) NOT NULL auto_increment,
+        `tool_id` int(11) NOT NULL default '0',
+        `title` varchar(255) default NULL,
+        `display_date` datetime default NULL,
+        `content` text,
+        `rank` int(11) default '1',
+        `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
+    PRIMARY KEY  (`id`)
+    )";
 
-
-############################# LEARNING PATHS ######################################
+    // Learning Path
     $sqlList[] = "
-         CREATE TABLE `".$TABLEMODULE."` (
-              `module_id` int(11) NOT NULL auto_increment,
-              `name` varchar(255) NOT NULL default '',
-              `comment` text NOT NULL,
-              `accessibility` enum('PRIVATE','PUBLIC') NOT NULL default 'PRIVATE',
-              `startAsset_id` int(11) NOT NULL default '0',
-              `contentType` enum('CLARODOC','DOCUMENT','EXERCISE','HANDMADE','SCORM','LABEL') NOT NULL,
-              `launch_data` text NOT NULL,
-              PRIMARY KEY  (`module_id`)
-            ) TYPE=MyISAM COMMENT='List of available modules used in learning paths';";
-
-    $sqlList[] = "
-          CREATE TABLE `".$TABLELEARNPATH."` (
-              `learnPath_id` int(11) NOT NULL auto_increment,
-              `name` varchar(255) NOT NULL default '',
-              `comment` text NOT NULL,
-              `lock` enum('OPEN','CLOSE') NOT NULL default 'OPEN',
-              `visibility` enum('HIDE','SHOW') NOT NULL default 'SHOW',
-              `rank` int(11) NOT NULL default '0',
-              PRIMARY KEY  (`learnPath_id`),
-              UNIQUE KEY rank (`rank`)
-            ) TYPE=MyISAM COMMENT='List of learning Paths';";
-
-    $sqlList[] = ("
-          CREATE TABLE `".$TABLELEARNPATHMODULE."` (
-                `learnPath_module_id` int(11) NOT NULL auto_increment,
-                `learnPath_id` int(11) NOT NULL default '0',
-                `module_id` int(11) NOT NULL default '0',
-                `lock` enum('OPEN','CLOSE') NOT NULL default 'OPEN',
-                `visibility` enum('HIDE','SHOW') NOT NULL default 'SHOW',
-                `specificComment` text NOT NULL,
-                `rank` int(11) NOT NULL default '0',
-                `parent` int(11) NOT NULL default '0',
-                `raw_to_pass` tinyint(4) NOT NULL default '50',
-                PRIMARY KEY  (`learnPath_module_id`)
-              ) TYPE=MyISAM COMMENT='This table links module to the learning path using them';");
+    CREATE TABLE `".$TABLEMODULE."` (
+        `module_id` int(11) NOT NULL auto_increment,
+        `name` varchar(255) NOT NULL default '',
+        `comment` text NOT NULL,
+        `accessibility` enum('PRIVATE','PUBLIC') NOT NULL default 'PRIVATE',
+        `startAsset_id` int(11) NOT NULL default '0',
+        `contentType` enum('CLARODOC','DOCUMENT','EXERCISE','HANDMADE','SCORM','LABEL') NOT NULL,
+        `launch_data` text NOT NULL,
+    PRIMARY KEY  (`module_id`)
+    ) COMMENT='List of available modules used in learning paths' ";
 
     $sqlList[] = "
-          CREATE TABLE `".$TABLEASSET."` (
-              `asset_id` int(11) NOT NULL auto_increment,
-              `module_id` int(11) NOT NULL default '0',
-              `path` varchar(255) NOT NULL default '',
-              `comment` varchar(255) default NULL,
-              PRIMARY KEY  (`asset_id`)
-            ) TYPE=MyISAM COMMENT='List of resources of module of learning paths';";
+    CREATE TABLE `".$TABLELEARNPATH."` (
+        `learnPath_id` int(11) NOT NULL auto_increment,
+        `name` varchar(255) NOT NULL default '',
+        `comment` text NOT NULL,
+        `lock` enum('OPEN','CLOSE') NOT NULL default 'OPEN',
+        `visibility` enum('HIDE','SHOW') NOT NULL default 'SHOW',
+        `rank` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`learnPath_id`),
+    UNIQUE KEY rank (`rank`)
+    ) COMMENT='List of learning Paths' ";
 
     $sqlList[] = "
-          CREATE TABLE `".$TABLEUSERMODULEPROGRESS."` (
-              `user_module_progress_id` int(22) NOT NULL auto_increment,
-              `user_id` mediumint(9) NOT NULL default '0',
-              `learnPath_module_id` int(11) NOT NULL default '0',
-              `learnPath_id` int(11) NOT NULL default '0',
-              `lesson_location` varchar(255) NOT NULL default '',
-              `lesson_status` enum('NOT ATTEMPTED','PASSED','FAILED','COMPLETED','BROWSED','INCOMPLETE','UNKNOWN') NOT NULL default 'NOT ATTEMPTED',
-              `entry` enum('AB-INITIO','RESUME','') NOT NULL default 'AB-INITIO',
-              `raw` tinyint(4) NOT NULL default '-1',
-              `scoreMin` tinyint(4) NOT NULL default '-1',
-              `scoreMax` tinyint(4) NOT NULL default '-1',
-              `total_time` varchar(13) NOT NULL default '0000:00:00.00',
-              `session_time` varchar(13) NOT NULL default '0000:00:00.00',
-              `suspend_data` text NOT NULL,
-              `credit` enum('CREDIT','NO-CREDIT') NOT NULL default 'NO-CREDIT',
-              PRIMARY KEY  (`user_module_progress_id`)
-            ) TYPE=MyISAM COMMENT='Record the last known status of the user in the course';";
+    CREATE TABLE `".$TABLELEARNPATHMODULE."` (
+        `learnPath_module_id` int(11) NOT NULL auto_increment,
+        `learnPath_id` int(11) NOT NULL default '0',
+        `module_id` int(11) NOT NULL default '0',
+        `lock` enum('OPEN','CLOSE') NOT NULL default 'OPEN',
+        `visibility` enum('HIDE','SHOW') NOT NULL default 'SHOW',
+        `specificComment` text NOT NULL,
+        `rank` int(11) NOT NULL default '0',
+        `parent` int(11) NOT NULL default '0',
+        `raw_to_pass` tinyint(4) NOT NULL default '50',
+    PRIMARY KEY  (`learnPath_module_id`)
+    ) COMMENT='This table links module to the learning path using them'";
 
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEASSET."` (
+        `asset_id` int(11) NOT NULL auto_increment,
+        `module_id` int(11) NOT NULL default '0',
+        `path` varchar(255) NOT NULL default '',
+        `comment` varchar(255) default NULL,
+    PRIMARY KEY  (`asset_id`)
+    ) COMMENT='List of resources of module of learning paths'";
 
-        ########################## STATISTICS ##############################
-        $sqlList[] = "CREATE TABLE `".$TABLETRACKACCESS."` (
-                  `access_id` int(11) NOT NULL auto_increment,
-                  `access_user_id` int(10) default NULL,
-                  `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
-                  `access_tid` int(10) default NULL,
-                  `access_tlabel` varchar(8) default NULL,
-                  PRIMARY KEY  (`access_id`)
-                ) TYPE=MyISAM COMMENT='Record informations about access to course or tools'";
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEUSERMODULEPROGRESS."` (
+        `user_module_progress_id` int(22) NOT NULL auto_increment,
+        `user_id` mediumint(9) NOT NULL default '0',
+        `learnPath_module_id` int(11) NOT NULL default '0',
+        `learnPath_id` int(11) NOT NULL default '0',
+        `lesson_location` varchar(255) NOT NULL default '',
+        `lesson_status` enum('NOT ATTEMPTED','PASSED','FAILED','COMPLETED','BROWSED','INCOMPLETE','UNKNOWN') NOT NULL default 'NOT ATTEMPTED',
+        `entry` enum('AB-INITIO','RESUME','') NOT NULL default 'AB-INITIO',
+        `raw` tinyint(4) NOT NULL default '-1',
+        `scoreMin` tinyint(4) NOT NULL default '-1',
+        `scoreMax` tinyint(4) NOT NULL default '-1',
+        `total_time` varchar(13) NOT NULL default '0000:00:00.00',
+        `session_time` varchar(13) NOT NULL default '0000:00:00.00',
+        `suspend_data` text NOT NULL,
+        `credit` enum('CREDIT','NO-CREDIT') NOT NULL default 'NO-CREDIT',
+    PRIMARY KEY  (`user_module_progress_id`)
+    ) COMMENT='Record the last known status of the user in the course'";
 
+    // Tracking
+    $sqlList[] = "
+    CREATE TABLE `".$TABLETRACKACCESS."` (
+        `access_id` int(11) NOT NULL auto_increment,
+        `access_user_id` int(10) default NULL,
+        `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `access_tid` int(10) default NULL,
+        `access_tlabel` varchar(8) default NULL,
+    PRIMARY KEY  (`access_id`)
+    ) COMMENT='Record informations about access to course or tools'";
 
-        $sqlList[] = "CREATE TABLE `".$TABLETRACKDOWNLOADS."` (
-                  `down_id` int(11) NOT NULL auto_increment,
-                  `down_user_id` int(10) default NULL,
-                  `down_date` datetime NOT NULL default '0000-00-00 00:00:00',
-                  `down_doc_path` varchar(255) NOT NULL default '0',
-                  PRIMARY KEY  (`down_id`)
-                ) TYPE=MyISAM COMMENT='Record informations about downloads'";
+    $sqlList[] = "
+    CREATE TABLE `".$TABLETRACKDOWNLOADS."` (
+        `down_id` int(11) NOT NULL auto_increment,
+        `down_user_id` int(10) default NULL,
+        `down_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `down_doc_path` varchar(255) NOT NULL default '0',
+    PRIMARY KEY  (`down_id`)
+    ) COMMENT='Record informations about downloads'";
 
+    $sqlList[] = "
+    CREATE TABLE `".$TABLETRACKEXERCICES."` (
+        `exe_id` int(11) NOT NULL auto_increment,
+        `exe_user_id` int(10) default NULL,
+        `exe_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `exe_exo_id` tinyint(4) NOT NULL default '0',
+        `exe_result` float NOT NULL default '0',
+        `exe_time`    mediumint(8) NOT NULL default '0',
+        `exe_weighting` float NOT NULL default '0',
+    PRIMARY KEY  (`exe_id`)
+    ) COMMENT='Record informations about exercices'";
 
-        $sqlList[] = "CREATE TABLE `".$TABLETRACKEXERCICES."` (
-                  `exe_id` int(11) NOT NULL auto_increment,
-                  `exe_user_id` int(10) default NULL,
-                  `exe_date` datetime NOT NULL default '0000-00-00 00:00:00',
-                  `exe_exo_id` tinyint(4) NOT NULL default '0',
-                  `exe_result` float NOT NULL default '0',
-                  `exe_time`    mediumint(8) NOT NULL default '0',
-                  `exe_weighting` float NOT NULL default '0',
-                  PRIMARY KEY  (`exe_id`)
-                ) TYPE=MyISAM COMMENT='Record informations about exercices'";
+    $sqlList[] = "
+    CREATE TABLE `".$TABLETRACKEXEDETAILS."` (
+        `id` int(11) NOT NULL auto_increment,
+        `exercise_track_id` int(11) NOT NULL default '0',
+        `question_id` int(11) NOT NULL default '0',
+        `result` float NOT NULL default '0',
+    PRIMARY KEY  (`id`)
+    ) COMMENT='Record answers of students in exercices'";
 
+    $sqlList[] = "
+    CREATE TABLE `" . $TABLETRACKEXEANSWERS . "` (
+        `id` int(11) NOT NULL auto_increment,
+        `details_id` int(11) NOT NULL default '0',
+        `answer` text NOT NULL,
+    PRIMARY KEY  (`id`)
+    ) COMMENT=''";
 
-        $sqlList[] = "CREATE TABLE `".$TABLETRACKEXEDETAILS."` (
-                  `id` int(11) NOT NULL auto_increment,
-                  `exercise_track_id` int(11) NOT NULL default '0',
-                  `question_id` int(11) NOT NULL default '0',
-                  `result` float NOT NULL default '0',
-                  PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM COMMENT='Record answers of students in exercices'";
+    $sqlList[] = "
+    CREATE TABLE `".$TABLETRACKUPLOADS."` (
+        `upload_id` int(11) NOT NULL auto_increment,
+        `upload_user_id` int(10) default NULL,
+        `upload_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `upload_work_id` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`upload_id`)
+    ) COMMENT='Record some more informations about uploaded works'";
 
+    // Linker
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$TABLELINKS."` (
+        `id` int(11) NOT NULL auto_increment,
+        `src_id` int(11) NOT NULL default '0',
+        `dest_id` int(11) NOT NULL default '0',
+        `creation_time` timestamp(14) NOT NULL,
+    PRIMARY KEY  (`id`)
+    )";
 
-        $sqlList[] = "CREATE TABLE `" . $TABLETRACKEXEANSWERS . "` (
-                  `id` int(11) NOT NULL auto_increment,
-                  `details_id` int(11) NOT NULL default '0',
-                  `answer` text NOT NULL,
-                  PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM COMMENT=''";
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
+        `id` int(11) NOT NULL auto_increment,
+        `crl` text NOT NULL,
+        `title` text NOT NULL,
+    PRIMARY KEY  (`id`)
+    )";
 
+    // Wiki
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPROPERTIES."`(
+        `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+        `title` VARCHAR(255) NOT NULL DEFAULT '',
+        `description` TEXT NULL,
+        `group_id` INT(11) NOT NULL DEFAULT 0,
+    PRIMARY KEY(`id`)
+    )" ;
 
-        $sqlList[] = "CREATE TABLE `".$TABLETRACKUPLOADS."` (
-                  `upload_id` int(11) NOT NULL auto_increment,
-                  `upload_user_id` int(10) default NULL,
-                  `upload_date` datetime NOT NULL default '0000-00-00 00:00:00',
-                  `upload_work_id` int(11) NOT NULL default '0',
-                  PRIMARY KEY  (`upload_id`)
-                ) TYPE=MyISAM COMMENT='Record some more informations about uploaded works'";
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$TABLEWIKIACLS."` (
+        `wiki_id` INT(11) UNSIGNED NOT NULL,
+        `flag` VARCHAR(255) NOT NULL,
+        `value` ENUM('false','true') NOT NULL DEFAULT 'false'
+    )";
 
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGES."` (
+        `id` int(11) unsigned NOT NULL auto_increment,
+        `wiki_id` int(11) unsigned NOT NULL default '0',
+        `owner_id` int(11) unsigned NOT NULL default '0',
+        `title` varchar(255) NOT NULL default '',
+        `ctime` datetime NOT NULL default '0000-00-00 00:00:00',
+        `last_version` int(11) unsigned NOT NULL default '0',
+        `last_mtime` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`)
+    )" ;
 
-    ########################## linker ##############################
-        $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLELINKS."` (
-                  `id` int(11) NOT NULL auto_increment,
-                    `src_id` int(11) NOT NULL default '0',
-                    `dest_id` int(11) NOT NULL default '0',
-                    `creation_time` timestamp(14) NOT NULL,
-                    PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM";
-
-
-        $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
-                   `id` int(11) NOT NULL auto_increment,
-                  `crl` text NOT NULL,
-                  `title` text NOT NULL,
-                  PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM";
-
-
-    ######################## wiki ##################################
-
-    $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPROPERTIES."`(
-            `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `title` VARCHAR(255) NOT NULL DEFAULT '',
-            `description` TEXT NULL,
-            `group_id` INT(11) NOT NULL DEFAULT 0,
-            PRIMARY KEY(`id`)
-            )"
-            ;
-
-    $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIACLS."` (
-            `wiki_id` INT(11) UNSIGNED NOT NULL,
-            `flag` VARCHAR(255) NOT NULL,
-            `value` ENUM('false','true') NOT NULL DEFAULT 'false'
-            )"
-            ;
-
-    $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGES."` (
-            `id` int(11) unsigned NOT NULL auto_increment,
-            `wiki_id` int(11) unsigned NOT NULL default '0',
-            `owner_id` int(11) unsigned NOT NULL default '0',
-            `title` varchar(255) NOT NULL default '',
-            `ctime` datetime NOT NULL default '0000-00-00 00:00:00',
-            `last_version` int(11) unsigned NOT NULL default '0',
-            `last_mtime` datetime NOT NULL default '0000-00-00 00:00:00',
-            PRIMARY KEY  (`id`)
-            )"
-            ;
-
-    $sqlList[] = "CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGESCONTENT."` (
-            `id` int(11) unsigned NOT NULL auto_increment,
-            `pid` int(11) unsigned NOT NULL default '0',
-            `editor_id` int(11) NOT NULL default '0',
-            `mtime` datetime NOT NULL default '0000-00-00 00:00:00',
-            `content` text NOT NULL,
-            PRIMARY KEY  (`id`)
-            )"
-            ;
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGESCONTENT."` (
+        `id` int(11) unsigned NOT NULL auto_increment,
+        `pid` int(11) unsigned NOT NULL default '0',
+        `editor_id` int(11) NOT NULL default '0',
+        `mtime` datetime NOT NULL default '0000-00-00 00:00:00',
+        `content` text NOT NULL,
+    PRIMARY KEY  (`id`)
+    )" ;
 
     foreach($sqlList as $thisSql)
     {
@@ -896,7 +900,7 @@ function update_db_course($courseDbName)
  * @version 1.0
  */
 
-function     fill_course_repository($courseRepository)
+function fill_course_repository($courseRepository)
 {
   // WARNING. Do not forget to adapt queries in fill_Db_course()
   // if something changed here
@@ -974,11 +978,6 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
                                , '".addslashes(get_lang('DelAdmin'))."'
                                ,2,1,1,1,1,2,0,1)");
     claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"".addslashes($nom)."\",\"".addslashes($prenom)."\")");
-    claro_sql_query("CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
-        post_id int(10) DEFAULT '0' NOT NULL,
-        post_text text,
-        PRIMARY KEY (post_id)
-        )");
     claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', '".addslashes(get_lang('Message'))."')");
 // Contenu de la table 'users'
     claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
