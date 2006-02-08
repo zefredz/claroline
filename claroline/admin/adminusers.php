@@ -356,7 +356,7 @@ foreach($userList as $user)
     if ( empty($user['officialCode']) ) $user['officialCode'] = ' - ';
 
     $userStatus = ($user['status']=='COURSE_CREATOR' ? get_lang('CourseCreator') : get_lang('NormalUser'));
-    if (isAdminUser($user['user_id'])) $userStatus .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
+    if (user_is_admin($user['user_id'])) $userStatus .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
 
     echo '<tr>'
     .    '<td align="center">' . $user['user_id'] . '</td>' . "\n"
@@ -422,34 +422,4 @@ include $includePath . '/claro_init_footer.inc.php';
 /*******************/
 // END OF SCRIPT
 /*******************/
-
-/**
- * return wheter is  user id of a platform admin.
- *
- * this  function  use a static array.
- *
- * @param integer $user_id id  of user
- * @return boolean : is  user  platform admin
- */
-function isAdminUser($user_id)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_admin     = $tbl_mdb_names['admin'];
-
-    static $admin_list = array();
-
-    if ( count($admin_list) == 0 )
-
-    {
-        $sql = "SELECT `idUser` `admin_id`
-                FROM `" . $tbl_admin . "` ";
-        $result = claro_sql_query_fetch_all($sql);
-        foreach($result as $admin_id)
-        {
-            $admin_list[] = $admin_id['admin_id'];
-        }
-    }
-    return (in_array($user_id,$admin_list));
-}
-
 ?>
