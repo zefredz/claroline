@@ -251,6 +251,15 @@ $tbl_sso             = $tbl_mdb_names['sso'            ];
 $claro_loginRequested = false;
 $claro_loginSucceeded = false;
 
+
+if ($logout && !empty($_SESSION['_uid']))
+{
+    // needed to notify that a user has just loggued out
+    $logout_uid = $_SESSION['_uid'];
+}
+
+
+
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
     // uid is in session => login already done, continue with this value
