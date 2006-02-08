@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * SQL Statement to create table of central database
  *
@@ -92,6 +92,7 @@ CREATE TABLE `".$mainTblPrefixForm."user` (
   `prenom` varchar(60) default NULL,
   `username` varchar(20) default 'empty',
   `password` varchar(50) default 'empty',
+  `language` varchar(15) default NULL,
   `authSource` varchar(50) default 'claroline',
   `email` varchar(100) default NULL,
   `statut` tinyint(4) default NULL,

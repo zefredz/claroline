@@ -209,7 +209,7 @@ class language
         }
         else
         {
-            if ( isset($_uid) && isset($_user['language']) )
+            if ( isset($_uid) && !empty($_user['language']) )
             {
                 // user language
                 return $_user['language'];
@@ -241,6 +241,84 @@ class language
 }
 
 /**
+*   Displays a form (drop down menu) so the user can select his/her preferred
+language.
+*   The form works with or without javascript
+*   TODO : need some refactoring there is a lot of function to get platform
+language
+*/
+
+function get_language_list()
+{
+    // language path
+    $language_dirname = get_conf('rootSys') . 'claroline/lang/' ;
+
+    // init accepted_values list
+    $language_list = array();
+
+    if ( is_dir($dirname) )
+    {
+        $handle = opendir($language_dirname);
+        while ( $elt = readdir($handle) )
+        {
+            // skip '.', '..' and 'CVS'
+            if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
+
+            // skip if not a dir
+            if ( ! is_dir($language_dirname.$elt) )
+            {
+                $elt_key = $elt;
+                $elt_value = get_translation_of_language($elt_key);
+                $language_list[$elt_key] = $elt_value;
+            }
+        }
+
+        asort($language_list);
+        return $language_list;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function get_language_to_display_list()
+{
+    global $platformLanguage;
+
+    $language_list = array();
+
+    $language_to_display_list = get_conf('language_to_display');
+    $language_to_display_list[] = $platformLanguage;
+
+    foreach ( $language_to_display_list as $language )
+    {
+        $key = $language;
+        $value = get_translation_of_language($language);
+        $language_list[$key] = $value;
+    }
+
+    asort($language_list);
+
+    return $language_list;
+}
+
+function get_translation_of_language($language)
+{
+    global $langNameOfLang;
+
+    if ( !empty($langNameOfLang[$language])
+            && $langNameOfLang[$language]!=$language )
+    {
+        return $langNameOfLang[$language];
+    }
+    else
+    {
+        return $language;
+    }
+}
+
+/**
 *   Displays a form (drop down menu) so the user can select his/her preferred language.
 *   The form works with or without javascript
 *   TODO : need some refactoring there is a lot of function to get platform language
@@ -248,12 +326,9 @@ class language
 
 function claro_display_preferred_language_form()
 {
-    global $langNameOfLang ;
     require_once $GLOBALS['includePath'] . '/lib/form.lib.php';
 
-    $platformLanguage = get_conf('platformLanguage');
-    $language_list = get_conf('language_to_display');
-    $language_list[] = $platformLanguage;
+    $language_list = get_language_to_display_list();
 
     $form = '';
 
@@ -262,20 +337,23 @@ function claro_display_preferred_language_form()
         // get the the current language
         $user_language = language::current_language();
 
-        foreach ( $language_list as $language )
+        foreach ( $language_list as $key => $value )
         {
-            $languageOption_list[$_SERVER['PHP_SELF'].'?language='.urlencode($language)] = (isset($langNameOfLang[$language])?$langNameOfLang[$language]:$language);
+            $languageOption_list[$_SERVER['PHP_SELF'].'?language='.urlencode($key)] = $value;
         }
 
         // build language selector form
-        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post" style="margin:5px;">' . "\n"
-              . claro_html_form_select('language',$languageOption_list,$_SERVER['PHP_SELF'].'?language='.urlencode($user_language),array('id'=>'langSelector', 'onchange'=>'top.location=this.options[selectedIndex].value')) . "\n"
-              . '<noscript><input type="submit" value="' . get_lang('Ok') . '" /></noscript>' . "\n"
-              . '</form>' . "\n";
+        $form .= '<form action="'.$_SERVER['PHP_SELF'].'" name="language_selector" method="post" style="margin:5px;">' . "\n" ;
+
+        $form .= claro_html_form_select('language',$languageOption_list,$_SERVER['PHP_SELF'].'?language='.urlencode($user_language),array('id'=>'langSelector', 'onchange'=>'top.location=this.options[selectedIndex].value')) . "\n";
+
+        $form .= '<noscript><input type="submit" value="' . get_lang('Ok') . '" /></noscript>' . "\n";
+        $form .= '</form>' . "\n";
     }
 
     return $form;
 }
+
 
 
 /**

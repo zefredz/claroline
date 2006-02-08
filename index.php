@@ -26,7 +26,6 @@ require_once $includePath . '/lib/courselist.lib.php'; // conf file
 
 
 // logout request : delete session data
-
 if (isset($_REQUEST['logout'])) session_destroy();
 
 // CLAROLINE HEADER AND BANNER
@@ -131,11 +130,6 @@ else
 
 <?php
 
-if ( get_conf('l10n_platfrom',true))
-{
-    echo claro_display_preferred_language_form();
-}
-
 if ( isset($_uid) )
 {
     // DISPLAY CROSS COURSE DIGEST FOR USER
@@ -143,6 +137,12 @@ if ( isset($_uid) )
 }
 else
 {
+    // Display preferred language form
+    if ( get_conf('l10n_platform',true))
+    {
+        echo claro_display_preferred_language_form();
+    }
+
     // DISPLAY LOGIN FORM
     require $includePath . '/index_loginzone.inc.php';
 }

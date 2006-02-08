@@ -57,6 +57,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
     if ( isset($_REQUEST['email']) )         $user_data['email'] = trim($_REQUEST['email']);
     if ( isset($_REQUEST['phone']) )         $user_data['phone'] = trim($_REQUEST['phone']);
+    if ( isset($_REQUEST['language']) )      $user_data['language'] = trim($_REQUEST['language']);
     if ( isset($_REQUEST['status']) )        $user_data['status'] = (int) $_REQUEST['status'];
 
     if ( isset($_REQUEST['is_admin']) )      $user_data['is_admin'] = (bool) $_REQUEST['is_admin'];

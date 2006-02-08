@@ -55,6 +55,7 @@ if ( $cmd == 'registration' )
     if ( isset($_REQUEST['password']) )      $user_data['password']      = trim($_REQUEST['password']);
     if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
     if ( isset($_REQUEST['email']) )         $user_data['email']         = strip_tags(trim($_REQUEST['email'])) ;
+    if ( isset($_REQUEST['language']) )      $user_data['language']   = trim($_REQUEST['language']);
     if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['status']) )        $user_data['status']        = (int) $_REQUEST['status'];
 

@@ -281,7 +281,7 @@ else
         $sql = 'SELECT user_id, username, password, authSource
                 FROM `' . $tbl_user . '` `user`
                 WHERE '
-             . ( get_conf('claro_authUsernameCaseSensitive') ? 'BINARY' : '') 
+             . ( get_conf('claro_authUsernameCaseSensitive') ? 'BINARY' : '')
              . ' username = "'. addslashes($login) .'"'
              ;
 
@@ -401,9 +401,10 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
             $sql = "SELECT `user`.`prenom`           AS firstName             ,
                            `user`.`nom`              AS lastName              ,
                            `user`.`email`            AS `mail`                ,
+                           `user`.`language`                                  ,
                            (`user`.`statut` = 1)     AS is_allowedCreateCourse,
                            `a`.`idUser`              AS is_platformAdmin      ,
-                            `user`.`creatorId`       AS creatorId             , "
+                           `user`.`creatorId`       AS creatorId             , "
 
                   .       ($is_trackingEnabled
                            ? "UNIX_TIMESTAMP(`login`.`login_date`)"

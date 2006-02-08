@@ -20,6 +20,8 @@
 
 
 include_once(dirname(__FILE__).'/auth.lib.inc.php');
+include_once(dirname(__FILE__).'/form.lib.php');
+
 !defined('COURSE_ADMIN_STATUS') && define('COURSE_ADMIN_STATUS', 1);
 !defined('STUDENT_STATUS') && define('STUDENT_STATUS', 5);
 
@@ -43,6 +45,7 @@ function user_initialise()
     $data['password'] = '';
     $data['password_conf'] = '';
     $data['status'] = '';
+    $data['language'] = '';
     $data['email'] = '';
     $data['phone'] = '';
     $data['picture'] = '';
@@ -67,15 +70,16 @@ function user_get_data($user_id)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    $sql = "SELECT                   `user_id`     ,
-                    `nom`         AS `lastname`    ,
-                    `prenom`      AS `firstname`   ,
-                                     `username`    ,
-                                     `email`       ,
-                    `authSource`  AS authsource    ,
-                    `pictureUri`  AS `picture`     ,
+    $sql = "SELECT                   `user_id`,
+                    `nom`         AS `lastname`,
+                    `prenom`      AS `firstname`,
+                                     `username`,
+                                     `email`,
+                                     `language`,
+                    `authSource`  AS authsource,
+                    `pictureUri`  AS `picture`,
                                      `officialCode`,
-                    `phoneNumber` AS `phone`       ,
+                    `phoneNumber` AS `phone`,
                     `statut`      AS `status`
             FROM   `" . $tbl_user . "`
             WHERE  `user_id` = " . (int) $user_id;
@@ -112,12 +116,14 @@ function user_add ($data)
     $tbl_user      = $tbl_mdb_names['user'];
 
     if ( empty($data['status']) ) $data['status'] = STUDENT;
+    if ( empty($data['language']) ) $data['language'] = null;
 
     $sql = "INSERT INTO `" . $tbl_user . "`
             SET `nom`          = '". addslashes($data['lastname']) ."' ,
                 `prenom`       = '". addslashes($data['firstname']) ."',
                 `username`     = '". addslashes($data['username']) ."',
-                `password`     = '". addslashes($password) ."',
+                `password`     = '". addslashes($password) . "',
+                `language`     = '" .addslashes($data['language']) . "',
                 `email`        = '". addslashes($data['email']) ."',
                 `statut`       = '". (int) $data['status'] ."',
                 `officialCode` = '". addslashes($data['officialCode']) ."',
@@ -163,6 +169,11 @@ function user_update ($user_id, $data)
     {
         $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
         $sql .= ", `password`   = '" . addslashes($password) . "' " ;
+    }
+
+    if ( !empty($data['language']) )
+    {
+        $sql .= ", `language` = '" . addslashes($data['language']) . "' " ;
     }
 
     if ( !empty($data['picture']) )
@@ -492,7 +503,6 @@ function get_course_enrollment_key($courseId)
         return null;
     }
 }
-
 
 /**
  * update course manager status of the user in a course
@@ -1231,7 +1241,7 @@ function user_display_form($data, $form_type='registration')
     }
 
     // user picture
-    if ( defined('CONFVAL_ASK_FOR_PICTURE ') && CONFVAL_ASK_FOR_PICTURE == TRUE && $form_type == 'profile' )
+    if ( get_conf('CONFVAL_ASK_FOR_PICTURE',false) && $form_type == 'profile' )
     {
         echo '<tr>' . "\n"
             . '<td align="right">' . "\n"
@@ -1252,6 +1262,20 @@ function user_display_form($data, $form_type='registration')
         }
         echo '</td>' . "\n"
             . '</tr>' . "\n";
+    }
+
+    if ( get_conf('l10n_platform',true))
+    {
+        $language_select_box = user_display_preferred_language_select_box();
+        if ( !empty($language_select_box) )
+        {
+            echo ' <tr>' . "\n"
+                . '  <td align="right"><label for="language_selector">' . get_lang('Language') . '&nbsp;:</label></td>' . "\n"
+        . '  <td>'. $language_select_box .'</td>' . "\n"
+        . ' </tr>' . "\n" ;
+
+
+        }
     }
 
     if ( isset($data['authsource']) &&
@@ -1521,6 +1545,24 @@ function user_search($name, $mail, $code, $course_id="")
 
     $result = claro_sql_query_fetch_all($sql);
     return $result;
+}
+
+function user_display_preferred_language_select_box()
+{
+    $language_list = get_language_to_display_list();
+
+    $form = '';
+
+    if ( is_array($language_list) && count($language_list) > 1 )
+    {
+        // get the the current language
+        $user_language = language::current_language();
+
+        // build language selector form
+        $form .= claro_html_form_select('language',$language_list,$user_language,array('id'=>'language_selector')) ;
+    }
+
+    return $form;
 }
 
 ?>
