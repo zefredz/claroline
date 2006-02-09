@@ -66,8 +66,8 @@ else
  $interbredcrump[]= array ('url'=>'courseLog.php', 'name'=> get_lang('Statistics'));
     $src = '';
 }
-$interbredcrump[]= array ('url'=>'exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src, 'name'=> get_lang('StatsOfExercise'));
-$nameTools = get_lang('StatsOfQuestion');
+$interbredcrump[]= array ('url'=>'exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src, 'name'=> get_lang('Statistics of exercise'));
+$nameTools = get_lang('Statistics of question');
 
 
 // if the question_id is not set display the stats of all questions of this exercise
@@ -121,9 +121,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
         {
             // get the list of all possible answer and the number of times it was choose
             $sql = "SELECT `A`.`id`, `A`.`reponse`, `A`.`correct` , COUNT(`TEA`.`answer`) as `nbr`
-                        FROM `".$tbl_quiz_question."` AS `Q` ,
+                        FROM (`".$tbl_quiz_question."` AS `Q` ,
                             `".$tbl_quiz_rel_test_question."` AS `RTQ` ,
-                            `".$tbl_quiz_answer."` AS `A`
+                            `".$tbl_quiz_answer."` AS `A`)
                     LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
                         ON `TE`.`exe_exo_id` = `RTQ`.`exercice_id`
                     LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
@@ -327,7 +327,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
             // display tab header
             echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
                 .'<tr class="headerX" align="center" valign="top">'."\n"
-                .'<th>'.get_lang('ExpectedChoice').'</th>'."\n"
+                .'<th>'.get_lang('Expected choice').'</th>'."\n"
                 .'<th width="60%">'.get_lang('Answer').'</th>'."\n"
                 .'<th colspan="2">#</th>'."\n"
                   .'</tr>'."\n"
@@ -400,7 +400,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                    else
                    {
                     echo '<tr >'
-                        .'<td colspan="2" align="center">'.get_lang('NoResult').'</td>'."\n"
+                        .'<td colspan="2" align="center">'.get_lang('No result').'</td>'."\n"
                         .'</tr>';
                 }
                 echo '</table>'."\n\n"
@@ -452,7 +452,7 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        echo get_lang('TrackingDisabled');
+        echo get_lang('Tracking has been disabled by system administrator.');
     }
     else
     {
