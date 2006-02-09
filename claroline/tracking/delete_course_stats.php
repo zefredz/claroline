@@ -27,7 +27,7 @@ $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
 
-$nameTools = get_lang('DelCourseStats');
+$nameTools = get_lang('Delete all course statistics');
 
 include($includePath."/claro_init_header.inc.php");
 
@@ -58,7 +58,7 @@ if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
     claro_sql_query($sql);
 
     // display confirm msg and back link
-    echo get_lang('DelCourseStatsDone')."\n"
+    echo get_lang('Course statistics deleted')."\n"
          .'<br /><br />'."\n"
          .'<small><a href="courseLog.php">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n";
 
@@ -68,7 +68,7 @@ else
   // ASK DELETE CONFIRMATION TO THE USER
 
   echo "\n".'<p>'."\n"
-    .get_lang('ConfirmDeleteStats')."\n"
+    .get_block('blockConfirmDeleteStats')."\n"
     .'</p>'."\n"
     .'<p>'."\n"
       .'<a href="'.$_SERVER['PHP_SELF'].'?delete=yes">'
