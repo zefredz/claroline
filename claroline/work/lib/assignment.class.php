@@ -6,6 +6,7 @@ class Assignment
      * @var $id id of assignment, 0 if assignment doesn't exist already
      */
     var $id;
+    
 	/**
      * @var $title name of the assignment
      */
@@ -66,6 +67,11 @@ class Assignment
      */
     var $autoFeedbackSubmitMethod;
 
+	/**
+	 * @var $submissionList
+	 */
+	var $submissionList;
+	
     /**
      * @var $assigDirSys sys path to assignment dir
      */
@@ -93,7 +99,7 @@ class Assignment
      */    
     function Assignment($course_id = null) 
     {    
-    	$this->id = (int) 0;
+    	$this->id = (int) -1;
     	$this->title = '';
 	    $this->description = '';
 	    $this->visibility = 'VISIBLE';
@@ -106,6 +112,8 @@ class Assignment
 	    $this->autoFeedbackText = '';
 	    $this->autoFeedbackFilename = '';
 	    $this->autoFeedbackSubmitMethod = 'ENDDATE';
+	    
+	    $this->submissionList = array();
 	    
 	    $this->assigDirSys = '';
 	    $this->assigDirWeb = '';	    
@@ -122,7 +130,7 @@ class Assignment
      * @param integer $assignment_id id of assignment
      * @return boolean load successfull ?
      */   
-    function load($assignment_id)
+    function load($id)
     {    		
 	    $sql = "SELECT
 					`id`,
@@ -139,7 +147,7 @@ class Assignment
 	                `prefill_doc_path`,
 	                `prefill_submit`
 	        FROM `".$this->tblAssignment."`
-	        WHERE `id` = ".(int) $assignment_id;
+	        WHERE `id` = ".(int) $id;
 	
 	    $data = claro_sql_query_get_single_row($sql);
 	
@@ -180,7 +188,7 @@ class Assignment
     function save()
     {		
     	// TODO method to validate data
-    	if( $this->id == 0 )
+    	if( $this->id == -1 )
     	{
     		// insert	
 		    $sql = "INSERT INTO `".$this->tblAssignment."`
@@ -200,11 +208,11 @@ class Assignment
 		    // on creation of an assignment the automated feedback take the default values from mysql
 		
 		    // execute the creation query and get id of inserted assignment
-		    $lastAssigId = claro_sql_query_insert_id($sql);
+		    $insertedId = claro_sql_query_insert_id($sql);
 		
-		    if( $lastAssigId )
+		    if( $insertedId )
 		    {
-		    	$this->id = (int) $lastAssigId;
+		    	$this->id = (int) $insertedId;
 		    
 		    	$this->buildDirPaths();		    	
 		    	
@@ -286,7 +294,9 @@ class Assignment
 				WHERE `id` = '".$this->id."'";
 				
 		claro_sql_query($sql);
-		// is it required to empty the fields of the object ?		
+		
+		// is it required to empty the fields of the object ?
+		$this->id = -1;		
 		return true;
 	}
 
