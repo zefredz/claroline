@@ -174,6 +174,7 @@ switch ( $display )
         .                 '</a>'
         ;
 
+        if (get_conf('can_have_photo',false))
         $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqEditPic">' . get_lang('My Picture') . '</a>';
 
         // display request course creator status
