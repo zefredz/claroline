@@ -29,7 +29,7 @@
     
     $help = ( isset( $_REQUEST['help'] ) ) ? $_REQUEST['help'] : 'syntax';
     
-    echo '<center><a href="#" onclick="window.close()">'.get_lang('CloseWindow').'</a></center>' . "\n";
+    echo '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
     
     switch( $help )
     {
@@ -45,11 +45,11 @@
         }
         default:
         {
-            echo '<center><h1>Missing help request</h1></center>';
+            echo '<center><h1>'.get_lang("Missing help request").'</h1></center>';
         }
     }
     
-    echo '<center><a href="#" onclick="window.close()">'.get_lang('CloseWindow').'</a></center>' . "\n";
+    echo '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
     
     $hide_footer = true;
     require_once $includePath."/claro_init_footer.inc.php";

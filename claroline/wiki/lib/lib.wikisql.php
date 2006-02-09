@@ -113,7 +113,9 @@
     {
         $tblList = claro_sql_get_course_tbl();
 
-        $mainPageContent = sprintf( get_lang('WikiMainPageContent'), $wikiTitle = '' );
+        $mainPageContent = sprintf( 
+            get_lang("This is the main page of the Wiki %s. Click on '''Edit''' to modify the content.")
+            , $wikiTitle = '' );
         
         $config = array();
         // use claro functions

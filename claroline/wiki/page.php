@@ -149,7 +149,7 @@
     
     if ( ! $wikiStore->wikiIdExists( $wikiId ) )
     {
-        die ( get_lang('WikiInvalidWikiId') );
+        die ( get_lang("Invalid Wiki Id") );
     }
     
     $wiki = $wikiStore->loadWiki( $wikiId );
@@ -415,7 +415,7 @@
                     {
                         unset( $_SESSION['wikiLastVersion'] );
 
-                        $message = get_lang('WikiIdenticalContent');
+                        $message = get_lang("Identical content<br />no modification saved");
                         
                         $action = 'show';
                     }
@@ -438,7 +438,7 @@
                             }
                             else
                             {
-                                $message = get_lang('WikiPageSaved');
+                                $message = get_lang("Page saved");
                             }
                             
                             $action = 'show';
@@ -464,7 +464,7 @@
                     }
                     else
                     {
-                        $message = get_lang('WikiPageSaved');
+                        $message = get_lang("Page saved");
                     }
                     
                     $action = 'show';
@@ -579,7 +579,7 @@
     {
         case "edit":
         {
-            $dispTitle = ( $title == "__MainPage__" ) ? get_lang('WikiMainPage') : $title;
+            $dispTitle = ( $title == "__MainPage__" ) ? get_lang("Main page") : $title;
             $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
                 . $wikiId . '&amp;title=' . $title
                 , 'name' => $dispTitle );
@@ -589,29 +589,29 @@
         }
         case "all":
         {
-            $nameTools = get_lang('WikiAllPages');
+            $nameTools = get_lang("All pages");
             $noPHP_SELF = true;
             break;
         }
         case "recent":
         {
-            $nameTools = get_lang('WikiRecentChanges');
+            $nameTools = get_lang("Recent changes");
             $noPHP_SELF = true;
             break;
         }
         case "history":
         {
-            $dispTitle = ( $title == "__MainPage__" ) ? get_lang('WikiMainPage') : $title;
+            $dispTitle = ( $title == "__MainPage__" ) ? get_lang("Main page") : $title;
             $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
                 . $wikiId . '&amp;title=' . $title
                 , 'name' => $dispTitle );
-            $nameTools = get_lang('WikiPageHistory');
+            $nameTools = get_lang("Page history");
             $noPHP_SELF = true;
             break;
         }
         default:
         {
-            $nameTools = ( $title == "__MainPage__" ) ? get_lang('WikiMainPage') : $title ;
+            $nameTools = ( $title == "__MainPage__" ) ? get_lang("Main page") : $title ;
             $noPHP_SELF = true;
         }
     }
@@ -623,7 +623,7 @@
     // tool title
     
     $toolTitle = array();
-    $toolTitle['mainTitle'] = sprintf( get_lang('WikiTitlePattern'), $wiki->getTitle() );
+    $toolTitle['mainTitle'] = sprintf( get_lang("Wiki : %s"), $wiki->getTitle() );
     
     if ( $_gid )
     {
@@ -634,23 +634,23 @@
     {
         case "all":
         {
-            $toolTitle['subTitle'] = get_lang('WikiAllPages');
+            $toolTitle['subTitle'] = get_lang("All pages");
             break;
         }
         case "recent":
         {
-            $toolTitle['subTitle'] = get_lang('WikiRecentChanges');
+            $toolTitle['subTitle'] = get_lang("Recent changes");
             break;
         }
         case "history":
         {
-            $toolTitle['subTitle'] = get_lang('WikiPageHistory');
+            $toolTitle['subTitle'] = get_lang("Page history");
             break;
         }
         default:
         {
             $subTitle = ( $title == "__MainPage__" )
-                ? get_lang('WikiMainPage')
+                ? get_lang("Main page")
                 : $title
                 ;
                 
@@ -675,7 +675,7 @@
     
     if ( ! $is_allowedToRead )
     {
-        echo get_lang('WikiNotAllowedToRead');
+        echo get_lang("You are not allowed to read this page");
         
         require_once "../inc/claro_init_footer.inc.php";
         
@@ -693,7 +693,7 @@
         . '&amp;title=__MainPage__'
         . '">'
         . '<img src="'.$imgRepositoryWeb.'wiki.gif" border="0" alt="edit" />&nbsp;'
-        . get_lang('WikiMainPage').'</a>'
+        . get_lang("Main page").'</a>'
         ;
     
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
@@ -702,7 +702,7 @@
         . '&amp;action=recent'
         . '">'
         . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="recent changes" />&nbsp;'
-        . get_lang('WikiRecentChanges').'</a>'
+        . get_lang("Recent changes").'</a>'
         ;
 
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
@@ -711,14 +711,14 @@
         . '&amp;action=all'
         . '">'
         . '<img src="'.$imgRepositoryWeb.'book.gif" border="0" alt="all pages" />&nbsp;'
-        . get_lang('WikiAllPages').'</a>'
+        . get_lang("All pages").'</a>'
         ;
         
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
         . 'wiki.php'
         . '">'
         . '<img src="'.$imgRepositoryWeb.'info.gif" border="0" alt="all pages" />&nbsp;'
-        . get_lang('WikiList') .'</a>'
+        . get_lang("List of Wiki") .'</a>'
         ;
     
     echo '</p>';
@@ -737,14 +737,14 @@
             . '&amp;title=' . rawurlencode($title)
             . '">'
             . '<img src="'.$imgRepositoryWeb.'back.gif" border="0" alt="back" />&nbsp;'
-            . get_lang('WikiBackToPage').'</a>'
+            . get_lang("Back to page").'</a>'
             ;
     }
     else
     {
         echo '<span class="claroCmdDisabled">'
             . '<img src="'.$imgRepositoryWeb.'back.gif" border="0" alt="back" />&nbsp;'
-            . get_lang('WikiBackToPage').'</span>'
+            . get_lang("Back to page").'</span>'
             ;
     }
         
@@ -761,7 +761,7 @@
                 . '&amp;versionId=' . $versionId
                 . '">'
                 . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
-                . get_lang('WikiEditPage').'</a>'
+                . get_lang("Edit this page").'</a>'
                 ;
         }
         // Other contexts
@@ -769,7 +769,7 @@
         {
             echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
                 . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
-                . get_lang('WikiEditPage') . '</span>'
+                . get_lang("Edit this page") . '</span>'
                 ;
         }
     }
@@ -777,7 +777,7 @@
     {
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
             . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
-            . get_lang('WikiEditPage') . '</span>'
+            . get_lang("Edit this page") . '</span>'
             ;
     }
     
@@ -791,7 +791,7 @@
                 . '&amp;title=' . rawurlencode( $title )
                 . '">'
                 . '<img src="'.$imgRepositoryWeb.'version.gif" border="0" alt="history" />&nbsp;'
-                . get_lang('WikiPageHistory').'</a>'
+                . get_lang("Page history").'</a>'
                 ;
     }
     else
@@ -799,7 +799,7 @@
         // inactive
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
             . '<img src="'.$imgRepositoryWeb.'version.gif" border="0" alt="history" />&nbsp;'
-            . get_lang('WikiPageHistory') . '</span>'
+            . get_lang("Page history") . '</span>'
             ;
     }
         
@@ -810,7 +810,7 @@
             . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
             . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
             . '<img src="'.$imgRepositoryWeb.'help_little.gif" border="0" alt="history" />&nbsp;'
-            . get_lang('WikiHelpSyntax') . '</a>'
+            . get_lang("Wiki syntax") . '</a>'
             ;
     }
 
@@ -824,7 +824,7 @@
         {
             if( $title === '__MainPage__' )
             {
-                $displaytitle = get_lang('WikiMainPage');
+                $displaytitle = get_lang("Main page");
             }
             else
             {
@@ -833,7 +833,7 @@
             
             echo '<div class="wikiTitle">' . "\n";
             echo '<h1>'.$displaytitle
-                . ' : ' . get_lang('WikiEditConflict')
+                . ' : ' . get_lang("Edit conflict")
                 . '</h1>'
                 . "\n"
                 ;
@@ -852,7 +852,7 @@
             echo '<div>' . "\n";
             echo '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n";
             echo '<input type="hidden" name="title" value="'.$title.'" />' . "\n";
-            echo '<input type="submit" name="action[edit]" value="'.get_lang('WikiEditLastVersion').'" />' . "\n";
+            echo '<input type="submit" name="action[edit]" value="'.get_lang("Edit last version").'" />' . "\n";
             $url = $_SERVER['PHP_SELF']
                 . '?wikiId=' . $wikiId
                 . '&amp;title=' . $title
@@ -867,7 +867,7 @@
         {
             if( $title === '__MainPage__' )
             {
-                $displaytitle = get_lang('WikiMainPage');
+                $displaytitle = get_lang("Main page");
             }
             else
             {
@@ -889,7 +889,9 @@
             $newEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
 
             $versionInfo = '('
-                . sprintf( get_lang('WikiDifferencePattern'), $oldTime, $oldEditorStr, $newTime, $newEditorStr )
+                . sprintf( 
+                    get_lang("differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s")
+                        , $oldTime, $oldEditorStr, $newTime, $newEditorStr )
                 . ')'
                 ;
                 
@@ -905,16 +907,16 @@
                 ;
             echo '</div>' . "\n";
             
-            echo '<strong>'.get_lang('WikiDifferenceKeys').'</strong>';
+            echo '<strong>'.get_lang("Keys :").'</strong>';
 
             echo '<div class="diff">' . "\n";
-            echo '= <span class="diffEqual" >'.get_lang('WikiDiffUnchangedLine').'</span><br />';
-            echo '+ <span class="diffAdded" >'.get_lang('WikiDiffAddedLine').'</span><br />';
-            echo '- <span class="diffDeleted" >'.get_lang('WikiDiffDeletedLine').'</span><br />';
-            echo 'M <span class="diffMoved" >'.get_lang('WikiDiffMovedLine').'</span><br />';
+            echo '= <span class="diffEqual" >'.get_lang("Unchanged line").'</span><br />';
+            echo '+ <span class="diffAdded" >'.get_lang("Added line").'</span><br />';
+            echo '- <span class="diffDeleted" >'.get_lang("Deleted line").'</span><br />';
+            echo 'M <span class="diffMoved" >'.get_lang("Moved line").'</span><br />';
             echo '</div>' . "\n";
             
-            echo '<strong>'.get_lang('WikiDifferenceTitle').'</strong>';
+            echo '<strong>'.get_lang("Differences :").'</strong>';
 
             echo '<div class="diff">' . "\n";
             echo $diff;
@@ -931,7 +933,7 @@
                 foreach ( $recentChanges as $recentChange )
                 {
                     $pgtitle = ( $recentChange['title'] == "__MainPage__" )
-                        ? get_lang('WikiMainPage')
+                        ? get_lang("Main page")
                         : $recentChange['title']
                         ;
                         
@@ -970,7 +972,7 @@
                     }
                         
                     echo '<li>'
-                        . sprintf( get_lang('WikiRecentChangesPattern'), $entry, $time, $userUrl )
+                        . sprintf( get_lang("%1\$s modified on %2\$s by %3\$s"), $entry, $time, $userUrl )
                         . '</li>'
                         . "\n"
                         ;
@@ -988,7 +990,7 @@
                 . '?wikiId=' . $wikiId
                 . '&amp;title=' . rawurlencode("__MainPage__")
                 . '&amp;action=show">'
-                . get_lang('WikiMainPage')
+                . get_lang("Main page")
                 . '</a></li></ul>' . "\n"
                 ;
             
@@ -1024,11 +1026,11 @@
         {
             if ( ! $wiki->pageExists( $title ) && ! $is_allowedToCreate )
             {
-                echo get_lang('WikiNotAllowedToCreate');
+                echo get_lang("You are not allowed to create pages");
             }
             elseif ( $wiki->pageExists( $title ) && ! $is_allowedToEdit )
             {
-                echo get_lang('WikiNotAllowedToEdit');
+                echo get_lang("You are not allowed to edit this page");
             }
             else
             {
@@ -1067,7 +1069,7 @@
                 // get localized value for wiki main page title
                 if( $title === '__MainPage__' )
                 {
-                    $displaytitle = get_lang('WikiMainPage');
+                    $displaytitle = get_lang("Main page");
                 }
                 else
                 {
@@ -1097,7 +1099,7 @@
                         , strtotime($wikiPage->getCurrentVersionMtime()) )
                         ;
                         
-                    $versionInfo = sprintf( get_lang('WikiVersionInfoPattern'), $mtime, $editorUrl );
+                    $versionInfo = sprintf( get_lang("(version of %1\$s modified by %2\$s)"), $mtime, $editorUrl );
                         
                     $versionInfo = '&nbsp;<span style="font-size: 40%; font-weight: normal; color: red;">'
                         . $versionInfo . '</span>'
@@ -1129,7 +1131,7 @@
         {
             if( $title === '__MainPage__' )
             {
-                $displaytitle = get_lang('WikiMainPage');
+                $displaytitle = get_lang("Main page");
             }
             else
             {
@@ -1149,7 +1151,9 @@
             echo '<div>' . "\n"
                 . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
                 . '<input type="hidden" name="title" value="'.$title.'" />' . "\n"
-                . '<input type="submit" name="action[diff]" value="'.get_lang('WikiShowDifferences').'" />' . "\n"
+                . '<input type="submit" name="action[diff]" value="'
+                . get_lang("Show differences")
+                . '" />' . "\n"
                 . '</div>' . "\n"
                 ;
             
@@ -1219,7 +1223,7 @@
                         ;
                     
                     echo '<td>'
-                        . sprintf( get_lang('WikiVersionPattern'), $versionUrl, $userUrl )
+                        . sprintf( get_lang("%1\$s by %2\$s"), $versionUrl, $userUrl )
                         . '</td>'
                         . "\n"
                         ;

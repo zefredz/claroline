@@ -44,7 +44,7 @@
         $script = add_request_variable_to_url( $script, "title", rawurlencode($title) );
         
         // set display title
-        $localtitle = ( $title === '__MainPage__' ) ? get_lang('WikiMainPage') : $title;
+        $localtitle = ( $title === '__MainPage__' ) ? get_lang("Main page") : $title;
         
         // display title
         $out = '<div class="wikiTitle">' . "\n";
@@ -120,16 +120,18 @@
         
         if( $title === '__MainPage__' )
         {
-            $title = get_lang('WikiMainPage');
+            $title = get_lang("Main page");
         }
         
-        $title = "<h1 class=\"wikiTitle\">" . get_lang('WikiPreviewTitle') . "$title</h1>\n";
+        $title = "<h1 class=\"wikiTitle\">" . get_lang("Preview : ") . "$title</h1>\n";
         
         $out .= $title;
         
         $out .= '</div>' . "\n";
         
-        $out .= claro_html::message_box( '<small>'.get_lang('WikiPreviewWarning').'</small>' )
+        $out .= claro_html::message_box( '<small>'
+            . get_lang("WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.")
+            . '</small>' )
             . "\n";
 
         $out .= '<div class="wiki2xhtml">' . "\n";
@@ -140,7 +142,7 @@
         }
         else
         {
-            $out .= get_lang('WikiContentEmpty');
+            $out .= get_lang("This page is empty, click on 'Edit this page' to add a content");
         }
         
         $out .= "</div>\n";
@@ -212,9 +214,9 @@
         , $title ='', $desc = '', $groupId = 0, $acl = null
         , $script = null )
     {
-        $title = ( $title != '' ) ? $title : get_lang('WikiDefaultTitle');
+        $title = ( $title != '' ) ? $title : get_lang("New Wiki");
         
-        $desc = ( $desc != '' ) ? $desc : get_lang('WikiDefaultDescription');
+        $desc = ( $desc != '' ) ? $desc : get_lang("Enter the description of your wiki here");
         
         if ( is_null ( $acl ) && $groupId == 0 )
         {
@@ -240,33 +242,35 @@
         
         $form = '<form method="POST" id="wikiProperties" action="'.$script.'">' . "\n"
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
-            . '<legend>'.get_lang('WikiDescriptionForm').'</legend>' . "\n"
+            . '<legend>'.get_lang("Wiki description").'</legend>' . "\n"
             . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
-            . '<p style="font-style: italic;">' . get_lang('WikiDescriptionFormText') . '</p>' . "\n"
+            . '<p style="font-style: italic;">' . get_lang("You can choose a title an a description for the wiki : ") . '</p>' . "\n"
             . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
             . '<!-- groupId = 0 if course wiki, != 0 if group_wiki  -->' . "\n"
             . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
             . '<div style="padding: 5px">' . "\n"
-            . '<label for="wikiTitle">' . get_lang('WikiTitle') . ' :</label><br />' . "\n"
+            . '<label for="wikiTitle">' . get_lang("Title of the wiki") . ' :</label><br />' . "\n"
             . '<input type="text" name="title" id="wikiTitle" size="80" maxlength="254" value="'.htmlspecialchars($title).'" />' . "\n"
             . '</div>' . "\n"
             . '<div style="padding: 5px">' . "\n"
-            . '<label for="wikiDesc">'.get_lang('WikiDescription').' :</label><br />' . "\n"
+            . '<label for="wikiDesc">'.get_lang("Description of the Wiki").' :</label><br />' . "\n"
             . '<textarea id="wikiDesc" name="desc" cols="80" rows="10">'.$desc.'</textarea>' . "\n"
             . '</div>' . "\n"
             . '</fieldset>' . "\n"
             . '<fieldset id="acl" style="padding: 10px;margin: 10px;">' . "\n"
-            . '<legend>' . get_lang('WikiAccessControl') . '</legend>' . "\n"
-            . '<p style="font-style: italic;">'.get_lang('WikiAccessControlText').'</p>' . "\n"
+            . '<legend>' . get_lang("Access control management") . '</legend>' . "\n"
+            . '<p style="font-style: italic;">'
+            . get_lang("You can set access rights for users using the following grid : ")
+            . '</p>' . "\n"
             . '<table style="text-align: center; padding: 5px;" id="wikiACL">' . "\n"
             . '<tr class="matrixAbs">' . "\n"
             . '<td><!-- empty --></td>' . "\n"
-            . '<td>'.get_lang('WikiReadPrivilege').'</td>' . "\n"
-            . '<td>'.get_lang('WikiEditPrivilege').'</td>' . "\n"
-            . '<td>'.get_lang('WikiCreatePrivilege').'</td>' . "\n"
+            . '<td>'.get_lang("Read Pages").'</td>' . "\n"
+            . '<td>'.get_lang("Edit Pages").'</td>' . "\n"
+            . '<td>'.get_lang("Create Pages").'</td>' . "\n"
             . '</tr>' . "\n"
             . '<tr>' . "\n"
-            . '<td class="matrixOrd">'.get_lang('WikiCourseMembers').'</td>' . "\n"
+            . '<td class="matrixOrd">'.get_lang("Course members").'</td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'read\');" id="course_read" name="acl[course_read]"'.$course_read_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'edit\');" id="course_edit" name="acl[course_edit]"'.$course_edit_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'create\');" id="course_create" name="acl[course_create]"'.$course_create_checked.' /></td>' . "\n"
@@ -277,7 +281,7 @@
         {
             $form .= '<!-- group acl row hidden if groupId == 0, set all to false -->' . "\n"
                 . '<tr>' . "\n"
-                . '<td class="matrixOrd">'.get_lang('WikiGroupMembers').'</td>' . "\n"
+                . '<td class="matrixOrd">'.get_lang("Group members").'</td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'read\');" id="group_read" name="acl[group_read]"'.$group_read_checked.' /></td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'edit\');" id="group_edit" name="acl[group_edit]"'.$group_edit_checked.' /></td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'create\');" id="group_create" name="acl[group_create]"'.$group_create_checked.' /></td>' . "\n"
@@ -286,13 +290,15 @@
         }
         
         $form .= '<tr>' . "\n"
-            . '<td class="matrixOrd">'.get_lang('WikiOtherUsers').'</td>' . "\n"
+            . '<td class="matrixOrd">'.get_lang("Others (*)").'</td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'read\');" id="other_read" name="acl[other_read]"'.$other_read_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'edit\');" id="other_edit" name="acl[other_edit]"'.$other_edit_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'create\');" id="other_create" name="acl[other_create]"'.$other_create_checked.' /></td>' . "\n"
             . '</tr>' . "\n"
             . '</table>' . "\n"
-            . '<p style="font-style: italic;">'.get_lang('WikiOtherUsersText').'</p>' . "\n"
+            . '<p style="font-style: italic;">'
+            . get_lang("(*) anonymous users, users who are not members of this course...")
+            . '</p>' . "\n"
             . '</fieldset>' . "\n"
             ;
         
