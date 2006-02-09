@@ -360,7 +360,7 @@ if ($display_form)
     .    '<td>'
     .    claro_disp_date_form('fday', 'fmonth', 'fyear', $date, 'long' ) . ' '
     .    claro_disp_time_form('fhour','fminute', $time) . '&nbsp;'
-    .    '<small>' . get_lang('ChooseDateHelper') . '</small>'
+    .    '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
