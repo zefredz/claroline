@@ -23,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
 
@@ -300,7 +300,7 @@ if ($atleastOne == false)
 {
     echo '<tfoot>'."\n\n"
     .    '<tr>'."\n"
-    .    '<td align="center" colspan="3">'.get_lang('NoModule').'</td>'."\n"
+    .    '<td align="center" colspan="3">'.get_lang('No module').'</td>'."\n"
     .    '</tr>'."\n\n"
     .    '</tfoot>'."\n\n"
     ;
@@ -314,7 +314,7 @@ elseif($_uid && $moduleNb > 0)
         .'</tr>'."\n\n"
         // display progression
         .'<tr>'."\n"
-        .'<td align="right" colspan="'.($maxDeep+1).'">'.get_lang('GlobalProgress').'</td>'."\n"
+        .'<td align="right" colspan="'.($maxDeep+1).'">'.get_lang('Learning path progression : ').'</td>'."\n"
         .'<td align="right">'
         .claro_html::progress_bar(round($globalProg / ($moduleNb) ), 1 )
         .'</td>'."\n"
