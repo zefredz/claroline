@@ -24,8 +24,8 @@ $is_AllowedToEdit = $is_courseAdmin;
 if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
-$nameTools = get_lang('importLearningPath');
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$nameTools = get_lang('Import a learning path');
 
 //header
 include($includePath."/claro_init_header.inc.php");
@@ -284,7 +284,7 @@ function elementData($parser,$data)
                 if ( !($fp = @fopen($file, "r")) )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('ErrorOpeningXMLFile').$pathToManifest.$file );
+                    array_push ($errorMsgs, get_lang('Cannot find secondary initialisation file in the package.<br /> File not found : ').$pathToManifest.$file );
                 }
                 else
                 {
@@ -323,7 +323,7 @@ function elementData($parser,$data)
                             // if reading of the xml file in not successfull :
                             // set errorFound, set error msg, break while statement
                             $errorFound = true;
-                            array_push ($errorMsgs, get_lang('ErrorReadingXMLFile').$pathToManifest.$file );
+                            array_push ($errorMsgs, get_lang('Error reading a secondary initialisation file : ').$pathToManifest.$file );
                             break;
                         }
                     } // while $readdata
@@ -482,7 +482,7 @@ function utf8_decode_if_is_utf8($str) {
 
 // main page
 
-echo claro_disp_tool_title(get_lang('importLearningPath'));
+echo claro_disp_tool_title(get_lang('Import a learning path'));
 
 // init msg arays
 $okMsgs   = array();
@@ -503,7 +503,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     $insertedModule_id = array();
     $insertedAsset_id = array();
 
-    $lpName = get_lang('UnamedPath');
+    $lpName = get_lang('Unamed path');
 
     // we need a new path_id for this learning path so we prepare a line in DB
     // this line will be removed if an error occurs
@@ -532,7 +532,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if( !isset($_FILES['uploadedPackage']) || !is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('FileError').'<br />'.get_lang('Notice').' : '.get_lang('MaxFileSize').' '.get_cfg_var('upload_max_filesize') );
+        array_push ($errorMsgs, get_lang('The file to upload is not valid.').'<br />'.get_lang('Notice').' : '.get_lang('MaxFileSize').' '.get_cfg_var('upload_max_filesize') );
     }
 
     /*
@@ -543,7 +543,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     elseif ( ! enough_size($_FILES['uploadedPackage']['size'], $baseWorkDir, $maxFilledSpace))
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('NoSpace') ) ;
+        array_push ($errorMsgs, get_lang('The upload has failed. There is not enough space in your directory') ) ;
     }
 
     /*
@@ -552,12 +552,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     elseif ( preg_match("/.zip$/i", $_FILES['uploadedPackage']['name']) )
     {
-        array_push ($okMsgs, get_lang('OkFileReceived').basename($_FILES['uploadedPackage']['name']) );
+        array_push ($okMsgs, get_lang('File received : ').basename($_FILES['uploadedPackage']['name']) );
         
         if (!function_exists('gzopen'))
         {
             $errorFound = true;
-            array_push ($errorMsgs,get_lang('ErrorNoZlibExtension') );
+            array_push ($errorMsgs,get_lang('Zlib php extension is required to use this tool. Please contact your platform administrator.') );
         }
         else
         {
@@ -571,7 +571,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             if ($zipContentArray == 0)
             {
               $errorFound = true;
-              array_push ($errorMsgs,get_lang('ErrorReadingZipFile') );
+              array_push ($errorMsgs,get_lang('Error reading zip file.') );
             }
             
             $pathToManifest  = ""; // empty by default because we can expect that the manifest.xml is in the root of zip file
@@ -608,7 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             if ( ($realFileSize + $alreadyFilledSpace) > $maxFilledSpace) // check the real size.
             {
                 $errorFound = true;
-                array_push ($errorMsgs, get_lang('NoSpace') ) ;
+                array_push ($errorMsgs, get_lang('The upload has failed. There is not enough space in your directory') ) ;
                 $is_allowedToUnzip = false;
             }
  
@@ -623,7 +623,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( $unzippingState == 0 )  
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('ErrortExtractingManifest') );
+                    array_push ($errorMsgs, get_lang('Cannot extract manifest from zip file (corrupted file ? ).') );
                 }
             } //end of if ($is_allowedToUnzip)
         } // end of if (!function_exists...
@@ -631,7 +631,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     else
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('ErrorFileMustBeZip') );
+        array_push ($errorMsgs, get_lang('File must be a zip file (.zip)') );
     }
     // find xmlmanifest (must be in root else ==> cancel operation, delete files)
 
@@ -663,13 +663,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         if (!($fp = @fopen($file, "r")))
         {
             $errorFound = true;
-            array_push ($errorMsgs, get_lang('ErrorOpeningManifest') );
+            array_push ($errorMsgs, get_lang('Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml') );
         }
         else
         {
             if (!isset($manifestPath)) $manifestPath = "";
 
-            array_push ($okMsgs, get_lang('OkManifestFound').$manifestPath."imsmanifest.xml" );
+            array_push ($okMsgs, get_lang('Manifest found in zip file : ').$manifestPath."imsmanifest.xml" );
 
             while ($data = str_replace("\n","",fread($fp, 4096)))
             {
@@ -712,7 +712,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     // set errorFound, set error msg, break while statement
                    
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('ErrorReadingManifest') );
+                    array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
                     break;
                 }
             }
@@ -729,7 +729,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     // check if all starts assets files exist in the zip file
     if ( !$errorFound )
     {
-        array_push ($okMsgs, get_lang('OkManifestRead') );  
+        array_push ($okMsgs, get_lang('Manifest read.') );  
         if ( sizeof($manifestData['items']) > 0 )
         {
             // if there is items in manifest we look for sco type resources referenced in idientifierref
@@ -757,7 +757,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('ErrorAssetNotFound').$manifestData['scos'][$item['identifierref']]['href'] );
+                    array_push ($errorMsgs, get_lang('Asset not found : ').$manifestData['scos'][$item['identifierref']]['href'] );
                     break;
                 }
             }
@@ -792,7 +792,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('ErrorAssetNotFound').$sco['href'] );
+                    array_push ($errorMsgs, get_lang('Asset not found : ').$sco['href'] );
                     break;
                 }
             }
@@ -800,7 +800,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         else
         {
             $errorFound = true;
-            array_push ($errorMsgs, get_lang('ErrorNoModuleInPackage') );
+            array_push ($errorMsgs, get_lang('No module in package') );
         }
     }// if errorFound
 
@@ -826,7 +826,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         if ( sizeof( $manifestData['items'] ) == 0 )
         {
             $errorFound = true;
-            array_push ($errorMsgs, get_lang('ErrorNoModuleInPackage') );
+            array_push ($errorMsgs, get_lang('No module in package') );
         }
         else
         {
@@ -865,7 +865,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     if ( mysql_error() )
                     {
                         $errorFound = true;
-                        array_push($errorMsgs, get_lang('ErrorSql'));
+                        array_push($errorMsgs, get_lang('Error in SQL statement'));
                         break;
                     }
                     $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
@@ -894,12 +894,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     if ( mysql_error() )
                     {
                         $errorFound = true;
-                        array_push($errorMsgs, get_lang('ErrorSql'));
+                        array_push($errorMsgs, get_lang('Error in SQL statement'));
                         break;
                     }
                     if (!$errorFound)
                     {
-                        array_push ($okMsgs, get_lang('OkChapterHeadAdded')."<i>".$chapterTitle."</i>" ) ;
+                        array_push ($okMsgs, get_lang('Title added : ')."<i>".$chapterTitle."</i>" ) ;
                     }
                     $i++;
                     continue;
@@ -908,7 +908,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // use found title of module or use default title
                 if ( !isset( $item['title'] ) || $item['title'] == '')
                 {
-                    $moduleName = get_lang('UnamedModule');
+                    $moduleName = get_lang('Unamed module');
                 }
                 else
                 {
@@ -923,7 +923,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                                ( !isset($manifestData['scos'][$item['identifierref']]['description']) /*|| $manifestData['scos'][$item['identifierref']]['parameters'] == ''*/ )
                        )
                 {
-                    $description = get_lang('DefaultModuleComment');
+                    $description = get_block('DefaultModuleComment');
                 }
                 else
                 {
@@ -950,7 +950,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('ErrorSql'));
+                    array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
 
@@ -984,7 +984,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('ErrorSql'));
+                    array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
 
@@ -999,7 +999,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('ErrorSql'));
+                    array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
 
@@ -1016,7 +1016,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `visibility`, `lock`, `parent`)
-                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes(get_lang('DefaultModuleAddedComment'))."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
+                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes(get_block('DefaultModuleAddedComment'))."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
                 $query = claro_sql_query($sql);
                     
                 // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
@@ -1027,13 +1027,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('ErrorSql'));
+                    array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
                     
                 if (!$errorFound)
                 {
-                    array_push ($okMsgs, get_lang('OkModuleAdded')."<i>".$moduleName."</i>" ) ;
+                    array_push ($okMsgs, get_lang('Module added : ')."<i>".$moduleName."</i>" ) ;
                 }
                 $i++;
             }//foreach
@@ -1111,7 +1111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            array_push($okMsgs, get_lang('OkDefaultTitleUsed') );
+            array_push($okMsgs, get_lang('warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.') );
         }
 
         if ( isset($manifestData['packageDesc']) )
@@ -1120,8 +1120,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            $lpComment = get_lang('DefaultLearningPathComment');
-            array_push($okMsgs, get_lang('OkDefaultCommentUsed') );
+            $lpComment = get_block('DefaultLearningPathComment');
+            array_push($okMsgs, get_lang('warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it') );
         }
 
         $sql = "UPDATE `".$TABLELEARNPATH."`
@@ -1154,14 +1154,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     // installation completed or not message
     if ( !$errorFound )
     {
-        echo "\n<br /><center><b>".get_lang('Installed')."</b></center>";
+        echo "\n<br /><center><b>".get_lang('Learning path has been successfully imported.')."</b></center>";
         echo "\n<br /><br ><center><a href=\"learningPathAdmin.php?path_id=".$tempPathId."\">".$lpName."</a></center>";
     }
     else
     {
-        echo "\n<br /><center><b>".get_lang('NotInstalled')."</b></center>";
+        echo "\n<br /><center><b>".get_lang('An error occured.  Learning Path import failed.')."</b></center>";
     }
-    echo "\n<br /><a href=\"learningPathList.php\">get_lang('Back')</a>";   
+    echo "\n<br /><a href=\"learningPathList.php\">".get_lang('Back')."</a>";   
        
 }
 else // if method == 'post'
@@ -1171,7 +1171,7 @@ else // if method == 'post'
     /*--------------------------------------
       UPLOAD FORM
      --------------------------------------*/
-    echo "\n\n".get_lang('ScormIntroTextForDummies');
+    echo "\n\n".get_lang('Imported packages must consist of a zip file and be SCORM 1.2 conformable');
     ?>
 <br /><br />
 
@@ -1181,7 +1181,7 @@ else // if method == 'post'
 <input type="file" name="uploadedPackage">
 <input type="submit" value="<?php echo get_lang('Import') ?>"><br />
 
-<small><?php echo get_lang('MaxFileSize'); ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
+<small><?php echo get_lang('Max file size : '); ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
 
 </form>
 
