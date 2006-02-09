@@ -31,7 +31,7 @@
         }
         else
         {
-            claro_die(get_lang('Not allowed'));
+            claro_die(get_lang("Not allowed"));
         }
     }*/
     
@@ -55,12 +55,12 @@
         // group context
         $groupId = (int) $_gid;
         
-        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang('Groups'));
+        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang("Groups"));
         $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
-        claro_die(get_lang('Not allowed'));
+        claro_die(get_lang("Not allowed"));
     }
     elseif ( $is_courseAllowed )
     {
@@ -362,7 +362,7 @@
     {
         case "rqEdit":
         {
-            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang('Wiki') );
+            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang("Wiki") );
             $interbredcrump[]= array ('url' => NULL
                 , 'name' => $wikiTitle);
             $nameTools = get_lang("Properties");
@@ -371,10 +371,10 @@
         }
         case "rqDelete":
         {
-            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang('Wiki') );
+            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang("Wiki") );
             $interbredcrump[]= array ('url' => NULL
                 , 'name' => $wikiTitle);
-            $nameTools = get_lang('Delete');
+            $nameTools = get_lang("Delete");
             $noPHP_SELF = true;
             break;
         }
@@ -466,8 +466,8 @@
                 
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
-                . '<input type="submit" name="action[exDelete]" value="' . get_lang('Continue') . '" />' . "\n"
-                . claro_html::cmd_button ($_SERVER['PHP_SELF'], get_lang('Cancel') )
+                . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
+                . claro_html::cmd_button ($_SERVER['PHP_SELF'], get_lang("Cancel") )
                 . '</div>'
                 ;
 
@@ -567,7 +567,7 @@
                     echo '<a class="item'.$classItem.'" href="page.php?wikiId='  
                         . $entry['id'].'&amp;action=show'
                         . '">'
-                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang('Wiki').'" />&nbsp;'
+                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang("Wiki").'" />&nbsp;'
                         . $entry['title'] . '</a>'
                         ;
                         ;
@@ -620,7 +620,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
                             . '">'
-                            . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+                            . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang("Delete").'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";

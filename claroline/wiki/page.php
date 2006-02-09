@@ -31,7 +31,7 @@
         }
         else
         {
-            claro_die(get_lang('Not allowed'));
+            claro_die(get_lang("Not allowed"));
         }
     }*/
     
@@ -58,12 +58,12 @@
         // group context
         $grouId = $_gid;
         
-        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang('Groups'));
+        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang("Groups"));
         $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
-        claro_die(get_lang('Not allowed'));
+        claro_die(get_lang("Not allowed"));
     }
     elseif ( $is_courseAllowed )
     {
@@ -109,11 +109,11 @@
 
         if ( isset( $_gid ) && $_gid != $wikiGroupId )
         {
-            claro_die(get_lang('Not allowed'));
+            claro_die(get_lang("Not allowed"));
         }
         elseif( !isset( $_gid ) && $result['group_id'] != 0 )
         {
-            claro_die(get_lang('Not allowed'));
+            claro_die(get_lang("Not allowed"));
         }
     }
     
@@ -571,7 +571,7 @@
         
     // Breadcrumps
     
-    $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang('Wiki'));
+    $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
     $interbredcrump[]= array ( 'url' => NULL
         , 'name' => $wiki->getTitle() );
         
@@ -583,7 +583,7 @@
             $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
                 . $wikiId . '&amp;title=' . $title
                 , 'name' => $dispTitle );
-            $nameTools = get_lang('Edit');
+            $nameTools = get_lang("Edit");
             $noPHP_SELF = true;
             break;
         }
@@ -858,7 +858,7 @@
                 . '&amp;title=' . $title
                 . '&amp;action=show'
                 ;
-            echo claro_html::cmd_button( $url, get_lang('Cancel') ) . "\n";
+            echo claro_html::cmd_button( $url, get_lang("Cancel") ) . "\n";
             echo '</div>' . "\n";
             echo '</form>';
             break;

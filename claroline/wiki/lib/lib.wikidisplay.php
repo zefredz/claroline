@@ -84,20 +84,20 @@
             ;
         
         $out .= '<input type="submit" name="action[preview]" value="'
-            .get_lang('Preview').'" />' . "\n"
+            .get_lang("Preview").'" />' . "\n"
             ;
         
         if( ! $forcePreview )
         {
             $out .= '<input type="submit" name="action[save]" value="'
-                .get_lang('Save').'" />' . "\n"
+                .get_lang("Save").'" />' . "\n"
                 ;
         }
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $location, "action", "show" );
 
-        $out .= claro_html::cmd_button ( $location, get_lang('Cancel') );
+        $out .= claro_html::cmd_button ( $location, get_lang("Cancel") );
         
         $out .= '</div>' . "\n";
 
@@ -182,17 +182,17 @@
             ;
         
         $out .= '<input type="submit" name="action[save]" value="'
-            . get_lang('Save').'" />' . "\n"
+            . get_lang("Save").'" />' . "\n"
             ;
         $out .= '<input type="submit" name="action[edit]" value="'
-            . get_lang('Edit') . '"/>' . "\n"
+            . get_lang("Edit") . '"/>' . "\n"
             ;
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $location, "title", $title );
         $location = add_request_variable_to_url( $location, "action", "show" );
         
-        $out .= claro_html::cmd_button ( $location, get_lang('Cancel') );
+        $out .= claro_html::cmd_button ( $location, get_lang("Cancel") );
         
         $out .= "</form></div>\n";
         
@@ -309,8 +309,8 @@
             $form .= '<input type="hidden" name="gidReq" value="' . $groupId  . '" />' . "\n";
         }
         
-        $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang('Save') . '" />' . "\n"
-            . claro_html::cmd_button ( $_SERVER['PHP_SELF'] . '?action=list', get_lang('Cancel') ) . "\n"
+        $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Save") . '" />' . "\n"
+            . claro_html::cmd_button ( $_SERVER['PHP_SELF'] . '?action=list', get_lang("Cancel") ) . "\n"
             ;
             
         $form .= '</div>' . "\n"

@@ -17,7 +17,7 @@
     
     require '../inc/claro_init_global.inc.php';
 
-    $nameTools = get_lang('Wiki');
+    $nameTools = get_lang("Wiki");
     $hide_banner=TRUE;
     
     $htmlHeadXtra[] =
