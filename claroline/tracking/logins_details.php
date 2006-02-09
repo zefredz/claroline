@@ -8,8 +8,6 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @see http://www.claroline.net/wiki/CLCRS/
- *
  * @package CLSTAT
  *
  * @author Claro Team <cvs@claroline.net>
@@ -57,10 +55,10 @@ $is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all s
 // check if uid is tutor of this group
 
 $interbredcrump[]= array ('url'=>'../user/user.php', 'name'=> get_lang('Users'));
-$interbredcrump[]= array ('url'=>'../tracking/userLog.php?uInfo=' . $uInfo, 'name'=> get_lang('StatsOfUser'));
+$interbredcrump[]= array ('url'=>'../tracking/userLog.php?uInfo=' . $uInfo, 'name'=> get_lang('Statistics of user'));
 $_SERVER['QUERY_STRING'] = 'uInfo=' . $uInfo . '&amp;reqdate=' . $reqdate;
 
-$nameTools = get_lang('Statistics') . ' : ' . get_lang('LoginsAndAccessTools');
+$nameTools = get_lang('Statistics') . ' : ' . get_lang('Logins and access to tools');
 
 
 if(!get_conf('is_trackingEnabled',false)) $display = DISP_TRACKING_DISABLED;
@@ -106,7 +104,7 @@ elseif( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ))
             $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
             $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
             $displayedDate = get_lang('From')." ".date("d " , $weeklowreqdate).$langMonthNames['long'][date("n", $weeklowreqdate)-1].date(" Y" , $weeklowreqdate)
-            ." ".get_lang('ToDate')." ".date("d " , $weekhighreqdate ). $langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
+            ." ".get_lang('to')." ".date("d " , $weekhighreqdate ). $langMonthNames['long'][date("n", $weekhighreqdate)-1].date(" Y" , $weekhighreqdate);
         }
         else // month
         {
@@ -145,11 +143,11 @@ switch ($display)
 
         if( is_array($userDetails) && !empty($userDetails) )
         {
-            if( empty($userDetails['email']) ) $userDetails['email'] = get_lang('NoEmail');
+            if( empty($userDetails['email']) ) $userDetails['email'] = get_lang('No email address specified');
             echo get_lang('User').' : <br />'
             .   '<ul>' . "\n"
-            .   '<li>' . get_lang('LastName')  . ' : ' . $userDetails['lastname']  . '</li>' . "\n"
-            .   '<li>' . get_lang('FirstName') . ' : ' . $userDetails['firstname'] . '</li>' . "\n"
+            .   '<li>' . get_lang('Last name')  . ' : ' . $userDetails['lastname']  . '</li>' . "\n"
+            .   '<li>' . get_lang('First name') . ' : ' . $userDetails['firstname'] . '</li>' . "\n"
             .   '<li>' . get_lang('Email')     . ' : ' . $userDetails['email']     . '</li>' . "\n"
             .   '</ul>' . "\n"
 
@@ -157,22 +155,22 @@ switch ($display)
             .   '<small>'."\n"
             .   '[<a href="userLog.php?uInfo=' . $uInfo . '">' . get_lang('Back') . '</a>]' . "\n"
             .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-            .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('PeriodWeek').'</a>]'."\n"
-            .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('PeriodMonth').'</a>]'."\n"
+            .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
+            .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('Month').'</a>]'."\n"
             .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
             ;
 
             if( $period == 'week' )
             {
                 // previous and next date must be evaluated
-                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $previousReqDate . '">' . get_lang('PreviousWeek') . '</a>]' . "\n"
-                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $nextReqDate . '">' . get_lang('NextWeek') . '</a>]' . "\n"
+                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous Week') . '</a>]' . "\n"
+                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next Week') . '</a>]' . "\n"
                 ;
             }
             else // month
             {
-                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $previousReqDate . '">' . get_lang('PreviousMonth') . '</a>]' . "\n"
-                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $nextReqDate . '">' . get_lang('NextMonth') . '</a>]' . "\n"
+                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous Month') . '</a>]' . "\n"
+                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next Month') . '</a>]' . "\n"
                 ;
             }
 
@@ -237,7 +235,7 @@ switch ($display)
             {
                 echo '<tr>' . "\n"
                 .    '<td colspan="2">'
-                .    '<div align="center">' . get_lang('NoResult') . '</div>'
+                .    '<div align="center">' . get_lang('No result') . '</div>'
                 .    '</td>'."\n"
                 .    '</tr>' . "\n"
                 ;
@@ -246,7 +244,7 @@ switch ($display)
         }
         else
         {
-            echo get_lang('ErrorUserNotInGroup');
+            echo get_lang('Invalid user : this user doesn\'t exist in your group');
         }
 
 
@@ -258,7 +256,7 @@ switch ($display)
     } break;
     case DISP_TRACKING_DISABLED :
     {
-        echo get_lang('TrackingDisabled');
+        echo get_lang('Tracking has been disabled by system administrator.');
     } break;
 }
 
