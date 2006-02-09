@@ -2008,4 +2008,18 @@ $_lang['topics'] = "Topics";
 $_lang['topictitle'] = "View Topic";
 $_lang['viewforum'] = "View Forum";
 $_lang['viewmsg'] = "to view your message.";
+$_lang['ForumNotificationEmailMessage'] = "Dear %firstname %lastname,
+
+You are receiving this email because a new message in one of your favourite topics on our forums has been added, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%url_topic
+
+Or view the forum index at
+
+%url_forum
+
+Thank you for using our forums.";
 ?>
