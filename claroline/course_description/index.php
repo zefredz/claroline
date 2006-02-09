@@ -78,7 +78,7 @@ if ( $is_allowedToEdit )
     {
         // Add new description
         $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
-        $dialogBox .= '<p>' . ($descId !== false ? get_lang('DescAdded') : get_lang('UnableDescToAdd') ) . '</p>';
+        $dialogBox .= '<p>' . ($descId !== false ? get_lang('Description added.') : get_lang("Unable to add description") ) . '</p>';
 
         $eventNotifier->notifyCourseEvent('course_description_added',$_cid, $_tid, $descId, $_gid, 0);
 
@@ -143,11 +143,12 @@ if ( $is_allowedToEdit )
         if ( course_description_delete_item($descId) )
         {
             $eventNotifier->notifyCourseEvent('course_description_deleted',$_cid, $_tid, $descId, $_gid, '0');
-            $dialogBox .= '<p>' . get_lang('DescDeleted') . '</p>';
+            $dialogBox .= '<p>' . get_lang("Description deleted.") . '</p>';
         }
+
         else
         {
-            $dialogBox .= '<p>' . get_lang('DescUnableToDelete') . '</p>';
+            $dialogBox .= '<p>' . get_lang("Unable to delete") . '</p>';
         }
     }
 
@@ -244,14 +245,14 @@ if ( $is_allowedToEdit )
 
         if ( $descPresetQuestion )
         {
-            echo '<h4>' . get_lang('QuestionPlan') . '</h4>' . "\n"
+            echo '<h4>' . get_lang("Question to lecturer") . '</h4>' . "\n"
             .    '<p>' . $descPresetQuestion . '</p>' . "\n"
             ;
         }
 
         if ($descPresetTip)
         {
-            echo '<h4>' . get_lang('Info2Say') . '</h4>' . "\n"
+            echo '<h4>' . get_lang("Information to give to students") . '</h4>' . "\n"
             .    '<p>' . $descPresetTip . '</p>' . "\n"
             ;
         }
@@ -272,8 +273,8 @@ if ( $is_allowedToEdit )
 
         echo "\n\n"
         .    '<form method="get" action="' . $_SERVER['PHP_SELF'] . '?edIdBloc=add">' . "\n"
-        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
-        .    '<input type="hidden" name="cmd" value="rqEdit">' . "\n"
+        .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+        .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
         .    '<select name="tipsId">' . "\n"
         ;
 
@@ -292,7 +293,7 @@ if ( $is_allowedToEdit )
             }
         }
 
-        echo '<option value="-1">' . get_lang('NewBloc') . '</option>' . "\n"
+        echo '<option value="-1">' . get_lang("Other") . '</option>' . "\n"
         .    '</select>' . "\n"
         .    '<input type="submit" name="add" value="' . get_lang('Add') . '">' . "\n"
         .    '</form>' . "\n\n"
@@ -392,7 +393,7 @@ if ( count($descList) )
 
 if( !$hasDisplayedItems )
 {
-    echo "\n" . '<p>' . get_lang('ThisCourseDescriptionIsEmpty') . '</p>' . "\n";
+    echo "\n" . '<p>' . get_lang("This course is currently not described") . '</p>' . "\n";
 }
 
 include $includePath . '/claro_init_footer.inc.php';
