@@ -314,23 +314,24 @@ if( isset($_REQUEST['register']) )
 
     if( $soapResponse == CAMPUS_ADDED )
     {
-        $dialogBox = get_lang('CampusRegistrationSubmitted');
+        $dialogBox = get_lang('Your campus has been submitted and is waiting to be validate by Claroline.net team');
     }
     elseif( $soapResponse == LOCAL_URL_ERROR )
     {
-        $dialogBox = get_lang('RegisterLocalUrl');
+        $dialogBox = get_block('blockRegisterLocalUrl');
     }
     elseif( $soapResponse == CAMPUS_ALREADY_IN_LIST )
     {
-        $dialogBox = get_lang('CampusAlreadyRegistered');
+        $dialogBox = get_lang('It seems that you already have registered your campus.');
     }
     elseif( $soapResponse == COUNTRY_CODE_ERROR )
     {
-        $dialogBox = get_lang('CountryCodeError');
+        $dialogBox = get_lang('Country code seems to be incorrect.');
     }
     else
     {
-        $dialogBox = get_lang('UnkownSOAPError');
+   		// unknown soap error
+        $dialogBox = get_lang('An error occurred while contacting Claroline.net');
     }
 }
 
@@ -342,21 +343,21 @@ if( !isset($_REQUEST['register']) )
 
     if( $soapResponse )
     {
-        $dialogBox = get_lang('CurrentStatus').'<br />'."\n";
+        $dialogBox = get_lang('Current registration status : ').'<br /><br />'."\n";
 
         switch($soapResponse)
         {
             case 'SUBMITTED' :
-                $dialogBox .= get_lang('CampusSubmitted');
+                $dialogBox .= get_lang('<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>');
                 break;
             case 'REGISTERED' :
-                $dialogBox .= get_lang('CampusRegistered');
+                $dialogBox .= get_lang('<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>');
                 break;
             case 'UNREGISTERED' :
-                $dialogBox .= get_lang('CampusRemoved');
+                $dialogBox .= get_lang('<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>');
                 break;
             case 'HIDDEN' :
-                $dialogBox .= get_lang('CampusDeleted');
+                $dialogBox .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>');
                 break;
             default :
                 // unknown status ?
@@ -370,13 +371,13 @@ if( !isset($_REQUEST['register']) )
 /*============================================================================
                         DISPLAY
   ============================================================================*/
-$nameTools = get_lang('RegisterMyCampus');
+$nameTools = get_lang('Register my campus');
 // bread crumb à ajouter
 
 include $includePath . '/claro_init_header.inc.php';
 
 $title['mainTitle'] = $nameTools;
-$title['subTitle'] = get_lang('AddMyCampusOnClarolineNet');
+$title['subTitle'] = get_lang('Add my campus on Claroline.net website');
 echo claro_disp_tool_title($title);
 
 if( isset($dialogBox) && $dialogBox != '' ) echo claro_html::message_box($dialogBox);
@@ -385,7 +386,7 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 {
     echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
         .'<ul>'."\n"
-        .'<li>'.get_lang('SiteName').' : '.stripslashes($siteName).'</li>'."\n"
+        .'<li>'.get_lang('Campus name').' : '.stripslashes($siteName).'</li>'."\n"
         .'<li>'.get_lang('URL').'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
         .'<li>'.get_lang('Institution').' : '.stripslashes($institution_name).'</li>'."\n"
         .'<li>'.get_lang('Institution URL').' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
@@ -405,9 +406,9 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
         .'</li>'."\n"
         .'</ul>'."\n"
         .'<br />'."\n"
-        .'<input type="submit" name="register" value="'.get_lang('RegisterMyCampus').'" />'."\n"
+        .'<input type="submit" name="register" value="'.get_lang('Register my campus').'" />'."\n"
         .'<p>'
-        .'<small>'.get_lang('RegisterCampusAdvice').'</small>'
+        .'<small>'.get_lang('Please check that your campus URL is reachable from the internet.').'</small>'
         .'</p>'."\n"
         .'</form>'."\n";
 }
