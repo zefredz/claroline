@@ -279,7 +279,7 @@
            if(!$passed)
            {
                $elementResource = array();
-               $elementResource["name"] = "&lt;&lt;&nbsp;".get_lang('Empty')."&nbsp;&gt;&gt;";
+               $elementResource["name"] = "&lt;&lt;&nbsp;".get_lang("Empty")."&nbsp;&gt;&gt;";
                $elementResource["crl"] = $this->_node; 
                $elementResource["container"] = FALSE;      
                $elementResource["linkable"] = FALSE;   

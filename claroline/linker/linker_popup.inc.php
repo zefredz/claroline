@@ -36,13 +36,13 @@ $htmlHeadXtra[] = '<script type="text/javascript">'
 .                 'var coursecrl = \'' . CRLTool::createCRL($platform_id,$_course['sysCode']) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var lang_linker_prompt_for_url = \'' . addslashes(get_lang('LinkerPromptForUrl')) . '\';</script>' . "\n";
+.                 'var lang_linker_prompt_for_url = \'' . addslashes(get_lang("Enter link url")) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var lang_linker_prompt_invalid_url = \'' . addslashes(get_lang('LinkerPromptInvalidUrl')) . '\';</script>' . "\n";
+.                 'var lang_linker_prompt_invalid_url = \'' . addslashes(get_lang("Invalid url")) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var lang_linker_prompt_invalid_email = \'' . addslashes(get_lang('LinkerPromptInvalidEmail')) . '\';</script>' . "\n";
+.                 'var lang_linker_prompt_invalid_email = \'' . addslashes(get_lang("Invalid email address")) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript" src="' . path() . '/prompt_utils.js"></script>' . "\n";
 
@@ -156,7 +156,7 @@ if ($isToolAllowed)
         {
             $res = new Resolver('');
             $title = $res->getResourceName($crl);
-            echo claro_html::message_box('[' . $title . ']' . get_lang('LinkerAlreadyInAttachementList'));
+            echo claro_html::message_box('[' . $title . ']' . get_lang(" is already attached"));
         }
 
         if($current_crl != $crl)

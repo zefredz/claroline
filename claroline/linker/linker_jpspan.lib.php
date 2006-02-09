@@ -45,49 +45,49 @@
         
         //lang variable
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_add = '".addslashes(get_lang('LinkerAdd'))."';</script>\n";    
+                . "var lang_add = '".addslashes(get_lang("Attach"))."';</script>\n";    
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_delete = '".addslashes(get_lang('LinkerDelete'))."';</script>\n";    
+                . "var lang_delete = '".addslashes(get_lang("Delete"))."';</script>\n";    
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_empty = '".addslashes(get_lang('Empty'))."';</script>\n";    
+                . "var lang_empty = '".addslashes(get_lang("Empty"))."';</script>\n";    
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_up = '".addslashes(get_lang('Up'))."';</script>\n";    
+                . "var lang_up = '".addslashes(get_lang("Up"))."';</script>\n";    
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_my_other_courses = '".addslashes(get_lang('LinkerMyOtherCourses'))."';</script>\n";
+                . "var lang_my_other_courses = '".addslashes(get_lang("My other courses"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_public_courses = '".addslashes(get_lang('LinkerPublicCourses'))."';</script>\n";
+                . "var lang_public_courses = '".addslashes(get_lang("Public courses"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_external_link = '".addslashes(get_lang('LinkerExternalLink'))."';</script>\n";
+                . "var lang_external_link = '".addslashes(get_lang("External link"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_attachements = '".addslashes(get_lang('LinkerAttachements'))."';</script>\n";
+                . "var lang_attachements = '".addslashes(get_lang("Attached resources"))."';</script>\n";
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_already_in_attachement_list = '".addslashes(get_lang('LinkerAlreadyInAttachementList'))."';</script>\n";
+                . "var lang_already_in_attachement_list = '".addslashes(get_lang(" is already attached"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_add_new_attachment = '".addslashes(get_lang('LinkerAddNewAttachment'))."';</script>\n"; 
+                . "var lang_linker_add_new_attachment = '".addslashes(get_lang("Attach an existing resource"))."';</script>\n"; 
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_close = '".addslashes(get_lang('Close'))."';</script>\n"; 
+                . "var lang_linker_close = '".addslashes(get_lang("Close"))."';</script>\n"; 
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_close = '".addslashes(get_lang('Close'))."';</script>\n";
+                . "var lang_linker_close = '".addslashes(get_lang("Close"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_for_url = '".addslashes(get_lang('LinkerPromptForUrl'))."';</script>\n";
+                . "var lang_linker_prompt_for_url = '".addslashes(get_lang("Enter link url"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_invalid_url = '".addslashes(get_lang('LinkerPromptInvalidUrl'))."';</script>\n";
+                . "var lang_linker_prompt_invalid_url = '".addslashes(get_lang("Invalid url"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_invalid_email = '".addslashes(get_lang('LinkerPromptInvalidEmail'))."';</script>\n";
+                . "var lang_linker_prompt_invalid_email = '".addslashes(get_lang("Invalid email address"))."';</script>\n";
         
         //javascript function 
         $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"" 
@@ -190,7 +190,7 @@
         echo '<div id="shoppingCart" style="width:100%">' . "\n"
         .    '</div>' . "\n"
         .    '<div style="margin-top : 1em;margin-bottom : 1em;" id="openCloseAttachment">' . "\n"
-        .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . get_lang('LinkerAddNewAttachment') . '</a>' . "\n"
+        .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . get_lang("Attach an existing resource") . '</a>' . "\n"
         .    '</div>' . "\n"
         .    '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;" id="navbox">' . "\n"
         .    '<div id="toolBar">' . "\n"

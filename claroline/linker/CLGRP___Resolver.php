@@ -89,7 +89,7 @@
             $title = "";
 
             $title  = get_toolname_title( $elementCRLArray );
-            $title .= " > " . get_lang('Groups') . " > ".$this->getTitle($elementCRLArray['course_sys_code'],$elementCRLArray["team"]);    
+            $title .= " > " . get_lang("Groups") . " > ".$this->getTitle($elementCRLArray['course_sys_code'],$elementCRLArray["team"]);    
                 
             return $title;
                

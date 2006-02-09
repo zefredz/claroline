@@ -204,7 +204,7 @@
                    *   todo : no name of annonce -
                    *-----------------------------*/
                    
-                   $title = get_lang('LinkerUntitled');      
+                   $title = get_lang("Untitled");      
                }
                
                return $title; 
