@@ -103,14 +103,14 @@ if( isset($_uid) )
             }
             else
             {
-                $dialogBox = get_lang('TrackNotEnoughAttempts');
+                $dialogBox = get_lang('You must reach the maximum number of allowed attempts to view these statistics.');
             }
 
         }
         else
         {
               // user cannot see its full results if show_answer == 'NEVER'
-            $dialogBox = get_lang('CannotSeeExerciseDetails');
+            $dialogBox = get_lang('Display of detailled answers is not authorized.');
         }
     }
 }
@@ -120,7 +120,7 @@ $interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> get_lang('
 
 $backLink = '<p><small><a href="../exercice/exercice.php">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
 
-$nameTools = get_lang('StatsOfExerciseAttempt');
+$nameTools = get_lang('Statistics of exercise attempt');
 
 include($includePath . '/claro_init_header.inc.php');
 // display title
@@ -134,11 +134,11 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 {
     // display infos about the details ...
     echo '<ul>' . "\n"
-    .    '<li>' . get_lang('LastName') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
-    .    '<li>' . get_lang('FirstName') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
+    .    '<li>' . get_lang('Last Name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
+    .    '<li>' . get_lang('First Name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
     .    '<li>' . get_lang('Date') . ' : ' . claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
     .    '<li>' . get_lang('Score') . ' : ' . $thisAttemptDetails['exe_result'] . '/' . $thisAttemptDetails['exe_weighting'] . '</li>' . "\n"
-    .    '<li>' . get_lang('ExeTime') . ' : ' . claro_disp_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
+    .    '<li>' . get_lang('Time') . ' : ' . claro_disp_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
     .    '</ul>' . "\n\n"
     ;
 
@@ -217,7 +217,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     <small><i><?php echo get_lang('Choice'); ?></i></small>
   </td>
   <td width="5%" valign="top" nowrap="nowrap">
-    <small><i><?php echo get_lang('ExpectedChoice'); ?></i></small>
+    <small><i><?php echo get_lang('Expected choice'); ?></i></small>
   </td>
   <td width="45%" valign="top">
     <small><i><?php echo get_lang('Answer'); ?></i></small>
@@ -247,10 +247,10 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
 <tr>
   <td width="50%">
-    <small><i><?php echo get_lang('ElementList'); ?></i></small>
+    <small><i><?php echo get_lang('Element list'); ?></i></small>
   </td>
   <td width="50%">
-    <small><i><?php echo get_lang('CorrespondsTo'); ?></i></small>
+    <small><i><?php echo get_lang('Corresponds to'); ?></i></small>
   </td>
 </tr>
 
@@ -503,7 +503,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     // if there is no question (it is a old exercise attempt (before introduction of improved exo stats))
     if( $i == 0 )
     {
-        echo '<p>'.get_lang('NoTrackingForExerciseAttempt').'</p>'."\n";
+        echo '<p>'.get_lang('There is no tracking for this attempt.').'</p>'."\n";
     }
 
     echo $backLink;
@@ -513,7 +513,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     if( $thisAttemptDetails['exe_weighting'] != $totalWeighting || $thisAttemptDetails['exe_result'] != $totalScore )
     {
         // display msg of integrity problem
-        echo '<p align="center">' . get_lang('TrackExerciseError') . '</p>' . "\n";
+        echo '<p align="center">' . get_lang('Details may be incorrect as it seems that some questions have change between this attempt and now.') . '</p>' . "\n";
     }
 }
 // not allowed
@@ -521,7 +521,7 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        $dialogBox = get_lang('TrackingDisabled');
+        $dialogBox = get_lang('Tracking has been disabled by system administrator.');
     }
 
     echo claro_html::message_box($dialogBox);
