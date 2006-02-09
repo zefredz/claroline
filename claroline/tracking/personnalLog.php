@@ -1,13 +1,17 @@
 <?php # $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.0 $Revision$                             |
-      +----------------------------------------------------------------------+
-      | Authors:               |
-      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-      |          Sebastien Piraux  <piraux_seb@hotmail.com>
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLSTAT
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -55,12 +59,12 @@ if ( $is_trackingEnabled )
     }
     else
     {
-        echo get_lang('NoRegisteredCourses');
+        echo get_lang('No stats to show.  You haven\'t registered any course.');
     }
 }
 else
 {
-    echo get_lang('TrackingDisabled');
+    echo get_lang('Tracking has been disabled by system administrator.');
 }
 
 include($includePath."/claro_init_footer.inc.php");
