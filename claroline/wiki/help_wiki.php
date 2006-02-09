@@ -35,12 +35,12 @@
     {
         case 'syntax':
         {
-            echo get_lang('WikiHelpSyntaxContent');
+            echo get_block('WikiHelpSyntaxContent');
             break;
         }
         case 'admin':
         {
-            echo get_lang('WikiHelpAdminContent');
+            echo get_block('WikiHelpAdminContent');
             break;
         }
         default:
