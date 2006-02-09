@@ -91,8 +91,8 @@ $lpDetails = claro_sql_query_get_single_row($sql);
 ////// OUTPUT //////
 ////////////////////
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
-$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_REQUEST['path_id'], "name"=> get_lang('StatsOfLearnPath'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_REQUEST['path_id'], "name"=> get_lang('Statistics'));
 
 $nameTools = get_lang('Modules');
 
@@ -162,8 +162,8 @@ if($is_allowedToTrack && $is_trackingEnabled)
     //### SOME USER DETAILS ###########################################
     echo ucfirst(strtolower(get_lang('User'))).' : <br />'."\n"
         .'<ul>'."\n"
-        .'<li>'.get_lang('LastName').' : '.$uDetails['lastname'].'</li>'."\n"
-        .'<li>'.get_lang('FirstName').' : '.$uDetails['firstname'].'</li>'."\n"
+        .'<li>'.get_lang('Last name').' : '.$uDetails['lastname'].'</li>'."\n"
+        .'<li>'.get_lang('First name').' : '.$uDetails['firstname'].'</li>'."\n"
           .'<li>'.get_lang('Email').' : '.$uDetails['email'].'</li>'."\n"
         .'</ul>'."\n\n";
 
@@ -172,9 +172,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
         .'<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th colspan="'.($maxDeep+1).'">'.get_lang('Module').'</th>'."\n"
-        .'<th>'.get_lang('LastSessionTimeSpent').'</th>'."\n"
-        .'<th>'.get_lang('TotalTimeSpent').'</th>'."\n"
-        .'<th>'.get_lang('LessonStatus').'</th>'."\n"
+        .'<th>'.get_lang('Last session time').'</th>'."\n"
+        .'<th>'.get_lang('Total time').'</th>'."\n"
+        .'<th>'.get_lang('Module status').'</th>'."\n"
         .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
         .'</tr>'."\n"
         .'<tbody>'."\n\n";
@@ -296,7 +296,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
   
   if ($moduleNb == 0)
   {
-          echo '<tr><td align="center" colspan="6">'.get_lang('NoModule').'</td></tr>';
+          echo '<tr><td align="center" colspan="6">'.get_lang('No module').'</td></tr>';
   }
   elseif($moduleNb > 0)
   {
@@ -305,9 +305,9 @@ if($is_allowedToTrack && $is_trackingEnabled)
             // display global stats
             echo '<tr>'."\n".'<small>'."\n"
                 .'<td colspan="'.($maxDeep+1).'">&nbsp;</td>'."\n"
-                .'<td align="right">'.(($global_time != "0000:00:00")? get_lang('TimeInLearnPath') : '&nbsp;').'</td>'."\n"
+                .'<td align="right">'.(($global_time != "0000:00:00")? get_lang('Time in learning path') : '&nbsp;').'</td>'."\n"
                 .'<td align="center">'.(($global_time != "0000:00:00")? preg_replace("/\.[0-9]{0,2}/", "", $global_time) : '&nbsp;').'</td>'."\n"
-                .'<td align="right">'.get_lang('GlobalProgress').'</td>'."\n"
+                .'<td align="right">'.get_lang('Learning path progression : ').'</td>'."\n"
                 .'<td align="right">'
                 .claro_html::progress_bar(round($globalProg / ($moduleNb) ), 1)
                 .'</td>'."\n"
@@ -321,7 +321,7 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        echo get_lang('TrackingDisabled');
+        echo get_lang('Tracking has been disabled by system administrator.');
     }
     else
     {
