@@ -92,7 +92,6 @@ else
 
 include $includePath . '/claro_init_header.inc.php';
 
-$pagetitle = get_lang('indextitle');
 $pagetype  = 'index';
 
 $is_allowedToEdit = claro_is_allowed_to_edit() 
@@ -160,12 +159,12 @@ foreach ( $categories as $this_category )
 
         if ( $categoryIterator > 1)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('MoveUp').'" />'
+        .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('Move up').'" />'
         .    '</a>';
         
         if ( $categoryIterator < $total_categories)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.get_lang('MoveDown').'" />'
+        .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.get_lang('Move down').'" />'
         .    '</a>';
 
         echo '</div>'
@@ -189,16 +188,16 @@ foreach ( $categories as $this_category )
     if ($this_category['forum_count'] == 0)
     {
         echo '<tr>' . "\n"
-        .     '<td  colspan="' . $colspan . '" align="center">' . get_lang('NoForum') . '</td>' . "\n"
+        .     '<td  colspan="' . $colspan . '" align="center">' . get_lang('No forum') . '</td>' . "\n"
         .     '</tr>' . "\n";
     }
     else
     {
         echo ' <tr class="headerX" align="center">' . "\n"
         .    ' <th align="left">' . get_lang('Forum') . '</th>' . "\n"
-        .    ' <th>' . get_lang('topics') . '</th>' . "\n"
-        .    ' <th>' . get_lang('posts')  . '</th>' . "\n"
-        .    ' <th>' . get_lang('LastMsg') . '</th>' . "\n"
+        .    ' <th>' . get_lang('Topics') . '</th>' . "\n"
+        .    ' <th>' . get_lang('Posts')  . '</th>' . "\n"
+        .    ' <th>' . get_lang('Last message') . '</th>' . "\n"
         ;       
 
         if ($is_allowedToEdit)
@@ -250,7 +249,7 @@ foreach ( $categories as $this_category )
             }
             else
             {
-                $locked_string = ' <img src="'.$imgRepositoryWeb.'locked.gif" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('NoPostAllowed').')</small>';
+                $locked_string = ' <img src="'.$imgRepositoryWeb.'locked.gif" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('No new post allowed').')</small>';
             }
 
             echo '<td>'                                               . "\n"
@@ -276,17 +275,17 @@ foreach ( $categories as $this_category )
                     ;
 
                     echo  '&nbsp;<a href="'.$clarolineRepositoryWeb.'group/group_space.php?gidReq='.$group_id.'">'
-                        . '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . get_lang('GroupSpace') . '">'
+                        . '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . get_lang('Group area') . '">'
                         . '</a>';
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
                     {
-                        echo '&nbsp;<small>(' . get_lang('OneMyGroups') . ')</small>';
+                        echo '&nbsp;<small>(' . get_lang('My supervision') . ')</small>';
                     }
 
                     if ( is_array($userGroupList) && in_array($group_id, $userGroupList) )
                     {
-                        echo '&nbsp;<small>(' . get_lang('MyGroup') . ')</small>';
+                        echo '&nbsp;<small>(' . get_lang('My group') . ')</small>';
                     }
                 }
                 else
@@ -318,7 +317,7 @@ foreach ( $categories as $this_category )
             .    ( 
                    ($last_post > 0) ? 
                    claro_disp_localised_date($dateTimeFormatShort, datetime_to_timestamp($last_post)) :
-                   get_lang('NoPost')
+                   get_lang('No post')
                   )
             . '</small>'
             .    '</td>' . "\n"
@@ -368,7 +367,7 @@ foreach ( $categories as $this_category )
                 if ($forumIterator > 1) 
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.get_lang('MoveUp').'" />'
+                    .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.get_lang('Move up').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
@@ -380,7 +379,7 @@ foreach ( $categories as $this_category )
                 if ( $forumIterator < $this_category['forum_count'] )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.get_lang('MoveDown').'" />'
+                    .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.get_lang('Move down').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';

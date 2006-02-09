@@ -96,13 +96,13 @@ disp_forum_breadcrumb($pagetype, null, null, null);
 echo '<table class="claroTable" width="100%">'                          . "\n"
 .    '<tr align="left">'                                                . "\n"
 .    '<th class="superHeader">'                                         . "\n"
-.    get_lang('SearchResult'). ' : '. (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
+.    get_lang('Search result'). ' : '. (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
 .    '</th>'                                                            . "\n"
 .    '</tr>'                                                            . "\n";
 
     if (count($searchResultList) < 1 )
     {
-        echo '<tr><td align="center">' . get_lang('NoResult') . '</td></tr>';
+        echo '<tr><td align="center">' . get_lang('No result') . '</td></tr>';
     }
     else foreach ( $searchResultList as $thisPost )
     {
@@ -134,8 +134,8 @@ echo '<table class="claroTable" width="100%">'                          . "\n"
             .   $thisPost['topic_title'] 
             .   '</a><br />'                                              . "\n"
             .   '<img src="' . $imgRepositoryWeb . $postImg . '" alt="">'
-            .   get_lang('author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-            .   '<small>' . get_lang('posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
+            .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+            .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
             .   '</th>'                                                  . "\n"
 
             .   '</tr>'                                                  . "\n"

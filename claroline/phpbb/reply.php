@@ -48,7 +48,6 @@ include $includePath . '/lib/claro_mail.lib.inc.php';
 $error = FALSE;
 $error_message = '';
 $allowed = TRUE;
-$pagetitle = get_lang('PostReply');
 $pagetype  = 'reply';
 
 /*=================================================================
@@ -127,7 +126,7 @@ elseif ( $topicSettingList )
         else
         {
             $error = TRUE;
-            $error_message = get_lang('emptymsg');
+            $error_message = get_lang('You cannot post an empty message');
         }
     }
 }
@@ -154,7 +153,6 @@ $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
 
-$pagetitle = get_lang('topictitle');
 $pagetype  = 'reply';
 
 $is_allowedToEdit = claro_is_allowed_to_edit(); 
@@ -173,7 +171,7 @@ else
     if ( isset($_REQUEST['submit']) && !$error )
     {
         // DISPLAY SUCCES MESSAGE
-        disp_confirmation_message (get_lang('stored'), $forum_id, $topic_id);
+        disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
     }
     else
     {
@@ -191,7 +189,7 @@ else
         
         echo '<table border="0">' . "\n"
             . '<tr valign="top">' . "\n"
-            . '<td align="right"><br />' . get_lang('body') . '&nbsp;:</td>'
+            . '<td align="right"><br />' . get_lang('Message body') . '&nbsp;:</td>'
             . '<td>'
             .claro_disp_html_area('message', htmlspecialchars($message))
             .'</td>'
@@ -204,7 +202,7 @@ else
             . '</table>'
             . '</form>' ;
 
-        echo '<p align="center"><a href="viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id . '" target="_blank">' . get_lang('topicreview') . '</a>';
+        echo '<p align="center"><a href="viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id . '" target="_blank">' . get_lang('Topic review') . '</a>';
 
     } // end else if submit
 }

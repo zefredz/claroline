@@ -50,7 +50,6 @@ $error = FALSE;
 $allowed = TRUE;
 $error_message = '';
 
-$pagetitle = get_lang('EditPost');
 $pagetype  = 'editpost';
 
 /*=================================================================
@@ -71,7 +70,7 @@ $postSettingList =  get_post_settings($post_id);
 
 if ( $postSettingList && $is_allowedToEdit )
 {
-     $topic_id        = $postSettingList['topic_id'];
+    $topic_id        = $postSettingList['topic_id'];
 
     $forumSettingList = get_forum_settings($postSettingList['forum_id']);
 
@@ -210,11 +209,11 @@ else
     {
         if ( ! isset($_REQUEST['delete']) )
         {
-            disp_confirmation_message (get_lang('stored'), $forum_id, $topic_id);
+            disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
         }
         else
         {
-            disp_confirmation_message (get_lang('deleted'), $forum_id);
+            disp_confirmation_message (get_lang('Your message has been deleted'), $forum_id);
         }
     }
     else
@@ -232,7 +231,7 @@ else
             . '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
             . '<table border="0">' . "\n"
             . '<tr valign="top">' . "\n"
-            . '<td colspan="2"><b>' . $pagetitle . '</b></td>' . "\n"
+            . '<td colspan="2"><b>' . get_lang('Edit post') . '</b></td>' . "\n"
             . '</tr>' . "\n";
 
         $first_post = is_first_post($topic_id, $post_id);
@@ -241,7 +240,7 @@ else
         {
             echo '<tr valign="top">' . "\n"
                 . '<td align="right">' . "\n"
-                . '<label for="subject">' . get_lang('subject') . '</label> : '
+                . '<label for="subject">' . get_lang('Subject') . '</label> : '
                 . '</td>' . "\n"
                 . '<td>' . "\n"
                 . '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
@@ -250,14 +249,14 @@ else
         }
 
         echo '<tr valign="top">' . "\n"
-            . '<td align="right"><br />' . get_lang('body') . ' : </td>' . "\n"
+            . '<td align="right"><br />' . get_lang('Message body') . ' : </td>' . "\n"
             . '<td>' . "\n"
             .claro_disp_html_area('message', htmlspecialchars($message))
             .'</td>' . "\n"
             . '</tr>' . "\n"
 
             . '<tr valign="top">' . "\n"
-            . '<td align="right"><label for="delete" >' . get_lang('delete') . '</label> : </td>' . "\n"
+            . '<td align="right"><label for="delete" >' . get_lang('Delete') . '</label> : </td>' . "\n"
             . '<td>' . "\n"
             . '<input type="checkbox" name="delete" id="delete" />' . "\n"
             . '</td>' . "\n"
@@ -275,7 +274,7 @@ else
             . '<br />' . "\n"
             . '<center>'
             . '<a href="viewtopic.php?topic=' . $topic_id . '" target="_blank">'
-            . get_lang('topicreview')
+            . get_lang('Topic review')
             . '</a>'
             . '</center>'
             . '<br />' ."\n";

@@ -47,7 +47,6 @@ $allowed = TRUE;
 $error = FALSE;
 
 $error_message = '';
-$pagetitle = get_lang('NewTopic');
 $pagetype =  'newtopic';
 
 /*=================================================================
@@ -134,7 +133,7 @@ elseif ( $forumSettingList )
             // prevent to go further if the fields are actually empty
             if ( strip_tags($message) == '' || $subject == '' ) 
             {
-                $error_message = get_lang('emptymsg');
+                $error_message = get_lang('You cannot post an empty message');
                 $error = TRUE;
             }
         
@@ -193,7 +192,7 @@ else
     if ( isset($_REQUEST['submit']) && !$error)
     {
         // Display success message
-        disp_confirmation_message (get_lang('stored'), $forum_id, $topic_id);
+        disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
     
     } 
     else
@@ -213,10 +212,10 @@ else
 
          . '<table border="0">' . "\n"
          . '<tr valign="top">' . "\n"
-         . '<td align="right"><label for="subject">' . get_lang('subject') . '</label> : </td>' 
+         . '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>' 
          . '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
          . '<tr  valign="top">' . "\n" 
-         . '<td align="right"><br />' . get_lang('body') . ' :</td>'; 
+         . '<td align="right"><br />' . get_lang('Message body') . ' :</td>'; 
 
         if ( !empty($message) ) $content = htmlspecialchars($message);
         else                    $content = '';

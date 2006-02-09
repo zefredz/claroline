@@ -127,7 +127,7 @@ if ($topicSettingList)
             if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
             {
                 $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
-                                    . get_lang('notify')
+                                    . get_lang('Notify by email when replies are posted')
                                     . ' [<a href="' . $_SERVER['PHP_SELF'] . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exdoNotNotify">'
                                     .get_lang('Disable')
                                     . '</a>]';
@@ -137,7 +137,7 @@ if ($topicSettingList)
                 $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] 
                                     . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
                                     . '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" /> '
-                                    . get_lang('notify') 
+                                    . get_lang('Notify by email when replies are posted') 
                                     . '</a>';
             }
         
@@ -193,7 +193,6 @@ else
       Display Forum Header
      -----------------------------------------------------------------*/
     
-    $pagetitle = get_lang('topictitle');
     $pagetype  = 'viewtopic';
     
     $is_allowedToEdit = claro_is_allowed_to_edit() 
@@ -244,8 +243,8 @@ else
     
             .'  <th class="headerX">' . "\n"
             .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
-            . get_lang('author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-            .'<small>' . get_lang('posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
+            . get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+            .'<small>' . get_lang('Posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
             .'  </th>' . "\n"
     
             .' </tr>'. "\n"

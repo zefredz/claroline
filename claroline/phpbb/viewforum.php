@@ -129,7 +129,6 @@ else
       Display Forum Header
     -----------------------------------------------------------------*/
 
-    $pagetitle = get_lang('viewforum');
     $pagetype = 'viewforum';
     
     $is_allowedToEdit = claro_is_allowed_to_edit() 
@@ -162,10 +161,10 @@ else
     
         .' <tr class="headerX" align="left">'                            . "\n"
         .'  <th>&nbsp;' . get_lang('topic') . '</th>'                             . "\n"
-        .'  <th width="9%"  align="center">' . get_lang('posts') . '</th>'        . "\n"
-        .'  <th width="20%" align="center">&nbsp;' . get_lang('poster') . '</th>' . "\n"
+        .'  <th width="9%"  align="center">' . get_lang('Posts') . '</th>'        . "\n"
+        .'  <th width="20%" align="center">&nbsp;' . get_lang('Author') . '</th>' . "\n"
         .'  <th width="8%"  align="center">' . get_lang('Seen') . '</th>'       . "\n"
-        .'  <th width="15%" align="center">' . get_lang('LastMsg') . '</th>'    . "\n"
+        .'  <th width="15%" align="center">' . get_lang('Last message') . '</th>'    . "\n"
         .' </tr>' . "\n";
     
     $topics_start = $start;
@@ -173,7 +172,7 @@ else
     if ( count($topicList) == 0 )
     {
         echo ' <tr>' . "\n" 
-            .'  <td colspan="5" align="center">' . get_lang('notopics') . '</td>'. "\n"
+            .'  <td colspan="5" align="center">' . get_lang('There are no topics for this forum. You can post one') . '</td>'. "\n"
             .' </tr>' . "\n";
     }
     else 
@@ -235,7 +234,7 @@ else
             }
             else
             {
-                echo '  <td align="center"><small>' . get_lang('NoPost') . '<small></td>' . "\n";
+                echo '  <td align="center"><small>' . get_lang('No post') . '<small></td>' . "\n";
             }
     
             echo ' </tr>' . "\n";
