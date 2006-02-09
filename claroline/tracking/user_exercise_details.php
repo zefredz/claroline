@@ -134,8 +134,8 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 {
     // display infos about the details ...
     echo '<ul>' . "\n"
-    .    '<li>' . get_lang('Last Name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
-    .    '<li>' . get_lang('First Name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
+    .    '<li>' . get_lang('Last name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
+    .    '<li>' . get_lang('First name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
     .    '<li>' . get_lang('Date') . ' : ' . claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
     .    '<li>' . get_lang('Score') . ' : ' . $thisAttemptDetails['exe_result'] . '/' . $thisAttemptDetails['exe_weighting'] . '</li>' . "\n"
     .    '<li>' . get_lang('Time') . ' : ' . claro_disp_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"

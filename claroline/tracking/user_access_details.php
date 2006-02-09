@@ -86,7 +86,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     echo '<br />'."\n\n"
         .'<table class="claroTable" border="0" cellpadding="5" cellspacing="1">'."\n"
         .'<tr class="headerX">'."\n"
-        .'<th>'.get_lang('User name').'</th>'."\n"
+        .'<th>'.get_lang('Username').'</th>'."\n"
         .'<th>'.get_lang('Last access').'</th>'."\n"
         .'<th>'.get_lang('Access count').'</th>'."\n"
         .'</tr>'."\n"

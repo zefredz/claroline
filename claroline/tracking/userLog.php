@@ -120,7 +120,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
         ----------------------------------------------------------------------*/
         echo '<table class="claroTable" width="100%" cellpadding="2" cellspacing="1" border="0">' . "\n"
         .    '<tr class="headerX" align="center" valign="top">' . "\n"
-        .    '<th align="left">' . get_lang('User name').'</th>' . "\n"
+        .    '<th align="left">' . get_lang('Username').'</th>' . "\n"
         .    '</tr>' . "\n"
         ;
 
@@ -174,8 +174,8 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
             echo '<p>' . "\n"
             .    '<ul>' . "\n"
-            .    '<li>' . get_lang('Last Name').' : '.$trackedUser['lastname'].'</li>' . "\n"
-            .    '<li>' . get_lang('First Name').' : '.$trackedUser['firstname'].'</li>' . "\n"
+            .    '<li>' . get_lang('Last name').' : '.$trackedUser['lastname'].'</li>' . "\n"
+            .    '<li>' . get_lang('First name').' : '.$trackedUser['firstname'].'</li>' . "\n"
             .    '<li>' . get_lang('Email').' : ';
             if( empty($trackedUser['email']) )    echo get_lang('No email address specified');
             else                                 echo $trackedUser['email'];
