@@ -125,22 +125,22 @@ if( $is_allowedToTrack && $is_trackingEnabled )
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous Month').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.get_lang('Next Month').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous month').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.get_lang('Next month').'</a>]'."\n";
             break;
         case "week" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 7*86400;
             $nextReqDate = $reqdate + 7*86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous Week').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.get_lang('Next Week').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous week').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.get_lang('Next week').'</a>]'."\n";
             break;
         case "day" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 86400;
             $nextReqDate = $reqdate + 86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous Day').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.get_lang('Next Day').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous day').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.get_lang('Next day').'</a>]'."\n";
             break;
     }
     
