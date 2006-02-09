@@ -52,7 +52,6 @@ $tbl_user      = $tbl_mdb_names['user'];
 define('DISP_PROFILE_FORM',__LINE__);
 define('DISP_REQUEST_COURSE_CREATOR_STATUS',__LINE__);
 define('DISP_REQUEST_REVOQUATION',__LINE__);
-define('DISP_EDIT_PHOTO',__LINE__);
 
 $display = DISP_PROFILE_FORM;
 
@@ -138,11 +137,7 @@ elseif ( get_conf('can_request_revoquation')
     $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_REVOQUATION;
 }
-elseif (get_conf('can_have_photo',false))
-{
-    $noQUERY_STRING = TRUE;
-    $display = DISP_EDIT_PHOTO;
-}
+
 // Initialise
 $user_data = user_get_data($_uid);
 
@@ -173,9 +168,6 @@ switch ( $display )
         .                 '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif" />' . get_lang('MyStats')
         .                 '</a>'
         ;
-
-        if (get_conf('can_have_photo',false))
-        $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqEditPic">' . get_lang('My Picture') . '</a>';
 
         // display request course creator status
         if ( get_conf('can_request_course_creator_status') )
@@ -250,10 +242,6 @@ switch ( $display )
         }
     }   break;
 
-    case DISP_EDIT_PHOTO :
-    {
-
-    }    break;
 } // end switch display
 
 // display footer
