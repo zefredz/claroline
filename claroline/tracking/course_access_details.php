@@ -16,7 +16,7 @@ if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ('url' => 'courseLog.php', 'name' => get_lang('Statistics'));
 
-$nameTools = get_lang('TrafficDetails');
+$nameTools = get_lang('Traffic Details');
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
@@ -71,23 +71,23 @@ if ( $is_trackingEnabled )
 echo '</b></td>'."\n".'</tr>'."\n\n";
     //** menu
     echo '<tr>'."\n".'<td><small>'."\n";
-    echo get_lang('PeriodToDisplay').' : [<a href="'.$_SERVER['PHP_SELF'].'?period=year&reqdate='.$reqdate.'&displayType=month">'.get_lang('PeriodYear').'</a>]'."\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?period=month&reqdate='.$reqdate.'&displayType=day">'.get_lang('PeriodMonth').'</a>]'."\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?period=day&reqdate='.$reqdate.'">'.get_lang('PeriodDay').'</a>]'."\n"
+    echo get_lang('Period').' : [<a href="'.$_SERVER['PHP_SELF'].'?period=year&reqdate='.$reqdate.'&displayType=month">'.get_lang('Year').'</a>]'."\n"
+        .'[<a href="'.$_SERVER['PHP_SELF'].'?period=month&reqdate='.$reqdate.'&displayType=day">'.get_lang('Month').'</a>]'."\n"
+        .'[<a href="'.$_SERVER['PHP_SELF'].'?period=day&reqdate='.$reqdate.'">'.get_lang('Day').'</a>]'."\n"
         .'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-        .get_lang('DetailView').' : ';
+        .get_lang('View by').' : ';
 
     switch($period)
     {
         case 'year' :
                 //-- if period is "year" display can be by month, day or hour
-                echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=month">'.get_lang('PeriodMonth').'</a>]'."\n";
+                echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=month">'.get_lang('Month').'</a>]'."\n";
         case 'month' :
                 //-- if period is "month" display can be by day or hour
-                echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=day">'.get_lang('PeriodDay').'</a>]'."\n";
+                echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=day">'.get_lang('Day').'</a>]'."\n";
         case 'day' :
                 //-- if period is "day" display can only be by hour
-                echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=hour">'.get_lang('PeriodHour').'</a>]'."\n";
+                echo '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=hour">'.get_lang('Hour').'</a>]'."\n";
                 break;
     }
 
@@ -100,23 +100,23 @@ echo '</b></td>'."\n".'</tr>'."\n\n";
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,1,1,date('Y',$reqdate)-1);
             $nextReqDate = mktime(1,1,1,1,1,date('Y',$reqdate)+1);
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('PreviousYear').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('NextYear').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('Previous year').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('Next year').'</a>]'."\n";
             break;
         case 'month' :
             // previous and next date must be evaluated
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('PreviousMonth').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('NextMonth').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('Previous month').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('Next month').'</a>]'."\n";
             break;
         case 'day' :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 86400;
             $nextReqDate = $reqdate + 86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('PreviousDay').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('NextDay').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('Previous day').'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('Next day').'</a>]'."\n";
             break;
     }
     echo '</small>'."\n".'</td>'."\n".'</tr>'."\n\n";
@@ -134,19 +134,19 @@ echo '</b></td>'."\n".'</tr>'."\n\n";
             {
                 $sql .= "ORDER BY UNIX_TIMESTAMP( `access_date`)";
                 $month_array = monthTab($sql);
-                makeHitsTable($month_array,get_lang('PeriodMonth'));
+                makeHitsTable($month_array,get_lang('Month'));
             }
             elseif($displayType == "day")
             {
                 $sql .= "ORDER BY DAYOFYEAR( `access_date`)";
                 $days_array = daysTab($sql);
-                makeHitsTable($days_array,get_lang('PeriodDay'));
+                makeHitsTable($days_array,get_lang('Day'));
             }
             else // by hours by default
             {
                 $sql .= "ORDER BY HOUR( `access_date`)";
                 $hours_array = hoursTab($sql);
-                makeHitsTable($hours_array,get_lang('PeriodHour'));
+                makeHitsTable($hours_array,get_lang('Hour'));
             }
             break;
         // all days
@@ -160,13 +160,13 @@ echo '</b></td>'."\n".'</tr>'."\n\n";
             {
                 $sql .= "ORDER BY DAYOFYEAR( `access_date`)";
                 $days_array = daysTab($sql);
-                makeHitsTable($days_array,get_lang('PeriodDay'));
+                makeHitsTable($days_array,get_lang('Day'));
             }
             else // by hours by default
             {
                 $sql .= "ORDER BY HOUR( `access_date`)";
                 $hours_array = hoursTab($sql);
-                makeHitsTable($hours_array,get_lang('PeriodHour'));
+                makeHitsTable($hours_array,get_lang('Hour'));
             }
             break;
         // all hours
@@ -179,13 +179,13 @@ echo '</b></td>'."\n".'</tr>'."\n\n";
                         AND `access_tid` IS NULL
                         ORDER BY HOUR( `access_date` )";
             $hours_array = hoursTab($sql,$reqdate);
-            makeHitsTable($hours_array,get_lang('PeriodHour'));
+            makeHitsTable($hours_array,get_lang('Hour'));
             break;
     }
 }
 else // tracking not enable
 {
-    echo get_lang('TrackingDisabled');
+    echo get_lang('Tracking has been disabled by system administrator.');
 }
 
 ?>
