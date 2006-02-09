@@ -239,7 +239,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             */
 
             // email subject
-            $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . get_lang('Message from your lecturer');
+            $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ' . get_lang('Message from your lecturer');
 
             // email content
             $emailBody = $_REQUEST['emailContent'] . "\n" . "\n"
@@ -268,18 +268,14 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 
         } // end if - is_array($userIdList)
 
-        $message = '<p>' . get_lang('MsgSent') . '<p>';
+        $message = '<p>' . get_lang('Message sent') . '<p>';
 
         if ( $countUnvalid > 0 )
         {
-            $messageUnvalid    = '<p>'
-            . get_lang('On').'    '
-            . count($userIdList) .' '
-            . get_lang('selected users of the site').',    ' .  $countUnvalid . ' ' .get_lang('have unvalid or no email address')
-            . '<br /><small>'
-            . $messageFailed
-            . '</small>'
-            . '</p>';
+            $messageUnvalid    =  get_block('warn users without valid email', array('%userQty' => count($userIdList),
+            '%userInvalidQty' => $countUnvalid,
+            '%messageFailed' => $messageFailed
+            ));
             $message .= $messageUnvalid;
         }
 
@@ -313,11 +309,12 @@ if ( $displayForm == TRUE )
     * Get user    list of    this course
     */
 
-    $sql =    "SELECT `u`.`nom` AS `lastName`,
-                        `u`.`prenom` AS `firstName`,
-                        `u`.`user_id` AS `uid`
-                 FROM `" . $tbl_user."` AS `u`, `".$tbl_courseUser."` AS `cu`
-                 WHERE `cu`.`code_cours` = '" . $_cid . "'
+    $sql =    "SELECT `u`.`nom`     AS `lastName`,
+                      `u`.`prenom`  AS `firstName`,
+                      `u`.`user_id` AS `uid`
+                 FROM `" . $tbl_user .     "` AS `u`
+                    , `" . $tbl_courseUser."` AS `cu`
+                 WHERE `cu`.`code_cours` = '" . addslashes($_cid) . "'
                  AND `cu`.`user_id` = `u`.`user_id`
                  ORDER BY `u`.`nom`, `u`.`prenom`";
 
@@ -336,11 +333,11 @@ if ( $displayForm == TRUE )
     */
 
     $sql = "SELECT `g`.`id`,
-                    `g`.`name`,
+                   `g`.`name`,
                     COUNT(`gu`.`id`) AS `userNb`
-                FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
-                ON `g`.`id` = `gu`.`team`
-                GROUP BY `g`.`id`";
+            FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
+            ON `g`.`id` = `gu`.`team`
+            GROUP BY `g`.`id`";
 
     $groupSelect = claro_sql_query_fetch_all($sql);
 
@@ -357,14 +354,14 @@ if ( $displayForm == TRUE )
     * Create Form
     */
 
-    echo get_lang('IntroText') . "\n\n"
+    echo get_block('To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.') . "\n\n"
     .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
     .    'onSubmit="return valida();">' . "\n"
     .    '<center>' . "\n"
     .    '<table border="0" cellspacing="3" cellpadding="4">' . "\n"
     .    '<tr valign="top" align="center">'
     .    '<td>' . "\n"
-    .    '<p><b>' . get_lang('ListUsers') . '</b></p>' . "\n"
+    .    '<p><b>' . get_lang("User list") . '</b></p>' . "\n"
     .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
     ;
 

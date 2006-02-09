@@ -348,9 +348,19 @@ if($is_allowedToEdit) // check teacher status
                         $countUnvalid++;
                     }
                 }
-                $messageUnvalid = get_lang('On').' '.$countEmail.' '.get_lang('registered users of the site').', '.$countUnvalid.' '.get_lang('have unvalid or no email address');
-                $message .= ' '.get_lang('EmailSent').'<br /><b>'.$messageUnvalid.'</b><br />';
-                $message .= $messageFailed;
+
+                $message = '<p>' . get_lang('Message sent') . '<p>';
+
+                if ( $countUnvalid > 0 )
+                {
+                    $messageUnvalid = get_block('warn users without valid email',
+                      array('%userQty' => $countEmail,
+                            '%userInvalidQty' => $countUnvalid,
+                            '%messageFailed' => $messageFailed
+                            ));
+                    $message .= $messageUnvalid;
+                }
+
 
             }   // end if $emailOption==1
         }   // end if $submit Announcement
@@ -536,7 +546,7 @@ if ($displayList)
 
     if ($announcementQty < 1)
     {
-        echo '<br /><blockquote>' . get_lang('NoAnnouncement') . '</blockquote>' . "\n";
+        echo '<br /><blockquote>' . get_lang('No announcement') . '</blockquote>' . "\n";
     }
 
     echo '<table class="claroTable" width="100%">';
@@ -571,7 +581,7 @@ if ($displayList)
             .    '<th class="headerX item'.$classItem.'">'."\n"
             .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
             .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '" />' . "\n"
-            .    get_lang('Publ')
+            .    get_lang('Published on')
             .    ' : ' . claro_disp_localised_date($dateFormatLong, strtotime($last_post_date))
             .    '</th>' . "\n"
             .    '</tr>' . "\n"
@@ -608,7 +618,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('MoveUp') . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('Move up') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -620,7 +630,7 @@ if ($displayList)
                 // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                 // the anchor dont refreshpage.
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('MoveDown') . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Move down') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
