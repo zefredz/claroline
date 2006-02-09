@@ -69,7 +69,7 @@ $htmlHeadXtra[] =
           "<script>
           function confirmation (name)
           {
-              if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . "' + name + '? " . get_lang('ModuleStillInPool') . "'))
+              if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . "' + name + '? " . get_lang('Modules of this path will still be available in the pool of modules') . "'))
                   {return true;}
               else
                   {return false;}
@@ -79,14 +79,14 @@ $htmlHeadXtra[] =
          "<script>
           function scormConfirmation (name)
           {
-              if (confirm('". clean_str_for_javascript(get_lang('AreYouSureToDeleteScorm')) .  "' + name + '?'))
+              if (confirm('". clean_str_for_javascript(get_block('AreYouSureToDeleteScorm')) .  "' + name + '?'))
                   {return true;}
               else
                   {return false;}
           }
           </script>";
 
-$nameTools = get_lang('LearningPathList');
+$nameTools = get_lang('Learning path list');
 
 $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
 
@@ -96,7 +96,7 @@ if ( $cmd == 'export' )
       $scorm = new ScormExport($_REQUEST['path_id']);
       if ( !$scorm->export() )
       {
-          $dialogBox = '<b>Error exporting SCORM package</b><br />'."\n".'<ul>'."\n";
+          $dialogBox = '<b>'.get_lang('Error exporting SCORM package').'</b><br />'."\n".'<ul>'."\n";
           foreach( $scorm->getError() as $error)
           {
               $dialogBox .= '<li>' . $error . '</li>'."\n";
@@ -120,7 +120,7 @@ $lpUid = $_uid;
 
 // display introduction
 $moduleId = $_tid; // Id of the Learning Path introduction Area
-$helpAddIntroText = get_lang('IntroLearningPath');
+$helpAddIntroText = get_block('IntroLearningPath');
 include($includePath."/introductionSection.inc.php");
 
 // execution of commands
@@ -352,7 +352,7 @@ switch ( $cmd )
                 else
                 {
                     // display error message
-                    $dialogBox = get_lang('ErrorNameAlreadyExists');
+                    $dialogBox = get_lang('Error : Name already exists in the learning path or in the module pool');
                 }
             }
             else  // create form requested
@@ -430,10 +430,10 @@ if($is_AllowedToEdit)
     // Display links to create and import a learning path
 ?>
       <p>
-      <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo get_lang('CreateNewLearningPath'); ?></a> |
-      <a class="claroCmd" href="importLearningPath.php"><?php echo get_lang('importLearningPath'); ?></a> |
-      <a class="claroCmd" href="modules_pool.php"><?php echo get_lang('ModulesPoolToolName') ?></a> |
-      <a class="claroCmd" href="<?php echo $clarolineRepositoryWeb; ?>tracking/learnPath_detailsAllPath.php"><?php echo get_lang('TrackAllPath'); ?></a>
+      <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo get_lang('Create a new learning path'); ?></a> |
+      <a class="claroCmd" href="importLearningPath.php"><?php echo get_lang('Import a learning path'); ?></a> |
+      <a class="claroCmd" href="modules_pool.php"><?php echo get_lang('Pool of modules') ?></a> |
+      <a class="claroCmd" href="<?php echo $clarolineRepositoryWeb; ?>tracking/learnPath_detailsAllPath.php"><?php echo get_lang('Learning paths tracking'); ?></a>
       </p>
 <?php
 }
@@ -779,7 +779,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         else
         {
             echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"" . get_lang('AltMakeNotBlocking') . "\" border=\"0\">\n",
+                  "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"" . get_lang('Unblock') . "\" border=\"0\">\n",
                   "</a>\n";
         }
         echo  "</td>\n";
@@ -798,7 +798,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             if ($list['lock']=='CLOSE')
             {
-                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript(get_lang('AlertBlockingPathMadeInvisible')) . "');\"";
+                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript(get_block('AlertBlockingPathMadeInvisible')) . "');\"";
             }
             else
             {
@@ -818,7 +818,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&move_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('MoveUp') . "\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('Move up') . "\" border=\"0\" />\n",
                   "</a>\n",
                   "</td>\n";
         }
@@ -832,7 +832,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&move_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"".get_lang('MoveDown')."\" border=\"0\" />\n",
+                  "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"".get_lang('Move down')."\" border=\"0\" />\n",
                   "</a>\n",
                   "</td>\n";
         }
@@ -878,7 +878,7 @@ echo "</tbody>\n<tfoot>";
 
 if( $iterator == 1 )
 {
-      echo "<tr><td align=\"center\" colspan=\"8\">".get_lang('NoLearningPath')."</td></tr>";
+      echo "<tr><td align=\"center\" colspan=\"8\">".get_lang('No learning path')."</td></tr>";
 }
 elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
 {
@@ -887,7 +887,7 @@ elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
     $total = round($globalprog/($iterator-1));
     echo "<tr>
           <td align =\"right\">
-          ".get_lang('PathsInCourseProg')." :
+          ".get_lang('Course progression')." :
           </td>
           <td align=\"right\" >".
           claro_html::progress_bar($total, 1).
