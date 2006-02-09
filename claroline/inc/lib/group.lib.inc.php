@@ -491,7 +491,7 @@ function create_group($groupName, $maxMember)
      * Create a forum for the group in the forum table
      */
 
-    $forumInsertId = create_forum( $groupName. ' - '. strtolower(get_lang('Forum'))
+    $forumInsertId = create_forum( $groupName. ' - '. strtolower(get_lang("Forum"))
                                  , '' // forum description
                                  , 2  // means forum post allowed,
                                  , (int) GROUP_FORUMS_CATEGORY

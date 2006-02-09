@@ -28,10 +28,10 @@ $is_allowedToManage = $is_courseAdmin;
 
 if ( ! $is_allowedToManage )
 {
-    claro_die(get_lang('Not allowed'));
+    claro_die(get_lang("Not allowed"));
 }
 
-$nameTools = get_lang('EditGroup');
+$nameTools = get_lang("Edit this group");
 
 $htmlHeadXtra[]='
 <script type="text/javascript" language="JavaScript">
@@ -172,7 +172,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     if ( $maxMember < $numberMembers AND $maxMember != '0' )
     {
         // Too much members compared to max members allowed
-        $messageGroupEdited = get_lang('GroupTooMuchMembers');
+        $messageGroupEdited = get_block('GroupTooMuchMembers');
     }
     else
     {
@@ -191,7 +191,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
             $registerUserGroup = claro_sql_query($sql);
         }
 
-        $messageGroupEdited = get_lang('GroupSettingsModified');
+        $messageGroupEdited = get_lang("Group settings modified");
 
     }    // else
 
@@ -223,7 +223,7 @@ foreach ($resultTutor as $myTutor)
 {
     $tutor_list[$myTutor['user_id']]= htmlspecialchars($myTutor['nom'] . ' ' . $myTutor['prenom']);
 }
-$tutor_list[0] = get_lang('GroupNoTutor');
+$tutor_list[0] = get_lang("(none)");
 
 $sql = "SELECT `ug`.`id`     AS id,
                `u`.`user_id` AS user_id,
@@ -288,12 +288,12 @@ $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudent
 
 
 
-$interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang('Groups'));
+$interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang("Groups"));
 $interbredcrump[]= array ('url' => 'group_space.php?gidReq=' . $_gid, 'name' => $myStudentGroup['name'] );
 
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_disp_tool_title(array('supraTitle' => get_lang('Groups'),
+echo claro_disp_tool_title(array('supraTitle' => get_lang("Groups"),
 'mainTitle' => $nameTools));
 
 if ( isset($messageGroupEdited) ) echo claro_html::message_box($messageGroupEdited);
@@ -303,7 +303,7 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<table border="0" cellspacing="3" cellpadding="5">' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td align="right">' . "\n"
-.    '<label for="name" >' . get_lang('GroupName') . '</label> : ' . "\n"
+.    '<label for="name" >' . get_lang("Group name") . '</label> : ' . "\n"
 .    '</td>' . "\n"
 .    '<td colspan="2">' . "\n"
 .    '<input type="text" name="name" id="name" size="40" value="' . htmlspecialchars($myStudentGroup['name']) . '">' . "\n"
@@ -311,13 +311,13 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<td>' . "\n"
 .    '<a href="group_space.php?gidReq=' . $_gid . '">' . "\n"
 .    '<img src="' . $imgRepositoryWeb . 'group.gif" />' . "\n"
-.    '&nbsp;' . get_lang('GroupThisSpace') . '</a>' . "\n"
+.    '&nbsp;' . get_lang("Area for this group") . '</a>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td align="right">' . "\n"
 .    '<label for="description">' . "\n"
-.    get_lang('GroupDescription') . ' ' . get_lang('Uncompulsory') . "\n"
+.    get_lang("Description") . ' ' . get_lang("(optional)") . "\n"
 .    '</label> :' . "\n"
 .    '<td colspan="3">' . "\n"
 .    '<textarea name="description" id="description" rows="4 "cols="70" wrap="virtual">' . "\n"
@@ -329,28 +329,28 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<tr valign="top">' . "\n"
 .    '<td align="right">' . "\n"
 .    '<label for="tutor">' . "\n"
-.    get_lang('GroupTutor') . '</label> : ' . "\n"
+.    get_lang("Group Tutor") . '</label> : ' . "\n"
 .    '</td>' . "\n"
 .    '<td colspan="2">' . "\n"
 .    claro_html_form_select('tutor',$tutor_list,$myStudentGroup['tutorId'],array('id'=>'tutor')) . "\n"
 .    '&nbsp;&nbsp;'
-.    '<small><a href="../user/user.php">' . get_lang('ListUsers') . '</a></small>'
+.    '<small><a href="../user/user.php">' . get_lang("User list") . '</a></small>'
 .    '<td>'
-.    '<label for="maxMember">' . get_lang('Max') . '</label> '
+.    '<label for="maxMember">' . get_lang("Max.") . '</label> '
 
 .   '<input type="text" name="maxMember" id="maxMember" size="2" value="' .  htmlspecialchars($thisGroupMaxMember) . '" / >' . "\n"
 
-.    get_lang('GroupPlacesThis')
+.    get_lang("seats (optional)")
 .    '</td>'
 .    '</tr>'
 ################### STUDENTS IN AND OUT GROUPS #######################
 .    '<tr valign="top">'
-.    '<td align="right"><label for="inGroup">' . get_lang('GroupMembers') . '</label> : </td>' . "\n"
+.    '<td align="right"><label for="inGroup">' . get_lang("Group members") . '</label> : </td>' . "\n"
 .    '<td>'
 .    claro_html_form_select('ingroup[]',$usersInGroupList,'',array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'))
 .    '<br />' . "\n"
 .    '<br />' . "\n"
-.    '<input type=submit value="' . get_lang('Ok') . '" name="modify" onClick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
+.    '<input type=submit value="' . get_lang("Ok") . '" name="modify" onClick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
 .    '</td>' . "\n"
 .    '<td>' . "\n"
 .    '<!-- ' . "\n"
@@ -368,8 +368,8 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<br />' . "\n"
 ;
 
-if ( get_conf('multiGroupAllowed') ) echo get_lang('StudentsNotInThisGroups');
-else                                 echo get_lang('NoGroupStudents');
+if ( get_conf('multiGroupAllowed') ) echo get_lang("Users not in this group");
+else                                 echo get_lang("Unassigned students");
 ?>
 </td>
 </tr>
