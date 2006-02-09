@@ -11,7 +11,7 @@
  */ 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = get_lang('UserAccessDetails');
+$nameTools = get_lang('User access details');
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
 
@@ -75,7 +75,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     }
     else
     {
-        $dialogBox = get_lang('WrongOperation');
+        $dialogBox = get_lang('Wrong operation');
     }
 
     echo claro_disp_tool_title($toolTitle);
@@ -86,9 +86,9 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     echo '<br />'."\n\n"
         .'<table class="claroTable" border="0" cellpadding="5" cellspacing="1">'."\n"
         .'<tr class="headerX">'."\n"
-        .'<th>'.get_lang('UserName').'</th>'."\n"
-        .'<th>'.get_lang('LastAccess').'</th>'."\n"
-        .'<th>'.get_lang('NbrAccess').'</th>'."\n"
+        .'<th>'.get_lang('User name').'</th>'."\n"
+        .'<th>'.get_lang('Last access').'</th>'."\n"
+        .'<th>'.get_lang('Access count').'</th>'."\n"
         .'</tr>'."\n"
         .'<tbody>'."\n\n";
 
@@ -115,12 +115,12 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         }
     }
     // in case of error or no results to display
-    if( $i == 0 || !isset($sql) ) echo '<td colspan="3"><center>'.get_lang('NoResult').'</center></td>'."\n\n";
+    if( $i == 0 || !isset($sql) ) echo '<td colspan="3"><center>'.get_lang('No result').'</center></td>'."\n\n";
  
     echo '</tbody>'."\n\n".'</table>'."\n\n";
     
     if( $anonymousCount != 0 )
-        echo '<p>'.get_lang('AnonymousUserAccessCount').' '.$anonymousCount.'</p>'."\n";
+        echo '<p>'.get_lang('Anonymous users access count : ').' '.$anonymousCount.'</p>'."\n";
  
 }
 // not allowed
@@ -128,7 +128,7 @@ else
 {
     if(!$is_trackingEnabled)
     {
-        echo get_lang('TrackingDisabled');
+        echo get_lang('Tracking has been disabled by system administrator.');
     }
     else
     {
