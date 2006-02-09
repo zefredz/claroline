@@ -97,9 +97,11 @@ CREATE TABLE `".$mainTblPrefixForm."user` (
   `email` varchar(100) default NULL,
   `statut` tinyint(4) default NULL,
   `officialCode` varchar(40) default NULL,
+  `officialEmail` varchar(255) default NULL,
   `phoneNumber` varchar(30) default NULL,
   `pictureUri` varchar(250) default NULL,
-  `creatorId` int(11)  unsigned default NULL,
+  `creatorId` int(11)  unsigned default NULL
+
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) TYPE=MyISAM";

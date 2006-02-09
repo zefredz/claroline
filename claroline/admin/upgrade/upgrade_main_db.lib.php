@@ -168,6 +168,10 @@ function query_to_upgrade_main_database_to_18 ()
   	   PRIMARY KEY  (`id`)
   	 ) TYPE=MyISAM AUTO_INCREMENT=0";
 
+
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `language` varchar(15) default NULL";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `officialEmail` varchar(255) default NULL";
+
   	 return $sqlForUpdate;
 }
 ?>
