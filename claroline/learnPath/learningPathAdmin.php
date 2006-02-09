@@ -53,7 +53,7 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
 $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb 
@@ -187,7 +187,7 @@ switch($cmd)
             // if origin and target are the same ... cancel operation
             if ($movedModule['learnPath_module_id'] == $_POST['newPos'])
             {
-                $dialogBox .= get_lang('WrongOperation');
+                $dialogBox .= get_lang('Wrong operation');
             }
             else
             {
@@ -209,7 +209,7 @@ switch($cmd)
                             `rank` = " . (int)$order . "
                         WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
                 $query = claro_sql_query($sql);  
-                $dialogBox .= get_lang('ModuleMoved');
+                $dialogBox .= get_lang('Module moved');
             }
 
         }
@@ -409,7 +409,7 @@ else
 if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
 {
     $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
-                  <h4><label for=\"newLabel\">".get_lang('NewLabel')."</label></h4>
+                  <h4><label for=\"newLabel\">".get_lang('Create a new label / title in this learning path')."</label></h4>
                   <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
                   <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
                   <input type=\"submit\" value=\"".get_lang('Ok')."\" />
@@ -442,10 +442,10 @@ if (isset($dialogBox) && $dialogBox!="")
 
 ?>
  <p>
- <a class="claroCmd" href="insertMyDoc.php"><?php echo get_lang('DocumentAsModule'); ?></a> |
- <a class="claroCmd" href="insertMyExercise.php"><?php echo get_lang('ExerciseAsModule'); ?></a> |
- <a class="claroCmd" href="insertMyModule.php"><?php echo get_lang('ModuleOfMyCourse'); ?></a> |
- <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo get_lang('CreateLabel'); ?></a>
+ <a class="claroCmd" href="insertMyDoc.php"><?php echo get_lang('Use a document'); ?></a> |
+ <a class="claroCmd" href="insertMyExercise.php"><?php echo get_lang('Use an exercise'); ?></a> |
+ <a class="claroCmd" href="insertMyModule.php"><?php echo get_lang('Use a module of this course'); ?></a> |
+ <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo get_lang('Create label'); ?></a>
  </p>
 <?php
 
@@ -571,14 +571,14 @@ foreach ($flatElementList as $module)
    //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
     echo "<td>
           <a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
-         "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('AreYouSureToRemove')." ".$module['name'])." ? ";
+         "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
 
     if ($module['contentType'] == CTSCORM_) 
-        echo clean_str_for_javascript(get_lang('AreYouSureToRemoveSCORM')) ;
+        echo clean_str_for_javascript(get_lang('SCORM conformant modules are definitively removed from server when deleted in their learning path.')) ;
     elseif ( $module['contentType'] == CTLABEL_ )
-        echo clean_str_for_javascript(get_lang('AreYouSureToRemoveLabel'));
+        echo clean_str_for_javascript(get_lang('By deleting a label you will delete all modules or label it contains.'));
     else
-        echo clean_str_for_javascript(get_lang('AreYouSureToRemoveStd'));
+        echo clean_str_for_javascript(get_lang('The module will still be available in the pool of modules.'));
 
     echo   "');\"
     ><img src=\"".$imgRepositoryWeb."delete.gif\" border=0 alt=\"".get_lang('Remove')."\"></a>
@@ -600,7 +600,7 @@ foreach ($flatElementList as $module)
     elseif( $module['lock'] == 'CLOSE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"" . get_lang('AltMakeNotBlocking') . "\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"" . get_lang('Unblock') . "\" border=0>".
              "</a>";
     }
     echo "</td>";
@@ -618,7 +618,10 @@ foreach ($flatElementList as $module)
     {
         if( $module['lock'] == 'CLOSE' )
         {
-            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('AlertBlockingMakedInvisible'))."');\"";
+            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('This module is blocked.
+Making it invisible will allow students to access
+ the next module without having to complete this one.
+Confirm ?'))."');\"";
         }
         else
         {
@@ -644,7 +647,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('MoveUp') . "\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('Move up') . "\" border=0>".
              "</a>".
              "</td>";
     }
@@ -658,7 +661,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"" . get_lang('MoveDown') . "\" border=0>".
+             "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"" . get_lang('Move down') . "\" border=0>".
              "</a>".
              "</td>";
     }
@@ -678,7 +681,7 @@ echo "<tfoot>";
 
 if ($atleastOne == false)
 {
-    echo "<tr><td align=\"center\" colspan=\"7\">".get_lang('NoModule')."</td></tr>";
+    echo "<tr><td align=\"center\" colspan=\"7\">".get_lang('No module')."</td></tr>";
 }
 
 echo "</tfoot>";
