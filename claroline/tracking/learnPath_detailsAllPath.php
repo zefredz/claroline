@@ -1,20 +1,16 @@
 <?php 
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * This script displays the stats of all users of a course 
- * for his progression into the sum of all learning paths of the course
+ * @version 1.8 $Revision$
  *
- * @version 1.8 $Revision$ 
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @package TRACKING
+ * @package CLSTAT
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux  <piraux_seb@hotmail.com>
- * @author Gioacchino Poletto <info@polettogioacchino.com>
  *
  */
  
@@ -23,9 +19,9 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
-$nameTools = get_lang('TrackAllPath');
+$nameTools = get_lang('Learning paths tracking');
 
 $tbl_cdb_names               = claro_sql_get_course_tbl();
 $tbl_mdb_names               = claro_sql_get_main_tbl();
@@ -56,7 +52,7 @@ include($includePath."/lib/learnPath.lib.inc.php");
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = get_lang('TrackAllPathExplanation');
+$titleTab['subTitle'] = get_lang('Progression of users on all learning paths');
 
 echo claro_disp_tool_title($titleTab);
 
@@ -106,7 +102,7 @@ if ( $is_trackingEnabled )
 
         if( $iterator == 1 )
         {
-            echo '<tr><td align="center" colspan="8">'.get_lang('NoLearningPath').'</td></tr>'."\n\n";
+            echo '<tr><td align="center" colspan="8">'.get_lang('No learning path').'</td></tr>'."\n\n";
         }
         else
         {
@@ -128,7 +124,7 @@ if ( $is_trackingEnabled )
 }
 else
 {
-    echo get_lang('TrackingDisabled');
+    echo get_lang('Tracking has been disabled by system administrator.');
 }
 
 

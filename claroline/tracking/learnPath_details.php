@@ -2,18 +2,15 @@
 /**
  * CLAROLINE
  *
- * This script displays the stats of all users of a course
- * for his progression into the chosen learning path
+ * @version 1.8 $Revision$
  *
- * @version 1.8 $Revision$ 
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @package TRACKING
+ * @package CLSTAT
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux  <piraux_seb@hotmail.com>
  *
  */
  
@@ -29,9 +26,9 @@ if( empty($_REQUEST['path_id']) )
     exit();
 }
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
-$nameTools = get_lang('StatsOfLearnPath');
+$nameTools = get_lang('Learning paths tracking');
 
 // regroup table names for maintenance purpose
 /*
@@ -120,7 +117,7 @@ if ( $is_trackingEnabled )
 // not allowed
 else
 {
-    echo claro_html::message_box(get_lang('TrackingDisabled'));
+    echo claro_html::message_box(get_lang('Tracking has been disabled by system administrator.'));
 }
 
 include($includePath."/claro_init_footer.inc.php");
