@@ -123,5 +123,12 @@
 "AddMyCampusOnClarolineNet";"Add my campus on Claroline.net website"
 "SiteName";"Campus name"
 "RegisterCampusAdvice";"Please check that your campus URL is reachable from the internet."
-
+"AssignmentDescription";"Description"
+"SubmissionType";"Submission type"
+"! This will also delete all works submitted in this assignment !";"This will also delete all works submitted in this assignment !"
+"FileOnly";"File (file required, description text optional)"
+"ChooseDateHelper";"(d/m/y hh:mm)"
+"EndDate";"End date"
+"GroupAssignment";"Groups (from groups tool, only group members can post)"
+"IntroWork";"blockIntroWork"
 
