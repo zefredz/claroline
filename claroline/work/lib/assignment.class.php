@@ -1,5 +1,21 @@
-<?php
-
+<?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * The script works with the 'assignment' tables in the main claroline table
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLWRK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sébastien Piraux <pir@cerdecam.be>
+ */
+ 
 class Assignment 
 {
 	/**
@@ -107,8 +123,8 @@ class Assignment
 	    $this->assignmentType = 'INDIVIDUAL';
 	    $this->submissionType = 'FILE';
 	    $this->allowLateUpload = 'YES';
-	    $this->startDate = '';
-	    $this->endDate = '';
+	    $this->startDate = time(); // now as unix timestamp
+	    $this->endDate = time() + 31536000; // one year later
 	    $this->autoFeedbackText = '';
 	    $this->autoFeedbackFilename = '';
 	    $this->autoFeedbackSubmitMethod = 'ENDDATE';
@@ -300,6 +316,60 @@ class Assignment
 		return true;
 	}
 
+    /**
+     * check if data are valide
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return boolean 
+     */	
+	function validate()
+	{
+	    // title is a mandatory element
+	    $title = trim( strip_tags($this->title) );
+
+	    if( empty($title) )
+	    {
+	        claro_failure::set_failure('assignment_no_title');
+	        return false;
+	    }
+	    else
+	    {
+	        // check if title already exists
+			if( $this->id == -1 )
+	        {
+	            // insert
+	            $sql = "SELECT `title`
+	                    FROM `" . $this->tblAssignment . "`
+	                    WHERE `title` = '" . addslashes($this->title) . "'";
+	        }
+	        else
+	        {
+	            // update
+	            $sql = "SELECT `title`
+	                    FROM `".$this->tblAssignment."`
+	                    WHERE `title` = '" . addslashes($this->title) . "'
+	                    AND `id` != " . (int) $this->id;
+	        }
+
+	        $query = claro_sql_query($sql);
+	
+	        if( mysql_num_rows($query) != 0 )
+	        {
+	            claro_failure::set_failure('assignment_title_already_exists');
+	            return false;
+	        }
+	    }
+
+		// dates : check if start date is lower than end date else we will have a paradox
+	    if( $this->endDate <= $this->startDate )
+	    {
+	        claro_failure::set_failure('assignment_incorrect_dates');
+	        return false;
+	    }
+
+	    return true; // no errors, form is validate
+    }     
+
 	/**
      * update visibility of all submissions of the assignment
      *
@@ -327,6 +397,35 @@ class Assignment
     }
     
 	/**
+     * update visibility of an assignment
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @param integer $assignmentId
+     * @param string $visibility
+     * @return boolean  
+     */    
+    function updateAssignmentVisibility($assignmentId, $visibility)
+    {
+    	// this method is not used in object context so we cannot access $this->$tblAssignment
+    	$tbl_cdb_names = claro_sql_get_course_tbl();
+		$tblAssignment = $tbl_cdb_names['wrk_assignment'];
+		
+	    $acceptedValues = array('VISIBLE', 'INVISIBLE');
+		
+		if( in_array($visibility, $acceptedValues) )
+		{	
+		    $sql = "UPDATE `" . $tblAssignment . "`
+		               SET `visibility` = '" . $visibility . "'
+		             WHERE `id` = " . (int) $assignmentId . "
+		               AND `visibility` != '" . $visibility . "'";
+		               
+		    return  claro_sql_query($sql);
+		}
+		
+		return false;
+    }
+    
+	/**
      * get submission list of assignment
      *
      * @author Sébastien Piraux <pir@cerdecam.be>
@@ -334,9 +433,6 @@ class Assignment
      */
     function getSubmissionList()
     {
-		$tbl_cdb_names = claro_sql_get_course_tbl();
-		$this->tblSubmission = $tbl_cdb_names['wrk_submission'];
-
 		$sql = "SELECT `id`, `submitted_doc_path` 
 				FROM `".$this->tblSubmission."`
 				WHERE `assignment_id` =  ".$this->id;
