@@ -74,10 +74,16 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 {
     // SUBMITTED DATA CHECKING
 
-    if ( ! $courseTitle && get_conf('human_label_needed') )       $errorList[] = get_lang('LabelCanBeEmpty');
-    if ( ! $courseOfficialCode && get_conf('human_code_needed') ) $errorList[] = get_lang('CodeCanBeEmpty');
-    if ( ! $courseCategory || $courseCategory == 'choose_one')    $errorList[] = sprintf(get_lang('_p_aCategoryWouldBeSelected'), 'mailto:'.$administrator_email);
-    if ( empty($courseEmail) && get_conf('course_email_needed') ) $errorList[] = get_lang('EmailCanBeEmpty');
+    if ( ! $courseTitle && get_conf('human_label_needed') )       $errorList[] = get_lang('Course title needed');
+    if ( ! $courseOfficialCode && get_conf('human_code_needed') ) $errorList[] = get_lang('Course code needed');
+
+    if ( ! $courseCategory || $courseCategory == 'choose_one')
+    {
+        $errorList[] = get_lang('Category needed (you must choose a category');
+    }
+
+    if ( empty($courseEmail) && get_conf('course_email_needed') ) $errorList[] = get_lang('Email needed');
+
     if ( ! empty( $courseEmail )
         && ! is_well_formed_email_address($courseEmail) )       $errorList[] = get_lang('The email address is not valid');
 
@@ -129,23 +135,25 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 $display = DISP_COURSE_CREATION_SUCCEED;
 
                 // WARN PLATFORM ADMINISTRATOR OF THE COURSE CREATION
-                $mailSubject  = '['.$siteName.'] ';
-                $mailSubject .= get_lang('CreationMailNotificationSubject').' : ';
-                $mailSubject .= $courseTitle;
 
-                $mailBody  = claro_disp_localised_date($dateTimeFormatLong) . "\n\n";
-                $mailBody .= get_lang('CreationMailNotificationBody') .' ' . $siteName . ' ';
-                $mailBody .= get_lang('ByUser') . ' ' . $_user['firstName'] . ' ' . $_user['lastName'];
-                $mailBody .= ' (' . $_user['mail'] . ') ' . "\n\n";
-                $mailBody .= get_lang('Code')          . "\t:\t" . $courseOfficialCode  . "\n";
-                $mailBody .= get_lang('CourseTitle')   . "\t:\t" . $courseTitle         . "\n";
-                $mailBody .= get_lang('Professors')    . "\t:\t" . $courseHolder        . "\n";
-                $mailBody .= get_lang('Email')         . "\t:\t" . $courseEmail         . "\n";
-                $mailBody .= get_lang('Category')      . "\t:\t" . $courseCategory      . "\n";
-                $mailBody .= get_lang('Language')      . "\t:\t" . $courseLanguage      . "\n\n";
-                $mailBody .= $coursesRepositoryWeb . $courseDirectory . "/\n\n";
+		$mailSubject = get_lang('[%site_name] Course creation %course_name',array('%site_name'=> $siteName ,
+                                                                                          '%course_name'=> $courseTitle) );
 
-                // GET THE CONCERNED SENDEES OF THE EMAIL
+		$mailBody = get_block('CourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
+                                                                            '%sitename' => $siteName, 
+                                                                            '%user_firstname' => $_user['firstName'],
+                                                                            '%user_lastname' => $_user['lastName'],
+                                                                            '%user_email' => $_user['mail'],
+                                                                            '%course_code' => $courseOfficialCode,
+                                                                            '%course_title' => $courseTitle,
+                                                                            '%course_lecturers' => $courseHolder,
+                                                                            '%course_email' => $courseEmail,
+                                                                            '%course_category' => $courseCategory,
+                                                                            '%course_language' => $courseLanguage,
+                                                                            '%course_url' => $coursesRepositoryWeb . $courseDirectory
+                                                                          ) );
+
+                // GET THE CONCERNED SENDERS OF THE EMAIL
                 $platformAdminList = claro_get_admin_list ();
 
                 foreach( $platformAdminList as $thisPlatformAdmin )
@@ -250,7 +258,7 @@ if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('CreateSite'));
+echo claro_disp_tool_title(get_lang('Create a course website'));
 
 if ( count($errorList) > 0 ) echo claro_html::message_box(implode('<br />', $errorList));
 
@@ -265,7 +273,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
     if(get_conf('rootCanHaveCourse', true))
     {
-        $courseCategory_array = array_merge(array('root' => get_lang('top')),$courseCategory_array);
+        $courseCategory_array = array_merge(array('root' => get_lang('Root')),$courseCategory_array);
     }
     // If there is no current course category, add a fake option
     // to prevent user to simply select the first in list without purpose
@@ -288,11 +296,11 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
 <tr valign="top">
 <td align="right">
-<label for="title"><?php echo ( get_conf('human_label_needed') ? '<span class="required">*</span>' :'') . get_lang('CourseTitle') ?></label> :
+<label for="title"><?php echo ( get_conf('human_label_needed') ? '<span class="required">*</span>' :'') . get_lang('Course title') ?></label> :
 </td>
 <td valign="top">
 <input type="Text" name="title" id="title" size="60" value="<?php echo htmlspecialchars($courseTitle) ?>" />
-<br /><small><?php echo get_lang('Ex') ?></small>
+<br /><small><?php echo get_lang('e.g. <em>History of Literature</em>') ?></small>
 </td>
 </tr>
 
@@ -303,13 +311,13 @@ if( $display == DISP_COURSE_CREATION_FORM )
 <td >
     <input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>" />
     <br />
-    <small><?php echo get_lang('MaxSizeCourseCode') ?></small>
+    <small><?php echo get_lang('max. 12 characters, e.g. <em>ROM2121</em>') ?></small>
 </td>
 </tr>
 
 <tr valign="top">
 <td align="right">
-<label for="holder"><?php echo get_lang('Professors') ?></label> :
+<label for="holder"><?php echo get_lang('Lecturer(s)') ?></label> :
 </td>
 <td>
 <input type="Text" name="holder" id="holder" size="60" value="<?php echo htmlspecialchars($courseHolder) ?>" />
@@ -335,19 +343,19 @@ if( $display == DISP_COURSE_CREATION_FORM )
                                  , $cat_preselect
                                  , array('id'=>'category'))
                                  ; ?>
-<br /><small><?php echo get_lang('TargetFac') ?></small>
+<br /><small><?php echo get_lang('This is the faculty, department or school where the course is delivered') ?></small>
 </td>
 </tr>
 
 <tr valign="top">
-<td align="right"><label for="extLinkName"><?php echo get_lang('DepartmentUrlName') ?></label>&nbsp;: </td>
+<td align="right"><label for="extLinkName"><?php echo get_lang('Department') ?></label>&nbsp;: </td>
 <td>
 <input type="text" name="extLinkName" id="extLinkName" value="" size="20" maxlength="30" />
 </td>
 </tr>
 
 <tr valign="top" >
-<td align="right" nowrap><label for="extLinkUrl" ><?php echo get_lang('DepartmentUrl') ?></label>&nbsp;:</td>
+<td align="right" nowrap><label for="extLinkUrl" ><?php echo get_lang('Department URL') ?></label>&nbsp;:</td>
 <td>
 <input type="text" name="extLinkUrl" id="extLinkUrl" value="" size="60" maxlength="180" />
 </td>
@@ -366,21 +374,21 @@ if( $display == DISP_COURSE_CREATION_FORM )
 </td>
 </tr>
 <tr valign="top" >
-<td align="right" nowrap><?php echo get_lang('CourseAccess'); ?> : </td>
+<td align="right" nowrap><?php echo get_lang('Course access'); ?> : </td>
 <td>
 <input type="radio" id="courseVisibility_true" name="courseVisibility" value="true" <?php echo $courseVisibility ? 'checked':'' ?> />
-<label for="courseVisibility_true"><?php echo get_lang('PublicAccess'); ?></label><br />
+<label for="courseVisibility_true"><?php echo get_lang('Public access from campus home page even without login'); ?></label><br />
 <input type="radio" id="courseVisibility_false" name="courseVisibility" value="false" <?php echo ! $courseVisibility  ?'checked':''; ?> />
-<label for="courseVisibility_false"><?php echo strip_tags(get_lang('PrivateAccess')); ?></label>
+<label for="courseVisibility_false"><?php echo get_lang('Private access (site accessible only to people on the <a href="%url">User list</a>)',array('%url'=> '../user/user.php')); ?></label>
 </td>
 </tr>
 <tr valign="top">
-<td align="right"><?php echo get_lang('Subscription'); ?> : </td>
+<td align="right"><?php echo get_lang('Enrolment'); ?> : </td>
 <td>
 <input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?> />
 <label for="allowedToSubscribe_true"><?php echo get_lang('Allowed'); ?></label>
 <label for="courseEnrollmentKey">
-- <?php echo get_lang('EnrollmentKey') ?>
+- <?php echo get_lang('enrollment key') ?>
 <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($courseEnrollmentKey); ?>" />
@@ -398,12 +406,11 @@ if( $display == DISP_COURSE_CREATION_FORM )
 <tr>
 <td></td>
 <td>
-<?php echo get_lang('LegendRequiredFields') ?>
+<?php echo get_lang('<span class=\"required\">*</span> denotes required field') ?>
 </td>
 </tr>
 </table>
 </form>
-<p><?php echo get_lang('Explanation') ?>.</p>
 
 <?php
 }
@@ -429,7 +436,7 @@ if( $display == DISP_COURSE_CREATION_SUCCEED)
     // Special for french
 
     $dialogBox = "\n"
-    .            get_lang('JustCreated')
+    .            get_lang('You have just created the course website')
     .            ' : '
     .            '<strong>'
     .            $courseOfficialCode
@@ -451,13 +458,13 @@ if( $display == DISP_COURSE_CREATION_SUCCEED)
 
 if ( $display == DISP_COURSE_CREATION_PROGRESS )
 {
-    $msg = get_lang('CreatingCourse')
-    .      '<br />'
+    $msg = get_lang('Creating course (it may take a while) ...')
+    .      ' <br />'
     .      '<p align="center">'
     .      '<img src="' . $imgRepositoryWeb . '/processing.gif" / alt="">'
     .      '</p>'
     .      '<p>'
-    .      sprintf(get_lang('_p_IfNothingHappendClickHere'),$paramString)
+    .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $paramString));
     .      '</p>'
     ;
     echo claro_html::message_box( $msg );

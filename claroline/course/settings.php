@@ -46,8 +46,6 @@ $fieldRequiredStateList['lanCourseForm'] = true;
 $fieldRequiredStateList['lecturer'     ] = false;
 $fieldRequiredStateList['intitule'     ] = get_conf('human_label_needed');
 $fieldRequiredStateList['screenCode'   ] = get_conf('human_code_needed');
-$fieldRequiredStateList['extLinkName'  ] = get_conf('extLinkNameNeeded');
-$fieldRequiredStateList['extLinkUrl'   ] = get_conf('extLinkUrlNeeded');
 $fieldRequiredStateList['email'        ] = get_conf('course_email_needed');
 
 /**
@@ -117,21 +115,13 @@ if ( isset($_REQUEST['changeProperties']) )
     $errorMsgList = array();
 
     if ( empty($courseTitle)        && $fieldRequiredStateList['intitule'])
-        $errorMsgList[] = get_lang('ErrorCourseTitleEmpty');
+        $errorMsgList[] = get_lang('Course title needed');
     if ( is_null($courseCategory)   && $fieldRequiredStateList['category'])
-        $errorMsgList[] = get_lang('ErrorCategoryEmpty');
-    if ( empty($courseHolder)       && $fieldRequiredStateList['lecturer'])
-        $errorMsgList[] = get_lang('ErrorLecturerEmpty');
+        $errorMsgList[] = get_lang('Category needed (you must choose a category)');
     if ( empty($courseOfficialCode) && $fieldRequiredStateList['screenCode'])
-        $errorMsgList[] = get_lang('ErrorCourseCodeEmpty');
-    if ( empty($courseLanguage)     && $fieldRequiredStateList['lanCourseForm'])
-        $errorMsgList[] = get_lang('ErrorLanguageEmpty');
-    if ( empty($extLinkName)        && $fieldRequiredStateList['extLinkName'])
-        $errorMsgList[] = get_lang('ErrorDepartmentEmpty');
-    if ( empty($extLinkUrl)        && $fieldRequiredStateList['extLinkUrl'])
-        $errorMsgList[] = get_lang('ErrorDepartmentURLEmpty');
+        $errorMsgList[] = get_lang('Course code needed');
     if ( empty($courseEmail)        && $fieldRequiredStateList['email'])
-        $errorMsgList[] = get_lang('ErrorEmailEmpty');
+        $errorMsgList[] = get_lang('Email needed');
 
 
     // check if department url is set properly
@@ -147,10 +137,9 @@ if ( isset($_REQUEST['changeProperties']) )
         }
         else
         {
-             $errorMsgList[] = get_lang('ErrorDepartmentURLWrong');
+             $errorMsgList[] = get_lang('Department URL is not valid');
         }
     }
-
 
     /**
      * Check e-mail validity
@@ -169,7 +158,7 @@ if ( isset($_REQUEST['changeProperties']) )
             if ( ! is_well_formed_email_address( trim($emailControl)) )
             {
                 $is_emailListValid = false;
-                $errorMsgList[] = get_lang('ErrorEmailInvalid') . ' : <i>' . $emailControl . '</i>';
+                $errorMsgList[] = get_lang('The email address is not valid');
             }
             else
             {
@@ -186,7 +175,7 @@ if ( isset($_REQUEST['changeProperties']) )
     if ( count($errorMsgList) > 0)
     {
         $dialogBox .= '<p>'
-        .             get_lang('NotSaved')
+        .             get_lang('Unable to save')
         .             '<br />'
         .             implode('<br />' , $errorMsgList)
         .             '</p>'
@@ -225,7 +214,7 @@ if ( isset($_REQUEST['changeProperties']) )
 
         claro_sql_query($sql);
 
-        $dialogBox = get_lang('ModifDone');
+        $dialogBox = get_lang('The information has been modified');
 
 
     }
@@ -243,7 +232,7 @@ $language_list = claro_get_lang_flat_list();
 $category_array = claro_get_cat_flat_list();
 if(get_conf('rootCanHaveCourse', true))
 {
-    $category_array = array_merge(array('root' => get_lang('top')),$category_array);
+    $category_array = array_merge(array('root' => get_lang('Root')),$category_array);
 }
 
 // If there is no current $courseCategory, add a fake option
@@ -284,23 +273,30 @@ $links = array();
 
 // add course home link
 
-$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '">'
+$url_course = $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid);
+$url_course_edit_tool_list = $clarolineRepositoryWeb . 'course/tools.php';
+$url_course_tracking = $clarolineRepositoryWeb . 'tracking/courseLog.php';
+$url_admin = $clarolineRepositoryWeb . 'admin/index.php';
+$url_course_delete = $clarolineRepositoryWeb . 'course/delete.php';
+$url_admin_course = $clarolineRepositoryWeb . 'admin/admincourses.php'. $toAdd ;
+
+$links[] = '<a class="claroCmd" href="' . $url_course . '">'
         .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-        .    get_lang('Home')
+        .    get_lang('Back to Homepage')
         .    '</a>';
 
 // add course tool list edit
 
-$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/tools.php">'
+$links[] = '<a class="claroCmd" href="' . $url_course_edit_tool_list . '">'
         .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
-        .    get_lang('EditToolList')
+        .    get_lang('Edit Tool list')
         .    '</a>';
 
 // add tracking link
 
 if ( $is_trackingEnabled )
 {
-    $links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php">'
+    $links[] = '<a class="claroCmd" href="' . $url_course_tracking . '">'
             .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
             .    get_lang('Statistics')
             .    '</a>' ;
@@ -311,8 +307,8 @@ if ( $is_trackingEnabled )
 
 if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
 {
-    $links[] = '<a class="claroCmd" href="../admin/index.php">'
-            .    get_lang('BackToAdmin')
+    $links[] = '<a class="claroCmd" href="' . $url_admin . '">'
+            .    get_lang('Back to administration page')
             .    '</a>';
 }
 
@@ -321,9 +317,9 @@ if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
 
-    $links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/delete.php' . $toAdd . '">'
+    $links[] = '<a class="claroCmd" href="' . $url_course_delete . '">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-    .    get_lang('DelCourse')
+    .    get_lang('Delete the whole course website')
     .    '</a>';
 }
 
@@ -334,8 +330,8 @@ if ( isset($cfrom) && ($is_platformAdmin) )
 {
     if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
     {
-        $links[] = '<a class="claroCmd" href="../admin/admincourses.php'. $toAdd . '">'
-                . get_lang('BackToList')
+        $links[] = '<a class="claroCmd" href="' . $url_admin_course . '">'
+                . get_lang('Back to list')
                 . '</a>';
     }
 }
@@ -351,7 +347,7 @@ echo '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n";
 <table  cellpadding="3" border="0">
 
 <tr>
-<td align="right"><label for="int"><?php echo (get_conf('human_label_needed') ? '<span class="required">*</span>' :'') . get_lang('CourseTitle') ?></label> :</td>
+<td align="right"><label for="int"><?php echo (get_conf('human_label_needed') ? '<span class="required">*</span>' :'') . get_lang('Course title') ?></label> :</td>
 <td><input type="Text" name="int" id="int" value="<?php echo htmlspecialchars($courseTitle); ?>" size="60"></td>
 </tr>
 
@@ -361,7 +357,7 @@ echo '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n";
 </tr>
 
 <tr>
-<td align="right"><label for="titulary"><?php echo get_lang('Professors') ?></label>&nbsp;:</td>
+<td align="right"><label for="titulary"><?php echo get_lang('Lecturer(s)') ?></label>&nbsp;:</td>
 <td><input type="text"  id="titulary" name="titulary" value="<?php echo htmlspecialchars($courseHolder); ?>" size="60"></td>
 </tr>
 
@@ -382,12 +378,12 @@ echo '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n";
 </tr>
 
 <tr valign="top">
-<td align="right"><label for="extLinkName"><?php echo get_lang('DepartmentUrlName') ?></label>&nbsp;: </td>
+<td align="right"><label for="extLinkName"><?php echo get_lang('Department') ?></label>&nbsp;: </td>
 <td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo htmlspecialchars($extLinkName); ?>" size="20" maxlength="30"></td>
 </tr>
 
 <tr valign="top" >
-<td align="right" nowrap><label for="extLinkUrl" ><?php echo get_lang('DepartmentUrl') ?></label>&nbsp;:</td>
+<td align="right" nowrap><label for="extLinkUrl" ><?php echo get_lang('Department URL') ?></label>&nbsp;:</td>
 <td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo htmlspecialchars($extLinkUrl); ?>" size="60" maxlength="180"></td>
 </tr>
 
@@ -401,8 +397,6 @@ echo '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n";
                                  , $courseLanguage
                                  , array('id'=>'lanCourseForm'))
                                  ; ?>
-
-<br /><small><font color="gray"><?php echo get_lang('TipLang') ?></font></small>
 </td>
 </tr>
 
@@ -412,27 +406,26 @@ echo '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n";
 <?php
 if ( isset($cidToEdit) && ($is_platformAdmin))
 {
-    echo '<a  href="../admin/admincourseusers.php'
-    .    '?cidToEdit=' . $cidToEdit . '">' . get_lang('AllUsersOfThisCourse') . '</a>'
-    ;
+    $url_admin_course_user = $clarolineRepositoryWeb . 'admin/admincourseusers.php?cidToEdit=' . $cidToEdit ;
+    echo '<a  href="' . $url_admin_course_user . '">' . get_lang('Course members') . '</a>' ;
 }
 ?>
 </td>
 </tr>
 
 <tr valign="top" >
-<td align="right" nowrap><?php echo get_lang('CourseAccess'); ?> : </td>
+<td align="right" nowrap><?php echo get_lang('Course access'); ?> : </td>
 <td>
-<input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibility ? 'checked':'' ?>> <label for="visible_true"><?php echo get_lang('PublicAccess'); ?></label><br />
-<input type="radio" id="visible_false" name="visible" value="false" <?php echo ! $visibility  ?'checked':''; ?>> <label for="visible_false"><?php echo get_lang('PrivateAccess'); ?></label>
+<input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibility ? 'checked':'' ?>> <label for="visible_true"><?php echo get_lang('Public access from campus home page even without login'); ?></label><br />
+<input type="radio" id="visible_false" name="visible" value="false" <?php echo ! $visibility  ?'checked':''; ?>> <label for="visible_false"><?php echo get_lang('Private access (site accessible only to people on the <a href="%url">User list</a>)',array('%url'=> '../user/user.php')); ?></label>
 </td>
 </tr>
 <tr valign="top">
-<td align="right"><?php echo get_lang('Subscription'); ?> : </td>
+<td align="right"><?php echo get_lang('Enrolment'); ?> : </td>
 <td>
 <input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo get_lang('Allowed'); ?></label>
 <label for="enrollmentKey">
-- <?php echo get_lang('EnrollmentKey') ?> <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
+- <?php echo get_lang('enrollment key') ?> <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($enrollmentKey); ?>">
 <br />
@@ -453,12 +446,12 @@ if (isset($cidToEdit))
 </tr>
 <tr>
 <td>&nbsp;</td>
-<td><small><font color="gray"><?php echo get_lang('ConfTip') ?></font></small></td>
+<td><small><font color="gray"><?php echo get_block('Course settings tip') ?></font></small></td>
 </tr>
 <tr>
 <td></td>
 <td>
-<?php echo get_lang('LegendRequiredFields') ?>
+<?php echo get_lang('<span class=\"required\">*</span> denotes required field') ?>
 </td>
 </tr>
 <tr>

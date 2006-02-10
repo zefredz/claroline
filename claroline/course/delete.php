@@ -54,7 +54,7 @@ $course_to_delete = claro_get_course_data($current_cid);
 $currentCourseCode = $course_to_delete['officialCode'];
 $currentCourseName = $course_to_delete['name'];
 
-$nameTools = get_lang('DelCourse');
+$nameTools = get_lang('Delete the whole course website');
 $interbredcrump[] = array('url' => 'settings.php?' . $addToURL, 'name' => get_lang('Course settings'));
 
 if ( isset($_REQUEST['delete']) && $_REQUEST['delete'] )
@@ -77,41 +77,41 @@ switch ($display)
 {
     case DISP_DELETE_RESULT :
     {
-        $cmd_menu[] ='<a href="../../index.php">' . get_lang('BackHomeOf').' '. $siteName  . '</a>' ;
+        $cmd_menu[] = '<a href="'.$urlAppend.'">'.get_lang('Back to Homepage of %site_name',array('%site_name'=>$siteName)).'</a>';
 
         if ( isset($cidToEdit) ) //we can suppose that script is accessed from admin tool in this case
         {
-            $cmd_menu[] = '<a href="../admin/index.php">' . get_lang('BackToAdmin') . '</a>';
+            $cmd_menu[] = '<a href="'.$urlAppend.'admin/index.php">'.get_lang('Back to administration page').'</a>';
         }
 
         echo '<p>'
-        .    get_lang('Course').' &quot;'.$currentCourseName.'&quot; '
-        .    '('.$currentCourseCode.') '
-        .    get_lang('HasDel')
+        .    get_lang('Course "%course_name" (%course_code) has been deleted' , array( '%course_name' => $currentCourseName,
+                                                                                       '%course_code' => $currentCourseCode))
         .    '</p>'
         .    '<p>'
         .    claro_html::menu_horizontal($cmd_menu)
         .    '</p>'
         ;
     }   break;
+
     // ASK DELETE CONFIRMATION TO THE USER
     case DISP_CONFIRM_DELETE :
     {
+        $url_delete = 'delete.php?cmd=exDelete'.$addToURL;
+        $url_cancel = 'settings.php?'.$addToURL ;
+
         echo '<p>'
         .    '<font color="#CC0000">'
-        .    get_lang('ByDel').' &quot;' . $currentCourseName . '&quot; '
-        .    '(' . $currentCourseCode.') ?'
+        .    get_lang('Deleting this course will permanently delete all its documents and unenroll all its students.')
+        .    get_lang('Do you really want to delete the course "%course_name" ( %course_code ) ?', array('%course_name' => $currentCourseName,
+                                                                                                         '%course_code' => $currentCourseCode ))
         .    '</font>'
         .    '</p>'
         .    '<p>'
         .    '<font color="#CC0000">'
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?delete=yes' . $addToURL . '">'
-        .    get_lang('Yes')
-        .    '</a>'
+        .    '<a href="'.$url_delete.'">'.get_lang('Yes').'</a>'
         .    '&nbsp;|&nbsp;'
-        .    '<a href="settings.php?'.$addToURL.'">'
-        .    get_lang('No')
-        .    '</a>'
+        .    '<a href="'.$url_cancel.'">'.get_lang('No').'</a>'
         .    '</font>'
         .    '</p>'
         ;

@@ -171,7 +171,7 @@ if ($disp_edit_command)
     echo '<p>' . "\n"
     .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/tools.php">'
     .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt=""> '
-    .    get_lang('EditToolList')
+    .    get_lang('Edit Tool list')
     .    '</a><br />' . "\n"
     .    '<a class="claroCmd" href="' . $toolRepository . 'course/settings.php">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt=""> '
@@ -185,7 +185,7 @@ if ($disp_edit_command)
     ;
 }
 
-if ( isset($_uid) ) echo '<br /><small><span class="item hot"> '. get_lang('NewLegend') . '</span></small>';
+if ( isset($_uid) ) echo '<br /><small><span class="item hot"> '. get_lang('denotes new items') . '</span></small>';
 
 ?>
 </td>
@@ -203,9 +203,11 @@ INTRODUCTION TEXT SECTION
 ----------------------------------------------------------------------------*/
 
 // the module id for course_home equal -1 (course_home is not a tool in tool_list)
+
 $moduleId = -1;
-$helpAddIntroText=get_lang('IntroCourse');
+$helpAddIntroText=get_block('IntroCourse');
 include($includePath . '/introductionSection.inc.php');
+
 ?>
 </td>
 </tr>

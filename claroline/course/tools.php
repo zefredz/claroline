@@ -110,11 +110,11 @@ if ($cmd == 'exSetToolAccess')
         // notify that tool list has been changed
 
         $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, '0', '0', '0', '0');
-        $msg .= get_lang('ChangedTool');
+        $msg .= get_lang('Tool accesses changed');
     }
     else
     {
-        $msg .= get_lang('UnableChangedTool');
+        $msg .= get_lang('Unable to change tool access');
     }
 
 }
@@ -138,12 +138,12 @@ if ($cmd == 'exAdd')
         }
         else
         {
-            $msg .= get_lang('UnableAddExternalTool');
+            $msg .= get_lang('Unable to add external tool');
         }
     }
     else
     {
-        $msg .= get_lang('MissingValue');
+        $msg .= get_lang('Missing value');
         $cmd = 'rqAdd';
     }
 }
@@ -162,16 +162,16 @@ if ($cmd == 'exEdit')
 
             $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
 
-            $msg .= get_lang('UpdatedExternalTool');
+            $msg .= get_lang('External tool updated');
         }
         else
         {
-            $msg .= get_lang('UnableUpdateExternalTool');
+            $msg .= get_lang('Unable to update external tool');
         }
     }
     else
     {
-        $msg .= get_lang('MissingValue');
+        $msg .= get_lang('Missing value');
         $cmd = 'rqEdit';
     }
 
@@ -187,16 +187,16 @@ if ($cmd == 'exDelete')
     {
         if (delete_course_tool($_REQUEST['externalToolId']) !== false)
         {
-            $msg .= get_lang('DeletedExternalTool');
+            $msg .= get_lang('External tool deleted');
         }
         else
         {
-           $msg .= get_lang('UnableDeleteExternalTool');
+           $msg .= get_lang('Unable to delete external tool');
         }
     }
     else
     {
-        $msg .= get_lang('UnableDeleteExternalTool');
+        $msg .= get_lang('Unable to delete external tool');
     }
 
 }
@@ -240,9 +240,9 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $msg .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '">' . "\n";
     }
 
-    $msg .= '<label for="toolName">'.get_lang('ExternalToolName').'</label><br />'."\n"
+    $msg .= '<label for="toolName">'.get_lang('Name link').'</label><br />'."\n"
             .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
-            .'<label for="toolUrl">'.get_lang('ExternalToolUrl').'</label><br />'."\n"
+            .'<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
             .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
             .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp;'."\n"
             .claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
@@ -252,7 +252,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 $backLink = '<p>'
             .'<small>'
             .'<a href="'. $clarolineRepositoryWeb . 'course/index.php?cidReset=true&amp;cid=' . htmlspecialchars($_cid) . '">'
-            .'&lt;&lt;&nbsp;'.get_lang('Home').'</a>'
+            .'&lt;&lt;&nbsp;'.get_lang('Back to Home page').'</a>'
             .'</small>'
             .'</p>'."\n\n" ;
 
@@ -262,11 +262,11 @@ $backLink = '<p>'
 
 echo $backLink;
 
-echo claro_disp_tool_title(get_lang('EditToolList'));
+echo claro_disp_tool_title(get_lang('Edit Tool list'));
 
 if ($msg) echo claro_html::message_box($msg);
 
-echo '<p>'.get_lang('IntroEditToolList').'</p>'."\n"
+echo '<p>'.get_block('Course Tools Edit Introduction').'</p>'."\n"
     .'<blockquote>'."\n"
     .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
     .'<input type="hidden" name="cmd" value="exSetToolAccess" >'."\n"
