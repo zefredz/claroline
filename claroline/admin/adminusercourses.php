@@ -64,7 +64,7 @@ if (!isset($order['cuStatus'])) $order['cuStatus'] = '';
 //find which user is concerned in URL parameters
 
 $dialogBox = '';
-$nameTools = get_lang('UserCourseList');
+$nameTools = get_lang('UserCourse list');
 $interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 if ((isset($_REQUEST['uidToEdit']) && $_REQUEST['uidToEdit'] == '') || !isset($_REQUEST['uidToEdit']))
@@ -96,7 +96,7 @@ switch ($cmd)
 
     if ( user_remove_from_course($uidToEdit,$_REQUEST['code'],true) )
     {
-        $dialogBox .= get_lang('UserUnsubscribed');
+        $dialogBox .= get_lang('The user has been successfully unregistered');
     }
     else
     {
@@ -104,11 +104,11 @@ switch ($cmd)
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
             {
-                $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
+                $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
             }   break;
             case 'course_manager_cannot_unsubscribe_himself' :
             {
-                $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
+                $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
             }   break;
             default :
             {
@@ -202,19 +202,19 @@ $htmlHeadXtra[] =
 "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
             }
             </script>";
 
-$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('SeeUserSettings') . '</a>';
+$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('See user settings') . '</a>';
 $cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
 
 if (isset($cfrom) && $cfrom == 'ulist')  //if we come from user list, we must display go back to list
 {
-    $cmdList[] = '<a class="claroCmd" href="adminusers.php">' . get_lang('BackToUserList') . '</a>';
+    $cmdList[] = '<a class="claroCmd" href="adminusers.php">' . get_lang('Back to user list') . '</a>';
     $addToUrl = '&amp;cfrom=ulist';
 }
 
@@ -253,11 +253,11 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<tr class="headerX" align="center" valign="top">'
 
 //    add titles for the table
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Code') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('CourseTitle') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Course code') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Course title') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Course manager') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cuStatus&amp;dir=' . $order['cuStatus'] . '&amp;uidToEdit=' . $uidToEdit . '">' . get_lang('Role') . '</a></th>'
-.    '<th>' . get_lang('Unsubscribe') . '</th>'
+.    '<th>' . get_lang('Unregister user') . '</th>'
 .    '</tr>'
 .    '</thead>' . "\n"
 ;
@@ -313,7 +313,7 @@ if (!isset($atLeastOne) || !$atLeastOne)
 {
     echo '<tr>'
     .    '<td colspan="5" align="center">'
-    .    get_lang('UserNoCourseToDisplay')
+    .    get_lang('No course to display')
     .    '</td>'
     .    '</tr>'
     ;

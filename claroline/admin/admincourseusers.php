@@ -68,7 +68,7 @@ if ( $cmd == 'unsub' )
 {
     if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true) )
     {
-        $dialogBox .= get_lang('UserUnsubscribed');
+        $dialogBox .= get_lang('The user has been successfully unregistered');
     }
     else
     {
@@ -76,11 +76,11 @@ if ( $cmd == 'unsub' )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
             {
-                $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
+                $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
             }   break;
             case 'course_manager_cannot_unsubscribe_himself' :
             {
-                $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
+                $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
             }   break;
             default :
         }
@@ -133,7 +133,7 @@ foreach($userList as $lineId => $user)
      .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
      .                                            '&amp;pager_offset=' . $pager_offset . '" '
      .                                            ' onClick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
-     .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
+     .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister user') . '" />' . "\n"
      .                                            '</a>' . "\n";
 
 } // end display users table
@@ -147,7 +147,7 @@ $htmlHeadXtra[] =
          "<script>
          function confirmationReg (name)
          {
-             if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \" ? \"))
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))." \"+ name + \" ? \"))
                  {return true;}
              else
                  {return false;}
@@ -163,7 +163,7 @@ $dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList[
                                      , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('LastName') . '</a>'
                                      , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('FirstName') . '</a>'
                                      , 'cmd_cu_setting'  => '<a href="' . $sortUrlList['status'] . '">' . get_lang('Action') . '</a>'
-                                     , 'cmd_cu_unenroll' => get_lang('Unsubscribe')
+                                     , 'cmd_cu_unenroll' => get_lang('Unregister user')
 );
 
 $dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'center')
@@ -183,7 +183,7 @@ $dg_opt_list['caption'] = '<small>'
 .                         '</small>'
 ;
 
-$nameTools = get_lang('AllUsersOfThisCourse');
+$nameTools = get_lang('Course members');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -194,7 +194,7 @@ $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 ;
 if (isset($cfrom) && ($cfrom=='clist'))
 {
-    $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('BackToCourseList') . '</a>';
+    $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('Back to course list') . '</a>';
 }
 
 /*********

@@ -52,7 +52,7 @@ function confirmation (name)
 // Deal with interbredcrumps
 
 $interbredcrump[]= array ('url' => get_conf('rootAdminWeb') , 'name' => get_lang('Administration'));
-$nameTools = get_lang('CourseList');
+$nameTools = get_lang('Course list');
 
 //------------------------
 //  USED SESSION VARIABLES
@@ -96,7 +96,7 @@ $cmd     = isset($_REQUEST['cmd'])     ? $_REQUEST['cmd']     : null;
 $delCode = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
 
 /**
- * @todo TODO Guim would  documentate this following test
+ * @todo TODO documentate this following test
  */
 if (!isset($cfrom) || $cfrom!='clist') //offset not kept when come from another list
 {
@@ -116,7 +116,8 @@ switch ($cmd)
         if ($the_course)
         {
             delete_course($delCode);
-            $dialogBox = get_lang('CourseDelete');
+
+            $dialogBox = get_lang('The course has been successfully deleted');
             $noQUERY_STRING = true;
         }
         else
@@ -212,13 +213,13 @@ if ( !empty($_REQUEST['search']) ) $isSearched .= trim($_REQUEST['search']) . ' 
 
 if ( !empty($_REQUEST['code']) )
 {
-    $isSearched .= get_lang('Code') . ' = ' . $_REQUEST['code'] . ' ';
+    $isSearched .= get_lang('Course code') . ' = ' . $_REQUEST['code'] . ' ';
     $advanced_search_query_string[] = 'code=' . urlencode($_REQUEST['code']);
 }
 
 if ( !empty($_REQUEST['intitule']) )
 {
-    $isSearched .= get_lang('CourseTitle') . ' = ' . $_REQUEST['intitule'] . ' ';
+    $isSearched .= get_lang('Course title') . ' = ' . $_REQUEST['intitule'] . ' ';
     $advanced_search_query_string[] = 'intitule=' . urlencode($_REQUEST['intitule']);
 }
 
@@ -234,20 +235,20 @@ if ( !empty($_REQUEST['language']) )
 }
 if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')
 {
-    $isSearched .= ' <b><br />' . get_lang('PublicOnly') . ' </b> ';
+    $isSearched .= ' <b><br />' . get_lang('Public course only') . ' </b> ';
 
 }
 if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')
 {
-    $isSearched .= ' <b><br />' . get_lang('PrivateOnly') . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('Private course only') . ' </b>  ';
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed')
 {
-    $isSearched .= ' <b><br />' . get_lang('SubscriptionAllowedOnly') . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('Enrollment allowed only') . ' </b>  ';
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')
 {
-    $isSearched .= ' <b><br />' . get_lang('SubscriptionDeniedOnly') . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('Enrollment denied only') . ' </b>  ';
 }
 
 //see what must be kept for advanced links
@@ -271,7 +272,7 @@ if( empty($isSearched) )
     $title = '&nbsp;';
     $isSearched = '&nbsp;';
 }
-else $title = get_lang('SearchOn') . ' : ';
+else $title = get_lang('Search on') . ' : ';
 
 
 // Now read datas and rebuild cell content to set datagrid to display.
@@ -300,13 +301,14 @@ foreach($courseList as $numLine => $courseLine)
     // Users in course
     $courseDataList[$numLine]['qty_cm'] = '<a href="admincourseusers.php'
     .                                     '?cidToEdit=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                     sprintf( ( $courseLine['qty_cm'] + $courseLine['qty_stu'] > 1 ? get_lang('_p_d_course_members') : get_lang('_p_d_course_member'))
+
+    .                                     sprintf( ( $courseLine['qty_cm'] + $courseLine['qty_stu'] > 1 ? get_lang('%2d members') : get_lang('%2d member'))
                                                  , ( $courseLine['qty_stu'] + $courseLine['qty_cm'] ) )
     .                                     '</a>'
     .                                     '<br />' . "\n" . '<small><small>' . "\n"
-    .                                     sprintf( ( $courseLine['qty_cm'] > 1 ? get_lang('_p_d_course_managers') : get_lang('_p_d_course_manager'))
+    .                                     sprintf( ( $courseLine['qty_cm'] > 1 ? get_lang('%2d profs') : get_lang('%2d prof'))
                                                  , $courseLine['qty_cm']) . "\n"
-    .                                     sprintf( ( $courseLine['qty_stu'] > 1 ? get_lang('_p_d_students') : get_lang('_p_d_student'))
+    .                                     sprintf( ( $courseLine['qty_stu'] > 1 ? get_lang('%2d students') : get_lang('%2d student'))
                                                  , $courseLine['qty_stu']) . "\n"
     .                                     '</small></small>' . "\n"
     ;
@@ -333,9 +335,10 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 $dg_opt_list['idLineType'] = 'none';
 $dg_opt_list['colHead'] = 'officialCode';
 $dg_opt_list['colTitleList'] = array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Code')        . '</a>'
+
                                      , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('CourseTitle') . '</a>'
                                      , 'faculte'      => '<a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a>'
-                                     , 'qty_cm'       => get_lang('AllUsersOfThisCourse')
+                                     , 'qty_cm'       => get_lang('Course members')
                                      , 'cmdSetting'   => get_lang('Course settings')
                                      , 'cmdDelete'    => get_lang('Delete')
 );
@@ -369,7 +372,7 @@ echo '<table width="100%">' . "\n\n"
 .    '</td>' . "\n"
 .    '<td align="right"  valign="top">' . "\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-.    '<label for="search">' . get_lang('MakeNewSearch') . '</label>'."\n"
+.    '<label for="search">' . get_lang('Make new search') . ' : </label>'."\n"
 .    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
 .    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
@@ -392,8 +395,8 @@ if (isset($atleastOneResult))
 }
 else
 {
-   echo get_lang('NoCourseResult') . '<br />'
-   .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('SearchAgain') . '</a>'
+   echo get_lang('There is no course matching such criteria') . '<br />'
+   .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>'
    ;
 }
 

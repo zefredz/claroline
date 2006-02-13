@@ -85,7 +85,7 @@ $htmlHeadXtra[] =
 // Deal with interbredcrumps
 
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$nameTools = get_lang('ListUsers');
+$nameTools = get_lang('User list');
 //TABLES
 
 //------------------------------------
@@ -100,7 +100,7 @@ switch ( $cmd )
     {
         if  (isset($_REQUEST['user_id']) ) $user_id = $_REQUEST['user_id'];
         else                               $user_id = null;
-        $dialogBox = ( user_delete($user_id) ? get_lang('UserDelete') : get_lang('NotUnregYourself'));
+        $dialogBox = ( user_delete($user_id) ? get_lang('Deletion of the user was done sucessfully') : get_lang('You can not change your own settings!'));
     }   break;
 }
 
@@ -214,17 +214,17 @@ if ( !empty($_SESSION['admin_user_search']) )
 }
 if ( !empty($_SESSION['admin_user_firstName']) )
 {
-    $isSearched[] = get_lang('FirstName') . '=' . $_SESSION['admin_user_firstName'] . '*';
+    $isSearched[] = get_lang('First Name') . '=' . $_SESSION['admin_user_firstName'] . '*';
     $advanced_search_query_string [] = 'firstName=' . urlencode($_SESSION['admin_user_firstName']);
 }
 if ( !empty($_SESSION['admin_user_lastName']) )
 {
-    $isSearched[] = get_lang('LastName') . '=' . $_SESSION['admin_user_lastName'] . '*';
+    $isSearched[] = get_lang('Last Name') . '=' . $_SESSION['admin_user_lastName'] . '*';
     $advanced_search_query_string[] = 'lastName=' . urlencode($_SESSION['admin_user_lastName']);
 }
 if ( !empty($_SESSION['admin_user_userName']) )
 {
-    $isSearched[] = get_lang('UserName') . '=' . $_SESSION['admin_user_userName'] . '*';
+    $isSearched[] = get_lang('User name') . '=' . $_SESSION['admin_user_userName'] . '*';
     $advanced_search_query_string[] = 'userName=' . urlencode($_SESSION['admin_user_userName']);
 }
 if ( !empty($_SESSION['admin_user_mail']) )
@@ -235,17 +235,17 @@ if ( !empty($_SESSION['admin_user_mail']) )
 
 if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action'] == 'followcourse'))
 {
-    $isSearched[] = '<b>' . get_lang('RegStudent') . '</b>';
+    $isSearched[] = '<b>' . get_lang('Follow courses') . '</b>';
     $advanced_search_query_string[] = 'action=' . urlencode($_SESSION['admin_user_action']);
 }
 elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action'] == 'createcourse'))
 {
-    $isSearched[] = '<b>' . get_lang('CourseCreator') . '</b>';
+    $isSearched[] = '<b>' . get_lang('Course creator') . '</b>';
     $advanced_search_query_string[] = 'action=' . urlencode($_SESSION['admin_user_action']);
 }
 elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=='plateformadmin'))
 {
-    $isSearched[] = '<b> <br />' . get_lang('PlatformAdministrator') . '  </b> ';
+    $isSearched[] = '<b> <br />' . get_lang('Platform Administrator') . '  </b> ';
     $advanced_search_query_string[] = 'action=' . urlencode($_SESSION['admin_user_action']);
 }
 else $advanced_search_query_string[] = 'action=all';
@@ -255,7 +255,7 @@ else                                            $addtoAdvanced = '';
 
 if(count($isSearched) )
 {
-    $title = get_lang('SearchOn') . ' : ';
+    $title = get_lang('Search on') . ' : ';
     $isSearched = implode('<br>', $isSearched);
 }
 else
@@ -301,7 +301,7 @@ echo '<table width="100%">'
 .    '</td>'
 .    '<td align="right">'
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">'
-.    '<label for="search">' . get_lang('MakeNewSearch') . '</label>'
+.    '<label for="search">' . get_lang('Make new search') . ' : </label>'
 .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />'
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />'
 .    '<input type="hidden" name="newsearch" value="yes" />'
@@ -330,8 +330,8 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<th><a href="' . $sortUrlList['firstname'   ] . '">' . get_lang('FirstName') . '</a></th>'
 .    '<th><a href="' . $sortUrlList['officialCode'] . '">' . get_lang('OfficialCode') . '</a></th>'
 .    '<th><a href="' . $sortUrlList['email'       ] . '">' . get_lang('Email') . '</a></th>'
-.    '<th><a href="' . $sortUrlList['status'      ] . '">' . get_lang('UserStatus') . '</a></th>'
-.    '<th>' . get_lang('UserSettings') . '</th>'
+.    '<th><a href="' . $sortUrlList['status'      ] . '">' . get_lang('Status') . '</a></th>'
+.    '<th>' . get_lang('User settings') . '</th>'
 .    '<th><a href="' . $sortUrlList['qty_course'  ] . '">' . get_lang('Courses') . '</a></th>'
 .    '<th>' . get_lang('Delete') . '</th>'
 .    '</tr><tbody>'
@@ -355,7 +355,7 @@ foreach($userList as $user)
 
     if ( empty($user['officialCode']) ) $user['officialCode'] = ' - ';
 
-    $userStatus = ($user['status']=='COURSE_CREATOR' ? get_lang('CourseCreator') : get_lang('NormalUser'));
+    $userStatus = ($user['status']=='COURSE_CREATOR' ? get_lang('Course creator') : get_lang('Normal'));
     if (user_is_admin($user['user_id'])) $userStatus .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
 
     echo '<tr>'
@@ -372,7 +372,8 @@ foreach($userList as $user)
     .    '<a href="adminprofile.php'
     .    '?uidToEdit=' . $user['user_id']
     .    '&amp;cfrom=ulist' . $addToURL . '">'
-    .    '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('UserSettings') . '" />'
+    
+    .    '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
 
@@ -381,7 +382,8 @@ foreach($userList as $user)
     .    '<td align="center">'
     .    '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
     .    '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
-    .    sprintf(($user['qty_course']>1 ? get_lang('_p_d_courses') : get_lang('_p_d_course')), $user['qty_course']) . "\n"
+    
+    .    sprintf(($user['qty_course']>1 ? get_lang('%2d courses') : get_lang('%2d course')), $user['qty_course']) . "\n"
     .    '</a>' . "\n"
     .    '</td>' . "\n"
 
@@ -404,9 +406,9 @@ if ( ! isset($atLeastOne) )
 {
     echo '<tr>' . "\n"
     .    '<td colspan="9" align="center">' . "\n"
-    .    get_lang('NoUserResult') . "\n"
+    .    get_lang('No user to display') . "\n"
     .    '<br />' . "\n"
-    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('SearchAgain') . '</a>' . "\n"
+    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>'
     ;
