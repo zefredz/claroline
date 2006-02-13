@@ -247,6 +247,9 @@ foreach ($resultMember as $thisMember )
 
 $limitNumOfGroups = (is_null($nbMaxGroupPerUser) ? "" :  " AND nbg < " . (int) $nbMaxGroupPerUser);
 
+// Initialise userNotInGroupList to empty array
+$userNotInGroupList = array();
+
 $sql = "SELECT `u`.`user_id`        AS `user_id`,
                `u`.`nom`            AS `lastName`,
                `u`.`prenom`         AS `firstName`,
@@ -276,6 +279,7 @@ $sql = "SELECT `u`.`user_id`        AS `user_id`,
         UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
 
 $result = claro_sql_query_fetch_all($sql);
+
 foreach ($result AS $myNotMember )
 {
     $userNotInGroupList[$myNotMember['user_id']] =
