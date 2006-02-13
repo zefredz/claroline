@@ -156,6 +156,14 @@ else
     require $includePath . '/index_loginzone.inc.php';
 }
 
+//RIGHT MENU DOCK declaration
+
+$homePageRightMenu = new Dock('homePageRightMenu');
+
+echo $homePageRightMenu->render();
+
+//Include right text zone, if there is any
+
 if ( file_exists('./textzone_right.inc.html') ) include './textzone_right.inc.html';
 
 if ( $is_platformAdmin )
