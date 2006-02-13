@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * prupose an multifield search in courses
  *
@@ -8,7 +8,7 @@
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package COURSE
  * @subpackage CLADMIN
@@ -23,9 +23,9 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-include($includePath . '/lib/admin.lib.inc.php');
-include_once($includePath . '/lib/course.lib.inc.php');
-include_once($includePath . '/lib/form.lib.php');
+include_once $includePath . '/lib/admin.lib.inc.php';
+include_once $includePath . '/lib/course.lib.inc.php';
+include_once $includePath . '/lib/form.lib.php';
 
 //declare needed tables
 $tbl_mdb_names    = claro_sql_get_main_tbl();
@@ -34,7 +34,7 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 // Deal with interbredcrumps  and title variable
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$nameTools = get_lang('SearchCourseAdvanced');
+$nameTools = get_lang('Advanced course search');
 
 //--------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
@@ -85,7 +85,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 <table border="0">
 <tr>
   <td align="right">
-   <label for="code"><?php echo get_lang('OfficialCode')?></label> : <br />
+   <label for="code"><?php echo get_lang('Administrative code')?></label> : <br />
   </td>
   <td colspan="3">
     <input type="text" size="40" name="code" id="code" value="<?php echo htmlspecialchars($code); ?>"/>
@@ -94,7 +94,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="intitule"><?php echo get_lang('CourseTitle')?></label> :  <br />
+   <label for="intitule"><?php echo get_lang('Course title')?></label> :  <br />
   </td>
   <td colspan="3">
     <input type="text" size="40" name="intitule"  id="intitule" value="<?php echo htmlspecialchars($intitule);?>"/>
@@ -129,7 +129,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <?php echo get_lang('CourseAccess') ?> 
+   <?php echo get_lang('Course access') ?>
    :
   </td>
   <td>
@@ -148,7 +148,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-      <?php echo get_lang('Subscription') ?> 
+      <?php echo get_lang('Enrollment') ?>
     :
   </td>
   <td>
@@ -170,7 +170,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
   </td>
   <td colspan="3">
-    <input type="submit" class="claroButton" value="<?php echo get_lang('SearchCourse')?>" >
+    <input type="submit" class="claroButton" value="<?php echo get_lang('Search course')?>" >
   </td>
 </tr>
 </table>
@@ -224,7 +224,7 @@ function  course_category_get_list()
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course_nodes     = $tbl_mdb_names['category'];
     $sql_searchfaculty = "
-SELECT 
+SELECT
     id,
     name,
     code,
@@ -233,10 +233,10 @@ SELECT
     treePos,
     nb_childs,
     canHaveCoursesChild,
-    canHaveCatChild 
-FROM `" . $tbl_course_nodes . "` 
+    canHaveCatChild
+FROM `" . $tbl_course_nodes . "`
 ORDER BY `treePos`";
-    
+
     return claro_sql_query_fetch_all($sql_searchfaculty);
 }
 

@@ -48,7 +48,7 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 // Deal with interbredcrumps  and title variable
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$nameTools = get_lang('SearchUserAdvanced');
+$nameTools = get_lang('Advanced user search');
 
 //retrieve needed parameters from URL to prefill search form
 
@@ -78,7 +78,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 <table border="0">
     <tr>
         <td align="right">
-            <label for="lastName"><?php echo get_lang('LastName')?></label>
+            <label for="lastName"><?php echo get_lang('Last Name')?></label>
             : <br />
         </td>
         <td>
@@ -88,7 +88,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
     <tr>
         <td align="right">
-            <label for="firstName"><?php echo get_lang('FirstName')?></label>
+            <label for="firstName"><?php echo get_lang('First Name')?></label>
             : <br />
         </td>
         <td>
@@ -98,7 +98,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
     
     <tr>
         <td align="right">
-            <label for="userName"><?php echo get_lang('UserName') ?></label> 
+            <label for="userName"><?php echo get_lang('User name') ?></label> 
             :  <br />
         </td>
         <td>
@@ -125,8 +125,8 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 $action_list['all'] = get_lang('All');
 $action_list['followcourse'] = get_lang('Student');
-$action_list['createcourse'] =  get_lang('CourseCreator');
-$action_list['plateformadmin'] = get_lang('PlatformAdministrator');
+$action_list['createcourse'] =  get_lang('Course creator');
+$action_list['plateformadmin'] = get_lang('Platform Administrator');
 
 
 echo claro_html_form_select( 'action'
@@ -141,7 +141,7 @@ echo claro_html_form_select( 'action'
     <td>
     </td>
     <td>
-        <input type="submit" class="claroButton" value="<?php echo get_lang('SearchUser')?>" >
+        <input type="submit" class="claroButton" value="<?php echo get_lang('Search user')?>" >
     </td>
 </tr>
 </table>
