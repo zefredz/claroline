@@ -90,6 +90,10 @@
     {
         $valid_actions = array( "list", "rqEdit", "exEdit", "rqDelete", "exDelete" );
     }
+    elseif ( $is_groupMember && $groupId )
+    {
+        $valid_actions = array( "list", "rqEdit", "exEdit", "rqDelete", "exDelete" );
+    }
     else
     {
         $valid_actions = array( "list" );
@@ -492,7 +496,7 @@
 
             // if admin, display add new wiki link
             
-            if ( $is_allowedToAdmin )
+            if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
             {
                 echo '<p><a href="'
                     . $_SERVER['PHP_SELF']
@@ -510,7 +514,7 @@
             echo '<table class="claroTable emphaseLine" style="width: 100%">' . "\n";
             
             // if admin, display title, edit and delete
-            if ( $is_allowedToAdmin )
+            if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
@@ -600,7 +604,7 @@
                     
                     // if admin, display edit and delete links
                     
-                    if ( $is_allowedToAdmin )
+                    if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
                     {
                         // edit link
                         
@@ -632,7 +636,7 @@
                     {                    
                         echo '<tr>' . "\n";           
                         
-                        $colspan = ( $is_allowedToAdmin ) ? 5 : 3;
+                        $colspan = ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin ) ? 5 : 3;
                         
                         echo '<td colspan="'
                             . $colspan.'"><div class="comment">'
