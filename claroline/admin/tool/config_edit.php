@@ -161,7 +161,8 @@ else
                     {
                         // save config file
                         $config->save();
-                        $message[] = sprintf( get_lang('_p_PropForConfigCommited'), $config_name, $config_code);;
+                        $message[] = get_block('Properties for %config_name, (%config_code) are now effective on server.'
+                                         , array('%config_name' => $config_name, '%config_code' => $config_code));
                     }
                     else
                     {
