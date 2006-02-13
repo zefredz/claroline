@@ -369,7 +369,7 @@
             {
                 if ( $content == '' )
                 {
-                    $message = "This page is empty, use the editor to add content.";
+                    $message = get_lang("This page is empty, use the editor to add content.");
                 }
             }
             break;
@@ -396,7 +396,7 @@
             }
             else
             {
-                $message = "Page " . $title . " not found";
+                $message = get_lang( "Page" ) . " " . $title . " " . get_lang ( "not found" );
             }
             break;
         }
@@ -434,7 +434,7 @@
                         
                             if ( $wikiPage->hasError() )
                             {
-                                $message = "Database error : " . $wikiPage->getError();
+                                $message = get_lang( "Database error : " ) . $wikiPage->getError();
                             }
                             else
                             {
@@ -460,7 +460,7 @@
                     
                     if ( $wikiPage->hasError() )
                     {
-                        $message = "Database error : " . $wikiPage->getError();
+                        $message = get_lang( "Database error : " ) . $wikiPage->getError();
                     }
                     else
                     {
