@@ -60,7 +60,7 @@ if(file_exists($includePath.'/currentVersion.inc.php')) include $includePath . '
             "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))."\"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))."\"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -94,7 +94,7 @@ switch ($cmd)
                  in (" . implode($classes_list,",") . ")";
 
         claro_sql_query($sql);
-        $dialogBox = get_lang('UserUnregisteredFromClass');
+        $dialogBox = get_lang('User has been sucessfully unregistered from the class');
         break;
 
     default :
@@ -174,8 +174,8 @@ $resultList = $myPager->get_result_list();
  */
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Class'));
-$nameTools = get_lang('Class members');
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes'));
+$nameTools = get_lang('Classes members');
 
 $cmd_menu[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
 .             '?class=' . $classinfo['id'] . '">'
@@ -211,21 +211,22 @@ if (isset($dialogBox))  echo claro_html::message_box($dialogBox). '<br />';
 
 echo claro_html::menu_horizontal($cmd_menu)
 .    '<br /><br />'
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
+
 
 // Display list of users
 
 // start table...
 
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+.    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . get_lang('Userid') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes">' . get_lang('LastName') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes">' . get_lang('FirstName') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;chdir=yes">' . get_lang('OfficialCode') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;chdir=yes">' . get_lang('Administrative code') . '</a></th>'
 .    '<th>' . get_lang('Email') . '</th>'
-.    '<th>' . get_lang('UnsubscribeClass') . '</th>'
+.    '<th>' . get_lang('Unregister from class') . '</th>'
 .    '</tr>'
 .    '</thead>'
 .    '<tbody>'
@@ -258,7 +259,7 @@ if (isset($atLeastOne) && !$atLeastOne)
 {
     echo '<tr>'
     .    '<td colspan="8" align="center">'
-    .    get_lang('NoUserResult')
+    .    get_lang('No user to display')
     .    '<br />'
     .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class.php' . $addtoAdvanced . '">'
     .    get_lang('Back')

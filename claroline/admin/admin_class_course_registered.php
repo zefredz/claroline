@@ -29,8 +29,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 //bredcrump
 
-$nameTools=get_lang('Class registered');
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Class registered'));
+$nameTools=get_lang('Classes registered');
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Classes registered'));
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
@@ -49,17 +49,17 @@ if (isset($cmd) && $is_platformAdmin)
 
         if ( isset($resultLog['OK']) && is_array($resultLog['OK']) )
         {
-            foreach($resultLog['OK'] as $userSubscribed)
+            foreach($resultLog['OK'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="green">OK</font>] ' . sprintf(get_lang('_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname'),$userSubscribed['prenom'], $userSubscribed['nom']) . '<br />';
+                $outputResultLog .= '[<font color="green">OK</font>] ' . get_block('<i>%firstname %lastname</i> has been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
             }
         }
 
         if ( isset($resultLog['KO']) && is_array($resultLog['KO']) )
         {
-            foreach($resultLog['KO'] as $userSubscribedKo)
+            foreach($resultLog['KO'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="red">KO</font>] ' . sprintf(get_lang('_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname'), $userSubscribedKo['prenom'], $userSubscribedKo['nom']) . '<br />';
+                $outputResultLog .= '[<font color="red">KO</font>] ' . get_block('<i>%firstname %lastname</i> has not been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
             }
         }
     }
@@ -73,8 +73,8 @@ if (isset($cmd) && $is_platformAdmin)
 $classinfo =  get_class_info_by_id($_SESSION['admin_user_class_id']);
 
 if ( !empty($outputResultLog) ) $dialogBox = $outputResultLog;
-$cmd_menu[] =  '<p><a class="claroCmd" href="index.php">' . get_lang('BackToAdmin') . '</a>';
-$cmd_menu[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('BackToClassMembers') . '</a>';
+$cmd_menu[] =  '<p><a class="claroCmd" href="index.php">' . get_lang('Back to admin page') . '</a>';
+$cmd_menu[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
 $cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a></p>';
 
 
@@ -83,7 +83,7 @@ $cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/co
  */
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
+echo claro_disp_tool_title(get_lang('Classes registered') . ' : ' . $classinfo['name']);
 
 if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
