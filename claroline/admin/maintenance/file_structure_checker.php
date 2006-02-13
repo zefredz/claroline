@@ -70,7 +70,7 @@ else
   Display Section
  =====================================================================*/
 
-$nameTools = get_lang('FileStructureChecker');
+$nameTools = get_lang('File structure checker');
 
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[] = array ('url' => $urlMaintenance, 'name' => get_lang('Maintenance'));
@@ -93,8 +93,8 @@ switch ($display)
     case DISP_DIFF: 
     default :
 
-        echo '<h4>' . get_lang('ScriptMissing') . '</h4>' . "\n";
-        echo '<p><em>'  . get_lang('ScriptMissingComment') . '</em></p>' . "\n";
+        echo '<h4>' . get_lang('Script missing') . '</h4>' . "\n";
+        echo '<p><em>'  . get_lang('You must install these scripts to run correctly claroline') . '</em></p>' . "\n";
     
         if ( count($diff_script_missing) > 0 )
         { 
@@ -107,11 +107,11 @@ switch ($display)
         }
         else
         {
-            echo get_lang('NoScript');
+            echo get_lang('No scripts');
         }
 
-        echo '<h4>' . get_lang('ScriptNotInArchive') . '</h4>';
-        echo '<p><em>' . get_lang('ScriptNotInArchiveComment') . '</em></p>' ;
+        echo '<h4>' . get_lang('ScriptNotInarchive') . '</h4>';
+        echo '<p><em>' . get_lang('ScriptNotInarchiveComment') . '</em></p>' ;
 
         if ( count($diff_script_not_used) > 0 )
         { 
@@ -124,7 +124,7 @@ switch ($display)
         }
         else
         {
-            echo get_lang('NoScript');
+            echo get_lang('No scripts');
         }
         break;
     
