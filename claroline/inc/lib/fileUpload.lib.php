@@ -351,11 +351,11 @@ function get_mime_type_extension_map()
  *                               working directory
  * @param  string $uncompress  - whether 'unzip' and file is a zip;
  *                               extract the content.
- *
+ * @param string $allowPHP     - if set to true, then there is no security check for .php files
  * @return boolean : true if it succeds, false otherwise
  */
 
-function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFilledSpace, $uncompress= '')
+function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFilledSpace, $uncompress= '', $allowPHP = false)
 {
     if ($uploadedFile['error'] != UPLOAD_ERR_OK )
     {
@@ -383,7 +383,6 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
         return claro_failure::set_failure($failureStr);
     }
 
-
     if ( ! enough_size($uploadedFile['size'], $baseWorkDir, $maxFilledSpace))
     {
         return claro_failure::set_failure('not_enough_space');
@@ -393,7 +392,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
         && preg_match('/.zip$/i', $uploadedFile['name']) )
     {
         return treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
-                                                $baseWorkDir, $maxFilledSpace);
+                                                $baseWorkDir, $maxFilledSpace, $allowPHP);
     }
     else
     {
@@ -434,12 +433,13 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
  * @param  string $baseWorkDir  - base working directory of the module
  * @param  int $maxFilledSpace  - amount of bytes to not exceed in the base
  *                                working directory
+ * @param string $allowPHP     - if set to true, then there is no security check for .php files
  *
  * @return boolean true if it succeeds false otherwise
  */
 
 function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
-                                          $baseWorkDir, $maxFilledSpace)
+                                          $baseWorkDir, $maxFilledSpace,$allowPHP= false)
 {
     $zipFile = new pclZip($uploadedFile['tmp_name']);
 
@@ -449,11 +449,14 @@ function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
 
     foreach($zipContentArray as $thisContent)
     {
-        if ( preg_match('~.(php.?|phtml)$~i', $thisContent['filename']) )
+        if (!$allowPHP)
         {
-            return claro_failure::set_failure('php_file_in_zip_file');
+            if ( preg_match('~.(php.?|phtml)$~i', $thisContent['filename']))
+            {
+                 return claro_failure::set_failure('php_file_in_zip_file');
+            }
         }
-                if (!isset($realFileSize)) $realFileSize = 0;
+        if (!isset($realFileSize)) $realFileSize = 0;
 
         $realFileSize += $thisContent['size'];
     }
