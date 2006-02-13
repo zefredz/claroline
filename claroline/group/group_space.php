@@ -35,7 +35,8 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 if ( ! $_gid
     || (!   $is_groupAllowed
-        && !isset($_REQUEST['selfReg']) || isset($_REQUEST['registration']) ))
+        && !isset($_REQUEST['selfReg'])
+        || ( isset($_REQUEST['registration']) && $_REQUEST['registration'] != 1 ) ))
 {
     header('Location:group.php');
     exit();
