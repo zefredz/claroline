@@ -25,7 +25,7 @@ $tbl_module      = "cl_module";
 $tbl_module_info = "cl_module_info";
 $tbl_dock        = "cl_dock";
 
-$dockList= array();
+$dockList   = array();
 $dockList[] = "campusBannerLeft";
 $dockList[] = "campusBannerRight";
 $dockList[] = "userBannerLeft";
@@ -96,9 +96,9 @@ $sql = "SELECT M.`label`      AS label,
 
 $module = claro_sql_query_get_single_row($sql);
 
-$sql = "SELECT D.`name` AS `dockname`
-        FROM `" . $tbl_dock        . "` AS D
-        WHERE  D.`module_id` = " . (int) $module_id;
+$sql = "SELECT `name` AS `dockname`
+        FROM `" . $tbl_dock        . "`
+        WHERE `module_id` = " . (int) $module_id;
 
 $module_dock = claro_sql_query_get_single_row($sql);
 
