@@ -29,7 +29,7 @@ include $includePath . '/conf/user_profile.conf.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-$nameTools=get_lang('UserSettings');
+$nameTools = get_lang('User settings');
 $dialogBox = '';
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -45,17 +45,17 @@ if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
     {
         if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true) )
         {
-            $dialogBox .= get_lang('UserUnsubscribed');
+            $dialogBox .= get_lang('The user has been successfully unregistered');
         }
         else
         {
             switch ( claro_failure::get_last_failure() )
             {
                 case 'cannot_unsubscribe_the_last_course_manager' :
-                    $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
+                    $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
                     break;
                 case 'course_manager_cannot_unsubscribe_himself' :
-                    $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
+                    $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
                     break;
                 default :
             }
@@ -67,8 +67,8 @@ if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
  * PREPARE DISPLAY
  */
 
-$cmd_menu[] = '<a class="claroCmd" href="index.php">' . get_lang('BackToAdmin') . '</a>';
-$cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('BackToCourseList') . '</a>';
+$cmd_menu[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to admin page') . '</a>';
+$cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('Back to course list') . '</a>';
 
 /**
  * DISPLAY
@@ -76,7 +76,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $use
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('UserUnregistered'));
+echo claro_disp_tool_title(get_lang('User unregistered'));
 
 // Display Forms or dialog box(if needed)
 

@@ -31,7 +31,7 @@ require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
-$nameTools=get_lang('UserSettings');
+$nameTools=get_lang('User settings');
 $interbredcrump[]= array ('url' => get_conf($rootAdminWeb), 'name' => get_lang('Administration'));
 
 //------------------------------------
@@ -45,20 +45,20 @@ $req['uidToEdit'] = (isset($_REQUEST['uidToEdit']) && ctype_digit($_REQUEST['uid
 : false;
 
 
-$cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('BackToAdmin') . '</a>';
-$cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>';
+$cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('Back to admin page') . '</a>';
+$cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
 
 if ( $cmd == 'delete' && $req['uidToEdit'] )
 {
     if(false !== $deletionResult = user_delete($req['uidToEdit']))
-    $dialogBox =   get_lang('UserDelete');
+    $dialogBox =   get_lang('Deletion of the user was done sucessfully');
     else
     {
         switch (claro_failure::get_last_failure())
         {
             case 'user_cannot_remove_himself'  :
             {
-                $dialogBox = get_lang('NotUnregYourself');
+                $dialogBox = get_lang('You can not change your own settings!');
             } break;
             default :  $dialogBox = get_lang('Deletetion unable');
         }
@@ -71,7 +71,7 @@ else $dialogBox = get_lang('Deletetion unable');
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('DeleteUser'));
+echo claro_disp_tool_title(get_lang('Delete user'));
 
 if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
