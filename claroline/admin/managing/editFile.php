@@ -52,7 +52,7 @@ if ( isset($_REQUEST['modify']) )
             unlink($filePathList[$_REQUEST['file']]);
         }
     }
-    $controlMsg['info'][] = get_lang('_EditFile_ModifyOk')
+    $controlMsg['info'][] = get_lang('The changes have been carried out correctly')
     .                       ' <br />'
     .                       '<strong>'
     .                       basename($filePathList[$_REQUEST['file']])
@@ -83,7 +83,7 @@ if( isset($_REQUEST['file']) )
         if ( trim( strip_tags( $textContent,'<img>' ) ) == '' )
         $textContent = '<blockquote>' . "\n"
         .              '<font color="#808080">- <em>' . "\n"
-        .              get_lang('NoContent') . "\n"
+        .              get_lang('No Content') . "\n"
         .              '</em> -</font><br />' . "\n" 
         .              '</blockquote>' . "\n"
         ;
@@ -116,9 +116,9 @@ if($display==DISP_FILE_LIST
 {
 ?>
 <p>
-<?php echo get_lang('Hereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage') ?>
+<?php echo get_lang('Here you can modify the content of the text zones displayed on the platform home page.') ?>
 <br />
-<?php echo get_lang('Seebelowthefilesyoucaneditfromthistool') ?>
+<?php echo get_lang('See below the files you can edit from this tool.') ?>
 </p>
 
 <table cellspacing="2" cellpadding="2" border="0" class="claroTable">
