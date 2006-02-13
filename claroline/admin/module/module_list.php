@@ -349,11 +349,21 @@ foreach($moduleList as $module)
 
     echo '<tr>'
     .    '<td align="center">' . $module['id'] . '</td>' . "\n"
-    .    '<td align="center">' . $icon . '</td>' . "\n"
+    .    '<td align="center">' . $icon . '</td>' . "\n";
+
     //name column
-    .    '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n"
+
+    if (file_exists($includePath . '/../module/' . $module['label'] . '/admin.php'))
+    {
+        echo '<td align="left" class="' . $class_css . '" ><a href="'. $rootWeb . 'claroline/module/' . $module['label'] . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+    }
+    else
+    {
+        echo '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n";
+    }
     //displaying location column
-    .    '<td align="left" class="' . $class_css . '"><small>' . $module['dockname'] . '</small></td>' . "\n"
+
+    echo    '<td align="left" class="' . $class_css . '"><small>' . $module['dockname'] . '</small></td>' . "\n"
     //activation link
     .    '<td align="center" >'
     ;
