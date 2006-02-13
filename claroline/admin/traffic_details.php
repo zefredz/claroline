@@ -14,8 +14,8 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/statsUtils.lib.inc.php';
-$tbl_mdb_names             = claro_sql_get_main_tbl();
-$tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
+$tbl_mdb_names    = claro_sql_get_main_tbl();
+$tbl_track_e_open = $tbl_mdb_names['track_e_open'];
 
 $is_allowedToTrack = $is_platformAdmin;
 
