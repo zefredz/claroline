@@ -386,10 +386,10 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
 {
     echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
         .'<ul>'."\n"
-        .'<li>'.get_lang('Campus name').' : '.stripslashes($siteName).'</li>'."\n"
-        .'<li>'.get_lang('URL').'<a href="'.$rootWeb.'">'.$rootWeb.'</a></li>'."\n"
+        .'<li>'.get_lang('Campus name').' : '.stripslashes( get_conf('siteName')) . '</li>'."\n"
+        .'<li>'.get_lang('URL').'<a href="' . get_conf('rootWeb') . '">' . get_conf('rootWeb') . '</a></li>'."\n"
         .'<li>'.get_lang('Institution').' : '.stripslashes($institution_name).'</li>'."\n"
-        .'<li>'.get_lang('Institution URL').' : <a href="'.$institution_url.'">'.$institution_url.'</a></li>'."\n"
+        .'<li>'.get_lang('Institution URL') . ' : <a href="' . get_conf('institution_url') . '">' . get_conf('institution_url') . '</a></li>'."\n"
         .'<li>'.get_lang('Email').' : '.$administrator_email.'</li>'."\n"
         .'<li>'
         .'<label for="country">'.get_lang('Country').' : </label>'."\n"
