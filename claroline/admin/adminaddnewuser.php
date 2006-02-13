@@ -95,11 +95,11 @@ echo claro_disp_tool_title( array('mainTitle'=>$nameTools ) );
 
 if ( $cmd == 'registration' && $error == false )
 {
-    echo '<p>' . get_lang('UserCreated') . '</p>'
+    echo '<p>' . get_lang('The new user has been sucessfully created') . '</p>'
     .    '<ul>'
     .    '<li>'
     .    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings">'
-    .    get_lang('RegisterTheNewUser')
+    .    get_lang('Register this user to a course')
     .    '</a>'
     .    '</li>'
     .    '<li>'
@@ -111,7 +111,7 @@ if ( $cmd == 'registration' && $error == false )
     .    '<a class="claroCmd" href="adminaddnewuser.php"> ' . get_lang('Create another new user') . ' </a>'
     .    '</li>'
     .    '<li>'
-    .    '<a class="claroCmd" href="index.php"> ' . get_lang('BackToAdmin') . ' </a>'
+    .    '<a class="claroCmd" href="index.php"> ' . get_lang('Back to admin page') . ' </a>'
     .    '</li>'
     .    '</ul>'
     ;
@@ -122,7 +122,7 @@ else
 
     if ( count($messageList) > 0 ) echo claro_html::message_box( implode('<br />', $messageList) );
 
-    echo get_lang('AddUserOneByOne');
+    echo get_lang('New users will receive an e-mail with their user name and password');
 
     user_display_form_admin_add_new_user($user_data);
 }

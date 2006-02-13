@@ -29,7 +29,7 @@ require_once $includePath . '/lib/user.lib.php';
 
 
 // Initialise variables
-$nameTools=get_lang('UserSettings');
+$nameTools = get_lang('User settings');
 $error = false;
 $messageList = array();
 
@@ -80,13 +80,13 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         }
 
         $classMsg = 'success';
-        $dialogBox = get_lang('AppliedChange');
+        $dialogBox = get_lang('Changes have been applied to the user settings');
 
         // set user admin parameter
         if ( $user_data['is_admin'] ) user_add_admin($user_id);
         else                          user_delete_admin($user_id);
 
-        $messageList[] = get_lang('AppliedChange');
+        $messageList[] = get_lang('Changes have been applied to the user settings');
     }
     // user validate form return error messages
     else $error = true;
@@ -102,7 +102,7 @@ $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administra
 
 if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
 {
-    $interbredcrump[]= array ('url' => $rootAdminWeb . 'adminusers.php', 'name' => get_lang('ListUsers'));
+    $interbredcrump[]= array ('url' => $rootAdminWeb . 'adminusers.php', 'name' => get_lang('User list'));
 }
 
 $htmlHeadXtra[] =
@@ -124,7 +124,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '&amp;cmd=delete" '
 .             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" >'
 .             '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
-.             get_lang('DeleteUser')
+.             get_lang('Delete user')
 .             '</a>'
 
 ;
@@ -135,7 +135,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '&amp;fromAdmin=settings'
 .             '&amp;category=" >'
 .             '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
-.             get_lang('Enrol to a new course')
+.             get_lang('Enroll to a new course')
 .             '</a>'
 
 ;
@@ -144,13 +144,13 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 .             '?Femail=' . urlencode($user_data['email'])
 .             '&amp;searchPassword=1" >'
 .             '<img src="' . $imgRepositoryWeb . 'email.gif" />'
-.             get_lang('SendToUserAccountInfoByMail')
+.             get_lang('Send account information to user by email')
 .             '</a>'
 ;
 
 if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
 {
-    $cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('BackToUserList') . '</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
 }
 
 
