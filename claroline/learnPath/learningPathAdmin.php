@@ -280,8 +280,8 @@ switch($cmd)
 
             // create new module
             $sql = "INSERT INTO `".$TABLEMODULE."`
-                   (`name`, `comment`, `contentType`)
-                   VALUES ('". addslashes($_POST['newLabel']) ."','', '".CTLABEL_."')";
+                   (`name`, `comment`, `contentType`, `launch_data`)
+                   VALUES ('". addslashes($_POST['newLabel']) ."','', '".CTLABEL_."', '')";
             $query = claro_sql_query($sql);
 
             // request ID of the last inserted row (module_id in $TABLEMODULE) to add it in $TABLELEARNPATHMODULE

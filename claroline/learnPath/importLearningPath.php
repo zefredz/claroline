@@ -857,8 +857,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     $chapterTitle = $item['title'];
 
                     $sql = "INSERT INTO `".$TABLEMODULE."`
-                            (`name` , `comment`, `contentType`)
-                            VALUES ('".addslashes($chapterTitle)."' , '', '".CTLABEL_."')";
+                            (`name` , `comment`, `contentType`, `launch_data`)
+                            VALUES ('".addslashes($chapterTitle)."' , '', '".CTLABEL_."','')";
 
                     $query = claro_sql_query($sql);
                     

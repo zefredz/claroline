@@ -174,8 +174,8 @@ while ($iterator <= $_REQUEST['maxDocForm'])
             {
                 // create new module
                 $sql = "INSERT INTO `".$TABLEMODULE."`
-                        (`name` , `comment`, `contentType`)
-                        VALUES ('". addslashes($basename) ."' , '". addslashes(get_lang('DefaultModuleComment')) . "', '".CTDOCUMENT_."' )";
+                        (`name` , `comment`, `contentType`, `launch_data`)
+                        VALUES ('". addslashes($basename) ."' , '". addslashes(get_lang('DefaultModuleComment')) . "', '".CTDOCUMENT_."', '' )";
                 $query = claro_sql_query($sql);
 
                 $insertedModule_id = mysql_insert_id();

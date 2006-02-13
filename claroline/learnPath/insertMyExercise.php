@@ -103,8 +103,8 @@ while ($listex = mysql_fetch_array($resultex) )
 
             // create new module
             $sql = "INSERT INTO `".$TABLEMODULE."`
-                    (`name` , `comment`, `contentType`)
-                    VALUES ('".addslashes($exercise['titre'])."' , '".addslashes(get_lang('DefaultModuleComment'))."', '".CTEXERCISE_."')";
+                    (`name` , `comment`, `contentType`, `launch_data`)
+                    VALUES ('".addslashes($exercise['titre'])."' , '".addslashes(get_lang('DefaultModuleComment'))."', '".CTEXERCISE_."', '')";
             $query = claro_sql_query($sql);
 
             $insertedExercice_id = mysql_insert_id();
