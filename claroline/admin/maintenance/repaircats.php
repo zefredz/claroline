@@ -32,7 +32,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/faculty.lib.inc.php';
 // build bredcrump
-$nameTools        = get_lang('CategoriesRepairs');
+$nameTools        = get_lang('Repair category structure');
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[] = array ('url' => $rootAdminWeb. '/admincats.php', 'name' => get_lang('Categories'));
 
@@ -141,7 +141,7 @@ switch ($view)
         .    ($errorCounter?claro_html::cmd_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
         .    claro_disp_tool_title('Course ownance')
         .    claro_disp_datagrid($courseOwnanceCheck , array('idLineType' => 'numeric'
-                                                            ,'colTitleList' => array( get_lang('Code')
+                                                            ,'colTitleList' => array( get_lang('Course code')
                                                                                     , get_lang('Unknow faculty'))
                                                             ,))
         ;
