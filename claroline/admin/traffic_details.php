@@ -20,9 +20,9 @@ $tbl_track_e_open       = $tbl_mdb_names['track_e_open'];
 $is_allowedToTrack = $is_platformAdmin;
 
 $interbredcrump[]= array ('url' => "index.php", 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('PlatformStats'));
+$interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('Platform Statistics'));
 
-$nameTools = get_lang('TrafficDetails');
+$nameTools = get_lang('Traffic Details');
 
 include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title(array('mainTitle'=>$nameTools))
@@ -69,13 +69,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     .    '<tr>' . "\n"
     .    '<td>' . "\n"
     .    '<small>' . "\n"
-    .    get_lang('PeriodToDisplay')
+    .    get_lang('Period')
     .    ' : ' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=year&amp;reqdate=' . $reqdate . '" >' . get_lang('PeriodYear') . '</a>]' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=month&amp;reqdate=' . $reqdate . '" >' . get_lang('PeriodMonth') . '</a>]' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=day&amp;reqdate=' . $reqdate . ' ">' . get_lang('PeriodDay') . '</a>]' . "\n"
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=year&amp;reqdate=' . $reqdate . '" >' . get_lang('Year') . '</a>]' . "\n"
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=month&amp;reqdate=' . $reqdate . '" >' . get_lang('Month') . '</a>]' . "\n"
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=day&amp;reqdate=' . $reqdate . ' ">' . get_lang('Day') . '</a>]' . "\n"
     .    '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;' . "\n"
-    .    get_lang('DetailView') . "\n"
+    .    get_lang('View by') . "\n"
     .    ' :' . "\n"
     ;
     switch($period)
@@ -83,17 +83,17 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         case 'year' :
         {
         //-- if period is "year" display can be by month, day or hour
-        echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=month" >' . get_lang('PeriodMonth') . '</a>]';
+        echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=month" >' . get_lang('Month') . '</a>]';
         }
         case 'month' :
         {
             //-- if period is "month" display can be by day or hour
-            echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=day" >' . get_lang('PeriodDay') . '</a>]';
+            echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=day" >' . get_lang('Day') . '</a>]';
         }
         case 'day' :
         {
             //-- if period is "day" display can only be by hour
-            echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=hour" >' . get_lang('PeriodHour') . '</a>]';
+            echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=hour" >' . get_lang('Hour') . '</a>]';
         } break;
     }
 
@@ -107,8 +107,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)-1);
             $nextReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)+1);
-            echo '[<a href="' . $_SERVER['PHP_SELF'].  '?period=' . $period . '&amp;reqdate=' . $previousReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('PreviousYear') . '</a>]'
-            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $nextReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('NextYear') . '</a>]'
+            echo '[<a href="' . $_SERVER['PHP_SELF'].  '?period=' . $period . '&amp;reqdate=' . $previousReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Previous Year') . '</a>]'
+            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $nextReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Next Year') . '</a>]'
             ;
         }   break;
         case 'month' :
@@ -118,8 +118,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
         $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
         echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('PreviousMonth')."</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('NextMonth')."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('Previous Month')."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('Next Month')."</a>]
                 ";
         }   break;
         case 'day' :
@@ -128,8 +128,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $previousReqDate = $reqdate - 86400;
         $nextReqDate = $reqdate + 86400;
         echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('PreviousDay')."</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('NextDay')."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=" . $displayType . "' >" . get_lang('Previous Day') . "</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=" . $displayType . "' >" . get_lang('Next Day') . "</a>]
                    ";
         }   break;
     }
@@ -150,19 +150,19 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         {
             $sql .= "ORDER BY UNIX_TIMESTAMP( `open_date`)";
             $month_array = monthTab($sql);
-            makeHitsTable($month_array,get_lang('PeriodMonth'));
+            makeHitsTable($month_array,get_lang('Month'));
         }
         elseif( $displayType == "day" )
         {
             $sql .= "ORDER BY DAYOFYEAR( `open_date`)";
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,get_lang('PeriodDay'));
+            makeHitsTable($days_array,get_lang('Day'));
         }
         else // by hours by default
         {
             $sql .= "ORDER BY HOUR( `open_date`)";
             $hours_array = hoursTab($sql);
-            makeHitsTable($hours_array,get_lang('PeriodHour'));
+            makeHitsTable($hours_array,get_lang('Hour'));
         }
         break;
         // all days
@@ -175,13 +175,13 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         {
             $sql .= "ORDER BY DAYOFYEAR( `open_date`)";
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,get_lang('PeriodDay'));
+            makeHitsTable($days_array,get_lang('Day'));
         }
         else // by hours by default
         {
             $sql .= "ORDER BY HOUR( `open_date`)";
             $hours_array = hoursTab($sql);
-            makeHitsTable($hours_array,get_lang('PeriodHour'));
+            makeHitsTable($hours_array,get_lang('Hour'));
         }
         break;
         // all hours
@@ -193,7 +193,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
                                 AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) )
                             ORDER BY HOUR( `open_date` )";
         $hours_array = hoursTab($sql,$reqdate);
-        makeHitsTable($hours_array,get_lang('PeriodHour'));
+        makeHitsTable($hours_array,get_lang('Hour'));
         break;
     }
 }
@@ -201,7 +201,7 @@ else // not allowed to track
 {
     if(!$is_trackingEnabled)
     {
-        echo get_lang('TrackingDisabled');
+        echo get_lang('Tracking has been disabled by system administrator.');
     }
     else
     {
