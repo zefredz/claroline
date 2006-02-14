@@ -25,10 +25,10 @@
 
   require '../../inc/claro_init_global.inc.php';
 
-  $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('LearningPathList'));
+  $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('Learning path list'));
   if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
   {
-       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));
+       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
   }
   else
   {

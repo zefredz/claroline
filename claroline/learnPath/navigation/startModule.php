@@ -192,7 +192,7 @@ switch ($module['contentType'])
   <noframes>
 <body>
 <?php
-  echo get_lang('BrowserCannotSeeFrames');
+  echo get_lang('Your browser cannot see frames.');
 ?>
    </body>
 </noframes>

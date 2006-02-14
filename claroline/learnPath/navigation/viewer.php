@@ -26,7 +26,15 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 // 1 : display claroline header and footer and table of content, and content
 define ( 'USE_FRAMES' , 1 );
 
+/*
+if(isset ($_GET['path_id']) && $_GET['path_id'] != '')
+	$_SESSION['path_id'] = $_GET['path_id'];
+
+if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
+	$_SESSION['module_id'] = $_GET['viewModule_id'];	
+*/
 $nameTools = get_lang('Learning path');
+
 if (!isset($titlePage)) $titlePage = '';
 if(!empty($nameTools))
 {
@@ -83,7 +91,7 @@ else
 
     <noframes>
         <body>
-            <?php echo get_lang('BrowserCannotSeeFrames') ?>
+            <?php echo get_lang('Your browser cannot see frames.') ?>
             <br />
             <a href="../module.php"><?php echo get_lang('Back') ?></a>
         </body>

@@ -112,9 +112,9 @@ echo '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
 	. '<p>'."\n"
 	. '<small>'
 	. get_lang('View').' : '
-	. '<a href="viewer.php?frames=0" target="_top">'.get_lang('FullScreen').'</a>'
+	. '<a href="viewer.php?frames=0" target="_top">'.get_lang('Fullscreen').'</a>'
 	. ' | '
-	. '<a href="viewer.php?frames=1" target="_top">'.get_lang('InFrames').'</a>'
+	. '<a href="viewer.php?frames=1" target="_top">'.get_lang('In frames').'</a>'
 	. '</small>'."\n"
 	. '</p>'."\n\n"
 	. '<table width="100%">'."\n\n"
@@ -324,7 +324,7 @@ else
 	
 ?>
 <form action="<?php echo $returl; ?>" method="post" target="_top">
-<input type="submit" value="<?php echo get_lang('QuitViewer'); ?>">
+<input type="submit" value="<?php echo get_lang('Back to list'); ?>">
 </form>
 
 </center>

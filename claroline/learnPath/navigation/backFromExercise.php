@@ -31,11 +31,11 @@ require '../../inc/claro_init_global.inc.php';
 <?php
 if($_GET['op'] == 'cancel')
 {
-    echo get_lang('ExerciseCancelled');
+    echo get_lang('Exercise cancelled, choose a module in the list to continue.');
 }
 elseif($_GET['op'] == 'finish') // exercise done
 {
-    echo get_lang('ExerciseDone');
+    echo get_lang('Exercise done, choose a module in the list to continue.');
 }
 ?>
    </p>
