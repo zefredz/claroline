@@ -21,6 +21,9 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
+require_once './lib/assignment.class.php';
+//require_once './lib/submission.class.php';
+
 include_once $includePath . '/lib/fileManage.lib.php';
 include_once $includePath . '/lib/pager.lib.php';
 include_once $includePath . '/lib/assignment.lib.php';
@@ -50,8 +53,6 @@ BASIC VARIABLES DEFINITION
 =============================================================================*/
 
 $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes (from config file)
-$wrkDirSys       = get_conf('coursesRepositorySys').$_course['path'] . '/' . 'work/'; // systeme work directory
-$wrkDirWeb       = get_conf('coursesRepositoryWeb').$_course['path'] . '/'  .'work/'; // web work directory
 $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 
 // initialise dialog box to an empty string, all dialog will be concat to it
@@ -65,7 +66,7 @@ unset ($req);
 // Probably deletable line
 // $req['cmd'] = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 
-$req['assigmentId'] = ( isset($_REQUEST['assigId'])
+$req['assignmentId'] = ( isset($_REQUEST['assigId'])
                     && !empty($_REQUEST['assigId'])
                     && ctype_digit($_REQUEST['assigId'])
                     )
@@ -79,16 +80,9 @@ PREREQUISITES
 /*--------------------------------------------------------------------
 ASSIGNMENT INFORMATIONS
 --------------------------------------------------------------------*/
-
-if ( $req['assigmentId'] )
-{
-    $assignment = assignment_get_data($req['assigmentId']);
-    $assignment['dirSys'] = $wrkDirSys . 'assig_' . $req['assigmentId'] . '/';
-    $assignment['dirWeb'] = $wrkDirWeb . 'assig_' . $req['assigmentId'] . '/';
-}
-
-// assignment not requested or not found
-if ( !isset($assignment) || is_null($assignment) )
+$assignment = new Assignment();
+    
+if ( !$req['assignmentId'] || !$assignment->load($req['assignmentId']) )
 {
     // we NEED to know in which assignment we are, so if assigId is not set
     // relocate the user to the previous page
@@ -109,7 +103,7 @@ if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWork
     header( 'Location: userWork.php?authId='
     .       $_gid
     .       '&cmd=rqSubWrk'
-    .       '&assigId=' . $req['assigmentId']
+    .       '&assigId=' . $req['assignmentId']
     .       '&submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
     );
     exit();
@@ -119,10 +113,10 @@ if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWork
 PERMISSIONS
 =============================================================================*/
 // assignment opening period is started
-$afterStartDate      = (bool) ( $assignment['unix_start_date'] <= time() );
+$afterStartDate      = (bool) ( $assignment->getStartDate() <= time() );
 
 // assignment is invisible
-$assignmentIsVisible = (bool) ( $assignment['visibility'] == 'VISIBLE' );
+$assignmentIsVisible = (bool) ( $assignment->getVisibility() == 'VISIBLE' );
 
 $is_allowedToEditAll = (bool) claro_is_allowed_to_edit();
 
@@ -135,19 +129,19 @@ if( !$assignmentIsVisible && !$is_allowedToEditAll )
 
 // upload or update is allowed between start and end date or after end date if late upload is allowed
 $uploadDateIsOk      = (bool) ( $afterStartDate
-                              && ( time() < $assignment['unix_end_date']
-                                 || $assignment['allow_late_upload'] == 'YES'
+                              && ( time() < $assignment->getEndDate()
+                                 || $assignment->getAllowLateUpload() == 'YES'
                                  )
                               );
 
 if (isset($_uid))
 {
     // call this function to set the __assignment__ as seen, all the submission as seen
-    $claro_notifier->is_a_notified_ressource($_cid, $claro_notifier->get_notification_date($_uid), $_uid, $_gid, $_tid, $req['assigmentId']);
+    $claro_notifier->is_a_notified_ressource($_cid, $claro_notifier->get_notification_date($_uid), $_uid, $_gid, $_tid, $req['assignmentId']);
 }
 
 
-if( $assignment['assignment_type'] == 'GROUP' )
+if( $assignment->getAssignmentType() == 'GROUP' )
 {
     $userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
 }
@@ -188,7 +182,7 @@ if ( !empty($submissionFilterSql) ) $submissionFilterSql = ' AND ('.$submissionF
 $feedbackFilterSql = implode(' OR ', $feedbackConditionList);
 if ( !empty($feedbackFilterSql) ) $feedbackFilterSql = ' AND ('.$feedbackFilterSql.')';
 
-if( $assignment['assignment_type'] == 'INDIVIDUAL' )
+if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
     // user is authed and allowed
     $userCanPost = (bool) ( isset($_uid) && $is_courseAllowed );
@@ -210,7 +204,7 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
 
             # SEARCH ON SUBMISSIONS
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S`
-                   ON ( `S`.`assignment_id` = " . (int) $req['assigmentId'] . " OR `S`.`assignment_id` IS NULL)
+                   ON ( `S`.`assignment_id` = " . (int) $req['assignmentId'] . " OR `S`.`assignment_id` IS NULL)
                   AND `S`.`user_id` = `U`.`user_id`
                   AND `S`.`original_id` IS NULL
             " . $submissionFilterSql . "
@@ -243,14 +237,15 @@ if( $assignment['assignment_type'] == 'INDIVIDUAL' )
     			FROM `" . $tbl_wrk_submission . "` AS `S`
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
             	ON `S`.`user_id` = `S2`.`user_id`
-            	AND `S2`.`assignment_id` = ". (int) $req['assigmentId']."
+            	AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
             	AND `S`.`last_edit_date` < `S2`.`last_edit_date`
             WHERE `S2`.`user_id` IS NULL 
                 AND `S`.`original_id` IS NULL
-                AND `S`.`assignment_id` = ". (int) $req['assigmentId']."
+                AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
             " . $submissionFilterSql . "";
+	// TODO get last score
 }
-else  // $assignment['assignment_type'] == 'GROUP'
+else  // $assignment->getAssignmentType() == 'GROUP'
 {
     /**
      * USER GROUP INFORMATIONS
@@ -269,7 +264,7 @@ else  // $assignment['assignment_type'] == 'GROUP'
         # SEARCH ON SUBMISSIONS
         LEFT JOIN `".$tbl_wrk_submission."` AS `S`
                ON `S`.`group_id` = `G`.`id`
-              AND (`S`.`assignment_id` = " . $req['assigmentId'] . " OR `S`.`assignment_id` IS NULL )
+              AND (`S`.`assignment_id` = " . $req['assignmentId'] . " OR `S`.`assignment_id` IS NULL )
               AND `S`.`original_id` IS NULL
         " . $submissionFilterSql . "
 
@@ -298,13 +293,14 @@ else  // $assignment['assignment_type'] == 'GROUP'
     			FROM `" . $tbl_wrk_submission . "` AS `S`
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
             	ON `S`.`group_id` = `S2`.`group_id`
-            	AND `S2`.`assignment_id` = ". (int) $req['assigmentId']."
+            	AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
             	AND `S`.`last_edit_date` < `S2`.`last_edit_date`
             WHERE `S2`.`group_id` IS NULL 
                 AND `S`.`original_id` IS NULL
-                AND `S`.`assignment_id` = ". (int) $req['assigmentId']."
+                AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
             " . $submissionFilterSql . "";	
 }
+
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
 
 /*--------------------------------------------------------------------
@@ -321,7 +317,7 @@ foreach($sortKeyList as $thisSortKey => $thisSortDir)
 
 $workList = $workPager->get_result_list();
 
-// add the good last title ...
+// add the title of the last submission in each displayed line
 $results = claro_sql_query_fetch_all($sql2);
 
 foreach( $results as $result )
@@ -342,14 +338,14 @@ if( !empty($lastWorkTitleList) )
 foreach ( $workList as $workId => $thisWrk )
 {
 
-    $thisWrk['is_mine'] = (  ($assignment['assignment_type'] == 'INDIVIDUAL' && $thisWrk['authId'] == $_uid)
-                          || ($assignment['assignment_type'] == 'GROUP'      && in_array($thisWrk['authId'], $userGroupList)));
+    $thisWrk['is_mine'] = (  ($assignment->getAssignmentType() == 'INDIVIDUAL' && $thisWrk['authId'] == $_uid)
+                          || ($assignment->getAssignmentType() == 'GROUP'      && in_array($thisWrk['authId'], $userGroupList)));
 
     if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . $thisWrk['name'] . '</b>';
 
     $workList[$workId]['name'] = '<a class="item" href="userWork.php'
     .                            '?authId=' . $thisWrk['authId']
-    .                            '&amp;assigId=' . $req['assigmentId'] . '">'
+    .                            '&amp;assigId=' . $req['assignmentId'] . '">'
     .                            $workList[$workId]['name']
     .                            '</a>'
     ;
@@ -364,13 +360,13 @@ $interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Work'
 $nameTools = get_lang('Assignment');
 
 // to prevent parameters to be added in the breadcrumb
-$_SERVER['QUERY_STRING'] = 'assigId=' . $req['assigmentId'];
+$_SERVER['QUERY_STRING'] = 'assigId=' . $req['assignmentId'];
 
 /**
  * TOOL TITLE
  */
 $pageTitle['mainTitle'] = $nameTools;
-$pageTitle['subTitle' ] = $assignment['title'];
+$pageTitle['subTitle' ] = $assignment->getTitle();
 
 
 // SHOW FEEDBACK
@@ -381,11 +377,11 @@ $pageTitle['subTitle' ] = $assignment['title'];
 //      OR  feedback must be shown directly after a post (from the time a work was uploaded by the student)
 
 // there is a prefill_ file or text, so there is something to show
-$textOrFilePresent = (bool) !empty($assignment['prefill_text']) || !empty($assignment['prefill_doc_path']);
+$textOrFilePresent = (bool) $assignment->getAutoFeedbackText() != '' || $assignment->getAutoFeedbackFilename() != '';
 
 // feedback must be shown after end date and end date is past
-$showAfterEndDate = (bool) (  $assignment['prefill_submit'] == 'ENDDATE'
-                           && $assignment['unix_end_date'] < time()
+$showAfterEndDate = (bool) (  $assignment->getAutoFeedbackSubmitMethod() == 'ENDDATE'
+                           && $assignment->getEndDate() < time()
                            );
 
 
@@ -396,9 +392,9 @@ $showAfterEndDate = (bool) (  $assignment['prefill_submit'] == 'ENDDATE'
 $showAfterPost = (bool)
                  isset($_uid)
                  &&
-                 (  $assignment['prefill_submit'] == 'AFTERPOST'
+                 (  $assignment->getAutoFeedbackSubmitMethod() == 'AFTERPOST'
                     &&
-                    CLWRK_LIST::get_wrk_submission_of_user($req['assigmentId']) >= 1
+                    CLWRK_LIST::get_wrk_submission_of_user($req['assignmentId']) >= 1
                  );
 
 
@@ -423,21 +419,21 @@ echo claro_disp_tool_title($pageTitle);
  
 echo '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
-.    $assignment['title'] . '<br />'  . "\n"
+.    $assignment->getTitle() . '<br />'  . "\n"
 .    '<b>' . get_lang('From') . '</b>' . "\n"
-.    claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date']) . "\n"
+.    claro_disp_localised_date($dateTimeFormatLong, $assignment->getStartDate()) . "\n"
 
 .    '<b>' . get_lang('until') . '</b>' . "\n"
-.    claro_disp_localised_date($dateTimeFormatLong, $assignment['unix_end_date'])
+.    claro_disp_localised_date($dateTimeFormatLong, $assignment->getEndDate())
 
 .	'<br />'  .  "\n"
 
 .    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
 
-if( $assignment['authorized_content'] == 'TEXT'  )
-	get_lang('Text only (text required, no file)');
-elseif( $assignment['authorized_content'] == 'TEXTFILE' )
-	get_lang('Text with attached file (text required, file optional)');
+if( $assignment->getSubmissionType() == 'TEXT'  )
+	echo get_lang('Text only (text required, no file)');
+elseif( $assignment->getSubmissionType() == 'TEXTFILE' )
+	echo get_lang('Text with attached file (text required, file optional)');
 else
 	echo get_lang('File Only');
 
@@ -445,26 +441,26 @@ else
 echo '<br />'  .  "\n"
 
 .    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
-.    ($assignment['def_submission_visibility'] == 'VISIBLE' ? get_lang('Visible to all users') : get_lang('Only visible by teacher and submitter')) 
+.    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible to all users') : get_lang('Only visible by teacher and submitter')) 
 
 .	'<br />'  .  "\n"
 
 .    '<b>' . get_lang('Assignment type') . '</b> : ' . "\n"
-.    ($assignment['assignment_type'] == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') ) 
+.    ($assignment->getAssignmentType() == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') ) 
 
 .	'<br />'  .  "\n"
 
 .    '<b>' . get_lang('Allow late upload') . '</b> : ' . "\n"
-.    ($assignment['allow_late_upload'] == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
+.    ($assignment->getAllowLateUpload() == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
 
 .    '</small>' . "\n" . '</p>' . "\n";
 
 // description of assignment
-if( !empty($assignment['description']) )
+if( $assignment->getDescription() != '' )
 {
     echo '<b><small>' . get_lang('Description') . '</small></b>' . "\n"
     .    '<blockquote>' . "\n" . '<small>' . "\n"
-    .    claro_parse_user_text($assignment['description'])
+    .    claro_parse_user_text($assignment->getDescription())
     .    '</small>' . "\n" . '</blockquote>' . "\n"
     .    '<br />' . "\n"
     ;
@@ -480,16 +476,16 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     .    '</legend>'
     ;
 
-    if( !empty($assignment['prefill_text']) )
+    if( $assignment->getAutoFeedbackText() != '' )
     {
-        echo claro_parse_user_text($assignment['prefill_text']);
+        echo claro_parse_user_text($assignment->getAutoFeedbackText());
     }
 
-    if( !empty($assignment['prefill_doc_path']) )
+    if( $assignment->getAutoFeedbackFilename() != '' )
     {
     	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-        echo  '<p><a href="' . $assignment['dirWeb'] . $assignment['prefill_doc_path'] . '" ' . $target . '>'
-        .     $assignment['prefill_doc_path']
+        echo  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . '" ' . $target . '>'
+        .     $assignment->getAutoFeedbackFilename()
         .     '</a></p>'
         ;
     }
@@ -503,13 +499,13 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
  * COMMAND LINKS
  */
 echo '<p>';
-if ( $is_allowedToSubmit && ($assignment['assignment_type'] != 'GROUP' ) )
+if ( $is_allowedToSubmit && ($assignment->getAssignmentType() != 'GROUP' ) )
 {
     // link to create a new assignment
     echo '<a class="claroCmd" href="userWork.php'
     .    '?authId=' . $_uid
     .    '&amp;cmd=rqSubWrk'
-    .    '&amp;assigId=' . $req['assigmentId'] . '">'
+    .    '&amp;assigId=' . $req['assignmentId'] . '">'
     .    get_lang('Submit a work')
     .    '</a>' . "\n"
     ;
@@ -521,7 +517,7 @@ if ( $is_allowedToEditAll )
 {
     echo '<a class="claroCmd" href="feedback.php'
     .    '?cmd=rqEditFeedback'
-    .    '&amp;assigId=' . $assignment['id'] . '">'
+    .    '&amp;assigId=' . $req['assignmentId'] . '">'
     .    get_lang('Edit automatic feedback')
     .    '</a>' . "\n"
     ;
@@ -532,9 +528,9 @@ echo '</p>';
 /**
  * Submitter (User or group) listing
  */
-$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId']);
+$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']);
 
-echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId'])
+echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId'])
 
 
 
@@ -606,7 +602,7 @@ foreach ( $workList as $thisWrk )
 echo '</tbody>' . "\n"
 .    '</table>' . "\n\n"
 
-.    $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assigmentId']);
+.    $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']);
 
 include $includePath . '/claro_init_footer.inc.php';
 
