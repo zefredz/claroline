@@ -1888,11 +1888,23 @@ echo claro_disp_tool_title($titleElement,
             ."</tr>\n";
 
         echo "<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
-
-        echo '<th><a href="'.$sortUrlList['path'].'">'.get_lang("Name").'</a></th>' . "\n"
-        .    '<th><a href="'.$sortUrlList['size'].'">'.get_lang("Size").'</a></th>' . "\n"
-        .    '<th><a href="'.$sortUrlList['date'].'">'.get_lang("Date").'</a></th>' . "\n"
-        ;
+        
+        # Patch to avoid E_NOTICE when no files in directory empty
+        # FIXME find a more elegant way to solve the problem
+        if ( count( $sortUrlList ) > 0 )
+        {
+            echo '<th><a href="'.$sortUrlList['path'].'">'.get_lang("Name").'</a></th>' . "\n"
+            .    '<th><a href="'.$sortUrlList['size'].'">'.get_lang("Size").'</a></th>' . "\n"
+            .    '<th><a href="'.$sortUrlList['date'].'">'.get_lang("Date").'</a></th>' . "\n"
+            ;
+        }
+        else
+        {
+            echo '<th>'.get_lang("Name").'</th>' . "\n"
+            .    '<th>'.get_lang("Size").'</th>' . "\n"
+            .    '<th>'.get_lang("Date").'</th>' . "\n"
+            ;
+        }
 
         if ($is_allowedToEdit)
         {
