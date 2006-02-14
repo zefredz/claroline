@@ -27,7 +27,7 @@ require '../../inc/claro_init_global.inc.php';
 include_once($includePath . '/lib/debug.lib.inc.php');
 include_once($includePath . '/lib/admin.lib.inc.php');
 
-$nameTools = get_lang('RestoreCourseRepository');
+$nameTools = get_lang('Restore course repository');
 
 // Security Check
 
@@ -81,7 +81,7 @@ if (isset($restored_courses)) echo $restored_courses;
 
 // display link to launch the restore
 
-echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . get_lang('LaunchRestoreCourseRepository') . '</a></p>';
+echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . get_lang('Launch restore of the course repository') . '</a></p>';
 
 include $includePath . '/claro_init_footer.inc.php';
 
