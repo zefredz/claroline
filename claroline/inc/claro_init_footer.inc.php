@@ -27,48 +27,59 @@ if (!isset($hide_footer) || $hide_footer == false)
 <hr />
 <?php
 
-//FOOTER LEFT DOCK declaration
+// FOOTER LEFT DOCK declaration
 
 $footerLeftDock = new Dock('campusFooterLeft');
 
-if(isset($_cid))
+if ( isset($_cid) )
 {
-$courseManagerOutput = '<div id="courseManager">
-'. sprintf(get_lang('_footer_p_CourseManager'), $_course['officialCode']).' :
-<a href="'. (empty($_course['email'])?$clarolineRepositoryWeb."user/user.php":"mailto:".$_course['email']."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]") .'">'. $_course['titular'].'</a>
-</div>';
-$footerLeftDock->addOutput($courseManagerOutput,true);
+
+    $courseManagerOutput = '<div id="courseManager">' . "\n"
+                         . get_lang('Manager(s) for %course_code', array('%course_code' => $_course['officialCode']) ) . ' : ' ;
+
+    if ( empty($_course['email']) ) 
+    {
+        $courseManagerOutput .= '<a href="'.$clarolineRepositoryWeb.'user/user.php">'. $_course['titular'].'</a>';
+    }
+    else
+    {
+        $courseManagerOutput .= '<a href="mailto:'.$_course['email'].'?body='.$_course['officialCode'].'&amp;subject=['.rawurlencode($siteName).']'.'">'.$_course['titular'].'</a>';
+    }
+    
+    $courseManagerOutput .= '</div>';
+    $footerLeftDock->addOutput($courseManagerOutput,true);
 }
 
 echo $footerLeftDock->render();
 
-//FOOTER RIGHT DOCK declaration
+// FOOTER RIGHT DOCK declaration
 
 $footerRightDock = new Dock('campusFooterRight');
 
-$platformManagerOutput = '<div id="platformManager">'.sprintf(get_lang('_p_platformManager'),$siteName). ' :
-<a href="mailto:' . $administrator_email."?body=".$_course['officialCode']."&amp;subject=[".rawurlencode($siteName)."]".'">'. $administrator_name .'</a>
-</div>';
+$platformManagerOutput = '<div id="platformManager">' 
+                       . get_lang('Administrator for %site_name', array('%site_name'=>$siteName)). ' : '
+                       . '<a href="mailto:'.$administrator_email.'?body='.$_course['officialCode'].'&amp;subject=['.rawurlencode($siteName).']'.'">'. $administrator_name .'</a>'
+                       . '</div>';
 
 $footerRightDock->addOutput($platformManagerOutput,true);
 
 echo $footerRightDock->render();
 
-
-//FOOTER CENTER DOCK declaration
+// FOOTER CENTER DOCK declaration
 
 $footerCenterDock = new Dock('campusFooterCenter');
 
-$poweredByOutput = '<div id="poweredBy">'. get_lang('Powered by') . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2006 </div></div>';
-
+$poweredByOutput = '<div id="poweredBy">'
+                 . get_lang('Powered by') . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2006'
+                 . '</div>';
 
 $footerCenterDock->addOutput($poweredByOutput,true);
 
 echo $footerCenterDock->render();
 
-
-
 } // if (!isset($hide_footer) || $hide_footer == false)
+
 ?>
+
 </body>
 </html>

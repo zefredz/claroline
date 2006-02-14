@@ -25,7 +25,7 @@ if( $claro_displayLocalAuthForm )
 <fieldset style="padding: 7px;">
 <legend><?php echo get_lang('Authentication') ?> : </legend>
 <label for="login">
-<small><?php echo get_lang('UserName'); ?></small><br />
+<small><?php echo get_lang('User name'); ?></small><br />
 <input type="text" name="login" id="login" size="12"><br />
 </label>
 
@@ -39,7 +39,7 @@ if( $claro_displayLocalAuthForm )
 
 <!-- 'Lost Password' hyperlink -->
 <p>
-<a href="claroline/auth/lostPassword.php"><?php echo get_lang('LostPassword') ?></a>
+<a href="claroline/auth/lostPassword.php"><?php echo get_lang('Lost password') ?></a>
 </p>
 
 <?php
@@ -48,7 +48,7 @@ if( $claro_displayLocalAuthForm )
     ?>
     <!-- 'Create user Account' hyperlink -->
     <p>
-    <a href="claroline/auth/inscription.php"><?php echo get_lang('CreateUserAccount') ?></a>
+    <a href="claroline/auth/inscription.php"><?php echo get_lang('Create user account') ?></a>
     </p>
     <?php
     }

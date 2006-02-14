@@ -28,7 +28,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
     $backCommandLine = '<p>'
                       .'<small>'
                       .'<a href="'.$_SERVER['PHP_SELF']."?category=".$parentCategory['code_P'].'">'
-                      .'&lt;&lt; '.get_lang('PreviousLevel')
+                      .'&lt;&lt; '.get_lang('previous level')
                       .'</a>'
                       .'</small>'
                       .'</p>'. "\n";
@@ -81,7 +81,7 @@ if ( count($courseList) > 0 )
        echo "<hr size=\"1\" noshade=\"noshade\">\n";
    }
 
-    echo "<h4>".get_lang('CourseList')."</h4>\n"
+    echo "<h4>".get_lang('Course list')."</h4>\n"
         ."<ul style=\"list-style-image:url(claroline/img/course.gif);\">\n";
 
     foreach($courseList as $thisCourse)
@@ -105,7 +105,7 @@ else
 }
 
 echo '<blockquote>' . "\n"
-.    '<p><label for="keyword">' . get_lang('_or_search_from_keyword') . '</label> : </p>' . "\n"
+.    '<p><label for="keyword">' . get_lang('Search from keyword') . '</label> : </p>' . "\n"
 .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<input type="hidden" name="cmd" value="search" />' . "\n"
 .    '<input type="text" name="keyword" id="keyword" />' . "\n"

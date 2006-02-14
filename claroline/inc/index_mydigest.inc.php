@@ -105,14 +105,14 @@ for( $i=0, $itemCount = count($courseDigestList['toolLabel']); $i < $itemCount; 
             $itemIcon = 'announcement.gif';
             $url = 'claroline/announcements/announcements.php?cidReq='
                  . $courseDigestList['courseSysCode'][$i];
-            $name = get_lang('Valvas');
+            $name = get_lang('Latest announcements');
             break;
 
         case 'CLCAL___':
             $itemIcon = 'agenda.gif';
             $url = 'claroline/calendar/agenda.php?cidReq='
                  . $courseDigestList['courseSysCode'][$i];
-            $name = get_lang('AgendaNextEvents');
+            $name = get_lang('Agenda next events');
             break;
     }
 

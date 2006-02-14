@@ -74,7 +74,7 @@ foreach($personnalCourseList as $thisCourse)
 
     if ($thisCourse['userSatus'] == 1)
     {
-        $userStatusImg = '<img src="'.$imgRepositoryWeb.'manager.gif" alt="'.get_lang('Manager').'">';
+        $userStatusImg = '<img src="'.$imgRepositoryWeb.'manager.gif" alt="'.get_lang('Course manager').'">';
     }
     else
     {
@@ -96,7 +96,7 @@ echo '</ul>' . "\n";
 //display legend
 
 echo '<br />'
-.    '<small><span class="item hot"> '.get_lang('NewLegend').'</span></small>';
+.    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>';
 echo '</td>' . "\n";
 
 

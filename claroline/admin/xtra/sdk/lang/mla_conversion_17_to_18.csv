@@ -144,3 +144,16 @@
 "YourRequestToBeCourseManagerIsSent";"Your request to become a course creator has been sent to platform administrator(s)."
 "YourRequestToRemoveYourAccountIsSent";"Your request to remove your account has been sent"
 "_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course";"Your user profile doesn't seem to be enrolled on this course"
+"_footer_p_CourseManager";"Manager(s) for %s"
+"CourseManager";"Course manager"
+"NewLegend";"denotes new items"
+"Valvas";"Latest announcements"
+"AgendaNextEvents";"Agenda next events"
+"PreviousLevel'] = "previous level"
+"CourseList";"Course list"
+"_or_search_from_keyword";"Search from keyword"
+
+
+
+
+
