@@ -722,7 +722,8 @@ function generate_module_cache()
     {
         if (file_exists($includePath.'/../module/'.$module['label'].'/functions.php'))
         {
-            $dock_include = 'require "'.$includePath.'/../module/'.$module['label'].'/functions.php"; '."\n";
+            $dock_include  = "if (file_exists('".$includePath.'/../module/'.$module['label'].'/functions.php\')) ';
+            $dock_include .= 'require "'.$includePath.'/../module/'.$module['label'].'/functions.php"; '."\n";
 
             if (fwrite($handle, $dock_include) === FALSE)
             {
