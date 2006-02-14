@@ -57,7 +57,7 @@ require_once $includePath . '/lib/fileManage.lib.php';
 $nameTools = get_lang('Add_users');
 
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
-$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('DevTools'));
+$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Devel Tools'));
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
@@ -273,7 +273,7 @@ if ( CONFVAL_LIST_USER_ADDED )
             </tr>
             <tr>
                 <th >
-                    <?php echo get_lang('FirstName'); ?>
+                    <?php echo get_lang('First Name'); ?>
                 </th>
                 <td>
                     <div>
@@ -301,7 +301,7 @@ if ( CONFVAL_LIST_USER_ADDED )
                     </div>
                     <div>
                         <input type="radio" id="" name="selLogin" value="firstname">
-                        <label for="selFirstnameRandom" ><?php echo get_lang('FirstName') ?></label>
+                        <label for="selFirstnameRandom" ><?php echo get_lang('First Name') ?></label>
                     </div>
                     <div>
                         <input type="radio" name="selLogin" value="fix">

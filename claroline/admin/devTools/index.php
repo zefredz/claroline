@@ -24,7 +24,7 @@ $is_allowedToUseSDK = $is_platformAdmin;
 
 if (! $is_allowedToUseSDK) claro_disp_auth_form(); 
 
-$nameTools = get_lang('DevTools');
+$nameTools = get_lang('Devel Tools');
 
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 

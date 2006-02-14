@@ -73,7 +73,7 @@ include_once $includePath . '/lib/fileManage.lib.php';
 
 $nameTools = get_lang('CreateSite');
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => 'index.php',    'name' => get_lang('DevTools'));
+$interbredcrump[]= array ('url' => 'index.php',    'name' => get_lang('Devel Tools'));
 /*
 * DB tables definition
 */
@@ -384,7 +384,7 @@ switch ($display)
 
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
     <fieldset>
-    <legend > <?php echo get_lang('CreateCourses') ?> </legend>
+    <legend > <?php echo get_lang('Create courses') ?> </legend>
     <label for="nc"> <?php echo get_lang('Quantity') ?> </label>
     <input align="right" type="text" id="nc" name="nc" value="<?php echo $nc ?>" size="5" maxlength="3"><br />
     <label for="pfCode"> <?php echo get_lang('Prefix') ?> </label>
