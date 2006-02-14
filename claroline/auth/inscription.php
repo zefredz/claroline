@@ -90,6 +90,8 @@ if ( get_conf('allowSelfReg',false) )
                 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
 
                 // track user login
+
+                $eventNotifier->notifyEvent('user_login', array('uid' => $_uid));
                 event_login();
 
                 // last user login date is now
