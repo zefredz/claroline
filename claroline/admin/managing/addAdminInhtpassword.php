@@ -21,10 +21,10 @@ require '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-$nameTools = get_lang('NomPageAddHtPass');
+$nameTools = get_lang('Admin users management');
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => $rootAdminWeb . 'managing/', 'name' => get_lang('Manage'));
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'managing/', 'name' => get_lang('Manage Campus'));
 
 @include('./checkIfHtAccessIsPresent.php');
 /*$htmlHeadXtra[] = "<style type=\"text/css\">
@@ -62,7 +62,7 @@ if ($is_allowedToEdit)
 
     if (isset($_REQUEST['addLoginPass']))
     {
-        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('NomPageAddHtPass'));
+        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('Admin users management'));
         $nameTools = get_lang('AddLoginPass');
         $display = ADD_LOGIN_PASS;
     }
@@ -99,14 +99,14 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
             else
             {
                 $controlMsg['warning'][]= 'There is no user with course creator level wich can be set as admin';
-                $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('NomPageAddHtPass'));
-                $nameTools = get_lang('GiveAdminRight');
+                $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('Admin users management'));
+                $nameTools = get_lang('Set a user as admin');
             }
         }
         else
         {
-            $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('NomPageAddHtPass'));
-            $nameTools = get_lang('GiveAdminRight');
+            $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('Admin users management'));
+            $nameTools = get_lang('Set a user as admin');
         }
     }
     elseif (isset($_REQUEST['listAdmins']))
@@ -114,14 +114,14 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
         $display = LIST_ADMINS;
         $sqlGetListUser = "SELECT user_id, nom, prenom, username, email FROM `".$tbl_user."` u, `".$tbl_admin."` a WHERE u.user_id = a.idUSer ";
         $resListOfUsers= claro_sql_query($sqlGetListUser) or die("Erreur SELECT FROM user admins ".$sqlGetListUser);
-        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('NomPageAddHtPass'));
-        $nameTools = get_lang('ListAdmin');
+        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('Admin users management'));
+        $nameTools = get_lang('List of admin users');
     }
     elseif (isset($_REQUEST['listHtLogins']))
     {
         $display = LIST_HT_LOGIN;
-        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('NomPageAddHtPass'));
-        $nameTools = get_lang('ListHtUsers');
+        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('Admin users management'));
+        $nameTools = get_lang('View .htpassword');
     }
     elseif (isset($_REQUEST['uidToSetAdmin']))
     {
@@ -132,8 +132,8 @@ WHERE `admin`.`idUser` IS NULL AND statut = '".COURSE_CREATOR."' ORDER BY UPPER(
         $user = mysql_fetch_array($resGetUser,  MYSQL_ASSOC);
         $controlMsg['success'][]= 'ok : Now, add a login-pass for <strong>'.$user['prenom'].' '.$user['nom'].'</strong> in .htaccess and  give it to the user by secure way';
         $display         = AFTER_ADD_ADMIN;
-        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('NomPageAddHtPass'));
-        $nameTools = get_lang('GiveAdminRight');
+        $interbredcrump[]= array ('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('Admin users management'));
+        $nameTools = get_lang('Set a user as admin');
     }
     elseif (isset($_REQUEST['uidToSetNotAdmin']))
     {
@@ -213,7 +213,7 @@ claro_html::msg_list($controlMsg);
 
 if ($display == NO_WAY)
 {
-    echo get_lang('_no_access_here');
+    echo get_lang('No way');
 }
 elseif ($display == WHAT_YOU_WANT_TO_DO)
 {
@@ -221,20 +221,20 @@ elseif ($display == WHAT_YOU_WANT_TO_DO)
     <UL>
         <LI>
             <b>
-                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1"><?php echo get_lang('GiveAdminRight'); ?></a>
+                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1"><?php echo get_lang('Set a user as admin'); ?></a>
             </b>
         </LI>
     </UL>
-    <?php echo get_lang('OtherWorks') ; ?>
+    <?php echo get_lang('other functions') ; ?>
     <UL>
         <LI>
             <a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPass=1"><?php echo get_lang('AddLoginPass'); ?></a>
         </LI>
         <LI>
-            <a href="<?php echo $_SERVER['PHP_SELF'] ?>?listAdmins=1"><?php echo get_lang('ListAdmin'); ?></a>
+            <a href="<?php echo $_SERVER['PHP_SELF'] ?>?listAdmins=1"><?php echo get_lang('List of admin users'); ?></a>
         </LI>
         <LI>
-            <a href="<?php echo $_SERVER['PHP_SELF'] ?>?listHtLogins=1"><?php echo get_lang('ListHtUsers'); ?></a>
+            <a href="<?php echo $_SERVER['PHP_SELF'] ?>?listHtLogins=1"><?php echo get_lang('View .htpassword'); ?></a>
         </LI>
     </UL>
     <?php
@@ -245,7 +245,7 @@ elseif ($display == AFTER_ADD_ADMIN)
     <UL>
         <LI>
             <strong>
-                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPassFromClaroUser=<?php echo $_REQUEST["uidToSetAdmin"] ?>"><?php echo get_lang('AddLoginPassForThisUser'); ?></a> (<?php echo $user["prenom"]." ".$user["nom"]; ?>)
+                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPassFromClaroUser=<?php echo $_REQUEST["uidToSetAdmin"] ?>"><?php echo get_lang('Add login pass from campus account of this user in .htpassword'); ?></a> (<?php echo $user["prenom"]." ".$user["nom"]; ?>)
             </strong>
         </LI>
     </UL>
@@ -254,10 +254,10 @@ elseif ($display == AFTER_ADD_ADMIN)
             <a href="<?php echo $_SERVER['PHP_SELF'] ?>?addLoginPass=1"><?php echo get_lang('AddLoginPass'); ?></a>
         </LI>
     </UL>
-    <?php echo get_lang('OtherWorks') ; ?>
+    <?php echo get_lang('other functions') ; ?>
     <UL>
         <LI>
-            <a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1"><?php echo get_lang('GiveAdminRight'); ?></a>
+            <a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1"><?php echo get_lang('Set a user as admin'); ?></a>
         </LI>
     </UL>
     <?php
@@ -267,7 +267,7 @@ elseif ($display == USER_SELECT_FORM)
 {
 ?>
 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-<LABEL for="userBeAdmin"><?php echo get_lang('SelectAUser'); ?></LABEL>
+<LABEL for="userBeAdmin"><?php echo get_lang('Choose user'); ?></LABEL>
 <?php
     if (mysql_num_rows($resListOfUsers)>0)
     {
@@ -285,12 +285,12 @@ elseif ($display == USER_SELECT_FORM)
         }
 ?>
 </select>
-<input type="submit" value="<?php echo get_lang('SetAdmin'); ?>"><br />
+<input type="submit" value="<?php echo get_lang('Set Admin'); ?>"><br />
 <?php
     }
 ?>
 <small>
-    <a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1&listAllUsers=1"><?php echo get_lang('ListAllUsers'); ?></a>
+    <a href="<?php echo $_SERVER['PHP_SELF'] ?>?giveAdminRight=1&listAllUsers=1"><?php echo get_lang('List All Users'); ?></a>
 </small>
 </form>
 <?php
@@ -310,12 +310,12 @@ elseif ($display == LIST_ADMINS)
             if ($user["user_id"]!=$_uid)
             {
                 echo "
-            [<a href=\"".$_SERVER['PHP_SELF']."?uidToSetNotAdmin=",$user["user_id"],"\" >",get_lang('RemoveAdminLevel'),"</a>]";
+            [<a href=\"".$_SERVER['PHP_SELF']."?uidToSetNotAdmin=",$user["user_id"],"\" >",get_lang('No longer Admin'),"</a>]";
             }
             else
             {
                 echo "
-            [",str_repeat ( "-", strlen(get_lang('RemoveAdminLevel'))),"]";
+            [",str_repeat ( "-", strlen(get_lang('No longer Admin'))),"]";
 
             }
         }
@@ -379,21 +379,21 @@ elseif ($display == FINAL_MESSAGE)
     <UL>
         <LI>
             <b>
-                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?listHtLogins=1"><?php echo get_lang('ListHtUsers'); ?></a>
+                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?listHtLogins=1"><?php echo get_lang('View .htpassword'); ?></a>
             </b>
         </LI>
     </UL>
-    <?php echo get_lang('OtherWorks') ; ?>
+    <?php echo get_lang('other functions') ; ?>
     <UL>
         <LI>
-            <a href="<?php echo $_SERVER['PHP_SELF'] ?>"><?php echo get_lang('NomPageAddHtPass'); ?></a>
+            <a href="<?php echo $_SERVER['PHP_SELF'] ?>"><?php echo get_lang('Admin users management'); ?></a>
         </LI>
     </UL>
     <?php
 }
 else
 {
-    echo get_lang('_no_access_here');
+    echo get_lang('No way');
 }
 
 include $includePath . '/claro_init_footer.inc.php';
