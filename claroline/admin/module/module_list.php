@@ -75,6 +75,17 @@ border-bottom: 1px solid white;
 </style>
 ";
 
+$htmlHeadXtra[] =
+"<script>
+function confirmation (name)
+{
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to uninstall the module "))." \"+ name + \" ?\"))
+        {return true;}
+    else
+        {return false;}
+}
+</script>";
+
 //CONFIG and DEVMOD vars :
 
 $modulePerPage = get_conf('modulePerPage' , 10);
@@ -419,7 +430,8 @@ foreach($moduleList as $module)
     .    '</td>' . "\n"
     //uninstall link
     .    '<td align="center">'
-    .    '<a href="module_list.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'&cmd=uninstall">'
+    .    '<a href="module_list.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'&cmd=uninstall"'
+    .    ' onClick="return confirmation(\''.$module['name'].'\');">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
