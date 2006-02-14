@@ -422,7 +422,7 @@ if( isset($_REQUEST['submitWrk']) )
 
 		if( !$groupFound )
 		{
-			$dialogBox .= get_lang('NotGroupMember');
+			$dialogBox .= get_lang('You are not a member of this group');
 			$formCorrectlySent = false;
 		}
 	}
@@ -532,7 +532,7 @@ if( isset($_REQUEST['submitWrk']) )
 			else
 			{
 				// if the main thing to provide is a file and that no file was sent
-				$dialogBox .= get_lang('FileRequired')."<br />";
+				$dialogBox .= get_lang('A file is required')."<br />";
 				$formCorrectlySent = false;
 			}
 		}
@@ -975,9 +975,9 @@ if( $is_allowedToSubmit )
 			.    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
 			
 			if( $assignment['authorized_content'] == 'TEXT'  )
-				get_lang('Text only (text required, no file)');
+				echo get_lang('Text only (text required, no file)');
 			elseif( $assignment['authorized_content'] == 'TEXTFILE' )
-				get_lang('Text with attached file (text required, file optional)');
+				echo get_lang('Text with attached file (text required, file optional)');
 			else
 				echo get_lang('File Only');
 			
