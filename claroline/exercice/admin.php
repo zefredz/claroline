@@ -89,7 +89,7 @@ $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 // the 4 types of answers
-$aType = array(get_lang('UniqueSelect'),get_lang('MultipleSelect'),get_lang('FillBlanks'),get_lang('Matching'),get_lang('TrueFalse'));
+$aType = array(get_lang('Multiple choice (Unique answer)'),get_lang('Multiple choice (Multiple answers)'),get_lang('Fill in blanks'),get_lang('Matching'),get_lang('TrueFalse'));
 
 // tables used in the exercise tool
 $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -160,7 +160,7 @@ if(isset($editQuestion) || isset($newQuestion) || (isset($modifyQuestion)) || is
             // question not found
             if(!$_SESSION['objQuestion']->read($editQuestion))
             {
-                die(get_lang('QuestionNotFound'));
+                die(get_lang('Question not found'));
             }
         }
     }
@@ -174,7 +174,7 @@ if(isset($editQuestion) || isset($newQuestion) || (isset($modifyQuestion)) || is
     // question not found
     else
     {
-        die(get_lang('QuestionNotFound'));
+        die(get_lang('Question not found'));
     }
 }
 
@@ -223,12 +223,12 @@ if(isset($_REQUEST['cancelAnswers']))
     unset($modifyAnswers);
 }
 
-$interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
+$interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercises'));
 
 // modifies the query string that is used in the link of tool name
 if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || isset($modifyAnswers))
 {
-    $nameTools = get_lang('QuestionManagement');
+    $nameTools = get_lang('Question / Answer management');
         
     // shows a link to go back to the question pool
     if (isset($_REQUEST['fromExercise']))     $addFrom = "fromExercise=".$_REQUEST['fromExercise'];
@@ -236,7 +236,7 @@ if(isset($editQuestion) || (isset($modifyQuestion)) || isset($newQuestion) || is
 
     if( $_SESSION['objExercise']->selectTitle() == '' )
     {
-        $interbredcrump[] = array("url" => "question_pool.php?".$addFrom,"name" => get_lang('QuestionPool'));
+        $interbredcrump[] = array("url" => "question_pool.php?".$addFrom,"name" => get_lang('Question pool'));
     }
     else
     {
@@ -253,7 +253,7 @@ else
     }
     else
     {
-        $nameTools = get_lang('ExerciseManagement');
+        $nameTools = get_lang('Exercise management');
     }
     $_SERVER['QUERY_STRING'] = '';
 }

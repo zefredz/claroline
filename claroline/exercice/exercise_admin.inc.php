@@ -38,7 +38,7 @@ if( isset($_REQUEST['submitExercise']) )
     // no title given
     if( empty($exerciseTitle) )
     {
-        $msgErr = get_lang('GiveExerciseName');
+        $msgErr = get_lang('Please give the exercise name');
 
         // get values that were in form when before it was sent
         $exerciseType        = $_REQUEST['exerciseType'];
@@ -181,21 +181,21 @@ if( isset($modifyExercise) )
 
 <tr>
   <td>
-  <label for="exerciseTitle"><?php echo get_lang('ExerciseName'); ?>&nbsp;:<br /><small>(<?php echo get_lang('Required'); ?>)</small></label>
+  <label for="exerciseTitle"><?php echo get_lang('Exercise name'); ?>&nbsp;:<br /><small>(<?php echo get_lang('Required'); ?>)</small></label>
   </td>
   <td><input type="text" name="exerciseTitle" id="exerciseTitle" size="50" maxlength="200" value="<?php echo htmlspecialchars($exerciseTitle); ?>"></td>
 </tr>
 <tr>
   <td valign="top">
-  <label for="exerciseDescription"><?php echo get_lang('ExerciseDescription'); ?>&nbsp;:</label>
+  <label for="exerciseDescription"><?php echo get_lang('Exercise description'); ?>&nbsp;:</label>
   </td>
   <td>
   <?php echo claro_disp_html_area('exerciseDescription', htmlspecialchars($exerciseDescription),15) ?>
 </tr>
 <tr>
-  <td valign="top"><?php echo get_lang('ExerciseType'); ?>&nbsp;:</td>
-  <td><input type="radio" name="exerciseType" id="exerciseType1" value="1" <?php if($exerciseType <= 1) echo 'checked="checked"'; ?>> <label for="exerciseType1"><?php echo get_lang('SimpleExercise'); ?></label><br>
-      <input type="radio" name="exerciseType" id="exerciseType2" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <label for="exerciseType2"><?php echo get_lang('SequentialExercise'); ?></label>
+  <td valign="top"><?php echo get_lang('Exercise type'); ?>&nbsp;:</td>
+  <td><input type="radio" name="exerciseType" id="exerciseType1" value="1" <?php if($exerciseType <= 1) echo 'checked="checked"'; ?>> <label for="exerciseType1"><?php echo get_lang('On an unique page'); ?></label><br>
+      <input type="radio" name="exerciseType" id="exerciseType2" value="2" <?php if($exerciseType >= 2) echo 'checked="checked"'; ?>> <label for="exerciseType2"><?php echo get_lang('One question per page (sequential)'); ?></label>
   </td>
 </tr>
 <?php
@@ -204,8 +204,9 @@ if( isset($modifyExercise) )
 ?>
 
 <tr>
-  <td valign="top"><label for="randomQuestions"><?php echo get_lang('RandomQuestions'); ?>&nbsp;:</label></td>
-  <td><input type="checkbox" name="randomQuestions" id="randomQuestions" value="1" <?php if($randomQuestions) echo 'checked="checked"'; ?>> <label for="randomQuestions"><?php echo get_lang('Yes'); ?></label>, <label for="questionDrawn"><?php echo get_lang('Take'); ?></label>
+  <td valign="top"><label for="randomQuestions"><?php echo get_lang('Random questions'); ?>&nbsp;:</label></td>
+  <td><input type="checkbox" name="randomQuestions" id="randomQuestions" value="1" <?php if($randomQuestions) echo 'checked="checked"'; ?>> 
+    <label for="randomQuestions"><?php echo get_lang('Yes'); ?></label>, <label for="questionDrawn"><?php echo get_lang('Take'); ?></label>
     <select name="questionDrawn" id="questionDrawn">
 
 <?php
@@ -250,7 +251,7 @@ if( isset($modifyExercise) )
 <!-- end date form -->
 <tr>
 
-<td><?php echo get_lang('EndDate'); ?>&nbsp;:</td>
+<td><?php echo get_lang('End date'); ?>&nbsp;:</td>
 
 <td>
 <input type="checkbox" name="useEndDate" id="useEndDate" value="1" <?php if( $useEndDate ) echo 'checked="checked"';?>>
@@ -262,17 +263,17 @@ if( isset($modifyExercise) )
 </tr>
 
 <tr>
-  <td><label for="exerciseMaxTime"><?php echo get_lang('AllowedTime'); ?>&nbsp;:</label></td>
+  <td><label for="exerciseMaxTime"><?php echo get_lang('Time limit'); ?>&nbsp;:</label></td>
   <td>
   <input type="checkbox" name="exerciseMaxTime" id="exerciseMaxTime" value="1" <?php if($maxTime != 0) echo 'checked="checked"';?>>
   <label for="exerciseMaxTime"><?php echo get_lang('Yes'); ?>, </label>
-  <input type="text" name="exerciseMaxTimeMin" id="exerciseMaxTimeMin" size="3" maxlength="3" value="<?php echo $maxTimeMin; ?>">  <?php echo get_lang('MinuteShort'); ?>
-  <input type="text" name="exerciseMaxTimeSec" id="exerciseMaxTimeSec" size="2" maxlength="2" value="<?php echo $maxTimeSec; ?>"> <?php echo get_lang('SecondShort'); ?>
+  <input type="text" name="exerciseMaxTimeMin" id="exerciseMaxTimeMin" size="3" maxlength="3" value="<?php echo $maxTimeMin; ?>">  <?php echo get_lang('min.'); ?>
+  <input type="text" name="exerciseMaxTimeSec" id="exerciseMaxTimeSec" size="2" maxlength="2" value="<?php echo $maxTimeSec; ?>"> <?php echo get_lang('sec.'); ?>
   </td>
 </tr>
 
 <tr>
-  <td><label for="exerciseMaxAttempt"><?php echo get_lang('AttemptsAllowed'); ?>&nbsp;:</label></td>
+  <td><label for="exerciseMaxAttempt"><?php echo get_lang('Attempts allowed'); ?>&nbsp;:</label></td>
   <td>
     <select name="exerciseMaxAttempt" id="exerciseMaxAttempt">
         <option value="0" <?php echo ($maxAttempt == 0)? 'selected="selected"' : ''?>><?php echo get_lang('UnlimitedAttempts'); ?></option>

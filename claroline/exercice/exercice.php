@@ -72,7 +72,7 @@ $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 // maximum number of exercises on a same page
 $exercisesPerPage = 25;
 
-$nameTools = get_lang('Exercices');
+$nameTools = get_lang('Exercises');
 
 /* Asking for an export in IMS/QTI ?
  * We need to take care of it before any content has been sent.
@@ -239,14 +239,14 @@ echo '<p>'."\n";
 // if tracking is enabled && user is not anomymous
 if($is_trackingEnabled && $_uid)
 {
-   echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&amp;view=0100000">'.get_lang('MyResults').'</a>';
+   echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&amp;view=0100000">'.get_lang('My results').'</a>';
    if( $is_allowedToEdit ) echo ' | ';
    echo "\n";
 }
 if($is_allowedToEdit)
 {
-    echo '<a class="claroCmd" href="admin.php">'.get_lang('NewEx').'</a> | '."\n"
-        .'<a class="claroCmd" href="question_pool.php">'.get_lang('QuestionPool').'</a>'."\n";
+    echo '<a class="claroCmd" href="admin.php">'.get_lang('New exercise').'</a> | '."\n"
+        .'<a class="claroCmd" href="question_pool.php">'.get_lang('Question pool').'</a>'."\n";
 }
 echo '</p>'."\n\n";
 //pager display
@@ -259,7 +259,7 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 <thead>
 <tr class="headerX">
-  <th><?php echo get_lang('ExerciseName'); ?></th>
+  <th><?php echo get_lang('Exercise name'); ?></th>
 <?php
     if($is_allowedToEdit)
     {
@@ -297,7 +297,7 @@ if( !is_array($exercisesList) || count($exercisesList) == 0 )
 ?>
 <tbody>
 <tr>
-  <td<?php echo $colspan; ?>><?php echo get_lang('NoEx'); ?></td>
+  <td<?php echo $colspan; ?>><?php echo get_lang('There is no exercise for the moment'); ?></td>
 </tr>
 </tbody>
 <?php
@@ -321,10 +321,11 @@ $actionsForDelete[] = array();
 while ($list = mysql_fetch_array($res))
 {
     $exId = $list['thePath'];
-    $toAdd = clean_str_for_javascript(get_lang('UsedInSeveralPath')." ".get_lang('ConfirmDeleteExercise'));
+    $toAdd = clean_str_for_javascript(get_block('blockUsedInSeveralPath')
+    		." ".get_lang('Are you sure you want to delete this exercise ?'));
     $actionsForDelete[$exId] = "onclick=\"javascript:if(!confirm('".$toAdd."')) return false;\"";
 }
-$defaultConfirm = "onclick=\"javascript:if(!confirm('".clean_str_for_javascript(get_lang('ConfirmDeleteExercise'))."')) return false;\"";
+$defaultConfirm = "onclick=\"javascript:if(!confirm('".clean_str_for_javascript(get_lang('Are you sure you want to delete this exercise ?'))."')) return false;\"";
 
 
 $i = 1;

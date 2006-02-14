@@ -77,7 +77,7 @@ if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_o
        )
     {
         include ($includePath.'/claro_init_header.inc.php');
-        echo '<br />' . claro_html::message_box(get_lang('ExerciseNotFound')) . '<br />';
+        echo '<br />' . claro_html::message_box(get_lang('Exercice not found')) . '<br />';
         include ($includePath.'/claro_init_footer.inc.php');
         die();
     }
@@ -229,7 +229,7 @@ if ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 }
 else
 {
-  $interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
+  $interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercises'));
 }
 include($includePath.'/claro_init_header.inc.php');
 
@@ -243,16 +243,16 @@ $showExerciseForm = true;
 
 if($exerciseType == 2)
 {
-    $statusMsg .= get_lang('CurrentTime')." : ".(time() - $_SESSION['exeStartTime']);
+    $statusMsg .= get_lang('Current time')." : ".(time() - $_SESSION['exeStartTime']);
 }
 
 if($exerciseMaxTime != 0)
 {
-  $statusMsg .= " ".get_lang('MaxAllowedTime')." : ".claro_disp_duration($exerciseMaxTime);
+  $statusMsg .= " ".get_lang('Time limit')." : ".claro_disp_duration($exerciseMaxTime);
 }
 else
 {
-  $statusMsg .= " ".get_lang('NoTimeLimit');
+  $statusMsg .= " ".get_lang('No time limitation');
 }
 
 // MAX ALLOWED ATTEMPTS
@@ -268,7 +268,7 @@ if( isset($_uid) )
     if( $userTryQty > $exerciseMaxAttempt )
     {
         $showExerciseForm = false;
-        $errMsg .=  "<br/>".get_lang('NoMoreAttemptsAvailable');
+        $errMsg .=  "<br/>".get_lang('You have reached the maximum number of allowed attempts.');
     }
   }
 }
@@ -290,12 +290,12 @@ if($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59")
 if( $timeStartDate > $mktimeNow )
 {
     $showExerciseForm = false;
-    $errMsg .= "<br />".get_lang('ExerciseNotAvailable');
+    $errMsg .= "<br />".get_lang('Exercise not available');
 }
 elseif( ($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59") && ($timeEndDate < $mktimeNow) )
 {
     $showExerciseForm = false;
-    $errMsg .= "<br />".get_lang('ExerciseNoMoreAvailable');
+    $errMsg .= "<br />".get_lang('Exercise no longer available');
 }
 
 // concat errmsg to status msg before displaying it
@@ -314,7 +314,7 @@ if( $showExerciseForm || $is_allowedToEdit )
 <?php
     if( $is_allowedToEdit && ( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) )
     {
-        echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="" />'.get_lang('ModifyExercise').'</a>';
+        echo '<a class="claroCmd" href="admin.php?exerciseId='.$_SESSION['objExercise']->selectId().'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="" />'.get_lang('Modify exercise').'</a>';
     }
 ?>
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
@@ -359,7 +359,7 @@ if( $showExerciseForm || $is_allowedToEdit )
                 // destruction of the Question object
                 unset($objQuestionTmp);
 
-                echo '<tr><td>'.get_lang('AlreadyAnswered').' &quot;'.$questionName.'&quot;</td></tr>';
+                echo '<tr><td>'.get_lang('You have already answered the question').' &quot;'.$questionName.'&quot;</td></tr>';
 
                 break;
             }

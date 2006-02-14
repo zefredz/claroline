@@ -347,53 +347,20 @@ function display_attached_file($attachedFile)
         break;
     
     case 'mp3' :
-            // get mp3 id3 tags (mainly for the bitrate that is required by the player
-            include_once("mp3_id3_utils.php");
-            $id3 = mp3_id($attachedFilePathSys."/".$attachedFile);
-
-            // -1 means reading error, 0 means that the mp3 has no id3 tag
-            if( $id3 == -1 || $id3 == 0 )
-            {
-                // if id3 tags cannot be read
-                // set default bitrate 32
-                $bitrate = 32;
-                $mp3Title = "";
-                // show filename instead of title and artist
-            }
-            else
-            {
-                $bitrate = $id3['bitrate'];
-
-                if( !empty($id3['artist']) && !empty($id3['title']) )
-                {
-                    $mp3Title = $id3['artist']." - ".$id3['title'];
-                }
-                else
-                {
-                    // artist or title or both are empty
-                    $mp3Title = "";
-                    if( isset($id3['artist']) ) $mp3Title .= $id3['artist'];
-                    if( isset($id3['title']) ) $mp3Title .= $id3['title'];
-                }
-            }
-            $playerParams = '?file='.$attachedFilePathWeb.'/'.$attachedFile
-                            .'&amp;autolaunch=false'
-                            .'&amp;my_bitrate='.$bitrate
-                            .'&amp;my_BackgroundColor=0xffffff'
-                            .'&amp;fakeVar='.time();
-
-            $returnedString .=
-                    '<object id="mp3player" type="application/x-shockwave-flash" data="claroPlayer.swf'.$playerParams.'" width="220" height="30" style="vertical-align: bottom;">'."\n"
-                    .'<!-- MP3 Flash player. Credits, license, contact & examples: http://pyg.keonox.com/flashmp3player/ -->'."\n"
-                    .'<param name="type" value="application/x-shockwave-flash" />'."\n"
-                    .'<param name="codebase" value="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" />'."\n"
-                    .'<param name="movie" value="claroPlayer.swf'.$playerParams.'" />'."\n"
-                    .'</object>'."\n"
-                    .'<p>'."\n".'<small>'."\n"
-                    .$mp3Title
-                    .'<br /><a href="'.$attachedFilePathWeb.'/'.$attachedFile.'">'.get_lang('DownloadAttachedFile').' ('.$attachedFile.')</a>'."\n"
-                    .'</small>'."\n\n"
-                    ;
+    		// a fake param with time() as value is added used to force cache refresh    		
+			$returnedString .= 
+					'<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0"'
+						.' width="200" height="20" id="dewplayer" align="middle">' . "\n"
+					.'<param name="allowScriptAccess" value="sameDomain" />' . "\n"
+					.'<param name="movie" value="dewplayer.swf?son='.$attachedFilePathWeb.'/'.$attachedFile.'&amp;bgcolor=FFFFFF" />' . "\n"
+					.'<param name="quality" value="high" />' . "\n"
+					.'<param name="bgcolor" value="FFFFFF" />' . "\n"
+					.'<embed src="dewplayer.swf?son='.$attachedFilePathWeb.'/'.$attachedFile.'&amp;bgcolor=FFFFFF" quality="high" bgcolor="FFFFFF" width="200" height="20" name="dewplayer"'
+						.' align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />' . "\n"
+					.'</object>' ."\n"
+					.'<p>' . "\n" . '<small>' . "\n"
+					.'<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'">'.get_lang('DownloadAttachedFile').'</a>' . "\n"
+					.'</small>'."\n\n";		
                           
         break;
     

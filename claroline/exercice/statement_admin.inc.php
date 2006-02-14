@@ -40,7 +40,7 @@ if(isset($_REQUEST['submitQuestion']))
     // no name given
     if(empty($questionName))
     {
-        $msgErr = get_lang('GiveQuestion');
+        $msgErr = get_lang('Please give the question');
     }
     // checks if the question is used in several exercises
     elseif($exerciseId && !isset($modifyIn) && $_SESSION['objQuestion']->selectNbrExercises() > 1)
@@ -215,28 +215,28 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
 ?>
 
 <tr>
-  <td><label for="questionName"><?php echo get_lang('QuestionTitle'); ?> :</label></td>
+  <td><label for="questionName"><?php echo get_lang('Question title'); ?> :</label></td>
   <td><input type="text" name="questionName" id="questionName" size="50" maxlength="200" value="<?php echo htmlspecialchars($questionName); ?>" style="width:400px;"></td>
 </tr>
 <tr>
-  <td valign="top"><label for="questionDescription"><?php echo get_lang('QuestionDescription'); ?> :</label></td>
+  <td valign="top"><label for="questionDescription"><?php echo get_lang('Statement'); ?> :</label></td>
   <td>
   <?php echo claro_disp_html_area('questionDescription', htmlspecialchars($questionDescription),15) ?>
   </td>
 </tr>
 <tr>
-  <td valign="top"><label for="fileUpload"><?php echo $aFileIsAttached?get_lang('ReplaceAttachedFile'):get_lang('AttachFile'); ?> :</label></td>
+  <td valign="top"><label for="fileUpload"><?php echo $aFileIsAttached?get_lang('Replace attached file'):get_lang('Attach a file'); ?> :</label></td>
   <td>
   <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxUploadSizeInBytes; ?>" />
   <input type="file" name="fileUpload" id="fileUpload" size="30" style="width:390px;"><br />
-  <small><?php echo get_lang('MaxFileSize'); ?> <?php echo format_file_size( $maxUploadSizeInBytes ); ?></small>
+  <small><?php echo get_lang('Max file size :'); ?> <?php echo format_file_size( $maxUploadSizeInBytes ); ?></small>
 
 <?php
     if($aFileIsAttached)
     {
 ?>
 
-    <br /><input type="checkbox" name="deleteAttachedFile" id="deleteAttachedFile" value="1" <?php if(isset($_REQUEST['deleteAttachedFile'])) echo 'checked="checked"'; ?>> <label for="deleteAttachedFile"><?php echo get_lang('DeleteAttachedFile'); ?></label>
+    <br /><input type="checkbox" name="deleteAttachedFile" id="deleteAttachedFile" value="1" <?php if(isset($_REQUEST['deleteAttachedFile'])) echo 'checked="checked"'; ?>> <label for="deleteAttachedFile"><?php echo get_lang('Delete attached file'); ?></label>
 
 <?php
     }
@@ -245,12 +245,12 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
   </td>
 </tr>
 <tr>
-  <td valign="top"><?php echo get_lang('AnswerType'); ?> :</td>
-  <td><input type="radio" name="answerType" id="answerType1" value="<?php echo UNIQUE_ANSWER; ?>" <?php if((isset($answerType) && $answerType <= UNIQUE_ANSWER)|| !isset($answerType)) echo 'checked="checked"'; ?>> <label for="answerType1"><?php echo get_lang('UniqueSelect'); ?></label><br />
-      <input type="radio" name="answerType" id="answerType2" value="<?php echo MULTIPLE_ANSWER; ?>" <?php if(isset($answerType) &&$answerType == MULTIPLE_ANSWER) echo 'checked="checked"'; ?>> <label for="answerType2"><?php echo get_lang('MultipleSelect'); ?></label><br />
+  <td valign="top"><?php echo get_lang('Answer type'); ?> :</td>
+  <td><input type="radio" name="answerType" id="answerType1" value="<?php echo UNIQUE_ANSWER; ?>" <?php if((isset($answerType) && $answerType <= UNIQUE_ANSWER)|| !isset($answerType)) echo 'checked="checked"'; ?>> <label for="answerType1"><?php echo get_lang('Multiple choice (Unique answer)'); ?></label><br />
+      <input type="radio" name="answerType" id="answerType2" value="<?php echo MULTIPLE_ANSWER; ?>" <?php if(isset($answerType) &&$answerType == MULTIPLE_ANSWER) echo 'checked="checked"'; ?>> <label for="answerType2"><?php echo get_lang('Multiple choice (Multiple answers)'); ?></label><br />
       <input type="radio" name="answerType" id="answerType4" value="<?php echo MATCHING; ?>" <?php if(isset($answerType) &&$answerType == MATCHING) echo 'checked="checked"'; ?>> <label for="answerType4"><?php echo get_lang('Matching'); ?></label><br />
-      <input type="radio" name="answerType" id="answerType3" value="<?php echo FILL_IN_BLANKS; ?>" <?php if(isset($answerType) &&$answerType == FILL_IN_BLANKS) echo 'checked="checked"'; ?>> <label for="answerType3"><?php echo get_lang('FillBlanks'); ?></label><br />
-      <input type="radio" name="answerType" id="answerType5" value="<?php echo TRUEFALSE; ?>" <?php if(isset($answerType) &&$answerType >= TRUEFALSE) echo 'checked="checked"'; ?>> <label for="answerType5"><?php echo get_lang('TrueFalse'); ?></label>
+      <input type="radio" name="answerType" id="answerType3" value="<?php echo FILL_IN_BLANKS; ?>" <?php if(isset($answerType) &&$answerType == FILL_IN_BLANKS) echo 'checked="checked"'; ?>> <label for="answerType3"><?php echo get_lang('Fill in blanks'); ?></label><br />
+      <input type="radio" name="answerType" id="answerType5" value="<?php echo TRUEFALSE; ?>" <?php if(isset($answerType) &&$answerType >= TRUEFALSE) echo 'checked="checked"'; ?>> <label for="answerType5"><?php echo get_lang('True/False'); ?></label>
   </td>
 </tr>
 <tr>

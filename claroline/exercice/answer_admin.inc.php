@@ -159,7 +159,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
             // checks if field is empty
             if( $reponse[$i] == "" )
             {
-                $msgErr = get_lang('GiveAnswers');
+                $msgErr = get_lang('Please give the answers to the question');
 
                 // clears answers already recorded into the Answer object
                 $_SESSION['objAnswer']->cancel();
@@ -177,7 +177,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
         {
              if(!$nbrGoodAnswers)
             {
-                $msgErr = ($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)?get_lang('ChooseGoodAnswer'):get_lang('ChooseGoodAnswers');
+                $msgErr = ($answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE)?get_lang('Please choose a good answer'):get_lang('Please choose one or more good answers');
 
                 // clears answers already recorded into the Answer object
                 $_SESSION['objAnswer']->cancel();
@@ -290,11 +290,11 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
             // if no text has been typed or the text contains no blank
             elseif(empty($reponse))
             {
-                $msgErr = get_lang('GiveText');
+                $msgErr = get_lang('Please type the text');
             }
             elseif(!ereg('\[.+\]',$reponse))
             {
-                $msgErr = get_lang('DefineBlanks');
+                $msgErr = get_lang('Please define at least one blank with brackets [...]');
             }
             else
             {
@@ -351,7 +351,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
             // checks if field is empty
             if(empty($option[$i]))
             {
-                $msgErr = get_lang('FillLists');
+                $msgErr = get_lang('Please fill the two lists below');
 
                 // clears options already recorded into the Answer object
                 $_SESSION['objAnswer']->cancel();
@@ -379,7 +379,7 @@ if( isset($_REQUEST['submitAnswers']) || isset($_REQUEST['buttonBack']) )
                 // checks if field is empty
                 if(empty($match[$i]))
                 {
-                    $msgErr = get_lang('FillLists');
+                    $msgErr = get_lang('Please fill the two lists below');
 
                     // clears matches already recorded into the Answer object
                     $_SESSION['objAnswer']->cancel();
@@ -647,10 +647,10 @@ if( isset($modifyAnswers) )
 <thead>
 <tr class="headerX">
   <th>N°</th>
-  <th><?php echo get_lang('ExpectedChoice'); ?></th>
+  <th><?php echo get_lang('Expected choice'); ?></th>
   <th><?php echo get_lang('Answer'); ?></th>
   <th><?php echo get_lang('Comment'); ?></th>
-  <th><?php echo get_lang('QuestionWeighting'); ?></th>
+  <th><?php echo get_lang('Weighting'); ?></th>
 </tr>
 </thead>
 <tbody>
@@ -716,8 +716,8 @@ if( isset($modifyAnswers) )
             if( $answerType != TRUEFALSE )
             {
 ?>
-    &nbsp;&nbsp;<input type="submit" name="lessAnswers" value="<?php echo get_lang('LessAnswers'); ?>">
-    &nbsp;&nbsp;<input type="submit" name="moreAnswers" value="<?php echo get_lang('MoreAnswers'); ?>">
+    &nbsp;&nbsp;<input type="submit" name="lessAnswers" value="<?php echo get_lang('Rem. answ.'); ?>">
+    &nbsp;&nbsp;<input type="submit" name="moreAnswers" value="<?php echo get_lang('Add answ.'); ?>">
 <?php
             }
 ?>
@@ -749,20 +749,20 @@ if( isset($modifyAnswers) )
                 if(!empty($msgErr)) echo claro_html::message_box($msgErr);
 ?>
 <p>
-    <?php echo get_lang('TypeTextBelow').', '.get_lang('And').' '.get_lang('UseTagForBlank'); ?>&nbsp;:
+    <?php echo get_lang('Please type your text below').', '.get_lang('use brackets [...] to define one or more blanks'); ?>&nbsp;:
 </p>
 
-<textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo get_lang('DefaultTextInBlanks'); else echo htmlspecialchars($reponse); ?></textarea>
+<textarea wrap="virtual" name="reponse" cols="65" rows="6"><?php if(!isset($_REQUEST['submitAnswers']) && empty($reponse)) echo get_lang('[British people] live in [United Kingdom].'); else echo htmlspecialchars($reponse); ?></textarea>
 
 <p>
-    <?php echo get_lang('FillType'); ?>&nbsp;:
+    <?php echo get_lang('Fill type'); ?>&nbsp;:
 </p>
 <p>
-    <input type="radio" name="fillType" id="textFill" value="<?php echo TEXTFIELD_FILL; ?>" <?php if(isset($fillType) && $fillType == TEXTFIELD_FILL) echo 'checked="checked"'; ?> /><label for="textFill"><?php echo get_lang('FillTextField'); ?></label><br />
-    <input type="radio" name="fillType" id="listboxFill" value="<?php echo LISTBOX_FILL; ?>" <?php if(isset($fillType) && $fillType == LISTBOX_FILL) echo 'checked="checked"'; ?> /><label for="listboxFill"><?php echo get_lang('FillSelectBox'); ?></label><br />
+    <input type="radio" name="fillType" id="textFill" value="<?php echo TEXTFIELD_FILL; ?>" <?php if(isset($fillType) && $fillType == TEXTFIELD_FILL) echo 'checked="checked"'; ?> /><label for="textFill"><?php echo get_lang('Fill text field'); ?></label><br />
+    <input type="radio" name="fillType" id="listboxFill" value="<?php echo LISTBOX_FILL; ?>" <?php if(isset($fillType) && $fillType == LISTBOX_FILL) echo 'checked="checked"'; ?> /><label for="listboxFill"><?php echo get_lang('Select in drop down list'); ?></label><br />
 </p>
 <p>
-    <?php echo get_lang('AddWrongAnswers'); ?>
+    <?php echo get_lang('Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'); ?>
 </p>
     <textarea name="wrongAnswers" cols="30" rows="6"><?php echo $wrongAnswers; ?></textarea>
 </p>
@@ -790,7 +790,7 @@ if( isset($modifyAnswers) )
                 }
 ?>
 <p>
-<?php echo get_lang('WeightingForEachBlank'); ?> :
+<?php echo get_lang('Please give a weighting to each blank'); ?> :
 </p>
 
 <?php
@@ -855,8 +855,8 @@ if( isset($modifyAnswers) )
 ?>
 <table border="0" cellpadding="5">
 <tr>
-  <td colspan="3"><?php echo get_lang('MakeCorrespond'); ?> :</td>
-  <td><?php echo get_lang('QuestionWeighting'); ?> :</td>
+  <td colspan="3"><?php echo get_lang('Make correspond'); ?> :</td>
+  <td><?php echo get_lang('Weighting'); ?> :</td>
 </tr>
 
 <?php
@@ -865,8 +865,8 @@ if( isset($modifyAnswers) )
                 $inputValue = '';
                 if(!isset($_REQUEST['formSent']) && !isset($match[$i]))
                 {
-                    if($j == 1) $inputValue = get_lang('DefaultMatchingProp1');
-                    elseif($j == 2) $inputValue = get_lang('DefaultMatchingProp2');
+                    if($j == 1) $inputValue = get_lang('Your daddy is');
+                    elseif($j == 2) $inputValue = get_lang('Your mother is');
                 }
                 else
                 {
@@ -900,12 +900,12 @@ if( isset($modifyAnswers) )
 
 <tr>
   <td colspan="4">
-    <input type="submit" name="lessMatches" value="<?php echo get_lang('LessElements'); ?>">
-    &nbsp;&nbsp;<input type="submit" name="moreMatches" value="<?php echo get_lang('MoreElements'); ?>">
+    <input type="submit" name="lessMatches" value="<?php echo get_lang('Rem. elem.'); ?>">
+    &nbsp;&nbsp;<input type="submit" name="moreMatches" value="<?php echo get_lang('Add elem.'); ?>">
   </td>
 </tr>
 <tr>
-  <td colspan="4"><?php echo get_lang('DefineOptions'); ?> :</td>
+  <td colspan="4"><?php echo get_lang('Please define the options'); ?> :</td>
 </tr>
 
 <?php
@@ -914,8 +914,8 @@ if( isset($modifyAnswers) )
                 $inputValue = '';
                 if(!isset($_REQUEST['formSent']) && !isset($option[$key]))
                 {
-                    if($val == 'A') $inputValue = get_lang('DefaultMatchingOpt1');
-                    elseif($val == 'B') $inputValue = get_lang('DefaultMatchingOpt2');
+                    if($val == 'A') $inputValue = get_lang('rich');
+                    elseif($val == 'B') $inputValue = get_lang('good looking');
                 }
                 else
                 {
@@ -934,8 +934,8 @@ if( isset($modifyAnswers) )
 
 <tr>
   <td colspan="4">
-    <input type="submit" name="lessOptions" value="<?php echo get_lang('LessElements'); ?>">
-    &nbsp;&nbsp;<input type="submit" name="moreOptions" value="<?php echo get_lang('MoreElements'); ?>">
+    <input type="submit" name="lessOptions" value="<?php echo get_lang('Rem. elem.'); ?>">
+    &nbsp;&nbsp;<input type="submit" name="moreOptions" value="<?php echo get_lang('Add elem.'); ?>">
   </td>
 </tr>
 <tr>

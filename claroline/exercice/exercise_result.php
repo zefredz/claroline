@@ -70,7 +70,7 @@ if( !isset($exerciseResult) || !is_array($exerciseResult)
     )
 {
         include $includePath . '/claro_init_header.inc.php';
-        echo '<br />' . claro_html::message_box(get_lang('ExerciseNotFound')) . '<br />';
+        echo '<br />' . claro_html::message_box(get_lang('Exercice not found')) . '<br />';
         include $includePath . '/claro_init_footer.inc.php' ;
         die();
 }
@@ -103,7 +103,7 @@ else                                        // normal exercise mode
 {
     $is_allowedToEdit = true; // allow to be in admin mode
 
-    $interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercices'));
+    $interbredcrump[] = array("url" => "exercice.php","name" => get_lang('Exercises'));
     $noPHP_SELF = true;
 }
 include $includePath . '/claro_init_header.inc.php';
@@ -235,7 +235,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
     <small><i><?php echo get_lang('Choice'); ?></i></small>
   </td>
   <td width="5%" valign="top" nowrap="nowrap">
-    <small><i><?php echo get_lang('ExpectedChoice'); ?></i></small>
+    <small><i><?php echo get_lang('Expected choice'); ?></i></small>
   </td>
   <td width="45%" valign="top">
     <small><i><?php echo get_lang('Answer'); ?></i></small>
@@ -265,10 +265,10 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 
 <tr>
   <td width="50%">
-    <small><i><?php echo get_lang('ElementList'); ?></i></small>
+    <small><i><?php echo get_lang('Element list'); ?></i></small>
   </td>
   <td width="50%">
-    <small><i><?php echo get_lang('CorrespondsTo'); ?></i></small>
+    <small><i><?php echo get_lang('Corresponds to'); ?></i></small>
   </td>
 </tr>
 
@@ -563,7 +563,7 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
         echo get_lang('Your time is')." ".claro_disp_duration($timeToCompleteExe);
         if( $exerciseMaxTime > 0 )
         {
-            echo "<br />".get_lang('MaxAllowedTime')." ".claro_disp_duration($exerciseMaxTime);
+            echo "<br />".get_lang('Time limit')." ".claro_disp_duration($exerciseMaxTime);
         }
     ?>
   </td>
@@ -574,11 +574,11 @@ echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 <?php
     if ( $displayScore )
     {
-        echo get_lang('YourTotalScore')." ". $totalScore."/".$totalWeighting;
+        echo get_lang('Your total score is')." ". $totalScore."/".$totalWeighting;
     }
     else
     {
-        echo get_lang('TimeOver');
+        echo get_lang('Time is over, results not submitted.');
     }
 ?>
 </b>

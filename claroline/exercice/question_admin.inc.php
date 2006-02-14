@@ -122,13 +122,13 @@ if( isset($usedInSeveralExercises) )
     <input type="hidden" name="answerType" value="<?php echo $answerType; ?>">
     <table border="0" cellpadding="3" align="center" width="400">
     <tr>
-      <td><?php echo get_lang('UsedInSeveralExercises').' :'; ?></td>
+      <td><?php echo get_lang('Warning ! This question and its answers are used in several exercises. Would you like to modify them').' :'; ?></td>
     </tr>
     <tr>
-      <td><input type="radio" name="modifyIn" id="modifyInAll" value="allExercises" checked="checked"><label for="modifyInAll"><?php echo get_lang('ModifyInAllExercises'); ?></label></td>
+      <td><input type="radio" name="modifyIn" id="modifyInAll" value="allExercises" checked="checked"><label for="modifyInAll"><?php echo get_lang('in all exercises'); ?></label></td>
     </tr>
     <tr>
-      <td><input type="radio" name="modifyIn" id="modifyIn1" value="thisExercise"><label for="modifyIn1"><?php echo get_lang('ModifyInThisExercise'); ?></label></td>
+      <td><input type="radio" name="modifyIn" id="modifyIn1" value="thisExercise"><label for="modifyIn1"><?php echo get_lang('only in the current exercise'); ?></label></td>
     </tr>
     <tr>
       <td>
@@ -149,12 +149,12 @@ else
     // we are in an exercise
     if( isset($exerciseId) )
     {
-        $backLinkHtml = "\n".'<p><small><a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt; '.get_lang('GoBackToQuestionList').'</a></small></p>'."\n";
+        $backLinkHtml = "\n".'<p><small><a href="'.$_SERVER['PHP_SELF'].'">&lt;&lt; '.get_lang('Go back to the question list').'</a></small></p>'."\n";
     }
     // we are not in an exercise, so we come from the question pool
     else
     {
-        $backLinkHtml = "\n".'<p><small><a href="question_pool.php?fromExercise='.$_REQUEST['fromExercise'].'">&lt;&lt; '.get_lang('GoBackToQuestionPool').'</a></small></p>'."\n";
+        $backLinkHtml = "\n".'<p><small><a href="question_pool.php?fromExercise='.$_REQUEST['fromExercise'].'">&lt;&lt; '.get_lang('Go back to the question pool').'</a></small></p>'."\n";
     }
 
     // selects question informations
@@ -184,7 +184,7 @@ else
     {
 ?>
 
-<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt=""><?php echo get_lang('EditQuestion') ; ?></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyQuestion=<?php echo $questionId; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt=""><?php echo get_lang('Edit question') ; ?></a>
 
 <?php
     }
@@ -193,7 +193,7 @@ else
 <hr size="1" noshade="noshade">
 
 <br />
-<b><?php echo get_lang('QuestionAnswers'); ?></b>
+<b><?php echo get_lang('Answers'); ?></b>
 
 <br /><br />
 
@@ -207,7 +207,7 @@ else
 ?>
 
 <tr>
-  <td><?php echo get_lang('NoAnswer'); ?></td>
+  <td><?php echo get_lang('There is no answer for the moment'); ?></td>
 </tr>
 
 <?php
@@ -225,7 +225,7 @@ else
     {
 ?>
 
-<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt=""><?php echo get_lang('EditAnswers'); ?></a>
+<a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF']; ?>?modifyAnswers=<?php echo $questionId; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" align="absmiddle" alt=""><?php echo get_lang('Edit answers'); ?></a>
 
 <?php
     }
