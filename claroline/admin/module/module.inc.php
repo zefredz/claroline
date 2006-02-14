@@ -359,7 +359,7 @@ function install_module()
             WHERE `id`= " . (int) $module_id;
     claro_sql_query($sql);
 
-    //in case of coursetool type plugin, the dock can not be selected and must added also now
+    //in case of coursetool type module, the dock can not be selected and must added also now
 
     $max_rank = get_max_rank_in_dock('coursetool');
     if ($module_info['PLUGINTYPE'] == 'coursetool')
@@ -367,6 +367,14 @@ function install_module()
         set_module_dock($module_id, 'coursetool');
     }
 
+    elseif (isset($module_info['DEFAULT_DOCK']))
+
+    //If a default dock is set (and that this is not a coursetool module), then we create the dock instance in the DB
+
+    {
+        set_module_dock($module_id, $module_info['DEFAULT_DOCK']);
+        array_push ($backlog_message, get_lang("Default dock of the plugin found and set")." : ".$module_info['DEFAULT_DOCK']);
+    }
 
     array_push ($backlog_message, get_lang("The information has been saved into the DB"));
 
@@ -537,8 +545,16 @@ function startElement($parser, $name, $attributes)
     {
         case 'PLUGINTYPE' :
         {
-        $module_info['PLUGINTYPE'] = $attributes['VALUE'];
-        }   break;
+            $module_info['PLUGINTYPE'] = $attributes['VALUE'];
+        }
+        break;
+
+        case 'DEFAULT_DOCK' :
+        {
+            $module_info['DEFAULT_DOCK'] = $attributes['VALUE'];
+        }
+        break;
+        
     }
 }
 
