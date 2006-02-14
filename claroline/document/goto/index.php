@@ -202,7 +202,7 @@ function get_mime_on_ext($fileName)
          * Build a "MIME-types / extensions" connection table
          */
 
-        $mimeTypeList = array(); $extension = array();
+        $mimeTypeList = array(); $extensionList = array();
 
         $mimeTypeList[] = 'text/plain';                     $extensionList[] ='.txt';
         $mimeTypeList[] = 'application/msword';             $extensionList[] ='.doc';
@@ -222,9 +222,9 @@ function get_mime_on_ext($fileName)
         $mimeTypeList[] = 'text/html';                      $extensionList[] ='.htm';
         $mimeTypeList[] = 'text/plain';                     $extensionList[] ='.txt';
         $mimeTypeList[] = 'text/rtf';                       $extensionList[] ='.rtf';
-        $mimeTypeList[] = 'img/gif';                        $extensionList[] ='.gif';
-        $mimeTypeList[] = 'img/jpeg';                       $extensionList[] ='.jpg';
-        $mimeTypeList[] = 'img/png';                        $extensionList[] ='.png';
+        $mimeTypeList[] = 'image/gif';                        $extensionList[] ='.gif';
+        $mimeTypeList[] = 'image/jpeg';                       $extensionList[] ='.jpg';
+        $mimeTypeList[] = 'image/png';                        $extensionList[] ='.png';
         $mimeTypeList[] = 'audio/midi';                     $extensionList[] ='.mid';
         $mimeTypeList[] = 'audio/mpeg';                     $extensionList[] ='.mp3';
         $mimeTypeList[] = 'audio/x-aiff';                   $extensionList[] ='.aif';
