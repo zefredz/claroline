@@ -13,7 +13,7 @@
  * @package CLEVENT
  *
  * @author Claro Team <cvs@claroline.net> 
- * @author Guillaume Lederer <guim@claroline.net> 
+ * @author Guillaume Lederer <guillaume@claroline.net> 
  *
  */
  
