@@ -464,7 +464,7 @@ if ( $display == DISP_COURSE_CREATION_PROGRESS )
     .      '<img src="' . $imgRepositoryWeb . '/processing.gif" / alt="">'
     .      '</p>'
     .      '<p>'
-    .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $paramString));
+    .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $paramString))
     .      '</p>'
     ;
     echo claro_html::message_box( $msg );
