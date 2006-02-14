@@ -258,7 +258,7 @@ class EventGenerator
     
     /**
      * public function to notify manager that an event occured,  
-     * using this fucntion instead of sendEvent allow to let the class create the Event instance for you
+     * using this function instead of sendEvent allow to let the class create the Event instance for you
      *
      * @param $eventType (string) the type of the event 
      * @param $args an array contening any parameters needed to describe the event occurence
