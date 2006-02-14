@@ -1573,6 +1573,11 @@ echo claro_disp_tool_title($titleElement,
         echo "<p><center><a href=\"#\"><img id=\"mainImage\" src=\"" . $doc_url . "\" alt=\""
             . $fileName . "\" /></a></center></p>\n"
             ;
+            
+        echo "<p><center><a href=\"" . $doc_url . "\">"
+            . get_lang("Direct link to image") .
+            "</a></center></p>\n"
+            ;
 
         // display image info
         // -> title and size
