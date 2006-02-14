@@ -24,6 +24,13 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/sqlxtra.lib.php';
 
+//SQL table name
+
+$tbl_name        = claro_sql_get_main_tbl();
+$tbl_module      = $tbl_name['module'];
+$tbl_module_info = $tbl_name['module_info'];
+$tbl_dock        = $tbl_name['dock'];
+
 
 $nameTools = get_lang('Module list');
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
