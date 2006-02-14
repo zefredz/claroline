@@ -22,6 +22,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 //DECLARE NEEDED LIBRARIES
 
 require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/sqlxtra.lib.php';
+
 
 $nameTools = get_lang('Module list');
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
