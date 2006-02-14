@@ -135,14 +135,14 @@ class ScormExport
         $result = claro_sql_query($sql);
         if ( empty($result) )
         {
-            $this->error[] = get_lang('LearningPathNotFound');
+            $this->error[] = get_lang('Learning Path not found');
             return false;
         }
         
         $list = mysql_fetch_array($result, MYSQL_ASSOC);
         if ( empty($list) )
         {
-            $this->error[] = get_lang('LearningPathNotFound');
+            $this->error[] = get_lang('Learning Path not found');
             return false;
         }
         
@@ -174,7 +174,7 @@ class ScormExport
         $result = claro_sql_query($sql);
         if ( empty($result) )
         {
-            $this->error = get_lang('LearningPathEmpty');
+            $this->error = get_lang('Learning Path is empty');
             return false;
         }
         
@@ -258,7 +258,7 @@ class ScormExport
         $quiz = new Exercise();
         if (! $quiz->read($quizId))
         {
-            $this->error[] = get_lang('ErrorLoadingExercise');
+            $this->error[] = get_lang('Unable to load the exercise');
             return false;
         }
         
@@ -308,7 +308,7 @@ class ScormExport
                 // copy the attached file
                 if ( !claro_copy_file($this->srcDirExercise . '/' . $attachedFile, $this->destDir . '/Exercises') )
                 {
-                    $this->error[] = get_lang('ErrorCopyAttachedFile') . $attachedFile;
+                    $this->error[] = get_lang('Unable to copy file : ') . $attachedFile;
                     return false;
                 }
                 
@@ -624,7 +624,7 @@ class ScormExport
                 
         if (! $f = fopen($this->destDir . '/' . $filename, 'w') )
         {
-            $this->error[] = get_lang('ErrorCreatingFile') . $filename;
+            $this->error[] = get_lang('Unable to create file : ') . $filename;
             return false;
         }
         fwrite($f, $pageContent);
@@ -653,7 +653,7 @@ class ScormExport
         claro_delete_file($this->destDir);
         if ( !claro_mkdir($this->destDir, CLARO_FILE_PERMISSIONS , true))
         {
-            $this->error[] = get_lang('ErrorCreatingDirectory') . $this->destDir;
+            $this->error[] = get_lang('Unable to create directory : ') . $this->destDir;
             return false;
         }
         
@@ -668,7 +668,7 @@ class ScormExport
             || !claro_copy_file('export/imsmd_rootv1p2p1.xsd', $this->destDir)
             || !claro_copy_file('export/adlcp_rootv1p2.xsd', $this->destDir)  )
         {
-            $this->error[] = get_lang('ErrorCopyScormFiles');
+            $this->error[] = get_lang('Error when copying needed SCORM files');
             return false;
         }
         
@@ -681,7 +681,7 @@ class ScormExport
                    !claro_copy_file($this->srcDirScorm,  $this->destDir)
                 || !claro_rename_file($this->destDir.'/path_'.$this->id, $this->destDir.'/OrigScorm')  )
             {
-                $this->error[] = get_lang('ErrorCopyingScorm');
+                $this->error[] = get_lang('Error copying existing SCORM content');
                 return false;
             }
         }
@@ -723,7 +723,7 @@ class ScormExport
         {        
             if ( !claro_copy_file($clarolineRepositorySys . '/exercice/claroPlayer.swf', $this->destDir) )
             {
-                $this->error[] = get_lang('ErrorCopyAttachedFile') . $clarolineRepositorySys . '/exercice/claroPlayer.swf'; 
+                $this->error[] = get_lang('Unable to copy file : ') . $clarolineRepositorySys . '/exercice/claroPlayer.swf'; 
                 
                 // This is *NOT* a fatal error.
                 // Do *NOT* return false.
@@ -849,7 +849,7 @@ class ScormExport
             
             if ( !($f = fopen($fileName, 'w')) )
             {
-                $this->error[] = get_lang('ErrorCreatingFrame');
+                $this->error[] = get_lang('Unable to create frame file');
                 return false;
             }
             
@@ -933,7 +933,7 @@ class ScormExport
         $manifestPath = $this->destDir . '/imsmanifest.xml';
         if ( ! $f = fopen($manifestPath, 'w') ) 
         {
-            $this->error[] = get_lang('ErrorCreatingManifest');
+            $this->error[] = get_lang('Unable to create the SCORM manifest (imsmanifest.xml)');
             return false;
         }
         
@@ -976,7 +976,7 @@ class ScormExport
         
         if ( !$list )
         {
-            $this->error[] = get_lang('ErrorCreatingScormArchive');
+            $this->error[] = get_lang('Unable to create the SCORM archive');
             return false;
         }
         

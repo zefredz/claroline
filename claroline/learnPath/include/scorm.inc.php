@@ -23,7 +23,7 @@ if( isset($_POST['newRaw']) && is_num($_POST['newRaw']) && $_POST['newRaw'] <= 1
             AND `learnPath_id` = " . (int) $_SESSION['path_id'];
     claro_sql_query($sql);
 
-    $dialogBox = get_lang('RawHasBeenChanged');
+    $dialogBox = get_lang('Minimum raw to pass has been changed');
 }
 
 
@@ -49,7 +49,7 @@ if( isset($learningPath_module[0]['lock'])
 {
     echo "\n\n" . '<hr noshade="noshade" size="1" />' . "\n"
     .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-    .    '<label for="newRaw">' . get_lang('ChangeRaw') . '</label>'."\n"
+    .    '<label for="newRaw">' . get_lang('Change minimum raw mark to pass this module (percentage) : ') . '</label>'."\n"
     .    '<input type="text" value="' . htmlspecialchars($learningPath_module[0]['raw_to_pass']) . '" name="newRaw" id="newRaw" size="3" maxlength="3" /> % ' . "\n"
     .    '<input type="submit" value="' . get_lang('Ok') . '" />'."\n"
     .    '</form>'."\n\n"
