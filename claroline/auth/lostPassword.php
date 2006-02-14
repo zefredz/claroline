@@ -22,7 +22,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = get_lang('LostPassword');
+$nameTools = get_lang('Lost password');
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -105,7 +105,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
          */
 
         // mail subject
-        $emailSubject = get_lang('LoginRequest') . ' ' . $siteName;
+        $emailSubject = get_lang('Login request') . ' ' . $siteName;
 
 
         // mail body
@@ -113,7 +113,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         {
             $userAccountList [] =
                 $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
-                ."\t" . get_lang('UserName') . ' : ' . $thisUser['loginName'] . "\r\n"
+                ."\t" . get_lang('User name') . ' : ' . $thisUser['loginName'] . "\r\n"
                 ."\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n";
         }
 
@@ -124,7 +124,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
         $emailBody = $emailSubject."\r\n"
                     .$rootWeb."\r\n"
-                    .get_lang('YourAccountParam')."\r\n\r\n"
+                    .get_lang('This is your account Login-Pass')."\r\n\r\n"
                     .$userAccountList;
 
 
@@ -133,19 +133,20 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
             if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
             {
-                $msg = get_lang('PasswordHasBeenEmailed').$Femail;
+                $msg = get_lang('Your password has been emailed to'). ' : ' . $Femail;
             }
             else
             {
-                $msg = get_lang('EmailNotSent')
+                $msg = get_lang('The system is unable to send you an e-mail.') . '<br />'
+                .   get_lang('Please contact') . ' : ' 
                 .   '<a href="mailto:'.$administrator_email.'?BODY='.$Femail.'">'
-                .   get_lang('PlatformAdministrator')
+                .   get_lang('Platform Administrator')
                 .   '</a>';
             }
     }
     else
     {
-        $msg = get_lang('EmailAddressNotFound');
+        $msg = get_lang('There is no user account with this email address.');
     }
 
     if ($extAuthPasswordCount > 0 )
@@ -153,24 +154,22 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         if ( count ($user) > 0 )
         {
             $msg .= '<p>'
-                 .  'Passwords of some of your user account(s) are recorded an in external
-                    authentication system outside the platform.
-                    <br />For more information take contact with the platform administrator.'
+                 . get_lang('Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.') . '<br />'
+                 . get_lang('For more information take contact with the platform administrator.')
                  .  '</p>';
         }
         else
         {
             $msg .= '<p>'
-                 . 'Your password(s) is (are) recorded in an external authentication
-                   system outside the platform.
-                   <br />For more information take contact with the platform administrator.'
+                 . get_lang('Your password(s) is (are) recorded in an external authentication system outside the platform.') . '<br />'
+                 . get_lang('For more information take contact with the platform administrator.')
                  . '</p>';
         }
     }
 }
 else
 {
-    $msg = '<p>' . get_lang('EnterMail') . '</p>';
+    $msg = '<p>' . get_lang('Enter your email so we can send you your password.') . '</p>';
 }
 
 

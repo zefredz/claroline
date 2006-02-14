@@ -15,8 +15,6 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
-
-
 require '../inc/claro_init_global.inc.php';
 
 /* Capture the source of the authentication trigger to get back to it
@@ -89,14 +87,24 @@ if ( is_null($_uid) && $uidRequired )
         echo '<table align="center">'                                     ."\n"
         .    '<tr>'                                                       ."\n"
         .    '<td>'                                                       ."\n"
-        .    claro_disp_tool_title(get_lang('AuthenticationRequired'));
+        .    claro_disp_tool_title(get_lang('Authentication Required'));
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
-            if ( get_conf('allowSelfReg',false)) echo claro_html::message_box(sprintf(get_lang('InvalidIdSelfReg'),
-                                                    $urlAppend . '/claroline/auth/inscription.php') );
-            else                                 echo claro_html::message_box(sprintf(get_lang('InvalidId'),
-                                                    $urlAppend . '/claroline/auth/inscription.php') );
+            if ( get_conf('allowSelfReg',false))
+            {
+                $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
+                $message .= get_lang('If you haven\'t a user account yet, use the <a href=\"%url\">the account creation form</a>.',array('%url'=>$urlAppend . '/claroline/auth/inscription.php'));
+
+                echo claro_html::message_box($message);
+            }
+            else
+            {
+                $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
+                $message .= get_lang('Contact your administrator.');
+                
+                echo claro_html::message_box($message);
+            }
         }
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
@@ -107,7 +115,7 @@ if ( is_null($_uid) && $uidRequired )
         .    $sourceGidFormField                                          ."\n"
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
-        .    '<label for="username">'.get_lang('UserName').' : </label><br />'   ."\n"
+        .    '<label for="username">'.get_lang('User name').' : </label><br />'   ."\n"
         .    '<input type="text" name="login" id="username"><br />'       ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
@@ -168,7 +176,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '<table align="center">'                                ."\n"
         .    '<tr>'                                                  ."\n"
         .    '<td colspan="2">'                                      ."\n"
-        .    claro_disp_tool_title(get_lang('ChooseACourseToAccessThisPage'))
+        .    claro_disp_tool_title(get_lang('Choose a course to access this page.'))
         .    $sourceUrlFormField                                     ."\n"
         .    $cidRequiredFormField                                   ."\n"
         .    $sourceCidFormField                                     ."\n"
@@ -201,9 +209,9 @@ elseif ( is_null($_cid) && $cidRequired )
     {
         // Display link to student to enrol to this course
         echo '<p align="center">'           ."\n"
-        .    get_lang('_if_you_wish_to_enroll_to_this_course')
+        .    get_lang('If you wish to enrol on this course') . ' : '
         .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg">'
-        .    get_lang('Subscription').'</a>' ."\n"
+        .    get_lang('Enrolment').'</a>' ."\n"
         .    '</p>'          ."\n";
     }
 
@@ -226,20 +234,20 @@ else // LOGIN SUCCEEDED
             {
                 // Display link to student to enrol to this course
                 echo '<p align="center">'           ."\n"
-                .    get_lang('_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course').'<br />'
-                .    get_lang('_if_you_wish_to_enroll_to_this_course')
+                .    get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
+                .    get_lang('If you wish to enrol on this course') . ' : '
                 .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
-                .    get_lang('Subscription').'</a>' ."\n"
+                .    get_lang('Enrolment').'</a>' ."\n"
                 .    '</p>'          ."\n";
 
             }
             elseif ( $allowSelfReg )
             {
                 // Display a link to anonymous to register on the platform
-                echo '<p align="center">'                           ."\n"
-                .    get_lang('Create1stAccountOnPlatform')                ."\n"
+                echo '<p align="center">' . "\n"
+                .    get_lang('Create first a user account on this platform') . ' : '
                 .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
-                .    get_lang('Go2accountCreationPage')
+                .    get_lang('Go to the account creation page')
                 .    '</a>'                                         ."\n"
                 .    '</p>'                                         ."\n";
             }
@@ -247,7 +255,7 @@ else // LOGIN SUCCEEDED
             {
                 // Anonymous cannot register on the platform
                 echo '<p align="center">'                           ."\n"
-                . get_lang('MessageRegistrationNotAllowed')
+                . get_lang('Registration not allowed on the platform')
                 .    '</p>'                                         ."\n";
             }
         }
@@ -255,16 +263,15 @@ else // LOGIN SUCCEEDED
         {
         // Enrolment is not allowed for this course
             echo '<p align="center">'                           ."\n"
-                . get_lang('MessageEnrollToCourseNotAllowed');
+                . get_lang('Enrol to course not allowed');
             if ($_course['email'] && $_course['titular'])
             {
-                echo '<br />Please contact course titular(s) : '.$_course['titular']
-                .    '<br /><small>e-mail address : <a href="mailto:' . $_course['email'] .'">' . $_course['email']. '</a>'
-                ;
+                echo '<br />' . get_lang('Please contact course titular(s)') . ' : ' . $_course['titular']
+                .    '<br /><small>' . get_lang('Email') . ' : <a href="mailto:' . $_course['email'] .'">' . $_course['email']. '</a>';
 
             }
 
-            echo '</p>'                                     ."\n";
+            echo '</p>' . "\n";
         }
 
         // Display footer

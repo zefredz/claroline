@@ -19,7 +19,6 @@ define('DISP_REGISTRATION_AGREEMENT',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
-
 // Already logged
 if ( isset($_uid) )
 {
@@ -135,7 +134,7 @@ else
 Display Section
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-$interbredcrump[]= array ('url' => 'inscription.php', 'name' => get_lang('CreateUserAccount'));
+$interbredcrump[]= array ('url' => 'inscription.php', 'name' => get_lang('Create user account'));
 
 // Display Header
 
@@ -143,16 +142,16 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display Title
 
-echo claro_disp_tool_title(get_lang('CreateUserAccount'));
+echo claro_disp_tool_title(get_lang('Create user account'));
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
     // registration succeeded
 
-    printf(get_lang('MessageSubscribeDone_p_firstname_lastname'), $user_data['firstname'], $user_data['lastname']);
+    echo get_lang('Dear %firstname %lastname. Your personal settings have been registered and an email has been sent to help you remember your user name and password.', array('%firstname'=>$user_data['firstname'],'%lastname'=>$user_data['lastname']));
 
-    if ( $is_allowedCreateCourse ) echo '<p>' . get_lang('NowGoCreateYourCourse') . '</p>' . "\n";
-    else                           echo '<p>' . get_lang('NowGoChooseYourCourses') . '</p>' . "\n";
+    if ( $is_allowedCreateCourse ) echo '<p>' . get_lang('You can now create your  course') . '</p>' . "\n";
+    else                           echo '<p>' . get_lang('You can now select, in the list, the courses you want to access') . '</p>' . "\n";
 
     echo '<form action="../../index.php?cidReset=1" >'
     .    '<input type="submit" name="next" value="' . get_lang('Next') . '" />' . "\n"
@@ -173,7 +172,7 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     {
         echo '&nbsp;'
         .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=2">'
-        .    '<img src="claroline/img/edit.gif" />' . get_lang('EditTextZone')
+        .    '<img src="claroline/img/edit.gif" />' . get_lang('Edit text zone')
         .    '</a>' . "\n"
         .    '<br />' . "\n"
         ;

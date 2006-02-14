@@ -93,9 +93,7 @@ if ( isset($_REQUEST['applyChange']) )
 
         $uidReset = true;
         include '../inc/claro_init_local.inc.php';
-        $messageList[] = get_lang('ProfileReg') . '<br />' . "\n"
-        .                '<a href="../../index.php">' . get_lang('Home') . '</a>'
-        ;
+        $messageList[] = get_lang('Your new profile has been saved') . '<br />' . "\n";
 
     } // end if $userSettingChangeAllowed
     else
@@ -113,14 +111,14 @@ elseif (    get_conf('can_request_course_creator_status')
 {
     // send a request for course creator status
     profile_send_request_course_creator_status($_REQUEST['explanation']);
-    $messageList[] = get_lang('YourRequestToBeCourseManagerIsSent');
+    $messageList[] = get_lang('Your request to become a course creator has been sent to platform administrator(s).');
 }
 elseif (    get_conf('can_request_revoquation')
          && $cmd == 'exRevoquation' )
 {
     // send a request for revoquation
     profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
-    $messageList[] = get_lang('YourRequestToRemoveYourAccountIsSent');
+    $messageList[] = get_lang('Your request to remove your account has been sent');
 }
 elseif (    get_conf('can_request_course_creator_status')
          && $cmd == 'reqCCstatus' )
@@ -128,7 +126,7 @@ elseif (    get_conf('can_request_course_creator_status')
     // display course creator status form
     $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
-    $nameTools = get_lang('RequestOfCourseCreatorStatus');
+    $nameTools = get_lang('Request course creation status');
 }
 elseif ( get_conf('can_request_revoquation')
          && $cmd == 'reqRevoquation' )
@@ -165,20 +163,20 @@ switch ( $display )
 
         // display user tracking link
         $profile_menu[] = '<a class="claroCmd" href="' . $urlAppend . '/claroline/tracking/personnalLog.php">'
-        .                 '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif" />' . get_lang('MyStats')
+        .                 '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif" />' . get_lang('View my statistics')
         .                 '</a>'
         ;
 
         // display request course creator status
         if ( get_conf('can_request_course_creator_status') )
         {
-            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('RequestOfCourseCreatorStatus') . '</a>';
+            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('Request course creation status') . '</a>';
         }
 
         // display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
-            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('DeleteMyAccount') . '</a>' ;
+            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
         }
 
         echo '<p>' . claro_html::menu_horizontal($profile_menu) . '</p>';
@@ -189,7 +187,7 @@ switch ( $display )
     {
         if ( get_conf('can_request_course_creator_status') )
         {
-            echo '<p>' . get_lang('FillTheAreaToExplainTheMotivations') . '</p>';
+            echo '<p>' . get_lang('Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).') . '</p>';
 
             // display request course creator form
             echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
@@ -220,7 +218,7 @@ switch ( $display )
             .    '<input type="hidden" name="cmd" value="exRevoquation" />'
             .    '<table>'
             .    '<tr valign="top">'
-            .    '<td>' . get_lang('UserName') . ': </td>'
+            .    '<td>' . get_lang('User name') . ': </td>'
             .    '<td><input type="text" name="loginToDelete" ></td>'
             .    '</tr>'
             .    '<tr valign="top">'
@@ -232,8 +230,8 @@ switch ( $display )
             .    '<td><textarea cols="60" rows="6" name="explanation" id="explanation"></textarea></td>'
             .    '</tr>'
             .    '<tr valign="top">'
-            .    '<td>' . get_lang('Submit') . ': </td>'
-            .    '<td><input type="submit" value="' . get_lang('DeleteMyAccount') . '"> '
+            .    '<td>' . get_lang('Delete my account') . ': </td>'
+            .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
             .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
