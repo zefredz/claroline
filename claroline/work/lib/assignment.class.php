@@ -720,5 +720,27 @@ class Assignment
 		}
 		return false;	
 	}
+	
+	/**
+     * get the full systeme path of the assignment directory
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string    
+     */	 
+	function getAssigDirSys()
+	{
+		return $this->assigDirSys;
+	}
+	
+	/**
+     * get the full web path of the assignment directory
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string    
+     */	 	
+	function getAssigDirWeb()
+	{
+		return $this->assigDirWeb;	
+	}
 }
 ?>
