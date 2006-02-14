@@ -210,8 +210,11 @@ elseif ( is_null($_cid) && $cidRequired )
     // Display footer
     require $includePath . '/claro_init_footer.inc.php';
 }
-else
+else // LOGIN SUCCEEDED
 {
+    //notify that a user has just loggued in
+    $eventNotifier->notifyEvent('user_login', array('uid' => $_uid));
+
     if ( $_cid && ! $is_courseAllowed )
     {
         // Display header
@@ -248,8 +251,8 @@ else
                 .    '</p>'                                         ."\n";
             }
         }
-    else
-    {
+        else
+        {
         // Enrolment is not allowed for this course
             echo '<p align="center">'                           ."\n"
                 . get_lang('MessageEnrollToCourseNotAllowed');
@@ -262,7 +265,7 @@ else
             }
 
             echo '</p>'                                     ."\n";
-    }
+        }
 
         // Display footer
         require $includePath . '/claro_init_footer.inc.php';
