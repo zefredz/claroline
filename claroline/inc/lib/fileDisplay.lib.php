@@ -152,8 +152,18 @@ function format_date($fileDate)
     return substr($url, 0, strpos($url, '://')+3) . implode('/',$pathElementList);
 }*/
 
+function url_already_encoded( $url )
+{
+    return ( false !== strpos( $url, '%' ) );
+}
+
 function format_url($url)
 {
+    if ( url_already_encoded( $url ) )
+    {
+        return $url;
+    }
+    
     $urlArray = parse_url( $url );
 
     $urlToRet = '';
