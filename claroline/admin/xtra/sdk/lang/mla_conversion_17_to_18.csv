@@ -152,6 +152,11 @@
 "PreviousLevel'] = "previous level"
 "CourseList";"Course list"
 "_or_search_from_keyword";"Search from keyword"
+"ResetChat";"Reset"
+"StoreChat";"Store Chat"
+"NotGroupMember";"You are not a member of this groups"
+"NewChat";"New chat"
+"Archive";"archive"
 
 
 

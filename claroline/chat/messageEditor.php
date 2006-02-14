@@ -39,10 +39,10 @@ function prepare_message()
 if ($is_allowedToManage)
 {
     $cmd_menu[] = '<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList">'
-    .             get_lang('ResetChat') . '</a>'
+    .             get_lang('Reset') . '</a>'
     ;
     $cmd_menu[] = '<a class="claroCmd" href="messageList.php?cmd=store" target="messageList">'
-    .             get_lang('StoreChat') . '</a>'
+    .             get_lang('Store Chat') . '</a>'
     ;
 }
 

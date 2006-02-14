@@ -109,7 +109,7 @@ if ($_gid)
     }
     else
     {
-        die('<center>' . get_lang('NotGroupMember') . '</center>');
+        die('<center>' . get_lang('You are not a member of this groups') . '</center>');
     }
 }
 else
@@ -133,7 +133,7 @@ if ( ! file_exists($activeChatFile))
     or die ('<center>'.get_lang('Error : Cannot initialize chat').'</center>');
     fclose($fp);
 
-    $dateLastWrite = get_lang('NewChat');
+    $dateLastWrite = get_lang('New chat');
 }
 
 
@@ -191,20 +191,18 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
 
     if (copy($onflySaveFile, $exportFile.$saveIn) )
     {
+        $chat_filename = '<a href="../document/document.php" target="blank">' . $saveIn . '</a>' ;
+
         $cmdMsg = "\n"
-                . '<blockquote>'."\n"
-                . '<a href="../document/document.php" target="blank">'
-                . '<strong>'.$saveIn.'</strong>'
-                . '</a> '
-                . get_lang('IsNowInYourDocDir')."\n"
-                . '</blockquote>'."\n\n"
-                ;
+                . '<blockquote>'
+                . get_lang('%chat_filename is now in  your document tool. (<em>This file is visible</em>)',array('%chat_filename'=>$chat_filename))
+                . '</blockquote>'."\n";
 
         @unlink($onflySaveFile);
     }
     else
     {
-        $cmdMsg = '<blockquote>' . get_lang('Print failed') . '</blockquote>'."\n";
+        $cmdMsg = '<blockquote>' . get_lang('Store failed') . '</blockquote>'."\n";
     }
 }
 
@@ -335,7 +333,7 @@ function buffer($content, $tmpFile)
     {
         $content = '<html>'."\n"
                  . '<head>'."\n"
-                 . '<title>'.get_lang('Chat').' - '.get_lang('Archive').'</title>'."\n"
+                 . '<title>'.get_lang('Chat').' - '.get_lang('archive').'</title>'."\n"
                  . '</head>'."\n\n"
                  . '<body>'."\n"
                  . $content
