@@ -179,7 +179,8 @@ if ( $platformRegSucceed || $courseRegSucceed )
     }
 
     // display message
-    $messageList[]= sprintf(get_lang('TheU') . " %s %s " . get_lang('AddedToCourse'),$user_data['firstname'],$user_data['lastname']);
+    $messageList[]= get_lang('%firstname %lastname has been registered to your course', array ( '%firstname' => $user_data['firstname'],
+                                                                                                '%lastname' => $user_data['lastname']) ) ;
 }
 
 /*=====================================================================
@@ -201,7 +202,7 @@ if ( count($messageList) > 0 )
 
 if ( $platformRegSucceed )
 {
-    echo '<p><a href="user.php"><< ' .  get_lang('BackToUsersList') . '</a></p>' . "\n";
+    echo '<p><a href="user.php"><< ' .  get_lang('Back to users list') . '</a></p>' . "\n";
 }
 else
 {
@@ -214,11 +215,11 @@ else
         if ( get_conf('allowSearchInAddUser') ) $enclose_field = '*';
         else                                    $enclose_field = '';
 
-        echo get_lang('SearchOn') . ' : ';
+        echo get_lang('Search on') . ' : ';
 
         if ($user_data['lastname'] != '')
         {
-            echo get_lang('LastName') . '=' . $user_data['lastname'] . $enclose_field . ' ';
+            echo get_lang('Last name') . '=' . $user_data['lastname'] . $enclose_field . ' ';
         }
         if ($user_data['email'] != '')
         {
@@ -226,16 +227,16 @@ else
         }
         if ($user_data['officialCode'] != '')
         {
-            echo get_lang('OfficialCode') . "=" . $user_data['officialCode'] . " ";
+            echo get_lang('Administrative code') . "=" . $user_data['officialCode'] . " ";
         }
         echo '<br /><br />'
         .    '<table class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="headerX" align="center" valign="top">' . "\n"
-        .    '<th>' . get_lang('LastName')     . '</th>' . "\n"
-        .    '<th>' . get_lang('FirstName')    . '</th>' . "\n"
+        .    '<th>' . get_lang('Last name')     . '</th>' . "\n"
+        .    '<th>' . get_lang('First name')    . '</th>' . "\n"
         .    '<th>' . get_lang('Email')        . '</th>' . "\n"
-        .    '<th>' . get_lang('OfficialCode') . '</th>' . "\n"
+        .    '<th>' . get_lang('Administrative code') . '</th>' . "\n"
         .    '<th>' . get_lang('Register')     . '</th>' . "\n"
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
@@ -272,7 +273,7 @@ else
                 {
                     echo '<small>'
                     .    '<span class="highlight">'
-                    .    get_lang('_already_enrolled')
+                    .    get_lang('already enrolled')
                     .    '</span>'
                     .    '</small>'
                     ;
@@ -284,7 +285,7 @@ else
 
         if (sizeof($users)==0)
         {
-            echo '<td align="center" colspan="5">' . get_lang('NoUserFound') . '</td>';
+            echo '<td align="center" colspan="5">' . get_lang('No user found') . '</td>';
         }
         echo '</body>'
         .    '</table><br />'
@@ -293,8 +294,8 @@ else
 
     //display form to add a user
 
-    echo get_lang('OneByOne')." :";
-    echo '<p>' . get_lang('UserOneByOneExplanation') . '</p>' . "\n";
+    echo get_lang('Add user manually')." :";
+    echo '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n";
 
     user_display_form_add_new_user($user_data);
 

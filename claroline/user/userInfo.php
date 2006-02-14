@@ -172,7 +172,7 @@ if ($allowedToEditDef)
             else
             {
                 $userProperties['tutor' ] = 0;
-                $dialogBox .= get_lang('ImpossibleToPromote');
+                $dialogBox .= get_lang('Impossible to promote group tutor a student already register to group');
             }
         }
         else
@@ -191,7 +191,7 @@ if ($allowedToEditDef)
             //prevent teacher to let the course without any teacher
 
             $displayMode = "viewMainInfoEdit";
-            $dialogBox   = get_lang('ErrorMyOwnSettings');
+            $dialogBox   = get_lang('You can not change your own status');
         }
         else
         {
@@ -240,7 +240,7 @@ DISPLAY MODES
 ======================================*/
 
 // Back button for each display mode (Top)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.get_lang('BackToUsersList').'</a></small></p>' . "\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.get_lang('Back to users list').'</a></small></p>' . "\n";
 
 // Display Forms or dialog box (if needed)
 
@@ -288,24 +288,24 @@ if ($displayMode == "viewDefEdit")
 
 <tr>
 <td nowrap>
-<label for="nbline" ><?php echo get_lang('LineNumber')?></label> :
+<label for="nbline" ><?php echo get_lang('Line Number')?></label> :
 </td>
 <td>
 <select name="nbline" id="nbline">
 <?php
 if ($catToEdit['nbline'] && $catToEdit['nbline']!=1)
 { ?>
-    <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo get_lang('LineOrLines')?></option>
+    <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo get_lang('line(s)')?></option>
     <option>---</option>
 <?php
 }
 sort($descSizeToPrupose);
 ?>
-<option value="1">1 <?php echo get_lang('Line'); ?></option>
+<option value="1">1 <?php echo get_lang('line'); ?></option>
 <?php
 foreach($descSizeToPrupose as $nblines)
 {
-    echo '<option value="'.$nblines.'">'.$nblines.' '.get_lang('Lines').'</option>';
+    echo '<option value="'.$nblines.'">'.$nblines.' '.get_lang('lines').'</option>';
 }
 
 ?>
@@ -354,16 +354,16 @@ elseif ($displayMode == "viewDefList")
             // displays commands
 
             echo     '<a href="'.$_SERVER['PHP_SELF'].'?removeDef='.$thisCat['catId'].'">'
-            .    '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Remove').'">'
+            .    '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Delete').'">'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'].'">'
             .    '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Edit').'">'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'].'">'
-            .    '<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.get_lang('MoveUp').'">'
+            .    '<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.get_lang('Move up').'">'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'].'">'
-            .    '<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.get_lang('MoveDown').'">'
+            .    '<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.get_lang('Move down').'">'
             .    '</a>' . "\n";
         } // end for each
 
@@ -424,7 +424,7 @@ elseif ($displayMode =="viewMainInfoEdit")
     .    '<tr class="headerX">' . "\n"
     .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
     .    '<th align="left"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label></th>' . "\n"
-    .    '<th><label for="promoteTutor">' . get_lang('GroupTutor') . '</label></th>' . "\n"
+    .    '<th><label for="promoteTutor">' . get_lang('Group Tutor') . '</label></th>' . "\n"
     .    '<th><label for="promoteCourseAdmin">' . get_lang('Course manager') . '</label></th>' . "\n"
     .    '<th>&nbsp;</th>' . "\n"
     .    '</tr>' . "\n"
@@ -479,7 +479,7 @@ elseif ($displayMode == "viewContentList") // default display
 
     if ($mainUserInfo)
     {
-        $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? get_lang('GroupTutor') : ' - ');
+        $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? get_lang('Group Tutor') : ' - ');
         $mainUserInfo['status'] = ($mainUserInfo['status'] == 1 ? get_lang('Course manager') : ' - ');
 
         if ($mainUserInfo['picture'] != '')
@@ -492,7 +492,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<tr class="headerX">' . "\n"
         .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
         .    '<th align="left">'.get_lang('Role').'</th>' . "\n"
-        .    '<th>'.get_lang('GroupTutor').'</th>' . "\n"
+        .    '<th>'.get_lang('Group Tutor').'</th>' . "\n"
         .    '<th>'.get_lang('Course manager').'</th>' . "\n"
         .    ($allowedToEditDef?'<th>'.get_lang('Edit').'</th>' . "\n":'')
         .    '<th>'.get_lang('Forum posts').'</th>'
@@ -551,8 +551,8 @@ elseif ($displayMode == "viewContentList") // default display
         echo "\n\n"
         .    '<div align="right">' . "\n"
         .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
-        .    get_lang('CourseAdministratorOnly').' : '
-        .    '<input type="submit" name="viewDefList" value="'.get_lang('DefineHeadings').'" />' . "\n"
+        .    get_lang('Course administrator only').' : '
+        .    '<input type="submit" name="viewDefList" value="'.get_lang('Define Headings').'" />' . "\n"
         .    '</form>' . "\n"
         .    '<hr noshade="noshade" size="1" />' . "\n"
         .    '</div>'
@@ -592,7 +592,7 @@ elseif ($displayMode == "viewContentList") // default display
 }
 
 // Back button for each display mode (bottom)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . get_lang('BackToUsersList') . '</a></small></p>' . "\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . get_lang('Back to users list') . '</a></small></p>' . "\n";
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

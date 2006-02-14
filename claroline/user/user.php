@@ -123,7 +123,7 @@ if ( $is_allowedToEdit )
         $done = user_add_to_course($req['user_id'], $_cid);
         if ($done)
         {
-            $dialogBox = get_lang('UserRegisteredToCourse');
+            $dialogBox = get_lang('User registered to the course');
         }
     }
 
@@ -140,27 +140,27 @@ if ( $is_allowedToEdit )
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
-            $dialogBox .= sprintf(get_lang('_p_d_StudentUnregistredFormCours'), $unregisterdUserCount);
+            $dialogBox .= get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) );
         }
         elseif ( 0 < (int)  $req['user_id'] )
         {
             // delete user from course user list
             if ( user_remove_from_course(  $req['user_id'], $_cid) )
             {
-               $dialogBox .= get_lang('UserUnsubscribedFromCourse');
+               $dialogBox .= get_lang('The user has been successfully unregistered from course');
             }
             else
             {
                 switch ( claro_failure::get_last_failure() )
                 {
                     case 'cannot_unsubscribe_the_last_course_manager' :
-                        $dialogBox .= get_lang('CannotUnsubscribeLastCourseManager');
+                        $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
                         break;
                     case 'course_manager_cannot_unsubscribe_himself' :
-                        $dialogBox .= get_lang('CourseManagerCannotUnsubscribeHimself');
+                        $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
                         break;
                     default :
-                        $dialogBox .= get_lang('UserNotUnsubscribedFromCourse');
+                        $dialogBox .= get_lang('Error!! you cannot unregister a course manager');
                 }
             }
         }
@@ -255,14 +255,14 @@ if ($can_add_user)
     $userMenu[] =        //add CSV file of user link
     '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
     .    '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
-    .    get_lang('AddCSVUsers')
+    .    get_lang('Add a user list')
     .    '</a>'
     ;
     //add a class link
     $userMenu[] =
     '<a class="claroCmd" href="class_add.php">'
     .    '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
-    .    get_lang('EnrollClass')
+    .    get_lang('Enrol class')
     .    '</a>'
 
     ;
@@ -271,7 +271,7 @@ if ($can_add_user)
 
 $userMenu[] = '<a class="claroCmd" href="../group/group.php">'
 .             '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
-.             get_lang('GroupUserManagement')
+.             get_lang('Group management')
 .             '</a>'
 ;
 
@@ -279,7 +279,7 @@ $userMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
 .             '?cmd=unregister&amp;user_id=allStudent" '
 .             ' onClick="return confirmation(\'' . clean_str_for_javascript(' all students ') . '\')">'
 .             '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
-.             get_lang('UnregisterAllStudents')
+.             get_lang('Unregister all students')
 .             '</a>'
 ;
 
@@ -296,7 +296,7 @@ Display section
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title($nameTools . ' (' . get_lang('UserNumber') . ' : ' . $userTotalNb . ')',
+echo claro_disp_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)
@@ -322,7 +322,7 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
 echo '<table class="claroTable emphaseLine" '
 .    ' width="100%" cellpadding="2" cellspacing="1" '
-.    ' border="0" summary="' . get_lang('ListCourseUsers') . '">' . "\n"
+.    ' border="0" summary="' . get_lang('Course users list') . '">' . "\n"
 .    '<colgroup span="4" align="left"></colgroup>' . "\n"
 ;
 
@@ -335,18 +335,18 @@ echo '<table class="claroTable emphaseLine" '
 
     echo '<thead>' . "\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
-    .    '<th scope="col" id="lastname"><a href="' . $sortUrlList['nom'] . '">' . get_lang('LastName') . '</a></th>' . "\n"
-    .    '<th scope="col" id="firstname"><a href="' . $sortUrlList['prenom'] . '">' . get_lang('FirstName') . '</a></th>'."\n"
+    .    '<th scope="col" id="lastname"><a href="' . $sortUrlList['nom'] . '">' . get_lang('Last name') . '</a></th>' . "\n"
+    .    '<th scope="col" id="firstname"><a href="' . $sortUrlList['prenom'] . '">' . get_lang('First name') . '</a></th>'."\n"
     .    '<th scope="col" id="role"><a href="' . $sortUrlList['role'] . '">' . get_lang('Role') . '</a></th>'."\n"
     .    '<th scope="col" id="team">' . get_lang('Group') . '</th>'."\n"
     ;
 
     if($is_allowedToEdit) // EDIT COMMANDS
     {
-        echo '<th scope="col" id="tut"  ><a href="'.$sortUrlList['tutor'].'">'.get_lang('GroupTutor').'</a></th>'."\n"
+        echo '<th scope="col" id="tut"  ><a href="'.$sortUrlList['tutor'].'">'.get_lang('Group Tutor').'</a></th>'."\n"
            . '<th scope="col" id="CM"   ><a href="'.$sortUrlList['statut'].'">'.get_lang('Course manager').'</a></th>'."\n"
            . '<th scope="col" id="edit" >'.get_lang('Edit').'</th>'."\n"
-           . '<th scope="col" id="del"  >'.get_lang('Unreg').'</th>'."\n"
+           . '<th scope="col" id="del"  >'.get_lang('Unregister').'</th>'."\n"
            ;
     }
 
@@ -425,7 +425,7 @@ foreach ( $userList as $thisUser )
         }
         else
         {
-            echo '<td headers="tut u'.$i.'">'.get_lang('GroupTutor').'</td>'."\n";
+            echo '<td headers="tut u'.$i.'">'.get_lang('Group Tutor').'</td>'."\n";
         }
 
         // course manager column
@@ -450,8 +450,8 @@ foreach ( $userList as $thisUser )
         if ($thisUser['user_id'] != $_uid)
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
-            .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unreg') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-            .    '<img border="0" alt="'.get_lang('Unreg').'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
+            .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+            .    '<img border="0" alt="'.get_lang('Unregister').'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
             .    '</a>'
             ;
         }

@@ -101,7 +101,7 @@ elseif (isset($_REQUEST['usedFormat']))
 
     if (!$field_correct)
     {
-        $dialogBox = get_lang('ErrorFormatCSV');
+        $dialogBox = get_lang('ERROR: The format you gave is not compatible with Claroline');
     }
     else
     {
@@ -118,7 +118,8 @@ if (!isset($_SESSION['CSV_enclosedBy']))     $_SESSION['CSV_enclosedBy'] = "\"";
 $usedFormat = $_SESSION['claro_usedFormat'];
 
 /**
- *    Execute command section                                                                              */
+ *    Execute command section 
+ */
 
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null ;
 
@@ -161,12 +162,12 @@ switch ($cmd)
     if ( $_FILES['CSVfile']['size'] == 0 )
     {
         $display   = 'default';
-        $dialogBox = get_lang('MustSelectAFile');
+        $dialogBox = get_lang('You must select a file');
     }
     elseif (!in_array($_FILES['CSVfile']['type'],$mimetypes) && (strpos($_FILES['CSVfile']['type'],'text')===FALSE) )
     {
         $display   = 'default';
-        $dialogBox = get_lang('MustSelectATxtFile');
+        $dialogBox = get_lang('You must select a text file');
     }
     else
     {
@@ -283,14 +284,14 @@ switch ($AddType)
     case 'adminTool':
     {
         $noQUERY_STRING   = true;
-        $nameTools        = get_lang('AddCSVUsers');
+        $nameTools        = get_lang('Add a user list');
         $interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
     }   break;
 
     case 'adminClassTool' :
     {
         $noQUERY_STRING      = true;
-        $nameTools           = get_lang('AddCSVUsersInClass');
+        $nameTools           = get_lang('Add a user list in class');
         $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
         $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> get_lang('Class'));
         $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> get_lang('Class members'));
@@ -318,26 +319,26 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==',')  $coma_selected_sep     = 'selected'; else $coma_selected_sep = '';
     if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=='')   $blank_selected_sep    = 'selected'; else $blank_selected_sep = '';
 
-    $dialogBox = get_lang('ModifyFormat') .' : ' . "\n"
+    $dialogBox = get_lang('Modify the format') .' : ' . "\n"
     .            '<br><br>' . "\n"
-    .            get_lang('TheFields')
+    .            get_lang('The fields')
     .            ' '
     .            '<b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> '
-    .            get_lang('AreCompulsory')
+    .            get_lang('are compulsory')
     .            '<br><br>'
     .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
     .            '<br /><br />' . "\n"
-    .            '<label for="fieldSeparator">' .  get_lang('FieldSeparatorUsed') . ' </label>:'
+    .            '<label for="fieldSeparator">' .  get_lang('Fields separator used') . ' </label>:'
     .            '<select name="fieldSeparator" id="fieldSeparator">'
     .            '<option value=";" ' . $dot_coma_selected_sep . '>;</option>' . "\n"
     .            '<option value="," ' . $coma_selected_sep . '    >,</option>' . "\n"
-    .            '<option value=" " ' . $blank_selected_sep . '   >' . get_lang('BlankSpace') . ' </option>' . "\n"
+    .            '<option value=" " ' . $blank_selected_sep . '   >(' . get_lang('Blank space') . ') </option>' . "\n"
     .            '</select>'
     .' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     .            '<label for="enclosedBy">'
-    .            get_lang('_fields_enclosed_by') .' :'
+    .            get_lang('Fields enclosed by') .' :'
     .            '</label>'
 
     .            '<select name="enclosedBy" id="enclosedBy">'
@@ -380,18 +381,18 @@ switch ( $display )
 
         $_SESSION['claro_CSV_done'] = FALSE;
 
-        echo get_lang('SpecifyFormat')
+        echo get_lang('You must specify the CSV format used in your file')
         .    ':'
         .    '<br><br>'
         .    '<form enctype="multipart/form-data"  method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
         .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES">'
         .    ' '
         .    '<label for="firstLineFormat_YES">'
-        .    get_lang('UseFormatDefined') . '</label>'
+        .    get_lang('Use format defined in first line of file') . '</label>'
         .    '<br><br>'
         .    '<input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO">'
         .    '<label for="firstLineFormat_NO">'
-        .    get_lang('UseFollowingFormat')
+        .    get_lang('Use the following format') . ' : '
         .    '</label>'
         .    '<br><br>'
         .    '<b>'
@@ -402,12 +403,12 @@ switch ( $display )
         .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
         .    '[<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
         .    '?display=default&amp;loadDefault=yes&amp;AddType=' . $AddType . '">'
-        .    get_lang('LoadDefaultFormat')
+        .    get_lang('Load default format')
         .    '</a>]'
         .    ' | '
         .    '[<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
         .    '?display=default&amp;chformat=yes&amp;AddType=' . $AddType . '">'
-        .    get_lang('EditFormat')
+        .    get_lang('Edit format to use')
         .    '</a>]'
         .    '<br><br>'
         .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
@@ -418,10 +419,10 @@ switch ( $display )
         echo '<input type="hidden" name="enclosedBy" value="' . $_SESSION['CSV_enclosedBy'] . '" />' . "\n"
         .    '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
         .    '<br>' . "\n"
-        .    get_lang('FileForCSVUpload')
+        .    get_lang('CSV file with the user list : ')
         .    '<input type="file" name="CSVfile" />' . "\n"
         .    '<br /><br />' . "\n"
-        .    '<input type="submit" name="submitCSV" value="' . get_lang('_add_user_list') . '" />' . "\n"
+        .    '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
         .    claro_html::cmd_button($backButtonUrl,get_lang('Cancel'))  . "\n"
         .    '<input type="hidden" name="cmd" value="exImp" />' . "\n"
         .    '</form>' . "\n"
@@ -444,7 +445,7 @@ switch ( $display )
         !(count($_SESSION['claro_username_duplicate_error'])==0) ||
         !(count($_SESSION['claro_officialcode_duplicate_error'])==0))
         {
-            echo '<b>' . get_lang('_the_following_errors_were_found') . ' :</b><br><br>' . "\n";
+            echo '<b>' . get_lang('The following errors were found ') . ' :</b><br><br>' . "\n";
 
             //display errors encountered while trying to add users
 
@@ -454,7 +455,7 @@ switch ( $display )
         }
         else
         {
-            echo get_lang('_no_error_in_file_found')."<br>";
+            echo get_lang('No error in file found.')."<br>";
 
             $noerror = TRUE;
         }
@@ -463,12 +464,12 @@ switch ( $display )
         if (!(isset($_SESSION['claro_invalid_format_error'])) || ($_SESSION['claro_invalid_format_error'] == false))
         {
             echo '<br>'
-            .    get_lang('_do_you_want_to_continue')
+            .    get_lang('Do you want to continue?')
             .    '<br>'
             ;
             if (!$noerror)
             {
-                echo '(' . get_lang('_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored') . ')<br>';
+                echo '(' . get_lang('if you choose to continue, lines with errors will simply be ignored') . ')<br>';
             }
             echo '<br>'
             .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
@@ -488,7 +489,7 @@ switch ( $display )
 
     case 'steptwo' :
 
-    echo '<b>' . sizeof($usersToAdd) . ' ' . get_lang('NewUsersIn') . '</b> <br><br>';
+    echo '<b>' . get_lang('%nb_user new users in the platform',array( '%nb_user' => sizeof($usersToAdd) ) ) . '</b> <br><br>';
 
     foreach ($usersToAdd as $user)
     {
@@ -498,19 +499,19 @@ switch ( $display )
         switch ($AddType)
         {
             case 'adminTool':
-            {
-                echo $user['firstname'] . ' ' . $user['lastname'] . ' ' . get_lang('AddedToCampus') .'<br>';
-            }   break;
+                echo get_lang('%firstname %lastname has been added to the campus', array('%firstname'=>$user['firstname'],
+                                                                                         '%lastname'=>$user['lastname']) ) ;
+                break;
 
             case 'adminClassTool':
-            {
-                echo $user['firstname'] . ' '.$user['lastname'] . ' ' . get_lang('AddedToCampusAndClass') . '<br>';
-            }   break;
+                echo get_lang('%firstname %lastname has been added to the campus and to the class', array('%firstname'=>$user['firstname'],
+                                                                                                          '%lastname'=>$user['lastname']) ) ;
+                break;
 
             case 'userTool':
-            {
-                echo $user['firstname'] . ' ' . $user['lastname'] . ' ' . get_lang('AddedToCampusAndCourse') . '<br>';
-            }   break;
+                echo get_lang('%firstname %lastname has been added to the campus and to the course', array('%firstname'=>$user['firstname'],
+                                                                                                           '%lastname'=>$user['lastname'])) ;
+                break;
         }
     }
 
@@ -522,7 +523,7 @@ switch ( $display )
         {
             echo '<br>'
             .    '<a href="../admin/adminusers.php">&gt;&gt; '
-            .    get_lang('CSVSeeUserList')
+            .    get_lang('See user list')
             .    '</a>'
             ;
         }   break;
@@ -530,14 +531,14 @@ switch ( $display )
         case 'adminClassTool' :
         {
             echo '<br><a href="../admin/admin_class.php">&gt;&gt; '
-            .    get_lang('BackToClassList')
+            .    get_lang('Back to class list')
             .    '</a>'
             ;
         }   break;
 
         case 'userTool' :
         {
-            echo '<br><a href="user.php">&gt;&gt; ' . get_lang('BackToUserList') . '</a>';
+            echo '<br><a href="user.php">&gt;&gt; ' . get_lang('Back to user list') . '</a>';
         }   break;
     }
     break;
