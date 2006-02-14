@@ -781,7 +781,7 @@ if ( $is_allowedToEdit )
 		}
 		$cmdToSend = "exEditWrk";
 		// fill the title of the page
-		$txtForFormTitle = get_lang('EditWork');
+		$txtForFormTitle = get_lang('Modify a work');
 
 		// display flags
 		$dispWrkLst = false;
@@ -915,7 +915,7 @@ if( $dispWrkDet || $dispWrkForm )
 	  $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
 	  $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
       $_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
-      $nameTools = get_lang('SubmittedWork');
+      $nameTools = get_lang('Work');
 }
 else
 {
@@ -1023,11 +1023,11 @@ if( $is_allowedToSubmit )
 
             echo  '<table width="100%">'."\n"
                   .'<tr>'."\n"
-                  .'<td valign="top"><label for="wrkTitle">'.get_lang('WrkTitle').'&nbsp;*&nbsp;:</label></td>'."\n"
+                  .'<td valign="top"><label for="wrkTitle">'.get_lang('Title').'&nbsp;*&nbsp;:</label></td>'."\n"
                   .'<td><input type="text" name="wrkTitle" id="wrkTitle" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkTitle']).'" /></td>'."\n"
                   .'</tr>'."\n\n"
                   .'<tr>'."\n"
-                  .'<td valign="top"><label for="wrkAuthors">'.get_lang('WrkAuthors').'&nbsp;*&nbsp;:</label></td>'."\n"
+                  .'<td valign="top"><label for="wrkAuthors">'.get_lang('Author(s)').'&nbsp;*&nbsp;:</label></td>'."\n"
                   .'<td><input type="text" name="wrkAuthors" id="wrkAuthors" size="50" maxlength="200" value="'.htmlspecialchars($form['wrkAuthors']).'" /></td>'."\n"
                   .'</tr>'."\n\n";
 
@@ -1116,7 +1116,7 @@ if( $is_allowedToSubmit )
                               echo '&nbsp;:'
                                     .'</td>'."\n"
                                     .'<td>'
-                                    .get_lang('NoFile')
+                                    .get_lang('- none -')
                                     .'</td>'."\n"
                                     .'</tr>'."\n\n";
                         }
@@ -1129,7 +1129,7 @@ if( $is_allowedToSubmit )
 				if( $assignmentContent == "TEXTFILE" )
 				{
 					// if text is required, file is considered as a an attached document
-					echo get_lang('AttachFile');
+					echo get_lang('Attach a file');
 				}
 				else
 				{
@@ -1149,7 +1149,7 @@ if( $is_allowedToSubmit )
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$wrkDirSys), $fileAllowedSize);
 
                   echo '<td><input type="file" name="wrkFile" id="wrkFile" size="30" /><br />'
-						.'<small>'.get_lang('MaxFileSize').' '.format_file_size($maxFileSize).'</small></td>'."\n"
+						.'<small>'.get_lang('Max file size :').' '.format_file_size($maxFileSize).'</small></td>'."\n"
                         .'</tr>'."\n\n";
 				}
             }
@@ -1161,7 +1161,7 @@ if( $is_allowedToSubmit )
                   echo '<tr>'."\n"
                         .'<td valign="top">'
                         .'<label for="wrkTxt">'
-                        .get_lang('FileDesc')
+                        .get_lang('File description')
                         .'&nbsp;:<br /></label></td>'
                         .'<td>'."\n"
                         .'<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
@@ -1189,7 +1189,7 @@ if( $is_allowedToSubmit )
                         .'<label for="wrkPrivFbk">'
                         .get_lang('Private feedback')
                         .'&nbsp;:<br />'
-						.'<small>'.get_lang('CourseAdministratorOnly').'</small>'
+						.'<small>'.get_lang('Course administrator only').'</small>'
 						.'</label></td>'
                         .'<td>'."\n"
                         .'<textarea name="wrkPrivFbk" cols="40" rows="10">'.$form['wrkPrivFbk'].'</textarea>'
@@ -1295,7 +1295,7 @@ if( $dispWrkLst )
 	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == $_uid && $is_allowedToSubmit) || $is_allowedToEditAll )
     {
 		// link to create a new assignment
-		echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?authId=' . $_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('SubmitWork').'</a></p>'."\n";
+		echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?authId=' . $_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('Submit a work').'</a></p>'."\n";
     }
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
@@ -1326,7 +1326,7 @@ if( $dispWrkLst )
 			elseif( $assignmentContent == "FILE" )
 			{
 				$txtForFile = get_lang('Uploaded file');
-				$txtForText = get_lang('FileDesc');
+				$txtForText = get_lang('File description');
 			}
 
 			if( !$is_feedback ) echo '<hr />';
@@ -1338,7 +1338,7 @@ if( $dispWrkLst )
 			;
 
 			// author
-			echo get_lang('WrkAuthors') . '&nbsp;: ' . $thisWrk['authors'] . '<br />' . "\n";
+			echo get_lang('Author(s)') . '&nbsp;: ' . $thisWrk['authors'] . '<br />' . "\n";
 
 			if( $assignment['assignment_type'] == 'GROUP' && isset($_uid) && !$is_feedback )
 			{
@@ -1360,7 +1360,7 @@ if( $dispWrkLst )
 				else
 				{
 				     echo $txtForFile . '&nbsp;: '
-				     .     get_lang('NoFile')
+				     .     get_lang('- none -')
 				     .    '<br />' . "\n"
 				     ;
 				}
@@ -1386,25 +1386,25 @@ if( $dispWrkLst )
 				.	 ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
 				.	 '<br />' . "\n";
 			}
-			echo '<p>' . get_lang('SubmissionDate') . '&nbsp;: '
+			echo '<p>' . get_lang('First submission date') . '&nbsp;: '
 			.    claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_creation_date'])
 			;
 
 			// display an alert if work was submitted after end date and work is not a correction !
 			if( $assignment['unix_end_date'] < $thisWrk['unix_creation_date'] && !$is_feedback )
 			{
-			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.get_lang('LateUpload').'" />';
+			      echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
 			}
 			echo '<br />' . "\n";
 
 			if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
 			{
-				echo get_lang('LastEditDate').'&nbsp;: '
+				echo get_lang('Last edit date').'&nbsp;: '
 					.claro_disp_localised_date($dateTimeFormatLong, $thisWrk['unix_last_edit_date']);
 				// display an alert if work was submitted after end date and work is not a correction !
 				if( $assignment['unix_end_date'] < $thisWrk['unix_last_edit_date'] && !$is_feedback )
 				{
-					echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.get_lang('LateUpload').'" />';
+					echo ' <img src="'.$imgRepositoryWeb.'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
 				}
 			}
 			echo '</p>'."\n";

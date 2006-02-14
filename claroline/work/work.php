@@ -254,7 +254,7 @@ if ($is_allowedToEdit)
         else
         {
         	if(claro_failure::get_last_failure() == 'assignment_no_title')
-               $dialogBox .= get_lang('AssignmentTitleRequired').'<br />';
+               $dialogBox .= get_lang('Assignment title required').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
                 $dialogBox .= get_lang('Assignment title already exists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
