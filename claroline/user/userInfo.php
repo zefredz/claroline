@@ -240,7 +240,7 @@ DISPLAY MODES
 ======================================*/
 
 // Back button for each display mode (Top)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.get_lang('Back to users list').'</a></small></p>' . "\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.get_lang('Back to user list').'</a></small></p>' . "\n";
 
 // Display Forms or dialog box (if needed)
 
@@ -592,7 +592,7 @@ elseif ($displayMode == "viewContentList") // default display
 }
 
 // Back button for each display mode (bottom)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . get_lang('Back to users list') . '</a></small></p>' . "\n";
+echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . get_lang('Back to user list') . '</a></small></p>' . "\n";
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

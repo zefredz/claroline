@@ -202,7 +202,7 @@ if ( count($messageList) > 0 )
 
 if ( $platformRegSucceed )
 {
-    echo '<p><a href="user.php"><< ' .  get_lang('Back to users list') . '</a></p>' . "\n";
+    echo '<p><a href="user.php"><< ' .  get_lang('Back to user list') . '</a></p>' . "\n";
 }
 else
 {
@@ -273,7 +273,7 @@ else
                 {
                     echo '<small>'
                     .    '<span class="highlight">'
-                    .    get_lang('already enrolled')
+                    .    get_lang('Already enroled')
                     .    '</span>'
                     .    '</small>'
                     ;
