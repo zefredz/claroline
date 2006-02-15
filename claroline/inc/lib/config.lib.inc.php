@@ -133,7 +133,9 @@ class Config
         // get values from configuration file
         if ( file_exists($this->conf_filename) )
         {
-            include($this->conf_filename);
+            $conf_filename = $this->conf_filename;
+
+            include($conf_filename);
 
             foreach ( $this->conf_def_property_list as $property_name => $property_def )
             {
@@ -163,7 +165,9 @@ class Config
     function load_def_file()
     {
         // get $conf_def and $conf_def_property_list from definition file
-        include $this->def_filename;
+        $def_filename = $this->def_filename;
+
+        include $def_filename ;
 
         $this->conf_def = $conf_def;
         $this->conf_def_property_list = $conf_def_property_list;
