@@ -175,7 +175,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
     <select name="url" size="1" 
         onchange="top.location=redirector.url.options[selectedIndex].value" >';
 
-    $courseToolSelector .= '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-  left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
+    $courseToolSelector .= '<option value="' . $coursesRepositoryWeb . $_course['path'] . '/index.php" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
     if (is_array($_courseToolList))
     {
