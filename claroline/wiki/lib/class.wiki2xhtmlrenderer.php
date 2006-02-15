@@ -76,7 +76,7 @@
             $tag = 'a';
             $attr = ' href="'.$str.'"';
             if ( $this->wiki->pageExists( $str ) )
-                {
+            {
                 return "<a href=\"".$_SERVER['PHP_SELF']
                     ."?action=show&amp;title=".rawurlencode($str )
                     . "&amp;wikiId=" . $this->wiki->getWikiId()
@@ -191,7 +191,7 @@
                     && !preg_match( '~^mailto:~', $url ) )
                     && $this->getOpt('active_wiki_urls' ))
                 {
-                    $attr = $this->_getWikiPageLink($url );
+                    $this->_getWikiPageLink( $url, $tag, $attr, $type );
                 }
                 else
                 {
@@ -228,7 +228,7 @@
          * @param string pageName name of the page
          * @return string hypertext reference to wiki page
          */
-        function _getWikiPageLink( $pageName )
+        function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
         {
             // allow links to use wikiwords for wiki page locations
             if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
@@ -238,7 +238,7 @@
              
             if ($this->wiki->pageExists( $pageName ) )
             {
-                return ' href="' . $_SERVER['PHP_SELF']
+                $attr =  ' href="' . $_SERVER['PHP_SELF']
                     . '?action=show&amp;title=' . rawurlencode($pageName )
                     . '&amp;wikiId=' . $this->wiki->getWikiId()
                     . '" class="wikiShow"'
@@ -246,7 +246,7 @@
             }
             else
             {
-                return ' href="' . $_SERVER['PHP_SELF']
+                $attr = ' href="' . $_SERVER['PHP_SELF']
                     . '?action=edit&amp;title=' . rawurlencode($pageName )
                     . '&amp;wikiId=' . $this->wiki->getWikiId()
                     . '" class="wikiEdit"'
