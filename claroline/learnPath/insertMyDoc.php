@@ -1,22 +1,18 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6.*
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  |  Authors: Piraux Sébastien <pir@cerdecam.be>                         |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-
-  DESCRIPTION:
-  ****
-
-*/
+/**
+ * CLAROLINE 
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ */
 
 /*======================================
        CLAROLINE MAIN
@@ -33,10 +29,10 @@ $is_AllowedToEdit = $is_courseAdmin;
 
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 
-$nameTools = get_lang('InsertMyDocToolName');
+$nameTools = get_lang('Insert a document as module');
 
 //header
 @include($includePath."/claro_init_header.inc.php");
@@ -175,7 +171,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // create new module
                 $sql = "INSERT INTO `".$TABLEMODULE."`
                         (`name` , `comment`, `contentType`, `launch_data`)
-                        VALUES ('". addslashes($basename) ."' , '". addslashes(get_lang('DefaultModuleComment')) . "', '".CTDOCUMENT_."', '' )";
+                        VALUES ('". addslashes($basename) ."' , '". addslashes(get_block('blockDefaultModuleComment')) . "', '".CTDOCUMENT_."', '' )";
                 $query = claro_sql_query($sql);
 
                 $insertedModule_id = mysql_insert_id();
@@ -204,12 +200,10 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_lang('DefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
+                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_block('DefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
                 
-                $addedDoc = $basename;
-
-                $dialogBox .= $addedDoc ." ".get_lang('DocInsertedAsModule')."<br>";
+                $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
             }
             else
             {
@@ -237,16 +231,14 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                     // finally : insert in learning path
                     $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                             (`learnPath_id`, `module_id`, `specificComment`, `rank`,`lock`)
-                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes(get_lang('DefaultModuleAddedComment'))."', ".(int)$order.",'OPEN')";
+                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.",'OPEN')";
                     $query = claro_sql_query($sql);
                      
-                    $addedDoc =  $basename;
-
-                    $dialogBox .= $addedDoc ." ".get_lang('DocInsertedAsModule')."<br>";
+                    $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
                 }
                 else
                 {
-                    $dialogBox .= $basename." : ".get_lang('DocumentAlreadyUsed')."<br>";
+                	$dialogBox .= get_lang("%moduleName is already used as a module in this learning path", array('%moduleName' => $basename)).'<br />' . "\n";
                 }
             }
         }
@@ -300,8 +292,8 @@ if ($parentDir == "/" || $parentDir == "\\")
 
 $sql = "SELECT *
         FROM `".$TABLEDOCUMENT."`
-        WHERE `path` LIKE \"". addslashes($curDirPath) ."/%\"
-        AND `path` NOT LIKE \"". addslashes($curDirPath) ."/%/%\"";
+        WHERE `path` LIKE '". addslashes($curDirPath) ."/%'
+        AND `path` NOT LIKE '". addslashes($curDirPath) ."/%/%'";
 $result = claro_sql_query($sql);
 $attribute = array();
            
@@ -458,8 +450,8 @@ display_my_documents($dialogBox) ;
 //################################## MODULES LIST ####################################\\
 //####################################################################################\\
 
-echo claro_disp_tool_title(get_lang('PathContentTitle'));
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('BackToLPAdmin').'</a>';
+echo claro_disp_tool_title(get_lang('Learning path content'));
+echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 display_path_content();

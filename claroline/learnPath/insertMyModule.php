@@ -1,22 +1,18 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.6.*
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors:   Piraux Sébastien <pir@cerdecam.be>                        |
-  |            Lederer Guillaume <led@cerdecam.be>                       |
-  +----------------------------------------------------------------------+
-
-  DESCRIPTION:
-  ****
-
-*/
+/**
+ * CLAROLINE 
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ */
 
 /*======================================
        CLAROLINE MAIN
@@ -29,9 +25,9 @@ $is_AllowedToEdit = $is_courseAdmin;
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));
-$nameTools = get_lang('InsertMyModuleToolName');
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+$nameTools = get_lang('Insert my module');
 
 //header
 include($includePath."/claro_init_header.inc.php");
@@ -109,7 +105,7 @@ function buildRequestModules()
 
 // display title
 
-echo claro_disp_tool_title(get_lang('InsertMyModulesTitle'));
+echo claro_disp_tool_title(get_lang('Insert a module of the course'));
 
 //COMMAND ADD SELECTED MODULE(S):
 
@@ -164,7 +160,7 @@ echo '<table class="claroTable" width="100%">'."\n"
        .'<thead>'."\n"
        .'<tr class="headerX">'."\n"
        .'<th width="10%">'
-       .get_lang('AddModule')
+       .get_lang('Add')
        .'</th>'."\n"
        .'<th>'
        .get_lang('Module')
@@ -218,7 +214,7 @@ if ( !$atleastOne )
 {
     echo '<tr>'."\n"
         .'<td colspan="2" align="center">'
-        .get_lang('NoMoreModuleToAdd')
+        .get_lang('All modules of this course are already used in this learning path.')
         .'</td>'."\n"
         .'</tr>'."\n";
 }
@@ -245,10 +241,10 @@ echo "\n".'</tfoot>'."\n\n".'</form>'."\n".'</table>';
 //####################################################################################\\
 
 // display subtitle
-echo claro_disp_tool_title(get_lang('PathContentTitle'));
+echo claro_disp_tool_title(get_lang('Learning path content'));
 
 // display back link to return to the LP administration
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('BackToLPAdmin').'</a>';
+echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 display_path_content();

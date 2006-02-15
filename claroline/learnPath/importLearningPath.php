@@ -532,7 +532,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if( !isset($_FILES['uploadedPackage']) || !is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('The file to upload is not valid.').'<br />'.get_lang('Notice').' : '.get_lang('MaxFileSize').' '.get_cfg_var('upload_max_filesize') );
+        array_push ($errorMsgs, get_lang('The file to upload is not valid.').'<br />'.get_lang('Notice').' : '.get_lang('Max file size :').' '.get_cfg_var('upload_max_filesize') );
     }
 
     /*
@@ -583,7 +583,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( preg_match('/.(php[[:digit:]]?|phtml)$/i', $thisContent['filename']) )
                 {
                         $errorFound = true;
-                        array_push ($errorMsgs, get_lang('ZipNoPhp') );
+                        array_push ($errorMsgs, get_lang('The zip file can not contain .PHP files') );
                         $is_allowedToUnzip = false;
                         break;
                 }

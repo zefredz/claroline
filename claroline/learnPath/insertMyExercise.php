@@ -1,19 +1,18 @@
 <?php // $Id$
-/*
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.5 $Revision$                               |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors:  Piraux Sébastien <pir@cerdecam.be>                         |
-  |          Lederer Guillaume <led@cerdecam.be>                         |
-  +----------------------------------------------------------------------+
-
-*/
+/**
+ * CLAROLINE 
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Lederer Guillaume <led@cerdecam.be>
+ *
+ * @package CLLNP
+ */
 
 /*======================================
        CLAROLINE MAIN
@@ -27,9 +26,10 @@ $is_AllowedToEdit = $is_courseAdmin;
 if (! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('LearningPathList'));
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('LearningPathAdmin'));
-$nameTools = get_lang('InsertMyExerciseToolName');
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+
+$nameTools = get_lang('Insert my exercise');
 
 //header
 @include($includePath."/claro_init_header.inc.php");
@@ -104,7 +104,7 @@ while ($listex = mysql_fetch_array($resultex) )
             // create new module
             $sql = "INSERT INTO `".$TABLEMODULE."`
                     (`name` , `comment`, `contentType`, `launch_data`)
-                    VALUES ('".addslashes($exercise['titre'])."' , '".addslashes(get_lang('DefaultModuleComment'))."', '".CTEXERCISE_."', '')";
+                    VALUES ('".addslashes($exercise['titre'])."' , '".addslashes(get_block('blockDefaultModuleComment'))."', '".CTEXERCISE_."', '')";
             $query = claro_sql_query($sql);
 
             $insertedExercice_id = mysql_insert_id();
@@ -131,10 +131,10 @@ while ($listex = mysql_fetch_array($resultex) )
             // finally : insert in learning path
             $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                     (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                    VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedExercice_id."','".addslashes(get_lang('DefaultModuleAddedComment'))."', ".$order.",'OPEN')";
+                    VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedExercice_id."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$order.",'OPEN')";
             $query = claro_sql_query($sql);
 
-            $dialogBox .= $exercise['titre'] ." :  ".get_lang('ExInsertedAsModule')."<br>";
+            $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['titre'])).'<br />' . "\n";
         }
         else    // exercise is already used as a module in another learning path , so reuse its reference
         {
@@ -165,7 +165,7 @@ while ($listex = mysql_fetch_array($resultex) )
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES (".(int)$_SESSION['path_id'].", ".(int)$thisExerciseModule['module_id'].",'".addslashes(get_lang('DefaultModuleAddedComment'))."', ".$order.", 'OPEN')";
+                        VALUES (".(int)$_SESSION['path_id'].", ".(int)$thisExerciseModule['module_id'].",'".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
 
                 // select infos about added exercise
@@ -175,11 +175,12 @@ while ($listex = mysql_fetch_array($resultex) )
 
                 $result = claro_sql_query($sql);
                 $exercise = mysql_fetch_array($result);
-                $dialogBox .= $exercise['titre']." : ".get_lang('ExInsertedAsModule')."<br>";
+                
+                $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['titre'])).'<br />' . "\n";
             }
             else
             {
-                $dialogBox .= $listex['titre']." : ".get_lang('ExAlreadyUsed')."<br>";
+				$dialogBox .= get_lang("%moduleName is already used as a module in this learning path", array('%moduleName' => $listex['titre'])).'<br />' . "\n";
             }
         }
     }
@@ -189,8 +190,8 @@ while ($listex = mysql_fetch_array($resultex) )
 display_my_exercises($dialogBox);
 
 //STEP TWO : display learning path content
-echo claro_disp_tool_title(get_lang('PathContentTitle'));
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('BackToLPAdmin').'</a>';
+echo claro_disp_tool_title(get_lang('Learning path content'));
+echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 display_path_content();
