@@ -66,25 +66,29 @@ include($includePath."/lib/fileManage.lib.php");
 event_access_tool($_tid, $_courseTool['label']);
 
 $htmlHeadXtra[] =
-          "<script>
+          '<script type="text/javascript">
           function confirmation (name)
           {
-              if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . "' + name + '? " . get_lang('Modules of this path will still be available in the pool of modules') . "'))
+              if (confirm("'. clean_str_for_javascript(get_lang('Modules of this path will still be available in the pool of modules'))
+							. '\n' 
+							. clean_str_for_javascript(get_lang('Are you sure to delete ?')) 
+							. '\n'
+							. '" + name))
                   {return true;}
               else
                   {return false;}
           }
-          </script>";
+          </script>' . "\n";
 $htmlHeadXtra[] =
-         "<script>
+         '<script type="text/javascript">
           function scormConfirmation (name)
           {
-              if (confirm('". clean_str_for_javascript(get_block('AreYouSureToDeleteScorm')) .  "' + name + '?'))
+              if (confirm("'. clean_str_for_javascript(get_block('blockConfirmDeleteScorm')) .  '\n" + name ))
                   {return true;}
               else
                   {return false;}
           }
-          </script>";
+          </script>' . "\n";
 
 $nameTools = get_lang('Learning path list');
 
@@ -358,8 +362,8 @@ switch ( $cmd )
             else  // create form requested
             {
                 $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
-                              ."<h4>".get_lang('CreateNewLearningPath')."</h4>\n"
-                              ."<label for=\"newPathName\">".get_lang('LearningPathName')."</label><br />\n"
+                              ."<h4>".get_lang('Create a new learning path')."</h4>\n"
+                              ."<label for=\"newPathName\">".get_lang('New learning path name : ')."</label><br />\n"
                               ."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input><br /><br />\n"
                               ."<label for=\"newComment\">".get_lang('Comment')."</label><br />\n"
                               ."<textarea id=\"newComment\" name=\"newComment\" rows=\"2\" cols=\"50\"></textarea><br />\n"
@@ -798,7 +802,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             if ($list['lock']=='CLOSE')
             {
-                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript(get_block('AlertBlockingPathMadeInvisible')) . "');\"";
+                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript(get_block('blockConfirmBlockingPathMadeInvisible')) . "');\"";
             }
             else
             {

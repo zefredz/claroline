@@ -618,10 +618,7 @@ foreach ($flatElementList as $module)
     {
         if( $module['lock'] == 'CLOSE' )
         {
-            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('This module is blocked.
-Making it invisible will allow students to access
- the next module without having to complete this one.
-Confirm ?'))."');\"";
+            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript(get_block('blockConfirmBlockingModuleMadeInvisible'))."');\"";
         }
         else
         {
