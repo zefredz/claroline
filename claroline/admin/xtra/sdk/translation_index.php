@@ -15,11 +15,11 @@ $cidReset=true;
 $gidReset=true;
 
 require '../../../inc/claro_init_global.inc.php';
-include($includePath."/lib/debug.lib.inc.php");
-include ('lang/language.conf.php');
+include $includePath.'/lib/debug.lib.inc.php';
+include 'lang/language.conf.php';
 
 $nameTools = get_lang('TranslationTools');
-$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlSDK = $rootAdminWeb . 'xtra/sdk/';
 $table_exists = TRUE;
 
 // Security check
@@ -86,7 +86,7 @@ if ( $table_exists == TRUE )
 <ul>
 <li><a href="lang/convert_lang_17_to_18.php"><?php echo get_lang('Conversion 1.7 to 1.8')?></a></li>
 </ul>
-<?
+<?php
 }
 ?>
 

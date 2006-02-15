@@ -35,7 +35,7 @@ $starttime = get_time();
 
 $nameTools = "Convert language file 1.7 to 1.8";
 
-$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlSDK = $rootAdminWeb . 'xtra/sdk/';
 $urlTranslation = $urlSDK . 'translation_index.php';
 $interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
 $interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
@@ -45,11 +45,11 @@ include($includePath."/claro_init_header.inc.php");
 
 echo claro_disp_tool_title($nameTools);
 
-// go to lang folder 
+// go to lang folder
 
 $path_lang = $rootSys . "claroline/lang";
 
-// browse lang folder 
+// browse lang folder
 
 $languagePathList = get_lang_path_list($path_lang);
 
@@ -60,14 +60,14 @@ if ( sizeof($languagePathList) > 0)
     echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
     echo "<select name=\"language\">";
 //    echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
-	foreach($languagePathList as $key => $languagePath)
-	{
+    foreach($languagePathList as $key => $languagePath)
+    {
 
         if (isset($_REQUEST['language']) && $key == $_REQUEST['language'] )
         {
             echo "<option value=\"" . $key . "\" selected=\"selected\">" . $key . "</option>";
         }
-        else 
+        else
         {
             echo "<option value=\"" . $key ."\">" . $key . "</option>";
         }
@@ -83,8 +83,8 @@ else
 
 // if select language and laguage exists
 
-if (isset($_REQUEST['language']))
-{	
+if ( isset($_REQUEST['language']) )
+{
     $languageToBuild = array();
 
     if ($_REQUEST['language'] == 'all')
@@ -98,96 +98,82 @@ if (isset($_REQUEST['language']))
     {
         $languageToBuild[] = $_REQUEST['language'];
     }
-        
+
     // open conversion file
-        
-    if ( file_exists('conversion_17_to_18.xml') )
+
+    $conversion_list = array();
+
+    if ( file_exists('conversion_17_to_18.csv') )
     {
-        $xml = simplexml_load_file('conversion_17_to_18.xml');
-    } 
-    else 
-    {
-        exit('Echec lors de l\'ouverture du fichier conversion.xml.');
+        $handle = fopen('conversion_17_to_18.csv', 'r');
+        while (($data = fgetcsv($handle, 1000,';')) !== FALSE)
+        {
+            $conversion_list[$data[0]] = $data[1];
+        }
+        fclose($handle);
     }
-    
+    else
+    {
+        exit('Echec lors de l\'ouverture du fichier conversion.csv.');
+    }
+
     echo '<ol>' . "\n";
 
-	foreach( $languageToBuild as $language )
-	{
+    foreach( $languageToBuild as $language )
+    {
         $nb_update = 0;
-        
+
         echo '<li>' . $language ;
-        
+
         // open and parse old language file
         $language_list = load_array_translation($language);
-        
+
         // convert file
         echo '<ol>' . "\n";
-        
-        foreach ($xml->varname as $varname)
+
+        foreach ( $conversion_list as $old_value => $new_value )
         {
-            switch ( (string) $varname['conversion'] )
+            if ( isset($language_list[$old_value]) )
             {
-                case 'rename':
-                    $old_value = (string) $varname->old;
-                    $new_value = (string) $varname->new;
-        
-                    if ( isset($language_list[$old_value]) )
-                    {
-                        $language_list[$new_value] = $language_list[$old_value];
-                        unset($language_list[$old_value]);
-                        echo '<li>Rename ' . $old_value . ' to ' . $new_value . '</li>' . "\n";
-                        $nb_update++;
-                    }            
-                    break;
-                case 'delete':
-                    $delete_value = (string) $varname->name;
-                    if ( isset($language_list[$delete_value]) )
-                    {
-                        unset($language_list[$delete_value]);
-                        echo '<li>Delete ' . $delete_value . '</li>' . "\n";
-                        $nb_update++;
-                    }
-                    break;
+                $language_list[$new_value] = $language_list[$old_value];
+                unset($language_list[$old_value]);
+                echo '<li>Rename ' . $old_value . ' to ' . $new_value . '</li>' . "\n";
+                $nb_update++;
             }
         }
-        
+
         echo '</ol>' . "\n";
-        
+
         // Write new file
-        
-        if ( $nb_update > 0 ) 
+
+        if ( $nb_update > 0 )
         {
-                
+
                 echo '<ul>';
-               
+
                 echo '<li>Save file : ' . $path_lang . "/" . $language . "/" . LANG_COMPLETE_FILENAME . '</li>';
- 
+
                 $fileHandle = fopen($path_lang . "/" . $language . "/" . LANG_COMPLETE_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);
 
-        		// build language files
-	
-        		if ($fileHandle && count($language_list) > 0)
-		        {
-        		    fwrite($fileHandle, "<?php \n");
+                // build language files
 
-                    ksort($language_list);		
+                if ($fileHandle && count($language_list) > 0)
+                {
+                    fwrite($fileHandle, "<?php \n");
+
+                    ksort($language_list);
 
                     foreach ( $language_list as $varName => $varContent )
                     {
-                        // addslashes not back slashes double quote                
-        		        $varContent = preg_replace('/([^\\\\])"/', '\\1\\"', $varContent);
+                        $string = build_translation_line_file($varName,$varContent) ;
 
-                        // addslashes before $
-                        $varContent = preg_replace('/\$/','\\\$', $varContent);
-		                $string = '$_lang[\''. $varName .'\'] = "'.$varContent."\";\n";
-		                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
-        		    }
-	
-		            fwrite($fileHandle, "?>");
-		        }
-        		fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
-                
+                        fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+                    }
+
+                    fwrite($fileHandle, "?>");
+                }
+                fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
+
                 echo '</ul>';
 
         }
