@@ -80,6 +80,7 @@ echo $footerCenterDock->render();
 } // if (!isset($hide_footer) || $hide_footer == false)
 
 ?>
+</div>
 
 </body>
 </html>
