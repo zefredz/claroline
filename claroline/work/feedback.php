@@ -17,19 +17,12 @@
  */
 
 $tlabelReq = 'CLWRK___';
+
 require '../inc/claro_init_global.inc.php';
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'  ];
-$tbl_wrk_submission = $tbl_cdb_names['wrk_submission'   ];
-
-
-$currentUserFirstName = $_user['firstName'];
-$currentUserLastName  = $_user['lastName'];
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
-event_access_tool($_tid, $_courseTool['label']);
+require_once './lib/assignment.class.php';
 
 include $includePath . '/lib/fileUpload.lib.php';
 include $includePath . '/lib/fileDisplay.lib.php'; // need format_url function
@@ -38,11 +31,7 @@ include $includePath . '/lib/fileManage.lib.php'; // need claro_delete_file
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 BASIC VARIABLES DEFINITION
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-$currentCourseRepositorySys = get_conf('coursesRepositorySys') . $_course['path'] . '/';
-$currentCourseRepositoryWeb = get_conf('coursesRepositoryWeb') . $_course['path'] . '/';
-
 $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
-$wrkDir           = $currentCourseRepositorySys . 'work/'; //directory path to create assignment dirs
 
 // use with strip_tags function when strip_tags is used to check if a text is empty
 // but a 'text' with only an image don't have to be considered as empty
@@ -54,20 +43,36 @@ $dialogBox = '';
 // permission
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-/*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/*============================================================================
 CLEAN INFORMATIONS SEND BY USER
-= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-
+=============================================================================*/
 $cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
-$req=array();
-$req['submitFeedback'] = (bool) isset($_REQUEST['submitFeedback']);
-$req['assigmentId'] = ( isset($_REQUEST['assigId'])
-&& !empty($_REQUEST['assigId'])
-&& ctype_digit($_REQUEST['assigId'])
-)
-? (int) $_REQUEST['assigId']
-: false;
 
+$isFeedbackSubmitted = (bool) isset($_REQUEST['submitFeedback']);
+
+$assignmentId = ( isset($_REQUEST['assigId'])
+                && !empty($_REQUEST['assigId'])
+                && ctype_digit($_REQUEST['assigId'])
+                )
+                ? (int) $_REQUEST['assigId']
+                : false;
+
+/*============================================================================
+PREREQUISITES
+=============================================================================*/
+
+/*--------------------------------------------------------------------
+ASSIGNMENT INFORMATIONS
+--------------------------------------------------------------------*/
+$assignment = new Assignment();
+    
+if ( !$assignmentId || !$assignment->load($assignmentId) )
+{
+    // we NEED to know in which assignment we are, so if assigId is not set
+    // relocate the user to the previous page
+    header('Location: work.php');
+    exit();
+}
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 HANDLING FORM DATA : CREATE/EDIT ASSIGNMENT FEEDBACK
@@ -75,33 +80,34 @@ HANDLING FORM DATA : CREATE/EDIT ASSIGNMENT FEEDBACK
 // execute this after a form has been send
 // this instruction bloc will set some vars that will be used in the corresponding queries
 // do not execute if there is no assignment ID
-if( $req['submitFeedback'] && $req['assigmentId'] && $is_allowedToEdit )
+if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
 {
     $formCorrectlySent = true;
     // Feedback
     // check if there is text in it
-    if( trim( strip_tags($_REQUEST['prefillText'], $allowedTags ) ) == '' )
+    if( trim( strip_tags($_REQUEST['autoFeedbackText'], $allowedTags ) ) == '' )
     {
-        $prefillText = '';
+        $autoFeedbackText = '';
     }
     else
     {
-        $prefillText = trim($_REQUEST['prefillText']);
+        $autoFeedbackText = trim($_REQUEST['autoFeedbackText']);
     }
+    
     // uploaded file come from the feedback form
-    if ( is_uploaded_file($_FILES['prefillDocPath']['tmp_name']) )
+    if ( is_uploaded_file($_FILES['autoFeedbackFilename']['tmp_name']) )
     {
-        if ($_FILES['prefillDocPath']['size'] > $fileAllowedSize)
+        if ($_FILES['autoFeedbackFilename']['size'] > $fileAllowedSize)
         {
             $dialogBox .= get_lang('You didnt choose any file to send, or it is too big') . '<br />';
             $formCorrectlySent = false;
+            $autoFeedbackFilename = $assignment->getAutoFeedbackFilename();
         }
         else
         {
-
             // add file extension if it doesn't have one
-            $newFileName  = $_FILES['prefillDocPath']['name'];
-            $newFileName .= add_extension_for_uploaded_file($_FILES['prefillDocPath']);
+            $newFileName  = $_FILES['autoFeedbackFilename']['name'];
+            $newFileName .= add_extension_for_uploaded_file($_FILES['autoFeedbackFilename']);
 
             // Replace dangerous characters
             $newFileName = replace_dangerous_char($newFileName);
@@ -112,34 +118,14 @@ if( $req['submitFeedback'] && $req['assigmentId'] && $is_allowedToEdit )
 
             // -- create a unique file name to avoid any conflict
             // there can be only one automatic feedback but the file is put in the
-            // assignments directory
-            $assigDirSys = $wrkDir . 'assig_' . $_REQUEST['assigId'] . '/';
-            // split file and its extension
-            $dotPosition = strrpos($newFileName, '.');
+            // assignments directory			
+			$autoFeedbackFilename = $assignment->createUniqueFilename($newFileName);
 
-            if( $dotPosition !== false &&  $dotPosition != 0 )
+            $tmpWorkUrl = $assignment->getAssigDirSys().$autoFeedbackFilename;
+
+            if( move_uploaded_file($_FILES['autoFeedbackFilename']['tmp_name'], $tmpWorkUrl) )
             {
-                // if a dot was found and not as first letter (case of files like .blah)
-                $filename = substr($newFileName, 0, $dotPosition );
-                $extension = substr($newFileName, $dotPosition);
-            }
-            else
-            {
-                // if we have no extension
-                $filename = $newFileName;
-                $extension = '';
-            }
-
-            $i = 0;
-            while( file_exists($assigDirSys . $filename . '_' . $i . $extension) ) $i++;
-
-            $prefillDocPath = $filename . '_' . $i . $extension;
-
-            $tmpWorkUrl = $assigDirSys.$prefillDocPath;
-
-            if( move_uploaded_file($_FILES['prefillDocPath']['tmp_name'], $tmpWorkUrl) )
-            {
-                chmod($tmpWorkUrl,CLARO_FILE_PERMISSIONS);
+                chmod($tmpWorkUrl, CLARO_FILE_PERMISSIONS);
             }
             else
             {
@@ -148,38 +134,33 @@ if( $req['submitFeedback'] && $req['assigmentId'] && $is_allowedToEdit )
             }
 
             // remove the previous file if there was one
-            if( isset($_REQUEST['currentPrefillDocPath']) )
+            if( $assignment->getAutoFeedbackFilename() != '' )
             {
-                if( file_exists($assigDirSys.$_REQUEST['currentPrefillDocPath']) )
-                claro_delete_file($assigDirSys.$_REQUEST['currentPrefillDocPath']);
+                if( file_exists($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename()) )
+                {
+                	claro_delete_file($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename());
+                }
             }
-
-            //report event to eventmanager "feedback_posted"
-            $eventNotifier->notifyCourseEvent("work_feedback_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
 
             // else : file sending shows no error
             // $formCorrectlySent stay true;
         }
     }
-    elseif( isset($_REQUEST['currentPrefillDocPath']) && !isset($_REQUEST['delFeedbackFile']) )
-    {
-        // reuse the old file as none has been uploaded and no delete was asked
-        $prefillDocPath = $_REQUEST['currentPrefillDocPath'];
-    }
-    elseif( isset($_REQUEST['currentPrefillDocPath']) && isset($_REQUEST['delFeedbackFile']) )
+    elseif( isset($_REQUEST['delFeedbackFile']) )
     {
         // delete the file was requested
-        $prefillDocPath = ''; // empty DB field
-
-        if( file_exists($wrkDir . 'assig_' . $_REQUEST['assigId'] . '/' . $_REQUEST['currentPrefillDocPath']) )
-        claro_delete_file($wrkDir . 'assig_' . $_REQUEST['assigId'] . '/' . $_REQUEST['currentPrefillDocPath']);
+		if( file_exists($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename()) )
+        {
+        	claro_delete_file($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename());
+        }
+        $autoFeedbackFilename = '';
     }
     else
     {
-        $prefillDocPath = '';
+        $autoFeedbackFilename = $assignment->getAutoFeedbackFilename();
     }
 
-    $prefillSubmit = $_REQUEST['prefillSubmit'];
+    $autoFeedbackSubmitMethod = $_REQUEST['autoFeedbackSubmitMethod'];
 }
 
 if($is_allowedToEdit)
@@ -194,22 +175,22 @@ if($is_allowedToEdit)
     // edit an assignment / form has been sent
     if( $cmd == 'exEditFeedback' )
     {
-        // form data have been handled before this point if the form was sent
-        if( isset($_REQUEST['assigId']) && $formCorrectlySent )
-        {
-            $sql = "UPDATE `".$tbl_wrk_assignment."`
-                SET `prefill_text` = '" . addslashes($prefillText) . "',
-                    `prefill_doc_path` = '" . addslashes($prefillDocPath) . "',
-                    `prefill_submit` = '" . addslashes($prefillSubmit) . "'
-                WHERE `id` = ". (int)$_REQUEST['assigId'];
-            claro_sql_query($sql);
+    	$assignment->setAutoFeedbackText($autoFeedbackText); 
+    	$assignment->setAutoFeedbackFilename($autoFeedbackFilename);
+    	$assignment->setAutoFeedbackSubmitMethod($autoFeedbackSubmitMethod);
 
+        // form data have been handled before this point if the form was sent
+        if( $formCorrectlySent && $assignment->save() )
+        {
             $dialogBox .= get_lang('Feedback Edited') . '<br /><br />';
             $dialogBox .= '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">';
             $dialogBox .= get_lang('Back');
             $dialogBox .= '</a>';
 
             $displayFeedbackForm = false;
+            
+            //report event to eventmanager "feedback_posted"
+            $eventNotifier->notifyCourseEvent("work_feedback_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
         }
         else
         {
@@ -226,41 +207,34 @@ if($is_allowedToEdit)
         include($includePath . '/lib/form.lib.php');
 
         // check if it was already sent
-        if( !isset($_REQUEST['submitAssignment'] ) )
+        if( !$isFeedbackSubmitted )
         {
-            // get current settings to fill in the form
-            $sql = "SELECT `prefill_text` , `prefill_doc_path`, `prefill_submit`,
-                          UNIX_TIMESTAMP(`end_date`) as `unix_end_date`
-                    FROM `".$tbl_wrk_assignment."`
-                    WHERE `id` = " . (int)$_REQUEST['assigId'];
-            list($modifiedAssignment) = claro_sql_query_fetch_all($sql);
-
             // feedback
-            $form['prefillText'          ] = $modifiedAssignment['prefill_text'];
-            $form['currentPrefillDocPath'] = $modifiedAssignment['prefill_doc_path'];
-            $form['prefillSubmit'        ] = $modifiedAssignment['prefill_submit'];
+            $form['autoFeedbackText'] 			= $assignment->getAutoFeedbackText();
+            $form['autoFeedbackFilename'] 		= $assignment->getAutoFeedbackFilename();
+            $form['autoFeedbackSubmitMethod'] 	= $assignment->getAutoFeedbackSubmitMethod();
 
             // end date (as a reminder for the "after end date" option
-            $form['unix_end_date'        ] = $modifiedAssignment['unix_end_date'];
+        	$form['unix_end_date']				= $assignment->getEndDate();
         }
         else
         {
             // there was an error in the form
-            $form['prefillText'          ] = $_REQUEST['prefillText'];
-            $form['currentPrefillDocPath'] = $_REQUEST['currentPrefillDocPath'];
-            $form['prefillSubmit'        ] = $_REQUEST['prefillSubmit'];
+            $form['autoFeedbackText'] 			= $_REQUEST['autoFeedbackText'];
+        	$form['autoFeedbackFilename'] 		= $_REQUEST['autoFeedbackFilename'];
+            $form['autoFeedbackSubmitMethod'] 	= $_REQUEST['autoFeedbackSubmitMethod'];
         }
+        
         // ask the display of the form
-
-        if($form['prefillSubmit'] == 'ENDDATE')
+        if($form['autoFeedbackSubmitMethod'] == 'ENDDATE')
         {   
-        	$prefillSubmitEndDateCheckStatus = 'checked="checked"';
-        	$prefillSubmitAfterPostCheckStatus = '';
+        	$prefillSubmitEndDateCheckStatus 	= 'checked="checked"';
+        	$prefillSubmitAfterPostCheckStatus 	= '';
         }
-        elseif($form['prefillSubmit'] == 'AFTERPOST')
+        elseif($form['autoFeedbackSubmitMethod'] == 'AFTERPOST')
         {
-        	$prefillSubmitEndDateCheckStatus = ''; 
-        	$prefillSubmitAfterPostCheckStatus = 'checked="checked"';
+        	$prefillSubmitEndDateCheckStatus 	= ''; 
+        	$prefillSubmitAfterPostCheckStatus 	= 'checked="checked"';
         }
 
         $displayFeedbackForm = true;
@@ -299,69 +273,70 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     {
         echo '<input type="hidden" name="assigId" value="' . $_REQUEST['assigId'] . '" />' . "\n";
     }
-    echo '<table cellpadding="5" width="100%">' . "\n"
+    echo '<table cellpadding="5" width="100%">' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td valign="top" colspan="2">' . "\n"
     .    '<p>' . "\n"
     .    get_block('blockFeedbackHelp') . "\n"
     .    '</p>' . "\n"
     .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
-    .    '<label for="prefillText">' . "\n"
+    .    '<label for="autoFeedbackText">' . "\n"
     .    get_lang('Feedback text') . "\n"
     .    '&nbsp;:' . "\n"
     .    '<br />' . "\n"
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_disp_html_area('prefillText', htmlspecialchars($form['prefillText']))
+    .    claro_disp_html_area('autoFeedbackText', htmlspecialchars($form['autoFeedbackText']))
     .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    .    '</tr>' . "\n\n"
     ;
 
-    if( isset($form['currentPrefillDocPath']) && $form['currentPrefillDocPath'] != '' )
+    if( isset($form['autoFeedbackFilename']) && $form['autoFeedbackFilename'] != '' )
     {
     	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-        $completeFileUrl = $currentCourseRepositoryWeb . 'work/assig_' . $_REQUEST['assigId'] . '/' . $form['currentPrefillDocPath'];
+        $completeFileUrl = $assignment->getAssigDirWeb() . $form['autoFeedbackFilename'];
+        
         echo '<tr>' . "\n"
         .    '<td valign="top">'
         .    get_lang('Current feedback file')
 
         // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
         .    '&nbsp;:'
-        .    '<input type="hidden" name="currentPrefillDocPath" value="' . $form['currentPrefillDocPath'] . '" />'
+        .    '<input type="hidden" name="currentAutoFeedbackFilename" value="' . $form['autoFeedbackFilename'] . '" />'
         .    '</td>' . "\n"
         .    '<td>'
-        .    '<a href="' . $completeFileUrl . '" ' . $target . '>' . $form['currentPrefillDocPath'] . '</a>'
+        .    '<a href="' . $completeFileUrl . '" ' . $target . '>' . $assignment->getAutoFeedbackFilename() . '</a>'
         .    '<br />'
         .    '<input type="checkBox" name="delFeedbackFile" id="delFeedbackFile" />'
         .    '<label for="delFeedbackFile">'
         .    get_lang('Check this box to delete the attached file') . ' ' . get_lang('Upload a new file to replace the file')
         .    '</label> '
         .    '</td>' . "\n"
-        .    '</tr>'
+        .    '</tr>' . "\n\n"
         ;
     }
 
     echo '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
-    .    '<label for="prefillDocPath">' . "\n"
+    .    '<label for="autoFeedbackFilename">' . "\n"
     .    get_lang('Feedback file')
     .    '&nbsp;:<br />' . "\n"
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="file" name="prefillDocPath" id="prefillDocPath" size="30" />' . "\n"
+    .    '<input type="file" name="autoFeedbackFilename" id="autoFeedbackFilename" size="30" />' . "\n"
     .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
     .    get_lang('Submit feedback')
     .    '&nbsp;:</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="radio" name="prefillSubmit" id="prefillSubmitEndDate" value="ENDDATE" '
+    .    '<input type="radio" name="autoFeedbackSubmitMethod" id="prefillSubmitEndDate" value="ENDDATE" '
     .    $prefillSubmitEndDateCheckStatus . '/>' . "\n"
     .    '<label for="prefillSubmitEndDate">' . "\n"
     .    '&nbsp;' . "\n"
@@ -369,21 +344,21 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    ' (' . claro_disp_localised_date($dateTimeFormatLong, $form['unix_end_date']) . ')' . "\n"
     .    '</label>' . "\n"
     .    '<br />' . "\n"
-    .    '<input type="radio" name="prefillSubmit" id="prefillSubmitAfterPost" value="AFTERPOST" '
+    .    '<input type="radio" name="autoFeedbackSubmitMethod" id="prefillSubmitAfterPost" value="AFTERPOST" '
     .    $prefillSubmitAfterPostCheckStatus . '>' . "\n"
     .    '<label for="prefillSubmitAfterPost">&nbsp;' . "\n"
     .    get_lang('Automatically, after each submission') . "\n"
     .    '</label>' . "\n"
     .    '<br />' . "\n"
     .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
     .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">' . "\n"
     .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
-    .    '</tr>' . "\n"
+    .    '</tr>' . "\n\n"
     .    '</table>' . "\n"
     .    '</form>' . "\n"
     ;
