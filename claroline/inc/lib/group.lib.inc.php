@@ -258,7 +258,7 @@ function fill_in_groups($course_id = NULL)
             LEFT JOIN  `" . $tbl_groupsUsers . "` ug
             ON    `g`.`id` = `ug`.`team`
             GROUP BY (`g`.`id`)
-            HAVING nbPlaces > 0 OR g.maxStudent IS NULL
+            HAVING nbPlaces > 0 OR g_maxStudent IS NULL
             ORDER BY nbPlaces DESC";
     $result = claro_sql_query($sql);
 
