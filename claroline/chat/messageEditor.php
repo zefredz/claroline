@@ -35,7 +35,7 @@ function prepare_message()
 </script>';
 
 
-
+$cmd_menu = array();
 if ($is_allowedToManage)
 {
     $cmd_menu[] = '<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList">'
@@ -55,9 +55,11 @@ echo '<form name="chatForm" action="messageList.php#final" method="post" target=
 .    '<input type="hidden"  name="chatLine">' . "\n"
 .    '<input type="submit" value=" >> ">' . "\n"
 .    '<br />' . "\n"
-.    '' . "\n"
-.    claro_html::menu_horizontal($cmd_menu) . "\n"
-.    '</form>';
+.    '' . "\n";
+
+if( !empty($cmd_menu) ) echo claro_html::menu_horizontal($cmd_menu) . "\n";
+
+echo '</form>';
 
 include  $includePath . '/claro_init_footer.inc.php' ;
 ?>
