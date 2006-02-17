@@ -535,7 +535,7 @@ function user_update_course_manager_status($user_id, $course_code, $status)
 /**
  * subscribe a specific user to a class
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @author Guillaume Lederer < guillaume@claroline.net >
  *
  * @param int $user_id user ID from the course_user table
  * @param string $course_code course code from the cours table
@@ -582,7 +582,8 @@ function user_add_to_class($user_id,$class_id)
 
     $sql = "SELECT `user_id`
             FROM `" . $tbl_rel_class_user . "`
-            WHERE `user_id` = '" . $user_id . "' ";
+            WHERE `user_id` = '" . $user_id . "'
+            AND `class_id` = '" . $class_id . "'";
     $handle = claro_sql_query($sql);
 
     if ( mysql_num_rows($handle) > 0 )
