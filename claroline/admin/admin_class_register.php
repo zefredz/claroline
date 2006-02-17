@@ -18,6 +18,7 @@
 require '../inc/claro_init_global.inc.php';
 
 require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/class.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
 
@@ -61,23 +62,8 @@ switch ($cmd)
 {
     case 'subscribe' :
     {
-        // 1- test if user is not already registered to class
-
-        $sql = "SELECT `user_id`
-            FROM `" . $tbl_class_user . "`
-            WHERE `user_id` = ". (int) $_REQUEST['user_id'] . "
-              AND `class_id` = " . (int) $classinfo['id'] ;
-        $result = claro_sql_query($sql);
-
-        if (!(mysql_num_rows($result) > 0))
+        if (user_add_to_class($_REQUEST['user_id'],$classinfo['id']))
         {
-
-            // 2- process the registration of user in the class
-
-            $sql ="INSERT INTO `".$tbl_class_user."`
-               SET `user_id` = '". (int)$_REQUEST['user_id'] ."',
-                   `class_id` = '". (int)$classinfo['id'] ."' ";
-            claro_sql_query($sql);
             $dialogBox = get_lang('User has been sucessfully registered to the classes');
         }
     } break;
