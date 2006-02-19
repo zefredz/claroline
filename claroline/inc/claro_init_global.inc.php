@@ -55,7 +55,7 @@ define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 // This action is mandatory because PEAR inner include() statements
 // rely on the php.ini include_path settings
 
-set_include_path( get_include_path(). PATH_SEPARATOR . PEAR_LIB_PATH );
+set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
 
 $clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
 $clarolineRepositoryWeb = $rootWeb . $clarolineRepositoryAppend;
