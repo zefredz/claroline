@@ -51,12 +51,13 @@ class claro_html
 
 
     /**
- * display a item list as vertical menu.
- *
- * @param array $itemList each item are include in a list.
- *
- * @return string : list content as an horizontal menu.
- */
+     * display a item list as vertical menu.
+     *
+     * @param array $itemList each item are include in a list.
+     *
+     * @return string : list content as an horizontal menu.
+     */
+
     function menu_horizontal($itemList)
     {
         // class="toollink"
@@ -98,20 +99,20 @@ class claro_html
     }
 
     /**
- * Prepare the display of a clikcable button
- *
- * This function is needed because claroline buttons rely on javascript.
- * The function return an optionnal behavior fo browser where javascript
- * isn't  available.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- *
- * @param string $url url inserted into the 'href' part of the tag
- * @param string $text text inserted between the two <a>...</a> tags (note : it
- *        could also be an image ...)
- * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
- * @return string the button
- */
+     * Prepare the display of a clikcable button
+     *
+     * This function is needed because claroline buttons rely on javascript.
+     * The function return an optionnal behavior fo browser where javascript
+     * isn't  available.
+     *
+     * @author Hugues Peeters <hugues.peeters@claroline.net>
+     *
+     * @param string $url url inserted into the 'href' part of the tag
+     * @param string $text text inserted between the two <a>...</a> tags (note : it
+     *        could also be an image ...)
+     * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
+     * @return string the button
+     */
 
     function cmd_button($url, $text, $confirmMessage = '')
     {
@@ -141,23 +142,23 @@ class claro_html
 
 
     /**
- * Displays the title of a tool. Optionally, there can be a subtitle below
- * the normal title, and / or a supra title above the normal title.
- *
- * e.g. supra title:
- * group
- * GROUP PROPERTIES
- *
- * e.g. subtitle:
- * AGENDA
- * calender & events tool
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param  mixed $titleElement - it could either be a string or an array
- *                               containing 'supraTitle', 'mainTitle',
- *                               'subTitle'
- * @return void
- */
+     * Displays the title of a tool. Optionally, there can be a subtitle below
+     * the normal title, and / or a supra title above the normal title.
+     *
+     * e.g. supra title:
+     * group
+     * GROUP PROPERTIES
+     *
+     * e.g. subtitle:
+     * AGENDA
+     * calender & events tool
+     *
+     * @author Hugues Peeters <hugues.peeters@claroline.net>
+     * @param  mixed $titleElement - it could either be a string or an array
+     *                               containing 'supraTitle', 'mainTitle',
+     *                               'subTitle'
+     * @return void
+     */
 
     function tool_title($titlePart, $helpUrl = false)
     {
@@ -213,16 +214,16 @@ class claro_html
 
 
     /**
- * Prepare display of the message box appearing on the top of the window,
- * just    below the tool title. It is recommended to use this function
- * to display any confirmation or error messages, or to ask to the user
- * to enter simple parameters.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param string $message - include your self any additionnal html
- *                          tag if you need them
- * @return $string html string for a message box
- */
+     * Prepare display of the message box appearing on the top of the window,
+     * just    below the tool title. It is recommended to use this function
+     * to display any confirmation or error messages, or to ask to the user
+     * to enter simple parameters.
+     *
+     * @author Hugues Peeters <hugues.peeters@claroline.net>
+     * @param string $message - include your self any additionnal html
+     *                          tag if you need them
+     * @return $string html string for a message box
+     */
 
     function message_box($message)
     {
@@ -647,96 +648,6 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
 
 
 /**
- * Display options to switch between student view and course manager view
- * This function is mainly used by the claro_init_banner.inc.php file
- * The display mode command will only be displayed if
- * claro_set_tool_view_mode(true) has been previously called.
- * This will affect the return value of claro_is_allowed_to_edit() function.
- * It will ten return false as the user is a simple student.
- *
- * @author roan embrechts
- * @author Hugues Peeters
- * @param string - $viewModeRequested.
- *                 For now it can be 'STUDENT' or 'COURSE_ADMIN'
- * @see claro_is_allowed_to_edit()
- * @see claro_is_display_mode_available()
- * @see claro_set_display_mode_available()
- * @see claro_get_tool_view_mode()
- * @see claro_set_tool_view_mode()
- * @return true;
- */
-
-
-function claro_disp_tool_view_option($viewModeRequested = false)
-{
-    global $clarolineRepositoryWeb, $is_courseAdmin;
-
-    if ( ! $is_courseAdmin || ! claro_is_display_mode_available() ) return false;
-
-    if ($viewModeRequested) claro_set_tool_view_mode($viewModeRequested);
-
-    $currentViewMode = claro_get_tool_view_mode();
-
-    /*------------------------------------------------------------------------
-    PREPARE URL
-    ------------------------------------------------------------------------*/
-
-    /*
-    * check if the REQUEST_URI contains already URL parameters
-    * (thus a questionmark)
-    */
-
-    if ( strstr($_SERVER['REQUEST_URI' ], '?') ) $url = $_SERVER['REQUEST_URI' ];
-    else                                         $url = $_SERVER['PHP_SELF'].'?';
-
-    /*
-    * remove previous view mode request from the url
-    */
-
-    $url = str_replace('&viewMode=STUDENT'     , '', $url);
-    $url = str_replace('&viewMode=COURSE_ADMIN', '', $url);
-
-    /*------------------------------------------------------------------------
-    INIT BUTTONS
-    -------------------------------------------------------------------------*/
-
-
-    switch ($currentViewMode)
-    {
-        case 'COURSE_ADMIN' :
-
-        $studentButton = '<a href="' . $url . '&amp;viewMode=STUDENT">'
-        .                get_lang('Student')
-        .                '</a>'
-        ;
-        $courseAdminButton = '<b>' . get_lang('Course manager') . '</b>';
-
-        break;
-
-        case 'STUDENT' :
-
-        $studentButton     = '<b>'.get_lang('Student').'</b>';
-        $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
-        . get_lang('Course manager')
-        . '</a>';
-        break;
-    }
-
-    /*------------------------------------------------------------------------
-    DISPLAY COMMANDS MENU
-    ------------------------------------------------------------------------*/
-
-    echo get_lang('View mode') . ' : '
-    .    $studentButton
-    .    ' | '
-    .    $courseAdminButton
-    ;
-
-    return true;
-}
-
-
-/**
  * Route the script to an auhtentication form if user id is missing.
  * Once authenticated, the system get back to the source where the form
  * was trigged
@@ -940,6 +851,17 @@ function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     return $returnString;
 }
 
+/**
+ * enhance a simple textarea with an inline html editor.
+ *
+ * @param string $name name attribute for <textarea> tag
+ * @param string $content content to prefill the area
+ * @param integer $rows count of rows for the displayed editor area
+ * @param integer $cols count of columns for the displayed editor area
+ * @param string $optAttrib    optional - additionnal tag attributes
+ *                                       (wrap, class, ...)
+ * @return string html output for standard textarea or Wysiwyg editor
+ */
 function claro_disp_html_area($name, $content = '',
 $rows=20, $cols=80,
 $optAttrib='')
@@ -953,13 +875,12 @@ $optAttrib='')
  * function claro_build_nested_select_menu($name, $elementList)
  * Build in a relevant way 'select' menu for an HTML form containing nested data
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
  * @param string $name, name of the select tag
- *
  * @param array nested data in a composite way
  *
- *  Exemple :
+ * @return string the HTML flow
+ *
+ * @example :
  *
  *  $elementList[1]['name'    ] = 'level1';
  *  $elementList[1]['value'   ] = 'level1';
@@ -973,8 +894,7 @@ $optAttrib='')
  *  $elementList[2]['name' ]  = 'level1';
  *  $elementList[2]['value']  = 'level1';
  *
- * @return string the HTML flow
- * @desc depends on prepare option tags
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
 
@@ -990,10 +910,12 @@ function claro_build_nested_select_menu($name, $elementList)
  * prepare the 'option' html tag for the claro_disp_nested_select_menu()
  * fucntion
  *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param array $elementList
- * @param int  $deepness (optionnal, default is 0)
+ * @param int   $deepness (optionnal, default is 0)
  * @return array of option tag list
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ *
  */
 
 
@@ -1018,6 +940,170 @@ function prepare_option_tags($elementList, $deepness = 0)
 
     return  $optionTagList;
 }
+
+
+
+/**
+ * Checks if the string has been written html style (ie &eacute; etc)
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param string $string
+ * @return boolean true if the string is written in html style, false otherwise
+ */
+
+function is_htmlspecialcharized($string)
+{
+    return (bool) preg_match('/(&[a-z]+;)|(&#[0-9]+;)/', $string);
+}
+
+/**
+ * function that cleans php string for javascript
+ *
+ * This function is needed to clean strings used in javascript output
+ * Newlines are prohibited in the script, specialchar  are prohibited
+ * quotes must be addslashes
+ *
+ * @param $str string original string
+ * @return string : cleaned string
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ *
+ */
+function clean_str_for_javascript( $str )
+{
+    $output = $str;
+    // 1. addslashes, prevent problems with quotes
+    // must be before the str_replace to avoid double backslash for \n
+    $output = addslashes($output);
+    // 2. turn windows CR into *nix CR
+    $output = str_replace("\r", '', $output);
+    // 3. replace "\n" by uninterpreted '\n'
+    $output = str_replace("\n",'\n', $output);
+    // 4. convert special chars into html entities
+    $output = htmlspecialchars($output);
+
+    return $output;
+}
+
+/**
+ * Parse the user text (e.g. stored in database)
+ * before displaying it to the screen
+ * For example it change new line charater to <br> tag etc.
+ *
+ * @param string $userText original user tex
+ * @return string : parsed user text
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ */
+
+function claro_parse_user_text($userText)
+{
+   global $claro_texRendererUrl; // see 'inc/conf/claro_main.conf.php'
+
+   if ( !empty($claro_texRendererUrl) )
+   {
+       $userText = str_replace('[tex]',
+                          '<img src="'.$claro_texRendererUrl.'?',
+                          $userText);
+
+       $userText = str_replace('[/tex]',
+                           '" border="0" align="absmiddle">',
+                           $userText);
+   }
+   else
+   {
+       $userText = str_replace('[tex]',
+                              '<embed TYPE="application/x-techexplorer" texdata="',
+                              $userText);
+
+       $userText = str_replace('[/tex]',
+                               '" width="100%" pluginspace="http://www.integretechpub.com/">',
+                               $userText);
+   }
+
+   $userText = make_clickable($userText);
+
+   if ( strpos($userText, '<!-- content: html -->') === false )
+   {
+        // only if the content isn't HTML change new line to <br>
+        // Note the '<!-- content: html -->' is introduced by HTML Area
+        $userText = nl2br($userText);
+   }
+
+    return $userText;
+}
+
+/**
+ * Completes url contained in the text with "<a href ...".
+ * However the function simply returns the submitted text without any
+ * transformation if it already contains some "<a href:" or "<img src=".
+ *
+ * Actually this function is taken from the PHP BB 1.4 script
+ * - Goes through the given string, and replaces xxxx://yyyy with an HTML <a> tag linking
+ *  to that URL
+ * - Goes through the given string, and replaces www.xxxx.yyyy[zzzz] with an HTML <a> tag linking
+ *  to http://www.xxxx.yyyy[/zzzz]
+ * - Goes through the given string, and replaces xxxx@yyyy with an HTML mailto: tag linking
+ *      to that email address
+ * - Only matches these 2 patterns either after a space, or at the beginning of a line
+ *
+ * Notes: the email one might get annoying - it's easy to make it more restrictive, though.. maybe
+ * have it require something like xxxx@yyyy.zzzz or such. We'll see.
+ *
+ * @param  string $text text to be converted
+ * @return string : text after conversion
+ *
+ * @author Rewritten by Nathan Codding - Feb 6, 2001.
+ * @author completed by Hugues Peeters - July 22, 2002
+ */
+
+function make_clickable($text)
+{
+
+    // If the user has decided to deeply use html and manage himself hyperlink
+    // cancel the make clickable() function and return the text untouched. HP
+
+    if (preg_match ( "<(a|img)[[:space:]]*(href|src)[[:space:]]*=(.*)>", $text) )
+    {
+        return $text;
+    }
+
+    // pad it with a space so we can match things at the start of the 1st line.
+    $ret = " " . $text;
+
+
+    // matches an "xxxx://yyyy" URL at the start of a line, or after a space.
+    // xxxx can only be alpha characters.
+    // yyyy is anything up to the first space, newline, or comma.
+
+    $ret = preg_replace("#([\n ])([a-z]+?)://([^, \n\r]+)#i",
+                        "\\1<a href=\"\\2://\\3\" >\\2://\\3</a>",
+                        $ret);
+
+    // matches a "www.xxxx.yyyy[/zzzz]" kinda lazy URL thing
+    // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
+    // yyyy contains either alphanum, "-", or "."
+    // zzzz is optional.. will contain everything up to the first space, newline, or comma.
+    // This is slightly restrictive - it's not going to match stuff like "forums.foo.com"
+    // This is to keep it from getting annoying and matching stuff that's not meant to be a link.
+
+    $ret = preg_replace("#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[^, \n\r]*)?)#i",
+                        "\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>",
+                        $ret);
+
+    // matches an email@domain type address at the start of a line, or after a space.
+    // Note: before the @ sign, the only valid characters are the alphanums and "-", "_", or ".".
+    // After the @ sign, we accept anything up to the first space, linebreak, or comma.
+
+    $ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([^, \n\r]+)#i",
+                        "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>",
+                        $ret);
+
+    // Remove our padding..
+    $ret = substr($ret, 1);
+
+    return($ret);
+}
+
 
 
 ?>
