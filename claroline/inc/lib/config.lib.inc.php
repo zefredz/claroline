@@ -668,12 +668,6 @@ class Config
     {
         $form = '';
 
-        // display description of configuration
-        if ( !empty($conf_def['description']) )
-        {
-            $form .= '<p>' . $this->conf_def['description'] . '</p>' . "\n";
-        }
-
         // get section list
         $section_list = $this->get_def_section_list();
 
@@ -684,59 +678,73 @@ class Config
                 $section_selected = current($section_list);
             }
 
-            // section array
-            $section = $this->conf_def['section'][$section_selected];
-
             // display start form
             $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code . '" name="editConfClass" >' . "\n"
-                   . '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
-                   . '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
-                   . '<input type="hidden" name="cmd" value="save" />' . "\n";
-
-
-            // display description of the section
-            if ( !empty($section['description']) ) $form .= '<div><p><em>' . $section['description'] . '</em></p></div>';
+            . '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
+            . '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
+            . '<input type="hidden" name="cmd" value="save" />' . "\n";
 
             $form .= '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
+            if ($section_selected!='viewall') $section_list = $section_list= array($section_selected);
 
-            // display each property of the section
-            if ( is_array($section['properties']) )
+            foreach ($section_list as $thisSection)
             {
-                foreach ( $section['properties'] as $name )
+                if ($thisSection=='viewall') continue;
+                // section array
+                $section = $this->conf_def['section'][$thisSection];
+
+                if ($section_selected=='viewall')
                 {
-                    if ( key_exists($name,$this->conf_def_property_list) )
+                    $form .= '<tr><td colspan="3">' . "\n";
+                    $form .= '<ul class="tabTitle">' . "\n";
+                    $form .= '<li><a href="#">' . htmlspecialchars($this->conf_def['section'][$thisSection]['label']) . '</a></li>' . "\n";
+                    $form .= '</td></tr>' . "\n";
+
+                }
+                // display description of the section
+                if ( !empty($section['description']) ) $form .= '<tr><td colspan="3"><p class="configSectionDesc" ><em>' . $section['description'] . '</em></p></td></tr>';
+
+
+                // display each property of the section
+                if ( is_array($section['properties']) )
+                {
+                    foreach ( $section['properties'] as $name )
                     {
-                        if ( is_array($this->conf_def_property_list[$name]) )
+                        if ( key_exists($name,$this->conf_def_property_list) )
                         {
-                            if ( isset($property_list[$name]) )
+                            if ( is_array($this->conf_def_property_list[$name]) )
                             {
-                                // display elt with new content
-                                $form .= $this->display_form_elt($name,$property_list[$name]);
-                            }
-                            else
-                            {
-                                // display elt with current content
-                                $form .= $this->display_form_elt($name,$this->property_list[$name]);
+                                if ( isset($property_list[$name]) )
+                                {
+                                    // display elt with new content
+                                    $form .= $this->display_form_elt($name,$property_list[$name]);
+                                }
+                                else
+                                {
+                                    // display elt with current content
+                                    $form .= $this->display_form_elt($name,$this->property_list[$name]);
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        $form .= 'Error in $section, ' . $name . ' doesn\'t exist in property list';
-                    }
-                } // foreach $section['properties'] as $name
-            } // is_array($section['properties'])
+                        else
+                        {
+                            $form .= 'Error in $section, ' . $name . ' doesn\'t exist in property list';
+                        }
+                    } // foreach $section['properties'] as $name
+                } // is_array($section['properties'])
+
+            }
 
             // display submit button
             $form .= '<tr>' ."\n"
-                   . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
-                   . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
-                   . claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
-                   . '</tr>' . "\n";
+            . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
+            . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
+            . claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+            . '</tr>' . "\n";
 
             // display end form
             $form .= '</table>' . "\n"
-                   . '</form>' . "\n";
+            . '</form>' . "\n";
 
         }
 
@@ -816,6 +824,7 @@ class Config
                 {
                     case 'boolean' :
                     case 'enum' :
+                    {
                         if ( isset($property_def['acceptedValue'][$value]) )
                         {
                             $elt_form .= $property_def['acceptedValue'][$value];
@@ -824,8 +833,9 @@ class Config
                         {
                             $elt_form .= $html['value'];
                         }
-                        break;
+                    }   break;
                     case 'multi' :
+                    {
                         if ( empty($value) || ! is_array($value) )
                         {
                             $elt_form .= get_lang('Empty');
@@ -839,10 +849,11 @@ class Config
                             }
                             $elt_form .= implode(', ',$value_list);
                         }
-                        break;
+                    }   break;
                     case 'integer' :
                     case 'string' :
                     default :
+                    {
                         // probably a string or integer
                         if ( empty($html['value']) )
                         {
@@ -852,6 +863,7 @@ class Config
                         {
                             $elt_form .= $html['value'];
                         }
+                    }
                 }
 
                 $elt_form .= '</td>' . "\n";
@@ -1031,8 +1043,8 @@ class Config
 
         if(!array_key_exists('section',$this->conf_def) || ($this->conf_def['section']))
         {
-            $this->conf_def['section']['generic']['label'] = '+';
-            $this->conf_def['section']['generic']['properties'] = array_keys($this->conf_def_property_list);
+            $this->conf_def['section']['viewall']['label'] = get_lang('View all');
+            $this->conf_def['section']['viewall']['properties'] = array_keys($this->conf_def_property_list);
         }
 
         foreach ( $this->conf_def['section'] as $id => $section )
@@ -1064,10 +1076,11 @@ class Config
                 $section_selected = current($section_list);
             }
 
-            $menu = '<div >' . "\n"
-                . '<ul id="navlist">' . "\n";
+            $menu  = '<div >' . "\n";
+            $menu .= '<ul id="navlist">' . "\n";
 
             foreach ( $section_list as $section )
+            if($section != 'viewall')
             {
                 $menu .=  '<li>'
                     . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
@@ -1075,8 +1088,9 @@ class Config
                     . '&section=' . htmlspecialchars($section) . '">'
                     . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
             }
-            $menu .= '</ul>' . "\n"
-                . '</div>' . "\n" ;
+            $menu .= '<li><a class="viewall" href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code) . '&amp;section=viewall">' . get_lang('View all') . '</a></li>' . "\n";
+            $menu .= '</ul>' . "\n";
+            $menu .= '</div>' . "\n" ;
         }
         return $menu;
     }

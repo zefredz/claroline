@@ -73,7 +73,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $htmlHeadXtra[] = '<style type="text/css" media="screen">
 
 <!--
-#navlist
+#navlist, .tabTitle
 {
 padding: 3px 0;
 margin-left: 0;
@@ -81,14 +81,14 @@ border-bottom: 1px solid #778;
 font: bold 12px Verdana, sans-serif;
 }
 
-#navlist li
+#navlist li, .tabTitle li
 {
 list-style: none;
 margin: 0;
 display: inline;
 }
 
-#navlist li a
+#navlist li a, .tabTitle li a
 {
 padding: 3px 0.5em;
 margin-left: 3px;
@@ -112,6 +112,25 @@ border-color: #227;
 {
 background: white;
 border-bottom: 1px solid white;
+}
+
+#navlist li a.viewall
+{
+align : right;
+background: white;
+border-right: 0px solid white;
+border-top: 0px solid white;
+border-left: 3px double #778;
+}
+
+.configSectionDesc
+{
+    padding: 3px 0.5em;
+    margin-left: 10px;
+    background: #eD2;
+    border: 1px solid #778;
+    // Yes its awfull but volontary to be changed
+
 }
 -->
 </style>';
