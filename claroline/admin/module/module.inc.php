@@ -330,7 +330,7 @@ function install_module()
                    VALUES (
                    '" . $module_info['LABEL'      ] . "',
                    '" . $module_info['MODULE_NAME'] . "',
-                   '" . $module_info['PLUGINTYPE' ] . "'
+                   '" . $module_info['MODULE_TYPE' ] . "'
                    )";
     $module_id = claro_sql_query_insert_id($sql);
 
@@ -362,7 +362,7 @@ function install_module()
     //in case of coursetool type module, the dock can not be selected and must added also now
 
     $max_rank = get_max_rank_in_dock('coursetool');
-    if ($module_info['PLUGINTYPE'] == 'coursetool')
+    if ($module_info['MODULE_TYPE'] == 'coursetool')
     {
         set_module_dock($module_id, 'coursetool');
     }
@@ -373,7 +373,7 @@ function install_module()
 
     {
         set_module_dock($module_id, $module_info['DEFAULT_DOCK']);
-        array_push ($backlog_message, get_lang("Default dock of the plugin found and set")." : ".$module_info['DEFAULT_DOCK']);
+        array_push ($backlog_message, get_lang("Default dock of the module found and set")." : ".$module_info['DEFAULT_DOCK']);
     }
 
     array_push ($backlog_message, get_lang("The information has been saved into the DB"));
@@ -543,9 +543,9 @@ function startElement($parser, $name, $attributes)
 
     switch ($current_element)
     {
-        case 'PLUGINTYPE' :
+        case 'MODULE_TYPE' :
         {
-            $module_info['PLUGINTYPE'] = $attributes['VALUE'];
+            $module_info['MODULE_TYPE'] = $attributes['VALUE'];
         }
         break;
 
@@ -606,7 +606,7 @@ function elementData($parser,$data)
             $parent = prev($element_pile);
             switch ($parent)
             {
-                case 'PLUGIN':
+                case 'MODULE':
                 {
                     $module_info['MODULE_NAME'] = $data;
                 }break;
@@ -652,7 +652,7 @@ function elementData($parser,$data)
             $parent = prev($element_pile);
             switch ($parent)
             {
-                case 'PLUGIN':
+                case 'MODULE':
                 {
                     $module_info['MODULE_VERSION'] = $data;
                 }   break;
