@@ -32,12 +32,12 @@ if ( ! $is_platformAdmin ) claro_disp_auth_form();
 if (! isset($clarolineVersion) )  $clarolineVersion= 'X';
 
 
-$nameTools = get_lang('_php_info');
+$nameTools = get_lang('PHP system information');
 $interbredcrump[]= array ('url' => '..', 'name' => get_lang('Admin'));
-$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Technical'));
+$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Technical Tools'));
 if (isset($_REQUEST['to']))
 {
-    $interbredcrump[]= array ('url' => basename($_SERVER['PHP_SELF']), 'name' => get_lang('_php_info'));
+    $interbredcrump[]= array ('url' => basename($_SERVER['PHP_SELF']), 'name' => get_lang('PHP system information'));
     $nameTools = $_REQUEST['to'];
 }
 
@@ -89,7 +89,7 @@ if ($is_allowedToAdmin)
 <DIV class="elementServeur">
 <span class="elementServeur" >WebServer</span> <?php echo $_SERVER['SERVER_SOFTWARE'] ;?></strong><br />
 
-[<?php echo get_lang('MailTo') ?><a href="mailto:<?php echo $_SERVER['SERVER_ADMIN'] ?>">Admin apache (<?php echo $_SERVER['SERVER_ADMIN'] ?>)</A>]
+[<?php echo get_lang('Mail to : ') ?><a href="mailto:<?php echo $_SERVER['SERVER_ADMIN'] ?>">Admin apache (<?php echo $_SERVER['SERVER_ADMIN'] ?>)</A>]
 <br />
 </DIV>
 <HR size="1" noshade="noshade">
@@ -102,7 +102,7 @@ if ($is_allowedToAdmin)
         @sort($extensions);
         foreach($extensions as $extension)
         {
-            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Functions').'</a><br />'."\n";
+            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
             if ($extension==$ext)
             {
                 $functions = @get_extension_funcs($ext);
@@ -118,7 +118,7 @@ if ($is_allowedToAdmin)
                 }
                 else
                 {
-                    echo '!! ' . get_lang('NoFunctionInThisSection') . '!!<br />';
+                    echo '!! ' . get_lang('No function in this extension') . '!!<br />';
                 }
             }
         }
@@ -159,7 +159,7 @@ if ($is_allowedToAdmin)
 }
 else
 {
-    echo get_lang('_no_access_here');
+    echo get_lang('No way');
 }
 
 ?>

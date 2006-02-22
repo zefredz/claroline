@@ -24,10 +24,10 @@ require_once $includePath . '/lib/form.lib.php';
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
 
-$nameTools = get_lang('DiskUsage');
+$nameTools = get_lang('Disk Usage');
 
 $interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('TechAdmin'));
+$interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Administration'));
 
 $disp_form = true;
 
@@ -61,7 +61,7 @@ if ($disp_form)
 
     if (is_array($course_list))
     {
-        $coursesToCheck_list[' all ']= '** ' . get_lang('All') . ' ** !!! ' . get_lang('High_resources') ;
+        $coursesToCheck_list[' all ']= '** ' . get_lang('All') . ' ** !!! ' . get_lang('high resources') ;
         foreach ($course_list as $courseSel)
         {
             $coursesToCheck_list[ $courseSel['sysCode'] ]=$courseSel['officialCode'];
@@ -80,7 +80,7 @@ echo claro_disp_tool_title(
     )
 );
 
-echo get_lang('Course_Repository') . ' : ' . $coursesRepositorySys . '<br />' . get_lang('Mysql_Repository') . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . get_lang('Missing')) . '<br />';
+echo get_lang('Course Repository') . ' : ' . $coursesRepositorySys . '<br />' . get_lang('Mysql Repository') . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . get_lang('Missing')) . '<br />';
 
 
 
@@ -98,7 +98,7 @@ if ($disp_allcrs)
     echo '<li>'
     .    get_lang('Courses') . ' : '
     .    sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2]
-    .    '(' . get_lang('Perhaps_with_others_directory') . ')</li>'
+    .    '(' . get_lang('perhaps with others directory') . ')</li>'
     ;
 
 if ($disp_garbage )
@@ -113,17 +113,17 @@ if ($disp_garbage )
 <hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
-<label for="disp_claro"><?php echo get_lang('Size_of_claroline_scripts') ?></label>
+<label for="disp_claro"><?php echo get_lang(' size of claroline scripts') ?></label>
 <br />
 <input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
-<label for="disp_allcrs"><?php echo get_lang('Size_of_course_repository') ?></label>
+<label for="disp_allcrs"><?php echo get_lang('!!!! size of course repository (include claroline and garbage in old systems)') ?></label>
 <br />
 <input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
 <label for="disp_garbage">size of garbage</label>
 <br />
 
 <input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true" >
-<label for="disp_selCrs"><?php echo get_lang('Size_of_selected_courses') ?></label><br />
+<label for="disp_selCrs"><?php echo get_lang('size of selected courses') ?></label><br />
 
 <?php
 echo claro_html_form_select( 'coursesToCheck[]'
@@ -184,7 +184,7 @@ if ($disp_selCrs && $coursesToCheck)
             $quota   = $course['diskQuota'] * 1;
             echo '<li>'
             .    $course['code'] . ' : '
-            .    (is_null($course['diskQuota']) ? ' ' . get_lang('NoQuota') . ' '
+            .    (is_null($course['diskQuota']) ? ' ' . get_lang('No quota') . ' '
                                                 : get_lang('Quota') . ' : ' . $course['diskQuota']
                  )
             .    ' ' . $byteUnits[2] . ' | '
