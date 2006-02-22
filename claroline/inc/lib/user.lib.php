@@ -752,8 +752,8 @@ function user_remove_from_group($user_id, $course_code)
 /**
  * Send registration succeded email to user
  *
- * @param $user_id integer
- * @param $data array
+ * @param integer $user_id
+ * @param mixed $data array of user data or null to keep data following $user_id param.
  *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
@@ -761,26 +761,39 @@ function user_remove_from_group($user_id, $course_code)
 
 function user_send_registration_mail ($user_id, $data)
 {
-    global $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email;
-
     if ( ! empty($data['email']) )
     {
         // email subjet
-        $emailSubject  = '[' . $siteName . '] ' . get_lang('YourReg') ;
+
+        $emailSubject  = '[' . get_conf('siteName') . '] ' . get_lang('Your registration') ;
 
         // email body
-        $emailBody = get_lang('Dear') . ' ' . $data['firstname'] . ' ' . $data['lastname'] . ',' . "\n"
-        .            get_lang('YouAreReg') . ' ' . $siteName . ' '
-        .            get_lang('Settings') . ' ' . $data['username'] . "\n"
-        .            get_lang('Password') . ' : ' . $data['password'] . "\n"
-        .            get_lang('The address of ') . ' ' . $siteName . ' '
-        .            get_lang('Is') . ' : ' . $rootWeb . "\n"
-        .            get_lang('Problem') . "\n"
-        .            get_lang('Yours sincerely') . ',' . "\n"
-        .            $administrator_name . "\n"
-        .            get_lang('Manager') . ' ' . $siteName . "\n"
-        .            'T. ' . $administrator_phone . "\n"
-        .            get_lang('Email') . ' : ' . $administrator_email . "\n";
+
+        $emailBody = get_block("Dear %firstname %lastname,\nYou are registered on %siteName \n Login name :  %username \n"
+        .            'Password  : %password' . "\n"
+        .            'The address of  %siteName '
+        .            'Is : %rootWeb' . "\n"
+        .            'In case of problems, contact us.' . "\n"
+        .            'Yours sincerely,' . "\n"
+        .            'administratorName' . "\n"
+        .            'Manager %siteName' . "\n"
+        .            'T. %administratorPhone' . "\n"
+        .            'Email : %administratorEmail' . "\n",
+
+        array(
+        '%firstname'=> $data['firstname'],
+        '%lastname' => $data['lastname'],
+        '%username' => $data['username'],
+        '%password' => $data['password'],
+        '%siteName'=> get_conf('siteName'),
+        '%rootWeb' => get_conf('rootWeb'),
+        '%administratorName' => get_conf('administrator_name'),
+        '%administratorPhoto'=> get_conf('administrator_phone'),
+        '%administratorEmail'=> get_conf('administrator_email')
+        ))
+        ;
+
+
 
         if ( claro_mail_user($user_id, $emailBody, $emailSubject) ) return true;
         else                                                        return false;
@@ -801,32 +814,38 @@ function user_send_registration_mail ($user_id, $data)
  *
  */
 
-function user_send_enroll_to_course_mail ($user_id, $data)
+function user_send_enroll_to_course_mail ($user_id, $data, $course=null)
 {
-    global $siteName, $rootWeb, $administrator_name, $administrator_phone, $administrator_email, $_course ;
+    $courseData = claro_get_course_data($course);
 
     if ( ! empty($data['email']) )
     {
-        // email subjet
-        $emailSubject  = '[' . $siteName . '] ' . get_lang('YourReg') ;
 
-        // Send message
-        $emailBody = get_lang('Dear') . ' %s %s ,' . "\n"
-        .            get_lang('OneResp') . $_course['officialCode']
-        .            get_lang('RegYou') . ' ' . $siteName . ' '
-        .            get_lang('Settings') . ' %s' . "\n"
-        .            get_lang('The address of ') . ' ' . $siteName . ' '
-        .            get_lang('Is'). ': ' . $rootWeb . "\n"
-        .            get_lang('Problem') . "\n" . "\n"
-        .            get_lang('Yours sincerely') . ', ' . "\n"
-        .            get_lang('Administrator') . ' ' . $administrator_name . "\n"
-        .            get_lang('Manager') . ' ' . $siteName . "\n";
+        $emailSubject  = '[' .  get_conf('siteName') . '-' . $courseData['officialCode']. '] ' . get_lang('Your registration') ;
 
-        $emailBody = sprintf($emailBody,$data['firstname'],$data['lastname'], $data['email']);
+        $emailBody = get_block("Dear %firstname %lastname,\n"
+        .                      'One administrators of the course %courseCode '
+        .                      'has registered you on this course '
+        .                      'The address of  %siteName '
+        .                      'Is : %rootWeb' . "\n"
+        .                      'In case of problems, contact us.' . "\n"
+        .                      'Yours sincerely,' . "\n"
+        .                      'administratorName' . "\n"
+        .                      'Manager %siteName' . "\n"
+        .                      'T. %administratorPhone' . "\n"
+        .                      'Email : %administratorEmail' . "\n",
 
-        if ( ! empty($administrator_phone) ) $emailBody .= 'T. ' . $administrator_phone . ' ' . "\n";
-
-        $emailBody .= get_lang('Email') . ': ' . $administrator_email . ' ' . "\n";
+        array(
+        '%firstname'=> $data['firstname'],
+        '%lastname' => $data['lastname'],
+        '%courseCode' => $courseData['officialCode'],
+        '%siteName'=> get_conf('siteName'),
+        '%rootWeb' => get_conf('rootWeb'),
+        '%administratorName' => get_conf('administrator_name'),
+        '%administratorPhoto'=> get_conf('administrator_phone'),
+        '%administratorEmail'=> get_conf('administrator_email')
+        ))
+        ;
 
         if ( claro_mail_user($user_id, $emailBody, $emailSubject) ) return true;
         else                                                        return false;
@@ -889,7 +908,7 @@ function user_validate_form_registration($data)
     // check if the two password are identical
     if ( $data['password_conf']  != $data['password']  )
     {
-        $messageList[] = get_lang('PassTwice') ;
+        $messageList[] = get_lang('You typed two different passwords') ;
     }
 
     // check if password isn't too easy
@@ -903,8 +922,10 @@ function user_validate_form_registration($data)
                                                  $data['email'] ))
             )
         {
-            if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
-                $messageList[] = get_lang('PassTooEasy') . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
+            if (claro_failure::get_last_failure() == 'ERROR_CODE_too_easy')
+                $messageList[] = get_lang(
+                'this password is too simple. Use a password like this <code>%passpruposed</code>',
+                array('%passpruposed', substr(md5(date('Bis')),0,8) ));
 
         }
     }
@@ -968,7 +989,7 @@ function user_validate_form_profile($data,$user_id)
     // check if the two password are identical
     if ( $data['password_conf'] != $data['password']  )
     {
-        $messageList[] = get_lang('PassTwice') ;
+        $messageList[] = get_lang('You typed two different passwords') ;
     }
     else
     {
@@ -984,7 +1005,10 @@ function user_validate_form_profile($data,$user_id)
                 )
             {
                 if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
-                    $messageList[] =  get_lang('PassTooEasy')  . ' <code>' . substr(md5(date('Bis')),0,8) . '</code></p>';
+                    $messageList[] = get_lang(
+                'this password is too simple. Use a password like this <code>%passpruposed</code>',
+                array('%passpruposed', substr(md5(date('Bis')),0,8) ));
+
             }
         }
     }
@@ -1077,7 +1101,7 @@ function is_username_available($username,$user_id=null)
     }
     else
     {
-        return claro_failure::set_failure(get_lang('UserTaken'));
+        return claro_failure::set_failure(get_lang('This user name is already taken'));
     }
 }
 
@@ -1112,7 +1136,7 @@ function is_official_code_available($official_code,$user_id=null)
     }
     else
     {
-        return claro_failure::set_failure(get_lang('CodeUsed'));
+        return claro_failure::set_failure(get_lang('This official code is already used by another user.'));
     }
 }
 
@@ -1222,13 +1246,13 @@ function user_display_form($data, $form_type='registration')
 
     // lastname
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="lastname">' . required_field(get_lang('Lastname')) . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="lastname">' . required_field(get_lang('Last name')) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" name="lastname" id="lastname" value="' . htmlspecialchars($data['lastname']) . '" /></td>' . "\n"
         . ' </tr>' . "\n";
 
     // firstname
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="firstname">' . required_field(get_lang('Firstname')) . '&nbsp;:</label></td>' . "\n"
+        . '  <td align="right"><label for="firstname">' . required_field(get_lang('First name')) . '&nbsp;:</label></td>' . "\n"
         . '  <td><input type="text" size="40" id="firstname" name="firstname" value="' . htmlspecialchars($data['firstname']) . '" /></td>' . "\n"
         . ' </tr>' . "\n" ;
 
@@ -1236,7 +1260,7 @@ function user_display_form($data, $form_type='registration')
     if ( get_conf('ask_for_official_code') )
     {
         echo ' <tr>'  . "\n"
-            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('OfficialCode'):required_field(get_lang('OfficialCode'))) . '&nbsp;:</label></td>'  . "\n"
+            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('Official Code'):required_field(get_lang('Official Code'))) . '&nbsp;:</label></td>'  . "\n"
             . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
     }
@@ -1246,7 +1270,7 @@ function user_display_form($data, $form_type='registration')
     {
         echo '<tr>' . "\n"
             . '<td align="right">' . "\n"
-            . ' <label for="picture">' . $data['picture']?get_lang('UpdateImage'):get_lang('Include picture') . ' :<br />' . "\n"
+            . ' <label for="picture">' . $data['picture']?get_lang('Change picture'):get_lang('Include picture') . ' :<br />' . "\n"
             . ' <small>(.jpg or .jpeg only)</small></label>'
             . ' </td>' . "\n"
             . ' <td>' . "\n"
@@ -1254,7 +1278,7 @@ function user_display_form($data, $form_type='registration')
 
         if ( empty($data['picture']) )
         {
-            echo '<br />' . "\n" . '<label for="del_picture">' . get_lang('DelImage') . '</label>'
+            echo '<br />' . "\n" . '<label for="del_picture">' . get_lang('Remove picture') . '</label>'
                 . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">';
         }
         else
@@ -1284,7 +1308,10 @@ function user_display_form($data, $form_type='registration')
         && $form_type == 'profile' )
     {
         // disable modification of username and password with external autentication
-        echo '<tr><td align="right">'.get_lang('UserName').' :</td><td>'.htmlspecialchars($data['username']).'</td></tr>';
+        echo '<tr><td align="right">' . get_lang('Username') . ' :</td>'
+        .    '<td>' . htmlspecialchars($data['username']) . '</td>'
+        .    '</tr>'
+        ;
     }
     else
     {
@@ -1311,8 +1338,8 @@ function user_display_form($data, $form_type='registration')
                 .     '<td>'
                 .    '<small>'
                 .    get_lang('Choose now a username and a password for the user account') . '<br />'
-                .    get_lang('MemorizeYourPassord') . '<br />'
-                .    '<strong>' . get_lang('Warning') . ' '. get_lang('TheSystemIsCaseSensitive') . '</strong>'
+                .    get_lang('Memorize them, you will use them the next time you will enter to this site.') . '<br />'
+                .    '<strong>' . get_lang('Warning The system is case sensitive') . '</strong>'
                 .    '</small>'
                 .    '</td>'
                 .    '</tr>';
@@ -1333,7 +1360,7 @@ function user_display_form($data, $form_type='registration')
 
         // username
         echo ' <tr>' . "\n"
-            . '  <td align="right"><label for="username">' . required_field(get_lang('UserName')) . '&nbsp;:</label></td>' . "\n"
+            . '  <td align="right"><label for="username">' . required_field(get_lang('Username')) . '&nbsp;:</label></td>' . "\n"
             . '  <td><input type="text" size="40" id="username" name="username" value="' . htmlspecialchars($data['username']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
 
@@ -1358,20 +1385,20 @@ function user_display_form($data, $form_type='registration')
 
     // email
     echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="email">' . ( get_conf('userMailCanBeEmpty')?get_lang('Email'):required_field(get_lang('Email'))) . '&nbsp;:</label></td>' . "\n"
-        . '  <td><input type="text" size="40" id="email" name="email" value="' . htmlspecialchars($data['email']) . '" /></td>' . "\n"
-        . ' </tr>' . "\n"
+        . '<td align="right"><label for="email">' . ( get_conf('userMailCanBeEmpty')?get_lang('Email'):required_field(get_lang('Email'))) . '&nbsp;:</label></td>' . "\n"
+        . '<td><input type="text" size="40" id="email" name="email" value="' . htmlspecialchars($data['email']) . '" /></td>' . "\n"
+        . '</tr>' . "\n"
 
-        . ' <tr>' . "\n"
-        . '  <td align="right"><label for="phone">' . get_lang('Phone') . '&nbsp;:</label></td>' . "\n"
-        . '  <td><input type="text" size="40" id="phone" name="phone" value="' . htmlspecialchars($data['phone']) . '" /></td>' . "\n"
-        . ' </tr>' . "\n";
+        . '<tr>' . "\n"
+        . '<td align="right"><label for="phone">' . get_lang('Phone') . '&nbsp;:</label></td>' . "\n"
+        . '<td><input type="text" size="40" id="phone" name="phone" value="' . htmlspecialchars($data['phone']) . '" /></td>' . "\n"
+        . '</tr>' . "\n";
 
     // Group Tutor
     if ( $form_type == 'add_new_user' )
     {
         echo '<tr valign="top">'
-            . '<td align="right">' . get_lang('GroupTutor') .' : </td>'
+            . '<td align="right">' . get_lang('Group tutor') .' : </td>'
             . '<td>'
             . '<input type="radio" name="is_tutor" value="1" id="tutor_form_yes" ' . ($data['is_tutor']?'checked':'') . ' >'
             . '<label for="tutor_form_yes">' . get_lang('Yes') . '</label>'
@@ -1399,11 +1426,11 @@ function user_display_form($data, $form_type='registration')
     if ( ( get_conf('allowSelfRegProf') && $form_type == 'registration') || $form_type == 'admin_add_new_user' || $form_type == 'admin_user_profile' )
     {
         echo ' <tr>' . "\n"
-            . '  <td align="right"><label for="status">' . get_lang('Action') . '&nbsp;:</label></td>' . "\n"
-            . '  <td>' . "\n"
+            . '<td align="right"><label for="status">' . get_lang('Action') . '&nbsp;:</label></td>' . "\n"
+            . '<td>' . "\n"
             . '<select id="status" name="status">'
-            . '    <option value="' . STUDENT . '">' . get_lang('RegStudent') . '</option>'
-            . '    <option value="' . COURSEMANAGER . '" ' . ($data['status'] == COURSEMANAGER ? 'selected="selected"' : '') . '>' . get_lang('CreateCourse') . '</option>'
+            . '<option value="' . STUDENT . '">' . get_lang('Follow courses') . '</option>'
+            . '<option value="' . COURSEMANAGER . '" ' . ($data['status'] == COURSEMANAGER ? 'selected="selected"' : '') . '>' . get_lang('Create course') . '</option>'
             . '</select>'
             . '  </td>' . "\n"
             . ' </tr>' . "\n";
@@ -1413,7 +1440,7 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'admin_user_profile' )
     {
         echo '<tr valign="top">'
-            . '<td align="right">' . get_lang('UserIsPlaformAdmin') .' : </td>'
+            . '<td align="right">' . get_lang('Is platform admin') .' : </td>'
             . '<td>'
             . '<input type="radio" name="is_admin" value="1" id="admin_form_yes" ' . ($data['is_admin']?'checked':'') . ' >'
             . '<label for="admin_form_yes">' . get_lang('Yes') . '</label>'
@@ -1447,7 +1474,7 @@ function user_display_form($data, $form_type='registration')
     elseif ($form_type == 'add_new_user')
     {
        echo '<tr>' . "\n"
-            . ' <td align="right"><label for="applyChange">' . get_lang('SaveChanges') . ' : </label></td>' . "\n"
+            . ' <td align="right"><label for="applyChange">' . get_lang('Save changes') . ' : </label></td>' . "\n"
             . ' <td>'
             . ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
             . ' <input type="submit" name="applySearch" id="applySearch" value="' . get_lang('Search') . '" />&nbsp;'
@@ -1458,7 +1485,7 @@ function user_display_form($data, $form_type='registration')
     else
     {
         echo '<tr>' . "\n"
-            . ' <td align="right"><label for="applyChange">' . get_lang('SaveChanges') . ' : </label></td>' . "\n"
+            . ' <td align="right"><label for="applyChange">' . get_lang('Save changes') . ' : </label></td>' . "\n"
             . ' <td>'
             . ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
             . claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
@@ -1468,7 +1495,7 @@ function user_display_form($data, $form_type='registration')
 
     echo '<tr>' . "\n"
          . '<td>&nbsp;</td>' . "\n"
-         . '<td><small>' . get_lang('LegendRequiredFields') . '</small></td>' . "\n"
+         . '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</small></td>' . "\n"
          . '</tr>' . "\n" ;
 
     // Personnal course list
