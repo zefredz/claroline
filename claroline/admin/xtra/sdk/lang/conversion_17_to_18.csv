@@ -912,3 +912,17 @@
 "RestoreCourseRepository";"Restore course repository"
 "EnrolmentAllowedOnly";"Enrollment allowed only"
 "EnrolmentDeniedOnly";"Enrollment denied only"
+"PassTwice";"You typed two different passwords'
+"PassTooEasy";"this password is too simple. Use a password like this <code>%passpruposed</code>"
+"UserTaken";"This user name is already taken"
+"CodeUsed";"This official code is already used by another user."
+"UpdateImage";"Change picture"
+"DelImage";"Remove picture"
+"MemorizeYourPassord";"Memorize them, you will use them the next time you will enter to this site."
+"GroupTutor";"Group Tutor"
+"RegStudent";"Follow courses"
+"UserIsPlaformAdmin";"Is platform admin"
+"LegendRequiredFields";"<span class=\"required\">*</span> denotes required field"
+
+
+"Warning"." "."TheSystemIsCaseSensitive";"Warning The system is case sensitive."
