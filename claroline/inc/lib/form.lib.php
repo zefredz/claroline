@@ -138,7 +138,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 
 
 /**
  *
- * @param string $name name of the form (other param can be adds with $attr
+ * @param string $select_name name of the form (other param can be adds with $attr
  * @param string $list_option 2D table where key are name and value are label
  * @param string $preselect name of the key in $list_option would be preselected
  * @return html output from a 2D table where key are name and value are label
