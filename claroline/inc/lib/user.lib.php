@@ -788,7 +788,7 @@ function user_send_registration_mail ($user_id, $data)
         '%siteName'=> get_conf('siteName'),
         '%rootWeb' => get_conf('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
-        '%administratorPhoto'=> get_conf('administrator_phone'),
+        '%administratorPhone'=> get_conf('administrator_phone'),
         '%administratorEmail'=> get_conf('administrator_email')
         ))
         ;
@@ -842,7 +842,7 @@ function user_send_enroll_to_course_mail ($user_id, $data, $course=null)
         '%siteName'=> get_conf('siteName'),
         '%rootWeb' => get_conf('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
-        '%administratorPhoto'=> get_conf('administrator_phone'),
+        '%administratorPhone'=> get_conf('administrator_phone'),
         '%administratorEmail'=> get_conf('administrator_email')
         ))
         ;
