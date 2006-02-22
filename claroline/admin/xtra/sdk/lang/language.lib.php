@@ -480,7 +480,7 @@ function detect_get_lang($tokenList)
 
             // find function 'get_lang'
 
-            if ( $thisToken[1] == 'get_lang' )
+            if ( $thisToken[1] == 'get_lang' || $thisToken[1] == 'get_block' )
             {
                 $varName = '';
 
@@ -504,13 +504,19 @@ function detect_get_lang($tokenList)
                         $i++;
                         break;
                     }
+                    elseif ( is_string($thisToken) && $thisToken == ',')
+                    {
+                        // bracket close - end parsing of parameters
+                        $i++;
+                        break;
+                    }
                     elseif ( is_array($thisToken) )
                     {
                         // get parameters name
                         if ( $thisToken[0] == T_CONSTANT_ENCAPSED_STRING )
                         {
-                            $search = array ('/^[\'"]/','/[\'"]$/');
-                            $replace = array('','');
+                            $search = array ('/^[\'"]/','/[\'"]$/','/\134\047/');
+                            $replace = array('','','\'');
                             $varName .= preg_replace($search,$replace,$thisToken[1]);
                         }
 
