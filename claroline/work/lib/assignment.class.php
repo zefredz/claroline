@@ -426,20 +426,26 @@ class Assignment
     }
     
 	/**
-     * get submission list of assignment
+     * get submission list of assignment for a user/group
      *
      * @author Sébastien Piraux <pir@cerdecam.be>
      * @return array  
+     * @TODO get the full list is authId is not specified (submissions and feedback for all authors)
      */
-    function getSubmissionList()
+    function getSubmissionList($authId, $course_id = null)
     {
-		$sql = "SELECT `id`, `submitted_doc_path` 
-				FROM `".$this->tblSubmission."`
-				WHERE `assignment_id` =  ".$this->id;
-		
-		return claro_sql_query_fetch_all($sql);
+    	if( $this->assignmentType == 'GROUP' )
+    		$authCondition = '`group_id` = '.(int) $authId; 
+    	else
+    		$authCondition = '`user_id` = '.(int) $authId;
+    			
+        $sql = "SELECT `id`
+                     FROM `" . $this->tblSubmission . "`
+                    WHERE ".$authCondition."
+                      AND `assignment_id` = ". (int) $this->id;
+                      
+        return claro_sql_query_fetch_all($sql);
     }
-
 	/**
      * builds required paths and sets values in assigDirSys and assigDirWeb
      *
