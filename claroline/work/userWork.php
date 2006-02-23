@@ -224,8 +224,16 @@ if( !$assignmentIsVisible && !$is_allowedToEditAll )
 $uploadDateIsOk = (bool) ( $afterStartDate
                               && ( time() < $assignment->getEndDate() || $assignment->getAllowLateUpload() == "YES" ) );
 
+$autoFeedbackIsDisplayedForAuthId = (bool) 
+							( trim(strip_tags($assignment->getAutoFeedbackText(),$allowedTags)) != '' || $assignment->getAutoFeedbackFilename() != '' )
+							&& 
+							(
+								$assignment->getAutoFeedbackSubmitMethod() == 'AFTERPOST' && count($assignment->getSubmissionList($_REQUEST['authId']) > 0)
+								|| ( $assignment->getAutoFeedbackSubmitMethod() == 'ENDDATE' && $assignment->getEndDate() <= time() )
+							);							
+						
 // if correction is automatically submitted user cannot edit his work
-if( isset($_uid) && $assignment->getAutoFeedbackSubmitMethod() != 'AFTERPOST' && isset($submission))
+if( isset($_uid) && $autoFeedbackIsDisplayedForAuthId )
 {
 	if( $assignment->getAssignmentType() == 'GROUP' && isset($_gid) )
 	{
@@ -1206,11 +1214,26 @@ if( $dispWrkLst )
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
 	{
+		$i = 0;
 		foreach ( $wrkAndFeedbackLst as $thisWrk )
 		{
 			$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
+			
+			$has_feedback = 	!$is_feedback 
+							&& 	( $autoFeedbackIsDisplayedForAuthId 
+								|| 	(isset($wrkAndFeedbackLst[$i+1]) && $wrkAndFeedbackLst[$i+1]['parent_id'] == $thisWrk['id'])
+								);
+												
 			$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']]);
-			$is_allowedToEditThisWrk = (bool)$is_allowedToEditAll || ( ( $thisWrk['user_id'] == $_uid || isset($userGroupList[$thisWrk['group_id']])) && $uploadDateIsOk );
+					
+			
+			$is_allowedToEditThisWrk = 
+				(bool) $is_allowedToEditAll 
+				|| ( $is_allowedToViewThisWrk 
+					&& $uploadDateIsOk
+					&& !$has_feedback
+					) 
+				;
 
 			if( $thisWrk['visibility'] == "INVISIBLE" )	$visStyle = ' class="invisible"';
 			else										$visStyle = '';
@@ -1377,6 +1400,8 @@ if( $dispWrkLst )
 			echo '</div>' . "\n"
 			.	 '<br />' . "\n"
 			;
+			
+			$i++;
 		}
 	}
 	else
