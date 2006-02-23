@@ -769,31 +769,19 @@ function user_send_registration_mail ($user_id, $data)
 
         // email body
 
-        $emailBody = get_block("Dear %firstname %lastname,\nYou are registered on %siteName \n Login name :  %username \n"
-        .            'Password  : %password' . "\n"
-        .            'The address of  %siteName '
-        .            'Is : %rootWeb' . "\n"
-        .            'In case of problems, contact us.' . "\n"
-        .            'Yours sincerely,' . "\n"
-        .            'administratorName' . "\n"
-        .            'Manager %siteName' . "\n"
-        .            'T. %administratorPhone' . "\n"
-        .            'Email : %administratorEmail' . "\n",
-
-        array(
-        '%firstname'=> $data['firstname'],
-        '%lastname' => $data['lastname'],
-        '%username' => $data['username'],
-        '%password' => $data['password'],
-        '%siteName'=> get_conf('siteName'),
-        '%rootWeb' => get_conf('rootWeb'),
-        '%administratorName' => get_conf('administrator_name'),
-        '%administratorPhone'=> get_conf('administrator_phone'),
-        '%administratorEmail'=> get_conf('administrator_email')
-        ))
-        ;
-
-
+        $emailBody = get_block('accountCreationNotification',
+                                array(
+                                '%firstname'=> $data['firstname'],
+                                '%lastname' => $data['lastname'],
+                                '%username' => $data['username'],
+                                '%password' => $data['password'],
+                                '%siteName'=> get_conf('siteName'),
+                                '%rootWeb' => get_conf('rootWeb'),
+                                '%administratorName' => get_conf('administrator_name'),
+                                '%administratorPhone'=> get_conf('administrator_phone'),
+                                '%administratorEmail'=> get_conf('administrator_email')
+                                 )
+                              );
 
         if ( claro_mail_user($user_id, $emailBody, $emailSubject) ) return true;
         else                                                        return false;
@@ -823,22 +811,13 @@ function user_send_enroll_to_course_mail ($user_id, $data, $course=null)
 
         $emailSubject  = '[' .  get_conf('siteName') . '-' . $courseData['officialCode']. '] ' . get_lang('Your registration') ;
 
-        $emailBody = get_block("Dear %firstname %lastname,\n"
-        .                      'One administrators of the course %courseCode '
-        .                      'has registered you on this course '
-        .                      'The address of  %siteName '
-        .                      'Is : %rootWeb' . "\n"
-        .                      'In case of problems, contact us.' . "\n"
-        .                      'Yours sincerely,' . "\n"
-        .                      'administratorName' . "\n"
-        .                      'Manager %siteName' . "\n"
-        .                      'T. %administratorPhone' . "\n"
-        .                      'Email : %administratorEmail' . "\n",
-
+        $emailBody = get_block('courseSubscriptionNotification',
         array(
         '%firstname'=> $data['firstname'],
         '%lastname' => $data['lastname'],
         '%courseCode' => $courseData['officialCode'],
+        '%courseName' => $courseData['name'],
+        '%coursePath' => $rootWeb . '/' . $courseData['path'] .'/',
         '%siteName'=> get_conf('siteName'),
         '%rootWeb' => get_conf('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
