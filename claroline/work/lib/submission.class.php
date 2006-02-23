@@ -1,7 +1,5 @@
 <?php
 
-//require_once '';
-
 class Submission 
 {
 	/**
@@ -58,7 +56,31 @@ class Submission
      * @var $submittedFilename name of the file that have been submitted
      */
     var $submittedFilename;              
-          
+
+	/**
+     * @var $parentId is set if the submission is a feedback of a submission and take the id of this submission as parentId
+     */
+    var $parentId;
+    
+	/**
+     * @var $originalId keep the id of the author of parent submission (if this submission is a feedback)
+     * 					if assignment is for group it will be the groupId else the userId of original submitter
+     * 					mainly used in queries where we need to count the number of feedback of an author submission list
+     * 
+     */
+    var $originalId;    
+    
+    /**
+     * @var $privateFeedback feedback that will be visible only for course administrator(s)
+     * 						 (only set if submission is a feedback) 
+     */
+    var $privateFeedback;  
+    
+    /**
+     * @var $score result (only set if submission is a feedback)
+     */
+    var $score;              
+                    
 	/**
      * @var $tblSubmission web path to assignment dir
      */
@@ -77,6 +99,10 @@ class Submission
     	$this->author = '';
     	$this->submittedText = '';
     	$this->submittedFilename = '';
+    	$this->parentId = null;
+    	$this->originalId = null;
+    	$this->privateFeedback = '';
+    	$this->score = null;
    	    	
     	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 		$this->tblSubmission = $tbl_cdb_names['wrk_submission'];
@@ -95,7 +121,11 @@ class Submission
 					UNIX_TIMESTAMP(`last_edit_date`) AS `unix_last_edit_date`,
 	                `authors`,
 	                `submitted_text`,
-	                `submitted_doc_path`
+	                `submitted_doc_path`,
+	               	`parent_id`,
+	                `original_id`,
+	                `private_feedback`,
+	                `score`
 	        FROM `".$this->tblSubmission."`
 	        WHERE `id` = ".(int) $id;
 	
@@ -115,6 +145,10 @@ class Submission
 		    $this->author = $data['authors'];
 		    $this->submittedText = $data['submitted_text'];
 		    $this->submittedFilename = $data['submitted_doc_path'];
+		    $this->parentId = $data['parent_id'];
+		    $this->originalId = $data['original_id'];
+		    $this->privateFeedback = $data['private_feedback'];
+			$this->score = $data['score']; 
 		    		
 		    return true;
 	    }
@@ -132,19 +166,23 @@ class Submission
     		// insert	
 		    $sql = "INSERT INTO `".$this->tblSubmission."`
 		            SET `assignment_id` = '".addslashes($this->assignmentId)."',
-		                `user_id` = '".addslashes($this->userId)."',
-		                `group_id` = '".addslashes($this->groupId)."',
+		                `user_id` = ".(is_null($this->userId)?'NULL':$this->userId).",
+		                `group_id` = ".(is_null($this->groupId)?'NULL':$this->groupId).",
 		                `title` = '".addslashes($this->title)."',
 		                `visibility` = '".addslashes($this->visibility)."',
-		                `creation_date` = FROM_UNIXTIME('".addslashes($this->creationDate)."'),
-		                `last_edit_date` = FROM_UNIXTIME('".addslashes($this->lastEditDate)."'),
+		                `creation_date` = NOW(),
+		                `last_edit_date` = NOW(),
 						`authors` = '".addslashes($this->author)."', 	
 						`submitted_text` = '".addslashes($this->submittedText)."', 	
-						`submitted_doc_path` = '".addslashes($this->submittedFilename)."'";
+						`submitted_doc_path` = '".addslashes($this->submittedFilename)."', 	
+						`parent_id` = ".(is_null($this->parentId)?'NULL':$this->parentId).", 	 	
+						`original_id` = ".(is_null($this->originalId)?'NULL':$this->originalId).",  	
+						`private_feedback` = '".addslashes($this->privateFeedback)."', 	
+						`score` = '".addslashes($this->score)."'";
 		
 		    // execute the creation query and get id of inserted assignment
 		    $insertedId = claro_sql_query_insert_id($sql);
-		
+
 		    if( $insertedId )
 		    {
 		    	$this->id = (int) $insertedId;
@@ -161,14 +199,18 @@ class Submission
     		// update	
 		    $sql = "UPDATE `".$this->tblSubmission."`
 		            SET `assignment_id` = '".addslashes($this->assignmentId)."',
-		                `user_id` = '".addslashes($this->userId)."',
-		                `group_id` = '".addslashes($this->groupId)."',
+		                `user_id` = ".(is_null($this->userId)?'NULL':$this->userId).",
+		                `group_id` = ".(is_null($this->groupId)?'NULL':$this->groupId).",
 		                `title` = '".addslashes($this->title)."',
 		                `visibility` = '".addslashes($this->visibility)."',
-		                `last_edit_date` = FROM_UNIXTIME('".addslashes($this->lastEditDate)."'),
+		                `last_edit_date` = NOW(),
 						`authors` = '".addslashes($this->author)."', 	
 						`submitted_text` = '".addslashes($this->submittedText)."', 	
-						`submitted_doc_path` = '".addslashes($this->submittedFilename)."'
+						`submitted_doc_path` = '".addslashes($this->submittedFilename)."', 	
+						`parent_id` = ".(is_null($this->parentId)?'NULL':$this->parentId).", 	 	
+						`original_id` = ".(is_null($this->originalId)?'NULL':$this->originalId).", 	 	
+						`private_feedback` = '".addslashes($this->privateFeedback)."', 	
+						`score` = '".addslashes($this->score)."'
 		            WHERE `id` = '".$this->id."'";
 		
 		    // execute and return main query
@@ -200,7 +242,35 @@ class Submission
 			return false;
 		} 		
     }
-    
+	
+	/**
+     * update visibility of an submission
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @param integer $submissionId
+     * @param string $visibility
+     * @return boolean  
+     */    
+    function updateSubmissionVisibility($submissionId, $visibility)
+    {
+    	// this method is not used in object context so we cannot access $this->$tblAssignment
+    	$tbl_cdb_names = claro_sql_get_course_tbl();
+		$tblSubmission = $tbl_cdb_names['wrk_submission'];
+		
+	    $acceptedValues = array('VISIBLE', 'INVISIBLE');
+		
+		if( in_array($visibility, $acceptedValues) )
+		{	
+		    $sql = "UPDATE `" . $tblSubmission . "`
+		               SET `visibility` = '" . $visibility . "'
+		             WHERE `id` = " . (int) $submissionId . "
+		               AND `visibility` != '" . $visibility . "'";
+		               
+		    return  claro_sql_query($sql);
+		}
+		
+		return false;
+    }
 	/**
      * get assignment id
      *
@@ -421,6 +491,94 @@ class Submission
 	function setSubmittedFilename($value)
 	{
 		$this->submittedFilename = $value;	
+	}
+
+	/**
+     * get parentId
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return int   
+     */	 
+	function getParentId()
+	{
+		return $this->parentId;		
+	}
+	
+	/**
+     * set parentId
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @param int $value   
+     */	 	
+	function setParentId($value)
+	{
+		$this->parentId = $value;	
+	}
+	
+	/**
+     * get originalId
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return int   
+     */	 
+	function getOriginalId()
+	{
+		return $this->originalId;		
+	}
+	
+	/**
+     * set originalId
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @param int $value   
+     */	 	
+	function setOriginalId($value)
+	{
+		$this->originalId = $value;	
+	}
+		
+	/**
+     * get private feedback
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return string   
+     */	 
+	function getPrivateFeedback()
+	{
+		return $this->privateFeedback;		
+	}
+	
+	/**
+     * set private feedback
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @param string $value   
+     */	 	
+	function setPrivateFeedback($value)
+	{
+		$this->privateFeedback = $value;	
+	}
+	
+	/**
+     * get score
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return int   
+     */	 
+	function getScore()
+	{
+		return $this->score;		
+	}
+	
+	/**
+     * set score
+     *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @param int $value   
+     */	 	
+	function setScore($value)
+	{
+		$this->score = $value;	
 	}
 }
 ?>
