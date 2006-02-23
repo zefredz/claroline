@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['Access'] = "Access";
 $_lang['AccessExplain'] = "(When an user open the index of the campus)";
 $_lang['Action'] = "Action";
@@ -2022,4 +2022,42 @@ Or view the forum index at
 %url_forum
 
 Thank you for using our forums.";
+
+$_lang['accountCreationNotification'] = "
+Dear %firstname %lastname,
+You are registered on %siteName
+    Login name :  %username
+    Password  : %password
+    The address of  %siteName
+    Is : %rootWeb
+    In case of problems, contact us.
+    Yours sincerely,
+    administratorName
+--
+Manager %administratorName
+T. %administratorPhone
+Email : %administratorEmail
+    "
+    ;
+$_lang['courseSubscriptionNotification'] = "
+
+Dear %firstname %lastname,
+One of administrators of the course %courseCode has registered you on this course.
+
+The address of  %courseName is :
+
+%coursePath
+
+In case of problems, contact us.
+
+Yours sincerely,
+%administratorName
+
+--
+Manager %administratorName
+T. %administratorPhone
+Email : %administratorEmail
+";
+
+
 ?>
