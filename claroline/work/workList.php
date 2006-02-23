@@ -394,7 +394,7 @@ $showAfterPost = (bool)
                  &&
                  (  $assignment->getAutoFeedbackSubmitMethod() == 'AFTERPOST'
                     &&
-                    CLWRK_LIST::get_wrk_submission_of_user($req['assignmentId']) >= 1
+                    count($assignment->getSubmissionList($_uid) > 0)
                  );
 
 
