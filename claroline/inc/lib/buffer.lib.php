@@ -114,10 +114,12 @@ class Dock
     }
          
     function render()
-    {     
+    {
+       global $rootWeb;
+
        $claro_buffer = new Buffer();
        $claro_buffer->append("\n" . '<div id="' . $this->name.'" class="dock">' . "\n");
-       
+
        $claro_buffer->append($this->kernelOutput);
              
        foreach ( $this->appletList as $applet )
