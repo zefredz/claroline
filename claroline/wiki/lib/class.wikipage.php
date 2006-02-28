@@ -181,7 +181,7 @@
             // (OPT) backup last version
             // 1st delete page info
             $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `id` = " . $this->getPageId()
+                . "WHERE `id` = " . (int) $this->getPageId()
                 ;
 
             $numrows = $this->con->executeQuery( $sql );
@@ -190,7 +190,7 @@
             {
                 // 2nd delete page versions
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_pages_content']."` "
-                    . "WHERE `pid` = " . $this->getPageId()
+                    . "WHERE `pid` = " . (int) $this->getPageId()
                     ;
                 
                 $numrows = $this->con->executeQuery( $sql );
@@ -242,8 +242,8 @@
                     $sql = "INSERT INTO `".$this->config['tbl_wiki_pages']."`"
                         . "(`wiki_id`, `owner_id`,`title`,`ctime`, `last_mtime`) "
                         . "VALUES("
-                        . $this->getWikiId() . ", "
-                        . $this->getOwnerId() . ", "
+                        . (int) $this->getWikiId() . ", "
+                        . (int) $this->getOwnerId() . ", "
                         . "'" . addslashes( $this->getTitle() ) . "', "
                         . "'" . $this->getCreationTime() . "', "
                         . "'" . $this->getLastEditTime() . "'"
@@ -286,7 +286,7 @@
             
             $sql = "SELECT `id`, `editor_id`, `mtime` "
                 . "FROM `" . $this->config['tbl_wiki_pages_content'] . "` "
-                . "WHERE `pid` = " . $this->getPageId()
+                . "WHERE `pid` = " . (int) $this->getPageId()
                 . $order
                 . $limit
                 ;
@@ -319,7 +319,7 @@
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `title` = '". addslashes( $title )."' "
-                . "AND `wiki_id` = " . $this->getWikiId();
+                . "AND `wiki_id` = " . (int) $this->getWikiId();
                 ;
 
             return $this->con->queryReturnsResult( $sql );
@@ -348,7 +348,7 @@
                 . ", `".$this->config['tbl_wiki_pages_content']."` c "
                 . "WHERE BINARY p.`title` = '".addslashes( $title )."' "
                 . "AND c.`id` = p.`last_version` "
-                . "AND `wiki_id` = " . $this->getWikiId();
+                . "AND `wiki_id` = " . (int) $this->getWikiId();
                 ;
                 
             return $this->_updatePageFields( $sql );
@@ -373,7 +373,7 @@
                 . "c.`editor_id`, c.`content`, c.`mtime` AS `current_mtime`, c.`id` AS `current_version` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` p, "
                 . "`".$this->config['tbl_wiki_pages_content']."` c "
-                . "WHERE c.`id` = '".$versionId."' "
+                . "WHERE c.`id` = '".(int) $versionId."' "
                 . "AND p.`id` = c.`pid`"
                 ;
 
@@ -406,7 +406,7 @@
                 . "c.`editor_id`, c.`content` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` p,"
                 . " `".$this->config['tbl_wiki_pages_content']."` c "
-                . "WHERE p.`id` = '".$pageId."' "
+                . "WHERE p.`id` = '".(int) $pageId."' "
                 . "AND c.`id` = p.`last_version`"
                 ;
                 
@@ -437,8 +437,8 @@
             $sql = "INSERT INTO `".$this->config['tbl_wiki_pages_content']."`"
                     . "(`pid`,`editor_id`,`mtime`, `content`) "
                     . "VALUES("
-                    . $this->getPageId() . ", "
-                    . "'" . $this->getEditorId() . "', "
+                    . (int) $this->getPageId() . ", "
+                    . "'" . (int) $this->getEditorId() . "', "
                     . "'" . $this->getLastEditTime() . "', "
                     . "'" . addslashes( $this->getContent() ) . "'"
                     . ")"
@@ -457,7 +457,7 @@
                     . "SET `last_version` = "
                     . $this->getLastVersionId() . ", "
                     . "`last_mtime` = '" . $this->getLastEditTime() . "' "
-                    . "WHERE `id` = " . $this->getPageId()
+                    . "WHERE `id` = " . (int) $this->getPageId()
                     ;
                     
             $this->con->executeQuery( $sql );

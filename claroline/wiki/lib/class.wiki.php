@@ -197,7 +197,7 @@
 
             $sql = "SELECT `id`, `title`, `description`, `group_id` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `id` = ".$wikiId
+                . "WHERE `id` = ". (int) $wikiId
                 ;
                 
             $result = $this->con->getRowFromQuery( $sql );
@@ -221,7 +221,7 @@
 
             $sql = "SELECT `flag`, `value` "
                 . "FROM `".$this->config['tbl_wiki_acls']."` "
-                . "WHERE `wiki_id` = " . $wikiId
+                . "WHERE `wiki_id` = " . (int) $wikiId
                 ;
 
             $result = $this->con->getAllRowsFromQuery( $sql );
@@ -273,7 +273,7 @@
 
             $sql = "SELECT `wiki_id` FROM `"
                 . $this->config['tbl_wiki_acls']."` "
-                . "WHERE `wiki_id` = " . $this->getWikiId()
+                . "WHERE `wiki_id` = " . (int) $this->getWikiId()
                 ;
 
             // wiki already exists
@@ -287,7 +287,7 @@
 
                     $sql = "UPDATE `" . $this->config['tbl_wiki_acls'] . "` "
                         . "SET `value`='" . $value . "'"
-                        . "WHERE `wiki_id`=" . $this->getWikiId() . " "
+                        . "WHERE `wiki_id`=" . (int) $this->getWikiId() . " "
                         . "AND `flag`='" . $flag . "'"
                         ;
 
@@ -309,7 +309,7 @@
                         . "`wiki_id`, `flag`, `value`"
                         . ") "
                         . "VALUES("
-                        . $this->getWikiId() . ","
+                        . (int) $this->getWikiId() . ","
                         . "'" . $flag . "',"
                         . "'" . $value . "'"
                         . ")"
@@ -343,7 +343,7 @@
                     . "VALUES("
                     . "'". addslashes( $this->getTitle() ) ."', "
                     . "'" . addslashes( $this->getDescription() ) . "', "
-                    . "'" . $this->getGroupId() . "'"
+                    . "'" . (int) $this->getGroupId() . "'"
                     . ")"
                     ;
                     
@@ -364,8 +364,8 @@
                     . "SET "
                     . "`title`='".addslashes($this->getTitle())."', "
                     . "`description`='".addslashes($this->getDescription())."', "
-                    . "`group_id`='".$this->getGroupId()."' "
-                    . "WHERE `id`=" . $this->getWikiId()
+                    . "`group_id`='". (int) $this->getGroupId()."' "
+                    . "WHERE `id`=" . (int) $this->getWikiId()
                     ;
                     
                 $this->con->executeQuery( $sql );
@@ -390,7 +390,7 @@
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `title` = '".addslashes($title)."' "
-                . "AND `wiki_id` = " . $this->wikiId
+                . "AND `wiki_id` = " . (int) $this->wikiId
                 ;
 
             return $this->con->queryReturnsResult( $sql );
@@ -432,7 +432,7 @@
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `id` = '".$id."'"
+                . "WHERE `id` = '". (int) $id."'"
                 ;
 
             return $this->con->queryReturnsResult( $sql );
@@ -453,7 +453,7 @@
             
             $sql = "SELECT `title` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `wiki_id` = " . $this->getWikiId() . " "
+                . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
                 . "ORDER BY `title` ASC"
                 ;
                 
@@ -479,7 +479,7 @@
             $sql = "SELECT `page`.`title`, `page`.`last_mtime`, `content`.`editor_id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` `page`, "
                 . "`".$this->config['tbl_wiki_pages_content']."` `content` "
-                . "WHERE `page`.`wiki_id` = " . $this->getWikiId() . " "
+                . "WHERE `page`.`wiki_id` = " . (int) $this->getWikiId() . " "
                 . "AND `page`.`last_version` = `content`.`id` "
                 . "ORDER BY `page`.`last_mtime` DESC "
                 . $limit

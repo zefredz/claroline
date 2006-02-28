@@ -104,7 +104,7 @@
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `title` = '".addslashes( $title )."' "
-                . "AND `wiki_id` = " . $wikiId
+                . "AND `wiki_id` = " . (int) $wikiId
                 ;
 
             return $this->con->queryReturnsResult( $sql );
@@ -125,7 +125,7 @@
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `id` = '".$wikiId."'"
+                . "WHERE `id` = '". (int) $wikiId."'"
                 ;
 
             return $this->con->queryReturnsResult( $sql );
@@ -147,7 +147,7 @@
             
             $sql = "SELECT `id`, `title`, `description` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `group_id` = ".$groupId . " "
+                . "WHERE `group_id` = ". (int) $groupId . " "
                 . "ORDER BY `id` ASC"
                 ;
                 
@@ -195,7 +195,7 @@
             {
                 $sql = "SELECT count( `id` ) as `pages` "
                     . "FROM `".$this->config['tbl_wiki_pages']."` "
-                    . "WHERE `wiki_id` = " . $wikiId
+                    . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
                     
                 $result = $this->con->getRowFromQuery( $sql );
@@ -225,7 +225,7 @@
             {
                 // delete properties
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_properties']."` "
-                    . "WHERE `id` = " . $wikiId
+                    . "WHERE `id` = " . (int) $wikiId
                     ;
                     
                 $numrows = $this->con->executeQuery( $sql );
@@ -237,7 +237,7 @@
                 
                 // delete wiki acl
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_acls']."` "
-                    . "WHERE `wiki_id` = " . $wikiId
+                    . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
                     
                 $numrows = $this->con->executeQuery( $sql );
@@ -249,7 +249,7 @@
                 
                 $sql = "SELECT `id` "
                     . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
-                    . "WHERE `wiki_id` = " . $wikiId
+                    . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
                     
                 $pageIds = $this->con->getAllRowsFromQuery( $sql );
@@ -263,7 +263,7 @@
                 {
                     $sql = "DELETE "
                         . "FROM `".$this->config['tbl_wiki_pages_content']."` "
-                        . "WHERE `pid` = " . $pageId['id']
+                        . "WHERE `pid` = " . (int) $pageId['id']
                         ;
                         
                     $this->con->executeQuery( $sql );
@@ -291,7 +291,7 @@
 #                }
                 
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
-                    . "WHERE `wiki_id` = " . $wikiId
+                    . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
                     
                 $numrows = $this->con->executeQuery( $sql );
