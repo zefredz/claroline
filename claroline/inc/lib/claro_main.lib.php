@@ -61,34 +61,33 @@ function claro_get_course_data($course_id = NULL)
         {
             $tbl_mdb_names =  claro_sql_get_main_tbl();
             $sql =  "SELECT
-
-                    `c`.`code` `sysCode`,
-                    `c`.`intitule`  `name`,
-                    `c`.`fake_code` `officialCode`,
-                    `c`.`directory` `path`,
-                    `c`.`dbName` `dbName`,
-                    `c`.`titulaires` `titular`,
-                    `c`.`email` ,
-                    `c`.`enrollment_key`  `enrollmentKey` ,
-                    `c`.`languageCourse` `language`,
-                    `c`.`departmentUrl` `extLinkUrl`,
-                    `c`.`departmentUrlName` `extLinkName`,
-                    `c`.`visible` `visible`,
-                    `cat`.`code` `categoryCode`,
-                    `cat`.`name` `categoryName`,
-                    `c`.`diskQuota` `diskQuota`
-             FROM `" . $tbl_mdb_names['course'] . "` `c`
-             LEFT JOIN `" . $tbl_mdb_names['category'] . "` `cat`
+                    `c`.`code`              AS `sysCode`,
+                    `c`.`intitule`          AS `name`,
+                    `c`.`fake_code`         AS `officialCode`,
+                    `c`.`directory`         AS `path`,
+                    `c`.`dbName`            AS `dbName`,
+                    `c`.`titulaires`        AS `titular`,
+                    `c`.`email`             AS `email`  ,
+                    `c`.`enrollment_key`    AS `enrollmentKey` ,
+                    `c`.`languageCourse`    AS `language`,
+                    `c`.`departmentUrl`     AS `extLinkUrl`,
+                    `c`.`departmentUrlName` AS `extLinkName`,
+                    `c`.`visible`           AS `visible`,
+                    `cat`.`code`            AS `categoryCode`,
+                    `cat`.`name`            AS `categoryName`,
+                    `c`.`diskQuota`         AS `diskQuota`
+             FROM `" . $tbl_mdb_names['course'] . "`        AS `c`
+             LEFT JOIN `" . $tbl_mdb_names['category'] . "` AS `cat`
              ON `c`.`faculte` =  `cat`.`code`
              WHERE `c`.`code` = '" . addslashes($course_id) . "'";
             $_courseDatas = claro_sql_query_fetch_all($sql);
-            if (!is_array($_courseDatas) || count($_courseDatas) == 0)
+            if (!is_array($_courseDatas) || 0 == count($_courseDatas))
                 return claro_failure::set_failure('course_not_found');
             ;
             $_courseDatas = $_courseDatas[0];
             $courseDataInCache = $course_id;
-            $_courseDatas['visibility'  ]         = (bool) ($_courseDatas['visible'] == 2 || $_courseDatas['visible'] == 3);
-            $_courseDatas['registrationAllowed']  = (bool) ($_courseDatas['visible'] == 1 || $_courseDatas['visible'] == 2);
+            $_courseDatas['visibility'  ]         = (bool) (2 == $_courseDatas['visible'] || 3 == $_courseDatas['visible'] );
+            $_courseDatas['registrationAllowed']  = (bool) (1 == $_courseDatas['visible'] || 2 == $_courseDatas['visible'] );
             $_courseDatas['dbNameGlu'] = $courseTablePrefix . $_courseDatas['dbName'] . $dbGlu; // use in all queries
         }
 
@@ -233,16 +232,16 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
          * Search all the tool corresponding to this access levels
          */
 
-        $sql ="SELECT ctl.id                       AS id,
-                      pct.claro_label              AS label,
-                      ctl.script_name              AS name,
-                      ctl.access                   AS access,
-                      IFNULL(pct.icon,'tool.gif')  AS icon,
-                      pct.access_manager           AS access_manager,
-                      ISNULL(ctl.tool_id)           AS external,
+        $sql ="SELECT ctl.id                      AS id,
+                      pct.claro_label             AS label,
+                      ctl.script_name             AS name,
+                      ctl.access                  AS access,
+                      IFNULL(pct.icon,'tool.gif') AS icon,
+                      pct.access_manager          AS access_manager,
+                      ISNULL(ctl.tool_id)         AS external,
 
                       IFNULL( ctl.script_url ,
-                              CONCAT('".$clarolineRepositoryWeb."', pct.script_url) )
+                              CONCAT('" . $clarolineRepositoryWeb . "', pct.script_url) )
                       AS url
 
                FROM `". $tbl_course_tool_list ."` ctl
@@ -887,4 +886,40 @@ function claro_unquote_gpc()
     }
 }
 
+/**
+ * Return the value of a Claroline configuration parameter
+ * @param string $param config parameter
+ * @param mixed $default (optionnal) - set a defaut to return value
+ *                                     if no paramater with such a name is found.
+ * @return string param value
+ * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
+*/
+
+function get_init($param)
+{
+    static $initValueList = array( '_uid','_cid','_gid','_tid'
+                                 , 'is_platformAdmin'
+                                 , '_course'
+                                 , '_user'
+                                 , '_group'
+                                 , '_groupProperties'
+                                 , '_courseUser'
+                                 , '_courseTool'
+                                 , '_courseToolList'
+                                 , 'is_courseMember'
+                                 , 'is_courseTutor'
+                                 , 'is_courseAdmin'
+                                 , 'is_allowedCreateCourse'
+                                 , 'is_groupMember'
+                                 , 'is_groupTutor'
+                                 , 'is_groupAllowed'
+                                 , 'is_toolAllowed'
+                                 );
+
+    if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name', E_USER_NOTICE);
+    if     ( isset($GLOBALS[$param]) )  return $GLOBALS[$param];
+    elseif ( defined($param)         )  return constant($param);
+    else                                trigger_error( htmlentities($param) . ' is not a setted init value name', E_USER_NOTICE);
+    return null;
+}
 ?>
