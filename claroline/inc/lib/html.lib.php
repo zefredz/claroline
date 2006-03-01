@@ -20,10 +20,12 @@
  *
  */
 
+
+
 class claro_html
 {
 
-/**
+    /**
  * display a item list as vertical menu.
  *
  * @param array $itemList each item are include in a list.
@@ -92,27 +94,27 @@ class claro_html
 
         }
         return '<a href="' . $url . '" ' . $attributeConcat . ' >'
-        .              $label
-        .              '</a>' . "\n"
+        .       $label
+        .       '</a>' . "\n"
         ;
 
     }
 
-    /**
-     * Prepare the display of a clikcable button
-     *
-     * This function is needed because claroline buttons rely on javascript.
-     * The function return an optionnal behavior fo browser where javascript
-     * isn't  available.
-     *
-     * @author Hugues Peeters <hugues.peeters@claroline.net>
-     *
-     * @param string $url url inserted into the 'href' part of the tag
-     * @param string $text text inserted between the two <a>...</a> tags (note : it
-     *        could also be an image ...)
-     * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
-     * @return string the button
-     */
+/**
+ * Prepare the display of a clikcable button
+ *
+ * This function is needed because claroline buttons rely on javascript.
+ * The function return an optionnal behavior fo browser where javascript
+ * isn't  available.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ *
+ * @param string $url url inserted into the 'href' part of the tag
+ * @param string $text text inserted between the two <a>...</a> tags (note : it
+ *        could also be an image ...)
+ * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
+ * @return string the button
+ */
 
     function cmd_button($url, $text, $confirmMessage = '')
     {
@@ -141,24 +143,24 @@ class claro_html
     }
 
 
-    /**
-     * Displays the title of a tool. Optionally, there can be a subtitle below
-     * the normal title, and / or a supra title above the normal title.
-     *
-     * e.g. supra title:
-     * group
-     * GROUP PROPERTIES
-     *
-     * e.g. subtitle:
-     * AGENDA
-     * calender & events tool
-     *
-     * @author Hugues Peeters <hugues.peeters@claroline.net>
-     * @param  mixed $titleElement - it could either be a string or an array
-     *                               containing 'supraTitle', 'mainTitle',
-     *                               'subTitle'
-     * @return void
-     */
+/**
+ * Displays the title of a tool. Optionally, there can be a subtitle below
+ * the normal title, and / or a supra title above the normal title.
+ *
+ * e.g. supra title:
+ * group
+ * GROUP PROPERTIES
+ *
+ * e.g. subtitle:
+ * AGENDA
+ * calender & events tool
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param  mixed $titleElement - it could either be a string or an array
+ *                               containing 'supraTitle', 'mainTitle',
+ *                               'subTitle'
+ * @return void
+ */
 
     function tool_title($titlePart, $helpUrl = false)
     {
@@ -213,17 +215,17 @@ class claro_html
     }
 
 
-    /**
-     * Prepare display of the message box appearing on the top of the window,
-     * just    below the tool title. It is recommended to use this function
-     * to display any confirmation or error messages, or to ask to the user
-     * to enter simple parameters.
-     *
-     * @author Hugues Peeters <hugues.peeters@claroline.net>
-     * @param string $message - include your self any additionnal html
-     *                          tag if you need them
-     * @return $string html string for a message box
-     */
+/**
+ * Prepare display of the message box appearing on the top of the window,
+ * just    below the tool title. It is recommended to use this function
+ * to display any confirmation or error messages, or to ask to the user
+ * to enter simple parameters.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param string $message - include your self any additionnal html
+ *                          tag if you need them
+ * @return $string html string for a message box
+ */
 
     function message_box($message)
     {
@@ -238,7 +240,7 @@ class claro_html
     }
 
 
-    /**
+/**
  * Allows to easily display a breadcrumb trail
  *
  * @param array $nameList bame of each breadcrumb
@@ -329,20 +331,28 @@ class claro_html
     }
 
 
-    /**
-    Display    list of    messages
-
-    @param $msgArrBody array of messages
-    @author Christophe Gesché <moosh@claroline.net>
-    @version 1.0
-
-    Example    code for using this    in your    tools:
-    $msgArrBody["nameOfCssClass"][]="foo";
-.    css    class can be defined in    script but try to use
-    class from    generic    css    ()
-    error success warning
-    ...
-*/
+/**
+ * Display list of messages in substyled boxes in a message_box
+ *
+ * In most of cases  function message_box() is enough.
+ *
+ * @param array $msgArrBody of array of blocs containing array of messages
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @version 1.0
+ * @see  message_box()
+ *
+ * @example
+ *  code for using this    in your    tools:
+ *  $msgArrBody["nameOfCssClass"][]="foo";
+ *  css    class can be defined in    script but try to use
+ *  class from    generic    css    ()
+ *  error success warning
+ *  ...
+ *
+ * @todo this mus be a message object where code add messages with a priority,
+ * and the rendering is set by by priority
+ *
+ */
 
     function msg_list($msgArrBody, $return=true)
     {
@@ -396,7 +406,12 @@ class claro_html
         return  $optionTagList;
     }
 
-
+    function mailTo($mail,$mailLabel=null)
+    {
+        if (is_null($mailLabel)) $mailLabel = $mail;
+        $mailHtml = '<a href="mailto:' . $mail . '" class="email" >' . $mailLabel . '</a>';
+        return $mailHtml;
+    }
 }
 
 /**
@@ -418,6 +433,263 @@ class claro_html
  * set_counterLine(bool 'dispCounter')
  *
  */
+class claro_datagrid
+{
+
+
+    var $datagrid;
+
+    var $idLineType =  'numeric';
+    var $idLineShift = 1;
+    var $colTitleList =null;
+    var $colAttributeList = array();
+    var $caption = '';
+    var $counterLine;
+    var $dispCounter = false;
+    var $colHead =null;
+    var $htmlNoRowMessage = null;
+
+    var $dispIdCol = true;
+    var $internalKey = 0;
+
+    function claro_datagrid($datagrid = null)
+    {
+        if (!is_null($datagrid))    $this->set_grid($datagrid);
+
+        $this->set_idLineType('none');
+    }
+
+    /**
+     * set data grid
+     *
+     * @param array $datagrid
+     */
+    function set_grid($datagrid)
+    {
+        if (is_array($datagrid))
+        {
+            $this->datagrid = $datagrid ;
+        }
+        else                     trigger_error('set_grid need an array : ' .var_export($datagrid,1). ' is not array' ,E_USER_NOTICE);
+
+    }
+
+    /**
+     * set the  isLineType option
+     *
+     * @param string $line_type 'blank' 'numeric' 'key' 'none' default:'none'
+     *
+     */
+    function set_idLineType( $idLineType)
+    {
+
+        //* manage idLine option
+        $this->idLineType = $idLineType;
+        switch (strtolower($idLineType))
+        {
+            case 'blank'   : $this->idLineType = '';   break;
+            case 'numeric' : $this->internalKey = 0;   break;
+            case 'key'     : break;
+            case 'none'    : $this->dispIdCol = false; break;
+            default        : $this->dispIdCol = false;
+        }
+    }
+
+    /**
+     * set the  idLineShift option
+     *
+     * @param integer $idLineShift
+     */
+    function set_idLineShift( $idLineShift)
+    {
+        $this->idLineShift = $idLineShift;
+    }
+
+    /**
+     * set the  colTitleList option
+     *
+     * @param array $colTitleList array('colName'=>'colTitle')
+     */
+
+    function set_colTitleList( $colTitleList)
+    {
+        if (is_array($colTitleList)) $this->colTitleList = $colTitleList;
+        else                         trigger_error('array attempt',E_USER_NOTICE);
+    }
+
+
+    /**
+     * set the  colAttributeList option
+     *
+     * @param array $colAttributeList array('colName'=> array('attribName'=>'attribValue'))
+     */
+
+    function set_colAttributeList( $colAttributeList)
+    {
+        $this->colAttributeList = $colAttributeList;
+
+    }
+
+    /**
+     * set the  colAttributeList option
+     *
+     * @param array $colAttributeList array('colName'=> array('attribName'=>'attribValue'))
+     */
+
+    function set_noRowMessage( $htmlNoRowMessage)
+    {
+        $this->htmlNoRowMessage = $htmlNoRowMessage;
+
+    }
+
+    /**
+     * set the caption
+     *
+     * @param string $caption array('colName'=>'colTitle')
+     */
+
+    function set_caption($caption)
+    {
+        $this->caption =  '<caption>' . $caption . '</caption>';
+    }
+
+
+    /**
+     * set the  caption option
+     *
+     * @param string $caption array('colName'=>'colTitle')
+     */
+
+    function set_colHead( $colHeadName)
+    {
+        $this->colHead = $colHeadName;
+    }
+
+
+    /**
+     * set the  counterLine option
+     *
+     * @param integer $counterLine
+     */
+
+    function showCounterLine()
+    {
+        $this->dispCounter = true;
+    }
+
+    function render()
+    {
+        $stream = '';
+        if (is_array($this->datagrid) )//&& count($this->datagrid))
+        {
+
+            /**
+             * Build attributes for column
+             * In  W3C <COL> seems be the good usage but browser don't follow the tag
+             * So all attribute would be in each td of column.
+             */
+            if (!is_array($this->colTitleList)&&count($this->datagrid))
+            {
+                $this->colTitleList = array_keys($this->datagrid[0]);
+            }
+
+            if (isset($this->colAttributeList))
+            foreach (array_keys($this->colAttributeList) as $col)
+            {
+                $attrCol[$col]='';
+                foreach ($this->colAttributeList[$col] as $attriName => $attriValue )
+                {
+                    $attrCol[$col] .=' ' . $attriName . '="' . $attriValue . '" ';
+                }
+            }
+
+            $stream .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+            // THEAD LINE
+            .          '<thead>' . "\n"
+            .          $this->caption
+            .          '<tr class="headerX" align="center" valign="top">' . "\n"
+            ;
+
+            if ($this->dispIdCol) $stream .= '<th width="10"></th>' . "\n";
+
+            $i=0;
+            foreach ($this->colTitleList as $colTitle)
+            {
+                $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";
+            }
+            $stream .= '</tr>' . "\n"
+            .          '</thead>' . "\n"
+            ;
+
+            if ($this->dispCounter)
+            {
+                $stream .= '<tfoot>' . "\n"
+                .          '<tr class="headerX" align="center" valign="top">' . "\n"
+                .          '<td>' . "\n"
+                .          '</td>' . "\n"
+                .          '<td>' . "\n"
+                .          count($this->datagrid) . ' ' . get_lang('Lines')
+                .          '</td>' . "\n"
+                .          '</tr>' . "\n"
+                .          '</tr>' . "\n"
+                .          '</tfoot>' . "\n"
+                ;
+
+            }
+
+            $stream .= '<tbody>' . "\n";
+            if(count($this->datagrid))
+            {
+
+                foreach ($this->datagrid as $key => $dataLine )
+                {
+                    switch ($this->idLineType)
+                    {
+                        case 'key'     : $idLine = $key;                                       break;
+                        case 'numeric' : $idLine = $this->idLineShift + $this->internalKey++ ; break;
+                        default        : $idLine = '';
+                    }
+
+                    $stream .= '<tr>' . "\n";
+
+                    if ($this->dispIdCol) $stream .= '<td align="right" valign="middle">' . $idLine . '</td>' . "\n";
+
+                    $i=0;
+                    foreach ($dataLine as $colId => $dataCell)
+                    {
+                        if ($this->colHead == $colId)
+                        {
+                            $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
+                            $stream .= $dataCell;
+                            $stream .= '</td>' . "\n";
+                        }
+                        else
+                        {
+                            $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
+                            $stream .= $dataCell;
+                            $stream .= '</td>' . "\n";
+                        }
+                    }
+                    $stream .= '</tr>' . "\n";
+
+                }
+            }
+            else
+            {
+                if (is_null($this->htmlNoRowMessage )) $this->htmlNoRowMessage =get_lang('There is no result');
+                $stream .= '<tr class="dgnoresult" ><td class="dgnoresult" colspan="'.count(array_keys($this->colTitleList)).'">' . $this->htmlNoRowMessage  . '</td></tr>';
+            }
+            $stream .= '</tbody>' . "\n"
+            .          '</table>' . "\n"
+            ;
+
+        }
+
+        return $stream;
+
+    }
+
+}
 
 /**
  * display data array in a <table>
@@ -451,7 +723,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
 
     if (! array_key_exists('idLineType',   $option)) $option['idLineType'] = 'numeric';
     if (! array_key_exists('idLineShift',  $option)) $option['idLineShift'] = 1;
-    if (! array_key_exists('colHead',      $option))     $option['colHead'] = null;
+    if (! array_key_exists('colHead',      $option)) $option['colHead'] = null;
     if (! array_key_exists('colTitleList', $option)) $option['colTitleList'] = array_keys($dataGrid[0]);
     if (array_key_exists('caption',      $option))   $option['caption'] = '<caption>' . $option['caption'] . '</caption>';
     else                                             $option['caption'] = '';
@@ -464,7 +736,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
     {
         case 'blank'   : $idLineType = '';   break;
         case 'none'    : $dispIdCol = false; break;
-        case 'numeric' : $internalkey = 0;   break;
+        case 'numeric' : $internalKey = 0;   break;
         default        : $idLineType = '';   break;
     }
 
@@ -532,7 +804,7 @@ function claro_disp_datagrid($dataGrid, $option = null)
             switch ($option['idLineType'])
             {
                 case 'key'     : $idLineType = $option['idLineShift'] + $key ;           break;
-                case 'numeric' : $idLineType = $option['idLineShift'] + $internalkey++ ; break;
+                case 'numeric' : $idLineType = $option['idLineShift'] + $internalKey++ ; break;
             }
 
             $stream .= '<tr>' . "\n";
@@ -546,13 +818,19 @@ function claro_disp_datagrid($dataGrid, $option = null)
                 {
                     $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
                     $stream .= $dataCell;
+                    $stream .= key_exists($colId,$attrCol)?var_export($attrCol[$colId],1):'';
+
                     $stream .= '</td>' . "\n";
                 }
                 else
                 {
                     $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
                     $stream .= $dataCell;
+                    $stream .= key_exists($colId,$attrCol)?var_export($attrCol[$colId],1):'';
+
                     $stream .= '</td>' . "\n";
+
+
                 }
             }
             $stream .= '</tr>' . "\n";
@@ -592,58 +870,13 @@ function claro_disp_datagrid($dataGrid, $option = null)
  *                               containing 'supraTitle', 'mainTitle',
  *                               'subTitle'
  * @return void
+ *
+ * @deprecated in 1.8, use claro_html::tool_title($titlePart, $helpUrl);
  */
 
 function claro_disp_tool_title($titlePart, $helpUrl = false)
 {
-    // if titleElement is simply a string transform it into an array
-
-    if ( is_array($titlePart) )
-    {
-        $titleElement = $titlePart;
-    }
-    else
-    {
-        $titleElement['mainTitle'] = $titlePart;
-    }
-
-
-    $string = "\n" . '<h3 class="claroToolTitle">' . "\n";
-
-    if ($helpUrl)
-    {
-        global $clarolineRepositoryWeb, $imgRepositoryWeb;
-
-        $string .= "<a href='#' onClick=\"MyWindow=window.open('". $clarolineRepositoryWeb . "help/" .$helpUrl
-        ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
-
-        .'<img src="'.$imgRepositoryWeb.'/help.gif" '
-        .' alt ="'.get_lang('Help').'"'
-        .' align="right"'
-        .' hspace="30">'
-        .'</a>' . "\n"
-        ;
-    }
-
-
-    if ( isset($titleElement['supraTitle']) )
-    {
-        $string .= '<small>' . $titleElement['supraTitle'] . '</small><br />' . "\n";
-    }
-
-    if ( isset($titleElement['mainTitle']) )
-    {
-        $string .= $titleElement['mainTitle'] . "\n";
-    }
-
-    if ( isset($titleElement['subTitle']) )
-    {
-        $string .= '<br /><small>' . $titleElement['subTitle'] . '</small>' . "\n";
-    }
-
-    $string .= '</h3>'."\n\n";
-
-    return $string;
+    return claro_html::tool_title($titlePart, $helpUrl);
 }
 
 
