@@ -442,8 +442,7 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
             // Extracting the user data
 
             $is_platformAdmin        = (bool) ( $_user['is_platformAdmin'       ] );
-            $is_allowedCreateCourse  = (bool) ( $_user['is_allowedCreateCourse'] );
-
+            $is_allowedCreateCourse  = (bool) ($_user['is_allowedCreateCourse'] || $is_platformAdmin);
             if ( $_uid != $_user['creatorId'] )
             {
                 // first login for a not self registred (e.g. registered by a teacher)
