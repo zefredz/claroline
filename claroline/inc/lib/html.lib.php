@@ -818,16 +818,12 @@ function claro_disp_datagrid($dataGrid, $option = null)
                 {
                     $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
                     $stream .= $dataCell;
-                    $stream .= key_exists($colId,$attrCol)?var_export($attrCol[$colId],1):'';
-
                     $stream .= '</td>' . "\n";
                 }
                 else
                 {
                     $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
                     $stream .= $dataCell;
-                    $stream .= key_exists($colId,$attrCol)?var_export($attrCol[$colId],1):'';
-
                     $stream .= '</td>' . "\n";
 
 
