@@ -269,7 +269,7 @@ function showQuestion($questionId, $onlyAnswers=false)
     {
     ?>
         <tr>
-        <td colspan="2"><small><?php echo get_lang('UniqueAnswer'); ?></small></td>
+        <td colspan="2"><small><?php echo get_lang('Unique answer'); ?></small></td>
         </tr>
     <?php
     }
@@ -277,7 +277,7 @@ function showQuestion($questionId, $onlyAnswers=false)
     {
     ?>
         <tr>
-        <td colspan="2"><small><?php echo get_lang('MultipleAnswers'); ?></small></td>
+        <td colspan="2"><small><?php echo get_lang('Multiple answers'); ?></small></td>
         </tr>    
     <?php
     }
@@ -315,25 +315,6 @@ function display_attached_file($attachedFile)
     case 'bmp' :
         $returnedString .= '<img src="'.$attachedFilePathWeb.'/'.$attachedFile.'" border="0" alt="'.$attachedFile.'" />'."\n";
         break;
-    /*    
-    case 'mov' :
-        $returnedString .= "<object>  
-                      <param name=\"src\" value=\"".$attachedFilePathWeb."/".$attachedFile."\"> 
-                      <param name=\"volume\" value=\"50%\">
-                      <param name=\"loop\" value=\"false\">
-                      <param name=\"controller\" value=\"true\">
-                      <param name=\"autoplay\" value=\"false\">
-                      <param name=\"type\" value=\"video/quicktime\">
-                      <embed align=\"middle\" src=\"".$attachedFilePathWeb."/".$attachedFile."\" volume=\"50%\" loop=\"false\" controller=\"true\" autoplay=\"false\" type=\"video/quicktime\">
-                      </embed> 
-                      </object>
-                      <br /><small><a href=\"".$attachedFilePathWeb."/".$attachedFile."\" target=\"_blank\">".get_lang('DownloadAttachedFile')." (.mov)</a></small>";
-        break;
-    */
-    /*
-    case 'wmv' :
-        break;
-    */
     case 'swf' :
         $returnedString .= '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'
                     .' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"'
@@ -347,25 +328,27 @@ function display_attached_file($attachedFile)
         break;
     
     case 'mp3' :
-    		// a fake param with time() as value is added used to force cache refresh    		
+    		// a fake param with time() as value is added used to force cache refresh
+    		$time = time();
+    		$playerUrl = get_conf('clarolineRepositoryWeb').'inc/swf/dewplayer.swf?son='.$attachedFilePathWeb.'/'.$attachedFile.'&amp;bgcolor=FFFFFF&amp;fake='.$time;
+    		
 			$returnedString .= 
 					'<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0"'
 						.' width="200" height="20" id="dewplayer" align="middle">' . "\n"
 					.'<param name="allowScriptAccess" value="sameDomain" />' . "\n"
-					.'<param name="movie" value="dewplayer.swf?son='.$attachedFilePathWeb.'/'.$attachedFile.'&amp;bgcolor=FFFFFF" />' . "\n"
+					.'<param name="movie" value="'.$playerUrl.'" />' . "\n"
 					.'<param name="quality" value="high" />' . "\n"
 					.'<param name="bgcolor" value="FFFFFF" />' . "\n"
-					.'<embed src="dewplayer.swf?son='.$attachedFilePathWeb.'/'.$attachedFile.'&amp;bgcolor=FFFFFF" quality="high" bgcolor="FFFFFF" width="200" height="20" name="dewplayer"'
+					.'<embed src="'.$playerUrl.'" quality="high" bgcolor="FFFFFF" width="200" height="20" name="dewplayer"'
 						.' align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />' . "\n"
 					.'</object>' ."\n"
 					.'<p>' . "\n" . '<small>' . "\n"
-					.'<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'">'.get_lang('DownloadAttachedFile').'</a>' . "\n"
-					.'</small>'."\n\n";		
-                          
+					.'<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'">'.get_lang('Download attached file').'</a>' . "\n"
+					.'</small>'."\n\n";
         break;
     
     default :
-        $returnedString .= '<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'" target="_blank">'.get_lang('DownloadAttachedFile').'</a>'."\n";
+        $returnedString .= '<a href="'.$attachedFilePathWeb.'/'.$attachedFile.'" target="_blank">'.get_lang('Download attached file').'</a>'."\n";
         break;        
   
   }
