@@ -49,8 +49,8 @@ $interbredcrump[] = array ('url' => $urlSDK, 'name' => get_lang('SDK'));
 
 include $includePath . '/claro_init_header.inc.php';
 
-// echo claro_disp_tool_title('<img src="lang/language.png" style="vertical-align: middle;" alt="" /> '.$nameTools);
-echo claro_disp_tool_title($nameTools);
+// echo claro_html::tool_title('<img src="lang/language.png" style="vertical-align: middle;" alt="" /> '.$nameTools);
+echo claro_html::tool_title($nameTools);
 ?>
 <h4><?php echo get_lang('Extract language variables')?></h4>
 <ul>
