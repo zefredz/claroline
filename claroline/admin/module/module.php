@@ -36,7 +36,7 @@ $dockList[] = "userBannerRight";
 $dockList[] = "courseBannerLeft";
 $dockList[] = "courseBannerRight";
 $dockList[] = "homePageCenter";
-$dockList[] = "campusHomepageBottom";
+$dockList[] = "campusHomePageBottom";
 $dockList[] = "homePageRightMenu";
 $dockList[] = "campusFooterCenter";
 $dockList[] = "campusFooterLeft";
@@ -75,8 +75,19 @@ switch ( $cmd )
 
     case 'movedock' :
     {
-        $new_dock = (isset($_REQUEST['dock'])? $_REQUEST['dock'] : null);
-        set_module_dock($module_id, $new_dock);
+        foreach ($dockList as $thedock)
+        {
+
+            if (isset($_REQUEST[$thedock]))
+            {
+                add_module_in_dock($module_id, $thedock);
+            }
+            else
+            {
+                remove_module_dock($module_id,$thedock);
+            }
+        }
+        $dialogBox = get_lang('Changes in the display of the module have been applied');
     }
     break;
 }
@@ -103,7 +114,16 @@ $sql = "SELECT `name` AS `dockname`
         FROM `" . $tbl_dock        . "`
         WHERE `module_id` = " . (int) $module_id;
 
-$module_dock = claro_sql_query_get_single_row($sql);
+$module_dock = claro_sql_query_fetch_all($sql);
+
+//create an array with only dock names
+
+$dock_checked = array();
+
+foreach($module_dock as $thedock)
+{
+    $dock_checked[] = $thedock['dockname'];
+}
 
 //----------------------------------
 // DISPLAY
@@ -114,6 +134,11 @@ include $includePath . '/claro_init_header.inc.php';
 //display title
 
 echo claro_disp_tool_title($nameTools . ' : ' . $module['module_name']);
+
+//Display Forms or dialog box(if needed)
+
+if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
+
 ?>
 
 <h4> Description</h4>
@@ -202,16 +227,13 @@ echo claro_disp_tool_title($nameTools . ' : ' . $module['module_name']);
 
   if ($module['activation']=="activated")
   {
-
-      $activ_state = get_lang('Activated');
       $activ_form  = "desactiv";
-      $action_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Desactivate this module").'</a>';
+      $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Desactivate").'</a></small>]';
   }
   else
   {
-      $activ_state = get_lang('Desactivated');
       $activ_form  = "activ";
-      $action_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Activate this module").'</a>';
+      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Activate").'</a></small>] | [<small><b>'.get_lang('Desactivated').'</b></small>]';
   }
 
   echo '<td align="right" valign="top">'
@@ -219,8 +241,7 @@ echo claro_disp_tool_title($nameTools . ' : ' . $module['module_name']);
   .    ' : ' . "\n"
   .    '</td>' . "\n"
   .    '<td>' . "\n"
-  .    $activ_state . '<br/>' . "\n"
-  .    '<small>[' . $action_link . ']</small>' . "\n"
+  .    $action_link . "\n"
   .    '</td>' . "\n"
   .    '</tr>' . "\n"
   .    '<tr>' . "\n"
@@ -244,24 +265,23 @@ else
 
     //choose the dock radio button list display
 
-    $isfirstline = get_lang('Display') . ':';
+    $isfirstline = get_lang('Display') . ' : ';
 
-      //display each option
+    //display each option
 
     foreach ($dockList as $dock)
     {
 
-        if ($module_dock['dockname']==$dock) $is_checked = 'checked="checked"'; else $is_checked = "";
+        if (in_array($dock,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
 
         echo '<tr>' ."\n"
         .    '<td syle="align:right">' . $isfirstline . '</td>' ."\n"
         .    '<td>' ."\n"
-        .    '<input type="radio" name="dock" value="' . $dock . '" ' . $is_checked . ' />'
+        .    '<input type="checkbox" name="'.$dock.'" value="' . $dock . '" ' . $is_checked . ' />'
         .    $dock
         .    '</td>' ."\n"
         .    '</tr>' ."\n"
         ;
-
         $isfirstline = '';
     }
 

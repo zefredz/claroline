@@ -23,6 +23,9 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/sqlxtra.lib.php';
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/fileUpload.lib.php';
+require_once $includePath . '/../admin/module/module.inc.php';
 
 //SQL table name
 
@@ -33,7 +36,7 @@ $tbl_dock        = $tbl_name['dock'];
 
 
 $nameTools = get_lang('Module list');
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb,'name' => get_lang('Administration'));
 
 //NEEDED CSS
 
@@ -97,13 +100,6 @@ function confirmation (name)
 
 $modulePerPage = get_conf('modulePerPage' , 10);
 $maxFilledSpaceForModule = get_conf('maxFilledSpaceForModule' , 10000000); //needed for the installation of a new module
-$debug_mode = true;
-
-//Needed Libraries
-
-require_once $includePath . '/lib/fileManage.lib.php';
-require_once $includePath . '/lib/fileUpload.lib.php';
-require_once $includePath . '/../admin/module/module.inc.php';
 
 $typeList[] = 'applet';
 $typeList[] = 'coursetool';
@@ -134,66 +130,14 @@ switch ( $cmd )
 
     case 'up' :
     {
-        //1-find value of current module rank in the dock
-        $sql = "SELECT `rank`
-                FROM `" . $tbl_dock . "`
-                WHERE `module_id`=" . (int) $module_id . "
-                  AND `name`='" . addslashes($dockname) . "'";
-        $result=claro_sql_query_get_single_value($sql);
 
-        //2-move down above module
-        $sql = "UPDATE `" . $tbl_dock . "`
-                SET `rank` = `rank`+1
-                WHERE `module_id` != " . (int) $module_id . "
-                  AND `name`       = '" . addslashes($dockname) . "'
-                  AND `rank`       = " . (int) $result['rank'] . " -1 ";
-
-        claro_sql_query($sql);
-
-        //3-move up current module
-        $sql = "UPDATE `" . $tbl_dock . "`
-                SET `rank` = `rank`-1
-                WHERE `module_id` = " . (int) $module_id . "
-                  AND `name`      = '" .  addslashes($dockname) . "'
-                  AND `rank` > 1"; // this last condition is to avoid wrong update due to a page refreshment
-        claro_sql_query($sql);
+        move_module_in_dock($module_id, $dockname,'up');
     }
     break;
 
     case 'down' :
     {
-        //1-find value of current module rank in the dock
-        $sql = "SELECT `rank`
-                FROM `" . $tbl_dock . "`
-                WHERE `module_id`=" . (int) $module_id . "
-                  AND `name`='" . addslashes($dockname) . "'";
-        $result=claro_sql_query_get_single_value($sql);
-
-        //this second query is to avoid a page refreshment wrong update
-
-        $sqlmax= "SELECT MAX(`rank`) AS `max_rank`
-                  FROM `" . $tbl_dock . "`
-                  WHERE `name`='" .  addslashes($dockname) . "'";
-        $resultmax=claro_sql_query_get_single_value($sqlmax);
-
-        if ($resultmax['max_rank']==$result['rank']) break;
-
-        //2-move up above module
-        $sql = "UPDATE `" . $tbl_dock . "`
-                SET `rank` = `rank` - 1
-                WHERE `module_id` != " . $module_id . "
-                  AND `name` = '" . addslashes($dockname) . "'
-                  AND `rank` = " . (int) $result['rank'] . " + 1
-                  AND `rank` > 1";
-        claro_sql_query($sql);
-
-        //3-move down current module
-        $sql = "UPDATE `" . $tbl_dock . "`
-                SET `rank` = `rank` + 1
-                WHERE `module_id`=" . (int) $module_id . "
-                  AND `name`='" .  addslashes($dockname) . "'";
-        claro_sql_query($sql);
-
+        move_module_in_dock($module_id, $dockname,'down');
     }
     break;
 
@@ -214,8 +158,8 @@ switch ( $cmd )
         .            '</p>'
         .            '<form enctype="multipart/form-data" action="" method="post">'
         .            '<input name="uploadedModule" type="file" /><br><br>'
+        .            '<input type="submit" value="cancel" /> '
         .            '<input name="cmd" type="hidden" value="do_install" />'
-        .            '<input type="submit" value="cancel" />'
         .            '<input value="' . get_lang('Install Module') . '" type="submit" />'
         .            '<br><br>'
         .            '<small>' . get_lang('Max file size') . ' :  2&nbsp;MB</small>'
@@ -252,14 +196,10 @@ $sql = "SELECT M.`id`              AS `id`,
                M.`name`            AS `name`,
                M.`activation`      AS `activation`,
                M.`type`            AS `type`,
-               M.`module_info_id`  AS `module_info_id`,
-               D.`name`            AS `dockname`,
-               D.`rank`            AS `rank`
+               M.`module_info_id`  AS `module_info_id`
         FROM `" . $tbl_module . "` AS M
-        LEFT JOIN `" . $tbl_dock . "` AS D
-        ON M.`id` = D.`module_id`
         WHERE M.`type` = '" . addslashes($selected_type) . "'
-        ORDER BY `dockname`, D.`rank`
+        ORDER BY `id`
         ";
 
 
@@ -270,21 +210,28 @@ $myPager      = new claro_sql_pager($sql, $offset, $modulePerPage);
 $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
 $moduleList = $myPager->get_result_list();
 
-//find last and first modules of each dock (needed for reorder links in the list)
+//find docks in which the modules do appear.
 
-$firstmodules = array();
-$lastmodules   = array();
+$module_docks = array(); 
 
 foreach ($moduleList as $module)
 {
-    if (!isset($firstmodules[$module['dockname']])) $firstmodules[$module['dockname']] = $module['id'];
-    $lastmodules[$module['dockname']] = $module['id'];
+    $module_dock[$module['id']] = array();
+
+    $sql = "SELECT D.`id`    AS dock_id,
+                   D.`name`  AS dockname
+            FROM `" . $tbl_dock . "` AS D
+            WHERE D.`module_id`=".(int)$module['id'];
+
+    $module_dock[$module['id']] = claro_sql_query_fetch_all($sql);
 }
+
 
 
 //----------------------------------
 // DISPLAY
 //----------------------------------
+
 include $includePath . '/claro_init_header.inc.php';
 
 //display title
@@ -323,25 +270,22 @@ foreach ($typeList as $type)
 echo '  </ul>
       </div>';
 
-//Display list  EXIST
+//Display list
 
 //Display Pager list
 
 echo $myPager->disp_pager_tool_bar('module_list.php?selected_type='.$selected_type);
-
-// $sortUrlList = $myPager->get_sort_url_list('module_list.php?selected_type='.$selected_type);
 
 // start table...
 
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th>' .  get_lang('Id')                 . '</th>'
-.    '<th>' .  get_lang('Icon')               . '</th>'
-.    '<th>' .  get_lang('Module name')        . '</th>'
+.    '<th>' . get_lang('Id')                 . '</th>'
+.    '<th>' . get_lang('Icon')               . '</th>'
+.    '<th>' . get_lang('Module name')        . '</th>'
 .    '<th>' . get_lang('Display')             . '</th>'
 .    '<th>' . get_lang('Activation')          . '</th>'
-.    '<th colspan="2">' . get_lang('Reorder') . '</th>'
 .    '<th>' . get_lang('Edit settings')       .'</th>'
 .    '<th>' . get_lang('Uninstall')           .'</th>'
 .    '</tr><tbody>'
@@ -353,7 +297,9 @@ foreach($moduleList as $module)
 {
     //display settings...
     $class_css= ($module['activation']=='activated' ? 'item' : 'invisible item');
-    //icon column
+
+    //find icon
+
     if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
     {
         $icon = '<img src="' . $rootWeb . 'claroline/module/' . $module['label'] . '/icon.png" />';
@@ -365,7 +311,7 @@ foreach($moduleList as $module)
     else $icon = '<small>' . get_lang('No icon') . '</small>';
 
 
-    //module_id column
+    //module_id and icon column
 
     echo '<tr>'
     .    '<td align="center">' . $module['id'] . '</td>' . "\n"
@@ -381,12 +327,27 @@ foreach($moduleList as $module)
     {
         echo '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n";
     }
+
     //displaying location column
 
-    echo    '<td align="left" class="' . $class_css . '"><small>' . $module['dockname'] . '</small></td>' . "\n"
-    //activation link
+    echo    '<td align="left" class="' . $class_css . '"><small>';
+
+    foreach ($module_dock[$module['id']] as $dock)
+    {
+        echo '<a href="module_dock.php?dock='.$dock['dockname'].'">'.$dock['dockname']."</a> <br/>";
+    }
+
+    if (empty($module_dock[$module['id']]))
+    {
+        echo '<div align="center">'.get_lang('No dock chosen')."</div>";
+    }
+
+    echo '</small></td>' . "\n"
+
     .    '<td align="center" >'
     ;
+
+    //activation link
 
     if ($module['activation'] == 'activated')
     {
@@ -399,45 +360,20 @@ foreach($moduleList as $module)
         echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'"><img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('Desactivated') . '" /></a>';
     }
 
-    echo '</td>' . "\n"
-    .    '<td align="center">' . "\n"
-    ;
+    echo '</td>' . "\n";
 
-    //reorder column
-
-    //up
-
-    if ($firstmodules[$module['dockname']] != $module['id'])
-    {
-        echo '<a href="module_list.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;selected_type=' . $selected_type.'&dockname='.urlencode($module['dockname']).'">'
-        .    '<img src="' . $imgRepositoryWeb . 'up.gif" border="0" alt="' . get_lang('Up') . '" />'
-        .    '</a>' . "\n"
-        ;
-    }
-
-    //down
-    echo '</td>' . "\n"
-    .    '<td align="center">' . "\n"
-    ;
-
-    if ($lastmodules[$module['dockname']] != $module['id'])
-    {
-        echo '<a href="module_list.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;selected_type=' . $selected_type . '&amp;dockname=' . urlencode($module['dockname']) . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
-        .    '</a>'
-        ;
-    }
-
-    echo '</td>' . "\n"
     //edit settings link
-    .    '<td align="center">'
+
+    echo '<td align="center">'
     .    '<a href="module.php?module_id='.$module['id'].'">'
     .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
+
     //uninstall link
+
     .    '<td align="center">'
-    .    '<a href="module_list.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'&cmd=uninstall"'
+    .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'&cmd=uninstall"'
     .    ' onClick="return confirmation(\''.$module['name'].'\');">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
     .    '</a>'
@@ -449,6 +385,10 @@ foreach($moduleList as $module)
 //end table...
 echo '</tbody>'
 .    '</table>';
+
+//Display BOTTOM Pager list
+
+echo $myPager->disp_pager_tool_bar('module_list.php?selected_type='.$selected_type);
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>
