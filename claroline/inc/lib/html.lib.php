@@ -468,6 +468,7 @@ class claro_datagrid
     {
         if (is_array($datagrid))
         {
+            $this->internalKey = 0;
             $this->datagrid = $datagrid ;
         }
         else                     trigger_error('set_grid need an array : ' .var_export($datagrid,1). ' is not array' ,E_USER_NOTICE);
@@ -487,9 +488,9 @@ class claro_datagrid
         $this->idLineType = $idLineType;
         switch (strtolower($idLineType))
         {
-            case 'blank'   : $this->idLineType = '';   break;
-            case 'numeric' : $this->internalKey = 0;   break;
-            case 'key'     : break;
+            case 'blank'   : $this->dispIdCol = true; $this->idLineType = '';   break;
+            case 'numeric' : $this->dispIdCol = true; $this->internalKey = 0;   break;
+            case 'key'     : $this->dispIdCol = true; break;
             case 'none'    : $this->dispIdCol = false; break;
             default        : $this->dispIdCol = false;
         }
