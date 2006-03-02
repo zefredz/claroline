@@ -120,7 +120,7 @@ else
 
     // if the browser doesn't support the location header
     echo  get_lang('IfNotRedirect')
-        .'<a href="'.$doc_dl_url.'">'.get_lang('_click_here').'</a> .';
+        .'<a href="'.$doc_dl_url.'">'.get_lang('click here').'</a> .';
 
     // exit to be sure the script stop running
     exit();

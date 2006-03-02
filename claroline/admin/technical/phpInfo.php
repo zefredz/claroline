@@ -89,7 +89,7 @@ if ($is_allowedToAdmin)
 <DIV class="elementServeur">
 <span class="elementServeur" >WebServer</span> <?php echo $_SERVER['SERVER_SOFTWARE'] ;?></strong><br />
 
-[<?php echo get_lang('Mail to : ') ?><a href="mailto:<?php echo $_SERVER['SERVER_ADMIN'] ?>">Admin apache (<?php echo $_SERVER['SERVER_ADMIN'] ?>)</A>]
+[<?php echo get_lang('Mail to') . ' : ' ; ?><a href="mailto:<?php echo $_SERVER['SERVER_ADMIN'] ?>">Admin apache (<?php echo $_SERVER['SERVER_ADMIN'] ?>)</A>]
 <br />
 </DIV>
 <HR size="1" noshade="noshade">

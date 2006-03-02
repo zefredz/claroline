@@ -25,7 +25,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Administration'));
 
-$nameTools = get_lang('Platform Statistics');
+$nameTools = get_lang('Platform statistics');
 
 // regroup table names for maintenance purpose
 /*
@@ -82,7 +82,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     if($view[0] == '1')
     {
         $tempView[0] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Platform Statistics').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
+        echo '-&nbsp;&nbsp;<b>'.get_lang('Platform statistics').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         //---- COURSES
         echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.get_lang('Courses').'</b><br />'."\n";
         //--  number of courses
@@ -167,7 +167,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
     else
     {
         $tempView[0] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Platform Statistics').'</a>'."\n";
+        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Platform statistics').'</a>'."\n";
     }
     echo '</p>'."\n\n";
 
@@ -386,7 +386,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
       else
       {
           echo '<tr>'."\n"
-             . '<td colspan="2"><center>'.get_lang('No Result').'</center></td>'."\n"
+             . '<td colspan="2"><center>'.get_lang('No result').'</center></td>'."\n"
              . '</tr>'."\n"
              ;
       }

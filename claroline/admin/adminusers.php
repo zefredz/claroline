@@ -160,7 +160,7 @@ $userDataGrid = new claro_datagrid();
 $userDataGrid->set_grid($userGrid);
 $userDataGrid->set_colHead('name') ;
 $userDataGrid->set_colTitleList(array (
-                 'user_id'=>'<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>'
+                 'user_id'=>'<a href="' . $sortUrlList['user_id'] . '">' . get_lang('N°') . '</a>'
                 ,'name'=>'<a href="' . $sortUrlList['name'] . '">' . get_lang('LastName') . '</a>'
                 ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('FirstName') . '</a>'
                 ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('OfficialCode') . '</a>'

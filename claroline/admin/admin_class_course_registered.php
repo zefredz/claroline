@@ -29,8 +29,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 //bredcrump
 
-$nameTools=get_lang('Classes registered');
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Classes registered'));
+$nameTools=get_lang('Class registered');
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Class registered'));
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
@@ -83,7 +83,7 @@ $cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/co
  */
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('Classes registered') . ' : ' . $classinfo['name']);
+echo claro_disp_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
 if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 

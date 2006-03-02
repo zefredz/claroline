@@ -218,7 +218,7 @@ switch ( $display )
             .    '<input type="hidden" name="cmd" value="exRevoquation" />'
             .    '<table>'
             .    '<tr valign="top">'
-            .    '<td>' . get_lang('User name') . ': </td>'
+            .    '<td>' . get_lang('Username') . ': </td>'
             .    '<td><input type="text" name="loginToDelete" ></td>'
             .    '</tr>'
             .    '<tr valign="top">'

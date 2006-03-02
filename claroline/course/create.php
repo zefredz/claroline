@@ -79,7 +79,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 
     if ( ! $courseCategory || $courseCategory == 'choose_one')
     {
-        $errorList[] = get_lang('Category needed (you must choose a category');
+        $errorList[] = get_lang('Category needed (you must choose a category)');
     }
 
     if ( empty($courseEmail) && get_conf('course_email_needed') ) $errorList[] = get_lang('Email needed');
@@ -306,7 +306,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
 <tr valign="top">
 <td align="right">
-<label for="officialCode"><?php echo ( get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Code') ?></label> :
+<label for="officialCode"><?php echo ( get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Course code') ?></label> :
 </td>
 <td >
     <input type="Text" id="officialCode" name="officialCode" maxlength="12" value="<?php echo htmlspecialchars($courseOfficialCode) ?>" />

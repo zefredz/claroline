@@ -89,11 +89,11 @@ $panelTitle[DISP_WELCOME]                   = get_lang('Requirements');
 $panelTitle[DISP_LICENSE]                   = get_lang('Licence');
 //$panelTitle[DISP_FILE_SYSTEM_SETTING]      = get_lang('FileSystemSetting');
 $panelTitle[DISP_DB_CONNECT_SETTING]        = 'MySql Database Settings';
-$panelTitle[DISP_DB_NAMES_SETTING]          = get_lang('MysqlNames');
+$panelTitle[DISP_DB_NAMES_SETTING]          = get_lang('MySQL Database and Table Names');
 $panelTitle[DISP_ADMINISTRATOR_SETTING]     = 'Administrator Account';
 $panelTitle[DISP_PLATFORM_SETTING]          = 'Platform Settings';
 $panelTitle[DISP_ADMINISTRATIVE_SETTING]    = 'Additional Informations<small> (optional)</small>';
-$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = get_lang('LastCheck');
+$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = get_lang('Last check before install');
 $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = 'Claroline Installation succeeds';
 
 //$rootSys="'.realpath($pathForm).'";
@@ -305,7 +305,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
                     <br />';
         if ($no=='2005')
         $msg_no_connection .= '
-                    Wrong '.get_lang('DBHost').' : <I>'.$dbHostForm.'</I>';
+                    Wrong '.get_lang('Database Host').' : <I>'.$dbHostForm.'</I>';
         elseif ($no=='1045')
         $msg_no_connection .= 'Wrong database Login : '
                            .  '(<I>' . $dbUsernameForm . '</I>) '
@@ -889,7 +889,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '</tr>'
     .    '<tr>'
     .    '<td>'
-    .    '<h4>'.get_lang('DBConnectionParameters').'</h4>'
+    .    '<h4>'.get_lang('Mysql connection parameters').'</h4>'
     .    '<p>'
     .    'Enter here the parameters given by your database server administrator.'
     .    '</p>'
@@ -929,7 +929,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '</td>'
     .    '</tr>'
     .    '</table>'
-    .    '<h4>'.get_lang('DBUse').'</h4>'
+    .    '<h4>'.get_lang('Database usage').'</h4>'
     .    '<table width="100%">'
     .    '<tr>'
     .    '<td>'
@@ -1062,7 +1062,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     echo '<tr>'  . "\n"
     .    '<td>'  . "\n"
     .    '<label for="dbNameForm">'  . "\n"
-    .    ''.($singleDbForm?get_lang('DbName'):get_lang('MainDB')).''  . "\n"
+    .    ''.($singleDbForm?get_lang('Database name'):get_lang('Main database')).''  . "\n"
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
@@ -1114,7 +1114,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
         }
         echo '<tr>'  . "\n"
         .    '<td>'  . "\n"
-        .    '<label for="dbStatsForm">'.get_lang('StatDB').'</label>'  . "\n"
+        .    '<label for="dbStatsForm">'.get_lang('Tracking database').'</label>'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
         .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'">'  . "\n"
@@ -1150,7 +1150,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     echo '<tr>'  . "\n"
     .    '<td>'  . "\n"
     .    '<label for="dbPrefixForm">'  . "\n"
-    .    ($singleDbForm?'Prefix for names of course tables':get_lang('DbPrefixForm')).''  . "\n"
+    .    ($singleDbForm?'Prefix for names of course tables':get_lang('Prefix for names of course databases')).''  . "\n"
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
@@ -1235,7 +1235,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '<tr>'  . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<b><label for="loginForm">'.get_lang('AdminLogin').'</label></b>'  . "\n"
+    .    '<b><label for="loginForm">'.get_lang('Login').'</label></b>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'">'  . "\n"
@@ -1277,7 +1277,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<label for="adminNameForm">'.get_lang('AdminName').'</label>'  . "\n"
+    .    '<label for="adminNameForm">'.get_lang('Last name').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'">'  . "\n"
@@ -1288,7 +1288,7 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
     .    '</tr>' . "\n"
     .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<label for="adminSurnameForm">'.get_lang('AdminSurname').'</label>'  . "\n"
+    .    '<label for="adminSurnameForm">'.get_lang('First name').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'">'  . "\n"
@@ -1614,7 +1614,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
     {
         echo "<hr />";
         if ($mainDbNameExist)
-            echo '<P><B>'.get_lang('MainDB').'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />
+            echo '<P><B>'.get_lang('Main database').'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />
             <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
             <label for="confirmUseExistingMainDb" >I know, I want use it.</label><br />
             <font color="red">Warning !</font> : this script write in tables use by Claroline.
@@ -1622,7 +1622,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
             echo '
         <P>
-            <B>'.get_lang('StatDB').'</B> db ('.$dbStatsForm.') already exist
+            <B>'.get_lang('Tracking database').'</B> db ('.$dbStatsForm.') already exist
             <br />
             <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
             <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><br />

@@ -34,7 +34,7 @@ include $includePath . '/claro_init_header.inc.php';
 echo claro_disp_tool_title($nameTools);
 ?>
 
-<p><img src="<?php echo 'lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="translation_index.php"><?php echo get_lang('TranslationTools')?></a></p>
+<p><img src="<?php echo 'lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="translation_index.php"><?php echo get_lang('Translation Tools')?></a></p>
 
 <?php
 include $includePath . '/claro_init_footer.inc.php';

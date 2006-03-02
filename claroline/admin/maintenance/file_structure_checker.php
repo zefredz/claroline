@@ -110,8 +110,8 @@ switch ($display)
             echo get_lang('No scripts');
         }
 
-        echo '<h4>' . get_lang('ScriptNotInarchive') . '</h4>';
-        echo '<p><em>' . get_lang('ScriptNotInarchiveComment') . '</em></p>' ;
+        echo '<h4>' . get_lang('Script not in claroline') . '</h4>';
+        echo '<p><em>' . get_lang('You can delete these scripts from you server') . '</em></p>' ;
 
         if ( count($diff_script_not_used) > 0 )
         { 

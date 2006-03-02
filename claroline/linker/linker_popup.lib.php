@@ -49,7 +49,6 @@
     *
     * @param $extraGetVar integer who is id of a resource
     * @param $tLabel tlabel of a tool
-    * @global get_lang('LinkerResourceAttachment')
     */    
     function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {
@@ -74,7 +73,7 @@
         
         echo "<br />\n";
         echo "<A href=\"javascript:popup('"
-            . $url."')\">".get_lang('LinkerResourceAttachment')
+            . $url."')\">".get_lang('Attached Resources : Add / Delete attachement')
             ."</A><br /><br />\n";
     }
 

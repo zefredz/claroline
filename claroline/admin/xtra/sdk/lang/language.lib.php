@@ -214,6 +214,7 @@ function is_scannable($filePath,
     $forbiddenDirNameList    = array_merge( array('claroline/lang',
                                                   'claroline/inc/conf',
                                                   'courses',
+                                                  'claroline/admin/devTools',
                                                   'claroline/claroline_garbage'),
                                             $additionnalForbiddenDirNameList);
     $forbiddenParentNameList = array('CVS');

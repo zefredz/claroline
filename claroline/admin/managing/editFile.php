@@ -94,7 +94,7 @@ if( isset($_REQUEST['file']) )
 
 // DISPLAY
 
-$nameTools = get_lang('HomePageTextZone');
+$nameTools = get_lang('Home page text zones');
 $interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 include $includePath . '/claro_init_header.inc.php';
@@ -123,7 +123,7 @@ if($display==DISP_FILE_LIST
 
 <table cellspacing="2" cellpadding="2" border="0" class="claroTable">
 <tr class="headerX">
-    <th ><?php echo get_lang('FileName') ?></th>
+    <th ><?php echo get_lang('Filename') ?></th>
     <th ><?php echo get_lang('Edit') ?></th>
     <th ><?php echo get_lang('Preview') ?></th>
 </tr>

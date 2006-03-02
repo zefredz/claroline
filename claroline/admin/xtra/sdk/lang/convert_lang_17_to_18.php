@@ -108,6 +108,7 @@ if ( isset($_REQUEST['language']) )
         $handle = fopen('conversion_17_to_18.csv', 'r');
         while (($data = fgetcsv($handle, 1000,';')) !== FALSE)
         {
+            if ( ! isset($data[0]) || ! isset($data[1]) ) var_dump($data);
             $conversion_list[$data[0]] = $data[1];
         }
         fclose($handle);

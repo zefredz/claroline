@@ -115,7 +115,7 @@ if ( is_null($_uid) && $uidRequired )
         .    $sourceGidFormField                                          ."\n"
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
-        .    '<label for="username">'.get_lang('User name').' : </label><br />'   ."\n"
+        .    '<label for="username">'.get_lang('Username').' : </label><br />'   ."\n"
         .    '<input type="text" name="login" id="username"><br />'       ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"

@@ -56,7 +56,7 @@ if ($is_platformAdmin)
     // EDIT COMMAND
     echo '&nbsp;'
     .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
-    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('EditTextZone')
+    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
     .    '</a>' . "\n"
     ;
 }
@@ -101,7 +101,7 @@ if ( isset($_uid) )
             echo '&nbsp;|&nbsp;'
                 .'<a href="'.$_SERVER['PHP_SELF'].'" class="claroCmd">'
                 .'<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
-                . get_lang('MyCourses')
+                . get_lang('My course list')
                 .'</a>'
                 ;
         }
@@ -170,7 +170,7 @@ if ( $is_platformAdmin )
 {
     echo '&nbsp;'
     .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
-    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('EditTextZone')
+    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
     .    '</a>' . "\n"
     ;
 }

@@ -58,7 +58,7 @@ $is_allowedToTrack = $is_courseAdmin;
 // bredcrump
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
-    $interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> get_lang('Exercices'));
+    $interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> get_lang('Exercises'));
     $src = '&src=ex';
 }
 else

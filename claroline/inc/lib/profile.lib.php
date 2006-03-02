@@ -74,8 +74,8 @@ function profile_send_request_revoquation ($explanation,$login,$password)
                             . get_lang('User') . ': ' . $_uid . "\n"
                             . get_lang('Name') . ': ' . $_user['firstName'] . ' ' . $_user['lastName'] . "\n"
                             . get_lang('Email') . ': ' . $_user['mail'] . "\n"
-                            . get_lang('login de confirmation: ') . $login . "\n"
-                            . get_lang('paswd de confirmation: ') . $password . "\n"
+                            . get_lang('Login') . ': ' . $login . "\n"
+                            . get_lang('Password') . ':' . $password . "\n"
                             . get_lang('Comment') . ': ' . $explanation . "\n"
                             . get_lang('Link') . ' : ' . get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid . "\n";
 

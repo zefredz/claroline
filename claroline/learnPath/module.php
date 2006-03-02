@@ -246,7 +246,7 @@ if($module['contentType'] != CTLABEL_) //
         $contentType_alt = selectAlt($resultBrowsed['contentType']);
 
         if ($resultBrowsed['contentType']== CTSCORM_   ) { $contentDescType = get_lang('SCORM 1.2 conformable content');    }
-        if ($resultBrowsed['contentType']== CTEXERCISE_ ) { $contentDescType = get_lang('Exercise'); }
+        if ($resultBrowsed['contentType']== CTEXERCISE_ ) { $contentDescType = get_lang('Exercises'); }
         if ($resultBrowsed['contentType']== CTDOCUMENT_ ) { $contentDescType = get_lang('Document'); }
 
         echo '<b>'.get_lang('Your progression in this module').'</b><br /><br />'."\n\n"

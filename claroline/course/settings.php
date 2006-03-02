@@ -352,7 +352,7 @@ echo '<p>' . claro_html::menu_horizontal($links) . '</p>' . "\n";
 </tr>
 
 <tr>
-<td align="right"><label for="screenCode"><?php echo (get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Code') ?></label>&nbsp;:</td>
+<td align="right"><label for="screenCode"><?php echo (get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Course code') ?></label>&nbsp;:</td>
 <td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlspecialchars($courseOfficialCode); ?>" size="20"></td>
 </tr>
 

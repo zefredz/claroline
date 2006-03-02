@@ -160,7 +160,7 @@ else
         .' </tr>'                                     . "\n"
     
         .' <tr class="headerX" align="left">'                            . "\n"
-        .'  <th>&nbsp;' . get_lang('topic') . '</th>'                             . "\n"
+        .'  <th>&nbsp;' . get_lang('Topic') . '</th>'                             . "\n"
         .'  <th width="9%"  align="center">' . get_lang('Posts') . '</th>'        . "\n"
         .'  <th width="20%" align="center">&nbsp;' . get_lang('Author') . '</th>' . "\n"
         .'  <th width="8%"  align="center">' . get_lang('Seen') . '</th>'       . "\n"

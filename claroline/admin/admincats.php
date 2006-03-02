@@ -332,7 +332,7 @@ else
             if ($delok == TRUE)
             {
                 if (delete_node( $_REQUEST['id'] )) $controlMsg['info'][] = get_lang('Category deleted');
-                else                                $controlMsg['info'][] = get_lang('Unable to delete category.');
+                else                                $controlMsg['info'][] = get_lang('Unable to delete category');
             }
         }
 

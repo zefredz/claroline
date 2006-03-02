@@ -160,8 +160,8 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' 
 
 $dg_opt_list['idLineShift'] = $myPager->offset + 1;
 $dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Userid') . '</a>'
-                                     , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('LastName') . '</a>'
-                                     , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('FirstName') . '</a>'
+                                     , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
+                                     , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
                                      , 'cmd_cu_setting'  => '<a href="' . $sortUrlList['status'] . '">' . get_lang('Action') . '</a>'
                                      , 'cmd_cu_unenroll' => get_lang('Unregister user')
 );
@@ -178,7 +178,7 @@ $dg_opt_list['caption'] = '<small>'
 .                         '<wbr>'
 .                         '<img src="' . get_conf('imgRepositoryWeb') . $iconForCuStatus['COURSE_MANAGER'].'" '
 .                         ' alt="course manager" border="0" title="statut Course manager" />'
-.                         get_lang('Course Manager')
+.                         get_lang('Course manager')
 .                         '</nobr>'
 .                         '</small>'
 ;

@@ -175,7 +175,7 @@ $resultList = $myPager->get_result_list();
 // Deal with interbredcrumps
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes'));
-$nameTools = get_lang('Classes members');
+$nameTools = get_lang('Class members');
 
 $cmd_menu[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
 .             '?class=' . $classinfo['id'] . '">'
@@ -222,8 +222,8 @@ echo claro_html::menu_horizontal($cmd_menu)
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . get_lang('Userid') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes">' . get_lang('LastName') . '</a></th>'
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes">' . get_lang('FirstName') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes">' . get_lang('Last name') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes">' . get_lang('First name') . '</a></th>'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=officialCode&amp;chdir=yes">' . get_lang('Administrative code') . '</a></th>'
 .    '<th>' . get_lang('Email') . '</th>'
 .    '<th>' . get_lang('Unregister from class') . '</th>'

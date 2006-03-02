@@ -890,7 +890,7 @@ if( $is_allowedToSubmit )
 			elseif( $assignment->getSubmissionType() == 'TEXTFILE' )
 				echo get_lang('Text with attached file (text required, file optional)');
 			else
-				echo get_lang('File Only');
+				echo get_lang('File (file required, description text optional)');
 			
 			
 			echo '<br />'  .  "\n"

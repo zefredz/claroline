@@ -318,7 +318,7 @@ function display_tree_class_in_user($class_list, $parent_class = null, $deep = 0
             .    '</td>' . "\n"
             .    '<td align="center">' . "\n"
             .    '<a onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');" href="' . $_SERVER['PHP_SELF'] . '?cmd=subscribe&amp;class=' . $cur_class['id'] . '&amp;classname=' . $cur_class['name'] . '">' . "\n"
-            .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('SubscribeToCourse') . '" />' . "\n"
+            .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Subscribe to course') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             .    '</tr>' . "\n"

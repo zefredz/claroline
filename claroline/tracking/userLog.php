@@ -308,7 +308,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 
                 echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
-                .    '<th>' . get_lang('Exercise').'</th>' . "\n"
+                .    '<th>' . get_lang('Exercises').'</th>' . "\n"
                 .    '<th>' . get_lang('Worst score').'</th>' . "\n"
                 .    '<th>' . get_lang('Best score').'</th>' . "\n"
                 .    '<th>' . get_lang('Average score').'</th>' . "\n"
@@ -542,7 +542,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Assignment').'</th>' . "\n"
                 .    '<th>' . get_lang('Work title').'</th>' . "\n"
-                .    '<th>' . get_lang('Authors').'</th>' . "\n"
+                .    '<th>' . get_lang('Author(s)').'</th>' . "\n"
                 .    '<th>' . get_lang('Score').'</th>' . "\n"
                 .    '<th>' . get_lang('Date').'</th>' . "\n"
                 .    '</tr>' . "\n"

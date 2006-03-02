@@ -116,7 +116,7 @@ if( isset($_uid) )
 }
 
 
-$interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> get_lang('Exercices'));
+$interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> get_lang('Exercises'));
 
 $backLink = '<p><small><a href="../exercice/exercice.php">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
 

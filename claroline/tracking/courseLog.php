@@ -402,7 +402,7 @@ if( $is_trackingEnabled)
         $results = claro_sql_query_fetch_all($sql);
         echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
             .'<tr class="headerX">'."\n"
-            .'<th>&nbsp;'.get_lang('Exercise').'&nbsp;</th>'."\n"
+            .'<th>&nbsp;'.get_lang('Exercises').'&nbsp;</th>'."\n"
             .'<th>&nbsp;'.get_lang('User attempts').'&nbsp;</th>'."\n"
             .'<th>&nbsp;'.get_lang('Total attempts').'&nbsp;</th>'."\n"
             .'</tr>'."\n"

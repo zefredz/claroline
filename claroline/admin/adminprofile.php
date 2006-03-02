@@ -122,7 +122,7 @@ $user_data['is_admin'] = user_is_admin($user_id);
 $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '?uidToEdit=' . $user_id
 .             '&amp;cmd=delete" '
-.             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('AreYouSureToDelete') . ' ' . $user_data['username']) . '\');" >'
+.             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
 .             '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
 .             get_lang('Delete user')
 .             '</a>'
@@ -135,7 +135,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '&amp;fromAdmin=settings'
 .             '&amp;category=" >'
 .             '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
-.             get_lang('Enroll to a new course')
+.             get_lang('Enrol to a new course')
 .             '</a>'
 
 ;

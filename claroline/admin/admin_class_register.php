@@ -64,7 +64,7 @@ switch ($cmd)
     {
         if (user_add_to_class($_REQUEST['user_id'],$classinfo['id']))
         {
-            $dialogBox = get_lang('User has been sucessfully registered to the classes');
+            $dialogBox = get_lang('User has been sucessfully registered to the class');
         }
     } break;
 
@@ -144,7 +144,7 @@ if (isset($_SESSION['admin_class_reg_user_order_crit']))
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes'));
 $interbredcrump[]    = array ('url' => $rootAdminWeb . 'admin_class_user.php', 'name' => get_lang('Class users'));
-$nameTools = get_lang('Register user to classes');
+$nameTools = get_lang('Register user to class');
 
 //Header
 include $includePath . '/claro_init_header.inc.php';
@@ -173,7 +173,7 @@ if(isset($dialogBox)) echo claro_html::message_box($dialogBox);
 
 //TOOL LINKS
 
-echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Classes members') . '</a>'
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Class members') . '</a>'
 .    '<br /><br />'
 ;
 
@@ -192,7 +192,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . get_lang('User Id') . '</a></th>' . "\n"
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . get_lang('Last Name') . '</a></th>' . "\n"
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . get_lang('First Name') . '</a></th>' . "\n"
-.    '<th>' . get_lang('Register to the classes') . '</th>'
+.    '<th>' . get_lang('Register to the class') . '</th>'
 .    '<th>' . get_lang('Unregister from class') . '</th>'
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
@@ -216,7 +216,7 @@ foreach($resultList as $list)
      {
          echo '<td align="center">' . "\n"
          .    '<a href="' . $_SERVER['PHP_SELF'] . '?class=' . $classinfo['id'] . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
-         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register to the classes') . '" />' . "\n"
+         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register to the class') . '" />' . "\n"
          .    '</a>' . "\n"
          .    '</td>' . "\n"
          ;
@@ -224,7 +224,7 @@ foreach($resultList as $list)
      else
      {
          echo '<td align="center">' . "\n"
-         .    '<small>' . get_lang('User already in classes') . '</small>' . "\n"
+         .    '<small>' . get_lang('User already in class') . '</small>' . "\n"
          .    '</td>' . "\n"
          ;
      }
@@ -243,7 +243,7 @@ foreach($resultList as $list)
      else
      {
          echo '<td align="center">' . "\n"
-         .    '<small>' . get_lang('User not in the classes') . '</small>' . "\n"
+         .    '<small>' . get_lang('User not in the class') . '</small>' . "\n"
          .    '</td>' . "\n"
          ;
      }

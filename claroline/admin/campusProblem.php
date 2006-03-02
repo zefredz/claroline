@@ -150,14 +150,14 @@ switch ($display)
                         ORDER BY nb DESC";
                 $data = claro_sql_query_fetch_all($sql);
                 if (!is_array($data) || sizeof($data)==0) $data[] = array( '-','-');
-                $option['colTitleList'] = array(get_lang('username'),get_lang('count'));
+                $option['colTitleList'] = array(get_lang('Username'),get_lang('count'));
                 $datagrid[$levelView] = claro_disp_datagrid($data,$option);
                 $Cache_Lite->save($datagrid[$levelView],$levelView);
             }
             echo '-'
             .    ' &nbsp;&nbsp;'
             .    '<b>'
-            .    get_lang('MultipleLogins')
+            .    get_lang('Accounts with same <i>User name</i>')
             .    '</b>'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<small>'
@@ -181,7 +181,7 @@ switch ($display)
             echo '+'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-            .    get_lang('MultipleLogins')
+            .    get_lang('Accounts with same <i>User name</i>')
             .    '</a>' . "\n"
             ;
         }
@@ -199,7 +199,7 @@ switch ($display)
             echo '- '
             .    '&nbsp;&nbsp;'
             .    '<b>'
-            .    get_lang('MultipleEmails')
+            .    get_lang('Accounts with same <i>Email</i>')
             .    '</b>'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<small>'
@@ -241,7 +241,7 @@ switch ($display)
             echo '+'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-            .    get_lang('MultipleEmails')
+            .    get_lang('Accounts with same <i>Email</i>')
             .    '</a>'
             ;
         }
@@ -381,7 +381,7 @@ switch ($display)
             echo '- '
             .    '&nbsp;&nbsp;'
             .    '<b>'
-            .    get_lang('LoginWithoutAccess')
+            .    get_lang('Logins not used')
             .    '</b>'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<small>'
@@ -408,7 +408,7 @@ switch ($display)
                 {
                     if ( !isset($loginWithoutAccessResults[$i][1]) )
                     {
-                        $loginWithoutAccessResults[$i][1] = get_lang('NeverUsed');
+                        $loginWithoutAccessResults[$i][1] = get_lang('Never used');
                     }
                 }
 
@@ -416,7 +416,7 @@ switch ($display)
                 $loginWithoutAccessResults = claro_sql_query_fetch_all($sql);
                 if (!is_array($loginWithoutAccessResults) || sizeof($loginWithoutAccessResults)==0)
                 $loginWithoutAccessResults[] = array( '-','-');
-                $option['colTitleList'] = array(get_lang('username'), get_lang('login_date'));
+                $option['colTitleList'] = array(get_lang('Username'), get_lang('Login date'));
                 $datagrid[$levelView] = claro_disp_datagrid($loginWithoutAccessResults, $option);
                 $Cache_Lite->save($datagrid[$levelView], $levelView);
             }
@@ -436,7 +436,7 @@ switch ($display)
             $tempView[$levelView] = '1';
             echo '+&nbsp;&nbsp;&nbsp;'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-            .    get_lang('LoginWithoutAccess')
+            .    get_lang('Logins not used')
             .    '</a>'
             ;
         }
@@ -451,7 +451,7 @@ switch ($display)
             //--  multiple account with same username AND same password (for compatibility with previous versions)
             echo '- &nbsp;&nbsp;'
             .    '<b>'
-            .    get_lang('MultipleUsernameAndPassword')
+            .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
             .    '</b>'
             .    '&nbsp;&nbsp;&nbsp;<small>'
             .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
@@ -492,7 +492,7 @@ switch ($display)
             echo '+'
             .    '&nbsp;&nbsp;&nbsp;'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-            .    get_lang('MultipleUsernameAndPassword')
+            .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
             .    '</a>'
             ;
         }
@@ -525,7 +525,7 @@ switch ($display)
                         if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull' && $courseAccess['nbrAccess'] != 0 ) continue;
                         $courseWithoutAccess[$i][0] = $course['code'];
                         if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull') // if no records found ,course was never accessed
-                        $courseWithoutAccess[$i][1] = get_lang('NeverUsed');
+                        $courseWithoutAccess[$i][1] = get_lang('Never used');
                         else                                                   $courseWithoutAccess[$i][1] = $courseAccess['lastDate'];
                     }
 

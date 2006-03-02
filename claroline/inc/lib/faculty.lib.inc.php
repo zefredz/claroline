@@ -102,7 +102,7 @@ function claro_disp_tree($elem,$father,$space)
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDelete"; ?>"
                         onclick="javascript:if(!confirm('<?php echo
-                         clean_str_for_javascript(get_lang('_faculty_ConfirmDelete').$one_faculty['code']." ?") ?>')) return false;" >
+                         clean_str_for_javascript(get_lang('Do you really want to delete the category ').' '.$one_faculty['code']." ?") ?>')) return false;" >
                         <img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo get_lang('Delete') ?>"> </a>
                     </td>
                     <?php
@@ -145,7 +145,7 @@ function claro_disp_tree($elem,$father,$space)
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty['id'];
                             ?>" name="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo get_lang('MoveDown') ?>" > </a>
+                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo get_lang('Move down') ?>" > </a>
                     <?php
                         }
                         else

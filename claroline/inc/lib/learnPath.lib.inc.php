@@ -92,7 +92,7 @@ function commentBox($type, $mode)
     switch ( $type )
     {
         case MODULE_ :
-            $defaultTxt = get_lang('DefaultModuleComment');
+            $defaultTxt = get_lang('blockDefaultModuleComment');
             $col_name = 'comment';
             $tbl_name = $tbl_lp_module;
             if ( isset($_REQUEST['module_id'] ) )
@@ -365,9 +365,9 @@ function nameBox($type, $mode)
  function selectAlt($contentType)
  {
       $altList[CTDOCUMENT_] = get_lang('Documents and Links');
-      $altList[CTCLARODOC_] = get_lang('AltClarodoc');
-      $altList[CTEXERCISE_] = get_lang('Exercise');
-      $altList[CTSCORM_] = get_lang('AltScorm');
+      $altList[CTCLARODOC_] = get_lang('Clarodoc');
+      $altList[CTEXERCISE_] = get_lang('Exercises');
+      $altList[CTSCORM_] = get_lang('Scorm');
 
       if (array_key_exists( $contentType , $altList ))
       {
@@ -656,7 +656,7 @@ function display_my_exercises($dialogBox)
     .    get_lang('AddModule')
     .    '</th>'."\n"
     .    '<th>'
-    .    get_lang('Exercise')
+    .    get_lang('Exercises')
     .    '</th>'."\n"
     .    '</tr>'."\n\n"
     ;
@@ -681,7 +681,7 @@ function display_my_exercises($dialogBox)
             .    '</td>'."\n"
             .    '<td align="left">'
             .    '<label for="check_'.$exercise['id'].'" >'
-            .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . get_lang('Exercise') . '" />'
+            .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . get_lang('Exercises') . '" />'
             .    $exercise['title']
             .    '</label>'
             .    '</td>'."\n"

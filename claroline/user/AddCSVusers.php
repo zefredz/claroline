@@ -293,7 +293,7 @@ switch ($AddType)
         $noQUERY_STRING      = true;
         $nameTools           = get_lang('Add a user list in class');
         $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
-        $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> get_lang('Class'));
+        $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> get_lang('Classes'));
         $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> get_lang('Class members'));
     }   break;
 

@@ -20,7 +20,7 @@ $tbl_track_e_open = $tbl_mdb_names['track_e_open'];
 $is_allowedToTrack = $is_platformAdmin;
 
 $interbredcrump[]= array ('url' => "index.php", 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('Platform Statistics'));
+$interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('Platform statistics'));
 
 $nameTools = get_lang('Traffic Details');
 
@@ -107,8 +107,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)-1);
             $nextReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)+1);
-            echo '[<a href="' . $_SERVER['PHP_SELF'].  '?period=' . $period . '&amp;reqdate=' . $previousReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Previous Year') . '</a>]'
-            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $nextReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Next Year') . '</a>]'
+            echo '[<a href="' . $_SERVER['PHP_SELF'].  '?period=' . $period . '&amp;reqdate=' . $previousReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Previous year') . '</a>]'
+            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $nextReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Next year') . '</a>]'
             ;
         }   break;
         case 'month' :
@@ -118,8 +118,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
         $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
         echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('Previous Month')."</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('Next Month')."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('Previous month')."</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('Next month')."</a>]
                 ";
         }   break;
         case 'day' :
@@ -128,8 +128,8 @@ if( $is_allowedToTrack && $is_trackingEnabled)
         $previousReqDate = $reqdate - 86400;
         $nextReqDate = $reqdate + 86400;
         echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=" . $displayType . "' >" . get_lang('Previous Day') . "</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=" . $displayType . "' >" . get_lang('Next Day') . "</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=" . $displayType . "' >" . get_lang('Previous day') . "</a>]
+                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=" . $displayType . "' >" . get_lang('Next day') . "</a>]
                    ";
         }   break;
     }

@@ -290,7 +290,7 @@ else
         $sql = 'SELECT user_id, username, password, authSource
                 FROM `' . $tbl_user . '` `user`
                 WHERE '
-             . ( get_conf('claro_authUsernameCaseSensitive') ? 'BINARY' : '')
+             . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY' : '')
              . ' username = "'. addslashes($login) .'"'
              ;
 

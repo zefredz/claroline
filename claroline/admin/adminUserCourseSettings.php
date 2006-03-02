@@ -70,11 +70,11 @@ switch ($cmd)
             $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
-                $dialogBox = get_lang('UserIsNowCourseManager');
+                $dialogBox = get_lang('User is now course manager');
             }
             else
             {
-                $dialogBox = get_lang('StatusChangeNotMade');
+                $dialogBox = get_lang('No change applied');
             }
         }
         elseif ( $_REQUEST['status_form'] == 'student' )
@@ -85,11 +85,11 @@ switch ($cmd)
             $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
-                $dialogBox = get_lang('UserIsNowStudent');
+                $dialogBox = get_lang('User is now student for this course');
             }
             else
             {
-                $dialogBox = get_lang('StatusChangeNotMade');
+                $dialogBox = get_lang('No change applied');
             }
         }
     }
@@ -167,7 +167,7 @@ $htmlHeadXtra[] =
             "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript(get_lang('AreYouSureToUnsubscribe'))." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
@@ -208,7 +208,7 @@ if ( $displayBackToCU )//coming from courseuser list
     $cmd_menu[] = '<a class="claroCmd" href="admincourseusers.php'
     .             '?cidToEdit=' . $cidToEdit
     .             '&amp;uidToEdit=' . $uidToEdit . '">'
-    .             get_lang('BackToList')
+    .             get_lang('Back to list')
     .             '</a> '
     ;
 }
@@ -217,7 +217,7 @@ elseif ( $displayBackToUC )//coming from usercourse list
     $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php'
     .             '?cidToEdit=' . $cidToEdit
     .             '&amp;uidToEdit=' . $uidToEdit . '">'
-    .             get_lang('BackToList')
+    .             get_lang('Back to list')
     .             '</a> '
     ;
 }
@@ -255,7 +255,7 @@ echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" class="claroTabl
 .    '<table width="100%" >' . "\n"
 .    '<tr>' . "\n"
 .    '<td>' . "\n"
-.    get_lang('UserStatus') . "\n"
+.    get_lang('Status') . "\n"
 .    ' : </td>' . "\n"
 .    '<td>' . "\n"
 .    '<input type="radio" name="status_form" value="student" id="status_form_student" ' . ($isStudent ? 'checked' : '' ) . ' />' . "\n"
@@ -264,7 +264,7 @@ echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" class="claroTabl
 .    '<label for="status_form_teacher">' . get_lang('Course manager') . '</label>'        . "\n"
 .    '<input type="hidden" name="uidToEdit" value="' . $user_id . '" />'                  . "\n"
 .    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '" />'                . "\n"
-.    '<input type="submit" name="applyChange" value="' . get_lang('SaveChanges') . '" />' . "\n"
+.    '<input type="submit" name="applyChange" value="' . get_lang('Save changes') . '" />' . "\n"
 .    '<input type="hidden" name="cmd"    value="changeStatus" / >'                        . "\n"
 .    '<input type="hidden" name="cfrom"  value="' . $cfrom .  '" />'                      . "\n"
 .    '<input type="hidden" name="ccfrom" value="' . $ccfrom . '" />'                      . "\n"

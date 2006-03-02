@@ -148,7 +148,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-      <?php echo get_lang('Enrollment') ?>
+      <?php echo get_lang('Enrolment') ?>
     :
   </td>
   <td>

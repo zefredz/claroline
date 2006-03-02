@@ -113,7 +113,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         {
             $userAccountList [] =
                 $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
-                ."\t" . get_lang('User name') . ' : ' . $thisUser['loginName'] . "\r\n"
+                ."\t" . get_lang('Username') . ' : ' . $thisUser['loginName'] . "\r\n"
                 ."\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n";
         }
 

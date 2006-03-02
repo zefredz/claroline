@@ -163,14 +163,14 @@ switch ($display)
             if( $period == 'week' )
             {
                 // previous and next date must be evaluated
-                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous Week') . '</a>]' . "\n"
-                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next Week') . '</a>]' . "\n"
+                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous week') . '</a>]' . "\n"
+                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next week') . '</a>]' . "\n"
                 ;
             }
             else // month
             {
-                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous Month') . '</a>]' . "\n"
-                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next Month') . '</a>]' . "\n"
+                echo '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous month') . '</a>]' . "\n"
+                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next month') . '</a>]' . "\n"
                 ;
             }
 

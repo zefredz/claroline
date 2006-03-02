@@ -25,7 +25,7 @@ if( $claro_displayLocalAuthForm )
 <fieldset style="padding: 7px;">
 <legend><?php echo get_lang('Authentication') ?> : </legend>
 <label for="login">
-<small><?php echo get_lang('User name'); ?></small><br />
+<small><?php echo get_lang('Username'); ?></small><br />
 <input type="text" name="login" id="login" size="12"><br />
 </label>
 

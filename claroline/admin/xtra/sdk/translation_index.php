@@ -18,7 +18,7 @@ require '../../../inc/claro_init_global.inc.php';
 include $includePath.'/lib/debug.lib.inc.php';
 include 'lang/language.conf.php';
 
-$nameTools = get_lang('TranslationTools');
+$nameTools = get_lang('Translation Tools');
 $urlSDK = $rootAdminWeb . 'xtra/sdk/';
 $table_exists = TRUE;
 
@@ -52,10 +52,10 @@ include $includePath . '/claro_init_header.inc.php';
 // echo claro_disp_tool_title('<img src="lang/language.png" style="vertical-align: middle;" alt="" /> '.$nameTools);
 echo claro_disp_tool_title($nameTools);
 ?>
-<h4><?php echo get_lang('ExtractLangVariable')?></h4>
+<h4><?php echo get_lang('Extract language variables')?></h4>
 <ul>
-<li><a href="lang/extract_var_from_lang_file.php"><?php echo get_lang('ExtractFromLangFile')?></a></li>
-<li><a href="lang/extract_var_from_script_file.php"><?php echo get_lang('ExtractFromScriptFile')?></a></li>
+<li><a href="lang/extract_var_from_lang_file.php"><?php echo get_lang('From language files')?></a></li>
+<li><a href="lang/extract_var_from_script_file.php"><?php echo get_lang('From script files')?></a></li>
 </ul>
 
 <?php
@@ -63,23 +63,23 @@ if ( $table_exists == TRUE )
 {
 ?>
 
-<h4><?php echo get_lang('BuildLangFile')?></h4>
+<h4><?php echo get_lang('Build language files')?></h4>
 <ul>
-<li><a href="lang/build_devel_lang_file.php"><?php echo get_lang('BuildCompleteLangFile')?></a></li>
-<li><a href="lang/build_prod_lang_file.php"><?php echo get_lang('BuildProductionLangFile')?></a></li>
-<li><a href="lang/build_missing_lang_file.php"><?php echo get_lang('BuildMissingLangFile')?></a></li>
-<li><a href="lang/build_empty_lang_file.php"><?php echo get_lang('BuildEmptyLangFile')?></a></li>
+<li><a href="lang/build_devel_lang_file.php"><?php echo get_lang('Complete language files')?></a></li>
+<li><a href="lang/build_prod_lang_file.php"><?php echo get_lang('Production language files')?></a></li>
+<li><a href="lang/build_missing_lang_file.php"><?php echo get_lang('Missing language files')?></a></li>
+<li><a href="lang/build_empty_lang_file.php"><?php echo get_lang('Empty language file')?></a></li>
 </ul>
 
-<h4><?php echo get_lang('FindDoubledVariable')?></h4>
+<h4><?php echo get_lang('Find doubled variables')?></h4>
 <ul>
-<li><a href="lang/display_var_diff.php"><?php echo get_lang('FindVarWithSameNameAndDifferentContent')?></a></li>
-<li><a href="lang/display_content_diff.php"><?php echo get_lang('FindVarWithSameContentAndDifferentName')?></a></li>
+<li><a href="lang/display_var_diff.php"><?php echo get_lang('Variables with same name and different content')?></a></li>
+<li><a href="lang/display_content_diff.php"><?php echo get_lang('Variables with same content and different name')?></a></li>
 </ul>
 
-<h4><?php echo get_lang('TranslationStatistics')?></h4>
+<h4><?php echo get_lang('Translation Progression')?></h4>
 <ul>
-<li><a href="lang/progression_translation.php"><?php echo get_lang('TranslationStatistics')?></a></li>
+<li><a href="lang/progression_translation.php"><?php echo get_lang('Translation Progression')?></a></li>
 </ul>
 
 <h4><?php echo get_lang('Conversion')?></h4>

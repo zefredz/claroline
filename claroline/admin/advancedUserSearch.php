@@ -98,7 +98,7 @@ echo claro_disp_tool_title($nameTools . ' : ');
     
     <tr>
         <td align="right">
-            <label for="userName"><?php echo get_lang('User name') ?></label> 
+            <label for="userName"><?php echo get_lang('Username') ?></label> 
             :  <br />
         </td>
         <td>

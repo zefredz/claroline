@@ -27,7 +27,7 @@ $tbl_course = $tbl_mdb_names['course'];
 $nameTools = get_lang('Disk Usage');
 
 $interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Administration'));
+$interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Tools'));
 
 $disp_form = true;
 

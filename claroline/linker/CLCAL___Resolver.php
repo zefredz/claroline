@@ -205,7 +205,7 @@
                   /*------------------------------
                    *   todo : no name of event   -
                    *-----------------------------*/
-                   $title = get_lang('LinkerUntitled')." {" . $agendaInfo[0]["day"]."}";      
+                   $title = get_lang('Untitled')." {" . $agendaInfo[0]["day"]."}";      
                }
                
                return $title; 

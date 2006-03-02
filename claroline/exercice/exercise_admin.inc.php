@@ -287,7 +287,7 @@ if( isset($modifyExercise) )
 </tr>
 
 <tr>
-  <td valign="top"><?php echo get_lang('AllowAnonymousAttempts'); ?>&nbsp;: </td>
+  <td valign="top"><?php echo get_lang('Anonymous attempts'); ?>&nbsp;: </td>
   <td>
     <input type="radio" name="anonymousAttempts" id="anonymousAttemptsYes" value="YES" <?php if( $anonymousAttempts ) echo 'checked="checked"'; ?>>
     <label for="anonymousAttemptsYes"><?php echo get_lang('Allowed : do not record usernames in tracking, anonymous users can do the exercise.'); ?></label><br />

@@ -26,7 +26,7 @@ else                           $cmd = null;
 if( !empty($_REQUEST ['cwd']) ) $cwd = $_REQUEST ['cwd'];
 else                            $cwd = '';
 
-$nameTools = get_lang('CreateModifyDocument');
+$nameTools = get_lang('Create/edit document');
 include '../inc/claro_init_header.inc.php';
 
 echo claro_html::tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('CreateModifyDocument')));
@@ -41,11 +41,11 @@ if ($cmd ==  'rqMkHtml' )
     <input type="hidden" name="cmd" value="exMkHtml" />
     <input type="hidden" name="cwd" value="<?php echo $cwd; ?>" />
     <p>
-    <b><?php echo get_lang('DocumentName') ?></b><br />
+    <b><?php echo get_lang('Document name') ?>: </b><br />
     <input type="text" name="fileName" size="80" />
     </p>
     <p>
-    <b><?php echo get_lang('DocumentContent') ?></b>
+    <b><?php echo get_lang('Document content') ?>: </b>
     <?php
     if (!empty($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
     

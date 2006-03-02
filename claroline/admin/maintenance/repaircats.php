@@ -77,8 +77,7 @@ switch($cmd)
             if (! $analyseResult) $errorCounter++;
 
         }
-        if ($errorCounter == 1)    $analyseTreeResultMsg['error'][] = get_lang('One error found');
-        elseif ($errorCounter > 1) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
+        if ($errorCounter > 0) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
         // analyse Course onwance
         $sql = "SELECT c.code    AS `Course code`,
                        c.faculte AS `Unknow faculty`

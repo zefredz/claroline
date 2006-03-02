@@ -220,7 +220,7 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
     }
 
     echo '<tr class="headerX">' . "\n"
-    .    '<th colspan="2">' . get_lang('NbLines') . ' : ' . count($results) . ' </th>' . "\n"
+    .    '<th colspan="2">' . get_lang('Number of rows') . ' : ' . count($results) . ' </th>' . "\n"
     .    '</tr>' . "\n\n"
     .    '<tbody>' . "\n\n"
     ;
@@ -272,7 +272,7 @@ function buildTabDefcon($results)
         .    '<th colspan="2" align="center"><span class="error">'.get_lang('Ooops, stranges cases detected !!').'</span></th>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr class="headerX">' . "\n"
-        .    '<th colspan="2">' . get_lang('NbLines') . ' : ' . count($results) . ' </th>' . "\n"
+        .    '<th colspan="2">' . get_lang('Number of rows') . ' : ' . count($results) . ' </th>' . "\n"
         .    '</tr>' . "\n"
         ;
 
@@ -280,7 +280,7 @@ function buildTabDefcon($results)
         {
             $keys = array_keys($result);
 
-            if( !isset($result[$keys[0]]) || $result[$keys[0]] == '') $key = get_lang('NULLValue');
+            if( !isset($result[$keys[0]]) || $result[$keys[0]] == '') $key = get_lang('Empty (or NULL)');
             else                                                      $key = $result[$keys[0]];
 
             echo '<tr>' . "\n"
@@ -302,7 +302,7 @@ function buildTabDefcon($results)
         // all right
         echo '<tr>' . "\n"
         .    '<td colspan="2" align="center">'
-        .    '<span class="correct">' . get_lang('AllRight') . '</span>'
+        .    '<span class="correct">' . get_lang('There is no strange case here') . '</span>'
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         ;

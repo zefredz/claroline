@@ -89,7 +89,7 @@ $attachedFilePathWeb = $coursesRepositoryWeb.$_course['path'].'/exercise';
 $attachedFilePathSys = $coursesRepositorySys.$_course['path'].'/exercise';
 
 // the 4 types of answers
-$aType = array(get_lang('Multiple choice (Unique answer)'),get_lang('Multiple choice (Multiple answers)'),get_lang('Fill in blanks'),get_lang('Matching'),get_lang('TrueFalse'));
+$aType = array(get_lang('Multiple choice (Unique answer)'),get_lang('Multiple choice (Multiple answers)'),get_lang('Fill in blanks'),get_lang('Matching'),get_lang('True/False'));
 
 // tables used in the exercise tool
 $tbl_cdb_names = claro_sql_get_course_tbl();

@@ -293,8 +293,8 @@ echo '<table width="100%" class="claroTableForm" >'
 .    '</a>'
 .    '</th>' . "\n"
 
-.    '<th>' . get_lang('Enroll as student') . '</th>' . "\n"
-.    '<th>' . get_lang('Enroll as course manager') . '</th>' . "\n"
+.    '<th>' . get_lang('Enrol as student') . '</th>' . "\n"
+.    '<th>' . get_lang('Enrol as course manager') . '</th>' . "\n"
 .    '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>'

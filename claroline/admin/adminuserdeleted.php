@@ -60,11 +60,11 @@ if ( $cmd == 'delete' && $req['uidToEdit'] )
             {
                 $dialogBox = get_lang('You can not change your own settings!');
             } break;
-            default :  $dialogBox = get_lang('Deletetion unable');
+            default :  $dialogBox = get_lang('Unable to delete');
         }
     }
 }
-else $dialogBox = get_lang('Deletetion unable');
+else $dialogBox = get_lang('Unable to delete');
 //------------------------------------
 // DISPLAY
 //------------------------------------

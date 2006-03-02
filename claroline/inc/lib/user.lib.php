@@ -1239,7 +1239,7 @@ function user_display_form($data, $form_type='registration')
     if ( get_conf('ask_for_official_code') )
     {
         echo ' <tr>'  . "\n"
-            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('Official Code'):required_field(get_lang('Official Code'))) . '&nbsp;:</label></td>'  . "\n"
+            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('Administrative Code'):required_field(get_lang('Administrative Code'))) . '&nbsp;:</label></td>'  . "\n"
             . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
     }
@@ -1377,7 +1377,7 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'add_new_user' )
     {
         echo '<tr valign="top">'
-            . '<td align="right">' . get_lang('Group tutor') .' : </td>'
+            . '<td align="right">' . get_lang('Group Tutor') .' : </td>'
             . '<td>'
             . '<input type="radio" name="is_tutor" value="1" id="tutor_form_yes" ' . ($data['is_tutor']?'checked':'') . ' >'
             . '<label for="tutor_form_yes">' . get_lang('Yes') . '</label>'

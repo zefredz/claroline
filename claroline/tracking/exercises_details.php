@@ -124,7 +124,7 @@ if ( $is_trackingEnabled )
     .'</ul>'."\n\n"
     .'<ul>'."\n"
     .'<li>'.get_lang('User attempts').' : '.$exo_scores_details['users'].'</li>'."\n"
-    .'<li>'.get_lang('ExerciseTotalAttempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
+    .'<li>'.get_lang('Total attempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
     .'</ul>'."\n\n";
     
     echo '<ul>'."\n"
