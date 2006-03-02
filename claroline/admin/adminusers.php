@@ -29,8 +29,9 @@ require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
 
 // CHECK INCOMING DATAS
-$validCmdList = array('delete');
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
+
+$validCmdList = array('delete');
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 $userIdReq = (int) (isset($_REQUEST['user_id']) ? $_REQUEST['user_id']: null);
 // USED SESSION VARIABLES
