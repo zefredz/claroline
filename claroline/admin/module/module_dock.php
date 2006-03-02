@@ -147,11 +147,11 @@ foreach($moduleList as $module)
 
     if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
     {
-        $icon = '<img src="' . $rootWeb . 'claroline/module/' . $module['label'] . '/icon.png" />';
+        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
     }
     elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
     {
-        $icon = '<img src="' . $rootWeb . 'claroline/module/' . $module['label'] . '/icon.gif" />';
+        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.gif" />';
     }
     else $icon = '<small>' . get_lang('No icon') . '</small>';
 
@@ -166,7 +166,7 @@ foreach($moduleList as $module)
 
     if (file_exists($includePath . '/../module/' . $module['label'] . '/admin.php'))
     {
-        echo '<td align="left" class="' . $class_css . '" ><a href="'. $rootWeb . 'claroline/module/' . $module['label'] . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+        echo '<td align="left" class="' . $class_css . '" ><a href="'. $urlAppend . '/claroline/module/' . $module['label'] . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
     }
     else
     {
