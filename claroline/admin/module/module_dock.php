@@ -31,10 +31,6 @@ $tbl_module      = $tbl_name['module'];
 $tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
 
-$nameTools = get_lang('Module list in the dock : '.$dock);
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => 'module_list.php','name' => get_lang('Module list'));
-
 if (isset($_REQUEST['dock']))
 {
     $dock = $_REQUEST['dock'];
@@ -43,6 +39,13 @@ else
 {
     die(get_lang('No dock selected'));
 }
+
+
+$nameTools = get_lang('Module list in the dock : '.$dock);
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => 'module_list.php','name' => get_lang('Module list'));
+
+
 
 //CONFIG and DEVMOD vars :
 
