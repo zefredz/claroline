@@ -29,7 +29,7 @@ else                            $cwd = '';
 $nameTools = get_lang('CreateModifyDocument');
 include '../inc/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('CreateModifyDocument')));
+echo claro_html::tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('CreateModifyDocument')));
 
 /*========================================================================
                              CREATE DOCUMENT

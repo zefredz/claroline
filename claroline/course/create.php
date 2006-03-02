@@ -140,7 +140,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                                                                                           '%course_name'=> $courseTitle) );
 
 		$mailBody = get_block('CourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
-                                                                            '%sitename' => $siteName, 
+                                                                            '%sitename' => $siteName,
                                                                             '%user_firstname' => $_user['firstName'],
                                                                             '%user_lastname' => $_user['lastName'],
                                                                             '%user_email' => $_user['mail'],
@@ -258,7 +258,7 @@ if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('Create a course website'));
+echo claro_html::tool_title(get_lang('Create a course website'));
 
 if ( count($errorList) > 0 ) echo claro_html::message_box(implode('<br />', $errorList));
 

@@ -28,7 +28,7 @@ $modified_course = $claro_notifier->get_notified_courses($date,$_uid);
                                     DISPLAY
 ******************************************************************************/
 
-echo claro_disp_tool_title(get_lang('My course list'));
+echo claro_html::tool_title(get_lang('My course list'));
 
 //display list
 

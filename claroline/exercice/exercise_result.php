@@ -108,7 +108,7 @@ else                                        // normal exercise mode
 }
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Result') );
+echo claro_html::tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Result') );
 
     if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] ) // exercise mode
     {

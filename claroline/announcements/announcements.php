@@ -452,7 +452,7 @@ include $includePath . '/claro_init_header.inc.php' ;
 TOOL TITLE
 ----------------------------------------------------------------------------*/
 
-echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+echo claro_html::tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
 /*----------------------------------------------------------------------------
 ACTION MESSAGE

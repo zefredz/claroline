@@ -92,10 +92,10 @@ if($is_allowedToEdit)
     elseif( isset($_REQUEST['export']) && get_conf('enableExerciseExportQTI') )
     {
         include('question_export.php');
-        
+
         // contruction of XML flow
         $xml = export_question($_REQUEST['export']);
-        
+
         if (!empty($xml))
         {
             header("Content-type: application/xml");
@@ -115,14 +115,14 @@ include($includePath.'/claro_init_header.inc.php');
 // if admin of course
 if($is_allowedToEdit)
 {
-    echo claro_disp_tool_title($nameTools);
+    echo claro_html::tool_title($nameTools);
 ?>
 
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <input type="hidden" name="fromExercise" value="<?php echo (isset($_REQUEST['fromExercise']))?$_REQUEST['fromExercise']:''; ?>">
 <p align="right">
-    <label for="exerciseId"><?php echo get_lang('Filter'); ?></label> : 
-    
+    <label for="exerciseId"><?php echo get_lang('Filter'); ?></label> :
+
     <select id="exerciseId" name="exerciseId">
         <option value="0">-- <?php echo get_lang('All exercises'); ?> --</option>
         <option value="-1" <?php if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == -1 ) echo 'selected="selected"'; ?>>-- <?php echo get_lang('Orphan questions'); ?> --</option>
@@ -130,20 +130,20 @@ if($is_allowedToEdit)
 <?php
     $sql = "SELECT `id`, `titre` as `title`
             FROM `".$tbl_quiz_test."` ";
-            
+
     if(isset($_REQUEST['fromExercise']))
     {
         $sql .= " WHERE `id` <> '". (int)$_REQUEST['fromExercise']."'";
     }
     $sql .= " ORDER BY `id`";
-            
+
     $exerciseList = claro_sql_query_fetch_all($sql);
 
     // shows a list-box allowing to filter questions
     foreach( $exerciseList as $exercise )
     {
         echo '<option value="'.$exercise['id'].'" ' ;
-        
+
         if( isset($_REQUEST['exerciseId']) && $_REQUEST['exerciseId'] == $exercise['id'] )
             echo ' selected="selected"';
 
@@ -231,11 +231,11 @@ $pagerTarget = 'question_pool.php';
 
 if ( !empty($_REQUEST['exerciseId']) && !empty($_REQUEST['fromExercise']) )
     $pagerTarget .= '?fromExercise='.$_REQUEST['fromExercise'].'exerciseId='.$_REQUEST['exerciseId'];
-elseif ( !empty($_REQUEST['exerciseId']) )    
+elseif ( !empty($_REQUEST['exerciseId']) )
     $pagerTarget .= '?exerciseId='.$_REQUEST['exerciseId'];
-elseif ( !empty($_REQUEST['fromExercise']) )    
+elseif ( !empty($_REQUEST['fromExercise']) )
     $pagerTarget .= '?fromExercise='.$_REQUEST['fromExercise'];
-    
+
 echo $myPager->disp_pager_tool_bar($pagerTarget);
 
 ?>

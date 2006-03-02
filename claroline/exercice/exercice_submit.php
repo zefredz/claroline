@@ -300,7 +300,7 @@ elseif( ($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59") && (
 
 // concat errmsg to status msg before displaying it
 $statusMsg .= "<br /><b>".$errMsg."</b>";
-echo claro_disp_tool_title(get_lang('Exercise')." : ".$exerciseTitle);
+echo claro_html::tool_title(get_lang('Exercise')." : ".$exerciseTitle);
 
 if( $showExerciseForm || $is_allowedToEdit )
 {

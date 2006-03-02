@@ -262,7 +262,7 @@ $backLink = '<p>'
 
 echo $backLink;
 
-echo claro_disp_tool_title(get_lang('Edit Tool list'));
+echo claro_html::tool_title(get_lang('Edit Tool list'));
 
 if ($msg) echo claro_html::message_box($msg);
 

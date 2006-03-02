@@ -34,7 +34,7 @@ include($includePath . '/claro_init_header.inc.php');
 $titleElement['mainTitle'] = $nameTools;
 if ( $_gid ) $titleElement['supraTitle'] = $_group['name'];
 
-echo claro_disp_tool_title($titleElement);
+echo claro_html::tool_title($titleElement);
 
 $hide_footer = TRUE;
 include $includePath . '/claro_init_footer.inc.php';

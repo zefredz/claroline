@@ -35,6 +35,7 @@ include($includePath . '/conf/course_main.conf.php');
 //// LIBS
 require_once $includePath . '/lib/add_course.lib.inc.php';
 require_once $includePath . '/lib/debug.lib.inc.php';
+require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/conf/course_main.conf.php';
 
@@ -48,14 +49,19 @@ $tbl_tool      = $tbl_mdb_names['tool'];
 $can_create_courses = (bool) ($is_allowedCreateCourse);
 
 $toolNameList = claro_get_tool_name_list();
-
+$do=null;
 if ( isset( $_REQUEST['create'] ) )
+{
+    $do = 'create';
+}
+
+if ( 'create' == $do )
 {
     //echo '<p>$_REQUEST = <pre>'.var_export( $_REQUEST,1).'</pre>';
 
     $sqlCourses ='select * FROM `' . $tbl_course . '`';
-    $course_list  = claro_sql_query_fetch_all($sqlCourses);
-    foreach ($course_list as $course)
+    $courseList  = claro_sql_query_fetch_all($sqlCourses);
+    foreach ($courseList as $course)
     {
         foreach ($_REQUEST['toolToFill'] as $tool_label)
         {
@@ -74,86 +80,88 @@ if ( isset( $_REQUEST['create'] ) )
 }
 else
 {
-$display = DISP_FORM_SET_OPTION;
+    $display = DISP_FORM_SET_OPTION;
     $sql ="SELECT pct.id             id,
-                   pct.claro_label    label,
-                        pct.icon           icon,
-                        pct.access_manager access_manager,
-                        pct.script_url url
+                  pct.claro_label    label,
+                  pct.icon           icon,
+                  pct.access_manager access_manager,
+                  pct.script_url     url
                FROM`" . $tbl_tool . "` pct";
-    $tool_list  = claro_sql_query_fetch_all($sql);
+    $toolList  = claro_sql_query_fetch_all($sql);
 
 }
 
 
 
 include($includePath . '/claro_init_header.inc.php');
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 //////////////// OUTPUT
 switch ($display)
 {
     case DISP_RESULT_INSERT :
-    echo '<ul>';
-    foreach ($course_list as $course)
-    {
-        echo '<LI><b>' . $course['code'] . '</b> : '.$course['intitule'].'<ul>';
-        foreach ($_REQUEST['toolToFill'] as $tool_label)
         {
-            echo '<li>' . sprintf( get_lang('_p_FillCourses'), $toolNameList[$tool_label], $result[$course['code']][$tool_label]) . '</li>';
-        }
-        echo '</ul></LI>';
-    }
-    echo '</ul>';
-        break;
+            echo '<ul>';
+            foreach ($courseList as $course)
+            {
+                echo '<LI><b>' . $course['code'] . '</b> : '.$course['intitule'].'<ul>';
+                foreach ($_REQUEST['toolToFill'] as $tool_label)
+                {
+                    echo '<li>' . sprintf( get_lang('Fill courses'), $toolNameList[$tool_label], $result[$course['code']][$tool_label]) . '</li>';
+                }
+                echo '</ul></LI>';
+            }
+            echo '</ul>';
+        } break;
     case DISP_FORM_SET_OPTION :
-        ?><br /><br />
-<form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST" enctype="multipart/form-data" target="_self">
-    <fieldset>
-        <legend ><?php get_lang('_toolsToFill'); ?></legend>
-        <table class="claroTable" >
-            <tr>
-                <th >
-                    <label for="toolToFill">Outils  : </label>
-                </th>
-                <th>
-                    <label for="courses">Cours  : </label>
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <select name="toolToFill[]" id="toolToFill" size="<?php echo (sizeof($tool_list)+1); ?>" multiple>
-                    <?php
-                    foreach($tool_list as $tool)
-                            echo '<option selected="selected" value="'.$tool['label'].'" >'.$toolNameList[$tool['label']].'</option>'."\n";
-                    ?>
-                    </select>
-                </td>
-                <td>
-                    <input type="radio" id="courses" selected="selected" name="courses" value="<?php echo $courses ?>" size="5" maxlength="4"> ALL
+        {
+            foreach($toolList as $tool) $htmlToolList[$tool['label']] = $toolNameList[$tool['label']];
 
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-    <fieldset >
-        <legend >Data</legend>
-        <table class="claroTable" >
-            Add one line in each course.
+            echo '<br /><br />' . "\n"
+            .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" enctype="multipart/form-data" target="_self">' . "\n"
+            .    '<fieldset>' . "\n"
+            .    '<legend >' . get_lang('Tools to fill') . '</legend>' . "\n"
+            .    '<table class="claroTable" >' . "\n"
+            .    '<tr>' . "\n"
+            .    '<th >' . "\n"
+            .    '<label for="toolToFill">' . get_lang('Tools') . ' : </label>' . "\n"
+            .    '</th>' . "\n"
+            .    '<th>' . "\n"
+            .    '<label for="courses">'. get_lang('Course') . ' : </label>' . "\n"
+            .    '</th>' . "\n"
+            .    '</tr>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td>' . "\n"
+            .    '<select name="toolToFill[]" id="toolToFill" size="' . (sizeof($toolList)+1) . '" multiple>' . "\n"
+            ;
+            foreach($toolList as $tool) echo '<option selected="selected" value="'.$tool['label'].'" >'.$toolNameList[$tool['label']].'</option>'."\n";
 
-        </table>
-    </fieldset>
-    <input type="submit" name="create" value="create">
-</form>
-        <?php
-        break;
-    default : "display error";
+
+            echo '</select>' . "\n"
+            .    '</td>' . "\n"
+            .    '<td>' . "\n"
+            .    '<input type="radio" id="courses" selected="selected" name="courses" value="<?php echo $courses ?>" size="5" maxlength="4">' . get_lang('All') . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '</table>' . "\n"
+            .    '</fieldset>' . "\n"
+            .    '<fieldset >' . "\n"
+            .    '<legend >Data</legend>' . "\n"
+            .    '<table class="claroTable" >' . "\n"
+            .    get_lang('Add one line in each course.') . "\n"
+            .    '</table>' . "\n"
+            .    '</fieldset>' . "\n"
+            .    '<input type="submit" name="cmd" value="create">' . "\n"
+            .    '</form>' . "\n"
+            ;
+        } break;
+    default : trigger_error('display error',E_USER_ERROR);
 
 }
 
 function fill_tool_in_course($course_code,$tool_label)
 {
-    global  $courseTablePrefix, $dbGlu, $coursesRepositorySys, $includePath, $_course, $_uid, $_user;
+    global  $courseTablePrefix, $coursesRepositorySys, $includePath, $_course, $_uid, $_user;
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];

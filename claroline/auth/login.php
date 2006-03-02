@@ -87,7 +87,7 @@ if ( is_null($_uid) && $uidRequired )
         echo '<table align="center">'                                     ."\n"
         .    '<tr>'                                                       ."\n"
         .    '<td>'                                                       ."\n"
-        .    claro_disp_tool_title(get_lang('Authentication Required'));
+        .    claro_html::tool_title(get_lang('Authentication Required'));
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
@@ -176,7 +176,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '<table align="center">'                                ."\n"
         .    '<tr>'                                                  ."\n"
         .    '<td colspan="2">'                                      ."\n"
-        .    claro_disp_tool_title(get_lang('Choose a course to access this page.'))
+        .    claro_html::tool_title(get_lang('Choose a course to access this page.'))
         .    $sourceUrlFormField                                     ."\n"
         .    $cidRequiredFormField                                   ."\n"
         .    $sourceCidFormField                                     ."\n"

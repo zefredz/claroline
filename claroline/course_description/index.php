@@ -188,7 +188,7 @@ $descList = course_description_get_item_list();
 
 require $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(array('mainTitle' => $nameTools));
+echo claro_html::tool_title($nameTools);
 
 if ( isset($dialogBox) && ! empty($dialogBox) )
 {

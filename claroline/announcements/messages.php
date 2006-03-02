@@ -165,7 +165,7 @@ $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-echo claro_disp_tool_title(get_lang('Messages'));
+echo claro_html::tool_title(get_lang('Messages'));
 
 /*
 * DEFAULT DISPLAY SETTINGS

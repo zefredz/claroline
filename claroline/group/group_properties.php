@@ -84,7 +84,7 @@ if ( get_conf('multiGroupAllowed') )
 }
 
 include($includePath . '/claro_init_header.inc.php');
-echo claro_disp_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
+echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
 ?>
 

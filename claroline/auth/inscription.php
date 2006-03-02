@@ -142,7 +142,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display Title
 
-echo claro_disp_tool_title(get_lang('Create user account'));
+echo claro_html::tool_title(get_lang('Create user account'));
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {

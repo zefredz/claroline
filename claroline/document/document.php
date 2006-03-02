@@ -1373,7 +1373,7 @@ $cmdParentDir  = rawurlencode($parentDir);
 $titleElement['mainTitle'] = get_lang("Documents and Links");
 if ( $_gid && $is_groupAllowed) $titleElement['supraTitle'] = $_group['name'];
 
-echo claro_disp_tool_title($titleElement,
+echo claro_html::tool_title($titleElement,
                       $is_allowedToEdit ? 'help_document.php' : false);
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

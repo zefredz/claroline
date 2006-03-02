@@ -101,7 +101,7 @@ event_access_tool($_tid, $_courseTool['label']);
 // need functions of statsutils lib to display previous exercices scores
 include($includePath.'/lib/statsUtils.lib.inc.php');
 
-echo claro_disp_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
+echo claro_html::tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
 
 // defines answer type for previous versions of Claroline, may be removed in Claroline 1.5
 $sql = "UPDATE `".$tbl_quiz_question."`

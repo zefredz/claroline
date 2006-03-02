@@ -146,7 +146,7 @@ $user_data = user_get_data($_uid);
 // display header
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 if ( count($messageList) > 0 )
 {
