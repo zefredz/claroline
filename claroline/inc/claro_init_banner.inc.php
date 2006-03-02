@@ -16,7 +16,7 @@ ob_start();
 //CAMPUS BANNER LEFT DOCK declaration
 
 $campusBannerLeftDock = new Dock('campusBannerLeft');
-$siteNameOutput   = '<span id="siteName"><a href="'.$rootWeb.'index.php" target="_top">'.$siteName.'</a></span>';
+$siteNameOutput   = '<span id="siteName"><a href="'.$urlAppend.'/index.php" target="_top">'.$siteName.'</a></span>';
 $campusBannerLeftDock->addOutput($siteNameOutput);
 
 echo $campusBannerLeftDock->render();
@@ -79,7 +79,7 @@ $userBannerLeftDock = new Dock('userBannerLeft');
 $userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
 $userBannerLeftDock->addOutput($userNameOutput);
 
-$courseListLink = '<a href="'. $rootWeb.'index.php" target="_top">'. get_lang('My course list').'</a> | ';
+$courseListLink = '<a href="'. $urlAppend.'/index.php" target="_top">'. get_lang('My course list').'</a> | ';
 $userBannerLeftDock->addOutput($courseListLink);
 
 $myAgendaLink   = '<a href="'. $clarolineRepositoryWeb. 'calendar/myagenda.php" target="_top">'. get_lang('My calendar').'</a> | ';
@@ -94,7 +94,7 @@ if($is_platformAdmin)
     $userBannerLeftDock->addOutput($administrationLink); 
 } 
 
-$logoutLink = '<a href="'. $rootWeb.'index.php?logout=true" target="_top">'. get_lang('Logout').'</a> ';
+$logoutLink = '<a href="'. $urlAppend.'/index.php?logout=true" target="_top">'. get_lang('Logout').'</a> ';
 $userBannerLeftDock->addOutput($logoutLink); 
 
 echo $userBannerLeftDock->render();
@@ -231,7 +231,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         $breadcrumbUrlList = array();
         $breadcrumbNameList = array();
 
-        $breadcrumbUrlList[]  = $rootWeb . 'index.php';
+        $breadcrumbUrlList[]  = $urlAppend . '/index.php';
         $breadcrumbNameList[] = $siteName;
 
         if ( isset($_cid) )

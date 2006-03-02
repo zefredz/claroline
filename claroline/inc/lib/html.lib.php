@@ -889,7 +889,7 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
 
 function claro_disp_auth_form($cidRequired = false)
 {
-    global $rootWeb, $includePath, $_cid;
+    global $urlAppend, $includePath, $_cid;
 
     $sourceUrl = ( isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on'
     ? 'https://'
@@ -902,14 +902,14 @@ function claro_disp_auth_form($cidRequired = false)
     if ( ! headers_sent () )
     {
         $urlCmd = ($cidRequired && ! $_cid ? '&cidRequired=true' : '');
-        header('Location:' . $rootWeb . 'claroline/auth/login.php?sourceUrl=' . urlencode($sourceUrl) . $urlCmd );
+        header('Location:' . $urlAppend . '/claroline/auth/login.php?sourceUrl=' . urlencode($sourceUrl) . $urlCmd );
     }
     else // HTTP header has already been sent - impossible to relocate
     {
         echo '<p align="center">'
         .    'WARNING ! Login Required <br />'
         .    'Click '
-        .    '<a href="' . $rootWeb . 'claroline/auth/login.php'
+        .    '<a href="' . $urlAppend . '/claroline/auth/login.php'
         .    '?sourceUrl=' . urlencode($sourceUrl) . '">'
         .    'here'
         .    '</a>'
@@ -978,7 +978,7 @@ function claro_disp_duration( $duration  )
 
 function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    global $rootWeb, $rootSys;
+    global $urlAppend, $rootSys;
     global $claro_editor;
 
     if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
@@ -993,7 +993,7 @@ function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
 
     // $claro_editor is the directory name of the editor
     $incPath = $rootSys . 'claroline/editor/' . $claro_editor;
-    $editorPath = $rootWeb . 'claroline/editor/';
+    $editorPath = $urlAppend . '/claroline/editor/';
     $webPath = $editorPath . $claro_editor;
 
     if( file_exists($incPath . '/editor.class.php') )

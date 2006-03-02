@@ -58,11 +58,11 @@ define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
 
 $clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
-$clarolineRepositoryWeb = $rootWeb . $clarolineRepositoryAppend;
+$clarolineRepositoryWeb = $urlAppend . '/' . $clarolineRepositoryAppend;
 $userImageRepositorySys = $rootSys . $userImageRepositoryAppend;
-$userImageRepositoryWeb = $rootWeb . $userImageRepositoryAppend;
+$userImageRepositoryWeb = $urlAppend . '/' . $userImageRepositoryAppend;
 $coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
-$coursesRepositoryWeb   = $rootWeb . $coursesRepositoryAppend;
+$coursesRepositoryWeb   = $urlAppend . '/' . $coursesRepositoryAppend;
 $rootAdminSys           = $clarolineRepositorySys . $rootAdminAppend;
 $rootAdminWeb           = $clarolineRepositoryWeb . $rootAdminAppend;
 $imgRepositoryAppend    = 'img/'; // <-this line would be editable in claroline 1.7

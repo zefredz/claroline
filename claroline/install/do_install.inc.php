@@ -219,9 +219,9 @@ else
     $form_value_list['imgRepositoryAppend'] = $imgRepositoryAppendForm;
     $form_value_list['userImageRepositoryAppend'] = $userImageRepositoryAppendForm ;
     $form_value_list['clarolineRepositorySys'] = $rootSys.$clarolineRepositoryAppend;
-    $form_value_list['clarolineRepositoryWeb'] = $rootWeb.$clarolineRepositoryAppend;
+    $form_value_list['clarolineRepositoryWeb'] = $urlAppendPath.'/'.$clarolineRepositoryAppend;
     $form_value_list['coursesRepositorySys'] = $rootSys.$coursesRepositoryAppend;
-    $form_value_list['coursesRepositoryWeb'] = $rootWeb.$coursesRepositoryAppend;
+    $form_value_list['coursesRepositoryWeb'] = $urlAppendPath.'/'.$coursesRepositoryAppend;
     $form_value_list['rootAdminSys'] = $clarolineRepositorySys.$rootAdminAppend;
     $form_value_list['rootAdminWeb'] = $clarolineRepositoryWeb.$rootAdminAppend;
     $form_value_list['garbageRepositorySys'] = $garbageRepositorySys;

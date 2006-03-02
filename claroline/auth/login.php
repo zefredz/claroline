@@ -198,7 +198,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
         .    '<input type="submit" value="' . get_lang('Ok') . '">'         ."\n"
-        .    claro_html::button($rootWeb, get_lang('Cancel'))
+        .    claro_html::button($urlAppend.'/index.php', get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"
         .    '</table>'                                              ."\n"

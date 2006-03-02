@@ -1200,7 +1200,7 @@ function user_display_form($data, $form_type='registration')
 {
     global $imgRepositoryWeb;
 
-    global $rootWeb;
+    global $urlAppend;
 
     // display registration form
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
@@ -1436,7 +1436,7 @@ function user_display_form($data, $form_type='registration')
             . '  <td align="right">' . ucfirst(get_lang('Create')) . ' : </td>' . "\n"
             . '  <td>' . "\n"
             . '  <input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
-            . claro_html::button($rootWeb, get_lang('Cancel'))
+            . claro_html::button($urlAppend.'/index.php', get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }

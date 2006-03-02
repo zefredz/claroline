@@ -22,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 // Already logged
 if ( isset($_uid) )
 {
-    header('Location: ' . $rootWeb);
+    header('Location: ' . $urlAppend . '/index.php');
     exit;
 }
 
@@ -182,7 +182,7 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
-    .    claro_html::button( $rootWeb, get_lang('Cancel') )
+    .    claro_html::button( $urlAppend.'/index.php', get_lang('Cancel') )
     .    '</form>' . "\n"
     ;
 }
