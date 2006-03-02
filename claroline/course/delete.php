@@ -14,8 +14,8 @@
  *
  * @author Claro Team <cvs@claroline.net>
  */
-$_tid='deletecourse';
 
+$_tid='deletecourse';
 
 define('DISP_CONFIRM_DELETE', __LINE__);
 define('DISP_DELETE_RESULT',  __LINE__);
@@ -57,7 +57,7 @@ $currentCourseName = $course_to_delete['name'];
 $nameTools = get_lang('Delete the whole course website');
 $interbredcrump[] = array('url' => 'settings.php?' . $addToURL, 'name' => get_lang('Course settings'));
 
-if ( isset($_REQUEST['delete']) && $_REQUEST['delete'] )
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exDelete' )
 {
     // DO DELETE
     delete_course($current_cid);
