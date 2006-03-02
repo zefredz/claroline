@@ -193,7 +193,7 @@ if ( ! $passwordFound )
     .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($Femail) . '" />'
     .       '<br /><br />'
     .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" /> '
-    .       claro_html::cmd_button('../../index.php', get_lang('Cancel'))
+    .       claro_html::button('../../index.php', get_lang('Cancel'))
     .       '</form>'
     ;
 }

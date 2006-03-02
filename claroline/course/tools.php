@@ -245,7 +245,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
             .'<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
             .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
             .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp;'."\n"
-            .claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
+            .claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
             .'</form>'."\n" ;
 }
 
@@ -353,7 +353,7 @@ foreach($toolList as $thisTool)
 echo '</tbody>'."\n"
     . '</table>'."\n\n"
     . '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '" >'."\n"
-    . claro_html::cmd_button( $clarolineRepositoryWeb
+    . claro_html::button( $clarolineRepositoryWeb
                         . 'course/index.php?cidReset=true&amp;cid='
                         . htmlspecialchars($_cid) ,
                          get_lang('Cancel'))

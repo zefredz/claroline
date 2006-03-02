@@ -153,7 +153,7 @@ if( $display == DISP_EDIT_FILE )
     .    '<br /><br /> &nbsp;&nbsp;' . "\n"
     .    '<input type="hidden" name="file" value="' . htmlspecialchars($_REQUEST['file']) . '" />' . "\n"
     .    '<input type="submit" class="claroButton" name="modify" value="' . get_lang('Ok') . '" />' . "\n"
-    .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+    .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</form>' . "\n"
     ;
 }

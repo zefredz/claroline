@@ -236,7 +236,7 @@ if ( $is_allowedToEdit )
         .    claro_disp_html_area('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n"
 
         .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />' . "\n"
-        .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+        .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .    '</form>' . "\n"
         .    '</td>'  . "\n"
 

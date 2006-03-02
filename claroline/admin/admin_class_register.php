@@ -177,7 +177,7 @@ echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class
 .    '<br /><br />'
 ;
 
-if (isset($cfrom) && ($cfrom=="clist")) echo claro_html::cmd_button('admincourses.php', get_lang('Back to course list'));
+if (isset($cfrom) && ($cfrom=="clist")) echo claro_html::button('admincourses.php', get_lang('Back to course list'));
 
 //Pager
 

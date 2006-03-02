@@ -429,7 +429,7 @@ if ($display_form)
 
     // linker
     //---------------------
-    echo claro_html::cmd_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
+    echo claro_html::button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>' . "\n"

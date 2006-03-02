@@ -137,7 +137,7 @@ switch ($view)
         echo claro_disp_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_html::msg_list($analyseTreeResultMsg, 1)
         .    claro_disp_datagrid($dataAnalyseResult, array('idLineType' => 'numeric'))
-        .    ($errorCounter?claro_html::cmd_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
+        .    ($errorCounter?claro_html::button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
         .    claro_disp_tool_title('Course ownance')
         .    claro_disp_datagrid($courseOwnanceCheck , array('idLineType' => 'numeric'
                                                             ,'colTitleList' => array( get_lang('Course code')
@@ -150,7 +150,7 @@ switch ($view)
     {
         echo claro_disp_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_html::msg_list($repairResultMsg, 1)
-        .    claro_html::cmd_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
+        .    claro_html::button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
         ;
     }
     break;

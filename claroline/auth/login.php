@@ -122,7 +122,7 @@ if ( is_null($_uid) && $uidRequired )
         .    '<input type="password" name="password" id="password"><br />'."\n"
         .    '<br />'
         .    '<input type="submit" value="'.get_lang('Ok').'"> '                 ."\n"
-        .    claro_html::cmd_button($clarolineRepositoryWeb, get_lang('Cancel'))
+        .    claro_html::button($clarolineRepositoryWeb, get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
         ;
@@ -198,7 +198,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
         .    '<input type="submit" value="' . get_lang('Ok') . '">'         ."\n"
-        .    claro_html::cmd_button($rootWeb, get_lang('Cancel'))
+        .    claro_html::button($rootWeb, get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"
         .    '</table>'                                              ."\n"

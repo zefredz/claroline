@@ -459,7 +459,7 @@ if (isset($cidToEdit))
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo get_lang('Ok') ?> ">
 <?php
-echo claro_html::cmd_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
+echo claro_html::button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '</table>' . "\n"

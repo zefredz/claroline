@@ -163,7 +163,7 @@ if ($intro_dispForm)
     .    claro_disp_html_area('intro_content', trim($introContent))
     .    '<br />'."\n"
     .   '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '">'."\n"  
-    .   claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+    .   claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
     .   '<br />'."\n"
     .   '</form>'."\n\n"
     ;

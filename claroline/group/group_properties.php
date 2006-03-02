@@ -213,7 +213,7 @@ echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitl
     <tr>
         <td valign="top">
             <input type="submit" name="properties" value="<?php echo get_lang("Ok") ?>"> 
-            <?php echo claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")); ?>
+            <?php echo claro_html::button($_SERVER['HTTP_REFERER'], get_lang("Cancel")); ?>
         </td>
     </tr>
 </table>

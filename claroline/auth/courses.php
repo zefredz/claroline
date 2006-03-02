@@ -713,7 +713,7 @@ switch ( $displayMode )
         .     '<input type="text" name="enrollmentKey" />' . "\n"
         .     '<p>'
         .     '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-        .     claro_html::cmd_button($_SERVER['PHP_SELF'].'?cmd=rqReg', get_lang('Cancel'))
+        .     claro_html::button($_SERVER['PHP_SELF'].'?cmd=rqReg', get_lang('Cancel'))
         .     '</p>'
         .     '</form>' . "\n"
         .     '</blockquote>'

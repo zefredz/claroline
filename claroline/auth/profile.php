@@ -200,7 +200,7 @@ switch ( $display )
             .    '<tr valign="top">'
             .    '<td>' . get_lang('Submit') . ': </td>'
             .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
-            .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'
@@ -232,7 +232,7 @@ switch ( $display )
             .    '<tr valign="top">'
             .    '<td>' . get_lang('Delete my account') . ': </td>'
             .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
-            .    claro_html::cmd_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'

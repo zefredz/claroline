@@ -1436,7 +1436,7 @@ function user_display_form($data, $form_type='registration')
             . '  <td align="right">' . ucfirst(get_lang('Create')) . ' : </td>' . "\n"
             . '  <td>' . "\n"
             . '  <input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
-            . claro_html::cmd_button($rootWeb, get_lang('Cancel'))
+            . claro_html::button($rootWeb, get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
@@ -1446,7 +1446,7 @@ function user_display_form($data, $form_type='registration')
             . '  <td align="right">' . ucfirst(get_lang('Create')) . ' : </td>' . "\n"
             . '  <td>' . "\n"
             . '  <input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
-            . claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
+            . claro_html::button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
@@ -1457,7 +1457,7 @@ function user_display_form($data, $form_type='registration')
             . ' <td>'
             . ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
             . ' <input type="submit" name="applySearch" id="applySearch" value="' . get_lang('Search') . '" />&nbsp;'
-            . claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
+            . claro_html::button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }
@@ -1467,7 +1467,7 @@ function user_display_form($data, $form_type='registration')
             . ' <td align="right"><label for="applyChange">' . get_lang('Save changes') . ' : </label></td>' . "\n"
             . ' <td>'
             . ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
-            . claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
+            . claro_html::button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
             . ' </td>' . "\n"
             . '</tr>' . "\n";
     }

@@ -858,7 +858,7 @@
                 . '&amp;title=' . $title
                 . '&amp;action=show'
                 ;
-            echo claro_html::cmd_button( $url, get_lang("Cancel") ) . "\n";
+            echo claro_html::button( $url, get_lang("Cancel") ) . "\n";
             echo '</div>' . "\n";
             echo '</form>';
             break;

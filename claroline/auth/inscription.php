@@ -182,7 +182,7 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
-    .    claro_html::cmd_button( $rootWeb, get_lang('Cancel') )
+    .    claro_html::button( $rootWeb, get_lang('Cancel') )
     .    '</form>' . "\n"
     ;
 }

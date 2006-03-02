@@ -292,7 +292,7 @@ else
     .    '<td >'
     .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
     .    '<input type="submit" value="' . get_lang('Ok') . '" /> '. "\n"
-    .    claro_html::cmd_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+    .    claro_html::button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</form>'
     ;

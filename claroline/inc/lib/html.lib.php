@@ -116,7 +116,7 @@ class claro_html
  * @return string the button
  */
 
-    function cmd_button($url, $text, $confirmMessage = '')
+    function button($url, $text, $confirmMessage = '')
     {
 
         if (   claro_is_javascript_enabled()
