@@ -53,7 +53,8 @@ function getAppletList($dock)
               FROM `".$tbl_module."` AS M, `".$tbl_dock."` AS D
              WHERE D.`name` = '".$dock."'
                AND D.`module_id` = M.`id`
-               AND M.`activation` = 'activated' 
+               AND M.`activation` = 'activated'
+               ORDER BY D.`rank` 
               ";
     $module_list = claro_sql_query_fetch_all($sql);
     
