@@ -25,6 +25,7 @@ require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/sqlxtra.lib.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/fileUpload.lib.php';
+require_once $includePath . '/lib/html.lib.php';
 require_once $includePath . '/../admin/module/module.inc.php';
 
 //SQL table name
@@ -158,7 +159,7 @@ switch ( $cmd )
         .            '</p>'
         .            '<form enctype="multipart/form-data" action="" method="post">'
         .            '<input name="uploadedModule" type="file" /><br><br>'
-        .            '<input type="submit" value="cancel" /> '
+        .            claro_html::cmd_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '<input name="cmd" type="hidden" value="do_install" />'
         .            '<input value="' . get_lang('Install Module') . '" type="submit" />'
         .            '<br><br>'
