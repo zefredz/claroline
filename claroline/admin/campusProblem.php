@@ -46,7 +46,7 @@ $is_allowedToCheckProblems = $is_platformAdmin;
 // Cache_lite setting & init
 $cache_options = array(
 'cacheDir' => get_conf('rootSys') . 'cache/campusProblem/',
-'lifeTime' => get_conf('cache_lifeTime',3600*48),
+'lifeTime' => get_conf('cache_lifeTime', 3600*48),
 'automaticCleaningFactor' => 50,
 );
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
@@ -70,13 +70,9 @@ $tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
 $tbl_document        = $tbl_cdb_names['document'];
 $toolNameList = claro_get_tool_name_list();
 
-
-
-
 // used in strange cases, a course is unused if not used since $limitBeforeUnused
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
 $limitBeforeUnused = "INTERVAL 6 MONTH";
-
 
 // Prepare output
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Administration'));
@@ -90,24 +86,12 @@ TD {border-bottom: thin dashed Gray;}
 -->
 </style>";
 
-
-
-if( $is_allowedToCheckProblems)
-{
-    $display = DISP_RESULT;
-}
-else
-{
-    $display = DISP_NOT_ALLOWED;
-}
+$display = ( $is_allowedToCheckProblems) ? DISP_RESULT : DISP_NOT_ALLOWED;
 
 ////////////// OUTPUT ///////////////
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_disp_tool_title(
-array(
-'mainTitle'=>$nameTools    )
-);
+echo claro_html::tool_title( $nameTools );
 
 switch ($display)
 {
@@ -118,6 +102,9 @@ switch ($display)
 
     case DISP_RESULT :
     {
+        $dg = new claro_datagrid();
+        $dg->set_idLineType('numeric');
+        $dg->set_colAttributeList( array( 'qty' =>array('width'=>'15%' , 'align' => 'center')));
         // in $view, a 1 in X posof the $view string means that the 'category' number X
         // will be show, 0 means don't show
         echo '<small>'
@@ -138,20 +125,22 @@ switch ($display)
         $tempView = $view;
         $levelView++;
         echo '<p>' . "\n";
-        if($view[$levelView] == '1')
+        if('1' == $view[$levelView])
         {
             $tempView[$levelView] = '0';
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
-                $sql = "SELECT DISTINCT username , count(*) as nb
+                $sql = "SELECT DISTINCT username AS username
+                             , count(*)          AS qty
                         FROM `" . $tbl_user . "`
                         GROUP BY username
-                        HAVING nb > 1
-                        ORDER BY nb DESC";
+                        HAVING qty > 1
+                        ORDER BY qty DESC";
                 $data = claro_sql_query_fetch_all($sql);
-                if (!is_array($data) || sizeof($data)==0) $data[] = array( '-','-');
-                $option['colTitleList'] = array(get_lang('Username'),get_lang('count'));
-                $datagrid[$levelView] = claro_disp_datagrid($data,$option);
+                if (!is_array($data) || 0 == sizeof($data)) $data[] = array( '-','qty'=>'-');
+                $dg->set_colTitleList(array(get_lang('Username'),get_lang('count')));
+                $dg->set_grid($data);
+                $datagrid[$levelView] .= $dg->render();
                 $Cache_Lite->save($datagrid[$levelView],$levelView);
             }
             echo '-'
@@ -193,7 +182,7 @@ switch ($display)
         $tempView = $view;
         $levelView++;
         echo '<p>' . "\n";
-        if($view[$levelView] == '1')
+        if('1' == $view[$levelView])
         {
             $tempView[$levelView] = '0';
             echo '- '
@@ -214,15 +203,16 @@ switch ($display)
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
                 $sql = "SELECT DISTINCT             email ,
-                                        count(*) AS nb
+                                        count(*) AS qty
                         FROM `" . $tbl_user . "`
                         GROUP BY email
-                        HAVING nb > 1
-                        ORDER BY nb DESC";
-                $option['colTitleList'] = array(get_lang('email'), get_lang('count'));
+                        HAVING qty > 1
+                        ORDER BY qty DESC";
                 $data = claro_sql_query_fetch_all($sql);
-                if (!is_array($data) || sizeof($data)==0) $data[] = array( '-', '-');
-                $datagrid[$levelView] = claro_disp_datagrid($data, $option);
+                if (!is_array($data) || 0 == sizeof($data)) $data[] = array( '-', '-');
+                $dg->set_colTitleList(array(get_lang('email'), get_lang('count')));
+                $dg->set_grid($data);
+                $datagrid[$levelView] = $dg->render();
                 $Cache_Lite->save($datagrid[$levelView], $levelView);
             }
 
@@ -251,7 +241,7 @@ switch ($display)
         $tempView = $view;
         $levelView++;
         echo "<p>\n";
-        if($view[$levelView] == '1')
+        if('1' == $view[$levelView])
         {
             $tempView[$levelView] = '0';
             //--  courses without professor
@@ -271,20 +261,23 @@ switch ($display)
 
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
-                $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'), count( cu.user_id ) nbu
+                $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)')
+                                                   AS course,
+                               count( cu.user_id ) AS qty
                     FROM `" . $tbl_course . "` c
                     LEFT JOIN `" . $tbl_rel_course_user . "` cu
                         ON c.code = cu.code_cours
                         AND cu.statut = 1
                     GROUP BY c.code, statut
-                    HAVING nbu = 0
+                    HAVING qty = 0
                     ORDER BY code_cours";
 
                 $data = claro_sql_query_fetch_all($sql);
-                if (!is_array($data) || sizeof($data)==0)
-                $data[] = array( '-','-');
-                $option['colTitleList'] = array(get_lang('code'),get_lang('count'));
-                $datagrid[$levelView] = claro_disp_datagrid($data, $option);
+                if (!is_array($data) || 0 == sizeof($data))
+                $data[] = array( '-','qty'=>'-');
+                $dg->set_colTitleList(array(get_lang('code'), get_lang('count')));
+                $dg->set_grid($data);
+                $datagrid[$levelView] = $dg->render();
                 $Cache_Lite->save($datagrid[$levelView],$levelView);
             }
 
@@ -312,7 +305,7 @@ switch ($display)
         $tempView = $view;
         $levelView++;
         echo '<p>' . "\n";
-        if($view[$levelView] == '1')
+        if('1' == $view[$levelView])
         {
             $tempView[$levelView] = '0';
             //-- courses without students
@@ -332,20 +325,22 @@ switch ($display)
 
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
-                $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)'),
-                               count( cu.user_id ) AS nbu
+                $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)')
+                                                   AS course,
+                               count( cu.user_id ) AS qty
                     FROM `" . $tbl_course . "`               AS c
                     LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
                         ON c.code = cu.code_cours
                         AND cu.statut = 5
                     GROUP BY c.code, statut
-                    HAVING nbu = 0
+                    HAVING qty = 0
                     ORDER BY code_cours";
                 $option['colTitleList'] = array('code','count');
                 $data = claro_sql_query_fetch_all($sql);
-                if (!is_array($data) || sizeof($data)==0)
-                $option['colTitleList'] = array(get_lang('code'),get_lang('count'));
-                $datagrid[$levelView] = claro_disp_datagrid($data,$option);
+                if (!is_array($data) || 0 == sizeof($data))
+                $dg->set_colTitleList(array(get_lang('code'), get_lang('count')));
+                $dg->set_grid($data);
+                $datagrid[$levelView] = $dg->render();
                 $Cache_Lite->save($datagrid[$levelView],$levelView);
             }
 
@@ -374,7 +369,7 @@ switch ($display)
         $tempView = $view;
         $levelView++;
         echo '<p>' . "\n";
-        if($view[$levelView] == '1')
+        if('1' == $view[$levelView])
         {
             $tempView[$levelView] = '0';
             //-- logins not used for $limitBeforeUnused
@@ -395,7 +390,7 @@ switch ($display)
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
                 $sql = "SELECT `us`.`username`,
-                               MAX(`lo`.`login_date`)
+                               MAX(`lo`.`login_date`) AS qty
                     FROM `" . $tbl_user . "`               AS us
                     LEFT JOIN `" . $tbl_track_e_login . "` AS lo
                     ON`lo`.`login_user_id` = `us`.`user_id`
@@ -412,12 +407,12 @@ switch ($display)
                     }
                 }
 
-
                 $loginWithoutAccessResults = claro_sql_query_fetch_all($sql);
-                if (!is_array($loginWithoutAccessResults) || sizeof($loginWithoutAccessResults)==0)
-                $loginWithoutAccessResults[] = array( '-','-');
-                $option['colTitleList'] = array(get_lang('Username'), get_lang('Login date'));
-                $datagrid[$levelView] = claro_disp_datagrid($loginWithoutAccessResults, $option);
+                if (!is_array($loginWithoutAccessResults) || 0 == sizeof($loginWithoutAccessResults))
+                $loginWithoutAccessResults[] = array( '-','qty'=>'-');
+                $dg->set_colTitleList(array(get_lang('Username'), get_lang('Login date')));
+                $dg->set_grid($loginWithoutAccessResults);
+                $datagrid[$levelView] = $dg->render();
                 $Cache_Lite->save($datagrid[$levelView], $levelView);
             }
 
@@ -445,7 +440,7 @@ switch ($display)
         $tempView = $view;
         $levelView++;
         echo '<p>' . "\n";
-        if($view[$levelView] == '1')
+        if('1' == $view[$levelView])
         {
             $tempView[$levelView] = '0';
             //--  multiple account with same username AND same password (for compatibility with previous versions)
@@ -463,16 +458,19 @@ switch ($display)
 
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
-                $sql = "SELECT DISTINCT CONCAT(username, \" -- \", password) as paire, count(*) as nb
+                $sql = "SELECT DISTINCT CONCAT(username, \" -- \", password)
+                                        AS paire
+                             , count(*) AS qty
                         FROM `" . $tbl_user . "`
                         GROUP BY paire
-                        HAVING nb > 1
-                        ORDER BY nb DESC";
+                        HAVING qty > 1
+                        ORDER BY qty DESC";
                 $data = claro_sql_query_fetch_all($sql);
-                if (!is_array($data) || sizeof($data)==0)
-                $data[] = array( '-','-');
-                $option['colTitleList'] = array(get_lang('paire'),get_lang('count'));
-                $datagrid[$levelView] = claro_disp_datagrid($data, $option);
+                if (!is_array($data) || 0 == sizeof($data))
+                $data[] = array( '-','qty'=>'-');
+                $dg->set_colTitleList(array(get_lang('paire'), get_lang('count')));
+                $dg->set_grid($data);
+                $datagrid[$levelView] = $dg->render();
                 $Cache_Lite->save($datagrid[$levelView],$levelView);
             }
 
@@ -501,30 +499,32 @@ switch ($display)
         $tempView = $view;
         $levelView++;
         echo '<p>' . "\n";
-        if($view[$levelView] == '1')
+        if('1' == $view[$levelView])
         {
             $tempView[$levelView] = '0';
             //-- courses without access, not used for $limitBeforeUnused
             if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
             {
                 $sql ="SELECT code, dbName
-                   FROM `" . $tbl_course . "`
-                   ORDER BY code ASC";
+                       FROM `" . $tbl_course . "`
+                       ORDER BY code ASC";
                 $resCourseList = claro_sql_query($sql);
                 $i = 0;
-                while ( $course = mysql_fetch_array($resCourseList) )
+                while ( ($course = mysql_fetch_array($resCourseList) ) )
                 {
                     $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
-                    $sql = "SELECT IF( MAX(`access_date`)  < (NOW() - " . $limitBeforeUnused . " ), MAX(`access_date`) , 'recentlyUsedOrNull' )  as lastDate, count(`access_date`) as nbrAccess
-                        FROM `" . $TABLEACCESSCOURSE . "`";
+                    $sql = "SELECT IF( MAX(`access_date`)  < (NOW() - " . $limitBeforeUnused . " ), MAX(`access_date`) , 'recentlyUsedOrNull' )
+                                                         AS lastDate
+                                  , count(`access_date`) AS qty
+                            FROM `" . $TABLEACCESSCOURSE . "`";
                     $coursesNotUsedResult = claro_sql_query($sql);
 
                     $courseWithoutAccess = array();
-                    if( $courseAccess = mysql_fetch_array($coursesNotUsedResult) )
+                    if ( ( $courseAccess = mysql_fetch_array($coursesNotUsedResult) ) )
                     {
-                        if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull' && $courseAccess['nbrAccess'] != 0 ) continue;
+                        if ( 'recentlyUsedOrNull' == $courseAccess['lastDate'] && 0 != $courseAccess['qty'] ) continue;
                         $courseWithoutAccess[$i][0] = $course['code'];
-                        if ( $courseAccess['lastDate'] == 'recentlyUsedOrNull') // if no records found ,course was never accessed
+                        if ( 'recentlyUsedOrNull' == $courseAccess['lastDate'] ) // if no records found ,course was never accessed
                         $courseWithoutAccess[$i][1] = get_lang('Never used');
                         else                                                   $courseWithoutAccess[$i][1] = $courseAccess['lastDate'];
                     }
@@ -533,10 +533,10 @@ switch ($display)
                 }
 
                 $courseWithoutAccess = claro_sql_query_fetch_all($sql);
-                if (!is_array($courseWithoutAccess) || sizeof($courseWithoutAccess)==0)
-                $courseWithoutAccess[] = array( '-','-');
-                $option['colTitleList'] = array(get_lang('code'),get_lang('count'));
-
+                if (!is_array($courseWithoutAccess) || 0 == sizeof($courseWithoutAccess))
+                $courseWithoutAccess[] = array( '-','qty'=>'-');
+                $dg->set_colTitleList(array(get_lang('code'), get_lang('count')));
+                $dg->set_grid($courseWithoutAccess);
                 $datagrid[$levelView] = '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
@@ -549,7 +549,8 @@ switch ($display)
                 .    '</a>]'
                 .    '</small>'
                 .    '<br />' . "\n"
-                .    claro_disp_datagrid($courseWithoutAccess, $option)
+                .    $dg->render();
+
                 ;
                 $Cache_Lite->save($datagrid[$levelView],$levelView);
             }
