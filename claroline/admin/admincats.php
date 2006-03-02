@@ -761,7 +761,7 @@ switch ($display_form)
 {
     case DISP_FORM_CREATE :
     {
-        echo claro_disp_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => get_lang('Create a category')))
+        echo claro_html::tool_title(array( 'mainTitle' => $nameTools,'subTitle' => get_lang('Create a category')))
         .    claro_html::msg_list($controlMsg,1)
         .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exCreate" >' . "\n"
@@ -843,7 +843,7 @@ switch ($display_form)
          * Display information to edit a category and the bom of categories
          */
 
-        echo claro_disp_tool_title(array('mainTitle' => $nameTools,'subTitle' => get_lang('Edit a category')))
+        echo claro_html::tool_title(array('mainTitle' => $nameTools,'subTitle' => get_lang('Edit a category')))
         .    claro_html::msg_list($controlMsg,1)
 
         .    '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
@@ -914,7 +914,7 @@ switch ($display_form)
      * Display information to change root of the category
      */
 
-        echo claro_disp_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_block("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))))
+        echo claro_html::tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_block("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))))
         .    claro_html::msg_list($controlMsg,1)
         .    '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
@@ -953,7 +953,7 @@ switch ($display_form)
     break;
     default :
     {
-        echo claro_disp_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>get_lang('Manage course categories')))
+        echo claro_html::tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>get_lang('Manage course categories')))
         .    claro_html::msg_list($controlMsg,1)
         ;
     }

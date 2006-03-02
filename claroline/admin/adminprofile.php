@@ -163,7 +163,7 @@ if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must 
 include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 // Display Forms or dialog box(if needed)
 if ( count($messageList) > 0 )

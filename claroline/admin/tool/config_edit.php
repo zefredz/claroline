@@ -238,7 +238,7 @@ $interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'nam
 include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
-echo claro_disp_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
+echo claro_html::tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
 
 // display error message
 if ( ! empty($message) ) echo claro_html::message_box(implode('<br />',$message));

@@ -104,6 +104,7 @@ if(isset($user_id))
 
 {
     // claro_get_user_data
+
     $sqlGetInfoUser ="
     SELECT user_id,
            nom,
@@ -233,7 +234,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
-echo claro_disp_tool_title( array( 'mainTitle' =>$nameTools
+echo claro_html::tool_title( array( 'mainTitle' =>$nameTools
                                  , 'subTitle' => get_lang('Course') . ' : '
                                               .  $courseData['name']
                                               .  '<br />'

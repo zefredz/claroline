@@ -104,7 +104,7 @@ include $includePath . '/claro_init_header.inc.php';
 $titles = array('mainTitle'=>$nameTools);
 if (isset($subtitle)) $titles['subTitle'] = $subtitle;
 
-echo claro_disp_tool_title($titles)
+echo claro_html::tool_title($titles)
 .    claro_html::msg_list($controlMsg,1)
 ;
 

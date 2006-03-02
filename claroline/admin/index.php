@@ -75,7 +75,7 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 // ----- is install visible ----- end
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_disp_tool_title($nameTools)
+echo claro_html::tool_title($nameTools)
 .    claro_html::msg_list( $controlMsg,1) . "\n\n"
 ;
 

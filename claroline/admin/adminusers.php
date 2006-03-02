@@ -211,7 +211,7 @@ $htmlHeadXtra[] =
 include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
-echo claro_disp_tool_title($nameTools) . "\n\n";
+echo claro_html::tool_title($nameTools) . "\n\n";
 
 //Display Forms or dialog box(if needed)
 

@@ -76,7 +76,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $use
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('User unregistered'));
+echo claro_html::tool_title(get_lang('User unregistered'));
 
 // Display Forms or dialog box(if needed)
 

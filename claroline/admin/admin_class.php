@@ -254,7 +254,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // display title
 
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 // display dialog Box (or any forms)
 

@@ -71,7 +71,7 @@ else $dialogBox = get_lang('Unable to delete');
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('Delete user'));
+echo claro_html::tool_title(get_lang('Delete user'));
 
 if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
