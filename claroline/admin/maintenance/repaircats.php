@@ -54,7 +54,8 @@ $view = DISP_ANALYSE;
 
 //Get Parameters from URL or post
 
-$cmd = ((isset($_REQUEST['cmd']) && !empty($_REQUEST['cmd']))? $_REQUEST['cmd'] : 'doAnalyse');
+$validCmdList = array('repairTree', 'doAnalyse');
+$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : 'doAnalyse');
 
 /**
  * Show or hide sub categories
@@ -63,7 +64,6 @@ $cmd = ((isset($_REQUEST['cmd']) && !empty($_REQUEST['cmd']))? $_REQUEST['cmd'] 
 switch($cmd)
 {
     case 'doAnalyse' :
-    {
         // analyse Tree Structure
         $errorCounter =0;
 
@@ -72,8 +72,8 @@ switch($cmd)
         {
             $analyseResult = analyseCat($catCode);
             $dataAnalyseResult[] = array ( 'Code'=>$catCode
-                                         , 'Result'=>$analyseResult?get_lang('Ok'):get_lang('Fail')
-                                         , 'Message'=>$analyseResult?'':claro_failure::get_last_failure());
+            , 'Result'=>$analyseResult?get_lang('Ok'):get_lang('Fail')
+            , 'Message'=>$analyseResult?'':claro_failure::get_last_failure());
             if (! $analyseResult) $errorCounter++;
 
         }
@@ -86,39 +86,40 @@ switch($cmd)
         ON c.FACULTE = f.code
         WHERE f.id IS null ";
         $courseOwnanceCheck = claro_sql_query_fetch_all($sql);
+
+        $dgDataAnalyseResult = new claro_datagrid($dataAnalyseResult);
+        $dgDataAnalyseResult->set_idLineType('numeric');
+        $dgCourseOwnanceCheck = new claro_datagrid($courseOwnanceCheck);
+        $dgCourseOwnanceCheck->set_idLineType('numeric');
+        $dgCourseOwnanceCheck->set_colTitleList(array( get_lang('Course code'), get_lang('Unknow faculty')));
+
         $view = DISP_ANALYSE;
-    }
-    break;
+        break;
     case 'repairTree' :
-    {
-       $repairResult = repairTree();
-       if ($repairResult)
-       {
-           $repairResultMsg['success'][] = get_lang('CategoriesStructureOK');
-       }
-       else
-       switch ($failure = claro_failure::get_last_failure())
-       {
-           case 'node_moved' :
-           {
+        $repairResult = repairTree();
+        if ($repairResult)
+        {
+            $repairResultMsg['success'][] = get_lang('Categories Structure is right');
+        }
+        else
+        switch ($failure = claro_failure::get_last_failure())
+        {
+            case 'node_moved' :
                 $repairResultMsg['warning'][] = get_lang('Node Moved, relaunch repair process to complete');
-           } break;
-           case defaut :
-           {
+                break;
+            case defaut :
 
-           }
 
-       }
+        }
 
-       $view = DISP_REPAIR_RESULT;
-    }
-    break;
+        $view = DISP_REPAIR_RESULT;
+
+        break;
 }
 
 /**
  * prepare display
  */
-
 
 /**
  * Display
@@ -133,31 +134,25 @@ include $includePath . '/claro_init_header.inc.php';
 switch ($view)
 {
     case DISP_ANALYSE :
-    {
-        echo claro_disp_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
+        echo claro_html::tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_html::msg_list($analyseTreeResultMsg, 1)
-        .    claro_disp_datagrid($dataAnalyseResult, array('idLineType' => 'numeric'))
+        .    $dgDataAnalyseResult->render()
         .    ($errorCounter?claro_html::button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
-        .    claro_disp_tool_title('Course ownance')
-        .    claro_disp_datagrid($courseOwnanceCheck , array('idLineType' => 'numeric'
-                                                            ,'colTitleList' => array( get_lang('Course code')
-                                                                                    , get_lang('Unknow faculty'))
-                                                            ,))
+        .    claro_html::tool_title('Course ownance')
+        .    $dgCourseOwnanceCheck->render()
         ;
-    }
-    break;
+        break;
     case  DISP_REPAIR_RESULT :
-    {
-        echo claro_disp_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
+        echo claro_html::tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_html::msg_list($repairResultMsg, 1)
         .    claro_html::button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
         ;
-    }
-    break;
+
+        break;
     default :
-    {
+
         echo '<div>' . __LINE__ . ': $view = <pre>'. var_export($view,1).'</PRE></div>';
-    }
+
 }
 
 include $includePath . '/claro_init_footer.inc.php';
