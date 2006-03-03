@@ -62,15 +62,18 @@ class claro_html
 
     function menu_horizontal($itemList)
     {
-        // class="toollink"
-        $htmlStream = array();
-        if(is_array($itemList))
-        foreach ($itemList as $item )
-        {
-            $htmlStream[] = $item;
-        }
-        $htmlStream = implode( "\n" . '&nbsp;|&nbsp;' . "\n",$htmlStream);
-        return $htmlStream;
+		if( is_array($itemList) && !empty($itemList) )
+		{
+        	return "\n\n" 
+        		. '<p>' 
+        		. implode( "\n" . '&nbsp;|&nbsp;' . "\n",$itemList) 
+        		. '</p>'
+        		. "\n\n";
+		}
+		else
+		{
+			return '';
+		}
     }
 
 /**
