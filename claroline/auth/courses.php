@@ -434,7 +434,7 @@ switch ( $displayMode )
             $title = get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'];
             $subTitle = get_lang('Select course in') . ' : ' . $currentCategoryName ;
 
-            echo claro_disp_tool_title( array( 'mainTitle' => $title , 'subTitle' => $subTitle ) ) ;
+            echo claro_html::tool_title( array( 'mainTitle' => $title , 'subTitle' => $subTitle ) ) ;
         }
         else
         {
@@ -547,11 +547,11 @@ switch ( $displayMode )
                         // class may not be enrolled as teachers
 
                         echo '<td valign="top" align="center">' . "\n"
-                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['code'] . $inURL . '">'
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
                         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
                         .    '</a></td>' . "\n"
                         .    '<td valign="top" align="center">' . "\n"
-                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['code'] .$inURL . '">'
+                        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['sysCode'] .$inURL . '">'
                         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . get_lang('Enrol as teacher') . '" />'
                         .    '</a>'
                         .    '</td>' . "\n"
@@ -562,7 +562,7 @@ switch ( $displayMode )
                 {
                     echo '<td valign="top"  align="center">' . "\n"
                     .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_course_registered.php'
-                    .    '?cmd=exReg&course=' . $thisCourse['code']
+                    .    '?cmd=exReg&course=' . $thisCourse['sysCode']
                     .    '&class=' . $classinfo['id'] . $inURL . '">'
                     .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrol class') . '" />'
                     .     '</a>'
@@ -626,7 +626,7 @@ switch ( $displayMode )
     case DISPLAY_MESSAGE_SCREEN :
     {
 
-        echo claro_disp_tool_title(get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
+        echo claro_html::tool_title(get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
 
         echo '<blockquote>' . "\n";
 
@@ -649,7 +649,7 @@ switch ( $displayMode )
     case DISPLAY_USER_COURSES :
     {
 
-        echo claro_disp_tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
+        echo claro_html::tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
         'subTitle' => get_lang('Remove course from your personal course list')));
 
         if ( count($courseList) > 0 )
@@ -670,7 +670,7 @@ switch ( $displayMode )
 
                 if ( $thisCourse['userSatus'] != 1 )
                 {
-                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['code'] . $inURL . '"'
+                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['sysCode'] . $inURL . '"'
                     .    ' onclick="javascript:if(!confirm(\''
                     .    clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?'))
                     .    '\')) return false;">' . "\n"
