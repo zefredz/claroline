@@ -83,7 +83,7 @@ $cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/co
  */
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
+echo claro_html::tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
 if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
