@@ -72,12 +72,12 @@
                     // listing of topic for a groups 
                     if( isset ($elementCRLArray["team"]) )
                     {
-                        $tbl_group = $this->_tbl_cdb_names['group_team'];
+                        $tbl_forums = $this->_tbl_cdb_names['bb_forums'];
                         $tbl_topics = $this->_tbl_cdb_names['bb_topics'];
                         
-                        $sql = 'SELECT `forumId` 
-                                FROM `'.$tbl_group.'` 
-                                WHERE `id` ='. (int)$elementCRLArray["team"];
+                        $sql = 'SELECT `forum_id` 
+                                FROM `'.$tbl_forums.'` 
+                                WHERE `group_id` ='. (int)$elementCRLArray["team"];
                         $forumId = claro_sql_query_get_single_value($sql);
                         
                         $sql = 'SELECT `topic_id`,`topic_title` 
