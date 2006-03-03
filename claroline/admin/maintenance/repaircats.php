@@ -42,11 +42,6 @@ $htmlHeadXtra[] = '
 </STYLE>
 ';
 $analyseTreeResultMsg= null;
-// get table name
-$tbl_mdb_names   = claro_sql_get_main_tbl();
-$tbl_course      = $tbl_mdb_names['course'  ];
-$tbl_course_node = $tbl_mdb_names['category'];
-
 $controlMsg = array();
 
 // Display variables
@@ -65,7 +60,7 @@ switch($cmd)
 {
     case 'doAnalyse' :
         // analyse Tree Structure
-        $errorCounter =0;
+        $errorCounter = 0;
 
         $category_array = claro_get_cat_flat_list();
         foreach (array_keys($category_array) as $catCode)
@@ -77,15 +72,9 @@ switch($cmd)
             if (! $analyseResult) $errorCounter++;
 
         }
-        if ($errorCounter > 0) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
+        if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
         // analyse Course onwance
-        $sql = "SELECT c.code    AS `Course code`,
-                       c.faculte AS `Unknow faculty`
-        FROM  `" . $tbl_course . "` AS c
-        LEFT JOIN  `" . $tbl_course_node. "` AS f
-        ON c.FACULTE = f.code
-        WHERE f.id IS null ";
-        $courseOwnanceCheck = claro_sql_query_fetch_all($sql);
+        $courseOwnanceCheck = checkCourseOwnance();
 
         $dgDataAnalyseResult = new claro_datagrid($dataAnalyseResult);
         $dgDataAnalyseResult->set_idLineType('numeric');
@@ -107,9 +96,6 @@ switch($cmd)
             case 'node_moved' :
                 $repairResultMsg['warning'][] = get_lang('Node Moved, relaunch repair process to complete');
                 break;
-            case defaut :
-
-
         }
 
         $view = DISP_REPAIR_RESULT;
@@ -128,8 +114,8 @@ switch($cmd)
 include $includePath . '/claro_init_header.inc.php';
 
 /**
-  * Information edit for create or edit a category
-  */
+* Information edit for create or edit a category
+*/
 
 switch ($view)
 {
@@ -150,10 +136,33 @@ switch ($view)
 
         break;
     default :
-
         echo '<div>' . __LINE__ . ': $view = <pre>'. var_export($view,1).'</PRE></div>';
-
 }
 
 include $includePath . '/claro_init_footer.inc.php';
+
+/**
+ * Return course list which have an unexisting category as parent
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.8
+ *
+ * @return array('Course code'=>string, 'Unknow faculty'=>string)
+ */
+function checkCourseOwnance()
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+
+    $sql = "SELECT c.code    AS `Course code`,
+                   c.faculte AS `Unknow faculty`
+        FROM  `" . $tbl_mdb_names['course'] . "`       AS c
+        LEFT JOIN  `" . $tbl_mdb_names['category']. "` AS f
+        ON c.FACULTE = f.code
+        WHERE f.id IS null ";
+    if (($res =  claro_sql_query_fetch_all($sql))) return $res;
+    else                                           return claro_failure::set_failure('QUERY_ERROR'.__LINE__);
+
+
+
+}
 ?>
