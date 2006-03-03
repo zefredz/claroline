@@ -280,12 +280,12 @@ foreach ( $categories as $this_category )
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
                     {
-                        echo '&nbsp;<small>(' . get_lang('My supervision') . ')</small>';
+                        echo '&nbsp;<small>(' . get_lang('my supervision') . ')</small>';
                     }
 
                     if ( is_array($userGroupList) && in_array($group_id, $userGroupList) )
                     {
-                        echo '&nbsp;<small>(' . get_lang('My group') . ')</small>';
+                        echo '&nbsp;<small>(' . get_lang('my group') . ')</small>';
                     }
                 }
                 else

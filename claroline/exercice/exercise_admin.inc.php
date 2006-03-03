@@ -267,8 +267,8 @@ if( isset($modifyExercise) )
   <td>
   <input type="checkbox" name="exerciseMaxTime" id="exerciseMaxTime" value="1" <?php if($maxTime != 0) echo 'checked="checked"';?>>
   <label for="exerciseMaxTime"><?php echo get_lang('Yes'); ?>, </label>
-  <input type="text" name="exerciseMaxTimeMin" id="exerciseMaxTimeMin" size="3" maxlength="3" value="<?php echo $maxTimeMin; ?>">  <?php echo get_lang('min.'); ?>
-  <input type="text" name="exerciseMaxTimeSec" id="exerciseMaxTimeSec" size="2" maxlength="2" value="<?php echo $maxTimeSec; ?>"> <?php echo get_lang('sec.'); ?>
+  <input type="text" name="exerciseMaxTimeMin" id="exerciseMaxTimeMin" size="3" maxlength="3" value="<?php echo $maxTimeMin; ?>">  <?php echo get_lang('MinuteShort'); ?>
+  <input type="text" name="exerciseMaxTimeSec" id="exerciseMaxTimeSec" size="2" maxlength="2" value="<?php echo $maxTimeSec; ?>"> <?php echo get_lang('SecondShort'); ?>
   </td>
 </tr>
 

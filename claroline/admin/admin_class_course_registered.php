@@ -73,7 +73,7 @@ if (isset($cmd) && $is_platformAdmin)
 $classinfo =  get_class_info_by_id($_SESSION['admin_user_class_id']);
 
 if ( !empty($outputResultLog) ) $dialogBox = $outputResultLog;
-$cmd_menu[] =  '<p><a class="claroCmd" href="index.php">' . get_lang('Back to admin page') . '</a>';
+$cmd_menu[] =  '<p><a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
 $cmd_menu[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
 $cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a></p>';
 

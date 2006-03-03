@@ -67,7 +67,7 @@ if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
  * PREPARE DISPLAY
  */
 
-$cmd_menu[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to admin page') . '</a>';
+$cmd_menu[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
 $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('Back to course list') . '</a>';
 
 /**

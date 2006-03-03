@@ -190,8 +190,8 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<thead>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">'
 .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . get_lang('User Id') . '</a></th>' . "\n"
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . get_lang('Last Name') . '</a></th>' . "\n"
-.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . get_lang('First Name') . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
 .    '<th>' . get_lang('Register to the class') . '</th>'
 .    '<th>' . get_lang('Unregister from class') . '</th>'
 .    '</tr>' . "\n"

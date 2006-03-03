@@ -71,7 +71,7 @@ $htmlHeadXtra[] =
           {
               if (confirm("'. clean_str_for_javascript(get_lang('Modules of this path will still be available in the pool of modules'))
 							. '\n' 
-							. clean_str_for_javascript(get_lang('Are you sure to delete ?')) 
+							. clean_str_for_javascript(get_lang('Are you sure to delete') . ' ?' ) 
 							. '\n'
 							. '" + name))
                   {return true;}

@@ -90,7 +90,7 @@ if (isset($_REQUEST['loadDefault']) && ($_REQUEST['loadDefault'] =='yes'))
     $_SESSION['claro_usedFormat']   = $defaultFormat;
     $_SESSION['CSV_fieldSeparator'] = ';';
     $_SESSION['CSV_enclosedBy']     = '';
-    $dialogBox ="Format changed";
+    $dialogBox = get_lang('Format changed');
 }
 
 elseif (isset($_REQUEST['usedFormat']))

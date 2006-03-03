@@ -240,7 +240,7 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
     else
     {
         echo '<tr>' . "\n"
-        .    '<td colspan="2"><center>'.get_lang('NoResult').'</center></td>' . "\n"
+        .    '<td colspan="2"><center>'.get_lang('No result').'</center></td>' . "\n"
         .    '</tr>' . "\n\n"
         ;
     }

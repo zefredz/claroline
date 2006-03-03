@@ -341,7 +341,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                      ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
                      ."<table border='0'>"
                      ."<tr>"
-                     ."<td><small>".get_lang("Max file size : ")."</small></td>"
+                     ."<td><small>".get_lang('Max file size')." :</small></td>"
                      ."<td><small> : ".format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) )."</small></td>"
                      ."</tr>"
                      ."<tr>"
@@ -1814,22 +1814,22 @@ echo claro_html::tool_title($titleElement,
             echo " | "
                 ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."download.gif\" alt=\"\">"
-                .get_lang("Upload file")
+                .get_lang('Upload file')
                 ."</a>\n"
                 ." | "
                 ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."folder.gif\" alt=\"\">"
-                .get_lang("Create directory")
+                .get_lang('Create Directory')
                 ."</a>\n"
                 ."| "
                 ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."link.gif\" alt=\"\">"
-                .get_lang("Create hyperlink")
+                .get_lang('Create hyperlink')
                 ."</a>\n"
                 ." | "
                 ."<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."html.gif\" alt=\"\">"
-                .get_lang("Create Document")
+                .get_lang('Create Document')
                 ."</a>\n";
         }
 

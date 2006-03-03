@@ -281,7 +281,7 @@ function nameBox($type, $mode)
             }
             else
             {
-                echo get_lang('ErrorNameAlreadyExists') . '<br />';
+                echo get_lang('Error : Name already exists in the learning path or in the module pool') . '<br />';
                 $dsp = TRUE;
             }
         }
@@ -653,7 +653,7 @@ function display_my_exercises($dialogBox)
     echo '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th width="10%">'
-    .    get_lang('AddModule')
+    .    get_lang('Add module(s)')
     .    '</th>'."\n"
     .    '<th>'
     .    get_lang('Exercises')
@@ -711,7 +711,7 @@ function display_my_exercises($dialogBox)
     {
         echo '<tr>'."\n"
         .     '<td colspan="2" align="center">'
-        .    get_lang('NoEx')
+        .    get_lang('There is no exercise for the moment')
         .    '</td>'."\n"
         .     '</tr>'."\n\n"
         ;
@@ -812,7 +812,7 @@ function display_my_documents($dialogBox)
     }
 
     echo '<tr class="headerX" align="center" valign="top">'
-    .    '<th>' . get_lang('AddModule') . '</th>' . "\n"
+    .    '<th>' . get_lang('Add module(s)') . '</th>' . "\n"
     .    '<th>' . get_lang('Name') . '</th>' . "\n"
     .    '<th>' . get_lang('Size') . '</th>' . "\n"
     .    '<th>' . get_lang('Date') . '</th>' . "\n"

@@ -282,7 +282,7 @@ $url_admin_course = $clarolineRepositoryWeb . 'admin/admincourses.php'. $toAdd ;
 
 $links[] = '<a class="claroCmd" href="' . $url_course . '">'
         .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-        .    get_lang('Back to Homepage')
+        .    get_lang('Back to Home page')
         .    '</a>';
 
 // add course tool list edit

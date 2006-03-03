@@ -270,7 +270,7 @@ echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=formNew">'
 .    '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">'
-.    '<th>' . get_lang('Class')    . '</th>'
+.    '<th>' . get_lang('Classes')    . '</th>'
 .    '<th>' . get_lang('Users')        . '</th>'
 .    '<th>' . get_lang('Edit settings') . '</th>'
 .    '<th>' . get_lang('Move')         . '</th>'

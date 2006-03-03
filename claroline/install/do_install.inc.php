@@ -68,7 +68,7 @@ if (mysql_errno() >0)
                     <font color="red">Warning !</font>
                     <small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>
                     <br />
-                    Error on creation ' . get_lang('MainDB') . ' : <I>' . $dbHostForm . '</I>
+                    Error on creation ' . get_lang('Main database') . ' : <I>' . $dbHostForm . '</I>
                     <br />
                     <font color="blue">
                         Fix this problem before going further

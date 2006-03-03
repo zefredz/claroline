@@ -229,7 +229,7 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
   <td>
   <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxUploadSizeInBytes; ?>" />
   <input type="file" name="fileUpload" id="fileUpload" size="30" style="width:390px;"><br />
-  <small><?php echo get_lang('Max file size :'); ?> <?php echo format_file_size( $maxUploadSizeInBytes ); ?></small>
+  <small><?php echo get_lang('Max file size'); ?> :<?php echo format_file_size( $maxUploadSizeInBytes ); ?></small>
 
 <?php
     if($aFileIsAttached)

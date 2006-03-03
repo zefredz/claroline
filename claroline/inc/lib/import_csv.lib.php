@@ -240,7 +240,7 @@ function claro_disp_CSV_error_backlog()
 
     if (isset($_SESSION['claro_invalid_format_error']) && $_SESSION['claro_invalid_format_error'] == true)
     {
-       echo get_lang('ErrorFormatCSV')."<br>";
+       echo get_lang('ERROR: The format you gave is not compatible with Claroline')."<br>";
        return;
     }
 

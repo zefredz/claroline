@@ -29,7 +29,7 @@ else                            $cwd = '';
 $nameTools = get_lang('Create/edit document');
 include '../inc/claro_init_header.inc.php';
 
-echo claro_html::tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('CreateModifyDocument')));
+echo claro_html::tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('Create/edit document')));
 
 /*========================================================================
                              CREATE DOCUMENT
@@ -69,11 +69,11 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     ?><form action="document.php" method="post">
     <input type="hidden" name="cmd" value="exEditHtml">
     <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
-    <b><?php echo get_lang('DocumentName') ?></b><br />
+    <b><?php echo get_lang('Document name') ?> : </b><br />
     <?php echo $_REQUEST['file']?>
     </p>
     <p>
-    <b><?php echo get_lang('DocumentContent') ?></b>
+    <b><?php echo get_lang('Document content') ?> : </b>
     <?php
     echo claro_disp_html_area('htmlContent', $fileContent );
     ?>

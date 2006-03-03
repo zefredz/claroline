@@ -97,7 +97,7 @@ switch ( $cmd )
 
         if ( $done )
         {
-           $dialogBox = get_lang('The user has been enrolled to the course');
+           $dialogBox = get_lang('The user has been enroled to the course');
         }
         break;
 
@@ -280,7 +280,7 @@ echo '<table width="100%" class="claroTableForm" >'
 .    '<th>'
 .    '<a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom'
 .    '&amp;chdir=yes&amp;search=' . $search
-.    '&amp;cidToEdit=' . $cidToEdit . '">' . get_lang('Last Name') . '</a>'
+.    '&amp;cidToEdit=' . $cidToEdit . '">' . get_lang('Last name') . '</a>'
 .    '</th>' . "\n"
 
 .    '<th>'
@@ -289,7 +289,7 @@ echo '<table width="100%" class="claroTableForm" >'
 .    '&amp;chdir=yes'
 .    '&amp;search=' . $search
 .    '&amp;cidToEdit=' . $cidToEdit . '">'
-.    get_lang('First Name')
+.    get_lang('First name')
 .    '</a>'
 .    '</th>' . "\n"
 

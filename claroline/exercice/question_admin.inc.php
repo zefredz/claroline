@@ -193,7 +193,7 @@ else
 <hr size="1" noshade="noshade">
 
 <br />
-<b><?php echo get_lang('Answers'); ?></b>
+<b><?php echo get_lang('Answers to the question'); ?></b>
 
 <br /><br />
 

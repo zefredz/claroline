@@ -78,7 +78,7 @@ echo claro_html::tool_title($nameTools . ' : ');
 <table border="0">
     <tr>
         <td align="right">
-            <label for="lastName"><?php echo get_lang('Last Name')?></label>
+            <label for="lastName"><?php echo get_lang('Last name')?></label>
             : <br />
         </td>
         <td>
@@ -88,7 +88,7 @@ echo claro_html::tool_title($nameTools . ' : ');
 
     <tr>
         <td align="right">
-            <label for="firstName"><?php echo get_lang('First Name')?></label>
+            <label for="firstName"><?php echo get_lang('First name')?></label>
             : <br />
         </td>
         <td>

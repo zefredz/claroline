@@ -130,7 +130,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<th>' . get_lang('Id')                 . '</th>'
 .    '<th>' . get_lang('Icon')               . '</th>'
 .    '<th>' . get_lang('Module name')        . '</th>'
-.    '<th colspan="2">' . get_lang('Reorder')           .'</th>'
+.    '<th colspan="2">' . get_lang('Order')           .'</th>'
 .    '<th>' . get_lang('Remove from the dock')          . '</th>'
 .    '</tr><tbody>'
 ;

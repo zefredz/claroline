@@ -1239,7 +1239,7 @@ function user_display_form($data, $form_type='registration')
     if ( get_conf('ask_for_official_code') )
     {
         echo ' <tr>'  . "\n"
-            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('Administrative Code'):required_field(get_lang('Administrative Code'))) . '&nbsp;:</label></td>'  . "\n"
+            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('Administrative code'):required_field(get_lang('Administrative code'))) . '&nbsp;:</label></td>'  . "\n"
             . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
             . ' </tr>' . "\n";
     }

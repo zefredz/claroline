@@ -77,7 +77,7 @@ switch ($display)
 {
     case DISP_DELETE_RESULT :
     {
-        $cmd_menu[] = '<a href="'.$urlAppend.'/index.php">'.get_lang('Back to Homepage of %site_name',array('%site_name'=>$siteName)).'</a>';
+        $cmd_menu[] = '<a href="'.$urlAppend.'/index.php">'.get_lang('Back to Home page of %site_name',array('%site_name'=>$siteName)).'</a>';
 
         if ( isset($cidToEdit) ) //we can suppose that script is accessed from admin tool in this case
         {

@@ -183,11 +183,11 @@ if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed')
 {
-    $isSearched .= ' <b><br />' . get_lang('Enrollment allowed only') . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('Enrolment allowed only') . ' </b>  ';
 }
 if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')
 {
-    $isSearched .= ' <b><br />' . get_lang('Enrollment denied only') . ' </b>  ';
+    $isSearched .= ' <b><br />' . get_lang('Enrolment denied only') . ' </b>  ';
 }
 
 //see what must be kept for advanced links
@@ -274,7 +274,7 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 $courseDataGrid = new claro_datagrid($courseDataList);
 
 $courseDataGrid->set_colTitleList(array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Code')        . '</a>'
-                                        , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('CourseTitle') . '</a>'
+                                        , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('Course title') . '</a>'
                                         , 'faculte'      => '<a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a>'
                                         , 'qty_cm'       => get_lang('AllUsersOfThisCourse')
                                         , 'cmdSetting'   => get_lang('Course settings')

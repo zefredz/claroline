@@ -111,7 +111,7 @@ if ( $cmd == 'registration' && $error == false )
     .    '<a class="claroCmd" href="adminaddnewuser.php"> ' . get_lang('Create another new user') . ' </a>'
     .    '</li>'
     .    '<li>'
-    .    '<a class="claroCmd" href="index.php"> ' . get_lang('Back to admin page') . ' </a>'
+    .    '<a class="claroCmd" href="index.php"> ' . get_lang('Back to administration page') . ' </a>'
     .    '</li>'
     .    '</ul>'
     ;

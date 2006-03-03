@@ -45,7 +45,7 @@ $req['uidToEdit'] = (isset($_REQUEST['uidToEdit']) && ctype_digit($_REQUEST['uid
 : false;
 
 
-$cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('Back to admin page') . '</a>';
+$cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('Back to administration page') . '</a>';
 $cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
 
 if ( $cmd == 'delete' && $req['uidToEdit'] )

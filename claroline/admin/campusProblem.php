@@ -108,9 +108,9 @@ switch ($display)
         // in $view, a 1 in X posof the $view string means that the 'category' number X
         // will be show, 0 means don't show
         echo '<small>'
-        .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=1111111">' . get_lang('ShowAll') . '</a>]'
+        .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=1111111">' . get_lang('Show all') . '</a>]'
         .    '&nbsp;'
-        .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=0000000">' . get_lang('ShowNone') . '</a>]'
+        .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=0000000">' . get_lang('Show none') . '</a>]'
         .    '</small>' . "\n\n"
         ;
 

@@ -90,7 +90,7 @@ $addtoAdvanced = $searchInfo['addtoAdvanced'];
 
 if(count($searchInfo['isSearched']) )
 {
-    $title = get_lang('SearchOn') . ' : ';
+    $title = get_lang('Search on') . ' : ';
     $isSearchedHTML = implode('<br>', $isSearched);
 }
 else
@@ -130,7 +130,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
     $userGrid[$userKey]['email'] = claro_html::mailTo($user['email'], $userEmailLabel);
 
-    $userGrid[$userKey]['status'] =  ($user['status']=='COURSE_CREATOR' ? get_lang('CourseCreator') : get_lang('NormalUser'));
+    $userGrid[$userKey]['status'] =  ($user['status']=='COURSE_CREATOR' ? get_lang('Course creator') : get_lang('User'));
 
     if (user_is_admin($user['user_id']))
     {
@@ -139,7 +139,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
     .                                 '?uidToEdit=' . $user['user_id']
     .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('UserSettings') . '" />'
+    .                                 '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
     .    '</a>';
     $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
     .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
@@ -162,20 +162,20 @@ $userDataGrid->set_grid($userGrid);
 $userDataGrid->set_colHead('name') ;
 $userDataGrid->set_colTitleList(array (
                  'user_id'=>'<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>'
-                ,'name'=>'<a href="' . $sortUrlList['name'] . '">' . get_lang('LastName') . '</a>'
-                ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('FirstName') . '</a>'
+                ,'name'=>'<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
+                ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
                 ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('OfficialCode') . '</a>'
                 ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
-                ,'status'=>'<a href="' . $sortUrlList['status'] . '">' . get_lang('UserStatus') . '</a>'
-                ,'settings'=> get_lang('UserSettings')
+                ,'status'=>'<a href="' . $sortUrlList['status'] . '">' . get_lang('Status') . '</a>'
+                ,'settings'=> get_lang('User settings')
                 ,'qty_course'=>'<a href="' . $sortUrlList['qty_course'  ] . '">' . get_lang('Courses') . '</a>'
                 ,'delete'=>get_lang('Delete') ));
 
 if ( count($userGrid)==0 )
 {
-    $userDataGrid->set_noRowMessage( get_lang('NoUserResult') . "\n"
+    $userDataGrid->set_noRowMessage( get_lang('No user to display') . "\n"
     .    '<br />' . "\n"
-    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('SearchAgain') . '</a>' . "\n"
+    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>' . "\n"
     );
 }
 else
@@ -387,19 +387,19 @@ function prepare_search()
 
     if ( !empty($_SESSION['admin_user_firstName']) )
     {
-        $isSearched[] = get_lang('FirstName') . '=' . $_SESSION['admin_user_firstName'] . '*';
+        $isSearched[] = get_lang('First name') . '=' . $_SESSION['admin_user_firstName'] . '*';
         $queryStringElementList [] = 'firstName=' . urlencode($_SESSION['admin_user_firstName']);
     }
 
     if ( !empty($_SESSION['admin_user_lastName']) )
     {
-        $isSearched[] = get_lang('LastName') . '=' . $_SESSION['admin_user_lastName'] . '*';
+        $isSearched[] = get_lang('Last name') . '=' . $_SESSION['admin_user_lastName'] . '*';
         $queryStringElementList[] = 'lastName=' . urlencode($_SESSION['admin_user_lastName']);
     }
 
     if ( !empty($_SESSION['admin_user_userName']) )
     {
-        $isSearched[] = get_lang('UserName') . '=' . $_SESSION['admin_user_userName'] . '*';
+        $isSearched[] = get_lang('Username') . '=' . $_SESSION['admin_user_userName'] . '*';
         $queryStringElementList[] = 'userName=' . urlencode($_SESSION['admin_user_userName']);
     }
     if ( !empty($_SESSION['admin_user_mail']) )
@@ -410,17 +410,17 @@ function prepare_search()
 
     if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action'] == 'followcourse'))
     {
-        $isSearched[] = '<b>' . get_lang('RegStudent') . '</b>';
+        $isSearched[] = '<b>' . get_lang('Follow courses') . '</b>';
         $queryStringElementList[] = 'action=' . urlencode($_SESSION['admin_user_action']);
     }
     elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action'] == 'createcourse'))
     {
-        $isSearched[] = '<b>' . get_lang('CourseCreator') . '</b>';
+        $isSearched[] = '<b>' . get_lang('Course creator') . '</b>';
         $queryStringElementList[] = 'action=' . urlencode($_SESSION['admin_user_action']);
     }
     elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=='plateformadmin'))
     {
-        $isSearched[] = '<b>' . get_lang('PlatformAdministrator') . '  </b> ';
+        $isSearched[] = '<b>' . get_lang('Platform Administrator') . '  </b> ';
         $queryStringElementList[] = 'action=' . urlencode($_SESSION['admin_user_action']);
     }
     else $queryStringElementList[] = 'action=all';

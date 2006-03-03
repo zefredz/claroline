@@ -532,7 +532,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if( !isset($_FILES['uploadedPackage']) || !is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('The file to upload is not valid.').'<br />'.get_lang('Notice').' : '.get_lang('Max file size :').' '.get_cfg_var('upload_max_filesize') );
+        array_push ($errorMsgs, get_lang('The file to upload is not valid.').'<br />'.get_lang('Notice').' : '.get_lang('Max file size').' :'.get_cfg_var('upload_max_filesize') );
     }
 
     /*
@@ -1181,7 +1181,7 @@ else // if method == 'post'
 <input type="file" name="uploadedPackage">
 <input type="submit" value="<?php echo get_lang('Import') ?>"><br />
 
-<small><?php echo get_lang('Max file size : '); ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
+<small><?php echo get_lang('Max file size'); ?> :<?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
 
 </form>
 
