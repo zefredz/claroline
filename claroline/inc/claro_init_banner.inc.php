@@ -296,11 +296,11 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
 
         if ( isset($_REQUEST['View mode']) )
         {
-            claro_disp_tool_view_option($_REQUEST['View mode']);
+            echo claro_disp_tool_view_option($_REQUEST['View mode']);
         }
         else
         {
-            claro_disp_tool_view_option();
+            echo claro_disp_tool_view_option();
         }
         echo "\n".'</div>'                                       ."\n";
     }
