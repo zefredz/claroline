@@ -179,7 +179,7 @@ switch ( $display )
             $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
         }
 
-        echo '<p>' . claro_html::menu_horizontal($profile_menu) . '</p>';
+        echo claro_html::menu_horizontal($profile_menu);
 
         break;
 

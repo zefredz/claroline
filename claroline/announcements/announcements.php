@@ -463,7 +463,7 @@ if ( !empty($message) ) echo claro_html::message_box($message);
 /*----------------------------------------------------------------------------
 MAIN COMMANDS LINE
 ----------------------------------------------------------------------------*/
-if ( $displayButtonLine ) echo '<p>' . claro_html::menu_horizontal($cmd_menu) . '</p>';
+if ( $displayButtonLine ) echo claro_html::menu_horizontal($cmd_menu);
 
 
 /*----------------------------------------------------------------------------

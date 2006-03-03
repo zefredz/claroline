@@ -437,7 +437,7 @@ if ($display_form)
     ;
 }
 
-if ( $display_command ) echo '<p>' . claro_html::menu_horizontal($cmd_menu) . '</p>';
+if ( $display_command ) echo claro_html::menu_horizontal($cmd_menu);
 
 $monthBar     = '';
 

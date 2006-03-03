@@ -75,7 +75,7 @@ echo claro_html::tool_title(get_lang('Delete user'));
 
 if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
-claro_html::menu_horizontal($cmdList);
+echo claro_html::menu_horizontal($cmdList);
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

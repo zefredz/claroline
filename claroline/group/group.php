@@ -511,7 +511,7 @@ if ( !empty($message) ) echo claro_html::message_box($message);
 /*==========================
 COURSE ADMIN ONLY
 ==========================*/
-if ( $display_groupadmin_manager ) echo '<p>' . claro_html::menu_horizontal($groupadmin_manager_menu) . '</p>';
+if ( $display_groupadmin_manager ) echo claro_html::menu_horizontal($groupadmin_manager_menu);
 
 /**
   VIEW COMMON TO STUDENT & TEACHERS
