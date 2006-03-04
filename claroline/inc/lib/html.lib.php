@@ -10,13 +10,14 @@
  *
  * @author see 'credits' file
  *
- * @package KERNEL
  *
  */
 
 /**
  * This lib (in a class to simulate namespace) provide html stream for various
  * uniformised output.
+ *
+ * @package HTML
  *
  */
 
@@ -25,7 +26,7 @@
 class claro_html
 {
 
-    /**
+/**
  * display a item list as vertical menu.
  *
  * @param array $itemList each item are include in a list.
@@ -64,9 +65,9 @@ class claro_html
     {
 		if( is_array($itemList) && !empty($itemList) )
 		{
-        	return "\n\n" 
-        		. '<p>' 
-        		. implode( "\n" . '&nbsp;|&nbsp;' . "\n",$itemList) 
+        	return "\n\n"
+        		. '<p>'
+        		. implode( "\n" . '&nbsp;|&nbsp;' . "\n",$itemList)
         		. '</p>'
         		. "\n\n";
 		}
@@ -225,8 +226,10 @@ class claro_html
  * to enter simple parameters.
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param string $message - include your self any additionnal html
- *                          tag if you need them
+ * @param string $message include your self any additionnal html
+ *                        tag if you need them
+ * @since 1.8
+ *
  * @return $string html string for a message box
  */
 
@@ -344,7 +347,6 @@ class claro_html
  * @version 1.0
  * @see  message_box()
  *
- * @example
  *  code for using this    in your    tools:
  *  $msgArrBody["nameOfCssClass"][]="foo";
  *  css    class can be defined in    script but try to use
@@ -434,6 +436,8 @@ class claro_html
  * set_colAttributeList(array('colName'=> array('attribName'=>'attribValue'))
  * set_caption(string 'caption');
  * set_counterLine(bool 'dispCounter')
+ *
+ * @package HTML
  *
  */
 class claro_datagrid
@@ -1112,8 +1116,6 @@ $optAttrib='')
  * @param array nested data in a composite way
  *
  * @return string the HTML flow
- *
- * @example :
  *
  *  $elementList[1]['name'    ] = 'level1';
  *  $elementList[1]['value'   ] = 'level1';
