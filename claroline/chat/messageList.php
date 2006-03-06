@@ -109,7 +109,7 @@ if ($_gid)
     }
     else
     {
-        die('<center>' . get_lang('You are not a member of this groups') . '</center>');
+        die('<center>' . get_lang('You are not a member of this group') . '</center>');
     }
 }
 else

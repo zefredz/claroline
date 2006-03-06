@@ -199,7 +199,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             {
                 if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
                 {
-                    $dialogBox .= get_lang(" Zip file uploaded and uncompressed");
+                    $dialogBox .= ' ' . get_lang("Zip file uploaded and uncompressed");
                 }
                 else
                 {
@@ -225,7 +225,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                         break;
                     case 'file_exceeds_php_upload_max_filesize' :
                         $dialogBox .= 'File size exeeds.'
-                                   .  '<br />'.get_lang("Notice") . ' : ' . get_lang("Max file size : ")
+                                   .  '<br />'.get_lang("Notice") . ' : ' . get_lang("Max file size")
                                    . ' ' . get_cfg_var('upload_max_filesize');
                         break;
                     case 'file_exceeds_html_max_file_size':

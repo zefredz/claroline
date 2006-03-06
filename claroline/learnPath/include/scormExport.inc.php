@@ -286,7 +286,7 @@ class ScormExport
             $question = new Question();
             if (!$question->read($questionId))
             {
-                $this->error[] = get_lang('ErrorLoadingQuestion');
+                $this->error[] = get_lang('Unable to load exercise\'s question');
                 return false;
             }
             $qtype        = $question->selectType();

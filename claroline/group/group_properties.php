@@ -182,7 +182,7 @@ echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitl
     <tr>
         <td>
             <span class="item">
-            <?php echo get_lang("Documents") ?>
+            <?php echo get_lang("Documents and Links") ?>
             </span>
         </td>
     </tr>
