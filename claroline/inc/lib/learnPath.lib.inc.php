@@ -106,13 +106,13 @@ function commentBox($type, $mode)
             $where_cond = "`module_id` = " . (int) $module_id;  // use backticks ( ` ) for col names and simple quote ( ' ) for string
             break;
         case LEARNINGPATH_ :
-            $defaultTxt = get_lang('DefaultLearningPathComment');
+            $defaultTxt = get_lang('blockDefaultLearningPathComment');
             $col_name = 'comment';
             $tbl_name = $tbl_lp_learnPath;
             $where_cond = '`learnPath_id` = '. (int) $_SESSION['path_id'];  // use backticks ( ` ) for col names and simple quote ( ' ) for string
             break;
         case LEARNINGPATHMODULE_ :
-            $defaultTxt = get_lang('DefaultModuleAddedComment');
+            $defaultTxt = get_lang('blockDefaultModuleAddedComment');
             $col_name = 'specificComment';
             $tbl_name = $tbl_lp_rel_learnPath_module;
             $where_cond = "`learnPath_id` = " . (int) $_SESSION['path_id'] . "

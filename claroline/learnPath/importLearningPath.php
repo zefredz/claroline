@@ -923,7 +923,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                                ( !isset($manifestData['scos'][$item['identifierref']]['description']) /*|| $manifestData['scos'][$item['identifierref']]['parameters'] == ''*/ )
                        )
                 {
-                    $description = get_block('DefaultModuleComment');
+                    $description = get_block('blockDefaultModuleComment');
                 }
                 else
                 {
@@ -1016,7 +1016,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `visibility`, `lock`, `parent`)
-                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes(get_block('DefaultModuleAddedComment'))."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
+                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
                 $query = claro_sql_query($sql);
                     
                 // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
@@ -1120,7 +1120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            $lpComment = get_block('DefaultLearningPathComment');
+            $lpComment = get_block('blockDefaultLearningPathComment');
             array_push($okMsgs, get_lang('warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it') );
         }
 

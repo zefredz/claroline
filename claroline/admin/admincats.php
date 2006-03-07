@@ -539,7 +539,7 @@ else
 
             if($error)
             {
-                $controlMsg['error'][] = get_block("You can't move %facultyCode in the same category !", array('%facultyCode'=>$facultyEdit['code']));
+                $controlMsg['error'][] = get_lang("You can't move %facultyCode in the same category !", array('%facultyCode'=>$facultyEdit['code']));
             }
             else
             {
@@ -914,7 +914,7 @@ switch ($display_form)
      * Display information to change root of the category
      */
 
-        echo claro_html::tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_block("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))))
+        echo claro_html::tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_lang("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))))
         .    claro_html::msg_list($controlMsg,1)
         .    '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"

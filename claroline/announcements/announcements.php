@@ -353,7 +353,7 @@ if($is_allowedToEdit) // check teacher status
 
                 if ( $countUnvalid > 0 )
                 {
-                    $messageUnvalid = get_block('warn users without valid email',
+                    $messageUnvalid = get_block('blockUsersWithoutValidEmail',
                       array('%userQty' => $countEmail,
                             '%userInvalidQty' => $countUnvalid,
                             '%messageFailed' => $messageFailed

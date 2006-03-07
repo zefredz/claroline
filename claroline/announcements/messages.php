@@ -272,7 +272,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 
         if ( $countUnvalid > 0 )
         {
-            $messageUnvalid    =  get_block('warn users without valid email', array('%userQty' => count($userIdList),
+            $messageUnvalid    =  get_block('blockUsersWithoutValidEmail', array('%userQty' => count($userIdList),
             '%userInvalidQty' => $countUnvalid,
             '%messageFailed' => $messageFailed
             ));
@@ -354,14 +354,15 @@ if ( $displayForm == TRUE )
     * Create Form
     */
 
-    echo get_block('To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.') . "\n\n"
-    .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
+    echo get_lang('To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.') . "\n" ;
+
+    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
     .    'onSubmit="return valida();">' . "\n"
     .    '<center>' . "\n"
     .    '<table border="0" cellspacing="3" cellpadding="4">' . "\n"
     .    '<tr valign="top" align="center">'
     .    '<td>' . "\n"
-    .    '<p><b>' . get_lang("User list") . '</b></p>' . "\n"
+    .    '<p><b>' . get_lang('User list') . '</b></p>' . "\n"
     .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
     ;
 

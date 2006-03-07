@@ -35,12 +35,12 @@
     {
         case 'syntax':
         {
-            echo get_block('WikiHelpSyntaxContent');
+            echo get_block('blockWikiHelpSyntaxContent');
             break;
         }
         case 'admin':
         {
-            echo get_block('WikiHelpAdminContent');
+            echo get_block('blockWikiHelpAdminContent');
             break;
         }
         default:

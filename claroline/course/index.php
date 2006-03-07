@@ -205,7 +205,7 @@ INTRODUCTION TEXT SECTION
 // the module id for course_home equal -1 (course_home is not a tool in tool_list)
 
 $moduleId = -1;
-$helpAddIntroText=get_block('IntroCourse');
+$helpAddIntroText=get_block('blockIntroCourse');
 include($includePath . '/introductionSection.inc.php');
 
 ?>

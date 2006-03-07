@@ -51,7 +51,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['OK'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="green">OK</font>] ' . get_block('<i>%firstname %lastname</i> has been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
+                $outputResultLog .= '[<font color="green">OK</font>] ' . get_lang('<i>%firstname %lastname</i> has been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
             }
         }
 
@@ -59,7 +59,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['KO'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="red">KO</font>] ' . get_block('<i>%firstname %lastname</i> has not been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
+                $outputResultLog .= '[<font color="red">KO</font>] ' . get_lang('<i>%firstname %lastname</i> has not been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
             }
         }
     }

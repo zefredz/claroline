@@ -276,7 +276,7 @@ $courseDataGrid = new claro_datagrid($courseDataList);
 $courseDataGrid->set_colTitleList(array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Code')        . '</a>'
                                         , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('Course title') . '</a>'
                                         , 'faculte'      => '<a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a>'
-                                        , 'qty_cm'       => get_lang('AllUsersOfThisCourse')
+                                        , 'qty_cm'       => get_lang('Course members')
                                         , 'cmdSetting'   => get_lang('Course settings')
                                         , 'cmdDelete'    => get_lang('Delete')));
 

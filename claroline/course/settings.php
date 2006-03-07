@@ -446,7 +446,7 @@ if (isset($cidToEdit))
 </tr>
 <tr>
 <td>&nbsp;</td>
-<td><small><font color="gray"><?php echo get_block('Course settings tip') ?></font></small></td>
+<td><small><font color="gray"><?php echo get_block('blockCourseSettingsTip') ?></font></small></td>
 </tr>
 <tr>
 <td></td>

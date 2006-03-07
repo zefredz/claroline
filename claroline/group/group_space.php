@@ -384,7 +384,7 @@ if(count($groupMemberList) > 0)
 }
 else
 {
-    echo get_lang('GroupNoneMasc');
+    echo get_lang('(none)');
 }
 
 ?>

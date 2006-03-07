@@ -158,10 +158,11 @@ switch ( $cmd )
         .            get_lang('Find more available modules <a href="http://www.claroline.net/">here</a>.')
         .            '</p>'
         .            '<form enctype="multipart/form-data" action="" method="post">'
-        .            '<input name="uploadedModule" type="file" /><br><br>'
-        .            claro_html::button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '<input name="cmd" type="hidden" value="do_install" />'
-        .            '<input value="' . get_lang('Install Module') . '" type="submit" />'
+        .            '<input name="uploadedModule" type="file" /><br><br>'
+        .            get_lang('Install a module') . ' : '
+        .            '<input value="' . get_lang('Ok') . '" type="submit" /> '
+        .            claro_html::button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '<br><br>'
         .            '<small>' . get_lang('Max file size') . ' :  2&nbsp;MB</small>'
         .            '</form>'

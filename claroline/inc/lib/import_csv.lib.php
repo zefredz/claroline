@@ -278,11 +278,10 @@ function claro_disp_CSV_error_backlog()
         }
         if (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && $_SESSION['claro_officialcode_duplicate_error'][$i])
         {
-            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b>" . get_lang('CodeAppearAlready') . " <br>\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b>" . get_lang('This official code already appears in a previous line of the CSV file.') . " <br>\n";
         }
     }
 }
-
 
 /**
  * Check EMAIL SYNTHAX : if new users in Claroline with the specified parameters contains synthax error

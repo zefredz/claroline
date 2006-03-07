@@ -31,21 +31,19 @@ $tbl_module      = $tbl_name['module'];
 $tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
 
-if (isset($_REQUEST['dock']))
+if ( isset($_REQUEST['dock']) ) 
 {
     $dock = $_REQUEST['dock'];
 }
 else
 {
-    die(get_lang('No dock selected'));
+    $dock = null;
+    $dialogBox = get_lang('No dock selected');
 }
 
-
-$nameTools = get_lang('Module list in the dock : '.$dock);
+$nameTools = get_lang('Module list in the dock :') . $dock;
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => 'module_list.php','name' => get_lang('Module list'));
-
-
 
 //CONFIG and DEVMOD vars :
 
@@ -58,51 +56,55 @@ $modulePerPage = get_conf('moduleDockPerPage' , 10);
 $cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : null);
 $module_id = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
 
-switch ( $cmd )
+if ( !empty($dock))
 {
-    case 'up' :
+    switch ( $cmd )
     {
-        move_module_in_dock($module_id, $dock,'up');
-    }
-    break;
+        case 'up' :
+        {
+            move_module_in_dock($module_id, $dock,'up');
+        }
+        break;
 
-    case 'down' :
-    {
-        move_module_in_dock($module_id, $dock,'down');
-    }
-    break;
+        case 'down' :
+        {
+            move_module_in_dock($module_id, $dock,'down');
+        }
+        break;
 
-    case 'remove' :
-    {
-        remove_module_dock($module_id,$dock);
-        $dialogBox = get_lang('The module has been removed from this dock');
+        case 'remove' :
+        {
+            remove_module_dock($module_id,$dock);
+            $dialogBox = get_lang('The module has been removed from this dock');
+        }
+        break;
     }
-    break;
+
+    //----------------------------------
+    // FIND INFORMATION
+    //----------------------------------
+
+    $sql = "SELECT M.`id`              AS `id`,
+                   M.`label`           AS `label`,
+                   M.`name`            AS `name`,
+                   M.`activation`      AS `activation`,
+                   M.`type`            AS `type`,
+                   M.`module_info_id`  AS `module_info_id`,
+                   D.`rank`            AS `rank`
+            FROM `" . $tbl_module . "` AS M, `" . $tbl_dock . "` AS D
+            WHERE D.`module_id`= M.`id`
+              AND D.`name` = '".$dock."'
+            ORDER BY `rank`
+            ";
+
+    //pager creation
+
+    $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
+    $myPager      = new claro_sql_pager($sql, $offset, $modulePerPage);
+    $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
+    $moduleList   = $myPager->get_result_list();
+
 }
-
-//----------------------------------
-// FIND INFORMATION
-//----------------------------------
-
-$sql = "SELECT M.`id`              AS `id`,
-               M.`label`           AS `label`,
-               M.`name`            AS `name`,
-               M.`activation`      AS `activation`,
-               M.`type`            AS `type`,
-               M.`module_info_id`  AS `module_info_id`,
-               D.`rank`            AS `rank`
-        FROM `" . $tbl_module . "` AS M, `" . $tbl_dock . "` AS D
-        WHERE D.`module_id`= M.`id`
-          AND D.`name` = '".$dock."'
-        ORDER BY `rank`
-        ";
-
-//pager creation
-
-$offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
-$myPager      = new claro_sql_pager($sql, $offset, $modulePerPage);
-$pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
-$moduleList   = $myPager->get_result_list();
 
 //----------------------------------
 // DISPLAY
@@ -118,108 +120,112 @@ echo claro_disp_tool_title($nameTools);
 
 if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 
-//Display TOP Pager list
-
-echo $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
-
-// start table...
-
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-.    '<thead>'
-.    '<tr class="headerX" align="center" valign="top">'
-.    '<th>' . get_lang('Id')                 . '</th>'
-.    '<th>' . get_lang('Icon')               . '</th>'
-.    '<th>' . get_lang('Module name')        . '</th>'
-.    '<th colspan="2">' . get_lang('Order')           .'</th>'
-.    '<th>' . get_lang('Remove from the dock')          . '</th>'
-.    '</tr><tbody>'
-;
-
-$iteration = 1;
-$enditeration = sizeof($moduleList);
-
-foreach($moduleList as $module)
+if ( !empty($dock) )
 {
-    //display settings...
-    $class_css= ($module['activation']=='activated' ? 'item' : 'invisible item');
 
-    //find icon
+    //Display TOP Pager list
 
-    if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+    echo $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
+
+    // start table...
+
+    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+    .    '<thead>'
+    .    '<tr class="headerX" align="center" valign="top">'
+    .    '<th>' . get_lang('Id')                 . '</th>'
+    .    '<th>' . get_lang('Icon')               . '</th>'
+    .    '<th>' . get_lang('Module name')        . '</th>'
+    .    '<th colspan="2">' . get_lang('Order')           .'</th>'
+    .    '<th>' . get_lang('Remove from the dock')          . '</th>'
+    .    '</tr><tbody>'
+    ;
+
+    $iteration = 1;
+    $enditeration = sizeof($moduleList);
+
+    foreach($moduleList as $module)
     {
-        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
-    }
-    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
-    {
-        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.gif" />';
-    }
-    else $icon = '<small>' . get_lang('No icon') . '</small>';
+        //display settings...
+        $class_css= ($module['activation']=='activated' ? 'item' : 'invisible item');
+
+        //find icon
+
+        if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+        {
+            $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
+        }
+        elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
+        {
+            $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.gif" />';
+        }
+        else $icon = '<small>' . get_lang('No icon') . '</small>';
 
 
-    //module_id and icon column
+        //module_id and icon column
 
-    echo '<tr>'
-    .    '<td align="center">' . $module['id'] . '</td>' . "\n"
-    .    '<td align="center">' . $icon . '</td>' . "\n";
+        echo '<tr>'
+        .    '<td align="center">' . $module['id'] . '</td>' . "\n"
+        .    '<td align="center">' . $icon . '</td>' . "\n";
 
-    //name column
+        //name column
 
-    if (file_exists($includePath . '/../module/' . $module['label'] . '/admin.php'))
-    {
-        echo '<td align="left" class="' . $class_css . '" ><a href="'. $urlAppend . '/claroline/module/' . $module['label'] . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
-    }
-    else
-    {
-        echo '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n";
-    }
+        if (file_exists($includePath . '/../module/' . $module['label'] . '/admin.php'))
+        {
+            echo '<td align="left" class="' . $class_css . '" ><a href="'. $urlAppend . '/claroline/module/' . $module['label'] . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+        }
+        else
+        {
+            echo '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n";
+        }
 
-    //reorder column
+        //reorder column
 
-    //up
+        //up
 
-    echo '<td align="center">' . "\n";
-    if (!($iteration==1))
-    {
-        echo '<a href="module_dock.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;dock='.urlencode($dock).'">'
-        .    '<img src="' . $imgRepositoryWeb . 'up.gif" border="0" alt="' . get_lang('Up') . '" />'
-        .    '</a>' . "\n"
-        ;
-    }
-    echo '</td>' . "\n";
+        echo '<td align="center">' . "\n";
+        if (!($iteration==1))
+        {
+            echo '<a href="module_dock.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;dock='.urlencode($dock).'">'
+            .    '<img src="' . $imgRepositoryWeb . 'up.gif" border="0" alt="' . get_lang('Up') . '" />'
+            .    '</a>' . "\n"
+            ;
+        }
+        echo '</td>' . "\n";
 
-    //down
+        //down
 
-    echo '<td align="center">' . "\n";
-    if ($iteration != $enditeration)
-    {
-        echo '<a href="module_dock.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
+        echo '<td align="center">' . "\n";
+        if ($iteration != $enditeration)
+        {
+            echo '<a href="module_dock.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
+            .    '<img src="' . $imgRepositoryWeb . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
+            .    '</a>'
+            ;
+        }
+        echo '</td>' . "\n";
+
+        //remove links
+
+        echo '<td align="center">' . "\n"
+        .    '<a href="module_dock.php?cmd=remove&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
-        ;
+        .    '</td>' . "\n";
+
+        $iteration++;
     }
-    echo '</td>' . "\n";
 
-    //remove links
+    //end table...
 
-    echo '<td align="center">' . "\n"
-    .    '<a href="module_dock.php?cmd=remove&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
-    .    '</a>'
-    .    '</td>' . "\n";
+    echo '</tbody>'
+    .    '</table>';
 
-    $iteration++;
+
+    //Display BOTTOM Pager list
+
+    echo $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
+
 }
-
-//end table...
-
-echo '</tbody>'
-.    '</table>';
-
-
-//Display BOTTOM Pager list
-
-echo $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
-
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

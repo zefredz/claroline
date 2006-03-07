@@ -124,7 +124,7 @@ $lpUid = $_uid;
 
 // display introduction
 $moduleId = $_tid; // Id of the Learning Path introduction Area
-$helpAddIntroText = get_block('IntroLearningPath');
+$helpAddIntroText = get_block('blockIntroLearningPath');
 include($includePath."/introductionSection.inc.php");
 
 // execution of commands

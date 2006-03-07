@@ -839,7 +839,7 @@
                 ;
             echo '</div>' . "\n";
             
-            $message = get_block('WikiConflictHowTo');
+            $message = get_block('blockWikiConflictHowTo');
                 
             echo claro_html::message_box ( $message ) . '<br />' . "\n";
             

@@ -769,7 +769,7 @@ function user_send_registration_mail ($user_id, $data)
 
         // email body
 
-        $emailBody = get_block('accountCreationNotification',
+        $emailBody = get_block('blockAccountCreationNotification',
                                 array(
                                 '%firstname'=> $data['firstname'],
                                 '%lastname' => $data['lastname'],
@@ -811,7 +811,7 @@ function user_send_enroll_to_course_mail ($user_id, $data, $course=null)
 
         $emailSubject  = '[' .  get_conf('siteName') . '-' . $courseData['officialCode']. '] ' . get_lang('Your registration') ;
 
-        $emailBody = get_block('courseSubscriptionNotification',
+        $emailBody = get_block('blockCourseSubscriptionNotification',
         array(
         '%firstname'=> $data['firstname'],
         '%lastname' => $data['lastname'],

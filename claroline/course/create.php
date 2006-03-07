@@ -139,7 +139,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 		$mailSubject = get_lang('[%site_name] Course creation %course_name',array('%site_name'=> $siteName ,
                                                                                           '%course_name'=> $courseTitle) );
 
-		$mailBody = get_block('CourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
+		$mailBody = get_block('blockCourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
                                                                             '%sitename' => $siteName,
                                                                             '%user_firstname' => $_user['firstName'],
                                                                             '%user_lastname' => $_user['lastName'],

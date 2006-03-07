@@ -602,7 +602,7 @@ function trig_topic_notification($topicId)
 
     while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-	$message = get_block('ForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
+	$message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
 								  '%lastname' => $list['lastname'],
                                                                   '%url_topic' => $url_topic,
                                                                   '%url_forum' => $url_forum ) );

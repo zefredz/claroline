@@ -266,7 +266,7 @@ echo claro_html::tool_title(get_lang('Edit Tool list'));
 
 if ($msg) echo claro_html::message_box($msg);
 
-echo '<p>'.get_block('Course Tools Edit Introduction').'</p>'."\n"
+echo '<p>'.get_block('blockCourseHomePageIntroduction').'</p>'."\n"
     .'<blockquote>'."\n"
     .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
     .'<input type="hidden" name="cmd" value="exSetToolAccess" >'."\n"

@@ -200,7 +200,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_block('DefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
+                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
                 
                 $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";

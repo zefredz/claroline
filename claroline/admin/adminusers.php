@@ -164,7 +164,7 @@ $userDataGrid->set_colTitleList(array (
                  'user_id'=>'<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>'
                 ,'name'=>'<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
                 ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
-                ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('OfficialCode') . '</a>'
+                ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>'
                 ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
                 ,'status'=>'<a href="' . $sortUrlList['status'] . '">' . get_lang('Status') . '</a>'
                 ,'settings'=> get_lang('User settings')

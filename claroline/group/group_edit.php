@@ -172,7 +172,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     if ( $maxMember < $numberMembers AND $maxMember != '0' )
     {
         // Too much members compared to max members allowed
-        $messageGroupEdited = get_block('GroupTooMuchMembers');
+        $messageGroupEdited = get_lang('Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified');
     }
     else
     {

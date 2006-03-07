@@ -350,7 +350,7 @@ function install_module()
     }
     else
     {
-        array_push ($backlog_message, get_lang('Manifest missing :'.$workDir.'manifest.xml' ));
+        array_push ($backlog_message, get_lang('Manifest missing : %filename',array('%filename' => $workDir.'manifest.xml')));
         claro_delete_file($workDir);
         return $backlog_message;
     }
@@ -498,13 +498,13 @@ function install_module()
         {
             claro_sql_multi_query($sql); //multiquery should be assumed here
         }
-        array_push ($backlog_message, get_lang("<b>install.sql</b> file found and called in the module repository"));
+        array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.sql')));
     }
 
     if (file_exists($baseWorkDir . $module_info['LABEL'] . '/install/install.php'))
     {
         require $baseWorkDir.$module_info['LABEL'] . '/install/install.php';
-        array_push ($backlog_message, get_lang('<b>install.php</b> file found and called in the module repository'));
+        array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.php')));
     }
 
     //6- cache file with the module's include must be renewed after installation of the module
@@ -556,13 +556,13 @@ function uninstall_module($module_id)
         {
             claro_sql_multi_query($sql); //multiquery should be assumed here
         }
-        array_push ($backlog_message, get_lang('<b>uninstall.sql</b> file found and called in the module repository'));
+        array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'uninstall.sql')));
     }
 
     if (file_exists($baseWorkDir . $module['label'] . '/uninstall/uninstall.php'))
     {
         require $baseWorkDir . $module['label'] . '/uninstall/uninstall.php';
-        array_push ($backlog_message, get_lang('<b>uninstall.php</b> file found and called in the module repository'));
+        array_push ($backlog_message,get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'uninstall.php')));
     }
 
     // 2- delete related files and folders
@@ -571,7 +571,7 @@ function uninstall_module($module_id)
     $workDir = $baseWorkDir.$module['label'];
 
     claro_delete_file($workDir);
-    array_push ($backlog_message, get_lang("<b>".$workDir."</b> has been deleted on the server"));
+    array_push ($backlog_message, get_lang('<b>%dirname</b> has been deleted on the server',array('%dirname'=>$workDir)));
 
     // 3- delete related entries in main DB
 

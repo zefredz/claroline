@@ -181,7 +181,7 @@ else
                     {
                         // save config file
                         $config->save();
-                        $message[] = get_block('Properties for %config_name, (%config_code) are now effective on server.'
+                        $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
                                          , array('%config_name' => $config_name, '%config_code' => $config_code));
                     }
                     else
