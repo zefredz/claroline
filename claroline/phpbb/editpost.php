@@ -75,11 +75,7 @@ if ( $postSettingList && $is_allowedToEdit )
     $forumSettingList = get_forum_settings($postSettingList['forum_id']);
 
     $forum_name         = stripslashes($forumSettingList['forum_name']);
-    $forum_access       = $forumSettingList['forum_access'];
-    $forum_type         = $forumSettingList['forum_type'  ];
-    $forum_groupId      = $forumSettingList['idGroup'     ];
     $forum_cat_id       = $forumSettingList['cat_id'      ];
-    $forum_topicId      = $forumSettingList['topic_id'    ];
 
     /* 
      * Check if the topic isn't attached to a group,  or -- if it is attached --, 
@@ -183,7 +179,7 @@ else
   Display Section
  =================================================================*/
  
-if ( $forum_cat_id == 1 && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
+if ( 1 == $forum_cat_id && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
 {
     $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
     $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
