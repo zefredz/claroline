@@ -154,7 +154,14 @@ if (isset($_REQUEST['language']))
             while ($row=mysql_fetch_array($result))
             {
                 $thisLangVar['name'   ] = $row['varName'       ];
-                $thisLangVar['content'] = $row['varFullContent'];
+                if ( isset($row['varFullContent']) )
+                {
+                    $thisLangVar['content'] = $row['varFullContent'];
+                }
+                else
+                {
+                    $thisLangVar['content'] = '';
+                }
                 $languageVarList[] = $thisLangVar;
             }
         }
