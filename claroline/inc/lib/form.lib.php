@@ -16,12 +16,11 @@
  *
  */
 
-
 /**
  * @param string  $dayFieldName attribute name of the input DAY
  * @param string  $monthFieldName attribute name of the input MONTH
  * @param string  $yearFieldName attribute name of the input YEAR
- * @param boolean $selectedDate
+ * @param boolean $unixDate unix timestamp of date to display
  * @param string  $formatMonth display type of month select box : numeric, long, short
  *
  * @author Sébastien Piraux <pir@cerdecam.be>
@@ -30,13 +29,11 @@
  *
  */
 
-function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0, $formatMonth = 'numeric' )
+function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate = 0, $formatMonth = 'numeric' )
 {
-    if( $selectedDate == 0)
-    {
-        // if not date in parameters us 'today'
-        $selectedDate = date('Y-m-d');
-    }
+    if( $unixDate == 0) $selectedDate = date('Y-m-d');
+	else				$selectedDate = date('Y-m-d', $unixDate);
+    
     // split selectedDate
     list($selYear, $selMonth, $selDay) = split('-', $selectedDate);
 
@@ -91,7 +88,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
  *
  * @param string $hourFieldName attribute name of the input Hour
  * @param string $minuteFieldName attribute name of the input minutes
- * @param string $selectedTime current Time (default value in selection)
+ * @param string $unixDate unix timestamp of date to display
  *
  * @return string html stream to output input tag for an hour
  *
@@ -100,12 +97,11 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $s
  */
 
 
-function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 0)
+function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 {
-    if(!$selectedTime)
-    {
-        $selectedTime = date("H:i");
-    }
+    if( $unixDate == 0) $selectedTime = date("H:i");
+    else				$selectedTime = date("H:i",$unixDate);
+    
 
     //split selectedTime
     list($selHour, $selMinute) = split(':',$selectedTime);
