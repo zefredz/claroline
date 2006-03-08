@@ -75,7 +75,7 @@ if ( isset($_uid) )
         {
             echo '<a href="claroline/course/create.php" class="claroCmd">'
             .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
-            .    get_lang('CourseCreate')
+            .    get_lang('Create a course site')
             .    '</a>'
             ;
             if ($allowToSelfEnroll) echo '&nbsp;|&nbsp;';
@@ -85,13 +85,13 @@ if ( isset($_uid) )
         {
             echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
             .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '
-            .    get_lang('_enroll_to_a_new_course')
+            .    get_lang('Enrol on a new course')
             .    '</a>'
             .    '&nbsp;|&nbsp;'
 
             .    '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
             .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" alt="" /> '
-            .    get_lang('_remove_course_enrollment')
+            .    get_lang('Remove course enrolment')
             .    '</a>'
             ;
         }

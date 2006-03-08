@@ -72,7 +72,7 @@ switch($cmd)
             if (! $analyseResult) $errorCounter++;
 
         }
-        if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = sprintf(get_lang('%s errors found'), $errorCounter);
+        if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = get_lang('%s errors found', array('%s'=>$errorCounter));
         // analyse Course onwance
         $courseOwnanceCheck = checkCourseOwnance();
 

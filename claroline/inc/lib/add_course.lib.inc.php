@@ -955,34 +955,34 @@ function fill_db_course($courseDbName,$language)
     $TABLELEARNPATHMODULE   = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
     $TABLEASSET             = $tbl_cdb_names['lp_asset'];//  "lp_asset";
 
-    $nom = $_user['lastName'];
-    $prenom = $_user['firstName'];
+    $lastname = $_user['lastName'];
+    $firstname = $_user['firstName'];
     $email = $_user['mail'];
 
     mysql_select_db($courseDbName);
 
-// Create an example category
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'".addslashes(get_lang('Main'))."',1)");
+    ############################## FORUMS  #######################################
+    // Create an example category
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'".addslashes(get_lang('sampleForumMainCategory'))."',1)");
 
-// Create a hidden category for group forums
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'".addslashes(get_lang('Group forums'))."',2)");
-############################## GROUPS ###########################################
-    claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
-(id, self_registration, private, forum, document, wiki, chat)
-VALUES (NULL, '1', '0', '1', '1', '1', '1')");
+    // Create a hidden category for group forums
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'".addslashes(get_lang('sampleForumGroupCategory'))."',2)");
+    
     claro_sql_query("INSERT
                         INTO `".$TABLEPHPBBFORUMS."`
                         VALUES ( 1
                                , NULL
-                               , '".addslashes(get_lang('TestForum'))."'
-                               , '".addslashes(get_lang('Remove this through the forum admin tool'))."'
+                               , '".addslashes(get_lang('sampleForumTitle'))."'
+                               , '".addslashes(get_lang('sampleForumDescription'))."'
                                ,2,1,1,1,1,2,0,1)");
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"".addslashes($nom)."\",\"".addslashes($prenom)."\")");
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', '".addslashes(get_lang('Message'))."')");
-// Contenu de la table 'users'
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'".addslashes(get_lang('sampleForumTopicTitle'))."',-1,NOW(),1,0,1,1,'0','1', '".addslashes($lastname)."', '".addslashes($firstname)."')");
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTS."` VALUES (1,1,1,1,NOW(),'127.0.0.1',\"".addslashes($lastname)."\",\"".addslashes($firstname)."\")");
+    claro_sql_query("INSERT INTO `".$TABLEPHPBBPOSTSTEXT."` VALUES ('1', '".addslashes(get_lang('sampleForumMessage'))."')");
+
+    // Contenu de la table 'users'
     claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
        '1',
-       '".addslashes($nom." ".$prenom)."',
+       '".addslashes($lastname." ".$firstname)."',
        NOW(),
        'password',
        '".addslashes($email)."',
@@ -1008,13 +1008,19 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
        NULL,
        NULL
        )");
+    
     claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
        '-1',       '".addslashes(get_lang('Anonymous'))."',       NOW(),       'password',       '',
        NULL,       NULL,       NULL,       NULL,       NULL,       NULL,       NULL,
        NULL,       NULL,       NULL,       NULL,       '0',       '0',       '0',       '0',       '0',
        '0',       '1',       NULL,       NULL,       NULL       )");
+     
+    ############################## GROUPS ###########################################
+    claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
+(id, self_registration, private, forum, document, wiki, chat)
+VALUES (NULL, '1', '0', '1', '1', '1', '1')");
 
-##################### register tools in course ######################################
+    ##################### register tools in course ######################################
 
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $TABLECOURSETOOL = $tbl_mdb_names['tool'  ];
@@ -1035,33 +1041,29 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
     }
 
 ############################## EXERCICES #######################################
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '1', '1', '".addslashes(get_lang('Ridiculise'))."', '0', '".addslashes(get_lang('NoPsychology'))."', '-5', '1')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '".addslashes(get_lang('AdmitError'))."', '0', '".addslashes(get_lang('NoSeduction'))."', '-5', '2')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '3', '1', '".addslashes(get_lang('Force'))."', '1', '".addslashes(get_lang('Indeed'))."', '5', '3')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '4', '1', '".addslashes(get_lang('Contradiction'))."', '1', '".addslashes(get_lang('NotFalse'))."', '5', '4')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '".addslashes(get_lang('Sample exercise'))."', '".addslashes(get_lang('Antique'))."', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTIONLIST."` VALUES ( '1', '".addslashes(get_lang('Socratic irony is...'))."', '".addslashes(get_lang('(more than one answer can be true)'))."', '10', '1', '2','')");
+    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '1', '1', '".addslashes(get_lang('sampleQuizAnswer1'))."', '0', '".addslashes(get_lang('sampleQuizAnswer1Comment'))."', '-5', '1')");
+    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '".addslashes(get_lang('sampleQuizAnswer2'))."', '0', '".addslashes(get_lang('sampleQuizAnswer2Comment'))."', '-5', '2')");
+    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '3', '1', '".addslashes(get_lang('sampleQuizAnswer3'))."', '1', '".addslashes(get_lang('sampleQuizAnswer3Comment'))."', '5', '3')");
+    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '4', '1', '".addslashes(get_lang('sampleQuizAnswer4'))."', '1', '".addslashes(get_lang('sampleQuizAnswer4Comment'))."', '5', '4')");
+    claro_sql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '".addslashes(get_lang('sampleQuizTitle'))."', '".addslashes(get_lang('sampleQuizDescription'))."', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
+    claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTIONLIST."` VALUES ( '1', '".addslashes(get_lang('sampleQuizQuestionTitle'))."', '".addslashes(get_lang('sampleQuizQuestionText'))."', '10', '1', '2','')");
     claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTION."` VALUES ( '1', '1')");
 
 ############################### LEARNING PATH  ####################################
   // HANDMADE module type are not used for first version of claroline 1.5 beta so we don't show any exemple!
-  claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '".addslashes(get_lang('SampleLearnPath'))."', '".addslashes(get_lang('SampleLearnPathDesc'))."', 'OPEN', 'SHOW', '1')");
+  claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '".addslashes(get_lang('sampleLearnPathTitle'))."', '".addslashes(get_lang('sampleLearnPathDescription'))."', 'OPEN', 'SHOW', '1')");
 
   claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('1', '1', '1', 'OPEN', 'SHOW', '', '1', '0', '50')");
   claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('2', '1', '2', 'OPEN', 'SHOW', '', '2', '0', '50')");
 
-  claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('1', '".addslashes(get_lang('SampleDocument'))."', '".addslashes(get_lang('SampleDocumentDesc'))."', 'PRIVATE', '1', 'DOCUMENT', '')");
-  claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('2', '".addslashes(get_lang('ExerciceEx'))."', '".addslashes(get_lang('SampleExerciseDesc'))."', 'PRIVATE', '2', 'EXERCISE', '')");
+  claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('1', '".addslashes(get_lang('sampleLearnPathDocumentTitle'))."', '".addslashes(get_lang('sampleLearnPathDocumentDescription'))."', 'PRIVATE', '1', 'DOCUMENT', '')");
+  claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('2', '".addslashes(get_lang('sampleLearnPathQuizTitle'))."', '".addslashes(get_lang('sampleLearnPathQuizDescription'))."', 'PRIVATE', '2', 'EXERCISE', '')");
 
   claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('1', '1', '/Example_document.pdf', '')");
   claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '1', '')");
 
-############################## FORUMS  #######################################
-    claro_sql_query("INSERT INTO `".$TABLEPHPBBTOPICS."` VALUES (1,'".addslashes(get_lang('ExMessage'))."',-1,NOW(),1,0,1,1,'0','1', '".addslashes($nom)."', '".addslashes($prenom)."')");
-
     return true;
 };
-
 
 /**
  * To create a record in the course tabale of main database
