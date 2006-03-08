@@ -88,8 +88,7 @@ function add_module_in_dock($moduleId, $newDockName)
 
     //find info about this module occurence in this dock in the DB
 
-    $sql = "SELECT D.`name`      AS dockname,
-                   D.`rank`      AS oldRank,
+    $sql = "SELECT D.`name`      AS dockName
             FROM `" . $tbl_module . "` AS M
                , `" . $tbl_dock   . "` AS D
             WHERE M.`id` = D.`module_id`
@@ -99,7 +98,7 @@ function add_module_in_dock($moduleId, $newDockName)
 
     //if the module is already in the dock ,we just do nothing and return true.
 
-    if (isset($module['dockname']) && $module['dockname'] == $newDockName)
+    if (isset($module['dockName']) && $module['dockName'] == $newDockName)
     {
         return true;
     }
@@ -190,11 +189,11 @@ function remove_module_dock($moduleId,$dockName)
  * Move a module inside its dock (change its position in the display
  *
  * @param integer $moduleId
- * @param string $dockname
+ * @param string $dockName
  * @param string $direction 'up' or 'down'
  */
 
-function move_module_in_dock($moduleId, $dockname, $direction)
+function move_module_in_dock($moduleId, $dockName, $direction)
 {
     $tbl_name        = claro_sql_get_main_tbl();
     $tbl_dock        = $tbl_name['dock'];
@@ -207,14 +206,14 @@ function move_module_in_dock($moduleId, $dockname, $direction)
             $sql = "SELECT `rank`
                     FROM `" . $tbl_dock . "`
                     WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" . addslashes($dockname) . "'";
+                    AND `name`='" . addslashes($dockName) . "'";
             $result=claro_sql_query_get_single_value($sql);
 
             //2-move down above module
             $sql = "UPDATE `" . $tbl_dock . "`
                     SET `rank` = `rank`+1
                     WHERE `module_id` != " . (int) $moduleId . "
-                    AND `name`       = '" . addslashes($dockname) . "'
+                    AND `name`       = '" . addslashes($dockName) . "'
                     AND `rank`       = " . (int) $result['rank'] . " -1 ";
 
             claro_sql_query($sql);
@@ -223,7 +222,7 @@ function move_module_in_dock($moduleId, $dockname, $direction)
             $sql = "UPDATE `" . $tbl_dock . "`
                     SET `rank` = `rank`-1
                     WHERE `module_id` = " . (int) $moduleId . "
-                    AND `name`      = '" .  addslashes($dockname) . "'
+                    AND `name`      = '" .  addslashes($dockName) . "'
                     AND `rank` > 1"; // this last condition is to avoid wrong update due to a page refreshment
             claro_sql_query($sql);
 
@@ -235,23 +234,23 @@ function move_module_in_dock($moduleId, $dockname, $direction)
             $sql = "SELECT `rank`
                     FROM `" . $tbl_dock . "`
                     WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" . addslashes($dockname) . "'";
+                    AND `name`='" . addslashes($dockName) . "'";
             $result=claro_sql_query_get_single_value($sql);
 
             //this second query is to avoid a page refreshment wrong update
 
             $sqlmax= "SELECT MAX(`rank`) AS `max_rank`
                       FROM `" . $tbl_dock . "`
-                      WHERE `name`='" .  addslashes($dockname) . "'";
+                      WHERE `name`='" .  addslashes($dockName) . "'";
             $resultmax=claro_sql_query_get_single_value($sqlmax);
 
-            if ($resultmax['max_rank']==$result['rank']) break;
+            if ($resultmax['max_rank'] == $result['rank']) break;
 
             //2-move up above module
             $sql = "UPDATE `" . $tbl_dock . "`
                     SET `rank` = `rank` - 1
                     WHERE `module_id` != " . $moduleId . "
-                    AND `name` = '" . addslashes($dockname) . "'
+                    AND `name` = '" . addslashes($dockName) . "'
                     AND `rank` = " . (int) $result['rank'] . " + 1
                     AND `rank` > 1";
             claro_sql_query($sql);
@@ -260,7 +259,7 @@ function move_module_in_dock($moduleId, $dockname, $direction)
             $sql = "UPDATE `" . $tbl_dock . "`
                     SET `rank` = `rank` + 1
                     WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" .  addslashes($dockname) . "'";
+                    AND `name`='" .  addslashes($dockName) . "'";
             claro_sql_query($sql);
 
             break;
@@ -422,14 +421,15 @@ function install_module()
                 type  = '" . addslashes($module_info['MODULE_TYPE']) . "'";
     $moduleId = claro_sql_query_insert_id($sql);
 
-    $sql = "INSERT INTO `" . $tbl_module_info . "` (
-            module_id    = '" . $moduleId . "',
-            version      = '" . $module_info['CLARO_VERSION'] . "',
-            author       = '" . $module_info['AUTHOR_NAME'  ] . "',
-                author_email = '" . $module_info['AUTHOR_EMAIL' ] . "',
-                website      = '" . $module_info['AUTHOR_WEB'   ] . "',
-                description  = '" . $module_info['DESCRIPTION'  ] . "',
-                license      = '" . $module_info['LICENSE'      ] . "'";
+    $sql = "INSERT INTO `" . $tbl_module_info . "`
+            SET module_id    = " . (int) $moduleId . ",
+                version      = '" . addslashes($module_info['CLARO_VERSION']) . "',
+                author       = '" . addslashes($module_info['AUTHOR_NAME'  ]) . "',
+                author_email = '" . addslashes($module_info['AUTHOR_EMAIL' ]) . "',
+                website      = '" . addslashes($module_info['AUTHOR_WEB'   ]) . "',
+                description  = '" . addslashes($module_info['DESCRIPTION'  ]) . "',
+                license      = '" . addslashes($module_info['LICENSE'      ]) . "'";
+
     $module_info_id =  claro_sql_query_insert_id($sql);
 
     $sql = "UPDATE `" . $tbl_module . "`
@@ -439,7 +439,7 @@ function install_module()
 
     //in case of coursetool type module, the dock can not be selected and must added also now
 
-    if ($module_info['MODULE_TYPE'] == 'coursetool')
+    if ('coursetool' == $module_info['MODULE_TYPE'])
     {
         add_module_in_dock($moduleId, 'coursetool');
     }
@@ -555,12 +555,12 @@ function uninstall_module($moduleId)
 
     // 3- delete related entries in main DB
 
-    $sql = "DELETE FROM `".$tbl_module."`
-                  WHERE `id` = ". (int)$moduleId;
+    $sql = "DELETE FROM `" . $tbl_module . "`
+            WHERE `id` = ". (int) $moduleId;
     claro_sql_query($sql);
 
-    $sql = "DELETE FROM `".$tbl_module_info."`
-                  WHERE `module_id` = ". (int)$moduleId;
+    $sql = "DELETE FROM `" . $tbl_module_info . "`
+            WHERE `module_id` = " . (int) $moduleId;
     claro_sql_query($sql);
 
     // 4- remove all docks entries in which the module displays
@@ -584,20 +584,20 @@ function uninstall_module($moduleId)
 /**
  * Function used by the SAX xml parser when the parser meets a opening tag
  *
- * @param tring $dockname the dock from which we want this info
+ * @param tring $dockName the dock from which we want this info
  * @return integer : the max rank used for this dock
  *
  */
 
 
-function get_max_rank_in_dock($dockname)
+function get_max_rank_in_dock($dockName)
 {
     $tbl_name = claro_sql_get_main_tbl();
     $tbl_dock = $tbl_name['dock'];
 
     $sql = "SELECT MAX(rank) AS mrank
             FROM `" . $tbl_dock . "` AS D
-            WHERE D . `name` = '" . addslashes($dockname) . "'";
+            WHERE D . `name` = '" . addslashes($dockName) . "'";
     $max_rank = claro_sql_query_get_single_value($sql);
     return (int) $max_rank;
 }
