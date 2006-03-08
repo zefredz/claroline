@@ -126,19 +126,16 @@ if( !empty($cmd) )
 								$_REQUEST['endYear']);
         $assignment->setEndDate($unixEndDate);
 
-        $assignment_data['start_date_date'] = $_REQUEST['startYear'] . '-' . $_REQUEST['startMonth'] . '-' . $_REQUEST['startDay'];
-        $assignment_data['start_date_time'] = $_REQUEST['startHour'] . ':' . $_REQUEST['startMinute'] . ':00';
-        $assignment_data['end_date_date'] 	= $_REQUEST['endYear'] . '-' . $_REQUEST['endMonth'] . '-' . $_REQUEST['endDay'];
-        $assignment_data['end_date_time'] 	= $_REQUEST['endHour'] . ':' . $_REQUEST['endMinute'] . ':00';
+        $assignment_data['start_date'] = $unixStartDate;
+        												
+        $assignment_data['end_date'] 	= $unixEndDate;
     }
     else
     {
     	// create new assignment
         // add date format used to pre fill the form
-        $assignment_data['start_date_date'] = date('Y-m-d', $assignment->getStartDate() );
-        $assignment_data['start_date_time'] = date('H:i:00', $assignment->getStartDate() );
-        $assignment_data['end_date_date'] 	= date('Y-m-d', $assignment->getEndDate() );
-        $assignment_data['end_date_time'] 	= date('H:i:00', $assignment->getEndDate() );
+        $assignment_data['start_date'] = $assignment->getStartDate();
+        $assignment_data['end_date'] 	= $assignment->getEndDate();
     }
 }
 
@@ -430,7 +427,7 @@ if ($is_allowedToEdit)
         <td valign="top"><?php echo get_lang('Start date'); ?>&nbsp;:</td>
         <td>
 <?php
-    echo claro_disp_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date_date'], 'long') . ' ' . claro_disp_time_form('startHour', 'startMinute', $assignment_data['start_date_time']);
+    echo claro_disp_date_form('startDay', 'startMonth', 'startYear', $assignment_data['start_date'], 'long') . ' ' . claro_disp_time_form('startHour', 'startMinute', $assignment_data['start_date']);
     echo '&nbsp;<small>' . get_lang('(d/m/y hh:mm)') . '</small>';
 ?>
         </td>
@@ -440,7 +437,7 @@ if ($is_allowedToEdit)
         <td valign="top"><?php echo get_lang('End date'); ?>&nbsp;:</td>
         <td>
 <?php
-    echo claro_disp_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date_date'], 'long') . ' ' . claro_disp_time_form('endHour', 'endMinute', $assignment_data['end_date_time']);
+    echo claro_disp_date_form('endDay', 'endMonth', 'endYear', $assignment_data['end_date'], 'long') . ' ' . claro_disp_time_form('endHour', 'endMinute', $assignment_data['end_date']);
     echo '&nbsp;<small>' . get_lang('(d/m/y hh:mm)') . '</small>';
 ?>
         </td>

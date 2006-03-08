@@ -52,11 +52,9 @@ if( isset($_REQUEST['submitExercise']) )
 
         $useEndDate        = ( isset($_REQUEST['useEndDate']) )? true : false;
 
-        $startDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['startMonth'], $_REQUEST['startDay'], $_REQUEST['startYear'] ) );
-        $startTime = date("H:i:00", mktime( $_REQUEST['startHour'],$_REQUEST['startMinute'],0) );
-
-                $endDate = date("Y-m-d", mktime( 0,0,0,$_REQUEST['endMonth'], $_REQUEST['endDay'], $_REQUEST['endYear'] ) );
-        $endTime = date("H:i:00", mktime( $_REQUEST['endHour'],$_REQUEST['endMinute'],0) );
+        $startDate = mktime( $_REQUEST['startHour'],$_REQUEST['startMinute'],0,$_REQUEST['startMonth'], $_REQUEST['startDay'], $_REQUEST['startYear'] );
+        
+        $endDate = mktime( $_REQUEST['endHour'],$_REQUEST['endMinute'],0,$_REQUEST['endMonth'], $_REQUEST['endDay'], $_REQUEST['endYear'] );
     }
     else
     {
@@ -140,21 +138,20 @@ if( ! isset($_REQUEST['submitExercise']) || ( isset($_REQUEST['exerciseTitle']) 
     $anonymousAttempts      = $_SESSION['objExercise']->anonymous_attempts();
 
     // start date splitting
-    list($startDate, $startTime) = split(' ', $_SESSION['objExercise']->get_start_date());
+    $startDate = strtotime($_SESSION['objExercise']->get_start_date());
 
     // end date splitting
     if($_SESSION['objExercise']->get_end_date() == "9999-12-31 23:59:59")
     {
         // if we don't have a date get the date of now + 1 year
         $useEndDate = false;
-        $endDate = date("Y-m-d", mktime( 0,0,0,date("m"), date("d"), date("Y")+1 ) );
-        $endTime = date("H:i:00", mktime( date("H"),date("i"),0) );
+        $endDate = mktime( date("H"),date("i"),0, date("m"), date("d"), date("Y")+1 );
     }
     else
     {
         // if we have a date separe date and time for the form functions
         $useEndDate = true;
-        list($endDate, $endTime) = split(' ', $_SESSION['objExercise']->get_end_date());
+        $endDate = strtotime($_SESSION['objExercise']->get_end_date());
     }
 }
 
@@ -243,7 +240,7 @@ if( isset($modifyExercise) )
 <td>
 <?php
 
-   echo claro_disp_date_form("startDay", "startMonth", "startYear", $startDate, 'long')." ".claro_disp_time_form("startHour", "startMinute", $startTime);
+   echo claro_disp_date_form("startDay", "startMonth", "startYear", $startDate, 'long')." ".claro_disp_time_form("startHour", "startMinute", $startDate);
 ?>
   </td>
 </tr>
@@ -257,7 +254,7 @@ if( isset($modifyExercise) )
 <input type="checkbox" name="useEndDate" id="useEndDate" value="1" <?php if( $useEndDate ) echo 'checked="checked"';?>>
 <label for="useEndDate"><?php echo get_lang('Yes'); ?>, </label>
 <?php
-   echo claro_disp_date_form("endDay", "endMonth", "endYear", $endDate, 'long')." ".claro_disp_time_form("endHour", "endMinute", $endTime);
+   echo claro_disp_date_form("endDay", "endMonth", "endYear", $endDate, 'long')." ".claro_disp_time_form("endHour", "endMinute", $endDate);
 ?>
   </td>
 </tr>

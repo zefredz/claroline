@@ -244,6 +244,8 @@ if ( $is_allowedToEdit )
         if ( $cmd == 'rqEdit' && !empty($id) )
         {
             $editedEvent = agenda_get_item($id) ;
+            // get date as unixtimestamp for claro_dis_date_form and claro_disp_time_form
+            $editedEvent['date'] = strtotime($editedEvent['dayAncient'].' '.$editedEvent['hourAncient']);
             $nextCommand = 'exEdit';
         }
         else
@@ -251,12 +253,10 @@ if ( $is_allowedToEdit )
             $editedEvent['id'            ] = '';
             $editedEvent['title'         ] = '';
             $editedEvent['content'       ] = '';
-            $editedEvent['dayAncient'    ] = FALSE;
-            $editedEvent['hourAncient'   ] = FALSE;
+            $editedEvent['date'] = time();
             $editedEvent['lastingAncient'] = FALSE;
 
             $nextCommand = 'exAdd';
-
         }
         $display_form =TRUE;
     } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
@@ -337,15 +337,6 @@ if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 if ($display_form)
 {
-
-    $date = date('Y-m-d', mktime( 0,0,0,date('m'), date('d'), date('Y') ) );
-    $time = date('H:i:00', mktime( date('H'),date('i'),0) );
-    if ($editedEvent['hourAncient']) $time = $editedEvent['hourAncient'];
-    if ($editedEvent['dayAncient']) $date = $editedEvent['dayAncient'];
-
-    $title   = $editedEvent['title'];
-    $content = $editedEvent['content'];
-
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
@@ -358,8 +349,8 @@ if ($display_form)
     .    '<td align="right">' . get_lang('Date') . ' : '
     .    '</td>' . "\n"
     .    '<td>'
-    .    claro_disp_date_form('fday', 'fmonth', 'fyear', $date, 'long' ) . ' '
-    .    claro_disp_time_form('fhour','fminute', $time) . '&nbsp;'
+    .    claro_disp_date_form('fday', 'fmonth', 'fyear', $editedEvent['date'], 'long' ) . ' '
+    .    claro_disp_time_form('fhour','fminute', $editedEvent['date']) . '&nbsp;'
     .    '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -379,7 +370,7 @@ if ($display_form)
     .    '</td>' . "\n"
     .    '<td>' . "\n"
     .    '<input size="80" type="text" name="title" id="title" value="'
-    .    (isset($title) ? htmlspecialchars($title) : ''). '" />' . "\n"
+    .    htmlspecialchars($editedEvent['title']). '" />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr valign="top">' . "\n"
@@ -390,7 +381,7 @@ if ($display_form)
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_disp_html_area('content', htmlspecialchars($content), 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
+    .    claro_disp_html_area('content', htmlspecialchars($editedEvent['content']), 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
     .    '<br />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
