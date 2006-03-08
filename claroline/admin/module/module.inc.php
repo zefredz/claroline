@@ -15,6 +15,59 @@
  */
 
 /**
+ * Get installed module list, its effect is
+ * * to return an array containing the installed module's labels
+ * @param string $type : type of the module that msu be returned, if null, then all the modules are returned
+ * @return boolean Returns whether the activation succeed, false otherwise
+ */
+
+function get_installed_module_list($type = null)
+{
+    $tbl_name = claro_sql_get_main_tbl();
+    $tbl_module = $tbl_name['module'];
+
+    $sql = "SELECT `id`,
+                   `label`,
+                   `name`
+            FROM   `" . $tbl_module."`";
+    if (isset($type))
+    {
+        $sql.= " WHERE `type`='".$type."'";
+    }
+
+    $moduleList = claro_sql_query_fetch_all($sql);
+    return $moduleList;
+}
+
+/**
+ * Get the list of the repositories found in the module repository where all modules are installed, its effect is
+ * * to return an array containing the installed module's labels
+ * @param string $type : type of the module that must be returned, if null, then all the modules are returned
+ * @return boolean Returns whether the activation succeed, false otherwise
+ */
+
+function get_module_repositories()
+{
+    $baseWorkDir = get_conf('rootSys') . 'claroline/module/';
+
+    if ($handle = opendir($baseWorkDir))
+    {
+        while (false !== ($file = readdir($handle)))
+        {
+            // skip eventual files found at this place
+            if (!is_dir($baseWorkDir.$file) ) continue ;
+
+            // skip '.', '..' and 'CVS'
+            if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
+            
+            echo $file.'<br>';
+        }
+    }
+
+   closedir($handle);
+}
+
+/**
  * Activate a module, its effect is
  * * to call the activation script of the module (if there is any)
  * * to modify the information in the main DB
@@ -27,6 +80,8 @@ function activate_module($moduleId)
     $tbl_name = claro_sql_get_main_tbl();
     $tbl_module = $tbl_name['module'];
     //1- call activation script (if any) from the module repository
+
+    /*TO DO*/
 
     //2- change related entry in the main DB
 
@@ -53,6 +108,8 @@ function activate_module($moduleId)
 function desactivate_module($moduleId)
 {
     //1- call desactivation script (if any) from the module repository
+
+    /*TO DO*/
 
     //2- change related entry in the main DB
 
@@ -88,7 +145,8 @@ function add_module_in_dock($moduleId, $newDockName)
 
     //find info about this module occurence in this dock in the DB
 
-    $sql = "SELECT D.`name`      AS dockName
+    $sql = "SELECT D.`name`      AS dockname,
+                   D.`rank`      AS oldRank
             FROM `" . $tbl_module . "` AS M
                , `" . $tbl_dock   . "` AS D
             WHERE M.`id` = D.`module_id`
@@ -421,6 +479,7 @@ function install_module()
                 type  = '" . addslashes($module_info['MODULE_TYPE']) . "'";
     $moduleId = claro_sql_query_insert_id($sql);
 
+
     $sql = "INSERT INTO `" . $tbl_module_info . "`
             SET module_id    = " . (int) $moduleId . ",
                 version      = '" . addslashes($module_info['CLARO_VERSION']) . "',
@@ -547,7 +606,6 @@ function uninstall_module($moduleId)
 
     // 2- delete related files and folders
 
-    $baseWorkDir = $rootSys.'claroline/module/';
     $workDir = $baseWorkDir.$module['label'];
 
     claro_delete_file($workDir);
