@@ -10,6 +10,7 @@
  * @package ADMIN
  *
  * @author claro team <cvs@claroline.net>
+ * @since 1.8
  */
 
 require '../../inc/claro_init_global.inc.php';
@@ -133,7 +134,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 //display title
 
-echo claro_disp_tool_title($nameTools . ' : ' . $module['module_name']);
+echo claro_html::tool_title($nameTools . ' : ' . $module['module_name']);
 
 //Display Forms or dialog box(if needed)
 
