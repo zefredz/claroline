@@ -105,7 +105,7 @@ function add_module_in_dock($module_id, $new_dock_name)
     {
 
         //find the highest rank already used in the new dock
-    
+
         $max_rank = get_max_rank_in_dock($new_dock_name);
     
         // the module is not already in this dock, we just insert it into this in the DB
@@ -288,6 +288,7 @@ function install_module()
     // needed for parser
     global $element_pile;
     global $module_info;
+    global $mainTblPrefix;
 
     $tbl_name = claro_sql_get_main_tbl();
     $tbl_module = $tbl_name['module'];
@@ -460,7 +461,7 @@ function install_module()
 
     //in case of coursetool type module, the dock can not be selected and must added also now
 
-    $max_rank = get_max_rank_in_dock('coursetool');
+    
     if ($module_info['MODULE_TYPE'] == 'coursetool')
     {
         add_module_in_dock($module_id, 'coursetool');
@@ -496,6 +497,7 @@ function install_module()
         $sql = file_get_contents($baseWorkDir.$module_info['LABEL'].'/install/install.sql');
         if (!empty($sql))
         {
+            $sql = str_replace ('__CL_MAIN__',$mainTblPrefix, $sql);
             claro_sql_multi_query($sql); //multiquery should be assumed here
         }
         array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.sql')));
@@ -528,6 +530,7 @@ function uninstall_module($module_id)
 {
 
     global $rootSys;
+    global $mainTblPrefix;
 
     //Needed tables and vars
 
@@ -554,6 +557,7 @@ function uninstall_module($module_id)
         $sql = file_get_contents($baseWorkDir . $module['label'] . '/uninstall/uninstall.sql');
         if (!empty($sql))
         {
+            $sql = str_replace ('__CL_MAIN__',$mainTblPrefix, $sql);
             claro_sql_multi_query($sql); //multiquery should be assumed here
         }
         array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'uninstall.sql')));
@@ -795,7 +799,7 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 function generate_module_cache()
 {
     global $includePath;
-    global $module_cache_filename;
+    $module_cache_filename = get_conf('module_cache_filename');
 
     $tbl_name = claro_sql_get_main_tbl();
     $tbl_module = $tbl_name['module'];
@@ -825,7 +829,7 @@ function generate_module_cache()
 
             if (fwrite($handle, $dock_include) === FALSE)
             {
-                echo "ERROR: could not write in (".$filename.")";
+                echo "ERROR: could not write in (".$module_cache_filename.")";
             }
         }
     }
