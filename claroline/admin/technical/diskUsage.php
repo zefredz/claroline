@@ -144,18 +144,9 @@ if ($disp_selCrs && $coursesToCheck)
                       dbName db,
                       diskQuota
                       FROM `" . $tbl_course . "` ";
-    if($coursesToCheck[0]==" all ")
-    {
-        $sqlListCourses .= " order by dbName";
-    }
-    elseif (is_array($coursesToCheck))
-    {
-        $sqlListCourses .= " where code in ('".implode( "','", $coursesToCheck )."') order by dbName";
-    }
-    else
-    {
-        unset($sqlListCourses);
-    }
+    if($coursesToCheck[0]==" all ")    $sqlListCourses .= " order by dbName";
+    elseif (is_array($coursesToCheck)) $sqlListCourses .= " where code in ('".implode( "','", $coursesToCheck )."') order by dbName";
+    else unset($sqlListCourses);
 
     if (isset($sqlListCourses))
     {
