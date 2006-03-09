@@ -5,39 +5,39 @@ unset($titreBlocNotEditable);
 unset($questionPlan);
 unset($info2Say);
 
-$titreBloc           [] = get_lang('Description');
+$titreBloc           [] = get_block('blockCourseDescriptionDescription');
 $titreBlocNotEditable[] = false;
-$questionPlan        [] = get_lang('DescriptionComment1');
-$info2Say            [] = get_lang('DescriptionComment2');
+$questionPlan        [] = get_block('blockCourseDescriptionDescriptionComment1');
+$info2Say            [] = get_block('blockCourseDescriptionDescriptionComment2');
 
-$titreBloc           [] = get_lang('QualificationsAndGoals');
+$titreBloc           [] = get_block('blockCourseDescriptionQualificationsAndGoals');
 $titreBlocNotEditable[] = true;
-$questionPlan        [] = get_lang('QualificationsAndGoalsComment1');
-$info2Say            [] = get_lang('QualificationsAndGoalsComment2');
+$questionPlan        [] = get_block('blockCourseDescriptionQualificationsAndGoalsComment1');
+$info2Say            [] = get_block('blockCourseDescriptionQualificationsAndGoalsComment2');
 
-$titreBloc           [] = get_lang('CourseContent');
+$titreBloc           [] = get_block('blockCourseDescriptionCourseContent');
 $titreBlocNotEditable[] = true;
-$questionPlan        [] = get_lang('CourseContentComment1');
-$info2Say            [] = get_lang('CourseContentComment2');
+$questionPlan        [] = get_block('blockCourseDescriptionCourseContentComment1');
+$info2Say            [] = get_block('blockCourseDescriptionCourseContentComment2');
 
-$titreBloc           [] = get_lang('TeachingTrainingActivities');
+$titreBloc           [] = get_block('blockCourseDescriptionTeachingTrainingActivities');
 $titreBlocNotEditable[] = true;
-$questionPlan        [] = get_lang('TeachingTrainingActivitiesComment1');
-$info2Say            [] = get_lang('TeachingTrainingActivitiesComment2');
+$questionPlan        [] = get_block('blockCourseDescriptionTeachingTrainingActivitiesComment1');
+$info2Say            [] = get_block('blockCourseDescriptionTeachingTrainingActivitiesComment2');
 
-$titreBloc           [] = get_lang('Supports');
+$titreBloc           [] = get_block('blockCourseDescriptionSupports');
 $titreBlocNotEditable[] = true;
-$questionPlan        [] = get_lang('SupportsComment1');
-$info2Say            [] = get_lang('SupportsComment2');
+$questionPlan        [] = get_block('blockCourseDescriptionSupportsComment1');
+$info2Say            [] = get_block('blockCourseDescriptionSupportsComment2');
 
-$titreBloc           [] = get_lang('HumanAndPhysicalRessources');
+$titreBloc           [] = get_block('blockCourseDescriptionHumanAndPhysicalRessources');
 $titreBlocNotEditable[] = true;
-$questionPlan        [] = get_lang('HumanAndPhysicalResourcesComment1');
-$info2Say            [] = get_lang('HumanAndPhysicalResourcesComment2');
+$questionPlan        [] = get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment1');
+$info2Say            [] = get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment2');
 
-$titreBloc           [] = get_lang('MethodsOfEvaluation');
+$titreBloc           [] = get_block('blockCourseDescriptionMethodsOfEvaluation');
 $titreBlocNotEditable[] = true;
-$questionPlan        [] = get_lang('MethodsOfEvaluationComment1');
-$info2Say            [] = get_lang('MethodsOfEvaluationComment1');
+$questionPlan        [] = get_block('blockCourseDescriptionMethodsOfEvaluationComment1');
+$info2Say            [] = get_block('blockCourseDescriptionMethodsOfEvaluationComment1');
 
 ?>

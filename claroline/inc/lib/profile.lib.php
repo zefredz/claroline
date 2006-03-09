@@ -33,15 +33,19 @@ function profile_send_request_course_creator_status ($explanation)
 
     $mailToUidList = claro_get_uid_of_platform_admin();
 
-    $requestMessage_Title = '[' . get_conf('siteName') . '][Request]' . sprintf(get_lang('CourseManagerStatusToUser'),$_user['lastName'],$_user['firstName']);
-
-    $requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
-                            . sprintf(get_lang('CourseManagerStatusToUser'),$_user['lastName'],$_user['firstName']) . "\n"
-                            . get_lang('User') . ': ' . $_uid . "\n"
-                            . get_lang('Name') . ': ' . $_user['firstName']. ' ' . $_user['lastName'] . "\n"
-                            . get_lang('Email') . ':' . $_user['mail'] . "\n"
-                            . get_lang('Comment') . ': ' . nl2br($explanation) . "\n"
-                            . get_lang('Link') . ': ' . get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid;
+    $requestMessage_Title = get_block('[%sitename][Request] Course creator status to %firstname %lastname', array('%sitename' => get_conf('siteName'),
+                                                                                                                  '%firstname' => $_user['firstName'],
+                                                                                                                  '%firstname' => $_user['lastName'] ) );
+    $requestMessage_Content = get_block('blockRequestCourseManagerStatusMail', 
+                                                 array( '%time' => claro_disp_localised_date($dateFormatLong),
+                                                        '%user_id' => $_uid,
+                                                        '%firstname' => $_user['firstName'],
+                                                        '%lastname' => $_user['lastName'],
+                                                        '%email' => $_user['mail'],
+                                                        '%comment' => nl2br($explanation),
+                                                        '%url' => get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid 
+                                                      )
+                                        );
 
     foreach ( $mailToUidList as $mailToUid )
     {
@@ -68,16 +72,23 @@ function profile_send_request_revoquation ($explanation,$login,$password)
      * @todo with new profil it would be interresting to have a profil to select who receipt this "mail"
      */
     $mailToUidList = claro_get_uid_of_platform_admin();
-    $requestMessage_Title = '[' . get_conf('siteName') .'][Request]' . sprintf(get_lang('RevoquationOfUser'),$_user['lastName'],$_user['firstName']);
-    $requestMessage_Content = claro_disp_localised_date($dateFormatLong) . "\n"
-                            . sprintf(get_lang('RevoquationOfUser'),$_user['lastName'],$_user['firstName']) . "\n"
-                            . get_lang('User') . ': ' . $_uid . "\n"
-                            . get_lang('Name') . ': ' . $_user['firstName'] . ' ' . $_user['lastName'] . "\n"
-                            . get_lang('Email') . ': ' . $_user['mail'] . "\n"
-                            . get_lang('Login') . ': ' . $login . "\n"
-                            . get_lang('Password') . ':' . $password . "\n"
-                            . get_lang('Comment') . ': ' . $explanation . "\n"
-                            . get_lang('Link') . ' : ' . get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid . "\n";
+    
+    $requestMessage_Title = get_block('[%sitename][Request] Revocation of %firstname %lastname', array('%sitename' => get_conf('siteName'),
+                                                                                                       '%firstname' => $_user['firstName'],
+                                                                                                       '%firstname' => $_user['lastName'] ) );
+    
+    $requestMessage_Content = get_block('blockRequestUserRevoquationMail', 
+                                                 array( '%time' => claro_disp_localised_date($dateFormatLong),
+                                                        '%user_id' => $_uid,
+                                                        '%firstname' => $_user['firstName'],
+                                                        '%lastname' => $_user['lastName'],
+                                                        '%email' => $_user['mail'],
+                                                        '%login' => $login,
+                                                        '%password' => $password,
+                                                        '%comment' => nl2br($explanation),
+                                                        '%url' =>  get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid 
+                                                      )
+                                        );
 
     foreach ($mailToUidList as $mailToUid)
     {

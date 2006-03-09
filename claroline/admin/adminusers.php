@@ -143,7 +143,7 @@ foreach ($userList as $userKey => $user)
     .    '</a>';
     $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
     .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
-    .                                   sprintf(($user['qty_course']>1 ? get_lang('_p_d_courses') : get_lang('_p_d_course')), $user['qty_course']) . "\n"
+    .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
     .                                   '</a>' . "\n"
     ;
 

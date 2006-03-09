@@ -141,12 +141,10 @@ if ( isset($_REQUEST['language']) )
                 echo '<li>Rename ' . $old_value . ' to ' . $new_value . '</li>' . "\n";
                 $nb_update++;
             }
-            /*
             else
             {
                 echo '<li><em>Not found :</em> ' . $old_value . '</li>' . "\n";
             }
-            */
         }
 
         echo '</ol>' . "\n";

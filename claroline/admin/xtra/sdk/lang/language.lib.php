@@ -736,6 +736,7 @@ function load_array_translation ($language)
 function build_translation_line_file($key,$value)
 {
     $varName = preg_replace('/\'/', '\\\'', $key);
+    //$varName = preg_replace('/\\\"/', '"', $key);
     $varContent = preg_replace('/\'/', '\\\'', $value);
 
     $string = '$_lang[\''. $varName .'\'] = \''. $varContent .'\';' . "\n";

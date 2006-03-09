@@ -2,15 +2,8 @@
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modified on %2$s by %3$s';
-$_lang['%2d member'] = '%2d member';
-$_lang['%2d members'] = '%2d members';
-$_lang['%2d prof'] = '%2d prof ';
-$_lang['%2d profs'] = '%2d profs ';
-$_lang['%2d student'] = '%2d student';
-$_lang['%2d students'] = '%2d students';
 $_lang['%moduleName has been added as module'] = 'has been added as a module of the course and of this learning path';
 $_lang['%moduleName is already used as a module in this learning path'] = 'This exercise is already used as a module in this learning path';
-$_lang['&nbsp;groups'] = '&nbsp;groups';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) anonymous users, users who are not members of this course...';
 $_lang['(When an user open the index of the campus)'] = '(When an user open the index of the campus)';
 $_lang['(always private)'] = '(always private)';
@@ -27,7 +20,6 @@ $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwi
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>';
 $_lang['A file is required'] = 'A file is required';
 $_lang['A reply to your topic has been posted'] = 'A reply to your topic has been posted.';
-$_lang['A user can be a member of maximum'] = 'A user can be a member of maximum ';
 $_lang['Access'] = 'Access';
 $_lang['Access control management'] = 'Access control management';
 $_lang['Access count'] = 'Access count';
@@ -232,10 +224,6 @@ $_lang['Course statistics deleted'] = 'Course statistics deleted';
 $_lang['Course title'] = 'Course title';
 $_lang['Course title needed'] = 'Course title needed';
 $_lang['Course users list'] = 'Course users list';
-$_lang['CourseContent'] = 'Course content';
-$_lang['CourseContentComment1'] = 'What is the importance of the various content to be taught within the framework of the course?  What is the level of difficulty of this content?  How is the unit structured?  What will be the sequence of the content?  What does content lead to?';
-$_lang['CourseContentComment2'] = 'Presentation of the content of the course, the structuring of the content, the progression and the calendar';
-$_lang['CourseManagerStatusToUser'] = 'Course creator status to %s %s';
 $_lang['Courses'] = 'Courses';
 $_lang['Courses not used'] = 'Courses not used';
 $_lang['Courses without a lecturer'] = 'Courses without a lecturer';
@@ -299,13 +287,10 @@ $_lang['Denied'] = 'Denied';
 $_lang['Department'] = 'Department';
 $_lang['Department URL'] = 'Department URL';
 $_lang['Department URL is not valid'] = 'Department URL is invalid';
-$_lang['Description'] = 'Description';
 $_lang['Description added.'] = 'Description added.';
 $_lang['Description deleted.'] = 'Description deleted.';
 $_lang['Description of the Wiki'] = 'Description of the Wiki';
 $_lang['Description updated'] = 'Description updated.';
-$_lang['DescriptionComment1'] = 'What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?';
-$_lang['DescriptionComment2'] = 'Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.';
 $_lang['Detail'] = 'Detail';
 $_lang['Details'] = 'Details';
 $_lang['Details may be incorrect as it seems that some questions have change between this attempt and now.'] = 'Details may be incorrect as it seems that some questions have change between this attempt and now.';
@@ -485,9 +470,6 @@ $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Help Home Page';
 $_lang['Home page text zones'] = 'Home page text zones';
 $_lang['Hour'] = 'Hour';
-$_lang['HumanAndPhysicalResourcesComment1'] = 'What are the human and physical resources available?  What will be the nature of the framing?  What can the students expect from of the organisation team or the organisation of the teacher?';
-$_lang['HumanAndPhysicalResourcesComment2'] = 'Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.';
-$_lang['HumanAndPhysicalRessources'] = 'Human and Physical Resources';
 $_lang['Identical content<br />no modification saved'] = 'Identical content<br />no modification saved';
 $_lang['If you wish to enrol on this course'] = 'If you wish to enrol on this course';
 $_lang['IfNotRedirect'] = 'If not redirected ';
@@ -545,7 +527,6 @@ $_lang['Lecturer(s)'] = 'Lecturer(s)';
 $_lang['Licence'] = 'License';
 $_lang['Limit'] = 'Limit';
 $_lang['Line Number'] = 'Line Number';
-$_lang['Link'] = 'Link';
 $_lang['List of Wiki'] = 'List of Wiki';
 $_lang['List of students in this group'] = 'List of students in this group';
 $_lang['Load default format'] = 'Load default format';
@@ -583,8 +564,6 @@ $_lang['Message from your lecturer'] = 'Message from your lecturer';
 $_lang['Messages'] = 'Messages';
 $_lang['Messages posted'] = 'Messages posted';
 $_lang['Messages to selected users'] = 'Messages to selected users';
-$_lang['MethodsOfEvaluation'] = 'Methods of evaluation';
-$_lang['MethodsOfEvaluationComment1'] = 'Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.';
 $_lang['Minimum raw to pass has been changed'] = 'Minimum raw to pass has been changed';
 $_lang['MinuteShort'] = 'min.';
 $_lang['Missing'] = 'missing';
@@ -768,9 +747,6 @@ $_lang['Public course only'] = 'Public course only';
 $_lang['Public courses'] = 'Public courses';
 $_lang['Publish'] = 'Publish';
 $_lang['Published on'] = 'Published on';
-$_lang['QualificationsAndGoals'] = 'Qualifications and Goals';
-$_lang['QualificationsAndGoalsComment1'] = 'What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?';
-$_lang['QualificationsAndGoalsComment2'] = 'Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.';
 $_lang['Question'] = 'Question';
 $_lang['Question / Answer management'] = 'Question / Answer management';
 $_lang['Question list of the exercise'] = 'Question list of the exercise';
@@ -814,7 +790,6 @@ $_lang['Results of the exercises done'] = 'Results of the exercises done';
 $_lang['Retry'] = 'retry';
 $_lang['Return to the list'] = 'Return to the list';
 $_lang['Reuse'] = 'Reuse';
-$_lang['RevoquationOfUser'] = 'Revocation of %s %s';
 $_lang['Role'] = 'Role';
 $_lang['Root'] = 'root';
 $_lang['SCORM 1.2 conformable content'] = 'SCORM 1.2 conformable content';
@@ -864,7 +839,6 @@ $_lang['Statistics of exercise attempt'] = 'Statistics of exercise attempt';
 $_lang['Statistics of question'] = 'Statistics of question';
 $_lang['Statistics of user'] = 'Statistics of user';
 $_lang['Status'] = 'Status';
-$_lang['StepNOfN'] = 'Step %d of %d';
 $_lang['Store Chat'] = 'Store Chat';
 $_lang['Student'] = 'Student';
 $_lang['Students are allowed to self-register in groups'] = 'Students are allowed to self-register in groups';
@@ -877,14 +851,8 @@ $_lang['Submit feedback'] = 'Submit feedback';
 $_lang['Subscribe a class'] = 'Subscribe a class';
 $_lang['Subscribe to course'] = 'Subscribe to course';
 $_lang['Support forum'] = 'Support forum';
-$_lang['Supports'] = ' Support ';
-$_lang['SupportsComment1'] = 'Does course support exist?  What type of support do I give?  Opened?  Closed?';
-$_lang['SupportsComment2'] = 'Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.';
 $_lang['SwitchEditorToTextConfirm'] = 'This command is going to remove the current text layout. Do you want to continue ?';
 $_lang['Take'] = 'take';
-$_lang['TeachingTrainingActivities'] = 'Teaching-training activities';
-$_lang['TeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
-$_lang['TeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
 $_lang['Technical Tools'] = 'Technical Tools';
 $_lang['Text only (text required, no file)'] = 'Text only (text required, no file)';
 $_lang['Text with attached file (text required, file optional)'] = 'Text with attached file (text required, file optional)';
@@ -892,7 +860,6 @@ $_lang['The changes have been carried out correctly'] = 'The changes have been c
 $_lang['The class has been moved'] = 'The class has been moved';
 $_lang['The course has been successfully deleted'] = 'The course has been successfully deleted';
 $_lang['The email address is not valid'] = 'The email address is not valid';
-$_lang['The fields'] = 'The fields';
 $_lang['The file to upload is not valid.'] = 'The file to upload is not valid.';
 $_lang['The following errors were found'] = 'The following errors were found ';
 $_lang['The information has been modified'] = 'The information has been modified';
@@ -947,7 +914,6 @@ $_lang['To send a message, select groups of users (marked with a * in the front)
 $_lang['Tool'] = 'Tool';
 $_lang['Tool accesses changed'] = 'Tool accesses changed';
 $_lang['Tools'] = 'Tools';
-$_lang['TopLevel'] = 'top level';
 $_lang['Topic'] = 'Topic';
 $_lang['Topic review'] = 'Topic Review';
 $_lang['Topics'] = 'Topics';
@@ -1134,10 +1100,7 @@ $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your 
 $_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php extension is required to use this tool.  Please contact your platform administrator.';
 $_lang['[British people] live in [United Kingdom].'] = '[British people] live in [United Kingdom].';
-$_lang['_p_FeedOf_s'] = 'Rss feed for %s';
-$_lang['_p_youNeedToBeAuthenticatedWithYour_s_account'] = 'You need to be authenticated with your %s account';
 $_lang['archive'] = 'archive';
-$_lang['are compulsory'] = 'are compulsory';
 $_lang['blockAccountCreationNotification'] = '
 Dear %firstname %lastname,
 You are registered on %siteName
@@ -1256,6 +1219,26 @@ Email : %course_email
 Category : %course_category
 Language : %course_language
 Url : %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Course content';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'What is the importance of the various content to be taught within the framework of the course?  What is the level of difficulty of this content?  How is the unit structured?  What will be the sequence of the content?  What does content lead to?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentation of the content of the course, the structuring of the content, the progression and the calendar';
+$_lang['blockCourseDescriptionDescription'] = 'Description';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'What are the human and physical resources available?  What will be the nature of the framing?  What can the students expect from of the organisation team or the organisation of the teacher?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Human and Physical Resources';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Methods of evaluation';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Qualifications and Goals';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.';
+$_lang['blockCourseDescriptionSupports'] = ' Support ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Does course support exist?  What type of support do I give?  Opened?  Closed?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Teaching-training activities';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
 $_lang['blockCourseHomePageIntroduction'] = 'Select the tools you want to make visible for your user.
 An invisible tool will be greyed out on your personal interface';
 $_lang['blockCourseSettingsTip'] = 'By default, your course is accessible to everybody. If you want some confidentiality,
@@ -1667,6 +1650,22 @@ $_lang['blockModulePoolHelp'] = 'This page allows you to view all the modules av
 $_lang['blockRegisterLocalUrl'] = 'Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
 Check the value of \'Web base\' in your Claroline configuration.';
+$_lang['blockRequestCourseManagerStatusMail'] = '%time
+Course creator status to %firstname %lastname
+User : %user_id
+Name : %firstname %lastname
+Email : %email
+Comment : %comment
+Link : %url';
+$_lang['blockRequestUserRevoquationMail'] = '%time
+Revocation of %firstname %lastname
+User : %user_id
+Name : %firstname %lastname
+Email : %email
+Login : %login
+Password : %password
+Comment : %comment
+Link : %url';
 $_lang['blockUsedInSeveralPath'] = 'This exercise is used in one or more learning path. If you delete it it will be no longer be available in the learning path.';
 $_lang['blockUsersHelp'] = '<p>The \'Users\' tool displays user informations in a digest table. Here is below the column descriptions resumed.
 <ul>
@@ -1837,7 +1836,6 @@ $_lang['sampleLearnPathDescription'] = 'This is a sample learning path, it uses 
 $_lang['sampleLearnPathDocumentDescription'] = 'You can use any document existing in the documents tool of this course.';
 $_lang['sampleLearnPathDocumentTitle'] = 'example_document';
 $_lang['sampleLearnPathQuizDescription'] = 'You can use any exercise of the exercises tool of your course.';
-$_lang['sampleLearnPathQuizTitle'] = 'Sample exercise';
 $_lang['sampleLearnPathTitle'] = 'Sample learning path';
 $_lang['sampleQuizAnswer1'] = 'Ridiculise one\'s interlocutor in order to have him concede he is wrong.';
 $_lang['sampleQuizAnswer1Comment'] = 'No. Socratic irony is not a matter of psychology, it concerns argument.';

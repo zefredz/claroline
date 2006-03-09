@@ -41,9 +41,9 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 {
     if (!isset($_SERVER['PHP_AUTH_USER']))
     {
-        header('WWW-Authenticate: Basic realm="'.sprintf(get_lang('_p_FeedOf_s'), $_course['name']).'"');
+        header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) . '"');
         header('HTTP/1.0 401 Unauthorized');
-        echo '<h2>' . sprintf(get_lang('_p_youNeedToBeAuthenticatedWithYour_s_account'), $siteName) . '</h2>'
+        echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
         .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
         ;
         exit;
@@ -63,9 +63,9 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
         require '../inc/claro_init_local.inc.php';
         if (!$_course['visibility'] && !$is_courseAllowed)
         {
-            header('WWW-Authenticate: Basic realm="'.sprintf(get_lang('_p_FeedOf_s'), $_course['name']).'"');
+            header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) .'"');
             header('HTTP/1.0 401 Unauthorized');
-            echo '<h2>' . sprintf(get_lang('_p_youNeedToBeAuthenticatedWithYour_s_account'), $siteName) . '</h2>'
+            echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
             .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
             ;
             exit;

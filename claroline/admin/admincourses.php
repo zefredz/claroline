@@ -241,14 +241,11 @@ foreach($courseList as $numLine => $courseLine)
     $courseDataList[$numLine]['qty_cm'] = '<a href="admincourseusers.php'
     .                                     '?cidToEdit=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
 
-    .                                     sprintf( ( $courseLine['qty_cm'] + $courseLine['qty_stu'] > 1 ? get_lang('%2d members') : get_lang('%2d member'))
-                                                 , ( $courseLine['qty_stu'] + $courseLine['qty_cm'] ) )
+    .                                     get_lang('%nb member(s)', array ( '%nb' => ($courseLine['qty_stu'] + $courseLine['qty_cm']) ) )
     .                                     '</a>'
     .                                     '<br />' . "\n" . '<small><small>' . "\n"
-    .                                     sprintf( ( $courseLine['qty_cm'] > 1 ? get_lang('%2d profs') : get_lang('%2d prof'))
-                                                 , $courseLine['qty_cm']) . "\n"
-    .                                     sprintf( ( $courseLine['qty_stu'] > 1 ? get_lang('%2d students') : get_lang('%2d student'))
-                                                 , $courseLine['qty_stu']) . "\n"
+    .                                     get_lang('%nb course(s) manager(s)', array( '%nb' => $courseLine['qty_cm']) ) . ' - '
+    .                                     get_lang('%nb student(s)', array ('%nb' => $courseLine['qty_stu']) ) . "\n"
     .                                     '</small></small>' . "\n"
     ;
 

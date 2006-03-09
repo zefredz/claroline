@@ -319,12 +319,11 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==',')  $coma_selected_sep     = 'selected'; else $coma_selected_sep = '';
     if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=='')   $blank_selected_sep    = 'selected'; else $blank_selected_sep = '';
 
+    $compulsory_list = array('firstname','lastname','username','password');
+
     $dialogBox = get_lang('Modify the format') .' : ' . "\n"
     .            '<br><br>' . "\n"
-    .            get_lang('The fields')
-    .            ' '
-    .            '<b>firstname</b>, <b>lastname</b>, <b>username</b>, <b>password</b> '
-    .            get_lang('are compulsory')
+    .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
     .            '<br><br>'
     .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"

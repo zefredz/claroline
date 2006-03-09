@@ -355,7 +355,7 @@ function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
     $classes = claro_sql_query_fetch_all($sql);
 
     $result = '<select name="theclass">' . "\n"
-    .         '<option value="root">' . get_lang('TopLevel') . '</option>';
+    .         '<option value="root">' . get_lang('Root') . '</option>';
     $result .= buildSelectClass($classes,$selected,null,$space);
     $result .= '</select>' . "\n";
     return $result;

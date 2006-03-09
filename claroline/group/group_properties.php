@@ -116,7 +116,7 @@ echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitl
     <tr>
         <td valign="top">
             <span class="item">
-            <?php echo get_lang("A user can be a member of maximum ");
+            <?php 
 
             if (is_null($_groupProperties ['nbGroupPerUser']))
             {
@@ -126,23 +126,24 @@ echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitl
             {
                 $nbGroupsPerUserShow = $_groupProperties ['nbGroupPerUser'     ];
             }
-             ?>
-            <select name="limitNbGroupPerUser" >
-            <?php
-                for( $i = 1; $i <= 10; $i++ )
-                {
-                    echo '<option value="'.$i.'"'
-                    .    ( $nbGroupsPerUserShow == $i ? ' selected="selected" ' : '')
-                    .    '>' . $i . '</option>'
-                    ;
-                }
-                echo '<option value="ALL" '
-                .    ($nbGroupsPerUserShow == "ALL" ? ' selected="selected" ' : '')
-                .    '>ALL</option>'
-                ;
+            
+            $selector_nb_groups = '<select name="limitNbGroupPerUser" >' . "\n";
+            
+            for( $i = 1; $i <= 10; $i++ )
+            {
+                $selector_nb_groups .=  '<option value="'.$i.'"'
+                                    . ( $nbGroupsPerUserShow == $i ? ' selected="selected" ' : '')
+                                    .    '>' . $i . '</option>' ;
+            }
+
+            $selector_nb_groups .= '<option value="ALL" '
+                                 . ($nbGroupsPerUserShow == "ALL" ? ' selected="selected" ' : '')
+                                 . '>ALL</option>'     
+                                 . '</select>' ;
+            
+            echo get_lang('A user can be a member of maximum %nb groups', array ( '%nb' => $selector_nb_groups ));
+
             ?>
-            </select>
-            <?php echo get_lang("&nbsp;groups") ?>
             </span>
         </td>
     </tr>

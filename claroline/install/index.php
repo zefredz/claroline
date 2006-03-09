@@ -634,7 +634,9 @@ if ($display==DISP_WELCOME)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
     .    '<h2>'
-    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_WELCOME, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_WELCOME]
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_WELCOME, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_WELCOME] ) )
     .    '</h2>'
     ;
     // check if an claroline configuration file doesn't already exists.
@@ -791,11 +793,14 @@ if ($display==DISP_WELCOME)
 ###################################################################
 ############### STEP 2 LICENSE  ###################################
 ###################################################################
+
 elseif($display==DISP_LICENSE)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
-    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_LICENSE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LICENSE]
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LICENSE, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_LICENSE] ) )
     .    '</h2>'  . "\n"
     .    '<P>'  . "\n"
     .    'Claroline is free software, distributed under GNU General Public licence (GPL).'  . "\n"
@@ -826,52 +831,6 @@ elseif($display==DISP_LICENSE)
 
 }
 
-#########################################################################
-###### STEP DISP_FILE_SYSTEM_SETTING ####################################
-#########################################################################
-/*
-elseif($display==DISP_FILE_SYSTEM_SETTING)
-{
-
-echo '
-<input type="hidden" name="fromPanel" value="'.$display.'">
-<h2>
-'.sprintf(get_lang('StepNOfN'),(array_search(DISP_FILE_SYSTEM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_FILE_SYSTEM_SETTING].'
-</h2>
-</td>
-</tr>
-<tr>
-<td>
-<!--            <h4>Absolute path</h4>
-<label for="urlForm">Campus Path (absolute path to your campus)</label><br />
-<input type="text" size="85" id="urlForm" name="urlForm" value="'.$urlForm.'"><br />
-<h4>Relative path</h4>
-<label for="urlAppend">Campus Path (relative path  from document root to your campus)</label><br />
-<input type="text" size="85" id="urlAppend" name="urlAppendPath" value="'.$urlAppendPath.'"><br />
-<br />
--->
-<label for="courseRepositoryForm"> Course Repository path (relative to index of your campus) </label><br />
-<input type="text"  size="85" id="courseRepositoryForm" name="courseRepositoryForm" value="'.$courseRepositoryForm.'">
-<br />
-<br />
-<table width="100%">
-<tr>
-<td>
-<input type="submit" name="cmdLicence" value="&lt; Back">
-</td>
-<td >
-&nbsp;
-</td>
-<td align="right">
-<input type="submit" name="cmdDB_CONNECT_SETTING" value="Next &gt;">
-</td>
-</tr>
-</table>';
-}     // cmdDB_CONNECT_SETTING
-
-
-*/
-
 ##########################################################################
 ###### STEP 3 MYSQL DATABASE SETTINGS ####################################
 ##########################################################################
@@ -880,10 +839,11 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 {
 
 
-
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
     .    '<h2>'
-    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_CONNECT_SETTING]
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_DB_CONNECT_SETTING] ) )   
     .    '</h2>'
     .    '</td>'
     .    '</tr>'
@@ -1004,7 +964,9 @@ elseif($display == DISP_DB_NAMES_SETTING )
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
-    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_DB_NAMES_SETTING]  . "\n"
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_DB_NAMES_SETTING] ) ) 
     .    '</h2>'  . "\n"
     .    ($singleDbForm?'':get_lang('DBSettingNamesIntro'))  . "\n"
     .    '</td>'  . "\n"
@@ -1223,7 +1185,9 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
-    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATOR_SETTING] . "\n"
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_ADMINISTRATOR_SETTING] ) )
     .    '</h2>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1318,12 +1282,14 @@ elseif($display==DISP_ADMINISTRATOR_SETTING)
 ###################################################################
 ###### STEP CONFIG SETTINGS #######################################
 ###################################################################
-elseif($display==DISP_PLATFORM_SETTING)
 
+elseif($display==DISP_PLATFORM_SETTING)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">' . "\n"
     .    '<h2>' . "\n"
-    .    sprintf(get_lang('StepNOfN'),(array_search(DISP_PLATFORM_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_PLATFORM_SETTING]
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_PLATFORM_SETTING, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_PLATFORM_SETTING] ) ) 
     .    '</h2>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1427,9 +1393,11 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 {
     echo '
                  <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                    '.sprintf(get_lang('StepNOfN'),(array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_ADMINISTRATIVE_SETTING].'
-                </h2>'
+                <h2>'
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_ADMINISTRATIVE_SETTING] ) )  
+    . '</h2>'
                 .$msg_missing_administrative_data ;
     echo '
             </td>
@@ -1514,10 +1482,11 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
     echo '
            <input type="hidden" name="fromPanel" value="'.$display.'">';
 
-    echo '
-                <h2>
-                    '.sprintf(get_lang('StepNOfN'),(array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL].'
-                </h2>
+    echo '<h2>' 
+        .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] ) )  
+        . '</h2>
         Here are the values you entered <br />
         <Font color="red">
             Print this page to remember your admin password and other settings
@@ -1742,9 +1711,10 @@ elseif($display==DISP_RUN_INSTALL_COMPLETE)
 ?>
             <h2>
 <?php
-                    echo sprintf(get_lang('StepNOfN'),(array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1),count($panelSequence)).' : '.$panelTitle[DISP_RUN_INSTALL_COMPLETE];
-
- ?>
+    echo get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_RUN_INSTALL_COMPLETE] ) );
+?>
 
             </h2>
             <br />
