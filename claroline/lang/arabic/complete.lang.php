@@ -1,358 +1,1192 @@
 <?php 
-$_lang['Access'] = "الوصول";
-$_lang['AccessExplain'] = "(عندما يقوم المستخدم باستعراض فهرس الموقع)";
-$_lang['Action'] = "عمل";
-$_lang['Activate'] = "تفعيل";
-$_lang['Add'] = "إضافة";
-$_lang['AddAClassToCourse'] = "تسجيل صف في مقرر تعليمي";
-$_lang['AddAU'] = "إضافة مستخدم";
-$_lang['AddAnn'] = "إضافة إعلان";
-$_lang['AddCSVUsers'] = "إضافة قائمة مستخدمين";
-$_lang['AddCSVUsersInClass'] = "إضافة قائمة مستخدمين للصف";
-$_lang['AddCSVUsersInCourse'] = "إضافة قائمة مستخدمين لمقرر تعليمي";
-$_lang['AddCategory'] = "إضافة تصنيف";
-$_lang['AddClass'] = "تسجيل صف";
-$_lang['AddComment'] = "إضافة ملاحظة";
-$_lang['AddCommentOptionnal'] = "إضافة ملاحظة ( إختياري) :";
-$_lang['AddEvent'] = "إضافة حدث";
-$_lang['AddExternalTool'] = "إضافة وصلة خارجية";
-$_lang['AddFeedback'] = "إضافة مراجعة";
-$_lang['AddForum'] = "إضافة منتدى";
-$_lang['AddImage'] = "تضمين صورة";
-$_lang['AddIntro'] = "إضافة مقدمة أو تمهيد";
-$_lang['AddListUser'] = "إضافة قائمة مستخدمين";
-$_lang['AddLoginPass'] = "اضف اسم الدخول\كلمة مرور في ملف</a><br />";
-$_lang['AddLoginPassForThisUser'] = "إضافة كمة السر من حساب هذا المستخدم في الجامعة إلى ملف .htpassword";
-$_lang['AddModifyComment'] = "إضافة/تعديل الملاحظة ل";
-$_lang['AddModule'] = "إضافة";
-$_lang['AddModulesButton'] = "أضف وحدة(وحدات)";
-$_lang['AddMyCampusOnClarolineNet'] = "إدراج اسم موقعي ضمن موقع Claroline.net ";
-$_lang['AddNewHeading'] = "إضافة عنوان جديد";
-$_lang['AddTutors'] = "قائمة المدراء";
-$_lang['AddUser'] = "إنشاء مستخدم جديد";
-$_lang['AddUserOneByOne'] = "سيستقبل المستخدمون الجدد رسالة إلكترونية تحوي اسم المستخدم و كلمة المرور الخاصة بهم.";
-$_lang['AddWrongAnswers'] = "إضافة الأجوبة الخاطئة للقوائم المنسدلة <small> (اختياري:سؤال غير صحيح واحد ضمن كل سطر)</small>";
-$_lang['Add_users'] = "إضافة مستخدمين";
-$_lang['AddedExternalTool'] = "تم إضافة الأداة الخارجية";
-$_lang['AddedToCampus'] = " تمت إضافته للجامعة";
-$_lang['AddedToCampusAndClass'] = " تم إضافته لموقع الجامعة و للصف";
-$_lang['AddedToCampusAndCourse'] = " تم إضافته لموقع الجامعة و للمقرر";
-$_lang['AddedToCourse'] = "قام بالتسجيل في المقرر";
-$_lang['AddedToCreator'] = "الصفحة الخاصة بالمقرر";
-$_lang['Address'] = "عنوان ال ";
-$_lang['Admin'] = "مدير";
-$_lang['AdminEmail'] = "البريد الالكتروني";
-$_lang['AdminLogin'] = "تسجيل الدخول";
-$_lang['AdminName'] = "الكنية";
-$_lang['AdminPass'] = "كلمة السر";
-$_lang['AdminSurname'] = "الاسم الاول";
-$_lang['Administration'] = "المدير";
-$_lang['AdministrationClassTools'] = "الصفوف";
-$_lang['Administrator'] = "المدير";
-$_lang['AdmitError'] = "يمكن إعداد هذا النظام على الحاسب بسرعة كبيرة";
-$_lang['Advanced'] = "خيارات متقدمة";
-$_lang['Again'] = "حاول مجدداً!";
-$_lang['Agenda'] = "جدول الأعمال";
-$_lang['AgendaNextEvents'] = "الأحداث التالية في جدول الاعمال";
-$_lang['AlertBlockingMakedInvisible'] = "هذه الوحدة مسدودة.
-إن جعلها مخفية سيسمح للطلاب بالوصول
-للوحدة التالية بدون الحاجة لاتمام هذه الوحدة
-مل انت متاكد ؟ ";
-$_lang['AlertBlockingPathMadeInvisible'] = "هذا المسار مسدود.
-إن جعله مخفياً يسمح للطلاب بالوصول
-للمسار التالي بدون الحاجة لإتمام هذا المسار.
-مل انت متاكد ؟ ";
-$_lang['All'] = "الكل";
-$_lang['AllExercises'] = "جميع التمارين";
-$_lang['AllRight'] = "لا يوجد حالة غريبة هنا";
-$_lang['AllUsersOfThisCourse'] = "أعضاء المقرر التعليمي";
-$_lang['AllowAnonymousAttempts'] = "محاولات من اشخاص مجهولين";
-$_lang['AllowLateUpload'] = "نعم, اسمح للمستخدمين بإرسال العمل بعد انقضاء المهلة المحددة";
-$_lang['AllowLateUploadShort'] = "السماح بتحميل الملفات بعد انتهاء المدة المسموحة";
-$_lang['Allowed'] = "مسموح";
-$_lang['AllowedTime'] = "المجال المسموح للوقت";
-$_lang['AlreadyAnswered'] = "هذا السؤال تمت الإجابة عليه مسبقاً";
-$_lang['AlreadyBrowsed'] = "تم استعراضه من قبل";
-$_lang['AltClarodoc'] = "Clarodoc";
-$_lang['AltDocument'] = "وثيقة";
-$_lang['AltExercise'] = "تمرين";
-$_lang['AltMakeNotBlocking'] = "إلغاء القفل";
-$_lang['AltMakeVisible'] = "جعله مرئياً";
-$_lang['AltMove'] = "نقل";
-$_lang['AltMoveUp'] = "ترتيب تصاعدي";
-$_lang['AltScorm'] = "Scorm ";
-$_lang['Always'] = "دوماً";
-$_lang['Among'] = "من بين الاسئلة ال ";
-$_lang['And'] = "و";
-$_lang['AnnAdd'] = "تم إضافة الإعلان";
-$_lang['AnnDel'] = "تم حذف الإعلان";
-$_lang['AnnEmpty'] = "تم مسح قائمة الإعلانات";
-$_lang['AnnModify'] = "تم تعديل الإعلان";
-$_lang['Announcement'] = "الإعلانات";
-$_lang['Anonymous'] = "شخص مجهول";
-$_lang['AnonymousAttemptsAllowed'] = "مسموح , لا تقم بتسجيل اسم المستخدم ضمن بيانات التتبع, و اسمح للأشخاص المجهولين بتنفيذ التمرين";
-$_lang['AnonymousAttemptsNotAllowed'] = "غير مسموح , قم بستجيل اسم المستخدم ضمن بيانات التتبع و امنع الاشخاص المجهولين من تنفيذ التمرين";
-$_lang['AnonymousUserAccessCount'] = "عدد مرات وصول المستخدمين المجهولين : ";
-$_lang['Answer'] = "الجواب";
-$_lang['AnswerRequired'] = "الجواب مطلوب";
-$_lang['AnswerType'] = "نوع الجواب";
-$_lang['Antique'] = "أنظمة التشغيل";
-$_lang['AppliedChange'] = "تم تطبيق التعديلات على إعدادات المستخدم";
-$_lang['Archive'] = "الأرشيف";
-$_lang['AreCompulsory'] = "إلزامي";
-$_lang['AreYouSureDeleteModule'] = "هل أنت متأكد من مسح هذه الوحدة كلياً؟
-سيتم مسحها كلياً من المخدم و من أي مسار تعليمي تنتمي إليه.
-لن تستطيع أن تستخدمها في أي مسار تعليمي.
-التأكيد على مسح : ";
-$_lang['AreYouSureToDelete'] = "سيتم الحذف هل أنت متأكد؟";
-$_lang['AreYouSureToDeleteScorm'] = "إن هذا المسار التعليمي هو جزء من حزمة استيراد SCORM. إذا مسحت هذا المسار، كل وحدات SCORM الموافقة و الملفات المرتبطة سيتم حذفها من هذه المنصة. هل أنت متأكد بأنك تريد حذف المسار التعليمي المسمى ";
-$_lang['AreYouSureToRemove'] = "هل أنت متأكد أنك تريد حذف الوحدة التالية من المسار التعليمي : ";
-$_lang['AreYouSureToRemoveLabel'] = "بمسح هذه التسمية ستقوم بمسح كل الوحدات أو تسمية تحويها.";
-$_lang['AreYouSureToRemoveSCORM'] = "الوحدات المتوافقة مع SCORM سيتم مسحها بشكل أكيد من المخدم عند حذفها من مسارها التعليمي.";
-$_lang['AreYouSureToRemoveStd'] = "ستبقى الوحدة متوفرة في مخزن الوحدات.";
-$_lang['AreYouSureToUnsubscribe'] = "هل أنت متأكد انك ترغب بإلغاء التسجيل ";
-$_lang['Assignment'] = "وظيفة/مهمة";
-$_lang['AssignmentAdded'] = "تم إنشاء وظيفة/ مهمة جديدة";
-$_lang['AssignmentDeleted'] = "تم حذف الوظيفة / المهمة";
-$_lang['AssignmentDescription'] = "الوصف";
-$_lang['AssignmentEdited'] = "تم تعديل الوظيفة / المهمة";
-$_lang['AssignmentTitle'] = "عنوان الوظيفة";
-$_lang['AssignmentTitleAlreadyExists'] = "عنوان الوظيفة/المهمة موجود مسبقاً";
-$_lang['AssignmentTitleRequired'] = "يجب إدخال عنوان للوظيفة/المهمة";
-$_lang['AssignmentType'] = "نوع الوظيفة/المهمة";
-$_lang['AttachDoc'] = "إرفاق وثيقة";
-$_lang['AttachFile'] = "إرفاق ملف";
-$_lang['AttachedFile'] = "الملف المرفق";
-$_lang['Attempt'] = "محاولة";
-$_lang['AttemptAllowed'] = "المحاولة مسموحة";
-$_lang['Attempts'] = "المحاولات";
-$_lang['AttemptsAllowed'] = "المحاولات المسموحة";
-$_lang['Authentication'] = "تسجيل الدخول للأعضاء";
-$_lang['AvailableFrom'] = "متوفر من ";
-$_lang['Back'] = "للخلف";
-$_lang['BackHomeOf'] = "العودة لصفحة البدء الخاصة ب ";
-$_lang['BackList'] = "العودة للقائمة";
-$_lang['BackModule'] = "العودة للقائمة";
-$_lang['BackTo'] = "عودة إلى:";
-$_lang['BackToAdmin'] = "العودة لصفحة المدير";
-$_lang['BackToClass'] = "العودة للمقرر";
-$_lang['BackToClassList'] = "العودة لقائمة الصفوف";
-$_lang['BackToClassMembers'] = "العودة لاعضاء الصف";
-$_lang['BackToCourseList'] = "العودة لقائمة المقرر";
-$_lang['BackToEditor'] = "العودة لمحرر النصوص";
-$_lang['BackToLPAdmin'] = "العودة لإدارة مسار التعليم";
-$_lang['BackToList'] = "العودة للقائمة";
-$_lang['BackToMyCourseList'] = "العودة لقائمة المقرر الخاص بي";
-$_lang['BackToUserList'] = "العودة لقائمة المستخدمين";
-$_lang['BackToUserSettings'] = "العودة لإعدادات المستخدم";
-$_lang['BackToUsersList'] = "العودة لقائمة المستخدمين";
-$_lang['BlankSpace'] = "(فراغ)";
-$_lang['Block'] = "توقيف";
-$_lang['BrowserCannotSeeFrames'] = "متصفح الانترنت الخاص بك لا يسمح باستخدام الإطارات المتعددة ضمن الصفحة الواحدة";
-$_lang['BuildCompleteLangFile'] = "ملفات اللغة الكاملة";
-$_lang['BuildEmptyLangFile'] = "ملف لغة فارغ";
-$_lang['BuildLangFile'] = "بناء ملفات اللغة";
-$_lang['BuildMissingLangFile'] = "ملفات اللغة مفقودة";
-$_lang['BuildProductionLangFile'] = "إنشاء ملفات اللغة";
-$_lang['ByDel'] = "حذف موقع هذا المقرر سيؤدي إلى الحذف النهائي لجميع الوثائق المحتواه ضمنه و إلغاء تسجيل جميع الطلاب الملتحقين به (لن يتم إلغاء تسجيل الطلاب من بقية المقررات) <p> هل تريد حقاً حذف   المقرر";
-$_lang['ByUser'] = "من قبل المستخدم";
-$_lang['CSVSeeUserList'] = "استعراض قائمة المستخدمين";
-$_lang['CampusAlreadyRegistered'] = "يبدو  أنك قد سجلت مسبقاً جامعتك.";
-$_lang['CampusDeleted'] = "<strong>تم الحذف</strong><p>تم إلغاء تسجيل جامعتك، اتصل بنا (انظر موقعنا) إذا كنت تعتقد بأن هذا خطأ.</p>";
-$_lang['CampusRegistered'] = "<strong>تمت الموافقة</strong><p>تمت الموافقة على تسجيل جامعتك من قبل فريق Claroline.net .<br />سيظهر رابط على الصفحة العالمية لـ Claroline.net .</p>";
-$_lang['CampusRegistrationSubmitted'] = "تم إرسال جامعتك، و يتم الانتظار للتحقق منها من قبل فريق Claroline.net";
-$_lang['CampusRemoved'] = "<strong>تمت الإزالة</strong><p>تمت إزالة جامعتك من الصفحة العالمية. </p>";
-$_lang['CampusSubmitted'] = "<strong>تم الإرسال</strong><p>بانتظار التحقق من قبل فريق Claroline.net .</p>";
-$_lang['Cancel'] = "إلغاء";
-$_lang['CannotBeBlank'] = "لا يمكن ان يكون اسم الصف غير محدد";
-$_lang['CannotCopyFile'] = "لا يمكن نسخ الملف";
-$_lang['CannotInitChat'] = "خطأ:فشل في تجهيز ملفات الدردشة";
-$_lang['CannotRemoveGroupForum'] = "لا يمكنك حذف منتدى مجموعة قبل أن تقوم بحذف المجموعة أولاً";
-$_lang['CannotSeeExerciseDetails'] = "عرض تفاصيل الإجابات غير مسموح";
-$_lang['CannotUnsubscribeLastCourseManager'] = "لا يمكنك إلغاء تسجيل أخر مدير ضمن المقرر";
-$_lang['CatagoryGroup'] = "منتدى المجموعات";
-$_lang['CatagoryMain'] = "الرئيسي";
-$_lang['Categories'] = "التصنيفات";
-$_lang['Category'] = "التصنيف";
-$_lang['CategoryDeleted'] = "تم حذف التصنيف";
-$_lang['CategoryUpdated'] = "تم تعديل التصنيف";
-$_lang['ChangePwdexp'] = "أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية";
-$_lang['ChangeRaw'] = "تغيير العلامة الصافية لاجتياز هذه الوحدة (نسبة مئوية) : ";
-$_lang['ChangedTool'] = "تم تغيير أدوات الوصول";
-$_lang['Chat'] = "دردشة";
-$_lang['ChatResetBy'] = "تم إعادة تشغيل الدردشة من قبل";
-$_lang['Choice'] = "إجابتك";
-$_lang['ChooseACourseToAccessThisPage'] = "اختر المقرر الذي يسمح له بالوصول لهذه الصفحة";
-$_lang['ChooseDateHelper'] = "(d/m/y hh:mm)";
-$_lang['ChooseGoodAnswer'] = "قم باختيار الجواب الصحيح من فضلك";
-$_lang['ChooseGoodAnswers'] = "قم باختيار الأجوبة الصحيحة من فضلك";
-$_lang['ClarContent'] = "هنا يستطيع المدرسون إنشاء و إدارة مواقع المقررات التعليمية. و الطلاب يقومون بقراءة ( المحاضرات - جدول الأعمال - المعلومات) و أيضاً القيام بحل التمارين و نشر المقالات على الانترنت و المشاركة في المنتديات...</p><b>التسجيل</b><p> التعليمات التالية يمكن تنفيذها فقط إذا كان من المسموح ان تقوم بالتسجيل الذاتي في الموقع لان العديد من المواقع تقوم بعملية التسجيل الخاصة بك بشكل تلقائي .
-<br /> إذا كنت طالباً فما عليك إلا اختيار  'التحاق بمقرر تعليمي ( طالب) ' و من ثم اختيار المقرر الذي ترغب بالالتحاق به </p><p>
-اما إذا كنت مدرساً فيجب عليك التسجيل أيضاً و لكن قم باختيار 'إنشاء مقرر ( مدرس) '
-و من ثم يتوجب عليك ان تقوم بملء صفحة البيانات و ذلك بإدخال رمز المقرر التعليمي و اسم الكلية و المقرر و بعد ان يتم التحقق من هذه البيانات سيتم توجيهك بشكل تلقائي لصفحة الموقع الذي قمت بإنشائه و يكون بمقدورك تعديل البيانات و الإعدادات الخاصة بالمقرر حسب رغبتك.</p><p>
-الخيار 'يجب ان' يسمح بإرسال آراء و مقترحات خاصة بموقعك  من قبل بقية المدراء .
-الأشياء التي يمكن ان تقوم بإرسالها هنا تتضمن العيوب او الاقتراحات اللازمة لتحسين الموقع . قائمة 'يجب ان'  يتم ربطها مع صفحة البدء عندما تقوم بتسجيل الدخول لموقع الجامعة </p>
-<p> منتدى الدعم الفني يقوم بربط جميع مستخدمي نظام Claroline  حول العالم و يمكن ان تلجأ له عندما لا تجد الجواب لما يدور بذهنك من أسئلة ضمن موقع الجامعة الخاص بك حيث يمكن ان ترسل السؤال لمنتدى الدعم الفني و تحصل على الإجابة بسرعة</p>
-";
-$_lang['ClarolineNetNews'] = "Claroline.net أخبار";
-$_lang['Class'] = "الصفوف";
-$_lang['ClassMembers'] = "أعضاء الصف";
-$_lang['ClassMoved'] = "تم نقل الصف";
-$_lang['ClassName'] = "اسم الصف";
-$_lang['ClassRegisterUser'] = "تسجيل طالب في هذا الصف";
-$_lang['ClassRegisterWholeClass'] = "تسجيل صف لمقرر";
-$_lang['ClassRegisterWholeClassAgain'] = "تسجيل كامل اعضاء الصف في مقرر أخر";
-$_lang['ClassRegistered'] = "تم تسجيل الصف";
-$_lang['ClearList'] = "مسح قائمة جدول الأعمال";
-$_lang['ClickToZoomIn'] = "انقر للتكبير";
-$_lang['ClickToZoomOut'] = "انقر للتصغير";
-$_lang['Close'] = "إغلاق";
-$_lang['CloseWindow'] = "إغلاق النافذة";
-$_lang['Code'] = "رمز المقرر التعليمي";
-$_lang['CodeAppearAlready'] = "الرمز الإداري ظاهر مسبقاً في السطر السابق من ملف CSV. ";
-$_lang['CodeCanBeEmpty'] = "يجب إكمال حقل رمز المقرر";
-$_lang['CodeUsed'] = "هذا الرمز الإداري مستخدم من قبل طالب أخر";
-$_lang['ComMod'] = "تم تعديل الملاحظة";
-$_lang['Comment'] = "ملاحظة";
-$_lang['ConfTip'] = "بشكل افتراضي فإن موقع المقرر يكون متاحاً للجميع . الطريقة الأبسط للقيام بعمليات التسجيل هي إتاحة فرصة التسجيل خلال فترة اسبوع واحد و إبلاغ الطلاب بان يقوموا بعملية التسجيل بأنفسهم و من ثم يتم إغلاق باب التسجيل و تدقيق بيانات الطلاب للتحقق من عدم وجود متطفلين او عابثين";
-$_lang['ConfigMenuContent'] = "قائمة الإعدادات";
-$_lang['Configuration'] = "الإعدادات";
-$_lang['ConfirmDeleteExercise'] = "هل انت متاكد انك تريد حذف هذا التمرين ?";
-$_lang['ConfirmDeleteGroups'] = "هل انت متاكد انك تريد حذف جميع المجموعات ?";
-$_lang['ConfirmDeleteQuestion'] = "هل أنت متأكد انك تريد حذف هذا السؤال بشكل كامل ?";
-$_lang['ConfirmDeleteStats'] = "إذا حذفت إحصائيات المقرر فلن يمكن إعادتهم!<br /><br />هل أنت متأكد بأنك تريد حذف هذه الإحصائيات?";
-$_lang['ConfirmEmptyForum'] = "حذف جميع رسائل ";
-$_lang['ConfirmEmptyGroups'] = "هل أنت متأكد انك تريد إفراغ جميع المجموعات ?";
-$_lang['ConfirmEnrollClassToCourse'] = "هل أنت متاكد انك تريد تسجيل كامل طلاب الصف في المقرر ?";
-$_lang['ConfirmYourChoice'] = "قم بتأكيد اختيارك من فضلك";
-$_lang['Confirmation'] = "تأكيد كلمة السر";
-$_lang['Content'] = "المضمون";
-$_lang['Continue'] = "متابعة";
-$_lang['Contradiction'] = "انه نظام تشغيل حر و غير مقيد بشركة أو جهة ما و يتبع لترخيص GPL";
-$_lang['Copy'] = "نسخ";
-$_lang['CopyFailed'] = "فشل في الطباعة";
-$_lang['CorrespondsTo'] = "الموافق ل";
-$_lang['CountCours'] = "عدد المقررات التعليمية";
-$_lang['CountCourseByFaculte'] = "عدد المقررات في كل كلية";
-$_lang['CountCourseByLanguage'] = "عدد المقررات حسب اللغة";
-$_lang['CountCourseByVisibility'] = "عدد المقررات المرئية و المخفية";
-$_lang['CountToolAccess'] = "عدد مرات الاتصال بموقع هذا المقرر";
-$_lang['CountUsers'] = "عدد المستخدمين";
-$_lang['CountUsersByCourse'] = "عدد الطلاب حسب المقررات";
-$_lang['CountUsersByFaculte'] = "عدد الطلاب حسب الكليات";
-$_lang['CountUsersByStatus'] = "عدد الطلاب حسب البلدان";
-$_lang['Country'] = "البلد";
-$_lang['CountryCodeError'] = "يبدو ان رمز البلد غير صحيح.";
-$_lang['Course'] = "المقرر";
-$_lang['CourseAccess'] = "الوصول للمقرر";
-$_lang['CourseAdministratorOnly'] = "مدير المقرر فقط";
-$_lang['CourseContent'] = "مضمون المقرر التعليمي";
-$_lang['CourseContentComment1'] = "ما أهمية أن يتم تدريس المحتويات المتنوعة ضمن إطار هذا المقرر؟ ما هو مستوى صعوبة هذه المحتويات؟ ما هي هيكلية الوحدة؟ ما هو تسلسل المحتويات؟ إلى ماذا تؤدي المحتويات؟";
-$_lang['CourseContentComment2'] = "عرض محتويات المقرر، هيكلية المحتويات، التقدم و التقويم";
-$_lang['CourseCreate'] = "إنشاء موقع لمقرر";
-$_lang['CourseCreator'] = "هو من انشأ المقرر";
-$_lang['CourseDelete'] = "تم حذف المقرر بنجاح";
-$_lang['CourseHome'] = "صفحة المقرر";
-$_lang['CourseList'] = "قائمة المقررات";
-$_lang['CourseManager'] = "مدير المقرر";
-$_lang['CourseManagerCannotUnsubscribeHimself'] = "لا يستطيع مدير المقرر ان يقوم بإلغاء تسجيل نفسه";
-$_lang['CourseManagerStatusToUser'] = "حالة من أنشأ المقرر ل %s %s";
-$_lang['CourseNotFound'] = "لم يتم العثور على المقرر";
-$_lang['CourseProgram'] = "وصف المقرر التعليمي";
-$_lang['CourseSettings'] = "خصائص و إعدادات المقرر";
-$_lang['CourseTitle'] = "اسم المقرر التعليمي";
-$_lang['CourseWithoutAccess'] = "المقررات التي لم يتم استخدامها";
-$_lang['CourseWithoutProf'] = "مقررات بدون مدرس";
-$_lang['CourseWithoutStudents'] = "مقررات بدون طلاب";
-$_lang['Course_Repository'] = "مخزن المقررات";
-$_lang['Courses'] = "المقررات التعليمية";
-$_lang['Create'] = "إنشاء";
-$_lang['Create1stAccountOnPlatform'] = "قم أولاً بإضافة حساب مستخدم ضمن الموقع";
-$_lang['CreateAnotherUser'] = "إنشاء مستخدم جديد آخر";
-$_lang['CreateAssignment'] = "إنشاء (وظيفة/مهمة) جديدة";
-$_lang['CreateCategory'] = "إنشاء تصنيف";
-$_lang['CreateCourse'] = "إنشاء مقرر";
-$_lang['CreateCourses'] = "إنشاء مقررات";
-$_lang['CreateDir'] = "إنشاء مجلد";
-$_lang['CreateDocument'] = "إنشاء وثيقة";
-$_lang['CreateForum'] = "إنشاء منتدى";
-$_lang['CreateHyperlink'] = "إنشاء وصلة";
-$_lang['CreateLabel'] = "إنشاء سمة";
-$_lang['CreateModifyDocument'] = "إنشاء/تعديل  وثيقة";
-$_lang['CreateNewClass'] = "إنشاء صف جديد";
-$_lang['CreateNewLearningPath'] = "إنشاء مسار تعليم جديد";
-$_lang['CreateSite'] = "إنشاء موقع لمقرر تعليمي";
-$_lang['CreateUser'] = "إنشاء مستخدم جديد";
-$_lang['CreateUserAccount'] = "تسجيل حساب جديد";
-$_lang['CreationMailNotificationBody'] = "تم إنشاء المقرر بتاريخ";
-$_lang['CreationMailNotificationSubject'] = "إنشاء المقرر";
-$_lang['CurrentAttachedDoc'] = "الملف الحالي المرفق";
-$_lang['CurrentDoc'] = "الملف الحالي";
-$_lang['CurrentFeedbackFile'] = "ملف المراجعات الحالي";
-$_lang['CurrentStatus'] = "حالة التسجيل الحالي : <br /> <br />
-";
-$_lang['CurrentTime'] = "الوقت الحالي";
-$_lang['DBConnectionParameters'] = "المتحولات الخاصة بالاتصال مع قاعدة بيانات MySQL";
-$_lang['DBHost'] = "قاعدة البيانات";
-$_lang['DBSettingNamesIntro'] = "سينشئ برنامج التنصيب قواعد البيانات الرئيسية لـ Claroline.
+$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
+$_lang['%1\$s by %2\$s'] = '%1$s من قبل %2$s';
+$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s تم تعديلها بتاريخ %2$s من قبل %3$s';
+$_lang['%moduleName has been added as module'] = 'تم إضافته كوحدة في المقرر و كوحدة في مسار التعليم هذا';
+$_lang['%moduleName is already used as a module in this learning path'] = 'هذا التمرين مستخدم كوحدة ضمن مسار التعليم هذامسبقاً';
+$_lang['(*) anonymous users, users who are not members of this course...'] = '(*) مستخدمون مجهولون , المستخدمون ممن ليسوا أعضاء ضمن المقرر';
+$_lang['(When an user open the index of the campus)'] = '(عندما يقوم المستخدم باستعراض فهرس الموقع)';
+$_lang['(always private)'] = '(خاص دوماً)';
+$_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
+$_lang['(none)'] = '(لا يوجد)';
+$_lang['(optional)'] = '(اختياري)';
+$_lang['(version of %1\$s modified by %2\$s)'] = '(النسخة %1$s تم تعديلها من قبل %2$s)';
+$_lang['- none -'] = '- لا أحد -';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>ملاحظة :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server';
+$_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> يدل على الحقول المطلوبة';
+$_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>تمت الموافقة</strong><p>تمت الموافقة على تسجيل جامعتك من قبل فريق Claroline.net .<br />سيظهر رابط على الصفحة العالمية لـ Claroline.net .</p>';
+$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>تم الحذف</strong><p>تم إلغاء تسجيل جامعتك، اتصل بنا (انظر موقعنا) إذا كنت تعتقد بأن هذا خطأ.</p>';
+$_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>تمت الإزالة</strong><p>تمت إزالة جامعتك من الصفحة العالمية. </p>';
+$_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>تم الإرسال</strong><p>بانتظار التحقق من قبل فريق Claroline.net .</p>';
+$_lang['A file is required'] = 'الملف مطلوب';
+$_lang['A reply to your topic has been posted'] = 'تم إرسال رد على أحد المشاركات الخاصة بك في المنتدى';
+$_lang['Access'] = 'الوصول';
+$_lang['Access control management'] = 'إدارة التحكم بالوصول';
+$_lang['Access count'] = 'عدد مرات الوصول';
+$_lang['Access to campus'] = 'الوصول لموقع الجامعة';
+$_lang['Access to courses'] = 'الوصول للمقررات';
+$_lang['Access to tools'] = 'استخدام الأدوات';
+$_lang['Accounts with same <i>Email</i>'] = 'حسابات لها نفس  <i>البريد الإلكتروني</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'حسابات لها نفس <i>اسم المستخدم</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'حسابات لها نفس  <i>اسم المستخدم</i> و نفس <i>كلمة السر</i>';
+$_lang['Action'] = 'عمل';
+$_lang['Activate'] = 'تفعيل';
+$_lang['Add'] = 'إضافة';
+$_lang['Add a category'] = 'إضافة تصنيف';
+$_lang['Add a comment'] = 'إضافة ملاحظة';
+$_lang['Add a comment (optionnal) :'] = 'إضافة ملاحظة ( إختياري) :';
+$_lang['Add a user'] = 'إضافة مستخدم';
+$_lang['Add a user list'] = 'إضافة قائمة مستخدمين';
+$_lang['Add a user list in class'] = 'إضافة قائمة مستخدمين للصف';
+$_lang['Add a user list in course'] = 'إضافة قائمة مستخدمين لمقرر تعليمي';
+$_lang['Add an event'] = 'إضافة حدث';
+$_lang['Add announcement'] = 'إضافة إعلان';
+$_lang['Add answ.'] = 'إضافة جواب';
+$_lang['Add elem.'] = 'إضافة عنصر';
+$_lang['Add external link'] = 'إضافة وصلة خارجية';
+$_lang['Add feedback'] = 'إضافة مراجعة';
+$_lang['Add forum'] = 'إضافة منتدى';
+$_lang['Add introduction text'] = 'إضافة مقدمة أو تمهيد';
+$_lang['Add me to this group'] = 'أضفني لهذه المجموعة';
+$_lang['Add module(s)'] = 'أضف وحدة(وحدات)';
+$_lang['Add my campus on Claroline.net website'] = 'إدراج اسم موقعي ضمن موقع Claroline.net ';
+$_lang['Add new heading'] = 'إضافة عنوان جديد';
+$_lang['Add user list'] = 'إضافة قائمة مستخدمين';
+$_lang['Add user manually'] = 'إضافة مستخدم بشكل يدوي';
+$_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'إضافة الأجوبة الخاطئة للقوائم المنسدلة <small> (اختياري:سؤال غير صحيح واحد ضمن كل سطر)</small>';
+$_lang['Add/modify a comment to'] = 'إضافة/تعديل الملاحظة ل';
+$_lang['Added line'] = 'الأسطر المضافة';
+$_lang['Admin'] = 'مدير';
+$_lang['Administration'] = 'المدير';
+$_lang['Administrative code'] = 'الرقم  او الرمز الإداري';
+$_lang['Administrator'] = 'المدير';
+$_lang['Advanced'] = 'خيارات متقدمة';
+$_lang['Advanced course search'] = 'بحث متقدم عن المقررات';
+$_lang['Advanced user search'] = 'بحث متقدم عن المستخدمين';
+$_lang['After last allowed attempt'] = 'بعد أخر محاولة مسموحة';
+$_lang['Agenda'] = 'جدول الأعمال';
+$_lang['Agenda next events'] = 'الأحداث التالية في جدول الاعمال';
+$_lang['All'] = 'الكل';
+$_lang['All exercises'] = 'جميع التمارين';
+$_lang['All groups are now empty'] = 'جميع المجموعات أصبحت فارغة الآن';
+$_lang['All groups have been deleted'] = 'تم حذف جميع المجموعات';
+$_lang['All modules of this course are already used in this learning path.'] = 'جميع الوحدات في هذا المقرر مستخدمة ضمن مسار التعليم هذا';
+$_lang['All pages'] = 'جميع الصفحات';
+$_lang['Allow late upload'] = 'السماح بتحميل الملفات بعد انتهاء المدة المسموحة';
+$_lang['Allowed'] = 'مسموح';
+$_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'مسموح , لا تقم بتسجيل اسم المستخدم ضمن بيانات التتبع, و اسمح للأشخاص المجهولين بتنفيذ التمرين';
+$_lang['Already browsed'] = 'تم استعراضه من قبل';
+$_lang['Already enroled'] = 'مسجل مسبقاً';
+$_lang['Among'] = 'من بين الاسئلة ال ';
+$_lang['An error occured.  Learning Path import failed.'] = 'حصل خطأ أثناء الاستيراد, لم يتم استيراد مسار التعليم';
+$_lang['An error occurred while contacting Claroline.net'] = 'حصل خطأ أثناء الاتصال بموقع Claroline.net';
+$_lang['Announcement'] = 'الإعلانات';
+$_lang['Announcement has been added'] = 'تم إضافة الإعلان';
+$_lang['Announcement has been deleted'] = 'تم حذف الإعلان';
+$_lang['Announcement has been modified'] = 'تم تعديل الإعلان';
+$_lang['Announcements list has been cleared up'] = 'تم مسح قائمة الإعلانات';
+$_lang['Anonymous'] = 'شخص مجهول';
+$_lang['Anonymous attempts'] = 'محاولات من اشخاص مجهولين';
+$_lang['Anonymous users access count :'] = 'عدد مرات وصول المستخدمين المجهولين : ';
+$_lang['Answer'] = 'الجواب';
+$_lang['Answer is required'] = 'الجواب مطلوب';
+$_lang['Answer type'] = 'نوع الجواب';
+$_lang['Answers to the question'] = 'أجوبة السؤال';
+$_lang['Are you sure to delete'] = 'سيتم الحذف هل أنت متأكد؟';
+$_lang['Are you sure to delete this group ?'] = 'هل انت متأكد من رغبتك بحذف هذه المجموعة؟';
+$_lang['Are you sure you want to completely delete this question ?'] = 'هل أنت متأكد انك تريد حذف هذا السؤال بشكل كامل ?';
+$_lang['Are you sure you want to delete all groups ?'] = 'هل انت متاكد انك تريد حذف جميع المجموعات ?';
+$_lang['Are you sure you want to delete this exercise ?'] = 'هل انت متاكد انك تريد حذف هذا التمرين ?';
+$_lang['Are you sure you want to empty all groups ?'] = 'هل أنت متأكد انك تريد إفراغ جميع المجموعات ?';
+$_lang['Are you sure you want to enrol the whole class on the course ?'] = 'هل أنت متاكد انك تريد تسجيل كامل طلاب الصف في المقرر ?';
+$_lang['Are you sure you want to remove the following module from the learning path :'] = 'هل أنت متأكد أنك تريد حذف الوحدة التالية من المسار التعليمي : ';
+$_lang['Are you sure you want to remove this course from your list ?'] = 'هل أنت متاكد انك ترغب بإزالة هذا المقرر من  القائمة الخاصة بك؟';
+$_lang['Are you sure you want to unregister'] = 'هل أنت متأكد انك ترغب بإلغاء التسجيل ';
+$_lang['Area for this group'] = 'منطقة خاصة بالمجموعة';
+$_lang['Asset not found :'] = 'لم يتم العثور على الممتلك : ';
+$_lang['Assignment'] = 'وظيفة/مهمة';
+$_lang['Assignment deleted'] = 'تم حذف الوظيفة / المهمة';
+$_lang['Assignment modified'] = 'تم تعديل الوظيفة / المهمة';
+$_lang['Assignment title'] = 'عنوان الوظيفة';
+$_lang['Assignment title already exists'] = 'عنوان الوظيفة/المهمة موجود مسبقاً';
+$_lang['Assignment title required'] = 'يجب إدخال عنوان للوظيفة/المهمة';
+$_lang['Assignment type'] = 'نوع الوظيفة/المهمة';
+$_lang['Assignments help'] = 'الوظائف و المهام';
+$_lang['Attach'] = 'إرفاق';
+$_lang['Attach a file'] = 'إرفاق ملف';
+$_lang['Attach an existing resource'] = 'إرفاق مورد موجود';
+$_lang['Attached Resources : Add / Delete attachement'] = 'الموارد المرفقة : إضافة / حذف مرفقات';
+$_lang['Attached file'] = 'الملف المرفق';
+$_lang['Attached resources'] = 'الموراد المرفقة';
+$_lang['Attempt'] = 'محاولة';
+$_lang['Attempts'] = 'المحاولات';
+$_lang['Attempts allowed'] = 'المحاولات المسموحة';
+$_lang['Authentication'] = 'تسجيل الدخول للأعضاء';
+$_lang['Authentication Required'] = 'التحقق من اسم المستخدم و كلمة السر مطلبو';
+$_lang['Author'] = 'المرسل';
+$_lang['Author(s)'] = 'المؤلف ( المؤلفون)';
+$_lang['Author(s) is(are) required'] = 'يجب كتابة اسم المؤلف ( المؤلفون)';
+$_lang['Automatically, after each submission'] = 'بشكل تلقائي,بعد كل إرسال';
+$_lang['Automatically, after end date'] = 'بشكل تلقائي , بعد تاريخ النهاية';
+$_lang['Available from'] = 'متوفر من ';
+$_lang['Average Time'] = 'معدل الوقت (ثانية)';
+$_lang['Average score'] = 'المعدل';
+$_lang['Back'] = 'للخلف';
+$_lang['Back to Home page'] = 'العودة للصفحة الأساسية';
+$_lang['Back to administration page'] = 'العودة لصفحة المدير';
+$_lang['Back to class list'] = 'العودة لقائمة الصفوف';
+$_lang['Back to class members'] = 'العودة لاعضاء الصف';
+$_lang['Back to course list'] = 'العودة لقائمة المقرر';
+$_lang['Back to learning path administration'] = 'العودة لإدارة مسار التعليم';
+$_lang['Back to list'] = 'العودة للقائمة';
+$_lang['Back to my course list'] = 'العودة لقائمة المقرر الخاص بي';
+$_lang['Back to my personal course list'] = 'العودة لقائمة المقررات الخاصة بي';
+$_lang['Back to page'] = 'العودة للصفحة';
+$_lang['Back to parent category'] = 'العودة للتصنيف الأب';
+$_lang['Back to the class'] = 'العودة للمقرر';
+$_lang['Back to the editor'] = 'العودة لمحرر النصوص';
+$_lang['Back to user list'] = 'العودة لقائمة المستخدمين';
+$_lang['Back to user settings'] = 'العودة لإعدادات المستخدم';
+$_lang['Best score'] = 'العلامة العظمي';
+$_lang['Block'] = 'توقيف';
+$_lang['Build language files'] = 'بناء ملفات اللغة';
+$_lang['By deleting a label you will delete all modules or label it contains.'] = 'بمسح هذه التسمية ستقوم بمسح كل الوحدات أو تسمية تحويها.';
+$_lang['CSV file with the user list :'] = 'اختر الملف الذي يحوي بيانات قائمة المستخدمين , الملف بتنسيق CSV: ';
+$_lang['Campus name'] = 'اسم الموقع';
+$_lang['Can have courses'] = 'يمكن لهذا التصنيف أن يحوي مقررات : ';
+$_lang['Cancel'] = 'إلغاء';
+$_lang['Cannot copy the file'] = 'لا يمكن نسخ الملف';
+$_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'فشل في استخلاص ملف المينافست من الملف المضغوط ( قد يكون الملف معطوبا؟ً ) ';
+$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'لا يمكن إيجاد ملف <i>manifest</i> في الحزمة.<br /> لا يمكن إيجاد الملف : imsmanifest.xml';
+$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'فشل في العثور على الملف الثانوي للإعدادات ضمن الحزمة <br /> الملف غير موجود :';
+$_lang['Categories'] = 'التصنيفات';
+$_lang['Category'] = 'التصنيف';
+$_lang['Category code'] = 'رمز التصنيف';
+$_lang['Category code is required'] = 'يجب إدخال رمز التصنيف';
+$_lang['Category created'] = 'تم إنشاء التصنيف';
+$_lang['Category deleted'] = 'تم حذف التصنيف';
+$_lang['Category moved'] = 'تم نقل التصنيف';
+$_lang['Category name'] = 'اسم التصنيف :';
+$_lang['Category name is required'] = 'يجب إدخال اسم التصنيف';
+$_lang['Category updated'] = 'تم تعديل التصنيف';
+$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'تغيير العلامة الصافية لاجتياز هذه الوحدة (نسبة مئوية) : ';
+$_lang['Change picture'] = 'تغيير الصورة';
+$_lang['Changes have been applied to the user settings'] = 'تم تطبيق التعديلات على إعدادات المستخدم';
+$_lang['Changes have been saved'] = 'تم حفظ التعديلات';
+$_lang['Chat'] = 'دردشة';
+$_lang['Chat of the group'] = 'الدردشة الخاصة بالمجموعة';
+$_lang['Chat reset by'] = 'تم إعادة تشغيل الدردشة من قبل';
+$_lang['Check this box to delete the attached file'] = 'قم بالنقر على هذا المربع لحذف الملف المرفق';
+$_lang['Choice'] = 'إجابتك';
+$_lang['Choose a course to access this page.'] = 'اختر المقرر الذي يسمح له بالوصول لهذه الصفحة';
+$_lang['Choose now a username and a password for the user account'] = 'اختيار اسم و كلمة سر جديدة لحساب المستخدم';
+$_lang['Clarodoc'] = 'Clarodoc';
+$_lang['Claroline help'] = 'بدء المساعدة';
+$_lang['Claroline.net news'] = 'Claroline.net أخبار';
+$_lang['Class members'] = 'أعضاء الصف';
+$_lang['Class registered'] = 'تم تسجيل الصف';
+$_lang['Class users'] = 'المستخدمين في الصف';
+$_lang['Classes'] = 'الصفوف';
+$_lang['Clear up event list'] = 'مسح قائمة جدول الأعمال';
+$_lang['Clear up list of announcements'] = 'مسح قائمة الإعلانات';
+$_lang['Click on the month name for more details'] = 'انقر على اسم الشهر للحصول على معلومات تفصيلية';
+$_lang['Close'] = 'إغلاق';
+$_lang['Close popup'] = 'اغلاق النوافذ المنبثقة';
+$_lang['Close window'] = 'إغلاق النافذة';
+$_lang['Comment'] = 'ملاحظة';
+$_lang['Comment modified'] = 'تم تعديل الملاحظة';
+$_lang['Complete language files'] = 'ملفات اللغة الكاملة';
+$_lang['Configuration'] = 'الإعدادات';
+$_lang['Confirmation'] = 'تأكيد كلمة السر';
+$_lang['Content'] = 'المضمون';
+$_lang['Continue'] = 'متابعة';
+$_lang['Copy'] = 'نسخ';
+$_lang['Corresponds to'] = 'الموافق ل';
+$_lang['Country'] = 'البلد';
+$_lang['Country code seems to be incorrect.'] = 'يبدو ان رمز البلد غير صحيح.';
+$_lang['Course'] = 'المقرر';
+$_lang['Course Home'] = 'صفحة المقرر';
+$_lang['Course Repository'] = 'مخزن المقررات';
+$_lang['Course access'] = 'الوصول للمقرر';
+$_lang['Course administrator only'] = 'مدير المقرر فقط';
+$_lang['Course code'] = 'رمز المقرر التعليمي';
+$_lang['Course code needed'] = 'يجب إكمال حقل رمز المقرر';
+$_lang['Course creator'] = 'هو من انشأ المقرر';
+$_lang['Course description'] = 'وصف المقرر التعليمي';
+$_lang['Course list'] = 'قائمة المقررات';
+$_lang['Course manager'] = 'مدير المقرر';
+$_lang['Course manager cannot unsubscribe himself'] = 'لا يستطيع مدير المقرر ان يقوم بإلغاء تسجيل نفسه';
+$_lang['Course members'] = 'أعضاء المقرر';
+$_lang['Course not found'] = 'لم يتم العثور على المقرر';
+$_lang['Course progression'] = 'مستوى التقدم في المقرر ';
+$_lang['Course settings'] = 'خصائص و إعدادات المقرر';
+$_lang['Course statistics deleted'] = 'تم حذف الإحصائيات الخاصة بالمقرر';
+$_lang['Course title'] = 'اسم المقرر التعليمي';
+$_lang['Course title needed'] = 'يجب تحديد اسم المقرر';
+$_lang['Course users list'] = 'قائمة مقررات المستخدمين';
+$_lang['Courses'] = 'المقررات التعليمية';
+$_lang['Courses not used'] = 'المقررات التي لم يتم استخدامها';
+$_lang['Courses without a lecturer'] = 'مقررات بدون مدرس';
+$_lang['Courses without student'] = 'مقررات بدون طلاب';
+$_lang['Create'] = 'إنشاء';
+$_lang['Create Directory'] = 'إنشاء مجلد';
+$_lang['Create Document'] = 'إنشاء وثيقة';
+$_lang['Create Pages'] = 'إنشاء صفحات';
+$_lang['Create a category'] = 'إنشاء تصنيف';
+$_lang['Create a course site'] = 'إنشاء موقع لمقرر';
+$_lang['Create a course website'] = 'إنشاء موقع لمقرر تعليمي';
+$_lang['Create a new Wiki'] = 'إنشاء ويكي جديدة';
+$_lang['Create a new assignment'] = 'إنشاء (وظيفة/مهمة) جديدة';
+$_lang['Create a new class'] = 'إنشاء صف جديد';
+$_lang['Create a new label / title in this learning path'] = 'إنشاء عنوان أو عبارة جديدة ضمن مسار التعليم هذا';
+$_lang['Create a new learning path'] = 'إنشاء مسار تعليم جديد';
+$_lang['Create a new user'] = 'إنشاء مستخدم جديد';
+$_lang['Create another new user'] = 'إنشاء مستخدم جديد آخر';
+$_lang['Create category'] = 'إنشاء تصنيف';
+$_lang['Create course'] = 'إنشاء مقرر';
+$_lang['Create first a user account on this platform'] = 'قم أولاً بإضافة حساب مستخدم ضمن الموقع';
+$_lang['Create forum'] = 'إنشاء منتدى';
+$_lang['Create hyperlink'] = 'إنشاء وصلة';
+$_lang['Create label'] = 'إنشاء سمة';
+$_lang['Create new group(s)'] = 'إنشاء مجموعة جديدة';
+$_lang['Create user'] = 'إنشاء مستخدم جديد';
+$_lang['Create user account'] = 'تسجيل حساب جديد';
+$_lang['Create/edit document'] = 'إنشاء/تعديل  وثيقة';
+$_lang['Creating course (it may take a while) ...'] = 'إنشاء المقرر ( قد تستغرق هذه العملية بعض الوقت)';
+$_lang['Current attached file'] = 'الملف الحالي المرفق';
+$_lang['Current feedback file'] = 'ملف المراجعات الحالي';
+$_lang['Current file'] = 'الملف الحالي';
+$_lang['Current registration status :'] = 'حالة التسجيل الحالي : <br /> <br />
+';
+$_lang['Current time'] = 'الوقت الحالي';
+$_lang['DBSettingNamesIntro'] = 'سينشئ برنامج التنصيب قواعد البيانات الرئيسية لـ Claroline.
 إذا كنت محدداً من قبل مدير النظام باستخدام
 قاعدة بيانات واحدة، عد إلى الصفحة السابقة
-و اختر الخيار 'مفردة' لـ 'نوع قاعدة البيانات'.<br /><br />";
-$_lang['DBUse'] = "استخدام قاعدة البيانات";
-$_lang['DOCUMENTTypeDesc'] = "الوثيقة";
-$_lang['Date'] = "التاريخ";
-$_lang['DateLastWrite'] = "اخر رسالة كانت بتاريخ: ";
-$_lang['Day'] = "اليوم";
-$_lang['DbName'] = "اسم قاعدة البيانات";
-$_lang['DbPrefixForm'] = "بادئة لاسماء قواعد بيانات المقررات";
-$_lang['Dear'] = "عزيزي";
-$_lang['DefSubVisibility'] = "سماحية الرؤية الافتراضية للأعمال";
-$_lang['DefaultLearningPathComment'] = "هذه المقدمة لمسار التعليم الحالي, لاستبدالها  قم بالنقر  على <b> تعديل</b>";
-$_lang['DefaultMatchingOpt1'] = "غني";
-$_lang['DefaultMatchingOpt2'] = "جميل المظهر";
-$_lang['DefaultMatchingProp1'] = "والدك هو";
-$_lang['DefaultMatchingProp2'] = "والدتك هي";
-$_lang['DefaultModuleAddedComment'] = "هذا هو نص المقدمة الإضافي حول وجود هذه الوحدة خصوصاً ضمن هذا المسار التعليمي. لاستبداله بنصك الخاص، اضفط بالأسفل على <b>تعديل</b>.";
-$_lang['DefaultModuleComment'] = "هذا هو نص المقدمة لهذه الوحدة، سوف يظهر في كل مسار تعليمي يحوي هذه الوحدة. لاستبداله بنصك الخاص، اضغط بالأسفل على <b>تعديل</b>.";
-$_lang['DefaultTextInBlanks'] = "[البريطانيون] يعيشون في [المملكة المتحدة].";
-$_lang['Defcon'] = "للأسف, تم كشف حالات غريبة !!";
-$_lang['DefineBlanks'] = "رجاءً حدد على الأقل فراغاً واحداً ضمن الأقواس [...]";
-$_lang['DefineHeadings'] = "تعريف العناوين ) الترويسات(";
-$_lang['DefineOptions'] = "رجاءً حدد الخيارات";
-$_lang['DelAdmin'] = "إزل هذه من خلال أداة مدير المنتدى";
-$_lang['DelCourse'] = "حذف الموقع الخاص بهذا المقرر بشكل كامل ";
-$_lang['DelCourseStats'] = "حذف إحصائيات جميع المقررات";
-$_lang['DelCourseStatsDone'] = "تم حذف الإحصائيات الخاصة بالمقرر";
-$_lang['DelImage'] = "إزالة الصورة";
-$_lang['Delete'] = "حذف";
-$_lang['DeleteAttachedFile'] = "حذف الملف المرفق";
-$_lang['DeleteCaution'] = "! سيؤدي هذا أيضاً إلى حذف جميع الأعمال المرسلة لهذه الوظيفة !";
-$_lang['DeleteGroups'] = "حذف الكل";
-$_lang['DeleteMyAccount'] = "حذف الحساب الخاص بي";
-$_lang['DeleteUser'] = "حذف";
-$_lang['DeletedExternalTool'] = "تم حذف الأداة الخارجية";
-$_lang['Denied'] = "غير مسموح";
-$_lang['DepartmentUrl'] = "عنوان القسم";
-$_lang['DepartmentUrlName'] = "القسم";
-$_lang['DescAdded'] = "تم إضافة الوصف";
-$_lang['DescDeleted'] = "تم حذف الوصف";
-$_lang['DescUnableToDelete'] = "فشل في الحذف";
-$_lang['DescUnableToUpdate'] = "فشل في التحميل";
-$_lang['DescUpdated'] = "تم تحديث الوصف.";
-$_lang['Description'] = "الوصف";
-$_lang['DescriptionComment1'] = "ما هو مكان و مخصص المقرر في هذا البرنامج؟ هل يوجد مقررات مطلوبة قبله؟ ما هي علاقاته بالمقررات الأخرى؟";
-$_lang['DescriptionComment2'] = "معلومات تسمح بتعريف المقرر (حروف بادئة, عنوان, عدد ساعات, عملي...) و تدريسه (الكنية, الاسم, المكتب, الهاتف, البريد الإلكتروني, الاتاحية).  عرض عام للمقرر ضمن البرنامج.";
-$_lang['DescriptionCours'] = "وصف المقرر التعليمي";
-$_lang['Detail'] = "تفاصيل";
-$_lang['DetailView'] = "شوهد من قبل";
-$_lang['Details'] = "التفاصيل";
-$_lang['DevTools'] = "أدوات التطوير";
-$_lang['DirCr'] = "تم إنشاء المجلد";
-$_lang['DirMv'] = "تم نقل العنصر";
-$_lang['Disable'] = "عدم تفعيل";
-$_lang['DiskUsage'] = "المساحة المستخدمة من القرص";
-$_lang['DispClassAdded'] = "عرض الصف المضاف";
-$_lang['DocContent'] = "<p>إن أداة الوثائق تشبه إلى حد كبير مدير الملفات الذي تستخدمه في حاسبك الشخصي</p> <p> تستطيع ان تقوم بتحميل أي نوع من الملفات مثل ملفات الوثائق و الجداول الحسابية و صفحات الانترنت و العروض التقديمية و ملفات الاكروبات او الفلاش...إلخ.
+و اختر الخيار \'مفردة\' لـ \'نوع قاعدة البيانات\'.<br /><br />';
+$_lang['Database Host'] = 'قاعدة البيانات';
+$_lang['Database name'] = 'اسم قاعدة البيانات';
+$_lang['Database usage'] = 'استخدام قاعدة البيانات';
+$_lang['Date'] = 'التاريخ';
+$_lang['Day'] = 'اليوم';
+$_lang['Default works visibility'] = 'سماحية الرؤية الافتراضية للأعمال';
+$_lang['Define Headings'] = 'تعريف العناوين ) الترويسات(';
+$_lang['Delete'] = 'حذف';
+$_lang['Delete Wiki'] = 'حذف ويكي';
+$_lang['Delete all course statistics'] = 'حذف إحصائيات جميع المقررات';
+$_lang['Delete all groups'] = 'حذف الكل';
+$_lang['Delete all messages of'] = 'حذف جميع رسائل ';
+$_lang['Delete attached file'] = 'حذف الملف المرفق';
+$_lang['Delete my account'] = 'حذف الحساب الخاص بي';
+$_lang['Delete the whole course website'] = 'حذف الموقع الخاص بهذا المقرر بشكل كامل ';
+$_lang['Delete user'] = 'حذف';
+$_lang['Deleted line'] = 'سطر محذوف';
+$_lang['Deletion of the user was done sucessfully'] = 'تم حذف المستخدم بنجاح';
+$_lang['Denied'] = 'غير مسموح';
+$_lang['Department'] = 'القسم';
+$_lang['Department URL'] = 'عنوان القسم';
+$_lang['Department URL is not valid'] = 'عنوان URL القسم غير صالح';
+$_lang['Description'] = 'الوصف';
+$_lang['Description added.'] = 'تم إضافة الوصف';
+$_lang['Description deleted.'] = 'تم حذف الوصف';
+$_lang['Description of the Wiki'] = 'وصف الويكي';
+$_lang['Description updated'] = 'تم تحديث الوصف.';
+$_lang['Detail'] = 'تفاصيل';
+$_lang['Details'] = 'التفاصيل';
+$_lang['Details may be incorrect as it seems that some questions have change between this attempt and now.'] = 'التفاصيل قد تكون غير صحيحةبسبب تغير بعض الاسئلة بين هذه المحاولة و الأن';
+$_lang['Devel Tools'] = 'أدوات التطوير';
+$_lang['Differences :'] = 'الاختلافات :';
+$_lang['Directory created'] = 'تم إنشاء المجلد';
+$_lang['Disable'] = 'عدم تفعيل';
+$_lang['Disable text editor'] = 'إيقاف عمل محرر النصوص المتقدم';
+$_lang['Disk Usage'] = 'المساحة المستخدمة من القرص';
+$_lang['Display of detailled answers is not authorized.'] = 'عرض تفاصيل الإجابات غير مسموح';
+$_lang['Do you really want to delete the category'] = 'هل تريد حقاً حذف هذا التصنيف ';
+$_lang['Do you want to continue?'] = 'هل تريد المتابعة؟';
+$_lang['Document'] = 'الوثيقة';
+$_lang['Document content'] = 'مضمون الوثيقة : ';
+$_lang['Document deleted'] = 'تم حذف الوثيقة';
+$_lang['Document in module'] = 'مستند في وحدة';
+$_lang['Document name'] = 'اسم الوثيقة : ';
+$_lang['Documents'] = 'الوثائق';
+$_lang['Documents and Links'] = 'وثائق و وصلات';
+$_lang['Documents downloaded by the student'] = 'الوثائق التي تم تحميلها من قبل الطلاب';
+$_lang['Documents help'] = 'ملفات المساعدة';
+$_lang['Documents of the group'] = 'الوثائق الخاصة بالمجموعة ';
+$_lang['Down'] = 'ترتيب تنازلي';
+$_lang['Download attached file'] = 'تنزيل الملف المرفق';
+$_lang['EG'] = 'مثال:';
+$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'خطاً: التنسيق الذي أعطيته غير متوافق مع Claroline';
+$_lang['Edit'] = 'تعديل';
+$_lang['Edit Event'] = 'تحرير حدث';
+$_lang['Edit Pages'] = 'تحرير الصفحات';
+$_lang['Edit Tool list'] = 'تحرير قائمة الأدوات';
+$_lang['Edit a category'] = 'تحرير التصنيف';
+$_lang['Edit answers'] = 'تحرير الأجوبة';
+$_lang['Edit automatic feedback'] = 'تحرير المراجعة التلقائية';
+$_lang['Edit category'] = 'تحرير تصنيف';
+$_lang['Edit conflict'] = 'تحرير التعارض';
+$_lang['Edit exercise settings'] = 'تحرير إعدادات التمرين';
+$_lang['Edit file content'] = 'تحرير مضمون الملف';
+$_lang['Edit format to use'] = 'تنسيق التحرير للاستخدام';
+$_lang['Edit last version'] = 'تحرير النسخة الأخيرة';
+$_lang['Edit post'] = 'تحرير مشاركة';
+$_lang['Edit properties'] = 'تحرير الخصائص';
+$_lang['Edit question'] = 'تحرير الأسئلة';
+$_lang['Edit settings'] = 'تحرير الإعدادات';
+$_lang['Edit text zone'] = 'تحرير النص الترحيبي في الصفحة الأساسية';
+$_lang['Edit this group'] = 'تحرير هذه المجموعة';
+$_lang['Edit this page'] = 'تحرير هذه الصفحة';
+$_lang['Element list'] = 'قائمة العناصر';
+$_lang['Element moved'] = 'تم نقل العنصر';
+$_lang['Element renamed'] = 'تمت إعادة تسميةالعنصر';
+$_lang['Email'] = 'البريد الالكتروني';
+$_lang['Email needed'] = 'يجب إدخال البريد الإلكتروني';
+$_lang['Empty'] = 'فارغ';
+$_lang['Empty (or NULL)'] = 'فارغ (او  غير محدد)';
+$_lang['Empty all groups'] = 'تفريغ الكل';
+$_lang['Empty language file'] = 'ملف لغة فارغ';
+$_lang['Enable'] = 'تمكين';
+$_lang['Enable text editor'] = 'تشغيل محرر النصوص المتقدم';
+$_lang['End date'] = 'تاريخ الانتهاء';
+$_lang['Enrol as course manager'] = 'التسجيل كمدير مقرر';
+$_lang['Enrol as student'] = 'التسجيل كطالب';
+$_lang['Enrol as teacher'] = 'التسجيل كمدرس';
+$_lang['Enrol class'] = 'تسجيل صف';
+$_lang['Enrol on a new course'] = 'التسجيل في مقرر جديد';
+$_lang['Enrol to a new course'] = 'التسجيل في مقرر جديد';
+$_lang['Enrol to course not allowed'] = 'التسجيل في المقرر غير مسموح';
+$_lang['Enroll a user'] = 'تسجيل مستخدم';
+$_lang['Enrolment'] = 'الالتحاق و التسجيل في المقرر';
+$_lang['Enter'] = 'دخول';
+$_lang['Enter link url'] = 'إدخال عنوان الوصلة url';
+$_lang['Enter new password twice to change, leave empty to keep it'] = 'أدخل كلمة السر الجديدة مرتين لتغير كلمة السر أو اترك الحقول فارغة للحفاظ على كلمة السر الحالية';
+$_lang['Enter the description of your wiki here'] = 'اكتب وصف للويكي الخاصة بك هنا';
+$_lang['Enter your email so we can send you your password.'] = 'أدخل عنوان البريد الاكتروني الخاص بك لنقوم بإرسال كلمة المرور ';
+$_lang['Error : Cannot initialize chat'] = 'خطأ:فشل في تجهيز ملفات الدردشة';
+$_lang['Error : Name already exists in the learning path or in the module pool'] = 'خطأ : اسم موجود سابقاً في المسار التعليمية أو في مخزن الوحدات';
+$_lang['Error : One or more values are doubled'] = 'خطأ: يوجد قيمة أو أكثر مكررة';
+$_lang['Error : cannot read RSS feed'] = 'خطأ : لا يمكن قراءة مصدر RSS';
+$_lang['Error copying existing SCORM content'] = 'حصل خطأ أثناء نسخ محتويات ال SCORM';
+$_lang['Error in SQL statement'] = 'خطأ في تعليمة ال  SQL';
+$_lang['Error reading <i>manifest</i> file'] = 'خطأ أثناء قراءة ملف المينافست manifest ';
+$_lang['Error reading a secondary initialisation file :'] = 'خطأ بقراءة الملف الثانوي :';
+$_lang['Error reading zip file.'] = 'خطأ أثناء قراءة الملف المضغوط';
+$_lang['Error when copying needed SCORM files'] = 'حصل خطأ أثناء نسخ الملفات اللازمة لحزمة ال SCORM';
+$_lang['Error!! you cannot unregister a course manager'] = 'خطأ ! لا تستطيع إلغاء تسجيل مدير المقرر';
+$_lang['ErrorInvalidParms'] = 'خطأ: قيمة وسيطية غير صالحة (استخدم الأرقام فقط)';
+$_lang['Event added to the agenda'] = 'تم إضافة الحجث إلى جدول الأعمال';
+$_lang['Event deleted from the agenda'] = 'تم حذف الحدث من جدول الأعمال';
+$_lang['Event updated into the agenda'] = 'تم تحديث جدول الأعمال حسب الأحداث';
+$_lang['Exercice not found'] = 'لم يتم العثور على التمرين';
+$_lang['Exercise cancelled, choose a module in the list to continue.'] = 'تم إلغاء التمرين , اختر وحدة من ضمن القائمة للمتابعة';
+$_lang['Exercise description'] = 'وصف التمرين';
+$_lang['Exercise done, choose a module in the list to continue.'] = 'انتهى التمرين , قم باختيار وحدة من القائمة للمتابعة';
+$_lang['Exercise in module'] = 'تمرين في الوحدة';
+$_lang['Exercise management'] = 'إدارة التمرين';
+$_lang['Exercise name'] = 'اسم التمرين';
+$_lang['Exercise no longer available'] = 'لم يعد هذا التمرين متاحا';
+$_lang['Exercise not available'] = 'التمرين غير متاح';
+$_lang['Exercise type'] = 'نوع التمرين';
+$_lang['Exercises'] = 'التمارين';
+$_lang['Exercises help'] = 'تمارين مساعدة';
+$_lang['Expected choice'] = 'الإجابات الصحيحة';
+$_lang['Export'] = 'تصدير';
+$_lang['External Tool added'] = 'تم إضافة الأداة الخارجية';
+$_lang['External link'] = 'وصلة خارجية';
+$_lang['External tool deleted'] = 'تم حذف الأداة الخارجية';
+$_lang['External tool updated'] = 'تم تحديث الأداة الخارجية';
+$_lang['Extract language variables'] = 'استخراج متحولات اللغة';
+$_lang['False'] = 'خاطئ';
+$_lang['Feedback'] = 'مراجعة';
+$_lang['Feedback added'] = 'تم إضافة المراجعة';
+$_lang['Feedback file'] = 'ملف المراجعة';
+$_lang['Feedback text'] = 'نص المراجعة';
+$_lang['Feedbacks'] = 'المراجعات';
+$_lang['Fields enclosed by'] = 'حقول البيانات محاطة برمز';
+$_lang['Fields separator used'] = 'الرمز المستخدم للفصل بين الحقول';
+$_lang['File (file required, description text optional)'] = 'ملف (الملف مطلوب  و يمكن إضافة شرح بشكل اختياري)';
+$_lang['File Name or URL is missing.'] = 'يجب ادخل اسم الملف او عنوان الوصلة URL';
+$_lang['File content modified'] = 'تم تعديل مضمون الملف';
+$_lang['File created'] = 'تم إنشاء الملف';
+$_lang['File description'] = 'وصف الملف';
+$_lang['File list'] = 'قائمة الملفات';
+$_lang['File must be a zip file (.zip)'] = 'يجب ان يكون الملف من نمط الملفات المضغوطة (.zip)';
+$_lang['File name is missing'] = 'ادخل اسم الملف';
+$_lang['File received :'] = 'تم استقبال الملف : ';
+$_lang['File structure checker'] = 'التحقق من بنية الملف';
+$_lang['Filename'] = 'اسم الملف';
+$_lang['Fill groups (automatically)'] = 'ملء تلقائي ';
+$_lang['Fill in blanks'] = 'ملء الفراغات';
+$_lang['Fill text field'] = 'مل حقل النص';
+$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'اكتب شرحاً عما يحثك و يشجعك و أرسل طلبك , سيتم إرسال بريد الكتروني لمدير الموقع';
+$_lang['Fill type'] = 'طريقة الملء';
+$_lang['Filter'] = 'تصفية';
+$_lang['Find doubled variables'] = 'إيجاد المتحولات المتكررة';
+$_lang['Finish'] = 'انتهاء';
+$_lang['First name'] = 'الاسم';
+$_lang['First submission date'] = 'تاريخ&nbsp;الإرسال&nbsp;الأول';
+$_lang['Follow courses'] = 'التسجيل في مقرر';
+$_lang['Forum'] = 'منتدى';
+$_lang['Forum created'] = 'تم إنشاء المنتدى';
+$_lang['Forum deleted'] = 'تم حذف المنتدى';
+$_lang['Forum emptied'] = 'تم تفريغ المنتدى';
+$_lang['Forum updated'] = 'تم تعديل المنتدى';
+$_lang['Forum usage'] = 'استخدام المنتدى';
+$_lang['Forums'] = 'المنتديات';
+$_lang['Forums help'] = 'منتديات المساعدة';
+$_lang['From'] = 'من';
+$_lang['From language files'] = 'من ملفات اللغة';
+$_lang['From script files'] = 'من ملفات النصوص البرمجية';
+$_lang['Fullscreen'] = 'ملء الشاشة';
+$_lang['Function list'] = 'قائمة الوظائف';
+$_lang['Garbage'] = 'المحذوفات';
+$_lang['Get a question from another exercise'] = 'استخدام سؤال موجود في تمرين أخر';
+$_lang['Get tracking data in a CSV file'] = 'الحصول على بيانات التتبع من خلال ملف CSV';
+$_lang['Go back to the exercise'] = 'العودة للتمارين';
+$_lang['Go back to the question list'] = 'العودة لقائمة الأسئلة';
+$_lang['Go back to the question pool'] = 'العودة للأسئلة';
+$_lang['Go to the account creation page'] = 'الانتقال لصفحة إنشاء حساب';
+$_lang['Group'] = 'مجموعة';
+$_lang['Group Tutor'] = 'مشرف المجموعة';
+$_lang['Group area'] = 'منطقة المجموعة';
+$_lang['Group deleted'] = 'تم حذف المجموعة';
+$_lang['Group forums category can\'t be deleted'] = 'تصنيف منتديات المجموعات لا يمكن حذفه';
+$_lang['Group management'] = 'إدارة المجموعة';
+$_lang['Group members'] = 'أعضاء المجموعة';
+$_lang['Group name'] = 'اسم المجموعة';
+$_lang['Group settings have been modified'] = 'تم تعديل إعدادات المجموعة';
+$_lang['Group settings modified'] = 'تم تعديل بيانات المجموعة';
+$_lang['Groups'] = 'المجموعات';
+$_lang['Groups (from groups tool, only group members can post)'] = 'جماعي';
+$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'تم ملء المجموعات ( أو إكمالها) من خلال الطلاب الموجودون في قائمة المستخدمين';
+$_lang['Groups help'] = 'مساعدة المجموعات';
+$_lang['Groups settings'] = 'إعدادات المجموعات';
+$_lang['He or she will receive email confirmation with login and password'] = 'سيتم إرسال بريد الكتروني لهذا الطالب يحوي الاسم مع كلمة السر';
+$_lang['Heading'] = 'الترويسة';
+$_lang['Help'] = 'المساعدة';
+$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'تستطيع من خلال هذه الصفحة تعديل النصوص الترحيبية التي تظهر في الصفحة الرئيسية للموقع';
+$_lang['Hits'] = 'عدد مرات الدخول';
+$_lang['Home page help'] = 'صفحة المساعدة';
+$_lang['Home page text zones'] = 'نصوص الترحيب في الصفحة الرئيسية للموقع';
+$_lang['Hour'] = 'الساعة';
+$_lang['Identical content<br />no modification saved'] = 'المحتويات متطابقة<br />لم يتم حفظ أي تغيرات';
+$_lang['If you wish to enrol on this course'] = 'إذا كان لديك رغبة بالالتحاق بهذا المقرر';
+$_lang['IfNotRedirect'] = 'إذا لم يتم التوجيه التلقائي';
+$_lang['Import'] = 'استيراد';
+$_lang['Import a learning path'] = 'استيراد مسار تعليم';
+$_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'الحزمة المستوردة يجب ان تكون ملف مضغوط بصيغة zip و تكون متوافقة مع المواصفة القياسية SCORM 1.2';
+$_lang['Impossible to promote group tutor a student already register to group'] = 'من غير الممكن ترقية طالب مسجل في المجموعة ليصبح مشرف للمجموعة';
+$_lang['In frames'] = 'ضمن إطارات';
+$_lang['Include picture'] = 'تضمين صورة';
+$_lang['Individual'] = 'شخصي';
+$_lang['Information'] = 'معلومات';
+$_lang['Information to give to students'] = 'معلومات تعطى للطلاب';
+$_lang['Insert a document as module'] = 'إدراج مستند كوحدة';
+$_lang['Insert a module of the course'] = 'إدراج وحدة من المقرر';
+$_lang['Insert my exercise'] = 'إضافة تمرين';
+$_lang['Insert my module'] = 'إدخال الوحدة الخاصة بي';
+$_lang['Insert new name'] = 'إضافة اسم جديد';
+$_lang['Institution'] = 'اسم الجامعة او المعهد';
+$_lang['Institution URL'] = 'عنوان المعهد على الانترنت URL';
+$_lang['Invalid Wiki Id'] = 'رقم ويكي غير صحيح';
+$_lang['Invalid email address'] = 'عنوان بريد الكتروني غير صحيح';
+$_lang['Invalid url'] = 'غير صحيحة url';
+$_lang['Invalid user : this user doesn\'t exist in your group'] = 'خطأ في المستخدم:هذا المستخدم غير موجود ضمن مجموعتك';
+$_lang['Invisible'] = 'مخفي';
+$_lang['Is platform admin'] = 'هو مدير الموقع';
+$_lang['It seems that you already have registered your campus.'] = 'يبدو  أنك قد سجلت مسبقاً جامعتك.';
+$_lang['Keys :'] = 'المفاتيح :';
+$_lang['Language'] = 'اللغة';
+$_lang['Last 31 days'] = 'أخر 31 يوم';
+$_lang['Last 7 days'] = 'أخر 7 أيام';
+$_lang['Last access'] = 'أخر مرة قام بتسجيل الدخول';
+$_lang['Last active topics'] = 'المشاركات الأخيرة';
+$_lang['Last attempt'] = 'اخر محاولة';
+$_lang['Last check before install'] = 'التحقق الأخير قبل التنصيب';
+$_lang['Last edit date'] = 'تاريخ أخر تعديل';
+$_lang['Last message'] = 'أخر رسالة';
+$_lang['Last message was on'] = 'اخر رسالة كانت بتاريخ: ';
+$_lang['Last messages'] = 'أخر الرسائل';
+$_lang['Last name'] = 'الاسم';
+$_lang['Last session time'] = 'وقت أخر جلسة ';
+$_lang['Lasting'] = 'باق';
+$_lang['Late upload'] = 'تحميل متاخر';
+$_lang['Latest announcements'] = 'الإعلانات السابقة';
+$_lang['Launch restore of the course repository'] = 'تشغيل مسترجع مخزن المقرر';
+$_lang['Learning Path is empty'] = 'مسار التعليم فارغ';
+$_lang['Learning Path not found'] = 'لم يتم العثور على مسار التعليم';
+$_lang['Learning path'] = 'مسار التعليم';
+$_lang['Learning path admin'] = 'إدارة مسار التعليم';
+$_lang['Learning path content'] = 'مضمون مسار التعلم';
+$_lang['Learning path has been successfully imported.'] = 'تم استيراد مسار التعليم بنجاح';
+$_lang['Learning path list'] = 'قائمة مسارات التعلم';
+$_lang['Learning path progression :'] = 'نسبة التقدم في مسار التعلم : ';
+$_lang['Learning paths tracking'] = 'تتبع مسارات التعلم';
+$_lang['Lecturer(s)'] = 'اسم المدرس او المدرسون';
+$_lang['Licence'] = 'الترخيص';
+$_lang['Limit'] = 'الحد الأقصى';
+$_lang['Line Number'] = 'رقم السطر';
+$_lang['List of Wiki'] = 'قائمة بالويكي';
+$_lang['List of students in this group'] = 'قائمة الطلاب في هذه المجموعة';
+$_lang['Load default format'] = 'تحميل التنسيق الافتراضي';
+$_lang['Location'] = 'الموقع';
+$_lang['Locked'] = 'مقفول';
+$_lang['Login'] = 'تسجيل الدخول';
+$_lang['Login request'] = 'طلب تسجيل دخول';
+$_lang['Logins'] = 'الدخول';
+$_lang['Logins and access to tools'] = 'عمليات الدخول للموقع و استخدام الأدوات';
+$_lang['Logins not used'] = 'تسجيل دخول غير مستخدم';
+$_lang['Logout'] = 'خروج';
+$_lang['Lost password'] = 'هل نسيت كلمة السر؟';
+$_lang['Mail is already used by another user.'] = 'البريد الإلكتروني مستخدم من قبل شخص آخر';
+$_lang['Mail synthax error.'] = 'خطأ في صياغة البريد الإلكتروني';
+$_lang['Main Group Settings'] = 'إعدادات المجموعة الرئيسية';
+$_lang['Main database'] = 'العنوان الرئيسي';
+$_lang['Main page'] = 'الصفحة الرئيسية';
+$_lang['Maintenance'] = 'الصيانة';
+$_lang['Make correspond'] = 'صنع مقابل';
+$_lang['Make invisible'] = 'إخفاء';
+$_lang['Make new search'] = 'بحث جديد : ';
+$_lang['Make search'] = 'بحث';
+$_lang['Make visible'] = 'إظهار';
+$_lang['Manage classes'] = 'إدارة الصفوف';
+$_lang['Manage course categories'] = 'إدارة تصنيف المقررات';
+$_lang['Manager'] = 'المدير';
+$_lang['Manifest found in zip file :'] = 'تم العثور على قائمة الاسماء - مينافست- ضمن الملف المضغوط : ';
+$_lang['Manifest read.'] = 'تم قراءة المينافست';
+$_lang['Matching'] = 'مطابقة';
+$_lang['Max file size'] = 'الحجم الأعظم المسموح للملف : ';
+$_lang['Max.'] = 'على الأكثر';
+$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'قم بحفظ هذه المعلومات لانها ستلزمك عند دخولك للموقع المرة القادمة.';
+$_lang['Message body'] = 'نص الرسالة';
+$_lang['Message from your lecturer'] = 'رسالة من مدرسك';
+$_lang['Messages'] = 'الرسائل';
+$_lang['Messages posted'] = 'عدد الردود التي أرسلها';
+$_lang['Messages to selected users'] = 'الرسائل للأشخاص المحددين';
+$_lang['Minimum raw to pass has been changed'] = 'Minimum raw to pass has been changed';
+$_lang['MinuteShort'] = 'دقيقة';
+$_lang['Missing'] = 'مفقود';
+$_lang['Missing field(s)'] = 'الحقول المفقودة';
+$_lang['Missing images detected'] = 'يوجد صور مفقودة';
+$_lang['Missing language files'] = 'ملفات اللغة مفقودة';
+$_lang['Missing value'] = 'قيمة مفقودة';
+$_lang['Modifies this announcement'] = 'تعديل هذا الإعلان';
+$_lang['Modify'] = 'تعديل';
+$_lang['Modify a work'] = 'تعديل العمل';
+$_lang['Modify exercise'] = 'تعديل تمرين';
+$_lang['Modify the format'] = 'تعديل التنسيق';
+$_lang['Module'] = 'وحدة';
+$_lang['Module added :'] = 'تم إضافة الوحدة : ';
+$_lang['Module moved'] = 'تم نقل الوحدة';
+$_lang['Module status'] = 'حالة الوحدة';
+$_lang['Module type'] = 'نوع الوحدة';
+$_lang['Modules'] = 'الوحدات';
+$_lang['Modules of this path will still be available in the pool of modules'] = 'وحدات هذا المسار ستبقى متاحة ضمن مخزن الوحدات';
+$_lang['Month'] = 'الشهر';
+$_lang['More replied topics'] = 'المداخلات التي تضم العدد الأكبر من الردود';
+$_lang['More seen topics'] = 'المداخلات الاكثر قراءة';
+$_lang['Move'] = 'نقل';
+$_lang['Move down'] = 'نقل للأسفل';
+$_lang['Move up'] = 'نقل للأعلى';
+$_lang['Moved line'] = 'سطر انتقل من مكان لأخر';
+$_lang['Multiple answers'] = 'عدة اجوبة';
+$_lang['Multiple choice (Multiple answers)'] = 'عدة اختيارات (عدة إجابات)';
+$_lang['Multiple choice (Unique answer)'] = 'عدة اختيارات (جواب وحيد)';
+$_lang['My User Account'] = 'تعديل معلوماتي';
+$_lang['My calendar'] = 'جدول أعمالي';
+$_lang['My course list'] = 'مقرراتي';
+$_lang['My other courses'] = 'بقية مقرراتي';
+$_lang['My personal course list'] = 'قائمة المقررات الخاصة بي';
+$_lang['My results'] = 'نتائجي';
+$_lang['MySQL Database and Table Names'] = '  و اسماء الجداول MySQL اسم قاعدة بيانات';
+$_lang['Mysql Repository'] = 'Mysql مخزن';
+$_lang['Mysql connection parameters'] = 'المتحولات الخاصة بالاتصال مع قاعدة بيانات MySQL';
+$_lang['Name cannot be empty'] = 'يجب إكمال الاسم';
+$_lang['Name link'] = 'وصلة جديدة';
+$_lang['Name of the class has been changed'] = 'تم تعديل اسم المقرر';
+$_lang['Name of the new directory'] = 'اسم المجلد الجديد';
+$_lang['Name of the tool'] = 'اسم الأداة';
+$_lang['Never browsed'] = 'لم يتم استعراضه أبداً';
+$_lang['Never connected students :'] = 'طلاب لم يقوموا بدخول موقع المقرر أبداً : ';
+$_lang['Never used'] = 'لم يتم استخدامه أبداً';
+$_lang['New Class name'] = 'اسم الصف الجديد';
+$_lang['New Wiki'] = 'ويكي جديدة';
+$_lang['New assignment created'] = 'تم إنشاء وظيفة/ مهمة جديدة';
+$_lang['New chat'] = 'دردشة جديدة';
+$_lang['New exercise'] = 'تمرين جديد';
+$_lang['New learning path name :'] = 'اسم مسار التعلم الجديد : ';
+$_lang['New question'] = 'سؤال جديد';
+$_lang['New topic'] = 'مشاركة جديدة';
+$_lang['New users will receive an e-mail with their user name and password'] = 'سيستقبل المستخدمون الجدد رسالة إلكترونية تحوي اسم المستخدم و كلمة المرور الخاصة بهم.';
+$_lang['Newest first'] = 'الأحدث اولاً';
+$_lang['Next'] = 'التالي';
+$_lang['Next day'] = 'غداً';
+$_lang['Next month'] = 'الشهر القادم';
+$_lang['Next week'] = 'الاسبوع القادم';
+$_lang['Next year'] = 'العام القادم';
+$_lang['No'] = 'لا';
+$_lang['No Content'] = 'لايوجد مضمون';
+$_lang['No Wiki'] = 'لا يوجد ويكي';
+$_lang['No announcement'] = 'لا يوجد إعلانات';
+$_lang['No change applied'] = 'لم يتم تطبيق أي تعديل';
+$_lang['No change applied.'] = 'ام يتم تطبيق أي تعديلات';
+$_lang['No closing date'] = 'لم يتم تحديد تاريخ الإغلاق';
+$_lang['No course available fitting this keyword'] = 'لا يوجد أي مقرر موافق لكلمة البحث التي أدخلتها';
+$_lang['No course to display'] = 'لا يوجد مقررات';
+$_lang['No email address specified'] = 'لم يتم تحديد البريد الالكتروني';
+$_lang['No error in file found.'] = 'لم يتم العثور على أخطاء ضمن الملف';
+$_lang['No event in the agenda'] = 'لا يوجد أي حدث ضمن جدول الأعمال';
+$_lang['No forum'] = 'لا يوجد منتدى';
+$_lang['No group deleted'] = 'لم يتم حذف أي مجموعة';
+$_lang['No image to display'] = 'لايوجد ملفات صور';
+$_lang['No learning path'] = 'لا يوجد مسار للتعليم';
+$_lang['No module'] = 'لا يوجد وحدة';
+$_lang['No module in package'] = 'لا يوجد وحدة في الحزمة';
+$_lang['No new post allowed'] = 'لا يسمح بإرسال مشاركات جديدة';
+$_lang['No post'] = 'لا يوجد مشاركة';
+$_lang['No quota'] = 'لايوجد مساحة مخصصة';
+$_lang['No result'] = 'لا يوجد نتائج';
+$_lang['No score'] = 'لا يوجد';
+$_lang['No scripts'] = 'لا يوجد نصوص برمجية';
+$_lang['No stats to show.  You haven\'t registered any course.'] = 'لم تقم بالتسجيل بأي مقرر ,لا يمكن عرض الحالة';
+$_lang['No time limitation'] = 'الوقت غير محدود';
+$_lang['No user found'] = 'لم يتم العثور على مستخدم';
+$_lang['No user to display'] = 'لا يوجد مستخدمين';
+$_lang['No visible submission'] = 'No visible submission';
+$_lang['No way'] = 'No way';
+$_lang['No, prevent users submitting work after the end date'] = 'لا , منع المستخدمين من إرسال العمل بعد انقضاء المهلة المحددة للإرسال';
+$_lang['None'] = 'بدون';
+$_lang['Not allowed'] = 'غير مسموح';
+$_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'غير مسموح , قم بستجيل اسم المستخدم ضمن بيانات التتبع و امنع الاشخاص المجهولين من تنفيذ التمرين';
+$_lang['Not recently connected students :'] = 'طلاب لم يدخلوا لموقع المقرر في الفترة الأخيرة : ';
+$_lang['Notice'] = 'ملاحظة';
+$_lang['Notify by email when replies are posted'] = 'إعلامي من خلال البريد الالكتروني عندما يتم إضافة ردود';
+$_lang['Now'] = 'الآن';
+$_lang['Number of courses'] = 'عدد المقررات التعليمية';
+$_lang['Number of courses by faculty'] = 'عدد المقررات في كل كلية';
+$_lang['Number of courses by language'] = 'عدد المقررات حسب اللغة';
+$_lang['Number of courses by visibility'] = 'عدد المقررات المرئية و المخفية';
+$_lang['Number of learning paths using this module :'] = 'عدد مسارات التعليم التي تستخدم هذه الوحدة:';
+$_lang['Number of logins'] = 'عدد مرات الدخول';
+$_lang['Number of pages'] = 'عدد الصفحات';
+$_lang['Number of rows'] = 'عدد الأسطر';
+$_lang['Number of users'] = 'عدد المستخدمين';
+$_lang['Number of users by course'] = 'عدد الطلاب حسب المقررات';
+$_lang['Number of users by faculty'] = 'عدد الطلاب حسب الكليات';
+$_lang['Number of users by status'] = 'عدد الطلاب حسب البلدان';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'الرقم المقترح يزيد عن العدد الأعظمي المسموح ) يمكنك تغيير الرقم المسموح ( لم يتم تعديل بنية المجموعة';
+$_lang['Numero'] = 'لا';
+$_lang['Ok'] = 'موافق';
+$_lang['Oldest first'] = 'الأقدم اولاً';
+$_lang['On'] = 'On';
+$_lang['On an unique page'] = 'ضمن صفحة واحدة';
+$_lang['One question per page (sequential)'] = 'سؤال واحد في كل صفحة ( اسئلة متتابعة)';
+$_lang['Ooops, stranges cases detected !!'] = 'للأسف, تم كشف حالات غريبة !!';
+$_lang['Operation impossible'] = 'العملية غير ممكنة';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'العملية غير ممكنة<br />يوجد ملف له نفس اسم الملف';
+$_lang['Optional'] = 'اختياري';
+$_lang['Order'] = 'الترتيب';
+$_lang['Orphan questions'] = 'اسئلة وحيدة';
+$_lang['Other'] = 'أخرى';
+$_lang['Others (*)'] = 'أخرون (*)';
+$_lang['PHP system information'] = 'PHP معلومات لغة البرمجة';
+$_lang['Page history'] = 'تاريخ الصفحة';
+$_lang['Page saved'] = 'تم حفظ الصفحة';
+$_lang['Parent category'] = 'التصنيف الأب ';
+$_lang['Password'] = 'كلمة السر';
+$_lang['Password given is too simple or too close to the username.'] = 'كلمة السر التي أدخلتها بسيطة جداً او أنها مشابهة لاسم المستخدم';
+$_lang['Period'] = 'الفترة';
+$_lang['PeriodDayShort'] = 'd.';
+$_lang['PeriodHourShort'] = 'h.';
+$_lang['PersonalCourseList'] = 'قائمة المقررات الشخصية';
+$_lang['Phone'] = 'رقم الهاتف';
+$_lang['Platform'] = 'المنصة';
+$_lang['Platform Administration'] = 'الإدارة';
+$_lang['Platform Administrator'] = 'إدارة الموقع';
+$_lang['Platform statistics'] = 'إحصائيات الموقع';
+$_lang['Please check that your campus URL is reachable from the internet.'] = 'يرجى التاكد من إمكانية الوصول لموقع الجامعة الخاص بك من خلال الانترنت';
+$_lang['Please choose a good answer'] = 'قم باختيار الجواب الصحيح من فضلك';
+$_lang['Please choose one or more good answers'] = 'قم باختيار الأجوبة الصحيحة من فضلك';
+$_lang['Please confirm your choice'] = 'قم بتأكيد اختيارك من فضلك';
+$_lang['Please define at least one blank with brackets [...]'] = 'رجاءً حدد على الأقل فراغاً واحداً ضمن الأقواس [...]';
+$_lang['Please define the options'] = 'رجاءً حدد الخيارات';
+$_lang['Please fill the two lists below'] = 'الرجاء ملء القائمتين أدناه';
+$_lang['Please give a weighting to each blank'] = 'حدد درجة الأهمية لكل فراغ';
+$_lang['Please give the answers to the question'] = 'الرجاء حدد الإجابات على هذا السؤال';
+$_lang['Please give the exercise name'] = 'اكتب اسم التمرين';
+$_lang['Please give the question'] = 'قم بكتابة السؤال';
+$_lang['Please type the text'] = 'قم بكتابة النص من فضلك';
+$_lang['Please type your text below'] = 'اكتب النص من فضلك';
+$_lang['Pool of modules'] = 'مخزن الوحدات';
+$_lang['Posted'] = 'تم الإرسال';
+$_lang['Posts'] = 'عدد المشاركات';
+$_lang['Powered by'] = 'مطورة باستخدام';
+$_lang['Prefix for names of course databases'] = 'بادئة لاسماء قواعد بيانات المقررات';
+$_lang['Preview'] = 'معاينة';
+$_lang['Preview :'] = 'معاينة : ';
+$_lang['Previous'] = 'السابق';
+$_lang['Previous day'] = 'الأمس';
+$_lang['Previous month'] = 'الشهر الماضي';
+$_lang['Previous week'] = 'الاسبوع الماضي';
+$_lang['Previous year'] = 'السنة الماضية';
+$_lang['PrintVers'] = 'نسخة للطباعة';
+$_lang['Private'] = 'خاص';
+$_lang['Private course only'] = 'مقرر خاص فقط';
+$_lang['Private feedback'] = 'مراجعة خاصة';
+$_lang['Production language files'] = 'إنشاء ملفات اللغة';
+$_lang['Progress'] = 'مستوى التقدم';
+$_lang['Progress in learning paths'] = 'نسبة الإنجاز في مسار التعلم';
+$_lang['Progression of users on all learning paths'] = 'مستوى التقدم لجميع المستخدمين ضمن مسارت التعلم';
+$_lang['Properties'] = 'الخصائص';
+$_lang['Public'] = 'عام';
+$_lang['Public access from campus home page even without login'] = 'إمكانية الوصول لصفحة الموقع من خلال موقع الجامعة و بدون الحاجة لتسجيل الدخول(وصول عام)';
+$_lang['Public course only'] = 'المقررات العامة فقط';
+$_lang['Public courses'] = 'المقررات المتاحة للعموم';
+$_lang['Publish'] = 'نشر';
+$_lang['Published on'] = 'تم نشره في تاريخ';
+$_lang['Question'] = 'السؤال';
+$_lang['Question / Answer management'] = 'إدارة الأسئلة/الأجوبة';
+$_lang['Question list of the exercise'] = 'قائمة اسئلة التمرين';
+$_lang['Question not found'] = 'لم يتم العثور على السؤال';
+$_lang['Question pool'] = 'مستودع الاسئلة';
+$_lang['Question title'] = 'عنوان السؤال';
+$_lang['Question to lecturer'] = 'سؤال للمدرس';
+$_lang['Questions'] = 'سؤال';
+$_lang['Random questions'] = 'اسئلة عشوائية';
+$_lang['Read Pages'] = 'الصفحات المقروءة';
+$_lang['Recent changes'] = 'التغييرات الأخيرة';
+$_lang['Register'] = 'تسجيل';
+$_lang['Register a user for this class'] = 'تسجيل طالب في هذا الصف';
+$_lang['Register class for course'] = 'تسجيل صف لمقرر';
+$_lang['Register my campus'] = 'تسجيل موقعي ضمن موقع Claroline';
+$_lang['Register this user to a course'] = 'تسجيل هذا المستخدم في مقرر';
+$_lang['Register to the class'] = 'التسجيل في الصف';
+$_lang['Register user'] = 'تسجيل مستخدم';
+$_lang['Register user to class'] = 'تسجيل مستخدم في الصف';
+$_lang['Registered'] = 'مسجل';
+$_lang['Registration'] = 'التسجيل';
+$_lang['Registration not allowed on the platform'] = 'التسجيل في الموقع غير متاح';
+$_lang['Rem. answ.'] = 'حذف إجابة';
+$_lang['Rem. elem.'] = 'حذف عنصر';
+$_lang['Remove'] = 'إزالة';
+$_lang['Remove course enrolment'] = 'إلغاء التسجيل في مقرر';
+$_lang['Remove course from your personal course list'] = 'إزالة المقرر من قائمة المقررات الخاصة بك';
+$_lang['Remove picture'] = 'إزالة الصورة';
+$_lang['Rename'] = 'تغيير اسم';
+$_lang['Repair category structure'] = 'إصلاح بنية التصانيف';
+$_lang['Replace attached file'] = 'استبدال الملف المرفق';
+$_lang['Replies'] = 'الردود';
+$_lang['Reply'] = 'إرسال رد';
+$_lang['Request course creation status'] = 'Request of Course Creator status';
+$_lang['Required'] = 'مطلوب';
+$_lang['Requirements'] = 'المتطلبات';
+$_lang['Reset'] = 'البدء من جديد';
+$_lang['Restore course repository'] = 'استرجاع مخزن المقرر';
+$_lang['Result'] = 'النتيجة';
+$_lang['Results of the exercises done'] = 'نتائج التمارين التي تم تنفيذها';
+$_lang['Retry'] = 'إعادة المحاولة';
+$_lang['Return to the list'] = 'العودة للقائمة';
+$_lang['Reuse'] = 'إعادة استخدام';
+$_lang['Role'] = 'الوظيفة';
+$_lang['Root'] = 'جذر';
+$_lang['SCORM 1.2 conformable content'] = 'SCORM 1.2 محتويات متوافقة مع';
+$_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'الوحدات المتوافقة مع SCORM سيتم مسحها بشكل أكيد من المخدم عند حذفها من مسارها التعليمي.';
+$_lang['SDK'] = 'SDK ادوات التطوير';
+$_lang['Save'] = 'حفظ';
+$_lang['Save changes'] = 'حفظ التعديلات';
+$_lang['Scan technical fault'] = 'البحث عن العيوب و الأخطاء التقنية';
+$_lang['Score'] = 'مجموع النقاط';
+$_lang['Score required'] = 'المعدل المطلوب';
+$_lang['Scores of exercises done'] = 'نتائج التمارين';
+$_lang['Scorm'] = 'Scorm ';
+$_lang['Script missing'] = 'نص برمجي مفقود';
+$_lang['Script not in claroline'] = 'نصوص برمجية غير موجودة في برنامج Claroline';
+$_lang['Search'] = 'بحث';
+$_lang['Search again (advanced)'] = 'البحث مجدداً (بحث متقدم)';
+$_lang['Search course'] = 'البحث عن مقرر';
+$_lang['Search from keyword'] = 'البحث عن';
+$_lang['Search on'] = 'البحث عن';
+$_lang['Search result'] = 'نتيجة البحث';
+$_lang['Search user'] = 'البحث عن مستخدم';
+$_lang['SecondShort'] = 'ثانية';
+$_lang['See below the files you can edit from this tool.'] = '<br />قائمة الملفات التي تستطيع تعديلها من خلال هذه الأداة';
+$_lang['See user list'] = 'استعراض قائمة المستخدمين';
+$_lang['Seen'] = 'عدد مرات القراءة';
+$_lang['Select course in'] = 'اختر مقرر تعليمي في ';
+$_lang['Select course in search results'] = 'اختر المقرر من نتيجة البحث';
+$_lang['Select in drop down list'] = 'الاختيار من قائمة منسدلة';
+$_lang['Selected Users'] = 'المستخدمون المختارون';
+$_lang['Send account information to user by email'] = 'إرسال معلومات الحساب للمستخدم بالبريد الالكتروني';
+$_lang['Send this announcement by email to registered students'] = 'إرسال هذا الإعلان بواسطة البريد الإلكتروني للطلاب المسجلين';
+$_lang['Show all'] = 'إظهار الكل';
+$_lang['Show answers'] = 'عرض الأجابات';
+$_lang['Show differences'] = 'عرض الاختلافات';
+$_lang['Show none'] = 'إخفاء الكل';
+$_lang['Size'] = 'الحجم';
+$_lang['Start Module'] = 'بدء الوحدة';
+$_lang['Start date'] = 'تاريخ البدء';
+$_lang['Start date must be before end date ...'] = 'يجب أن يكون تاريخ البدء قبل تاريخ النهاية ...';
+$_lang['Statement'] = 'Statement';
+$_lang['Statistics'] = 'إحصائيات';
+$_lang['Statistics by question'] = 'الإحصائيات حسب السؤال';
+$_lang['Statistics by user'] = 'الإحصائيات حسب المستخدم';
+$_lang['Statistics of course'] = 'الإحصائيات الخاصة بمقرر ';
+$_lang['Statistics of exercise'] = 'إحصائيات تمرين';
+$_lang['Statistics of exercise attempt'] = 'الإحصائيات حول عدد المحاولات لحل التمرين';
+$_lang['Statistics of question'] = 'إحصائيات سؤال';
+$_lang['Statistics of user'] = 'إحصائيات مستخدم';
+$_lang['Status'] = 'المنزلة';
+$_lang['Store Chat'] = 'حفظ الدردشة';
+$_lang['Student'] = 'طالب';
+$_lang['Students are allowed to self-register in groups'] = 'السماح للطلاب بالتسجيل ضمن المجموعات';
+$_lang['Subject'] = 'الموضوع';
+$_lang['Submission type'] = 'نوع الإرسال';
+$_lang['Submissions'] = 'Submissions';
+$_lang['Submit'] = 'إرسال';
+$_lang['Submit a work'] = 'إرسال العمل';
+$_lang['Submit feedback'] = 'إرسال مراجعة';
+$_lang['Subscribe a class'] = 'تسجيل صف';
+$_lang['Subscribe to course'] = 'الالتحاق بالمقرر';
+$_lang['Support forum'] = 'منتدى الدعم الفني';
+$_lang['SwitchEditorToTextConfirm'] = 'This command is going to remove the current text layout. Do you want to continue ?';
+$_lang['Take'] = 'انتقاء';
+$_lang['Technical Tools'] = 'أدوات تقنية';
+$_lang['Text only (text required, no file)'] = 'نص فقط ( النص مطلوب ولا يوجد ملف)';
+$_lang['Text with attached file (text required, file optional)'] = 'نص مع ملف مرفق (النص إجباري و الملف اختياري)';
+$_lang['The changes have been carried out correctly'] = 'تم تطبيق التعديلات بنجاح';
+$_lang['The class has been moved'] = 'تم نقل الصف';
+$_lang['The course has been successfully deleted'] = 'تم حذف المقرر بنجاح';
+$_lang['The email address is not valid'] = 'عنوان البريد الإلكتروني غير صحيح';
+$_lang['The file to upload is not valid.'] = 'الملف الذي تحاول تحميله غير صحيح';
+$_lang['The following errors were found'] = 'تم العثور على الأخطاء التالية ';
+$_lang['The information has been modified'] = 'تم تعديل المعلومات';
+$_lang['The module will still be available in the pool of modules.'] = 'ستبقى الوحدة متوفرة في مخزن الوحدات.';
+$_lang['The new category has been created.'] = 'تم إنشاء التصنيف الجديد';
+$_lang['The new class has been created'] = 'تم إنشاء الصف الجديد';
+$_lang['The new user has been sucessfully created'] = 'تم إنشاء المستخدم الجديد بنجاح';
+$_lang['The upload has failed. There is not enough space in your directory'] = 'فشلت عملية التحميل, لا يوجد مساحة كافية ضمن المجلد الخاص بك';
+$_lang['The upload is finished'] = 'انتهت عملية التحميل';
+$_lang['The user has been enroled to the course'] = 'تم تسجيل المستخدم في المقرر';
+$_lang['The user has been successfully unregistered'] = 'المستخدم قام بإلغاء التسجيل بنجاح';
+$_lang['The user has been successfully unregistered from course'] = 'قام المستخدم بإلغاء تسجيله في المقرر بنجاح';
+$_lang['The user is already enroled in this course'] = 'هذا المستخدم مسجل بالمقرر من قبل';
+$_lang['The zip file can not contain .PHP files'] = 'لا يسمح لك بان تحمل ملف مضغوط يحوي ضمنه ملف من نوع PHP';
+$_lang['There are no topics for this forum. You can post one'] = 'لا يوجد أي مشاركة في هذا المنتدى, تستطيع ان تقوم بالإضافة';
+$_lang['There is no answer for the moment'] = 'لايوجد جواب حالياً';
+$_lang['There is no assignment at the moment'] = 'لايوجد حالياً أية مهام او وظائف';
+$_lang['There is no category available !'] = 'لا يوجد أية تصنيفات حالياً!';
+$_lang['There is no course matching such criteria'] = 'لا يوجد أي مقرر مطابق لشروط البحث الحالية';
+$_lang['There is no exercise for the moment'] = 'لا يوجد أيت تمارين حالياً';
+$_lang['There is no question for the moment'] = 'لا يوجد أيه اسئلة في الوقت الحالي';
+$_lang['There is no start asset defined for this module.'] = 'There is no start asset defined for this module.';
+$_lang['There is no tracking for this attempt.'] = 'لا يوجد بيانات تتبع لهذه المحاولة';
+$_lang['There is no user account with this email address.'] = 'لا يوجد حساب مستخدم مطابق لعنوان البريد الالكتروني ';
+$_lang['This category already exists!'] = 'هذا التصنيف موجود مسبقاً';
+$_lang['This category contains other categories, you must delete them before !'] = 'هذا التصنيف يحوي تصانيف ضمنه, يجب ان تقوم بحذفهم أولاً';
+$_lang['This category contains some courses, you can\'t erase it!'] = 'لا تستطيع حذف هذا التصنيف لأنه يحوي بعض المقررات !';
+$_lang['This category include some courses, you must delete or move them before'] = 'هذا التصنيف يحوي بعض المقررات يجب عليك حذفهم او نقلهم أولاً';
+$_lang['This class still contains some sub classes, delete them first'] = 'الصف يحتوي صفوف فرعية, قم بحذفهم أولاً';
+$_lang['This course is currently not described'] = 'لايوجد وصف لهذا المقرر حالياً';
+$_lang['This day'] = 'هذا اليوم';
+$_lang['This is the faculty, department or school where the course is delivered'] = 'اسم الكلية أو القسم او المدرسة التي يتم دراسة المقرر فيها';
+$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'هذه هي الصفحة الرئيسية للويكي %s , انقر على تحرير من أجل تعديل محتوياتها';
+$_lang['This is your account Login-Pass'] = 'كلمة السر الخاصة بك لتسجيل الدخول هي ';
+$_lang['This mail appears already in a previous line of the CSV file.'] = 'عنوان البريد الإلكتروني هذا ظهر في سطر سابق من ملف ال CSV';
+$_lang['This official code already appears in a previous line of the CSV file.'] = 'الرمز الإداري ظاهر مسبقاً في السطر السابق من ملف CSV. ';
+$_lang['This official code is already used by another user.'] = 'هذا الرمز الإداري مستخدم من قبل طالب أخر';
+$_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'هذه الصفحة فارغة , انقر على \'تحرير هذه الصفحة\' لإضافة محتوى الصفحة';
+$_lang['This user name is already taken'] = 'هذا الاسم محجوز من قبل شخص آخر';
+$_lang['This will also delete all works submitted in this assignment !'] = '! سيؤدي هذا أيضاً إلى حذف جميع الأعمال المرسلة لهذه الوظيفة !';
+$_lang['Thumbnails'] = 'صور مصغرة';
+$_lang['Time'] = 'الوقت (ثانية)';
+$_lang['Time in learning path'] = 'الوقت في مسار التعلم';
+$_lang['Time is over, results not submitted.'] = 'انتهى الوقت , لم يتم إرسال الأجوبة';
+$_lang['Time limit'] = 'الوقت المسموح';
+$_lang['Title'] = 'اسم المقرر';
+$_lang['Title added :'] = 'تم إضافة العنوان : ';
+$_lang['Title of the wiki'] = 'عنوان الويكي';
+$_lang['To'] = 'إلى';
+$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'لإرسال رسالة اختر مجموعات المستخدمين أو المستخدمينمن القائمة الموجودة على اليمين ) تم تمميز المجموعات بوضع علامة * في بداية الاسم(';
+$_lang['Tool'] = 'أداة';
+$_lang['Tool accesses changed'] = 'تم تغيير أدوات الوصول';
+$_lang['Tools'] = 'ادوات';
+$_lang['Topic'] = 'الفقرة';
+$_lang['Topic review'] = 'معاينة المشاركة';
+$_lang['Topics'] = 'المشاركات';
+$_lang['Topics started'] = 'مواضيع قام بكتابتها';
+$_lang['Total'] = 'الكلي';
+$_lang['Total Clicks'] = 'العدد الكلي للنقرات';
+$_lang['Total Downloads'] = 'عدد مرات التحميل ';
+$_lang['Total attempts'] = 'العدد الكلي للمحاولات';
+$_lang['Total number of connection to this course'] = 'عدد مرات الاتصال بموقع هذا المقرر';
+$_lang['Total time'] = 'إجمالي الوقت';
+$_lang['Tracking'] = 'تتبع';
+$_lang['Tracking database'] = 'قاعدة بيانات التتبع';
+$_lang['Tracking has been disabled by system administrator.'] = 'تم إيقاف عملية المتابعة من قبل مدير النظام';
+$_lang['Traffic Details'] = 'تفاصيل الدخول للموقع';
+$_lang['Translation Progression'] = 'مستوى التقدم في عملية الترجمة';
+$_lang['Translation Tools'] = 'ادوات الترجمة';
+$_lang['True'] = 'صحيح';
+$_lang['True/False'] = 'صح/خطأ';
+$_lang['URL :'] = 'URL : ';
+$_lang['URL link'] = 'URL وصلة';
+$_lang['Unable to add description'] = 'فشل في إضافة الوصف';
+$_lang['Unable to add external tool'] = 'فشل في إضافة الأداة الخارجية';
+$_lang['Unable to add the event to the agenda'] = 'فشل في إضافة الحدث لجدول الأعمال';
+$_lang['Unable to change tool access'] = 'Unable to change tool access';
+$_lang['Unable to copy file :'] = 'فشل في نسخ الملف : ';
+$_lang['Unable to create category'] = 'فشل في إنشاء تصنيف';
+$_lang['Unable to create directory :'] = 'فشل في إنشاء المجلد:';
+$_lang['Unable to create file :'] = 'فشل في إنشاء الملف :';
+$_lang['Unable to create forum'] = 'فشل في إنشاء منتدى';
+$_lang['Unable to create frame file'] = 'فشل في إنشاء ملف الإطارات ';
+$_lang['Unable to create the SCORM archive'] = 'فشل في إنشاء الملف المضغوط الخاص بال SCORM';
+$_lang['Unable to create the SCORM manifest (imsmanifest.xml)'] = 'فشل في إنشاء ملف imsmanifest.xml';
+$_lang['Unable to delete'] = 'فشل في الحذف';
+$_lang['Unable to delete Forum'] = 'فشل في حذف منتدى';
+$_lang['Unable to delete category'] = 'فشل في حذف تصنيف';
+$_lang['Unable to delete event from the agenda'] = 'فشل في حذف الحدث من جدول الأعمال';
+$_lang['Unable to delete external tool'] = 'فشل في حذف الأداة الخارجية';
+$_lang['Unable to empty forum'] = 'فشل في تفريغ منتدى';
+$_lang['Unable to empty groups'] = 'فشل في إفراغ المجموعات';
+$_lang['Unable to enrol you to the course'] = 'فشل أثناء محاولة تسجيلك في المقرر';
+$_lang['Unable to load exercise\'s question'] = 'فشل في تحميل أسئلة التمرين';
+$_lang['Unable to load the exercise'] = 'فشل في تحميل التمرين';
+$_lang['Unable to remove your registration to the course'] = 'فشل أثناء محاولة إلغاء تسجيلك في المقرر';
+$_lang['Unable to save'] = 'فشل في عملية الحفظ';
+$_lang['Unable to update'] = 'فشل في التحميل';
+$_lang['Unable to update category'] = 'فشل في تعديل التصنيف';
+$_lang['Unable to update external tool'] = 'فشل في تحديث الأداة الخارجية';
+$_lang['Unable to update forum'] = 'فشل في تعديل المنتدى';
+$_lang['Unable to update the event into the agenda'] = 'فشل في تحديث الحدث ضمن جدول الأعمال';
+$_lang['Unamed module'] = 'وحدة بدون اسم';
+$_lang['Unamed path'] = 'مسار بدون اسم';
+$_lang['Unassigned students'] = 'طلاب غير مخصصين';
+$_lang['Unblock'] = 'إلغاء القفل';
+$_lang['Unchanged line'] = 'سطر غير متغير';
+$_lang['Unique answer'] = 'جواب وحيد';
+$_lang['Unregister'] = 'إلغاء التسجيل';
+$_lang['Unregister all students'] = 'إلغاء تسجيل جميع الطلاب';
+$_lang['Unregister from class'] = 'إلغاء التسجيل في الصف';
+$_lang['Unregister user'] = 'مستخدم غير مسجل';
+$_lang['Unsubscribe'] = 'إلغاء الاشتراك';
+$_lang['Until'] = 'إلى';
+$_lang['Untitled'] = 'بدون عنوان';
+$_lang['Up'] = 'للأعلى';
+$_lang['Upgrade'] = 'ترقية';
+$_lang['Upload a new file to replace the file'] = 'قم بتحميل ملف جديد لاستبدال الملف';
+$_lang['Upload document'] = 'تحميل وثيقة';
+$_lang['Upload file'] = 'تحميل ملف';
+$_lang['Uploaded file'] = 'الملف الذي تم تحميله';
+$_lang['Use a document'] = 'استخدام وثيقة';
+$_lang['Use a module of this course'] = 'استخدام وحدة  من المقرر';
+$_lang['Use an exercise'] = 'استخدام تمرين';
+$_lang['Use format defined in first line of file'] = 'استخدم التنسيق المعرف في السطر الأول من الملف';
+$_lang['User'] = 'مستخدم';
+$_lang['User Id'] = 'رقم المستخدم';
+$_lang['User access details'] = 'تفاصيل بيانات دخول المستخدم';
+$_lang['User already in class'] = 'المستخدم مسجل في الصف مسبقاً';
+$_lang['User attempts'] = 'عدد المستخدمين الذين نفذوا التمرين';
+$_lang['User course settings'] = 'إعدادت المقرر للمستخدم';
+$_lang['User has been sucessfully registered to the class'] = 'تم تسجيله بنجاح في الصف';
+$_lang['User has been sucessfully unregistered from the class'] = 'قام المستخدم بإلغاء تسجيله في الصف بنجاح';
+$_lang['User is now course manager'] = 'أصبح المستخدم الآن مديراً للمقرر';
+$_lang['User is now student for this course'] = 'أصبح المستخدم الأن طالباً في المقرر';
+$_lang['User list'] = 'قائمة المستخدمين';
+$_lang['User not in the class'] = 'المستخدم ليس في الصف';
+$_lang['User registered to the course'] = 'الطلاب المسجلون في المقرر';
+$_lang['User settings'] = 'إعدادت المستخدم';
+$_lang['User unregistered'] = 'مستخدم غير مسجل';
+$_lang['User\'s course'] = 'المقررات الخاصة بالطالب';
+$_lang['Username'] = 'اسم المستخدم';
+$_lang['UsernameAppearAlready'] = 'ظهر اسم المستخدم هذا في سطر سابق من ملف ال CSV';
+$_lang['UsernameUsed'] = 'اسم المستخدم هذا محجوز من قبل مستخدم آخر';
+$_lang['Users'] = 'المستخدمون';
+$_lang['Users Downloads'] = 'تنزيلات المستخدمين';
+$_lang['Users help'] = 'مستخدمين المساعدة';
+$_lang['Users not in this group'] = 'المستخدمون الذين لا ينتمون لهذه المجموعة';
+$_lang['Users\' Clicks'] = 'نقرات المستخدمين';
+$_lang['UsersMin'] = 'المستخدمون';
+$_lang['Values'] = 'القيم';
+$_lang['Variables with same content and different name'] = 'متحولات لها نفس المحتوى و لكن بأسماء مختلفة';
+$_lang['Variables with same name and different content'] = 'متحولات لها نفس الاسم و لكن محتوى مختلف';
+$_lang['View'] = 'عرض';
+$_lang['View by'] = 'شوهد من قبل';
+$_lang['View list of all tools'] = 'عرض قائمة بجميع الأدوات';
+$_lang['View mode'] = 'نمط العرض';
+$_lang['View my statistics'] = 'استعراض الإحصائيات الخاصة بي';
+$_lang['Visibility'] = 'مرئي/مخفي';
+$_lang['Visibility modified'] = 'تم تعديل حالة الظهور/ الإخفاء';
+$_lang['Visible'] = 'مرئي';
+$_lang['Visits'] = 'الزيارات';
+$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'تحذير : سيتم حذف هذه الويكي و جميع محتوياتها هل تريد المتابعة بعملية الحذف ؟';
+$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'تحذير: هذه الصفحة للمعاينة فقط , لم يتم حفظ التغييرات التي قم بها , لا تنسى الضغط على زر حفظ الموجود في أسفل الصفحة للقيام بعملية الحفظ';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'تحذير ! هذا السؤال و إجاباته مستخدمة في عدة تمارين . هل ترغب بتعديلهم';
+$_lang['Week'] = 'الاسبوع';
+$_lang['Weighting'] = 'درجة الأهمية- الوزن';
+$_lang['Wiki'] = 'Wiki';
+$_lang['Wiki : %s'] = 'الويكي : %s';
+$_lang['Wiki : Create new Wiki'] = 'الويكي : إنشاء ويكي جديدة';
+$_lang['Wiki : Edit properties'] = 'الويكي : تحرير الخصائص';
+$_lang['Wiki creation succeed'] = 'تم إنشاء الويكي بنجاح';
+$_lang['Wiki deletion succeed'] = 'تم حذف الويكي بنجاح';
+$_lang['Wiki description'] = 'وصف الويكي';
+$_lang['Wiki edition succeed'] = 'تم تحرير الويكي بنجاح';
+$_lang['Wiki of the group'] = 'الويكي الخاصة بالمجموعة';
+$_lang['Wiki syntax'] = 'Wiki الصيغ المستخدمة لكتابة ';
+$_lang['Work'] = 'عمل- وظيفة';
+$_lang['Work added'] = 'تم إرسال العمل بنجاح';
+$_lang['Work modified'] = 'تم تعديل العمل';
+$_lang['Work title'] = 'عنوان العمل';
+$_lang['Work title required'] = 'عنوان العمل مطلوب';
+$_lang['Work uploaded by the student in the name of \'Authors\''] = 'الاعمال التي قام الطلاب بتحميلها للموقع حسب أسماء المؤلفين';
+$_lang['Work uploads'] = 'تحميل ملفات الوظائف';
+$_lang['Worst score'] = 'العلامة الأدنى';
+$_lang['Wrong operation'] = 'عملية خاطئة';
+$_lang['Year'] = 'السنة';
+$_lang['Yes'] = 'نعم';
+$_lang['Yes, allow users to submit works after end date'] = 'نعم, اسمح للمستخدمين بإرسال العمل بعد انقضاء المهلة المحددة';
+$_lang['Yesterday'] = 'البارحة';
+$_lang['You are not a member of this group'] = 'انت لست عضواً في هذه المجموعة';
+$_lang['You are not allowed to create pages'] = 'غير مسموح لك إنشاء صفحات جديدة';
+$_lang['You are not allowed to edit this page'] = 'غير مسموح لك تعديل هذه الصفحة';
+$_lang['You are not allowed to read this page'] = 'لا يسمح لك بقراءة هذه الصفحة';
+$_lang['You are now a member of this group.'] = 'انت الأن عضو في هذه المجموعة';
+$_lang['You can choose a title an a description for the wiki :'] = 'يمكنك  وضع عنوان او وصف للويكي :';
+$_lang['You can delete these scripts from you server'] = 'يمكنك حذف هذه التعليمات البرمجية من السيرفر الخاص بك';
+$_lang['You can not change your own settings!'] = 'لا تستطيع القيام بتغيير الإعدادت الخاصة بك!';
+$_lang['You can not change your own status'] = 'لا يمكنك تغيير حالتك';
+$_lang['You can not move a class in itself!'] = 'لا يمكنك نقل المقرر للمقرر نفسه!';
+$_lang['You can not remove a group forum. You have to remove the group first'] = 'لا يمكنك حذف منتدى مجموعة قبل أن تقوم بحذف المجموعة أولاً';
+$_lang['You can now create your  course'] = 'تستطيع الآن إنشاء المقرر الخاص بك';
+$_lang['You can now select, in the list, the courses you want to access'] = 'يمكنك الآن اختيار المقررات التي تغرب بالوصول إليها من خلال قائمة المقررات';
+$_lang['You can set access rights for users using the following grid :'] = 'تستطيع تحديد إمكانيات الوصول للمستخدمين من خلال الجدول التالي : ';
+$_lang['You cannot give a blank name to a class'] = 'لا يمكن ان يكون اسم الصف غير محدد';
+$_lang['You cannot post an empty message'] = 'يجب عليك ان تكتب نص الرسالة, الرسئل الفارغة غير مسموحة';
+$_lang['You cannot unsubscribe the last course manager of the course'] = 'لا يمكنك إلغاء تسجيل أخر مدير ضمن المقرر';
+$_lang['You didnt choose any file to send, or it is too big'] = 'لم تقم باختيار أي ملف لإرساله او ان حجم الملف كبير جداً';
+$_lang['You have already answered the question'] = 'هذا السؤال تمت الإجابة عليه مسبقاً';
+$_lang['You have just created the course website'] = 'تم إنشاء موقع خاص للمقرر';
+$_lang['You have reached the maximum number of allowed attempts.'] = 'لقد وصلت للعدد المسموح من المحاولات';
+$_lang['You left some required fields empty'] = 'تركت بعض الحقول اللازمة فارغة';
+$_lang['You must install these scripts to run correctly claroline'] = 'يجب عليك إعداد النصوص البرمجية التالية ليعمل النظام بشكل صحيح';
+$_lang['You must introduce the message text'] = 'يجب ان تضع مقدمة لنص الرسالة';
+$_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'يجب ان تصل لعدد المحاولات الأعظم المسموح حتى تتمكن من مشاهدة هذه الإحصائيات';
+$_lang['You must select a file'] = 'يجب عليك اختيار ملف';
+$_lang['You must select a text file'] = 'يجب اختيار ملف نصي';
+$_lang['You must select some users'] = 'عليك اختيار بعض المستخدمين';
+$_lang['You must specify the CSV format used in your file'] = 'يجب ان تقوم بتحديد تنسيق ال CSV المستخدمة في ملفك';
+$_lang['You\'ve been enroled on the course'] = 'تمت عملية تسجيلك في المقرر';
+$_lang['Your best performance'] = 'أداؤك الأفضل';
+$_lang['Your browser cannot see frames.'] = 'متصفح الانترنت الخاص بك لا يسمح باستخدام الإطارات المتعددة ضمن الصفحة الواحدة';
+$_lang['Your campus has been submitted and is waiting to be validate by Claroline.net team'] = 'تم إرسال جامعتك، و يتم الانتظار للتحقق منها من قبل فريق Claroline.net';
+$_lang['Your daddy is'] = 'والدك هو';
+$_lang['Your enrolment on the course has been removed'] = 'تمت  عملية إزالة تسجيلك في المقرر';
+$_lang['Your message has been deleted'] = 'تم حذف مشاركتك';
+$_lang['Your message has been entered'] = 'تم تخرين رسالتك في قاعدة البيانات';
+$_lang['Your mother is'] = 'والدتك هي';
+$_lang['Your new profile has been saved'] = 'تم حفظ المعلومات الخاصة بك';
+$_lang['Your password has been emailed to'] = 'تم إرسال كلمة السر الخاصة بك إلى ';
+$_lang['Your progression in this module'] = 'مستوى تقدمك في هذه الوحدة';
+$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'طلبك بان تصبح قادراً على إنشاء مواقع المقررات تم إرساله لمدير النظام';
+$_lang['Your request to remove your account has been sent'] = 'تم إرسال طلبك بإزالة حسابك';
+$_lang['Your time is'] = 'قمت بتنفذ التمرين خلال :';
+$_lang['Your total score is'] = 'عدد الكلي للنقاط التي حصلت عليها هو';
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'ملفك الشخصي يظهر أنك غير مسجل في هذا المقرر التعليمي';
+$_lang['Zip file uploaded and uncompressed'] = ' تم تحميل الملف المضغوط و فك ضغطه';
+$_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'التوسيعة Zlib للـ PHP مطلوبة لاستخدام هذه الأداة. الرجاء الاتصال بمدير منصتك.';
+$_lang['[British people] live in [United Kingdom].'] = '[البريطانيون] يعيشون في [المملكة المتحدة].';
+$_lang['archive'] = 'الأرشيف';
+$_lang['blockAssignmentsHelp'] = '<p>
+اداة الوظائف هي مساحة خاصة للطلاب لنشر الوظائف و المقالات و الأعمال التي يكلفهم بها مدير المقرر<br /> <br />
+كل وظيفة أو مهمة تكون مؤلفة من ملف أو نص مع ملف و يمكن أن يكون نشر الأعمال بأسماء المجموعات و ليس الأشخاص<br /> <br />
+يمكن للطلاب تعديل الأعمال التي قاموا بنشرها و يستطيع مدير المقرر تزويد الطلاب بملاحظات و تقييمات خاصة باعمالهم
+</p>
+<hr />
+<h4> إنشاء وظيفة-مهمة </h4>
+<p>يقوم مدير المقرر بإنشاء وظيفة جديدة من خلال الدخول على هذه الأداة و من ثم نقر \'إنشاء (وظيفة/مهمة) جديدة \' </p>
+<p>فتظهر استمارة بيانات تطلب من مدير المقرر تحديد ما يلي : </p>
+<ul><li>عنوان الوظيفة&nbsp;:اسم الوظيفة أو الواجب</li><li> الوصف&nbsp;:وصف لما يجب ان يقوم به الطلاب</li><li>ملف :يمكن تحميل أي نوع من الملفات و هناك حجم لا يمكن تجاوزه للملفات كما يمكن إضافة نص يصف محتوى الملف</li><li>نص فقط : نص منسق باستخدام محرر النصوص المتقدم المستخدم في الموقع </li><li>نص مع ملف مرفق:نص منسق باستخدام محرر النصوص المتقدم مع إمكانية ارفاق ملف </li></ul>
+</li><li>تاريخ البدء: التاريخ الذي يمكن اعتباراً منه ارسال الأعمال</li><li>تاريخ الانتهاء:تاريخ نهاية الوقت المسموح لإرسال الأعمال</li><li>سماحية الرؤية الافتراضية :حدد فيما إذا كانت الأعمال المرسلة ستظهر لبقية المستخدمين ام لا </li><li>نوع الوظيفة - المهمة : <ul><li>شخصي:يتم إرسال الأعمال من قبل الأشخاص
+</li><li>جماعي : يجب ان يكون الشخص الذي يقوم بالإرسال عضواً بمجموعة واحدة على الأقل و يتم نشر العمل باسم تلك المجموعة </li></ul>
+</li><li>السماح بتحميل الملفات بعد انتهاء المدة المسموحة </li></ul>
+<p>
+<hr />
+<h4>Works</h4>
+<p>Works are the publications uploaded by users.</p>
+<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
+The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
+<p><strong>Submit a work</strong></p>
+<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
+<p><strong>Work list</strong></p>
+<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
+
+</li>
+<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
+</li>
+<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+</li>
+<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+
+</li>
+<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
+</li>
+</ul>
+
+
+
+';
+$_lang['blockClaroMainHelp'] = 'هنا يستطيع المدرسون إنشاء و إدارة مواقع المقررات التعليمية. و الطلاب يقومون بقراءة ( المحاضرات - جدول الأعمال - المعلومات) و أيضاً القيام بحل التمارين و نشر المقالات على الانترنت و المشاركة في المنتديات...</p><b>التسجيل</b><p> التعليمات التالية يمكن تنفيذها فقط إذا كان من المسموح ان تقوم بالتسجيل الذاتي في الموقع لان العديد من المواقع تقوم بعملية التسجيل الخاصة بك بشكل تلقائي .
+<br /> إذا كنت طالباً فما عليك إلا اختيار  \'التحاق بمقرر تعليمي ( طالب) \' و من ثم اختيار المقرر الذي ترغب بالالتحاق به </p><p>
+اما إذا كنت مدرساً فيجب عليك التسجيل أيضاً و لكن قم باختيار \'إنشاء مقرر ( مدرس) \'
+و من ثم يتوجب عليك ان تقوم بملء صفحة البيانات و ذلك بإدخال رمز المقرر التعليمي و اسم الكلية و المقرر و بعد ان يتم التحقق من هذه البيانات سيتم توجيهك بشكل تلقائي لصفحة الموقع الذي قمت بإنشائه و يكون بمقدورك تعديل البيانات و الإعدادات الخاصة بالمقرر حسب رغبتك.</p><p>
+الخيار \'يجب ان\' يسمح بإرسال آراء و مقترحات خاصة بموقعك  من قبل بقية المدراء .
+الأشياء التي يمكن ان تقوم بإرسالها هنا تتضمن العيوب او الاقتراحات اللازمة لتحسين الموقع . قائمة \'يجب ان\'  يتم ربطها مع صفحة البدء عندما تقوم بتسجيل الدخول لموقع الجامعة </p>
+<p> منتدى الدعم الفني يقوم بربط جميع مستخدمي نظام Claroline  حول العالم و يمكن ان تلجأ له عندما لا تجد الجواب لما يدور بذهنك من أسئلة ضمن موقع الجامعة الخاص بك حيث يمكن ان ترسل السؤال لمنتدى الدعم الفني و تحصل على الإجابة بسرعة</p>
+';
+$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'هذه الوحدة مسدودة.
+إن جعلها مخفية سيسمح للطلاب بالوصول
+للوحدة التالية بدون الحاجة لاتمام هذه الوحدة
+مل انت متاكد ؟ ';
+$_lang['blockConfirmBlockingPathMadeInvisible'] = 'هذا المسار مسدود.
+إن جعله مخفياً يسمح للطلاب بالوصول
+للمسار التالي بدون الحاجة لإتمام هذا المسار.
+مل انت متاكد ؟ ';
+$_lang['blockConfirmDeleteModule'] = 'هل أنت متأكد من مسح هذه الوحدة كلياً؟
+سيتم مسحها كلياً من المخدم و من أي مسار تعليمي تنتمي إليه.
+لن تستطيع أن تستخدمها في أي مسار تعليمي.
+التأكيد على مسح : ';
+$_lang['blockConfirmDeleteScorm'] = 'إن هذا المسار التعليمي هو جزء من حزمة استيراد SCORM. إذا مسحت هذا المسار، كل وحدات SCORM الموافقة و الملفات المرتبطة سيتم حذفها من هذه المنصة. هل أنت متأكد بأنك تريد حذف المسار التعليمي المسمى ';
+$_lang['blockConfirmDeleteStats'] = 'إذا حذفت إحصائيات المقرر فلن يمكن إعادتهم!<br /><br />هل أنت متأكد بأنك تريد حذف هذه الإحصائيات?';
+$_lang['blockCourseDescriptionCourseContent'] = 'مضمون المقرر التعليمي';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'ما أهمية أن يتم تدريس المحتويات المتنوعة ضمن إطار هذا المقرر؟ ما هو مستوى صعوبة هذه المحتويات؟ ما هي هيكلية الوحدة؟ ما هو تسلسل المحتويات؟ إلى ماذا تؤدي المحتويات؟';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'عرض محتويات المقرر، هيكلية المحتويات، التقدم و التقويم';
+$_lang['blockCourseDescriptionDescription'] = 'الوصف';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'ما هو مكان و مخصص المقرر في هذا البرنامج؟ هل يوجد مقررات مطلوبة قبله؟ ما هي علاقاته بالمقررات الأخرى؟';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'معلومات تسمح بتعريف المقرر (حروف بادئة, عنوان, عدد ساعات, عملي...) و تدريسه (الكنية, الاسم, المكتب, الهاتف, البريد الإلكتروني, الاتاحية).  عرض عام للمقرر ضمن البرنامج.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'ما هي الموارد البشرية و المادية المتاحة؟ ماذا يمكن للطلاب ان يتوقعوا من فريق التنظيم أو ما يمكن ان يقوم المدرس بتنظيمه؟';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'تقديم للمدرسين الأخرين الذين سيقومون بتنظيم المقرر ( مساعدين مدرسين, باحثين..إلخ)  و عرض ما هو متوفر من الإمكانيات البشرية , الأبنية , المعدات , تجهيزات الكومبيوتر المتاحة';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'الموارد البشرية و المادية';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'طرق التقييم';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'معلومات تفصيلية و دقيقة عن وسائل التقييم كالامتحانات الكتابية , الشفهية , المشاريع , الوظائف ....تاريخ المقابلات و تاريخ انتهاء موعد تسليم الوظائف مع شرح لمعايير التقييم بشكل كامل';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'المؤهلات المكتسبة و الأهداف';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'ماهي أهداف التدريس ؟ ما هي المؤهلات و المعرفة التي سيكتسبها الطلاب في نهاية المقرر';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'عرض للأهداف العامة و الخاصة للمقرر و ما هي المؤهلات  و الكفاءات التي يمكن الوصول لها عند تحقيق هذه الأهداف';
+$_lang['blockCourseDescriptionSupports'] = ' دعم ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'هل هناك دعم فني خاص بالمقرر؟ ما هو شكل الدعم الذي أقدمه ؟ دعم مفتوح؟ أم دعم مغلق؟';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'أنشطة التدريس و التدريب';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
+$_lang['blockCourseHomePageIntroduction'] = 'قم باختيار الأدوات التي تريد ان تكون ظاهرة و فعالة للمستخدمين<br /> الأدوات التي ستكون غير فعالة ستظهر بلون رمادي عند استعراضك للصفحة الخاصة بك ';
+$_lang['blockCourseSettingsTip'] = 'بشكل افتراضي فإن موقع المقرر يكون متاحاً للجميع . الطريقة الأبسط للقيام بعمليات التسجيل هي إتاحة فرصة التسجيل خلال فترة اسبوع واحد و إبلاغ الطلاب بان يقوموا بعملية التسجيل بأنفسهم و من ثم يتم إغلاق باب التسجيل و تدقيق بيانات الطلاب للتحقق من عدم وجود متطفلين او عابثين';
+$_lang['blockDefaultLearningPathComment'] = 'هذه المقدمة لمسار التعليم الحالي, لاستبدالها  قم بالنقر  على <b> تعديل</b>';
+$_lang['blockDefaultModuleAddedComment'] = 'هذا هو نص المقدمة الإضافي حول وجود هذه الوحدة خصوصاً ضمن هذا المسار التعليمي. لاستبداله بنصك الخاص، اضفط بالأسفل على <b>تعديل</b>.';
+$_lang['blockDefaultModuleComment'] = 'هذا هو نص المقدمة لهذه الوحدة، سوف يظهر في كل مسار تعليمي يحوي هذه الوحدة. لاستبداله بنصك الخاص، اضغط بالأسفل على <b>تعديل</b>.';
+$_lang['blockDocumentsHelp'] = '<p>إن أداة الوثائق تشبه إلى حد كبير مدير الملفات الذي تستخدمه في حاسبك الشخصي</p> <p> تستطيع ان تقوم بتحميل أي نوع من الملفات مثل ملفات الوثائق و الجداول الحسابية و صفحات الانترنت و العروض التقديمية و ملفات الاكروبات او الفلاش...إلخ.
 كل ماعليك الانتباه له أن يكون لدى الطلاب البرامج المناسبة لقراءة هذه الأنواع من الملفات. بعض أنواع الملفات قد تحتوي فيروسات و من مسؤولياتك ان لا تقوم بتحميل أي ملف يحتوي على فيروسات لذا يتوجب عليك تفحص الملفات باستخدام برامج كشف الفيروسات قبل تحميلها</p>
 <hr />
 <h4>انماط العرض</h4>
@@ -361,21 +1195,21 @@ $_lang['DocContent'] = "<p>إن أداة الوثائق تشبه إلى حد ك�
 <li>قائمة ملفات ( الافتراضي)</li>
 <li>صور مصغرة</li>
 </ul>
-تستطيع التبديل بين اسلوبي العرض ببساطة من خلال النقر على الأوامر 'قائمة الملفات| صور مصغرة' من ضمن شريط الأدوات
+تستطيع التبديل بين اسلوبي العرض ببساطة من خلال النقر على الأوامر \'قائمة الملفات| صور مصغرة\' من ضمن شريط الأدوات
 <h4>عارض الصور</h4>
 <ul>
 <li>افتح عارض الصور ببساطة من خلال النقر على اسم ملف الصورة ضمن قائمة الملفات و ذلك عندما تكون الوثائق معروضة في نمط قائمة الملفات او انقر على الصورة المصغرة للملف عندما تكون في نمط الصور المصغرة</li>
 <li>انتقل للصورة التالية او السابقة من خلال النقر على اسم الملف الموافق لها او على الصورة المصغرة لها ضمن شريط ادوات عارض الصور</li>
-<li>يتم إغلاق عارض الصور ببساطة من خلال النقر إما على 'صور مصغرة ' او 'قائمة الملفات'  </li>
+<li>يتم إغلاق عارض الصور ببساطة من خلال النقر إما على \'صور مصغرة \' او \'قائمة الملفات\'  </li>
 </ul>
 
 <h4>البحث ضمن الوثائق</h4>
 <ul>
 <li>
-انقر على 'امر البحث'  من الناحية العلوية لمستكشف الانترنت
+انقر على \'امر البحث\'  من الناحية العلوية لمستكشف الانترنت
 </li>
 <li>
-أدخل عبارة البحث مع ملاحظة إمكانية استخدام الرموز '*' و '?' من أجل عمليات البحث المعقدة </li>
+أدخل عبارة البحث مع ملاحظة إمكانية استخدام الرموز \'*\' و \'?\' من أجل عمليات البحث المعقدة </li>
 <li>انقر على الزر موافق</li>
 <li>ستظهر نتيجة البحث بجانب شريط الأدوات </li>
 </ul>
@@ -384,18 +1218,18 @@ $_lang['DocContent'] = "<p>إن أداة الوثائق تشبه إلى حد ك�
 تملك هذه الأدارة العديد من الأوامر التي تسمح لك بتحميل, تحرير, تنظيم الملفات الخاصة بك</hr />
 <h4>تحميل وثيقة</h4>
 <ul>
-<li>انقر على 'تحميل ملف' ..يوجد هذا الأمر في الزاوية العليا من جهة اليمين</li>
-<li>اختر الملف الذي تريد تحميله من جهاز الكومبيوتر الخاص بك من خلال النقر على زر 'Browse' </li>
+<li>انقر على \'تحميل ملف\' ..يوجد هذا الأمر في الزاوية العليا من جهة اليمين</li>
+<li>اختر الملف الذي تريد تحميله من جهاز الكومبيوتر الخاص بك من خلال النقر على زر \'Browse\' </li>
 <li>يمكنك أيضأ أن ترفق ملاحظة مع الملف الذي تقوم بتحميله و هذه الملاحظة ستظهر تحت الوثيقة مباشرة ضمن قائمة الملفات</li>
 <blockquote><small>
-<i>ملاحظة</i>إذا قمت بتحميل مجموعة ملفات تم تجميعها ضمن ملف واحد مضغوط بصيغة <i>ZIP</i> فقم عندها باختيار 'فك ضغط الملف على السيرفر' لكي يتم فك ضغط الملف بشكل تلقائي على السيرفر
+<i>ملاحظة</i>إذا قمت بتحميل مجموعة ملفات تم تجميعها ضمن ملف واحد مضغوط بصيغة <i>ZIP</i> فقم عندها باختيار \'فك ضغط الملف على السيرفر\' لكي يتم فك ضغط الملف بشكل تلقائي على السيرفر
 </small></blockquote>
 </li>
-<li>يتم تشغيل صفحة تحميل الملفات من خلال النقر على زر 'تحميل' </li>
+<li>يتم تشغيل صفحة تحميل الملفات من خلال النقر على زر \'تحميل\' </li>
 </ul>
 <h4>إنشاء وصلة</h4>
 <ul>
-<li>انقر على الأمر  'إنشاء وصلة' الموجود الجهة العليا من مستكشف الانترنت</li>
+<li>انقر على الأمر  \'إنشاء وصلة\' الموجود الجهة العليا من مستكشف الانترنت</li>
 <li>اكتب  اسم مناسباً لهذه الوصلة</li>
 <li> اكتب العنوان الكامل URL لهذه الوصلة
 (مثال : http://my.domain.com/my/life.htm )
@@ -407,7 +1241,7 @@ $_lang['DocContent'] = "<p>إن أداة الوثائق تشبه إلى حد ك�
 
 <h4>إنشاء ملف HTML بشكل فوري </h4>
 <ul>
-<li>اختر الأمر 'إنشاء وثيقة' الموجود في  الجهة العلوية لمستكشف الانترنت</li>
+<li>اختر الأمر \'إنشاء وثيقة\' الموجود في  الجهة العلوية لمستكشف الانترنت</li>
 <li>اكتب اسم الوثيقة في الحقل الموافق للاسم</li>
 <li>ادخل مضمون الوثيقة ضمن المنطقة المخصصة لذلك</li>
 <li> انقر على الزر موافق عندما تنتهي من الكتابة </li>
@@ -418,7 +1252,7 @@ $_lang['DocContent'] = "<p>إن أداة الوثائق تشبه إلى حد ك�
 <h4>تغيير اسم الوثيقة , المجلد , الوصلة</h4>
 <ul>
 <li>
-انقر على الصورة الموجودة ضمن العمود 'تعديل' </li>
+انقر على الصورة الموجودة ضمن العمود \'تعديل\' </li>
 <li>اكتب الاسم الجديد ضمن الحقل الذي سيظهر في الجهة العلوية للمستكشف</li>
 <li>يمكنك أيضاً ان تقوم بإضافة أو تعديل الملاحظة المرفقة مع الوثائق</li>
 <li>انقر على الزر موافق لتأكيد الأمر </li>
@@ -428,11 +1262,11 @@ $_lang['DocContent'] = "<p>إن أداة الوثائق تشبه إلى حد ك�
 يتم ترتيب الوثائق أبجدياً حسب الاسم فإذا أردت التحكم بترتيب عرض الوثائق اجعل اسماء الوثائق تبدأ بارقام مثل : 01 ,02,03 ... </p>
 <h4> حذف وثيقة , مجلد, وصلة </h4>
 <ul>
-<li>انقر على رمز الحذف الموجود بجانب الوثيقة ضمن العمود 'حذف' </li>
+<li>انقر على رمز الحذف الموجود بجانب الوثيقة ضمن العمود \'حذف\' </li>
 </ul>
 <h4>جعل الوثيقة, المجلد, الوصلة غير ظاهرة للطلاب </h4>
 <ul>
-<li>انقر على الرمز بجانب الوثيقة الموجود ضمن العمود 'مرئي / مخفي' </li>
+<li>انقر على الرمز بجانب الوثيقة الموجود ضمن العمود \'مرئي / مخفي\' </li>
 <li>
 يبقى العنصر الذي اخفيته موجوداً و لكنه غير مرئي من قبل الطلاب</li>
 <li>لجعله مرئياً من جديد انقر مرة اخرى على الرمز السابق </li>
@@ -440,146 +1274,34 @@ $_lang['DocContent'] = "<p>إن أداة الوثائق تشبه إلى حد ك�
 <h4>
 إضافة أو تعديل ملاحظة خاصة بوثيقة أو مجلد او وصلة </h4>
 <ul>
-<li>انقر على الرمز الموجود بجانب الوثيقة ضمن العمود 'تعديل' </li>
+<li>انقر على الرمز الموجود بجانب الوثيقة ضمن العمود \'تعديل\' </li>
 <li>اكتب الملاحظة الجديدة ضمن الحقل الموافق </li>
 <li>قم بتأكيد العملية بالنقر على زر موافق </li>
 </ul>
-<p>لحذف الملاحظة انقر على الصورة بجانب الوثيقة ضمن العمود 'تعديل' و من ثم احذف الملاحظة القديمة و انقر على الزر موافق </p>
+<p>لحذف الملاحظة انقر على الصورة بجانب الوثيقة ضمن العمود \'تعديل\' و من ثم احذف الملاحظة القديمة و انقر على الزر موافق </p>
 <h4>إنشاء مجلد </h4>
 <ul>
-<li>انقر على الأمر 'إنشاء مجلد' الموجود في الجهة العليا لمستكشف الانترنت </li>
+<li>انقر على الأمر \'إنشاء مجلد\' الموجود في الجهة العليا لمستكشف الانترنت </li>
 <li>اكتب اسم المجلد الجديد في الحقل الموافق </li>
 <li>قم بتاكيد العملية من خلال النقر على زر موافق </li>
 </ul>
 <h4> نقل وثيقة أو مجلد او وصلة</h4>
 <ul>
-<li>انقر على الصورة بجانب العنصر الذي تريد نقله ضمن العمود 'نقل' </li>
+<li>انقر على الصورة بجانب العنصر الذي تريد نقله ضمن العمود \'نقل\' </li>
 <li> اختر المجلد الذي تريد نقل العنصر إليهمن ضمن القائمة المنسدلة الموجودة في الأعلى من جهة اليمين</li>
-<br /> ملاحظة: الكلمة 'جذر' تعني أنك لا تستطيع الانتقال لمستوى اعلى من المستوى الذي  توجد فيه الوثيقة على السيرفر </li>
+<br /> ملاحظة: الكلمة \'جذر\' تعني أنك لا تستطيع الانتقال لمستوى اعلى من المستوى الذي  توجد فيه الوثيقة على السيرفر </li>
 <li>
 قم بتأكيد امر النقل من خلال النقر على زر موافق </li>
 </ul>
 <center>
-<p>";
-$_lang['DocDeleted'] = "تم حذف الوثيقة";
-$_lang['DocInsertedAsModule'] = "تمت إضافتها كوحدة";
-$_lang['Document'] = "وثائق و وصلات";
-$_lang['DocumentAlreadyUsed'] = "هذه الوثيقة تم استخدامها مسبقاً كوحدة في المسار التعليمي هذا";
-$_lang['DocumentAsModule'] = "استخدام وثيقة";
-$_lang['DocumentContent'] = "مضمون الوثيقة : ";
-$_lang['DocumentInModule'] = "مستند في وحدة";
-$_lang['DocumentName'] = "اسم الوثيقة : ";
-$_lang['Documentation'] = "ملفات المساعدة";
-$_lang['DocumentsAccess'] = "الوثائق";
-$_lang['DocumentsDetails'] = "الوثائق التي تم تحميلها من قبل الطلاب";
-$_lang['DocumentsTitleCountColumn'] = "عدد مرات التحميل ";
-$_lang['DocumentsTitleDocumentColumn'] = "الوثيقة";
-$_lang['DocumentsTitleUsersColumn'] = "تنزيلات المستخدمين";
-$_lang['Down'] = "ترتيب تنازلي";
-$_lang['DownloadAttachedFile'] = "تنزيل الملف المرفق";
-$_lang['EG'] = "مثال:";
-$_lang['EXERCISETypeDesc'] = "Claroline تمرين";
-$_lang['Edit'] = "تعديل";
-$_lang['EditAnswers'] = "تحرير الأجوبة";
-$_lang['EditCategory'] = "تحرير تصنيف";
-$_lang['EditEvent'] = "تحرير حدث";
-$_lang['EditExercise'] = "تحرير إعدادات التمرين";
-$_lang['EditFeedback'] = "تحرير المراجعة التلقائية";
-$_lang['EditFileContent'] = "تحرير مضمون الملف";
-$_lang['EditFormat'] = "تنسيق التحرير للاستخدام";
-$_lang['EditGroup'] = "تحرير هذه المجموعة";
-$_lang['EditPost'] = "تحرير مشاركة";
-$_lang['EditQuestion'] = "تحرير الأسئلة";
-$_lang['EditSettings'] = "تحرير الإعدادات";
-$_lang['EditTextZone'] = "تحرير النص الترحيبي في الصفحة الأساسية";
-$_lang['EditToolList'] = "تحرير قائمة الأدوات";
-$_lang['EditWork'] = "تعديل العمل";
-$_lang['ElRen'] = "تمت إعادة تسميةالعنصر";
-$_lang['ElementList'] = "قائمة العناصر";
-$_lang['Email'] = "البريد الالكتروني";
-$_lang['EmailAddressNotFound'] = "لا يوجد حساب مستخدم مطابق لعنوان البريد الالكتروني ";
-$_lang['EmailCanBeEmpty'] = "يجب كتابة حقل البريد الالكتروني";
-$_lang['EmailNotSent'] = "لم يتمكن النظام من إرسال بريد إلكتروني إليك.<br />رجاء اتصل بـ";
-$_lang['EmailOption'] = "إرسال هذا الإعلان بواسطة البريد الإلكتروني للطلاب المسجلين";
-$_lang['EmailSent'] = " و إرساله بالبريد الإلكتروني للطلاب المسجلين";
-$_lang['EmailWrong'] = "عنوان البريد الإلكتروني غير صحيح";
-$_lang['Empty'] = "فارغ";
-$_lang['EmptyAnn'] = "مسح قائمة الإعلانات";
-$_lang['EmptyFields'] = "تركت بعض الحقول اللازمة فارغة";
-$_lang['EmtpyGroups'] = "تفريغ الكل";
-$_lang['Enable'] = "تمكين";
-$_lang['EndDate'] = "تاريخ الانتهاء";
-$_lang['EnrollAsManager'] = "التسجيل كمدير مقرر";
-$_lang['EnrollAsStudent'] = "التسجيل كطالب";
-$_lang['EnrollAsTeacher'] = "التسجيل كمدرس";
-$_lang['EnrollClass'] = "تسجيل صف";
-$_lang['EnrollToNewCourse'] = "التسجيل في مقرر جديد";
-$_lang['EnrollUser'] = "تسجيل مستخدم";
-$_lang['Enter'] = "دخول";
-$_lang['EnterMail'] = "أدخل عنوان البريد الاكتروني الخاص بك لنقوم بإرسال كلمة المرور ";
-$_lang['ErrorAssetNotFound'] = "لم يتم العثور على الممتلك : ";
-$_lang['ErrorCannotReadRSSFile'] = "خطأ : لا يمكن قراءة مصدر RSS";
-$_lang['ErrorCategoryEmpty'] = "لا يمكن للتصنيف أن يكون فارغا";
-$_lang['ErrorClassNotEmpty'] = "الصف يحتوي صفوف فرعية, قم بحذفهم أولاً";
-$_lang['ErrorCopyAttachedFile'] = "فشل في نسخ الملف : ";
-$_lang['ErrorCopyScormFiles'] = "حصل خطأ أثناء نسخ الملفات اللازمة لحزمة ال SCORM";
-$_lang['ErrorCopyingScorm'] = "حصل خطأ أثناء نسخ محتويات ال SCORM";
-$_lang['ErrorCourseCodeEmpty'] = "يجب إدخال رمز المقرر";
-$_lang['ErrorCourseTitleEmpty'] = "يجب إدخال اسم المقرر";
-$_lang['ErrorCreatingDirectory'] = "فشل في إنشاء المجلد:";
-$_lang['ErrorCreatingFile'] = "فشل في إنشاء الملف :";
-$_lang['ErrorCreatingFrame'] = "فشل في إنشاء ملف الإطارات ";
-$_lang['ErrorCreatingManifest'] = "فشل في إنشاء ملف imsmanifest.xml";
-$_lang['ErrorCreatingScormArchive'] = "فشل في إنشاء الملف المضغوط الخاص بال SCORM";
-$_lang['ErrorDepartmentEmpty'] = "يجب إدخال اسم القسم";
-$_lang['ErrorDepartmentURLEmpty'] = "عنوان URL القسم لا يمكن أن يكون فارغاً";
-$_lang['ErrorDepartmentURLWrong'] = "عنوان URL القسم غير صالح";
-$_lang['ErrorEmailEmpty'] = "يجب إدخال البريد الإلكتروني";
-$_lang['ErrorEmailInvalid'] = "البريد الإلكتروني غير صحيح";
-$_lang['ErrorEmptyName'] = "يجب إكمال الاسم";
-$_lang['ErrorFileMustBeZip'] = "يجب ان يكون الملف من نمط الملفات المضغوطة (.zip)";
-$_lang['ErrorFormatCSV'] = "خطاً: التنسيق الذي أعطيته غير متوافق مع Claroline";
-$_lang['ErrorInvalidParms'] = "خطأ: قيمة وسيطية غير صالحة (استخدم الأرقام فقط)";
-$_lang['ErrorLanguageEmpty'] = "يجب اختيار اللغة";
-$_lang['ErrorLecturerEmpty'] = "يجب إدخال اسم المدرس";
-$_lang['ErrorLoadingExercise'] = "فشل في تحميل التمرين";
-$_lang['ErrorLoadingQuestion'] = "فشل في تحميل أسئلة التمرين";
-$_lang['ErrorMove'] = "لا يمكنك نقل المقرر للمقرر نفسه!";
-$_lang['ErrorMyOwnSettings'] = "لا يمكنك تغيير حالتك";
-$_lang['ErrorNameAlreadyExists'] = "خطأ : اسم موجود سابقاً في المسار التعليمية أو في مخزن الوحدات";
-$_lang['ErrorNoModuleInPackage'] = "لا يوجد وحدة في الحزمة";
-$_lang['ErrorNoZlibExtension'] = "التوسيعة Zlib للـ PHP مطلوبة لاستخدام هذه الأداة. الرجاء الاتصال بمدير منصتك.";
-$_lang['ErrorOpeningManifest'] = "لا يمكن إيجاد ملف <i>manifest</i> في الحزمة.<br /> لا يمكن إيجاد الملف : imsmanifest.xml";
-$_lang['ErrorOpeningXMLFile'] = "فشل في العثور على الملف الثانوي للإعدادات ضمن الحزمة <br /> الملف غير موجود :";
-$_lang['ErrorReadingManifest'] = "خطأ أثناء قراءة ملف المينافست manifest ";
-$_lang['ErrorReadingXMLFile'] = "خطأ بقراءة الملف الثانوي :";
-$_lang['ErrorReadingZipFile'] = "خطأ أثناء قراءة الملف المضغوط";
-$_lang['ErrorSql'] = "خطأ في تعليمة ال  SQL";
-$_lang['ErrorUserNotInGroup'] = "خطأ في المستخدم:هذا المستخدم غير موجود ضمن مجموعتك";
-$_lang['ErrorValuesInDouble'] = "خطأ: يوجد قيمة أو أكثر مكررة";
-$_lang['ErrortExtractingManifest'] = "فشل في استخلاص ملف المينافست من الملف المضغوط ( قد يكون الملف معطوبا؟ً ) ";
-$_lang['EventAdded'] = "تم إضافة الحجث إلى جدول الأعمال";
-$_lang['EventDeleted'] = "تم حذف الحدث من جدول الأعمال";
-$_lang['EventUpdated'] = "تم تحديث جدول الأعمال حسب الأحداث";
-$_lang['Ex'] = "مثال<i>برمجة الحاسوب</i>";
-$_lang['ExAlreadyUsed'] = "هذا التمرين مستخدم كوحدة ضمن مسار التعليم هذامسبقاً";
-$_lang['ExInsertedAsModule'] = "تم إضافته كوحدة في المقرر و كوحدة في مسار التعليم هذا";
-$_lang['ExMessage'] = "مثال رسالة";
-$_lang['ExeAvgTime'] = "معدل الوقت (ثانية)";
-$_lang['ExeTime'] = "الوقت (ثانية)";
-$_lang['ExerciceEx'] = "مثال تمرين";
-$_lang['Exercices'] = "التمارين";
-$_lang['Exercise'] = "تمرين";
-$_lang['ExerciseAsModule'] = "استخدام تمرين";
-$_lang['ExerciseCancelled'] = "تم إلغاء التمرين , اختر وحدة من ضمن القائمة للمتابعة";
-$_lang['ExerciseClosing'] = "نهاية التمرين";
-$_lang['ExerciseContent'] = "<h4>ماهي أداة التمرين ؟ </h4>
+<p>';
+$_lang['blockExercisesHelp'] = '<h4>ماهي أداة التمرين ؟ </h4>
 يمكنك من خلالها إنشاء تمارين يتم حلها من خلال الانترنت و تتألف من لائحة من الاسئلة , يمكن ان تكون انواع هذه الاسئلة مختلفة  و يقوم الطلاب بتنفيذ التمرين  حيث يتم تسجيل نتائج الطلاب المسجلين بالمقرر و يمكن استعراضها من خلال إحصائيات المقرر .
 <hr />
 <h4> إدارة التمارين</h4>
 <p>لإنشاء تمرين</p>
 <ul>
-<li> انقر على \"تمرين جديد\" من صفحة الأساسية الخاصة بالأداة ) يجب ان تكون قد دخلت بالاسم الخاص بك كمدرس او كمدير النظام) </li>
+<li> انقر على "تمرين جديد" من صفحة الأساسية الخاصة بالأداة ) يجب ان تكون قد دخلت بالاسم الخاص بك كمدرس او كمدير النظام) </li>
 <li>أدخل وصف للتمرين</li>
 <li>أختر فيما إذا كان الطالب سيرى جميع الاسئلة ضمن صفحة واحدة أو صفحة من أجل كل سؤال </li>
 <li> يمكنك أيضاً تعديل الإعدادات المتقدمة ( ليس ضرورياً)
@@ -622,11 +1344,11 @@ $_lang['ExerciseContent'] = "<h4>ماهي أداة التمرين ؟ </h4>
 <p>في هذا النمط من الاسئلة يجب على الطلاب إيجاد التوافق بين العناصر الموجودة في قائمة </p>
 <p>عندما تبدأ بإنشاء سؤال جديد من هذا النوع ,يكون هناك عنصرين فقط ضمن القائميتن , و لإضافة عناصر إضافية ليتم مطابقتها نقوم بما يلي </p>
 <ul>
-<li> انقر على 'إضافة عنصر' من أجل كل إجابة إضافية تريد إضافتها </li>
+<li> انقر على \'إضافة عنصر\' من أجل كل إجابة إضافية تريد إضافتها </li>
 </ul>
 <p>إذا أردت إنقاص عدد العناصر </p>
 <ul>
-<li> انقر على 'حذف عنصر' من أجل كل إجابة تريد حذفها</li>
+<li> انقر على \'حذف عنصر\' من أجل كل إجابة تريد حذفها</li>
 </ul>
 <p>يمكنك أيضاً تحديد أوزان لكل إجابة, و لكن لا يسمح باستخدام أوزان سالبة , و لا تنسى النقر على زر موافق من أجل تأكيد إضافة السؤال الجديد</p>
 <h4> سؤال ملء الفراغات</h4>
@@ -639,8 +1361,8 @@ $_lang['ExerciseContent'] = "<h4>ماهي أداة التمرين ؟ </h4>
 <li><em>مثال:</em>يقع المسجد [الأقصى] في [فلسطين] المحتلة </li>
 </ul>
 </li>
-<li>انقر على زر 'التالي' بعد الانتهاء </li>
-<li>انقر على زر 'موافق' من أجل تأكيد السؤال الجديد</li>
+<li>انقر على زر \'التالي\' بعد الانتهاء </li>
+<li>انقر على زر \'موافق\' من أجل تأكيد السؤال الجديد</li>
 </ul>
 <hr />
 <h4> مخزن الاسئلة </h4>
@@ -649,125 +1371,23 @@ $_lang['ExerciseContent'] = "<h4>ماهي أداة التمرين ؟ </h4>
 <p>بشكل افتراضي تظهر جميع الاسئلة الموجودة ضمن المقرر و يمكنك عرض الاسئلة المرتبطة بتمرين محدد من خلال اختيار اسم التمرين من القائمة المنسدلة الخاصة بالتصفية </p>
 <hr />
 <h4> كيف استطيع رؤية نتائجي السابقة ؟</h4>
-<p> كل مستخدم يستطيع مشاهدة النتائج الخاصة به حيث تظهر تحت قائمة التمارين مباشرة . و بصفتك مديراً للمقرر يمكنك النقر على الوصلة الخاصة بالتتبع لكل تمرين من ضمن قائمة التمارين للوصول إلى تفاصيل نتائج كل طالب من طلاب المقرر </p>";
-$_lang['ExerciseDescription'] = "وصف التمرين";
-$_lang['ExerciseDone'] = "انتهى التمرين , قم باختيار وحدة من القائمة للمتابعة";
-$_lang['ExerciseInModule'] = "تمرين في الوحدة";
-$_lang['ExerciseManagement'] = "إدارة التمرين";
-$_lang['ExerciseName'] = "اسم التمرين";
-$_lang['ExerciseNoMoreAvailable'] = "لم يعد هذا التمرين متاحا";
-$_lang['ExerciseNotAvailable'] = "التمرين غير متاح";
-$_lang['ExerciseNotFound'] = "لم يتم العثور على التمرين";
-$_lang['ExerciseOpening'] = "بداية التمرين:";
-$_lang['ExerciseTotalAttempts'] = "العدد الكلي للمحاولات";
-$_lang['ExerciseType'] = "نوع التمرين";
-$_lang['ExerciseUsersAttempts'] = "عدد المستخدمين الذين نفذوا التمرين";
-$_lang['Exercises'] = "التمارين";
-$_lang['ExercisesDetails'] = "نتائج التمارين";
-$_lang['ExercisesResults'] = "نتائج التمارين التي تم تنفيذها";
-$_lang['ExercisesTitleExerciseColumn'] = "تمرين";
-$_lang['ExistingGroups'] = "المجموعات";
-$_lang['ExpectedChoice'] = "الإجابات الصحيحة";
-$_lang['ExplainDeleteFile'] = "قم بالنقر على هذا المربع لحذف الملف المرفق";
-$_lang['ExplainReplaceFile'] = "قم بتحميل ملف جديد لاستبدال الملف";
-$_lang['Explanation'] = "بمجرد النقر على زر موافق سيتم إنشاء موقع للمقرر يحوي منتدى و جدول أعمال و مدير للوثائق.. إلخ <p> تستطيع تعديل الموقع وفق رغبتك عندما تقوم بتسجيل الدخول له بالاسم الذي انشأته به";
-$_lang['Export'] = "تصدير";
-$_lang['ExportTrackingCsv'] = "الحصول على بيانات التتبع من خلال ملف CSV";
-$_lang['ExternalToolName'] = "وصلة جديدة";
-$_lang['ExternalToolUrl'] = "URL وصلة";
-$_lang['ExtractFromLangFile'] = "من ملفات اللغة";
-$_lang['ExtractFromScriptFile'] = "من ملفات النصوص البرمجية";
-$_lang['ExtractLangVariable'] = "استخراج متحولات اللغة";
-$_lang['False'] = "خاطئ";
-$_lang['Feedback'] = "مراجعة";
-$_lang['FeedbackAdded'] = "تم إضافة المراجعة";
-$_lang['FeedbackEdited'] = "تم تحرير المراجعة";
-$_lang['FeedbackFile'] = "ملف المراجعة";
-$_lang['FeedbackHelp'] = "المراجعة اختيارية , إذا لم تكن خالية فستظهر للمستخدمين حسب إعدادات 'ارسال مراجعة'";
-$_lang['FeedbackSubmit'] = "إرسال مراجعة";
-$_lang['FeedbackText'] = "نص المراجعة";
-$_lang['Feedbacks'] = "المراجعات";
-$_lang['FieldSeparatorUsed'] = "الرمز المستخدم للفصل بين الحقول";
-$_lang['FileContentModified'] = "تم تعديل مضمون الملف";
-$_lang['FileCreated'] = "تم إنشاء الملف";
-$_lang['FileDesc'] = "وصف الملف";
-$_lang['FileError'] = "الملف الذي تحاول تحميله غير صحيح";
-$_lang['FileExists'] = "العملية غير ممكنة<br />يوجد ملف له نفس اسم الملف";
-$_lang['FileForCSVUpload'] = "اختر الملف الذي يحوي بيانات قائمة المستخدمين , الملف بتنسيق CSV: ";
-$_lang['FileName'] = "اسم الملف";
-$_lang['FileNameMissing'] = "ادخل اسم الملف";
-$_lang['FileNameOrURLMissing'] = "يجب ادخل اسم الملف او عنوان الوصلة URL";
-$_lang['FileOnly'] = "ملف (الملف مطلوب  و يمكن إضافة شرح بشكل اختياري)";
-$_lang['FileRequired'] = "الملف مطلوب";
-$_lang['FileStructureChecker'] = "التحقق من بنية الملف";
-$_lang['Files'] = "قائمة الملفات";
-$_lang['FillBlanks'] = "ملء الفراغات";
-$_lang['FillCourses'] = "إنشاء مقررات تجريبية";
-$_lang['FillGroups'] = "ملء تلقائي ";
-$_lang['FillLists'] = "الرجاء ملء القائمتين أدناه";
-$_lang['FillSelectBox'] = "الاختيار من قائمة منسدلة";
-$_lang['FillTextField'] = "مل حقل النص";
-$_lang['FillTheAreaToExplainTheMotivations'] = "اكتب شرحاً عما يحثك و يشجعك و أرسل طلبك , سيتم إرسال بريد الكتروني لمدير الموقع";
-$_lang['FillToolCourses'] = "أداة ملء المقررات";
-$_lang['FillTree'] = "إدخال تصانيف للمقررات";
-$_lang['FillType'] = "طريقة الملء";
-$_lang['FillUsers'] = "إضافة مستخدمين";
-$_lang['Filling'] = "ملء بقيم تجريبية";
-$_lang['Filter'] = "تصفية";
-$_lang['FindDoubledVariable'] = "إيجاد المتحولات المتكررة";
-$_lang['FindVarWithSameContentAndDifferentName'] = "متحولات لها نفس المحتوى و لكن بأسماء مختلفة";
-$_lang['FindVarWithSameNameAndDifferentContent'] = "متحولات لها نفس الاسم و لكن محتوى مختلف";
-$_lang['Finish'] = "انتهاء";
-$_lang['FirstName'] = "الاسم";
-$_lang['FirstSubmission'] = "أول تسليم";
-$_lang['Firstname'] = "الاسم";
-$_lang['ForContent'] = "<p>المنتدى أداة تهدف لإيجاد بيئة مناسبة للنقاش التفاعلي , ففي حين أن البريد الالكتروني يسمح بالنقاش بين شخصين فالمنتدى يسمح بالنقاش العام او النقاش ضمن المجموعات الخاصة </p>
+<p> كل مستخدم يستطيع مشاهدة النتائج الخاصة به حيث تظهر تحت قائمة التمارين مباشرة . و بصفتك مديراً للمقرر يمكنك النقر على الوصلة الخاصة بالتتبع لكل تمرين من ضمن قائمة التمارين للوصول إلى تفاصيل نتائج كل طالب من طلاب المقرر </p>';
+$_lang['blockFeedbackHelp'] = 'المراجعة اختيارية , إذا لم تكن خالية فستظهر للمستخدمين حسب إعدادات \'ارسال مراجعة\'';
+$_lang['blockForumsHelp'] = '<p>المنتدى أداة تهدف لإيجاد بيئة مناسبة للنقاش التفاعلي , ففي حين أن البريد الالكتروني يسمح بالنقاش بين شخصين فالمنتدى يسمح بالنقاش العام او النقاش ضمن المجموعات الخاصة </p>
 <p> تتم إدارة و تنظيم المنتديات من خلال النقر على زر الإدارة . <br /> يتم تنظيم منتديات النقاش من خلال مجموعات و مجموعات فرعية كما يلي : </p><p><b>
-التصنيف>المنتدى>المشاركة >الردود </b> </p>لكي تقوم بوضع بنية مناسبة للمنتديات من الضروري تنظيم التصنيفات و المنتديات ضمنها و يكون دور الطلاب إضافة المشاركات و الرد عليها , بشكل افتراضي يكون هناك تصنيف واحد فقط يحوي ضمنه منتدى فيه مشاركة واحدة كمثال </p> <p> اول ما ينبغي عليك فعله هو حذف هذه المشاركة و تعديل اسم المنتدى و من ثم يمكنك انشاء منتديات جديدة و تصنيفها ضمن مجموعات بحيث تلائم الأغراض التدريسية </p> <p>لا تقم بالخلط بين التصانيف و المنتديات و لا تنسى ان  التصانيف الخالية من المنتديات لا يراها الطلاب</p><p>وصف المنتدى قد يكون قائمة باسماء عناصر المنتدى او تعريف للهدف من المنتدى أو وصف المهمة التي يجب النقاش حولها....إلخ ";
-$_lang['Force'] = "استقرار النظام  و عمله على الشبكات بشكل ممتاز";
-$_lang['Formula'] = "مع أطيب التمنيات";
-$_lang['Forum'] = "المنتدى";
-$_lang['ForumCreated'] = "تم إنشاء المنتدى";
-$_lang['ForumDeleted'] = "تم حذف المنتدى";
-$_lang['ForumEmptied'] = "تم تفريغ المنتدى";
-$_lang['ForumGroup'] = "المنتدى الخاص بالمجموعة";
-$_lang['ForumUpdated'] = "تم تعديل المنتدى";
-$_lang['Forums'] = "المنتديات";
-$_lang['Free'] = "مجاني";
-$_lang['From'] = "من";
-$_lang['FullScreen'] = "ملء الشاشة";
-$_lang['Functions'] = "قائمة الوظائف";
-$_lang['Garbage'] = "المحذوفات";
-$_lang['GetExistingQuestion'] = "استخدام سؤال موجود في تمرين أخر";
-$_lang['GiveAdminRight'] = "تحديد مستخدم كمدير";
-$_lang['GiveAnswers'] = "الرجاء حدد الإجابات على هذا السؤال";
-$_lang['GiveExerciseName'] = "اكتب اسم التمرين";
-$_lang['GiveQuestion'] = "قم بكتابة السؤال";
-$_lang['GiveText'] = "قم بكتابة النص من فضلك";
-$_lang['GlobalProgress'] = "نسبة التقدم في مسار التعلم : ";
-$_lang['Go2accountCreationPage'] = "الانتقال لصفحة إنشاء حساب";
-$_lang['GoBackToEx'] = "العودة للتمارين";
-$_lang['GoBackToQuestionList'] = "العودة لقائمة الأسئلة";
-$_lang['GoBackToQuestionPool'] = "العودة للأسئلة";
-$_lang['GoToMainUserSettings'] = "العودة للإعدادات الرئيسية للمستخدم";
-$_lang['GoToUserSettings'] = "الانتقال لإعدادات المستخدم";
-$_lang['Group'] = "مجموعة";
-$_lang['GroupAllowStudentRegistration'] = "السماح للطلاب بالتسجيل ضمن المجموعات";
-$_lang['GroupAlwaysPrivate'] = "(خاص دوماً)";
-$_lang['GroupAssignment'] = "جماعي";
-$_lang['GroupChatLink'] = "الدردشة الخاصة بالمجموعة";
-$_lang['GroupContent'] = "<p><b>مقدمة</b></p>
+التصنيف>المنتدى>المشاركة >الردود </b> </p>لكي تقوم بوضع بنية مناسبة للمنتديات من الضروري تنظيم التصنيفات و المنتديات ضمنها و يكون دور الطلاب إضافة المشاركات و الرد عليها , بشكل افتراضي يكون هناك تصنيف واحد فقط يحوي ضمنه منتدى فيه مشاركة واحدة كمثال </p> <p> اول ما ينبغي عليك فعله هو حذف هذه المشاركة و تعديل اسم المنتدى و من ثم يمكنك انشاء منتديات جديدة و تصنيفها ضمن مجموعات بحيث تلائم الأغراض التدريسية </p> <p>لا تقم بالخلط بين التصانيف و المنتديات و لا تنسى ان  التصانيف الخالية من المنتديات لا يراها الطلاب</p><p>وصف المنتدى قد يكون قائمة باسماء عناصر المنتدى او تعريف للهدف من المنتدى أو وصف المهمة التي يجب النقاش حولها....إلخ ';
+$_lang['blockGroupsHelp'] = '<p><b>مقدمة</b></p>
 
 <p>الهدف من هذه الأداة هو إنشاء و إدارة مجموعات العمل, عند إنشاء المجموعات الجديدة تكون المجموعات فارغة و هناك عدة طرق لملء هذه المجموعات بالعناصر المناسبة :
 <ul><li>الملء التلقائي</li>
-<li>ملء يدوي 'تعديل'</li>
-<li>تسجيل ذاتي من الطلاب (يكون في هذه الحالة خيار 'السماح للطلاب بالتسجيل ضمن المجموعات ' مفعلاً ) </li>
+<li>ملء يدوي \'تعديل\'</li>
+<li>تسجيل ذاتي من الطلاب (يكون في هذه الحالة خيار \'السماح للطلاب بالتسجيل ضمن المجموعات \' مفعلاً ) </li>
 </ul>
 و يمكن استخدام الطرق السابقة معاً فيمكن مثلاً ان تبدأ بتوجيه الطلاب ان يقوموا بالتسجيل ضمن المجموعات بانفسهم , و بعد ذلك قد تجد ان عددا منهم لم يستجب لذلك و بالتالي تقوم بالملء التلقائي لإكمال المجموعات , و من ثم تستطيع التعديل اليدوي لإضافة طالب محدد لمجموعة ما و ذلك بعد انتهاء التسجيل الذاتي و بعد الملء التلقائي</p>
 <p>لا يمكن القيام بملئ المجموعات التلقائي او اليدوي إلا بعد ان يقوم الطلاب بالتسجيل في المقرر
 <br />يمكن استعراض قائمة المستخدمين من خلال أداة المستخدمين </p> <hr noshade size=1>
 <p><b> إنشاء مجموعات</b></p>
-<p>لإنشاء مجموعات جديدة انقر على 'إنشاء مجموعة جديدة' و حدد عدد المجموعات التي تريد إنشاءها و عدد العناصر الأعظمي المسموح في كل مجموعة او يمكن عدم تحديد العدد الاعظمي و عندها يكون عدد العناصر غير محدود ضمن المجموعات</p><hr noshade size=1>
+<p>لإنشاء مجموعات جديدة انقر على \'إنشاء مجموعة جديدة\' و حدد عدد المجموعات التي تريد إنشاءها و عدد العناصر الأعظمي المسموح في كل مجموعة او يمكن عدم تحديد العدد الاعظمي و عندها يكون عدد العناصر غير محدود ضمن المجموعات</p><hr noshade size=1>
 <p><b>إعدادات المجموعات</b></p>
 <p>يمكنك تحديد الإعدادت العامة لكل المجموعات  <b>السماح للطلاب بالتسجيل ضمن المجموعات </b>
 <p>إذا قمت بتحديد العدد الأعظمي لعناصر المجموعات فالمجموعات المكتملة لا تسمح بإضافة عناصر جديدة لها و هذه الطريقة مناسبة للمدرس عندما تكون قائمة الطلاب غير معروفة أثناء إنشاء المجموعات</p>
@@ -779,97 +1399,8 @@ $_lang['GroupContent'] = "<p><b>مقدمة</b></p>
 <p> عند إنشاء المجموعات يتم عرضها من خلال جدول يمكن من خلاله عرض معلومات المجموعات و القيام بما يلي :
 <ul><li><b>تعديل</b>من اجل التعديل اليدوي لاسم المجموعة , الوصف , المشرف , عناصر المجموعة </li>
 <li><b>حذف</b>حذف المجموعة </li></ul>
-<hr noshade size=1>";
-$_lang['GroupDel'] = "تم حذف المجموعة";
-$_lang['GroupDescription'] = "الوصف";
-$_lang['GroupDocument'] = "الوثائق";
-$_lang['GroupDocumentsLink'] = "الوثائق الخاصة بالمجموعة ";
-$_lang['GroupFilledGroups'] = "تم ملء المجموعات ( أو إكمالها) من خلال الطلاب الموجودون في قائمة المستخدمين";
-$_lang['GroupForum'] = "منتدى";
-$_lang['GroupLimit'] = "الحد الأقصى";
-$_lang['GroupMembers'] = "أعضاء المجموعة";
-$_lang['GroupName'] = "اسم المجموعة";
-$_lang['GroupNoTutor'] = "(لا يوجد)";
-$_lang['GroupNone'] = "(لا يوجد)";
-$_lang['GroupNoneMasc'] = "(لا يوجد)";
-$_lang['GroupNowMember'] = "انت الأن عضو في هذه المجموعة";
-$_lang['GroupPlacesThis'] = "المقاعد(اختياري)";
-$_lang['GroupProperties'] = "إعدادات المجموعات";
-$_lang['GroupPropertiesModified'] = "تم تعديل إعدادات المجموعة";
-$_lang['GroupSelfRegInf'] = "تسجيل";
-$_lang['GroupSelfRegistration'] = "التسجيل";
-$_lang['GroupSettingsModified'] = "تم تعديل بيانات المجموعة";
-$_lang['GroupSpace'] = "منطقة المجموعة";
-$_lang['GroupSpaceLink'] = "منطقة المجموعة";
-$_lang['GroupThisSpace'] = "منطقة خاصة بالمجموعة";
-$_lang['GroupTooMuchMembers'] = "الرقم المقترح يزيد عن العدد الأعظمي المسموح ) يمكنك تغيير الرقم المسموح ( لم يتم تعديل بنية المجموعة";
-$_lang['GroupTools'] = "ادوات";
-$_lang['GroupTutor'] = "مشرف المجموعة";
-$_lang['GroupUserManagement'] = "إدارة المجموعة";
-$_lang['GroupWikiLink'] = "الويكي الخاصة بالمجموعة";
-$_lang['Groups'] = "المجموعات";
-$_lang['GroupsAdded'] = "تم إضافة المجموعة ( المجموعات)";
-$_lang['GroupsDeleted'] = "تم حذف جميع المجموعات";
-$_lang['GroupsEmptied'] = "جميع المجموعات أصبحت فارغة الآن";
-$_lang['HClar'] = "بدء المساعدة";
-$_lang['HDoc'] = "ملفات المساعدة";
-$_lang['HExercise'] = "تمارين مساعدة";
-$_lang['HFor'] = "منتديات المساعدة";
-$_lang['HHome'] = "صفحة المساعدة";
-$_lang['HUser'] = "مستخدمين المساعدة";
-$_lang['HasBeenEnrolled'] = "تم تسجيله";
-$_lang['HasDel'] = "تم حذفه";
-$_lang['Heading'] = "الترويسة";
-$_lang['Help'] = "المساعدة";
-$_lang['HelpAssignment'] = "الوظائف و المهام";
-$_lang['HelpAssignmentContent'] = "<p>
-اداة الوظائف هي مساحة خاصة للطلاب لنشر الوظائف و المقالات و الأعمال التي يكلفهم بها مدير المقرر<br /> <br />
-كل وظيفة أو مهمة تكون مؤلفة من ملف أو نص مع ملف و يمكن أن يكون نشر الأعمال بأسماء المجموعات و ليس الأشخاص<br /> <br />
-يمكن للطلاب تعديل الأعمال التي قاموا بنشرها و يستطيع مدير المقرر تزويد الطلاب بملاحظات و تقييمات خاصة باعمالهم
-</p>
-<hr />
-<h4> إنشاء وظيفة-مهمة </h4>
-<p>يقوم مدير المقرر بإنشاء وظيفة جديدة من خلال الدخول على هذه الأداة و من ثم نقر 'إنشاء (وظيفة/مهمة) جديدة ' </p>
-<p>فتظهر استمارة بيانات تطلب من مدير المقرر تحديد ما يلي : </p>
-<ul><li>عنوان الوظيفة&nbsp;:اسم الوظيفة أو الواجب</li><li> الوصف&nbsp;:وصف لما يجب ان يقوم به الطلاب</li><li>ملف :يمكن تحميل أي نوع من الملفات و هناك حجم لا يمكن تجاوزه للملفات كما يمكن إضافة نص يصف محتوى الملف</li><li>نص فقط : نص منسق باستخدام محرر النصوص المتقدم المستخدم في الموقع </li><li>نص مع ملف مرفق:نص منسق باستخدام محرر النصوص المتقدم مع إمكانية ارفاق ملف </li></ul>
-</li><li>تاريخ البدء: التاريخ الذي يمكن اعتباراً منه ارسال الأعمال</li><li>تاريخ الانتهاء:تاريخ نهاية الوقت المسموح لإرسال الأعمال</li><li>سماحية الرؤية الافتراضية :حدد فيما إذا كانت الأعمال المرسلة ستظهر لبقية المستخدمين ام لا </li><li>نوع الوظيفة - المهمة : <ul><li>شخصي:يتم إرسال الأعمال من قبل الأشخاص
-</li><li>جماعي : يجب ان يكون الشخص الذي يقوم بالإرسال عضواً بمجموعة واحدة على الأقل و يتم نشر العمل باسم تلك المجموعة </li></ul>
-</li><li>السماح بتحميل الملفات بعد انتهاء المدة المسموحة </li></ul>
-<p>
-<hr />
-<h4>Works</h4>
-<p>Works are the publications uploaded by users.</p>
-<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
-The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
-<p><strong>Submit a work</strong></p>
-<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
-<p><strong>Work list</strong></p>
-<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
-</p>
-<ul>
-<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
-
-</li>
-<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
-</li>
-<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
-</li>
-<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
-
-</li>
-<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
-</li>
-</ul>
-
-
-
-";
-$_lang['HelpGroups'] = "مساعدة المجموعات";
-$_lang['Hereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage'] = "تستطيع من خلال هذه الصفحة تعديل النصوص الترحيبية التي تظهر في الصفحة الرئيسية للموقع";
-$_lang['High_resources'] = "high resources";
-$_lang['Hits'] = "عدد مرات الدخول";
-$_lang['Home'] = "العودة للصفحة الأساسية";
-$_lang['HomeContent'] = "For convenience, claroline tools contain default entries.
+<hr noshade size=1>';
+$_lang['blockHomepageHelp'] = 'For convenience, claroline tools contain default entries.
 
  There is a small example in every tool to help you quickly grasp how it
 
@@ -877,19 +1408,19 @@ $_lang['HomeContent'] = "For convenience, claroline tools contain default entrie
 
  instance, here on the Home Page of your course website,there is a small
 
- introduction text saying 'This is the introduction text of your course. To
+ introduction text saying \'This is the introduction text of your course. To
 
- replace it by your own text, click below on modify.' Click on modify, edit
+ replace it by your own text, click below on modify.\' Click on modify, edit
 
- it and Ok. It's that simple. Every tool has the same logic:
+ it and Ok. It\'s that simple. Every tool has the same logic:
 
  add, delete, modify, which is the logic of dynamic websites.</p><p>When
 
  you first create your website, most of the tools are active. Here again,
 
- it is up to you to deactivate the ones you don't need. You just have to
+ it is up to you to deactivate the ones you don\'t need. You just have to
 
- click on 'deactivate'. Then it goes down to the grey section of your
+ click on \'deactivate\'. Then it goes down to the grey section of your
 
  homepage and becomes invisible to your students.  However, you can
 
@@ -899,7 +1430,7 @@ $_lang['HomeContent'] = "For convenience, claroline tools contain default entrie
 
  Home Page. These pages must be HTML pages (which can be created by any
 
- Word Processor or Web Composer). Use 'Upload page and link to Homepage' to
+ Word Processor or Web Composer). Use \'Upload page and link to Homepage\' to
 
  send your page to the server. The standard header of your website will be
 
@@ -909,623 +1440,32 @@ $_lang['HomeContent'] = "For convenience, claroline tools contain default entrie
 
  existing websites or pages existing anywhere on the web (even inside your
 
- own site), use 'Add link on Homepage' The pages you have added to the Home
+ own site), use \'Add link on Homepage\' The pages you have added to the Home
 
  page can deactivated then deleted, where the standard tools can be
 
  deactivated, but not deleted.</p><p>Once your course website is ready, go
 
- to 'Modify course info' and decide what level of confidentiality you want.
+ to \'Modify course info\' and decide what level of confidentiality you want.
 
- By default, your course is hidden (because you work on it).</p>";
-$_lang['HomePageTextZone'] = "نصوص الترحيب في الصفحة الرئيسية للموقع";
-$_lang['Hour'] = "ساعة";
-$_lang['HumanAndPhysicalResourcesComment1'] = "ما هي الموارد البشرية و المادية المتاحة؟ ماذا يمكن للطلاب ان يتوقعوا من فريق التنظيم أو ما يمكن ان يقوم المدرس بتنظيمه؟";
-$_lang['HumanAndPhysicalResourcesComment2'] = "تقديم للمدرسين الأخرين الذين سيقومون بتنظيم المقرر ( مساعدين مدرسين, باحثين..إلخ)  و عرض ما هو متوفر من الإمكانيات البشرية , الأبنية , المعدات , تجهيزات الكومبيوتر المتاحة";
-$_lang['HumanAndPhysicalRessources'] = "الموارد البشرية و المادية";
-$_lang['IfNotRedirect'] = "إذا لم يتم التوجيه التلقائي";
-$_lang['Import'] = "استيراد";
-$_lang['Impossible'] = "العملية غير ممكنة";
-$_lang['ImpossibleToPromote'] = "من غير الممكن ترقية طالب مسجل في المجموعة ليصبح مشرف للمجموعة";
-$_lang['In'] = "في";
-$_lang['InFrames'] = "ضمن إطارات";
-$_lang['IncorrectDate'] = "يجب أن يكون تاريخ البدء قبل تاريخ النهاية ...";
-$_lang['Indeed'] = "يتميز هذا النظام باستقراره و أداءه العالي في مجال الشبكات حيث  يشبه إلي حد كبير نظام التشغيل المشهور UNIX";
-$_lang['Individual'] = "شخصي";
-$_lang['Info2Say'] = "معلومات تعطى للطلاب";
-$_lang['InfoProgNameTitle'] = "معلومات";
-$_lang['InsertMyDocToolName'] = "إدراج مستند كوحدة";
-$_lang['InsertMyExerciseToolName'] = "إضافة تمرين";
-$_lang['InsertMyModuleToolName'] = "إدخال الوحدة الخاصة بي";
-$_lang['InsertMyModulesTitle'] = "إدراج وحدة من المقرر";
-$_lang['InsertNewModuleName'] = "إضافة اسم جديد";
-$_lang['Installed'] = "تم استيراد مسار التعليم بنجاح";
-$_lang['Institution'] = "اسم الجامعة او المعهد";
-$_lang['InstitutionUrl'] = "عنوان المعهد على الانترنت URL";
-$_lang['IntroCourse'] = "انت الآن في الصفحة الأساسية لموقع المقرر التعليمي <br /><br />من خلال هذه الصفحة يمكنك ان تقوم ب:
+ By default, your course is hidden (because you work on it).</p>';
+$_lang['blockIntroCourse'] = 'انت الآن في الصفحة الأساسية لموقع المقرر التعليمي <br /><br />من خلال هذه الصفحة يمكنك ان تقوم ب:
 <ul>
-<li> تنشيط او الغاء تنشيط الأدوات ( انقر على زر  ' قائمة تحرير الأدوات '  الموجود في الأسفل من جهة اليمين</li>
+<li> تنشيط او الغاء تنشيط الأدوات ( انقر على زر  \' قائمة تحرير الأدوات \'  الموجود في الأسفل من جهة اليمين</li>
 <li> تغيير الإعدادات او متابعة الاحصائيات ( انقر على الوصلة الموافقة لما تريد من الاسفل ).</li>
-اما الآن و من أجل إضافة  تمهيد للمقرر يسهل على الطلاب فهم النقاط الأساسية للمقرر انقر على هذه الوصلة";
-$_lang['IntroEditToolList'] = "قم باختيار الأدوات التي تريد ان تكون ظاهرة و فعالة للمستخدمين<br /> الأدوات التي ستكون غير فعالة ستظهر بلون رمادي عند استعراضك للصفحة الخاصة بك ";
-$_lang['IntroLearningPath'] = "استخدم هذه الأداة لتزويد  الطلاب بمسار متسلسل يتنقلون من خلاله بين المستندات و الوثائق و التمارين و صفحات الانترنت و الروابط ..إلخ <br /><br />إذا أردت ان تقدم شرحاً عن مسار التعليم للطلاب قم بالنقر على 'إضافة مقدمة أو تمهيد'<br />";
-$_lang['IntroText'] = "لإرسال رسالة اختر مجموعات المستخدمين أو المستخدمينمن القائمة الموجودة على اليمين ) تم تمميز المجموعات بوضع علامة * في بداية الاسم(";
-$_lang['IntroWork'] = "هذه الأداة تسمح للمدرس بإنشاء وظائف أو مهام للطلاب بحيث يكون بمقدور كل طالب ( حسب الإعدادات  الخاصة بكل وظيفة) ان يقوم بتحميل مستند أو كتابة نص على موقع المقرر
+اما الآن و من أجل إضافة  تمهيد للمقرر يسهل على الطلاب فهم النقاط الأساسية للمقرر انقر على هذه الوصلة';
+$_lang['blockIntroLearningPath'] = 'استخدم هذه الأداة لتزويد  الطلاب بمسار متسلسل يتنقلون من خلاله بين المستندات و الوثائق و التمارين و صفحات الانترنت و الروابط ..إلخ <br /><br />إذا أردت ان تقدم شرحاً عن مسار التعليم للطلاب قم بالنقر على \'إضافة مقدمة أو تمهيد\'<br />';
+$_lang['blockIntroWork'] = 'هذه الأداة تسمح للمدرس بإنشاء وظائف أو مهام للطلاب بحيث يكون بمقدور كل طالب ( حسب الإعدادات  الخاصة بكل وظيفة) ان يقوم بتحميل مستند أو كتابة نص على موقع المقرر
 <br />تستطيع ان تضيف ملاحظات أو تضع علامات لكل عمل
 
-<br /><br />إذا أردت أن تقدم شرحاً عن هذه الأداة للطلاب أو تقدم لهم نصائح معينة فانقر على 'إضافة مقدمة او تمهيد'<br />";
-$_lang['InvalidId'] = "فشل في تسجيل الدخول<br />إذا لم تكن مسجل استخدم  <a href=claroline/auth/inscription.php>استمارة التسجيل</a> من فضلك</font color>";
-$_lang['InvalidIdSelfReg'] = "<b>فشل في تسجيل الدخول</b><br /> الرجاء المحاولة مرة ثانية<br /><small>If you haven't a user account yet, use the <a href=\"%s\">registration form</a></font color></small>";
-$_lang['Invisible'] = "مخفي";
-$_lang['Is'] = "is";
-$_lang['IsAlreadyRegistered'] = "مسجل مسبقا بالمقرر";
-$_lang['IsNowInYourDocDir'] = "موجود الأن ضمن أداة الوثائق و المستندات <br /><b> هذا الملف مرئي </b>";
-$_lang['IsNowRegistered'] = "أصبح الأن مسجلاً في المقرر";
-$_lang['JustCreated'] = "تم إنشاء موقع خاص للمقرر";
-$_lang['LabelCanBeEmpty'] = "يجب تحديد اسم المقرر";
-$_lang['Language'] = "اللغة";
-$_lang['Last31days'] = "أخر 31 يوم";
-$_lang['Last7Days'] = "أخر 7 أيام";
-$_lang['LastAccess'] = "أخر مرة قام بتسجيل الدخول";
-$_lang['LastActiveTopics'] = "المشاركات الأخيرة";
-$_lang['LastAttempt'] = "اخر محاولة";
-$_lang['LastCheck'] = "التحقق الأخير قبل التنصيب";
-$_lang['LastEditDate'] = "تاريخ أخر تعديل";
-$_lang['LastMsg'] = "أخر رسالة";
-$_lang['LastMsgs'] = "أخر الرسائل";
-$_lang['LastName'] = "الكنية";
-$_lang['LastSessionTimeSpent'] = "وقت أخر جلسة ";
-$_lang['Lasting'] = "باق";
-$_lang['Lastname'] = "الكنية";
-$_lang['LateUpload'] = "تحميل متاخر";
-$_lang['LaunchRestoreCourseRepository'] = "تشغيل مسترجع مخزن المقرر";
-$_lang['LearnPathDetails'] = "نسبة الإنجاز في مسار التعلم";
-$_lang['LearningPath'] = "مسار التعليم";
-$_lang['LearningPathAdmin'] = "إدارة مسار التعليم";
-$_lang['LearningPathEmpty'] = "مسار التعليم فارغ";
-$_lang['LearningPathList'] = "قائمة مسارات التعلم";
-$_lang['LearningPathName'] = "اسم مسار التعلم الجديد : ";
-$_lang['LearningPathNotFound'] = "لم يتم العثور على مسار التعليم";
-$_lang['LegendRequiredFields'] = "<span class=\"required\">*</span> يدل على الحقول المطلوبة";
-$_lang['LessAnswers'] = "حذف إجابة";
-$_lang['LessElements'] = "حذف عنصر";
-$_lang['LessonStatus'] = "حالة الوحدة";
-$_lang['Licence'] = "الترخيص";
-$_lang['Line'] = "السطر";
-$_lang['LineNumber'] = "رقم السطر";
-$_lang['LineOrLines'] = "line(s)";
-$_lang['Lines'] = "الأسطر";
-$_lang['Link'] = "وصلة";
-$_lang['LinkerAdd'] = "إرفاق";
-$_lang['LinkerAddNewAttachment'] = "إرفاق مورد موجود";
-$_lang['LinkerAlreadyInAttachementList'] = " تم إرفاقه مسبقاً";
-$_lang['LinkerAttachements'] = "الموراد المرفقة";
-$_lang['LinkerCloseJpspan'] = "إغلاق";
-$_lang['LinkerClosePopup'] = "اغلاق النوافذ المنبثقة";
-$_lang['LinkerDelete'] = "حذف";
-$_lang['LinkerExternalLink'] = "وصلة خارجية";
-$_lang['LinkerMyOtherCourses'] = "بقية مقرراتي";
-$_lang['LinkerPromptForUrl'] = "إدخال عنوان الوصلة url";
-$_lang['LinkerPromptInvalidEmail'] = "عنوان بريد الكتروني غير صحيح";
-$_lang['LinkerPromptInvalidUrl'] = "غير صحيحة url";
-$_lang['LinkerPublicCourses'] = "المقررات المتاحة للعموم";
-$_lang['LinkerResourceAttachment'] = "الموارد المرفقة : إضافة / حذف مرفقات";
-$_lang['LinkerUntitled'] = "بدون عنوان";
-$_lang['ListAdmin'] = "قائمة المستخدمين المدراء";
-$_lang['ListAllUsers'] = "قائمة جميع المستخدمين";
-$_lang['ListClassUser'] = "المستخدمين في الصف";
-$_lang['ListCourseUsers'] = "قائمة مقررات المستخدمين";
-$_lang['ListHtUsers'] = "عرض  .htpassword";
-$_lang['ListStudents'] = "قائمة الطلاب في هذه المجموعة";
-$_lang['ListUsers'] = "قائمة المستخدمين";
-$_lang['LoadDefaultFormat'] = "تحميل التنسيق الافتراضي";
-$_lang['Location'] = "الموقع";
-$_lang['Locked'] = "مقفول";
-$_lang['Login'] = "تسجيل الدخول";
-$_lang['LoginRequest'] = "طلب تسجيل دخول";
-$_lang['LoginWithoutAccess'] = "تسجيل دخول غير مستخدم";
-$_lang['Logins'] = "الدخول";
-$_lang['LoginsAndAccessTools'] = "عمليات الدخول للموقع و استخدام الأدوات";
-$_lang['LoginsDetails'] = "انقر على اسم الشهر للحصول على معلومات تفصيلية";
-$_lang['LoginsTitleCountColumn'] = "عدد مرات الدخول";
-$_lang['LoginsTitleMonthColumn'] = "الشهر";
-$_lang['Logout'] = "خروج";
-$_lang['LostPassword'] = "هل نسيت كلمة السر؟";
-$_lang['MailAppearAlready'] = "عنوان البريد الإلكتروني هذا ظهر في سطر سابق من ملف ال CSV";
-$_lang['MailSynthaxError'] = "خطأ في صياغة البريد الإلكتروني";
-$_lang['MailTo'] = "بريد الكتروني إلى : ";
-$_lang['MailUsed'] = "البريد الإلكتروني مستخدم من قبل شخص آخر";
-$_lang['MainDB'] = "العنوان الرئيسي";
-$_lang['MainGroupSettings'] = "إعدادات المجموعة الرئيسية";
-$_lang['Maintenance'] = "الصيانة";
-$_lang['MakeCorrespond'] = "صنع مقابل";
-$_lang['MakeInvisible'] = "إخفاء";
-$_lang['MakeNewSearch'] = "بحث جديد : ";
-$_lang['MakeSearch'] = "بحث";
-$_lang['MakeVisible'] = "إظهار";
-$_lang['Manage'] = "إدارة الجامعة";
-$_lang['ManageClasses'] = "إدارة الصفوف";
-$_lang['ManageCourseCategories'] = "إدارة تصنيف المقررات";
-$_lang['Manager'] = "المدير";
-$_lang['ManyAnswers'] = "(أكثر من جواب يمكن أن يكون صحيحاً)";
-$_lang['Matching'] = "مطابقة";
-$_lang['Max'] = "على الأكثر";
-$_lang['MaxAllowedTime'] = "الوقت المسموح";
-$_lang['MaxFileSize'] = "الحجم الأعظم المسموح للملف : ";
-$_lang['MaxSizeCourseCode'] = "12 حرف على الأكثر , مثال <em>CAD1</em> استخدم أحرف أجنبية فقط و بدون فراغات";
-$_lang['MaxStudentGroup'] = "عدد الطلاب الأعظمي في كل مجموعة";
-$_lang['Maximum'] = "أعظمي : ";
-$_lang['Message'] = "عندما تقوم بحذف المنتدى التجريبي سيتم حذف جميع الرسائل الموجودة ضمنه أيضاً";
-$_lang['MessageSubscribeDone_p_firstname_lastname'] = "حضرة السيد  %s, %s المحترم <br /> تم تسجيل  بياناتك الشخصية و تم إرسال بريد الكتروني لك ليساعدك على تذكر الاسم الخاص بك مع كلمة السر";
-$_lang['MessageToSelectedUsers'] = "الرسائل للأشخاص المحددين";
-$_lang['Messages'] = "الرسائل";
-$_lang['MethodsOfEvaluation'] = "طرق التقييم";
-$_lang['MethodsOfEvaluationComment1'] = "معلومات تفصيلية و دقيقة عن وسائل التقييم كالامتحانات الكتابية , الشفهية , المشاريع , الوظائف ....تاريخ المقابلات و تاريخ انتهاء موعد تسليم الوظائف مع شرح لمعايير التقييم بشكل كامل";
-$_lang['Min'] = "أصغري : ";
-$_lang['MinuteShort'] = "دقيقة";
-$_lang['Missing'] = "مفقود";
-$_lang['MissingFields'] = "الحقول المفقودة";
-$_lang['MissingImagesDetected'] = "يوجد صور مفقودة";
-$_lang['MissingValue'] = "قيمة مفقودة";
-$_lang['ModifAnn'] = "تعديل هذا الإعلان";
-$_lang['ModifDone'] = "تم تعديل المعلومات";
-$_lang['ModifUserCourseSettings'] = "إعدادت المقرر للمستخدم";
-$_lang['Modify'] = "تعديل";
-$_lang['ModifyExercise'] = "تعديل تمرين";
-$_lang['ModifyFormat'] = "تعديل التنسيق";
-$_lang['ModifyInAllExercises'] = "في جميع التمارين";
-$_lang['ModifyInThisExercise'] = "فقط في التمرين الحالي";
-$_lang['ModifyProfile'] = "تعديل معلوماتي";
-$_lang['Module'] = "وحدة";
-$_lang['ModuleMoved'] = "تم نقل الوحدة";
-$_lang['ModuleOfMyCourse'] = "استخدام وحدة  من المقرر";
-$_lang['ModuleStillInPool'] = "وحدات هذا المسار ستبقى متاحة ضمن مخزن الوحدات";
-$_lang['Modules'] = "الوحدات";
-$_lang['ModulesPoolToolName'] = "مخزن الوحدات";
-$_lang['MoreAnswers'] = "إضافة جواب";
-$_lang['MoreElements'] = "إضافة عنصر";
-$_lang['MoreRepliedTopics'] = "المداخلات التي تضم العدد الأكبر من الردود";
-$_lang['MoreSeenTopics'] = "المداخلات الاكثر قراءة";
-$_lang['Move'] = "نقل";
-$_lang['MoveDown'] = "نقل للأسفل";
-$_lang['MoveUp'] = "نقل للأعلى";
-$_lang['MsgSent'] = "تم إرسال الرسالة للمستخدمين المحددين";
-$_lang['MultipleAnswers'] = "عدة اجوبة";
-$_lang['MultipleEmails'] = "حسابات لها نفس  <i>البريد الإلكتروني</i>";
-$_lang['MultipleLogins'] = "حسابات لها نفس <i>اسم المستخدم</i>";
-$_lang['MultipleSelect'] = "عدة اختيارات (عدة إجابات)";
-$_lang['MultipleUsernameAndPassword'] = "حسابات لها نفس  <i>اسم المستخدم</i> و نفس <i>كلمة السر</i>";
-$_lang['MustSelectAFile'] = "يجب عليك اختيار ملف";
-$_lang['MustSelectATxtFile'] = "يجب اختيار ملف نصي";
-$_lang['MyAgenda'] = "جدول أعمالي";
-$_lang['MyCourses'] = "مقرراتي";
-$_lang['MyGroup'] = "مجموعتي";
-$_lang['MyResults'] = "نتائجي";
-$_lang['MyStats'] = "استعراض الإحصائيات الخاصة بي";
-$_lang['MysqlNames'] = "  و اسماء الجداول MySQL اسم قاعدة بيانات";
-$_lang['Mysql_Repository'] = "Mysql مخزن";
-$_lang['NULLValue'] = "فارغ (او  غير محدد)";
-$_lang['Name'] = "الاسم";
-$_lang['NameChanged'] = "تم تعديل اسم المقرر";
-$_lang['NameDir'] = "اسم المجلد الجديد";
-$_lang['NbLines'] = "عدد الأسطر";
-$_lang['NbrAccess'] = "عدد مرات الوصول";
-$_lang['Never'] = "أبداً";
-$_lang['NeverBrowsed'] = "لم يتم استعراضه أبداً";
-$_lang['NeverConnectedStudents'] = "طلاب لم يقوموا بدخول موقع المقرر أبداً : ";
-$_lang['NeverUsed'] = "لم يتم استخدامه أبداً";
-$_lang['NewBloc'] = "أخرى";
-$_lang['NewChat'] = "دردشة جديدة";
-$_lang['NewClassCreated'] = "تم إنشاء الصف الجديد";
-$_lang['NewClassName'] = "اسم الصف الجديد";
-$_lang['NewEx'] = "تمرين جديد";
-$_lang['NewGroupCreate'] = "إنشاء مجموعة جديدة";
-$_lang['NewGroups'] = "مجموعة جديدة";
-$_lang['NewLabel'] = "إنشاء عنوان أو عبارة جديدة ضمن مسار التعليم هذا";
-$_lang['NewLegend'] = "للدلالة على العناصر الجديدة";
-$_lang['NewQu'] = "سؤال جديد";
-$_lang['NewToOld'] = "الأحدث اولاً";
-$_lang['NewTopic'] = "مشاركة جديدة";
-$_lang['NewUsersIn'] = "مستخدمون انضموا للموقع مؤخرأ: ";
-$_lang['Next'] = "التالي";
-$_lang['NextDay'] = "غداً";
-$_lang['NextMonth'] = "الشهر القادم";
-$_lang['NextWeek'] = "الاسبوع القادم";
-$_lang['NextYear'] = "العام القادم";
-$_lang['No'] = "لا";
-$_lang['NoAnnouncement'] = "لا يوجد إعلانات";
-$_lang['NoAnswer'] = "لايوجد جواب حالياً";
-$_lang['NoContent'] = "لايوجد مضمون";
-$_lang['NoCourseResult'] = "لا يوجد أي مقرر مطابق لشروط البحث الحالية";
-$_lang['NoEmail'] = "لم يتم تحديد البريد الالكتروني";
-$_lang['NoEndDate'] = "لم يتم تحديد تاريخ الإغلاق";
-$_lang['NoEventInTheAgenda'] = "لا يوجد أي حدث ضمن جدول الأعمال";
-$_lang['NoEx'] = "لا يوجد أيت تمارين حالياً";
-$_lang['NoFile'] = "- لا أحد -";
-$_lang['NoForum'] = "لا يوجد منتدى";
-$_lang['NoFunctionInThisSection'] = "لا يوجد توابع في هذا الامتداد";
-$_lang['NoGroupStudents'] = "طلاب غير مخصصين";
-$_lang['NoGroupsDeleted'] = "لم يتم حذف أي مجموعة";
-$_lang['NoImage'] = "لايوجد ملفات صور";
-$_lang['NoLearningPath'] = "لا يوجد مسار للتعليم";
-$_lang['NoModule'] = "لا يوجد وحدة";
-$_lang['NoMoreAttemptsAvailable'] = "لقد وصلت للعدد المسموح من المحاولات";
-$_lang['NoMoreModuleToAdd'] = "جميع الوحدات في هذا المقرر مستخدمة ضمن مسار التعليم هذا";
-$_lang['NoPost'] = "لا يوجد مشاركة";
-$_lang['NoPostAllowed'] = "لا يسمح بإرسال مشاركات جديدة";
-$_lang['NoPsychology'] = "في الواقع إن تعلم نظام التشغيل لينكس أصعب من بقية الأنظمة السائدة كنظام ويندوز";
-$_lang['NoQuestion'] = "لا يوجد أيه اسئلة في الوقت الحالي";
-$_lang['NoQuota'] = "لايوجد مساحة مخصصة";
-$_lang['NoRegisteredCourses'] = "لم تقم بالتسجيل بأي مقرر ,لا يمكن عرض الحالة";
-$_lang['NoResult'] = "لا يوجد نتائج";
-$_lang['NoScore'] = "لا يوجد";
-$_lang['NoScript'] = "لا يوجد نصوص برمجية";
-$_lang['NoSeduction'] = "إن الوقت اللازم لإعداد نظام التشغيل على الحاسب لا يعبر فعلياً عن جودة و كفاءة هذا النظام";
-$_lang['NoSpace'] = "فشلت عملية التحميل, لا يوجد مساحة كافية ضمن المجلد الخاص بك";
-$_lang['NoStartAsset'] = "There is no start asset defined for this module.";
-$_lang['NoTimeLimit'] = "الوقت غير محدود";
-$_lang['NoUserFound'] = "لم يتم العثور على مستخدم";
-$_lang['NoUserResult'] = "لا يوجد مستخدمين";
-$_lang['NoVisibleAssignment'] = "لايوجد حالياً أية مهام او وظائف";
-$_lang['NoVisibleSubmission'] = "No visible submission";
-$_lang['NomPageAddHtPass'] = "إدارة المستخدمين المدراء";
-$_lang['None'] = "بدون";
-$_lang['NormalUser'] = "عادي";
-$_lang['NotAllowed'] = "غير مسموح";
-$_lang['NotFalse'] = "من أهم ميزات النظام أنه حر و مجاني و يتبع لترخيص البرمجيات الحرة";
-$_lang['NotGroupMember'] = "انت لست عضواً في هذه المجموعة";
-$_lang['NotInstalled'] = "حصل خطأ أثناء الاستيراد, لم يتم استيراد مسار التعليم";
-$_lang['NotRecentlyConnectedStudents'] = "طلاب لم يدخلوا لموقع المقرر في الفترة الأخيرة : ";
-$_lang['NotUnregYourself'] = "لا تستطيع القيام بتغيير الإعدادت الخاصة بك!";
-$_lang['Notice'] = "ملاحظة";
-$_lang['NoticeInstallFolderBrowsable'] = "<b>ملاحظة :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server";
-$_lang['Now'] = "الآن";
-$_lang['NowGoChooseYourCourses'] = "يمكنك الآن اختيار المقررات التي تغرب بالوصول إليها من خلال قائمة المقررات";
-$_lang['NowGoCreateYourCourse'] = "تستطيع الآن إنشاء المقرر الخاص بك";
-$_lang['NumGroup'] = "عدد المجموعات من اجل كل مقرر";
-$_lang['NumGroupStudent'] = "عدد الفرق التي يستطيع الطالب الالتحاق بها ضمن هذا المقرر";
-$_lang['Numero'] = "لا";
-$_lang['OfficialCode'] = "الرقم  او الرمز الإداري";
-$_lang['Ok'] = "موافق";
-$_lang['OkChapterHeadAdded'] = "تم إضافة العنوان : ";
-$_lang['OkDefaultCommentUsed'] = "تحذير: برنامج الإعداد فشل في إيجاد وصف مسار التعليم و قام بإضافة ملاحظة افتراضية , ينبغي أن تقوم بتعديلها";
-$_lang['OkDefaultTitleUsed'] = "تحذير : برنامج الإعداد فشل في إيجاد اسم مسار التعليم و قام بتحديد اسم افتراضي له , ينبغي ان تقوم بتعديله";
-$_lang['OkFileReceived'] = "تم استقبال الملف : ";
-$_lang['OkManifestFound'] = "تم العثور على قائمة الاسماء - مينافست- ضمن الملف المضغوط : ";
-$_lang['OkManifestRead'] = "تم قراءة المينافست";
-$_lang['OkModuleAdded'] = "تم إضافة الوحدة : ";
-$_lang['OldToNew'] = "الأقدم اولاً";
-$_lang['On'] = "On";
-$_lang['OneByOne'] = "إضافة مستخدم بشكل يدوي";
-$_lang['OneMyGroups'] = "بإشرافي";
-$_lang['OneResp'] = "أحد مدراء المقرر";
-$_lang['Only'] = "فقط";
-$_lang['Optional'] = "اختياري";
-$_lang['Order'] = "الترتيب";
-$_lang['OrderUp'] = "ترتيب تصاعدي";
-$_lang['OrphanQuestions'] = "اسئلة وحيدة";
-$_lang['OtherCourses'] = "قائمة المقررات";
-$_lang['OtherWorks'] = "وظائف أخرى";
-$_lang['PassTooEasy'] = "كلمة السر هذه بسيطة جداً, استخدم كلمة سر مثل ";
-$_lang['PassTwice'] = "لقد ادخلت كلمتي سر مختلفتين";
-$_lang['Password'] = "كلمة السر";
-$_lang['PasswordHasBeenEmailed'] = "تم إرسال كلمة السر الخاصة بك إلى ";
-$_lang['PasswordSimple'] = "كلمة السر التي أدخلتها بسيطة جداً او أنها مشابهة لاسم المستخدم";
-$_lang['PathContentTitle'] = "مضمون مسار التعلم";
-$_lang['PathsInCourseProg'] = "مستوى التقدم في المقرر ";
-$_lang['Perhaps_with_others_directory'] = "ربما مع مجلدات اخرى";
-$_lang['PeriodDay'] = "اليوم";
-$_lang['PeriodDayShort'] = "d.";
-$_lang['PeriodHour'] = "الساعة";
-$_lang['PeriodHourShort'] = "h.";
-$_lang['PeriodMonth'] = "الشهر";
-$_lang['PeriodToDisplay'] = "الفترة";
-$_lang['PeriodWeek'] = "الاسبوع";
-$_lang['PeriodYear'] = "السنة";
-$_lang['PersoValue'] = "القيم";
-$_lang['PersonalCourseList'] = "قائمة المقررات الشخصية";
-$_lang['Phone'] = "رقم الهاتف";
-$_lang['Places'] = "عدد المقاعد في كل مجموعة (اختياري)";
-$_lang['Platform'] = "المنصة";
-$_lang['PlatformAccess'] = "الوصول لموقع الجامعة";
-$_lang['PlatformAdministration'] = "الإدارة";
-$_lang['PlatformAdministrator'] = "إدارة الموقع";
-$_lang['PlatformCoursesAccess'] = "الوصول للمقررات";
-$_lang['PlatformStats'] = "إحصائيات الموقع";
-$_lang['PleaseEnterMessage'] = "يجب ان تضع مقدمة لنص الرسالة";
-$_lang['PleaseSelectUsers'] = "عليك اختيار بعض المستخدمين";
-$_lang['PopulateTools'] = "Populate tools in courses";
-$_lang['PostReply'] = "الرد على المشاركة";
-$_lang['PoweredBy'] = "مطورة باستخدام";
-$_lang['Prefix'] = "البادئة  : ";
-$_lang['PreventLateUpload'] = "لا , منع المستخدمين من إرسال العمل بعد انقضاء المهلة المحددة للإرسال";
-$_lang['Preview'] = "معاينة";
-$_lang['Previous'] = "السابق";
-$_lang['PreviousDay'] = "الأمس";
-$_lang['PreviousLevel'] = "المستوى السابق";
-$_lang['PreviousMonth'] = "الشهر الماضي";
-$_lang['PreviousWeek'] = "الاسبوع الماضي";
-$_lang['PreviousYear'] = "السنة الماضية";
-$_lang['PrintVers'] = "نسخة للطباعة";
-$_lang['Private'] = "خاص";
-$_lang['PrivateAccess'] = "الموقع متاح فقط لمن هم ضمن <a href=../user/user.php>قائمة المستخدمين</a>(وصول خاص)";
-$_lang['PrivateFeedback'] = "مراجعة خاصة";
-$_lang['PrivateOnly'] = "مقرر خاص فقط";
-$_lang['Problem'] = "عند حدوث مشاكل اتصل بنا";
-$_lang['Professor'] = "المدرس";
-$_lang['ProfessorMessage'] = "رسالة من مدرسك";
-$_lang['Professors'] = "اسم المدرس او المدرسون";
-$_lang['ProfileReg'] = "تم حفظ المعلومات الخاصة بك";
-$_lang['ProgInModuleTitle'] = "مستوى تقدمك في هذه الوحدة";
-$_lang['Progress'] = "مستوى التقدم";
-$_lang['PropertiesNotIncludeInSections'] = "Properties not include in sections";
-$_lang['Publ'] = "تم نشره في تاريخ";
-$_lang['Public'] = "عام";
-$_lang['PublicAccess'] = "إمكانية الوصول لصفحة الموقع من خلال موقع الجامعة و بدون الحاجة لتسجيل الدخول(وصول عام)";
-$_lang['PublicOnly'] = "المقررات العامة فقط";
-$_lang['Publish'] = "نشر";
-$_lang['QtyOfUserCanSubscribe_PartAfterNumber'] = "&nbsp;مجموعات";
-$_lang['QtyOfUserCanSubscribe_PartBeforeNumber'] = "يمكن للمستخدم ان يكون على الأكثر عضواً في";
-$_lang['QualificationsAndGoals'] = "المؤهلات المكتسبة و الأهداف";
-$_lang['QualificationsAndGoalsComment1'] = "ماهي أهداف التدريس ؟ ما هي المؤهلات و المعرفة التي سيكتسبها الطلاب في نهاية المقرر";
-$_lang['QualificationsAndGoalsComment2'] = "عرض للأهداف العامة و الخاصة للمقرر و ما هي المؤهلات  و الكفاءات التي يمكن الوصول لها عند تحقيق هذه الأهداف";
-$_lang['Quantity'] = "الكمية";
-$_lang['Question'] = "السؤال";
-$_lang['QuestionAnswers'] = "أجوبة السؤال";
-$_lang['QuestionDescription'] = "Statement";
-$_lang['QuestionList'] = "قائمة اسئلة التمرين";
-$_lang['QuestionManagement'] = "إدارة الأسئلة/الأجوبة";
-$_lang['QuestionNotFound'] = "لم يتم العثور على السؤال";
-$_lang['QuestionPlan'] = "سؤال للمدرس";
-$_lang['QuestionPool'] = "مستودع الاسئلة";
-$_lang['QuestionTitle'] = "عنوان السؤال";
-$_lang['QuestionWeighting'] = "درجة الأهمية- الوزن";
-$_lang['Questions'] = "سؤال";
-$_lang['QuitViewer'] = "العودة للقائمة";
-$_lang['RandomLanguage'] = "Shuffle selection in available languages";
-$_lang['RandomQuestions'] = "اسئلة عشوائية";
-$_lang['RawHasBeenChanged'] = "Minimum raw to pass has been changed";
-$_lang['Reg'] = "التسجيل";
-$_lang['RegAdmin'] = "إنشاء مواقع للمقررات";
-$_lang['RegIntoGroup'] = "أضفني لهذه المجموعة";
-$_lang['RegStudent'] = "التسجيل في مقرر";
-$_lang['RegUser'] = "المستخدمون المسجلون في الموقع";
-$_lang['RegYou'] = "قام بتسجسلك في هذا المقرر";
-$_lang['Register'] = "تسجيل";
-$_lang['RegisterCampusAdvice'] = "يرجى التاكد من إمكانية الوصول لموقع الجامعة الخاص بك من خلال الانترنت";
-$_lang['RegisterClass'] = " تسجيل مقرر تعليمي";
-$_lang['RegisterLocalUrl'] = "Your campus url seems to be a local url.
+<br /><br />إذا أردت أن تقدم شرحاً عن هذه الأداة للطلاب أو تقدم لهم نصائح معينة فانقر على \'إضافة مقدمة او تمهيد\'<br />';
+$_lang['blockModulePoolHelp'] = 'هذه الصفحة تسمح لك باستعراض جميع الوحدات المتوفره في المقرر <br />
+أي تمرين أو مستند تمت إضافته لمسار التعليم سيظهر في هذه القائمة أيضاً';
+$_lang['blockRegisterLocalUrl'] = 'Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
-Check the value of 'Web base' in your Claroline configuration.";
-$_lang['RegisterMyCampus'] = "تسجيل موقعي ضمن موقع Claroline";
-$_lang['RegisterTheNewUser'] = "تسجيل هذا المستخدم في مقرر";
-$_lang['RegisterUser'] = "التسجيل في مقرر جديد";
-$_lang['RegisterUserToClass'] = "تسجيل مستخدم في الصف";
-$_lang['Registered'] = "مسجل";
-$_lang['Remove'] = "إزالة";
-$_lang['RemoveAdminLevel'] = "لم يعد مديراً";
-$_lang['Rename'] = "تغيير اسم";
-$_lang['ReplaceAttachedFile'] = "استبدال الملف المرفق";
-$_lang['Reply'] = "إرسال رد";
-$_lang['RequestOfCourseCreatorStatus'] = "Request of Course Creator status";
-$_lang['RequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile'] = "Request to the coder of this config to add theses proporties in a section of the definition file.";
-$_lang['Required'] = "مطلوب";
-$_lang['Requirements'] = "المتطلبات";
-$_lang['ResetChat'] = "البدء من جديد";
-$_lang['RestoreCourseRepository'] = "استرجاع مخزن المقرر";
-$_lang['Result'] = "النتيجة";
-$_lang['Retry'] = "إعادة المحاولة";
-$_lang['Reuse'] = "إعادة استخدام";
-$_lang['RevoquationOfUser'] = "إلغاء ال %s %s";
-$_lang['Ridiculise'] = "تعلم هذا النظام أسهل بكثير من تعلم بقية انظمة التشغيل";
-$_lang['Role'] = "الوظيفة";
-$_lang['Root'] = "جذر";
-$_lang['SCORMTypeDesc'] = "SCORM 1.2 محتويات متوافقة مع";
-$_lang['SDK'] = "SDK ادوات التطوير";
-$_lang['SampleDocument'] = "وثيقة_تجريبية";
-$_lang['SampleDocumentDesc'] = "تستطيع استخدام أي وثيقة موجودة ضمن أداة الوثائق في هذا المقرر";
-$_lang['SampleExerciseDesc'] = "تستطيع استخدام أي تمرين من أداة التمارين للمقرر الخاص بك";
-$_lang['SampleLearnPath'] = "مسار تعلم _ مثال";
-$_lang['SampleLearnPathDesc'] = "هذا مثال على مسار التعليم , و هو يستخدم مثال التمرين و مثال الوثيقة الموجودين في اداة التمارين و أداة الوثائق . انقر على
-                            <b>تعديل</b> لتغيير هذا النص";
-$_lang['Save'] = "حفظ";
-$_lang['SaveChanges'] = "حفظ التعديلات";
-$_lang['Score'] = "مجموع النقاط";
-$_lang['ScoreAvg'] = "المعدل";
-$_lang['ScoreMax'] = "العلامة العظمي";
-$_lang['ScoreMin'] = "العلامة الأدنى";
-$_lang['ScormIntroTextForDummies'] = "الحزمة المستوردة يجب ان تكون ملف مضغوط بصيغة zip و تكون متوافقة مع المواصفة القياسية SCORM 1.2";
-$_lang['ScriptMissing'] = "نص برمجي مفقود";
-$_lang['ScriptMissingComment'] = "يجب عليك إعداد النصوص البرمجية التالية ليعمل النظام بشكل صحيح";
-$_lang['ScriptNotInArchive'] = "نصوص برمجية غير موجودة في برنامج Claroline";
-$_lang['ScriptNotInArchiveComment'] = "يمكنك حذف هذه التعليمات البرمجية من السيرفر الخاص بك";
-$_lang['Search'] = "بحث";
-$_lang['SearchAgain'] = "البحث مجدداً (بحث متقدم)";
-$_lang['SearchCourse'] = "البحث عن مقرر";
-$_lang['SearchCourseAdvanced'] = "بحث متقدم عن المقررات";
-$_lang['SearchOn'] = "البحث عن";
-$_lang['SearchResult'] = "نتيجة البحث";
-$_lang['SearchUser'] = "البحث عن مستخدم";
-$_lang['SearchUserAdvanced'] = "بحث متقدم عن المستخدمين";
-$_lang['SecondShort'] = "ثانية";
-$_lang['SeeUserSettings'] = "عرض إعدادات المستخدم";
-$_lang['Seebelowthefilesyoucaneditfromthistool'] = "<br />قائمة الملفات التي تستطيع تعديلها من خلال هذه الأداة";
-$_lang['Seen'] = "عدد مرات القراءة";
-$_lang['SelUser'] = "المستخدمون المختارون من الموقع";
-$_lang['SelectAUser'] = "اختر مستخدم";
-$_lang['SelectedUsers'] = "المستخدمون المختارون";
-$_lang['SendToUserAccountInfoByMail'] = "إرسال معلومات الحساب للمستخدم بالبريد الالكتروني";
-$_lang['SequentialExercise'] = "سؤال واحد في كل صفحة ( اسئلة متتابعة)";
-$_lang['SetAdmin'] = "وضع كمدير";
-$_lang['Settings'] = "وفق الإعدادات التالية:
-اسم المستخدم:";
-$_lang['ShowAll'] = "إظهار الكل";
-$_lang['ShowAnswers'] = "عرض الأجابات";
-$_lang['ShowAnswersAfterLastTry'] = "بعد أخر محاولة مسموحة";
-$_lang['ShowNone'] = "إخفاء الكل";
-$_lang['SimpleExercise'] = "ضمن صفحة واحدة";
-$_lang['SiteName'] = "اسم الموقع";
-$_lang['Size'] = "الحجم";
-$_lang['Size_of_claroline_scripts'] = "حجم النصوص البرمجية لنظام Claroline";
-$_lang['Size_of_course_repository'] = "!!!! size of course repository (include claroline and garbage in old systems)";
-$_lang['Size_of_selected_courses'] = "حجم المقررات التي تم اختيارها";
-$_lang['SocraticIrony'] = "من اهم ميزات نظام التشغيل Linux...";
-$_lang['SpecifyFormat'] = "يجب ان تقوم بتحديد تنسيق ال CSV المستخدمة في ملفك";
-$_lang['StartDate'] = "تاريخ البدء";
-$_lang['StartModule'] = "بدء الوحدة";
-$_lang['StatDB'] = "قاعدة بيانات التتبع";
-$_lang['Statistics'] = "إحصائيات";
-$_lang['StatsByQuestion'] = "الإحصائيات حسب السؤال";
-$_lang['StatsByUser'] = "الإحصائيات حسب المستخدم";
-$_lang['StatsOfCampus'] = "إحصائيات الجامعة";
-$_lang['StatsOfCourse'] = "الإحصائيات الخاصة بمقرر ";
-$_lang['StatsOfExercise'] = "إحصائيات تمرين";
-$_lang['StatsOfExerciseAttempt'] = "الإحصائيات حول عدد المحاولات لحل التمرين";
-$_lang['StatsOfLearnPath'] = "إحصائيات";
-$_lang['StatsOfQuestion'] = "إحصائيات سؤال";
-$_lang['StatsOfUser'] = "إحصائيات مستخدم";
-$_lang['Status'] = "عمل";
-$_lang['StatusChangeNotMade'] = "لم يتم تطبيق أي تعديل";
-$_lang['StepNOfN'] = "الخطوة %d من %d";
-$_lang['StoreChat'] = "حفظ الدردشة";
-$_lang['Student'] = "طالب";
-$_lang['StudentQty'] = "عدد. الطلاب";
-$_lang['Students'] = "طلاب";
-$_lang['StudentsNotInThisGroups'] = "المستخدمون الذين لا ينتمون لهذه المجموعة";
-$_lang['SubTitleChangeParent'] = "تغيير التصنيف الأب ل";
-$_lang['SubTitleCreate'] = "إنشاء تصنيف";
-$_lang['SubTitleEdit'] = "تحرير التصنيف";
-$_lang['SubmissionDate'] = "تاريخ&nbsp;الإرسال&nbsp;الأول";
-$_lang['SubmissionType'] = "نوع الإرسال";
-$_lang['Submissions'] = "Submissions";
-$_lang['Submit'] = "إرسال";
-$_lang['SubmitFeedbackAfterEndDate'] = "بشكل تلقائي , بعد تاريخ النهاية";
-$_lang['SubmitFeedbackAfterPost'] = "بشكل تلقائي,بعد كل إرسال";
-$_lang['SubmitWork'] = "إرسال العمل";
-$_lang['SubmittedWork'] = "عمل- وظيفة";
-$_lang['SubscribeClass'] = "التسجيل في الصف";
-$_lang['SubscribeToCourse'] = "الالتحاق بالمقرر";
-$_lang['SubscribeUser'] = "تسجيل مستخدم";
-$_lang['Subscription'] = "الالتحاق و التسجيل في المقرر";
-$_lang['SubscriptionAllowedOnly'] = "Subscription allowed only ";
-$_lang['SubscriptionDeniedOnly'] = "Subscription denied only";
-$_lang['SupportForum'] = "منتدى الدعم الفني";
-$_lang['Supports'] = " دعم ";
-$_lang['SupportsComment1'] = "هل هناك دعم فني خاص بالمقرر؟ ما هو شكل الدعم الذي أقدمه ؟ دعم مفتوح؟ أم دعم مغلق؟";
-$_lang['SupportsComment2'] = "Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.";
-$_lang['SwitchEditorToTextConfirm'] = "This command is going to remove the current text layout. Do you want to continue ?";
-$_lang['Take'] = "انتقاء";
-$_lang['TargetFac'] = "اسم الكلية أو القسم او المدرسة التي يتم دراسة المقرر فيها";
-$_lang['TeacherQty'] = "عدد. المدرسين";
-$_lang['Teachers'] = "الاساتذة";
-$_lang['TeachingTrainingActivities'] = "أنشطة التدريس و التدريب";
-$_lang['TeachingTrainingActivitiesComment1'] = "What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?";
-$_lang['TeachingTrainingActivitiesComment2'] = "Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).";
-$_lang['TechAdmin'] = "تقنيات إدارية";
-$_lang['Technical'] = "أدوات تقنية";
-$_lang['TestForum'] = "منتدى تجريبي";
-$_lang['TextEditorDisable'] = "إيقاف عمل محرر النصوص المتقدم";
-$_lang['TextEditorEnable'] = "تشغيل محرر النصوص المتقدم";
-$_lang['TextFile'] = "نص مع ملف مرفق (النص إجباري و الملف اختياري)";
-$_lang['TextOnly'] = "نص فقط ( النص مطلوب ولا يوجد ملف)";
-$_lang['TheFields'] = "الحقول";
-$_lang['TheU'] = "المستخدم";
-$_lang['ThisCourseDescriptionIsEmpty'] = "لايوجد وصف لهذا المقرر حالياً";
-$_lang['ThisIsAnErrorInDefinitionFile'] = "هذا الخطأ نايتج عن ملف التعريف";
-$_lang['Thisday'] = "هذا اليوم";
-$_lang['Thumbnails'] = "صور مصغرة";
-$_lang['TimeInLearnPath'] = "الوقت في مسار التعلم";
-$_lang['TimeOver'] = "انتهى الوقت , لم يتم إرسال الأجوبة";
-$_lang['TipLang'] = "سيتم تطبيق هذه اللغة من اجل كل زوار الموقع الخاص بالمقرر";
-$_lang['Title'] = "اسم المقرر";
-$_lang['Titular'] = "Titular";
-$_lang['To'] = "إلى";
-$_lang['ToDate'] = "إلى";
-$_lang['TooBig'] = "لم تقم باختيار أي ملف لإرساله او ان حجم الملف كبير جداً";
-$_lang['Tool'] = "أداة";
-$_lang['ToolTitleCountColumn'] = "العدد الكلي للنقرات";
-$_lang['ToolTitleToolnameColumn'] = "اسم الأداة";
-$_lang['ToolTitleUsersColumn'] = "نقرات المستخدمين";
-$_lang['Tools'] = "أدوات";
-$_lang['ToolsAccess'] = "استخدام الأدوات";
-$_lang['TopLevel'] = "المستوى الاعلى";
-$_lang['TopicReplies'] = "الردود";
-$_lang['Total'] = "الكلي";
-$_lang['TotalPlatformAccess'] = "الكلي";
-$_lang['TotalPlatformLogin'] = "الكلي";
-$_lang['TotalTimeSpent'] = "إجمالي الوقت";
-$_lang['TrackAllPath'] = "تتبع مسارات التعلم";
-$_lang['TrackAllPathExplanation'] = "مستوى التقدم لجميع المستخدمين ضمن مسارت التعلم";
-$_lang['TrackExerciseError'] = "التفاصيل قد تكون غير صحيحةبسبب تغير بعض الاسئلة بين هذه المحاولة و الأن";
-$_lang['TrackForumUsage'] = "استخدام المنتدى";
-$_lang['TrackNotEnoughAttempts'] = "يجب ان تصل لعدد المحاولات الأعظم المسموح حتى تتمكن من مشاهدة هذه الإحصائيات";
-$_lang['TrackTotalPosts'] = "عدد الردود التي أرسلها";
-$_lang['TrackTotalTopics'] = "مواضيع قام بكتابتها";
-$_lang['Tracking'] = "تتبع";
-$_lang['TrackingDisabled'] = "تم إيقاف عملية المتابعة من قبل مدير النظام";
-$_lang['TrafficDetails'] = "تفاصيل الدخول للموقع";
-$_lang['TranslationStatistics'] = "مستوى التقدم في عملية الترجمة";
-$_lang['TranslationTools'] = "ادوات الترجمة";
-$_lang['Translations'] = "الترجمة";
-$_lang['True'] = "صحيح";
-$_lang['TrueFalse'] = "صح/خطأ";
-$_lang['TypeOfModule'] = "نوع الوحدة";
-$_lang['TypeTextBelow'] = "اكتب النص من فضلك";
-$_lang['URL'] = "URL : ";
-$_lang['UnableAddExternalTool'] = "فشل في إضافة الأداة الخارجية";
-$_lang['UnableChangedTool'] = "Unable to change tool access";
-$_lang['UnableCreateCategory'] = "فشل في إنشاء تصنيف";
-$_lang['UnableCreateForum'] = "فشل في إنشاء منتدى";
-$_lang['UnableDeleteCategory'] = "فشل في حذف تصنيف";
-$_lang['UnableDeleteExternalTool'] = "فشل في حذف الأداة الخارجية";
-$_lang['UnableDeleteForum'] = "فشل في حذف منتدى";
-$_lang['UnableDeleteGroupCategoryForum'] = "تصنيف منتديات المجموعات لا يمكن حذفه";
-$_lang['UnableDescToAdd'] = "فشل في إضافة الوصف";
-$_lang['UnableToAdd'] = "فشل في إضافة الحدث لجدول الأعمال";
-$_lang['UnableToDelete'] = "فشل في حذف الحدث من جدول الأعمال";
-$_lang['UnableToEmptyForum'] = "فشل في تفريغ منتدى";
-$_lang['UnableToEnrollInCourse'] = "فشل أثناء محاولة تسجيلك في المقرر";
-$_lang['UnableToRemoveCourseRegistration'] = "فشل أثناء محاولة إلغاء تسجيلك في المقرر";
-$_lang['UnableToUpdate'] = "فشل في تحديث الحدث ضمن جدول الأعمال";
-$_lang['UnableToUpdateCategory'] = "فشل في تعديل التصنيف";
-$_lang['UnableToUpdateForum'] = "فشل في تعديل المنتدى";
-$_lang['UnableUpdateExternalTool'] = "فشل في تحديث الأداة الخارجية";
-$_lang['UnamedModule'] = "وحدة بدون اسم";
-$_lang['UnamedPath'] = "مسار بدون اسم";
-$_lang['Uncompress'] = "فك ضغط الملف على السيرفر (zip)";
-$_lang['Uncompulsory'] = "(اختياري)";
-$_lang['UniqueAnswer'] = "جواب وحيد";
-$_lang['UniqueSelect'] = "عدة اختيارات (جواب وحيد)";
-$_lang['UnkownSOAPError'] = "حصل خطأ أثناء الاتصال بموقع Claroline.net";
-$_lang['UnlimitedAttempts'] = "عدد غير محدود للمحاولات";
-$_lang['Unreg'] = "إلغاء التسجيل";
-$_lang['UnregisterAllStudents'] = "إلغاء تسجيل جميع الطلاب";
-$_lang['Unsubscribe'] = "مستخدم غير مسجل";
-$_lang['UnsubscribeClass'] = "إلغاء التسجيل في الصف";
-$_lang['Until'] = "إلى";
-$_lang['Unvalid'] = "عنوان بريده الاكتروني غير صحيح او لا يوجد عنوان";
-$_lang['Up'] = "للأعلى";
-$_lang['UpdateImage'] = "تغيير الصورة";
-$_lang['Updated'] = "تم التحديث";
-$_lang['UpdatedExternalTool'] = "تم تحديث الأداة الخارجية";
-$_lang['Upgrade'] = "ترقية";
-$_lang['UploadAndZipEnd'] = " تم تحميل الملف المضغوط و فك ضغطه";
-$_lang['UploadDoc'] = "تحميل وثيقة";
-$_lang['UploadEnd'] = "انتهت عملية التحميل";
-$_lang['UploadFile'] = "تحميل ملف";
-$_lang['UploadedFile'] = "الملف الذي تم تحميله";
-$_lang['UseFollowingFormat'] = " استخدم التنسيق التالي : ";
-$_lang['UseFormatDefined'] = "استخدم التنسيق المعرف في السطر الأول من الملف";
-$_lang['UseOfPool'] = "هذه الصفحة تسمح لك باستعراض جميع الوحدات المتوفره في المقرر <br />
-أي تمرين أو مستند تمت إضافته لمسار التعليم سيظهر في هذه القائمة أيضاً";
-$_lang['UseTagForBlank'] = "استخدم الأقواس [...] لتعريف فراغ أو أكثر";
-$_lang['UsedInLearningPaths'] = "عدد مسارات التعليم التي تستخدم هذه الوحدة:";
-$_lang['UsedInSeveralExercises'] = "تحذير ! هذا السؤال و إجاباته مستخدمة في عدة تمارين . هل ترغب بتعديلهم";
-$_lang['UsedInSeveralPath'] = "هذا التمرين مستخدم في مسار تعليم او اكثر. إذا قمت بحذفه لن يبقى متوفراً في مسارات التعليم";
-$_lang['User'] = "مستخدم";
-$_lang['UserAccessDetails'] = "تفاصيل بيانات دخول المستخدم";
-$_lang['UserAlreadyInClass'] = "المستخدم مسجل في الصف مسبقاً";
-$_lang['UserContent'] = "<p> أداة 'المستخدمين' تعرض معلومات المستخدمين في جدول مصنف , و فيما يلي وصف موجز لأعمدة الجدول
+Check the value of \'Web base\' in your Claroline configuration.';
+$_lang['blockUsedInSeveralPath'] = 'هذا التمرين مستخدم في مسار تعليم او اكثر. إذا قمت بحذفه لن يبقى متوفراً في مسارات التعليم';
+$_lang['blockUsersHelp'] = '<p> أداة \'المستخدمين\' تعرض معلومات المستخدمين في جدول مصنف , و فيما يلي وصف موجز لأعمدة الجدول
 <ul>
 <li>
 <b>اسم المستخدم</b>بالنقر على اسم المستخدم تستطيع مشاهدة معلومات إضافية عنه كالبريد الإلكتروني و غيره
@@ -1533,17 +1473,17 @@ $_lang['UserContent'] = "<p> أداة 'المستخدمين' تعرض معلوم
 
 <li>
 <b>الوظيفة</b>.
-ليس للوظائف أية دور في عمل النظام و هي لا تعطي الأشخاص أيه ميزات او حقوق ضمن النظام و لكن الهدف منها الدلالة على وظيفة و دور كل شخص , تستطيع تعديل تسميات هذه الوظائف بالنقر على الصورة الموجودة ضمن عمود 'تعديل' و من ثم كتابة ما ترغب به مثل : محاضر , مدرس , استاذ مساعد , معيد , طالب , زائر , خبير ....إلخ
+ليس للوظائف أية دور في عمل النظام و هي لا تعطي الأشخاص أيه ميزات او حقوق ضمن النظام و لكن الهدف منها الدلالة على وظيفة و دور كل شخص , تستطيع تعديل تسميات هذه الوظائف بالنقر على الصورة الموجودة ضمن عمود \'تعديل\' و من ثم كتابة ما ترغب به مثل : محاضر , مدرس , استاذ مساعد , معيد , طالب , زائر , خبير ....إلخ
 </li>
 <li>
-<b>مشرف مجموعة</b> حالة مشرف المجموعة ميزة تسمح للمستخدم بالوصول لجميع المناطق الخاصة بالمجموعة و مشاهدة و إمكانية تعديل الرسائل ضمن منتدى المجموعة . تستطيع تعديل هذه الحالة بالنقر على الصورة الموجودة ضمن العمود 'تعديل'
+<b>مشرف مجموعة</b> حالة مشرف المجموعة ميزة تسمح للمستخدم بالوصول لجميع المناطق الخاصة بالمجموعة و مشاهدة و إمكانية تعديل الرسائل ضمن منتدى المجموعة . تستطيع تعديل هذه الحالة بالنقر على الصورة الموجودة ضمن العمود \'تعديل\'
 </li>
 <li>
-<b>مدير مقرر</b>هذه الحالة مخصصة للأشخاص الذين يقومون بإدارة المقرر , تستطيع تعديل هذه الحالة بالنقر على الصورة الموجودة في العمود 'تعديل'
+<b>مدير مقرر</b>هذه الحالة مخصصة للأشخاص الذين يقومون بإدارة المقرر , تستطيع تعديل هذه الحالة بالنقر على الصورة الموجودة في العمود \'تعديل\'
 </li>
 <li>
 <b>تعديل</b> (محصورة بمدير المقرر) هذا الامر يسمح لمدير المقرر بتعديل بيانات المستخدمين المتعلقة بهذا المقرر . ليس من المسموح لمدراء المقررات بتعديل البيانات الشخصية كالبريد الإلكتروني او الاسم , فقط البيانات المتعلقة مباشرة بالمقرر مثل الوظيفة , حالة المشرف , حالة مدير المقرر ..إلخ
-و من خلال هذا الأمر يستطيع مدراء المقرر أيضاً بإنشاء عناوين جديدة مخصصة فقط لهذا المقرر  ( انظر على زر 'تعريف عناوين' الموجود في صفحة تفاصيل المستخدم ) , و بمجرد تعريف هذه العناوين يستطيع كل طالب أن يقوم بملئها
+و من خلال هذا الأمر يستطيع مدراء المقرر أيضاً بإنشاء عناوين جديدة مخصصة فقط لهذا المقرر  ( انظر على زر \'تعريف عناوين\' الموجود في صفحة تفاصيل المستخدم ) , و بمجرد تعريف هذه العناوين يستطيع كل طالب أن يقوم بملئها
 </li>
 <li>
 <b>إلغاء التسجيل</b>(محصورة بمدير المقرر) هذا الامر يسمح لمدير المقرر بإزالة مستخدم من المقرر الخاص بالمدير . و هذا لا يعني أنه سيتم إلغاء حساب المستخدم بشكل كلي و لكن سيتم إلغاء تسجيل هذا الحساب من هذا المقرر
@@ -1571,86 +1511,15 @@ $_lang['UserContent'] = "<p> أداة 'المستخدمين' تعرض معلوم
 
 <h4>تلميحات</h4>
 <p>
-للسماح مثلاً لمساعد مدرس بإلاشتراك بإدارة الموقع يجب ان تقوم بتسجيله في المقرر إذا لم يكن مسجلاً و من ثم النقر على على كلمة 'تعديل' الموجودة تحت 'حقوق الإدارة'  و من ثم النقر على 'الكل' و من ثم موافق";
-$_lang['UserCourseList'] = "قائمة مقررات المستخدم";
-$_lang['UserCreated'] = "تم إنشاء المستخدم الجديد بنجاح";
-$_lang['UserDelete'] = "تم حذف المستخدم بنجاح";
-$_lang['UserIsNowCourseManager'] = "أصبح المستخدم الآن مديراً للمقرر";
-$_lang['UserIsNowStudent'] = "أصبح المستخدم الأن طالباً في المقرر";
-$_lang['UserIsPlaformAdmin'] = "هو مدير الموقع";
-$_lang['UserName'] = "اسم المستخدم";
-$_lang['UserNoCourseToDisplay'] = "لا يوجد مقررات";
-$_lang['UserNotInClass'] = "المستخدم ليس في الصف";
-$_lang['UserNotUnsubscribedFromCourse'] = "خطأ ! لا تستطيع إلغاء تسجيل مدير المقرر";
-$_lang['UserNumber'] = "العدد";
-$_lang['UserOneByOneExplanation'] = "سيتم إرسال بريد الكتروني لهذا الطالب يحوي الاسم مع كلمة السر";
-$_lang['UserRegisteredClass'] = "تم تسجيله بنجاح في الصف";
-$_lang['UserRegisteredToCourse'] = "الطلاب المسجلون في المقرر";
-$_lang['UserSettings'] = "إعدادت المستخدم";
-$_lang['UserStatus'] = "المنزلة";
-$_lang['UserSubscribed'] = "تم تسجيل المستخدم بنجاح";
-$_lang['UserTaken'] = "هذا الاسم محجوز من قبل شخص آخر";
-$_lang['UserUnregistered'] = "مستخدم غير مسجل";
-$_lang['UserUnregisteredFromClass'] = "قام المستخدم بإلغاء تسجيله في الصف بنجاح";
-$_lang['UserUnsubscribed'] = "المستخدم قام بإلغاء التسجيل بنجاح";
-$_lang['UserUnsubscribedFromCourse'] = "قام المستخدم بإلغاء تسجيله في المقرر بنجاح";
-$_lang['Userid'] = "رقم المستخدم";
-$_lang['Userlist'] = "قائمة المستخدمين";
-$_lang['UsernameAppearAlready'] = "ظهر اسم المستخدم هذا في سطر سابق من ملف ال CSV";
-$_lang['UsernameUsed'] = "اسم المستخدم هذا محجوز من قبل مستخدم آخر";
-$_lang['Users'] = "المستخدمون";
-$_lang['UsersMin'] = "المستخدمون";
-$_lang['Valvas'] = "الإعلانات السابقة";
-$_lang['ViMod'] = "تم تعديل حالة الظهور/ الإخفاء";
-$_lang['View'] = "عرض";
-$_lang['ViewMode'] = "نمط العرض";
-$_lang['ViewPlatFormError'] = "البحث عن العيوب و الأخطاء التقنية";
-$_lang['ViewPlatFormStatistics'] = "إحصائيات الموقع";
-$_lang['ViewToolList'] = "عرض قائمة بجميع الأدوات";
-$_lang['Visibility'] = "مرئي/مخفي";
-$_lang['Visible'] = "مرئي";
-$_lang['Visits'] = "الزيارات";
-$_lang['WeightingForEachBlank'] = "حدد درجة الأهمية لكل فراغ";
-$_lang['Wiki'] = "Wiki";
-$_lang['WikiAccessControl'] = "إدارة التحكم بالوصول";
-$_lang['WikiAccessControlText'] = "تستطيع تحديد إمكانيات الوصول للمستخدمين من خلال الجدول التالي : ";
-$_lang['WikiAllPages'] = "جميع الصفحات";
-$_lang['WikiBackToPage'] = "العودة للصفحة";
-$_lang['WikiConflictHowTo'] = "<p><strong>تحرير التعارض</strong> :يبدو أن الصفحة التي تحاول حفظها قد تم تعديلها<br /> <br />
+للسماح مثلاً لمساعد مدرس بإلاشتراك بإدارة الموقع يجب ان تقوم بتسجيله في المقرر إذا لم يكن مسجلاً و من ثم النقر على على كلمة \'تعديل\' الموجودة تحت \'حقوق الإدارة\'  و من ثم النقر على \'الكل\' و من ثم موافق';
+$_lang['blockWikiConflictHowTo'] = '<p><strong>تحرير التعارض</strong> :يبدو أن الصفحة التي تحاول حفظها قد تم تعديلها<br /> <br />
 ماذا تريد ان تفعل الأن ؟<ul>
 <li> يمكنك نسخ/لصق التعديلات التي قمت بها لبرنامج محرر النصوص و من ثم النقر على تحرير أخر نسخة من أجل إضافة التعديلات التي قمن بها على أخر نسخة للصفحة</li>
-<li> يمكنك أيضاً النقر على زر إلغاء لإلغاء التعديلات التي قمت بها </li></ul></p>";
-$_lang['WikiContentEmpty'] = "هذه الصفحة فارغة , انقر على 'تحرير هذه الصفحة' لإضافة محتوى الصفحة";
-$_lang['WikiCourseMembers'] = "أعضاء المقرر";
-$_lang['WikiCreateNewWiki'] = "إنشاء ويكي جديدة";
-$_lang['WikiCreatePrivilege'] = "إنشاء صفحات";
-$_lang['WikiCreationSucceed'] = "تم إنشاء الويكي بنجاح";
-$_lang['WikiDefaultDescription'] = "اكتب وصف للويكي الخاصة بك هنا";
-$_lang['WikiDefaultTitle'] = "ويكي جديدة";
-$_lang['WikiDeleteWiki'] = "حذف ويكي";
-$_lang['WikiDeleteWikiWarning'] = "تحذير : سيتم حذف هذه الويكي و جميع محتوياتها هل تريد المتابعة بعملية الحذف ؟";
-$_lang['WikiDeletionSucceed'] = "تم حذف الويكي بنجاح";
-$_lang['WikiDescription'] = "وصف الويكي";
-$_lang['WikiDescriptionForm'] = "وصف الويكي";
-$_lang['WikiDescriptionFormText'] = "يمكنك  وضع عنوان او وصف للويكي :";
-$_lang['WikiDiffAddedLine'] = "الأسطر المضافة";
-$_lang['WikiDiffDeletedLine'] = "سطر محذوف";
-$_lang['WikiDiffMovedLine'] = "سطر انتقل من مكان لأخر";
-$_lang['WikiDiffUnchangedLine'] = "سطر غير متغير";
-$_lang['WikiDifferenceKeys'] = "المفاتيح :";
-$_lang['WikiDifferencePattern'] = "الاختلافات بين الإصدار  %1\$s المعدل من قبل %2\$s  و الإصدار %3\$s المعدل من قبل %4\$s";
-$_lang['WikiDifferenceTitle'] = "الاختلافات :";
-$_lang['WikiEditConflict'] = "تحرير التعارض";
-$_lang['WikiEditLastVersion'] = "تحرير النسخة الأخيرة";
-$_lang['WikiEditPage'] = "تحرير هذه الصفحة";
-$_lang['WikiEditPrivilege'] = "تحرير الصفحات";
-$_lang['WikiEditProperties'] = "تحرير الخصائص";
-$_lang['WikiEditionSucceed'] = "تم تحرير الويكي بنجاح";
-$_lang['WikiGroupMembers'] = "أعضاء المجموعة";
-$_lang['WikiHelpAdminContent'] = "<h3>Wiki administration help</h3>
-<dl class=\"wikiHelp\">
+<li> يمكنك أيضاً النقر على زر إلغاء لإلغاء التعديلات التي قمت بها </li></ul></p>';
+$_lang['blockWikiHelpAdminContent'] = '<h3>Wiki administration help</h3>
+<dl class="wikiHelp">
 <dt>How to create a new Wiki ?</dt>
-<dd>Click on the link 'Create a new Wiki'. Then enter the properties of the Wiki :
+<dd>Click on the link \'Create a new Wiki\'. Then enter the properties of the Wiki :
 <ul>
 <li><b>Title of the Wiki</b> : choose a title for the Wiki</li>
 <li><b>Description of the Wiki</b> : choose a description for the Wiki</li>
@@ -1660,12 +1529,12 @@ $_lang['WikiHelpAdminContent'] = "<h3>Wiki administration help</h3>
 <dt>How to enter a Wiki ?</dt>
 <dd>Click on the title of the Wiki in the list.</dd>
 <dt>How to change the properties of a Wiki ?</dt>
-<dd>Click on the icon in the 'Properties' column in the Wiki list to go to the Wiki properties form.</dd>
+<dd>Click on the icon in the \'Properties\' column in the Wiki list to go to the Wiki properties form.</dd>
 <dt>How to use the Access control management options ?</dt>
-<dd>You can set the access rights for users by checking/unchecking the box in the 'Access control management' section of Wiki properties.
+<dd>You can set the access rights for users by checking/unchecking the box in the \'Access control management\' section of Wiki properties.
  You can grant/ungrant access to three types of users :<ul>
 <li><b>Course members</b> : users enroll to the course (except the course managers)</li>
-<li><b>Group members</b> (only available whithin a group) : users which are members of the group (expect the group's tutors)</li>
+<li><b>Group members</b> (only available whithin a group) : users which are members of the group (expect the group\'s tutors)</li>
 <li><b>Other users</b> : anonymous users or users which are not course members</li></ul>
 For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <li><b>Read pages</b> : the user of the given type can read the pages of the Wiki</li>
@@ -1673,15 +1542,14 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <li><b>Create pages</b> : the user of the given type can create new pages in the Wiki</li>
 </ul><small><em>(*) Note that if a user cannot read the pages of a Wiki, he cannot edit or modify them. Note that if a user cannot edit the pages of a Wiki, he cannot create new pages.</em></small></dd>
 <dt>How to delete a Wiki ?</dt>
-<dd>Click on the icon in the 'Delete' column to delete a Wiki and all its pages.</dd>
+<dd>Click on the icon in the \'Delete\' column to delete a Wiki and all its pages.</dd>
 <dt>How to get the list of the pages in a Wiki ?</dt>
 <dd>Click on the number of pages of this Wiki in the Wiki list.</dd>
 <dt>How to get the list of the last modified pages in a Wiki ?</dt>
-<dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
-</dl>";
-$_lang['WikiHelpSyntax'] = "Wiki الصيغ المستخدمة لكتابة ";
-$_lang['WikiHelpSyntaxContent'] = "<h3>Wiki2xhtml syntax</h3>
-<dl class=\"wikiHelp\">
+<dd>Click on the icon in the \'Recent changes\' column in the Wiki list.</dd>
+</dl>';
+$_lang['blockWikiHelpSyntaxContent'] = '<h3>Wiki2xhtml syntax</h3>
+<dl class="wikiHelp">
 <dt>Creating wiki pages and links between them</dt>
 <dd><ul>
 <li><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</li>
@@ -1697,9 +1565,9 @@ $_lang['WikiHelpSyntaxContent'] = "<h3>Wiki2xhtml syntax</h3>
 <li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
 </ul></dd>
 <dt>Inline elements</dt>
-<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols \";\",\"?\",\":\" and \"!\".&nbsp;;</li>
-<li><strong>Emphasis</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</li>
+<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols ";","?",":" and "!".&nbsp;;</li>
+<li><strong>Emphasis</strong> : surround your text with two single quotes <code>\'\'text\'\'</code>&nbsp;;</li>
+<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>\'\'\'text\'\'\'</code>&nbsp;;</li>
 <li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
 <li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
@@ -1710,183 +1578,61 @@ $_lang['WikiHelpSyntaxContent'] = "<h3>Wiki2xhtml syntax</h3>
 <li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
 <li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
 <li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
-<li><strong>Footnote</strong> : <code>\$\$footnote text\$\$</code>.</li>
+<li><strong>Footnote</strong> : <code>$$footnote text$$</code>.</li>
 </ul></dd>
-</dl>";
-$_lang['WikiIdenticalContent'] = "المحتويات متطابقة<br />لم يتم حفظ أي تغيرات";
-$_lang['WikiInvalidWikiId'] = "رقم ويكي غير صحيح";
-$_lang['WikiList'] = "قائمة بالويكي";
-$_lang['WikiMainPage'] = "الصفحة الرئيسية";
-$_lang['WikiMainPageContent'] = "هذه هي الصفحة الرئيسية للويكي %s , انقر على تحرير من أجل تعديل محتوياتها";
-$_lang['WikiNoWiki'] = "لا يوجد ويكي";
-$_lang['WikiNotAllowedToCreate'] = "غير مسموح لك إنشاء صفحات جديدة";
-$_lang['WikiNotAllowedToEdit'] = "غير مسموح لك تعديل هذه الصفحة";
-$_lang['WikiNotAllowedToRead'] = "لا يسمح لك بقراءة هذه الصفحة";
-$_lang['WikiNumberOfPages'] = "عدد الصفحات";
-$_lang['WikiOtherUsers'] = "أخرون (*)";
-$_lang['WikiOtherUsersText'] = "(*) مستخدمون مجهولون , المستخدمون ممن ليسوا أعضاء ضمن المقرر";
-$_lang['WikiPageHistory'] = "تاريخ الصفحة";
-$_lang['WikiPageSaved'] = "تم حفظ الصفحة";
-$_lang['WikiPreviewTitle'] = "معاينة : ";
-$_lang['WikiPreviewWarning'] = "تحذير: هذه الصفحة للمعاينة فقط , لم يتم حفظ التغييرات التي قم بها , لا تنسى الضغط على زر حفظ الموجود في أسفل الصفحة للقيام بعملية الحفظ";
-$_lang['WikiProperties'] = "الخصائص";
-$_lang['WikiReadPrivilege'] = "الصفحات المقروءة";
-$_lang['WikiRecentChanges'] = "التغييرات الأخيرة";
-$_lang['WikiRecentChangesPattern'] = "%1\$s تم تعديلها بتاريخ %2\$s من قبل %3\$s";
-$_lang['WikiShowDifferences'] = "عرض الاختلافات";
-$_lang['WikiTitle'] = "عنوان الويكي";
-$_lang['WikiTitleEdit'] = "الويكي : تحرير الخصائص";
-$_lang['WikiTitleNew'] = "الويكي : إنشاء ويكي جديدة";
-$_lang['WikiTitlePattern'] = "الويكي : %s";
-$_lang['WikiVersionInfoPattern'] = "(النسخة %1\$s تم تعديلها من قبل %2\$s)";
-$_lang['WikiVersionPattern'] = "%1\$s من قبل %2\$s";
-$_lang['Work'] = "واجبات و مهام";
-$_lang['WorkAuthors'] = "المؤلفون";
-$_lang['WorkTitle'] = "عنوان العمل";
-$_lang['WorkUploads'] = "تحميل ملفات الوظائف";
-$_lang['WorksDetails'] = "الاعمال التي قام الطلاب بتحميلها للموقع حسب أسماء المؤلفين";
-$_lang['WrkAdded'] = "تم إرسال العمل بنجاح";
-$_lang['WrkAuthors'] = "المؤلف ( المؤلفون)";
-$_lang['WrkAuthorsRequired'] = "يجب كتابة اسم المؤلف ( المؤلفون)";
-$_lang['WrkEdited'] = "تم تعديل العمل";
-$_lang['WrkScoreRequired'] = "المعدل المطلوب";
-$_lang['WrkTitle'] = "اسم المقرر";
-$_lang['WrkTitleRequired'] = "عنوان العمل مطلوب";
-$_lang['WrongOperation'] = "عملية خاطئة";
-$_lang['Yes'] = "نعم";
-$_lang['Yesterday'] = "البارحة";
-$_lang['YouAreReg'] = "قمت بالتسجيل بتاريخ";
-$_lang['YourAccountParam'] = "كلمة السر الخاصة بك لتسجيل الدخول هي ";
-$_lang['YourBestScore'] = "أداؤك الأفضل";
-$_lang['YourReg'] = "تم تسجيلك في اليوم الموافق ل ";
-$_lang['YourRequestToBeCourseManagerIsSent'] = "طلبك بان تصبح قادراً على إنشاء مواقع المقررات تم إرساله لمدير النظام";
-$_lang['YourRequestToRemoveYourAccountIsSent'] = "تم إرسال طلبك بإزالة حسابك";
-$_lang['YourTime'] = "قمت بتنفذ التمرين خلال :";
-$_lang['YourTotalScore'] = "عدد الكلي للنقاط التي حصلت عليها هو";
-$_lang['ZipNoPhp'] = "لا يسمح لك بان تحمل ملف مضغوط يحوي ضمنه ملف من نوع PHP";
-$_lang['_EditFile_ModifyOk'] = "تم تطبيق التعديلات بنجاح";
-$_lang['_TheUserIsAlreadyEnrolledInTheCourse'] = "هذا المستخدم مسجل بالمقرر من قبل";
-$_lang['_add_user_list'] = "إضافة قائمة مستخدمين";
-$_lang['_already_enrolled'] = "مسجل مسبقاً";
-$_lang['_are_you_sure_to_remove_the_course_from_your_list'] = "هل أنت متاكد انك ترغب بإزالة هذا المقرر من  القائمة الخاصة بك؟";
-$_lang['_back_to_my_personnal_course_list'] = "العودة لقائمة المقررات الخاصة بي";
-$_lang['_back_to_parent_category'] = "العودة للتصنيف الأب";
-$_lang['_click_here'] = "انقر هنا";
-$_lang['_completeUserInfoOfUser'] = "Complete userInfo of user";
-$_lang['_course_enrollment'] = "المقررات الخاصة بالطالب";
-$_lang['_do_you_want_to_continue'] = "هل تريد المتابعة؟";
-$_lang['_enroll'] = "تسجيل";
-$_lang['_enroll_to_a_new_course'] = "التسجيل في مقرر جديد";
-$_lang['_faculty_CanHaveCatCourse'] = "يمكن لهذا التصنيف أن يحوي مقررات : ";
-$_lang['_faculty_CatHaveCat'] = "هذا التصنيف يحوي تصانيف ضمنه, يجب ان تقوم بحذفهم أولاً";
-$_lang['_faculty_CatHaveCourses'] = "لا تستطيع حذف هذا التصنيف لأنه يحوي بعض المقررات !";
-$_lang['_faculty_CodeCat'] = "رمز التصنيف";
-$_lang['_faculty_CodeEmpty'] = "يجب إدخال رمز التصنيف";
-$_lang['_faculty_ConfirmDelete'] = "هل تريد حقاً حذف هذا التصنيف ";
-$_lang['_faculty_CreateNotOk'] = "هذا التصنيف موجود مسبقاً";
-$_lang['_faculty_CreateOk'] = "تم إنشاء التصنيف";
-$_lang['_faculty_DeleteOk'] = "تم حذف التصنيف";
-$_lang['_faculty_EditOk'] = "تم حفظ التعديلات";
-$_lang['_faculty_Father'] = "التصنيف الأب ";
-$_lang['_faculty_HaveCourses'] = "هذا التصنيف يحوي بعض المقررات يجب عليك حذفهم او نقلهم أولاً";
-$_lang['_faculty_MoveOk'] = "تم نقل التصنيف";
-$_lang['_faculty_NameCat'] = "اسم التصنيف :";
-$_lang['_faculty_NameEmpty'] = "يجب إدخال اسم التصنيف";
-$_lang['_faculty_NoCat'] = "لا يوجد أية تصنيفات حالياً!";
-$_lang['_faculty_NoChange'] = "ام يتم تطبيق أي تعديلات";
-$_lang['_faculty_NoMove_1'] = "لا تستطيع نقل";
-$_lang['_faculty_NoMove_2'] = " في التصنيف نفسه !";
-$_lang['_faculty_imgDown'] = "الأسفل";
-$_lang['_fields_enclosed_by'] = "حقول البيانات محاطة برمز";
-$_lang['_footer_p_CourseManager'] = "المدير المسؤول عن %s";
-$_lang['_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored'] = "إذا اخترت المتابعة سيتم تجاهل الأسطر التي تحوي أخطاء";
-$_lang['_if_you_wish_to_enroll_to_this_course'] = "إذا كان لديك رغبة بالالتحاق بهذا المقرر";
-$_lang['_my_personnal_course_list'] = "قائمة المقررات الخاصة بي";
-$_lang['_no_access_here'] = "No way";
-$_lang['_no_course_available_fitting_this_keyword'] = "لا يوجد أي مقرر موافق لكلمة البحث التي أدخلتها";
-$_lang['_no_error_in_file_found'] = "لم يتم العثور على أخطاء ضمن الملف";
-$_lang['_or_search_from_keyword'] = "البحث عن";
-$_lang['_p_ErrorOnBuild_S_for_S'] = "خطأ في بناء ال <em>%s</em> من اجل <B>%s</B>";
-$_lang['_p_FeedOf_s'] = "Rss feed for %s";
-$_lang['_p_FillCourses'] = "ملء %s ب  %s";
-$_lang['_p_IfNothingHappendClickHere'] = "<small>If after 30 seconds nothing change, please click <a href=\"%s\">here</a> and wait again</small>";
-$_lang['_p_PropForConfigCommited'] = "Properties for %s (%s) are now effective on server.";
-$_lang['_p_aCategoryWouldBeSelected'] = "عليك اختيار تصنيف , إذا كان التصنيق غير موجود قم بمراسلة مدير الموقع";
-$_lang['_p_category_s_created'] = "تم إنشاء التصنيف %s ";
-$_lang['_p_config_file_creation'] = "إنشاء ملف الإعدادات:<br /> %s";
-$_lang['_p_d_StudentUnregistredFormCours'] = "%d طالب تم إلغاء تسجيلهم من المقرر";
-$_lang['_p_d_course'] = "%2d المقرر";
-$_lang['_p_d_course_manager'] = "%2d الاستاذ ";
-$_lang['_p_d_course_managers'] = "%2d الاستاذة ";
-$_lang['_p_d_course_member'] = "%2d عضو";
-$_lang['_p_d_course_members'] = "%2d أعضاء";
-$_lang['_p_d_courses'] = "%2d مقررات";
-$_lang['_p_d_student'] = "%2d طالب";
-$_lang['_p_d_students'] = "%2d طلاب";
-$_lang['_p_forum_s_created'] = "المنتدى %s تم إنشاؤه";
-$_lang['_p_nothing_to_edit_in_S'] = "لا يوجد ما يمكن تعديله في  %s";
-$_lang['_p_platformManager'] = "المسؤول عن موقع   %s";
-$_lang['_p_post_s_created'] = "المشاركة %s تم إنشاؤها";
-$_lang['_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname'] = "<i>%s %s</i> تم تسجيله في المقرر بنجاح";
-$_lang['_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname'] = "<i>%s %s</i> لم يتم تسجيله في المقرر بنجاح";
-$_lang['_p_topic_s_created'] = "الموضوع %s تم غنشاؤه";
-$_lang['_p_youNeedToBeAuthenticatedWithYour_s_account'] = "يجب ان يتم التحقق من شرعية حسابك %s";
-$_lang['_php_info'] = "PHP معلومات لغة البرمجة";
-$_lang['_remove_course_enrollment'] = "إلغاء التسجيل في مقرر";
-$_lang['_remove_course_from_your_personnal_course_list'] = "إزالة المقرر من قائمة المقررات الخاصة بك";
-$_lang['_select_course_in'] = "اختر مقرر تعليمي في ";
-$_lang['_select_course_in_search_results'] = "اختر المقرر من نتيجة البحث";
-$_lang['_the_following_errors_were_found'] = "تم العثور على الأخطاء التالية ";
-$_lang['_toolsToFill'] = "الأدوات التي يتم نشرها";
-$_lang['_unsubscribe'] = "إلغاء الاشتراك";
-$_lang['_user_has_been_enrolled_to_the_course'] = "تم تسجيل المستخدم في المقرر";
-$_lang['_you_had_request'] = "سؤالك";
-$_lang['_you_have_been_enrolled_to_the_course'] = "تمت عملية تسجيلك في المقرر";
-$_lang['_your_enrollment_to_the_course_has_been_removed'] = "تمت  عملية إزالة تسجيلك في المقرر";
-$_lang['_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course'] = "ملفك الشخصي يظهر أنك غير مسجل في هذا المقرر التعليمي";
-$_lang['author'] = "المؤلف";
-$_lang['body'] = "نص الرسالة";
-$_lang['catcreated'] = "تم إنشاء التصنيف الجديد";
-$_lang['click'] = "انقر";
-$_lang['delete'] = "إلغاء هذه الرسالة";
-$_lang['deleted'] = "تم حذف مشاركتك";
-$_lang['emptymsg'] = "يجب عليك ان تكتب نص الرسالة, الرسئل الفارغة غير مسموحة";
-$_lang['here'] = "هنا";
-$_lang['importLearningPath'] = "استيراد مسار تعليم";
-$_lang['indextitle'] = "فهرس المنتدى";
-$_lang['lastpost'] = "الرسالة السابقة";
-$_lang['notify'] = "إعلامي من خلال البريد الالكتروني عندما يتم إضافة ردود";
-$_lang['notifybody'] = "
-وصلتك هذه الرسالة لان احدهم قام بالرد على إحدى المواضيع المفضلة عندك ضمن المنتدى و انت طلبت ان
-يتم تنبيهك من خلال البريد الالكتروني
-
-
-
-تستطيع مشاهدة المشاركة من خلال :
-
-%1\$s
-
-او استعراض فهرس المنتدى من خلال
-
-%2\$s
-
-
-
-شكرأً لاستخدامك المنتدى الخاص بنا";
-$_lang['notifysubj'] = "تم إرسال رد على أحد المشاركات الخاصة بك في المنتدى";
-$_lang['notopics'] = "لا يوجد أي مشاركة في هذا المنتدى, تستطيع ان تقوم بالإضافة";
-$_lang['posted'] = "تم الإرسال";
-$_lang['poster'] = "المرسل";
-$_lang['posts'] = "عدد المشاركات";
-$_lang['returnindex'] = "العودة لفهرس المنتدى";
-$_lang['returntopic'] = "العودة لقائمة مواضيع المنتدى";
-$_lang['separator'] = " > ";
-$_lang['stored'] = "تم تخرين رسالتك في قاعدة البيانات";
-$_lang['subject'] = "الموضوع";
-$_lang['topic'] = "الفقرة";
-$_lang['topicreview'] = "معاينة المشاركة";
-$_lang['topics'] = "المشاركات";
-$_lang['topictitle'] = "عرض المشاركة";
-$_lang['viewforum'] = "استعراض المنتدى";
-$_lang['viewmsg'] = "لمشاهدة رسالتك";
+</dl>';
+$_lang['click here'] = 'انقر هنا';
+$_lang['click to zoom in'] = 'انقر للتكبير';
+$_lang['click to zoom out'] = 'انقر للتصغير';
+$_lang['denotes new items'] = 'للدلالة على العناصر الجديدة';
+$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'الاختلافات بين الإصدار  %1$s المعدل من قبل %2$s  و الإصدار %3$s المعدل من قبل %4$s';
+$_lang['e.g. <em>History of Literature</em>'] = 'مثال<i>برمجة الحاسوب</i>';
+$_lang['good looking'] = 'جميل المظهر';
+$_lang['group(s) has (have) been added'] = 'تم إضافة المجموعة ( المجموعات)';
+$_lang['has been enroled'] = 'تم تسجيله';
+$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'إذا اخترت المتابعة سيتم تجاهل الأسطر التي تحوي أخطاء';
+$_lang['in all exercises'] = 'في جميع التمارين';
+$_lang['line'] = 'السطر';
+$_lang['lines'] = 'الأسطر';
+$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = '12 حرف على الأكثر , مثال <em>CAD1</em> استخدم أحرف أجنبية فقط و بدون فراغات';
+$_lang['my group'] = 'مجموعتي';
+$_lang['my supervision'] = 'بإشرافي';
+$_lang['new group(s)'] = 'مجموعة جديدة';
+$_lang['number'] = 'العدد';
+$_lang['only in the current exercise'] = 'فقط في التمرين الحالي';
+$_lang['previous level'] = 'المستوى السابق';
+$_lang['register'] = 'تسجيل';
+$_lang['rich'] = 'غني';
+$_lang['sampleForumDescription'] = 'إزل هذه من خلال أداة مدير المنتدى';
+$_lang['sampleForumGroupCategory'] = 'منتدى المجموعات';
+$_lang['sampleForumMainCategory'] = 'الرئيسي';
+$_lang['sampleForumMessage'] = 'عندما تقوم بحذف المنتدى التجريبي سيتم حذف جميع الرسائل الموجودة ضمنه أيضاً';
+$_lang['sampleForumTitle'] = 'منتدى تجريبي';
+$_lang['sampleForumTopicTitle'] = 'مثال رسالة';
+$_lang['sampleLearnPathDescription'] = 'هذا مثال على مسار التعليم , و هو يستخدم مثال التمرين و مثال الوثيقة الموجودين في اداة التمارين و أداة الوثائق . انقر على
+                            <b>تعديل</b> لتغيير هذا النص';
+$_lang['sampleLearnPathDocumentDescription'] = 'تستطيع استخدام أي وثيقة موجودة ضمن أداة الوثائق في هذا المقرر';
+$_lang['sampleLearnPathDocumentTitle'] = 'وثيقة_تجريبية';
+$_lang['sampleLearnPathQuizDescription'] = 'تستطيع استخدام أي تمرين من أداة التمارين للمقرر الخاص بك';
+$_lang['sampleLearnPathTitle'] = 'مسار تعلم _ مثال';
+$_lang['sampleQuizAnswer1'] = 'تعلم هذا النظام أسهل بكثير من تعلم بقية انظمة التشغيل';
+$_lang['sampleQuizAnswer1Comment'] = 'في الواقع إن تعلم نظام التشغيل لينكس أصعب من بقية الأنظمة السائدة كنظام ويندوز';
+$_lang['sampleQuizAnswer2'] = 'يمكن إعداد هذا النظام على الحاسب بسرعة كبيرة';
+$_lang['sampleQuizAnswer2Comment'] = 'إن الوقت اللازم لإعداد نظام التشغيل على الحاسب لا يعبر فعلياً عن جودة و كفاءة هذا النظام';
+$_lang['sampleQuizAnswer3'] = 'استقرار النظام  و عمله على الشبكات بشكل ممتاز';
+$_lang['sampleQuizAnswer3Comment'] = 'يتميز هذا النظام باستقراره و أداءه العالي في مجال الشبكات حيث  يشبه إلي حد كبير نظام التشغيل المشهور UNIX';
+$_lang['sampleQuizAnswer4'] = 'انه نظام تشغيل حر و غير مقيد بشركة أو جهة ما و يتبع لترخيص GPL';
+$_lang['sampleQuizAnswer4Comment'] = 'من أهم ميزات النظام أنه حر و مجاني و يتبع لترخيص البرمجيات الحرة';
+$_lang['sampleQuizDescription'] = 'أنظمة التشغيل';
+$_lang['sampleQuizQuestionText'] = '(أكثر من جواب يمكن أن يكون صحيحاً)';
+$_lang['sampleQuizQuestionTitle'] = 'من اهم ميزات نظام التشغيل Linux...';
+$_lang['sampleQuizTitle'] = 'مثال تمرين';
+$_lang['seats (optional)'] = 'المقاعد(اختياري)';
+$_lang['seats by groups (optional)'] = 'عدد المقاعد في كل مجموعة (اختياري)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'كلمة السر هذه بسيطة جداً, استخدم كلمة سر مثل ';
+$_lang['to'] = 'إلى';
+$_lang['uncompress zipped (.zip) file on the server'] = 'فك ضغط الملف على السيرفر (zip)';
+$_lang['use brackets [...] to define one or more blanks'] = 'استخدم الأقواس [...] لتعريف فراغ أو أكثر';
+$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'تحذير: برنامج الإعداد فشل في إيجاد وصف مسار التعليم و قام بإضافة ملاحظة افتراضية , ينبغي أن تقوم بتعديلها';
+$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'تحذير : برنامج الإعداد فشل في إيجاد اسم مسار التعليم و قام بتحديد اسم افتراضي له , ينبغي ان تقوم بتعديله';
 ?>

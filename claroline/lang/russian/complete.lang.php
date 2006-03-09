@@ -1,62 +1,392 @@
 <?php 
-$_lang['Access'] = "Доступ";
-$_lang['AccessExplain'] = "Когда пользователь заходит на кампус";
-$_lang['Action'] = "Действие";
-$_lang['Activate'] = "Сделать активным";
-$_lang['Add'] = "Добавить";
-$_lang['AddAU'] = "Добавить пользователей";
-$_lang['AddAnn'] = "Добавить объявление";
-$_lang['AddCategory'] = "Добавить раздел";
-$_lang['AddComment'] = "добавить/изменить комментарий к";
-$_lang['AddEvent'] = "Добавить событие";
-$_lang['AddIntro'] = "ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ";
-$_lang['AddLoginPass'] = "добавляет имя пользователя и пароль в файл .htAccess";
-$_lang['AddNewHeading'] = "Добавить название";
-$_lang['AddTutors'] = "Управление списком тьюторов";
-$_lang['AddedToCourse'] = "зарегистрирован на вашем курсе";
-$_lang['Address'] = "Адрес";
-$_lang['AdminEmail'] = "Электронный адрес администратора";
-$_lang['AdminLogin'] = "Имя пользователя администратора";
-$_lang['AdminName'] = "Фамилия администратора";
-$_lang['AdminPass'] = "Пароль администратора";
-$_lang['AdminSurname'] = "Имя администратора";
-$_lang['AdmitError'] = "Признать свои ошибки, чтобы призвать собеседника сделать то же самое.";
-$_lang['Again'] = "Начните сначала!";
-$_lang['Agenda'] = "Календарь";
-$_lang['AllExercises'] = "Все тесты";
-$_lang['AllRight'] = "Все хорошо.";
-$_lang['Allowed'] = "Разрешен";
-$_lang['AlreadyAnswered'] = "Вы уже ответили на вопрос";
-$_lang['Among'] = "среди";
-$_lang['And'] = "и";
-$_lang['AnnAdd'] = "Объявление добавлено";
-$_lang['AnnDel'] = "Объявление удалено";
-$_lang['AnnEmpty'] = "Все объявления были удалены";
-$_lang['AnnModify'] = "Объявление изменено";
-$_lang['Announcement'] = "Объявления";
-$_lang['Anonymous'] = "Аноним";
-$_lang['Answer'] = "Ответ";
-$_lang['AnswerType'] = "Тип ответа";
-$_lang['Antique'] = "История античной философии";
-$_lang['Archive'] = "архив";
-$_lang['AreYouSureToDelete'] = "Вы действительно хотите удалить";
-$_lang['Back'] = "Назад";
-$_lang['BackHomeOf'] = "Назад на главную страницу ";
-$_lang['BackList'] = "Назад к списку";
-$_lang['BackToList'] = "Вернуться к списку пользователей";
-$_lang['BackToUsersList'] = "Вернуться к списку пользователей";
-$_lang['ByDel'] = "Удаляя данный сайт, вы удалите все учебные материалы, которые он содержит. Кроме того, 
-будет закрыт доступ всем студенты, которые были на него подписаны.  
-<p>Вы действительно хотите удалить курс?";
-$_lang['Cancel'] = "Отменить";
-$_lang['CatagoryGroup'] = "Форумы групп";
-$_lang['CatagoryMain'] = "Общий раздел";
-$_lang['Categories'] = "Разделы";
-$_lang['Chat'] = "Чат";
-$_lang['Choice'] = "Ваш выбор";
-$_lang['ChooseGoodAnswer'] = "Выберите правильный ответ";
-$_lang['ChooseGoodAnswers'] = "Выберите один или несколько правильных ответов";
-$_lang['ClarContent'] = "<br /><p><b>Студент</b></p>
+$_lang['(When an user open the index of the campus)'] = 'Когда пользователь заходит на кампус';
+$_lang['(none)'] = '(нет)';
+$_lang['(optional)'] = '(РП ЦЕМБОЙА)';
+$_lang['A reply to your topic has been posted'] = 'Поступил ответ на вашу тему.';
+$_lang['Access'] = 'Доступ';
+$_lang['Access to campus'] = 'Доступ к кампусу';
+$_lang['Access to courses'] = 'Доступ к курсам';
+$_lang['Access to tools'] = 'Доступ к средства';
+$_lang['Accounts with same <i>Email</i>'] = 'Аккаунты с тем же <i>Email</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'Аккаунты одного <i>пользователя</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Аккаунты с тем же <i>именем пользователя</i> и 
+<i>паролем</i>';
+$_lang['Action'] = 'Действие';
+$_lang['Activate'] = 'Сделать активным';
+$_lang['Add'] = 'Добавить';
+$_lang['Add a category'] = 'Добавить раздел';
+$_lang['Add a comment'] = 'добавить/изменить комментарий к';
+$_lang['Add a user'] = 'Добавить пользователей';
+$_lang['Add an event'] = 'Добавить событие';
+$_lang['Add announcement'] = 'Добавить объявление';
+$_lang['Add answ.'] = '+отв';
+$_lang['Add elem.'] = '+элем';
+$_lang['Add introduction text'] = 'ДОБАВИТЬ ВВОДНЫЙ ТЕКСТ';
+$_lang['Add me to this group'] = 'Добавить меня в эту группу';
+$_lang['Add new heading'] = 'Добавить название';
+$_lang['Add user manually'] = 'Добавить пользователя вручную';
+$_lang['Agenda'] = 'Календарь';
+$_lang['All exercises'] = 'Все тесты';
+$_lang['All groups are now empty'] = 'чУЕ ЗТХРРЩ ФЕРЕТШ РХУФЩ';
+$_lang['All groups have been deleted'] = 'чУЕ ЗТХРРЩ ХДБМЕОЩ';
+$_lang['Allowed'] = 'Разрешен';
+$_lang['Already enroled'] = 'Уже записан';
+$_lang['Among'] = 'среди';
+$_lang['Announcement'] = 'Объявления';
+$_lang['Announcement has been added'] = 'Объявление добавлено';
+$_lang['Announcement has been deleted'] = 'Объявление удалено';
+$_lang['Announcement has been modified'] = 'Объявление изменено';
+$_lang['Announcements list has been cleared up'] = 'Все объявления были удалены';
+$_lang['Anonymous'] = 'Аноним';
+$_lang['Answer'] = 'Ответ';
+$_lang['Answer type'] = 'Тип ответа';
+$_lang['Answers to the question'] = 'Ответы на вопрос';
+$_lang['Are you sure to delete'] = 'Вы действительно хотите удалить';
+$_lang['Area for this group'] = 'рТПУФТБОУФЧП ЬФПК ЗТХРРЩ';
+$_lang['Author'] = 'редактор';
+$_lang['Author(s)'] = 'Авторы';
+$_lang['Back'] = 'Назад';
+$_lang['Back to Home page'] = 'Вернуться на главную страницу';
+$_lang['Back to list'] = 'Вернуться к списку пользователей';
+$_lang['Back to my personal course list'] = 'Назад к моему личному списку курсов';
+$_lang['Back to user list'] = 'Вернуться к списку пользователей';
+$_lang['Cancel'] = 'Отменить';
+$_lang['Categories'] = 'Разделы';
+$_lang['Chat'] = 'Чат';
+$_lang['Choice'] = 'Ваш выбор';
+$_lang['Claroline help'] = 'Помощь при входе в курс';
+$_lang['Clear up list of announcements'] = 'Удалить все объявления';
+$_lang['Click on the month name for more details'] = 'Нажмите на названии месяца для большего количества деталей';
+$_lang['Close'] = 'Закрыть окно';
+$_lang['Comment'] = 'Комментарий';
+$_lang['Comment modified'] = 'комментарий изменен';
+$_lang['Confirmation'] = 'подтверждение';
+$_lang['Copy'] = 'Скопировать';
+$_lang['Corresponds to'] = 'соответствует';
+$_lang['Course'] = 'Курс';
+$_lang['Course access'] = 'Доступ к этому курсу';
+$_lang['Course administrator only'] = 'Доступно только администратору курса';
+$_lang['Course code'] = 'лПД ЛХТУБ';
+$_lang['Course description'] = 'Описание курса';
+$_lang['Course manager'] = 'Менеджер курса';
+$_lang['Course title'] = 'звание';
+$_lang['Courses'] = 'курсы.';
+$_lang['Courses not used'] = 'Неиспользуемые курсы';
+$_lang['Courses without a lecturer'] = 'Курсы без преподавателя';
+$_lang['Create'] = 'УПЪДБФШ';
+$_lang['Create Directory'] = 'Создать папку';
+$_lang['Create a course site'] = 'Создать сайт курса';
+$_lang['Create a course website'] = 'Создать сайт курса';
+$_lang['Create new group(s)'] = 'уПЪДБФШ ОПЧХА(ЩЕ) ЗТХРРХ(Щ)';
+$_lang['Database Host'] = 'База данных сервера';
+$_lang['Date'] = 'Дата';
+$_lang['Day'] = 'День';
+$_lang['Define Headings'] = 'Определить заголовки';
+$_lang['Delete'] = 'удалить';
+$_lang['Delete all groups'] = 'хДБМЙФШ ЧУЕ ЗТХРРЩ';
+$_lang['Delete the whole course website'] = 'Удалить весь курс целиком';
+$_lang['Denied'] = 'Запрещен';
+$_lang['Department'] = 'Кафедра';
+$_lang['Department URL'] = 'URL кафедры';
+$_lang['Description'] = 'пРЙУБОЙЕ ЗТХРРЩ';
+$_lang['Detail'] = 'Подробности';
+$_lang['Details'] = 'Подробности';
+$_lang['Directory created'] = 'папка создана';
+$_lang['Document'] = 'Учебные материалы';
+$_lang['Document deleted'] = 'элемент удален';
+$_lang['Documents'] = 'Учебные материалы';
+$_lang['Documents and Links'] = 'Документ';
+$_lang['Documents downloaded by the student'] = 'Учебные материалы, просмотренные студентом';
+$_lang['Documents help'] = 'Помощь Учебные материалы';
+$_lang['Documents of the group'] = 'Документы группы';
+$_lang['EG'] = 'например';
+$_lang['Edit'] = 'тЕДБЛФЙТПЧБФШ';
+$_lang['Edit this group'] = 'тЕДБЛФЙТПЧБФШ ЗТХРРХ';
+$_lang['Element list'] = 'Список элементов';
+$_lang['Element moved'] = 'элемент перемещен';
+$_lang['Element renamed'] = 'Элемент переименован';
+$_lang['Email'] = 'Email';
+$_lang['Empty'] = 'чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
+<br />
+ йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
+<br />еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.';
+$_lang['Empty (or NULL)'] = 'Пустой (или <i>NULL</i>)';
+$_lang['Empty all groups'] = 'пЮЙУФЙФШ ЧУЕ ЗТХРРЩ';
+$_lang['Enrolment'] = 'Регистрация';
+$_lang['Enter'] = 'Вернуться к вашему списку курсов';
+$_lang['Exercice not found'] = 'Тест не найден';
+$_lang['Exercise description'] = 'Описание теста';
+$_lang['Exercise management'] = 'администрирование теста';
+$_lang['Exercise name'] = 'Название теста';
+$_lang['Exercise type'] = 'Тип теста';
+$_lang['Exercises'] = 'Тесты';
+$_lang['Exercises help'] = 'Помощь по тестам';
+$_lang['Expected choice'] = 'ожидаемый выбор';
+$_lang['Fill groups (automatically)'] = 'ъБРПМОЙФШ ЗТХРРХ(Щ)';
+$_lang['Fill in blanks'] = 'Заполнение пропусков';
+$_lang['Filter'] = 'Фильтр';
+$_lang['Finish'] = 'Закончить';
+$_lang['First name'] = 'Фамилия';
+$_lang['Follow courses'] = 'Записать меня на курсы';
+$_lang['Forum'] = 'жПТХН';
+$_lang['Forums'] = 'Форумы';
+$_lang['Forums help'] = 'Помощь по форумам';
+$_lang['From'] = 'с';
+$_lang['Get a question from another exercise'] = 'Взять вопрос из другого теста';
+$_lang['Go back to the exercise'] = 'Назад к тесту';
+$_lang['Go back to the question list'] = 'Назад к списку вопросов';
+$_lang['Go back to the question pool'] = 'Назад к банку вопросов';
+$_lang['Group'] = 'зТХРРБ';
+$_lang['Group Tutor'] = 'Тьютор';
+$_lang['Group area'] = 'рТПУФТБОУФЧП ЗТХРРЩ';
+$_lang['Group deleted'] = 'зТХРРБ ХДБМЕОБ';
+$_lang['Group management'] = 'Управление группами';
+$_lang['Group members'] = 'хЮБУФОЙЛЙ ЗТХРРЩ';
+$_lang['Group name'] = 'оБЪЧБОЙЕ ЗТХРРЩ';
+$_lang['Group settings have been modified'] = 'уЧПКУФЧБ ЗТХРР ВЩМЙ ЙЪНЕОЕОЩ';
+$_lang['Group settings modified'] = 'уЧПКУФЧБ ЗТХРРЩ ЙЪНЕОЕОЩ.';
+$_lang['Groups'] = 'зТХРРЩ';
+$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Группы были заполнены (или укомплектованы) студентами из списка 
+\'Пользователи\'.';
+$_lang['Groups help'] = 'Управление группами';
+$_lang['Groups settings'] = 'уЧПКУФЧБ ЗТХРР';
+$_lang['He or she will receive email confirmation with login and password'] = 'Он получит по электронной почте имя пользователя и пароль.';
+$_lang['Heading'] = 'Название';
+$_lang['Help'] = 'рПНПЭШ';
+$_lang['Hits'] = 'Хиты';
+$_lang['Home page help'] = 'Помощь Главная страница';
+$_lang['Hour'] = 'Час';
+$_lang['Information to give to students'] = 'Информация для сообщения <br />студентам';
+$_lang['Invalid user : this user doesn\'t exist in your group'] = 'Этот пользователь не в вашей группе.';
+$_lang['Language'] = 'Язык';
+$_lang['Last 31 days'] = 'за последние 31 день';
+$_lang['Last 7 days'] = 'За последние 7 дней';
+$_lang['Last check before install'] = 'Последняя проверка перед установкой';
+$_lang['Last message'] = 'Последнее сообщение';
+$_lang['Last messages'] = 'Последние сообщения';
+$_lang['Last name'] = 'Имя';
+$_lang['Lasting'] = 'Продолжительность';
+$_lang['Lecturer(s)'] = 'рТЕРПДБЧБФЕМШ(Й)';
+$_lang['Licence'] = 'Лицензия';
+$_lang['Line Number'] = 'Количество строк';
+$_lang['List of students in this group'] = 'Список пользователей этой группы';
+$_lang['Login'] = 'Вход, логин';
+$_lang['Login request'] = 'Просьба имени пользователя';
+$_lang['Logins'] = 'Подключений';
+$_lang['Logins and access to tools'] = 'Подключения и доступ к средствам';
+$_lang['Logins not used'] = 'Неиспользуемые аккаунты';
+$_lang['Logout'] = 'Выйти';
+$_lang['Lost password'] = 'Пароль утерян';
+$_lang['Main database'] = 'Основная база данных Claroline';
+$_lang['Make correspond'] = 'найдите соответствия';
+$_lang['Manager'] = 'Ответственный';
+$_lang['Matching'] = 'Соответствия';
+$_lang['Max file size'] = 'Максимальный размер';
+$_lang['Max.'] = 'НБЛУЙНХН';
+$_lang['Message body'] = 'Сообщение';
+$_lang['Missing'] = 'отсутствующий';
+$_lang['Missing images detected'] = 'Обнаружены недостающие изображения';
+$_lang['Modifies this announcement'] = 'Изменить объявление';
+$_lang['Modify'] = 'йЪНЕОЙФШ';
+$_lang['Month'] = 'Месяц';
+$_lang['Move'] = 'Переместить';
+$_lang['Move down'] = 'Вниз';
+$_lang['Move up'] = 'Вверх';
+$_lang['Multiple choice (Multiple answers)'] = 'Множественный выбор (несколько правильных ответов)';
+$_lang['Multiple choice (Unique answer)'] = 'Множественный выбор (один правильный ответ)';
+$_lang['My User Account'] = 'Изменить мои настройки';
+$_lang['My course list'] = 'Список моих курсов';
+$_lang['My personal course list'] = 'Мой личный список курсов';
+$_lang['Name of the new directory'] = 'Название новой папки';
+$_lang['Name of the tool'] = 'Название средства';
+$_lang['New exercise'] = 'Новый тест';
+$_lang['New question'] = 'Новый вопрос';
+$_lang['New topic'] = 'Начать новую тему';
+$_lang['Newest first'] = 'Изменить порядок';
+$_lang['Next'] = 'Дальше';
+$_lang['Next day'] = 'Следующий день';
+$_lang['Next month'] = 'Следующий месяц';
+$_lang['Next week'] = 'Следующая неделя';
+$_lang['Next year'] = 'Следующий год';
+$_lang['No'] = 'Нет';
+$_lang['No email address specified'] = 'нет email';
+$_lang['No result'] = 'Нет результата';
+$_lang['No way'] = 'Нет доступа ';
+$_lang['None'] = 'нет';
+$_lang['Not allowed'] = 'Вы не зарегистрированы как ответственный за курс';
+$_lang['Notice'] = 'Примечание';
+$_lang['Notify by email when replies are posted'] = 'сообщить по электронный почте об ответах на сообщение';
+$_lang['Now'] = 'сейчас';
+$_lang['Number of courses'] = 'Количество курсов';
+$_lang['Number of courses by faculty'] = 'Количество курсов по факультетам';
+$_lang['Number of courses by language'] = 'Количество курсов по языкам';
+$_lang['Number of courses by visibility'] = 'Количество курсов по открытому доступу/ скрытым';
+$_lang['Number of logins'] = 'Количество подключений';
+$_lang['Number of users'] = 'Количество пользователей';
+$_lang['Number of users by course'] = 'Количество пользователей по курсам';
+$_lang['Number of users by faculty'] = 'Количество пользователей по факультетам';
+$_lang['Number of users by status'] = 'Количество пользователей по статусу';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Количество предложенный участников группы превышает максимум, установленный вами. 
+Состав группы не был изменен. Вы можете изменить максимальное количество студентов в группе ниже.';
+$_lang['Ok'] = 'Ok';
+$_lang['Oldest first'] = 'Изменить порядок';
+$_lang['On'] = 'на';
+$_lang['On an unique page'] = 'Вопросы на одной странице';
+$_lang['One question per page (sequential)'] = 'Один вопрос на страницу (разбивка)';
+$_lang['Ooops, stranges cases detected !!'] = 'Ой, обнаружены особы случаи !';
+$_lang['Operation impossible'] = 'Невозможно осуществить операцию';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Невозможно осуществить операцию.
+
+<br />Файл с таким именем уже существует.';
+$_lang['Optional'] = 'не обязательный';
+$_lang['Orphan questions'] = 'Одиночные вопросы';
+$_lang['Other'] = 'Другой';
+$_lang['PHP system information'] = 'Информация о системе php';
+$_lang['Password'] = 'пароль';
+$_lang['Period'] = 'Период';
+$_lang['Please choose a good answer'] = 'Выберите правильный ответ';
+$_lang['Please choose one or more good answers'] = 'Выберите один или несколько правильных ответов';
+$_lang['Please confirm your choice'] = 'Подтвердите ваш выбор';
+$_lang['Please define at least one blank with brackets [...]'] = 'Создайте минимум один пропуск, используя квадратные скобки [...]';
+$_lang['Please define the options'] = 'выберите вариант';
+$_lang['Please fill the two lists below'] = 'Заполните два списка ниже';
+$_lang['Please give a weighting to each blank'] = 'Дайте вес каждому вопросу';
+$_lang['Please give the answers to the question'] = 'Дайте ответы на этот вопрос';
+$_lang['Please give the exercise name'] = 'Введите название теста';
+$_lang['Please give the question'] = 'Введите вопрос';
+$_lang['Please type the text'] = 'Введите текст';
+$_lang['Please type your text below'] = 'Введите ваш текст ниже';
+$_lang['Posted'] = 'Опубликовано ';
+$_lang['Posts'] = 'Сообщений';
+$_lang['Powered by'] = 'использует оболочку';
+$_lang['Prefix for names of course databases'] = 'Приставка к названию базы данных MySQL';
+$_lang['Previous day'] = 'Предыдущий день';
+$_lang['Previous month'] = 'Предыдущий месяц';
+$_lang['Previous week'] = 'Предыдущая неделя';
+$_lang['Previous year'] = 'Предыдущий год';
+$_lang['PrintVers'] = 'Версия для печати';
+$_lang['Private'] = 'закрыт';
+$_lang['Public'] = 'открыт всем';
+$_lang['Public access from campus home page even without login'] = 'вободный доступ (со страницы Кампуса баз пароля)';
+$_lang['Publish'] = 'Опубликовать';
+$_lang['Published on'] = 'Опубликовано ';
+$_lang['Question'] = 'Вопрос';
+$_lang['Question / Answer management'] = 'администрирование вопросов и ответов';
+$_lang['Question list of the exercise'] = 'Список вопросов теста';
+$_lang['Question not found'] = 'Вопрос не найден';
+$_lang['Question pool'] = 'Банк вопросов';
+$_lang['Question to lecturer'] = 'Вопросы по планированию <br />для преподавателя';
+$_lang['Questions'] = 'Вопросы';
+$_lang['Random questions'] = 'Случайные вопросы';
+$_lang['Registered'] = 'ъБРЙУБОЩ';
+$_lang['Registration'] = 'Запись';
+$_lang['Rem. answ.'] = '-отв';
+$_lang['Rem. elem.'] = '-элем';
+$_lang['Remove'] = 'Удалить';
+$_lang['Rename'] = 'Переименовать';
+$_lang['Reply'] = 'Ответить';
+$_lang['Requirements'] = 'Требования';
+$_lang['Result'] = 'Результат';
+$_lang['Return to the list'] = 'Назад к списку';
+$_lang['Reuse'] = 'восстановить';
+$_lang['Role'] = 'Роль';
+$_lang['Save'] = 'Сохранить';
+$_lang['Score'] = 'баллы';
+$_lang['Seen'] = 'Прочитанные';
+$_lang['Select course in'] = 'Выберите курс в ';
+$_lang['Select course in search results'] = 'Выберите курс в результатах поиска';
+$_lang['Send this announcement by email to registered students'] = 'Отправить это объявление по электронной почте студентам';
+$_lang['Show all'] = 'Показать все';
+$_lang['Show none'] = 'Скрыть все';
+$_lang['Size'] = 'Размер';
+$_lang['Statement'] = 'Комментарий к вопросу (по желанию)';
+$_lang['Statistics'] = 'Статистика';
+$_lang['Statistics of course'] = 'Статистика по курсу';
+$_lang['Statistics of user'] = 'Статистика по пользователю';
+$_lang['Status'] = 'Действие';
+$_lang['Student'] = 'студент';
+$_lang['Students are allowed to self-register in groups'] = 'уФХДЕОФБН ТБЪТЕЫЕОП УБНПУФПСФЕМШОП ЪБРЙУЩЧБФШУС Ч ЗТХРРЩ';
+$_lang['Subject'] = 'Тема';
+$_lang['Support forum'] = 'Форум поддержки';
+$_lang['Take'] = 'взять';
+$_lang['The email address is not valid'] = 'Указанный вами электронный адрес неполон или содержит неподходящие символы. ';
+$_lang['The file to upload is not valid.'] = 'Файл для размещения не подходит.';
+$_lang['The information has been modified'] = 'Информация была изменена';
+$_lang['The upload has failed. There is not enough space in your directory'] = 'Размещение файла не удалось. В вашей папке недостаточно места';
+$_lang['The upload is finished'] = 'Размещение файла завершено';
+$_lang['The zip file can not contain .PHP files'] = 'Файл ZIP не может содержать файлов с расширением .php';
+$_lang['There are no topics for this forum. You can post one'] = 'В этом форуме нет тем. Вы можете начать новую тему.';
+$_lang['There is no answer for the moment'] = 'В настоящий момент ответов нет';
+$_lang['There is no exercise for the moment'] = 'В данный момент тестов нет';
+$_lang['There is no question for the moment'] = 'Сецчас нет вопросов';
+$_lang['This course is currently not described'] = 'Описание курса не заполнено';
+$_lang['This day'] = 'Сегодня';
+$_lang['This is the faculty, department or school where the course is delivered'] = 'тЕЮШ ЙДЕФ П ЖБЛХМШФЕФЕ, ЛБЖЕДТЕ, ЫЛПМЕ... Ч ЛПФПТЩИ ЧЕДЕФУС ЛХТУ';
+$_lang['This is your account Login-Pass'] = 'Вот ваши параметры подключения';
+$_lang['This user name is already taken'] = 'Выбранное вами имя пользователя уже используется.';
+$_lang['Title'] = 'Заголовок';
+$_lang['To'] = 'в';
+$_lang['Tools'] = 'уТЕДУФЧБ ХРТБЧМЕОЙС';
+$_lang['Topic'] = 'Тема';
+$_lang['Topic review'] = 'Обзор темы';
+$_lang['Topics'] = 'Темы';
+$_lang['Total'] = 'Всего';
+$_lang['Total Clicks'] = 'Общее количество переходов';
+$_lang['Total Downloads'] = 'Общее количество просмотров';
+$_lang['Total number of connection to this course'] = 'Общее количество подключений к курсу';
+$_lang['Tracking'] = 'Действия пользователей';
+$_lang['Tracking database'] = 'База для отслеживания действий пользователей.  Полезна в том случае, если 
+вы используете отдельно центральную базу и отслеживание пользователей';
+$_lang['Tracking has been disabled by system administrator.'] = 'Система статистики и отслеживания действий пользователей дезактивирована 
+администратором системы.';
+$_lang['Traffic Details'] = 'Детали трафика';
+$_lang['True'] = 'Верно';
+$_lang['Unassigned students'] = 'уФХДЕОФЩ ВЕЪ ЗТХРРЩ';
+$_lang['Unregister'] = 'Отписать';
+$_lang['Unsubscribe'] = 'Отмена регистрации';
+$_lang['Up'] = 'вверх';
+$_lang['Upgrade'] = 'Обновление claroline';
+$_lang['Upload file'] = 'Разместить файл на сервере';
+$_lang['User'] = 'Пользователи';
+$_lang['User\'s course'] = 'Курс пользователя';
+$_lang['Username'] = 'Имя пользователя';
+$_lang['Users'] = 'Пользователи';
+$_lang['Users Downloads'] = 'Скачиваний зарегистрированными пользователями';
+$_lang['Users help'] = 'Помощь пользователям';
+$_lang['Users not in this group'] = 'Пользователи, не записанные в эту группу';
+$_lang['Users\' Clicks'] = 'Переходов зарегистрированных пользователей';
+$_lang['View by'] = 'Точность';
+$_lang['View list of all tools'] = 'Просмотреть список всех средств';
+$_lang['View my statistics'] = 'Моя статистика';
+$_lang['Visibility'] = 'Видимая/скрытая';
+$_lang['Visibility modified'] = 'Функция видимый / скрытый изменена';
+$_lang['Visits'] = 'посещений';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Внимание! Этот вопрос и ответы к нему используются в нескольких тестах. Вы хотите их изменить?';
+$_lang['Week'] = 'Неделя';
+$_lang['Weighting'] = 'Вес вопроса';
+$_lang['Work'] = 'Задания';
+$_lang['Work title'] = 'Заголовок';
+$_lang['Work uploaded by the student in the name of \'Authors\''] = 'Работы, размещенные студентом под именем \'Авторы\'';
+$_lang['Work uploads'] = 'Отправленных работ';
+$_lang['Year'] = 'Год';
+$_lang['Yes'] = 'Да';
+$_lang['You are now a member of this group.'] = 'Отнеыне вы являетесь участником данной группы';
+$_lang['You can now create your  course'] = 'Теперь вы можете создать свой курс.';
+$_lang['You can now select, in the list, the courses you want to access'] = 'Теперь вы можете выбрать курсы, к которым вы хотите иметь доступ.';
+$_lang['You cannot post an empty message'] = 'Введите текст Сообщение. Вы не можете разместить пустое Сообщение.';
+$_lang['You didnt choose any file to send, or it is too big'] = 'Вы не выбрали файл для размещения, или он слишком большой';
+$_lang['You have already answered the question'] = 'Вы уже ответили на вопрос';
+$_lang['You have just created the course website'] = 'Вы  только что создали сайт курса';
+$_lang['You left some required fields empty'] = 'Вы заполнили не все поля.
+Используйте кнопку Назад вашего браузера и повторите операцию.';
+$_lang['Your message has been deleted'] = 'Ваше Сообщение удалено.';
+$_lang['Your message has been entered'] = 'Ваше Сообщение записано.';
+$_lang['Your new profile has been saved'] = 'Ваши новые настройки сохранены.';
+$_lang['Your total score is'] = 'Общее количество набранных вами баллов';
+$_lang['Zip file uploaded and uncompressed'] = ' Файл .zip был послан и раскрыт';
+$_lang['[British people] live in [United Kingdom].'] = '[Англичане] живут в [Англии].';
+$_lang['archive'] = 'архив';
+$_lang['blockClaroMainHelp'] = '<br /><p><b>Студент</b></p>
 <p>
 Чтобы увидеть курсы, доступные с главной страницы кампуса, 
 достаточно щелкнуть на коде курса в списке, для этого не нужна предварительная запись.</p>
@@ -69,7 +399,7 @@ $_lang['ClarContent'] = "<br /><p><b>Студент</b></p>
 <p><b>Преподаватель</b></p>
 <p><b>Создать сайт курса</b></p>
 <p>Выполните следущие действия: Запись > Заполните все поля 
-и выберите 'Создать сайты курса' > Подтвердите > Введите название курса, выберите факультет 
+и выберите \'Создать сайты курса\' > Подтвердите > Введите название курса, выберите факультет 
 или категорию, введите код курса (или придумайте в случае необходимости > Подтвердите. 
 И вот вы в списке ваших курсов. Щелкните на названии курса, который вы только что создали. 
 Вы окажетесь на сайте курса. Он пуст и содержит только несколько примерных данных, 
@@ -79,69 +409,14 @@ $_lang['ClarContent'] = "<br /><p><b>Студент</b></p>
 <p>В случае проблем, свяжитесь с вашим ответственным за сеть университета или ответственным 
 за электронный кампус университета. Вы также можете разместить сообщение 
 на форуме поддержки платформы <a href=http://www.claroline.net>http://www.claroline.net</a>.
-</p>";
-$_lang['Close'] = "Закрыть окно";
-$_lang['Code'] = "лПД ЛХТУБ";
-$_lang['ComMod'] = "комментарий изменен";
-$_lang['Comment'] = "Комментарий";
-$_lang['ConfTip'] = "По умолчанию, курс доступен только вам, так как вы являетесь его единственным пользователем.
+</p>';
+$_lang['blockCourseDescriptionCourseContent'] = 'Содержание курса';
+$_lang['blockCourseDescriptionDescription'] = 'Описание (по желанию)';
+$_lang['blockCourseSettingsTip'] = 'По умолчанию, курс доступен только вам, так как вы являетесь его единственным пользователем.
 Если вы хотите минимум конфиденциальности, самым простым решением будет открыть регистрацию в течение недели
 , попросить студентов зарегистрироваться самостоятельно, а затем закрыть регистрацию и проверить список пользователей
-, чтобы исключить возможных посторонних лиц.";
-$_lang['ConfirmYourChoice'] = "Подтвердите ваш выбор";
-$_lang['Confirmation'] = "подтверждение";
-$_lang['Contradiction'] = "Использовать приницп непротиворечия, чтобы привести собеседника в тупик.";
-$_lang['Copy'] = "Скопировать";
-$_lang['CopyFailed'] = "Коппирование данного файла не удалось...";
-$_lang['CorrespondsTo'] = "соответствует";
-$_lang['CountCours'] = "Количество курсов";
-$_lang['CountCourseByFaculte'] = "Количество курсов по факультетам";
-$_lang['CountCourseByLanguage'] = "Количество курсов по языкам";
-$_lang['CountCourseByVisibility'] = "Количество курсов по открытому доступу/ скрытым";
-$_lang['CountToolAccess'] = "Общее количество подключений к курсу";
-$_lang['CountUsers'] = "Количество пользователей";
-$_lang['CountUsersByCourse'] = "Количество пользователей по курсам";
-$_lang['CountUsersByFaculte'] = "Количество пользователей по факультетам";
-$_lang['CountUsersByStatus'] = "Количество пользователей по статусу";
-$_lang['Course'] = "Курс";
-$_lang['CourseAccess'] = "Доступ к этому курсу";
-$_lang['CourseAdministratorOnly'] = "Доступно только администратору курса";
-$_lang['CourseContent'] = "Содержание курса";
-$_lang['CourseCreate'] = "Создать сайт курса";
-$_lang['CourseManager'] = "Менеджер курса";
-$_lang['CourseProgram'] = "Описание курса";
-$_lang['CourseTitle'] = "звание";
-$_lang['CourseWithoutAccess'] = "Неиспользуемые курсы";
-$_lang['CourseWithoutProf'] = "Курсы без преподавателя";
-$_lang['Courses'] = "курсы.";
-$_lang['Create'] = "УПЪДБФШ";
-$_lang['CreateDir'] = "Создать папку";
-$_lang['CreateSite'] = "Создать сайт курса";
-$_lang['DBHost'] = "База данных сервера";
-$_lang['Date'] = "Дата";
-$_lang['Day'] = "День";
-$_lang['DbPrefixForm'] = "Приставка к названию базы данных MySQL";
-$_lang['Dear'] = "Уважаемый(ая)";
-$_lang['DefaultTextInBlanks'] = "[Англичане] живут в [Англии].";
-$_lang['Defcon'] = "Ой, обнаружены особы случаи !";
-$_lang['DefineBlanks'] = "Создайте минимум один пропуск, используя квадратные скобки [...]";
-$_lang['DefineHeadings'] = "Определить заголовки";
-$_lang['DefineOptions'] = "выберите вариант";
-$_lang['DelAdmin'] = "Можно удалить через Администрирование форумов";
-$_lang['DelCourse'] = "Удалить весь курс целиком";
-$_lang['Delete'] = "удалить";
-$_lang['DeleteGroups'] = "хДБМЙФШ ЧУЕ ЗТХРРЩ";
-$_lang['Denied'] = "Запрещен";
-$_lang['DepartmentUrl'] = "URL кафедры";
-$_lang['DepartmentUrlName'] = "Кафедра";
-$_lang['Description'] = "Описание (по желанию)";
-$_lang['DescriptionCours'] = "Описание курса";
-$_lang['Detail'] = "Подробности";
-$_lang['DetailView'] = "Точность";
-$_lang['Details'] = "Подробности";
-$_lang['DirCr'] = "папка создана";
-$_lang['DirMv'] = "элемент перемещен";
-$_lang['DocContent'] = "<p>Раздел Учебные материалы работает подобно 
+, чтобы исключить возможных посторонних лиц.';
+$_lang['blockDocumentsHelp'] = '<p>Раздел Учебные материалы работает подобно 
 менеджеру файлов на компьютере. </p><p>Вы можете размещать документы в разных форматах
  (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, и т.п.). Однако будьте внимательны - 
  у ваших студентов должны быть необходимые программы для их считывания. Следите за безопасностью - 
@@ -237,40 +512,8 @@ $_lang['DocContent'] = "<p>Раздел Учебные материалы работает подобно
 		.</li>
 	</ul>
 	<center>
-	  <p>";
-$_lang['DocDeleted'] = "элемент удален";
-$_lang['Document'] = "Документ";
-$_lang['DocumentsAccess'] = "Учебные материалы";
-$_lang['DocumentsDetails'] = "Учебные материалы, просмотренные студентом";
-$_lang['DocumentsTitleCountColumn'] = "Общее количество просмотров";
-$_lang['DocumentsTitleDocumentColumn'] = "Учебные материалы";
-$_lang['DocumentsTitleUsersColumn'] = "Скачиваний зарегистрированными пользователями";
-$_lang['EG'] = "например";
-$_lang['Edit'] = "тЕДБЛФЙТПЧБФШ";
-$_lang['EditGroup'] = "тЕДБЛФЙТПЧБФШ ЗТХРРХ";
-$_lang['ElRen'] = "Элемент переименован";
-$_lang['ElementList'] = "Список элементов";
-$_lang['Email'] = "Email";
-$_lang['EmailNotSent'] = "Что-то не сработало, отправьте это сообщение ";
-$_lang['EmailOption'] = "Отправить это объявление по электронной почте студентам";
-$_lang['EmailSent'] = " и отправлено по электронной почте записанным студентам";
-$_lang['EmailWrong'] = "Указанный вами электронный адрес неполон или содержит неподходящие символы. ";
-$_lang['Empty'] = "чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС. 
-<br />
- йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
-<br />еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.";
-$_lang['EmptyAnn'] = "Удалить все объявления";
-$_lang['EmptyFields'] = "Вы заполнили не все поля.
-Используйте кнопку Назад вашего браузера и повторите операцию.";
-$_lang['EmtpyGroups'] = "пЮЙУФЙФШ ЧУЕ ЗТХРРЩ";
-$_lang['Enter'] = "Вернуться к вашему списку курсов";
-$_lang['ErrorUserNotInGroup'] = "Этот пользователь не в вашей группе.";
-$_lang['Ex'] = "ОБРТЙНЕТ, <i>йУФПТЙС МЙФЕТБФХТЩ</i>";
-$_lang['ExMessage'] = "Пример сообщения";
-$_lang['ExerciceEx'] = "Пример теста";
-$_lang['Exercices'] = "Тесты";
-$_lang['Exercise'] = "Тесты";
-$_lang['ExerciseContent'] = "<p>Модуль тестов позволяет вам создавать тесты, содержащие 
+	  <p>';
+$_lang['blockExercisesHelp'] = '<p>Модуль тестов позволяет вам создавать тесты, содержащие 
 любое количество вопросов. <br /><br />
 Существуют различные типы ответов, которые модно создать для ваших вопросов :<br /><br />
 <ul>
@@ -330,17 +573,17 @@ $_lang['ExerciseContent'] = "<p>Модуль тестов позволяет вам создавать тесты, сод
 <hr />
 <b>Изменение теста</b>
 <p>Чтобы изменить тест, используется тот же принцип, что и для его создания. 
-Щелкните на рисунке <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> 
+Щелкните на рисунке <img src="img/edit.gif" border="0" align="absmiddle"> 
 рядом с тестом, который нужно изменить, и следуйте инструкциям.</p>
 <hr />
 <b>Удаление теста</b>
 <p>Чтобы удалить тест, щелкните на рисунке 
-<img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> 
+<img src="img/delete.gif" border="0" align="absmiddle"> 
 рядом с тестом, который нужно удалить.</p>
 <hr />
 <b>Назначение теста</b>
 <p>Чтоы студенты могли работать с тестом, его нужно назначить, щелкнув на рисунке 
-<img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> рядом с нужным тестом.</p>
+<img src="img/invisible.gif" border="0" align="absmiddle"> рядом с нужным тестом.</p>
 <hr />
 <b>Проверка работы теста</b>
 <p>Вы можете проверить функционирование теста, выбрав его название в списке тестов.</p>
@@ -357,34 +600,12 @@ $_lang['ExerciseContent'] = "<p>Модуль тестов позволяет вам создавать тесты, сод
 Банк вопросо также позволяет использовать один и тот же вопрос в нескольких тестах.<br /><br />
 По умолчанию показаны все вопросы вашего курса. Вы можете сделать видимыми вопросы, которые касаются конкретного теста, 
 выбрав его в разворачивающемся списке &quot;Фильтр&quot;.<br /><br />
-Одиночные вопросы - это вопросы, не входящие ни в один тест.</p>";
-$_lang['ExerciseDescription'] = "Описание теста";
-$_lang['ExerciseManagement'] = "администрирование теста";
-$_lang['ExerciseName'] = "Название теста";
-$_lang['ExerciseNotFound'] = "Тест не найден";
-$_lang['ExerciseType'] = "Тип теста";
-$_lang['ExistingGroups'] = "зТХРРЩ";
-$_lang['ExpectedChoice'] = "ожидаемый выбор";
-$_lang['Explanation'] = "Эта страница дожна быть в формете HTML (например, \"my_page.htm\"). 
-Она будет связана ссылкой с главной страницей курса. 
-Если вы хотите разместить документ в другом формате 
-(PDF, Power Point, Word...) используйте средство <a href=../document/document.php> Учебные материалы</a>";
-$_lang['FileError'] = "Файл для размещения не подходит.";
-$_lang['FileExists'] = "Невозможно осуществить операцию.
-
-<br />Файл с таким именем уже существует.";
-$_lang['FillBlanks'] = "Заполнение пропусков";
-$_lang['FillGroups'] = "ъБРПМОЙФШ ЗТХРРХ(Щ)";
-$_lang['FillLists'] = "Заполните два списка ниже";
-$_lang['Filter'] = "Фильтр";
-$_lang['Finish'] = "Закончить";
-$_lang['FirstName'] = "Фамилия";
-$_lang['Firstname'] = "Имя";
-$_lang['ForContent'] = "Форум - это асинхронное средство для письменного общения. 
+Одиночные вопросы - это вопросы, не входящие ни в один тест.</p>';
+$_lang['blockForumsHelp'] = 'Форум - это асинхронное средство для письменного общения. 
 В отличие от электронной почты, пространство форума открыто всем ли только членам группы. 
 </p><p>Чтобы использовать форум, студентам нужен только обычный iCampus, (Netscape, Explorer...),
 им не нужны почтовые программы (Eudora, Bat!, Outlook...).</P>
-<p>Чтобы создать форумы, щелкните на кнопке 'Администрировать'.
+<p>Чтобы создать форумы, щелкните на кнопке \'Администрировать\'.
 Обмен сообщениями организуется в следующей иерархической форме:</p>
 <p><b>Раздел > Форум > Тема > Ответ</b></p>
 Чтобы позволить вашим студентам общаться, структурируя свои высказывания, необходимо 
@@ -393,44 +614,27 @@ $_lang['ForContent'] = "Форум - это асинхронное средство для письменного общения
 Вы можете добавить форумы для общего доступа, изменить его название, или создать другие разделы, 
 в которых можно будет создать новые форумы. Раздел, не содержащий форумов, не будет виден студентам. 
 Его невозможно использовать. Например, если вы создаете раздел 
-'дискуссии в малых группах', вам нужно будет создать серию форумов 
-в этом разделе, например, 'группа 1', 'группа 2', 'группа 3', и т.д.</p>
+\'дискуссии в малых группах\', вам нужно будет создать серию форумов 
+в этом разделе, например, \'группа 1\', \'группа 2\', \'группа 3\', и т.д.</p>
 <p>Описание форума группы может быть списком студентов, которые приглашены для дискуссий в нем, 
-но также и пояснением целей форума. Если вы создаете, например, форум 'Призывы на помощь', 
-вы можете добавить как описание: 'Указывать на трудности в содержании или функционировании курса'.";
-$_lang['Force'] = "Заставить собеседника признать, что он не знает того, что претендует знать, с помощью серии вопросов и подвопросов.";
-$_lang['Formula'] = "С уважением";
-$_lang['Forum'] = "жПТХН";
-$_lang['ForumGroup'] = "Форум группы";
-$_lang['Forums'] = "Форумы";
-$_lang['From'] = "с";
-$_lang['GetExistingQuestion'] = "Взять вопрос из другого теста";
-$_lang['GiveAdminRight'] = "Разрешить права администратора существующему пользователю";
-$_lang['GiveAnswers'] = "Дайте ответы на этот вопрос";
-$_lang['GiveExerciseName'] = "Введите название теста";
-$_lang['GiveQuestion'] = "Введите вопрос";
-$_lang['GiveText'] = "Введите текст";
-$_lang['GoBackToEx'] = "Назад к тесту";
-$_lang['GoBackToQuestionList'] = "Назад к списку вопросов";
-$_lang['GoBackToQuestionPool'] = "Назад к банку вопросов";
-$_lang['Group'] = "зТХРРБ";
-$_lang['GroupAllowStudentRegistration'] = "уФХДЕОФБН ТБЪТЕЫЕОП УБНПУФПСФЕМШОП ЪБРЙУЩЧБФШУС Ч ЗТХРРЩ";
-$_lang['GroupContent'] = "<p><b>Введение</b></p>
+но также и пояснением целей форума. Если вы создаете, например, форум \'Призывы на помощь\', 
+вы можете добавить как описание: \'Указывать на трудности в содержании или функционировании курса\'.';
+$_lang['blockGroupsHelp'] = '<p><b>Введение</b></p>
 	<p>Это средство позволяет создавать и управлять рабочими группами. При создании группы являются пустыми. 
 У преподавателя есть несколько способов их наполнить:  
-	<ul><li>автоматический ('Наполнить группы'),</li>
-	<li>штучный ('Редактировать'),</li>
-	<li>с помощью студентов (Свойства: 'Студентам разрешено ...').</li></ul>
+	<ul><li>автоматический (\'Наполнить группы\'),</li>
+	<li>штучный (\'Редактировать\'),</li>
+	<li>с помощью студентов (Свойства: \'Студентам разрешено ...\').</li></ul>
 	Эти способы регистрации в группах взаимодополняют друг друга. Так, можно попросить студентов 
 	зарегистрироваться самостоятельно, затем обнаружить, что некоторые из них забыли 
-	записаться и выбрать средство 'заполнить группы', что на самом деле приведет к их дополнению. 
-    С помощью функции 'Редактировать') можно вручную изменить состав групп после автоматического заполнения 
+	записаться и выбрать средство \'заполнить группы\', что на самом деле приведет к их дополнению. 
+    С помощью функции \'Редактировать\') можно вручную изменить состав групп после автоматического заполнения 
 	или саморегистрации студентов.</p>
 	<p>Заполнение групп, автоматическое или осуществляемое вручную, возможно только в случае 
 	предварительной записи студентов на курс, что можно проверить с помощью ссылки 
-	'Пользователи'.</p><hr noshade size=1>
+	\'Пользователи\'.</p><hr noshade size=1>
 	<p><b>Создать группы</b></p>
-	<p>Чтобы создать новые группы, щелкните на ссылке 'Создать новую(ые) группу(ы)' 
+	<p>Чтобы создать новые группы, щелкните на ссылке \'Создать новую(ые) группу(ы)\' 
 	и определите количество групп, которое вы хотите создать. 
 Уточнение максимального количества участников не является обязательным. Если вы оставите это поле без изменения, 
 размер группы не будет ограничен. 
@@ -450,386 +654,73 @@ $_lang['GroupContent'] = "<p><b>Введение</b></p>
 	<p>Создав группы, вы можете увидеть список их участников с дополнительной информацией и функциями. 
 <ul><li><b>Редактировать</b> позволяет вручную изменить состав группы.</li>
 	<li><b>Удалить</b> стирает группу.</li></ul>
-	<hr noshade size=1>";
-$_lang['GroupDel'] = "зТХРРБ ХДБМЕОБ";
-$_lang['GroupDescription'] = "пРЙУБОЙЕ ЗТХРРЩ";
-$_lang['GroupDocument'] = "хЮЕВОЩЕ НБФЕТЙБМЩ";
-$_lang['GroupDocumentsLink'] = "Документы группы";
-$_lang['GroupFilledGroups'] = "Группы были заполнены (или укомплектованы) студентами из списка 
-'Пользователи'.";
-$_lang['GroupForum'] = "жПТХН";
-$_lang['GroupMembers'] = "хЮБУФОЙЛЙ ЗТХРРЩ";
-$_lang['GroupName'] = "оБЪЧБОЙЕ ЗТХРРЩ";
-$_lang['GroupNoTutor'] = "(нет)";
-$_lang['GroupNone'] = "(нет)";
-$_lang['GroupNoneMasc'] = "(нет)";
-$_lang['GroupNowMember'] = "Отнеыне вы являетесь участником данной группы";
-$_lang['GroupPlacesThis'] = "НЕУФ (РП ЦЕМБОЙА)";
-$_lang['GroupProperties'] = "уЧПКУФЧБ ЗТХРР";
-$_lang['GroupPropertiesModified'] = "уЧПКУФЧБ ЗТХРР ВЩМЙ ЙЪНЕОЕОЩ";
-$_lang['GroupSelfRegInf'] = "Записаться";
-$_lang['GroupSelfRegistration'] = "Запись";
-$_lang['GroupSettingsModified'] = "уЧПКУФЧБ ЗТХРРЩ ЙЪНЕОЕОЩ.";
-$_lang['GroupSpace'] = "рТПУФТБОУФЧП ЗТХРРЩ";
-$_lang['GroupSpaceLink'] = "Пространство группы";
-$_lang['GroupThisSpace'] = "рТПУФТБОУФЧП ЬФПК ЗТХРРЩ";
-$_lang['GroupTooMuchMembers'] = "Количество предложенный участников группы превышает максимум, установленный вами. 
-Состав группы не был изменен. Вы можете изменить максимальное количество студентов в группе ниже.";
-$_lang['GroupTools'] = "уТЕДУФЧБ ХРТБЧМЕОЙС";
-$_lang['GroupTutor'] = "Тьютор";
-$_lang['GroupUserManagement'] = "Управление группами";
-$_lang['Groups'] = "запись пользователей в группы";
-$_lang['GroupsAdded'] = "ЗТХРРБ(Щ) ДПВБЧМЕОБ(Щ)";
-$_lang['GroupsDeleted'] = "чУЕ ЗТХРРЩ ХДБМЕОЩ";
-$_lang['GroupsEmptied'] = "чУЕ ЗТХРРЩ ФЕРЕТШ РХУФЩ";
-$_lang['HClar'] = "Помощь при входе в курс";
-$_lang['HDoc'] = "Помощь Учебные материалы";
-$_lang['HExercise'] = "Помощь по тестам";
-$_lang['HFor'] = "Помощь по форумам";
-$_lang['HHome'] = "Помощь Главная страница";
-$_lang['HUser'] = "Помощь пользователям";
-$_lang['HasDel'] = "Был удален";
-$_lang['Heading'] = "Название";
-$_lang['Help'] = "рПНПЭШ";
-$_lang['HelpGroups'] = "Управление группами";
-$_lang['Hits'] = "Хиты";
-$_lang['Home'] = "Вернуться на главную страницу";
-$_lang['HomeContent'] = "Большинство рубрик платформы уже имеют небольшой текст или ссылку, 
+	<hr noshade size=1>';
+$_lang['blockHomepageHelp'] = 'Большинство рубрик платформы уже имеют небольшой текст или ссылку, 
 приведенные в качестве примера. Вам нужно их изменить. </p>
 <p>Так, в заголовке вашего сайта вы видите небольшой текст. Она начинается так: 
-'Это вводный текст к вашему сайту...' Измените его и пользуйтесь им, чтобы 
+\'Это вводный текст к вашему сайту...\' Измените его и пользуйтесь им, чтобы 
 описать курс, его цели и задачи, вашу систему. Так лучше будет видна ваша работа. 
 </p><p>При создании вашего сайта курса, многочисленные средства (Календарь, Учебные материалы, 
 тесты...) будут активированыф по умолчанию. Советуем вам дезактивировать те средства, которые 
 вы не будете использовать, чтобы не заставлять ваших пользователей терять время. 
 </p><p>Вы также можете добавлять страницы на вашу главную страницу. 
-Используйте ссылку 'добавить страницу', чтобы добавить страницу, разместив ее на сервере. 
+Используйте ссылку \'добавить страницу\', чтобы добавить страницу, разместив ее на сервере. 
 Если, напротив, вы хотите сделать ссылку на уже существующие страницу  или сайт, 
-используйте ссылку 'Ссылка на сайт'. Страницы и ссылки, которые вы добавляете на первую страницу, 
+используйте ссылку \'Ссылка на сайт\'. Страницы и ссылки, которые вы добавляете на первую страницу, 
 могут быть дезактивированы и позднее удалены, в отличие от средств, существующих по умолчанию, которые можно 
 дезактивировать, но невозможно удалить.</p>
 <p>Вам также решать, должен ли ваш курс фигурировать в списке курсов. Желательно, чтобы 
 пробный курс или курс в процессе разработки не фигурировал в списке (см. функцию 
-'Свойства курса') и не давал возможности записи во время его разработки.</p>";
-$_lang['Hour'] = "Час";
-$_lang['Impossible'] = "Невозможно осуществить операцию";
-$_lang['In'] = "в";
-$_lang['Indeed'] = "Действительно. Ирония Сократа это метод постановки вопросов. Греческое слово \"eirotao\" означает \"вопрошать\".";
-$_lang['Info2Say'] = "Информация для сообщения <br />студентам";
-$_lang['InvalidId'] = "Это имя пользователя не действительно. Если вы еще не зарегистрированы, 
-заполните <a href='claroline/auth/inscription.php'>бланк регистрации</a></font color>";
-$_lang['Is'] = "-";
-$_lang['IsNowInYourDocDir'] = "сейчас в вашей папке Учебные материалы. <br /><B>Внимание, он виден всем</B>";
-$_lang['JustCreated'] = "Вы  только что создали сайт курса";
-$_lang['Language'] = "Язык";
-$_lang['Last31days'] = "за последние 31 день";
-$_lang['Last7Days'] = "За последние 7 дней";
-$_lang['LastCheck'] = "Последняя проверка перед установкой";
-$_lang['LastMsg'] = "Последнее сообщение";
-$_lang['LastMsgs'] = "Последние сообщения";
-$_lang['LastName'] = "Имя";
-$_lang['Lasting'] = "Продолжительность";
-$_lang['Lastname'] = "Фамилия";
-$_lang['LessAnswers'] = "-отв";
-$_lang['LessElements'] = "-элем";
-$_lang['Licence'] = "Лицензия";
-$_lang['Line'] = "строка";
-$_lang['LineNumber'] = "Количество строк";
-$_lang['LineOrLines'] = "строка(и)";
-$_lang['Lines'] = "строки";
-$_lang['Link'] = "Ссылки";
-$_lang['ListAdmin'] = "Список администраторов";
-$_lang['ListHtUsers'] = "Список имен пользователей htAccess";
-$_lang['ListStudents'] = "Список пользователей этой группы";
-$_lang['Login'] = "Вход, логин";
-$_lang['LoginRequest'] = "Просьба имени пользователя";
-$_lang['LoginWithoutAccess'] = "Неиспользуемые аккаунты";
-$_lang['Logins'] = "Подключений";
-$_lang['LoginsAndAccessTools'] = "Подключения и доступ к средствам";
-$_lang['LoginsDetails'] = "Нажмите на названии месяца для большего количества деталей";
-$_lang['LoginsTitleCountColumn'] = "Количество подключений";
-$_lang['LoginsTitleMonthColumn'] = "Месяц";
-$_lang['Logout'] = "Выйти";
-$_lang['LostPassword'] = "Пароль утерян";
-$_lang['MailTo'] = "Контакт : ";
-$_lang['MainDB'] = "Основная база данных Claroline";
-$_lang['MakeCorrespond'] = "найдите соответствия";
-$_lang['Manage'] = "Управление кампусом";
-$_lang['Manager'] = "Ответственный";
-$_lang['ManyAnswers'] = "(возможны несколько вариантов правильных ответов)";
-$_lang['Matching'] = "Соответствия";
-$_lang['Max'] = "НБЛУЙНХН";
-$_lang['MaxFileSize'] = "Максимальный размер";
-$_lang['MaxSizeCourseCode'] = "НБЛУЙНХН 12 ЪОБЛПЧ, ОБРТЙНЕТ <i>LIT2121</i>";
-$_lang['Message'] = "Когды вы удалите форум Пробный форум, это также удалит данную тему, которая содержит только это сообщение";
-$_lang['Missing'] = "отсутствующий";
-$_lang['MissingImagesDetected'] = "Обнаружены недостающие изображения";
-$_lang['ModifAnn'] = "Изменить объявление";
-$_lang['ModifDone'] = "Информация была изменена";
-$_lang['Modify'] = "йЪНЕОЙФШ";
-$_lang['ModifyInAllExercises'] = "для всех тестов";
-$_lang['ModifyInThisExercise'] = "только для текущего теста";
-$_lang['ModifyProfile'] = "Изменить мои настройки";
-$_lang['MoreAnswers'] = "+отв";
-$_lang['MoreElements'] = "+элем";
-$_lang['Move'] = "Переместить";
-$_lang['MoveDown'] = "Вниз";
-$_lang['MoveUp'] = "Вверх";
-$_lang['MultipleEmails'] = "Аккаунты с тем же <i>Email</i>";
-$_lang['MultipleLogins'] = "Аккаунты одного <i>пользователя</i>";
-$_lang['MultipleSelect'] = "Множественный выбор (несколько правильных ответов)";
-$_lang['MultipleUsernameAndPassword'] = "Аккаунты с тем же <i>именем пользователя</i> и 
-<i>паролем</i>";
-$_lang['MyCourses'] = "Список моих курсов";
-$_lang['MyGroup'] = "моя группа";
-$_lang['MyStats'] = "Моя статистика";
-$_lang['NULLValue'] = "Пустой (или <i>NULL</i>)";
-$_lang['NameDir'] = "Название новой папки";
-$_lang['NewBloc'] = "Другой";
-$_lang['NewEx'] = "Новый тест";
-$_lang['NewGroupCreate'] = "уПЪДБФШ ОПЧХА(ЩЕ) ЗТХРРХ(Щ)";
-$_lang['NewGroups'] = "ОПЧБС(ЩЕ) ЗТХРРБ(Щ)";
-$_lang['NewQu'] = "Новый вопрос";
-$_lang['NewToOld'] = "Изменить порядок";
-$_lang['NewTopic'] = "Начать новую тему";
-$_lang['Next'] = "Дальше";
-$_lang['NextDay'] = "Следующий день";
-$_lang['NextMonth'] = "Следующий месяц";
-$_lang['NextWeek'] = "Следующая неделя";
-$_lang['NextYear'] = "Следующий год";
-$_lang['No'] = "Нет";
-$_lang['NoAnswer'] = "В настоящий момент ответов нет";
-$_lang['NoEmail'] = "нет email";
-$_lang['NoEx'] = "В данный момент тестов нет";
-$_lang['NoGroupStudents'] = "уФХДЕОФЩ ВЕЪ ЗТХРРЩ";
-$_lang['NoPsychology'] = "Нет. Ирония Сократа относится не к области психологии, но к области аргументирования.";
-$_lang['NoQuestion'] = "Сецчас нет вопросов";
-$_lang['NoResult'] = "Нет результата";
-$_lang['NoSeduction'] = "Нет. Речь идет не о стратегии завоевания привлекательности или методе примера.";
-$_lang['NoSpace'] = "Размещение файла не удалось. В вашей папке недостаточно места";
-$_lang['NomPageAddHtPass'] = "Дать доступ к администрированию";
-$_lang['None'] = "нет";
-$_lang['NotAllowed'] = "Вы не зарегистрированы как ответственный за курс";
-$_lang['NotFalse'] = "Этот ответ нельзя признать неправильным. Верно, что выявление незнания собеседника проводится путем выявления противоречий, к которым приводят его тезисы.";
-$_lang['Notice'] = "Примечание";
-$_lang['Now'] = "сейчас";
-$_lang['NowGoChooseYourCourses'] = "Теперь вы можете выбрать курсы, к которым вы хотите иметь доступ.";
-$_lang['NowGoCreateYourCourse'] = "Теперь вы можете создать свой курс.";
-$_lang['Ok'] = "Ok";
-$_lang['OldToNew'] = "Изменить порядок";
-$_lang['On'] = "на";
-$_lang['OneByOne'] = "Добавить пользователя вручную";
-$_lang['OneMyGroups'] = "одна из моих групп";
-$_lang['OneResp'] = "Один из отетственных за курс";
-$_lang['Optional'] = "не обязательный";
-$_lang['OrphanQuestions'] = "Одиночные вопросы";
-$_lang['OtherCourses'] = "Список курсов";
-$_lang['OtherWorks'] = "другие функции";
-$_lang['PassTooEasy'] = "Этот пароль слишком простой. Выберите другой пароль, например: ";
-$_lang['PassTwice'] = "Пароль, набранный вами дважды, не идентичен. Используйте кнопку Назад вашего браузера
-и повторите операцию.";
-$_lang['Password'] = "пароль";
-$_lang['PeriodDay'] = "День";
-$_lang['PeriodHour'] = "Час";
-$_lang['PeriodMonth'] = "Месяц";
-$_lang['PeriodToDisplay'] = "Период";
-$_lang['PeriodWeek'] = "Неделя";
-$_lang['PeriodYear'] = "Год";
-$_lang['Places'] = "НЕУФ ОБ ЗТХРРХ (РП ЦЕМБОЙА)";
-$_lang['PlatformAccess'] = "Доступ к кампусу";
-$_lang['PlatformCoursesAccess'] = "Доступ к курсам";
-$_lang['PlatformStats'] = "Статистика по кампусу";
-$_lang['PoweredBy'] = "использует оболочку";
-$_lang['PreviousDay'] = "Предыдущий день";
-$_lang['PreviousMonth'] = "Предыдущий месяц";
-$_lang['PreviousWeek'] = "Предыдущая неделя";
-$_lang['PreviousYear'] = "Предыдущий год";
-$_lang['PrintVers'] = "Версия для печати";
-$_lang['Private'] = "закрыт";
-$_lang['PrivateAccess'] = "Закрытый доступ (сайт доступен только пользователям, указанным в списке <a href=../user/user.php>пользователи</a>)";
-$_lang['Problem'] = "В случае проблем, свяжитесь с нами.";
-$_lang['Professor'] = "Преподаватель";
-$_lang['Professors'] = "рТЕРПДБЧБФЕМШ(Й)";
-$_lang['ProfileReg'] = "Ваши новые настройки сохранены.";
-$_lang['Publ'] = "Опубликовано ";
-$_lang['Public'] = "открыт всем";
-$_lang['PublicAccess'] = "вободный доступ (со страницы Кампуса баз пароля)";
-$_lang['Publish'] = "Опубликовать";
-$_lang['QtyOfUserCanSubscribe_PartAfterNumber'] = "группу";
-$_lang['QtyOfUserCanSubscribe_PartBeforeNumber'] = "Пользователь может быть записан в";
-$_lang['Question'] = "Вопрос";
-$_lang['QuestionAnswers'] = "Ответы на вопрос";
-$_lang['QuestionDescription'] = "Комментарий к вопросу (по желанию)";
-$_lang['QuestionList'] = "Список вопросов теста";
-$_lang['QuestionManagement'] = "администрирование вопросов и ответов";
-$_lang['QuestionNotFound'] = "Вопрос не найден";
-$_lang['QuestionPlan'] = "Вопросы по планированию <br />для преподавателя";
-$_lang['QuestionPool'] = "Банк вопросов";
-$_lang['QuestionWeighting'] = "Вес вопроса";
-$_lang['Questions'] = "Вопросы";
-$_lang['RandomQuestions'] = "Случайные вопросы";
-$_lang['Reg'] = "Регистрация";
-$_lang['RegAdmin'] = "Создать сайты курсов";
-$_lang['RegIntoGroup'] = "Добавить меня в эту группу";
-$_lang['RegStudent'] = "Записать меня на курсы";
-$_lang['RegUser'] = "эти пользователи";
-$_lang['RegYou'] = "зарегистрировал вас на ";
-$_lang['Registered'] = "ъБРЙУБОЩ";
-$_lang['Remove'] = "Удалить";
-$_lang['Rename'] = "Переименовать";
-$_lang['Reply'] = "Ответить";
-$_lang['Requirements'] = "Требования";
-$_lang['Result'] = "Результат";
-$_lang['Reuse'] = "восстановить";
-$_lang['Ridiculise'] = "Высмеять своего собеседника, чтобы заставить его принять свою ошибку.";
-$_lang['Role'] = "Роль";
-$_lang['Save'] = "Сохранить";
-$_lang['Score'] = "баллы";
-$_lang['Seen'] = "Прочитанные";
-$_lang['SelectAUser'] = "Выбрать пользователя";
-$_lang['SequentialExercise'] = "Один вопрос на страницу (разбивка)";
-$_lang['SetAdmin'] = "Сделать администратором";
-$_lang['Settings'] = "со следующими параметрами: Имя пользователя:";
-$_lang['ShowAll'] = "Показать все";
-$_lang['ShowNone'] = "Скрыть все";
-$_lang['SimpleExercise'] = "Вопросы на одной странице";
-$_lang['Size'] = "Размер";
-$_lang['SocraticIrony'] = "Ирония Сократа заключается в...";
-$_lang['StatDB'] = "База для отслеживания действий пользователей.  Полезна в том случае, если 
-вы используете отдельно центральную базу и отслеживание пользователей";
-$_lang['Statistics'] = "Статистика";
-$_lang['StatsOfCampus'] = "Статистика по кампусу";
-$_lang['StatsOfCourse'] = "Статистика по курсу";
-$_lang['StatsOfUser'] = "Статистика по пользователю";
-$_lang['Status'] = "Действие";
-$_lang['Student'] = "студент";
-$_lang['StudentsNotInThisGroups'] = "Пользователи, не записанные в эту группу";
-$_lang['Subscription'] = "Регистрация";
-$_lang['SupportForum'] = "Форум поддержки";
-$_lang['Take'] = "взять";
-$_lang['TargetFac'] = "тЕЮШ ЙДЕФ П ЖБЛХМШФЕФЕ, ЛБЖЕДТЕ, ЫЛПМЕ... Ч ЛПФПТЩИ ЧЕДЕФУС ЛХТУ";
-$_lang['TestForum'] = "Пробный форум";
-$_lang['TheU'] = "Пользователь";
-$_lang['ThisCourseDescriptionIsEmpty'] = "Описание курса не заполнено";
-$_lang['Thisday'] = "Сегодня";
-$_lang['TipLang'] = "Этот язык будет рабочим языком для всех посетителей вашего сайта курса.";
-$_lang['Title'] = "Заголовок";
-$_lang['Titular'] = "Ответственный";
-$_lang['To'] = "в";
-$_lang['ToDate'] = "по";
-$_lang['TooBig'] = "Вы не выбрали файл для размещения, или он слишком большой";
-$_lang['ToolTitleCountColumn'] = "Общее количество переходов";
-$_lang['ToolTitleToolnameColumn'] = "Название средства";
-$_lang['ToolTitleUsersColumn'] = "Переходов зарегистрированных пользователей";
-$_lang['Tools'] = "уТЕДУФЧБ ХРТБЧМЕОЙС";
-$_lang['ToolsAccess'] = "Доступ к средства";
-$_lang['Total'] = "Всего";
-$_lang['TotalPlatformAccess'] = "Всего";
-$_lang['TotalPlatformLogin'] = "Всего";
-$_lang['Tracking'] = "Действия пользователей";
-$_lang['TrackingDisabled'] = "Система статистики и отслеживания действий пользователей дезактивирована 
-администратором системы.";
-$_lang['TrafficDetails'] = "Детали трафика";
-$_lang['True'] = "Верно";
-$_lang['TypeTextBelow'] = "Введите ваш текст ниже";
-$_lang['Uncompress'] = "Раскрыть архив .zip";
-$_lang['Uncompulsory'] = "(РП ЦЕМБОЙА)";
-$_lang['UniqueSelect'] = "Множественный выбор (один правильный ответ)";
-$_lang['Unreg'] = "Отписать";
-$_lang['Unvalid'] = "имеют недействующий электронный адрес или не имеют адреса";
-$_lang['Up'] = "вверх";
-$_lang['Updated'] = "обновлен";
-$_lang['Upgrade'] = "Обновление claroline";
-$_lang['UploadAndZipEnd'] = " Файл .zip был послан и раскрыт";
-$_lang['UploadEnd'] = "Размещение файла завершено";
-$_lang['UploadFile'] = "Разместить файл на сервере";
-$_lang['UseTagForBlank'] = "используйте квадратные скобки [...], чтобы создать пропуск(и)";
-$_lang['UsedInSeveralExercises'] = "Внимание! Этот вопрос и ответы к нему используются в нескольких тестах. Вы хотите их изменить?";
-$_lang['User'] = "Пользователи";
-$_lang['UserContent'] = "<b>Права администрирования</b>
+\'Свойства курса\') и не давал возможности записи во время его разработки.</p>';
+$_lang['blockUsersHelp'] = '<b>Права администрирования</b>
 <p>Чтобы позволить коллеге, асситенту, тьютору или любому другому лицу 
 управлять сайтом вместе с вами, вы должны предварительно вписать его на ваш курс 
 или убедиться в том, что он записан. Затем изменить его права доступа,
-выбрав 'изменить' под текстов 'права администратора.' затем
- 'все'.</P><hr />
+выбрав \'изменить\' под текстов \'права администратора.\' затем
+ \'все\'.</P><hr />
 <b>Коллеги</b>
 <p>Чтобы имя вашего коллеги появилось во введении к курсу, 
-используйте страницу 'Изменить информацию о курсе' (в средствах, выделенных оранжевым цветом
+используйте страницу \'Изменить информацию о курсе\' (в средствах, выделенных оранжевым цветом
 на главной странице вашего курса). Это изменение заголовка курса не влечет за собой автоматической
 регистрации этого коллеги как пользователя курса. Это две разных операции. </p><hr />
 <b>Добавить пользователя</b>
 <p>Чтобы добавить пользователя на ваш курс, заполните поля и подвердите. Заинтересованное лицо получит 
 электронное письмо с подтверждением его записи на курс и его именем пользователя и паролем, если вы указали 
-его электронный адрес. </p>";
-$_lang['UserName'] = "Имя пользователя";
-$_lang['UserNumber'] = "Количество пользователей";
-$_lang['UserOneByOneExplanation'] = "Он получит по электронной почте имя пользователя и пароль.";
-$_lang['UserTaken'] = "Выбранное вами имя пользователя уже используется.";
-$_lang['Users'] = "Пользователи";
-$_lang['ViMod'] = "Функция видимый / скрытый изменена";
-$_lang['ViewToolList'] = "Просмотреть список всех средств";
-$_lang['Visibility'] = "Видимая/скрытая";
-$_lang['Visits'] = "посещений";
-$_lang['WeightingForEachBlank'] = "Дайте вес каждому вопросу";
-$_lang['Work'] = "Задания";
-$_lang['WorkAuthors'] = "Авторы";
-$_lang['WorkTitle'] = "Заголовок";
-$_lang['WorkUploads'] = "Отправленных работ";
-$_lang['WorksDetails'] = "Работы, размещенные студентом под именем 'Авторы'";
-$_lang['Yes'] = "Да";
-$_lang['YouAreReg'] = "Вы зарегистрированы на ";
-$_lang['YourAccountParam'] = "Вот ваши параметры подключения";
-$_lang['YourReg'] = "Вааша регистрация на";
-$_lang['YourTotalScore'] = "Общее количество набранных вами баллов";
-$_lang['ZipNoPhp'] = "Файл ZIP не может содержать файлов с расширением .php";
-$_lang['_already_enrolled'] = "Уже записан";
-$_lang['_back_to_my_personnal_course_list'] = "Назад к моему личному списку курсов";
-$_lang['_course_enrollment'] = "Курс пользователя";
-$_lang['_enroll'] = "Регистрация";
-$_lang['_my_personnal_course_list'] = "Мой личный список курсов";
-$_lang['_no_access_here'] = "Нет доступа ";
-$_lang['_php_info'] = "Информация о системе php";
-$_lang['_select_course_in'] = "Выберите курс в ";
-$_lang['_select_course_in_search_results'] = "Выберите курс в результатах поиска";
-$_lang['_unsubscribe'] = "Отмена регистрации";
-$_lang['author'] = "автор";
-$_lang['body'] = "Сообщение";
-$_lang['click'] = "Щелкните";
-$_lang['delete'] = "Удалить это сообщение";
-$_lang['deleted'] = "Ваше Сообщение удалено.";
-$_lang['emptymsg'] = "Введите текст Сообщение. Вы не можете разместить пустое Сообщение.";
-$_lang['here'] = "здесь";
-$_lang['indextitle'] = "Оглавление форума";
-$_lang['lastpost'] = "Последнее Сообщение";
-$_lang['notify'] = "сообщить по электронный почте об ответах на сообщение";
-$_lang['notifybody'] = "Вы получили это письмо, так как поступил ответ на сообщение, которое вы разместили на
-форуме, и вы просили проинформировать вас об этом.
-
-Вы можете увидеть тему по адресу:
-
-%1\$s
-
-Или просмотреть оглавление форума по адресу
-
-%2\$s
-
-Спасибо за использование форума.
-
-До свидания.";
-$_lang['notifysubj'] = "Поступил ответ на вашу тему.";
-$_lang['notopics'] = "В этом форуме нет тем. Вы можете начать новую тему.";
-$_lang['posted'] = "Опубликовано ";
-$_lang['poster'] = "редактор";
-$_lang['posts'] = "Сообщений";
-$_lang['returnindex'] = "чтобы вернуться к оглавлению форума";
-$_lang['returntopic'] = "чтобы вернуться к списку тем форума.";
-$_lang['separator'] = " > ";
-$_lang['stored'] = "Ваше Сообщение записано.";
-$_lang['subject'] = "Тема";
-$_lang['topic'] = "Тема";
-$_lang['topicreview'] = "Обзор темы";
-$_lang['topics'] = "Темы";
-$_lang['topictitle'] = "Читать Тема";
-$_lang['viewforum'] = "Зайти в форум";
-$_lang['viewmsg'] = "чтобы увидеть ваше Сообщение.";
+его электронный адрес. </p>';
+$_lang['e.g. <em>History of Literature</em>'] = 'ОБРТЙНЕТ, <i>йУФПТЙС МЙФЕТБФХТЩ</i>';
+$_lang['group(s) has (have) been added'] = 'ЗТХРРБ(Щ) ДПВБЧМЕОБ(Щ)';
+$_lang['in all exercises'] = 'для всех тестов';
+$_lang['line'] = 'строка';
+$_lang['lines'] = 'строки';
+$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'НБЛУЙНХН 12 ЪОБЛПЧ, ОБРТЙНЕТ <i>LIT2121</i>';
+$_lang['my group'] = 'моя группа';
+$_lang['my supervision'] = 'одна из моих групп';
+$_lang['new group(s)'] = 'ОПЧБС(ЩЕ) ЗТХРРБ(Щ)';
+$_lang['number'] = 'Количество пользователей';
+$_lang['only in the current exercise'] = 'только для текущего теста';
+$_lang['register'] = 'Записаться';
+$_lang['sampleForumDescription'] = 'Можно удалить через Администрирование форумов';
+$_lang['sampleForumGroupCategory'] = 'Форумы групп';
+$_lang['sampleForumMainCategory'] = 'Общий раздел';
+$_lang['sampleForumMessage'] = 'Когды вы удалите форум Пробный форум, это также удалит данную тему, которая содержит только это сообщение';
+$_lang['sampleForumTitle'] = 'Пробный форум';
+$_lang['sampleForumTopicTitle'] = 'Пример сообщения';
+$_lang['sampleQuizAnswer1'] = 'Высмеять своего собеседника, чтобы заставить его принять свою ошибку.';
+$_lang['sampleQuizAnswer1Comment'] = 'Нет. Ирония Сократа относится не к области психологии, но к области аргументирования.';
+$_lang['sampleQuizAnswer2'] = 'Признать свои ошибки, чтобы призвать собеседника сделать то же самое.';
+$_lang['sampleQuizAnswer2Comment'] = 'Нет. Речь идет не о стратегии завоевания привлекательности или методе примера.';
+$_lang['sampleQuizAnswer3'] = 'Заставить собеседника признать, что он не знает того, что претендует знать, с помощью серии вопросов и подвопросов.';
+$_lang['sampleQuizAnswer3Comment'] = 'Действительно. Ирония Сократа это метод постановки вопросов. Греческое слово "eirotao" означает "вопрошать".';
+$_lang['sampleQuizAnswer4'] = 'Использовать приницп непротиворечия, чтобы привести собеседника в тупик.';
+$_lang['sampleQuizAnswer4Comment'] = 'Этот ответ нельзя признать неправильным. Верно, что выявление незнания собеседника проводится путем выявления противоречий, к которым приводят его тезисы.';
+$_lang['sampleQuizDescription'] = 'История античной философии';
+$_lang['sampleQuizQuestionText'] = '(возможны несколько вариантов правильных ответов)';
+$_lang['sampleQuizQuestionTitle'] = 'Ирония Сократа заключается в...';
+$_lang['sampleQuizTitle'] = 'Пример теста';
+$_lang['seats (optional)'] = 'НЕУФ (РП ЦЕМБОЙА)';
+$_lang['seats by groups (optional)'] = 'НЕУФ ОБ ЗТХРРХ (РП ЦЕМБОЙА)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'Этот пароль слишком простой. Выберите другой пароль, например: ';
+$_lang['to'] = 'по';
+$_lang['uncompress zipped (.zip) file on the server'] = 'Раскрыть архив .zip';
+$_lang['use brackets [...] to define one or more blanks'] = 'используйте квадратные скобки [...], чтобы создать пропуск(и)';
 ?>

@@ -1,124 +1,389 @@
 <?php 
-$_lang['Access'] = "Capaian";
-$_lang['AccessExplain'] = "(When an user open the index of the campus)";
-$_lang['Action'] = "Tindakan";
-$_lang['Activate'] = "Papar";
-$_lang['Add'] = "Tambah";
-$_lang['AddAU'] = "Tambah Ahli";
-$_lang['AddAnn'] = "Tambah Pengumuman";
-$_lang['AddCategory'] = "Tambah Kategori";
-$_lang['AddComment'] = "Tambah/ubahsuai komen ke";
-$_lang['AddEvent'] = "Tambah peristiwa";
-$_lang['AddIntro'] = "Tambah pengenalan";
-$_lang['AddLoginPass'] = "Add a login/pass in .htpassword</a><br />";
-$_lang['AddNewHeading'] = "Tambah Tajuk Utama baru";
-$_lang['AddTutors'] = "Senarai Pengguna (Pentadbir Laman Subjek)";
-$_lang['AddedToCourse'] = "telah didaftarkan dalam Subjek anda";
-$_lang['Address'] = "Alamat ";
-$_lang['AdminEmail'] = "Administrator email";
-$_lang['AdminLogin'] = "Administrator login";
-$_lang['AdminName'] = "Administrator name";
-$_lang['AdminPass'] = "Administrator password";
-$_lang['AdminSurname'] = "Administrator surname";
-$_lang['AdmitError'] = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
-$_lang['Again'] = "Daftar Semula";
-$_lang['Agenda'] = "Agenda";
-$_lang['AllExercises'] = "Semua Latihan";
-$_lang['AllRight'] = "Tiada sesuatu yang luar biasa disini";
-$_lang['Allowed'] = "Dibenarkan";
-$_lang['AlreadyAnswered'] = "Anda telah menjawab soalan tersebut";
-$_lang['Among'] = "diantara";
-$_lang['And'] = "dan";
-$_lang['AnnAdd'] = "Pengumuman telah ditambah";
-$_lang['AnnDel'] = "Pengumuman telah dipadam";
-$_lang['AnnEmpty'] = "Senarai pengumuman telah dipadam";
-$_lang['AnnModify'] = "Pengumuman telah diubahsuai";
-$_lang['Announcement'] = "Pengumuman";
-$_lang['Anonymous'] = "Anonymous";
-$_lang['Answer'] = "Jawapan";
-$_lang['AnswerType'] = "Jenis Jawapan";
-$_lang['Antique'] = "History of Ancient Philosophy";
-$_lang['Archive'] = "Arkib";
-$_lang['AreYouSureToDelete'] = "Anda pasti untuk memadam";
-$_lang['Back'] = "Kembali";
-$_lang['BackHomeOf'] = "Kembali ke Laman Subjek ";
-$_lang['BackList'] = "Kembali ke senarai";
-$_lang['BackToList'] = "Kembali ke Senarai Pengguna";
-$_lang['BackToUsersList'] = "Kembali ke Senarai Ahli";
-$_lang['ByDel'] = "Proses ini akan menyebabkan Keseluruhan Kandungan Laman Subjek akan digugurkan dari Pangkalan Data dan akan menggugurkan Pelajar yang berdaftar dengan subjek ini.<p>Anda pasti untuk menggugurkan subjek ini";
-$_lang['Cancel'] = "Batal";
-$_lang['CatagoryGroup'] = "Forum Kumpulan";
-$_lang['CatagoryMain'] = "Utama";
-$_lang['Categories'] = "Pusat Pengajian";
-$_lang['Chat'] = "Perbincangan";
-$_lang['Choice'] = "Pilihan anda";
-$_lang['ChooseGoodAnswer'] = "Please choose a good answer";
-$_lang['ChooseGoodAnswers'] = "Please choose one or more good answers";
-$_lang['ClarContent'] = "eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br />Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status 'Pelajar', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
-<p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status 'Pensyarah' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
-<p>Pautan 'Aduan dan Cadangan' memberi kemudahan kepada anda untuk membuat aduan atau cadangan kepada pentadbir sistem.</p>
-<b>ID Pengguna</b><p>Pada kunjungan anda yang seterusnya ke eLearning@kukum, sila masukkan ID Pengguna dan katalaluan serta sahkan capaian anda ke laman subjek tersebut.</p><p><b>Teori Pembelajaran</b><p>Untuk pensyarah, menyediakan program di Internet merupakan persoalan kepada teori pembelajaran.";
-$_lang['Close'] = "Tutup tetingkap";
-$_lang['Code'] = "Kod Subjek";
-$_lang['ComMod'] = "Komen ditambah/ubahsuai";
-$_lang['Comment'] = "Komen";
-$_lang['ConfTip'] = "Secara lalai, subjek anda hanya boleh diakses jika anda pengguna berdaftar. Jika anda inginkan kerahsian,
+$_lang['(When an user open the index of the campus)'] = '(When an user open the index of the campus)';
+$_lang['(none)'] = '(tiada)';
+$_lang['(optional)'] = '(pilihan)';
+$_lang['A reply to your topic has been posted'] = 'Mesej yang hendak dibalas telah dihantar.';
+$_lang['Access'] = 'Capaian';
+$_lang['Access to campus'] = 'Capaian ke Kampus';
+$_lang['Access to courses'] = 'Capaian ke Subjek';
+$_lang['Access to tools'] = 'Capaian untuk Alat Bantu';
+$_lang['Accounts with same <i>Email</i>'] = 'Akaun dengan <i>eMail</i> yang sama';
+$_lang['Accounts with same <i>User name</i>'] = 'Akaun dengan <i>ID Pengguna</i> yang sama';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Akaun dengan <i>ID Pengguna</i> dan <i>Katalaluan</i> yang sama';
+$_lang['Action'] = 'Tindakan';
+$_lang['Activate'] = 'Papar';
+$_lang['Add'] = 'Tambah';
+$_lang['Add a category'] = 'Tambah Kategori';
+$_lang['Add a comment'] = 'Tambah/ubahsuai komen ke';
+$_lang['Add a user'] = 'Tambah Ahli';
+$_lang['Add an event'] = 'Tambah peristiwa';
+$_lang['Add announcement'] = 'Tambah Pengumuman';
+$_lang['Add answ.'] = 'Tambahkan Jawapan';
+$_lang['Add elem.'] = 'Tambah';
+$_lang['Add introduction text'] = 'Tambah pengenalan';
+$_lang['Add me to this group'] = 'Tambah saya dalam Kumpulan ini';
+$_lang['Add new heading'] = 'Tambah Tajuk Utama baru';
+$_lang['Add user manually'] = 'Tambah Pengguna secara manual';
+$_lang['Agenda'] = 'Agenda';
+$_lang['All exercises'] = 'Semua Latihan';
+$_lang['All groups are now empty'] = 'Semua kumpulan tidak mempunyai ahli';
+$_lang['All groups have been deleted'] = 'Semua kumpulan telah dipadam';
+$_lang['Allowed'] = 'Dibenarkan';
+$_lang['Already enroled'] = 'telah sedia mengikuti';
+$_lang['Among'] = 'diantara';
+$_lang['Announcement'] = 'Pengumuman';
+$_lang['Announcement has been added'] = 'Pengumuman telah ditambah';
+$_lang['Announcement has been deleted'] = 'Pengumuman telah dipadam';
+$_lang['Announcement has been modified'] = 'Pengumuman telah diubahsuai';
+$_lang['Announcements list has been cleared up'] = 'Senarai pengumuman telah dipadam';
+$_lang['Anonymous'] = 'Anonymous';
+$_lang['Answer'] = 'Jawapan';
+$_lang['Answer type'] = 'Jenis Jawapan';
+$_lang['Answers to the question'] = 'Jawapan kepada soalan yang dikemukakan';
+$_lang['Are you sure to delete'] = 'Anda pasti untuk memadam';
+$_lang['Area for this group'] = 'Maklumat untuk kumpulan ini';
+$_lang['Author'] = 'Penghantar';
+$_lang['Author(s)'] = 'Disediakan Oleh';
+$_lang['Back'] = 'Kembali';
+$_lang['Back to Home page'] = 'Kembali ke Laman Subjek';
+$_lang['Back to list'] = 'Kembali ke Senarai Pengguna';
+$_lang['Back to my personal course list'] = 'Kembali ke Senarai Subjek Pengguna';
+$_lang['Back to user list'] = 'Kembali ke Senarai Ahli';
+$_lang['Cancel'] = 'Batal';
+$_lang['Categories'] = 'Pusat Pengajian';
+$_lang['Chat'] = 'Perbincangan';
+$_lang['Choice'] = 'Pilihan anda';
+$_lang['Claroline help'] = 'Bantuan Pengguna';
+$_lang['Clear up list of announcements'] = 'Padam senarai pengumuman';
+$_lang['Click on the month name for more details'] = 'Klik nama bulan untuk keterangan lanjut';
+$_lang['Close'] = 'Tutup tetingkap';
+$_lang['Comment'] = 'Komen';
+$_lang['Comment modified'] = 'Komen ditambah/ubahsuai';
+$_lang['Confirmation'] = 'Taip Semula';
+$_lang['Copy'] = 'Pindah';
+$_lang['Corresponds to'] = 'Corresponds to';
+$_lang['Course'] = 'Subjek';
+$_lang['Course access'] = 'Capaian untuk Subjek';
+$_lang['Course administrator only'] = 'Untuk Pentadbir Subjek (Pensyarah) Sahaja';
+$_lang['Course code'] = 'Kod Subjek';
+$_lang['Course description'] = 'Penerangan Subjek';
+$_lang['Course manager'] = 'Pentadbir Subjek (Pensyarah)';
+$_lang['Course title'] = 'Tajuk Subjek';
+$_lang['Courses'] = 'subjek.';
+$_lang['Courses not used'] = 'Subjek tidak digunakan';
+$_lang['Courses without a lecturer'] = 'Subjek tanpa Pensyarah';
+$_lang['Create'] = 'Bina';
+$_lang['Create Directory'] = 'Bina Direktori';
+$_lang['Create a course site'] = 'Bina Laman Subjek';
+$_lang['Create a course website'] = 'Bina Laman Subjek';
+$_lang['Create new group(s)'] = 'Bina kumpulan baru';
+$_lang['Database Host'] = 'Database Host';
+$_lang['Date'] = 'Tarikh';
+$_lang['Day'] = 'Hari';
+$_lang['Define Headings'] = 'Bina Borang Cadangan';
+$_lang['Delete'] = 'Padam';
+$_lang['Delete all groups'] = 'Padam semua kumpulan';
+$_lang['Delete the whole course website'] = 'Gugurkan Subjek dari Pangkalan Data';
+$_lang['Denied'] = 'Tidak dibenarkan';
+$_lang['Department'] = 'Kod Pusat Pengajian';
+$_lang['Department URL'] = 'URL Pusat Pengajian';
+$_lang['Description'] = 'Penerangan';
+$_lang['Detail'] = 'Keterangan';
+$_lang['Details'] = 'Keterangan Lanjut';
+$_lang['Directory created'] = 'Direktori dibina';
+$_lang['Document'] = 'Dokumen';
+$_lang['Document deleted'] = 'Dokumen dipadam';
+$_lang['Documents'] = 'Dokumen';
+$_lang['Documents and Links'] = 'Dokumen';
+$_lang['Documents downloaded by the student'] = 'Dokumen yang dimuat turun oleh Pelajar ';
+$_lang['Documents help'] = 'Bantuan Pengguna - Dokumen';
+$_lang['Documents of the group'] = 'Dokumen untuk Kumpulan ';
+$_lang['EG'] = 'e. g.';
+$_lang['Edit'] = 'Ubahsuai';
+$_lang['Edit this group'] = 'Ubahsuai kumpulan ini';
+$_lang['Element list'] = 'Element list';
+$_lang['Element moved'] = 'Dokumen berjaya dipindahkan';
+$_lang['Element renamed'] = 'Dokumen telah ditukar namanya';
+$_lang['Email'] = 'Email';
+$_lang['Empty'] = 'Ruang kosong belum diisi sepenuhnya.<br />Use the <b>Back</b> button on your browser and try again.<br />If you ignore your course\'s code, see the Course Program';
+$_lang['Empty (or NULL)'] = 'Kosong (atau Tiada Nilai)';
+$_lang['Empty all groups'] = 'Kosongkan semua kumpulan';
+$_lang['Enrolment'] = 'Langganan';
+$_lang['Enter'] = 'Masuk';
+$_lang['Exercice not found'] = 'Latihan tidak ditemui';
+$_lang['Exercise description'] = 'Penerangan Latihan';
+$_lang['Exercise management'] = 'Latihan';
+$_lang['Exercise name'] = 'Nama Latihan';
+$_lang['Exercise type'] = 'Jenis Latihan';
+$_lang['Exercises'] = 'Latihan';
+$_lang['Exercises help'] = 'Bantuan Pengguna - Latihan';
+$_lang['Expected choice'] = 'Pilihan Jangkaan';
+$_lang['Fill groups (automatically)'] = 'Penuhkan kumpulan';
+$_lang['Fill in blanks'] = 'Isikan Ruang Kosong';
+$_lang['Filter'] = 'Pilihan';
+$_lang['Finish'] = 'Selesai';
+$_lang['First name'] = 'Nama Pertama';
+$_lang['Follow courses'] = 'Pelajar';
+$_lang['Forum'] = 'Forum Berkumpulan';
+$_lang['Forums'] = 'Forum';
+$_lang['Forums help'] = 'Bantuan Pengguna - Forum';
+$_lang['From'] = 'Dari';
+$_lang['Get a question from another exercise'] = 'Dapatkan soalan dari latihan lain';
+$_lang['Go back to the exercise'] = 'Kembali ke Latihan';
+$_lang['Go back to the question list'] = 'Kembali ke Senarai Soalan';
+$_lang['Go back to the question pool'] = 'Kembali ke Bank Soalan';
+$_lang['Group'] = 'Kumpulan';
+$_lang['Group Tutor'] = 'Jurutera Pengajar/Tutor';
+$_lang['Group area'] = 'Ruangan Kumpulan';
+$_lang['Group deleted'] = 'Satu kumpulan dipadam';
+$_lang['Group management'] = 'Alat Bantu Kumpulan';
+$_lang['Group members'] = 'Ahli Kumpulan';
+$_lang['Group name'] = 'Nama Kumpulan';
+$_lang['Group settings have been modified'] = '<i>Setting</i> kumpulan telah diubahsuai';
+$_lang['Group settings modified'] = '<i>Setting</i> kumpulan diubahsuai';
+$_lang['Groups'] = 'Nama Kumpulan';
+$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Kumpulan ini telah dipenuhkan oleh Pelajar yang berada dalam senarai Pelajar Berdaftar.';
+$_lang['Groups help'] = 'Bantuan Pengguna - Kumpulan';
+$_lang['Groups settings'] = '<i>Setting</i> Kumpulan';
+$_lang['He or she will receive email confirmation with login and password'] = 'Para Pelajar akan menerima email pengesahan ID Pengguna dan Katalaluan';
+$_lang['Heading'] = 'Tajuk';
+$_lang['Help'] = 'Bantuan';
+$_lang['Hits'] = 'Hits';
+$_lang['Home page help'] = 'Bantuan Pengguna - Laman Subjek';
+$_lang['Hour'] = 'Jam';
+$_lang['Information to give to students'] = 'Maklumat untuk Pelajar';
+$_lang['Invalid user : this user doesn\'t exist in your group'] = 'Pengguna tidak sah : pengguna ini tidak terdapat dalam kumpulan';
+$_lang['Language'] = 'Language';
+$_lang['Last 31 days'] = '31 hari lepas';
+$_lang['Last 7 days'] = 'Last 7 days';
+$_lang['Last check before install'] = 'Last check before install';
+$_lang['Last message'] = 'Mesej Terakhir';
+$_lang['Last name'] = 'Nama Terakhir';
+$_lang['Lasting'] = 'Kekal';
+$_lang['Lecturer(s)'] = 'Pensyarah';
+$_lang['Licence'] = 'License';
+$_lang['Line Number'] = 'Bilangan baris';
+$_lang['List of students in this group'] = 'Senarai Pelajar dalam Kumpulan';
+$_lang['Login'] = 'Melog Masuk';
+$_lang['Login request'] = 'Permintaan untuk Login';
+$_lang['Logins'] = 'Masuk';
+$_lang['Logins and access to tools'] = 'Login dan capaian kepada alat bantu';
+$_lang['Logins not used'] = 'Login yang tidak digunakan';
+$_lang['Logout'] = 'Melog Keluar';
+$_lang['Lost password'] = 'Lupa Katalaluan';
+$_lang['Main database'] = 'Main claroline DB';
+$_lang['Make correspond'] = 'Make correspond';
+$_lang['Manager'] = 'Pentadbir Sistem';
+$_lang['Matching'] = 'Suaikan';
+$_lang['Max file size'] = 'Saiz maksimum fail ialah ';
+$_lang['Max.'] = 'Keahlian Maksimum ';
+$_lang['Message body'] = 'Mesej';
+$_lang['Missing'] = 'missing';
+$_lang['Missing images detected'] = 'Gambar hilang dikesan';
+$_lang['Modifies this announcement'] = 'Ubahsuai pengumuman ini';
+$_lang['Modify'] = 'Ubahsuai';
+$_lang['Month'] = 'Bulan';
+$_lang['Move'] = 'Pindah';
+$_lang['Move down'] = 'Ke bawah';
+$_lang['Move up'] = 'Ke atas';
+$_lang['Multiple choice (Multiple answers)'] = 'Pelbagai Jawapan (Lebih dari satu jawapan)';
+$_lang['Multiple choice (Unique answer)'] = 'Pelbagai Jawapan (Satu Jawapan)';
+$_lang['My User Account'] = 'Ubahsuai Maklumat Peribadi';
+$_lang['My course list'] = 'Senarai Subjek';
+$_lang['My personal course list'] = 'Senarai Subjek Individu';
+$_lang['Name of the new directory'] = 'Nama direktori baru';
+$_lang['Name of the tool'] = 'Bilangan Alat Bantu';
+$_lang['New exercise'] = 'Latihan baru';
+$_lang['New question'] = 'Soalan Baru';
+$_lang['New topic'] = 'Topik Baru';
+$_lang['Newest first'] = 'Yang baru dahulu';
+$_lang['Next'] = 'Seterusnya';
+$_lang['Next day'] = 'Hari Seterusnya';
+$_lang['Next month'] = 'Bulan Seterusnya';
+$_lang['Next week'] = 'Minggu Seterusnya';
+$_lang['Next year'] = 'Tahun Seterusnya';
+$_lang['No'] = 'Tidak';
+$_lang['No email address specified'] = 'Alamat email tidak dinyatakan';
+$_lang['No result'] = 'Tiada Keputusan';
+$_lang['No way'] = 'Tiada Kebenaran';
+$_lang['None'] = 'Tiada satu pun';
+$_lang['Not allowed'] = 'Tidak dibenarkan';
+$_lang['Notice'] = 'Pemberitahuan';
+$_lang['Notify by email when replies are posted'] = 'Pemberitahuan melalui email apabila mesej anda dibalas';
+$_lang['Now'] = 'Sekarang';
+$_lang['Number of courses'] = 'Nama Subjek';
+$_lang['Number of courses by faculty'] = 'Bilangan subjek mengikut Pusat Pengajian ';
+$_lang['Number of courses by language'] = 'Bilangan subjek mengikut Bahasa';
+$_lang['Number of courses by visibility'] = 'Number of courses by visibility';
+$_lang['Number of logins'] = 'Bilangan Login';
+$_lang['Number of users'] = 'Nama Pengguna';
+$_lang['Number of users by course'] = 'Bilangan Pengguna mengikut Subjek';
+$_lang['Number of users by faculty'] = 'Bilangan Pengguna mengikut Pusat Pengajian';
+$_lang['Number of users by status'] = 'Bilangan Pengguna mengikut Status';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Number proposed exceeds max. that you allowed (you can modify it below).
+                Group composition has not been modified';
+$_lang['Ok'] = 'Proses';
+$_lang['Oldest first'] = 'Yang lama dahulu';
+$_lang['On'] = 'Terdapat';
+$_lang['On an unique page'] = 'Pada satu <i>Page</i>';
+$_lang['One question per page (sequential)'] = 'Satu Soalan per satu <i>Page</i> (berturutan)';
+$_lang['Ooops, stranges cases detected !!'] = 'Amaran, perkara luar biasa ditemui !!';
+$_lang['Operation impossible'] = 'Permintaan tidak dapat diproses';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Permintaan tidak dapat diproses<br />Nama fail telah wujud.';
+$_lang['Optional'] = 'Pilihan';
+$_lang['Orphan questions'] = 'Soalan Individu';
+$_lang['Other'] = 'Lain-lain';
+$_lang['Password'] = 'katalaluan';
+$_lang['Period'] = 'Jangkamasa';
+$_lang['Please choose a good answer'] = 'Please choose a good answer';
+$_lang['Please choose one or more good answers'] = 'Please choose one or more good answers';
+$_lang['Please confirm your choice'] = 'Anda pasti untuk memadam pilihan anda ?';
+$_lang['Please define at least one blank with brackets [...]'] = 'Please define at least one blank with brackets [...]';
+$_lang['Please define the options'] = 'Please define the options';
+$_lang['Please fill the two lists below'] = 'Please fill the two lists below';
+$_lang['Please give a weighting to each blank'] = 'Please give a weighting to each blank';
+$_lang['Please give the answers to the question'] = 'Please give the question\'s answers';
+$_lang['Please give the exercise name'] = 'Sila berikan Nama Latihan';
+$_lang['Please give the question'] = 'Sila nyatakan soalan';
+$_lang['Please type the text'] = 'Please type the text';
+$_lang['Please type your text below'] = 'Please type your text below';
+$_lang['Posted'] = 'Dihantar';
+$_lang['Posts'] = 'Hantar';
+$_lang['Powered by'] = 'Oleh : ';
+$_lang['Prefix for names of course databases'] = 'MySQL Prefix';
+$_lang['Previous day'] = 'Hari Sebelumnya';
+$_lang['Previous month'] = 'Bulan Sebelumnya';
+$_lang['Previous week'] = 'Minggu Sebelumnya';
+$_lang['Previous year'] = 'Tahun Sebelumnya';
+$_lang['PrintVers'] = 'Printable version';
+$_lang['Private'] = 'Khusus';
+$_lang['Public'] = 'Umum';
+$_lang['Public access from campus home page even without login'] = 'Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)';
+$_lang['Publish'] = 'Terbitkan';
+$_lang['Published on'] = 'Diterbitkan pada';
+$_lang['Question'] = 'Soalan';
+$_lang['Question / Answer management'] = 'Pengurusan Soalan/Jawapan';
+$_lang['Question list of the exercise'] = 'Senarai soalan dalam latihan';
+$_lang['Question not found'] = 'Soalan tidak ditemui';
+$_lang['Question pool'] = 'Bank Soalan';
+$_lang['Question to lecturer'] = 'Maklumat untuk Pensyarah';
+$_lang['Questions'] = 'Soalan';
+$_lang['Random questions'] = 'Soalan Rawak';
+$_lang['Registered'] = 'Bilangan Ahli Semasa';
+$_lang['Registration'] = 'Pendaftaran';
+$_lang['Rem. answ.'] = 'Kurangkan Jawapan';
+$_lang['Rem. elem.'] = 'Padam';
+$_lang['Remove'] = 'Padam';
+$_lang['Rename'] = 'Tukar Nama';
+$_lang['Reply'] = 'Jawapan';
+$_lang['Requirements'] = 'Requirements';
+$_lang['Result'] = 'Keputusan';
+$_lang['Return to the list'] = 'Kembali ke senarai';
+$_lang['Reuse'] = 'Gunasemula';
+$_lang['Role'] = 'Peranan';
+$_lang['Save'] = 'Simpan';
+$_lang['Score'] = 'Markah';
+$_lang['Seen'] = 'Lihat';
+$_lang['Select course in'] = 'Pilih Subjek dalam ';
+$_lang['Select course in search results'] = 'Select course in search results';
+$_lang['Send this announcement by email to registered students'] = 'Hantar Pengumuman ke email Pelajar berdaftar';
+$_lang['Show all'] = 'Papar semua';
+$_lang['Show none'] = 'Tiada Paparan';
+$_lang['Size'] = 'Saiz';
+$_lang['Statement'] = 'Komen(Pilihan)';
+$_lang['Statistics'] = 'Statistik';
+$_lang['Statistics of course'] = 'Statistik Subjek';
+$_lang['Statistics of user'] = 'Statistik Pengguna';
+$_lang['Status'] = 'Mendaftar sebagai';
+$_lang['Student'] = 'Pelajar';
+$_lang['Students are allowed to self-register in groups'] = 'Pelajar dibenarkan untuk mendaftar sendiri ke kumpulan';
+$_lang['Subject'] = 'Topik';
+$_lang['Support forum'] = 'Forum Sokongan';
+$_lang['Take'] = 'ambil';
+$_lang['The email address is not valid'] = 'Alamat email anda tidak sah';
+$_lang['The file to upload is not valid.'] = 'Fail yang dimuat naik tidak sah.';
+$_lang['The information has been modified'] = 'Maklumat telah diubahsuai';
+$_lang['The upload has failed. There is not enough space in your directory'] = 'Proses muatnaik gagal. Ruang tidak mencukupi';
+$_lang['The upload is finished'] = 'Proses muatnaik selesai';
+$_lang['The zip file can not contain .PHP files'] = 'Fail zip file can not contain .PHP files';
+$_lang['There are no topics for this forum. You can post one'] = 'Tiada sebarang topik untuk forum ini, anda boleh menghantar topik ke forum ini.';
+$_lang['There is no answer for the moment'] = 'Tiada jawapan disediakan buat masa ini';
+$_lang['There is no exercise for the moment'] = 'Tiada Latihan buat masa ini';
+$_lang['There is no question for the moment'] = 'Tiada soalan buat masa ini';
+$_lang['This course is currently not described'] = 'Subjek ini belum diberi penerangan';
+$_lang['This day'] = 'Hari ini';
+$_lang['This is the faculty, department or school where the course is delivered'] = 'Pusat Pengajian yang Menawarkan Subjek Ini.';
+$_lang['This is your account Login-Pass'] = 'Berikut ialah Maklumat Login anda:';
+$_lang['This user name is already taken'] = 'ID Pengguna ini telah digunakan oleh Pengguna lain';
+$_lang['Title'] = 'Tajuk';
+$_lang['To'] = 'ke';
+$_lang['Tools'] = 'Alat Bantu';
+$_lang['Topic'] = 'Topik';
+$_lang['Topic review'] = 'Papar kembali topik';
+$_lang['Topics'] = 'Topik';
+$_lang['Total'] = 'Jumlah';
+$_lang['Total Clicks'] = 'Bilangan Klik';
+$_lang['Total Downloads'] = 'Jumlah Muat turun';
+$_lang['Total number of connection to this course'] = 'Bilangan Pengguna Yang Capai Subjek';
+$_lang['Tracking'] = 'Pengesanan';
+$_lang['Tracking database'] = 'Tracking DB.  Useful only if several DB';
+$_lang['Tracking has been disabled by system administrator.'] = 'Fungsi pengesanan telah dimatikan oleh Pentadbir Sistem.';
+$_lang['Traffic Details'] = 'Keterangan Kesesakan';
+$_lang['True'] = 'Jawapan Betul';
+$_lang['Unassigned students'] = 'Pelajar tiada kumpulan';
+$_lang['Unregister'] = 'Gugurkan Pelajar';
+$_lang['Unsubscribe'] = 'Tidak dilanggan';
+$_lang['Up'] = 'Atas';
+$_lang['Upgrade'] = 'Upgrade Claroline';
+$_lang['Upload file'] = 'Muatnaik fail ke server';
+$_lang['User'] = 'Ahli';
+$_lang['User\'s course'] = 'Subjek Pelajar';
+$_lang['Username'] = 'Nama Pengguna';
+$_lang['Users'] = 'Users';
+$_lang['Users Downloads'] = 'Pengguna Muat turun';
+$_lang['Users help'] = 'Bantuan Pengguna - Pengguna';
+$_lang['Users not in this group'] = 'Pelajar bukan dalam kumpulan ini';
+$_lang['Users\' Clicks'] = 'Klik Pengguna';
+$_lang['View by'] = 'Dipaparkan oleh';
+$_lang['View list of all tools'] = 'Paparkan senarai alat bantu';
+$_lang['View my statistics'] = 'Paparkan Statistik Pengguna';
+$_lang['Visibility'] = 'Visibility';
+$_lang['Visibility modified'] = 'Ubahsuai mod Paparan';
+$_lang['Visits'] = 'lawatan';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Peringatan ! Soalan ini telah digunakan beberapa kali sebelum ini, adakah anda ingin mengubahsuainya?';
+$_lang['Week'] = 'Minggu';
+$_lang['Weighting'] = 'Pemarkahan';
+$_lang['Work'] = 'Works';
+$_lang['Work title'] = 'Tajuk';
+$_lang['Work uploaded by the student in the name of \'Authors\''] = 'Tugasan/Dokumen yang dimuat naik oleh Pelajar ';
+$_lang['Work uploads'] = 'Tugasan dimuat naik';
+$_lang['Year'] = 'Tahun';
+$_lang['Yes'] = 'Ya';
+$_lang['You are now a member of this group.'] = 'Anda sekarang ialah ahli kepada Kumpulan Baru';
+$_lang['You can now create your  course'] = 'Sekarang anda boleh membina Laman Subjek';
+$_lang['You can now select, in the list, the courses you want to access'] = 'Sekarang anda boleh memilih Subjek yang anda ingin ikuti.';
+$_lang['You cannot post an empty message'] = 'Anda perlu menaip Mesej untuk dihantar. Anda tidak boleh menghantar Mesej yang kosong.';
+$_lang['You didnt choose any file to send, or it is too big'] = 'Anda tidak memilih sebarang fail/saiz fail terlalu besar.';
+$_lang['You have already answered the question'] = 'Anda telah menjawab soalan tersebut';
+$_lang['You have just created the course website'] = 'Anda telah membina laman subjek';
+$_lang['You left some required fields empty'] = 'Terdapat ruang kosong yang tidak diisi.Sila penuhkan dan cuba sekali lagi';
+$_lang['Your message has been deleted'] = 'Hantar anda telah dipadam.';
+$_lang['Your message has been entered'] = 'Mesej telah disimpan di dalam pangkalan data.';
+$_lang['Your new profile has been saved'] = 'Butir Peribadi anda telah disimpan';
+$_lang['Your total score is'] = 'Jumlah Markah ialah';
+$_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
+$_lang['[British people] live in [United Kingdom].'] = '[British people] live in [United Kingdom].';
+$_lang['archive'] = 'Arkib';
+$_lang['blockClaroMainHelp'] = 'eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br />Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status \'Pelajar\', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
+<p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status \'Pensyarah\' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
+<p>Pautan \'Aduan dan Cadangan\' memberi kemudahan kepada anda untuk membuat aduan atau cadangan kepada pentadbir sistem.</p>
+<b>ID Pengguna</b><p>Pada kunjungan anda yang seterusnya ke eLearning@kukum, sila masukkan ID Pengguna dan katalaluan serta sahkan capaian anda ke laman subjek tersebut.</p><p><b>Teori Pembelajaran</b><p>Untuk pensyarah, menyediakan program di Internet merupakan persoalan kepada teori pembelajaran.';
+$_lang['blockCourseDescriptionCourseContent'] = 'Contenu du cours';
+$_lang['blockCourseDescriptionDescription'] = 'Ringkasan Tugasan';
+$_lang['blockCourseSettingsTip'] = 'Secara lalai, subjek anda hanya boleh diakses jika anda pengguna berdaftar. Jika anda inginkan kerahsian,
 cara terbaik ialah membuka pendaftaran
-selama seminggu, dan arahkan Pelajar anda untuk mendaftar sendiri, kemudian tutup Pendaftaran dan periksa samada terdapat Pengguna yang tidak dikenali.";
-$_lang['ConfirmYourChoice'] = "Anda pasti untuk memadam pilihan anda ?";
-$_lang['Confirmation'] = "Taip Semula";
-$_lang['Contradiction'] = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
-$_lang['Copy'] = "Pindah";
-$_lang['CopyFailed'] = "Proses cetakan gagal";
-$_lang['CorrespondsTo'] = "Corresponds to";
-$_lang['CountCours'] = "Nama Subjek";
-$_lang['CountCourseByFaculte'] = "Bilangan subjek mengikut Pusat Pengajian ";
-$_lang['CountCourseByLanguage'] = "Bilangan subjek mengikut Bahasa";
-$_lang['CountCourseByVisibility'] = "Number of courses by visibility";
-$_lang['CountToolAccess'] = "Bilangan Pengguna Yang Capai Subjek";
-$_lang['CountUsers'] = "Nama Pengguna";
-$_lang['CountUsersByCourse'] = "Bilangan Pengguna mengikut Subjek";
-$_lang['CountUsersByFaculte'] = "Bilangan Pengguna mengikut Pusat Pengajian";
-$_lang['CountUsersByStatus'] = "Bilangan Pengguna mengikut Status";
-$_lang['Course'] = "Subjek";
-$_lang['CourseAccess'] = "Capaian untuk Subjek";
-$_lang['CourseAdministratorOnly'] = "Untuk Pentadbir Subjek (Pensyarah) Sahaja";
-$_lang['CourseContent'] = "Contenu du cours";
-$_lang['CourseCreate'] = "Bina Laman Subjek";
-$_lang['CourseManager'] = "Pentadbir Subjek (Pensyarah)";
-$_lang['CourseProgram'] = "Penerangan Subjek";
-$_lang['CourseTitle'] = "Tajuk Subjek";
-$_lang['CourseWithoutAccess'] = "Subjek tidak digunakan";
-$_lang['CourseWithoutProf'] = "Subjek tanpa Pensyarah";
-$_lang['Courses'] = "subjek.";
-$_lang['Create'] = "Bina";
-$_lang['CreateDir'] = "Bina Direktori";
-$_lang['CreateSite'] = "Bina Laman Subjek";
-$_lang['DBHost'] = "Database Host";
-$_lang['Date'] = "Tarikh";
-$_lang['Day'] = "Hari";
-$_lang['DbPrefixForm'] = "MySQL Prefix";
-$_lang['Dear'] = "Terima kasih";
-$_lang['DefaultTextInBlanks'] = "[British people] live in [United Kingdom].";
-$_lang['Defcon'] = "Amaran, perkara luar biasa ditemui !!";
-$_lang['DefineBlanks'] = "Please define at least one blank with brackets [...]";
-$_lang['DefineHeadings'] = "Bina Borang Cadangan";
-$_lang['DefineOptions'] = "Please define the options";
-$_lang['DelAdmin'] = "Remove this through the forum admin tool";
-$_lang['DelCourse'] = "Gugurkan Subjek dari Pangkalan Data";
-$_lang['Delete'] = "Padam";
-$_lang['DeleteGroups'] = "Padam semua kumpulan";
-$_lang['Denied'] = "Tidak dibenarkan";
-$_lang['DepartmentUrl'] = "URL Pusat Pengajian";
-$_lang['DepartmentUrlName'] = "Kod Pusat Pengajian";
-$_lang['Description'] = "Ringkasan Tugasan";
-$_lang['DescriptionCours'] = "Penerangan Subjek";
-$_lang['Detail'] = "Keterangan";
-$_lang['DetailView'] = "Dipaparkan oleh";
-$_lang['Details'] = "Keterangan Lanjut";
-$_lang['DirCr'] = "Direktori dibina";
-$_lang['DirMv'] = "Dokumen berjaya dipindahkan";
-$_lang['DocContent'] = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengurusan fail pada <i>desktop</i> komputer anda.</p>.
+selama seminggu, dan arahkan Pelajar anda untuk mendaftar sendiri, kemudian tutup Pendaftaran dan periksa samada terdapat Pengguna yang tidak dikenali.';
+$_lang['blockDocumentsHelp'] = '<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi pengurusan fail pada <i>desktop</i> komputer anda.</p>.
 <p> Anda boleh memuat naik fail dalam pelbagai jenis format (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, dll) cuma anda perlu memastikan bahawa pelajar anda juga mempunyai aplikasi untuk membolehkan mereka membaca dokumen anda. Sesetengah fail mungkin mengandungi virus, dan ini di bawah tanggungjawab anda untuk tidak memuat naik dokumen tersebut ke <i>server</i>. Sebagai langkah keselamatan, anda dinasihatkan untuk mengimbas dokumen anda terlebih dahulu pada perisian antivirus sebelum anda memuat naik dokumen ke <i>server</i>.</p>
 <p>Dokumen anda akan dipaparkan mengikut susunan, yang dinomborkan seperti berikut: 01, 02,
  03...</p>
@@ -127,132 +392,104 @@ $_lang['DocContent'] = "<p>Fungsi Alat Bantu Dokumen adalah sama seperti fungsi 
 <ul>
   <li>Sila pilih fail pada komputer anda menggunakan butang ini <input
  type=submit value=Browse... name=submit2>
-	pada sebelah kanan skrin tetingkap.</li>
-		<li> Untuk memuat naik Dokumen anda, sila gunakan butang ini <input type=submit value=Muatnaik name=submit2>.
-		</li>
-	</ul>
-	<h4>
-		Menukar Nama Dokumen (Direktori)
-	</h4>
-	<ul>
-		<li>
-			Klik pada ikon ini <img src=../document/img/edit.gif width=20 height=20 align=baseline> yang terdapat pada lajur <i>Tukar Nama</i>.
-		</li>
-		<li>
-			Isikan nama baru dalam ruang penukaran nama tersebut. (dibahagian atas sebelah kiri)
-		</li>
-		<li>
-			Anda perlu sahkan penukaran tersebut dengan hanya klik pada butang ini <input type=submit value=Proses name=submit24>.
-		</li>
-	</ul>
-		<h4>
-			Padam Dokumen (Direktori)
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../document/img/delete.gif width=20 height=20>
-				yang terdapat pada lajur <i>Padam</i>.
-			</li>
-		</ul>
-		<h4>
-			Tetapkan supaya dokumen (atau direktori) tidak dipaparkan kepada pelajar anda	</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../document/img/visible.gif width=20 height=20>
-				pada lajur <i> Papar/Tidak Papar</i>.
-			</li>
-			<li>
-				Dokumen (atau direktori) masih wujud cuma ia tidak dipaparkan kepada pelajar.
-			</li>
-			<li>
-				Bagi memaparkan semula dokumen anda kepada pelajar, sila klik ikon ini <img src=../img/invisible.gif width=24 height=20>
-				pada  lajur <i>Papar/Tidak Papar</i>
-			</li>
-		</ul>
-		<h4>
-			Tambah atau ubahsuai komen pada dokumen (atau direktori)
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../img/comment.gif width=20 height=20> pada column <i>Komen</i>
-			</li>
-			<li>
-				Masukkan komen yang baru pada lajur yang disediakan (di sebelah atas bahagian kiri).
-			</li>
-			<li>
-				Anda perlu sahkan komen anda terlebih dahulu dengan klik pada butang ini <input type=submit value=Proses name=submit2>
-			.</li>
-		</ul>
-		<p>
-		Untuk memadam komen, sila klik ikon ini <img src=../img/comment.gif width=20 height=20>, padam komen lama yang terdapat dalam lajur dahulu kemudian klik butang ini.
-		<input type=submit value=Proses name=submit22>.
-		<hr />
-		<p>
-			Anda boleh menguruskan kandungan dokumen anda melalui beberapa pengisian. Contohnya adalah seperti berikut:
-		</p>
-		<h4>
-			<b>
-				Bina Direktori
-			</b>
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../img/folder.gif>
-				<i>Bina Direktori</i> (dibahagian atas sebelah kiri)
-			</li>
-			<li>
-				Masukkan nama baru bagi direktori anda (dibahagian atas sebelah kiri)
-			</li>
-			<li>
-				Anda perlu sahkan nama baru bagi direktori anda ini dengan klik pada butang ini <input type=submit value=Proses name=submit23>.
-			</li>
-		</ul>
-		<h4>
-			Pindah Dokumen (Direktori)
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../img/deplacer.gif width=34 height=16>
-				di lajur <i>Pindah</i>
-	</li>
-			<li>
-				Sila pilih direktori yang ingin anda pindahkan dokumen (atau direktori) anda dengan hanya menggunakan menu <i>scroll</i> dibahagian atas sebelah kiri) (Nota: Satu perkataan <i>Root</i> yang mungkin akan terteta pada skrin tetingkap anda adalah bermaksud capaian tidak dibenarkan melebihi tahap tersebut dalam pepohon dokumen <i>server</i>).
-			</li>
-			<li>
-				Anda perlu sahkan perpindahan dokumen tersebut dengan klik pada butang ini <input type=submit value=Proses name=submit232>.
-			</li>
-		</ul>
+    pada sebelah kanan skrin tetingkap.</li>
+        <li> Untuk memuat naik Dokumen anda, sila gunakan butang ini <input type=submit value=Muatnaik name=submit2>.
+        </li>
+    </ul>
+    <h4>
+        Menukar Nama Dokumen (Direktori)
+    </h4>
+    <ul>
+        <li>
+            Klik pada ikon ini <img src=../document/img/edit.gif width=20 height=20 align=baseline> yang terdapat pada lajur <i>Tukar Nama</i>.
+        </li>
+        <li>
+            Isikan nama baru dalam ruang penukaran nama tersebut. (dibahagian atas sebelah kiri)
+        </li>
+        <li>
+            Anda perlu sahkan penukaran tersebut dengan hanya klik pada butang ini <input type=submit value=Proses name=submit24>.
+        </li>
+    </ul>
+        <h4>
+            Padam Dokumen (Direktori)
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../document/img/delete.gif width=20 height=20>
+                yang terdapat pada lajur <i>Padam</i>.
+            </li>
+        </ul>
+        <h4>
+            Tetapkan supaya dokumen (atau direktori) tidak dipaparkan kepada pelajar anda   </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../document/img/visible.gif width=20 height=20>
+                pada lajur <i> Papar/Tidak Papar</i>.
+            </li>
+            <li>
+                Dokumen (atau direktori) masih wujud cuma ia tidak dipaparkan kepada pelajar.
+            </li>
+            <li>
+                Bagi memaparkan semula dokumen anda kepada pelajar, sila klik ikon ini <img src=../img/invisible.gif width=24 height=20>
+                pada  lajur <i>Papar/Tidak Papar</i>
+            </li>
+        </ul>
+        <h4>
+            Tambah atau ubahsuai komen pada dokumen (atau direktori)
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../img/comment.gif width=20 height=20> pada column <i>Komen</i>
+            </li>
+            <li>
+                Masukkan komen yang baru pada lajur yang disediakan (di sebelah atas bahagian kiri).
+            </li>
+            <li>
+                Anda perlu sahkan komen anda terlebih dahulu dengan klik pada butang ini <input type=submit value=Proses name=submit2>
+            .</li>
+        </ul>
+        <p>
+        Untuk memadam komen, sila klik ikon ini <img src=../img/comment.gif width=20 height=20>, padam komen lama yang terdapat dalam lajur dahulu kemudian klik butang ini.
+        <input type=submit value=Proses name=submit22>.
+        <hr />
+        <p>
+            Anda boleh menguruskan kandungan dokumen anda melalui beberapa pengisian. Contohnya adalah seperti berikut:
+        </p>
+        <h4>
+            <b>
+                Bina Direktori
+            </b>
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../img/folder.gif>
+                <i>Bina Direktori</i> (dibahagian atas sebelah kiri)
+            </li>
+            <li>
+                Masukkan nama baru bagi direktori anda (dibahagian atas sebelah kiri)
+            </li>
+            <li>
+                Anda perlu sahkan nama baru bagi direktori anda ini dengan klik pada butang ini <input type=submit value=Proses name=submit23>.
+            </li>
+        </ul>
+        <h4>
+            Pindah Dokumen (Direktori)
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../img/deplacer.gif width=34 height=16>
+                di lajur <i>Pindah</i>
+    </li>
+            <li>
+                Sila pilih direktori yang ingin anda pindahkan dokumen (atau direktori) anda dengan hanya menggunakan menu <i>scroll</i> dibahagian atas sebelah kiri) (Nota: Satu perkataan <i>Root</i> yang mungkin akan terteta pada skrin tetingkap anda adalah bermaksud capaian tidak dibenarkan melebihi tahap tersebut dalam pepohon dokumen <i>server</i>).
+            </li>
+            <li>
+                Anda perlu sahkan perpindahan dokumen tersebut dengan klik pada butang ini <input type=submit value=Proses name=submit232>.
+            </li>
+        </ul>
 <center>
-<p>";
-$_lang['DocDeleted'] = "Dokumen dipadam";
-$_lang['Document'] = "Dokumen";
-$_lang['DocumentsAccess'] = "Dokumen";
-$_lang['DocumentsDetails'] = "Dokumen yang dimuat turun oleh Pelajar ";
-$_lang['DocumentsTitleCountColumn'] = "Jumlah Muat turun";
-$_lang['DocumentsTitleDocumentColumn'] = "Dokumen";
-$_lang['DocumentsTitleUsersColumn'] = "Pengguna Muat turun";
-$_lang['EG'] = "e. g.";
-$_lang['Edit'] = "Ubahsuai";
-$_lang['EditGroup'] = "Ubahsuai kumpulan ini";
-$_lang['ElRen'] = "Dokumen telah ditukar namanya";
-$_lang['ElementList'] = "Element list";
-$_lang['Email'] = "Email";
-$_lang['EmailNotSent'] = "Jika ada masalah sila mail kepada ";
-$_lang['EmailOption'] = "Hantar Pengumuman ke email Pelajar berdaftar";
-$_lang['EmailSent'] = " dan emailkan kepada Pelajar berdaftar";
-$_lang['EmailWrong'] = "Alamat email anda tidak sah";
-$_lang['Empty'] = "Ruang kosong belum diisi sepenuhnya.<br />Use the <b>Back</b> button on your browser and try again.<br />If you ignore your course's code, see the Course Program";
-$_lang['EmptyAnn'] = "Padam senarai pengumuman";
-$_lang['EmptyFields'] = "Terdapat ruang kosong yang tidak diisi.Sila penuhkan dan cuba sekali lagi";
-$_lang['EmtpyGroups'] = "Kosongkan semua kumpulan";
-$_lang['Enter'] = "Masuk";
-$_lang['ErrorUserNotInGroup'] = "Pengguna tidak sah : pengguna ini tidak terdapat dalam kumpulan";
-$_lang['Ex'] = "cth. <i>Elektronik Analog II</i>";
-$_lang['ExMessage'] = "Contoh Mesej";
-$_lang['ExerciceEx'] = "Contoh Latihan";
-$_lang['Exercices'] = "Latihan";
-$_lang['Exercise'] = "Latihan";
-$_lang['ExerciseContent'] = "<p>Alat Bantu Latihan membenarkan anda mencipta Latihan yang mengandungi seberapa banyak soalan yang anda suka.<br /><br />
+<p>';
+$_lang['blockExercisesHelp'] = '<p>Alat Bantu Latihan membenarkan anda mencipta Latihan yang mengandungi seberapa banyak soalan yang anda suka.<br /><br />
 Terdapat pelbagai soalan yang mempunyai pelbagai format jawapan :<br /><br />
 <ul>
   <li>Pelbagai Jawapan (Satu Jawapan)</li>
@@ -301,13 +538,13 @@ Notis : Kebanyakan elemen dari unit pertama boleh dihalakan ke elemen pada unit 
 Kemudian, sediakan skema jawapan untuk setiap soalan yang disuaikan dengan betul dan simpan jawapan tersebut.</p>
 <hr />
 <b>Ubahsuai Latihan</b>
-<p>Untuk mengubahsuai Latihan, cara pengubahsuaian adalah sama seperti cara untuk membina Latihan. Anda hanya perlu klik pada ikon ini <img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> kemudian tentukan Latihan yang ingin diubahsuai dan kemudian ikut arahan sistem.</p>
+<p>Untuk mengubahsuai Latihan, cara pengubahsuaian adalah sama seperti cara untuk membina Latihan. Anda hanya perlu klik pada ikon ini <img src="img/edit.gif" border="0" align="absmiddle"> kemudian tentukan Latihan yang ingin diubahsuai dan kemudian ikut arahan sistem.</p>
 <hr />
 <b>Padam Latihan</b>
-<p>Untuk memadam Latihan, klik pada ikon ini <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> dan pilih Latihan yang ingin dipadam.</p>
+<p>Untuk memadam Latihan, klik pada ikon ini <img src="img/delete.gif" border="0" align="absmiddle"> dan pilih Latihan yang ingin dipadam.</p>
 <hr />
 <b>Papar Latihan</b>
-<p>Untuk memaparkan Latihan kepada pelajar, anda perlu menukar <i>mode</i> paparan iaitu dengan klik pada ikon ini <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\">.</p>
+<p>Untuk memaparkan Latihan kepada pelajar, anda perlu menukar <i>mode</i> paparan iaitu dengan klik pada ikon ini <img src="img/invisible.gif" border="0" align="absmiddle">.</p>
 <hr />
 <b>Uji Latihan</b>
 <p>Anda boleh menguji Latihan yang telah dibina dengan klik pada nama Latihan tersebut yang terdapat pada senarai Latihan.</p>
@@ -321,47 +558,13 @@ Jika anda mempunyai sejumlah soalan, anda boleh memilih soalan-soalan yang diras
 <p>Apabila anda memadam Latihan, soalan dalam latihan tersebut tidak akan terpadam dari pangkalan data, dan anda boleh menggunakan semula soalan-soalan tersebut untuk membina semula Latihan baru kerana untuk makluman anda, soalan-soalan tersebut disimpan sebagai Bank Soalan.<br /><br />
 Bank soalan membenarkan anda mengitar-semula soalan-soalan yang pernah dipaparkan kepada pelajar untuk menjadi pelbagai Latihan baru.<br /><br />
 Secara umumnya, semua soalan bagi subjek anda akan dipaparkan. Anda boleh memilih untuk memaparkan soalan yang berkaitan dengan Latihan anda, dengan cara memilih menu <i>drop-down Filter</i>.<br /><br />
-Soalan asing adalah soalan yang tidak berkaitan dengan mana-mana Latihan</p>";
-$_lang['ExerciseDescription'] = "Penerangan Latihan";
-$_lang['ExerciseManagement'] = "Latihan";
-$_lang['ExerciseName'] = "Nama Latihan";
-$_lang['ExerciseNotFound'] = "Latihan tidak ditemui";
-$_lang['ExerciseType'] = "Jenis Latihan";
-$_lang['ExistingGroups'] = "Nama Kumpulan";
-$_lang['ExpectedChoice'] = "Pilihan Jangkaan";
-$_lang['Explanation'] = "Apabila anda klik pada butang <b>Proses</b>,satu Laman Subjek yang mempunyai Forum, Agenda, Pengumuman dan sebagainya akan dibina. Anda boleh mengubahsuai Laman Subjek tersebut mengikut keperluan anda";
-$_lang['FileError'] = "Fail yang dimuat naik tidak sah.";
-$_lang['FileExists'] = "Permintaan tidak dapat diproses<br />Nama fail telah wujud.";
-$_lang['FillBlanks'] = "Isikan Ruang Kosong";
-$_lang['FillGroups'] = "Penuhkan kumpulan";
-$_lang['FillLists'] = "Please fill the two lists below";
-$_lang['Filter'] = "Pilihan";
-$_lang['Finish'] = "Selesai";
-$_lang['FirstName'] = "Nama Pertama";
-$_lang['Firstname'] = "Nama terakhir";
-$_lang['ForContent'] = "Forum merupakan perbincangan secara bertulis serta merupakan alat bantu perbincangan yang selaras.Ia akan berfungsi apabila email dihantar dan dibalas untuk tujuan berdialog.Forum akan membenarkan sesi dialog secara umum dan juga secara khusus.
-</p><p>Secara teknikalnya, para pelajar hanya memerlukan pelayar web untuk menggunakan forum.</P><p>Bagi pengurus forum pula, anda hanya perlu klik pada butang 'Pentadbir'. Perbincangan diuruskan dalam sesi yang telah ditetapkan atau sesi yang baru diwujudkan, contohnya seperti berikut:</p><p><b>Kategori > Forum > Topik > Jawapan</b></p>Untuk menstrukturkan perbincangan para pelajar, anda perlu menstrukturkan kategori dan forum terlebih dahulu. Caranya ialah dengan mencipta topik dan jawapan terlebih dahulu. Secara umumnya, forum ini mengandungi kategori 'Public', contoh forum dan contoh topik.
-</p><p>Perkara utama yang anda perlu lakukan ialah memadam sampel topik dan mengubahsuai nama forum yang pertama. Kemudian anda boleh membina pada Kategori 'Public' satu forum lain mengikut kumpulan dan <i>themes</i> yang bertujuan untuk disesuaikan dengan keperluan pembelajaran anda.
+Soalan asing adalah soalan yang tidak berkaitan dengan mana-mana Latihan</p>';
+$_lang['blockForumsHelp'] = 'Forum merupakan perbincangan secara bertulis serta merupakan alat bantu perbincangan yang selaras.Ia akan berfungsi apabila email dihantar dan dibalas untuk tujuan berdialog.Forum akan membenarkan sesi dialog secara umum dan juga secara khusus.
+</p><p>Secara teknikalnya, para pelajar hanya memerlukan pelayar web untuk menggunakan forum.</P><p>Bagi pengurus forum pula, anda hanya perlu klik pada butang \'Pentadbir\'. Perbincangan diuruskan dalam sesi yang telah ditetapkan atau sesi yang baru diwujudkan, contohnya seperti berikut:</p><p><b>Kategori > Forum > Topik > Jawapan</b></p>Untuk menstrukturkan perbincangan para pelajar, anda perlu menstrukturkan kategori dan forum terlebih dahulu. Caranya ialah dengan mencipta topik dan jawapan terlebih dahulu. Secara umumnya, forum ini mengandungi kategori \'Public\', contoh forum dan contoh topik.
+</p><p>Perkara utama yang anda perlu lakukan ialah memadam sampel topik dan mengubahsuai nama forum yang pertama. Kemudian anda boleh membina pada Kategori \'Public\' satu forum lain mengikut kumpulan dan <i>themes</i> yang bertujuan untuk disesuaikan dengan keperluan pembelajaran anda.
 </p><p>Jangan mencampuradukkan Kategori dan Forum. Untuk makluman anda, Kategori yang kosong (iaitu tanpa forum) tidak akan dipaparkan kepada pelajar.
-</p><p>Penerangan mengenai forum termasuklah senarai ahli, matlamat, tugas, <i>themes</i>...";
-$_lang['Force'] = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
-$_lang['Formula'] = "Yours sincerely, your professor";
-$_lang['Forum'] = "Forum";
-$_lang['ForumGroup'] = "Forum Kumpulan";
-$_lang['Forums'] = "Forum";
-$_lang['From'] = "Dari";
-$_lang['GetExistingQuestion'] = "Dapatkan soalan dari latihan lain";
-$_lang['GiveAdminRight'] = "Set Pengguna sebagai admin";
-$_lang['GiveAnswers'] = "Please give the question's answers";
-$_lang['GiveExerciseName'] = "Sila berikan Nama Latihan";
-$_lang['GiveQuestion'] = "Sila nyatakan soalan";
-$_lang['GiveText'] = "Please type the text";
-$_lang['GoBackToEx'] = "Kembali ke Latihan";
-$_lang['GoBackToQuestionList'] = "Kembali ke Senarai Soalan";
-$_lang['GoBackToQuestionPool'] = "Kembali ke Bank Soalan";
-$_lang['Group'] = "Kumpulan";
-$_lang['GroupAllowStudentRegistration'] = "Pelajar dibenarkan untuk mendaftar sendiri ke kumpulan";
-$_lang['GroupContent'] = "<p><b>Pengenalan</b></p>
+</p><p>Penerangan mengenai forum termasuklah senarai ahli, matlamat, tugas, <i>themes</i>...';
+$_lang['blockGroupsHelp'] = '<p><b>Pengenalan</b></p>
 <p>Alat bantu ini membenarkan anda membina dan mengurus kumpulan kerja pelajar.
 Pada permulaan (Bina kumpulan), tiada senarai ahli kumpulan. Terdapat pelbagai cara untuk mengisi keahlian kumpulan iaitu:
 <ul><li>Secara automatik (<i>Penuhkan Kumpulan</i>),</li>
@@ -386,288 +589,12 @@ Jika sekiranya anda telah menentukan bilangan maksimum keahlian sesebuah kumpula
 <ul><li><b>Ubahsuai</b> untuk mengubahsuai secara manual nama kumpulan, penerangan kumpulan,jurutera pangajar,
 senarai ahli.</li>
 <li><b>Padam</b> Padam kumpulan.</li></ul>
-<hr noshade size=1>";
-$_lang['GroupDel'] = "Satu kumpulan dipadam";
-$_lang['GroupDescription'] = "Penerangan";
-$_lang['GroupDocument'] = "Dokumen";
-$_lang['GroupDocumentsLink'] = "Dokumen untuk Kumpulan ";
-$_lang['GroupFilledGroups'] = "Kumpulan ini telah dipenuhkan oleh Pelajar yang berada dalam senarai Pelajar Berdaftar.";
-$_lang['GroupForum'] = "Forum Berkumpulan";
-$_lang['GroupMembers'] = "Ahli Kumpulan";
-$_lang['GroupName'] = "Nama Kumpulan";
-$_lang['GroupNoTutor'] = "(tiada)";
-$_lang['GroupNone'] = "(tiada)";
-$_lang['GroupNoneMasc'] = "(tiada)";
-$_lang['GroupNowMember'] = "Anda sekarang ialah ahli kepada Kumpulan Baru";
-$_lang['GroupPlacesThis'] = "orang pelajar";
-$_lang['GroupProperties'] = "<i>Setting</i> Kumpulan";
-$_lang['GroupPropertiesModified'] = "<i>Setting</i> kumpulan telah diubahsuai";
-$_lang['GroupSelfRegInf'] = "daftar";
-$_lang['GroupSelfRegistration'] = "Pendaftaran";
-$_lang['GroupSettingsModified'] = "<i>Setting</i> kumpulan diubahsuai";
-$_lang['GroupSpace'] = "Ruangan Kumpulan";
-$_lang['GroupSpaceLink'] = "Ruangan Kumpulan";
-$_lang['GroupThisSpace'] = "Maklumat untuk kumpulan ini";
-$_lang['GroupTooMuchMembers'] = "Number proposed exceeds max. that you allowed (you can modify it below). 
-				Group composition has not been modified";
-$_lang['GroupTools'] = "Alat Bantu";
-$_lang['GroupTutor'] = "Jurutera Pengajar/Tutor";
-$_lang['GroupUserManagement'] = "Alat Bantu Kumpulan";
-$_lang['Groups'] = "Kumpulan";
-$_lang['GroupsAdded'] = "Kumpulan baru telah dibina";
-$_lang['GroupsDeleted'] = "Semua kumpulan telah dipadam";
-$_lang['GroupsEmptied'] = "Semua kumpulan tidak mempunyai ahli";
-$_lang['HClar'] = "Bantuan Pengguna";
-$_lang['HDoc'] = "Bantuan Pengguna - Dokumen";
-$_lang['HExercise'] = "Bantuan Pengguna - Latihan";
-$_lang['HFor'] = "Bantuan Pengguna - Forum";
-$_lang['HHome'] = "Bantuan Pengguna - Laman Subjek";
-$_lang['HUser'] = "Bantuan Pengguna - Pengguna";
-$_lang['HasDel'] = "telah digugurkan";
-$_lang['Heading'] = "Tajuk";
-$_lang['Help'] = "Bantuan";
-$_lang['HelpGroups'] = "Bantuan Pengguna - Kumpulan";
-$_lang['Hits'] = "Hits";
-$_lang['Home'] = "Kembali ke Laman Subjek";
-$_lang['HomeContent'] = "Untuk kemudahan anda, kami menyediakan pautan ikon yang mempunyai pelbagai fungsi. Terdapat sedikit contoh pada setiap alat bantu untuk membantu anda memahami perjalanan sistem. Terpulanglah kepada anda untuk mengubahsuai atau memadam contoh-contoh yang disediakan.</p><p>Untuk memudahkan anda, kami menyediakan contoh pengenalan mesej pada laman web anda iaitu <i>Ini adalah teks pengenalan untuk laman subjek anda. Untuk menggantikkannya dengan perkataan anda sendiri, sila klik pada ubahsuai, kemudian anda bolehlah menukar dengan perkataan anda sendiri dan seterusnya tekan butang ok</i>. Setiap alat bantu mempunyai logik yang sama iaitu Tambah, Padam, Ubahsuai di mana ia merupakan logik yang dinamik bagi setiap Laman Web.	
+<hr noshade size=1>';
+$_lang['blockHomepageHelp'] = 'Untuk kemudahan anda, kami menyediakan pautan ikon yang mempunyai pelbagai fungsi. Terdapat sedikit contoh pada setiap alat bantu untuk membantu anda memahami perjalanan sistem. Terpulanglah kepada anda untuk mengubahsuai atau memadam contoh-contoh yang disediakan.</p><p>Untuk memudahkan anda, kami menyediakan contoh pengenalan mesej pada laman web anda iaitu <i>Ini adalah teks pengenalan untuk laman subjek anda. Untuk menggantikkannya dengan perkataan anda sendiri, sila klik pada ubahsuai, kemudian anda bolehlah menukar dengan perkataan anda sendiri dan seterusnya tekan butang ok</i>. Setiap alat bantu mempunyai logik yang sama iaitu Tambah, Padam, Ubahsuai di mana ia merupakan logik yang dinamik bagi setiap Laman Web.
 </p><p>Apabila anda membina laman subjek anda pada kali pertama,semua alat bantu berada dalam keadaaan aktif. Jadi terpulanglah pada anda sama ada hendak tidak mengaktifkan alat bantu yang dirasakan tidak diperlukan untuk paparan pelajar.Caranya ialah dengan mengklik pada pautan <i>Tidak Aktif.</i> Secara tidak langsung, alat bantu yang tidak diaktifkan akan berada pada bahagian <i>Pautan yang tidak aktif</i> di laman subjek anda. Walaubagaimanapun, anda boleh mengaktifkannya semula mengikut keperluan anda.</p>
 <p>Anda boleh menambah halaman anda ke laman subjek. Halaman tersebut mestilah dalam format HTML(yang boleh dibina oleh <i>Word Processor</i> atau <i>Web Composer</i>). Gunakan pautan <i>Tambah Pautan Pada Laman Subjek</i> untuk menghantar halaman anda ke <i>server.</i> Halaman utama laman web anda secara automatik akan disatukan dengan dokumen baru anda, oleh itu anda hanya perlu memberi tumpuan terhadap kandungan dokumen tersebut. Jika anda ingin membina pautan dari laman web anda ke laman web luar, anda hanya perlu menggunakan alat bantu yang telah disediakan iaitu <i>Pautan</i>.Halaman yang telah ditambah boleh diaktif dan tidak diaktifkan, tetapi alat bantu untuk membina pautan hanya boleh tidak diaktifkan tetapi tidak dibenarkan untuk dipadam.
-</p><p>Setelah laman subjek anda siap, sila klik <i>Ubahsuai Maklumat Subjek</i> untuk menetapkan tahap capaian mengikut kesesuaian anda. Secara umumnya, laman subjek anda tidak dipaparkan kepada umum(ini kerana hanya anda dapat menguruskannya).</p>";
-$_lang['Hour'] = "Jam";
-$_lang['Impossible'] = "Permintaan tidak dapat diproses";
-$_lang['In'] = "kepada";
-$_lang['Indeed'] = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
-$_lang['Info2Say'] = "Maklumat untuk Pelajar";
-$_lang['InvalidId'] = "ID Pengguna dan Katalaluan anda tidak sah.Sila login semula atau <a href=claroline/auth/inscription.php>daftar</a> sebagai pengguna baru.</font color>";
-$_lang['Is'] = "ialah";
-$_lang['IsNowInYourDocDir'] = " - Kini, fail ini berada dalam Alat Bantu Dokumen. <br /><B>Fail ini dalam format .txt</B>";
-$_lang['JustCreated'] = "Anda telah membina laman subjek";
-$_lang['Language'] = "Language";
-$_lang['Last31days'] = "31 hari lepas";
-$_lang['Last7Days'] = "Last 7 days";
-$_lang['LastCheck'] = "Last check before install";
-$_lang['LastMsg'] = "Mesej Terakhir";
-$_lang['LastName'] = "Nama Terakhir";
-$_lang['Lasting'] = "Kekal";
-$_lang['Lastname'] = "Nama pertama";
-$_lang['LessAnswers'] = "Kurangkan Jawapan";
-$_lang['LessElements'] = "Padam";
-$_lang['Licence'] = "License";
-$_lang['Line'] = "baris";
-$_lang['LineNumber'] = "Bilangan baris";
-$_lang['LineOrLines'] = "baris";
-$_lang['Lines'] = "baris";
-$_lang['Link'] = "URL";
-$_lang['ListAdmin'] = "Senarai Pentadbir Sistem";
-$_lang['ListHtUsers'] = "View .htpassword";
-$_lang['ListStudents'] = "Senarai Pelajar dalam Kumpulan";
-$_lang['Login'] = "Melog Masuk";
-$_lang['LoginRequest'] = "Permintaan untuk Login";
-$_lang['LoginWithoutAccess'] = "Login yang tidak digunakan";
-$_lang['Logins'] = "Masuk";
-$_lang['LoginsAndAccessTools'] = "Login dan capaian kepada alat bantu";
-$_lang['LoginsDetails'] = "Klik nama bulan untuk keterangan lanjut";
-$_lang['LoginsTitleCountColumn'] = "Bilangan Login";
-$_lang['LoginsTitleMonthColumn'] = "Bulan";
-$_lang['Logout'] = "Melog Keluar";
-$_lang['LostPassword'] = "Lupa Katalaluan";
-$_lang['MainDB'] = "Main claroline DB";
-$_lang['MakeCorrespond'] = "Make correspond";
-$_lang['Manage'] = "Pengurusan Kampus";
-$_lang['Manager'] = "Pentadbir Sistem";
-$_lang['ManyAnswers'] = "(more than one answer can be true)";
-$_lang['Matching'] = "Suaikan";
-$_lang['Max'] = "Keahlian Maksimum ";
-$_lang['MaxFileSize'] = "Saiz maksimum fail ialah ";
-$_lang['MaxSizeCourseCode'] = "cth:. <i>EKT221</i>";
-$_lang['Message'] = "When you remove the test forum, it will remove all messages in that forum too.";
-$_lang['MessageSubscribeDone_p_firstname_lastname'] = "
-Terima kasih %s, %s. 
-Proses pendaftaran anda berjaya dilaksanakan. 
-Maklumat Login (ID Pengguna &amp; Katalaluan) 
-akan dihantar kepada anda melalui e-mail";
-$_lang['Missing'] = "missing";
-$_lang['MissingImagesDetected'] = "Gambar hilang dikesan";
-$_lang['ModifAnn'] = "Ubahsuai pengumuman ini";
-$_lang['ModifDone'] = "Maklumat telah diubahsuai";
-$_lang['Modify'] = "Ubahsuai";
-$_lang['ModifyInAllExercises'] = "pada semua latihan";
-$_lang['ModifyInThisExercise'] = "hanya pada latihan semasa";
-$_lang['ModifyProfile'] = "Ubahsuai Maklumat Peribadi";
-$_lang['MoreAnswers'] = "Tambahkan Jawapan";
-$_lang['MoreElements'] = "Tambah";
-$_lang['Move'] = "Pindah";
-$_lang['MoveDown'] = "Ke bawah";
-$_lang['MoveUp'] = "Ke atas";
-$_lang['MultipleEmails'] = "Akaun dengan <i>eMail</i> yang sama";
-$_lang['MultipleLogins'] = "Akaun dengan <i>ID Pengguna</i> yang sama";
-$_lang['MultipleSelect'] = "Pelbagai Jawapan (Lebih dari satu jawapan)";
-$_lang['MultipleUsernameAndPassword'] = "Akaun dengan <i>ID Pengguna</i> dan <i>Katalaluan</i> yang sama";
-$_lang['MyCourses'] = "Senarai Subjek";
-$_lang['MyGroup'] = "kumpulan saya";
-$_lang['MyStats'] = "Paparkan Statistik Pengguna";
-$_lang['NULLValue'] = "Kosong (atau Tiada Nilai)";
-$_lang['NameDir'] = "Nama direktori baru";
-$_lang['NewBloc'] = "Lain-lain";
-$_lang['NewEx'] = "Latihan baru";
-$_lang['NewGroupCreate'] = "Bina kumpulan baru";
-$_lang['NewGroups'] = "kumpulan baru";
-$_lang['NewQu'] = "Soalan Baru";
-$_lang['NewToOld'] = "Yang baru dahulu";
-$_lang['NewTopic'] = "Topik Baru";
-$_lang['Next'] = "Seterusnya";
-$_lang['NextDay'] = "Hari Seterusnya";
-$_lang['NextMonth'] = "Bulan Seterusnya";
-$_lang['NextWeek'] = "Minggu Seterusnya";
-$_lang['NextYear'] = "Tahun Seterusnya";
-$_lang['No'] = "Tidak";
-$_lang['NoAnswer'] = "Tiada jawapan disediakan buat masa ini";
-$_lang['NoEmail'] = "Alamat email tidak dinyatakan";
-$_lang['NoEx'] = "Tiada Latihan buat masa ini";
-$_lang['NoGroupStudents'] = "Pelajar tiada kumpulan";
-$_lang['NoPsychology'] = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
-$_lang['NoQuestion'] = "Tiada soalan buat masa ini";
-$_lang['NoResult'] = "Tiada Keputusan";
-$_lang['NoSeduction'] = "No. Socratic irony is not a seduction strategy or a method based on the example.";
-$_lang['NoSpace'] = "Proses muatnaik gagal. Ruang tidak mencukupi";
-$_lang['NomPageAddHtPass'] = "Pengurusan Pengguna";
-$_lang['None'] = "Tiada satu pun";
-$_lang['NotAllowed'] = "Tidak dibenarkan";
-$_lang['NotFalse'] = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
-$_lang['Notice'] = "Pemberitahuan";
-$_lang['Now'] = "Sekarang";
-$_lang['NowGoChooseYourCourses'] = "Sekarang anda boleh memilih Subjek yang anda ingin ikuti.";
-$_lang['NowGoCreateYourCourse'] = "Sekarang anda boleh membina Laman Subjek";
-$_lang['Ok'] = "Proses";
-$_lang['OldToNew'] = "Yang lama dahulu";
-$_lang['On'] = "Terdapat";
-$_lang['OneByOne'] = "Tambah Pengguna secara manual";
-$_lang['OneMyGroups'] = "Visi Utama";
-$_lang['OneResp'] = "Satu daripada Subjek Pentadbir Subjek";
-$_lang['Optional'] = "Pilihan";
-$_lang['OrphanQuestions'] = "Soalan Individu";
-$_lang['OtherCourses'] = "Senarai Subjek";
-$_lang['OtherWorks'] = "fungsi lain";
-$_lang['PassTooEasy'] = "Katalaluan terlalu ringkas.Gunakan katalaluan seperti berikut";
-$_lang['PassTwice'] = "Anda telah menaip dua katalaluan yang berbeza. Sila cuba sekali lagi";
-$_lang['Password'] = "katalaluan";
-$_lang['PeriodDay'] = "Hari";
-$_lang['PeriodHour'] = "Jam";
-$_lang['PeriodMonth'] = "Bulan";
-$_lang['PeriodToDisplay'] = "Jangkamasa";
-$_lang['PeriodWeek'] = "Minggu";
-$_lang['PeriodYear'] = "Tahun";
-$_lang['Places'] = "orang pelajar";
-$_lang['PlatformAccess'] = "Capaian ke Kampus";
-$_lang['PlatformCoursesAccess'] = "Capaian ke Subjek";
-$_lang['PlatformStats'] = "Statistik Platform";
-$_lang['PoweredBy'] = "Oleh : ";
-$_lang['PreviousDay'] = "Hari Sebelumnya";
-$_lang['PreviousMonth'] = "Bulan Sebelumnya";
-$_lang['PreviousWeek'] = "Minggu Sebelumnya";
-$_lang['PreviousYear'] = "Tahun Sebelumnya";
-$_lang['PrintVers'] = "Printable version";
-$_lang['Private'] = "Khusus";
-$_lang['PrivateAccess'] = "Capaian terhad (Subjek hanya boleh dicapai oleh pengguna berikut sahaja <a href=../user/user.php>Senarai Pengguna</a>)";
-$_lang['Problem'] = "Sebarang kesulitan, sila hubungi.";
-$_lang['Professor'] = "Pensyarah";
-$_lang['Professors'] = "Pensyarah";
-$_lang['ProfileReg'] = "Butir Peribadi anda telah disimpan";
-$_lang['Publ'] = "Diterbitkan pada";
-$_lang['Public'] = "Umum";
-$_lang['PublicAccess'] = "Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)";
-$_lang['Publish'] = "Terbitkan";
-$_lang['QtyOfUserCanSubscribe_PartAfterNumber'] = "&nbsp;kumpulan";
-$_lang['QtyOfUserCanSubscribe_PartBeforeNumber'] = "Pelajar boleh menjadi ahli kepada maksimum ";
-$_lang['Question'] = "Soalan";
-$_lang['QuestionAnswers'] = "Jawapan kepada soalan yang dikemukakan";
-$_lang['QuestionDescription'] = "Komen(Pilihan)";
-$_lang['QuestionList'] = "Senarai soalan dalam latihan";
-$_lang['QuestionManagement'] = "Pengurusan Soalan/Jawapan";
-$_lang['QuestionNotFound'] = "Soalan tidak ditemui";
-$_lang['QuestionPlan'] = "Maklumat untuk Pensyarah";
-$_lang['QuestionPool'] = "Bank Soalan";
-$_lang['QuestionWeighting'] = "Pemarkahan";
-$_lang['Questions'] = "Soalan";
-$_lang['RandomQuestions'] = "Soalan Rawak";
-$_lang['Reg'] = "Daftar";
-$_lang['RegAdmin'] = "Pensyarah";
-$_lang['RegIntoGroup'] = "Tambah saya dalam Kumpulan ini";
-$_lang['RegStudent'] = "Pelajar";
-$_lang['RegUser'] = "Pelajar berdaftar untuk subjek ini";
-$_lang['RegYou'] = "telah mendaftarkan anda untuk mengikuti subjek ini";
-$_lang['Registered'] = "Bilangan Ahli Semasa";
-$_lang['Remove'] = "Padam";
-$_lang['Rename'] = "Tukar Nama";
-$_lang['Reply'] = "Jawapan";
-$_lang['Requirements'] = "Requirements";
-$_lang['Result'] = "Keputusan";
-$_lang['Reuse'] = "Gunasemula";
-$_lang['Ridiculise'] = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
-$_lang['Role'] = "Peranan";
-$_lang['Save'] = "Simpan";
-$_lang['Score'] = "Markah";
-$_lang['Seen'] = "Lihat";
-$_lang['SelectAUser'] = "Pilih Pengguna";
-$_lang['SequentialExercise'] = "Satu Soalan per satu <i>Page</i> (berturutan)";
-$_lang['SetAdmin'] = "Set Pentadbir Sistem";
-$_lang['Settings'] = "dengan maklumat seperti beriku:
-Username:";
-$_lang['ShowAll'] = "Papar semua";
-$_lang['ShowNone'] = "Tiada Paparan";
-$_lang['SimpleExercise'] = "Pada satu <i>Page</i>";
-$_lang['Size'] = "Saiz";
-$_lang['SocraticIrony'] = "Socratic irony is...";
-$_lang['StatDB'] = "Tracking DB.  Useful only if several DB";
-$_lang['Statistics'] = "Statistik";
-$_lang['StatsOfCampus'] = "Statistik Kampus";
-$_lang['StatsOfCourse'] = "Statistik Subjek";
-$_lang['StatsOfUser'] = "Statistik Pengguna";
-$_lang['Status'] = "Mendaftar sebagai";
-$_lang['Student'] = "Pelajar";
-$_lang['StudentsNotInThisGroups'] = "Pelajar bukan dalam kumpulan ini";
-$_lang['Subscription'] = "Langganan";
-$_lang['SupportForum'] = "Forum Sokongan";
-$_lang['Take'] = "ambil";
-$_lang['TargetFac'] = "Pusat Pengajian yang Menawarkan Subjek Ini.";
-$_lang['TestForum'] = "Forum Percubaan";
-$_lang['TheU'] = "Pengguna";
-$_lang['ThisCourseDescriptionIsEmpty'] = "Subjek ini belum diberi penerangan";
-$_lang['Thisday'] = "Hari ini";
-$_lang['TipLang'] = "Sila pilih bahasa yang anda kehendaki untuk Laman Subjek.";
-$_lang['Title'] = "Tajuk";
-$_lang['Titular'] = "Titular";
-$_lang['To'] = "ke";
-$_lang['ToDate'] = "ke";
-$_lang['TooBig'] = "Anda tidak memilih sebarang fail/saiz fail terlalu besar.";
-$_lang['ToolTitleCountColumn'] = "Bilangan Klik";
-$_lang['ToolTitleToolnameColumn'] = "Bilangan Alat Bantu";
-$_lang['ToolTitleUsersColumn'] = "Klik Pengguna";
-$_lang['Tools'] = "Tools";
-$_lang['ToolsAccess'] = "Capaian untuk Alat Bantu";
-$_lang['Total'] = "Jumlah";
-$_lang['TotalPlatformAccess'] = "Jumlah";
-$_lang['TotalPlatformLogin'] = "Jumlah";
-$_lang['Tracking'] = "Pengesanan";
-$_lang['TrackingDisabled'] = "Fungsi pengesanan telah dimatikan oleh Pentadbir Sistem.";
-$_lang['TrafficDetails'] = "Keterangan Kesesakan";
-$_lang['True'] = "Jawapan Betul";
-$_lang['TypeTextBelow'] = "Please type your text below";
-$_lang['Uncompress'] = "Jangan <i>unzip</i>kan fail(.zip) yang dimuat naik ke server";
-$_lang['Uncompulsory'] = "(pilihan)";
-$_lang['UniqueSelect'] = "Pelbagai Jawapan (Satu Jawapan)";
-$_lang['Unreg'] = "Gugurkan Pelajar";
-$_lang['Unvalid'] = "tidak sah/tiada alamat email";
-$_lang['Up'] = "Atas";
-$_lang['Updated'] = "Kemaskini";
-$_lang['Upgrade'] = "Upgrade Claroline";
-$_lang['UploadAndZipEnd'] = " Zip file uploaded and uncompressed";
-$_lang['UploadEnd'] = "Proses muatnaik selesai";
-$_lang['UploadFile'] = "Muatnaik fail ke server";
-$_lang['UseTagForBlank'] = "use brackets [...] to define one or more blanks";
-$_lang['UsedInSeveralExercises'] = "Peringatan ! Soalan ini telah digunakan beberapa kali sebelum ini, adakah anda ingin mengubahsuainya?";
-$_lang['User'] = "Ahli";
-$_lang['UserContent'] = "<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan yang ditetapkan. Peranan ahli tidak mempunyai kesan kepada sistem pengoperasian. Ia cuma memaparkan pengguna yang sah dalam sistem. Pada bahagian ini, anda dibenarkan untuk menetapkan fungsi ahli bagi subjek anda dengan hanya mengklik <i>Ubahsuai</i> di bawah lajur <i> Peranan</i>, kemudian tetapkan ahli bagi subjek anda sama ada sebagai Professor, Jurutera Pengajar, Pelajar, Pelawat atau Pakar....</P><hr />
+</p><p>Setelah laman subjek anda siap, sila klik <i>Ubahsuai Maklumat Subjek</i> untuk menetapkan tahap capaian mengikut kesesuaian anda. Secara umumnya, laman subjek anda tidak dipaparkan kepada umum(ini kerana hanya anda dapat menguruskannya).</p>';
+$_lang['blockUsersHelp'] = '<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan yang ditetapkan. Peranan ahli tidak mempunyai kesan kepada sistem pengoperasian. Ia cuma memaparkan pengguna yang sah dalam sistem. Pada bahagian ini, anda dibenarkan untuk menetapkan fungsi ahli bagi subjek anda dengan hanya mengklik <i>Ubahsuai</i> di bawah lajur <i> Peranan</i>, kemudian tetapkan ahli bagi subjek anda sama ada sebagai Professor, Jurutera Pengajar, Pelajar, Pelawat atau Pakar....</P><hr />
 <b>Capaian Pentadbir</b>
 <p>Capaian Pentadbir - bertanggungjawab terhadap kebenaran teknikal untuk mengubahsuai dan menguruskan kandungan laman subjek. Buat masa ini, anda hanya boleh memilih untuk memberi capaian kepada pentadbir atau tidak.</P>
 <p>Untuk membenarkan jurutera pengajar menjadi pembantu bagi menguruskan laman subjek anda, anda perlu memastikan mereka sudah berdaftar untuk subjek anda atau anda mendaftarkan mereka ke laman subjek anda (bagi yang masih belum mendaftar), kemudian klik pada <i>Ubahsuai</i> di bawah <i> Capaian Pentadbir</i> kemudian klik pada kotak pilihan seterusnya klik butang <i>Ok</i>.</P><hr />
@@ -675,74 +602,30 @@ $_lang['UserContent'] = "<b>Peranan</b><p>Ahli tidak mempunyai sebarang peranan 
 <p>Untuk memaparkan nama co-chairmen sebagai pengguna, sila gunakan alat bantu ini : <i>Ubahsuai Maklumat Subjek </i>(Alat bantu yang berwarna oren). Untuk makluman anda, pengubahsuaian ini tidak akan mendaftarkan co-chairmen sebagai ke dalam subjek anda.
  Lajur <i>Pensyarah</i> bergantung kepada senarai ahli subjek sepenuhnya</p><hr />
 <b>Tambah Ahli</b>
-<p>Untuk menambah ahli ke laman subjek anda, sila isikan lajur yang terlibat dengan senarai ahli yang ingin ditambah dan sahkan lajur tersebut. Pengguna yang ditambah keahlian ke dalam subjek anda akan menerima email yang memaklumkan keahlian mereka berserta ID Pengguna dan katalaluan.</p>";
-$_lang['UserName'] = "Nama Pengguna";
-$_lang['UserNumber'] = "Bilangan";
-$_lang['UserOneByOneExplanation'] = "Para Pelajar akan menerima email pengesahan ID Pengguna dan Katalaluan";
-$_lang['UserTaken'] = "ID Pengguna ini telah digunakan oleh Pengguna lain";
-$_lang['Users'] = "Users";
-$_lang['ViMod'] = "Ubahsuai mod Paparan";
-$_lang['ViewToolList'] = "Paparkan senarai alat bantu";
-$_lang['Visibility'] = "Visibility";
-$_lang['Visits'] = "lawatan";
-$_lang['WeightingForEachBlank'] = "Please give a weighting to each blank";
-$_lang['Work'] = "Works";
-$_lang['WorkAuthors'] = "Disediakan Oleh";
-$_lang['WorkTitle'] = "Tajuk";
-$_lang['WorkUploads'] = "Tugasan dimuat naik";
-$_lang['WorksDetails'] = "Tugasan/Dokumen yang dimuat naik oleh Pelajar ";
-$_lang['Yes'] = "Ya";
-$_lang['YouAreReg'] = "Anda telah berdaftar pada";
-$_lang['YourAccountParam'] = "Berikut ialah Maklumat Login anda:";
-$_lang['YourReg'] = "Pendaftaran anda pada";
-$_lang['YourTotalScore'] = "Jumlah Markah ialah";
-$_lang['ZipNoPhp'] = "Fail zip file can not contain .PHP files";
-$_lang['_already_enrolled'] = "telah sedia mengikuti";
-$_lang['_back_to_my_personnal_course_list'] = "Kembali ke Senarai Subjek Pengguna";
-$_lang['_course_enrollment'] = "Subjek Pelajar";
-$_lang['_enroll'] = "Sertai";
-$_lang['_my_personnal_course_list'] = "Senarai Subjek Individu";
-$_lang['_no_access_here'] = "Tiada Kebenaran";
-$_lang['_select_course_in'] = "Pilih Subjek dalam ";
-$_lang['_select_course_in_search_results'] = "Select course in search results";
-$_lang['_unsubscribe'] = "Tidak dilanggan";
-$_lang['author'] = "Disediakan oleh";
-$_lang['body'] = "Mesej";
-$_lang['click'] = "Klik";
-$_lang['delete'] = "Padam topik ini";
-$_lang['deleted'] = "Hantar anda telah dipadam.";
-$_lang['emptymsg'] = "Anda perlu menaip Mesej untuk dihantar. Anda tidak boleh menghantar Mesej yang kosong.";
-$_lang['here'] = "di sini";
-$_lang['indextitle'] = "Senarai Forum";
-$_lang['lastpost'] = "Kali Terakhir Hantar";
-$_lang['notify'] = "Pemberitahuan melalui email apabila mesej anda dibalas";
-$_lang['notifybody'] = "Anda menerima Email ini kerana mesej yang anda hantar di forum telah dibalas, dan anda terpilih untuk diberitahu.
-
-Anda boleh melihat topik ini di:
-
-%1\$s
-
-Atau lihat indeks forum di
-
-%2\$s
-
-Terima Kasih kerana menggunakan forum.
-
-Semoga Ceria Selalu.";
-$_lang['notifysubj'] = "Mesej yang hendak dibalas telah dihantar.";
-$_lang['notopics'] = "Tiada sebarang topik untuk forum ini, anda boleh menghantar topik ke forum ini.";
-$_lang['posted'] = "Dihantar";
-$_lang['poster'] = "Penghantar";
-$_lang['posts'] = "Hantar";
-$_lang['returnindex'] = "untuk kembali ke indeks forum.";
-$_lang['returntopic'] = "untuk kembali ke senarai topik forum.";
-$_lang['separator'] = " > ";
-$_lang['stored'] = "Mesej telah disimpan di dalam pangkalan data.";
-$_lang['subject'] = "Topik";
-$_lang['topic'] = "Topik";
-$_lang['topicreview'] = "Papar kembali topik";
-$_lang['topics'] = "Topik";
-$_lang['topictitle'] = "Paparkan Topik";
-$_lang['viewforum'] = "Paparkan Forum";
-$_lang['viewmsg'] = "untuk memaparkan Mesej anda";
+<p>Untuk menambah ahli ke laman subjek anda, sila isikan lajur yang terlibat dengan senarai ahli yang ingin ditambah dan sahkan lajur tersebut. Pengguna yang ditambah keahlian ke dalam subjek anda akan menerima email yang memaklumkan keahlian mereka berserta ID Pengguna dan katalaluan.</p>';
+$_lang['e.g. <em>History of Literature</em>'] = 'cth. <i>Elektronik Analog II</i>';
+$_lang['group(s) has (have) been added'] = 'Kumpulan baru telah dibina';
+$_lang['in all exercises'] = 'pada semua latihan';
+$_lang['line'] = 'baris';
+$_lang['lines'] = 'baris';
+$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'cth:. <i>EKT221</i>';
+$_lang['my group'] = 'kumpulan saya';
+$_lang['my supervision'] = 'Visi Utama';
+$_lang['new group(s)'] = 'kumpulan baru';
+$_lang['number'] = 'Bilangan';
+$_lang['only in the current exercise'] = 'hanya pada latihan semasa';
+$_lang['register'] = 'daftar';
+$_lang['sampleForumDescription'] = 'Remove this through the forum admin tool';
+$_lang['sampleForumGroupCategory'] = 'Forum Kumpulan';
+$_lang['sampleForumMainCategory'] = 'Utama';
+$_lang['sampleForumMessage'] = 'When you remove the test forum, it will remove all messages in that forum too.';
+$_lang['sampleForumTitle'] = 'Forum Percubaan';
+$_lang['sampleForumTopicTitle'] = 'Contoh Mesej';
+$_lang['sampleQuizTitle'] = 'Contoh Latihan';
+$_lang['seats (optional)'] = 'orang pelajar';
+$_lang['seats by groups (optional)'] = 'orang pelajar';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'Katalaluan terlalu ringkas.Gunakan katalaluan seperti berikut';
+$_lang['to'] = 'ke';
+$_lang['uncompress zipped (.zip) file on the server'] = 'Jangan <i>unzip</i>kan fail(.zip) yang dimuat naik ke server';
+$_lang['use brackets [...] to define one or more blanks'] = 'use brackets [...] to define one or more blanks';
 ?>

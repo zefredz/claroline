@@ -1,791 +1,937 @@
 <?php 
-$_lang['Access'] = "Pristup";
-$_lang['AccessExplain'] = "(Kada korisnik pristupi početnoj stranici učilišta)";
-$_lang['Action'] = "Ovlasti";
-$_lang['Activate'] = "Aktiviraj";
-$_lang['Add'] = "Dodaj";
-$_lang['AddAClassToCourse'] = "Prijavi razred na predmet";
-$_lang['AddAU'] = "Dodaj korisnika";
-$_lang['AddAnn'] = "Dodaj obavijest";
-$_lang['AddCSVUsers'] = "Dodaj popis korisnika (iz datoteke)";
-$_lang['AddCSVUsersInClass'] = "Upiši korisnike s popisa u ovaj razred";
-$_lang['AddCSVUsersInCourse'] = "Prijavi korisnike iz popisa na predmet";
-$_lang['AddCategory'] = "Dodaj kategoriju";
-$_lang['AddClass'] = "Prijavi razred na predmet";
-$_lang['AddComment'] = "Dodaj komentar";
-$_lang['AddCommentOptionnal'] = "Komentar (nije obavezan):";
-$_lang['AddEvent'] = "Dodaj događaj";
-$_lang['AddExternalTool'] = "Dodaj alat (vanjski <i>link</i>)";
-$_lang['AddFeedback'] = "Dodaj ispravak";
-$_lang['AddIntro'] = "Dodaj uvodni tekst";
-$_lang['AddListUser'] = "Dodaj korisnike iz datoteke";
-$_lang['AddLoginPass'] = "Dodaj korisničko ime i zaporku u .htpassword</a><br>";
-$_lang['AddLoginPassForThisUser'] = "Dodaj korisničko ime i zaporku iz korisničkog računa u .htpassword";
-$_lang['AddModifyComment'] = "Dodaj/promijeni komentar za";
-$_lang['AddModule'] = "Dodaj";
-$_lang['AddModulesButton'] = "Dodaj modul";
-$_lang['AddMyCampusOnClarolineNet'] = "Prijavi učiliste preko Claroline.net <i>websitea</i>";
-$_lang['AddNewHeading'] = "Dodaj novo zaglavlje";
-$_lang['AddTutors'] = "Popis administratora";
-$_lang['AddUser'] = "Stvori korisnički račun";
-$_lang['AddUserOneByOne'] = "Novim korisnicima bit ce poslan e-mail s korisničkim imenom i zaporkom";
-$_lang['Add_users'] = "Dodaj korisnike";
-$_lang['AddedExternalTool'] = "Alat je dodan.";
-$_lang['AddedToCampus'] = " je dodan/a na učiliste";
-$_lang['AddedToCampusAndClass'] = " je registriran/a na sustav i u dodaj u ovaj razred";
-$_lang['AddedToCampusAndCourse'] = " je registriran/a na sustav i na ovaj predmet";
-$_lang['AddedToCourse'] = "je prijavljen/a na predmet";
-$_lang['AddedToCreator'] = "Početna stranica predmeta";
-$_lang['Address'] = "URL sustava ";
-$_lang['Admin'] = "Administrator";
-$_lang['AdminEmail'] = "Email";
-$_lang['AdminLogin'] = "Korisničko ime";
-$_lang['AdminName'] = "Prezime";
-$_lang['AdminPass'] = "Zaporka";
-$_lang['AdminSurname'] = "Ime";
-$_lang['Administration'] = "Administriranje";
-$_lang['AdministrationClassTools'] = "Razredi";
-$_lang['Administrator'] = "Administrator";
-$_lang['AdmitError'] = "Priznavanje vlastitih pogrešaka da bi se sugovornika ponukalo da učini to isto";
-$_lang['Advanced'] = "Napredno";
-$_lang['Again'] = "Pokušajte ponovno!";
-$_lang['Agenda'] = "Program rada";
-$_lang['AgendaNextEvents'] = "Sljedeći događaji u programu rada";
-$_lang['AlertBlockingMakedInvisible'] = "Ovaj modul je blokiran.
-Ako označite ovaj modul kao nevidljiv, polaznici će moći pristupati modulima koji slijede nakon ovog.
-Želite li zaista označiti ovaj modul kao nevidljiv?";
-$_lang['AlertBlockingPathMadeInvisible'] = "Ovaj redoslijed učenja je blokiran.
-Ako označite ovaj redoslijed kao nevidljiv, polaznici će moći pristupati modulima redoslijeda učenja koji slijede nakon ovog.
-Želite li zaista označiti ovaj redoslijed učenja kao nevidljiv?";
-$_lang['All'] = "Svi";
-$_lang['AllExercises'] = "Sve vježbe";
-$_lang['AllRight'] = "Nikakvi problemi nisu pronađeni";
-$_lang['AllUsersOfThisCourse'] = "Polaznici predmeta";
-$_lang['AllowAnonymousAttempts'] = "Anonimni pokušaji";
-$_lang['AllowLateUpload'] = "Da, korisnici mogu predati zadatak i nakon roka predaje";
-$_lang['AllowLateUploadShort'] = "Dozvoljen zakašnjeli <i>upload</i>";
-$_lang['Allowed'] = "Omogućeno";
-$_lang['AllowedTime'] = "Vremensko ograničenje";
-$_lang['AlreadyAnswered'] = "Vec ste odgovorili na (ovo/to/navedeno) pitanje";
-$_lang['AlreadyBrowsed'] = "Prethodno pregledano";
-$_lang['AltClarodoc'] = "Clarodoc";
-$_lang['AltDocument'] = "Dokument";
-$_lang['AltExercise'] = "Vježba";
-$_lang['AltMakeNotBlocking'] = "Odblokiraj";
-$_lang['AltMakeVisible'] = "Učini vidljivim";
-$_lang['AltMove'] = "Pomakni";
-$_lang['AltMoveUp'] = "Pomakni gore";
-$_lang['AltScorm'] = "Scorm";
-$_lang['Always'] = "Uvijek";
-$_lang['Among'] = "od";
-$_lang['And'] = "i";
-$_lang['AnnAdd'] = "Obavijest je dodana";
-$_lang['AnnDel'] = "Obavijest je izbrisana";
-$_lang['AnnEmpty'] = "Popis obavijesti je izbrisan";
-$_lang['AnnModify'] = "Obavijest je promijenjena";
-$_lang['Announcement'] = "Obavijesti";
-$_lang['Anonymous'] = "Anoniman";
-$_lang['AnonymousAttemptsAllowed'] = "Dozvoljeni (bez praćenja identiteta korisnika koji rješavaju vježbu)";
-$_lang['AnonymousAttemptsNotAllowed'] = "Nije dozvoljeno (s praćenjem identiteta korisnika koji rješavaju vježbu)";
-$_lang['AnonymousUserAccessCount'] = "Broj anonimnih pristupa: ";
-$_lang['Answer'] = "Odgovor";
-$_lang['AnswerRequired'] = "Odgovor je obavezan";
-$_lang['AnswerType'] = "Vrsta odgovora";
-$_lang['Antique'] = "Povijest drevne filozofije";
-$_lang['AppliedChange'] = "Korisničke postavke su promijenjene";
-$_lang['Archive'] = "arhiva";
-$_lang['AreCompulsory'] = "su obavezna";
-$_lang['AreYouSureDeleteModule'] = "Ukoliko izbrišete modul, modul će biti uklonjen iz svih redoslijeda učenja u kojima se koristi.
-Želite li zaista izbrisati ovaj modul?";
-$_lang['AreYouSureToDelete'] = "Želite li zaista izbrisati ";
-$_lang['AreYouSureToDeleteScorm'] = "Ovaj redoslijed učenja je dio SCORM <i>import</i> paketa. Ako obrišete ovaj redoslijed, svi SCORM moduli i datoteke će biti obrisani.  Želite li zaista izbrisati redoslijed učenja ";
-$_lang['AreYouSureToRemove'] = "Želite li zaista  izbrisati odabrani modul iz redoslijeda učenja:";
-$_lang['AreYouSureToRemoveLabel'] = "Brisanjem odjeljka obrisat ćete sve module i pododjeljke koje on sadrži";
-$_lang['AreYouSureToRemoveSCORM'] = "SCORM moduli su izbrisani sa servera i redoslijeda učenja";
-$_lang['AreYouSureToRemoveStd'] = "Modul će i dalje biti dostupan putem palete modula.";
-$_lang['AreYouSureToUnsubscribe'] = "Želite li zaista ispisati korisnika ";
-$_lang['Assignment'] = "Zadatak";
-$_lang['AssignmentAdded'] = "Stvoren je novi zadatak";
-$_lang['AssignmentDeleted'] = "Zadatak izbrisan";
-$_lang['AssignmentDescription'] = "Opis";
-$_lang['AssignmentEdited'] = "Zadatak promijenjen";
-$_lang['AssignmentTitle'] = "Ime zadatka";
-$_lang['AssignmentTitleAlreadyExists'] = "Zadatak s navedenim naslovom već postoji";
-$_lang['AssignmentTitleRequired'] = "Naslov zadatka je obavezan";
-$_lang['AssignmentType'] = "Vrsta zadatka";
-$_lang['AttachDoc'] = "Pridruži datoteku";
-$_lang['AttachFile'] = "Datoteka";
-$_lang['AttachedFile'] = "Dodaj datoteku";
-$_lang['Attempt'] = "Pokušaj";
-$_lang['AttemptAllowed'] = "pokušaj";
-$_lang['Attempts'] = "Broj pokušaja";
-$_lang['AttemptsAllowed'] = "Pokušaja";
-$_lang['Authentication'] = "Prijava";
-$_lang['AvailableFrom'] = "Moze se predati od";
-$_lang['Back'] = "Natrag";
-$_lang['BackHomeOf'] = "Povratak na početnu stranicu";
-$_lang['BackList'] = "Natrag na popis";
-$_lang['BackModule'] = "Natrag na popis modula";
-$_lang['BackTo'] = "Natrag na:";
-$_lang['BackToAdmin'] = "Natrag na administriranje";
-$_lang['BackToClass'] = "Natrag na razred";
-$_lang['BackToClassList'] = "Natrag na popis razreda";
-$_lang['BackToClassMembers'] = "Natrag na članove razreda";
-$_lang['BackToCourseList'] = "Natrag na popis predmeta";
-$_lang['BackToEditor'] = "Natrag na editor";
-$_lang['BackToLPAdmin'] = "Natrag na administriranje redoslijeda učenja";
-$_lang['BackToList'] = "Natrag na popis";
-$_lang['BackToMyCourseList'] = "Natrag na popis predmeta";
-$_lang['BackToUserList'] = "Natrag na popis korisnika";
-$_lang['BackToUserSettings'] = "Natrag na korisničke postavke";
-$_lang['BackToUsersList'] = "Natrag na popis polaznika";
-$_lang['BlankSpace'] = "(Razmak)";
-$_lang['Block'] = "Blokiraj";
-$_lang['BrowserCannotSeeFrames'] = "Vaš <i>browser</i> ne podržava <i>frameove</i>";
-$_lang['BuildCompleteLangFile'] = "Svih jezičnih datoteka";
-$_lang['BuildEmptyLangFile'] = "Prazne jezične datoteke";
-$_lang['BuildLangFile'] = "Stvaranje";
-$_lang['BuildMissingLangFile'] = "Jezičnih datoteka koje nedostaju";
-$_lang['BuildProductionLangFile'] = "Jezičnih datoteka za produkcijski sustav";
-$_lang['ByDel'] = "Prilikom brisanja <i>web sitea</i> ovog predmeta bit će obrisani svi dokumenti predmeta i svi će studenti biti odjavljeni<p>Želite li zaista izbrisati predmet?";
-$_lang['ByUser'] = "od strane korisnika: ";
-$_lang['CSVSeeUserList'] = "Pregled liste korisnika";
-$_lang['CampusAlreadyRegistered'] = "Vaše je učilište već registrirano";
-$_lang['CampusDeleted'] = "<strong>Učiliste odjavljeno</strong><p>Vaše učilište je odjavljeno sa sustava www.claroline.net. Kontaktirajte administratore Claroline sustava u slučaju pogreške</p>";
-$_lang['CampusRegistered'] = "<strong>Učilište je prijavljeno</strong><p>Registracija vašeg učilišta je prihvaćena od strane Claroline.net teama.<br /><i>Link</i> na stranice Vašeg učilišta je dodan na <i>web</i> stranice www.claroline.net.</p>";
-$_lang['CampusRegistrationSubmitted'] = "Zahtjev za registracijom Vašeg učilišta je poslan Claroline.net teamu";
-$_lang['CampusRemoved'] = "<strong>Uklonjen</strong><p><i>Link</i> na Vaše učilište je uklonjen sa stranice www.claroline.net</p>";
-$_lang['CampusSubmitted'] = "<strong>Zahtjev poslan</strong><p>Zahtjev za registracijom Vašeg učilišta je poslan Claroline.net teamu</p>";
-$_lang['Cancel'] = "Odustani";
-$_lang['CannotBeBlank'] = "Ime razreda mora biti zadano";
-$_lang['CannotCopyFile'] = "Nije moguće prekopirati datoteku.";
-$_lang['CannotInitChat'] = "Pogreška: Nije moguće inicijalizirati <i>chat</i>";
-$_lang['CatagoryGroup'] = "Forumi grupa";
-$_lang['CatagoryMain'] = "Glavna kategorija";
-$_lang['Categories'] = "Kategorije";
-$_lang['Category'] = "Kategorija";
-$_lang['ChangePwdexp'] = "Da biste promijenili zaporku, novu zaporku upišite dva puta";
-$_lang['ChangeRaw'] = "Promijeni prag prolaznosti za ovaj predmet (u postocima): ";
-$_lang['ChangedTool'] = "Popis alata je uređen";
-$_lang['Chat'] = "Chat";
-$_lang['ChatResetBy'] = "<i>Chat</i> je izbrisao:";
-$_lang['Choice'] = "Vaš odabir";
-$_lang['ChooseDateHelper'] = "(d/m/y hh:mm)";
-$_lang['ChooseGoodAnswer'] = "Odaberite ispravni odgovor";
-$_lang['ChooseGoodAnswers'] = "Odaberite jedan ili više ispravnih odgovora";
-$_lang['ClarolineNetNews'] = "Claroline.net vijesti";
-$_lang['Class'] = "Razred";
-$_lang['ClassMembers'] = "članovi razreda";
-$_lang['ClassMoved'] = "Razred je premješten";
-$_lang['ClassName'] = "Ime razreda";
-$_lang['ClassRegisterUser'] = "Upiši korisnika u ovaj razred";
-$_lang['ClassRegisterWholeClass'] = "Prijavi razred na predmet";
-$_lang['ClassRegisterWholeClassAgain'] = "Prijavi razred na (drugi) predmet";
-$_lang['ClassRegistered'] = "Razred prijavljen";
-$_lang['ClearList'] = "Izbriši popis događaja";
-$_lang['Close'] = "Zatvori";
-$_lang['CloseWindow'] = "Zatvori prozor";
-$_lang['Code'] = "Šifra predmeta";
-$_lang['CodeAppearAlready'] = "Matična šifra već postoji u CSV datoteci";
-$_lang['CodeCanBeEmpty'] = "Šifra predmeta je obazvezna";
-$_lang['CodeUsed'] = "Navedena matična oznaka se već koristi";
-$_lang['ComMod'] = "Komentar promijenjen";
-$_lang['Comment'] = "Komentar";
-$_lang['ConfTip'] = "Po <i>defaultu</i>, na predmet se mogu prijaviti svi registrirani korisnici. Ako želite povjerljivost,
-najjednostavniji način je da omogućite prijavljivanje na predmet tijekom jednog tjedna, obavijestite korisnike da se prijave, te
-zatim onemogućite prijavljivanje i pronađete <i>uljeze</i> u listi prijavljenih korisnika.";
-$_lang['ConfigMenuContent'] = "Izbornik postavki";
-$_lang['Configuration'] = "Postavke";
-$_lang['ConfirmDeleteExercise'] = "Želite li zaista izbrisati ovu vjezbu?";
-$_lang['ConfirmDeleteGroups'] = "Želite li zaista izbrisati sve grupe?";
-$_lang['ConfirmDeleteQuestion'] = "Želite li zaista izbrisati pitanje?";
-$_lang['ConfirmDeleteStats'] = "Želite li zaista obrisati statistike?";
-$_lang['ConfirmEmptyGroups'] = "Želite li zaista isprazniti sve grupe?";
-$_lang['ConfirmEnrollClassToCourse'] = "Želite li zaista prijaviti razred na ovaj predmet?";
-$_lang['ConfirmYourChoice'] = "Molimo Vas da potvrdite odabir";
-$_lang['Confirmation'] = "Potvrda zaporke";
-$_lang['Content'] = "Sadržaj";
-$_lang['Contradiction'] = "Korištenje principa nekontradikcije da bi se sugovornika stjeralo u kut";
-$_lang['Copy'] = "Kopiraj";
-$_lang['CopyFailed'] = "Neuspio ispis";
-$_lang['CorrespondsTo'] = "Odgovara";
-$_lang['CountCours'] = "Ukupni broj predmeta";
-$_lang['CountCourseByFaculte'] = "Broj predmeta po kategoriji";
-$_lang['CountCourseByLanguage'] = "Broj predmeta po jeziku";
-$_lang['CountCourseByVisibility'] = "Broj predmeta po vidljivosti";
-$_lang['CountToolAccess'] = "Ukupan broj pristupa stranicama predmeta";
-$_lang['CountUsers'] = "Ukupni broj korisnika";
-$_lang['CountUsersByCourse'] = "Broj korisnika po predmetu";
-$_lang['CountUsersByFaculte'] = "Broj korisnika po kategoriji";
-$_lang['CountUsersByStatus'] = "Broj korisnika po statusu";
-$_lang['Country'] = "Država";
-$_lang['CountryCodeError'] = "Šifra države je neispravna";
-$_lang['Course'] = "Predmet";
-$_lang['CourseAccess'] = "Pristup stranicama predmeta";
-$_lang['CourseAdministratorOnly'] = "Vidljivo isključivo voditeljima predmeta";
-$_lang['CourseContent'] = "Sadržaj predmeta";
-$_lang['CourseContentComment1'] = "Koja je važnost gradiva koje se podučava u sklopu predmeta? Koliko je gradivo teško?
-Kako je gradivo ustrojeno? Koji je redoslijed izlaganja gradiva?";
-$_lang['CourseContentComment2'] = "Sadržaj predmeta, prikaz gradiva i plan rada.";
-$_lang['CourseCreate'] = "Stvori novi predmet";
-$_lang['CourseCreator'] = "Voditelj predmeta";
-$_lang['CourseDelete'] = "Predmet je izbrisan";
-$_lang['CourseHome'] = "Početna stranica predmeta";
-$_lang['CourseList'] = "Popis predmeta";
-$_lang['CourseManager'] = "Voditelj predmeta";
-$_lang['CourseManagerStatusToUser'] = "Zahtjev za statusom voditelja predmeta za: %s %s";
-$_lang['CourseProgram'] = "Opis predmeta";
-$_lang['CourseSettings'] = "Postavke predmeta";
-$_lang['CourseTitle'] = "Ime predmeta";
-$_lang['CourseWithoutAccess'] = "Predmeti koji se ne koriste";
-$_lang['CourseWithoutProf'] = "Predmeti bez predavača";
-$_lang['CourseWithoutStudents'] = "Predmeti bez polaznika";
-$_lang['Course_Repository'] = "Repozitorij predmeta";
-$_lang['Courses'] = "Predmeti";
-$_lang['Create'] = "Stvori";
-$_lang['CreateAnotherUser'] = "Stvori novog korisnika";
-$_lang['CreateAssignment'] = "Stvori novi zadatak";
-$_lang['CreateCourse'] = "Stvaranje predmeta";
-$_lang['CreateCourses'] = "Stvaranje predmeta";
-$_lang['CreateDir'] = "Stvori mapu";
-$_lang['CreateDocument'] = "Stvori dokument";
-$_lang['CreateHyperlink'] = "Stvori <i>hyperlink</i>";
-$_lang['CreateLabel'] = "Dodaj odjeljak";
-$_lang['CreateModifyDocument'] = "Stvaranje/uređivanje dokumenta";
-$_lang['CreateNewClass'] = "Stvori novi razred";
-$_lang['CreateNewLearningPath'] = "Stvori novi redoslijed učenja";
-$_lang['CreateSite'] = "Stvaranje websitea predmeta";
-$_lang['CreateUser'] = "Stvori korisnički racun";
-$_lang['CreateUserAccount'] = "Otvori korisnički račun";
-$_lang['CreationMailNotificationBody'] = "Stvaranje predmeta na sustavu";
-$_lang['CreationMailNotificationSubject'] = "Stvaranje predmeta";
-$_lang['CurrentAttachedDoc'] = "Trenutno pridružena datoteka";
-$_lang['CurrentDoc'] = "Trenutno pridružena datoteka";
-$_lang['CurrentFeedbackFile'] = "Trenutno pridružena datoteka";
-$_lang['CurrentStatus'] = "Stanje registracije učilista: <br /> <br />
-";
-$_lang['CurrentTime'] = "Vrijeme u vježbi";
-$_lang['DBConnectionParameters'] = "MySQL connection parameters";
-$_lang['DBHost'] = "Database Host";
-$_lang['DBSettingNamesIntro'] = "Instalacijska procedura stvara glavnu Claroline bazu podataka.
+$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = 'veličina repozitorija predmeta (uključuje Claroline i eventualne ostatke iz starijih verzija Claroline sustava)';
+$_lang['%moduleName has been added as module'] = 'vježba je dodana u redoslijed učenja';
+$_lang['%moduleName is already used as a module in this learning path'] = 'Ova se vježba vec koristi u redoslijedu učenja';
+$_lang['(When an user open the index of the campus)'] = '(Kada korisnik pristupi početnoj stranici učilišta)';
+$_lang['(always private)'] = '(uvijek privatan)';
+$_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
+$_lang['(none)'] = 'nije dodijeljen';
+$_lang['(optional)'] = '(nije obavezno)';
+$_lang['- none -'] = '- nema datoteke -';
+$_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Učilište je prijavljeno</strong><p>Registracija vašeg učilišta je prihvaćena od strane Claroline.net teama.<br /><i>Link</i> na stranice Vašeg učilišta je dodan na <i>web</i> stranice www.claroline.net.</p>';
+$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Učiliste odjavljeno</strong><p>Vaše učilište je odjavljeno sa sustava www.claroline.net. Kontaktirajte administratore Claroline sustava u slučaju pogreške</p>';
+$_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Uklonjen</strong><p><i>Link</i> na Vaše učilište je uklonjen sa stranice www.claroline.net</p>';
+$_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Zahtjev poslan</strong><p>Zahtjev za registracijom Vašeg učilišta je poslan Claroline.net teamu</p>';
+$_lang['A file is required'] = 'Datoteka je obavezna';
+$_lang['A reply to your topic has been posted'] = 'Obavijest o odgovoru na temu';
+$_lang['Access'] = 'Pristup';
+$_lang['Access count'] = 'Broj pristupa';
+$_lang['Access to campus'] = 'Statistike pristupa učilistu';
+$_lang['Access to courses'] = 'Statistike pristupa stranicama predmeta';
+$_lang['Access to tools'] = 'Pristup alatima';
+$_lang['Accounts with same <i>Email</i>'] = 'Korisnički računi s istom <i>email adresom</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'Korisnički računi s jednakim <i>korisničkim imenom</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Korisnički računi kod kojih je <i>Korisničko ime</i> jednako <i>Zaporci</i>';
+$_lang['Action'] = 'Ovlasti';
+$_lang['Activate'] = 'Aktiviraj';
+$_lang['Add'] = 'Dodaj';
+$_lang['Add a category'] = 'Dodaj kategoriju';
+$_lang['Add a comment'] = 'Dodaj komentar';
+$_lang['Add a comment (optionnal) :'] = 'Komentar (nije obavezan):';
+$_lang['Add a user'] = 'Dodaj korisnika';
+$_lang['Add a user list'] = 'Dodaj popis korisnika (iz datoteke)';
+$_lang['Add a user list in class'] = 'Upiši korisnike s popisa u ovaj razred';
+$_lang['Add a user list in course'] = 'Prijavi korisnike iz popisa na predmet';
+$_lang['Add an event'] = 'Dodaj događaj';
+$_lang['Add announcement'] = 'Dodaj obavijest';
+$_lang['Add answ.'] = 'Dodaj novi odgovor';
+$_lang['Add elem.'] = 'Dodaj element';
+$_lang['Add external link'] = 'Dodaj alat (vanjski <i>link</i>)';
+$_lang['Add feedback'] = 'Dodaj ispravak';
+$_lang['Add introduction text'] = 'Dodaj uvodni tekst';
+$_lang['Add me to this group'] = 'Prijavi me u ovu grupu';
+$_lang['Add module(s)'] = 'Dodaj modul';
+$_lang['Add my campus on Claroline.net website'] = 'Prijavi učiliste preko Claroline.net <i>websitea</i>';
+$_lang['Add new heading'] = 'Dodaj novo zaglavlje';
+$_lang['Add user list'] = 'Dodaj korisnike';
+$_lang['Add user manually'] = 'Ručno dodavanje korisnika';
+$_lang['Add/modify a comment to'] = 'Dodaj/promijeni komentar za';
+$_lang['Admin'] = 'Administrator';
+$_lang['Administration'] = 'Administriranje';
+$_lang['Administrative code'] = 'Matična oznaka';
+$_lang['Administrator'] = 'Administrator';
+$_lang['Advanced'] = 'Napredno';
+$_lang['Advanced course search'] = 'Napredno traženje predmeta';
+$_lang['Advanced user search'] = 'Napredno traženje korisnika';
+$_lang['After last allowed attempt'] = 'Nakon posljednjeg dozvoljenog pokušaja';
+$_lang['Agenda'] = 'Program rada';
+$_lang['Agenda next events'] = 'Sljedeći događaji u programu rada';
+$_lang['All'] = 'Svi';
+$_lang['All exercises'] = 'Sve vježbe';
+$_lang['All groups are now empty'] = 'Sve grupe su ispraznjene';
+$_lang['All groups have been deleted'] = 'Sve su grupe izbrisane';
+$_lang['All modules of this course are already used in this learning path.'] = 'Svi moduli ovog predmeta već se koriste u ovom redoslijedu učenja';
+$_lang['Allow late upload'] = 'Dozvoljen zakašnjeli <i>upload</i>';
+$_lang['Allowed'] = 'Omogućeno';
+$_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Dozvoljeni (bez praćenja identiteta korisnika koji rješavaju vježbu)';
+$_lang['Already browsed'] = 'Prethodno pregledano';
+$_lang['Already enroled'] = 'prijavljeni na predmet';
+$_lang['Among'] = 'od';
+$_lang['An error occured.  Learning Path import failed.'] = 'Pogreška!  <i>Importiranje</i> redoslijeda učenja nije uspjelo';
+$_lang['An error occurred while contacting Claroline.net'] = 'Pogreška prilikom pristupanja stranici Claroline.net';
+$_lang['Announcement'] = 'Obavijesti';
+$_lang['Announcement has been added'] = 'Obavijest je dodana';
+$_lang['Announcement has been deleted'] = 'Obavijest je izbrisana';
+$_lang['Announcement has been modified'] = 'Obavijest je promijenjena';
+$_lang['Announcements list has been cleared up'] = 'Popis obavijesti je izbrisan';
+$_lang['Anonymous'] = 'Anoniman';
+$_lang['Anonymous attempts'] = 'Anonimni pokušaji';
+$_lang['Anonymous users access count :'] = 'Broj anonimnih pristupa: ';
+$_lang['Answer'] = 'Odgovor';
+$_lang['Answer is required'] = 'Odgovor je obavezan';
+$_lang['Answer type'] = 'Vrsta odgovora';
+$_lang['Answers to the question'] = 'Ponuđeni odgovori';
+$_lang['Are you sure to delete'] = 'Želite li zaista izbrisati ';
+$_lang['Are you sure you want to completely delete this question ?'] = 'Želite li zaista izbrisati pitanje?';
+$_lang['Are you sure you want to delete all groups ?'] = 'Želite li zaista izbrisati sve grupe?';
+$_lang['Are you sure you want to delete this exercise ?'] = 'Želite li zaista izbrisati ovu vjezbu?';
+$_lang['Are you sure you want to empty all groups ?'] = 'Želite li zaista isprazniti sve grupe?';
+$_lang['Are you sure you want to enrol the whole class on the course ?'] = 'Želite li zaista prijaviti razred na ovaj predmet?';
+$_lang['Are you sure you want to remove the following module from the learning path :'] = 'Želite li zaista  izbrisati odabrani modul iz redoslijeda učenja:';
+$_lang['Are you sure you want to remove this course from your list ?'] = 'Želite li se zaista odjaviti s ovog predmeta?';
+$_lang['Are you sure you want to unregister'] = 'Želite li zaista ispisati korisnika ';
+$_lang['Area for this group'] = '';
+$_lang['Asset not found :'] = 'Resurs nije pronađen: ';
+$_lang['Assignment'] = 'Zadatak';
+$_lang['Assignment deleted'] = 'Zadatak izbrisan';
+$_lang['Assignment modified'] = 'Zadatak promijenjen';
+$_lang['Assignment title'] = 'Ime zadatka';
+$_lang['Assignment title already exists'] = 'Zadatak s navedenim naslovom već postoji';
+$_lang['Assignment title required'] = 'Naslov zadatka je obavezan';
+$_lang['Assignment type'] = 'Vrsta zadatka';
+$_lang['Assignments help'] = 'Zadaci pomoć';
+$_lang['Attach a file'] = 'Datoteka';
+$_lang['Attached file'] = 'Dodaj datoteku';
+$_lang['Attempt'] = 'Pokušaj';
+$_lang['Attempts'] = 'Broj pokušaja';
+$_lang['Attempts allowed'] = 'Pokušaja';
+$_lang['Authentication'] = 'Prijava';
+$_lang['Author'] = 'Autor/ica';
+$_lang['Author(s)'] = 'Autor/i';
+$_lang['Author(s) is(are) required'] = 'Autori nisu navedeni';
+$_lang['Automatically, after each submission'] = 'Automatizirano, nakon predaje rada (pojedinom korisniku)';
+$_lang['Automatically, after end date'] = 'Automatizirano, nakon roka predaje (globalno objavljeno)';
+$_lang['Available from'] = 'Moze se predati od';
+$_lang['Average Time'] = 'Prosječno vrijeme (s)';
+$_lang['Average score'] = 'Prosječno bodova';
+$_lang['Back'] = 'Natrag';
+$_lang['Back to Home page'] = 'Natrag na početnu stranicu';
+$_lang['Back to administration page'] = 'Natrag na administriranje';
+$_lang['Back to class list'] = 'Natrag na popis razreda';
+$_lang['Back to class members'] = 'Natrag na članove razreda';
+$_lang['Back to course list'] = 'Natrag na popis predmeta';
+$_lang['Back to learning path administration'] = 'Natrag na administriranje redoslijeda učenja';
+$_lang['Back to list'] = 'Natrag na popis';
+$_lang['Back to my course list'] = 'Natrag na popis predmeta';
+$_lang['Back to my personal course list'] = 'Natrag na moje predmete';
+$_lang['Back to parent category'] = 'Natrag na nadređenu kategoriju';
+$_lang['Back to the class'] = 'Natrag na razred';
+$_lang['Back to the editor'] = 'Natrag na editor';
+$_lang['Back to user list'] = 'Natrag na popis polaznika';
+$_lang['Back to user settings'] = 'Natrag na korisničke postavke';
+$_lang['Best score'] = 'Maksimum';
+$_lang['Block'] = 'Blokiraj';
+$_lang['Build language files'] = 'Stvaranje';
+$_lang['By deleting a label you will delete all modules or label it contains.'] = 'Brisanjem odjeljka obrisat ćete sve module i pododjeljke koje on sadrži';
+$_lang['CSV file with the user list :'] = 'CSV datoteka s popisom korisnika: ';
+$_lang['Campus name'] = 'Ime učilista';
+$_lang['Can have courses'] = 'Može sadržavati predmete: ';
+$_lang['Cancel'] = 'Odustani';
+$_lang['Cannot copy the file'] = 'Nije moguće prekopirati datoteku.';
+$_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Pogreška prilikom dekomprimiranja manifest datoteke iz <i>zip</i> datoteke';
+$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'U paketu nedostaje <i>manifest</i> datoteka.<br /> Datoteka nije pronađena: imsmanifest.xml';
+$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Nije moguće pronaći sekundarnu inicijalizacijsku datoteku u paketu.<br />Datoteka nije pronađena: ';
+$_lang['Categories'] = 'Kategorije';
+$_lang['Category'] = 'Kategorija';
+$_lang['Category code'] = 'Šifra kategorije';
+$_lang['Category code is required'] = 'Šifra kategorije je obavezna';
+$_lang['Category created'] = 'Kategorija je stvorena';
+$_lang['Category deleted'] = 'Kategorija izbrisana';
+$_lang['Category moved'] = 'Redoslijed kategorija je promijenjen';
+$_lang['Category name'] = 'Ime kategorije: ';
+$_lang['Category name is required'] = 'Ime kategorije je obavezno';
+$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Promijeni prag prolaznosti za ovaj predmet (u postocima): ';
+$_lang['Change picture'] = 'Promijeni sliku';
+$_lang['Changes have been applied to the user settings'] = 'Korisničke postavke su promijenjene';
+$_lang['Changes have been saved'] = 'Promjene su spremljene';
+$_lang['Chat'] = 'Chat';
+$_lang['Chat reset by'] = '<i>Chat</i> je izbrisao:';
+$_lang['Check this box to delete the attached file'] = 'Označite kućicu da biste izbrisali priloženu datoteku Check this box to delete the attached file.';
+$_lang['Choice'] = 'Vaš odabir';
+$_lang['Clarodoc'] = 'Clarodoc';
+$_lang['Claroline.net news'] = 'Claroline.net vijesti';
+$_lang['Class members'] = 'članovi razreda';
+$_lang['Class registered'] = 'Razred prijavljen';
+$_lang['Class users'] = 'Članovi razreda';
+$_lang['Classes'] = 'Razred';
+$_lang['Clear up event list'] = 'Izbriši popis događaja';
+$_lang['Clear up list of announcements'] = 'Izbriši popis obavijesti';
+$_lang['Click on the month name for more details'] = 'Odaberite mjesec za koji želite ispis detalja';
+$_lang['Close'] = 'Zatvori';
+$_lang['Close window'] = 'Zatvori prozor';
+$_lang['Comment'] = 'Komentar';
+$_lang['Comment modified'] = 'Komentar promijenjen';
+$_lang['Complete language files'] = 'Svih jezičnih datoteka';
+$_lang['Configuration'] = 'Postavke';
+$_lang['Confirmation'] = 'Potvrda zaporke';
+$_lang['Content'] = 'Sadržaj';
+$_lang['Copy'] = 'Kopiraj';
+$_lang['Corresponds to'] = 'Odgovara';
+$_lang['Country'] = 'Država';
+$_lang['Country code seems to be incorrect.'] = 'Šifra države je neispravna';
+$_lang['Course'] = 'Predmet';
+$_lang['Course Home'] = 'Početna stranica predmeta';
+$_lang['Course Repository'] = 'Repozitorij predmeta';
+$_lang['Course access'] = 'Pristup stranicama predmeta';
+$_lang['Course administrator only'] = 'Vidljivo isključivo voditeljima predmeta';
+$_lang['Course code'] = 'Šifra predmeta';
+$_lang['Course code needed'] = 'Šifra predmeta je obazvezna';
+$_lang['Course creator'] = 'Voditelj predmeta';
+$_lang['Course description'] = 'Opis predmeta';
+$_lang['Course list'] = 'Popis predmeta';
+$_lang['Course manager'] = 'Voditelj predmeta';
+$_lang['Course members'] = 'Polaznici predmeta';
+$_lang['Course progression'] = 'Napredak u redoslijedu učenja ';
+$_lang['Course settings'] = 'Postavke predmeta';
+$_lang['Course statistics deleted'] = 'Statistike predmeta su izbrisane';
+$_lang['Course title'] = 'Ime predmeta';
+$_lang['Course title needed'] = 'Ime predmeta je obavezno';
+$_lang['Course users list'] = 'Popis korisnika prijavljenih na predmet';
+$_lang['Courses'] = 'Predmeti';
+$_lang['Courses not used'] = 'Predmeti koji se ne koriste';
+$_lang['Courses without a lecturer'] = 'Predmeti bez predavača';
+$_lang['Courses without student'] = 'Predmeti bez polaznika';
+$_lang['Create'] = 'Stvori';
+$_lang['Create Directory'] = 'Stvori mapu';
+$_lang['Create Document'] = 'Stvori dokument';
+$_lang['Create a category'] = 'Stvori novu kategoriju';
+$_lang['Create a course site'] = 'Stvori novi predmet';
+$_lang['Create a course website'] = 'Stvaranje websitea predmeta';
+$_lang['Create a new assignment'] = 'Stvori novi zadatak';
+$_lang['Create a new class'] = 'Stvori novi razred';
+$_lang['Create a new label / title in this learning path'] = 'Upišite ime novog odjeljka';
+$_lang['Create a new learning path'] = 'Stvori novi redoslijed učenja';
+$_lang['Create a new user'] = 'Stvori korisnički račun';
+$_lang['Create another new user'] = 'Stvori novog korisnika';
+$_lang['Create course'] = 'Stvaranje predmeta';
+$_lang['Create hyperlink'] = 'Stvori <i>hyperlink</i>';
+$_lang['Create label'] = 'Dodaj odjeljak';
+$_lang['Create new group(s)'] = 'Stvori novu grupu';
+$_lang['Create user'] = 'Stvori korisnički racun';
+$_lang['Create user account'] = 'Otvori korisnički račun';
+$_lang['Create/edit document'] = 'Stvaranje/uređivanje dokumenta';
+$_lang['Current attached file'] = 'Trenutno pridružena datoteka';
+$_lang['Current feedback file'] = 'Trenutno pridružena datoteka';
+$_lang['Current file'] = 'Trenutno pridružena datoteka';
+$_lang['Current registration status :'] = 'Stanje registracije učilista: <br /> <br />
+';
+$_lang['Current time'] = 'Vrijeme u vježbi';
+$_lang['DBSettingNamesIntro'] = 'Instalacijska procedura stvara glavnu Claroline bazu podataka.
 Ukoliko ste, zbog postavki sustava za upravljanje bazama podataka, ograničeni na jednu bazu podataka,
-vratite se na prethodnu stranicu i odaberite 'single' za 'Database mode.<BR><BR>";
-$_lang['DBUse'] = "Korištenje baze podataka";
-$_lang['DOCUMENTTypeDesc'] = "Dokument";
-$_lang['Date'] = "Datum";
-$_lang['DateLastWrite'] = "Posljednja poruka: ";
-$_lang['Day'] = "Dan";
-$_lang['DbName'] = "Ime baze podataka";
-$_lang['DbPrefixForm'] = "Prefiks za imena baza podataka predmeta";
-$_lang['Dear'] = "Poštovani/a";
-$_lang['DefSubVisibility'] = "<i>Default</i> vidljivost radova";
-$_lang['DefaultLearningPathComment'] = "Uvodni tekst redoslijeda učenja. Da biste ga zamijenili proizvoljnim/vlastitim tekstom kliknite na modify (ikonu/olovcicu)   This is the introduction text of this learning path. To replace it by your own text, click below on <b>modify</b>.";
-$_lang['DefaultModuleComment'] = "Uvodni tekst modula. Bit ce prikazan/prikazuje se u svim planovima/redoslijedima ucenja u kojima se ovaj modul koristi (koji sadrze ovaj modul). Da bi ste ga zamijenili vlastitim tekstom, kliknite na olovcicu ispod :-)   This is the introduction text of this module, it will appears in each learning path that contains this module. To replace it by your own text, click below on <b>modify</b>.";
-$_lang['DefaultTextInBlanks'] = "[Kinezi] žive u Kini.";
-$_lang['Defcon'] = "<center>Pronađeni su problematični slučajevi</center>";
-$_lang['DefineBlanks'] = "Definirajte barem jednu prazninu pomoću zagrada [...]";
-$_lang['DefineHeadings'] = "Definiraj zaglavlje";
-$_lang['DefineOptions'] = "Upiši drugu listu";
-$_lang['DelAdmin'] = "Obrišite pomoću alata za administriranje foruma";
-$_lang['DelCourse'] = "Izbriši <i>web site</i> predmeta";
-$_lang['DelCourseStats'] = "Izbriši statistike predmeta";
-$_lang['DelCourseStatsDone'] = "Statistike predmeta su izbrisane";
-$_lang['DelImage'] = "Izbriši sliku";
-$_lang['Delete'] = "Izbriši";
-$_lang['DeleteAttachedFile'] = "Izbriši priloženu datoteku";
-$_lang['DeleteCaution'] = "Ako izbrišete zadatak, bit će izbrisani i svi predani uratci";
-$_lang['DeleteGroups'] = "Izbriši sve grupe";
-$_lang['DeleteMyAccount'] = "Izbriši moj korisnički račun";
-$_lang['DeleteUser'] = "Izbriši korisnika";
-$_lang['DeletedExternalTool'] = "Alat je izbrisan";
-$_lang['Denied'] = "Onemogućeno";
-$_lang['DepartmentUrl'] = "URL adresa odjela";
-$_lang['DepartmentUrlName'] = "Odjel";
-$_lang['DescAdded'] = "Opis predmeta je dodan.";
-$_lang['DescDeleted'] = "Opis predmeta je izbrisan.";
-$_lang['DescUnableToDelete'] = "Nije moguće izbrisati";
-$_lang['DescUnableToUpdate'] = "Nije moguće <i>updateati</i>";
-$_lang['DescUpdated'] = "Opis je <i>updatean</i>";
-$_lang['Description'] = "Opis";
-$_lang['DescriptionComment1'] = "Koja je uloga predmeta unutar programa? Koja je veza s ostalim predmetima? Postoje li predmeti koje je neophodno odslušati prije prijavljivanja na ovaj predmet?";
-$_lang['DescriptionComment2'] = "Informacije o predmetu (ime predmeta, broj predviđenih sati) i o voditelju predmeta (ime i prezime, odjel, broj telefona, email).";
-$_lang['DescriptionCours'] = "Opis predmeta";
-$_lang['Detail'] = "Detalji";
-$_lang['DetailView'] = "Pregledavanje po";
-$_lang['Details'] = "Detalji";
-$_lang['DevTools'] = "Alati za razvoj";
-$_lang['DirCr'] = "Mapa je stvorena";
-$_lang['DirMv'] = "Element je premješten";
-$_lang['Disable'] = "Nevidljiva";
-$_lang['DiskUsage'] = "Korištenje diska";
-$_lang['DispClassAdded'] = "Prikaži stvorene razrede";
-$_lang['DocContent'] = "<p>Putem 'Dokumenti' alata moguće je <i>uploadati</i> bilo
-koju vrstu dokumenta (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, i dr.)</p>
-<hr />
-<h4>Načini pregledavanja</h4>
-Dokumenti se mogu pregledavati kao:
-<ul>
-<li>Popis datoteka (<i>default</i>)</li>
-<li><i>Thumbnailovi</i></li>
-</ul>
-Način pregledavanja možete odabrati klikom na odgovarajući link koji se nalazi s desne strane
-popisa datoteka, odnosno, <i>thumbnailova</i>
-<h4>Preglednik slika</h4>
-<ul>
-<li>Preglednik slika se otvara klikom na ime slikovne datoteke u popisu datoteka, ili klikom na <i>thumbnail</i> slike u
-<i>thumbnail</i> načinu pregledavanju.
-</li>
-<li>Da biste zatvorili preglednik slika, kliknite na link '<i>Thumbnailovi</i>' ili 'Popis datoteka'</li>
-</ul>
-<h4>Traženje dokumenta</h4>
-<ul>
-<li>
-Da biste pretraživali dokumente i linkove, kliknite na 'Traži' link. Dozvoljeno je korištenje znakova '*' i '?'.
-</li>
-</ul>
-<hr />
-<h4>Upravljanje dokumentima</h4>
-</hr />
-
-<h4><i>Uploadanje</i> dokumenata</h4>
-Da biste <i>uploadali</i> dokument:
-<ul>
-<li>
-Kliknite na '<i>Uploadaj</i> datoteku'
-</li>
-<li>
-Kliknite na 'browse' gumb
-</li>
-<li>
-Odaberite datoteku koju želite <i>uploadati</i>.
-Po želji dokumentu možete dodati komentar.
-<blockquote><small>
-<i>Napomena</i>: Prilikom <i>uploada</i> <i>zip</i> datoteke moguće je označiti opciju '<i>Odzippaj</i> .zip datoteku na serveru'
-</small></blockquote>
-</li>
-<li>
-Kliknite na 'Uploadaj' gumb .
-</li>
-</ul>
-
-<h4>Stvaranje <i>hyperlinka</i></h4>
-<ul>
-<li>
-Kliknite na 'Stvori <i>hyperlink</i>'
-</li>
-<li>
-Upišite ime <i>hyperlinka</i>
-</li>
-<li>
-Upišite URL <i>hyperlinka</i>
-(npr.: http://www.mojeuciliste.com/mojadatoteka.htm).
-</li>
-<li>
-Po želji <i>hyperlinku</i> možete dodati komentar.
-</li>
-</li>
-</ul>
-
-<h4><i>Online</i> stvaranje HTML dokumenta</h4>
-<ul>
-<li>Kliknite na 'Stvori dokument'
-</li>
-<li> 
-Upišite ime dokumenta
-</li>
-<li>
-Upišite sadržaj dokumenta
-</li>
-</ul>
-<p>
-
-<blockquote><small>
-<i>Napomena</i>: Ne preporučuje se <i>online</i> pisanje dužih dokumenata. Umjesto toga, napišite dokument <i>offline</i>, te ga zatim <i>uploadajte</i> na sustav.
-</small></blockquote>
-</p>
-
-
-<h4>Preimenovanje dokumenata, mapa i <i>hyperlinkova</i></h4>
-<ul>
-<li>Kliknite na 'promijeni' ikonu
-</li>
-<li>
-Upišite novo ime
-</li>
-<li>
-Po želji dodajte ili izmijenite komentar.
-</li>
-</ul>
-
-<blockquote><small>
-<i>Napomena</i>: Dokumenti su abecedno poredani.
-</small></blockquote>
-
-
-<h4>Brisanje dokumenta, mape ili <i>hyperlinka</i></h4>
-<ul>
-<li>
-Kliknite na 'Izbriši' ikonu
-</ul>
-
-<h4>
-Mijenjanje vidljivosti dokumenta, mape ili <i>hyperlinka</i>
-</h4>
-<ul>
-<li>
-Kliknite na 'Vidljivost' ikonu
-</li>
-</ul>
-
-<blockquote><small>
-<i>Napomena</i>: Nevidljivi element nije vidljiv polaznicima predmeta, ali još uvijek postoji u sustavu
-</small></blockquote>
-
-<h4>
-Dodavanje i mijenjanje komentara
-</h4>
-<ul>
-<li>
-Kliknite na 'Promijeni' ikonu
-</li>
-<li>
-Upišite komentar
-</li>
-</ul>
-
-<blockquote><small>
-<i>Napomena</i>: Da biste obrisali postojeći komentar, kliknite 'Promijeni' ikonu, te izbrišite tekst komentara
-</small></blockquote>
-
-<h4>Stvaranje mape</h4>
-<ul>
-<li>Kliknite na 'Stvori mapu'
-</li>
-<li>
-Upišite ime mape
-</li>
-</ul>
-<h4>
-Premještanje dokumenta, mape ili <i>hyperlinka</i>
-</h4>
-<ul>
-<li>
-Kliknite na 'Premjesti' ikonu elementa kojeg želite premjestiti.
-</li>
-</ul>
-<center>
-<p>";
-$_lang['DocDeleted'] = "Dokument je izbrisan";
-$_lang['DocInsertedAsModule'] = " - dokument je dodan u redoslijed učenja";
-$_lang['Document'] = "Dokumenti i linkovi";
-$_lang['DocumentAlreadyUsed'] = "Dokument se već koristi kao modul u redoslijedu učenja";
-$_lang['DocumentAsModule'] = "Dodaj dokument";
-$_lang['DocumentContent'] = "Sadržaj dokumenta:";
-$_lang['DocumentInModule'] = "Dokumenti u modulu";
-$_lang['DocumentName'] = "Ime dokumenta: ";
-$_lang['Documentation'] = "Dokumentacija";
-$_lang['DocumentsAccess'] = "Dokumenti";
-$_lang['DocumentsDetails'] = "Dokumenti koje je korisnik <i>downloadao</i>";
-$_lang['DocumentsTitleCountColumn'] = "Ukupni broj <i>downloada</i>";
-$_lang['DocumentsTitleDocumentColumn'] = "Dokument";
-$_lang['DocumentsTitleUsersColumn'] = "Broj <i>downloada</i> prijavljenih korisnika";
-$_lang['Down'] = "Pomakni dolje";
-$_lang['DownloadAttachedFile'] = "<i>Downloadaj</i> priloženu datoteku";
-$_lang['EG'] = "npr..";
-$_lang['EXERCISETypeDesc'] = "Claroline vježba";
-$_lang['Edit'] = "Promijeni";
-$_lang['EditAnswers'] = "Uredi odgovore";
-$_lang['EditEvent'] = "Uredi događaj";
-$_lang['EditExercise'] = "Promijeni postavke vježbe";
-$_lang['EditFeedback'] = "Uredi automatizirani ispravak";
-$_lang['EditFileContent'] = "Promijeni sadržaj datoteke";
-$_lang['EditFormat'] = "Promijeni format";
-$_lang['EditGroup'] = "Uređivanje grupe";
-$_lang['EditQuestion'] = "Uredi pitanje";
-$_lang['EditSettings'] = "Promijeni postavke";
-$_lang['EditToolList'] = "Uredi popis alata";
-$_lang['EditWork'] = "Uredi rad";
-$_lang['ElRen'] = "Element preimenovan";
-$_lang['ElementList'] = "Elementu popisa";
-$_lang['Email'] = "Email";
-$_lang['EmailAddressNotFound'] = "Ne postoji korisnik s navednom email adresom";
-$_lang['EmailCanBeEmpty'] = "Email adresa mora biti zadana";
-$_lang['EmailNotSent'] = "Pogreška prilikom slanja emaila.<br>Kontaktirajte ";
-$_lang['EmailOption'] = "Pošalji polaznicima obavijest emailom";
-$_lang['EmailSent'] = " i poslan emailom polaznicima";
-$_lang['EmailWrong'] = "Email adresa nije ispravna";
-$_lang['Empty'] = "prazan";
-$_lang['EmptyAnn'] = "Izbriši popis obavijesti";
-$_lang['EmptyFields'] = "Nisu ispunjena sva obavezna polja";
-$_lang['EmtpyGroups'] = "Isprazni sve grupe";
-$_lang['Enable'] = "Vidljiva";
-$_lang['EndDate'] = "Najkasnije do";
-$_lang['EnrollAsManager'] = "Prijavi u ulozi voditelja predmeta";
-$_lang['EnrollAsStudent'] = "Prijavi u ulozi polaznika";
-$_lang['EnrollAsTeacher'] = "Prijavi u ulozi predavača";
-$_lang['EnrollClass'] = "Prijavljivanje razreda na predmet";
-$_lang['EnrollToNewCourse'] = "Prijavi korisnika na predmet";
-$_lang['EnrollUser'] = "Prijavi korisnika";
-$_lang['Enter'] = "Unesi";
-$_lang['EnterMail'] = "Upišite svoju email adresu, kako bismo Vam poslali zaporku";
-$_lang['ErrorAssetNotFound'] = "Resurs nije pronađen: ";
-$_lang['ErrorCannotReadRSSFile'] = "Pogreška prilikom čitanja RSS <i>feeda</i>";
-$_lang['ErrorCategoryEmpty'] = "Kategorija ne moze biti prazna";
-$_lang['ErrorClassNotEmpty'] = "Razred sadrži podrazrede. Da biste obrisali razred, prethodno je potrebno obrisati podrazrede";
-$_lang['ErrorCourseCodeEmpty'] = "Šifra predmeta ne smije biti prazna";
-$_lang['ErrorCourseTitleEmpty'] = "Ime predmeta ne smije biti prazno";
-$_lang['ErrorDepartmentEmpty'] = "Ime odjela ne može biti prazno";
-$_lang['ErrorDepartmentURLEmpty'] = "URL odjela ne smije biti prazan";
-$_lang['ErrorDepartmentURLWrong'] = "URL odjela je neispravan (<i>hint</i>: nužno je napisati http://)";
-$_lang['ErrorEmailEmpty'] = "Email adresa mora biti zadana";
-$_lang['ErrorEmailInvalid'] = "Email adresa je neispravna";
-$_lang['ErrorEmptyName'] = "Ime modula ne smije biti prazno";
-$_lang['ErrorFileMustBeZip'] = "Datoteka mora biti <i>.zip</i> datoteka (.zip)";
-$_lang['ErrorFormatCSV'] = "Pogreška: Format datoteke nije kompatibilan s Claroline sustavom";
-$_lang['ErrorInvalidParms'] = "Pogrešan parametar (koristite isključivo brojeve)";
-$_lang['ErrorLanguageEmpty'] = "Jezik mora biti zadan";
-$_lang['ErrorLecturerEmpty'] = "Predavač nije zadan";
-$_lang['ErrorMove'] = "Nije moguće premjestiti razred";
-$_lang['ErrorMyOwnSettings'] = "Ne možete promijeniti vlastiti status";
-$_lang['ErrorNameAlreadyExists'] = "Pogreška: Ime se već koristi u redoslijedu učenja ili u zbirci modula";
-$_lang['ErrorNoModuleInPackage'] = "Nema modula u paketu";
-$_lang['ErrorNoZlibExtension'] = "<i>Zlib</i> php ekstenzija je potrebana za korištenje ovog alata. Kontaktirajte administratora sustava.";
-$_lang['ErrorOpeningManifest'] = "U paketu nedostaje <i>manifest</i> datoteka.<br /> Datoteka nije pronađena: imsmanifest.xml";
-$_lang['ErrorOpeningXMLFile'] = "Nije moguće pronaći sekundarnu inicijalizacijsku datoteku u paketu.<br />Datoteka nije pronađena: ";
-$_lang['ErrorReadingManifest'] = "Pogreška pri čitanju <i>manifest</i> datoteke";
-$_lang['ErrorReadingXMLFile'] = "Pogreška pri čitanju sekundarne inicijalizacijske datoteke: ";
-$_lang['ErrorReadingZipFile'] = "Pogreška pri čitanju <i>zip</i> datoteke";
-$_lang['ErrorSql'] = "Pogreška u SQL upitu";
-$_lang['ErrorUserNotInGroup'] = "Pogreška: korisnik nije član ove grupe";
-$_lang['ErrorValuesInDouble'] = "Pogreška: na više mjesta pojavljuje se jednaka vrijednost";
-$_lang['ErrortExtractingManifest'] = "Pogreška prilikom dekomprimiranja manifest datoteke iz <i>zip</i> datoteke";
-$_lang['EventAdded'] = "Događaj je dodan u program rada";
-$_lang['EventDeleted'] = "Događaj je izbrisan iz programa rada";
-$_lang['EventUpdated'] = "Događaj je promijenjen";
-$_lang['Ex'] = "Npr. <i>Matematika 1</i>";
-$_lang['ExAlreadyUsed'] = "Ova se vježba vec koristi u redoslijedu učenja";
-$_lang['ExInsertedAsModule'] = "vježba je dodana u redoslijed učenja";
-$_lang['ExMessage'] = "Ogledna tema";
-$_lang['ExeAvgTime'] = "Prosječno vrijeme (s)";
-$_lang['ExeTime'] = "Vrijeme (s)";
-$_lang['ExerciceEx'] = "Ogledna vježba";
-$_lang['Exercices'] = "Vježbe";
-$_lang['Exercise'] = "Vježba";
-$_lang['ExerciseAsModule'] = "Dodaj vježbu";
-$_lang['ExerciseCancelled'] = "Vježba je prekinuta, odaberite modul iz popisa kako biste nastavili";
-$_lang['ExerciseClosing'] = "Vježba završava";
-$_lang['ExerciseContent'] = "Alat 'Vježbe' voditeljima predmeta omogućuje stvaranje <i>online</i> vježbi. Korisnici putem ovog alata mogu interaktivno
-rješavati vježbe. U slučaju da je korisnik prijavljen, rezultati vježbi bit će spremljeni u statistikama predmeta.
-<hr />
-
-<h4>Upravljanje vježbama</h4>
-<h4>Stvaranje vježbe</h4>
-<ul>
-<li> Kliknite na 'Stvori vježbu'</li>
-<li> Upišite ime vježbe</li>
-<li> Po želji vježbi možete dodati komentar.</li>
-<li> Odaberite hoće li sva pitanja vježbe biti na istoj stranici, ili će svako pitanje biti na svojoj stranici</li>
-<li> Napredne postavke vježbe (neobavezno)
-<ul>
-<li> Odaberite kada vježba započinje</li>
-<li> Odaberite kada vježba završava</li>
-<li> Odredite vremensko ograničenje vježbe</li>
-<li> Odaberite koliko puta pojedini korisnik smije rješavati vježbu</li>
-<li> Odaberite jesu li anonimni pokušaji dozvoljeni ili ne</li>
-<li> Odaberite kada će rezultati vježbe biti prikazani</li>
-</ul>
-</ul>
-<p>Nakon što je vježba stvorena, u nju je moguće dodati pitanja.</p>
-
-<hr />
-<h4>Pitanja</h4>
-<h4>Pitanja s višestrukim izborom</h4>
-<p>Postoje dvije vrste pitanja s višestrukim izborom: 
-</p>
-<ul>
-<li> Pitanja s jednim ispravnim odgovorom</li>
-<li> Pitanja s više ispravnih odgovora</li>
-</ul>
-<p>Prilikom stvaranja pitanja s višestrukim izborom, standardno su ponuđena dva odgovora.
-Da biste povećali broj ponuđenih odgovora kliknite na 'Dodaj novi odgovor'
-</p>
-<p>Da biste smanjili broj ponuđenih odgovora, kliknite na 'Izbriši posljednji odgovor'</p>
-<p>Za svaki ponuđeni odgovor potrebno je:</p>
-<ul>
-<li>Označiti je li odgovor istinit</li>
-<li>U 'odgovor' upisati tekst ponuđenog odgovora</li>
-<li>U 'komentar' upisati tekst koji će se prikazati korisnicima ako odaberu navedeni odgovor</li>
-<li>Upisati broj bodova. Istiniti odgovori donose pozitivan broj bodova, dok odgovori koji nisu istiniti
-ne donose bodove (0 bodova) ili donose negativne bodove.
-</li>
-</ul>
-
-<h4>Pitanja s povezivanjem</h4>
-<p>U ovoj vrsti pitanja, korisnici moraju pronaći vezu među elementima dva popisa.</p>
-<p>Prilikom stvaranja pitanja s višestrukim izborom, standardno su ponuđena dva odgovora u svakom od popisa.
-Da biste povećali broj elemenata u popisu  kliknite na 'Dodaj element'</p>
-<p>Da biste smanjili broj elemenata u popisu kliknite na 'Izbriši element'</p>
-
-<p>Broj bodova ne može biti negativan.</p>
-
-<h4>Pitanja s nadopunjavanjem</h4>
-<p>Pitanja su zadana u obliku teksta u kojem su neke riječi izostavljene.</p>
-<p>
-Praznine se definiraju pomoću uglatih zagrada [...] u koje korisnici upisuje riječ koju nedostaju.
-</p>
-
-<hr />
-
-<h4>Zbirka pitanja</h4>
-<p>U zbirci pitanja se nalaze pitanja iz svih vježbi ovog predmeta kao i nedodijeljena pitanja (pitanja koja se ne koriste
-niti u jednoj vježbi).
-</p>
-<p>Prilikom brisanja vježbe, pitanja se ne brišu iz baze podataka, već ostaju dostupna putem alata 'Zbirka pitanja'.</p>
-<p>Po <i>defaultu</i>, prikazana su sva pitanja ovog predmeta. Pomoću filtera je moguće prikazati pitanja određene vježbe ili nedodijeljena pitanja.</p>
-";
-$_lang['ExerciseDescription'] = "Opis vježbe";
-$_lang['ExerciseDone'] = "Vježba je gotova. Da biste nastavili odaberite modul s popisa";
-$_lang['ExerciseInModule'] = "Vježba u modulu";
-$_lang['ExerciseManagement'] = "Upravljanje vježbama";
-$_lang['ExerciseName'] = "Ime vježbe";
-$_lang['ExerciseNoMoreAvailable'] = "Vježba više nije dostupna";
-$_lang['ExerciseNotAvailable'] = "Vježba nije dostupna";
-$_lang['ExerciseNotFound'] = "Vježba nije pronađena";
-$_lang['ExerciseOpening'] = "Vježba započinje";
-$_lang['ExerciseTotalAttempts'] = "Ukupni broj pokušaja";
-$_lang['ExerciseType'] = "Vrsta vježbe";
-$_lang['ExerciseUsersAttempts'] = "Broj pokušaja prijavljenih korisnika";
-$_lang['Exercises'] = "Vježbe";
-$_lang['ExercisesDetails'] = "Ocjene radova";
-$_lang['ExercisesResults'] = "Rezultati vježbi";
-$_lang['ExercisesTitleExerciseColumn'] = "Vježba";
-$_lang['ExistingGroups'] = "Grupe";
-$_lang['ExpectedChoice'] = "Ispravni odgovor/i";
-$_lang['ExplainDeleteFile'] = "Označite kućicu da biste izbrisali priloženu datoteku Check this box to delete the attached file.";
-$_lang['ExplainReplaceFile'] = "<i>Uploadajte</i> novu datoteku da biste zamijenili postojeću";
-$_lang['Explanation'] = "Prilikom stvaranja novog predmeta, bit će stvoren <i>web site</i> predmeta s forumom, <i>chatom</i>, te alatima za rukovanje dokumentima, vježbama i zadacima. Kao voditelj predmeta možete mijenjati postavke <i>web sitea</i> predmeta, da biste ga prilagodili vlastitim potrebama.";
-$_lang['ExternalToolName'] = "Ime alata";
-$_lang['ExternalToolUrl'] = "URL alata (vanjski <i>link</i>)";
-$_lang['ExtractFromLangFile'] = "Iz jezičnih datoteka";
-$_lang['ExtractFromScriptFile'] = "Iz skripti";
-$_lang['ExtractLangVariable'] = "Ekstrakcija jezičnih varijabli";
-$_lang['Feedback'] = "Ispravak";
-$_lang['FeedbackAdded'] = "Ispravak je dodan";
-$_lang['FeedbackEdited'] = "Ispravka je promijenjena";
-$_lang['FeedbackFile'] = "Datoteka";
-$_lang['FeedbackHelp'] = "Ispravak nije obavezan i predstavlja ispravno rješenje zadatka";
-$_lang['FeedbackSubmit'] = "Slanje ispravke";
-$_lang['FeedbackText'] = "Ispravno rješenje";
-$_lang['Feedbacks'] = "Broj ispravaka";
-$_lang['FieldSeparatorUsed'] = "Separator polja";
-$_lang['FileContentModified'] = "Sadržaj datoteke promijenjen";
-$_lang['FileCreated'] = "Datoteka je stvorena";
-$_lang['FileDesc'] = "Opis datoteke";
-$_lang['FileError'] = "<i>Upload</i> datoteka nije u ispravnom formatu";
-$_lang['FileExists'] = "Nedozvoljena operacija.<br />Datoteka/mapa s navedenim imenom već postoji";
-$_lang['FileForCSVUpload'] = "CSV datoteka s popisom korisnika: ";
-$_lang['FileName'] = "Datoteka";
-$_lang['FileNameMissing'] = "Ime datoteke je obavezno";
-$_lang['FileNameOrURLMissing'] = "Nedostaje ime datoteke ili URL";
-$_lang['FileOnly'] = "Datoteka (datoteka obavezna, tekst neobavezan)";
-$_lang['FileRequired'] = "Datoteka je obavezna";
-$_lang['Files'] = "Popis datoteka";
-$_lang['FillBlanks'] = "Nadopunjavanje";
-$_lang['FillCourses'] = "Stvori testni predmet";
-$_lang['FillGroups'] = "Automatski rasporedi u grupe";
-$_lang['FillLists'] = "Elementi lista nisu popunjeni";
-$_lang['FillTheAreaToExplainTheMotivations'] = "Napišite razloge zbog kojih tražite status voditelja predmeta. Email će biti poslan administratoru sustava";
-$_lang['FillToolCourses'] = "Dodaj alate za predmete";
-$_lang['FillTree'] = "Dodavanje kategorija predmeta";
-$_lang['FillUsers'] = "Dodaj korisnike";
-$_lang['Filling'] = "Popunite testnim vrijednostima";
-$_lang['Filter'] = "Filter";
-$_lang['FindDoubledVariable'] = "Pronalaženje redundancija";
-$_lang['FindVarWithSameContentAndDifferentName'] = "Varijable istog sadržaja s različitim imenom";
-$_lang['FindVarWithSameNameAndDifferentContent'] = "Varijable istog imena s različitim sadržajem";
-$_lang['Finish'] = "Završi";
-$_lang['FirstName'] = "Ime";
-$_lang['FirstSubmission'] = "Datum i vrijeme prve predaje rada";
-$_lang['Firstname'] = "Ime";
-$_lang['ForContent'] = "Forumi su namijenjeni za javnu ili privatnu pisanu komunikaciju.</p>
-<p>Kako biste organizirali forume, kliknite na 'Administriranje foruma'. Rasprave su organizirane
-prema sljedećoj hijerarhiji:</p>
-<p><b>Kategorija > Forum > Tema > Poruka</b></p>
-<p>
-Kao administrator foruma, trebali biste stvoriti kategorije i forume, a korisnicima
-prepustiti stvaranje tema i poruka. Po <i>defaultu</i>, forumi za predmet sastoje se od
-'Glavne kategorije', 'Oglednog foruma' i 'Ogledne teme'.</p>
-<p>Preporučljivo je izbrisati oglednu temu i promijeniti ime foruma. Kategorije koje ne sadrže
-forume neće biti prikazane polaznicima predmeta.</p>";
-$_lang['Force'] = "Nizom pitanja i potpitanja navesti sugovornika da prizna da ne poznaje ono što tvrdi da poznaje.";
-$_lang['Formula'] = "Srdačno";
-$_lang['Forum'] = "Forum";
-$_lang['ForumDeleted'] = "Forum je izbrisan";
-$_lang['ForumGroup'] = "Forum grupe";
-$_lang['Forums'] = "Forumi";
-$_lang['Free'] = "Slobodno";
-$_lang['From'] = "From";
-$_lang['FullScreen'] = "Preko cijelog ekrana";
-$_lang['Functions'] = "Popis funkcija";
-$_lang['Garbage'] = "Ostaci";
-$_lang['GetExistingQuestion'] = "Preuzmi postojeće pitanje (iz zbirke pitanja)";
-$_lang['GiveAdminRight'] = "Dodijeli korisniku administratorske ovlasti";
-$_lang['GiveAnswers'] = "Upišite ponuđeni odgovor za pitanje";
-$_lang['GiveExerciseName'] = "Ime vježbe je obavezno";
-$_lang['GiveQuestion'] = "Naslov pitanja je obavezan";
-$_lang['GiveText'] = "Upišite tekst pitanja";
-$_lang['GlobalProgress'] = "Napredak u redoslijedu učenja: ";
-$_lang['GoBackToEx'] = "Natrag na vježbu";
-$_lang['GoBackToQuestionList'] = "Natrag na popis pitanja";
-$_lang['GoBackToQuestionPool'] = "Natrag na pitanja";
-$_lang['GoToMainUserSettings'] = "Natrag na korisničke postavke";
-$_lang['GoToUserSettings'] = "Korisničke postavke";
-$_lang['Group'] = "Grupa";
-$_lang['GroupAllowStudentRegistration'] = "Korisnici se mogu sami prijaviti u grupu";
-$_lang['GroupAlwaysPrivate'] = "(uvijek privatan)";
-$_lang['GroupAssignment'] = "Grupni (isključivo članovi grupe mogu slati rješenja)";
-$_lang['GroupDel'] = "Grupa izbrisana";
-$_lang['GroupDescription'] = "Opis";
-$_lang['GroupDocument'] = "Dokumenti";
-$_lang['GroupDocumentsLink'] = "Dokumenti grupe";
-$_lang['GroupFilledGroups'] = "Grupe su popunjene polaznicima";
-$_lang['GroupForum'] = "Forum";
-$_lang['GroupLimit'] = "Ograničenje";
-$_lang['GroupMembers'] = "Članovi grupe";
-$_lang['GroupName'] = "Ime grupe";
-$_lang['GroupNoTutor'] = "nije dodijeljen";
-$_lang['GroupNone'] = "ne postoji";
-$_lang['GroupNoneMasc'] = "Nema članova grupe";
-$_lang['GroupNowMember'] = "You are now a member of this group.";
-$_lang['GroupPlacesThis'] = "mjesta u grupi (nije obavezno)";
-$_lang['GroupProperties'] = "Postavke grupa";
-$_lang['GroupPropertiesModified'] = "Postavke grupe su promijenjene";
-$_lang['GroupSelfRegInf'] = "Prijavi me u grupu";
-$_lang['GroupSelfRegistration'] = "Prijavljivanje";
-$_lang['GroupSettingsModified'] = "Postavke grupe su promijenjene";
-$_lang['GroupSpace'] = "Postavke grupe";
-$_lang['GroupSpaceLink'] = "Grupa";
-$_lang['GroupThisSpace'] = "";
-$_lang['GroupTooMuchMembers'] = "Navedeni broj korisnika je veći od najveeg dozvoljenog broja korisnika u grupi.
-Postavke grupe nisu izmjenjene";
-$_lang['GroupTools'] = "Alati";
-$_lang['GroupTutor'] = "Mentor grupe";
-$_lang['GroupUserManagement'] = "Grupe";
-$_lang['Groups'] = "Grupe";
-$_lang['GroupsAdded'] = " - broj stvorenih grupa";
-$_lang['GroupsDeleted'] = "Sve su grupe izbrisane";
-$_lang['GroupsEmptied'] = "Sve grupe su ispraznjene";
-$_lang['HDoc'] = "Dokumenti pomoć";
-$_lang['HExercise'] = "Vjezbe pomoć";
-$_lang['HFor'] = "Forum pomoć";
-$_lang['HUser'] = "Korisnici pomoć";
-$_lang['HasBeenEnrolled'] = " je prijavljen na predmet";
-$_lang['HasDel'] = "je izbrisan";
-$_lang['Heading'] = "Zaglavlje";
-$_lang['Help'] = "Pomoć";
-$_lang['HelpAssignment'] = "Zadaci pomoć";
-$_lang['HelpAssignmentContent'] = "<p>
-Alat 'Zadaci' služi voditeljima predmeta za stvaranje zadataka. Korisnici putem ovog alata mogu poslati rješenja.
+vratite se na prethodnu stranicu i odaberite \'single\' za \'Database mode.<BR><BR>';
+$_lang['Database Host'] = 'Database Host';
+$_lang['Database name'] = 'Ime baze podataka';
+$_lang['Database usage'] = 'Korištenje baze podataka';
+$_lang['Date'] = 'Datum';
+$_lang['Day'] = 'Za dan';
+$_lang['Default works visibility'] = '<i>Default</i> vidljivost radova';
+$_lang['Define Headings'] = 'Definiraj zaglavlje';
+$_lang['Delete'] = 'Izbriši';
+$_lang['Delete all course statistics'] = 'Izbriši statistike predmeta';
+$_lang['Delete all groups'] = 'Izbriši sve grupe';
+$_lang['Delete attached file'] = 'Izbriši priloženu datoteku';
+$_lang['Delete my account'] = 'Izbriši moj korisnički račun';
+$_lang['Delete the whole course website'] = 'Izbriši <i>web site</i> predmeta';
+$_lang['Delete user'] = 'Izbriši korisnika';
+$_lang['Deletion of the user was done sucessfully'] = 'Korisnik je obrisan';
+$_lang['Denied'] = 'Onemogućeno';
+$_lang['Department'] = 'Odjel';
+$_lang['Department URL'] = 'URL adresa odjela';
+$_lang['Department URL is not valid'] = 'URL odjela je neispravan (<i>hint</i>: nužno je napisati http://)';
+$_lang['Description'] = 'Opis';
+$_lang['Description added.'] = 'Opis predmeta je dodan.';
+$_lang['Description deleted.'] = 'Opis predmeta je izbrisan.';
+$_lang['Description updated'] = 'Opis je <i>updatean</i>';
+$_lang['Detail'] = 'Detalji';
+$_lang['Details'] = 'Detalji';
+$_lang['Devel Tools'] = 'Alati za razvoj';
+$_lang['Directory created'] = 'Mapa je stvorena';
+$_lang['Disable'] = 'Nevidljiva';
+$_lang['Disable text editor'] = 'Tekstualni editor';
+$_lang['Disk Usage'] = 'Korištenje diska';
+$_lang['Do you really want to delete the category'] = 'Želite li zaista izbrisati kategoriju ';
+$_lang['Do you want to continue?'] = 'Želite li nastaviti?';
+$_lang['Document'] = 'Dokument';
+$_lang['Document content'] = 'Sadržaj dokumenta:';
+$_lang['Document deleted'] = 'Dokument je izbrisan';
+$_lang['Document in module'] = 'Dokumenti u modulu';
+$_lang['Document name'] = 'Ime dokumenta: ';
+$_lang['Documents'] = 'Dokumenti';
+$_lang['Documents and Links'] = 'Dokumenti i linkovi';
+$_lang['Documents downloaded by the student'] = 'Dokumenti koje je korisnik <i>downloadao</i>';
+$_lang['Documents help'] = 'Dokumenti pomoć';
+$_lang['Documents of the group'] = 'Dokumenti grupe';
+$_lang['Down'] = 'Pomakni dolje';
+$_lang['Download attached file'] = '<i>Downloadaj</i> priloženu datoteku';
+$_lang['EG'] = 'npr..';
+$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'Pogreška: Format datoteke nije kompatibilan s Claroline sustavom';
+$_lang['Edit'] = 'Promijeni';
+$_lang['Edit Event'] = 'Uredi događaj';
+$_lang['Edit Tool list'] = 'Uredi popis alata';
+$_lang['Edit a category'] = 'Promijeni kategoriju';
+$_lang['Edit answers'] = 'Uredi odgovore';
+$_lang['Edit automatic feedback'] = 'Uredi automatizirani ispravak';
+$_lang['Edit exercise settings'] = 'Promijeni postavke vježbe';
+$_lang['Edit file content'] = 'Promijeni sadržaj datoteke';
+$_lang['Edit format to use'] = 'Promijeni format';
+$_lang['Edit question'] = 'Uredi pitanje';
+$_lang['Edit settings'] = 'Promijeni postavke';
+$_lang['Edit this group'] = 'Uređivanje grupe';
+$_lang['Element list'] = 'Elementu popisa';
+$_lang['Element moved'] = 'Element je premješten';
+$_lang['Element renamed'] = 'Element preimenovan';
+$_lang['Email'] = 'Email';
+$_lang['Email needed'] = 'Email adresa mora biti zadana';
+$_lang['Empty'] = 'prazan';
+$_lang['Empty (or NULL)'] = 'Bez email adrese';
+$_lang['Empty all groups'] = 'Isprazni sve grupe';
+$_lang['Empty language file'] = 'Prazne jezične datoteke';
+$_lang['Enable'] = 'Vidljiva';
+$_lang['Enable text editor'] = 'Vizualni editor';
+$_lang['End date'] = 'Najkasnije do';
+$_lang['Enrol as course manager'] = 'Prijavi u ulozi voditelja predmeta';
+$_lang['Enrol as student'] = 'Prijavi u ulozi polaznika';
+$_lang['Enrol as teacher'] = 'Prijavi u ulozi predavača';
+$_lang['Enrol class'] = 'Prijavljivanje razreda na predmet';
+$_lang['Enrol on a new course'] = 'Prijavi me na novi predmet';
+$_lang['Enrol to a new course'] = 'Prijavi korisnika na predmet';
+$_lang['Enroll a user'] = 'Prijavi korisnika';
+$_lang['Enrolment'] = 'Prijavljivanje';
+$_lang['Enter'] = 'Unesi';
+$_lang['Enter new password twice to change, leave empty to keep it'] = 'Da biste promijenili zaporku, novu zaporku upišite dva puta';
+$_lang['Enter your email so we can send you your password.'] = 'Upišite svoju email adresu, kako bismo Vam poslali zaporku';
+$_lang['Error : Cannot initialize chat'] = 'Pogreška: Nije moguće inicijalizirati <i>chat</i>';
+$_lang['Error : Name already exists in the learning path or in the module pool'] = 'Pogreška: Ime se već koristi u redoslijedu učenja ili u zbirci modula';
+$_lang['Error : One or more values are doubled'] = 'Pogreška: na više mjesta pojavljuje se jednaka vrijednost';
+$_lang['Error : cannot read RSS feed'] = 'Pogreška prilikom čitanja RSS <i>feeda</i>';
+$_lang['Error in SQL statement'] = 'Pogreška u SQL upitu';
+$_lang['Error reading <i>manifest</i> file'] = 'Pogreška pri čitanju <i>manifest</i> datoteke';
+$_lang['Error reading a secondary initialisation file :'] = 'Pogreška pri čitanju sekundarne inicijalizacijske datoteke: ';
+$_lang['Error reading zip file.'] = 'Pogreška pri čitanju <i>zip</i> datoteke';
+$_lang['Error!! you cannot unregister a course manager'] = 'Pogreška! Nije moguće odjaviti voditelja predmeta';
+$_lang['ErrorInvalidParms'] = 'Pogrešan parametar (koristite isključivo brojeve)';
+$_lang['Event added to the agenda'] = 'Događaj je dodan u program rada';
+$_lang['Event deleted from the agenda'] = 'Događaj je izbrisan iz programa rada';
+$_lang['Event updated into the agenda'] = 'Događaj je promijenjen';
+$_lang['Exercice not found'] = 'Vježba nije pronađena';
+$_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Vježba je prekinuta, odaberite modul iz popisa kako biste nastavili';
+$_lang['Exercise description'] = 'Opis vježbe';
+$_lang['Exercise done, choose a module in the list to continue.'] = 'Vježba je gotova. Da biste nastavili odaberite modul s popisa';
+$_lang['Exercise in module'] = 'Vježba u modulu';
+$_lang['Exercise management'] = 'Upravljanje vježbama';
+$_lang['Exercise name'] = 'Ime vježbe';
+$_lang['Exercise no longer available'] = 'Vježba više nije dostupna';
+$_lang['Exercise not available'] = 'Vježba nije dostupna';
+$_lang['Exercise type'] = 'Vrsta vježbe';
+$_lang['Exercises'] = 'Vježbe';
+$_lang['Exercises help'] = 'Vjezbe pomoć';
+$_lang['Expected choice'] = 'Ispravni odgovor/i';
+$_lang['External Tool added'] = 'Alat je dodan.';
+$_lang['External tool deleted'] = 'Alat je izbrisan';
+$_lang['External tool updated'] = 'Alat je promijenjen';
+$_lang['Extract language variables'] = 'Ekstrakcija jezičnih varijabli';
+$_lang['Feedback'] = 'Ispravak';
+$_lang['Feedback added'] = 'Ispravak je dodan';
+$_lang['Feedback file'] = 'Datoteka';
+$_lang['Feedback text'] = 'Ispravno rješenje';
+$_lang['Feedbacks'] = 'Broj ispravaka';
+$_lang['Fields enclosed by'] = 'Polja su omeđena';
+$_lang['Fields separator used'] = 'Separator polja';
+$_lang['File (file required, description text optional)'] = 'Datoteka (datoteka obavezna, tekst neobavezan)';
+$_lang['File Name or URL is missing.'] = 'Nedostaje ime datoteke ili URL';
+$_lang['File content modified'] = 'Sadržaj datoteke promijenjen';
+$_lang['File created'] = 'Datoteka je stvorena';
+$_lang['File description'] = 'Opis datoteke';
+$_lang['File list'] = 'Popis datoteka';
+$_lang['File must be a zip file (.zip)'] = 'Datoteka mora biti <i>.zip</i> datoteka (.zip)';
+$_lang['File name is missing'] = 'Ime datoteke je obavezno';
+$_lang['File received :'] = 'Primljena datoteka: ';
+$_lang['Filename'] = 'Datoteka';
+$_lang['Fill groups (automatically)'] = 'Automatski rasporedi u grupe';
+$_lang['Fill in blanks'] = 'Nadopunjavanje';
+$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Napišite razloge zbog kojih tražite status voditelja predmeta. Email će biti poslan administratoru sustava';
+$_lang['Filter'] = 'Filter';
+$_lang['Find doubled variables'] = 'Pronalaženje redundancija';
+$_lang['Finish'] = 'Završi';
+$_lang['First name'] = 'Ime';
+$_lang['First submission date'] = 'Datum prve predaje';
+$_lang['Follow courses'] = 'Pohađanje predmeta';
+$_lang['Forum'] = 'Forum';
+$_lang['Forum deleted'] = 'Forum je izbrisan';
+$_lang['Forum usage'] = 'Korištenje foruma';
+$_lang['Forums'] = 'Forumi';
+$_lang['Forums help'] = 'Forum pomoć';
+$_lang['From'] = 'From';
+$_lang['From language files'] = 'Iz jezičnih datoteka';
+$_lang['From script files'] = 'Iz skripti';
+$_lang['Fullscreen'] = 'Preko cijelog ekrana';
+$_lang['Function list'] = 'Popis funkcija';
+$_lang['Garbage'] = 'Ostaci';
+$_lang['Get a question from another exercise'] = 'Preuzmi postojeće pitanje (iz zbirke pitanja)';
+$_lang['Go back to the exercise'] = 'Natrag na vježbu';
+$_lang['Go back to the question list'] = 'Natrag na popis pitanja';
+$_lang['Go back to the question pool'] = 'Natrag na pitanja';
+$_lang['Group'] = 'Grupa';
+$_lang['Group Tutor'] = 'Mentor grupe';
+$_lang['Group area'] = 'Postavke grupe';
+$_lang['Group deleted'] = 'Grupa izbrisana';
+$_lang['Group management'] = 'Grupe';
+$_lang['Group members'] = 'Članovi grupe';
+$_lang['Group name'] = 'Ime grupe';
+$_lang['Group settings have been modified'] = 'Postavke grupe su promijenjene';
+$_lang['Group settings modified'] = 'Postavke grupe su promijenjene';
+$_lang['Groups'] = 'Grupe';
+$_lang['Groups (from groups tool, only group members can post)'] = 'Grupni (isključivo članovi grupe mogu slati rješenja)';
+$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Grupe su popunjene polaznicima';
+$_lang['Groups help'] = 'Grupe pomoć';
+$_lang['Groups settings'] = 'Postavke grupa';
+$_lang['He or she will receive email confirmation with login and password'] = 'Korisniku će biti poslan email s korisničkim imenom i zaporkom';
+$_lang['Heading'] = 'Zaglavlje';
+$_lang['Help'] = 'Pomoć';
+$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Primjenom ovog alata moguće je promijeniti sadržaj tekstualnih područja koja se prikazuju na početnoj stranici.';
+$_lang['Hits'] = 'Broj pregleda';
+$_lang['Home page text zones'] = 'Tekstualna područja početne stranice';
+$_lang['Hour'] = 'Za sat';
+$_lang['If you wish to enrol on this course'] = 'Ukoliko se želite prijaviti na ovaj predmet kliknite na sljedeći <i>link</i>';
+$_lang['IfNotRedirect'] = 'Ako nije preusmjeren ';
+$_lang['Import'] = '<i>Import</i>';
+$_lang['Import a learning path'] = '<i>Importiraj</i> redoslijed učenja';
+$_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Paketi za <i>import</i> se moraju sadržavati SCORM 1.2 <i>zip</i> datoteku';
+$_lang['In frames'] = 'U <i>frameovima</i>';
+$_lang['Individual'] = 'Samostalni';
+$_lang['Information'] = 'Informacija';
+$_lang['Information to give to students'] = 'Informacije namijenjene polaznicima';
+$_lang['Insert a document as module'] = 'Dodavanje dokumenta u redoslijed učenja';
+$_lang['Insert a module of the course'] = 'Dodaj modul u predmet';
+$_lang['Insert my exercise'] = 'Dodavanje vježbe';
+$_lang['Insert my module'] = 'Dodavanje modula';
+$_lang['Insert new name'] = 'Novo ime';
+$_lang['Institution'] = 'Ustanova';
+$_lang['Institution URL'] = 'URL ustanove';
+$_lang['Invalid user : this user doesn\'t exist in your group'] = 'Pogreška: korisnik nije član ove grupe';
+$_lang['Invisible'] = 'Nevidljivi';
+$_lang['Is platform admin'] = 'Administrator sustava';
+$_lang['It seems that you already have registered your campus.'] = 'Vaše je učilište već registrirano';
+$_lang['Language'] = 'Jezik';
+$_lang['Last 31 days'] = 'U posljednjih 31 dana';
+$_lang['Last 7 days'] = 'U posljednjih 7 dana';
+$_lang['Last access'] = 'Posljednji pristup';
+$_lang['Last active topics'] = 'Posljednje aktivne teme';
+$_lang['Last attempt'] = 'Posljednji pokušaj';
+$_lang['Last check before install'] = 'Posljednja provjera prije instalacije';
+$_lang['Last edit date'] = 'Vrijeme posljednje izmjene';
+$_lang['Last message'] = 'Posljednja poruka';
+$_lang['Last message was on'] = 'Posljednja poruka: ';
+$_lang['Last messages'] = 'Posljednje poruke';
+$_lang['Last name'] = 'Ime';
+$_lang['Last session time'] = 'Vrijeme rada s modulom tijekom posljednje sjednice';
+$_lang['Lasting'] = 'Trajanje';
+$_lang['Late upload'] = 'Zakašnjeli <i>upload</i>';
+$_lang['Latest announcements'] = 'Posljednje obavijesti';
+$_lang['Launch restore of the course repository'] = 'Pokreni obnovu repozitorija predmeta';
+$_lang['Learning path'] = 'Redoslijed učenja';
+$_lang['Learning path admin'] = 'Administranje redoslijeda učenja';
+$_lang['Learning path content'] = 'Sadržaj redoslijeda učenja';
+$_lang['Learning path has been successfully imported.'] = 'Redoslijed učenja je <i>importan</i>';
+$_lang['Learning path list'] = 'Popis redoslijeda učenja';
+$_lang['Learning path progression :'] = 'Napredak u redoslijedu učenja: ';
+$_lang['Learning paths tracking'] = 'Praćenje napretka korisnika';
+$_lang['Lecturer(s)'] = 'Predavači';
+$_lang['Licence'] = 'Licenca';
+$_lang['Limit'] = 'Ograničenje';
+$_lang['Line Number'] = 'Broj linija';
+$_lang['List of students in this group'] = 'Popis studenata ove grupe';
+$_lang['Load default format'] = 'Učitaj <i>default</i> format';
+$_lang['Location'] = 'Smještaj';
+$_lang['Login'] = 'Prijava';
+$_lang['Login request'] = 'Informacije o korisničkom računu na sustavu';
+$_lang['Logins'] = 'Prijavci';
+$_lang['Logins and access to tools'] = 'Prijavci i pristup alatima';
+$_lang['Logins not used'] = 'Neupotrebljeni korisnički računi';
+$_lang['Logout'] = 'Odjava';
+$_lang['Lost password'] = 'Zaboravljena zaporka';
+$_lang['Mail is already used by another user.'] = 'Navedena email adresa je već prijavljena';
+$_lang['Mail synthax error.'] = 'Pogrešna email adresa';
+$_lang['Main database'] = 'Glavna baza podataka';
+$_lang['Make correspond'] = 'Upiši prvu listu s odgovarajućim elementima iz druge liste';
+$_lang['Make invisible'] = 'Učini nevidljivim';
+$_lang['Make new search'] = 'Pretraživanje:';
+$_lang['Make search'] = 'Traženje korisnika';
+$_lang['Make visible'] = 'Učini vidljivim';
+$_lang['Manage classes'] = 'Upravljanje razredima';
+$_lang['Manage course categories'] = 'Upravljanje kategorijama predmeta';
+$_lang['Manager'] = 'Voditelj predmeta';
+$_lang['Manifest found in zip file :'] = '<i>Manifest</i> je pronađen u <i>zip</i> datoteci: ';
+$_lang['Manifest read.'] = '<i>Manifest</i> je pročitan.';
+$_lang['Matching'] = 'Povezivanje';
+$_lang['Max file size'] = 'Maksimalna veličina datoteke:';
+$_lang['Max.'] = 'Maks.';
+$_lang['Message body'] = 'Tijelo poruke';
+$_lang['Message from your lecturer'] = 'Poruka voditelja predmeta';
+$_lang['Messages'] = 'Poruke';
+$_lang['Messages posted'] = 'Objavljenih poruka';
+$_lang['Messages to selected users'] = 'Posalji obavijest korisnicima';
+$_lang['Minimum raw to pass has been changed'] = 'Prag za prolaz je promijenjen';
+$_lang['MinuteShort'] = 'min.';
+$_lang['Missing'] = 'nedostaje';
+$_lang['Missing images detected'] = 'Missing images detected';
+$_lang['Missing language files'] = 'Jezičnih datoteka koje nedostaju';
+$_lang['Missing value'] = 'Nedostaje vrijednost';
+$_lang['Modifies this announcement'] = 'Promijeni obavijest';
+$_lang['Modify'] = 'Promijeni';
+$_lang['Modify a work'] = 'Uredi rad';
+$_lang['Modify the format'] = 'Promjena formata';
+$_lang['Module'] = 'Modul';
+$_lang['Module added :'] = 'Modul je dodan: ';
+$_lang['Module moved'] = 'Modul premješten';
+$_lang['Module status'] = 'Status modula';
+$_lang['Module type'] = 'Vrsta modula';
+$_lang['Modules'] = 'Moduli';
+$_lang['Modules of this path will still be available in the pool of modules'] = 'Moduli ovog redoslijeda učenja i dalje će biti dostupni preko zbirke modula';
+$_lang['Month'] = 'Mjesec';
+$_lang['More replied topics'] = 'Broj odgovora po temi';
+$_lang['More seen topics'] = 'Broj pregleda po temi';
+$_lang['Move'] = 'Premjesti ';
+$_lang['Move down'] = 'Pomakni dolje';
+$_lang['Move up'] = 'Pomakni gore';
+$_lang['Multiple answers'] = 'Odaberite sve ispravne odgovore';
+$_lang['Multiple choice (Multiple answers)'] = 'Višestruki izbor s više ispravnih odgovora';
+$_lang['Multiple choice (Unique answer)'] = 'Višestruki izbor s jednim ispravnim odgovorom';
+$_lang['My User Account'] = 'Promijeni moj profil';
+$_lang['My calendar'] = 'Moj kalendar';
+$_lang['My course list'] = 'Moji predmeti';
+$_lang['My personal course list'] = 'Popis mojih predmeta';
+$_lang['My results'] = 'Moji rezultati';
+$_lang['MySQL Database and Table Names'] = 'MySQL baza podataka i imena tablica';
+$_lang['Mysql Repository'] = 'Mysql Repozitorij';
+$_lang['Mysql connection parameters'] = 'MySQL connection parameters';
+$_lang['Name cannot be empty'] = 'Ime modula ne smije biti prazno';
+$_lang['Name link'] = 'Ime alata';
+$_lang['Name of the class has been changed'] = 'Ime razreda je promijenjeno';
+$_lang['Name of the new directory'] = 'Ime nove mape';
+$_lang['Name of the tool'] = 'Ime alata';
+$_lang['Never browsed'] = 'Nikad pregledani';
+$_lang['Never connected students :'] = 'Korisnici koji nikad nisu pristupili stranicama predmeta: ';
+$_lang['Never used'] = 'Nikad upotrebljeni';
+$_lang['New Class name'] = 'Ime novog razreda';
+$_lang['New assignment created'] = 'Stvoren je novi zadatak';
+$_lang['New chat'] = 'Novi <i>chat</i>';
+$_lang['New exercise'] = 'Stvori vježbu';
+$_lang['New learning path name :'] = 'Ime redoslijeda učenja: ';
+$_lang['New question'] = 'Dodaj pitanje';
+$_lang['New topic'] = 'Nova tema';
+$_lang['New users will receive an e-mail with their user name and password'] = 'Novim korisnicima bit ce poslan e-mail s korisničkim imenom i zaporkom';
+$_lang['Newest first'] = 'Od novijih prema starijima';
+$_lang['Next'] = 'Sljedeće';
+$_lang['Next day'] = 'Sljedeći dan';
+$_lang['Next month'] = 'Sljedeći mjesec';
+$_lang['Next week'] = 'Sljedeći tjedan';
+$_lang['Next year'] = 'Sljedeća godina';
+$_lang['No'] = 'Ne';
+$_lang['No Content'] = 'Nema sadržaja';
+$_lang['No announcement'] = 'Nema obavijesti';
+$_lang['No change applied'] = 'Ništa nije promijenjeno';
+$_lang['No change applied.'] = 'Postavke kategorije nisu promijenjene';
+$_lang['No closing date'] = 'Vrijeme završetka vježbe nije zadano';
+$_lang['No course available fitting this keyword'] = 'Pretragom nije pronađen niti jedan predmet';
+$_lang['No course to display'] = 'Nema predmeta';
+$_lang['No email address specified'] = 'Email adresa mora biti zadana';
+$_lang['No error in file found.'] = 'Datoteka je ispravna';
+$_lang['No event in the agenda'] = 'Nema događaja u programu rada';
+$_lang['No image to display'] = 'Nema slika';
+$_lang['No learning path'] = 'Nema redoslijeda učenja';
+$_lang['No module'] = 'Nema modula';
+$_lang['No module in package'] = 'Nema modula u paketu';
+$_lang['No post'] = 'Nema poruka';
+$_lang['No quota'] = 'Nema kvote';
+$_lang['No result'] = 'Nema rezultata';
+$_lang['No score'] = 'Nema ocjene';
+$_lang['No stats to show.  You haven\'t registered any course.'] = 'Nema statistika. Niste prijavljeni ni na jedan predmet';
+$_lang['No time limitation'] = 'Bez vremenskog ograničenja';
+$_lang['No user to display'] = 'Nema korisnika';
+$_lang['No visible submission'] = 'Nema vidljivih predanih radova';
+$_lang['No way'] = 'Pristup nije dozvoljen';
+$_lang['No, prevent users submitting work after the end date'] = 'Ne, korisnici ne mogu predati zadatak nakon roka predaje';
+$_lang['None'] = 'Ničime';
+$_lang['Not allowed'] = 'Nije dozvoljeno';
+$_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Nije dozvoljeno (s praćenjem identiteta korisnika koji rješavaju vježbu)';
+$_lang['Not recently connected students :'] = 'Korisnici koji u posljednje vrijeme nisu pristupali stranicama predmeta: ';
+$_lang['Notice'] = 'Napomena';
+$_lang['Notify by email when replies are posted'] = 'Počni pratiti temu (obavijest na email-om prilikom objave odgovora)';
+$_lang['Now'] = 'Sada';
+$_lang['Number of courses'] = 'Ukupni broj predmeta';
+$_lang['Number of courses by faculty'] = 'Broj predmeta po kategoriji';
+$_lang['Number of courses by language'] = 'Broj predmeta po jeziku';
+$_lang['Number of courses by visibility'] = 'Broj predmeta po vidljivosti';
+$_lang['Number of learning paths using this module :'] = 'Broj redoslijeda učenja koji koriste ovaj modul: ';
+$_lang['Number of logins'] = 'Broj prijavaka';
+$_lang['Number of rows'] = 'Broj redaka';
+$_lang['Number of users'] = 'Ukupni broj korisnika';
+$_lang['Number of users by course'] = 'Broj korisnika po predmetu';
+$_lang['Number of users by faculty'] = 'Broj korisnika po kategoriji';
+$_lang['Number of users by status'] = 'Broj korisnika po statusu';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Navedeni broj korisnika je veći od najveeg dozvoljenog broja korisnika u grupi.
+Postavke grupe nisu izmjenjene';
+$_lang['Numero'] = 'ID';
+$_lang['Ok'] = 'Ok';
+$_lang['Oldest first'] = 'Od starijih prema novijima';
+$_lang['On'] = 'od';
+$_lang['On an unique page'] = 'Sva pitanja na istoj stranici';
+$_lang['One question per page (sequential)'] = 'Svako pitanje na svojoj stranici';
+$_lang['Ooops, stranges cases detected !!'] = '<center>Pronađeni su problematični slučajevi</center>';
+$_lang['Operation impossible'] = 'Nedozvoljena operacija';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Nedozvoljena operacija.<br />Datoteka/mapa s navedenim imenom već postoji';
+$_lang['Optional'] = 'neobavezno';
+$_lang['Order'] = 'Redoslijed';
+$_lang['Orphan questions'] = 'Nedodijeljena pitanja';
+$_lang['Other'] = 'Ostalo';
+$_lang['PHP system information'] = 'PHP system information';
+$_lang['Parent category'] = 'Nadređena kategorija';
+$_lang['Password'] = 'Zaporka';
+$_lang['Password given is too simple or too close to the username.'] = 'Zaporka je prejednostavna, ili je previše slična korisničkom imenu';
+$_lang['Period'] = 'Period';
+$_lang['PersonalCourseList'] = 'Popis predmeta na koje je korisnik prijavljen';
+$_lang['Phone'] = 'Telefon';
+$_lang['Platform'] = 'Sustav';
+$_lang['Platform Administration'] = 'Administiranje';
+$_lang['Platform Administrator'] = 'Administrator sustava';
+$_lang['Platform statistics'] = 'Statistike sustava';
+$_lang['Please choose a good answer'] = 'Odaberite ispravni odgovor';
+$_lang['Please choose one or more good answers'] = 'Odaberite jedan ili više ispravnih odgovora';
+$_lang['Please confirm your choice'] = 'Molimo Vas da potvrdite odabir';
+$_lang['Please define at least one blank with brackets [...]'] = 'Definirajte barem jednu prazninu pomoću zagrada [...]';
+$_lang['Please define the options'] = 'Upiši drugu listu';
+$_lang['Please fill the two lists below'] = 'Elementi lista nisu popunjeni';
+$_lang['Please give a weighting to each blank'] = 'Dodijelite bodovnu vrijednost prazninama';
+$_lang['Please give the answers to the question'] = 'Upišite ponuđeni odgovor za pitanje';
+$_lang['Please give the exercise name'] = 'Ime vježbe je obavezno';
+$_lang['Please give the question'] = 'Naslov pitanja je obavezan';
+$_lang['Please type the text'] = 'Upišite tekst pitanja';
+$_lang['Please type your text below'] = 'Upišite tekst pitanja';
+$_lang['Pool of modules'] = 'Zbirka modula';
+$_lang['Posted'] = 'Objavljeno';
+$_lang['Posts'] = 'Poruke';
+$_lang['Powered by'] = 'Powered by';
+$_lang['Prefix for names of course databases'] = 'Prefiks za imena baza podataka predmeta';
+$_lang['Preview'] = '<i>Preview</i>';
+$_lang['Previous'] = 'Prethodno';
+$_lang['Previous day'] = 'Prethodni dan';
+$_lang['Previous month'] = 'Prethodni mjesec';
+$_lang['Previous week'] = 'Prethodni tjedan';
+$_lang['Previous year'] = 'Prethodna godina';
+$_lang['PrintVers'] = 'Inacica za ispis';
+$_lang['Private'] = 'Privatan';
+$_lang['Private course only'] = 'Privatni pristup stranicama predmeta';
+$_lang['Private feedback'] = 'Napomene';
+$_lang['Production language files'] = 'Jezičnih datoteka za produkcijski sustav';
+$_lang['Progress'] = 'Napredak';
+$_lang['Progress in learning paths'] = 'Napredak u redoslijedima učenja';
+$_lang['Progression of users on all learning paths'] = 'Napredak korisnika po svim redoslijedima učenja';
+$_lang['Public'] = 'Javan';
+$_lang['Public access from campus home page even without login'] = 'Javni pristup (stranice predmeta su javno dostupne, login nije potreban)';
+$_lang['Public course only'] = 'Javni pristup stranicama predmeta';
+$_lang['Publish'] = 'Objavi';
+$_lang['Published on'] = 'Objavljeno';
+$_lang['Question'] = 'Pitanje';
+$_lang['Question / Answer management'] = 'Sastavljanje pitanja i odgovora';
+$_lang['Question list of the exercise'] = 'Popis pitanja iz vježbe';
+$_lang['Question not found'] = 'Pitanje nije pronađeno';
+$_lang['Question pool'] = 'Zbirka pitanja';
+$_lang['Question title'] = 'Naslov pitanja';
+$_lang['Question to lecturer'] = 'Pitanja voditelju predmeta';
+$_lang['Questions'] = 'Pitanja';
+$_lang['Random questions'] = 'Nasumičan redoslijed pitanja';
+$_lang['Register'] = 'Registriraj';
+$_lang['Register a user for this class'] = 'Upiši korisnika u ovaj razred';
+$_lang['Register class for course'] = 'Prijavi razred na predmet';
+$_lang['Register my campus'] = 'Prijavi učiliste';
+$_lang['Register this user to a course'] = 'Prijavi stvorenog korisnika na predmet';
+$_lang['Register to the class'] = 'Upiši u razred';
+$_lang['Register user'] = 'Registriraj korisnika';
+$_lang['Register user to class'] = 'Prijava korisnika u razred';
+$_lang['Registered'] = 'Broj članova';
+$_lang['Registration'] = 'Prijavljivanje';
+$_lang['Rem. answ.'] = 'Izbriši posljednji odgovor';
+$_lang['Rem. elem.'] = 'Izbriši element';
+$_lang['Remove'] = 'Izbriši';
+$_lang['Remove course enrolment'] = 'Odjavi me s predmeta';
+$_lang['Remove course from your personal course list'] = 'Odaberite predmet s kojeg se zelite odjaviti';
+$_lang['Remove picture'] = 'Izbriši sliku';
+$_lang['Rename'] = 'Preimenuj';
+$_lang['Replace attached file'] = 'Zamijeni priloženu datoteku';
+$_lang['Replies'] = 'Broj odgovora';
+$_lang['Reply'] = 'Odgovori';
+$_lang['Request course creation status'] = 'Zatraži status voditelja predmeta';
+$_lang['Required'] = 'Obavezno';
+$_lang['Requirements'] = 'Zahtjevi';
+$_lang['Reset'] = 'Izbriši <i>chat</i>';
+$_lang['Restore course repository'] = 'Obnovi repozitorij predmeta';
+$_lang['Result'] = 'Rezultat';
+$_lang['Results of the exercises done'] = 'Rezultati vježbi';
+$_lang['Return to the list'] = 'Natrag na popis';
+$_lang['Reuse'] = 'Preuzmi pitanje';
+$_lang['Role'] = 'Uloga';
+$_lang['Root'] = 'vršna kategorija';
+$_lang['SCORM 1.2 conformable content'] = 'sadržaj sukladan sa SCORM 1.2';
+$_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'SCORM moduli su izbrisani sa servera i redoslijeda učenja';
+$_lang['SDK'] = 'SDK';
+$_lang['Save'] = 'Spremi';
+$_lang['Save changes'] = 'Spremi promjene';
+$_lang['Scan technical fault'] = 'Provjera sustava';
+$_lang['Score'] = 'Ocjena';
+$_lang['Score required'] = 'Ocjena je obavezna';
+$_lang['Scores of exercises done'] = 'Ocjene radova';
+$_lang['Scorm'] = 'Scorm';
+$_lang['Search'] = 'Traži';
+$_lang['Search again (advanced)'] = 'Traži ponovno (napredno)';
+$_lang['Search course'] = 'Traženje predmeta';
+$_lang['Search from keyword'] = 'Pretraživanje';
+$_lang['Search on'] = 'Rezultati pretrage po';
+$_lang['Search result'] = 'Rezultati pretrage';
+$_lang['Search user'] = 'Traženje korisnika';
+$_lang['SecondShort'] = 's';
+$_lang['See below the files you can edit from this tool.'] = 'Slijedi popis datoteka koje je moguće uređivati.';
+$_lang['See user list'] = 'Pregled liste korisnika';
+$_lang['Seen'] = 'Pogledano';
+$_lang['Select course in'] = 'Odaberite predmet na koji se želite prijaviti iz sustava';
+$_lang['Select course in search results'] = 'Odaberite predmet iz rezultata pretrage';
+$_lang['Selected Users'] = 'Odabrani korisnici';
+$_lang['Send account information to user by email'] = 'Pošalji korisniku putem emaila podatke o korisničkom računu';
+$_lang['Send this announcement by email to registered students'] = 'Pošalji polaznicima obavijest emailom';
+$_lang['Show all'] = 'Prikaži sve';
+$_lang['Show answers'] = 'Prikaži odgovore';
+$_lang['Show none'] = 'Sakrij sve';
+$_lang['Size'] = 'Veličina';
+$_lang['Start Module'] = 'Započni rad s modulom';
+$_lang['Start date'] = 'Može se predati od';
+$_lang['Start date must be before end date ...'] = 'Rok predaje mora biti nakon početka vježbe';
+$_lang['Statement'] = 'Tekst pitanja';
+$_lang['Statistics'] = 'Statistike';
+$_lang['Statistics of course'] = 'Statistike predmeta';
+$_lang['Statistics of exercise'] = 'Statistike vježbe';
+$_lang['Statistics of user'] = 'Korisnička statistika';
+$_lang['Status'] = 'Status';
+$_lang['Store Chat'] = 'Pohrani <i>chat</i>';
+$_lang['Student'] = 'Korisnik';
+$_lang['Students are allowed to self-register in groups'] = 'Korisnici se mogu sami prijaviti u grupu';
+$_lang['Subject'] = 'Naslov';
+$_lang['Submission type'] = 'Predaje se kao';
+$_lang['Submissions'] = 'Broj predanih radova';
+$_lang['Submit'] = 'Pošalji';
+$_lang['Submit a work'] = 'Predaj rad';
+$_lang['Submit feedback'] = 'Slanje ispravke';
+$_lang['Subscribe a class'] = 'Prijavi razred na predmet';
+$_lang['Subscribe to course'] = 'Prijavi na predmet';
+$_lang['Support forum'] = 'Forum za podršku';
+$_lang['SwitchEditorToTextConfirm'] = 'Ova naredba prebacuje editor u tekstualni način rada. Želite li nastaviti?';
+$_lang['Take'] = 'odaberi';
+$_lang['Technical Tools'] = 'Technical Tools';
+$_lang['Text only (text required, no file)'] = 'Isključivo tekst (tekst obavezan, bez datoteke)';
+$_lang['Text with attached file (text required, file optional)'] = 'Tekst s datotekom (tekst obavezan, datoteka neobavezna)';
+$_lang['The changes have been carried out correctly'] = 'Promjene su izvršene';
+$_lang['The class has been moved'] = 'Razred je premješten';
+$_lang['The course has been successfully deleted'] = 'Predmet je izbrisan';
+$_lang['The email address is not valid'] = 'Email adresa nije ispravna';
+$_lang['The file to upload is not valid.'] = '<i>Upload</i> datoteka nije u ispravnom formatu';
+$_lang['The following errors were found'] = 'Pronađene su sljedeće pogreške:';
+$_lang['The information has been modified'] = 'Postavke predmeta su promijenjene';
+$_lang['The module will still be available in the pool of modules.'] = 'Modul će i dalje biti dostupan putem palete modula.';
+$_lang['The new category has been created.'] = 'Nova kategorija je stvorena';
+$_lang['The new class has been created'] = 'Stvoren je novi razred';
+$_lang['The new user has been sucessfully created'] = 'Novi korisnik je stvoren';
+$_lang['The upload has failed. There is not enough space in your directory'] = 'Neuspješan <i>upload</i>. Nema dovoljno prostora na disku';
+$_lang['The upload is finished'] = '<i>Upload</i> je dovršen';
+$_lang['The user has been enroled to the course'] = 'Korisnik je prijavljen na predmet';
+$_lang['The user has been successfully unregistered'] = 'Korisnik je odjavljen';
+$_lang['The user has been successfully unregistered from course'] = 'Korisnik je odjavljen s predmeta';
+$_lang['The zip file can not contain .PHP files'] = 'Zip datoteka ne smije sadržavati .PHP datoteke';
+$_lang['There are no topics for this forum. You can post one'] = 'Nema tema na ovom forumu';
+$_lang['There is no answer for the moment'] = 'Nema ponudjenih odgovora';
+$_lang['There is no assignment at the moment'] = 'Nema vidljivih zadataka';
+$_lang['There is no category available !'] = 'Nema dostupne kategorije';
+$_lang['There is no course matching such criteria'] = 'Nije pronađen niti jedan predmet';
+$_lang['There is no exercise for the moment'] = 'Nema vježbi';
+$_lang['There is no question for the moment'] = 'Nema pitanja';
+$_lang['There is no start asset defined for this module.'] = 'Nedostaje početak modula';
+$_lang['There is no user account with this email address.'] = 'Ne postoji korisnik s navednom email adresom';
+$_lang['This category already exists!'] = 'Kategorija već postoji';
+$_lang['This category contains other categories, you must delete them before !'] = 'Kategoriju nije moguće obrisati, jer sadrži potkategorije. Da biste izbrisali kategoriju, prethodno morate izbrisati sve njene potkategorije';
+$_lang['This category contains some courses, you can\'t erase it!'] = 'Kategoriju nije moguće obrisati, jer sadrži predmete. Da biste izbrisali kategoriju, prethodno morate izbrisati sve njene predmete';
+$_lang['This category include some courses, you must delete or move them before'] = 'U ovoj kategoriji postoje predmeti. Da bi izbrisali kategoriju, predmete morate ili izbrisati, ili ih prebaciti u drugu kategoriju.';
+$_lang['This class still contains some sub classes, delete them first'] = 'Razred sadrži podrazrede. Da biste obrisali razred, prethodno je potrebno obrisati podrazrede';
+$_lang['This course is currently not described'] = 'Ne postoji opis predmeta';
+$_lang['This day'] = 'Danas';
+$_lang['This is the faculty, department or school where the course is delivered'] = '';
+$_lang['This is your account Login-Pass'] = '';
+$_lang['This mail appears already in a previous line of the CSV file.'] = 'Email adresa se prethodno pojavljuje u CSV datoteci';
+$_lang['This official code already appears in a previous line of the CSV file.'] = 'Matična šifra već postoji u CSV datoteci';
+$_lang['This official code is already used by another user.'] = 'Navedena matična oznaka se već koristi';
+$_lang['This user name is already taken'] = 'Korisničko ime se već koristi';
+$_lang['This will also delete all works submitted in this assignment !'] = 'Ako izbrišete zadatak, bit će izbrisani i svi predani uratci';
+$_lang['Thumbnails'] = '<i>Thumbnailovi</i>';
+$_lang['Time'] = 'Vrijeme (s)';
+$_lang['Time in learning path'] = 'Vrijeme u redoslijedu učenja';
+$_lang['Time is over, results not submitted.'] = 'Vrijeme je isteklo, rješenja nisu poslana.';
+$_lang['Time limit'] = 'Maksimalno dopušteno vrijeme trajanje vježbe:';
+$_lang['Title'] = 'Naslov';
+$_lang['Title added :'] = 'Naslov je dodan: ';
+$_lang['To'] = 'u';
+$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Kako biste poslali poruku, odaberite grupu korisnika (sa zvjezdicom (*) na početku) ili pojedine korisnike iz liste';
+$_lang['Tool'] = 'Alat';
+$_lang['Tool accesses changed'] = 'Popis alata je uređen';
+$_lang['Tools'] = 'Alati';
+$_lang['Topic'] = 'Tema';
+$_lang['Topic review'] = 'Pregled teme';
+$_lang['Topics'] = 'Teme';
+$_lang['Topics started'] = 'Započetih tema';
+$_lang['Total'] = 'Ukupno';
+$_lang['Total Clicks'] = 'Ukupni broj pristupa';
+$_lang['Total Downloads'] = 'Ukupni broj <i>downloada</i>';
+$_lang['Total attempts'] = 'Ukupni broj pokušaja';
+$_lang['Total number of connection to this course'] = 'Ukupan broj pristupa stranicama predmeta';
+$_lang['Total time'] = 'Ukupno vrijeme rada s modulom';
+$_lang['Tracking'] = 'Praćenje';
+$_lang['Tracking database'] = 'Baza podataka za praćenje';
+$_lang['Tracking has been disabled by system administrator.'] = 'Administrator sustava je onemogućio praćenje';
+$_lang['Traffic Details'] = 'Detalji o prometu';
+$_lang['Translation Progression'] = 'Statistike prijevoda';
+$_lang['Translation Tools'] = 'Alati za prevođenje';
+$_lang['True'] = 'Istinit';
+$_lang['URL :'] = 'URL: ';
+$_lang['URL link'] = 'URL alata (vanjski <i>link</i>)';
+$_lang['Unable to add description'] = 'Nije moguće dodati opis';
+$_lang['Unable to add external tool'] = 'Nije moguće dodati alat (vanjski <i>link</i>)';
+$_lang['Unable to add the event to the agenda'] = 'Nije moguće dodati događaj u program rada';
+$_lang['Unable to change tool access'] = 'Nije moguće promijeniti';
+$_lang['Unable to delete'] = 'Nije moguće izbrisati';
+$_lang['Unable to delete event from the agenda'] = 'Nije moguće izbrisati događaj iz programa rada';
+$_lang['Unable to delete external tool'] = 'Nije moguće izbrisati alat (vanjski <i>link</i?)';
+$_lang['Unable to update'] = 'Nije moguće <i>updateati</i>';
+$_lang['Unable to update external tool'] = 'Alat nije promijenjen';
+$_lang['Unable to update the event into the agenda'] = 'Nije moguće urediti događaj u programu rada';
+$_lang['Unamed module'] = 'Neimenovani modul';
+$_lang['Unamed path'] = 'Neimenovani redoslijed učenja';
+$_lang['Unassigned students'] = 'Negrupirani korisnici';
+$_lang['Unblock'] = 'Odblokiraj';
+$_lang['Unique answer'] = 'Odaberite ispravan odgovor';
+$_lang['Unregister'] = 'Odjavi';
+$_lang['Unregister from class'] = 'Ispiši iz razreda';
+$_lang['Unregister user'] = 'Odjavi korisnika';
+$_lang['Unsubscribe'] = 'Odjavi';
+$_lang['Until'] = 'do';
+$_lang['Up'] = 'Razina iznad';
+$_lang['Upgrade'] = '<i>Upgrade</i>';
+$_lang['Upload a new file to replace the file'] = '<i>Uploadajte</i> novu datoteku da biste zamijenili postojeću';
+$_lang['Upload document'] = '<i>Upload</i> datoteke';
+$_lang['Upload file'] = '<i>Uploadaj</i> datoteku';
+$_lang['Uploaded file'] = '<i>Uploadana</i> datoteka';
+$_lang['Use a document'] = 'Dodaj dokument';
+$_lang['Use a module of this course'] = 'Dodaj modul iz ovog predmeta';
+$_lang['Use an exercise'] = 'Dodaj vježbu';
+$_lang['Use format defined in first line of file'] = 'Format zapisan u prvoj liniji datoteke';
+$_lang['User'] = 'Korisnik';
+$_lang['User Id'] = 'Korisnički ID';
+$_lang['User access details'] = 'Statistika pristupa prijavljenih korisnika';
+$_lang['User already in class'] = 'Korisnik je upisan u razred';
+$_lang['User attempts'] = 'Broj pokušaja prijavljenih korisnika';
+$_lang['User course settings'] = 'Korisničke postavke za predmet';
+$_lang['User has been sucessfully registered to the class'] = 'Korisnik je upisan u razred';
+$_lang['User has been sucessfully unregistered from the class'] = 'Korisnik je ispisan iz razreda';
+$_lang['User is now course manager'] = 'Korisnik je sada voditelj predmeta';
+$_lang['User is now student for this course'] = 'Korisnik je prijavljen na ovaj predmet';
+$_lang['User list'] = 'Popis korisnika';
+$_lang['User not in the class'] = 'Korisnik nije upisan niti u jedan razred';
+$_lang['User settings'] = 'Korisničke postavke';
+$_lang['User unregistered'] = 'Korisnik odregistriran';
+$_lang['User\'s course'] = 'Prijavljivanje/odjavljivanje s predmeta';
+$_lang['Username'] = 'Korisničko ime';
+$_lang['UsernameAppearAlready'] = 'Korisničko ime se prethodno pojavljuje u CSV datoteci';
+$_lang['UsernameUsed'] = 'Navedeno korisničko ime se već koristi';
+$_lang['Users'] = 'Korisnici';
+$_lang['Users Downloads'] = 'Broj <i>downloada</i> prijavljenih korisnika';
+$_lang['Users help'] = 'Korisnici pomoć';
+$_lang['Users not in this group'] = 'Korisnici koji nisu u ovoj grupi';
+$_lang['Users\' Clicks'] = 'Broj pristupa prijavljenih korisnika';
+$_lang['UsersMin'] = '';
+$_lang['Values'] = 'Vrijednost';
+$_lang['Variables with same content and different name'] = 'Varijable istog sadržaja s različitim imenom';
+$_lang['Variables with same name and different content'] = 'Varijable istog imena s različitim sadržajem';
+$_lang['View'] = 'Vrsta prikaza';
+$_lang['View by'] = 'Pregledavanje po';
+$_lang['View list of all tools'] = 'Pregledaj popis svih alata';
+$_lang['View mode'] = 'Pregledavati kao';
+$_lang['View my statistics'] = 'Prikaži moje statistike';
+$_lang['Visibility'] = 'Vidljivost';
+$_lang['Visibility modified'] = 'Vidljivost promijenjene';
+$_lang['Visible'] = 'Vidljivi';
+$_lang['Visits'] = 'posjete';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Upozorenje! Ovo pitanje se koristi u više vjezbi. Želite li ga zaista promijeniti?';
+$_lang['Week'] = 'Tjedan';
+$_lang['Weighting'] = 'Broj bodova';
+$_lang['Wiki'] = 'Wiki';
+$_lang['Work'] = 'Rad';
+$_lang['Work added'] = 'Rad je poslan';
+$_lang['Work modified'] = 'Rad je promijenjen';
+$_lang['Work title'] = 'Naslov rada';
+$_lang['Work title required'] = 'Naslov rada je obavezan';
+$_lang['Work uploaded by the student in the name of \'Authors\''] = 'Radovi koje je korisnik <i>uploadao</i>';
+$_lang['Work uploads'] = '<i>Upload</i> rada';
+$_lang['Worst score'] = 'Minimum';
+$_lang['Wrong operation'] = 'Pogrešna operacija';
+$_lang['Year'] = 'Godina';
+$_lang['Yes'] = 'Da';
+$_lang['Yes, allow users to submit works after end date'] = 'Da, korisnici mogu predati zadatak i nakon roka predaje';
+$_lang['Yesterday'] = 'Jučer';
+$_lang['You are not a member of this group'] = 'Niste član grupe';
+$_lang['You are now a member of this group.'] = 'You are now a member of this group.';
+$_lang['You can not change your own settings!'] = 'Ne mozete promijeniti vlastite postavke';
+$_lang['You can not change your own status'] = 'Ne možete promijeniti vlastiti status';
+$_lang['You can not move a class in itself!'] = 'Nije moguće premjestiti razred';
+$_lang['You can now create your  course'] = 'Sada možete stvoriti novi predmet';
+$_lang['You can now select, in the list, the courses you want to access'] = 'Sljedeći korak je odabir predmeta na koji se želite prijaviti';
+$_lang['You cannot give a blank name to a class'] = 'Ime razreda mora biti zadano';
+$_lang['You cannot post an empty message'] = 'Poruka mora imati naslov';
+$_lang['You didnt choose any file to send, or it is too big'] = 'Nije odabrana datoteka, ili je veličina datoteke veća od dozvoljene';
+$_lang['You have already answered the question'] = 'Vec ste odgovorili na (ovo/to/navedeno) pitanje';
+$_lang['You have just created the course website'] = 'Stvoren je <i>website</i> za predmet';
+$_lang['You have reached the maximum number of allowed attempts.'] = 'Dosegli ste maksimalni dozvoljeni broj pokušaja';
+$_lang['You left some required fields empty'] = 'Nisu ispunjena sva obavezna polja';
+$_lang['You must introduce the message text'] = 'Tekst obavijesti je obavezan';
+$_lang['You must select a file'] = 'Morate odabrati datoteku';
+$_lang['You must select a text file'] = 'Odaberite tekstualnu datoteku';
+$_lang['You must select some users'] = 'Morate odabrati barem jednog korisnika';
+$_lang['You must specify the CSV format used in your file'] = 'Format za CSV datoteku';
+$_lang['You\'ve been enroled on the course'] = 'Prijavljeni ste na odabrani predmet';
+$_lang['Your best performance'] = 'Vaš najbolji rezultat';
+$_lang['Your browser cannot see frames.'] = 'Vaš <i>browser</i> ne podržava <i>frameove</i>';
+$_lang['Your campus has been submitted and is waiting to be validate by Claroline.net team'] = 'Zahtjev za registracijom Vašeg učilišta je poslan Claroline.net teamu';
+$_lang['Your enrolment on the course has been removed'] = 'Odjavili ste se s odabranog predmeta';
+$_lang['Your message has been deleted'] = 'Vaša je poruka izbrisana';
+$_lang['Your message has been entered'] = 'Vaša je poruka uspješno pohranjena';
+$_lang['Your new profile has been saved'] = 'Vas novi profil je spremljen';
+$_lang['Your password has been emailed to'] = 'Zaporka je poslana na email adresu ';
+$_lang['Your progression in this module'] = 'Statistika Vašeg napretka za ovaj modul';
+$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Vaš zahtjev za statusom voditelja predmeta je poslan administratoru sustava';
+$_lang['Your request to remove your account has been sent'] = 'Zahtjev za uklanjanjem korisničkog računa je poslan';
+$_lang['Your time is'] = 'Ukupno vrijeme:';
+$_lang['Your total score is'] = 'Vaš ukupni rezultat: ';
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Niste prijavljeni na ovaj predmet';
+$_lang['Zip file uploaded and uncompressed'] = 'Zip datoteka <i>uploadana</i> i odkomprimirana';
+$_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = '<i>Zlib</i> php ekstenzija je potrebana za korištenje ovog alata. Kontaktirajte administratora sustava.';
+$_lang['[British people] live in [United Kingdom].'] = '[Kinezi] žive u Kini.';
+$_lang['archive'] = 'arhiva';
+$_lang['blockAssignmentsHelp'] = '<p>
+Alat \'Zadaci\' služi voditeljima predmeta za stvaranje zadataka. Korisnici putem ovog alata mogu poslati rješenja.
 Rješenja, u obliku teksta, datoteke ili njihove kombinacije, polaznici predaju samostalno ili u grupama.
 Polaznici mogu uređivati rad čak i nakon što je predan.
 Voditelji predmeta su zaduženi za slanje ispravki radova i njihovo ocjenjivanje.
@@ -793,7 +939,7 @@ Voditelji predmeta su zaduženi za slanje ispravki radova i njihovo ocjenjivanje
 <hr />
 
 <h4>Stvaranje zadatka</h4>
-<p>Kliknite na 'Stvori novi zadatak'.</p>
+<p>Kliknite na \'Stvori novi zadatak\'.</p>
 <p>Potrebno je navesti sljedeće:
 </p>
 <ul><li>Ime zadatka
@@ -820,7 +966,7 @@ Datoteke može, ali ne mora, biti predana.</li></ul>
 <p><br />
 <strong>Dodavanje automatskog ispravka</strong>
 </p>
-<p>Ispravak predstavlja ispravno rješenje zadatka. Da biste zadatku dodali automatski ispravak, odaberite zadatak i kliknite na 'Uredi automatizirani ispravak'</p>
+<p>Ispravak predstavlja ispravno rješenje zadatka. Da biste zadatku dodali automatski ispravak, odaberite zadatak i kliknite na \'Uredi automatizirani ispravak\'</p>
 <p>Ispravak može biti tekst, datoteka ili oboje. Voditelj predmeta odlučuje kada će se automatski ispravak prikazati polaznicima - nakon roka predaje ili nakon prve predaje rada.
 </p>
 
@@ -833,572 +979,312 @@ Popis radova korisnika može se dobiti klikom na ime korisnika</p>
 <p>Voditelji predmeta mogu uređivati, brisati, mijenjati vidljivost radova i objavljivati ispravke, putem sljedećih naredbi:
 </p>
 <ul>
-<li><strong>Uredi</strong> - Klikom na 'Uredi' ikonu moguće je uredjivati rad. Rad može uređivati korisnik koji ga je predao, bilo koji član
+<li><strong>Uredi</strong> - Klikom na \'Uredi\' ikonu moguće je uredjivati rad. Rad može uređivati korisnik koji ga je predao, bilo koji član
 grupe u kojoj se korisnik nalazi ili voditelj predmeta.
 </li>
-<li><strong>Izbriši</strong> - Klikom na 'Izbriši' ikonu briše se (predani) rad
+<li><strong>Izbriši</strong> - Klikom na \'Izbriši\' ikonu briše se (predani) rad
 </li>
 <li><strong>Vidljiv/nevidljiv</strong> - Ukoliko je rad označen kao vidljiv, svi polaznici predmeta će mu moći pristupiti.
 </li>
-<li><strong>Dodaj ispravak</strong> - Klikom na 'dodaj ispravak' voditelji predmeta mogu dodati ispravak rada. Ispravak može sadrzavati
-'napomene', koje su vidljive isključivo voditeljima predmeta.
+<li><strong>Dodaj ispravak</strong> - Klikom na \'dodaj ispravak\' voditelji predmeta mogu dodati ispravak rada. Ispravak može sadrzavati
+\'napomene\', koje su vidljive isključivo voditeljima predmeta.
 </li>
 </ul>
 
 
 
-";
-$_lang['HelpGroups'] = "Grupe pomoć";
-$_lang['Hereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage'] = "Primjenom ovog alata moguće je promijeniti sadržaj tekstualnih područja koja se prikazuju na početnoj stranici.";
-$_lang['Hits'] = "Broj pregleda";
-$_lang['Home'] = "Natrag na početnu stranicu";
-$_lang['HomePageTextZone'] = "Tekstualna područja početne stranice";
-$_lang['Hour'] = "Sat";
-$_lang['HumanAndPhysicalResourcesComment1'] = "Tko su predavači i asistenti? Koja je oprema dostupna?";
-$_lang['HumanAndPhysicalResourcesComment2'] = "Predstavljanje predavača i asistenata koji organiziraju predmet. Koja oprema je dostupna polaznicima?";
-$_lang['HumanAndPhysicalRessources'] = "Ljudi i oprema";
-$_lang['IfNotRedirect'] = "Ako nije preusmjeren ";
-$_lang['Import'] = "<i>Import</i>";
-$_lang['Impossible'] = "Nedozvoljena operacija";
-$_lang['In'] = "u";
-$_lang['InFrames'] = "U <i>frameovima</i>";
-$_lang['IncorrectDate'] = "Rok predaje mora biti nakon početka vježbe";
-$_lang['Indeed'] = "Doista. Sokratska ironija je metoda ispitivanja. \"Eirotao\" u grčkom znači \"postavljati pitanja\"";
-$_lang['Individual'] = "Samostalni";
-$_lang['Info2Say'] = "Informacije namijenjene polaznicima";
-$_lang['InfoProgNameTitle'] = "Informacija";
-$_lang['InsertMyDocToolName'] = "Dodavanje dokumenta u redoslijed učenja";
-$_lang['InsertMyExerciseToolName'] = "Dodavanje vježbe";
-$_lang['InsertMyModuleToolName'] = "Dodavanje modula";
-$_lang['InsertMyModulesTitle'] = "Dodaj modul u predmet";
-$_lang['InsertNewModuleName'] = "Novo ime";
-$_lang['Installed'] = "Redoslijed učenja je <i>importan</i>";
-$_lang['Institution'] = "Ustanova";
-$_lang['InstitutionUrl'] = "URL ustanove";
-$_lang['IntroCourse'] = "Nalazite se na početnoj stranici predmeta.<br /><br />Pomoću ove stranice možete:
+';
+$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ovaj modul je blokiran.
+Ako označite ovaj modul kao nevidljiv, polaznici će moći pristupati modulima koji slijede nakon ovog.
+Želite li zaista označiti ovaj modul kao nevidljiv?';
+$_lang['blockConfirmBlockingPathMadeInvisible'] = 'Ovaj redoslijed učenja je blokiran.
+Ako označite ovaj redoslijed kao nevidljiv, polaznici će moći pristupati modulima redoslijeda učenja koji slijede nakon ovog.
+Želite li zaista označiti ovaj redoslijed učenja kao nevidljiv?';
+$_lang['blockConfirmDeleteModule'] = 'Ukoliko izbrišete modul, modul će biti uklonjen iz svih redoslijeda učenja u kojima se koristi.
+Želite li zaista izbrisati ovaj modul?';
+$_lang['blockConfirmDeleteScorm'] = 'Ovaj redoslijed učenja je dio SCORM <i>import</i> paketa. Ako obrišete ovaj redoslijed, svi SCORM moduli i datoteke će biti obrisani.  Želite li zaista izbrisati redoslijed učenja ';
+$_lang['blockConfirmDeleteStats'] = 'Želite li zaista obrisati statistike?';
+$_lang['blockCourseDescriptionCourseContent'] = 'Sadržaj predmeta';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Koja je važnost gradiva koje se podučava u sklopu predmeta? Koliko je gradivo teško?
+Kako je gradivo ustrojeno? Koji je redoslijed izlaganja gradiva?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Sadržaj predmeta, prikaz gradiva i plan rada.';
+$_lang['blockCourseDescriptionDescription'] = 'Opis';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Koja je uloga predmeta unutar programa? Koja je veza s ostalim predmetima? Postoje li predmeti koje je neophodno odslušati prije prijavljivanja na ovaj predmet?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informacije o predmetu (ime predmeta, broj predviđenih sati) i o voditelju predmeta (ime i prezime, odjel, broj telefona, email).';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Tko su predavači i asistenti? Koja je oprema dostupna?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Predstavljanje predavača i asistenata koji organiziraju predmet. Koja oprema je dostupna polaznicima?';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Ljudi i oprema';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Kriterij ocjenjivanja';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Podaci vezani uz ocjenjivanje (bodovni kriteriji i pragovi za vježbe, zadatke, projekte, pismene i usmene ispite) i podaci o rokovima predaje radova';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Kvalifikacije i ciljevi';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Koji su ciljevi predmeta? Koje vještine i znanja bi polaznici trebali imati nakon što odslušaju predmet?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Kratki prikaz gradiva predmeta. Koje vještine i znanja bi polaznici trebali imati nakon što odslušaju predmet?';
+$_lang['blockCourseDescriptionSupports'] = 'Podrška';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Postoji li podrška za predmet? Kakva vrsta podrške?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Opis podrške za predmet. Popis literature i relevantnih materijala.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Edukativne aktivnosti';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Koje edukativne aktivnosti postoje uz nastavu? Koji je raspored aktivnosti?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Popis aktivnosti i njihovo predstavljanje (opis aktivnosti, što se očekuje od prijavljenih korisnika i sl.)';
+$_lang['blockCourseHomePageIntroduction'] = 'Odaberite alate koje će biti vidljivi polaznicima. Kada stranicama predmeta pristupate kao voditelj, nevidljivi alati bit će zasivljeni.';
+$_lang['blockCourseSettingsTip'] = 'Po <i>defaultu</i>, na predmet se mogu prijaviti svi registrirani korisnici. Ako želite povjerljivost,
+najjednostavniji način je da omogućite prijavljivanje na predmet tijekom jednog tjedna, obavijestite korisnike da se prijave, te
+zatim onemogućite prijavljivanje i pronađete <i>uljeze</i> u listi prijavljenih korisnika.';
+$_lang['blockDefaultLearningPathComment'] = 'Uvodni tekst redoslijeda učenja. Da biste ga zamijenili proizvoljnim/vlastitim tekstom kliknite na modify (ikonu/olovcicu)   This is the introduction text of this learning path. To replace it by your own text, click below on <b>modify</b>.';
+$_lang['blockDefaultModuleComment'] = 'Uvodni tekst modula. Bit ce prikazan/prikazuje se u svim planovima/redoslijedima ucenja u kojima se ovaj modul koristi (koji sadrze ovaj modul). Da bi ste ga zamijenili vlastitim tekstom, kliknite na olovcicu ispod :-)   This is the introduction text of this module, it will appears in each learning path that contains this module. To replace it by your own text, click below on <b>modify</b>.';
+$_lang['blockDocumentsHelp'] = '<p>Putem \'Dokumenti\' alata moguće je <i>uploadati</i> bilo
+koju vrstu dokumenta (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, i dr.)</p>
+<hr />
+<h4>Načini pregledavanja</h4>
+Dokumenti se mogu pregledavati kao:
 <ul>
-<li>Aktivirati i deaktivirati alate (klikom na 'Uredi popis alata').</li>
+<li>Popis datoteka (<i>default</i>)</li>
+<li><i>Thumbnailovi</i></li>
+</ul>
+Način pregledavanja možete odabrati klikom na odgovarajući link koji se nalazi s desne strane
+popisa datoteka, odnosno, <i>thumbnailova</i>
+<h4>Preglednik slika</h4>
+<ul>
+<li>Preglednik slika se otvara klikom na ime slikovne datoteke u popisu datoteka, ili klikom na <i>thumbnail</i> slike u
+<i>thumbnail</i> načinu pregledavanju.
+</li>
+<li>Da biste zatvorili preglednik slika, kliknite na link \'<i>Thumbnailovi</i>\' ili \'Popis datoteka\'</li>
+</ul>
+<h4>Traženje dokumenta</h4>
+<ul>
+<li>
+Da biste pretraživali dokumente i linkove, kliknite na \'Traži\' link. Dozvoljeno je korištenje znakova \'*\' i \'?\'.
+</li>
+</ul>
+<hr />
+<h4>Upravljanje dokumentima</h4>
+</hr />
+
+<h4><i>Uploadanje</i> dokumenata</h4>
+Da biste <i>uploadali</i> dokument:
+<ul>
+<li>
+Kliknite na \'<i>Uploadaj</i> datoteku\'
+</li>
+<li>
+Kliknite na \'browse\' gumb
+</li>
+<li>
+Odaberite datoteku koju želite <i>uploadati</i>.
+Po želji dokumentu možete dodati komentar.
+<blockquote><small>
+<i>Napomena</i>: Prilikom <i>uploada</i> <i>zip</i> datoteke moguće je označiti opciju \'<i>Odzippaj</i> .zip datoteku na serveru\'
+</small></blockquote>
+</li>
+<li>
+Kliknite na \'Uploadaj\' gumb .
+</li>
+</ul>
+
+<h4>Stvaranje <i>hyperlinka</i></h4>
+<ul>
+<li>
+Kliknite na \'Stvori <i>hyperlink</i>\'
+</li>
+<li>
+Upišite ime <i>hyperlinka</i>
+</li>
+<li>
+Upišite URL <i>hyperlinka</i>
+(npr.: http://www.mojeuciliste.com/mojadatoteka.htm).
+</li>
+<li>
+Po želji <i>hyperlinku</i> možete dodati komentar.
+</li>
+</li>
+</ul>
+
+<h4><i>Online</i> stvaranje HTML dokumenta</h4>
+<ul>
+<li>Kliknite na \'Stvori dokument\'
+</li>
+<li> 
+Upišite ime dokumenta
+</li>
+<li>
+Upišite sadržaj dokumenta
+</li>
+</ul>
+<p>
+
+<blockquote><small>
+<i>Napomena</i>: Ne preporučuje se <i>online</i> pisanje dužih dokumenata. Umjesto toga, napišite dokument <i>offline</i>, te ga zatim <i>uploadajte</i> na sustav.
+</small></blockquote>
+</p>
+
+
+<h4>Preimenovanje dokumenata, mapa i <i>hyperlinkova</i></h4>
+<ul>
+<li>Kliknite na \'promijeni\' ikonu
+</li>
+<li>
+Upišite novo ime
+</li>
+<li>
+Po želji dodajte ili izmijenite komentar.
+</li>
+</ul>
+
+<blockquote><small>
+<i>Napomena</i>: Dokumenti su abecedno poredani.
+</small></blockquote>
+
+
+<h4>Brisanje dokumenta, mape ili <i>hyperlinka</i></h4>
+<ul>
+<li>
+Kliknite na \'Izbriši\' ikonu
+</ul>
+
+<h4>
+Mijenjanje vidljivosti dokumenta, mape ili <i>hyperlinka</i>
+</h4>
+<ul>
+<li>
+Kliknite na \'Vidljivost\' ikonu
+</li>
+</ul>
+
+<blockquote><small>
+<i>Napomena</i>: Nevidljivi element nije vidljiv polaznicima predmeta, ali još uvijek postoji u sustavu
+</small></blockquote>
+
+<h4>
+Dodavanje i mijenjanje komentara
+</h4>
+<ul>
+<li>
+Kliknite na \'Promijeni\' ikonu
+</li>
+<li>
+Upišite komentar
+</li>
+</ul>
+
+<blockquote><small>
+<i>Napomena</i>: Da biste obrisali postojeći komentar, kliknite \'Promijeni\' ikonu, te izbrišite tekst komentara
+</small></blockquote>
+
+<h4>Stvaranje mape</h4>
+<ul>
+<li>Kliknite na \'Stvori mapu\'
+</li>
+<li>
+Upišite ime mape
+</li>
+</ul>
+<h4>
+Premještanje dokumenta, mape ili <i>hyperlinka</i>
+</h4>
+<ul>
+<li>
+Kliknite na \'Premjesti\' ikonu elementa kojeg želite premjestiti.
+</li>
+</ul>
+<center>
+<p>';
+$_lang['blockExercisesHelp'] = 'Alat \'Vježbe\' voditeljima predmeta omogućuje stvaranje <i>online</i> vježbi. Korisnici putem ovog alata mogu interaktivno
+rješavati vježbe. U slučaju da je korisnik prijavljen, rezultati vježbi bit će spremljeni u statistikama predmeta.
+<hr />
+
+<h4>Upravljanje vježbama</h4>
+<h4>Stvaranje vježbe</h4>
+<ul>
+<li> Kliknite na \'Stvori vježbu\'</li>
+<li> Upišite ime vježbe</li>
+<li> Po želji vježbi možete dodati komentar.</li>
+<li> Odaberite hoće li sva pitanja vježbe biti na istoj stranici, ili će svako pitanje biti na svojoj stranici</li>
+<li> Napredne postavke vježbe (neobavezno)
+<ul>
+<li> Odaberite kada vježba započinje</li>
+<li> Odaberite kada vježba završava</li>
+<li> Odredite vremensko ograničenje vježbe</li>
+<li> Odaberite koliko puta pojedini korisnik smije rješavati vježbu</li>
+<li> Odaberite jesu li anonimni pokušaji dozvoljeni ili ne</li>
+<li> Odaberite kada će rezultati vježbe biti prikazani</li>
+</ul>
+</ul>
+<p>Nakon što je vježba stvorena, u nju je moguće dodati pitanja.</p>
+
+<hr />
+<h4>Pitanja</h4>
+<h4>Pitanja s višestrukim izborom</h4>
+<p>Postoje dvije vrste pitanja s višestrukim izborom: 
+</p>
+<ul>
+<li> Pitanja s jednim ispravnim odgovorom</li>
+<li> Pitanja s više ispravnih odgovora</li>
+</ul>
+<p>Prilikom stvaranja pitanja s višestrukim izborom, standardno su ponuđena dva odgovora.
+Da biste povećali broj ponuđenih odgovora kliknite na \'Dodaj novi odgovor\'
+</p>
+<p>Da biste smanjili broj ponuđenih odgovora, kliknite na \'Izbriši posljednji odgovor\'</p>
+<p>Za svaki ponuđeni odgovor potrebno je:</p>
+<ul>
+<li>Označiti je li odgovor istinit</li>
+<li>U \'odgovor\' upisati tekst ponuđenog odgovora</li>
+<li>U \'komentar\' upisati tekst koji će se prikazati korisnicima ako odaberu navedeni odgovor</li>
+<li>Upisati broj bodova. Istiniti odgovori donose pozitivan broj bodova, dok odgovori koji nisu istiniti
+ne donose bodove (0 bodova) ili donose negativne bodove.
+</li>
+</ul>
+
+<h4>Pitanja s povezivanjem</h4>
+<p>U ovoj vrsti pitanja, korisnici moraju pronaći vezu među elementima dva popisa.</p>
+<p>Prilikom stvaranja pitanja s višestrukim izborom, standardno su ponuđena dva odgovora u svakom od popisa.
+Da biste povećali broj elemenata u popisu  kliknite na \'Dodaj element\'</p>
+<p>Da biste smanjili broj elemenata u popisu kliknite na \'Izbriši element\'</p>
+
+<p>Broj bodova ne može biti negativan.</p>
+
+<h4>Pitanja s nadopunjavanjem</h4>
+<p>Pitanja su zadana u obliku teksta u kojem su neke riječi izostavljene.</p>
+<p>
+Praznine se definiraju pomoću uglatih zagrada [...] u koje korisnici upisuje riječ koju nedostaju.
+</p>
+
+<hr />
+
+<h4>Zbirka pitanja</h4>
+<p>U zbirci pitanja se nalaze pitanja iz svih vježbi ovog predmeta kao i nedodijeljena pitanja (pitanja koja se ne koriste
+niti u jednoj vježbi).
+</p>
+<p>Prilikom brisanja vježbe, pitanja se ne brišu iz baze podataka, već ostaju dostupna putem alata \'Zbirka pitanja\'.</p>
+<p>Po <i>defaultu</i>, prikazana su sva pitanja ovog predmeta. Pomoću filtera je moguće prikazati pitanja određene vježbe ili nedodijeljena pitanja.</p>
+';
+$_lang['blockFeedbackHelp'] = 'Ispravak nije obavezan i predstavlja ispravno rješenje zadatka';
+$_lang['blockForumsHelp'] = 'Forumi su namijenjeni za javnu ili privatnu pisanu komunikaciju.</p>
+<p>Kako biste organizirali forume, kliknite na \'Administriranje foruma\'. Rasprave su organizirane
+prema sljedećoj hijerarhiji:</p>
+<p><b>Kategorija > Forum > Tema > Poruka</b></p>
+<p>
+Kao administrator foruma, trebali biste stvoriti kategorije i forume, a korisnicima
+prepustiti stvaranje tema i poruka. Po <i>defaultu</i>, forumi za predmet sastoje se od
+\'Glavne kategorije\', \'Oglednog foruma\' i \'Ogledne teme\'.</p>
+<p>Preporučljivo je izbrisati oglednu temu i promijeniti ime foruma. Kategorije koje ne sadrže
+forume neće biti prikazane polaznicima predmeta.</p>';
+$_lang['blockIntroCourse'] = 'Nalazite se na početnoj stranici predmeta.<br /><br />Pomoću ove stranice možete:
+<ul>
+<li>Aktivirati i deaktivirati alate (klikom na \'Uredi popis alata\').</li>
 <li>Promijeniti postavke ili pregledati statistike (klikom na odgovarajuće linkove).</li>
 </ul>
-Da bi ste dodali uvodni tekst putem kojeg ćete ukratko opisati predmet, kliknite na sljedeci link";
-$_lang['IntroEditToolList'] = "Odaberite alate koje će biti vidljivi polaznicima. Kada stranicama predmeta pristupate kao voditelj, nevidljivi alati bit će zasivljeni.";
-$_lang['IntroLearningPath'] = "Pomoću ovog alata moguće je stvoriti redoslijed učenja, koji definira redoslijed korištenja dokumenata, vježbi, HTML stranica, linkova i sl.<br />Kako biste redoslijedu učenja dodali uvodni tekst, kliknite na link:<br>";
-$_lang['IntroText'] = "Kako biste poslali poruku, odaberite grupu korisnika (sa zvjezdicom (*) na početku) ili pojedine korisnike iz liste";
-$_lang['IntroWork'] = "Ovaj alat omogućava stvaranje stranica za zadatke putem kojih će polaznici moći (ovisno o postavkama zadataka) <i>uploadati</i> datoteke ili napisati tekst svog rada.
+Da bi ste dodali uvodni tekst putem kojeg ćete ukratko opisati predmet, kliknite na sljedeci link';
+$_lang['blockIntroLearningPath'] = 'Pomoću ovog alata moguće je stvoriti redoslijed učenja, koji definira redoslijed korištenja dokumenata, vježbi, HTML stranica, linkova i sl.<br />Kako biste redoslijedu učenja dodali uvodni tekst, kliknite na link:<br>';
+$_lang['blockIntroWork'] = 'Ovaj alat omogućava stvaranje stranica za zadatke putem kojih će polaznici moći (ovisno o postavkama zadataka) <i>uploadati</i> datoteke ili napisati tekst svog rada.
 
 <br />Kao voditelj predmeta, moći ćete komentirati i ocjenjivati predane radove.
 
-<br /><br />Kako biste dodali uvodni tekst kojim ćete polaznicima dati upute za rješavanje zadataka, kliknite na sljedeći <i>link</i><br>";
-$_lang['InvalidId'] = "Neuspjela prijava<br /> Da biste se registrirali ispunite <a href=claroline/auth/inscription.php>registracijski obrazac</a></font color>";
-$_lang['Invisible'] = "Nevidljivi";
-$_lang['Is'] = "je";
-$_lang['IsAlreadyRegistered'] = "je prethodno prijavljen/a na predmet";
-$_lang['IsNowInYourDocDir'] = "se sada nalazi među <i>Dokumentima</i>.<br /><b>Datoteka je vidljiva</b>.";
-$_lang['IsNowRegistered'] = "je prijavljen/a na predmet";
-$_lang['JustCreated'] = "Stvoren je <i>website</i> za predmet";
-$_lang['LabelCanBeEmpty'] = "Ime predmeta je obavezno";
-$_lang['Language'] = "Jezik";
-$_lang['Last31days'] = "U posljednjih 31 dana";
-$_lang['Last7Days'] = "U posljednjih 7 dana";
-$_lang['LastAccess'] = "Posljednji pristup";
-$_lang['LastActiveTopics'] = "Posljednje aktivne teme";
-$_lang['LastAttempt'] = "Posljednji pokušaj";
-$_lang['LastCheck'] = "Posljednja provjera prije instalacije";
-$_lang['LastEditDate'] = "Vrijeme posljednje izmjene";
-$_lang['LastMsg'] = "Posljednja poruka";
-$_lang['LastMsgs'] = "Posljednje poruke";
-$_lang['LastName'] = "Prezime";
-$_lang['LastSessionTimeSpent'] = "Vrijeme rada s modulom tijekom posljednje sjednice";
-$_lang['Lasting'] = "Trajanje";
-$_lang['Lastname'] = "Prezime";
-$_lang['LateUpload'] = "Zakašnjeli <i>upload</i>";
-$_lang['LaunchRestoreCourseRepository'] = "Pokreni obnovu repozitorija predmeta";
-$_lang['LearnPathDetails'] = "Napredak u redoslijedima učenja";
-$_lang['LearningPath'] = "Redoslijed učenja";
-$_lang['LearningPathAdmin'] = "Administranje redoslijeda učenja";
-$_lang['LearningPathList'] = "Popis redoslijeda učenja";
-$_lang['LearningPathName'] = "Ime redoslijeda učenja: ";
-$_lang['LessAnswers'] = "Izbriši posljednji odgovor";
-$_lang['LessElements'] = "Izbriši element";
-$_lang['LessonStatus'] = "Status modula";
-$_lang['Licence'] = "Licenca";
-$_lang['Line'] = "Linija";
-$_lang['LineNumber'] = "Broj linija";
-$_lang['LineOrLines'] = "line(s)";
-$_lang['Lines'] = "linije/a";
-$_lang['Link'] = "Link";
-$_lang['ListAdmin'] = "Popis administratora";
-$_lang['ListAllUsers'] = "Popis svih korisnika";
-$_lang['ListClassUser'] = "Članovi razreda";
-$_lang['ListCourseUsers'] = "Popis korisnika prijavljenih na predmet";
-$_lang['ListHtUsers'] = "Pregledaj .htpassword";
-$_lang['ListStudents'] = "Popis studenata ove grupe";
-$_lang['ListUsers'] = "Popis korisnika";
-$_lang['LoadDefaultFormat'] = "Učitaj <i>default</i> format";
-$_lang['Location'] = "Smještaj";
-$_lang['Login'] = "Prijava";
-$_lang['LoginRequest'] = "Informacije o korisničkom računu na sustavu";
-$_lang['LoginWithoutAccess'] = "Neupotrebljeni korisnički računi";
-$_lang['Logins'] = "Prijavci";
-$_lang['LoginsAndAccessTools'] = "Prijavci i pristup alatima";
-$_lang['LoginsDetails'] = "Odaberite mjesec za koji želite ispis detalja";
-$_lang['LoginsTitleCountColumn'] = "Broj prijavaka";
-$_lang['LoginsTitleMonthColumn'] = "Mjesec";
-$_lang['Logout'] = "Odjava";
-$_lang['LostPassword'] = "Zaboravljena zaporka";
-$_lang['MailAppearAlready'] = "Email adresa se prethodno pojavljuje u CSV datoteci";
-$_lang['MailSynthaxError'] = "Pogrešna email adresa";
-$_lang['MailTo'] = "Pošalji email: ";
-$_lang['MailUsed'] = "Navedena email adresa je već prijavljena";
-$_lang['MainDB'] = "Glavna baza podataka";
-$_lang['MakeCorrespond'] = "Upiši prvu listu s odgovarajućim elementima iz druge liste";
-$_lang['MakeInvisible'] = "Učini nevidljivim";
-$_lang['MakeNewSearch'] = "Pretraživanje:";
-$_lang['MakeSearch'] = "Traženje korisnika";
-$_lang['MakeVisible'] = "Učini vidljivim";
-$_lang['Manage'] = "Administriranje učilista";
-$_lang['ManageClasses'] = "Upravljanje razredima";
-$_lang['ManageCourseCategories'] = "Upravljanje kategorijama predmeta";
-$_lang['Manager'] = "Voditelj predmeta";
-$_lang['ManyAnswers'] = "(više odgovora može biti ispravno)";
-$_lang['Matching'] = "Povezivanje";
-$_lang['Max'] = "Maks.";
-$_lang['MaxAllowedTime'] = "Maksimalno dopušteno vrijeme trajanje vježbe:";
-$_lang['MaxFileSize'] = "Maksimalna veličina datoteke:";
-$_lang['MaxSizeCourseCode'] = "Najviše 12 znakova, npr. <em>MAT1</em>";
-$_lang['MaxStudentGroup'] = "Maksimalni broj članova po grupi";
-$_lang['Maximum'] = "Maksimum: ";
-$_lang['Message'] = "Ako izbrišete testni forum, s njim će biti izbrisane i sve poruke koje on sadrži";
-$_lang['MessageSubscribeDone_p_firstname_lastname'] = "Poštovani/a %s, %s. Vaši podaci su spremljeni. Poslan Vam je email s Vašim korisničkim imenom i zaporkom.";
-$_lang['MessageToSelectedUsers'] = "Posalji obavijest korisnicima";
-$_lang['Messages'] = "Poruke";
-$_lang['MethodsOfEvaluation'] = "Kriterij ocjenjivanja";
-$_lang['MethodsOfEvaluationComment1'] = "Podaci vezani uz ocjenjivanje (bodovni kriteriji i pragovi za vježbe, zadatke, projekte, pismene i usmene ispite) i podaci o rokovima predaje radova";
-$_lang['Min'] = "Minimum: ";
-$_lang['MinuteShort'] = "min.";
-$_lang['Missing'] = "nedostaje";
-$_lang['MissingImagesDetected'] = "Missing images detected";
-$_lang['MissingValue'] = "Nedostaje vrijednost";
-$_lang['ModifAnn'] = "Promijeni obavijest";
-$_lang['ModifDone'] = "Postavke predmeta su promijenjene";
-$_lang['ModifUserCourseSettings'] = "Korisničke postavke za predmet";
-$_lang['Modify'] = "Promijeni";
-$_lang['ModifyFormat'] = "Promjena formata";
-$_lang['ModifyInAllExercises'] = "u svim vježbama";
-$_lang['ModifyInThisExercise'] = "samo u ovoj vježbi";
-$_lang['ModifyProfile'] = "Promijeni moj profil";
-$_lang['Module'] = "Modul";
-$_lang['ModuleMoved'] = "Modul premješten";
-$_lang['ModuleOfMyCourse'] = "Dodaj modul iz ovog predmeta";
-$_lang['ModuleStillInPool'] = "Moduli ovog redoslijeda učenja i dalje će biti dostupni preko zbirke modula";
-$_lang['Modules'] = "Moduli";
-$_lang['ModulesPoolToolName'] = "Zbirka modula";
-$_lang['MoreAnswers'] = "Dodaj novi odgovor";
-$_lang['MoreElements'] = "Dodaj element";
-$_lang['MoreRepliedTopics'] = "Broj odgovora po temi";
-$_lang['MoreSeenTopics'] = "Broj pregleda po temi";
-$_lang['Move'] = "Premjesti ";
-$_lang['MoveDown'] = "Pomakni dolje";
-$_lang['MoveUp'] = "Pomakni gore";
-$_lang['MsgSent'] = "Poruka je poslana odabranim korisnicima";
-$_lang['MultipleAnswers'] = "Odaberite sve ispravne odgovore";
-$_lang['MultipleEmails'] = "Korisnički računi s istom <i>email adresom</i>";
-$_lang['MultipleLogins'] = "Korisnički računi s jednakim <i>korisničkim imenom</i>";
-$_lang['MultipleSelect'] = "Višestruki izbor s više ispravnih odgovora";
-$_lang['MultipleUsernameAndPassword'] = "Korisnički računi kod kojih je <i>Korisničko ime</i> jednako <i>Zaporci</i>";
-$_lang['MustSelectAFile'] = "Morate odabrati datoteku";
-$_lang['MustSelectATxtFile'] = "Odaberite tekstualnu datoteku";
-$_lang['MyAgenda'] = "Moj kalendar";
-$_lang['MyCourses'] = "Moji predmeti";
-$_lang['MyGroup'] = "moja grupa";
-$_lang['MyResults'] = "Moji rezultati";
-$_lang['MyStats'] = "Prikaži moje statistike";
-$_lang['MysqlNames'] = "MySQL baza podataka i imena tablica";
-$_lang['Mysql_Repository'] = "Mysql Repozitorij";
-$_lang['NULLValue'] = "Bez email adrese";
-$_lang['Name'] = "Ime";
-$_lang['NameChanged'] = "Ime razreda je promijenjeno";
-$_lang['NameDir'] = "Ime nove mape";
-$_lang['NbLines'] = "Broj redaka";
-$_lang['NbrAccess'] = "Broj pristupa";
-$_lang['Never'] = "Nikada";
-$_lang['NeverBrowsed'] = "Nikad pregledani";
-$_lang['NeverConnectedStudents'] = "Korisnici koji nikad nisu pristupili stranicama predmeta: ";
-$_lang['NeverUsed'] = "Nikad upotrebljeni";
-$_lang['NewBloc'] = "Ostalo";
-$_lang['NewChat'] = "Novi <i>chat</i>";
-$_lang['NewClassCreated'] = "Stvoren je novi razred";
-$_lang['NewClassName'] = "Ime novog razreda";
-$_lang['NewEx'] = "Stvori vježbu";
-$_lang['NewGroupCreate'] = "Stvori novu grupu";
-$_lang['NewGroups'] = "grupu/a/e";
-$_lang['NewLabel'] = "Upišite ime novog odjeljka";
-$_lang['NewQu'] = "Dodaj pitanje";
-$_lang['NewToOld'] = "Od novijih prema starijima";
-$_lang['NewTopic'] = "Nova tema";
-$_lang['NewUsersIn'] = "novi/a/ih korisnik/a u sustavu:";
-$_lang['Next'] = "Sljedeće";
-$_lang['NextDay'] = "Sljedeći dan";
-$_lang['NextMonth'] = "Sljedeći mjesec";
-$_lang['NextWeek'] = "Sljedeći tjedan";
-$_lang['NextYear'] = "Sljedeća godina";
-$_lang['No'] = "Ne";
-$_lang['NoAnnouncement'] = "Nema obavijesti";
-$_lang['NoAnswer'] = "Nema ponudjenih odgovora";
-$_lang['NoContent'] = "Nema sadržaja";
-$_lang['NoCourseResult'] = "Nije pronađen niti jedan predmet";
-$_lang['NoEmail'] = "Email adresa mora biti zadana";
-$_lang['NoEndDate'] = "Vrijeme završetka vježbe nije zadano";
-$_lang['NoEventInTheAgenda'] = "Nema događaja u programu rada";
-$_lang['NoEx'] = "Nema vježbi";
-$_lang['NoFile'] = "- nema datoteke -";
-$_lang['NoFunctionInThisSection'] = "No function in this extension";
-$_lang['NoGroupStudents'] = "Negrupirani korisnici";
-$_lang['NoImage'] = "Nema slika";
-$_lang['NoLearningPath'] = "Nema redoslijeda učenja";
-$_lang['NoModule'] = "Nema modula";
-$_lang['NoMoreAttemptsAvailable'] = "Dosegli ste maksimalni dozvoljeni broj pokušaja";
-$_lang['NoMoreModuleToAdd'] = "Svi moduli ovog predmeta već se koriste u ovom redoslijedu učenja";
-$_lang['NoPost'] = "Nema poruka";
-$_lang['NoPsychology'] = "Neispravno. Sokratska ironija nije stvar psihologije, već se tiče rasprave";
-$_lang['NoQuestion'] = "Nema pitanja";
-$_lang['NoQuota'] = "Nema kvote";
-$_lang['NoRegisteredCourses'] = "Nema statistika. Niste prijavljeni ni na jedan predmet";
-$_lang['NoResult'] = "Nema rezultata";
-$_lang['NoScore'] = "Nema ocjene";
-$_lang['NoSeduction'] = "Neispravno. Sokratska ironija nije strategija zavođenja, niti metoda vođena primjerom.";
-$_lang['NoSpace'] = "Neuspješan <i>upload</i>. Nema dovoljno prostora na disku";
-$_lang['NoStartAsset'] = "Nedostaje početak modula";
-$_lang['NoTimeLimit'] = "Bez vremenskog ograničenja";
-$_lang['NoUserResult'] = "Nema korisnika";
-$_lang['NoVisibleAssignment'] = "Nema vidljivih zadataka";
-$_lang['NoVisibleSubmission'] = "Nema vidljivih predanih radova";
-$_lang['NomPageAddHtPass'] = "Administracija korisnika";
-$_lang['None'] = "Ničime";
-$_lang['NormalUser'] = "Obični korisnik";
-$_lang['NotAllowed'] = "Nije dozvoljeno";
-$_lang['NotFalse'] = "Odgovor nije neispravan. Istina je da se neznanje sugovornika otkriva pokazivanjem proturječnih zaključaka koji slijede iz njegovih premisa.";
-$_lang['NotGroupMember'] = "Niste član grupe";
-$_lang['NotInstalled'] = "Pogreška!  <i>Importiranje</i> redoslijeda učenja nije uspjelo";
-$_lang['NotRecentlyConnectedStudents'] = "Korisnici koji u posljednje vrijeme nisu pristupali stranicama predmeta: ";
-$_lang['NotUnregYourself'] = "Ne mozete promijeniti vlastite postavke";
-$_lang['Notice'] = "Napomena";
-$_lang['Now'] = "Sada";
-$_lang['NowGoChooseYourCourses'] = "Sljedeći korak je odabir predmeta na koji se želite prijaviti";
-$_lang['NowGoCreateYourCourse'] = "Sada možete stvoriti novi predmet";
-$_lang['NumGroup'] = "Broj grupa po predmetu";
-$_lang['NumGroupStudent'] = "Broj grupa u koje korisnik može biti prijavljen";
-$_lang['Numero'] = "ID";
-$_lang['OfficialCode'] = "Matična oznaka";
-$_lang['Ok'] = "Ok";
-$_lang['OkChapterHeadAdded'] = "Naslov je dodan: ";
-$_lang['OkDefaultCommentUsed'] = "Upozorenje: Opisu redoslijeda učenja je dodijeljena <i>default</i> vrijednost, jer instalacija ne može pronaći opis redoslijeda učenja.";
-$_lang['OkDefaultTitleUsed'] = "Upozorenje: Naslovu redoslijeda učenja je dodijeljena <i>default</i> vrijednost, jer instalacija ne može pronaći naslov redoslijeda učenja.";
-$_lang['OkFileReceived'] = "Primljena datoteka: ";
-$_lang['OkManifestFound'] = "<i>Manifest</i> je pronađen u <i>zip</i> datoteci: ";
-$_lang['OkManifestRead'] = "<i>Manifest</i> je pročitan.";
-$_lang['OkModuleAdded'] = "Modul je dodan: ";
-$_lang['OldToNew'] = "Od starijih prema novijima";
-$_lang['On'] = "od";
-$_lang['OneByOne'] = "Ručno dodavanje korisnika";
-$_lang['OneMyGroups'] = "pod mojim vodstvom";
-$_lang['OneResp'] = "Jedan od voditelja predmeta";
-$_lang['Only'] = "Isključivo";
-$_lang['Optional'] = "neobavezno";
-$_lang['Order'] = "Redoslijed";
-$_lang['OrderUp'] = "Pomakni gore";
-$_lang['OrphanQuestions'] = "Nedodijeljena pitanja";
-$_lang['OtherCourses'] = "Popis predmeta";
-$_lang['OtherWorks'] = "";
-$_lang['PassTooEasy'] = "zaporka je prejednostavna. Primjer ispravne zaporke:";
-$_lang['PassTwice'] = "Unesene su različite zaporke";
-$_lang['Password'] = "Zaporka";
-$_lang['PasswordHasBeenEmailed'] = "Zaporka je poslana na email adresu ";
-$_lang['PasswordSimple'] = "Zaporka je prejednostavna, ili je previše slična korisničkom imenu";
-$_lang['PathContentTitle'] = "Sadržaj redoslijeda učenja";
-$_lang['PathsInCourseProg'] = "Napredak u redoslijedu učenja ";
-$_lang['Perhaps_with_others_directory'] = "možda s drugim direktorijima";
-$_lang['PeriodDay'] = "Za dan";
-$_lang['PeriodHour'] = "Za sat";
-$_lang['PeriodMonth'] = "Mjesec";
-$_lang['PeriodToDisplay'] = "Period";
-$_lang['PeriodWeek'] = "Tjedan";
-$_lang['PeriodYear'] = "Godina";
-$_lang['PersoValue'] = "Vrijednost";
-$_lang['PersonalCourseList'] = "Popis predmeta na koje je korisnik prijavljen";
-$_lang['Phone'] = "Telefon";
-$_lang['Places'] = "mjesta/o u grupi (nije obavezno)";
-$_lang['Platform'] = "Sustav";
-$_lang['PlatformAccess'] = "Statistike pristupa učilistu";
-$_lang['PlatformAdministration'] = "Administiranje";
-$_lang['PlatformAdministrator'] = "Administrator sustava";
-$_lang['PlatformCoursesAccess'] = "Statistike pristupa stranicama predmeta";
-$_lang['PlatformStats'] = "Statistike sustava";
-$_lang['PleaseEnterMessage'] = "Tekst obavijesti je obavezan";
-$_lang['PleaseSelectUsers'] = "Morate odabrati barem jednog korisnika";
-$_lang['PopulateTools'] = "Dodavanje alata u predmete";
-$_lang['PoweredBy'] = "Powered by";
-$_lang['Prefix'] = "Prefiks: ";
-$_lang['PreventLateUpload'] = "Ne, korisnici ne mogu predati zadatak nakon roka predaje";
-$_lang['Preview'] = "<i>Preview</i>";
-$_lang['Previous'] = "Prethodno";
-$_lang['PreviousDay'] = "Prethodni dan";
-$_lang['PreviousLevel'] = "prethodna razina";
-$_lang['PreviousMonth'] = "Prethodni mjesec";
-$_lang['PreviousWeek'] = "Prethodni tjedan";
-$_lang['PreviousYear'] = "Prethodna godina";
-$_lang['PrintVers'] = "Inacica za ispis";
-$_lang['Private'] = "Privatan";
-$_lang['PrivateAccess'] = "Ograničeni pristup (stranice predmeta dostupne isključivo <a href=../user/user.php>prijavljenim korisnicima</a>)";
-$_lang['PrivateFeedback'] = "Napomene";
-$_lang['PrivateOnly'] = "Privatni pristup stranicama predmeta";
-$_lang['Problem'] = "Slobodno nas kontaktirajte u slučaju problema";
-$_lang['Professor'] = "Predavač";
-$_lang['ProfessorMessage'] = "Poruka voditelja predmeta";
-$_lang['Professors'] = "Predavači";
-$_lang['ProfileReg'] = "Vas novi profil je spremljen";
-$_lang['ProgInModuleTitle'] = "Statistika Vašeg napretka za ovaj modul";
-$_lang['Progress'] = "Napredak";
-$_lang['PropertiesNotIncludeInSections'] = "Properties not include in sections";
-$_lang['Publ'] = "Objavljeno";
-$_lang['Public'] = "Javan";
-$_lang['PublicAccess'] = "Javni pristup (stranice predmeta su javno dostupne, login nije potreban)";
-$_lang['PublicOnly'] = "Javni pristup stranicama predmeta";
-$_lang['Publish'] = "Objavi";
-$_lang['QtyOfUserCanSubscribe_PartAfterNumber'] = "&nbsp;grupe/a";
-$_lang['QtyOfUserCanSubscribe_PartBeforeNumber'] = "Korisnik može biti član najviše";
-$_lang['QualificationsAndGoals'] = "Kvalifikacije i ciljevi";
-$_lang['QualificationsAndGoalsComment1'] = "Koji su ciljevi predmeta? Koje vještine i znanja bi polaznici trebali imati nakon što odslušaju predmet?";
-$_lang['QualificationsAndGoalsComment2'] = "Kratki prikaz gradiva predmeta. Koje vještine i znanja bi polaznici trebali imati nakon što odslušaju predmet?";
-$_lang['Question'] = "Pitanje";
-$_lang['QuestionAnswers'] = "Ponuđeni odgovori";
-$_lang['QuestionDescription'] = "Tekst pitanja";
-$_lang['QuestionList'] = "Popis pitanja iz vježbe";
-$_lang['QuestionManagement'] = "Sastavljanje pitanja i odgovora";
-$_lang['QuestionNotFound'] = "Pitanje nije pronađeno";
-$_lang['QuestionPlan'] = "Pitanja voditelju predmeta";
-$_lang['QuestionPool'] = "Zbirka pitanja";
-$_lang['QuestionTitle'] = "Naslov pitanja";
-$_lang['QuestionWeighting'] = "Broj bodova";
-$_lang['Questions'] = "Pitanja";
-$_lang['QuitViewer'] = "Natrag na popis";
-$_lang['RandomLanguage'] = "Izmješaj izbore u dostupnim jezicima";
-$_lang['RandomQuestions'] = "Nasumičan redoslijed pitanja";
-$_lang['RawHasBeenChanged'] = "Prag za prolaz je promijenjen";
-$_lang['Reg'] = "Registracija";
-$_lang['RegAdmin'] = "Stvori <i>website</i> predmeta";
-$_lang['RegIntoGroup'] = "Prijavi me u ovu grupu";
-$_lang['RegStudent'] = "Pohađanje predmeta";
-$_lang['RegUser'] = "registrirani/h/a korisnik/a sustava";
-$_lang['RegYou'] = "Vas je registrirao na ovaj predmet na sustavu";
-$_lang['Register'] = "Registriraj";
-$_lang['RegisterClass'] = "Prijavljivanje razreda";
-$_lang['RegisterLocalUrl'] = "URL Vaseg učilista je lokalan.
+<br /><br />Kako biste dodali uvodni tekst kojim ćete polaznicima dati upute za rješavanje zadataka, kliknite na sljedeći <i>link</i><br>';
+$_lang['blockModulePoolHelp'] = 'Ova stranica omogućava pregled svih modula ovog predmeta<br>Sve vježbe i dokumenti koje dodate u redoslijed učenja, također će se pojaviti i u ovom popisu.';
+$_lang['blockRegisterLocalUrl'] = 'URL Vaseg učilista je lokalan.
 Da biste registrirali učiliste, potreban je URL dostupan putem <i>weba</i>.<br /><br />
-Provjerite vrijednost 'Web base' varijable u konfiguracijskim datotekama Claroline sustava";
-$_lang['RegisterMyCampus'] = "Prijavi učiliste";
-$_lang['RegisterTheNewUser'] = "Prijavi stvorenog korisnika na predmet";
-$_lang['RegisterUser'] = "Prijavi korisnika na predmet";
-$_lang['RegisterUserToClass'] = "Prijava korisnika u razred";
-$_lang['Registered'] = "Broj članova";
-$_lang['Remove'] = "Izbriši";
-$_lang['RemoveAdminLevel'] = "Više nije administrator";
-$_lang['Rename'] = "Preimenuj";
-$_lang['ReplaceAttachedFile'] = "Zamijeni priloženu datoteku";
-$_lang['Reply'] = "Odgovori";
-$_lang['RequestOfCourseCreatorStatus'] = "Zatraži status voditelja predmeta";
-$_lang['RequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile'] = "Request to the coder of this config to add theses proporties in a section of the definition file.";
-$_lang['Required'] = "Obavezno";
-$_lang['Requirements'] = "Zahtjevi";
-$_lang['ResetChat'] = "Izbriši <i>chat</i>";
-$_lang['RestoreCourseRepository'] = "Obnovi repozitorij predmeta";
-$_lang['Result'] = "Rezultat";
-$_lang['Reuse'] = "Preuzmi pitanje";
-$_lang['RevoquationOfUser'] = "Brisanje korisničkog računa za: %s %s";
-$_lang['Ridiculise'] = "Ismijavanjem navesti sugovornika da prizna da je u krivu";
-$_lang['Role'] = "Uloga";
-$_lang['Root'] = "vršna kategorija";
-$_lang['SCORMTypeDesc'] = "sadržaj sukladan sa SCORM 1.2";
-$_lang['SDK'] = "SDK";
-$_lang['SampleDocument'] = "ogledni_dokument";
-$_lang['SampleDocumentDesc'] = "Modul može biti bilo koji dokument pridodijeljen predmetu";
-$_lang['SampleExerciseDesc'] = "Modul može biti bilo koja vježba pridodijeljena predmetu";
-$_lang['SampleLearnPath'] = "Ogledni redoslijed učenja";
-$_lang['SampleLearnPathDesc'] = "Ovo je ogledni redoslijed učenja, u kojem se nalaze ogledna vježba i ogledni dokument. Da biste promijenili ovaj tekst kliknite na olovčicu";
-$_lang['Save'] = "Spremi";
-$_lang['SaveChanges'] = "Spremi promjene";
-$_lang['Score'] = "Ocjena";
-$_lang['ScoreAvg'] = "Prosječno bodova";
-$_lang['ScoreMax'] = "Maksimum";
-$_lang['ScoreMin'] = "Minimum";
-$_lang['ScormIntroTextForDummies'] = "Paketi za <i>import</i> se moraju sadržavati SCORM 1.2 <i>zip</i> datoteku";
-$_lang['Search'] = "Traži";
-$_lang['SearchAgain'] = "Traži ponovno (napredno)";
-$_lang['SearchCourse'] = "Traženje predmeta";
-$_lang['SearchCourseAdvanced'] = "Napredno traženje predmeta";
-$_lang['SearchOn'] = "Rezultati pretrage po";
-$_lang['SearchResult'] = "Rezultati pretrage";
-$_lang['SearchUser'] = "Traženje korisnika";
-$_lang['SearchUserAdvanced'] = "Napredno traženje korisnika";
-$_lang['SecondShort'] = "s";
-$_lang['SeeUserSettings'] = "Prikazi korisničke postavke";
-$_lang['Seebelowthefilesyoucaneditfromthistool'] = "Slijedi popis datoteka koje je moguće uređivati.";
-$_lang['Seen'] = "Pogledano";
-$_lang['SelUser'] = "odabrani korisnici sustava";
-$_lang['SelectAUser'] = "Odaberite korisnika";
-$_lang['SelectedUsers'] = "Odabrani korisnici";
-$_lang['SendToUserAccountInfoByMail'] = "Pošalji korisniku putem emaila podatke o korisničkom računu";
-$_lang['SequentialExercise'] = "Svako pitanje na svojoj stranici";
-$_lang['SetAdmin'] = "Dodijeli korisniku administratorske ovlasti";
-$_lang['Settings'] = "sa sljedećim postavkama:
-
-Korisničko ime:";
-$_lang['ShowAll'] = "Prikaži sve";
-$_lang['ShowAnswers'] = "Prikaži odgovore";
-$_lang['ShowAnswersAfterLastTry'] = "Nakon posljednjeg dozvoljenog pokušaja";
-$_lang['ShowNone'] = "Sakrij sve";
-$_lang['SimpleExercise'] = "Sva pitanja na istoj stranici";
-$_lang['SiteName'] = "Ime učilista";
-$_lang['Size'] = "Veličina";
-$_lang['Size_of_claroline_scripts'] = " veličina Claroline skripti";
-$_lang['Size_of_course_repository'] = "veličina repozitorija predmeta (uključuje Claroline i eventualne ostatke iz starijih verzija Claroline sustava)";
-$_lang['Size_of_selected_courses'] = "veličina odabranih predmeta";
-$_lang['SocraticIrony'] = "Sokratska ironija je ...";
-$_lang['SpecifyFormat'] = "Format za CSV datoteku";
-$_lang['StartDate'] = "Može se predati od";
-$_lang['StartModule'] = "Započni rad s modulom";
-$_lang['StatDB'] = "Baza podataka za praćenje";
-$_lang['Statistics'] = "Statistike";
-$_lang['StatsOfCampus'] = "Statistike sustava";
-$_lang['StatsOfCourse'] = "Statistike predmeta";
-$_lang['StatsOfExercise'] = "Statistike vježbe";
-$_lang['StatsOfLearnPath'] = "Statistike";
-$_lang['StatsOfUser'] = "Korisnička statistika";
-$_lang['Status'] = "Action";
-$_lang['StatusChangeNotMade'] = "Ništa nije promijenjeno";
-$_lang['StepNOfN'] = "Korak %d od %d";
-$_lang['StoreChat'] = "Pohrani <i>chat</i>";
-$_lang['Student'] = "Korisnik";
-$_lang['Students'] = "Korisnici";
-$_lang['StudentsNotInThisGroups'] = "Korisnici koji nisu u ovoj grupi";
-$_lang['SubTitleChangeParent'] = "Promjena nadređene kategorije za kategoriju ";
-$_lang['SubTitleCreate'] = "Stvori novu kategoriju";
-$_lang['SubTitleEdit'] = "Promijeni kategoriju";
-$_lang['SubmissionDate'] = "Datum prve predaje";
-$_lang['SubmissionType'] = "Predaje se kao";
-$_lang['Submissions'] = "Broj predanih radova";
-$_lang['Submit'] = "Pošalji";
-$_lang['SubmitFeedbackAfterEndDate'] = "Automatizirano, nakon roka predaje (globalno objavljeno)";
-$_lang['SubmitFeedbackAfterPost'] = "Automatizirano, nakon predaje rada (pojedinom korisniku)";
-$_lang['SubmitWork'] = "Predaj rad";
-$_lang['SubmittedWork'] = "Rad";
-$_lang['SubscribeClass'] = "Upiši u razred";
-$_lang['SubscribeToCourse'] = "Prijavi na predmet";
-$_lang['SubscribeUser'] = "Registriraj korisnika";
-$_lang['Subscription'] = "Prijavljivanje";
-$_lang['SubscriptionAllowedOnly'] = "Prijavljivanje omogućeno";
-$_lang['SubscriptionDeniedOnly'] = "Prijavljivanje onemogućeno";
-$_lang['SupportForum'] = "Forum za podršku";
-$_lang['Supports'] = "Podrška";
-$_lang['SupportsComment1'] = "Postoji li podrška za predmet? Kakva vrsta podrške?";
-$_lang['SupportsComment2'] = "Opis podrške za predmet. Popis literature i relevantnih materijala.";
-$_lang['SwitchEditorToTextConfirm'] = "Ova naredba prebacuje editor u tekstualni način rada. Želite li nastaviti?";
-$_lang['Take'] = "odaberi";
-$_lang['TargetFac'] = "";
-$_lang['Teachers'] = "Predavači";
-$_lang['TeachingTrainingActivities'] = "Edukativne aktivnosti";
-$_lang['TeachingTrainingActivitiesComment1'] = "Koje edukativne aktivnosti postoje uz nastavu? Koji je raspored aktivnosti?";
-$_lang['TeachingTrainingActivitiesComment2'] = "Popis aktivnosti i njihovo predstavljanje (opis aktivnosti, što se očekuje od prijavljenih korisnika i sl.)";
-$_lang['TechAdmin'] = "Administriranje sigurnosnih postavki";
-$_lang['Technical'] = "Technical Tools";
-$_lang['TestForum'] = "Ogledni forum";
-$_lang['TextEditorDisable'] = "Tekstualni editor";
-$_lang['TextEditorEnable'] = "Vizualni editor";
-$_lang['TextFile'] = "Tekst s datotekom (tekst obavezan, datoteka neobavezna)";
-$_lang['TextOnly'] = "Isključivo tekst (tekst obavezan, bez datoteke)";
-$_lang['TheFields'] = "Polja";
-$_lang['TheU'] = "Korisnik";
-$_lang['ThisCourseDescriptionIsEmpty'] = "Ne postoji opis predmeta";
-$_lang['ThisIsAnErrorInDefinitionFile'] = "Pogreška u definicijskoj datoteci";
-$_lang['Thisday'] = "Danas";
-$_lang['Thumbnails'] = "<i>Thumbnailovi</i>";
-$_lang['TimeInLearnPath'] = "Vrijeme u redoslijedu učenja";
-$_lang['TimeOver'] = "Vrijeme je isteklo, rješenja nisu poslana.";
-$_lang['TipLang'] = "Odabrani jezik bit će <i>defaultan</i> za posjetitelje stranica predmeta";
-$_lang['Title'] = "Naslov";
-$_lang['Titular'] = "Titular";
-$_lang['To'] = "u";
-$_lang['ToDate'] = "do";
-$_lang['TooBig'] = "Nije odabrana datoteka, ili je veličina datoteke veća od dozvoljene";
-$_lang['Tool'] = "Alat";
-$_lang['ToolTitleCountColumn'] = "Ukupni broj pristupa";
-$_lang['ToolTitleToolnameColumn'] = "Ime alata";
-$_lang['ToolTitleUsersColumn'] = "Broj pristupa prijavljenih korisnika";
-$_lang['Tools'] = "Alati";
-$_lang['ToolsAccess'] = "Pristup alatima";
-$_lang['TopLevel'] = "glavna razina";
-$_lang['TopicReplies'] = "Broj odgovora";
-$_lang['Total'] = "Ukupno";
-$_lang['TotalPlatformAccess'] = "Ukupno";
-$_lang['TotalPlatformLogin'] = "Ukupno";
-$_lang['TotalTimeSpent'] = "Ukupno vrijeme rada s modulom";
-$_lang['TrackAllPath'] = "Praćenje napretka korisnika";
-$_lang['TrackAllPathExplanation'] = "Napredak korisnika po svim redoslijedima učenja";
-$_lang['TrackForumUsage'] = "Korištenje foruma";
-$_lang['TrackTotalPosts'] = "Objavljenih poruka";
-$_lang['TrackTotalTopics'] = "Započetih tema";
-$_lang['Tracking'] = "Praćenje";
-$_lang['TrackingDisabled'] = "Administrator sustava je onemogućio praćenje";
-$_lang['TrafficDetails'] = "Detalji o prometu";
-$_lang['TranslationStatistics'] = "Statistike prijevoda";
-$_lang['TranslationTools'] = "Alati za prevođenje";
-$_lang['Translations'] = "Prijevodi";
-$_lang['True'] = "Istinit";
-$_lang['TypeOfModule'] = "Vrsta modula";
-$_lang['TypeTextBelow'] = "Upišite tekst pitanja";
-$_lang['URL'] = "URL: ";
-$_lang['UnableAddExternalTool'] = "Nije moguće dodati alat (vanjski <i>link</i>)";
-$_lang['UnableChangedTool'] = "Nije moguće promijeniti";
-$_lang['UnableDeleteExternalTool'] = "Nije moguće izbrisati alat (vanjski <i>link</i?)";
-$_lang['UnableDescToAdd'] = "Nije moguće dodati opis";
-$_lang['UnableToAdd'] = "Nije moguće dodati događaj u program rada";
-$_lang['UnableToDelete'] = "Nije moguće izbrisati događaj iz programa rada";
-$_lang['UnableToUpdate'] = "Nije moguće urediti događaj u programu rada";
-$_lang['UnableUpdateExternalTool'] = "Alat nije promijenjen";
-$_lang['UnamedModule'] = "Neimenovani modul";
-$_lang['UnamedPath'] = "Neimenovani redoslijed učenja";
-$_lang['Uncompress'] = "<i>Odzippaj</i> .zip datoteku na severu";
-$_lang['Uncompulsory'] = "(nije obavezno)";
-$_lang['UniqueAnswer'] = "Odaberite ispravan odgovor";
-$_lang['UniqueSelect'] = "Višestruki izbor s jednim ispravnim odgovorom";
-$_lang['UnkownSOAPError'] = "Pogreška prilikom pristupanja stranici Claroline.net";
-$_lang['UnlimitedAttempts'] = "Neograničeni broj pokušaja";
-$_lang['Unreg'] = "Odjavi";
-$_lang['Unsubscribe'] = "Odjavi korisnika";
-$_lang['UnsubscribeClass'] = "Ispiši iz razreda";
-$_lang['Until'] = "do";
-$_lang['Unvalid'] = "korisnik/a ima neispravnu email adresu ili je nema navedenu";
-$_lang['Up'] = "Razina iznad";
-$_lang['UpdateImage'] = "Promijeni sliku";
-$_lang['Updated'] = "<i>Updated</i>";
-$_lang['UpdatedExternalTool'] = "Alat je promijenjen";
-$_lang['Upgrade'] = "<i>Upgrade</i>";
-$_lang['UploadAndZipEnd'] = "Zip datoteka <i>uploadana</i> i odkomprimirana";
-$_lang['UploadDoc'] = "<i>Upload</i> datoteke";
-$_lang['UploadEnd'] = "<i>Upload</i> je dovršen";
-$_lang['UploadFile'] = "<i>Uploadaj</i> datoteku";
-$_lang['UploadedFile'] = "<i>Uploadana</i> datoteka";
-$_lang['UseFollowingFormat'] = "Sljedeći format:";
-$_lang['UseFormatDefined'] = "Format zapisan u prvoj liniji datoteke";
-$_lang['UseOfPool'] = "Ova stranica omogućava pregled svih modula ovog predmeta<br>Sve vježbe i dokumenti koje dodate u redoslijed učenja, također će se pojaviti i u ovom popisu.";
-$_lang['UseTagForBlank'] = "koristeći zagrade <b>[</b>...<b>]</b> definirajte praznine koje je potrebno popuniti";
-$_lang['UsedInLearningPaths'] = "Broj redoslijeda učenja koji koriste ovaj modul: ";
-$_lang['UsedInSeveralExercises'] = "Upozorenje! Ovo pitanje se koristi u više vjezbi. Želite li ga zaista promijeniti?";
-$_lang['UsedInSeveralPath'] = "Vježba se koristi u jednom ili više redoslijeda ucenja. Ako je izbrišete, onemogućit ćete korištenje vježbe iz redoslijeda učenja.";
-$_lang['User'] = "Korisnik";
-$_lang['UserAccessDetails'] = "Statistika pristupa prijavljenih korisnika";
-$_lang['UserAlreadyInClass'] = "Korisnik je upisan u razred";
-$_lang['UserContent'] = "<p>Alat 'Korisnici' je namijenjen radu s korisničkim podacima. Tablica korisnika sadrži sljedeće podatke:
+Provjerite vrijednost \'Web base\' varijable u konfiguracijskim datotekama Claroline sustava';
+$_lang['blockUsedInSeveralPath'] = 'Vježba se koristi u jednom ili više redoslijeda ucenja. Ako je izbrišete, onemogućit ćete korištenje vježbe iz redoslijeda učenja.';
+$_lang['blockUsersHelp'] = '<p>Alat \'Korisnici\' je namijenjen radu s korisničkim podacima. Tablica korisnika sadrži sljedeće podatke:
 <ul>
 <li>
 <b>Korisničko ime</b>. Klikom na korisničko ime, moguće je dobiti podatke o odabranom korisniku, kao što je npr. Email
@@ -1408,24 +1294,24 @@ $_lang['UserContent'] = "<p>Alat 'Korisnici' je namijenjen radu s korisničkim p
 <b>Uloga</b>.
 Vrijednost uloge nema utjecaja na prava korisnika unutar Claroline sustava, već služi isključivo kao sredstvo
 označavanje uloga korisnika u sustavu.
-Uloge možete promijeniti tako da kliknete na 'Promijeni' ikonu i upišete proizvoljni tekst.
+Uloge možete promijeniti tako da kliknete na \'Promijeni\' ikonu i upišete proizvoljni tekst.
 </li>
 
 <li>
 <b>Mentor grupe</b>Svakoj grupi može biti dodijeljen jedan ili više mentora.
-Mentor grupe ima pristup svim funkcijama alata 'Grupe' uključujući dozvole za mijenjanje poruka na forumu grupe.
-Status mentora moguće je mijenjati klikom na 'Promijeni'.
+Mentor grupe ima pristup svim funkcijama alata \'Grupe\' uključujući dozvole za mijenjanje poruka na forumu grupe.
+Status mentora moguće je mijenjati klikom na \'Promijeni\'.
 </li>
 
 <li>
 <b>Voditelj predmeta</b>. Ovaj status imaju korisnici zaduženi za vođenje i administraciju predmeta.
-Status voditelja predmeta moguće je mijenjati klikom na 'Promijeni'.
+Status voditelja predmeta moguće je mijenjati klikom na \'Promijeni\'.
 </li>
 
 <li>
 <b>Promijeni</b> (rezervirano za voditelje predmeta). Naredba omogućava voditeljima predmeta mijenjanje korisničkih podataka vezanih za ovaj predmet.
 Voditelji predmeta putem ove naredbe ne mogu mijenjati osobne podatke korisnika, kao što su ime, email i slično.
-Klikom na 'definiraj zaglavlje' moguće je stvoriti zaglavlja koja će polaznići predmeta moći ispuniti.
+Klikom na \'definiraj zaglavlje\' moguće je stvoriti zaglavlja koja će polaznići predmeta moći ispuniti.
 </li>
 
 <li>
@@ -1450,180 +1336,55 @@ sadrži korisničko ime i zaporku.
 <b>Prijavi razred na predmet</b>. Naredbom se na predmet prijavljuju svi članovi razreda.
 </li>
 <li>
-<b>Grupe</b>. Naredba služi kao <i>link</i> na alat 'Grupe'
+<b>Grupe</b>. Naredba služi kao <i>link</i> na alat \'Grupe\'
 </li>
 </ul>
-";
-$_lang['UserCourseList'] = "Popis predmeta na koje je prijavljen korisnik";
-$_lang['UserCreated'] = "Novi korisnik je stvoren";
-$_lang['UserDelete'] = "Korisnik je obrisan";
-$_lang['UserIsNowCourseManager'] = "Korisnik je sada voditelj predmeta";
-$_lang['UserIsNowStudent'] = "Korisnik je prijavljen na ovaj predmet";
-$_lang['UserIsPlaformAdmin'] = "Administrator sustava";
-$_lang['UserName'] = "Korisničko ime";
-$_lang['UserNoCourseToDisplay'] = "Nema predmeta";
-$_lang['UserNotInClass'] = "Korisnik nije upisan niti u jedan razred";
-$_lang['UserNotUnsubscribedFromCourse'] = "Pogreška! Nije moguće odjaviti voditelja predmeta";
-$_lang['UserNumber'] = "broj korisnika";
-$_lang['UserOneByOneExplanation'] = "Korisniku će biti poslan email s korisničkim imenom i zaporkom";
-$_lang['UserRegisteredClass'] = "Korisnik je upisan u razred";
-$_lang['UserSettings'] = "Korisničke postavke";
-$_lang['UserStatus'] = "Status";
-$_lang['UserSubscribed'] = "Korisnik je prijavljen";
-$_lang['UserTaken'] = "Korisničko ime se već koristi";
-$_lang['UserUnregistered'] = "Korisnik odregistriran";
-$_lang['UserUnregisteredFromClass'] = "Korisnik je ispisan iz razreda";
-$_lang['UserUnsubscribed'] = "Korisnik je odjavljen";
-$_lang['UserUnsubscribedFromCourse'] = "Korisnik je odjavljen s predmeta";
-$_lang['Userid'] = "Korisnički ID";
-$_lang['Userlist'] = "Popis korisnika";
-$_lang['UsernameAppearAlready'] = "Korisničko ime se prethodno pojavljuje u CSV datoteci";
-$_lang['UsernameUsed'] = "Navedeno korisničko ime se već koristi";
-$_lang['Users'] = "Korisnici";
-$_lang['UsersMin'] = "";
-$_lang['Valvas'] = "Posljednje obavijesti";
-$_lang['ViMod'] = "Vidljivost promijenjene";
-$_lang['View'] = "Vrsta prikaza";
-$_lang['ViewMode'] = "Pregledavati kao";
-$_lang['ViewPlatFormError'] = "Provjera sustava";
-$_lang['ViewPlatFormStatistics'] = "Statistike sustava";
-$_lang['ViewToolList'] = "Pregledaj popis svih alata";
-$_lang['Visibility'] = "Vidljivost";
-$_lang['Visible'] = "Vidljivi";
-$_lang['Visits'] = "posjete";
-$_lang['WeightingForEachBlank'] = "Dodijelite bodovnu vrijednost prazninama";
-$_lang['Wiki'] = "Wiki";
-$_lang['Work'] = "Zadaci";
-$_lang['WorkAuthors'] = "Autori";
-$_lang['WorkTitle'] = "Naslov rada";
-$_lang['WorkUploads'] = "<i>Upload</i> rada";
-$_lang['WorksDetails'] = "Radovi koje je korisnik <i>uploadao</i>";
-$_lang['WrkAdded'] = "Rad je poslan";
-$_lang['WrkAuthors'] = "Autor/i";
-$_lang['WrkAuthorsRequired'] = "Autori nisu navedeni";
-$_lang['WrkEdited'] = "Rad je promijenjen";
-$_lang['WrkScoreRequired'] = "Ocjena je obavezna";
-$_lang['WrkTitle'] = "Naslov";
-$_lang['WrkTitleRequired'] = "Naslov rada je obavezan";
-$_lang['WrongOperation'] = "Pogrešna operacija";
-$_lang['Yes'] = "Da";
-$_lang['Yesterday'] = "Jučer";
-$_lang['YouAreReg'] = "registrirani ste na";
-$_lang['YourAccountParam'] = "";
-$_lang['YourBestScore'] = "Vaš najbolji rezultat";
-$_lang['YourReg'] = "Vaša registracija";
-$_lang['YourRequestToBeCourseManagerIsSent'] = "Vaš zahtjev za statusom voditelja predmeta je poslan administratoru sustava";
-$_lang['YourRequestToRemoveYourAccountIsSent'] = "Zahtjev za uklanjanjem korisničkog računa je poslan";
-$_lang['YourTime'] = "Ukupno vrijeme:";
-$_lang['YourTotalScore'] = "Vaš ukupni rezultat: ";
-$_lang['ZipNoPhp'] = "Zip datoteka ne smije sadržavati .PHP datoteke";
-$_lang['_EditFile_ModifyOk'] = "Promjene su izvršene";
-$_lang['_add_user_list'] = "Dodaj korisnike";
-$_lang['_already_enrolled'] = "prijavljeni na predmet";
-$_lang['_are_you_sure_to_remove_the_course_from_your_list'] = "Želite li se zaista odjaviti s ovog predmeta?";
-$_lang['_back_to_my_personnal_course_list'] = "Natrag na moje predmete";
-$_lang['_back_to_parent_category'] = "Natrag na nadređenu kategoriju";
-$_lang['_click_here'] = "kliknite ovdje";
-$_lang['_course_enrollment'] = "Prijavljivanje/odjavljivanje s predmeta";
-$_lang['_do_you_want_to_continue'] = "Želite li nastaviti?";
-$_lang['_enroll'] = "Prijavi";
-$_lang['_enroll_to_a_new_course'] = "Prijavi me na novi predmet";
-$_lang['_faculty_CanHaveCatCourse'] = "Može sadržavati predmete: ";
-$_lang['_faculty_CatHaveCat'] = "Kategoriju nije moguće obrisati, jer sadrži potkategorije. Da biste izbrisali kategoriju, prethodno morate izbrisati sve njene potkategorije";
-$_lang['_faculty_CatHaveCourses'] = "Kategoriju nije moguće obrisati, jer sadrži predmete. Da biste izbrisali kategoriju, prethodno morate izbrisati sve njene predmete";
-$_lang['_faculty_CodeCat'] = "Šifra kategorije";
-$_lang['_faculty_CodeEmpty'] = "Šifra kategorije je obavezna";
-$_lang['_faculty_ConfirmDelete'] = "Želite li zaista izbrisati kategoriju ";
-$_lang['_faculty_CreateNotOk'] = "Kategorija već postoji";
-$_lang['_faculty_CreateOk'] = "Kategorija je stvorena";
-$_lang['_faculty_DeleteOk'] = "Kategorija izbrisana";
-$_lang['_faculty_EditOk'] = "Promjene su spremljene";
-$_lang['_faculty_Father'] = "Nadređena kategorija";
-$_lang['_faculty_HaveCourses'] = "U ovoj kategoriji postoje predmeti. Da bi izbrisali kategoriju, predmete morate ili izbrisati, ili ih prebaciti u drugu kategoriju.";
-$_lang['_faculty_MoveOk'] = "Redoslijed kategorija je promijenjen";
-$_lang['_faculty_NameCat'] = "Ime kategorije: ";
-$_lang['_faculty_NameEmpty'] = "Ime kategorije je obavezno";
-$_lang['_faculty_NoCat'] = "Nema dostupne kategorije";
-$_lang['_faculty_NoChange'] = "Postavke kategorije nisu promijenjene";
-$_lang['_faculty_NoMove_1'] = "Nije moguće premjestiti ";
-$_lang['_faculty_NoMove_2'] = " u istu kategoriju";
-$_lang['_faculty_imgDown'] = "Pomakni dolje";
-$_lang['_fields_enclosed_by'] = "Polja su omeđena";
-$_lang['_footer_p_CourseManager'] = "Voditelj predmeta %s";
-$_lang['_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored'] = "Ako odlučite nastaviti, linije koje sadrže pogrešku bit će zanemarene";
-$_lang['_if_you_wish_to_enroll_to_this_course'] = "Ukoliko se želite prijaviti na ovaj predmet kliknite na sljedeći <i>link</i>";
-$_lang['_my_personnal_course_list'] = "Popis mojih predmeta";
-$_lang['_no_access_here'] = "Pristup nije dozvoljen";
-$_lang['_no_course_available_fitting_this_keyword'] = "Pretragom nije pronađen niti jedan predmet";
-$_lang['_no_error_in_file_found'] = "Datoteka je ispravna";
-$_lang['_or_search_from_keyword'] = "Pretraživanje";
-$_lang['_p_ErrorOnBuild_S_for_S'] = "Pogreška prilikom izgradnje <em>%s</em> za <B>%s</B>";
-$_lang['_p_PropForConfigCommited'] = "Postavke za %s (%s) su spremljene";
-$_lang['_p_config_file_creation'] = "Stvaranje datoteke s postavkama:<BR> %s";
-$_lang['_p_d_course'] = "%2d predmet/a";
-$_lang['_p_d_course_manager'] = "%2d voditelj,";
-$_lang['_p_d_course_managers'] = "%2d voditelja,";
-$_lang['_p_d_course_member'] = "%2d korisnik";
-$_lang['_p_d_course_members'] = "%2d korisnika";
-$_lang['_p_d_courses'] = "%2d predmet/a";
-$_lang['_p_d_student'] = "%2d polaznik/a";
-$_lang['_p_d_students'] = "%2d polaznika";
-$_lang['_p_nothing_to_edit_in_S'] = "Ništa za promjenu u datoteci %s";
-$_lang['_p_platformManager'] = "Administrator sustava %s";
-$_lang['_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname'] = "Korisnik <i>%s %s</i> je prijavljen na predmet";
-$_lang['_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname'] = "Korisnik <i>%s %s</i> nije  prijavljen na predmet";
-$_lang['_php_info'] = "PHP system information";
-$_lang['_remove_course_enrollment'] = "Odjavi me s predmeta";
-$_lang['_remove_course_from_your_personnal_course_list'] = "Odaberite predmet s kojeg se zelite odjaviti";
-$_lang['_select_course_in'] = "Odaberite predmet na koji se želite prijaviti iz sustava";
-$_lang['_select_course_in_search_results'] = "Odaberite predmet iz rezultata pretrage";
-$_lang['_the_following_errors_were_found'] = "Pronađene su sljedeće pogreške:";
-$_lang['_unsubscribe'] = "Odjavi";
-$_lang['_user_has_been_enrolled_to_the_course'] = "Korisnik je prijavljen na predmet";
-$_lang['_you_have_been_enrolled_to_the_course'] = "Prijavljeni ste na odabrani predmet";
-$_lang['_your_enrollment_to_the_course_has_been_removed'] = "Odjavili ste se s odabranog predmeta";
-$_lang['_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course'] = "Niste prijavljeni na ovaj predmet";
-$_lang['author'] = "Autor/ica";
-$_lang['body'] = "Tijelo poruke";
-$_lang['catcreated'] = "Nova kategorija je stvorena";
-$_lang['click'] = "Kliknite";
-$_lang['delete'] = "Izbriši ovu poruku";
-$_lang['deleted'] = "Vaša je poruka izbrisana";
-$_lang['emptymsg'] = "Poruka mora imati naslov";
-$_lang['here'] = "ovdje";
-$_lang['importLearningPath'] = "<i>Importiraj</i> redoslijed učenja";
-$_lang['indextitle'] = "Početna stranica foruma";
-$_lang['lastpost'] = "Posljednja poruka";
-$_lang['notify'] = "Počni pratiti temu (obavijest na email-om prilikom objave odgovora)";
-$_lang['notifybody'] = "
-Ova obavijest Vam je stigla jer ste izabrali opciju da budete 
-obaviješteni o novim porukama na Claroline forumu. 
-
-Novu poruku možete vidjeti na:
-
-%1\$s
-
-
-ili možete otici početnu stranicu foruma na
-
-%2\$s
-
-
-Hvala Vam što koristite naše forume.";
-$_lang['notifysubj'] = "Obavijest o odgovoru na temu";
-$_lang['notopics'] = "Nema tema na ovom forumu";
-$_lang['posted'] = "Objavljeno";
-$_lang['poster'] = "Autor/ica";
-$_lang['posts'] = "Poruke";
-$_lang['returnindex'] = "za povratak na početnu stranicu foruma";
-$_lang['returntopic'] = "za povratak na popis tema";
-$_lang['separator'] = " > ";
-$_lang['stored'] = "Vaša je poruka uspješno pohranjena";
-$_lang['subject'] = "Naslov";
-$_lang['topic'] = "Tema";
-$_lang['topicreview'] = "Pregled teme";
-$_lang['topics'] = "Teme";
-$_lang['topictitle'] = "Pregled teme";
-$_lang['viewforum'] = "Pregled foruma";
-$_lang['viewmsg'] = "da biste pregledali Vašu poruku.";
+';
+$_lang['click here'] = 'kliknite ovdje';
+$_lang['e.g. <em>History of Literature</em>'] = 'Npr. <i>Matematika 1</i>';
+$_lang['group(s) has (have) been added'] = ' - broj stvorenih grupa';
+$_lang['has been enroled'] = ' je prijavljen na predmet';
+$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'Ako odlučite nastaviti, linije koje sadrže pogrešku bit će zanemarene';
+$_lang['in all exercises'] = 'u svim vježbama';
+$_lang['line'] = 'Linija';
+$_lang['lines'] = 'linije/a';
+$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'Najviše 12 znakova, npr. <em>MAT1</em>';
+$_lang['my group'] = 'moja grupa';
+$_lang['my supervision'] = 'pod mojim vodstvom';
+$_lang['new group(s)'] = 'grupu/a/e';
+$_lang['number'] = 'broj korisnika';
+$_lang['only in the current exercise'] = 'samo u ovoj vježbi';
+$_lang['previous level'] = 'prethodna razina';
+$_lang['register'] = 'Prijavi me u grupu';
+$_lang['sampleForumDescription'] = 'Obrišite pomoću alata za administriranje foruma';
+$_lang['sampleForumGroupCategory'] = 'Forumi grupa';
+$_lang['sampleForumMainCategory'] = 'Glavna kategorija';
+$_lang['sampleForumMessage'] = 'Ako izbrišete testni forum, s njim će biti izbrisane i sve poruke koje on sadrži';
+$_lang['sampleForumTitle'] = 'Ogledni forum';
+$_lang['sampleForumTopicTitle'] = 'Ogledna tema';
+$_lang['sampleLearnPathDescription'] = 'Ovo je ogledni redoslijed učenja, u kojem se nalaze ogledna vježba i ogledni dokument. Da biste promijenili ovaj tekst kliknite na olovčicu';
+$_lang['sampleLearnPathDocumentDescription'] = 'Modul može biti bilo koji dokument pridodijeljen predmetu';
+$_lang['sampleLearnPathDocumentTitle'] = 'ogledni_dokument';
+$_lang['sampleLearnPathQuizDescription'] = 'Modul može biti bilo koja vježba pridodijeljena predmetu';
+$_lang['sampleLearnPathTitle'] = 'Ogledni redoslijed učenja';
+$_lang['sampleQuizAnswer1'] = 'Ismijavanjem navesti sugovornika da prizna da je u krivu';
+$_lang['sampleQuizAnswer1Comment'] = 'Neispravno. Sokratska ironija nije stvar psihologije, već se tiče rasprave';
+$_lang['sampleQuizAnswer2'] = 'Priznavanje vlastitih pogrešaka da bi se sugovornika ponukalo da učini to isto';
+$_lang['sampleQuizAnswer2Comment'] = 'Neispravno. Sokratska ironija nije strategija zavođenja, niti metoda vođena primjerom.';
+$_lang['sampleQuizAnswer3'] = 'Nizom pitanja i potpitanja navesti sugovornika da prizna da ne poznaje ono što tvrdi da poznaje.';
+$_lang['sampleQuizAnswer3Comment'] = 'Doista. Sokratska ironija je metoda ispitivanja. "Eirotao" u grčkom znači "postavljati pitanja"';
+$_lang['sampleQuizAnswer4'] = 'Korištenje principa nekontradikcije da bi se sugovornika stjeralo u kut';
+$_lang['sampleQuizAnswer4Comment'] = 'Odgovor nije neispravan. Istina je da se neznanje sugovornika otkriva pokazivanjem proturječnih zaključaka koji slijede iz njegovih premisa.';
+$_lang['sampleQuizDescription'] = 'Povijest drevne filozofije';
+$_lang['sampleQuizQuestionText'] = '(više odgovora može biti ispravno)';
+$_lang['sampleQuizQuestionTitle'] = 'Sokratska ironija je ...';
+$_lang['sampleQuizTitle'] = 'Ogledna vježba';
+$_lang['seats (optional)'] = 'mjesta u grupi (nije obavezno)';
+$_lang['seats by groups (optional)'] = 'mjesta/o u grupi (nije obavezno)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'zaporka je prejednostavna. Primjer ispravne zaporke:';
+$_lang['to'] = 'do';
+$_lang['uncompress zipped (.zip) file on the server'] = '<i>Odzippaj</i> .zip datoteku na severu';
+$_lang['use brackets [...] to define one or more blanks'] = 'koristeći zagrade <b>[</b>...<b>]</b> definirajte praznine koje je potrebno popuniti';
+$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Upozorenje: Opisu redoslijeda učenja je dodijeljena <i>default</i> vrijednost, jer instalacija ne može pronaći opis redoslijeda učenja.';
+$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Upozorenje: Naslovu redoslijeda učenja je dodijeljena <i>default</i> vrijednost, jer instalacija ne može pronaći naslov redoslijeda učenja.';
 ?>

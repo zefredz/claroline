@@ -1,432 +1,1137 @@
 <?php 
-$_lang['Access'] = "Access";
-$_lang['AccessExplain'] = "(When an user open the index of the campus)";
-$_lang['Action'] = "Action";
-$_lang['AddAClassToCourse'] = "Subscribe a class to course";
-$_lang['AddCSVUsers'] = "Add a user list";
-$_lang['AddCSVUsersInClass'] = "Add a user list in class";
-$_lang['AddCSVUsersInCourse'] = "Add a user list in course";
-$_lang['AddClass'] = "Subscribe a class";
-$_lang['AddCommentOptionnal'] = "Add a comment (optionnal) :";
-$_lang['AddExternalTool'] = "Add external link";
-$_lang['AddFeedback'] = "Add feedback";
-$_lang['AddForum'] = "Add forum";
-$_lang['AddImage'] = "Include picture";
-$_lang['AddListUser'] = "Add a list of users";
-$_lang['AddLoginPass'] = "Add a login/pass in .htpassword</a><br />";
-$_lang['AddLoginPassForThisUser'] = "Add login pass from campus account of this user in .htpassword";
-$_lang['AddModifyComment'] = "Add/modify a comment to";
-$_lang['AddModule'] = "Add";
-$_lang['AddModulesButton'] = "Add module(s)";
-$_lang['AddMyCampusOnClarolineNet'] = "Add my campus on Claroline.net website";
-$_lang['AddNewHeading'] = "Add new heading";
-$_lang['AddTutors'] = "Admin users list";
-$_lang['AddUser'] = "Create a new user";
-$_lang['AddUserOneByOne'] = "New users will receive an e-mail with their user name and password";
-$_lang['AddWrongAnswers'] = "Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>";
-$_lang['Add_users'] = "Add users";
-$_lang['AddedExternalTool'] = "External Tool added.";
-$_lang['AddedToCampus'] = " has been added to the campus";
-$_lang['AddedToCampusAndClass'] = " has been added to the campus and to the class";
-$_lang['AddedToCampusAndCourse'] = " has been added to the campus and to the course";
-$_lang['AddedToCourse'] = "has been registered to your course";
-$_lang['AddedToCreator'] = "Course Home";
-$_lang['Admin'] = "Admin";
-$_lang['AdminEmail'] = "Email";
-$_lang['AdminLogin'] = "Login";
-$_lang['AdminName'] = "Lastname";
-$_lang['AdminPass'] = "Password";
-$_lang['AdminSurname'] = "Firstname";
-$_lang['Administration'] = "Administration";
-$_lang['AdministrationClassTools'] = "Classes";
-$_lang['Administrator'] = "Administrator";
-$_lang['Advanced'] = "Advanced";
-$_lang['AgendaNextEvents'] = "Agenda next events";
-$_lang['AlertBlockingMakedInvisible'] = "This module is blocked.
-Making it invisible will allow students to access
- the next module without having to complete this one.
-Confirm ?";
-$_lang['AlertBlockingPathMadeInvisible'] = "This path is blocking.
-Making it invisible will allow students to access
- the next path without having to complete this one.
-Confirm ?";
-$_lang['All'] = "All";
-$_lang['AllExercises'] = "All exercises";
-$_lang['AllRight'] = "There is no strange case here";
-$_lang['AllUsersOfThisCourse'] = "Course members";
-$_lang['AllowAnonymousAttempts'] = "Anonymous attempts";
-$_lang['AllowLateUpload'] = "Yes, allow users to submit works after end date";
-$_lang['AllowLateUploadShort'] = "Allow late upload";
-$_lang['Allowed'] = "Allowed";
-$_lang['AllowedTime'] = "Time limit";
-$_lang['AlreadyAnswered'] = "You have already answered the question";
-$_lang['AlreadyBrowsed'] = "Already browsed";
-$_lang['AltClarodoc'] = "Clarodoc";
-$_lang['AltDocument'] = "Document";
-$_lang['AltExercise'] = "Exercise";
-$_lang['AltMakeNotBlocking'] = "Unblock";
-$_lang['AltMakeVisible'] = "Make visible";
-$_lang['AltMove'] = "Move";
-$_lang['AltMoveUp'] = "Order up";
-$_lang['AltScorm'] = "Scorm";
-$_lang['Always'] = "Always";
-$_lang['Among'] = "among";
-$_lang['AnonymousAttemptsAllowed'] = "Allowed : don't record usernames in tracking, anonymous users can do the exercise.";
-$_lang['AnonymousAttemptsNotAllowed'] = "Not allowed : record usernames in tracking, anonymous users cannot do the exercise.";
-$_lang['AnonymousUserAccessCount'] = "Anonymous users access count : ";
-$_lang['AnswerRequired'] = "Answer is required";
-$_lang['AnswerType'] = "Answer type";
-$_lang['AppliedChange'] = "Changes have been applied to the user settings";
-$_lang['Archive'] = "archive";
-$_lang['AreCompulsory'] = "are compulsory";
-$_lang['AreYouSureDeleteModule'] = "Are you sure to totally delete this module ?
-It will be completely deleted from the server and from any learning path it is in.
-You won't be able to use it in any learning path.
-Confirm delete of : ";
-$_lang['AreYouSureToDelete'] = "Are you sure to delete";
-$_lang['AreYouSureToDeleteScorm'] = "This learning path is part of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ";
-$_lang['AreYouSureToRemove'] = "Are you sure you want to remove the following module from the learning path : ";
-$_lang['AreYouSureToRemoveLabel'] = "By deleting a label you will delete all modules or label it contains.";
-$_lang['AreYouSureToRemoveSCORM'] = "SCORM conformant modules are definitively removed from server when deleted in their learning path.";
-$_lang['AreYouSureToRemoveStd'] = "The module will still be available in the pool of modules.";
-$_lang['AreYouSureToUnsubscribe'] = "Are you sure you want to unregister ";
-$_lang['Assignment'] = "Assignment";
-$_lang['AssignmentAdded'] = "New assignment created";
-$_lang['AssignmentDeleted'] = "Assignment deleted";
-$_lang['AssignmentDescription'] = "Description";
-$_lang['AssignmentEdited'] = "Assignment modified";
-$_lang['AssignmentTitle'] = "Assignment title";
-$_lang['AssignmentTitleAlreadyExists'] = "Assignment title already exists";
-$_lang['AssignmentTitleRequired'] = "Assignment title required";
-$_lang['AssignmentType'] = "Assignment type";
-$_lang['AttachDoc'] = "Attach a file";
-$_lang['AttachFile'] = "Attach a file";
-$_lang['AttachedFile'] = "Attached file";
-$_lang['Attempt'] = "Attempt";
-$_lang['AttemptAllowed'] = "attempt allowed";
-$_lang['Attempts'] = "Attempts";
-$_lang['AttemptsAllowed'] = "attempts allowed";
-$_lang['Authentication'] = "Authentication";
-$_lang['AuthenticationRequired'] = "Authentication Required";
-$_lang['AvailableFrom'] = "Available from";
-$_lang['BackModule'] = "Back to list";
-$_lang['BackTo'] = "Back to :";
-$_lang['BackToAdmin'] = "Back to admin page";
-$_lang['BackToClass'] = "back to the class";
-$_lang['BackToClassList'] = "Back to class list";
-$_lang['BackToClassMembers'] = "Back to class members";
-$_lang['BackToCourseList'] = "Back to course list";
-$_lang['BackToEditor'] = "Back to the editor";
-$_lang['BackToLPAdmin'] = "Back to learning path administration";
-$_lang['BackToList'] = "Back to list";
-$_lang['BackToMyCourseList'] = "Back to my course list";
-$_lang['BackToUserList'] = "Back to user list";
-$_lang['BackToUserSettings'] = "Back to user settings";
-$_lang['BackToUsersList'] = "Back to users list";
-$_lang['BlankSpace'] = "(Blank space)";
-$_lang['Block'] = "Block";
-$_lang['BrowserCannotSeeFrames'] = "Your browser cannot see frames.";
-$_lang['BuildCompleteLangFile'] = "Complete language files";
-$_lang['BuildEmptyLangFile'] = "Empty language file";
-$_lang['BuildLangFile'] = "Build language files";
-$_lang['BuildMissingLangFile'] = "Missing language files";
-$_lang['BuildProductionLangFile'] = "Production language files";
-$_lang['ByUser'] = "by the user";
-$_lang['CSVSeeUserList'] = "See user list";
-$_lang['CampusAlreadyRegistered'] = "It seems that you already have registered your campus.";
-$_lang['CampusDeleted'] = "<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>";
-$_lang['CampusRegistered'] = "<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.<br />A link to your campus is shown on the Worldwide page of Claroline.net.</p>";
-$_lang['CampusRegistrationSubmitted'] = "Your campus has been submitted and is waiting to be validate by Claroline.net team";
-$_lang['CampusRemoved'] = "<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>";
-$_lang['CampusSubmitted'] = "<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>";
-$_lang['Cancel'] = "Cancel";
-$_lang['CannotBeBlank'] = "You cannot give a blank name to a class";
-$_lang['CannotCopyFile'] = "Cannot copy the file.";
-$_lang['CannotInitChat'] = "Error : Cannot initialize chat";
-$_lang['CannotRemoveGroupForum'] = "You can not remove a group forum. You have to remove the group first";
-$_lang['CannotSeeExerciseDetails'] = "Display of detailled answers is not authorized.";
-$_lang['CannotUnsubscribeLastCourseManager'] = "You cannot unsubscribe the last course manager of the course";
-$_lang['CatagoryGroup'] = "Group forums";
-$_lang['CatagoryMain'] = "Main";
-$_lang['CategoriesRepairs'] = "Repair category structure";
-$_lang['Category'] = "Category";
-$_lang['CategoryDeleted'] = "Category deleted.";
-$_lang['CategoryUpdated'] = "Category updated.";
-$_lang['ChangePwdexp'] = "Enter new password twice to change, leave empty to keep it";
-$_lang['ChangeRaw'] = "Change minimum raw mark to pass this module (percentage) : ";
-$_lang['ChangedTool'] = "Tool accesses changed";
-$_lang['Chat'] = "Chat";
-$_lang['ChatResetBy'] = "Chat reset by";
-$_lang['ChooseACourseToAccessThisPage'] = "Choose a course to access this page.";
-$_lang['ChooseDateHelper'] = "(d/m/y hh:mm)";
-$_lang['ChooseGoodAnswer'] = "Please choose a good answer";
-$_lang['ChooseGoodAnswers'] = "Please choose one or more good answers";
-$_lang['ChooseYourPassword'] = "Choose now a username and a password for the user account.";
-$_lang['ClarContent'] = "Here, lecturers and assistants create and administer
+$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
+$_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
+$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modified on %2$s by %3$s';
+$_lang['%moduleName has been added as module'] = 'has been added as a module of the course and of this learning path';
+$_lang['%moduleName is already used as a module in this learning path'] = 'This exercise is already used as a module in this learning path';
+$_lang['(*) anonymous users, users who are not members of this course...'] = '(*) anonymous users, users who are not members of this course...';
+$_lang['(When an user open the index of the campus)'] = '(When an user open the index of the campus)';
+$_lang['(always private)'] = '(always private)';
+$_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
+$_lang['(none)'] = '(none)';
+$_lang['(optional)'] = '(optional)';
+$_lang['(version of %1\$s modified by %2\$s)'] = '(version of %1$s modified by %2$s)';
+$_lang['- none -'] = '- none -';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server';
+$_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> denotes required field';
+$_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.<br />A link to your campus is shown on the Worldwide page of Claroline.net.</p>';
+$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>';
+$_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>';
+$_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>';
+$_lang['A file is required'] = 'A file is required';
+$_lang['Access'] = 'Access';
+$_lang['Access control management'] = 'Access control management';
+$_lang['Access count'] = 'Access count';
+$_lang['Access to campus'] = 'Access to campus';
+$_lang['Access to courses'] = 'Access to courses';
+$_lang['Access to tools'] = 'Access to tools';
+$_lang['Accounts with same <i>Email</i>'] = 'Accounts with same <i>Email</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'Accounts with same <i>User name</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Accounts with same <i>User name</i> AND same <i>Password</i>';
+$_lang['Action'] = 'Action';
+$_lang['Add a comment (optionnal) :'] = 'Add a comment (optionnal) :';
+$_lang['Add a user list'] = 'Add a user list';
+$_lang['Add a user list in class'] = 'Add a user list in class';
+$_lang['Add a user list in course'] = 'Add a user list in course';
+$_lang['Add answ.'] = 'Add answ.';
+$_lang['Add elem.'] = 'Add elem.';
+$_lang['Add external link'] = 'Add external link';
+$_lang['Add feedback'] = 'Add feedback';
+$_lang['Add forum'] = 'Add forum';
+$_lang['Add me to this group'] = 'Add me to this group';
+$_lang['Add module(s)'] = 'Add module(s)';
+$_lang['Add my campus on Claroline.net website'] = 'Add my campus on Claroline.net website';
+$_lang['Add new heading'] = 'Add new heading';
+$_lang['Add user list'] = 'Add user list';
+$_lang['Add user manually'] = 'Add user manually';
+$_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>';
+$_lang['Add/modify a comment to'] = 'Add/modify a comment to';
+$_lang['Added line'] = 'Added line';
+$_lang['Admin'] = 'Admin';
+$_lang['Administration'] = 'Administration';
+$_lang['Administrative code'] = 'Administrative code';
+$_lang['Administrator'] = 'Administrator';
+$_lang['Advanced'] = 'Advanced';
+$_lang['Advanced course search'] = 'Advanced course search';
+$_lang['Advanced user search'] = 'Advanced user search';
+$_lang['After last allowed attempt'] = 'After last allowed attempt';
+$_lang['Agenda next events'] = 'Agenda next events';
+$_lang['All'] = 'All';
+$_lang['All exercises'] = 'All exercises';
+$_lang['All groups are now empty'] = 'All groups are now empty';
+$_lang['All groups have been deleted'] = 'All groups have been deleted';
+$_lang['All modules of this course are already used in this learning path.'] = 'All modules of this course are already used in this learning path.';
+$_lang['All pages'] = 'All pages';
+$_lang['Allow late upload'] = 'Allow late upload';
+$_lang['Allowed'] = 'Allowed';
+$_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Allowed : don\'t record usernames in tracking, anonymous users can do the exercise.';
+$_lang['Already browsed'] = 'Already browsed';
+$_lang['Already enroled'] = 'already enrolled';
+$_lang['Among'] = 'among';
+$_lang['An error occured.  Learning Path import failed.'] = 'An error occured.  Learning Path import failed.';
+$_lang['An error occurred while contacting Claroline.net'] = 'An error occurred while contacting Claroline.net';
+$_lang['Anonymous attempts'] = 'Anonymous attempts';
+$_lang['Anonymous users access count :'] = 'Anonymous users access count : ';
+$_lang['Answer is required'] = 'Answer is required';
+$_lang['Answer type'] = 'Answer type';
+$_lang['Answers to the question'] = 'Answers to the question';
+$_lang['Are you sure to delete'] = 'Are you sure to delete';
+$_lang['Are you sure to delete this group ?'] = 'Are you sure to delete this group ?';
+$_lang['Are you sure you want to completely delete this question ?'] = 'Are you sure you want to completely delete this question ?';
+$_lang['Are you sure you want to delete all groups ?'] = 'Are you sure you want to delete all groups ?';
+$_lang['Are you sure you want to delete this exercise ?'] = 'Are you sure you want to delete this exercise ?';
+$_lang['Are you sure you want to empty all groups ?'] = 'Are you sure you want to empty all groups ?';
+$_lang['Are you sure you want to enrol the whole class on the course ?'] = 'Are you sure you want to enrol the whole class on the course ?';
+$_lang['Are you sure you want to remove the following module from the learning path :'] = 'Are you sure you want to remove the following module from the learning path : ';
+$_lang['Are you sure you want to remove this course from your list ?'] = 'Are you sure you want to remove this course from your list ?';
+$_lang['Are you sure you want to unregister'] = 'Are you sure you want to unregister ';
+$_lang['Area for this group'] = 'Area for this group';
+$_lang['Asset not found :'] = 'Asset not found : ';
+$_lang['Assignment'] = 'Assignment';
+$_lang['Assignment deleted'] = 'Assignment deleted';
+$_lang['Assignment modified'] = 'Assignment modified';
+$_lang['Assignment title'] = 'Assignment title';
+$_lang['Assignment title already exists'] = 'Assignment title already exists';
+$_lang['Assignment title required'] = 'Assignment title required';
+$_lang['Assignment type'] = 'Assignment type';
+$_lang['Assignments help'] = 'Help assignment';
+$_lang['Attach'] = 'Attach';
+$_lang['Attach a file'] = 'Attach a file';
+$_lang['Attach an existing resource'] = 'Attach an existing resource';
+$_lang['Attached Resources : Add / Delete attachement'] = 'Attached Resources : Add / Delete attachement';
+$_lang['Attached file'] = 'Attached file';
+$_lang['Attached resources'] = 'Attached resources';
+$_lang['Attempt'] = 'Attempt';
+$_lang['Attempts'] = 'Attempts';
+$_lang['Attempts allowed'] = 'attempts allowed';
+$_lang['Authentication'] = 'Authentication';
+$_lang['Authentication Required'] = 'Authentication Required';
+$_lang['Author(s)'] = 'Author(s)';
+$_lang['Author(s) is(are) required'] = 'Author(s) is(are) required';
+$_lang['Automatically, after each submission'] = 'Automatically, after each submission';
+$_lang['Automatically, after end date'] = 'Automatically, after end date';
+$_lang['Available from'] = 'Available from';
+$_lang['Average Time'] = 'Average Time';
+$_lang['Average score'] = 'Average score';
+$_lang['Back to administration page'] = 'Back to admin page';
+$_lang['Back to class list'] = 'Back to class list';
+$_lang['Back to class members'] = 'Back to class members';
+$_lang['Back to course list'] = 'Back to course list';
+$_lang['Back to learning path administration'] = 'Back to learning path administration';
+$_lang['Back to list'] = 'Back to list';
+$_lang['Back to my course list'] = 'Back to my course list';
+$_lang['Back to my personal course list'] = 'Back to my personal course list';
+$_lang['Back to page'] = 'Back to page';
+$_lang['Back to parent category'] = 'Back to parent category';
+$_lang['Back to the class'] = 'back to the class';
+$_lang['Back to the editor'] = 'Back to the editor';
+$_lang['Back to user list'] = 'Back to users list';
+$_lang['Back to user settings'] = 'Back to user settings';
+$_lang['Best score'] = 'Best score';
+$_lang['Block'] = 'Block';
+$_lang['Build language files'] = 'Build language files';
+$_lang['By deleting a label you will delete all modules or label it contains.'] = 'By deleting a label you will delete all modules or label it contains.';
+$_lang['CSV file with the user list :'] = 'CSV file with the user list : ';
+$_lang['Campus name'] = 'Site name';
+$_lang['Can have courses'] = 'Can have courses : ';
+$_lang['Cancel'] = 'Cancel';
+$_lang['Cannot copy the file'] = 'Cannot copy the file.';
+$_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Cannot extract manifest from zip file (corrupted file ? ).';
+$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml';
+$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Cannot find secondary initialisation file in the package.<br /> File not found : ';
+$_lang['Category'] = 'Category';
+$_lang['Category code'] = 'Category code :';
+$_lang['Category code is required'] = 'Category code is required';
+$_lang['Category created'] = 'Category created';
+$_lang['Category deleted'] = 'Category deleted';
+$_lang['Category moved'] = 'Category moved';
+$_lang['Category name'] = 'Category name :';
+$_lang['Category name is required'] = 'Category name is required';
+$_lang['Category updated'] = 'Category updated.';
+$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Change minimum raw mark to pass this module (percentage) : ';
+$_lang['Change picture'] = 'Change picture';
+$_lang['Changes have been applied to the user settings'] = 'Changes have been applied to the user settings';
+$_lang['Changes have been saved'] = 'Changes have been saved';
+$_lang['Chat'] = 'Chat';
+$_lang['Chat of the group'] = 'Chat of the group';
+$_lang['Chat reset by'] = 'Chat reset by';
+$_lang['Check this box to delete the attached file'] = 'Check this box to delete the attached file.';
+$_lang['Choose a course to access this page.'] = 'Choose a course to access this page.';
+$_lang['Choose now a username and a password for the user account'] = 'Choose now a username and a password for the user account.';
+$_lang['Clarodoc'] = 'Clarodoc';
+$_lang['Claroline.net news'] = 'Claroline.net news';
+$_lang['Class members'] = 'Class members';
+$_lang['Class registered'] = 'Class registered';
+$_lang['Class users'] = 'Class users';
+$_lang['Classes'] = 'Classes';
+$_lang['Clear up event list'] = 'Clear up event list';
+$_lang['Click on the month name for more details'] = 'Click on the month name for more details';
+$_lang['Close popup'] = 'Close popup';
+$_lang['Close window'] = 'Close window';
+$_lang['Complete language files'] = 'Complete language files';
+$_lang['Configuration'] = 'Configuration';
+$_lang['Content'] = 'Content';
+$_lang['Continue'] = 'Continue';
+$_lang['Corresponds to'] = 'Corresponds to';
+$_lang['Country'] = 'Country';
+$_lang['Country code seems to be incorrect.'] = 'Country code seems to be incorrect.';
+$_lang['Course Home'] = 'Course Home';
+$_lang['Course Repository'] = 'Course Repository';
+$_lang['Course access'] = 'Course access';
+$_lang['Course administrator only'] = 'Course administrator only';
+$_lang['Course code needed'] = 'Course code field needs to be completed';
+$_lang['Course creator'] = 'Course creator';
+$_lang['Course description'] = 'Course description';
+$_lang['Course list'] = 'Course list';
+$_lang['Course manager'] = 'Course manager';
+$_lang['Course manager cannot unsubscribe himself'] = 'Course manager cannot unsubscribe himself';
+$_lang['Course members'] = 'Course members';
+$_lang['Course not found'] = 'Course not found';
+$_lang['Course progression'] = 'Course progression ';
+$_lang['Course settings'] = 'Course settings';
+$_lang['Course statistics deleted'] = 'Course statistics deleted';
+$_lang['Course title needed'] = 'Course title needed';
+$_lang['Course users list'] = 'Course users list';
+$_lang['Courses'] = 'Courses';
+$_lang['Courses not used'] = 'Courses not used';
+$_lang['Courses without a lecturer'] = 'Courses without a lecturer';
+$_lang['Courses without student'] = 'Courses without student';
+$_lang['Create'] = 'Create';
+$_lang['Create Document'] = 'Create Document';
+$_lang['Create Pages'] = 'Create Pages';
+$_lang['Create a category'] = 'Create a category';
+$_lang['Create a new Wiki'] = 'Create a new Wiki';
+$_lang['Create a new assignment'] = 'Create a new assignment';
+$_lang['Create a new class'] = 'Create a new class';
+$_lang['Create a new label / title in this learning path'] = 'Create a new label / title in this learning path';
+$_lang['Create a new learning path'] = 'Create a new learning path';
+$_lang['Create a new user'] = 'Create a new user';
+$_lang['Create another new user'] = 'Create another new user';
+$_lang['Create category'] = 'Create category';
+$_lang['Create course'] = 'Create course';
+$_lang['Create first a user account on this platform'] = 'Create first a user account on this platform';
+$_lang['Create forum'] = 'Create forum';
+$_lang['Create hyperlink'] = 'Create hyperlink';
+$_lang['Create label'] = 'Create label';
+$_lang['Create new group(s)'] = 'Create new group(s)';
+$_lang['Create user'] = 'Create user';
+$_lang['Create user account'] = 'Create user account';
+$_lang['Create/edit document'] = 'Create/edit document';
+$_lang['Creating course (it may take a while) ...'] = 'Creating course (it may take a while) ... ';
+$_lang['Current attached file'] = 'Current attached file';
+$_lang['Current feedback file'] = 'Current feedback file';
+$_lang['Current file'] = 'Current file';
+$_lang['Current registration status :'] = 'Current registration status : <br /> <br />
+';
+$_lang['Current time'] = 'Current time';
+$_lang['DBSettingNamesIntro'] = '
+The installer is going to create the main Claroline databases.
+If you are limited by your database system administrator to use
+only a single database, get back to the previous page
+and select option \'single\' for \'Database mode\'.<br /><br />
+';
+$_lang['Database Host'] = 'Database Host';
+$_lang['Database name'] = 'Database name';
+$_lang['Database usage'] = 'Database usage';
+$_lang['Default works visibility'] = 'Default works visibility';
+$_lang['Define Headings'] = 'Define Headings';
+$_lang['Delete Wiki'] = 'Delete Wiki';
+$_lang['Delete all course statistics'] = 'Delete all course statistics';
+$_lang['Delete all groups'] = 'Delete all groups';
+$_lang['Delete all messages of'] = 'Delete all messages of ';
+$_lang['Delete attached file'] = 'Delete attached file';
+$_lang['Delete my account'] = 'Delete my account';
+$_lang['Delete user'] = 'Delete user';
+$_lang['Deleted line'] = 'Deleted line';
+$_lang['Deletion of the user was done sucessfully'] = 'Deletion of the user was done sucessfully';
+$_lang['Denied'] = 'Denied';
+$_lang['Department'] = 'Department';
+$_lang['Department URL'] = 'Department URL';
+$_lang['Department URL is not valid'] = 'Department URL is invalid';
+$_lang['Description added.'] = 'Description added.';
+$_lang['Description deleted.'] = 'Description deleted.';
+$_lang['Description of the Wiki'] = 'Description of the Wiki';
+$_lang['Description updated'] = 'Description updated.';
+$_lang['Details'] = 'Details';
+$_lang['Details may be incorrect as it seems that some questions have change between this attempt and now.'] = 'Details may be incorrect as it seems that some questions have change between this attempt and now.';
+$_lang['Devel Tools'] = 'Devel Tools';
+$_lang['Differences :'] = 'Differences :';
+$_lang['Disable'] = 'Disable';
+$_lang['Disable text editor'] = 'Disable text editor';
+$_lang['Disk Usage'] = 'Disk Usage';
+$_lang['Display of detailled answers is not authorized.'] = 'Display of detailled answers is not authorized.';
+$_lang['Do you really want to delete the category'] = 'Do you really want to delete the category ';
+$_lang['Do you want to continue?'] = 'Do you want to continue?';
+$_lang['Document content'] = 'Document content : ';
+$_lang['Document in module'] = 'Document in module';
+$_lang['Document name'] = 'Document name : ';
+$_lang['Documents'] = 'Documents';
+$_lang['Documents downloaded by the student'] = 'Documents downloaded by the student';
+$_lang['Documents of the group'] = 'Documents of the group ';
+$_lang['Down'] = 'Order down';
+$_lang['Download attached file'] = 'Download attached file';
+$_lang['EG'] = 'e. g.';
+$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'ERROR: The format you gave is not compatible with Claroline';
+$_lang['Edit'] = 'Edit';
+$_lang['Edit Event'] = 'Edit Event';
+$_lang['Edit Pages'] = 'Edit Pages';
+$_lang['Edit Tool list'] = 'Edit Tool list';
+$_lang['Edit a category'] = 'Edit a category';
+$_lang['Edit answers'] = 'Edit answers';
+$_lang['Edit automatic feedback'] = 'Edit automatic feedback';
+$_lang['Edit category'] = 'Edit category';
+$_lang['Edit conflict'] = 'Edit conflict';
+$_lang['Edit exercise settings'] = 'Edit exercise settings';
+$_lang['Edit file content'] = 'Edit file content';
+$_lang['Edit format to use'] = 'Edit format to use';
+$_lang['Edit last version'] = 'Edit last version';
+$_lang['Edit post'] = 'Edit post';
+$_lang['Edit properties'] = 'Edit properties';
+$_lang['Edit question'] = 'Edit question';
+$_lang['Edit settings'] = 'Edit settings';
+$_lang['Edit text zone'] = 'Edit text zone';
+$_lang['Edit this group'] = 'Edit this group';
+$_lang['Edit this page'] = 'Edit this page';
+$_lang['Element list'] = 'Element list';
+$_lang['Email needed'] = 'Email can not be empty';
+$_lang['Empty (or NULL)'] = 'Empty (or NULL)';
+$_lang['Empty all groups'] = 'Empty all groups';
+$_lang['Empty language file'] = 'Empty language file';
+$_lang['Enable'] = 'Enable';
+$_lang['Enable text editor'] = 'Enable text editor';
+$_lang['End date'] = 'End date';
+$_lang['Enrol as course manager'] = 'Enrol as course manager';
+$_lang['Enrol as student'] = 'Enrol as student';
+$_lang['Enrol as teacher'] = 'Enrol as Teacher';
+$_lang['Enrol class'] = 'Enrol class';
+$_lang['Enrol on a new course'] = 'Enrol on a new course';
+$_lang['Enrol to a new course'] = 'Enrol to a new course';
+$_lang['Enrol to course not allowed'] = 'Enroll to course not allowed';
+$_lang['Enroll a user'] = 'Enrol a user';
+$_lang['Enrolment'] = 'Enrolment';
+$_lang['Enter link url'] = 'Enter link url';
+$_lang['Enter new password twice to change, leave empty to keep it'] = 'Enter new password twice to change, leave empty to keep it';
+$_lang['Enter the description of your wiki here'] = 'Enter the description of your wiki here';
+$_lang['Enter your email so we can send you your password.'] = 'Enter your email so we can send you your password.';
+$_lang['Error : Cannot initialize chat'] = 'Error : Cannot initialize chat';
+$_lang['Error : Name already exists in the learning path or in the module pool'] = 'Error : Name already exists in the learning path or in the module pool';
+$_lang['Error : One or more values are doubled'] = 'Error : One or more values are doubled';
+$_lang['Error : cannot read RSS feed'] = 'Error : cannot read RSS feed';
+$_lang['Error copying existing SCORM content'] = 'Error copying existing SCORM content';
+$_lang['Error in SQL statement'] = 'Error in SQL statement';
+$_lang['Error reading <i>manifest</i> file'] = 'Error reading <i>manifest</i> file';
+$_lang['Error reading a secondary initialisation file :'] = 'Error reading a secondary initialisation file : ';
+$_lang['Error reading zip file.'] = 'Error reading zip file.';
+$_lang['Error when copying needed SCORM files'] = 'Error when copying needed SCORM files';
+$_lang['Error!! you cannot unregister a course manager'] = 'Error!! you cannot unregister a course manager';
+$_lang['ErrorInvalidParms'] = 'Error : Invalid parameter (use numbers only)';
+$_lang['Event added to the agenda'] = 'Event added to the agenda.';
+$_lang['Event deleted from the agenda'] = 'Event deleted from the agenda.';
+$_lang['Event updated into the agenda'] = 'Event updated into the agenda.';
+$_lang['Exercice not found'] = 'Exercice not found';
+$_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Exercise cancelled, choose a module in the list to continue.';
+$_lang['Exercise description'] = 'Exercise description';
+$_lang['Exercise done, choose a module in the list to continue.'] = 'Exercise done, choose a module in the list to continue.';
+$_lang['Exercise in module'] = 'Exercise in module';
+$_lang['Exercise management'] = 'Exercise management';
+$_lang['Exercise name'] = 'Exercise name';
+$_lang['Exercise no longer available'] = 'Exercise no longer available';
+$_lang['Exercise not available'] = 'Exercise not available';
+$_lang['Exercise type'] = 'Exercise type';
+$_lang['Exercises help'] = 'Help exercises';
+$_lang['Expected choice'] = 'Expected choice';
+$_lang['Export'] = 'Export';
+$_lang['External Tool added'] = 'External Tool added.';
+$_lang['External link'] = 'External link';
+$_lang['External tool deleted'] = 'External tool deleted';
+$_lang['External tool updated'] = 'External tool updated';
+$_lang['Extract language variables'] = 'Extract language variables';
+$_lang['False'] = 'False';
+$_lang['Feedback'] = 'Feedback';
+$_lang['Feedback added'] = 'Feedback added';
+$_lang['Feedback file'] = 'Feedback file';
+$_lang['Feedback text'] = 'Feedback text';
+$_lang['Feedbacks'] = 'Feedbacks';
+$_lang['Fields enclosed by'] = 'Fields enclosed by';
+$_lang['Fields separator used'] = 'Fields separator used';
+$_lang['File (file required, description text optional)'] = 'File (file required, description text optional)';
+$_lang['File Name or URL is missing.'] = 'File Name or URL is missing.';
+$_lang['File content modified'] = 'File content modified';
+$_lang['File created'] = 'File created';
+$_lang['File description'] = 'File description';
+$_lang['File list'] = 'File list';
+$_lang['File must be a zip file (.zip)'] = 'File must be a zip file (.zip)';
+$_lang['File name is missing'] = 'File name is missing';
+$_lang['File received :'] = 'File received : ';
+$_lang['File structure checker'] = 'File structure checker';
+$_lang['Filename'] = 'Filename';
+$_lang['Fill groups (automatically)'] = 'Fill groups (automatically)';
+$_lang['Fill in blanks'] = 'Fill in blanks';
+$_lang['Fill text field'] = 'Fill text field';
+$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).';
+$_lang['Fill type'] = 'Fill type';
+$_lang['Filter'] = 'Filter';
+$_lang['Find doubled variables'] = 'Find doubled variables';
+$_lang['Finish'] = 'Finish';
+$_lang['First name'] = 'First Name';
+$_lang['First submission date'] = 'First&nbsp;submission&nbsp;date';
+$_lang['Forum created'] = 'Forum created.';
+$_lang['Forum deleted'] = 'Forum deleted.';
+$_lang['Forum emptied'] = 'Forum emptied.';
+$_lang['Forum updated'] = 'Forum updated.';
+$_lang['Forum usage'] = 'Forum usage';
+$_lang['From'] = 'From';
+$_lang['From language files'] = 'From language files';
+$_lang['From script files'] = 'From script files';
+$_lang['Fullscreen'] = 'Fullscreen';
+$_lang['Function list'] = 'Function list';
+$_lang['Garbage'] = 'Garbage';
+$_lang['Get a question from another exercise'] = 'Get a question from another exercise';
+$_lang['Get tracking data in a CSV file'] = 'Get tracking data in a CSV file';
+$_lang['Go back to the exercise'] = 'Go back to the exercise';
+$_lang['Go back to the question list'] = 'Go back to the question list';
+$_lang['Go back to the question pool'] = 'Go back to the question pool';
+$_lang['Go to the account creation page'] = 'Go to the account creation page';
+$_lang['Group'] = 'Group';
+$_lang['Group Tutor'] = 'Group Tutor';
+$_lang['Group area'] = 'Group area';
+$_lang['Group deleted'] = 'Group deleted';
+$_lang['Group forums category can\'t be deleted'] = 'Group forums category can not be deleted.';
+$_lang['Group management'] = 'Group management';
+$_lang['Group members'] = 'Group members';
+$_lang['Group name'] = 'Group name';
+$_lang['Group settings have been modified'] = 'Group settings have been modified';
+$_lang['Group settings modified'] = 'Group settings modified';
+$_lang['Groups'] = 'Groups';
+$_lang['Groups (from groups tool, only group members can post)'] = 'Groups (from groups tool, only group members can post)';
+$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Groups have been filled (or completed) by students present in the \'Users\' list.';
+$_lang['Groups help'] = 'Help groups';
+$_lang['Groups settings'] = 'Groups settings';
+$_lang['He or she will receive email confirmation with login and password'] = 'He or she will receive email confirmation with login and password';
+$_lang['Heading'] = 'Heading';
+$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Here you can modify the content of the text zones displayed on the platform home page.';
+$_lang['Hits'] = 'Hits';
+$_lang['Home page text zones'] = 'Home page text zones';
+$_lang['Identical content<br />no modification saved'] = 'Identical content<br />no modification saved';
+$_lang['If you wish to enrol on this course'] = 'If you wish to enrol on this course';
+$_lang['IfNotRedirect'] = 'If not redirected ';
+$_lang['Import'] = 'Import';
+$_lang['Import a learning path'] = 'Import a learning path';
+$_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Imported packages must consist of a zip file and be SCORM 1.2 conformable';
+$_lang['Impossible to promote group tutor a student already register to group'] = 'Impossible to promote group tutor a student already register to group';
+$_lang['In frames'] = 'In frames';
+$_lang['Include picture'] = 'Include picture';
+$_lang['Individual'] = 'Individual';
+$_lang['Information'] = 'Information';
+$_lang['Information to give to students'] = 'Information to give to students';
+$_lang['Insert a document as module'] = 'Insert a document as module';
+$_lang['Insert a module of the course'] = 'Insert a module of the course';
+$_lang['Insert my exercise'] = 'Insert my exercise';
+$_lang['Insert my module'] = 'Insert my module';
+$_lang['Insert new name'] = 'Insert new name';
+$_lang['Institution'] = 'Institution';
+$_lang['Institution URL'] = 'Institution URL';
+$_lang['Invalid Wiki Id'] = 'Invalid Wiki Id';
+$_lang['Invalid email address'] = 'Invalid email address';
+$_lang['Invalid url'] = 'Invalid url';
+$_lang['Invalid user : this user doesn\'t exist in your group'] = 'Invalid user : this user doesn\'t exist in your group';
+$_lang['Invisible'] = 'Invisible';
+$_lang['Is platform admin'] = 'Is platform admin';
+$_lang['It seems that you already have registered your campus.'] = 'It seems that you already have registered your campus.';
+$_lang['Keys :'] = 'Keys :';
+$_lang['Last 31 days'] = 'Last 31 days';
+$_lang['Last 7 days'] = 'Last 7 days';
+$_lang['Last access'] = 'Last access';
+$_lang['Last active topics'] = 'Last active topics';
+$_lang['Last attempt'] = 'Last attempt';
+$_lang['Last check before install'] = 'Last check before install';
+$_lang['Last edit date'] = 'Last edit date';
+$_lang['Last message was on'] = 'Last message was on : ';
+$_lang['Last messages'] = 'Last messages';
+$_lang['Last name'] = 'Name';
+$_lang['Last session time'] = 'Last session time';
+$_lang['Late upload'] = 'Late upload';
+$_lang['Latest announcements'] = 'Latest announcements';
+$_lang['Launch restore of the course repository'] = 'Launch restore of the course repository';
+$_lang['Learning Path is empty'] = 'Learning Path is empty';
+$_lang['Learning Path not found'] = 'Learning Path not found';
+$_lang['Learning path'] = 'Learning Path';
+$_lang['Learning path admin'] = 'Learning Path Admin';
+$_lang['Learning path content'] = 'Learning path content';
+$_lang['Learning path has been successfully imported.'] = 'Learning path has been successfully imported.';
+$_lang['Learning path list'] = 'Learning Path List';
+$_lang['Learning path progression :'] = 'Learning path progression : ';
+$_lang['Learning paths tracking'] = 'Learning paths tracking';
+$_lang['Licence'] = 'License';
+$_lang['Limit'] = 'Limit';
+$_lang['Line Number'] = 'Line Number';
+$_lang['List of Wiki'] = 'List of Wiki';
+$_lang['List of students in this group'] = 'List of students in this group';
+$_lang['Load default format'] = 'Load default format';
+$_lang['Location'] = 'Location';
+$_lang['Locked'] = 'Locked';
+$_lang['Login'] = 'Login';
+$_lang['Login request'] = 'Login request';
+$_lang['Logins'] = 'Logins';
+$_lang['Logins and access to tools'] = 'Logins and access to tools';
+$_lang['Logins not used'] = 'Logins not used';
+$_lang['Lost password'] = 'Lost password';
+$_lang['Mail is already used by another user.'] = 'Mail is already used by another user.';
+$_lang['Mail synthax error.'] = 'Mail synthax error.';
+$_lang['Main Group Settings'] = 'Main Group Settings';
+$_lang['Main database'] = 'Main database';
+$_lang['Main page'] = 'Main page';
+$_lang['Maintenance'] = 'Maintenance';
+$_lang['Make correspond'] = 'Make correspond';
+$_lang['Make invisible'] = 'Make invisible';
+$_lang['Make new search'] = 'Make new search : ';
+$_lang['Make search'] = 'Make search';
+$_lang['Make visible'] = 'Make visible';
+$_lang['Manage classes'] = 'Manage classes';
+$_lang['Manage course categories'] = 'Manage course categories';
+$_lang['Manifest found in zip file :'] = 'Manifest found in zip file : ';
+$_lang['Manifest read.'] = 'Manifest read.';
+$_lang['Matching'] = 'Matching';
+$_lang['Max file size'] = 'Max file size : ';
+$_lang['Max.'] = 'Max.';
+$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Memorize them, you will use them the next time you will enter to this site.';
+$_lang['Message from your lecturer'] = 'Message from your lecturer';
+$_lang['Messages'] = 'Messages';
+$_lang['Messages posted'] = 'Messages posted';
+$_lang['Messages to selected users'] = 'Messages to selected users';
+$_lang['Minimum raw to pass has been changed'] = 'Minimum raw to pass has been changed';
+$_lang['MinuteShort'] = 'min.';
+$_lang['Missing'] = 'missing';
+$_lang['Missing field(s)'] = 'Missing field(s)';
+$_lang['Missing images detected'] = 'Missing images detected';
+$_lang['Missing language files'] = 'Missing language files';
+$_lang['Missing value'] = 'Missing value';
+$_lang['Modifies this announcement'] = 'Modifies this announcement';
+$_lang['Modify a work'] = 'Modify a work';
+$_lang['Modify exercise'] = 'Modify exercise';
+$_lang['Modify the format'] = 'Modify the format';
+$_lang['Module'] = 'Module';
+$_lang['Module added :'] = 'Module added : ';
+$_lang['Module moved'] = 'Module moved';
+$_lang['Module status'] = 'Module status';
+$_lang['Module type'] = 'Module type';
+$_lang['Modules'] = 'Modules';
+$_lang['Modules of this path will still be available in the pool of modules'] = 'Modules of this path will still be available in the pool of modules';
+$_lang['Month'] = 'Month';
+$_lang['More replied topics'] = 'More replied topics';
+$_lang['More seen topics'] = 'More seen topics';
+$_lang['Move down'] = 'Move down';
+$_lang['Move up'] = 'Move up';
+$_lang['Moved line'] = 'Moved line';
+$_lang['Multiple answers'] = 'Multiple answers';
+$_lang['Multiple choice (Multiple answers)'] = 'Multiple choice (Multiple answers)';
+$_lang['Multiple choice (Unique answer)'] = 'Multiple choice (Unique answer)';
+$_lang['My calendar'] = 'My calendar';
+$_lang['My other courses'] = 'My other courses';
+$_lang['My personal course list'] = 'My personal course list';
+$_lang['My results'] = 'My results';
+$_lang['MySQL Database and Table Names'] = 'MySQL Database and Table Names';
+$_lang['Mysql Repository'] = 'Mysql Repository';
+$_lang['Mysql connection parameters'] = 'Mysql connection parameters';
+$_lang['Name cannot be empty'] = 'Name must be completed';
+$_lang['Name link'] = 'Name link';
+$_lang['Name of the class has been changed'] = 'Name of the class has been changed';
+$_lang['Name of the tool'] = 'Name of the tool';
+$_lang['Never browsed'] = 'Never browsed';
+$_lang['Never connected students :'] = 'Never connected students : ';
+$_lang['Never used'] = 'Never used';
+$_lang['New Class name'] = 'New Class name';
+$_lang['New Wiki'] = 'New Wiki';
+$_lang['New assignment created'] = 'New assignment created';
+$_lang['New chat'] = 'New chat';
+$_lang['New learning path name :'] = 'New learning path name : ';
+$_lang['New users will receive an e-mail with their user name and password'] = 'New users will receive an e-mail with their user name and password';
+$_lang['Next'] = 'Next';
+$_lang['Next day'] = 'Next Day';
+$_lang['Next month'] = 'Next Month';
+$_lang['Next week'] = 'Next Week';
+$_lang['Next year'] = 'Next Year';
+$_lang['No Content'] = 'No Content';
+$_lang['No Wiki'] = 'No Wiki';
+$_lang['No announcement'] = 'No announcement.';
+$_lang['No change applied'] = 'No change applied';
+$_lang['No change applied.'] = 'No change applied.';
+$_lang['No closing date'] = 'No closing date';
+$_lang['No course available fitting this keyword'] = 'No course available fitting this keyword';
+$_lang['No course to display'] = 'No course to display';
+$_lang['No email address specified'] = 'No email address specified';
+$_lang['No error in file found.'] = 'No error in file found.';
+$_lang['No event in the agenda'] = 'No event in the agenda';
+$_lang['No forum'] = 'No forum';
+$_lang['No group deleted'] = 'No group deleted';
+$_lang['No image to display'] = 'No image to display';
+$_lang['No learning path'] = 'No learning path';
+$_lang['No module'] = 'No module';
+$_lang['No module in package'] = 'No module in package';
+$_lang['No new post allowed'] = 'No new post allowed';
+$_lang['No post'] = 'No Post';
+$_lang['No quota'] = 'No quota';
+$_lang['No result'] = 'No Result';
+$_lang['No score'] = 'No score';
+$_lang['No scripts'] = 'No scripts';
+$_lang['No stats to show.  You haven\'t registered any course.'] = 'No stats to show.  You haven\'t registered any course.';
+$_lang['No time limitation'] = 'No time limitation';
+$_lang['No user found'] = 'No user found';
+$_lang['No user to display'] = 'No user to display';
+$_lang['No visible submission'] = 'No visible submission';
+$_lang['No way'] = 'No way';
+$_lang['No, prevent users submitting work after the end date'] = 'No, prevent users submitting work after the end date';
+$_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Not allowed : record usernames in tracking, anonymous users cannot do the exercise.';
+$_lang['Not recently connected students :'] = 'Not recently connected students : ';
+$_lang['Notice'] = 'Notice';
+$_lang['Number of courses'] = 'Number of courses';
+$_lang['Number of courses by faculty'] = 'Number of courses by faculty';
+$_lang['Number of courses by language'] = 'Number of courses by language';
+$_lang['Number of courses by visibility'] = 'Number of courses by visibility';
+$_lang['Number of learning paths using this module :'] = '
+Number of learning paths using this module : ';
+$_lang['Number of logins'] = 'Number of logins';
+$_lang['Number of pages'] = 'Number of pages';
+$_lang['Number of rows'] = 'Number of rows';
+$_lang['Number of users'] = 'Number of users';
+$_lang['Number of users by course'] = 'Number of users by course';
+$_lang['Number of users by faculty'] = 'Number of users by faculty';
+$_lang['Number of users by status'] = 'Number of users by status';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Number proposed exceeds max. that you allowed (you can modify it below).
+                Group composition has not been modified';
+$_lang['Numero'] = 'No.';
+$_lang['On an unique page'] = 'On an unique page';
+$_lang['One question per page (sequential)'] = 'One question per page (sequential)';
+$_lang['Ooops, stranges cases detected !!'] = 'Ooops, stranges cases detected !!';
+$_lang['Optional'] = 'Optional';
+$_lang['Order'] = 'Order';
+$_lang['Orphan questions'] = 'Orphan questions';
+$_lang['Other'] = 'Other';
+$_lang['Others (*)'] = 'Others (*)';
+$_lang['PHP system information'] = 'PHP system information';
+$_lang['Page history'] = 'Page history';
+$_lang['Page saved'] = 'Page saved';
+$_lang['Parent category'] = 'Parent category ';
+$_lang['Password'] = 'Password';
+$_lang['Password given is too simple or too close to the username.'] = 'Password given is too simple or too close to the username.';
+$_lang['Period'] = 'Period';
+$_lang['PeriodDayShort'] = 'd.';
+$_lang['PeriodHourShort'] = 'h.';
+$_lang['PersonalCourseList'] = 'Personal course list';
+$_lang['Phone'] = 'Phone';
+$_lang['Platform'] = 'Platform';
+$_lang['Platform Administration'] = 'Platform Administration';
+$_lang['Platform Administrator'] = 'Platform Administrator';
+$_lang['Platform statistics'] = 'Platform statistics';
+$_lang['Please check that your campus URL is reachable from the internet.'] = 'Please check that your campus URL is reachable from the internet.';
+$_lang['Please choose a good answer'] = 'Please choose a good answer';
+$_lang['Please choose one or more good answers'] = 'Please choose one or more good answers';
+$_lang['Please confirm your choice'] = 'Please confirm your choice';
+$_lang['Please define at least one blank with brackets [...]'] = 'Please define at least one blank with brackets [...]';
+$_lang['Please define the options'] = 'Please define the options';
+$_lang['Please fill the two lists below'] = 'Please fill the two lists below';
+$_lang['Please give a weighting to each blank'] = 'Please give a weighting to each blank';
+$_lang['Please give the answers to the question'] = 'Please give the answers to the question';
+$_lang['Please give the exercise name'] = 'Please give the exercise name';
+$_lang['Please give the question'] = 'Please give the question';
+$_lang['Please type the text'] = 'Please type the text';
+$_lang['Please type your text below'] = 'Please type your text below';
+$_lang['Pool of modules'] = 'Pool of modules';
+$_lang['Prefix for names of course databases'] = 'Prefix for names of course databases';
+$_lang['Preview'] = 'Preview';
+$_lang['Preview :'] = 'Preview : ';
+$_lang['Previous'] = 'Previous';
+$_lang['Previous day'] = 'Previous Day';
+$_lang['Previous month'] = 'Previous Month';
+$_lang['Previous week'] = 'Previous Week';
+$_lang['Previous year'] = 'Previous Year';
+$_lang['PrintVers'] = 'Printable version';
+$_lang['Private'] = 'Private';
+$_lang['Private course only'] = 'Private course only';
+$_lang['Private feedback'] = 'Private feedback';
+$_lang['Production language files'] = 'Production language files';
+$_lang['Progress'] = 'Progress';
+$_lang['Progress in learning paths'] = 'Progress in learning paths';
+$_lang['Progression of users on all learning paths'] = 'Progression of users on all learning paths';
+$_lang['Properties'] = 'Properties';
+$_lang['Public'] = 'Public';
+$_lang['Public course only'] = 'Public course only';
+$_lang['Public courses'] = 'Public courses';
+$_lang['Publish'] = 'Publish';
+$_lang['Question / Answer management'] = 'Question / Answer management';
+$_lang['Question list of the exercise'] = 'Question list of the exercise';
+$_lang['Question not found'] = 'Question not found';
+$_lang['Question pool'] = 'Question pool';
+$_lang['Question title'] = 'Question title';
+$_lang['Question to lecturer'] = 'Question to lecturer';
+$_lang['Questions'] = 'Questions';
+$_lang['Random questions'] = 'Random questions';
+$_lang['Read Pages'] = 'Read Pages';
+$_lang['Recent changes'] = 'Recent changes';
+$_lang['Register'] = 'Register';
+$_lang['Register a user for this class'] = 'Register a user for this class';
+$_lang['Register class for course'] = 'Register class for course';
+$_lang['Register my campus'] = 'Register my campus';
+$_lang['Register this user to a course'] = 'Register this user to a course';
+$_lang['Register to the class'] = 'Register to the class';
+$_lang['Register user'] = 'Register user';
+$_lang['Register user to class'] = 'Register user to class';
+$_lang['Registered'] = 'Registered';
+$_lang['Registration'] = 'Registration';
+$_lang['Registration not allowed on the platform'] = 'Registration not allowed on the platform';
+$_lang['Rem. answ.'] = 'Rem. answ.';
+$_lang['Rem. elem.'] = 'Rem. elem.';
+$_lang['Remove course enrolment'] = 'Remove course enrolment';
+$_lang['Remove course from your personal course list'] = 'Remove course from your personal course list';
+$_lang['Remove picture'] = 'Remove picture';
+$_lang['Repair category structure'] = 'Repair category structure';
+$_lang['Replace attached file'] = 'Replace attached file';
+$_lang['Replies'] = 'Replies';
+$_lang['Request course creation status'] = 'Request course creation status';
+$_lang['Required'] = 'Required';
+$_lang['Requirements'] = 'Requirements';
+$_lang['Reset'] = 'Reset';
+$_lang['Restore course repository'] = 'Restore course repository';
+$_lang['Results of the exercises done'] = 'Results of the exercises done';
+$_lang['Retry'] = 'retry';
+$_lang['Reuse'] = 'Reuse';
+$_lang['Root'] = 'root';
+$_lang['SCORM 1.2 conformable content'] = 'SCORM 1.2 conformable content';
+$_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'SCORM conformant modules are definitively removed from server when deleted in their learning path.';
+$_lang['SDK'] = 'SDK';
+$_lang['Save changes'] = 'Save changes';
+$_lang['Scan technical fault'] = 'Scan technical fault';
+$_lang['Score'] = 'Score';
+$_lang['Score required'] = 'Score required';
+$_lang['Scores of exercises done'] = 'Scores of exercises done';
+$_lang['Scorm'] = 'Scorm';
+$_lang['Script missing'] = 'Script missing';
+$_lang['Script not in claroline'] = 'Script not in claroline';
+$_lang['Search'] = 'Search';
+$_lang['Search again (advanced)'] = 'Search again (advanced)';
+$_lang['Search course'] = 'Search course';
+$_lang['Search from keyword'] = 'Search from keyword';
+$_lang['Search on'] = 'Search on';
+$_lang['Search result'] = 'Search result';
+$_lang['Search user'] = 'Search user';
+$_lang['SecondShort'] = 'sec.';
+$_lang['See below the files you can edit from this tool.'] = 'See below the files you can edit from this tool.';
+$_lang['See user list'] = 'See user list';
+$_lang['Select course in'] = 'Select course in ';
+$_lang['Select course in search results'] = 'Select course in search results';
+$_lang['Select in drop down list'] = 'Select in drop down list';
+$_lang['Selected Users'] = 'Selected Users';
+$_lang['Send account information to user by email'] = 'Send account information to user by email';
+$_lang['Show all'] = 'Show all';
+$_lang['Show answers'] = 'Show answers';
+$_lang['Show differences'] = 'Show differences';
+$_lang['Show none'] = 'Show none';
+$_lang['Start Module'] = 'Start Module';
+$_lang['Start date'] = 'Start date';
+$_lang['Start date must be before end date ...'] = 'Start date must be before end date ...';
+$_lang['Statement'] = 'Statement';
+$_lang['Statistics by question'] = 'Statistics by question';
+$_lang['Statistics by user'] = 'Statistics by user';
+$_lang['Statistics of course'] = 'Statistics of course';
+$_lang['Statistics of exercise'] = 'Statistics of exercise';
+$_lang['Statistics of exercise attempt'] = 'Statistics of exercise attempt';
+$_lang['Statistics of question'] = 'Statistics of question';
+$_lang['Statistics of user'] = 'Statistics of user';
+$_lang['Store Chat'] = 'Store Chat';
+$_lang['Students are allowed to self-register in groups'] = 'Students are allowed to self-register in groups';
+$_lang['Submission type'] = 'Submission type';
+$_lang['Submissions'] = 'Submissions';
+$_lang['Submit'] = 'Submit';
+$_lang['Submit a work'] = 'Submit a work';
+$_lang['Submit feedback'] = 'Submit feedback';
+$_lang['Subscribe a class'] = 'Subscribe a class';
+$_lang['Subscribe to course'] = 'Subscribe to course';
+$_lang['Support forum'] = 'Support forum';
+$_lang['SwitchEditorToTextConfirm'] = 'This command is going to remove the current text layout. Do you want to continue ?';
+$_lang['Take'] = 'take';
+$_lang['Technical Tools'] = 'Technical Tools';
+$_lang['Text only (text required, no file)'] = 'Text only (text required, no file)';
+$_lang['Text with attached file (text required, file optional)'] = 'Text with attached file (text required, file optional)';
+$_lang['The changes have been carried out correctly'] = 'The changes have been carried out correctly';
+$_lang['The class has been moved'] = 'The class has been moved';
+$_lang['The course has been successfully deleted'] = 'The course has been successfully deleted';
+$_lang['The file to upload is not valid.'] = 'The file to upload is not valid.';
+$_lang['The following errors were found'] = 'The following errors were found ';
+$_lang['The module will still be available in the pool of modules.'] = 'The module will still be available in the pool of modules.';
+$_lang['The new category has been created.'] = 'The new category has been created.';
+$_lang['The new class has been created'] = 'The new class has been created';
+$_lang['The new user has been sucessfully created'] = 'The new user has been sucessfully created';
+$_lang['The user has been enroled to the course'] = 'The user has been enrolled to the course';
+$_lang['The user has been successfully unregistered'] = 'The user has been successfully unregistered';
+$_lang['The user has been successfully unregistered from course'] = 'The user has been successfully unregistered from course';
+$_lang['The user is already enroled in this course'] = 'The user is already enrolled in this course';
+$_lang['The zip file can not contain .PHP files'] = 'The zip file can not contain .PHP files';
+$_lang['There is no answer for the moment'] = 'There is no answer for the moment';
+$_lang['There is no assignment at the moment'] = 'There is no assignment at the moment.';
+$_lang['There is no category available !'] = 'There is no category available !';
+$_lang['There is no course matching such criteria'] = 'There is no course matching such criteria';
+$_lang['There is no question for the moment'] = 'There is no question for the moment';
+$_lang['There is no start asset defined for this module.'] = 'There is no start asset defined for this module.';
+$_lang['There is no tracking for this attempt.'] = 'There is no tracking for this attempt.';
+$_lang['There is no user account with this email address.'] = 'There is no user account with this email address.';
+$_lang['This category already exists!'] = 'This category already exists!';
+$_lang['This category contains other categories, you must delete them before !'] = 'This category contains other categories, you must delete them before !';
+$_lang['This category contains some courses, you can\'t erase it!'] = 'This category contains some courses, you can\'t erase it!';
+$_lang['This category include some courses, you must delete or move them before'] = 'This category include some courses, you must delete or move them before';
+$_lang['This class still contains some sub classes, delete them first'] = 'This class still contains some sub classes, delete them first';
+$_lang['This course is currently not described'] = 'This course is currently not described';
+$_lang['This day'] = 'This day';
+$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.';
+$_lang['This is your account Login-Pass'] = 'This  is  your account Login-Pass';
+$_lang['This mail appears already in a previous line of the CSV file.'] = 'This mail appears already in a previous line of the CSV file.';
+$_lang['This official code already appears in a previous line of the CSV file.'] = 'This official code already appears in a previous line of the CSV file.';
+$_lang['This official code is already used by another user.'] = 'This official code is already used by another user.';
+$_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'This page is empty, click on \'Edit this page\' to add a content';
+$_lang['This will also delete all works submitted in this assignment !'] = '! This will also delete all works submitted in this assignment !';
+$_lang['Thumbnails'] = 'Thumbnails';
+$_lang['Time'] = 'Time';
+$_lang['Time in learning path'] = 'Time in learning path';
+$_lang['Time is over, results not submitted.'] = 'Time is over, results not submitted.';
+$_lang['Time limit'] = 'Maximum allowed time';
+$_lang['Title added :'] = 'Title added : ';
+$_lang['Title of the wiki'] = 'Title of the wiki';
+$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'To send a message, select groups of users (marked with a * in the front)
+ or single users from the list on the left.';
+$_lang['Tool'] = 'Tool';
+$_lang['Tool accesses changed'] = 'Tool accesses changed';
+$_lang['Tools'] = 'Tools';
+$_lang['Topics started'] = 'Topics started';
+$_lang['Total'] = 'Total';
+$_lang['Total Clicks'] = 'Total Clicks';
+$_lang['Total Downloads'] = 'Total Downloads';
+$_lang['Total attempts'] = 'Total attempts';
+$_lang['Total number of connection to this course'] = 'Total number of connection to this course';
+$_lang['Total time'] = 'Total time';
+$_lang['Tracking'] = 'Tracking';
+$_lang['Tracking database'] = 'Tracking database';
+$_lang['Tracking has been disabled by system administrator.'] = 'Tracking has been disabled by system administrator.';
+$_lang['Traffic Details'] = 'Traffic Details';
+$_lang['Translation Progression'] = 'Translation Progression';
+$_lang['Translation Tools'] = 'Translation Tools';
+$_lang['True/False'] = 'True/False';
+$_lang['URL :'] = 'URL : ';
+$_lang['URL link'] = 'URL link';
+$_lang['Unable to add description'] = 'Unable to add description';
+$_lang['Unable to add external tool'] = 'Unable to add external tool';
+$_lang['Unable to add the event to the agenda'] = 'Unable to add the event to the agenda.';
+$_lang['Unable to change tool access'] = 'Unable to change tool access';
+$_lang['Unable to copy file :'] = 'Unable to copy file : ';
+$_lang['Unable to create category'] = 'Unable to create category';
+$_lang['Unable to create directory :'] = 'Unable to create directory : ';
+$_lang['Unable to create file :'] = 'Unable to create file : ';
+$_lang['Unable to create forum'] = 'Unable to create forum';
+$_lang['Unable to create frame file'] = 'Unable to create frame file';
+$_lang['Unable to create the SCORM archive'] = 'Unable to create the SCORM archive';
+$_lang['Unable to create the SCORM manifest (imsmanifest.xml)'] = 'Unable to create the SCORM manifest (imsmanifest.xml)';
+$_lang['Unable to delete'] = 'Unable to delete';
+$_lang['Unable to delete Forum'] = 'Unable to delete Forum.';
+$_lang['Unable to delete category'] = 'Unable to delete category.';
+$_lang['Unable to delete event from the agenda'] = 'Unable to delete event from the agenda.';
+$_lang['Unable to delete external tool'] = 'Unable to delete external tool';
+$_lang['Unable to empty forum'] = 'Unable to empty forum.';
+$_lang['Unable to empty groups'] = 'Unable to empty groups';
+$_lang['Unable to enrol you to the course'] = 'Unable to enroll you to the course';
+$_lang['Unable to load exercise\'s question'] = 'Unable to load exercise\'s question';
+$_lang['Unable to load the exercise'] = 'Unable to load the exercise';
+$_lang['Unable to remove your registration to the course'] = 'Unable to remove your registration to the course';
+$_lang['Unable to save'] = 'Unable to save';
+$_lang['Unable to update'] = 'Unable to update';
+$_lang['Unable to update category'] = 'Unable to update category.';
+$_lang['Unable to update external tool'] = 'Unable to update external tool';
+$_lang['Unable to update forum'] = 'Unable to update forum.';
+$_lang['Unable to update the event into the agenda'] = 'Unable to update the event into the agenda.';
+$_lang['Unamed module'] = 'Unamed module';
+$_lang['Unamed path'] = 'Unamed path';
+$_lang['Unassigned students'] = 'Unassigned students';
+$_lang['Unblock'] = 'Unblock';
+$_lang['Unchanged line'] = 'Unchanged line';
+$_lang['Unique answer'] = 'Unique answer';
+$_lang['Unregister all students'] = 'Unregister all students';
+$_lang['Unregister from class'] = 'Unregister from class';
+$_lang['Unregister user'] = 'Unsubscribe';
+$_lang['Until'] = 'to';
+$_lang['Untitled'] = 'Untitled';
+$_lang['Upgrade'] = 'Upgrade';
+$_lang['Upload a new file to replace the file'] = 'Upload a new file to replace the file.';
+$_lang['Upload document'] = 'Upload document';
+$_lang['Uploaded file'] = 'Uploaded file';
+$_lang['Use a document'] = 'Use a document';
+$_lang['Use a module of this course'] = 'Use a module of this course';
+$_lang['Use an exercise'] = 'Use an exercise';
+$_lang['Use format defined in first line of file'] = 'Use format defined in first line of file';
+$_lang['User Id'] = 'User Id';
+$_lang['User access details'] = 'User access details';
+$_lang['User already in class'] = 'User already in class';
+$_lang['User attempts'] = 'User attempts';
+$_lang['User course settings'] = 'User course settings';
+$_lang['User has been sucessfully registered to the class'] = 'User has been sucessfully registered to the class';
+$_lang['User has been sucessfully unregistered from the class'] = 'User has been sucessfully unregistered from the class';
+$_lang['User is now course manager'] = 'User is now course manager';
+$_lang['User is now student for this course'] = 'User is now student for this course';
+$_lang['User list'] = 'User list';
+$_lang['User not in the class'] = 'User not in the class';
+$_lang['User registered to the course'] = 'User registered to the course';
+$_lang['User settings'] = 'User settings';
+$_lang['User unregistered'] = 'User unregistered';
+$_lang['User\'s course'] = 'User\'s course';
+$_lang['UsernameAppearAlready'] = 'This username appears already in a previous line of the CSV file.';
+$_lang['UsernameUsed'] = 'This username is already used by another user.';
+$_lang['Users Downloads'] = 'Users Downloads';
+$_lang['Users not in this group'] = 'Users not in this group';
+$_lang['Users\' Clicks'] = 'Users\' Clicks';
+$_lang['UsersMin'] = 'users';
+$_lang['Values'] = 'Values';
+$_lang['Variables with same content and different name'] = 'Variables with same content and different name';
+$_lang['Variables with same name and different content'] = 'Variables with same name and different content';
+$_lang['View'] = 'View';
+$_lang['View by'] = 'View by';
+$_lang['View list of all tools'] = 'View List of All Tools';
+$_lang['View mode'] = 'View mode';
+$_lang['View my statistics'] = 'View my statistics';
+$_lang['Visible'] = 'Visible';
+$_lang['Visits'] = 'visits';
+$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?';
+$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Warning ! This question and its answers are used in several exercises. Would you like to modify them';
+$_lang['Week'] = 'Week';
+$_lang['Weighting'] = 'Weighting';
+$_lang['Wiki'] = 'Wiki';
+$_lang['Wiki : %s'] = 'Wiki : %s';
+$_lang['Wiki : Create new Wiki'] = 'Wiki : Create new Wiki';
+$_lang['Wiki : Edit properties'] = 'Wiki : Edit properties';
+$_lang['Wiki creation succeed'] = 'Wiki creation succeed';
+$_lang['Wiki deletion succeed'] = 'Wiki deletion succeed';
+$_lang['Wiki description'] = 'Wiki description';
+$_lang['Wiki edition succeed'] = 'Wiki edition succeed';
+$_lang['Wiki of the group'] = 'Wiki of the group';
+$_lang['Wiki syntax'] = 'Wiki syntax';
+$_lang['Work added'] = 'Work added';
+$_lang['Work modified'] = 'Work modified';
+$_lang['Work title'] = 'Work title';
+$_lang['Work title required'] = 'Work title required';
+$_lang['Work uploaded by the student in the name of \'Authors\''] = 'Work uploaded by the student in the name of \'Authors\'';
+$_lang['Work uploads'] = 'Work uploads';
+$_lang['Worst score'] = 'Worst score';
+$_lang['Wrong operation'] = 'Wrong operation';
+$_lang['Year'] = 'Year';
+$_lang['Yes, allow users to submit works after end date'] = 'Yes, allow users to submit works after end date';
+$_lang['Yesterday'] = 'Yesterday';
+$_lang['You are not a member of this group'] = 'You are not a member of this groups';
+$_lang['You are not allowed to create pages'] = 'You are not allowed to create pages';
+$_lang['You are not allowed to edit this page'] = 'You are not allowed to edit this page';
+$_lang['You are not allowed to read this page'] = 'You are not allowed to read this page';
+$_lang['You are now a member of this group.'] = 'You are now a member of this group.';
+$_lang['You can choose a title an a description for the wiki :'] = 'You can choose a title an a description for the wiki : ';
+$_lang['You can delete these scripts from you server'] = 'You can delete these scripts from you server';
+$_lang['You can not change your own settings!'] = 'You can not change your own settings!';
+$_lang['You can not change your own status'] = 'You can not change your own status';
+$_lang['You can not move a class in itself!'] = 'You can not move a class in itself!';
+$_lang['You can not remove a group forum. You have to remove the group first'] = 'You can not remove a group forum. You have to remove the group first';
+$_lang['You can now create your  course'] = 'You can now create  your  course';
+$_lang['You can now select, in the list, the courses you want to access'] = 'You can now select, in the list, the courses you want to access.';
+$_lang['You can set access rights for users using the following grid :'] = 'You can set access rights for users using the following grid : ';
+$_lang['You cannot give a blank name to a class'] = 'You cannot give a blank name to a class';
+$_lang['You cannot unsubscribe the last course manager of the course'] = 'You cannot unsubscribe the last course manager of the course';
+$_lang['You have already answered the question'] = 'You have already answered the question';
+$_lang['You have reached the maximum number of allowed attempts.'] = 'You have reached the maximum number of allowed attempts.';
+$_lang['You must install these scripts to run correctly claroline'] = 'You must install these scripts to run correctly claroline';
+$_lang['You must introduce the message text'] = 'You must introduce the message text.';
+$_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'You must reach the maximum number of allowed attempts to view these statistics.';
+$_lang['You must select a file'] = 'You must select a file';
+$_lang['You must select a text file'] = 'You must select a text file';
+$_lang['You must select some users'] = 'You must select some users.';
+$_lang['You must specify the CSV format used in your file'] = 'You must specify the CSV format used in your file';
+$_lang['You\'ve been enroled on the course'] = 'You\'ve been enrolled on the course';
+$_lang['Your best performance'] = 'Your best performance';
+$_lang['Your browser cannot see frames.'] = 'Your browser cannot see frames.';
+$_lang['Your campus has been submitted and is waiting to be validate by Claroline.net team'] = 'Your campus has been submitted and is waiting to be validate by Claroline.net team';
+$_lang['Your daddy is'] = 'Your daddy is';
+$_lang['Your enrolment on the course has been removed'] = 'Your enrollment on the course has been removed';
+$_lang['Your mother is'] = 'Your mother is';
+$_lang['Your password has been emailed to'] = 'Your password has been emailed to ';
+$_lang['Your progression in this module'] = 'Your progression in this module';
+$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Your request to become a course creator has been sent to platform administrator(s).';
+$_lang['Your request to remove your account has been sent'] = 'Your request to remove your account has been sent';
+$_lang['Your time is'] = 'Your time is';
+$_lang['Your total score is'] = 'Your total score is';
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your user profile doesn\'t seem to be enrolled on this course';
+$_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
+$_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php extension is required to use this tool.  Please contact your platform administrator.';
+$_lang['[British people] live in [United Kingdom].'] = '[British people] live in [United Kingdom].';
+$_lang['archive'] = 'archive';
+$_lang['blockAccountCreationNotification'] = '
+Dear %firstname %lastname,
+You are registered on %siteName
+    Login name :  %username
+    Password  : %password
+    The address of  %siteName
+    Is : %rootWeb
+    In case of problems, contact us.
+    Yours sincerely,
+    administratorName
+--
+Manager %administratorName
+T. %administratorPhone
+Email : %administratorEmail
+    ';
+$_lang['blockAssignmentsHelp'] = '<p>
+Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
+Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
+Students have the ability to modify their work after submission and the course manager can give them a feedback about their submissions.
+</p>
+<hr />
+<h4>Create an assignment</h4>
+<p>To create a new assignment course manager must enter in the assignment tool and click on the link "Create a new assignment".
+</p>
+<p>The form that is shown ask the course manager for&nbsp;:
+</p>
+<ul><li> a title&nbsp;: the name of the assignment
+</li><li> a description&nbsp;: the statement of the assignment, what learners have to do
+</li><li> a submission type&nbsp;:
+<ul><li> File&nbsp;: any type of file that can be uploaded, keep in mind that there is a size limit that depends on the platform, a text can be joined to describe the file
+</li><li> Text only&nbsp;: a text formatted using the wysiwyg editor
+</li><li> Text with an attached file&nbsp;: a text formatted using the wysiwyg editor and a file (file is not required)
+</li></ul>
+</li><li> a start date&nbsp;: date from when the users will be able to post a publication in the assignment
+</li><li> a end date&nbsp;: date until when the users will be able to post a publication in the assignment
+</li><li> the default publications visibility&nbsp;: choose if the publications will be available or not to others users
+</li><li> the assignment type&nbsp;:
+<ul><li> individual mode&nbsp;: any authenticated user can post a publication
+</li><li> group mode&nbsp;: the user must be a member of at least one group of the course to publish a work and the work will be posted in the name of the group
+</li></ul>
+</li><li> permission to upload after end date
+</li></ul>
+<p><br />
+<strong>Add an automatic feedback</strong>
+</p>
+<p>A feedback is a correct version of the assignment.  To add an automatic feedback to an assignment enter the assignment and click on the "Edit automatic feedback" link.  </p>
+<p>It can be a text or a file or both a text and a file.  The course manager can choose when this automatic feedback will be shown to users ( after assignment end date or after the first submission of the user in this assignment )
+</p>
+<hr />
+<h4>Works</h4>
+<p>Works are the publications uploaded by users.</p>
+<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
+The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
+<p><strong>Submit a work</strong></p>
+<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
+<p><strong>Work list</strong></p>
+<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
+</li>
+<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
+</li>
+<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+</li>
+<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+</li>
+<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
+</li>
+</ul>
+';
+$_lang['blockClaroMainHelp'] = 'Here, lecturers and assistants create and administer
  courses websites. Students read (documents, agenda, information) and,
  sometimes, do exercises, publish papers, participate in
  forum discussions...</p><b>Registration</b><p>The following instructions
  only apply if your version of claroline allows self-registration (some sites
  register you automatically). <br />If you are a Student, you
- just need to register selecting 'Follow courses (student)', then choose
+ just need to register selecting \'Follow courses (student)\', then choose
  the courses you would like to follow.</p><p>If you are a Lecturer or an
- Assistant, register too, but select 'Create courses (lecturer)'. You will
+ Assistant, register too, but select \'Create courses (lecturer)\'. You will
  then have to fill a form with Course Code, Faculty and Course Title. Once
  this is validated, you will be directed to the site you have just created and
  allowed to modify its content and organisation according to your
- requirements. </p><p>The 'To do' option is to allow feedback to your claroline website administrators.
- Things that you might post here include faults or suggestions for improvements. The 'To do'
+ requirements. </p><p>The \'To do\' option is to allow feedback to your claroline website administrators.
+ Things that you might post here include faults or suggestions for improvements. The \'To do\'
  list is linked to on the Home Page of the campus (once
  logged in).</p>
 <p>The support forum is different. It connects all Claroline users worldwide.
-If you don't find the answer to a question inside your claroline campus and environment,
+If you don\'t find the answer to a question inside your claroline campus and environment,
 post a message there.</p>
 <p>The link to Registration (if present) is on the Home Page of the campus
  (top right).</p><b>Login</b><p>On your next visit, type login/password
- and Ok to access your courses. The URL of the site is";
-$_lang['ClarolineNetNews'] = "Claroline.net news";
-$_lang['Class'] = "Classes";
-$_lang['ClassMembers'] = "Class members";
-$_lang['ClassMoved'] = "The class has been moved";
-$_lang['ClassName'] = "Class name";
-$_lang['ClassRegisterUser'] = "Register a user for this class";
-$_lang['ClassRegisterWholeClass'] = "Register class for course";
-$_lang['ClassRegisterWholeClassAgain'] = "Register whole class for another course";
-$_lang['ClassRegistered'] = "Class registered";
-$_lang['ClearList'] = "Clear up event list";
-$_lang['ClickToZoomIn'] = "click to zoom in";
-$_lang['ClickToZoomOut'] = "click to zoom out";
-$_lang['CloseWindow'] = "Close window";
-$_lang['CodeAppearAlready'] = "This official code already appears in a previous line of the CSV file.";
-$_lang['CodeCanBeEmpty'] = "Course code field needs to be completed";
-$_lang['CodeUsed'] = "This official code is already used by another user.";
-$_lang['ConfigMenuContent'] = "Configuration Menu";
-$_lang['Configuration'] = "Configuration";
-$_lang['ConfirmDeleteExercise'] = "Are you sure you want to delete this exercise ?";
-$_lang['ConfirmDeleteGroups'] = "Are you sure you want to delete all groups ?";
-$_lang['ConfirmDeleteQuestion'] = "Are you sure you want to completely delete this question ?";
-$_lang['ConfirmDeleteStats'] = "If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure you want to completely delete the statistics ?";
-$_lang['ConfirmDeleteThisGroup'] = "Are you sure to delete this group ?";
-$_lang['ConfirmEmptyForum'] = "Delete all messages of ";
-$_lang['ConfirmEmptyGroups'] = "Are you sure you want to empty all groups ?";
-$_lang['ConfirmEnrollClassToCourse'] = "Are you sure you want to enrol the whole class on the course ?";
-$_lang['ConfirmYourChoice'] = "Please confirm your choice";
-$_lang['Content'] = "Content";
-$_lang['Continue'] = "Continue";
-$_lang['CopyFailed'] = "Print failed";
-$_lang['CorrespondsTo'] = "Corresponds to";
-$_lang['CountCours'] = "Number of courses";
-$_lang['CountCourseByFaculte'] = "Number of courses by faculty";
-$_lang['CountCourseByLanguage'] = "Number of courses by language";
-$_lang['CountCourseByVisibility'] = "Number of courses by visibility";
-$_lang['CountToolAccess'] = "Total number of connection to this course";
-$_lang['CountUsers'] = "Number of users";
-$_lang['CountUsersByCourse'] = "Number of users by course";
-$_lang['CountUsersByFaculte'] = "Number of users by faculty";
-$_lang['CountUsersByStatus'] = "Number of users by status";
-$_lang['Country'] = "Country";
-$_lang['CountryCodeError'] = "Country code seems to be incorrect.";
-$_lang['CourseAccess'] = "Course access";
-$_lang['CourseAdministratorOnly'] = "Course administrator only";
-$_lang['CourseContent'] = "Course content";
-$_lang['CourseContentComment1'] = "What is the importance of the various content to be taught within the framework of the course?  What is the level of difficulty of this content?  How is the unit structured?  What will be the sequence of the content?  What does content lead to?";
-$_lang['CourseContentComment2'] = "Presentation of the content of the course, the structuring of the content, the progression and the calendar";
-$_lang['CourseCreator'] = "Course creator";
-$_lang['CourseDelete'] = "The course has been successfully deleted";
-$_lang['CourseHome'] = "Course Home";
-$_lang['CourseList'] = "Course list";
-$_lang['CourseManager'] = "Course manager";
-$_lang['CourseManagerCannotUnsubscribeHimself'] = "Course manager cannot unsubscribe himself";
-$_lang['CourseManagerStatusToUser'] = "Course creator status to %s %s";
-$_lang['CourseNotFound'] = "Course not found";
-$_lang['CourseProgram'] = "Course description";
-$_lang['CourseSettings'] = "Course settings";
-$_lang['CourseWithoutAccess'] = "Courses not used";
-$_lang['CourseWithoutProf'] = "Courses without a lecturer";
-$_lang['CourseWithoutStudents'] = "Courses without student";
-$_lang['Course_Repository'] = "Course Repository";
-$_lang['Courses'] = "Courses";
-$_lang['Create'] = "Create";
-$_lang['Create1stAccountOnPlatform'] = "Create first a user account on this platform";
-$_lang['CreateAnotherUser'] = "Create another new user";
-$_lang['CreateAssignment'] = "Create a new assignment";
-$_lang['CreateCategory'] = "Create category";
-$_lang['CreateCourse'] = "Create course";
-$_lang['CreateCourses'] = "Create course";
-$_lang['CreateDocument'] = "Create Document";
-$_lang['CreateForum'] = "Create forum";
-$_lang['CreateHyperlink'] = "Create hyperlink";
-$_lang['CreateLabel'] = "Create label";
-$_lang['CreateModifyDocument'] = "Create/edit document";
-$_lang['CreateNewClass'] = "Create a new class";
-$_lang['CreateNewLearningPath'] = "Create a new learning path";
-$_lang['CreateUser'] = "Create user";
-$_lang['CreateUserAccount'] = "Create user account";
-$_lang['CreatingCourse'] = "Creating course (it may take a while) ... ";
-$_lang['CreationMailNotificationBody'] = "Course creation on";
-$_lang['CreationMailNotificationSubject'] = "Course creation";
-$_lang['CurrentAttachedDoc'] = "Current attached file";
-$_lang['CurrentDoc'] = "Current file";
-$_lang['CurrentFeedbackFile'] = "Current feedback file";
-$_lang['CurrentStatus'] = "Current registration status : <br /> <br />
-";
-$_lang['CurrentTime'] = "Current time";
-$_lang['DBConnectionParameters'] = "Mysql connection parameters";
-$_lang['DBHost'] = "Database Host";
-$_lang['DBSettingNamesIntro'] = "
-The installer is going to create the main Claroline databases.
-If you are limited by your database system administrator to use
-only a single database, get back to the previous page
-and select option 'single' for 'Database mode'.<br /><br />
-";
-$_lang['DBUse'] = "Database usage";
-$_lang['DOCUMENTTypeDesc'] = "Document";
-$_lang['DateLastWrite'] = "Last message was on : ";
-$_lang['DbName'] = "Database name";
-$_lang['DbPrefixForm'] = "Prefix for names of course databases";
-$_lang['DefSubVisibility'] = "Default works visibility";
-$_lang['DefaultLearningPathComment'] = "This is the introduction text of this learning path. To replace it by your own text, click below on <b>modify</b>.";
-$_lang['DefaultMatchingOpt1'] = "rich";
-$_lang['DefaultMatchingOpt2'] = "good looking";
-$_lang['DefaultMatchingProp1'] = "Your daddy is";
-$_lang['DefaultMatchingProp2'] = "Your mother is";
-$_lang['DefaultModuleAddedComment'] = "This an additional introduction text about the presence of this module specially into this learning path. To replace it by your own text, click below on <b>modify</b>.";
-$_lang['DefaultModuleComment'] = "This is the introduction text of this module, it will appears in each learning path that contains this module. To replace it by your own text, click below on <b>modify</b>.";
-$_lang['DefaultTextInBlanks'] = "[British people] live in [United Kingdom].";
-$_lang['Defcon'] = "Ooops, stranges cases detected !!";
-$_lang['DefineBlanks'] = "Please define at least one blank with brackets [...]";
-$_lang['DefineHeadings'] = "Define Headings";
-$_lang['DefineOptions'] = "Please define the options";
-$_lang['DelCourseStats'] = "Delete all course statistics";
-$_lang['DelCourseStatsDone'] = "Course statistics deleted";
-$_lang['DelImage'] = "Remove picture";
-$_lang['DeleteAttachedFile'] = "Delete attached file";
-$_lang['DeleteCaution'] = "! This will also delete all works submitted in this assignment !";
-$_lang['DeleteGroups'] = "Delete all groups";
-$_lang['DeleteMyAccount'] = "Delete my account";
-$_lang['DeleteUser'] = "Delete user";
-$_lang['DeletedExternalTool'] = "External tool deleted";
-$_lang['Denied'] = "Denied";
-$_lang['DepartmentUrl'] = "Department URL";
-$_lang['DepartmentUrlName'] = "Department";
-$_lang['DescAdded'] = "Description added.";
-$_lang['DescDeleted'] = "Description deleted.";
-$_lang['DescUnableToDelete'] = "Unable to delete";
-$_lang['DescUnableToUpdate'] = "Unable to update";
-$_lang['DescUpdated'] = "Description updated.";
-$_lang['DescriptionComment1'] = "What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?";
-$_lang['DescriptionComment2'] = "Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.";
-$_lang['DescriptionCours'] = "Course description";
-$_lang['DetailView'] = "View by";
-$_lang['Details'] = "Details";
-$_lang['DevTools'] = "Devel Tools";
-$_lang['Disable'] = "Disable";
-$_lang['DiskUsage'] = "Disk Usage";
-$_lang['DispClassAdded'] = "Display the class added";
-$_lang['DocInsertedAsModule'] = "has been added as module";
-$_lang['DocumentAlreadyUsed'] = "This document is already used as a module in this learning path";
-$_lang['DocumentAsModule'] = "Use a document";
-$_lang['DocumentContent'] = "Document content : ";
-$_lang['DocumentInModule'] = "Document in module";
-$_lang['DocumentName'] = "Document name : ";
-$_lang['Documentation'] = "Documentation";
-$_lang['DocumentsAccess'] = "Documents";
-$_lang['DocumentsDetails'] = "Documents downloaded by the student";
-$_lang['DocumentsTitleCountColumn'] = "Total Downloads";
-$_lang['DocumentsTitleDocumentColumn'] = "Document";
-$_lang['DocumentsTitleUsersColumn'] = "Users Downloads";
-$_lang['Down'] = "Order down";
-$_lang['DownloadAttachedFile'] = "Download attached file";
-$_lang['EG'] = "e. g.";
-$_lang['EXERCISETypeDesc'] = "Claroline exercise";
-$_lang['Edit'] = "Edit";
-$_lang['EditAnswers'] = "Edit answers";
-$_lang['EditCategory'] = "Edit category";
-$_lang['EditEvent'] = "Edit Event";
-$_lang['EditExercise'] = "Edit exercise settings";
-$_lang['EditFeedback'] = "Edit automatic feedback";
-$_lang['EditFileContent'] = "Edit file content";
-$_lang['EditFormat'] = "Edit format to use";
-$_lang['EditGroup'] = "Edit this group";
-$_lang['EditPost'] = "Edit post";
-$_lang['EditQuestion'] = "Edit question";
-$_lang['EditSettings'] = "Edit settings";
-$_lang['EditTextZone'] = "Edit text zone";
-$_lang['EditToolList'] = "Edit Tool list";
-$_lang['EditWork'] = "Modify a work";
-$_lang['ElementList'] = "Element list";
-$_lang['EmailAddressNotFound'] = "There is no user account with this email address.";
-$_lang['EmailCanBeEmpty'] = "Email field need to be filled";
-$_lang['EmailNotSent'] = "The system is unable to send you an e-mail.<br />Please contact the  ";
-$_lang['EmtpyGroups'] = "Empty all groups";
-$_lang['Enable'] = "Enable";
-$_lang['EndDate'] = "End date";
-$_lang['EnrollAsManager'] = "Enrol as course manager";
-$_lang['EnrollAsStudent'] = "Enrol as student";
-$_lang['EnrollAsTeacher'] = "Enrol as Teacher";
-$_lang['EnrollClass'] = "Enrol class";
-$_lang['EnrollToNewCourse'] = "Enrol to a new course";
-$_lang['EnrollUser'] = "Enrol a user";
-$_lang['EnrollmentKey'] = "enrolment key";
-$_lang['EnterMail'] = "Enter your email so we can send you your password.";
-$_lang['ErrorAssetNotFound'] = "Asset not found : ";
-$_lang['ErrorCannotReadRSSFile'] = "Error : cannot read RSS feed";
-$_lang['ErrorCategoryEmpty'] = "Category can not be empty";
-$_lang['ErrorClassNotEmpty'] = "This class still contains some sub classes, delete them first";
-$_lang['ErrorCopyAttachedFile'] = "Unable to copy file : ";
-$_lang['ErrorCopyScormFiles'] = "Error when copying needed SCORM files";
-$_lang['ErrorCopyingScorm'] = "Error copying existing SCORM content";
-$_lang['ErrorCourseCodeEmpty'] = "Course Code can not be empty";
-$_lang['ErrorCourseTitleEmpty'] = "Course title can not be empty";
-$_lang['ErrorCreatingDirectory'] = "Unable to create directory : ";
-$_lang['ErrorCreatingFile'] = "Unable to create file : ";
-$_lang['ErrorCreatingFrame'] = "Unable to create frame file";
-$_lang['ErrorCreatingManifest'] = "Unable to create the SCORM manifest (imsmanifest.xml)";
-$_lang['ErrorCreatingScormArchive'] = "Unable to create the SCORM archive";
-$_lang['ErrorDepartmentEmpty'] = "Department can not be empty";
-$_lang['ErrorDepartmentURLEmpty'] = "Department URL can not be empty";
-$_lang['ErrorDepartmentURLWrong'] = "Department URL is invalid";
-$_lang['ErrorEmailEmpty'] = "Email can not be empty";
-$_lang['ErrorEmailInvalid'] = "Email is invalid";
-$_lang['ErrorEmptyName'] = "Name must be completed";
-$_lang['ErrorFileMustBeZip'] = "File must be a zip file (.zip)";
-$_lang['ErrorFormatCSV'] = "ERROR: The format you gave is not compatible with Claroline";
-$_lang['ErrorInvalidParms'] = "Error : Invalid parameter (use numbers only)";
-$_lang['ErrorLanguageEmpty'] = "Language can not be empty";
-$_lang['ErrorLecturerEmpty'] = "Lecturer can not be empty";
-$_lang['ErrorLoadingExercise'] = "Unable to load the exercise";
-$_lang['ErrorLoadingQuestion'] = "Unable to load exercise's question";
-$_lang['ErrorMove'] = "You can not move a class in itself!";
-$_lang['ErrorMyOwnSettings'] = "You can not change your own status";
-$_lang['ErrorNameAlreadyExists'] = "Error : Name already exists in the learning path or in the module pool";
-$_lang['ErrorNoModuleInPackage'] = "No module in package";
-$_lang['ErrorNoZlibExtension'] = "Zlib php extension is required to use this tool.  Please contact your platform administrator.";
-$_lang['ErrorOpeningManifest'] = "Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml";
-$_lang['ErrorOpeningXMLFile'] = "Cannot find secondary initialisation file in the package.<br /> File not found : ";
-$_lang['ErrorReadingManifest'] = "Error reading <i>manifest</i> file";
-$_lang['ErrorReadingXMLFile'] = "Error reading a secondary initialisation file : ";
-$_lang['ErrorReadingZipFile'] = "Error reading zip file.";
-$_lang['ErrorSql'] = "Error in SQL statement";
-$_lang['ErrorUserNotInGroup'] = "Invalid user : this user doesn't exist in your group";
-$_lang['ErrorValuesInDouble'] = "Error : One or more values are doubled";
-$_lang['ErrortExtractingManifest'] = "Cannot extract manifest from zip file (corrupted file ? ).";
-$_lang['EventAdded'] = "Event added to the agenda.";
-$_lang['EventDeleted'] = "Event deleted from the agenda.";
-$_lang['EventUpdated'] = "Event updated into the agenda.";
-$_lang['ExAlreadyUsed'] = "This exercise is already used as a module in this learning path";
-$_lang['ExInsertedAsModule'] = "has been added as a module of the course and of this learning path";
-$_lang['ExeAvgTime'] = "Average Time";
-$_lang['ExeTime'] = "Time";
-$_lang['ExerciseAsModule'] = "Use an exercise";
-$_lang['ExerciseCancelled'] = "Exercise cancelled, choose a module in the list to continue.";
-$_lang['ExerciseClosing'] = "Exercise ends";
-$_lang['ExerciseContent'] = "<h4>What is the exercise tool ?</h4>
+ and Ok to access your courses. The URL of the site is';
+$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'This module is blocked.
+Making it invisible will allow students to access
+ the next module without having to complete this one.
+Confirm ?';
+$_lang['blockConfirmBlockingPathMadeInvisible'] = 'This path is blocking.
+Making it invisible will allow students to access
+ the next path without having to complete this one.
+Confirm ?';
+$_lang['blockConfirmDeleteModule'] = 'Are you sure to totally delete this module ?
+It will be completely deleted from the server and from any learning path it is in.
+You won\'t be able to use it in any learning path.
+Confirm delete of : ';
+$_lang['blockConfirmDeleteScorm'] = 'This learning path is part of a SCORM importation package. If you delete this path, all its SCORM conformant modules and related files will be deleted from the platform.  Are you sure you want to delete the learning path named ';
+$_lang['blockConfirmDeleteStats'] = 'If you delete the courses statistics there is no way to get them back !<br /><br />Are you sure you want to completely delete the statistics ?';
+$_lang['blockCourseCreationEmailMessage'] = '%date
+
+Course creation on %sitename by the user %user_firstname %user_lastname ( %user_email )
+
+Course code : %course_code
+Course title : %course_title
+Lecturer(s) : %course_lecturers
+Email : %course_email
+Category : %course_category
+Language : %course_language
+Url : %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Course content';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'What is the importance of the various content to be taught within the framework of the course?  What is the level of difficulty of this content?  How is the unit structured?  What will be the sequence of the content?  What does content lead to?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentation of the content of the course, the structuring of the content, the progression and the calendar';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'What are the human and physical resources available?  What will be the nature of the framing?  What can the students expect from of the organisation team or the organisation of the teacher?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Human and Physical Resources';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Methods of evaluation';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Qualifications and Goals';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.';
+$_lang['blockCourseDescriptionSupports'] = ' Support ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Does course support exist?  What type of support do I give?  Opened?  Closed?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Teaching-training activities';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
+$_lang['blockCourseHomePageIntroduction'] = 'Select the tools you want to make visible for your user.
+An invisible tool will be greyed out on your personal interface';
+$_lang['blockCourseSubscriptionNotification'] = '
+
+Dear %firstname %lastname,
+One of administrators of the course %courseCode has registered you on this course.
+
+The address of  %courseName is :
+
+%coursePath
+
+In case of problems, contact us.
+
+Yours sincerely,
+%administratorName
+
+--
+Manager : %administratorName
+Phone : %administratorPhone
+Email : %administratorEmail
+';
+$_lang['blockDefaultLearningPathComment'] = 'This is the introduction text of this learning path. To replace it by your own text, click below on <b>modify</b>.';
+$_lang['blockDefaultModuleAddedComment'] = 'This an additional introduction text about the presence of this module specially into this learning path. To replace it by your own text, click below on <b>modify</b>.';
+$_lang['blockDefaultModuleComment'] = 'This is the introduction text of this module, it will appears in each learning path that contains this module. To replace it by your own text, click below on <b>modify</b>.';
+$_lang['blockExercisesHelp'] = '<h4>What is the exercise tool ?</h4>
 This tool allow you to create online exercises composed of a list of questions. The questions can be of different kinds, students can fill in the exercises and if they are registered to your course, their scores will be stored and visible in the statitiscs of the course.
 <hr />
 <h4>Administering the exercises</h4>
 <p>To create an Exercise</p>
 <ul>
-<li> Click on \"New exercise\", in the start page of the tool (be sure that you are loggued in as teacher of the course or admin)</li>
+<li> Click on "New exercise", in the start page of the tool (be sure that you are loggued in as teacher of the course or admin)</li>
 <li> Enter a name for the exercise in the box</li>
 <li> Enter a description</li>
 <li> Choose if the user will see all the questions on a single page or one page for each question</li>
@@ -478,8 +1183,8 @@ This tool allow you to create online exercises composed of a list of questions. 
 <ul>
 <li> Press -elem for each answer to be removed</li>
 </ul>
-<p>You can also define the weighting of each answer, they can not be negative. Don't forget to click on \"ok\" to validate your new question.</p>
-<h4>'Fill in blanks' question</h4>
+<p>You can also define the weighting of each answer, they can not be negative. Don\'t forget to click on "ok" to validate your new question.</p>
+<h4>\'Fill in blanks\' question</h4>
 <p>This type of question is a text with some words missing that the student must fill in.
 When you create such a question&nbsp;:
 </p>
@@ -490,133 +1195,51 @@ When you create such a question&nbsp;:
 <li> <em>example:</em> [British people] live in [United Kingdom].</li>
 </ul>
 </li>
-<li> Click on \"next\" when done</li>
+<li> Click on "next" when done</li>
 <li> Define the ponderation for each answer</li>
-<li> Click on \"Ok\" to validate your new question</li>
+<li> Click on "Ok" to validate your new question</li>
 </ul>
 <hr />
 <h4>The Pool of questions</h4>
 <p>The pool of questions keeps a list of all questions created in the course.  The lists regroups already used question (in one or several exercises) and orphaned question (that are not used in any exercise).</p>
 <p>When you delete an exercise, questions of its own are not removed from the database, and can be reused in a new exercise, via the question pool.</p>
 <p>The question pool also allows you to reuse the same questions in several exercises.</p>
-<p>By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu \"Filter\".</p>
+<p>By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu "Filter".</p>
 <hr />
 <h4>How to see my previous scores ?</h4>
-<p>Every user can see its own scores below the list of exercises.  As a course manager you can click on the tracking link available for any exercise in the exercises list to have access to the detailled scores of each student of the course.</p>";
-$_lang['ExerciseDescription'] = "Exercise description";
-$_lang['ExerciseDone'] = "Exercise done, choose a module in the list to continue.";
-$_lang['ExerciseInModule'] = "Exercise in module";
-$_lang['ExerciseManagement'] = "Exercise management";
-$_lang['ExerciseName'] = "Exercise name";
-$_lang['ExerciseNoMoreAvailable'] = "Exercise no longer available";
-$_lang['ExerciseNotAvailable'] = "Exercise not available";
-$_lang['ExerciseNotFound'] = "Exercice not found";
-$_lang['ExerciseOpening'] = "Exercise starts:";
-$_lang['ExerciseTotalAttempts'] = "Total attempts";
-$_lang['ExerciseType'] = "Exercise type";
-$_lang['ExerciseUsersAttempts'] = "User attempts";
-$_lang['Exercises'] = "Exercises";
-$_lang['ExercisesDetails'] = "Scores of exercises done";
-$_lang['ExercisesResults'] = "Results of the exercises done";
-$_lang['ExercisesTitleExerciseColumn'] = "Exercise";
-$_lang['ExistingGroups'] = "Groups";
-$_lang['ExpectedChoice'] = "Expected choice";
-$_lang['ExplainDeleteFile'] = "Check this box to delete the attached file.";
-$_lang['ExplainReplaceFile'] = "Upload a new file to replace the file.";
-$_lang['Export'] = "Export";
-$_lang['ExportTrackingCsv'] = "Get tracking data in a CSV file";
-$_lang['ExternalToolName'] = "Name link";
-$_lang['ExternalToolUrl'] = "URL link";
-$_lang['ExtractFromLangFile'] = "From language files";
-$_lang['ExtractFromScriptFile'] = "From script files";
-$_lang['ExtractLangVariable'] = "Extract language variables";
-$_lang['False'] = "False";
-$_lang['Feedback'] = "Feedback";
-$_lang['FeedbackAdded'] = "Feedback added";
-$_lang['FeedbackEdited'] = "Feedback edited";
-$_lang['FeedbackFile'] = "Feedback file";
-$_lang['FeedbackHelp'] = "Feedback is optionnal. It is the correct version of the assignment. If not empty it will be shown to users according to the 'submit feedback' configuration.";
-$_lang['FeedbackSubmit'] = "Submit feedback";
-$_lang['FeedbackText'] = "Feedback text";
-$_lang['Feedbacks'] = "Feedbacks";
-$_lang['FieldSeparatorUsed'] = "Fields separator used";
-$_lang['FileContentModified'] = "File content modified";
-$_lang['FileCreated'] = "File created";
-$_lang['FileDesc'] = "File description";
-$_lang['FileError'] = "The file to upload is not valid.";
-$_lang['FileForCSVUpload'] = "CSV file with the user list : ";
-$_lang['FileName'] = "Filename";
-$_lang['FileNameMissing'] = "File name is missing";
-$_lang['FileNameOrURLMissing'] = "File Name or URL is missing.";
-$_lang['FileOnly'] = "File (file required, description text optional)";
-$_lang['FileRequired'] = "A file is required";
-$_lang['FileStructureChecker'] = "File structure checker";
-$_lang['Files'] = "File list";
-$_lang['FillBlanks'] = "Fill in blanks";
-$_lang['FillCourses'] = "Build test courses";
-$_lang['FillGroups'] = "Fill groups (automatically)";
-$_lang['FillLists'] = "Please fill the two lists below";
-$_lang['FillSelectBox'] = "Select in drop down list";
-$_lang['FillTextField'] = "Fill text field";
-$_lang['FillTheAreaToExplainTheMotivations'] = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).";
-$_lang['FillToolCourses'] = "Fill tool courses";
-$_lang['FillTree'] = "Insert categories of course";
-$_lang['FillType'] = "Fill type";
-$_lang['FillUsers'] = "Insert users";
-$_lang['Filling'] = "Fill with test values";
-$_lang['Filter'] = "Filter";
-$_lang['FindDoubledVariable'] = "Find doubled variables";
-$_lang['FindVarWithSameContentAndDifferentName'] = "Variables with same content and different name";
-$_lang['FindVarWithSameNameAndDifferentContent'] = "Variables with same name and different content";
-$_lang['Finish'] = "Finish";
-$_lang['FirstName'] = "First Name";
-$_lang['FirstSubmission'] = "First submission";
-$_lang['Firstname'] = "First name";
-$_lang['ForumCreated'] = "Forum created.";
-$_lang['ForumDeleted'] = "Forum deleted.";
-$_lang['ForumEmptied'] = "Forum emptied.";
-$_lang['ForumGroup'] = "Forum of the group";
-$_lang['ForumUpdated'] = "Forum updated.";
-$_lang['Free'] = "Free";
-$_lang['From'] = "From";
-$_lang['FullScreen'] = "Fullscreen";
-$_lang['Functions'] = "Function list";
-$_lang['Garbage'] = "Garbage";
-$_lang['GetExistingQuestion'] = "Get a question from another exercise";
-$_lang['GiveAdminRight'] = "Set a user as admin";
-$_lang['GiveAnswers'] = "Please give the answers to the question";
-$_lang['GiveExerciseName'] = "Please give the exercise name";
-$_lang['GiveQuestion'] = "Please give the question";
-$_lang['GiveText'] = "Please type the text";
-$_lang['GlobalProgress'] = "Learning path progression : ";
-$_lang['Go2accountCreationPage'] = "Go to the account creation page";
-$_lang['GoBackToEx'] = "Go back to the exercise";
-$_lang['GoBackToQuestionList'] = "Go back to the question list";
-$_lang['GoBackToQuestionPool'] = "Go back to the question pool";
-$_lang['GoToMainUserSettings'] = "Go to main user settings";
-$_lang['GoToUserSettings'] = "Go to user settings";
-$_lang['Group'] = "Group";
-$_lang['GroupAllowStudentRegistration'] = "Students are allowed to self-register in groups";
-$_lang['GroupAlwaysPrivate'] = "(always private)";
-$_lang['GroupAssignment'] = "Groups (from groups tool, only group members can post)";
-$_lang['GroupChatLink'] = "Chat of the group";
-$_lang['GroupContent'] = "<p><b>Introduction</b></p>
+<p>Every user can see its own scores below the list of exercises.  As a course manager you can click on the tracking link available for any exercise in the exercises list to have access to the detailled scores of each student of the course.</p>';
+$_lang['blockFeedbackHelp'] = 'Feedback is optionnal. It is the correct version of the assignment. If not empty it will be shown to users according to the \'submit feedback\' configuration.';
+$_lang['blockForumNotificationEmailMessage'] = 'Dear %firstname %lastname,
+
+You are receiving this email because a new message in one of your favourite topics on our forums has been added, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%url_topic
+
+Or view the forum index at
+
+%url_forum
+
+Thank you for using our forums.';
+$_lang['blockGroupsHelp'] = '<p><b>Introduction</b></p>
 <p>This tool allows to create and manage work groups.
 At creation (Create groups), groups are emtpy. There are
 many ways to fill them:
-<ul><li>automatically ('Fill groups'),</li>
-<li>manually ('Edit'),</li>
-<li>self-registration by students (Groups settings: 'Self registration allowed...').</li>
+<ul><li>automatically (\'Fill groups\'),</li>
+<li>manually (\'Edit\'),</li>
+<li>self-registration by students (Groups settings: \'Self registration allowed...\').</li>
 </ul>
 These three ways can be combined. You can, for instance, ask students to self-register first.
-Then discover that some of them didn't and decide then to fill groups automatically in
+Then discover that some of them didn\'t and decide then to fill groups automatically in
 order to complete them. You can also edit each group to compose membership one student
 at a time after or before self-registration and/or automatical filling.</p>
 <p>Group filling, whether automatical or manual, works only if there are already students
-registered in the course (don't mix registration to the course with registration into groups).
+registered in the course (don\'t mix registration to the course with registration into groups).
 Students list is visible in <b>Users</b> tool. </p><hr noshade size=1>
 <p><b>Create groups</b></p>
-<p>To create new groups, click on 'Create new group(s)' and determine number of groups to
+<p>To create new groups, click on \'Create new group(s)\' and determine number of groups to
 create. Maximum number of members is optional but we suggest to chose one. If you leave max. field
 unchanged, groups size maximum will be infinite.</p><hr noshade size=1>
 <p><b>Group settings</b></p>
@@ -636,715 +1259,51 @@ with a series of information and functions
 <ul><li><b>Edit</b> to modify manually Group name, description, tutor,
 members list.</li>
 <li><b>Delete</b> deletes a group.</li></ul>
-<hr noshade size=1>";
-$_lang['GroupDel'] = "Group deleted";
-$_lang['GroupDescription'] = "Description";
-$_lang['GroupDocument'] = "Documents";
-$_lang['GroupDocumentsLink'] = "Documents of the group ";
-$_lang['GroupFilledGroups'] = "Groups have been filled (or completed) by students present in the 'Users' list.";
-$_lang['GroupForum'] = "Forum";
-$_lang['GroupLimit'] = "Limit";
-$_lang['GroupMembers'] = "Group members";
-$_lang['GroupName'] = "Group name";
-$_lang['GroupNoTutor'] = "(none)";
-$_lang['GroupNone'] = "(none)";
-$_lang['GroupNoneMasc'] = "(none)";
-$_lang['GroupNowMember'] = "You are now a member of this group.";
-$_lang['GroupPlacesThis'] = "seats (optional)";
-$_lang['GroupProperties'] = "Groups settings";
-$_lang['GroupPropertiesModified'] = "Group settings have been modified";
-$_lang['GroupSelfRegInf'] = "register";
-$_lang['GroupSelfRegistration'] = "Registration";
-$_lang['GroupSettingsModified'] = "Group settings modified";
-$_lang['GroupSpace'] = "Group area";
-$_lang['GroupSpaceLink'] = "Group area";
-$_lang['GroupThisSpace'] = "Area for this group";
-$_lang['GroupTooMuchMembers'] = "Number proposed exceeds max. that you allowed (you can modify it below).
-                Group composition has not been modified";
-$_lang['GroupTools'] = "Tools";
-$_lang['GroupTutor'] = "Group Tutor";
-$_lang['GroupUserManagement'] = "Group management";
-$_lang['GroupWikiLink'] = "Wiki of the group";
-$_lang['Groups'] = "Groups";
-$_lang['GroupsAdded'] = "group(s) has (have) been added";
-$_lang['GroupsDeleted'] = "All groups have been deleted";
-$_lang['GroupsEmptied'] = "All groups are now empty";
-$_lang['GroupsNotEmptied'] = "Unable to empty groups";
-$_lang['HExercise'] = "Help exercises";
-$_lang['HasBeenEnrolled'] = "has been enrolled";
-$_lang['Heading'] = "Heading";
-$_lang['HelpAssignment'] = "Help assignment";
-$_lang['HelpAssignmentContent'] = "<p>
-Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
-Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
-Students have the ability to modify their work after submission and the course manager can give them a feedback about their submissions.
-</p>
-<hr />
-<h4>Create an assignment</h4>
-<p>To create a new assignment course manager must enter in the assignment tool and click on the link \"Create a new assignment\".
-</p>
-<p>The form that is shown ask the course manager for&nbsp;:
-</p>
-<ul><li> a title&nbsp;: the name of the assignment
-</li><li> a description&nbsp;: the statement of the assignment, what learners have to do
-</li><li> a submission type&nbsp;:
-<ul><li> File&nbsp;: any type of file that can be uploaded, keep in mind that there is a size limit that depends on the platform, a text can be joined to describe the file
-</li><li> Text only&nbsp;: a text formatted using the wysiwyg editor
-</li><li> Text with an attached file&nbsp;: a text formatted using the wysiwyg editor and a file (file is not required)
-</li></ul>
-</li><li> a start date&nbsp;: date from when the users will be able to post a publication in the assignment
-</li><li> a end date&nbsp;: date until when the users will be able to post a publication in the assignment
-</li><li> the default publications visibility&nbsp;: choose if the publications will be available or not to others users
-</li><li> the assignment type&nbsp;:
-<ul><li> individual mode&nbsp;: any authenticated user can post a publication
-</li><li> group mode&nbsp;: the user must be a member of at least one group of the course to publish a work and the work will be posted in the name of the group
-</li></ul>
-</li><li> permission to upload after end date
-</li></ul>
-<p><br />
-<strong>Add an automatic feedback</strong>
-</p>
-<p>A feedback is a correct version of the assignment.  To add an automatic feedback to an assignment enter the assignment and click on the \"Edit automatic feedback\" link.  </p>
-<p>It can be a text or a file or both a text and a file.  The course manager can choose when this automatic feedback will be shown to users ( after assignment end date or after the first submission of the user in this assignment )
-</p>
-<hr />
-<h4>Works</h4>
-<p>Works are the publications uploaded by users.</p>
-<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
-The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
-<p><strong>Submit a work</strong></p>
-<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
-<p><strong>Work list</strong></p>
-<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
-</p>
+<hr noshade size=1>';
+$_lang['blockIntroCourse'] = 'You are on the course home page.<br /><br />On this page, you can :
 <ul>
-<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
-</li>
-<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
-</li>
-<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
-</li>
-<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
-</li>
-<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
-</li>
-</ul>
-";
-$_lang['HelpGroups'] = "Help groups";
-$_lang['Hereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage'] = "Here you can modify the content of the text zones displayed on the platform home page.";
-$_lang['High_resources'] = "high resources";
-$_lang['Hits'] = "Hits";
-$_lang['HomePageTextZone'] = "Home page text zones";
-$_lang['HumanAndPhysicalResourcesComment1'] = "What are the human and physical resources available?  What will be the nature of the framing?  What can the students expect from of the organisation team or the organisation of the teacher?";
-$_lang['HumanAndPhysicalResourcesComment2'] = "Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.";
-$_lang['HumanAndPhysicalRessources'] = "Human and Physical Resources";
-$_lang['IfNotRedirect'] = "If not redirected ";
-$_lang['Import'] = "Import";
-$_lang['ImpossibleToPromote'] = "Impossible to promote group tutor a student already register to group";
-$_lang['InFrames'] = "In frames";
-$_lang['IncorrectDate'] = "Start date must be before end date ...";
-$_lang['Individual'] = "Individual";
-$_lang['Info2Say'] = "Information to give to students";
-$_lang['InfoProgNameTitle'] = "Information";
-$_lang['InsertMyDocToolName'] = "Insert a document as module";
-$_lang['InsertMyExerciseToolName'] = "Insert my exercise";
-$_lang['InsertMyModuleToolName'] = "Insert my module";
-$_lang['InsertMyModulesTitle'] = "Insert a module of the course";
-$_lang['InsertNewModuleName'] = "Insert new name";
-$_lang['Installed'] = "Learning path has been successfully imported.";
-$_lang['Institution'] = "Institution";
-$_lang['InstitutionUrl'] = "Institution URL";
-$_lang['IntroCourse'] = "You are on the course home page.<br /><br />On this page, you can :
-<ul>
-<li>activate or deactivate tools (click on the 'Edit Tool list' button at bottom left).</li>
+<li>activate or deactivate tools (click on the \'Edit Tool list\' button at bottom left).</li>
 <li>change settings or view statistics (click on corresponding links at bottom).</li>
 </ul>
-Now, to add an introduction text presenting your course to students, click on this button ";
-$_lang['IntroEditToolList'] = "Select the tools you want to make visible for your user.
-An invisible tool will be greyed out on your personal interface";
-$_lang['IntroLearningPath'] = "Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br /><br />If you want to present your learning path to students, click on the button below.<br />";
-$_lang['IntroText'] = "To send a message, select groups of users (marked with a * in the front)
- or single users from the list on the left.";
-$_lang['IntroWork'] = "This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course's website.
+Now, to add an introduction text presenting your course to students, click on this button ';
+$_lang['blockIntroLearningPath'] = 'Use this tool to provide your students with a sequential path between documents, exercises, HTML pages, links,...<br /><br />If you want to present your learning path to students, click on the button below.<br />';
+$_lang['blockIntroWork'] = 'This tool allows the teacher to create assignments in which any student (according to each assignment settings) will be able to upload a document, or write a text, on the course\'s website.
 <br />You will be able to add a comment or a grade to each work.
-<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br />";
-$_lang['InvalidIdSelfReg'] = "<b>Login failed.</b><br />Please try again.<br />
-<small>If you haven't a user account yet, use the <a href=\"%s\">the account creation form</a></small>";
-$_lang['Invisible'] = "Invisible";
-$_lang['IsAlreadyRegistered'] = "is already registered to course";
-$_lang['IsNowInYourDocDir'] = "is now in  your document tool. <br /><B>This file is visible</B>";
-$_lang['IsNowRegistered'] = "is now registered to course";
-$_lang['LabelCanBeEmpty'] = "Course title needed";
-$_lang['Last31days'] = "Last 31 days";
-$_lang['Last7Days'] = "Last 7 days";
-$_lang['LastAccess'] = "Last access";
-$_lang['LastActiveTopics'] = "Last active topics";
-$_lang['LastAttempt'] = "Last attempt";
-$_lang['LastCheck'] = "Last check before install";
-$_lang['LastEditDate'] = "Last edit date";
-$_lang['LastMsgs'] = "Last messages";
-$_lang['LastName'] = "Last Name";
-$_lang['LastSessionTimeSpent'] = "Last session time";
-$_lang['Lastname'] = "Last name";
-$_lang['LateUpload'] = "Late upload";
-$_lang['LaunchRestoreCourseRepository'] = "Launch restore of the course repository";
-$_lang['LearnPathDetails'] = "Progress in learning paths";
-$_lang['LearningPath'] = "Learning Path";
-$_lang['LearningPathAdmin'] = "Learning Path Admin";
-$_lang['LearningPathEmpty'] = "Learning Path is empty";
-$_lang['LearningPathList'] = "Learning Path List";
-$_lang['LearningPathName'] = "New learning path name : ";
-$_lang['LearningPathNotFound'] = "Learning Path not found";
-$_lang['LegendRequiredFields'] = "<span class=\"required\">*</span> denotes required field";
-$_lang['LessAnswers'] = "Rem. answ.";
-$_lang['LessElements'] = "Rem. elem.";
-$_lang['LessonStatus'] = "Module status";
-$_lang['Licence'] = "License";
-$_lang['Line'] = "line";
-$_lang['LineNumber'] = "Line Number";
-$_lang['LineOrLines'] = "line(s)";
-$_lang['Lines'] = "lines";
-$_lang['LinkerAdd'] = "Attach";
-$_lang['LinkerAddNewAttachment'] = "Attach an existing resource";
-$_lang['LinkerAlreadyInAttachementList'] = " is already attached";
-$_lang['LinkerAttachements'] = "Attached resources";
-$_lang['LinkerCloseJpspan'] = "Close";
-$_lang['LinkerClosePopup'] = "Close popup";
-$_lang['LinkerDelete'] = "Delete";
-$_lang['LinkerExternalLink'] = "External link";
-$_lang['LinkerMyOtherCourses'] = "My other courses";
-$_lang['LinkerPromptForUrl'] = "Enter link url";
-$_lang['LinkerPromptInvalidEmail'] = "Invalid email address";
-$_lang['LinkerPromptInvalidUrl'] = "Invalid url";
-$_lang['LinkerPublicCourses'] = "Public courses";
-$_lang['LinkerResourceAttachment'] = "Attached Resources : Add / Delete attachement";
-$_lang['LinkerUntitled'] = "Untitled";
-$_lang['ListAdmin'] = "List of admin users";
-$_lang['ListAllUsers'] = "List All Users";
-$_lang['ListClassUser'] = "Class users";
-$_lang['ListCourseUsers'] = "Course users list";
-$_lang['ListHtUsers'] = "View .htpassword";
-$_lang['ListStudents'] = "List of students in this group";
-$_lang['ListUsers'] = "User list";
-$_lang['LoadDefaultFormat'] = "Load default format";
-$_lang['Location'] = "Location";
-$_lang['Locked'] = "Locked";
-$_lang['Login'] = "Login";
-$_lang['LoginRequest'] = "Login request";
-$_lang['LoginWithoutAccess'] = "Logins not used";
-$_lang['Logins'] = "Logins";
-$_lang['LoginsAndAccessTools'] = "Logins and access to tools";
-$_lang['LoginsDetails'] = "Click on the month name for more details";
-$_lang['LoginsTitleCountColumn'] = "Number of logins";
-$_lang['LoginsTitleMonthColumn'] = "Month";
-$_lang['LostPassword'] = "Lost password";
-$_lang['MailAppearAlready'] = "This mail appears already in a previous line of the CSV file.";
-$_lang['MailSynthaxError'] = "Mail synthax error.";
-$_lang['MailTo'] = "Mail to : ";
-$_lang['MailUsed'] = "Mail is already used by another user.";
-$_lang['MainDB'] = "Main database";
-$_lang['MainGroupSettings'] = "Main Group Settings";
-$_lang['Maintenance'] = "Maintenance";
-$_lang['MakeCorrespond'] = "Make correspond";
-$_lang['MakeInvisible'] = "Make invisible";
-$_lang['MakeNewSearch'] = "Make new search : ";
-$_lang['MakeSearch'] = "Make search";
-$_lang['MakeVisible'] = "Make visible";
-$_lang['Manage'] = "Manage Campus";
-$_lang['ManageClasses'] = "Manage classes";
-$_lang['ManageCourseCategories'] = "Manage course categories";
-$_lang['Matching'] = "Matching";
-$_lang['Max'] = "Max.";
-$_lang['MaxAllowedTime'] = "Maximum allowed time";
-$_lang['MaxFileSize'] = "Max file size : ";
-$_lang['MaxSizeCourseCode'] = "max. 12 characters, ie.<em>ROM2121</em>";
-$_lang['MaxStudentGroup'] = "Maximum number of students per group";
-$_lang['Maximum'] = "Maximum : ";
-$_lang['MemorizeYourPassord'] = "Memorize them, you will use them the next time you will enter to this site.";
-$_lang['MessageEnrollToCourseNotAllowed'] = "Enroll to course not allowed";
-$_lang['MessageRegistrationNotAllowed'] = "Registration not allowed on the platform";
-$_lang['MessageSubscribeDone_p_firstname_lastname'] = "Dear %s, %s. Your personal settings have been registered and an email has been sent to help you remember your user name and password.";
-$_lang['MessageToSelectedUsers'] = "Messages to selected users";
-$_lang['Messages'] = "Messages";
-$_lang['MethodsOfEvaluation'] = "Methods of evaluation";
-$_lang['MethodsOfEvaluationComment1'] = "Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.";
-$_lang['Min'] = "Minimum : ";
-$_lang['MinuteShort'] = "min.";
-$_lang['Missing'] = "missing";
-$_lang['MissingFields'] = "Missing field(s)";
-$_lang['MissingImagesDetected'] = "Missing images detected";
-$_lang['MissingValue'] = "Missing value";
-$_lang['ModifAnn'] = "Modifies this announcement";
-$_lang['ModifUserCourseSettings'] = "User course settings";
-$_lang['ModifyExercise'] = "Modify exercise";
-$_lang['ModifyFormat'] = "Modify the format";
-$_lang['ModifyInAllExercises'] = "in all exercises";
-$_lang['ModifyInThisExercise'] = "only in the current exercise";
-$_lang['Module'] = "Module";
-$_lang['ModuleMoved'] = "Module moved";
-$_lang['ModuleOfMyCourse'] = "Use a module of this course";
-$_lang['ModuleStillInPool'] = "Modules of this path will still be available in the pool of modules";
-$_lang['Modules'] = "Modules";
-$_lang['ModulesPoolToolName'] = "Pool of modules";
-$_lang['MoreAnswers'] = "Add answ.";
-$_lang['MoreElements'] = "Add elem.";
-$_lang['MoreRepliedTopics'] = "More replied topics";
-$_lang['MoreSeenTopics'] = "More seen topics";
-$_lang['MoveDown'] = "Move down";
-$_lang['MoveUp'] = "Move up";
-$_lang['MsgSent'] = "The message has been sent to the selected students";
-$_lang['MultipleAnswers'] = "Multiple answers";
-$_lang['MultipleEmails'] = "Accounts with same <i>Email</i>";
-$_lang['MultipleLogins'] = "Accounts with same <i>User name</i>";
-$_lang['MultipleSelect'] = "Multiple choice (Multiple answers)";
-$_lang['MultipleUsernameAndPassword'] = "Accounts with same <i>User name</i> AND same <i>Password</i>";
-$_lang['MustSelectAFile'] = "You must select a file";
-$_lang['MustSelectATxtFile'] = "You must select a text file";
-$_lang['MyAgenda'] = "My calendar";
-$_lang['MyGroup'] = "my group";
-$_lang['MyResults'] = "My results";
-$_lang['MyStats'] = "View my statistics";
-$_lang['MysqlNames'] = "MySQL Database and Table Names";
-$_lang['Mysql_Repository'] = "Mysql Repository";
-$_lang['NULLValue'] = "Empty (or NULL)";
-$_lang['Name'] = "Name";
-$_lang['NameChanged'] = "Name of the class has been changed";
-$_lang['NbLines'] = "Number of rows";
-$_lang['NbrAccess'] = "Access count";
-$_lang['Never'] = "Never";
-$_lang['NeverBrowsed'] = "Never browsed";
-$_lang['NeverConnectedStudents'] = "Never connected students : ";
-$_lang['NeverUsed'] = "Never used";
-$_lang['NewBloc'] = "Other";
-$_lang['NewChat'] = "New chat";
-$_lang['NewClassCreated'] = "The new class has been created";
-$_lang['NewClassName'] = "New Class name";
-$_lang['NewGroupCreate'] = "Create new group(s)";
-$_lang['NewGroups'] = "new group(s)";
-$_lang['NewLabel'] = "Create a new label / title in this learning path";
-$_lang['NewLegend'] = "denotes new items";
-$_lang['NewUsersIn'] = "new users in the platform : ";
-$_lang['Next'] = "Next";
-$_lang['NextDay'] = "Next Day";
-$_lang['NextMonth'] = "Next Month";
-$_lang['NextWeek'] = "Next Week";
-$_lang['NextYear'] = "Next Year";
-$_lang['NoAnnouncement'] = "No announcement.";
-$_lang['NoAnswer'] = "There is no answer for the moment";
-$_lang['NoContent'] = "No Content";
-$_lang['NoCourseResult'] = "There is no course matching such criteria";
-$_lang['NoEmail'] = "No email address specified";
-$_lang['NoEndDate'] = "No closing date";
-$_lang['NoEventInTheAgenda'] = "No event in the agenda";
-$_lang['NoFile'] = "- none -";
-$_lang['NoForum'] = "No forum";
-$_lang['NoFunctionInThisSection'] = "No function in this extension";
-$_lang['NoGroupStudents'] = "Unassigned students";
-$_lang['NoGroupsDeleted'] = "No group deleted";
-$_lang['NoImage'] = "No image to display";
-$_lang['NoLearningPath'] = "No learning path";
-$_lang['NoModule'] = "No module";
-$_lang['NoMoreAttemptsAvailable'] = "You have reached the maximum number of allowed attempts.";
-$_lang['NoMoreModuleToAdd'] = "All modules of this course are already used in this learning path.";
-$_lang['NoPost'] = "No Post";
-$_lang['NoPostAllowed'] = "No new post allowed";
-$_lang['NoQuestion'] = "There is no question for the moment";
-$_lang['NoQuota'] = "No quota";
-$_lang['NoRegisteredCourses'] = "No stats to show.  You haven't registered any course.";
-$_lang['NoResult'] = "No Result";
-$_lang['NoScore'] = "No score";
-$_lang['NoScript'] = "No scripts";
-$_lang['NoStartAsset'] = "There is no start asset defined for this module.";
-$_lang['NoTimeLimit'] = "No time limitation";
-$_lang['NoTrackingForExerciseAttempt'] = "There is no tracking for this attempt.";
-$_lang['NoUserFound'] = "No user found";
-$_lang['NoUserResult'] = "No user to display";
-$_lang['NoVisibleAssignment'] = "There is no assignment at the moment.";
-$_lang['NoVisibleSubmission'] = "No visible submission";
-$_lang['NomPageAddHtPass'] = "Admin users management";
-$_lang['NormalUser'] = "Normal";
-$_lang['NotGroupMember'] = "You are not a member of this groups";
-$_lang['NotInstalled'] = "An error occured.  Learning Path import failed.";
-$_lang['NotRecentlyConnectedStudents'] = "Not recently connected students : ";
-$_lang['NotSaved'] = "Unable to save";
-$_lang['NotUnregYourself'] = "You can not change your own settings!";
-$_lang['Notice'] = "Notice";
-$_lang['NoticeInstallFolderBrowsable'] = "<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server";
-$_lang['NowGoChooseYourCourses'] = "You can now select, in the list, the courses you want to access.";
-$_lang['NowGoCreateYourCourse'] = "You can now create  your  course";
-$_lang['NumGroup'] = "Number of groups per courses";
-$_lang['NumGroupStudent'] = "Number of teams which student can subscribe to in the course";
-$_lang['Numero'] = "No.";
-$_lang['OfficialCode'] = "Administrative code";
-$_lang['OkChapterHeadAdded'] = "Title added : ";
-$_lang['OkDefaultCommentUsed'] = "warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it";
-$_lang['OkDefaultTitleUsed'] = "warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.";
-$_lang['OkFileReceived'] = "File received : ";
-$_lang['OkManifestFound'] = "Manifest found in zip file : ";
-$_lang['OkManifestRead'] = "Manifest read.";
-$_lang['OkModuleAdded'] = "Module added : ";
-$_lang['OneByOne'] = "Add user manually";
-$_lang['OneMyGroups'] = "my supervision";
-$_lang['Only'] = "Only";
-$_lang['Optional'] = "Optional";
-$_lang['Order'] = "Order";
-$_lang['OrderUp'] = "Order up";
-$_lang['OrphanQuestions'] = "Orphan questions";
-$_lang['OtherCourses'] = "Course list";
-$_lang['OtherWorks'] = "other functions";
-$_lang['PassTooEasy'] = "this password is too simple. Use a password like this ";
-$_lang['Password'] = "Password";
-$_lang['PasswordHasBeenEmailed'] = "Your password has been emailed to ";
-$_lang['PasswordSimple'] = "Password given is too simple or too close to the username.";
-$_lang['PathContentTitle'] = "Learning path content";
-$_lang['PathsInCourseProg'] = "Course progression ";
-$_lang['Perhaps_with_others_directory'] = "perhaps with others directory";
-$_lang['PeriodDay'] = "Day";
-$_lang['PeriodDayShort'] = "d.";
-$_lang['PeriodHour'] = "Hour";
-$_lang['PeriodHourShort'] = "h.";
-$_lang['PeriodMonth'] = "Month";
-$_lang['PeriodToDisplay'] = "Period";
-$_lang['PeriodWeek'] = "Week";
-$_lang['PeriodYear'] = "Year";
-$_lang['PersoValue'] = "Values";
-$_lang['PersonalCourseList'] = "Personal course list";
-$_lang['Phone'] = "Phone";
-$_lang['Places'] = "seats by groups (optional)";
-$_lang['Platform'] = "Platform";
-$_lang['PlatformAccess'] = "Access to campus";
-$_lang['PlatformAdministration'] = "Platform Administration";
-$_lang['PlatformAdministrator'] = "Platform Administrator";
-$_lang['PlatformCoursesAccess'] = "Access to courses";
-$_lang['PlatformStats'] = "Platform Statistics";
-$_lang['PleaseEnterMessage'] = "You must introduce the message text.";
-$_lang['PleaseSelectUsers'] = "You must select some users.";
-$_lang['PopulateTools'] = "Populate tools in courses";
-$_lang['PostReply'] = "Post reply";
-$_lang['Prefix'] = "Prefix  : ";
-$_lang['PreventLateUpload'] = "No, prevent users submitting work after the end date";
-$_lang['Preview'] = "Preview";
-$_lang['Previous'] = "Previous";
-$_lang['PreviousDay'] = "Previous Day";
-$_lang['PreviousLevel'] = "previous level";
-$_lang['PreviousMonth'] = "Previous Month";
-$_lang['PreviousWeek'] = "Previous Week";
-$_lang['PreviousYear'] = "Previous Year";
-$_lang['PrintVers'] = "Printable version";
-$_lang['Private'] = "Private";
-$_lang['PrivateFeedback'] = "Private feedback";
-$_lang['PrivateOnly'] = "Private course only";
-$_lang['ProfessorMessage'] = "Message from your lecturer";
-$_lang['ProgInModuleTitle'] = "Your progression in this module";
-$_lang['Progress'] = "Progress";
-$_lang['PropertiesNotIncludeInSections'] = "Properties not include in sections";
-$_lang['Public'] = "Public";
-$_lang['PublicOnly'] = "Public course only";
-$_lang['Publish'] = "Publish";
-$_lang['QtyOfUserCanSubscribe_PartAfterNumber'] = "&nbsp;groups";
-$_lang['QtyOfUserCanSubscribe_PartBeforeNumber'] = "A user can be a member of maximum ";
-$_lang['QualificationsAndGoals'] = "Qualifications and Goals";
-$_lang['QualificationsAndGoalsComment1'] = "What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?";
-$_lang['QualificationsAndGoalsComment2'] = "Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.";
-$_lang['Quantity'] = "Quantity";
-$_lang['QuestionAnswers'] = "Answers to the question";
-$_lang['QuestionDescription'] = "Statement";
-$_lang['QuestionList'] = "Question list of the exercise";
-$_lang['QuestionManagement'] = "Question / Answer management";
-$_lang['QuestionNotFound'] = "Question not found";
-$_lang['QuestionPlan'] = "Question to lecturer";
-$_lang['QuestionPool'] = "Question pool";
-$_lang['QuestionTitle'] = "Question title";
-$_lang['QuestionWeighting'] = "Weighting";
-$_lang['Questions'] = "Questions";
-$_lang['QuitViewer'] = "Back to list";
-$_lang['RandomLanguage'] = "Shuffle selection in available languages";
-$_lang['RandomQuestions'] = "Random questions";
-$_lang['RawHasBeenChanged'] = "Minimum raw to pass has been changed";
-$_lang['RegIntoGroup'] = "Add me to this group";
-$_lang['Register'] = "Register";
-$_lang['RegisterCampusAdvice'] = "Please check that your campus URL is reachable from the internet.";
-$_lang['RegisterClass'] = " Register a class";
-$_lang['RegisterLocalUrl'] = "Your campus url seems to be a local url.
+<br /><br />If you want to present this tool or give some recommendations to students, click on the button below.<br />';
+$_lang['blockModulePoolHelp'] = 'This page allows you to view all the modules available in this course. <br />
+                     Any exercise or document that has been added in a learning path will also appear in this list.';
+$_lang['blockRegisterLocalUrl'] = 'Your campus url seems to be a local url.
 A web accessible url is required to register your site on Claroline.net.<br /><br />
-Check the value of 'Web base' in your Claroline configuration.";
-$_lang['RegisterMyCampus'] = "Register my campus";
-$_lang['RegisterTheNewUser'] = "Register this user to a course";
-$_lang['RegisterUser'] = "Enrol to a new course";
-$_lang['RegisterUserToClass'] = "Register user to class";
-$_lang['Registered'] = "Registered";
-$_lang['RemoveAdminLevel'] = "No longer Admin";
-$_lang['ReplaceAttachedFile'] = "Replace attached file";
-$_lang['RequestOfCourseCreatorStatus'] = "Request course creation status";
-$_lang['RequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile'] = "Request to the coder of this config to add theses proporties in a section of the definition file.";
-$_lang['Required'] = "Required";
-$_lang['Requirements'] = "Requirements";
-$_lang['ResetChat'] = "Reset";
-$_lang['RestoreCourseRepository'] = "Restore course repository";
-$_lang['Retry'] = "retry";
-$_lang['Reuse'] = "Reuse";
-$_lang['RevoquationOfUser'] = "Revocation of %s %s";
-$_lang['Root'] = "root";
-$_lang['SCORMTypeDesc'] = "SCORM 1.2 conformable content";
-$_lang['SDK'] = "SDK";
-$_lang['SampleDocument'] = "example_document";
-$_lang['SampleDocumentDesc'] = "You can use any document existing in the documents tool of this course.";
-$_lang['SampleExerciseDesc'] = "You can use any exercise of the exercises tool of your course.";
-$_lang['SampleLearnPath'] = "Sample learning path";
-$_lang['SampleLearnPathDesc'] = "This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on
-                            <b>Modify</b> to change this text.";
-$_lang['SaveChanges'] = "Save changes";
-$_lang['Score'] = "Score";
-$_lang['ScoreAvg'] = "Average score";
-$_lang['ScoreMax'] = "Best score";
-$_lang['ScoreMin'] = "Worst score";
-$_lang['ScormIntroTextForDummies'] = "Imported packages must consist of a zip file and be SCORM 1.2 conformable";
-$_lang['ScriptMissing'] = "Script missing";
-$_lang['ScriptMissingComment'] = "You must install these scripts to run correctly claroline";
-$_lang['ScriptNotInArchive'] = "Script not in claroline";
-$_lang['ScriptNotInArchiveComment'] = "You can delete these scripts from you server";
-$_lang['Search'] = "Search";
-$_lang['SearchAgain'] = "Search again (advanced)";
-$_lang['SearchCourse'] = "Search course";
-$_lang['SearchCourseAdvanced'] = "Advanced course search";
-$_lang['SearchOn'] = "Search on";
-$_lang['SearchResult'] = "Search result";
-$_lang['SearchUser'] = "Search user";
-$_lang['SearchUserAdvanced'] = "Advanced user search";
-$_lang['SecondShort'] = "sec.";
-$_lang['SeeUserSettings'] = "See user settings";
-$_lang['Seebelowthefilesyoucaneditfromthistool'] = "See below the files you can edit from this tool.";
-$_lang['SelUser'] = "selected users of the site";
-$_lang['SelectAUser'] = "Choose user";
-$_lang['SelectedUsers'] = "Selected Users";
-$_lang['SendToUserAccountInfoByMail'] = "Send account information to user by email";
-$_lang['SequentialExercise'] = "One question per page (sequential)";
-$_lang['SetAdmin'] = "Set Admin";
-$_lang['ShowAll'] = "Show all";
-$_lang['ShowAnswers'] = "Show answers";
-$_lang['ShowAnswersAfterLastTry'] = "After last allowed attempt";
-$_lang['ShowNone'] = "Show none";
-$_lang['SimpleExercise'] = "On an unique page";
-$_lang['SiteName'] = "Site name";
-$_lang['Size_of_claroline_scripts'] = " size of claroline scripts";
-$_lang['Size_of_course_repository'] = "!!!! size of course repository (include claroline and garbage in old systems)";
-$_lang['Size_of_selected_courses'] = "size of selected courses";
-$_lang['SpecifyFormat'] = "You must specify the CSV format used in your file";
-$_lang['StartDate'] = "Start date";
-$_lang['StartModule'] = "Start Module";
-$_lang['StatDB'] = "Tracking database";
-$_lang['StatsByQuestion'] = "Statistics by question";
-$_lang['StatsByUser'] = "Statistics by user";
-$_lang['StatsOfCampus'] = "Statistics of campus";
-$_lang['StatsOfCourse'] = "Statistics of course";
-$_lang['StatsOfExercise'] = "Statistics of exercise";
-$_lang['StatsOfExerciseAttempt'] = "Statistics of exercise attempt";
-$_lang['StatsOfLearnPath'] = "Statistics";
-$_lang['StatsOfQuestion'] = "Statistics of question";
-$_lang['StatsOfUser'] = "Statistics of user";
-$_lang['StatusChangeNotMade'] = "No change applied";
-$_lang['StepNOfN'] = "Step %d of %d";
-$_lang['StoreChat'] = "Store Chat";
-$_lang['StudentQty'] = "Nb. Students";
-$_lang['Students'] = "Students";
-$_lang['StudentsNotInThisGroups'] = "Users not in this group";
-$_lang['SubTitleChangeParent'] = "Change parent's category of ";
-$_lang['SubTitleCreate'] = "Create a category";
-$_lang['SubTitleEdit'] = "Edit a category";
-$_lang['SubmissionDate'] = "First&nbsp;submission&nbsp;date";
-$_lang['SubmissionType'] = "Submission type";
-$_lang['Submissions'] = "Submissions";
-$_lang['Submit'] = "Submit";
-$_lang['SubmitFeedbackAfterEndDate'] = "Automatically, after end date";
-$_lang['SubmitFeedbackAfterPost'] = "Automatically, after each submission";
-$_lang['SubmitWork'] = "Submit a work";
-$_lang['SubmittedWork'] = "Work";
-$_lang['SubscribeClass'] = "Register to the class";
-$_lang['SubscribeToCourse'] = "Subscribe to course";
-$_lang['SubscribeUser'] = "Register user";
-$_lang['Subscription'] = "Enrolment";
-$_lang['SubscriptionAllowedOnly'] = "Subscription allowed only ";
-$_lang['SubscriptionDeniedOnly'] = "Subscription denied only";
-$_lang['SupportForum'] = "Support forum";
-$_lang['Supports'] = " Support ";
-$_lang['SupportsComment1'] = "Does course support exist?  What type of support do I give?  Opened?  Closed?";
-$_lang['SupportsComment2'] = "Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.";
-$_lang['SwitchEditorToTextConfirm'] = "This command is going to remove the current text layout. Do you want to continue ?";
-$_lang['Take'] = "take";
-$_lang['TeacherQty'] = "Nb. Teachers";
-$_lang['Teachers'] = "Teachers";
-$_lang['TeachingTrainingActivities'] = "Teaching-training activities";
-$_lang['TeachingTrainingActivitiesComment1'] = "What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?";
-$_lang['TeachingTrainingActivitiesComment2'] = "Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).";
-$_lang['TechAdmin'] = "Administration technique";
-$_lang['Technical'] = "Technical Tools";
-$_lang['TextEditorDisable'] = "Disable text editor";
-$_lang['TextEditorEnable'] = "Enable text editor";
-$_lang['TextFile'] = "Text with attached file (text required, file optional)";
-$_lang['TextOnly'] = "Text only (text required, no file)";
-$_lang['TheFields'] = "The fields";
-$_lang['TheSystemIsCaseSensitive'] = "The system is case sensitive.";
-$_lang['ThisCourseDescriptionIsEmpty'] = "This course is currently not described";
-$_lang['ThisIsAnErrorInDefinitionFile'] = "This is an error in definition file.";
-$_lang['Thisday'] = "This day";
-$_lang['Thumbnails'] = "Thumbnails";
-$_lang['TimeInLearnPath'] = "Time in learning path";
-$_lang['TimeOver'] = "Time is over, results not submitted.";
-$_lang['Titular'] = "Titular";
-$_lang['ToDate'] = "to";
-$_lang['Tool'] = "Tool";
-$_lang['ToolTitleCountColumn'] = "Total Clicks";
-$_lang['ToolTitleToolnameColumn'] = "Name of the tool";
-$_lang['ToolTitleUsersColumn'] = "Users' Clicks";
-$_lang['Tools'] = "Tools";
-$_lang['ToolsAccess'] = "Access to tools";
-$_lang['TopLevel'] = "top level";
-$_lang['TopicReplies'] = "Replies";
-$_lang['Total'] = "Total";
-$_lang['TotalPlatformAccess'] = "Total";
-$_lang['TotalPlatformLogin'] = "Total";
-$_lang['TotalTimeSpent'] = "Total time";
-$_lang['TrackAllPath'] = "Learning paths tracking";
-$_lang['TrackAllPathExplanation'] = "Progression of users on all learning paths";
-$_lang['TrackExerciseError'] = "Details may be incorrect as it seems that some questions have change between this attempt and now.";
-$_lang['TrackForumUsage'] = "Forum usage";
-$_lang['TrackNotEnoughAttempts'] = "You must reach the maximum number of allowed attempts to view these statistics.";
-$_lang['TrackTotalPosts'] = "Messages posted";
-$_lang['TrackTotalTopics'] = "Topics started";
-$_lang['Tracking'] = "Tracking";
-$_lang['TrackingDisabled'] = "Tracking has been disabled by system administrator.";
-$_lang['TrafficDetails'] = "Traffic Details";
-$_lang['TranslationStatistics'] = "Translation Progression";
-$_lang['TranslationTools'] = "Translation Tools";
-$_lang['Translations'] = "Translations";
-$_lang['TrueFalse'] = "True/False";
-$_lang['TypeOfModule'] = "Module type";
-$_lang['TypeTextBelow'] = "Please type your text below";
-$_lang['URL'] = "URL : ";
-$_lang['UnableAddExternalTool'] = "Unable to add external tool";
-$_lang['UnableChangedTool'] = "Unable to change tool access";
-$_lang['UnableCreateCategory'] = "Unable to create category";
-$_lang['UnableCreateForum'] = "Unable to create forum";
-$_lang['UnableDeleteCategory'] = "Unable to delete category.";
-$_lang['UnableDeleteExternalTool'] = "Unable to delete external tool";
-$_lang['UnableDeleteForum'] = "Unable to delete Forum.";
-$_lang['UnableDeleteGroupCategoryForum'] = "Group forums category can not be deleted.";
-$_lang['UnableDescToAdd'] = "Unable to add description";
-$_lang['UnableToAdd'] = "Unable to add the event to the agenda.";
-$_lang['UnableToDelete'] = "Unable to delete event from the agenda.";
-$_lang['UnableToEmptyForum'] = "Unable to empty forum.";
-$_lang['UnableToEnrollInCourse'] = "Unable to enroll you to the course";
-$_lang['UnableToRemoveCourseRegistration'] = "Unable to remove your registration to the course";
-$_lang['UnableToUpdate'] = "Unable to update the event into the agenda.";
-$_lang['UnableToUpdateCategory'] = "Unable to update category.";
-$_lang['UnableToUpdateForum'] = "Unable to update forum.";
-$_lang['UnableUpdateExternalTool'] = "Unable to update external tool";
-$_lang['UnamedModule'] = "Unamed module";
-$_lang['UnamedPath'] = "Unamed path";
-$_lang['Uncompress'] = "uncompress zipped (.zip) file on the server";
-$_lang['Uncompulsory'] = "(optional)";
-$_lang['UniqueAnswer'] = "Unique answer";
-$_lang['UniqueSelect'] = "Multiple choice (Unique answer)";
-$_lang['UnkownSOAPError'] = "An error occurred while contacting Claroline.net";
-$_lang['UnlimitedAttempts'] = "Unlimited attempts";
-$_lang['UnregisterAllStudents'] = "Unregister all students";
-$_lang['Unsubscribe'] = "Unregister user";
-$_lang['UnsubscribeClass'] = "Unregister from class";
-$_lang['Until'] = "to";
-$_lang['UpdateImage'] = "Change picture";
-$_lang['Updated'] = "Updated";
-$_lang['UpdatedExternalTool'] = "External tool updated";
-$_lang['Upgrade'] = "Upgrade";
-$_lang['UploadAndZipEnd'] = " Zip file uploaded and uncompressed";
-$_lang['UploadDoc'] = "Upload document";
-$_lang['UploadedFile'] = "Uploaded file";
-$_lang['UseFollowingFormat'] = " Use the following format : ";
-$_lang['UseFormatDefined'] = "Use format defined in first line of file";
-$_lang['UseOfPool'] = "This page allows you to view all the modules available in this course. <br />
-                     Any exercise or document that has been added in a learning path will also appear in this list.";
-$_lang['UseTagForBlank'] = "use brackets [...] to define one or more blanks";
-$_lang['UsedInLearningPaths'] = "
-Number of learning paths using this module : ";
-$_lang['UsedInSeveralExercises'] = "Warning ! This question and its answers are used in several exercises. Would you like to modify them";
-$_lang['UsedInSeveralPath'] = "This exercise is used in one or more learning path. If you delete it it will be no longer be available in the learning path.";
-$_lang['UserAccessDetails'] = "User access details";
-$_lang['UserAlreadyInClass'] = "User already in class";
-$_lang['UserCourseList'] = "User's course list";
-$_lang['UserCreated'] = "The new user has been sucessfully created";
-$_lang['UserDelete'] = "Deletion of the user was done sucessfully";
-$_lang['UserIsNowCourseManager'] = "User is now course manager";
-$_lang['UserIsNowStudent'] = "User is now student for this course";
-$_lang['UserIsPlaformAdmin'] = "Is platform admin";
-$_lang['UserNoCourseToDisplay'] = "No course to display";
-$_lang['UserNotInClass'] = "User not in the class";
-$_lang['UserNotUnsubscribedFromCourse'] = "Error!! you cannot unregister a course manager";
-$_lang['UserNumber'] = "number";
-$_lang['UserOneByOneExplanation'] = "He or she will receive email confirmation with login and password";
-$_lang['UserRegisteredClass'] = "User has been sucessfully registered to the class";
-$_lang['UserRegisteredToCourse'] = "User registered to the course";
-$_lang['UserSettings'] = "User settings";
-$_lang['UserStatus'] = "Status";
-$_lang['UserSubscribed'] = "The user has been successfully registered";
-$_lang['UserUnregistered'] = "User unregistered";
-$_lang['UserUnregisteredFromClass'] = "User has been sucessfully unregistered from the class";
-$_lang['UserUnsubscribed'] = "The user has been successfully unregistered";
-$_lang['UserUnsubscribedFromCourse'] = "The user has been successfully unregistered from course";
-$_lang['Userid'] = "User Id";
-$_lang['Userlist'] = "Users List";
-$_lang['UsernameAppearAlready'] = "This username appears already in a previous line of the CSV file.";
-$_lang['UsernameUsed'] = "This username is already used by another user.";
-$_lang['UsersMin'] = "users";
-$_lang['Valvas'] = "Latest announcements";
-$_lang['View'] = "View";
-$_lang['ViewMode'] = "View mode";
-$_lang['ViewPlatFormError'] = "Scan technical fault";
-$_lang['ViewPlatFormStatistics'] = "Platform statistics";
-$_lang['ViewToolList'] = "View List of All Tools";
-$_lang['Visible'] = "Visible";
-$_lang['Visits'] = "visits";
-$_lang['Warning'] = "Warning.";
-$_lang['WeightingForEachBlank'] = "Please give a weighting to each blank";
-$_lang['Wiki'] = "Wiki";
-$_lang['WikiAccessControl'] = "Access control management";
-$_lang['WikiAccessControlText'] = "You can set access rights for users using the following grid : ";
-$_lang['WikiAllPages'] = "All pages";
-$_lang['WikiBackToPage'] = "Back to page";
-$_lang['WikiConflictHowTo'] = "<p><strong>Edit conflict</strong> : The page you try to save seems to have been changed since you modify it.<br /><br />
+Check the value of \'Web base\' in your Claroline configuration.';
+$_lang['blockRequestCourseManagerStatusMail'] = '%time
+Course creator status to %firstname %lastname
+User : %user_id
+Name : %firstname %lastname
+Email : %email
+Comment : %comment
+Link : %url';
+$_lang['blockRequestUserRevoquationMail'] = '%time
+Revocation of %firstname %lastname
+User : %user_id
+Name : %firstname %lastname
+Email : %email
+Login : %login
+Password : %password
+Comment : %comment
+Link : %url';
+$_lang['blockUsedInSeveralPath'] = 'This exercise is used in one or more learning path. If you delete it it will be no longer be available in the learning path.';
+$_lang['blockUsersWithoutValidEmail'] = 'On %userQty registered users of the site, %userInvalidQty have unvalid or no email address.
+
+%messageFailed';
+$_lang['blockWikiConflictHowTo'] = '<p><strong>Edit conflict</strong> : The page you try to save seems to have been changed since you modify it.<br /><br />
 What to do now ?<ul>
-<li>You can copy/paste your modification to a text editor (like notepad) and click on 'edit last version' to try to add your modification to the new version of the page.</li>
+<li>You can copy/paste your modification to a text editor (like notepad) and click on \'edit last version\' to try to add your modification to the new version of the page.</li>
 <li>You can also click on cancel to cancel your changes.</li>
-</ul></p>";
-$_lang['WikiContentEmpty'] = "This page is empty, click on 'Edit this page' to add a content";
-$_lang['WikiCourseMembers'] = "Course members";
-$_lang['WikiCreateNewWiki'] = "Create a new Wiki";
-$_lang['WikiCreatePrivilege'] = "Create Pages";
-$_lang['WikiCreationSucceed'] = "Wiki creation succeed";
-$_lang['WikiDefaultDescription'] = "Enter the description of your wiki here";
-$_lang['WikiDefaultTitle'] = "New Wiki";
-$_lang['WikiDeleteWiki'] = "Delete Wiki";
-$_lang['WikiDeleteWikiWarning'] = "WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?";
-$_lang['WikiDeletionSucceed'] = "Wiki deletion succeed";
-$_lang['WikiDescription'] = "Description of the Wiki";
-$_lang['WikiDescriptionForm'] = "Wiki description";
-$_lang['WikiDescriptionFormText'] = "You can choose a title an a description for the wiki : ";
-$_lang['WikiDiffAddedLine'] = "Added line";
-$_lang['WikiDiffDeletedLine'] = "Deleted line";
-$_lang['WikiDiffMovedLine'] = "Moved line";
-$_lang['WikiDiffUnchangedLine'] = "Unchanged line";
-$_lang['WikiDifferenceKeys'] = "Keys :";
-$_lang['WikiDifferencePattern'] = "differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s";
-$_lang['WikiDifferenceTitle'] = "Differences :";
-$_lang['WikiEditConflict'] = "Edit conflict";
-$_lang['WikiEditLastVersion'] = "Edit last version";
-$_lang['WikiEditPage'] = "Edit this page";
-$_lang['WikiEditPrivilege'] = "Edit Pages";
-$_lang['WikiEditProperties'] = "Edit properties";
-$_lang['WikiEditionSucceed'] = "Wiki edition succeed";
-$_lang['WikiGroupMembers'] = "Group members";
-$_lang['WikiHelpAdminContent'] = "<h3>Wiki administration help</h3>
-<dl class=\"wikiHelp\">
+</ul></p>';
+$_lang['blockWikiHelpAdminContent'] = '<h3>Wiki administration help</h3>
+<dl class="wikiHelp">
 <dt>How to create a new Wiki ?</dt>
-<dd>Click on the link 'Create a new Wiki'. Then enter the properties of the Wiki :
+<dd>Click on the link \'Create a new Wiki\'. Then enter the properties of the Wiki :
 <ul>
 <li><b>Title of the Wiki</b> : choose a title for the Wiki</li>
 <li><b>Description of the Wiki</b> : choose a description for the Wiki</li>
@@ -1354,12 +1313,12 @@ $_lang['WikiHelpAdminContent'] = "<h3>Wiki administration help</h3>
 <dt>How to enter a Wiki ?</dt>
 <dd>Click on the title of the Wiki in the list.</dd>
 <dt>How to change the properties of a Wiki ?</dt>
-<dd>Click on the icon in the 'Properties' column in the Wiki list to go to the Wiki properties form.</dd>
+<dd>Click on the icon in the \'Properties\' column in the Wiki list to go to the Wiki properties form.</dd>
 <dt>How to use the Access control management options ?</dt>
-<dd>You can set the access rights for users by checking/unchecking the box in the 'Access control management' section of Wiki properties.
+<dd>You can set the access rights for users by checking/unchecking the box in the \'Access control management\' section of Wiki properties.
  You can grant/ungrant access to three types of users :<ul>
 <li><b>Course members</b> : users enroll to the course (except the course managers)</li>
-<li><b>Group members</b> (only available whithin a group) : users which are members of the group (expect the group's tutors)</li>
+<li><b>Group members</b> (only available whithin a group) : users which are members of the group (expect the group\'s tutors)</li>
 <li><b>Other users</b> : anonymous users or users which are not course members</li></ul>
 For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <li><b>Read pages</b> : the user of the given type can read the pages of the Wiki</li>
@@ -1367,16 +1326,15 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <li><b>Create pages</b> : the user of the given type can create new pages in the Wiki</li>
 </ul><small><em>(*) Note that if a user cannot read the pages of a Wiki, he cannot edit or modify them. Note that if a user cannot edit the pages of a Wiki, he cannot create new pages.</em></small></dd>
 <dt>How to delete a Wiki ?</dt>
-<dd>Click on the icon in the 'Delete' column to delete a Wiki and all its pages.</dd>
+<dd>Click on the icon in the \'Delete\' column to delete a Wiki and all its pages.</dd>
 <dt>How to get the list of the pages in a Wiki ?</dt>
 <dd>Click on the number of pages of this Wiki in the Wiki list.</dd>
 <dt>How to get the list of the last modified pages in a Wiki ?</dt>
-<dd>Click on the icon in the 'Recent changes' column in the Wiki list.</dd>
-</dl>";
-$_lang['WikiHelpSyntax'] = "Wiki syntax";
-$_lang['WikiHelpSyntaxContent'] = "<h1>Wiki Syntax</h1>
+<dd>Click on the icon in the \'Recent changes\' column in the Wiki list.</dd>
+</dl>';
+$_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <h2>1. Basic syntax</h2>
-<dl class=\"wikiHelp\">
+<dl class="wikiHelp">
 <dt>Creating wiki pages and links between them</dt>
 <dd><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</dd>
 <dd><strong>Wiki links</strong> : Wiki links are like Hyperlinks (see below) expect that they do not contain any protocol scheme (like <em>http://</em> or <em>ftp://</em>) and thatthey are automaticaly recognise as links to Wiki pages. To create a new page or create a link to an existing one using Wiki links, edit a page and add <code>[page title]</code> or <code>[name of link|title of page]</code> to its content. You can also use this syntax to change the text of a WikiWord link : <code>[name of link|WikiWord]</code>.</dd>
@@ -1388,8 +1346,8 @@ $_lang['WikiHelpSyntaxContent'] = "<h1>Wiki Syntax</h1>
 <dt>Link to an image</dt>
 <dd>same as Hyperlinks but put a 0 in fourth argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself</dd>
 <dt>Layout</dt>
-<dd><strong>Italic</strong> : surround your text with two single quotes <code>''text''</code>&nbsp;;</dd>
-<dd><strong>Bold</strong> : surround your text with three single quotes underscores <code>'''text'''</code>&nbsp;;</dd>
+<dd><strong>Italic</strong> : surround your text with two single quotes <code>\'\'text\'\'</code>&nbsp;;</dd>
+<dd><strong>Bold</strong> : surround your text with three single quotes underscores <code>\'\'\'text\'\'\'</code>&nbsp;;</dd>
 <dd><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</dd>
 <dd><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</dd>
 <dd><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</dd>
@@ -1399,9 +1357,9 @@ $_lang['WikiHelpSyntaxContent'] = "<h1>Wiki Syntax</h1>
 <dd>Separate paragraphs with one or more new lines&nbsp;;</dd>
 </dl>
 <h2>2. Advanced syntax</h2>
-<dl class=\"wikiHelp\">
+<dl class="wikiHelp">
 <dt>Footnote</dt>
-<dd><code>\$\$footnote text\$\$</code>&nbsp;;</dd>
+<dd><code>$$footnote text$$</code>&nbsp;;</dd>
 <dt>Preformated text</dt>
 <dd>begin each line of preformated text with a blank space&nbsp;;</dd>
 <dt>Cite block</dt>
@@ -1418,134 +1376,50 @@ $_lang['WikiHelpSyntaxContent'] = "<h1>Wiki Syntax</h1>
 <dd><code>@@your code here@@</code>&nbsp;;</dd>
 <dt>Named anchor</dt>
 <dd><code>~anchor~</code>&nbsp;;</dd>
-</dl>";
-$_lang['WikiIdenticalContent'] = "Identical content<br />no modification saved";
-$_lang['WikiInvalidWikiId'] = "Invalid Wiki Id";
-$_lang['WikiList'] = "List of Wiki";
-$_lang['WikiMainPage'] = "Main page";
-$_lang['WikiMainPageContent'] = "This is the main page of the Wiki %s. Click on '''Edit''' to modify the content.";
-$_lang['WikiNoWiki'] = "No Wiki";
-$_lang['WikiNotAllowedToCreate'] = "You are not allowed to create pages";
-$_lang['WikiNotAllowedToEdit'] = "You are not allowed to edit this page";
-$_lang['WikiNotAllowedToRead'] = "You are not allowed to read this page";
-$_lang['WikiNumberOfPages'] = "Number of pages";
-$_lang['WikiOtherUsers'] = "Others (*)";
-$_lang['WikiOtherUsersText'] = "(*) anonymous users, users who are not members of this course...";
-$_lang['WikiPageHistory'] = "Page history";
-$_lang['WikiPageSaved'] = "Page saved";
-$_lang['WikiPreviewTitle'] = "Preview : ";
-$_lang['WikiPreviewWarning'] = "WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.";
-$_lang['WikiProperties'] = "Properties";
-$_lang['WikiReadPrivilege'] = "Read Pages";
-$_lang['WikiRecentChanges'] = "Recent changes";
-$_lang['WikiRecentChangesPattern'] = "%1\$s modified on %2\$s by %3\$s";
-$_lang['WikiShowDifferences'] = "Show differences";
-$_lang['WikiTitle'] = "Title of the wiki";
-$_lang['WikiTitleEdit'] = "Wiki : Edit properties";
-$_lang['WikiTitleNew'] = "Wiki : Create new Wiki";
-$_lang['WikiTitlePattern'] = "Wiki : %s";
-$_lang['WikiVersionInfoPattern'] = "(version of %1\$s modified by %2\$s)";
-$_lang['WikiVersionPattern'] = "%1\$s by %2\$s";
-$_lang['WorkAuthors'] = "Authors";
-$_lang['WorkTitle'] = "Work title";
-$_lang['WorkUploads'] = "Work uploads";
-$_lang['WorksDetails'] = "Work uploaded by the student in the name of 'Authors'";
-$_lang['WrkAdded'] = "Work added";
-$_lang['WrkAuthors'] = "Author(s)";
-$_lang['WrkAuthorsRequired'] = "Author(s) is(are) required";
-$_lang['WrkEdited'] = "Work modified";
-$_lang['WrkScoreRequired'] = "Score required";
-$_lang['WrkTitle'] = "Title";
-$_lang['WrkTitleRequired'] = "Work title required";
-$_lang['WrongOperation'] = "Wrong operation";
-$_lang['Yesterday'] = "Yesterday";
-$_lang['YourAccountParam'] = "This  is  your account Login-Pass";
-$_lang['YourBestScore'] = "Your best performance";
-$_lang['YourRequestToBeCourseManagerIsSent'] = "Your request to become a course creator has been sent to platform administrator(s).";
-$_lang['YourRequestToRemoveYourAccountIsSent'] = "Your request to remove your account has been sent";
-$_lang['YourTime'] = "Your time is";
-$_lang['YourTotalScore'] = "Your total score is";
-$_lang['ZipNoPhp'] = "The zip file can not contain .PHP files";
-$_lang['_EditFile_ModifyOk'] = "The changes have been carried out correctly";
-$_lang['_TheUserIsAlreadyEnrolledInTheCourse'] = "The user is already enrolled in this course";
-$_lang['_add_user_list'] = "Add user list";
-$_lang['_already_enrolled'] = "already enrolled";
-$_lang['_are_you_sure_to_remove_the_course_from_your_list'] = "Are you sure you want to remove this course from your list ?";
-$_lang['_back_to_my_personnal_course_list'] = "Back to my personal course list";
-$_lang['_back_to_parent_category'] = "Back to parent category";
-$_lang['_click_here'] = "click here";
-$_lang['_completeUserInfoOfUser'] = "Complete userInfo of user";
-$_lang['_course_enrollment'] = "User's course";
-$_lang['_do_you_want_to_continue'] = "Do you want to continue?";
-$_lang['_enroll'] = "Enrol";
-$_lang['_enroll_to_a_new_course'] = "Enrol on a new course";
-$_lang['_faculty_CanHaveCatCourse'] = "Can have courses : ";
-$_lang['_faculty_CatHaveCat'] = "This category contains other categories, you must delete them before !";
-$_lang['_faculty_CatHaveCourses'] = "This category contains some courses, you can't erase it!";
-$_lang['_faculty_CodeCat'] = "Category code :";
-$_lang['_faculty_CodeEmpty'] = "Category code is required";
-$_lang['_faculty_ConfirmDelete'] = "Do you really want to delete the category ";
-$_lang['_faculty_CreateNotOk'] = "This category already exists!";
-$_lang['_faculty_CreateOk'] = "Category created";
-$_lang['_faculty_DeleteOk'] = "Category deleted";
-$_lang['_faculty_EditOk'] = "Changes have been saved";
-$_lang['_faculty_Father'] = "Parent category ";
-$_lang['_faculty_HaveCourses'] = "This category include some courses, you must delete or move them before";
-$_lang['_faculty_MoveOk'] = "Category moved";
-$_lang['_faculty_NameCat'] = "Category name :";
-$_lang['_faculty_NameEmpty'] = "Category name is required";
-$_lang['_faculty_NoCat'] = "There is no category available !";
-$_lang['_faculty_NoChange'] = "No change applied.";
-$_lang['_faculty_NoMove_1'] = "You can't move ";
-$_lang['_faculty_NoMove_2'] = " in the same category !";
-$_lang['_faculty_imgDown'] = "Down";
-$_lang['_fields_enclosed_by'] = "Fields enclosed by";
-$_lang['_footer_p_CourseManager'] = "Manager(s) for %s";
-$_lang['_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored'] = "if you choose to continue, lines with errors will simply be ignored";
-$_lang['_if_you_wish_to_enroll_to_this_course'] = "If you wish to enrol on this course";
-$_lang['_my_personnal_course_list'] = "My personal course list";
-$_lang['_no_access_here'] = "No way";
-$_lang['_no_course_available_fitting_this_keyword'] = "No course available fitting this keyword";
-$_lang['_no_error_in_file_found'] = "No error in file found.";
-$_lang['_or_search_from_keyword'] = "Search from keyword";
-$_lang['_p_ErrorOnBuild_S_for_S'] = "Error in building of <em>%s</em> for <B>%s</B>";
-$_lang['_p_FeedOf_s'] = "Rss feed for %s";
-$_lang['_p_FillCourses'] = "Fill %s with %s";
-$_lang['_p_IfNothingHappendClickHere'] = "If after while no message appears confirming the course creation, please click <a href=\"%s\">here</a>";
-$_lang['_p_PropForConfigCommited'] = "Properties for %s (%s) are now effective on server.";
-$_lang['_p_aCategoryWouldBeSelected'] = "You must choose a category. If there is missing one please contact <a href=\"%s\">the plateforme administrator</a>";
-$_lang['_p_category_s_created'] = "Category %s created";
-$_lang['_p_config_file_creation'] = "Configuration  file creation:<br /> %s";
-$_lang['_p_d_StudentUnregistredFormCours'] = "%d student(s) unregistered from this course";
-$_lang['_p_d_course'] = "%2d course";
-$_lang['_p_d_course_manager'] = "%2d prof ";
-$_lang['_p_d_course_managers'] = "%2d profs ";
-$_lang['_p_d_course_member'] = "%2d member";
-$_lang['_p_d_course_members'] = "%2d members";
-$_lang['_p_d_courses'] = "%2d courses";
-$_lang['_p_d_student'] = "%2d student";
-$_lang['_p_d_students'] = "%2d students";
-$_lang['_p_forum_s_created'] = "Forum %s created";
-$_lang['_p_nothing_to_edit_in_S'] = "nothing to edit in %s";
-$_lang['_p_platformManager'] = "Administrator for %s";
-$_lang['_p_post_s_created'] = "Post %s created";
-$_lang['_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname'] = "<i>%s %s</i> has been sucessfully registered to the course";
-$_lang['_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname'] = "<i>%s %s</i> has not been sucessfully registered to the course";
-$_lang['_p_topic_s_created'] = "Topic %s created";
-$_lang['_p_youNeedToBeAuthenticatedWithYour_s_account'] = "You need to be authenticated with your %s account";
-$_lang['_php_info'] = "PHP system information";
-$_lang['_remove_course_enrollment'] = "Remove course enrolment";
-$_lang['_remove_course_from_your_personnal_course_list'] = "Remove course from your personal course list";
-$_lang['_select_course_in'] = "Select course in ";
-$_lang['_select_course_in_search_results'] = "Select course in search results";
-$_lang['_the_following_errors_were_found'] = "The following errors were found ";
-$_lang['_toolsToFill'] = "Tools to populate";
-$_lang['_unsubscribe'] = "Unsubscribe";
-$_lang['_user_has_been_enrolled_to_the_course'] = "The user has been enrolled to the course";
-$_lang['_you_had_request'] = "You ask";
-$_lang['_you_have_been_enrolled_to_the_course'] = "You've been enrolled on the course";
-$_lang['_your_enrollment_to_the_course_has_been_removed'] = "Your enrollment on the course has been removed";
-$_lang['_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course'] = "Your user profile doesn't seem to be enrolled on this course";
-$_lang['catcreated'] = "The new category has been created.";
-$_lang['importLearningPath'] = "Import a learning path";
+</dl>';
+$_lang['click here'] = 'click here';
+$_lang['click to zoom in'] = 'click to zoom in';
+$_lang['click to zoom out'] = 'click to zoom out';
+$_lang['denotes new items'] = 'denotes new items';
+$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'differences between version of %1$s modified by %2$s and version of %3$s modified by %4$s';
+$_lang['good looking'] = 'good looking';
+$_lang['group(s) has (have) been added'] = 'group(s) has (have) been added';
+$_lang['has been enroled'] = 'has been enrolled';
+$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'if you choose to continue, lines with errors will simply be ignored';
+$_lang['in all exercises'] = 'in all exercises';
+$_lang['line'] = 'line';
+$_lang['lines'] = 'lines';
+$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'max. 12 characters, ie.<em>ROM2121</em>';
+$_lang['my group'] = 'my group';
+$_lang['my supervision'] = 'my supervision';
+$_lang['new group(s)'] = 'new group(s)';
+$_lang['number'] = 'number';
+$_lang['only in the current exercise'] = 'only in the current exercise';
+$_lang['previous level'] = 'previous level';
+$_lang['register'] = 'register';
+$_lang['rich'] = 'rich';
+$_lang['sampleForumGroupCategory'] = 'Group forums';
+$_lang['sampleForumMainCategory'] = 'Main';
+$_lang['sampleLearnPathDescription'] = 'This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on
+                            <b>Modify</b> to change this text.';
+$_lang['sampleLearnPathDocumentDescription'] = 'You can use any document existing in the documents tool of this course.';
+$_lang['sampleLearnPathDocumentTitle'] = 'example_document';
+$_lang['sampleLearnPathQuizDescription'] = 'You can use any exercise of the exercises tool of your course.';
+$_lang['sampleLearnPathTitle'] = 'Sample learning path';
+$_lang['sampleQuizAnswer1'] = 'Ridiculise one\'s interlocutor in order to have him concede he is wrong.';
+$_lang['sampleQuizAnswer1Comment'] = 'No. Socratic irony is not a matter of psychology, it concerns argument.';
+$_lang['sampleQuizAnswer2'] = 'Admit one\'s own errors to invite one\'s interlocutor to do the same.';
+$_lang['sampleQuizAnswer2Comment'] = 'No. Socratic irony is not a seduction strategy nor a method based on the example.';
+$_lang['sampleQuizAnswer3'] = 'Compel one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.';
+$_lang['sampleQuizAnswer3Comment'] = 'Indeed. Socratic irony is an interrogative method. The Greek "eirotao" means "ask questions"';
+$_lang['sampleQuizAnswer4'] = 'Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.';
+$_lang['sampleQuizAnswer4Comment'] = 'This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions which lead from his premises.';
+$_lang['seats (optional)'] = 'seats (optional)';
+$_lang['seats by groups (optional)'] = 'seats by groups (optional)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'this password is too simple. Use a password like this ';
+$_lang['to'] = 'to';
+$_lang['uncompress zipped (.zip) file on the server'] = 'uncompress zipped (.zip) file on the server';
+$_lang['use brackets [...] to define one or more blanks'] = 'use brackets [...] to define one or more blanks';
+$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it';
+$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.';
 ?>
