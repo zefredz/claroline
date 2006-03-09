@@ -15,8 +15,8 @@
 require_once '../../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! get_init('_uid') ) claro_disp_auth_form();
+if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/form.lib.php';
