@@ -230,31 +230,40 @@ h3{
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#footer
+#campusFooter
 {
 	font-size: 80%;
 }
 
-#footer hr
+#campusFooter hr
 {
 	border: 0;
 	height: 1px;
 	background-color: gray;
 }
-
-#footer #platformManager
+#campusFooterRight
 {
 	float: right;
 }
 
-#footer #courseManager
+#campusFooterLeft
+{
+	float: left;	
+}
+
+#campusFooter #platformManager
+{
+	float: right;
+}
+
+#campusFooter #courseManager
 {
 	float: left;
 	text-align: center;
 }
 
 
-#footer #poweredBy
+#campusFooter #poweredBy
 {
     clear: both;
     text-align: center;

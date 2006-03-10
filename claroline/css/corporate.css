@@ -264,42 +264,53 @@ h3{	font-size: 110%; }
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#footer
+#campusFooter
 {
 	font-size: small;
 }
 
-#footer hr
+#campusFooter hr
 {
 	display: none;
 }
 
-#footer a,
-#footer a:active,
-#footer a:link,
-#footer a:visited
-{
-	color: #333;
-}
-	
-#footer a:hover
-{
-	color: #333;
-}
-
-#footer #platformManager
+#campusFooterRight
 {
 	float: right;
 }
 
-#footer #courseManager
+#campusFooterLeft
+{
+	float: left;	
+}
+
+#campusFooter a,
+#campusFooter a:active,
+#campusFooter a:link,
+#campusFooter a:visited
+{
+	color: #333;
+}
+	
+#campusFooter a:hover
+{
+	color: #333;
+}
+
+#campusFooter #platformManager
+{
+	float: right;
+}
+
+#campusFooter #courseManager
 {
 	float: left;
 	text-align: center;
 }
 
 
-#footer #poweredBy 
+
+#campusFooter #poweredBy 
 {
 	clear: both;
 	border-top: 1px dashed #ccc;

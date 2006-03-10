@@ -249,17 +249,26 @@ h3{	font-size: 110%; }
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#footer
+#campusFooter
 {
 	background-color: #FFFFF;
 	font-size: 80%;
 }
 
-#footer hr
+#campusFooter hr
 {
 	border: 0;
 	height: 1px;
 	background-color: gray;
+}
+#campusFooterRight
+{
+	float: right;
+}
+
+#campusFooterLeft
+{
+	float: left;	
 }
 
 #platformManager
