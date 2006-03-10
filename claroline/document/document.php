@@ -2131,3 +2131,4 @@ echo claro_html::tool_title($titleElement,
     } // END ELSE VIEW IMAGE
 
 include $includePath . '/claro_init_footer.inc.php';
+?>
