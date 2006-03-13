@@ -119,15 +119,6 @@ $htmlHeadXtra[] =
 $user_data = user_get_data($user_id);
 $user_data['is_admin'] = user_is_admin($user_id);
 
-$cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
-.             '?uidToEdit=' . $user_id
-.             '&amp;cmd=delete" '
-.             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
-.             '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
-.             get_lang('Delete user')
-.             '</a>'
-
-;
 
 $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '?cmd=rqReg'
@@ -148,12 +139,20 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 .             '</a>'
 ;
 
+$cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
+.             '?uidToEdit=' . $user_id
+.             '&amp;cmd=delete" '
+.             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
+.             '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
+.             get_lang('Delete user')
+.             '</a>'
+
+;
+
 if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must display go back to list
 {
     $cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
 }
-
-
 
 /**
  * DISPLAY
@@ -172,7 +171,6 @@ if ( count($messageList) > 0 )
 }
 
 // Display "form and info" about the user
-
 user_display_form_admin_user_profile($user_data);
 
 echo claro_html::menu_horizontal($cmd_menu);
