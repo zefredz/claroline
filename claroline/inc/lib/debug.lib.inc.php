@@ -301,7 +301,7 @@ $is_groupAllowed;
     }
     else
     {
-        echo "<font color=\"red\">local init never runned during this script</font>";
+        echo '<font color="red"> local init never runned during this script </font>';
     }
     echo '
 <table width="100%" border="1" cellspacing="4" cellpadding="1" bordercolor="#808080" bgcolor="#C0C0C0" lang="en">
@@ -311,7 +311,6 @@ $is_groupAllowed;
         echo '
         <TD valign="top" >
             <strong>User</strong> :
-            (uid)             : '.var_export($uid,1).' |
             (_uid)             : '.var_export($_uid,1).' |
             (session[_uid]) : '.var_export($_SESSION["_uid"],1).'
             <br />
@@ -343,20 +342,20 @@ $is_groupAllowed;
     <TR>';
     if($selection == "*" or strstr($selection,"g"))
     {
-        echo "<TD valign=\"top\" ><strong>Group</strong> : (_gid) ".var_export($_gid,1)."<br />
-        reset = ".var_export($gidReset,1)." | req = ".var_export($gidReq,1)."<br />
-        _group :<pre>".var_export($_group,1).
+        echo '<TD valign="top" ><strong>Group</strong> : (_gid) '
+        .    var_export(get_init('_gid'),1) . '<br />
+        reset = ' . var_export($GLOBALS['gidReset'],1) . ' | req = ' . var_export($gidReq,1)."<br />
+        _group :<pre>".var_export(get_init('_group'),1).
         "</pre></TD>";
     }
     if($selection == "*" or strstr($selection,"t"))
     {
         echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export($_tid,1).'<br />
-        reset = '.var_export($tidReset,1).' | 
-        req = '.var_export($tidReq,1).'| 
-        req = '.var_export($tlabelReq,1).'
+        reset = ' . var_export($tidReset,1).' | 
+        req = ' .   var_export($tidReq,1).'| 
+        req = ' .   var_export($tlabelReq,1).'
         <br />
-        _tool :'.
-        var_export($_tool,1).
+        _tool :' . var_export(get_init('_tool'),1).
         "</TD>";
     }
     echo "</TR>";
@@ -366,7 +365,7 @@ $is_groupAllowed;
         if ($_uid) echo '<br /><strong>User</strong> :'.var_export($_uid,1);
         if ($_cid) echo ' in '.var_export($_cid,1).'<br />';
         if ($_uid && $_cid) 
-        echo '_courseUser            : <pre>'.var_export($_courseUser,1).'</pre>';
+        echo '_courseUser            : <pre>'.var_export(getInit('_courseUser'),1).'</pre>';
         echo '<br />is_courseMember    : '.var_export($is_courseMember,1);
         echo '<br />is_courseAdmin    : '.var_export($is_courseAdmin,1);
         echo '<br />is_courseAllowed    : '.var_export($is_courseAllowed,1);
@@ -377,17 +376,16 @@ $is_groupAllowed;
     if($selection == "*" or (strstr($selection,"u")&&strstr($selection,"g")))
     {
 
-        echo '<TR><TD valign="top"  colspan="2"><strong>Course-Group-User</strong>';
-        if ($_uid) echo '<br /><strong>User</strong> :'.var_export($_uid,1);
-        if ($_gid) echo ' in '.var_export($_gid,1);
-        if ($_gid) echo "<br />_groupUser:".var_export($_groupUser,1);
-        echo "<br />is_groupMember:".var_export($is_groupMember,1);
-        echo "<br />is_groupTutor:".var_export($is_groupTutor,1);
-        echo "<br />
-        is_groupAllowed:";
-        var_export($is_groupAllowed);
-        echo "</TD>
-        </tr>";
+        echo '<TR><TD valign="top"  colspan="2">' 
+        .    '<strong>Course-Group-User</strong>';
+        if (get_init('_uid')) echo '<br /><strong>User</strong> :'.var_export(get_init('_uid'),1);
+        if (get_init('_gid')) echo ' in '.var_export(get_init('$_gid'),1);
+        if (get_init('_gid')) echo '<br />_groupUser:' . var_export(get_init('_groupUser'),1);
+        echo '<br />is_groupMember:' . var_export(get_init('is_groupMember'),1) 
+        .    '<br />is_groupTutor: ' . var_export(get_init('is_groupTutor'),1)
+        .    '<br />is_groupAllowed:' . var_export(get_init('is_groupAllowed'),1)
+        .    '</TD>'
+        .    '</tr>';
     }
     if($selection == "*" or (strstr($selection,"c")&&strstr($selection,"t")))
     {
