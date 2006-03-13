@@ -221,7 +221,7 @@ if((isset($newQuestion) || (isset($modifyQuestion))) && !isset($usedInSeveralExe
 <tr>
   <td valign="top"><label for="questionDescription"><?php echo get_lang('Statement'); ?> :</label></td>
   <td>
-  <?php echo claro_disp_html_area('questionDescription', htmlspecialchars($questionDescription),15) ?>
+  <?php echo claro_html::textarea_editor('questionDescription', htmlspecialchars($questionDescription),15) ?>
   </td>
 </tr>
 <tr>

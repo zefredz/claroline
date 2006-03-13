@@ -221,7 +221,7 @@ else
         else                    $content = '';
         
         echo '<td>'
-            .claro_disp_html_area('message',$content)
+            .claro_html::textarea_editor('message',$content)
             .'</td>'
             . '</tr>'
             . '<tr  valign="top"><td>&nbsp;</td>'

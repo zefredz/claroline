@@ -160,7 +160,7 @@ if ($intro_dispForm)
     .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
     .    '<input type="hidden" name="introCmd" value="'.$introEditorCmdValue.'">'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
-    .    claro_disp_html_area('intro_content', trim($introContent))
+    .    claro_html::textarea_editor('intro_content', trim($introContent))
     .    '<br />'."\n"
     .   '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '">'."\n"  
     .   claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))

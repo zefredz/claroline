@@ -49,7 +49,7 @@ if ($cmd ==  'rqMkHtml' )
     <?php
     if (!empty($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
     
-    echo claro_disp_html_area('htmlContent',$content);
+    echo claro_html::textarea_editor('htmlContent',$content);
     
     // the second argument _REQUEST['htmlContent'] for the case when we have to 
     // get to the editor because of an error at creation 
@@ -75,7 +75,7 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     <p>
     <b><?php echo get_lang('Document content') ?> : </b>
     <?php
-    echo claro_disp_html_area('htmlContent', $fileContent );
+    echo claro_html::textarea_editor('htmlContent', $fileContent );
     ?>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>">
     <?php echo claro_html::button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>

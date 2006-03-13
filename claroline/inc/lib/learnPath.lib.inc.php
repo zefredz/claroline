@@ -147,7 +147,7 @@ function commentBox($type, $mode)
             $oldComment = claro_sql_query_get_single_value($sql);
 
             echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
-                .claro_disp_html_area('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
+                .claro_html::textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
                 .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
                 .'<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
                 .'<br />' . "\n"

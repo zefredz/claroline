@@ -381,7 +381,7 @@ if ($display_form)
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_disp_html_area('content', htmlspecialchars($editedEvent['content']), 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
+    .    claro_html::textarea_editor('content', htmlspecialchars($editedEvent['content']), 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
     .    '<br />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"

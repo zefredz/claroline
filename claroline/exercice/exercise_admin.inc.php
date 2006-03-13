@@ -187,7 +187,7 @@ if( isset($modifyExercise) )
   <label for="exerciseDescription"><?php echo get_lang('Exercise description'); ?>&nbsp;:</label>
   </td>
   <td>
-  <?php echo claro_disp_html_area('exerciseDescription', htmlspecialchars($exerciseDescription),15) ?>
+  <?php echo claro_html::textarea_editor('exerciseDescription', htmlspecialchars($exerciseDescription),15) ?>
 </tr>
 <tr>
   <td valign="top"><?php echo get_lang('Exercise type'); ?>&nbsp;:</td>

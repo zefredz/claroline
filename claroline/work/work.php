@@ -403,7 +403,7 @@ if ($is_allowedToEdit)
         <td valign="top"><label for="description"><?php echo get_lang('Description'); ?>&nbsp;:<br /></label></td>
         <td>
 <?php
-    echo claro_disp_html_area('description', htmlspecialchars($assignment->getDescription()));
+    echo claro_html::textarea_editor('description', htmlspecialchars($assignment->getDescription()));
 ?>
         </td>
       </tr>

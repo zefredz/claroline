@@ -149,7 +149,7 @@ if( $display == DISP_EDIT_FILE )
 {
     echo '<h4>' . basename($filenameList[$_REQUEST['file']]) . '</h4>'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">'
-    .    claro_disp_html_area('textContent', $textContent)
+    .    claro_html::textarea_editor('textContent', $textContent)
     .    '<br /><br /> &nbsp;&nbsp;' . "\n"
     .    '<input type="hidden" name="file" value="' . htmlspecialchars($_REQUEST['file']) . '" />' . "\n"
     .    '<input type="submit" class="claroButton" name="modify" value="' . get_lang('Ok') . '" />' . "\n"

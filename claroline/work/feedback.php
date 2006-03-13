@@ -290,7 +290,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_disp_html_area('autoFeedbackText', htmlspecialchars($form['autoFeedbackText']))
+    .    claro_html::textarea_editor('autoFeedbackText', htmlspecialchars($form['autoFeedbackText']))
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     ;
