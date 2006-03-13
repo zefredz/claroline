@@ -21,8 +21,6 @@
  *
  */
 
-
-
 class claro_html
 {
 
@@ -31,16 +29,26 @@ class claro_html
  *
  * @param array $itemList each item are include in a list.
  *
- * @return unknown
+ * @return string html
  */
-    function menu_vertical($itemList)
+    function menu_vertical($itemList, $attrBloc=array(),$attrItem=array())
     {
+        $classBlocAttr = '';
+        $otherBlocAttrString = '';
+        foreach ($attrBloc as $attrName => $attrValue)
+        {
+            if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
+            else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+        }
+        $itemAttrString = '';
+        foreach ($attrItem as $attrName => $attrValue) $itemAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+
         if (is_array($itemList)&&count($itemList))
         {
-            $htmlStream = '<ul class="menu vmenu">' . "\n";
+            $htmlStream = '<ul class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
             foreach($itemList as $item )
             {
-                $htmlStream .= '<li>' . "\n"
+                $htmlStream .= '<li' . $itemAttrString . '>' . "\n"
                 .              $item
                 .              '</li>' . "\n"
                 ;
@@ -49,6 +57,34 @@ class claro_html
         }
         else
         $htmlStream ='';
+        return $htmlStream;
+    }
+
+/**
+ * display a item list as vertical menu.
+ *
+ * @param array $itemList each item are include in a list.
+ *
+ * @return string html
+ */
+    function menu_vertical_br($itemList, $attrBloc=array())
+    {
+        $classBlocAttr = '';
+        $otherBlocAttrString = '';
+        foreach ($attrBloc as $attrName => $attrValue)
+        {
+            if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
+            else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+        }
+
+        $htmlStream = '<div class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
+
+        if (is_array($itemList)&&count($itemList))
+        {
+                $htmlStream .= implode('<br />' . "\n",$itemList );
+        }
+        $htmlStream .= '</div>' . "\n";
+
         return $htmlStream;
     }
 
@@ -88,15 +124,15 @@ class claro_html
     function tool_link($url,$label,$attributeList=array())
     {
         $attributeConcat = 'class="toollink" ';
+
         if (is_array($attributeList))
         {
             foreach ($attributeList as $key => $attribute)
             {
                 $attributeConcat .= (is_array($attribute) ? $attribute['name'].'="'.$attribute['value'].'" ' : $key.'="'.$attribute.'" ');
-
             }
-
         }
+        else trigger_error('$attributeList would be an array', E_USER_WARNING);
         return '<a href="' . $url . '" ' . $attributeConcat . ' >'
         .       $label
         .       '</a>' . "\n"
@@ -170,15 +206,8 @@ class claro_html
     {
         // if titleElement is simply a string transform it into an array
 
-        if ( is_array($titlePart) )
-        {
-            $titleElement = $titlePart;
-        }
-        else
-        {
-            $titleElement['mainTitle'] = $titlePart;
-        }
-
+        if ( is_array($titlePart) ) $titleElement = $titlePart;
+        else                        $titleElement['mainTitle'] = $titlePart;
 
         $string = "\n" . '<h3 class="claroToolTitle">' . "\n";
 
@@ -196,7 +225,6 @@ class claro_html
             .'</a>' . "\n"
             ;
         }
-
 
         if ( isset($titleElement['supraTitle']) )
         {
@@ -230,7 +258,7 @@ class claro_html
  *                        tag if you need them
  * @since 1.8
  *
- * @return $string html string for a message box
+ * @return string html string for a message box
  */
 
     function message_box($message)
@@ -373,9 +401,10 @@ class claro_html
                     $msgBox .= '</div>';
                 }
             }
-            if($return) return claro_html::message_box($msgBox);
-            else        echo   claro_html::message_box($msgBox);
         }
+        if($return) return claro_html::message_box($msgBox);
+        else        echo   claro_html::message_box($msgBox);
+        return true;
     }
 
 
@@ -411,12 +440,149 @@ class claro_html
         return  $optionTagList;
     }
 
+/**
+ * prepare a mailto link
+ *
+ * @param string $mail
+ * @param string $mailLabel
+ * @return string : html stream
+ */
     function mailTo($mail,$mailLabel=null)
     {
         if (is_null($mailLabel)) $mailLabel = $mail;
         $mailHtml = '<a href="mailto:' . $mail . '" class="email" >' . $mailLabel . '</a>';
         return $mailHtml;
     }
+
+/**
+ * Insert a Wysiwyg editor inside a form instead of a textarea
+ * A standard textarea is displayed if the Wysiwyg editor is disabled or if
+ * the user's browser have no activated javascript support
+ *
+ * @param string $name content for name attribute in textarea tag
+ * @param string $content optional content previously inserted into    the    area
+ * @param int     $rows optional    textarea rows
+ * @param int    $cols optional    textarea columns
+ * @param string $optAttrib    optional - additionnal tag attributes
+ *                                       (wrap, class, ...)
+ * @return string html output for standard textarea or Wysiwyg editor
+ *
+ * @global string rootWeb from claro_main.conf.php
+ * @global string rootSys from claro_main.conf.php
+ * @global string langTextEditorDisable from lang file
+ * @global string langTextEditorEnable from lang file
+ * @global string langSwitchEditorToTextConfirm from lang file
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @author Sébastien Piraux <pir@cerdecam.be>
+ */
+
+    function textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
+    {
+        global $urlAppend, $rootSys;
+        global $claro_editor;
+
+        if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
+
+        $returnString = '';
+
+        // default value of htmlEditor
+        if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
+
+        // get content if in url
+        if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
+
+        // $claro_editor is the directory name of the editor
+        $incPath = $rootSys . 'claroline/editor/' . $claro_editor;
+        $editorPath = $urlAppend . '/claroline/editor/';
+        $webPath = $editorPath . $claro_editor;
+
+        if( file_exists($incPath . '/editor.class.php') )
+        {
+            // include editor class
+            include_once $incPath . '/editor.class.php';
+
+            // editor instance
+            $editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
+
+            if (claro_is_javascript_enabled())
+            {
+                if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+                {
+                    $switchState = 'off';
+                    $message     = get_lang('Disable text editor');
+                    $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
+                }
+                else
+                {
+                    $switchState = 'on';
+                    $message     = get_lang('Enable text editor');
+                    $confirmCommand = '';
+                }
+
+                $location = '\''
+                .           $editorPath.'/editorswitcher.php?'
+                .           'switch='.$switchState
+                .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
+                .           '&areaContent='
+                .           '\''
+                .           '+escape(document.getElementById(\''.$name.'\').value)'
+                ;
+                // use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
+                $returnString .=
+                "\n".'<div align="right">'
+                .    '<small>'
+                .    '<b>'
+                .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
+                .     'onClick ="' . $confirmCommand . 'window.location='
+                .    $location . ';return(false);">'
+                .    $message
+                .    '</a>'
+                .    '</b>'
+                .    '</small>'
+                .    '</div>'."\n"
+                ;
+            }
+
+            if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+            {
+                $returnString .= $editor->getAdvancedEditor();
+            }
+            else
+            {
+                // get standard text area
+                $returnString .=
+                '<textarea '
+                .'id="'.$name.'" '
+                .'name="'.$name.'" '
+                .'style="width:100%" '
+                .'rows="'.$rows.'" '
+                .'cols="'.$cols.'" '
+                .$optAttrib.' >'
+                ."\n".$content."\n"
+                .'</textarea>'."\n";
+            }
+        }
+        else
+        {
+            // if the editor class doesn't exists we cannot rely on it to display
+            // the standard textarea
+            $returnString .=
+            '<textarea '
+            .'id="'.$name.'" '
+            .'name="'.$name.'" '
+            .'style="width:100%" '
+            .'rows="'.$rows.'" '
+            .'cols="'.$cols.'" '
+            .$optAttrib.' >'
+            ."\n".$content."\n"
+            .'</textarea>'."\n";
+        }
+
+        return $returnString;
+    }
+
+
 }
 
 /**
@@ -699,189 +865,10 @@ class claro_datagrid
 
 }
 
-/**
- * display data array in a <table>
- *
- * @param array $dataGrid array of data
- * @param array $option array of options
- * @return string html stream
- *
- * $dataGrid[]=array('nom'=>'dubois', 'prenom'=>'jean');
- * $dataGrid[]=array('nom'=>'dupont', 'prenom'=>'pol');
- * $dataGrid[]=array('nom'=>'durand', 'prenom'=>'simon');
- *
- * $option
- * * idLine      : deprecated (renamed to idLineType)
- * * idLineType  : choose between 'none', 'blank', 'numeric' (default)
- * * idLineShift : when idLineType is numeric shith the first line number (use when external pagined datagird)
- * * colTitleList: array of string  to replace the colKey as title of column
- * * colHead     : set the col to use as colHeading (use by scope)
- * * caption     : add the caption of the datagrid
- * * dispCounter : whether true, add a tfoot line with  count of  line in datagird.
- * * colAttributeList
- *               : array of attibute by column
- *
- */
-
-function claro_disp_datagrid($dataGrid, $option = null)
-{
-    if(is_null($option) || ! is_array($option) )  $option=array();
-
-    if (array_key_exists('idLine', $option)) die('idLine n\'est plus une option valide, il faut utiliser idLineType');
-
-    if (! array_key_exists('idLineType',   $option)) $option['idLineType'] = 'numeric';
-    if (! array_key_exists('idLineShift',  $option)) $option['idLineShift'] = 1;
-    if (! array_key_exists('colHead',      $option)) $option['colHead'] = null;
-    if (! array_key_exists('colTitleList', $option)) $option['colTitleList'] = array_keys($dataGrid[0]);
-    if (array_key_exists('caption',      $option))   $option['caption'] = '<caption>' . $option['caption'] . '</caption>';
-    else                                             $option['caption'] = '';
-
-    $dispIdCol = true;
-
-    //* manage idLine option
-
-    switch (strtolower($option['idLineType']))
-    {
-        case 'blank'   : $idLineType = '';   break;
-        case 'none'    : $dispIdCol = false; break;
-        case 'numeric' : $internalKey = 0;   break;
-        default        : $idLineType = '';   break;
-    }
-
-
-    $stream = '';
-    if (is_array($dataGrid) && count($dataGrid))
-    {
-
-        /**
-         * Build attributes for column
-         *
-         * In  W3C <COL> seems be the good usage but browser don't follow the tag
-         *
-         * So all attribute would be in each td of column.
-         */
-
-        foreach (array_keys($option['colTitleList']) as $col)
-        {
-            $attrCol[$col]='';
-            if (key_exists('colAttributeList',$option))
-            if (key_exists($col,$option['colAttributeList']))
-            foreach ($option['colAttributeList'][$col] as $attriName => $attriValue )
-            {
-                $attrCol[$col] .=' '.$attriName.'="'.$attriValue.'" ';
-            }
-        }
-
-        $stream .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-        // THEAD LINE
-        .          '<thead>' . "\n"
-        .          $option['caption']
-        .          '<tr class="headerX" align="center" valign="top">' . "\n"
-        ;
-
-        if ($dispIdCol) $stream .= '<th width="10"></th>' . "\n";
-
-        $i=0;
-        foreach ($option['colTitleList'] as $colTitle)
-        {
-            $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";
-        }
-        $stream .= '</tr>' . "\n"
-        .          '</thead>' . "\n"
-        ;
-
-        if (array_key_exists('dispCounter',$option))
-        {
-            $stream .= '<tfoot>' . "\n"
-            .          '<tr class="headerX" align="center" valign="top">' . "\n"
-            .          '<td>' . "\n"
-            .          '</td>' . "\n"
-            .          '<td>' . "\n"
-            .          count($dataGrid)
-            .          '</td>' . "\n"
-            .          '</tr>' . "\n"
-            .          '</tr>' . "\n"
-            .          '</tfoot>' . "\n"
-            ;
-
-        }
-
-        $stream .= '<tbody>' . "\n";
-        foreach ($dataGrid as $key => $dataLine )
-        {
-            switch ($option['idLineType'])
-            {
-                case 'key'     : $idLineType = $option['idLineShift'] + $key ;           break;
-                case 'numeric' : $idLineType = $option['idLineShift'] + $internalKey++ ; break;
-            }
-
-            $stream .= '<tr>' . "\n";
-
-            if ($dispIdCol) $stream .= '<td align="right" valign="middle">' . $idLineType . '</td>' . "\n";
-
-            $i=0;
-            foreach ($dataLine as $colId => $dataCell)
-            {
-                if ($option['colHead'] == $colId)
-                {
-                    $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
-                    $stream .= $dataCell;
-                    $stream .= '</td>' . "\n";
-                }
-                else
-                {
-                    $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( key_exists($colId,$attrCol)?$attrCol[$colId]:'') . '>';
-                    $stream .= $dataCell;
-                    $stream .= '</td>' . "\n";
-
-
-                }
-            }
-            $stream .= '</tr>' . "\n";
-
-        }
-        $stream .= '</tbody>' . "\n"
-        .          '</table>' . "\n"
-        ;
-
-    }
-
-    return $stream;
-
-}
-
-
 //////////////////////////////////////////////////////////////////////////////
 //                              DISPLAY OPTIONS
 //                            student    view, title, ...
 //////////////////////////////////////////////////////////////////////////////
-
-
-/**
- * Displays the title of a tool. Optionally, there can be a subtitle below
- * the normal title, and / or a supra title above the normal title.
- *
- * e.g. supra title:
- * group
- * GROUP PROPERTIES
- *
- * e.g. subtitle:
- * AGENDA
- * calender & events tool
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param  mixed $titleElement - it could either be a string or an array
- *                               containing 'supraTitle', 'mainTitle',
- *                               'subTitle'
- * @return void
- *
- * @deprecated in 1.8, use claro_html::tool_title($titlePart, $helpUrl);
- */
-
-function claro_disp_tool_title($titlePart, $helpUrl = false)
-{
-    return claro_html::tool_title($titlePart, $helpUrl);
-}
 
 
 /**
@@ -930,154 +917,6 @@ function claro_disp_auth_form($cidRequired = false)
 }
 
 /**
- * Insert a Wysiwyg editor inside a form instead of a textarea
- * A standard textarea is displayed if the Wysiwyg editor is disabled or if
- * the user's browser have no activated javascript support
- *
- * @param string $name content for name attribute in textarea tag
- * @param string $content optional content previously inserted into    the    area
- * @param int     $rows optional    textarea rows
- * @param int    $cols optional    textarea columns
- * @param string $optAttrib    optional - additionnal tag attributes
- *                                       (wrap, class, ...)
- * @return string html output for standard textarea or Wysiwyg editor
- *
- * @global string rootWeb from claro_main.conf.php
- * @global string rootSys from claro_main.conf.php
- * @global string langTextEditorDisable from lang file
- * @global string langTextEditorEnable from lang file
- * @global string langSwitchEditorToTextConfirm from lang file
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @author Sébastien Piraux <pir@cerdecam.be>
- */
-
-function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
-{
-    global $urlAppend, $rootSys;
-    global $claro_editor;
-
-    if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
-
-    $returnString = '';
-
-    // default value of htmlEditor
-    if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
-
-    // get content if in url
-    if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
-
-    // $claro_editor is the directory name of the editor
-    $incPath = $rootSys . 'claroline/editor/' . $claro_editor;
-    $editorPath = $urlAppend . '/claroline/editor/';
-    $webPath = $editorPath . $claro_editor;
-
-    if( file_exists($incPath . '/editor.class.php') )
-    {
-        // include editor class
-        include_once $incPath . '/editor.class.php';
-
-        // editor instance
-        $editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
-
-        if (claro_is_javascript_enabled())
-        {
-            if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-            {
-                $switchState = 'off';
-                $message     = get_lang('Disable text editor');
-                $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
-            }
-            else
-            {
-                $switchState = 'on';
-                $message     = get_lang('Enable text editor');
-                $confirmCommand = '';
-            }
-
-            $location = '\''
-            .           $editorPath.'/editorswitcher.php?'
-            .           'switch='.$switchState
-            .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
-            .           '&areaContent='
-            .           '\''
-            .           '+escape(document.getElementById(\''.$name.'\').value)'
-            ;
-            // use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
-            $returnString .=
-            "\n".'<div align="right">'
-            .    '<small>'
-            .    '<b>'
-            .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
-            .     'onClick ="' . $confirmCommand . 'window.location='
-            .    $location . ';return(false);">'
-            .    $message
-            .    '</a>'
-            .    '</b>'
-            .    '</small>'
-            .    '</div>'."\n"
-            ;
-        }
-
-        if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-        {
-            $returnString .= $editor->getAdvancedEditor();
-        }
-        else
-        {
-            // get standard text area
-            $returnString .=
-            '<textarea '
-            .'id="'.$name.'" '
-            .'name="'.$name.'" '
-            .'style="width:100%" '
-            .'rows="'.$rows.'" '
-            .'cols="'.$cols.'" '
-            .$optAttrib.' >'
-            ."\n".$content."\n"
-            .'</textarea>'."\n";
-        }
-    }
-    else
-    {
-        // if the editor class doesn't exists we cannot rely on it to display
-        // the standard textarea
-        $returnString .=
-        '<textarea '
-        .'id="'.$name.'" '
-        .'name="'.$name.'" '
-        .'style="width:100%" '
-        .'rows="'.$rows.'" '
-        .'cols="'.$cols.'" '
-        .$optAttrib.' >'
-        ."\n".$content."\n"
-        .'</textarea>'."\n";
-    }
-
-    return $returnString;
-}
-
-/**
- * enhance a simple textarea with an inline html editor.
- *
- * @param string $name name attribute for <textarea> tag
- * @param string $content content to prefill the area
- * @param integer $rows count of rows for the displayed editor area
- * @param integer $cols count of columns for the displayed editor area
- * @param string $optAttrib    optional - additionnal tag attributes
- *                                       (wrap, class, ...)
- * @return string html output for standard textarea or Wysiwyg editor
- */
-function claro_disp_html_area($name, $content = '',
-$rows=20, $cols=80,
-$optAttrib='')
-{
-    // becomes a alias while the function call is not replaced by the new one
-    return claro_disp_textarea_editor($name,$content,$rows,$cols,$optAttrib);
-}
-
-
-/**
  * function claro_build_nested_select_menu($name, $elementList)
  * Build in a relevant way 'select' menu for an HTML form containing nested data
  *
@@ -1112,7 +951,7 @@ function claro_build_nested_select_menu($name, $elementList)
 
 /**
  * prepare the 'option' html tag for the claro_disp_nested_select_menu()
- * fucntion
+ * function
  *
  * @param array $elementList
  * @param int   $deepness (optionnal, default is 0)
@@ -1309,5 +1148,85 @@ function make_clickable($text)
 }
 
 
+/**
+ * Deprecated functions
+ * Some function still present to prevent local developpement
+ *
+ * They would be removed after 1.8
+ *
+ */
+
+/**
+ * Enhance a simple textarea with an inline html editor.
+ *
+ * @param string $name name attribute for <textarea> tag
+ * @param string $content content to prefill the area
+ * @param integer $rows count of rows for the displayed editor area
+ * @param integer $cols count of columns for the displayed editor area
+ * @param string $optAttrib    optional - additionnal tag attributes
+ *                                       (wrap, class, ...)
+ * @return string html output for standard textarea or Wysiwyg editor
+ *
+ * @deprecated would be removed after 1.8
+ * @see claro_html::textarea_editor
+ *
+ */
+function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttrib='')
+{
+    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_html_area is deprecated, use claro_html::textarea_editor', E_USER_WARNING);
+    // becomes a alias while the function call is not replaced by the new one
+    return claro_html::textarea_editor($name,$content,$rows,$cols,$optAttrib);
+}
+
+
+
+/**
+ * Insert a Wysiwyg editor inside a form instead of a textarea
+ * A standard textarea is displayed if the Wysiwyg editor is disabled or if
+ * the user's browser have no activated javascript support
+ *
+ * @param string $name content for name attribute in textarea tag
+ * @param string $content optional content previously inserted into    the    area
+ * @param int    $rows optional    textarea rows
+ * @param int    $cols optional    textarea columns
+ * @param string $optAttrib    optional - additionnal tag attributes
+ *                                       (wrap, class, ...)
+ * @return string html output for standard textarea or Wysiwyg editor
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @author Sébastien Piraux <pir@cerdecam.be>
+ *
+ * @deprecated would be removed after 1.8
+ * @see claro_html::textarea_editor
+ *
+ */
+
+function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
+{
+    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html::tool_title', E_USER_WARNING);
+
+    return claro_html::textarea_editor($name, $content, $rows, $cols, $optAttrib);
+}
+
+/**
+ * Displays the title of a tool. Optionally, there can be a subtitle below
+ * the normal title, and / or a supra title above the normal title.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param  mixed $titleElement - it could either be a string or an array
+ *                               containing 'supraTitle', 'mainTitle',
+ *                               'subTitle'
+ * @return void
+ *
+ * @deprecated in 1.8
+ * @see claro_html::tool_title($titlePart, $helpUrl);
+ */
+
+function claro_disp_tool_title($titlePart, $helpUrl = false)
+{
+    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_tool_title is deprecated, use claro_html::tool_title', E_USER_WARNING);
+
+    return claro_html::tool_title($titlePart, $helpUrl);
+}
 
 ?>
