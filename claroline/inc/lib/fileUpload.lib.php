@@ -416,8 +416,6 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
         }
         else return false;
     }
-
-    return false;
 }
 
 
