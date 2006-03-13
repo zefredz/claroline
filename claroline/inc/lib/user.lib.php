@@ -125,7 +125,7 @@ function user_add ($data)
                 `password`     = '". addslashes($password) . "',
                 `language`     = '" .addslashes($data['language']) . "',
                 `email`        = '". addslashes($data['email']) ."',
-                `statut`       = '". (int) $data['status'] ."',
+                `statut`       = ". (int) $data['status'] .",
                 `officialCode` = '". addslashes($data['officialCode']) ."',
                 `phoneNumber`  = '". addslashes($data['phone']) ."'";
 
@@ -156,37 +156,36 @@ function user_update ($user_id, $data)
                 `prenom`       = '" . addslashes($data['firstname']) . "',
                 `username`     = '" . addslashes($data['username']) . "',
                 `phoneNumber`  = '" . addslashes($data['phone']) . "',
-                `creatorId`    = '" . (int)$_uid. "',
+                `creatorId`    = " . (int)$_uid. ",
                 `email`        = '" . addslashes($data['email']) . "',
                 `officialCode` = '" . addslashes($data['officialCode']) . "' ";
 
     if ( !empty($data['status']) )
     {
-        $sql .= ", `statut` = '" . (int) $data['status'] . "' " ;
+        $sql .= ", `statut` = '" . (int) $data['status'] . "' " . "\n" ;
     }
 
     if ( !empty($data['password']) )
     {
         $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
-        $sql .= ", `password`   = '" . addslashes($password) . "' " ;
+        $sql .= ", `password`   = '" . addslashes($password) . "' "  . "\n";
     }
 
     if ( !empty($data['language']) )
     {
-        $sql .= ", `language` = '" . addslashes($data['language']) . "' " ;
+        $sql .= ", `language` = '" . addslashes($data['language']) . "' "  . "\n";
     }
 
     if ( !empty($data['picture']) )
     {
-        $sql .= ", `pictureUri` = '" . addslashes($data['picture']) . "' " ;
+        $sql .= ", `pictureUri` = '" . addslashes($data['picture']) . "' "  . "\n";
     }
     else
     {
-        $sql .= ", `pictureUri` = NULL " ;
+        $sql .= ", `pictureUri` = NULL "  . "\n";
     }
 
-    $sql .= " WHERE `user_id`  = '" . (int) $user_id . "'";
-
+    $sql .= " WHERE `user_id`  = " . (int) $user_id;
     return claro_sql_query($sql);
 
 }
@@ -1564,11 +1563,9 @@ function user_display_preferred_language_select_box()
     {
         // get the the current language
         $user_language = language::current_language();
-
         // build language selector form
         $form .= claro_html_form_select('language',$language_list,$user_language,array('id'=>'language_selector')) ;
     }
-
     return $form;
 }
 
