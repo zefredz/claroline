@@ -30,7 +30,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 ////////////// OUTPUT //////////////////////
 
 include($includePath."/claro_init_header.inc.php");
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 if ( $is_trackingEnabled )
 {

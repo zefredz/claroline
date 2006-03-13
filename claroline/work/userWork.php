@@ -854,7 +854,7 @@ else
 	$pageTitle['subTitle'] = get_lang('User') . ' : ' . $authName . "\n";
 	if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../user/userInfo.php?uInfo='.$_REQUEST['authId'].'">'.get_lang('View user data').'</a>)</small>'."\n";
 }
-echo claro_disp_tool_title($pageTitle);
+echo claro_html::tool_title($pageTitle);
 
 /*--------------------------------------------------------------------
                           FORMS

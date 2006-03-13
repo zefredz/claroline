@@ -102,7 +102,7 @@ include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $lpDetails['name'];
-echo claro_disp_tool_title($titleTab);
+echo claro_html::tool_title($titleTab);
 
 
 if($is_allowedToTrack && $is_trackingEnabled) 

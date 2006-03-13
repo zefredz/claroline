@@ -105,7 +105,7 @@ function buildRequestModules()
 
 // display title
 
-echo claro_disp_tool_title(get_lang('Insert a module of the course'));
+echo claro_html::tool_title(get_lang('Insert a module of the course'));
 
 //COMMAND ADD SELECTED MODULE(S):
 
@@ -241,7 +241,7 @@ echo "\n".'</tfoot>'."\n\n".'</form>'."\n".'</table>';
 //####################################################################################\\
 
 // display subtitle
-echo claro_disp_tool_title(get_lang('Learning path content'));
+echo claro_html::tool_title(get_lang('Learning path content'));
 
 // display back link to return to the LP administration
 echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';

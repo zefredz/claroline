@@ -78,7 +78,7 @@ include($includePath."/lib/learnPath.lib.inc.php");
 include($includePath."/claro_init_header.inc.php");
 
 // display title
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 // display use explication text
 echo get_block('blockModulePoolHelp')."<br /><br />";

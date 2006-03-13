@@ -660,7 +660,7 @@
         }
     }
     
-    echo claro_disp_tool_title( $toolTitle, false );
+    echo claro_html::tool_title( $toolTitle, false );
     
     if ( !empty($message) )
     {

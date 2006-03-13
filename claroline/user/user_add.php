@@ -190,7 +190,7 @@ if ( $platformRegSucceed || $courseRegSucceed )
 // display header
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_disp_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
+echo claro_html::tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
                 'help_user.php');
 
 // message box

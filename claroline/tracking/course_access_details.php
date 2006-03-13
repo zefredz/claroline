@@ -25,7 +25,7 @@ include $includePath . '/claro_init_header.inc.php';
 include $includePath . '/lib/statsUtils.lib.inc.php';
 
 
-echo claro_disp_tool_title(
+echo claro_html::tool_title(
     array(
     'mainTitle'=>$nameTools,
     )

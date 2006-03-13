@@ -361,7 +361,7 @@ include $includePath . '/claro_init_header.inc.php' ;
                     TOOL TITLE
     --------------------------------------------------------------------*/
 
-echo claro_disp_tool_title($nameTools, $is_allowedToEdit ? 'help_work.php' : false);
+echo claro_html::tool_title($nameTools, $is_allowedToEdit ? 'help_work.php' : false);
 
 
 if ($is_allowedToEdit)

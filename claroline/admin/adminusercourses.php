@@ -194,7 +194,7 @@ if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back t
 //----------------------------------
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 

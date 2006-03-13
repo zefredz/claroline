@@ -116,7 +116,7 @@ claro_set_display_mode_available(true);
 include($includePath."/claro_init_header.inc.php");
 
 // title
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 
 // main page
 $is_AllowedToEdit = claro_is_allowed_to_edit();

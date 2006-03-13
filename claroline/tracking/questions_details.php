@@ -96,7 +96,7 @@ else
 include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
-echo claro_disp_tool_title($titleTab);
+echo claro_html::tool_title($titleTab);
 
 // build back link
 $backLink = "\n\n".'<small><a href="./exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src.'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n\n";

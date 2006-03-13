@@ -78,7 +78,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         $dialogBox = get_lang('Wrong operation');
     }
 
-    echo claro_disp_tool_title($toolTitle);
+    echo claro_html::tool_title($toolTitle);
 
     if( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
 

@@ -157,7 +157,7 @@ $pagetype  = 'reply';
 
 $is_allowedToEdit = claro_is_allowed_to_edit(); 
 
-echo claro_disp_tool_title(get_lang('Forums'), 
+echo claro_html::tool_title(get_lang('Forums'), 
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed )

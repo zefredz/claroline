@@ -85,7 +85,7 @@ $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title(get_lang('Forums'), 
+echo claro_html::tool_title(get_lang('Forums'), 
                            $is_allowedToEdit ? 'help_forum.php' : false);
 
 disp_forum_toolbar($pagetype, null);

@@ -54,7 +54,7 @@ include($includePath."/lib/learnPath.lib.inc.php");
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = get_lang('Progression of users on all learning paths');
 
-echo claro_disp_tool_title($titleTab);
+echo claro_html::tool_title($titleTab);
 
 if ( $is_trackingEnabled ) 
 {

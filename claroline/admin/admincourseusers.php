@@ -202,7 +202,7 @@ if (isset($cfrom) && ($cfrom=='clist'))
  */
 
 include($includePath . '/claro_init_header.inc.php');
-echo claro_disp_tool_title($nameTools);
+echo claro_html::tool_title($nameTools);
 if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
 
 echo claro_html::menu_horizontal($command_list)

@@ -78,7 +78,7 @@ if ( $is_trackingEnabled )
             // display title
             $titleTab['mainTitle'] = $nameTools;
             $titleTab['subTitle'] = htmlspecialchars($learnPathName);
-            echo claro_disp_tool_title($titleTab);
+            echo claro_html::tool_title($titleTab);
 
             // display a list of user and their respective progress    
             $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`

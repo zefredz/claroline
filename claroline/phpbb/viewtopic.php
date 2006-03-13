@@ -198,7 +198,7 @@ else
     $is_allowedToEdit = claro_is_allowed_to_edit() 
                         || ( $is_groupTutor && !$is_courseAdmin);
     
-    echo claro_disp_tool_title(get_lang('Forums'), 
+    echo claro_html::tool_title(get_lang('Forums'), 
                           $is_allowedToEdit ? 'help_forum.php' : false);
         
     if ($forum_post_allowed)

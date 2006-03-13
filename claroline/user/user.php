@@ -296,7 +296,7 @@ Display section
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_disp_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
+echo claro_html::tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)
