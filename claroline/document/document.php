@@ -605,6 +605,9 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                 update_Doc_Path_in_Assets("update",$_REQUEST['file'],
                                                    $_REQUEST['destination'].'/'.basename($_REQUEST['file']));
             }
+            $ressource['old_uri'] = $_REQUEST['file'];
+            $ressource['new_uri'] = $_REQUEST['destination'].'/'.basename($_REQUEST['file']);
+            $eventNotifier->notifyCourseEvent('document_moved', $_cid, $_tid, $ressource, $_gid, '0');
 
             $dialogBox = get_lang("Element moved").'<br />';
         }
@@ -746,6 +749,10 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
                 if ( ! empty($newComment) ) $dialogBox .= get_lang("Comment modified").'<br />';
             }
+
+            $ressource['old_uri'] = str_replace('..', '', $_REQUEST['file']);
+            $ressource['new_uri'] = $newPath;
+            $eventNotifier->notifyCourseEvent("document_file_modified",$_cid, $_tid, $ressource , $_gid, "0");
         }
         else
         {
@@ -868,6 +875,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
 
             $dialogBox = get_lang("Directory created");
+            $eventNotifier->notifyCourseEvent("document_file_added",$_cid, $_tid, $_REQUEST['cwd'].'/'.$newDirName, $_gid, "0");
         }
     }
 
@@ -2131,4 +2139,3 @@ echo claro_html::tool_title($titleElement,
     } // END ELSE VIEW IMAGE
 
 include $includePath . '/claro_init_footer.inc.php';
-?>
