@@ -922,4 +922,40 @@ function get_init($param)
     else                                trigger_error( htmlentities($param) . ' is not a setted init value name', E_USER_NOTICE);
     return null;
 }
+
+
+
+/**
+ * convert a duration in seconds to a human readable duration
+ * @author Sébastien Piraux <pir@cerdecam.be>
+ * @param integer duration time in seconds to convert to a human readable duration
+ */
+
+function claro_disp_duration( $duration  )
+{
+    if( $duration == 0 ) return '0 '.get_lang('SecondShort');
+
+    $days = floor(($duration/86400));
+    $duration = $duration % 86400;
+
+    $hours = floor(($duration/3600));
+    $duration = $duration % 3600;
+
+    $minutes = floor(($duration/60));
+    $duration = $duration % 60;
+    // $duration is now equal to seconds
+
+    $durationString = '';
+
+    if( $days > 0 ) $durationString .= $days . ' ' . get_lang('PeriodDayShort') . ' ';
+    if( $hours > 0 ) $durationString .= $hours . ' ' . get_lang('PeriodHourShort') . ' ';
+    if( $minutes > 0 ) $durationString .= $minutes . ' ' . get_lang('MinuteShort') . ' ';
+    if( $duration > 0 ) $durationString .= $duration . ' ' . get_lang('SecondShort');
+
+    return $durationString;
+}
+
+
+
+
 ?>

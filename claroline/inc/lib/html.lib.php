@@ -929,37 +929,6 @@ function claro_disp_auth_form($cidRequired = false)
     die(); // necessary to prevent any continuation of the application
 }
 
-
-/**
- * convert a duration in seconds to a human readable duration
- * @author Sébastien Piraux <pir@cerdecam.be>
- * @param integer duration time in seconds to convert to a human readable duration
- */
-
-function claro_disp_duration( $duration  )
-{
-    if( $duration == 0 ) return '0 '.get_lang('SecondShort');
-
-    $days = floor(($duration/86400));
-    $duration = $duration % 86400;
-
-    $hours = floor(($duration/3600));
-    $duration = $duration % 3600;
-
-    $minutes = floor(($duration/60));
-    $duration = $duration % 60;
-    // $duration is now equal to seconds
-
-    $durationString = '';
-
-    if( $days > 0 ) $durationString .= $days . ' ' . get_lang('PeriodDayShort') . ' ';
-    if( $hours > 0 ) $durationString .= $hours . ' ' . get_lang('PeriodHourShort') . ' ';
-    if( $minutes > 0 ) $durationString .= $minutes . ' ' . get_lang('MinuteShort') . ' ';
-    if( $duration > 0 ) $durationString .= $duration . ' ' . get_lang('SecondShort');
-
-    return $durationString;
-}
-
 /**
  * Insert a Wysiwyg editor inside a form instead of a textarea
  * A standard textarea is displayed if the Wysiwyg editor is disabled or if
