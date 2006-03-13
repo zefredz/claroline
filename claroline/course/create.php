@@ -68,8 +68,6 @@ $courseEnrollAllowed = isset($_REQUEST['courseEnrollAllowed'])
 $display   = DISP_COURSE_CREATION_FORM; // default display ...
 $errorList = array();
 
-
-
 if ( isset($_REQUEST['submitFromCoursProperties']) )
 {
     // SUBMITTED DATA CHECKING
@@ -160,6 +158,13 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 {
                     claro_mail_user( $thisPlatformAdmin['idUser'], $mailBody, $mailSubject);
                 }
+            
+            $args['courseSysCode'] = $courseSysCode;
+            $args['courseDbName'] = $courseDbName;
+            $args['courseDirectory'] = $courseDirectory; 
+            $args['courseCategory']	= $courseCategory;
+            
+            $eventNotifier->notifyEvent("course_created",$args);
             }
             else
             {

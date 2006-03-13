@@ -77,8 +77,12 @@ function delete_course($code)
     claro_sql_query($sql);  
    
     //notify the course deletion event
-    
-    $eventNotifier->notifyCourseEvent('course_deleted', $code, 0, 0, 0,'0');
+    $args['courseSysCode'] = $this_course['sysCode'];
+    $args['courseDbName'] = $this_course['dbName'];
+    $args['courseDirectory'] = $this_course['path']; 
+    $args['courseCategory']	= $this_course['categoryCode'];
+
+    $eventNotifier->notifyEvent("course_deleted",$args);
 
     if ($currentCourseId == $code)
     {
