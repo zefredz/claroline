@@ -259,36 +259,26 @@
                     return false;
                 }
                 
+                $idList = array();
+                
                 foreach ( $pageIds as $pageId )
                 {
-                    $sql = "DELETE "
-                        . "FROM `".$this->config['tbl_wiki_pages_content']."` "
-                        . "WHERE `pid` = " . (int) $pageId['id']
-                        ;
-                        
-                    $this->con->executeQuery( $sql );
-                    
-                    if ( $this->hasError() )
-                    {
-                        return false;
-                    }
+                    $idList[] = (int) $pageId['id'];
                 }
                 
-#                // delete wiki pages
-#                $sql = "DELETE `content`.* "
-#                    . "FROM `"
-#                    . $this->config['tbl_wiki_pages_content']."` `content`, `"
-#                    . $this->config['tbl_wiki_pages'] . "` `pages`"
-#                    . "WHERE `pages`.`wiki_id` = " . $wikiId . " "
-#                    . "AND `content`.`pid` = `pages`.`id`"
-#                    ;
-#
-#                $numrows = $this->con->executeQuery( $sql );
-#                
-#                if ( $this->hasError() )
-#                {
-#                    return false;
-#                }
+                $idListStr = '(' . implode( ',', $idList ) . ')';
+                
+                $sql = "DELETE "
+                    . "FROM `".$this->config['tbl_wiki_pages_content']."` "
+                    . "WHERE `pid` IN " . $idListStr
+                    ;
+                        
+                $this->con->executeQuery( $sql );
+                
+                if ( $this->hasError() )
+                {
+                    return false;
+                }
                 
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
                     . "WHERE `wiki_id` = " . (int) $wikiId
