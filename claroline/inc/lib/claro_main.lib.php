@@ -244,17 +244,17 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
                               CONCAT('" . $clarolineRepositoryWeb . "', pct.script_url) )
                       AS url
 
-               FROM `". $tbl_course_tool_list ."` ctl
+               FROM `" . $tbl_course_tool_list . "` AS ctl
 
-               LEFT JOIN `" . $tbl_tool_list . "` pct
+               LEFT JOIN `" . $tbl_tool_list . "` AS pct
                       ON  pct.id = ctl.tool_id
 
-               WHERE ctl.access IN (\"".implode("\", \"", $accessList)."\")
+               WHERE ctl.access IN ('" . implode("', '", $accessList) . "')
                ORDER BY external, ctl.rank";
 
         $courseToolList = claro_sql_query_fetch_all($sql);
 
-        /*
+        /**
          * Complete the list with the appropriate tool names
          */
 
@@ -897,6 +897,7 @@ function claro_unquote_gpc()
 
 function get_init($param)
 {
+
     static $initValueList = array( '_uid','_cid','_gid','_tid'
                                  , 'is_platformAdmin'
                                  , '_course'
@@ -917,9 +918,9 @@ function get_init($param)
                                  );
 
     if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name', E_USER_NOTICE);
-    if     ( isset($GLOBALS[$param]) )  return $GLOBALS[$param];
-    elseif ( defined($param)         )  return constant($param);
-    else                                trigger_error( htmlentities($param) . ' is not a setted init value name', E_USER_NOTICE);
+    if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
+    elseif ( defined($param)         )            return constant($param);
+    else                                          trigger_error( htmlentities($param) . ' is not a setted init value name', E_USER_NOTICE);
     return null;
 }
 
@@ -954,8 +955,5 @@ function claro_disp_duration( $duration  )
 
     return $durationString;
 }
-
-
-
 
 ?>
