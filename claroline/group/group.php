@@ -300,8 +300,11 @@ if ( $is_allowedToManage )
         if ( isset($_REQUEST['private']) ) $private = (int) $_REQUEST['private'];
         else                               $private = 0;
 
-//        if ( isset($_REQUEST['forum']) ) $forum = (int) $_REQUEST['forum'];
-//        else                             $forum = 0;
+        if ( isset($_REQUEST['forum']) ) $forum = (int) $_REQUEST['forum'];
+        else                             $forum = 0;
+        
+        if ( isset($_REQUEST['document']) ) $document = (int) $_REQUEST['document'];
+        else                             $document = 0;
 
         if ( isset($_REQUEST['chat']) ) $chat = (int) $_REQUEST['chat'];
         else                            $chat = 0;
@@ -313,10 +316,10 @@ if ( $is_allowedToManage )
                SET id                =  1 ,
                    self_registration = '" . $self_registration . "',
                    private           = '" . $private . "',
-                   forum             = '1', # always active
+                   forum             = '" . $forum . "',
                    chat              = '" . $chat . "',
                    wiki              = '" . $wiki . "',
-                   document          = '1' , # always active and private.
+                   document          = '" . $document . "' ,
                   `nbGroupPerUser`   = " . $sqlLimitNbGroupPerUser . ""; // DO NOT ADD '' around
 
         claro_sql_query($sql);
@@ -328,10 +331,10 @@ if ( $is_allowedToManage )
         $sql = "UPDATE `".$tbl_GroupsProperties."`
                 SET `self_registration` = '" . $self_registration . "',
                     `private`           = '" . $private . "',
-                    `forum`             = '1', # always active
+                    `forum`             = '" . $forum . "',
                     `chat`              = '" . $chat . "',
                     `wiki`              = '" . $wiki ."',
-                    `document`          = '1' , # always active and private.
+                    `document`          = '" . $document . "',
                     `nbGroupPerUser`    = " . $sqlLimitNbGroupPerUser . " # DO NOT ADD '' around
                 WHERE id = 1" ;
 

@@ -433,6 +433,8 @@ LEFT JOIN `" . $tbl_tool . "` `ct`
 ON        ct.id = tl.tool_id";
 
     $tool_list = claro_sql_query_fetch_all($sql);
+    
+    $group_tool_list = array();
 
     foreach($tool_list as $tool)
     {

@@ -176,14 +176,22 @@ echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitl
     <tr>
         <td valign="top">
             <span class="item">
-            <?php echo get_lang("Forum"); ?>
+            <input type="checkbox" name="forum" id="forum" value="1"
+            <?php
+                if($_groupProperties['tools'] ['forum'])
+                    echo "checked" ?> >
+            <label for="forum"><?php echo get_lang("Forum"); ?></label>
             </span>
         </td>
     </tr>
     <tr>
         <td>
             <span class="item">
-            <?php echo get_lang("Documents and Links") ?>
+            <input type="checkbox" name="document" id="document" value="1"
+            <?php
+                if($_groupProperties['tools'] ['document'])
+                    echo "checked" ?> >
+            <label for="document"><?php echo get_lang("Documents and Links") ?></label>
             </span>
         </td>
     </tr>
@@ -194,7 +202,7 @@ echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitl
             <?php
                 if($_groupProperties['tools'] ['chat'])
                     echo "checked" ?> >
-            <label for="chat"><?php echo get_lang("Chat"); ?> <?php echo get_lang("(always private)"); ?></label>
+            <label for="chat"><?php echo get_lang("Chat"); ?></label>
             </span>
         </td>
     </tr>
