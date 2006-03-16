@@ -263,6 +263,9 @@ class claro_html
 
     function message_box($message)
     {
+        $effectiveContent = trim(strip_tags($message));
+
+        if(!empty($effectiveContent))
         return "\n" . '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
         .      '<tr>'
         .      '<td>'
@@ -271,6 +274,7 @@ class claro_html
         .      '</tr>'
         .      '</table>' . "\n\n"
         ;
+        else return '';
     }
 
 
