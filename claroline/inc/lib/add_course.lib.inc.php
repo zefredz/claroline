@@ -32,9 +32,6 @@
  * @param string $addUniquePrefix  prefix randomly generated prepend to model
  * @param boolean $useCodeInDepedentKeys   whether not ignore $wantedCode param. If FALSE use an empty model.
  * @param boolean $addUniqueSuffix suffix randomly generated append to model
- * @param string $suffix4baseName  suffix added  for db key (prepend to $suffix4all)
- * @param string $suffix4path      suffix added  for repository key (prepend to $suffix4all)
- * @param string $suffix4all       suffix added  for ALL keys
  * @return array
  * - ["currentCourseCode"]          : Must be alphaNumeric and outputable in HTML System
  * - ["currentCourseId"]            : Must be unique in mainDb.course it's the primary key
@@ -60,7 +57,7 @@ function define_course_keys ($wantedCode,
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course    = $tbl_mdb_names['course'];
 
-    GLOBAL $coursesRepositories, $DEBUG,$singleDbEnabled;
+    GLOBAL $coursesRepositories, $singleDbEnabled;
 
     $nbCharFinalSuffix = get_conf('nbCharFinalSuffix');
 
@@ -85,6 +82,11 @@ function define_course_keys ($wantedCode,
     if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid('')),0,10);
     else                  $uniquePrefix = '';
 
+
+
+
+
+
     if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid('')),0,10);
 
     else                  $uniqueSuffix = '';
@@ -99,9 +101,29 @@ function define_course_keys ($wantedCode,
 
     while (!$keysAreUnique)
     {
-        $keysCourseId         = $prefix4all . $uniquePrefix . strtoupper($wantedCode) . $uniqueSuffix . $finalSuffix['CourseId'];
-        $keysCourseDbName     = $prefix4baseName . $uniquePrefix . strtoupper($keysCourseId) . $uniqueSuffix . $finalSuffix['CourseDb'];
-        $keysCourseRepository = $prefix4path . $uniquePrefix . strtoupper($wantedCode) . $uniqueSuffix . $finalSuffix['CourseDir'];
+         $keysCourseId     = $prefix4all
+         .                   $uniquePrefix
+         .                   strtoupper($wantedCode)
+         .                   $uniqueSuffix
+         .                   ($finalSuffix['CourseId'] > 0?
+                             sprintf("_%0" . $nbCharFinalSuffix . "s", $finalSuffix['CourseId']):'')
+         ;
+
+         $keysCourseDbName = $prefix4baseName
+         .                   $uniquePrefix
+         .                   strtoupper($wantedCode)
+         .                   $uniqueSuffix
+         .                   ($finalSuffix['CourseDb'] > 0?
+                             sprintf("_%0" . $nbCharFinalSuffix . "s", $finalSuffix['CourseDb']):'')
+         ;
+
+         $keysCourseRepository = $prefix4path
+         .                       $uniquePrefix
+         .                       strtoupper($wantedCode)
+         .                       $uniqueSuffix
+         .                       ($finalSuffix['CourseDir'] > 0?
+                                 sprintf("_%0" . $nbCharFinalSuffix . "s", $finalSuffix['CourseDir']):'')
+         ;
 
         $keysAreUnique = TRUE;
         // Now we go to check if there are unique
@@ -117,7 +139,7 @@ function define_course_keys ($wantedCode,
         {
             $keysAreUnique = FALSE;
             $tryNewFSCId++;
-            $finalSuffix['CourseId'] = substr(md5 (uniqid('')), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseId']++;
         };
 
         if ($singleDbEnabled)
@@ -133,24 +155,24 @@ function define_course_keys ($wantedCode,
 
         $isCheckCourseDbUsed = mysql_num_rows($resCheckCourseDb);
 
-        if ($isCheckCourseDbUsed>0)
+        if ($isCheckCourseDbUsed > 0)
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDb++;
-            $finalSuffix['CourseDb'] = substr('_'.md5 (uniqid('')), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseDb']++;
         };
 
         if (file_exists($coursesRepositories . '/' . $keysCourseRepository))
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDir++;
-            $finalSuffix['CourseDir'] = substr(md5 (uniqid('')), 0, $nbCharFinalSuffix);
-            if ($DEBUG) echo '[dir'.$coursesRepositories . '/' . $keysCourseRepository.']<br>';
+            $finalSuffix['CourseDir']++;
+
         };
 
         if(!$keysAreUnique)
         {
-            $finalSuffix['CourseDir'] = substr(md5 (uniqid ('')), 0, $nbCharFinalSuffix);
+            $finalSuffix['CourseDir'] = max($finalSuffix);
             $finalSuffix['CourseId']  = $finalSuffix['CourseDir'];
             $finalSuffix['CourseDb']  = $finalSuffix['CourseDir'];
         }
@@ -967,7 +989,7 @@ function fill_db_course($courseDbName,$language)
 
     // Create a hidden category for group forums
     claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (1,'".addslashes(get_lang('sampleForumGroupCategory'))."',2)");
-    
+
     claro_sql_query("INSERT
                         INTO `".$TABLEPHPBBFORUMS."`
                         VALUES ( 1
@@ -1008,13 +1030,13 @@ function fill_db_course($courseDbName,$language)
        NULL,
        NULL
        )");
-    
+
     claro_sql_query("INSERT INTO `".$TABLEPHPBBUSERS."` VALUES (
        '-1',       '".addslashes(get_lang('Anonymous'))."',       NOW(),       'password',       '',
        NULL,       NULL,       NULL,       NULL,       NULL,       NULL,       NULL,
        NULL,       NULL,       NULL,       NULL,       '0',       '0',       '0',       '0',       '0',
        '0',       '1',       NULL,       NULL,       NULL       )");
-     
+
     ############################## GROUPS ###########################################
     claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
 (id, self_registration, private, forum, document, wiki, chat)
@@ -1109,7 +1131,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     else                       $expirationDate = 'FROM_UNIXTIME('.$expirationDate.')';
 
     $currenVersionFilePath = $includePath . '/currentVersion.inc.php';
-    file_exists($currenVersionFilePath) && require $includePath . '/currentVersion.inc.php';
+    file_exists($currenVersionFilePath) && require get_init('includePath') . '/currentVersion.inc.php';
 
     $sql = "INSERT INTO `" . $tbl_course . "` SET
             code              = '" . addslashes($courseSysCode)    . "',
