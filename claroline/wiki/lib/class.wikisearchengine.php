@@ -41,7 +41,7 @@
          * @param DatabaseConnection connection
          * @param Array config
          */
-        function WikiSearchEngine( &$connection, $config )
+        function WikiSearchEngine( &$connection, $config = null )
         {
             if ( is_array( $config ) )
             {
@@ -170,7 +170,7 @@
          * @param Const mode
          * @return Array of Wiki pages
          */
-        function searchInWiki( $wikiId, $pattern, $mode = CLWIKI_SEARCH_ANY )
+        function searchInWiki( $pattern, $wikiId, $mode = CLWIKI_SEARCH_ANY )
         {
             if ( ! $this->connection->isConnected() )
             {
@@ -282,7 +282,7 @@
             # search for Wiki pages
             foreach ( $wikiList as $wiki )
             {
-                $pages = $this->lightSearchInWiki( $wiki['id'], $pattern, $mode );
+                $pages = $this->lightSearchInWiki( $pattern, $wiki['id'], $mode );
                 if ( false !== $pages )
                 {
                     $wiki['pages'] = is_null($pages) ? array() : $pages;
