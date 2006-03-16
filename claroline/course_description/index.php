@@ -32,17 +32,9 @@ $nameTools = get_lang('Course description');
 
 $noQUERY_STRING = TRUE; // to remove parameters in the last breadcrumb link
 
-/*
-* DB tables definition
-*/
-
-$tbl_cdb_names          = claro_sql_get_course_tbl();
-$tbl_course_description = $tbl_cdb_names['course_description'];
-
 include 'tiplistinit.inc.php';
 
 $dialogBox = '';
-
 
 /******************************************************************************
 UPDATE / ADD DESCRIPTION ITEM
@@ -50,17 +42,20 @@ UPDATE / ADD DESCRIPTION ITEM
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
+$acceptedCmdList = array('rqEdit', 'exEdit', 'exAdd', 'rqDelete', 'exDelete', 'mkShow','mkHide');
+$cmd = ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCmdList)) ? $_REQUEST['cmd'] : null;
+
+
 if ( $is_allowedToEdit )
 {
 
     /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
 
-    $cmd         = isset($_REQUEST['cmd'])         ? $_REQUEST['cmd']               : NULL;
     $descTitle   = isset($_REQUEST['descTitle'])   ? trim($_REQUEST['descTitle'])   : '';
     $descContent = isset($_REQUEST['descContent']) ? trim($_REQUEST['descContent']) : '';
     $descId      = isset($_REQUEST['id'])          ? (int) $_REQUEST['id']          : -1 ;
 
-    if ( $cmd == 'exEdit' )
+    if ( 'exEdit' == $cmd )
     {
         // Update description
         if ( course_description_set_item($descId, $descTitle, $descContent) != false )
@@ -68,13 +63,11 @@ if ( $is_allowedToEdit )
             $eventNotifier->notifyCourseEvent('course_description_modified', $_cid, $_tid, $descId, $_gid, '0');
             $dialogBox .= '<p>' . get_lang('Description updated') . '</p>';
         }
-        else
-        {
-            $dialogBox .= '<p>' . get_lang('Unable to update') . '</p>';
-        }
+        else $dialogBox .= '<p>' . get_lang('Unable to update') . '</p>';
+
     }
 
-    if ( $cmd == 'exAdd' )
+    if ( 'exAdd' == $cmd)
     {
         // Add new description
         $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
@@ -88,7 +81,7 @@ if ( $is_allowedToEdit )
     REQUEST DESCRIPTION ITEM EDITION
     ******************************************************************************/
 
-    if ( $cmd == 'rqEdit' )
+    if ( 'rqEdit' == $cmd )
     {
         claro_set_display_mode_available(false);
 
@@ -96,10 +89,8 @@ if ( $is_allowedToEdit )
         {
             $tipsId = $_REQUEST['tipsId'];
         }
-        else
-        {
-            $tipsId = -1; // initialise tipsId
-        }
+        else $tipsId = -1; // initialise tipsId
+
 
         if ( isset($descId) && $descId >=0 )
         {
@@ -124,10 +115,10 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $descPresetTitle    = NULL;
+            $descPresetTitle    = null;
             $descNotEditable    = false;
-            $descPresetQuestion = NULL;
-            $descPresetTip      = NULL;
+            $descPresetQuestion = null;
+            $descPresetTip      = null;
         }
 
         $displayForm = TRUE;
@@ -136,9 +127,12 @@ if ( $is_allowedToEdit )
     /******************************************************************************
     DELETE DESCRIPTION ITEM
     ******************************************************************************/
+    if ( 'rqDelete' == $cmd )
+    {
+        $dialogBox .= '<p>' . get_lang('Are you sure to delete') . '</p>';
+    }
 
-
-    if ( $cmd == 'exDelete' && $descId >=0 )
+    if ( 'exDelete' == $cmd  && $descId >=0 )
     {
         if ( course_description_delete_item($descId) )
         {
@@ -158,7 +152,7 @@ if ( $is_allowedToEdit )
     ******************************************************************************/
 
 
-    if ( ($cmd == 'mkShow'|| $cmd == 'mkHide') && ($descId >= 0) )
+    if ( ( 'mkShow' == $cmd || 'mkHide' == $cmd ) && ($descId >= 0) )
     {
         if ( course_description_visibility_item($descId , $cmd) )
         {
@@ -167,7 +161,7 @@ if ( $is_allowedToEdit )
 
         //notify that an item is now visible
 
-        if ($cmd == 'mkShow')
+        if ( 'mkShow' == $cmd )
         {
             $eventNotifier->notifyCourseEvent('course_description_visible',$_cid, $_tid, $descId, $_gid, '0');
         }
@@ -360,12 +354,12 @@ if ( count($descList) )
         if ( $is_allowedToEdit )
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
-            .    '<img src="' . $imgRepositoryWeb.'edit.gif" alt="' . get_lang('Modify') . '">'
+            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '">'
             .    '</a>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
             .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
             .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.get_lang('Delete').'" />'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" />'
             .    '</a>' . "\n"
             ;
             if ($thisDesc['visibility'] == 'SHOW')
