@@ -19,7 +19,7 @@
 class Assignment 
 {
 	/**
-     * @var $id id of assignment, 0 if assignment doesn't exist already
+     * @var $id id of assignment, -1 if assignment doesn't exist already
      */
     var $id;
     
@@ -99,12 +99,12 @@ class Assignment
     var $assigDirWeb; 
 
     /**
-     * @var $tblAssignment sys path to assignment dir
+     * @var $tblAssignment assignment table
      */
     var $tblAssignment; 
     
 	/**
-     * @var $tblSubmission web path to assignment dir
+     * @var $tblSubmission submission table
      */
     var $tblSubmission;     
         
@@ -220,9 +220,7 @@ class Assignment
 						`prefill_text` = '".addslashes($this->autoFeedbackText)."', 	
 						`prefill_doc_path` = '".addslashes($this->autoFeedbackFilename)."', 	
 						`prefill_submit` = '".addslashes($this->autoFeedbackSubmitMethod)."'";
-		
-		    // on creation of an assignment the automated feedback take the default values from mysql
-		
+				
 		    // execute the creation query and get id of inserted assignment
 		    $insertedId = claro_sql_query_insert_id($sql);
 		
@@ -367,7 +365,7 @@ class Assignment
 	        return false;
 	    }
 
-	    return true; // no errors, form is validate
+	    return true; // no errors, form is valide
     }     
 
 	/**
@@ -446,6 +444,7 @@ class Assignment
                       
         return claro_sql_query_fetch_all($sql);
     }
+    
 	/**
      * builds required paths and sets values in assigDirSys and assigDirWeb
      *
