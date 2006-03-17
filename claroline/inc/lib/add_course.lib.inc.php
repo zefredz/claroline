@@ -1131,7 +1131,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     else                       $expirationDate = 'FROM_UNIXTIME('.$expirationDate.')';
 
     $currenVersionFilePath = $includePath . '/currentVersion.inc.php';
-    file_exists($currenVersionFilePath) && require get_init('includePath') . '/currentVersion.inc.php';
+    file_exists($currenVersionFilePath) && require $includePath . '/currentVersion.inc.php';
 
     $sql = "INSERT INTO `" . $tbl_course . "` SET
             code              = '" . addslashes($courseSysCode)    . "',
