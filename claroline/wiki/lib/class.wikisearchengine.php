@@ -52,118 +52,6 @@
         }
         
         /**
-         * Generate search string for a given pattern in wiki pages
-         * @param String pattern
-         * @param Const mode
-         * @return String
-         */
-        function makePageSearchQuery( $pattern, $mode = CLWIKI_SEARCH_ANY )
-        {
-            # FIXME Duplicate code
-            $pattern = addslashes( $pattern );
-            $pattern = str_replace('_', '\_', $pattern);
-            $pattern = str_replace('%', '\%', $pattern);
-            $pattern = str_replace('?', '_' , $pattern);
-            $pattern = str_replace('*', '%' , $pattern);
-            
-            switch( $mode )
-            {
-                case CLWIKI_SEARCH_ALL:
-                {
-                    $impl = "AND";
-                    $keywords = preg_split( '~\s~', $pattern );
-                    break;
-                }
-                case CLWIKI_SEARCH_EXP:
-                {
-                    $impl = "";
-                    $keywords = array( $pattern );
-                    break;
-                }
-                case CLWIKI_SEARCH_ANY:
-                default:
-                {
-                    $impl = "OR";
-                    $keywords = preg_split( '~\s~', $pattern );
-                    break;
-                }
-            }
-            
-            $searchTitleArr = array();
-            $searchPageArr = array();
-            
-            foreach ( $keywords as $keyword )
-            {
-                $searchTitleArr[] = " p.`title` LIKE '%".$keyword."%' ";
-                $searchPageArr[] = " c.`content` LIKE '%".$keyword."%' ";
-            }
-            
-            $searchTitle = implode ( $impl, $searchTitleArr );
-            if ( count ( $searchTitleArr ) > 1 )
-            {
-                $searchTitle = " ( " . $searchTitle . ") ";
-            }
-            
-            $searchPage = implode ( $impl, $searchPageArr );
-            if ( count ( $searchPageArr ) > 1 )
-            {
-                $searchPage = " ( " . $searchPage . ") ";
-            }
-            
-            $searchStr = "( c.`id` = p.`last_version` AND " . $searchTitle . " ) OR "
-                . "( c.`id` = p.`last_version` AND " . $searchPage . " )"
-                ;
-            
-            return "($searchStr)";
-        }
-        
-        function makeWikiPropertiesSearchQuery( $pattern, $mode = CLWIKI_SEARCH_ANY )
-        {
-            # FIXME code duplication !!!!
-            $pattern = addslashes( $pattern );
-            $pattern = str_replace('_', '\_', $pattern);
-            $pattern = str_replace('%', '\%', $pattern);
-            $pattern = str_replace('?', '_' , $pattern);
-            $pattern = str_replace('*', '%' , $pattern);
-            
-            switch( $mode )
-            {
-                case CLWIKI_SEARCH_ALL:
-                {
-                    $impl = "AND";
-                    $keywords = preg_split( '~\s~', $pattern );
-                    break;
-                }
-                case CLWIKI_SEARCH_EXP:
-                {
-                    $impl = "";
-                    $keywords = array( $pattern );
-                    break;
-                }
-                case CLWIKI_SEARCH_ANY:
-                default:
-                {
-                    $impl = "OR";
-                    $keywords = preg_split( '~\s~', $pattern );
-                    break;
-                }
-            }
-            
-            $searchWikiArr = array();
-            
-            foreach ( $keywords as $keyword )
-            {
-                $searchTitleArr[] = " (w.`title` LIKE '%".$keyword."%' "
-                    . "OR w.`description` LIKE '%".$keyword."%') "
-                    ;
-            }
-            
-            $searchStr = implode ( $impl, $searchTitleArr );
-            
-            return "($searchStr)";
-        }
-        
-        /**
          * Search for a given pattern in Wiki pages in a given Wiki
          * @param int wikiId
          * @param String pattern
@@ -282,7 +170,7 @@
             # search for Wiki pages
             foreach ( $wikiList as $wiki )
             {
-                $pages = $this->lightSearchInWiki( $pattern, $wiki['id'], $mode );
+                $pages = $this->lightSearchInWiki( $wiki['id'], $pattern, $mode );
                 if ( false !== $pages )
                 {
                     $wiki['pages'] = is_null($pages) ? array() : $pages;
@@ -292,8 +180,6 @@
                 {
                     return false;
                 }
-                
-                unset( $wiki );
             }
             
             unset( $wikiList );
@@ -306,6 +192,112 @@
             {
                 return $ret;
             }
+        }
+        
+        // utility functions
+        
+        /**
+         * Split a search pattern for the given search mode
+         * @param String pattern
+         * @param Const mode
+         * @return Array ( keywords, implode_word )
+         */
+        function splitPattern( $pattern, $mode = CLWIKI_SEARCH_ANY )
+        {
+            $pattern = addslashes( $pattern );
+            $pattern = str_replace('_', '\_', $pattern);
+            $pattern = str_replace('%', '\%', $pattern);
+            $pattern = str_replace('?', '_' , $pattern);
+            $pattern = str_replace('*', '%' , $pattern);
+            
+            switch( $mode )
+            {
+                case CLWIKI_SEARCH_ALL:
+                {
+                    $impl = "AND";
+                    $keywords = preg_split( '~\s~', $pattern );
+                    break;
+                }
+                case CLWIKI_SEARCH_EXP:
+                {
+                    $impl = "";
+                    $keywords = array( $pattern );
+                    break;
+                }
+                case CLWIKI_SEARCH_ANY:
+                default:
+                {
+                    $impl = "OR";
+                    $keywords = preg_split( '~\s~', $pattern );
+                    break;
+                }
+            }
+            
+            $ret = array( $keywords, $impl );
+            
+            return $ret;
+        }
+        
+        /**
+         * Generate search string for a given pattern in wiki pages
+         * @param String pattern
+         * @param Const mode
+         * @return String
+         */
+        function makePageSearchQuery( $pattern, $mode = CLWIKI_SEARCH_ANY )
+        {
+            list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
+            
+            $searchTitleArr = array();
+            $searchPageArr = array();
+            
+            foreach ( $keywords as $keyword )
+            {
+                $searchTitleArr[] = " p.`title` LIKE '%".$keyword."%' ";
+                $searchPageArr[] = " c.`content` LIKE '%".$keyword."%' ";
+            }
+            
+            $searchTitle = implode ( $impl, $searchTitleArr );
+            if ( count ( $searchTitleArr ) > 1 )
+            {
+                $searchTitle = " ( " . $searchTitle . ") ";
+            }
+            
+            $searchPage = implode ( $impl, $searchPageArr );
+            if ( count ( $searchPageArr ) > 1 )
+            {
+                $searchPage = " ( " . $searchPage . ") ";
+            }
+            
+            $searchStr = "( c.`id` = p.`last_version` AND " . $searchTitle . " ) OR "
+                . "( c.`id` = p.`last_version` AND " . $searchPage . " )"
+                ;
+            
+            return "($searchStr)";
+        }
+        
+        /**
+         * Generate search string for a given pattern in wiki properties
+         * @param String pattern
+         * @param Const mode
+         * @return String
+         */
+        function makeWikiPropertiesSearchQuery( $pattern, $mode = CLWIKI_SEARCH_ANY )
+        {
+            list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
+            
+            $searchWikiArr = array();
+            
+            foreach ( $keywords as $keyword )
+            {
+                $searchTitleArr[] = " (w.`title` LIKE '%".$keyword."%' "
+                    . "OR w.`description` LIKE '%".$keyword."%') "
+                    ;
+            }
+            
+            $searchStr = implode ( $impl, $searchTitleArr );
+            
+            return "($searchStr)";
         }
         
         // error handling
