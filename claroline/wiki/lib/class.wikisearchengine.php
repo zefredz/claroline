@@ -19,9 +19,9 @@
      * @package Wiki
      */
      
-    define ( "CLWIKI_SEARCH_ANY", "CLWIKI_SEARCH_ANY" );
-    define ( "CLWIKI_SEARCH_ALL", "CLWIKI_SEARCH_ALL" );
-    define ( "CLWIKI_SEARCH_EXP", "CLWIKI_SEARCH_EXP" );
+    !defined ( "CLWIKI_SEARCH_ANY" ) && define ( "CLWIKI_SEARCH_ANY", "CLWIKI_SEARCH_ANY" );
+    !defined ( "CLWIKI_SEARCH_ALL" ) && define ( "CLWIKI_SEARCH_ALL", "CLWIKI_SEARCH_ALL" );
+    !defined ( "CLWIKI_SEARCH_EXP" ) && define ( "CLWIKI_SEARCH_EXP", "CLWIKI_SEARCH_EXP" );
     
     /**
      * Search engine for the Wiki
