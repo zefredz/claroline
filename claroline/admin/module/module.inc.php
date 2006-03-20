@@ -417,7 +417,9 @@ function install_module()
     //create parser and array to retrieve info from manifest
 
     $element_pile = array();  //pile to known the depth in which we are
+
     $module_info = array();   //array to store the info we need
+    $module_info['DEFAULT_DOCK'] = array();//array off possible default dock in which module can be set
 
     $xml_parser = xml_parser_create();
     xml_set_element_handler($xml_parser, 'startElement', 'endElement');
@@ -510,13 +512,16 @@ function install_module()
         add_module_in_dock($moduleId, 'coursetool');
     }
 
-    elseif (isset($module_info['DEFAULT_DOCK']))
+    elseif (sizeof($module_info['DEFAULT_DOCK'])>=1)
 
-    //If a default dock is set (and that this is not a coursetool module), then we create the dock instance in the DB
+    //If at least one default dock is set (and that this is not a coursetool module), then we create the dock instance in the DB
 
     {
-        add_module_in_dock($moduleId, $module_info['DEFAULT_DOCK']);
-        array_push ($backlog_message, get_lang("Default dock of the module found and set")." : ".$module_info['DEFAULT_DOCK']);
+        foreach($module_info['DEFAULT_DOCK'] as $the_dock)
+        {
+            add_module_in_dock($moduleId, $the_dock);
+            array_push ($backlog_message, get_lang("Default dock of the module found and set")." : ".$the_dock);
+        }
     }
 
     array_push ($backlog_message, get_lang("The information has been saved into the DB"));
@@ -691,7 +696,7 @@ function startElement($parser, $name, $attributes)
             break;
 
         case 'DEFAULT_DOCK' :
-            $module_info['DEFAULT_DOCK'] = $attributes['VALUE'];
+            $module_info['DEFAULT_DOCK'][] = $attributes['VALUE'];
             break;
     }
 }
