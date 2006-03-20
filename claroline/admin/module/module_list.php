@@ -145,7 +145,7 @@ switch ( $cmd )
     case 'uninstall' :
     {
         $result_log = uninstall_module($module_id);
-        $dialogBox  = get_lang('Module uninstallation.') . ' : <br>';
+        $dialogBox  = get_lang('Module uninstallation') . ' : <br>';
         foreach ( $result_log as $log) $dialogBox .= $log . '<br>';
 
     }
@@ -228,7 +228,21 @@ foreach ($moduleList as $module)
     $module_dock[$module['id']] = claro_sql_query_fetch_all($sql);
 }
 
+//do a check of modules to see if there is anyhting to install
 
+$modules_found = check_module_repositories();
+
+foreach ($modules_found['folder'] as $module_folder)
+{
+    if (!isset($dialogBox)) $dialogBox= '';
+    $dialogBox .= get_lang('<b>Warning : </b>').get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.',array('%module_name'=>$module_folder)).'<br/>';
+}
+
+foreach ($modules_found['DB'] as $module_DB)
+{
+    if (!isset($dialogBox)) $dialogBox= '';
+    $dialogBox .= get_lang('<b>Warning : </b>').get_lang('There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.',array('%module_name'=>$module_DB)).'<br/>';
+}
 
 //----------------------------------
 // DISPLAY

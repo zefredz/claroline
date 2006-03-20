@@ -18,7 +18,7 @@
  * Get installed module list, its effect is
  * * to return an array containing the installed module's labels
  * @param string $type : type of the module that msu be returned, if null, then all the modules are returned
- * @return array containing the ids, the labels and the names of the modules installed on the platform
+ * @return array containing the labels of the modules installed on the platform
  */
 
 function get_installed_module_list($type = null)
@@ -26,9 +26,7 @@ function get_installed_module_list($type = null)
     $tbl_name = claro_sql_get_main_tbl();
     $tbl_module = $tbl_name['module'];
 
-    $sql = "SELECT `id`,
-                   `label`,
-                   `name`
+    $sql = "SELECT `label`
             FROM   `" . $tbl_module."`";
     if (isset($type))
     {
@@ -36,7 +34,15 @@ function get_installed_module_list($type = null)
     }
 
     $moduleList = claro_sql_query_fetch_all($sql);
-    return $moduleList;
+
+    $label_array = array();
+
+    foreach ($moduleList as $module)
+    {
+        $label_array[] = $module['label'];
+    }
+
+    return $label_array;
 }
 
 /**
@@ -48,6 +54,7 @@ function get_installed_module_list($type = null)
 function get_module_repositories()
 {
     $baseWorkDir = get_conf('rootSys') . 'claroline/module/';
+    $folder_array = array();
 
     if ($handle = opendir($baseWorkDir))
     {
@@ -58,20 +65,51 @@ function get_module_repositories()
 
             // skip '.', '..' and 'CVS'
             if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
-        }
+
+            $folder_array[] = $file;
+        }       
     }
 
-   closedir($handle);
+    closedir($handle);
+
+    return $folder_array;
 }
 
 /**
- * Get the list of the repositories found in the module repository where all modules are installed, its effect is
- * * returning the expected list
- * @return an array containing paths of the suspicious folders found that did not correspond to an installed module
+ * Check the presence of unexpected module repositories or unexpected module in DB, its effect is
+ * * returning a list of module not installed in DB but present on server, or module installed in DB but not present on server.
+ * @return an array two arrays :
+ *            ['folder'] containing paths of the suspicious folders found that did not correspond to an installed module in DB
+ *            ['DB']     containing label of modules found in DB for which no corresponding folder was found on server
  */
 
 function check_module_repositories()
 {
+
+    $modules_in_DB = get_installed_module_list();
+    $folders_found = get_module_repositories();
+
+    $mistake_array           = array();
+    $mistake_array['folder'] = array();
+    $mistake_array['DB']     = array();
+
+    foreach ($modules_in_DB as $moduleDB)
+    {
+        if (!in_array($moduleDB,$folders_found))
+        {
+            $mistake_array['DB'][] = $moduleDB;
+        }
+    }
+
+    foreach ($folders_found as $module_folder)
+    {
+        if (!in_array($module_folder,$modules_in_DB))
+        {
+            $mistake_array['folder'][] = $module_folder;
+        }
+    }
+
+    return $mistake_array;
 }
 
 /**
@@ -596,6 +634,8 @@ function uninstall_module($moduleId)
             WHERE `id` = " . (int) $moduleId;
 
     $module = claro_sql_query_get_single_row($sql);
+
+    if ($module==false) return array(get_lang("No module to uninstall"));
 
     // 1- Include the local 'uninstall.sql' and 'uninstall.php' file of the module if they exist
 
