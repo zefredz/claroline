@@ -41,7 +41,7 @@ else
     $dialogBox = get_lang('No dock selected');
 }
 
-$nameTools = get_lang('Module list in the dock :') . $dock;
+$nameTools = get_lang('Module list in the dock : ') . $dock;
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => 'module_list.php','name' => get_lang('Module list'));
 
