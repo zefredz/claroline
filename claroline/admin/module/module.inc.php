@@ -18,7 +18,7 @@
  * Get installed module list, its effect is
  * * to return an array containing the installed module's labels
  * @param string $type : type of the module that msu be returned, if null, then all the modules are returned
- * @return boolean Returns whether the activation succeed, false otherwise
+ * @return array containing the ids, the labels and the names of the modules installed on the platform
  */
 
 function get_installed_module_list($type = null)
@@ -41,9 +41,8 @@ function get_installed_module_list($type = null)
 
 /**
  * Get the list of the repositories found in the module repository where all modules are installed, its effect is
- * * to return an array containing the installed module's labels
- * @param string $type : type of the module that must be returned, if null, then all the modules are returned
- * @return boolean Returns whether the activation succeed, false otherwise
+ * * returning the expected list
+ * @return an array with all the repositories found in the module repository where all modules are installed
  */
 
 function get_module_repositories()
@@ -59,12 +58,20 @@ function get_module_repositories()
 
             // skip '.', '..' and 'CVS'
             if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
-            
-            echo $file.'<br>';
         }
     }
 
    closedir($handle);
+}
+
+/**
+ * Get the list of the repositories found in the module repository where all modules are installed, its effect is
+ * * returning the expected list
+ * @return an array containing paths of the suspicious folders found that did not correspond to an installed module
+ */
+
+function check_module_repositories()
+{
 }
 
 /**
@@ -156,7 +163,7 @@ function add_module_in_dock($moduleId, $newDockName)
 
     //if the module is already in the dock ,we just do nothing and return true.
 
-    if (isset($module['dockName']) && $module['dockName'] == $newDockName)
+    if (isset($module['dockname']) && $module['dockname'] == $newDockName)
     {
         return true;
     }
