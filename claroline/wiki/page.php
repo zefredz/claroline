@@ -23,7 +23,7 @@
 
     require_once "../inc/claro_init_global.inc.php";
     
-    /*if ( ! $is_toolAllowed )
+    if ( ! $is_toolAllowed )
     {
         if ( is_null( $_cid ) )
         {
@@ -33,9 +33,9 @@
         {
             claro_die(get_lang("Not allowed"));
         }
-    }*/
+    }
     
-    if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+    // if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
     
     // config file
     require_once $includePath . "/conf/CLWIKI.conf.php";
