@@ -245,6 +245,48 @@ foreach($toolList as $thisTool)
     {
         $icon = $imgRepositoryWeb . 'tool.gif';
     }
+	
+	$style = '';
+	
+	// patchy
+	if ( $is_platformAdmin || $is_courseAdmin )
+	{
+		switch (trim($thisTool['label'],'_'))
+		{
+			case 'CLDOC' :
+			{
+				if(!$_groupProperties['tools']['document'])
+				{
+					$style = 'invisible ';
+				}
+			} break;
+
+			case 'CLFRM' :
+			{
+				if(!$_groupProperties['tools']['forum'])
+				{
+					$style = 'invisible ';
+				}
+
+			} break;
+
+			case 'CLWIKI' :
+			{
+				if(!$_groupProperties['tools']['wiki'])
+				{
+					$style = 'invisible ';
+				}
+			} break;
+
+			case 'CLCHT' :
+			{
+				if(!$_groupProperties['tools']['chat'])
+				{
+					$style = 'invisible ';
+				}
+			}break;
+		}
+	}
 
     /*    if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
     {
@@ -254,7 +296,7 @@ foreach($toolList as $thisTool)
     {
     $style = '';
     }
-    */      $style = '';
+    */      
     // see if tool name must be displayed in bold text or not
 
     if (in_array($thisTool['id'], $modified_tools))
@@ -410,7 +452,9 @@ include $includePath . '/claro_init_footer.inc.php';
 
 function get_group_tool_list($course_id=NULL)
 {
-    global $_groupProperties, $forumId;
+    global $_groupProperties, $forumId, $is_courseAdmin, $is_platformAdmin;
+	
+	$isAllowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_tool = $tbl_cdb_names['tool'];
@@ -444,7 +488,7 @@ ON        ct.id = tl.tool_id";
             {
                 case 'CLDOC' :
                 {
-                    if($_groupProperties['tools']['document'])
+                    if($_groupProperties['tools']['document'] || $isAllowedToEdit)
                     {
                         $group_tool_list[] = $tool;
                     }
@@ -452,7 +496,7 @@ ON        ct.id = tl.tool_id";
 
                 case 'CLFRM' :
                 {
-                    if($_groupProperties['tools']['forum'])
+                    if($_groupProperties['tools']['forum'] || $isAllowedToEdit)
                     {
                         $tool['url'] = 'phpbb/viewforum.php?forum=' . $forumId ;
                         $group_tool_list[] = $tool;
@@ -462,7 +506,7 @@ ON        ct.id = tl.tool_id";
 
                 case 'CLWIKI' :
                 {
-                    if($_groupProperties['tools']['wiki'])
+                    if($_groupProperties['tools']['wiki'] || $isAllowedToEdit)
                     {
                         $group_tool_list[] = $tool;
                     }
@@ -470,7 +514,7 @@ ON        ct.id = tl.tool_id";
 
                 case 'CLCHT' :
                 {
-                    if($_groupProperties['tools']['chat'])
+                    if($_groupProperties['tools']['chat'] || $isAllowedToEdit)
                     {
                         $group_tool_list[] = $tool;
                     }
