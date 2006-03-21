@@ -40,7 +40,7 @@ if(!empty($_course['officialCode']))
     $titlePage .= $_course['officialCode'] . ' - ';
 }
 
-$titlePage .= $siteName; 
+$titlePage .= get_conf('siteName');
 
 ?>
 
@@ -91,7 +91,7 @@ echo '<body dir="' . $text_dir . '" onload="' . implode('', $claroBodyOnload ) .
 
 //  Banner
 
-if (!isset($hide_banner) || $hide_banner == false) 
+if (!isset($hide_banner) || false == $hide_banner)
 {
     include dirname(__FILE__) . '/claro_init_banner.inc.php' ;
 }
@@ -99,7 +99,7 @@ if (!isset($hide_banner) || $hide_banner == false)
 if (!isset($hide_body) || $hide_body == false)
 {
     // need body div
-    echo "\n\n\n" 
+    echo "\n\n\n"
     .    '<!-- - - - - - - - - - - Claroline Body - - - - - - - - - -->' . "\n"
     .    '<div id="claroBody">' . "\n\n"
     ;
