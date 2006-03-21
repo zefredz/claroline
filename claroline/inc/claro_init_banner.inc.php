@@ -179,10 +179,26 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
     if (is_array($_courseToolList))
     {
-        foreach($_courseToolList as $_courseToolKey => $_courseToolData)
+		foreach($_courseToolList as $_courseToolKey => $_courseToolData)
         {
-            $courseToolSelector .= '<option value="'.$_courseToolData['url'].'" '
-            .    ( $_courseToolData['id'] == $_tid ? 'selected="selected"' : '') 
+			// reset group to access course tool
+			$_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
+				? $_courseToolData['url'] . '&amp;gidReset=1'
+				: $_courseToolData['url'] . '?gidReset=1'
+				;
+			
+			// select "groups" in group context instead of tool
+			if ( $_gid )
+			{
+				$toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
+			}			
+			else
+			{
+				$toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';	
+			}
+			
+            $courseToolSelector .= '<option value="'.$_toolDataUrl.'" '
+            .   $toolSelected
             .   'style="padding-left:22px;background:url('.$imgRepositoryWeb.$_courseToolData['icon'].') no-repeat">'
             .    $_courseToolData['name']
             .    '</option>'."\n"
