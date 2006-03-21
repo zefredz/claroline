@@ -882,7 +882,30 @@ else // continue with the previous values
 
 if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh requested
 {
-    if ( $_tid )
+    if ( $_tid && $_gid )
+    {
+        //echo 'passed here';
+        
+        $group_tool_label = str_replace( '_', '', $_courseTool['label'] );
+        
+        switch ( $group_tool_label )
+        {
+            case 'CLWIKI': $is_toolAllowed = $_groupProperties ['tools'] ['wiki'    ]; break;
+            case 'CLDOC' : $is_toolAllowed = $_groupProperties ['tools'] ['document']; break;
+            case 'CLCHT' : $is_toolAllowed = $_groupProperties ['tools'] ['chat'    ]; break;
+            case 'CLFRM' : $is_toolAllowed = $_groupProperties ['tools'] ['forum'   ]; break;
+            default      : $is_toolAllowed = false;
+        }
+        
+        if ( $_groupProperties ['private'] )
+        {
+            $is_toolAllowed = $is_toolAllowed 
+                && ( $is_groupMember || $is_groupTutor );
+        }
+        
+        $is_toolAllowed = $is_toolAllowed || ( $is_courseAdmin || $is_platformAdmin );
+    }
+    elseif ( $_tid )
     {
         switch($_courseTool['access'])
         {
