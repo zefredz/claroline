@@ -105,6 +105,7 @@
             
             $sql = "SELECT p.`id`, p.`title` "
                 . "FROM `"
+                . $this->config['tbl_wiki_properties']."` AS w, `"
                 . $this->config['tbl_wiki_pages']."` AS p, `"
                 . $this->config['tbl_wiki_pages_content']."` AS c "
                 . "WHERE p.`wiki_id` = " . (int) $wikiId 
@@ -140,25 +141,26 @@
             $ret = array();
             $wikiList = array();
             
-            $searchPageStr = WikiSearchEngine::makePageSearchQuery( $pattern, $mode );
+            $searchPageStr = WikiSearchEngine::makePageSearchQuery( $pattern, $groupId, $mode );
             
-            $groupStr = (! is_null( $groupId ) ) 
+            $groupStr = ( ! is_null( $groupId ) ) 
                 ? "( w.`group_id` = " . (int) $groupId . " ) AND" 
                 : ""
                 ;
                 
-            $searchWikiStr = WikiSearchEngine::makeWikiPropertiesSearchQuery( $pattern, $mode );
+            $searchWikiStr = WikiSearchEngine::makeWikiPropertiesSearchQuery( $pattern, $groupId, $mode );
             
             $sql = "SELECT DISTINCT w.`id`, w.`title`, w.`description` "
                 . "FROM `"
                 . $this->config['tbl_wiki_properties']."` AS w, `"
                 . $this->config['tbl_wiki_pages']."` AS p, `"
                 . $this->config['tbl_wiki_pages_content']."` AS c "
-                . "WHERE " . $groupStr . " "
+                . "WHERE "
                 . $searchPageStr . " "
-                . " OR " . $searchWikiStr . " "
-                . "AND w.`id` = p.`wiki_id`"
+                . " OR " . $searchWikiStr
                 ;
+                
+            echo $sql;
                 
             $wikiList = $this->connection->getAllRowsFromQuery( $sql );
             
@@ -244,12 +246,17 @@
          * @param Const mode
          * @return String
          */
-        function makePageSearchQuery( $pattern, $mode = CLWIKI_SEARCH_ANY )
+        function makePageSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
         {
             list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
             
             $searchTitleArr = array();
             $searchPageArr = array();
+            
+            $groupstr = ( ! is_null( $groupId ) ) 
+                ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)" 
+                : "(w.`id` = p.`wiki_id`)"
+                ;
             
             foreach ( $keywords as $keyword )
             {
@@ -269,8 +276,8 @@
                 $searchPage = " ( " . $searchPage . ") ";
             }
             
-            $searchStr = "( c.`id` = p.`last_version` AND " . $searchTitle . " ) OR "
-                . "( c.`id` = p.`last_version` AND " . $searchPage . " )"
+            $searchStr = "( ".$groupstr." AND c.`id` = p.`last_version` AND " . $searchTitle . " ) OR "
+                . "( ".$groupstr." AND c.`id` = p.`last_version` AND " . $searchPage . " )"
                 ;
             
             return "($searchStr)";
@@ -282,15 +289,20 @@
          * @param Const mode
          * @return String
          */
-        function makeWikiPropertiesSearchQuery( $pattern, $mode = CLWIKI_SEARCH_ANY )
+        function makeWikiPropertiesSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
         {
             list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
             
             $searchWikiArr = array();
             
+            $groupstr = ( ! is_null( $groupId ) ) 
+                ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)" 
+                : "(w.`id` = p.`wiki_id`)"
+                ;
+            
             foreach ( $keywords as $keyword )
             {
-                $searchTitleArr[] = " (w.`title` LIKE '%".$keyword."%' "
+                $searchTitleArr[] = $groupstr." AND (w.`title` LIKE '%".$keyword."%' "
                     . "OR w.`description` LIKE '%".$keyword."%') "
                     ;
             }
