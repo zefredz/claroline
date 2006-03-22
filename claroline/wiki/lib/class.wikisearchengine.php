@@ -160,8 +160,6 @@
                 . " OR " . $searchWikiStr
                 ;
                 
-            echo $sql;
-                
             $wikiList = $this->connection->getAllRowsFromQuery( $sql );
             
             if ( $this->connection->hasError() )
