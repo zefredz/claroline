@@ -167,22 +167,25 @@
                 return false;
             }
             
-            # search for Wiki pages
-            foreach ( $wikiList as $wiki )
+            if ( is_array( $wikiList ) )
             {
-                $pages = $this->lightSearchInWiki( $wiki['id'], $pattern, $mode );
-                if ( false !== $pages )
+                # search for Wiki pages
+                foreach ( $wikiList as $wiki )
                 {
-                    $wiki['pages'] = is_null($pages) ? array() : $pages;
-                    $ret[] = $wiki;
+                    $pages = $this->lightSearchInWiki( $wiki['id'], $pattern, $mode );
+                    if ( false !== $pages )
+                    {
+                        $wiki['pages'] = is_null($pages) ? array() : $pages;
+                        $ret[] = $wiki;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                else
-                {
-                    return false;
-                }
+                
+                unset( $wikiList );
             }
-            
-            unset( $wikiList );
             
             if ( $this->connection->hasError() )
             {
