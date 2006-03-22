@@ -173,7 +173,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
     $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" 
       name="redirector" method="POST">
     <select name="url" size="1" 
-        onchange="redirector.submit()" >';
+        onchange="top.location=redirector.url.options[selectedIndex].value" >';
 
     $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
