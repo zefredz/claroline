@@ -11,7 +11,7 @@
  * @since 1.8
  *
  * @author claro team <cvs@claroline.net>
- * @author Guillaume lederer <guim@claroline.net>
+ * @author Guillaume lederer <guillaume@claroline.net>
  */
 
 /**
