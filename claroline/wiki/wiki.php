@@ -78,6 +78,7 @@
     require_once "lib/class.wiki.php";
     require_once "lib/class.wikistore.php";
     require_once "lib/class.wikipage.php";
+    require_once "lib/class.wikisearchengine.php";
     require_once "lib/lib.requestfilter.php";
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.javascript.php";
@@ -88,18 +89,18 @@
     // filter allowed actions using user status
     if ( $is_allowedToAdmin )
     {
-        $valid_actions = array( "list", "rqEdit", "exEdit", "rqDelete", "exDelete" );
+        $valid_actions = array( 'list', 'rqEdit', 'exEdit', 'rqDelete', 'exDelete', 'rqSearch', 'exSearch' );
     }
     elseif ( $is_groupMember && $groupId )
     {
-        $valid_actions = array( "list", "rqEdit", "exEdit", "rqDelete", "exDelete" );
+        $valid_actions = array( 'list', 'rqEdit', 'exEdit', 'rqDelete', 'exDelete', 'rqSearch', 'exSearch' );
     }
     else
     {
-        $valid_actions = array( "list" );
+        $valid_actions = array( 'list', 'rqSearch', 'exSearch' );
     }
 
-    $_CLEAN = filter_by_key( 'action', $valid_actions, "R", false );
+    $_CLEAN = filter_by_key( 'action', $valid_actions, 'R', false );
     
     $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'list';
     
@@ -108,7 +109,7 @@
     $creatorId = $_uid;
 
     // get request variable for wiki edition
-    if ( $action == "exEdit" )
+    if ( $action == 'exEdit' )
     {
         $wikiTitle = ( isset( $_POST['title'] ) ) ? strip_tags( $_POST['title'] ) : '';
         $wikiDesc = ( isset( $_POST['desc'] ) ) ? strip_tags( $_POST['desc'] ) : '';
@@ -177,7 +178,6 @@
     $con = new ClarolineDatabaseConnection();
     
     // DEVEL_MODE database initialisation
-    // DO NOT FORGET TO REMOVE FOR PROD !!!
     if( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) )
     {
         init_wiki_tables( $con, false );
@@ -192,14 +192,59 @@
     
     switch ( $action )
     {
+        case 'exSearch':
+        {
+            $pattern = isset( $_REQUEST['searchPattern'] )
+                ? trim($_REQUEST['searchPattern'])
+                : null
+                ;
+                
+            if ( !empty( $pattern ) )
+            {
+                $searchEngine = new WikiSearchEngine( $con, $config );
+                $searchResult = $searchEngine->searchAllWiki( $pattern, $groupId, CLWIKI_SEARCH_ANY );
+                
+                if ( is_null( $searchResult ) )
+                {
+                    $searchResult = array();
+                }
+                
+                $wikiList = $searchResult;
+                
+                break;
+            }
+            else
+            {
+                $message = "<p>".get_lang("Missing search keywords")."</p>";
+            }
+        }
+        // search wiki
+        case 'rqSearch':
+        {
+            if ( !isset( $message ) ) $message = '';
+            
+            $message .= '<form>'."\n"
+                . '<input type="hidden" name="action" value="exSearch">'."\n"
+                . '<label for="searchPattern">'
+                . get_lang("Search")
+                . '</label><br />'."\n"
+                . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
+                . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
+                . claro_html::button($_SERVER['PHP_SELF'], get_lang("Cancel"))
+                . '</form>'."\n"
+                ;
+                
+            $action = 'list';
+            break;
+        }
         // request delete
-        case "rqDelete":
+        case 'rqDelete':
         {
             if ( ! $wikiStore->wikiIdExists( $wikiId ) )
             {
                 // die( get_lang("Invalid Wiki Id") );
                 $message = get_lang("Invalid Wiki Id");
-                $action = "error";
+                $action = 'error';
             }
             else
             {
@@ -211,7 +256,7 @@
             break;
         }
         // execute delete
-        case "exDelete":
+        case 'exDelete':
         {
             if ( $wikiStore->wikiIdExists( $wikiId ) )
             {
@@ -220,16 +265,7 @@
             else
             {
                 $message = get_lang("Invalid Wiki Id");
-                $action = "error";
-            }
-
-            if ( $groupId === 0 )
-            {
-                $wikiList = $wikiStore->getCourseWikiList();
-            }
-            else
-            {
-                $wikiList = $wikiStore->getWikiListByGroup( $groupId );
+                $action = 'error';
             }
 
             $message = get_lang("Wiki deletion succeed");
@@ -248,11 +284,11 @@
             break;
         }
         // request edit
-        case "rqEdit":
+        case 'rqEdit':
         {
             if ( $wikiId == 0 )
             {
-                $wikiTitle = '';
+                $wikiTitle = get_lang("New Wiki");
                 $wikiDesc = '';
                 $wikiACL = null;
             }
@@ -273,7 +309,7 @@
             break;
         }
         // execute edit
-        case "exEdit":
+        case 'exEdit':
         {
             if ( $wikiId == 0 )
             {
@@ -332,20 +368,20 @@
             
             $action = 'list';
             
-            // no break
-        }
-        // list wiki
-        case "list":
-        {
-            if ( $groupId == 0 )
-            {
-                $wikiList = $wikiStore->getCourseWikiList();
-            }
-            else
-            {
-                $wikiList = $wikiStore->getWikiListByGroup( $groupId );
-            }
             break;
+        }
+    }
+    
+    // list wiki
+    if ( 'list' == $action )
+    {
+        if ( $groupId == 0 )
+        {
+            $wikiList = $wikiStore->getCourseWikiList();
+        }
+        else
+        {
+            $wikiList = $wikiStore->getWikiListByGroup( $groupId );
         }
     }
 
@@ -364,7 +400,7 @@
     
     switch( $action )
     {
-        case "rqEdit":
+        case 'rqEdit':
         {
             $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang("Wiki") );
             $interbredcrump[]= array ('url' => NULL
@@ -373,7 +409,7 @@
             $noPHP_SELF = true;
             break;
         }
-        case "rqDelete":
+        case 'rqDelete':
         {
             $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang("Wiki") );
             $interbredcrump[]= array ('url' => NULL
@@ -382,9 +418,10 @@
             $noPHP_SELF = true;
             break;
         }
-        case "list":
+        case 'list':
         default:
         {
+            $noQUERY_STRING = true;
             $nameTools = 'Wiki';
         }
     }
@@ -407,7 +444,7 @@
     switch( $action )
     {
         // edit form
-        case "rqEdit":
+        case 'rqEdit':
         {
             if ( $wikiId == 0 )
             {
@@ -422,14 +459,14 @@
             break;
         }
         // delete form
-        case "rqDelete":
+        case 'rqDelete':
         {
             $toolTitle['mainTitle'] = get_lang("Delete Wiki");
 
             break;
         }
         // list wiki
-        case "list":
+        case 'list':
         {
             $toolTitle['mainTitle'] = sprintf( get_lang("Wiki : %s"), get_lang("List of Wiki") );
             
@@ -447,12 +484,12 @@
     switch( $action )
     {
         // an error occurs
-        case "error":
+        case 'error':
         {
             break;
         }
         // edit form
-        case "rqEdit":
+        case 'rqEdit':
         {
             echo claro_disp_wiki_properties_form( $wikiId, $wikiTitle
                 , $wikiDesc, $groupId, $wikiACL );
@@ -460,7 +497,7 @@
             break;
         }
         // delete form
-        case "rqDelete":
+        case 'rqDelete':
         {
             echo '<form method="POST" action="'
                 . $_SERVER['PHP_SELF']
@@ -480,34 +517,47 @@
             break;
         }
         // list wiki
-        case "list":
+        case 'exSearch':
+        case 'list':
         {
             //find the wiki with recent modification from the notification system   
                 
-                if (isset($_uid))
-                {    
-                    $date = $claro_notifier->get_notification_date($_uid);
-                    $modified_wikis = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid,12);
-                }
-                else
-                {
-                    $modified_wikis = array();
-                }
+            if (isset($_uid))
+            {    
+                $date = $claro_notifier->get_notification_date($_uid);
+                $modified_wikis = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid,12);
+            }
+            else
+            {
+                $modified_wikis = array();
+            }
 
             // if admin, display add new wiki link
+            echo '<p>';
             
             if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
             {
-                echo '<p><a href="'
+                echo '<a href="'
                     . $_SERVER['PHP_SELF']
                     . '?action=rqEdit'
                     . '" class="claroCmd">'
                     . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang("Create a new Wiki").'" />&nbsp;'
                     . get_lang("Create a new Wiki")
-                    . '</a></p>'
-                    . "\n"
+                    . '</a>'
+                    . '&nbsp;|&nbsp;'
                     ;
             }
+            
+            echo '<a href="'
+                . $_SERVER['PHP_SELF']
+                . '?action=rqSearch'
+                . '" class="claroCmd">'
+                . '<img src="' . $imgRepositoryWeb . '/search.gif" alt="'.get_lang("Search").'" />&nbsp;'
+                . get_lang("Search")
+                . '</a>'
+                . '</p>'
+                . "\n"
+                ;
             
             // display list in a table
             
@@ -545,7 +595,6 @@
             // wiki list not empty
             if ( is_array( $wikiList ) && count( $wikiList ) > 0 )
             {
-                
                 foreach ( $wikiList as $entry )
                 {
                     echo '<tr>' . "\n";
@@ -662,6 +711,61 @@
             
             break;
         }
+        /*case 'exSearch':
+        {
+            // if admin, display add new wiki link
+            echo '<p>';
+            
+            if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
+            {
+                echo '<a href="'
+                    . $_SERVER['PHP_SELF']
+                    . '?action=rqEdit'
+                    . '" class="claroCmd">'
+                    . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang("Create a new Wiki").'" />&nbsp;'
+                    . get_lang("Create a new Wiki")
+                    . '</a>'
+                    . '&nbsp;|&nbsp;'
+                    ;
+            }
+            
+            echo '<a href="'
+                . $_SERVER['PHP_SELF']
+                . '?action=rqSearch'
+                . '" class="claroCmd">'
+                . '<img src="' . $imgRepositoryWeb . '/search.gif" alt="'.get_lang("Search").'" />&nbsp;'
+                . get_lang("Search")
+                . '</a>'
+                . '</p>'
+                . "\n"
+                ;
+                
+            if ( count( $searchResult ) > 0 )
+            {
+                foreach( $searchResult as $result )
+                {
+                    echo '<p>'
+                        . $result['title'] . ' (' . $result['id'] . ')'. '<br />'
+                        . '<i>' . $result['description'] . '</i>'
+                        . '</p>'
+                        ;
+                    
+                    echo '<ul>';
+                    foreach( $result['pages'] as $page )
+                    {
+                        $title = ($page['title'] == '__MainPage__') ? get_lang( "MainPage" ) : $page['title'];
+                        echo '<li>' . $title . '</li>';
+                    }
+                    echo '</ul>';
+                }
+            }
+            else
+            {
+                echo get_lang("No result found");
+            }
+            
+            break;
+        }*/
         default:
         {
             trigger_error( "Invalid action supplied to " . $_SERVER['PHP_SELF']
