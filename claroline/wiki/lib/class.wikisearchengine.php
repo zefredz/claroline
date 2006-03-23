@@ -131,7 +131,7 @@
          * @param Const mode
          * @return Array of Wiki properties
          */
-        function searchAllWiki( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
+        function searchAllWiki( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY, $getPageTitles = false )
         {
             if ( ! $this->connection->isConnected() )
             {
@@ -172,16 +172,20 @@
                 # search for Wiki pages
                 foreach ( $wikiList as $wiki )
                 {
-                    $pages = $this->lightSearchInWiki( $wiki['id'], $pattern, $mode );
-                    if ( false !== $pages )
+                    if ( true === $getPageTitles )
                     {
-                        $wiki['pages'] = is_null($pages) ? array() : $pages;
-                        $ret[] = $wiki;
+                        $pages = $this->lightSearchInWiki( $wiki['id'], $pattern, $mode );
+                        if ( false !== $pages && !is_null( $pages) )
+                        {
+                            $wiki['pages'] = is_null($pages) ? array() : $pages;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    
+                    $ret[] = $wiki;
                 }
                 
                 unset( $wikiList );
