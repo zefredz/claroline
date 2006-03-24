@@ -30,7 +30,7 @@ class CLANN
 {
     function aivailable_context_tool()
     {
-        return array('course');
+        return array(CLARO_CONTEXT_COURSE);
     }
 
     /**
@@ -40,6 +40,9 @@ class CLANN
      */
     function install_tool($context,$course_id)
     {
+
+        if (CLARO_CONTEXT_COURSE == $context)
+        {
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
         $sql =" #tbl_cdb_names['announcement']
@@ -53,6 +56,7 @@ class CLANN
                   PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM COMMENT='announcements table'";
         return claro_sql_query($sql);
+    }
     }
 
     /**

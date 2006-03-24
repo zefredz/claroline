@@ -1,4 +1,8 @@
 <?php // $Id$
+defined('CLARO_CONTEXT_PLATFORM') || define('CLARO_CONTEXT_PLATFORM','CLARO_CONTEXT_PLATFORM');
+defined('CLARO_CONTEXT_COURSE') || define('CLARO_CONTEXT_COURSE','CLARO_CONTEXT_COURSE');
+defined('CLARO_CONTEXT_GROUP') || define('CLARO_CONTEXT_GROUP','CLARO_CONTEXT_GROUP');
+
 
 /**
  * get the list of aivailable  for a module
@@ -10,7 +14,7 @@ function get_module_list($context)
 {
     $moduleList =array();
 
-    if('course' == $context)
+    if(CLARO_CONTEXT_COURSE == $context)
     {
 
         $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -23,7 +27,7 @@ function get_module_list($context)
         //            WHERE context course
         $moduleList = claro_sql_query_fetch_all($sql);
     }
-    elseif('group' == $context)
+    elseif( CLARO_CONTEXT_GROUP == $context)
     {
         $moduleList = array();
 
@@ -124,7 +128,7 @@ function claro_install_module($tool_label, $context, $contextData)
  */
 function claro_enable_module($claro_label, $context, $contextId)
 {
-    if ('course'==$context)
+    if (CLARO_CONTEXT_COURSE == $context)
     {
         $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextId));
         $moduleDataList = get_module_data($claro_label);

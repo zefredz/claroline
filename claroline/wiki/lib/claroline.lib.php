@@ -29,7 +29,7 @@
  */
 function CLWIKI_aivailable_context_tool()
 {
-    return array('course','group');
+    return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
 }
 
 /**
@@ -39,10 +39,10 @@ function CLWIKI_aivailable_context_tool()
  */
 function CLWIKI_install_tool($context,$contextData)
 {
-    if ('group' == $context || 'course' == $context )
+    if (CLARO_CONTEXT_GROUP == $context || CLARO_CONTEXT_COURSE == $context )
     {
-        if ('course' == $context) $contextData['course'] = $contextData;
-            $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextData['course']));
+        if (CLARO_CONTEXT_COURSE == $context) $contextData[CLARO_CONTEXT_COURSE] = $contextData;
+            $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextData[CLARO_CONTEXT_COURSE]));
 
             // Wiki
             $sql = "
@@ -101,15 +101,15 @@ function CLWIKI_enable_tool($context,$contextData)
 {
 
 
-    if ('group' == $context )
+    if (CLARO_CONTEXT_GROUP == $context )
     {
         require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
 
-        $group = claro_get_group_data($contextData['group'],$contextData['course']);
+        $group = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP],$contextData[CLARO_CONTEXT_COURSE]);
 
 
-        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextData['course']));
-        create_wiki( $contextData['group'], $group['name'] . ' - Wiki' );
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextData[CLARO_CONTEXT_COURSE]));
+        create_wiki( $contextData[CLARO_CONTEXT_GROUP], $group['name'] . ' - Wiki' );
 
         return true;
     }

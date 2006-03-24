@@ -27,7 +27,7 @@
  */
 function CLCAL_aivailable_context_tool()
 {
-    return array('course');
+    return array(CLARO_CONTEXT_COURSE);
 }
 
 /**

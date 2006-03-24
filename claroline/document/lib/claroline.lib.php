@@ -21,7 +21,7 @@
  */
 function CLDOC_aivailable_context_tool()
 {
-    return array('course');
+    return array(CLARO_CONTEXT_COURSE);
 }
 
 /**
@@ -31,7 +31,7 @@ function CLDOC_aivailable_context_tool()
  */
 function CLDOC_install_tool($context,$contextData)
 {
-    if ('course' == $context)
+    if (CLARO_CONTEXT_COURSE == $context)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextData));
 
@@ -48,12 +48,12 @@ function CLDOC_install_tool($context,$contextData)
         claro_mkdir($GLOBALS['coursesRepositorySys'] . $courseRepository . '/document', CLARO_FILE_PERMISSIONS);
         return true;
     }
-    elseif ('group' == $context)
+    elseif (CLARO_CONTEXT_GROUP == $context)
     {
 
         // Groups don't need table.
-        $courseRepository = claro_get_course_path($contextData['course']);
-        $group = claro_get_group_data($contextData['group'],$contextData['course']);
+        $courseRepository = claro_get_course_path($contextData[CLARO_CONTEXT_COURSE]);
+        $group = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP],$contextData[CLARO_CONTEXT_COURSE]);
         claro_mkdir($GLOBALS['coursesRepositorySys'] . $courseRepository .'/group/' . $group['directory'] . '/document', CLARO_FILE_PERMISSIONS);
         return true;
     }

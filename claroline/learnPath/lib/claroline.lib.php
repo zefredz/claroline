@@ -28,7 +28,7 @@
  */
 function CLLNP_aivailable_context_tool()
 {
-    return array('course');
+    return array(CLARO_CONTEXT_COURSE);
 }
 
 
@@ -39,7 +39,7 @@ function CLLNP_aivailable_context_tool()
  */
 function CLLNP_install_tool($context,$contextData)
 {
-    if ('course' == $context)
+    if (CLARO_CONTEXT_COURSE == $context)
     {
         $coursesRepositorySys = $GLOBALS['coursesRepositorySys'];
         $courseRepository = claro_get_course_path($contextData);

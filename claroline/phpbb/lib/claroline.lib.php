@@ -29,7 +29,7 @@
  */
 function CLFRM_aivailable_context_tool()
 {
-    return array('course', 'group');
+    return array(CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP);
 }
 
 /**
@@ -39,7 +39,7 @@ function CLFRM_aivailable_context_tool()
  */
 function CLFRM_install_tool($context,$course_id)
 {
-    if ('course' == $context)
+    if (CLARO_CONTEXT_COURSE == $context)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
@@ -196,7 +196,7 @@ function CLFRM_install_tool($context,$course_id)
         claro_sql_query($sql);
         return true;
     }
-    elseif ('group' == $context)
+    elseif (CLARO_CONTEXT_GROUP == $context)
     {
         // in fact code would be merged with creation  for course (to prevent a activation in a group of tool forum for a course witouh forum)
         return true;
@@ -212,7 +212,7 @@ function CLFRM_install_tool($context,$course_id)
 function CLFRM_enable_tool($context,$contextData)
 {
     $user = get_init('_user');
-    if ('course' == $context)
+    if (CLARO_CONTEXT_COURSE == $context)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextData));
 
@@ -347,15 +347,15 @@ function CLFRM_enable_tool($context,$contextData)
         claro_sql_query($sql);
         return true;
     }
-    elseif ('group' == $context)
+    elseif (CLARO_CONTEXT_GROUP == $context)
     {
-        $group = claro_get_group_data($contextData['group'],$contextData['course']);
+        $group = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP],$contextData[CLARO_CONTEXT_COURSE]);
 
         $forumInsertId = create_forum( $group['name'] . ' - '. strtolower(get_lang("Forum"))
                                      , '' // forum description
                                      , 2  // means forum post allowed,
                                      , (int) GROUP_FORUMS_CATEGORY
-                                     , $contextData['group']
+                                     , $contextData[CLARO_CONTEXT_GROUP]
                                      );
 
     }
@@ -378,4 +378,5 @@ function CLFRM_export_tool($context,$course_id)
 {
     return true;
 }
+
 ?>
