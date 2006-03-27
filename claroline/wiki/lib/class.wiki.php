@@ -488,6 +488,24 @@
             return $this->con->getAllRowsFromQuery( $sql );
         }
         
+        function getNumberOfPages()
+        {
+            if ( ! $this->con->isConnected() )
+            {
+                $this->con->connect();
+            }
+
+            
+            $sql = "SELECT count( `id` ) as `pages` "
+                . "FROM `".$this->config['tbl_wiki_pages']."` "
+                . "WHERE `wiki_id` = " . (int) $this->wikiId
+                ;
+                
+            $result = $this->con->getRowFromQuery( $sql );
+            
+            return $result['pages'];
+        }
+        
         // error handling
 
         function setError( $errmsg = '', $errno = 0 )

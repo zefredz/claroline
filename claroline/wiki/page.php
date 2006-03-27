@@ -366,11 +366,92 @@
             
             break;
         }
+        // page history
+        case 'history':
         // recent changes
         case 'recent':
         {
-            require_once $includePath . '/lib/user.lib.php';
-            $recentChanges = $wiki->recentChanges();
+            $wikiPage->loadPage( $title );
+            $title = $wikiPage->getTitle();
+            
+            ###### CHANGE AND MOVE DEFAULT VALUE TO CONFIG #####
+            $defaultStep = 10;
+            
+            $offset = isset( $_REQUEST['offset'] ) 
+                ? (int) $_REQUEST['offset']
+                : 0
+                ;
+                
+            $step = isset( $_REQUEST['step'] ) 
+                ? (int) $_REQUEST['step']
+                : $defaultStep
+                ;
+                
+            // echo $offset;
+                
+            $nbVersion = $wikiPage->countVersion();
+            
+            $last = 0;
+            $first = 0;
+            
+            if ( $step === 0 )
+            {
+                $offset = 0;
+                
+                while ( $last < $nbVersion)
+                     $last += $defaultStep;
+                
+                $last = $last > $nbVersion
+                    ? $last - $defaultStep
+                    : $last
+                    ;
+                    
+                $previous = false;
+                $next = false;
+            }
+            else
+            {
+                while ( $last < $nbVersion)
+                     $last += $step;
+                
+                $last = $last > $nbVersion
+                    ? $last - $step
+                    : $last
+                    ;
+                    
+                $previous = ( $offset - $step ) < 0
+                    ? false
+                    : $offset - $step
+                    ;
+                    
+                $next     = ( $offset + $step ) >= $nbVersion
+                    ? false
+                    : $offset + $step
+                    ;
+                    
+                if ( $next > $nbVersion )
+                {
+                    $next = false;
+                }
+                
+                if ( $previous < 0 )
+                {
+                    $previous = false;
+                }
+            }
+            
+            // get page history
+            if ( 'history' == $action )
+            {
+                $history = $wikiPage->history( $offset, $step, 'DESC' );
+            }
+            // get recent changes
+            if ( 'recent' == $action )
+            {
+                $recentChanges = $wiki->recentChanges( $offset, $step );
+            }
+            
+            if ( 0 === $step ) $step = $defaultStep;
             break;
         }
         // all pages
@@ -522,14 +603,6 @@
                 }               
             }
             
-            break;
-        }
-        // page history
-        case 'history':
-        {
-            $wikiPage->loadPage( $title );
-            $title = $wikiPage->getTitle();
-            $history = $wikiPage->history( 0, 0, 'DESC' );
             break;
         }
     }
@@ -694,14 +767,7 @@
             break;
         }
         default:
-        {
-            /*$subTitle = ( '__MainPage__' == $title )
-                ? get_lang("Main page")
-                : $title
-                ;
-                
-            $toolTitle['subTitle'] = $subTitle;*/
-                
+        {                
             break;
         }
     }
@@ -972,6 +1038,28 @@
         }
         case 'recent':
         {
+            $script = $_SERVER['PHP_SELF'] 
+                . '?wikiId=' . (int) $wikiId
+                . '&amp;action=recent'
+                ;
+                
+            echo '<p>'
+                . '<a href="'.$script.'&amp;offset='
+                . $first .'&amp;step=' . (int) $step .'">&lt;&lt; First</a>'
+                . ( $previous !== false 
+                    ? ' ' . '<a href="'.$script.'&amp;offset='
+                      . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>' 
+                    : ' &lt; Previous' )
+                . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">All</a>'
+                . ( $next !== false 
+                    ? ' ' . '<a href="'.$script.'&amp;offset='
+                      . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>' 
+                    : ' Next &gt;' )
+                . ' ' . '<a href="'.$script.'&amp;offset='
+                . $last . '&amp;step=' . (int) $step .'">Last &gt;&gt;</a>'
+                . '</p>'
+                ;
+                
             if ( is_array( $recentChanges ) )
             {
                 echo '<ul>' . "\n";
@@ -1187,6 +1275,29 @@
             echo '<div class="wikiTitle">' . "\n";
             echo '<h1>'.$displaytitle.'</h1>' . "\n";
             echo '</div>' . "\n";
+            
+            $script = $_SERVER['PHP_SELF'] 
+                . '?wikiId=' . (int) $wikiId
+                . '&amp;title=' . rawurlencode( $title )
+                . '&amp;action=history'
+                ;
+            
+            echo '<p>'
+                . '<a href="'.$script.'&amp;offset='
+                . $first .'&amp;step=' . (int) $step .'">&lt;&lt; First</a>'
+                . ( $previous !== false 
+                    ? ' ' . '<a href="'.$script.'&amp;offset='
+                      . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>' 
+                    : ' &lt; Previous' )
+                . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">All</a>'
+                . ( $next !== false 
+                    ? ' ' . '<a href="'.$script.'&amp;offset='
+                      . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>' 
+                    : ' Next &gt;' )
+                . ' ' . '<a href="'.$script.'&amp;offset='
+                . $last . '&amp;step=' . (int) $step .'">Last &gt;&gt;</a>'
+                . '</p>'
+                ;
             
             echo '<form id="differences" method="GET" action="'
                 . $_SERVER['PHP_SELF']

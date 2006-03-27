@@ -278,7 +278,10 @@
                 $this->con->connect();
             }
             
-            $limit = ( $limit == 0 ) ? "" : "LIMIT " . $offset . "," . $limit . " ";
+            $limit = ( $limit == 0 && $offset == 0 ) 
+                ? ""
+                : "LIMIT " . $offset . "," . $limit . " "
+                ;
             
             $order = ($order === 'ASC') ? " ORDER BY `id` ASC " : " ORDER BY `id` DESC ";
             // retreive versionId and editorId and mtime for each version
@@ -291,11 +294,38 @@
                 . $limit
                 ;
                 
+            // echo $sql;
+                
             $result =  $this->con->getAllRowsFromQuery( $sql );
             
             if ( is_array( $result ) )
             {
                 return $result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        function countVersion()
+        {
+            // reconnect if needed
+            if ( ! $this->con->isConnected() )
+            {
+                $this->con->connect();
+            }
+            
+            $sql = "SELECT count(`id`) as `nbversion` "
+                . "FROM `" . $this->config['tbl_wiki_pages_content'] . "` "
+                . "WHERE `pid` = " . (int) $this->getPageId()
+                ;
+                
+            $result =  $this->con->getRowFromQuery( $sql );
+            
+            if ( is_array( $result ) )
+            {
+                return $result['nbversion'];
             }
             else
             {
