@@ -69,6 +69,7 @@
             
             $sql = "SELECT p.`id`, p.`wiki_id`, p.`title`, c.`content` "
                 . "FROM `"
+                . $this->config['tbl_wiki_properties']."` AS w, `"
                 . $this->config['tbl_wiki_pages']."` AS p, `"
                 . $this->config['tbl_wiki_pages_content']."` AS c "
                 . "WHERE p.`wiki_id` = " . (int) $wikiId 
