@@ -216,6 +216,11 @@
         }
     }
     
+    if ( ! $is_allowedToRead )
+    {
+        claro_die( get_lang("You are not allowed to read this page") );
+    }
+    
     // --------------- End of  access rights management ----------------
     
     // filter action
@@ -224,16 +229,17 @@
     {
         $valid_actions = array( 'edit', 'preview', 'save'
             , 'show', 'recent', 'diff', 'all', 'history'
+            , 'rqSearch', 'exSearch'
             );
     }
     else
     {
         $valid_actions = array( 'show', 'recent', 'diff', 'all'
-            , 'history'
+            , 'history', 'rqSearch', 'exSearch'
             );
     }
 
-    $_CLEAN = filter_by_key( 'action', $valid_actions, "R", true );
+    $_CLEAN = filter_by_key( 'action', $valid_actions, "R", false );
     
     $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'show';
     
@@ -300,6 +306,42 @@
     
     switch( $action )
     {
+        case 'rqSearch':
+        {            
+            break;
+        }
+        case 'exSearch':
+        {
+            $pattern = isset( $_REQUEST['searchPattern'] )
+                ? trim($_REQUEST['searchPattern'])
+                : null
+                ;
+                
+            if ( !empty( $pattern ) )
+            {
+                $searchEngine = new WikiSearchEngine( $con, $config );
+                $searchResult = $searchEngine->searchInWiki( $pattern, $wikiId, CLWIKI_SEARCH_ANY );
+                
+                if ( $searchEngine->hasError() )
+                {
+                    claro_die( $searchEngine->getError() );
+                }
+                
+                if ( is_null( $searchResult ) )
+                {
+                    $searchResult = array();
+                }
+                
+                $wikiList = $searchResult;
+            }
+            else
+            {
+                $message = '<p>'.get_lang("Missing search keywords").'</p>';
+                $allPages = $wiki->allPages();
+                $action = 'all';
+            }
+            break;
+        }
         // show differences
         case 'diff':
         {
@@ -646,14 +688,20 @@
             $toolTitle['subTitle'] = get_lang("Page history");
             break;
         }
+        case 'rqSearch':
+        case 'exSearch':
+        {
+            $toolTitle['subTitle'] = get_lang("Search in pages");
+            break;
+        }
         default:
         {
-            $subTitle = ( '__MainPage__' == $title )
+            /*$subTitle = ( '__MainPage__' == $title )
                 ? get_lang("Main page")
                 : $title
                 ;
                 
-            // $toolTitle['subTitle'] = $subTitle;
+            $toolTitle['subTitle'] = $subTitle;*/
                 
             break;
         }
@@ -669,17 +717,6 @@
     // Check javascript
     
     $javascriptEnabled = claro_is_javascript_enabled();
-    
-    // user is not allowed to read this page
-    
-    if ( ! $is_allowedToRead )
-    {
-        echo get_lang("You are not allowed to read this page");
-        
-        require_once $includePath . '/claro_init_footer.inc.php';
-        
-        die ( '' );
-    }
     
     // Wiki navigation bar
     
@@ -719,15 +756,25 @@
         . '<img src="'.$imgRepositoryWeb.'info.gif" border="0" alt="all pages" />&nbsp;'
         . get_lang("List of Wiki") .'</a>'
         ;
+        
+     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
+        . $_SERVER['PHP_SELF']
+        . '?wikiId=' . $wiki->getWikiId()
+        . '&amp;action=rqSearch'
+        . '">'
+        . '<img src="'.$imgRepositoryWeb.'search.gif" border="0" alt="all pages" />&nbsp;'
+        . get_lang("Search").'</a>'
+        ;
     
     echo '</p>';
     
-    if ( $action != 'recent' && $action != 'all' )
+    if ( 'recent' != $action && 'all' != $action 
+        && 'rqSearch' != $action && 'exSearch' != $action )
     {
     
     echo '<p>';
     
-    if ( $action == "edit" || $action == "diff" || $action == "history" )
+    if ( 'show' == $action || 'edit' == $action || 'history' == $action )
     {
         echo '<a class="claroCmd" href="'
             . $_SERVER['PHP_SELF']
@@ -750,7 +797,7 @@
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         // Show context
-        if ( $action == "show" || $action == "history" || $action == "diff" )
+        if ( 'show' == $action || 'edit' == $action || 'diff' == $action )
         {
             echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
                 . $_SERVER['PHP_SELF']
@@ -780,7 +827,8 @@
             ;
     }
     
-    if ( $action == "show" || $action == "edit" || $action == "history" || $action == "diff" )
+    if ( 'show' == $action || 'edit' == $action 
+        || 'history' == $action || 'diff' == $action )
     {
         // active
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
@@ -802,7 +850,7 @@
             ;
     }
         
-    if ( $action == "edit" || $action == "diff" )
+    if ( 'edit' == $action || 'diff' == $action )
     {
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
             . 'help_wiki.php?help=syntax'
@@ -931,7 +979,7 @@
                 
                 foreach ( $recentChanges as $recentChange )
                 {
-                    $pgtitle = ( $recentChange['title'] == "__MainPage__" )
+                    $pgtitle = ( '__MainPage__' == $recentChange['title'] )
                         ? get_lang("Main page")
                         : $recentChange['title']
                         ;
@@ -1001,7 +1049,7 @@
                 
                 foreach ( $allPages as $page )
                 {
-                    if ( $page['title'] == "__MainPage__" )
+                    if ( '__MainPage__' == $page['title'] )
                     {
                         // skip main page
                         continue;
@@ -1235,6 +1283,51 @@
             
             echo '</form>';
             
+            break;
+        }
+        case 'exSearch':
+        {
+            echo '<h3>'.get_lang("Search result").'</h3>' . "\n";
+            
+            echo '<ul>' . "\n";
+            
+            foreach ( $searchResult as $page )
+            {
+                if ( '__MainPage__' == $page['title'] )
+                {
+                    $title = get_lang( "Main Page" );
+                }
+                else
+                {
+                    $title = $page['title'];
+                }
+
+                $urltitle = rawurlencode( $page['title'] );
+
+                $link = '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
+                    . $wikiId . '&amp;title=' . $urltitle . '&amp;action=show"'
+                    . '>' . $title . '</a>'
+                    ;
+                    
+                echo '<li>' . $link. '</li>' . "\n";
+            }
+            echo '</ul>' . "\n";
+            break;
+        }
+        case 'rqSearch':
+        {
+            $searchForm = '<form method="post" action="'
+                . $_SERVER['PHP_SELF'].'?wikiId='.$wikiId.'">'."\n"
+                . '<input type="hidden" name="action" value="exSearch">'."\n"
+                . '<label for="searchPattern">'
+                . get_lang("Search")
+                . '</label><br />'."\n"
+                . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
+                . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
+                . claro_html::button($_SERVER['PHP_SELF'].'?wikiId='.$wikiId, get_lang("Cancel"))
+                . '</form>'."\n"
+                ;
+            echo claro_html::message_box($searchForm) . "\n";
             break;
         }
         default:
