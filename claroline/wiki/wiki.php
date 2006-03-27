@@ -170,15 +170,15 @@
     $tblList = claro_sql_get_course_tbl();
 
     $config = array();
-    $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
-    $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
-    $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
-    $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
+    $config['tbl_wiki_properties'   ] = $tblList['wiki_properties'   ];
+    $config['tbl_wiki_pages'        ] = $tblList['wiki_pages'        ];
+    $config['tbl_wiki_pages_content'] = $tblList['wiki_pages_content'];
+    $config['tbl_wiki_acls'         ] = $tblList['wiki_acls'         ];
 
     $con = new ClarolineDatabaseConnection();
     
     // DEVEL_MODE database initialisation
-    if( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) )
+    if( defined( 'DEVEL_MODE' ) && ( DEVEL_MODE == true ) )
     {
         init_wiki_tables( $con, false );
     }
@@ -204,6 +204,13 @@
                 $searchEngine = new WikiSearchEngine( $con, $config );
                 $searchResult = $searchEngine->searchAllWiki( $pattern, $groupId, CLWIKI_SEARCH_ANY );
                 
+                if ( $searchEngine->hasError() )
+                {
+                    $message = $searchEngine->getError();
+                    $action = 'error';
+                    break;
+                }
+                
                 if ( is_null( $searchResult ) )
                 {
                     $searchResult = array();
@@ -215,7 +222,7 @@
             }
             else
             {
-                $message = "<p>".get_lang("Missing search keywords")."</p>";
+                $message = '<p>'.get_lang("Missing search keywords").'</p>';
             }
         }
         // search wiki
@@ -304,7 +311,7 @@
             else
             {
                 $message = get_lang("Invalid Wiki Id");
-                $action = "error";
+                $action = 'error';
             }
             break;
         }
@@ -336,7 +343,7 @@
                 
                 $wikiPage = new WikiPage( $con, $config, $wikiId );
                 $wikiPage->create( $creatorId, '__MainPage__'
-                    , $mainPageContent, date( "Y-m-d H:i:s" ), true );
+                    , $mainPageContent, date("Y-m-d H:i:s"), true );
             
                 $message = get_lang("Wiki creation succeed");
             }
@@ -363,7 +370,7 @@
             else
             {
                 $message = get_lang("Invalid Wiki Id");
-                $action = "error";
+                $action = 'error';
             }
             
             $action = 'list';
@@ -711,61 +718,6 @@
             
             break;
         }
-        /*case 'exSearch':
-        {
-            // if admin, display add new wiki link
-            echo '<p>';
-            
-            if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
-            {
-                echo '<a href="'
-                    . $_SERVER['PHP_SELF']
-                    . '?action=rqEdit'
-                    . '" class="claroCmd">'
-                    . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang("Create a new Wiki").'" />&nbsp;'
-                    . get_lang("Create a new Wiki")
-                    . '</a>'
-                    . '&nbsp;|&nbsp;'
-                    ;
-            }
-            
-            echo '<a href="'
-                . $_SERVER['PHP_SELF']
-                . '?action=rqSearch'
-                . '" class="claroCmd">'
-                . '<img src="' . $imgRepositoryWeb . '/search.gif" alt="'.get_lang("Search").'" />&nbsp;'
-                . get_lang("Search")
-                . '</a>'
-                . '</p>'
-                . "\n"
-                ;
-                
-            if ( count( $searchResult ) > 0 )
-            {
-                foreach( $searchResult as $result )
-                {
-                    echo '<p>'
-                        . $result['title'] . ' (' . $result['id'] . ')'. '<br />'
-                        . '<i>' . $result['description'] . '</i>'
-                        . '</p>'
-                        ;
-                    
-                    echo '<ul>';
-                    foreach( $result['pages'] as $page )
-                    {
-                        $title = ($page['title'] == '__MainPage__') ? get_lang( "MainPage" ) : $page['title'];
-                        echo '<li>' . $title . '</li>';
-                    }
-                    echo '</ul>';
-                }
-            }
-            else
-            {
-                echo get_lang("No result found");
-            }
-            
-            break;
-        }*/
         default:
         {
             trigger_error( "Invalid action supplied to " . $_SERVER['PHP_SELF']

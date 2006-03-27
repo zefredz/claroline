@@ -82,6 +82,7 @@
     require_once "lib/class.wikipage.php";
     require_once "lib/class.wikistore.php";
     require_once "lib/class.wiki.php";
+    require_once "lib/class.wikisearchengine.php";
     require_once "lib/lib.requestfilter.php";
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.wikidisplay.php";
@@ -138,7 +139,7 @@
     $con = new ClarolineDatabaseConnection();
     
     // auto create wiki in devel mode
-    if( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) )
+    if ( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) )
     {
         init_wiki_tables( $con, false );
     }
@@ -221,14 +222,14 @@
 
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
-        $valid_actions = array( "edit", "preview", "save"
-            , "show", "recent", "diff", "all", "history"
+        $valid_actions = array( 'edit', 'preview', 'save'
+            , 'show', 'recent', 'diff', 'all', 'history'
             );
     }
     else
     {
-        $valid_actions = array( "show", "recent", "diff", "all"
-            , "history"
+        $valid_actions = array( 'show', 'recent', 'diff', 'all'
+            , 'history'
             );
     }
 
@@ -244,7 +245,7 @@
 
     $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
     
-    if ( $action == "diff" )
+    if ( 'diff' == $action )
     {
         $old = ( isset( $_REQUEST['old'] ) ) ? (int) $_REQUEST['old'] : 0;
         $new = ( isset( $_REQUEST['new'] ) ) ? (int) $_REQUEST['new'] : 0;
@@ -252,7 +253,7 @@
     
     // get content
     
-    if ( $action == "edit" )
+    if ( 'edit' == $action )
     {
         if ( isset( $_REQUEST['content'] ) )
         {
@@ -270,25 +271,25 @@
     
     // use __MainPage__ if empty title
 
-    if ( $title === '' )
+    if ( '' === $title )
     {
         // create wiki main page in a localisation compatible way
         $title = '__MainPage__';
         
-        if( $wikiStore->pageExists( $wikiId, $title ) )
+        if ( $wikiStore->pageExists( $wikiId, $title ) )
         {
             // do nothing
         }
         // auto create wiki in devl mode
         elseif ( ( ! $wikiStore->pageExists( $wikiId, $title ) )
-            && ( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) ) )
+            && ( defined('DEVEL_MODE') && ( DEVEL_MODE == true ) ) )
         {
             init_wiki_main_page( $con, $wikiId, $creatorId );
         }
         else
         {
             // something weird's happened
-            die ( "Wrong page title" );
+            claro_die( get_lang( "Wrong page title" ) );
         }
     }
     
@@ -300,9 +301,9 @@
     switch( $action )
     {
         // show differences
-        case "diff":
+        case 'diff':
         {
-            require_once "lib/lib.diff.php";
+            require_once 'lib/lib.diff.php';
             
             if ( $wikiStore->pageExists( $wikiId, $title ) )
             {
@@ -325,24 +326,24 @@
             break;
         }
         // recent changes
-        case "recent":
+        case 'recent':
         {
             require_once $includePath . '/lib/user.lib.php';
             $recentChanges = $wiki->recentChanges();
             break;
         }
         // all pages
-        case "all":
+        case 'all':
         {
             $allPages = $wiki->allPages();
             break;
         }
         // edit page content
-        case "edit":
+        case 'edit':
         {
             if( $wikiStore->pageExists( $wikiId, $title ) )
             {
-                if ( $versionId == 0 )
+                if ( 0 == $versionId )
                 {
                     $wikiPage->loadPage( $title );
                 }
@@ -351,12 +352,12 @@
                     $wikiPage->loadPageVersion( $versionId );
                 }
                 
-                if ( $content == '' )
+                if ( '' == $content )
                 {
                     $content = $wikiPage->getContent();
                 }
                 
-                if  ( $content == "__CONTENT__EMPTY__" )
+                if  ( '__CONTENT__EMPTY__' == $content )
                 {
                     $content = '';
                 }
@@ -375,7 +376,7 @@
             break;
         }
         // view page
-        case "show":
+        case 'show':
         {
             unset( $_SESSION['wikiLastVersion'] );
             
@@ -401,7 +402,7 @@
             break;
         }
         // save page
-        case "save":
+        case 'save':
         {
             if ( isset( $content ) )
             {
@@ -483,7 +484,7 @@
             break;
         }
         // page history
-        case "history":
+        case 'history':
         {
             $wikiPage->loadPage( $title );
             $title = $wikiPage->getTitle();
@@ -514,59 +515,57 @@
         ;
     
     // set style
-    $htmlHeadXtra[] =
-        "<style type=\"text/css\">
-        .wikiTitle h1{
-            color: Black;
-            background: none;
-            font-size: 200%;
-            font-weight: bold;
-            /*font-weight: normal;*/
-            border-bottom: 2px solid #aaaaaa;
-        }
-        .wiki2xhtml{
-            margin-left: 5px;
-        }
-        .wiki2xhtml h2,h3,h4{
-            color: Black;
-            background: none;
-        }
-        .wiki2xhtml h2{
-            border-bottom: 1px solid #aaaaaa;
-            font-size:175%;
-            font-weight:bold;
-        }
-        .wiki2xhtml h3{
-            border-bottom: 1px groove #aaaaaa;
-            font-size:150%;
-            font-weight:bold;
-        }
-        .wiki2xhtml h4{
-            font-size:125%:
-            font-weight:bold;
-        }
-        
-        .wiki2xhtml a.wikiEdit{
-            color: red;
-        }
-        .diff{
-            font-family: monospace;
-            padding: 5px;
-            margin: 5px;
-        }
-        .diffEqual{
-            background-color: white;
-        }
-        .diffMoved{
-            background-color: #00CCFF;
-        }
-        .diffAdded{
-            background-color: lime;
-        }
-        .diffDeleted{
-            background-color: #FF00AA;
-        }
-        </style>"
+    $htmlHeadXtra[] = '<style type="text/css">
+.wikiTitle h1{
+    color: Black;
+    background: none;
+    font-size: 200%;
+    font-weight: bold;
+    border-bottom: 2px solid #aaaaaa;
+}
+.wiki2xhtml{
+    margin-left: 5px;
+}
+.wiki2xhtml h2,h3,h4{
+    color: Black;
+    background: none;
+}
+.wiki2xhtml h2{
+    border-bottom: 1px solid #aaaaaa;
+    font-size:175%;
+    font-weight:bold;
+}
+.wiki2xhtml h3{
+    border-bottom: 1px groove #aaaaaa;
+    font-size:150%;
+    font-weight:bold;
+}
+.wiki2xhtml h4{
+    font-size:125%:
+    font-weight:bold;
+}
+
+.wiki2xhtml a.wikiEdit{
+    color: red;
+}
+.diff{
+    font-family: monospace;
+    padding: 5px;
+    margin: 5px;
+}
+.diffEqual{
+    background-color: white;
+}
+.diffMoved{
+    background-color: #00CCFF;
+}
+.diffAdded{
+    background-color: lime;
+}
+.diffDeleted{
+    background-color: #FF00AA;
+}
+</style>'
         ;
         
     // Breadcrumps
@@ -577,9 +576,9 @@
         
     switch( $action )
     {
-        case "edit":
+        case 'edit':
         {
-            $dispTitle = ( $title == "__MainPage__" ) ? get_lang("Main page") : $title;
+            $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
             $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
                 . $wikiId . '&amp;title=' . $title
                 , 'name' => $dispTitle );
@@ -587,21 +586,21 @@
             $noPHP_SELF = true;
             break;
         }
-        case "all":
+        case 'all':
         {
             $nameTools = get_lang("All pages");
             $noPHP_SELF = true;
             break;
         }
-        case "recent":
+        case 'recent':
         {
             $nameTools = get_lang("Recent changes");
             $noPHP_SELF = true;
             break;
         }
-        case "history":
+        case 'history':
         {
-            $dispTitle = ( $title == "__MainPage__" ) ? get_lang("Main page") : $title;
+            $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
             $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
                 . $wikiId . '&amp;title=' . $title
                 , 'name' => $dispTitle );
@@ -611,14 +610,14 @@
         }
         default:
         {
-            $nameTools = ( $title == "__MainPage__" ) ? get_lang("Main page") : $title ;
+            $nameTools = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title ;
             $noPHP_SELF = true;
         }
     }
     
     // Claroline Header and Banner
 
-    require_once $includePath . "/claro_init_header.inc.php";
+    require_once $includePath . '/claro_init_header.inc.php';
     
     // tool title
     
@@ -632,24 +631,24 @@
 
     switch( $action )
     {
-        case "all":
+        case 'all':
         {
             $toolTitle['subTitle'] = get_lang("All pages");
             break;
         }
-        case "recent":
+        case 'recent':
         {
             $toolTitle['subTitle'] = get_lang("Recent changes");
             break;
         }
-        case "history":
+        case 'history':
         {
             $toolTitle['subTitle'] = get_lang("Page history");
             break;
         }
         default:
         {
-            $subTitle = ( $title == "__MainPage__" )
+            $subTitle = ( '__MainPage__' == $title )
                 ? get_lang("Main page")
                 : $title
                 ;
@@ -677,7 +676,7 @@
     {
         echo get_lang("You are not allowed to read this page");
         
-        require_once "../inc/claro_init_footer.inc.php";
+        require_once $includePath . '/claro_init_footer.inc.php';
         
         die ( '' );
     }
@@ -820,9 +819,9 @@
     
     switch( $action )
     {
-        case "conflict":
+        case 'conflict':
         {
-            if( $title === '__MainPage__' )
+            if( '__MainPage__' === $title )
             {
                 $displaytitle = get_lang("Main page");
             }
@@ -863,9 +862,9 @@
             echo '</form>';
             break;
         }
-        case "diff":
+        case 'diff':
         {
-            if( $title === '__MainPage__' )
+            if( '__MainPage__' === $title )
             {
                 $displaytitle = get_lang("Main page");
             }
@@ -924,7 +923,7 @@
             
             break;
         }
-        case "recent":
+        case 'recent':
         {
             if ( is_array( $recentChanges ) )
             {
@@ -982,7 +981,7 @@
             }
             break;
         }
-        case "all":
+        case 'all':
         {
             // handle main page
             
@@ -1022,7 +1021,7 @@
             break;
         }
         // edit page
-        case "edit":
+        case 'edit':
         {
             if ( ! $wiki->pageExists( $title ) && ! $is_allowedToCreate )
             {
@@ -1044,7 +1043,7 @@
             break;
         }
         // page preview
-        case "preview":
+        case 'preview':
         {
             if ( ! isset( $content ) )
             {
@@ -1058,7 +1057,7 @@
             break;
         }
         // view page
-        case "show":
+        case 'show':
         {
             if( $wikiPage->hasError() )
             {
@@ -1067,7 +1066,7 @@
             else
             {
                 // get localized value for wiki main page title
-                if( $title === '__MainPage__' )
+                if( '__MainPage__' === $title )
                 {
                     $displaytitle = get_lang("Main page");
                 }
@@ -1127,9 +1126,9 @@
 
             break;
         }
-        case "history":
+        case 'history':
         {
-            if( $title === '__MainPage__' )
+            if( '__MainPage__' === $title )
             {
                 $displaytitle = get_lang("Main page");
             }
@@ -1167,7 +1166,7 @@
                 {
                     echo '<tr>' . "\n";
                     
-                    if ( $firstPass == true )
+                    if ( true == $firstPass )
                     {
                         $checked = ' checked="checked"';
                         $firstPass = false;
@@ -1250,5 +1249,5 @@
 
     // Claroline footer
     
-    require_once $includePath . "/claro_init_footer.inc.php";
+    require_once $includePath . '/claro_init_footer.inc.php';
 ?>
