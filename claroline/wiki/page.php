@@ -337,8 +337,7 @@
             else
             {
                 $message = '<p>'.get_lang("Missing search keywords").'</p>';
-                $allPages = $wiki->allPages();
-                $action = 'all';
+                $action = 'rqSearch';
             }
             break;
         }
