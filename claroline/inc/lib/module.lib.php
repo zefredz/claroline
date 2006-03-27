@@ -16,6 +16,14 @@ function get_module_list($context)
 
     if(CLARO_CONTEXT_COURSE == $context)
     {
+        /**
+         * Actually, the next function look for info in the original table of tool
+         * When this table was prepared for claroline 1.5 they contain only tools FOR COURSES.
+         *
+         * Now with modularity implementation all tools would centralised in a data structure
+         * composed af a central table with common info and extended table with specific info.
+         *
+         */
 
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $sql ="
