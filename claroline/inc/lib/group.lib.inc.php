@@ -260,7 +260,6 @@ function fill_in_groups($course_id = NULL)
             GROUP BY (`g`.`id`)
             HAVING nbPlaces > 0 OR g_maxStudent IS NULL
             ORDER BY nbPlaces DESC";
-    $result = claro_sql_query($sql);
 
     $groupAvailPlace = array();
     $groupList = claro_sql_query_fetch_all($sql);
@@ -288,7 +287,7 @@ function fill_in_groups($course_id = NULL)
     foreach ($userList as $user) $userToken[$user['uid']] = $user['nbTicket'];
     unset($userList,$user);
 
-    /*
+    /**
      * Retrieve the present state of the users repartion in groups
      */
 
@@ -299,7 +298,7 @@ function fill_in_groups($course_id = NULL)
     unset($memberList,$member);
 
 
-    /*
+    /**
      * Compute the most approriate group fill in
      */
 
