@@ -48,11 +48,11 @@ array ( 'label'         => 'Show the agreement panel before creating a new accou
 $conf_def['section']['required']['label'] = 'Data checkin';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] =
-array ( 'userOfficialCodeCanBeEmpty'
+array ( 'profile_editable'
+      , 'userOfficialCodeCanBeEmpty'
       , 'ask_for_official_code'
       , 'userMailCanBeEmpty'
       , 'SECURE_PASSWORD_REQUIRED'
-      , 'profile_editable'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
