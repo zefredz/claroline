@@ -388,8 +388,16 @@
                 ;
                 
             // echo $offset;
-                
-            $nbVersion = $wikiPage->countVersion();
+            
+            if ( 'history' == $action )
+            {
+                $nbVersion = $wikiPage->countVersion();
+            }
+            
+            if ( 'recent' == $action )
+            {
+                $nbVersion = $wiki->getNumberOfPages();
+            }
             
             $last = 0;
             $first = 0;
