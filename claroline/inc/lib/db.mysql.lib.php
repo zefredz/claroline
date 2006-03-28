@@ -17,6 +17,33 @@
 //////////////////////////////////////////////////////////////////////////////
 //                   CLAROLINE DB    QUERY WRAPPRER MODULE
 //////////////////////////////////////////////////////////////////////////////
+
+
+/**
+ * return the tablename for a tool, en tenant compte du fait que it's (or not)
+ * * in a course,
+ * * in a group
+ *
+ * @param string $toolId
+ * @param string $tableId
+ * @param string $courseId
+ * @param int $groupId
+ * @return unknown
+ */
+function claro_sql_get_tbl($toolId,$tableId,$courseId=null,$groupId=null)
+{
+    /**
+     * if it's in a course, $courseId is set or $courseId is null but not get_init('_cid')
+     * if both are null, it's a main table
+     *
+     * when
+     */
+
+    if(is_null($courseId) && is_null(get_init('_cid'))) return get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . $tableId;
+    else                                                return claro_get_course_db_name_glued($courseId) . $tableId;
+
+}
+
 /**
  * Get list of table names for central table.
  * @return array list of the central claroline database tables
@@ -25,37 +52,36 @@
 
 function claro_sql_get_main_tbl()
 {
-    global $mainDbName, $statsDbName, $mainTblPrefix, $statsTblPrefix;
     static $mainTblList = array();
 
     if ( count($mainTblList) == 0 )
     {
         $mainTblList= array (
-        'config_property'           => $mainDbName . '`.`' . $mainTblPrefix . 'config_property',
-        'config_file'               => $mainDbName . '`.`' . $mainTblPrefix . 'config_file',
-        'admin'                     => $mainDbName . '`.`' . $mainTblPrefix . 'admin',
-        'course'                    => $mainDbName . '`.`' . $mainTblPrefix . 'cours',
-        'rel_course_user'           => $mainDbName . '`.`' . $mainTblPrefix . 'cours_user',
-        'category'                  => $mainDbName . '`.`' . $mainTblPrefix . 'faculte',
-        'user'                      => $mainDbName . '`.`' . $mainTblPrefix . 'user',
-        'tool'                      => $mainDbName . '`.`' . $mainTblPrefix . 'course_tool',
-        'user_category'             => $mainDbName . '`.`' . $mainTblPrefix . 'class',
-        'user_rel_profile_category' => $mainDbName . '`.`' . $mainTblPrefix . 'rel_class_user',
-        'class'                     => $mainDbName . '`.`' . $mainTblPrefix . 'class',
-        'rel_class_user'            => $mainDbName . '`.`' . $mainTblPrefix . 'rel_class_user',
-        'sso'                       => $mainDbName . '`.`' . $mainTblPrefix . 'sso',
-        'notify'                    => $mainDbName . '`.`' . $mainTblPrefix . 'notify',
-        'upgrade_status'            => $mainDbName . '`.`' . $mainTblPrefix . 'upgrade_status',
-        'module'                    => $mainDbName . '`.`' . $mainTblPrefix . 'module',
-        'module_info'               => $mainDbName . '`.`' . $mainTblPrefix . 'module_info',
-        'dock'                      => $mainDbName . '`.`' . $mainTblPrefix . 'dock',
+        'config_property'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_property',
+        'config_file'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_file',
+        'admin'                     => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'admin',
+        'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
+        'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours_user',
+        'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'faculte',
+        'user'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user',
+        'tool'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'course_tool',
+        'user_category'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
+        'user_rel_profile_category' => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
+        'class'                     => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
+        'rel_class_user'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
+        'sso'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'sso',
+        'notify'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'notify',
+        'upgrade_status'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'upgrade_status',
+        'module'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module',
+        'module_info'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module_info',
+        'dock'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'dock',
 
-        'track_e_default'           => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_default',
-        'track_e_login'             => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_login',
-        'track_e_open'              => $statsDbName . '`.`' . $statsTblPrefix . 'track_e_open'
+        'track_e_default'           => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_default',
+        'track_e_login'             => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_login',
+        'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open'
         );
-    }
 
+    }
     return $mainTblList;
 }
 
