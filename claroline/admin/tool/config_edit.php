@@ -120,7 +120,7 @@ align : right;
 background: white;
 border-right: 0px solid white;
 border-top: 0px solid white;
-border-left: 3px double #778;
+border-left: 0px solid white;
 }
 
 .configSectionDesc
