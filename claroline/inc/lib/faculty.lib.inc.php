@@ -532,25 +532,14 @@ function analyseCat($catCode)
 
 function countChild($catCode)
 {
+    $catToCheck = get_cat_data(get_cat_id_from_code($catCode));
     $catList = claro_get_cat_list();
-    reset($catList);
-    $knowCatList=array();
-    while ((list(,$cat) = each($catList)))
-    {
-        if ($cat['code'] == $catCode)
-        {
-            $codeP = $cat['code_P'];
-            break;
-        }
-    }
     $i = 0;
-
     while ((list(,$cat) = each($catList)))
     {
-        if ($cat['code_P'] == $codeP ) return $i;
-        $i++;
+        if ($cat['code_P'] == $catToCheck['code'] ) $i++;
     }
-    return 0;
+    return $i;
 }
 
 
