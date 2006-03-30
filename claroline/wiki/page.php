@@ -381,22 +381,20 @@
                 ? (int) $_REQUEST['offset']
                 : 0
                 ;
-                
+            
             $step = isset( $_REQUEST['step'] ) 
                 ? (int) $_REQUEST['step']
                 : $defaultStep
                 ;
-                
-            // echo $offset;
             
             if ( 'history' == $action )
             {
-                $nbVersion = $wikiPage->countVersion();
+                $nbEntries = $wikiPage->countVersion();
             }
             
             if ( 'recent' == $action )
             {
-                $nbVersion = $wiki->getNumberOfPages();
+                $nbEntries = $wiki->getNumberOfPages();
             }
             
             $last = 0;
@@ -406,10 +404,10 @@
             {
                 $offset = 0;
                 
-                while ( $last < $nbVersion)
+                while ( $last < $nbEntries)
                      $last += $defaultStep;
                 
-                $last = $last > $nbVersion
+                $last = $last > $nbEntries
                     ? $last - $defaultStep
                     : $last
                     ;
@@ -419,10 +417,10 @@
             }
             else
             {
-                while ( $last < $nbVersion)
+                while ( $last < $nbEntries)
                      $last += $step;
                 
-                $last = $last > $nbVersion
+                $last = $last > $nbEntries
                     ? $last - $step
                     : $last
                     ;
@@ -432,12 +430,12 @@
                     : $offset - $step
                     ;
                     
-                $next     = ( $offset + $step ) >= $nbVersion
+                $next     = ( $offset + $step ) >= $nbEntries
                     ? false
                     : $offset + $step
                     ;
                     
-                if ( $next > $nbVersion )
+                if ( $next > $nbEntries )
                 {
                     $next = false;
                 }
