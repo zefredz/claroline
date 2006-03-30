@@ -782,7 +782,7 @@ class wiki2xhtml
                 $img_size = @getimagesize($path_img);
             }
             
-            $attr = ' src="'.$this->protectAttr($this->protectUrls($url)).'"'.
+            $attr = ' src="'.$this->protectAttr($this->protectUrls($url)).'"';
             $attr .= (count($data) > 1) ? ' alt="'.$this->protectAttr($content).'"' : ' alt=""';
             $attr .= ($lang) ? ' lang="'.$lang.'"' : '';
             $attr .= ($title) ? ' title="'.$this->protectAttr($title).'"' : '';
