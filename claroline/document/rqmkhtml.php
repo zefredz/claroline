@@ -4,6 +4,14 @@
 require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 
+function is_parent_path($parentPath, $childPath)
+{
+    $realPath = realpath($parentPath . $childPath);
+    $realPath = str_replace('\\', '/', $realPath); // OS harmonize ...
+    return preg_match('|^'.$parentPath.'|', $realPath);
+}
+
+
 if ($_gid && $is_groupAllowed)
 {
     $courseDir         = $_course['path'] .'/group/'.$_group['directory'];
@@ -62,7 +70,15 @@ if ($cmd ==  'rqMkHtml' )
 }
 elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 {
-    $fileContent = implode("\n",file($baseWorkDir.$_REQUEST['file']));
+    if ( is_parent_path($baseWorkDir, $_REQUEST['file'] ) )
+    {
+        $fileContent = implode("\n",file($baseWorkDir.$_REQUEST['file']));
+    }
+    else
+    {
+        claro_die('WRONG PATH');
+    }
+
 
     $fileContent = get_html_body_content($fileContent)
       
