@@ -57,8 +57,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
                     `authSource`            ,
                     `creatorId`
              FROM `" . $tbl_user . "`
-             WHERE LOWER(email) LIKE '" . addslashes($Femail) . "'
-                   AND   `email` != '' ";
+             WHERE LOWER(email) = '" . addslashes($Femail) . "'";
 
     $user = claro_sql_query_fetch_all($sql);
 
