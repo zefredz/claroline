@@ -457,4 +457,17 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
     }
 }
 
+/**
+ * Protect Sql statment
+ *
+ * @param unknown_type $statement
+ * @param unknown_type $db
+ * @return unknown
+ */
+function claro_sql_escape($statement,$db=null)
+{
+    if (is_null($db)) return mysql_real_escape_string($statement);
+    else              return mysql_real_escape_string($statement, $db);
+
+}
 ?>
