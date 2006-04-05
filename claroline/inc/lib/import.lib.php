@@ -1,156 +1,188 @@
 <?php
-    require_once $includePath.'/../export/export_zip.lib.php';
+    require_once $includePath.'/lib/export_zip.lib.php';
     require_once $includePath.'/../wiki/lib/lib.createwiki.php';
     require_once ($includePath.'/lib/pclzip/pclzip.lib.php');
     require_once ($includePath.'/lib/claro_main.lib.php');
     require_once $includePath.'/lib/fileManage.lib.php';
     require_once $includePath.'/lib/forum.lib.php';
+    require_once $includePath.'/lib/import.xmlparser.lib.php';
      
     require $includePath.'/lib/debug.lib.inc.php';
     require $includePath.'/lib/group.lib.inc.php';
      
     define("EXTRACT_PATH", 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\claroline\export');
-     
-    function import_all_data_course_in_db($archive_file, $course_id = NULL)
+    /**
+	 * Import data course into a exisiting course on the claroline platform 
+	 * The information to import is contained in a zip file. 
+	 * This zip file contains xml files in which information for the db is stored
+	 * This zip file also contains the course documents to import
+	 * 
+	 * The whole course is not always imported
+	 * To filter what must be imported and what does not, 
+	 * information must be contained in the $importGoupInfo array 
+ 	 *
+ 	 * Its format must follow those rule :
+ 	 *      - Must be an array of arrays
+ 	 * 		- Must be like this : $importGroupInfo[index][groupInfos]
+ 	 * 		- Each index points to a group
+ 	 * 		- A groupinfo can be tools name like "wiki", "announcement", etc.. and must contain a boolean
+ 	 * 		- A groupinfo can also be "mustImportUsers" to chose to import users or not for this group
+ 	 * 		- One groupInfo must be "id" and must contain the group_id to import
+ 	 * 		- "id" must be null when for general course information
+ 	 * 		- When "id" is not null. A groupInfo can be "mustImportTools". This means we can choose to not import 
+ 	 * 		  a group tool to replace him with a empty tool.   		 
+ 	 * 		
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 * @param  string  $archive_file     - the zip file's complete path 
+	 * @param  string  $course_id    
+	 * @param  array   $importGroupInfo  - array containing informations about what to import and what not
+	 * @return false if a problem occured, true if not.  
+ 	 */     	  	 
+    function import_all_data_course_in_db($archive_file, $course_id,$importGroupInfo)
     {
         $exported_course_id = basename($archive_file, '.zip');
         //if (false == test_zip_file($archive_file)) return false;
         if (false === extract_archive($archive_file, EXTRACT_PATH))
             return false;
-        
-        $usersIdToChange[0]["oldUserId"] = 1;
-        $usersIdToChange[0]["newUserId"] = 1;
-        $usersIdToChange = import_users($exported_course_id, $usersIdToChange);
+      
+        $usersIdToChange = import_users($exported_course_id,$course_id);
         if (false === $usersIdToChange)
+            return false;              
+         
+        if (isset($importGroupInfo[0]['group']) && true === $importGroupInfo[0]['group'])
+        	$importGroupInfo = import_group($exported_course_id, $GLOBALS['_cid'], $usersIdToChange, $importGroupInfo);
+         
+        if (false === $importGroupInfo)
             return false;
          
-        $group[0]['id'] = 0;
-        $group[0]['oldid'] = 0;
-        $group[0]['chat'] = true;
-        $group[0]['document'] = true;
-        $group[0]['forum'] = true;
-        $group[0]['wiki'] = true;
-        $group[0]['exercise'] = true;
-        $group[0]['work'] = true;
-        $group[0]['tool'] = true;
-        $group[0]['group'] = true;
-        $group[0]['quiz'] = true;      
-        $group[0]['lp'] = true;  
-     //	$group[0]['mustImportUsers'] = true;
-         /*
-        $group[1]['id'] = 1;
-        $group[1]['oldid'] = 1;
-        $group[1]['mustImportUsers'] = true;
-        $group[1]['mustImportTools'] = false;
-        $group[1]['chat'] = true;
-        $group[1]['document'] = true;
-        $group[1]['forum'] = true;
-        $group[1]['wiki'] = true;
-         
-        $group[2]['id'] = 2;
-        $group[2]['oldid'] = 2;
-        $group[2]['mustImportUsers'] = false;
-        $group[2]['mustImportTools'] = false;
-        $group[2]['chat'] = true;
-        $group[2]['document'] = true;
-        $group[2]['forum'] = true;
-        $group[2]['wiki'] = true;*/
-         
-        if (isset($group[0]['group']) && true === $group[0]['group'])
-        $group = import_group($exported_course_id, $GLOBALS['_cid'], $usersIdToChange, $group);
-         
-        if (false === $group)
-            return false;
-         
-        if (false == importGroupDocuments($exported_course_id, $course_id, $group[0]))
+        if (false == importGroupDocuments($exported_course_id, $course_id, $importGroupInfo[0]))
             return false;
          
         /*
-        if (false === import_manifest($exported_course_id, $course_id, $groupInfo))
+        if (false === import_manifest($exported_course_id, $course_id, $importGroupInfoInfo))
         return false;
         */
-        if (false === import_announcement($exported_course_id, $GLOBALS['_cid'], $group[0]))
+        if (false === import_announcement($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0]))
             return false;
          
-        if (false === import_course_description($exported_course_id, $GLOBALS['_cid'], $group[0]))
+        if (false === import_course_description($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0]))
             return false;
          
-        if (false === import_calendar($exported_course_id, $GLOBALS['_cid'], $group[0]))
+        if (false === import_calendar($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0]))
             return false;
          
-        if (false === import_link($exported_course_id, $GLOBALS['_cid'], $group[0]))
+        if (false === import_link($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0]))
             return false;
          
-        if (false === import_lp($exported_course_id, $GLOBALS['_cid'], $group[0], $usersIdToChange))
+        if (false === import_lp($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
             return false;
          
-        if (false === import_quiz($exported_course_id, $GLOBALS['_cid'], $group[0]))
+        if (false === import_quiz($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0]))
             return false;
          
-        if (false === import_tool($exported_course_id, $GLOBALS['_cid'], $group[0]))
+        if (false === import_tool($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0]))
             return false;
          
-        if (false === import_document($exported_course_id, $GLOBALS['_cid'], $group[0]))
+        if (false === import_document($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0]))
             return false;
          
-        if (false == import_bb($exported_course_id, $GLOBALS['_cid'], $group[0], $usersIdToChange))
+        if (false == import_bb($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
             return false;
          
-        if (false == import_wiki($exported_course_id, $GLOBALS['_cid'], $group[0], $usersIdToChange))
+        if (false == import_wiki($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
             return false;
          
-        if (false === import_wrk($exported_course_id, $GLOBALS['_cid'], $group[0], $usersIdToChange))
+        if (false === import_wrk($exported_course_id, $GLOBALS['_cid'], $importGroupInfo, $usersIdToChange))
             return false;
          
-        if (false === import_userinfo($exported_course_id, $GLOBALS['_cid'], $group[0], $usersIdToChange))
+        if (false === import_userinfo($exported_course_id, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
             return false;
          
         // claro_delete_file(EXTRACT_PATH."/".$exported_course_id);
          
         return true;
     }
-    function isToolInTab($toolListTab, $tool)
-    {
-        foreach ($toolListTab as $tab_content)
-        {
-            if ($tab_content === $tool)
-                {
-                return true;
-            }
-        }
-        return false;
+    /**
+     * 	Based on the $tab array containing user data,
+     *  this function create the array $usersIdToChange which 
+     *  say, for each users, what is his old id, his new id and 
+     *  if we must import this user or not in the db	
+     * 
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *  
+	 * @param  string  $course_id
+	 * @param  string  $tab              - contain the user data    	  
+	 * @return array $usersIdToChange which contains relation between the old user_id 
+	 * 		   and the new user_id who will be used for the import             
+	 * 
+ 	 */     
+    function filter_users($course_id,$tab)
+    {    	        	    	     
+         $tbl = claro_sql_get_main_tbl();
+    	 
+    	 $sql = "SELECT u.`user_id`, u.`nom` AS `firstname`, u.`prenom`  AS  `lastname`, u.`officialCode` 
+    	 		 FROM `".$tbl['user']."` AS  u, `".$tbl['rel_course_user']."` AS  cu
+				 WHERE u.user_id = cu.user_id and cu.code_cours = '".$course_id."'";    	
+    	 $result = claro_sql_query_fetch_all($sql);    	
+    	 
+    	 $sql = "SELECT max(user_id) FROM `".$tbl['user']."`";
+    	 $user_offset = claro_sql_query_get_single_value($sql);    	 
+    	 
+    	 $usersIdToChange = array();      	    	 
+    	 foreach($tab['user'] as $id => $userToAdd)
+    	 {    	
+    	 	$usersIdToChange[$id]['oldUserId'] = $userToAdd['user_id'];   
+    	 	$usersIdToChange[$id]['newUserId'] = $userToAdd['user_id'] + $user_offset;   
+    	 	$usersIdToChange[$id]['mustImportUser'] = true;
+    	 		 	    		    	 				 	    	    	     	 	    		     
+    	 	foreach($result as $userInDb)
+    	 	{    	 		    	 		    	 		    
+    	 		if($userToAdd['lastname'] === $userInDb['lastname'] && $userToAdd['firstname'] === $userInDb['firstname'])
+    	 		{    	 		
+    	 			if($userToAdd['officialCode'] == $userInDb['officialCode'])
+    	 			{    	 	    			    	 			
+    	 				$usersIdToChange[$id]['oldUserId'] = $userInDb['user_id'];   
+    	 				$usersIdToChange[$id]['newUserId'] = $userInDb['user_id'];
+    	 				$usersIdToChange[$id]['mustImportUser'] = false;    	     	 							    	   				
+    	 			}    	 			
+    	 		}
+    	 	}
+    	 }        	         	       
+    	 return $usersIdToChange;    
     }
-    function filter_users($tab, $usersIdToChange)
-    {
-        // [0] = user to add
-        // [1] = tab with oldUserId and newUserId
-        $tbl = array ();
-        $tbl[0] = array ();
-        $tbl[0] = $tab;
-         
-        $tbl[1] = $usersIdToChange;
-        return $tbl;
-    }
-    function import_users($exported_course_id, $usersIdToChange)
+     /**
+     * 		
+     * Import users for a course in db.
+     * If a user doesnt exist, we create it
+     * The user is added in the users table and also in the courses-users relation table.
+     *   
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+	 * @param  string  $exported_course_id  - course_id of the exported course
+	 * @param  string  $course_id           - course_id of the course in which the import will occur
+	 * @return false if a problem occured, true if not.         
+	 * 
+ 	 */     
+    function import_users($exported_course_id,$course_id)
     {
         //import users from file in a tab
         $tab = import_users_from_file($exported_course_id);
         if (false !== $tab)
-        {
+        {        	
             //filter users and put it in a new tab
-            $tab = filter_users($tab, $usersIdToChange);
+            $usersIdToChange = filter_users($course_id,$tab);           
+                                  
             //put users in db
-            import_users_in_db($tab[0]);
+            import_users_in_db($tab,$course_id,$usersIdToChange);
         }
         else
-        return false;
+        	return false;                  
          
-        return $tab[1];
+        return $usersIdToChange;
     }
-    function import_announcement($exported_course_id, $course_id = NULL, $group)
+    function import_announcement($exported_course_id, $course_id = NULL, $importGroupInfo)
     {
         flush_announcement_table($course_id);
-        if (isset ($group["announcement"]) && true == $group["announcement"])
+        if (isset ($importGroupInfo["announcement"]) && true == $importGroupInfo["announcement"])
         {
             $tab = import_announcement_from_file($exported_course_id);
              
@@ -160,11 +192,11 @@
         }
         return true;
     }
-    function import_course_description($exported_course_id, $course_id = NULL, $group)
+    function import_course_description($exported_course_id, $course_id = NULL, $importGroupInfo)
     {
         flush_course_description_table($course_id);
          
-        if (isset ($group["description"]) && true == $group["description"])
+        if (isset ($importGroupInfo["description"]) && true == $importGroupInfo["description"])
         {
             $tab = import_course_description_from_file($exported_course_id);
             if (false !== $tab)
@@ -173,11 +205,11 @@
         }
         return true;
     }
-    function import_calendar($exported_course_id, $course_id = NULL, $group)
+    function import_calendar($exported_course_id, $course_id = NULL, $importGroupInfo)
     {
         flush_calendar_table($course_id);
          
-        if (isset ($group["calendar"]) && true == $group["calendar"])
+        if (isset ($importGroupInfo["calendar"]) && true == $importGroupInfo["calendar"])
         {
             $tab = import_calendar_from_file($exported_course_id);
             if (false !== $tab)                
@@ -187,11 +219,11 @@
          
         return true;
     }
-    function import_link($exported_course_id, $course_id = NULL, $group)
+    function import_link($exported_course_id, $course_id = NULL, $importGroupInfo)
     {
         flush_link_table($course_id);
          
-        if (isset ($group["link"]) && true == $group["link"])
+        if (isset ($importGroupInfo["link"]) && true == $importGroupInfo["link"])
         {
             $tab = import_link_from_file($exported_course_id);
             if (false !== $tab)            
@@ -265,11 +297,11 @@
        
         return $tab;
     }
-    function import_lp($exported_course_id, $course_id = NULL, $group, $usersIdToChange)
+    function import_lp($exported_course_id, $course_id = NULL, $importGroupInfo, $usersIdToChange)
     {
         flush_lp_table($course_id);
          
-        if (isset ($group["lp"]) && true == $group["lp"])
+        if (isset ($importGroupInfo["lp"]) && true == $importGroupInfo["lp"])
         {
             $tab = import_lp_from_file($exported_course_id);
             if (false !== $tab)
@@ -331,11 +363,11 @@
        
         return $tab;
     }
-    function import_quiz($exported_course_id, $course_id = NULL, $group)
+    function import_quiz($exported_course_id, $course_id = NULL, $importGroupInfo)
     {
         flush_quiz_table($course_id);
          
-        if (isset ($group["quiz"]) && true == $group["quiz"])
+        if (isset ($importGroupInfo["quiz"]) && true == $importGroupInfo["quiz"])
         {
             $tab = import_quiz_from_file($exported_course_id);
             if (false !== $tab) import_quiz_in_db($tab, $course_id);
@@ -346,15 +378,15 @@
         }
         return true;
     }
-    function import_tool($exported_course_id, $course_id = NULL, $group)
+    function import_tool($exported_course_id, $course_id = NULL, $importGroupInfo)
     {
         flush_tool_table($course_id);
          
-        if (isset ($group["tool"]) && true == $group["tool"])
-         {
+        if (isset ($importGroupInfo["tool"]) && true == $importGroupInfo["tool"])
+        {
             $tab = import_tool_from_file($exported_course_id);
             if (false !== $tab)
-                {
+            {
                 import_tool_in_db($tab, $course_id);
             }
             else
@@ -362,17 +394,17 @@
         }
         return true;
     }
-    function import_document($exported_course_id, $course_id = NULL, $group)
+    function import_document($exported_course_id, $course_id = NULL, $importGroupInfo)
     {
         flush_document_table($course_id);
          
-        if (isset ($group["document"]) && true == $group["document"])
-            {
-            if (false === importDocDocuments($exported_course_id, $course_id, $group))
+        if (isset ($importGroupInfo["document"]) && true == $importGroupInfo["document"])
+        {
+            if (false === importDocDocuments($exported_course_id, $course_id, $importGroupInfo))
                 return false;
             $tab = import_document_from_file($exported_course_id);
             if (false !== $tab)
-                {
+            {
                 import_document_in_db($tab, $course_id);
             }
             else
@@ -380,25 +412,25 @@
         }
         return true;
     } 	
-    function filter_group($group_data, $group)
+    function filter_group($importGroupInfo_data, $importGroupInfo)
     {
         $tbl = array();
         $tbl[0] = null;
          
-        if (isset ($group_data["group_team"]))
+        if (isset ($importGroupInfo_data["group_team"]))
+        {
+            foreach ($importGroupInfo_data["group_team"] as $tab2_content)
             {
-            foreach ($group_data["group_team"] as $tab2_content)
-            {
-                if ($group["id"] == $tab2_content["id"])
-                    {
+                if ($importGroupInfo["id"] == $tab2_content["id"])
+                {
                     $tbl[0]["group_team"] = $tab2_content;
                      
-                    $tbl[1] = $group;
+                    $tbl[1] = $importGroupInfo;
                     $tbl[1]['id'] = '';
-                    $tbl[1]['oldid'] = $tab2_content['id'];
-                    if (isset($group['chat'])) $tbl[1]['chat'] = $group['chat'];
+                    $tbl[1]['oldId'] = $tab2_content['id'];
+                    if (isset($importGroupInfo['chat'])) $tbl[1]['chat'] = $importGroupInfo['chat'];
                     else $tbl[1]['chat'] = false;
-                    if (isset($group['document'])) $tbl[1]['document'] = $group['document'];
+                    if (isset($importGroupInfo['document'])) $tbl[1]['document'] = $importGroupInfo['document'];
                     else $tbl[1]['document'] = false;
                     $tbl[1]['directory'] = $tab2_content['secretDirectory'];
                     $tbl[1]['name'] = $tab2_content['name'];
@@ -407,20 +439,20 @@
             }
         }
         $tbl[0]["group_rel_team_user"] = null;
-        if (isset ($group_data["group_rel_team_user"]) && isset($group['mustImportUsers']) && true === $group['mustImportUsers'])
+        if (isset ($importGroupInfo_data["group_rel_team_user"]) && isset($importGroupInfo['mustImportUsers']) && true === $importGroupInfo['mustImportUsers'])
+         {
+            foreach ($importGroupInfo_data["group_rel_team_user"] as $tab2_content)
             {
-            foreach ($group_data["group_rel_team_user"] as $tab2_content)
-            {
-                if ($group["id"] == $tab2_content["team"])
-                    {
+                if ($importGroupInfo["id"] == $tab2_content["team"])
+                {
                     $tbl[0]["group_rel_team_user"] = $tab2_content;
                 }
             }
         }
         $tbl[0]["group_property"] = null;
-        if (isset ($group_data["group_property"]))
-            {
-            foreach ($group_data["group_property"] as $tab2_content)
+        if (isset ($importGroupInfo_data["group_property"]))
+        {
+            foreach ($importGroupInfo_data["group_property"] as $tab2_content)
             {
                 $tbl[0]["group_property"] = $tab2_content;
             }
@@ -436,84 +468,82 @@
         }
         return $usersIdToChange;
     }
-    function create_group_for_import($exported_course_id, $course_id, $group, $group_data, $usersIdToChange)
+    function create_group_for_import($exported_course_id, $course_id, $importGroupInfo, $importGroupInfo_data, $usersIdToChange)
     {
     	
-        if (isset ($group_data["group_rel_team_user"]))
+        if (isset ($importGroupInfo_data["group_rel_team_user"]))
         {
-            $group_data["group_rel_team_user"] = replaceUserId($usersIdToChange, $tab["group_rel_team_user"], "user");
+            $importGroupInfo_data["group_rel_team_user"] = replaceUserId($usersIdToChange, $importGroupInfo_data["group_rel_team_user"], "user");
         }
          
-        $group_data = filter_group($group_data, $group);
+        $importGroupInfo_data = filter_group($importGroupInfo_data, $importGroupInfo);
          
-        if (isset($group_data[1])) $group = $group_data[1];
-        if (isset($group_data[0])) $group_data = $group_data[0];
-         
-         
-        if (false === $group['mustImportUsers'])
+        if (isset($importGroupInfo_data[1])) $importGroupInfo = $importGroupInfo_data[1];
+        if (isset($importGroupInfo_data[0])) $importGroupInfo_data = $importGroupInfo_data[0];
+                  
+        if (false === $importGroupInfo['mustImportUsers'])
         	$usersIdToChange = setAnonymousUser($usersIdToChange);
-         
-        $group = import_group_in_db($group_data, $course_id, $group);
-        if (isset($group_data) && isset($group['mustImportTools']) && true === $group['mustImportTools'])
+                
+        $importGroupInfo = import_group_in_db($importGroupInfo_data, $course_id, $importGroupInfo);
+        if (isset($importGroupInfo_data) && isset($importGroupInfo['mustImportTools']) && true === $importGroupInfo['mustImportTools'])
         {           
-            if (isset($group['wiki']) && true === $group['wiki'])
+            if (isset($importGroupInfo['wiki']) && true === $importGroupInfo['wiki'])
             {                 
-                if (false === import_wiki($exported_course_id, $course_id, $group, $usersIdToChange))
+                if (false === import_wiki($exported_course_id, $course_id, $importGroupInfo, $usersIdToChange))
                 return false;
             }
-            else if (0 != $group['id'])
+            else if (null != $importGroupInfo['id'])
             {
-                if (false === create_wiki($group['id'], $group['name'].' - Wiki'))
+                if (false === create_wiki($importGroupInfo['id'], $importGroupInfo['name'].' - Wiki'))
                 return false;
             }                          
-            if (isset($group['forum']) && true === $group['forum'])
+            if (isset($importGroupInfo['forum']) && true === $importGroupInfo['forum'])
             {
-                if (false === import_bb($exported_course_id, $course_id, $group, $usersIdToChange))
+                if (false === import_bb($exported_course_id, $course_id, $importGroupInfo, $usersIdToChange))
                 return false;
             }
-            else if (0 != $group['id'])
+            else if (null != $importGroupInfo['id'])
             {
-                if (false === create_forum($group['name']." - forum", '', 2, 1, $group['id'], $course_id))
+                if (false === create_forum($importGroupInfo['name']." - forum", '', 2, 1, $importGroupInfo['id'], $course_id))
                 return false;
             }
              
-            if (0 != $group['id'])
+            if (null != $importGroupInfo['id'])
             {                 
-                if (false == importGroupDocuments($exported_course_id, $course_id, $group))
+                if (false == importGroupDocuments($exported_course_id, $course_id, $importGroupInfo))
                     return false;
             }
         }
         else
         {
-       	   if (false === create_wiki($group['id'], $group['name'].' - Wiki'))
+       	   if (false === create_wiki($importGroupInfo['id'], $importGroupInfo['name'].' - Wiki'))
                	return false;
-           if (false === create_forum($group['name']." - forum", '', 2, 1, $group['id'], $course_id))
+           if (false === create_forum($importGroupInfo['name']." - forum", '', 2, 1, $importGroupInfo['id'], $course_id))
                 return false;
         }
-        return $group;
+        return $importGroupInfo;
     }
-    function import_group($exported_course_id, $course_id, $usersIdToChange, $groupInfo,$mustDeleteGroups = false)
-    {
-         
-        $group_data = import_group_from_file($exported_course_id);
+    function import_group($exported_course_id, $course_id, $usersIdToChange, $importGroupInfoInfo,$mustDeleteGroups = false)
+    {         
+        $importGroupInfo_data = import_group_from_file($exported_course_id);
         
-        if (false !== $group_data)
+        if (false !== $importGroupInfo_data)
         {
-            foreach($groupInfo as $id => $group)
+            foreach($importGroupInfoInfo as $id => $importGroupInfo)
             {            	
-                if ($group['id'] != 0)
+                if ($importGroupInfo['id'] != null)
                 {
-                    if (false === create_group_for_import($exported_course_id, $course_id, $group, $group_data, $usersIdToChange))
+                    if (false === create_group_for_import($exported_course_id, $course_id, $importGroupInfo, $importGroupInfo_data, $usersIdToChange))
                     return false;
                 }
             }
         }
-        return $groupInfo;
+        return $importGroupInfoInfo;
     }
     function set_userinfoIds($tab,$course_id)
     {
     	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-         
+        
         $sql = "SELECT max(id) FROM `".$tbl['userinfo_content']."`";        
         $userinfo_content_offset = claro_sql_query_get_single_value($sql);
         if (!isset($userinfo_content_offset)) $userinfo_content_offset = 0;
@@ -539,12 +569,12 @@
     	}    	    	    
     	return $tab;
     } 
-    function import_userinfo($exported_course_id, $course_id = NULL, $groupInfo, $usersIdToChange)
+    function import_userinfo($exported_course_id, $course_id = NULL, $importGroupInfoInfo, $usersIdToChange)
     {
         flush_userinfo_table($course_id);
          
-        if (isset ($group["userinfo"]) && true == $group["userinfo"])
-            {
+        if (isset ($importGroupInfo["userinfo"]) && true == $importGroupInfo["userinfo"])
+        {
             $tab = import_userinfo_from_file($exported_course_id);
             if (false !== $tab)
             {
@@ -563,7 +593,7 @@
     {
         $tab = import_track_from_file($exported_course_id);
         if (false !== $tab)
-            {
+        {
             flush_track_table($course_id);
             import_track_in_db($tab, $course_id);
         }
@@ -572,9 +602,8 @@
          
         return true;
     }
-    function filterBb($tab, $group, $course_id)
-    {
-         
+    function filterBb($tab, $importGroupInfo, $course_id)
+    {         
         $main = claro_sql_get_main_tbl();
         $sql = "SELECT user_id FROM `".$main['rel_course_user']."` WHERE code_cours ='".$course_id."'";
         $users = claro_sql_query_fetch_all($sql);
@@ -583,18 +612,17 @@
         $tbl['bb_categories'][1] = $tab['bb_categories'][1];
          
         if (isset ($tab['bb_forums']))
-            {
+        {
             foreach ($tab['bb_forums'] as $id => $forum)
             {
-                $mustImportForum = false;
-                 
-                if ($group['id'] === $forum['group_id'] && isset($group['forum']) && $group['forum'] === true)
-                    {
+                $mustImportForum = false;                
+                if ($importGroupInfo['id'] === $forum['group_id'] && isset($importGroupInfo['forum']) && $importGroupInfo['forum'] === true)
+                {
                     $tbl['bb_forums'][$id] = $forum;
                     $mustImportForum = true;
                 }
                 if (isset ($tab['bb_categories']))
-                    {
+                {
                     foreach ($tab['bb_categories'] as $cat_id => $cat)
                     {
                         if ($forum['cat_id'] == $cat['cat_id']&& $mustImportForum)
@@ -604,36 +632,36 @@
                     }
                 }
                 if (isset ($tab['bb_topics']))
-                    {
+                {
                     foreach ($tab['bb_topics'] as $topic_id => $topic)
                     {
                         $mustImportTopic = false;
                         if ($topic['forum_id'] == $forum['forum_id']&& $mustImportForum)
-                            {
+                        {
                             $tbl['bb_topics'][$topic_id] = $topic;
                             $mustImportTopic = true;
                         }
                     }
                 }
                 if (isset ($tab['bb_posts']))
-                    {
+                {
                     foreach ($tab['bb_posts'] as $post_id => $posts)
-                    {
+                    {                    	
                         $mustImportPost = false;
                         if ($posts['forum_id'] == $forum['forum_id'] && $mustImportForum)
-                            {
+                        {
                             $tbl['bb_posts'][$post_id] = $posts;
                             $mustImportPost = true;
                         }
                         else
                         if ($posts['topic_id'] == $topic['topic_id'] && $mustImportTopic)
-                            {
+                        {
                             $tbl['bb_posts'][$post_id] = $posts;
                             $mustImportPost = true;
                         }
                          
                         if (isset ($tab['bb_posts_text']))
-                            {
+                        {
                             foreach ($tab['bb_posts_text'] as $post_text_id => $posts_text)
                             {
                                 if ($posts_text['post_id'] == $posts['post_id'] && $mustImportPost)
@@ -645,7 +673,7 @@
                     }
                 }
                 if (isset ($tab['bb_rel_topic_usertonotify']))
-                    {
+                {
                     foreach ($tab['bb_rel_topic_usertonotify'] as $bb_rel_id => $bb_rel)
                     {
                         foreach ($users as $user_id)
@@ -658,13 +686,13 @@
                     }
                 }
                 if (isset ($tab['bb_priv_msgs']))
-                    {
+                {
                     foreach ($tab['bb_priv_msgs'] as $bb_priv_msgs_id => $bb_privs_msgs)
                     {
                         foreach ($users as $user_id)
                         {
                             if ($user_id == $bb_privs_msgs['user_id'])
-                                {
+                            {
                                 $tbl['bb_priv_msgs'][$bb_priv_msgs_id] = $bb_privs_msgs;
                             }
                         }
@@ -681,7 +709,7 @@
         $sql = "SELECT forum_id FROM `".$tbl['bb_forums']."` WHERE group_id IS NULL";
         $result = claro_sql_query_fetch_all($sql);
         if (isset($result))
-            {
+        {
             foreach ($result as $res)
             {
                 delete_forum($res['forum_id']);
@@ -693,104 +721,162 @@
          
          
     }
-    function import_bb($exported_course_id, $course_id = NULL, $group, $usersIdToChange)
+    function import_bb($exported_course_id, $course_id = NULL, $importGroupInfo, $usersIdToChange)
     {
         $tab = import_bb_from_file($exported_course_id);
         if (false !== $tab)
-            {
+        {
             if (isset ($tab["bb_posts"]))
-                {
+            {
                 $tab["bb_posts"] = replaceUserId($usersIdToChange, $tab["bb_posts"], "poster_id");
             }
             if (isset ($tab["bb_forums"]))
-                {
+            {
                 $tab["bb_forums"] = replaceUserId($usersIdToChange, $tab["bb_forums"], "forum_moderator");
             }
             if (isset ($tab["bb_rel_topic_userstonotify"]))
-                {
+            {
                 $tab["bb_rel_topic_userstonotify"] = replaceUserId($usersIdToChange, $tab["bb_rel_topic_userstonotify"], "user_id");
             }
             if (isset ($tab["bb_priv_msgs"]))
-                {
+            {
                 $tab["bb_priv_msgs"] = replaceUserId($usersIdToChange, $tab["bb_priv_msgs"], "from_userid");
             }
             if (isset ($tab["bb_priv_msgs"]))
-                {
+            {
                 $tab["bb_priv_msgs"] = replaceUserId($usersIdToChange, $tab["bb_priv_msgs"], "to_userid");
             }
             if (isset ($tab["bb_topics"]))
-                {
-                $tab["bb_topics"] = replaceUserId($usersIdToChange, $tab["bb_topics"], "topic_poster");
-                 
+            {
+                $tab["bb_topics"] = replaceUserId($usersIdToChange, $tab["bb_topics"], "topic_poster");                
             }
              
             if (isset ($tab["bb_forums"]))
-                {
-                $tab["bb_forums"] = replaceGroupId($group, $tab["bb_forums"], "group_id");
+            {
+                $tab["bb_forums"] = replaceGroupId($importGroupInfo, $tab["bb_forums"], "group_id");
             }
              
-            $tab = filterBb($tab, $group, $course_id);
              
-             
+            $tab = filterBb($tab, $importGroupInfo, $course_id);
+                                    
             $tab = set_bbIds($course_id, $tab);
              
-            if (0 == $group['id'])
-            flush_course_forums($course_id);
-            import_bb_in_db($tab, $course_id, $group);
+            if (null == $importGroupInfo['id'])
+           	   flush_course_forums($course_id);
+            import_bb_in_db($tab, $course_id, $importGroupInfo);
         }
         else
         return false;
         return true;
     }
-    function import_wiki($exported_course_id, $course_id = NULL, $group, $usersIdToChange)
+    function import_wiki($exported_course_id, $course_id = NULL, $importGroupInfo, $usersIdToChange)
     {       
         $tab = import_wiki_from_file($exported_course_id);
-         
+                 
         if (false !== $tab)
-            {
-            if (isset ($tab["wiki_pages"]))
-                {
-                $tab["wiki_pages"] = replaceUserId($usersIdToChange, $tab["wiki_pages"], "owner_id");
-            }
-            if (isset ($tab["wiki_pages_content"]))
-                {
-                $tab["wiki_pages_content"] = replaceUserId($usersIdToChange, $tab["wiki_pages_content"], "editor_id");
-            }
-            if (isset ($tab["wiki_properties"]))
-                {
-                $tab["wiki_properties"] = replaceGroupId($group, $tab["wiki_properties"], "group_id");
-            }
-             
-            $tab = filterWikiTab($tab, $group);
+        {
+            if (isset ($tab["wiki_pages"]))            
+                $tab["wiki_pages"] = replaceUserId($usersIdToChange, $tab["wiki_pages"], "owner_id");            
+            if (isset ($tab["wiki_pages_content"]))            
+                $tab["wiki_pages_content"] = replaceUserId($usersIdToChange, $tab["wiki_pages_content"], "editor_id");            
+            if (isset ($tab["wiki_properties"]))            
+                $tab["wiki_properties"] = replaceGroupId($importGroupInfo, $tab["wiki_properties"], "group_id");
+            
+            $importGroupInfoNull["oldId"] = 0;
+            $importGroupInfoNull["id"] = null;
+	        if (isset ($tab["wiki_properties"]))    
+                $tab["wiki_properties"] = replaceGroupId($importGroupInfoNull, $tab["wiki_properties"], "group_id");    
+                    
+            $tab = filterWikiTab($tab, $importGroupInfo);        
             $tab = set_wikiIds($course_id, $tab);
-            if (0 == $group['id']) delete_wiki($group['id'] );
+            if (null == $importGroupInfo['id']) delete_wiki($importGroupInfo['id'] );
             import_wiki_in_db($tab, $course_id);
         }
         else
         	return false;
         return true;
     }
-    function filter_work($tab,$group)
+    /**
+ 	 * Filter $tab to get only data which need to be added in the database.
+ 	 * 
+ 	 * The submissions are data related to the users.
+ 	 * We dont have to import a submission if we don't import the related user. 
+ 	 * So, first, we need to check the 'mustImportUsers' variable for the course ($importGroupInfo[0]) 
+ 	 * We also check if we import the related group
+ 	 * If not, we put 'group_id' at null
+ 	 *
+ 	 * @param $tab : array with users submissions
+ 	 * 		  $importGroupInfo : array with groups import information
+	 * @return array with users submissions filtered  
+	 * @author YannickWautelet <yannick_wautelet@hotmail.com@hotmail.com>
+ 	*/    
+    function filter_work($tab,$importGroupInfo)
     {
-    	$tbl = array();    	
-    	if(isset($group['mustImportUsers']) && true === $group['mustImportUsers'])
-    	{
-    		foreach ($tab as $id => $tab_content)
-	    	{    	
-    			$tbl[$id] = $tab_content;    		
-    		}
+    	$tbl = array();
+    	
+    	//The 'mustImportUsers' value of $importGroupInfo[0] (the course) must be checked first
+    	if(isset($importGroupInfo[0]['mustImportUsers']) && true === $importGroupInfo[0]['mustImportUsers'])
+	    {    			    	
+	    	foreach ($tab as $id => $tab_content)
+		    {    	
+		    	$tbl[$id] = $tab_content;
+		    			    	
+		    	if(!isset($importGroupInfo[$tab_content['group_id']]))
+		    	{		    		
+		    		$tbl[$id]['group_id'] = null;
+		    	}
+		    			    	
+		    }	
     	}
     	return $tbl;
+    /*
+    	$tbl = array();
+    	
+    	//The 'mustImportUsers' value of $importGroupInfo[0] (the course) must be checked first
+    	//It has the priority before the 'mustImportUsers' value of the other groups   
+    	if(isset($importGroupInfo[0]['mustImportUsers']) && true === $importGroupInfo[0]['mustImportUsers'])
+	    {    		
+	    	    		    	
+    		foreach ($importGroupInfo as $importGroupInfo_content)
+	    	{     	    		    			   
+	    		//Even if the 'mustImportUsers' value of $importGroupInfo[0] is set to true, we must check it for each group
+	    		//It is possible we accept to import users for the course but not for a group. 
+	    		if(isset($importGroupInfo_content['mustImportUsers']) && true === $importGroupInfo_content['mustImportUsers'])
+	    		{	    			
+	    			foreach ($tab as $id => $tab_content)
+		    		{    			    					    	
+	    				if($tab_content['group_id'] == $importGroupInfo_content['oldId'] || 
+	    					(null == $importGroupInfo_content['oldId'] && 0 == $tab_content['group_id'])) 
+	    					//very particular case : when group_id = 0
+	    					//in this case, we can't set this group_id = null to express that this is 
+	    					//the course data and not a group data
+	    					//because a group_id = null mean here that the related group does'nt exist in this platform 
+	    				{	    	    							
+    						$tbl[$id] = $tab_content;
+    						if(!isset($importGroupInfo_content['mustImportUsers']) || false === $importGroupInfo_content['mustImportUsers'])
+    						{
+    							$tbl[$id]['group_id'] = null;
+    						}
+	    				}    				    	
+    				}
+	    		}
+    		}
+    	}
+    	return $tbl;*/
     }
+    /**
+     * Flush work files of a group defined by $importGroupInfo_id
+     * To flush work files of the course, group_id must be 0
+     *    
+     */
     function flush_wrk_files($course_id)
-    {    	    	      
+    {    	    	          	
         $course_path = get_conf("rootSys").'courses/'.$course_id;
         $course_wrk_path = $course_path."/work"; 
-                
+                                                
         if(file_exists($course_wrk_path))
-           	if(false === claro_delete_file($course_wrk_path))
-        		return false;
-                
+        	if(false === claro_delete_file($course_wrk_path))
+        		return false;                        
     }
     function import_wrk_file($tab,$course_id)
     {
@@ -854,38 +940,55 @@
     	}    	    	    
     	return $tab;
     }
-    function import_wrk($exported_course_id, $course_id = NULL, $group, $usersIdToChange)
+    /**
+     * Import the work data tool (assignments and submissions)
+     * The check if the import must occur or not is made in the function
+     * In all case, we flush all old data 
+     * 
+     */
+    function import_wrk($exported_course_id, $course_id = NULL, $importGroupInfo, $usersIdToChange)    
     {    
-    	flush_wrk_table($course_id);  
     	if(false === flush_wrk_files($course_id))
-    	 	return false;           
-        if (isset ($group["work"]) && true === $group["work"])
+    	 	return false;      
+    	flush_wrk_table($course_id);  
+         
+        if (isset ($importGroupInfo[0]["work"]) && true === $importGroupInfo[0]["work"])
         {               	
-            $tab = import_wrk_from_file($exported_course_id);
-          
+            $tab = import_wrk_from_file($exported_course_id);    
+                
             if (false !== $tab)
             {
                 if (isset ($tab['submission']))
                 {
                     $tab['submission'] = replaceUserId($usersIdToChange, $tab['submission'], 'user_id');
                 }
-                if(isset($tab) && isset($tab['submission'])) 
-                {
-                	$tab['submission'] = filter_work($tab['submission'],$group);                           	                           	
-               		$tab = set_wrkIds($tab,$course_id);
+                
+                $importGroupInfoNull["oldId"] = 0;
+           		$importGroupInfoNull["id"] = null;
+	        	if (isset ($tab["submission"]))    
+                	$tab["submission"] = replaceGroupId($importGroupInfoNull, $tab["submission"], "group_id");                            
+                if (isset($tab)) 
+                {              
+                	    
+                	if(isset($tab['submission']))
+                	{
+                		$tab['submission'] = filter_work($tab['submission'],$importGroupInfo);
+                	}
+                	                  	                	               	                        	                          
+               		$tab = set_wrkIds($tab,$course_id);               		                	
 	                import_wrk_in_db($tab, $course_id);                
-                	import_wrk_file($tab,$course_id);
+                	import_wrk_file($tab,$course_id);                	
                 }                
             }
             else
-            return false;
+       		    return false;
         }
         return true;
     }
-    function import_manifest($exported_course_id, $course_id, $group)
+    function import_manifest($exported_course_id, $course_id, $importGroupInfo)
     {
-        if (isset ($group["manifest"]) && true == $group["manifest"])
-            {
+        if (isset ($importGroupInfo["manifest"]) && true == $importGroupInfo["manifest"])
+        {
             $tab = import_manifest_from_file($exported_course_id);
             if (false !== $tab)
             {
@@ -904,11 +1007,11 @@
             return claro_failure :: set_failure("opendir failed");
         $zipContentArray = $archive->listContent();
         if (is_array($zipContentArray))
-            foreach ($zipContentArray as $thisContent)
-        {
-            if (!preg_match('~.xml$~i', $thisContent['filename']))
-                return claro_failure :: set_failure('file format error');
-        }
+        	 foreach ($zipContentArray as $thisContent)
+        	{	
+            	if (!preg_match('~.xml$~i', $thisContent['filename']))
+                	return claro_failure :: set_failure('file format error');
+	        }
         return true;
     }
     function flush_announcement_table($course_id = null)
@@ -923,7 +1026,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab) && is_array($tab) && (count($tab) > 0))
-            {
+        {
             foreach ($tab as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["announcement"].'` (title,contenu,temps,ordre,visibility)
@@ -948,7 +1051,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -978,7 +1081,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab) && is_array($tab) && (count($tab) > 0))
-            {
+        {
             foreach ($tab as $tab_content)
             {
                  
@@ -1004,7 +1107,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1032,7 +1135,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab) && is_array($tab) && (count($tab) > 0))
-            {
+        {
             foreach ($tab as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["calendar_event"].'` (titre,contenu,day,hour,lasting,visibility)
@@ -1059,7 +1162,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1089,7 +1192,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab['links']) && (is_array($tab['links'])) && (count($tab['links']) > 0))
-            {
+        {
             foreach ($tab['links'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["links"].'` (src_id,dest_id,creation_time)
@@ -1100,7 +1203,7 @@
         }
          
         if (isset ($tab['resources']) && (is_array($tab['resources'])) && (count($tab['resources']) > 0))
-            {
+        {
             foreach ($tab['resources'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["resources"].'` (crl,title)
@@ -1125,7 +1228,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1227,7 +1330,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1319,7 +1422,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1349,7 +1452,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab['tool_intro']) && (is_array($tab['tool_intro'])) && (count($tab['tool_intro']) > 0))
-            {
+        {
             foreach ($tab['tool_intro'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["tool_intro"].'` (tool_id,title,display_date,content,rank,visibility)
@@ -1359,7 +1462,7 @@
             }
         }
         if (isset ($tab['tool_list']) && (is_array($tab['tool_list'])) && (count($tab['tool_list']) > 0))
-            {
+        {
             foreach ($tab['tool_list'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["tool"]."` (tool_id,rank,access,script_url,script_name,addedTool)
@@ -1390,7 +1493,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1418,7 +1521,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab) && (is_array($tab)) && (count($tab) > 0))
-            {
+        {
             foreach ($tab as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["document"].'` (path,visibility,comment)
@@ -1469,15 +1572,12 @@
         $sql = "DELETE FROM `".$tbl["group_team"]."`";
         claro_sql_query($sql);
     }
-    function import_group_in_db($tab, $course_id, $group)
+    function import_group_in_db($tab, $course_id, $importGroupInfo)
     {
-    	echo "<pre>";
-    	var_dump($tab);
-    	echo "</pre>";
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-        if(isset ($tab['group_property'])) $group_property = $tab['group_property'];
-        if(isset ($tab['group_team'])) $group_team = $tab['group_team'];
-        if(isset ($tab['group_rel_team_user'])) $group_rel_team_user = $tab['group_rel_team_user'];
+        if(isset ($tab['group_property'])) $importGroupInfo_property = $tab['group_property'];
+        if(isset ($tab['group_team'])) $importGroupInfo_team = $tab['group_team'];
+        if(isset ($tab['group_rel_team_user'])) $importGroupInfo_rel_team_user = $tab['group_rel_team_user'];
         
         if (isset ($tab['group_property']) && is_array($tab['group_property']) && (count($tab['group_property']) > 0))
         {
@@ -1486,31 +1586,31 @@
              
             $sql = "INSERT INTO `".$tbl["group_property"].'` (self_registration,nbGroupPerUser,private,
                 forum,document,wiki,chat)
-                VALUES ("'.(int) $group_property['self_registration'].'","'.(int) $group_property['nbGroupPerUser'].'","'.(int) $group_property['private'].'","'.(int) $group_property['forum'].'","'.(int) $group_property['document'].'","'.(int) $group_property['wiki'].'","'.(int) $group_property['chat'].'")';
+                VALUES ("'.(int) $importGroupInfo_property['self_registration'].'","'.(int) $importGroupInfo_property['nbGroupPerUser'].'","'.(int) $importGroupInfo_property['private'].'","'.(int) $importGroupInfo_property['forum'].'","'.(int) $importGroupInfo_property['document'].'","'.(int) $importGroupInfo_property['wiki'].'","'.(int) $importGroupInfo_property['chat'].'")';
             claro_sql_query($sql);
         }
          
         if (isset ($tab['group_team']) && is_array($tab['group_team']) && (count($tab['group_team']) > 0))
-            {
+        {
              
-            if ($group_team['id'] == $group['oldid'])
-                {
+            if ($importGroupInfo_team['id'] == $importGroupInfo['oldId'])
+             {
                 $sql = "INSERT INTO `".$tbl["group_team"].'` (name,description,tutor,maxStudent,secretDirectory)
-                    VALUES ("'.addslashes($group_team['name']).'","'.addslashes($group_team['description']).'","'.(int) $group_team['tutor'].'","'.(int) $group_team['maxStudent'].'","'.addslashes($group_team['secretDirectory']).'")';
+                    VALUES ("'.addslashes($importGroupInfo_team['name']).'","'.addslashes($importGroupInfo_team['description']).'","'.(int) $importGroupInfo_team['tutor'].'","'.(int) $importGroupInfo_team['maxStudent'].'","'.addslashes($importGroupInfo_team['secretDirectory']).'")';
                  
                 $id = claro_sql_query_insert_id($sql);
                  
                 if (isset ($tab['group_rel_team_user']) && is_array($tab['group_rel_team_user']) && (count($tab['group_rel_team_user']) > 0))
                     {
                     $sql = "INSERT INTO `".$tbl["group_rel_team_user"].'` (user,team,status,role)
-                        VALUES ("'.(int) $group_rel_team_user['user'].'","'.$id.'","'.(int) $group_rel_team_user['status'].'","'.addslashes($group_rel_team_user['role']).'")';
+                        VALUES ("'.(int) $importGroupInfo_rel_team_user['user'].'","'.$id.'","'.(int) $importGroupInfo_rel_team_user['status'].'","'.addslashes($importGroupInfo_rel_team_user['role']).'")';
                     claro_sql_query($sql);
                 }
-                $group['id'] = $id;
+                $importGroupInfo['id'] = $id;
             }
         }
          
-        return $group;
+        return $importGroupInfo;
     }
      
     function import_group_from_file($course_id)
@@ -1521,14 +1621,14 @@
          
         $xml = xml_parser_create($GLOBALS['charset']);
          
-        $group = new group_parser;
+        $importGroupInfo = new group_parser;
          
-        xml_set_object($xml, $group);
+        xml_set_object($xml, $importGroupInfo);
         xml_set_element_handler($xml, 'start_element', 'end_element');
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1542,7 +1642,7 @@
         }
         fclose($fp);
         xml_parser_free($xml);
-        return $group->get_tab();
+        return $importGroupInfo->get_tab();
     }
     function flush_userinfo_table($course_id = NULL)
     {
@@ -1559,7 +1659,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab['userinfo_def']) && is_array($tab['userinfo_def']) && (count($tab['userinfo_def']) > 0))
-            {
+        {
             foreach ($tab['userinfo_def'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["userinfo_def"].'` (title,comment,nbLine,rank)
@@ -1569,7 +1669,7 @@
             }
         }
         if (isset ($tab['userinfo_content']) && is_array($tab['userinfo_content']) && (count($tab['userinfo_content']) > 0))
-            {
+        {
             foreach ($tab['userinfo_content'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["userinfo_content"].'` (user_id,def_id,ed_ip,ed_date,content)
@@ -1594,7 +1694,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1632,7 +1732,7 @@
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
         if (isset ($tab['track_e_access']) && is_array($tab['track_e_access']) && (count($tab['track_e_access']) > 0))
-            {
+        {
             foreach ($tab['track_e_access'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["track_e_access"].'` (access_user_id,access_date,access_tid,
@@ -1653,7 +1753,7 @@
             }
         }
         if (isset ($tab['track_e_exe_answers']) && is_array($tab['track_e_exe_answers']) && (count($tab['track_e_exe_answers']) > 0))
-            {
+        {
             foreach ($tab['track_e_exe_answers'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["track_e_exe_answers"].'` (details_id,answer)
@@ -1663,7 +1763,7 @@
             }
         }
         if (isset ($tab['track_e_exe_details']) && is_array($tab['track_e_exe_details']) && (count($tab['track_e_exe_details']) > 0))
-            {
+        {
             foreach ($tab['track_e_exe_details'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["track_e_exe_details"].'` (exercise_track_id,question_id,result)
@@ -1673,7 +1773,7 @@
             }
         }
         if (isset ($tab['track_e_exercices']) && is_array($tab['track_e_exercices']) && (count($tab['track_e_exercices']) > 0))
-            {
+        {
             foreach ($tab['track_e_exercices'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["track_e_exe_details"].'` (exe_user_id,exe_date,exe_exo_id,exe_result,
@@ -1684,7 +1784,7 @@
             }
         }
         if (isset ($tab['track_e_uploads']) && is_array($tab['track_e_uploads']) && (count($tab['track_e_exercices']) > 0))
-            {
+        {
             foreach ($tab['track_e_exercices'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["track_e_uploads"].'` (upload_user_id,upload_date,upload_work_id)
@@ -1709,7 +1809,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1731,7 +1831,7 @@
          
          
         if (isset ($tab['bb_categories']) && is_array($tab['bb_categories']) && (count($tab['bb_categories']) > 0))
-            {
+        {
             foreach ($tab['bb_categories'] as $bb_cat)
             {
                 if ($bb_cat['cat_id'] != 1)
@@ -1744,7 +1844,7 @@
             }
         }
         if (isset ($tab['bb_forums']) && is_array($tab['bb_forums']) && (count($tab['bb_forums']) > 0))
-            {
+        {
             foreach ($tab['bb_forums'] as $bb_forums)
             {
                 $sql = "INSERT INTO `".$tbl["bb_forums"].'` (forum_id,group_id,forum_name,forum_desc,forum_access,
@@ -1758,7 +1858,7 @@
             }
         }
         if (isset ($tab['bb_posts']) && is_array($tab['bb_posts']) && (count($tab['bb_posts']) > 0))
-            {
+        {
             foreach ($tab['bb_posts'] as $bb_posts)
             {
                 $sql = "INSERT INTO `".$tbl["bb_posts"] . "` " . "(post_id,topic_id,forum_id,poster_id,post_time,poster_ip, nom,prenom)" . "VALUES " . "(".(int)$bb_posts['post_id'].",".(int) $bb_posts['topic_id'].',"'.(int) $bb_posts['forum_id'].'","'.(int) $bb_posts['poster_id'].'","'.addslashes($bb_posts['post_time']).'","'.addslashes($bb_posts['poster_ip']).'","'.addslashes($bb_posts['firstname']).'","'.addslashes($bb_posts['lastname']).'")';
@@ -1766,7 +1866,7 @@
             }
         }
         if (isset ($tab['bb_posts_text']) && is_array($tab['bb_posts_text']) && (count($tab['bb_posts_text']) > 0))
-            {
+        {
             foreach ($tab['bb_posts_text'] as $bb_posts_text)
             {
                 $sql = "INSERT INTO `".$tbl["bb_posts_text"].'` (post_id,post_text)
@@ -1776,7 +1876,7 @@
         }
          
         if (isset ($tab['bb_priv_msgs']) && is_array($tab['bb_priv_msgs']) && (count($tab['bb_priv_msgs']) > 0))
-            {
+        {
             foreach ($tab['bb_priv_msgs'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["bb_priv_msgs"].'` (from_userid,to_userid,msg_time,poster_ip,msg_status,msg_text)
@@ -1785,7 +1885,7 @@
             }
         }
         if (isset ($tab['bb_rel_topic_userstonotify']) && is_array($tab['bb_rel_topic_userstonotify']) && (count($tab['bb_rel_topic_userstonotify']) > 0))
-            {
+        {
             foreach ($tab['bb_rel_topic_userstonotify'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["bb_rel_topic_userstonotify"].'` (user_id,topic_id)
@@ -1794,7 +1894,7 @@
             }
         }
         if (isset ($tab['bb_topics']) && is_array($tab['bb_topics']) && (count($tab['bb_topics']) > 0))
-            {
+        {
             foreach ($tab['bb_topics'] as $bb_topics)
             {
                  
@@ -1806,7 +1906,7 @@
             }
         }
         if (isset ($tab['bb_users']) && is_array($tab['bb_users']) && (count($tab['bb_users']) > 0))
-            {
+        {
             foreach ($tab['bb_users'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["bb_users"].'` (username,user_regdate,user_password,user_email,
@@ -1858,10 +1958,9 @@
         xml_set_element_handler($xml, 'start_element', 'end_element');
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
-        if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        if (!is_dir(EXTRACT_PATH."/".$course_id))        
             return claro_failure :: set_failure("directory does not exist");
-        }
+        
         if (!is_file($file))
             return claro_failure :: set_failure("file does not exist");
         if (false == ($fp = fopen($file, 'r')))
@@ -1879,18 +1978,18 @@
     {
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
         if (isset ($tab['wiki_properties']) && is_array($tab['wiki_properties']) && (count($tab['wiki_properties']) > 0))
-            {
+        {  
             foreach ($tab['wiki_properties'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["wiki_properties"].'` (id,title,description,group_id)
-                    VALUES ('.(int) $tab_content['id'].',"'.addslashes($tab_content['title']).'","'.addslashes($tab_content['description']).'","'.(int) $tab_content['group_id'].'")';
+                    VALUES ('.($tab_content['id'] == null ?0:(int) $tab_content['id']).',"'.addslashes($tab_content['title']).'","'.addslashes($tab_content['description']).'","'.(int) $tab_content['group_id'].'")';
                 claro_sql_query($sql);
                  
             }
         }
          
         if (isset ($tab['wiki_acls']) && is_array($tab['wiki_acls']) && (count($tab['wiki_acls']) > 0))
-            {
+        {
             foreach ($tab['wiki_acls'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["wiki_acls"].'`(wiki_id,flag,value)
@@ -1900,7 +1999,7 @@
             }
         }
         if (isset ($tab['wiki_pages']) && is_array($tab['wiki_pages']) && (count($tab['wiki_pages']) > 0))
-            {
+        {
             $last_version_id = array ();
              
             foreach ($tab['wiki_pages'] as $id => $tab_content)
@@ -1913,7 +2012,7 @@
             }
         }
         if (isset ($tab['wiki_pages_content']) && is_array($tab['wiki_pages_content']) && (count($tab['wiki_pages_content']) > 0))
-            {
+        {
             foreach ($tab['wiki_pages_content'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["wiki_pages_content"].'` (id,pid,editor_id,mtime,content)
@@ -1954,7 +2053,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -1970,12 +2069,18 @@
         xml_parser_free($xml);
         return $wiki->get_tab();
     }
-    function import_wrk_in_db($tab, $course_id = NULL)
+    /**
+     * Import the filtered tab data in DB
+     * 
+     * @param : $tab = the filtered data work tab
+     * 			$course_id = id of the course where the import must occur
+     */
+    function import_wrk_in_db($tab, $course_id)
     {
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-         
+           
         if (isset ($tab['assignment']) && is_array($tab['assignment']) && (count($tab['assignment']) > 0))
-            {
+        {
             foreach ($tab['assignment'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["wrk_assignment"].'` (id,title,description,visibility,def_submission_visibility,
@@ -1988,18 +2093,22 @@
             }
         }
         if (isset ($tab['submission']) && is_array($tab['submission']) && (count($tab['submission']) > 0))
-            {
+        {
+        	
             foreach ($tab['submission'] as $tab_content)
-            {
+            {            	   
                 $sql = "INSERT INTO `".$tbl["wrk_submission"].'` (id,assignment_id,parent_id,user_id,group_id,title,visibility,
                     creation_date,last_edit_date,authors,submitted_text,submitted_doc_path,
                     private_feedback,original_id,score)
-                    VALUES ('.(int) $tab_content['id'].','.(int) $tab_content['assignment_id'].',"'.(int) $tab_content['parent_id'].'","'.(int) $tab_content['user_id'].'","'.(int) $tab_content['group_id'].'","'.addslashes($tab_content['title']).'","'.addslashes($tab_content['visibility']).'","'.$tab_content['creation_date'].'","'.$tab_content['last_edit_date'].'","'.addslashes($tab_content['authors']).'","'.addslashes($tab_content['submitted_text']).'","'.addslashes($tab_content['submitted_doc_path']).'","'.addslashes($tab_content['private_feedback']).'",'.($tab_content['original_id'] == ""? "null" : (int) $tab_content['original_id'].'"').',"'.(int) $tab_content['score'].'")';          
+                    VALUES ('.(int) $tab_content['id'].','.(int) $tab_content['assignment_id'].',"'.(int) $tab_content['parent_id'].'","'.(int) $tab_content['user_id'].'",'.(null == $tab_content['group_id']?"null":"'".(int) $tab_content['group_id']."'").',"'.addslashes($tab_content['title']).'","'.addslashes($tab_content['visibility']).'","'.$tab_content['creation_date'].'","'.$tab_content['last_edit_date'].'","'.addslashes($tab_content['authors']).'","'.addslashes($tab_content['submitted_text']).'","'.addslashes($tab_content['submitted_doc_path']).'","'.addslashes($tab_content['private_feedback']).'",'.($tab_content['original_id'] == ""? "null" : (int) $tab_content['original_id'].'"').',"'.(int) $tab_content['score'].'")';          
                 claro_sql_query($sql);
             }
         }
     }
-    function flush_wrk_table($course_id = NULL)
+    /**
+     * Flush the work tables    
+     */
+    function flush_wrk_table($course_id)    
     {
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
          
@@ -2023,7 +2132,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -2127,7 +2236,7 @@
     {
         if (empty ($course_id))
             return claro_failure :: set_failure("Empty dir name");
-        $file = EXTRACT_PATH."/".$course_id."/tools/users/users.xml";
+        $file = EXTRACT_PATH."/".$course_id."/meta_data/users/users.xml";
          
         $xml = xml_parser_create($GLOBALS['charset']);
          
@@ -2138,7 +2247,7 @@
         xml_set_character_data_handler($xml, 'get_data');
         xml_parser_set_option($xml, XML_OPTION_CASE_FOLDING, false);
         if (!is_dir(EXTRACT_PATH."/".$course_id))
-            {
+        {
             return claro_failure :: set_failure("directory does not exist");
         }
         if (!is_file($file))
@@ -2154,2637 +2263,65 @@
         xml_parser_free($xml);
         return $users->get_tab();
     }
-    function import_users_in_db($tab)
+    function import_users_in_db($tab,$course_id,$usersIdToChange)
     {
         $tbl = claro_sql_get_main_tbl();
-         
-        if (isset ($tab) && is_array($tab) && (count($tab) > 0))
-            {
-            foreach ($tab as $tab_content)
-            {
-                $sql = "INSERT INTO `".$tbl["user"].'` (nom,prenom,username,password,authsource,email,statut,officialCode,phoneNumber,
-                    pictureUri,creatorId)
-                    VALUES ("'.addslashes($tab_content['firstname']).'","'.addslashes($tab_content['lastname']).'","'.addslashes($tab_content['username']).'","'.addslashes($tab_content['password']).'","'.addslashes($tab_content['authSource']).'","'.addslashes($tab_content['email']).'","'.$tab_content['statut'].'","'.addslashes($tab_content['officialCode']).'","'.addslashes($tab_content['phoneNumber']).'","'.addslashes($tab_content['pictureUri']).'","'.(int) $tab_content['creatorId'].'")';
+                  
+        if (is_array($tab))
+        {        
+            foreach ($usersIdToChange as $tab_content)
+            {                       	            	      	    
+            	if(isset($tab_content['mustImportUser']) && true === $tab_content['mustImportUser'])
+            	{                    		    	                        	
+            		$data_user = $tab['user'][$tab_content['oldUserId']] ;
+            		$data_rel_course_tab = $tab['rel_course_user'][$tab_content['oldUserId']];            		
+                	$sql = "INSERT INTO `".$tbl["user"].'` (user_id,nom,prenom,username,password,authsource,email,statut,officialCode,phoneNumber,
+                    										pictureUri,creatorId)
+                    	VALUES ('.(int) $tab_content['newUserId'].',"'.addslashes($data_user['firstname']).'","'.addslashes($data_user['lastname']).'","'.addslashes($data_user['username']).'","'.addslashes($data_user['password']).'","'.addslashes($data_user['authSource']).'","'.addslashes($data_user['email']).'","'.$data_user['statut'].'","'.addslashes($data_user['officialCode']).'","'.addslashes($data_user['phoneNumber']).'","'.addslashes($data_user['pictureUri']).'","'.(int) $data_user['creatorId'].'")';
                  
-                claro_sql_query($sql);
-            }
-             
+                	claro_sql_query($sql);
+                	$sql = "INSERT INTO `".$tbl["rel_course_user"]."` (code_cours,user_id,statut,role,team,tutor)
+                			VALUES ('".addslashes($course_id)."',".(int)$tab_content['newUserId'].",".(int)$data_rel_course_tab['statut'].",".
+                					 ($data_rel_course_tab['role'] == ""? "null" : "'".addslashes($data_rel_course_tab['role'])."'").",".(int)$data_rel_course_tab['team'].",".(int)$data_rel_course_tab['tutor'].")";
+					claro_sql_query($sql);                				               	
+            	}
+            }         
         }
     }
-    class description_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('id' == $this->tag)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->id] = array ();
-                $this->tab[$this->id]['id'] = $this->id;
-                $this->tab[$this->id]['title'] = '';
-                $this->tab[$this->id]['content'] = '';
-                $this->tab[$this->id]['upDate'] = '';
-                $this->tab[$this->id]['visibility'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('title' == $this->tag)
-                {
-                $this->tab[$this->id]['title'] .= $data;
-            }
-            else
-            if ('content' == $this->tag)
-                {
-                $this->tab[$this->id]['content'] .= $data;
-            }
-            else
-            if ('upDate' == $this->tag)
-                {
-                $this->tab[$this->id]['upDate'] .= $data;
-            }
-            else
-            if ('visibility' == $this->tag)
-                {
-                $this->tab[$this->id]['visibility'] .= $data;
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class announcement_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('id' == $this->tag)
-                {
-                 
-                $this->id = $attributes["id"];
-                $this->tab[$this->id] = array ();
-                $this->tab[$this->id]['id'] = $this->id;
-                $this->tab[$this->id]['title'] = '';
-                $this->tab[$this->id]['content'] = '';
-                $this->tab[$this->id]['time'] = '';
-                $this->tab[$this->id]['order'] = '';
-                $this->tab[$this->id]['visibility'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('title' == $this->tag)
-                {
-                $this->tab[$this->id]['title'] .= $data;
-            }
-            else
-            if ('content' == $this->tag)
-                {
-                $this->tab[$this->id]['content'] .= $data;
-            }
-            else
-            if ('time' == $this->tag)
-                {
-                $this->tab[$this->id]['time'] .= $data;
-            }
-            else
-            if ('rank' == $this->tag)
-                {
-                $this->tab[$this->id]['order'] .= $data;
-            }
-            else
-            if ('visibility' == $this->tag)
-                {
-                $this->tab[$this->id]['visibility'] .= $data;
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class calendar_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('id' == $this->tag)
-                {
-                 
-                $this->id = $attributes["id"];
-                $this->tab[$this->id] = array ();
-                $this->tab[$this->id]['id'] = $this->id;
-                $this->tab[$this->id]['title'] = '';
-                $this->tab[$this->id]['content'] = '';
-                $this->tab[$this->id]['day'] = '';
-                $this->tab[$this->id]['hour'] = '';
-                $this->tab[$this->id]['lasting'] = '';
-                $this->tab[$this->id]['visibility'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('title' == $this->tag)
-                {
-                $this->tab[$this->id]['title'] .= $data;
-            }
-            else
-            if ('content' == $this->tag)
-                {
-                $this->tab[$this->id]['content'] .= $data;
-            }
-            else
-            if ('day' == $this->tag)
-                {
-                $this->tab[$this->id]['day'] .= $data;
-            }
-            else
-            if ('hour' == $this->tag)
-                {
-                $this->tab[$this->id]['hour'] .= $data;
-            }
-            else
-            if ('lasting' == $this->tag)
-                {
-                $this->tab[$this->id]['lasting'] .= $data;
-            }
-            else
-            if ('visibility' == $this->tag)
-                {
-                $this->tab[$this->id]['visibility'] .= $data;
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class link_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('links' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('resources' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('id' == $this->tag)
-                {
-                 
-                $this->id = $attributes["id"];
-                if ('links' == $this->tabName)
-                    {
-                    $this->tab[$this->tabName][$this->id] = array ();
-                    $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                    $this->tab[$this->tabName][$this->id]['src_id'] = '';
-                    $this->tab[$this->tabName][$this->id]['dest_id'] = '';
-                    $this->tab[$this->tabName][$this->id]['creation_time'] = '';
-                }
-                if ('resources' == $this->tabName)
-                    {
-                    $this->tab[$this->tabName][$this->id] = array ();
-                    $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                    $this->tab[$this->tabName][$this->id]['crl'] = '';
-                    $this->tab[$this->tabName][$this->id]['title'] = '';
-                }
-                 
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('links' == $this->tabName)
-                {
-                if ('src_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['src_id'] .= $data;
-                }
-                else
-                if ('dest_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['dest_id'] .= $data;
-                }
-                else
-                if ('creation_time' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['creation_time'] .= $data;
-                }
-            }
-            if ('resources' == $this->tabName)
-                {
-                if ('crl' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['crl'] .= $data;
-                }
-                else
-                if ('title' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['title'] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class lp_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-             
-            if ('asset' == $this->tag)
-                {
-                 
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('learnpath' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('module' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('rel_learnpath_module' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('user_module_progress' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if (('asset_id' == $this->tag) & ('asset' == $this->tabName))
-                {
-                $this->id = $attributes["asset_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['asset_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['module_id'] = '';
-                $this->tab[$this->tabName][$this->id]['path'] = '';
-                $this->tab[$this->tabName][$this->id]['comment'] = '';
-                 
-            }
-            if (('learnPath_id' == $this->tag) & ('learnpath' == $this->tabName))
-                {
-                 
-                $this->id = $attributes["learnPath_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['learnPath_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['name'] = '';
-                $this->tab[$this->tabName][$this->id]['comment'] = '';
-                $this->tab[$this->tabName][$this->id]['lock'] = '';
-                $this->tab[$this->tabName][$this->id]['visibility'] = '';
-                $this->tab[$this->tabName][$this->id]['rank'] = '';
-            }
-            if (('module_id' == $this->tag) & ('module' == $this->tabName))
-                {
-                $this->id = $attributes["module_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['module_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['name'] = '';
-                $this->tab[$this->tabName][$this->id]['comment'] = '';
-                $this->tab[$this->tabName][$this->id]['accessibility'] = '';
-                $this->tab[$this->tabName][$this->id]['startAsset_id'] = '';
-                $this->tab[$this->tabName][$this->id]['contentType'] = '';
-                $this->tab[$this->tabName][$this->id]['launch_data'] = '';
-            }
-            if (('learnPath_module_id' == $this->tag) & ('rel_learnpath_module' == $this->tabName))
-                {
-                $this->id = $attributes["learnPath_module_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['learnPath_module_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['learnPath_id'] = '';
-                $this->tab[$this->tabName][$this->id]['module_id'] = '';
-                $this->tab[$this->tabName][$this->id]['lock'] = '';
-                $this->tab[$this->tabName][$this->id]['visibility'] = '';
-                $this->tab[$this->tabName][$this->id]['specificComment'] = '';
-                $this->tab[$this->tabName][$this->id]['rank'] = '';
-                $this->tab[$this->tabName][$this->id]['parent'] = '';
-                $this->tab[$this->tabName][$this->id]['raw_to_pass'] = '';
-            }
-            if (('user_module_progress_id' == $this->tag) & ('user_module_progress' == $this->tabName))
-                {
-                $this->id = $attributes["user_module_progress_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['user_module_progress_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['user_id'] = '';
-                $this->tab[$this->tabName][$this->id]['learnPath_module_id'] = '';
-                $this->tab[$this->tabName][$this->id]['learnPath_id'] = '';
-                $this->tab[$this->tabName][$this->id]['lesson_location'] = '';
-                $this->tab[$this->tabName][$this->id]['lesson_status'] = '';
-                $this->tab[$this->tabName][$this->id]['entry'] = '';
-                $this->tab[$this->tabName][$this->id]['raw'] = '';
-                $this->tab[$this->tabName][$this->id]['scoreMin'] = '';
-                $this->tab[$this->tabName][$this->id]['scoreMax'] = '';
-                $this->tab[$this->tabName][$this->id]['total_time'] = '';
-                $this->tab[$this->tabName][$this->id]['session_time'] = '';
-                $this->tab[$this->tabName][$this->id]['suspend_data'] = '';
-                $this->tab[$this->tabName][$this->id]['credit'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('asset' == $this->tabName)
-                {
-                if ('module_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['module_id'] .= $data;
-                }
-                else
-                if ('path' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['path'] .= $data;
-                }
-                else
-                if ('comment' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['comment'] .= $data;
-                }
-            }
-            if ('learnpath' == $this->tabName)
-                {
-                if ('name' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['name'] .= $data;
-                }
-                else
-                if ('comment' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['comment'] .= $data;
-                }
-                else
-                if ('lock' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['lock'] .= $data;
-                }
-                else
-                if ('visibility' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['visibility'] .= $data;
-                }
-                else
-                if ('rank' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['rank'] .= $data;
-                }
-            }
-            if ('module' == $this->tabName)
-                {
-                if ('name' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['name'] .= $data;
-                }
-                else
-                if ('comment' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['comment'] .= $data;
-                }
-                else
-                if ('accessibility' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['accessibility'] .= $data;
-                }
-                else
-                if ('startAsset_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['startAsset_id'] .= $data;
-                }
-                else
-                if ('contentType' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['contentType'] .= $data;
-                }
-                else
-                if ('launch_data' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['launch_data'] .= $data;
-                }
-            }
-            if ('rel_learnpath_module' == $this->tabName)
-                {
-                if ('learnPath_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['learnPath_id'] .= $data;
-                }
-                else
-                if ('module_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['module_id'] .= $data;
-                }
-                else
-                if ('lock' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['lock'] .= $data;
-                }
-                else
-                if ('visibility' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['visibility'] .= $data;
-                }
-                else
-                if ('specificComment' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['specificComment'] .= $data;
-                }
-                else
-                if ('rank' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['rank'] .= $data;
-                }
-                else
-                if ('parent' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['parent'] .= $data;
-                }
-                else
-                if ('raw_to_pass' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['raw_to_pass'] .= $data;
-                }
-            }
-             
-            if ('user_module_progress' == $this->tabName)
-                {
-                if ('user_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_id'] .= $data;
-                }
-                else
-                if ('learnPath_module_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['learnPath_module_id'] .= $data;
-                }
-                else
-                if ('learnPath_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['learnPath_id'] .= $data;
-                }
-                else
-                if ('lesson_location' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['lesson_location'] .= $data;
-                }
-                else
-                if ('lesson_status' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['lesson_status'] .= $data;
-                }
-                else
-                if ('entry' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['entry'] .= $data;
-                }
-                else
-                if ('raw' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['raw'] .= $data;
-                }
-                else
-                if ('scoreMin' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['scoreMin'] .= $data;
-                }
-                else
-                if ('scoreMax' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['scoreMax'] .= $data;
-                }
-                else
-                if ('total_time' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['total_time'] .= $data;
-                }
-                else
-                if ('session_time' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['session_time'] .= $data;
-                }
-                else
-                if ('suspend_data' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['suspend_data'] .= $data;
-                }
-                else
-                if ('credit' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['credit'] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class quiz_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-        var $cpt;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-             
-            if ('answer' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('question' == $this->tag)
-                {
-                if ('question' !== $this->tabName)
-                    {
-                    $this->tabName = $tag;
-                    $this->tab[$this->tabName] = array ();
-                }
-            }
-            if ('rel_test_question' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('test' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if (('id' == $this->tag) & ('answer' == $this->tabName))
-                {
-                 
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['question_id'] = '';
-                $this->tab[$this->tabName][$this->id]['reponse'] = '';
-                $this->tab[$this->tabName][$this->id]['correct'] = '';
-                $this->tab[$this->tabName][$this->id]['comment'] = '';
-                $this->tab[$this->tabName][$this->id]['ponderation'] = '';
-                $this->tab[$this->tabName][$this->id]['r_position'] = '';
-            }
-            if (('id' == $this->tag) & ('question' == $this->tabName))
-                {
-                 
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['question'] = '';
-                $this->tab[$this->tabName][$this->id]['description'] = '';
-                $this->tab[$this->tabName][$this->id]['ponderation'] = '';
-                $this->tab[$this->tabName][$this->id]['q_position'] = '';
-                $this->tab[$this->tabName][$this->id]['type'] = '';
-                $this->tab[$this->tabName][$this->id]['attached_file'] = '';
-            }
-            if ('question_id' == $this->tag & ('rel_test_question' == $this->tabName))
-                {
-                $this->cpt = $this->cpt++;
-                $this->tab[$this->tabName][$this->cpt]['question_id'] = '';
-                $this->tab[$this->tabName][$this->cpt]['exercice_id'] = '';
-            }
-            if (('id' == $this->tag) & ('test' == $this->tabName))
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['titre'] = '';
-                $this->tab[$this->tabName][$this->id]['description'] = '';
-                $this->tab[$this->tabName][$this->id]['type'] = '';
-                $this->tab[$this->tabName][$this->id]['random'] = '';
-                $this->tab[$this->tabName][$this->id]['active'] = '';
-                $this->tab[$this->tabName][$this->id]['max_time'] = '';
-                $this->tab[$this->tabName][$this->id]['max_attempt'] = '';
-                $this->tab[$this->tabName][$this->id]['show_answer'] = '';
-                $this->tab[$this->tabName][$this->id]['anonymous_attempts'] = '';
-                $this->tab[$this->tabName][$this->id]['start_date'] = '';
-                $this->tab[$this->tabName][$this->id]['end_date'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-             
-            if ('answer' == $this->tabName)
-                {
-                if ('id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['id'] .= $data;
-                }
-                else
-                if ('question_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['question_id'] .= $data;
-                }
-                else
-                if ('reponse' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['reponse'] .= $data;
-                }
-                else
-                if ('correct' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['correct'] .= $data;
-                }
-                else
-                if ('comment' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['comment'] .= $data;
-                }
-                else
-                if ('ponderation' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['ponderation'] .= $data;
-                }
-                else
-                if ('r_position' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['r_position'] .= $data;
-                }
-                 
-            }
-            if ('question' == $this->tabName)
-                {
-                if ('question' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['question'] .= $data;
-                }
-                else
-                if ('description' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['description'] .= $data;
-                }
-                else
-                if ('ponderation' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['ponderation'] .= $data;
-                }
-                else
-                if ('q_position' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['q_position'] .= $data;
-                }
-                else
-                if ('type' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['type'] .= $data;
-                }
-                else
-                if ('attached_file' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['attached_file'] .= $data;
-                }
-            }
-            if ('rel_test_question' == $this->tabName)
-                {
-                if ('question_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->cpt]['question_id'] .= $data;
-                }
-                else
-                if ('exercice_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->cpt]['exercice_id'] .= $data;
-                }
-            }
-            if ('test' == $this->tabName)
-                {
-                if ('title' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['titre'] .= $data;
-                }
-                else
-                if ('description' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['description'] .= $data;
-                }
-                else
-                if ('type' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['type'] .= $data;
-                }
-                else
-                if ('random' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['random'] .= $data;
-                }
-                else
-                if ('active' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['active'] .= $data;
-                }
-                else
-                if ('max_time' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['max_time'] .= $data;
-                }
-                else
-                if ('max_attempt' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['max_attempt'] .= $data;
-                }
-                else
-                if ('show_answer' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['show_answer'] .= $data;
-                }
-                else
-                if ('anonymous_attempts' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['anonymous_attempts'] .= $data;
-                }
-                else
-                if ('start_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['start_date'] .= $data;
-                }
-                else
-                if ('end_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['end_date'] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class tool_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-             
-            if ('tool_intro' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-            if ('tool_list' == $this->tag)
-                {
-                $this->tabName = $tag;
-                $this->tab[$this->tabName] = array ();
-            }
-             
-            if (('id' == $this->tag) & ('tool_intro' == $this->tabName))
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['tool_id'] = '';
-                $this->tab[$this->tabName][$this->id]['title'] = '';
-                $this->tab[$this->tabName][$this->id]['display_date'] = '';
-                $this->tab[$this->tabName][$this->id]['content'] = '';
-                $this->tab[$this->tabName][$this->id]['rank'] = '';
-                $this->tab[$this->tabName][$this->id]['visibility'] = '';
-            }
-            if (('id' == $this->tag) & ('tool_list' == $this->tabName))
-                {
-                 
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['tool_id'] = '';
-                $this->tab[$this->tabName][$this->id]['rank'] = '';
-                $this->tab[$this->tabName][$this->id]['access'] = '';
-                $this->tab[$this->tabName][$this->id]['script_url'] = NULL;
-                $this->tab[$this->tabName][$this->id]['script_name'] = NULL;
-                $this->tab[$this->tabName][$this->id]['addedTool'] = '';
-            }
-        }
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-             
-            if ('tool_intro' == $this->tabName)
-                {
-                if ('tool_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['tool_id'] .= $data;
-                }
-                else
-                if ('title' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['title'] .= $data;
-                }
-                else
-                if ('display_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['display_date'] .= $data;
-                }
-                else
-                if ('content' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['content'] .= $data;
-                }
-                else
-                if ('rank' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['rank'] .= $data;
-                }
-                else
-                if ('visibility' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['visibility'] .= $data;
-                }
-            }
-            if ('tool_list' == $this->tabName)
-                {
-                if ('tool_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['tool_id'] .= $data;
-                }
-                else
-                if ('rank' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['rank'] .= $data;
-                }
-                else
-                if ('access' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['access'] .= $data;
-                }
-                else
-                if ('script_url' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['script_url'] .= $data;
-                }
-                else
-                if ('script_name' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['script_name'] .= $data;
-                }
-                else
-                if ('addedTool' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['addedTool'] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class document_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('id' == $this->tag)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->id] = array ();
-                $this->tab[$this->id]['id'] = $this->id;
-                $this->tab[$this->id]['path'] = '';
-                $this->tab[$this->id]['visibility'] = '';
-                $this->tab[$this->id]['comment'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('path' == $this->tag)
-                {
-                $this->tab[$this->id]['path'] .= $data;
-            }
-            else
-            if ('visibility' == $this->tag)
-                {
-                $this->tab[$this->id]['visibility'] .= $data;
-            }
-            else
-            if ('comment' == $this->tag)
-                {
-                $this->tab[$this->id]['comment'] .= $data;
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class group_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if (('group_property' == $tag))
-                {
-                $this->tabName = $tag;
-            }
-            if (('group_rel_team_user' == $tag))
-                {
-                $this->tabName = $tag;
-            }
-            if (('group_team' == $tag))
-                {
-                $this->tabName = $tag;
-            }
-            if (('id' == $this->tag) & ('group_property' == $this->tabName))
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['self_registration'] = '';
-                $this->tab[$this->tabName][$this->id]['nbGroupPerUser'] = '';
-                $this->tab[$this->tabName][$this->id]['private'] = '';
-                $this->tab[$this->tabName][$this->id]['forum'] = '';
-                $this->tab[$this->tabName][$this->id]['document'] = '';
-                $this->tab[$this->tabName][$this->id]['wiki'] = '';
-                $this->tab[$this->tabName][$this->id]['chat'] = '';
-            }
-            if (('id' == $this->tag) & ('group_rel_team_user' == $this->tabName))
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['user'] = '';
-                $this->tab[$this->tabName][$this->id]['team'] = '';
-                $this->tab[$this->tabName][$this->id]['status'] = '';
-                $this->tab[$this->tabName][$this->id]['role'] = '';
-            }
-            if (('id' == $this->tag) & ('group_team' == $this->tabName))
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['name'] = '';
-                $this->tab[$this->tabName][$this->id]['description'] = '';
-                $this->tab[$this->tabName][$this->id]['tutor'] = '';
-                $this->tab[$this->tabName][$this->id]['maxStudent'] = '';
-                $this->tab[$this->tabName][$this->id]['secretDirectory'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('group_property' == $this->tabName)
-                {
-                if ('self_registration' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['self_registration'] .= $data;
-                }
-                else
-                if ('nbGroupPerUser' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['nbGroupPerUser'] .= $data;
-                }
-                else
-                if ('private' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['private'] .= $data;
-                }
-                else
-                if ('forum' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum'] .= $data;
-                }
-                else
-                if ('document' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['document'] .= $data;
-                }
-                else
-                if ('wiki' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['wiki'] .= $data;
-                }
-                else
-                if ('chat' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['chat'] .= $data;
-                }
-            }
-            if ('group_rel_team_user' == $this->tabName)
-                {
-                if ('user' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user'] .= $data;
-                }
-                else
-                if ('team' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['team'] .= $data;
-                }
-                else
-                if ('status' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['status'] .= $data;
-                }
-                else
-                if ('role' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['role'] .= $data;
-                }
-            }
-            if ('group_team' == $this->tabName)
-                {
-                if ('name' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['name'] .= $data;
-                }
-                else
-                if ('description' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['description'] .= $data;
-                }
-                else
-                if ('tutor' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['tutor'] .= $data;
-                }
-                else
-                if ('maxStudent' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['maxStudent'] .= $data;
-                }
-                else
-                if ('secretDirectory' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['secretDirectory'] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class userinfo_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('userinfo_def' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('userinfo_content' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('id' == $this->tag && 'userinfo_def' == $this->tabName)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['title'] = '';
-                $this->tab[$this->tabName][$this->id]['comment'] = '';
-                $this->tab[$this->tabName][$this->id]['nbLine'] = '';
-                $this->tab[$this->tabName][$this->id]['rank'] = '';
-            }
-            if ('id' == $this->tag && 'userinfo_content' == $this->tabName)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['user_id'] = '';
-                $this->tab[$this->tabName][$this->id]['def_id'] = '';
-                $this->tab[$this->tabName][$this->id]['ed_ip'] = '';
-                $this->tab[$this->tabName][$this->id]['ed_date'] = '';
-                $this->tab[$this->tabName][$this->id]['content'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('userinfo_def' == $this->tabName)
-                {
-                if ('title' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['title'] .= $data;
-                }
-                else
-                if ('comment' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['comment'] .= $data;
-                }
-                else
-                if ('nbLine' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['nbLine'] .= $data;
-                }
-                else
-                if ('rank' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['rank'] .= $data;
-                }
-            }
-            if ('userinfo_content' == $this->tabName)
-                {
-                if ('user_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_id'] .= $data;
-                }
-                else
-                if ('def_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['def_id'] .= $data;
-                }
-                else
-                if ('ed_ip' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['ed_ip'] .= $data;
-                }
-                else
-                if ('ed_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['ed_date'] .= $data;
-                }
-                else
-                if ('content' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['content'] .= $data;
-                }
-            }
-             
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class track_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('track_e_acess' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('tack_e_downloads' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('track_e_exe_answers' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('track_e_exe_details' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('track_e_exercices' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('track_e_uploads' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('access_id' == $this->tag && 'track_e_acess' == $this->tabName)
-                {
-                $this->id = $attributes["access_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['access_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['acesss_user_id'] = '';
-                $this->tab[$this->tabName][$this->id]['access_date'] = '';
-                $this->tab[$this->tabName][$this->id]['access_tid'] = '';
-                $this->tab[$this->tabName][$this->id]['access_tlabel'] = '';
-            }
-            if ('down_id' == $this->tag && 'tack_e_downloads' == $this->tabName)
-                {
-                $this->id = $attributes["down_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['down_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['down_user_id'] = '';
-                $this->tab[$this->tabName][$this->id]['down_date'] = '';
-                $this->tab[$this->tabName][$this->id]['down_doc_path'] = '';
-            }
-            if ('id' == $this->tag && 'tack_e_exe_answer' == $this->tabName)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['details_id'] = '';
-                $this->tab[$this->tabName][$this->id]['answer'] = '';
-            }
-            if ('id' == $this->tag && 'tack_e_exe_details' == $this->tabName)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['exercice_track_id'] = '';
-                $this->tab[$this->tabName][$this->id]['question_id'] = '';
-                $this->tab[$this->tabName][$this->id]['result'] = '';
-            }
-            if ('exe_id' == $this->tag && 'tack_e_exercices' == $this->tabName)
-                {
-                $this->id = $attributes["exe_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['exe_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['exe_user_id'] = '';
-                $this->tab[$this->tabName][$this->id]['exe_date'] = '';
-                $this->tab[$this->tabName][$this->id]['exe_exo_id'] = '';
-                $this->tab[$this->tabName][$this->id]['exe_result'] = '';
-                $this->tab[$this->tabName][$this->id]['exe_time'] = '';
-                $this->tab[$this->tabName][$this->id]['exe_weighting'] = '';
-            }
-            if ('upload_id' == $this->tag && 'tack_e_uploads' == $this->tabName)
-                {
-                $this->id = $attributes["upload_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['upload_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['upload_user_id'] = '';
-                $this->tab[$this->tabName][$this->id]['upload_date'] = '';
-                $this->tab[$this->tabName][$this->id]['upload_work_id'] = '';
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('track_e_access')
-                {
-                if ("access_user_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['access_user_id'] .= $data;
-                }
-                else
-                if ("access_date" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['access_date'] .= $data;
-                }
-                else
-                if ("access_tid" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['access_tid'] .= $data;
-                }
-                else
-                if ("access_tlabel" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['access_tlabel'] .= $data;
-                }
-            }
-            if ('track_e_downloads')
-                {
-                if ("down_user_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['down_user_id'] .= $data;
-                }
-                else
-                if ("down_date" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['access_date'] .= $data;
-                }
-                else
-                if ("down_doc_path" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['down_doc_path'] .= $data;
-                }
-            }
-            if ('track_e_exe_answers')
-                {
-                if ("details_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['details_id'] .= $data;
-                }
-                else
-                if ("answer" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['answer'] .= $data;
-                }
-            }
-            if ('track_e_exe_details')
-                {
-                if ("exercise_track_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['excercise_trak_id'] .= $data;
-                }
-                else
-                if ("question_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['question_id'] .= $data;
-                }
-                else
-                if ("result" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['result'] .= $data;
-                }
-            }
-            if ('track_e_exercices')
-                {
-                if ("exe_user_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['exe_user_id'] .= $data;
-                }
-                else
-                if ("exe_date" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['exe_date'] .= $data;
-                }
-                else
-                if ("exe_exo_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['exe_exo_id'] .= $data;
-                }
-                else
-                if ("exe_result" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['exe_result'] .= $data;
-                }
-                else
-                if ("exe_time" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['exe_time'] .= $data;
-                }
-                else
-                if ("exe_weighting" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['exe_time'] .= $data;
-                }
-            }
-            if ('track_e_uploads')
-                {
-                if ("upload_user_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['upload_user_id'] .= $data;
-                }
-                if ("upload_date" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['upload_date'] .= $data;
-                }
-                else
-                if ("upload_work_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['upload_work_id'] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class bb_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('bb_categories' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('bb_forums' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('bb_posts' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('bb_posts_text' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('bb_priv_msgs' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('bb_rel_topic_userstonotify' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('bb_topics' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('bb_users' == $tag)
-                {
-                $this->tabName = $tag;
-            }
-            if ('cat_id' == $this->tag && 'bb_categories' == $this->tabName)
-                {
-                 
-                $this->id = $attributes["cat_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['cat_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['cat_title'] = '';
-                $this->tab[$this->tabName][$this->id]['cat_order'] = '';
-            }
-            if ('forum_id' == $this->tag && 'bb_forums' == $this->tabName)
-                {
-                $this->id = $attributes["forum_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['forum_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['group_id'] = null;
-                $this->tab[$this->tabName][$this->id]['forum_name'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_desc'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_access'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_moderator'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_topics'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_posts'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_last_post_id'] = '';
-                $this->tab[$this->tabName][$this->id]['cat_id'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_type'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_order'] = '';
-            }
-            if ('post_id' == $this->tag && 'bb_posts' == $this->tabName)
-                {
-                $this->id = $attributes["post_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['post_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['topic_id'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_id'] = '';
-                $this->tab[$this->tabName][$this->id]['poster_id'] = '';
-                $this->tab[$this->tabName][$this->id]['post_time'] = '';
-                $this->tab[$this->tabName][$this->id]['poster_ip'] = '';
-                $this->tab[$this->tabName][$this->id]['firstname'] = '';
-                $this->tab[$this->tabName][$this->id]['lastname'] = '';
-            }
-            if ('post_id' == $this->tag && 'bb_posts_text' == $this->tabName)
-                {
-                $this->id = $attributes["post_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['post_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['post_text'] = '';
-            }
-            if ('msg_id' == $this->tag && 'bb_priv_msgs' == $this->tabName)
-                {
-                $this->id = $attributes["msg_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['msg_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['from_userid'] = '';
-                $this->tab[$this->tabName][$this->id]['to_userid'] = '';
-                $this->tab[$this->tabName][$this->id]['msg_time'] = '';
-                $this->tab[$this->tabName][$this->id]['poster_ip'] = '';
-                $this->tab[$this->tabName][$this->id]['msg_status'] = '';
-                $this->tab[$this->tabName][$this->id]['msg_text'] = '';
-            }
-            if ('notify_id' == $this->tag && 'bb_rel_topic_userstonotify' == $this->tabName)
-                {
-                $this->id = $attributes["notify_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['notify_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['user_id'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_id'] = '';
-            }
-            if ('topic_id' == $this->tag && 'bb_topics' == $this->tabName)
-                {
-                $this->id = $attributes["topic_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['topic_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['topic_title'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_poster'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_time'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_views'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_replies'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_last_post_id'] = '';
-                $this->tab[$this->tabName][$this->id]['forum_id'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_status'] = '';
-                $this->tab[$this->tabName][$this->id]['topic_notify'] = '';
-                $this->tab[$this->tabName][$this->id]['lastname'] = '';
-                $this->tab[$this->tabName][$this->id]['firstname'] = '';
-            }
-            if ('user_id' == $this->tag && 'bb_users' == $this->tabName)
-                {
-                $this->id = $attributes["user_id"];
-                $this->tab[$this->tabName][$this->id] = array ();
-                $this->tab[$this->tabName][$this->id]['user_id'] = $this->id;
-                $this->tab[$this->tabName][$this->id]['username'] = '';
-                $this->tab[$this->tabName][$this->id]['user_regdate'] = '';
-                $this->tab[$this->tabName][$this->id]['user_password'] = '';
-                $this->tab[$this->tabName][$this->id]['user_email'] = '';
-                $this->tab[$this->tabName][$this->id]['user_icq'] = '';
-                $this->tab[$this->tabName][$this->id]['user_website'] = '';
-                $this->tab[$this->tabName][$this->id]['user_occ'] = '';
-                $this->tab[$this->tabName][$this->id]['user_from'] = '';
-                $this->tab[$this->tabName][$this->id]['user_intrest'] = '';
-                $this->tab[$this->tabName][$this->id]['user_sig'] = '';
-                $this->tab[$this->tabName][$this->id]['user_viewemail'] = '';
-                $this->tab[$this->tabName][$this->id]['user_theme'] = '';
-                $this->tab[$this->tabName][$this->id]['user_aim'] = '';
-                $this->tab[$this->tabName][$this->id]['user_yim'] = '';
-                $this->tab[$this->tabName][$this->id]['user_msnm'] = '';
-                $this->tab[$this->tabName][$this->id]['user_posts'] = '';
-                $this->tab[$this->tabName][$this->id]['user_attachsig'] = '';
-                $this->tab[$this->tabName][$this->id]['user_desmile'] = '';
-                $this->tab[$this->tabName][$this->id]['user_html'] = '';
-                $this->tab[$this->tabName][$this->id]['user_bbcode'] = '';
-                $this->tab[$this->tabName][$this->id]['user_rank'] = '';
-                $this->tab[$this->tabName][$this->id]['user_level'] = '';
-                $this->tab[$this->tabName][$this->id]['user_lang'] = '';
-                $this->tab[$this->tabName][$this->id]['user_actkey'] = '';
-                $this->tab[$this->tabName][$this->id]['user_newpasswd'] = '';
-            }
-             
-        }
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('bb_categories' == $this->tabName)
-                {
-                if ("cat_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['cat_id'] .= $data;
-                }
-                else
-                if ("cat_title" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['cat_title'] .= $data;
-                }
-                else
-                if ("cat_order" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['cat_order'] .= $data;
-                }
-            }
-            if ('bb_forums' == $this->tabName)
-                {
-                if ("group_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['group_id'] .= $data;
-                }
-                else
-                if ("forum_name" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_name'] .= $data;
-                }
-                else
-                if ("forum_desc" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_desc'] .= $data;
-                }
-                else
-                if ("forum_access" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_access'] .= $data;
-                }
-                else
-                if ("forum_moderator" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_moderator'] .= $data;
-                }
-                else
-                if ("forum_topics" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_topics'] .= $data;
-                }
-                else
-                if ("forum_posts" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_posts'] .= $data;
-                }
-                else
-                if ("forum_last_post_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_last_post_id'] .= $data;
-                }
-                else
-                if ("cat_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['cat_id'] .= $data;
-                }
-                else
-                if ("forum_type" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_type'] .= $data;
-                }
-                else
-                if ("forum_order" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_order'] .= $data;
-                }
-            }
-            if ('bb_posts' == $this->tabName)
-                {
-                if ("topic_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_id'] .= $data;
-                }
-                else
-                if ("forum_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_id'] .= $data;
-                }
-                else
-                if ("poster_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['poster_id'] .= $data;
-                }
-                else
-                if ("post_time" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['post_time'] .= $data;
-                }
-                else
-                if ("poster_ip" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['poster_ip'] .= $data;
-                }
-                else
-                if ("lastname" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['lastname'] .= $data;
-                }
-                else
-                if ("firstname" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['firstname'] .= $data;
-                }
-            }
-            if ('bb_posts_text' == $this->tabName)
-                {
-                if ("post_text" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['post_text'] .= $data;
-                }
-            }
-            if ('bb_priv_msgs' == $this->tabName)
-                {
-                if ("from_userid" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['from_userid'] .= $data;
-                }
-                else
-                if ("to_userid" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['to_userid'] .= $data;
-                }
-                else
-                if ("msg_time" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['msg_time'] .= $data;
-                }
-                else
-                if ("poster_ip" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['poster_ip'] .= $data;
-                }
-                else
-                if ("msg_status" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['msg_status'] .= $data;
-                }
-                else
-                if ("msg_text" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['msg_text'] .= $data;
-                }
-            }
-            if ('bb_rel_topic_userstonotify' == $this->tabName)
-                {
-                if ("user_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_id'] .= $data;
-                }
-                else
-                if ("topic_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_id'] .= $data;
-                }
-            }
-            if ('bb_topics' == $this->tabName)
-                {
-                if ("topic_title" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_title'] .= $data;
-                }
-                else
-                if ("topic_poster" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_poster'] .= $data;
-                }
-                else
-                if ("topic_time" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_time'] .= $data;
-                }
-                else
-                if ("topic_views" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_views'] .= $data;
-                }
-                else
-                if ("topic_replies" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_replies'] .= $data;
-                }
-                else
-                if ("topic_last_post_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_last_post_id'] .= $data;
-                }
-                else
-                if ("forum_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['forum_id'] .= $data;
-                }
-                else
-                if ("topic_status" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_status'] .= $data;
-                }
-                else
-                if ("topic_notify" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['topic_notify'] .= $data;
-                }
-                else
-                if ("firstname" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['firstname'] .= $data;
-                }
-                else
-                if ("lastname" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['lastname'] .= $data;
-                }
-            }
-            if ('bb_users' == $this->tabName)
-                {
-                if ("username" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['username'] .= $data;
-                }
-                else
-                if ("user_regdate" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_regdate'] .= $data;
-                }
-                else
-                if ("user_password" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_password'] .= $data;
-                }
-                else
-                if ("user_email" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_email'] .= $data;
-                }
-                else
-                if ("user_icq" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_icq'] .= $data;
-                }
-                else
-                if ("user_website" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_website'] .= $data;
-                }
-                else
-                if ("user_occ" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_occ'] .= $data;
-                }
-                else
-                if ("user_from" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_from'] .= $data;
-                }
-                else
-                if ("user_intrest" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_intrest'] .= $data;
-                }
-                else
-                if ("user_sig" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_sig'] .= $data;
-                }
-                else
-                if ("user_viewemail" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_viewemail'] .= $data;
-                }
-                else
-                if ("user_theme" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_theme'] .= $data;
-                }
-                else
-                if ("user_aim" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_aim'] .= $data;
-                }
-                else
-                if ("user_yim" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_yim'] .= $data;
-                }
-                else
-                if ("user_msnm" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_msnm'] .= $data;
-                }
-                else
-                if ("user_posts" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_posts'] .= $data;
-                }
-                else
-                if ("user_attachsig" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_attachsig'] .= $data;
-                }
-                else
-                if ("user_desmile" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_desmile'] .= $data;
-                }
-                else
-                if ("user_html" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_html'] .= $data;
-                }
-                else
-                if ("user_bbcode" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_bbcode'] .= $data;
-                }
-                else
-                if ("user_rank" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_rank'] .= $data;
-                }
-                else
-                if ("user_level" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_level'] .= $data;
-                }
-                else
-                if ("user_lang" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_lang'] .= $data;
-                }
-                else
-                if ("user_actkey" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_actkey'] .= $data;
-                }
-                else
-                if ("user_newpasswd" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]['user_newpasswd'] .= $data;
-                }
-            }
-             
-        }
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class manifest_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        function manifest_parser()
-        {
-            $this->tab["cours_id"] = "";
-            $this->tab["code"] = "";
-            $this->tab["fake_code"] = "";
-            $this->tab["directory"] = "";
-            $this->tab["dbName"] = "";
-            $this->tab["languageCourse"] = "";
-            $this->tab["intitule"] = "";
-            $this->tab["faculte"] = "";
-            $this->tab["visible"] = "";
-            $this->tab["enrollment_key"] = "";
-            $this->tab["titulaires"] = "";
-            $this->tab["email"] = "";
-            $this->tab["departmentUrlName"] = "";
-            $this->tab["departmentUrl"] = "";
-            $this->tab["diskQuota"] = "";
-            $this->tab["versionDb"] = "";
-            $this->tab["versionClaro"] = "";
-            $this->tab["lastVisit"] = "";
-            $this->tab["lastEdit"] = "";
-            $this->tab["creationDate"] = "";
-            $this->tab["ExpirationDate"] = "";
-        }
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('cours_id' == $this->tag)
-                {
-                $this->tab['cours_id'] = $data;
-            }
-            else
-            if ('code' == $this->tag)
-                {
-                $this->tab['code'] = $data;
-            }
-            else
-            if ('fake_code' == $this->tag)
-                {
-                $this->tab['fake_code'] = $data;
-            }
-            else
-            if ('directory' == $this->tag)
-                {
-                $this->tab['directory'] = $data;
-            }
-            else
-            if ('dbName' == $this->tag)
-                {
-                $this->tab['dbName'] = $data;
-            }
-            else
-            if ('languageCourse' == $this->tag)
-                {
-                $this->tab['languageCourse'] = $data;
-            }
-            else
-            if ('intitule' == $this->tag)
-                {
-                $this->tab['intitule'] = $data;
-            }
-            else
-            if ('faculte' == $this->tag)
-                {
-                $this->tab['faculte'] = $data;
-            }
-            else
-            if ('visible' == $this->tag)
-                {
-                $this->tab['visible'] = $data;
-            }
-            else
-            if ('enrollment_key' == $this->tag)
-                {
-                $this->tab['enrollment_key'] = $data;
-            }
-            else
-            if ('titulaires' == $this->tag)
-                {
-                $this->tab['titulaires'] = $data;
-            }
-            else
-            if ('email' == $this->tag)
-                {
-                $this->tab['email'] = $data;
-            }
-            else
-            if ('departmentUrlName' == $this->tag)
-                {
-                $this->tab['departmentUrlName'] = $data;
-            }
-            else
-            if ('departmentUrl' == $this->tag)
-                {
-                $this->tab['departmentUrl'] = $data;
-            }
-            else
-            if ('diskQuota' == $this->tag)
-                {
-                $this->tab['diskQuota'] = $data;
-            }
-            else
-            if ('versionDb' == $this->tag)
-                {
-                $this->tab['versionDb'] = $data;
-            }
-            else
-            if ('versionClaro' == $this->tag)
-                {
-                $this->tab['versionClaro'] = $data;
-            }
-            else
-            if ('lastVisit' == $this->tag)
-                {
-                $this->tab['lastVisit'] = $data;
-            }
-            else
-            if ('lastEdit' == $this->tag)
-                {
-                $this->tab['lastEdit'] = $data;
-            }
-            else
-            if ('creationDate' == $this->tag)
-                {
-                $this->tab['creationDate'] = $data;
-            }
-            else
-            if ('expirationDate' == $this->tag)
-                {
-                $this->tab['expirationDate'] = $data;
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-     
-    class wiki_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $cpt = -1;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('wiki_acls' == $this->tag)
-                {
-                $this->tabName = $this->tag;
-            }
-            if ('wiki_pages' == $this->tag)
-                {
-                $this->tabName = $this->tag;
-            }
-            if ('wiki_pages_content' == $this->tag)
-                {
-                $this->tabName = $this->tag;
-            }
-            if ('wiki_properties' == $this->tag)
-                {
-                $this->tabName = $this->tag;
-            }
-            if ('wiki_id' == $this->tag && 'wiki_acls' == $this->tabName)
-                {
-                $this->cpt++;
-                $this->tab[$this->tabName][$this->cpt]["wiki_id"] = $attributes;
-                $this->tab[$this->tabName][$this->cpt]["flag"] = "";
-                $this->tab[$this->tabName][$this->cpt]["value"] = "";
-                 
-            }
-            if ('id' == $this->tag && 'wiki_pages' == $this->tabName)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id]["id"] = $this->id;
-                $this->tab[$this->tabName][$this->id]["wiki_id"] = "";
-                $this->tab[$this->tabName][$this->id]["owner_id"] = "";
-                $this->tab[$this->tabName][$this->id]["title"] = "";
-                $this->tab[$this->tabName][$this->id]["ctime"] = "";
-                $this->tab[$this->tabName][$this->id]["last_version"] = "";
-                $this->tab[$this->tabName][$this->id]["last_mtime"] = "";
-            }
-            if ('id' == $this->tag && 'wiki_pages_content' == $this->tabName)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id]["id"] = $this->id;
-                $this->tab[$this->tabName][$this->id]["pid"] = "";
-                $this->tab[$this->tabName][$this->id]["editor_id"] = "";
-                $this->tab[$this->tabName][$this->id]["mtime"] = "";
-                $this->tab[$this->tabName][$this->id]["content"] = "";
-            }
-            if ('id' == $this->tag && 'wiki_properties' == $this->tabName)
-                {
-                $this->id = $attributes["id"];
-                $this->tab[$this->tabName][$this->id]["id"] = $this->id;
-                $this->tab[$this->tabName][$this->id]["title"] = "";
-                $this->tab[$this->tabName][$this->id]["description"] = "";
-                $this->tab[$this->tabName][$this->id]["group_id"] = "";
-            }
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('wiki_acls' == $this->tabName)
-                {
-                if ("flag" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->cpt]["flag"] .= $data;
-                }
-                else
-                if ("value" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->cpt]["value"] .= $data;
-                }
-            }
-            if ('wiki_pages' == $this->tabName)
-                {
-                if ("wiki_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["wiki_id"] .= $data;
-                }
-                else
-                if ("owner_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["owner_id"] .= $data;
-                }
-                else
-                if ("title" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["title"] .= $data;
-                }
-                else
-                if ("ctime" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["ctime"] .= $data;
-                }
-                else
-                if ("last_version" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["last_version"] .= $data;
-                }
-                else
-                if ("last_mtime" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["last_mtime"] .= $data;
-                }
-            }
-            if ('wiki_pages_content' == $this->tabName)
-                {
-                if ("pid" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["pid"] .= $data;
-                }
-                else
-                if ("editor_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["editor_id"] .= $data;
-                }
-                else
-                if ("mtime" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["mtime"] .= $data;
-                }
-                else
-                if ("content" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["content"] .= $data;
-                }
-            }
-            if ('wiki_properties' == $this->tabName)
-                {
-                if ("title" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["title"] .= $data;
-                }
-                else
-                if ("description" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["description"] .= $data;
-                }
-                else
-                if ("group_id" == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["group_id"] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class wrk_parser {
-        var $tab = array ();
-        var $tag;
-        var $id;
-        var $tabName;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-            if ('assignment' == $this->tag)
-                {
-                $this->tabName = $this->tag;
-            }
-            if ('submission' == $this->tag)
-                {
-                $this->tabName = $this->tag;
-            }
-            if ('id' == $this->tag && 'assignment' == $this->tabName)
-                {
-                $this->id = $this->tag;         
-                $this->tab[$this->tabName][$this->id]["id"] =   $attributes["id"];
-                $this->tab[$this->tabName][$this->id]["title"] = "";
-                $this->tab[$this->tabName][$this->id]["description"] = "";
-                $this->tab[$this->tabName][$this->id]["visibility"] = "";
-                $this->tab[$this->tabName][$this->id]["def_submission_visibility"] = "";
-                $this->tab[$this->tabName][$this->id]["assignment_type"] = "";
-                $this->tab[$this->tabName][$this->id]["authorized_content"] = "";
-                $this->tab[$this->tabName][$this->id]["allow_late_upload"] = "";
-                $this->tab[$this->tabName][$this->id]["start_date"] = "";
-                $this->tab[$this->tabName][$this->id]["end_date"] = "";
-                $this->tab[$this->tabName][$this->id]["prefill_text"] = "";
-                $this->tab[$this->tabName][$this->id]["prefill_doc_path"] = "";
-                $this->tab[$this->tabName][$this->id]["prefill_submit"] = "";
-            }
-            if ('id' == $this->tag && 'submission' == $this->tabName)
-                {
-                $this->id = $this->tag;     
-                $this->tab[$this->tabName][$this->id]["id"] = $attributes["id"];  
-                $this->tab[$this->tabName][$this->id]["assignment_id"] = "";
-                $this->tab[$this->tabName][$this->id]["parent_id"] = "";
-                $this->tab[$this->tabName][$this->id]["user_id"] = "";
-                $this->tab[$this->tabName][$this->id]["group_id"] = "";
-                $this->tab[$this->tabName][$this->id]["title"] = "";
-                $this->tab[$this->tabName][$this->id]["visibility"] = "";
-                $this->tab[$this->tabName][$this->id]["creation_date"] = "";
-                $this->tab[$this->tabName][$this->id]["last_edit_date"] = "";
-                $this->tab[$this->tabName][$this->id]["authors"] = "";
-                $this->tab[$this->tabName][$this->id]["submitted_text"] = "";
-                $this->tab[$this->tabName][$this->id]["submitted_doc_path"] = "";
-                $this->tab[$this->tabName][$this->id]["private_feedback"] = "";
-                $this->tab[$this->tabName][$this->id]["original_id"] = "";
-                $this->tab[$this->tabName][$this->id]["score"] = "";
-            }
-             
-        }
-         
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-            if ('assignment' == $this->tabName)
-                {
-                if ('title' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["title"] .= $data;
-                }
-                else
-                if ('description' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["description"] .= $data;
-                }
-                else
-                if ('visibility' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["visibility"] .= $data;
-                }
-                else
-                if ('def_submission_visibility' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["def_submission_visibility"] .= $data;
-                }
-                else
-                if ('assignment_type' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["assignment_type"] .= $data;
-                }
-                else
-                if ('authorized_content' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["authorized_content"] .= $data;
-                }
-                else
-                if ('allow_late_upload' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["allow_late_upload"] .= $data;
-                }
-                else
-                if ('start_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["start_date"] .= $data;
-                }
-                else
-                if ('end_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["end_date"] .= $data;
-                }
-                else
-                if ('prefill_text' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["prefill_text"] .= $data;
-                }
-                else
-                if ('prefill_doc_path' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["prefill_doc_path"] .= $data;
-                }
-                else
-                if ('prefill_submit' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["prefill_submit"] .= $data;
-                }
-            }
-            if ('submission' == $this->tabName)
-                {
-                if ('assignment_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["assignment_id"] .= $data;
-                }
-                else
-                if ('parent_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["parent_id"] .= $data;
-                }
-                else
-                if ('user_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["user_id"] .= $data;
-                }
-                else
-                if ('group_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["group_id"] .= $data;
-                }
-                else
-                if ('title' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["title"] .= $data;
-                }
-                else
-                if ('visibility' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["visibility"] .= $data;
-                }
-                else
-                if ('creation_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["creation_date"] .= $data;
-                }
-                else
-                if ('last_edit_date' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["last_edit_date"] .= $data;
-                }
-                else
-                if ('authors' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["authors"] .= $data;
-                }
-                else
-                if ('submitted_text' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["submitted_text"] .= $data;
-                }
-                else
-                if ('submitted_doc_path' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["submitted_doc_path"] .= $data;
-                }
-                else
-                if ('private_feedback' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["private_feedback"] .= $data;
-                }
-                else
-                if ('original_id' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["original_id"] .= $data;
-                }
-                else
-                if ('score' == $this->tag)
-                    {
-                    $this->tab[$this->tabName][$this->id]["score"] .= $data;
-                }
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
-    class users_parser 
-    {
-        var $tab = array ();
-        var $tag;
-        var $id;
-         
-        function start_element($parser, $tag, $attributes)
-        {
-            $this->tag = $tag;
-             
-            if ('user_id' == $this->tag)
-                {
-                $this->id = $this->tag;
-                $this->tab[$this->id]["user_id"] = $attributes;
-                $this->tab[$this->id]["firstname"] = "";
-                $this->tab[$this->id]["lastname"] = "";
-                $this->tab[$this->id]["username"] = "";
-                $this->tab[$this->id]["password"] = "";
-                $this->tab[$this->id]["authSource"] = "";
-                $this->tab[$this->id]["email"] = "";
-                $this->tab[$this->id]["statut"] = "";
-                $this->tab[$this->id]["officialCode"] = "";
-                $this->tab[$this->id]["phoneNumber"] = "";
-                $this->tab[$this->id]["pictureUri"] = "";
-                $this->tab[$this->id]["creatorId"] = "";
-            }
-        }
-        function end_element($parser, $tag)
-        {
-             
-        }
-        function get_data($parser, $data)
-        {
-             
-            if ('firstname' == $this->tag)
-                {
-                $this->tab[$this->id]["firstname"] .= $data;
-            }
-            else
-            if ('lastname' == $this->tag)
-                {
-                $this->tab[$this->id]["lastname"] .= $data;
-            }
-            else
-            if ('username' == $this->tag)
-                {
-                $this->tab[$this->id]["username"] .= $data;
-            }
-            else
-            if ('password' == $this->tag)
-                {
-                $this->tab[$this->id]["password"] .= $data;
-            }
-            else
-            if ('authSource' == $this->tag)
-                {
-                $this->tab[$this->id]["authSource"] .= $data;
-            }
-            else
-            if ('email' == $this->tag)
-                {
-                $this->tab[$this->id]["email"] .= $data;
-            }
-            else
-            if ('statut' == $this->tag)
-                {
-                $this->tab[$this->id]["statut"] .= $data;
-            }
-            else
-            if ('officialCode' == $this->tag)
-                {
-                $this->tab[$this->id]["officialCode"] .= $data;
-            }
-            else
-            if ('phoneNumber' == $this->tag)
-                {
-                $this->tab[$this->id]["phoneNumber"] .= $data;
-            }
-            else
-            if ('pictureUri' == $this->tag)
-                {
-                $this->tab[$this->id]["pictureUri"] .= $data;
-            }
-            else
-            if ('creatorId' == $this->tag)
-                {
-                $this->tab[$this->id]["creatorId"] .= $data;
-            }
-        }
-         
-        function get_tab()
-        {
-            return $this->tab;
-        }
-    }
+  
     function replaceUserId($usersIdToChange, $tab, $index)
-    {
-         
+    {     
         foreach ($usersIdToChange as $tab_content)
         {
             foreach ($tab as $lacle => $tab2_content)
             {
                 if ($tab2_content[$index] == $tab_content["oldUserId"])
-                    {
+                {
                     $tab[$lacle][$index] = $tab_content["newUserId"];
                 }
             }
         }
         return $tab;
     }
-    function replaceGroupId($group, $tab, $index)
+    function replaceGroupId($importGroupInfo, $tab, $index)
     {
         foreach ($tab as $lacle => $tab2_content)
-        {
-             
-            if ($tab2_content[$index] == $group["oldid"])
-                {
-                 
-                $tab[$lacle][$index] = $group["id"];
+        {             
+            if ($tab2_content[$index] == $importGroupInfo["oldId"])
+            {                 
+                $tab[$lacle][$index] = $importGroupInfo["id"];
             }
         }
         return $tab;
     }
-    function import_documents($toolName, $imported_course_id, $course_id, $groupInfo)
+    function import_documents($toolName, $imported_course_id, $course_id, $importGroupInfoInfo)
     {
-        if ('0' == $groupInfo['id'])
-            {
+        if (null === $importGroupInfoInfo['id'])
+        {
             $course_path = get_conf("rootSys")."courses/".$course_id;
             $archive_path = EXTRACT_PATH."/".$imported_course_id."/tools/".$toolName."/";
             if (file_exists($archive_path.$toolName.".zip"))
-                {
+            {
                 if (false === extract_archive($archive_path.$toolName.".zip", $course_path))
                     claro_failure :: set_failure("cant_extract_file");
                 else
@@ -4795,48 +2332,48 @@
     }
     function clearGroupFiles($course_id)
     {
-        $group_path = get_conf("rootSys").'courses/'.$course_id.'/group';
-        claro_delete_file($group_path);
-        claro_mkdir($group_path);
+        $importGroupInfo_path = get_conf("rootSys").'courses/'.$course_id.'/group';
+        claro_delete_file($importGroupInfo_path);
+        claro_mkdir($importGroupInfo_path);
     }
-    function importGroupDocuments($imported_courseId, $courseId, $group)
+    function importGroupDocuments($imported_courseId, $courseId, $importGroupInfo)
     {
-        if (isset($group['chat']) && 'true' == $group['chat'])
-            if (false === importChatDocuments($imported_courseId, $courseId, $group))
+        if (isset($importGroupInfo['chat']) && 'true' == $importGroupInfo['chat'])
+            if (false === importChatDocuments($imported_courseId, $courseId, $importGroupInfo))
             return false;
          
-        if (isset($group['document']) && 'true' == $group['document'])
-            if (false === importDocDocuments($imported_courseId, $courseId, $group))
+        if (isset($importGroupInfo['document']) && 'true' == $importGroupInfo['document'])
+            if (false === importDocDocuments($imported_courseId, $courseId, $importGroupInfo))
             return false;
          
-        if ($group['id'] == 0 && isset ($group['exercise']) && 'true' == $group['exercise'])
-            if (false === import_documents("exercise", $imported_courseId, $courseId, $group))
+        if ($importGroupInfo['id'] == null && isset ($importGroupInfo['exercise']) && 'true' == $importGroupInfo['exercise'])
+            if (false === import_documents("exercise", $imported_courseId, $courseId, $importGroupInfo))
             return false;
-        if ($group['id'] == 0 && isset ($group['modules']) && 'true' == $group['modules'])
-            if (false === import_documents("modules", $imported_courseId, $courseId, $group))
+        if ($importGroupInfo['id'] == null && isset ($importGroupInfo['modules']) && 'true' == $importGroupInfo['modules'])
+            if (false === import_documents("modules", $imported_courseId, $courseId, $importGroupInfo))
             return false;
-        if ($group['id'] == 0 && isset ($group['work']) && 'true' == $group['work'])
-            if (false === import_documents("work", $imported_courseId, $courseId, $group))
+        if ($importGroupInfo['id'] == null && isset ($importGroupInfo['work']) && 'true' == $importGroupInfo['work'])
+            if (false === import_documents("work", $imported_courseId, $courseId, $importGroupInfo))
             return false;
-        if ($group['id'] == 0 && isset ($group['quiz']) && 'true' == $group['quiz'])
-            if (false === import_documents("quiz", $imported_courseId, $courseId, $group))
+        if ($importGroupInfo['id'] == null && isset ($importGroupInfo['quiz']) && 'true' == $importGroupInfo['quiz'])
+            if (false === import_documents("quiz", $imported_courseId, $courseId, $importGroupInfo))
             return false;
         return true;
     }
-    function importDocDocuments($imported_course_id, $course_id, $groupInfo)
+    function importDocDocuments($imported_course_id, $course_id, $importGroupInfoInfo)
     {
          
         $course_path = get_conf("rootSys").'courses/'.$course_id;
-        if (0 == $groupInfo['id'])
-            {
+        if (null == $importGroupInfoInfo['id'])
+        {
             $archive_path = EXTRACT_PATH."/".$imported_course_id.'/tools/document/';
              
             if (file_exists($archive_path.'document.zip'))
-                {
+            {
                 if (false === extract_archive($archive_path.'document.zip', $archive_path))
                     return claro_failure :: set_failure("cant_extract_file");
                 else
-                    {
+                {
                     claro_delete_file($course_path.'/document');
                     claro_copy_file($archive_path.'/document/', $course_path);
                     claro_delete_file($archive_path.'/document/');
@@ -4846,22 +2383,22 @@
         else
             {
             $archive_path = EXTRACT_PATH."/".$imported_course_id.'/tools/group/';
-            $group_path = $course_path.'/group/'.$groupInfo['directory'];
+            $importGroupInfo_path = $course_path.'/group/'.$importGroupInfoInfo['directory'];
              
             if (false === extract_archive($archive_path.'group.zip', $archive_path))
                 return claro_failure :: set_failure("cant_extract_file");
             else
                 {
-                if (false === claro_delete_file($group_path))
+                if (false === claro_delete_file($importGroupInfo_path))
                 return false;
-                if (false === claro_copy_file($archive_path.'group/'.$groupInfo['directory'], $course_path.'/group'))
+                if (false === claro_copy_file($archive_path.'group/'.$importGroupInfoInfo['directory'], $course_path.'/group'))
                 return false;
                 if (false === claro_delete_file($archive_path.'group/'))
                 return false;
             }
         }
     }
-    function importChatDocuments($imported_course_id, $course_id, $groupInfo)
+    function importChatDocuments($imported_course_id, $course_id, $importGroupInfoInfo)
     {
          
         $course_path = get_conf("rootSys").'courses/'.$course_id;
@@ -4874,7 +2411,7 @@
                 return claro_failure :: set_failure("cant_extract_file");
             else
                 {
-                if (0 == $groupInfo['id'] && file_exists($archive_path.'chat/'.$imported_course_id.'.chat.html'))
+                if (null == $importGroupInfoInfo['id'] && file_exists($archive_path.'chat/'.$imported_course_id.'.chat.html'))
                     {
                     if (false === claro_delete_file($chat_path))
                     return false;
@@ -4883,13 +2420,13 @@
                     if (false === copy($archive_path.'chat/'.$imported_course_id.'.chat.html', $chat_path.'/'.$imported_course_id.'.chat.html'))
                     return false;
                 }
-                elseif (file_exists($archive_path.'chat/'.$imported_course_id.'.'.$groupInfo['oldid'].'.chat.html'))
+                elseif (file_exists($archive_path.'chat/'.$imported_course_id.'.'.$importGroupInfoInfo['oldId'].'.chat.html'))
                 {
                     if (false === claro_delete_file($chat_path))
                     return false;
                     if (false === claro_mkdir($chat_path))
                     return false;
-                    if (false === copy($archive_path.'chat/'.$imported_course_id.'.'.$groupInfo['oldid'].'.chat.html', $chat_path.'/'.$course_id.'.'.$groupInfo['id'].'.chat.html'))
+                    if (false === copy($archive_path.'chat/'.$imported_course_id.'.'.$importGroupInfoInfo['oldId'].'.chat.html', $chat_path.'/'.$course_id.'.'.$importGroupInfoInfo['id'].'.chat.html'))
                     return false;
                 }
                 else
@@ -4902,23 +2439,23 @@
         }
         return true;
     }
-    function filterWikiTab($tab_origine, $group)
+    function filterWikiTab($tab_origine, $importGroupInfo)
     {
-        $tab_fin = array();
-         
+        $tab_fin = array();       
         if (isset ($tab_origine['wiki_properties']))
-            {
-             
+        {
+        	             
             foreach ($tab_origine['wiki_properties'] as $wiki_id => $tab_content)
             {
+            	
                 $mustImportwiki = false;
-                if ($tab_content['group_id'] == $group['id'] && isset($group['wiki']) && true === $group['wiki'])
-                    {
+                if ($tab_content['group_id'] == $importGroupInfo['id'] && isset($importGroupInfo['wiki']) && true === $importGroupInfo['wiki'])
+                {                	
                     $tab_fin['wiki_properties'][$wiki_id] = $tab_origine['wiki_properties'][$wiki_id];
                     $mustImportwiki = true;
                 }
                 if (isset ($tab_origine['wiki_acls']))
-                    {
+                {
                     foreach ($tab_origine['wiki_acls'] as $id => $tab_content)
                     {
                         if ($tab_content['wiki_id']['wiki_id'] == $wiki_id && $mustImportwiki)
@@ -4928,24 +2465,24 @@
                     }
                 }
                 if (isset ($tab_origine['wiki_pages']))
-                    {
+                {
                     foreach ($tab_origine['wiki_pages'] as $pageId => $tab_content)
                     {
                         if ($tab_content['wiki_id'] == $wiki_id && $mustImportwiki)
-                            {
+                        {
                             $tab_fin['wiki_pages'][$pageId] = $tab_origine['wiki_pages'][$pageId];
                             $last_version = $tab_origine['wiki_pages'][$pageId]['last_version'];
                             if (isset ($tab_origine['wiki_pages_content']))
-                                {
+                            {
                                 foreach ($tab_origine['wiki_pages_content'] as $id => $tab_content)
                                 {
                                     if ($tab_content['pid'] == $pageId)
-                                        {
+                                    {
                                         $tab_fin['wiki_pages_content'][$id] = $tab_origine['wiki_pages_content'][$id];
                                     }
                                      
                                     if ($tab_content['id'] == $last_version)
-                                        {
+                                    {
                                         $tab_fin['wiki_pages_content'][$id] = $tab_origine['wiki_pages_content'][$id];
                                     }
                                 }
@@ -5074,8 +2611,8 @@
         }
         return $tab;
     }
-     
-    function get_oldGroupId($course_id, $groupInfo, $tab)
+     /*
+    function get_oldGroupId($course_id, $importGroupInfoInfo, $tab)
     {
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
         $sql = "SELECT name,id FROM `".$tbl['group_team']."`";
@@ -5083,15 +2620,15 @@
          
         foreach($result as $tab_content)
         {
-            foreach($tab[0]['group_team'] as $group_content)
+            foreach($tab[0]['group_team'] as $importGroupInfo_content)
             {
-                if ($tab_content['name'] === $group_content['name'])
+                if ($tab_content['name'] === $importGroupInfo_content['name'])
                 {
-                    $groupInfo[$group_content['id']]['oldIdInDb'] = $tab_content['id'];
+                    $importGroupInfoInfo[$importGroupInfo_content['id']]['oldIdInDb'] = $tab_content['id'];
                 }
             }
         }
          
-        return $groupInfo;
-    }
+        return $importGroupInfoInfo;
+    }*/
 ?>

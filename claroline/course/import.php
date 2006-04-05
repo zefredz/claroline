@@ -27,7 +27,7 @@ include_once($includePath . '/lib/import.lib.php');
 $acceptCmd = array('doImport');
 $cmd= (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptCmd)) ? $_REQUEST['cmd'] : '';
 $archiveFile = $_cid.".zip";
-$filePath = "c:/program files/easyPHP1-8/www/cvs/claroline.test/export";
+$filePath = "c:/program files/easyPHP1-8/www/cvs/claroline.test/claroline/export";
 
 // command
 $taskDoImport = false;
@@ -42,8 +42,30 @@ switch($cmd)
 
 if ($taskDoImport)
 {
-	
-	if (import_all_data_course_in_db($filePath."/".$archiveFile , $_cid))
+	$importGroupInfo[0]['id'] = null;
+    $importGroupInfo[0]['oldId'] = null;
+    $importGroupInfo[0]['chat'] = true;
+    $importGroupInfo[0]['document'] = true;
+    $importGroupInfo[0]['forum'] = true;
+    $importGroupInfo[0]['wiki'] = true;
+    $importGroupInfo[0]['exercise'] = true;
+    $importGroupInfo[0]['work'] = true;
+    $importGroupInfo[0]['tool'] = true;
+    $importGroupInfo[0]['group'] = true;
+    $importGroupInfo[0]['quiz'] = true;      
+    $importGroupInfo[0]['lp'] = true;  
+    $importGroupInfo[0]['mustImportUsers'] = true;
+         /*
+    $importGroupInfo[1]['id'] = 1;
+    $importGroupInfo[1]['oldId'] = 1;
+    $importGroupInfo[1]['mustImportUsers'] = true;
+    $importGroupInfo[1]['mustImportTools'] = true;
+    $importGroupInfo[1]['chat'] = true;
+    $importGroupInfo[1]['document'] = true;
+    $importGroupInfo[1]['forum'] = true;
+    $importGroupInfo[1]['wiki'] = true;
+    */
+	if (import_all_data_course_in_db($filePath."/".$archiveFile , $_cid,$importGroupInfo))
 	{
 		$dialogBox = get_lang('Import succeed');
 	}

@@ -21,7 +21,7 @@ require $includePath . '/currentVersion.inc.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/export_zip.lib.php';
 
-define('EXPORT_PATH', 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\export');
+define('EXPORT_PATH', 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\claroline\export');
 
 /**
  * export data of a tool
@@ -310,25 +310,47 @@ function export_data_course_wrk($_cid)
 }
 function export_course_user_metadata($_cid)
 {		
-	$tbl = export_course_user_metadata_from_db($_cid);
+	$tbl['user'] = export_course_user_metadata_from_db($_cid);
+	$tbl['rel_course_user'] = export_course_rel_course_user_from_db($_cid);
 	$dom = export_course_user_metadata_in_file($tbl, $_cid);
 	if (false !== $dom)
 	{
-		dump_file("tools","users",$dom,$_cid);
+		dump_file("meta_data","users",$dom,$_cid);
 		return true;
 	}
 	else return false;	
 }
 function export_course_user_metadata_in_file($tbl, $_cid)
-{
+{	
 	$dom = domxml_new_doc('1.0');
-	$user = $dom->append_child($dom->create_element('user'));
+	$cl_user = $dom->append_child($dom->create_element('users'));
 
-	if (is_array($tbl) && (count($tbl) > 0))
+	$rel_course_user = $cl_user->append_child($dom->create_element('rel_course_user'));
+	if (isset ($tbl["rel_course_user"]) && is_array($tbl["rel_course_user"]) && (count($tbl["rel_course_user"]) > 0))
 	{
-		foreach ($tbl as $tab_content)
-		{
+		foreach ($tbl["rel_course_user"] as $tab_content)
+		{			
+			$code_cours = $rel_course_user->append_child($dom->create_element('user_id'));
+			$code_cours->set_attribute('user_id', $tab_content['user_id']);
+			$user_id = $code_cours->append_child($dom->create_element('course_id'));
+			$user_id->append_child($dom->create_text_node(utf8_encode($tab_content['course_id'])));
+			$statut = $code_cours->append_child($dom->create_element('statut'));
+			$statut->append_child($dom->create_text_node($tab_content['statut']));
+			$role = $code_cours->append_child($dom->create_element('role'));
+			$role->append_child($dom->create_text_node(utf8_encode($tab_content['role'])));
+			$team = $code_cours->append_child($dom->create_element('team'));
+			$team->append_child($dom->create_text_node(utf8_encode($tab_content['team'])));
+			$tutor = $code_cours->append_child($dom->create_element('tutor'));
+			$tutor->append_child($dom->create_text_node(utf8_encode($tab_content['tutor'])));
+		}
+	}
 
+	$user = $cl_user->append_child($dom->create_element('user'));
+		
+	if (is_array($tbl["user"]) && (count($tbl["user"]) > 0))
+	{
+		foreach ($tbl["user"] as $tab_content)
+		{
 			$user_id = $user->append_child($dom->create_element('user_id'));
 			$user_id->set_attribute("user_id", $tab_content["user_id"]);
 			$firstname = $user_id->append_child($dom->create_element('firstname'));
@@ -1875,7 +1897,21 @@ function export_course_user_metadata_from_db($_cid)
 					    	 INNER JOIN `".$tblMain['rel_course_user']."` AS c 
 							 ON u.user_id = c.user_id 				 		    	 		
 							 WHERE c.code_cours = '".$_cid."'";
-
+	 
+	return claro_sql_query_fetch_all($sql);
+}
+function export_course_rel_course_user_from_db($_cid)
+{
+	$tblMain = claro_sql_get_main_tbl();
+	$sql = "SELECT   code_cours as course_id,
+					 user_id,
+					 statut,
+					 role,
+					 team,
+					 tutor
+			FROM `".$tblMain['rel_course_user']."` 
+		 	WHERE code_cours = '".$_cid."'";
+	
 	return claro_sql_query_fetch_all($sql);
 }
 function export_course_data_from_db($_cid)
@@ -2043,7 +2079,7 @@ function dump_file($data_type,$toolName,$dom,$course_id)
 {
 	$foo = EXPORT_PATH . '/' . $course_id . '/' . $data_type . '/' . $toolName . '/';
 	if (!file_exists($foo)) claro_mkdir($foo,0777,TRUE);
-	
+		
 	$result = $dom->dump_file( $foo . $toolName . '.xml', true, false);
 	if ($result == 0)
 		return claro_failure :: set_failure('cant_write_xml_file');
