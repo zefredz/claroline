@@ -190,7 +190,7 @@ if ( $is_allowedToManage )
         .          '</td>'                                                           ."\n"
         .          '<td>'                                                            ."\n"
         .          '<input type="submit" value="'.get_lang("Ok").'" name="creation" id="creation"> '
-        .          claro_html::button($_SERVER['HTTP_REFERER'], get_lang("Cancel"))
+        .          claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel"))
         .          '</td>'                                                           ."\n"
         .          '</tr>'                                                           ."\n"
 
@@ -503,18 +503,18 @@ $htmlHeadXtra[] =
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 /*-------------
   MESSAGE BOX
  -------------*/
 
-if ( !empty($message) ) echo claro_html::message_box($message);
+if ( !empty($message) ) echo claro_html_message_box($message);
 
 /*==========================
 COURSE ADMIN ONLY
 ==========================*/
-if ( $display_groupadmin_manager ) echo claro_html::menu_horizontal($groupadmin_manager_menu);
+if ( $display_groupadmin_manager ) echo claro_html_menu_horizontal($groupadmin_manager_menu);
 
 /**
   VIEW COMMON TO STUDENT & TEACHERS

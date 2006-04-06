@@ -81,7 +81,7 @@ include($includePath."/claro_init_header.inc.php");
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $exercise->selectTitle();
 
-echo claro_html::tool_title($titleTab);
+echo claro_html_tool_title($titleTab);
 
 if ( $is_trackingEnabled ) 
 {

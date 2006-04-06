@@ -150,13 +150,13 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
-echo claro_html::tool_title(get_lang('Subscribe a class'));
+echo claro_html_tool_title(get_lang('Subscribe a class'));
 
 // Display Forms or dialog box (if needed)
 
 if(isset($dialogBox) && $dialogBox!='')
 {
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
 // display tool links

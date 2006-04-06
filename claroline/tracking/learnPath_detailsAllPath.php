@@ -54,7 +54,7 @@ include($includePath."/lib/learnPath.lib.inc.php");
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = get_lang('Progression of users on all learning paths');
 
-echo claro_html::tool_title($titleTab);
+echo claro_html_tool_title($titleTab);
 
 if ( $is_trackingEnabled ) 
 {
@@ -110,7 +110,7 @@ if ( $is_trackingEnabled )
             echo '<tr>'."\n"
                 .'<td><a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$user['user_id'].'&amp;view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                 .'<td align="right">'
-                .claro_html::progress_bar($total, 1)
+                .claro_html_progress_bar($total, 1)
                 .'</td>'."\n"
                    .'<td align="left"><small>'.$total.'%</small></td>'."\n"
                 .'</tr>'."\n\n";

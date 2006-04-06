@@ -78,7 +78,7 @@ include($includePath."/lib/learnPath.lib.inc.php");
 include($includePath."/claro_init_header.inc.php");
 
 // display title
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // display use explication text
 echo get_block('blockModulePoolHelp')."<br /><br />";
@@ -185,13 +185,13 @@ switch( $cmd )
             }
             else
             {
-                echo claro_html::message_box(get_lang('Error : Name already exists in the learning path or in the module pool'));
+                echo claro_html_message_box(get_lang('Error : Name already exists in the learning path or in the module pool'));
                 echo "<br />";
             }
         }
         else
         {
-            echo claro_html::message_box(get_lang('Name cannot be empty'));
+            echo claro_html_message_box(get_lang('Name cannot be empty'));
             echo "<br />";
         }
         break;
@@ -210,7 +210,7 @@ switch( $cmd )
             if( isset($comment['comment']) )
             {
                 echo "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n"
-                    .claro_html::textarea_editor('comment', $comment['comment'], 15, 55)
+                    .claro_html_textarea_editor('comment', $comment['comment'], 15, 55)
                     ."<br />\n"
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"
                     ."<input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">\n"

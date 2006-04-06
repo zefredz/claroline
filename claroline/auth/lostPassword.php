@@ -179,7 +179,7 @@ include$includePath . '/claro_init_header.inc.php';
 
 // display title
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // display message box
 
@@ -192,12 +192,12 @@ if ( ! $passwordFound )
     .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($Femail) . '" />'
     .       '<br /><br />'
     .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" /> '
-    .       claro_html::button('../../index.php', get_lang('Cancel'))
+    .       claro_html_button('../../index.php', get_lang('Cancel'))
     .       '</form>'
     ;
 }
 
-if ( ! empty($msg) ) echo claro_html::message_box($msg);
+if ( ! empty($msg) ) echo claro_html_message_box($msg);
 
 // display form
 

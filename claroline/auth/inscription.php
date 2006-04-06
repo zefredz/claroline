@@ -142,7 +142,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display Title
 
-echo claro_html::tool_title(get_lang('Create user account'));
+echo claro_html_tool_title(get_lang('Create user account'));
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
@@ -182,7 +182,7 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
-    .    claro_html::button( $urlAppend.'/index.php', get_lang('Cancel') )
+    .    claro_html_button( $urlAppend.'/index.php', get_lang('Cancel') )
     .    '</form>' . "\n"
     ;
 }
@@ -192,7 +192,7 @@ elseif ( $display == DISP_REGISTRATION_FORM )
 
     if ( count($messageList) > 0 )
     {
-        echo claro_html::message_box( implode('<br />', $messageList) );
+        echo claro_html_message_box( implode('<br />', $messageList) );
     }
 
     user_display_form_registration($user_data);

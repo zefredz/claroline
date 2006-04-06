@@ -182,11 +182,11 @@ $descList = course_description_get_item_list();
 
 require $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 if ( isset($dialogBox) && ! empty($dialogBox) )
 {
-    echo claro_html::message_box($dialogBox)
+    echo claro_html_message_box($dialogBox)
     .    '<br />' . "\n"
     ;
 }
@@ -227,10 +227,10 @@ if ( $is_allowedToEdit )
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
         .    '<td>'."\n"
-        .    claro_html::textarea_editor('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n"
+        .    claro_html_textarea_editor('descContent', $descItem['content'], 20, 80, $optAttrib=' wrap="virtual"')."\n"
 
         .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />' . "\n"
-        .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .    '</form>' . "\n"
         .    '</td>'  . "\n"
 

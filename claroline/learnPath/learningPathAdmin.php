@@ -370,7 +370,7 @@ $LPDetails = mysql_fetch_array($query);
 include($includePath."/claro_init_header.inc.php");
 
 // display title
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 //####################################################################################\\
 //############################ LEARNING PATH NAME BOX ################################\\
@@ -433,7 +433,7 @@ if (isset($displayChangePosForm) && $displayChangePosForm)
 
 if (isset($dialogBox) && $dialogBox!="")
 {
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
 //####################################################################################\\

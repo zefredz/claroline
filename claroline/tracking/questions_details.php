@@ -96,7 +96,7 @@ else
 include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
-echo claro_html::tool_title($titleTab);
+echo claro_html_tool_title($titleTab);
 
 // build back link
 $backLink = "\n\n".'<small><a href="./exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src.'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n\n";
@@ -353,7 +353,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 
                 echo '</td>'."\n"
                           .'<td>'.$result['reponse'].'</td>'."\n"
-                          .'<td align="right">'.claro_html::progress_bar($pourcent,1).'</td>'."\n"
+                          .'<td align="right">'.claro_html_progress_bar($pourcent,1).'</td>'."\n"
                         .'<td align="left"><small>'.$result['nbr'].'&nbsp;(&nbsp;'.$pourcent.'%&nbsp;)</small></td>'."\n"
                         .'</tr>'."\n";
             }
@@ -392,7 +392,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                         else                        $pourcent = round(100 * $result['nbr'] / $fillInBlanksTotal[$i]);
 
                         echo '</td>'."\n"
-                            .'<td align="right">'.claro_html::progress_bar($pourcent,1).'</td>'."\n"
+                            .'<td align="right">'.claro_html_progress_bar($pourcent,1).'</td>'."\n"
                             .'<td align="left"><small>'.$result['nbr'].'&nbsp;(&nbsp;'.$pourcent.'%&nbsp;)</small></td>'."\n"
                             .'</tr>';
                     }

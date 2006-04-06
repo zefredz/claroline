@@ -37,7 +37,7 @@ echo '<hr noshade="noshade" size="1" />';
 //####################################################################################\\
 if( !empty($dialogBox) )
 {
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
 // form to change raw needed to pass the exercise

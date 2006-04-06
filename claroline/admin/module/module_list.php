@@ -162,7 +162,7 @@ switch ( $cmd )
         .            '<input name="uploadedModule" type="file" /><br><br>'
         .            get_lang('Install module') . ' : '
         .            '<input value="' . get_lang('Ok') . '" type="submit" /> '
-        .            claro_html::button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
+        .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '<br><br>'
         .            '<small>' . get_lang('Max file size') . ' :  2&nbsp;MB</small>'
         .            '</form>'
@@ -252,11 +252,11 @@ include $includePath . '/claro_init_header.inc.php';
 
 //display title
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 
-if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
+if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 //display action links
 echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install a module') . '<a>'

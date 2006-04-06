@@ -43,7 +43,7 @@ else
 
 echo $backCommandLine;
 
-echo claro_html::tool_title($pageTitle);
+echo claro_html_tool_title($pageTitle);
 
 if ( ( count($categoryList) - 1 )  >= 0 )
 {

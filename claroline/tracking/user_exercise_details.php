@@ -126,7 +126,7 @@ include($includePath . '/claro_init_header.inc.php');
 // display title
 $titleTab['mainTitle'] = $nameTools;
 
-echo claro_html::tool_title($titleTab);
+echo claro_html_tool_title($titleTab);
 
 echo $backLink;
 
@@ -524,7 +524,7 @@ else
         $dialogBox = get_lang('Tracking has been disabled by system administrator.');
     }
 
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
 include $includePath . '/claro_init_footer.inc.php';

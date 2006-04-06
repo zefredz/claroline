@@ -32,7 +32,7 @@ if( isset($_POST['newRaw']) && is_num($_POST['newRaw']) && $_POST['newRaw'] <= 1
 //####################################################################################\\
 if( !empty($dialogBox) )
 {
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
 // form to change raw needed to pass the exercise

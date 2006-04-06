@@ -297,10 +297,10 @@ $interbredcrump[]= array ('url' => 'group_space.php?gidReq=' . $_gid, 'name' => 
 
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_html::tool_title(array('supraTitle' => get_lang("Groups"),
+echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"),
 'mainTitle' => $nameTools));
 
-if ( isset($messageGroupEdited) ) echo claro_html::message_box($messageGroupEdited);
+if ( isset($messageGroupEdited) ) echo claro_html_message_box($messageGroupEdited);
 
 
 echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . $_gid . '">' . "\n"

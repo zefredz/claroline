@@ -21,556 +21,538 @@
  *
  */
 
-class claro_html
+
+/**
+ * display a item list as vertical menu.
+ *
+ * @param array $itemList each item are include in a list.
+ *
+ * @return string html
+ */
+function claro_html_menu_vertical($itemList, $attrBloc=array(),$attrItem=array())
+{
+    $classBlocAttr = '';
+    $otherBlocAttrString = '';
+    foreach ($attrBloc as $attrName => $attrValue)
+    {
+        if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
+        else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+    }
+    $itemAttrString = '';
+    foreach ($attrItem as $attrName => $attrValue) $itemAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+
+    if (is_array($itemList)&&count($itemList))
+    {
+        $htmlStream = '<ul class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
+        foreach($itemList as $item )
+        {
+            $htmlStream .= '<li' . $itemAttrString . '>' . "\n"
+            .              $item
+            .              '</li>' . "\n"
+            ;
+        }
+        $htmlStream .= '</ul>' . "\n";
+    }
+    else
+    $htmlStream ='';
+    return $htmlStream;
+}
+
+/**
+* display a item list as vertical menu.
+*
+* @param array $itemList each item are include in a list.
+*
+* @return string html
+*/
+function claro_html_menu_vertical_br($itemList, $attrBloc=array())
+{
+    $classBlocAttr = '';
+    $otherBlocAttrString = '';
+    foreach ($attrBloc as $attrName => $attrValue)
+    {
+        if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
+        else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
+    }
+
+    $htmlStream = '<div class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
+
+    if (is_array($itemList)&&count($itemList))
+    {
+            $htmlStream .= implode('<br />' . "\n",$itemList );
+    }
+    $htmlStream .= '</div>' . "\n";
+
+    return $htmlStream;
+}
+
+
+/**
+ * display a item list as vertical menu.
+ *
+ * @param array $itemList each item are include in a list.
+ *
+ * @return string : list content as an horizontal menu.
+ */
+
+function claro_html_menu_horizontal($itemList)
+{
+if( is_array($itemList) && !empty($itemList) )
+{
+    	return "\n\n"
+    		. '<p>'
+    		. implode( "\n" . '&nbsp;|&nbsp;' . "\n",$itemList)
+    		. '</p>'
+    		. "\n\n";
+}
+else
+{
+return '';
+}
+}
+
+/**
+* Return the claroline sytled url for a link to a tool
+*
+* @param string $url
+* @param string $label
+* @param array $attributeList array of array(attributeName,attributeValue)
+* @return string html stream
+*/
+function claro_html_tool_link($url,$label,$attributeList=array())
+{
+    $attributeConcat = 'class="toollink" ';
+
+    if (is_array($attributeList))
+    {
+        foreach ($attributeList as $key => $attribute)
+        {
+            $attributeConcat .= (is_array($attribute) ? $attribute['name'].'="'.$attribute['value'].'" ' : $key.'="'.$attribute.'" ');
+        }
+    }
+    else trigger_error('$attributeList would be an array', E_USER_WARNING);
+    return '<a href="' . $url . '" ' . $attributeConcat . ' >'
+    .       $label
+    .       '</a>' . "\n"
+    ;
+
+}
+
+/**
+* Prepare the display of a clikcable button
+*
+* This function is needed because claroline buttons rely on javascript.
+* The function return an optionnal behavior fo browser where javascript
+* isn't  available.
+*
+* @author Hugues Peeters <hugues.peeters@claroline.net>
+*
+* @param string $url url inserted into the 'href' part of the tag
+* @param string $text text inserted between the two <a>...</a> tags (note : it
+*        could also be an image ...)
+* @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
+* @return string the button
+*/
+
+function claro_html_button($url, $text, $confirmMessage = '')
 {
 
-/**
- * display a item list as vertical menu.
- *
- * @param array $itemList each item are include in a list.
- *
- * @return string html
- */
-    function menu_vertical($itemList, $attrBloc=array(),$attrItem=array())
+    if (   claro_is_javascript_enabled()
+    && ! preg_match('~^Mozilla/4\.[1234567]~', $_SERVER['HTTP_USER_AGENT']))
     {
-        $classBlocAttr = '';
-        $otherBlocAttrString = '';
-        foreach ($attrBloc as $attrName => $attrValue)
+        if ($confirmMessage != '')
         {
-            if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
-            else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
-        }
-        $itemAttrString = '';
-        foreach ($attrItem as $attrName => $attrValue) $itemAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
-
-        if (is_array($itemList)&&count($itemList))
-        {
-            $htmlStream = '<ul class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
-            foreach($itemList as $item )
-            {
-                $htmlStream .= '<li' . $itemAttrString . '>' . "\n"
-                .              $item
-                .              '</li>' . "\n"
-                ;
-            }
-            $htmlStream .= '</ul>' . "\n";
-        }
-        else
-        $htmlStream ='';
-        return $htmlStream;
-    }
-
-/**
- * display a item list as vertical menu.
- *
- * @param array $itemList each item are include in a list.
- *
- * @return string html
- */
-    function menu_vertical_br($itemList, $attrBloc=array())
-    {
-        $classBlocAttr = '';
-        $otherBlocAttrString = '';
-        foreach ($attrBloc as $attrName => $attrValue)
-        {
-            if ('class' == $attrName) $classBlocAttr = ' ' . trim($attrValue);
-            else $otherBlocAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
-        }
-
-        $htmlStream = '<div class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
-
-        if (is_array($itemList)&&count($itemList))
-        {
-                $htmlStream .= implode('<br />' . "\n",$itemList );
-        }
-        $htmlStream .= '</div>' . "\n";
-
-        return $htmlStream;
-    }
-
-
-    /**
-     * display a item list as vertical menu.
-     *
-     * @param array $itemList each item are include in a list.
-     *
-     * @return string : list content as an horizontal menu.
-     */
-
-    function menu_horizontal($itemList)
-    {
-		if( is_array($itemList) && !empty($itemList) )
-		{
-        	return "\n\n"
-        		. '<p>'
-        		. implode( "\n" . '&nbsp;|&nbsp;' . "\n",$itemList)
-        		. '</p>'
-        		. "\n\n";
-		}
-		else
-		{
-			return '';
-		}
-    }
-
-/**
- * Return the claroline sytled url for a link to a tool
- *
- * @param string $url
- * @param string $label
- * @param array $attributeList array of array(attributeName,attributeValue)
- * @return string html stream
- */
-    function tool_link($url,$label,$attributeList=array())
-    {
-        $attributeConcat = 'class="toollink" ';
-
-        if (is_array($attributeList))
-        {
-            foreach ($attributeList as $key => $attribute)
-            {
-                $attributeConcat .= (is_array($attribute) ? $attribute['name'].'="'.$attribute['value'].'" ' : $key.'="'.$attribute.'" ');
-            }
-        }
-        else trigger_error('$attributeList would be an array', E_USER_WARNING);
-        return '<a href="' . $url . '" ' . $attributeConcat . ' >'
-        .       $label
-        .       '</a>' . "\n"
-        ;
-
-    }
-
-/**
- * Prepare the display of a clikcable button
- *
- * This function is needed because claroline buttons rely on javascript.
- * The function return an optionnal behavior fo browser where javascript
- * isn't  available.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- *
- * @param string $url url inserted into the 'href' part of the tag
- * @param string $text text inserted between the two <a>...</a> tags (note : it
- *        could also be an image ...)
- * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
- * @return string the button
- */
-
-    function button($url, $text, $confirmMessage = '')
-    {
-
-        if (   claro_is_javascript_enabled()
-        && ! preg_match('~^Mozilla/4\.[1234567]~', $_SERVER['HTTP_USER_AGENT']))
-        {
-            if ($confirmMessage != '')
-            {
-                $onClickCommand = "if(confirm('" . clean_str_for_javascript($confirmMessage) . "')){document.location='" . $url . "';return false}";
-            }
-            else
-            {
-                $onClickCommand = "document.location='".$url."';return false";
-            }
-
-            return '<button class="claroButton" onclick="' . $onClickCommand . '">'
-            .      $text
-            .      '</button>&nbsp;' . "\n"
-            ;
+            $onClickCommand = "if(confirm('" . clean_str_for_javascript($confirmMessage) . "')){document.location='" . $url . "';return false}";
         }
         else
         {
-            return '<nobr>[ <a href="' . $url . '">' . $text . '</a> ]</nobr>';
-        }
-    }
-
-
-/**
- * Displays the title of a tool. Optionally, there can be a subtitle below
- * the normal title, and / or a supra title above the normal title.
- *
- * e.g. supra title:
- * group
- * GROUP PROPERTIES
- *
- * e.g. subtitle:
- * AGENDA
- * calender & events tool
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param  mixed $titleElement - it could either be a string or an array
- *                               containing 'supraTitle', 'mainTitle',
- *                               'subTitle'
- * @return void
- */
-
-    function tool_title($titlePart, $helpUrl = false)
-    {
-        // if titleElement is simply a string transform it into an array
-
-        if ( is_array($titlePart) ) $titleElement = $titlePart;
-        else                        $titleElement['mainTitle'] = $titlePart;
-
-        $string = "\n" . '<h3 class="claroToolTitle">' . "\n";
-
-        if ($helpUrl)
-        {
-            global $clarolineRepositoryWeb, $imgRepositoryWeb;
-
-            $string .= "<a href='#' onClick=\"MyWindow=window.open('". $clarolineRepositoryWeb . "help/" .$helpUrl
-            ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
-
-            .'<img src="'.$imgRepositoryWeb.'/help.gif" '
-            .' alt ="'.get_lang('Help').'"'
-            .' align="right"'
-            .' hspace="30">'
-            .'</a>' . "\n"
-            ;
+            $onClickCommand = "document.location='".$url."';return false";
         }
 
-        if ( isset($titleElement['supraTitle']) )
-        {
-            $string .= '<small>' . $titleElement['supraTitle'] . '</small><br />' . "\n";
-        }
-
-        if ( isset($titleElement['mainTitle']) )
-        {
-            $string .= $titleElement['mainTitle'] . "\n";
-        }
-
-        if ( isset($titleElement['subTitle']) )
-        {
-            $string .= '<br /><small>' . $titleElement['subTitle'] . '</small>' . "\n";
-        }
-
-        $string .= '</h3>'."\n\n";
-
-        return $string;
-    }
-
-
-/**
- * Prepare display of the message box appearing on the top of the window,
- * just    below the tool title. It is recommended to use this function
- * to display any confirmation or error messages, or to ask to the user
- * to enter simple parameters.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param string $message include your self any additionnal html
- *                        tag if you need them
- * @since 1.8
- *
- * @return string html string for a message box
- */
-
-    function message_box($message)
-    {
-        $effectiveContent = trim(strip_tags($message));
-
-        if(!empty($effectiveContent))
-        return "\n" . '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
-        .      '<tr>'
-        .      '<td>'
-        .      $message
-        .      '</td>'
-        .      '</tr>'
-        .      '</table>' . "\n\n"
+        return '<button class="claroButton" onclick="' . $onClickCommand . '">'
+        .      $text
+        .      '</button>&nbsp;' . "\n"
         ;
-        else return '';
     }
-
-
-/**
- * Allows to easily display a breadcrumb trail
- *
- * @param array $nameList bame of each breadcrumb
- * @param array $urlList url corresponding to the breadcrumb name above
- * @param string $separator (optionnal) element which segregate the breadcrumbs
- * @param string $homeImg (optionnal) source url for a home icon at the trail start
- * @return string : the build breadcrumb trail
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- */
-
-    function breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
+    else
     {
-        // trail of only one element has no sense ...
-        if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
-
-        $breadCrumbList = array();
-
-        foreach($nameList as $thisKey => $thisName)
-        {
-            if (   array_key_exists($thisKey, $urlList)
-            && ! is_null($urlList[$thisKey])       )
-            {
-                $startAnchorTag = '<a href="' . $urlList[$thisKey] . '" target="_top">';
-                $endAnchorTag   = '</a>';
-            }
-            else
-            {
-                $startAnchorTag = '';
-                $endAnchorTag   = '';
-            }
-
-            $htmlizedName = is_htmlspecialcharized($thisName)
-            ? $thisName
-            : htmlspecialchars($thisName);
-
-            $breadCrumbList [] = $startAnchorTag
-            . $htmlizedName
-            . $endAnchorTag;
-        }
-
-        // Embed the last bread crumb entry of the list.
-
-        $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
-        .end($breadCrumbList)
-        .'</strong>';
-
-        return  '<div class="breadcrumbTrail">'
-        . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
-        . implode($separator, $breadCrumbList)
-        . '</div>';
+        return '<nobr>[ <a href="' . $url . '">' . $text . '</a> ]</nobr>';
     }
+}
 
 
 /**
- * Function used to draw a progression bar
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- *
- * @param integer $progress progression in pourcent
- * @param integer $factor will be multiply by 100 to have the full size of the bar
- * (i.e. 1 will give a 100 pixel wide bar)
- */
+* Displays the title of a tool. Optionally, there can be a subtitle below
+* the normal title, and / or a supra title above the normal title.
+*
+* e.g. supra title:
+* group
+* GROUP PROPERTIES
+*
+* e.g. subtitle:
+* AGENDA
+* calender & events tool
+*
+* @author Hugues Peeters <hugues.peeters@claroline.net>
+* @param  mixed $titleElement - it could either be a string or an array
+*                               containing 'supraTitle', 'mainTitle',
+*                               'subTitle'
+* @return void
+*/
 
-    function progress_bar ($progress, $factor)
+function claro_html_tool_title($titlePart, $helpUrl = false)
+{
+    // if titleElement is simply a string transform it into an array
+
+    if ( is_array($titlePart) ) $titleElement = $titlePart;
+    else                        $titleElement['mainTitle'] = $titlePart;
+
+    $string = "\n" . '<h3 class="claroToolTitle">' . "\n";
+
+    if ($helpUrl)
     {
         global $clarolineRepositoryWeb, $imgRepositoryWeb;
-        $maxSize  = $factor * 100; //pixels
-        $barwidth = $factor * $progress ;
 
-        // display progress bar
-        // origin of the bar
-        $progressBar = '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
+        $string .= "<a href='#' onClick=\"MyWindow=window.open('". $clarolineRepositoryWeb . "help/" .$helpUrl
+        ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
 
-        if($progress != 0)
-        $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="" />';
-        // display 100% bar
-
-        if($progress!= 100 && $progress != 0)
-        $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1m.gif" width="1" height="12" alt="" />';
-
-        if($progress != 100)
-        $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
-        // end of the bar
-        $progressBar .=  '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
-
-        return $progressBar;
+        .'<img src="'.$imgRepositoryWeb.'/help.gif" '
+        .' alt ="'.get_lang('Help').'"'
+        .' align="right"'
+        .' hspace="30">'
+        .'</a>' . "\n"
+        ;
     }
+
+    if ( isset($titleElement['supraTitle']) )
+    {
+        $string .= '<small>' . $titleElement['supraTitle'] . '</small><br />' . "\n";
+    }
+
+    if ( isset($titleElement['mainTitle']) )
+    {
+        $string .= $titleElement['mainTitle'] . "\n";
+    }
+
+    if ( isset($titleElement['subTitle']) )
+    {
+        $string .= '<br /><small>' . $titleElement['subTitle'] . '</small>' . "\n";
+    }
+
+    $string .= '</h3>'."\n\n";
+
+    return $string;
+}
 
 
 /**
- * Display list of messages in substyled boxes in a message_box
- *
- * In most of cases  function message_box() is enough.
- *
- * @param array $msgArrBody of array of blocs containing array of messages
- * @author Christophe Gesché <moosh@claroline.net>
- * @version 1.0
- * @see  message_box()
- *
- *  code for using this    in your    tools:
- *  $msgArrBody["nameOfCssClass"][]="foo";
- *  css    class can be defined in    script but try to use
- *  class from    generic    css    ()
- *  error success warning
- *  ...
- *
- * @todo this mus be a message object where code add messages with a priority,
- * and the rendering is set by by priority
- *
- */
+* Prepare display of the message box appearing on the top of the window,
+* just    below the tool title. It is recommended to use this function
+* to display any confirmation or error messages, or to ask to the user
+* to enter simple parameters.
+*
+* @author Hugues Peeters <hugues.peeters@claroline.net>
+* @param string $message include your self any additionnal html
+*                        tag if you need them
+* @since 1.8
+*
+* @return string html string for a message box
+*/
 
-    function msg_list($msgArrBody, $return=true)
+function claro_html_message_box($message)
+{
+    $effectiveContent = trim(strip_tags($message));
+
+    if(!empty($effectiveContent))
+    return "\n" . '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">'
+    .      '<tr>'
+    .      '<td>'
+    .      $message
+    .      '</td>'
+    .      '</tr>'
+    .      '</table>' . "\n\n"
+    ;
+    else return '';
+}
+
+
+/**
+* Allows to easily display a breadcrumb trail
+*
+* @param array $nameList bame of each breadcrumb
+* @param array $urlList url corresponding to the breadcrumb name above
+* @param string $separator (optionnal) element which segregate the breadcrumbs
+* @param string $homeImg (optionnal) source url for a home icon at the trail start
+* @return string : the build breadcrumb trail
+*
+* @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+*/
+
+function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', $homeImg = null)
+{
+    // trail of only one element has no sense ...
+    if (count ($nameList) < 2 ) return '<div class="breadcrumbTrail">&nbsp;</div>';
+
+    $breadCrumbList = array();
+
+    foreach($nameList as $thisKey => $thisName)
     {
-        $msgBox = '';
-        if (is_array($msgArrBody) && count($msgArrBody) > 0)
+        if (   array_key_exists($thisKey, $urlList)
+        && ! is_null($urlList[$thisKey])       )
         {
-            foreach ($msgArrBody as $classMsg => $thisMsgArr)
-            {
-                if( is_array($thisMsgArr) && count($thisMsgArr) > 0 )
-                {
-                    $msgBox .= '<div class="' . $classMsg . '">';
-                    foreach ($thisMsgArr as $anotherThis) $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
-                    $msgBox .= '</div>';
-                }
-            }
-        }
-        if($return) return claro_html::message_box($msgBox);
-        else        echo   claro_html::message_box($msgBox);
-        return true;
-    }
-
-
-
-/**
- * prepare the 'option' html tag for the claro_disp_nested_select_menu()
- * function
- *
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param array $elementList
- * @param integer  $deepness (optionnal, default is 0)
- * @return array of option list
- */
-
-
-    function nestedArrayToOptionList($elementList, $deepness = 0)
-    {
-        foreach($elementList as $thisElement)
-        {
-            $tab = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $deepness);
-
-            $optionTagList[$thisElement['value']] =  $tab.$thisElement['name'] ;
-            if (   isset( $thisElement['children'] )
-            && sizeof($thisElement['children'] ) > 0)
-            {
-                $optionTagList = array_merge( $optionTagList,
-                prepare_option_tags($thisElement['children'],
-                $deepness + 1 ) );
-            }
-        }
-
-        return  $optionTagList;
-    }
-
-/**
- * prepare a mailto link
- *
- * @param string $mail
- * @param string $mailLabel
- * @return string : html stream
- */
-    function mailTo($mail,$mailLabel=null)
-    {
-        if (is_null($mailLabel)) $mailLabel = $mail;
-        $mailHtml = '<a href="mailto:' . $mail . '" class="email" >' . $mailLabel . '</a>';
-        return $mailHtml;
-    }
-
-/**
- * Insert a Wysiwyg editor inside a form instead of a textarea
- * A standard textarea is displayed if the Wysiwyg editor is disabled or if
- * the user's browser have no activated javascript support
- *
- * @param string $name content for name attribute in textarea tag
- * @param string $content optional content previously inserted into    the    area
- * @param int     $rows optional    textarea rows
- * @param int    $cols optional    textarea columns
- * @param string $optAttrib    optional - additionnal tag attributes
- *                                       (wrap, class, ...)
- * @return string html output for standard textarea or Wysiwyg editor
- *
- * @global string rootWeb from claro_main.conf.php
- * @global string rootSys from claro_main.conf.php
- * @global string langTextEditorDisable from lang file
- * @global string langTextEditorEnable from lang file
- * @global string langSwitchEditorToTextConfirm from lang file
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @author Sébastien Piraux <pir@cerdecam.be>
- */
-
-    function textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
-    {
-        global $urlAppend, $rootSys;
-        global $claro_editor;
-
-        if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
-
-        $returnString = '';
-
-        // default value of htmlEditor
-        if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
-
-        // get content if in url
-        if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
-
-        // $claro_editor is the directory name of the editor
-        $incPath = $rootSys . 'claroline/editor/' . $claro_editor;
-        $editorPath = $urlAppend . '/claroline/editor/';
-        $webPath = $editorPath . $claro_editor;
-
-        if( file_exists($incPath . '/editor.class.php') )
-        {
-            // include editor class
-            include_once $incPath . '/editor.class.php';
-
-            // editor instance
-            $editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
-
-            if (claro_is_javascript_enabled())
-            {
-                if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-                {
-                    $switchState = 'off';
-                    $message     = get_lang('Disable text editor');
-                    $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
-                }
-                else
-                {
-                    $switchState = 'on';
-                    $message     = get_lang('Enable text editor');
-                    $confirmCommand = '';
-                }
-
-                $location = '\''
-                .           $editorPath.'/editorswitcher.php?'
-                .           'switch='.$switchState
-                .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
-                .           '&areaContent='
-                .           '\''
-                .           '+escape(document.getElementById(\''.$name.'\').value)'
-                ;
-                // use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
-                $returnString .=
-                "\n".'<div align="right">'
-                .    '<small>'
-                .    '<b>'
-                .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
-                .     'onClick ="' . $confirmCommand . 'window.location='
-                .    $location . ';return(false);">'
-                .    $message
-                .    '</a>'
-                .    '</b>'
-                .    '</small>'
-                .    '</div>'."\n"
-                ;
-            }
-
-            if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-            {
-                $returnString .= $editor->getAdvancedEditor();
-            }
-            else
-            {
-                // get standard text area
-                $returnString .=
-                '<textarea '
-                .'id="'.$name.'" '
-                .'name="'.$name.'" '
-                .'style="width:100%" '
-                .'rows="'.$rows.'" '
-                .'cols="'.$cols.'" '
-                .$optAttrib.' >'
-                ."\n".$content."\n"
-                .'</textarea>'."\n";
-            }
+            $startAnchorTag = '<a href="' . $urlList[$thisKey] . '" target="_top">';
+            $endAnchorTag   = '</a>';
         }
         else
         {
-            // if the editor class doesn't exists we cannot rely on it to display
-            // the standard textarea
+            $startAnchorTag = '';
+            $endAnchorTag   = '';
+        }
+
+        $htmlizedName = is_htmlspecialcharized($thisName)
+        ? $thisName
+        : htmlspecialchars($thisName);
+
+        $breadCrumbList [] = $startAnchorTag
+        . $htmlizedName
+        . $endAnchorTag;
+    }
+
+    // Embed the last bread crumb entry of the list.
+
+    $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
+    .end($breadCrumbList)
+    .'</strong>';
+
+    return  '<div class="breadcrumbTrail">'
+    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
+    . implode($separator, $breadCrumbList)
+    . '</div>';
+}
+
+
+/**
+* Function used to draw a progression bar
+*
+* @author Piraux Sébastien <pir@cerdecam.be>
+*
+* @param integer $progress progression in pourcent
+* @param integer $factor will be multiply by 100 to have the full size of the bar
+* (i.e. 1 will give a 100 pixel wide bar)
+*/
+
+function claro_html_progress_bar ($progress, $factor)
+{
+    global $clarolineRepositoryWeb, $imgRepositoryWeb;
+    $maxSize  = $factor * 100; //pixels
+    $barwidth = $factor * $progress ;
+
+    // display progress bar
+    // origin of the bar
+    $progressBar = '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
+
+    if($progress != 0)
+    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="" />';
+    // display 100% bar
+
+    if($progress!= 100 && $progress != 0)
+    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1m.gif" width="1" height="12" alt="" />';
+
+    if($progress != 100)
+    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
+    // end of the bar
+    $progressBar .=  '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
+
+    return $progressBar;
+}
+
+
+/**
+* Display list of messages in substyled boxes in a message_box
+*
+* In most of cases  function message_box() is enough.
+*
+* @param array $msgArrBody of array of blocs containing array of messages
+* @author Christophe Gesché <moosh@claroline.net>
+* @version 1.0
+* @see  message_box()
+*
+*  code for using this    in your    tools:
+*  $msgArrBody["nameOfCssClass"][]="foo";
+*  css    class can be defined in    script but try to use
+*  class from    generic    css    ()
+*  error success warning
+*  ...
+*
+* @todo this mus be a message object where code add messages with a priority,
+* and the rendering is set by by priority
+*
+*/
+
+function claro_html_msg_list($msgArrBody, $return=true)
+{
+    $msgBox = '';
+    if (is_array($msgArrBody) && count($msgArrBody) > 0)
+    {
+        foreach ($msgArrBody as $classMsg => $thisMsgArr)
+        {
+            if( is_array($thisMsgArr) && count($thisMsgArr) > 0 )
+            {
+                $msgBox .= '<div class="' . $classMsg . '">';
+                foreach ($thisMsgArr as $anotherThis) $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
+                $msgBox .= '</div>';
+            }
+        }
+    }
+    if($return) return claro_html_message_box($msgBox);
+    else        echo   claro_html_message_box($msgBox);
+    return true;
+}
+
+
+
+/**
+* prepare the 'option' html tag for the claro_disp_nested_select_menu()
+* function
+*
+* @author Christophe Gesché <moosh@claroline.net>
+* @author Hugues Peeters <hugues.peeters@claroline.net>
+* @param array $elementList
+* @param integer  $deepness (optionnal, default is 0)
+* @return array of option list
+*/
+
+
+function claro_html_nestedArrayToOptionList($elementList, $deepness = 0)
+{
+    foreach($elementList as $thisElement)
+    {
+        $tab = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $deepness);
+
+        $optionTagList[$thisElement['value']] =  $tab.$thisElement['name'] ;
+        if (   isset( $thisElement['children'] )
+        && sizeof($thisElement['children'] ) > 0)
+        {
+            $optionTagList = array_merge( $optionTagList,
+            prepare_option_tags($thisElement['children'],
+            $deepness + 1 ) );
+        }
+    }
+
+    return  $optionTagList;
+}
+
+/**
+* prepare a mailto link
+*
+* @param string $mail
+* @param string $mailLabel
+* @return string : html stream
+*/
+function claro_html_mailTo($mail,$mailLabel=null)
+{
+    if (is_null($mailLabel)) $mailLabel = $mail;
+    $mailHtml = '<a href="mailto:' . $mail . '" class="email" >' . $mailLabel . '</a>';
+    return $mailHtml;
+}
+
+/**
+* Insert a Wysiwyg editor inside a form instead of a textarea
+* A standard textarea is displayed if the Wysiwyg editor is disabled or if
+* the user's browser have no activated javascript support
+*
+* @param string $name content for name attribute in textarea tag
+* @param string $content optional content previously inserted into    the    area
+* @param int     $rows optional    textarea rows
+* @param int    $cols optional    textarea columns
+* @param string $optAttrib    optional - additionnal tag attributes
+*                                       (wrap, class, ...)
+* @return string html output for standard textarea or Wysiwyg editor
+*
+* @global string rootWeb from claro_main.conf.php
+* @global string rootSys from claro_main.conf.php
+* @global string langTextEditorDisable from lang file
+* @global string langTextEditorEnable from lang file
+* @global string langSwitchEditorToTextConfirm from lang file
+*
+* @author Hugues Peeters <hugues.peeters@claroline.net>
+* @author Sébastien Piraux <pir@cerdecam.be>
+*/
+
+function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
+{
+    global $urlAppend, $rootSys;
+    global $claro_editor;
+
+    if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
+
+    $returnString = '';
+
+    // default value of htmlEditor
+    if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
+
+    // get content if in url
+    if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
+
+    // $claro_editor is the directory name of the editor
+    $incPath = $rootSys . 'claroline/editor/' . $claro_editor;
+    $editorPath = $urlAppend . '/claroline/editor/';
+    $webPath = $editorPath . $claro_editor;
+
+    if( file_exists($incPath . '/editor.class.php') )
+    {
+        // include editor class
+        include_once $incPath . '/editor.class.php';
+
+        // editor instance
+        $editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
+
+        if (claro_is_javascript_enabled())
+        {
+            if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+            {
+                $switchState = 'off';
+                $message     = get_lang('Disable text editor');
+                $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
+            }
+            else
+            {
+                $switchState = 'on';
+                $message     = get_lang('Enable text editor');
+                $confirmCommand = '';
+            }
+
+            $location = '\''
+            .           $editorPath.'/editorswitcher.php?'
+            .           'switch='.$switchState
+            .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
+            .           '&areaContent='
+            .           '\''
+            .           '+escape(document.getElementById(\''.$name.'\').value)'
+            ;
+            // use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
+            $returnString .=
+            "\n".'<div align="right">'
+            .    '<small>'
+            .    '<b>'
+            .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
+            .     'onClick ="' . $confirmCommand . 'window.location='
+            .    $location . ';return(false);">'
+            .    $message
+            .    '</a>'
+            .    '</b>'
+            .    '</small>'
+            .    '</div>'."\n"
+            ;
+        }
+
+        if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
+        {
+            $returnString .= $editor->getAdvancedEditor();
+        }
+        else
+        {
+            // get standard text area
             $returnString .=
             '<textarea '
             .'id="'.$name.'" '
@@ -582,11 +564,24 @@ class claro_html
             ."\n".$content."\n"
             .'</textarea>'."\n";
         }
-
-        return $returnString;
+    }
+    else
+    {
+        // if the editor class doesn't exists we cannot rely on it to display
+        // the standard textarea
+        $returnString .=
+        '<textarea '
+        .'id="'.$name.'" '
+        .'name="'.$name.'" '
+        .'style="width:100%" '
+        .'rows="'.$rows.'" '
+        .'cols="'.$cols.'" '
+        .$optAttrib.' >'
+        ."\n".$content."\n"
+        .'</textarea>'."\n";
     }
 
-
+    return $returnString;
 }
 
 /**
@@ -1172,14 +1167,14 @@ function make_clickable($text)
  * @return string html output for standard textarea or Wysiwyg editor
  *
  * @deprecated would be removed after 1.8
- * @see claro_html::textarea_editor
+ * @see claro_html_textarea_editor
  *
  */
 function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_html_area is deprecated, use claro_html::textarea_editor', E_USER_WARNING);
+    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_html_area is deprecated, use claro_html_textarea_editor', E_USER_WARNING);
     // becomes a alias while the function call is not replaced by the new one
-    return claro_html::textarea_editor($name,$content,$rows,$cols,$optAttrib);
+    return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
 }
 
 
@@ -1201,15 +1196,15 @@ function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttr
  * @author Sébastien Piraux <pir@cerdecam.be>
  *
  * @deprecated would be removed after 1.8
- * @see claro_html::textarea_editor
+ * @see claro_html_textarea_editor
  *
  */
 
 function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html::tool_title', E_USER_WARNING);
+    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html_tool_title', E_USER_WARNING);
 
-    return claro_html::textarea_editor($name, $content, $rows, $cols, $optAttrib);
+    return claro_html_textarea_editor($name, $content, $rows, $cols, $optAttrib);
 }
 
 /**
@@ -1223,14 +1218,14 @@ function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
  * @return void
  *
  * @deprecated in 1.8
- * @see claro_html::tool_title($titlePart, $helpUrl);
+ * @see claro_html_tool_title($titlePart, $helpUrl);
  */
 
 function claro_disp_tool_title($titlePart, $helpUrl = false)
 {
-    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_tool_title is deprecated, use claro_html::tool_title', E_USER_WARNING);
+    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_tool_title is deprecated, use claro_html_tool_title', E_USER_WARNING);
 
-    return claro_html::tool_title($titlePart, $helpUrl);
+    return claro_html_tool_title($titlePart, $helpUrl);
 }
 
 ?>

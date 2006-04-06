@@ -854,7 +854,7 @@ else
 	$pageTitle['subTitle'] = get_lang('User') . ' : ' . $authName . "\n";
 	if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../user/userInfo.php?uInfo='.$_REQUEST['authId'].'">'.get_lang('View user data').'</a>)</small>'."\n";
 }
-echo claro_html::tool_title($pageTitle);
+echo claro_html_tool_title($pageTitle);
 
 /*--------------------------------------------------------------------
                           FORMS
@@ -863,7 +863,7 @@ if( $is_allowedToSubmit )
 {
 	if ($dialogBox)
 	{
-		echo claro_html::message_box($dialogBox);
+		echo claro_html_message_box($dialogBox);
 	}
 
 	if( $dispWrkForm )
@@ -1085,14 +1085,14 @@ if( $is_allowedToSubmit )
             }
             elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
             {
-                  // display enhanced textarea using claro_html::textarea_editor
+                  // display enhanced textarea using claro_html_textarea_editor
                   echo '<tr>'."\n"
                         .'<td valign="top">'
                         .'<label for="wrkTxt">'
                         .get_lang('Answer')
                         .'&nbsp;*&nbsp;:</label></td>'."\n"
                         .'<td>'
-                        .claro_html::textarea_editor('wrkTxt', htmlspecialchars($form['wrkTxt']))
+                        .claro_html_textarea_editor('wrkTxt', htmlspecialchars($form['wrkTxt']))
                         .'</td>'."\n"
                         .'</tr>'."\n\n";
             }

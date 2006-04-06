@@ -73,7 +73,7 @@ $interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => get_lang('Administ
 
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // display result
 

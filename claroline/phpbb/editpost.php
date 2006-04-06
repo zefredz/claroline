@@ -192,11 +192,11 @@ include $includePath . '/claro_init_header.inc.php';
     
 // Forum Title
 
-echo claro_html::tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
+echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed || !$is_allowedToEdit )
 {
-      echo claro_html::message_box($error_message); 
+      echo claro_html_message_box($error_message); 
 }
 else
 {
@@ -217,7 +217,7 @@ else
 
         if ( $error )
         {
-            echo claro_html::message_box($error_message);
+            echo claro_html_message_box($error_message);
         }
 
         disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0);
@@ -247,7 +247,7 @@ else
         echo '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . get_lang('Message body') . ' : </td>' . "\n"
             . '<td>' . "\n"
-            .claro_html::textarea_editor('message', htmlspecialchars($message))
+            .claro_html_textarea_editor('message', htmlspecialchars($message))
             .'</td>' . "\n"
             . '</tr>' . "\n"
 

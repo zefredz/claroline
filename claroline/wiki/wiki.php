@@ -237,7 +237,7 @@
                 . '</label><br />'."\n"
                 . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
                 . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
-                . claro_html::button($_SERVER['PHP_SELF'], get_lang("Cancel"))
+                . claro_html_button($_SERVER['PHP_SELF'], get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
                 
@@ -481,11 +481,11 @@
         }
     }
     
-    echo claro_html::tool_title( $toolTitle, "../wiki/help_wiki.php?help=admin" ) . "\n";
+    echo claro_html_tool_title( $toolTitle, "../wiki/help_wiki.php?help=admin" ) . "\n";
 
     if ( ! empty( $message ) )
     {
-        echo claro_html::message_box( $message ) . "\n";
+        echo claro_html_message_box( $message ) . "\n";
     }
 
     switch( $action )
@@ -515,7 +515,7 @@
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
                 . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
-                . claro_html::button ($_SERVER['PHP_SELF'], get_lang("Cancel") )
+                . claro_html_button ($_SERVER['PHP_SELF'], get_lang("Cancel") )
                 . '</div>'
                 ;
 

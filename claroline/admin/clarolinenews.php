@@ -52,7 +52,7 @@ $rss->cache_time = 1200;
 //----------------------------------
 // title variable
 include $includePath . '/claro_init_header.inc.php';
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 if ($rs = $rss->get($urlNewsClaroline))
 {
@@ -82,7 +82,7 @@ if ($rs = $rss->get($urlNewsClaroline))
 }
 else
 {
-    echo claro_html::message_box(get_lang('Error : cannot read RSS feed'));
+    echo claro_html_message_box(get_lang('Error : cannot read RSS feed'));
 }
 
 include $includePath . '/claro_init_footer.inc.php';

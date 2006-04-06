@@ -91,13 +91,13 @@ $display = ( $is_allowedToCheckProblems) ? DISP_RESULT : DISP_NOT_ALLOWED;
 ////////////// OUTPUT ///////////////
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_html::tool_title( $nameTools );
+echo claro_html_tool_title( $nameTools );
 
 switch ($display)
 {
     case DISP_NOT_ALLOWED :
     {
-        echo claro_html::message_box(get_lang('Not allowed'));
+        echo claro_html_message_box(get_lang('Not allowed'));
     } break;
 
     case DISP_RESULT :

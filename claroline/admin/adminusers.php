@@ -128,7 +128,7 @@ foreach ($userList as $userKey => $user)
     }
 
     $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
-    $userGrid[$userKey]['email'] = claro_html::mailTo($user['email'], $userEmailLabel);
+    $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
 
     $userGrid[$userKey]['status'] =  ($user['status']=='COURSE_CREATOR' ? get_lang('Course creator') : get_lang('User'));
 
@@ -212,11 +212,11 @@ $htmlHeadXtra[] =
 include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
-echo claro_html::tool_title($nameTools) . "\n\n";
+echo claro_html_tool_title($nameTools) . "\n\n";
 
 //Display Forms or dialog box(if needed)
 
-if( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
+if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 //Display selectbox and advanced search link
 

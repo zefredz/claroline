@@ -273,7 +273,7 @@ if(isset($modifyIn) && $modifyIn == 'thisExercise')
 
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 if (isset($newQuestion) || (isset($modifyQuestion)))
 {

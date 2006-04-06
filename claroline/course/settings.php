@@ -254,8 +254,8 @@ else
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools);
-if ( ! empty ($dialogBox) ) echo claro_html::message_box($dialogBox);
+echo claro_html_tool_title($nameTools);
+if ( ! empty ($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 
 
@@ -337,7 +337,7 @@ if ( isset($cfrom) && ($is_platformAdmin) )
 }
 
 
-echo claro_html::menu_horizontal($links);
+echo claro_html_menu_horizontal($links);
 
 // Display form
 
@@ -459,12 +459,12 @@ if (isset($cidToEdit))
 <td>
 <input type="submit" name="changeProperties" value=" <?php echo get_lang('Ok') ?> ">
 <?php
-echo claro_html::button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
+echo claro_html_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '</table>' . "\n"
 .    '</form>' . "\n"
-.    claro_html::menu_horizontal($links)
+.    claro_html_menu_horizontal($links)
 ;
 // Display footer
 include $includePath . '/claro_init_footer.inc.php' ;

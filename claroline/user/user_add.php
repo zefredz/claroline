@@ -190,14 +190,14 @@ if ( $platformRegSucceed || $courseRegSucceed )
 // display header
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_html::tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
+echo claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
                 'help_user.php');
 
 // message box
 
 if ( count($messageList) > 0 )
 {
-    echo claro_html::message_box( implode('<br />', $messageList) );
+    echo claro_html_message_box( implode('<br />', $messageList) );
 }
 
 if ( $platformRegSucceed )

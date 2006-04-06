@@ -147,7 +147,7 @@ function commentBox($type, $mode)
             $oldComment = claro_sql_query_get_single_value($sql);
 
             echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
-                .claro_html::textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
+                .claro_html_textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
                 .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
                 .'<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
                 .'<br />' . "\n"
@@ -648,7 +648,7 @@ function display_my_exercises($dialogBox)
     $colspan = 4;
     if( !empty($dialogBox) )
     {
-        echo claro_html::message_box($dialogBox).'<br />'."\n";
+        echo claro_html_message_box($dialogBox).'<br />'."\n";
     }
     echo '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
@@ -780,7 +780,7 @@ function display_my_documents($dialogBox)
     $colspan = 4;
     if( !empty($dialogBox) )
     {
-        echo claro_html::message_box($dialogBox);
+        echo claro_html_message_box($dialogBox);
     }
     /*--------------------------------------
     CURRENT DIRECTORY LINE

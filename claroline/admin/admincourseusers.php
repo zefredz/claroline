@@ -202,10 +202,10 @@ if (isset($cfrom) && ($cfrom=='clist'))
  */
 
 include($includePath . '/claro_init_header.inc.php');
-echo claro_html::tool_title($nameTools);
-if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+echo claro_html_tool_title($nameTools);
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo claro_html::menu_horizontal($command_list)
+echo claro_html_menu_horizontal($command_list)
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 .    claro_disp_datagrid($userDataList, $dg_opt_list)
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)

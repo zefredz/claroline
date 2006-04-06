@@ -97,7 +97,7 @@
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $location, "action", "show" );
 
-        $out .= claro_html::button ( $location, get_lang("Cancel") );
+        $out .= claro_html_button ( $location, get_lang("Cancel") );
         
         $out .= '</div>' . "\n";
 
@@ -129,7 +129,7 @@
         
         $out .= '</div>' . "\n";
         
-        $out .= claro_html::message_box( '<small>'
+        $out .= claro_html_message_box( '<small>'
             . get_lang("WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.")
             . '</small>' )
             . "\n";
@@ -192,7 +192,7 @@
         $location = add_request_variable_to_url( $location, "title", $title );
         $location = add_request_variable_to_url( $location, "action", "show" );
         
-        $out .= claro_html::button ( $location, get_lang("Cancel") );
+        $out .= claro_html_button ( $location, get_lang("Cancel") );
         
         $out .= "</form></div>\n";
         
@@ -310,7 +310,7 @@
         }
         
         $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Save") . '" />' . "\n"
-            . claro_html::button ( $_SERVER['PHP_SELF'] . '?action=list', get_lang("Cancel") ) . "\n"
+            . claro_html_button ( $_SERVER['PHP_SELF'] . '?action=list', get_lang("Cancel") ) . "\n"
             ;
             
         $form .= '</div>' . "\n"

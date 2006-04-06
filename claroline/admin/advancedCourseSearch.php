@@ -77,7 +77,7 @@ include($includePath . '/claro_init_header.inc.php' );
 
 //tool title
 
-echo claro_html::tool_title($nameTools . ' : ');
+echo claro_html_tool_title($nameTools . ' : ');
 
 ?>
 

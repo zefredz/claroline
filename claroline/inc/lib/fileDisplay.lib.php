@@ -306,7 +306,7 @@ function claro_disp_document_breadcrumb($curDirPath)
     // remove the url on the last (current) element
     $breadcrumbUrlList[ count($breadcrumbUrlList) - 1] = null;
 
-    return claro_html::breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList);
+    return claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList);
 }
 
 ?>

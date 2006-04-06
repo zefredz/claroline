@@ -91,7 +91,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display title
 
-echo claro_html::tool_title( array('mainTitle'=>$nameTools ) );
+echo claro_html_tool_title( array('mainTitle'=>$nameTools ) );
 
 if ( $cmd == 'registration' && $error == false )
 {
@@ -120,7 +120,7 @@ else
 {
     //  if registration failed display error message
 
-    if ( count($messageList) > 0 ) echo claro_html::message_box( implode('<br />', $messageList) );
+    if ( count($messageList) > 0 ) echo claro_html_message_box( implode('<br />', $messageList) );
 
     echo get_lang('New users will receive an e-mail with their user name and password');
 

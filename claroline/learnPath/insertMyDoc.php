@@ -128,7 +128,7 @@ function buildRequestModules()
 
 // display title
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // FORM SENT
 /*
@@ -450,7 +450,7 @@ display_my_documents($dialogBox) ;
 //################################## MODULES LIST ####################################\\
 //####################################################################################\\
 
-echo claro_html::tool_title(get_lang('Learning path content'));
+echo claro_html_tool_title(get_lang('Learning path content'));
 echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path

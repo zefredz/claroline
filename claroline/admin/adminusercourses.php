@@ -194,13 +194,13 @@ if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back t
 //----------------------------------
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
-if( isset($dialogBox) && !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+if( isset($dialogBox) && !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo claro_html::menu_horizontal($cmdList)
+echo claro_html_menu_horizontal($cmdList)
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
 .    $userCourseDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)

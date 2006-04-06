@@ -185,7 +185,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 if ( ! $allowed )
 {
-    echo claro_html::message_box($error_message);
+    echo claro_html_message_box($error_message);
 }
 else
 {
@@ -198,7 +198,7 @@ else
     $is_allowedToEdit = claro_is_allowed_to_edit() 
                         || ( $is_groupTutor && !$is_courseAdmin);
     
-    echo claro_html::tool_title(get_lang('Forums'), 
+    echo claro_html_tool_title(get_lang('Forums'), 
                           $is_allowedToEdit ? 'help_forum.php' : false);
         
     if ($forum_post_allowed)

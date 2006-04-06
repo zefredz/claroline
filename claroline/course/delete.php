@@ -71,7 +71,7 @@ else
 }        // end else if $delete
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 switch ($display)
 {
@@ -89,7 +89,7 @@ switch ($display)
                                                                                        '%course_code' => $currentCourseCode))
         .    '</p>'
 
-        .    claro_html::menu_horizontal($cmd_menu)
+        .    claro_html_menu_horizontal($cmd_menu)
         ;
     }   break;
 

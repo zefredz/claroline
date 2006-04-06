@@ -361,7 +361,7 @@ include $includePath . '/claro_init_header.inc.php' ;
                     TOOL TITLE
     --------------------------------------------------------------------*/
 
-echo claro_html::tool_title($nameTools, $is_allowedToEdit ? 'help_work.php' : false);
+echo claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_work.php' : false);
 
 
 if ($is_allowedToEdit)
@@ -373,7 +373,7 @@ if ($is_allowedToEdit)
 
     if ( isset($dialogBox) && !empty($dialogBox) )
     {
-        echo claro_html::message_box($dialogBox);
+        echo claro_html_message_box($dialogBox);
     }
 
     /*--------------------------------------------------------------------
@@ -403,7 +403,7 @@ if ($is_allowedToEdit)
         <td valign="top"><label for="description"><?php echo get_lang('Description'); ?>&nbsp;:<br /></label></td>
         <td>
 <?php
-    echo claro_html::textarea_editor('description', htmlspecialchars($assignment->getDescription()));
+    echo claro_html_textarea_editor('description', htmlspecialchars($assignment->getDescription()));
 ?>
         </td>
       </tr>
@@ -482,7 +482,7 @@ if ($is_allowedToEdit)
         <td>&nbsp;</td>
         <td>
           <input type="submit" name="submitAssignment" value="<?php echo get_lang('Ok'); ?>">
-          <?php echo claro_html::button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')); ?>
+          <?php echo claro_html_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')); ?>
         </td>
       </tr>
       </table>

@@ -482,7 +482,7 @@ function utf8_decode_if_is_utf8($str) {
 
 // main page
 
-echo claro_html::tool_title(get_lang('Import a learning path'));
+echo claro_html_tool_title(get_lang('Import a learning path'));
 
 // init msg arays
 $okMsgs   = array();

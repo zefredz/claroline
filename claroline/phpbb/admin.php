@@ -60,7 +60,7 @@ if ( $cmd == 'rqMkCat' )
                .  '<input type="text" name="catName" id="catName"'
                .  ' value="' . $catName . '" /><br />'."\n"
                .  '<input type="submit" value="'.get_lang('Ok').'" /> '
-               .  claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+               .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'
                .  "\n";
 }
@@ -139,7 +139,7 @@ if ( $cmd == 'rqMkForum' )
                .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
                .'<br />'."\n"
                .'<input type="submit" value="'.get_lang('Ok').'" />'."\n"
-               . claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+               . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 }
 
@@ -178,7 +178,7 @@ if ( $cmd == 'rqEdCat' )
                .  '<input type="text" name="catName" id="catName"'
                .  ' value="'.$categorySettingList['cat_title'].'" /><br />'."\n"
                .  '<input type="submit" value="'.get_lang('Ok').'" /> '
-               .  claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+               .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'."\n"
                .  "\n";
     }   
@@ -271,7 +271,7 @@ if ( $cmd == 'rqEdForum' )
                .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
                .'<br />'."\n"
                .'<input type="submit" value="'.get_lang('Ok').'" /> '."\n"
-               . claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+               . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 
 }

@@ -178,12 +178,12 @@ $noPHP_SELF       = true;
 include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
-echo claro_html::tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
+echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( ! $allowed )
 {
     // not allowed
-    echo claro_html::message_box($error_message);
+    echo claro_html_message_box($error_message);
 }
 else
 {
@@ -200,7 +200,7 @@ else
         if ( $error )
         {
             // display error message
-            echo claro_html::message_box($error_message);
+            echo claro_html_message_box($error_message);
         }
 
         disp_forum_toolbar($pagetype, $forum_id, 0, 0);
@@ -221,7 +221,7 @@ else
         else                    $content = '';
 
         echo '<td>'
-            .claro_html::textarea_editor('message',$content)
+            .claro_html_textarea_editor('message',$content)
             .'</td>'
             . '</tr>'
             . '<tr  valign="top"><td>&nbsp;</td>'

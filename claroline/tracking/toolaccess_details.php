@@ -81,7 +81,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         if( isset($toolNameList[$result[0]['label']]) )
             $title['subTitle'] = $toolNameList[$result[0]['label']];
 
-    echo claro_html::tool_title( $title );
+    echo claro_html_tool_title( $title );
 
     echo '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n";
 

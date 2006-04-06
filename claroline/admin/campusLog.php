@@ -54,7 +54,7 @@ $limitBeforeUnused = "INTERVAL 6 MONTH";
 $is_allowedToTrack     = $is_platformAdmin;
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_html::tool_title(
+echo claro_html_tool_title(
     array(
     'mainTitle'=>$nameTools,
     )

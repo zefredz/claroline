@@ -1,13 +1,13 @@
-<?php # $Id$
+<?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_home/course_home.php
  *
  * @package CLHOME
@@ -22,10 +22,7 @@
 $gidReset = TRUE;
 $tidReset = TRUE;
 
-if ( isset($_REQUEST['cid']) )
-{
-    $cidReq = $_REQUEST['cid']; 
-}
+if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
 
 require '../inc/claro_init_global.inc.php';
 
@@ -78,20 +75,6 @@ $accessLevelList = array( 'ALL'            => 0
                         , 'COURSE_ADMIN'   => 3
                         , 'PLATFORM_ADMIN' => 4
                         );
-
-/**
- * TOOL LIST
- */
-
-$is_allowedToEdit = claro_is_allowed_to_edit();
-$disp_edit_command = $is_allowedToEdit;
-
-if     ($is_platformAdmin && $is_allowedToEdit) $reqAccessLevel   = 'PLATFORM_ADMIN';
-elseif ($is_allowedToEdit                     ) $reqAccessLevel   = 'COURSE_ADMIN';
-else                                            $reqAccessLevel   = 'ALL';
-
-$toolList = claro_get_course_tool_list($_cid, $reqAccessLevel, true);
-
 // get tool id where new events have been recorded since last login
 
 if (isset($_uid))
@@ -101,11 +84,19 @@ if (isset($_uid))
 }
 else $modified_tools = array();
 
-?>
-<table border="0" cellspacing="10" cellpadding="10" width="100%">
-<tr>
-<td valign="top" style="border-right: gray solid 1px;" width="220">
-<?php
+/**
+ * TOOL LIST
+ */
+
+$is_allowedToEdit = claro_is_allowed_to_edit();
+$disp_edit_command = $is_allowedToEdit;
+
+
+if     ($is_platformAdmin && $is_allowedToEdit) $reqAccessLevel   = 'PLATFORM_ADMIN';
+elseif ($is_allowedToEdit                     ) $reqAccessLevel   = 'COURSE_ADMIN';
+else                                            $reqAccessLevel   = 'ALL';
+
+$toolList = claro_get_course_tool_list($_cid, $reqAccessLevel, true);
 
 foreach($toolList as $thisTool)
 {
@@ -113,107 +104,84 @@ foreach($toolList as $thisTool)
     $url      = trim($thisTool['url']);
     $icon     = $imgRepositoryWeb . $thisTool['icon'];
 
-    if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
-    {
-        $style = 'invisible ';
-    }
-    else
-    {
-        $style = '';
-    }
+    $style = ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL']) ? 'invisible ' : '';
+    $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';
 
-    // see if tool name must be displayed as "containing new item" or not
-
-    if (isset($_uid) && in_array($thisTool['id'], $modified_tools))
-    {
-        $classItem = " hot";
-    }
-    else // otherwise just display its name normally
-    {
-        $classItem = "";
-    }
-
-        //deal with specific case of group tool
-
-    if (isset($_uid) && ($thisTool['label']=="CLGRP___"))
+    //deal with specific case of group tool
+    if (is_null('_uid') && ('CLGRP___' == $thisTool['label']))
     {
         // we must notify if there is at least one group containing notification
-
         $groups = $claro_notifier->get_notified_groups($_cid, $date);
-        $classItem = ( ! empty($groups) ) ? ' hot' : '';
+        $classItem = ( ! empty($groups) ) ? ' hot ' : '';
     }
 
     if ( ! empty($url) )
     {
-        echo ' <a class="' . $style . 'item'.$classItem.'" href="' . $url . '">'
-        .    '<img src="' . $icon . '" alt="">'
-        .    $toolName
-        .    '</a>'
-        .    '<br />' . "\n"
+        $toolLinkList[] = '<a class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
+        .                 '<img src="' . $icon . '" alt="">'
+        .                 $toolName
+        .                 '</a>' . "\n"
         ;
     }
     else
     {
-        echo '<span ' . $style . '>'
-        .    '<img src="' . $icon . '" alt="">'
-        .    $toolName
-        .    '</span><br />' . "\n"
+        $toolLinkList[] = '<span ' . $style . '>'
+        .                 '<img src="' . $icon . '" alt="">'
+        .                 $toolName
+        .                 '</span>' . "\n"
         ;
     }
 }
 
-if ($disp_edit_command)
-{
-    /*----------------------------------------------------------------------------
-    COURSE ADMINISTRATION SECTION
-    ----------------------------------------------------------------------------*/
-
-    echo '<p>' . "\n"
-    .    '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/tools.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt=""> '
-    .    get_lang('Edit Tool list')
-    .    '</a><br />' . "\n"
-    .    '<a class="claroCmd" href="' . $toolRepository . 'course/settings.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt=""> '
-    .    get_lang('Course settings')
-    .    '</a><br />' . "\n"
-    .    '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt=""> '
-    .    get_lang('Statistics')
-    .    '</a>' . "\n"
-    .    '</p>'
+    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/tools.php">'
+    .                             '<img src="' . $imgRepositoryWeb . 'edit.gif" alt=""> '
+    .                             get_lang('Edit Tool list')
+    .                             '</a>'
     ;
-}
+    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . $toolRepository . 'course/settings.php">'
+    .                             '<img src="' . $imgRepositoryWeb . 'settings.gif" alt=""> '
+    .                             get_lang('Course settings')
+    .                             '</a>'
+    ;
 
-if ( isset($_uid) ) echo '<br /><small><span class="item hot"> '. get_lang('denotes new items') . '</span></small>';
-
-?>
-</td>
-<td width="20">
-&nbsp;
-</td>
-<td valign="top">
-<?php
+    $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php">'
+    .                             '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt=""> '
+    .                             get_lang('Statistics')
+    .                             '</a>'
+    ;
 
 
+echo '<table border="0" cellspacing="10" cellpadding="10" width="100%">' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top" style="border-right: gray solid 1px;" width="220">' . "\n"
+.    claro_html_menu_vertical_br($toolLinkList)
+.    '<br />'
+;
 
+if ($disp_edit_command) echo claro_html_menu_vertical_br($courseManageToolLinkList);
+
+if ( !is_null(get_init('_uid') )) echo '<br /><small><span class="item hot"> '. get_lang('denotes new items') . '</span></small>';
+
+echo '</td>' . "\n"
+.    '<td width="20">' . "\n"
+.    '&nbsp;' . "\n"
+.    '</td>' . "\n"
+.    '<td valign="top">' . "\n"
+;
 
 /*----------------------------------------------------------------------------
 INTRODUCTION TEXT SECTION
 ----------------------------------------------------------------------------*/
-
 // the module id for course_home equal -1 (course_home is not a tool in tool_list)
 
 $moduleId = -1;
 $helpAddIntroText=get_block('blockIntroCourse');
 include($includePath . '/introductionSection.inc.php');
 
-?>
-</td>
-</tr>
-</table>
+echo '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
+;
 
-
-<?php
 include $includePath . '/claro_init_footer.inc.php';
 ?>

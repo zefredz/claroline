@@ -257,9 +257,9 @@ $nameTools = get_lang('Feedback');
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
-if ($dialogBox) echo claro_html::message_box($dialogBox);
+if ($dialogBox) echo claro_html_message_box($dialogBox);
 /**
  * FEEDBACK FORM
  */
@@ -290,7 +290,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_html::textarea_editor('autoFeedbackText', htmlspecialchars($form['autoFeedbackText']))
+    .    claro_html_textarea_editor('autoFeedbackText', htmlspecialchars($form['autoFeedbackText']))
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     ;
@@ -356,7 +356,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
     .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">' . "\n"
-    .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+    .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     .    '</table>' . "\n"

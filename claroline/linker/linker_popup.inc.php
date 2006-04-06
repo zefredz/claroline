@@ -156,7 +156,7 @@ if ($isToolAllowed)
         {
             $res = new Resolver('');
             $title = $res->getResourceName($crl);
-            echo claro_html::message_box('[' . $title . ']' . get_lang(" is already attached"));
+            echo claro_html_message_box('[' . $title . ']' . get_lang(" is already attached"));
         }
 
         if($current_crl != $crl)

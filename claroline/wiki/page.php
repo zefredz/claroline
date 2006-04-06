@@ -778,11 +778,11 @@
         }
     }
     
-    echo claro_html::tool_title( $toolTitle, false );
+    echo claro_html_tool_title( $toolTitle, false );
     
     if ( !empty($message) )
     {
-        echo claro_html::message_box($message) . "\n";
+        echo claro_html_message_box($message) . "\n";
     }
     
     // Check javascript
@@ -959,7 +959,7 @@
             
             $message = get_block('blockWikiConflictHowTo');
                 
-            echo claro_html::message_box ( $message ) . '<br />' . "\n";
+            echo claro_html_message_box ( $message ) . '<br />' . "\n";
             
             echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="POST">';
             echo '<textarea name="conflictContent" id="content"'
@@ -976,7 +976,7 @@
                 . '&amp;title=' . $title
                 . '&amp;action=show'
                 ;
-            echo claro_html::button( $url, get_lang("Cancel") ) . "\n";
+            echo claro_html_button( $url, get_lang("Cancel") ) . "\n";
             echo '</div>' . "\n";
             echo '</form>';
             break;
@@ -1440,10 +1440,10 @@
                 . '</label><br />'."\n"
                 . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
                 . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
-                . claro_html::button($_SERVER['PHP_SELF'].'?wikiId='.$wikiId, get_lang("Cancel"))
+                . claro_html_button($_SERVER['PHP_SELF'].'?wikiId='.$wikiId, get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
-            echo claro_html::message_box($searchForm) . "\n";
+            echo claro_html_message_box($searchForm) . "\n";
             break;
         }
         default:

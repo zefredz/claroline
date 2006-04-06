@@ -806,7 +806,7 @@ function claro_die($message)
 
     echo '<table align="center">'
     .    '<tr><td>'
-    .    claro_html::message_box($message)
+    .    claro_html_message_box($message)
     .    '</td></tr>'
     .    '</table>'
     ;

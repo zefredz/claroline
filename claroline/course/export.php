@@ -66,9 +66,9 @@ $nameTools = get_lang('Export course');
 // Display 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
-if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=doExport">'. get_lang('Export this course') . '</a>';
 

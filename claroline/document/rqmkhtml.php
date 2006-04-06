@@ -37,7 +37,7 @@ else                            $cwd = '';
 $nameTools = get_lang('Create/edit document');
 include '../inc/claro_init_header.inc.php';
 
-echo claro_html::tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('Create/edit document')));
+echo claro_html_tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('Create/edit document')));
 
 /*========================================================================
                              CREATE DOCUMENT
@@ -57,14 +57,14 @@ if ($cmd ==  'rqMkHtml' )
     <?php
     if (!empty($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
     
-    echo claro_html::textarea_editor('htmlContent',$content);
+    echo claro_html_textarea_editor('htmlContent',$content);
     
     // the second argument _REQUEST['htmlContent'] for the case when we have to 
     // get to the editor because of an error at creation 
     // (eg forgot to give a file name)
     ?> 
     <input type="submit" value="<?php echo get_lang('Ok'); ?>" />
-    <?php echo claro_html::button('./document.php?cmd=exChDir&amp;file='.$cwd, get_lang('Cancel')); ?>
+    <?php echo claro_html_button('./document.php?cmd=exChDir&amp;file='.$cwd, get_lang('Cancel')); ?>
     </form>
     <?php
 }
@@ -91,10 +91,10 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     <p>
     <b><?php echo get_lang('Document content') ?> : </b>
     <?php
-    echo claro_html::textarea_editor('htmlContent', $fileContent );
+    echo claro_html_textarea_editor('htmlContent', $fileContent );
     ?>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>">
-    <?php echo claro_html::button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>
+    <?php echo claro_html_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>
     </form>
     <?php
 }

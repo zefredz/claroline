@@ -120,18 +120,18 @@ include $includePath . '/claro_init_header.inc.php';
 switch ($view)
 {
     case DISP_ANALYSE :
-        echo claro_html::tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
-        .    claro_html::msg_list($analyseTreeResultMsg, 1)
+        echo claro_html_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
+        .    claro_html_msg_list($analyseTreeResultMsg, 1)
         .    $dgDataAnalyseResult->render()
-        .    ($errorCounter?claro_html::button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
-        .    claro_html::tool_title('Course ownance')
+        .    ($errorCounter?claro_html_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
+        .    claro_html_tool_title('Course ownance')
         .    $dgCourseOwnanceCheck->render()
         ;
         break;
     case  DISP_REPAIR_RESULT :
-        echo claro_html::tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
-        .    claro_html::msg_list($repairResultMsg, 1)
-        .    claro_html::button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
+        echo claro_html_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
+        .    claro_html_msg_list($repairResultMsg, 1)
+        .    claro_html_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
         ;
 
         break;
@@ -161,7 +161,6 @@ function checkCourseOwnance()
         WHERE f.id IS null ";
     if (($res =  claro_sql_query_fetch_all($sql))) return $res;
     else                                           return claro_failure::set_failure('QUERY_ERROR'.__LINE__);
-
 
 
 }

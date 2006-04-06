@@ -77,7 +77,7 @@ $interbredcrump[] = array ('url' => $urlMaintenance, 'name' => get_lang('Mainten
 
 include($includePath.'/claro_init_header.inc.php');
 
-claro_html::tool_title($nameTools);
+claro_html_tool_title($nameTools);
 
 //echo '<h3>Claroline version: ' . $clarolineVersion . '</h3>' . "\n";
 

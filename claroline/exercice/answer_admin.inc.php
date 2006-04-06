@@ -639,7 +639,7 @@ if( isset($modifyAnswers) )
             // if there is an error message
             if(!empty($msgErr))
             {
-                echo claro_html::message_box($msgErr);
+                echo claro_html_message_box($msgErr);
             }
 ?>
 
@@ -746,7 +746,7 @@ if( isset($modifyAnswers) )
 
 <?php
                 // if there is an error message
-                if(!empty($msgErr)) echo claro_html::message_box($msgErr);
+                if(!empty($msgErr)) echo claro_html_message_box($msgErr);
 ?>
 <p>
     <?php echo get_lang('Please type your text below').', '.get_lang('use brackets [...] to define one or more blanks'); ?>&nbsp;:
@@ -786,7 +786,7 @@ if( isset($modifyAnswers) )
                 // if there is an error message
                 if(!empty($msgErr))
                 {
-                    echo claro_html::message_box($msgErr);
+                    echo claro_html_message_box($msgErr);
                 }
 ?>
 <p>
@@ -843,7 +843,7 @@ if( isset($modifyAnswers) )
 <?php
 
             // if there is an error message
-            if(!empty($msgErr)) echo claro_html::message_box($msgErr);
+            if(!empty($msgErr)) echo claro_html_message_box($msgErr);
 
             $listeOptions=Array();
 

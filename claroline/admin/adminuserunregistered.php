@@ -76,16 +76,16 @@ $cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $use
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title(get_lang('User unregistered'));
+echo claro_html_tool_title(get_lang('User unregistered'));
 
 // Display Forms or dialog box(if needed)
 
 if ( !empty($dialogBox) )
 {
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
-echo claro_html::menu_horizontal($cmd_menu);
+echo claro_html_menu_horizontal($cmd_menu);
 
 // Display footer
 

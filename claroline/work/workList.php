@@ -411,7 +411,7 @@ $showAfterPost = (bool)
   */
 
 include $includePath . '/claro_init_header.inc.php';
-echo claro_html::tool_title($pageTitle);
+echo claro_html_tool_title($pageTitle);
 
 /**
  * ASSIGNMENT INFOS

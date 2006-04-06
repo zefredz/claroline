@@ -296,15 +296,15 @@ Display section
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
+echo claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)
 
-if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 // Display tool links
-if ( $disp_tool_link ) echo claro_html::menu_horizontal($userMenu);
+if ( $disp_tool_link ) echo claro_html_menu_horizontal($userMenu);
 
 
 /*----------------------------------------------------------------------

@@ -157,13 +157,13 @@ $pagetype  = 'reply';
 
 $is_allowedToEdit = claro_is_allowed_to_edit(); 
 
-echo claro_html::tool_title(get_lang('Forums'), 
+echo claro_html_tool_title(get_lang('Forums'), 
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed )
 {
     // not allowed
-    echo claro_html::message_box($error_message);
+    echo claro_html_message_box($error_message);
 }
 else
 {
@@ -177,7 +177,7 @@ else
     {
         if ( $error )
         {
-            echo claro_html::message_box($error_message);
+            echo claro_html_message_box($error_message);
         }
 
         disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id);
@@ -191,7 +191,7 @@ else
             . '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . get_lang('Message body') . '&nbsp;:</td>'
             . '<td>'
-            .claro_html::textarea_editor('message', htmlspecialchars($message))
+            .claro_html_textarea_editor('message', htmlspecialchars($message))
             .'</td>'
             . '</tr>'
             . '<tr valign="top"><td>&nbsp;</td>'

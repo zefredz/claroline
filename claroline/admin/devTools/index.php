@@ -27,10 +27,10 @@ if (! $is_allowedToUseSDK) claro_disp_auth_form();
 if ( get_conf('DEVEL_MODE',false))
 {
     $devtoolsList = array();
-    if (file_exists('./fillUser.php'))        $devtoolsList[] = claro_html::tool_link('fillUser.php',  get_lang('Create fake users'));
-    if (file_exists('./fillCourses.php'))     $devtoolsList[] = claro_html::tool_link('fillCourses.php',  get_lang('Create fake courses'));
-    if (file_exists('./fillTree.php'))        $devtoolsList[] = claro_html::tool_link('fillTree.php',  get_lang('Create fake categories'));
-    if (file_exists('./fillToolCourses.php')) $devtoolsList[] = claro_html::tool_link('fillToolCourses.php',  get_lang('Create item into courses tools'));
+    if (file_exists('./fillUser.php'))        $devtoolsList[] = claro_html_tool_link('fillUser.php',  get_lang('Create fake users'));
+    if (file_exists('./fillCourses.php'))     $devtoolsList[] = claro_html_tool_link('fillCourses.php',  get_lang('Create fake courses'));
+    if (file_exists('./fillTree.php'))        $devtoolsList[] = claro_html_tool_link('fillTree.php',  get_lang('Create fake categories'));
+    if (file_exists('./fillToolCourses.php')) $devtoolsList[] = claro_html_tool_link('fillToolCourses.php',  get_lang('Create item into courses tools'));
 }
 
 $nameTools = get_lang('Devel Tools');
@@ -39,7 +39,7 @@ $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 
 include($includePath.'/claro_init_header.inc.php');
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 ?>
 <h4><?php echo get_lang('Translations') ?></h4>
@@ -49,8 +49,8 @@ echo claro_html::tool_title($nameTools);
 <?php
 if ( 0 < count($devtoolsList))
 {
-    echo  claro_html::tool_title(get_lang('Filling'))
-    .     claro_html::menu_vertical($devtoolsList)
+    echo  claro_html_tool_title(get_lang('Filling'))
+    .     claro_html_menu_vertical($devtoolsList)
     ;
 }
 include $includePath . '/claro_init_footer.inc.php';

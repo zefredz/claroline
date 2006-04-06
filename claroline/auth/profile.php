@@ -146,11 +146,11 @@ $user_data = user_get_data($_uid);
 // display header
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 if ( count($messageList) > 0 )
 {
-    echo claro_html::message_box( implode('<br />', $messageList) );
+    echo claro_html_message_box( implode('<br />', $messageList) );
 }
 
 switch ( $display )
@@ -179,7 +179,7 @@ switch ( $display )
             $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
         }
 
-        echo claro_html::menu_horizontal($profile_menu);
+        echo claro_html_menu_horizontal($profile_menu);
 
         break;
 
@@ -200,7 +200,7 @@ switch ( $display )
             .    '<tr valign="top">'
             .    '<td>' . get_lang('Submit') . ': </td>'
             .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
-            .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'
@@ -232,7 +232,7 @@ switch ( $display )
             .    '<tr valign="top">'
             .    '<td>' . get_lang('Delete my account') . ': </td>'
             .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
-            .    claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
             .    '</td></tr>'
             .    '</table>'
             .    '</form>'

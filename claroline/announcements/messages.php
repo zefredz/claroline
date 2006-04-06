@@ -165,7 +165,7 @@ $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-echo claro_html::tool_title(get_lang('Messages'));
+echo claro_html_tool_title(get_lang('Messages'));
 
 /*
 * DEFAULT DISPLAY SETTINGS
@@ -289,7 +289,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 
 if ( !empty($message) )
 {
-    echo claro_html::message_box($message)
+    echo claro_html_message_box($message)
     .    '<br />' . "\n"
     .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Return to the list') . '</a>'
     .    '<br />' . "\n"

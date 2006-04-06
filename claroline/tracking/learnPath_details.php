@@ -78,7 +78,7 @@ if ( $is_trackingEnabled )
             // display title
             $titleTab['mainTitle'] = $nameTools;
             $titleTab['subTitle'] = htmlspecialchars($learnPathName);
-            echo claro_html::tool_title($titleTab);
+            echo claro_html_tool_title($titleTab);
 
             // display a list of user and their respective progress    
             $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
@@ -104,7 +104,7 @@ if ( $is_trackingEnabled )
                 echo '<tr>'."\n"
                     .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                     .'<td align="right">'
-                    .claro_html::progress_bar($lpProgress, 1)
+                    .claro_html_progress_bar($lpProgress, 1)
                       .'</td>'."\n"
                     .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
                     .'</tr>'."\n\n";
@@ -117,7 +117,7 @@ if ( $is_trackingEnabled )
 // not allowed
 else
 {
-    echo claro_html::message_box(get_lang('Tracking has been disabled by system administrator.'));
+    echo claro_html_message_box(get_lang('Tracking has been disabled by system administrator.'));
 }
 
 include($includePath."/claro_init_footer.inc.php");

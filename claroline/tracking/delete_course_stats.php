@@ -31,7 +31,7 @@ $nameTools = get_lang('Delete all course statistics');
 
 include($includePath."/claro_init_header.inc.php");
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 if( isset($_REQUEST['delete']) && $_REQUEST['delete'] == "yes" )
 {

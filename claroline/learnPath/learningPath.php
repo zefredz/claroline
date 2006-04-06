@@ -126,7 +126,7 @@ for( $i = 0 ; $i < sizeof($flatElementList) ; $i++ )
 include($includePath."/claro_init_header.inc.php");
 
 // display title
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 //####################################################################################\\
 //##################################### TITLE ########################################\\
@@ -271,7 +271,7 @@ foreach ($flatElementList as $module)
     if( $_uid && ($module['contentType'] != CTLABEL_) )
     {
         // display the progress value for current module
-        echo '<td align="right">'.claro_html::progress_bar ($progress, 1).'</td>'."\n"
+        echo '<td align="right">'.claro_html_progress_bar ($progress, 1).'</td>'."\n"
         .    '<td align="left">'
         .    '<small>&nbsp;' . $progress . '%</small>'
         .    '</td>' . "\n"
@@ -316,7 +316,7 @@ elseif($_uid && $moduleNb > 0)
         .'<tr>'."\n"
         .'<td align="right" colspan="'.($maxDeep+1).'">'.get_lang('Learning path progression : ').'</td>'."\n"
         .'<td align="right">'
-        .claro_html::progress_bar(round($globalProg / ($moduleNb) ), 1 )
+        .claro_html_progress_bar(round($globalProg / ($moduleNb) ), 1 )
         .'</td>'."\n"
         .'<td align="left">'
         .'<small>&nbsp;'.round($globalProg / ($moduleNb) ) .'%</small>'

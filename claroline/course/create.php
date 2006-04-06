@@ -263,9 +263,9 @@ if ( isset($_REQUEST['fromAdmin']) && $_REQUEST['fromAdmin'] == 'yes' )
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title(get_lang('Create a course website'));
+echo claro_html_tool_title(get_lang('Create a course website'));
 
-if ( count($errorList) > 0 ) echo claro_html::message_box(implode('<br />', $errorList));
+if ( count($errorList) > 0 ) echo claro_html_message_box(implode('<br />', $errorList));
 
 /*----------------------------------------------------------------------------
                                     FORM DISPLAY
@@ -405,7 +405,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 </td>
 <td>
 <input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo get_lang('Ok')?>">
-<?php echo claro_html::button($_SERVER['HTTP_REFERER'], get_lang('Cancel')); ?>
+<?php echo claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')); ?>
 </td>
 </tr>
 <tr>
@@ -429,7 +429,7 @@ if ($display == DISP_COURSE_CREATION_FAILED)
     if (count ($errorList) > 0 ) $errorString = implode ('<br />', $errorList);
     else                         $errorString = '';
 
-    echo claro_html::message_box('<p>Course Creation failed.</p>'
+    echo claro_html_message_box('<p>Course Creation failed.</p>'
                                 . $errorString );
 }
 
@@ -448,7 +448,7 @@ if( $display == DISP_COURSE_CREATION_SUCCEED)
     .            '</strong>'
     ;
 
-    echo claro_html::message_box($dialogBox)
+    echo claro_html_message_box($dialogBox)
     .    '<br />'
     .    '<a class="claroCmd" href="../../index.php">'
     .    get_lang('Back to my course list')
@@ -472,7 +472,7 @@ if ( $display == DISP_COURSE_CREATION_PROGRESS )
     .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $paramString))
     .      '</p>'
     ;
-    echo claro_html::message_box( $msg );
+    echo claro_html_message_box( $msg );
 }
 
 

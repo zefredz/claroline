@@ -169,12 +169,12 @@ $forumId = $_group['forumId'];
 // CLAROLINE HEADER AND BANNER
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_html::tool_title( array('supraTitle'=> get_lang("Groups"),
+echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
                                   'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
 
 if ( !empty($message) )
 {
-    echo claro_html::message_box($message);
+    echo claro_html_message_box($message);
 }
 
 

@@ -73,7 +73,7 @@ if ($disp_form)
 //OUTPUT
 include $includePath . '/claro_init_header.inc.php' ;
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 echo get_lang('Course Repository') . ' : ' . $coursesRepositorySys . '<br />' . get_lang('Mysql Repository') . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . get_lang('Missing')) . '<br />';
 

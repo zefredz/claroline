@@ -162,18 +162,18 @@ if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must 
 include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // Display Forms or dialog box(if needed)
 if ( count($messageList) > 0 )
 {
-    echo claro_html::message_box(implode('<br />', $messageList));
+    echo claro_html_message_box(implode('<br />', $messageList));
 }
 
 // Display "form and info" about the user
 user_display_form_admin_user_profile($user_data);
 
-echo claro_html::menu_horizontal($cmd_menu);
+echo claro_html_menu_horizontal($cmd_menu);
 
 include $includePath . '/claro_init_footer.inc.php';
 

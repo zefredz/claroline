@@ -45,7 +45,7 @@ $is_allowedToAdmin = $is_platformAdmin;
 if ($is_allowedToAdmin)
 {
     include($includePath . '/claro_init_header.inc.php');
-    echo claro_html::tool_title( array( 'mainTitle'=>$nameTools
+    echo claro_html_tool_title( array( 'mainTitle'=>$nameTools
                                 , 'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - '
                                 )
                          );

@@ -70,7 +70,7 @@ if( !isset($exerciseResult) || !is_array($exerciseResult)
     )
 {
         include $includePath . '/claro_init_header.inc.php';
-        echo '<br />' . claro_html::message_box(get_lang('Exercice not found')) . '<br />';
+        echo '<br />' . claro_html_message_box(get_lang('Exercice not found')) . '<br />';
         include $includePath . '/claro_init_footer.inc.php' ;
         die();
 }
@@ -108,7 +108,7 @@ else                                        // normal exercise mode
 }
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Result') );
+echo claro_html_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Result') );
 
     if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] ) // exercise mode
     {

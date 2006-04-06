@@ -116,7 +116,7 @@ claro_set_display_mode_available(true);
 include($includePath."/claro_init_header.inc.php");
 
 // title
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // main page
 $is_AllowedToEdit = claro_is_allowed_to_edit();
@@ -426,7 +426,7 @@ if (isset($sortDirection) && $sortDirection)
 
 if (isset($dialogBox))
 {
-  echo claro_html::message_box($dialogBox);
+  echo claro_html_message_box($dialogBox);
 }
 
 if($is_AllowedToEdit)
@@ -866,7 +866,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             $globalprog += $prog;
         }
         echo '<td align="right">'
-        .    claro_html::progress_bar($prog, 1)
+        .    claro_html_progress_bar($prog, 1)
         .    '</td>' . "\n"
         .    '<td align="left">'
         .    '<small>' . $prog . '% </small>'
@@ -894,7 +894,7 @@ elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
           ".get_lang('Course progression')." :
           </td>
           <td align=\"right\" >".
-          claro_html::progress_bar($total, 1).
+          claro_html_progress_bar($total, 1).
           "</td>
           <td align=\"left\">
           <small> ".$total."% </small>

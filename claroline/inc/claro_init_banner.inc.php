@@ -285,7 +285,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             }
         }
         
-        echo claro_html::breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
+        echo claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
                                         ' &gt; ', $imgRepositoryWeb . 'home.gif');
 
     if ( is_null($_uid) )

@@ -234,7 +234,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
-echo claro_html::tool_title( array( 'mainTitle' =>$nameTools
+echo claro_html_tool_title( array( 'mainTitle' =>$nameTools
                                  , 'subTitle' => get_lang('Course') . ' : '
                                               .  $courseData['name']
                                               .  '<br />'
@@ -249,7 +249,7 @@ echo claro_html::tool_title( array( 'mainTitle' =>$nameTools
 
 if(isset($dialogBox))
 {
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
 echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" class="claroTableForm" >' . "\n"
@@ -273,7 +273,7 @@ echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" class="claroTabl
 .    '</tr>'    . "\n"
 .    '</table>' . "\n"
 .    '</form>'  . "\n"
-.    claro_html::menu_horizontal($cmd_menu)
+.    claro_html_menu_horizontal($cmd_menu)
 ;
 
 include $includePath . '/claro_init_footer.inc.php';

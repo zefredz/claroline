@@ -44,7 +44,7 @@ $tbl_bb_posts                 = $tbl_cdb_names['bb_posts'                ];
 
 $nameTools = get_lang('Statistics');
 include($includePath."/claro_init_header.inc.php");
-echo claro_html::tool_title(
+echo claro_html_tool_title(
     array(
         'mainTitle' => $nameTools,
         'subTitle'  => get_lang('Statistics of course')." : ".$_course['officialCode']

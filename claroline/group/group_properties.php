@@ -84,7 +84,7 @@ if ( get_conf('multiGroupAllowed') )
 }
 
 include($includePath . '/claro_init_header.inc.php');
-echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
+echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
 ?>
 
@@ -222,7 +222,7 @@ echo claro_html::tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitl
     <tr>
         <td valign="top">
             <input type="submit" name="properties" value="<?php echo get_lang("Ok") ?>"> 
-            <?php echo claro_html::button($_SERVER['HTTP_REFERER'], get_lang("Cancel")); ?>
+            <?php echo claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")); ?>
         </td>
     </tr>
 </table>

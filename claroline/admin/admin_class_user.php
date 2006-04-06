@@ -205,11 +205,11 @@ if (!isset($addToUrl)) $addToUrl ='';
 //Header
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools . ' : ' . $classinfo['name']);
+echo claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
 
-if (isset($dialogBox))  echo claro_html::message_box($dialogBox). '<br />';
+if (isset($dialogBox))  echo claro_html_message_box($dialogBox). '<br />';
 
-echo claro_html::menu_horizontal($cmd_menu)
+echo claro_html_menu_horizontal($cmd_menu)
 .    '<br /><br />'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
 

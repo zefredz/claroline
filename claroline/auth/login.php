@@ -87,7 +87,7 @@ if ( is_null($_uid) && $uidRequired )
         echo '<table align="center">'                                     ."\n"
         .    '<tr>'                                                       ."\n"
         .    '<td>'                                                       ."\n"
-        .    claro_html::tool_title(get_lang('Authentication Required'));
+        .    claro_html_tool_title(get_lang('Authentication Required'));
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
@@ -96,14 +96,14 @@ if ( is_null($_uid) && $uidRequired )
                 $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
                 $message .= get_lang('If you haven\'t a user account yet, use the <a href=\"%url\">the account creation form</a>.',array('%url'=>$urlAppend . '/claroline/auth/inscription.php'));
 
-                echo claro_html::message_box($message);
+                echo claro_html_message_box($message);
             }
             else
             {
                 $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
                 $message .= get_lang('Contact your administrator.');
                 
-                echo claro_html::message_box($message);
+                echo claro_html_message_box($message);
             }
         }
 
@@ -122,7 +122,7 @@ if ( is_null($_uid) && $uidRequired )
         .    '<input type="password" name="password" id="password"><br />'."\n"
         .    '<br />'
         .    '<input type="submit" value="'.get_lang('Ok').'"> '                 ."\n"
-        .    claro_html::button($clarolineRepositoryWeb, get_lang('Cancel'))
+        .    claro_html_button($clarolineRepositoryWeb, get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
         ;
@@ -176,7 +176,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '<table align="center">'                                ."\n"
         .    '<tr>'                                                  ."\n"
         .    '<td colspan="2">'                                      ."\n"
-        .    claro_html::tool_title(get_lang('Choose a course to access this page.'))
+        .    claro_html_tool_title(get_lang('Choose a course to access this page.'))
         .    $sourceUrlFormField                                     ."\n"
         .    $cidRequiredFormField                                   ."\n"
         .    $sourceCidFormField                                     ."\n"
@@ -198,7 +198,7 @@ elseif ( is_null($_cid) && $cidRequired )
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
         .    '<input type="submit" value="' . get_lang('Ok') . '">'         ."\n"
-        .    claro_html::button($urlAppend.'/index.php', get_lang('Cancel'))
+        .    claro_html_button($urlAppend.'/index.php', get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"
         .    '</table>'                                              ."\n"

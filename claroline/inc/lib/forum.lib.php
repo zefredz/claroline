@@ -936,12 +936,12 @@ function disp_search_box()
 {
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
     {
-        return claro_html::message_box(
+        return claro_html_message_box(
         '<form action="viewsearch.php" method="post">'
         .            get_lang('Search') . ' : <br />'
         .            '<input type="text" name="searchPattern"><br />'
         .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
-        .            claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+        .            claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
         );
     }
@@ -975,7 +975,7 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
             $breadCrumbUrlList[]  = null;
     }
 
-    echo claro_html::breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ');
+    echo claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ');
 }
 
 

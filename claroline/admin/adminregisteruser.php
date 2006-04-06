@@ -230,11 +230,11 @@ if (isset($_REQUEST['order_crit']))
 //Header
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title( $nameTools );
+echo claro_html_tool_title( $nameTools );
 
 // Display Forms or dialog box(if needed)
 
-if( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
+if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 
 echo '<table width="100%" class="claroTableForm" >'

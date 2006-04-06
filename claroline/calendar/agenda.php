@@ -330,9 +330,9 @@ else
 // Display header
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 
 if ($display_form)
@@ -381,7 +381,7 @@ if ($display_form)
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_html::textarea_editor('content', htmlspecialchars($editedEvent['content']), 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
+    .    claro_html_textarea_editor('content', htmlspecialchars($editedEvent['content']), 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
     .    '<br />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -420,7 +420,7 @@ if ($display_form)
 
     // linker
     //---------------------
-    echo claro_html::button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
+    echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>' . "\n"
@@ -428,7 +428,7 @@ if ($display_form)
     ;
 }
 
-if ( $display_command ) echo claro_html::menu_horizontal($cmd_menu);
+if ( $display_command ) echo claro_html_menu_horizontal($cmd_menu);
 
 $monthBar     = '';
 

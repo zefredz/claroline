@@ -233,7 +233,7 @@ event_access_tool($_tid, $_courseTool['label']);
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 /*======================================
 DISPLAY MODES
@@ -246,7 +246,7 @@ echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.get_lang('Back to user list')
 
 if(isset($dialogBox) && $dialogBox!="")
 {
-    echo claro_html::message_box($dialogBox);
+    echo claro_html_message_box($dialogBox);
 }
 
 if ($displayMode == "viewDefEdit")

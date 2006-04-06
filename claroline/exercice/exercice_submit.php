@@ -77,7 +77,7 @@ if( !empty($_REQUEST['exerciseId']) || !isset($_SESSION['objExercise']) || !is_o
        )
     {
         include ($includePath.'/claro_init_header.inc.php');
-        echo '<br />' . claro_html::message_box(get_lang('Exercice not found')) . '<br />';
+        echo '<br />' . claro_html_message_box(get_lang('Exercice not found')) . '<br />';
         include ($includePath.'/claro_init_footer.inc.php');
         die();
     }
@@ -300,7 +300,7 @@ elseif( ($_SESSION['objExercise']->get_end_date() != "9999-12-31 23:59:59") && (
 
 // concat errmsg to status msg before displaying it
 $statusMsg .= "<br /><b>".$errMsg."</b>";
-echo claro_html::tool_title(get_lang('Exercises')." : ".$exerciseTitle);
+echo claro_html_tool_title(get_lang('Exercises')." : ".$exerciseTitle);
 
 if( $showExerciseForm || $is_allowedToEdit )
 {

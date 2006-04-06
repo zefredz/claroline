@@ -67,7 +67,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 $toolTitle['mainTitle'] = $nameTools;
 $toolTitle['subTitle'] = get_lang('Statistics of user');
-echo claro_html::tool_title($toolTitle);
+echo claro_html_tool_title($toolTitle);
 
 if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackingEnabled )
 {
@@ -452,7 +452,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
                         .    '<tr>' . "\n"
                         .    '<td><a href="lp_modules_details.php?uInfo='.$_GET['uInfo'].'&path_id='.$lpDetails['learnPath_id'].'">'.htmlspecialchars($lpDetails['name']).'</a></td>' . "\n"
                         .    '<td align="right">' . "\n"
-                        .claro_html::progress_bar($lpProgress, 1)
+                        .    claro_html_progress_bar($lpProgress, 1)
                         .    '</td>' . "\n"
                         .    '<td align="left"><small>'.$lpProgress.'%</small></td>' . "\n"
                         .    '</tr>' . "\n"

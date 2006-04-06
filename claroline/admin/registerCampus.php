@@ -378,9 +378,9 @@ include $includePath . '/claro_init_header.inc.php';
 
 $title['mainTitle'] = $nameTools;
 $title['subTitle'] = get_lang('Add my campus on Claroline.net website');
-echo claro_html::tool_title($title);
+echo claro_html_tool_title($title);
 
-if( isset($dialogBox) && $dialogBox != '' ) echo claro_html::message_box($dialogBox);
+if( isset($dialogBox) && $dialogBox != '' ) echo claro_html_message_box($dialogBox);
 
 if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRegistered ) )
 {

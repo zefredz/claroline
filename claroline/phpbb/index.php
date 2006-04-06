@@ -105,12 +105,12 @@ $is_forumAdmin    = claro_is_allowed_to_edit();
 
 $is_groupPrivate   = $_groupProperties ['private'];
 
-echo claro_html::tool_title(get_lang('Forums'), 
+echo claro_html_tool_title(get_lang('Forums'), 
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 echo disp_search_box();
 
-if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 // Forum toolbar
 

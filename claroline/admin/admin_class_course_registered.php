@@ -83,11 +83,11 @@ $cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/co
  */
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html::tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
+echo claro_html_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
-if ( !empty($dialogBox) ) echo claro_html::message_box($dialogBox);
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo claro_html::menu_horizontal($cmd_menu);
+echo claro_html_menu_horizontal($cmd_menu);
 
 include $includePath . '/claro_init_footer.inc.php';
 

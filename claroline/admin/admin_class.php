@@ -254,11 +254,11 @@ include $includePath . '/claro_init_header.inc.php';
 
 // display title
 
-echo claro_html::tool_title($nameTools);
+echo claro_html_tool_title($nameTools);
 
 // display dialog Box (or any forms)
 
-if( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
+if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 //display tool links
 

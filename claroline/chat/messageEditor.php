@@ -57,7 +57,7 @@ echo '<form name="chatForm" action="messageList.php#final" method="post" target=
 .    '<br />' . "\n"
 .    '' . "\n";
 
-echo claro_html::menu_horizontal($cmd_menu);
+echo claro_html_menu_horizontal($cmd_menu);
 
 echo '</form>';
 

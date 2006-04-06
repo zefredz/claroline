@@ -102,7 +102,7 @@ include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $lpDetails['name'];
-echo claro_html::tool_title($titleTab);
+echo claro_html_tool_title($titleTab);
 
 
 if($is_allowedToTrack && $is_trackingEnabled) 
@@ -274,7 +274,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
           {
                 // display the progress value for current module
                 
-                echo '<td align="right">'.claro_html::progress_bar($progress, 1).'</td>'."\n";
+                echo '<td align="right">'.claro_html_progress_bar($progress, 1).'</td>'."\n";
                 echo '<td align="left"><small>&nbsp;'.$progress.'%</small></td>'."\n";
           }
           else // label
@@ -309,7 +309,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
                 .'<td align="center">'.(($global_time != "0000:00:00")? preg_replace("/\.[0-9]{0,2}/", "", $global_time) : '&nbsp;').'</td>'."\n"
                 .'<td align="right">'.get_lang('Learning path progression : ').'</td>'."\n"
                 .'<td align="right">'
-                .claro_html::progress_bar(round($globalProg / ($moduleNb) ), 1)
+                .claro_html_progress_bar(round($globalProg / ($moduleNb) ), 1)
                 .'</td>'."\n"
                 .'<td align="left"><small>&nbsp;'.round($globalProg / ($moduleNb) ) .'%</small></td>'."\n"
                 .'</tr>';

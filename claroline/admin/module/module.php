@@ -134,11 +134,11 @@ include $includePath . '/claro_init_header.inc.php';
 
 //display title
 
-echo claro_html::tool_title($nameTools . ' : ' . $module['module_name']);
+echo claro_html_tool_title($nameTools . ' : ' . $module['module_name']);
 
 //Display Forms or dialog box(if needed)
 
-if ( isset($dialogBox) ) echo claro_html::message_box($dialogBox);
+if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 ?>
 
@@ -293,7 +293,7 @@ else
     .    '<td >'
     .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
     .    '<input type="submit" value="' . get_lang('Ok') . '" /> '. "\n"
-    .    claro_html::button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+    .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</form>'
     ;

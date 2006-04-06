@@ -407,7 +407,7 @@ Display header
 
 include $includePath . '/claro_init_header.inc.php';
 
-if (isset($msg)) echo claro_html::message_box($msg);
+if (isset($msg)) echo claro_html_message_box($msg);
 echo $backLink;
 
 switch ( $displayMode )
@@ -434,7 +434,7 @@ switch ( $displayMode )
             $title = get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'];
             $subTitle = get_lang('Select course in') . ' : ' . $currentCategoryName ;
 
-            echo claro_html::tool_title( array( 'mainTitle' => $title , 'subTitle' => $subTitle ) ) ;
+            echo claro_html_tool_title( array( 'mainTitle' => $title , 'subTitle' => $subTitle ) ) ;
         }
         else
         {
@@ -448,7 +448,7 @@ switch ( $displayMode )
 
         if ( !empty($message) )
         {
-            echo claro_html::message_box($message);
+            echo claro_html_message_box($message);
         }
 
         // Display categories
@@ -626,13 +626,13 @@ switch ( $displayMode )
     case DISPLAY_MESSAGE_SCREEN :
     {
 
-        echo claro_html::tool_title(get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
+        echo claro_html_tool_title(get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'] );
 
         echo '<blockquote>' . "\n";
 
         if ( !empty($message) )
         {
-            echo claro_html::message_box( '<p>'.$message.'</p>' . "\n"
+            echo claro_html_message_box( '<p>'.$message.'</p>' . "\n"
             .    '<p align="center">'
             .    '<a href="' . $backUrl . '">' .$backLabel . '</a>'
             .    '</p>'  . "\n"
@@ -649,7 +649,7 @@ switch ( $displayMode )
     case DISPLAY_USER_COURSES :
     {
 
-        echo claro_html::tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
+        echo claro_html_tool_title( array('mainTitle' => get_lang('User\'s course') . ' : ' . $userInfo['firstname'] . ' ' . $userInfo['lastname'],
         'subTitle' => get_lang('Remove course from your personal course list')));
 
         if ( count($courseList) > 0 )
@@ -702,7 +702,7 @@ switch ( $displayMode )
     case DISPLAY_ENROLLMENT_KEY_FORM :
     {
 
-        if ( ! empty($message) ) echo claro_html::message_box($message);
+        if ( ! empty($message) ) echo claro_html_message_box($message);
 
         echo  '<blockquote>' . get_lang('This course requires a key for enrolment') . '</p>' . "\n"
         .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
@@ -713,7 +713,7 @@ switch ( $displayMode )
         .     '<input type="text" name="enrollmentKey" />' . "\n"
         .     '<p>'
         .     '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-        .     claro_html::button($_SERVER['PHP_SELF'].'?cmd=rqReg', get_lang('Cancel'))
+        .     claro_html_button($_SERVER['PHP_SELF'].'?cmd=rqReg', get_lang('Cancel'))
         .     '</p>'
         .     '</form>' . "\n"
         .     '</blockquote>'

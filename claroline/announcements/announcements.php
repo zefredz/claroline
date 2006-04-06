@@ -452,18 +452,18 @@ include $includePath . '/claro_init_header.inc.php' ;
 TOOL TITLE
 ----------------------------------------------------------------------------*/
 
-echo claro_html::tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
 /*----------------------------------------------------------------------------
 ACTION MESSAGE
 ----------------------------------------------------------------------------*/
 
-if ( !empty($message) ) echo claro_html::message_box($message);
+if ( !empty($message) ) echo claro_html_message_box($message);
 
 /*----------------------------------------------------------------------------
 MAIN COMMANDS LINE
 ----------------------------------------------------------------------------*/
-if ( $displayButtonLine ) echo claro_html::menu_horizontal($cmd_menu);
+if ( $displayButtonLine ) echo claro_html_menu_horizontal($cmd_menu);
 
 
 /*----------------------------------------------------------------------------
@@ -499,7 +499,7 @@ if ( $displayForm )
     .    '</label>'
     .    '</td>'
     .    '<td>'
-    .     claro_html::textarea_editor('newContent', !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['content']) : '',12,67, $optAttrib=' wrap="virtual"')
+    .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['content']) : '',12,67, $optAttrib=' wrap="virtual"')
     .    '</td>'
     .    '</tr>' . "\n"
     .    '<tr>'
@@ -526,7 +526,7 @@ if ( $displayForm )
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
-    echo claro_html::button($_SERVER['PHP_SELF'], 'Cancel')
+    echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel')
     .    '</td>'
     .    '<tr>' . "\n"
     .    '</table>'

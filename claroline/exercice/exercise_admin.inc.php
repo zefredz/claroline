@@ -169,7 +169,7 @@ if( isset($modifyExercise) )
     {
         echo '<tr>' . "\n"
         .    '<td colspan="2">' . "\n"
-        .    claro_html::message_box($msgErr) . "\n"
+        .    claro_html_message_box($msgErr) . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         ;
@@ -187,7 +187,7 @@ if( isset($modifyExercise) )
   <label for="exerciseDescription"><?php echo get_lang('Exercise description'); ?>&nbsp;:</label>
   </td>
   <td>
-  <?php echo claro_html::textarea_editor('exerciseDescription', htmlspecialchars($exerciseDescription),15) ?>
+  <?php echo claro_html_textarea_editor('exerciseDescription', htmlspecialchars($exerciseDescription),15) ?>
 </tr>
 <tr>
   <td valign="top"><?php echo get_lang('Exercise type'); ?>&nbsp;:</td>

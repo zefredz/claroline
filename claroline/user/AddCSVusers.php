@@ -359,8 +359,8 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
  */
 
 include $includePath.'/claro_init_header.inc.php';
-echo claro_html::tool_title($nameTools);
-if( isset( $dialogBox ) ) echo claro_html::message_box($dialogBox) . '<br>';
+echo claro_html_tool_title($nameTools);
+if( isset( $dialogBox ) ) echo claro_html_message_box($dialogBox) . '<br>';
 
 switch ( $display )
 {
@@ -422,7 +422,7 @@ switch ( $display )
         .    '<input type="file" name="CSVfile" />' . "\n"
         .    '<br /><br />' . "\n"
         .    '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
-        .    claro_html::button($backButtonUrl,get_lang('Cancel'))  . "\n"
+        .    claro_html_button($backButtonUrl,get_lang('Cancel'))  . "\n"
         .    '<input type="hidden" name="cmd" value="exImp" />' . "\n"
         .    '</form>' . "\n"
         ;
@@ -474,13 +474,13 @@ switch ( $display )
             .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
             .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
             .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
-            .    claro_html::button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
+            .    claro_html_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
             .   '</form>' . "\n";
 
         }
         else
         {
-            echo '<br>' . claro_html::button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '<br>';
+            echo '<br>' . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '<br>';
         }
     } break;
 
