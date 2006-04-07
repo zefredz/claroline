@@ -159,7 +159,6 @@ $tutorDataList = claro_sql_query_fetch_all($sql);
 /*----------------------------------------------------------------------------
 GET FORUM POINTER
 ----------------------------------------------------------------------------*/
-
 $forumId = $_group['forumId'];
 
 /*****************
@@ -169,49 +168,8 @@ $forumId = $_group['forumId'];
 // CLAROLINE HEADER AND BANNER
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
-                                  'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
-
-if ( !empty($message) )
-{
-    echo claro_html_message_box($message);
-}
-
-
-if($is_allowedToSelfRegInGroup)
-{
-    echo '<p>'
-    .    '<a href="' . $_SERVER['PHP_SELF'] . '?registration=1" class="claroCmd">'
-    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang("Add me to this group") . '" />'
-    .    get_lang("Add me to this group")
-    .    '</a>'
-    .    '</p>'
-    ;
-}
-
-?>
-
-<table cellpadding="5" cellspacing="0" border="0">
-<tr>
-<td style="border-right: 1px solid gray;" valign="top" width="220">
-<?php
-
-/*----------------------------------------------------------------------------
-DISPLAY AVAILABLE TOOL LIST
-----------------------------------------------------------------------------*/
-
-
-/*
-* Vars needed to determine group File Manager and group Forum
-* They are unregistered when opening group.php once again.
-*
-* session_register("secretDirectory");
-* session_register("userGroupId");
-* session_register("forumId");
-*/
-
-
 $toolList = get_group_tool_list();
+
 if (isset($_uid))
 {
     $date = $claro_notifier->get_notification_date($_uid);
@@ -221,6 +179,7 @@ else $modified_tools = array();
 
 foreach($toolList as $thisTool)
 {
+
     if ( ! empty($thisTool['label']))   // standart claroline tool
     {
         $toolName = $toolNameList[ $thisTool['label'] ];
@@ -245,48 +204,48 @@ foreach($toolList as $thisTool)
     {
         $icon = $imgRepositoryWeb . 'tool.gif';
     }
-	
-	$style = '';
-	
-	// patchy
-	if ( $is_platformAdmin || $is_courseAdmin )
-	{
-		switch (trim($thisTool['label'],'_'))
-		{
-			case 'CLDOC' :
-			{
-				if(!$_groupProperties['tools']['document'])
-				{
-					$style = 'invisible ';
-				}
-			} break;
 
-			case 'CLFRM' :
-			{
-				if(!$_groupProperties['tools']['forum'])
-				{
-					$style = 'invisible ';
-				}
+    $style = '';
 
-			} break;
+    // patchy
+    if ( $is_platformAdmin || $is_courseAdmin )
+    {
+        switch (trim($thisTool['label'],'_'))
+        {
+            case 'CLDOC' :
+            {
+                if(!$_groupProperties['tools']['document'])
+                {
+                    $style = 'invisible ';
+                }
+            } break;
 
-			case 'CLWIKI' :
-			{
-				if(!$_groupProperties['tools']['wiki'])
-				{
-					$style = 'invisible ';
-				}
-			} break;
+            case 'CLFRM' :
+            {
+                if(!$_groupProperties['tools']['forum'])
+                {
+                    $style = 'invisible ';
+                }
 
-			case 'CLCHT' :
-			{
-				if(!$_groupProperties['tools']['chat'])
-				{
-					$style = 'invisible ';
-				}
-			}break;
-		}
-	}
+            } break;
+
+            case 'CLWIKI' :
+            {
+                if(!$_groupProperties['tools']['wiki'])
+                {
+                    $style = 'invisible ';
+                }
+            } break;
+
+            case 'CLCHT' :
+            {
+                if(!$_groupProperties['tools']['chat'])
+                {
+                    $style = 'invisible ';
+                }
+            }break;
+        }
+    }
 
     /*    if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
     {
@@ -296,42 +255,74 @@ foreach($toolList as $thisTool)
     {
     $style = '';
     }
-    */      
+    */
     // see if tool name must be displayed in bold text or not
-
-    if (in_array($thisTool['id'], $modified_tools))
-    {
-        $classItem = " hot";
-    }
-    else // otherwise just display its name normally
-    {
-        $classItem = "";
-    }
+    $classItem = '';
+    if (in_array($thisTool['id'], $modified_tools)) $classItem = " hot";
 
     if ( ! empty($url) )
     {
-        echo ' <a class="' . $style . ' item'.$classItem.'" href="' . $url . '">'
-        .    '<img src="' . $icon . '" alt="" />'
-        .    $toolName
-        .    '</a>'
-        .    '<br />' . "\n"
+        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . $url . '">'
+        .                 '<img src="' . $icon . '" alt="" />'
+        .                 $toolName
+        .                 '</a>' . "\n"
         ;
     }
     else
     {
-        echo '<span ' . $style . '>'
-        .    '<img src="' . $icon . '" alt="" />'
-        .    $toolName
-        .    '</span><br />' . "\n"
+        $toolLinkList[] = '<span ' . $style . '>'
+        .                 '<img src="' . $icon . '" alt="" />'
+        .                 $toolName
+        .                 '</span>' . "\n"
         ;
     }
 }
 
 
-// Drive members into their own File Manager
+/*****************
+ * DISPLAY SECTION
+ ******************/
+
+// CLAROLINE HEADER AND BANNER
+include($includePath . '/claro_init_header.inc.php');
+
+echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
+                                  'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
+
+if ( !empty($message) )
+{
+    echo claro_html_message_box($message);
+}
 
 
-echo '<br /><br />' . "\n";
+if($is_allowedToSelfRegInGroup)
+{
+    echo '<p>' . "\n"
+    .    '<a href="' . $_SERVER['PHP_SELF'] . '?registration=1" class="claroCmd">'
+    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang("Add me to this group") . '" />'
+    .    get_lang("Add me to this group")
+    .    '</a>' . "\n"
+    .    '</p>'
+    ;
+}
+
+
+echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
+.    '<tr>'  . "\n"
+.    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
+
+/*
+* Vars needed to determine group File Manager and group Forum
+* They are unregistered when opening group.php once again.
+*
+* session_register("secretDirectory");
+* session_register("userGroupId");
+* session_register("forumId");
+*/
+
+.   claro_html::menu_vertical_br($toolLinkList)
+.   '<br /><br />' . "\n"
+;
 
 if ($is_allowedToManage)
 {
@@ -341,7 +332,6 @@ if ($is_allowedToManage)
     .    '</a>'
     ;
 }
-
 
 ?>
 </td>
@@ -367,12 +357,11 @@ else // Show 'none' if no description
     echo get_lang("(none)");
 }
 
-?>
-
-<br /><br />
-
-<b><?php echo get_lang("Group Tutor") ?></b> :
-<?php
+echo '<br /><br />'
+.    '<b>'
+.    get_lang("Group Tutor")
+.    '</b> :'
+;
 
 /*----------------------------------------------------------------------------
 DISPLAY GROUP TUTOR INFORMATION
@@ -401,7 +390,7 @@ else
 
 <br /><br />
 
-<b><?php echo  get_lang("Group members") ?></b> :
+<b><?php echo get_lang("Group members") ?></b> :
 <?php
 
 
@@ -453,8 +442,8 @@ include $includePath . '/claro_init_footer.inc.php';
 function get_group_tool_list($course_id=NULL)
 {
     global $_groupProperties, $forumId, $is_courseAdmin, $is_platformAdmin;
-	
-	$isAllowedToEdit = $is_courseAdmin || $is_platformAdmin;
+
+    $isAllowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_course_tool = $tbl_cdb_names['tool'];
@@ -477,7 +466,7 @@ LEFT JOIN `" . $tbl_tool . "` `ct`
 ON        ct.id = tl.tool_id";
 
     $tool_list = claro_sql_query_fetch_all($sql);
-    
+
     $group_tool_list = array();
 
     foreach($tool_list as $tool)
@@ -526,4 +515,5 @@ ON        ct.id = tl.tool_id";
 
     return $group_tool_list;
 }
+
 ?>
