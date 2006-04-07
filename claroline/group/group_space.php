@@ -161,13 +161,6 @@ GET FORUM POINTER
 ----------------------------------------------------------------------------*/
 $forumId = $_group['forumId'];
 
-/*****************
- * DISPLAY SECTION
- ******************/
-
-// CLAROLINE HEADER AND BANNER
-include($includePath . '/claro_init_header.inc.php');
-
 $toolList = get_group_tool_list();
 
 if (isset($_uid))
@@ -320,7 +313,7 @@ echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 * session_register("forumId");
 */
 
-.   claro_html::menu_vertical_br($toolLinkList)
+.   claro_html_menu_vertical_br($toolLinkList)
 .   '<br /><br />' . "\n"
 ;
 
@@ -333,14 +326,15 @@ if ($is_allowedToManage)
     ;
 }
 
-?>
-</td>
-<td width="20">
-&nbsp;
-</td>
-<td valign="top">
-<b><?php echo get_lang("Description") ?></b> :
-<?php
+echo '</td>' . "\n"
+.    '<td width="20">' . "\n"
+.    '&nbsp;' . "\n"
+.    '</td>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<b>' . "\n"
+.    get_lang("Description") . "\n"
+.    '</b> :' . "\n"
+;
 
 /*----------------------------------------------------------------------------
 DISPLAY GROUP DESCRIPTION
@@ -418,13 +412,12 @@ else
     echo get_lang('(none)');
 }
 
-?>
 
-</td>
-</tr>
+echo '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
+;
 
-</table>
-<?php
 include $includePath . '/claro_init_footer.inc.php';
 
 
