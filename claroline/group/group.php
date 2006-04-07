@@ -109,7 +109,7 @@ if ( $is_allowedToManage )
     if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
     else                           $cmd = null;
 
-    if ( $cmd == 'exMkGroup')
+    if ( 'exMkGroup' == $cmd )
     {
         $noQUERY_STRING = true;
         // require the forum library to create the related forums
@@ -118,8 +118,8 @@ if ( $is_allowedToManage )
         // For all Group forums, cat_id=1
 
         if ( isset($_REQUEST['group_max'])
-           && ctype_digit($_REQUEST['group_max'])
-           && (trim($_REQUEST['group_max']) != '') )
+        && ctype_digit($_REQUEST['group_max'])
+        && (trim($_REQUEST['group_max']) != '') )
         {
             $groupMax = (int) $_REQUEST['group_max'];
         }
@@ -141,7 +141,7 @@ if ( $is_allowedToManage )
 
         for ( $i = 1, $groupNum = $startNum + 1 ; $i <= $groupQuantity; $i++, $groupNum++ )
         {
-            $groupId = create_group(get_lang("Group").' '.$groupNum, $groupMax);
+            $groupId = create_group(get_lang("Group") . ' ' . $groupNum, $groupMax);
             $groupCreatedList[] = $groupId;
         }
 
@@ -151,7 +151,7 @@ if ( $is_allowedToManage )
 
     }    // end if $submit
 
-    if ($cmd == 'rqMkGroup')
+    if ('rqMkGroup' == $cmd )
     {
         $message = '<b>' . get_lang("Create new group(s)") . '</b>'
 
@@ -201,9 +201,9 @@ if ( $is_allowedToManage )
 
     if ( $cmd == 'exDelGroup')
     {
-            /*----------------------
-                DELETE ALL GROUPS
-              ----------------------*/
+        /*----------------------
+        DELETE ALL GROUPS
+        ----------------------*/
 
         if ($_REQUEST['id'] == 'ALL')
         {
@@ -217,8 +217,8 @@ if ( $is_allowedToManage )
         elseif(0 < (int)$_REQUEST['id'])
         {
             /*----------------------
-                DELETE ONE GROUP
-             ----------------------*/
+            DELETE ONE GROUP
+            ----------------------*/
 
             $nbGroupDeleted = delete_groups( (int) $_REQUEST['id']);
 
@@ -234,8 +234,8 @@ if ( $is_allowedToManage )
     }
 
     /*-------------------
-       EMPTY ALL GROUPS
-      -------------------*/
+    EMPTY ALL GROUPS
+    -------------------*/
 
     elseif ( $cmd == 'exEmptyGroup' )
     {
@@ -254,12 +254,12 @@ if ( $is_allowedToManage )
     }
 
     /*-----------------
-      FILL ALL GROUPS
-      -----------------*/
+    FILL ALL GROUPS
+    -----------------*/
 
     elseif ( $cmd == 'exFillGroup' )
     {
-        fill_in_groups();
+        fill_in_groups($nbGroupPerUser);
         event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
 
         $message = get_lang("Groups have been filled (or completed) by students present in the 'Users' list.");
@@ -302,7 +302,7 @@ if ( $is_allowedToManage )
 
         if ( isset($_REQUEST['forum']) ) $forum = (int) $_REQUEST['forum'];
         else                             $forum = 0;
-        
+
         if ( isset($_REQUEST['document']) ) $document = (int) $_REQUEST['document'];
         else                             $document = 0;
 
@@ -325,8 +325,8 @@ if ( $is_allowedToManage )
         claro_sql_query($sql);
 
         /*
-         * Real update ...
-         */
+        * Real update ...
+        */
 
         $sql = "UPDATE `".$tbl_GroupsProperties."`
                 SET `self_registration` = '" . $self_registration . "',
@@ -349,14 +349,14 @@ if ( $is_allowedToManage )
         include $includePath . '/claro_init_local.inc.php';
 
         $isGroupRegAllowed = $_groupProperties['registrationAllowed']
-                             && (
-                                  !$is_courseTutor
-                                  || (
-                                       $is_courseTutor
-                                       &&
-                                       get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
-                                       )
-                                );
+        && (
+        !$is_courseTutor
+        || (
+        $is_courseTutor
+        &&
+        get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
+        )
+        );
 
         $groupPrivate    = $_groupProperties['private'           ];
         $groupHaveForum  = $_groupProperties['tools']['forum'    ];
@@ -367,31 +367,31 @@ if ( $is_allowedToManage )
     }    // end if $submit
 
     // Create new groups
-$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkGroup">'
-.                            '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
-.                            get_lang("Create new group(s)")
-.                            '</a>'
-;
-// Delete all groups
-$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL" onClick="return confirmationDelete();">'
-.                            '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-.                            get_lang("Delete all groups")
-.                            '</a>';
-// Fill groups
-$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exFillGroup" onClick="return confirmationFill();">'
-.                            '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
-.                            get_lang("Fill groups (automatically)")
-.                            '</a>';
-// Empty all groups
-$groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup"  onClick="return confirmationEmpty();">'
-.                            '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
-.                            get_lang("Empty all groups")
-.                            '</a>';
-// Main group settings
-$groupadmin_manager_menu[] = '<a class="claroCmd" href="group_properties.php">'
-.                            '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
-.                            get_lang("Main Group Settings")
-.                            '</a>';
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkGroup">'
+    .                            '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
+    .                            get_lang("Create new group(s)")
+    .                            '</a>'
+    ;
+    // Delete all groups
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL" onClick="return confirmationDelete();">'
+    .                            '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+    .                            get_lang("Delete all groups")
+    .                            '</a>';
+    // Fill groups
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exFillGroup" onClick="return confirmationFill();">'
+    .                            '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
+    .                            get_lang("Fill groups (automatically)")
+    .                            '</a>';
+    // Empty all groups
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup"  onClick="return confirmationEmpty();">'
+    .                            '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
+    .                            get_lang("Empty all groups")
+    .                            '</a>';
+    // Main group settings
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="group_properties.php">'
+    .                            '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+    .                            get_lang("Main Group Settings")
+    .                            '</a>';
 
 
 } // end if is_allowedToManage
@@ -399,7 +399,7 @@ $groupadmin_manager_menu[] = '<a class="claroCmd" href="group_properties.php">'
 
 ////**************** OUTPUT ************************
 
-if ($display == DISP_GROUP_LIST)
+if (DISP_GROUP_LIST == $display )
 {
 
     $sql = "SELECT `g`.`id`              AS id,
@@ -526,9 +526,9 @@ if ( $display_groupadmin_manager ) echo claro_html_menu_horizontal($groupadmin_m
  */
 
 /*
- * If Group self registration is allowed, previously check if the user
- * is actually registered to the course...
- */
+* If Group self registration is allowed, previously check if the user
+* is actually registered to the course...
+*/
 
 if ( $isGroupRegAllowed && isset($_uid) )
 {
@@ -536,8 +536,8 @@ if ( $isGroupRegAllowed && isset($_uid) )
 }
 
 /*
- * Check in how many groups a user is allowed to register
- */
+* Check in how many groups a user is allowed to register
+*/
 
 if ( ! is_null($nbGroupPerUser) ) $nbGroupPerUser = (int) $nbGroupPerUser;
 
@@ -569,7 +569,7 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
     echo '<th align="left">' . get_lang("Registration") . '</th>' . "\n"  ;
 }
 
-    echo '<th><a href="'.$sortUrlList['nbMember'].'">' . get_lang("Registered") . '</a></th>' . "\n"
+echo '<th><a href="'.$sortUrlList['nbMember'].'">' . get_lang("Registered") . '</a></th>' . "\n"
 .    '<th><a href="'.$sortUrlList['maxStudent'].'">' . get_lang("Max.") . '</a></th>' . "\n"
 ;
 
@@ -606,16 +606,16 @@ foreach ($groupList as $thisGroup)
     echo '<tr align="center">' . "\n"
     .    '<td align="left">'
     ;
-        /**
+    /**
          * Note : student are allowed to enter into group only if they are
          * group member.
          * Tutors are allowed to enter in any groups, they
          * are also able to notice whose groups they are responsible
          */
     if( $is_allowedToManage
-        ||   $thisGroup['id_tutor'] == $_uid
-        ||   $thisGroup['is_member']
-        || ! $_groupProperties['private'])
+    ||   $thisGroup['id_tutor'] == $_uid
+    ||   $thisGroup['is_member']
+    || ! $_groupProperties['private'])
     {
         // see if group name must be displayed as "containing new item" or not
 
@@ -625,7 +625,7 @@ foreach ($groupList as $thisGroup)
         }
         else // otherwise just display its name normally
         {
-           $classItem = '<div class="item">';
+            $classItem = '<div class="item">';
         }
 
         echo $classItem . '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" /> '
@@ -648,8 +648,8 @@ foreach ($groupList as $thisGroup)
     echo '</td>' . "\n";
 
     /*----------------------------
-      COLUMN 2 - SELF REGISTRATION
-      ----------------------------*/
+    COLUMN 2 - SELF REGISTRATION
+    ----------------------------*/
 
     if (! $is_allowedToManage)
     {
@@ -658,11 +658,11 @@ foreach ($groupList as $thisGroup)
             echo '<td align="center">';
 
             if( (! $_uid)
-                OR ( $thisGroup['is_member'])
-                OR ( $_uid == $thisGroup['id_tutor'])
-                OR (!is_null($thisGroup['maxStudent']) //unlimited
-                    AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
-                    ))
+            OR ( $thisGroup['is_member'])
+            OR ( $_uid == $thisGroup['id_tutor'])
+            OR (!is_null($thisGroup['maxStudent']) //unlimited
+            AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
+            ))
             {
                 echo '&nbsp;-';
             }
@@ -679,14 +679,14 @@ foreach ($groupList as $thisGroup)
     }
 
     /*------------------
-        MEMBER NUMBER
-      ------------------*/
+    MEMBER NUMBER
+    ------------------*/
 
     echo    '<td>' . $thisGroup['nbMember'] . '</td>' . "\n";
 
     /*------------------
-      MAX MEMBER NUMBER
-      ------------------*/
+    MAX MEMBER NUMBER
+    ------------------*/
 
     if (is_null($thisGroup['maxStudent'])) echo '<td> - </td>' . "\n";
     else                                   echo '<td>' . $thisGroup['maxStudent'] . '</td>' . "\n";
@@ -710,7 +710,7 @@ foreach ($groupList as $thisGroup)
     echo '</tr>' . "\n\n";
 
     if (   ! is_null($thisGroup['description'])
-        && trim($thisGroup['description']) != '' )
+    && trim($thisGroup['description']) != '' )
     {
         echo '<tr>' . "\n"
         .    '<td colspan="5">' . "\n"

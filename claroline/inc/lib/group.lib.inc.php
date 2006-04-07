@@ -17,7 +17,21 @@
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  *
  */
+
 include_once dirname(__FILE__) . '/fileManage.lib.php';
+
+/**
+ * Remove all user of a group
+ *
+ * @param mixed $groupIdList indicates wich group(s) will be emptied            *
+ *        integer:group_id | array: array of group_id | string 'ALL'            *
+ *        default : ALL
+ * @param string $course_id course context where the  group(s) can be founded   *
+ *        default : null (get id from init)
+ * @return true
+ * @throws claro_failure errors
+ *
+ */
 
 function empty_group($groupIdList = 'ALL', $course_id = null)
 {
@@ -67,8 +81,6 @@ function empty_group($groupIdList = 'ALL', $course_id = null)
 
 function delete_groups($groupIdList = 'ALL')
 {
-    global $garbageRepositorySys,$currentCourseRepository,$coursesRepositorySys;
-    global $includePath;
     global $_cid,$_tid,$eventNotifier;
 
     $tbl_c_names = claro_sql_get_course_tbl();
@@ -77,7 +89,7 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_groupsUsers      = $tbl_c_names['group_rel_team_user'];
     $tbl_Forums           = $tbl_c_names['bb_forums'          ];
 
-    require_once $includePath . '/../wiki/lib/lib.createwiki.php';
+    require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
 
     delete_group_wikis( $groupIdList );
 
@@ -193,14 +205,14 @@ function delete_groups($groupIdList = 'ALL')
 
         // define repository for deleted element
 
-        $groupGarbage = $garbageRepositorySys . '/' . $currentCourseRepository . '/group/';
+        $groupGarbage = $GLOBALS['garbageRepositorySys'] . '/' . $GLOBALS['currentCourseRepository'] . '/group/';
         if ( ! file_exists($groupGarbage) ) claro_mkdir($groupGarbage, CLARO_FILE_PERMISSIONS, true);
 
         foreach ( $groupList['directory'] as $thisDirectory )
         {
-            if ( file_exists($coursesRepositorySys.$currentCourseRepository . '/group/' . $thisDirectory) )
+            if ( file_exists($GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/' . $thisDirectory) )
             {
-                rename($coursesRepositorySys . $currentCourseRepository . '/group/' . $thisDirectory,
+                rename($GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/' . $thisDirectory,
                        $groupGarbage . $thisDirectory);
             }
         }
@@ -228,15 +240,20 @@ function deleteAllGroups()
  * The algorithm takes care to fill first the freest groups
  * with the less enrolled users
  *
+ * @param integer $nbGroupPerUser
+ * @param string $course_id course context where the  group(s) can be founded   *
+ *        default : null (get id from init)
+ *
  * @author Chrisptophe Gesché <moosh@claroline.net>,
  * @author Hugues Peeters     <hugues.peeters@claroline.net>
  *
  * @return void
  */
 
-function fill_in_groups($course_id = NULL)
+function fill_in_groups($nbGroupPerUser, $course_id = NULL)
 {
-    global $currentCourseId, $nbGroupPerUser;
+    $course_id = is_null($course_id) ? $course_id : $GLOBALS['_cid'];
+
     $tbl_m_names = claro_sql_get_main_tbl();
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
@@ -252,10 +269,14 @@ function fill_in_groups($course_id = NULL)
      * (reverse) ordered by the number of place available
      */
 
-    $sql = "SELECT g.id AS gid, g.maxStudent-count(ug.user) AS  nbPlaces, g.maxStudent AS g_maxStudent
-    # g.maxStudent AS g_maxStudent is not use  in code but would be added  for exists in HAVING
-            FROM `" . $tbl_groups . "` AS  g
-            LEFT JOIN  `" . $tbl_groupsUsers . "` ug
+    $sql = "SELECT
+               g.id                        AS gid,
+               g.maxStudent-count(ug.user) AS  nbPlaces,
+               g.maxStudent                AS g_maxStudent
+               # g.maxStudent AS g_maxStudent  is not use
+               # in code but would be added  for exists in HAVING
+            FROM `" . $tbl_groups . "`            AS  g
+            LEFT JOIN  `" . $tbl_groupsUsers . "` AS ug
             ON    `g`.`id` = `ug`.`team`
             GROUP BY (`g`.`id`)
             HAVING nbPlaces > 0 OR g_maxStudent IS NULL
@@ -271,12 +292,12 @@ function fill_in_groups($course_id = NULL)
      */
 
     $sql = "SELECT
-                cu.user_id AS uid,
+                cu.user_id                               AS uid,
                 (" . $nbGroupPerUser . "-count(ug.team)) AS nbTicket
-            FROM `" . $tbl_CoursUsers . "` cu
+            FROM `" . $tbl_CoursUsers . "` AS cu
             LEFT JOIN  `" . $tbl_groupsUsers . "` AS ug
             ON    `ug`.`user`      = `cu`.`user_id`
-            WHERE `cu`.`code_cours`='" . addslashes($currentCourseId) . "'
+            WHERE `cu`.`code_cours`='" . addslashes($course_id) . "'
             AND   `cu`.`statut`    = 5 #no teacher
             AND   `cu`.`tutor`     = 0 #no tutor
             GROUP BY (cu.user_id)
@@ -393,7 +414,7 @@ function group_count_students_in_course($course_id)
  * @param interger (optional) course_id
  * @return interger user quantity
  * @author Christophe Gesché <moosh@claroline.net>
- * @todo rename this function or change it. count include non student users.
+ * @todo TODO : rename this function or change it. count include non student users.
  */
 function group_count_students_in_groups($course_id=null)
 {
@@ -410,7 +431,7 @@ function group_count_students_in_groups($course_id=null)
  * @param interger (optional) course_id
  * @return interger user quantity
  * @author Christophe Gesché <moosh@claroline.net>
- * @todo rename this function or change it. count include non student users.
+ * @todo TODO : rename this function or change it. count include non student users.
  */
 function group_count_students_in_group($group_id,$course_id=null)
 {
@@ -424,8 +445,8 @@ function group_count_students_in_group($group_id,$course_id=null)
 
 /**
  * Count groups where a user is ennrolled in a given course
- * @param $user_id
- * @param interger (optional) course_id
+ * @param integer $user_id
+ * @param integer (optional) course_id
  * @return integer Count of groups where a given user is ennrolled in a given (o current) course
  * @author Christophe Gesché <moosh@claroline.net>
  *
@@ -443,18 +464,17 @@ function group_count_group_of_a_user($user_id, $course_id=null)
 /**
  * Create a new group
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  string $groupName - name of the group
- * @param  int $maxMember  - max user allowed for this group
- * @return int group id
+ * @param  integer $maxMember  - max user allowed for this group
+ * @return integer : id of the new group
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
 function create_group($groupName, $maxMember)
 {
-    global $coursesRepositorySys, $currentCourseRepository, $includePath ;
-
-    require_once $includePath . '/lib/forum.lib.php';
-    require_once $includePath . '/lib/fileManage.lib.php';
+    require_once $GLOBALS['includePath'] . '/lib/forum.lib.php';
+    require_once $GLOBALS['includePath'] . '/lib/fileManage.lib.php';
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_groups    = $tbl_cdb_names['group_team'];
@@ -469,11 +489,11 @@ function create_group($groupName, $maxMember)
     {
         $groupRepository = uniqid($groupName . '_');
     }
-    while ( check_name_exist(  $coursesRepositorySys
-                             . $currentCourseRepository
+    while ( check_name_exist(  $GLOBALS['coursesRepositorySys']
+                             . $GLOBALS['currentCourseRepository']
                              . '/group/' . $groupRepository) );
 
-    claro_mkdir($coursesRepositorySys . $currentCourseRepository . '/group/' . $groupRepository, CLARO_FILE_PERMISSIONS);
+    claro_mkdir($GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/' . $groupRepository, CLARO_FILE_PERMISSIONS);
 
     /*
      * Insert a new group in the course group table and keep its ID
@@ -490,18 +510,17 @@ function create_group($groupName, $maxMember)
      * Create a forum for the group in the forum table
      */
 
-    $forumInsertId = create_forum( $groupName. ' - '. strtolower(get_lang("Forum"))
-                                 , '' // forum description
-                                 , 2  // means forum post allowed,
-                                 , (int) GROUP_FORUMS_CATEGORY
-                                 , $createdGroupId
-                                 );
+    create_forum( $groupName. ' - '. strtolower(get_lang("Forum"))
+                , '' // forum description
+                , 2  // means forum post allowed,
+                , (int) GROUP_FORUMS_CATEGORY
+                , $createdGroupId
+                );
 
-     require_once $includePath . '/../wiki/lib/lib.createwiki.php';
+     require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
      create_wiki( $createdGroupId, $groupName. ' - Wiki' );
 
      return $createdGroupId;
 }
-
 
 ?>
