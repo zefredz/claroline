@@ -12,7 +12,7 @@ defined('CLARO_CONTEXT_GROUP') || define('CLARO_CONTEXT_GROUP','CLARO_CONTEXT_GR
  */
 function get_module_list($context)
 {
-    $moduleList =array();
+    $moduleList = array();
 
     if(CLARO_CONTEXT_COURSE == $context)
     {
@@ -48,6 +48,13 @@ function get_module_list($context)
     return $moduleList;
 }
 
+/**
+ * Return info about the given module
+ *
+ * @param string $claro_label
+ * @return array (id, claro_label, icon, access_manager, add_in_course, def_rank, def_access)
+ *
+ */
 function get_module_data($claro_label)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -67,7 +74,7 @@ function get_module_data($claro_label)
 
 
 /**
- * install tool in a course
+ * Install tool in a course
  *
  * @return datatype description
  *
