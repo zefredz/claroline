@@ -281,26 +281,37 @@ $url_course_delete = $clarolineRepositoryWeb . 'course/delete.php';
 $url_admin_course = $clarolineRepositoryWeb . 'admin/admincourses.php'. $toAdd ;
 
 $links[] = '<a class="claroCmd" href="' . $url_course . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-        .    get_lang('Back to Home page')
-        .    '</a>';
+.          '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+.          get_lang('Back to Home page')
+.          '</a>'
+;
 
 // add course tool list edit
 
 $links[] = '<a class="claroCmd" href="' . $url_course_edit_tool_list . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
-        .    get_lang('Edit Tool list')
-        .    '</a>';
+.          '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
+.          get_lang('Edit Tool list')
+.          '</a>'
+;
+
+// Main group settings
+$links[] = '<a class="claroCmd" href="../group/group_properties.php">'
+.          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+.          get_lang("Main Group Settings")
+.          '</a>'
+;
 
 // add tracking link
 
 if ( $is_trackingEnabled )
 {
     $links[] = '<a class="claroCmd" href="' . $url_course_tracking . '">'
-            .    '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
-            .    get_lang('Statistics')
-            .    '</a>' ;
+    .          '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
+    .          get_lang('Statistics')
+    .          '</a>'
+    ;
 }
+
 
 
 // add link to admin page
@@ -308,8 +319,9 @@ if ( $is_trackingEnabled )
 if ( $is_platformAdmin && isset($_REQUEST['adminContext']) )
 {
     $links[] = '<a class="claroCmd" href="' . $url_admin . '">'
-            .    get_lang('Back to administration page')
-            .    '</a>';
+    .          get_lang('Back to administration page')
+    .          '</a>'
+    ;
 }
 
 // add delete course link
@@ -318,9 +330,10 @@ if ( get_conf('showLinkToDeleteThisCourse') )
 {
 
     $links[] = '<a class="claroCmd" href="' . $url_course_delete . '">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-    .    get_lang('Delete the whole course website')
-    .    '</a>';
+    .          '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+    .          get_lang('Delete the whole course website')
+    .          '</a>'
+    ;
 }
 
 
@@ -331,8 +344,9 @@ if ( isset($cfrom) && ($is_platformAdmin) )
     if ( $cfrom == 'clist' )  //in case we come from the course list in admintool
     {
         $links[] = '<a class="claroCmd" href="' . $url_admin_course . '">'
-                . get_lang('Back to list')
-                . '</a>';
+        .          get_lang('Back to list')
+        .          '</a>'
+        ;
     }
 }
 

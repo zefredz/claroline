@@ -18,11 +18,11 @@
      *
      * @package Wiki
      */
-     
+
     $tlabelReq = 'CLWIKI__';
 
     require_once "../inc/claro_init_global.inc.php";
-    
+
     if ( ! $is_toolAllowed )
     {
         if ( is_null( $_cid ) )
@@ -34,32 +34,30 @@
             claro_die(get_lang("Not allowed"));
         }
     }
-    
+
     // if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-    
+
     // config file
     require_once $includePath . "/conf/CLWIKI.conf.php";
-    
+
     // check and set user access level for the tool
-    
+
     if ( ! isset( $_REQUEST['wikiId'] ) )
     {
         header( "Location: wiki.php" );
         exit();
     }
-    
+
     // set admin mode and groupId
-    
+
     $is_allowedToAdmin = claro_is_allowed_to_edit();
-    
+
 
     if ( $_gid && $is_groupAllowed )
     {
         // group context
         $groupId = $_gid;
-        
-        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang("Groups"));
-        $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
+
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -74,9 +72,9 @@
     {
         claro_disp_auth_form();
     }
-    
+
     // Wiki specific classes and libraries
-    
+
     require_once "lib/class.clarodbconnection.php";
     require_once "lib/class.wiki2xhtmlrenderer.php";
     require_once "lib/class.wikipage.php";
@@ -105,7 +103,7 @@
             ;
 
         $result = $con->getRowFromQuery( $sql );
-        
+
         $wikiGroupId = (int) $result['group_id'];
 
         if ( isset( $_gid ) && $_gid != $wikiGroupId )
@@ -117,19 +115,19 @@
             claro_die(get_lang("Not allowed"));
         }
     }
-    
+
     // Claroline libraries
-    
+
     require_once $includePath . '/lib/user.lib.php';
-    
+
     // set request variables
-    
+
     $wikiId = ( isset( $_REQUEST['wikiId'] ) ) ? (int) $_REQUEST['wikiId'] : 0;
-    
+
     // Database nitialisation
-    
+
     $tblList = claro_sql_get_course_tbl();
-    
+
     $config = array();
     $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
     $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
@@ -137,36 +135,36 @@
     $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
 
     $con = new ClarolineDatabaseConnection();
-    
+
     // auto create wiki in devel mode
     if ( defined("DEVEL_MODE") && ( DEVEL_MODE == true ) )
     {
         init_wiki_tables( $con, false );
     }
-    
+
     // Objects instantiation
-    
+
     $wikiStore = new WikiStore( $con, $config );
-    
+
     if ( ! $wikiStore->wikiIdExists( $wikiId ) )
     {
         die ( get_lang("Invalid Wiki Id") );
     }
-    
+
     $wiki = $wikiStore->loadWiki( $wikiId );
     $wikiPage = new WikiPage( $con, $config, $wikiId );
     $wikiRenderer = new Wiki2xhtmlRenderer( $wiki );
-    
+
     $accessControlList = $wiki->getACL();
-    
+
     // --------------- Start of access rights management --------------
-    
+
     // Wiki access levels
-    
+
     $is_allowedToEdit   = false;
     $is_allowedToRead   = false;
     $is_allowedToCreate = false;
-    
+
     // set user access rights using user status and wiki access control list
 
     if ( $_gid && $is_groupAllowed )
@@ -215,14 +213,14 @@
             }
         }
     }
-    
+
     if ( ! $is_allowedToRead )
     {
         claro_die( get_lang("You are not allowed to read this page") );
     }
-    
+
     // --------------- End of  access rights management ----------------
-    
+
     // filter action
 
     if ( $is_allowedToEdit || $is_allowedToCreate )
@@ -240,25 +238,25 @@
     }
 
     $_CLEAN = filter_by_key( 'action', $valid_actions, "R", false );
-    
+
     $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'show';
-    
+
     // get request variables
-    
+
     $creatorId = $_uid;
-    
+
     $versionId = ( isset( $_REQUEST['versionId'] ) ) ? $_REQUEST['versionId'] : 0;
 
     $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
-    
+
     if ( 'diff' == $action )
     {
         $old = ( isset( $_REQUEST['old'] ) ) ? (int) $_REQUEST['old'] : 0;
         $new = ( isset( $_REQUEST['new'] ) ) ? (int) $_REQUEST['new'] : 0;
     }
-    
+
     // get content
-    
+
     if ( 'edit' == $action )
     {
         if ( isset( $_REQUEST['content'] ) )
@@ -274,14 +272,14 @@
     {
         $content = ( isset( $_REQUEST['content'] ) ) ? $_REQUEST['content'] : '';
     }
-    
+
     // use __MainPage__ if empty title
 
     if ( '' === $title )
     {
         // create wiki main page in a localisation compatible way
         $title = '__MainPage__';
-        
+
         if ( $wikiStore->pageExists( $wikiId, $title ) )
         {
             // do nothing
@@ -298,16 +296,16 @@
             claro_die( get_lang( "Wrong page title" ) );
         }
     }
-    
+
     // --------- Start of wiki command processing ----------
-    
+
     // init message
     $message = '';
-    
+
     switch( $action )
     {
         case 'rqSearch':
-        {            
+        {
             break;
         }
         case 'exSearch':
@@ -316,22 +314,22 @@
                 ? trim($_REQUEST['searchPattern'])
                 : null
                 ;
-                
+
             if ( !empty( $pattern ) )
             {
                 $searchEngine = new WikiSearchEngine( $con, $config );
                 $searchResult = $searchEngine->searchInWiki( $pattern, $wikiId, CLWIKI_SEARCH_ANY );
-                
+
                 if ( $searchEngine->hasError() )
                 {
                     claro_die( $searchEngine->getError() );
                 }
-                
+
                 if ( is_null( $searchResult ) )
                 {
                     $searchResult = array();
                 }
-                
+
                 $wikiList = $searchResult;
             }
             else
@@ -345,7 +343,7 @@
         case 'diff':
         {
             require_once 'lib/lib.diff.php';
-            
+
             if ( $wikiStore->pageExists( $wikiId, $title ) )
             {
                 // older version
@@ -353,17 +351,17 @@
                 $old = $wikiPage->getContent();
                 $oldTime = $wikiPage->getCurrentVersionMtime();
                 $oldEditor = $wikiPage->getEditorId();
-                
+
                 // newer version
                 $wikiPage->loadPageVersion( $new );
                 $new = $wikiPage->getContent();
                 $newTime = $wikiPage->getCurrentVersionMtime();
                 $newEditor = $wikiPage->getEditorId();
-                
+
                 // get differences
                 $diff = '<table style="border: 0;">'.diff( $old, $new, true, 'format_table_line' ).'</table>';
             }
-            
+
             break;
         }
         // page history
@@ -373,45 +371,45 @@
         {
             $wikiPage->loadPage( $title );
             $title = $wikiPage->getTitle();
-            
+
             ###### CHANGE AND MOVE DEFAULT VALUE TO CONFIG #####
             $defaultStep = 10;
-            
-            $offset = isset( $_REQUEST['offset'] ) 
+
+            $offset = isset( $_REQUEST['offset'] )
                 ? (int) $_REQUEST['offset']
                 : 0
                 ;
-            
-            $step = isset( $_REQUEST['step'] ) 
+
+            $step = isset( $_REQUEST['step'] )
                 ? (int) $_REQUEST['step']
                 : $defaultStep
                 ;
-            
+
             if ( 'history' == $action )
             {
                 $nbEntries = $wikiPage->countVersion();
             }
-            
+
             if ( 'recent' == $action )
             {
                 $nbEntries = $wiki->getNumberOfPages();
             }
-            
+
             $last = 0;
             $first = 0;
-            
+
             if ( $step === 0 )
             {
                 $offset = 0;
-                
+
                 while ( $last < $nbEntries)
                      $last += $defaultStep;
-                
+
                 $last = $last > $nbEntries
                     ? $last - $defaultStep
                     : $last
                     ;
-                    
+
                 $previous = false;
                 $next = false;
             }
@@ -419,33 +417,33 @@
             {
                 while ( $last < $nbEntries)
                      $last += $step;
-                
+
                 $last = $last > $nbEntries
                     ? $last - $step
                     : $last
                     ;
-                    
+
                 $previous = ( $offset - $step ) < 0
                     ? false
                     : $offset - $step
                     ;
-                    
+
                 $next     = ( $offset + $step ) >= $nbEntries
                     ? false
                     : $offset + $step
                     ;
-                    
+
                 if ( $next > $nbEntries )
                 {
                     $next = false;
                 }
-                
+
                 if ( $previous < 0 )
                 {
                     $previous = false;
                 }
             }
-            
+
             // get page history
             if ( 'history' == $action )
             {
@@ -456,7 +454,7 @@
             {
                 $recentChanges = $wiki->recentChanges( $offset, $step );
             }
-            
+
             if ( 0 === $step ) $step = $defaultStep;
             break;
         }
@@ -479,19 +477,19 @@
                 {
                     $wikiPage->loadPageVersion( $versionId );
                 }
-                
+
                 if ( '' == $content )
                 {
                     $content = $wikiPage->getContent();
                 }
-                
+
                 if  ( '__CONTENT__EMPTY__' == $content )
                 {
                     $content = '';
                 }
 
                 $title = $wikiPage->getTitle();
-                
+
                 $_SESSION['wikiLastVersion'] = $wikiPage->getLastVersionId();
             }
             else
@@ -507,7 +505,7 @@
         case 'show':
         {
             unset( $_SESSION['wikiLastVersion'] );
-            
+
             if ( $wikiStore->pageExists( $wikiId, $title ) )
             {
                 if ( $versionId == 0 )
@@ -539,13 +537,13 @@
                 if ( $wikiPage->pageExists( $title ) )
                 {
                     $wikiPage->loadPage( $title );
-                    
+
                     if ( $content == $wikiPage->getContent() )
                     {
                         unset( $_SESSION['wikiLastVersion'] );
 
                         $message = get_lang("Identical content<br />no modification saved");
-                        
+
                         $action = 'show';
                     }
                     else
@@ -558,9 +556,9 @@
                         else
                         {
                             $wikiPage->edit( $creatorId, $content, $time, true );
-                        
+
                             unset( $_SESSION['wikiLastVersion'] );
-                        
+
                             if ( $wikiPage->hasError() )
                             {
                                 $message = get_lang( "Database error : " ) . $wikiPage->getError();
@@ -569,13 +567,13 @@
                             {
                                 $message = get_lang("Page saved");
                             }
-                            
+
                             $action = 'show';
                         }
                     }
-                    
+
                     //notify modification of the page
-                
+
                     $eventNotifier->notifyCourseEvent('wiki_page_modified'
                                          , $_cid
                                          , $_tid
@@ -586,7 +584,7 @@
                 else
                 {
                     $wikiPage->create( $creatorId, $title, $content, $time, true );
-                    
+
                     if ( $wikiPage->hasError() )
                     {
                         $message = get_lang( "Database error : " ) . $wikiPage->getError();
@@ -595,37 +593,37 @@
                     {
                         $message = get_lang("Page saved");
                     }
-                    
+
                     $action = 'show';
-                    
+
                     //notify creation of the page
-                
+
                     $eventNotifier->notifyCourseEvent('wiki_page_added'
                                          , $_cid
                                          , $_tid
                                          , $wikiId
                                          , $_gid
                                          , '0');
-                }               
+                }
             }
-            
+
             break;
         }
     }
-    
+
     // change to use empty page content
-    
+
     if ( ! isset( $content ) )
     {
         $content = '';
     }
-    
+
     // --------- End of wiki command processing -----------
-    
+
     // --------- Start of wiki display --------------------
-    
+
     // set xtra head
-    
+
     $jspath = document_web_path() . '/lib/javascript';
 
     // set image repository
@@ -633,7 +631,7 @@
         . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
         . "\n</script>\n"
         ;
-    
+
     // set style
     $htmlHeadXtra[] = '<style type="text/css">
 .wikiTitle h1{
@@ -687,13 +685,13 @@
 }
 </style>'
         ;
-        
+
     // Breadcrumps
-    
+
     $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
     $interbredcrump[]= array ( 'url' => NULL
         , 'name' => $wiki->getTitle() );
-        
+
     switch( $action )
     {
         case 'edit':
@@ -734,16 +732,16 @@
             $noPHP_SELF = true;
         }
     }
-    
+
     // Claroline Header and Banner
 
     require_once $includePath . '/claro_init_header.inc.php';
-    
+
     // tool title
-    
+
     $toolTitle = array();
     $toolTitle['mainTitle'] = sprintf( get_lang("Wiki : %s"), $wiki->getTitle() );
-    
+
     if ( $_gid )
     {
         $toolTitle['supraTitle'] = $_group['name'];
@@ -773,26 +771,26 @@
             break;
         }
         default:
-        {                
+        {
             break;
         }
     }
-    
+
     echo claro_html_tool_title( $toolTitle, false );
-    
+
     if ( !empty($message) )
     {
         echo claro_html_message_box($message) . "\n";
     }
-    
+
     // Check javascript
-    
+
     $javascriptEnabled = claro_is_javascript_enabled();
-    
+
     // Wiki navigation bar
-    
+
     echo '<p>';
-    
+
     echo '<a class="claroCmd" href="'
         . $_SERVER['PHP_SELF']
         . '?wikiId=' . $wiki->getWikiId()
@@ -802,7 +800,7 @@
         . '<img src="'.$imgRepositoryWeb.'wiki.gif" border="0" alt="edit" />&nbsp;'
         . get_lang("Main page").'</a>'
         ;
-    
+
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
         . $_SERVER['PHP_SELF']
         . '?wikiId=' . $wiki->getWikiId()
@@ -820,14 +818,14 @@
         . '<img src="'.$imgRepositoryWeb.'book.gif" border="0" alt="all pages" />&nbsp;'
         . get_lang("All pages").'</a>'
         ;
-        
+
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
         . 'wiki.php'
         . '">'
         . '<img src="'.$imgRepositoryWeb.'info.gif" border="0" alt="all pages" />&nbsp;'
         . get_lang("List of Wiki") .'</a>'
         ;
-        
+
      echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
         . $_SERVER['PHP_SELF']
         . '?wikiId=' . $wiki->getWikiId()
@@ -836,15 +834,15 @@
         . '<img src="'.$imgRepositoryWeb.'search.gif" border="0" alt="all pages" />&nbsp;'
         . get_lang("Search").'</a>'
         ;
-    
+
     echo '</p>';
-    
-    if ( 'recent' != $action && 'all' != $action 
+
+    if ( 'recent' != $action && 'all' != $action
         && 'rqSearch' != $action && 'exSearch' != $action )
     {
-    
+
     echo '<p>';
-    
+
     if ( 'show' == $action || 'edit' == $action || 'history' == $action )
     {
         echo '<a class="claroCmd" href="'
@@ -864,7 +862,7 @@
             . get_lang("Back to page").'</span>'
             ;
     }
-        
+
     if ( $is_allowedToEdit || $is_allowedToCreate )
     {
         // Show context
@@ -897,8 +895,8 @@
             . get_lang("Edit this page") . '</span>'
             ;
     }
-    
-    if ( 'show' == $action || 'edit' == $action 
+
+    if ( 'show' == $action || 'edit' == $action
         || 'history' == $action || 'diff' == $action )
     {
         // active
@@ -920,7 +918,7 @@
             . get_lang("Page history") . '</span>'
             ;
     }
-        
+
     if ( 'edit' == $action || 'diff' == $action )
     {
         echo '&nbsp;|&nbsp;<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
@@ -933,9 +931,9 @@
     }
 
     echo '</p>' . "\n";
-    
+
     }
-    
+
     switch( $action )
     {
         case 'conflict':
@@ -948,7 +946,7 @@
             {
                 $displaytitle = $title;
             }
-            
+
             echo '<div class="wikiTitle">' . "\n";
             echo '<h1>'.$displaytitle
                 . ' : ' . get_lang("Edit conflict")
@@ -956,11 +954,11 @@
                 . "\n"
                 ;
             echo '</div>' . "\n";
-            
+
             $message = get_block('blockWikiConflictHowTo');
-                
+
             echo claro_html_message_box ( $message ) . '<br />' . "\n";
-            
+
             echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="POST">';
             echo '<textarea name="conflictContent" id="content"'
                  . ' cols="80" rows="15" wrap="virtual">'
@@ -991,28 +989,28 @@
             {
                 $displaytitle = $title;
             }
-            
+
             $oldTime = claro_disp_localised_date( $dateTimeFormatLong
                         , strtotime($oldTime) )
                         ;
-                        
+
             $userInfo = user_get_data( $oldEditor );
             $oldEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
 
             $newTime = claro_disp_localised_date( $dateTimeFormatLong
                         , strtotime($newTime) )
                         ;
-                        
+
             $userInfo = user_get_data( $newEditor );
             $newEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
 
             $versionInfo = '('
-                . sprintf( 
+                . sprintf(
                     get_lang("differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s")
                         , $oldTime, $oldEditorStr, $newTime, $newEditorStr )
                 . ')'
                 ;
-                
+
             $versionInfo = '&nbsp;<span style="font-size: 40%; font-weight: normal; color: red;">'
                         . $versionInfo . '</span>'
                         ;
@@ -1024,7 +1022,7 @@
                 . "\n"
                 ;
             echo '</div>' . "\n";
-            
+
             echo '<strong>'.get_lang("Keys :").'</strong>';
 
             echo '<div class="diff">' . "\n";
@@ -1033,62 +1031,62 @@
             echo '- <span class="diffDeleted" >'.get_lang("Deleted line").'</span><br />';
             echo 'M <span class="diffMoved" >'.get_lang("Moved line").'</span><br />';
             echo '</div>' . "\n";
-            
+
             echo '<strong>'.get_lang("Differences :").'</strong>';
 
             echo '<div class="diff">' . "\n";
             echo $diff;
             echo '</div>' . "\n";
-            
+
             break;
         }
         case 'recent':
         {
-            $script = $_SERVER['PHP_SELF'] 
+            $script = $_SERVER['PHP_SELF']
                 . '?wikiId=' . (int) $wikiId
                 . '&amp;action=recent'
                 ;
-                
+
             echo '<p>'
                 . '<a href="'.$script.'&amp;offset='
                 . $first .'&amp;step=' . (int) $step .'">&lt;&lt; First</a>'
-                . ( $previous !== false 
+                . ( $previous !== false
                     ? ' ' . '<a href="'.$script.'&amp;offset='
-                      . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>' 
+                      . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>'
                     : ' &lt; Previous' )
                 . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">All</a>'
-                . ( $next !== false 
+                . ( $next !== false
                     ? ' ' . '<a href="'.$script.'&amp;offset='
-                      . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>' 
+                      . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>'
                     : ' Next &gt;' )
                 . ' ' . '<a href="'.$script.'&amp;offset='
                 . $last . '&amp;step=' . (int) $step .'">Last &gt;&gt;</a>'
                 . '</p>'
                 ;
-                
+
             if ( is_array( $recentChanges ) )
             {
                 echo '<ul>' . "\n";
-                
+
                 foreach ( $recentChanges as $recentChange )
                 {
                     $pgtitle = ( '__MainPage__' == $recentChange['title'] )
                         ? get_lang("Main page")
                         : $recentChange['title']
                         ;
-                        
+
                     $entry = '<strong><a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                         . $wikiId . '&amp;title=' . rawurlencode( $recentChange['title'] )
                         . '&amp;action=show"'
                         . '>'.$pgtitle.'</a></strong>'
                         ;
-                        
+
                     $time = claro_disp_localised_date( $dateTimeFormatLong
                         , strtotime($recentChange['last_mtime']) )
                         ;
 
                     $userInfo = user_get_data( $recentChange['editor_id'] );
-                    
+
                     if ( !empty( $userInfo ) )
                     {
                         $userStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
@@ -1097,7 +1095,7 @@
                     {
                         $userStr = get_lang( "Unknown" );
                     }
-                    
+
                     if ( $is_courseMember )
                     {
                         $userUrl = '<a href="'. $clarolineRepositoryWeb
@@ -1110,7 +1108,7 @@
                     {
                         $userUrl = $userStr;
                     }
-                        
+
                     echo '<li>'
                         . sprintf( get_lang("%1\$s modified on %2\$s by %3\$s"), $entry, $time, $userUrl )
                         . '</li>'
@@ -1125,7 +1123,7 @@
         case 'all':
         {
             // handle main page
-            
+
             echo '<ul><li><a href="'.$_SERVER['PHP_SELF']
                 . '?wikiId=' . $wikiId
                 . '&amp;title=' . rawurlencode("__MainPage__")
@@ -1133,13 +1131,13 @@
                 . get_lang("Main page")
                 . '</a></li></ul>' . "\n"
                 ;
-            
+
             // other pages
-            
+
             if ( is_array( $allPages ) )
             {
                 echo '<ul>' . "\n";
-                
+
                 foreach ( $allPages as $page )
                 {
                     if ( '__MainPage__' == $page['title'] )
@@ -1154,7 +1152,7 @@
                         . $wikiId . '&amp;title=' . $pgtitle . '&amp;action=show"'
                         . '>' . $page['title'] . '</a>'
                         ;
-                        
+
                     echo '<li>' . $link. '</li>' . "\n";
                 }
                 echo '</ul>' . "\n";
@@ -1192,7 +1190,7 @@
             }
 
             echo claro_disp_wiki_preview( $wikiRenderer, $title, $content );
-            
+
             echo claro_disp_wiki_preview_buttons( $wikiId, $title, $content );
 
             break;
@@ -1215,7 +1213,7 @@
                 {
                     $displaytitle = $title;
                 }
-                
+
                 if ( $versionId != 0 )
                 {
                     $editorInfo = user_get_data( $wikiPage->getEditorId() );
@@ -1234,13 +1232,13 @@
                     {
                         $editorUrl = '&nbsp;-&nbsp;' . $editorStr;
                     }
-                    
+
                     $mtime = claro_disp_localised_date( $dateTimeFormatLong
                         , strtotime($wikiPage->getCurrentVersionMtime()) )
                         ;
-                        
+
                     $versionInfo = sprintf( get_lang("(version of %1\$s modified by %2\$s)"), $mtime, $editorUrl );
-                        
+
                     $versionInfo = '&nbsp;<span style="font-size: 40%; font-weight: normal; color: red;">'
                         . $versionInfo . '</span>'
                         ;
@@ -1249,7 +1247,7 @@
                 {
                     $versionInfo = '';
                 }
-                
+
                 echo '<div class="wikiTitle">' . "\n";
                 echo '<h1>'.$displaytitle
                     . $versionInfo
@@ -1257,11 +1255,11 @@
                     . "\n"
                     ;
                 echo '</div>' . "\n";
-                
+
                 echo '<div class="wiki2xhtml">' . "\n";
                 echo $wikiRenderer->render( $content );
                 echo '</div>' . "\n";
-                
+
                 echo '<div style="clear:both;"><!-- spacer --></div>' . "\n";
             }
 
@@ -1281,36 +1279,36 @@
             echo '<div class="wikiTitle">' . "\n";
             echo '<h1>'.$displaytitle.'</h1>' . "\n";
             echo '</div>' . "\n";
-            
-            $script = $_SERVER['PHP_SELF'] 
+
+            $script = $_SERVER['PHP_SELF']
                 . '?wikiId=' . (int) $wikiId
                 . '&amp;title=' . rawurlencode( $title )
                 . '&amp;action=history'
                 ;
-            
+
             echo '<p>'
                 . '<a href="'.$script.'&amp;offset='
                 . $first .'&amp;step=' . (int) $step .'">&lt;&lt; First</a>'
-                . ( $previous !== false 
+                . ( $previous !== false
                     ? ' ' . '<a href="'.$script.'&amp;offset='
-                      . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>' 
+                      . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>'
                     : ' &lt; Previous' )
                 . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">All</a>'
-                . ( $next !== false 
+                . ( $next !== false
                     ? ' ' . '<a href="'.$script.'&amp;offset='
-                      . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>' 
+                      . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>'
                     : ' Next &gt;' )
                 . ' ' . '<a href="'.$script.'&amp;offset='
                 . $last . '&amp;step=' . (int) $step .'">Last &gt;&gt;</a>'
                 . '</p>'
                 ;
-            
+
             echo '<form id="differences" method="GET" action="'
                 . $_SERVER['PHP_SELF']
                 . '">'
                 . "\n"
                 ;
-                
+
             echo '<div>' . "\n"
                 . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
                 . '<input type="hidden" name="title" value="'.$title.'" />' . "\n"
@@ -1319,17 +1317,17 @@
                 . '" />' . "\n"
                 . '</div>' . "\n"
                 ;
-            
+
             echo '<table style="border: 0px;">' . "\n";
-            
+
             if ( is_array( $history ) )
             {
                 $firstPass = true;
-                
+
                 foreach ( $history as $version )
                 {
                     echo '<tr>' . "\n";
-                    
+
                     if ( true == $firstPass )
                     {
                         $checked = ' checked="checked"';
@@ -1339,13 +1337,13 @@
                     {
                         $checked = '';
                     }
-                    
+
                     echo '<td>'
                         . '<input type="radio" name="old" value="'.$version['id'].'"'.$checked.' />' . "\n"
                         . '</td>'
                         . "\n"
                         ;
-                        
+
                     echo '<td>'
                         . '<input type="radio" name="new" value="'.$version['id'].'"'.$checked.' />' . "\n"
                         . '</td>'
@@ -1362,7 +1360,7 @@
                     {
                         $userStr = get_lang( "Unknown" );
                     }
-                    
+
                     if ( $is_courseMember )
                     {
                         $userUrl = '<a href="'. $clarolineRepositoryWeb
@@ -1375,7 +1373,7 @@
                     {
                         $userUrl = $userStr;
                     }
-                    
+
                     $versionUrl = '<a href="' . $_SERVER['PHP_SELF'] . '?wikiId='
                         . $wikiId . '&amp;title=' . rawurlencode( $title )
                         . '&amp;action=show&amp;versionId=' . $version['id']
@@ -1384,29 +1382,29 @@
                             , strtotime($version['mtime']) )
                         . '</a>'
                         ;
-                    
+
                     echo '<td>'
                         . sprintf( get_lang("%1\$s by %2\$s"), $versionUrl, $userUrl )
                         . '</td>'
                         . "\n"
                         ;
-                        
+
                     echo '</tr>' . "\n";
                 }
             }
-            
+
             echo '</table>' . "\n";
-            
+
             echo '</form>';
-            
+
             break;
         }
         case 'exSearch':
         {
             echo '<h3>'.get_lang("Search result").'</h3>' . "\n";
-            
+
             echo '<ul>' . "\n";
-            
+
             foreach ( $searchResult as $page )
             {
                 if ( '__MainPage__' == $page['title'] )
@@ -1424,7 +1422,7 @@
                     . $wikiId . '&amp;title=' . $urltitle . '&amp;action=show"'
                     . '>' . $title . '</a>'
                     ;
-                    
+
                 echo '<li>' . $link. '</li>' . "\n";
             }
             echo '</ul>' . "\n";
@@ -1453,10 +1451,10 @@
                 );
         }
     }
-    
+
     // ------------ End of wiki script ---------------
 
     // Claroline footer
-    
+
     require_once $includePath . '/claro_init_footer.inc.php';
 ?>

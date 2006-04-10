@@ -1,12 +1,12 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLGRP
  *
@@ -43,7 +43,7 @@ $sql = "SELECT `self_registration`,`private`,`nbGroupPerUser`,
  * $_groupProperties ['private'            ]
  * $_groupProperties ['nbGroupPerUser'     ]
  * arent in fact properties of the courses about groups link to it.
- * $_groupProperties ['tools'] is a course_tool properties to se if 
+ * $_groupProperties ['tools'] is a course_tool properties to se if
  * roups can use or not these tools in the groups of this course
 */
 list($gpData) = claro_sql_query_fetch_all($sql);
@@ -116,7 +116,7 @@ echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle
     <tr>
         <td valign="top">
             <span class="item">
-            <?php 
+            <?php
 
             if (is_null($_groupProperties ['nbGroupPerUser']))
             {
@@ -126,9 +126,9 @@ echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle
             {
                 $nbGroupsPerUserShow = $_groupProperties ['nbGroupPerUser'     ];
             }
-            
+
             $selector_nb_groups = '<select name="limitNbGroupPerUser" >' . "\n";
-            
+
             for( $i = 1; $i <= 10; $i++ )
             {
                 $selector_nb_groups .=  '<option value="'.$i.'"'
@@ -138,9 +138,9 @@ echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle
 
             $selector_nb_groups .= '<option value="ALL" '
                                  . ($nbGroupsPerUserShow == "ALL" ? ' selected="selected" ' : '')
-                                 . '>ALL</option>'     
+                                 . '>ALL</option>'
                                  . '</select>' ;
-            
+
             echo get_lang('A user can be a member of maximum %nb groups', array ( '%nb' => $selector_nb_groups ));
 
             ?>
@@ -221,7 +221,7 @@ echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle
 
     <tr>
         <td valign="top">
-            <input type="submit" name="properties" value="<?php echo get_lang("Ok") ?>"> 
+            <input type="submit" name="properties" value="<?php echo get_lang("Ok") ?>">
             <?php echo claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")); ?>
         </td>
     </tr>

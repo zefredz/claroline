@@ -84,9 +84,6 @@ if ($_gid && $is_groupAllowed)
     $courseDir         = $_course['path'] . '/group/' . $_group['directory'];
     $groupDir          = urlencode('group/' . $_group['directory']);
 
-    $interbredcrump[]  = array ('url' =>'../group/group.php', 'name' => get_lang("Groups"));
-    $interbredcrump[]= array ('url' =>'../group/group_space.php', 'name' => $_group['name']);
-
     $is_allowedToEdit  = $is_groupMember || $is_groupTutor|| $is_courseAdmin;
     $is_allowedToUnzip =  FALSE;
 
@@ -1581,7 +1578,7 @@ echo claro_html_tool_title($titleElement,
         echo "<p><center><a href=\"#\"><img id=\"mainImage\" src=\"" . $doc_url . "\" alt=\""
             . $fileName . "\" /></a></center></p>\n"
             ;
-            
+
         echo "<p><center><a href=\"" . $doc_url . "\">"
             . get_lang("Direct link to image") .
             "</a></center></p>\n"
@@ -1901,7 +1898,7 @@ echo claro_html_tool_title($titleElement,
             ."</tr>\n";
 
         echo "<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
-        
+
         # Patch to avoid E_NOTICE when no files in directory empty
         # FIXME find a more elegant way to solve the problem
         if ( count( $sortUrlList ) > 0 )

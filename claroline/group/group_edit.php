@@ -289,12 +289,6 @@ foreach ($result AS $myNotMember )
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
-
-
-
-$interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang("Groups"));
-$interbredcrump[]= array ('url' => 'group_space.php?gidReq=' . $_gid, 'name' => $myStudentGroup['name'] );
-
 include($includePath . '/claro_init_header.inc.php');
 
 echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"),

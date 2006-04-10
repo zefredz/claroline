@@ -1,12 +1,12 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
@@ -19,12 +19,6 @@
 $tlabelReq = 'CLCHT___';
 
 require '../inc/claro_init_global.inc.php';
-
-if(isset($_gid))
-{
-    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang('Groups'));
-    $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
-}
 
 $nameTools  = get_lang('Chat');
 $noPHP_SELF = TRUE;

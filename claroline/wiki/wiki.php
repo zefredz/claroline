@@ -18,11 +18,11 @@
      *
      * @package Wiki
      */
-      
+
     $tlabelReq = 'CLWIKI__';
 
     require_once "../inc/claro_init_global.inc.php";
-    
+
     if ( ! $is_toolAllowed )
     {
         if ( is_null( $_cid ) )
@@ -34,29 +34,26 @@
             claro_die(get_lang("Not allowed"));
         }
     }
-    
+
     // if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-    
+
     event_access_tool($_tid, $_courseTool['label']);
-    
+
     // display mode
 
     claro_set_display_mode_available(TRUE);
-    
+
     // check and set user access level for the tool
-    
+
     // set admin mode and groupId
-    
+
     $is_allowedToAdmin = claro_is_allowed_to_edit();
-    
+
 
     if ( $_gid && $is_groupAllowed )
     {
         // group context
         $groupId = (int) $_gid;
-        
-        $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang("Groups"));
-        $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
     }
     elseif ( $_gid && ! $is_groupAllowed )
     {
@@ -73,7 +70,7 @@
     }
 
     // require wiki files
-    
+
     require_once "lib/class.clarodbconnection.php";
     require_once "lib/class.wiki.php";
     require_once "lib/class.wikistore.php";
@@ -83,9 +80,9 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.javascript.php";
     require_once "lib/lib.wikidisplay.php";
-    
+
     // filter request variables
-    
+
     // filter allowed actions using user status
     if ( $is_allowedToAdmin )
     {
@@ -101,11 +98,11 @@
     }
 
     $_CLEAN = filter_by_key( 'action', $valid_actions, 'R', false );
-    
+
     $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'list';
-    
+
     $wikiId = ( isset( $_REQUEST['wikiId'] ) ) ? (int) $_REQUEST['wikiId'] : 0;
-    
+
     $creatorId = $_uid;
 
     // get request variable for wiki edition
@@ -113,16 +110,16 @@
     {
         $wikiTitle = ( isset( $_POST['title'] ) ) ? strip_tags( $_POST['title'] ) : '';
         $wikiDesc = ( isset( $_POST['desc'] ) ) ? strip_tags( $_POST['desc'] ) : '';
-        
+
         if ( $wikiDesc == get_lang("Enter the description of your wiki here") )
         {
             $wikiDesc = '';
         }
-        
+
         $acl = ( isset( $_POST['acl'] ) ) ? $_POST['acl'] : null;
-        
+
         // initialise access control list
-        
+
         $wikiACL = WikiAccessControl::emptyWikiACL();
 
         if ( is_array( $acl ) )
@@ -135,9 +132,9 @@
                 }
             }
         }
-        
+
         // force Wiki ACL coherence
-        
+
         if ( $wikiACL['course_read'] == false && $wikiACL['course_edit'] == true )
         {
             $wikiACL['course_edit'] = false;
@@ -150,7 +147,7 @@
         {
             $wikiACL['other_edit'] = false;
         }
-        
+
         if ( $wikiACL['course_edit'] == false  && $wikiACL['course_create'] == true )
         {
             $wikiACL['course_create'] = false;
@@ -176,7 +173,7 @@
     $config['tbl_wiki_acls'         ] = $tblList['wiki_acls'         ];
 
     $con = new ClarolineDatabaseConnection();
-    
+
     // DEVEL_MODE database initialisation
     if( defined( 'DEVEL_MODE' ) && ( DEVEL_MODE == true ) )
     {
@@ -187,9 +184,9 @@
 
     $wikiStore = new WikiStore( $con, $config );
     $wikiList = array();
-    
+
     // --------- Start of command processing ----------------
-    
+
     switch ( $action )
     {
         case 'exSearch':
@@ -198,26 +195,26 @@
                 ? trim($_REQUEST['searchPattern'])
                 : null
                 ;
-                
+
             if ( !empty( $pattern ) )
             {
                 $searchEngine = new WikiSearchEngine( $con, $config );
                 $searchResult = $searchEngine->searchAllWiki( $pattern, $groupId, CLWIKI_SEARCH_ANY );
-                
+
                 if ( $searchEngine->hasError() )
                 {
                     $message = $searchEngine->getError();
                     $action = 'error';
                     break;
                 }
-                
+
                 if ( is_null( $searchResult ) )
                 {
                     $searchResult = array();
                 }
-                
+
                 $wikiList = $searchResult;
-                
+
                 break;
             }
             else
@@ -229,7 +226,7 @@
         case 'rqSearch':
         {
             if ( !isset( $message ) ) $message = '';
-            
+
             $message .= '<form>'."\n"
                 . '<input type="hidden" name="action" value="exSearch">'."\n"
                 . '<label for="searchPattern">'
@@ -240,7 +237,7 @@
                 . claro_html_button($_SERVER['PHP_SELF'], get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
-                
+
             $action = 'list';
             break;
         }
@@ -259,7 +256,7 @@
                 $wikiTitle = $wiki->getTitle();
                 $message = get_lang("WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?");
             }
-            
+
             break;
         }
         // execute delete
@@ -278,7 +275,7 @@
             $message = get_lang("Wiki deletion succeed");
 
             //notify that the wiki was deleted
-            
+
             $eventNotifier->notifyCourseEvent('wiki_deleted'
                                          , $_cid
                                          , $_tid
@@ -306,7 +303,7 @@
                 $wikiDesc = $wiki->getDescription();
                 $wikiACL = $wiki->getACL();
                 $groupId = $wiki->getGroupId();
-                
+
             }
             else
             {
@@ -326,25 +323,25 @@
                 $wiki->setACL( $wikiACL );
                 $wiki->setGroupId( $groupId );
                 $wikiId = $wiki->save();
-                
+
                 //notify wiki modification
-                
+
                 $eventNotifier->notifyCourseEvent('wiki_modified'
                                          , $_cid
                                          , $_tid
                                          , $wikiId
                                          , $_gid
                                          , '0');
-                
-                $mainPageContent = sprintf( 
+
+                $mainPageContent = sprintf(
                     get_lang("This is the main page of the Wiki %s. Click on '''Edit''' to modify the content.")
                     , $wikiTitle )
                     ;
-                
+
                 $wikiPage = new WikiPage( $con, $config, $wikiId );
                 $wikiPage->create( $creatorId, '__MainPage__'
                     , $mainPageContent, date("Y-m-d H:i:s"), true );
-            
+
                 $message = get_lang("Wiki creation succeed");
             }
             elseif ( $wikiStore->wikiIdExists( $wikiId ) )
@@ -355,16 +352,16 @@
                 $wiki->setACL( $wikiACL );
                 $wiki->setGroupId( $groupId );
                 $wikiId = $wiki->save();
-                
+
                 //notify wiki creation
-                
+
                 $eventNotifier->notifyCourseEvent('wiki_added'
                                          , $_cid
                                          , $_tid
                                          , $wikiId
                                          , $_gid
                                          , '0');
-                
+
                 $message = get_lang("Wiki edition succeed");
             }
             else
@@ -372,13 +369,13 @@
                 $message = get_lang("Invalid Wiki Id");
                 $action = 'error';
             }
-            
+
             $action = 'list';
-            
+
             break;
         }
     }
-    
+
     // list wiki
     if ( 'list' == $action )
     {
@@ -393,18 +390,18 @@
     }
 
     // ------------ End of command processing ---------------
-    
+
     // javascript
-    
+
     if ( $action == 'rqEdit' )
     {
         $jspath = document_web_path() . '/lib/javascript';
         $htmlHeadXtra[] = '<script type="text/javascript" src="'.$jspath.'/wiki_acl.js"></script>';
         $claroBodyOnload[] = 'initBoxes();';
     }
-    
+
     // Breadcrumps
-    
+
     switch( $action )
     {
         case 'rqEdit':
@@ -432,22 +429,22 @@
             $nameTools = 'Wiki';
         }
     }
-    
+
     // Claro header and banner
 
     require_once $includePath . "/claro_init_header.inc.php";
 
     // --------- Start of display ----------------
-    
+
     // toolTitle
-    
+
     $toolTitle = array();
-    
+
     if ( $_gid )
     {
         $toolTitle['supraTitle'] = $_group['name'];
     }
-    
+
     switch( $action )
     {
         // edit form
@@ -476,11 +473,11 @@
         case 'list':
         {
             $toolTitle['mainTitle'] = sprintf( get_lang("Wiki : %s"), get_lang("List of Wiki") );
-            
+
             break;
         }
     }
-    
+
     echo claro_html_tool_title( $toolTitle, "../wiki/help_wiki.php?help=admin" ) . "\n";
 
     if ( ! empty( $message ) )
@@ -500,7 +497,7 @@
         {
             echo claro_disp_wiki_properties_form( $wikiId, $wikiTitle
                 , $wikiDesc, $groupId, $wikiACL );
-            
+
             break;
         }
         // delete form
@@ -511,7 +508,7 @@
                 . '" id="rqDelete">'
                 . "\n"
                 ;
-                
+
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
                 . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
@@ -520,17 +517,17 @@
                 ;
 
             echo '</form>' . "\n";
-            
+
             break;
         }
         // list wiki
         case 'exSearch':
         case 'list':
         {
-            //find the wiki with recent modification from the notification system   
-                
+            //find the wiki with recent modification from the notification system
+
             if (isset($_uid))
-            {    
+            {
                 $date = $claro_notifier->get_notification_date($_uid);
                 $modified_wikis = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid,12);
             }
@@ -541,7 +538,7 @@
 
             // if admin, display add new wiki link
             echo '<p>';
-            
+
             if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
             {
                 echo '<a href="'
@@ -554,7 +551,7 @@
                     . '&nbsp;|&nbsp;'
                     ;
             }
-            
+
             echo '<a href="'
                 . $_SERVER['PHP_SELF']
                 . '?action=rqSearch'
@@ -565,11 +562,11 @@
                 . '</p>'
                 . "\n"
                 ;
-            
+
             // display list in a table
-            
+
             echo '<table class="claroTable emphaseLine" style="width: 100%">' . "\n";
-            
+
             // if admin, display title, edit and delete
             if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
             {
@@ -596,18 +593,18 @@
                     . '</thead>' . "\n"
                     ;
             }
-            
+
             echo '<tbody>' . "\n";
-            
+
             // wiki list not empty
             if ( is_array( $wikiList ) && count( $wikiList ) > 0 )
             {
                 foreach ( $wikiList as $entry )
                 {
                     echo '<tr>' . "\n";
-                
+
                     // display title for all users
-                                 
+
                     //modify style if the wiki is recently added or modified since last login
 
                     if ((isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $entry['id'])))
@@ -618,32 +615,32 @@
                     {
                         $classItem="";
                     }
-                    
+
 
                     echo '<td style="text-align: left;">';
-                    
+
                     // display direct link to main page
-                    
-                    echo '<a class="item'.$classItem.'" href="page.php?wikiId='  
+
+                    echo '<a class="item'.$classItem.'" href="page.php?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
                         . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang("Wiki").'" />&nbsp;'
                         . $entry['title'] . '</a>'
                         ;
                         ;
-                    
+
                     echo '</td>' . "\n";
-                    
+
                     echo '<td style="text-align: center;">';
-                    
+
                     echo '<a href="page.php?wikiId=' . $entry['id'] . '&amp;action=all">';
-                    
+
                     echo $wikiStore->getNumberOfPagesInWiki( $entry['id'] );
-                    
+
                     echo '</a>';
-                    
+
                     echo '</td>' . "\n";
-                    
+
                     echo '<td style="text-align: center;">';
 
                     // display direct link to main page
@@ -655,15 +652,15 @@
                         . '</a>'
                         ;
                         ;
-                        
+
                     echo '</td>' . "\n";
-                    
+
                     // if admin, display edit and delete links
-                    
+
                     if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
                     {
                         // edit link
-                        
+
                         echo '<td style="text-align:center;">';
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqEdit'
@@ -673,9 +670,9 @@
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
-                
+
                         // delete link
-                        
+
                         echo '<td style="text-align:center;">';
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
@@ -685,21 +682,21 @@
                             ;
                         echo '</td>' . "\n";
                     }
-                    
+
                     echo '</tr>' . "\n";
-                    
+
                     if ( ! empty( $entry['description'] ) )
-                    {                    
-                        echo '<tr>' . "\n";           
-                        
+                    {
+                        echo '<tr>' . "\n";
+
                         $colspan = ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin ) ? 5 : 3;
-                        
+
                         echo '<td colspan="'
                             . $colspan.'"><div class="comment">'
                             . $entry['description'].'</div></td>'
                             . "\n"
                             ;
-                        
+
                         echo '</tr>' . "\n";
                     }
                 }
@@ -712,10 +709,10 @@
                  . '</td></tr>' . "\n"
                  ;
             }
-            
+
             echo '</tbody>' . "\n";
             echo '</table>' . "\n" . "\n";
-            
+
             break;
         }
         default:

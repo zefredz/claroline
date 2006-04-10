@@ -37,7 +37,8 @@
 $tlabelReq = 'CLGRP___';
 DEFINE('DISP_GROUP_LIST', __LINE__);
 DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
-
+$gidReq=null;
+$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 require_once $includePath . '/lib/group.lib.inc.php' ;

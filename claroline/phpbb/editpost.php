@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL) 
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -59,10 +59,10 @@ $pagetype  = 'editpost';
 if ( isset($_REQUEST['post_id']) ) $post_id = (int) $_REQUEST['post_id'];
 else                               $post_id = 0;
 
-$is_allowedToEdit = claro_is_allowed_to_edit() 
+$is_allowedToEdit = claro_is_allowed_to_edit()
                     || ( $is_groupTutor && !$is_courseAdmin);
-                    // ( $is_groupTutor 
-                    //  is added to give admin status to tutor 
+                    // ( $is_groupTutor
+                    //  is added to give admin status to tutor
                     // && !$is_courseAdmin)
                     // is added  to let course admin, tutor of current group, use student mode
 
@@ -77,22 +77,22 @@ if ( $postSettingList && $is_allowedToEdit )
     $forum_name         = stripslashes($forumSettingList['forum_name']);
     $forum_cat_id       = $forumSettingList['cat_id'      ];
 
-    /* 
-     * Check if the topic isn't attached to a group,  or -- if it is attached --, 
+    /*
+     * Check if the topic isn't attached to a group,  or -- if it is attached --,
      * check the user is allowed to see the current group forum.
      */
-    
-    if (   ! is_null($forumSettingList['idGroup']) 
+
+    if (   ! is_null($forumSettingList['idGroup'])
         && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
     {
-        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
-        // attempt like rewriting the request without $cidReq. If we are in group 
-        // forum and the group of the concerned forum isn't the same as the session 
+        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking
+        // attempt like rewriting the request without $cidReq. If we are in group
+        // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
         $allowed = false;
         $error_message = get_lang('Not allowed') ;
-    } 
-    else 
+    }
+    else
     {
         if ( isset($_REQUEST['cancel']) )
         {
@@ -105,7 +105,7 @@ if ( $postSettingList && $is_allowedToEdit )
             /*-----------------------------------------------------------------
               Edit Post
              -----------------------------------------------------------------*/
-              
+
             if ( ! $postSettingList ) error_die($err_db_retrieve_data);
 
             $poster_id        = $postSettingList['poster_id'];
@@ -117,7 +117,7 @@ if ( $postSettingList && $is_allowedToEdit )
             $posterdata       = get_userdata_from_id($poster_id);
             $date             = date('Y-m-d H:i');
 
-            if ( isset($_REQUEST['message']) ) 
+            if ( isset($_REQUEST['message']) )
             {
                 $message = $_REQUEST['message'];
 
@@ -125,16 +125,16 @@ if ( $postSettingList && $is_allowedToEdit )
             }
             else
             {
-                $message = ''; 
+                $message = '';
             }
-            
-            if ( isset($_REQUEST['subject']) ) 
+
+            if ( isset($_REQUEST['subject']) )
             {
                 $subject = $_REQUEST['subject'];
             }
             else
             {
-                $subject = ''; 
+                $subject = '';
             }
 
             if ( !isset($_REQUEST['delete']) )
@@ -157,7 +157,7 @@ if ( $postSettingList && $is_allowedToEdit )
             list($day, $time) = split(' ', $postSettingList['post_time']);
             $message = $postSettingList['post_text'];
             $message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $message);
-                // Special handling for </textarea> tags in the message, 
+                // Special handling for </textarea> tags in the message,
                 // which can break the editing form.
 
             $forum_id = $postSettingList['forum_id' ];
@@ -178,29 +178,23 @@ else
 /*=================================================================
   Display Section
  =================================================================*/
- 
-if ( 1 == $forum_cat_id && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
-{
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
-    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
-}
 
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
-    
+
 // Forum Title
 
 echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed || !$is_allowedToEdit )
 {
-      echo claro_html_message_box($error_message); 
+      echo claro_html_message_box($error_message);
 }
 else
 {
- 
+
     if ( isset($_REQUEST['submit']) && !$error)
     {
         if ( ! isset($_REQUEST['delete']) )

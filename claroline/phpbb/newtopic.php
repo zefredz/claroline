@@ -165,13 +165,6 @@ else
   Display Section
  =================================================================*/
 
-if (   isset($forum_cat_id) && $forum_cat_id == GROUP_FORUMS_CATEGORY
-    && $is_groupAllowed )
-{
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
-    $interbredcrump[]  = array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
-}
-
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 

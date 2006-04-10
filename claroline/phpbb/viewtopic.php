@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL) 
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -77,28 +77,28 @@ if ($topicSettingList)
     $forum_name         = $forumSettingList['forum_name'];
     $forum_cat_id       = $forumSettingList['cat_id'    ];
     $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
-    
-    /* 
-     * Check if the topic isn't attached to a group,  or -- if it is attached --, 
+
+    /*
+     * Check if the topic isn't attached to a group,  or -- if it is attached --,
      * check the user is allowed to see the current group forum.
      */
-    
-    if (   ! is_null($forumSettingList['idGroup']) 
+
+    if (   ! is_null($forumSettingList['idGroup'])
         && ! ( $forumSettingList['idGroup'] == $_gid || $is_groupAllowed) )
-    {   
+    {
         $allowed = FALSE;
         $error_message = get_lang('Not allowed');
     }
     else
     {
-        // get post and use pager    
+        // get post and use pager
         $postLister = new postLister($topic_id, $start, get_conf('posts_per_page'));
-        $postList   = $postLister->get_post_list();     
+        $postList   = $postLister->get_post_list();
         $pagerUrl   = $_SERVER['PHP_SELF']."?topic=".$topic_id;
-        
+
         // EMAIL NOTIFICATION COMMANDS
         // Execute notification preference change if the command was called
-        
+
         if ( $cmd && isset($_uid) )
         {
             switch ($cmd)
@@ -106,24 +106,24 @@ if ($topicSettingList)
                 case 'exNotify' :
                     request_topic_notification($topic_id, $_uid);
                     break;
-        
+
                 case 'exdoNotNotify' :
                     cancel_topic_notification($topic_id, $_uid);
                     break;
             }
-        
-            $increaseTopicView = false; // the notification change command doesn't 
-                                        // have to be considered as a new topic 
+
+            $increaseTopicView = false; // the notification change command doesn't
+                                        // have to be considered as a new topic
                                         // consult
         }
-        
+
         // Allow user to be have notification for this topic or disable it
-         
+
         if ( isset($_uid) )  //anonymous user do not have this function
         {
             $notification_bloc = '<div style="float: right;">' . "\n"
                                 . '<small>';
-        
+
             if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
             {
                 $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
@@ -134,13 +134,13 @@ if ($topicSettingList)
             }
             else   //display link to be notified for this topic
             {
-                $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'] 
+                $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF']
                                     . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
                                     . '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" /> '
-                                    . get_lang('Notify by email when replies are posted') 
+                                    . get_lang('Notify by email when replies are posted')
                                     . '</a>';
             }
-        
+
             $notification_bloc .= '</small>' . "\n"
                                 . '</div>' . "\n";
         } //end not anonymous user
@@ -170,13 +170,6 @@ $htmlHeadXtra[] =
                {return false;}
            }
            </script>";
-           
-if (    $forum_cat_id == GROUP_FORUMS_CATEGORY
-    && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
-{
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
-    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
-}
 
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
@@ -192,91 +185,91 @@ else
     /*-----------------------------------------------------------------
       Display Forum Header
      -----------------------------------------------------------------*/
-    
+
     $pagetype  = 'viewtopic';
-    
-    $is_allowedToEdit = claro_is_allowed_to_edit() 
+
+    $is_allowedToEdit = claro_is_allowed_to_edit()
                         || ( $is_groupTutor && !$is_courseAdmin);
-    
-    echo claro_html_tool_title(get_lang('Forums'), 
+
+    echo claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
-        
+
     if ($forum_post_allowed)
     {
         disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
     }
-    
+
     disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_subject);
-    
+
     $postLister->disp_pager_tool_bar($pagerUrl);
-    
+
     echo '<table class="claroTable" width="100%">' . "\n"
     .    ' <tr align="left">' . "\n"
     .    '  <th class="superHeader">';
-    
+
     // display notification link
-    
+
     if ( !empty($notification_bloc) )
     {
         echo $notification_bloc;
     }
-    
+
     echo $topic_subject
         . '  </th>' . "\n"
         . ' </tr>' . "\n";
-    
+
     if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
-    
+
     foreach ( $postList as $thisPost )
     {
         // Check if the forum post is after the last login
         // and choose the image according this state
-    
+
         $post_time = datetime_to_timestamp($thisPost['post_time']);
-    
-        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$topic_id))    
+
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$topic_id))
         $postImg = 'post_hot.gif';
-        else                         
+        else
         $postImg = 'post.gif';
-    
+
         echo ' <tr>' . "\n"
-    
+
             .'  <th class="headerX">' . "\n"
             .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
             . get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
             .'<small>' . get_lang('Posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
             .'  </th>' . "\n"
-    
+
             .' </tr>'. "\n"
-    
+
             .' <tr>' . "\n"
-    
+
             .'  <td>' . "\n"
             .claro_parse_user_text($thisPost['post_text']) . "\n";
-    
+
         if ( $is_allowedToEdit )
         {
             echo '<p>' . "\n"
-    
+
                 . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
                 . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
                 . '</a>' . "\n"
-    
+
                 . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
                 . 'onClick="return confirm_delete();" >'
                 . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
                 . '</a>' . "\n"
-    
+
                 . '</p>' . "\n";
         }
-    
+
         echo    '  </td>' . "\n",
                 ' </tr>' . "\n";
-    
+
     } // end for each
-    
+
     echo '</table>' . "\n";
-    
+
     $postLister->disp_pager_tool_bar($pagerUrl);
 
 }

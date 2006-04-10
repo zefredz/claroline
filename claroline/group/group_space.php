@@ -42,9 +42,6 @@ if ( ! $_gid
     exit();
 }
 
-$nameTools        = $_group['name'];
-$interbredcrump[] = array ('url' => 'group.php', 'name' => get_lang("Groups"));
-
 // use viewMode
 claro_set_display_mode_available(true);
 
@@ -280,7 +277,7 @@ foreach($toolList as $thisTool)
 include($includePath . '/claro_init_header.inc.php');
 
 echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
-                                  'mainTitle' => $nameTools . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
+                                  'mainTitle' => $_group['name'] . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
 
 if ( !empty($message) )
 {

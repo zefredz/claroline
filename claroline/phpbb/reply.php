@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL) 
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -59,7 +59,7 @@ else                             $forum_id = 0;
 
 if ( isset($_REQUEST['topic']) ) $topic_id = (int) $_REQUEST['topic'];
 else                             $topic_id = 0;
-        
+
 if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
 else                               $message = '';
 
@@ -69,7 +69,7 @@ if ( isset($_REQUEST['cancel']) )
     exit();
 }
 
-$topicSettingList = get_topic_settings($topic_id); 
+$topicSettingList = get_topic_settings($topic_id);
 
 if ( ! $_uid || ! $_cid) claro_disp_auth_form(true);
 elseif ( $topicSettingList )
@@ -79,7 +79,7 @@ elseif ( $topicSettingList )
     $topic_title      = $topicSettingList['topic_title'];
 
     $forumSettingList = get_forum_settings($forum_id);
-    
+
     $forum_name         = $forumSettingList['forum_name'  ];
     $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
     $forum_type         = $forumSettingList['forum_type'  ];
@@ -87,17 +87,17 @@ elseif ( $topicSettingList )
     $forum_cat_id       = $forumSettingList['cat_id'      ];
 
     /**
-     * Check if the topic isn't attached to a group,  or -- if it is attached --, 
+     * Check if the topic isn't attached to a group,  or -- if it is attached --,
      * check the user is allowed to see the current group forum.
      */
 
     if ( ! $forum_post_allowed
-        || ( ! is_null($forumSettingList['idGroup']) 
+        || ( ! is_null($forumSettingList['idGroup'])
             && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) ) )
     {
-        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
-        // attempt like rewriting the request without $cidReq. If we are in group 
-        // forum and the group of the concerned forum isn't the same as the session 
+        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking
+        // attempt like rewriting the request without $cidReq. If we are in group
+        // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
         $allowed = FALSE;
         $error_message = get_lang('Not allowed') ;
@@ -121,7 +121,7 @@ elseif ( $topicSettingList )
 
             $eventNotifier->notifyCourseEvent("forum_answer_topic",$_cid, $_tid, $forum_id."-".$topic_id, $_gid, "0");
 
-            trig_topic_notification($topic_id); 
+            trig_topic_notification($topic_id);
         }
         else
         {
@@ -140,13 +140,6 @@ else
 /*=================================================================
   Display Section
  =================================================================*/
- 
-if (   isset($forum_cat_id) && $forum_cat_id == GROUP_FORUMS_CATEGORY 
-    && $is_groupAllowed)
-{
-    $interbredcrump[]  = array ('url'=>'../group/group.php', 'name'=> get_lang('Groups'));
-    $interbredcrump[]= array ("url"=>"../group/group_space.php", 'name'=> $_group['name']);
-}
 
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
@@ -155,9 +148,9 @@ include $includePath . '/claro_init_header.inc.php';
 
 $pagetype  = 'reply';
 
-$is_allowedToEdit = claro_is_allowed_to_edit(); 
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
-echo claro_html_tool_title(get_lang('Forums'), 
+echo claro_html_tool_title(get_lang('Forums'),
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed )
@@ -186,7 +179,7 @@ else
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
             . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
             . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
-        
+
         echo '<table border="0">' . "\n"
             . '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . get_lang('Message body') . '&nbsp;:</td>'

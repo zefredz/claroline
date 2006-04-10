@@ -43,7 +43,7 @@ if( !empty($_course['extLinkName']) )    /* --- External Link Section --- */
     }
 
     $institutionNameOutput .= $_course['extLinkName'];
-    
+
     if( !empty($_course['extLinkUrl']) )
     {
         $institutionNameOutput .= '</a>';
@@ -87,15 +87,15 @@ $userBannerLeftDock->addOutput($myAgendaLink);
 
 $myProfileLink  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a> | ';
 $userBannerLeftDock->addOutput($myProfileLink);
- 
+
 if($is_platformAdmin)
 {
     $administrationLink = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a> | ';
-    $userBannerLeftDock->addOutput($administrationLink); 
-} 
+    $userBannerLeftDock->addOutput($administrationLink);
+}
 
 $logoutLink = '<a href="'. $urlAppend.'/index.php?logout=true" target="_top">'. get_lang('Logout').'</a> ';
-$userBannerLeftDock->addOutput($logoutLink); 
+$userBannerLeftDock->addOutput($logoutLink);
 
 echo $userBannerLeftDock->render();
 
@@ -125,7 +125,7 @@ if (isset($_cid))
 
     /*------------------------------------------------------------------------
                          COURSE TITLE, CODE & TITULARS
-      ------------------------------------------------------------------------*/      
+      ------------------------------------------------------------------------*/
 
 $courseBannerLeftDock = new Dock('courseBannerLeft');
 
@@ -159,20 +159,20 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 {
 
     $toolNameList = claro_get_tool_name_list();
-    
+
     foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
     {
         if (is_null($_courseToolDatas['name']))
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
-    
+
         // now recheck to be sure the value is really filled before going further
         if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
-    
+
     }
-    $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" 
+    $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php"
       name="redirector" method="POST">
-    <select name="url" size="1" 
+    <select name="url" size="1"
         onchange="top.location=redirector.url.options[selectedIndex].value" >';
 
     $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
@@ -186,17 +186,17 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 				? $_courseToolData['url'] . '&amp;gidReset=1'
 				: $_courseToolData['url'] . '?gidReset=1'
 				;
-			
+
 			// select "groups" in group context instead of tool
 			if ( $_gid )
 			{
 				$toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
-			}			
+			}
 			else
 			{
-				$toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';	
+				$toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
 			}
-			
+
             $courseToolSelector .= '<option value="'.$_toolDataUrl.'" '
             .   $toolSelected
             .   'style="padding-left:22px;background:url('.$imgRepositoryWeb.$_courseToolData['icon'].') no-repeat">'
@@ -256,6 +256,14 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             $breadcrumbNameList[] = $_course['officialCode'];
         }
 
+        if ( isset($_gid) )
+        {
+            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'group/index.php?cidReq=' . htmlspecialchars($_cid);
+            $breadcrumbNameList[] = get_lang('Groups');
+            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'group/group_space.php?cidReq=' . htmlspecialchars($_cid).'&gidReq=' . (int) $_gid;
+            $breadcrumbNameList[] = $_group['name'];
+        }
+
         if (isset($interbredcrump) && is_array($interbredcrump) )
         {
             while ( (list(,$bredcrumpStep) = each($interbredcrump)) )
@@ -273,18 +281,18 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             {
                 $breadcrumbUrlList[] = null;
             }
-            elseif ( isset($noQUERY_STRING) && $noQUERY_STRING) 
+            elseif ( isset($noQUERY_STRING) && $noQUERY_STRING)
             {
                 $breadcrumbUrlList[] = $_SERVER['PHP_SELF'];
             }
             else
             {
                 // set Query string to empty if not exists
-                if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = ''; 
+                if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = '';
                 $breadcrumbUrlList[] = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
             }
         }
-        
+
         echo claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
                                         ' &gt; ', $imgRepositoryWeb . 'home.gif');
 

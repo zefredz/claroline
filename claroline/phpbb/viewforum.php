@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL) 
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -72,12 +72,12 @@ if ( $forumSettingList )
     $forum_cat_id       = $forumSettingList['cat_id'    ];
     $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
 
-    /* 
-     * Check if the forum isn't attached to a group,  or -- if it is attached --, 
+    /*
+     * Check if the forum isn't attached to a group,  or -- if it is attached --,
      * check the user is allowed to see the current group forum.
      */
 
-    if (   ! is_null($forumSettingList['idGroup']) 
+    if (   ! is_null($forumSettingList['idGroup'])
         && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
     {
         // user are not allowed to see topics of this group
@@ -86,7 +86,7 @@ if ( $forumSettingList )
     }
 
     if ( $forumAllowed )
-    {  
+    {
         // Get topics list
 
         $topicLister = new topicLister($forum_id, $start, get_conf('topics_per_page') );
@@ -106,13 +106,6 @@ else
 /*=================================================================
   Display Section
  =================================================================*/
- 
-if (     $forum_cat_id == GROUP_FORUMS_CATEGORY
-     && ($is_groupMember || $is_groupTutor || $is_courseAdmin ) )
-{
-    $interbredcrump[]  = array ('url'=>'../group/group.php'      , 'name'=> get_lang('Groups'));
-    $interbredcrump[]  = array ('url'=>'../group/group_space.php', 'name'=> $_group['name']);
-}
 
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
@@ -130,35 +123,35 @@ else
     -----------------------------------------------------------------*/
 
     $pagetype = 'viewforum';
-    
-    $is_allowedToEdit = claro_is_allowed_to_edit() 
+
+    $is_allowedToEdit = claro_is_allowed_to_edit()
                         || ( $is_groupTutor && !$is_courseAdmin);
-                        // ( $is_groupTutor 
-                        //  is added to give admin status to tutor 
+                        // ( $is_groupTutor
+                        //  is added to give admin status to tutor
                         // && !$is_courseAdmin)
                         // is added  to let course admin, tutor of current group, use student mode
 
-    echo claro_html_tool_title(get_lang('Forums'), 
+    echo claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
 
     // Show Group Documents and Group Space
     // only if in Category 2 = Group Forums Category
-    
-    if (    $forum_cat_id == GROUP_FORUMS_CATEGORY 
+
+    if (    $forum_cat_id == GROUP_FORUMS_CATEGORY
         && ($is_groupMember || $is_allowedToEdit ) ) disp_forum_group_toolbar($_gid);
 
     if ($forum_post_allowed) disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
 
     disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
-    
+
     $topicLister->disp_pager_tool_bar($pagerUrl);
-    
+
     echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
-    
+
         .' <tr class="superHeader">'                  . "\n"
         .'  <th colspan="6">' . $forum_name . '</th>' . "\n"
         .' </tr>'                                     . "\n"
-    
+
         .' <tr class="headerX" align="left">'                            . "\n"
         .'  <th>&nbsp;' . get_lang('Topic') . '</th>'                             . "\n"
         .'  <th width="9%"  align="center">' . get_lang('Posts') . '</th>'        . "\n"
@@ -166,33 +159,33 @@ else
         .'  <th width="8%"  align="center">' . get_lang('Seen') . '</th>'       . "\n"
         .'  <th width="15%" align="center">' . get_lang('Last message') . '</th>'    . "\n"
         .' </tr>' . "\n";
-    
+
     $topics_start = $start;
-    
+
     if ( count($topicList) == 0 )
     {
-        echo ' <tr>' . "\n" 
+        echo ' <tr>' . "\n"
             .'  <td colspan="5" align="center">' . get_lang('There are no topics for this forum. You can post one') . '</td>'. "\n"
             .' </tr>' . "\n";
     }
-    else 
+    else
     {
         if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
-        
+
         foreach ( $topicList as $thisTopic )
         {
             echo ' <tr>' . "\n";
-    
+
             $replys         = $thisTopic['topic_replies'];
             $topic_time     = $thisTopic['topic_time'   ];
             $last_post_time = datetime_to_timestamp( $thisTopic['post_time']);
             $last_post      = datetime_to_timestamp( $thisTopic['post_time'] );
-    
+
             if ( empty($last_post_time) )
             {
                 $last_post_time = datetime_to_timestamp($topic_time);
             }
-    
+
             if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$thisTopic['topic_id'],FALSE))
             {
                 $image = $imgRepositoryWeb.'topic_hot.gif';
@@ -203,31 +196,31 @@ else
                 $image = $imgRepositoryWeb.'topic.gif';
                 $alt   = 'new post';
             }
-    
+
             if($thisTopic['topic_status'] == 1) $image = $locked_image;
-    
+
             echo '<td>'
                 .'<img src="' . $image . '" alt="' . $alt . '" />';
-    
+
             $topic_title = $thisTopic['topic_title'];
             $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id']
-                        .  (is_null($forumSettingList['idGroup']) ? 
+                        .  (is_null($forumSettingList['idGroup']) ?
                            '' : '&amp;gidReq ='.$forumSettingList['idGroup']);
-    
+
             echo '&nbsp;'
                 .'<a href="' . $topic_link . '">' . $topic_title . '</a>&nbsp;&nbsp;';
-    
+
             disp_mini_pager($topic_link, 'start', $replys+1, get_conf('posts_per_page') );
-    
+
             echo '</td>' . "\n"
                 .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
                 .'<td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '<small></td>' . "\n"
                 .'<td align="center"><small>' . $thisTopic['topic_views'] . '<small></td>' . "\n";
-    
+
             if ( !empty($last_post) )
             {
                 echo  '<td align="center">'
-                    . '<small>' 
+                    . '<small>'
                     . claro_disp_localised_date($dateTimeFormatShort, $last_post)
                     . '<small>'
                     . '</td>' . "\n";
@@ -236,13 +229,13 @@ else
             {
                 echo '  <td align="center"><small>' . get_lang('No post') . '<small></td>' . "\n";
             }
-    
+
             echo ' </tr>' . "\n";
         }
     }
-    
+
     echo '</table>' . "\n";
-    
+
     $topicLister->disp_pager_tool_bar($pagerUrl);
 }
 
