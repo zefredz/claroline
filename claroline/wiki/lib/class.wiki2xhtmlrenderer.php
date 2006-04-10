@@ -76,20 +76,11 @@
             $tag = 'a';
             $attr = ' href="'.$str.'"';
             
-            $fragment = '';
-            
-            /*if ( preg_match('/(#\w+)$/', $str, $matches) )
-            {
-                $fragment = $matches[1];
-                $str = preg_replace( '/(#\w+)$/', '', $str );
-            }*/
-            
             if ( $this->wiki->pageExists( $str ) )
             {
                 return "<a href=\"".$_SERVER['PHP_SELF']
                     ."?action=show&amp;title=".rawurlencode($str )
                     . "&amp;wikiId=" . $this->wiki->getWikiId()
-                    . $fragment
                     . "\" class=\"wikiShow\">"
                     . $str
                     . "</a>"
@@ -100,7 +91,6 @@
                 return "<a href=\"".$_SERVER['PHP_SELF']
                     . "?action=edit&amp;title=" . rawurlencode($str )
                     . "&amp;wikiId=" . $this->wiki->getWikiId()
-                    . $fragment
                     . "\" class=\"wikiEdit\">"
                     . $str
                     . "</a>"
