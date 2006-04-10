@@ -56,7 +56,7 @@
     if ( $_gid && $is_groupAllowed )
     {
         // group context
-        $grouId = $_gid;
+        $groupId = $_gid;
         
         $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang("Groups"));
         $interbredcrump[]= array ('url' => '../group/group_space.php', 'name' => $_group['name']);
