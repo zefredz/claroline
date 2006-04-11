@@ -1,16 +1,16 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * debug functions
- * 
- * All this  function output only  if  debugClaro is on 
+ *
+ * All this  function output only  if  debugClaro is on
  *
  * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package KERNEL
  *
@@ -18,14 +18,12 @@
  * @author Christophe Gesché <moosh@claroline.net>
  */
 
-
+defined('PRINT_DEBUG_INFO') || define('PRINT_DEBUG_INFO', false);
 /**
- * function echo_session_value()
- *
- * @desc print out  content of session's variable
+ * Print out  content of session's variable
  *
  * @return htmlOutput if not PRINT_DEBUG_INFO
- * @authot Christophe Gesché gesché@ipm.ucl.ac.be
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 function echo_session_value()
@@ -38,7 +36,7 @@ function echo_session_value()
         exit("not aivailable");
     }
 
-        $infoResult .= '
+    $infoResult .= '
     <hr />
     <a href="../claroline/admin/phpInfo.php">phpInfo Claroline</a>
     <PRE><strong>PHP Version</strong> : ' . phpversion() . '
@@ -47,21 +45,21 @@ function echo_session_value()
     {
         $infoResult .= '
     <strong>statut</strong> : ';
-    print_r($statuts);
+        print_r($statuts);
     }
     if (isset($statut))
     {
         $infoResult .= '
     <strong>statut</strong> : ';
-    print_r($statut);
+        print_r($statut);
     }
     if (isset($status))
     {
         $infoResult .= "
     <strong>status</strong> : ";
-    print_r($status);
+        print_r($status);
     }
-    
+
     if (isset($dbHost) || isset($dbLogin))
     {
         $infoResult .= "
@@ -73,21 +71,21 @@ function echo_session_value()
     {
         $infoResult .= "
     <strong>session</strong> : ";
-    print_r($_SESSION);
+        print_r($_SESSION);
     }
     if (isset($_POST))
     {
         $infoResult .= "
     <strong>Post</strong> : ";
-    print_r($_POST);
+        print_r($_POST);
     }
     if (isset($_GET))
     {
         $infoResult .= "
     <strong>GET</strong> : ";
-    print_r($_GET);
+        print_r($_GET);
     }
-    
+
     $infoResult .= "
     <strong>Contantes</strong> : ";
     print_r(get_defined_constants());
@@ -121,14 +119,36 @@ function echo_session_value()
     <strong>UID du propriétaire du script actuel</strong> : ".getmyuid()."
     <strong>niveau d'utilisation des ressources</strong> : ";
     print_r(@getrusage());
-    
-        $infoResult .= "
+
+    $infoResult .= "
     </PRE>
     <hr />
         ";
     if (PRINT_DEBUG_INFO)
-        echo $infoResult;
+    echo $infoResult;
     return $infoResult;
+}
+
+/**
+ * Return an  info from systesm   if  function is not dislabed
+ *
+ * @param string $info
+ * @param array $paramList
+ * @return string
+ */
+function claro_call_function($info, $paramList=null)
+{
+    static $disabled_function = null;
+    if (is_null($disabled_function)) $disabled_function = ini_get('disable_functions');
+
+    if(false===strpos($disabled_function,$info))
+    {
+        if (function_exists($info))
+        if (is_null($paramList)) return call_user_func($info);
+        else                     return call_user_func($info,$paramList);
+    }
+
+    return '';
 }
 
 
@@ -140,113 +160,114 @@ function echo_session_value()
 
 function debug_IO($file = '')
 {
-    $infoResult = '[Script :             ' . $_SERVER['PHP_SELF']        . ']'
-                . '[Server :             ' . $_SERVER['SERVER_SOFTWARE'] . ']'
-                . '[Php :                ' . phpversion()                . ']'
-                . '[sys :                ' . php_uname()                 . ']'
-                . '[My uid :             ' . getmyuid()                  . ']'
-                . '[current_user :       ' . get_current_user()          . ']'
-                . '[my gid :             ' . getmygid()                  . ']'
-                . '[my inode :           ' . getmyinode()                . ']'
-                . '[my pid :             ' . getmypid()                  . ']'
-                . '[space  : - free -  : ' . disk_free_space ('..')
-                . ' - total - :          ' . disk_total_space('..')      . ']'
-                ;
+    $infoResult = '[Script :       ' . $_SERVER['PHP_SELF']        . ']'
+    . '[Server :       ' . $_SERVER['SERVER_SOFTWARE'] . ']'
+    . '[Php :          ' . claro_call_function('phpversion')                . ']'
+    . '[sys :          ' . claro_call_function('php_uname')                 . ']'
+    . '[My uid :       ' . claro_call_function('getmyuid')                  . ']'
+    . '[current_user : ' . claro_call_function('get_current_user')          . ']'
+    . '[my gid :       ' . claro_call_function('getmygid')                  . ']'
+    . '[my inode :     ' . claro_call_function('getmyinode')                . ']'
+    . '[my pid :       ' . claro_call_function('getmypid')                  . ']'
+    . '[space  : '
+    . ' - free -  :    ' . claro_call_function('disk_free_space' ,'..')
+    . ' - total - :    ' . claro_call_function('disk_total_space' ,'..') . ']'
+    ;
 
     if  ($file != '' )
     {
         $infoResult .= '<hr /> '
         .              '<strong>' . $file . '</strong> = '
-        .              '[<strong>o</strong>:' . fileowner($file) 
-        .              ' <strong>g</strong>:' . filegroup($file) 
+        .              '[<strong>o</strong>:' . fileowner($file)
+        .              ' <strong>g</strong>:' . filegroup($file)
         .              ' ' . display_perms(fileperms($file)) . ']'
         ;
         if ( is_dir(        $file ) ) $infoResult .=  '-Dir-' ;
         if ( is_file(       $file ) ) $infoResult .=  '-File-';
         if ( is_link(       $file ) ) $infoResult .=  '-Lnk-';
-        if ( is_executable( $file ) ) $infoResult .=  '-X-';
-        if ( is_readable(   $file ) ) $infoResult .=  '-R-';
-        if ( is_writeable(  $file ) ) $infoResult .=  '-W-';
+        if ( claro_call_function('is_executable', $file ) ) $infoResult .=  '-X-';
+        if ( claro_call_function('is_readable',   $file ) ) $infoResult .=  '-R-';
+        if ( claro_call_function('is_writeable',  $file ) ) $infoResult .=  '-W-';
     }
-    
+
     $file = '.';
     $infoResult .= '<hr /> <strong>' . $file . '</strong> - '
-    .              '[<strong>o</strong>:' . fileowner($file) 
-    .              ' <strong>g</strong>:' . filegroup($file) 
+    .              '[<strong>o</strong>:' . fileowner($file)
+    .              ' <strong>g</strong>:' . filegroup($file)
     .              ' ' . display_perms(fileperms($file)) . ']'
     ;
     if ( is_dir(        $file ) ) $infoResult .=  '-Dir-';
     if ( is_file(       $file ) ) $infoResult .=  '-File-';
-    if ( is_link(       $file ) ) echo '-Lnk-';
-    if ( is_executable( $file ) ) echo '-X-';
-    if ( is_readable(   $file ) ) echo '-R-';
-    if ( is_writeable(  $file ) ) echo '-W-'; 
+    if ( is_link(       $file ) ) $infoResult .=  '-Lnk-';
+        if ( claro_call_function('is_executable', $file ) ) $infoResult .=  '-X-';
+        if ( claro_call_function('is_readable',   $file ) ) $infoResult .=  '-R-';
+        if ( claro_call_function('is_writeable',  $file ) ) $infoResult .=  '-W-';
 
     $file = '..';
-    echo '<hr /> <strong>' . $file . '</strong> - '
-    .    '[<strong>o</strong>:' . fileowner($file) 
+    $infoResult .=  '<hr /> <strong>' . $file . '</strong> - '
+    .    '[<strong>o</strong>:' . fileowner($file)
     .    ' <strong>g</strong>:' . filegroup($file)
     .    ' ' . display_perms(     fileperms($file) ) . ']'
     ;
     if ( is_dir(        $file ) ) $infoResult .=  '-Dir-';
     if ( is_file(       $file ) ) $infoResult .=  '-File-';
     if ( is_link(       $file ) ) $infoResult .=  '-Lnk-';
-    if ( is_executable( $file ) ) $infoResult .=  '-X-';
+    if ( claro_call_function('is_executable', $file ) ) $infoResult .=  '-X-';
     if ( is_readable(   $file ) ) $infoResult .=  '-R-';
     if ( is_writeable(  $file ) ) $infoResult .=  '-W-';
 
     if (PRINT_DEBUG_INFO)
-        echo $infoResult;
+    echo $infoResult;
     return $infoResult;
 
 }
 
 function display_perms( $mode )
 {
-     /* Determine Type */
-     if( $mode & 0x1000 )
-        $type = 'p'; /* FIFO pipe */
-     else if( $mode & 0x2000 )
-        $type = 'c'; /* Character special */
-     else if( $mode & 0x4000 )
-        $type = 'd'; /* Directory */
-     else if( $mode & 0x6000 )
-      $type = 'b'; /* Block special */
-     else if( $mode & 0x8000 )
-        $type = '-'; /* Regular */
-     else if( $mode & 0xA000 )
-        $type = 'l'; /* Symbolic Link */
-     else if( $mode & 0xC000 )
-        $type = 's'; /* Socket */
+    /* Determine Type */
+    if( $mode & 0x1000 )
+    $type = 'p'; /* FIFO pipe */
+    else if( $mode & 0x2000 )
+    $type = 'c'; /* Character special */
+    else if( $mode & 0x4000 )
+    $type = 'd'; /* Directory */
+    else if( $mode & 0x6000 )
+    $type = 'b'; /* Block special */
+    else if( $mode & 0x8000 )
+    $type = '-'; /* Regular */
+    else if( $mode & 0xA000 )
+    $type = 'l'; /* Symbolic Link */
+    else if( $mode & 0xC000 )
+    $type = 's'; /* Socket */
     else
-        $type='u'; /* UNKNOWN */
+    $type='u'; /* UNKNOWN */
 
-     /* Determine permissions */
-     $owner['read'   ] = ($mode & 00400) ? 'r' : '-';
-     $owner['write'  ] = ($mode & 00200) ? 'w' : '-';
-     $owner['execute'] = ($mode & 00100) ? 'x' : '-';
-     $group['read'   ] = ($mode & 00040) ? 'r' : '-';
-     $group['write'  ] = ($mode & 00020) ? 'w' : '-';
-     $group['execute'] = ($mode & 00010) ? 'x' : '-';
-     $world['read'   ] = ($mode & 00004) ? 'r' : '-';
-     $world['write'  ] = ($mode & 00002) ? 'w' : '-';
-     $world['execute'] = ($mode & 00001) ? 'x' : '-';
+    /* Determine permissions */
+    $owner['read'   ] = ($mode & 00400) ? 'r' : '-';
+    $owner['write'  ] = ($mode & 00200) ? 'w' : '-';
+    $owner['execute'] = ($mode & 00100) ? 'x' : '-';
+    $group['read'   ] = ($mode & 00040) ? 'r' : '-';
+    $group['write'  ] = ($mode & 00020) ? 'w' : '-';
+    $group['execute'] = ($mode & 00010) ? 'x' : '-';
+    $world['read'   ] = ($mode & 00004) ? 'r' : '-';
+    $world['write'  ] = ($mode & 00002) ? 'w' : '-';
+    $world['execute'] = ($mode & 00001) ? 'x' : '-';
 
-     /* Adjust for SUID, SGID and sticky bit */
-   if( $mode & 0x800 )
-        $owner['execute'] = ($owner[execute]=='x') ? 's' : 'S';
-     if( $mode & 0x400 )
-       $group['execute'] = ($group[execute]=='x') ? 's' : 'S';
-     if( $mode & 0x200 )
-        $world['execute'] = ($world[execute]=='x') ? 't' : 'T';
+    /* Adjust for SUID, SGID and sticky bit */
+    if( $mode & 0x800 )
+    $owner['execute'] = ($owner[execute]=='x') ? 's' : 'S';
+    if( $mode & 0x400 )
+    $group['execute'] = ($group[execute]=='x') ? 's' : 'S';
+    if( $mode & 0x200 )
+    $world['execute'] = ($world[execute]=='x') ? 't' : 'T';
 
-     $strPerms = '<strong>t</strong>:' . $type
-     .           '<strong>o</strong>:' . $owner['read'] . $owner['write'] . $owner['execute']
-     .           '<strong>g</strong>:' . $group['read'] . $group['write'] . $group['execute']
-     .           '<strong>w</strong>:' . $world['read'] . $world['write'] . $world['execute']
-     ;
-     return $strPerms;
-  }
+    $strPerms = '<strong>t</strong>:' . $type
+    .           '<strong>o</strong>:' . $owner['read'] . $owner['write'] . $owner['execute']
+    .           '<strong>g</strong>:' . $group['read'] . $group['write'] . $group['execute']
+    .           '<strong>w</strong>:' . $world['read'] . $world['write'] . $world['execute']
+    ;
+    return $strPerms;
+}
 
 function printVar($var, $varName="@")
 {
@@ -274,26 +295,26 @@ function printVar($var, $varName="@")
 function printInit($selection="*")
 {
     GLOBAL
-$uidReset,    $cidReset,    $gidReset, $tidReset,
-$uidReq,    $cidReq,     $gidReq,   $tidReq, $tlabelReq,
-$_uid,       $_cid,       $_gid,       $_tid,
-$_user,        $_course,    $_group,   
-$_groupProperties,
-$_groupUser,
-$_courseTool,
-$is_platformAdmin,
-$is_allowedCreateCourse,
-$is_courseMember,
-$is_courseAdmin,
-$is_courseAllowed,
-$is_courseTutor,
-$is_toolAllowed,
-$_SESSION,
-$_claro_local_run,
+    $uidReset,    $cidReset,    $gidReset, $tidReset,
+    $uidReq,    $cidReq,     $gidReq,   $tidReq, $tlabelReq,
+    $_uid,       $_cid,       $_gid,       $_tid,
+    $_user,        $_course,    $_group,
+    $_groupProperties,
+    $_groupUser,
+    $_courseTool,
+    $is_platformAdmin,
+    $is_allowedCreateCourse,
+    $is_courseMember,
+    $is_courseAdmin,
+    $is_courseAllowed,
+    $is_courseTutor,
+    $is_toolAllowed,
+    $_SESSION,
+    $_claro_local_run,
 
-$is_groupMember,
-$is_groupTutor,
-$is_groupAllowed;
+    $is_groupMember,
+    $is_groupTutor,
+    $is_groupAllowed;
 
     if ($_claro_local_run)
     {
@@ -314,7 +335,7 @@ $is_groupAllowed;
             (_uid)             : '.var_export($_uid,1).' |
             (session[_uid]) : '.var_export($_SESSION["_uid"],1).'
             <br />
-            reset = '.var_export($uidReset,1).' | 
+            reset = '.var_export($uidReset,1).' |
             req = '.var_export($uidReq,1).'<br />
             _user : <pre>'.var_export($_user,1).'</pre>
             <br />is_platformAdmin            :'.var_export($is_platformAdmin,1).'
@@ -331,7 +352,7 @@ $is_groupAllowed;
             <br />
             _course : <pre>".var_export($_course,1)."</pre>
             <br />
-            _groupProperties : 
+            _groupProperties :
             <PRE>
                 ".var_export($_groupProperties,1)."
             </PRE>
@@ -351,8 +372,8 @@ $is_groupAllowed;
     if($selection == "*" or strstr($selection,"t"))
     {
         echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export($_tid,1).'<br />
-        reset = ' . var_export($tidReset,1).' | 
-        req = ' .   var_export($tidReq,1).'| 
+        reset = ' . var_export($tidReset,1).' |
+        req = ' .   var_export($tidReq,1).'|
         req = ' .   var_export($tlabelReq,1).'
         <br />
         _tool :' . var_export(get_init('_tool'),1).
@@ -364,7 +385,7 @@ $is_groupAllowed;
         echo '<TR><TD valign="top" colspan="2"><strong>Course-User</strong>';
         if ($_uid) echo '<br /><strong>User</strong> :'.var_export($_uid,1);
         if ($_cid) echo ' in '.var_export($_cid,1).'<br />';
-        if ($_uid && $_cid) 
+        if ($_uid && $_cid)
         echo '_courseUser            : <pre>'.var_export(getInit('_courseUser'),1).'</pre>';
         echo '<br />is_courseMember    : '.var_export($is_courseMember,1);
         echo '<br />is_courseAdmin    : '.var_export($is_courseAdmin,1);
@@ -376,12 +397,12 @@ $is_groupAllowed;
     if($selection == "*" or (strstr($selection,"u")&&strstr($selection,"g")))
     {
 
-        echo '<TR><TD valign="top"  colspan="2">' 
+        echo '<TR><TD valign="top"  colspan="2">'
         .    '<strong>Course-Group-User</strong>';
         if (get_init('_uid')) echo '<br /><strong>User</strong> :'.var_export(get_init('_uid'),1);
         if (get_init('_gid')) echo ' in '.var_export(get_init('$_gid'),1);
         if (get_init('_gid')) echo '<br />_groupUser:' . var_export(get_init('_groupUser'),1);
-        echo '<br />is_groupMember:' . var_export(get_init('is_groupMember'),1) 
+        echo '<br />is_groupMember:' . var_export(get_init('is_groupMember'),1)
         .    '<br />is_groupTutor: ' . var_export(get_init('is_groupTutor'),1)
         .    '<br />is_groupAllowed:' . var_export(get_init('is_groupAllowed'),1)
         .    '</TD>'
@@ -394,7 +415,7 @@ $is_groupAllowed;
         <TD valign="top" colspan="2" ><strong>Course-Tool</strong><br />';
         if ($_tid) echo 'Tool :'.$_tid;
         if ($_cid) echo ' in '.$_cid.'<br />';
-        
+
         if ($_tid) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br />';
         echo 'is_toolAllowed : '.var_export($is_toolAllowed,1);
         echo "</TD>";
@@ -406,7 +427,7 @@ function printConfig()
 {
     GLOBAL $dbHost, $dbLogin, $dbPass, $mainDbName, $clarolineVersion, $versionDb, $rootWeb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userMailCanBeEmpty             , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName            , $rootWeb            , $rootSys            , $clarolineRepositoryAppend  , $coursesRepositoryAppend    , $rootAdminAppend            , $clarolineRepositoryWeb     , $clarolineRepositorySys        , $coursesRepositoryWeb        , $coursesRepositorySys        , $rootAdminSys                , $rootAdminWeb;
     echo "<table width=\"100%\" border=\"1\" cellspacing=\"1\" cellpadding=\"1\" bordercolor=\"#808080\" bgcolor=\"#C0C0C0\" lang=\"en\"><TR>";
-        echo "
+    echo "
     <tr><td colspan=2><strong>Mysql</strong></td></tr>
     <tr><td>dbHost</TD><TD>$dbHost             </td></tr>
     <tr><td>dbLogin     </TD><TD>$dbLogin             </td></tr>
