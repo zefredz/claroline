@@ -659,7 +659,7 @@
     font-weight:bold;
 }
 .wiki2xhtml h4{
-    font-size:125%:
+    font-size:125%;
     font-weight:bold;
 }
 
