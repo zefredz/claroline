@@ -309,7 +309,7 @@
             $form .= '<input type="hidden" name="gidReq" value="' . $groupId  . '" />' . "\n";
         }
         
-        $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Save") . '" />' . "\n"
+        $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Ok") . '" />' . "\n"
             . claro_html_button ( $_SERVER['PHP_SELF'] . '?action=list', get_lang("Cancel") ) . "\n"
             ;
             
