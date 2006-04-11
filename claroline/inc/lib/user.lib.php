@@ -36,22 +36,19 @@ include_once(dirname(__FILE__).'/form.lib.php');
 
 function user_initialise()
 {
-    $data = array();
-
-    $data['lastname'] = '';
-    $data['firstname'] = '';
-    $data['officialCode'] = '';
-    $data['username'] = '';
-    $data['password'] = '';
-    $data['password_conf'] = '';
-    $data['status'] = '';
-    $data['language'] = '';
-    $data['email'] = '';
-    $data['phone'] = '';
-    $data['picture'] = '';
-
-    return $data;
+    return array('lastname'       => '',
+                  'firstname'     => '',
+                  'officialCode'  => '',
+                  'username'      => '',
+                  'password'      => '',
+                  'password_conf' => '',
+                  'status'        => '',
+                  'email'         => '',
+                  'phone'         => '',
+                  'picture'       => '',
+                 );
 }
+
 
 /**
  * Get user data on the platform
@@ -66,35 +63,27 @@ function user_initialise()
 
 function user_get_data($user_id)
 {
-    // user table
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    $sql = "SELECT                   `user_id`,
-                    `nom`         AS `lastname`,
-                    `prenom`      AS `firstname`,
-                                     `username`,
-                                     `email`,
-                                     `language`,
+    $sql = "SELECT                   user_id,
+                    `nom`         AS lastname,
+                    `prenom`      AS firstname,
+                                     username,
+                                     email,
+                                     language,
                     `authSource`  AS authsource,
-                    `pictureUri`  AS `picture`,
-                                     `officialCode`,
-                    `phoneNumber` AS `phone`,
-                    `statut`      AS `status`
+                    `pictureUri`  AS picture,
+                                     officialCode,
+                    `phoneNumber` AS phone,
+                    `statut`      AS status
             FROM   `" . $tbl_user . "`
             WHERE  `user_id` = " . (int) $user_id;
 
-    $result = claro_sql_query($sql);
+    $result = claro_sql_query_get_single_row($sql);
 
-    if ( mysql_num_rows($result) )
-    {
-        $data = mysql_fetch_array($result);
-        return $data;
-    }
-    else
-    {
-        return claro_failure::set_failure('user_not_found');
-    }
+    if ( $result ) return $result;
+    else           return claro_failure::set_failure('user_not_found');
 }
 
 /**
@@ -115,7 +104,7 @@ function user_add ($data)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    if ( empty($data['status']) ) $data['status'] = STUDENT;
+    if ( empty($data['status']) ) $data['status'] = STUDENT_STATUS;
     if ( empty($data['language']) ) $data['language'] = null;
 
     $sql = "INSERT INTO `" . $tbl_user . "`
@@ -187,7 +176,6 @@ function user_update ($user_id, $data)
 
     $sql .= " WHERE `user_id`  = " . (int) $user_id;
     return claro_sql_query($sql);
-
 }
 
 /**
@@ -213,14 +201,14 @@ function user_delete ($user_id)
 
     // main tables name
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user = $tbl_mdb_names['user'];
-    $tbl_admin = $tbl_mdb_names['admin'];
-    $tbl_course = $tbl_mdb_names['course'];
-    $tbl_sso = $tbl_mdb_names['sso'];
+    $tbl_user            = $tbl_mdb_names['user'           ];
+    $tbl_admin           = $tbl_mdb_names['admin'          ];
+    $tbl_course          = $tbl_mdb_names['course'         ];
+    $tbl_sso             = $tbl_mdb_names['sso'            ];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-    $tbl_rel_class_user = $tbl_mdb_names['rel_class_user'];
-    $tbl_track_default = $tbl_mdb_names['track_e_default'];
-    $tbl_track_login = $tbl_mdb_names['track_e_login'];
+    $tbl_rel_class_user  = $tbl_mdb_names['rel_class_user' ];
+    $tbl_track_default   = $tbl_mdb_names['track_e_default'];
+    $tbl_track_login     = $tbl_mdb_names['track_e_login'  ];
 
     // get the list of course code where the user is subscribed
     $sql_user_courses = " SELECT `c`.`code`
@@ -241,12 +229,12 @@ function user_delete ($user_id)
 
             $tbl_bb_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
             $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-            $tbl_group_team = $tbl_cdb_names['group_team'];
-            $tbl_track_e_access = $tbl_cdb_names['track_e_access'];
-            $tbl_track_e_downloads = $tbl_cdb_names['track_e_downloads'];
-            $tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
-            $tbl_track_e_uploads = $tbl_cdb_names['track_e_uploads'];
-            $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
+            $tbl_group_team          = $tbl_cdb_names['group_team'];
+            $tbl_track_e_access      = $tbl_cdb_names['track_e_access'];
+            $tbl_track_e_downloads   = $tbl_cdb_names['track_e_downloads'];
+            $tbl_track_e_exercices   = $tbl_cdb_names['track_e_exercices'];
+            $tbl_track_e_uploads     = $tbl_cdb_names['track_e_uploads'];
+            $tbl_userinfo_content    = $tbl_cdb_names['userinfo_content'];
 
             // delete user information in the table group_rel_team_user
             $sql_deleteUserFromGroup = "DELETE FROM `" . $tbl_group_rel_team_user . "` WHERE `user`= " . (int) $user_id;
@@ -504,31 +492,61 @@ function get_course_enrollment_key($courseId)
 }
 
 /**
- * update course manager status of the user in a course
+ * set or unset course manager status for a the user in a course
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
+ * @param boolean $status 'true' for course manager, 'false' for not
  * @param int $user_id user ID from the course_user table
  * @param string $course_code course code from the cours table
- * @param string status course code from the cours table
  *
  * @return boolean TRUE  if update succeed
  *         boolean FALSE otherwise.
  */
 
-function user_update_course_manager_status($user_id, $course_code, $status)
+function user_set_course_manager($status, $userId, $courseCode)
 {
+    $status = ($status == true) ? COURSE_ADMIN_STATUS : STUDENT_STATUS;
+
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET statut = '" . (int)$status . "'
-            WHERE `user_id` = '" . (int)$user_id . "'
-            AND `code_cours` ='" . addslashes($course_code) . "'";
+            SET statut = '" . (int) $status . "'
+            WHERE `user_id` = '" . (int)$userId . "'
+            AND `code_cours` ='" . addslashes($courseCode) . "'";
 
-    if ( claro_sql_query($sql) ) return true;
-    else                         return false;
+    if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
+    else                                           return false;
+}
 
+/**
+ * set or unset course tutor status for a user in a course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param boolean $status, 'true' for tutor status, 'false' for not ...
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ *
+ * @return boolean TRUE  if update succeed
+ *         boolean FALSE otherwise.
+ */
+
+function user_set_course_tutor($status , $userId, $courseCode)
+{
+    $status = ($status == true) ? 1 : 0;
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+
+    $sql = "UPDATE `" . $tbl_rel_course_user . "`
+            SET tutor = '" . (int) $status . "'
+            WHERE `user_id` = " . (int) $userId . "
+            AND `code_cours` ='" . addslashes($courseCode) . "'";
+
+    if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
+    else                                           return false;
 }
 
 /**
@@ -600,33 +618,6 @@ function user_add_to_class($user_id,$class_id)
 }
 
 /**
- * update course tutor status of the user in a course
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
- * @param int tutor status
- *
- * @return boolean TRUE  if update succeed
- *         boolean FALSE otherwise.
- */
-
-function user_update_course_tutor_status($user_id, $course_code, $status)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-
-    $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET tutor = '" . (int) $status . "'
-            WHERE `user_id` = " . (int) $user_id . "
-            AND `code_cours` ='" . addslashes($course_code) . "'";
-
-    if ( claro_sql_query($sql) ) return true;
-    else                         return false;
-}
-
-/**
  * change the status of the user in a course
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -686,7 +677,7 @@ function user_remove_from_course($user_id, $course_code,$force_it=false)
     $sql = "SELECT user_id
             FROM `" . $tbl_rel_course_user . "`
             WHERE code_cours = '" . addslashes($course_code) . "'
-              AND statut = '" . COURSEMANAGER . "' ";
+              AND statut = '" . COURSE_ADMIN_STATUS . "' ";
 
     $course_manager = claro_sql_query_fetch_all_cols($sql);
 
@@ -743,9 +734,9 @@ function user_remove_from_group($user_id, $course_code)
     $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`
             WHERE user = " . (int) $user_id;
 
-    claro_sql_query($sql);
+    if ( claro_sql_query($sql) ) return true;
+    else                         return false;
 
-    return true;
 }
 
 /**
@@ -1208,6 +1199,16 @@ function user_display_form($data, $form_type='registration')
     echo '<input type="hidden" name="cmd" value="registration" />' . "\n"
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
 
+    if ( array_key_exists('confirmUserCreate', $data) )
+    {
+        echo '<tr><td></td><td><input type="hidden" id="confirmUserCreate" name="confirmUserCreate" value="'.( $data['confirmUserCreate'] ? '1' : '0').'"></td></tr>';
+        $onChange = 'onchange="getElementById(\'confirmUserCreate\').value=0;"';
+    }
+    else
+    {
+        $onChange = '';
+    }
+
     // table begin
     echo '<table cellpadding="3" cellspacing="0" border="0">' . "\n";
 
@@ -1378,10 +1379,10 @@ function user_display_form($data, $form_type='registration')
         echo '<tr valign="top">'
             . '<td align="right">' . get_lang('Group Tutor') .' : </td>'
             . '<td>'
-            . '<input type="radio" name="is_tutor" value="1" id="tutor_form_yes" ' . ($data['is_tutor']?'checked':'') . ' >'
-            . '<label for="tutor_form_yes">' . get_lang('Yes') . '</label>'
-            . '<input type="radio" name="is_tutor" value="0"  id="tutor_form_no" ' . (!$data['is_tutor']?'checked':'') . ' >'
-            . '<label for="tutor_form_no">' . get_lang('No') . '</label>'
+            . '<input type="radio" name="tutor" value="1" id="tutorYes" ' . ($data['tutor']?'checked':'') . ' >'
+            . '<label for="tutorYes">' . get_lang('Yes') . '</label>'
+            . '<input type="radio" name="tutor" value="0"  id="tutorNo" ' . (!$data['tutor']?'checked':'') . ' >'
+            . '<label for="tutorNo">' . get_lang('No') . '</label>'
             . '</td>'
             . '</tr>';
     }
@@ -1390,12 +1391,12 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'add_new_user' )
     {
         echo ' <tr>' . "\n"
-            . '  <td align="right">' . get_lang('Manager') . '&nbsp;:</label></td>' . "\n"
+            . '  <td align="right">' . get_lang('Manager') . '&nbsp;:</td>' . "\n"
             . '<td>'
-            . '<input type="radio" name="is_coursemanager" value="' . COURSEMANAGER . '" id="coursemanager_form_yes" ' . ($data['is_coursemanager']==COURSEMANAGER?'checked':'') . ' >'
-            . '<label for="coursemanager_form_yes">' . get_lang('Yes') . '</label>'
-            . '<input type="radio" name="is_coursemanager" value="' . STUDENT . '" id="coursemanager_form_no" ' . ($data['is_coursemanager']==STUDENT?'checked':'') . ' >'
-            . '<label for="coursemanager_form_no">' . get_lang('No') . '</label>'
+            . '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" ' . ($data['courseAdmin'] ? 'checked' : '') . ' >'
+            . '<label for="courseAdminYes">' . get_lang('Yes') . '</label>'
+            . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '  . ($data['courseAdmin'] ? '' : 'checked') . ' >'
+            . '<label for="courseAdminNo">' . get_lang('No') . '</label>'
             . '</td>'
             . ' </tr>' . "\n";
     }
@@ -1407,8 +1408,8 @@ function user_display_form($data, $form_type='registration')
             . '<td align="right"><label for="status">' . get_lang('Action') . '&nbsp;:</label></td>' . "\n"
             . '<td>' . "\n"
             . '<select id="status" name="status">'
-            . '<option value="' . STUDENT . '">' . get_lang('Follow courses') . '</option>'
-            . '<option value="' . COURSEMANAGER . '" ' . ($data['status'] == COURSEMANAGER ? 'selected="selected"' : '') . '>' . get_lang('Create course') . '</option>'
+            . '<option value="' . STUDENT_STATUS . '">' . get_lang('Follow courses') . '</option>'
+            . '<option value="' . COURSE_ADMIN_STATUS . '" ' . ($data['status'] == COURSE_ADMIN_STATUS ? 'selected="selected"' : '') . '>' . get_lang('Create course') . '</option>'
             . '</select>'
             . '  </td>' . "\n"
             . ' </tr>' . "\n";
@@ -1501,56 +1502,67 @@ function required_field($field)
 }
 
 /**
- * Returns an array containing the users'informations who meets the search criteria given in parameters
- *
- * @param $name    the name as a search criteria, leave empty is not needed
- * @param $mail    the mail as a search criteria, leave empty is not needed
- * @param $code    the code as a search criteria, leave empty is not needed
- *
- * @author guillaume Lederer
- *
+ * @param array $criterionList -
+ *        Allowed keys are 'name', 'firstname', 'email', 'officialCode'
+ * @param string $courseId (optional) 
+ *        permit check if user are already enrolled in the concerned cours
+ * @param boolean $allCriterion (optional) 
+ *        define if all submited criterion has to be set.
+ * @param boolean $strictCompare (optional) 
+ *        define if criterion comparison use wildcard or not
+ * @return array - existing users who met the criterions
  */
 
-function user_search($name, $mail, $code, $course_id="")
+function user_search( $criterionList = array() , $courseId = null, 
+                      $allCriterion = true, $strictCompare = false )
 {
+    $validatedCritList = array('lastname' => '', 'firstname'    => '', 
+                               'email' => ''   , 'officialCode' => '');
+
+    foreach($criterionList as $thisCritKey => $thisCritValue)
+    {
+        if ( array_key_exists($thisCritKey, $validatedCritList ) )
+        {
+            $validatedCritList[$thisCritKey] = str_replace('%', '\%', $thisCritValue);
+        }
+        else claro_die('user_search(): WRONG CRITERION KEY !');
+    }
+
+    $operator = $allCriterion  ? 'AND' : 'OR';
+    $wildcard = $strictCompare ? '' : '%';
+
     $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_user        = $tbl_mdb_names['user'];
+    $tbl_user        = $tbl_mdb_names['user'           ];
     $tbl_course_user = $tbl_mdb_names['rel_course_user'];
 
-    if (!empty($course_id))
-    {
-        $toAdd = ",CU.`user_id` AS registered";
-    }
-    else
-    {
-        $toAdd = "";
-    }
+    $sql =  "SELECT U.nom           lastname, 
+                    U.prenom        firstname, 
+                    U.email         email, 
+                    U.officialCode  officialCode, 
+                    U.`user_id` AS  uid 
+                   ". ($courseId ? ', CU.`user_id` AS registered' : '') . " 
+             FROM `" . $tbl_user . "` AS U";
 
-    $sql =  "SELECT nom,prenom,email,officialCode,U.`user_id` AS user ".$toAdd." FROM `" . $tbl_user . "` AS U";
+    if ($courseId) $sql .= " LEFT JOIN `" . $tbl_course_user . "` AS CU
+                                    ON CU.`user_id`=U.`user_id`
+                                   AND CU.`code_cours` = '" . $courseId . "' ";
 
-    if (!empty($course_id)) $sql.= " LEFT JOIN `" . $tbl_course_user . "` AS CU
-                                            ON  CU.`user_id`=U.`user_id`
-                                            AND CU.`code_cours` = '" . $course_id . "'
-                                            ";
-    $sql .= " WHERE (0=0) ";
+    $sqlCritList = array();
 
-    if ( get_conf('allowSearchInAddUser') )
-    {
-        $like_search = "%";
-    }
-    else
-    {
-        $like_search = "";
-    }
+    if ($validatedCritList['lastname']) 
+        $sqlCritList[] = " U.nom    LIKE '". addslashes($validatedCritList['lastname'    ])   . $wildcard . "'";
+    if ($validatedCritList['firstname'   ]) 
+        $sqlCritList[] = " U.prenom LIKE '". addslashes($validatedCritList['firstname'   ])   . $wildcard . "'";
+    if ($validatedCritList['email']) 
+        $sqlCritList[] = " U.email  LIKE '". addslashes($validatedCritList['email'       ])   . $wildcard . "'";
+    if ($validatedCritList['officialCode']) 
+        $sqlCritList[] = " U.officialCode = '". addslashes($validatedCritList['officialCode']) .$wildcard . "'";
 
-    if (!empty($name)) $sql .= " AND (U.`nom` LIKE '". addslashes($name) .$like_search."')";
-    if (!empty($mail)) $sql .= " AND (U.`email` LIKE '". addslashes($mail) .$like_search."')";
-    if (!empty($code)) $sql .= " AND (U.`officialCode` = '". addslashes($code) ."')";
+    if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
 
-    $sql .= " ORDER BY nom,prenom ";
+    $sql .= " ORDER BY nom, prenom ";
 
-    $result = claro_sql_query_fetch_all($sql);
-    return $result;
+    return claro_sql_query_fetch_all($sql);
 }
 
 function user_display_preferred_language_select_box()

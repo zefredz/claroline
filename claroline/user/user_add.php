@@ -3,23 +3,16 @@
  * CLAROLINE
  *
  * This tool allow to add a user in his course (an din the platform)
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
+ * @version 1.7 $Revision$
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
  * @author Claro Team <cvs@claroline.net>
- *
  * @package CLUSR
- *
  */
 /*=====================================================================
  Init Section
- =====================================================================*/
+ =====================================================================*/ 
 
 $tlabelReq = 'CLUSR___';
 
@@ -27,10 +20,10 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! $is_courseAdmin              ) claro_die(get_lang('Not allowed'));
 
 // include configuration file
-include($includePath."/conf/user_profile.conf.php");
+include $includePath . '/conf/user_profile.conf.php';
 
 // include libraries
 require_once $includePath . '/lib/user.lib.php';
@@ -38,154 +31,215 @@ require_once $includePath . '/lib/claro_mail.lib.inc.php';
 
 // Initialise variables
 $nameTools        = get_lang('Add a user');
-$interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users'));
+$interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users') );
 
-$messageList = array();
-
+$messageList        = array();
 $platformRegSucceed = false;
-$courseRegSucceed = false;
+$courseRegSucceed   = false;
 
 /*=====================================================================
- Main Section
- =====================================================================*/
+                                MAIN SECTION
+ =====================================================================*/ 
 
-// Initialise field variable from subscription form
-$user_data = user_initialise();
-$user_data['is_coursemanager'] = STUDENT;
-$user_data['is_tutor'] = 0;
+// Initialise field variable from subscription form 
+$userData = user_initialise();
 
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = '';
+$cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : null;
 
-if ((isset($_REQUEST['applySearch']) && ($_REQUEST['applySearch'] != "")))
+if ( (isset($_REQUEST['applySearch'] ) && ( $_REQUEST['applySearch'] != '' ))) 
 {
-    $cmd = "applySearch";
+    $cmd = 'applySearch'; 
 }
 
-if ( !empty($cmd) )
+$userData['lastname'        ] = isset($_REQUEST['lastname'        ]) ? strip_tags(trim($_REQUEST['lastname'    ])) : null;
+$userData['firstname'       ] = isset($_REQUEST['firstname'       ]) ? strip_tags(trim($_REQUEST['firstname'   ])) : null;
+$userData['officialCode'    ] = isset($_REQUEST['officialCode'    ]) ? strip_tags(trim($_REQUEST['officialCode'])) : null;
+$userData['username'        ] = isset($_REQUEST['username'        ]) ? strip_tags(trim($_REQUEST['username'    ])) : null;
+$userData['email'           ] = isset($_REQUEST['email'           ]) ? strip_tags(trim($_REQUEST['email'       ])) : null;
+$userData['phone'           ] = isset($_REQUEST['phone'           ]) ? strip_tags(trim($_REQUEST['phone'       ])) : null;
+$userData['password'        ] = isset($_REQUEST['password'        ]) ? trim($_REQUEST['password'               ])  : null;
+$userData['password_conf'   ] = isset($_REQUEST['password_conf'   ]) ? trim($_REQUEST['password_conf'          ])  : null;
+
+$userData['status'     ] = isset($_REQUEST['status'     ]) ? (int)  $_REQUEST['status'     ] : null;
+$userData['tutor'      ] = isset($_REQUEST['tutor'      ]) ? (bool) $_REQUEST['tutor'      ] : null;
+$userData['courseAdmin'] = isset($_REQUEST['courseAdmin']) ? (bool) $_REQUEST['courseAdmin'] : null;
+
+$userData['confirmUserCreate'] = isset($_REQUEST['confirmUserCreate']) ? $_REQUEST['confirmUserCreate'] : null;
+
+$userId = isset($_REQUEST['userId']) ? (int) $_REQUEST['userId'] : null;
+
+$displayResultTable = false;
+$displayForm        = true;
+$errorMsgList       = array();
+
+if ( $cmd == 'registration' )
 {
-    // get params from the form
+    /*
+     * Two possible ways to enroll a user to a course :
+     * Enrollment of a completly new user from $userData
+     * Enrollment of an existing user form its $userId
+     */
 
-    if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = strip_tags(trim($_REQUEST['lastname'])) ;
-    if ( isset($_REQUEST['firstname']) )     $user_data['firstname']  = strip_tags(trim($_REQUEST['firstname'])) ;
-    if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
-    if ( isset($_REQUEST['username']) )      $user_data['username']  = strip_tags(trim($_REQUEST['username']));
-    if ( isset($_REQUEST['password']) )      $user_data['password']  = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf']  = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) )         $user_data['email']  = strip_tags(trim($_REQUEST['email'])) ;
-    if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['status']) )        $user_data['status']  = (int) $_REQUEST['status'];
+    if ( $userData && ! $userId)
+    {
+        $errorMsgList = user_validate_form_registration($userData);
 
-    if ( isset($_REQUEST['is_coursemanager'])) $user_data['is_coursemanager'] = (int) $_REQUEST['is_coursemanager'];
-    if ( isset($_REQUEST['is_tutor']))         $user_data['is_tutor'] = (int) $_REQUEST['is_tutor'];
-}
+        if ( count($errorMsgList) == 0 ) $validUserData = true;
+        else                             $validUserData = false;
 
-$displayResultTable = FALSE;
-
-switch ( $cmd )
-{
-    case 'registration':
-
-        // validate forum params
-        $messageList = user_validate_form_registration($user_data);
-
-        if ( count($messageList) == 0 )
+        if ( in_array(get_lang('This official code is already used by another user.'), $errorMsgList) ) // validation exception ...
         {
-            // register the new user in the claroline platform
-            $user_id = user_add($user_data);
+            $userList = user_search( array('officialCode' => $userData['officialCode']),
+                                     $_cid, false, true);
 
-            if ( $user_id )
+            $messageList[] = get_lang('This official code is already used by another user.')
+                           . '<br />' . get_lang('Take one of these options') . ' : '
+                           . '<ul>'
+                           . '<li>'
+                           . '<a href="#resultTable" onclick="highlight(\'resultTable\');">'
+                           . ucfirst(get_lang('click on the enrollment command beside the concerned user'))
+                           . '</a>'
+                           . '</li>'
+                           . '<li>'
+                           . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . ucfirst( get_lang('cancel the operation') ) . '</a>'
+                           . '</li>'
+                           . '</ul>';
+
+             $displayResultTable = true;
+        }
+        elseif (    ! $userData['confirmUserCreate'] 
+                 && ! ( empty($userData['lastname']) && empty($userData['email']) ) )
+        {
+            $userList = user_search( array('lastname' => $userData['lastname'    ], 
+                                           'email'    => $userData['email'       ]),
+                                     $_cid, false, true);
+
+            if ( count($userList) > 0 )
             {
-                $platformRegSucceed = true;
+                 // PREPARE THE URL command TO CONFIRM THE USER CREATION
+                 $confirmUserCreateUrl = array();
+                 foreach($userData as $thisDataKey => $thisDataValue)
+                 {
+                    $confirmUserCreateUrl[] = $thisDataKey .'=' . urlencode($thisDataValue);
+                 }
 
-                // add user to course
-                if ( user_add_to_course($user_id, $_cid) )
-                {
-                    // update course manager and tutor status
-                    user_update_course_manager_status($user_id, $_cid, $user_data['is_coursemanager']);
-                    user_update_course_tutor_status($user_id, $_cid, $user_data['is_tutor']);
-                    $courseRegSucceed = true;
-                }
+                 $confirmUserCreateUrl = $_SERVER['PHP_SELF']
+                                       . '?cmd=registration&amp;' 
+                                       . implode('&amp;', $confirmUserCreateUrl)
+                                       . '&amp;confirmUserCreate=1';
+
+
+                 $messageList[] .= get_lang('Notice') . '. '
+                . get_lang('Users with similar settings exist on the system yet')
+                . '<br />' . get_lang('Take one of these options') . ' : '
+                . '<ul>'
+                . '<li>'
+                . '<a href="#resultTable" onclick="highlight(\'resultTable\');">'
+                . ucfirst(get_lang('click on the enrollment command beside the concerned user'))
+                . '</a>'
+                . '</li>'
+                . '<li>'
+                . '<a href="'.$confirmUserCreateUrl.'">'
+                . ucfirst( get_lang('confirm the creation of a new user') )
+                . '</a>'
+                . '<br /><small>'
+                . $userData['lastname'    ] . ' ' . $userData['firstname']
+                . $userData['officialCode'] . ' ' . $userData['email']
+                . '</small>'
+                . '</li>'
+                . '<li>'
+                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . ucfirst(get_lang('cancel the operation') ) . '</a>'
+                . '</li>'
+                . '</ul>';
+
+                $displayForm        = false;
+                $displayResultTable = true;
             }
         }
         else
         {
-            // user validate form return error messages
-            $error = true;
+            $userList = array();
         }
 
-        break;
-
-    case 'applySearch':
-
-        // search on username, official_code, ...
-
-        $displayResultTable = TRUE;
-
-        $user_data['lastname']     = str_replace('%', '', $user_data['lastname']);
-        $user_data['email']        = str_replace('%', '', $user_data['email']);
-        $user_data['officialCode'] = str_replace('%', '', $user_data['officialCode']);
-
-        if (!(empty($user_data['lastname']) && empty($user_data['email']) && empty($user_data['officialCode'])))
+        if ( count($errorMsgList) > 0 && count($userList) == 0 )
         {
-            $users = user_search($user_data['lastname'], $user_data['email'], $user_data['officialCode'],$_cid);
+            $messageList   = array_merge($messageList, $errorMsgList);
         }
-        else
-            $users = array();
-        break;
+    }
 
-    case 'subscribe_to_course':
+    if ( ! $userId && $validUserData && count($userList) == 0 )
+    {
+        $userId = user_add($userData);
+        if ($userId) user_send_registration_mail($userId, $userData);
+    }
 
-        if ( isset($_REQUEST['user_id']) )
-        {
-            $user_id = $_REQUEST['user_id'];
+    if ( $userId )
+    {
+        $courseRegSucceed = user_add_to_course($userId, $_cid, 
+                                               $userData['courseAdmin'],
+                                               $userData['tutor'      ]);
+    }
+    else
+    {
+        $courseRegSucceed = false;
+    }
+} // end if $cmd == 'registration'
 
-            // add user to course
-            user_add_to_course($user_id, $_cid);
+if ($cmd == 'applySearch')
+{
+    // search on username, official_code, ...
 
-            // get user info
-            $user_data = user_get_data($user_id);
+    $displayResultTable = TRUE; 
 
-            $courseRegSucceed = true;
-        }
-        else
-        {
-            $error = true;
-        }
-        break;
-
-    default:
-        // do nothing
-        break;
-
-} // end switch cmd
-
+    if ( ! (   empty($userData['lastname'    ]) 
+            && empty($userData['email'       ]) 
+            && empty($userData['officialCode']) ) )
+    {
+        $userList = user_search( array('lastname'     => $userData['lastname'], 
+                                       'email'        => $userData['email'], 
+                                       'officialCode' => $userData['officialCode']),
+                                 $_cid);
+    }
+    else
+        $userList = array();
+} // if $cmd == 'applySearch'
 
 // Send mail notification
-
-if ( $platformRegSucceed || $courseRegSucceed )
+if ( $courseRegSucceed )
 {
-
-    if ( $platformRegSucceed )
-       {
-        // Send message and login and password
-        user_send_registration_mail($user_id, $user_data);
-    }
-
-    if ( $courseRegSucceed )
-    {
-        // Send enroll to course message
-        user_send_enroll_to_course_mail ($user_id, $user_data);
-    }
-
+    user_send_enroll_to_course_mail($userId, user_get_data($userId) );
     // display message
-    $messageList[]= get_lang('%firstname %lastname has been registered to your course', array ( '%firstname' => $user_data['firstname'],
-                                                                                                '%lastname' => $user_data['lastname']) ) ;
+    $messageList[]= get_lang('%firstname %lastname has been registered to your course', 
+                            array ( '%firstname' => $user_data['firstname'],
+                                    '%lastname'  => $user_data['lastname']) 
+                           );
 }
+
 
 /*=====================================================================
  Display Section
- =====================================================================*/
+ =====================================================================*/ 
+
+$htmlHeadXtra[] = 
+"<script>
+highlight.previousValue = new Array();
+
+function highlight(elementId)
+{
+	if (highlight.previousValue[elementId] == null)
+	{
+		this.element = document.getElementById(elementId);
+		highlight.previousValue[elementId] = this.element.style.border;
+		this.element.style.border='solid 2px red';
+		setTimeout('highlight(\"' + elementId + '\")', 700);
+	}
+	else
+	{
+		document.getElementById(elementId).style.border=highlight.previousValue[elementId];
+		delete highlight.previousValue[elementId];
+	}
+}
+</script>";
 
 // display header
 include($includePath.'/claro_init_header.inc.php');
@@ -195,111 +249,92 @@ echo claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_l
 
 // message box
 
-if ( count($messageList) > 0 )
+if ( count($messageList) > 0 ) 
 {
     echo claro_html_message_box( implode('<br />', $messageList) );
 }
 
-if ( $platformRegSucceed )
+if ( $courseRegSucceed ) 
 {
-    echo '<p><a href="user.php"><< ' .  get_lang('Back to user list') . '</a></p>' . "\n";
+    echo '<p><a href="user.php">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
 }
-else
+else 
 {
-    //display result of search (if any)
-
-    if ($displayResultTable)
+    if ($displayResultTable) //display result of search (if any)
     {
-        //displkay a search legend first
+        $regUrlAddParam = '';
+        if ( $userData['tutor'        ] ) $regUrlAddParam .= '&amp;tutor=1';
+        if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&amp;courseAdmin=1';
 
-        if ( get_conf('allowSearchInAddUser') ) $enclose_field = '*';
-        else                                    $enclose_field = '';
-
-        echo get_lang('Search on') . ' : ';
-
-        if ($user_data['lastname'] != '')
-        {
-            echo get_lang('Last name') . '=' . $user_data['lastname'] . $enclose_field . ' ';
-        }
-        if ($user_data['email'] != '')
-        {
-            echo get_lang('Email') . '=' . $user_data['email'] . $enclose_field . ' ';
-        }
-        if ($user_data['officialCode'] != '')
-        {
-            echo get_lang('Administrative code') . "=" . $user_data['officialCode'] . " ";
-        }
-        echo '<br /><br />'
-        .    '<table class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
+        echo '<a name="resultTable"></a>'
+        .    '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
+        .    '<tr class="superHeader">'
+        .    '<th colspan="5">' . ucfirst(get_lang('search result')) . '</th>'
+        .    '</tr>'
         .    '<tr class="headerX" align="center" valign="top">' . "\n"
-        .    '<th>' . get_lang('Last name')     . '</th>' . "\n"
-        .    '<th>' . get_lang('First name')    . '</th>' . "\n"
-        .    '<th>' . get_lang('Email')        . '</th>' . "\n"
+        .    '<th>' . get_lang('Last name')           . '</th>' . "\n"
+        .    '<th>' . get_lang('First name')          . '</th>' . "\n"
+        .    '<th>' . get_lang('Email')               . '</th>' . "\n"
         .    '<th>' . get_lang('Administrative code') . '</th>' . "\n"
-        .    '<th>' . get_lang('Register')     . '</th>' . "\n"
+        .    '<th>' . get_lang('Register')            . '</th>' . "\n"
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
         ;
 
-        foreach ($users as $user)
+        foreach ($userList as $thisUser)
         {
-           echo '<tr>'
-           .    '<td>'
-           .    $user['nom']
-           .    '</td>'
-           .    '<td>'
-           .    $user['prenom']
-           .    '</td>'
-           .    '<td>'
-           .    $user['email']
-           .    '</td>'
-           .    '<td>'
-           .    $user['officialCode']
-           .    '</td>'
-           .    '<td align="center" valign="top">'
+           echo '<tr valign="top">'                      . "\n"
+           .    '<td>' . $thisUser['lastname'    ] . '</td>' . "\n"
+           .    '<td>' . $thisUser['firstname'   ] . '</td>' . "\n"
+           .    '<td>' . $thisUser['email'       ] . '</td>' . "\n"
+           .    '<td>' . $thisUser['officialCode'] . '</td>' . "\n"
+           .    '<td align="center">'                    . "\n"
            ;
 
-                // deal with already registered users found in result
+            // deal with already registered users found in result
 
-                if (empty($user['registered']))
-                {
-                    echo '<a href="user.php?cmd=register&amp;user_id=' . $user['user'] . '">'
-                    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" />'
-                    ;
-                }
-                else
-                {
-                    echo '<small>'
-                    .    '<span class="highlight">'
-                    .    get_lang('Already enroled')
-                    .    '</span>'
-                    .    '</small>'
-                    ;
-                }
+            if ( empty($thisUser['registered']) )
+            {
+                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=registration&amp;userId=' . $thisUser['uid'] . $regUrlAddParam . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Register') . '" />'
+                .    '</a>'
+                ;
+            }
+            else
+            {
+                echo '<small class="highlight">' 
+                .    get_lang('Already enroled')
+                .    '</small>'
+                ;
+            }
 
-                echo "  </td>"
-                    ."</tr>";
+            echo '</td>' . "\n"
+                .'</tr>' . "\n";
         }
 
-        if (sizeof($users)==0)
+        if ( sizeof($userList) == 0 )
         {
             echo '<td align="center" colspan="5">' . get_lang('No user found') . '</td>';
         }
-        echo '</body>'
-        .    '</table><br />'
+
+        echo '</tbody>'
+        .    '</table>'
+        .    '<hr />'
         ;
     }
 
     //display form to add a user
 
-    echo get_lang('Add user manually')." :";
-    echo '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n";
+    if ($displayForm)
+    {
+        echo  '<p>' . get_lang('Add user manually') . ' :</p>'
+            . '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n";
 
-    user_display_form_add_new_user($user_data);
-
-}
+        user_display_form_add_new_user($userData);
+    }
+} // end else of if ( $courseRegSucceed ) 
 
 // display footer
 include $includePath . '/claro_init_footer.inc.php';
