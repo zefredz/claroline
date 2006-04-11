@@ -189,7 +189,8 @@ function claro_get_cat_list()
 function claro_get_cat_flat_list($separator = ' > ')
 {
     $fac_list = claro_get_cat_list();
-
+    $categories = array();
+    $fac_array = array();
     if(is_array($fac_list))
     foreach ($fac_list as $myfac)
     {
@@ -202,7 +203,6 @@ function claro_get_cat_flat_list($separator = ' > ')
 
     // then we build the table we need : full path of editable cats in an array
 
-    if (is_array($categories ))
     foreach ($categories as $cat)
     {
         if ( $cat['childs'] == 'TRUE' )
@@ -255,12 +255,12 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
         {
 
             if ($currentCat['treePos'] > $childTreePos ) return claro_failure::set_failure('loop_in_structure');
-            
+
             return get_full_path($categories, $parent, $separator)
             .      $separator
             .      $catcode
             ;
-            
+
         }
     }
 }
