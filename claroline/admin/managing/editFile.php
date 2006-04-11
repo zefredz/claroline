@@ -27,6 +27,7 @@ require '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
+$do=null;
 $controlMsg = array();
 //The name of the files
 $filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html');
@@ -34,48 +35,58 @@ $filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textz
 $filePathList = array($rootSys . $filenameList[0], $rootSys . $filenameList[1], $clarolineRepositorySys . '/auth/' . $filenameList[2]);
 
 $display = DISP_FILE_LIST;
+
+
+
+
+// preserve compatibility waiting to replaces all ?modify=1 by ?cmd=modify
+if (isset($_REQUEST['modify']))  $_REQUEST['cmd'] ='modify';
+
+// Get command
+$validCmdList = array('modify','edit','view');
+$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
+
+// input Datas
+$fileId = (int) isset($_REQUEST['file']) ? $_REQUEST['file'] : null;
+if (!in_array($fileId,array_keys($filenameList)))
+{
+    $fileId=null;
+    $controlMsg['error'][]=get_lang('File not know');
+};
+
+$textContent = isset($_REQUEST['textContent']) ? $_REQUEST['textContent'] : null;
+
 //If choose a file to modify
 //Modify a file
 
-if ( isset($_REQUEST['modify']) )
+if ( 'modify' == $cmd )
 {
-    $text = trim($_REQUEST['textContent']);
+    $text = trim($textContent);
     if ( trim( strip_tags( $text,'<img>' ) ) != '' )
     {
-        $fp = fopen($filePathList[$_REQUEST['file']], 'w+');
+        $fp = fopen($filePathList[$fileId], 'w+');
         fwrite($fp,$text);
     }
-    else  // remove file if empty
-    {
-        if ( file_exists($filePathList[$_REQUEST['file']]) )
-        {
-            unlink($filePathList[$_REQUEST['file']]);
-        }
-    }
+    // remove file if empty
+    elseif ( file_exists($filePathList[$fileId]) ) unlink($filePathList[$fileId]);
+
     $controlMsg['info'][] = get_lang('The changes have been carried out correctly')
     .                       ' <br />'
     .                       '<strong>'
-    .                       basename($filePathList[$_REQUEST['file']])
+    .                       basename($filePathList[$fileId])
     .                       '</strong>'
     ;
 
     $display = DISP_FILE_LIST;
 }
 
-if( isset($_REQUEST['file']) )
+if( !is_null($fileId) )
 {
-    if (file_exists( $filePathList[$_REQUEST['file']] ) )
-    {
-        $textContent = implode("\n", file($filePathList[$_REQUEST['file']]) );
-    }
-    else
-    {
-        $textContent = false;
-    }
+    $textContent = (file_exists( $filePathList[$fileId] ) ) ? implode("\n", file($filePathList[$fileId]) ) : false;
 
-    if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'edit'  )
+    if ( 'edit' == $cmd )
     {
-        $subtitle = 'Edit : ' . basename($filenameList[$_REQUEST["file"]]);
+        $subtitle = 'Edit : ' . basename($filenameList[$fileId]);
         $display = DISP_EDIT_FILE;
     }
     else
@@ -84,10 +95,10 @@ if( isset($_REQUEST['file']) )
         $textContent = '<blockquote>' . "\n"
         .              '<font color="#808080">- <em>' . "\n"
         .              get_lang('No Content') . "\n"
-        .              '</em> -</font><br />' . "\n" 
+        .              '</em> -</font><br />' . "\n"
         .              '</blockquote>' . "\n"
         ;
-        $subtitle = 'Preview : '.basename($filenameList[$_REQUEST['file']]);
+        $subtitle = 'Preview : '.basename($filenameList[$fileId]);
         $display = DISP_VIEW_FILE;
     }
 }
@@ -145,22 +156,22 @@ if($display==DISP_FILE_LIST
     <?php
 }
 
-if( $display == DISP_EDIT_FILE )
+if( DISP_EDIT_FILE == $display )
 {
-    echo '<h4>' . basename($filenameList[$_REQUEST['file']]) . '</h4>'
+    echo '<h4>' . basename($filenameList[$fileId]) . '</h4>'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">'
     .    claro_html_textarea_editor('textContent', $textContent)
     .    '<br /><br /> &nbsp;&nbsp;' . "\n"
-    .    '<input type="hidden" name="file" value="' . htmlspecialchars($_REQUEST['file']) . '" />' . "\n"
+    .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
     .    '<input type="submit" class="claroButton" name="modify" value="' . get_lang('Ok') . '" />' . "\n"
     .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</form>' . "\n"
     ;
 }
-elseif( $display == DISP_VIEW_FILE )
+elseif( DISP_VIEW_FILE == $display)
 {
     echo '<br />'
-    .    '<h4>' . basename($filenameList[$_REQUEST['file']]) . '</h4>'
+    .    '<h4>' . basename($filenameList[$fileId]) . '</h4>'
     .    $textContent
     .    '<br />'
     ;
