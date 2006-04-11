@@ -51,18 +51,19 @@ if ( $is_allowedToEdit )
         linker_set_local_crl( isset ($_REQUEST['id']) );
     }
 
+// 'rqAdd' ,'rqEdit', 'exAdd','exEdit', 'exDelete', 'exDeleteAll', 'mkShow', 'mkHide'
+
+
     if ( isset($_REQUEST['cmd'])
-    && ( $_REQUEST['cmd'] == 'rqAdd' || $_REQUEST['cmd'] == 'rqEdit' )
+    && ( 'rqAdd' == $_REQUEST['cmd'] || 'rqEdit' == $_REQUEST['cmd'] )
     )
     {
         linker_html_head_xtra();
     }
 }
 
-
 //stats
 event_access_tool($_tid, $_courseTool['label']);
-
 
 $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];
@@ -72,8 +73,8 @@ else                           $cmd = null;
 
 $dialogBox = '';
 
-if     ( $cmd == 'rqAdd' ) $subTitle = get_lang('Add an event');
-elseif ( $cmd == 'rqEdit') $subTitle = get_lang('Edit Event');
+if     ( 'rqAdd' == $cmd ) $subTitle = get_lang('Add an event');
+elseif ( 'rqEdit' == $cmd ) $subTitle = get_lang('Edit Event');
 else                       $subTitle = '&nbsp;';
 
 $orderDirection = isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' ?'DESC':'ASC';
@@ -100,7 +101,7 @@ if ( $is_allowedToEdit )
     $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
 
     $ex_rss_refresh = FALSE;
-    if ( $cmd == 'exAdd' )
+    if ( 'exAdd' == $cmd )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
@@ -133,7 +134,7 @@ if ( $is_allowedToEdit )
     --------------------------------------------------------------------------*/
 
 
-    if ( $cmd == 'exEdit' )
+    if ( 'exEdit' == $cmd )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
@@ -158,7 +159,7 @@ if ( $is_allowedToEdit )
     DELETE EVENT COMMAND
     --------------------------------------------------------------------------*/
 
-    if ( $cmd == 'exDelete' && !empty($id) )
+    if ( 'exDelete' == $cmd && !empty($id) )
     {
 
         if ( agenda_delete_item($id) )
@@ -184,7 +185,7 @@ if ( $is_allowedToEdit )
     DELETE ALL EVENTS COMMAND
     ----------------------------------------------------------------------------*/
 
-    if ( $cmd == 'exDeleteAll' )
+    if ( 'exDeleteAll' == $cmd )
     {
         if ( agenda_delete_all_items())
         {
@@ -206,8 +207,7 @@ if ( $is_allowedToEdit )
     EDIT EVENT VISIBILITY
     ---------------------------------------------------------------------------*/
 
-
-    if ($cmd == 'mkShow' || $cmd == 'mkHide')
+    if ( 'mkShow' == $cmd  || 'mkHide' == $cmd )
     {
         if ($cmd == 'mkShow')
         {
