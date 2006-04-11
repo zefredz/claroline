@@ -62,6 +62,114 @@
             $this->setOpt( 'note_str', '<div class="footnotes"><a name="footNotes"></a><h2>Notes</h2>%s</div>' );
             // use urls to link wikipages
             $this->setOpt( 'active_wiki_urls', 1 );
+            // allow inline HTML in wiki (expérimntal)
+            $this->setOpt( 'inline_html_allowed', 0 );
+            // use macros
+            $this->setOpt( 'active_macros', 1 );
+        }
+        
+        /**
+         * Overwrite wiki2xhtml __getLine method
+         * @access private
+         * @see class.wiki2xhtml.php
+         */
+        function __getLine($i,&$type,&$mode)
+        {
+            $pre_type = $type;
+            $pre_mode = $mode;
+            $type = $mode = NULL;
+            
+            if (empty($this->T[$i]))
+            {
+                return false;
+            }
+            
+            // Allow inline HTML (EXPERIMENTAL !!!)
+            if ( $this->getOpt('inline_html_allowed') )
+            {
+                // FIXME secure embedded html !!!
+                $line = $this->T[$i];
+            }
+            else
+            {
+                $line = htmlspecialchars($this->T[$i],ENT_NOQUOTES);
+            }
+            
+            # Ligne vide
+            if (empty($line))
+            {
+                $type = NULL;
+            }
+            elseif ($this->getOpt('active_empty') && preg_match('/^øøø(.*)$/',$line,$cap))
+            {
+                $type = NULL;
+                $line = trim($cap[1]);
+            }
+            # Titre
+            elseif ($this->getOpt('active_title') && preg_match('/^([!]{1,4})(.*)$/',$line,$cap))
+            {
+                $type = 'title';
+                $mode = strlen($cap[1]);
+                $line = trim($cap[2]);
+            }
+            # Ligne HR
+            elseif ($this->getOpt('active_hr') && preg_match('/^[-]{4}[- ]*$/',$line))
+            {
+                $type = 'hr';
+                $line = NULL;
+            }
+            # Blockquote
+            elseif ($this->getOpt('active_quote') && preg_match('/^(&gt;|;:)(.*)$/',$line,$cap))
+            {
+                $type = 'blockquote';
+                $line = trim($cap[2]);
+            }
+            # Liste
+            elseif ($this->getOpt('active_lists') && preg_match('/^([*#]+)(.*)$/',$line,$cap))
+            {
+                $type = 'list';
+                $mode = $cap[1];
+                $valid = true;
+                
+                # Vérification d'intégrité
+                $dl = ($type != $pre_type) ? 0 : strlen($pre_mode);
+                $d = strlen($mode);
+                $delta = $d-$dl;
+                
+                if ($delta < 0 && strpos($pre_mode,$mode) !== 0) {
+                    $valid = false;
+                }
+                if ($delta > 0 && $type == $pre_type && strpos($mode,$pre_mode) !== 0) {
+                    $valid = false;
+                }
+                if ($delta == 0 && $mode != $pre_mode) {
+                    $valid = false;
+                }
+                if ($delta > 1) {
+                    $valid = false;
+                }
+                
+                if (!$valid) {
+                    $type = 'p';
+                    $mode = NULL;
+                    $line = '<br />'.$line;
+                } else {
+                    $line = trim($cap[2]);
+                }
+            }
+            # Préformaté
+            elseif ($this->getOpt('active_pre') && preg_match('/^[ ]{1}(.*)$/',$line,$cap))
+            {
+                $type = 'pre';
+                $line = $cap[1];
+            }
+            # Paragraphe
+            else {
+                $type = 'p';
+                $line = trim($line);
+            }
+            
+            return $line;
         }
          
         /**
@@ -96,6 +204,70 @@
                     . "</a>"
                     ;
             }
+        }
+        
+        /**
+         * Parse and execute wiki2xhtml macros
+         *
+         *  wiki2xhtml macros are of the form """MACRO_COMMAND"""
+         *
+         *  enabled macros are :
+         *      - """start_html"""  : start of html block, the block begins on the next line
+         *      - """end_html"""    : end of html block
+         *      - default           : the surrounded string is interpreted as embedded html
+         * @access private
+         * @see class.wiki2xhtml.php
+         * @return string macro execution result
+         */
+        function parseMacro($str,&$tag,&$attr,&$type)
+        {
+            $tag = $attr = '';
+            
+            switch( trim( $str, '"' ) )
+            {
+                // start of html block
+                case 'start_html':
+                {
+                    $this->setOpt( 'inline_html_allowed', 1 );
+                    $str = "<!-- start of embedded html -->\n";
+                    break;
+                }
+                // end of html block
+                case 'end_html':
+                {
+                    $this->setOpt( 'inline_html_allowed', 0 );
+                    $str = "<!-- start of embedded html -->\n";
+                    break;
+                }
+                // embedded html
+                default:
+                {
+                    // PHP < 4.3.0
+                    if ( ! function_exists('html_entity_decode') )
+                    {
+                        // decode htmlentities
+                        function html_entity_decode( $string ) 
+                        {
+                            // replace numeric entities
+                            $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $string);
+                            $string = preg_replace('~&#([0-9]+);~e', 'chr(\\1)', $string);
+                            // replace literal entities
+                            $trans_tbl = get_html_translation_table(HTML_ENTITIES);
+                            $trans_tbl = array_flip($trans_tbl);
+                            return strtr($string, $trans_tbl);
+                        }
+
+                    }
+                    
+                    // FIXME secure embedded html !!!
+                    // - remove dangerous tags and attributes
+                    // - protect against XSS
+                    $str = trim( $str, '"' );
+                    $str = html_entity_decode( $str );
+                }
+            }
+            
+            return $str;
         }
          
         /**
