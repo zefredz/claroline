@@ -23,6 +23,8 @@
     require_once dirname(__FILE__) . '/wiki2xhtml/class.wiki2xhtml.php';
     require_once dirname(__FILE__) . '/class.wikistore.php';
     require_once dirname(__FILE__) . '/class.wikipage.php';
+    
+    require_once dirname(__FILE__) . '/class.html_sanitizer.php';
      
     define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))' );
      
@@ -88,7 +90,9 @@
             if ( $this->getOpt('inline_html_allowed') )
             {
                 // FIXME secure embedded html !!!
-                $line = $this->T[$i];
+                // - remove dangerous tags and attributes
+                // - protect against XSS
+                $line = HTML_Sanitizer::sanitize($this->T[$i]);
             }
             else
             {
@@ -264,6 +268,7 @@
                     // - protect against XSS
                     $str = trim( $str, '"' );
                     $str = html_entity_decode( $str );
+                    $str = HTML_Sanitizer::sanitize( $str );
                 }
             }
             
