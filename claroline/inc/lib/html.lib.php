@@ -849,8 +849,8 @@ class claro_datagrid
             }
             else
             {
-                if (is_null($this->htmlNoRowMessage )) $this->htmlNoRowMessage =get_lang('No result');
-                $stream .= '<tr class="dgnoresult" ><td class="dgnoresult" colspan="'.count(array_keys($this->colTitleList)).'">' . $this->htmlNoRowMessage  . '</td></tr>';
+                if (is_null($this->htmlNoRowMessage )) $this->htmlNoRowMessage = get_lang('No item');
+                $stream .= '<tr class="dgnoresult" ><td class="dgnoresult" colspan="' . count(array_keys($this->colTitleList)) . '">' . $this->htmlNoRowMessage  . '</td></tr>';
             }
             $stream .= '</tbody>' . "\n"
             .          '</table>' . "\n"
