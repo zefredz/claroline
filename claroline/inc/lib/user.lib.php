@@ -336,14 +336,14 @@ function user_delete_course_tracking_data($userId, $courseId)
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
- * @param  int     $user_id     user ID from the course_user table
- * @param  string  $course_code course code from the cours table
+ * @param  int     $userId     user ID from the course_user table
+ * @param  string  $courseCode course code from the cours table
  *
  * @return boolean TRUE        if removing suceed
  *         boolean FALSE       otherwise.
  */
 
-function user_remove_from_group($user_id, $courseCode)
+function user_remove_from_group($userId, $courseCode)
 {
     $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
