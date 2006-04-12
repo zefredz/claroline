@@ -22,16 +22,13 @@
 include_once(dirname(__FILE__).'/auth.lib.inc.php');
 include_once(dirname(__FILE__).'/form.lib.php');
 
-!defined('COURSE_ADMIN_STATUS') && define('COURSE_ADMIN_STATUS', 1);
-!defined('STUDENT_STATUS') && define('STUDENT_STATUS', 5);
+defined('COURSE_ADMIN_STATUS') || define('COURSE_ADMIN_STATUS', 1);
+defined('STUDENT_STATUS'     ) || define('STUDENT_STATUS'     , 5);
 
 /**
  * Initialise user data
- *
  * @return  array with user data
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
  */
 
 function user_initialise()
@@ -52,13 +49,9 @@ function user_initialise()
 
 /**
  * Get user data on the platform
- *
  * @param $user_id integer
- *
  * @return  array( `user_id`, `lastname`, `firstname`, `username`, `email`, `picture`, `officialCode`, `phone`, `status` ) with user data
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
  */
 
 function user_get_data($user_id)
@@ -88,23 +81,20 @@ function user_get_data($user_id)
 
 /**
  * Add a new user
- *
  * @param $data array to fill the form
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
  */
 
-function user_add ($data)
+function user_add($data)
 {
     global $userPasswordCrypted, $_uid;
 
-    $password = $userPasswordCrypted?md5($data['password']):$data['password'];
+    $password = $userPasswordCrypted ? md5($data['password']):$data['password'];
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    if ( empty($data['status']) ) $data['status'] = STUDENT_STATUS;
+    if ( empty($data['status'  ]) ) $data['status']   = STUDENT_STATUS;
     if ( empty($data['language']) ) $data['language'] = null;
 
     $sql = "INSERT INTO `" . $tbl_user . "`
@@ -125,12 +115,9 @@ function user_add ($data)
 
 /**
  * Update user data
- *
  * @param $user_id integer
  * @param $data array
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
  */
 
 function user_update ($user_id, $data)
@@ -149,23 +136,23 @@ function user_update ($user_id, $data)
                 `email`        = '" . addslashes($data['email']) . "',
                 `officialCode` = '" . addslashes($data['officialCode']) . "' ";
 
-    if ( !empty($data['status']) )
+    if ( ! empty($data['status']) )
     {
         $sql .= ", `statut` = '" . (int) $data['status'] . "' " . "\n" ;
     }
 
-    if ( !empty($data['password']) )
+    if ( ! empty($data['password']) )
     {
         $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
         $sql .= ", `password`   = '" . addslashes($password) . "' "  . "\n";
     }
 
-    if ( !empty($data['language']) )
+    if ( ! empty($data['language']) )
     {
         $sql .= ", `language` = '" . addslashes($data['language']) . "' "  . "\n";
     }
 
-    if ( !empty($data['picture']) )
+    if ( ! empty($data['picture']) )
     {
         $sql .= ", `pictureUri` = '" . addslashes($data['picture']) . "' "  . "\n";
     }
@@ -180,27 +167,21 @@ function user_update ($user_id, $data)
 
 /**
  * Delete user form claroline platform
- *
- * @param $user_id integer
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @param int $user_id
+ * @return boolean 'true' if it succeeds, 'false' otherwise
  */
 
-function user_delete ($user_id)
+function user_delete($userId)
 {
-    global $_uid;
-
-    $user_id = (int) $user_id;
-
-    // user cannot remove himself of the platform
-    if ( $_uid == $user_id )
+    if ( $GLOBALS['_uid'] == $userId ) // user cannot remove himself of the platform
     {
         return claro_failure::set_failure('user_cannot_remove_himself');
     }
 
     // main tables name
-    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
     $tbl_user            = $tbl_mdb_names['user'           ];
     $tbl_admin           = $tbl_mdb_names['admin'          ];
     $tbl_course          = $tbl_mdb_names['course'         ];
@@ -215,92 +196,163 @@ function user_delete ($user_id)
                           FROM `" . $tbl_rel_course_user . "` AS cu,
                                `" . $tbl_course . "`          AS c
                           WHERE `cu`.`code_cours`=`c`.`code`
-                            AND `cu`.`user_id`=" . $user_id;
+                            AND `cu`.`user_id`=" . $userId;
 
-    $res_user_courses = claro_sql_query($sql_user_courses) ;
+    $courseSysCodeList = claro_sql_query_fetch_all($sql_user_courses);
 
-    if (  mysql_num_rows($res_user_courses) )
+    if ( user_remove_from_course($userId, $courseSysCodeList, true, true) == false ) return false;
+
+    $sqlList = array(
+
+      "DELETE FROM `" . $tbl_user            . "` WHERE user_id         = " . (int) $userId ,
+      "DELETE FROM `" . $tbl_admin           . "` WHERE idUser          = " . (int) $userId ,
+      "DELETE FROM `" . $tbl_track_default   . "` WHERE default_user_id = " . (int) $userId ,
+      "DELETE FROM `" . $tbl_track_login     . "` WHERE login_user_id   = " . (int) $userId ,
+      "DELETE FROM `" . $tbl_rel_class_user  . "` WHERE user_id         = " . (int) $userId ,
+      "DELETE FROM `" . $tbl_sso             . "` WHERE user_id         = " . (int) $userId ,
+      // Change creatorId to NULL
+      "UPDATE `" . $tbl_user . "` SET `creatorId`=NULL WHERE `creatorId`='" . (int) $userId . "'"
+
+                    );
+
+    foreach($sqlList as $thisSql)
     {
-        while ( ( $user_course = mysql_fetch_array($res_user_courses) ) )
-        {
-            // course tables name
-            $dbNameGlued = claro_get_course_db_name_glued($user_course['code']);
-            $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
-
-            $tbl_bb_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
-            $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-            $tbl_group_team          = $tbl_cdb_names['group_team'];
-            $tbl_track_e_access      = $tbl_cdb_names['track_e_access'];
-            $tbl_track_e_downloads   = $tbl_cdb_names['track_e_downloads'];
-            $tbl_track_e_exercices   = $tbl_cdb_names['track_e_exercices'];
-            $tbl_track_e_uploads     = $tbl_cdb_names['track_e_uploads'];
-            $tbl_userinfo_content    = $tbl_cdb_names['userinfo_content'];
-
-            // delete user information in the table group_rel_team_user
-            $sql_deleteUserFromGroup = "DELETE FROM `" . $tbl_group_rel_team_user . "` WHERE `user`= " . (int) $user_id;
-            claro_sql_query($sql_deleteUserFromGroup);
-
-            // change tutor -> NULL for the course WHERE the the tutor is the user deleting
-            $sql_update = "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . $user_id . "'";
-            claro_sql_query($sql_update);
-
-            // delete user notification in the table bb_rel_topic_userstonotify
-            $sql_deleteUserNotification = "DELETE FROM `" . $tbl_bb_rel_topic_userstonotify . "` WHERE `user_id` = " . (int) $user_id;
-            claro_sql_query($sql_deleteUserNotification) ;
-
-            // delete user information in the table userinfo_content
-            $sql_deleteUserFromGroup = "DELETE FROM `" . $tbl_userinfo_content . "` WHERE `user_id`='" . $user_id . "'";
-            claro_sql_query($sql_deleteUserFromGroup) ;
-
-            // delete user data in tracking tables
-            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_access ."` WHERE `access_user_id`='" . $user_id."'";
-            claro_sql_query($sql_DeleteUser);
-
-            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_downloads . "` WHERE `down_user_id`='" . $user_id . "'";
-            claro_sql_query($sql_DeleteUser);
-
-            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_exercices . "` WHERE `exe_user_id`='" . $user_id . "'";
-            claro_sql_query($sql_DeleteUser);
-
-            $sql_DeleteUser = "DELETE FROM `" . $tbl_track_e_uploads . "` WHERE `upload_user_id`='" . $user_id . "'";
-            claro_sql_query($sql_DeleteUser);
-
-        }
-
+        if ( claro_sql_query($sqlList) == false ) return false;
+        else                                      continue;
     }
 
-    // delete the user in the table user
-    $sql_DeleteUser= "DELETE FROM `" . $tbl_user . "` WHERE `user_id`='" . $user_id . "'";
-    claro_sql_query($sql_DeleteUser);
+    return true;
+}
 
-    // delete user information in the table course_user
-    $sql_DeleteUser = "DELETE FROM `" . $tbl_rel_course_user . "` WHERE `user_id`='" . $user_id . "'";
-    claro_sql_query($sql_DeleteUser);
+/**
+ * unsubscribe a specific user from a specific course
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param  int     $user_id        user ID from the course_user table
+ * @param  mixed (string or array) $courseCodeList course sys code
+ * @param  boolean $force  true  possible to remove a course admin from course 
+ *                        (default false)
+ * @param  boolean $deleteTrackingData (default false)
+ *
+ * @return boolean TRUE        if unsubscribtion succeed
+ *         boolean FALSE       otherwise.
+ */
 
-    // delete user information in the table admin
-    $sql_DeleteUser = "DELETE FROM `" . $tbl_admin . "` WHERE `idUser`='" . $user_id . "'";
-    claro_sql_query($sql_DeleteUser);
+function user_remove_from_course( $userId, $courseCodeList = array(), $force = false, $delTrackData = false)
+{
+    $tbl_mdb_names         = claro_sql_get_main_tbl();
+    $tbl_rel_course_user   = $tbl_mdb_names['rel_course_user'];
 
-    // change creatorId -> NULL
-    $sql_update = "UPDATE `" . $tbl_user . "` SET `creatorId`=NULL WHERE `creatorId`='" . $user_id . "'";
-    claro_sql_query($sql_update);
+    if ( ! is_array($courseCodeList) ) $courseCodeList = array($courseCodeList);
 
-    // delete user information in the tables clarolineStat
-    $sql_DeleteUser = "DELETE FROM `" . $tbl_track_default . "` WHERE `default_user_id`='" . $user_id . "'";
-    claro_sql_query($sql_DeleteUser);
+    if ( ! $force && $userId == $GLOBALS['_uid'] )
+    {
+        // PREVIOUSLY CHECK THE USER IS NOT COURSE ADMIN OF THIS COURSE
 
-    $sql_DeleteUser = "DELETE FROM `" . $tbl_track_login . "` WHERE `login_user_id`='" . $user_id . "'";
-    claro_sql_query($sql_DeleteUser);
+        $sql = "SELECT COUNT(user_id)
+                FROM `" . $tbl_rel_course_user . "`
+                WHERE user_id = ". (int) $userId ."
+                  AND statut = '" . COURSE_ADMIN_STATUS . "' 
+                  AND course_code IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "') ";
 
-    // delete the info in the class table
-    $sql_DeleteUser = "DELETE FROM `" . $tbl_rel_class_user . "` WHERE `user_id`='" . $user_id . "'";
-    claro_sql_query($sql_DeleteUser);
+        if ( claro_sql_query_get_single_value($sql)  > 0 )
+        {
+            return claro_failure::set_failure('course_manager_cannot_unsubscribe_himself');
+        }
+    }
 
-    // delete info from sso table
-    $sql_DeleteUser = "DELETE FROM `" . $tbl_sso . "` WHERE `user_id`='" . $user_id . "'";
-    claro_sql_query($sql_DeleteUser);
+    foreach($courseCodeList as $thisCourseCode)
+    {
+
+        if ( user_remove_from_group($userId, $thisCourseCode) == false ) return false;
+
+        $dbNameGlued   = claro_get_course_db_name_glued($thisCourseCode);
+        $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+
+        $tbl_bb_notify         = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+        $tbl_group_team        = $tbl_cdb_names['group_team'         ];
+        $tbl_userinfo_content  = $tbl_cdb_names['userinfo_content'   ];
+
+
+        $sqlList = array(
+          "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id        = " . (int) $userId ,
+          "DELETE FROM `" . $tbl_userinfo_content . "` WHERE user_id        = " . (int) $userId ,
+           // change tutor to NULL for the course WHERE the tutor is the user to delete
+          "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . $userId . "'"
+                        );
+
+        foreach($sqlList as $thisSql)
+        {
+            if ( claro_sql_query($sqlList) == false ) return false;
+            else                                      continue;
+        }
+
+        if ($delTrackData) 
+        {
+            if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) return false;
+        }
+    }
+
+    $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
+            WHERE user_id = " . (int) $userId . "
+            AND code_cours IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "')";
+
+    if ( claro_sql_query($sql) == false ) return false;
 
     return true;
+}
+
+
+function user_delete_course_tracking_data($userId, $courseId)
+{
+    $dbNameGlued   = claro_get_course_db_name_glued($courseId);
+    $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+
+    $tbl_track_access     = $tbl_cdb_names['track_e_access'   ];
+    $tbl_track_downloads  = $tbl_cdb_names['track_e_downloads'];
+    $tbl_track_exercices  = $tbl_cdb_names['track_e_exercices'];
+    $tbl_track_uploads    = $tbl_cdb_names['track_e_uploads'  ];
+
+    $sqlList = array(
+        "DELETE FROM `" . $tbl_track_access     . "` WHERE access_user_id = " . (int) $userId ,
+        "DELETE FROM `" . $tbl_track_downloads  . "` WHERE down_user_id   = " . (int) $userId ,
+        "DELETE FROM `" . $tbl_track_exercices  . "` WHERE exe_user_id    = " . (int) $userId ,
+        "DELETE FROM `" . $tbl_track_uploads    . "` WHERE upload_user_id = " . (int) $userId
+                    );
+
+    foreach($sqlList as $thisSql)
+    {
+        if ( claro_sql_query($sqlList) == false ) return false;
+        else                                      continue;
+    }
+
+    return true;
+}
+
+
+/**
+ * remove a specific user from a course groups
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param  int     $user_id     user ID from the course_user table
+ * @param  string  $course_code course code from the cours table
+ *
+ * @return boolean TRUE        if removing suceed
+ *         boolean FALSE       otherwise.
+ */
+
+function user_remove_from_group($user_id, $courseCode)
+{
+    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
+    $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
+
+    $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`
+            WHERE user = " . (int) $userId;
+
+    if ( claro_sql_query($sql) ) return true;
+    else                         return false;
 
 }
 
@@ -320,12 +372,11 @@ function user_is_admin($user_id)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_admin = $tbl_mdb_names['admin'];
 
-    $sql = " SELECT `idUser`
+    $sql = " SELECT COUNT(`idUser`)
              FROM `" . $tbl_admin . "`
              WHERE `idUser` = " .  (int) $user_id . "";
-    $result = claro_sql_query($sql);
 
-    return (bool) mysql_num_rows($result);
+    return claro_sql_query_get_single_value($sql) > 0;
 }
 
 /**
@@ -347,6 +398,7 @@ function user_add_admin($user_id)
     $sql = "SELECT `idUser`
             FROM `" . $tbl_admin . "`
             WHERE `idUser`= " . (int) $user_id;
+
     $result =  claro_sql_query($sql);
 
     if ( mysql_num_rows($result) > 0 )
@@ -652,92 +704,7 @@ function user_update_course_properties($user_id, $course_code, $properties)
     else                         return false;
 }
 
-/**
- * unsubscribe a specific user from a specific course
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
- * @param  int     $user_id     user ID from the course_user table
- * @param  string  $course_code course code from the cours table
- * @param boolean $force_it if true  : a course manager can unsubscribe it himself
- *                          if false : (default value)
- *
- * @return boolean TRUE        if unsubscribtion succeed
- *         boolean FALSE       otherwise.
- */
 
-function user_remove_from_course($user_id, $course_code,$force_it=false)
-{
-    global $_uid;
-
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
-
-    // select courses manager of the course
-    $sql = "SELECT user_id
-            FROM `" . $tbl_rel_course_user . "`
-            WHERE code_cours = '" . addslashes($course_code) . "'
-              AND statut = '" . COURSE_ADMIN_STATUS . "' ";
-
-    $course_manager = claro_sql_query_fetch_all_cols($sql);
-
-    if ( $course_manager !== false )
-    {
-        // user to unsubscribe is course manager
-        if ( in_array($user_id,$course_manager['user_id']) )
-        {
-            // cannot unsubscribe the last course manager
-            // it's a priority case
-            if ( count($course_manager['user_id']) == 1 )
-            {
-                return claro_failure::set_failure('cannot_unsubscribe_the_last_course_manager');
-            }
-
-            // a course manager cannot unsubscribe himself from a course
-            if ( $_uid == $user_id && !$force_it )
-            {
-                return claro_failure::set_failure('course_manager_cannot_unsubscribe_himself');
-            }
-
-        }
-    }
-
-    $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
-            WHERE user_id = " . (int) $user_id . "
-              AND code_cours = '" . addslashes($course_code) . "'";
-
-    if ( claro_sql_query($sql) )
-    {
-        user_remove_from_group($user_id, $course_code);
-    }
-
-    return true;
-}
-
-/**
- * remove a specific user from a course groups
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
- * @param  int     $user_id     user ID from the course_user table
- * @param  string  $course_code course code from the cours table
- *
- * @return boolean TRUE        if removing suceed
- *         boolean FALSE       otherwise.
- */
-
-function user_remove_from_group($user_id, $course_code)
-{
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_code));
-    $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-
-    $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`
-            WHERE user = " . (int) $user_id;
-
-    if ( claro_sql_query($sql) ) return true;
-    else                         return false;
-
-}
 
 /**
  * Send registration succeded email to user
