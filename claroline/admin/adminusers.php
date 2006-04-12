@@ -11,11 +11,11 @@
  *
  * @author Guillaume Lederer <lederer@claroline.net>
  */
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 
 // initialisation of global variables and used libraries
-defined('COURSE_CREATOR') || define('COURSE_CREATOR',1);
-defined('COURSE_STUDENT') || define('COURSE_STUDENT',5);
+defined('COURSE_CREATOR') || define('COURSE_CREATOR' , 1);
+defined('COURSE_STUDENT') || define('COURSE_STUDENT' , 5);
 
 require '../inc/claro_init_global.inc.php';
 $userPerPage = get_conf('userPerPage',20); // numbers of user to display on the same page
@@ -111,6 +111,8 @@ $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
 $myPager->set_sort_key($pagerSortKey, $pagerSortDir);
 
 $userList = $myPager->get_result_list();
+
+
 $userGrid = array();
 foreach ($userList as $userKey => $user)
 {
@@ -130,7 +132,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
     $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
 
-    $userGrid[$userKey]['status'] =  ($user['status']=='COURSE_CREATOR' ? get_lang('Course creator') : get_lang('User'));
+    $userGrid[$userKey]['status'] =  ( $user['status'] == COURSE_CREATOR ? get_lang('Course creator') : get_lang('User'));
 
     if (user_is_admin($user['user_id']))
     {
@@ -292,33 +294,32 @@ function get_sql_filtered_user_list()
     $tbl_mdb_names   = claro_sql_get_main_tbl();
 
     $sql = "SELECT
-           `U`.`user_id`      AS `user_id`,
-           `U`.`nom`          AS `name`,
-           `U`.`prenom`       AS `firstname`,
-           `U`.`authSource`   AS `authSource`,
-           `U`.`email`        AS `email`,
-           `U`.`statut`       AS `status`,
-           `U`.`officialCode` AS `officialCode`,
-           `U`.`phoneNumber`  AS `phoneNumber`,
-           `U`.`pictureUri`   AS `pictureUri`,
-           `U`.`creatorId`    AS creator_id,
-           IF(`U`.`statut`=" . COURSE_CREATOR . ",'COURSE_CREATOR','ORDINARY') AS `statut` ,
-           count(DISTINCT `CU`.`code_cours`) AS `qty_course`
-           FROM  `" . $tbl_mdb_names['user'] . "` AS `U`";
+           U.user_id      AS user_id,
+           U.nom          AS name,
+           U.prenom       AS firstname,
+           U.authSource   AS authSource,
+           U.email        AS email,
+           U.officialCode AS officialCode,
+           U.phoneNumber  AS phoneNumber,
+           U.pictureUri   AS pictureUri,
+           U.creatorId    AS creator_id,
+           U.statut       AS status ,
+           count(DISTINCT CU.code_cours) AS qty_course
+           FROM  `" . $tbl_mdb_names['user'] . "` AS U";
 
     //deal with admin user search only (PART ONE)
 
 
     if ($filterOnStatus == 'plateformadmin')
     {
-        $sql .= ", `" . $tbl_mdb_names['admin'] . "` AS `AD`";
+        $sql .= ", `" . $tbl_mdb_names['admin'] . "` AS AD";
     }
 
     // join with course table to find course numbers of each user and last login
 
     $sql.= "
-           LEFT JOIN `" . $tbl_mdb_names['rel_course_user'] . "` AS `CU`
-           ON `CU`.`user_id` = `U`.`user_id`
+           LEFT JOIN `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
+           ON CU.user_id = U.user_id
 
            WHERE 1=1 ";
 
@@ -326,50 +327,50 @@ function get_sql_filtered_user_list()
 
     if ($filterOnStatus=='plateformadmin')
     {
-        $sql .= " AND `AD`.`idUser` = `U`.`user_id` ";
+        $sql .= " AND AD.idUser = U.user_id ";
     }
 
     //deal with KEY WORDS classification call
 
     if (isset($_SESSION['admin_user_search']))
     {
-        $sql .= " AND (U.`nom` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
-                  OR U.`prenom` LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
-        $sql .= " OR U.`email` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%')";
+        $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
+                  OR U.prenom LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
+        $sql .= " OR U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%')";
     }
 
     //deal with ADVANCED SEARCH parameters call
 
     if (isset($_SESSION['admin_user_firstName']))
     {
-        $sql .= " AND (U.`prenom` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
+        $sql .= " AND (U.prenom LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
     }
 
     if (isset($_SESSION['admin_user_lastName']))
     {
-        $sql .= " AND (U.`nom` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
+        $sql .= " AND (U.nom LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
     }
 
     if (isset($_SESSION['admin_user_userName']))
     {
-        $sql.= " AND (U.`username` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
+        $sql.= " AND (U.username LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
     }
 
     if (isset($_SESSION['admin_user_mail']))
     {
-        $sql.= " AND (U.`email` LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
+        $sql.= " AND (U.email LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
     }
 
     if ($filterOnStatus== 'createcourse' )
     {
-        $sql.=" AND (U.`statut`=" . COURSE_CREATOR . ")";
+        $sql.=" AND (U.statut=" . COURSE_CREATOR . ")";
     }
     elseif ($filterOnStatus=='followcourse' )
     {
-        $sql.=" AND (U.`statut`=" . COURSE_STUDENT . ")";
+        $sql.=" AND (U.statut=" . COURSE_STUDENT . ")";
     }
 
-    $sql.=" GROUP BY U.`user_id` ";
+    $sql.=" GROUP BY U.user_id ";
         return $sql;
 }
 
