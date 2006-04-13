@@ -16,7 +16,6 @@
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
 
