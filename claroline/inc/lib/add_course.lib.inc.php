@@ -59,7 +59,7 @@ function define_course_keys ($wantedCode,
 
     GLOBAL $coursesRepositories, $singleDbEnabled;
 
-    $nbCharFinalSuffix = get_conf('nbCharFinalSuffix');
+    $nbCharFinalSuffix = get_conf('nbCharFinalSuffix','3');
 
     // $keys["currentCourseCode"] is the "public code"
 
@@ -177,7 +177,6 @@ function define_course_keys ($wantedCode,
             $finalSuffix['CourseDb']  = $finalSuffix['CourseDir'];
         }
 
-
         // here  we can add a counter to exit if need too many try
         $limitQtyTry = 128;
 
@@ -187,7 +186,9 @@ function define_course_keys ($wantedCode,
                 or ($tryNewFSCDir > $limitQtyTry / 2 )
             )
         {
+        	trigger_error('too many try for ' .  $wantedCode ,E_USER_WARNING);
             return FALSE;
+            
         }
     }
 
