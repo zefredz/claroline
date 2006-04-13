@@ -1,4 +1,5 @@
 <?php // $Id$
+
 defined('CLARO_CONTEXT_PLATFORM') || define('CLARO_CONTEXT_PLATFORM','CLARO_CONTEXT_PLATFORM');
 defined('CLARO_CONTEXT_COURSE') || define('CLARO_CONTEXT_COURSE','CLARO_CONTEXT_COURSE');
 defined('CLARO_CONTEXT_GROUP') || define('CLARO_CONTEXT_GROUP','CLARO_CONTEXT_GROUP');
@@ -85,7 +86,7 @@ function claro_install_module($tool_label, $context, $contextData)
 {
 
     global $includePath;
-    $libPath =  get_module_path($tool_label) . '/lib/claroline.lib.php';
+    $libPath =  get_module_path($tool_label) . '/connector/setup.cnr.php';
 
     if(file_exists($libPath))
     {
@@ -205,7 +206,5 @@ function get_module_path($toolLabel)
     return '';
 
 }
-
-
 
 ?>
