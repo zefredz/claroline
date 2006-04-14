@@ -104,32 +104,37 @@
             {
                 $type = NULL;
             }
-            elseif ($this->getOpt('active_empty') && preg_match('/^øøø(.*)$/',$line,$cap))
+            elseif ($this->getOpt('active_empty') 
+                && preg_match('/^øøø(.*)$/',$line,$cap))
             {
                 $type = NULL;
                 $line = trim($cap[1]);
             }
             # Titre
-            elseif ($this->getOpt('active_title') && preg_match('/^([!]{1,4})(.*)$/',$line,$cap))
+            elseif ($this->getOpt('active_title') 
+                && preg_match('/^([!]{1,4})(.*)$/',$line,$cap))
             {
                 $type = 'title';
                 $mode = strlen($cap[1]);
                 $line = trim($cap[2]);
             }
             # Ligne HR
-            elseif ($this->getOpt('active_hr') && preg_match('/^[-]{4}[- ]*$/',$line))
+            elseif ($this->getOpt('active_hr') 
+                && preg_match('/^[-]{4}[- ]*$/',$line))
             {
                 $type = 'hr';
                 $line = NULL;
             }
             # Blockquote
-            elseif ($this->getOpt('active_quote') && preg_match('/^(&gt;|;:)(.*)$/',$line,$cap))
+            elseif ($this->getOpt('active_quote') 
+                && preg_match('/^(&gt;|;:)(.*)$/',$line,$cap))
             {
                 $type = 'blockquote';
                 $line = trim($cap[2]);
             }
             # Liste
-            elseif ($this->getOpt('active_lists') && preg_match('/^([*#]+)(.*)$/',$line,$cap))
+            elseif ($this->getOpt('active_lists') 
+                && preg_match('/^([*#]+)(.*)$/',$line,$cap))
             {
                 $type = 'list';
                 $mode = $cap[1];
@@ -140,35 +145,48 @@
                 $d = strlen($mode);
                 $delta = $d-$dl;
                 
-                if ($delta < 0 && strpos($pre_mode,$mode) !== 0) {
+                if ($delta < 0 
+                    && strpos($pre_mode,$mode) !== 0)
+                {
                     $valid = false;
                 }
-                if ($delta > 0 && $type == $pre_type && strpos($mode,$pre_mode) !== 0) {
+                if ($delta > 0 
+                    && $type == $pre_type 
+                    && strpos($mode,$pre_mode) !== 0)
+                {
                     $valid = false;
                 }
-                if ($delta == 0 && $mode != $pre_mode) {
+                if ($delta == 0 
+                    && $mode != $pre_mode)
+                {
                     $valid = false;
                 }
-                if ($delta > 1) {
+                if ($delta > 1)
+                {
                     $valid = false;
                 }
                 
-                if (!$valid) {
+                if (!$valid)
+                {
                     $type = 'p';
                     $mode = NULL;
                     $line = '<br />'.$line;
-                } else {
+                }
+                else
+                {
                     $line = trim($cap[2]);
                 }
             }
             # Préformaté
-            elseif ($this->getOpt('active_pre') && preg_match('/^[ ]{1}(.*)$/',$line,$cap))
+            elseif ($this->getOpt('active_pre') 
+                && preg_match('/^[ ]{1}(.*)$/',$line,$cap))
             {
                 $type = 'pre';
                 $line = $cap[1];
             }
             # Paragraphe
-            else {
+            else
+            {
                 $type = 'p';
                 $line = trim($line);
             }
@@ -297,16 +315,19 @@
             {
                 $url = trim($data[1] );
                 $content = $data[0];
+                
                 $lang = (!empty($data[2] ) )
-                ? $this->protectAttr($data[2], true )
-                :
-                '' ;
+                    ? $this->protectAttr($data[2], true )
+                    : ''
+                    ;
                 $title = (!empty($data[3] ) )
-                ? $data[3] :
-                '' ;
+                    ? $data[3]
+                    : ''
+                    ;
                 $no_image = (!empty($data[4] ) )
-                ? (boolean) $data[4] :
-                false ;
+                    ? (boolean) $data[4] 
+                    : false
+                    ;
             }
              
             $array_url = $this->__specialUrls();
@@ -316,7 +337,8 @@
             $url = str_replace('&nbsp;', ' ', $url);
              
             if ( ereg('^(.+)[.](gif|jpg|jpeg|png)$', $url )
-                && !$no_image && $this->getOpt('active_auto_img' ) )
+                && !$no_image 
+                && $this->getOpt('active_auto_img' ) )
             {
                 # On ajoute les dimensions de l'image si locale
                 # Idée de Stephanie
@@ -365,7 +387,7 @@
                     $url = 'mailto:'.$this->__antiSpam(substr($url, 7));
                 }
 
-                if ((!ereg('[a-zA-Z]+://', $url)
+                if ( (!ereg('[a-zA-Z]+://', $url)
                     && !preg_match('~^#~', $url )
                     && !preg_match('~^\.*/~', $url)
                     && !preg_match( '~^mailto:~', $url ) )
@@ -375,7 +397,10 @@
                 }
                 else
                 {
-                    $attr = ' href="'.$this->protectAttr($this->protectUrls($url ) ).'"' . ' rel="nofollow"' ;
+                    $attr = ' href="'
+                        . $this->protectAttr($this->protectUrls($url ) )
+                        . '"' . ' rel="nofollow"'
+                        ;
                 }
 
                 $attr .= ($lang)
