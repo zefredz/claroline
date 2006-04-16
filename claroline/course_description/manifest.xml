@@ -1,0 +1,36 @@
+<module>
+  <label>CLDSC</label>
+  <name>description</name>
+  <version>1.8</version>
+  <license>GPL</license>
+  <entry value="index.php" />
+  <icon value="info.gif" />
+  <module_type value="tool"/>
+  <default_dock value="toolMenu"/>
+  <web>http://www.claroline.net/wiki/CLDSC/</web>
+
+  <description>
+  <![CDATA[
+     This  tool  is an original tool of claroline
+     It's able to record description following pedagogical.
+  ]]>
+  </description>
+
+  <author>
+     <name>Claro team</name>
+     <email>devteam@claroline.net</email>
+     <web>http://www.claroline.net/</web>
+  </author>
+
+  <requirements>
+    <claroline>
+      <version>1.8</version>
+      <configuration>
+      </configuration>
+    </claroline>
+ </requirements>
+ <context>
+  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="COURSE_ADMIN" />
+ </context>
+
+</module>
