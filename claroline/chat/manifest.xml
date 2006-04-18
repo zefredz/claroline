@@ -3,7 +3,7 @@
   <name>calendar</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="chat.php" />
+  <entry value="../chat/chat.php" />
   <icon value="chat.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>

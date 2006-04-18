@@ -3,7 +3,7 @@
   <name>wiki</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="wiki.php" />
+  <entry value="../wiki/wiki.php" />
   <icon value="wiki.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>

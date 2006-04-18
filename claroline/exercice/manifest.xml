@@ -3,7 +3,7 @@
   <name>qwizz</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="exercice.php" />
+  <entry value="../exercice/exercice.php" />
   <icon value="quiz.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>

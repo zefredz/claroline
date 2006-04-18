@@ -3,7 +3,7 @@
   <name>description</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="index.php" />
+  <entry value="../course_description/index.php" />
   <icon value="info.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>

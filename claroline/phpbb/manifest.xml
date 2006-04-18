@@ -3,7 +3,7 @@
   <name>forum</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="index.php" />
+  <entry value="../phpbb/index.php" />
   <icon value="forum.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>
