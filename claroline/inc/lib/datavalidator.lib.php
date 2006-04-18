@@ -3,11 +3,11 @@
 define ('DATAVALIDATOR_STRICT_MODE', true);
 
 /**
- * Validates the content of data chained into an array. 
- * You can define your own validation rule (by creating functions) but the 
- * class also provides a list of predifined rules.
+ * Validates the content of data chained into an array according to a set 
+ * of defined rules. You can define your own validation rules (by creating 
+ * functions) but the class also provides a list of predefined rules.
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @author Hugues Peeters <hugues.peeters@advalvas.be>
  *
  * Example :
  * 
