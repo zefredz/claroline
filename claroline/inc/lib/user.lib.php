@@ -279,12 +279,12 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
           "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id        = " . (int) $userId ,
           "DELETE FROM `" . $tbl_userinfo_content . "` WHERE user_id        = " . (int) $userId ,
            // change tutor to NULL for the course WHERE the tutor is the user to delete
-          "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . $userId . "'"
+          "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . (int) $userId . "'"
                         );
 
         foreach($sqlList as $thisSql)
         {
-            if ( claro_sql_query($sqlList) == false ) return false;
+            if ( claro_sql_query($thisSql) == false ) return false;
             else                                      continue;
         }
 
@@ -795,171 +795,83 @@ function user_send_enroll_to_course_mail ($user_id, $data, $course=null)
 
 /**
  * validate form registration
- *
- * @param $data array from the form
- *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param array $data from the form
  * @return array with error messages
- *
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
  */
 
 function user_validate_form_registration($data)
 {
-    $messageList = array();
-
-    // required fields
-    if ( empty($data['lastname'])
-        || empty($data['firstname'])
-        || empty($data['password_conf'])
-        || empty($data['password'])
-        || empty($data['username'])
-        || ( empty($data['officialCode']) && ! get_conf('userOfficialCodeCanBeEmpty') )
-        || ( empty($data['email'] ) && ! get_conf('userMailCanBeEmpty') )
-       )
-    {
-        $error = true;
-        $messageList[] = get_lang('You left some required fields empty');
-    }
-
-    // check if official code is available
-    if ( !empty($data['officialCode']) )
-    {
-        if ( ! is_official_code_available($data['officialCode']) )
-        {
-            $error = true;
-            $messageList[] = claro_failure::get_last_failure();
-        }
-    }
-
-    // check if username is available
-    if ( !empty($data['username']) )
-    {
-        if ( ! is_username_available($data['username']) )
-        {
-            $messageList[] = claro_failure::get_last_failure();
-        }
-    }
-
-    // check if the two password are identical
-    if ( $data['password_conf']  != $data['password']  )
-    {
-        $messageList[] = get_lang('You typed two different passwords') ;
-    }
-
-    // check if password isn't too easy
-    if ( !empty($data['password']) && get_conf('SECURE_PASSWORD_REQUIRED') )
-    {
-        if ( ! is_password_secure_enough( $data['password'],
-                                          array( $data['username'] ,
-                                                 $data['officialCode'] ,
-                                                 $data['lastname'] ,
-                                                 $data['firstname'] ,
-                                                 $data['email'] ))
-            )
-        {
-            if (claro_failure::get_last_failure() == 'ERROR_CODE_too_easy')
-                $messageList[] = get_lang(
-                'this password is too simple. Use a password like this <code>%passpruposed</code>',
-                array('%passpruposed', substr(md5(date('Bis')),0,8) ));
-
-        }
-    }
-
-    // check email validity
-    if ( !empty($data['email']) )
-    {
-        if ( ! is_valid_email($data['email']) )
-        {
-            $messageList[] = claro_failure::get_last_failure();
-        }
-    }
-
-    return $messageList;
+    return user_validate_form('registration', $data);
 }
 
 /**
  * validate form profile
- *
- * @param $data array to fill the form
- *
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param array $data to fill the form
+ * @param int $userId id of the user account currently edited
+ * @return array with error messages
  */
 
-function user_validate_form_profile($data,$user_id)
+function user_validate_form_profile($data, $userId)
 {
-    $messageList = array();
+    return user_validate_form('profile', $data, $userId);
+}
 
-    // required fields
-    if ( empty($data['lastname'])
-        || empty($data['firstname'])
-        || empty($data['username'])
-        || ( empty($data['officialCode']) && ! get_conf('userOfficialCodeCanBeEmpty') )
-        || ( empty($data['email'] ) && ! get_conf('userMailCanBeEmpty') )
-       )
+/**
+ * validate user form
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param string $mode 'registration' or 'profile'
+ * @param array $data to fill the form
+ * @param int $userId (optional) id of the user account currently edited
+ * @return array with error messages
+ */
+function user_validate_form($formMode, $data, $userId = null)
+{
+    $validator = new DataValidator();
+    $validator->setDataList($data);
+
+    $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
+
+    
+    if ( ! get_conf('userMailCanBeEmpty') )
     {
-        $error = true;
-        $messageList[] = get_lang('You left some required fields empty');
+        $validator->addRule('email', get_lang('You left some required fields empty'), 'required');
     }
 
-    // check if official code is available
-    if ( !empty($data['officialCode']) )
+    if ( ! get_conf('userOfficialCodeCanBeEmpty') )
     {
-        if ( ! is_official_code_available($data['officialCode'],$user_id) )
-        {
-            $error = true;
-            $messageList[] = claro_failure::get_last_failure();
-        }
+        $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
     }
 
-    // check if username is available
-    if ( !empty($data['username']) )
+    if ( get_conf('SECURE_PASSWORD_REQUIRED') )
     {
-        if ( ! is_username_available($data['username'],$user_id) )
-        {
-            $messageList[] = claro_failure::get_last_failure();
-        }
+        $validator->addRule('password', 
+                            get_lang( 'this password is too simple. Use a password like this <code>%passpruposed</code>',
+            array('%passpruposed', substr(md5(date('Bis')),0,8) )), 'is_password_secure_enough', 
+                            array(array( $data['username'] , $data['officialCode'] , $data['lastname'] , $data['firstname'] , $data['email'] ) ));
     }
 
-    // check if the two password are identical
-    if ( $data['password_conf'] != $data['password']  )
-    {
-        $messageList[] = get_lang('You typed two different passwords') ;
-    }
-    else
-    {
-        // check if password isn't too easy
-        if ( !empty($data['password']) && get_conf('SECURE_PASSWORD_REQUIRED') )
-        {
-            if ( ! is_password_secure_enough( $data['password'],
-                                              array( $data['username'] ,
-                                                     $data['officialCode'] ,
-                                                     $data['lastname'] ,
-                                                     $data['firstname'] ,
-                                                     $data['email'] ))
-                )
-            {
-                if (claro_failure::get_last_failure()=='ERROR_CODE_too_easy')
-                    $messageList[] = get_lang(
-                'this password is too simple. Use a password like this <code>%passpruposed</code>',
-                array('%passpruposed', substr(md5(date('Bis')),0,8) ));
+    $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
+    $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
 
-            }
-        }
+    if ( $formMode = 'registration ')
+    {
+        $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
+        $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available');
+    }
+    else // profile mode
+    {
+        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
+        $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
 
-    // check email validity
-    if ( !empty($data['email']) )
-    {
-        if ( ! is_valid_email($data['email']) )
-        {
-            $messageList[] = claro_failure::get_last_failure();
-        }
-    }
-
-    return $messageList;
-
+    if ( $validator->validate() ) return array();
+    else return array_unique($validator->getErrorList());
 }
 
 /**
@@ -1024,7 +936,7 @@ function is_username_available($username,$user_id=null)
             FROM `" . $tbl_user . "`
             WHERE username='" . addslashes($username) . "' ";
 
-    if ( !empty($user_id) )
+    if ( ! empty($user_id) )
     {
         $sql .= " AND user_id <> "  . (int) $user_id ;
     }
@@ -1037,7 +949,7 @@ function is_username_available($username,$user_id=null)
     }
     else
     {
-        return claro_failure::set_failure(get_lang('This user name is already taken'));
+        return false;
     }
 }
 
@@ -1072,7 +984,7 @@ function is_official_code_available($official_code,$user_id=null)
     }
     else
     {
-        return claro_failure::set_failure(get_lang('This official code is already used by another user.'));
+        return false;
     }
 }
 
