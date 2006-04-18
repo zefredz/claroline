@@ -182,15 +182,6 @@ class DataValidator
      * @return array
      */
 
-    function getAllDataList()
-    {
-        return $this->dataList;
-    }
-
-    /**
-     * @return array
-     */
-
     function getWrongDataKeyList()
     {
         return array_unique($this->wrongDataList);
@@ -209,6 +200,8 @@ class DataValidator
     }
 
     /**
+     * @param $dataKey filter returning only error messages
+     *        related to this data key
      * @return array
      */
 
