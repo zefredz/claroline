@@ -3,7 +3,7 @@
   <name>announcement</name>
   <version>1.8</version>
   <license>GPL</license>
-  <icon value="announcement.gif" />
+  <icon value="../../img/announcement.gif" />
   <entry value="../announcements/announcements.php" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>

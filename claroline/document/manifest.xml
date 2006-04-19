@@ -4,7 +4,7 @@
   <version>1.8</version>
   <license>GPL</license>
   <entry value="../document/document.php" />
-  <icon value="document.gif" />
+  <icon value="../../img/document.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>
   <web>http://www.claroline.net/wiki/CLDOC/</web>

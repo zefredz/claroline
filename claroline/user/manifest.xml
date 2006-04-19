@@ -4,7 +4,7 @@
   <version>1.8</version>
   <license>GPL</license>
   <entry value="../user/user.php" />
-  <icon value="user.gif" />
+  <icon value="../../img/user.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>
   <web>http://www.claroline.net/wiki/CLUSR/</web>

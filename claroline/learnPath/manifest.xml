@@ -5,7 +5,7 @@
   <license>GPL</license>
   <module_type value="tool"/>
   <entry value="../learningPath/learningPathList.php" />
-  <icon value="learnpath.gif" />
+  <icon value="../../img/learnpath.gif" />
   <default_dock value="toolMenu"/>
   <web>http://www.claroline.net/wiki/CLLNP/</web>
 

@@ -4,7 +4,7 @@
   <version>1.8</version>
   <license>GPL</license>
   <entry value="../wiki/wiki.php" />
-  <icon value="wiki.gif" />
+  <icon value="../../img/wiki.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>
   <web>http://www.claroline.net/wiki/CLWIKI/</web>

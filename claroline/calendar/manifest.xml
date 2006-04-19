@@ -4,7 +4,7 @@
   <version>1.8</version>
   <license>GPL</license>
   <entry value="../calendar/index.php" />
-  <icon value="agenda.gif" />
+  <icon value="../../img/agenda.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>
   <web>http://www.claroline.net/wiki/CLCAL/</web>

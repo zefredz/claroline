@@ -4,7 +4,7 @@
   <version>1.8</version>
   <license>GPL</license>
   <entry value="../work/work.php" />
-  <icon value="assignment.gif" />
+  <icon value="../../img/assignment.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>
   <web>http://www.claroline.net/wiki/CLWRK/</web>

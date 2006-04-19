@@ -4,7 +4,7 @@
   <version>1.8</version>
   <license>GPL</license>
   <entry value="../exercice/exercice.php" />
-  <icon value="quiz.gif" />
+  <icon value="../../img/quiz.gif" />
   <module_type value="tool"/>
   <default_dock value="toolMenu"/>
   <web>http://www.claroline.net/wiki/CLQWZ/</web>
