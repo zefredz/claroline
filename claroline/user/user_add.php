@@ -176,12 +176,6 @@ if ( $cmd == 'registration' )
 
     if ( $userId )
     {
-/* <DEBUG> */
-echo "<pre style='color:navy;background:#FFFF99'>";
-var_dump($userData);
-echo "</pre>";
-/* </DEBUG> */
-
         $courseRegSucceed = user_add_to_course($userId, $_cid, 
                                                $userData['courseAdmin'],
                                                $userData['tutor'      ]);
