@@ -994,14 +994,14 @@
                         , strtotime($oldTime) )
                         ;
 
-            $userInfo = user_get_data( $oldEditor );
+            $userInfo = user_get_properties( $oldEditor );
             $oldEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
 
             $newTime = claro_disp_localised_date( $dateTimeFormatLong
                         , strtotime($newTime) )
                         ;
 
-            $userInfo = user_get_data( $newEditor );
+            $userInfo = user_get_properties( $newEditor );
             $newEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
 
             $versionInfo = '('
@@ -1085,7 +1085,7 @@
                         , strtotime($recentChange['last_mtime']) )
                         ;
 
-                    $userInfo = user_get_data( $recentChange['editor_id'] );
+                    $userInfo = user_get_properties( $recentChange['editor_id'] );
 
                     if ( !empty( $userInfo ) )
                     {
@@ -1216,7 +1216,7 @@
 
                 if ( $versionId != 0 )
                 {
-                    $editorInfo = user_get_data( $wikiPage->getEditorId() );
+                    $editorInfo = user_get_properties( $wikiPage->getEditorId() );
 
                     $editorStr = $editorInfo['firstname'] . "&nbsp;" . $editorInfo['lastname'];
 
@@ -1350,7 +1350,7 @@
                         . "\n"
                         ;
 
-                    $userInfo = user_get_data( $version['editor_id'] );
+                    $userInfo = user_get_properties( $version['editor_id'] );
 
                     if ( ! empty( $userInfo ) )
                     {
