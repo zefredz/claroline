@@ -359,7 +359,7 @@ if ( $runfillMainDb )
 
     $id_admin = user_add($user_data);
 
-    user_add_admin($id_admin);
+    user_set_platform_admin(true, $id_admin);
 }
 
 ?>

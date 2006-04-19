@@ -380,61 +380,47 @@ function user_is_admin($user_id)
 }
 
 /**
- * Add user in admin table
+ * Set or unset platform administrator status to a specific user
  *
- * @param $user_id integer
- *
- * @return boolean
- *
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  boolean $status
+ * @param  int     $userId
+ * @return boolean 'true' if it succeeds, 'false' otherwise
  */
 
-function user_add_admin($user_id)
+function user_set_platform_admin($status, $userId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_admin = $tbl_mdb_names['admin'];
+    $tbl_admin     = $tbl_mdb_names['admin'];
 
-    $sql = "SELECT `idUser`
-            FROM `" . $tbl_admin . "`
-            WHERE `idUser`= " . (int) $user_id;
-
-    $result =  claro_sql_query($sql);
-
-    if ( mysql_num_rows($result) > 0 )
+    if ( $status == false)
     {
-        // user is already administrator
-        return true;
-    }
-    else
-    {
-        // add user in administrator table
-        $sql = "INSERT INTO `" . $tbl_admin . "` (`idUser`) VALUES (" . (int)$user_id . ")";
+        $sql = "DELETE FROM `" . $tbl_admin . "`
+                WHERE `idUser`= " . (int) $userId ;
+
         return (bool) claro_sql_query($sql);
     }
+    else // $status == true
+    {
+        $sql = "SELECT `idUser`
+        FROM `" . $tbl_admin . "`
+        WHERE `idUser`= " . (int) $userId;
 
-}
+        $result =  claro_sql_query($sql);
 
-/**
- * delete user from admin table
- *
- * @param $user_id integer
- *
- * @return boolean
- *
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
- */
+        if ( mysql_num_rows($result) > 0 )
+        {
+            return true; // user is already administrator
+        }
+        else
+        {
+            // add user in administrator table
+            $sql = "INSERT INTO `" . $tbl_admin . "` 
+                    SET idUser = " . (int)$userId;
 
-function user_delete_admin($user_id)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_admin = $tbl_mdb_names['admin'];
-
-    $sql = "DELETE FROM `" . $tbl_admin . "`
-            WHERE `idUser`= " . (int) $user_id ;
-
-    return (bool) claro_sql_query($sql);
+            return (bool) claro_sql_query($sql);
+        }
+    }
 }
 
 /**
@@ -759,7 +745,7 @@ function user_send_registration_mail ($user_id, $data)
  *
  */
 
-function user_send_enroll_to_course_mail ($user_id, $data, $course=null)
+function user_send_enroll_to_course_mail($user_id, $data, $course=null)
 {
     $courseData = claro_get_course_data($course);
 
@@ -828,22 +814,24 @@ function user_validate_form_profile($data, $userId)
  */
 function user_validate_form($formMode, $data, $userId = null)
 {
+    require_once $GLOBALS['includePath'] .'/lib/datavalidator.lib.php';
+
     $validator = new DataValidator();
     $validator->setDataList($data);
 
-    $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
-    $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
-    $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('lastname' , get_lang('lastname You left some required fields empty'), 'required');
+    $validator->addRule('firstname', get_lang('firstname You left some required fields empty'), 'required');
+    $validator->addRule('username' , get_lang('username You left some required fields empty'), 'required');
 
     
     if ( ! get_conf('userMailCanBeEmpty') )
     {
-        $validator->addRule('email', get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('email', get_lang('email You left some required fields empty'), 'required');
     }
 
     if ( ! get_conf('userOfficialCodeCanBeEmpty') )
     {
-        $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('officialCode', get_lang('officialCode You left some required fields empty'), 'required');
     }
 
     if ( get_conf('SECURE_PASSWORD_REQUIRED') )
@@ -857,15 +845,16 @@ function user_validate_form($formMode, $data, $userId = null)
     $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
     $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
 
-    if ( $formMode = 'registration ')
+    if ( $formMode == 'registration')
     {
-        $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
-        $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('password'  , get_lang('password You left some required fields empty'), 'required');
+        $validator->addRule('password_conf', get_lang('password_conf You left some required fields empty'), 'required');
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available');
     }
     else // profile mode
     {
+
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
@@ -927,30 +916,19 @@ function is_valid_email($email)
  * @return boolean
  */
 
-function is_username_available($username,$user_id=null)
+function is_username_available($username, $userId = null)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
 
-    $sql = "SELECT COUNT(*) `loginCount`
+    $sql = "SELECT COUNT(username)
             FROM `" . $tbl_user . "`
             WHERE username='" . addslashes($username) . "' ";
 
-    if ( ! empty($user_id) )
-    {
-        $sql .= " AND user_id <> "  . (int) $user_id ;
-    }
+    if ( ! is_null($userId) ) $sql .= " AND user_id <> "  . (int) $userId ;
 
-    list($result) = claro_sql_query_fetch_all($sql);
-
-    if ( $result['loginCount'] == 0 )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    if ( claro_sql_query_get_single_value($sql) == 0 ) return true;
+    else                                               return false;
 }
 
 /**
@@ -962,39 +940,25 @@ function is_username_available($username,$user_id=null)
  * @return boolean
  */
 
-function is_official_code_available($official_code,$user_id=null)
+function is_official_code_available($official_code, $userId=null)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user = $tbl_mdb_names['user'];
 
-    $sql = "SELECT COUNT(*) `officialCodeCount`
+    $sql = "SELECT COUNT(officialCode)
             FROM `" . $tbl_user . "`
             WHERE officialCode='" . addslashes($official_code) . "' ";
 
-    if ( !empty($user_id) )
-    {
-        $sql .= " AND user_id <> "  . (int) $user_id ;
-    }
+    if ( ! is_null($userId) ) $sql .= " AND user_id <> "  . (int) $userId ;
 
-    list($result) = claro_sql_query_fetch_all($sql);
-
-    if ( $result['officialCodeCount'] == 0 )
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    if ( claro_sql_query_get_single_value($sql) == 0 ) return true;
+    else                                                return false;
 }
 
 /**
  * Display user form registration
- *
- * @param $data array to fill the form
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @param $data array to fill the form
  */
 
 function user_display_form_registration($data)
@@ -1004,11 +968,8 @@ function user_display_form_registration($data)
 
 /**
  * Display user form profile
- *
- * @param $data array to fill the form
- *
  * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @param $data array to fill the form
  */
 
 function user_display_form_profile($data)
@@ -1067,9 +1028,7 @@ function user_display_form_admin_user_profile($data)
 
 function user_display_form($data, $form_type='registration')
 {
-    global $imgRepositoryWeb;
-
-    global $urlAppend;
+    global $imgRepositoryWeb, $urlAppend;
 
     // display registration form
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
@@ -1080,7 +1039,17 @@ function user_display_form($data, $form_type='registration')
 
     if ( array_key_exists('confirmUserCreate', $data) )
     {
-        echo '<tr><td></td><td><input type="hidden" id="confirmUserCreate" name="confirmUserCreate" value="'.( $data['confirmUserCreate'] ? '1' : '0').'"></td></tr>';
+        echo '<tr>' . "\n"
+        .    '<td></td>'
+        .    '<td>'
+        .    '<input type="hidden"'
+        .    ' id="confirmUserCreate"'
+        .    ' name="confirmUserCreate"'
+        .    ' value="'.( $data['confirmUserCreate'] ? '1' : '0').'">'
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
+        ;
+
         $onChange = 'onchange="getElementById(\'confirmUserCreate\').value=0;"';
     }
     else
@@ -1094,96 +1063,64 @@ function user_display_form($data, $form_type='registration')
     // user id
     if ( $form_type == 'admin_user_profile' )
     {
-        echo '<input type="hidden" name="uidToEdit" value="' . $data['user_id'] . '">';
-        echo '<tr>'
-            . '<td align="right">' . get_lang('Userid') . ' :</td>'
-            . '<td >' . $data['user_id'] . '</td>'
-            . '</tr>';
+        echo '<input type="hidden" name="uidToEdit" value="' . $data['user_id'] . '">'
 
+        .    form_line( get_lang('Userid') . '&nbsp;: ',
+                        $data['user_id']);
     }
 
-    // lastname
-    echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="lastname">' . required_field(get_lang('Last name')) . '&nbsp;:</label></td>' . "\n"
-        . '  <td><input type="text" size="40" name="lastname" id="lastname" value="' . htmlspecialchars($data['lastname']) . '" /></td>' . "\n"
-        . ' </tr>' . "\n";
+    echo form_input_text('lastname', $data['lastname'], get_lang('Last name'), $required = true);
+    echo form_input_text('firstname', $data['lastname'], get_lang('First name'), $required = true);
 
-    // firstname
-    echo ' <tr>' . "\n"
-        . '  <td align="right"><label for="firstname">' . required_field(get_lang('First name')) . '&nbsp;:</label></td>' . "\n"
-        . '  <td><input type="text" size="40" id="firstname" name="firstname" value="' . htmlspecialchars($data['firstname']) . '" /></td>' . "\n"
-        . ' </tr>' . "\n" ;
 
-    // official code
+    // OFFICIAL CODE
     if ( get_conf('ask_for_official_code') )
     {
-        echo ' <tr>'  . "\n"
-            . '  <td align="right"><label for="officialCode">' . ( get_conf('userOfficialCodeCanBeEmpty')?get_lang('Administrative code'):required_field(get_lang('Administrative code'))) . '&nbsp;:</label></td>'  . "\n"
-            . '  <td><input type="text" size="40" id="offcialCode" name="officialCode" value="' . htmlspecialchars($data['officialCode']) . '" /></td>' . "\n"
-            . ' </tr>' . "\n";
+        echo form_input_text('officialCode', $data['officialCode'], get_lang('Administrative code'), ! get_conf('userOfficialCodeCanBeEmpty') );
     }
 
-    // user picture
+    // USER PICTURE
     if ( get_conf('CONFVAL_ASK_FOR_PICTURE',false) && $form_type == 'profile' )
     {
-        echo '<tr>' . "\n"
-            . '<td align="right">' . "\n"
-            . ' <label for="picture">' . $data['picture']?get_lang('Change picture'):get_lang('Include picture') . ' :<br />' . "\n"
-            . ' <small>(.jpg or .jpeg only)</small></label>'
-            . ' </td>' . "\n"
-            . ' <td>' . "\n"
-            . '<input type="file" name="picture" id="picture" >';
+        echo form_line('<label for="picture">' . $data['picture'] ? get_lang('Change picture'):get_lang('Include picture') . ' :<br />' . "\n"
+                       . ' <small>(.jpg or .jpeg only)</small></label>',
 
-        if ( empty($data['picture']) )
-        {
-            echo '<br />' . "\n" . '<label for="del_picture">' . get_lang('Remove picture') . '</label>'
-                . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">';
-        }
-        else
-        {
-            echo '<input type="hidden" name="del_picture" id="del_picture" value="no">';
-        }
-        echo '</td>' . "\n"
-            . '</tr>' . "\n";
+                       '<input type="file" name="picture" id="picture" >'
+                       . empty($data['picture']) ? 
+                       '<br />' . "\n" . '<label for="del_picture">' . get_lang('Remove picture') . '</label>'
+                       . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">'
+                       : '<input type="hidden" name="del_picture" id="del_picture" value="no">');
     }
 
-    if ( get_conf('l10n_platform',true))
+    if ( get_conf('l10n_platform', true))
     {
         $language_select_box = user_display_preferred_language_select_box();
+
         if ( !empty($language_select_box) )
         {
-            echo ' <tr>' . "\n"
-                . '  <td align="right"><label for="language_selector">' . get_lang('Language') . '&nbsp;:</label></td>' . "\n"
-        . '  <td>'. $language_select_box .'</td>' . "\n"
-        . ' </tr>' . "\n" ;
-
-
+            echo form_line('<label for="language_selector">' . get_lang('Language') . '&nbsp;:</label>',
+                           $language_select_box );
         }
     }
 
-    if ( isset($data['authsource']) &&
-         ( strtolower($data['authsource']) != 'claroline' && strtolower($data['authsource']) != 'clarocrypt' )
-        && $form_type == 'profile' )
+    if (     isset($data['authsource']) 
+        && strtolower($form_type) == 'profile'
+        && (    strtolower($data['authsource']) != 'claroline' 
+             && strtolower($data['authsource']) != 'clarocrypt' 
+           )
+        )
     {
-        // disable modification of username and password with external autentication
-        echo '<tr><td align="right">' . get_lang('Username') . ' :</td>'
-        .    '<td>' . htmlspecialchars($data['username']) . '</td>'
-        .    '</tr>'
-        ;
+        // DISABLE MODIFICATION OF USERNAME AND PASSWORD WITH EXTERNAL AUTENTICATION
+        echo form_line(get_lang('Username'),htmlspecialchars($data['username']) );
     }
     else
     {
-        echo ' <tr>' . "\n"
-            . '  <td>&nbsp;</td>' . "\n"
-            . '  <td>&nbsp;</td>' . "\n"
-            . ' </tr>' . "\n";
+        echo form_line('&nbsp;', '&nbsp;');
 
-        if ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
+        if ( strtolower($form_type == 'profile') || strtolower($form_type == 'admin_user_profile') )
         {
-            echo '<tr>' . "\n"
-                . '<td>&nbsp;</td>' . "\n"
-                . '<td><small>(' . get_lang('Enter new password twice to change, leave empty to keep it') . ')</small></td>' . "\n"
-                . '</tr>' . "\n" ;
+            form_line('&nbsp;', 
+                      '<small>(' . get_lang('Enter new password twice to change, leave empty to keep it') . ')</small>');
 
             $required_password = false;
         }
@@ -1191,17 +1128,14 @@ function user_display_form($data, $form_type='registration')
         {
             if ( $form_type == 'registration' )
             {
-                echo  '<tr>'
-                .     '<td>&nbsp;</td>'
-                .     '<td>'
-                .    '<small>'
-                .    get_lang('Choose now a username and a password for the user account') . '<br />'
-                .    get_lang('Memorize them, you will use them the next time you will enter to this site.') . '<br />'
-                .    '<strong>' . get_lang('Warning The system is case sensitive') . '</strong>'
-                .    '</small>'
-                .    '</td>'
-                .    '</tr>';
-
+                echo form_line('&nbsp;',
+                                '<small>'
+                               . get_lang('Choose now a username and a password for the user account') . '<br />'
+                               . get_lang('Memorize them, you will use them the next time you will enter to this site.') . '<br />'
+                               . '<strong>' 
+                               . get_lang('Warning The system is case sensitive') 
+                               . '</strong>'
+                               . '</small>');
             }
 
             $required_password = true;
@@ -1216,68 +1150,47 @@ function user_display_form($data, $form_type='registration')
             $password_label = get_lang('Password');
         }
 
-        // username
-        echo ' <tr>' . "\n"
-            . '  <td align="right"><label for="username">' . required_field(get_lang('Username')) . '&nbsp;:</label></td>' . "\n"
-            . '  <td><input type="text" size="40" id="username" name="username" value="' . htmlspecialchars($data['username']) . '" /></td>' . "\n"
-            . ' </tr>' . "\n";
+        echo form_input_text( 'username', $data['username'], get_lang('Username'), true);
 
         // password
-        echo ' <tr>'  . "\n"
-            . '     <td align="right"><label for="password">' . $password_label . '&nbsp;:</label></td>' . "\n"
-            . '  <td><input type="password" size="40" id="password" name="password" /></td>' . "\n"
-            . '    </tr>' . "\n";
+        echo form_line('<label for="password">' . $password_label . '&nbsp;:</label>',
+                       '<input type="password" size="40" id="password" name="password" />');
 
         // password confirmation
-        echo ' <tr>' . "\n"
-            . '     <td align="right"><label for="password_conf">' . $password_label . '&nbsp;:<br>' . "\n" . "\n"
-            . ' <small>(' . get_lang('Confirmation') . ')</small></label></td>' . "\n"
-            . '  <td><input type="password" size="40" id="password_conf" name="password_conf" /></td>' . "\n"
-            . ' </tr>' . "\n";
+        echo form_line('<label for="password_conf">' . $password_label . '&nbsp;:<br/>'
+                       . ' <small>(' . get_lang('Confirmation') . ')</small></label>',
+                       '<input type="password" size="40" id="password_conf" name="password_conf" />');
 
-        echo ' <tr>' . "\n"
-            . '  <td>&nbsp;</td>' . "\n"
-            . '  <td>&nbsp;</td>' . "\n"
-            . ' </tr>' . "\n";
+        echo form_line('&nbsp;', '&nbsp;');
     }
 
-    // email
-    echo ' <tr>' . "\n"
-        . '<td align="right"><label for="email">' . ( get_conf('userMailCanBeEmpty')?get_lang('Email'):required_field(get_lang('Email'))) . '&nbsp;:</label></td>' . "\n"
-        . '<td><input type="text" size="40" id="email" name="email" value="' . htmlspecialchars($data['email']) . '" /></td>' . "\n"
-        . '</tr>' . "\n"
-
-        . '<tr>' . "\n"
-        . '<td align="right"><label for="phone">' . get_lang('Phone') . '&nbsp;:</label></td>' . "\n"
-        . '<td><input type="text" size="40" id="phone" name="phone" value="' . htmlspecialchars($data['phone']) . '" /></td>' . "\n"
-        . '</tr>' . "\n";
+    echo form_input_text('email', $data['email'], get_lang('Email'), get_conf('userMailCanBeEmpty') ? false : true)
+    .    form_input_text('phone', $data['phone'], get_lang('Phone') );
 
     // Group Tutor
     if ( $form_type == 'add_new_user' )
     {
-        echo '<tr valign="top">'
-            . '<td align="right">' . get_lang('Group Tutor') .' : </td>'
-            . '<td>'
-            . '<input type="radio" name="tutor" value="1" id="tutorYes" ' . ($data['tutor']?'checked':'') . ' >'
-            . '<label for="tutorYes">' . get_lang('Yes') . '</label>'
-            . '<input type="radio" name="tutor" value="0"  id="tutorNo" ' . (!$data['tutor']?'checked':'') . ' >'
-            . '<label for="tutorNo">' . get_lang('No') . '</label>'
-            . '</td>'
-            . '</tr>';
+        echo form_line(get_lang('Group Tutor') . '&nbsp;: ',
+
+                       '<input type="radio" name="tutor" value="1" id="tutorYes" ' 
+                      . ($data['tutor']?'checked':'') . ' >'
+                      . '<label for="tutorYes">' . get_lang('Yes') . '</label>'
+
+                      . '<input type="radio" name="tutor" value="0"  id="tutorNo" ' 
+                      . (!$data['tutor']?'checked':'') . ' >'
+                      . '<label for="tutorNo">' . get_lang('No') . '</label>');
     }
 
     // Course manager of the course
     if ( $form_type == 'add_new_user' )
     {
-        echo ' <tr>' . "\n"
-            . '  <td align="right">' . get_lang('Manager') . '&nbsp;:</td>' . "\n"
-            . '<td>'
-            . '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" ' . ($data['courseAdmin'] ? 'checked' : '') . ' >'
-            . '<label for="courseAdminYes">' . get_lang('Yes') . '</label>'
-            . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '  . ($data['courseAdmin'] ? '' : 'checked') . ' >'
-            . '<label for="courseAdminNo">' . get_lang('No') . '</label>'
-            . '</td>'
-            . ' </tr>' . "\n";
+        echo form_line(get_lang('Manager') . '&nbsp;: ',
+                       '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" ' 
+                       . ($data['courseAdmin'] ? 'checked' : '') . ' >'
+                       . '<label for="courseAdminYes">' . get_lang('Yes') . '</label>'
+                       . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '  
+                       . ($data['courseAdmin'] ? '' : 'checked') . ' >'
+                       . '<label for="courseAdminNo">' . get_lang('No') . '</label>');
     }
 
     // Status: Allow registration as course manager
@@ -1375,10 +1288,40 @@ function user_display_form($data, $form_type='registration')
 
 }
 
+function form_input_text($name, $value, $displayedName = '', $required = false)
+{
+    if ( empty($displayedName) ) $displayedName = $name;
+    if ( $required )             $displayedName = required_field($displayedName);
+
+    $html = form_line('<label for="'.$name.'">'.$displayedName . '&nbsp;: ', 
+                         '<input type="text" size="40" id="'.$name.'" name="'.$name.'" value="'.htmlspecialchars($value).'">' . "\n");
+
+    return $html;
+}
+
 function required_field($field)
 {
     return '<span class="required">*</span>&nbsp;' . $field;
 }
+
+function form_line($legend, $element)
+{
+    $html = '<tr valign="top">' . "\n"
+
+          . '<td align="right">' . "\n"
+          . $legend
+          . '</td>' . "\n"
+
+          . '<td align="left">' . "\n"
+          . $element . "\n"
+          . '</td>' . "\n"
+
+          . '</tr>' . "\n";
+
+    return $html;
+}
+
+
 
 /**
  * @param array $criterionList -

@@ -47,7 +47,6 @@ $user_data['is_admin'] = false;
 
 if ( isset($_REQUEST['applyChange']) )  //for formular modification
 {
-
     // get params form the form
     if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = trim($_REQUEST['lastname']);
     if ( isset($_REQUEST['firstname']) )     $user_data['firstname'] = trim($_REQUEST['firstname']);
@@ -68,12 +67,9 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     if ( count($messageList) == 0 )
     {
+        user_update ($user_id, $user_data);  // if no error update use setting
 
-        // if no error update use setting
-        user_update ($user_id, $user_data);
-
-        // re-init the system to take new settings in account
-        if ( $user_id == $_uid )
+        if ( $user_id == $_uid  )// re-init system to take new settings in account
         {
             $uidReset = true;
             include $includePath . '/claro_init_local.inc.php';
@@ -83,13 +79,15 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         $dialogBox = get_lang('Changes have been applied to the user settings');
 
         // set user admin parameter
-        if ( $user_data['is_admin'] ) user_add_admin($user_id);
-        else                          user_delete_admin($user_id);
+        if ( $user_data['is_admin'] ) user_set_platform_admin(true, $user_id);
+        else                          user_set_platform_admin(false, $user_id);
 
         $messageList[] = get_lang('Changes have been applied to the user settings');
     }
-    // user validate form return error messages
-    else $error = true;
+    else // user validate form return error messages
+    {
+        $error = true;
+    }
 
 } // if apply changes
 
