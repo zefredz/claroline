@@ -63,14 +63,15 @@ class DataValidator
 
     /**
      * @param string $dataKey
-     * @param $string $errorMessage
+     * @param string $errorMessage returned if the data doesn't obey to the rule
      * @param mixed (string or ressource) $rule
      *        The validator class provides a predefined rules (listed below). 
      *        It is possible to call them just by entering the string name.
      *        predefined rules : required, numeric, alphanumeric, lettersonly, 
      *        regex, compare, nonzero, min, max, range, maxlenght, minlenght, 
      *        rangelenght, nopunctuation, email, ip, hostname
-     * @param array $xtraParamList
+     * @param array $xtraParamList additional parameters required for the 
+     *                             function rule
      */
 
     function addRule($dataKey, $errorMessage, $rule, $xtraParamList = array() )
