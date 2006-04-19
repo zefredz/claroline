@@ -172,7 +172,7 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($thisTool['label']))   // standart claroline tool
     {
-        $toolName = $toolNameList[ $thisTool['label'] ];
+        $toolName = get_lang( $toolNameList[ $thisTool['label'] ] );
         $url      = trim($toolRepository . $thisTool['url']);
     }
     elseif( ! empty($thisTool['name']) ) // external tool added by course manager
