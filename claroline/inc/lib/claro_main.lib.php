@@ -159,18 +159,18 @@ function claro_get_tool_name_list()
 
     if( ! isset( $toolNameList ) )
     {
-        $toolNameList = array('CLANN___' => get_lang('Announcement')
-        ,                     'CLFRM___' => get_lang('Forums')
-        ,                     'CLCAL___' => get_lang('Agenda')
-        ,                     'CLCHT___' => get_lang('Chat')
-        ,                     'CLDOC___' => get_lang('Documents and Links')
-        ,                     'CLDSC___' => get_lang('Course description')
-        ,                     'CLGRP___' => get_lang('Groups')
-        ,                     'CLLNP___' => get_lang('Learning path')
-        ,                     'CLQWZ___' => get_lang('Exercises')
-        ,                     'CLWRK___' => get_lang('Work')
-        ,                     'CLUSR___' => get_lang('Users')
-        ,                     'CLWIKI__' => get_lang('Wiki')
+        $toolNameList = array('CLANN___' => 'Announcement'
+        ,                     'CLFRM___' => 'Forums'
+        ,                     'CLCAL___' => 'Agenda'
+        ,                     'CLCHT___' => 'Chat'
+        ,                     'CLDOC___' => 'Documents and Links'
+        ,                     'CLDSC___' => 'Course description'
+        ,                     'CLGRP___' => 'Groups'
+        ,                     'CLLNP___' => 'Learning path'
+        ,                     'CLQWZ___' => 'Exercises'
+        ,                     'CLWRK___' => 'Work'
+        ,                     'CLUSR___' => 'Users'
+        ,                     'CLWIKI__' => 'Wiki'
         );
     }
     return $toolNameList;
@@ -266,7 +266,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
             {
                 if ( ! empty ($thisToolAttributeList['label'] ) )
                 {
-                    $courseToolList[$thisToolKey]['name'] = $toolNameList[$thisToolAttributeList['label']];
+                    $courseToolList[$thisToolKey]['name'] = get_lang($toolNameList[$thisToolAttributeList['label']]);
                 }
                 else
                 {

@@ -159,17 +159,17 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 {
 
     $toolNameList = claro_get_tool_name_list();
-
     foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
     {
         if (is_null($_courseToolDatas['name']))
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
-
+        else 
+            $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($_courseToolList[ $_courseToolKey ] [ 'name' ]);
         // now recheck to be sure the value is really filled before going further
         if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
-
     }
+
     $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php"
       name="redirector" method="POST">
     <select name="url" size="1"
