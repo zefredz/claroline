@@ -113,7 +113,6 @@ if ( $cmd == 'registration' )
             $userList = user_search( array('lastname' => $userData['lastname'    ], 
                                            'email'    => $userData['email'       ]),
                                      $_cid, false, true);
-
             if ( count($userList) > 0 )
             {
                  // PREPARE THE URL command TO CONFIRM THE USER CREATION
@@ -169,12 +168,20 @@ if ( $cmd == 'registration' )
 
     if ( ! $userId && $validUserData && count($userList) == 0 )
     {
-        $userId = user_add($userData);
+        $userData['language'] = null;
+        $userId = user_create($userData);
+
         if ($userId) user_send_registration_mail($userId, $userData);
     }
 
     if ( $userId )
     {
+/* <DEBUG> */
+echo "<pre style='color:navy;background:#FFFF99'>";
+var_dump($userData);
+echo "</pre>";
+/* </DEBUG> */
+
         $courseRegSucceed = user_add_to_course($userId, $_cid, 
                                                $userData['courseAdmin'],
                                                $userData['tutor'      ]);
@@ -207,11 +214,11 @@ if ($cmd == 'applySearch')
 // Send mail notification
 if ( $courseRegSucceed )
 {
-    user_send_enroll_to_course_mail($userId, user_get_data($userId) );
+    user_send_enroll_to_course_mail($userId, user_get_properties($userId) );
     // display message
     $messageList[]= get_lang('%firstname %lastname has been registered to your course', 
-                            array ( '%firstname' => $user_data['firstname'],
-                                    '%lastname'  => $user_data['lastname']) 
+                            array ( '%firstname' => $userData['firstname'],
+                                    '%lastname'  => $userData['lastname']) 
                            );
 }
 

@@ -86,7 +86,7 @@ if ( isset($_REQUEST['applyChange']) )
     {
 
         // if no error update use setting
-        user_update ($_uid, $user_data);
+        user_set_properties($_uid, $user_data);
         event_default('PROFILE_UPDATE', array('user'=>$_uid));
 
         // re-init the system to take new settings in account
@@ -103,7 +103,7 @@ if ( isset($_REQUEST['applyChange']) )
     }
 
     // Initialise
-    $user_data = user_get_data($_uid);
+    $user_data = user_get_properties($_uid);
 
 }
 elseif (    get_conf('can_request_course_creator_status')
@@ -137,7 +137,7 @@ elseif ( get_conf('can_request_revoquation')
 }
 
 // Initialise
-$user_data = user_get_data($_uid);
+$user_data = user_get_properties($_uid);
 
 /**********************************************************************
   View Section

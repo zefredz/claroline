@@ -65,9 +65,12 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     $messageList = user_validate_form_profile($user_data, $user_id);
 
+
     if ( count($messageList) == 0 )
     {
-        user_update ($user_id, $user_data);  // if no error update use setting
+        if ( empty($user_data['password'])) unset($user_data['password']);
+
+        user_set_properties($user_id, $user_data);  // if no error update use setting
 
         if ( $user_id == $_uid  )// re-init system to take new settings in account
         {
@@ -114,7 +117,8 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$user_data = user_get_data($user_id);
+$user_data = user_get_properties($user_id);
+
 $user_data['is_admin'] = user_is_admin($user_id);
 
 

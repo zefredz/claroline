@@ -195,7 +195,7 @@ if ($allowedToEditDef)
         }
         else
         {
-            user_update_course_properties($userIdViewed, $course_id, $userProperties);
+            user_set_course_properties($userIdViewed, $course_id, $userProperties);
             $displayMode = "viewContentList";
         }
     }

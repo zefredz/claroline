@@ -59,6 +59,8 @@ if ( $cmd == 'registration' )
     if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['status']) )        $user_data['status']        = (int) $_REQUEST['status'];
 
+    $user_data['language'] = null;
+
     // validate forum params
 
     $messageList = user_validate_form_registration($user_data);
@@ -66,7 +68,7 @@ if ( $cmd == 'registration' )
     if ( count($messageList) == 0 )
     {
         // register the new user in the claroline platform
-        $inserted_uid = user_add($user_data);
+        $inserted_uid = user_create($user_data);
 
         // send a mail to the user
         user_send_registration_mail($inserted_uid,$user_data);

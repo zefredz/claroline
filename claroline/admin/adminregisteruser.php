@@ -91,7 +91,7 @@ switch ( $cmd )
             $properties['role']   = '';
             $properties['tutor']  = 0;
         }
-        user_update_course_properties($user_id, $cidToEdit, $properties);
+        user_set_course_properties($user_id, $cidToEdit, $properties);
 
         //set dialogbox message
 

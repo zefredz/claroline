@@ -59,7 +59,7 @@ $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
 /**
  * this maner to manage problem would be more discuss.  uidToEdit can neve empty....
  */
-$userData = user_get_data($uidToEdit);
+$userData = user_get_properties($uidToEdit);
 if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= get_lang('user code to view is not valid');
 if ('unsubscribe' == $cmd)
 {

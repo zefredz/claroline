@@ -175,7 +175,7 @@ DB tables initialisation
 Find info about user we are working with
 ---------------------------------------------------------------------*/
 
-$userInfo = user_get_data($userId);
+$userInfo = user_get_properties($userId);
 if(!$userInfo)
 {
     $cmd='';
@@ -260,7 +260,7 @@ if ( $cmd == 'exReg' )
                     $properties['status'] = 1;
                     $properties['role']   = get_lang('Course manager');
                     $properties['tutor']  = 1;
-                    user_update_course_properties($userId, $course, $properties);
+                    user_set_course_properties($userId, $course, $properties);
                 }
             }
             else

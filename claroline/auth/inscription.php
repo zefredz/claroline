@@ -73,7 +73,7 @@ if ( get_conf('allowSelfReg',false) )
         {
             // register the new user in the claroline platform
 
-            $_uid = user_add($user_data);
+            $_uid = user_create($user_data);
 
             if ( $_uid )
             {

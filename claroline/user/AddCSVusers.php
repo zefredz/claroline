@@ -235,7 +235,7 @@ switch ($cmd)
         if (empty($user['email']))        $user['email'] = '';
         if (empty($user['officialCode'])) $user['officialCode'] = '';
 
-        $uid = user_add($user);
+        $uid = user_create($user);
 
         // for each use case alos perform thze other needed action :
 

@@ -49,7 +49,7 @@ function user_initialise()
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
-function user_get_data($user_id)
+function user_get_properties($userId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
@@ -66,7 +66,7 @@ function user_get_data($user_id)
                     `phoneNumber` AS phone,
                     `statut`      AS status
             FROM   `" . $tbl_user . "`
-            WHERE  `user_id` = " . (int) $user_id;
+            WHERE  `user_id` = " . (int) $userId;
 
     $result = claro_sql_query_get_single_row($sql);
 
@@ -80,30 +80,46 @@ function user_get_data($user_id)
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
-function user_add($data)
+function user_create($settingList, $creatorId = null)
 {
-    global $userPasswordCrypted, $_uid;
+    $requiredSettingList = array('lastname', 'firstname', 'username', 'password',
+    'language', 'email', 'officialCode', 'phone', 'status');
 
-    $password = $userPasswordCrypted ? md5($data['password']):$data['password'];
+    foreach($requiredSettingList as $thisRequiredSetting)
+    {
+        if ( array_key_exists( $thisRequiredSetting, $settingList ) ) continue;
+        //else return claro_failure::set_failure('MISSING_DATA');
+        else claro_die('Missing Data ) - '. $thisRequiredSetting);
+    }
+    
+    if ( count( array_diff($requiredSettingList, array_keys($settingList)) ) > 0 )
+    {
+        claro_die('MISSING_DATA');
+        return claro_failure::set_failure('MISSING_DATA');
+    }
+
+    if ($settingList['status'] == COURSE_ADMIN_STATUS) $status = COURSE_ADMIN_STATUS;
+    else                                               $status = STUDENT_STATUS;
+
+    $password = get_conf('userPasswordCrypted') 
+              ? md5($settingList['password'])
+              : $settingList['password'];
+
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    if ( empty($data['status'  ]) ) $data['status']   = STUDENT_STATUS;
-    if ( empty($data['language']) ) $data['language'] = null;
-
     $sql = "INSERT INTO `" . $tbl_user . "`
-            SET `nom`          = '". addslashes($data['lastname']) ."' ,
-                `prenom`       = '". addslashes($data['firstname']) ."',
-                `username`     = '". addslashes($data['username']) ."',
-                `password`     = '". addslashes($password) . "',
-                `language`     = '" .addslashes($data['language']) . "',
-                `email`        = '". addslashes($data['email']) ."',
-                `statut`       = ". (int) $data['status'] .",
-                `officialCode` = '". addslashes($data['officialCode']) ."',
-                `phoneNumber`  = '". addslashes($data['phone']) ."'";
-
-    if ( !empty($_uid) ) $sql .= ", `creatorId` = '". (int)$_uid ."'";
+            SET nom          = '". addslashes($settingList['lastname']) ."' ,
+                prenom       = '". addslashes($settingList['firstname']) ."',
+                username     = '". addslashes($settingList['username']) ."',
+                language     = '" .addslashes($settingList['language']) . "',
+                email        = '". addslashes($settingList['email']) ."',
+                officialCode = '". addslashes($settingList['officialCode']) ."',
+                phoneNumber  = '". addslashes($settingList['phone']) ."' ,
+                password     = '". addslashes($password) . "',
+                statut       = ". (int) $status .",
+                creatorId    = ". ($creatorId > 0 ? (int) $creatorId : 'NULL');
 
     return claro_sql_query_insert_id($sql);
 }
@@ -115,49 +131,156 @@ function user_add($data)
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
-function user_update ($user_id, $data)
+function user_set_properties($userId, $propertyList)
 {
-    global $userPasswordCrypted, $_uid;
-
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    $sql = "UPDATE  `" . $tbl_user . "`
-            SET `nom`          = '" . addslashes($data['lastname']) . "',
-                `prenom`       = '" . addslashes($data['firstname']) . "',
-                `username`     = '" . addslashes($data['username']) . "',
-                `phoneNumber`  = '" . addslashes($data['phone']) . "',
-                `creatorId`    = " . (int)$_uid. ",
-                `email`        = '" . addslashes($data['email']) . "',
-                `officialCode` = '" . addslashes($data['officialCode']) . "' ";
+    // SPECIAL CASE
 
-    if ( ! empty($data['status']) )
+    if ( array_key_exists('status', $propertyList) )
     {
-        $sql .= ", `statut` = '" . (int) $data['status'] . "' " . "\n" ;
+        if ( $propertyList['status'] != COURSE_ADMIN_STATUS)
+        {
+            $propertyList['status'] = STUDENT_STATUS;
+        }
     }
 
-    if ( ! empty($data['password']) )
+    if ( array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
     {
-        $password = $userPasswordCrypted ? md5($data['password']) : $data['password'];
-        $sql .= ", `password`   = '" . addslashes($password) . "' "  . "\n";
+        $propertyList['password'] = md5($data['password']);
     }
 
-    if ( ! empty($data['language']) )
+    // BUILD QUERY
+
+    $sqlColumnList = array('nom'          => 'lastname',
+                           'prenom'       => 'firstname',
+                           'username'     => 'username',
+                           'phoneNumber'  => 'phone',
+                           'email'        => 'email',   
+                           'officialCode' => 'officialCode',
+                           'statut'       => 'status',   
+                           'password'     => 'password', 
+                           'language'     => 'language', 
+                           'pictureUri'   => 'picture');
+
+    $setList = array();
+
+    foreach($sqlColumnList as $columnName => $propertyName)
     {
-        $sql .= ", `language` = '" . addslashes($data['language']) . "' "  . "\n";
+        if ( array_key_exists($propertyName, $propertyList) )
+        {
+            $setList[] = $columnName . "= '" 
+                       . addslashes($propertyList[$propertyName]). "'";
+        }
     }
 
-    if ( ! empty($data['picture']) )
+    if ( count($setList) > 0)
     {
-        $sql .= ", `pictureUri` = '" . addslashes($data['picture']) . "' "  . "\n";
-    }
-    else
-    {
-        $sql .= ", `pictureUri` = NULL "  . "\n";
+        
+        $sql = "UPDATE  `" . $tbl_user . "` 
+                SET ". implode(', ', $setList) . "
+                WHERE user_id  = " . (int) $userId ;
     }
 
-    $sql .= " WHERE `user_id`  = " . (int) $user_id;
-    return claro_sql_query($sql);
+    if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
+    else                                           return false;
+}
+
+/**
+ * change the status of the user in a course
+ * @author Hugues Peeters <hugues.peeters@advalvas.be>
+ *
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ * @param array $properties - should contain 'role', 'status', 'tutor'
+ *
+ * @return boolean TRUE if update succeed, FALSE otherwise.
+ */
+
+function user_set_course_properties($userId, $courseId, $propertyList)
+{
+    $tbl_mdb_names        = claro_sql_get_main_tbl();
+    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+
+    $setList = array();
+
+    if ( array_key_exists('status', $propertyList) )
+    {
+        if ( $propertyList['status'] ==  COURSE_ADMIN_STATUS )
+        {
+            $setList[] = 'statut = ' . (int) COURSE_ADMIN_STATUS;
+        }
+        else
+        {
+           $setList[] = 'status = ' . (int) STUDENT_STATUS;
+        }
+    }
+
+    if ( array_key_exists('tutor', $propertyList) )
+    {
+        if ( $propertyList['tutor'] ) $setList[] = 'tutor = 1';
+        else                          $setList[] = 'tutor = 0';
+    }
+
+    if ( array_key_exists('role', $propertyList) )
+    {
+        $setList[] = "role = '" . addslashes($propertyList['role']) . "'";
+    }
+
+    if ( count($setList) > 0 )
+    {
+        $sql = "UPDATE `" . $tbl_rel_course_user . "` 
+                SET " . implode(', ', $setList) ."
+                WHERE   `user_id`    = " . (int) $userId . "
+                AND     `code_cours` = '" . addslashes($courseId) . "'";
+
+        if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
+        else                                           return false;
+    }
+}
+
+/**
+ * set or unset course manager status for a the user in a course
+ *
+ * @author Hugues Peeters <hugues.peeters@advalvas.be>
+ *
+ * @param boolean $status 'true' for course manager, 'false' for not
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ *
+ * @return boolean TRUE  if update succeed
+ *         boolean FALSE otherwise.
+ */
+
+function user_set_course_manager($status, $userId, $courseCode)
+{
+    $status = ($status == true) ? COURSE_ADMIN_STATUS : STUDENT_STATUS;
+
+    return user_set_course_properties($userId, $courseCode, 
+                                      array('status' => $status));
+
+}
+
+/**
+ * set or unset course tutor status for a user in a course
+ *
+ * @author Hugues Peeters <hugues.peeters@advalvas.be>
+ *
+ * @param boolean $status, 'true' for tutor status, 'false' for not ...
+ * @param int $user_id user ID from the course_user table
+ * @param string $course_code course code from the cours table
+ *
+ * @return boolean TRUE  if update succeed
+ *         boolean FALSE otherwise.
+ */
+
+function user_set_course_tutor($status , $userId, $courseCode)
+{
+    $status = ($status == true) ? 1 : 0;
+
+    return user_set_course_properties($userId, $courseCode, 
+                                      array('tutor' => $status));
 }
 
 /**
@@ -187,15 +310,15 @@ function user_delete($userId)
     $tbl_track_login     = $tbl_mdb_names['track_e_login'  ];
 
     // get the list of course code where the user is subscribed
-    $sql_user_courses = "SELECT `c`.`code`
-                         FROM `" . $tbl_rel_course_user . "` AS cu,
-                               `" . $tbl_course . "`         AS c
-                         WHERE cu.code_cours = c.code
-                          AND  cu.user_id    = " . $userId;
+    $sql = "SELECT c.code                    AS code
+            FROM `" . $tbl_rel_course_user . "` AS cu,
+                  `" . $tbl_course . "`         AS c
+            WHERE cu.code_cours = c.code
+            AND  cu.user_id    = " . $userId;
 
-    $courseSysCodeList = claro_sql_query_fetch_all($sql_user_courses);
+    $courseList = claro_sql_query_fetch_all_cols($sql);
 
-    if ( user_remove_from_course($userId, $courseSysCodeList, true, true) == false ) return false;
+    if ( user_remove_from_course($userId, $courseList['code'], true, true) == false ) return false;
 
     $sqlList = array(
 
@@ -212,7 +335,7 @@ function user_delete($userId)
 
     foreach($sqlList as $thisSql)
     {
-        if ( claro_sql_query($sqlList) == false ) return false;
+        if ( claro_sql_query($thisSql) == false ) return false;
         else                                      continue;
     }
 
@@ -318,7 +441,7 @@ function user_delete_course_tracking_data($userId, $courseId)
 
     foreach($sqlList as $thisSql)
     {
-        if ( claro_sql_query($sqlList) == false ) return false;
+        if ( claro_sql_query($thisSql) == false ) return false;
         else                                      continue;
     }
 
@@ -423,42 +546,40 @@ function user_set_platform_admin($status, $userId)
  * @return boolean TRUE  if it succeeds, FALSE otherwise
  */
 
-function user_add_to_course($user_id, $course_code)
+function user_add_to_course($user_id, $course_code, $admin = false, $tutor = false)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user            = $tbl_mdb_names['user'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
     // previously check if the user are already registered on the platform
-    $sql = "SELECT `statut` `status`
+    $sql = "SELECT COUNT(user_id)
             FROM `" . $tbl_user . "`
             WHERE user_id = " . (int) $user_id ;
-    $handle = claro_sql_query($sql);
 
-    if ( mysql_num_rows($handle) == 0 )
+    if (  claro_sql_query_get_single_value($sql) == 0 )
     {
         return claro_failure::set_failure('user_not_found'); // the user isn't registered to the platform
     }
     else
     {
         // previously check if the user isn't already subscribed to the course
-        $sql = "SELECT `user_id`
+        $sql = "SELECT COUNT(user_id)
                 FROM `" . $tbl_rel_course_user . "`
-                WHERE `user_id` = " . (int) $user_id . "
-                AND `code_cours` ='" . addslashes($course_code) . "'";
+                WHERE user_id = " . (int) $user_id . "
+                AND code_cours ='" . addslashes($course_code) . "'";
 
-        $userResultList = claro_sql_query_fetch_all($sql);
-
-        if ( count($userResultList) > 0 )
+        if ( claro_sql_query_get_single_value($sql) > 0 )
         {
             return claro_failure::set_failure('already_enrolled_in_course');
         }
         else
         {
                 $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                        SET `code_cours` = '" . addslashes($course_code) . "',
-                            `user_id`    = " . (int) $user_id . ",
-                            `statut`     = '" . STUDENT_STATUS . "' ";
+                        SET code_cours = '" . addslashes($course_code) . "',
+                            user_id    = " . (int) $user_id . ",
+                            statut     = " . (int) ($admin ? COURSE_ADMIN_STATUS : STUDENT_STATUS) . ",
+                            tutor  = " . (int) ($tutor ? 1 : 0);
 
                 if ( claro_sql_query($sql) ) return true;
                 else                         return false;
@@ -516,64 +637,6 @@ function get_course_enrollment_key($courseId)
 }
 
 /**
- * set or unset course manager status for a the user in a course
- *
- * @author Hugues Peeters <hugues.peeters@advalvas.be>
- *
- * @param boolean $status 'true' for course manager, 'false' for not
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
- *
- * @return boolean TRUE  if update succeed
- *         boolean FALSE otherwise.
- */
-
-function user_set_course_manager($status, $userId, $courseCode)
-{
-    $status = ($status == true) ? COURSE_ADMIN_STATUS : STUDENT_STATUS;
-
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-
-    $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET statut = '" . (int) $status . "'
-            WHERE `user_id` = '" . (int)$userId . "'
-            AND `code_cours` ='" . addslashes($courseCode) . "'";
-
-    if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
-    else                                           return false;
-}
-
-/**
- * set or unset course tutor status for a user in a course
- *
- * @author Hugues Peeters <hugues.peeters@advalvas.be>
- *
- * @param boolean $status, 'true' for tutor status, 'false' for not ...
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
- *
- * @return boolean TRUE  if update succeed
- *         boolean FALSE otherwise.
- */
-
-function user_set_course_tutor($status , $userId, $courseCode)
-{
-    $status = ($status == true) ? 1 : 0;
-
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
-
-    $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET tutor = '" . (int) $status . "'
-            WHERE `user_id` = " . (int) $userId . "
-            AND `code_cours` ='" . addslashes($courseCode) . "'";
-
-    if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
-    else                                           return false;
-}
-
-/**
  * subscribe a specific user to a class
  *
  * @author Guillaume Lederer < guillaume@claroline.net >
@@ -600,7 +663,7 @@ function user_add_to_class($user_id,$class_id)
 
     // 1. See if there is a user with such ID in the main database
 
-    $user_data = user_get_data($user_id);
+    $user_data = user_get_properties($user_id);
 
     if ( !$user_data )
     {
@@ -640,42 +703,6 @@ function user_add_to_class($user_id,$class_id)
 
     return claro_sql_query($sql);
 }
-
-/**
- * change the status of the user in a course
- * @author Hugues Peeters <hugues.peeters@advalvas.be>
- *
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
- * @param array $properties - should contain 'role', 'status', 'tutor'
- *
- * @return boolean TRUE if update succeed, FALSE otherwise.
- */
-
-function user_update_course_properties($user_id, $course_code, $properties)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-
-    $sqlChangeStatus = '';
-
-    if ( ( $properties['status'] == 1 or $properties['status'] ==  5 ) )
-    {
-        $sqlChangeStatus = "`statut` = '" . $properties['status'] . "', ";
-    }
-
-    $sql = "UPDATE `" . $tbl_rel_course_user . "`
-            SET `role` = '" . addslashes($properties['role']) . "',
-           " . $sqlChangeStatus . "
-           `tutor`      = " . (int) $properties['tutor'] . "
-           WHERE   `user_id`    = " . (int) $user_id . "
-           AND     `code_cours` = '" . addslashes($course_code) . "'";
-
-    if ( claro_sql_query($sql) ) return true;
-    else                         return false;
-}
-
-
 
 /**
  * Send registration succeded email to user
@@ -802,19 +829,19 @@ function user_validate_form($formMode, $data, $userId = null)
     $validator = new DataValidator();
     $validator->setDataList($data);
 
-    $validator->addRule('lastname' , get_lang('lastname You left some required fields empty'), 'required');
-    $validator->addRule('firstname', get_lang('firstname You left some required fields empty'), 'required');
-    $validator->addRule('username' , get_lang('username You left some required fields empty'), 'required');
+    $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
+    $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
 
     
     if ( ! get_conf('userMailCanBeEmpty') )
     {
-        $validator->addRule('email', get_lang('email You left some required fields empty'), 'required');
+        $validator->addRule('email', get_lang('You left some required fields empty'), 'required');
     }
 
     if ( ! get_conf('userOfficialCodeCanBeEmpty') )
     {
-        $validator->addRule('officialCode', get_lang('officialCode You left some required fields empty'), 'required');
+        $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
     }
 
     if ( get_conf('SECURE_PASSWORD_REQUIRED') )
@@ -830,8 +857,8 @@ function user_validate_form($formMode, $data, $userId = null)
 
     if ( $formMode == 'registration')
     {
-        $validator->addRule('password'  , get_lang('password You left some required fields empty'), 'required');
-        $validator->addRule('password_conf', get_lang('password_conf You left some required fields empty'), 'required');
+        $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available');
     }
@@ -1031,7 +1058,7 @@ function user_display_form($data, $form_type='registration')
     }
 
     echo form_input_text('lastname', $data['lastname'], get_lang('Last name'), $required = true);
-    echo form_input_text('firstname', $data['lastname'], get_lang('First name'), $required = true);
+    echo form_input_text('firstname', $data['firstname'], get_lang('First name'), $required = true);
 
 
     // OFFICIAL CODE

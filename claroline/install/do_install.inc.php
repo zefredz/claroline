@@ -357,7 +357,7 @@ if ( $runfillMainDb )
     $user_data['officialCode'] = '';
     $user_data['phone'] = $adminPhoneForm;
 
-    $id_admin = user_add($user_data);
+    $id_admin = user_create($user_data);
 
     user_set_platform_admin(true, $id_admin);
 }

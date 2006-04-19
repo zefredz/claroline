@@ -67,7 +67,7 @@ switch ($cmd)
             $properties['status'] = 1;
             $properties['role']   = get_lang('Course manager');
             $properties['tutor']  = 1;
-            $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
+            $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
                 $dialogBox = get_lang('User is now course manager');
@@ -82,7 +82,7 @@ switch ($cmd)
             $properties['status'] = 5;
             $properties['role']   = get_lang('Student');
             $properties['tutor']  = 0;
-            $done = user_update_course_properties($uidToEdit, $cidToEdit, $properties);
+            $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
             if ($done)
             {
                 $dialogBox = get_lang('User is now student for this course');
