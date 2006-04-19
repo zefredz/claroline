@@ -79,7 +79,8 @@
         {
             $pre_type = $type;
             $pre_mode = $mode;
-            $type = $mode = NULL;
+            $type = NULL; 
+            $mode = NULL;
             
             if (empty($this->T[$i]))
             {
@@ -243,7 +244,8 @@
          */
         function parseMacro($str,&$tag,&$attr,&$type)
         {
-            $tag = $attr = '';
+            $tag = '';
+            $attr = '';
             
             switch( trim( $str, '"' ) )
             {
