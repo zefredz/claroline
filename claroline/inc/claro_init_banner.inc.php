@@ -132,7 +132,7 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
 ?>
 <div id="courseBanner">
 <?php
-    $courseName = '<div id="course"> <h2 id="courseName"><a href="'. $coursesRepositoryWeb . $_course['path'] .'/index.php" target="_top">'.$_course['name'] .'</a></h2>';
+    $courseName = '<div id="course"><h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '" target="_top">'.$_course['name'] .'</a></h2>';
     $courseBannerLeftDock->addOutput($courseName);
 
     $courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>
@@ -179,23 +179,23 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
     if (is_array($_courseToolList))
     {
-		foreach($_courseToolList as $_courseToolKey => $_courseToolData)
+        foreach($_courseToolList as $_courseToolKey => $_courseToolData)
         {
-			// reset group to access course tool
-			$_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
-				? $_courseToolData['url'] . '&amp;gidReset=1'
-				: $_courseToolData['url'] . '?gidReset=1'
-				;
+            // reset group to access course tool
+            $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
+                ? $_courseToolData['url'] . '&amp;gidReset=1'
+                : $_courseToolData['url'] . '?gidReset=1'
+                ;
 
-			// select "groups" in group context instead of tool
-			if ( isset( $_gid ) && $_gid )
-			{
-				$toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
-			}
-			else
-			{
-				$toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
-			}
+            // select "groups" in group context instead of tool
+            if ( isset( $_gid ) && $_gid )
+            {
+                $toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
+            }
+            else
+            {
+                $toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
+            }
 
             $courseToolSelector .= '<option value="'.$_toolDataUrl.'" '
             .   $toolSelected
