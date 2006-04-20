@@ -796,7 +796,7 @@ function claro_die($message)
     global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $rootWeb, $urlAppend ,
            $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email,
            $is_platformAdmin, $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
-           $is_courseAllowed, $imgRepositoryWeb, $_tid, $is_courseMember;
+           $is_courseAllowed, $imgRepositoryWeb, $_tid, $is_courseMember, $_gid;
 
     if ( ! headers_sent () )
     {
