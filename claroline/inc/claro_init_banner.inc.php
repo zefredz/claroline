@@ -188,7 +188,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 				;
 
 			// select "groups" in group context instead of tool
-			if ( $_gid )
+			if ( isset( $_gid ) && $_gid )
 			{
 				$toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
 			}
