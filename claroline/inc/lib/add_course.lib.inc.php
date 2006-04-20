@@ -186,7 +186,7 @@ function define_course_keys ($wantedCode,
                 or ($tryNewFSCDir > $limitQtyTry / 2 )
             )
         {
-        	trigger_error('too many try for ' .  $wantedCode ,E_USER_WARNING);
+            trigger_error('too many try for ' .  $wantedCode ,E_USER_WARNING);
             return FALSE;
             
         }
@@ -218,7 +218,7 @@ function define_course_keys ($wantedCode,
 
 function prepare_course_repository($courseRepository, $courseId)
 {
-    GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath;
+    GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath, $clarolineRepositoryWeb;
 
     if( ! is_dir($coursesRepositorySys) )
     {
@@ -245,16 +245,12 @@ function prepare_course_repository($courseRepository, $courseId)
     $fd = fopen($courseDirPath . '/index.php', 'w');
     if ( ! $fd) return claro_failure::set_failure('CANT_CREATE_COURSE_INDEX');
 
-    $string= '<?php '                                                                  . "\n"
-    .        '$cidReq = \''.$courseId.'\';'                                            . "\n"
-    .        '$claroGlobalPath = \'' . $includePath . '\';'                            . "\n"
-    .        'include \'' . $clarolineRepositorySys . 'course_home/course_home.php\';' . "\n"
-    .        '?'.'>'                                                                   . "\n"
-    ;
+    $string = '<?php ' . "\n"
+            . 'header (\'Location: '. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
+          . '?' . '>' . "\n" ;
 
     if ( ! fwrite($fd, $string) ) return claro_failure::set_failure('CANT_WRITE_COURSE_INDEX');
     if ( ! fclose($fd) )          return claro_failure::set_failure('CANT_SAVE_COURSE_INDEX');
-
 
     $fd     = fopen($coursesRepositorySys.$courseRepository . '/group/index.php', 'w');
     if ( ! $fd ) return false;
