@@ -270,7 +270,7 @@ $conf_def_property_list['tmpPathSys'] =
 array ('label'         => 'Repository for temporary files and dirs'
       , 'description'  => 'Note : this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'
-      ,'default'       => get_conf('rootWeb') . 'claroline/tmp /'
+      ,'default'       => get_conf('rootWeb') . 'claroline/tmp/'
       ,'display'     => FALSE
       ,'type'          => 'syspath'
       );
