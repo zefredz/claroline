@@ -82,44 +82,34 @@ function user_get_properties($userId)
 
 function user_create($settingList, $creatorId = null)
 {
-    $requiredSettingList = array('lastname', 'firstname', 'username', 'password',
-    'language', 'email', 'officialCode', 'phone', 'status');
+    $requiredSettingList = array('lastname', 'firstname', 'username', 
+        'password', 'language', 'email', 'officialCode', 'phone', 'status');
 
     foreach($requiredSettingList as $thisRequiredSetting)
     {
         if ( array_key_exists( $thisRequiredSetting, $settingList ) ) continue;
-        //else return claro_failure::set_failure('MISSING_DATA');
-        else claro_die('Missing Data ) - '. $thisRequiredSetting);
-    }
-    
-    if ( count( array_diff($requiredSettingList, array_keys($settingList)) ) > 0 )
-    {
-        claro_die('MISSING_DATA');
-        return claro_failure::set_failure('MISSING_DATA');
+        else return claro_failure::set_failure('MISSING_DATA');
     }
 
-    if ($settingList['status'] == COURSE_ADMIN_STATUS) $status = COURSE_ADMIN_STATUS;
-    else                                               $status = STUDENT_STATUS;
+    if ($settingList['status'] != COURSE_ADMIN_STATUS) $status = STUDENT_STATUS;
 
-    $password = get_conf('userPasswordCrypted') 
-              ? md5($settingList['password'])
-              : $settingList['password'];
-
+    $password = get_conf('userPasswordCrypted') ? md5($settingList['password'])
+                                                : $settingList['password'];
 
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
     $sql = "INSERT INTO `" . $tbl_user . "`
-            SET nom          = '". addslashes($settingList['lastname']) ."' ,
-                prenom       = '". addslashes($settingList['firstname']) ."',
-                username     = '". addslashes($settingList['username']) ."',
-                language     = '" .addslashes($settingList['language']) . "',
-                email        = '". addslashes($settingList['email']) ."',
+            SET nom          = '". addslashes($settingList['lastname'    ]) ."',
+                prenom       = '". addslashes($settingList['firstname'   ]) ."',
+                username     = '". addslashes($settingList['username'    ]) ."',
+                language     = '". addslashes($settingList['language'    ]) ."',
+                email        = '". addslashes($settingList['email'       ]) ."',
                 officialCode = '". addslashes($settingList['officialCode']) ."',
-                phoneNumber  = '". addslashes($settingList['phone']) ."' ,
+                phoneNumber  = '". addslashes($settingList['phone'       ]) ."',
                 password     = '". addslashes($password) . "',
-                statut       = ". (int) $status .",
-                creatorId    = ". ($creatorId > 0 ? (int) $creatorId : 'NULL');
+                statut       = " . (int) $status .",
+                creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
 
     return claro_sql_query_insert_id($sql);
 }
@@ -177,7 +167,6 @@ function user_set_properties($userId, $propertyList)
 
     if ( count($setList) > 0)
     {
-        
         $sql = "UPDATE  `" . $tbl_user . "` 
                 SET ". implode(', ', $setList) . "
                 WHERE user_id  = " . (int) $userId ;
@@ -517,8 +506,8 @@ function user_set_platform_admin($status, $userId)
     else // $status == true
     {
         $sql = "SELECT `idUser`
-        FROM `" . $tbl_admin . "`
-        WHERE `idUser`= " . (int) $userId;
+                FROM `" . $tbl_admin . "`
+                WHERE `idUser`= " . (int) $userId;
 
         $result =  claro_sql_query($sql);
 
@@ -567,7 +556,7 @@ function user_add_to_course($user_id, $course_code, $admin = false, $tutor = fal
         $sql = "SELECT COUNT(user_id)
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = " . (int) $user_id . "
-                AND code_cours ='" . addslashes($course_code) . "'";
+                  AND code_cours ='" . addslashes($course_code) . "'";
 
         if ( claro_sql_query_get_single_value($sql) > 0 )
         {
