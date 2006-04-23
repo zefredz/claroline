@@ -264,13 +264,13 @@ else
         foreach ( $def_file_list as  $config_code => $def )
         {
             // new config object
-            $config = new Config($config_code);    
+            $config = new Config($config_code);
 
             // load configuration
-            if ( $config->load() ) 
+            if ( $config->load() )
             {
                 $config_name = $config->config_code;
-                
+
                 // validate config
                 if ( $config->validate($form_value_list) )
                 {
@@ -353,6 +353,7 @@ if ( $runfillMainDb )
     $user_data['username'] = $loginForm;
     $user_data['password'] = $passForm;
     $user_data['email'] = $adminEmailForm;
+    $user_data['language'] = '';
     $user_data['status'] = 1; // COURSEMANAGER constant
     $user_data['officialCode'] = '';
     $user_data['phone'] = $adminPhoneForm;
