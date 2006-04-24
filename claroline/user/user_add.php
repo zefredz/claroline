@@ -27,7 +27,7 @@ include $includePath . '/conf/user_profile.conf.php';
 
 // include libraries
 require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/claro_mail.lib.inc.php';
+require_once $includePath . '/lib/sendmail.lib.php';
 
 // Initialise variables
 $nameTools        = get_lang('Add a user');

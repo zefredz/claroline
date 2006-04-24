@@ -43,7 +43,7 @@ include $includePath . '/lib/forum.lib.php';
 require $includePath . '/lib/pager.lib.php';
 
 // for notification
-include $includePath . '/lib/claro_mail.lib.inc.php';
+include $includePath . '/lib/sendmail.lib.php';
 
 $error = FALSE;
 $error_message = '';

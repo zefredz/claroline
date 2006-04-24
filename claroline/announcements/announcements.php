@@ -62,7 +62,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 require_once $includePath . '/lib/announcement.lib.php';
-require_once $includePath . '/lib/claro_mail.lib.inc.php';
+require_once $includePath . '/lib/sendmail.lib.php';
 require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 require_once $includePath . '/conf/rss.conf.php';
 

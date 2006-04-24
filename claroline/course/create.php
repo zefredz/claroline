@@ -41,7 +41,7 @@ require_once $includePath . '/lib/course.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php'; // for claro_get_uid_of_platform_admin()
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/form.lib.php';
-require_once $includePath . '/lib/claro_mail.lib.inc.php';
+require_once $includePath . '/lib/sendmail.lib.php';
 
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 

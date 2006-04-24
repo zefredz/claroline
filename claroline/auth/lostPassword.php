@@ -30,7 +30,7 @@ $tbl_user      = $tbl_mdb_names['user'];
 
 // library for authentification and mail
 include_once($includePath . '/lib/user.lib.php');
-include_once($includePath . '/lib/claro_mail.lib.inc.php');
+include_once($includePath . '/lib/sendmail.lib.php');
 
 // Initialise variables
 

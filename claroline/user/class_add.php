@@ -27,7 +27,7 @@ if ( !$is_courseAdmin ) claro_die(get_lang('Not allowed'));
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/class.lib.php';
-require_once $includePath . '/lib/claro_mail.lib.inc.php';
+require_once $includePath . '/lib/sendmail.lib.php';
 
 // javascript confirm pop up declaration for header
 

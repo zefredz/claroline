@@ -37,7 +37,7 @@ include $includePath . '/conf/user_profile.conf.php'; // find this file to modif
 
 // include library files
 include $includePath . '/lib/user.lib.php';
-include $includePath . '/lib/claro_mail.lib.inc.php';
+include $includePath . '/lib/sendmail.lib.php';
 include $includePath . '/lib/fileManage.lib.php';
 
 $nameTools = get_lang('My User Account');

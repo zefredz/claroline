@@ -27,7 +27,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 require $includePath . '/conf/user_profile.conf.php';
 require_once $includePath . '/lib/debug.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/claro_mail.lib.inc.php';
+require_once $includePath . '/lib/sendmail.lib.php';
 
 // Initialise variables
 $nameTools = get_lang('Create a new user');
