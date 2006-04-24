@@ -21,7 +21,7 @@
  * SECTION :  Function to access the sql datas
  */
 
-require_once(dirname(__FILE__) . '/db.mysql.lib.php');
+require_once(dirname(__FILE__) . '/sql.lib.php');
 
 /**
  * SECTION :  Class & function to prepare a normalised html output.
