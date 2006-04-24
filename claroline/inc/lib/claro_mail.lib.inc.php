@@ -31,6 +31,7 @@ include_once dirname(__FILE__) . '/user.lib.php' ;
 function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $specificFromName='' )
 {
     if ( ! is_array($userIdList) ) $userIdList = array($userIdList);
+    if ( count($userIdList) == 0)  return 0;
 
     $tbl      = claro_sql_get_main_tbl();
     $tbl_user = $tbl['user'];
