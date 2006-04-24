@@ -797,11 +797,8 @@ function profile_send_request_course_creator_status ($explanation)
                          )
                    );
 
-    foreach ( $mailToUidList as $mailToUid )
-    {
-        claro_mail_user($mailToUid, $requestMessage_Content, 
+        claro_mail_user($mailToUidList, $requestMessage_Content, 
             $requestMessage_Title, get_conf('administrator_email'), 'profile');
-    }
 
     return true;
 }
@@ -838,11 +835,8 @@ function profile_send_request_revoquation ($explanation,$login,$password)
                       )
                                         );
 
-    foreach ($mailToUidList as $mailToUid)
-    {
-        claro_mail_user($mailToUid, $requestMessage_Content, 
-            $requestMessage_Title, get_conf('administrator_email'), 'profile');
-    }
+        claro_mail_user($mailToUidList, $requestMessage_Content, 
+                        $requestMessage_Title, get_conf('administrator_email'), 'profile');
 
     return true;
 }
