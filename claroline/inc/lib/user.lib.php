@@ -505,13 +505,11 @@ function user_set_platform_admin($status, $userId)
     }
     else // $status == true
     {
-        $sql = "SELECT `idUser`
+        $sql = "SELECT COUNT(`idUser`)
                 FROM `" . $tbl_admin . "`
                 WHERE `idUser`= " . (int) $userId;
 
-        $result =  claro_sql_query($sql);
-
-        if ( mysql_num_rows($result) > 0 )
+        if ( claro_sql_query_get_single_value($sql) > 0 )
         {
             return true; // user is already administrator
         }
