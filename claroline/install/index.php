@@ -50,7 +50,7 @@ include $newIncludePath . 'installedVersion.inc.php';
 include '../lang/english/complete.lang.php';
 include '../lang/english/locale_settings.php';
 
-include $newIncludePath . 'lib/auth.lib.inc.php'; // to generate pass and to cryto it if needed
+include $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
 include './install.lib.inc.php';
 include $newIncludePath . 'lib/config.lib.inc.php';
 include $newIncludePath . 'lib/form.lib.php';

@@ -24,7 +24,7 @@
 
 
 require_once dirname(__FILE__) . '/class.phpmailer.php' ;
-include_once dirname(__FILE__) . '/auth.lib.inc.php' ;
+include_once dirname(__FILE__) . '/user.lib.php' ;
 
   //needed to see if email is valid to try sending the notification
 

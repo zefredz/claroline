@@ -30,7 +30,6 @@
  */
 
 include_once( dirname(__FILE__) . '/fileManage.lib.php');
-include_once( dirname(__FILE__) . '/auth.lib.inc.php');
 
 /**
  * delete a course of the plateform

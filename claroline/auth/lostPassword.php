@@ -29,7 +29,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
 
 // library for authentification and mail
-include_once($includePath . '/lib/auth.lib.inc.php');
+include_once($includePath . '/lib/user.lib.php');
 include_once($includePath . '/lib/claro_mail.lib.inc.php');
 
 // Initialise variables

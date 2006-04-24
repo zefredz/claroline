@@ -32,7 +32,7 @@ if ( ! $is_allowedToEdit )
     claro_die(get_lang('Not allowed'));
 }
 
-include_once $includePath . '/lib/auth.lib.inc.php';
+include_once $includePath . '/lib/user.lib.php'; // needed for is_well_formed_email-address()
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/form.lib.php';
 include_once $includePath . '/conf/course_main.conf.php';

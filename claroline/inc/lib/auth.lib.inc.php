@@ -14,8 +14,7 @@
  */
 
 /**
- * generates randomly a new password
- *
+ * Generates randomly password
  * @author Damien Seguy
  * @return string : the new password
  */
@@ -29,23 +28,23 @@ function generate_passwd()
 
     $lettre = array();
 
-    $lettre[0] = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-    'j', 'k', 'l', 'm', 'o', 'n', 'p', 'q', 'r',
-    's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
-    'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'D',
-    'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '9',
-    '0', '6', '5', '1', '3');
+    $lettre[0] = array( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                        'j', 'k', 'l', 'm', 'o', 'n', 'p', 'q', 'r',
+                        's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
+                        'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+                        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'D',
+                        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '9',
+                        '0', '6', '5', '1', '3');
 
     $lettre[1] =  array('a', 'e', 'i', 'o', 'u', 'y', 'A', 'E',
-    'I', 'O', 'U', 'Y' , '1', '3', '0' );
+                        'I', 'O', 'U', 'Y' , '1', '3', '0' );
 
     $lettre[-1] = array('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k',
-    'l', 'm', 'n', 'p', 'q', 'r', 's', 't',
-    'v', 'w', 'x', 'z', 'B', 'C', 'D', 'F',
-    'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P',
-    'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z',
-    '5', '6', '9');
+                        'l', 'm', 'n', 'p', 'q', 'r', 's', 't',
+                        'v', 'w', 'x', 'z', 'B', 'C', 'D', 'F',
+                        'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P',
+                        'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z',
+                        '5', '6', '9');
 
     $retour   = "";
     $prec     = 1;
