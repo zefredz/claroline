@@ -180,12 +180,13 @@ $displayForm = TRUE;
 if ( isset($_REQUEST['submitAnnouncement']) )
 {
 
+    $userIdList = array();
+
     if ( isset($_REQUEST['incorreo']) )
     {
-
         /*
-        * Explode the values of incorreo in groups and users
-        */
+         * Explode the values of incorreo in groups and users
+         */
 
         foreach($_REQUEST['incorreo'] as $thisIncorreo)
         {
@@ -231,51 +232,38 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         * Send the differents mails
         */
 
-        if( is_array($userIdList) )
-        {
+        // email subject
+        $emailSubject = '[' . $siteName . ' - ' 
+                      . $_course['officialCode'] . '] ' 
+                      . get_lang('Message from your lecturer');
 
-            /*
-            * Prepare    email
-            */
-
-            // email subject
-            $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ' . get_lang('Message from your lecturer');
-
-            // email content
-            $emailBody = $_REQUEST['emailContent'] . "\n" . "\n"
-            .            '--' . "\n"
-            .            $senderFirstName . ' ' . $senderLastName . "\n"
-            .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n"
-            .            $siteName . "\n"
-            .            '(' . get_lang('Message from your lecturer') . ')'
-            ;
-
-            /*
-            * Send    email one by one to    avoid antispam
-            */
+        // email content
+        $emailBody = $_REQUEST['emailContent'] . "\n" . "\n"
+        .            '--' . "\n"
+        .            $senderFirstName . ' ' . $senderLastName . "\n"
+        .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n"
+        .            $siteName . "\n"
+        .            '(' . get_lang('Message from your lecturer') . ')'
+        ;
 
             $countUnvalid = 0;
             $messageFailed = '';
 
-            foreach( $userIdList as $userId )
-            {
-                if ( !claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName) )
-                {
-                    $messageFailed.= claro_failure::get_last_failure();
-                    $countUnvalid++;
-                }
-            }
-
-        } // end if - is_array($userIdList)
+        $sentMailCount = claro_mail_user($userIdList, $emailBody, $emailSubject, 
+                             $senderMail, $senderFirstName.' '.$senderLastName);
 
         $message = '<p>' . get_lang('Message sent') . '<p>';
 
-        if ( $countUnvalid > 0 )
+        $unsentMailCount = count($userIdList) - $sentMailCount;
+
+        if ( $unsentMailCount > 0 )
         {
-            $messageUnvalid    =  get_block('blockUsersWithoutValidEmail', array('%userQty' => count($userIdList),
-            '%userInvalidQty' => $countUnvalid,
-            '%messageFailed' => $messageFailed
-            ));
+            $messageUnvalid    =  get_block('blockUsersWithoutValidEmail', 
+                    array('%userQty' => count($userIdList),
+                          '%userInvalidQty' => $unsentMailCount,
+                          '%messageFailed'  => $messageFailed
+                    ));
+
             $message .= $messageUnvalid;
         }
 
