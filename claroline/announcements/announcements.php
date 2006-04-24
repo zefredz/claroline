@@ -327,41 +327,37 @@ if($is_allowedToEdit) // check teacher status
                 $siteName . "\n";
 
                 // Select students id list
-                $sql = "SELECT u.user_id AS user_id
+                $sql = "SELECT u.user_id AS id
                         FROM `" . $tbl_course_user . "` AS cu
                            , `" . $tbl_user . "`        AS u
                         WHERE code_cours='" . $courseId . "'
-                        AND cu.user_id = u.user_id";
-                $studentIdList = claro_sql_query_fetch_all($sql);
+                        AND   cu.user_id = u.user_id";
 
-                // count
-                $countEmail = (is_array($studentIdList)) ? sizeof($studentIdList) : 0;
-                $countUnvalid = 0;
+                $studentIdList  = claro_sql_query_fetch_all_cols($sql);
+                $studentIdList  = $studentIdList['id'];
+                $studentIdCount = count($studentIdList);
+
+                $countEmail    = (is_array($studentIdList)) ? sizeof($studentIdList) : 0;
+                $countUnvalid  = 0;
                 $messageFailed = '';
 
-                // send email one by one to avoid antispam
-                foreach ( $studentIdList as $student )
-                {
-                    if (!claro_mail_user($student['user_id'], $emailBody, $emailSubject, $_user['mail'], $courseSender))
-                    {
-                        $messageFailed.= claro_failure::get_last_failure() . '<br />' . "\n";
-                        $countUnvalid++;
-                    }
-                }
+                $sentMailCount = claro_mail_user($studentIdList, $emailBody, 
+                                  $emailSubject, $_user['mail'], $courseSender);
 
                 $message = '<p>' . get_lang('Message sent') . '<p>';
 
-                if ( $countUnvalid > 0 )
+                $unsentMailCount = $studentIdCount - $sentMailCount;
+
+                if ( $unsentMailCount > 0);
                 {
-                    $messageUnvalid = get_block('blockUsersWithoutValidEmail',
-                      array('%userQty' => $countEmail,
-                            '%userInvalidQty' => $countUnvalid,
-                            '%messageFailed' => $messageFailed
-                            ));
-                    $message .= $messageUnvalid;
+                        $messageUnvalid = get_block('blockUsersWithoutValidEmail',
+                          array('%userQty'        => $studentIdCount,
+                                '%userInvalidQty' => $unsentMailCount,
+                                '%messageFailed'  => $messageFailed
+                                ));
+
+                        $message .= $messageUnvalid;
                 }
-
-
             }   // end if $emailOption==1
         }   // end if $submit Announcement
 
