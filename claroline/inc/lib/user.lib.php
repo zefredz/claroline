@@ -471,6 +471,23 @@ function user_remove_from_group($userId, $courseCode)
 }
 
 /**
+ * @return list of users wich have admin status
+ * @author Christophe Gesché <Moosh@claroline.net>
+ *
+ */
+
+function claro_get_uid_of_platform_admin()
+{
+    $tblList = claro_sql_get_main_tbl();
+
+    $sql = "SELECT user_id 
+            FROM `" . $tblList['user'] . "`
+            WHERE isPlatformAdmin = 1 ";
+
+    return claro_sql_query_fetch_all($sql);
+}
+
+/**
  * Return true, if user is admin on the platform
  * @param $userId
  * @return boolean
@@ -747,6 +764,86 @@ function user_send_enroll_to_course_mail($user_id, $data, $course=null)
     {
         return false;
     }
+}
+
+/**
+ * Current logged user send a mail to ask course creator status
+ * @param string explanation message
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ */
+
+function profile_send_request_course_creator_status ($explanation)
+{
+    global $_uid, $_user, $dateFormatLong;
+
+    $mailToUidList = claro_get_uid_of_platform_admin();
+
+    $requestMessage_Title = 
+        get_block('[%sitename][Request] Course creator status to %firstname %lastname', 
+            array('%sitename'  => get_conf('siteName'),
+                  '%firstname' => $_user['firstName'],
+                  '%firstname' => $_user['lastName'] ) );
+
+    $requestMessage_Content = 
+        get_block('blockRequestCourseManagerStatusMail', 
+                   array( '%time'      => claro_disp_localised_date($dateFormatLong),
+                          '%user_id'   => $_uid,
+                          '%firstname' => $_user['firstName'],
+                          '%lastname'  => $_user['lastName'],
+                          '%email'     => $_user['mail'],
+                          '%comment'   => nl2br($explanation),
+                          '%url'       => get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid 
+                         )
+                   );
+
+    foreach ( $mailToUidList as $mailToUid )
+    {
+        claro_mail_user($mailToUid['idUser'], $requestMessage_Content, 
+            $requestMessage_Title, get_conf('administrator_email'), 'profile');
+    }
+
+    return true;
+}
+
+/**
+ * Current logged user send a mail to ask course creator status
+ * @param string explanation message
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ */
+
+function profile_send_request_revoquation ($explanation,$login,$password)
+{
+    global $_uid, $_user, $dateFormatLong;
+
+    $mailToUidList = claro_get_uid_of_platform_admin();
+
+    $requestMessage_Title = 
+        get_block('[%sitename][Request] Revocation of %firstname %lastname', 
+            array('%sitename'  => get_conf('siteName'),
+                  '%firstname' => $_user['firstName'],
+                  '%firstname' => $_user['lastName'] ) );
+    
+    $requestMessage_Content = 
+        get_block('blockRequestUserRevoquationMail', 
+                   array('%time'      => claro_disp_localised_date($dateFormatLong),
+                         '%user_id'   => $_uid,
+                         '%firstname' => $_user['firstName'],
+                         '%lastname'  => $_user['lastName'],
+                         '%email'     => $_user['mail'],
+                         '%login'     => $login,
+                         '%password'  => $password,
+                         '%comment'   => nl2br($explanation),
+                         '%url' =>  get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid 
+                      )
+                                        );
+
+    foreach ($mailToUidList as $mailToUid)
+    {
+        claro_mail_user($mailToUid['idUser'], $requestMessage_Content, 
+            $requestMessage_Title, get_conf('administrator_email'), 'profile');
+    }
+
+    return true;
 }
 
 /**
