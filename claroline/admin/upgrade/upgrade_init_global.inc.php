@@ -204,7 +204,7 @@ else
         // lookup the user in the Claroline database
 
         $sql = "SELECT user_id, username, password, authSource, creatorId
-                 FROM `".$tbl_user."` `user`, `". $tbl_admin  ."` `admin`
+                 FROM `".$tbl_user."` `user`, `". $mainDbName."`.`admin`
                  WHERE BINARY username = '". addslashes($login) ."'
                    AND `user`.`user_id` = `admin`.`idUser` ";
 

@@ -26,6 +26,7 @@ CREATE TABLE `".$mainTblPrefixForm."admin` (
   UNIQUE KEY `idUser` (`idUser`)
 ) TYPE=MyISAM";
     claro_sql_query($sql);
+
     $sql ="
 CREATE TABLE `".$mainTblPrefixForm."cours` (
   `cours_id` int(11) NOT NULL auto_increment,
@@ -97,10 +98,10 @@ CREATE TABLE `".$mainTblPrefixForm."user` (
   `email` varchar(100) default NULL,
   `statut` tinyint(4) default NULL,
   `officialCode` varchar(40) default NULL,
-  `officialEmail` varchar(255) default NULL,
   `phoneNumber` varchar(30) default NULL,
   `pictureUri` varchar(250) default NULL,
   `creatorId` int(11)  unsigned default NULL,
+  `isPlatformAdmin` tinyint(4) default 0,
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) TYPE=MyISAM";

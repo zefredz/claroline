@@ -235,7 +235,6 @@ $password = isset($_REQUEST['password']) ? trim( $_REQUEST['password'] ) : null;
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
 $tbl_user            = $tbl_mdb_names['user'           ];
-$tbl_admin           = $tbl_mdb_names['admin'          ];
 $tbl_track_e_login   = $tbl_mdb_names['track_e_login'  ];
 $tbl_course          = $tbl_mdb_names['course'         ];
 $tbl_category        = $tbl_mdb_names['category'       ];
@@ -407,21 +406,19 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
 
     if ( !empty($_uid) ) // a uid is given (log in succeeded)
     {
-            $sql = "SELECT `user`.`prenom`           AS firstName             ,
-                           `user`.`nom`              AS lastName              ,
-                           `user`.`email`            AS `mail`                ,
+            $sql = "SELECT `user`.`prenom`          AS firstName             ,
+                           `user`.`nom`             AS lastName              ,
+                           `user`.`email`           AS `mail`                ,
                            `user`.`language`                                  ,
-                           (`user`.`statut` = 1)     AS is_allowedCreateCourse,
-                           `a`.`idUser`              AS is_platformAdmin      ,
-                           `user`.`creatorId`       AS creatorId             , "
+                           (`user`.`statut` = 1)    AS is_allowedCreateCourse,
+                            isPlatformAdmin         AS is_platformAdmin      ,
+                           `user`.`creatorId`       AS creatorId              , "
 
                   .       ($is_trackingEnabled
                            ? "UNIX_TIMESTAMP(`login`.`login_date`)"
                            : "DATE_SUB(CURDATE(), INTERVAL 1 DAY)") . " AS lastLogin
 
-                    FROM `".$tbl_user."` `user`
-                    LEFT JOIN `". $tbl_admin  ."` `a`
-                           ON `user`.`user_id` = `a`.`idUser` "
+                    FROM `".$tbl_user."` `user` "
 
                  . ($is_trackingEnabled
                     ? "LEFT JOIN `". $tbl_track_e_login ."` `login`

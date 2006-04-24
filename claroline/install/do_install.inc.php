@@ -149,7 +149,6 @@ $statsDbName    = $dbStatsForm;
 $mainTblPrefix  = $mainTblPrefixForm;
 $statsTblPrefix = $statsTblPrefixForm;
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_admin = $tbl_mdb_names['admin'];
 
 
 if ($runfillMainDb && $runfillStatsDb)

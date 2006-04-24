@@ -57,7 +57,6 @@ $nameTools = get_lang('Enroll a user');
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user          = $tbl_mdb_names['user'            ];
 $tbl_courses       = $tbl_mdb_names['course'          ];
-$tbl_admin         = $tbl_mdb_names['admin'           ];
 $tbl_course_user   = $tbl_mdb_names['rel_course_user' ];
 $tbl_track_default = $tbl_mdb_names['track_e_default' ];
 

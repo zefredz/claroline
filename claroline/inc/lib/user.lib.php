@@ -54,17 +54,18 @@ function user_get_properties($userId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user      = $tbl_mdb_names['user'];
 
-    $sql = "SELECT                   user_id,
-                    `nom`         AS lastname,
-                    `prenom`      AS firstname,
-                                     username,
-                                     email,
-                                     language,
-                    `authSource`  AS authsource,
-                    `pictureUri`  AS picture,
+    $sql = "SELECT                 user_id,
+                    nom         AS lastname,
+                    prenom      AS firstname,
+                                   username,
+                                   email,
+                                   language,
+                    authSource  AS authsource,
+                    pictureUri  AS picture,
                                      officialCode,
-                    `phoneNumber` AS phone,
-                    `statut`      AS status
+                    phoneNumber AS phone,
+                    statut      AS status,
+                                   isPlatformAdmin
             FROM   `" . $tbl_user . "`
             WHERE  `user_id` = " . (int) $userId;
 
@@ -100,15 +101,16 @@ function user_create($settingList, $creatorId = null)
     $tbl_user      = $tbl_mdb_names['user'];
 
     $sql = "INSERT INTO `" . $tbl_user . "`
-            SET nom          = '". addslashes($settingList['lastname'    ]) ."',
-                prenom       = '". addslashes($settingList['firstname'   ]) ."',
-                username     = '". addslashes($settingList['username'    ]) ."',
-                language     = '". addslashes($settingList['language'    ]) ."',
-                email        = '". addslashes($settingList['email'       ]) ."',
-                officialCode = '". addslashes($settingList['officialCode']) ."',
-                phoneNumber  = '". addslashes($settingList['phone'       ]) ."',
-                password     = '". addslashes($password) . "',
-                statut       = " . (int) $status .",
+            SET nom             = '". addslashes($settingList['lastname'    ]) ."',
+                prenom          = '". addslashes($settingList['firstname'   ]) ."',
+                username        = '". addslashes($settingList['username'    ]) ."',
+                language        = '". addslashes($settingList['language'    ]) ."',
+                email           = '". addslashes($settingList['email'       ]) ."',
+                officialCode    = '". addslashes($settingList['officialCode']) ."',
+                phoneNumber     = '". addslashes($settingList['phone'       ]) ."',
+                password        = '". addslashes($password) . "',
+                statut          = " . (int) $status .",
+                isPlatformAdmin = 0,
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
 
     return claro_sql_query_insert_id($sql);
@@ -141,18 +143,25 @@ function user_set_properties($userId, $propertyList)
         $propertyList['password'] = md5($data['password']);
     }
 
+    if ( array_key_exists('isPlatformAdmin', $propertyList) )
+    {
+        $propertyList['isPlatformAdmin'] = $propertyList['isPlatformAdmin'] ? 1 :0;
+    }
+
+
     // BUILD QUERY
 
-    $sqlColumnList = array('nom'          => 'lastname',
-                           'prenom'       => 'firstname',
-                           'username'     => 'username',
-                           'phoneNumber'  => 'phone',
-                           'email'        => 'email',   
-                           'officialCode' => 'officialCode',
-                           'statut'       => 'status',   
-                           'password'     => 'password', 
-                           'language'     => 'language', 
-                           'pictureUri'   => 'picture');
+    $sqlColumnList = array('nom'             => 'lastname',
+                           'prenom'          => 'firstname',
+                           'username'        => 'username',
+                           'phoneNumber'     => 'phone',
+                           'email'           => 'email',   
+                           'officialCode'    => 'officialCode',
+                           'statut'          => 'status',   
+                           'password'        => 'password', 
+                           'language'        => 'language', 
+                           'pictureUri'      => 'picture',
+                           'isPlatformAdmin' => 'isPlatformAdmin');
 
     $setList = array();
 
@@ -290,7 +299,6 @@ function user_delete($userId)
 
     $tbl_mdb_names       = claro_sql_get_main_tbl();
     $tbl_user            = $tbl_mdb_names['user'           ];
-    $tbl_admin           = $tbl_mdb_names['admin'          ];
     $tbl_course          = $tbl_mdb_names['course'         ];
     $tbl_sso             = $tbl_mdb_names['sso'            ];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
@@ -312,7 +320,6 @@ function user_delete($userId)
     $sqlList = array(
 
       "DELETE FROM `" . $tbl_user            . "` WHERE user_id         = " . (int) $userId ,
-      "DELETE FROM `" . $tbl_admin           . "` WHERE idUser          = " . (int) $userId ,
       "DELETE FROM `" . $tbl_track_default   . "` WHERE default_user_id = " . (int) $userId ,
       "DELETE FROM `" . $tbl_track_login     . "` WHERE login_user_id   = " . (int) $userId ,
       "DELETE FROM `" . $tbl_rel_class_user  . "` WHERE user_id         = " . (int) $userId ,
@@ -465,21 +472,15 @@ function user_remove_from_group($userId, $courseCode)
 
 /**
  * Return true, if user is admin on the platform
- * @param $user_id integer
+ * @param $userId
  * @return boolean
- * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @author Hugues Peeters <hugues.peeters@advalvas.be>
  */
 
-function user_is_admin($user_id)
+function user_is_admin($userId)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_admin = $tbl_mdb_names['admin'];
-
-    $sql = " SELECT COUNT(`idUser`)
-             FROM `" . $tbl_admin . "`
-             WHERE `idUser` = " .  (int) $user_id . "";
-
-    return claro_sql_query_get_single_value($sql) > 0;
+    $userPropertiesList = user_get_properties($userId);
+    return (bool) $userPropertiesList['isPlatformAdmin'];
 }
 
 /**
@@ -493,35 +494,7 @@ function user_is_admin($user_id)
 
 function user_set_platform_admin($status, $userId)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_admin     = $tbl_mdb_names['admin'];
-
-    if ( $status == false)
-    {
-        $sql = "DELETE FROM `" . $tbl_admin . "`
-                WHERE `idUser`= " . (int) $userId ;
-
-        return (bool) claro_sql_query($sql);
-    }
-    else // $status == true
-    {
-        $sql = "SELECT COUNT(`idUser`)
-                FROM `" . $tbl_admin . "`
-                WHERE `idUser`= " . (int) $userId;
-
-        if ( claro_sql_query_get_single_value($sql) > 0 )
-        {
-            return true; // user is already administrator
-        }
-        else
-        {
-            // add user in administrator table
-            $sql = "INSERT INTO `" . $tbl_admin . "` 
-                    SET idUser = " . (int)$userId;
-
-            return (bool) claro_sql_query($sql);
-        }
-    }
+    return user_set_properties($userId, array('isPlatformAdmin' => (bool) $status) );
 }
 
 /**

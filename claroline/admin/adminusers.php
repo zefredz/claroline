@@ -103,6 +103,7 @@ else
 $search  = (isset($_REQUEST['search']) ? $_REQUEST['search'] : '');
 
 $sql = get_sql_filtered_user_list();
+
 $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 $myPager      = new claro_sql_pager($sql, $offset, $userPerPage);
 
@@ -134,7 +135,7 @@ foreach ($userList as $userKey => $user)
 
     $userGrid[$userKey]['status'] =  ( $user['status'] == COURSE_CREATOR ? get_lang('Course creator') : get_lang('User'));
 
-    if (user_is_admin($user['user_id']))
+    if ( $user['isPlatformAdmin'] )
     {
         $userGrid[$userKey]['status'] .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
     }
@@ -293,41 +294,30 @@ function get_sql_filtered_user_list()
 
     $tbl_mdb_names   = claro_sql_get_main_tbl();
 
-    $sql = "SELECT
-           U.user_id      AS user_id,
-           U.nom          AS name,
-           U.prenom       AS firstname,
-           U.authSource   AS authSource,
-           U.email        AS email,
-           U.officialCode AS officialCode,
-           U.phoneNumber  AS phoneNumber,
-           U.pictureUri   AS pictureUri,
-           U.creatorId    AS creator_id,
-           U.statut       AS status ,
-           count(DISTINCT CU.code_cours) AS qty_course
-           FROM  `" . $tbl_mdb_names['user'] . "` AS U";
+    $sql = "SELECT U.user_id                     AS user_id,
+                   U.nom                         AS name,
+                   U.prenom                      AS firstname,
+                   U.authSource                  AS authSource,
+                   U.email                       AS email,
+                   U.officialCode                AS officialCode,
+                   U.phoneNumber                 AS phoneNumber,
+                   U.pictureUri                  AS pictureUri,
+                   U.creatorId                   AS creator_id,
+                   U.statut                      AS status ,
+                   U.isPlatformAdmin             AS isPlatformAdmin,
+                   count(DISTINCT CU.code_cours) AS qty_course
 
-    //deal with admin user search only (PART ONE)
-
-
-    if ($filterOnStatus == 'plateformadmin')
-    {
-        $sql .= ", `" . $tbl_mdb_names['admin'] . "` AS AD";
-    }
-
-    // join with course table to find course numbers of each user and last login
-
-    $sql.= "
+           FROM  `" . $tbl_mdb_names['user'] . "` AS U
            LEFT JOIN `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
-           ON CU.user_id = U.user_id
+                  ON CU.user_id = U.user_id
 
            WHERE 1=1 ";
 
-    //deal with admin user search only (PART TWO)
+    //deal with admin user search only
 
     if ($filterOnStatus=='plateformadmin')
     {
-        $sql .= " AND AD.idUser = U.user_id ";
+        $sql .= " AND U.isPlatformAdmin = 1";
     }
 
     //deal with KEY WORDS classification call

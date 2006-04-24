@@ -59,7 +59,6 @@ function claro_sql_get_main_tbl()
         $mainTblList= array (
         'config_property'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_property',
         'config_file'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'config_file',
-        'admin'                     => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'admin',
         'course'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours',
         'rel_course_user'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'cours_user',
         'category'                  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'faculte',
