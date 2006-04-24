@@ -952,29 +952,9 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 }
 
 /**
- * Check if the email is valid
- * @param string email
- * @return boolean
- */
-
-function is_valid_email($email)
-{
-    if (is_well_formed_email_address($email) )
-    {
-        return true;
-    }
-    else
-    {
-        return claro_failure::set_failure(get_lang('The email address is not valid'));
-    }
-}
-
-/**
  * Check if the username is available
- *
  * @param string username
  * @param integer user_id
- *
  * @return boolean
  */
 
