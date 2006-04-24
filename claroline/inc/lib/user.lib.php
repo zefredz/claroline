@@ -479,11 +479,13 @@ function claro_get_uid_of_platform_admin()
 {
     $tblList = claro_sql_get_main_tbl();
 
-    $sql = "SELECT user_id 
+    $sql = "SELECT user_id AS id
             FROM `" . $tblList['user'] . "`
             WHERE isPlatformAdmin = 1 ";
 
-    return claro_sql_query_fetch_all($sql);
+    $resutlList = claro_sql_query_fetch_all_cols($sql);
+
+    return $resutlList['id'];
 }
 
 /**
@@ -797,7 +799,7 @@ function profile_send_request_course_creator_status ($explanation)
 
     foreach ( $mailToUidList as $mailToUid )
     {
-        claro_mail_user($mailToUid['idUser'], $requestMessage_Content, 
+        claro_mail_user($mailToUid, $requestMessage_Content, 
             $requestMessage_Title, get_conf('administrator_email'), 'profile');
     }
 
@@ -838,7 +840,7 @@ function profile_send_request_revoquation ($explanation,$login,$password)
 
     foreach ($mailToUidList as $mailToUid)
     {
-        claro_mail_user($mailToUid['idUser'], $requestMessage_Content, 
+        claro_mail_user($mailToUid, $requestMessage_Content, 
             $requestMessage_Title, get_conf('administrator_email'), 'profile');
     }
 
