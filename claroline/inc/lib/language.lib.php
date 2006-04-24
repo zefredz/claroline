@@ -326,7 +326,7 @@ function get_translation_of_language($language)
 
 function claro_display_preferred_language_form()
 {
-    require_once $GLOBALS['includePath'] . '/lib/form.lib.php';
+    require_once(dirname(__FILE__).'/form.lib.php');
 
     $language_list = get_language_to_display_list();
 
