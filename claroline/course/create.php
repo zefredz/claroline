@@ -155,15 +155,13 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                 // GET THE CONCERNED SENDERS OF THE EMAIL
                 $platformAdminList = claro_get_uid_of_platform_admin();
 
-                foreach( $platformAdminList as $thisPlatformAdmin )
-                {
-                    claro_mail_user( $thisPlatformAdmin, $mailBody, $mailSubject);
-                }
-            
-            $args['courseSysCode'] = $courseSysCode;
-            $args['courseDbName'] = $courseDbName;
+                claro_mail_user( $platformAdminList, $mailBody, $mailSubject);
+
+
+            $args['courseSysCode'  ] = $courseSysCode;
+            $args['courseDbName'   ] = $courseDbName;
             $args['courseDirectory'] = $courseDirectory; 
-            $args['courseCategory']	= $courseCategory;
+            $args['courseCategory' ] = $courseCategory;
             
             $eventNotifier->notifyEvent("course_created",$args);
             }
