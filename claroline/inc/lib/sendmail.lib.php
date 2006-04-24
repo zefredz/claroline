@@ -12,7 +12,7 @@
  */
 
 
-require_once dirname(__FILE__) . '/class.phpmailer.php' ;
+require_once dirname(__FILE__) . '/phpmailer/class.phpmailer.php' ;
 include_once dirname(__FILE__) . '/user.lib.php' ;
 
  /**
