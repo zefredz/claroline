@@ -48,7 +48,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     $mail = new PHPMailer();
 
     if ($specificFrom != '')     $mail->From = $specificFrom;
-    else                         $mail->From = $GLOBALS['administrator_email'];
+    else                         $mail->From = get_conf('administrator_email');
 
     if ($specificFromName != '') $mail->FromName = $specificFromName;
 
