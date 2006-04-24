@@ -1166,16 +1166,4 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     return true;
 }
 
-/**
- * get  uid list of platform admin
- * @author Christophe Gesché <moosh@claroline.net>
- * @return array of uid
- */
-function claro_get_admin_list()
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-
-    $sql = "SELECT `idUser` FROM `" . $tbl_mdb_names['admin'] . "`";
-    return  claro_sql_query_fetch_all($sql);
-}
 ?>

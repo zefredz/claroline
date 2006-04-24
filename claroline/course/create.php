@@ -38,6 +38,7 @@ if ( ! $is_allowedCreateCourse ) claro_die(get_lang('Not allowed'));
 include $includePath . '/conf/course_main.conf.php';
 require_once $includePath . '/lib/add_course.lib.inc.php';
 require_once $includePath . '/lib/course.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php'; // for claro_get_uid_of_platform_admin()
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/lib/claro_mail.lib.inc.php';
@@ -152,11 +153,11 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                                                                           ) );
 
                 // GET THE CONCERNED SENDERS OF THE EMAIL
-                $platformAdminList = claro_get_admin_list ();
+                $platformAdminList = claro_get_uid_of_platform_admin();
 
                 foreach( $platformAdminList as $thisPlatformAdmin )
                 {
-                    claro_mail_user( $thisPlatformAdmin['idUser'], $mailBody, $mailSubject);
+                    claro_mail_user( $thisPlatformAdmin, $mailBody, $mailSubject);
                 }
             
             $args['courseSysCode'] = $courseSysCode;
