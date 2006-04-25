@@ -235,6 +235,8 @@ function user_set_course_properties($userId, $courseId, $propertyList)
         if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
         else                                           return false;
     }
+
+    return false;
 }
 
 /**
@@ -1169,8 +1171,8 @@ function user_display_form($data, $form_type='registration')
         .    form_row( get_lang('Userid') . '&nbsp;: ', $data['user_id']);
     }
 
-    echo form_input_text('lastname', $data['lastname'], get_lang('Last name'), $required = true);
-    echo form_input_text('firstname', $data['firstname'], get_lang('First name'), $required = true);
+    echo form_input_text('lastname', $data['lastname'], get_lang('Last name'), true);
+    echo form_input_text('firstname', $data['firstname'], get_lang('First name'), true);
 
 
     // OFFICIAL CODE
