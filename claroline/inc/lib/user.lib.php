@@ -1297,17 +1297,23 @@ function user_display_form($data, $form_type='registration')
                        . '<label for="courseAdminNo">' . get_lang('No') . '</label>');
     }
 
-    // Status: Allow registration as course manager
+    // Course Creator
     if ( ( get_conf('allowSelfRegProf') && $form_type == 'registration') || $form_type == 'admin_add_new_user' || $form_type == 'admin_user_profile' )
     {
-        echo form_row('<label for="status">' . get_lang('Action') . '</label>&nbsp;: ',
-                        '<select id="status" name="status">'
-                      . '<option value="' . STUDENT_STATUS . '">' . get_lang('Follow courses') . '</option>'
-                      . '<option value="' . COURSE_ADMIN_STATUS . '" ' . ($data['status'] == COURSE_ADMIN_STATUS ? 'selected="selected"' : '') . '>' . get_lang('Create course') . '</option>'
-                     . '</select>');
+        echo form_row( get_lang('Action') .'&nbsp;: ',
+                      '<input type="radio" name="status" id="follow"'
+                     .' value="' . STUDENT_STATUS . '" '
+                     . ($data['status'] != COURSE_ADMIN_STATUS ? ' checked' : '') . ' >'
+                     . '<label for="follow">' . get_lang('Follow courses') . '</label>'
+                     . '<br />'
+                     . '<input type="radio" name="status" id="create"'
+                     . ' value="' . COURSE_ADMIN_STATUS . '"   ' 
+                     . ($data['status'] == COURSE_ADMIN_STATUS ? ' checked'  :'') . ' >'
+                     . '<label for="create">' . get_lang('Create course') . '</label>');
     }
 
-    // Administrator
+
+    // Platform administrator
     if ( $form_type == 'admin_user_profile' )
     {
         echo form_row(get_lang('Is platform admin') .'&nbsp;: ',
