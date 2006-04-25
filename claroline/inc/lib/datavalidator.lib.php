@@ -3,25 +3,25 @@
 define ('DATAVALIDATOR_STRICT_MODE', true);
 
 /**
- * Validates the content of data chained into an array according to a set 
- * of defined rules. You can define your own validation rules (by creating 
+ * Validates the content of data chained into an array according to a set
+ * of defined rules. You can define your own validation rules (by creating
  * functions) but the class also provides a list of predefined rules.
  *
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  *
  * Example :
- * 
+ *
  *   $validator = new DataValidator()
- *   $dataList = array('lastname'  => 'Doe', 
- *                     'firstname' => 'John' , 
+ *   $dataList = array('lastname'  => 'Doe',
+ *                     'firstname' => 'John' ,
  *                     'email'     => 'doe@somewhere.net');
- *   
+ *
  *   $validator->setDataList($dataList);
- *   
+ *
  *   $validator->addRule('lastname' , 'Lastname is missing', 'required'  );
  *   $validator->addRule('firstname', 'Wrong First Name'   , 'lettersonly');
  *   $validator->addRule('email'    , 'Wrong email address', 'email'      );
- *   
+ *
  *   if ( $validator->validate(DATAVALIDATOR_STRICT_MODE) )
  *   {
  *     ...
@@ -65,18 +65,18 @@ class DataValidator
      * @param string $dataKey
      * @param string $errorMessage returned if the data doesn't obey to the rule
      * @param mixed (string or ressource) $rule
-     *        The validator class provides a predefined rules (listed below). 
+     *        The validator class provides a predefined rules (listed below).
      *        It is possible to call them just by entering the string name.
-     *        predefined rules : required, numeric, alphanumeric, lettersonly, 
-     *        regex, compare, nonzero, min, max, range, maxlenght, minlenght, 
+     *        predefined rules : required, numeric, alphanumeric, lettersonly,
+     *        regex, compare, nonzero, min, max, range, maxlenght, minlenght,
      *        rangelenght, nopunctuation, email, ip, hostname
-     * @param array $xtraParamList additional parameters required for the 
+     * @param array $xtraParamList additional parameters required for the
      *                             function rule
      */
 
     function addRule($dataKey, $errorMessage, $rule, $xtraParamList = array() )
     {
-        if ( $rule == 'required' ) 
+        if ( $rule == 'required' )
         {
             // 'required' rule is a special case needing to be treated appart
             $this->requiredDataList[]  = $dataKey;
@@ -84,7 +84,7 @@ class DataValidator
         }
         else
         {
-            if ( ! is_array($xtraParamList) ) 
+            if ( ! is_array($xtraParamList) )
             {
                 $xtraParamList = array( $xtraParamList);
             }
@@ -98,9 +98,9 @@ class DataValidator
 
 
     /**
-     * @param bool $strict 'true' apply every rule on every dataKey, even for 
+     * @param bool $strict 'true' apply every rule on every dataKey, even for
      *                      not required data
-     *                     'false' (default) leave rule for emtpy data not required 
+     *                     'false' (default) leave rule for emtpy data not required
      * @return boolean
      */
 
@@ -109,7 +109,7 @@ class DataValidator
         $this->wrongDataList    = array();
         $this->errorMessageList = array();
 
-        // First, validate required keys 
+        // First, validate required keys
 
         foreach( $this->requiredDataList as $refKey => $dataKey )
         {
@@ -140,21 +140,21 @@ class DataValidator
                 continue;
             }
 
-            if (    ! $strict 
-                 && ! in_array($dataKey, $this->requiredDataList ) 
+            if (    ! $strict
+                 && ! in_array($dataKey, $this->requiredDataList )
                  && ! $this->rl_required($this->dataList[$dataKey]) )
             {
-                // when strict mode is not activated, if element is empty and 
+                // when strict mode is not activated, if element is empty and
                 // not required we shouldn't validate it with other rules
 
-                continue; 
+                continue;
             }
 
             $dataValue = $this->dataList[$dataKey];
 
             $completeParamList = array_merge( array($dataValue), array_values($this->ruleParamList[$ruleKey]) );
 
-            if ( method_exists( &$this, 'rl_' . $ruleName) )
+            if ( method_exists( $this, 'rl_' . $ruleName) )
             {
                 $callback = array( &$this, 'rl_' . $ruleName);
             }
@@ -164,7 +164,7 @@ class DataValidator
             }
             else
             {
-                trigger_error('CALL TO UNDEFINED FUNCTION : '.$ruleName); 
+                trigger_error('CALL TO UNDEFINED FUNCTION : '.$ruleName);
                 return false;
             }
 
@@ -194,8 +194,8 @@ class DataValidator
 
     function getRightDataKeyList()
     {
-        return array_values(array_diff( array_keys($this->dataList) , 
-                                        $this->getWrongDataKeyList() 
+        return array_values(array_diff( array_keys($this->dataList) ,
+                                        $this->getWrongDataKeyList()
                                        )
                             );
     }
@@ -236,7 +236,7 @@ class DataValidator
      */
 
     function rl_required($data)
-    { 
+    {
         return trim($data) != '';
     }
 
@@ -247,7 +247,7 @@ class DataValidator
      */
 
     function rl_numeric($data)
-    { 
+    {
         return is_numeric($data);
     }
 
@@ -258,7 +258,7 @@ class DataValidator
      */
 
     function rl_alphanumeric($data)
-    { 
+    {
         return ctype_alnum($data);
     }
 
@@ -292,7 +292,7 @@ class DataValidator
      */
 
     function rl_compare($dataA, $dataB)
-    { 
+    {
         return $dataA == $dataB;
     }
 
@@ -303,7 +303,7 @@ class DataValidator
      */
 
     function rl_nonzero($data)
-    { 
+    {
         return 0 != (int) $data;
     }
 
@@ -315,8 +315,8 @@ class DataValidator
      */
 
     function rl_min($data, $value)
-    { 
-        return ( (float)$data ) >= ( (float)$value ); 
+    {
+        return ( (float)$data ) >= ( (float)$value );
     }
 
     /**
@@ -327,7 +327,7 @@ class DataValidator
      */
 
     function rl_max($data, $value)
-    { 
+    {
         return ( (float)$data ) <= ( (float)$value );
     }
 
@@ -340,7 +340,7 @@ class DataValidator
      */
 
     function rl_range($data, $min, $max)
-    { 
+    {
         return    $this->rl_min($data, $min) && $this->rl_max($data, $max);
     }
 
@@ -351,9 +351,9 @@ class DataValidator
      * @return boolean
      */
 
-    function rl_maxlenght($data, $lenght)  
-    { 
-        return (strlen(trim($data))) <= (int) $lenght; 
+    function rl_maxlenght($data, $lenght)
+    {
+        return (strlen(trim($data))) <= (int) $lenght;
     }
 
     /**
@@ -363,8 +363,8 @@ class DataValidator
      * @return boolean
      */
 
-    function rl_minlenght($data, $lenght) 
-    { 
+    function rl_minlenght($data, $lenght)
+    {
         return (strlen(trim($data))) >= (int)$lenght;
     }
 
@@ -378,7 +378,7 @@ class DataValidator
 
     function rl_rangelenght($data, $minlenght, $maxlenght)
     {
-        return   $this->rl_maxlenght($data, $maxlenght) 
+        return   $this->rl_maxlenght($data, $maxlenght)
               && $this->rl_minlenght($data, $minlenght);
     }
 
@@ -418,9 +418,9 @@ class DataValidator
      * @return boolean
      */
 
-    function rl_ip($data) 
-    { 
-        return (bool) ip2long($data); 
+    function rl_ip($data)
+    {
+        return (bool) ip2long($data);
     }
 
     /**
@@ -434,8 +434,8 @@ class DataValidator
         static $domainNameRx = '/^(?:[^\W_](?:[^\W_]|-){0,61}[^\W_]\.)+[a-zA-Z]{2,6}\.?$/';
         static $localNameRx  = '/^(?:[^\W_](?:[^\W_]|-){0,61}[^\W_]\.)*(?:[^\W_](?:[^\W_]|-){0,61}[^\W_])\.?$/';
 
-        return    $this->rl_ip($data) 
-               || preg_match($domainNameRx, $data) 
+        return    $this->rl_ip($data)
+               || preg_match($domainNameRx, $data)
                || preg_match($localNameRx, $data);
     }
 }
