@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file build the array of SQL  use to fill the Stat/tracking database
  *
@@ -19,5 +19,7 @@
  * @package INSTALL
  *
  */
+
+$fillStatementList = array();
 
 ?>

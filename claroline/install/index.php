@@ -50,13 +50,13 @@ include $newIncludePath . 'installedVersion.inc.php';
 include '../lang/english/complete.lang.php';
 include '../lang/english/locale_settings.php';
 
-include $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
-include './install.lib.inc.php';
-include $newIncludePath . 'lib/config.lib.inc.php';
-include $newIncludePath . 'lib/form.lib.php';
-include $newIncludePath . 'lib/course.lib.inc.php';
-include $newIncludePath . 'lib/claro_main.lib.php';
-include $newIncludePath . 'lib/language.lib.php';
+include_once $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
+include_once './install.lib.inc.php';
+include_once $newIncludePath . 'lib/config.lib.inc.php';
+include_once $newIncludePath . 'lib/form.lib.php';
+include_once $newIncludePath . 'lib/course.lib.inc.php';
+include_once $newIncludePath . 'lib/claro_main.lib.php';
+include_once $newIncludePath . 'lib/language.lib.php';
 
 /**
  * Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -301,27 +301,33 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
         $msg_no_connection = '
                 <P class="setup_error">
                     <font color="red">Warning !</font>
-                    <small>['.$no.'] - '.$msg.'</small>
+                    <small>[' . $no . '] - ' . $msg . '</small>
                     <br />';
-        if ($no=='2005')
-        $msg_no_connection .= '
-                    Wrong '.get_lang('Database Host').' : <I>'.$dbHostForm.'</I>';
-        elseif ($no=='1045')
-        $msg_no_connection .= 'Wrong database Login : '
-                           .  '(<I>' . $dbUsernameForm . '</I>) '
-                           .  'or Password '
-                           .  '(<I>'.$dbPassForm.'</I>)'
-                           ;
+        if ( '2005' == $no )
+        {
+            $msg_no_connection .= 'Wrong  Database Host : <I>'.$dbHostForm.'</I>';
+        }
+        elseif ( '1045' == $no )
+        {
+            $msg_no_connection .= 'Wrong database Login : '
+                                                .  '(<I>' . $dbUsernameForm . '</I>) '
+                                                .  'or Password '
+                                                .  '(<I>'.$dbPassForm.'</I>)'
+                                                ;
+        }
         else
-        $msg_no_connection .= 'Server unavailable. '
-                           .  'Is your MySQL server started ?';
-        $msg_no_connection .= '<br />'
-                           .  '<font color="blue">'
-                           .  'Fix this problem before going further'
-                           .  '</font>'
-                           .  '<br />'
-                           .  '</P>'
-                           ;
+        {
+            $msg_no_connection .= 'Server unavailable. '
+                               .  'Is your MySQL server started ?'
+                               .  '<br />'
+                               .  '<font color="blue">'
+                               .  'Fix this problem before going further'
+                               .  '</font>'
+                               .  '<br />'
+                               .  '</P>'
+                               ;
+        }
+
         $databaseParam_ok = FALSE;
         $canRunCmd = FALSE;
         if ($cmd>DISP_DB_CONNECT_SETTING)
@@ -514,7 +520,7 @@ if ($canRunCmd)
 //PREPARE DISPLAY
 
 
-if ($display==DISP_DB_NAMES_SETTING)
+if (DISP_DB_NAMES_SETTING == $display )
 {
     // GET DB Names  //
     // this is  to prevent duplicate before submit
@@ -554,7 +560,9 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 <head>
 
 <title>
--- Claroline installation -- version <?php echo $new_version ?>
+ -- Claroline installation
+ -- version <?php echo $new_version ?>
+ -- Step  <?php echo  array_search($display, $panelSequence)+1 ?>
 </title>
 
 <link rel="stylesheet" href="../css/default.css" type="text/css" >
@@ -581,6 +589,7 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
     <tr>
         <td>
 <?php
+
 echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
 .    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'">'                  ."\n"
 .    '<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
@@ -630,7 +639,7 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
 ###################################################################
 ###### STEP 1 REQUIREMENTS ########################################
 ###################################################################
-if ($display==DISP_WELCOME)
+if ($display == DISP_WELCOME)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
     .    '<h2>'
@@ -794,7 +803,7 @@ if ($display==DISP_WELCOME)
 ############### STEP 2 LICENSE  ###################################
 ###################################################################
 
-elseif($display==DISP_LICENSE)
+elseif(DISP_LICENSE == $display)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
@@ -843,7 +852,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
-                                                                '%step_name' => $panelTitle[DISP_DB_CONNECT_SETTING] ) )   
+                                                                '%step_name' => $panelTitle[DISP_DB_CONNECT_SETTING] ) )
     .    '</h2>'
     .    '</td>'
     .    '</tr>'
@@ -966,7 +975,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '<h2>'  . "\n"
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
-                                                                '%step_name' => $panelTitle[DISP_DB_NAMES_SETTING] ) ) 
+                                                                '%step_name' => $panelTitle[DISP_DB_NAMES_SETTING] ) )
     .    '</h2>'  . "\n"
     .    ($singleDbForm?'':get_lang('DBSettingNamesIntro'))  . "\n"
     .    '</td>'  . "\n"
@@ -1024,14 +1033,21 @@ elseif($display == DISP_DB_NAMES_SETTING )
     echo '<tr>'  . "\n"
     .    '<td>'  . "\n"
     .    '<label for="dbNameForm">'  . "\n"
-    .    ''.($singleDbForm?get_lang('Database name'):get_lang('Main database')).''  . "\n"
+    .    ''.($singleDbForm ? get_lang('Database name'):get_lang('Main database')).''  . "\n"
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
     .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    'e.g. \''.$dbNameForm.'\''  . "\n"        .    '</td>'  . "\n"
+    .    'e.g. \''.$dbNameForm.'\''  . "\n"
+    /*
+    I want  put this in a popup.
+    .    (is_array($existingDbs) ? (5 > count($existingDbs) ? '<br><abbr title="&quot;' . implode('&quot;, &quot;', $existingDbs) . '&quot;" >INFO : Existing databases</abbr>' . "\n"
+                                                            : '<br>INFO : ' . count($existingDbs) . ' databases found<br><select size="8" ><option>' . implode('</option><option>', $existingDbs) . '</option></select>')
+                                 : '')
+ */
+    .    '</td>'  . "\n"
     .    '</td>'  . "\n"
     .    '</tr>'  . "\n"
     .    '<tr>'  . "\n"
@@ -1054,7 +1070,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     ;
     if (!$singleDbForm)
     {
-        if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
+        if ($statsDbNameExist && $dbStatsForm != $dbNameForm)
         {
             echo '<tr>'  . "\n"
             .    '<td colspan="2">'  . "\n"
@@ -1119,7 +1135,7 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    'e.g. \''.$dbPrefixForm.'\''  . "\n"
+    .    'e.g. \'' . $dbPrefixForm.'\'' . "\n"
     .    '</td>'  . "\n"
     .    '</tr>'
     ;
@@ -1157,30 +1173,12 @@ elseif($display == DISP_DB_NAMES_SETTING )
     .    '</tr>' . "\n"
     .    '</table>'
     ;
-    /*
-    I want  put this in a popup.
-    if (is_array($existingDbs))
-    {
-    echo "
-    INFO : Bases existantes
-    <SELECT>";
-
-    foreach($existingDbs as $__dbName)
-    {
-    echo "
-    <OPTION>".$__dbName."</OPTION>";
-    }
-    echo "
-    </SELECT>";
-    unset($__dbName);
-    }
-    */
 }     // cmdDB_CONNECT_SETTING
 
 ##########################################################################
 ###### STEP ADMIN SETTINGS ##############################################
 ##########################################################################
-elseif($display==DISP_ADMINISTRATOR_SETTING)
+elseif($display == DISP_ADMINISTRATOR_SETTING)
 
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
@@ -1289,7 +1287,7 @@ elseif($display==DISP_PLATFORM_SETTING)
     .    '<h2>' . "\n"
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_PLATFORM_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
-                                                                '%step_name' => $panelTitle[DISP_PLATFORM_SETTING] ) ) 
+                                                                '%step_name' => $panelTitle[DISP_PLATFORM_SETTING] ) )
     .    '</h2>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1396,7 +1394,7 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
                 <h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
-                                                                '%step_name' => $panelTitle[DISP_ADMINISTRATIVE_SETTING] ) )  
+                                                                '%step_name' => $panelTitle[DISP_ADMINISTRATIVE_SETTING] ) )
     . '</h2>'
                 .$msg_missing_administrative_data ;
     echo '
@@ -1475,17 +1473,17 @@ elseif($display==DISP_ADMINISTRATIVE_SETTING)
 ###################################################################
 ###### STEP LAST CHECK BEFORE INSTALL #############################
 ###################################################################
-elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
+elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
 {
     $pathForm = str_replace("\\\\", "/", $pathForm);
     //echo "pathForm $pathForm";
     echo '
            <input type="hidden" name="fromPanel" value="'.$display.'">';
 
-    echo '<h2>' 
+    echo '<h2>'
         .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
-                                                                '%step_name' => $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] ) )  
+                                                                '%step_name' => $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] ) )
         . '</h2>
         Here are the values you entered <br />
         <Font color="red">
@@ -1506,13 +1504,13 @@ elseif($display==DISP_LAST_CHECK_BEFORE_INSTALL)
         <EM>Database Names</EM><br />
         &nbsp;Main database : '.htmlspecialchars($dbNameForm).'<br />
         &nbsp;Tracking database : '.htmlspecialchars($dbStatsForm).'<br />';
-    if ($mainTblPrefixForm!="" || $statsTblPrefixForm!="" || $dbPrefixForm!="")
+    if ( '' != $mainTblPrefixForm || '' != $statsTblPrefixForm || '' != $dbPrefixForm)
         echo '<em>Prefixes</em><br />';
-    if ($mainTblPrefixForm!="")
+    if ( '' != $mainTblPrefixForm )
         echo '&nbsp;Main tables prefix : '.htmlspecialchars($mainTblPrefixForm).'<br />';
-    if ($statsTblPrefixForm!="")
+    if ( '' != $statsTblPrefixForm )
         echo '&nbsp;Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br />';
-    if ($dbPrefixForm!="")
+    if ( '' != $dbPrefixForm )
         echo '&nbsp;Courses database prefix : '.htmlspecialchars($dbPrefixForm).'<br />';
     echo '
         </FIELDSET>

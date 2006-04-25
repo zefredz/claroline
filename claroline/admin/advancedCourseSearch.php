@@ -217,7 +217,7 @@ function build_select_faculty($elem,$father,$editFather,$space)
 
 /**
  * return all courses category order by treepos
- * @return array (id, name, code, code_P, bc, treePos, nb_childs, canHaveCoursesChild, canHaveCatChild )
+ * @return array (id, name, code, code_P, treePos, nb_childs, canHaveCoursesChild, canHaveCatChild )
  */
 function  course_category_get_list()
 {
@@ -229,7 +229,6 @@ SELECT
     name,
     code,
     code_P,
-    bc,
     treePos,
     nb_childs,
     canHaveCoursesChild,
