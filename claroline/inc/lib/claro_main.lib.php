@@ -29,6 +29,8 @@ require_once(dirname(__FILE__) . '/sql.lib.php');
 
 require_once(dirname(__FILE__) . '/html.lib.php');
 
+require_once(dirname(__FILE__) . '/module.lib.php');
+
 /**
  * SECTION :  Get kernel
  * SUBSECTION datas for courses

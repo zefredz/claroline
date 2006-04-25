@@ -24,9 +24,9 @@
  * * in a course,
  * * in a group
  *
- * @param string $tableList
+ * @param array $tableList
  * @param array $contextData id To discrim table. Do not add context Id  of an context active but managed by tool.
- * @return unknown
+ * @return array
  */
 //function claro_sql_get_tbl($toolId,$tableId,$courseId=null,$groupId=null)
 function claro_sql_get_tbl( $tableList, $contextData=null)
@@ -350,10 +350,12 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 /**
  * Get the name of the specified fields in a query result
  *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $sq - SQL query
  * @param ressource (optional) - result pointer
  * @return  names of the specified field index
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
  */
 
 function claro_sql_field_names( $sql, $resultPt = null )
@@ -394,7 +396,8 @@ function claro_sql_field_names( $sql, $resultPt = null )
  * @param  string  $sqlQuery the sql query
  * @param  handler $dbHandler optional
  * @return array associative array containing all the result rows
- * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
 
 function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
@@ -627,6 +630,8 @@ function claro_sql_escape($statement,$db=null)
  * @since 1.8
  */
 
+//Temporary included
+require_once(dirname(__FILE__) . '/module.lib.php');
 function get_context_db_discriminator($toolId)
 {
 
