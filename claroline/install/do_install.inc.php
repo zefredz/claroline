@@ -31,7 +31,7 @@
  *
  */
 
-! defined( "CLARO_FILE_PERMISSIONS" ) && define( "CLARO_FILE_PERMISSIONS", 0777 );
+! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
 $display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
  // PATCH TO ACCEPT Prefixed DBs
@@ -154,15 +154,49 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 if ($runfillMainDb && $runfillStatsDb)
 {
     mysql_select_db ($mainDbName);
-
+    $dropStatementList = array();
+    $creationStatementList = array();
+    $fillStatementList = array();
     include './dropMainTables.inc.php';
     include './createMainBase.inc.php';
     include './fillMainBase.inc.php';
+    $kernelSetupStatementList = array_merge( $dropStatementList
+                                           , $creationStatementList
+                                           , $fillStatementList);
+
+    foreach ($kernelSetupStatementList as $key => $statement)
+    if(false === claro_sql_query($statement) )
+    {
+         echo '<hr size="1" noshade>'
+                     .mysql_errno(), " : ", mysql_error(), '<br>'
+                     .'<pre style="color:red">'
+                     .$statement
+                     .'</pre>'
+                     .'<hr size="1" noshade>';
+    }
 
     mysql_select_db ($statsDbName);
+    $dropStatementList = array();
+    $creationStatementList = array();
+    $fillStatementList = array();
+
     include './dropStatTables.inc.php';
     include './createStatBase.inc.php';
     include './fillStatBase.inc.php';
+    $trackingSetUpStatementList = array_merge( $dropStatementList
+                                , $creationStatementList
+                                , $fillStatementList);
+
+    foreach ($trackingSetUpStatementList as $statement)
+    if(false === claro_sql_query($statement) )
+    {
+         echo '<hr size="1" noshade>'
+                     .mysql_errno(), " : ", mysql_error(), '<br>'
+                     .'<pre style="color:red">'
+                     .$statement
+                     .'</pre>'
+                     .'<hr size="1" noshade>';
+    }
 }
 
 // FILE SYSTEM OPERATION

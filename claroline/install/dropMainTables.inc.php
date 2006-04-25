@@ -22,32 +22,23 @@
 
 /**
  * @var $mainTblPrefixForm prefix set during  install, and keep in mainconf
- * @private $sql var where build sql request.
+ * @private $dropStatementList[] var where build sql request.
  */
 
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "admin` ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours` ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours_user` ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "faculte`  ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "user`  ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "course_tool` ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "class`  ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "rel_class_user`  ";
-claro_sql_query($sql);
-$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "config_file`  ";
-claro_sql_query($sql);
-$sql = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "sso`  ";
-claro_sql_query($sql);
-$sql = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "notify`  ";
-claro_sql_query($sql);
-$sql = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "upgrade_status`  ";
-claro_sql_query($sql);
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "admin` ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours` ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours_user` ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "faculte`  ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "user`  ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "course_tool` ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "class`  ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "rel_class_user`  ";
+$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "config_file`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "sso`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "notify`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "upgrade_status`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_info`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "dock`  ";
 
 ?>

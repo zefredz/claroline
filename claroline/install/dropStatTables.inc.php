@@ -23,10 +23,7 @@
  * @var $statsTblPrefixForm prefix set during  install, and keep in mainconf
  * @private $sql var where build sql request.
  */
-$sql = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_default` ";
-claro_sql_query($sql);
-$sql = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_login` ";
-claro_sql_query($sql);
-$sql = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_open` ";
-claro_sql_query($sql);
+$dropStatementList[] = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_default` ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_login` ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_open` ";
 ?>

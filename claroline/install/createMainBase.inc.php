@@ -20,14 +20,8 @@
 
 ############# claroline DB CREATE #############################
 
-    $sql ="
-CREATE TABLE `".$mainTblPrefixForm."admin` (
-  `idUser` int(11) unsigned NOT NULL default '0',
-  UNIQUE KEY `idUser` (`idUser`)
-) TYPE=MyISAM";
-    claro_sql_query($sql);
 
-    $sql ="
+    $creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."cours` (
   `cours_id` int(11) NOT NULL auto_increment,
   `code` varchar(40) default NULL,
@@ -55,9 +49,7 @@ CREATE TABLE `".$mainTblPrefixForm."cours` (
   KEY `faculte` (`faculte`)
 ) TYPE=MyISAM COMMENT='data of courses'";
 
-
-    claro_sql_query($sql);
-    $sql ="
+    $creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."cours_user` (
   `code_cours` varchar(40) NOT NULL default '0',
   `user_id` int(11) unsigned NOT NULL default '0',
@@ -68,15 +60,14 @@ CREATE TABLE `".$mainTblPrefixForm."cours_user` (
    PRIMARY KEY  (`code_cours`,`user_id`),
   KEY `statut` (`statut`)
 ) TYPE=MyISAM";
-claro_sql_query($sql);
-$sql ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
+
+$creationStatementList[] ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
   id                    int(11) NOT NULL auto_increment,
   name                  varchar(100) NOT NULL default '',
   code                  varchar(12) NOT NULL default '',
   code_P                varchar(40) default NULL,
-  bc                    varchar(255) default NULL,
   treePos               int(10) unsigned default NULL,
-  nb_childs             smallint(6) default NULL,
+  nb_childs             smallint(6) default 0,
   canHaveCoursesChild   enum('TRUE','FALSE') default 'TRUE',
   canHaveCatChild       enum('TRUE','FALSE') default 'TRUE',
   PRIMARY KEY  (`id`),
@@ -85,8 +76,8 @@ $sql ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
   KEY `treePos` (`treePos`)
 
 ) TYPE=MyISAM;";
-claro_sql_query($sql);
-    $sql ="
+
+    $creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."user` (
   `user_id` int(11)  unsigned NOT NULL auto_increment,
   `nom` varchar(60) default NULL,
@@ -105,9 +96,9 @@ CREATE TABLE `".$mainTblPrefixForm."user` (
    PRIMARY KEY  (`user_id`),
   KEY `loginpass` (`username`,`password`)
 ) TYPE=MyISAM";
-    claro_sql_query($sql);
 
-$sql ="
+
+$creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."course_tool` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `claro_label` varchar(8) NOT NULL default '',
@@ -120,8 +111,8 @@ CREATE TABLE `".$mainTblPrefixForm."course_tool` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `claro_label` (`claro_label`)
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each course'" ;
-        claro_sql_query($sql);
-$sql ="
+
+$creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."class` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL default '',
@@ -129,9 +120,9 @@ CREATE TABLE `".$mainTblPrefixForm."class` (
   `class_level` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM COMMENT='classe_id, name, classe_parent_id, classe_level'";
-claro_sql_query($sql);
 
-$sql ="
+
+$creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
   `id` int(11) NOT NULL auto_increment,
   `user_id` int(11) NOT NULL default '0',
@@ -140,18 +131,18 @@ CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
   KEY `user_id` (`user_id`),
   KEY `class_id` (`class_id`)
 ) TYPE=MyISAM";
-claro_sql_query($sql);
 
-$sql ="
+
+$creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."config_file` (
   `config_code` varchar(30) NOT NULL default '',
   `config_hash` varchar(40) NOT NULL default '',
   PRIMARY KEY  (`config_code` )
 ) TYPE=MyISAM  AVG_ROW_LENGTH=48";
-claro_sql_query($sql);
 
 
-$sql = "CREATE TABLE `".$mainTblPrefixForm."sso` (
+
+$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."sso` (
   `id` int(11) NOT NULL auto_increment,
   `cookie` varchar(255) NOT NULL default '',
   `rec_time` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -159,9 +150,9 @@ $sql = "CREATE TABLE `".$mainTblPrefixForm."sso` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
 
-claro_sql_query($sql);
 
-$sql = "CREATE TABLE `".$mainTblPrefixForm."notify` (
+
+$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."notify` (
   `id` int(11) NOT NULL auto_increment,
   `course_code` varchar(40) NOT NULL default '0',
   `tool_id` int(11) NOT NULL default '0',
@@ -173,11 +164,11 @@ $sql = "CREATE TABLE `".$mainTblPrefixForm."notify` (
   KEY `course_id` (`course_code`)
 ) TYPE=MyISAM";
 
-claro_sql_query($sql);
+
 
 // table used for upgrading tools
 
-$sql = "CREATE TABLE `".$mainTblPrefixForm."upgrade_status` (
+$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."upgrade_status` (
 `id` INT NOT NULL auto_increment,
 `cid` VARCHAR( 40 ) NOT NULL ,
 `claro_label` VARCHAR( 8 ) ,
@@ -185,11 +176,11 @@ $sql = "CREATE TABLE `".$mainTblPrefixForm."upgrade_status` (
 PRIMARY KEY ( `id` )
 ) TYPE=MyISAM";
 
-claro_sql_query($sql);
+
 
 // table used for claroline's modules
 
-$sql = "CREATE TABLE `".$mainTblPrefixForm."module` (
+$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."module` (
   `id` int(11) NOT NULL auto_increment,
   `label` varchar(8) NOT NULL default '',
   `name` varchar(100) NOT NULL default '',
@@ -199,11 +190,11 @@ $sql = "CREATE TABLE `".$mainTblPrefixForm."module` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM AUTO_INCREMENT=0";
 
-claro_sql_query($sql);
+
 
 //table used to store claroline's modules complementary information
 
-$sql = "CREATE TABLE `".$mainTblPrefixForm."module_info` (
+$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."module_info` (
   `id` int(11) NOT NULL auto_increment,
   `module_id` int(11) NOT NULL default '0',
   `version` varchar(10) NOT NULL default '',
@@ -215,18 +206,16 @@ $sql = "CREATE TABLE `".$mainTblPrefixForm."module_info` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM AUTO_INCREMENT=0";
 
-claro_sql_query($sql);
+
 
 //table used to store claroline's docks (where some content can be displayed by the modules)
 
-$sql= "CREATE TABLE `".$mainTblPrefixForm."dock` (
+$creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."dock` (
   `id` int(11) NOT NULL auto_increment,
   `module_id` int(11) NOT NULL default '0',
   `name` varchar(50) NOT NULL default '',
   `rank` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM AUTO_INCREMENT=0";
-
-claro_sql_query($sql);
 
 ?>
