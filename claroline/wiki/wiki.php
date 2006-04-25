@@ -75,7 +75,6 @@
     require_once "lib/class.wiki.php";
     require_once "lib/class.wikistore.php";
     require_once "lib/class.wikipage.php";
-    require_once "lib/class.wikisearchengine.php";
     require_once "lib/lib.requestfilter.php";
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.javascript.php";
@@ -86,7 +85,7 @@
     // filter allowed actions using user status
     if ( $is_allowedToAdmin )
     {
-        $valid_actions = array( 'list', 'rqEdit', 'exEdit', 'rqDelete', 'exDelete', 'rqSearch', 'exSearch' );
+        $valid_actions = array( 'list', 'rqEdit', 'exEdit', 'rqDelete', 'exDelete', 'rqSearch', 'exSearch', 'exExport' );
     }
     elseif ( $is_groupMember && $groupId )
     {
@@ -189,8 +188,39 @@
 
     switch ( $action )
     {
+        case 'exExport':
+        {
+            require_once "lib/class.wiki2xhtmlexport.php";
+            
+            if ( ! $wikiStore->wikiIdExists( $wikiId ) )
+            {
+                // die( get_lang("Invalid Wiki Id") );
+                $message = get_lang("Invalid Wiki Id");
+                $action = 'error';
+            }
+            else
+            {
+                $wiki = $wikiStore->loadWiki( $wikiId );
+                $wikiTitle = $wiki->getTitle();
+                $renderer = new WikiToSingleHTMLExporter( $wiki );
+                
+                $contents = $renderer->export();
+                
+                require_once get_conf( 'includePath' ) . '/lib/fileUpload.lib.php';
+                $wikiFileName = replace_dangerous_char( $wikiTitle, 'strict' ) . '.html';
+                
+                $exportDir = get_conf('coursesRepositorySys') . '/' . $_course['path'].'/document';
+                $exportPath = $exportDir . '/' . $wikiFileName;
+                
+                file_put_contents( $exportPath, $contents );
+            }
+            
+            break;
+        }
         case 'exSearch':
         {
+            require_once "lib/class.wikisearchengine.php";
+            
             $pattern = isset( $_REQUEST['searchPattern'] )
                 ? trim($_REQUEST['searchPattern'])
                 : null
@@ -492,6 +522,50 @@
         {
             break;
         }
+        case 'exExport':
+        {
+            $cmdFileName = rawurlencode( '/' . $wikiFileName);
+            
+            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
+                        && get_conf('secureDocumentDownload') )
+            {
+                // slash argument method - only compatible with Apache
+                $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);
+            }
+            else
+            {
+                // question mark argument method, for IIS ...
+                $urlFileName = 'goto/?url=' . $cmdFileName;
+            }
+            
+            $url = '../document/' . $urlFileName;
+            
+            if ( false !== strpos( $url, '?' ) )
+            {
+                $url .= '&amp;gidReset=1';
+            }
+            else
+            {
+                $url .= '?gidReset=1';
+            }
+            
+            echo '<blockquote>' 
+                . get_lang( "Wiki %TITLE% exported to course documents. (this file is visible)"
+                    , array( '%TITLE%' => $wikiTitle ) )
+                . '</blockquote>'
+                . '<p><a class="claroCmd" href="' . $url . '">'
+                . get_lang( "Go to the exported document" )
+                . '</a>'
+                . '&nbsp;|&nbsp;'
+                . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '">' 
+                . get_lang("Back to wiki list") 
+                .'</a>'
+                . '</p>'
+                . "\n"
+                ;
+            
+            break;
+        }
         // edit form
         case 'rqEdit':
         {
@@ -577,6 +651,7 @@
                     . '<th>'.get_lang("Recent changes").'</th>'
                     . '<th>'.get_lang("Properties").'</th>' . "\n"
                     . '<th>'.get_lang("Delete").'</th>' . "\n"
+                    . ( true === $is_allowedToAdmin ? '<th>'.get_lang("Export").'</th>' . "\n" : '' )
                     . '</tr>' . "\n"
                     . '</thead>' . "\n"
                     ;
@@ -681,6 +756,18 @@
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
+                        
+                        if ( true === $is_allowedToAdmin )
+                        {
+                            echo '<td style="text-align:center;">';
+                            echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
+                                . $entry['id'].'&amp;action=exExport'
+                                . '">'
+                                . '<img src="'.$imgRepositoryWeb.'export.gif" border="0" alt="'.get_lang("Export").'" />'
+                                . '</a>'
+                                ;
+                            echo '</td>' . "\n";
+                        }
                     }
 
                     echo '</tr>' . "\n";
@@ -688,8 +775,19 @@
                     if ( ! empty( $entry['description'] ) )
                     {
                         echo '<tr>' . "\n";
-
-                        $colspan = ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin ) ? 5 : 3;
+                        
+                        if ( $groupId && $is_groupMember )
+                        {
+                            $colspan = 5;
+                        }
+                        elseif ( $is_allowedToAdmin )
+                        {
+                            $colspan = 6;
+                        }
+                        else
+                        {
+                            $colspan = 3;
+                        }
 
                         echo '<td colspan="'
                             . $colspan.'"><div class="comment">'
@@ -704,7 +802,20 @@
             // wiki list empty
             else
             {
-                echo '<tr><td colspan="5" style="text-align: center;">'
+                if ( $groupId && $is_groupMember )
+                {
+                    $colspan = 5;
+                }
+                elseif ( $is_allowedToAdmin )
+                {
+                    $colspan = 6;
+                }
+                else
+                {
+                    $colspan = 3;
+                }
+                        
+                echo '<tr><td colspan="'.$colspan.'" style="text-align: center;">'
                  . get_lang("No Wiki")
                  . '</td></tr>' . "\n"
                  ;

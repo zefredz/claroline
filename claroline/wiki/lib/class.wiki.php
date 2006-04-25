@@ -461,6 +461,28 @@
         }
         
         /**
+         * Get all the pages of this wiki (at this time the method returns
+         * only the titles of the pages...) ordered by creation date
+         * @return array containing thes pages
+         */
+        function allPagesByCreationDate()
+        {
+            // reconnect if needed
+            if ( ! $this->con->isConnected() )
+            {
+                $this->con->connect();
+            }
+            
+            $sql = "SELECT `title` "
+                . "FROM `".$this->config['tbl_wiki_pages']."` "
+                . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
+                . "ORDER BY `ctime` ASC"
+                ;
+                
+            return $this->con->getAllRowsFromQuery( $sql );
+        }
+        
+        /**
          * Get recently modified wiki pages
          * @param int offset start at given offset
          * @param int count number of record to return starting at offset
