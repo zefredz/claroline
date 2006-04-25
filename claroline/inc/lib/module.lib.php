@@ -1,4 +1,26 @@
 <?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * This lib make the interface with kernel task
+ * and module extention for theses task.
+ *
+ * Provide also some function making abstracation
+ * for transition between structures before and after modularity
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author see 'credits' file
+ *
+ * @package KERNEL
+ *
+ * @since 1.8
+ *
+ */
 
 defined('CLARO_CONTEXT_PLATFORM') || define('CLARO_CONTEXT_PLATFORM','CLARO_CONTEXT_PLATFORM');
 defined('CLARO_CONTEXT_COURSE') || define('CLARO_CONTEXT_COURSE','CLARO_CONTEXT_COURSE');
@@ -25,15 +47,20 @@ function get_module_list($context)
          * composed af a central table with common info and extended table with specific info.
          *
          */
+        $tbl = claro_sql_get_tbl(array('module', 'module_tool', 'module_rel_tool_context', ));
 
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $sql ="
-               SELECT claro_label,
-                      icon,
-                      access_manager,
-                      add_in_course
-               FROM `" . $tbl_mdb_names['tool'] . "` ";
-        //            WHERE context course
+        $sql ="SELECT m.label                    AS claro_label,
+                      IFNULL(mt.icon,'tool.gif') AS icon,
+                      mtc.access_manager         AS access_manager,
+                      mtc.enabling               AS add_in_course
+
+               FROM `" . $tbl['module_tool'] . "` AS mt
+               INNER JOIN `" . $tbl['module'] . "` AS m
+               ON  mt.module_id = m.id
+
+               INNER JOIN `" . $tbl['module_rel_tool_context'] . "` AS mtc
+               ON  mt.id = mtc.tool_id AND mtc.context = 'COURSE'
+               ";
         $moduleList = claro_sql_query_fetch_all($sql);
     }
     elseif( CLARO_CONTEXT_GROUP == $context)
@@ -58,17 +85,23 @@ function get_module_list($context)
  */
 function get_module_data($claro_label)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $sql ="
-           SELECT id,
-                  claro_label,
-                  icon,
-                  access_manager,
-                  add_in_course,
-                  def_rank,
-                  def_access
-           FROM `" . $tbl_mdb_names['tool'] . "`
-           WHERE claro_label = '" . addslashes($claro_label) . "'";
+    $tbl = claro_sql_get_tbl(array('module', 'module_tool', 'module_rel_tool_context', ));
+    $sql ="SELECT mtc.tool_id                AS id,
+                  m.label                    AS claro_label,
+                  IFNULL(mt.icon,'tool.gif') AS icon,
+                  mtc.access_manager         AS access_manager,
+                  mtc.enabling               AS add_in_course,
+                  mtc.def_rank               AS def_rank,
+                  mtc.def_access             AS def_access,
+                  mt.entry                   AS entry
+
+           FROM `" . $tbl['module_tool'] . "` AS mt
+           INNER JOIN `" . $tbl['module'] . "` AS m
+           ON  mt.module_id = m.id
+
+           INNER JOIN `" . $tbl['module_rel_tool_context'] . "` AS mtc
+           ON  mt.id = mtc.tool_id AND mtc.context = 'COURSE'
+           WHERE m.label = '" . addslashes($claro_label) . "'";
 
     return claro_sql_query_get_single_row($sql);
 }
@@ -84,8 +117,6 @@ function get_module_data($claro_label)
 
 function claro_install_module($tool_label, $context, $contextData)
 {
-
-    global $includePath;
     $libPath =  get_module_path($tool_label) . '/connector/setup.cnr.php';
 
     if(file_exists($libPath))
@@ -125,13 +156,14 @@ function claro_install_module($tool_label, $context, $contextData)
                     $claro_enable_function = $tool_label . '_enable_tool';
                     if(function_exists($claro_enable_function))
                     {
+
                         call_user_func($claro_enable_function,$context,$contextData);
                     }
                 }
             }
         }
     }
-    return false;
+    return true;
 
 }
 
@@ -153,6 +185,7 @@ function claro_enable_module($claro_label, $context, $contextId)
                         SET tool_id = '" . $moduleDataList['id'] . "',
                             rank    = '" . $moduleDataList['def_rank'] . "',
                             access  = '" . $moduleDataList['def_access'] . "'";
+
         return claro_sql_query_insert_id($sql_insert);
     }
     else
@@ -201,10 +234,82 @@ function get_module_path($toolLabel)
         case 'CLWRK' : return get_conf('clarolineRepositorySys') . 'work';
         case 'CLWIKI' : return get_conf('clarolineRepositorySys') . 'wiki';
         case 'CLGRP' : return '';
-        default: trigger_error( $toolLabel . ' is not know by get_tool_path',E_USER_WARNING);
+        default: return get_conf('clarolineRepositorySys') . 'module/' . $toolLabel;
     }
     return '';
 
 }
+
+/**
+ * This function return the core repositroy of a module.
+ *
+ * @param string $toolLabel
+ * @return string
+ */
+
+function get_module_url($toolLabel)
+{
+
+    switch ($toolLabel)
+    {
+        case 'CLANN' : return get_conf('clarolineRepositoryWeb') . 'announcements';
+        case 'CLCAL' : return get_conf('clarolineRepositoryWeb') . 'calendar';
+        case 'CLFRM' : return get_conf('clarolineRepositoryWeb') . 'phpbb';
+        case 'CLCHT' : return get_conf('clarolineRepositoryWeb') . 'chat';
+        case 'CLDOC' : return get_conf('clarolineRepositoryWeb') . 'document';
+        case 'CLDSC' : return get_conf('clarolineRepositoryWeb') . 'course_description';
+        case 'CLUSR' : return get_conf('clarolineRepositoryWeb') . 'user';
+        case 'CLLNP' : return get_conf('clarolineRepositoryWeb') . 'learnPath';
+        case 'CLQWZ' : return get_conf('clarolineRepositoryWeb') . 'exercice';
+        case 'CLWRK' : return get_conf('clarolineRepositoryWeb') . 'work';
+        case 'CLWIKI' : return get_conf('clarolineRepositoryWeb') . 'wiki';
+        case 'CLGRP' : return '';
+        default: return get_conf('clarolineRepositoryWeb') . 'module/' . $toolLabel;
+    }
+    return '';
+
+}
+
+/**
+ * Return the list of context that the tool can use but not manage.
+ *
+ * @param unknown_type $toolId
+ * @return unknown
+ */
+
+function get_module_db_dependance($toolId)
+{
+    // actual place of this info prom module
+
+    $dbconfFile = get_conf('moduleRepository', get_conf('clarolineRepositorySys').'/module/' . $toolId . '/connector/db.conf.php');
+    if (file_exists($dbconfFile))
+    {
+        $contextDbSupport =false;
+        include($dbconfFile);
+        return $contextDbSupport;
+    }
+    else
+    switch ($toolId)
+    {
+        // read in manifest
+
+        case 'CLUNFO' : return array('course','group');
+        case 'CLANN'  : return array('course','group');
+        case 'CLWIKI' : return array('course','group');
+        case 'CLQWZ'  : return array('course','group');
+        case 'CLDOC'  : return array('course','group');
+        case 'CLCAL'  : return array('course','group');
+
+        //case 'CLBLOG' : return array ('user','course');
+        case 'CLDSC'  : return array ('course');
+        case 'CLFRM'  : return array ('course');
+        case 'CLLNP'  : return array ('course');
+        case 'CLUSR'  : return array ('course');
+        case 'CLWRK'  : return array ('course');
+
+        default :       return array();
+    }
+}
+
 
 ?>
