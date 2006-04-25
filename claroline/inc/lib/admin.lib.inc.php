@@ -17,8 +17,8 @@
  * @version 1.8 $Revision$
  * 
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- * 
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/CLCRS/
  *
@@ -73,12 +73,12 @@ function delete_course($code)
     $sql = 'DELETE FROM `' . $tbl_course . '`
             WHERE code= "' . addslashes($currentCourseId) . '"';
 
-    claro_sql_query($sql);  
-   
+    claro_sql_query($sql);
+
     //notify the course deletion event
     $args['courseSysCode'] = $this_course['sysCode'];
     $args['courseDbName'] = $this_course['dbName'];
-    $args['courseDirectory'] = $this_course['path']; 
+    $args['courseDirectory'] = $this_course['path'];
     $args['courseCategory']	= $this_course['categoryCode'];
 
     $eventNotifier->notifyEvent("course_deleted",$args);
@@ -93,7 +93,7 @@ function delete_course($code)
         // IF THE PLATFORM IS IN MONO DATABASE MODE
         {
             // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
-            claro_sql_query("use " . $mainDbName);
+            claro_sql_query("use " . get_conf('mainDbName'));
             $tbl_to_delete = claro_sql_get_course_tbl(claro_get_course_db_name_glued($currentCourseId));
             foreach($tbl_to_delete as $tbl_name)
             {
@@ -134,8 +134,8 @@ function delete_course($code)
 
         claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS, true);
 
-        rename($coursesRepositorySys . $currentCoursePath . '/',
-        $garbageRepositorySys . '/' . $currentCoursePath . '_' . date('YmdHis')
+        rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
+        get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
         );
     }
     else
