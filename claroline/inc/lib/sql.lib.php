@@ -24,24 +24,167 @@
  * * in a course,
  * * in a group
  *
- * @param string $toolId
- * @param string $tableId
- * @param string $courseId
- * @param int $groupId
+ * @param string $tableList
+ * @param array $contextData id To discrim table. Do not add context Id  of an context active but managed by tool.
  * @return unknown
  */
-function claro_sql_get_tbl($toolId,$tableId,$courseId=null,$groupId=null)
+//function claro_sql_get_tbl($toolId,$tableId,$courseId=null,$groupId=null)
+function claro_sql_get_tbl( $tableList, $contextData=null)
 {
     /**
-     * if it's in a course, $courseId is set or $courseId is null but not get_init('_cid')
+     * If it's in a course, $courseId is set or $courseId is null but not get_init('_cid')
      * if both are null, it's a main table
      *
      * when
      */
 
-    if(is_null($courseId) && is_null(get_init('_cid'))) return get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . $tableId;
-    else                                                return claro_get_course_db_name_glued($courseId) . $tableId;
+    if( ! is_array($tableList))
+    {
+        $tableListArr[] = $tableList;
+        $tableList = $tableListArr;
+    }
+    else $tableList = $tableList;
+    /**
+     * Tool Context capatibility
+     *
+     * There is many context in claroline,
+     * a new tool can  d'ont provide initially
+     * all field to discrim each context ins  fields.
+     * When a tool can't discrim a context,
+     * the table would be duplicated for each instance
+     * and the name of table (or db) contain the discriminator
+     *
+     * This extreme modularity provide an easy growing
+     * and integration but
+     * easy
+     *
+     * Easy can't mean slowly.
+     * If  I prupose a blog tool wich can't discrim user
+     * I need to duplicate all blog table (in same or separate db).
+     */
+    if (!is_array($contextData)) $contextData = array();
 
+    $_courseTool = get_init('_courseTool');
+
+    if(is_null($contextData) || !array_key_exists('toolLabel',$contextData)) $contextData['toolLabel']  = rtrim($_courseTool['label'],'_');
+
+    if(is_null($contextData) || !array_key_exists('course',$contextData))       $contextData['course']     = get_init('_cid');
+    if(is_null($contextData) || !array_key_exists('group',$contextData))        $contextData['group']        = get_init('_gid');
+    if(is_null($contextData) || !array_key_exists('user',$contextData))         $contextData['user']         = get_init('_uid');
+    //if(is_null($contextData) || !array_key_exists('session',$contextData))     $contextData['session']      = get_init('_sid');
+    if(is_null($contextData) || !array_key_exists('toolInstance',$contextData)) $contextData['toolInstance'] = get_init('_tid');
+
+    $contextDependance = get_context_db_discriminator($contextData['toolLabel']);
+
+    // Now place discriminator in db & table name.
+    // if a context is needed ($contextData) and $contextDependance is found,
+    // add the discriminator in schema name or table prefix
+
+    $schemaPrefix = array();
+
+    if (is_array($contextDependance) )
+    {
+        if (array_key_exists('schema',$contextDependance))
+        {
+            if (array_key_exists('course',$contextData)
+            && !is_null($contextData['course'])
+            && in_array('course', $contextDependance['schema']))
+            {
+                $schemaPrefix[] = get_conf('courseTablePrefix') . claro_get_course_db_name($contextData['course']);
+            }
+            if (array_key_exists('toolInstance',$contextData)
+            && !is_null($contextData['toolInstance'])
+            && in_array('toolInstance', $contextDependance['schema']))
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForToolInstance', 'TI_')  . $contextData['toolInstance'];
+            }
+            if (array_key_exists('session',$contextData)
+            && !is_null($contextData['session'])
+            && in_array('session', $contextDependance['schema']))
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
+            }
+
+            if (array_key_exists('group',$contextData)
+            && !is_null($contextData['group'])
+            && in_array('group', $contextDependance['schema'])
+            )
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForGroup', 'G_') . $contextData['group'];
+            }
+            if (array_key_exists('user',$contextData)
+            && !is_null($contextData['user'])
+            && in_array('user', $contextDependance['schema'])
+            )
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForUser', 'U_') . $contextData['user'] ;
+            }
+        }
+
+        $tablePrefix = '';
+
+        if (array_key_exists('table',$contextDependance))
+        {
+            if (array_key_exists('course',$contextData)
+            && !is_null($contextData['course'])
+            && in_array('course', $contextDependance['table']))
+            {
+                $tablePrefix .= 'C_' . $contextData['course'] . '_';
+            }
+            if (array_key_exists('toolInstance',$contextData)
+            && !is_null($contextData['toolInstance'])
+            && in_array('toolInstance', $contextDependance['table']))
+            {
+                $tablePrefix .= get_conf('dbPrefixForToolInstance', 'TI_') . $contextData['toolInstance'] . '_';
+            }
+            if (array_key_exists('session',$contextData)
+            && !is_null($contextData['session'])
+            && in_array('session', $contextDependance['table']))
+            {
+                $tablePrefix .= get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
+            }
+            if (array_key_exists('group',$contextData)
+            && !is_null($contextData['group'])
+            && in_array('group', $contextDependance['table'])
+            )
+            {
+                $tablePrefix .=  get_conf('dbPrefixForGroup', 'G_') . $contextData['group'] . '_';
+            }
+            if (array_key_exists('user',$contextData)
+            && !is_null($contextData['user'])
+            && in_array('user', $contextDependance['table'])
+            )
+            {
+                $tablePrefix .= get_conf('dbPrefixForUser', 'U_') . $contextData['user'] . '_';
+            }
+
+        }
+    }
+
+    //$schemaPrefix = (0==count($schemaPrefix) ? get_conf('mainDbName') : implode(get_conf('dbGlu'),$schemaPrefix)); // ne pas utiliser dbGlu tant qu'il peut valoir .
+    $schemaPrefix = (0==count($schemaPrefix) ? get_conf('mainDbName') : implode('_',$schemaPrefix));
+    $tablePrefix  = (''==$tablePrefix) ? get_conf('mainTblPrefix') : $tablePrefix;
+
+    foreach ($tableList as $tableId)
+    {
+        /**
+         *  Read this  to understand chanche  since  previous version thant 1.8
+         *
+         * Until 1.8  there was 2 functions
+         *
+         * function claro_sql_get_main_tbl()
+         * function claro_sql_get_course_tbl($dbNameGlued = null)
+         *
+         * both was using  conf values
+         * claro_sql_get_main_tbl was using  conf values
+         * * get_conf('mainDbName')
+         * * get_conf('mainTblPrefix')
+         *
+         */
+        $tableNameList[$tableId] = $schemaPrefix . '`.`' . $tablePrefix . $tableId;
+    }
+
+    return $tableNameList;
 }
 
 /**
@@ -469,4 +612,60 @@ function claro_sql_escape($statement,$db=null)
     else              return mysql_real_escape_string($statement, $db);
 
 }
+
+
+
+/**
+ * Return an array of 2 array containing context wich can't be manage by tool
+ * and where to store the discriminator.
+ *
+ * By default it's in table name except of course context wich follow singleDbMode value.
+ *
+ * @param string $toolId claro_label
+ * @return array of array
+ *
+ * @since 1.8
+ */
+
+function get_context_db_discriminator($toolId)
+{
+
+    // array ( 'user', 'course', 'group', 'toolInstance', 'session')
+
+    // This fixed result would became result of config
+    // Admin can select for each context for each tool,
+    // if the descriminator needed (because not managed by tool )
+    // would be placed in table name or schema name.
+
+ // switch n'as plus trop de sens ici.
+ // le default  devrait probablement sortir
+ // et le swtich des debrayage dans if (!get_conf('singleDbEnabled'))
+ // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT être vide
+
+
+
+    switch ($toolId)
+    {
+// ie        case 'CLANN' : return array('schema' => array ('course'), 'table' => array('group'));
+// ie        case 'CLWIKI' : return array('schema' => array ('course','group'));
+        default:
+            $dependance = get_module_db_dependance($toolId);
+
+            // By default all is in tableName except for course wich follow singleDbEnabled;
+            $genericConfig['table'] = $dependance ;
+            if(is_array($dependance) && in_array('course',$dependance))
+            {
+                if (get_conf('singleDbEnabled'))
+                {
+                    $genericConfig['schema'] = array('course');
+                    $genericConfig['table'] = array_diff ($genericConfig['table'],$genericConfig['schema'] );
+                }
+            }
+            return $genericConfig;
+    }
+
+}
+
+
+
 ?>
