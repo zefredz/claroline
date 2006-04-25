@@ -43,7 +43,7 @@ function user_initialise()
 /**
  * Get user data on the platform
  * @param $user_id integer
- * @return  array( `user_id`, `lastname`, `firstname`, `username`, `email`, 
+ * @return  array( `user_id`, `lastname`, `firstname`, `username`, `email`,
  *           `picture`, `officialCode`, `phone`, `status` ) with user data
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
@@ -82,7 +82,7 @@ function user_get_properties($userId)
 
 function user_create($settingList, $creatorId = null)
 {
-    $requiredSettingList = array('lastname', 'firstname', 'username', 
+    $requiredSettingList = array('lastname', 'firstname', 'username',
         'password', 'language', 'email', 'officialCode', 'phone', 'status');
 
     foreach($requiredSettingList as $thisRequiredSetting)
@@ -154,11 +154,11 @@ function user_set_properties($userId, $propertyList)
                            'prenom'          => 'firstname',
                            'username'        => 'username',
                            'phoneNumber'     => 'phone',
-                           'email'           => 'email',   
+                           'email'           => 'email',
                            'officialCode'    => 'officialCode',
-                           'statut'          => 'status',   
-                           'password'        => 'password', 
-                           'language'        => 'language', 
+                           'statut'          => 'status',
+                           'password'        => 'password',
+                           'language'        => 'language',
                            'pictureUri'      => 'picture',
                            'isPlatformAdmin' => 'isPlatformAdmin');
 
@@ -168,14 +168,14 @@ function user_set_properties($userId, $propertyList)
     {
         if ( array_key_exists($propertyName, $propertyList) )
         {
-            $setList[] = $columnName . "= '" 
+            $setList[] = $columnName . "= '"
                        . addslashes($propertyList[$propertyName]). "'";
         }
     }
 
     if ( count($setList) > 0)
     {
-        $sql = "UPDATE  `" . $tbl_user . "` 
+        $sql = "UPDATE  `" . $tbl_user . "`
                 SET ". implode(', ', $setList) . "
                 WHERE user_id  = " . (int) $userId ;
     }
@@ -227,7 +227,7 @@ function user_set_course_properties($userId, $courseId, $propertyList)
 
     if ( count($setList) > 0 )
     {
-        $sql = "UPDATE `" . $tbl_rel_course_user . "` 
+        $sql = "UPDATE `" . $tbl_rel_course_user . "`
                 SET " . implode(', ', $setList) ."
                 WHERE   `user_id`    = " . (int) $userId . "
                 AND     `code_cours` = '" . addslashes($courseId) . "'";
@@ -254,7 +254,7 @@ function user_set_course_manager($status, $userId, $courseCode)
 {
     $status = ($status == true) ? COURSE_ADMIN_STATUS : STUDENT_STATUS;
 
-    return user_set_course_properties($userId, $courseCode, 
+    return user_set_course_properties($userId, $courseCode,
                                       array('status' => $status));
 
 }
@@ -276,7 +276,7 @@ function user_set_course_tutor($status , $userId, $courseCode)
 {
     $status = ($status == true) ? 1 : 0;
 
-    return user_set_course_properties($userId, $courseCode, 
+    return user_set_course_properties($userId, $courseCode,
                                       array('tutor' => $status));
 }
 
@@ -344,7 +344,7 @@ function user_delete($userId)
  *
  * @param  int     $user_id        user ID from the course_user table
  * @param  mixed (string or array) $courseCodeList course sys code
- * @param  boolean $force  true  possible to remove a course admin from course 
+ * @param  boolean $force  true  possible to remove a course admin from course
  *                        (default false)
  * @param  boolean $deleteTrackingData (default false)
  *
@@ -366,7 +366,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
         $sql = "SELECT COUNT(user_id)
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = ". (int) $userId ."
-                  AND statut = '" . COURSE_ADMIN_STATUS . "' 
+                  AND statut = '" . COURSE_ADMIN_STATUS . "'
                   AND course_code IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "') ";
 
         if ( claro_sql_query_get_single_value($sql)  > 0 )
@@ -401,7 +401,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
             else                                      continue;
         }
 
-        if ($delTrackData) 
+        if ($delTrackData)
         {
             if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) return false;
         }
@@ -779,25 +779,25 @@ function profile_send_request_course_creator_status ($explanation)
 
     $mailToUidList = claro_get_uid_of_platform_admin();
 
-    $requestMessage_Title = 
-        get_block('[%sitename][Request] Course creator status to %firstname %lastname', 
+    $requestMessage_Title =
+        get_block('[%sitename][Request] Course creator status to %firstname %lastname',
             array('%sitename'  => get_conf('siteName'),
                   '%firstname' => $_user['firstName'],
                   '%firstname' => $_user['lastName'] ) );
 
-    $requestMessage_Content = 
-        get_block('blockRequestCourseManagerStatusMail', 
+    $requestMessage_Content =
+        get_block('blockRequestCourseManagerStatusMail',
                    array( '%time'      => claro_disp_localised_date($dateFormatLong),
                           '%user_id'   => $_uid,
                           '%firstname' => $_user['firstName'],
                           '%lastname'  => $_user['lastName'],
                           '%email'     => $_user['mail'],
                           '%comment'   => nl2br($explanation),
-                          '%url'       => get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid 
+                          '%url'       => get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid
                          )
                    );
 
-        claro_mail_user($mailToUidList, $requestMessage_Content, 
+        claro_mail_user($mailToUidList, $requestMessage_Content,
             $requestMessage_Title, get_conf('administrator_email'), 'profile');
 
     return true;
@@ -815,14 +815,14 @@ function profile_send_request_revoquation ($explanation,$login,$password)
 
     $mailToUidList = claro_get_uid_of_platform_admin();
 
-    $requestMessage_Title = 
-        get_block('[%sitename][Request] Revocation of %firstname %lastname', 
+    $requestMessage_Title =
+        get_block('[%sitename][Request] Revocation of %firstname %lastname',
             array('%sitename'  => get_conf('siteName'),
                   '%firstname' => $_user['firstName'],
                   '%firstname' => $_user['lastName'] ) );
-    
-    $requestMessage_Content = 
-        get_block('blockRequestUserRevoquationMail', 
+
+    $requestMessage_Content =
+        get_block('blockRequestUserRevoquationMail',
                    array('%time'      => claro_disp_localised_date($dateFormatLong),
                          '%user_id'   => $_uid,
                          '%firstname' => $_user['firstName'],
@@ -831,11 +831,11 @@ function profile_send_request_revoquation ($explanation,$login,$password)
                          '%login'     => $login,
                          '%password'  => $password,
                          '%comment'   => nl2br($explanation),
-                         '%url' =>  get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid 
+                         '%url' =>  get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid
                       )
                                         );
 
-        claro_mail_user($mailToUidList, $requestMessage_Content, 
+        claro_mail_user($mailToUidList, $requestMessage_Content,
                         $requestMessage_Title, get_conf('administrator_email'), 'profile');
 
     return true;
@@ -959,7 +959,7 @@ function user_validate_form($formMode, $data, $userId = null)
     $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
     $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
 
-    
+
     if ( ! get_conf('userMailCanBeEmpty') )
     {
         $validator->addRule('email', get_lang('You left some required fields empty'), 'required');
@@ -972,10 +972,16 @@ function user_validate_form($formMode, $data, $userId = null)
 
     if ( get_conf('SECURE_PASSWORD_REQUIRED') )
     {
-        $validator->addRule('password', 
-                            get_lang( 'this password is too simple. Use a password like this <code>%passpruposed</code>',
-            array('%passpruposed', substr(md5(date('Bis')),0,8) )), 'is_password_secure_enough', 
-                            array(array( $data['username'] , $data['officialCode'] , $data['lastname'] , $data['firstname'] , $data['email'] ) ));
+        $validator->addRule('password',
+                            get_lang( 'This password is too simple. Use a password like this <code>%passProposed</code>', array('%passProposed'=> substr(md5(date('Bis')),0,8) )),
+                            'is_password_secure_enough',
+                            array(array( $data['username'] ,
+                                         $data['officialCode'] ,
+                                         $data['lastname'] ,
+                                         $data['firstname'] ,
+                                         $data['email'] )
+                                        )
+                                 );
     }
 
     $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
@@ -1170,8 +1176,8 @@ function user_display_form($data, $form_type='registration')
     // OFFICIAL CODE
     if ( get_conf('ask_for_official_code') )
     {
-        echo form_input_text('officialCode', $data['officialCode'], 
-                             get_lang('Administrative code'), 
+        echo form_input_text('officialCode', $data['officialCode'],
+                             get_lang('Administrative code'),
                              get_conf('userOfficialCodeCanBeEmpty') ? false : true );
     }
 
@@ -1182,7 +1188,7 @@ function user_display_form($data, $form_type='registration')
                        . ' <small>(.jpg or .jpeg only)</small></label>',
 
                        '<input type="file" name="picture" id="picture" >'
-                       . empty($data['picture']) ? 
+                       . empty($data['picture']) ?
                        '<br />' . "\n" . '<label for="del_picture">' . get_lang('Remove picture') . '</label>'
                        . '<input type="checkbox" name="del_picture" id="del_picture" value="yes">'
                        : '<input type="hidden" name="del_picture" id="del_picture" value="no">');
@@ -1199,10 +1205,10 @@ function user_display_form($data, $form_type='registration')
         }
     }
 
-    if (     isset($data['authsource']) 
+    if (     isset($data['authsource'])
         && strtolower($form_type) == 'profile'
-        && (    strtolower($data['authsource']) != 'claroline' 
-             && strtolower($data['authsource']) != 'clarocrypt' 
+        && (    strtolower($data['authsource']) != 'claroline'
+             && strtolower($data['authsource']) != 'clarocrypt'
            )
         )
     {
@@ -1215,7 +1221,7 @@ function user_display_form($data, $form_type='registration')
 
         if ( strtolower($form_type == 'profile') || strtolower($form_type == 'admin_user_profile') )
         {
-            echo form_row('&nbsp;', 
+            echo form_row('&nbsp;',
                            '<small>'
                           .'(' . get_lang('Enter new password twice to change, leave empty to keep it') . ')'
                           .'</small>');
@@ -1230,8 +1236,8 @@ function user_display_form($data, $form_type='registration')
                                 '<small>'
                                . get_lang('Choose now a username and a password for the user account') . '<br />'
                                . get_lang('Memorize them, you will use them the next time you will enter to this site.') . '<br />'
-                               . '<strong>' 
-                               . get_lang('Warning The system is case sensitive') 
+                               . '<strong>'
+                               . get_lang('Warning The system is case sensitive')
                                . '</strong>'
                                . '</small>');
             }
@@ -1270,11 +1276,11 @@ function user_display_form($data, $form_type='registration')
     {
         echo form_row(get_lang('Group Tutor') . '&nbsp;: ',
 
-                       '<input type="radio" name="tutor" value="1" id="tutorYes" ' 
+                       '<input type="radio" name="tutor" value="1" id="tutorYes" '
                       . ($data['tutor']?'checked':'') . ' >'
                       . '<label for="tutorYes">' . get_lang('Yes') . '</label>'
 
-                      . '<input type="radio" name="tutor" value="0"  id="tutorNo" ' 
+                      . '<input type="radio" name="tutor" value="0"  id="tutorNo" '
                       . (!$data['tutor']?'checked':'') . ' >'
                       . '<label for="tutorNo">' . get_lang('No') . '</label>');
     }
@@ -1283,10 +1289,10 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'add_new_user' )
     {
         echo form_row(get_lang('Manager') . '&nbsp;: ',
-                       '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" ' 
+                       '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" '
                        . ($data['courseAdmin'] ? 'checked' : '') . ' >'
                        . '<label for="courseAdminYes">' . get_lang('Yes') . '</label>'
-                       . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '  
+                       . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '
                        . ($data['courseAdmin'] ? '' : 'checked') . ' >'
                        . '<label for="courseAdminNo">' . get_lang('No') . '</label>');
     }
@@ -1345,7 +1351,7 @@ function user_display_form($data, $form_type='registration')
     // Personnal course list
     if ( $form_type == 'admin_user_profile' )
     {
-        echo form_row('&nbsp;', 
+        echo form_row('&nbsp;',
                        '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
                        . '<img src="'.$imgRepositoryWeb.'course.gif" alt="">' . get_lang('PersonalCourseList')
                        . '</a>');
@@ -1360,7 +1366,7 @@ function form_input_text($name, $value, $displayedName = '', $required = false)
     if ( empty($displayedName) ) $displayedName = $name;
     if ( $required )             $displayedName = form_required_field($displayedName);
 
-    return form_row( '<label for="'.$name.'">'.$displayedName . '&nbsp;: ', 
+    return form_row( '<label for="'.$name.'">'.$displayedName . '&nbsp;: ',
                       '<input type="text" size="40"'
                      .' id="'.$name.'" name="'.$name.'"'
                      .' value="'.htmlspecialchars($value).'" />');
@@ -1397,19 +1403,19 @@ function form_input_hidden($name, $value)
 /**
  * @param array $criterionList -
  *        Allowed keys are 'name', 'firstname', 'email', 'officialCode'
- * @param string $courseId (optional) 
+ * @param string $courseId (optional)
  *        permit check if user are already enrolled in the concerned cours
- * @param boolean $allCriterion (optional) 
+ * @param boolean $allCriterion (optional)
  *        define if all submited criterion has to be set.
- * @param boolean $strictCompare (optional) 
+ * @param boolean $strictCompare (optional)
  *        define if criterion comparison use wildcard or not
  * @return array - existing users who met the criterions
  */
 
-function user_search( $criterionList = array() , $courseId = null, 
+function user_search( $criterionList = array() , $courseId = null,
                       $allCriterion = true, $strictCompare = false )
 {
-    $validatedCritList = array('lastname' => '', 'firstname'    => '', 
+    $validatedCritList = array('lastname' => '', 'firstname'    => '',
                                'email' => ''   , 'officialCode' => '');
 
     foreach($criterionList as $thisCritKey => $thisCritValue)
@@ -1428,12 +1434,12 @@ function user_search( $criterionList = array() , $courseId = null,
     $tbl_user        = $tbl_mdb_names['user'           ];
     $tbl_course_user = $tbl_mdb_names['rel_course_user'];
 
-    $sql =  "SELECT U.nom           lastname, 
-                    U.prenom        firstname, 
-                    U.email         email, 
-                    U.officialCode  officialCode, 
-                    U.`user_id` AS  uid 
-                   ". ($courseId ? ', CU.user_id AS registered' : '') . " 
+    $sql =  "SELECT U.nom           lastname,
+                    U.prenom        firstname,
+                    U.email         email,
+                    U.officialCode  officialCode,
+                    U.`user_id` AS  uid
+                   ". ($courseId ? ', CU.user_id AS registered' : '') . "
              FROM `" . $tbl_user . "` AS U";
 
     if ($courseId) $sql .= " LEFT JOIN `" . $tbl_course_user . "` AS CU
@@ -1442,13 +1448,13 @@ function user_search( $criterionList = array() , $courseId = null,
 
     $sqlCritList = array();
 
-    if ($validatedCritList['lastname']) 
+    if ($validatedCritList['lastname'])
         $sqlCritList[] = " U.nom    LIKE '". addslashes($validatedCritList['lastname'    ])   . $wildcard . "'";
-    if ($validatedCritList['firstname'   ]) 
+    if ($validatedCritList['firstname'   ])
         $sqlCritList[] = " U.prenom LIKE '". addslashes($validatedCritList['firstname'   ])   . $wildcard . "'";
-    if ($validatedCritList['email']) 
+    if ($validatedCritList['email'])
         $sqlCritList[] = " U.email  LIKE '". addslashes($validatedCritList['email'       ])   . $wildcard . "'";
-    if ($validatedCritList['officialCode']) 
+    if ($validatedCritList['officialCode'])
         $sqlCritList[] = " U.officialCode = '". addslashes($validatedCritList['officialCode']) .$wildcard . "'";
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
