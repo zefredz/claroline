@@ -38,7 +38,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
 
     $sql = 'SELECT email 
             FROM `'.$tbl_user.'`
-            WHERE user_id IN ('. implode(', ', $userIdList) . ')';
+            WHERE user_id IN ('. implode(', ', array_map('intval', $userIdList) ) . ')';
 
     $emailList = claro_sql_query_fetch_all_cols($sql);
     $emailList = $emailList['email'];
