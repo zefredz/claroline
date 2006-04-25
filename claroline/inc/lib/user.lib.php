@@ -464,9 +464,9 @@ function user_delete_course_tracking_data($userId, $courseId)
  *         boolean FALSE       otherwise.
  */
 
-function user_remove_from_group($userId, $courseCode)
+function user_remove_from_group($userId, $courseId)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
+    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
     $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
 
     $sql = "DELETE FROM `" . $tbl_group_rel_team_user . "`
@@ -505,8 +505,8 @@ function claro_get_uid_of_platform_admin()
 
 function user_is_admin($userId)
 {
-    $userPropertiesList = user_get_properties($userId);
-    return (bool) $userPropertiesList['isPlatformAdmin'];
+    $userPropertyList = user_get_properties($userId);
+    return (bool) $userPropertyList['isPlatformAdmin'];
 }
 
 /**
@@ -532,7 +532,7 @@ function user_set_platform_admin($status, $userId)
  * @return boolean TRUE  if it succeeds, FALSE otherwise
  */
 
-function user_add_to_course($user_id, $course_code, $admin = false, $tutor = false)
+function user_add_to_course($userId, $courseId, $admin = false, $tutor = false)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user            = $tbl_mdb_names['user'];
@@ -541,7 +541,7 @@ function user_add_to_course($user_id, $course_code, $admin = false, $tutor = fal
     // previously check if the user are already registered on the platform
     $sql = "SELECT COUNT(user_id)
             FROM `" . $tbl_user . "`
-            WHERE user_id = " . (int) $user_id ;
+            WHERE user_id = " . (int) $userId ;
 
     if (  claro_sql_query_get_single_value($sql) == 0 )
     {
@@ -552,8 +552,8 @@ function user_add_to_course($user_id, $course_code, $admin = false, $tutor = fal
         // previously check if the user isn't already subscribed to the course
         $sql = "SELECT COUNT(user_id)
                 FROM `" . $tbl_rel_course_user . "`
-                WHERE user_id = " . (int) $user_id . "
-                  AND code_cours ='" . addslashes($course_code) . "'";
+                WHERE user_id = " . (int) $userId . "
+                  AND code_cours ='" . addslashes($courseId) . "'";
 
         if ( claro_sql_query_get_single_value($sql) > 0 )
         {
@@ -562,8 +562,8 @@ function user_add_to_course($user_id, $course_code, $admin = false, $tutor = fal
         else
         {
                 $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                        SET code_cours = '" . addslashes($course_code) . "',
-                            user_id    = " . (int) $user_id . ",
+                        SET code_cours = '" . addslashes($courseId) . "',
+                            user_id    = " . (int) $userId . ",
                             statut     = " . (int) ($admin ? COURSE_ADMIN_STATUS : STUDENT_STATUS) . ",
                             tutor  = " . (int) ($tutor ? 1 : 0);
 
@@ -694,12 +694,12 @@ function user_add_to_class($user_id,$class_id)
  * Send registration succeded email to user
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
- * @param integer $user_id
- * @param mixed $data array of user data or null to keep data following $user_id param.
+ * @param integer $userId
+ * @param mixed $data array of user data or null to keep data following $userId param.
  * @return boolean
  */
 
-function user_send_registration_mail ($user_id, $data)
+function user_send_registration_mail ($userId, $data)
 {
     if ( ! empty($data['email']) )
     {
@@ -723,7 +723,7 @@ function user_send_registration_mail ($user_id, $data)
                                  )
                               );
 
-        if ( claro_mail_user($user_id, $emailBody, $emailSubject) ) return true;
+        if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
         else                                                        return false;
     }
     else
@@ -736,12 +736,12 @@ function user_send_registration_mail ($user_id, $data)
  * Send enroll to course succeded email to user
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
- * @param $user_id integer
+ * @param $userId integer
  * @param $data array
  * @return boolean
  */
 
-function user_send_enroll_to_course_mail($user_id, $data, $course=null)
+function user_send_enroll_to_course_mail($userId, $data, $course=null)
 {
     $courseData = claro_get_course_data($course);
 
@@ -765,7 +765,7 @@ function user_send_enroll_to_course_mail($user_id, $data, $course=null)
         ))
         ;
 
-        if ( claro_mail_user($user_id, $emailBody, $emailSubject) ) return true;
+        if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
         else                                                        return false;
 
     }
@@ -781,7 +781,7 @@ function user_send_enroll_to_course_mail($user_id, $data, $course=null)
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
-function profile_send_request_course_creator_status ($explanation)
+function profile_send_request_course_creator_status($explanation)
 {
     global $_uid, $_user, $dateFormatLong;
 
@@ -817,7 +817,7 @@ function profile_send_request_course_creator_status ($explanation)
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
-function profile_send_request_revoquation ($explanation,$login,$password)
+function profile_send_request_revoquation($explanation,$login,$password)
 {
     global $_uid, $_user, $dateFormatLong;
 
