@@ -369,7 +369,8 @@ class wiki2xhtml
     --------------------------------------------------- */
     function __parseBlocks()
     {
-        $mode = $type = NULL;
+        $mode = NULL;
+        $type = NULL;
         $res = '';
         $max = count($this->T);
         
@@ -411,7 +412,8 @@ class wiki2xhtml
     {
         $pre_type = $type;
         $pre_mode = $mode;
-        $type = $mode = NULL;
+        $type = NULL;
+        $mode = NULL;
         
         if (empty($this->T[$i])) {
             return false;
@@ -883,7 +885,8 @@ class wiki2xhtml
         $data = $this->__splitTagsAttr($str);
         
         $acronym = $data[0];
-        $title = $lang = '';
+        $title = '';
+        $lang = '';
         
         if (count($data) > 1)
         {
@@ -934,14 +937,17 @@ class wiki2xhtml
     # Mots wiki (pour héritage)
     function parseWikiWord($str,&$tag,&$attr,&$type)
     {
-        $tag = $attr = '';
+        $tag = '';
+        $attr = '';
+        
         return $str;
     }
     
     # Macros (pour héritage)
     function parseMacro($str,&$tag,&$attr,&$type)
     {
-        $tag = $attr = '';
+        $tag = '';
+        $attr = '';
         return $str;
     }
     
