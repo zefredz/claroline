@@ -13,7 +13,7 @@
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  */
 
-require_once(dirname(__FILE__).'/form.lib.php');
+require_once(dirname(__FILE__) . '/form.lib.php');
 
 defined('COURSE_ADMIN_STATUS') || define('COURSE_ADMIN_STATUS', 1);
 defined('STUDENT_STATUS'     ) || define('STUDENT_STATUS'     , 5);
@@ -42,7 +42,8 @@ function user_initialise()
 
 /**
  * Get user data on the platform
- * @param $user_id integer
+ * @param integer $userId id of user to fetch properties
+ *
  * @return  array( `user_id`, `lastname`, `firstname`, `username`, `email`,
  *           `picture`, `officialCode`, `phone`, `status` ) with user data
  * @author Mathieu Laurent <laurent@cerdecam.be>
@@ -61,7 +62,7 @@ function user_get_properties($userId)
                                    language,
                     authSource  AS authsource,
                     pictureUri  AS picture,
-                                     officialCode,
+                                   officialCode,
                     phoneNumber AS phone,
                     statut      AS status,
                                    isPlatformAdmin
@@ -76,7 +77,12 @@ function user_get_properties($userId)
 
 /**
  * Add a new user
- * @param $data array to fill the form
+ *
+ * @param $settingList array to fill the form
+ * @param $creatorId id of account creator
+ *                  (null means created by owner)
+ *                  default null
+ *
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
@@ -118,7 +124,7 @@ function user_create($settingList, $creatorId = null)
 /**
  * Update user data
  * @param $user_id integer
- * @param $data array
+ * @param $propertyList array
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
@@ -139,7 +145,7 @@ function user_set_properties($userId, $propertyList)
 
     if ( array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
     {
-        $propertyList['password'] = md5($data['password']);
+        $propertyList['password'] = md5($propertyList['password']);
     }
 
     if ( array_key_exists('isPlatformAdmin', $propertyList) )
@@ -188,9 +194,9 @@ function user_set_properties($userId, $propertyList)
  * change the status of the user in a course
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  *
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
- * @param array $properties - should contain 'role', 'status', 'tutor'
+ * @param $userId       integer user ID from the course_user table
+ * @param $courseId     string course code from the cours table
+ * @param $propertyList array should contain 'role', 'status', 'tutor'
  *
  * @return boolean TRUE if update succeed, FALSE otherwise.
  */
@@ -245,8 +251,8 @@ function user_set_course_properties($userId, $courseId, $propertyList)
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  *
  * @param boolean $status 'true' for course manager, 'false' for not
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
+ * @param integer $user_id user ID from the course_user table
+ * @param string  $course_code course code from the cours table
  *
  * @return boolean TRUE  if update succeed
  *         boolean FALSE otherwise.
@@ -750,7 +756,7 @@ function user_send_enroll_to_course_mail($user_id, $data, $course=null)
         '%lastname' => $data['lastname'],
         '%courseCode' => $courseData['officialCode'],
         '%courseName' => $courseData['name'],
-        '%coursePath' => $rootWeb . '/' . $courseData['path'] .'/',
+        '%coursePath' => get_conf('rootWeb') . '/' . $courseData['path'] .'/',
         '%siteName'=> get_conf('siteName'),
         '%rootWeb' => get_conf('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
@@ -952,7 +958,7 @@ function user_validate_form_profile($data, $userId)
  */
 function user_validate_form($formMode, $data, $userId = null)
 {
-    require_once $GLOBALS['includePath'] .'/lib/datavalidator.lib.php';
+    require_once dirname(__FILE__) .'/datavalidator.lib.php';
 
     $validator = new DataValidator();
     $validator->setDataList($data);
@@ -1369,6 +1375,16 @@ function user_display_form($data, $form_type='registration')
         . '</form>' . "\n";
 }
 
+/**
+ * Prepare an html output of an input wich  would be include in a <form>
+ *
+ * @param string  $name
+ * @param string  $value
+ * @param string  $displayedName (default '')
+ * @param boolean $required      (default false)
+ * @return string html content
+ * @since 1.8
+ */
 function form_input_text($name, $value, $displayedName = '', $required = false)
 {
     if ( empty($displayedName) ) $displayedName = $name;
@@ -1380,6 +1396,13 @@ function form_input_text($name, $value, $displayedName = '', $required = false)
                      .' value="'.htmlspecialchars($value).'" />');
 }
 
+/**
+ * Return html for a field label wich is required.
+ *
+ * @param string $field field label
+ * @return string html for a field label wich is required.
+ * @since 1.8
+ */
 function form_required_field($field)
 {
     return '<span class="required">*</span>&nbsp;' . $field;
@@ -1417,7 +1440,7 @@ function form_input_hidden($name, $value)
  *        define if all submited criterion has to be set.
  * @param boolean $strictCompare (optional)
  *        define if criterion comparison use wildcard or not
- * @return array - existing users who met the criterions
+ * @return array : existing users who met the criterions
  */
 
 function user_search( $criterionList = array() , $courseId = null,
@@ -1472,6 +1495,12 @@ function user_search( $criterionList = array() , $courseId = null,
     return claro_sql_query_fetch_all($sql);
 }
 
+/**
+ * Get html select box for a user language preference
+ *
+ * @return string html
+ * @since 1.8
+ */
 function user_display_preferred_language_select_box()
 {
     $language_list = get_language_to_display_list();
