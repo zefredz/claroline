@@ -258,11 +258,11 @@ function user_set_course_properties($userId, $courseId, $propertyList)
  *         boolean FALSE otherwise.
  */
 
-function user_set_course_manager($status, $userId, $courseCode)
+function user_set_course_manager($status, $userId, $courseId)
 {
     $status = ($status == true) ? COURSE_ADMIN_STATUS : STUDENT_STATUS;
 
-    return user_set_course_properties($userId, $courseCode,
+    return user_set_course_properties($userId, $courseId,
                                       array('status' => $status));
 
 }
@@ -273,25 +273,25 @@ function user_set_course_manager($status, $userId, $courseCode)
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  *
  * @param boolean $status, 'true' for tutor status, 'false' for not ...
- * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
+ * @param int $userId user ID from the course_user table
+ * @param string $courseId course code from the cours table
  *
  * @return boolean TRUE  if update succeed
  *         boolean FALSE otherwise.
  */
 
-function user_set_course_tutor($status , $userId, $courseCode)
+function user_set_course_tutor($status , $userId, $courseId)
 {
     $status = ($status == true) ? 1 : 0;
 
-    return user_set_course_properties($userId, $courseCode,
+    return user_set_course_properties($userId, $courseId,
                                       array('tutor' => $status));
 }
 
 /**
  * Delete user form claroline platform
  * @author Mathieu Laurent <laurent@cerdecam.be>
- * @param int $user_id
+ * @param int $userId
  * @return boolean 'true' if it succeeds, 'false' otherwise
  */
 
