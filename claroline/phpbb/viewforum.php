@@ -39,8 +39,8 @@ event_access_tool($_tid, $_courseTool['label']);
   Library
  -----------------------------------------------------------------*/
 
-require $includePath . '/lib/pager.lib.php';
-include $includePath . '/lib/forum.lib.php';
+include_once $includePath . '/lib/pager.lib.php';
+include_once $includePath . '/lib/forum.lib.php';
 
 /*-----------------------------------------------------------------
   Initialise variables

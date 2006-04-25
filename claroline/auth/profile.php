@@ -36,9 +36,9 @@ $error = false;
 include $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
 // include library files
-include $includePath . '/lib/user.lib.php';
-include $includePath . '/lib/sendmail.lib.php';
-include $includePath . '/lib/fileManage.lib.php';
+include_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/lib/sendmail.lib.php';
+include_once $includePath . '/lib/fileManage.lib.php';
 
 $nameTools = get_lang('My User Account');
 

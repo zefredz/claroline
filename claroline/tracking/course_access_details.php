@@ -14,6 +14,8 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid && ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
+include_once $includePath . '/lib/statsUtils.lib.inc.php';
+
 $interbredcrump[]= array ('url' => 'courseLog.php', 'name' => get_lang('Statistics'));
 
 $nameTools = get_lang('Traffic Details');
@@ -21,8 +23,9 @@ $nameTools = get_lang('Traffic Details');
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
+
+
 include $includePath . '/claro_init_header.inc.php';
-include $includePath . '/lib/statsUtils.lib.inc.php';
 
 
 echo claro_html_tool_title(

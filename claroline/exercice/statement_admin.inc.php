@@ -28,8 +28,8 @@ if(!defined('ALLOWED_TO_INCLUDE'))
     exit();
 }
 
-include ($includePath.'/lib/fileUpload.lib.php');
-include ($includePath.'/lib/fileDisplay.lib.php');
+include_once ($includePath.'/lib/fileUpload.lib.php');
+include_once ($includePath.'/lib/fileDisplay.lib.php');
 
 // the question form has been submitted
 if(isset($_REQUEST['submitQuestion']))
@@ -61,10 +61,10 @@ if(isset($_REQUEST['submitQuestion']))
         {
             // duplicates the question
             $questionId = $_SESSION['objQuestion']->duplicate();
-            
+
             // tempAttachedFile object var isnot handled by duplicate because not stored in db
             $tmpFile = $_SESSION['objQuestion']->selectTempAttachedFile();
-          
+
             // deletes the old question
             $_SESSION['objQuestion']->delete($exerciseId);
 
@@ -78,7 +78,7 @@ if(isset($_REQUEST['submitQuestion']))
 
             $_SESSION['objQuestion']->read($questionId);
             $_SESSION['objQuestion']->updateTempAttachedFile($tmpFile);
-            
+
             // adds the exercise ID into the exercise list of the Question object
             $_SESSION['objQuestion']->addToList($exerciseId);
 
@@ -127,9 +127,9 @@ if(isset($_REQUEST['submitQuestion']))
                     $_SESSION['objQuestion']->uploadAttachedFile($_FILES['fileUpload']['tmp_name'],get_secure_file_name($_FILES['fileUpload']['name']));
                 }
             }
-                
+
             $_SESSION['objQuestion']->save($exerciseId);
-                        
+
         }
 
         $questionId = $_SESSION['objQuestion']->selectId();
@@ -158,7 +158,7 @@ if(isset($_REQUEST['submitQuestion']))
 
         unset($newQuestion,$modifyQuestion);
     }
-     
+
 }
 else
 {

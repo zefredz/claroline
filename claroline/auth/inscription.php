@@ -28,8 +28,8 @@ if ( isset($_uid) )
 
 // include profile library
 include $includePath . '/conf/user_profile.conf.php';
-include $includePath . '/lib/user.lib.php';
-include $includePath . '/lib/sendmail.lib.php';
+include_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/lib/sendmail.lib.php';
 
 
 if ( get_conf('allowSelfReg',false) )

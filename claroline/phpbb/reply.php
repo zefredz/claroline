@@ -39,11 +39,11 @@ event_access_tool($_tid, $_courseTool['label']);
   Library
  -----------------------------------------------------------------*/
 
-include $includePath . '/lib/forum.lib.php';
-require $includePath . '/lib/pager.lib.php';
+include_once $includePath . '/lib/forum.lib.php';
+include_once $includePath . '/lib/pager.lib.php';
 
 // for notification
-include $includePath . '/lib/sendmail.lib.php';
+include_once $includePath . '/lib/sendmail.lib.php';
 
 $error = FALSE;
 $error_message = '';

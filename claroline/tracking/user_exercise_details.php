@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This page display global information about
  *
@@ -13,9 +13,9 @@
  */
 require '../inc/claro_init_global.inc.php';
 
-include('../exercice/question.class.php');
-include('../exercice/answer.class.php');
-include('../exercice/exercise.lib.php');
+include_once ('../exercice/question.class.php');
+include_once ('../exercice/answer.class.php');
+include_once ('../exercice/exercise.lib.php');
 
 // all I need from REQUEST is the track_id and it is required
 if( !isset($_REQUEST['track_id']) )  header("Location: ../exercice/exercice.php");
@@ -43,7 +43,7 @@ $tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
-include ($includePath . '/lib/statsUtils.lib.inc.php');
+include_once ($includePath . '/lib/statsUtils.lib.inc.php');
 
 //-- get infos
 // get infos about the exercise
@@ -152,7 +152,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
     $i = 0;
     $totalScore = 0;
     $totalWeighting = 0;
-    
+
     // for each question the user get
     foreach( $questions as $question )
     {
@@ -169,7 +169,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
         // destruction of the Question object
         unset($objQuestionTmp);
-        
+
         if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
         {
             $colspan = 4;
@@ -256,7 +256,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 
 <?php
         }
-        
+
         $objAnswerTmp = new Answer($question['question_id']);
 
           $nbrAnswers = $objAnswerTmp->selectNbrAnswers();
@@ -267,13 +267,13 @@ if( $is_allowedToTrack && $is_trackingEnabled )
                 WHERE `details_id` = " . (int) $question['id'];
 
         $answers = claro_sql_query_fetch_all($sql);
-        
+
         if( $answerType == MULTIPLE_ANSWER || $answerType == MATCHING || $answerType == FILL_IN_BLANKS )
             $choice = array();
         elseif( $answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE )
             $choice = "";
-        
-        
+
+
         foreach( $answers as $answer )
         {
             switch($answerType)
@@ -292,7 +292,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
         }
 
         $questionScore = 0;
-        
+
         for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
         {
             $answer = $objAnswerTmp->selectAnswer($answerId);
@@ -301,7 +301,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
             $answerWeighting = $objAnswerTmp->selectWeighting($answerId);
 
             $studentChoice = ''; // init to empty string, will be overwritten when a answer has been given
-            
+
             switch($answerType)
             {
                  // for unique answer or true/false (true/false IS a unique answer exercise)

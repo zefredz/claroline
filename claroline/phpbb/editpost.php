@@ -39,7 +39,7 @@ event_access_tool($_tid, $_courseTool['label']);
   Library
  -----------------------------------------------------------------*/
 
-include $includePath . '/lib/forum.lib.php';
+include_once $includePath . '/lib/forum.lib.php';
 
 // initialise variables
 

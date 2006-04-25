@@ -1,6 +1,6 @@
 <?php  // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8
  *
@@ -12,7 +12,7 @@
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
- * 
+ *
  * DESCRIPTION:
  * ************
  * This file display the list of all learning paths availables for the
@@ -36,7 +36,7 @@
 
 $tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
-  
+
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 /*
@@ -57,10 +57,10 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 //lib of this tool
-include ($includePath."/lib/learnPath.lib.inc.php");
+include_once ($includePath . '/lib/learnPath.lib.inc.php');
 
 //lib needed to delete packages
-include($includePath."/lib/fileManage.lib.php");
+include_once ($includePath . '/lib/fileManage.lib.php');
 
 // statistics
 event_access_tool($_tid, $_courseTool['label']);
@@ -70,8 +70,8 @@ $htmlHeadXtra[] =
           function confirmation (name)
           {
               if (confirm("'. clean_str_for_javascript(get_lang('Modules of this path will still be available in the pool of modules'))
-							. '\n' 
-							. clean_str_for_javascript(get_lang('Are you sure to delete') . ' ?' ) 
+							. '\n'
+							. clean_str_for_javascript(get_lang('Are you sure to delete') . ' ?' )
 							. '\n'
 							. '" + name))
                   {return true;}
@@ -108,7 +108,7 @@ if ( $cmd == 'export' )
           $dialogBox .= '<ul>'."\n";
       }
 } // endif $cmd == export
-      
+
 // use viewMode
 claro_set_display_mode_available(true);
 
@@ -157,7 +157,7 @@ switch ( $cmd )
                             FROM  `".$TABLELEARNPATHMODULE."` AS LPM,
                                       `".$TABLEMODULE."` AS M
                             WHERE LPM.`learnPath_id` = ". (int)$_GET['del_path_id']."
-                              AND 
+                              AND
                                     ( M.`contentType` = '".CTSCORM_."'
                                       OR
                                       M.`contentType` = '".CTLABEL_."'
@@ -226,7 +226,7 @@ switch ( $cmd )
                                      FROM `".$TABLEMODULE."`
                                      WHERE 1=0
                                   ";
-                  
+
                 while ($delList = mysql_fetch_array($findResult))
                 {
                     $delLabelModuleSql .= " OR `module_id`=". (int)$delList['module_id'];
@@ -234,7 +234,7 @@ switch ( $cmd )
                 //echo $delLabelModuleSql;
                 $query = claro_sql_query($delLabelModuleSql);
             }
-            
+
             // delete everything for this path (common to normal and scorm paths) concerning modules, progression and path
 
             // delete all user progression
@@ -255,9 +255,9 @@ switch ( $cmd )
                           WHERE `learnPath_id` = ". (int)$_GET['del_path_id'] ;
 
             $query = claro_sql_query($sql3);
-            
-            // notify the event manager with the deletion           
-            $eventNotifier->notifyCourseEvent("learningpath_deleted",$_cid, $_tid, $_GET['del_path_id'], $_gid, "0");            
+
+            // notify the event manager with the deletion
+            $eventNotifier->notifyCourseEvent("learningpath_deleted",$_cid, $_tid, $_GET['del_path_id'], $_gid, "0");
             break;
 
       // ACCESSIBILITY COMMAND
@@ -273,16 +273,16 @@ switch ( $cmd )
 
       // VISIBILITY COMMAND
       case "mkVisibl" :
-      case "mkInvisibl" :      
+      case "mkInvisibl" :
             $cmd == "mkVisibl" ? $visibility = 'SHOW' : $visibility = 'HIDE';
             $sql = "UPDATE `".$TABLELEARNPATH."`
                        SET `visibility` = '$visibility'
                      WHERE `learnPath_id` = ". (int)$_GET['visibility_path_id']."
                        AND `visibility` != '$visibility'";
             $query = claro_sql_query ($sql);
-            
+
             //notify the event manager with the event of new visibility
-            
+
             if ($visibility == 'SHOW')
             {
                 $eventNotifier->notifyCourseEvent("learningpath_visible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
@@ -291,7 +291,7 @@ switch ( $cmd )
             {
                 $eventNotifier->notifyCourseEvent("learningpath_invisible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
             }
-            
+
             break;
 
       // ORDER COMMAND
@@ -341,7 +341,7 @@ switch ( $cmd )
 
                     list($orderMax) = mysql_fetch_row($result);
                     $order = $orderMax + 1;
-                    
+
                     // create new learning path
                     $sql = "INSERT
                               INTO `".$TABLELEARNPATH."`
@@ -349,7 +349,7 @@ switch ( $cmd )
                               VALUES ('". addslashes($_POST['newPathName']) ."','" . addslashes(trim($_POST['newComment']))."',".(int)$order.")";
                     //echo $sql;
                     $lp_id = claro_sql_query_insert_id($sql);
-                      
+
                     // notify the creation to eventmanager
                     $eventNotifier->notifyCourseEvent("learningpath_created",$_cid, $_tid, $lp_id, $_gid, "0");
                 }
@@ -547,8 +547,8 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     {
         $classItem='';
     }
-    
-    
+
+
     if ( $list['visibility'] == 'HIDE' )
     {
         if ($is_AllowedToEdit)
@@ -628,7 +628,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             //echo "no module in this path!";
             $moduleNumber = 0;
         }
-        
+
         //2.1 no progression found in DB
 
         if (($moduleNumber == 0)  && ($list['lock'] == 'CLOSE'))
@@ -671,7 +671,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 }
             }
         }
-        
+
         //----------------------------------------------------------------------
 
 
@@ -703,7 +703,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         }
 
         //must also block if no usermoduleprogress exists in DB for this user.
- 
+
         $LPMNumberB = mysql_num_rows($resultB);
         if (($LPMNumberB == 0) && ($list['lock'] == "CLOSE"))
         {
@@ -844,11 +844,11 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo "<td>&nbsp;</td>\n";
         }
-        
+
         // EXPORT links
         echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
             .'<img src="' . $clarolineRepositoryWeb . 'img/export.gif" alt="' . get_lang('Export') . '" border="0"></a></td>' . "\n";
-        
+
         // statistics links
         echo "<td>\n
           <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">

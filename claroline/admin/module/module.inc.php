@@ -67,7 +67,7 @@ function get_module_repositories()
             if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
 
             $folder_array[] = $file;
-        }       
+        }
     }
 
     closedir($handle);
@@ -396,7 +396,7 @@ function install_module()
 
     //1- Unzip folder in a new repository in claroline/module
 
-    include $includePath . '/lib/pclzip/pclzip.lib.php';
+    include_once $includePath . '/lib/pclzip/pclzip.lib.php';
 
     //Check if the file is valid (not to big and exists)
 

@@ -64,7 +64,7 @@ $menuAdminModule    = get_menu_item_list('AdminModule');
 
 $nameTools = get_lang('Administration');
 
-include $includePath . '/lib/debug.lib.inc.php';
+include_once $includePath . '/lib/debug.lib.inc.php';
 $is_allowedToAdmin     = $is_platformAdmin;
 
 // ----- is install visible ----- begin

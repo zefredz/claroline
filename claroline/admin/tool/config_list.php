@@ -31,9 +31,9 @@ require '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-include $includePath . '/lib/debug.lib.inc.php';
-include $includePath . '/lib/course.lib.inc.php';
-include $includePath . '/lib/config.lib.inc.php';
+include_once $includePath . '/lib/debug.lib.inc.php';
+include_once $includePath . '/lib/course.lib.inc.php';
+include_once $includePath . '/lib/config.lib.inc.php';
 
 // define
 $nameTools          = get_lang('Configuration');
@@ -106,8 +106,8 @@ if ( is_array($def_class_list) )
             foreach ($class_def_list['conf'] as $code => $name)
             {
                 echo '<li>'
-                .    '<a href="' . $urlEditConf . '?config_code=' . $code .'">' 
-                .    $name  
+                .    '<a href="' . $urlEditConf . '?config_code=' . $code .'">'
+                .    $name
                 .    '</a>'
                 .    '</li>' . "\n"
                 ;

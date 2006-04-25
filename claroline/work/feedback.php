@@ -24,9 +24,9 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 require_once './lib/assignment.class.php';
 
-include $includePath . '/lib/fileUpload.lib.php';
-include $includePath . '/lib/fileDisplay.lib.php'; // need format_url function
-include $includePath . '/lib/fileManage.lib.php'; // need claro_delete_file
+include_once $includePath . '/lib/fileUpload.lib.php';
+include_once $includePath . '/lib/fileDisplay.lib.php'; // need format_url function
+include_once $includePath . '/lib/fileManage.lib.php'; // need claro_delete_file
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 BASIC VARIABLES DEFINITION
@@ -65,7 +65,7 @@ PREREQUISITES
 ASSIGNMENT INFORMATIONS
 --------------------------------------------------------------------*/
 $assignment = new Assignment();
-    
+
 if ( !$assignmentId || !$assignment->load($assignmentId) )
 {
     // we NEED to know in which assignment we are, so if assigId is not set
@@ -93,7 +93,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
     {
         $autoFeedbackText = trim($_REQUEST['autoFeedbackText']);
     }
-    
+
     // uploaded file come from the feedback form
     if ( is_uploaded_file($_FILES['autoFeedbackFilename']['tmp_name']) )
     {
@@ -118,7 +118,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
 
             // -- create a unique file name to avoid any conflict
             // there can be only one automatic feedback but the file is put in the
-            // assignments directory			
+            // assignments directory
 			$autoFeedbackFilename = $assignment->createUniqueFilename($newFileName);
 
             $tmpWorkUrl = $assignment->getAssigDirSys().$autoFeedbackFilename;
@@ -175,7 +175,7 @@ if($is_allowedToEdit)
     // edit an assignment / form has been sent
     if( $cmd == 'exEditFeedback' )
     {
-    	$assignment->setAutoFeedbackText($autoFeedbackText); 
+    	$assignment->setAutoFeedbackText($autoFeedbackText);
     	$assignment->setAutoFeedbackFilename($autoFeedbackFilename);
     	$assignment->setAutoFeedbackSubmitMethod($autoFeedbackSubmitMethod);
 
@@ -188,7 +188,7 @@ if($is_allowedToEdit)
             $dialogBox .= '</a>';
 
             $displayFeedbackForm = false;
-            
+
             //report event to eventmanager "feedback_posted"
             $eventNotifier->notifyCourseEvent("work_feedback_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
         }
@@ -224,16 +224,16 @@ if($is_allowedToEdit)
         	$form['autoFeedbackFilename'] 		= $_REQUEST['autoFeedbackFilename'];
             $form['autoFeedbackSubmitMethod'] 	= $_REQUEST['autoFeedbackSubmitMethod'];
         }
-        
+
         // ask the display of the form
         if($form['autoFeedbackSubmitMethod'] == 'ENDDATE')
-        {   
+        {
         	$prefillSubmitEndDateCheckStatus 	= 'checked="checked"';
         	$prefillSubmitAfterPostCheckStatus 	= '';
         }
         elseif($form['autoFeedbackSubmitMethod'] == 'AFTERPOST')
         {
-        	$prefillSubmitEndDateCheckStatus 	= ''; 
+        	$prefillSubmitEndDateCheckStatus 	= '';
         	$prefillSubmitAfterPostCheckStatus 	= 'checked="checked"';
         }
 
@@ -299,7 +299,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     {
     	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
         $completeFileUrl = $assignment->getAssigDirWeb() . $form['autoFeedbackFilename'];
-        
+
         echo '<tr>' . "\n"
         .    '<td valign="top">'
         .    get_lang('Current feedback file')
