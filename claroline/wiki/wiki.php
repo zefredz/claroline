@@ -557,8 +557,12 @@
                 . get_lang( "Go to the exported document" )
                 . '</a>'
                 . '&nbsp;|&nbsp;'
+                . '<a class="claroCmd" href="' . '../document/' . '">' 
+                . get_lang("Go to documents tool") 
+                .'</a>'
+                . '&nbsp;|&nbsp;'
                 . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '">' 
-                . get_lang("Back to wiki list") 
+                . get_lang("Back to Wiki list") 
                 .'</a>'
                 . '</p>'
                 . "\n"
