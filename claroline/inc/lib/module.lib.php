@@ -311,5 +311,46 @@ function get_module_db_dependance($toolId)
     }
 }
 
+/**
+ * return the syspath where a tool can store these file for a given context
+ *
+ * @param unknown_type $context
+ */
+function claro_get_data_path($contextData=array())
+{
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))    $contextData[CLARO_CONTEXT_TOOLLABEL]    = rtrim($_courseTool['label'],'_');
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))       $contextData[CLARO_CONTEXT_COURSE]       = get_init('_cid');
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))        $contextData[CLARO_CONTEXT_GROUP]        = get_init('_gid');
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_USER,$contextData))         $contextData[CLARO_CONTEXT_USER]         = get_init('_uid');
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData)) $contextData[CLARO_CONTEXT_TOOLINSTANCE] = get_init('_tid');
 
+    if (isset($contextData[CLARO_CONTEXT_COURSE]))
+    {
+        if (isset($contextData[CLARO_CONTEXT_GROUP]))
+        {
+            $path = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP],$contextData[CLARO_CONTEXT_COURSE]);
+        }
+        else
+        {
+            $path = claro_get_course_path($contextData[CLARO_CONTEXT_COURSE]);
+        }
+    }
+
+    if (isset($contextData[CLARO_CONTEXT_TOOLLABEL]))
+    {
+        switch ($contextData[CLARO_CONTEXT_TOOLLABEL])
+        {
+            case 'CLDOC' : $path = $path . 'document/';
+            case 'CLCHT' : $path = $path . 'chat/';
+            case 'CLWRK' : $path = $path . 'work/';
+            case 'CLQWZ' : $path = $path . 'exercise/';
+            case 'CLLNP' : $path = $path . 'scormPackages/';
+            default : $path = $path . $contextData[CLARO_CONTEXT_TOOLLABEL] . '/';
+
+        }
+    }
+
+    return $path;
+
+}
 ?>
