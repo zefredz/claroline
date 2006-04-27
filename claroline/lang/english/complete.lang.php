@@ -1757,6 +1757,8 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dd>Click on the number of pages of this Wiki in the Wiki list.</dd>
 <dt>How to get the list of the last modified pages in a Wiki ?</dt>
 <dd>Click on the icon in the \'Recent changes\' column in the Wiki list.</dd>
+<dt>How to export a Wiki ?</dt>
+<dd>Click on the icon in the \'Export\' column to export a Wiki as a HTML file in the course documents tool.</dd>
 </dl>';
 $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <h2>1. Basic syntax</h2>

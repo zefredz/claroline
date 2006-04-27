@@ -1698,6 +1698,8 @@ Pour chaque type d\'utilisateur, vous pouvez activer/désactiver trois types de d
 <dd>Cliquez sur le nombre de pages du wiki dans la liste des wikis.</dd>
 <dt>Comment voir les dernières pages modifiées dans un wiki&nbsp;?</dt>
 <dd>Cliquez sur l\'icône située dans la colonne Dernières modifications dans la liste des wikis.</dd>
+<dt>Comment exporter un Wiki ?</dt>
+<dd>Cliquez sur l\'icône située dans la colonne \'Exporter\' pour exporter un Wiki sous forme de document HTML dans les documents du cours.</dd>
 </dl>';
 $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <h2>1. Syntaxe de base</h2>
