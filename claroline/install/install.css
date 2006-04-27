@@ -1,0 +1,71 @@
+.installer {
+background : #DDDDDD;
+font-size: 90%;
+height : 500px;
+ }
+.panel {
+background : #DDDDDD;
+font-size: 90%;
+
+ }
+
+.progressPanel{
+ font-size: 100%;
+ background : #FFFFFF;
+ padding-top: 5px;
+ padding-bottom: 15px;
+
+
+}
+.progressPanel IMG{
+ padding-left: 5px;
+ padding-top: 1px;
+ padding-bottom: 3px;
+  float: right;
+  }
+
+.progress B
+{
+ font-size: 100%;
+ padding-right: 5px;
+ margin-left: 3px;
+}
+
+.progress{
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 1px;
+padding-bottom: 3px;
+
+background : #FFFFFF;
+ padding-top: 3px;
+}
+.progress.active {
+ font-size: 90%;
+ border: medium solid #FFFFFF;
+ border-right:0px;
+ background : #DDDDDD;
+ font-weight: bold;
+ -moz-border-radius-bottomleft: 50%;
+ -moz-border-radius-topleft: 50%;
+
+}
+
+.progress.success {
+background : #FFFFFF;
+}
+
+.progress.error {
+background : #FFBBBB;
+border: medium solid #FFFFFF;
+border-left:0px;
+-moz-border-radius-bottomright: 50%;
+ -moz-border-radius-topright: 50%;
+
+}
+
+.progress.todo {
+color : #555555;
+ -moz-opacity: 80;
+}
+

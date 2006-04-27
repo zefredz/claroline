@@ -39,7 +39,7 @@ $mainDbName     = $dbNameForm;
 $statsDbName    = $dbStatsForm;
 $resBdbHome = @claro_sql_query("SHOW VARIABLES LIKE 'datadir'");
 $mysqlRepositorySys = mysql_fetch_array($resBdbHome,MYSQL_ASSOC);
-$mysqlRepositorySys = $mysqlRepositorySys ["Value"];
+$mysqlRepositorySys = $mysqlRepositorySys ['Value'];
 
 /////////////////////////////////////////
 // MAIN DB                             //
@@ -63,18 +63,23 @@ if (mysql_errno() >0)
     }
     else
     {   // other error would  break install
-        $mainDbNameCreationError = '
-                <P class="setup_error">
-                    <font color="red">Warning !</font>
-                    <small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>
-                    <br />
-                    Error on creation ' . get_lang('Main database') . ' : <I>' . $dbHostForm . '</I>
-                    <br />
-                    <font color="blue">
-                        Fix this problem before going further
-                    </font>
-                </P>';
+        $mainDbNameCreationError
+        = '<P class="setup_error">' . "\n"
+        . '<font color="red">Warning !</font>' . "\n"
+        . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
+        . '<br />' . "\n"
+        . 'Error on creation ' . get_lang('Main database') . ' : <I>' . $dbHostForm . '</I>' . "\n"
+        . '<br />' . "\n"
+        . '<font color="blue">' . "\n"
+        . 'Fix this problem before going further' . "\n"
+        . '</font>' . "\n"
+        . '<P>' . "\n"
+        . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '">' . "\n"
+        . '</P>' . "\n"
+        . '</P>' . "\n"
+        ;
         $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+        $stepStatus[DISP_DB_CONNECT_SETTING] = 'X';
     }
 }
 else
@@ -106,22 +111,28 @@ if($statsDbName != $mainDbName)
                 {
                     $statsDbNameExist = TRUE;
                     $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+                    $stepStatus[DISP_DB_CONNECT_SETTING] = 'X';
                 }
             }
             else
             {
-                $statsDbNameCreationError = '
-                <P class="setup_error">
-                    <font color="red">Warning !</font>
-                    <small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>
-                    <br />
-                    Error on creation ' . get_lang('Tracking database') . ' : <I>' . $dbStatsForm . '</I>
-                    <br />
-                    <font color="blue">
-                        Fix this problem before going further
-                    </font>
-                </P>';
+                $statsDbNameCreationError
+                = '<P class="setup_error">' . "\n"
+                . '<font color="red">Warning !</font>' . "\n"
+                . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
+                . '<br />' . "\n"
+                . 'Error on creation ' . get_lang('Tracking database') . ' : <I>' . $dbStatsForm . '</I>' . "\n"
+                . '<br />' . "\n"
+                . '<font color="blue">' . "\n"
+                . 'Fix this problem before going further' . "\n"
+                . '</font>' . "\n"
+                . '<p>' . "\n"
+                . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '">' . "\n"
+                . '</p>' . "\n"
+                . '</p>'
+                ;
                 $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+                $stepStatus[DISP_DB_CONNECT_SETTING] = 'X';
             }
         }
         else

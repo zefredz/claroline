@@ -32,6 +32,17 @@ define ('DISP_ADMINISTRATIVE_SETTING',__LINE__);
 define ('DISP_LAST_CHECK_BEFORE_INSTALL',__LINE__);
 define ('DISP_RUN_INSTALL_NOT_COMPLETE',__LINE__);
 define ('DISP_RUN_INSTALL_COMPLETE',__LINE__);
+
+$imgStatus['X'] = 'delete.gif';
+$imgStatus['V'] = 'mark.gif';
+$imgStatus['?'] = 'learnpath.gif';
+$imgStatus['!'] = 'caution.gif';
+
+$cssStepStatus['X'] = 'error';
+$cssStepStatus['V'] = 'done';
+$cssStepStatus['?'] = 'todo';
+$cssStepStatus['!'] = 'caution';
+
 /* LET DEFINE ON SEPARATE LINES !!!*/
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
@@ -71,34 +82,42 @@ if (count($_SERVER) > 0)   {extract($_SERVER, EXTR_OVERWRITE);}
 
 // LIST OF  VIEW IN ORDER TO SHOW
 $panelSequence  = array(
-DISP_WELCOME,
 DISP_LICENSE,
+DISP_WELCOME,
 //DISP_FILE_SYSTEM_SETTING,
 DISP_DB_CONNECT_SETTING,
 DISP_DB_NAMES_SETTING,
 DISP_ADMINISTRATOR_SETTING,
 DISP_PLATFORM_SETTING,
 DISP_ADMINISTRATIVE_SETTING,
-DISP_LAST_CHECK_BEFORE_INSTALL,
-DISP_RUN_INSTALL_COMPLETE);
+DISP_LAST_CHECK_BEFORE_INSTALL);
 //DISP_RUN_INSTALL_NOT_COMPLETE is not a panel of sequence
 
 
 // VIEW TITLE
-$panelTitle[DISP_WELCOME]                   = get_lang('Requirements');
 $panelTitle[DISP_LICENSE]                   = get_lang('Licence');
+$panelTitle[DISP_WELCOME]                   = get_lang('Requirements');
 //$panelTitle[DISP_FILE_SYSTEM_SETTING]      = get_lang('FileSystemSetting');
-$panelTitle[DISP_DB_CONNECT_SETTING]        = 'MySql Database Settings';
+$panelTitle[DISP_DB_CONNECT_SETTING]        = get_lang('MySQL Database Settings');
 $panelTitle[DISP_DB_NAMES_SETTING]          = get_lang('MySQL Database and Table Names');
-$panelTitle[DISP_ADMINISTRATOR_SETTING]     = 'Administrator Account';
-$panelTitle[DISP_PLATFORM_SETTING]          = 'Platform Settings';
-$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = 'Additional Informations<small> (optional)</small>';
+$panelTitle[DISP_ADMINISTRATOR_SETTING]     = get_lang('Administrator Account');
+$panelTitle[DISP_PLATFORM_SETTING]          = get_lang('Platform Settings');
+$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = get_lang('Additional Informations<small> (optional)</small>');
 $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = get_lang('Last check before install');
-$panelTitle[DISP_RUN_INSTALL_COMPLETE]      = 'Claroline Installation succeeds';
+$panelTitle[DISP_RUN_INSTALL_COMPLETE]      = get_lang('Claroline Installation succeeds');
 
 //$rootSys="'.realpath($pathForm).'";
 
-
+$cmdName[DISP_WELCOME]                   = 'cmdWelcomePanel';
+$cmdName[DISP_LICENSE]                   = 'cmdLicence';
+//$cmdName[DISP_FILE_SYSTEM_SETTING]     = 'cmdFILE_SYSTEM_SETTING';
+$cmdName[DISP_DB_CONNECT_SETTING]        = 'cmdDB_CONNECT_SETTING';
+$cmdName[DISP_DB_NAMES_SETTING]          = 'cmdDbNameSetting';
+$cmdName[DISP_ADMINISTRATOR_SETTING]     = 'cmdAdministratorSetting';
+$cmdName[DISP_PLATFORM_SETTING]          = 'cmdPlatformSetting';
+$cmdName[DISP_ADMINISTRATIVE_SETTING]    = 'cmdAdministrativeSetting';
+$cmdName[DISP_LAST_CHECK_BEFORE_INSTALL] = 'install6';
+$cmdName[DISP_RUN_INSTALL_COMPLETE]      = 'cmdDoInstall';
 
 
 // CONTROLER
@@ -154,6 +173,7 @@ elseif($_REQUEST['cmdDoInstall'])
 if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
 {
      include './defaultsetting.inc.php';
+     foreach (array_keys($panelTitle) as $step ) $stepStatus[$step] = '?';
 }
 else ###  IF NOT ###
 {
@@ -177,7 +197,6 @@ else ###  IF NOT ###
 //  * Write the config file
 //  * Protect some  directory with an .htaccess (work only  for apache)
 
-
 /**
  *
  * Check New Data  (following $_REQUEST['fromPanel'] value)
@@ -190,10 +209,27 @@ else ###  IF NOT ###
 
 
 $canRunCmd = TRUE;
+if ($_REQUEST['fromPanel'] == DISP_WELCOME || $_REQUEST['cmdDoInstall'])
+{
+    $stepStatus[DISP_WELCOME] = 'V';
+}
+
+if ($_REQUEST['fromPanel'] == DISP_LICENSE || $_REQUEST['cmdDoInstall'])
+{
+    $stepStatus[DISP_LICENSE] = 'V';
+}
+
+if ($_REQUEST['fromPanel'] == DISP_LAST_CHECK_BEFORE_INSTALL || $_REQUEST['cmdDoInstall'])
+{
+    $stepStatus[DISP_LAST_CHECK_BEFORE_INSTALL] = 'V';
+}
+
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInstall'])
 {
+    $stepStatus[DISP_ADMINISTRATOR_SETTING] = 'V';
     if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
     {
+        $stepStatus[DISP_ADMINISTRATOR_SETTING] = 'X';
         $adminDataMissing = TRUE;
         if (empty($loginForm)) $missing_admin_data[] = 'login';
         if (empty($passForm))  $missing_admin_data[] = 'password';
@@ -219,7 +255,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
     }
 }
 
-if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
+if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
 {
 
     $institutionUrlForm = trim($institutionUrlForm);
@@ -273,18 +309,13 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATIVE_SETTING )
     if($administrativeDataMissing)
     {
         $msg_missing_administrative_data = '<font color="red" >Please check '.implode(', ',$check_administrative_data).'</font><br />';
-        if ( $cmd > DISP_ADMINISTRATIVE_SETTING )
-        {
-            $display = DISP_ADMINISTRATIVE_SETTING;
-        }
-        else
-        {
-            $display = $cmd;
-        }
+        $display =  ( $cmd > DISP_ADMINISTRATIVE_SETTING ) ? DISP_ADMINISTRATIVE_SETTING : $cmd;
         $canRunCmd = FALSE;
+        $stepStatus[DISP_ADMINISTRATIVE_SETTING] = 'X';
     }
     else
     {
+        $stepStatus[DISP_ADMINISTRATIVE_SETTING] = 'V';
         // here add some check  on email, password crackability, ... of admin.
     }
 }
@@ -294,6 +325,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
     // Check Connection //
     $databaseParam_ok = TRUE;
     $db = @mysql_connect("$dbHostForm", "$dbUsernameForm", "$dbPassForm");
+    $stepStatus[DISP_DB_CONNECT_SETTING] = 'V';
     if ( mysql_errno() > 0 ) // problem with server
     {
         $no  = mysql_errno();
@@ -338,6 +370,8 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
         {
             $display=$cmd;
         }
+        $stepStatus[DISP_DB_CONNECT_SETTING] = 'X';
+
     }
 }
 
@@ -345,6 +379,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
 // CHECK DATA OF DB NAMES Form
 if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall'])
 {
+    $stepStatus[DISP_DB_NAMES_SETTING] = 'V';
     $regexpPatternForDbName = '^[a-z0-9][a-z0-9_]*$';
     // Now mysql connect param are ok, try  to use given DBNames
     // 1° check given string
@@ -388,14 +423,16 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
         $valMain = check_if_db_exist($dbNameForm  ,$db);
         if ($dbStatsForm == $dbNameForm) $confirmUseExistingStatsDb = $confirmUseExistingMainDb ;
         if (!$singleDbForm) $valStat = check_if_db_exist($dbStatsForm ,$db);
-        if (($valMain && !$confirmUseExistingMainDb)
-             ||
-             ($valStat && !$confirmUseExistingStatsDb ))
+        if ($valMain || $valStat )
+        if ($confirmUseExistingStatsDb ) $stepStatus[DISP_DB_NAMES_SETTING] = 'V';
+        else
         {
             $databaseAlreadyExist              = TRUE;
             if ($valMain)    $mainDbNameExist  = TRUE;
             if ($valStat)    $statsDbNameExist = TRUE;
         }
+
+
 
     }
 
@@ -425,6 +462,8 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
             {
                 $display= $cmd;
             }
+            $stepStatus[DISP_DB_NAMES_SETTING] = 'X';
+
         }
     }
     else
@@ -438,7 +477,8 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 
 if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
 {
-    $platformDataMissing = FALSE;
+   $stepStatus[DISP_PLATFORM_SETTING] = 'V';
+   $platformDataMissing = FALSE;
     if (empty($urlForm))
     {
         $platformDataMissing = TRUE;
@@ -464,7 +504,7 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
         {
             $display= $cmd;
         }
-
+        $stepStatus[DISP_PLATFORM_SETTING] = 'X';
     }
 }
 
@@ -476,7 +516,11 @@ if ($canRunCmd)
     // OK TEST WAS GOOD, What's the next step ?
 
     // SET default display
-    $display = DISP_WELCOME;
+    $display = $panelSequence[0];
+    if($_REQUEST['cmdWelcomePanel'])
+    {
+        $display = DISP_WELCOME;
+    }
     if($_REQUEST['cmdLicence'])
     {
         $display = DISP_LICENSE;
@@ -555,41 +599,88 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 // BEGIN OUTPUT
 
 // COMMON OUTPUT Including top of form  and list of hidden values
-?>
-<html>
-<head>
 
-<title>
- -- Claroline installation
- -- version <?php echo $new_version ?>
- -- Step  <?php echo  array_search($display, $panelSequence)+1 ?>
-</title>
+echo '<html>' . "\n"
+.    '<head>' . "\n"
+.    '<title>' . "\n"
+.    ' -- Claroline installation'
+.    ' -- version ' . $new_version
+.    ' -- Step  ' . (array_search($display, $panelSequence) + 1)  . "\n"
+.    '</title>' . "\n"
+.    '<link rel="stylesheet" href="../css/default.css" type="text/css" >' . "\n"
+.    '<link rel="stylesheet" href="./install.css" type="text/css" >' . "\n"
+.    '<style media="print" type="text/css"  >' . "\n"
+.    '    .notethis { font-weight : bold;  }' . "\n"
+.    '    .progressPanel{ visibility: hidden;width:0px; }' . "\n"
+.    '</style>' . "\n"
+.    '<style  type="text/css"  >' . "\n"
+.    '    .notethis { font-weight : bold; }' . "\n"
+.    '    .setup_error { background:white; margin-left: 15px;    margin-right: 15px; }' . "\n"
+.    '</style>' . "\n"
+.    '</head>' . "\n"
+.    '<body dir="' . $text_dir . '">' . "\n"
+.    '<center>' . "\n"
+.    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+.    '<table class="installer" cellpadding="5" cellspacing="0" border="0"  >' . "\n"
+.    '<tr bgcolor="#000066">' . "\n"
+.    '<th valign="top"  colspan="2">' . "\n"
+.    '<FONT color="White">' . "\n"
+.    'Claroline ' . $new_version  . ' - Installation' . "\n"
+.    '</font>' . "\n"
+.    '</th>' . "\n"
+.    '</TR>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top" >' . "\n"
+;
 
-<link rel="stylesheet" href="../css/default.css" type="text/css" >
-<style media="print" type="text/css"  >
-    .notethis { font-weight : bold;  }
-</style>
-<style  type="text/css"  >
-    .notethis { font-weight : bold; }
-    .setup_error { background:white; margin-left: 15px;    margin-right: 15px; }
-</style>
+if (DISP_RUN_INSTALL_COMPLETE != $display )
+{
+    echo '<br>' . "\n"
+    .    '<div class="progressPanel">' . "\n"
+    ;
 
-</head>
-<body dir="<?php echo $text_dir ?>">
-<center>
-<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
-<table  bgcolor="#DDDDDD"  cellpadding="10" cellspacing="0" border="0" width="650" class="claroTable">
-        <tr  bgcolor="#000066" >
-            <th valign="top">
-               <FONT color="White">
-                    Claroline <?php echo $new_version ?> - Installation
-                </font>
-            </th>
-        </TR>
-    <tr>
-        <td>
-<?php
+    foreach ($panelSequence as $stepCount => $thisStep  )
+    {
+        $stepStyle = ($thisStep == $display) ? 'active' : $cssStepStatus[$stepStatus[$thisStep]];
+        //$stepIcon = '<img src="../img/' . ($thisStep == $display) ? 'edit.gif' : $imgStatus[$stepStatus[$thisStep]] . '" border="0" />';
+        $stepIcon = (($stepStatus[$thisStep] == 'V') ? '<img src="../img/' . $imgStatus['V'] . '" border="0" />':'');
+        echo '<div class="progress ' . $stepStyle . '"  >'
+        .    $stepIcon
+        .    '<b>' . ($stepCount +1) . '</b> '
+        .    strip_tags($panelTitle[$thisStep])
+        .    '</div>' . "\n"
+        ;
+    }
+    $stepPos = array_search($display, $panelSequence);
+    echo '</div>' . "\n";
+}
 
+echo '</td>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<table class="panel" cellpadding="10" cellspacing="0" border="0" width="575">' . "\n"
+.    '<tr>' . "\n"
+.    '<td>' . "\n"
+;
+
+
+$htmlNextPrevButton = '<table width="100%">'  . "\n"
+.    '<tr>'  . "\n"
+.    '<td>'  . "\n"
+.    '</td>'  . "\n"
+.    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
+.    ($stepPos!==false && ($stepPos+1 < count($panelSequence)) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="Next &gt; ">' :'')
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="left">'  . "\n"
+.    ($stepPos!==false && ( $stepPos > 0 ) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos-1]] . '" value="&lt; Back">' :'')
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>'
+;
+
+foreach (array_keys($panelTitle) as $step )
+    echo '<input type="hidden" name="stepStatus['.$step.']" value="' . $stepStatus[$step] . '">'                ."\n";
 echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
 .    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'">'                  ."\n"
 .    '<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
@@ -703,7 +794,7 @@ if ($display == DISP_WELCOME)
         ;
     }
 
-    if($SERVER_SOFTWARE=="") $SERVER_SOFTWARE = $_SERVER["SERVER_SOFTWARE"];
+    if(!isset($SERVER_SOFTWARE) || $SERVER_SOFTWARE == '') $SERVER_SOFTWARE = $_SERVER['SERVER_SOFTWARE'];
     $WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
     echo '<p>Please, read thoroughly the '
     .    '<a href="../../INSTALL.txt">INSTALL.txt</a> document '
@@ -792,9 +883,6 @@ if ($display == DISP_WELCOME)
     .    '<p>'
     .    'If the checks above has passed without any problem, '
     .    'click on the <i>Next</i> button to continue.'
-    .    '<p align="right">'
-    .    '<input type="submit" name="cmdLicence" value="Next &gt;">'
-    .    '</p>'
     ;
 
 }
@@ -830,9 +918,8 @@ elseif(DISP_LICENSE == $display)
     .    '<td>'
     .    '</td>'
     .    '<td align="right">'
-    .    '<input type="submit" name="cmdWelcomePanel" value="&lt; Back">'
-    .    '<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="I accept &gt;" -->'
-    .    '<input type="submit" name="cmdDB_CONNECT_SETTING" value="I accept &gt;">'
+    .    '<label for="I_ACCEPT_LICENSE"></label>'
+//    .    '<input type="checkbox" name="I_ACCEPT_LICENSE" value="1">'
     .    '</td>'
     .    '</tr>'
     .    '</table>'
@@ -844,7 +931,7 @@ elseif(DISP_LICENSE == $display)
 ###### STEP 3 MYSQL DATABASE SETTINGS ####################################
 ##########################################################################
 
-elseif($display==DISP_DB_CONNECT_SETTING)
+elseif(DISP_DB_CONNECT_SETTING == $display)
 {
 
 
@@ -894,7 +981,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'">'
     .    '</td>'
     .    '<td>'
-    .    get_lang('EG').' '.generate_passwd(8)
+    .    get_lang('EG') . ' ' . generate_passwd(8)
     .    '</td>'
     .    '</tr>'
     .    '</table>'
@@ -947,21 +1034,6 @@ elseif($display==DISP_DB_CONNECT_SETTING)
     .    '</td>'
     .    '</tr>'
     .    '</table>'
-    .    '<table width="100%">'  . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
-    .    '<input type="submit" name="cmdDbNameSetting" value="Next &gt;">'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align="left">'  . "\n"
-    .    '<input type="submit" name="cmdLicence" value="&lt; Back">'
-    .    '<!-- input type="submit" name="cmdFILE_SYSTEM_SETTING" value="&lt; Back" -->'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>'
     ;
 }     // cmdDB_CONNECT_SETTING
 
@@ -969,7 +1041,7 @@ elseif($display==DISP_DB_CONNECT_SETTING)
 ##########################################################################
 ###### STEP 4 MYSQL DATABASE SETTINGS ####################################
 ##########################################################################
-elseif($display == DISP_DB_NAMES_SETTING )
+elseif(DISP_DB_NAMES_SETTING == $display )
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
@@ -1158,27 +1230,14 @@ elseif($display == DISP_DB_NAMES_SETTING )
         ;
 
     }
-    echo '<table width="100%">'  . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
-    .    '<input type="submit" name="cmdAdministratorSetting" value="Next &gt;">'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align="left">'  . "\n"
-    .    '<input type="submit" name="cmdDB_CONNECT_SETTING" value="&lt; Back">'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>'
+    echo '</table>'
     ;
 }     // cmdDB_CONNECT_SETTING
 
 ##########################################################################
 ###### STEP ADMIN SETTINGS ##############################################
 ##########################################################################
-elseif($display == DISP_ADMINISTRATOR_SETTING)
+elseif(DISP_ADMINISTRATOR_SETTING == $display )
 
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
@@ -1260,20 +1319,6 @@ elseif($display == DISP_ADMINISTRATOR_SETTING)
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>'  . "\n"
-    .    '<table width="100%">'  . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
-    .    '<input type="submit" name="cmdPlatformSetting" value="Next &gt;">'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align="left">'  . "\n"
-    .    '<input type="submit" name="cmdDbNameSetting" value="&lt; Back">'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>'
     ;
 }
 
@@ -1281,7 +1326,7 @@ elseif($display == DISP_ADMINISTRATOR_SETTING)
 ###### STEP CONFIG SETTINGS #######################################
 ###################################################################
 
-elseif($display==DISP_PLATFORM_SETTING)
+elseif(DISP_PLATFORM_SETTING == $display)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'">' . "\n"
     .    '<h2>' . "\n"
@@ -1368,106 +1413,75 @@ elseif($display==DISP_PLATFORM_SETTING)
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>' . "\n"
-    .    '<table width="100%">' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td align="right" rowspan="2" valign="bottom">' . "\n"
-    .    '<input type="submit" name="cmdAdministrativeSetting" value="Next &gt;">' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align="left">' . "\n"
-    .    '<input type="submit" name="cmdAdministratorSetting" value="&lt; Back">' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>' . "\n"
     ;
 }
 ###################################################################
 ###### STEP CONFIG SETTINGS #######################################
 ###################################################################
-elseif($display==DISP_ADMINISTRATIVE_SETTING)
+elseif(DISP_ADMINISTRATIVE_SETTING == $display)
 {
-    echo '
-                 <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>'
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'"><h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_ADMINISTRATIVE_SETTING] ) )
-    . '</h2>'
-                .$msg_missing_administrative_data ;
-    echo '
-            </td>
-        </tr>
-        <tr>
-            <td>
-                '.$msg_missing_platform_data.'
-                <table >
-                    <tr>
-                        <td colspan="3">
-                        <H4>Related organisation</H4>
-                    </tr>
-                    <tr>
-                            <td>
-                                <label for="institutionForm">Name</label>
-                            </td>
-                            <td colspan="2">
-                                <input type="text" size="40" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm).'">
-                                </td>
-                        </tr>
-                    <tr>
-                        <td>
-                            <label for="institutionUrlForm">URL</label>
-                        </td>
-                        <td colspan="2">
-                            <input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm).'">
-                            <br />
-                        </td>
-                    </tr>
-                <tr>
-                        <td colspan="3"><br />
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                        <H4>Campus contact</H4>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="contactNameForm">Name</label>
-                        </td>
-                        <td colspan="2">
-                            <input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm).'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="contactEmailForm">Email</label>
-                        </td>
-                        <td colspan="2">
-                            <input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm).'">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"><br />
-                        </td>
-                    </tr>
-                </table>
-                <table width="100%">
-                 <tr>
-                  <td>
-                  </td>
-                  <td align="right" rowspan="2" valign="bottom">
-                   <input type="submit" name="install6" value="Next &gt;">
-                  </td>
-                 </tr>
-                 <tr>
-                  <td align="left">
-                   <input type="submit" name="cmdPlatformSetting" value="&lt; Back">
-                  </td>
-                 </tr>
-                </table>
-                ';
+    .    '</h2>'
+    .    $msg_missing_administrative_data
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . $msg_missing_platform_data
+    .    '<table >' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan="3">' . "\n"
+    .    '<H4>Related organisation</H4>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="institutionForm">Name</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm).'">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="institutionUrlForm">URL</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm).'">' . "\n"
+    .    '<br />' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan="3"><br />' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan="3">' . "\n"
+    .    '<H4>Campus contact</H4>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="contactNameForm">Name</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm).'">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="contactEmailForm">Email</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm).'">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td colspan="3"><br />' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</table>' . "\n"
+    ;
 }
 
 ###################################################################
@@ -1481,29 +1495,28 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
            <input type="hidden" name="fromPanel" value="'.$display.'">';
 
     echo '<h2>'
-        .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1 ,
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] ) )
-        . '</h2>
-        Here are the values you entered <br />
-        <Font color="red">
-            Print this page to remember your admin password and other settings
-        </font>
-        <blockquote>
-
-        <FIELDSET>
-        <LEGEND>'.$panelTitle[DISP_DB_CONNECT_SETTING].'</LEGEND>
-        <EM>Account</EM>
-        <br />
-        &nbsp;Database host : '.htmlspecialchars($dbHostForm).'<br />
-        &nbsp;Database username : '.htmlspecialchars($dbUsernameForm).'<br />
-        &nbsp;Database password : '.htmlspecialchars((empty($dbPassForm)?"--empty--":$dbPassForm)).'<br />
-
-        &nbsp;Enable single database : '.($singleDbForm?'yes':'no').'<br />
-        &nbsp;Enable tracking : '.($enableTrackingForm?'yes':'no').'<br />
-        <EM>Database Names</EM><br />
-        &nbsp;Main database : '.htmlspecialchars($dbNameForm).'<br />
-        &nbsp;Tracking database : '.htmlspecialchars($dbStatsForm).'<br />';
+    .    '</h2>' . "\n"
+    .    'Here are the values you entered <br />' . "\n"
+    .    '<Font color="red">' . "\n"
+    .    'Print this page to remember your admin password and other settings' . "\n"
+    .    '</font>' . "\n"
+    .    '<blockquote>' . "\n"
+    .    '<FIELDSET>' . "\n"
+    .    '<LEGEND>'.$panelTitle[DISP_DB_CONNECT_SETTING].'</LEGEND>' . "\n"
+    .    '<EM>Account</EM>' . "\n"
+    .    '<br />' . "\n"
+    .    '&nbsp;Database host          : ' . htmlspecialchars($dbHostForm)     . '<br />' . "\n"
+    .    '&nbsp;Database username      : ' . htmlspecialchars($dbUsernameForm) . '<br />' . "\n"
+    .    '&nbsp;Database password      : ' . htmlspecialchars((empty($dbPassForm) ? '--empty--' : $dbPassForm)) . '<br />' . "\n"
+    .    '&nbsp;Enable single database : ' . ($singleDbForm ? 'yes' : 'no') . '<br />' . "\n"
+    .    '&nbsp;Enable tracking        : ' . ($enableTrackingForm ? 'yes' : 'no').'<br />' . "\n"
+    .    '<EM>Database Names</EM><br />' . "\n"
+    .    '&nbsp;Main database     : ' . htmlspecialchars($dbNameForm) . '<br />' . "\n"
+    .    '&nbsp;Tracking database : ' . htmlspecialchars($dbStatsForm) . '<br />' . "\n"
+    ;
     if ( '' != $mainTblPrefixForm || '' != $statsTblPrefixForm || '' != $dbPrefixForm)
         echo '<em>Prefixes</em><br />';
     if ( '' != $mainTblPrefixForm )
@@ -1512,54 +1525,41 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
         echo '&nbsp;Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br />';
     if ( '' != $dbPrefixForm )
         echo '&nbsp;Courses database prefix : '.htmlspecialchars($dbPrefixForm).'<br />';
-    echo '
-        </FIELDSET>
+    echo '</FIELDSET>' . "\n"
+    .    '<FIELDSET>' . "\n"
+    .    '<LEGEND>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</LEGEND>' . "\n"
+    .    '<div class="notethis">' . "\n"
+    .    'Login : '.htmlspecialchars($loginForm).'<br />' . "\n"
+    .    'Password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)) .'<br />' . "\n"
+    .    '</div>' . "\n"
+    .    'Email : '.htmlspecialchars($adminEmailForm).'<br />' . "\n"
+    .    'Phone : '.htmlspecialchars($adminPhoneForm).'<br />' . "\n"
+    .    'Lastname : '.htmlspecialchars($adminNameForm).'<br />' . "\n"
+    .    'Firstname : '.htmlspecialchars($adminSurnameForm).'<br />' . "\n"
+    .    '</FIELDSET>' . "\n"
 
-        <FIELDSET>
-        <LEGEND>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</LEGEND>
-        <div class="notethis">
-                    Login : '.htmlspecialchars($loginForm).'<br />
-                    Password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)) .'<br />
-        </div>
-        Email : '.htmlspecialchars($adminEmailForm).'<br />
-        Phone : '.htmlspecialchars($adminPhoneForm).'<br />
-        Lastname : '.htmlspecialchars($adminNameForm).'<br />
-        Firstname : '.htmlspecialchars($adminSurnameForm).'<br />
-
-        </FIELDSET>
-        <FIELDSET>
-        <LEGEND>'.$panelTitle[DISP_PLATFORM_SETTING].'</LEGEND>
-        Name : '.htmlspecialchars($campusForm).'<br />
-        Complete URL : ' . (empty($urlForm)?"--empty--":$urlForm) . '<br />
-        Main language : ' . ucwords($languageForm) . '<br />
-
-        Self-registration : '.($allowSelfReg?'enabled':'disabled ').'<br />
-        Password storage : ' .($encryptPassForm ?'crypted ':'clear text').'
-        </FIELDSET>
-        <FIELDSET>
-        <LEGEND>Additional Informations</LEGEND>
-        <em>Related organisation</em><br />
-
-        &nbsp;Name : '.htmlspecialchars((empty($institutionForm)?"--empty--":$institutionForm)).'<br />
-        &nbsp;URL  : '.(empty($institutionUrlForm)?"--empty--":$institutionUrlForm).'<br />
-
-        <em>Campus contact</em><br />
-        &nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br />
-        &nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br />
-
-
-        </FIELDSET>
-        </blockquote>
-        <table width="100%">
-            <tr>
-                <td>
-                    <input type="submit" name="cmdAdministrativeSetting" value="&lt; Back">
-                </td>
-                <td align="right">
-                    <input type="submit" name="cmdDoInstall" value="Install Claroline &gt;">
-                </td>
-            </tr>
-        </table>';
+    .    '<FIELDSET>' . "\n"
+    .    '<LEGEND>'.$panelTitle[DISP_PLATFORM_SETTING].'</LEGEND>' . "\n"
+    .    'Name : '.htmlspecialchars($campusForm).'<br />' . "\n"
+    .    'Complete URL : ' . (empty($urlForm)?"--empty--":$urlForm) . '<br />' . "\n"
+    .    'Main language : ' . ucwords($languageForm) . '<br />' . "\n"
+    .    '' . "\n"
+    .    'Self-registration : '.($allowSelfReg?'enabled':'disabled ').'<br />' . "\n"
+    .    'Password storage : ' .($encryptPassForm ?'crypted ':'clear text').'' . "\n"
+    .    '</FIELDSET>' . "\n"
+    .    '<FIELDSET>' . "\n"
+    .    '<LEGEND>Additional Informations</LEGEND>' . "\n"
+    .    '<em>Related organisation</em><br />' . "\n"
+    .    '&nbsp;Name : '.htmlspecialchars((empty($institutionForm)?"--empty--":$institutionForm)).'<br />' . "\n"
+    .    '&nbsp;URL  : '.(empty($institutionUrlForm)?"--empty--":$institutionUrlForm).'<br />' . "\n"
+    .    '' . "\n"
+    .    '<em>Campus contact</em><br />' . "\n"
+    .    '&nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br />' . "\n"
+    .    '&nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br />' . "\n"
+    .    '</FIELDSET>' . "\n"
+    .    '</blockquote>' . "\n"
+    .    '<center><input type="submit" name="cmdDoInstall" value="Install Claroline"></center>' . "\n"
+    ;
 
 }
 
@@ -1569,11 +1569,11 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
 
 elseif($display==DISP_DB_NAMES_SETTING_ERROR)
 {
-    echo '
-                  <input type="hidden" name="fromPanel" value="'.$display.'">
-                <h2>
-                    Install Problem
-                </h2>';
+    echo '<input type="hidden" name="fromPanel" value="' . $display . '">' . "\n"
+    .    '<h2>' . "\n"
+    .    'Install Problem' . "\n"
+    .    '</h2>'
+    ;
     if (
         $mainDbNameExist
     ||    $statsDbNameExist
@@ -1581,35 +1581,41 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
     {
         echo "<hr />";
         if ($mainDbNameExist)
-            echo '<P><B>'.get_lang('Main database').'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />
-            <input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>
-            <label for="confirmUseExistingMainDb" >I know, I want use it.</label><br />
-            <font color="red">Warning !</font> : this script write in tables use by Claroline.
-            </P>';
+            echo '<P>' . "\n"
+            .    '<B>'.get_lang('Main database').'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />' . "\n"
+            .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>' . "\n"
+            .    '<label for="confirmUseExistingMainDb" >I know, I want use it.</label>' . "\n"
+            .    '<br />' . "\n"
+            .    '<font color="red">Warning !</font>' . "\n"
+            .    ' : this script write in tables use by Claroline.' . "\n"
+            .    '</P>'
+            ;
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
-            echo '
-        <P>
-            <B>'.get_lang('Tracking database').'</B> db ('.$dbStatsForm.') already exist
-            <br />
-            <input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>
-            <label for="confirmUseExistingStatsDb" >I know, I want use it.</label><br />
-            <font color="red">Warning !</font>
-            : this script write in tables use by Claroline.
-        </P>';
-        echo '
-        <P>
-            OR <input type="submit" name="cmdDbNameSetting" value="set DB Names">
-        </P>
-        <hr />';
+            echo '<P>' . "\n"
+            .    '<B>'.get_lang('Tracking database').'</B> db ('.$dbStatsForm.') already exist' . "\n"
+            .    '<br />' . "\n"
+            .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>' . "\n"
+            .    '<label for="confirmUseExistingStatsDb" >I know, I want use it.</label><br />' . "\n"
+            .    '<font color="red">Warning !</font>' . "\n"
+            .    ': this script write in tables use by Claroline.' . "\n"
+            .    '</P>'
+            ;
+        echo '<P>' . "\n"
+        .    'OR <input type="submit" name="cmdDbNameSetting" value="set DB Names">' . "\n"
+        .    '</P>' . "\n"
+        .    '<hr />'
+        ;
     }
-    if($mainDbNameCreationError)
-        echo '<br />'.$mainDbNameCreationError;
-        echo '
-                <p align="right">
-                    <input type="submit" name="alreadyVisited" value="|&lt; Restart from beginning">
-                    <input type="submit" name="cmdDbNameSetting" value="&lt; Back">
-                    <input type="submit" name="cmdDoInstall" value="Retry">
-                </p>';
+
+    if( $mainDbNameCreationError )
+        echo '<br />' . $mainDbNameCreationError;
+
+    echo '<p align="right">' . "\n"
+    .    '<input type="submit" name="alreadyVisited" value="|&lt; Restart from beginning">' . "\n"
+    .    '<input type="submit" name="' . $cmdName[$panelSequence[array_search($display, $panelSequence)-1]] . '" value="&lt; Back">' . "\n"
+    .    '<input type="submit" name="cmdDoInstall" value="Retry">' . "\n"
+    .    '</p>'
+    ;
 
 }
 
@@ -1617,7 +1623,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
 ###### INSTALL INCOMPLETE!#########################################
 ###################################################################
 
-elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
+elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
 {
     echo '
           <input type="hidden" name="fromPanel" value="'.$display.'">
@@ -1633,35 +1639,34 @@ elseif($display==DISP_RUN_INSTALL_NOT_COMPLETE)
     if($fileAccessInSqlRepositoryCreationError)
         echo "<br />Error on creation : file <EM>".$htAccessName."</EM> in <U>".realpath($htAccessSqlPath)."</U><br />";
     if ($fileConfigCreationError)
-    echo '
-    <b>
-        <font color="red">
-            Probably, your script doesn\'t have write access to the config directory
-        </font>
-        <br />
-        <SMALL>
-            <EM>('.realpath("../inc/conf/").')</EM>
-        </SMALL>
-    </b>
-    <br /><br />
-    You probably do not have write access on Claroline root directory,
-    i.e. you should <EM>CHMOD 777</EM> or <EM>755</EM> or <EM>775</EM><br /><br />
-
-Your problems can be related on two possible causes :<br />
-<UL>
-    <LI>
-        Permission problems.
-        <br />Try initially with
-        <EM>chmod 777 -R</EM> and increase restrictions gradually.
-    </LI>
-    <LI>
-        PHP is running in
-        <a href="http://www.php.net/manual/en/features.safe-mode.php" target="_phpman">
-        SAFE MODE</a>.
-        If possible, try to switch it off.
-    </LI>
-</UL>
-<a href="http://www.claroline.net/forum/viewtopic.php?t=753">Read about this problem in Support Forum</a>';
+    echo '<b>' . "\n"
+    .    '<font color="red">' . "\n"
+    .    'Probably, your script doesn\'t have write access to the config directory' . "\n"
+    .    '</font>' . "\n"
+    .    '<br />' . "\n"
+    .    '<SMALL>' . "\n"
+    .    '<EM>('.realpath("../inc/conf/").')</EM>' . "\n"
+    .    '</SMALL>' . "\n"
+    .    '</b>' . "\n"
+    .    '<br /><br />' . "\n"
+    .    'You probably do not have write access on Claroline root directory,' . "\n"
+    .    'i.e. you should <EM>CHMOD 777</EM> or <EM>755</EM> or <EM>775</EM><br /><br />' . "\n"
+    .    'Your problems can be related on two possible causes :<br />' . "\n"
+    .    '<UL>' . "\n"
+    .    '<LI>' . "\n"
+    .    'Permission problems.' . "\n"
+    .    '<br />Try initially with' . "\n"
+    .    '<EM>chmod 777 -R</EM> and increase restrictions gradually.' . "\n"
+    .    '</LI>' . "\n"
+    .    '<LI>' . "\n"
+    .    'PHP is running in' . "\n"
+    .    '<a href="http://www.php.net/manual/en/features.safe-mode.php" target="_phpman">' . "\n"
+    .    'SAFE MODE</a>.' . "\n"
+    .    'If possible, try to switch it off.' . "\n"
+    .    '</LI>' . "\n"
+    .    '</UL>' . "\n"
+    .    '<a href="http://www.claroline.net/forum/viewtopic.php?t=753">Read about this problem in Support Forum</a>' . "\n"
+    ;
 
     if ($coursesRepositorySysMissing)
     {
@@ -1692,67 +1697,68 @@ Your problems can be related on two possible causes :<br />
         change right on this directory and retry.';
     }
 
-    echo '
-                <p align="right">
-                    <input type="submit" name="alreadyVisited" value="Restart from beginning">
-                    <input type="submit" name="cmdPlatformSetting"     value="Previous">
-                    <input type="submit" name="cmdDoInstall"         value="Retry">
-                </p>';
+    echo '<p align="right">'
+    .    '<input type="submit" name="alreadyVisited" value="Restart from beginning">' . "\n"
+    .    '<input type="submit" name="' . $cmdName[$panelSequence[count($panelSequence)-1]] . '" value="&lt; Back">' . "\n"
+    .    '<input type="submit" name="cmdDoInstall" value="Retry">' . "\n"
+    .    '</p>'
+    ;
 
 }
 
 ###################################################################
 ###### STEP RUN_INSTALL_COMPLETE !#################################
 ###################################################################
-elseif($display==DISP_RUN_INSTALL_COMPLETE)
+elseif(DISP_RUN_INSTALL_COMPLETE == $display)
 {
-?>
-            <h2>
-<?php
-    echo get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_RUN_INSTALL_COMPLETE, $panelSequence)+1 ,
-                                                                '%nb_step' => count($panelSequence) ,
-                                                                '%step_name' => $panelTitle[DISP_RUN_INSTALL_COMPLETE] ) );
-?>
 
-            </h2>
-            <br />
-            <br />
-
-
-</form>
-<form action="../../" method="POST">
-        <input type="hidden" name="logout" value="TRUE">
-        <input type="hidden" name="uidReset" value="TRUE">
-<center>
-        <input type="submit" value="Go to your newly created campus">
-
-</form>
-            <br />
-            <br />
-                Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.
-
-            <br />
-            <br />
-        </center>
-<?php
+    echo '<h2>'
+    .    $panelTitle[DISP_RUN_INSTALL_COMPLETE]
+    .    '</h2>' . "\n"
+    .    '<br />' . "\n"
+    .    '<br />' . "\n"
+    .    '</form>' . "\n"
+    .    '<form action="../../" method="POST">' . "\n"
+    .    '<input type="hidden" name="logout" value="TRUE">' . "\n"
+    .    '<input type="hidden" name="uidReset" value="TRUE">' . "\n"
+    .    '<center>' . "\n"
+    .    '<input type="submit" value="Go to your newly created campus">' . "\n"
+    .    '</form>' . "\n"
+    .    '<br />' . "\n"
+    .    '<br />' . "\n"
+    .    'Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.' . "\n"
+    .    '<br />' . "\n"
+    .    '<br />' . "\n"
+    .    '</center>' . "\n"
+    ;
 }    // STEP RUN_INSTALL_COMPLETE
 
 else
 {
-    echo '
-            <pre>'.$display.'</pre not set.
-            <br />
-            Error in script. <br />
-            <br />
-            Please inform  <a href=mailto:moosh@claroline.net">claroline team</a> )';
+    echo '<pre>' . $display . '</pre>' . "\n"
+    .    'not set.' . "\n"
+    .    '<br />' . "\n"
+    .    'Error in script. <br />' . "\n"
+    .    '<br />' . "\n"
+    .    'Please inform  <a href=mailto:moosh@claroline.net">Claroline team</a> )'
+    ;
 }
 
 ?>
-        </td>
-    </tr>
+</td>
+</tr>
+<tr>
+<td>
+<?php
+echo $htmlNextPrevButton;
+?>
+</td>
+</tr>
+</table>
+</td>
+</tr>
 </table>
 </form>
-
 </center>
 </body>
 </html>
