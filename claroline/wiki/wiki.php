@@ -554,7 +554,7 @@
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
                 . '<p><a class="claroCmd" href="' . $url . '">'
-                . get_lang( "Go to the exported document" )
+                . get_lang( "Go to the exported Wiki" )
                 . '</a>'
                 . '&nbsp;|&nbsp;'
                 . '<a class="claroCmd" href="' . '../document/' . '">' 
@@ -562,7 +562,7 @@
                 .'</a>'
                 . '&nbsp;|&nbsp;'
                 . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '">' 
-                . get_lang("Back to Wiki list") 
+                . get_lang("Go back to Wiki list") 
                 .'</a>'
                 . '</p>'
                 . "\n"
