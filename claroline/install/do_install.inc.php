@@ -58,7 +58,7 @@ if (mysql_errno() >0)
         else
         {
             $mainDbNameExist = TRUE;
-            $display = DISP_DB_NAMES_SETTING;
+            $display = DISP_RUN_INSTALL_NOT_COMPLETE;
         }
     }
     else
@@ -74,7 +74,7 @@ if (mysql_errno() >0)
                         Fix this problem before going further
                     </font>
                 </P>';
-        $display=DISP_DB_NAMES_SETTING;
+        $display = DISP_RUN_INSTALL_NOT_COMPLETE;
     }
 }
 else
@@ -105,7 +105,7 @@ if($statsDbName != $mainDbName)
                 else
                 {
                     $statsDbNameExist = TRUE;
-                    $display=DISP_DB_NAMES_SETTING;
+                    $display = DISP_RUN_INSTALL_NOT_COMPLETE;
                 }
             }
             else
@@ -121,7 +121,7 @@ if($statsDbName != $mainDbName)
                         Fix this problem before going further
                     </font>
                 </P>';
-                $display=DISP_DB_NAMES_SETTING;
+                $display = DISP_RUN_INSTALL_NOT_COMPLETE;
             }
         }
         else
@@ -224,7 +224,7 @@ $fd = @fopen($configFilePath, 'w');
 if (!$fd)
 {
     $fileConfigCreationError = true;
-    $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    $display = DISP_RUN_INSTALL_NOT_COMPLETE;
 }
 else
 {
@@ -349,7 +349,7 @@ if (file_exists($coursesRepositorySys))
     if (!is_writable($coursesRepositorySys))
     {
         $coursesRepositorySysWriteProtected = TRUE;
-        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+        $display = DISP_RUN_INSTALL_NOT_COMPLETE;
     }
 }
 else
