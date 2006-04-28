@@ -180,42 +180,71 @@ PRIMARY KEY ( `id` )
 
 // table used for claroline's modules
 
-$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."module` (
-  `id` int(11) NOT NULL auto_increment,
-  `label` varchar(8) NOT NULL default '',
-  `name` varchar(100) NOT NULL default '',
+$creationStatementList[] = "CREATE TABLE `" . $mainTblPrefixForm . "module` (
+  `id`         smallint    unsigned             NOT NULL auto_increment,
+  `label`      char(8)                          NOT NULL default '',
+  `name`       char(100)                        NOT NULL default '',
   `activation` enum('activated','desactivated') NOT NULL default 'desactivated',
-  `type` enum('coursetool','applet') NOT NULL default 'applet',
-  `module_info_id` int(11) NOT NULL default '0',
+  `type`       enum('tool','applet')            NOT NULL default 'applet',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM AUTO_INCREMENT=0";
 
+
+
+
+$creationStatementList[] =
+"CREATE TABLE `".$mainTblPrefixForm."module_info` (
+  id             smallint     NOT NULL auto_increment,
+  module_id      smallint     NOT NULL default '0',
+  version        varchar(10)  NOT NULL default '',
+  author         varchar(50)  default NULL,
+  author_email   varchar(100) default NULL,
+  author_website varchar(255) default NULL,
+  description    varchar(255) default NULL,
+  website        varchar(255) default NULL,
+  license        varchar(50)  default NULL,
+  PRIMARY KEY (id)
+) TYPE=MyISAM AUTO_INCREMENT=0";
 
 
 //table used to store claroline's modules complementary information
+/*
+$sql[] = "ALTER IGNORE TABLE `".$mainTblPrefixForm."module_info`
+  CHANGE id id smallint NOT NULL auto_increment,
+  ADD `website` varchar(255) default NULL";
 
-$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."module_info` (
-  `id` int(11) NOT NULL auto_increment,
-  `module_id` int(11) NOT NULL default '0',
-  `version` varchar(10) NOT NULL default '',
-  `author` varchar(50) default NULL,
-  `author_email` varchar(100) default NULL,
-  `website` varchar(255) default NULL,
-  `description` varchar(255) default NULL,
-  `license` varchar(50) default NULL,
-  PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=0";
-
-
-
+*/
 //table used to store claroline's docks (where some content can be displayed by the modules)
 
-$creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."dock` (
-  `id` int(11) NOT NULL auto_increment,
-  `module_id` int(11) NOT NULL default '0',
-  `name` varchar(50) NOT NULL default '',
-  `rank` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+$creationStatementList[]=
+"CREATE TABLE `" . $mainTblPrefixForm . "dock` (
+  id        smallint unsigned NOT NULL auto_increment,
+  module_id smallint unsigned NOT NULL default '0',
+  name      varchar(50)          NOT NULL default '',
+  rank      tinyint  unsigned NOT NULL default '0',
+  PRIMARY KEY  (id)
 ) TYPE=MyISAM AUTO_INCREMENT=0";
+
+$creationStatementList[]=
+"CREATE TABLE `" . $mainTblPrefixForm . "module_tool` (
+  id        smallint  unsigned NOT NULL auto_increment,
+  module_id smallint  unsigned NOT NULL,
+  entry     varchar(255) NOT NULL default 'entry.php',
+  icon      varchar(255) NOT NULL default 'icon.png',
+  PRIMARY KEY  (id)
+) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
+
+$creationStatementList[]=
+"CREATE TABLE `" . $mainTblPrefixForm . "module_rel_tool_context` (
+  id         smallint unsigned NOT NULL auto_increment,
+  tool_id    smallint unsigned NOT NULL,
+  context    enum('PLATFORM','COURSE','USER','GROUP','CLASSE','SESSION') NOT NULL default 'COURSE',
+  enabling   enum('MANUAL','AUTOMATIC') NOT NULL default 'AUTOMATIC',
+  def_access enum('ALL','COURSE_MEMBER','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
+  def_rank   int(10) unsigned default NULL,
+  access_manager enum('PLATFORM_ADMIN','COURSE_ADMIN','GROUP_ADMIN','USER_ADMIN') NOT NULL default 'COURSE_ADMIN',
+  PRIMARY KEY  (id)
+) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each context'" ;
+
 
 ?>
