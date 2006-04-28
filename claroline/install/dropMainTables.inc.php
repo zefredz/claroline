@@ -39,6 +39,8 @@ $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "notify` 
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "upgrade_status`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_info`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_tool`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_rel_tool_context`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "dock`  ";
 
 ?>
