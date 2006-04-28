@@ -68,6 +68,7 @@ include_once $newIncludePath . 'lib/form.lib.php';
 include_once $newIncludePath . 'lib/course.lib.inc.php';
 include_once $newIncludePath . 'lib/claro_main.lib.php';
 include_once $newIncludePath . 'lib/language.lib.php';
+include_once $newIncludePath . 'lib/module.manage.lib.php';
 
 /**
  * Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -1491,9 +1492,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
 {
     $pathForm = str_replace("\\\\", "/", $pathForm);
     //echo "pathForm $pathForm";
-    echo '
-           <input type="hidden" name="fromPanel" value="'.$display.'">';
-
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">';
     echo '<h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
