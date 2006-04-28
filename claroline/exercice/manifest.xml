@@ -3,10 +3,8 @@
   <name>qwizz</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="../exercice/exercice.php" />
-  <icon value="../../img/quiz.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
+  <icon>../../img/quiz.gif</icon>
+  <type>tool</type>
   <web>http://www.claroline.net/wiki/CLQWZ/</web>
 
   <description>
@@ -29,7 +27,15 @@
     </claroline>
  </requirements>
  <context>
-  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="course_admin" />
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../exercice/exercice.php" />
+    <link target="toolSelectBox"
+          path="../../exercice/exercice.php" />
+  </course>
  </context>
 
 </module>

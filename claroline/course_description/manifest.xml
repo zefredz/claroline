@@ -1,12 +1,10 @@
 <module>
   <label>CLDSC</label>
-  <name>description</name>
+  <name>Description</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="../course_description/index.php" />
-  <icon value="../../img/info.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
+  <icon>../../img/agenda.gif</icon>
+  <type>tool</type>
   <web>http://www.claroline.net/wiki/CLDSC/</web>
 
   <description>
@@ -30,7 +28,15 @@
     </claroline>
  </requirements>
  <context>
-  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="COURSE_ADMIN" />
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../course_description/index.php" />
+    <link target="toolSelectBox"
+          path="../../course_description/index.php" />
+  </course>
  </context>
 
 </module>

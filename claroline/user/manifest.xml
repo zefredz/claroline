@@ -1,12 +1,10 @@
 <module>
   <label>CLUSR</label>
-  <name>user</name>
-  <version>1.8</version>
+  <name>User list</name>
+  <version>4.0</version>
   <license>GPL</license>
-  <entry value="../user/user.php" />
-  <icon value="../../img/user.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
+  <icon>../../img/user.gif</icon>
+  <type>tool</type>
   <web>http://www.claroline.net/wiki/CLUSR/</web>
 
   <description>
@@ -30,7 +28,15 @@
     </claroline>
  </requirements>
  <context>
-  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="course_admin" />
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../user/user.php" />
+    <link target="toolSelectBox"
+          path="../../user/user.php" />
+  </course>
  </context>
 
 </module>

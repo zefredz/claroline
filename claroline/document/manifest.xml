@@ -1,13 +1,11 @@
 <module>
-  <label>CLDOC</label>
-  <name>document</name>
-  <version>1.8</version>
-  <license>GPL</license>
-  <entry value="../document/document.php" />
-  <icon value="../../img/document.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
-  <web>http://www.claroline.net/wiki/CLDOC/</web>
+ <label>CLDOC</label>
+ <name>Document</name>
+ <version>4.0</version>
+ <license>GPL</license>
+ <icon>../../img/document.gif</icon>
+ <type>tool</type>
+ <web>http://www.claroline.net/wiki/CLDOC/</web>
 
   <description>
   <![CDATA[
@@ -32,8 +30,21 @@
     </claroline>
  </requirements>
  <context>
-  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="course_admin" />
-  <group  db="emule" file="emule" enabling="automatic" default_access="group_member" access_manager="course_admin" />
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../document/document.php" />
+    <link target="toolSelectBox"
+          path="../../document/document.php" />
+  </course>
+   <group database="module"
+          enabling="automatic"
+          default_access="group_member"
+          access_manager="platform_admin">
+    <link target="commonToolList" path="../../document/document.php" />
+   </group>
  </context>
 
 </module>

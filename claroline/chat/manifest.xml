@@ -1,12 +1,11 @@
 <module>
   <label>CLCHT</label>
-  <name>calendar</name>
+  <name>Chat</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="../chat/chat.php" />
-  <icon value="../../img/chat.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
+  <icon>../../img/chat.gif</icon>
+  <type>tool</type>
+
   <web>http://www.claroline.net/wiki/CLCHT/</web>
 
   <description>
@@ -30,8 +29,23 @@
     </claroline>
  </requirements>
  <context>
-  <course db="emule" file="emule" enabling="automatic"   default_access="all" access_manager="platform_admin" />
-  <group  db="share" file="emule" enabling="manual" default_access="group_member" access_manager="course_admin" />
+   <course file="kernel"
+           enabling="automatic"
+           default_access="all"
+           access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../chat/chat.php" />
+    <link target="toolSelectBox"
+          path="../../chat/chat.php" />
+  </course>
+   <group file="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../chat/chat.php" />
+  </group>
+
  </context>
 
 </module>

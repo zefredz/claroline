@@ -3,10 +3,8 @@
   <name>assignment</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="../work/work.php" />
-  <icon value="../../img/assignment.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
+  <icon>assignment.gif</icon>
+  <type>tool</type>
   <web>http://www.claroline.net/wiki/CLWRK/</web>
 
   <description>
@@ -31,5 +29,14 @@
  </requirements>
  <context>
   <course db="emule" file="emule" enabling="automatic"   default_access="all" access_manager="platform_admin" />
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../work/work.php" />
+    <link target="toolSelectBox"
+          path="../../work/work.php" />
+  </course>
  </context>
 </module>

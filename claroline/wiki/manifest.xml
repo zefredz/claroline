@@ -1,12 +1,10 @@
 <module>
   <label>CLWIKI</label>
-  <name>wiki</name>
-  <version>1.8</version>
+  <name>Wiki</name>
+  <version>2.0</version>
   <license>GPL</license>
-  <entry value="../wiki/wiki.php" />
-  <icon value="../../img/wiki.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
+  <icon>../../img/wiki.gif</icon>
+  <type>tool</type>
   <web>http://www.claroline.net/wiki/CLWIKI/</web>
 
   <description>
@@ -29,9 +27,25 @@
       </configuration>
     </claroline>
  </requirements>
- <context>
-  <course db="emule" file="emule" enabling="automatic" default_access="all"          access_manager="course_admin" />
-  <group  db="share" file="emule" enabling="manual"    default_access="group_member" access_manager="course_admin" />
- </context>
 
-</module>
+  <context>
+
+   <course database="kernel"
+           enabling="automatic"
+           default_access="all"
+           access_manager="course_admin">
+    <link target="commonToolList"
+          path="../../wiki/wiki.php" />
+    <link target="toolSelectBox"
+          path="../../wiki/wiki.php" />
+   </course>
+   <group database="module"
+          enabling="automatic"
+          default_access="course_member"
+          access_manager="platform_admin">
+    <link target="commonToolList" path="../../wiki/wiki.php" />
+   </group>
+
+  </context>
+
+ </module>

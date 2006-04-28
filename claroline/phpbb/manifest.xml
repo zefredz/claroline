@@ -1,12 +1,10 @@
 <module>
   <label>CLFRM</label>
-  <name>forum</name>
+  <name>Forum</name>
   <version>1.8</version>
   <license>GPL</license>
-  <entry value="../phpbb/index.php" />
-  <icon value="../../img/forum.gif" />
-  <module_type value="tool"/>
-  <default_dock value="toolMenu"/>
+  <icon>../../img/forum.gif</icon>
+  <type>tool</type>
   <web>http://www.claroline.net/wiki/CLFRM/</web>
 
   <description>
@@ -30,8 +28,22 @@
     </claroline>
  </requirements>
  <context>
-  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="platform_admin" />
-  <group  db="share" file="emule" enabling="automatic" default_access="group_member" access_manager="course_admin" />
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../phpbb/index.php" />
+    <link target="toolSelectBox"
+          path="../../phpbb/index.php" />
+  </course>
+   <group database="module"
+          enabling="automatic"
+          default_access="course_member"
+          access_manager="platform_admin">
+    <link target="commonToolList"
+          path="../../phpbb/index.php" />
+   </group>
  </context>
 
 </module>
