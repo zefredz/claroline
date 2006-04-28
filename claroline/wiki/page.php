@@ -357,6 +357,10 @@
                 $new = $wikiPage->getContent();
                 $newTime = $wikiPage->getCurrentVersionMtime();
                 $newEditor = $wikiPage->getEditorId();
+                
+                // protect against dangerous html
+                $old = htmlspecialchars( $old );
+                $new = htmlspecialchars( $new );
 
                 // get differences
                 $diff = '<table style="border: 0;">'.diff( $old, $new, true, 'format_table_line' ).'</table>';
@@ -633,58 +637,8 @@
         ;
 
     // set style
-    $htmlHeadXtra[] = '<style type="text/css">
-.wikiTitle h1{
-    color: Black;
-    background: none;
-    font-size: 200%;
-    font-weight: bold;
-    border-bottom: 2px solid #aaaaaa;
-}
-.wiki2xhtml{
-    margin-left: 5px;
-}
-.wiki2xhtml h2,h3,h4{
-    color: Black;
-    background: none;
-}
-.wiki2xhtml h2{
-    border-bottom: 1px solid #aaaaaa;
-    font-size:175%;
-    font-weight:bold;
-}
-.wiki2xhtml h3{
-    border-bottom: 1px groove #aaaaaa;
-    font-size:150%;
-    font-weight:bold;
-}
-.wiki2xhtml h4{
-    font-size:125%;
-    font-weight:bold;
-}
-
-.wiki2xhtml a.wikiEdit{
-    color: red;
-}
-.diff{
-    font-family: monospace;
-    padding: 5px;
-    margin: 5px;
-}
-.diffEqual{
-    background-color: white;
-}
-.diffMoved{
-    background-color: #00CCFF;
-}
-.diffAdded{
-    background-color: lime;
-}
-.diffDeleted{
-    background-color: #FF00AA;
-}
-</style>'
-        ;
+    
+    $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="wiki.css" media="screen, projection, tv" />' . "\n";
 
     // Breadcrumps
 
