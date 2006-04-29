@@ -31,7 +31,7 @@ $tbl_module      = $tbl_name['module'];
 $tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
 
-if ( isset($_REQUEST['dock']) ) 
+if ( isset($_REQUEST['dock']) )
 {
     $dock = $_REQUEST['dock'];
 }
@@ -89,7 +89,6 @@ if ( !empty($dock))
                    M.`name`            AS `name`,
                    M.`activation`      AS `activation`,
                    M.`type`            AS `type`,
-                   M.`module_info_id`  AS `module_info_id`,
                    D.`rank`            AS `rank`
             FROM `" . $tbl_module . "` AS M, `" . $tbl_dock . "` AS D
             WHERE D.`module_id`= M.`id`

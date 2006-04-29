@@ -45,7 +45,7 @@ $dockList[] = "campusFooterRight";
 
 //NEEDED LIBRAIRIES
 
-include 'module.inc.php';
+include_once(dirname(__FILE__) . '/module.inc.php');
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 
@@ -102,7 +102,6 @@ $sql = "SELECT M.`label`      AS label,
                M.`name`       AS `module_name`,
                M.`activation` AS `activation`,
                M.`type`       AS type,
-               M.`module_info_id`,
                MI.*
         FROM `" . $tbl_module      . "` AS M
            , `" . $tbl_module_info . "` AS MI
@@ -226,7 +225,7 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
   //Activation form
 
-  if ($module['activation']=="activated")
+  if ("activated" == $module['activation'] )
   {
       $activ_form  = "desactiv";
       $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Desactivate").'</a></small>]';
@@ -278,7 +277,7 @@ else
         echo '<tr>' ."\n"
         .    '<td syle="align:right">' . $isfirstline . '</td>' ."\n"
         .    '<td>' ."\n"
-        .    '<input type="checkbox" name="'.$dock.'" value="' . $dock . '" ' . $is_checked . ' />'
+        .    '<input type="checkbox" name="' . $dock . '" value="' . $dock . '" ' . $is_checked . ' />'
         .    $dock
         .    '</td>' ."\n"
         .    '</tr>' ."\n"
