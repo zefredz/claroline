@@ -34,6 +34,7 @@ $tbl_name        = claro_sql_get_main_tbl();
 $tbl_module      = $tbl_name['module'];
 $tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
+$tbl = claro_sql_get_tbl(array('module_tool'));
 
 
 $nameTools = get_lang('Module list');
@@ -100,20 +101,26 @@ function confirmation (name)
 //CONFIG and DEVMOD vars :
 
 $modulePerPage = get_conf('modulePerPage' , 10);
-$maxFilledSpaceForModule = get_conf('maxFilledSpaceForModule' , 10000000); //needed for the installation of a new module
 
-$typeList[] = 'applet';
-$typeList[] = 'coursetool';
+$typeLabel['']    = get_lang('No name');
+$typeLabel['tool']    = get_lang('Tools');
+$typeLabel['applet']  = get_lang('Applet');
+$typeLabel['lang']    = get_lang('Languages');
+$typeLabel['theme']   = get_lang('Themes');
+$typeLabel['extauth'] = get_lang('External authentication');
+
+
+$cmd          = (isset($_REQUEST['cmd'])       ? $_REQUEST['cmd']       : null);
+$module_id    = (isset($_REQUEST['module_id']) ? $_REQUEST['module_id'] : null );
+$dockname     = (isset($_REQUEST['dockname'])  ? $_REQUEST['dockname']  : null );
+$typeReq      = (isset($_REQUEST['typeReq'])   ? $_REQUEST['typeReq']   : 'tool');
+$offset       = (isset($_REQUEST['offset'])    ? $_REQUEST['offset']    : 0 );
+$pagerSortDir = (isset($_REQUEST['dir' ])      ? $_REQUEST['dir' ]      : SORT_ASC);
 
 
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
-
-$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : null);
-
-if  (isset($_REQUEST['module_id']) ) $module_id = $_REQUEST['module_id'];
-if  (isset($_REQUEST['dockname']) ) $dockname = $_REQUEST['dockname'];
 
 switch ( $cmd )
 {
@@ -131,7 +138,6 @@ switch ( $cmd )
 
     case 'up' :
     {
-
         move_module_in_dock($module_id, $dockname,'up');
     }
     break;
@@ -157,7 +163,7 @@ switch ( $cmd )
         .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br>'
         .            get_lang('Find more available modules <a href="http://www.claroline.net/">here</a>.')
         .            '</p>'
-        .            '<form enctype="multipart/form-data" action="" method="post">'
+        .            '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">'
         .            '<input name="cmd" type="hidden" value="do_install" />'
         .            '<input name="uploadedModule" type="file" /><br><br>'
         .            get_lang('Install module') . ' : '
@@ -174,7 +180,9 @@ switch ( $cmd )
     {
         //include needed librabries for treatment
 
-        $result_log = install_module();
+        if( false !== $modulePath= get_and_unzip_uploaded_package())
+
+        $result_log = install_module($modulePath);
         $dialogBox = '';
 
         //display the result message (fail or success)
@@ -190,31 +198,54 @@ switch ( $cmd )
 // FIND INFORMATION
 //----------------------------------
 
-if (isset($_REQUEST['selected_type'])) $selected_type = $_REQUEST['selected_type']; else $selected_type = 'applet';
+$moduleTypeList = claro_get_module_types();
+//$moduleTypeList = array_merge($moduleTypeList, array_keys($typeLabel));
 
+switch($typeReq)
+{
+    case 'applet' :
 
-$sql = "SELECT M.`id`              AS `id`,
-               M.`label`           AS `label`,
-               M.`name`            AS `name`,
-               M.`activation`      AS `activation`,
-               M.`type`            AS `type`,
-               M.`module_info_id`  AS `module_info_id`
-        FROM `" . $tbl_module . "` AS M
-        WHERE M.`type` = '" . addslashes($selected_type) . "'
-        ORDER BY `id`
-        ";
+            $sqlSelectType = "       D.`id`    AS dock_id, " . "\n"
+            .                "       D.`name`  AS dockname," . "\n"
+            ;
+            $sqlJoinType = " LEFT JOIN `" . $tbl_dock . "` AS D " . "\n"
+            .              "        ON D.`module_id`= M.id " . "\n"
+            ;
+            break;
+    case 'tool'   :
 
+            $sqlSelectType = "       MT.`id`    AS toolId, " . "\n"
+            .                "       MT.`icon`  AS icon," . "\n"
+            .                "       MT.`entry` AS entry," . "\n"
+            ;
+            $sqlJoinType = " LEFT JOIN `" . $tbl['module_tool'] . "` AS MT " . "\n"
+            .              "        ON MT.`module_id`= M.id " . "\n"
+            ;
+            break;
+    default       : $sqlSelectType=""; $sqlJoinType = "";
+
+}
+
+$sql = "SELECT M.`id`              AS `id`,         \n"
+.      "       M.`label`           AS `label`,      \n"
+.      "       M.`name`            AS `name`,       \n"
+.      "       M.`activation`      AS `activation`, \n"
+.      $sqlSelectType
+.      "       M.`type`            AS `type`        \n"
+.      "FROM `" . $tbl_module . "` AS M             \n"
+.      $sqlJoinType . "\n"
+.      "WHERE M.`type` = '" . addslashes($typeReq) . "' \n"
+.      "ORDER BY `id` \n"
+;
 
 //pager creation
 
-$offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
-$myPager      = new claro_sql_pager($sql, $offset, $modulePerPage);
-$pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
+$myPager    = new claro_sql_pager($sql, $offset, $modulePerPage);
 $moduleList = $myPager->get_result_list();
 
 //find docks in which the modules do appear.
 
-$module_docks = array(); 
+$module_docks = array();
 
 foreach ($moduleList as $module)
 {
@@ -223,9 +254,15 @@ foreach ($moduleList as $module)
     $sql = "SELECT D.`id`    AS dock_id,
                    D.`name`  AS dockname
             FROM `" . $tbl_dock . "` AS D
-            WHERE D.`module_id`=".(int)$module['id'];
+            WHERE D.`module_id`=" . (int) $module['id'];
 
     $module_dock[$module['id']] = claro_sql_query_fetch_all($sql);
+
+    if (!file_exists(get_module_path($module['label'])))
+    {
+        $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.',array('%module_name'=>$module_DB)).'<br/>';
+    }
+
 }
 
 //do a check of modules to see if there is anyhting to install
@@ -235,13 +272,7 @@ $modules_found = check_module_repositories();
 foreach ($modules_found['folder'] as $module_folder)
 {
     if (!isset($dialogBox)) $dialogBox= '';
-    $dialogBox .= get_lang('<b>Warning : </b>').get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.',array('%module_name'=>$module_folder)).'<br/>';
-}
-
-foreach ($modules_found['DB'] as $module_DB)
-{
-    if (!isset($dialogBox)) $dialogBox= '';
-    $dialogBox .= get_lang('<b>Warning : </b>').get_lang('There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.',array('%module_name'=>$module_DB)).'<br/>';
+    $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder)) . '<br/>';
 }
 
 //----------------------------------
@@ -271,15 +302,15 @@ echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('
 
 //display the module type tabbed naviguation bar
 
-foreach ($typeList as $type)
+foreach ($moduleTypeList as $type)
 {
-    if ($selected_type == $type)
+    if ($typeReq == $type)
     {
-        echo '<li id="active"><a href="module_list.php?selected_type='.$type.'" id="current">'.$type.'</a></li>';
+        echo '<li id="active"><a href="module_list.php?typeReq=' . $type . '" id="current">' . $typeLabel[$type] . '</a></li>';
     }
     else
     {
-        echo '<li><a href="module_list.php?selected_type='.$type.'">'.$type.'</a></li>';
+        echo '<li><a href="module_list.php?typeReq=' . $type . '">' . $typeLabel[$type] . '</a></li>';
     }
 }
 
@@ -290,7 +321,7 @@ echo '  </ul>
 
 //Display Pager list
 
-echo $myPager->disp_pager_tool_bar('module_list.php?selected_type='.$selected_type);
+echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
 
 // start table...
 
@@ -316,7 +347,11 @@ foreach($moduleList as $module)
 
     //find icon
 
-    if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+    if (array_key_exists('icon',$module) && file_exists($includePath . '/../module/' . $module['label'] . '/' . $module['icon']))
+    {
+        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/' . $module['icon'] . '" />';
+    }
+    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
     {
         $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
     }
@@ -350,12 +385,12 @@ foreach($moduleList as $module)
 
     foreach ($module_dock[$module['id']] as $dock)
     {
-        echo '<a href="module_dock.php?dock='.$dock['dockname'].'">'.$dock['dockname']."</a> <br/>";
+        echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dock['dockname'] . '</a> <br/>';
     }
 
     if (empty($module_dock[$module['id']]))
     {
-        echo '<div align="center">'.get_lang('No dock chosen')."</div>";
+        echo '<div align="center">' . get_lang('No dock chosen') . '</div>';
     }
 
     echo '</small></td>' . "\n"
@@ -365,15 +400,15 @@ foreach($moduleList as $module)
 
     //activation link
 
-    if ($module['activation'] == 'activated')
+    if ( 'activated' == $module['activation'] )
     {
-        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;selected_type=' . $selected_type . '">'
+        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '">'
         .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Activated') . '" /></a>'
         ;
     }
     else
     {
-        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'"><img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('Desactivated') . '" /></a>';
+        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('Desactivated') . '" /></a>';
     }
 
     echo '</td>' . "\n";
@@ -389,8 +424,8 @@ foreach($moduleList as $module)
     //uninstall link
 
     .    '<td align="center">'
-    .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;selected_type='.$selected_type.'&cmd=uninstall"'
-    .    ' onClick="return confirmation(\''.$module['name'].'\');">'
+    .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&cmd=uninstall"'
+    .    ' onClick="return confirmation(\'' . $module['name'].'\');">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
@@ -404,7 +439,9 @@ echo '</tbody>'
 
 //Display BOTTOM Pager list
 
-echo $myPager->disp_pager_tool_bar('module_list.php?selected_type='.$selected_type);
+echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
 
 include $includePath . '/claro_init_footer.inc.php';
+
+
 ?>
