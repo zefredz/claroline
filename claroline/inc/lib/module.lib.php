@@ -156,7 +156,6 @@ function claro_install_module($tool_label, $context, $contextData)
                     $claro_enable_function = $tool_label . '_enable_tool';
                     if(function_exists($claro_enable_function))
                     {
-
                         call_user_func($claro_enable_function,$context,$contextData);
                     }
                 }
@@ -170,7 +169,8 @@ function claro_install_module($tool_label, $context, $contextData)
 /**
  *
  * @param claro_label $tool_label label of tool to activate.
- * @return
+ * @return id of instance of the module tool in the context
+ * @throws claro_failure : string
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
@@ -204,7 +204,7 @@ function claro_disable_module($tool_id, $course_id)
 {
     $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $sql = " DELETE FROM `" . $tbl_cdb_names['tool'] . "` "
-                                    . " WHERE tool_id = '" . (int) $tool_id . "'";
+         . " WHERE tool_id = '" . (int) $tool_id . "'";
     return claro_sql_query($sql);
 }
 
