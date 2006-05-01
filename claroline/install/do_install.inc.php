@@ -385,6 +385,22 @@ else
 }
 
 /**
+ * ADD MODULES
+ */
+
+$oldTools = array('CLDSC','CLANN','CLCAL','CLDOC','CLWIKI','CLFRM','CLCHT','CLQWZ','CLWRK','CLUSR');
+
+foreach($oldTools as $claroLabel)
+{
+    $modulePath = get_module_path($claroLabel);
+
+    if (file_exists($modulePath)) $regLog = register_module($modulePath);
+    else                          trigger_error('module path not found' . $module_info['LABEL'],E_USER_WARNING );
+
+    echo claro_html_msg_list($regLog);
+}
+
+/**
  * Add administrator in user and admin table
  */
 
