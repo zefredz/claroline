@@ -162,8 +162,8 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
     }
 
     //$schemaPrefix = (0==count($schemaPrefix) ? get_conf('mainDbName') : implode(get_conf('dbGlu'),$schemaPrefix)); // ne pas utiliser dbGlu tant qu'il peut valoir .
-    $schemaPrefix = (0==count($schemaPrefix) ? get_conf('mainDbName') : implode('_',$schemaPrefix));
-    $tablePrefix  = (''==$tablePrefix) ? get_conf('mainTblPrefix') : $tablePrefix;
+    $schemaPrefix = (0 == count($schemaPrefix) ? get_conf('mainDbName') : implode('_',$schemaPrefix));
+    $tablePrefix  = ('' == $tablePrefix) ? get_conf('mainTblPrefix') : $tablePrefix;
 
     foreach ($tableList as $tableId)
     {
