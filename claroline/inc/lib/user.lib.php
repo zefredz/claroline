@@ -95,7 +95,7 @@ function user_create($settingList, $creatorId = null)
     foreach($requiredSettingList as $thisRequiredSetting)
     {
         if ( array_key_exists( $thisRequiredSetting, $settingList ) ) continue;
-        else return claro_failure::set_failure('MISSING_DATA');
+        else return trigger_error('MISSING_DATA',E_USER_ERROR);
     }
 
     if ($settingList['status'] != COURSE_ADMIN_STATUS) $status = STUDENT_STATUS;
