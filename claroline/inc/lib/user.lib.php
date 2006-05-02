@@ -33,6 +33,7 @@ function user_initialise()
                  'password'      => '',
                  'password_conf' => '',
                  'status'        => '',
+                 'language'      => '',
                  'email'         => '',
                  'phone'         => '',
                  'picture'       => '',
@@ -1315,7 +1316,7 @@ function user_display_form($data, $form_type='registration')
                      . '<label for="follow">' . get_lang('Follow courses') . '</label>'
                      . '<br />'
                      . '<input type="radio" name="status" id="create"'
-                     . ' value="' . COURSE_ADMIN_STATUS . '"   ' 
+                     . ' value="' . COURSE_ADMIN_STATUS . '"   '
                      . ($data['status'] == COURSE_ADMIN_STATUS ? ' checked'  :'') . ' >'
                      . '<label for="create">' . get_lang('Create course') . '</label>');
     }

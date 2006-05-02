@@ -101,6 +101,11 @@ if ( get_conf('allowSelfReg',false) )
                 user_send_registration_mail($_uid, $user_data);
 
             } // if _uid
+            else
+            {
+                if('MISSING_DATA' == claro_failure::get_last_failure())
+                $messageList[][] = get_lang('DataMissing');
+            }
 
         } // end register user
         else
@@ -144,7 +149,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('Create user account'));
 
-if ( $display == DISP_REGISTRATION_SUCCEED )
+if ( DISP_REGISTRATION_SUCCEED == $display )
 {
     // registration succeeded
 
@@ -158,7 +163,7 @@ if ( $display == DISP_REGISTRATION_SUCCEED )
     .    '</form>' . "\n"
     ;
 }
-elseif ( $display == DISP_REGISTRATION_AGREEMENT )
+elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 {
 
     if (file_exists('./textzone_inscription.inc.html'))
@@ -186,7 +191,7 @@ elseif ( $display == DISP_REGISTRATION_AGREEMENT )
     .    '</form>' . "\n"
     ;
 }
-elseif ( $display == DISP_REGISTRATION_FORM )
+elseif ( DISP_REGISTRATION_FORM == $display  )
 {
     //  if registration failed display error message
 
