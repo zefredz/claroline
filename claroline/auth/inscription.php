@@ -104,7 +104,14 @@ if ( get_conf('allowSelfReg',false) )
             else
             {
                 if('MISSING_DATA' == claro_failure::get_last_failure())
-                $messageList[][] = get_lang('DataMissing');
+                {
+                    $messageList[] = get_lang('Data missing');
+                }
+                else
+                {
+                    $messageList[] = get_lang('Unknown error');
+                }
+
             }
 
         } // end register user
