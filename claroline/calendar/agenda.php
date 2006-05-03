@@ -100,7 +100,7 @@ if ( $is_allowedToEdit )
 
     $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
 
-    $ex_rss_refresh = FALSE;
+    $autoExportRefresh = FALSE;
     if ( 'exAdd' == $cmd )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
@@ -120,7 +120,7 @@ if ( $is_allowedToEdit )
             // notify that a new agenda event has been posted
 
             $eventNotifier->notifyCourseEvent('agenda_event_added', $_cid, $_tid, $insert_id, $_gid, '0');
-            $ex_rss_refresh = TRUE;
+            $autoExportRefresh = TRUE;
 
         }
         else
@@ -145,7 +145,7 @@ if ( $is_allowedToEdit )
             {
                 $dialogBox .= linker_update(); //return textual error msg
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
-                $ex_rss_refresh = TRUE;
+                $autoExportRefresh = TRUE;
                 $dialogBox .= '<p>' . get_lang('Event updated into the agenda') . '</p>' . "\n";
             }
             else
@@ -167,7 +167,7 @@ if ( $is_allowedToEdit )
             $dialogBox .= '<p>' . get_lang('Event deleted from the agenda') . '</p>' . "\n";
 
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
-            $ex_rss_refresh = TRUE;
+            $autoExportRefresh = TRUE;
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
                 event_default('CALENDAR',array ('DELETE_ENTRY' => $id));
@@ -213,14 +213,14 @@ if ( $is_allowedToEdit )
         {
             $visibility = 'SHOW';
             $eventNotifier->notifyCourseEvent('agenda_event_visible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
-            $ex_rss_refresh = TRUE;
+            $autoExportRefresh = TRUE;
         }
 
         if ($cmd == 'mkHide')
         {
             $visibility = 'HIDE';
             $eventNotifier->notifyCourseEvent('agenda_event_invisible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
-            $ex_rss_refresh = TRUE;
+            $autoExportRefresh = TRUE;
         }
 
         if ( agenda_set_item_visibility($id, $visibility)  )
@@ -269,10 +269,19 @@ if ( $is_allowedToEdit )
 
     // rss update
     if ( get_conf('enable_rss_in_course')
-    && $ex_rss_refresh && file_exists('./agenda.rssgen.inc.php')
+    && $autoExportRefresh && file_exists('./agenda.rssgen.inc.php')
     )
     {
         include './agenda.rssgen.inc.php';
+    }
+
+    // ical update
+    if (get_conf('enable_ical_in_course',1)
+    && $autoExportRefresh && file_exists('./lib/ical.write.lib.php')
+    )
+    {
+        include './lib/ical.write.lib.php';
+        if (function_exists('CLCAL_write_ical')) CLCAL_write_ical();
     }
 
 } // end id is_allowed to edit
