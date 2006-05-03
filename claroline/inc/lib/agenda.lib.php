@@ -34,7 +34,13 @@ function agenda_get_item_list($order='DESC', $course_id=NULL)
 {
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
-    $sql = "SELECT `id`, `titre` `title`, `contenu` `content`, `day`, `hour`, `lasting`, `visibility`
+    $sql = "SELECT           `id`,
+                `titre`   AS `title`,
+                `contenu` AS `content`,
+                             `day`,
+                             `hour`,
+                             `lasting`,
+                             `visibility`
         FROM `" . $tbl_calendar_event . "`
         ORDER BY `day` " . ($order=='DESC'?'DESC':'ASC') . "
         , `hour` " . ($order=='DESC'?'DESC':'ASC');
