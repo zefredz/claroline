@@ -400,7 +400,7 @@ function claro_sql_field_names( $sql, $resultPt = null )
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
 
-function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
+function claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
 
@@ -431,6 +431,11 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
     {
         return false;
     }
+}
+
+function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
+{
+    return claro_sql_query_fetch_all_rows($sqlQuery, $dbHandler);
 }
 
 /**
