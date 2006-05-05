@@ -262,6 +262,7 @@ function get_module_url($toolLabel)
         case 'CLLNP' : return get_conf('clarolineRepositoryWeb') . 'learnPath';
         case 'CLQWZ' : return get_conf('clarolineRepositoryWeb') . 'exercice';
         case 'CLWRK' : return get_conf('clarolineRepositoryWeb') . 'work';
+        case 'CLLNK' : return get_conf('clarolineRepositoryWeb') . 'linker';
         case 'CLWIKI' : return get_conf('clarolineRepositoryWeb') . 'wiki';
         case 'CLGRP' : return '';
         default: return get_conf('clarolineRepositoryWeb') . 'module/' . $toolLabel;
@@ -301,11 +302,12 @@ function get_module_db_dependance($toolId)
         case 'CLCAL'  : return array('course','group');
 
         //case 'CLBLOG' : return array ('user','course');
-        case 'CLDSC'  : return array ('course');
-        case 'CLFRM'  : return array ('course');
-        case 'CLLNP'  : return array ('course');
-        case 'CLUSR'  : return array ('course');
-        case 'CLWRK'  : return array ('course');
+        case 'CLLNK' :  return array('course');
+        case 'CLDSC'  : return array('course');
+        case 'CLFRM'  : return array('course');
+        case 'CLLNP'  : return array('course');
+        case 'CLUSR'  : return array('course');
+        case 'CLWRK'  : return array('course');
 
         default :       return array();
     }
