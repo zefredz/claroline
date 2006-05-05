@@ -237,11 +237,11 @@ if ( $is_allowedToEdit )
     EVENT EDIT
     --------------------------------------------------------------------------*/
 
-    if ( $cmd == 'rqEdit' || $cmd == 'rqAdd' )
+    if ( 'rqEdit' == $cmd  || 'rqAdd' == $cmd  )
     {
         claro_set_display_mode_available(false);
 
-        if ( $cmd == 'rqEdit' && !empty($id) )
+        if ( 'rqEdit' == $cmd  && !empty($id) )
         {
             $editedEvent = agenda_get_item($id) ;
             // get date as unixtimestamp for claro_dis_date_form and claro_disp_time_form
@@ -262,7 +262,7 @@ if ( $is_allowedToEdit )
     } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
 
 
-    if ($cmd != 'rqEdit' && $cmd != 'rqAdd') // display main commands only if we're not in the event form
+    if ('rqEdit' != $cmd  && 'rqAdd' != $cmd ) // display main commands only if we're not in the event form
     {
         $display_command = TRUE;
     } // end if diplayMainCommands
@@ -276,12 +276,14 @@ if ( $is_allowedToEdit )
     }
 
     // ical update
-    if (get_conf('enable_ical_in_course',1)
-    && $autoExportRefresh && file_exists('./lib/ical.write.lib.php')
+    if (get_conf('enable_ical_in_course', 1)
+    && $autoExportRefresh
+//    && file_exists('./lib/ical.write.lib.php')
+
     )
     {
-        include './lib/ical.write.lib.php';
-        if (function_exists('CLCAL_write_ical')) CLCAL_write_ical();
+        require_once $includePath . '/lib/ical.write.lib.php';
+        buildICal( array('course' => $_cid));
     }
 
 } // end id is_allowed to edit
@@ -466,15 +468,15 @@ if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
 foreach ( $eventList as $thisEvent )
 {
 
-    if (($thisEvent['visibility']=='HIDE' && $is_allowedToEdit) || $thisEvent['visibility']=='SHOW')
+    if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit) || 'SHOW' == $thisEvent['visibility'])
     {
-        $style = $thisEvent['visibility']=='HIDE' ?'invisible' : $style='';
+        $style = 'HIDE' == $thisEvent['visibility'] ? 'invisible' : $style='';
 
         // TREAT "NOW" BAR CASE
         if ( ! $nowBarAlreadyShowed )
-        if (( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) > time() ) && $orderDirection == 'ASC'  )
+        if (( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) > time() ) &&  'ASC' == $orderDirection )
         ||
-        ( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) < time() ) && $orderDirection == 'DESC' )
+        ( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) < time() ) &&  'DESC' == $orderDirection )
         )
         {
             if ($monthBar != date('m',time()))
@@ -581,7 +583,7 @@ foreach ( $eventList as $thisEvent )
         ;
 
         //  Visibility
-        if ($thisEvent['visibility']=='SHOW')
+        if ('SHOW' == $thisEvent['visibility'])
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] . '">'
             .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
