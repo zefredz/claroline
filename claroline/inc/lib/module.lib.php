@@ -219,7 +219,6 @@ function claro_disable_module($tool_id, $course_id)
 
 function get_module_path($toolLabel)
 {
-
     switch ($toolLabel)
     {
         case 'CLANN' : return get_conf('clarolineRepositorySys') . 'announcements';
@@ -233,6 +232,7 @@ function get_module_path($toolLabel)
         case 'CLQWZ' : return get_conf('clarolineRepositorySys') . 'exercice';
         case 'CLWRK' : return get_conf('clarolineRepositorySys') . 'work';
         case 'CLWIKI' : return get_conf('clarolineRepositorySys') . 'wiki';
+        case 'CLLNK' : return get_conf('clarolineRepositorySys') . 'linker';
         case 'CLGRP' : return '';
         default: return get_conf('clarolineRepositorySys') . 'module/' . $toolLabel;
     }
