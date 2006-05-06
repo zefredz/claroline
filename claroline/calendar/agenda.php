@@ -276,11 +276,7 @@ if ( $is_allowedToEdit )
     }
 
     // ical update
-    if (get_conf('enable_ical_in_course', 1)
-    && $autoExportRefresh
-//    && file_exists('./lib/ical.write.lib.php')
-
-    )
+    if (get_conf('enable_ical_in_course', 1) && $autoExportRefresh )
     {
         require_once $includePath . '/lib/ical.write.lib.php';
         buildICal( array('course' => $_cid));
