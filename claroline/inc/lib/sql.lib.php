@@ -44,6 +44,7 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
         $tableList = $tableListArr;
     }
     else $tableList = $tableList;
+
     /**
      * Tool Context capatibility
      *
@@ -62,19 +63,10 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
      * If  I prupose a blog tool wich can't discrim user
      * I need to duplicate all blog table (in same or separate db).
      */
+
     if (!is_array($contextData)) $contextData = array();
 
-    $_courseTool = get_init('_courseTool');
-
-    if(is_null($contextData) || !array_key_exists('toolLabel',$contextData)) $contextData['toolLabel']  = rtrim($_courseTool['label'],'_');
-
-    if(is_null($contextData) || !array_key_exists('course',$contextData))       $contextData['course']     = get_init('_cid');
-    if(is_null($contextData) || !array_key_exists('group',$contextData))        $contextData['group']        = get_init('_gid');
-    if(is_null($contextData) || !array_key_exists('user',$contextData))         $contextData['user']         = get_init('_uid');
-    //if(is_null($contextData) || !array_key_exists('session',$contextData))     $contextData['session']      = get_init('_sid');
-    if(is_null($contextData) || !array_key_exists('toolInstance',$contextData)) $contextData['toolInstance'] = get_init('_tid');
-
-    $contextDependance = get_context_db_discriminator($contextData['toolLabel']);
+    $contextDependance = get_context_db_discriminator(rtrim($GLOBALS['_courseTool']['label'],'_'));
 
     // Now place discriminator in db & table name.
     // if a context is needed ($contextData) and $contextDependance is found,
@@ -652,8 +644,6 @@ function get_context_db_discriminator($toolId)
  // et le swtich des debrayage dans if (!get_conf('singleDbEnabled'))
  // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT être vide
 
-
-
     switch ($toolId)
     {
 // ie        case 'CLANN' : return array('schema' => array ('course'), 'table' => array('group'));
@@ -675,7 +665,5 @@ function get_context_db_discriminator($toolId)
     }
 
 }
-
-
 
 ?>
