@@ -15,7 +15,7 @@
 
 function CLCAL_write_ical( & $iCal, $context)
 {
-    global $_course;
+
     if (is_array($context) && count($context)>0)
     {
         if (in_array('course',$context))
@@ -28,15 +28,15 @@ function CLCAL_write_ical( & $iCal, $context)
         }
     }
     require_once dirname(__FILE__) . '/../../inc/lib/agenda.lib.php';
+    $courseData = claro_get_course_data($courseCode);
+
     $toolNameList = claro_get_tool_name_list();
     $eventList    = agenda_get_item_list('ASC', $courseCode);
 
-    $organizer = (array) array($_course['titular'], $_course['email']);
+    $organizer = (array) array($courseData['titular'], $courseData['email']);
     $attendees = array();
-    $categories = array( get_conf('siteName'),
-    $_course['officialCode'],
-    trim($toolNameList[str_pad('CLCAL',8,'_')]),
-    $_course['categoryCode']
+    $categories = array( get_conf('siteName'), $courseData['officialCode'], trim($toolNameList[str_pad('CLCAL',8,'_')]),
+     $courseData['categoryCode']
     );
 
     foreach ($eventList as $thisEvent)
@@ -66,7 +66,7 @@ function CLCAL_write_ical( & $iCal, $context)
             '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
             0,  // Sets the time in minutes an alarm appears before the event in the programm. no alarm if empty string or 0
             1, // Status of the event (0 = TENTATIVE, 1 = CONFIRMED, 2 = CANCELLED)
-            get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseCode . '&amp;l#event' . $thisEvent['id'], // optional URL for that event
+            get_conf('rootWeb') . get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseCode . '&amp;l#event' . $thisEvent['id'], // optional URL for that event
             get_conf('iso639_1_code'), // Language of the Strings
             '' // Optional UID for this event
             );
