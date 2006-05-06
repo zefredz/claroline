@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @package CLCAL
+ * @package CLWRK
  *
  * @author Claro Team <cvs@claroline.net>
  */
@@ -21,19 +21,16 @@ function CLWRK_write_ical( & $iCal, $context)
 
         $courseData = claro_get_course_data($courseCode);
         $toolNameList = claro_get_tool_name_list();
-        $assignmentList = assignmentList();
+        $assignmentList = assignmentList($courseCode);
         $organizer = (array) array($courseData['titular'], $courseData['email']);
         $attendees = array();
-        $categories = array( get_conf('siteName'),
-        $courseData['officialCode'],
-        trim($toolNameList[str_pad('CLWRK',8,'_')]),
-        $courseData['categoryCode']
-        );
+        $categories = array( get_conf('siteName'), $courseData['officialCode'],
+        trim($toolNameList[str_pad('CLWRK',8,'_')]), $courseData['categoryCode'] );
 
         $iCal = (object) new iCal('', 0, 'S:/cvs.claroline.net/clarolinedev/claroline.rss/'); // (ProgrammID, Method (1 = Publish | 0 = Request), Download Directory)
         foreach ($assignmentList as $thisAssignment)
         {
-            if('VISIBLE' == $thisAssignment['visibility'])
+            if( 'VISIBLE' == $thisAssignment['visibility'])
             {
 
                 $categories[] = $thisAssignment['assignment_type'];
@@ -60,7 +57,7 @@ function CLWRK_write_ical( & $iCal, $context)
                 array(), // Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
                 1, // Startday of the Week ( 0 = Sunday - 6 = Saturday)
                 '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
-                get_conf('clarolineRepositoryWeb') . 'work/workList.php?cidReq=' . $courseCode.'&amp;assigId=' . $thisAssignment['id'], // optional URL for that event
+                get_conf('rootWeb') . get_conf('clarolineRepositoryWeb') . 'work/workList.php?cidReq=' . $courseCode.'&amp;assigId=' . $thisAssignment['id'], // optional URL for that event
                 get_conf('iso639_1_code'), // Language of the Strings
                 '' // Optional UID for this ToDo
                 );
@@ -70,20 +67,29 @@ function CLWRK_write_ical( & $iCal, $context)
     return $iCal;
 }
 
-function assignmentList()
+/**
+ * Return the list of assigment of the current course
+ *
+ * @param string coursecode or null (to take default)
+ *
+ * @return array of array(id,title,description,def_submission_visibility,visibility,assignment_type,start_date_unix,end_date_unix)
+ */
+function assignmentList($courseCode=null)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 
-    $sql = "SELECT `id`,
-        				`title`,
-        				`description`,
-        				`def_submission_visibility`,
-        				`visibility`,
-        				`assignment_type`,
-        				unix_timestamp(`start_date`) as `start_date_unix`,
-        				unix_timestamp(`end_date`) as `end_date_unix`
-            	FROM `" . $tbl_wrk_assignment . "`";
+    $sql = "SELECT    `id`,
+                      `title`,
+                      `description`,
+                      `def_submission_visibility`,
+                      `visibility`,
+                      `assignment_type`,
+               unix_timestamp(`start_date`)
+                   AS `start_date_unix`,
+               unix_timestamp(`end_date`)
+                   AS `end_date_unix`
+               FROM `" . $tbl_wrk_assignment . "`";
 
     return claro_sql_query_fetch_all_rows($sql);
 }
