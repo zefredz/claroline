@@ -120,7 +120,7 @@ if($is_allowedToEdit) // check teacher status
     //linker
     //------------------------
 
-    $ex_rss_refresh = FALSE;
+    $autoExportRefresh = FALSE;
     if ( !empty($cmd) )
     {
         /**
@@ -147,7 +147,7 @@ if($is_allowedToEdit) // check teacher status
                 $message = get_lang('Announcement has been deleted');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', $_cid, $_tid, $id, $_gid, '0');
-                $ex_rss_refresh = TRUE;
+                $autoExportRefresh = TRUE;
 
                 linker_delete_resource();
             }
@@ -168,7 +168,7 @@ if($is_allowedToEdit) // check teacher status
             {
                 $message = get_lang('Announcements list has been cleared up');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
-                $ex_rss_refresh = TRUE;
+                $autoExportRefresh = TRUE;
 
                 linker_delete_all_tool_resources();
             }
@@ -254,7 +254,7 @@ if($is_allowedToEdit) // check teacher status
                     $message .= linker_update();
                     $eventNotifier->notifyCourseEvent('anouncement_modified', $_cid, $_tid, $id, $_gid, '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
-                    $ex_rss_refresh = TRUE;
+                    $autoExportRefresh = TRUE;
                 }
 //                else
 //                {
@@ -277,7 +277,7 @@ if($is_allowedToEdit) // check teacher status
                     $message  = get_lang('Announcement has been added');
                     $message .= linker_update();
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
-                    $ex_rss_refresh = TRUE;
+                    $autoExportRefresh = TRUE;
                 }
 //                else
 //                {
@@ -341,7 +341,7 @@ if($is_allowedToEdit) // check teacher status
                 $countUnvalid  = 0;
                 $messageFailed = '';
 
-                $sentMailCount = claro_mail_user($studentIdList, $emailBody, 
+                $sentMailCount = claro_mail_user($studentIdList, $emailBody,
                                   $emailSubject, $_user['mail'], $courseSender);
 
                 $message = '<p>' . get_lang('Message sent') . '<p>';
@@ -363,12 +363,20 @@ if($is_allowedToEdit) // check teacher status
 
         // rss update
         if ( get_conf('enable_rss_in_course')
-               && $ex_rss_refresh
+               && $autoExportRefresh
                && file_exists('./announcements.rssgen.inc.php')
            )
         {
             include('./announcements.rssgen.inc.php');
         }
+
+        // ical update
+        if (get_conf('enable_ical_in_course', 1) && $autoExportRefresh )
+        {
+            require_once $includePath . '/lib/ical.write.lib.php';
+            buildICal( array('course' => $_cid));
+        }
+
 
     } // end if isset $_REQUEST['cmd']
 
