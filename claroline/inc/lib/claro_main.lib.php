@@ -958,4 +958,22 @@ function claro_disp_duration( $duration  )
     return $durationString;
 }
 
+
+/**
+ * return array of context
+ */
+function claro_get_current_context($contextKeys = null)
+{
+    $currentKeys = array();
+
+     $_courseTool = get_init('_courseTool');
+
+    if((is_null($contextKeys) || array_key_exists('course',$contextKeys))       && !is_null($GLOBALS['_cid'])) $currentKeys['course']       = get_init('_cid');
+    if((is_null($contextKeys) || array_key_exists('group',$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys['group']        = get_init('_gid');
+    if((is_null($contextKeys) || array_key_exists('user',$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys['user']         = get_init('_uid');
+    //if((is_null($contextKeys) || array_key_exists('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
+    if((is_null($contextKeys) || array_key_exists('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = get_init('_tid');
+
+    return $currentKeys;
+}
 ?>
