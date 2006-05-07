@@ -154,11 +154,11 @@ foreach($toolList as $thisTool)
 echo '<table border="0" cellspacing="10" cellpadding="10" width="100%">' . "\n"
 .    '<tr>' . "\n"
 .    '<td valign="top" style="border-right: gray solid 1px;" width="220">' . "\n"
-.    claro_html_menu_vertical_br($toolLinkList)
+.    claro_html_menu_vertical_br($toolLinkList, array('id'=>'commonToolList'))
 .    '<br />'
 ;
 
-if ($disp_edit_command) echo claro_html_menu_vertical_br($courseManageToolLinkList);
+if ($disp_edit_command) echo claro_html_menu_vertical_br($courseManageToolLinkList,  array('id'=>'adminToolList'));
 
 if ( !is_null(get_init('_uid') )) echo '<br /><small><span class="item hot"> '. get_lang('denotes new items') . '</span></small>';
 
