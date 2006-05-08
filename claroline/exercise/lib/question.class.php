@@ -95,14 +95,14 @@ class Question
 	    $this->tmpQuestionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/tmp'.uniqid('').'/';
 	    
 	    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-		$this->tblQuestion = $tbl_cdb_names['quiz_2_question'];
-		$this->tblRelExerciseQuestion = $tbl_cdb_names['quiz_2_rel_exercise_question'];
+		$this->tblQuestion = $tbl_cdb_names['qwz_question'];
+		$this->tblRelExerciseQuestion = $tbl_cdb_names['qwz_rel_exercise_question'];
 	}	
 	
 	/**
      * load an question from DB 
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param integer $id id of question
      * @return boolean load successfull ?
      */   
@@ -178,7 +178,7 @@ class Question
     /**
      * save question to DB
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
      */   
     function save()
@@ -243,7 +243,7 @@ class Question
     /**
      * check if data are valide
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return boolean 
      */	
 	function validate()
@@ -263,7 +263,7 @@ class Question
     /**
      * delete question from DB
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return boolean 
      */
 	function delete()
@@ -298,7 +298,7 @@ class Question
 	/**
      * builds required paths and sets values in $questionDirSys and $questionDirWeb
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      */
 	function buildDirPaths()
 	{
@@ -311,7 +311,7 @@ class Question
 	/**
      * set attachment value and move uploaded image to a temporary file
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      */
 	function setAttachment($file)
 	{
@@ -356,7 +356,7 @@ class Question
 	/**
      * 
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      */	
 	function moveAttachment()
 	{
@@ -380,7 +380,7 @@ class Question
 	/**
      * try to remove the attachment if there is one
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      */
 	function deleteAttachment()
 	{
@@ -402,7 +402,7 @@ class Question
 	/**
      * get html required to display the question
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
     function getQuestionAnswerHtml()
@@ -420,7 +420,7 @@ class Question
 	/**
      * get html required to display the question
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */    
     function getQuestionHtml()
@@ -439,7 +439,7 @@ class Question
 	/**
      * get html required to display the question
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */    
     function getQuestionFeedbackHtml()
@@ -454,7 +454,7 @@ class Question
     /**
      * get html required to display the question
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param float result   
      */  
     function computeResult()
@@ -470,7 +470,7 @@ class Question
 	/**
      * get title
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 
 	function getTitle()
@@ -482,7 +482,7 @@ class Question
 	/**
      * set title
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */	 	
 	function setTitle($value)
@@ -493,7 +493,7 @@ class Question
 	/**
      * get description
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return string   
      */	  
 	function getDescription()
@@ -504,7 +504,7 @@ class Question
 	/**
      * set description
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */	
 	function setDescription($value)
@@ -515,7 +515,7 @@ class Question
 	/**
      * get attachment
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return string   
      */	  
 	function getAttachment()
@@ -526,7 +526,7 @@ class Question
 	/**
      * get type ('VISIBLE', 'INVISIBLE')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 	 
 	function getType()
@@ -537,7 +537,7 @@ class Question
 	/**
      * set type
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
 	function setType($value)
@@ -555,7 +555,7 @@ class Question
 	/**
      * get grade
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return float   
      */	  
 	function getGrade()
@@ -566,7 +566,7 @@ class Question
 	/**
      * set grade
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @param float $value   
      */	
 	function setGrade($value)
@@ -577,7 +577,7 @@ class Question
 	/**
      * get the full systeme path of the attachment directory
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return string    
      */	 
 	function getQuestionDirSys()
@@ -588,7 +588,7 @@ class Question
 	/**
      * get the full web path of the attachment directory
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sbastien Piraux <pir@cerdecam.be>
      * @return string    
      */	 	
 	function getQuestionDirWeb()

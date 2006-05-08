@@ -34,7 +34,7 @@ include_once $includePath.'/lib/pager.lib.php';
  */
  
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_quiz_exercise = $tbl_cdb_names['quiz_2_exercise'];
+$tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];

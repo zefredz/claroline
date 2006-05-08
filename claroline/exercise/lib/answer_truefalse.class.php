@@ -94,7 +94,7 @@ class answerTrueFalse
     	$this->errorList = array();
     	
     	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-		$this->tblAnswer = $tbl_cdb_names['quiz_2_answer_truefalse'];
+		$this->tblAnswer = $tbl_cdb_names['qwz_answer_truefalse'];
     }
 
     /**

@@ -76,7 +76,7 @@ class answerMultipleChoice
     	$this->errorList = array();
     	
     	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-		$this->tblAnswer = $tbl_cdb_names['quiz_2_answer_multiple_choice'];
+		$this->tblAnswer = $tbl_cdb_names['qwz_answer_multiple_choice'];
     }
 
     /**
@@ -130,14 +130,18 @@ class answerMultipleChoice
         if( claro_sql_query($sql) == false ) return false;
        
        	// inserts new answers into data base
-        $sql = "INSERT INTO `".$this->tblAnswer."`(`questionId`,`answer`,`correct`,`grade`,`comment`)
+        $sql = "INSERT INTO `".$this->tblAnswer."` (`questionId`,`answer`,`correct`,`grade`,`comment`)
                 VALUES ";
 
         foreach($this->answerList as $anAnswer)
         {
-            $sql .= "('".$this->questionId."','".$anAnswer['answer']."','".$anAnswer['correct']."','".$anAnswer['grade']."','".$anAnswer['comment']."'),";
+            $sql .= "('".$this->questionId."',
+            		'".addslashes($anAnswer['answer'])."',
+        			'".addslashes($anAnswer['correct'])."',
+        			'".addslashes($anAnswer['grade'])."',
+        			'".addslashes($anAnswer['comment'])."'),";
         }
-
+        
         $sql = substr($sql,0,-1); // remove trailing ,
         
         return claro_sql_query($sql);

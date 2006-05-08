@@ -41,9 +41,9 @@ include_once $includePath.'/lib/fileManage.lib.php';
  * DB tables definition for list query
  */
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_quiz_exercise = $tbl_cdb_names['quiz_2_exercise'];
-$tbl_quiz_rel_exercise_question = $tbl_cdb_names['quiz_2_rel_exercise_question'];
-$tbl_quiz_question = $tbl_cdb_names['quiz_2_question'];
+$tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
+$tbl_quiz_question = $tbl_cdb_names['qwz_question'];
+$tbl_quiz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question'];
  
 /*
  * Handle request

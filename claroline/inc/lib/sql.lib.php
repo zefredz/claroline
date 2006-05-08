@@ -273,11 +273,14 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'lp_rel_learnPath_module'=> $courseDbInCache . 'lp_rel_learnPath_module',
               'lp_user_module_progress'=> $courseDbInCache . 'lp_user_module_progress',
               'lp_module'              => $courseDbInCache . 'lp_module',
-              'lp_asset'               => $courseDbInCache . 'lp_asset',
-              'quiz_answer'            => $courseDbInCache . 'quiz_answer',
-              'quiz_question'          => $courseDbInCache . 'quiz_question',
-              'quiz_rel_test_question' => $courseDbInCache . 'quiz_rel_test_question',
-              'quiz_test'              => $courseDbInCache . 'quiz_test' ,
+              'lp_asset'			   => $courseDbInCache . 'lp_asset',              
+              'qwz_exercise'              	=> $courseDbInCache . 'qwz_exercise' ,
+              'qwz_question'          		=> $courseDbInCache . 'qwz_question',	
+              'qwz_rel_exercise_question' 	=> $courseDbInCache . 'qwz_rel_exercise_question',
+              'qwz_answer_truefalse'		=> $courseDbInCache . 'qwz_answer_truefalse',
+              'qwz_answer_multiple_choice'	=> $courseDbInCache . 'qwz_answer_multiple_choice',
+              'qwz_answer_fib'            	=> $courseDbInCache . 'qwz_answer_fib',
+              'qwz_answer_matching'       	=> $courseDbInCache . 'qwz_answer_matching',
               'tool_intro'             => $courseDbInCache . 'tool_intro',
               'tool'                   => $courseDbInCache . 'tool_list',
               'track_e_access'         => $courseDbInCache . 'track_e_access',
@@ -308,7 +311,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesch <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
@@ -642,7 +645,7 @@ function get_context_db_discriminator($toolId)
  // switch n'as plus trop de sens ici.
  // le default  devrait probablement sortir
  // et le swtich des debrayage dans if (!get_conf('singleDbEnabled'))
- // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT être vide
+ // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT tre vide
 
     switch ($toolId)
     {
