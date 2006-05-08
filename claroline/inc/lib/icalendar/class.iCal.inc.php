@@ -1025,10 +1025,6 @@ class iCal {
 	* @since 1.001 - 2002-10-10
 	*/
 	function generateOutput($format = 'ics') {
-		function &isEmpty(&$variable) {
-            return (boolean) ((strlen(trim($variable)) > 0) ? FALSE : TRUE);
-        }
-
         $this->output_format = (string) $format;
 		if ($this->output_format == 'ics') {
 			$this->output  = (string) "BEGIN:VCALENDAR\r\n";
@@ -1631,4 +1627,10 @@ class iCal {
 		}
 	} // end function
 } // end class iCal
+
+
+function isEmpty($variable) {
+    return (boolean) ((strlen(trim($variable)) > 0) ? FALSE : TRUE);
+}
+
 ?>
