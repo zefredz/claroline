@@ -371,7 +371,7 @@ if($is_allowedToEdit) // check teacher status
         }
 
         // ical update
-        if (get_conf('enable_ical_in_course', 1) && $autoExportRefresh )
+        if (get_conf('enableICalInCourse', 1) && $autoExportRefresh )
         {
             require_once $includePath . '/lib/ical.write.lib.php';
             buildICal( array('course' => $_cid));
