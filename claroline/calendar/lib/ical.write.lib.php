@@ -53,8 +53,8 @@ function CLCAL_write_ical( & $iCal, $context)
             '', // Location
             0, // Transparancy (0 = OPAQUE | 1 = TRANSPARENT)
             $categories, // Array with Strings
-            $thisEvent['content'], // Description
-            $thisEvent['title'], // Title
+            trim(str_replace('<!-- content: html -->','',$thisEvent['content'])), // Description
+            trim($thisEvent['title']), // Title
             1, // Class (0 = PRIVATE | 1 = PUBLIC | 2 = CONFIDENTIAL)
             $attendees, // Array (key = attendee name, value = e-mail, second value = role of the attendee [0 = CHAIR | 1 = REQ | 2 = OPT | 3 =NON])
             5, // Priority = 0-9

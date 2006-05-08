@@ -27,7 +27,6 @@ function CLWRK_write_ical( & $iCal, $context)
         $categories = array( get_conf('siteName'), $courseData['officialCode'],
         trim($toolNameList[str_pad('CLWRK',8,'_')]), $courseData['categoryCode'] );
 
-        $iCal = (object) new iCal('', 0, 'S:/cvs.claroline.net/clarolinedev/claroline.rss/'); // (ProgrammID, Method (1 = Publish | 0 = Request), Download Directory)
         foreach ($assignmentList as $thisAssignment)
         {
             if( 'VISIBLE' == $thisAssignment['visibility'])
@@ -36,8 +35,8 @@ function CLWRK_write_ical( & $iCal, $context)
                 $categories[] = $thisAssignment['assignment_type'];
 
                 $iCal->addToDo(
-                $thisAssignment['title'], // Title
-                $thisAssignment['description'], // Description
+                trim($thisAssignment['title']), // Title
+                trim(str_replace('<!-- content: html -->','',$thisAssignment['description'])), // Description
                 '', // Location
                 (int) $thisAssignment['start_date_unix'], // Start time
                 3600, //(($thisAssignment['end_date_unix']-$thisAssignment['start_date_unix'])/60), // Duration in minutes
@@ -57,7 +56,7 @@ function CLWRK_write_ical( & $iCal, $context)
                 array(), // Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
                 1, // Startday of the Week ( 0 = Sunday - 6 = Saturday)
                 '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
-                get_conf('rootWeb') . get_conf('clarolineRepositoryWeb') . 'work/workList.php?cidReq=' . $courseCode.'&amp;assigId=' . $thisAssignment['id'], // optional URL for that event
+                get_conf('rootWeb') .'work/workList.php?cidReq=' . $courseCode.'&amp;assigId=' . $thisAssignment['id'], // optional URL for that event
                 get_conf('iso639_1_code'), // Language of the Strings
                 '' // Optional UID for this ToDo
                 );
@@ -74,7 +73,7 @@ function CLWRK_write_ical( & $iCal, $context)
  *
  * @return array of array(id,title,description,def_submission_visibility,visibility,assignment_type,start_date_unix,end_date_unix)
  */
-function assignmentList($courseCode=null)
+function assignmentList($courseCode = null)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseCode));
     $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
