@@ -18,7 +18,7 @@
  * @package COURSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 
@@ -64,7 +64,7 @@ function define_course_keys ($wantedCode,
     // $keys["currentCourseCode"] is the "public code"
 
     $wantedCode =  strtr($wantedCode,
-    '',
+    'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖØÙÚÛÜİßàáâãäåæçèéêëìíîïğñòóôõöøùúûüıÿ',
     'AAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy');
 
     //$wantedCode = strtoupper($wantedCode);
@@ -212,7 +212,7 @@ function define_course_keys ($wantedCode,
  * @param  string $courseRepository path from $coursesRepositorySys to root of course
  * @param  string $courseId         sysId of course
  *
- * @author Christophe Gesch <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
 
@@ -270,7 +270,7 @@ function prepare_course_repository($courseRepository, $courseId)
  * @global  string  courseTablePrefix common prefix for all table of courses
  * @global  string  dbGlu glu between logical name of DB and logical name of table 267
  *
- * @author Christophe Gesch <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.0
  */
 
@@ -949,7 +949,7 @@ function update_db_course($courseDbName)
  *
  * @param    string    $courseRepository        path from $coursesRepositorySys to root of course
  *
- * @author Christophe Gesch <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.0
  */
 
@@ -970,7 +970,7 @@ function fill_course_repository($courseRepository)
  * @param  string  $courseDbName        partial DbName. to build as $courseTablePrefix.$courseDbName.$dbGlu;
  * @param  string  $language            language request for this course
  *
- * @author Christophe Gesch <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.0
  *
  * note  $language would be removed soon.
@@ -1151,7 +1151,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
  * @param bool      $visibility
  * @param bool      $registrationAllowed
  * @param string    $enrollmentKey
- * @author Christophe Gesch <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  */
 
 function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse='', $uidCreator, $visibility, $registrationAllowed, $enrollmentKey='', $expirationDate='', $extLinkName='', $extLinkUrl='')
