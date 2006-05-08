@@ -21,7 +21,7 @@
 $tlabelReq = 'CLCAL___';
 
 require '../inc/claro_init_global.inc.php';
-require_once $clarolineRepositorySys . '/linker/linker.inc.php';
+require_once get_conf('clarolineRepositorySys') . '/linker/linker.inc.php';
 require_once $includePath . '/lib/agenda.lib.php';
 require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/conf/rss.conf.php';
@@ -68,8 +68,7 @@ event_access_tool($_tid, $_courseTool['label']);
 $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = null;
+$cmd = ( isset($_REQUEST['cmd']) ) ?$_REQUEST['cmd']: null;
 
 $dialogBox = '';
 
@@ -106,8 +105,8 @@ if ( $is_allowedToEdit )
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
 
-        $insert_id = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
-        if ( $insert_id != false )
+        $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
+        if ( $entryId != false )
         {
             $dialogBox .= '<p>' . get_lang('Event added to the agenda') . '</p>' . "\n";
             $dialogBox .= linker_update(); //return textual error msg
@@ -119,7 +118,7 @@ if ( $is_allowedToEdit )
 
             // notify that a new agenda event has been posted
 
-            $eventNotifier->notifyCourseEvent('agenda_event_added', $_cid, $_tid, $insert_id, $_gid, '0');
+            $eventNotifier->notifyCourseEvent('agenda_event_added', $_cid, $_tid, $entryId, $_gid, '0');
             $autoExportRefresh = TRUE;
 
         }
@@ -276,7 +275,7 @@ if ( $is_allowedToEdit )
     }
 
     // ical update
-    if (get_conf('enable_ical_in_course', 1) && $autoExportRefresh )
+    if (get_conf('enableICalInCourse',1) && $autoExportRefresh )
     {
         require_once $includePath . '/lib/ical.write.lib.php';
         buildICal( array('course' => $_cid));
@@ -295,7 +294,7 @@ $noQUERY_STRING = true;
 if ( get_conf('enable_rss_in_course') )
 {
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
-    .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+    .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
 }
 
 $eventList = agenda_get_item_list($orderDirection);
@@ -305,7 +304,7 @@ $eventList = agenda_get_item_list($orderDirection);
          */
 
 $cmd_menu[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt="" />'
+.    '<img src="' . get_conf('imgRepositoryWeb') . 'agenda.gif" alt="" />'
 .    get_lang('Add an event')
 .    '</a>'
 ;
