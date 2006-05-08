@@ -32,7 +32,7 @@ $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`id`,`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
 (1, 'CLDSC___', 'course_description/index.php', 'info.gif', 'ALL', 1, 'AUTOMATIC', 'COURSE_ADMIN'),
-(5, 'CLQWZ___', 'exercice/exercice.php', 'quiz.gif', 'ALL', 5, 'AUTOMATIC', 'COURSE_ADMIN'),
+(5, 'CLQWZ___', 'exercise/exercise.php', 'quiz.gif', 'ALL', 5, 'AUTOMATIC', 'COURSE_ADMIN'),
 (6, 'CLLNP___', 'learnPath/learningPathList.php', 'learnpath.gif', 'ALL', 6, 'AUTOMATIC', 'COURSE_ADMIN')";
 
 
