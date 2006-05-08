@@ -13,6 +13,8 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
+
 if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || $logout
     || ( basename($_SERVER['SCRIPT_NAME']) == 'login.php' && isset($_REQUEST['authModeReq']) && $_REQUEST['authModeReq'] == 'CAS' )
