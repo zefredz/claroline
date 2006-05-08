@@ -74,6 +74,6 @@ function manage_user_status_from_ganesha_to_claroline($ganeshaStatus)
 
 // PROCESS AUTHENTICATION
 
-return require $clarolineRepositorySys . '/auth/extauth/extAuthProcess.inc.php';
+return require dirname(__FILE__).'/../extAuthProcess.inc.php';
 
 ?>

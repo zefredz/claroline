@@ -57,7 +57,7 @@ $extAuthAttribTreatmentList = array ('status' => 5);
 
 // PROCESS AUTHENTICATION
 
-return require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
+return require dirname(__FILE__).'/../extAuthProcess.inc.php';
 
 
 ?>
