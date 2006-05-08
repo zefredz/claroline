@@ -126,11 +126,11 @@ if($is_allowedToEdit) // check teacher status
         /**
          * MOVE UP AND MOVE DOWN COMMANDS
          */
-        if ( $cmd == 'exMvDown' )
+        if ( 'exMvDown' == $cmd  )
         {
             move_entry($id,'DOWN');
         }
-        if ( $cmd == 'exMvUp' )
+        if ( 'exMvUp' == $cmd )
         {
             move_entry($id,'UP');
         }
@@ -139,7 +139,7 @@ if($is_allowedToEdit) // check teacher status
         /**
          * DELETE ANNOUNCEMENT COMMAND
          */
-        if ( $cmd == 'exDelete')
+        if ( 'exDelete' == $cmd )
         {
 
             if ( announcement_delete_item($id) )
@@ -162,7 +162,7 @@ if($is_allowedToEdit) // check teacher status
          * DELETE ALL ANNOUNCEMENTS COMMAND
          */
 
-        if ( $cmd == 'exDeleteAll' )
+        if ( 'exDeleteAll' == $cmd )
         {
             if ( announcement_delete_all_items() )
             {
@@ -183,7 +183,7 @@ if($is_allowedToEdit) // check teacher status
          * EDIT ANNOUNCEMENT COMMAND
         --------------------------------------------------------------------------*/
 
-        if ( $cmd == 'rqEdit' )
+        if ( 'rqEdit' == $cmd  )
         {
             $subTitle = get_lang('Modifies this announcement');
             claro_set_display_mode_available(false);
@@ -200,14 +200,14 @@ if($is_allowedToEdit) // check teacher status
         ---------------------------------------------------------------------------*/
 
 
-        if ($cmd == 'mkShow'|| $cmd == 'mkHide')
+        if ( 'mkShow' == $cmd || 'mkHide' == $cmd )
         {
-            if ($cmd == 'mkShow')
+            if ('mkShow' == $cmd )
             {
                 $eventNotifier->notifyCourseEvent('anouncement_visible', $_cid, $_tid, $id, $_gid, '0');
                 $visibility = 'SHOW';
             }
-            if ($cmd == 'mkHide')
+            if ('mkHide' == $cmd )
             {
                 $eventNotifier->notifyCourseEvent('anouncement_invisible', $_cid, $_tid, $id, $_gid, '0');
                 $visibility = 'HIDE';
@@ -223,7 +223,7 @@ if($is_allowedToEdit) // check teacher status
         CREATE NEW ANNOUNCEMENT COMMAND
         ------------------------------------------------------------------------*/
 
-        if ( $cmd == 'rqCreate')
+        if ( 'rqCreate' == $cmd )
         {
             $subTitle = get_lang('Add announcement');
             claro_set_display_mode_available(false);
@@ -236,7 +236,7 @@ if($is_allowedToEdit) // check teacher status
         SUBMIT ANNOUNCEMENT COMMAND
         -------------------------------------------------------------------------*/
 
-        if ( $cmd == 'exCreate' || $cmd == 'exEdit')
+        if ( 'exCreate' == $cmd  || 'exEdit' == $cmd )
         {
 
             $title       = isset($_REQUEST['title'])      ? trim($_REQUEST['title']) : '';
@@ -245,7 +245,7 @@ if($is_allowedToEdit) // check teacher status
 
             /* MODIFY ANNOUNCEMENT */
 
-            if ( $cmd == 'exEdit' ) // there is an Id => the announcement already exists => udpate mode
+            if ( 'exEdit' == $cmd  ) // there is an Id => the announcement already exists => udpate mode
             {
 
                 if ( announcement_update_item((int) $_REQUEST['id'], $title, $content) )
@@ -265,7 +265,7 @@ if($is_allowedToEdit) // check teacher status
 
             /* CREATE NEW ANNOUNCEMENT */
 
-            elseif ($_REQUEST['cmd'] == 'exCreate')
+            elseif ( 'exCreate' == $cmd )
             {
                 // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
 

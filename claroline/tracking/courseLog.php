@@ -37,17 +37,17 @@ $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_access          = $tbl_cdb_names['track_e_access'         ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
-$tbl_bb_topics                 = $tbl_cdb_names['bb_topics'                ];
-$tbl_bb_posts                 = $tbl_cdb_names['bb_posts'                ];
+$tbl_bb_topics               = $tbl_cdb_names['bb_topics'                ];
+$tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 
 // regroup table names for maintenance purpose
 
 $nameTools = get_lang('Statistics');
-include($includePath."/claro_init_header.inc.php");
+include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title(
     array(
         'mainTitle' => $nameTools,
-        'subTitle'  => get_lang('Statistics of course')." : ".$_course['officialCode']
+        'subTitle'  => get_lang('Statistics of course : %courseCode', array('%courseCode' => $_course['officialCode']))
     )
 );
 

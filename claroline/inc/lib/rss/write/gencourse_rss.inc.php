@@ -124,7 +124,7 @@ function announcement_get_rss_item_list( $course_id=NULL)
     $rssList = array();
     foreach ($announcementList as $announcementItem)
     {
-        if($announcementItem['visibility'] == 'SHOW')
+        if('SHOW' == $announcementItem['visibility'])
         {
             $rssList[] = array( 'title'       => trim($announcementItem['title'])
             ,                   'category'    => trim($toolNameList[str_pad('CLANN',8,'_')])
