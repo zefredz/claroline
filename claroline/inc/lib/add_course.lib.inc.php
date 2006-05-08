@@ -18,7 +18,7 @@
  * @package COURSE
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesch <moosh@claroline.net>
  *
  */
 
@@ -64,7 +64,7 @@ function define_course_keys ($wantedCode,
     // $keys["currentCourseCode"] is the "public code"
 
     $wantedCode =  strtr($wantedCode,
-    'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ',
+    '',
     'AAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy');
 
     //$wantedCode = strtoupper($wantedCode);
@@ -212,7 +212,7 @@ function define_course_keys ($wantedCode,
  * @param  string $courseRepository path from $coursesRepositorySys to root of course
  * @param  string $courseId         sysId of course
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesch <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
 
@@ -270,7 +270,7 @@ function prepare_course_repository($courseRepository, $courseId)
  * @global  string  courseTablePrefix common prefix for all table of courses
  * @global  string  dbGlu glu between logical name of DB and logical name of table 267
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesch <moosh@claroline.net>
  * @version 1.0
  */
 
@@ -320,10 +320,15 @@ function update_db_course($courseDbName)
     $TABLETOOLWRKSUBMISSION = $tbl_cdb_names['wrk_submission'];
 
     // Exercise
-    $TABLEQUIZ             = $tbl_cdb_names['quiz_test'];
-    $TABLEQUIZQUESTION     = $tbl_cdb_names['quiz_rel_test_question'];
-    $TABLEQUIZQUESTIONLIST = $tbl_cdb_names['quiz_question'];
-    $TABLEQUIZANSWERSLIST  = $tbl_cdb_names['quiz_answer'];
+    $TABLEQWZEXERCISE         = $tbl_cdb_names['qwz_exercise'];
+    $TABLEQWZQUESTION	= $tbl_cdb_names['qwz_question'];
+    $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
+    
+    //  Exercise answers
+    $TABLEQWZANSWERTRUEFALSE = $tbl_cdb_names['qwz_answer_truefalse'];
+    $TABLEQWZANSWERMULTIPLECHOICE = $tbl_cdb_names['qwz_answer_multiple_choice'];
+    $TABLEQWZANSWERFIB = $tbl_cdb_names['qwz_answer_fib'];
+    $TABLEQWZANSWERMATCHING = $tbl_cdb_names['qwz_answer_matching'];
 
     // Forums
     $TABLEPHPBBCATEGORIES   = $tbl_cdb_names['bb_categories'];
@@ -534,57 +539,86 @@ function update_db_course($courseDbName)
     KEY `SECONDARY` (`user_id`,`topic_id`)
     )";
 
-    // Exercises
-    $sqlList[] = "
-    CREATE TABLE `".$TABLEQUIZ."` (
-        `id` mediumint(8) unsigned NOT NULL auto_increment,
-        `titre` varchar(200) NOT NULL,
-        `description` text NOT NULL,
-        `type` tinyint(4) unsigned NOT NULL default '1',
-        `random` smallint(6) NOT NULL default '0',
-        `active` tinyint(4) unsigned NOT NULL default '0',
-        `max_time` smallint(5) unsigned NOT NULL default '0',
-        `max_attempt` tinyint(3) unsigned NOT NULL default '0',
-        `show_answer` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
-        `anonymous_attempts` enum('YES','NO') NOT NULL default 'YES',
-        `start_date` datetime NOT NULL default '0000-00-00 00:00:00',
-        `end_date` datetime NOT NULL default '0000-00-00 00:00:00',
-    PRIMARY KEY  (id)
-    )";
-
-    // Questions
-    $sqlList[] = "
-    CREATE TABLE `".$TABLEQUIZQUESTIONLIST."` (
-        id mediumint(8) unsigned NOT NULL auto_increment,
-        question varchar(200) NOT NULL,
-        description text NOT NULL,
-        ponderation float unsigned default NULL,
-        q_position mediumint(8) unsigned NOT NULL default '1',
-        type tinyint(3) unsigned NOT NULL default '2',
-        attached_file varchar(50) default '',
-    PRIMARY KEY  (id)
-    )";
-
-    // Answers
-    $sqlList[] = "
-    CREATE TABLE `".$TABLEQUIZANSWERSLIST."` (
-        id mediumint(8) unsigned NOT NULL default '0',
-        question_id mediumint(8) unsigned NOT NULL default '0',
-        reponse text NOT NULL,
-        correct mediumint(8) unsigned default NULL,
-        comment text default NULL,
-        ponderation float default NULL,
-        r_position mediumint(8) unsigned NOT NULL default '1',
-    PRIMARY KEY  (id, question_id)
-    )";
-
-    // Exercises Questions
-    $sqlList[] = "
-    CREATE TABLE `".$TABLEQUIZQUESTION."` (
-        question_id mediumint(8) unsigned NOT NULL default '0',
-        exercice_id mediumint(8) unsigned NOT NULL default '0',
-    PRIMARY KEY  (question_id,exercice_id)
-    )";
+	//-- exercise
+	$sqlList[] = " 
+	CREATE TABLE `".$TABLEQWZEXERCISE."` (
+		`id` int(11) NOT NULL auto_increment,
+		`title` varchar(255) NOT NULL,
+		`description` text NOT NULL,
+		`visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
+		`displayType` enum('SEQUENTIAL','ONEPAGE') NOT NULL default 'ONEPAGE',
+		`shuffle` smallint(6) NOT NULL default '0',
+		`showAnswers` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
+		`startDate` datetime NOT NULL,
+		`endDate` datetime NOT NULL,
+		`timeLimit` smallint(6) NOT NULL default '0',
+		`attempts` tinyint(4) NOT NULL default '0',
+		`anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'ALLOWED',
+	PRIMARY KEY  (`id`)
+	)";
+			
+	$sqlList[] = " 
+	CREATE TABLE `".$TABLEQWZQUESTION."` (
+		`id` int(11) NOT NULL auto_increment,
+		`title` varchar(255) NOT NULL default '',
+		`description` text NOT NULL,
+		`attachment` varchar(255) NOT NULL default '',
+		`type` enum('MCUA','MCMA','TF','FIB','MATCHING') NOT NULL default 'MCUA',
+		`grade` float NOT NULL default '0',
+	PRIMARY KEY  (`id`)
+	)";
+	
+	$sqlList[] = " 
+	CREATE TABLE `".$TABLEQWZRELEXERCISEQUESTION."` (
+		`exerciseId` int(11) NOT NULL,
+		`questionId` int(11) NOT NULL,
+		`rank` int(11) NOT NULL default '0'
+	)";
+			
+	$sqlList[] = " 
+	CREATE TABLE `".$TABLEQWZANSWERTRUEFALSE."` (
+		`id` int(11) NOT NULL auto_increment,
+		`questionId` int(11) NOT NULL,
+		`trueFeedback` text NOT NULL,
+		`trueGrade` float NOT NULL,
+		`falseFeedback` text NOT NULL,
+		`falseGrade` float NOT NULL,
+		`correctAnswer` enum('TRUE','FALSE') NOT NULL,
+		PRIMARY KEY  (`id`)
+	)";
+	
+	$sqlList[] = " 	
+	CREATE TABLE `".$TABLEQWZANSWERMULTIPLECHOICE."` (
+		`id` int(11) NOT NULL auto_increment,
+		`questionId` int(11) NOT NULL,
+		`answer` text NOT NULL,
+		`correct` tinyint(4) NOT NULL,
+		`grade` float NOT NULL,
+		`comment` text NOT NULL,
+		PRIMARY KEY  (`id`)
+	)";
+			
+	$sqlList[] = " 
+	CREATE TABLE `".$TABLEQWZANSWERFIB."` (
+		`id` int(11) NOT NULL auto_increment,
+		`questionId` int(11) NOT NULL,
+		`answer` text NOT NULL,
+		`gradeList` text NOT NULL,
+		`wrongAnswerList` text NOT NULL,
+		`type` tinyint(4) NOT NULL,
+		PRIMARY KEY  (`id`)
+	)";
+	
+	$sqlList[] = " 
+	CREATE TABLE `".$TABLEQWZANSWERMATCHING."` (
+		`id` int(11) NOT NULL auto_increment,
+		`questionId` int(11) NOT NULL,
+		`answer` text NOT NULL,
+		`match` varchar(32) default NULL,
+		`grade` float NOT NULL default '0',
+		`code` varchar(32) default NULL,
+		PRIMARY KEY  (`id`)
+	)";
 
     // Course description
     $sqlList[] = "
@@ -915,7 +949,7 @@ function update_db_course($courseDbName)
  *
  * @param    string    $courseRepository        path from $coursesRepositorySys to root of course
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesch <moosh@claroline.net>
  * @version 1.0
  */
 
@@ -936,7 +970,7 @@ function fill_course_repository($courseRepository)
  * @param  string  $courseDbName        partial DbName. to build as $courseTablePrefix.$courseDbName.$dbGlu;
  * @param  string  $language            language request for this course
  *
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesch <moosh@claroline.net>
  * @version 1.0
  *
  * note  $language would be removed soon.
@@ -957,10 +991,16 @@ function fill_db_course($courseDbName,$language)
 
     $TABLEGROUPPROPERTIES    = $tbl_cdb_names['group_property'];// $courseDbName."group_property";
 
-    $TABLEQUIZ              = $tbl_cdb_names['quiz_test'];//  $courseDbName."quiz_test";
-    $TABLEQUIZQUESTION      = $tbl_cdb_names['quiz_rel_test_question'];
-    $TABLEQUIZQUESTIONLIST  = $tbl_cdb_names['quiz_question'];//  "quiz_question";
-    $TABLEQUIZANSWERSLIST   = $tbl_cdb_names['quiz_answer'];//  "quiz_answer";
+    // Exercise
+    $TABLEQWZEXERCISE         = $tbl_cdb_names['qwz_exercise'];
+    $TABLEQWZQUESTION	= $tbl_cdb_names['qwz_question'];
+    $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
+    
+    //  Exercise answers
+    $TABLEQWZANSWERTRUEFALSE = $tbl_cdb_names['qwz_answer_truefalse'];
+    $TABLEQWZANSWERMULTIPLECHOICE = $tbl_cdb_names['qwz_answer_multiple_choice'];
+    $TABLEQWZANSWERFIB = $tbl_cdb_names['qwz_answer_fib'];
+    $TABLEQWZANSWERMATCHING = $tbl_cdb_names['qwz_answer_matching'];
 
     $TABLEPHPBBCATEGORIES   = $tbl_cdb_names['bb_categories'];//  "bb_categories";
     $TABLEPHPBBFORUMS       = $tbl_cdb_names['bb_forums'];//  "bb_forums";
@@ -1059,14 +1099,26 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
         }
     }
 
-############################## EXERCICES #######################################
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '1', '1', '".addslashes(get_lang('sampleQuizAnswer1'))."', '0', '".addslashes(get_lang('sampleQuizAnswer1Comment'))."', '-5', '1')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '2', '1', '".addslashes(get_lang('sampleQuizAnswer2'))."', '0', '".addslashes(get_lang('sampleQuizAnswer2Comment'))."', '-5', '2')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '3', '1', '".addslashes(get_lang('sampleQuizAnswer3'))."', '1', '".addslashes(get_lang('sampleQuizAnswer3Comment'))."', '5', '3')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZANSWERSLIST."` VALUES ( '4', '1', '".addslashes(get_lang('sampleQuizAnswer4'))."', '1', '".addslashes(get_lang('sampleQuizAnswer4Comment'))."', '5', '4')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZ."` VALUES ( '1', '".addslashes(get_lang('sampleQuizTitle'))."', '".addslashes(get_lang('sampleQuizDescription'))."', '1', '0', '0', '0', '0' , 'ALWAYS', 'NO', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTIONLIST."` VALUES ( '1', '".addslashes(get_lang('sampleQuizQuestionTitle'))."', '".addslashes(get_lang('sampleQuizQuestionText'))."', '10', '1', '2','')");
-    claro_sql_query("INSERT INTO `".$TABLEQUIZQUESTION."` VALUES ( '1', '1')");
+############################## EXERCISES #######################################
+// create question
+	$questionId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZQUESTION."` (`title`, `description`, `attachment`, `type`, `grade`)
+				VALUES
+				('".addslashes(get_lang('sampleQuizQuestionTitle'))."', '".addslashes(get_lang('sampleQuizQuestionText'))."', '', 'MCMA', '10' )");
+			
+	claro_sql_query("INSERT INTO `".$TABLEQWZANSWERMULTIPLECHOICE."`(`questionId`,`answer`,`correct`,`grade`,`comment`)
+				VALUES 
+				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer1'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer1Comment'))."'),
+				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer2'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer2Comment'))."'),
+				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer3'))."','1','5','".addslashes(get_lang('sampleQuizAnswer3Comment'))."'),
+				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer4'))."','1','5','".addslashes(get_lang('sampleQuizAnswer4Comment'))."')");
+				
+// create exercise
+	$exerciseId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZEXERCISE."` (`title`, `description`, `visibility`, `startDate`, `endDate`)	
+				VALUES
+				('".addslashes(get_lang('sampleQuizTitle'))."', '".addslashes(get_lang('sampleQuizDescription'))."', 'INVISIBLE', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
+// put question in exercise
+	claro_sql_query("INSERT INTO `".$TABLEQWZRELEXERCISEQUESTION."` VALUES ($exerciseId, $questionId, 1)");	
+
 
 ############################### LEARNING PATH  ####################################
   // HANDMADE module type are not used for first version of claroline 1.5 beta so we don't show any exemple!
@@ -1079,7 +1131,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
   claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('2', '".addslashes(get_lang('sampleQuizTitle'))."', '".addslashes(get_lang('sampleLearnPathQuizDescription'))."', 'PRIVATE', '2', 'EXERCISE', '')");
 
   claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('1', '1', '/Example_document.pdf', '')");
-  claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '1', '')");
+  claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '".$exerciseId."', '')");
 
     return true;
 };
@@ -1099,7 +1151,7 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
  * @param bool      $visibility
  * @param bool      $registrationAllowed
  * @param string    $enrollmentKey
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesch <moosh@claroline.net>
  */
 
 function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse='', $uidCreator, $visibility, $registrationAllowed, $enrollmentKey='', $expirationDate='', $extLinkName='', $extLinkUrl='')
