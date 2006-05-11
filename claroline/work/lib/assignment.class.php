@@ -231,7 +231,7 @@ class Assignment
 		    	$this->buildDirPaths();		    	
 		    	
 		        // create the assignment directory if query was successfull and dir not already exists
-		        if( !is_dir( $this->assigDirSys ) ) mkdir( $this->assigDirSys , CLARO_FILE_PERMISSIONS );
+		        if( !is_dir( $this->assigDirSys ) ) claro_mkdir( $this->assigDirSys , CLARO_FILE_PERMISSIONS,true);
 		        		        
 		        return $this->id;
 		    }
