@@ -396,8 +396,6 @@ foreach($oldTools as $claroLabel)
 
     if (file_exists($modulePath)) $regLog = register_module($modulePath);
     else                          trigger_error('module path not found' . $module_info['LABEL'],E_USER_WARNING );
-
-    echo claro_html_msg_list($regLog);
 }
 
 /**
