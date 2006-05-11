@@ -32,7 +32,7 @@
  */
 
 ! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
-$display=DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
+$display = DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
  // PATCH TO ACCEPT Prefixed DBs
 $mainDbName     = $dbNameForm;
@@ -258,7 +258,7 @@ else
     $form_value_list['dbGlu'] = $singleDbForm?'_':'`.`';
     $form_value_list['mysqlRepositorySys']= str_replace("\\","/",realpath($mysqlRepositorySys)."/");
     $form_value_list['clarolineRepositoryAppend'] = 'claroline/';
-    $form_value_list['coursesRepositoryAppend'] = $courseRepositoryForm;
+    $form_value_list['coursesRepositoryAppend'] = rtrim($courseRepositoryForm,'/').'/';
     $form_value_list['rootAdminAppend'] = 'admin/';
     $form_value_list['imgRepositoryAppend'] = $imgRepositoryAppendForm;
     $form_value_list['userImageRepositoryAppend'] = $userImageRepositoryAppendForm ;
