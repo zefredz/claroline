@@ -19,8 +19,15 @@
  */
 
 $tlabelReq = 'CLCAL___';
-
+$gidReset=true;
 require '../inc/claro_init_global.inc.php';
+
+//**//
+
+if (isset($_gid)) $currentContext = claro_get_current_context(array('course','group'));
+else              $currentContext = claro_get_current_context('course');
+//**/
+
 require_once get_conf('clarolineRepositorySys') . '/linker/linker.inc.php';
 require_once './lib/agenda.lib.php';
 require_once $includePath . '/lib/form.lib.php';
@@ -266,19 +273,22 @@ if ( $is_allowedToEdit )
         $display_command = TRUE;
     } // end if diplayMainCommands
 
-    // rss update
-    if ( get_conf('enable_rss_in_course',1) && $autoExportRefresh)
+    if ( $autoExportRefresh)
     {
-        //include './agenda.rssgen.inc.php';
-        require_once $includePath . '/lib/rss.write.lib.php';
-        build_rss( array(CLARO_CONTEXT_COURSE => $_cid));
-    }
-
-    // ical update
-    if (get_conf('enableICalInCourse',1) && $autoExportRefresh )
-    {
-        require_once $includePath . '/lib/ical.write.lib.php';
-        buildICal( array(CLARO_CONTEXT_COURSE => $_cid));
+        // rss update
+        if ( get_conf('enable_rss_in_course',1))
+        {
+    
+            require_once $includePath . '/lib/rss.write.lib.php';
+            build_rss( array(CLARO_CONTEXT_COURSE => $_cid));
+        }
+    
+        // ical update
+        if (get_conf('enableICalInCourse',1) )
+        {
+            require_once $includePath . '/lib/ical.write.lib.php';
+            buildICal( array(CLARO_CONTEXT_COURSE => $_cid));
+        }
     }
 
 } // end id is_allowed to edit
@@ -296,11 +306,11 @@ if ( get_conf('enable_rss_in_course') )
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
     .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
 }
-$eventList = agenda_get_item_list($context, $orderDirection);
+$eventList = agenda_get_item_list($currentContext,$orderDirection);
 
 /**
-     * Add event button
-         */
+ * Add event button
+ */
 
 $cmd_menu[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
 .    '<img src="' . get_conf('imgRepositoryWeb') . 'agenda.gif" alt="" />'
@@ -328,8 +338,6 @@ else
     .    '</span>'
     ;
 }
-
-
 
 
 // Display header

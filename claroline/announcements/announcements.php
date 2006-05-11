@@ -62,7 +62,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 $context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 
-require_once dirname(__FILE__) . '/lib/announcement.lib.php';
+require_once './lib/announcement.lib.php';
 require_once $includePath . '/lib/sendmail.lib.php';
 require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 require_once $includePath . '/conf/rss.conf.php';
@@ -213,11 +213,11 @@ if($is_allowedToEdit) // check teacher status
                 $eventNotifier->notifyCourseEvent('anouncement_invisible', $_cid, $_tid, $id, $_gid, '0');
                 $visibility = 'HIDE';
             }
-
             if (announcement_set_item_visibility($id,$visibility))
             {
                 $message = get_lang('Visibility modified');
             }
+            $autoExportRefresh = TRUE;
         }
 
         /*------------------------------------------------------------------------
@@ -349,7 +349,7 @@ if($is_allowedToEdit) // check teacher status
 
                 $unsentMailCount = $studentIdCount - $sentMailCount;
 
-                if ( $unsentMailCount > 0);
+                if ( $unsentMailCount > 0)
                 {
                         $messageUnvalid = get_block('blockUsersWithoutValidEmail',
                           array('%userQty'        => $studentIdCount,
@@ -362,24 +362,25 @@ if($is_allowedToEdit) // check teacher status
             }   // end if $emailOption==1
         }   // end if $submit Announcement
 
-
-        /**
-         * in future, the 2 following calls would be pas by event manager.
-         */
-        // ical update
-        if (get_conf('enable_rss_in_course', 1) && $autoExportRefresh )
+        if ($autoExportRefresh)
         {
-            require_once $includePath . '/lib/rss.write.lib.php';
-            build_rss( array('course' => $_cid));
-        }
+            /**
+             * in future, the 2 following calls would be pas by event manager.
+             */
+            // rss update
+            if ( get_conf('enable_rss_in_course',1))
+            {
+                require_once $includePath . '/lib/rss.write.lib.php';
+                build_rss( array('course' => $_cid));
+            }
 
-        // ical update
-        if (get_conf('enableICalInCourse', 1) && $autoExportRefresh )
-        {
-            require_once $includePath . '/lib/ical.write.lib.php';
-            buildICal( array('course' => $_cid));
+            // ical update
+            if (get_conf('enableICalInCourse', 1)  )
+            {
+                require_once $includePath . '/lib/ical.write.lib.php';
+                buildICal( array('course' => $_cid));
+            }
         }
-
 
     } // end if isset $_REQUEST['cmd']
 
