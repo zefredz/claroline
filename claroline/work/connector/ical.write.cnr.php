@@ -17,7 +17,7 @@ function CLWRK_write_ical( & $iCal, $context)
 {
     if (is_array($context) && count($context)>0)
     {
-        $courseCode = (in_array('course',$context)) ? $context['course'] : $courseCode = $GLOBALS['_cid'];
+        $courseCode = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $courseCode = $GLOBALS['_cid'];
 
         $courseData = claro_get_course_data($courseCode);
         $toolNameList = claro_get_tool_name_list();

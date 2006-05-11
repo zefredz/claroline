@@ -22,10 +22,10 @@ $tlabelReq = 'CLCAL___';
 
 require '../inc/claro_init_global.inc.php';
 require_once get_conf('clarolineRepositorySys') . '/linker/linker.inc.php';
-require_once $includePath . '/lib/agenda.lib.php';
+require_once './lib/agenda.lib.php';
 require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/conf/rss.conf.php';
-
+$context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
 define('CONFVAL_LOG_CALENDAR_UPDATE', FALSE);
@@ -267,18 +267,18 @@ if ( $is_allowedToEdit )
     } // end if diplayMainCommands
 
     // rss update
-    if ( get_conf('enable_rss_in_course')
-    && $autoExportRefresh && file_exists('./agenda.rssgen.inc.php')
-    )
+    if ( get_conf('enable_rss_in_course',1) && $autoExportRefresh)
     {
-        include './agenda.rssgen.inc.php';
+        //include './agenda.rssgen.inc.php';
+        require_once $includePath . '/lib/rss.write.lib.php';
+        build_rss( array(CLARO_CONTEXT_COURSE => $_cid));
     }
 
     // ical update
     if (get_conf('enableICalInCourse',1) && $autoExportRefresh )
     {
         require_once $includePath . '/lib/ical.write.lib.php';
-        buildICal( array('course' => $_cid));
+        buildICal( array(CLARO_CONTEXT_COURSE => $_cid));
     }
 
 } // end id is_allowed to edit
@@ -296,8 +296,7 @@ if ( get_conf('enable_rss_in_course') )
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
     .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
 }
-
-$eventList = agenda_get_item_list($orderDirection);
+$eventList = agenda_get_item_list($context, $orderDirection);
 
 /**
      * Add event button
@@ -348,9 +347,6 @@ if ($display_form)
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
     .    '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
     .    '<table>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
     .    '<tr valign="top">' . "\n"
     .    '<td align="right">' . get_lang('Date') . ' : '
     .    '</td>' . "\n"
@@ -388,7 +384,6 @@ if ($display_form)
     .    '</td>' . "\n"
     .    '<td>' . "\n"
     .    claro_html_textarea_editor('content', htmlspecialchars($editedEvent['content']), 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
-    .    '<br />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr valign="top">' . "\n"

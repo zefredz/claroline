@@ -28,7 +28,6 @@ require_once(dirname(__FILE__) . '/sql.lib.php');
  */
 
 require_once(dirname(__FILE__) . '/html.lib.php');
-
 require_once(dirname(__FILE__) . '/module.lib.php');
 
 /**
@@ -966,13 +965,15 @@ function claro_get_current_context($contextKeys = null)
 {
     $currentKeys = array();
 
-     $_courseTool = get_init('_courseTool');
+    $_courseTool = get_init('_courseTool');
+    if(!is_null($contextKeys) && !is_array($contextKeys)) $contextKeys = array($contextKeys);
 
-    if((is_null($contextKeys) || array_key_exists('course',$contextKeys))       && !is_null($GLOBALS['_cid'])) $currentKeys['course']       = get_init('_cid');
-    if((is_null($contextKeys) || array_key_exists('group',$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys['group']        = get_init('_gid');
-    if((is_null($contextKeys) || array_key_exists('user',$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys['user']         = get_init('_uid');
-    //if((is_null($contextKeys) || array_key_exists('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
-    if((is_null($contextKeys) || array_key_exists('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = get_init('_tid');
+    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_COURSE,$contextKeys))       && !is_null($GLOBALS['_cid'])) $currentKeys[CLARO_CONTEXT_COURSE]       = $GLOBALS['_cid'];
+    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_GROUP,$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys[CLARO_CONTEXT_GROUP]        = get_init('_gid');
+    if((is_null($contextKeys) || in_array('user',$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys['user']         = get_init('_uid');
+    //if((is_null($contextKeys) || in_array('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
+    if((is_null($contextKeys) || in_array('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = get_init('_tid');
+
 
     return $currentKeys;
 }

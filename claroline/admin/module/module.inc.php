@@ -975,7 +975,7 @@ function register_module_tool($moduleId,$moduleToolData)
         $sql = "INSERT INTO `" . $tbl['module_tool'] . "`
             SET module_id = " . (int) $moduleId . ",
                 icon      = " . $icon  ;
-            echo $sql;
+
         return claro_sql_query_insert_id($sql);
     }
 }

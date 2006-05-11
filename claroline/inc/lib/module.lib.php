@@ -296,20 +296,20 @@ function get_module_db_dependance($toolId)
     {
         // read in manifest
 
-        case 'CLUNFO' : return array('course','group');
-        case 'CLANN'  : return array('course','group');
-        case 'CLWIKI' : return array('course','group');
-        case 'CLQWZ'  : return array('course','group');
-        case 'CLDOC'  : return array('course','group');
-        case 'CLCAL'  : return array('course','group');
+        case 'CLUNFO' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLANN'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLWIKI' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLQWZ'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLDOC'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLCAL'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
 
-        //case 'CLBLOG' : return array ('user','course');
-        case 'CLLNK' :  return array('course');
-        case 'CLDSC'  : return array('course');
-        case 'CLFRM'  : return array('course');
-        case 'CLLNP'  : return array('course');
-        case 'CLUSR'  : return array('course');
-        case 'CLWRK'  : return array('course');
+        //case 'CLBLOG' : return array ('user',CLARO_CONTEXT_COURSE);
+        case 'CLLNK' :  return array(CLARO_CONTEXT_COURSE);
+        case 'CLDSC'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLFRM'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLLNP'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLUSR'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLWRK'  : return array(CLARO_CONTEXT_COURSE);
 
         default :       return array();
     }

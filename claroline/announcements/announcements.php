@@ -60,8 +60,9 @@ $tlabelReq = 'CLANN___';
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+$context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 
-require_once $includePath . '/lib/announcement.lib.php';
+require_once dirname(__FILE__) . '/lib/announcement.lib.php';
 require_once $includePath . '/lib/sendmail.lib.php';
 require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 require_once $includePath . '/conf/rss.conf.php';
@@ -289,7 +290,7 @@ if($is_allowedToEdit) // check teacher status
 
             /* SEND EMAIL (OPTIONAL) */
 
-            if ( $emailOption == 1 )
+            if ( 1 == $emailOption )
             {
                 // sender name and email
                 $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
@@ -361,13 +362,15 @@ if($is_allowedToEdit) // check teacher status
             }   // end if $emailOption==1
         }   // end if $submit Announcement
 
-        // rss update
-        if ( get_conf('enable_rss_in_course')
-               && $autoExportRefresh
-               && file_exists('./announcements.rssgen.inc.php')
-           )
+
+        /**
+         * in future, the 2 following calls would be pas by event manager.
+         */
+        // ical update
+        if (get_conf('enable_rss_in_course', 1) && $autoExportRefresh )
         {
-            include('./announcements.rssgen.inc.php');
+            require_once $includePath . '/lib/rss.write.lib.php';
+            build_rss( array('course' => $_cid));
         }
 
         // ical update
@@ -390,7 +393,7 @@ if ($displayForm && HIDE_LIST_WHEN_DISP_FORM) $displayList = FALSE;
 if ($displayList)
 {
     // list
-    $announcementList = announcement_get_item_list();
+    $announcementList = announcement_get_item_list($context);
     $bottomAnnouncement = $announcementQty = count($announcementList);
     //stats
 }

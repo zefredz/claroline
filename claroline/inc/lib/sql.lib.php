@@ -78,11 +78,11 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
     {
         if (array_key_exists('schema',$contextDependance))
         {
-            if (array_key_exists('course',$contextData)
-            && !is_null($contextData['course'])
-            && in_array('course', $contextDependance['schema']))
+            if (array_key_exists(CLARO_CONTEXT_COURSE,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_COURSE])
+            && in_array(CLARO_CONTEXT_COURSE, $contextDependance['schema']))
             {
-                $schemaPrefix[] = get_conf('courseTablePrefix') . claro_get_course_db_name($contextData['course']);
+                $schemaPrefix[] = get_conf('courseTablePrefix') . claro_get_course_db_name($contextData[CLARO_CONTEXT_COURSE]);
             }
             if (array_key_exists('toolInstance',$contextData)
             && !is_null($contextData['toolInstance'])
@@ -97,12 +97,12 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
                 $schemaPrefix[] = get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
             }
 
-            if (array_key_exists('group',$contextData)
-            && !is_null($contextData['group'])
-            && in_array('group', $contextDependance['schema'])
+            if (array_key_exists(CLARO_CONTEXT_GROUP,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_GROUP])
+            && in_array(CLARO_CONTEXT_GROUP, $contextDependance['schema'])
             )
             {
-                $schemaPrefix[] = get_conf('dbPrefixForGroup', 'G_') . $contextData['group'];
+                $schemaPrefix[] = get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP];
             }
             if (array_key_exists('user',$contextData)
             && !is_null($contextData['user'])
@@ -117,11 +117,11 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
 
         if (array_key_exists('table',$contextDependance))
         {
-            if (array_key_exists('course',$contextData)
-            && !is_null($contextData['course'])
-            && in_array('course', $contextDependance['table']))
+            if (array_key_exists(CLARO_CONTEXT_COURSE,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_COURSE])
+            && in_array(CLARO_CONTEXT_COURSE, $contextDependance['table']))
             {
-                $tablePrefix .= 'C_' . $contextData['course'] . '_';
+                $tablePrefix .= 'C_' . $contextData[CLARO_CONTEXT_COURSE] . '_';
             }
             if (array_key_exists('toolInstance',$contextData)
             && !is_null($contextData['toolInstance'])
@@ -135,12 +135,12 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
             {
                 $tablePrefix .= get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
             }
-            if (array_key_exists('group',$contextData)
-            && !is_null($contextData['group'])
-            && in_array('group', $contextDependance['table'])
+            if (array_key_exists(CLARO_CONTEXT_GROUP,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_GROUP])
+            && in_array(CLARO_CONTEXT_GROUP, $contextDependance['table'])
             )
             {
-                $tablePrefix .=  get_conf('dbPrefixForGroup', 'G_') . $contextData['group'] . '_';
+                $tablePrefix .=  get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP] . '_';
             }
             if (array_key_exists('user',$contextData)
             && !is_null($contextData['user'])
@@ -273,9 +273,9 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'lp_rel_learnPath_module'=> $courseDbInCache . 'lp_rel_learnPath_module',
               'lp_user_module_progress'=> $courseDbInCache . 'lp_user_module_progress',
               'lp_module'              => $courseDbInCache . 'lp_module',
-              'lp_asset'			   => $courseDbInCache . 'lp_asset',              
+              'lp_asset'			   => $courseDbInCache . 'lp_asset',
               'qwz_exercise'              	=> $courseDbInCache . 'qwz_exercise' ,
-              'qwz_question'          		=> $courseDbInCache . 'qwz_question',	
+              'qwz_question'          		=> $courseDbInCache . 'qwz_question',
               'qwz_rel_exercise_question' 	=> $courseDbInCache . 'qwz_rel_exercise_question',
               'qwz_answer_truefalse'		=> $courseDbInCache . 'qwz_answer_truefalse',
               'qwz_answer_multiple_choice'	=> $courseDbInCache . 'qwz_answer_multiple_choice',
@@ -635,7 +635,7 @@ require_once(dirname(__FILE__) . '/module.lib.php');
 function get_context_db_discriminator($toolId)
 {
 
-    // array ( 'user', 'course', 'group', 'toolInstance', 'session')
+    // array ( 'user', CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP, 'toolInstance', 'session')
 
     // This fixed result would became result of config
     // Admin can select for each context for each tool,
@@ -649,18 +649,18 @@ function get_context_db_discriminator($toolId)
 
     switch ($toolId)
     {
-// ie        case 'CLANN' : return array('schema' => array ('course'), 'table' => array('group'));
-// ie        case 'CLWIKI' : return array('schema' => array ('course','group'));
+// ie        case 'CLANN' : return array('schema' => array (CLARO_CONTEXT_COURSE), 'table' => array(CLARO_CONTEXT_GROUP));
+// ie        case 'CLWIKI' : return array('schema' => array (CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP));
         default:
             $dependance = get_module_db_dependance($toolId);
 
             // By default all is in tableName except for course wich follow singleDbEnabled;
             $genericConfig['table'] = $dependance ;
-            if(is_array($dependance) && in_array('course',$dependance))
+            if(is_array($dependance) && in_array(CLARO_CONTEXT_COURSE,$dependance))
             {
                 if (get_conf('singleDbEnabled'))
                 {
-                    $genericConfig['schema'] = array('course');
+                    $genericConfig['schema'] = array(CLARO_CONTEXT_COURSE);
                     $genericConfig['table'] = array_diff ($genericConfig['table'],$genericConfig['schema'] );
                 }
             }

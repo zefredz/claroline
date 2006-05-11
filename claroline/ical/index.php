@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * Build the frameset for chat.
+ * request an iCal for a tool
  *
  * @version 1.8 $Revision$
  *
@@ -12,7 +12,8 @@
  *
  * @see http://www.claroline.net/wiki/index.php/CLRSS
  *
- * @package CLRSS
+ * @package CLICAL
+ * @since 1.8
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -21,18 +22,19 @@
 $_course = array();
 $siteName ='';
 $is_courseAllowed = false;
+$calType='ics';
 require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/conf/rss.conf.php';
 
 // RSS enabled
-if ( ! get_conf('enable_rss_in_course') )
+if ( ! get_conf('enableIcalInCourse') )
 {
     // Codes Status HTTP 404 for rss feeder
     header('HTTP/1.0 404 Not Found');
     exit;
 }
 
-if(!$_cid)
+if(!$GLOBALS['_cid'])
 {
     die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
 }
@@ -41,10 +43,10 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 {
     if (!isset($_SERVER['PHP_AUTH_USER']))
     {
-        header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) . '"');
+        header('WWW-Authenticate: Basic realm="'. get_lang('iCal feed for %course', array('%course' => $_course['name']) ) . '"');
         header('HTTP/1.0 401 Unauthorized');
         echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-        .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
+        .    '<a href="index.php?cidReq=' . $GLOBALS['_cid'] . '">' . get_lang('Retry') . '</a>'
         ;
         exit;
     }
@@ -63,10 +65,10 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
         require '../inc/claro_init_local.inc.php';
         if (!$_course['visibility'] && !$is_courseAllowed)
         {
-            header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) .'"');
+            header('WWW-Authenticate: Basic realm="'. get_lang('iCal feed for %course', array('%course' => $_course['name']) ) .'"');
             header('HTTP/1.0 401 Unauthorized');
             echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-            .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
+            .    '<a href="index.php?cidReq=' . $GLOBALS['_cid'] . '">' . get_lang('Retry') . '</a>'
             ;
             exit;
         }
@@ -74,9 +76,10 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 }
 
 // OK TO SEND FEED
-include $includePath . '/lib/rss.write.lib.php';
+
+include $includePath . '/lib/ical.writer.inc.php';
 
 header('Content-type: text/xml;');
-readfile (build_rss($_cid));
+readfile ( buildICal(array(CLARO_CONTEXT_COURSE=> $_cid)), $calType);
 
 ?>

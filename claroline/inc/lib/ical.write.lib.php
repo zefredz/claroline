@@ -39,9 +39,10 @@ function buildICal($context, $calType='ics')
         $iCal = (object) new iCal('', 0, $iCalRepositorySys ); // (ProgrammID, Method (1 = Publish | 0 = Request), Download Directory)
 
         $toolLabelList = ical_get_tool_compatible_list();
+
         foreach ($toolLabelList as $toolLabel)
         {
-            $icalToolLibPath = get_module_path($toolLabel) . '/lib/ical.write.lib.php';
+            $icalToolLibPath = get_module_path($toolLabel) . '/connector/ical.write.cnr.php';
             $icalToolFuncName =  $toolLabel . '_write_ical';
             if ( file_exists($icalToolLibPath)
             )
@@ -53,8 +54,8 @@ function buildICal($context, $calType='ics')
 
 
         $iCalFilePath = $iCalRepositorySys . '/' ;
-        if (array_key_exists('course',$context)) $iCalFilePath .= $context['course'] . '.';
-        if (array_key_exists('group',$context)) $iCalFilePath .= 'g'.$context['group'] . '.';
+        if (array_key_exists(CLARO_CONTEXT_COURSE,$context)) $iCalFilePath .= $context[CLARO_CONTEXT_COURSE] . '.';
+        if (array_key_exists(CLARO_CONTEXT_GROUP,$context)) $iCalFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
 
 
         if (get_conf('iCalGenStandard', true))
@@ -115,7 +116,8 @@ function ical_get_tool_compatible_list()
     static $iCalToolList = null;
     if (is_null($iCalToolList))
     {
-        if(get_conf('ical_use_cache',true))
+        $iCalToolList = array();
+        if(get_conf('icalUseCache',true))
         {
             include_once dirname(__FILE__) . '/pear/Lite.php';
 
@@ -125,7 +127,13 @@ function ical_get_tool_compatible_list()
             'lifeTime' => get_conf('cache_lifeTime', get_conf('iCalCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );
-            if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
+            if (get_conf('CLARO_DEBUG_MODE',false) )
+            {
+                $cache_options ['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
+                $cache_options ['lifeTime'] = 60;
+                $cache_options ['automaticCleaningFactor'] = 1;
+            }
+
             if (! file_exists($cache_options['cacheDir']) )
             {
                 include_once dirname(__FILE__) . '/fileManage.lib.php';
@@ -140,7 +148,7 @@ function ical_get_tool_compatible_list()
                 foreach ($toolList as $tool)
                 {
                     $toolLabel = trim($tool['label'],'_');
-                    $icalToolLibPath = get_module_path($toolLabel) . '/lib/ical.write.lib.php';
+                    $icalToolLibPath = get_module_path($toolLabel) . '/connector/ical.write.cnr.php';
                     $icalToolFuncName =  $toolLabel . '_write_ical';
                     if ( file_exists($icalToolLibPath)
                     )
@@ -151,7 +159,6 @@ function ical_get_tool_compatible_list()
                             $iCalToolList[] = $toolLabel;
                         }
                     }
-
                 }
                 $iCalToolListSerialized = serialize($iCalToolList);
                 $iCalToolListCache->save($iCalToolListSerialized, 'iCal');

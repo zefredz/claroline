@@ -30,7 +30,7 @@ require '../inc/claro_init_global.inc.php';
 // check access
 if ( ! $_uid ) claro_disp_auth_form();
 
-require_once $includePath . '/lib/agenda.lib.php';
+require_once './lib/agenda.lib.php';
 
 $nameTools = get_lang('My calendar');
 

@@ -36,9 +36,10 @@
  * @since  1.7
  */
 
-function announcement_get_item_list($order='DESC', $course_id=NULL)
+function announcement_get_item_list($context, $order='DESC')
 {
-    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    //$tbl = claro_sql_get_tbl('announcement',$context);
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
 
     $sql = "SELECT            id,
                               title,
