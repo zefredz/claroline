@@ -22,10 +22,12 @@
  *
  */
 
-defined('CLARO_CONTEXT_PLATFORM') || define('CLARO_CONTEXT_PLATFORM','CLARO_CONTEXT_PLATFORM');
-defined('CLARO_CONTEXT_COURSE') || define('CLARO_CONTEXT_COURSE','CLARO_CONTEXT_COURSE');
-defined('CLARO_CONTEXT_GROUP') || define('CLARO_CONTEXT_GROUP','CLARO_CONTEXT_GROUP');
-
+defined('CLARO_CONTEXT_PLATFORM')     || define('CLARO_CONTEXT_PLATFORM','platform');
+defined('CLARO_CONTEXT_COURSE')       || define('CLARO_CONTEXT_COURSE','course');
+defined('CLARO_CONTEXT_GROUP')        || define('CLARO_CONTEXT_GROUP','group');
+defined('CLARO_CONTEXT_USER')         || define('CLARO_CONTEXT_USER','user');
+defined('CLARO_CONTEXT_TOOLINSTANCE') || define('CLARO_CONTEXT_TOOLINSTANCE','toolInstance');
+defined('CLARO_CONTEXT_TOOLLABEL')    || define('CLARO_CONTEXT_TOOLLABEL','toolLabel');
 
 /**
  * get the list of aivailable  for a module
