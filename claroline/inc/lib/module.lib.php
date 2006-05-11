@@ -321,8 +321,8 @@ function get_module_db_dependance($toolId)
  * @param unknown_type $context
  */
 function claro_get_data_path($contextData=array())
-{
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))    $contextData[CLARO_CONTEXT_TOOLLABEL]    = rtrim($_courseTool['label'],'_');
+{ 
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))    $contextData[CLARO_CONTEXT_TOOLLABEL]    = rtrim($GLOBALS['_courseTool']['label'],'_');
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))       $contextData[CLARO_CONTEXT_COURSE]       = get_init('_cid');
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))        $contextData[CLARO_CONTEXT_GROUP]        = get_init('_gid');
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_USER,$contextData))         $contextData[CLARO_CONTEXT_USER]         = get_init('_uid');
@@ -341,14 +341,14 @@ function claro_get_data_path($contextData=array())
     }
 
     if (isset($contextData[CLARO_CONTEXT_TOOLLABEL]))
-    {
+    {    	
         switch ($contextData[CLARO_CONTEXT_TOOLLABEL])
         {
-            case 'CLDOC' : $path = $path . 'document/';
-            case 'CLCHT' : $path = $path . 'chat/';
-            case 'CLWRK' : $path = $path . 'work/';
-            case 'CLQWZ' : $path = $path . 'exercise/';
-            case 'CLLNP' : $path = $path . 'scormPackages/';
+            case 'CLDOC' : $path = $path . '/document/';		break;
+            case 'CLCHT' : $path = $path . '/chat/';			break;
+            case 'CLWRK' : $path = $path . '/work/';			break;
+            case 'CLQWZ' : $path = $path . '/exercise/';		break;
+            case 'CLLNP' : $path = $path . '/scormPackages/';	break;
             default : $path = $path . $contextData[CLARO_CONTEXT_TOOLLABEL] . '/';
 
         }
