@@ -336,7 +336,7 @@ function claro_get_data_path($contextData=array())
         }
         else
         {
-            $path = claro_get_course_path($contextData[CLARO_CONTEXT_COURSE]);
+            $path = get_conf('coursesRepositorySys') . claro_get_course_path($contextData[CLARO_CONTEXT_COURSE]);
         }
     }
 
