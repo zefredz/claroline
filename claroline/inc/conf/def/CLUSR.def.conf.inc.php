@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file describe the parameter for user tool
  *
@@ -20,15 +20,16 @@
 // TOOL
 $conf_def['config_code'] = 'CLUSR';
 $conf_def['config_file'] = 'CLUSR.conf.php';
-$conf_def['config_name'] = 'Users tool';
+$conf_def['config_name'] = 'Users list';
 $conf_def['old_config_file'][]='user.conf.inc.php';
-$conf_def['config_class']='tool';
+$conf_def['config_class']='user';
+
 
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='Settings of the tool';
-$conf_def['section']['main']['properties'] = 
+$conf_def['section']['main']['properties'] =
 array ( 'linkToUserInfo'
       , 'user_email_hidden_to_anonymous'
       , 'is_coursemanager_allowed_to_add_user'
@@ -57,7 +58,7 @@ array ('label'         => 'Hidden email address to anonymous user'
                                 )
       );
 
-$conf_def_property_list['nbUsersPerPage'] = 
+$conf_def_property_list['nbUsersPerPage'] =
 array ( 'label'   => 'Number of user per page'
       , 'default' => '25'
       , 'unit'    => 'users'
@@ -78,7 +79,7 @@ array('label'         => 'Teacher can add user in his course'
 
 $conf_def['section']['add_user']['label'] = 'Add user';
 $conf_def['section']['add_user']['description'] = '';
-$conf_def['section']['add_user']['properties'] = 
+$conf_def['section']['add_user']['properties'] =
 array ( 'allowSearchInAddUser' );
 
 $conf_def_property_list['allowSearchInAddUser'] =
