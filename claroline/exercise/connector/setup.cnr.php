@@ -45,7 +45,7 @@ function CLQWZ_install_tool($context,$course_id)
     $TABLEQWZANSWERTRUEFALSE = $tbl_cdb_names['qwz_answer_truefalse'];
     $TABLEQWZANSWERMULTIPLECHOICE = $tbl_cdb_names['qwz_answer_multiple_choice'];
     $TABLEQWZANSWERFIB = $tbl_cdb_names['qwz_answer_fib'];
-    $TABLEQWZANSWERMATCHING = $tbl_cdb_names['qwz_answer_matching'];;
+    $TABLEQWZANSWERMATCHING = $tbl_cdb_names['qwz_answer_matching'];
 
 	$sqlList[] = " 
 	CREATE TABLE `".$TABLEQWZEXERCISE."` (
