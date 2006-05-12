@@ -104,12 +104,12 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
             {
                 $schemaPrefix[] = get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP];
             }
-            if (array_key_exists('user',$contextData)
-            && !is_null($contextData['user'])
-            && in_array('user', $contextDependance['schema'])
+            if (array_key_exists(CLARO_CONTEXT_USER,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_USER])
+            && in_array(CLARO_CONTEXT_USER, $contextDependance['schema'])
             )
             {
-                $schemaPrefix[] = get_conf('dbPrefixForUser', 'U_') . $contextData['user'] ;
+                $schemaPrefix[] = get_conf('dbPrefixForUser', 'U_') . $contextData[CLARO_CONTEXT_USER] ;
             }
         }
 
@@ -142,12 +142,12 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
             {
                 $tablePrefix .=  get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP] . '_';
             }
-            if (array_key_exists('user',$contextData)
-            && !is_null($contextData['user'])
-            && in_array('user', $contextDependance['table'])
+            if (array_key_exists(CLARO_CONTEXT_USER,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_USER])
+            && in_array(CLARO_CONTEXT_USER, $contextDependance['table'])
             )
             {
-                $tablePrefix .= get_conf('dbPrefixForUser', 'U_') . $contextData['user'] . '_';
+                $tablePrefix .= get_conf('dbPrefixForUser', 'U_') . $contextData[CLARO_CONTEXT_USER] . '_';
             }
 
         }
@@ -635,7 +635,7 @@ require_once(dirname(__FILE__) . '/module.lib.php');
 function get_context_db_discriminator($toolId)
 {
 
-    // array ( 'user', CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP, 'toolInstance', 'session')
+    // array ( CLARO_CONTEXT_USER, CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP, 'toolInstance', 'session')
 
     // This fixed result would became result of config
     // Admin can select for each context for each tool,
@@ -658,7 +658,7 @@ function get_context_db_discriminator($toolId)
             $genericConfig['table'] = $dependance ;
             if(is_array($dependance) && in_array(CLARO_CONTEXT_COURSE,$dependance))
             {
-                if (get_conf('singleDbEnabled'))
+                if (!get_conf('singleDbEnabled'))
                 {
                     $genericConfig['schema'] = array(CLARO_CONTEXT_COURSE);
                     $genericConfig['table'] = array_diff ($genericConfig['table'],$genericConfig['schema'] );
