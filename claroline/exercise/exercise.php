@@ -58,7 +58,21 @@ if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeri
 	//-- export
 	if( $_REQUEST['cmd'] == 'exExport' && get_conf('enableExerciseExportQTI') )
 	{
-		
+		include_once './lib/question.class.php';
+		 
+		include('./export/exercise_export.php');
+    
+	    // Get the corresponding XML
+	    $xml = export_exercise($_REQUEST['exId']);
+
+	    // Send it if we got something. Otherwise, just continue as if nothing happened.
+	    if(!empty($xml))
+	    {
+	        header("Content-type: application/xml");
+	        header('Content-Disposition: attachment; filename="quiz_'. http_response_splitting_workaround( $_REQUEST['exId'] ) . '.xml"');
+	        echo $xml;
+	        exit();
+	    }
 	}
 	
 	//-- delete
