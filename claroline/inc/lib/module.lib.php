@@ -303,7 +303,7 @@ function get_module_db_dependance($toolId)
         case 'CLDOC'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
         case 'CLCAL'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
 
-        //case 'CLBLOG' : return array ('user',CLARO_CONTEXT_COURSE);
+        //case 'CLBLOG' : return array (CLARO_CONTEXT_USER,CLARO_CONTEXT_COURSE);
         case 'CLLNK' :  return array(CLARO_CONTEXT_COURSE);
         case 'CLDSC'  : return array(CLARO_CONTEXT_COURSE);
         case 'CLFRM'  : return array(CLARO_CONTEXT_COURSE);
@@ -321,7 +321,7 @@ function get_module_db_dependance($toolId)
  * @param unknown_type $context
  */
 function claro_get_data_path($contextData=array())
-{ 
+{
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))    $contextData[CLARO_CONTEXT_TOOLLABEL]    = rtrim($GLOBALS['_courseTool']['label'],'_');
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))       $contextData[CLARO_CONTEXT_COURSE]       = get_init('_cid');
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))        $contextData[CLARO_CONTEXT_GROUP]        = get_init('_gid');
@@ -341,7 +341,7 @@ function claro_get_data_path($contextData=array())
     }
 
     if (isset($contextData[CLARO_CONTEXT_TOOLLABEL]))
-    {    	
+    {
         switch ($contextData[CLARO_CONTEXT_TOOLLABEL])
         {
             case 'CLDOC' : $path = $path . '/document/';		break;
