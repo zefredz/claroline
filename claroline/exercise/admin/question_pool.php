@@ -98,12 +98,12 @@ if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
     include('../export/question_export.php');
 
     // contruction of XML flow
-    $xml = export_question($_REQUEST['export']);
+    $xml = export_question($quId);
 
     if (!empty($xml))
     {
         header("Content-type: application/xml");
-        header('Content-Disposition: attachment; filename="question_'. http_response_splitting_workaround($_REQUEST['export']) . '.xml"');
+        header('Content-Disposition: attachment; filename="question_'. http_response_splitting_workaround($quId) . '.xml"');
         echo $xml;
         exit();
     }
