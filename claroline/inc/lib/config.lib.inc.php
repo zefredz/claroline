@@ -60,11 +60,9 @@ class Config
 
     function Config($config_code)
     {
-        global $includePath;
-
         $this->config_code = $config_code;
-        $this->conf_dirname = realpath($includePath . '/conf/') ;
-        $this->def_dirname = realpath($includePath . '/conf/def/') ;
+        $this->conf_dirname = realpath($GLOBALS['includePath'] . '/conf/') ;
+        $this->def_dirname = claro_get_conf_def_file($config_code) ;
     }
 
     /**
@@ -1260,6 +1258,13 @@ if (!function_exists('md5_file'))
 
 // TODO : rewrite this code :
 
+function claro_get_conf_def_file($configCode)
+{
+    $centralizedDef = array('CLCRS','CLGRP', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL','CLRSS');
+    if(in_array($configCode,$centralizedDef)) return realpath($GLOBALS['includePath'] . '/conf/def/') ;
+    else                                     return realpath(get_module_path($configCode) . '/conf/def/');
+}
+
 /**
  * return array list of found definition files
  * @return array list of found definition files
@@ -1270,34 +1275,44 @@ function get_def_file_list()
 {
     global $includePath ;
 
+    require_once(dirname(__FILE__) . '/module.manage.lib.php');
+
+    $defConfPathList[] = $includePath . '/conf/def';
+    $moduleList = get_installed_module_list();
+    foreach ($moduleList as $module)
+    {
+
+        $possiblePath = get_module_path($module) . '/conf/def';
+        if (file_exists($possiblePath)) $defConfPathList[] = $possiblePath;
+    }
+
     $defConfFileList = array();
-    if (is_dir($includePath . '/conf/def') && $handle = opendir($includePath . '/conf/def'))
+
+    foreach ($defConfPathList as $defConfPath)
     {
-        // group of def list
-
-        // Browse folder of definition file
-
-        while (FALSE !== ($file = readdir($handle)))
+        if (is_dir($defConfPath) && $handle = opendir($defConfPath))
         {
+            // group of def list
+            // Browse folder of definition file
 
-            if ($file != "." && $file != ".." && substr($file, -17)=='.def.conf.inc.php')
+            while (FALSE !== ($file = readdir($handle)))
             {
-                $config_code = str_replace('.def.conf.inc.php','',$file);
-                $config = new Config($config_code);
-                $config->load();
-                $defConfFileList[$config_code]['name'] = $config->get_conf_name($config_code);
-                $defConfFileList[$config_code]['class'] = $config->get_conf_class();
-            }
-        }
-        closedir($handle);
-        return $defConfFileList;
-    }
-    else
-    {
-        return FALSE;
-    }
 
+                if ($file != "." && $file != ".." && substr($file, -17)=='.def.conf.inc.php')
+                {
+                    $config_code = str_replace('.def.conf.inc.php','',$file);
+                    $config = new Config($config_code);
+                    $config->load();
+                    $defConfFileList[$config_code]['name'] = $config->get_conf_name($config_code);
+                    $defConfFileList[$config_code]['class'] = $config->get_conf_class();
+                }
+            }
+            closedir($handle);
+        }
+    }
+    return $defConfFileList;
 }
+
 
 
 ?>
