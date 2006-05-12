@@ -988,7 +988,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '</table>'
     .    '<h4>'.get_lang('Database usage').'</h4>'
     .    '<table width="100%">'
-    .    '<tr>'
+/*    .    '<tr>'
     .    '<td>'
     .    'Tracking</label>'
     .    '</td>'
@@ -1005,6 +1005,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '</label>'
     .    '</td>'
     .    '</tr>'
+    */
     .    '<tr>'
     .    '<td>'
     .    'Database mode'
