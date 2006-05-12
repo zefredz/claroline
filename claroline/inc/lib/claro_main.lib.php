@@ -959,7 +959,11 @@ function claro_disp_duration( $duration  )
 
 
 /**
- * return array of context
+ * @param $contextKeys array or null
+ *
+ * array can contain course, group, user and/or toolInstance
+ *
+ * return array of context requested containing current id fors these context.
  */
 function claro_get_current_context($contextKeys = null)
 {
@@ -970,10 +974,9 @@ function claro_get_current_context($contextKeys = null)
 
     if((is_null($contextKeys) || in_array(CLARO_CONTEXT_COURSE,$contextKeys))       && !is_null($GLOBALS['_cid'])) $currentKeys[CLARO_CONTEXT_COURSE]       = $GLOBALS['_cid'];
     if((is_null($contextKeys) || in_array(CLARO_CONTEXT_GROUP,$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys[CLARO_CONTEXT_GROUP]        = get_init('_gid');
-    if((is_null($contextKeys) || in_array('user',$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys['user']         = get_init('_uid');
+    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_USER,$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys[CLARO_CONTEXT_USER]         = get_init('_uid');
     //if((is_null($contextKeys) || in_array('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
     if((is_null($contextKeys) || in_array('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = get_init('_tid');
-
 
     return $currentKeys;
 }
