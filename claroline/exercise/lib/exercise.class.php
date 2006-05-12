@@ -113,7 +113,7 @@ class Exercise
 	/**
      * load an exercise from DB 
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $id id of exercise
      * @return boolean load successfull ?
      */   
@@ -167,7 +167,7 @@ class Exercise
     /**
      * save exercise to DB
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
      */   
     function save()
@@ -244,7 +244,7 @@ class Exercise
     /**
      * delete exercise from DB
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean 
      */
 	function delete()
@@ -268,7 +268,7 @@ class Exercise
     /**
      * check if data are valide
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean 
      */	
 	function validate()
@@ -297,7 +297,7 @@ class Exercise
 	/**
      * update visibility of an exercise
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $exerciseId
      * @param string $visibility
      * @return boolean  
@@ -327,7 +327,7 @@ class Exercise
     /**
      * get question list
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of id of question used in this exercise 
      */	 
 	function getQuestionList()
@@ -354,7 +354,7 @@ class Exercise
     /**
      * get random question list
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of id of question used in this exercise 
      */	 
 	function getRandomQuestionList()
@@ -382,7 +382,7 @@ class Exercise
 	/**
      * get the rank of a question
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId id of the question 
      * @return int or boolean if query failed 
      */
@@ -399,7 +399,7 @@ class Exercise
 	/**
      * get the higher rank of a question in the exercise
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId id of the question 
      * @return int or boolean if query failed 
      */
@@ -418,7 +418,7 @@ class Exercise
 	/**
      * change rank of a question in the exercise, jump one position up in the list
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId id of the question to move 
      * @return boolean 
      */	 
@@ -474,7 +474,7 @@ class Exercise
 	/**
      * change rank of a question in the exercise, jump one position down in the list
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId id of the question to move 
      * @return boolean 
      */	 
@@ -530,7 +530,7 @@ class Exercise
 	/**
      * add a question in the exercise
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 
 	function addQuestion($questionId)
@@ -550,7 +550,7 @@ class Exercise
 	/**
      * remove a question from the exercise, the question stays available in question pool
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 
 	function removeQuestion($questionId)
@@ -563,10 +563,21 @@ class Exercise
 		return claro_sql_query($sql);
 	}		
  
+ 	/**
+     * get id
+     *
+     * @author Sebastien Piraux <pir@cerdecam.be>
+     * @return int   
+     */	 
+	function getId()
+	{
+		return (int) $this->id;		
+	}
+	
 	/**
      * get title
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 
 	function getTitle()
@@ -577,7 +588,7 @@ class Exercise
 	/**
      * set title
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */	 	
 	function setTitle($value)
@@ -588,7 +599,7 @@ class Exercise
 	/**
      * get description
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	  
 	function getDescription()
@@ -599,7 +610,7 @@ class Exercise
 	/**
      * set description
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */	
 	function setDescription($value)
@@ -610,7 +621,7 @@ class Exercise
 	/**
      * get visibility ('VISIBLE', 'INVISIBLE')
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 	 
 	function getVisibility()
@@ -621,7 +632,7 @@ class Exercise
 	/**
      * set visibility
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
 	function setVisibility($value)
@@ -639,7 +650,7 @@ class Exercise
 	/**
      * get display type ('SEQUENTIAL', 'ONEPAGE')
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 	 
 	function getDisplayType()
@@ -650,7 +661,7 @@ class Exercise
 	/**
      * set display type
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
 	function setDisplayType($value)
@@ -668,7 +679,7 @@ class Exercise
 	/**
      * get shuffle
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int   
      */	  
 	function getShuffle()
@@ -679,7 +690,7 @@ class Exercise
 	/**
      * set shuffle
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value   
      */	
 	function setShuffle($value)
@@ -690,7 +701,7 @@ class Exercise
 	/**
      * get show answer ('ALWAYS', 'NEVER', 'LASTTRY')
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 	 
 	function getShowAnswers()
@@ -701,7 +712,7 @@ class Exercise
 	/**
      * set show answer
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
 	function setShowAnswers($value)
@@ -720,7 +731,7 @@ class Exercise
 	/**
      * get start date (as unix timestamp)
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer a unix time stamp   
      */	  
 	function getStartDate()
@@ -736,7 +747,7 @@ class Exercise
 	/**
      * get end date (as unix timestamp)
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer a unix time stamp      
      */	 
 	function getEndDate()
@@ -752,7 +763,7 @@ class Exercise
 	/**
      * get time limit
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int   
      */	  
 	function getTimeLimit()
@@ -763,7 +774,7 @@ class Exercise
 	/**
      * set time limit
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value   
      */	
 	function setTimeLimit($value)
@@ -774,7 +785,7 @@ class Exercise
 	/**
      * get attempts number
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return int   
      */	  
 	function getAttempts()
@@ -785,7 +796,7 @@ class Exercise
 	/**
      * set attempts number
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param int $value   
      */	
 	function setAttempts($value)
@@ -796,7 +807,7 @@ class Exercise
 	/**
      * get show answer ('ALLOWED','NOTALLOWED')
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 	 
 	function getAnonymousAttempts()
@@ -807,7 +818,7 @@ class Exercise
 	/**
      * set show answer
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
 	function setAnonymousAttempts($value)

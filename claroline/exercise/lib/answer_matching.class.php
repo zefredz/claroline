@@ -53,7 +53,7 @@ class answerMatching
 	/**
      * constructor
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId integer question that use this answer 
      * @param $course_id to use the class when not in course context
      * @return string   
@@ -76,7 +76,7 @@ class answerMatching
     /**
      * load answers in object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	        
     function load() 
@@ -87,7 +87,7 @@ class answerMatching
 	                `grade`,
 	                `code`
 	        FROM `".$this->tblAnswer."`
-	        WHERE `questionId` = ".$this->questionId."
+	        WHERE `questionId` = ".(int) $this->questionId."
 	        ORDER BY `id` ASC";
 	
 	    $answerList = claro_sql_query_fetch_all($sql);
@@ -132,13 +132,13 @@ class answerMatching
     /**
      * save object in db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	     
 	function save() 
     {
     	$sql = "DELETE FROM `".$this->tblAnswer."` 
-                WHERE `questionId` = '".$this->questionId."'";
+                WHERE `questionId` = ".(int) $this->questionId;
         
         if( claro_sql_query($sql) == false ) return false;
        
@@ -148,12 +148,20 @@ class answerMatching
 
         foreach( $this->leftList as $leftElt )
         {
-            $sql .= "('".$this->questionId."','".$leftElt['answer']."','".$leftElt['match']."','".$leftElt['grade']."','".$leftElt['code']."'),";
+            $sql .= "(".(int) $this->questionId."," 
+            		."'".addslashes($leftElt['answer'])."',"
+            		."'".addslashes($leftElt['match'])."',"
+            		."'".addslashes($leftElt['grade'])."',"
+            		."'".addslashes($leftElt['code'])."'),";
         }
         
         foreach( $this->rightList as $rightElt )
         {
-        	$sql .= "('".$this->questionId."','".$rightElt['answer']."',NULL,'0','".$rightElt['code']."'),";
+        	$sql .= "(".(int) $this->questionId.","
+        			."'".addslashes($rightElt['answer'])."',"
+        			."NULL,"
+        			."'0',"
+        			."'".addslashes($rightElt['code'])."'),";
         }
 
         $sql = substr($sql,0,-1); // remove trailing ,
@@ -164,13 +172,13 @@ class answerMatching
     /**
      * delete answers from db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	 
     function delete() 
     {
 		$sql = "DELETE FROM `".$this->tblAnswer."` 
-                WHERE `questionId` = '".$this->questionId."'";
+                WHERE `questionId` = ".(int) $this->questionId;
         
         return claro_sql_query($sql);
     }
@@ -178,7 +186,7 @@ class answerMatching
     /**
      * clone the object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	    
     function duplicate()
@@ -189,7 +197,7 @@ class answerMatching
     /**
      * check if the object content is valide (use before using save method)
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	
 	function validate() 
@@ -230,7 +238,7 @@ class answerMatching
     /**
      * handle the form, get data of request and put in the object, handle commands if required
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean true if form can be checked and saved, false   
      */
     function handleForm() 
@@ -324,7 +332,7 @@ class answerMatching
     /**
      * provide the list of error that validate found
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of errors   
      */	
 	function getErrorList() 
@@ -335,7 +343,7 @@ class answerMatching
 	/**
      * display the answers as a form part for display in quizz submission page
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer   
      */	 
 	function getAnswerHtml() 
@@ -397,7 +405,8 @@ class answerMatching
 					$rightHtml = '&nbsp;';
 				}
 				
-				$html .= '<tr>' . "\n"	
+				$html .= 
+					'<tr>' . "\n"	
 				. 	'<td valign="top" width="40%">' . "\n" . $leftHtml . "\n" . '</td>' . "\n"
 	    		. 	'<td valign="top" width="20%">' . "\n" . $centerHtml . "\n" . '</td>' . "\n"	    		
 	    		. 	'<td valign="top" width="40%">' . "\n" . $rightHtml . "\n" . '</td>' . "\n"
@@ -408,8 +417,9 @@ class answerMatching
 			}
 
 			
-			$html .= '</table>' . "\n"
-			.	 '<p><small>' . get_lang('Matching') . '</small></p>' . "\n";
+			$html .= 
+				'</table>' . "\n"
+			.	'<p><small>' . get_lang('Matching') . '</small></p>' . "\n";
     	}
     	
     	return $html;	
@@ -418,7 +428,7 @@ class answerMatching
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of hidden sent data  
      */	   
     function getHiddenAnswerHtml()
@@ -439,7 +449,7 @@ class answerMatching
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of feedback for this answer   
      */	   
     function getAnswerFeedbackHtml()
@@ -489,7 +499,7 @@ class answerMatching
     /**
      * display the form to edit answers
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */
     function getFormHtml($exId = null) 
@@ -709,7 +719,7 @@ class answerMatching
 	/** 
 	 * read response from request grade it, write grade in object, return grade
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 * @desc return score of checked answer or 0 if nothing was checked
 	 */
@@ -730,7 +740,7 @@ class answerMatching
 	/** 
 	 * get response of user via $_REQUEST and store it in object
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return boolean result of operation 
 	 */
 	function extractResponseFromRequest()
@@ -754,7 +764,7 @@ class answerMatching
 	/** 
 	 * compute grade of question from answer
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 */
 	function getGrade()
@@ -767,6 +777,64 @@ class answerMatching
     	}
     	
 	   	return $grade;
-	} 	        
+	} 	   
+	
+	//-- EXPORT
+	/**
+     * Export the question part as a matrix-choice, with only one possible answer per line.
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function imsExportResponses($questionIdent)
+    {
+		$out = "";
+        // Now, loop again, finding questions (rows)
+        foreach( $this->leftList as $leftElt )
+        {
+            $responseIdent = $questionIdent . "_A_" . $leftElt['code'];
+            $out.= '<response_lid ident="' . $responseIdent . '" rcardinality="Single" rtiming="No">' . "\n"
+                 . '<material><mattext><![CDATA[' . $leftElt['answer'] . "]]></mattext></material>\n"
+                 . '  <render_choice shuffle="No"><flow_label>' . "\n";
+                 
+            foreach( $this->rightList as $rightElt ) 
+            {
+                $out.= '    <response_label ident="' . $rightElt['code'] . '"><material>' . "\n"
+                     . "      <mattext><![CDATA[" . $rightElt['answer'] . "]]></mattext>\n"
+                     . "    </material></response_label>\n";
+            }
+            
+            $out.= "</flow_label></render_choice></response_lid>\n";
+        }
+        
+       return $out; 
+    }
+    
+    /**
+     * Export the response processing part
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function imsExportProcessing($questionIdent)
+    {
+        $out = "";
+        foreach( $this->leftList as $leftElt )
+        {
+            $responseIdent = $questionIdent . "_A_" . $leftElt['code'];
+            $out.= '  <respcondition continue="Yes"><conditionvar>' . "\n"
+                 . '    <varequal respident="' . $responseIdent . '">' . $leftElt['match'] . "</varequal>\n"
+                 . '  </conditionvar><setvar action="Add">' . $leftElt['grade'] . "</setvar>\n"
+                 . "  </respcondition>\n";
+        }
+        return $out;
+    }   
+    
+	/**
+      * Export the feedback (comments to selected answers) to IMS/QTI
+      * 
+      * @author Amand Tihon <amand@alrj.org>
+      */
+     function imsExportFeedback($questionIdent)
+     {
+		// no feedback in this question type
+        return '';
+     }  
 }
 ?>

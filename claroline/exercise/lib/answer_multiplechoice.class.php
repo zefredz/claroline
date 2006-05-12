@@ -94,7 +94,7 @@ class answerMultipleChoice
 	                `grade`,
 	                `comment`
 	        FROM `".$this->tblAnswer."`
-	        WHERE `questionId` = ".$this->questionId."
+	        WHERE `questionId` = ".(int) $this->questionId."
 	        ORDER BY `id`";
 	
 	    $data = claro_sql_query_fetch_all($sql);
@@ -125,7 +125,7 @@ class answerMultipleChoice
     function save() 
     {
     	$sql = "DELETE FROM `".$this->tblAnswer."` 
-                WHERE questionId = '".$this->questionId."'";
+                WHERE questionId = ".(int) $this->questionId;
         
         if( claro_sql_query($sql) == false ) return false;
        
@@ -135,7 +135,7 @@ class answerMultipleChoice
 
         foreach($this->answerList as $anAnswer)
         {
-            $sql .= "('".$this->questionId."',
+            $sql .= "(".(int) $this->questionId.",
             		'".addslashes($anAnswer['answer'])."',
         			'".addslashes($anAnswer['correct'])."',
         			'".addslashes($anAnswer['grade'])."',
@@ -156,7 +156,7 @@ class answerMultipleChoice
     function delete() 
     {
     	$sql = "DELETE FROM `".$this->tblAnswer."` 
-                WHERE `questionId` = '".$this->questionId."'";
+                WHERE `questionId` = ".(int) $this->questionId;
         
         return claro_sql_query($sql);
     }
@@ -644,6 +644,99 @@ class answerMultipleChoice
     		}
     	}
 	   	return $grade;
-	} 	     
+	} 	    
+	
+	//-- EXPORT
+	/**
+     * Return the XML flow for the possible answers. 
+     * That's one <response_lid>, containing several <flow_label>
+     *
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function imsExportResponses($questionIdent)
+    {
+        // Opening of the response block.
+        if( $this->multipleAnswer )
+        {
+		    $out = '<response_lid ident = "MCM_' . $questionIdent . '" rcardinality = "Multiple" rtiming = "No">' . "\n"
+		         . '<render_choice shuffle = "No" minnumber = "1" maxnumber = "' . count($this->answerList) . '">' . "\n";
+        }
+        else
+        {
+			$out = '<response_lid ident="MCS_' . $questionIdent . '" rcardinality="Single" rtiming="No"><render_choice shuffle="No">' . "\n";
+        }
+        
+        // Loop over answers
+        foreach( $this->answerList as $answer )
+        {
+            $responseIdent = $questionIdent . "_A_" . $answer['id'];
+            
+            $out.= '  <flow_label><response_label ident="' . $responseIdent . '">'.(!$this->multipleAnswer ? '<flow_mat class="list">':'').'<material>' . "\n"
+                . '    <mattext><![CDATA[' . $answer['answer'] . ']]></mattext>' . "\n"
+                . '  </material>'.(!$this->multipleAnswer ? '</flow_mat>':'').'</response_label></flow_label>' . "\n";
+        }
+        $out.= "</render_choice></response_lid>\n";
+        
+        return $out;
+    }
+    
+    /**
+     * Return the XML flow of answer processing : a succession of <respcondition>. 
+     *
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function imsExportProcessing($questionIdent)
+    {
+        $out = '';
+        
+        foreach( $this->answerList as $answer )
+        {
+            $responseIdent = $questionIdent . "_A_" . $answer['id'];
+            $feedbackIdent = $questionIdent . "_F_" . $answer['id'];
+            $conditionIdent = $questionIdent . "_C_" . $answer['id'];
+            
+            if( $this->multipleAnswer )
+        	{
+	            $out .= '<respcondition title="' . $conditionIdent . '" continue="Yes"><conditionvar>' . "\n"
+				.	 '  <varequal respident="MCM_' . $questionIdent . '">' . $responseIdent . '</varequal>' . "\n";
+        	}
+        	else
+        	{
+	            $out .= '<respcondition title="' . $conditionIdent . '"><conditionvar>' . "\n"
+				.	 '  <varequal respident="MCS_' . $questionIdent . '">' . $responseIdent . '</varequal>' . "\n";
+        	}
+               
+            $out .= "  </conditionvar>\n" . '  <setvar action="Add">' . $answer['grade'] . "</setvar>\n";
+                
+            // Only add references for actually existing comments/feedbacks.
+            if( !empty($answer['comment']) )
+            {
+                $out .= '  <displayfeedback feedbacktype="Response" linkrefid="' . $feedbackIdent . '" />' . "\n";
+            }
+            $out .= "</respcondition>\n";
+        }
+        return $out;
+    }
+         
+     /**
+      * Export the feedback (comments to selected answers) to IMS/QTI
+      * 
+      * @author Amand Tihon <amand@alrj.org>
+      */
+     function imsExportFeedback($questionIdent)
+     {
+        $out = "";
+        foreach( $this->answerList as $answer )
+        {
+            if( !empty($answer['comment']) )
+            {
+                $feedbackIdent = $questionIdent . "_F_" . $answer['id'];
+                $out.= '<itemfeedback ident="' . $feedbackIdent . '" view="Candidate"><flow_mat><material>' . "\n"
+                    . '  <mattext><![CDATA[' . $answer['comment'] . "]]></mattext>\n"
+                    . "</material></flow_mat></itemfeedback>\n";
+            }
+        }
+        return $out;
+     } 
 }
 ?>

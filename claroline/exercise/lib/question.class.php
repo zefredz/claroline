@@ -102,7 +102,7 @@ class Question
 	/**
      * load an question from DB 
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $id id of question
      * @return boolean load successfull ?
      */   
@@ -130,41 +130,14 @@ class Question
 		    $this->type = $data['type'];
 		    $this->grade = $data['grade'];
 			
-			$path = dirname(__FILE__);
-
-			switch($this->type)
-			{
-				case 'MCUA' :
-					include_once $path . '/answer_multiplechoice.class.php';
-					$this->answer = new answerMultipleChoice($this->id, false);
-					break; 
-				case 'MCMA' :
-					include_once $path . '/answer_multiplechoice.class.php';
-					$this->answer = new answerMultipleChoice($this->id, true);	
-					break;
-				case 'TF' :
-					include_once $path . '/answer_truefalse.class.php';
-					$this->answer = new answerTrueFalse($this->id); 
-					break;
-				case 'FIB' :
-					include_once $path . '/answer_fib.class.php';
-					$this->answer = new answerFillInBlanks($this->id); 
-					break;
-				case 'MATCHING' :
-					include_once $path . '/answer_matching.class.php';
-					$this->answer = new answerMatching($this->id); 
-					break;
-				default :
-					$this->answer = null;
-					break;
-			}
-			
+			// create answer object
+			$this->setAnswer();
+						
 			if( !is_null($this->answer) )
 			{
 				$this->answer->load();
 			}
-			
-			
+						
 			$this->buildDirPaths();
 			
 			return true;
@@ -178,7 +151,7 @@ class Question
     /**
      * save question to DB
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
      */   
     function save()
@@ -243,7 +216,7 @@ class Question
     /**
      * check if data are valide
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean 
      */	
 	function validate()
@@ -263,7 +236,7 @@ class Question
     /**
      * delete question from DB
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean 
      */
 	function delete()
@@ -294,11 +267,29 @@ class Question
 			
 		return true;
 	}    
-	
+
+    /**
+     * duplicate question from DB
+     *
+     * @author Sebastien Piraux <pir@cerdecam.be>
+     * @return object duplicated question 
+     */
+     function duplicate()
+     {
+     	/*
+     	//-- duplicate question
+     	$duplicated = $this;
+     	$duplicated-;
+     	//-- duplicate answer with new question id	
+     	$duplicated->answer = '';
+     	*/
+     }
+    
+     	
 	/**
      * builds required paths and sets values in $questionDirSys and $questionDirWeb
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      */
 	function buildDirPaths()
 	{
@@ -311,7 +302,7 @@ class Question
 	/**
      * set attachment value and move uploaded image to a temporary file
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      */
 	function setAttachment($file)
 	{
@@ -356,7 +347,7 @@ class Question
 	/**
      * 
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      */	
 	function moveAttachment()
 	{
@@ -380,7 +371,7 @@ class Question
 	/**
      * try to remove the attachment if there is one
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      */
 	function deleteAttachment()
 	{
@@ -402,7 +393,7 @@ class Question
 	/**
      * get html required to display the question
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
     function getQuestionAnswerHtml()
@@ -420,7 +411,7 @@ class Question
 	/**
      * get html required to display the question
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */    
     function getQuestionHtml()
@@ -439,7 +430,7 @@ class Question
 	/**
      * get html required to display the question
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */    
     function getQuestionFeedbackHtml()
@@ -454,7 +445,7 @@ class Question
     /**
      * get html required to display the question
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param float result   
      */  
     function computeResult()
@@ -466,11 +457,22 @@ class Question
     	
     	return false;
     }
-        
+      
+	/**
+     * get id
+     *
+     * @author Sebastien Piraux <pir@cerdecam.be>
+     * @return integer   
+     */	 
+	function getId()
+	{
+		return (int) $this->id;		
+	}
+	        
 	/**
      * get title
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 
 	function getTitle()
@@ -482,7 +484,7 @@ class Question
 	/**
      * set title
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */	 	
 	function setTitle($value)
@@ -493,7 +495,7 @@ class Question
 	/**
      * get description
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	  
 	function getDescription()
@@ -504,7 +506,7 @@ class Question
 	/**
      * set description
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */	
 	function setDescription($value)
@@ -515,7 +517,7 @@ class Question
 	/**
      * get attachment
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	  
 	function getAttachment()
@@ -526,7 +528,7 @@ class Question
 	/**
      * get type ('VISIBLE', 'INVISIBLE')
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string   
      */	 	 
 	function getType()
@@ -537,7 +539,7 @@ class Question
 	/**
      * set type
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */
 	function setType($value)
@@ -555,7 +557,7 @@ class Question
 	/**
      * get grade
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return float   
      */	  
 	function getGrade()
@@ -566,7 +568,7 @@ class Question
 	/**
      * set grade
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param float $value   
      */	
 	function setGrade($value)
@@ -577,7 +579,7 @@ class Question
 	/**
      * get the full systeme path of the attachment directory
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string    
      */	 
 	function getQuestionDirSys()
@@ -588,12 +590,46 @@ class Question
 	/**
      * get the full web path of the attachment directory
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string    
      */	 	
 	function getQuestionDirWeb()
 	{
 		return $this->questionDirWeb;	
+	}
+	
+	function setAnswer()
+	{
+		$path = dirname(__FILE__);
+
+		switch($this->type)
+		{
+			case 'MCUA' :
+				include_once $path . '/answer_multiplechoice.class.php';
+				$this->answer = new answerMultipleChoice($this->id, false);
+				break; 
+			case 'MCMA' :
+				include_once $path . '/answer_multiplechoice.class.php';
+				$this->answer = new answerMultipleChoice($this->id, true);	
+				break;
+			case 'TF' :
+				include_once $path . '/answer_truefalse.class.php';
+				$this->answer = new answerTrueFalse($this->id); 
+				break;
+			case 'FIB' :
+				include_once $path . '/answer_fib.class.php';
+				$this->answer = new answerFillInBlanks($this->id); 
+				break;
+			case 'MATCHING' :
+				include_once $path . '/answer_matching.class.php';
+				$this->answer = new answerMatching($this->id); 
+				break;
+			default :
+				$this->answer = null;
+				break;
+		}
+
+		return true;
 	}
 }
 ?>

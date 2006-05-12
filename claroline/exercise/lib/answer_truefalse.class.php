@@ -73,7 +73,7 @@ class answerTrueFalse
     /**
      * constructor
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId integer question that use this answer 
      * @param $course_id to use the class when not in course context
      * @return string   
@@ -100,7 +100,7 @@ class answerTrueFalse
     /**
      * load answers in object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	    
     function load() 
@@ -113,7 +113,7 @@ class answerTrueFalse
 	                `falseGrade`,
 	                `correctAnswer`
 	        FROM `".$this->tblAnswer."`
-	        WHERE `questionId` = ".$this->questionId;
+	        WHERE `questionId` = ".(int) $this->questionId;
 	
 	    $data = claro_sql_query_get_single_row($sql);
 
@@ -137,7 +137,7 @@ class answerTrueFalse
     /**
      * save object in db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	     
     function save() 
@@ -146,7 +146,7 @@ class answerTrueFalse
     	{
     		// insert	
 		    $sql = "INSERT INTO `".$this->tblAnswer."`
-		            SET `questionId` = '".$this->questionId."',
+		            SET `questionId` = ".(int) $this->questionId.",
 		            	`trueFeedback` = '".addslashes($this->trueFeedback)."',
 		                `trueGrade` = '".addslashes($this->trueGrade)."',
 		                `falseFeedback` = '".addslashes($this->falseFeedback)."',
@@ -176,7 +176,7 @@ class answerTrueFalse
 		                `falseFeedback` = '".addslashes($this->falseFeedback)."',
 		                `falseGrade` = '".addslashes($this->falseGrade)."',
 		                `correctAnswer` = '".addslashes($this->correctAnswer)."'
-		            WHERE `id` = '".$this->id."'";
+		            WHERE `id` = ".(int) $this->id;
 		
 		    // execute and return main query
 		    if( claro_sql_query($sql) )
@@ -193,7 +193,7 @@ class answerTrueFalse
     /**
      * delete answers from db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	     
     function delete() 
@@ -202,7 +202,7 @@ class answerTrueFalse
     	{
 			// delete question from all exercises
 			$sql = "DELETE FROM `".$this->tblAnswer."`
-					WHERE `id` = '".(int) $this->id."'";
+					WHERE `id` = ".(int) $this->id;
 					
 			if( !claro_sql_query($sql) ) return false;
 							
@@ -215,7 +215,7 @@ class answerTrueFalse
     /**
      * clone the object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	    
     function duplicate()
@@ -226,7 +226,7 @@ class answerTrueFalse
     /**
      * check if the object content is valide (use before using save method)
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	     
     function validate()
@@ -245,7 +245,7 @@ class answerTrueFalse
     /**
      * handle the form, get data of request and put in the object, handle commands if required
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean true if form can be checked and saved, false   
      */	
     function handleForm()
@@ -293,7 +293,7 @@ class answerTrueFalse
     /**
      * provide the list of error that validate found
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of errors   
      */	     
     function getErrorList()
@@ -304,7 +304,7 @@ class answerTrueFalse
     /**
      * display the answers as a form part for display in quizz submission page
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer   
      */	      
     function getAnswerHtml()
@@ -350,7 +350,7 @@ class answerTrueFalse
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of hidden sent data   
      */	   
     function getHiddenAnswerHtml()
@@ -369,7 +369,7 @@ class answerTrueFalse
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of feedback for this answer   
      */	   
     function getAnswerFeedbackHtml()
@@ -429,7 +429,7 @@ class answerTrueFalse
     /**
      * display the form to edit answers
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */	    
     function getFormHtml()
@@ -487,7 +487,7 @@ class answerTrueFalse
 	/** 
 	 * read response from request grade it, write grade in object, return grade
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 * @desc return score of checked answer or 0 if nothing was checked
 	 */
@@ -512,7 +512,7 @@ class answerTrueFalse
 	/** 
 	 * get response of user via $_REQUEST and store it in object
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return boolean result of operation 
 	 */
 	function extractResponseFromRequest()
@@ -537,7 +537,7 @@ class answerTrueFalse
 	/** 
 	 * compute grade of question from answer
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 */
 	function getGrade()
@@ -553,5 +553,111 @@ class answerTrueFalse
 	   	
 	   	return 0;
 	}       
+	
+	//-- EXPORT
+	/**
+     * Return the XML flow for the possible answers. 
+     * That's one <response_lid>, containing several <flow_label>
+     *
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function imsExportResponses($questionIdent)
+    {
+        // Opening of the response block.
+        $out = '<response_lid ident="TF_' . $questionIdent . '" rcardinality="Single" rtiming="No"><render_choice shuffle="No">' . "\n";
+       
+        // true
+        $response_ident = $questionIdent . '_A_true';    
+		$out .= 
+			'  <flow_label><response_label ident="'.$response_ident.'"><flow_mat class="list"><material>' . "\n"
+		.	'    <mattext><![CDATA[' . get_lang('True') . ']]></mattext>' . "\n"
+		.	'  </material></flow_mat></response_label></flow_label>' . "\n";
+
+		// false       
+		$response_ident = $questionIdent . '_A_false'; 
+        $out .= 
+			'  <flow_label><response_label ident="'.$response_ident.'"><flow_mat class="list"><material>' . "\n"
+		.	'    <mattext><![CDATA[' . get_lang('False') . ']]></mattext>' . "\n"
+		.	'  </material></flow_mat></response_label></flow_label>' . "\n";
+		
+        $out .= '</render_choice></response_lid>' . "\n";
+        
+        return $out;
+    }
+
+    /**
+     * Return the XML flow of answer processing : a succession of <respcondition>. 
+     *
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function imsExportProcessing($questionIdent)
+    {
+        $out = '';
+        
+        // true
+		$response_ident = $questionIdent. '_A_true';
+        $feedback_ident = $questionIdent . '_F_true';
+        $condition_ident = $questionIdent . '_C_true';
+            
+		$out .= 
+			'<respcondition title="' . $condition_ident . '"><conditionvar>' . "\n"
+		.	'  <varequal respident="TF_' . $questionIdent . '">' . $response_ident . '</varequal>' . "\n"
+		.	'  </conditionvar>' . "\n" . '  <setvar action="Add">' . $this->trueGrade . '</setvar>' . "\n";
+                
+        // Only add references for actually existing comments/feedbacks.
+        if( !empty($this->trueFeedback) )
+        {
+            $out.= '  <displayfeedback feedbacktype="Response" linkrefid="' . $this->trueFeedback . '" />' . "\n";
+        }
+        
+		$out .= '</respcondition>' . "\n";
+
+		// false
+		$response_ident = $questionIdent. '_A_false';
+        $feedback_ident = $questionIdent . '_F_false';
+        $condition_ident = $questionIdent . '_C_false';
+				
+		$out .= 
+			'<respcondition title="' . $condition_ident . '"><conditionvar>' . "\n"
+		.	'  <varequal respident="TF_' . $questionIdent . '">' . $response_ident . '</varequal>' . "\n"
+		.	'  </conditionvar>' . "\n" . '  <setvar action="Add">' . $this->falseGrade . '</setvar>' . "\n";
+                
+        // Only add references for actually existing comments/feedbacks.
+        if( !empty($this->falseFeedback) )
+        {
+            $out.= '  <displayfeedback feedbacktype="Response" linkrefid="' . $feedback_ident . '" />' . "\n";
+        }
+        
+		$out .= '</respcondition>' . "\n";
+		
+        return $out;
+    }
+         
+     /**
+      * Export the feedback (comments to selected answers) to IMS/QTI
+      * 
+      * @author Amand Tihon <amand@alrj.org>
+      */
+     function imsExportFeedback($questionIdent)
+     {
+        $out = "";
+        
+        if( !empty($this->trueFeedback) )
+        {
+            $feedback_ident = $questionIdent . '_F_true';
+            $out.= '<itemfeedback ident="' . $feedback_ident . '" view="Candidate"><flow_mat><material>' . "\n"
+                . '  <mattext><![CDATA[' . $this->trueFeedback . "]]></mattext>\n"
+                . "</material></flow_mat></itemfeedback>\n";
+        }
+        
+		if( !empty($this->falseFeedback) )
+        {
+            $feedback_ident = $questionIdent . '_F_false';
+            $out.= '<itemfeedback ident="' . $feedback_ident . '" view="Candidate"><flow_mat><material>' . "\n"
+                . '  <mattext><![CDATA[' . $this->falseFeedback . "]]></mattext>\n"
+                . "</material></flow_mat></itemfeedback>\n";
+        }
+        return $out;
+     }
 }
 ?>

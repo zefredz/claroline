@@ -122,7 +122,7 @@ class answerFillInBlanks
 	                `wrongAnswerList`,
 	                `type`
 	        FROM `".$this->tblAnswer."`
-	        WHERE `questionId` = ".$this->questionId;
+	        WHERE `questionId` = ".(int) $this->questionId;
 	
 	    $data = claro_sql_query_get_single_row($sql);
 
@@ -159,7 +159,7 @@ class answerFillInBlanks
     	{
     		// insert	
 		    $sql = "INSERT INTO `".$this->tblAnswer."`
-		            SET `questionId` = '".$this->questionId."',
+		            SET `questionId` = ".(int) $this->questionId.",
 		            	`answer` = '".addslashes($this->answer)."',
 		                `gradeList` = '".addslashes($sqlGradeList)."',
 		                `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
@@ -187,7 +187,7 @@ class answerFillInBlanks
 		                `gradeList` = '".addslashes($sqlGradeList)."',
 		                `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
 		                `type` = '".addslashes($this->type)."'
-		            WHERE `id` = '".$this->id."'";
+		            WHERE `id` = ".(int) $this->id;
 		
 		    // execute and return main query
 		    if( claro_sql_query($sql) )
@@ -213,7 +213,7 @@ class answerFillInBlanks
     	{
 			// delete question from all exercises
 			$sql = "DELETE FROM `".$this->tblAnswer."`
-					WHERE `id` = '".(int) $this->id."'";
+					WHERE `id` = ".(int) $this->id;
 					
 			if( !claro_sql_query($sql) ) return false;
 							
