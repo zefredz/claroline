@@ -105,7 +105,7 @@ $titleTab['subTitle'] = $lpDetails['name'];
 echo claro_html_tool_title($titleTab);
 
 
-if($is_allowedToTrack && $is_trackingEnabled) 
+if($is_allowedToTrack && get_conf('is_trackingEnabled')) 
 {
     //### PREPARE LIST OF ELEMENTS TO DISPLAY #################################
 
@@ -319,7 +319,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 // not allowed
 else
 {
-    if(!$is_trackingEnabled)
+    if(!get_conf('is_trackingEnabled'))
     {
         echo get_lang('Tracking has been disabled by system administrator.');
     }

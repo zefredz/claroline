@@ -56,7 +56,7 @@ $titleTab['subTitle'] = get_lang('Progression of users on all learning paths');
 
 echo claro_html_tool_title($titleTab);
 
-if ( $is_trackingEnabled ) 
+if ( get_conf('is_trackingEnabled') ) 
 {
     // display a list of user and their respective progress
     

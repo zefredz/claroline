@@ -300,15 +300,12 @@
     * @param $ressource_id (string) the resource
     * @param $team (integer) the id of a team
     * @return string $url a url
-    * @global $rootweb
     */
     function getRessourceURL( $plateform_id, $course_sys_code,
         $tool_name = FALSE, $ressource_id = FALSE, $team = FALSE )
     {
-        global $rootWeb;
-            
         $crl = CRLTool::createCRL( $plateform_id, $course_sys_code, $tool_name, $ressource_id, $team );
-        $resolver = new Resolver( $rootWeb );
+        $resolver = new Resolver( get_conf('rootWeb') );
         $url = $resolver->resolve( $crl );
 
         return $url;
@@ -320,7 +317,7 @@
     *
     * @param string tLable tool label if different form current tool
     * @return  string a valid crl 
-    * @global $platform_id,$_course,$_courseTool,$_gid,$rootWeb
+    * @global $platform_id,$_course,$_courseTool,$_gid
     */
     function getSourceCrl( $tLabel = NULL )
     {
@@ -328,9 +325,8 @@
         global $_course;
         global $_courseTool;
         global $_gid;
-        global $rootWeb;
 
-        $baseServUrl = $rootWeb;
+        $baseServUrl = get_conf('rootWeb');
         $course_sys_code = $_course["sysCode"];
 
         if ( ! is_null( $tLabel ) )
@@ -480,8 +476,6 @@
         global $_course;
         global $_courseTool;
         global $_gid;
-        global $rootWeb;
-        
         $group = ( $_gid ) ? $_gid : NULL;
 
         $toolCRL = CRLTool::createCRL($platform_id , $_course['sysCode'] , $_courseTool['label'] , '' , $group  );;
@@ -492,16 +486,13 @@
    /**
     * display the list of the resources which are related to a resource 
     *
-    * @global $rootWeb
     * @param string tLable tool label if different form current tool
     */    
     function linker_display_resource( $tLabel = NULL )
     {
-        global $rootWeb;
-        
         $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
-        $baseServUrl = $rootWeb;
+        $baseServUrl = get_conf('rootWeb');
             
         if ( is_array($linkList) && count($linkList) > 0 )
         {
@@ -524,16 +515,13 @@
     /**
     *  
     *
-    * @global $rootWeb
     * @param string tLable tool label if different form current tool
     */    
     function linker_email_resource( $tLabel = NULL )
     {
-        global $rootWeb;
-        
         $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
-        $baseServUrl = $rootWeb;
+        $baseServUrl = get_conf('rootWeb');
         
         $attachement = "";
         //$handle = fopen("/home/renaud/public_html/mail.txt", "a+");

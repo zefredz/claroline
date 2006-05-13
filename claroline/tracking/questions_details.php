@@ -102,7 +102,7 @@ echo claro_html_tool_title($titleTab);
 $backLink = "\n\n".'<small><a href="./exercises_details.php?exo_id='.$_REQUEST['exo_id'].$src.'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small>'."\n\n";
 echo $backLink;
 
-if($is_allowedToTrack && $is_trackingEnabled)
+if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 {
 
     foreach( $questionIdsToShow as $questionId )
@@ -450,7 +450,7 @@ if($is_allowedToTrack && $is_trackingEnabled)
 // not allowed
 else
 {
-    if(!$is_trackingEnabled)
+    if(!get_conf('is_trackingEnabled'))
     {
         echo get_lang('Tracking has been disabled by system administrator.');
     }

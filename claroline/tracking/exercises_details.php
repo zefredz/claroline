@@ -59,7 +59,7 @@ else
 $nameTools = get_lang('Statistics of exercise');
 
 // get the tracking of a question as a csv file
-if( $is_trackingEnabled && isset($_REQUEST['exportCsv']) )
+if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
 {
     include($includePath.'/lib/export_exe_tracking.class.php');
 
@@ -83,7 +83,7 @@ $titleTab['subTitle'] = $exercise->selectTitle();
 
 echo claro_html_tool_title($titleTab);
 
-if ( $is_trackingEnabled ) 
+if ( get_conf('is_trackingEnabled') ) 
 {
     // get global infos about scores in the exercise
     $sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`,

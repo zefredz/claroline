@@ -166,11 +166,11 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
     <?php
     if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
     {
-        echo '<img src="' . $rootWeb . 'claroline/module/' . $module['label'] . '/icon.png" />';
+        echo '<img src="' . get_conf('rootWeb') . 'claroline/module/' . $module['label'] . '/icon.png" />';
     }
     elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
     {
-        echo '<img src="'.$rootWeb.'claroline/module/'.$module['label'] . '/icon.gif" />';
+        echo '<img src="' . get_conf('rootWeb') . 'claroline/module/'.$module['label'] . '/icon.gif" />';
     }
     else
     {

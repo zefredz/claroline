@@ -69,7 +69,7 @@ $toolTitle['mainTitle'] = $nameTools;
 $toolTitle['subTitle'] = get_lang('Statistics of user');
 echo claro_html_tool_title($toolTitle);
 
-if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackingEnabled )
+if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('is_trackingEnabled') )
 {
     if( empty($_REQUEST['uInfo']) )
     {
@@ -775,7 +775,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackin
 // not allowed
 else
 {
-    if(!$is_trackingEnabled)
+    if(!get_conf('is_trackingEnabled'))
     {
         echo get_lang('Tracking has been disabled by system administrator.');
     }

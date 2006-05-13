@@ -59,7 +59,7 @@ include($includePath.'/lib/learnPath.lib.inc.php');
 
 include($includePath."/claro_init_header.inc.php");
 
-if ( $is_trackingEnabled )  
+if ( get_conf('is_trackingEnabled') )  
 {
 
     if ( !empty($_REQUEST['path_id']) )

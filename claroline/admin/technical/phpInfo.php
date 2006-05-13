@@ -22,7 +22,7 @@ require '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-$claroCreditFilePath = $rootSys.'CREDITS.txt';
+$claroCreditFilePath = get_conf('rootSys').'CREDITS.txt';
 
 if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
 if ( ! $is_platformAdmin ) claro_disp_auth_form();

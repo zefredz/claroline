@@ -55,11 +55,9 @@
         * @return ClaroContainer who contains the objects current node
         * @throws  E_USER_ERROR if the node is not intended for the tool forum
         * @throws  E_USER_ERROR if the node is empty
-        * @global $rootWeb
         */
         function getResource($node = null)
         {
-            global $rootWeb;
             
             if($node)
             {
@@ -75,8 +73,8 @@
                          
                          foreach ($groups as $itemGroups )
                          {
-                             $crl = CRLTool::createCRL($elementCRLArray["platform_id"],$elementCRLArray['course_sys_code'],"","",$itemGroups["id"]);
-                             $title = $itemGroups["name"]; 
+                             $crl = CRLTool::createCRL($elementCRLArray['platform_id'],$elementCRLArray['course_sys_code'],"","",$itemGroups["id"]);
+                             $title = $itemGroups['name']; 
                              $container = new ClaroContainer( $title , $crl );
                              $elementList[] = $container ;   
                          }    

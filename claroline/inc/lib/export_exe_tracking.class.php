@@ -14,8 +14,8 @@
 +----------------------------------------------------------------------+
 */
 
-include_once($rootSys.$clarolineRepositoryAppend.'exercice/question.class.php');
-include_once($rootSys.$clarolineRepositoryAppend.'exercice/answer.class.php');
+include_once(get_conf('rootSys').$clarolineRepositoryAppend.'exercice/question.class.php');
+include_once(get_conf('rootSys').$clarolineRepositoryAppend.'exercice/answer.class.php');
 include_once( dirname(__FILE__) . '/csv.class.php');
 
 // answer types

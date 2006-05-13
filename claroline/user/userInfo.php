@@ -69,7 +69,7 @@ $userIdViewer = $_uid; // id fo the user currently online
 
 $allowedToEditContent     = ($userIdViewer == $userIdViewed) || claro_is_allowed_to_edit();
 $allowedToEditDef         = claro_is_allowed_to_edit();
-$is_allowedToTrack        =  claro_is_allowed_to_edit() && $is_trackingEnabled
+$is_allowedToTrack        =  claro_is_allowed_to_edit() && get_conf('is_trackingEnabled')
 || ($userIdViewer == $userIdViewed );
 
 if ( ! claro_is_allowed_to_edit() && ! get_conf('linkToUserInfo') )

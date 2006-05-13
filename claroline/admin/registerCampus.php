@@ -304,7 +304,7 @@ $soapclient = new soapclient('http://www.claroline.net/worldwide/worldwide_soap.
 if( isset($_REQUEST['register']) )
 {
     $country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
-    $parameters = array('campusName' => addslashes($siteName), 'campusUrl' => $rootWeb,
+    $parameters = array('campusName' => addslashes($siteName), 'campusUrl' => get_conf('rootWeb'),
                         'institutionName' => addslashes($institution_name), 'institutionUrl' => $institution_url,
                         'country' => $country, 'adminEmail' => $administrator_email
                         );
@@ -338,7 +338,7 @@ if( isset($_REQUEST['register']) )
 // -- get current status
 if( !isset($_REQUEST['register']) )
 {
-    $parameters = array('campusUrl' => $rootWeb);
+    $parameters = array('campusUrl' => get_conf('rootWeb'));
     $soapResponse = $soapclient->call('getCampusRegistrationStatus', $parameters);
 
     if( $soapResponse )

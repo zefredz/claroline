@@ -29,7 +29,7 @@ $is_allowedToTrack = $is_courseAdmin;
 
 include($includePath."/claro_init_header.inc.php");
 
-if( $is_allowedToTrack && $is_trackingEnabled )
+if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
      if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
     {
@@ -126,7 +126,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 // not allowed
 else
 {
-    if(!$is_trackingEnabled)
+    if(!get_conf('is_trackingEnabled'))
     {
         echo get_lang('Tracking has been disabled by system administrator.');
     }

@@ -31,14 +31,14 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $urlMaintenance = $rootAdminWeb . 'maintenance/';
 
 // Include version file
-if ( file_exists($includePath.'/currentVersion.inc.php') )
+if ( file_exists($includePath . '/currentVersion.inc.php') )
 {
-    include ($includePath.'/currentVersion.inc.php');
+    include ($includePath . '/currentVersion.inc.php');
 }
 
 // Include array with script
 // $claroline_script[]
-include(dirname(__FILE__).'/claroline_script.inc.php');
+include(dirname(__FILE__) . '/claroline_script.inc.php');
 
 // Display 
 define('DISP_ARRAY',__LINE__);
@@ -48,7 +48,7 @@ define('DISP_DIFF',__LINE__);
   Main Section
  =====================================================================*/
 
-$scan= scan_dir ($rootSys.'claroline',$recurse=TRUE);
+$scan= scan_dir(get_conf('rootSys') . 'claroline',$recurse=TRUE);
 
 $local_script = $scan['files'];
 
@@ -101,7 +101,7 @@ switch ($display)
             echo '<ul>' . "\n";
             foreach ( $diff_script_missing as $script )
             {
-                echo '<li>' . $rootSys . 'claroline' . $script . '</li>' . "\n";
+                echo '<li>' . get_conf('rootSys') . 'claroline' . $script . '</li>' . "\n";
             }
             echo '</ul>' . "\n";
         }
@@ -118,7 +118,7 @@ switch ($display)
             echo '<ul>' . "\n";
             foreach ( $diff_script_not_used as $script )
             {
-                echo '<li>' . $rootSys . 'claroline' . $script . '</li>' . "\n";
+                echo '<li>' . get_conf('rootSys') . 'claroline' . $script . '</li>' . "\n";
             }
             echo '</ul>' . "\n";
         }
@@ -147,8 +147,6 @@ include $includePath . '/claro_init_footer.inc.php';
 
 function scan_dir($dirname,$recurse=FALSE)
 {
-    global $rootSys;
-    
     static $file_array=array();
     static $dir_array=array();
     static $ret_array=array();
@@ -175,7 +173,7 @@ function scan_dir($dirname,$recurse=FALSE)
             }
             else
             {
-                $file_array[]=str_replace($rootSys.'claroline','',$dirname.$element);
+                $file_array[]=str_replace(get_conf('rootSys').'claroline','',$dirname.$element);
             }
         }
     }
@@ -202,11 +200,10 @@ function is_scannable($filePath,
                       $additionnalForbiddenDirNameList = array(), 
                       $additionnalForbiddenFileSuffixList = array() )
 {
-    global $rootSys;
 
     $baseName    = basename($filePath);
     $parentPath  = str_replace('\\', '/', dirname($filePath));
-    $parentPath  = str_replace($rootSys, '', $parentPath);
+    $parentPath  = str_replace(get_conf('rootSys'), '', $parentPath);
 
     $forbiddenDirNameList    = array_merge( array('claroline/lang',
                                                   'claroline/inc/conf',
@@ -243,7 +240,7 @@ function is_scannable($filePath,
     // DIRECTORY CHECK
     foreach($forbiddenDirNameList as $thisDirName)
     {
-        if ( strpos($filePath, $rootSys.$thisDirName) !== FALSE ) 
+        if ( strpos($filePath, get_conf('rootSys').$thisDirName) !== FALSE ) 
         {
             return false;
         }

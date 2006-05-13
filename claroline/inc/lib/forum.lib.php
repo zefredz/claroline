@@ -584,7 +584,7 @@ function trig_topic_notification($topicId)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_users       = $tbl_mdb_names['user'];
 
-    global $rootWeb, $_course;
+    global $_course;
 
     $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
             FROM `" . $tbl_user_notify . "` AS notif,
@@ -595,8 +595,8 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = get_lang('A reply to your topic has been posted');
 
-    $url_topic = $rootWeb . "claroline/phpbb/viewtopic.php?topic=" .  $topicId . "&cidReq=" . $_course['sysCode'];
-    $url_forum = $rootWeb . "claroline/phpbb/index.php?cidReq=" . $_course['sysCode'];
+    $url_topic = get_conf('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&amp;cidReq=' . $_course['sysCode'];
+    $url_forum = get_conf('rootWeb') . 'claroline/phpbb/index.php?amp;cidReq=' . $_course['sysCode'];
 
     // send mail to registered user for notification
 

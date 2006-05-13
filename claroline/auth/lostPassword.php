@@ -122,7 +122,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
         }
 
         $emailBody = $emailSubject."\r\n"
-                    .$rootWeb."\r\n"
+                    .get_conf('rootWeb')."\r\n"
                     .get_lang('This is your account Login-Pass')."\r\n\r\n"
                     .$userAccountList;
 

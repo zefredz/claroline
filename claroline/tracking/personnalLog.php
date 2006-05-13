@@ -32,7 +32,7 @@ include($includePath."/lib/statsUtils.lib.inc.php");
 include($includePath."/claro_init_header.inc.php");
 echo claro_html_tool_title($nameTools);
 
-if ( $is_trackingEnabled )
+if ( get_conf('is_trackingEnabled') )
 {
     // display list of course of the student with links to the corresponding userLog
     $sql = "SELECT `cours`.`code` as `code`,

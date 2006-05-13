@@ -44,7 +44,7 @@ else
     $is_allowedToTrack = false;
 }
 
-if( $is_allowedToTrack && $is_trackingEnabled )
+if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
     // toolId is required, go to the tool list if it is missing
     if( empty($_REQUEST['toolId']) ) 
@@ -192,7 +192,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 }
 else // not allowed to track
 {
-    if(!$is_trackingEnabled)
+    if(!get_conf('is_trackingEnabled'))
     {
         echo get_lang('Tracking has been disabled by system administrator.');
     }

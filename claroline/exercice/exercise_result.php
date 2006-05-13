@@ -605,7 +605,7 @@ echo claro_html_tool_title( htmlspecialchars($exerciseTitle)." : ".get_lang('Res
 /*******************************/
 
 // if tracking is enabled
-if($is_trackingEnabled && $displayScore)
+if(get_conf('is_trackingEnabled') && $displayScore)
 {
     // if anonymousAttemps is true : record anonymous user stats, record authentified user stats without uid
     if ( $_SESSION['objExercise']->anonymous_attempts()  )

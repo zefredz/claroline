@@ -45,11 +45,10 @@ function unhtmlentities ($string)
 
 function event_open()
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
-    global $rootWeb ;
+
 
     // get table names
     $tbl_mdb_names                = claro_sql_get_main_tbl();
@@ -61,8 +60,8 @@ function event_open()
         $referer = NULL;
 
     // record informations only if user comes from another site
-    //if(!eregi($rootWeb,$referer))
-    $pos = strpos($referer,$rootWeb);
+    //if(!eregi(get_conf('rootWeb'),$referer))
+    $pos = strpos($referer,get_conf('rootWeb'));
     if( $pos === false )
     {
         $reallyNow = time();
@@ -86,9 +85,8 @@ function event_open()
  */
 function event_login()
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
     global $_uid;
 
@@ -120,9 +118,8 @@ function event_login()
  */
 function event_access_course()
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
     global $_uid;
 
@@ -161,12 +158,10 @@ function event_access_course()
  */
 function event_access_tool($tid, $tlabel)
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
     global $_uid;
-    global $rootWeb;
     global $_course;
 
     // get table names
@@ -214,9 +209,8 @@ function event_access_tool($tid, $tlabel)
  */
 function event_download($doc_url)
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
     global $_uid;
 
@@ -262,9 +256,8 @@ function event_download($doc_url)
  */
 function event_upload($doc_id)
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
     global $_uid;
 
@@ -312,9 +305,8 @@ function event_upload($doc_id)
 */
 function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return false;
+    if( ! get_conf('is_trackingEnabled') ) return false;
 
     // get table names
     $tbl_cdb_names               = claro_sql_get_course_tbl();
@@ -361,9 +353,8 @@ function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 */
 function event_exercise_details($exerciseTrackId,$questionId,$values,$questionResult)
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
     // get table names
     $tbl_cdb_names               = claro_sql_get_course_tbl();
@@ -419,9 +410,8 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
 */
 function event_default($type_event,$values)
 {
-    global $is_trackingEnabled ;
     // if tracking is disabled record nothing
-    if( ! $is_trackingEnabled ) return 0;
+    if( ! get_conf('is_trackingEnabled') ) return 0;
 
     global $_uid;
     global $_cid;

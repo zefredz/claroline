@@ -60,7 +60,7 @@ echo claro_html_tool_title(
     )
     );
 
-if( $is_allowedToTrack && $is_trackingEnabled)
+if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
 {
     // in $view, a 1 in X posof the $view string means that the 'category' number X
     // will be show, 0 means don't show
@@ -404,7 +404,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 }
 else // not allowed to track
 {
-    if(!$is_trackingEnabled) echo get_lang('Tracking has been disabled by system administrator.');
+    if(!get_conf('is_trackingEnabled')) echo get_lang('Tracking has been disabled by system administrator.');
     else                     echo get_lang('Not allowed');
 }
 

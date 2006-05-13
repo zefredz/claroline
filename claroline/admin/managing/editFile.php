@@ -32,7 +32,7 @@ $controlMsg = array();
 //The name of the files
 $filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html');
 //The path of the files
-$filePathList = array($rootSys . $filenameList[0], $rootSys . $filenameList[1], $clarolineRepositorySys . '/auth/' . $filenameList[2]);
+$filePathList = array(get_conf('rootSys') . $filenameList[0], get_conf('rootSys') . $filenameList[1], $clarolineRepositorySys . '/auth/' . $filenameList[2]);
 
 $display = DISP_FILE_LIST;
 

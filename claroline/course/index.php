@@ -38,7 +38,7 @@ claro_set_display_mode_available(TRUE);
 if ( get_conf('enable_rss_in_course') )
 {
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
-            .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
+            .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
 }
 
 // Display header

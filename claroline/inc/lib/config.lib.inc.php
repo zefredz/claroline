@@ -283,7 +283,6 @@ class Config
 
     function validate_property($name,$value)
     {
-        global $rootSys;
 
         $valid = true;
 
@@ -306,13 +305,13 @@ class Config
             switch ( $property_def['acceptedValueType'] )
             {
                 case 'css':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/css','file','.css',array('print.css','compatible.css'));
                     break;
                 case 'lang':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/lang','folder');
                     break;
                 case 'editor':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/editor','folder');
                     break;
             }
         }
@@ -755,8 +754,6 @@ class Config
 
     function display_form_elt($name,$value)
     {
-        global $rootSys;
-
         $elt_form = '';
 
         // array with html-safe variable
@@ -875,13 +872,13 @@ class Config
                     switch ( $property_def['acceptedValueType'] )
                     {
                         case 'css' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/css','file','.css',array('print.css','compatible.css'));
                             break;
                         case 'lang' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/lang','folder');
                             break;
                         case 'editor' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/editor','folder');
                             break;
                     }
                 }

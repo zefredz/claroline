@@ -28,7 +28,7 @@ include $includePath . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
 .    '<table width="100%" cellpadding="2" cellspacing="3" border="0">'
 ;
-if( $is_allowedToTrack && $is_trackingEnabled)
+if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
 {
     if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
     {
@@ -199,7 +199,7 @@ if( $is_allowedToTrack && $is_trackingEnabled)
 }
 else // not allowed to track
 {
-    if(!$is_trackingEnabled)
+    if(!get_conf('is_trackingEnabled'))
     {
         echo get_lang('Tracking has been disabled by system administrator.');
     }

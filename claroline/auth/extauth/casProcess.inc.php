@@ -26,14 +26,14 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     if ($logout)
     {
         $userLoggedOnCas = false;
-        phpCAS::logout($rootWeb.'index.php');
+        phpCAS::logout(get_conf('rootWeb').'index.php');
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
         // set the call back url
         if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = $_REQUEST['sourceUrl'];
         elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
-        else                                           $casCallBackUrl = $rootWeb;
+        else                                           $casCallBackUrl = get_conf('rootWeb');
 
         $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
                         .  'fromCasServer=true';

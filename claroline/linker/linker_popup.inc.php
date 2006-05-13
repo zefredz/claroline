@@ -103,7 +103,7 @@ if ($isToolAllowed)
 
     // init the variable
     $baseServDir = $coursesRepositorySys;
-    $baseServUrl = $rootWeb;
+    $baseServUrl = get_conf('rootWeb');
     $sysCode = $_course['sysCode'];
     $cmd = 'browse';
     $crl = '';

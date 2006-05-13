@@ -50,12 +50,10 @@
         * @param string $crl a crl
         * @return array a array with the resource
         * @global $coursesRepositorySys
-        * @global $rootWeb
         **/ 
         function getResource($crl = false)
         {
             global $coursesRepositorySys;
-            global $rootWeb;
              
             if($crl)
             {    
@@ -63,7 +61,7 @@
             }
              
             $baseServDir = $coursesRepositorySys;
-            $baseServUrl = $rootWeb;
+            $baseServUrl = get_conf('rootWeb');
              
             $nav = new Navigator($baseServDir, $crl);
             $tab = $nav->getArrayRessource();
@@ -216,13 +214,12 @@
         * @param string $crl a crl
         * @return array  a array witch the crl and title of the crl
         * @global $baseServUrl
-        * @global $rootWeb
         **/ 
         function getResourceDB($crl)
         {    
-            global $baseServUrl,$rootWeb;
+            global $baseServUrl;
             
-            $baseServUrl = $rootWeb;
+            $baseServUrl = get_conf('rootWeb');
                $crlListe = linker_get_link_list($crl);
                $resourceListe = array();
                

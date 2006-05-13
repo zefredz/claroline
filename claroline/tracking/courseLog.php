@@ -57,7 +57,7 @@ $toolNameList= claro_get_tool_name_list();
 
 // check if uid is prof of this group
 
-if( $is_trackingEnabled)
+if( get_conf('is_trackingEnabled'))
 {
     // in $view, a 1 in X posof the $view string means that the 'category' number X
     // will be show, 0 means don't show

@@ -130,7 +130,7 @@ echo claro_html_tool_title($titleTab);
 
 echo $backLink;
 
-if( $is_allowedToTrack && $is_trackingEnabled )
+if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
     // display infos about the details ...
     echo '<ul>' . "\n"
@@ -519,7 +519,7 @@ if( $is_allowedToTrack && $is_trackingEnabled )
 // not allowed
 else
 {
-    if(!$is_trackingEnabled)
+    if(!get_conf('is_trackingEnabled'))
     {
         $dialogBox = get_lang('Tracking has been disabled by system administrator.');
     }

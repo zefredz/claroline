@@ -55,14 +55,10 @@
         * @return ClaroContainer who contains the objects current node
         * @throws E_USER_ERROR if the node is not intended for the tool forum
         * @throws E_USER_ERROR if the node is empty
-        * @global path rootWeb
         */
         function getResource($node = null)
         {
-            global $rootWeb;
-            
-            // if the node is not null    
-            if($node)
+            if(!is_null($node))
             {
                 // if this node (crl) is for announcement
                 if(CRLTool::isForThisTool($node, 'CLANN___'))
@@ -78,7 +74,7 @@
                          foreach ($annonce as $itemAnnonce )
                          {
                              $crl = $node . '/' . $itemAnnonce['id']; 
-                             $res = new CLANN___Resolver($rootWeb); 
+                             $res = new CLANN___Resolver(get_conf('rootWeb')); 
                              $title = $res->getTitle($elementCRLArray['course_sys_code'], $itemAnnonce['id']); 
                              $isVisible = ( $itemAnnonce['visibility'] == 'SHOW');
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );

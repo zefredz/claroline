@@ -303,7 +303,7 @@ $links[] = '<a class="claroCmd" href="../group/group_properties.php">'
 
 // add tracking link
 
-if ( $is_trackingEnabled )
+if ( get_conf('is_trackingEnabled') )
 {
     $links[] = '<a class="claroCmd" href="' . $url_course_tracking . '">'
     .          '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'

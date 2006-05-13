@@ -51,7 +51,7 @@ if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 claro_set_display_mode_available(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
-$is_allowedToTrack = claro_is_allowed_to_edit() && $is_trackingEnabled;
+$is_allowedToTrack = claro_is_allowed_to_edit() && get_conf('is_trackingEnabled');
 
 /*
  * DB tables definition
@@ -237,7 +237,7 @@ $exercisesList = $myPager->get_result_list();
 // commands
 echo '<p>'."\n";
 // if tracking is enabled && user is not anomymous
-if($is_trackingEnabled && $_uid)
+if(get_conf('is_trackingEnabled') && $_uid)
 {
    echo '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&amp;view=0100000">'.get_lang('My results').'</a>';
    if( $is_allowedToEdit ) echo ' | ';

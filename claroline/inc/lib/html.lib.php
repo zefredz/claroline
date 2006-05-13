@@ -481,8 +481,7 @@ function claro_html_mailTo($mail,$mailLabel=null)
 
 function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    global $urlAppend, $rootSys;
-    global $claro_editor;
+    global $urlAppend, $claro_editor;
 
     if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
 
@@ -495,7 +494,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
 
     // $claro_editor is the directory name of the editor
-    $incPath = $rootSys . 'claroline/editor/' . $claro_editor;
+    $incPath = get_conf('rootSys') . 'claroline/editor/' . $claro_editor;
     $editorPath = $urlAppend . '/claroline/editor/';
     $webPath = $editorPath . $claro_editor;
 

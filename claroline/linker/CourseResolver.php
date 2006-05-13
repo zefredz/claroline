@@ -40,9 +40,9 @@ class CourseResolver extends Resolver
          */
     function CourseResolver($basePath)
     {
-        global $rootWeb, $coursesRepositoryAppend;
+        global $coursesRepositoryAppend;
 
-        $this->_basePath = $rootWeb . $coursesRepositoryAppend;
+        $this->_basePath = get_conf('rootWeb') . $coursesRepositoryAppend;
 
     }
 

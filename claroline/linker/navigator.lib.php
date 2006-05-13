@@ -213,14 +213,14 @@
         * reorganize the resources in a array
         *
         * @return a array with the tree of the current node
-        * @global $baseServUrl,$rootWeb
+        * @global $baseServUrl
         */        
 
         function getArrayRessource()
         {
-            global $baseServUrl,$rootWeb;
+            global $baseServUrl;
             
-            $baseServUrl = $rootWeb;
+            $baseServUrl = get_conf('rootWeb');
             $resourceArray = array();
             $passed = FALSE;
             
@@ -341,13 +341,13 @@
         * @param (array) a list of courses
         * @return array jpspan formated course info (name,title and crl) 
                 or an empty array if courseList is not an array 
-        * @global $platform_id,$rootWeb    
+        * @global $platform_id    
         */     
         function fillCoursesList( $coursesList )
         {
-            global $platform_id,$rootWeb;
+            global $platform_id;
             
-            $baseServUrl = $rootWeb; 
+            $baseServUrl = get_conf('rootWeb'); 
             $fileCoursesList = array();
                 
             foreach( $coursesList as  $courseInfo )

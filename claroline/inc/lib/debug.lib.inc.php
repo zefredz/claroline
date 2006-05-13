@@ -425,7 +425,7 @@ function printInit($selection="*")
 
 function printConfig()
 {
-    GLOBAL $dbHost, $dbLogin, $dbPass, $mainDbName, $clarolineVersion, $versionDb, $rootWeb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userMailCanBeEmpty             , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName            , $rootWeb            , $rootSys            , $clarolineRepositoryAppend  , $coursesRepositoryAppend    , $rootAdminAppend            , $clarolineRepositoryWeb     , $clarolineRepositorySys        , $coursesRepositoryWeb        , $coursesRepositorySys        , $rootAdminSys                , $rootAdminWeb;
+    GLOBAL $dbHost, $dbLogin, $dbPass, $mainDbName, $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userMailCanBeEmpty             , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend  , $coursesRepositoryAppend    , $rootAdminAppend            , $clarolineRepositoryWeb     , $clarolineRepositorySys        , $coursesRepositoryWeb        , $coursesRepositorySys        , $rootAdminSys                , $rootAdminWeb;
     echo "<table width=\"100%\" border=\"1\" cellspacing=\"1\" cellpadding=\"1\" bordercolor=\"#808080\" bgcolor=\"#C0C0C0\" lang=\"en\"><TR>";
     echo "
     <tr><td colspan=2><strong>Mysql</strong></td></tr>
@@ -435,7 +435,7 @@ function printConfig()
     <tr><td>mainDbName        </TD><TD>$mainDbName            </td></tr>
     <tr><td>clarolineVersion    </TD><TD>$clarolineVersion</td></tr>
     <tr><td>versionDb             </TD><TD>$versionDb </td></tr>
-    <tr><td>rootWeb</TD><TD>$rootWeb</td></tr>
+    <tr><td>rootWeb</TD><TD>" . get_conf('rootWeb'). "</td></tr>
     <tr><td>urlAppend </TD><TD>$urlAppend</td></tr>
     <tr><td>serverAddress </TD><TD>$serverAddress</td></tr>
     <tr><td colspan=2><hr /></td></tr>
@@ -447,8 +447,8 @@ function printConfig()
     <tr><td colspan=2></td></tr>
     <tr><td>platformLanguage     </TD><TD>$platformLanguage     </td></tr>
     <tr><td>siteName            </TD><TD>$siteName            </td></tr>
-    <tr><td>rootWeb            </TD><TD>$rootWeb            </td></tr>
-    <tr><td>rootSys            </TD><TD>$rootSys            </td></tr>
+    <tr><td>rootWeb            </TD><TD>" . get_conf('rootWeb'). "</td></tr>
+    <tr><td>rootSys            </TD><TD>" . get_conf('rootSys') . "</td></tr>
     <tr><td colspan=2></td></tr>
     <tr><td>clarolineRepository<strong>Append</strong>      </TD><TD>$clarolineRepositoryAppend </td></tr>
     <tr><td>coursesRepository<strong>Append</strong>        </TD><TD>$coursesRepositoryAppend    </td></tr>
