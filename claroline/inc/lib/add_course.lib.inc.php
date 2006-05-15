@@ -57,7 +57,7 @@ function define_course_keys ($wantedCode,
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course    = $tbl_mdb_names['course'];
 
-    GLOBAL $coursesRepositories, $singleDbEnabled;
+    GLOBAL $coursesRepositories;
 
     $nbCharFinalSuffix = get_conf('nbCharFinalSuffix','3');
 
@@ -142,7 +142,7 @@ function define_course_keys ($wantedCode,
             $finalSuffix['CourseId']++;
         };
 
-        if ($singleDbEnabled)
+        if (get_conf('singleDbEnabled'))
         {
             $sqlCheckCourseDb = "SHOW TABLES LIKE '".$keysCourseDbName."%'";
         }
@@ -276,17 +276,15 @@ function prepare_course_repository($courseRepository, $courseId)
 
 function update_db_course($courseDbName)
 {
-    global $singleDbEnabled;
-    global $courseTablePrefix;
-    global $dbGlu;
 
-    if (!$singleDbEnabled)
+
+    if (!get_conf('singleDbEnabled'))
     {
         claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
         if (mysql_errno() > 0) return CLARO_ERROR_CANT_CREATE_DB;
     }
 
-    $courseDbName = $courseTablePrefix . $courseDbName . $dbGlu;
+    $courseDbName = get_conf('courseTablePrefix') . $courseDbName . get_conf('dbGlu');
 
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
 
@@ -967,7 +965,7 @@ function fill_course_repository($courseRepository)
 /**
  * Insert starting data in db of course.
  *
- * @param  string  $courseDbName        partial DbName. to build as $courseTablePrefix.$courseDbName.$dbGlu;
+ * @param  string  $courseDbName        partial DbName. to build as get_conf('courseTablePrefix').$courseDbName.get_conf('dbGlu');
  * @param  string  $language            language request for this course
  *
  * @author Christophe Gesché <moosh@claroline.net>
@@ -978,14 +976,13 @@ function fill_course_repository($courseRepository)
 
 function fill_db_course($courseDbName,$language)
 {
-    global $singleDbEnabled, $courseTablePrefix, $dbGlu,
-           $clarolineRepositorySys, $_user, $includePath;
+    global $clarolineRepositorySys, $_user, $includePath;
 
     // include the language file with all language variables
     language::load_translation($language,'TRANSLATION');
     language::load_locale_settings($language);
 
-    $courseDbName = $courseTablePrefix . $courseDbName.$dbGlu;
+    $courseDbName = get_conf('courseTablePrefix') . $courseDbName.get_conf('dbGlu');
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
     $TABLECOURSEHOMEPAGE    = $tbl_cdb_names['tool'];
 

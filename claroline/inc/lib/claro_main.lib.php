@@ -47,7 +47,7 @@ require_once(dirname(__FILE__) . '/module.lib.php');
 
 function claro_get_course_data($course_id = NULL)
 {
-    global $_cid, $_course, $courseTablePrefix , $dbGlu;
+    global $_cid, $_course ;
     static $courseDataInCache='';
     static $_courseDatas = array();
     if ( is_null($course_id) )
@@ -89,7 +89,7 @@ function claro_get_course_data($course_id = NULL)
             $courseDataInCache = $course_id;
             $_courseDatas['visibility'  ]         = (bool) (2 == $_courseDatas['visible'] || 3 == $_courseDatas['visible'] );
             $_courseDatas['registrationAllowed']  = (bool) (1 == $_courseDatas['visible'] || 2 == $_courseDatas['visible'] );
-            $_courseDatas['dbNameGlu'] = $courseTablePrefix . $_courseDatas['dbName'] . $dbGlu; // use in all queries
+            $_courseDatas['dbNameGlu'] = get_conf('courseTablePrefix') . $_courseDatas['dbName'] . get_conf('dbGlu'); // use in all queries
         }
 
     } // end if ( count($course_tbl) == 0 )

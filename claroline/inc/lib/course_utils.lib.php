@@ -36,14 +36,10 @@ function get_course_title($cid)
  *
  * @param $cid the id of a course
  * @return array (array) an associative array containing all info of the course
- * @global $courseTablePrefix
- * @global $dbGlu
  * @todo use claro_get_course_data
  */
 function get_info_course($cid)
 {
-    global $courseTablePrefix, $dbGlu;
-
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course    = $tbl_mdb_names['course'   ];
     $tbl_category  = $tbl_mdb_names['category' ];

@@ -354,7 +354,6 @@ function changeResultOfVisibility($results)
  */
 function resetStatForCourse($course_id, $dateLimite )
 {
-    global $dbGlu;
     //access_date DATETIME
     if (is_int($dateLimite))
     {

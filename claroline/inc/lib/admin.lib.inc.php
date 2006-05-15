@@ -45,9 +45,6 @@ include_once( dirname(__FILE__) . '/fileManage.lib.php');
 function delete_course($code)
 {
     global $mainDbName;
-    global $singleDbEnabled;
-    global $courseTablePrefix;
-    global $dbGlu;
     global $coursesRepositorySys;
     global $garbageRepositorySys;
     global $eventNotifier;
@@ -89,7 +86,7 @@ function delete_course($code)
         $currentCourseDbNameGlu = $this_course['dbNameGlu'];
         $currentCoursePath      = $this_course['path'];
 
-        if($singleDbEnabled)
+        if(get_conf('singleDbEnabled'))
         // IF THE PLATFORM IS IN MONO DATABASE MODE
         {
             // SEARCH ALL TABLES RELATED TO THE CURRENT COURSE
