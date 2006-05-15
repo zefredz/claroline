@@ -283,7 +283,7 @@ class Config
 
     function validate_property($name,$value)
     {
-
+        global $rootSys;
         $valid = true;
 
         $property_def = $this->conf_def_property_list[$name];
@@ -305,13 +305,14 @@ class Config
             switch ( $property_def['acceptedValueType'] )
             {
                 case 'css':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/css','file','.css',array('print.css','compatible.css'));
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
                     break;
                 case 'lang':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/lang','folder');
+                    echo $rootSys . 'claroline/lang';
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
                     break;
                 case 'editor':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/editor','folder');
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
                     break;
             }
         }
@@ -416,7 +417,6 @@ class Config
     function save($generatorFile=__FILE__)
     {
         global $dateTimeFormatLong;
-
         // split generation file
 
         if ( strlen($generatorFile)>50 )
@@ -872,13 +872,13 @@ class Config
                     switch ( $property_def['acceptedValueType'] )
                     {
                         case 'css' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/css','file','.css',array('print.css','compatible.css'));
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/css','file','.css',array('print.css','compatible.css'));
                             break;
                         case 'lang' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/lang','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/lang','folder');
                             break;
                         case 'editor' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_conf('rootSys').'claroline/editor','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/editor','folder');
                             break;
                     }
                 }
@@ -1278,7 +1278,6 @@ function get_def_file_list()
     $moduleList = get_installed_module_list();
     foreach ($moduleList as $module)
     {
-
         $possiblePath = get_module_path($module) . '/conf/def';
         if (file_exists($possiblePath)) $defConfPathList[] = $possiblePath;
     }
