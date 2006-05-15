@@ -57,11 +57,11 @@ define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 
 set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
 
-$clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
+$clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
 $clarolineRepositoryWeb = $urlAppend . '/' . $clarolineRepositoryAppend;
-$userImageRepositorySys = get_conf('rootSys') . $userImageRepositoryAppend;
+$userImageRepositorySys = $rootSys . $userImageRepositoryAppend;
 $userImageRepositoryWeb = $urlAppend . '/' . $userImageRepositoryAppend;
-$coursesRepositorySys   = get_conf('rootSys') . $coursesRepositoryAppend;
+$coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
 $coursesRepositoryWeb   = $urlAppend . '/' . $coursesRepositoryAppend;
 $rootAdminSys           = $clarolineRepositorySys . $rootAdminAppend;
 $rootAdminWeb           = $clarolineRepositoryWeb . $rootAdminAppend;
