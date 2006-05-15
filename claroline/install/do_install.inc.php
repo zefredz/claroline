@@ -302,7 +302,7 @@ else
 
     $includePath = $newIncludePath;
     $def_file_list = get_def_file_list();
-
+    $configError=false;
     if ( is_array($def_file_list) )
     {
         foreach ( $def_file_list as  $config_code => $def )
@@ -324,19 +324,25 @@ else
                 else
                 {
                     // no valid
-                    $error = true ;
-                    $message = $config->get_error_message();
+                    $configError = true ;
+                    $messageConfigErrorList = $config->get_error_message();
                 }
             }
             else
             {
                 // error loading the configuration
-                $error = true ;
-                $message = $config->get_error_message();
+                $configError = true ;
+                $messageConfigErrorList = $config->get_error_message();
             }
         }
     }
 }
+
+if ($configError)
+{
+    $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+}
+
 
 // write currentVersion.inc.php
 

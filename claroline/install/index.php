@@ -1668,6 +1668,19 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
     .    '<a href="http://www.claroline.net/forum/viewtopic.php?t=753">Read about this problem in Support Forum</a>' . "\n"
     ;
 
+    if ($configError)
+    {
+        if(is_array($messageConfigErrorList))
+        {
+            echo '<br />Error on config files creation : <ul>';
+            foreach($messageConfigErrorList as $messageConfigError)
+            {
+                echo '<li><b><font color="red">'. $messageConfigError . '</font></b></li>';
+            }
+            echo '</ul>';
+        }
+    }
+
     if ($coursesRepositorySysMissing)
     {
         echo '<br /> <em>$coursesRepositorySys = '.$coursesRepositorySys.'</em> : <br />dir is missing';
