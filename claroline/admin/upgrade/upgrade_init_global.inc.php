@@ -46,7 +46,7 @@ define('CLARO_FILE_PERMISSIONS', 0777);
 
 // conf variables
 
-$coursesRepositorySys   = get_conf('rootSys') . $coursesRepositoryAppend;
+$coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
 
 // verbose mode
 
