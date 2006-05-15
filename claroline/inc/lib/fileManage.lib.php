@@ -53,8 +53,8 @@ function claro_delete_file($filePath)
 
         $removableFileList = array();
 
-        while ( $file = readdir($dirHandle) )
-        {
+        while ( false !== ($file = readdir($dirHandle) ) )
+        {        	
             if ( $file == '.' || $file == '..') continue;
 
             $removableFileList[] = $filePath . '/' . $file;
@@ -63,13 +63,13 @@ function claro_delete_file($filePath)
         closedir($dirHandle); // impossible to test, closedir return void ...
 
         if ( sizeof($removableFileList) > 0)
-        {
+        {                       	
             foreach($removableFileList as $thisFile)
             {
                 if ( ! claro_delete_file($thisFile) ) return false;
             }
         }
-       
+		
         return rmdir($filePath);
 
     } // end elseif is_dir()
@@ -188,14 +188,15 @@ function claro_copy_file($sourcePath, $targetPath)
     elseif ( is_dir($sourcePath) )
     {
         // check to not copy the directory inside itself
+        
         if ( ereg('^'.$sourcePath . '/', $targetPath . '/') ) return false;
-
+		
         if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
 
         $dirHandle = opendir($sourcePath);
 
         if ( ! $dirHandle ) return false;
-
+	
         $copiableFileList = array();
 
         while ($element = readdir($dirHandle) )
@@ -211,7 +212,7 @@ function claro_copy_file($sourcePath, $targetPath)
         {
             foreach($copiableFileList as $thisFile)
             {
-                if ( ! claro_copy_file($thisFile, $targetPath . '/' . $fileName) ) return false;
+                if ( ! claro_copy_file($thisFile, $targetPath . '/' . $fileName) ) return false;              
             }
         }
 
