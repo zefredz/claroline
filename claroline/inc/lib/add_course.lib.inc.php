@@ -36,7 +36,7 @@
  * - ["currentCourseCode"]          : Must be alphaNumeric and outputable in HTML System
  * - ["currentCourseId"]            : Must be unique in mainDb.course it's the primary key
  * - ["currentCourseDbName"]        : Must be unique it's the database name.
- * - ["currentCourseRepository"]    : Must be unique in /$coursesRepositories/
+ * - ["currentCourseRepository"]    : Must be unique in /$coursesRepositorySys/
  *
  * @todo actually if suffix is not unique  the next append and not  replace
  * @todo add param listing keyg wich wouldbe identical
@@ -57,7 +57,7 @@ function define_course_keys ($wantedCode,
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course    = $tbl_mdb_names['course'];
 
-    GLOBAL $coursesRepositories;
+    GLOBAL $coursesRepositorySys;
 
     $nbCharFinalSuffix = get_conf('nbCharFinalSuffix','3');
 
@@ -81,11 +81,6 @@ function define_course_keys ($wantedCode,
 
     if ($addUniquePrefix) $uniquePrefix =  substr(md5 (uniqid('')),0,10);
     else                  $uniquePrefix = '';
-
-
-
-
-
 
     if ($addUniqueSuffix) $uniqueSuffix =  substr(md5 (uniqid('')),0,10);
 
@@ -162,7 +157,7 @@ function define_course_keys ($wantedCode,
             $finalSuffix['CourseDb']++;
         };
 
-        if (file_exists($coursesRepositories . '/' . $keysCourseRepository))
+        if (file_exists($coursesRepositorySys . '/' . $keysCourseRepository))
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDir++;
@@ -319,7 +314,7 @@ function update_db_course($courseDbName)
 
     // Exercise
     $TABLEQWZEXERCISE         = $tbl_cdb_names['qwz_exercise'];
-    $TABLEQWZQUESTION	= $tbl_cdb_names['qwz_question'];
+    $TABLEQWZQUESTION   = $tbl_cdb_names['qwz_question'];
     $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
     
     //  Exercise answers
@@ -537,86 +532,86 @@ function update_db_course($courseDbName)
     KEY `SECONDARY` (`user_id`,`topic_id`)
     )";
 
-	//-- exercise
-	$sqlList[] = " 
-	CREATE TABLE `".$TABLEQWZEXERCISE."` (
-		`id` int(11) NOT NULL auto_increment,
-		`title` varchar(255) NOT NULL,
-		`description` text NOT NULL,
-		`visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
-		`displayType` enum('SEQUENTIAL','ONEPAGE') NOT NULL default 'ONEPAGE',
-		`shuffle` smallint(6) NOT NULL default '0',
-		`showAnswers` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
-		`startDate` datetime NOT NULL,
-		`endDate` datetime NOT NULL,
-		`timeLimit` smallint(6) NOT NULL default '0',
-		`attempts` tinyint(4) NOT NULL default '0',
-		`anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'ALLOWED',
-	PRIMARY KEY  (`id`)
-	)";
-			
-	$sqlList[] = " 
-	CREATE TABLE `".$TABLEQWZQUESTION."` (
-		`id` int(11) NOT NULL auto_increment,
-		`title` varchar(255) NOT NULL default '',
-		`description` text NOT NULL,
-		`attachment` varchar(255) NOT NULL default '',
-		`type` enum('MCUA','MCMA','TF','FIB','MATCHING') NOT NULL default 'MCUA',
-		`grade` float NOT NULL default '0',
-	PRIMARY KEY  (`id`)
-	)";
-	
-	$sqlList[] = " 
-	CREATE TABLE `".$TABLEQWZRELEXERCISEQUESTION."` (
-		`exerciseId` int(11) NOT NULL,
-		`questionId` int(11) NOT NULL,
-		`rank` int(11) NOT NULL default '0'
-	)";
-			
-	$sqlList[] = " 
-	CREATE TABLE `".$TABLEQWZANSWERTRUEFALSE."` (
-		`id` int(11) NOT NULL auto_increment,
-		`questionId` int(11) NOT NULL,
-		`trueFeedback` text NOT NULL,
-		`trueGrade` float NOT NULL,
-		`falseFeedback` text NOT NULL,
-		`falseGrade` float NOT NULL,
-		`correctAnswer` enum('TRUE','FALSE') NOT NULL,
-		PRIMARY KEY  (`id`)
-	)";
-	
-	$sqlList[] = " 	
-	CREATE TABLE `".$TABLEQWZANSWERMULTIPLECHOICE."` (
-		`id` int(11) NOT NULL auto_increment,
-		`questionId` int(11) NOT NULL,
-		`answer` text NOT NULL,
-		`correct` tinyint(4) NOT NULL,
-		`grade` float NOT NULL,
-		`comment` text NOT NULL,
-		PRIMARY KEY  (`id`)
-	)";
-			
-	$sqlList[] = " 
-	CREATE TABLE `".$TABLEQWZANSWERFIB."` (
-		`id` int(11) NOT NULL auto_increment,
-		`questionId` int(11) NOT NULL,
-		`answer` text NOT NULL,
-		`gradeList` text NOT NULL,
-		`wrongAnswerList` text NOT NULL,
-		`type` tinyint(4) NOT NULL,
-		PRIMARY KEY  (`id`)
-	)";
-	
-	$sqlList[] = " 
-	CREATE TABLE `".$TABLEQWZANSWERMATCHING."` (
-		`id` int(11) NOT NULL auto_increment,
-		`questionId` int(11) NOT NULL,
-		`answer` text NOT NULL,
-		`match` varchar(32) default NULL,
-		`grade` float NOT NULL default '0',
-		`code` varchar(32) default NULL,
-		PRIMARY KEY  (`id`)
-	)";
+    //-- exercise
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEQWZEXERCISE."` (
+        `id` int(11) NOT NULL auto_increment,
+        `title` varchar(255) NOT NULL,
+        `description` text NOT NULL,
+        `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
+        `displayType` enum('SEQUENTIAL','ONEPAGE') NOT NULL default 'ONEPAGE',
+        `shuffle` smallint(6) NOT NULL default '0',
+        `showAnswers` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
+        `startDate` datetime NOT NULL,
+        `endDate` datetime NOT NULL,
+        `timeLimit` smallint(6) NOT NULL default '0',
+        `attempts` tinyint(4) NOT NULL default '0',
+        `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'ALLOWED',
+    PRIMARY KEY  (`id`)
+    )";
+    
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEQWZQUESTION."` (
+        `id` int(11) NOT NULL auto_increment,
+        `title` varchar(255) NOT NULL default '',
+        `description` text NOT NULL,
+        `attachment` varchar(255) NOT NULL default '',
+        `type` enum('MCUA','MCMA','TF','FIB','MATCHING') NOT NULL default 'MCUA',
+        `grade` float NOT NULL default '0',
+    PRIMARY KEY  (`id`)
+    )";
+    
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEQWZRELEXERCISEQUESTION."` (
+        `exerciseId` int(11) NOT NULL,
+        `questionId` int(11) NOT NULL,
+        `rank` int(11) NOT NULL default '0'
+    )";
+    
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEQWZANSWERTRUEFALSE."` (
+        `id` int(11) NOT NULL auto_increment,
+        `questionId` int(11) NOT NULL,
+        `trueFeedback` text NOT NULL,
+        `trueGrade` float NOT NULL,
+        `falseFeedback` text NOT NULL,
+        `falseGrade` float NOT NULL,
+        `correctAnswer` enum('TRUE','FALSE') NOT NULL,
+        PRIMARY KEY  (`id`)
+    )";
+    
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEQWZANSWERMULTIPLECHOICE."` (
+        `id` int(11) NOT NULL auto_increment,
+        `questionId` int(11) NOT NULL,
+        `answer` text NOT NULL,
+        `correct` tinyint(4) NOT NULL,
+        `grade` float NOT NULL,
+        `comment` text NOT NULL,
+        PRIMARY KEY  (`id`)
+    )";
+    
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEQWZANSWERFIB."` (
+        `id` int(11) NOT NULL auto_increment,
+        `questionId` int(11) NOT NULL,
+        `answer` text NOT NULL,
+        `gradeList` text NOT NULL,
+        `wrongAnswerList` text NOT NULL,
+        `type` tinyint(4) NOT NULL,
+        PRIMARY KEY  (`id`)
+    )";
+    
+    $sqlList[] = "
+    CREATE TABLE `".$TABLEQWZANSWERMATCHING."` (
+        `id` int(11) NOT NULL auto_increment,
+        `questionId` int(11) NOT NULL,
+        `answer` text NOT NULL,
+        `match` varchar(32) default NULL,
+        `grade` float NOT NULL default '0',
+        `code` varchar(32) default NULL,
+        PRIMARY KEY  (`id`)
+    )";
 
     // Course description
     $sqlList[] = "
@@ -990,7 +985,7 @@ function fill_db_course($courseDbName,$language)
 
     // Exercise
     $TABLEQWZEXERCISE         = $tbl_cdb_names['qwz_exercise'];
-    $TABLEQWZQUESTION	= $tbl_cdb_names['qwz_question'];
+    $TABLEQWZQUESTION   = $tbl_cdb_names['qwz_question'];
     $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
     
     //  Exercise answers
@@ -1098,23 +1093,23 @@ VALUES (NULL, '1', '0', '1', '1', '1', '1')");
 
 ############################## EXERCISES #######################################
 // create question
-	$questionId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZQUESTION."` (`title`, `description`, `attachment`, `type`, `grade`)
-				VALUES
-				('".addslashes(get_lang('sampleQuizQuestionTitle'))."', '".addslashes(get_lang('sampleQuizQuestionText'))."', '', 'MCMA', '10' )");
-			
-	claro_sql_query("INSERT INTO `".$TABLEQWZANSWERMULTIPLECHOICE."`(`questionId`,`answer`,`correct`,`grade`,`comment`)
-				VALUES 
-				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer1'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer1Comment'))."'),
-				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer2'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer2Comment'))."'),
-				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer3'))."','1','5','".addslashes(get_lang('sampleQuizAnswer3Comment'))."'),
-				('".$questionId."','".addslashes(get_lang('sampleQuizAnswer4'))."','1','5','".addslashes(get_lang('sampleQuizAnswer4Comment'))."')");
-				
+    $questionId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZQUESTION."` (`title`, `description`, `attachment`, `type`, `grade`)
+                VALUES
+                ('".addslashes(get_lang('sampleQuizQuestionTitle'))."', '".addslashes(get_lang('sampleQuizQuestionText'))."', '', 'MCMA', '10' )");
+    
+    claro_sql_query("INSERT INTO `".$TABLEQWZANSWERMULTIPLECHOICE."`(`questionId`,`answer`,`correct`,`grade`,`comment`)
+                VALUES
+                ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer1'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer1Comment'))."'),
+                ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer2'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer2Comment'))."'),
+                ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer3'))."','1','5','".addslashes(get_lang('sampleQuizAnswer3Comment'))."'),
+                ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer4'))."','1','5','".addslashes(get_lang('sampleQuizAnswer4Comment'))."')");
+    
 // create exercise
-	$exerciseId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZEXERCISE."` (`title`, `description`, `visibility`, `startDate`, `endDate`)	
-				VALUES
-				('".addslashes(get_lang('sampleQuizTitle'))."', '".addslashes(get_lang('sampleQuizDescription'))."', 'INVISIBLE', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
+    $exerciseId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZEXERCISE."` (`title`, `description`, `visibility`, `startDate`, `endDate`)
+                VALUES
+                ('".addslashes(get_lang('sampleQuizTitle'))."', '".addslashes(get_lang('sampleQuizDescription'))."', 'INVISIBLE', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
 // put question in exercise
-	claro_sql_query("INSERT INTO `".$TABLEQWZRELEXERCISEQUESTION."` VALUES ($exerciseId, $questionId, 1)");	
+    claro_sql_query("INSERT INTO `".$TABLEQWZRELEXERCISEQUESTION."` VALUES ($exerciseId, $questionId, 1)");
 
 
 ############################### LEARNING PATH  ####################################
