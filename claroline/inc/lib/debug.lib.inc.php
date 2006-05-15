@@ -29,8 +29,7 @@ defined('PRINT_DEBUG_INFO') || define('PRINT_DEBUG_INFO', false);
 function echo_session_value()
 {
     $infoResult = "";
-    GLOBAL $statuts,$statut,$status,
-    $dbHost, $dbLogin, $dbPass, $is_admin;
+    GLOBAL $statuts,$statut,$status, $is_admin;
     if (!isset($is_admin) || !$is_admin)
     {
         exit("not aivailable");
@@ -60,12 +59,12 @@ function echo_session_value()
         print_r($status);
     }
 
-    if (isset($dbHost) || isset($dbLogin))
+    if ('' != trim(get_conf('dbHost')) || '' != trim($get_conf('dbLogin')))
     {
-        $infoResult .= "
+        $infoResult .= '
     <strong>mysql param</strong> :
-     Serveur : $dbHost
-     User    : $dbLogin";
+     Serveur : ' . get_conf('dbHost') . '
+     User    : ' . get_conf('dbLogin');
     }
     if (isset($_SESSION))
     {
@@ -425,14 +424,14 @@ function printInit($selection="*")
 
 function printConfig()
 {
-    GLOBAL $dbHost, $dbLogin, $dbPass, $mainDbName, $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userMailCanBeEmpty             , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend  , $coursesRepositoryAppend    , $rootAdminAppend            , $clarolineRepositoryWeb     , $clarolineRepositorySys        , $coursesRepositoryWeb        , $coursesRepositorySys        , $rootAdminSys                , $rootAdminWeb;
+    GLOBAL $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend  , $coursesRepositoryAppend    , $rootAdminAppend            , $clarolineRepositoryWeb     , $clarolineRepositorySys        , $coursesRepositoryWeb        , $coursesRepositorySys        , $rootAdminSys                , $rootAdminWeb;
     echo "<table width=\"100%\" border=\"1\" cellspacing=\"1\" cellpadding=\"1\" bordercolor=\"#808080\" bgcolor=\"#C0C0C0\" lang=\"en\"><TR>";
     echo "
     <tr><td colspan=2><strong>Mysql</strong></td></tr>
-    <tr><td>dbHost</TD><TD>$dbHost             </td></tr>
-    <tr><td>dbLogin     </TD><TD>$dbLogin             </td></tr>
-    <tr><td>dbPass    </TD><TD>".str_repeat("*",strlen($dbPass))."</td></tr>
-    <tr><td>mainDbName        </TD><TD>$mainDbName            </td></tr>
+    <tr><td>dbHost</TD><TD>" . get_conf('dbHost') . "</td></tr>
+    <tr><td>get_conf('dbLogin')     </TD><TD>" . get_conf('dbLogin') . "</td></tr>
+    <tr><td>dbPass    </TD><TD>".str_repeat("*",strlen(get_conf('dbPass')))."</td></tr>
+    <tr><td>mainDbName        </TD><TD>" . get_conf('mainDbName') . "</td></tr>
     <tr><td>clarolineVersion    </TD><TD>$clarolineVersion</td></tr>
     <tr><td>versionDb             </TD><TD>$versionDb </td></tr>
     <tr><td>rootWeb</TD><TD>" . get_conf('rootWeb'). "</td></tr>
@@ -442,7 +441,7 @@ function printConfig()
     <tr><td colspan=2><strong>param for new and future features</strong></td></tr>
     <tr><td>checkEmailByHashSent             </TD><TD>$checkEmailByHAshSent             </td></tr>
     <tr><td>ShowEmailnotcheckedToStudent     </TD><TD>$ShowEmailnotcheckedToStudent     </td></tr>
-    <tr><td>userMailCanBeEmpty             </TD><TD>$userMailCanBeEmpty             </td></tr>
+    <tr><td>userMailCanBeEmpty             </TD><TD>" . get_conf('userMailCanBeEmpty') . "</td></tr>
     <tr><td>userPasswordCrypted             </TD><TD>$userPasswordCrypted             </td></tr>
     <tr><td colspan=2></td></tr>
     <tr><td>platformLanguage     </TD><TD>$platformLanguage     </td></tr>
