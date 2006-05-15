@@ -512,7 +512,7 @@ switch ($display)
                 $i = 0;
                 while ( ($course = mysql_fetch_array($resCourseList) ) )
                 {
-                    $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
+                    $TABLEACCESSCOURSE = get_conf('courseTablePrefix') . $course['dbName'] . get_conf('dbGlu') . "track_e_access";
                     $sql = "SELECT IF( MAX(`access_date`)  < (NOW() - " . $limitBeforeUnused . " ), MAX(`access_date`) , 'recentlyUsedOrNull' )
                                                          AS lastDate
                                   , count(`access_date`) AS qty

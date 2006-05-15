@@ -294,7 +294,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
         foreach( $resCourseList as $course )
         {
 // TODO : use claro_sql_get_course_tbl_name
-            $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
+            $TABLEACCESSCOURSE = get_conf('courseTablePrefix') . $course['dbName'] . get_conf('dbGlu') . "track_e_access";
             $sql = "SELECT count( `access_id` ) AS nb
                       FROM `".$TABLEACCESSCOURSE."`
                       WHERE `access_tid` IS NULL
@@ -339,7 +339,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
         foreach ( $resCourseList as $course )
         {
             // TODO : use claro_sql_get_course_tbl_name
-            $TABLEACCESSCOURSE = $courseTablePrefix . $course['dbName'] . $dbGlu . "track_e_access";
+            $TABLEACCESSCOURSE = get_conf('courseTablePrefix') . $course['dbName'] . get_conf('dbGlu') . "track_e_access";
             $sql = "SELECT count( `access_id` ) AS nb, `access_tlabel`
                     FROM `".$TABLEACCESSCOURSE."`
                     WHERE `access_tid` IS NOT NULL

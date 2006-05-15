@@ -414,20 +414,20 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
                             isPlatformAdmin         AS is_platformAdmin      ,
                            `user`.`creatorId`       AS creatorId              , "
 
-                  .       ($is_trackingEnabled
+                  .       (get_conf('is_trackingEnabled')
                            ? "UNIX_TIMESTAMP(`login`.`login_date`)"
                            : "DATE_SUB(CURDATE(), INTERVAL 1 DAY)") . " AS lastLogin
 
                     FROM `".$tbl_user."` `user` "
 
-                 . ($is_trackingEnabled
+                 . (get_conf('is_trackingEnabled')
                     ? "LEFT JOIN `". $tbl_track_e_login ."` `login`
                               ON `user`.`user_id`  = `login`.`login_user_id` "
                     : '')
 
                  .   "WHERE `user`.`user_id` = ". (int) $_uid
 
-                 .  ($is_trackingEnabled
+                 .  (get_conf('is_trackingEnabled')
                      ? " ORDER BY `login`.`login_date` DESC LIMIT 1"
                      : '')
                  ;
@@ -562,7 +562,7 @@ if ( $cidReset ) // course session data refresh requested
             $_cid                           =        $_course['sysCode'             ];
             $_course['visibility'         ] = (bool) $_course['visibility'          ];
             $_course['registrationAllowed'] = (bool) $_course['registrationAllowed' ];
-            $_course['dbNameGlu'          ] = $courseTablePrefix . $_course['dbName'] . $dbGlu; // used in all queries
+            $_course['dbNameGlu'          ] = get_conf('courseTablePrefix') . $_course['dbName'] . get_conf('dbGlu'); // used in all queries
 
             // read of group tools config related to this course
 

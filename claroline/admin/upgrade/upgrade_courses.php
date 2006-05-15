@@ -189,7 +189,7 @@ switch ($display)
             $currentCourseFakeCode     = $course['fake_code'];
             $currentCourseCreationDate = $course['creationDate'];
             $currentCourseVersion      = $course['versionClaro'];
-            $currentCourseDbNameGlu    = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
+            $currentCourseDbNameGlu    = get_conf('courseTablePrefix') . $currentCourseDbName . get_conf('dbGlu'); // use in all queries
 
             // initialise
             $error = false;

@@ -221,15 +221,13 @@ function agenda_set_item_visibility($event_id, $visibility, $course_id=NULL)
  */
 function get_agenda_items($userCourseList, $month, $year)
 {
-    global $courseTablePrefix, $dbGlu;
-
     $items = array();
 
     // get agenda-items for every course
 
     foreach( $userCourseList as $thisCourse)
     {
-        $tbl = claro_sql_get_course_tbl($courseTablePrefix. $thisCourse['db'].$dbGlu);
+        $tbl = claro_sql_get_course_tbl(get_conf('courseTablePrefix'). $thisCourse['db'].get_conf('dbGlu'));
 
         $sql = "SELECT `id`,
                        `titre`   AS `title`,

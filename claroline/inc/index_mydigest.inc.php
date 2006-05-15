@@ -29,7 +29,7 @@ foreach($personnalCourseList as $thisCourse)
      * ANNOUNCEMENTS : get announcements of this course since last user loggin
      */
 
-    $tableAnn = $courseTablePrefix . $thisCourse['db'] . $dbGlu . 'announcement';
+    $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
 
     $sql = "SELECT '" . addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
                    '" . addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
@@ -56,7 +56,7 @@ foreach($personnalCourseList as $thisCourse)
      * AGENDA : get the next agenda entries of this course from now
      */
 
-    $tableCal = $courseTablePrefix . $thisCourse['db'] . $dbGlu . 'calendar_event';
+    $tableCal = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'calendar_event';
 
     $sql = "SELECT '". addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
                    '". addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
