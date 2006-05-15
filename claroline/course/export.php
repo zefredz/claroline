@@ -29,6 +29,8 @@ switch($cmd)
 {
 	case 'doExport' :
 	{
+	 	//essai("es1","essai");
+	
 		if (export_all_data_course_in_file())
 		{
 			$dialogBox = get_lang('Export réussi');

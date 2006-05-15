@@ -21,69 +21,55 @@ require $includePath . '/currentVersion.inc.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/export_zip.lib.php';
 
-define('EXPORT_PATH', 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\claroline\export');
+if (!defined("EXPORT_PATH")) define('EXPORT_PATH', 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\claroline\export');
 
+
+
+
+function get_tool_path($toolId)
+{
+	return '';
+}
 /**
  * export data of a tool
  * 
  * @see http://www.claroline.net/wiki/index.php/Plugin_system_modelisation#Module_Class
  * 
- */
-function get_tool_path($toolId)
-{
-	return '';
-}
+ */     	  	
 function export_data_tool($toolId,$courseId=null,$groupId=null)
 {
-	$exportLib      =  get_tool_path($toolId) . '/claroclasses/kernelClassesExtend.inc.php';
-	$exportFuncName = array($toolId . '_Module', 'export_content');
+	$exportLib      =  get_module_path($toolId) . '/connector/exchange.cnr.php';
+	$exportFuncName = $toolId . '_export_content';
 	
-	if (file_exists($exportLib)) include_once($exportLib);
-	if (method_exists($toolId . '_Module','export_content')) call_user_func($exportFuncName,$courseId,$groupId);;
-	
-	
-	switch($toolId)
+	if (file_exists($exportLib)) 
 	{
-		case 'CLCAL' : export_data_course_calendar($courseId);     break;		
-		case 'CLANN' : export_data_course_announcement($courseId); break;			
-		case 'CLQWZ' : export_data_course_quiz($courseId);		         break;			
-		case 'CLDOC' : export_data_course_document($courseId, $groupId); break;
-		case 'CLLNK' : export_data_course_link($courseId);		 break;
-		case 'CLLNP' : export_data_course_lp($courseId);	 break;
-		case 'CLWKI' : export_data_course_wiki($courseId);			 break;	
-		case 'CLUSR' : export_data_course_userinfo($courseId);		 break;
-		case 'CLFRM' : export_data_course_bb($courseId);		 break;
-		case 'CLDSC' : export_data_course_description($courseId);		 break;	
-		case 'CLWRK' : export_data_course_wrk($courseId);	 break;
-	}
+		echo 'chargement de ' .$exportLib . '<BR />';
+		include_once($exportLib);
+		if (function_exists($exportFuncName)) 
+		{
+			echo 'appel de ' . $exportFuncName . '<BR />';
+			call_user_func($exportFuncName,$courseId,$groupId);
+		}					
+		else {export_generic_data_tool($courseId,$toolId);echo "essai".$toolId." ".$exportLib."<br>";}
+	}	
+	else {export_generic_data_tool($courseId,$toolId);echo "essai".$toolId." ".$exportLib."<br>";}
 	
 }
-
 function export_all_data_course_in_file($courseId=null)
 {
 	
 	if (is_null($courseId)) $courseId = $GLOBALS['_cid'];
 	if ('' != $courseId)
 	{		
-		if (false == export_chat_document($courseId))
-		{
-			if ('document_folder_doesnt_exist' !== claro_failure :: get_last_failure()  )
-			{
-				return false;
-			}
-		}					
-		if (false == export_modules_document($courseId))
-		{
-			if ('document_folder_doesnt_exist' !== claro_failure :: get_last_failure() )
-			{
-				return false;
-			}
-		}
-		
-		export_course_metadata($courseId);
-		export_course_tool_metadata($courseId);
-		export_course_group_metadata($courseId);				
-		export_course_user_metadata($courseId);
+				
+		if(false === export_manifest($courseId))
+			return false;
+		if(false === export_tool($courseId))
+			return false;		
+		if(false === export_group($courseId))
+			return false;
+		if(false === export_users($courseId))
+			return false;		
 		
 		/*
         // export course tools
@@ -103,224 +89,251 @@ function export_all_data_course_in_file($courseId=null)
 	        }
         }
 		*/
-		export_data_tool('CLCAL',$courseId);				
-		export_data_tool('CLANN',$courseId);
-		export_data_tool('CLQWZ',$courseId);				
-		export_data_tool('CLDOC',$courseId);	
-		export_data_tool('CLLNK',$courseId);				
-		export_data_tool('CLLNP',$courseId);	
-		export_data_tool('CLWKI',$courseId);				
-		export_data_tool('CLUSR',$courseId);
-		export_data_tool('CLFRM',$courseId);				
-		export_data_tool('CLDSC',$courseId);
-		export_data_tool('CLWRK',$courseId);				
+		if(false === export_data_tool('CLCAL',$courseId))	
+			return false;					
+		if(false === export_data_tool('CLCHT',$courseId))
+			return false;		
+		if(false === export_data_tool('CLANN',$courseId))
+			return false;		
+		//export_data_tool('CLQWZ',$courseId);				
+		if(false === export_data_tool('CLDOC',$courseId))
+			return false;		
+		if(false === export_data_tool('CLLNK',$courseId))
+			return false;						
+		if(false === export_data_tool('CLLNP',$courseId))
+			return false;			
+		if(false === export_data_tool('CLWIKI',$courseId))
+			return false;						
+		if(false === export_data_tool('CLUSR',$courseId))
+			return false;		
+		if(false === export_data_tool('CLFRM',$courseId))
+			return false;						
+		if(false === export_data_tool('CLDSC',$courseId))
+			return false;		
+		if(false === export_data_tool('CLWRK',$courseId))
+			return false;						
 		
-		if (false == compress_directory(EXPORT_PATH."/".$courseId))
+		if (false == compress_directory(EXPORT_PATH."/".$courseId."/"))
 			return false;
-		if (false == claro_delete_file(EXPORT_PATH."/".$courseId))
-		{
-			return claro_failure::set_failure("can't delete dir");
-		}
-		
+		if (false == claro_delete_file(EXPORT_PATH."/".$courseId))		
+			return claro_failure::set_failure("can't delete dir");				
 
 		return true;
 	} else return claro_failure :: set_failure("invalid course id");
 }
-function export_data_course_calendar($_cid)
+function export_generic_data_tool($course_id,$tool_id)
 {
-	$tbl = export_data_course_calendar_from_db($_cid);	
-	$dom = export_data_course_calendar_in_file($tbl, $_cid);
+	$tmp = getTablesList($course_id,$tool_id);
+	$prefix = $tmp[0];
+	$tablesNameList = $tmp[1];
+
+	// export its documents
+	$course_path = get_module_path($course_id);
+	export_tool_document($course_id, $course_path);
+	
+	// exports its db data
+	foreach ($tablesNameList as $tableNameArr )
+	{
+		$tableName = array_pop($tableNameArr);
+		$tableContent = selectAllFromTable($tableName);
+		$toolData[$tableName] = $tableContent;		
+		$toolData[$tableName]['table_name'] = $tableName;	
+	}
+	$prefix = str_replace("\_","_",$prefix);
+	$prefix = str_replace("%","",$prefix);
+	$prefix = str_replace("'","",$prefix);
+	$dom = export_generic_data_in_dom($toolData, $course_id,$tool_id,$prefix);
 	if (false !== $dom)
 	{		
-		dump_file("tools","calendar",$dom,$_cid);
+		dump_file("tools",$tool_id,$dom,$course_id);
 		return true;
 	}
 	else return false;
+	
 }
-function export_data_course_announcement($_cid)
+function essai($courseId,$tool_id)
 {
-	$tbl = export_data_course_announcement_from_db($_cid);
-	$dom = export_data_course_announcement_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","announcement",$dom,$_cid);
-		return true;
-	}
-	else return false;	
+	export_generic_data_tool($courseId,$tool_id);
+	if (false == compress_directory(EXPORT_PATH."/".$courseId))
+		return false;
+	if (false == claro_delete_file(EXPORT_PATH."/".$courseId))		
+		return claro_failure::set_failure("can't delete dir");				
+
+	return true;	
 }
-function export_data_course_quiz($_cid)
-{	
-	if (false == export_exercise_document($_cid))
-	{
-		if (claro_failure :: get_last_failure() !== "document_folder_doesnt_exist")
-		{
-			return false;
-		}
-	}	
-	$tbl = export_data_course_quiz_from_db($_cid);
-	$dom = export_data_course_quiz_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","quiz",$dom,$_cid);
-		return true;
-	}
-	else return false;	
-}
-function export_data_course_document($_cid)
-{	
-	if (false == export_document_document($_cid))
-	{
-		if (claro_failure :: get_last_failure() !== "document_folder_doesnt_exist")
-		{
-			return false;
-		}
-	}
-	$tbl = export_data_course_document_from_db($_cid);
-	$dom = export_data_course_document_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","document",$dom,$_cid);
-		return true;
-	}
-	else return false;
-}
-function export_data_course_link($_cid)
+function export_generic_data_in_dom($tablesContent,$course_id,$tool_id,$prefix)
 {
-	$tbl = export_data_course_link_from_db($_cid);
-	$dom = export_data_course_link_in_file($tbl, $_cid);
+	$dom = domxml_new_doc('1.0');
+	$generic_data = $dom->append_child($dom->create_element($tool_id));
+	if (is_array($tablesContent) && (count($tablesContent) > 0))
+	{
+		foreach ($tablesContent as $tableName => $tableContent)
+		{
+			$tableElement= $generic_data->append_child($dom->create_element($tableName));
+			foreach ($tableContent as $genericId => $rawContent)
+			{					
+				if(isset($rawContent) && is_array($rawContent))
+				{
+					$genericElement = $tableElement->append_child($dom->create_element('content'));
+					$genericElement->set_attribute('id', $genericId);
+					foreach ($rawContent as $fieldName => $fieldContent)
+					{		
+						$index = $genericElement->append_child($dom->create_element($fieldName));	
+						if(is_null($fieldContent))
+						{
+							$index->set_attribute("isNull","true");
+						}						
+						$index->append_child($dom->create_text_node(utf8_encode($fieldContent)));		
+					}
+				}				 
+			}	
+			
+			$sql = "SHOW CREATE TABLE `".$tableName."`";			
+			$result = claro_sql_query_fetch_all($sql);
+			$create_table_sql_query = str_replace("CREATE TABLE","CREATE TABLE IF NOT EXISTS",$result[0]["Create Table"]);								
+			$index = $tableElement->append_child($dom->create_element("create_table"));
+			$index->append_child($dom->create_cdata_section(utf8_encode($create_table_sql_query)));
+			$index = $tableElement->append_child($dom->create_element("prefix"));
+			$index->append_child($dom->create_text_node(utf8_encode($prefix)));	
+			$index = $tableElement->append_child($dom->create_element("table_name"));
+			$index->append_child($dom->create_text_node(utf8_encode($tableContent['table_name'])));		
+		}
+	}
+	return $dom;	
+}
+function selectAllFromTable($tableName)
+{
+	$sql = "SELECT * FROM `".$tableName."`";
+	return claro_sql_query_fetch_all($sql);
+}
+function getTablesList($course_id,$tool_id)
+{
+	$tab = array();
+	$tab["cid"] = $course_id;
+	$tab["tid"] = $tool_id;
+	//$prefix = claro_sql_get_tables("",$tab);
+	//$prefix = claro_sql_get_course_tbl("",$tab);	
+		
+	//$prefix = "claroline`.`c_es1_001_tool";  // Mono avec claro_sql_get_tables
+	//$prefix = "c_es1_001`.`tool";            // Multi avec claro_sql_get_tables
+	//$prefix = "c_es1_001_tool";              // Mono  avec claro_sql_get_course_tbl
+	//$prefix = "c_es1_001`.`tool";        	   // Multi avec claro_sql_get_course_tbl
+
+	
+	$prefix = "claroline`.`c_es1_001";
+	$tab = explode('`.`',$prefix);
+	$prefix = $tab[count($tab)-1];
+
+	
+	$prefix = str_replace("_","\_",$prefix);
+	$prefix = str_replace("%","\%",$prefix);
+	$prefix = "'".$prefix."%'";
+	
+	$sql = "SHOW TABLES LIKE ".$prefix;
+
+	$return[0] = $prefix;
+	$return[1] = claro_sql_query_fetch_all($sql); 
+	
+	return $return;
+}
+
+/**
+ * 
+ * Export all db data about tool in file "tool.xml"
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, true if not.  
+ */
+function export_tool($course_id)
+{
+	$tbl = read_tool_from_db($course_id);
+	$dom = export_tool_in_dom($tbl, $course_id);
 	if (false !== $dom)
 	{
-		dump_file("meta_data","link",$dom,$_cid);
+		dump_file("meta_data","tool",$dom,$course_id);
 		return true;
 	}
 	else return false;			
 }
-function export_data_course_lp($_cid)
-{	
-	$tbl = export_data_course_lp_from_db($_cid);
-	$dom = export_data_course_lp_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","lp",$dom,$_cid);
-		return true;
-	}
-	else return false;						
-}
-function export_course_tool_metadata($_cid)
+/**
+ * 
+ * Export all db data about the course in file "manifest.xml"
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, true if not.  
+ */
+function export_manifest($course_id)
 {
-	$tbl = export_course_tool_metadata_from_db($_cid);
-	$dom = export_course_tool_metadata_in_file($tbl, $_cid);
+	$tbl['course'] = read_course_from_db($course_id);
+	$tbl['group_team'] = read_group_team_from_db($course_id);
+	$tbl['group_property'] = read_group_property_from_db($course_id);
+	$tbl['users'] = read_users_from_db($course_id);
+	$tbl['toolsInfo'] = read_toolInfos_from_db($course_id);
+	
+	$dom = export_manifest_in_dom($tbl, $course_id);
 	if (false !== $dom)
 	{
-		dump_file("meta_data","tool",$dom,$_cid);
-		return true;
-	}
-	else return false;			
-}
-function export_data_course_wiki($_cid)
-{
-	$tbl = export_data_course_wiki_from_db($_cid);
-	$dom = export_data_course_wiki_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","wiki",$dom,$_cid);
+		dump_file("meta_data","manifest",$dom,$course_id);
 		return true;
 	}
 	else return false;		
 }
-function export_data_course_userinfo($_cid)
-{
-	$tbl = export_data_course_userinfo_from_db($_cid);
-	$dom = export_data_course_userinfo_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("meta_data","userinfo",$dom,$_cid);
-		return true;
-	}
-	else return false;	
-}
-function export_data_course_bb($_cid)
-{
-	$tbl = export_data_course_bb_from_db($_cid);
-	$dom = export_data_course_bb_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","forum",$dom,$_cid);
-	}
-	else return false;			
-}
-function export_course_metadata($_cid)
-{
-	$tbl = export_course_data_from_db($_cid);
-	$dom = export_data_course_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("meta_data","manifest",$dom,$_cid);
-		return true;
-	}
-	else return false;		
-}
-function export_data_course_description($_cid)
-{
-	$tbl = export_data_course_description_from_db($_cid);	
-	$dom = export_data_course_description_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","description",$dom,$_cid);
-		return true;
-	}			
-	else return false;	
-}
-function export_course_group_metadata($_cid)
-{	
-	if (false == export_group_document($_cid))
-	{
-		if (claro_failure :: get_last_failure() !== "document_folder_doesnt_exist")
-		{
-			return false;
-		}
-	}
-		   
-	$tbl = export_course_group_metadata_from_db($_cid);
-	$dom = export_course_group_metadata_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","group",$dom,$_cid);
-		return true;
-	}
-	else return false;	
-}
-function export_data_course_wrk($_cid)
+
+/**
+ * 
+ * Export all db data about group in file "group.xml"
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, true if not.  
+ */
+function export_group($course_id)
 {		
-	if (false == export_work_document($_cid))
-	{
-		if (claro_failure :: get_last_failure() !== "document_folder_doesnt_exist")
-		{
+	if (false == export_group_document($course_id))	
+			return false;				 
+	$tbl = read_group_from_db($course_id);
+	$dom = export_group_in_dom($tbl, $course_id);
+	if (false !== $dom)
+	{		
+		if(false === dump_file("tools","CLGRP",$dom,$course_id))
 			return false;
-		}
-	}	
-	$tbl = export_data_course_wrk_from_db($_cid);
-	$dom = export_data_course_wrk_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("tools","work",$dom,$_cid);
-		return true;
-	}
-	else return false;		
-}
-function export_course_user_metadata($_cid)
-{		
-	$tbl['user'] = export_course_user_metadata_from_db($_cid);
-	$tbl['rel_course_user'] = export_course_rel_course_user_from_db($_cid);
-	$dom = export_course_user_metadata_in_file($tbl, $_cid);
-	if (false !== $dom)
-	{
-		dump_file("meta_data","users",$dom,$_cid);
 		return true;
 	}
 	else return false;	
 }
-function export_course_user_metadata_in_file($tbl, $_cid)
+/**
+ * 
+ * Export all db data about users in file "users.xml"
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, true if not.  
+ */
+function export_users($course_id)
+{		
+	$tbl['user'] = read_users_from_db($course_id);
+	$tbl['rel_course_user'] = read_rel_course_user_from_db($course_id);
+	$dom = export_users_in_dom($tbl, $course_id);
+	if (false !== $dom)
+	{
+		if(false === dump_file("meta_data","users",$dom,$course_id))
+			return false;
+		return true;
+	}
+	else return false;	
+}
+/**
+ * 
+ * Export all data contained in the array $tbl about users into a $dom object
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  array   $tbl  		 - contain all data about users to export  
+ * @param  string  $course_id    
+ * @return the dom object
+ */
+function export_users_in_dom($tbl, $course_id)
 {	
 	$dom = domxml_new_doc('1.0');
 	$cl_user = $dom->append_child($dom->create_element('users'));
@@ -377,477 +390,274 @@ function export_course_user_metadata_in_file($tbl, $_cid)
 			$creatorId->append_child($dom->create_text_node($tab_content["creatorId"]));
 		}
 	}
-	if (!file_exists(EXPORT_PATH."/".$_cid))
-		claro_mkdir(EXPORT_PATH."/".$_cid);
+	if (!file_exists(EXPORT_PATH."/".$course_id))
+		claro_mkdir(EXPORT_PATH."/".$course_id);
 
 	return $dom;
 }
-function export_data_course_description_in_file($tbl, $_cid)
-{	
-	$dom = domxml_new_doc('1.0');
-	$course_description = $dom->append_child($dom->create_element("course_description"));
-
-	if (is_array($tbl) && (count($tbl) > 0))
-	{
-		foreach ($tbl as $tab_content)
-		{
-			$id = $course_description->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content['title'])));
-			$content = $id->append_child($dom->create_element('content'));
-			$content->append_child($dom->create_text_node(utf8_encode($tab_content['content'])));
-			$upDate = $id->append_child($dom->create_element('upDate'));
-			$upDate->append_child($dom->create_text_node($tab_content['upDate']));
-			$visibility = $id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content['visibility']));
-		}
-	}
-	return $dom;
+/**
+ * 
+ * Count the records in db of each tool and return the result
+ * This is used to inform the user what information contains the zip.file about the course tools
+ * and help him to chose what to import.  
+ * 
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return the array  
+ */
+function read_toolInfos_from_db($course_id)
+{
+	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+	
+	$sql = "SELECT count(id) FROM `".$tbl['announcement']."`";
+	$result['announcement'] = claro_sql_query_fetch_all($sql);
+	
+	$sql = "SELECT count(forum_id) FROM `".$tbl['bb_forums']."` WHERE group_id = 0";
+	$result['forums'] = claro_sql_query_fetch_all($sql);
+	
+	$sql = "SELECT count(id) FROM `".$tbl['wiki_properties']."` WHERE group_id = 'null' ";
+	$result['wiki'] = claro_sql_query_fetch_all($sql);
+	
+	$sql = "SELECT count(id) FROM `".$tbl['calendar_event']."`";
+	$result['calendar'] = claro_sql_query_fetch_all($sql);
+	
+/*	$sql = "SELECT count(t.id),count(a.id),count(q.id) FROM `".$tbl['quiz_test']."` as t,`".$tbl['quiz_answer']."` as a,`".$tbl['quiz_question']."` as q";
+	$result['quiz'] = claro_sql_query_fetch_all($sql);
+	*/
+	$sql = "SELECT count(m.module_id),count(l.learnPath_id) FROM`".$tbl['lp_module']."` as m,`".$tbl['lp_learnPath']."` as l ";
+	$result['lp'] = claro_sql_query_fetch_all($sql);
+	
+	$sql = "SELECT count(id) FROM `".$tbl['document']."`";
+	$result['document'] = claro_sql_query_fetch_all($sql);
+	
+	$sql = "SELECT count(id) FROM `".$tbl['tool']."`";
+	$result['tool'] = claro_sql_query_fetch_all($sql);
+	
+	$sql = "SELECT count(a.id),count(s.id) FROM `".$tbl['wrk_assignment']."` as a,`".$tbl['wrk_submission']."` as s";
+	$result['work'] = claro_sql_query_fetch_all($sql);
+	
+	return $result;
+	
 }
-function export_data_course_in_file($tbl, $_cid)
+/**
+ * 
+ * Export all data contained in the array $tbl about the course and manifest into a $dom object
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  array   $tbl  		- contain all data about the course to export  
+ * @param  string  $course_id    
+ * @return the dom object 
+ */
+function export_manifest_in_dom($tbl, $course_id)
 {
 	$dom = domxml_new_doc('1.0');
-	$course = $dom->append_child($dom->create_element('MANIFEST'));
-
-	if (is_array($tbl) && (count($tbl) > 0))
+	$manifest = $dom->append_child($dom->create_element('MANIFEST'));
+	
+	$group_team = $manifest->append_child($dom->create_element('group_team'));
+	if (is_array($tbl['group_team']) && (count($tbl['group_team']) > 0))
 	{
-		foreach ($tbl as $tab_content)
+		foreach ($tbl['group_team'] as $tab_content)
 		{
-			$plateform = $course->append_child($dom->create_element('plateform_id'));
-			$plateform->append_child($dom->create_text_node(get_conf('platform_id')));
-			$newversion = $course->append_child($dom->create_element('new_version'));
-			$newversion->append_child($dom->create_text_node(get_conf('new_version')));
-			$new_ver_branch = $course->append_child($dom->create_element('new_version_branch'));
-			$new_ver_branch->append_child($dom->create_text_node(get_conf('new_version_branch')));
-			$clarolineVer = $course->append_child($dom->create_element('clarolineVersion'));
-			$clarolineVer->append_child($dom->create_text_node(get_conf('clarolineVersion')));
-			$verDb = $course->append_child($dom->create_element('versionDb'));
-			$verDb->append_child($dom->create_text_node(get_conf('versionDb')));
+			$id = $group_team->append_child($dom->create_element('id'));
+			$id->set_attribute('id', $tab_content['id']);
+			$name = $id->append_child($dom->create_element('name'));
+			$name->append_child($dom->create_text_node($tab_content['name']));
+		}
+	}	
+	$group_property = $manifest->append_child($dom->create_element('group_property'));
+	if (is_array($tbl['group_property']) && (count($tbl['group_property']) > 0))
+	{
+		foreach ($tbl['group_property'] as $tab_content)
+		{
+			$id = $group_property->append_child($dom->create_element('id'));
+			$id->set_attribute('id', $tab_content['id']);
+			$self = $id->append_child($dom->create_element('self_registration'));
+			$self->append_child($dom->create_text_node($tab_content['self_registration']));
+			$nbgroup = $id->append_child($dom->create_element('nbGroupPerUser'));
+			$nbgroup->append_child($dom->create_text_node($tab_content['nbGroupPerUser']));
+			$private = $id->append_child($dom->create_element('private'));
+			$private->append_child($dom->create_text_node($tab_content['private']));
+			$forum = $id->append_child($dom->create_element('forum'));
+			$forum->append_child($dom->create_text_node($tab_content['forum']));
+			$document = $id->append_child($dom->create_element('document'));
+			$document->append_child($dom->create_text_node($tab_content['document']));
+			$wiki = $id->append_child($dom->create_element('wiki'));
+			$wiki->append_child($dom->create_text_node($tab_content['wiki']));
+			$chat = $id->append_child($dom->create_element('chat'));
+			$chat->append_child($dom->create_text_node($tab_content['chat']));
+		}
+	}
+	$users = $manifest->append_child($dom->create_element('users'));
+	if (is_array($tbl['users']) && (count($tbl['users']) > 0))
+	{
+		foreach ($tbl['users'] as $tab_content)
+		{
+			$id = $users->append_child($dom->create_element('user_id'));
+			$id->set_attribute('user_id', $tab_content['user_id']);
+			$username = $id->append_child($dom->create_element('username'));
+			$username->append_child($dom->create_text_node($tab_content['username']));
+			$firstname = $id->append_child($dom->create_element('firstname'));
+			$firstname->append_child($dom->create_text_node($tab_content['firstname']));
+			$lastname = $id->append_child($dom->create_element('lastname'));
+			$lastname->append_child($dom->create_text_node($tab_content['lastname']));
+			$officialCode = $id->append_child($dom->create_element('officialCode'));
+			$officialCode->append_child($dom->create_text_node($tab_content['officialCode']));
+		}
+	}
+		
+	$course = $manifest->append_child($dom->create_element('course'));
+
+	if (is_array($tbl['course']) && (count($tbl['course']) > 0))
+	{
+		foreach ($tbl['course'] as $tab_content)
+		{			
 			$cours_id = $course->append_child($dom->create_element('cours_id'));
-			$cours_id->append_child($dom->create_text_node($tab_content["cours_id"]));
+			$cours_id->append_child($dom->create_text_node($tab_content['cours_id']));
 			$code = $course->append_child($dom->create_element('code'));
-			$code->append_child($dom->create_text_node(utf8_encode($tab_content["code"])));
+			$code->append_child($dom->create_text_node(utf8_encode($tab_content['code'])));
 			$fake_code = $course->append_child($dom->create_element('fake_code'));
-			$fake_code->append_child($dom->create_text_node(utf8_encode($tab_content["fake_code"])));
+			$fake_code->append_child($dom->create_text_node(utf8_encode($tab_content['fake_code'])));
 			$directory = $course->append_child($dom->create_element('directory'));
-			$directory->append_child($dom->create_text_node(utf8_encode($tab_content["directory"])));
+			$directory->append_child($dom->create_text_node(utf8_encode($tab_content['directory'])));
 			$dbName = $course->append_child($dom->create_element('dbName'));
-			$dbName->append_child($dom->create_text_node(utf8_encode($tab_content["dbName"])));
+			$dbName->append_child($dom->create_text_node(utf8_encode($tab_content['dbName'])));
 			$languageCourse = $course->append_child($dom->create_element('languageCourse'));
-			$languageCourse->append_child($dom->create_text_node(utf8_encode($tab_content["languageCourse"])));
+			$languageCourse->append_child($dom->create_text_node(utf8_encode($tab_content['languageCourse'])));
 			$intitule = $course->append_child($dom->create_element('intitule'));
-			$intitule->append_child($dom->create_text_node(utf8_encode($tab_content["intitule"])));
+			$intitule->append_child($dom->create_text_node(utf8_encode($tab_content['intitule'])));
 			$faculte = $course->append_child($dom->create_element('faculte'));
-			$faculte->append_child($dom->create_text_node(utf8_encode($tab_content["faculte"])));
-			$visible = $course->append_child($dom->create_element('visible'));
-			$visible->append_child($dom->create_text_node($tab_content["visible"]));
+			$faculte->append_child($dom->create_text_node(utf8_encode($tab_content['faculte'])));			
 			$enrollment_key = $course->append_child($dom->create_element('enrollment_key'));
-			$enrollment_key->append_child($dom->create_text_node(utf8_encode($tab_content["enrollment_key"])));
+			$enrollment_key->append_child($dom->create_text_node(utf8_encode($tab_content['enrollment_key'])));
 			$titulaires = $course->append_child($dom->create_element('titulaires'));
-			$titulaires->append_child($dom->create_text_node(utf8_encode($tab_content["titulaires"])));
+			$titulaires->append_child($dom->create_text_node(utf8_encode($tab_content['titulaires'])));
 			$email = $course->append_child($dom->create_element('email'));
-			$email->append_child($dom->create_text_node(utf8_encode($tab_content["email"])));
+			$email->append_child($dom->create_text_node(utf8_encode($tab_content['email'])));
 			$departmentUrlName = $course->append_child($dom->create_element('departmentUrlName'));
-			$departmentUrlName->append_child($dom->create_text_node(utf8_encode($tab_content["departmentUrlName"])));
+			$departmentUrlName->append_child($dom->create_text_node(utf8_encode($tab_content['departmentUrlName'])));
 			$departmentUrl = $course->append_child($dom->create_element('departmentUrl'));
-			$departmentUrl->append_child($dom->create_text_node(utf8_encode($tab_content["departmentUrl"])));
+			$departmentUrl->append_child($dom->create_text_node(utf8_encode($tab_content['departmentUrl'])));
 			$diskQuota = $course->append_child($dom->create_element('diskQuota'));
-			$diskQuota->append_child($dom->create_text_node($tab_content["diskQuota"]));
+			$diskQuota->append_child($dom->create_text_node($tab_content['diskQuota']));
 			$versionDb = $course->append_child($dom->create_element('versionDb'));
-			$versionDb->append_child($dom->create_text_node(utf8_encode($tab_content["versionDb"])));
+			$versionDb->append_child($dom->create_text_node(utf8_encode($tab_content['versionDb'])));
 			$versionClaro = $course->append_child($dom->create_element('versionClaro'));
-			$versionClaro->append_child($dom->create_text_node(utf8_encode($tab_content["versionClaro"])));
+			$versionClaro->append_child($dom->create_text_node(utf8_encode($tab_content['versionClaro'])));
 			$lastVisit = $course->append_child($dom->create_element('lastVisit'));
-			$lastVisit->append_child($dom->create_text_node($tab_content["lastVisit"]));
+			$lastVisit->append_child($dom->create_text_node($tab_content['lastVisit']));
 			$lastEdit = $course->append_child($dom->create_element('lastEdit'));
-			$lastEdit->append_child($dom->create_text_node($tab_content["lastEdit"]));
+			$lastEdit->append_child($dom->create_text_node($tab_content['lastEdit']));
 			$creationDate = $course->append_child($dom->create_element('creationDate'));
-			$creationDate->append_child($dom->create_text_node($tab_content["creationDate"]));
+			$creationDate->append_child($dom->create_text_node($tab_content['creationDate']));
 			$expirationDate = $course->append_child($dom->create_element('expirationDate'));
-			$expirationDate->append_child($dom->create_text_node($tab_content["expirationDate"]));
-
-		}
-	}
-	return $dom;
-}
-function export_data_course_bb_from_db($_cid)
-{
-	$tab = array ();
-	$tab["categories"] = export_data_course_bb_categories($_cid);
-	$tab["forums"] = export_data_course_bb_forums($_cid);
-	$tab["posts"] = export_data_course_bb_posts($_cid);
-	$tab["posts_text"] = export_data_course_bb_posts_text($_cid);
-	$tab["priv_msgs"] = export_data_course_bb_priv_msgs($_cid);
-	$tab["rel_topic_userstonotify"] = export_data_course_bb_rel_topic_userstonotify($_cid);
-	$tab["topics"] = export_data_course_bb_topics($_cid);
-	$tab["users"] = export_data_course_bb_users($_cid);
-
-	return $tab;
-
-}
-function export_data_course_bb_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$bb = $dom->append_child($dom->create_element('bb'));
-
-	$bb_categories = $bb->append_child($dom->create_element('bb_categories'));
-	if (isset ($tbl["categories"]) && is_array($tbl["categories"]) && (count($tbl["categories"]) > 0))
-	{
-		foreach ($tbl["categories"] as $tab_content)
-		{
-			$cat_id = $bb_categories->append_child($dom->create_element('cat_id'));
-			$cat_id->set_attribute('cat_id', $tab_content['cat_id']);
-			$cat_title = $cat_id->append_child($dom->create_element('cat_title'));
-			$cat_title->append_child($dom->create_text_node(utf8_encode($tab_content["cat_title"])));
-			$cat_order = $cat_id->append_child($dom->create_element('cat_order'));
-			$cat_order->append_child($dom->create_text_node($tab_content["cat_order"]));
-		}
-	}
-
-	$bb_forums = $bb->append_child($dom->create_element('bb_forums'));
-	if (isset ($tbl["forums"]) && is_array($tbl["forums"]) && (count($tbl["forums"]) > 0))
-	{
-		foreach ($tbl["forums"] as $tab_content)
-		{
-			$forum_id = $bb_forums->append_child($dom->create_element('forum_id'));
-			$forum_id->set_attribute('forum_id', $tab_content['forum_id']);
-			$group_id = $forum_id->append_child($dom->create_element('group_id'));
-			$group_id->append_child($dom->create_text_node($tab_content["group_id"]));
-			$forum_name = $forum_id->append_child($dom->create_element('forum_name'));
-			$forum_name->append_child($dom->create_text_node(utf8_encode($tab_content["forum_name"])));
-			$forum_desc = $forum_id->append_child($dom->create_element('forum_desc'));
-			$forum_desc->append_child($dom->create_text_node(utf8_encode($tab_content["forum_desc"])));
-			$forum_access = $forum_id->append_child($dom->create_element('forum_access'));
-			$forum_access->append_child($dom->create_text_node($tab_content["forum_access"]));
-			$forum_moderator = $forum_id->append_child($dom->create_element('forum_moderator'));
-			$forum_moderator->append_child($dom->create_text_node($tab_content["forum_moderator"]));
-			$forum_topics = $forum_id->append_child($dom->create_element('forum_topics'));
-			$forum_topics->append_child($dom->create_text_node($tab_content["forum_topics"]));
-			$forum_posts = $forum_id->append_child($dom->create_element('forum_posts'));
-			$forum_posts->append_child($dom->create_text_node($tab_content["forum_posts"]));
-			$forum_last_post_id = $forum_id->append_child($dom->create_element('forum_last_post_id'));
-			$forum_last_post_id->append_child($dom->create_text_node($tab_content["forum_last_post_id"]));
-			$cat_id = $forum_id->append_child($dom->create_element('cat_id'));
-			$cat_id->append_child($dom->create_text_node($tab_content["cat_id"]));
-			$forum_type = $forum_id->append_child($dom->create_element('forum_type'));
-			$forum_type->append_child($dom->create_text_node($tab_content["forum_type"]));
-			$forum_order = $forum_id->append_child($dom->create_element('forum_order'));
-			$forum_order->append_child($dom->create_text_node($tab_content["forum_order"]));
-		}
-	}
-
-	$bb_posts = $bb->append_child($dom->create_element('bb_posts'));
-	if (isset ($tbl["posts"]) && is_array($tbl["posts"]) && (count($tbl["posts"]) > 0))
-	{
-		foreach ($tbl["posts"] as $tab_content)
-		{
-			$post_id = $bb_posts->append_child($dom->create_element('post_id'));
-			$post_id->set_attribute('post_id', $tab_content['post_id']);
-			$topic_id = $post_id->append_child($dom->create_element('topic_id'));
-			$topic_id->append_child($dom->create_text_node($tab_content["topic_id"]));
-			$forum_id = $post_id->append_child($dom->create_element('forum_id'));
-			$forum_id->append_child($dom->create_text_node($tab_content["forum_id"]));
-			$poster_id = $post_id->append_child($dom->create_element('poster_id'));
-			$poster_id->append_child($dom->create_text_node($tab_content["poster_id"]));
-			$post_time = $post_id->append_child($dom->create_element('post_time'));
-			$post_time->append_child($dom->create_text_node(utf8_encode($tab_content["post_time"])));
-			$poster_ip = $post_id->append_child($dom->create_element('poster_ip'));
-			$poster_ip->append_child($dom->create_text_node(utf8_encode($tab_content["poster_ip"])));
-			$firstname = $post_id->append_child($dom->create_element('firstname'));
-			$firstname->append_child($dom->create_text_node(utf8_encode($tab_content["firstname"])));
-			$lastname = $post_id->append_child($dom->create_element('lastname'));
-			$lastname->append_child($dom->create_text_node(utf8_encode($tab_content["lastname"])));
-		}
-
-		$bb_posts_text = $bb->append_child($dom->create_element('bb_posts_text'));
-		if (isset ($tbl["posts_text"]) && is_array($tbl["posts_text"]) && (count($tbl["posts_text"]) > 0))
-		{
-			foreach ($tbl["posts_text"] as $tab_content)
-			{
-				$post_id = $bb_posts_text->append_child($dom->create_element('post_id'));
-				$post_id->set_attribute('post_id', $tab_content['post_id']);
-				$post_text = $post_id->append_child($dom->create_element('post_text'));
-				$post_text->append_child($dom->create_text_node(utf8_encode($tab_content["post_text"])));
+			$expirationDate->append_child($dom->create_text_node($tab_content['expirationDate']));									
+			
+			if(1 == $tab_content['visible'])
+			{				
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+				$courseVisibility->append_child($dom->create_text_node(false));
+				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
+				$courseEnrollAllowed->append_child($dom->create_text_node(true));
 			}
-		}
-
-		$bb_priv_msgs = $bb->append_child($dom->create_element('bb_priv_msgs'));
-		if (isset ($tbl["priv_msgs"]) && is_array($tbl["priv_msgs"]) && (count($tbl["priv_msgs"]) > 0))
-		{
-			foreach ($tbl["priv_msgs"] as $tab_content)
-			{
-				$msg_id = $bb_priv_msgs->append_child($dom->create_element('msg_id'));
-				$msg_id->set_attribute('msg_id', $tab_content['msg_id']);
-				$from_userid = $msg_id->append_child($dom->create_element('from_userid'));
-				$from_userid->append_child($dom->create_text_node($tab_content["from_userid"]));
-				$to_userid = $msg_id->append_child($dom->create_element('to_userid'));
-				$to_userid->append_child($dom->create_text_node($tab_content["to_userid"]));
-				$msg_time = $msg_id->append_child($dom->create_element('msg_time'));
-				$msg_time->append_child($dom->create_text_node($tab_content["msg_time"]));
-				$poster_ip = $msg_id->append_child($dom->create_element('poster_ip'));
-				$poster_ip->append_child($dom->create_text_node($tab_content["poster_ip"]));
-				$msg_status = $msg_id->append_child($dom->create_element('msg_status'));
-				$msg_status->append_child($dom->create_text_node($tab_content["msg_status"]));
-				$msg_text = $msg_id->append_child($dom->create_element('msg_text'));
-				$msg_text->append_child($dom->create_text_node(utf8_encode($tab_content["msg_text"])));
+			else if(2 == $tab_content['visible'])
+			{				
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+				$courseVisibility->append_child($dom->create_text_node(true));
+				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
+				$courseEnrollAllowed->append_child($dom->create_text_node(true));
+			}			 
+			else if(3 == $tab_content['visible'])
+			{				
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+				$courseVisibility->append_child($dom->create_text_node(true));
+				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
+				$courseEnrollAllowed->append_child($dom->create_text_node(false));
 			}
-		}
-
-		$bb_rel_topic_userstonotify = $bb->append_child($dom->create_element('bb_rel_topic_userstonotify'));
-		if (isset ($tbl["rel_topic_userstonotify"]) && is_array($tbl["rel_topic_userstonotify"]) && (count($tbl["rel_topic_userstonotify"]) > 0))
-			foreach ($tbl["rel_topic_userstonotify"] as $tab_content)
-			{
-				$notify_id = $bb_rel_topic_userstonotify->append_child($dom->create_element('notify_id'));
-				$notify_id->set_attribute('notify_id', $tab_content['notify_id']);
-				$user_id = $notify_id->append_child($dom->create_element('user_id'));
-				$user_id->append_child($dom->create_text_node($tab_content["user_id"]));
-				$topic_id = $notify_id->append_child($dom->create_element('topic_id'));
-				$topic_id->append_child($dom->create_text_node($tab_content["topic_id"]));
+			else
+			{			
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+				$courseVisibility->append_child($dom->create_text_node(false));
+				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
+				$courseEnrollAllowed->append_child($dom->create_text_node(false));
 			}
-	}
-
-	$bb_topics = $bb->append_child($dom->create_element('bb_topics'));
-	if (isset ($tbl["topics"]) && is_array($tbl["topics"]) && (count($tbl["topics"]) > 0))
-	{
-		foreach ($tbl["topics"] as $tab_content)
-		{
-			$topic_id = $bb_topics->append_child($dom->create_element('topic_id'));
-			$topic_id->set_attribute('topic_id', $tab_content['topic_id']);
-			$topic_title = $topic_id->append_child($dom->create_element('topic_title'));
-			$topic_title->append_child($dom->create_text_node(utf8_encode($tab_content["topic_title"])));
-			$topic_poster = $topic_id->append_child($dom->create_element('topic_poster'));
-			$topic_poster->append_child($dom->create_text_node($tab_content["topic_poster"]));
-			$topic_time = $topic_id->append_child($dom->create_element('topic_time'));
-			$topic_time->append_child($dom->create_text_node(utf8_encode($tab_content["topic_time"])));
-			$topic_views = $topic_id->append_child($dom->create_element('topic_views'));
-			$topic_views->append_child($dom->create_text_node($tab_content["topic_views"]));
-			$topic_replies = $topic_id->append_child($dom->create_element('topic_replies'));
-			$topic_replies->append_child($dom->create_text_node($tab_content["topic_replies"]));
-			$topic_last_post_id = $topic_id->append_child($dom->create_element('topic_last_post_id'));
-			$topic_last_post_id->append_child($dom->create_text_node($tab_content["topic_last_post_id"]));
-			$forum_id = $topic_id->append_child($dom->create_element('forum_id'));
-			$forum_id->append_child($dom->create_text_node($tab_content["forum_id"]));
-			$topic_status = $topic_id->append_child($dom->create_element('topic_status'));
-			$topic_status->append_child($dom->create_text_node($tab_content["topic_status"]));
-			$topic_notify = $topic_id->append_child($dom->create_element('topic_notify'));
-			$topic_notify->append_child($dom->create_text_node($tab_content["topic_notify"]));
-			$firstname = $topic_id->append_child($dom->create_element('firstname'));
-			$firstname->append_child($dom->create_text_node(utf8_encode($tab_content["firstname"])));
-			$lastname = $topic_id->append_child($dom->create_element('lastname'));
-			$lastname->append_child($dom->create_text_node(utf8_encode($tab_content["lastname"])));
+							
 		}
 	}
+	
+	$tool = $manifest->append_child($dom->create_element('toolsInfo'));
 
-	$bb_users = $bb->append_child($dom->create_element('bb_users'));
-	if (isset ($tbl["users"]) && is_array($tbl["users"]) && (count($tbl["users"]) > 0))
+	if (is_array($tbl['toolsInfo']) && (count($tbl['toolsInfo']) > 0))
 	{
-		foreach ($tbl["users"] as $tab_content)
-		{
-			$user_id = $bb_users->append_child($dom->create_element('user_id'));
-			$user_id->set_attribute('user_id', $tab_content['user_id']);
-			$username = $user_id->append_child($dom->create_element('username'));
-			$username->append_child($dom->create_text_node(utf8_encode($tab_content["username"])));
-			$user_regdate = $user_id->append_child($dom->create_element('user_regdate'));
-			$user_regdate->append_child($dom->create_text_node(utf8_encode($tab_content["user_regdate"])));
-			$user_password = $user_id->append_child($dom->create_element('user_password'));
-			$user_password->append_child($dom->create_text_node(utf8_encode($tab_content["user_password"])));
-			$user_email = $user_id->append_child($dom->create_element('user_email'));
-			$user_email->append_child($dom->create_text_node(utf8_encode($tab_content["user_email"])));
-			$user_icq = $user_id->append_child($dom->create_element('user_icq'));
-			$user_icq->append_child($dom->create_text_node(utf8_encode($tab_content["user_icq"])));
-			$user_website = $user_id->append_child($dom->create_element('user_website'));
-			$user_website->append_child($dom->create_text_node(utf8_encode($tab_content["user_website"])));
-			$user_occ = $user_id->append_child($dom->create_element('user_occ'));
-			$user_occ->append_child($dom->create_text_node(utf8_encode($tab_content["user_occ"])));
-			$user_from = $user_id->append_child($dom->create_element('user_from'));
-			$user_from->append_child($dom->create_text_node(utf8_encode($tab_content["user_from"])));
-			$user_intrest = $user_id->append_child($dom->create_element('user_intrest'));
-			$user_intrest->append_child($dom->create_text_node(utf8_encode($tab_content["user_intrest"])));
-			$user_sig = $user_id->append_child($dom->create_element('user_sig'));
-			$user_sig->append_child($dom->create_text_node(utf8_encode($tab_content["user_sig"])));
-			$user_viewemail = $user_id->append_child($dom->create_element('user_viewemail'));
-			$user_viewemail->append_child($dom->create_text_node($tab_content["user_viewemail"]));
-			$user_theme = $user_id->append_child($dom->create_element('user_theme'));
-			$user_theme->append_child($dom->create_text_node($tab_content["user_theme"]));
-			$user_aim = $user_id->append_child($dom->create_element('user_aim'));
-			$user_aim->append_child($dom->create_text_node(utf8_encode($tab_content["user_aim"])));
-			$user_yim = $user_id->append_child($dom->create_element('user_yim'));
-			$user_yim->append_child($dom->create_text_node(utf8_encode($tab_content["user_yim"])));
-			$user_msnm = $user_id->append_child($dom->create_element('user_msnm'));
-			$user_msnm->append_child($dom->create_text_node(utf8_encode($tab_content["user_msnm"])));
-			$user_posts = $user_id->append_child($dom->create_element('user_posts'));
-			$user_posts->append_child($dom->create_text_node($tab_content["user_posts"]));
-			$user_attachsig = $user_id->append_child($dom->create_element('user_attachsig'));
-			$user_attachsig->append_child($dom->create_text_node($tab_content["user_attachsig"]));
-			$user_desmile = $user_id->append_child($dom->create_element('user_desmile'));
-			$user_desmile->append_child($dom->create_text_node($tab_content["user_desmile"]));
-			$user_html = $user_id->append_child($dom->create_element('user_html'));
-			$user_html->append_child($dom->create_text_node($tab_content["user_html"]));
-			$user_bbcode = $user_id->append_child($dom->create_element('user_bbcode'));
-			$user_bbcode->append_child($dom->create_text_node($tab_content["user_bbcode"]));
-			$user_rank = $user_id->append_child($dom->create_element('user_rank'));
-			$user_rank->append_child($dom->create_text_node($tab_content["user_rank"]));
-			$user_level = $user_id->append_child($dom->create_element('user_level'));
-			$user_level->append_child($dom->create_text_node($tab_content["user_level"]));
-			$user_lang = $user_id->append_child($dom->create_element('user_lang'));
-			$user_lang->append_child($dom->create_text_node(utf8_encode($tab_content["user_lang"])));
-			$user_actkey = $user_id->append_child($dom->create_element('user_actkey'));
-			$user_actkey->append_child($dom->create_text_node(utf8_encode($tab_content["user_actkey"])));
-			$user_newpasswd = $user_id->append_child($dom->create_element('user_newpasswd'));
-			$user_newpasswd->append_child($dom->create_text_node(utf8_encode($tab_content["user_newpasswd"])));
-		}
+		$info = $tbl['toolsInfo'] ;
+		$announcement = $tool->append_child($dom->create_element('announcement_records'));
+		$announcement->append_child($dom->create_text_node($info['announcement'][0]['count(id)']));
+		$forum = $tool->append_child($dom->create_element('forum_records'));
+		$forum->append_child($dom->create_text_node($info['forums'][0]['count(forum_id)']));
+		$wiki = $tool->append_child($dom->create_element('wiki_records'));
+		$wiki->append_child($dom->create_text_node($info['wiki'][0]['count(id)']));
+		$calendar = $tool->append_child($dom->create_element('calendar_records'));
+		$calendar->append_child($dom->create_text_node($info['calendar'][0]['count(id)']));
+//		$quiz = $tool->append_child($dom->create_element('quiz_question_records'));
+	//	$quiz->append_child($dom->create_text_node($info['quiz'][0]['count(q.id)']));
+	//	$quiz = $tool->append_child($dom->create_element('quiz_answer_records'));
+	//	$quiz->append_child($dom->create_text_node($info['quiz'][0]['count(a.id)']));
+	//	$quiz = $tool->append_child($dom->create_element('quiz_test_records'));
+	//	$quiz->append_child($dom->create_text_node($info['quiz'][0]['count(t.id)']));		
+		$lp = $tool->append_child($dom->create_element('learnpath_module_records'));
+		$lp->append_child($dom->create_text_node($info['lp'][0]['count(m.module_id)']));
+		$lp = $tool->append_child($dom->create_element('learnpath_learnpath_records'));
+		$lp->append_child($dom->create_text_node($info['lp'][0]['count(l.learnPath_id)']));
+		$document = $tool->append_child($dom->create_element('document_records'));
+		$document->append_child($dom->create_text_node($info['document'][0]['count(id)']));
+		$tools = $tool->append_child($dom->create_element('tool_records'));
+		$tools->append_child($dom->create_text_node($info['tool'][0]['count(id)']));
+		$work = $tool->append_child($dom->create_element('work_assignment_records'));
+		$work->append_child($dom->create_text_node($info['work'][0]['count(a.id)']));
+		$work = $tool->append_child($dom->create_element('work_submission_records'));
+		$work->append_child($dom->create_text_node($info['work'][0]['count(s.id)']));
 	}
+	
+	$course = $manifest->append_child($dom->create_element('plateform'));	
+	$plateform = $course->append_child($dom->create_element('plateform_id'));
+	$plateform->append_child($dom->create_text_node(get_conf('platform_id')));
+	$newversion = $course->append_child($dom->create_element('new_version'));
+	$newversion->append_child($dom->create_text_node(get_conf('new_version')));
+	$new_ver_branch = $course->append_child($dom->create_element('new_version_branch'));
+	$new_ver_branch->append_child($dom->create_text_node(get_conf('new_version_branch')));
+	$clarolineVer = $course->append_child($dom->create_element('clarolineVersion'));
+	$clarolineVer->append_child($dom->create_text_node(get_conf('clarolineVersion')));
+	$verDb = $course->append_child($dom->create_element('versionDb'));
+	$verDb->append_child($dom->create_text_node(get_conf('versionDb')));
+		
 	return $dom;
 }
-function export_data_course_userinfo_from_db($_cid)
+/**
+ * 
+ * Export all data contained in db about tool into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return the array
+ */
+function read_tool_from_db($course_id)
 {
 	$tab = array ();
-	$tab["def"] = export_data_course_userinfo_def($_cid);
-	$tab["content"] = export_data_course_userinfo_content($_cid);
+	$tab["list"] = read_tool_list_from_db($course_id);
+	$tab["intro"] = read_tool_intro_from_db($course_id);
 
 	return $tab;
 }
-function export_data_course_userinfo_in_file($tbl, $_cid)
+/**
+ * 
+ * Export all data contained in the array $tbl about tool into a $dom object
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  array   $tbl  		- contain all data about tool to export  
+ * @param  string  $course_id    
+ * @return the dom object
+ */
+function export_tool_in_dom($tbl, $course_id)
 {
-
-	$dom = domxml_new_doc('1.0');
-	$userinfo = $dom->append_child($dom->create_element('userinfo'));
-
-	$userinfo_def = $userinfo->append_child($dom->create_element('userinfo_def'));
-	if (isset ($tbl["def"]) && is_array($tbl["def"]) && (count($tbl["def"]) > 0))
-	{
-		foreach ($tbl["def"] as $tab_content)
-		{
-			$id = $userinfo_def->append_child($dom->create_element('id'));
-			$id->set_attribute('id', $tab_content['id']);
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content['title'])));
-			$comment = $id->append_child($dom->create_element('comment'));
-			$comment->append_child($dom->create_text_node(utf8_encode($tab_content["comment"])));
-			$nbLine = $id->append_child($dom->create_element('nbLine'));
-			$nbLine->append_child($dom->create_text_node($tab_content["nbLine"]));
-			$rank = $id->append_child($dom->create_element('rank'));
-			$rank->append_child($dom->create_text_node($tab_content["rank"]));
-		}
-	}
-	$userinfo_content = $userinfo->append_child($dom->create_element('userinfo_content'));
-	if (isset ($tbl["content"]) && is_array($tbl["content"]) && (count($tbl["content"]) > 0))
-	{
-		foreach ($tbl["content"] as $tab_content)
-		{
-			$id = $userinfo_content->append_child($dom->create_element('id'));
-			$id->set_attribute('id', $tab_content['id']);
-			$user_id = $id->append_child($dom->create_element('user_id'));
-			$user_id->append_child($dom->create_text_node($tab_content['user_id']));
-			$def_id = $id->append_child($dom->create_element('def_id'));
-			$def_id->append_child($dom->create_text_node($tab_content['def_id']));
-			$ed_ip = $id->append_child($dom->create_element('ed_ip'));
-			$ed_ip->append_child($dom->create_text_node($tab_content['ed_ip']));
-			$ed_date = $id->append_child($dom->create_element('ed_date'));
-			$ed_date->append_child($dom->create_text_node($tab_content['ed_date']));
-			$content = $id->append_child($dom->create_element('content'));
-			$content->append_child($dom->create_text_node(utf8_encode($tab_content['content'])));
-		}
-	}
-	return $dom;
-}
-
-function export_data_course_wiki_from_db($_cid)
-{
-	$tab = array ();
-	$tab["acls"] = export_data_course_wiki_acls($_cid);
-	$tab["pages"] = export_data_course_wiki_pages($_cid);
-	$tab["pages_content"] = export_data_course_wiki_pages_content($_cid);
-	$tab["properties"] = export_data_course_wiki_properties($_cid);
-
-	return $tab;
-}
-function export_data_course_wiki_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$wiki = $dom->append_child($dom->create_element('wiki'));
-
-	$wiki_acls = $wiki->append_child($dom->create_element('wiki_acls'));
-	if (isset ($tbl["acls"]) && is_array($tbl["acls"]) && (count($tbl["acls"]) > 0))
-	{
-		foreach ($tbl["acls"] as $tab_content)
-		{
-			$wiki_id = $wiki_acls->append_child($dom->create_element('wiki_id'));
-			$wiki_id->set_attribute('wiki_id', $tab_content['wiki_id']);
-			$flag = $wiki_id->append_child($dom->create_element('flag'));
-			$flag->append_child($dom->create_text_node($tab_content['flag']));
-			$value = $wiki_id->append_child($dom->create_element('value'));
-			$value->append_child($dom->create_text_node($tab_content['value']));
-		}
-	}
-	$wiki_pages = $wiki->append_child($dom->create_element('wiki_pages'));
-	if (isset ($tbl["pages"]) && is_array($tbl["pages"]) && (count($tbl["pages"]) > 0))
-	{
-		foreach ($tbl["pages"] as $tab_content)
-		{
-			$id = $wiki_pages->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$wiki_id = $id->append_child($dom->create_element('wiki_id'));
-			$wiki_id->append_child($dom->create_text_node($tab_content["wiki_id"]));
-			$owner_id = $id->append_child($dom->create_element('owner_id'));
-			$owner_id->append_child($dom->create_text_node($tab_content["owner_id"]));
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-			$ctime = $id->append_child($dom->create_element('ctime'));
-			$ctime->append_child($dom->create_text_node($tab_content["ctime"]));
-			$last_version = $id->append_child($dom->create_element('last_version'));
-			$last_version->append_child($dom->create_text_node($tab_content["last_version"]));
-			$last_mtime = $id->append_child($dom->create_element('last_mtime'));
-			$last_mtime->append_child($dom->create_text_node($tab_content["last_mtime"]));
-		}
-	}
-
-	$wiki_pages_content = $wiki->append_child($dom->create_element('wiki_pages_content'));
-	if (isset ($tbl["pages_content"]) && is_array($tbl["pages_content"]) && (count($tbl["pages_content"]) > 0))
-	{
-		foreach ($tbl["pages_content"] as $tab_content)
-		{
-			$id = $wiki_pages_content->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$pid = $id->append_child($dom->create_element('pid'));
-			$pid->append_child($dom->create_text_node($tab_content["pid"]));
-			$editor_id = $id->append_child($dom->create_element('editor_id'));
-			$editor_id->append_child($dom->create_text_node($tab_content["editor_id"]));
-			$mtime = $id->append_child($dom->create_element('mtime'));
-			$mtime->append_child($dom->create_text_node($tab_content["mtime"]));
-			$content = $id->append_child($dom->create_element('content'));
-			$content->append_child($dom->create_text_node(utf8_encode($tab_content["content"])));
-		}
-	}
-	$wiki_properties = $wiki->append_child($dom->create_element('wiki_properties'));
-	if (isset ($tbl["properties"]) && is_array($tbl["properties"]) && (count($tbl["properties"]) > 0))
-	{
-		foreach ($tbl["properties"] as $tab_content)
-		{
-			$id = $wiki_properties->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-			$description = $id->append_child($dom->create_element('description'));
-			$description->append_child($dom->create_text_node(utf8_encode($tab_content["description"])));
-			$group_id = $id->append_child($dom->create_element('group_id'));
-			$group_id->append_child($dom->create_text_node($tab_content["group_id"]));
-		}
-	}
-	return $dom;
-}
-function export_course_tool_metadata_from_db($_cid)
-{
-	$tab = array ();
-	$tab["list"] = export_course_tool_metadata_list($_cid);
-	$tab["intro"] = export_course_tool_metadata_intro($_cid);
-
-	return $tab;
-}
-function export_course_tool_metadata_in_file($tbl, $_cid)
-{
-
 	$dom = domxml_new_doc('1.0');
 	$tool = $dom->append_child($dom->create_element('tool'));
 
@@ -896,459 +706,34 @@ function export_course_tool_metadata_in_file($tbl, $_cid)
 	}
 	return $dom;
 }
-function export_data_course_announcement_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$announcement = $dom->append_child($dom->create_element('announcement'));
-	if (is_array($tbl) && (count($tbl) > 0))
-	{
-		foreach ($tbl as $tab_content)
-		{
-			$id = $announcement->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-			$content = $id->append_child($dom->create_element('content'));
-			$content->append_child($dom->create_text_node($tab_content["content"]));
-			$time = $id->append_child($dom->create_element('time'));
-			$time->append_child($dom->create_text_node($tab_content["time"]));
-			$rank = $id->append_child($dom->create_element('rank'));
-			$rank->append_child($dom->create_text_node($tab_content["rank"]));
-			$visibility = $id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content["visibility"]));
-			
-		}
-	}
-	return $dom;	
-}
-function export_data_course_calendar_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$calendar = $dom->append_child($dom->create_element('calendar'));
 
-	if (is_array($tbl) && (count($tbl) > 0))
-	{
-		foreach ($tbl as $tab_content)
-		{
-			$id = $calendar->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-			$content = $id->append_child($dom->create_element('content'));
-			$content->append_child($dom->create_text_node(utf8_encode($tab_content["content"])));
-			$day = $id->append_child($dom->create_element('day'));
-			$day->append_child($dom->create_text_node($tab_content["day"]));
-			$hour = $id->append_child($dom->create_element('hour'));
-			$hour->append_child($dom->create_text_node($tab_content["hour"]));
-			$lasting = $id->append_child($dom->create_element('lasting'));
-			$lasting->append_child($dom->create_text_node(utf8_encode($tab_content["lasting"])));
-			$visibility = $id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content["visibility"]));
-		}
-	}
-	return $dom;
-}
-function export_data_course_wrk_from_db($_cid)
+/**
+ * 
+ * Export all data contained in db about group into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return the array
+ */
+function read_group_from_db($course_id)
 {
 	$tab = array ();
-	$tab["assignment"] = export_data_course_wrk_assignment($_cid);
-	$tab["submission"] = export_data_course_wrk_submission($_cid);
+	$tab["property"] = read_group_property_from_db($course_id);
+	$tab["rel_team_user"] =  read_group_rel_team_user_from_db($course_id);
+	$tab["team"] =  read_group_team_from_db($course_id);
 
 	return $tab;
 }
-function export_data_course_wrk_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$wrk = $dom->append_child($dom->create_element('work'));
-
-	$assignment = $wrk->append_child($dom->create_element('assignment'));
-	if (isset ($tbl["assignment"]) && is_array($tbl["assignment"]) && (count($tbl["assignment"]) > 0))
-	{
-		foreach ($tbl["assignment"] as $tab_content)
-		{
-			$id = $assignment->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-			$description = $id->append_child($dom->create_element('description'));
-			$description->append_child($dom->create_text_node(utf8_encode($tab_content["description"])));
-			$visibility = $id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content["visibility"]));
-			$def_submission_visibility = $id->append_child($dom->create_element('def_submission_visibility'));
-			$def_submission_visibility->append_child($dom->create_text_node($tab_content["def_submission_visibility"]));
-			$assignment_type = $id->append_child($dom->create_element('assignment_type'));
-			$assignment_type->append_child($dom->create_text_node($tab_content["assignment_type"]));
-			$authorized_content = $id->append_child($dom->create_element('authorized_content'));
-			$authorized_content->append_child($dom->create_text_node($tab_content["authorized_content"]));
-			$allow_late_upload = $id->append_child($dom->create_element('allow_late_upload'));
-			$allow_late_upload->append_child($dom->create_text_node($tab_content["allow_late_upload"]));
-			$start_date = $id->append_child($dom->create_element('start_date'));
-			$start_date->append_child($dom->create_text_node($tab_content["start_date"]));
-			$end_date = $id->append_child($dom->create_element('end_date'));
-			$end_date->append_child($dom->create_text_node($tab_content["end_date"]));
-			$prefill_text = $id->append_child($dom->create_element('prefill_text'));
-			$prefill_text->append_child($dom->create_text_node($tab_content["prefill_text"]));
-			$prefill_doc_path = $id->append_child($dom->create_element('prefill_doc_path'));
-			$prefill_doc_path->append_child($dom->create_text_node(utf8_encode($tab_content["prefill_doc_path"])));
-			$prefill_submit = $id->append_child($dom->create_element('prefill_submit'));
-			$prefill_submit->append_child($dom->create_text_node($tab_content["prefill_submit"]));
-		}
-	}
-	$submission = $wrk->append_child($dom->create_element('submission'));
-
-	if (isset ($tbl["submission"]) && is_array($tbl["submission"]) && (count($tbl["submission"]) > 0))
-	{
-		foreach ($tbl["submission"] as $tab_content)
-		{
-			$id = $submission->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$assignment_id = $id->append_child($dom->create_element('assignment_id'));
-			$assignment_id->append_child($dom->create_text_node($tab_content["assignment_id"]));
-			$parent_id = $id->append_child($dom->create_element('parent_id'));
-			$parent_id->append_child($dom->create_text_node($tab_content["parent_id"]));
-			$user_id = $id->append_child($dom->create_element('user_id'));
-			$user_id->append_child($dom->create_text_node($tab_content["user_id"]));
-			$group_id = $id->append_child($dom->create_element('group_id'));
-			$group_id->append_child($dom->create_text_node($tab_content["group_id"]));
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-			$visibility = $id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content["visibility"]));
-			$creation_date = $id->append_child($dom->create_element('creation_date'));
-			$creation_date->append_child($dom->create_text_node($tab_content["creation_date"]));
-			$last_edit_date = $id->append_child($dom->create_element('last_edit_date'));
-			$last_edit_date->append_child($dom->create_text_node($tab_content["last_edit_date"]));
-			$authors = $id->append_child($dom->create_element('authors'));
-			$authors->append_child($dom->create_text_node(utf8_encode($tab_content["authors"])));
-			$submitted_text = $id->append_child($dom->create_element('submitted_text'));
-			$submitted_text->append_child($dom->create_text_node(utf8_encode($tab_content["submitted_text"])));
-			$submitted_doc_path = $id->append_child($dom->create_element('submitted_doc_path'));
-			$submitted_doc_path->append_child($dom->create_text_node(utf8_encode($tab_content["submitted_doc_path"])));
-			$private_feedback = $id->append_child($dom->create_element('private_feedback'));
-			$private_feedback->append_child($dom->create_text_node(utf8_encode($tab_content["private_feedback"])));
-			$original_id = $id->append_child($dom->create_element('original_id'));
-			$original_id->append_child($dom->create_text_node($tab_content["original_id"]));
-			$score = $id->append_child($dom->create_element('score'));
-			$score->append_child($dom->create_text_node($tab_content["score"]));
-		}
-	}
-	return $dom;
-}
-function export_data_course_quiz_from_db($_cid)
-{
-	$tab = array ();
-	$tab["answer"] = export_data_course_quiz_answer($_cid);
-	$tab["question"] = export_data_course_quiz_question($_cid);
-	$tab["rel_test_question"] = export_data_course_quiz_rel_test_question($_cid);
-	$tab["test"] = export_data_course_quiz_test($_cid);
-
-	return $tab;
-}
-function export_data_course_quiz_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$quiz = $dom->append_child($dom->create_element('quiz'));
-	$answer = $quiz->append_child($dom->create_element('answer'));
-	if (isset ($tbl["answer"]) && is_array($tbl["answer"]) && (count($tbl["answer"]) > 0))
-	{
-		foreach ($tbl["answer"] as $tab_content)
-		{
-			$id = $answer->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$question_id = $id->append_child($dom->create_element('question_id'));
-			$question_id->append_child($dom->create_text_node($tab_content["question_id"]));
-			$reponse = $id->append_child($dom->create_element('reponse'));
-			$reponse->append_child($dom->create_text_node(utf8_encode($tab_content["reponse"])));
-			$correct = $id->append_child($dom->create_element('correct'));
-			$correct->append_child($dom->create_text_node($tab_content["correct"]));
-			$comment = $id->append_child($dom->create_element('comment'));
-			$comment->append_child($dom->create_text_node(utf8_encode($tab_content["comment"])));
-			$ponderation = $id->append_child($dom->create_element('ponderation'));
-			$ponderation->append_child($dom->create_text_node($tab_content["ponderation"]));
-			$r_position = $id->append_child($dom->create_element('r_position'));
-			$r_position->append_child($dom->create_text_node($tab_content["r_position"]));
-		}
-	}
-
-	$question = $quiz->append_child($dom->create_element('question'));
-
-	if (isset ($tbl["question"]) && is_array($tbl["question"]) && (count($tbl["question"]) > 0))
-	{
-		foreach ($tbl["question"] as $tab_content)
-		{
-			$id = $question->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$question = $id->append_child($dom->create_element('question'));
-			$question->append_child($dom->create_text_node(utf8_encode($tab_content["question"])));
-			$description = $id->append_child($dom->create_element('description'));
-			$description->append_child($dom->create_text_node(utf8_encode($tab_content["description"])));
-			$ponderation = $id->append_child($dom->create_element('ponderation'));
-			$ponderation->append_child($dom->create_text_node($tab_content["ponderation"]));
-			$q_position = $id->append_child($dom->create_element('q_position'));
-			$q_position->append_child($dom->create_text_node($tab_content["q_position"]));
-			$type = $id->append_child($dom->create_element('type'));
-			$type->append_child($dom->create_text_node($tab_content["type"]));
-			$attached_file = $id->append_child($dom->create_element('attached_file'));
-			$attached_file->append_child($dom->create_text_node(utf8_encode($tab_content["attached_file"])));
-		}
-	}
-
-	$rel_test_question = $quiz->append_child($dom->create_element('rel_test_question'));
-
-	if (isset ($tbl["rel_test_question"]) && is_array($tbl["rel_test_question"]) && (count($tbl["rel_test_question"]) > 0))
-	{
-		foreach ($tbl["rel_test_question"] as $tab_content)
-		{
-			$question_id = $rel_test_question->append_child($dom->create_element('question_id'));
-			$question_id->append_child($dom->create_text_node($tab_content["question_id"]));
-			$exercice_id = $rel_test_question->append_child($dom->create_element('exercice_id'));
-			$exercice_id->append_child($dom->create_text_node($tab_content["exercice_id"]));
-		}
-	}
-
-	$test = $quiz->append_child($dom->create_element('test'));
-
-	if (isset ($tbl["test"]) && is_array($tbl["test"]) && (count($tbl["test"]) > 0))
-	{
-		foreach ($tbl["test"] as $tab_content)
-		{
-			$id = $test->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-			$description = $id->append_child($dom->create_element('description'));
-			$description->append_child($dom->create_text_node(utf8_encode($tab_content["description"])));
-			$type = $id->append_child($dom->create_element('type'));
-			$type->append_child($dom->create_text_node($tab_content["type"]));
-			$random = $id->append_child($dom->create_element('random'));
-			$random->append_child($dom->create_text_node($tab_content["random"]));
-			$active = $id->append_child($dom->create_element('active'));
-			$active->append_child($dom->create_text_node($tab_content["active"]));
-			$max_time = $id->append_child($dom->create_element('max_time'));
-			$max_time->append_child($dom->create_text_node($tab_content["max_time"]));
-			$max_attempt = $id->append_child($dom->create_element('max_attempt'));
-			$max_attempt->append_child($dom->create_text_node($tab_content["max_attempt"]));
-			$show_answer = $id->append_child($dom->create_element('show_answer'));
-			$show_answer->append_child($dom->create_text_node($tab_content["show_answer"]));
-			$anonymous_attempts = $id->append_child($dom->create_element('anonymous_attempts'));
-			$anonymous_attempts->append_child($dom->create_text_node($tab_content["anonymous_attempts"]));
-			$stat_date = $id->append_child($dom->create_element('start_date'));
-			$stat_date->append_child($dom->create_text_node($tab_content["start_date"]));
-			$end_date = $id->append_child($dom->create_element('end_date'));
-			$end_date->append_child($dom->create_text_node($tab_content["end_date"]));
-		}
-	}
-	return $dom;
-}
-function export_data_course_document_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$document = $dom->append_child($dom->create_element('document'));
-	if (is_array($tbl) && (count($tbl) > 0))
-	{
-		foreach ($tbl as $tab_content)
-		{
-			$id = $document->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$path = $id->append_child($dom->create_element('path'));
-			$path->append_child($dom->create_text_node(utf8_encode($tab_content["path"])));
-			$visibility = $id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content["visibility"]));
-			$comment = $id->append_child($dom->create_element('comment'));
-			$comment->append_child($dom->create_text_node(utf8_encode($tab_content["comment"])));
-
-		}
-	}
-	return $dom;
-}
-function export_data_course_link_from_db($_cid)
-{
-	$tab = array ();
-	$tab["links"] = export_data_course_link_links($_cid);
-	$tab["resources"] = export_data_course_link_resources($_cid);
-
-	return $tab;
-}
-function export_data_course_link_in_file($tbl, $_cid)
-{
-
-	$dom = domxml_new_doc('1.0');
-	$link = $dom->append_child($dom->create_element('link'));
-	$links = $link->append_child($dom->create_element('links'));
-	if (isset ($tbl["links"]) && is_array($tbl["links"]) && (count($tbl["links"]) > 0))
-	{
-		foreach ($tbl["links"] as $tab_content)
-		{
-			$id = $links->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$src_id = $id->append_child($dom->create_element('src_id'));
-			$src_id->append_child($dom->create_text_node($tab_content["src_id"]));
-			$dest_id = $id->append_child($dom->create_element('dest_id'));
-			$dest_id->append_child($dom->create_text_node($tab_content["dest_id"]));
-			$creation_time = $id->append_child($dom->create_element('creation_time'));
-			$creation_time->append_child($dom->create_text_node($tab_content["creation_time"]));
-		}
-	}
-	$resources = $link->append_child($dom->create_element('resources'));
-	if (isset ($tbl["resources"]) && is_array($tbl["resources"]) && (count($tbl["resources"]) > 0))
-	{
-		foreach ($tbl["resources"] as $tab_content)
-		{
-			$id = $resources->append_child($dom->create_element('id'));
-			$id->set_attribute("id", $tab_content["id"]);
-			$crl = $id->append_child($dom->create_element('crl'));
-			$crl->append_child($dom->create_text_node(utf8_encode($tab_content["crl"])));
-			$title = $id->append_child($dom->create_element('title'));
-			$title->append_child($dom->create_text_node(utf8_encode($tab_content["title"])));
-		}
-	}
-	return $dom;
-}
-function export_data_course_lp_from_db($_cid)
-{
-	$tab = array ();
-	$tab["asset"] = export_data_course_lp_asset($_cid);
-	$tab["learnpath"] = export_data_course_lp_learnpath($_cid);
-	$tab["module"] = export_data_course_lp_module($_cid);
-	$tab["rel_learnpath_module"] = export_data_course_lp_rel_learnpath_module($_cid);
-	$tab["user_module_progress"] = export_data_course_lp_user_module_progress($_cid);
-
-	return $tab;
-}
-function export_data_course_lp_in_file($tbl, $_cid)
-{
-	$dom = domxml_new_doc('1.0');
-	$lp = $dom->append_child($dom->create_element('lp'));
-
-	$asset = $lp->append_child($dom->create_element('asset'));
-	if (isset ($tbl["asset"]) && is_array($tbl["asset"]) && (count($tbl["asset"]) > 0))
-	{
-		foreach ($tbl["asset"] as $tab_content)
-		{
-			$asset_id = $asset->append_child($dom->create_element('asset_id'));
-			$asset_id->set_attribute("asset_id", $tab_content["asset_id"]);
-			$module_id = $asset_id->append_child($dom->create_element('module_id'));
-			$module_id->append_child($dom->create_text_node($tab_content["module_id"]));
-			$path = $asset_id->append_child($dom->create_element('path'));
-			$path->append_child($dom->create_text_node(utf8_encode($tab_content["path"])));
-			$comment = $asset_id->append_child($dom->create_element('comment'));
-			$comment->append_child($dom->create_text_node(utf8_encode($tab_content["comment"])));
-		}
-	}
-
-	$learnpath = $lp->append_child($dom->create_element('learnpath'));
-	if (isset ($tbl["learnpath"]) && is_array($tbl["learnpath"]) && (count($tbl["learnpath"]) > 0))
-	{
-		foreach ($tbl["learnpath"] as $tab_content)
-		{
-			$learnPath_id = $learnpath->append_child($dom->create_element('learnPath_id'));
-			$learnPath_id->set_attribute("learnPath_id", $tab_content["learnPath_id"]);
-			$name = $learnPath_id->append_child($dom->create_element('name'));
-			$name->append_child($dom->create_text_node(utf8_encode($tab_content["name"])));
-			$comment = $learnPath_id->append_child($dom->create_element('comment'));
-			$comment->append_child($dom->create_text_node(utf8_encode($tab_content["comment"])));
-			$lock = $learnPath_id->append_child($dom->create_element('lock'));
-			$lock->append_child($dom->create_text_node($tab_content["lock"]));
-			$visibility = $learnPath_id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content["visibility"]));
-			$rank = $learnPath_id->append_child($dom->create_element('rank'));
-			$rank->append_child($dom->create_text_node($tab_content["rank"]));
-		}
-	}
-
-	$module = $lp->append_child($dom->create_element('module'));
-	if (isset ($tbl["module"]) && is_array($tbl["module"]) && (count($tbl["module"]) > 0))
-	{
-		foreach ($tbl["module"] as $tab_content)
-		{
-			$module_id = $module->append_child($dom->create_element('module_id'));
-			$module_id->set_attribute("module_id", $tab_content["module_id"]);
-			$name = $module_id->append_child($dom->create_element('name'));
-			$name->append_child($dom->create_text_node(utf8_encode($tab_content["name"])));
-			$comment = $module_id->append_child($dom->create_element('comment'));
-			$comment->append_child($dom->create_text_node(utf8_encode($tab_content["comment"])));
-			$accessibility = $module_id->append_child($dom->create_element('accessibility'));
-			$accessibility->append_child($dom->create_text_node($tab_content["accessibility"]));
-			$startAsset_id = $module_id->append_child($dom->create_element('startAsset_id'));
-			$startAsset_id->append_child($dom->create_text_node($tab_content["startAsset_id"]));
-			$contentType = $module_id->append_child($dom->create_element('contentType'));
-			$contentType->append_child($dom->create_text_node($tab_content["contentType"]));
-			$launch_data = $module_id->append_child($dom->create_element('launch_data'));
-			$launch_data->append_child($dom->create_text_node(utf8_encode($tab_content["launch_data"])));
-		}
-	}
-	$rel_learnpath_module = $lp->append_child($dom->create_element('rel_learnpath_module'));
-	if (isset ($tbl["rel_learnpath_module"]) && is_array($tbl["rel_learnpath_module"]) && (count($tbl["rel_learnpath_module"]) > 0))
-	{
-		foreach ($tbl["rel_learnpath_module"] as $tab_content)
-		{
-			$learnPath_module_id = $rel_learnpath_module->append_child($dom->create_element('learnPath_module_id'));
-			$learnPath_module_id->set_attribute("learnPath_module_id", $tab_content["learnPath_module_id"]);
-			$learnPath_id = $learnPath_module_id->append_child($dom->create_element('learnPath_id'));
-			$learnPath_id->append_child($dom->create_text_node($tab_content["learnPath_id"]));
-			$module_id = $learnPath_module_id->append_child($dom->create_element('module_id'));
-			$module_id->append_child($dom->create_text_node($tab_content["module_id"]));
-			$lock = $learnPath_module_id->append_child($dom->create_element('lock'));
-			$lock->append_child($dom->create_text_node($tab_content["lock"]));
-			$visibility = $learnPath_module_id->append_child($dom->create_element('visibility'));
-			$visibility->append_child($dom->create_text_node($tab_content["visibility"]));
-			$specificComment = $learnPath_module_id->append_child($dom->create_element('specificComment'));
-			$specificComment->append_child($dom->create_text_node(utf8_encode($tab_content["specificComment"])));
-			$rank = $learnPath_module_id->append_child($dom->create_element('rank'));
-			$rank->append_child($dom->create_text_node($tab_content["rank"]));
-			$parent = $learnPath_module_id->append_child($dom->create_element('parent'));
-			$parent->append_child($dom->create_text_node($tab_content["parent"]));
-			$raw_to_pass = $learnPath_module_id->append_child($dom->create_element('raw_to_pass'));
-			$raw_to_pass->append_child($dom->create_text_node($tab_content["raw_to_pass"]));
-		}
-	}
-	$user_module_progress = $lp->append_child($dom->create_element('user_module_progress'));
-	if (isset ($tbl["user_module_progress"]) && is_array($tbl["user_module_progress"]) && (count($tbl["user_module_progress"]) > 0))
-	{
-		foreach ($tbl["user_module_progress"] as $tab_content)
-		{
-			$user_module_progress_id = $user_module_progress->append_child($dom->create_element('user_module_progress_id'));
-			$user_module_progress_id->set_attribute("user_module_progress_id", $tab_content["user_module_progress_id"]);
-			$user_id = $user_module_progress_id->append_child($dom->create_element('user_id'));
-			$user_id->append_child($dom->create_text_node($tab_content["user_id"]));
-			$learnPath_module_id = $user_module_progress_id->append_child($dom->create_element('learnPath_module_id'));
-			$learnPath_module_id->append_child($dom->create_text_node($tab_content["learnPath_module_id"]));
-			$learnPath_id = $user_module_progress_id->append_child($dom->create_element('learnPath_id'));
-			$learnPath_id->append_child($dom->create_text_node($tab_content["learnPath_id"]));
-			$lesson_location = $user_module_progress_id->append_child($dom->create_element('lesson_location'));
-			$lesson_location->append_child($dom->create_text_node($tab_content["lesson_location"]));
-			$lesson_status = $user_module_progress_id->append_child($dom->create_element('lesson_status'));
-			$lesson_status->append_child($dom->create_text_node($tab_content["lesson_status"]));
-			$entry = $user_module_progress_id->append_child($dom->create_element('entry'));
-			$entry->append_child($dom->create_text_node($tab_content["entry"]));
-			$raw = $user_module_progress_id->append_child($dom->create_element('raw'));
-			$raw->append_child($dom->create_text_node($tab_content["raw"]));
-			$scoreMin = $user_module_progress_id->append_child($dom->create_element('scoreMin'));
-			$scoreMin->append_child($dom->create_text_node($tab_content["scoreMin"]));
-			$scoreMax = $user_module_progress_id->append_child($dom->create_element('scoreMax'));
-			$scoreMax->append_child($dom->create_text_node($tab_content["scoreMax"]));
-			$total_time = $user_module_progress_id->append_child($dom->create_element('total_time'));
-			$total_time->append_child($dom->create_text_node($tab_content["total_time"]));
-			$session_time = $user_module_progress_id->append_child($dom->create_element('session_time'));
-			$session_time->append_child($dom->create_text_node($tab_content["session_time"]));
-			$suspend_data = $user_module_progress_id->append_child($dom->create_element('suspend_data'));
-			$suspend_data->append_child($dom->create_text_node(utf8_encode($tab_content["suspend_data"])));
-			$credit = $user_module_progress_id->append_child($dom->create_element('credit'));
-			$credit->append_child($dom->create_text_node($tab_content["credit"]));
-		}
-	}
-	return $dom;
-}
-function export_course_group_metadata_from_db($_cid)
-{
-	$tab = array ();
-	$tab["property"] = export_course_group_metadata_property($_cid);
-	$tab["rel_team_user"] = export_course_group_metadata_rel_team_user($_cid);
-	$tab["team"] = export_course_group_metadata_team($_cid);
-
-	return $tab;
-}
-function export_course_group_metadata_in_file($tbl, $_cid)
+/**
+ * 
+ * Export all data contained in the array $tbl about group into a $dom object
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  array   $tbl  		- contain all data about group to export  
+ * @param  string  $course_id    
+ * @return the dom object  
+ */
+function export_group_in_dom($tbl, $course_id)
 {
 	$dom = domxml_new_doc('1.0');
 	$link = $dom->append_child($dom->create_element('group'));
@@ -1413,494 +798,90 @@ function export_course_group_metadata_in_file($tbl, $_cid)
 	}
 	return $dom;
 }
-function export_data_course_calendar_from_db($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
 
+/**
+ * 
+ * Read tool intro table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function read_tool_intro_from_db($course_id)
+{
+	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 	$sql = "SELECT			id,
-			  				       titre AS title,
-						  	     contenu AS content,                  
-								  	 	    day,                             
-										    hour,
-			  						        lasting,
-			  						        visibility                   
-			     
-					    	 FROM `".$tbl['calendar_event']."`";
+							tool_id,
+							title,
+							display_date,
+							content,
+							rank,
+							visibility
+			FROM `".$tbl['tool_intro']."`";
 
 	return claro_sql_query_fetch_all($sql);
 }
-function export_data_course_announcement_from_db($_cid)
+/**
+ * 
+ * Read tool list table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function read_tool_list_from_db($course_id)
 {
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
+	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 	$sql = "SELECT			id,
-											title,                   
-							  	 contenu AS content,                  
-						 		 temps   AS `time`,                             
-											visibility,                   
-							 	 ordre AS   rank            
-					    	 FROM `".$tbl['announcement']."`";
-
+							tool_id,
+							rank,
+							access,
+							script_url,
+							script_name,
+							addedTool
+			FROM `".$tbl['tool']."`";
 	return claro_sql_query_fetch_all($sql);
 }
-function export_data_course_wrk_assignment($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											title,
-											description,
-											visibility,
-											def_submission_visibility,
-											assignment_type,
-											authorized_content,
-											allow_late_upload,
-											start_date,
-											end_date,
-											prefill_text,
-											prefill_doc_path,
-											prefill_submit     
-					    	 FROM `".$tbl['wrk_assignment']."`";
 
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_wrk_submission($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											assignment_id,
-											parent_id,
-											user_id,
-											group_id,
-											title,
-											visibility,
-											creation_date,
-											last_edit_date,
-											authors,
-											submitted_text,
-											submitted_doc_path,
-											private_feedback,
-											original_id,
-											score           
-					    	 FROM `".$tbl['wrk_submission']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_quiz_answer($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											question_id,
-											reponse,
-											correct,
-											comment,
-											ponderation,
-											r_position     
-					    	 FROM `".$tbl['quiz_answer']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_quiz_question($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,								
-											question,
-											description,
-											ponderation,
-											q_position,
-											type,
-											attached_file   
-					    	 FROM `".$tbl['quiz_question']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_quiz_rel_test_question($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			question_id,								
-											exercice_id
-					    	 FROM `".$tbl['quiz_rel_test_question']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_quiz_test($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,		
-					               titre AS title,
-											description,
-											type,
-											random,
-											active,
-											max_time,
-											max_attempt,
-											show_answer,
-											anonymous_attempts,
-											start_date,
-											end_date
-					    	 FROM `".$tbl['quiz_test']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_document_from_db($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,	
-											path,
-											visibility,
-											comment
-					    	 FROM `".$tbl['document']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_link_links($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,	
-											src_id,
-											dest_id,
-											creation_time
-					    	 FROM `".$tbl['links']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_link_resources($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,	
-											crl,
-											title
-					    	 FROM `".$tbl['resources']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_lp_asset($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			asset_id,	
-											module_id,
-											path,
-											comment
-					    	 FROM `".$tbl['lp_asset']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_lp_learnpath($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			learnPath_id,	
-											name,
-											comment,
-											`lock`,
-											visibility,
-											rank
-					    	 FROM `".$tbl['lp_learnPath']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_lp_module($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			module_id,	
-											name,
-											comment,
-											accessibility,
-											startAsset_id,
-											contentType,
-											launch_data
-					    	 FROM `".$tbl['lp_module']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_lp_rel_learnpath_module($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			learnPath_module_id,	
-											learnPath_id,
-											module_id,
-											`lock`,
-											visibility,
-											specificComment,
-											rank,
-											parent,
-											raw_to_pass
-					    	 FROM `".$tbl['lp_rel_learnPath_module']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_lp_user_module_progress($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			user_module_progress_id,
-											user_id,
-											learnPath_module_id,
-											learnPath_id,
-											lesson_location,
-											lesson_status,
-											entry,
-											raw,
-											scoreMin,
-											scoreMax,
-											total_time,
-											session_time,
-											suspend_data,
-											credit
-					    	 FROM `".$tbl['lp_user_module_progress']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_wiki_acls($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			wiki_id,
-											flag,
-											value
-							FROM `".$tbl['wiki_acls']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_wiki_pages($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											wiki_id,
-											owner_id,
-											title,
-											ctime,
-											last_version,
-											last_mtime
-							FROM `".$tbl['wiki_pages']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_wiki_pages_content($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											pid,
-											editor_id,
-											mtime,
-											content
-							FROM `".$tbl['wiki_pages_content']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_wiki_properties($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											title,
-											description,
-											group_id
-							FROM `".$tbl['wiki_properties']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_course_tool_metadata_intro($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											tool_id,
-											title,
-											display_date,
-											content,
-											rank,
-											visibility
-							FROM `".$tbl['tool_intro']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_course_tool_metadata_list($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											tool_id,
-											rank,
-											access,
-											script_url,
-											script_name,
-											addedTool
-							FROM `".$tbl['tool']."`";
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_userinfo_def($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											title,
-											comment,
-											nbLine,
-											rank
-							FROM `".$tbl['userinfo_def']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_userinfo_content($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			id,
-											user_id,
-											def_id,
-											ed_ip,
-											ed_date,
-										    content
-							FROM `".$tbl['userinfo_content']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_categories($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			cat_id,
-											cat_title,
-											cat_order
-							FROM `".$tbl['bb_categories']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_forums($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			forum_id,
-											group_id,
-											forum_name,
-											forum_desc,
-											forum_access,
-											forum_moderator,
-											forum_topics,
-											forum_posts,
-											forum_last_post_id,
-											cat_id,
-											forum_type,
-											forum_order
-							FROM `".$tbl['bb_forums']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_posts($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			post_id,
-											topic_id,
-											forum_id,
-											poster_id,
-											post_time,
-											poster_ip,
-			 						 nom AS firstname,
-								  prenom AS lastname
-							FROM `".$tbl['bb_posts']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_posts_text($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			post_id,
-											post_text
-																					
-							FROM `".$tbl['bb_posts_text']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_priv_msgs($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			msg_id,
-											from_userid,
-											to_userid,
-											msg_time,
-											poster_ip,
-											msg_status,
-											msg_text
-															
-							FROM `".$tbl['bb_priv_msgs']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_rel_topic_userstonotify($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			notify_id,
-											user_id,
-											topic_id
-							FROM `".$tbl['bb_rel_topic_userstonotify']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_topics($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			topic_id,
-											topic_title,
-											topic_poster,
-											topic_time,
-											topic_views,
-											topic_replies,
-											topic_last_post_id,
-											forum_id,
-											topic_status,
-											topic_notify,
-			 						 nom AS firstname,
-								  prenom AS lastname
-							FROM `".$tbl['bb_topics']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_data_course_bb_users($_cid)
-{
-
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT			user_id,
-											username,
-											user_regdate,
-											user_password,
-											user_email,
-											user_icq,
-											user_website,
-											user_occ,
-											user_from,
-											user_intrest,
-											user_sig,
-											user_viewemail,
-											user_theme,
-											user_aim,
-											user_yim,
-											user_msnm,
-											user_posts,
-											user_attachsig,
-											user_desmile,
-											user_html,
-											user_bbcode,
-											user_rank,
-											user_level,
-											user_lang,
-											user_actkey,
-											user_newpasswd
-							FROM `".$tbl['bb_users']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_course_user_metadata_from_db($_cid)
+/**
+ * 
+ * Read users table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function  read_users_from_db($course_id)
 {
 	$tblMain = claro_sql_get_main_tbl();
 	$sql = "SELECT			u.user_id,
-								  	 nom AS firstname,
-								  prenom AS lastname,
-											username,
-											password,
-											authSource,
-											email,
-											u.statut,
-											officialCode,
-											phoneNumber,
-											pictureUri,
-											creatorId 
-					    	 FROM `".$tblMain['user']."` AS u
-					    	 INNER JOIN `".$tblMain['rel_course_user']."` AS c 
-							 ON u.user_id = c.user_id 				 		    	 		
-							 WHERE c.code_cours = '".$_cid."'";
+				  	 nom AS firstname,
+				  prenom AS lastname,
+							username,
+							password,
+							authSource,
+							email,
+							u.statut,
+							officialCode,
+							phoneNumber,
+							pictureUri,
+							creatorId 
+	    	 FROM `".$tblMain['user']."` AS u
+	    	 INNER JOIN `".$tblMain['rel_course_user']."` AS c 
+			 ON u.user_id = c.user_id 				 		    	 		
+			 WHERE c.code_cours = '".$course_id."'";
 	 
 	return claro_sql_query_fetch_all($sql);
 }
-function export_course_rel_course_user_from_db($_cid)
+/**
+ * 
+ * Read rel_course_user table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function read_rel_course_user_from_db($course_id)
 {
 	$tblMain = claro_sql_get_main_tbl();
 	$sql = "SELECT   code_cours as course_id,
@@ -1910,131 +891,161 @@ function export_course_rel_course_user_from_db($_cid)
 					 team,
 					 tutor
 			FROM `".$tblMain['rel_course_user']."` 
-		 	WHERE code_cours = '".$_cid."'";
+		 	WHERE code_cours = '".$course_id."'";
 	
 	return claro_sql_query_fetch_all($sql);
 }
-function export_course_data_from_db($_cid)
+
+/**
+ * 
+ * Read course table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function read_course_from_db($course_id)
 {
 	$tblMain = claro_sql_get_main_tbl();
 	$sql = "SELECT		cours_id,
-										code,
-										fake_code,
-										directory,
-										dbName,
-										languageCourse,
-										intitule,
-										faculte,
-										visible,
-										enrollment_key,
-										titulaires,
-										email,
-										departmentUrlName,
-										departmentUrl,
-										diskQuota,
-										versionDb,
-										versionClaro,
-										lastVisit,
-										lastEdit,
-										creationDate,
-										expirationDate							
-					    	FROM `".$tblMain['course']."`
-							WHERE code = '".$_cid."'";
+						code,
+						fake_code,
+						directory,
+						dbName,
+						languageCourse,
+						intitule,
+						faculte,
+						visible,
+						enrollment_key,
+						titulaires,
+						email,
+						departmentUrlName,
+						departmentUrl,
+						diskQuota,
+						versionDb,
+						versionClaro,
+						lastVisit,
+						lastEdit,
+						creationDate,
+						expirationDate							
+		  	FROM `".$tblMain['course']."`
+			WHERE code = '".$course_id."'";
 
 	return claro_sql_query_fetch_all($sql);
 }
-function export_data_course_description_from_db($_cid)
+/**
+ * 
+ * Read group property table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function read_group_property_from_db($course_id)
 {
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
-	$sql = "SELECT 		id,
-										title,
-										content,
-										`upDate`,
-										visibility			
-							FROM `".$tbl['course_description']."`";
-
-	return claro_sql_query_fetch_all($sql);
-}
-function export_course_group_metadata_property($_cid)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
+	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 	$sql = "SELECT		id,
-										self_registration,
-										nbGroupPerUser,
-										private,
-										forum,
-										document,
-										wiki,
-										chat				
-					    	FROM `".$tbl['group_property']."`";
+						self_registration,
+						nbGroupPerUser,
+						private,
+						forum,
+						document,
+						wiki,
+						chat				
+			FROM `".$tbl['group_property']."`";
 
 	return claro_sql_query_fetch_all($sql);
 }
-function export_course_group_metadata_rel_team_user($_cid)
+
+/**
+ * 
+ * Read rel_team_user table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function read_group_rel_team_user_from_db($course_id)
 {
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
+	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 	$sql = "SELECT 		id,
-										user,
-										team,
-										status,
-										role
-					    	FROM `".$tbl['group_rel_team_user']."`";
+						user,
+						team,
+						status,
+						role
+			FROM `".$tbl['group_rel_team_user']."`";
 
 	return claro_sql_query_fetch_all($sql);
 }
-function export_course_group_metadata_team($_cid)
+/**
+ * 
+ * Read group_team table in db and put its data into an array
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, the array  
+ */
+function read_group_team_from_db($course_id)
 {
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($_cid));
+	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 	$sql = "SELECT			id,
-											name,
-											description,
-											tutor,
-											maxStudent,
-											secretDirectory									
-					    	FROM `".$tbl['group_team']."`";
+							name,
+							description,
+							tutor,
+							maxStudent,
+							secretDirectory									
+			FROM `".$tbl['group_team']."`";
 
 	return claro_sql_query_fetch_all($sql);
 }
+
+/**
+ * 
+ * Export group documents into file "group.zip"
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @return false if a problem occured, true if not  
+ */
 function export_group_document($course_id)
-{
-	return export_tool_document($course_id, "group");
+{	 
+	return export_tool_document($course_id, "CLGRP");
 }
-function export_exercise_document($course_id)
-{
-	return export_tool_document($course_id, "exercise");
-}
-function export_chat_document($course_id)
-{
-	return export_tool_document($course_id, "chat");
-}
-function export_document_document($course_id)
-{
-	return export_tool_document($course_id, "document");
-}
-function export_modules_document($course_id)
-{
-	return export_tool_document($course_id, "modules");
-}
-function export_work_document($course_id)
-{
-	return export_tool_document($course_id, "work");
-}
-function export_tool_document($course_id, $toolName)
-{
-	$course_path = get_conf("rootSys")."courses/".$course_id;
+
+
+/**
+ * 
+ * Export a directory from "rootsys"/courses/"course_id"
+ * to a zip file of the same name
+ *  
+ * 
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $course_id    
+ * @param  string  $toolName     - name of the directory
+ * @return false if a problem occured, true if not  
+ */
+function export_tool_document($course_id, $toolId)
+{	
+	$context[CLARO_CONTEXT_COURSE] = $course_id;
+	$course_path = claro_get_data_path($context);    
+    $context[CLARO_CONTEXT_TOOLLABEL] = $toolId;    	
+    $course_tool_path = claro_get_data_path($context);
+    
 	//test if the course folder exist
 	if (file_exists($course_path) && is_dir($course_path))
-	{
-		$course_tool_path = test_if_tool_folder_exist($course_path, $toolName);
+	{							
 		//test if the course tool folder exist
-		if (false !== $course_tool_path)
-		{
+		if (file_exists($course_tool_path) && is_dir($course_tool_path))
+		{		
+			
 			//test if no error occured while compressing
 			if (false !== compress_directory($course_tool_path))
 			{
-
-				$tool_zip_folder_path = $course_path.'/'.$toolName.".zip";
-				$tool_zip_export_folder_path = EXPORT_PATH.'/'.$course_id.'/tools/'.$toolName.'/'.$toolName.".zip";
+			
+				$tool_zip_folder_path = $course_path.basename($course_tool_path).".zip";
+				
+				$tool_zip_export_folder_path = EXPORT_PATH.$course_id.'/tools/'.$toolId.'/'.$toolId.".zip";
+				
 				//test if the temporary export folder exist 
 				if (!file_exists(dirname($tool_zip_export_folder_path)) && !is_dir($tool_zip_export_folder_path))
 				{
@@ -2050,59 +1061,32 @@ function export_tool_document($course_id, $toolName)
 					return claro_failure :: set_failure("document_export_failed");
 			} else
 				return claro_failure :: set_failure("document_export_failed");
-		} else
-			return claro_failure :: set_failure("document_folder_doesnt_exist");
+		} else{/*nothing to do*/}
+			
 	} else
 		return claro_failure :: set_failure("document_export_failed");
 }
-/*
- * This function return the path of the folder if it exist
- * false if not
+ 
+/**
+ * 
+ * Dump the dom file   
+ * 
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+ * @param  string  $data_type    - "metadata" or "tool", it's the name of the directory where the file must be 
+ * 								   this is user to separate the metadata from the tool data    
+ * @param  string  $toolName     - name of the directory
+ * @param  object  $dom          - the dom object contained the info to put in file
+ * @param  string  $course_id 
+ * @return the path of the tool folder if it exist, false if not
  */
-function test_if_tool_folder_exist($path, $toolName)
-{
-	$d = opendir($path);
-
-	while (false !== ($f = readdir($d)))
-	{
-		if ($f == $toolName)
-		{
-			fclose($d);
-			return $path."/".$toolName;
-
-		}
-	}
-	fclose($d);
-	return false;
-}
 function dump_file($data_type,$toolName,$dom,$course_id)
 {
 	$foo = EXPORT_PATH . '/' . $course_id . '/' . $data_type . '/' . $toolName . '/';
 	if (!file_exists($foo)) claro_mkdir($foo,0777,TRUE);
-		
+			
 	$result = $dom->dump_file( $foo . $toolName . '.xml', true, false);
 	if ($result == 0)
-		return claro_failure :: set_failure('cant_write_xml_file');
+		return claro_failure :: set_failure('cant_write_xml_file');	
 	return true;
-}
-function intervall($start, $end)
-{
-	echo '<span>*'.$end - $start.'</Span>';
-	flush();
-}
-
-function intertime()
-{
-	static $start = null;
-	static $end = null;
-
-	if (is_null($start))
-	{
-		$start = microtime();
-		return null;
-	}
-	$end = microtime();
-	intervall($start, $end);
-	$start = $end;
 }
 ?>

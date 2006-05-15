@@ -16,10 +16,10 @@
 
 //$tlabelReq = 'CLCRS';
 //$cidReq='ES1';
-$dialogBox = '';
+$dialogBox = array();
 		
 require '../inc/claro_init_global.inc.php';
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+//if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 include_once($includePath . '/lib/import.lib.php');
 
@@ -27,7 +27,7 @@ include_once($includePath . '/lib/import.lib.php');
 $acceptCmd = array('doImport');
 $cmd= (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptCmd)) ? $_REQUEST['cmd'] : '';
 $archiveFile = $_cid.".zip";
-$filePath = "c:/program files/easyPHP1-8/www/cvs/claroline.test/claroline/export";
+$filePath = "c:/program files/easyPHP1-8/www/cvs/claroline.test/export";
 
 // command
 $taskDoImport = false;
@@ -41,39 +41,105 @@ switch($cmd)
 // task
 
 if ($taskDoImport)
-{
-	$importGroupInfo[0]['id'] = null;
-    $importGroupInfo[0]['oldId'] = null;
-    $importGroupInfo[0]['chat'] = true;
-    $importGroupInfo[0]['document'] = true;
-    $importGroupInfo[0]['forum'] = true;
-    $importGroupInfo[0]['wiki'] = true;
-    $importGroupInfo[0]['exercise'] = true;
-    $importGroupInfo[0]['work'] = true;
-    $importGroupInfo[0]['tool'] = true;
-    $importGroupInfo[0]['group'] = true;
-    $importGroupInfo[0]['quiz'] = true;      
-    $importGroupInfo[0]['lp'] = true;  
-    $importGroupInfo[0]['mustImportUsers'] = true;
-         /*
-    $importGroupInfo[1]['id'] = 1;
-    $importGroupInfo[1]['oldId'] = 1;
-    $importGroupInfo[1]['mustImportUsers'] = true;
-    $importGroupInfo[1]['mustImportTools'] = true;
-    $importGroupInfo[1]['chat'] = true;
-    $importGroupInfo[1]['document'] = true;
-    $importGroupInfo[1]['forum'] = true;
-    $importGroupInfo[1]['wiki'] = true;
-    */
-	if (import_all_data_course_in_db($filePath."/".$archiveFile , $_cid,$importGroupInfo))
-	{
-		$dialogBox = get_lang('Import succeed');
-	}
-	else
-	{			
-		$dialogBox = get_lang("Import failed : <br>".claro_failure::get_last_failure());			
-	}
-	;
+{	
+	$importGroupInfo[0]['group_info']['id'] = null;
+    $importGroupInfo[0]['group_info']['oldId'] = null;
+    $importGroupInfo[0]['group_info']['mustImportUsers'] = true;
+    $importGroupInfo[0]['group_info']['manifest'] = true;
+    $importGroupInfo[0]['group_info']['tool'] = true;
+    $importGroupInfo[0]['tools']['CLCHT'] = true;
+    $importGroupInfo[0]['tools']['CLDOC'] = true;
+    $importGroupInfo[0]['tools']['CLFRM'] = true;
+    $importGroupInfo[0]['tools']['CLWIKI'] = true;
+    $importGroupInfo[0]['tools']['CLWRK'] = true;            
+    //$importGroupInfo[0]['tools']['CLQWZ'] = true;      
+    $importGroupInfo[0]['tools']['CLLNP'] = true;      
+    $importGroupInfo[0]['tools']['CLCAL'] = true;
+    $importGroupInfo[0]['tools']['CLANN'] = true;    
+    
+/*
+    $importGroupInfo[1]['group_info']['id'] = 6;
+    $importGroupInfo[1]['group_info']['oldId'] = 6;
+    $importGroupInfo[1]['group_info']['mustImportUsers'] = true;
+   	$importGroupInfo[1]['group_info']['mustImportTools'] = true;
+    $importGroupInfo[1]['tools']['CLCHT'] = true;
+    $importGroupInfo[1]['tools']['CLDOC'] = true;
+    $importGroupInfo[1]['tools']['CLFRM'] = true;
+    $importGroupInfo[1]['tools']['CLWIKI'] = true;
+  */
+       
+    $archive_file = $filePath."/es1.zip";
+    $course_id = $_cid;
+   
+    $tmpDir = basename($archive_file,".zip");
+    $tab = import_manifest_from_file($tmpDir);
+   	$exported_course_id = $tab['course']['code'];   	
+ 
+	$errorFound = false;	
+
+    if (false === extract_archive($archive_file, EXTRACT_PATH))
+    {    	
+    	$errorFound = true;
+    	$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+    }     
+    else
+    {                         	
+    	if (false === ($course_ids = import_manifest($tmpDir, $course_id, $importGroupInfo[0]['group_info'])))
+    	{    
+	    	$errorFound = true;
+       		$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());       	       	  
+    	}
+    	else
+    	{
+    		$oldCourse_id = $course_ids['old'];
+        	$course_id = $course_ids['new'];        	
+        	
+	    	$cidReset = true;
+    		$cidReq = $course_id;             
+    		include ($GLOBALS['includePath'] . '/claro_init_local.inc.php');
+    	}
+            	
+	    if (false === ($usersIdToChange = import_users($tmpDir,$course_id,$importGroupInfo[0]['group_info'])))
+    	{
+    		$errorFound = true;
+    		$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+    	} 
+    	    	
+	    if (isset($importGroupInfo[0]['group_info']['mustImportUsers']) && true === $importGroupInfo[0]['group_info']['mustImportUsers']) 
+	       	$mustImportusers = true;
+	    else $mustImportusers = false;	   
+	    
+	    if (false === import_tool($tmpDir, $course_id, $importGroupInfo[0]['group_info']))
+    	{
+    		$errorFound = true;
+     	    $dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+    	}   
+    	foreach($importGroupInfo as $index => $group_array)
+    	{
+    		//if it's a group and not the general course
+    		if(null !== $group_array['group_info']['id'])
+    		{    			
+    			//we don't need to import users in groups if we choosed to not import users in the course'
+    			if(false === $importGroupInfo[0]['group_info']['mustImportUsers'])
+    				$group_array['group_info']['mustImportUsers'] = false;
+    			$group_array['group_info'] =  create_new_group($tmpDir, $course_id, $group_array, $usersIdToChange,true);    				
+    		}
+    		foreach($group_array["tools"] as $tool_label => $mustImportTool)
+    		{    			
+    			if(true === $group_array["tools"][$tool_label])    			
+    			{
+		    		if (false === import_data_tool($tool_label,$tmpDir, $course_id, $group_array["group_info"], $usersIdToChange))
+		        	{            	
+		            	$errorFound = true;
+		    	    	$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+		        	}
+    			}		        		
+    		}
+    	}
+    }    
+    
+   	if (!$errorFound) $dialogBox['error'][] = get_lang('Import succeed');
+                  
 }
 
 
@@ -84,11 +150,9 @@ $nameTools = get_lang('Import course');
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
-
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo claro_html_msg_list($dialogBox);
 
 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=doImport">'. get_lang('Import this course') . '</a>';
 
 include $includePath . '/claro_init_footer.inc.php';
-
 ?>
