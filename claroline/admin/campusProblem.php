@@ -46,7 +46,7 @@ $is_allowedToCheckProblems = $is_platformAdmin;
 // Cache_lite setting & init
 $cache_options = array(
 'cacheDir' => get_conf('rootSys') . 'cache/campusProblem/',
-'lifeTime' => get_conf('cache_lifeTime', 3600*48),
+'lifeTime' => get_conf('cache_lifeTime', 160000),
 'automaticCleaningFactor' => 50,
 );
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
