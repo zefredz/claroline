@@ -754,6 +754,8 @@ class Config
 
     function display_form_elt($name,$value)
     {
+		global $rootSys;
+		
         $elt_form = '';
 
         // array with html-safe variable
