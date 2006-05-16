@@ -445,7 +445,7 @@ class Config
         }
 
         // open configuration file
-        if ( $handle = fopen($this->conf_filename,'w') )
+        if ( false !== ($handle = fopen($this->conf_filename,'w') ) )
         {
 
             // write header
@@ -560,7 +560,7 @@ class Config
 
         $result = claro_sql_query($sql);
 
-        if ( $row = mysql_fetch_row($result) )
+        if ( false !== ($row = mysql_fetch_row($result) ) )
         {
             // return hash value
             $this->md5 = $row[0];
@@ -754,8 +754,8 @@ class Config
 
     function display_form_elt($name,$value)
     {
-		global $rootSys;
-		
+        global $rootSys;
+
         $elt_form = '';
 
         // array with html-safe variable
@@ -1106,7 +1106,7 @@ class Config
         if ( is_dir($dirname) )
         {
             $handle = opendir($dirname);
-            while ( $elt = readdir($handle) )
+            while ( false !== ($elt = readdir($handle) ) )
             {
                 // skip '.', '..' and 'CVS'
                 if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
