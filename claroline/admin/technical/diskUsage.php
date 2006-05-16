@@ -43,7 +43,7 @@ else                                  $disp_allcrs =  false;
 if (isset( $_REQUEST['disp_garbage']))
 {
     $disp_garbage =  $_REQUEST['disp_garbage'];
-    $garbagedisk_usage = disk_usage($garbageRepositorySys,'','m');
+    $garbagedisk_usage = disk_usage(get_conf('garbageRepositorySys'),'','m');
 }
 else
 {
@@ -231,8 +231,7 @@ function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
 
 function get_db_size($tdb)
 {
-    global $dbHost,$dbLogin,$dbPass;
-    $db = mysql_connect($dbHost, $dbLogin, $dbPass) or die ("Error connecting to MySQL Server!\n");
+    $db = mysql_connect(get_conf('dbHost'), $get_conf('dbLogin'), get_conf('dbPass')) or die ("Error connecting to MySQL Server!\n");
     mysql_select_db($tdb, $db);
 
     $sql_result = "SHOW TABLE STATUS FROM " .$tdb;

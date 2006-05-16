@@ -39,7 +39,7 @@ else
 // Immediatly redirect to the CAS authentication process
 // If CAS is the only authentication system enabled
 
-if (isset($claro_CasEnabled) && $claro_CasEnabled && ! $claro_displayLocalAuthForm)
+if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm',true))
 {
     header('Location: ' . http_response_splitting_workaround($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl)));
 }
@@ -81,7 +81,7 @@ if ( is_null($_uid) && $uidRequired )
     // Display header
     require $includePath . '/claro_init_header.inc.php';
 
-    if( !isset($claro_displayLocalAuthForm) || $claro_displayLocalAuthForm == true )
+    if( get_conf('claro_displayLocalAuthForm',true) == true )
     {
         // Display login form
         echo '<table align="center">'                                     ."\n"
@@ -102,7 +102,7 @@ if ( is_null($_uid) && $uidRequired )
             {
                 $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
                 $message .= get_lang('Contact your administrator.');
-                
+
                 echo claro_html_message_box($message);
             }
         }
@@ -133,11 +133,11 @@ if ( is_null($_uid) && $uidRequired )
         ;
     } // end if claro_dispLocalAuthForm
 
-    if (isset($claro_CasEnabled) && $claro_CasEnabled )
+    if (get_conf('claro_CasEnabled',false))
     {
         echo '<div align="center">'
         .    '<a href="login.php?'. ($sourceUrl ? 'sourceUrl='.urlencode($sourceUrl) : '').'&authModeReq=CAS">'
-        .    (isset($claro_CasLoginString) ? $claro_CasLoginString : get_lang('Login'))
+        .    (''!=trim(get_conf('claro_CasLoginString','')) ? get_conf('claro_CasLoginString') : get_lang('Login'))
         .    '</a>'
         .    '</div>';
     } // end if claro_CASEnabled

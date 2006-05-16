@@ -95,7 +95,7 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
     $courseOfficialCode = ereg_replace('[^A-Za-z0-9_]', '', $courseOfficialCode);
     $courseOfficialCode = strtoupper($courseOfficialCode);
 
-    $keys = define_course_keys ($courseOfficialCode,'',$dbNamePrefix);
+    $keys = define_course_keys ($courseOfficialCode,'',get_conf('dbNamePrefix'));
 
     $courseSysCode      = $keys[ 'currentCourseId'         ];
     $courseDbName       = $keys[ 'currentCourseDbName'     ];

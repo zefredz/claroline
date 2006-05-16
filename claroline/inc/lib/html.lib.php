@@ -1171,7 +1171,7 @@ function make_clickable($text)
  */
 function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_html_area is deprecated, use claro_html_textarea_editor', E_USER_WARNING);
+    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_html_area is deprecated, use claro_html_textarea_editor', E_USER_WARNING);
     // becomes a alias while the function call is not replaced by the new one
     return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
 }
@@ -1201,7 +1201,7 @@ function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttr
 
 function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html_tool_title', E_USER_WARNING);
+    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html_tool_title', E_USER_WARNING);
 
     return claro_html_textarea_editor($name, $content, $rows, $cols, $optAttrib);
 }
@@ -1222,7 +1222,7 @@ function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
 
 function claro_disp_tool_title($titlePart, $helpUrl = false)
 {
-    if(CLARO_DEBUG_MODE) trigger_error('function claro_disp_tool_title is deprecated, use claro_html_tool_title', E_USER_WARNING);
+    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_tool_title is deprecated, use claro_html_tool_title', E_USER_WARNING);
 
     return claro_html_tool_title($titlePart, $helpUrl);
 }

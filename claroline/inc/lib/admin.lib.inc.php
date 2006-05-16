@@ -44,9 +44,7 @@ include_once( dirname(__FILE__) . '/fileManage.lib.php');
 
 function delete_course($code)
 {
-    global $mainDbName;
     global $coursesRepositorySys;
-    global $garbageRepositorySys;
     global $eventNotifier;
 
     //declare needed tables
@@ -129,7 +127,7 @@ function delete_course($code)
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
 
-        claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS, true);
+        claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
 
         rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
         get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')

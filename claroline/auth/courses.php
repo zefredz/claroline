@@ -93,7 +93,7 @@ $inURL = ''; // parameters to add in URL
 
 if ( !$is_platformAdmin )
 {
-    if ($allowToSelfEnroll)
+    if (get_conf('allowToSelfEnroll',true))
     {
         $userId    = $_uid; // default use is enroll for itself...
         $uidToEdit = $_uid;

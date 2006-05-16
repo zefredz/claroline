@@ -71,8 +71,7 @@ else
 
 
 // theses  line prevent missing config file
-$refresh_display_rate = get_conf('refresh_display_rate');
-if ( empty($refresh_display_rate) ) $refresh_display_rate = 10;
+$refresh_display_rate = get_conf('refresh_display_rate',10);
 
 /*============================================================================
         CHAT INIT
@@ -278,7 +277,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
     .'<html>'."\n"
     .'<head>'."\n"
     .'<title>'.get_lang('Chat').'</title>'
-    .'<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
+    .'<meta http-equiv="refresh" content="' . $refresh_display_rate . ';url=./messageList.php?x='.$x.'#final">'."\n"
     .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
     .'</head>'."\n"
     .'<body>'."\n"."\n"
@@ -305,7 +304,7 @@ echo implode("\n", $curDisplayLineList) // LAST LINES
 // POSSIBLE EXPORT FOR DEFINITIVE STORAGE
 
 
-if ($activeLineCount > $max_line_in_file)
+if ($activeLineCount > get_conf('max_line_in_file'))
 {
 
     // STORE THE EXCESS LINES INTO THE 'ON FLY BUFFER'
