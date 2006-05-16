@@ -30,7 +30,7 @@ require_once $includePath . '/lib/courselist.lib.php'; // conf file
 if (isset($_REQUEST['logout']))
 {
     // notify that a user has just loggued out
-    if (isset($logout_uid))
+    if (isset($logout_uid)) // Set  by local_init
     {
         $eventNotifier->notifyEvent('user_logout', array('uid' => $logout_uid));
     }
@@ -78,10 +78,10 @@ if ( isset($_uid) )
             .    get_lang('Create a course site')
             .    '</a>'
             ;
-            if ($allowToSelfEnroll) echo '&nbsp;|&nbsp;';
+            if (get_conf('allowToSelfEnroll',true)) echo '&nbsp;|&nbsp;';
         }
 
-        if ($allowToSelfEnroll)
+        if (get_conf('allowToSelfEnroll',true))
         {
             echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
             .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '
