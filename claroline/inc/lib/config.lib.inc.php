@@ -113,7 +113,7 @@ class Config
         {
             if ( !empty($property_def['default']) )
             {
-                if ( $property_def['type'] == 'boolean' )
+                if ( 'boolean' == $property_def['type'] )
                 {
                     $this->property_list[$property_name] = trueFalse($property_def['default']);
                 }
@@ -137,7 +137,7 @@ class Config
 
             foreach ( $this->conf_def_property_list as $property_name => $property_def )
             {
-                if ( isset($property_def['container']) && $property_def['container']=='CONST')
+                if ( isset($property_def['container']) && 'CONST' == $property_def['container'])
                 {
                     if ( defined($property_name) )
                     {
@@ -308,8 +308,10 @@ class Config
                     $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/css','file','.css',array('print.css','compatible.css'));
                     break;
                 case 'lang':
-                    echo $rootSys . 'claroline/lang';
                     $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/lang','folder');
+                    break;
+                case 'auth':
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/auth/extauth/drivers','file','.php');
                     break;
                 case 'editor':
                     $acceptedValue = $this->retrieve_accepted_values_from_folder($rootSys.'claroline/editor','folder');
@@ -879,6 +881,9 @@ class Config
                         case 'lang' :
                             $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/lang','folder');
                             break;
+                       case 'auth':
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/auth/extauth/drivers','file','.php');
+                            break;
                         case 'editor' :
                             $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/editor','folder');
                             break;
@@ -1102,7 +1107,6 @@ class Config
         $accepted_values = array();
 
         $dirname = realpath($path) . '/' ;
-
         if ( is_dir($dirname) )
         {
             $handle = opendir($dirname);
@@ -1259,7 +1263,7 @@ if (!function_exists('md5_file'))
 
 function claro_get_conf_def_file($configCode)
 {
-    $centralizedDef = array('CLCRS','CLGRP', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL','CLRSS');
+    $centralizedDef = array('CLCRS','CLAUTH','CLGRP', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL','CLRSS');
     if(in_array($configCode,$centralizedDef)) return realpath($GLOBALS['includePath'] . '/conf/def/') ;
     else                                     return realpath(get_module_path($configCode) . '/conf/def/');
 }
