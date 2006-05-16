@@ -24,6 +24,12 @@ $conf_def['config_file']='CLKCACHE.conf.php';
 $conf_def['config_name'] = 'Cache system';
 $conf_def['config_class']='kernel';
 
+
+$conf_def['section']['main']['properties'] =
+array ( 'cache_lifeTime'
+      , 'cache_automaticCleaningFactor'
+
+);
 //PROPERTIES
 // Setup forum Options.
 
