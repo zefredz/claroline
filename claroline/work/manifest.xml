@@ -1,9 +1,9 @@
 <module>
   <label>CLWRK</label>
-  <name>assignment</name>
+  <name>Assignment</name>
   <version>1.8</version>
   <license>GPL</license>
-  <icon>assignment.gif</icon>
+  <icon>../../img/assignment.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLWRK/</web>
 
@@ -28,7 +28,7 @@
     </claroline>
  </requirements>
  <context>
-  <course db="emule" file="emule" enabling="automatic"   default_access="all" access_manager="platform_admin" />
+  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="platform_admin" />
   <course database="kernel"
           enabling="automatic"
           default_access="all"
