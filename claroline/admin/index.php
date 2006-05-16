@@ -106,7 +106,7 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    claro_html_menu_vertical($menuAdminModule)
 .    '</td>' . "\n";
 
-if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
+if ( ( get_conf('DEVEL_MODE', false) == TRUE )
 || ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
 {
     echo '<td nowrap="nowrap">'
@@ -174,7 +174,7 @@ $menuAdminClaroline[] = claro_html_tool_link('clarolinenews.php',              g
 $menuAdminModule[]    = claro_html_tool_link('module/module_list.php', get_lang('Module list'));
 
 if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menuAdminSDK[] = claro_html_tool_link('xtra/sdk/translation_index.php', get_lang('Translation Tools'));
-if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
+if ( get_conf('DEVEL_MODE', false) == TRUE )
 {
     $menuAdminSDK[] =  claro_html_tool_link('devTools', get_lang('Devel Tools'));
 }

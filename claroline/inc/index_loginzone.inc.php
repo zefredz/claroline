@@ -3,19 +3,19 @@
 // Prevent direct reference to this script
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
 
-if ( $claro_CasEnabled ) // CAS is a special case of external authentication
+if ( get_conf('claro_CasEnabled') ) // CAS is a special case of external authentication
 {
 ?>
 <!-- CAS login hyperlink -->
 <div align="center">
 <a href="<?php echo $clarolineRepositoryWeb ?>auth/login.php?authModeReq=CAS">
-<?php echo $claro_CasLoginString ?>
+<?php echo get_conf('claro_CasLoginString') ?>
 </a>
 </div>
 <?php
 }
 
-if( $claro_displayLocalAuthForm )
+if( get_conf('claro_displayLocalAuthForm') )
 {
 ?>
 <!-- Authentication Form -->
