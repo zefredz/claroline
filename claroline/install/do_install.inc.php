@@ -400,7 +400,13 @@ foreach($oldTools as $claroLabel)
 {
     $modulePath = get_module_path($claroLabel);
 
-    if (file_exists($modulePath)) $regLog = register_module($modulePath);
+    if (file_exists($modulePath))
+    {
+        $moduleId = register_module($modulePath);
+        if (false !== activate_module($moduleId))
+        trigger_error('module (id:' . $moduleId . ' label : ' . $module_info['LABEL'] . ' ) not activated ',E_USER_WARNING );
+
+    }
     else                          trigger_error('module path not found' . $module_info['LABEL'],E_USER_WARNING );
 }
 
