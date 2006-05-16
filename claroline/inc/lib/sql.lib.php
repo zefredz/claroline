@@ -311,7 +311,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe Gesch <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
@@ -329,7 +329,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
-    if ( defined('CLARO_DEBUG_MODE') && CLARO_DEBUG_MODE && mysql_errno() )
+    if ( get_conf('CLARO_DEBUG_MODE',false)  && mysql_errno() )
     {
                 echo '<hr size="1" noshade>'
                      .mysql_errno(), " : ", mysql_error(), '<br>'
