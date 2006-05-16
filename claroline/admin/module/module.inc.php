@@ -825,8 +825,7 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 function generate_module_cache()
 {
     global $includePath;
-    $module_cache_filename = get_conf('module_cache_filename');
-
+    $module_cache_filename = get_conf('module_cache_filename','module_cache');
     $tbl = claro_sql_get_main_tbl();
 
 
@@ -854,7 +853,7 @@ function generate_module_cache()
         }
     }
 
-    fwrite($handle, '?>'."\n");
+    fwrite($handle, "\n" . '?>');
     fclose($handle);
 }
 
@@ -866,6 +865,7 @@ function generate_module_cache()
  */
 function register_module($modulePath)
 {
+    global $regLog;
     $regLog = array();
     if (file_exists($modulePath))
     {
@@ -917,7 +917,8 @@ function register_module($modulePath)
     }
     else $regLog['error'][] = get_lang('can not find module');
 
-    return $regLog;
+    return $moduleId;
+    //return $regLog;
 }
 
 /**
