@@ -42,6 +42,31 @@ switch($cmd)
 
 if ($taskDoImport)
 {	
+	
+	/**
+	 * Import data course into a exisiting course on the claroline platform 
+	 * The information to import is contained in a zip file. 
+	 * This zip file contains xml files in which information for the db is stored
+	 * This zip file also contains the course documents to import
+	 * 
+	 * The whole course is not always imported
+	 * To filter what must be imported and what does not, 
+	 * information must be contained in the $importGoupInfo array 
+ 	 *
+ 	 * Its format must follow those rule :
+ 	 *      - Must be an array of arrays of arrays
+ 	 * 		- Must be like this : $importGroupInfo[index][group_info][groupInfos]
+ 	 * 													 [tools][tool_id]
+ 	 * 		- Each index points to a group
+ 	 * 		- The 0 index points to the general course
+ 	 * 		- A groupinfo can be tools id like "CLWIKI", "CLANN", etc.. and must contain a boolean
+ 	 * 		- A groupinfo can also be "mustImportUsers" to chose to import users or not for this group
+ 	 * 		- One groupInfo must be "id" and must contain the group_id to import
+ 	 * 		- "id" must be null when for general course information
+ 	 * 		- When "id" is not null. A groupInfo can be "mustImportTools". This means we can choose to not import 
+ 	 * 		  a group tool to replace him with a empty tool.   		 
+ 	 * 		  
+ 	 */     
 	$importGroupInfo[0]['group_info']['id'] = null;
     $importGroupInfo[0]['group_info']['oldId'] = null;
     $importGroupInfo[0]['group_info']['mustImportUsers'] = true;
@@ -56,17 +81,17 @@ if ($taskDoImport)
     $importGroupInfo[0]['tools']['CLLNP'] = true;      
     $importGroupInfo[0]['tools']['CLCAL'] = true;
     $importGroupInfo[0]['tools']['CLANN'] = true;    
-    
-/*
-    $importGroupInfo[1]['group_info']['id'] = 6;
-    $importGroupInfo[1]['group_info']['oldId'] = 6;
+    /*
+
+    $importGroupInfo[1]['group_info']['id'] = 9;
+    $importGroupInfo[1]['group_info']['oldId'] = 9;
     $importGroupInfo[1]['group_info']['mustImportUsers'] = true;
    	$importGroupInfo[1]['group_info']['mustImportTools'] = true;
     $importGroupInfo[1]['tools']['CLCHT'] = true;
     $importGroupInfo[1]['tools']['CLDOC'] = true;
     $importGroupInfo[1]['tools']['CLFRM'] = true;
-    $importGroupInfo[1]['tools']['CLWIKI'] = true;
-  */
+    $importGroupInfo[1]['tools']['CLWIKI'] = true;*/
+ 
        
     $archive_file = $filePath."/es1.zip";
     $course_id = $_cid;

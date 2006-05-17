@@ -22,151 +22,99 @@
      
     define("EXTRACT_PATH", 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\export');
     
-	function import_data_tool($toolId,$tooldir,$courseId=null,$importGroupInfo, $usersIdToChange)
+    /**
+     * 
+     * Call the adequate import function based on the toolId
+     * The parameters of the import function must also be set for the call of this function
+     * 
+     * If a specified import function has not been written for a tool, a generic import functin will be called 
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *  
+	 * @param  string  $toolId
+	 * @param  string  $toolDir			 - path of the directory where the tool document are contained
+	 * @param  string  $course_id
+	 * @param  array   $importGroupInfo  - array containing informations about a group, used as param for some function called
+	 * @param  array   $usersIdToChange  - array which contains relation betweend the gold user_id and the new ones
+	 *  	  
+	 * @return false if an error occured, true if not 
+     * 
+     */
+	function import_data_tool($toolId,$toolDir,$courseId=null,$importGroupInfo, $usersIdToChange)
 	{
 		$importLib      =  get_module_path($toolId) . '/connector/exchange.cnr.php';
 		$importFuncName = $toolId . '_import_content';
 	
 		if (file_exists($importLib)) 
 		{
-			echo 'chargement de ' .$importLib . '<BR />';
 			include_once($importLib);
 			
 			if (function_exists($importFuncName)) 
-			{
-				echo 'appel de ' . $importFuncName . '<BR />';
-				return call_user_func($importFuncName,$tooldir,$courseId,$importGroupInfo, $usersIdToChange);				
+			{			
+				return call_user_func($importFuncName,$toolDir,$courseId,$importGroupInfo, $usersIdToChange);				
 			}				
-			else {import_generic_tool($toolId,$tooldir,$courseId,$importGroupInfo);}	
+			else {import_generic_tool($toolId,$toolDir,$courseId,$importGroupInfo);}	
 		}	
-		else {import_generic_tool($toolId,$tooldir,$courseId,$importGroupInfo);}
-		
+		else {import_generic_tool($toolId,$toolDir,$courseId,$importGroupInfo);}		
 	}
-	
-    /**
-	 * Import data course into a exisiting course on the claroline platform 
-	 * The information to import is contained in a zip file. 
-	 * This zip file contains xml files in which information for the db is stored
-	 * This zip file also contains the course documents to import
-	 * 
-	 * The whole course is not always imported
-	 * To filter what must be imported and what does not, 
-	 * information must be contained in the $importGoupInfo array 
- 	 *
- 	 * Its format must follow those rule :
- 	 *      - Must be an array of arrays
- 	 * 		- Must be like this : $importGroupInfo[index][groupInfos]
- 	 * 		- Each index points to a group
- 	 * 		- The 0 index points to the general course
- 	 * 		- A groupinfo can be tools name like "wiki", "announcement", etc.. and must contain a boolean
- 	 * 		- A groupinfo can also be "mustImportUsers" to chose to import users or not for this group
- 	 * 		- One groupInfo must be "id" and must contain the group_id to import
- 	 * 		- "id" must be null when for general course information
- 	 * 		- When "id" is not null. A groupInfo can be "mustImportTools". This means we can choose to not import 
- 	 * 		  a group tool to replace him with a empty tool.   		 
- 	 * 		
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 * @param  string  $archive_file     - the zip file's complete path 
-	 * @param  string  $course_id    
-	 * @param  array   $importGroupInfo  - array containing informations about what to import and what not
-	 * @return false if a problem occured, true if not.  
- 	 */     	  	
-    function import_all_data_course_in_db($archive_file, $course_id,$importGroupInfo)
-    {
-    	global $logout,$uidReset , $tidReq , $tlabelReq , $tidReset, $gidReq , $gidReset;
-    	$dbGlu= get_conf('dbGlu');
-		$courseTablePrefix = get_conf('courseTablePrefix');
-				
-    	$tooldir = basename($archive_file, '.zip');
-
-        if (false === extract_archive($archive_file, EXTRACT_PATH))
-            return false;
-                              
-        if (false === ($course_id = import_manifest($tooldir, $course_id, $importGroupInfo[0])))
-        	return false;
-        	        	        	
-            $cidReset=true;
-            $cidReq = $course_id;
-             
-        	include ($GLOBALS['includePath'] . '/claro_init_local.inc.php');
-        	
-        if (false === ($usersIdToChange = import_users($tooldir,$course_id,$importGroupInfo[0])))
-            return false;   
-        
-        if (isset($importGroupInfo[0]['group']) && true === $importGroupInfo[0]['group'])
-        	$importGroupInfo = import_group($tooldir, $GLOBALS['_cid'], $usersIdToChange, $importGroupInfo,$mustImportusers);
-         
-        if (false === $importGroupInfo)
-            return false;
-         
-        if (false == importGroupDocuments($tooldir, $course_id, $importGroupInfo[0]))
-            return false;                        
-        
-        if (false === import_announcement($tooldir, $course_id, $importGroupInfo[0]))
-            return false;
-         
-        if (false === import_course_description($tooldir,$course_id, $importGroupInfo[0]))
-            return false;
-         
-        if (false === import_calendar($tooldir, $course_id, $importGroupInfo[0]))
-            return false;
-         
-        if (false === import_link($tooldir, $GLOBALS['_cid'], $importGroupInfo[0]))
-            return false;
-         
-        if (false === import_lp($tooldir, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
-            return false;
-         
-        if (false === import_quiz($tooldir, $GLOBALS['_cid'], $importGroupInfo[0]))
-            return false;
-         
-        if (false === import_tool($tooldir, $GLOBALS['_cid'], $importGroupInfo[0]))
-            return false;
-         
-        if (false === import_document($tooldir, $GLOBALS['_cid'], $importGroupInfo[0]))
-            return false;
-         
-        if (false == import_bb($tooldir, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
-            return false;
-         
-        if (false == import_wiki($tooldir, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
-            return false;
-         
-        if (false === import_wrk($tooldir, $GLOBALS['_cid'], $importGroupInfo, $usersIdToChange))
-            return false;
-         
-        if (false === import_userinfo($tooldir, $GLOBALS['_cid'], $importGroupInfo[0], $usersIdToChange))
-            return false;
-         
-        // claro_delete_file(EXTRACT_PATH."/".$tooldir);
-        return true;
-    }
-
-    function import_generic_tool($toolName,$importedCourseDir, $course_id, $importGroupInfo)
+	  	
+	/**
+     * 
+     * Import a tool generically
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *  
+	 * @param  string  $toolId
+	 * @param  string  $importedCourseDir - path of the directory where the archive of the imported course is unzipped
+	 * @param  string  $course_id
+	 * @param  array   $importGroupInfo  - array containing informations about a group, used as param for some function called
+	 *  	  
+	 * @return false if an error occured, true if not 
+     * 
+     */
+    function import_generic_tool($toolId,$importedCourseDir, $course_id, $importGroupInfo)
     {        	          
-       if (isset ($importGroupInfo[$toolName]) && true == $importGroupInfo[$toolName])
+       if (isset ($importGroupInfo[$toolId]) && true == $importGroupInfo[$toolId])
        {       
-            $tab = import_generic_tool_from_file($importedCourseDir,$toolName);
-            $prefix = get_table_prefix($course_id,$toolName);                  
+            $tab = import_generic_tool_from_file($importedCourseDir,$toolId);
+            $prefix = get_table_prefix($course_id,$toolId);                  
             
-            if(false == import_documents($toolName, $importedCourseDir, $course_id, $importGroupInfo))
-            	return false;
-            
+            if(false == import_documents($toolId, $importedCourseDir, $course_id, $importGroupInfo))
+            	return false;            
                           
             if (false !== $tab)
-            {                          	
-            	if(false === import_create_generic_table($tab,$course_id,$toolName,$prefix))
+            {
+            	$table_list = get_new_tool_table_list($tab,$prefix);                     	
+            	if(false === import_create_generic_table($tab,$course_id,$toolId,$prefix))
             		return false;            		
-            	if(false === delete_all_in_all_tool_table($tab,$course_id,$prefix))
+            	if(false === delete_all_in_all_tool_table($table_list,$course_id))
             	 	return false;
-                if(false === import_generic_tool_in_db($tab, $course_id,$prefix))
+                if(false === import_generic_tool_in_db($table_list, $course_id))
                 	return false;
             }           
             else return false;
         }
         return true;
     }
-    function import_create_generic_table($tab,$course_id,$toolName,$prefix)
+    
+    /**
+     * 
+     * Create new table to prepare the import of the generic tool. 
+     * The create table sql code must also be created based on the old sql code and the new tables prefix
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *  
+	 * @param  array   $tab				  - array containing the list of table who must be created,	  										 
+	 * 										the old "create table" sql code
+	 * 										and the table prefix which need to be replaced in the sql code
+	 * 													
+	 * @param  string  $prefix			  - table prefix wich will replace the old prefix in the old sql code
+	 * @param  string  $toolId
+	 *  	  
+	 * @return false if an error occured, true if not 
+     * 
+     */
+    function import_create_generic_table($tab,$prefix)
     {    
     	foreach ($tab as $tableName)
     	{
@@ -180,10 +128,23 @@
     	return true;
 	
     }
-    function get_table_prefix($course_id,$toolName)
-   	{   	
+     /**
+     * 
+     * Return the table prefix which must be used for the import in the new tables 
+	 * the prefix is composed of the course_id and the tool_id 
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *  
+	 * @param string $course_id  
+	 * @param string $toolId 	 
+	 * 
+	 * @return false if an error occured, the prefix if not 
+     * 
+     */
+    function get_table_prefix($course_id,$toolId)
+   	{   	   		
 		$context["course"] = $course_id;
-		$context["toolLabel"] = $toolName;
+		$context["toolLabel"] = $toolId;
 		$prefixx = claro_sql_get_tables("",$context);
 	
 		$prefix = "claroline`.`c_es1_001";
@@ -193,24 +154,70 @@
 					
 		return $prefix;	
    	}
-    function delete_all_in_all_tool_table($tab,$course_id,$prefix)
+   	 /**
+     * 
+     * Based on the old table names and the new table prefix, this function create the new table names     
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *
+	 * @param array $tab 			- contains the list of all table who must be emptying  
+	 * @param string $prefix 		  
+ 	 *
+
+	 * @return the array with the new table names
+     * 
+     */
+   	function get_new_tool_table_list($tab,$prefix)
+    {
+    	$tbl = array();
+    	foreach ($tab as $index => $export_table)
+    	{ 
+    		$old_table_name = $export_table['table_name'];    		
+    		$tbl[$index]['table_name'] = str_replace($export_table['prefix'],$prefix,$old_table_name);
+    	}    
+    	return tbl;	
+    }
+   	 /**
+     * 
+     * Delete all data contained in the tool tables   
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *
+	 * @param array $tab 			- contains the list of all table who must be emptying  
+	 * @param string $course_id  
+ 	 *
+	 * 
+	 * @return false if an error occured, true if not 
+     * 
+     */
+    function delete_all_in_all_tool_table($tab,$course_id)
     {    	
-   		foreach ($tab as $old_tab_name)
-    	{    		    	
-    		$old_table_name = $old_tab_name['table_name'];
-    		$table_name = str_replace($old_tab_name['prefix'],$prefix,$old_table_name);
-    		$sql = "DELETE FROM `".$table_name."`";
+   		foreach ($tab as $tab_name)
+    	{    		    	    		
+    		$sql = "DELETE FROM `".$tab_name."`";
     		if(false === claro_sql_query($sql))
 	    		return claro_failure::set_failure("coudlnt_delete_in_db");             
     	}
     	return true;
     } 
-    function import_generic_tool_in_db($tab, $course_id,$prefix)
+    /**
+     * 
+     * import data of a tool in database   
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *
+	 * @param array $tab 			- contains all informations about the tool and the data to import  
+	 * @param string $course_id  
+ 	 *
+	 * 
+	 * @return false if an error occured, true if not 
+     * 
+     */
+    function import_generic_tool_in_db($tab, $course_id)
     {       	
     	foreach ($tab as $export_table)
-    	{    		    	
-    		$old_table_name = $export_table['table_name'];    		
-    		$table_name = str_replace($export_table['prefix'],$prefix,$old_table_name);    	
+    	{    		    	    		    		
+    		$table_name = $export_table['table_name'];      	
    			foreach ($export_table as $data_type => $export_table_index)
    			{   			   		   				
 				if("content" == $data_type)
@@ -245,11 +252,23 @@
     	
         return true;  
     }
-    function import_generic_tool_from_file($course_id,$toolName)
+    /**
+     * 
+     * Read from the xml file all data about a tool and put it into an array
+     * 
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+	 *
+	 * @param string $course_id  
+ 	 * @param string $toolId
+	 * 
+	 * @return false if an error occured, the array if not 
+     * 
+     */
+    function import_generic_tool_from_file($course_id,$toolId)
     {
         if (empty ($course_id))
             return claro_failure::set_failure("Empty dir name");
-        $file = EXTRACT_PATH."/".$course_id."/tools/".$toolName."/".$toolName.".xml";
+        $file = EXTRACT_PATH."/".$course_id."/tools/".$toolId."/".$toolId.".xml";
          
         $xml = xml_parser_create($GLOBALS['charset']);
          
@@ -392,9 +411,10 @@
     }
     
    
-    function import_manifest($tooldir, $course_id, $importGroupInfo)
+    function import_manifest($imported_course_dir, $course_id, $importGroupInfo)
     {    	    	
-    	$tab = import_manifest_from_file($tooldir);
+    	$tab = import_manifest_from_file($imported_course_dir);
+    	    	    	
         $course_ids['old'] = $tab['course']['code'];		
         if (is_null($course_id) && isset ($importGroupInfo["manifest"]) && true == $importGroupInfo["manifest"])
         {        	           
@@ -432,7 +452,9 @@
                    ,               $extLinkUrl);      
             }
             else
-            	return false;
+            {
+            	return false;            
+            }
             $course_ids['new'] = $courseSysCode;
         	return $course_ids;    
         }   
@@ -442,7 +464,6 @@
         }     
         
     }
-  
     /**
      * 		
      * Import tool data from file to db.
@@ -534,9 +555,10 @@
         if (isset ($tab["group_team"]))
         {
             foreach ($tab["group_team"] as $tab2_content)
-            {                        	
+            {                            	                
                 if ($importGroupInfo["id"] == $tab2_content["id"])
-                {
+                {                	
+                
                     $tbl[0]["group_team"] = $tab2_content;
                      
                     $tbl[1] = $importGroupInfo;
@@ -842,7 +864,7 @@
         if (isset ($tab['group_team']) && is_array($tab['group_team']) && (count($tab['group_team']) > 0))
         {     
             if ($importGroupInfo_team['id'] == $importGroupInfo['oldId'])
-             {   echo "okrrr<br>"; 
+            { 
                 $sql = "INSERT INTO `".$tbl["group_team"].'` (name,description,tutor,maxStudent,secretDirectory)
                     VALUES ("'.addslashes($importGroupInfo_team['name']).'","'.addslashes($importGroupInfo_team['description']).'","'.(int) $importGroupInfo_team['tutor'].'","'.(int) $importGroupInfo_team['maxStudent'].'","'.addslashes($importGroupInfo_team['secretDirectory']).'")';
                  
@@ -944,7 +966,9 @@
         while ($data = fread($fp, 4096))
         {
             if (false == xml_parse($xml, $data, feof($fp)))
-                return claro_failure::set_failure("can't parse file");
+            {            	
+                return claro_failure::set_failure(xml_error_string(xml_get_error_code($xml)));
+            }
         }
         fclose($fp);
         xml_parser_free($xml);
@@ -1125,44 +1149,7 @@
         }     
         return true;
     }   
-    /**	 
-     *
-     * Import all document of a group if needed
-     * This mean if importGroupInfo[$toolName] exists and is set to true
-     *
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>    
-	 * @param  string  $tooldir  			- directory name where the old data of the imported course are stored
-	 * @param  string  $imported_course_id  - course_id of the exported course
-	 * @param  string  $course_id           - course_id of the course in which the import will occur
-	 * @param  array   $importGroupInfo     - array containing importation rules for a group
-	 *	 									  rule like which group documents to import
-	 * @return false if a problem occured, true if not
-	 */
-    function importGroupDocuments($tooldir,$imported_course_id, $courseId, $importGroupInfo)   
-    {/*
-        if (isset($importGroupInfo['chat']) && 'true' == $importGroupInfo['chat'])
-            if (false === importChatDocuments($tooldir,$imported_course_id, $courseId, $importGroupInfo))
-            {            	
-            	return false;
-            }
-         
-        if (isset($importGroupInfo['document']) && 'true' == $importGroupInfo['document'])
-            if (false === importDocDocuments($tooldir, $courseId, $importGroupInfo))
-            {            
-            	return false;
-            }
-        
-        foreach ($importGroupInfo as $toolName => $groupInfo_data)
-        {
-        	if('true' == $importGroupInfo[$toolName])
-        	{
-        		import_documents($toolName, $tooldir, $courseId, $importGroupInfo);
-        		// if it returns false, this just means that there is no document file to import            		
-        	} 
-        }        
-        return true;*/
-    }
-   
+      
    
      
     function create_course($courseOfficialCode
@@ -1202,39 +1189,39 @@
     $courseExpirationDate = '';
    
       
-            // START COURSE CREATION PORCESSS
+    // START COURSE CREATION PORCESSS
 
-            if (   prepare_course_repository($courseDirectory, $courseSysCode)
-                && fill_course_repository($courseDirectory)
-                && update_db_course($courseDbName)
-                && fill_db_course( $courseDbName, $courseLanguage )
-                && register_course($courseSysCode
-                   ,               $courseOfficialCode
-                   ,               $courseDirectory
-                   ,               $courseDbName
-                   ,               $courseHolder
-                   ,               $courseEmail
-                   ,               $courseCategory
-                   ,               $courseTitle
-                   ,               $courseLanguage
-                   ,               $_uid
-                   ,               $courseVisibility
-                   ,               $courseEnrollAllowed
-                   ,               $courseEnrollmentKey
-                   ,               $courseExpirationDate
-                   ,               $extLinkName
-                   ,               $extLinkUrl)
-                )
-            {      // COURSE CREATION  SUCEEEDED
+    if (   prepare_course_repository($courseDirectory, $courseSysCode)
+        && fill_course_repository($courseDirectory)
+        && update_db_course($courseDbName)
+        && fill_db_course( $courseDbName, $courseLanguage )
+        && register_course($courseSysCode
+           ,               $courseOfficialCode
+           ,               $courseDirectory
+           ,               $courseDbName
+           ,               $courseHolder
+           ,               $courseEmail
+           ,               $courseCategory
+           ,               $courseTitle
+           ,               $courseLanguage
+           ,               $_uid
+           ,               $courseVisibility
+           ,               $courseEnrollAllowed
+           ,               $courseEnrollmentKey
+           ,               $courseExpirationDate
+           ,               $extLinkName
+           ,               $extLinkUrl)
+      )
+      {      // COURSE CREATION  SUCEEEDED
 
-                $display = DISP_COURSE_CREATION_SUCCEED;
+      		$display = DISP_COURSE_CREATION_SUCCEED;
 
-                // WARN PLATFORM ADMINISTRATOR OF THE COURSE CREATION
+       	    // WARN PLATFORM ADMINISTRATOR OF THE COURSE CREATION
 
-		$mailSubject = get_lang('[%site_name] Course creation %course_name',array('%site_name'=> $siteName ,
+			$mailSubject = get_lang('[%site_name] Course creation %course_name',array('%site_name'=> $siteName ,
                                                                                           '%course_name'=> $courseTitle) );
 
-		$mailBody = get_block('blockCourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
+			$mailBody = get_block('blockCourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
                                                                             '%sitename' => $siteName,
                                                                             '%user_firstname' => $_user['firstName'],
                                                                             '%user_lastname' => $_user['lastName'],
@@ -1248,92 +1235,93 @@
                                                                             '%course_url' => $coursesRepositoryWeb . $courseDirectory
                                                                           ) );
 
-                // GET THE CONCERNED SENDERS OF THE EMAIL
-                $platformAdminList = claro_get_admin_list ();
+                
+                
+            // GET THE CONCERNED SENDERS OF THE EMAIL
+            $platformAdminList = claro_get_uid_of_platform_admin();
 
-                foreach( $platformAdminList as $thisPlatformAdmin )
-                {
-                    claro_mail_user( $thisPlatformAdmin['idUser'], $mailBody, $mailSubject);
-                }
-            
+            claro_mail_user( $platformAdminList, $mailBody, $mailSubject);
+                                                          
             $args['courseSysCode'] = $courseSysCode;
             $args['courseDbName'] = $courseDbName;
             $args['courseDirectory'] = $courseDirectory; 
             $args['courseCategory']	= $courseCategory;
             
             //$eventNotifier->notifyEvent("course_created",$args);
+      }
+      else
+      {
+           $lastFailure = claro_failure::get_last_failure();
+           switch ($lastFailure )
+           {
+               case 'READ_ONLY_SYSTEM_FILE' :
+               {
+                   $errorList['error'] = 'READ ONLY SYSTEM FILE';
+               } break;
+
+               default:
+               {
+                   $errorList['error'] = 'Error code : '. $lastFailure;
+               }
             }
-            else
-            {
-                $lastFailure = claro_failure::get_last_failure();
+            $display = DISP_COURSE_CREATION_FAILED;
 
-                switch ($lastFailure )
-                {
-                    case 'READ_ONLY_SYSTEM_FILE' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-
-                    default:
-                    {
-                        $errorList['error'] = 'Error code : '. $lastFailure;
-                    }
-                }
-                $display = DISP_COURSE_CREATION_FAILED;
-
-
-            }
+	   }
        return $courseSysCode;
     }
-/**
- * Copy a a file or a directory and its content to an other area
- *
- * @param  - $origDirPath (String) - the path of the directory to move
- * @param  - $destination (String) - the path of the new area
- * @param  - $delete (bool) - move or copy the file
- * @return - void no return !!
- */
-
-function import_claro_copy_file($sourcePath, $targetPath)
-{
-    $fileName = basename($sourcePath);
-
-    if ( is_file($sourcePath) )
-    {
-        return copy($sourcePath , $targetPath . '/' . $fileName);
-    }
-    elseif ( is_dir($sourcePath) )
-    {
-        // check to not copy the directory inside itself
-        
-        if ( ereg('^'.$sourcePath . '/', $targetPath . '/') ) return false;
-		
-        if(! file_exists($targetPath . '/' . $fileName)) if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
-
-        $dirHandle = opendir($sourcePath);
-
-        if ( ! $dirHandle ) return false;
+	/**
+	 * Copy a a file or a directory and its content to an other area
+	 *
+	 * @param  - $origDirPath (String) - the path of the directory to move
+	 * @param  - $destination (String) - the path of the new area
+	 * @param  - $delete (bool) - move or copy the file
+	 * @return - void no return !!
+	 */
 	
-        $copiableFileList = array();
+	function import_claro_copy_file($sourcePath, $targetPath)
+	{
+	    $fileName = basename($sourcePath);
+	
+	    if ( is_file($sourcePath) )
+	    {
+	        return copy($sourcePath , $targetPath . '/' . $fileName);
+	    }
+	    elseif ( is_dir($sourcePath) )
+	    {
+	        // check to not copy the directory inside itself
+	        
+	        if ( ereg('^'.$sourcePath . '/', $targetPath . '/') ) return false;
+			
+	        if(! file_exists($targetPath . '/' . $fileName)) if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
+	
+	        $dirHandle = opendir($sourcePath);
+	
+	        if ( ! $dirHandle ) return false;
+		
+	        $copiableFileList = array();
+	
+	        while ($element = readdir($dirHandle) )
+	        {
+	            if ( $element == '.' || $element == '..') continue;
+	
+	            $copiableFileList[] = $sourcePath . '/' . $element;
+	        }
+	
+	        closedir($dirHandle);
+	
+	        if ( count($copiableFileList) > 0 )
+	        {
+	            foreach($copiableFileList as $thisFile)
+	            {
+	                if ( ! import_claro_copy_file($thisFile, $targetPath . '/' . $fileName) ) return false;              
+	            }
+	        }
+	
+	        return true;
+	    } // end elseif is_dir()   
+	}
+	
+	
 
-        while ($element = readdir($dirHandle) )
-        {
-            if ( $element == '.' || $element == '..') continue;
 
-            $copiableFileList[] = $sourcePath . '/' . $element;
-        }
-
-        closedir($dirHandle);
-
-        if ( count($copiableFileList) > 0 )
-        {
-            foreach($copiableFileList as $thisFile)
-            {
-                if ( ! import_claro_copy_file($thisFile, $targetPath . '/' . $fileName) ) return false;              
-            }
-        }
-
-        return true;
-    } // end elseif is_dir()
-}
 ?>

@@ -24,16 +24,22 @@ require_once $includePath . '/lib/export_zip.lib.php';
 if (!defined("EXPORT_PATH")) define('EXPORT_PATH', 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\claroline\export');
 
 
-
-
 function get_tool_path($toolId)
 {
 	return '';
 }
-/**
- * export data of a tool
- * 
+/**  
+ * Based on the tool id, this function find the adequate export function
+ * If there is no specified export function for the tool, we use the export generic function
+ *  
  * @see http://www.claroline.net/wiki/index.php/Plugin_system_modelisation#Module_Class
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * 
+ * @param  string  $toolId  
+ * @param  string  $course_id
+ * @param  string  $groupId     - can be used as parameter for some function    
+ * 
+ * @return false if a problem occured, true if not.  
  * 
  */     	  	
 function export_data_tool($toolId,$courseId=null,$groupId=null)
@@ -50,17 +56,31 @@ function export_data_tool($toolId,$courseId=null,$groupId=null)
 			echo 'appel de ' . $exportFuncName . '<BR />';
 			call_user_func($exportFuncName,$courseId,$groupId);
 		}					
-		else {export_generic_data_tool($courseId,$toolId);echo "essai".$toolId." ".$exportLib."<br>";}
+		else {export_generic_data_tool($courseId,$toolId);}
 	}	
-	else {export_generic_data_tool($courseId,$toolId);echo "essai".$toolId." ".$exportLib."<br>";}
+	else {export_generic_data_tool($courseId,$toolId);}
 	
 }
+/**  
+ * Manage the export of a course
+ * It exports ALL tools and document of a course
+ * and its meta data
+ * 
+ *   
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * 
+ * @param  string  $course_id 
+ * 
+ * @return false if a problem occured, true if not.  
+ * 
+ */     	
 function export_all_data_course_in_file($courseId=null)
 {
 	
 	if (is_null($courseId)) $courseId = $GLOBALS['_cid'];
 	if ('' != $courseId)
-	{		
+	{				
+		$toolList = import_get_course_tool_list($courseId);
 				
 		if(false === export_manifest($courseId))
 			return false;
@@ -69,58 +89,77 @@ function export_all_data_course_in_file($courseId=null)
 		if(false === export_group($courseId))
 			return false;
 		if(false === export_users($courseId))
-			return false;		
-		
-		/*
-        // export course tools
-        $courseToolList = get_courseToolList($courseId); 
-        foreach($courseToolList as $courseTool)
-        {
-        	export_data_tool($courseTool,$courseId);				
-        }
-        // export group tools
-        $groupList = get_groupList($courseId); 
-        foreach($groupList as $group)
-        {
-	    	$courseToolList = get_courseGroupToolList($courseId,$group); 
-            foreach($courseGroupToolList as $courseGroupTool)
-	        {
-	        	export_data_tool($courseGroupTool,$courseId, $group);				
-	        }
-        }
-		*/
-		if(false === export_data_tool('CLCAL',$courseId))	
-			return false;					
-		if(false === export_data_tool('CLCHT',$courseId))
-			return false;		
-		if(false === export_data_tool('CLANN',$courseId))
-			return false;		
-		//export_data_tool('CLQWZ',$courseId);				
-		if(false === export_data_tool('CLDOC',$courseId))
-			return false;		
-		if(false === export_data_tool('CLLNK',$courseId))
-			return false;						
-		if(false === export_data_tool('CLLNP',$courseId))
-			return false;			
-		if(false === export_data_tool('CLWIKI',$courseId))
-			return false;						
-		if(false === export_data_tool('CLUSR',$courseId))
-			return false;		
-		if(false === export_data_tool('CLFRM',$courseId))
-			return false;						
-		if(false === export_data_tool('CLDSC',$courseId))
-			return false;		
-		if(false === export_data_tool('CLWRK',$courseId))
 			return false;						
 		
-		if (false == compress_directory(EXPORT_PATH."/".$courseId."/"))
+		foreach($toolList[0] as $toolId)
+		{			
+			if(false === export_data_tool($toolId,$courseId))	
 			return false;
-		if (false == claro_delete_file(EXPORT_PATH."/".$courseId))		
-			return claro_failure::set_failure("can't delete dir");				
+		}						
+		
+		if (false == compress_directory(EXPORT_PATH.$courseId."/"))
+			return false;
+						
+		if (false == claro_delete_file(EXPORT_PATH.$courseId))		
+				return claro_failure::set_failure("can't delete dir");				
 
 		return true;
 	} else return claro_failure :: set_failure("invalid course id");
 }
+/**  
+ * Get the tool list of this course 
+ * for the course and for the group
+ * and put it into an array
+ * 
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ *  
+ * @param  string  $course_id    
+ * 
+ * @return false if a problem occured, the array if not.  
+ * 
+ */     	
+function export_get_course_tool_list($courseId)
+{
+	/*
+	 * IMPORTANT NOTE : THIS FUNCTION WILL REQUIRE MODIFICATIONS
+	 * 
+	 * at this time those lines are written, the correct function cant be written
+	 * The acutel claroline devloppement version is not enough complete for that 
+	 */
+	$tab[0][0] = "CLANN";
+	$tab[0][1] = "CLFRM";
+	$tab[0][2] = "CLCAL";
+	$tab[0][3] = "CLLNP";
+	$tab[0][4] = "CLWIKI";
+	$tab[0][5] = "CLDSC";
+	$tab[0][6] = "CLDOC";
+	$tab[0][7] = "CLWRK";
+	$tab[0][8] = "CLLNK";
+	$tab[0][8] = "CLCHT";	
+	
+	$tbl = read_group_team_from_db($courseId);
+	foreach ($tbl as $group)
+	{
+		$tab[$group['id']][0] = "CLCHT";
+		$tab[$group['id']][1] = "CLWIKI";
+		$tab[$group['id']][2] = "CLFRM";
+		$tab[$group['id']][3] = "CLDOC";
+	}
+
+	return $tab;
+}
+/**  
+ * Export a tool into a xml file (for the db data) and a zip file (for the document file) 
+ * and put it in the temporary directory 
+ *  
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ *  
+ * @param  string  $course_id    
+ * @param  string  $tool_id
+ * 
+ * @return false if a problem occured, the array if not.  
+ * 
+ */     	
 function export_generic_data_tool($course_id,$tool_id)
 {
 	$tmp = getTablesList($course_id,$tool_id);
@@ -151,16 +190,20 @@ function export_generic_data_tool($course_id,$tool_id)
 	else return false;
 	
 }
-function essai($courseId,$tool_id)
-{
-	export_generic_data_tool($courseId,$tool_id);
-	if (false == compress_directory(EXPORT_PATH."/".$courseId))
-		return false;
-	if (false == claro_delete_file(EXPORT_PATH."/".$courseId))		
-		return claro_failure::set_failure("can't delete dir");				
 
-	return true;	
-}
+/**  
+ * Export all informations about a tool into a dom object 
+ * Not only the db data but also other information, like the create table sql code of the tables
+ *   
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  array   $tablesContent  - the db data of the tool
+ * @param  string  $course_id    
+ * @param  string  $tool_id
+ * @param  string  $prefix		   - prefix of the tool tables, this will be usefull for the import
+ * 
+ * @return false if a problem occured, the dom object if not.  
+ * 
+ */     
 function export_generic_data_in_dom($tablesContent,$course_id,$tool_id,$prefix)
 {
 	$dom = domxml_new_doc('1.0');
@@ -201,13 +244,47 @@ function export_generic_data_in_dom($tablesContent,$course_id,$tool_id,$prefix)
 	}
 	return $dom;	
 }
+
+
+/**  
+ * Select all from a table 
+ * 
+ *   
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ *
+ *  @param  array  $tableName    
+ * 
+ * @return the result of the query  
+ * 
+ */     
 function selectAllFromTable($tableName)
 {
 	$sql = "SELECT * FROM `".$tableName."`";
 	return claro_sql_query_fetch_all($sql);
 }
+
+/**  
+ * Select all from a table 
+ *   
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ *
+ * @param  array  $course_id    
+ * @param  array  $tool_id
+ * 
+ * @return the result of the query  
+ * 
+ */    
 function getTablesList($course_id,$tool_id)
 {
+	/*
+	 * IMPORTANT NOTE : THIS FUNCTION WILL NEED TO BE REWRITTEN
+	 * 
+	 * at the moment where these lines are written, the claroline devloppement version miss some functions to 
+	 * complete this function
+	 * 
+	 * for now, this function return all tables of a course
+	 * 
+	 */
 	$tab = array();
 	$tab["cid"] = $course_id;
 	$tab["tid"] = $tool_id;
@@ -269,8 +346,7 @@ function export_manifest($course_id)
 	$tbl['course'] = read_course_from_db($course_id);
 	$tbl['group_team'] = read_group_team_from_db($course_id);
 	$tbl['group_property'] = read_group_property_from_db($course_id);
-	$tbl['users'] = read_users_from_db($course_id);
-	$tbl['toolsInfo'] = read_toolInfos_from_db($course_id);
+	$tbl['users'] = read_users_from_db($course_id);	
 	
 	$dom = export_manifest_in_dom($tbl, $course_id);
 	if (false !== $dom)
@@ -394,50 +470,6 @@ function export_users_in_dom($tbl, $course_id)
 		claro_mkdir(EXPORT_PATH."/".$course_id);
 
 	return $dom;
-}
-/**
- * 
- * Count the records in db of each tool and return the result
- * This is used to inform the user what information contains the zip.file about the course tools
- * and help him to chose what to import.  
- * 
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return the array  
- */
-function read_toolInfos_from_db($course_id)
-{
-	$tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-	
-	$sql = "SELECT count(id) FROM `".$tbl['announcement']."`";
-	$result['announcement'] = claro_sql_query_fetch_all($sql);
-	
-	$sql = "SELECT count(forum_id) FROM `".$tbl['bb_forums']."` WHERE group_id = 0";
-	$result['forums'] = claro_sql_query_fetch_all($sql);
-	
-	$sql = "SELECT count(id) FROM `".$tbl['wiki_properties']."` WHERE group_id = 'null' ";
-	$result['wiki'] = claro_sql_query_fetch_all($sql);
-	
-	$sql = "SELECT count(id) FROM `".$tbl['calendar_event']."`";
-	$result['calendar'] = claro_sql_query_fetch_all($sql);
-	
-/*	$sql = "SELECT count(t.id),count(a.id),count(q.id) FROM `".$tbl['quiz_test']."` as t,`".$tbl['quiz_answer']."` as a,`".$tbl['quiz_question']."` as q";
-	$result['quiz'] = claro_sql_query_fetch_all($sql);
-	*/
-	$sql = "SELECT count(m.module_id),count(l.learnPath_id) FROM`".$tbl['lp_module']."` as m,`".$tbl['lp_learnPath']."` as l ";
-	$result['lp'] = claro_sql_query_fetch_all($sql);
-	
-	$sql = "SELECT count(id) FROM `".$tbl['document']."`";
-	$result['document'] = claro_sql_query_fetch_all($sql);
-	
-	$sql = "SELECT count(id) FROM `".$tbl['tool']."`";
-	$result['tool'] = claro_sql_query_fetch_all($sql);
-	
-	$sql = "SELECT count(a.id),count(s.id) FROM `".$tbl['wrk_assignment']."` as a,`".$tbl['wrk_submission']."` as s";
-	$result['work'] = claro_sql_query_fetch_all($sql);
-	
-	return $result;
-	
 }
 /**
  * 
@@ -585,38 +617,17 @@ function export_manifest_in_dom($tbl, $course_id)
 	}
 	
 	$tool = $manifest->append_child($dom->create_element('toolsInfo'));
-
-	if (is_array($tbl['toolsInfo']) && (count($tbl['toolsInfo']) > 0))
+	$groupToolList = import_get_course_tool_list($course_id);
+	foreach ($groupToolList as $id => $toolList)
 	{
-		$info = $tbl['toolsInfo'] ;
-		$announcement = $tool->append_child($dom->create_element('announcement_records'));
-		$announcement->append_child($dom->create_text_node($info['announcement'][0]['count(id)']));
-		$forum = $tool->append_child($dom->create_element('forum_records'));
-		$forum->append_child($dom->create_text_node($info['forums'][0]['count(forum_id)']));
-		$wiki = $tool->append_child($dom->create_element('wiki_records'));
-		$wiki->append_child($dom->create_text_node($info['wiki'][0]['count(id)']));
-		$calendar = $tool->append_child($dom->create_element('calendar_records'));
-		$calendar->append_child($dom->create_text_node($info['calendar'][0]['count(id)']));
-//		$quiz = $tool->append_child($dom->create_element('quiz_question_records'));
-	//	$quiz->append_child($dom->create_text_node($info['quiz'][0]['count(q.id)']));
-	//	$quiz = $tool->append_child($dom->create_element('quiz_answer_records'));
-	//	$quiz->append_child($dom->create_text_node($info['quiz'][0]['count(a.id)']));
-	//	$quiz = $tool->append_child($dom->create_element('quiz_test_records'));
-	//	$quiz->append_child($dom->create_text_node($info['quiz'][0]['count(t.id)']));		
-		$lp = $tool->append_child($dom->create_element('learnpath_module_records'));
-		$lp->append_child($dom->create_text_node($info['lp'][0]['count(m.module_id)']));
-		$lp = $tool->append_child($dom->create_element('learnpath_learnpath_records'));
-		$lp->append_child($dom->create_text_node($info['lp'][0]['count(l.learnPath_id)']));
-		$document = $tool->append_child($dom->create_element('document_records'));
-		$document->append_child($dom->create_text_node($info['document'][0]['count(id)']));
-		$tools = $tool->append_child($dom->create_element('tool_records'));
-		$tools->append_child($dom->create_text_node($info['tool'][0]['count(id)']));
-		$work = $tool->append_child($dom->create_element('work_assignment_records'));
-		$work->append_child($dom->create_text_node($info['work'][0]['count(a.id)']));
-		$work = $tool->append_child($dom->create_element('work_submission_records'));
-		$work->append_child($dom->create_text_node($info['work'][0]['count(s.id)']));
+		$groupInfo = $tool->append_child($dom->create_element("group"));
+		$groupInfo->set_attribute("id",$id);
+		foreach ($toolList as $tool_id)
+		{			
+			$toolInfo = $groupInfo->append_child($dom->create_element("tool"));					
+			$toolInfo->append_child($dom->create_text_node($tool_id));
+		}		
 	}
-	
 	$course = $manifest->append_child($dom->create_element('plateform'));	
 	$plateform = $course->append_child($dom->create_element('plateform_id'));
 	$plateform->append_child($dom->create_text_node(get_conf('platform_id')));
@@ -840,6 +851,7 @@ function read_tool_list_from_db($course_id)
 							script_name,
 							addedTool
 			FROM `".$tbl['tool']."`";
+						
 	return claro_sql_query_fetch_all($sql);
 }
 
