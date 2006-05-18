@@ -834,7 +834,7 @@ function generate_module_cache()
              WHERE M.`activation` = 'activated'";
     $module_list = claro_sql_query_fetch_all($sql);
 
-    if (is_writable($includePath)) $handle = fopen($includePath.$module_cache_filename,'w');
+    if (is_writable($includePath)) $handle = fopen($includePath . $module_cache_filename,'w');
     else                           trigger_error('ERROR: directory is not writable',E_USER_NOTICE);
 
     fwrite($handle, '<?php '."\n");
@@ -1084,7 +1084,7 @@ function readModuleManifest($modulePath)
 
     //display debug info
 
-    if (get_conf('CLARO_DEBUG_MODE'))
+    if (get_conf('CLARO_DEBUG_MODE',false) )
     {
         // array_push ($backlog_message, '<PRE>' . htmlentities( implode("", file($file))) . '</pre>');
         foreach ($module_info as $key => $info)
