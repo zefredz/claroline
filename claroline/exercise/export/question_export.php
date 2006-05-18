@@ -172,99 +172,6 @@ class ImsItem
 
 
 
-/**
- * This class represents a Fill In the Blanks question to be exported as IMS/QTI.
- *
- * @note Has been validated against the DTD but is not supported by Qplayer.
- * @author Amand Tihon <amand@alrj.org>
- */
-class ImsFIB extends ImsItem
-{
-    var $word;
-    var $weighting;
-    
-    /**
-     * Export the text with missing words.
-     *
-     * As a side effect, it stores two lists in the class :
-     * the missing words and their respective weightings.
-     *
-     * @author Amand Tihon <amand@alrj.org>
-     */
-    function export_responses()
-    {
-        global $charset;
-    
-        $out = "<flow>\n";
-        
-        // Separate the text from the weightings.
-        list($response, $weighting) = explode('::', $this->answer->selectAnswer(1));
-        
-        // Save the weightings for later
-        $this->weighting = explode(',',$weighting);
-
-        $responsePart = explode(']', $response);
-        $i = 0; // Used for the reference generation.
-        foreach($responsePart as $part)
-        {
-            $response_ident = $this->question_ident . "_A_" . $i;
-        
-            if( strpos($part,'[') !== false )
-            {
-                list($rawText, $blank) = explode('[', $part);
-            }
-            else
-            {
-                $rawText = $part;
-                $blank = "";
-            }
-
-            if ($rawText!="")
-            {
-                $out.="  <material><mattext><![CDATA[" . $rawText . "]]></mattext></material>\n";
-            }
-            
-            if ($blank!="")
-            {
-                $this->word[] = $blank;
-                $out.= '  <response_str ident="' . $response_ident . '" rcardinality="Single" rtiming="No">' . "\n"
-                     . '    <render_fib fibtype="String" prompt="Box" encoding="' . $charset . '">' . "\n"
-                     . '      <response_label ident="A"/>' . "\n"
-                     . "     </render_fib>\n"
-                     . "  </response_str>\n";
-            }
-            $i++;
-        }
-        $out.="</flow>\n";
-
-        return $out;
-        
-    }
-    
-    /**
-     * Exports the response processing.
-     *
-     * It uses the two lists build by export_responses(). This implies that export_responses MUST
-     * be called before.
-     *
-     * @author Amand Tihon <amand@alrj.org>
-     */
-    function export_processing()
-    {
-        $out = "";
-        
-        for ($i=0; $i < count($this->word); $i++)
-        {
-            $response_ident = $this->question_ident . "_A_" . $i;
-            $out.= '  <respcondition continue="Yes"><conditionvar>' . "\n"
-                 . '    <varequal respident="' . $response_ident . '" case="No"><![CDATA[' . $this->word[$i] . ']]></varequal>' . "\n"
-                 . '  </conditionvar><setvar action="Add">' . $this->weighting[$i] . "</setvar>\n"
-                 . "  </respcondition>\n";
-        }
-        return $out;
-    }
-
-}
 
 /*--------------------------------------------------------
       Functions
@@ -285,7 +192,7 @@ function export_question($questionId, $standalone=True)
         return '';
     }
     
-    $ims = new ImsSingle($question);
+    $ims = new ImsItem($question);
     
     return $ims->export($standalone);
 
