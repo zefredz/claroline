@@ -598,6 +598,9 @@ class Question
 		return $this->questionDirWeb;	
 	}
 	
+	/**
+	 * Include the correct answer class and create answer
+	 */
 	function setAnswer()
 	{
 		$path = dirname(__FILE__);
