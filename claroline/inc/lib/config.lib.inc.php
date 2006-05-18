@@ -1133,8 +1133,16 @@ class Config
                     {
                         // skip file with wrong extension
                         $ext = strrchr($elt, '.');
-                        if ( is_array($elt_extension) && ! in_array(strtolower($ext),$elt_extension) ) continue;
+
+                        if ( is_array($elt_extension) )
+                        {
+                            if ( ! in_array(strtolower($ext),$elt_extension) )
+                            continue;
+                        }
                         elseif ( strtolower($ext) != $elt_extension ) continue;
+
+
+
                     }
                 }
 
