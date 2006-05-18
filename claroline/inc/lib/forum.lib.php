@@ -624,9 +624,8 @@ function trig_topic_notification($topicId)
 
 function disp_confirmation_message ($message, $forumId = false, $topicId = false)
 {
-    global $tablewidth;
 
-    echo '<table border="0" align="center" width="' . $tablewidth . '">' . "\n"
+    echo '<table border="0" align="center" ">' . "\n"
        . '<tr>' . "\n"
        . '<td>' . "\n"
        . '<center>' . "\n"
@@ -902,8 +901,6 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             if ( claro_is_allowed_to_edit() )
             {
-                if ( $cat_id > 0 ) $toAdd = '?forumgo=yes&amp;cat_id=' . $cat_id;
-                else               $toAdd = '';
 
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkCat">'
                           .  get_lang('Create category')
