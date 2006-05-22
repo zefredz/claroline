@@ -13,6 +13,25 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
+/*
+
+CAS stands for 'Central Authentication Service' and is Single sign On (SSO) 
+system originally developed by the Yale University. SSO is an authentication 
+process enabling user to authenticate once and gain access to multiple systems. 
+For example, once authenticated in the library catalog, students don't have to 
+re-enter their password to access their Claroline courses or their web mail.
+
+The CAS system of Claroline is based on the free phpCAS library available at 
+http://esup-phpcas.sourceforge.net .
+
+IMPORTANT NOTE. CAS system only achieves user authentication, and doesn't permit 
+to retrieve additional user information like name, surname or e-mail address. 
+To get this information available on Claroline, you have to record them 
+previously in the Claroline 'user' table.
+
+ */
+
+
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
 
 if (   ! isset($_SESSION['init_CasCheckinDone'] )
