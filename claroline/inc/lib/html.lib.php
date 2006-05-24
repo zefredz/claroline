@@ -207,6 +207,22 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
     if ( is_array($titlePart) ) $titleElement = $titlePart;
     else                        $titleElement['mainTitle'] = $titlePart;
 
+
+    if ( isset($titleElement['supraTitle']) )
+    {
+        $stringPart[] = '<small>' . $titleElement['supraTitle'] . '</small>';
+    }
+
+    if ( isset($titleElement['mainTitle']) )
+    {
+        $stringPart[] = $titleElement['mainTitle'];
+    }
+
+    if ( isset($titleElement['subTitle']) )
+    {
+        $stringPart[] = '<small>' . $titleElement['subTitle'] . '</small>';
+    }
+
     $string = "\n" . '<h3 class="claroToolTitle">' . "\n";
 
     if ($helpUrl)
@@ -224,22 +240,9 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
         ;
     }
 
-    if ( isset($titleElement['supraTitle']) )
-    {
-        $string .= '<small>' . $titleElement['supraTitle'] . '</small><br />' . "\n";
-    }
-
-    if ( isset($titleElement['mainTitle']) )
-    {
-        $string .= $titleElement['mainTitle'] . "\n";
-    }
-
-    if ( isset($titleElement['subTitle']) )
-    {
-        $string .= '<br /><small>' . $titleElement['subTitle'] . '</small>' . "\n";
-    }
-
-    $string .= '</h3>'."\n\n";
+    $string .= implode('<br />' . "\n",$stringPart)
+    .          '</h3>' . "\n\n"
+    ;
 
     return $string;
 }
