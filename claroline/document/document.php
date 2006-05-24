@@ -174,7 +174,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
      * size set in php.ini, all variables from POST are cleared !
      */
 
-    if ($cmd == 'exUpload')
+    if ('exUpload' == $cmd)
     {
         if( ! isset( $_FILES['userFile'] ) )
         {
@@ -376,7 +376,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                            UPLOAD RELATED IMAGE FILES
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-    if ($cmd == 'submitImage')
+    if ('submitImage' == $cmd )
     {
 
         $uploadImgFileNb = sizeof($_FILES['imgFile']);
@@ -427,7 +427,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     $htmlContentFooter = '</body></html>';
 
-    if ($cmd == 'exMkHtml')
+    if ('exMkHtml' == $cmd)
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
         $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
@@ -478,7 +478,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                              EDIT DOCUMENT CONTENT
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-    if ($cmd == 'exEditHtml')
+    if ('exEditHtml' == $cmd)
     {
         $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
         $fp = fopen($baseWorkDir.$_REQUEST['file'], 'w');
@@ -510,7 +510,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                               CREATE URL : STEP 2
     --------------------------------------------------------------------------*/
 
-    if ($cmd == 'exMkUrl')
+    if ( 'exMkUrl' == $cmd )
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
         $url = trim($_REQUEST['url']);
@@ -550,7 +550,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                               CREATE URL : STEP 1
     --------------------------------------------------------------------------*/
 
-    if ($cmd == 'rqMkUrl')
+    if ('rqMkUrl' == $cmd )
     {
         $dialogBox .= "<h4>".get_lang("Create hyperlink")."</h4>\n"
                      ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
@@ -588,7 +588,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                         MOVE FILE OR DIRECTORY : STEP 2
     --------------------------------------------------------------------------*/
 
-    if ($cmd == 'exMv')
+    if ('exMv' == $cmd )
     {
         $_REQUEST['file'       ] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file'       ]);
         $_REQUEST['destination'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['destination']);
@@ -633,7 +633,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                         MOVE FILE OR DIRECTORY : STEP 1
     --------------------------------------------------------------------------*/
 
-    if ($cmd == 'rqMv')
+    if ('rqMv' == $cmd )
     {
         $dialogBox .= form_dir_list($_REQUEST['file'], $baseWorkDir);
     }
@@ -645,7 +645,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 
-    if ($cmd == 'exRm')
+    if ('exRm' == $cmd )
     {
         $file = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
 
@@ -683,7 +683,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                                  EDIT : STEP 2
       ------------------------------------------------------------------------*/
 
-    if ($cmd == 'exEdit')
+    if ('exEdit' == $cmd )
     {
         if ( isset($_REQUEST['url']))
         {
@@ -757,7 +757,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             /* return to step 1 */
 
-            $cmd   = 'rqEdit';
+            $cmd = 'rqEdit';
         }
     }
 
@@ -766,7 +766,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                                  EDIT : STEP 1
     -------------------------------------------------------------------------*/
 
-    if ($cmd == 'rqEdit')
+    if ('rqEdit' == $cmd )
     {
         $fileName = basename($_REQUEST['file']);
 
@@ -850,7 +850,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                                      STEP 2
       ------------------------------------------------------------------------*/
 
-    if ($cmd == 'exMkDir')
+    if ('exMkDir' == $cmd )
     {
         $newDirName = replace_dangerous_char(trim($_REQUEST['newName']));
 
@@ -881,7 +881,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                                      STEP 1
       ------------------------------------------------------------------------*/
 
-    if ($cmd == 'rqMkDir')
+    if ('rqMkDir' == $cmd )
     {
         $dialogBox .= "<form>\n"
                       ."<input type=\"hidden\" name=\"cmd\" value=\"exMkDir\">\n"
@@ -905,7 +905,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                               VISIBILITY COMMANDS
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-    if ($cmd == 'exChVis' && $courseContext)
+    if ('exChVis'  == $cmd && $courseContext)
     {
         $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
 
@@ -928,7 +928,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
 
 
-if ($cmd == 'rqSearch')
+if ('rqSearch' == $cmd )
 {
     $searchMsg = empty($_REQUEST['cwd']) ? get_lang("Search")." :" : get_lang("Search in ").$_REQUEST['cwd']." :" ;
     $dialogBox .=     "<form>\n"
@@ -943,7 +943,7 @@ if ($cmd == 'rqSearch')
                     ."</form>\n";
 }
 
-if ($cmd == 'exDownload')
+if ('exDownload' == $cmd )
 {
     /*
      * PREPARE THE FILE COLLECTION
@@ -1021,7 +1021,7 @@ if ($cmd == 'exDownload')
     }
     else
     {
-    	$dialogBox .= get_lang("Unable to create zip file");
+        $dialogBox .= get_lang("Unable to create zip file");
     }
 }
 
