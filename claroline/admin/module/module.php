@@ -29,20 +29,6 @@ $tbl_module      = $tbl_name['module'];
 $tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
 
-$dockList   = array();
-$dockList[] = "campusBannerLeft";
-$dockList[] = "campusBannerRight";
-$dockList[] = "userBannerLeft";
-$dockList[] = "userBannerRight";
-$dockList[] = "courseBannerLeft";
-$dockList[] = "courseBannerRight";
-$dockList[] = "homePageCenter";
-$dockList[] = "campusHomePageBottom";
-$dockList[] = "homePageRightMenu";
-$dockList[] = "campusFooterCenter";
-$dockList[] = "campusFooterLeft";
-$dockList[] = "campusFooterRight";
-
 //NEEDED LIBRAIRIES
 
 include_once(dirname(__FILE__) . '/module.inc.php');
@@ -58,65 +44,52 @@ $nameTools = get_lang('Module settings');
 //----------------------------------
 
 $cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : null);
-$module_id = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
+$moduleId = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
+$module = get_module_info($moduleId);
+$dockList = get_dock_list($module['type']);
+
 
 switch ( $cmd )
 {
     case 'activ' :
     {
-        activate_module($module_id);
+        activate_module($moduleId);
     }
     break;
 
     case 'desactiv' :
-    {
-        desactivate_module($module_id);
-    }
-    break;
+        desactivate_module($moduleId);
+        break;
 
     case 'movedock' :
-    {
-        foreach ($dockList as $thedock)
+        if(is_array($dockList))
         {
-
-            if (isset($_REQUEST[$thedock]))
+            foreach ($dockList as $thedock)
             {
-                add_module_in_dock($module_id, $thedock);
+                if (isset($_REQUEST[$thedock]))
+                {
+                    add_module_in_dock($moduleId, $thedock);
+                }
+                else
+                {
+                    remove_module_dock($moduleId, $thedock);
+                }
             }
-            else
-            {
-                remove_module_dock($module_id,$thedock);
-            }
+            $dialogBox = get_lang('Changes in the display of the module have been applied');
         }
-        $dialogBox = get_lang('Changes in the display of the module have been applied');
-    }
-    break;
+        break;
 }
 
-//----------------------------------
-// Find info needed for display
-//----------------------------------
 
-$sql = "SELECT M.`label`      AS label,
-               M.`id`         AS id,
-               M.`name`       AS `module_name`,
-               M.`activation` AS `activation`,
-               M.`type`       AS type,
-               MI.*
-        FROM `" . $tbl_module      . "` AS M
-           , `" . $tbl_module_info . "` AS MI
-        WHERE  M.`id` = MI . `module_id`
-        AND    M.`id` = " . (int) $module_id;
-
-$module = claro_sql_query_get_single_row($sql);
 
 $sql = "SELECT `name` AS `dockname`
         FROM `" . $tbl_dock        . "`
-        WHERE `module_id` = " . (int) $module_id;
+        WHERE `module_id` = " . (int) $moduleId;
 
 $module_dock = claro_sql_query_fetch_all($sql);
 
 //create an array with only dock names
+
 
 $dock_checked = array();
 
@@ -139,43 +112,53 @@ echo claro_html_tool_title($nameTools . ' : ' . $module['module_name']);
 
 if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-?>
 
-<h4> Description</h4>
-
-<p><?php echo $module['description'];?></p>
-
-<table name="main">
-<tr valign="top">
-<td>
-
-<table>
-  <tr>
-   <td colspan="2">
-     <h4> <?php echo get_lang('General Informations'); ?></h4>
-   </td>
-  </tr>
-
-  <tr>
-    <td align="right"><?php echo get_lang('Id'); ?> : </td>
-    <td><?php echo $module['module_id'];?></td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo get_lang('Icon'); ?> : </td>
-    <td>
-    <?php
-    if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+    if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/img/' . $module['icon']))
     {
-        echo '<img src="' . get_conf('rootWeb') . 'claroline/module/' . $module['label'] . '/icon.png" />';
+        $icon = '<img src="' . get_module_url($module['label']) . '/img/' . $module['icon'] . '" />';
+
+    }
+    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+    {
+        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
     }
     elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
     {
-        echo '<img src="' . get_conf('rootWeb') . 'claroline/module/'.$module['label'] . '/icon.gif" />';
+        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.gif" />';
+
     }
-    else
-    {
-        echo '<small>'.get_lang('No icon').'</small>';
-    }
+    else $icon = '<small>' . get_lang('No icon') . '</small>';
+
+echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
+.    '<p>'
+.    $module['description']
+.    '</p>' . "\n"
+.    '<table name="main">' . "\n"
+.    '<tr valign="top">' . "\n"
+.    '<td>' . "\n"
+.    '<table>' . "\n"
+.    '<tr>' . "\n"
+.    '<td colspan="2">' . "\n"
+.    claro_html_tool_title(array('subTitle' => get_lang('General Informations'))) . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . "\n"
+.    get_lang('Id') . "\n"
+.    ': </td>' . "\n"
+.    '<td>'
+.    $module['module_id'] . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">'
+.    get_lang('Icon')
+.    ' : </td>' . "\n"
+.    '<td>' . "\n"
+;
+
+    echo $icon;
+
     ?>
     </td>
   </tr>
@@ -209,13 +192,11 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
   </tr>
 </table>
 </td>
-
 <td>
 <table>
-
   <tr>
    <td colspan="2">
-     <h4>Settings</h4>
+   <?php echo claro_html_tool_title(array('subTitle' => get_lang('Settings'))) . "\n" ?>
    </td>
   </tr>
 
@@ -225,14 +206,14 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
   //Activation form
 
-  if ("activated" == $module['activation'] )
+  if ('activated' == $module['activation'] )
   {
-      $activ_form  = "desactiv";
+      $activ_form  = 'desactiv';
       $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Desactivate").'</a></small>]';
   }
   else
   {
-      $activ_form  = "activ";
+      $activ_form  = 'activ';
       $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Activate").'</a></small>] | [<small><b>'.get_lang('Desactivated').'</b></small>]';
   }
 
@@ -251,13 +232,13 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
   .    '</tr>' . "\n"
   ;
 
-if ($module['type']=='coursetool')
+if ('coursetool' == $module['type'])
 {
     echo '<tr>' . "\n"
-  .    '<td>' . get_lang('Display') . ':</td>' . "\n"
-  .    '<td>' . get_lang('Course tool list') . '</td>' . "\n"
-  .    '</tr>'
-  ;
+    .    '<td>' . get_lang('Display') . ':</td>' . "\n"
+    .    '<td>' . get_lang('Course tool list') . '</td>' . "\n"
+    .    '</tr>'
+    ;
 }
 else
 {
@@ -268,7 +249,7 @@ else
     $isfirstline = get_lang('Display') . ' : ';
 
     //display each option
-
+    if (is_array($dockList))
     foreach ($dockList as $dock)
     {
 
@@ -297,12 +278,11 @@ else
     .    '</form>'
     ;
 }
-?>
 
-</table>
-</td>
-</tr>
-</table>
-<?php
+echo '</table>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
+;
 include $includePath . '/claro_init_footer.inc.php';
 ?>
