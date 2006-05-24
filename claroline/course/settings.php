@@ -278,6 +278,8 @@ $url_course_edit_tool_list = $clarolineRepositoryWeb . 'course/tools.php';
 $url_course_tracking = $clarolineRepositoryWeb . 'tracking/courseLog.php';
 $url_admin = $clarolineRepositoryWeb . 'admin/index.php';
 $url_course_delete = $clarolineRepositoryWeb . 'course/delete.php';
+$url_course_import = $clarolineRepositoryWeb . 'course/import.php';
+$url_course_export = $clarolineRepositoryWeb . 'course/export.php';
 $url_admin_course = $clarolineRepositoryWeb . 'admin/admincourses.php'. $toAdd ;
 
 $links[] = '<a class="claroCmd" href="' . $url_course . '">'
@@ -336,6 +338,29 @@ if ( get_conf('showLinkToDeleteThisCourse') )
     ;
 }
 
+// export course link
+
+if ( get_conf('showLinkToExportThisCourse',false) )
+{
+    $links[] = '<a class="claroCmd" href="' . $url_course_export . '" '
+    .          '   title="' . get_lang('Save the whole course website') . '">'
+    .          '<img src="' . $imgRepositoryWeb . 'export.gif" alt="" />'
+    .          get_lang('Backup')
+    .          '</a>'
+    ;
+}
+
+// import course link
+
+if ( get_conf('showLinkToImportThisCourse',false) )
+{
+    $links[] = '<a class="claroCmd" href="' . $url_course_import . '"'
+    .          '   title="' . get_lang('Import course data from an archive') . '>'
+    .          '<img src="' . $imgRepositoryWeb . 'import.gif" alt="" />'
+    .          get_lang('Import')
+    .          '</a>'
+    ;
+}
 
 // add link to course admin page
 
