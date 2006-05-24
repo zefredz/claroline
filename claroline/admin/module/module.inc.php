@@ -55,21 +55,21 @@ function get_module_repositories()
     $folder_array = array();
     if(file_exists($moduleRepositorySys))
     {
-    if (true === ($handle = opendir($moduleRepositorySys)))
-    {
-        while (false !== ($file = readdir($handle)))
+        if (true === ($handle = opendir($moduleRepositorySys)))
         {
-            // skip eventual files found at this place
-            if (!is_dir($moduleRepositorySys . $file) ) continue ;
+            while (false !== ($file = readdir($handle)))
+            {
+                // skip eventual files found at this place
+                if (!is_dir($moduleRepositorySys . $file) ) continue ;
 
-            // skip '.', '..' and 'CVS'
-            if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
+                // skip '.', '..' and 'CVS'
+                if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
 
-            $folder_array[] = $file;
+                $folder_array[] = $file;
+            }
         }
-    }
 
-    closedir($handle);
+        closedir($handle);
     }
     return $folder_array;
 }
@@ -376,7 +376,7 @@ function get_and_unzip_uploaded_package()
     //Check if the file is valid (not to big and exists)
 
     if( !isset($_FILES['uploadedModule'])
-     || !is_uploaded_file($_FILES['uploadedModule']['tmp_name']))
+    || !is_uploaded_file($_FILES['uploadedModule']['tmp_name']))
     {
         $backlog_message[] = get_lang('Problem with file upload');
     }
@@ -559,10 +559,12 @@ function uninstall_module($moduleId)
 
     // 2- delete related files and folders
 
-    $modulePath = $moduleRepositorySys.$module['label'];
+    $modulePath = $moduleRepositorySys . '/' . $module['label'];
 
-    claro_delete_file($modulePath);
-    array_push ($backlog_message, get_lang('<b>%dirname</b> has been deleted on the server',array('%dirname'=>$modulePath)));
+    if(claro_delete_file($modulePath))
+    $backlog_message[] = get_lang('<b>%dirname</b> has been deleted from file system',array('%dirname'=>$module['label']));
+    else
+    $backlog_message[] = get_lang('Error on deletion of <b>%dirname</b> of file system',array('%dirname'=>$module['label']));
 
     // 3- delete related entries in main DB
 
@@ -786,7 +788,7 @@ function elementData($parser,$data)
 
             $context = prev($element_pile);
             $parent = prev($element_pile);
-        break;
+            break;
 
         case 'DATABASE' : case 'FILE' :
 
@@ -1097,6 +1099,62 @@ function readModuleManifest($modulePath)
     xml_parser_free($xml_parser);
 
     return $module_info;
+
+}
+
+
+;
+
+function get_dock_list($moduleType,$context='ALL')
+{
+    $dockList   = array();
+    switch($moduleType)
+    {
+        case 'applet' :
+            $dockList[] = "campusBannerLeft";
+            $dockList[] = "campusBannerRight";
+            $dockList[] = "userBannerLeft";
+            $dockList[] = "userBannerRight";
+            $dockList[] = "courseBannerLeft";
+            $dockList[] = "courseBannerRight";
+            $dockList[] = "homePageCenter";
+            $dockList[] = "campusHomePageBottom";
+            $dockList[] = "homePageRightMenu";
+            $dockList[] = "campusFooterCenter";
+            $dockList[] = "campusFooterLeft";
+            $dockList[] = "campusFooterRight";
+            break;
+        case 'tool' :
+            $dockList[] = "selectBox";
+            $dockList[] = "commonToolList";
+            $dockList[] = "courseManageToolList";
+
+
+    }
+    return $dockList;
+}
+
+function get_module_info($moduleId)
+{
+
+    $tbl = claro_sql_get_tbl(array('module', 'module_info', 'module_tool'));
+
+    $sql = "SELECT M.`label`      AS label,
+               M.`id`         AS id,
+               M.`name`       AS `module_name`,
+               M.`activation` AS `activation`,
+               M.`type`       AS type,
+               MT.`icon`       AS icon,
+               MI.*
+        FROM `" . $tbl['module']      . "` AS M
+           , `" . $tbl['module_info'] . "` AS MI
+        LEFT JOIN `" . $tbl['module_tool'] . "` AS MT
+              ON MT.`module_id`= M.id
+
+        WHERE  M.`id` = MI . `module_id`
+        AND    M.`id` = " . (int) $moduleId;
+
+    return claro_sql_query_get_single_row($sql);
 
 }
 ?>
