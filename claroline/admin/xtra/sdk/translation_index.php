@@ -28,8 +28,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 // table
 
-$tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
-$tbl_used_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+$tbl_used_lang = '`' . get_conf('mainDbName') . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
+$tbl_used_translation =  '`' . get_conf('mainDbName') . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
 
 $sql1 = " select count(*) from " . $tbl_used_lang;
 $sql2 = " select count(*) from " . $tbl_used_translation;
