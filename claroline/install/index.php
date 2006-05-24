@@ -158,7 +158,7 @@ elseif($_REQUEST['cmdAdministrativeSetting'])
 }
 elseif($_REQUEST['cmdDoInstall'])
 {
-    $cmd=DISP_RUN_INSTALL_COMPLETE;
+    $cmd = DISP_RUN_INSTALL_COMPLETE;
 }
 
 
@@ -669,7 +669,7 @@ $htmlNextPrevButton = '<table width="100%">'  . "\n"
 .    '<td>'  . "\n"
 .    '</td>'  . "\n"
 .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
-.    ($stepPos!==false && ($stepPos+1 < count($panelSequence)) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="Next &gt; ">' :'')
+.    ($stepPos !== false && ($stepPos+1 < count($panelSequence)) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="Next &gt; ">' :'')
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '<tr>' . "\n"
