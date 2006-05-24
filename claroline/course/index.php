@@ -158,7 +158,7 @@ echo '<table border="0" cellspacing="10" cellpadding="10" width="100%">' . "\n"
 .    '<br />'
 ;
 
-if ($disp_edit_command) echo claro_html_menu_vertical_br($courseManageToolLinkList,  array('id'=>'adminToolList'));
+if ($disp_edit_command) echo claro_html_menu_vertical_br($courseManageToolLinkList,  array('id'=>'courseManageToolList'));
 
 if ( !is_null(get_init('_uid') )) echo '<br /><small><span class="item hot"> '. get_lang('denotes new items') . '</span></small>';
 
@@ -175,7 +175,7 @@ INTRODUCTION TEXT SECTION
 // the module id for course_home equal -1 (course_home is not a tool in tool_list)
 
 $moduleId = -1;
-$helpAddIntroText=get_block('blockIntroCourse');
+$helpAddIntroText = get_block('blockIntroCourse');
 include($includePath . '/introductionSection.inc.php');
 
 echo '</td>' . "\n"
