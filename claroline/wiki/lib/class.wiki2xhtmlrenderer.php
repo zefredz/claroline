@@ -85,6 +85,8 @@
             $this->setOpt( 'inline_html_allowed', 0 );
             // use macros
             $this->setOpt( 'active_macros', 1 );
+			// use tables
+			$this->setOpt( 'active_tables', 1 );
         }
         
         /**
@@ -202,6 +204,30 @@
                 $type = 'pre';
                 $line = $cap[1];
             }
+			# tables
+			elseif ($this->getOpt('active_tables'))
+			{
+				if ( preg_match('/^{\|$/', $line, $cap) )
+				{
+					$type = null;
+					$line = '<table class="wikiTable">';
+				}
+				elseif ( preg_match('/^\|}$/', $line, $cap) )
+				{
+					$type = null;
+					$line = '</table>';
+				}
+				elseif( preg_match('/^\|\|(.*)\|\|$/', $line, $cap) )
+				{
+					$type = null;
+					
+					$line = $this->__inlineWalk( $line );
+					
+					$line = preg_replace( '/^\|\|/', '<tr><td>', $line );
+					$line = preg_replace( '/\|\|$/', '</td></tr>', $line );
+					$line = preg_replace( '/\|/', '</td><td>', $line );
+				}
+			}
             # Paragraphe
             else
             {
