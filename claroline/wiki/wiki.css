@@ -30,6 +30,14 @@
 .wiki2xhtml a.wikiEdit{
     color: red;
 }
+
+.wikiTable {
+	border: silver solid 1px;
+}
+.wikiTable td {
+	border: black inset 1px;
+}
+
 .diff{
     font-family: monospace;
     padding: 5px;
