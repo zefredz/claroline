@@ -105,7 +105,7 @@ function dcToolBar(textarea,format,img_path)
 	
 	function addSpace(w)
 	{
-		s = document.createElement('span');
+		var s = document.createElement('span');
 		s.style.padding='0 '+w+'px 0 0';
 		s.appendChild(document.createTextNode(' '));
 		toolbar.appendChild(s);
@@ -153,7 +153,7 @@ function dcToolBar(textarea,format,img_path)
 	}
 	
 	function draw(msg) {
-		p = document.createElement('em');
+		var p = document.createElement('em');
 		p.style.display='block';
 		p.style.margin='-0.5em 0 0.5em 0';
 		p.appendChild(document.createTextNode(msg));
