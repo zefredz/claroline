@@ -32,7 +32,7 @@
 }
 
 .wikiTable {
-	border: silver solid 1px;
+	border: black outset 1px;
 }
 .wikiTable td {
 	border: black inset 1px;
