@@ -172,7 +172,7 @@ else
 
         if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
         {
-            if ( $_REQUEST['cmd'] == 'save')
+            if ( 'save' == $_REQUEST['cmd'] )
             {
                 if ( ! empty($_REQUEST['property']) )
                 {
