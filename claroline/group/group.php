@@ -114,7 +114,6 @@ if ( $is_allowedToManage )
     {
         $noQUERY_STRING = true;
         // require the forum library to create the related forums
-        require_once $includePath . '/lib/forum.lib.php';
 
         // For all Group forums, cat_id=1
 
