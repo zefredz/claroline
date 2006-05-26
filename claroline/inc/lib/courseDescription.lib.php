@@ -14,14 +14,12 @@
  *
  * @package CLDSC
  *
- * @todo move functions to a lib
- *
  */
 
 /**
  * get all the items
  *
- * @param $course_id string  glued dbName of the course to affect default: current course
+ * @param $courseId string  glued dbName of the course to affect default: current course
  *
  * @return array of arrays with data of the item
  *
@@ -29,24 +27,22 @@
  *
  */
 
-function course_description_get_item_list($course_id=NULL)
+function course_description_get_item_list($courseId=null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    $tbl = claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+
 
     $sql = "SELECT `id`, `title`, `content` , `visibility`
-            FROM `" . $tbl_course_description . "`
+            FROM `" . $tbl['course_description'] . "`
             ORDER BY `id`";
     return  claro_sql_query_fetch_all($sql);
 }
 
-
-
 /**
- * get the item of the given id.
+ * Get the item of the given id.
  *
  * @param $descId   integer id of the item to get
- * @param $course_id string  glued dbName of the course to affect default: current course
+ * @param $courseId string  glued dbName of the course to affect default: current course
  *
  * @return array with data of the item
  *
@@ -54,13 +50,12 @@ function course_description_get_item_list($course_id=NULL)
  *
 */
 
-function course_description_get_item($descId, $course_id=NULL)
+function course_description_get_item($descId, $courseId=null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    $tbl = claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
 
     $sql = 'SELECT `id`, `title`, `content`, `visibility`
-            FROM `' . $tbl_course_description . '`
+            FROM `' . $tbl['course_description'] . '`
             WHERE id = ' . (int) $descId ;
 
     $descItem = claro_sql_query_get_single_row($sql);
@@ -71,7 +66,7 @@ function course_description_get_item($descId, $course_id=NULL)
  * remove the item of the given id.
  *
  * @param $descId   integer id of the item to delete
- * @param $course_id string  glued dbName of the course to affect default: current course
+ * @param $courseId string  glued dbName of the course to affect default: current course
  *
  * @return result of query
  *
@@ -79,12 +74,11 @@ function course_description_get_item($descId, $course_id=NULL)
  *
  */
 
-function course_description_delete_item($descId, $course_id=Null)
+function course_description_delete_item($descId, $courseId=null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
 
-    $sql = 'DELETE FROM `' . $tbl_course_description . '`
+    $sql = 'DELETE FROM `' . $tbl['course_description'] . '`
             WHERE id = ' . (int) $descId;
 
     return  claro_sql_query($sql);
@@ -97,7 +91,7 @@ function course_description_delete_item($descId, $course_id=Null)
  * @param $descId       integer id of the item to update
  * @param $descTitle    string Title of the item
  * @param $descContent  string Content of the item
- * @param $course_id    string  glued dbName of the course to affect default: current course
+ * @param $courseId    string  glued dbName of the course to affect default: current course
  *
  * @return result of query
  *
@@ -105,12 +99,11 @@ function course_description_delete_item($descId, $course_id=Null)
  *
  */
 
-function course_description_set_item($descId , $descTitle , $descContent, $course_id=Null)
+function course_description_set_item($descId , $descTitle , $descContent, $courseId=null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
 
-    $sql = "UPDATE `" . $tbl_course_description."`
+    $sql = "UPDATE `" . $tbl['course_description']."`
                SET   `title`   = '" . addslashes($descTitle) . "',
                      `content` = '" . addslashes($descContent) . "',
                      `upDate`  = NOW()
@@ -127,40 +120,34 @@ function course_description_set_item($descId , $descTitle , $descContent, $cours
  * @param string $descTitle    Title of the item
  * @param string $descContent  Content of the item
  * @param int    $maxBloc      size of predefined set of blocs
- * @param string $course_id    glued dbName of the course to affect default: current course
+ * @param string $courseId    glued dbName of the course to affect default: current course
  *
  * @return integer id of the new item
  *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$course_id=Null)
+function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$courseId=null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
 
     if ( $descId < 0 )
     {
         $sql = "SELECT MAX(id)
-                FROM `" . $tbl_course_description . "` ";
+                FROM `" . $tbl['course_description'] . "` ";
         $maxId = claro_sql_query_get_single_value($sql);
-        $descId = max((int) $maxBloc,$maxId+1);
+        $descId = max( (int) $maxBloc, $maxId + 1);
     }
 
-    $sql ="INSERT INTO `" . $tbl_course_description . "`
+    $sql ="INSERT INTO `" . $tbl['course_description'] . "`
                SET   `title`   = '" . addslashes($descTitle  ) . "',
                      `content` = '" . addslashes($descContent) . "',
                      `upDate`  = NOW(),
                      `id` = " . (int) ($descId);
 
-    if (claro_sql_query($sql))
-    {
-        return (int) $descId;
-    }
-    else
-    {
-        return FALSE;
-    }
+    if (claro_sql_query($sql))return (int) $descId;
+    else                      return false;
+
 }
 
 /**
@@ -175,15 +162,14 @@ function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$c
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function course_description_visibility_item($descId, $cmd, $dbnameGlu=Null)
+function course_description_visibility_item($descId, $cmd, $courseId=null)
 {
-    $tbl_cdb_names           = claro_sql_get_course_tbl($dbnameGlu);
-    $tbl_course_description  = $tbl_cdb_names['course_description'];
+    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
 
     if ($cmd == 'mkShow')  $visibility = 'SHOW'; else $visibility = 'HIDE';
     if ($cmd == 'mkHide')  $visibility = 'HIDE'; else $visibility = 'SHOW';
 
-    $sql = "UPDATE `" . $tbl_course_description . "`
+    $sql = "UPDATE `" . $tbl['course_description'] . "`
                SET   `visibility`   = '" . $visibility . "'
                WHERE `id` = ". (int) $descId;
 
