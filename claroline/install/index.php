@@ -634,6 +634,8 @@ echo '<html>' . "\n"
 .    '<td valign="top" >' . "\n"
 ;
 
+
+// don't display stepping on last panel
 if (DISP_RUN_INSTALL_COMPLETE != $display )
 {
     echo '<br>' . "\n"
@@ -663,7 +665,8 @@ echo '</td>' . "\n"
 .    '<td>' . "\n"
 ;
 
-
+if (DISP_RUN_INSTALL_COMPLETE != $display )
+{
 $htmlNextPrevButton = '<table width="100%">'  . "\n"
 .    '<tr>'  . "\n"
 .    '<td>'  . "\n"
@@ -679,9 +682,13 @@ $htmlNextPrevButton = '<table width="100%">'  . "\n"
 .    '</tr>' . "\n"
 .    '</table>'
 ;
+}
+else $htmlNextPrevButton ='';
+
 
 foreach (array_keys($panelTitle) as $step )
     echo '<input type="hidden" name="stepStatus['.$step.']" value="' . $stepStatus[$step] . '">'                ."\n";
+
 echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
 .    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'">'                  ."\n"
 .    '<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
