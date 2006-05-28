@@ -418,19 +418,19 @@ if ( $runfillMainDb )
 {
     include_once($newIncludePath . 'lib/user.lib.php');
 
-    $user_data['lastname'] = $adminNameForm;
-    $user_data['firstname'] = $adminSurnameForm;
-    $user_data['username'] = $loginForm;
-    $user_data['password'] = $passForm;
-    $user_data['email'] = $adminEmailForm;
-    $user_data['language'] = '';
-    $user_data['status'] = 1; // COURSEMANAGER constant
-    $user_data['officialCode'] = '';
+    $user_data['lastname']      = $adminNameForm;
+    $user_data['firstname']     = $adminSurnameForm;
+    $user_data['username']      = $loginForm;
+    $user_data['password']      = $passForm;
+    $user_data['email']         = $adminEmailForm;
+    $user_data['language']      = '';
+    $user_data['status']        = 1; // COURSEMANAGER constant
+    $user_data['officialCode']  = '';
+    $user_data['officialEmail'] = '';
     $user_data['phone'] = $adminPhoneForm;
-
     $id_admin = user_create($user_data);
-
-    user_set_platform_admin(true, $id_admin);
+    if ($id_admin) user_set_platform_admin(true, $id_admin);
+    else echo 'error in admin account creation';
 }
 
 ?>
