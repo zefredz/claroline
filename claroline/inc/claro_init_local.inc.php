@@ -75,6 +75,7 @@
  * string  $_user ['firstName']
  * string  $_user ['lastName' ]
  * string  $_user ['mail'     ]
+ * string  $_user ['officialEmail'     ]
  * string  $_user ['lastLogin']
  *
  * boolean $is_platformAdmin
@@ -409,6 +410,7 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
             $sql = "SELECT `user`.`prenom`          AS firstName             ,
                            `user`.`nom`             AS lastName              ,
                            `user`.`email`           AS `mail`                ,
+                           `user`.`officialEmail`   AS `officialEmail`       ,
                            `user`.`language`                                  ,
                            (`user`.`statut` = 1)    AS is_allowedCreateCourse,
                             isPlatformAdmin         AS is_platformAdmin      ,
@@ -543,7 +545,6 @@ if ( $cidReset ) // course session data refresh requested
                         c.dbName                         AS dbName              ,
                         c.titulaires                     AS titular             ,
                         c.email                          AS email               ,
-                        c.officialEmail                  AS officialEmail           ,
                         c.languageCourse                 AS language            ,
                         c.departmentUrl                  AS extLinkUrl          ,
                         c.departmentUrlName              AS extLinkName         ,
@@ -883,9 +884,9 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
     if ( $_tid && $_gid )
     {
         //echo 'passed here';
-        
+
         $group_tool_label = str_replace( '_', '', $_courseTool['label'] );
-        
+
         switch ( $group_tool_label )
         {
             case 'CLWIKI': $is_toolAllowed = $_groupProperties ['tools'] ['wiki'    ]; break;
@@ -894,13 +895,13 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
             case 'CLFRM' : $is_toolAllowed = $_groupProperties ['tools'] ['forum'   ]; break;
             default      : $is_toolAllowed = false;
         }
-        
+
         if ( $_groupProperties ['private'] )
         {
-            $is_toolAllowed = $is_toolAllowed 
+            $is_toolAllowed = $is_toolAllowed
                 && ( $is_groupMember || $is_groupTutor );
         }
-        
+
         $is_toolAllowed = $is_toolAllowed || ( $is_courseAdmin || $is_platformAdmin );
     }
     elseif ( $_tid )
