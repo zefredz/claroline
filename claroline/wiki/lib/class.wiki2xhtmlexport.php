@@ -135,6 +135,13 @@ h4{
 a.wikiEdit{
     color: red;
 }
+
+table {
+	border: black outset 1px;
+}
+td {
+	border: black inset 1px;
+}
 </style>' . "\n";
             
             return $style;
