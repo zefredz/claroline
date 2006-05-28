@@ -1,5 +1,4 @@
-<?php
-
+<?php // $Id$
 /**
 * CLAROLINE
 *
@@ -14,8 +13,9 @@
 * @author Claro Team <cvs@claroline.net>
 */
 
-require_once($includePath.'\lib\pclzip\pclzip.lib.php');
-require_once($includePath.'\lib\claro_main.lib.php');
+require_once($includePath . '\lib\pclzip\pclzip.lib.php');
+require_once($includePath . '\lib\claro_main.lib.php');
+
 /**
  *
  * compress the directory in the same path with the name $directory.zip
@@ -27,12 +27,12 @@ require_once($includePath.'\lib\claro_main.lib.php');
 function compress_directory($directory)
 {
     if(!file_exists($directory)) return claro_failure::set_failure("dir doesn't exist");
-	else if(!is_dir($directory)) return claro_failure::set_failure("is not a directory");
-	$archive = new PclZip($directory."../".basename($directory).".zip");
-	$archive->create($directory,PCLZIP_OPT_REMOVE_PATH, $directory);
-
-	return true;
+    else if(!is_dir($directory)) return claro_failure::set_failure("is not a directory");
+    $archive = new PclZip($directory . '../' . basename($directory).date('YMDHis') . '.zip');
+    $archive->create($directory,PCLZIP_OPT_REMOVE_PATH, $directory);
+    return true;
 }
+
 /**
  *
  * extract the $archiveName into the $path directory with the basename of $archiveName
@@ -44,12 +44,13 @@ function compress_directory($directory)
  */
 function extract_archive($archiveName,$path)
 {
-	if(!file_exists($archiveName)) return claro_failure::set_failure("archive doesn't exist");
-	if(!($archive = new PclZip($archiveName))) return claro_failure::set_failure("opendir failed");
+    if(!file_exists($archiveName)) return claro_failure::set_failure("archive doesn't exist");
+    if(!($archive = new PclZip($archiveName))) return claro_failure::set_failure("opendir failed");
 
-	if(false === ($archive->extract(PCLZIP_OPT_ADD_PATH,$path."/". basename($archiveName,'.zip'))))
-			return claro_failure::set_failure("couldn't extract file");
+    if(false === ($archive->extract(PCLZIP_OPT_ADD_PATH, $path . "/" . basename($archiveName,'.zip'))))
+    return claro_failure::set_failure("couldn't extract file");
 
-	return true;
+    return true;
 }
+
 ?>
