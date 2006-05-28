@@ -29,6 +29,7 @@ function user_initialise()
     return array('lastname'      => '',
                  'firstname'     => '',
                  'officialCode'  => '',
+                 'officialEmail' => '',
                  'username'      => '',
                  'password'      => '',
                  'password_conf' => '',
