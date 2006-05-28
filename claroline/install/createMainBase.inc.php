@@ -86,7 +86,7 @@ CREATE TABLE `".$mainTblPrefixForm."user` (
   `password` varchar(50) default 'empty',
   `language` varchar(15) default NULL,
   `authSource` varchar(50) default 'claroline',
-  `email` varchar(100) default NULL,
+  `email` varchar(255) default NULL,
   `statut` tinyint(4) default NULL,
   `officialCode` varchar(40) default NULL,
   `phoneNumber` varchar(30) default NULL,
