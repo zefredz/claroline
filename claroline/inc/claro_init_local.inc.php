@@ -543,6 +543,7 @@ if ( $cidReset ) // course session data refresh requested
                         c.dbName                         AS dbName              ,
                         c.titulaires                     AS titular             ,
                         c.email                          AS email               ,
+                        c.officialEmail                  AS officialEmail           ,
                         c.languageCourse                 AS language            ,
                         c.departmentUrl                  AS extLinkUrl          ,
                         c.departmentUrlName              AS extLinkName         ,
@@ -822,9 +823,9 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
     {
         $sql = "SELECT status,
                        role
-                FROM `".$_course['dbNameGlu']."group_rel_team_user`
-                WHERE `user` = '". (int) $_uid."'
-                AND `team`   = '". (int) $gidReq."'";
+                FROM `" . $_course['dbNameGlu'] . "group_rel_team_user`
+                WHERE `user` = '". (int) $_uid . "'
+                AND `team`   = '". (int) $gidReq . "'";
 
         $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 

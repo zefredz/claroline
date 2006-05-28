@@ -73,6 +73,7 @@ if ( isset($_REQUEST['applyChange']) )
     if ( isset($_REQUEST['password']) )      $user_data['password'] = trim($_REQUEST['password']);
     if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
     if ( isset($_REQUEST['email']) )         $user_data['email'] = trim($_REQUEST['email']);
+    if ( isset($_REQUEST['officialEmail']) ) $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
     if ( isset($_REQUEST['phone']) )         $user_data['phone'] = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['language']) )      $user_data['language'] = trim($_REQUEST['language']);
 

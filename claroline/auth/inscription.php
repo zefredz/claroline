@@ -61,6 +61,7 @@ if ( get_conf('allowSelfReg',false) )
         if ( isset($_REQUEST['password']) )      $user_data['password']  = trim($_REQUEST['password']);
         if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf']  = trim($_REQUEST['password_conf']);
         if ( isset($_REQUEST['email']) )         $user_data['email'] = strip_tags(trim($_REQUEST['email'])) ;
+        if ( isset($_REQUEST['officialEmail']) ) $user_data['officialEmail'] = strip_tags(trim($_REQUEST['officialEmail'])) ;
         if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
         if ( isset($_REQUEST['status']) )        $user_data['status'] = (int) $_REQUEST['status'];
         if ( isset($_REQUEST['language']) )      $user_data['language'] = $_REQUEST['language'];
@@ -78,10 +79,11 @@ if ( get_conf('allowSelfReg',false) )
             if ( $_uid )
             {
                 // add value in session
-                $_user['firstName']     = $user_data['firstname'];
-                $_user['lastName' ]     = $user_data['lastname'];
-                $_user['mail'     ]     = $user_data['email'];
-                $_user['lastLogin']     = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+                $_user['firstName'    ] = $user_data['firstname'];
+                $_user['lastName'     ] = $user_data['lastname'];
+                $_user['email'        ] = $user_data['email'];
+                $_user['officialEmail'] = $user_data['officialEmail'];
+                $_user['lastLogin'    ] = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
                 $is_allowedCreateCourse = ($user_data['status'] == 1) ? TRUE : FALSE ;
 
                 $_SESSION['_uid'] = $_uid;

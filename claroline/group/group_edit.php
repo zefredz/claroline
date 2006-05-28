@@ -225,11 +225,12 @@ foreach ($resultTutor as $myTutor)
 }
 $tutor_list[0] = get_lang("(none)");
 
-$sql = "SELECT `ug`.`id`     AS id,
-               `u`.`user_id` AS user_id,
-               `u`.`nom`     AS name,
-               `u`.`prenom`  AS firstname,
-               `u`.`email`   AS email
+$sql = "SELECT `ug`.`id`       AS id,
+               `u`.`user_id`   AS user_id,
+               `u`.`nom`       AS name,
+               `u`.`prenom`    AS firstname,
+               `u`.`email`     AS email,
+               `u`.`officialEmail` AS officialEmail
         FROM `" . $tbl_user . "`                AS u
            , `" . $tbl_group_rel_team_user . "` AS ug
         WHERE `ug`.`team` = " . (int) $_gid . "
