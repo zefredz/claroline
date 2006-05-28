@@ -1321,7 +1321,6 @@ function get_def_file_list()
             }
             closedir($handle);
         }
-        closedir($handle);
     }
     return $defConfFileList;
 }
