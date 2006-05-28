@@ -207,16 +207,19 @@
 			# tables
 			elseif ($this->getOpt('active_tables'))
 			{
+                # table start
 				if ( preg_match('/^{\|$/', $line, $cap) )
 				{
 					$type = null;
 					$line = '<table class="wikiTable">';
 				}
+                # table end
 				elseif ( preg_match('/^\|}$/', $line, $cap) )
 				{
 					$type = null;
 					$line = '</table>';
 				}
+                # table row
 				elseif( preg_match('/^\|\|(.*)\|\|$/', $line, $cap) )
 				{
 					$type = null;
@@ -451,43 +454,44 @@
          */
 		function __inlineWalk($str,$allow_only=NULL)
 		{
-		$tree = preg_split($this->tag_pattern,$str,-1,PREG_SPLIT_DELIM_CAPTURE);
+    		$tree = preg_split($this->tag_pattern,$str,-1,PREG_SPLIT_DELIM_CAPTURE);
 
-		$res = '';
-		for ($i=0; $i<count($tree); $i++)
-		{
-			$attr = '';
-			
-			if (in_array($tree[$i],array_values($this->open_tags)) &&
-			($allow_only == NULL || in_array(array_search($tree[$i],$this->open_tags),$allow_only)))
-			{
-				$tag = array_search($tree[$i],$this->open_tags);
-				$tag_type = 'open';
-				
-				if (($tidy = $this->__makeTag($tree,$tag,$i,$i,$attr,$tag_type)) !== false)
-				{
-					if ($tag != '') {
-						$res .= '<'.$tag.$attr;
-						$res .= ($tag_type == 'open') ? '>' : ' />';
-					}
-					$res .= $tidy;
-				}
-				else
-				{
-					$res .= $tree[$i];
-				}
-			}
-			else
-			{
-				$res .= $tree[$i];
-			}
-		}
+    		$res = '';
+    		for ($i=0; $i<count($tree); $i++)
+    		{
+    			$attr = '';
+    			
+    			if (in_array($tree[$i],array_values($this->open_tags)) &&
+    			($allow_only == NULL || in_array(array_search($tree[$i],$this->open_tags),$allow_only)))
+    			{
+    				$tag = array_search($tree[$i],$this->open_tags);
+    				$tag_type = 'open';
+    				
+    				if (($tidy = $this->__makeTag($tree,$tag,$i,$i,$attr,$tag_type)) !== false)
+    				{
+    					if ($tag != '') {
+    						$res .= '<'.$tag.$attr;
+    						$res .= ($tag_type == 'open') ? '>' : ' />';
+    					}
+    					$res .= $tidy;
+    				}
+    				else
+    				{
+    					$res .= $tree[$i];
+    				}
+    			}
+    			else
+    			{
+    				$res .= $tree[$i];
+    			}
+    		}
 
-		# Suppression des echappements
-		$res = str_replace($this->escape_table,$this->all_tags,$res);
-		$res = str_replace(array('\\{|', '\\||', '\\|}'),array('{|', '||', '|}'),$res);
+    		# Suppression des echappements
+    		$res = str_replace($this->escape_table,$this->all_tags,$res);
+            # Unescape table tags
+    		$res = str_replace(array('\\{|', '\\||', '\\|}'),array('{|', '||', '|}'),$res);
 
-		return $res;
+    		return $res;
 		}
 
         /**
