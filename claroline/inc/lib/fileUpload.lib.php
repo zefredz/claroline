@@ -164,7 +164,7 @@ function dir_total_space($dirPath)
     $handle  = opendir($dirPath);
     $sumSize = 0;
 
-    while ($element = readdir($handle) )
+    while (true === ($element = readdir($handle) ) )
     {
         if ( $element == '.' || $element == '..')
         {
@@ -423,7 +423,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 /**
  * Securely manage all the unzipping process of an uploaded document
  *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  * @param  array  $uploadedFile - follows the $_FILES Structure
  * @param  string $uploadPath   - destination of the upload.
@@ -439,7 +439,28 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
                                           $baseWorkDir, $maxFilledSpace,$allowPHP= false)
 {
-    $zipFile = new pclZip($uploadedFile['tmp_name']);
+    $uploadedFileName = $uploadedFile['tmp_name'];
+    return treat_secure_file_unzip($uploadedFileName, $uploadPath,
+                                          $baseWorkDir, $maxFilledSpace,$allowPHP= false);
+}
+
+/**
+ * unzip safly a zipfile
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ *
+ * @param string $fileName file name of zip
+ * @param string $filePath file path of zip
+ * @param string $extractPath
+ * @param integer $maxFilledSpace (byte) count  of byte size aivailable
+ * @param boolean $allowPHP whether True the file can't contain php or phtml files
+ * @return true
+ * @throws claro_failure on error
+ */
+function treat_secure_file_unzip($fileName, $filePath,
+                                          $extractPath, $maxFilledSpace,$allowPHP= false)
+{
+    $zipFile = new pclZip($fileName);
 
     // Check the zip content (real size and file extension)
 
@@ -459,12 +480,12 @@ function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
         $realFileSize += $thisContent['size'];
     }
 
-    if ( ! enough_size($realFileSize, $baseWorkDir, $maxFilledSpace) )
+    if ( ! enough_size($realFileSize, $extractPath, $maxFilledSpace) )
     {
         return claro_failure::set_failure('not_enough_space');
     }
 
-    if ( is_array($zipFile->extract(PCLZIP_OPT_PATH, $baseWorkDir.$uploadPath) ) )
+    if ( is_array($zipFile->extract(PCLZIP_OPT_PATH, $extractPath . $filePath) ) )
     {
         return true;
     }
