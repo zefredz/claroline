@@ -113,15 +113,16 @@ function user_create($settingList, $creatorId = null)
                 username        = '". addslashes($settingList['username'     ]) ."',
                 language        = '". addslashes($settingList['language'     ]) ."',
                 email           = '". addslashes($settingList['email'        ]) ."',
-                officialCode    = '". addslashes($settingList['officialCode']) ."',
+                officialCode    = '". addslashes($settingList['officialCode' ]) ."',
                 officialEmail   = '". addslashes($settingList['officialEmail']) ."',
                 phoneNumber     = '". addslashes($settingList['phone'        ]) ."',
                 password        = '". addslashes($password) . "',
                 statut          = " . (int) $status .",
                 isPlatformAdmin = 0,
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
-
-    return claro_sql_query_insert_id($sql);
+    $adminId = claro_sql_query_insert_id($sql);
+    if (false !== $adminId) return $adminId;
+    else return claro_failure::set_failure('Cant create user|' . mysql_error() . '|');
 }
 
 /**
@@ -1123,8 +1124,6 @@ function user_display_form_add_new_user($data)
  * Display user admin form registration
  * @author Mathieu Laurent <laurent@cerdecam.be>
  * @param $data array to fill the form
- *
- *
  */
 
 function user_display_form_admin_add_new_user($data)
@@ -1177,7 +1176,8 @@ function user_display_form($data, $form_type='registration')
     if ( $form_type == 'admin_user_profile' )
     {
         echo form_input_hidden('uidToEdit', $data['user_id'])
-        .    form_row( get_lang('Userid') . '&nbsp;: ', $data['user_id']);
+        .    form_row( get_lang('Userid') . '&nbsp;: ', $data['user_id'])
+        ;
     }
 
     echo form_input_text('lastname', $data['lastname'], get_lang('Last name'), true);
