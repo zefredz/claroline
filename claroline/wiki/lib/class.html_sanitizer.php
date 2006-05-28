@@ -92,7 +92,7 @@
 
             $HTML_Sanitizer_stripAttrib = '(onclick|ondblclick|onmousedown|'
                 . 'onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|onkeydown|'
-                . 'onkeyup)'
+                . 'onkeyup|onfocus|onblur|onabort|onerror|onload)'
                 ;
 
             $str = stripslashes( preg_replace("/$HTML_Sanitizer_stripAttrib/i"
