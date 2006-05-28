@@ -207,7 +207,7 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
     if ( is_array($titlePart) ) $titleElement = $titlePart;
     else                        $titleElement['mainTitle'] = $titlePart;
 
-
+    $stringPart= array();
     if ( isset($titleElement['supraTitle']) )
     {
         $stringPart[] = '<small>' . $titleElement['supraTitle'] . '</small>';
