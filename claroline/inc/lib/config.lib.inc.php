@@ -1277,18 +1277,20 @@ function claro_get_conf_def_file($configCode)
 }
 
 /**
- * return array list of found definition files
+ * Return array list of found definition files
  * @return array list of found definition files
  * @global string includePath use to access to def repository.
  */
 
 function get_def_file_list()
 {
-    global $includePath ;
-
     require_once(dirname(__FILE__) . '/module.manage.lib.php');
 
-    $defConfPathList[] = $includePath . '/conf/def';
+    //path where we can search defFile : kernel and modules
+    // defs of kernel
+    $defConfPathList[] = $GLOBALS['includePath'] . '/conf/def';
+
+    // defs of modules
     $moduleList = get_installed_module_list();
     foreach ($moduleList as $module)
     {
@@ -1319,10 +1321,8 @@ function get_def_file_list()
             }
             closedir($handle);
         }
+        closedir($handle);
     }
     return $defConfFileList;
 }
-
-
-
 ?>
