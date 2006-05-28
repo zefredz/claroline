@@ -36,7 +36,7 @@
 function claro_user_info_create_cat_def($title='', $comment='', $nbline='5', $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_userinfo_def     = $tbl_cdb_names['userinfo_def'];
+    $tbl_userinfo_def = $tbl_cdb_names['userinfo_def'];
 
     if ( 0 == (int) $nbline || empty($title))
     {
@@ -442,6 +442,7 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
     $sql = "SELECT  u.nom        AS lastName,
                     u.prenom     AS firstName,
                     u.email      AS email,
+                    u.officialEmail  AS officialEmail,
                     u.pictureUri AS picture,
                     cu.role      AS role,
                     cu.`statut`  AS `status`,

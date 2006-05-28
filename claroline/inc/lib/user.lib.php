@@ -64,6 +64,7 @@ function user_get_properties($userId)
                     authSource  AS authsource,
                     pictureUri  AS picture,
                                    officialCode,
+                                   officialEmail,
                     phoneNumber AS phone,
                     statut      AS status,
                                    isPlatformAdmin
@@ -107,13 +108,14 @@ function user_create($settingList, $creatorId = null)
     $tbl_user      = $tbl_mdb_names['user'];
 
     $sql = "INSERT INTO `" . $tbl_user . "`
-            SET nom             = '". addslashes($settingList['lastname'    ]) ."',
-                prenom          = '". addslashes($settingList['firstname'   ]) ."',
-                username        = '". addslashes($settingList['username'    ]) ."',
-                language        = '". addslashes($settingList['language'    ]) ."',
-                email           = '". addslashes($settingList['email'       ]) ."',
+            SET nom             = '". addslashes($settingList['lastname'     ]) ."',
+                prenom          = '". addslashes($settingList['firstname'    ]) ."',
+                username        = '". addslashes($settingList['username'     ]) ."',
+                language        = '". addslashes($settingList['language'     ]) ."',
+                email           = '". addslashes($settingList['email'        ]) ."',
                 officialCode    = '". addslashes($settingList['officialCode']) ."',
-                phoneNumber     = '". addslashes($settingList['phone'       ]) ."',
+                officialEmail   = '". addslashes($settingList['officialEmail']) ."',
+                phoneNumber     = '". addslashes($settingList['phone'        ]) ."',
                 password        = '". addslashes($password) . "',
                 statut          = " . (int) $status .",
                 isPlatformAdmin = 0,
