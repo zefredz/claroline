@@ -2,8 +2,8 @@
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modified on %2$s by %3$s';
-$_lang['%moduleName has been added as module'] = 'has been added as a module of the course and of this learning path';
-$_lang['%moduleName is already used as a module in this learning path'] = 'This exercise is already used as a module in this learning path';
+$_lang['%moduleName has been added as module'] = '%moduleName has been added as a module of the course and of this learning path';
+$_lang['%moduleName is already used as a module in this learning path'] = '%moduleName is already used as a module in this learning path';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) anonymous users, users who are not members of this course...';
 $_lang['(When an user open the index of the campus)'] = '(When an user open the index of the campus)';
 $_lang['(always private)'] = '(always private)';
@@ -1769,7 +1769,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dt>Hyperlinks</dt>
 <dd><code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</dd>
 <dt>Image inclusion</dt>
-<dd><code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</dd>
+<dd><code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (center).&nbsp;;</dd>
 <dd>You can use the syntax as Hyperlinks. For example <code>[title|image.gif]</code>. This syntax is deprecated, consider to use the preceding one&nbsp;;</dd>
 <dt>Link to an image</dt>
 <dd>same as Hyperlinks but put a 0 in fourth argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself</dd>
