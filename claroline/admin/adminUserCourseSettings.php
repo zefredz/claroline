@@ -53,31 +53,25 @@ $cidToEdit = $_REQUEST['cidToEdit'];
 
 //Display "form and info" about the user
 
-if (isset($_REQUEST['ccfrom'])) {$ccfrom = $_REQUEST['ccfrom'];} else {$ccfrom = '';}
-if (isset($_REQUEST['cfrom']))  {$cfrom  = $_REQUEST['cfrom'];} else {$cfrom = '';}
+$ccfrom = (isset($_REQUEST['ccfrom']) ? $_REQUEST['ccfrom'] : '' );
+$cfrom  = (isset($_REQUEST['cfrom'])  ? $_REQUEST['cfrom']  : '' );
 
-$cmd =(isset($_REQUEST['cmd'])) ? $_REQUEST['cmd'] : null;
+$cmd    = (isset($_REQUEST['cmd'])    ? $_REQUEST['cmd']    : null );
+$statusReq = (isset($_REQUEST['status_form'])  ? $_REQUEST['status_form']  : null );
 
 switch ($cmd)
 {
     case 'changeStatus' :
-    {
-        if ( $_REQUEST['status_form'] == 'teacher' )
+
+        if ( 'teacher' == $statusReq )
         {
             $properties['status'] = 1;
             $properties['role']   = get_lang('Course manager');
             $properties['tutor']  = 1;
             $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
-            if ($done)
-            {
-                $dialogBox = get_lang('User is now course manager');
-            }
-            else
-            {
-                $dialogBox = get_lang('No change applied');
-            }
+            $dialogBox = $done ?  get_lang('User is now course manager') : get_lang('No change applied');
         }
-        elseif ( $_REQUEST['status_form'] == 'student' )
+        elseif ( 'student' ==  $statusReq )
         {
             $properties['status'] = 5;
             $properties['role']   = get_lang('Student');
@@ -92,7 +86,7 @@ switch ($cmd)
                 $dialogBox = get_lang('No change applied');
             }
         }
-    }
+
     break;
 }
 
@@ -101,7 +95,6 @@ switch ($cmd)
 //------------------------------------
 
 if(isset($user_id))
-
 {
     // claro_get_user_data
 
@@ -177,11 +170,11 @@ $htmlHeadXtra[] =
 
 $displayBackToCU = false;
 $displayBackToUC = false;
-if ( $ccfrom == 'culist' )//coming from courseuser list
+if ( 'culist'== $ccfrom )//coming from courseuser list
 {
     $displayBackToCU = TRUE;
 }
-elseif ($ccfrom=='uclist')//coming from usercourse list
+elseif ('uclist'== $ccfrom)//coming from usercourse list
 {
     $displayBackToUC = TRUE;
 }
