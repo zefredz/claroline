@@ -65,7 +65,7 @@ if( isset($learningPath_module['lock'])
 $sql = "SELECT `E`.`id` AS `exerciseId`, `M`.`name`
         FROM `".$TABLEMODULE."` AS `M`,
              `".$TABLEASSET."`  AS `A`,
-             `".$TABLEQUIZTEST."` AS `E`
+             `".$tbl_quiz_exercise."` AS `E`
        WHERE `A`.`module_id` = M.`module_id`
          AND `M`.`module_id` = ". (int) $_SESSION['module_id']."
          AND `E`.`id` = `A`.`path`";
@@ -76,7 +76,7 @@ if( $module )
     echo "\n\n".'<h4>'.get_lang('Exercise in module').' :</h4>'."\n"
         .'<p>'."\n"
         .htmlspecialchars($module['name'])
-        .'<a href="../exercice/admin.php?exerciseId='.$module['exerciseId'].'">'
+        .'<a href="../exercise/admin/edit_exercise.php?exId='.$module['exerciseId'].'">'
         .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
         .'</a>'."\n"
         .'</p>'."\n";
