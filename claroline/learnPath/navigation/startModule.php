@@ -135,22 +135,16 @@ switch ($module['contentType'])
 
 	case CTEXERCISE_ :
 		// clean session vars of exercise
-		unset($_SESSION['objExercise']);
-		unset($_SESSION['objQuestion']);
-		unset($_SESSION['objAnswer']);
 		unset($_SESSION['questionList']);
 		unset($_SESSION['exerciseResult']);
 		unset($_SESSION['exeStartTime'	]);
-		session_unregister('objExercise');
-		session_unregister('objQuestion');
-		session_unregister('objAnswer');
 		session_unregister('questionList');
 		session_unregister('exerciseResult');
 		session_unregister('exeStartTime');
 
 		$_SESSION['inPathMode'] = true;
-		$startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
-		$moduleStartAssetPage = $startAssetpage."?exerciseId=".$assetPath;
+		$startAssetpage = $clarolineRepositoryWeb."exercise/exercise_submit.php";
+		$moduleStartAssetPage = $startAssetpage."?exId=".$assetPath;
 		break;
 	case CTSCORM_ :
 		// real scorm content method
