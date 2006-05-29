@@ -218,6 +218,9 @@ if ( isset($_POST['claroFormId']) )
   Find MODULES's includes to add and include them using a cache system
  ----------------------------------------------------------------------*/
 
+// TODO : move module_cache to cache directory
+// TODO : includePath is probably not needed
+
 $module_cache_filename = '/module_cache.php';
 
 if (!file_exists($includePath.$module_cache_filename))
@@ -226,6 +229,6 @@ if (!file_exists($includePath.$module_cache_filename))
     generate_module_cache();
 }
 
-include $includePath.$module_cache_filename;
+include $includePath . $module_cache_filename;
 
 ?>
