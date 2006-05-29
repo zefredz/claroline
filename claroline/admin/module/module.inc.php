@@ -18,9 +18,11 @@ require_once dirname(__FILE__). '/../../inc/lib/fileManage.lib.php';
 
 /**
  * Get installed module list, its effect is
- * * to return an array containing the installed module's labels
- * @param string $type : type of the module that msu be returned, if null, then all the modules are returned
- * @return array containing the labels of the modules installed on the platform
+ * to return an array containing the installed module's labels
+ * @param string $type : type of the module that msu be returned,
+ *        if null, then all the modules are returned
+ * @return array containing the labels of the modules installed
+ *         on the platform
  */
 
 function get_installed_module_list($type = null)
