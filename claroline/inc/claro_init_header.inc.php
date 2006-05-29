@@ -64,7 +64,7 @@ $titlePage .= get_conf('siteName');
 <script type="text/javascript">
 document.cookie="javascriptEnabled=true";
 function claro_session_loss_countdown(sessionLifeTime){
-    var chrono = setTimeout('warn_of_session_loss()', sessionLifeTime * 1000);
+    var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
 }
 
 function claro_warn_of_session_loss() {
