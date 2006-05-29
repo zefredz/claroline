@@ -2,14 +2,14 @@
 
 /*
  * SOAP server available for Single Sign On (SSO) process.
- * 
- * Once a user logs to the Claroline platform a cookie is sent to the 
- * user browser if the authentication process succeeds. The cookie value 
- * is also stored in a internal table of the Claroline platform for a certain 
+ *
+ * Once a user logs to the Claroline platform a cookie is sent to the
+ * user browser if the authentication process succeeds. The cookie value
+ * is also stored in a internal table of the Claroline platform for a certain
  * time.
  *
- * The function of this script is providing a way to retrieve the user 
- * parameter from another server on the internet on the base of this 
+ * The function of this script is providing a way to retrieve the user
+ * parameter from another server on the internet on the base of this
  * cookie value.
  *
  */
@@ -27,9 +27,9 @@ require_once $includePath.'/lib/nusoap.php';
 
 $server = new soap_server();
 
-$server->register('get_user_info_from_cookie', 
-                   array('auth'   => 'xsd:string', 
-                         'cookie' => 'xsd:string', 
+$server->register('get_user_info_from_cookie',
+                   array('auth'   => 'xsd:string',
+                         'cookie' => 'xsd:string',
                          'cid'    => 'xsd:string',
                          'gid'    => 'xsd:string' ) );
 
@@ -90,20 +90,20 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
                  'is_groupAllowed'          => null);
 
 
-    $ssoCookieName       = $GLOBALS['ssoCookieName'  ];
-    $ssoCookieDomain     = $GLOBALS['ssoCookieDomain'];
-    $ssoCookiePath       = $GLOBALS['ssoCookiePath'  ];
+    $ssoCookieName       = get_conf('ssoCookieName');
+    $ssoCookieDomain     = get_conf('ssoCookieDomain');
+    $ssoCookiePath       = get_conf('ssoCookiePath');
 
-    $ssoCookieExpireTime = time() + $GLOBALS['ssoCookiePeriodValidity'];
+    $ssoCookieExpireTime = time() + get_conf('ssoCookiePeriodValidity',3600);
 
     $mainTblList = claro_sql_get_main_tbl();
     $tbl_user    = $mainTblList['user'];
     $tbl_sso     = $mainTblList['sso' ];
 
-    $sql = "SELECT user.nom          lastname, 
-                   user.prenom       firstname, 
-                   user.username     loginName, 
-                   user.email        email, 
+    $sql = "SELECT user.nom          lastname,
+                   user.prenom       firstname,
+                   user.username     loginName,
+                   user.email        email,
                    user.officialCode officialCode,
                    user.user_id      userId
 
@@ -147,13 +147,13 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
         // $tbl_course          = $mainTblList['cours'       ]; // for claroline 1.5
         $tbl_rel_course_user = $mainTblList['rel_course_user'];
 
-        $sql = "SELECT `c`.`intitule`   title, 
-                       `c`.`fake_code`  officialCode, 
-                       `c`.`titulaires` titular, 
+        $sql = "SELECT `c`.`intitule`   title,
+                       `c`.`fake_code`  officialCode,
+                       `c`.`titulaires` titular,
                        `c`.`dbName`,
-                       `c`.`visible`    visibility, 
-                       `cu`.`statut`    userStatus, 
-                       `cu`.`role`      userRole, 
+                       `c`.`visible`    visibility,
+                       `cu`.`statut`    userStatus,
+                       `cu`.`role`      userRole,
                        `cu`.`tutor`
                 FROM      `".$tbl_course."`          c
                 LEFT JOIN `".$tbl_rel_course_user."` cu
@@ -162,27 +162,27 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
                 WHERE `c`.`code`     = '".$cid."'";
 
         $courseResult = claro_sql_query_fetch_all($sql);
-    
+
         if( count($courseResult > 0) )
         {
             $course = $courseResult[0];
-            
+
             $res['courseTitle'  ] = $course['title'       ];
             $res['courseTitular'] = $course['titular'     ];
             $res['courseCode'   ] = $course['officialCode'];
             $res['courseDbName' ] = $course['dbName'      ];
 
-            $res['courseRegistrationAllowed'] = (bool) (   $course['visibility'] == 1 
+            $res['courseRegistrationAllowed'] = (bool) (   $course['visibility'] == 1
                                                         || $course['visibility'] == 2 );
 
-            $res['courseVisibility'         ] = (bool) (   $course['visibility'] == 2 
+            $res['courseVisibility'         ] = (bool) (   $course['visibility'] == 2
                                                         || $course['visibility'] == 3 );
 
             $res['is_courseMember' ] = (bool) ( ! is_null($course['userStatus']) );
             $res['is_courseTutor'  ] = (bool) (   $course['tutor'     ] == 1  );
             $res['is_courseAdmin'  ] = (bool) (   $course['userStatus'] ==  1 );
-            $res['is_courseAllowed'] = (bool) (   $course['visibility'     ] 
-                                               || $course['is_courseMember']  ); 
+            $res['is_courseAllowed'] = (bool) (   $course['visibility'     ]
+                                               || $course['is_courseMember']  );
         }
     }
 
@@ -194,22 +194,22 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
         $tbl_group_property      = $courseTblList['group_property'     ];
         $tbl_group_rel_team_user = $courseTblList['group_rel_team_user'];
 
-        $sql = "SELECT g.`name`, 
-                       g.`description`, 
+        $sql = "SELECT g.`name`,
+                       g.`description`,
                        g.`tutor` tutorId,
-                       gp.`private`, 
-                       gp.`self_registration`, 
-                       gtu.`user`, 
-                       gtu.`team`, 
-                       gtu.`status`, 
+                       gp.`private`,
+                       gp.`self_registration`,
+                       gtu.`user`,
+                       gtu.`team`,
+                       gtu.`status`,
                        gtu.`role`
-                FROM `".$tbl_group_team."`          AS g, 
-                     `".$tbl_group_property."`      AS gp, 
+                FROM `".$tbl_group_team."`          AS g,
+                     `".$tbl_group_property."`      AS gp,
                      `".$tbl_group_rel_team_user."` AS gtu
                 WHERE gtu.`user` = '".$uid."'
                   AND gtu.`team` = '".$gid."'
                   AND gtu.`team` = g.`id`";
-        
+
         $groupResult = claro_sql_query_fetch_all($sql);
 
         if (count($groupResult) > 0)
@@ -223,8 +223,8 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
             $res['is_groupMember'  ] = (bool) ($group['user'   ] == $uid);
             $res['is_groupTutor'   ] = (bool) ($group['tutorId'] == $uid);
 
-            $res['is_groupAllowed' ] = (bool) (   (  $group['is_groupMember']) 
-                                               || (  $group['is_groupTutor' ]) 
+            $res['is_groupAllowed' ] = (bool) (   (  $group['is_groupMember'])
+                                               || (  $group['is_groupTutor' ])
                                                || (! $group['private'       ]) );
         }
     }
@@ -260,7 +260,7 @@ function record_sso_cookie($userId, $ssoCookie)
     $mainTblList = claro_sql_get_main_tbl();
     $tbl_sso     = $mainTblList['sso' ];
 
-    $sql = "UPDATE `".$tbl_sso."` 
+    $sql = "UPDATE `".$tbl_sso."`
             SET cookie    = '".$ssoCookie."',
                 rec_time  = NOW()
             WHERE user_id = ". (int) $userId;
@@ -269,7 +269,7 @@ function record_sso_cookie($userId, $ssoCookie)
 
     if ($affectedRowCount < 1)
     {
-        $sql = "INSERT INTO `".$tbl_sso."` 
+        $sql = "INSERT INTO `".$tbl_sso."`
                 SET cookie    = '".$ssoCookie."',
                     rec_time  = NOW(),
                     user_id   = ". (int) $userId;
@@ -280,7 +280,7 @@ function record_sso_cookie($userId, $ssoCookie)
 
 
 /**
- * check if the soap client is allowed to recieve the user information 
+ * check if the soap client is allowed to recieve the user information
  * recorded into the system
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -291,7 +291,7 @@ function record_sso_cookie($userId, $ssoCookie)
 
 function is_allowed_to_recieve_user_info($auth)
 {
-    if ( in_array($auth, $GLOBALS['ssoAuthenticationKeyList']) )
+    if ( in_array($auth, get_conf('ssoAuthenticationKeyList')) )
     {
         return true;
     }
