@@ -55,13 +55,16 @@ else
 $nameTools = get_lang('Module');
 
 // tables names
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+$tbl_cdb_names = claro_sql_get_course_tbl();
 
-$TABLEQUIZTEST               = $_course['dbNameGlu']."quiz_test";
+$TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];
+$TABLEMODULE            = $tbl_cdb_names['lp_module'];
+$TABLELEARNPATHMODULE   = $tbl_cdb_names['lp_rel_learnPath_module'];
+$TABLEASSET             = $tbl_cdb_names['lp_asset'];
+$TABLEUSERMODULEPROGRESS= $tbl_cdb_names['lp_user_module_progress'];
+
+// exercises
+$tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
 $dbTable = $TABLEASSET; // for old functions of document tool
 
