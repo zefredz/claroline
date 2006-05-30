@@ -49,6 +49,10 @@ unset($_SESSION['exercise']);
 unset($_SESSION['questionList']);
 unset($_SESSION['exeStartTime']);
 
+// prevent inPathMode to be used when browsing an exercise in the exercise tool
+$_SESSION['inPathMode'] = false;
+
+
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
 
@@ -60,7 +64,7 @@ if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeri
 	{
 		include_once './lib/question.class.php';
 		 
-		include('./export/exercise_export.php');
+		include('./export/qti/qti_export.php');
     
 	    // Get the corresponding XML
 	    $xml = export_exercise($_REQUEST['exId']);
