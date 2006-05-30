@@ -441,7 +441,7 @@ function treat_secure_uploaded_file_unzip($uploadedFile, $uploadPath,
 {
     $uploadedFileName = $uploadedFile['tmp_name'];
     return treat_secure_file_unzip($uploadedFileName, $uploadPath,
-                                          $baseWorkDir, $maxFilledSpace,$allowPHP= false);
+                                          $baseWorkDir, $maxFilledSpace,$allowPHP);
 }
 
 /**

@@ -431,7 +431,8 @@ function install_module($modulePath)
     if (false === ($module_info = readModuleManifest($modulePath)))
     {
         claro_delete_file($modulePath);
-        return array_merge($backlog_message, claro_failure::get_last_failure());
+        $backlog_message[] = claro_failure::get_last_failure();
+        return $backlog_message;
     }
 
     //check if a module with the same LABEL is already installed, if yes, we cancel everything
@@ -1047,7 +1048,7 @@ function readModuleManifest($modulePath)
     // Find XML manifest and parse it to retrieve module informations
 
     //check if manifest is present
-    $manifestPath = $modulePath. '/' . 'manifest.xml';
+    $manifestPath = $modulePath. 'manifest.xml';
     if (! check_name_exist($manifestPath))
     {
         return claro_failure::set_failure(get_lang('Manifest missing : %filename',array('%filename' => $manifestPath)));
