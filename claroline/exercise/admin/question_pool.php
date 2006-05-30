@@ -95,7 +95,7 @@ if( $cmd == 'delQu' && !is_null($quId) )
 // export question
 if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
 {
-    include('../export/question_export.php');
+    include('../export/qti/qti_export.php');
 
     // contruction of XML flow
     $xml = export_question($quId);
