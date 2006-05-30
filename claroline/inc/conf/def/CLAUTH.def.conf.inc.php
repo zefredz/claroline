@@ -79,7 +79,7 @@ array ('label'         => 'Display Local Auth Form'
 $conf_def_property_list['claro_CasEnabled'] =
 array ('label'         => 'Enable Cas system'
       ,'description'   => 'if false, other field are optional'
-      ,'default'       => FALSE
+      ,'default'       => 'FALSE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Enabled'
                                 ,'FALSE' => 'Disabled'
