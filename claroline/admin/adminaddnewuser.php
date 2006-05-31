@@ -25,7 +25,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 // Include library
 require $includePath . '/conf/user_profile.conf.php';
-require_once $includePath . '/lib/debug.lib.inc.php';
+
 require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/sendmail.lib.php';
 
