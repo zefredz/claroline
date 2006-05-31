@@ -52,7 +52,7 @@ else															$quId = null;
 
 $question = new Question();
 
-if( !is_null($quId) && !$question->load($quId) ) 	
+if( is_null($quId) || !$question->load($quId) ) 	
 {
 	header("Location: ../exercise.php");
 	exit();	
@@ -118,7 +118,7 @@ echo $question->getQuestionHtml();
 
 // dialog box if required 
 if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
-	
+
 echo $question->answer->getFormHtml();	
 
 
