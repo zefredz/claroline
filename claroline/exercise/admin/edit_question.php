@@ -54,9 +54,11 @@ else															$quId = null;
 
 $question = new Question();
 
-if( !is_null($quId) && !$question->load($quId) ) 	
+if( is_null($quId) || !$question->load($quId) ) 	
 {
+	// question cannot be load, display new question creation form
 	$cmd = 'rqEdit';  
+	$quId = null;
 }
 
 if( !is_null($exId) )
@@ -66,11 +68,30 @@ if( !is_null($exId) )
 	if( !$exercise->load($exId) ) $exId = null;	
 }
 
+// quId and exId have been specified and load operations worked 
+if( !is_null($quId) && !is_null($exId) )
+{
+	// do not duplicate when there is no $exId,
+	// it means that we modify the question from pool
+	
+	// do not duplicate when there is no $quId,
+	// it means that question is a new one
+	
+	
+	// check that question is used in several exercises
+	
+	// duplicate object if used in several exercises
+	
+	// if duplicate worked we have to create a new question
+	
+	//$quId = null;
+}
+
 $displayForm = false; 
 
 if( $cmd == 'exEdit' )
 {
-	// if quId is null it means that we create a new exercise
+	// if quId is null it means that we create a new question
 	
 	$question->setTitle($_REQUEST['title']);
 	$question->setDescription($_REQUEST['description']);
