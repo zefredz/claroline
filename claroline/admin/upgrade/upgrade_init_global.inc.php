@@ -1,6 +1,6 @@
 <?php // $Id$
 
-// Most PHP package has increase the error reporting. 
+// Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
 error_reporting(error_reporting() & ~ E_NOTICE);
 
@@ -12,7 +12,7 @@ $includePath = realpath(dirname(__FILE__).'/../../inc');
 if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
     require $includePath . '/conf/claro_main.conf.php';
-} 
+}
 else
 {
     die ('<center>'
@@ -35,7 +35,7 @@ else
 define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 
 // Add the Claroline PEAR path to the php.ini include path
-// This action is mandatory because PEAR inner include() statements 
+// This action is mandatory because PEAR inner include() statements
 // rely on the php.ini include_path settings
 
 set_include_path( get_include_path(). PATH_SEPARATOR . PEAR_LIB_PATH );
@@ -84,7 +84,7 @@ require $includePath . '/lib/config.lib.inc.php';
 require 'upgrade.lib.php';
 
 /**
- * List of accepted error - See MySQL error codes : 
+ * List of accepted error - See MySQL error codes :
  *
  * Error: 1017 SQLSTATE: HY000 (ER_FILE_NOT_FOUND) : already upgraded
  * Error: 1050 SQLSTATE: 42S01 (ER_TABLE_EXISTS_ERROR) : already upgraded
@@ -163,7 +163,7 @@ if ($languageInterface  != 'english') // Avoid useless include as English lang i
 // include the locale settings language
 
 include($includePath.'/../lang/english/locale_settings.php');
-    
+
 if ( $languageInterface  != 'english' ) // // Avoid useless include as English lang is preloaded
 {
    include($includePath.'/../lang/'.$languageInterface.'/locale_settings.php');
@@ -173,7 +173,7 @@ if ( $languageInterface  != 'english' ) // // Avoid useless include as English l
   Authentification as platform administrator
   ----------------------------------------------------------------------*/
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_mdb_names = claro_sql_get_tbl(array('user','admin'));
 $tbl_user      = $tbl_mdb_names['user' ];
 $tbl_admin     = $tbl_mdb_names['admin'];
 
@@ -202,18 +202,28 @@ else
     if ( $login && $password ) // $login && $password are given to log in
     {
         // lookup the user in the Claroline database
+        $sql = "SHOW TABLES FROM `". $mainDbName."` LIKE 'admin'";
+        if(claro_sql_query_get_single_row($sql))
+        {
 
         $sql = "SELECT user_id, username, password, authSource, creatorId
-                 FROM `".$tbl_user."` `user`, `". $mainDbName."`.`admin`
-                 WHERE BINARY username = '". addslashes($login) ."'
-                   AND `user`.`user_id` = `admin`.`idUser` ";
-
+                    FROM `".$tbl_user."` `user`, `" . $tbl_admin . "`
+                    WHERE BINARY username = '". addslashes($login) ."'
+                    AND `user`.`user_id` = `admin`.`idUser` ";
+        }
+        else
+        {
+            $sql = "SELECT user_id, username, password, authSource, creatorId, isPlatformAdmin
+                FROM `".$tbl_user."` `user`
+                WHERE BINARY username = '". addslashes($login) ."'
+                AND `user`.`isPlatformAdmin` = '1' ";
+        }
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
         if ( mysql_num_rows($result) > 0)
         {
             $uData = mysql_fetch_array($result);
-             
+
             // the authentification of this user is managed by claroline itself
             $password = stripslashes( $password );
             $login    = stripslashes( $login    );
@@ -242,10 +252,10 @@ else
 }
 
 if ( isset($_uid) ) $_SESSION['_uid'] = $_uid;
-else                $_SESSION['_uid'] = null; // unset 
+else                $_SESSION['_uid'] = null; // unset
 
 if ( isset($is_platformAdmin) ) $_SESSION['is_platformAdmin'] = $is_platformAdmin;
-else                            $_SESSION['is_platformAdmin'] = null; 
+else                            $_SESSION['is_platformAdmin'] = null;
 
 
 ?>
