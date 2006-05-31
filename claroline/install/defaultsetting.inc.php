@@ -27,9 +27,9 @@ $dbUsernameForm = $conf_def_property_list['dbLogin']['default'];
 
 $dbPrefixForm   = $conf_def_property_list['dbNamePrefix']['default'];// $dbPrefixForm."c_";
 
-$mainTblPrefixForm  = 'cl_';
+$mainTblPrefixForm  = 'cm_';
 $dbNameForm         = $conf_def_property_list['mainDbName']['default'];// $dbPrefixForm."claroline";
-$statsTblPrefixForm = 'cl_';
+$statsTblPrefixForm = 'cs_';
 $dbStatsForm        = $conf_def_property_list['statsDbName']['default'];
 
 $singleDbForm   = $conf_def_property_list['singleDbEnabled']['default'];
