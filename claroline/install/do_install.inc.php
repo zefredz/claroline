@@ -302,11 +302,11 @@ else
 
     $includePath = $newIncludePath;
     $def_file_list = get_def_file_list();
-    $configError=false;
     if ( is_array($def_file_list) )
     {
-        foreach ( $def_file_list as  $config_code => $def )
+        foreach ( $def_file_list as $config_code => $def )
         {
+            $configError = false;
             // new config object
             $config = new Config($config_code);
 
