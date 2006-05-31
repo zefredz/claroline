@@ -54,7 +54,7 @@ function build_rss($context)
         'encoding'  => get_conf('charset'),
         'rootName'  => 'rss',
         'defaultTagName' => 'item',
-        'rootAttributes' => array('version' => '2.0')
+        'rootAttributes' => array('version' => '2.0', 'xmlns:dc'=>'http://purl.org/dc/elements/1.1/')
         );
 
         $rssFilePath = $rssRepositoryCacheSys . '/' ;
@@ -111,6 +111,12 @@ function build_rss($context)
             }
         }
 
+        foreach ($data['channel'] as $itemKey => $item)
+        {
+            // $data['channel'][$itemKey][x] = filter($item[x]);
+            $data['channel'][$itemKey]['title'] = trim(strip_tags($item['title']));
+            $data['channel'][$itemKey]['title'] = (empty($data['channel'][$itemKey]['title'])?get_lang('Item').':'.$itemKey:$data['channel'][$itemKey]['title'] );
+        }
 
         $serializer = new XML_Serializer($options);
 
