@@ -47,9 +47,10 @@ require '../inc/claro_init_global.inc.php'; //    settings initialisation
 if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
+// get shared lib
 include_once $includePath . '/lib/sendmail.lib.php';
 
-$htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">
+$htmlHeadXtra[] = "<script type=\"text/javascript\" language=\"JavaScript\">
 
 <!-- Begin javascript menu swapper
 
@@ -233,8 +234,8 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         */
 
         // email subject
-        $emailSubject = '[' . $siteName . ' - ' 
-                      . $_course['officialCode'] . '] ' 
+        $emailSubject = '[' . $siteName . ' - '
+                      . $_course['officialCode'] . '] '
                       . get_lang('Message from your lecturer');
 
         // email content
@@ -249,7 +250,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
             $countUnvalid = 0;
             $messageFailed = '';
 
-        $sentMailCount = claro_mail_user($userIdList, $emailBody, $emailSubject, 
+        $sentMailCount = claro_mail_user($userIdList, $emailBody, $emailSubject,
                              $senderMail, $senderFirstName.' '.$senderLastName);
 
         $message = '<p>' . get_lang('Message sent') . '<p>';
@@ -258,7 +259,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 
         if ( $unsentMailCount > 0 )
         {
-            $messageUnvalid    =  get_block('blockUsersWithoutValidEmail', 
+            $messageUnvalid    =  get_block('blockUsersWithoutValidEmail',
                     array('%userQty' => count($userIdList),
                           '%userInvalidQty' => $unsentMailCount,
                           '%messageFailed'  => $messageFailed
