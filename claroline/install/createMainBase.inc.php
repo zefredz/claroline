@@ -143,7 +143,8 @@ CREATE TABLE `".$mainTblPrefixForm."config_file` (
 
 
 
-$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."sso` (
+$creationStatementList[] = 
+"CREATE TABLE `".$mainTblPrefixForm."sso` (
   `id` int(11) NOT NULL auto_increment,
   `cookie` varchar(255) NOT NULL default '',
   `rec_time` datetime NOT NULL default '0000-00-00 00:00:00',
