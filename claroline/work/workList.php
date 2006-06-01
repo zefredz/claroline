@@ -356,7 +356,7 @@ foreach ( $workList as $workId => $thisWrk )
  * HEADER
  */
 
-$interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Work'));
+$interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Assignments'));
 $nameTools = get_lang('Assignment');
 
 // to prevent parameters to be added in the breadcrumb

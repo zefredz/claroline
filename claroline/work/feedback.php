@@ -251,7 +251,7 @@ if($is_allowedToEdit)
  */
 
 // bredcrump to return to the list when in a form
-$interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Work'));
+$interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments'));
 $interbredcrump[]= array ('url' => './workList.php?assigId=' . $_REQUEST['assigId'], 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 

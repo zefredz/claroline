@@ -296,13 +296,13 @@ function confirmation (name)
 if ( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
     // bredcrump to return to the list when in a form
-    $interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Work'));
+    $interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Assignments'));
     $nameTools = get_lang('Assignment');
 }
 else
 {
 	$noQUERY_STRING = true;
-    $nameTools = get_lang('Work');
+    $nameTools = get_lang('Assignments');
 }
 
 

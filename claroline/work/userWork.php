@@ -814,7 +814,7 @@ function confirmation (name)
 }
 </script>';
 
-$interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Work'));
+$interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Assignments'));
 $interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], 'name' => get_lang('Assignment'));
 
 if( $dispWrkDet || $dispWrkForm )
@@ -826,7 +826,7 @@ if( $dispWrkDet || $dispWrkForm )
 	  $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
 	  $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
       $_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
-      $nameTools = get_lang('Work');
+      $nameTools = get_lang('Submission');
 }
 else
 {
