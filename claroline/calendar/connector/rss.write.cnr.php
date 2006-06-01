@@ -28,17 +28,23 @@ function CLCAL_write_rss($context)
     $eventList    = agenda_get_item_list($context, 'ASC');
     $toolNameList = claro_get_tool_name_list();
     $eventRssList = array();
-    foreach ($eventList as $id => $eventItem)
+    foreach ($eventList as $id => $item)
     {
-        if($eventItem['visibility'] == 'SHOW')
+        if('SHOW' == $item['visibility'] )
         {
-            if (empty($eventItem['title'])) $eventItem['title'] = $id;
-            $eventRssList[] = array( 'title'       => $eventItem['title']
+            //prepare values
+            $item['timestamp'] = strtotime($item['day'] . ' ' . $item['hour'] );
+            $item['pubDate'] = date('r', $item['timestamp']);
+            $item['dc:date'] = date('c', $item['timestamp']);
+            //c ISO 8601 date (added in PHP 5) 2004-02-12T15:19:21+00:00 
+            $item['dc:date'] = ('c' == $item['dc:date'])?date('Y-m-d\TH:i:sO', $item['timestamp']):$item['dc:date'];
+            $eventRssList[] = array( 'title'       => $item['title']
             ,                        'category'    => trim($toolNameList[str_pad('CLCAL',8,'_')])
-            ,                        'guid'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $eventItem['id']
-            ,                        'link'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $eventItem['id']
-            ,                        'description' => trim(str_replace('<!-- content: html -->','',$eventItem['content']))
-            ,                        'pubDate'     => date('r', stripslashes(strtotime($eventItem['day'] . ' ' . $eventItem['hour'] )))
+            ,                        'guid'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
+            ,                        'link'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
+            ,                        'description' => trim(str_replace('<!-- content: html -->','',$item['content']))
+            ,                        'pubDate'     => $item['pubDate']
+            ,                        'dc:date'     => $item['dc:date']
         //, 'author' => $_course['email']
             );
         }
