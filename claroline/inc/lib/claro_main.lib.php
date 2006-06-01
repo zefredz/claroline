@@ -169,7 +169,7 @@ function claro_get_tool_name_list()
         ,                     'CLGRP___' => 'Groups'
         ,                     'CLLNP___' => 'Learning path'
         ,                     'CLQWZ___' => 'Exercises'
-        ,                     'CLWRK___' => 'Work'
+        ,                     'CLWRK___' => 'Assignments'
         ,                     'CLUSR___' => 'Users'
         ,                     'CLWIKI__' => 'Wiki'
         );
