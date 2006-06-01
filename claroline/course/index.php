@@ -29,6 +29,9 @@ require '../inc/claro_init_global.inc.php';
 include $includePath . '/lib/course_home.lib.php';
 include $includePath . '/conf/rss.conf.php';
 
+require_once $clarolineRepositorySys . '/linker/linker.inc.php';
+
+
 if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
 $toolRepository = $clarolineRepositoryWeb;
@@ -40,6 +43,21 @@ if ( get_conf('enable_rss_in_course') )
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
             .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
 }
+
+/*
+ * Load javascript for management of the linker into the main text zone
+ * see 'introductionSection.inc.php' file included later in the script
+ */
+
+if (      isset( $_REQUEST['introCmd'] ) 
+     && ( $_REQUEST['introCmd']== 'rqEd' || $_REQUEST['introCmd'] == 'rqAdd') )
+{
+    $introId = isset ($_REQUEST['introId']) ? $_REQUEST['introId'] : null;
+    linker_init_session();
+    linker_set_local_crl( isset ($_REQUEST['introId']), 'CLINTRO_' );
+    linker_html_head_xtra();
+}
+
 
 // Display header
 include($includePath . '/claro_init_header.inc.php');
