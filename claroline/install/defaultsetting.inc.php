@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 /**
  * CLAROLINE
  *
@@ -27,9 +27,9 @@ $dbUsernameForm = $conf_def_property_list['dbLogin']['default'];
 
 $dbPrefixForm   = $conf_def_property_list['dbNamePrefix']['default'];// $dbPrefixForm."c_";
 
-$mainTblPrefixForm  = 'cm_';
+$mainTblPrefixForm  = 'cl_';
 $dbNameForm         = $conf_def_property_list['mainDbName']['default'];// $dbPrefixForm."claroline";
-$statsTblPrefixForm = 'cs_';
+$statsTblPrefixForm = 'cl_';
 $dbStatsForm        = $conf_def_property_list['statsDbName']['default'];
 
 $singleDbForm   = $conf_def_property_list['singleDbEnabled']['default'];
