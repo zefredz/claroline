@@ -293,7 +293,7 @@ if ($intro_dispDefault)
 
             if ($intro_dispCommand)
             {
-                echo '<div>' . "\n";
+                echo '<div class="toolbar">' . "\n";
 
                 echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                 .       '?introCmd=rqEd&introId='.$introId.'">'
