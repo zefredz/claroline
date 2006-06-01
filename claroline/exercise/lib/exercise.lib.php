@@ -15,37 +15,37 @@
  
 function get_filter_list()
 {
-	$tbl_cdb_names = claro_sql_get_course_tbl();
-	$tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
-	$filterList['all'] = get_lang('All exercises');
-	$filterList['orphan'] = get_lang('Orphan questions');
-	
-	// get exercise list
-	$sql = "SELECT `id`, `title` 
-	          FROM `".$tbl_quiz_exercise."` 
-	          ORDER BY `title`";
-	$exerciseList = claro_sql_query_fetch_all($sql);
-	
-	if( is_array($exerciseList) && !empty($exerciseList) )
-	{
-		foreach( $exerciseList as $anExercise )
-		{
-			$filterList[$anExercise['id']] = $anExercise['title'];
-		}
-	} 	
-	return $filterList;
+    $filterList['all'] = get_lang('All exercises');
+    $filterList['orphan'] = get_lang('Orphan questions');
+    
+    // get exercise list
+    $sql = "SELECT `id`, `title` 
+              FROM `".$tbl_quiz_exercise."` 
+              ORDER BY `title`";
+    $exerciseList = claro_sql_query_fetch_all($sql);
+    
+    if( is_array($exerciseList) && !empty($exerciseList) )
+    {
+        foreach( $exerciseList as $anExercise )
+        {
+            $filterList[$anExercise['id']] = $anExercise['title'];
+        }
+    }     
+    return $filterList;
 }
 
 function get_localized_question_type()
 {
-	$questionType['MCUA'] 		= get_lang('Multiple choice (Unique answer)');
-	$questionType['MCMA'] 		= get_lang('Multiple choice (Multiple answers)');
-	$questionType['TF'] 		= get_lang('True/False');
-	$questionType['FIB'] 		= get_lang('Fill in blanks');
-	$questionType['MATCHING'] 	= get_lang('Matching');
-	
-	return $questionType;
+    $questionType['MCUA']         = get_lang('Multiple choice (Unique answer)');
+    $questionType['MCMA']         = get_lang('Multiple choice (Multiple answers)');
+    $questionType['TF']         = get_lang('True/False');
+    $questionType['FIB']         = get_lang('Fill in blanks');
+    $questionType['MATCHING']     = get_lang('Matching');
+    
+    return $questionType;
 }
 
 ?>
