@@ -29,7 +29,9 @@
 
 function course_description_get_item_list($courseId=null)
 {
-    $tbl = claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+    //$tbl = claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
+
 
 
     $sql = "SELECT `id`, `title`, `content` , `visibility`
@@ -52,7 +54,7 @@ function course_description_get_item_list($courseId=null)
 
 function course_description_get_item($descId, $courseId=null)
 {
-    $tbl = claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
 
     $sql = 'SELECT `id`, `title`, `content`, `visibility`
             FROM `' . $tbl['course_description'] . '`
@@ -76,7 +78,7 @@ function course_description_get_item($descId, $courseId=null)
 
 function course_description_delete_item($descId, $courseId=null)
 {
-    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
 
     $sql = 'DELETE FROM `' . $tbl['course_description'] . '`
             WHERE id = ' . (int) $descId;
@@ -101,7 +103,7 @@ function course_description_delete_item($descId, $courseId=null)
 
 function course_description_set_item($descId , $descTitle , $descContent, $courseId=null)
 {
-    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
 
     $sql = "UPDATE `" . $tbl['course_description']."`
                SET   `title`   = '" . addslashes($descTitle) . "',
@@ -129,8 +131,7 @@ function course_description_set_item($descId , $descTitle , $descContent, $cours
  */
 function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$courseId=null)
 {
-    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
-
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
     if ( $descId < 0 )
     {
         $sql = "SELECT MAX(id)
@@ -164,7 +165,7 @@ function course_description_add_item($descId,$descTitle,$descContent,$maxBloc,$c
  */
 function course_description_visibility_item($descId, $cmd, $courseId=null)
 {
-    $tbl =  claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
 
     if ($cmd == 'mkShow')  $visibility = 'SHOW'; else $visibility = 'HIDE';
     if ($cmd == 'mkHide')  $visibility = 'HIDE'; else $visibility = 'SHOW';
