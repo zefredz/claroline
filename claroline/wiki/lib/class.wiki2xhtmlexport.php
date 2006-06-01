@@ -39,6 +39,7 @@
         {
             Wiki2xhtmlRenderer::Wiki2xhtmlRenderer( $wiki );
             $this->setOpt( 'first_title_level', 3 );
+            $this->setOpt('note_str','<div class="footnotes"><h5>Notes</h5>%s</div>');
             $this->wiki =& $wiki;
         }
         
@@ -145,6 +146,11 @@ h3{
 h4{
     font-size:125%;
     font-weight:bold;
+}
+h5{
+    font-size: 100%;
+    font-style: italic;
+    border-bottom: 1px groove #aaaaaa;
 }
 
 a.wikiEdit{
