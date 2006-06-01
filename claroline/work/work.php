@@ -497,14 +497,6 @@ if ($is_allowedToEdit)
 // if we don't display assignment form
 if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 {
-	/*--------------------------------------------------------------------
-                        INTRODUCTION SECTION
-      --------------------------------------------------------------------*/
-
-    $moduleId = $_tid; // Id of the Student Paper introduction Area
-    $helpAddIntroText = get_block('blockIntroWork');
-    include($includePath . '/introductionSection.inc.php');
-
     /*--------------------------------------------------------------------
                         ADMIN LINKS
       --------------------------------------------------------------------*/
