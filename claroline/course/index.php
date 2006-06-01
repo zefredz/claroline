@@ -54,7 +54,10 @@ if (      isset( $_REQUEST['introCmd'] )
 {
     $introId = isset ($_REQUEST['introId']) ? $_REQUEST['introId'] : null;
     linker_init_session();
-    linker_set_local_crl( isset ($_REQUEST['introId']), 'CLINTRO_' );
+    if ($jpspanEnabled)
+    {
+        linker_set_local_crl( isset ($_REQUEST['introId']), 'CLINTRO_' );
+    }
     linker_html_head_xtra();
 }
 
