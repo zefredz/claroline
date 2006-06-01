@@ -105,10 +105,6 @@ require $includePath . '/lib/language.lib.php';
 /*----------------------------------------------------------------------
   Include Plugin libraries and create needed buffer
   ----------------------------------------------------------------------*/
-$tbl_module      = "cl_module";
-$tbl_dock        = "cl_dock";
-$tbl_module_info = "cl_module_info";
-
 require $includePath . '/lib/buffer.lib.php';
 
 
@@ -176,7 +172,7 @@ language::load_locale_settings();
 //
 // 2. A unique ID value is provided at form submission that way
 //
-//    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); >">
+//    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 //
 // The routine records in PHP session all the the ID of the submitted
 // forms. Once a form is submitted, its ID is compared to recorded ID, to
