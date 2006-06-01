@@ -1,5 +1,5 @@
 <?php # $Id$
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('DIRECT CALL FORBIDDEN');
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 /*
  * The INTRODUCTION MICRO MODULE is used to insert and edit
@@ -26,21 +26,29 @@ if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('DIRECT CALL F
 // 
 // CREATE TABLE `c_ctc01_tool_intro` (
 //   `id` int(11) NOT NULL auto_increment,
-//   `texte_intro` text,
-//   `tid` int(11) NOT NULL default '0',
+//   `content` text,
 //   `rank` int(11) default NULL,
 //   PRIMARY KEY  (`id`)
 // ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
         
+
+require_once $clarolineRepositorySys . 'linker/linker.inc.php';
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TBL_INTRODUCTION = $tbl_cdb_names['tool_intro'];
 
 $intro_editAllowed = claro_is_allowed_to_edit();
 
+
 if ( isset($_REQUEST['introCmd']) && $intro_editAllowed )
 {
     $introCmd = $_REQUEST['introCmd'];
+    linker_init_session();
+
+    if ( $jpspanEnabled)
+    {
+        linker_set_local_crl( isset($_REQUEST['introId']) );
+    }
 }
 else
 {
@@ -60,21 +68,27 @@ if ($intro_editAllowed)
 
     if( $introCmd == 'exAdd')
     {
-        $intro_content = trim($_REQUEST['intro_content']);
+        // DETERMINE THE ORDER OF THE NEW ANNOUNCEMENT
+        $sql = "SELECT (MAX(rank) + 1) AS nextRank
+                FROM  `" . $TBL_INTRODUCTION . "`";
+
+        $nextRank = claro_sql_query_get_single_value($sql);
+
+            $intro_content = trim($_REQUEST['intro_content']);
 
             $sql = "INSERT INTO `" . $TBL_INTRODUCTION . "` 
-                    SET `tool_id` = '" . (int)$moduleId . "',
-                        `content` = '" . addslashes($intro_content) . "'";
-
+                    SET content = '" . addslashes($intro_content) . "',
+                        rank = " . (int) $nextRank;
+           
            $introId = claro_sql_query_insert_id($sql);
 
            if ( $introId )
            {
-                $eventNotifier->notifyCourseEvent('introsection_modified', $_cid, $_tid, $moduleId, $_gid, '0');
+             linker_update('CLINTRO_');
            }
            else
            {
-             // unsucceed ...
+             // unsucceed
            }
     }
 
@@ -91,6 +105,8 @@ if ($intro_editAllowed)
 
            if ( claro_sql_query($sql) != false)
            {
+                 linker_update('CLINTRO_');
+                // notify that a new introsection has been posted
                 $eventNotifier->notifyCourseEvent('introsection_modified', $_cid, $_tid, $moduleId, $_gid, '0');
            }
            else
@@ -106,7 +122,7 @@ if ($intro_editAllowed)
 
     if ($introCmd == 'rqEd')
     {
-        $sql = "SELECT `id`, `content` 
+    	$sql = "SELECT `id`, `content` 
                 FROM `" . $TBL_INTRODUCTION . "`
                 WHERE `id` = ".(int)$_REQUEST['introId'];
 
@@ -118,14 +134,67 @@ if ($intro_editAllowed)
     }
 
 
-    /* Delete Command */
+	/* Delete Command */
 
     if( $introCmd == 'exDel')
     {
         $sql = "DELETE FROM `" . $TBL_INTRODUCTION . "` 
                 WHERE `id` = '" . $_REQUEST['introId'] . "'";
 
-        claro_sql_query($sql);
+        if ( claro_sql_query($sql) != false )
+        {
+            linker_delete_resource('CLINTRO_');
+        }
+    }
+
+    /* Move rank Command */
+
+    if ( $introCmd == 'exMvDown' || $introCmd == 'exMvUp')
+    {
+        if ( $introCmd == 'exMvDown' )
+        {
+            $sortDirection = 'ASC';
+            $operator = ' > ';
+        }
+        elseif ( $introCmd == 'exMvUp' )
+        {
+            $sortDirection = 'DESC';
+            $operator = ' < ';
+        }
+
+        $currentEntryId = (int) $_REQUEST['introId'];
+
+        $sql = "SELECT rank FROM `" . $TBL_INTRODUCTION ."`
+                WHERE id = " . (int) $currentEntryId;
+
+        $currentEntryRank = claro_sql_query_get_single_value($sql);
+
+        if ( $currentEntryRank !== false)
+        {
+            $sql = "SELECT id, rank 
+                    FROM `". $TBL_INTRODUCTION ."`
+                    WHERE rank ". $operator ." " . $currentEntryRank . "
+                    ORDER BY rank ". $sortDirection . " LIMIT 1";
+
+            $nextEntrySettingList = claro_sql_query_get_single_row($sql);
+
+            if ( is_array($nextEntrySettingList) )
+            {
+                $nextEntryRank = $nextEntrySettingList['rank'];
+                $nextEntryId    = $nextEntrySettingList['id'];
+                $sql = "UPDATE `" . $TBL_INTRODUCTION . "`
+                    SET rank = '" . (int) $nextEntryRank . "'
+                    WHERE id =  '" . (int) $currentEntryId . "'";
+
+                claro_sql_query($sql);
+
+                $sql = "UPDATE `" . $TBL_INTRODUCTION . "`
+                    SET rank = '" . (int) $currentEntryRank . "'
+                    WHERE id =  '" . (int) $nextEntryId . "'";
+
+                claro_sql_query($sql);
+            }
+        }
     }
 }
 
@@ -137,16 +206,17 @@ if ($intro_editAllowed)
 
 if ( $intro_editAllowed && ($introCmd == 'rqEd' || $introCmd == 'rqAdd' ) )
 {
-    $intro_dispDefault = false;
-    $intro_dispForm    = true;
-    $intro_dispCommand = false;
+	$intro_dispDefault = false;
+	$intro_dispForm    = true;
+	$intro_dispCommand = false;
 }
 else
 {
-    $intro_dispDefault = true;
-    $intro_dispForm    = false;
+	$intro_dispDefault = true;
+	$intro_dispForm    = false;
     $intro_dispCommand = $intro_editAllowed ;
 }
+
 
 /* Executes the display */
 
@@ -157,44 +227,57 @@ if ($intro_dispForm)
     $introEditorCmdValue = $introId ? 'exEd' : 'exAdd';
 
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-    .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'
+    .    '<input type="hidden" name="claroFormId" value="'.uniqid().'">'
     .    '<input type="hidden" name="introCmd" value="'.$introEditorCmdValue.'">'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
     .    claro_html_textarea_editor('intro_content', trim($introContent))
-    .    '<br />'."\n"
-    .   '<input class="claroButton" type="submit" value="' . get_lang('Ok') . '">'."\n"  
-    .   claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-    .   '<br />'."\n"
-    .   '</form>'."\n\n"
+    .	'<br />'."\n"
     ;
+
+    //---------------------
+    // linker
+
+    if( $jpspanEnabled )
+    {
+        linker_set_local_crl( isset ($_REQUEST['introId'] ), 'CLINTRO_' );
+        linker_set_display();
+        echo '<input class="claroButton" type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">'."\n";
+    }
+    else // popup mode
+    {
+        if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['introId'], 'CLINTRO_');
+        else                       linker_set_display(false, 'CLINTRO_');
+
+        
+        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">'."\n";
+    }
+
+    echo claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+    .    '<br />'."\n"
+    .    '</form>'."\n\n"
+    ;
+
 }
 
 if ($intro_dispDefault)
 {
-    $sql = "SELECT `id`, `rank`, `title`, `content`, 
-                   `visibility`, `display_date`
+    $sql = "SELECT `id`, `rank`, `content`
             FROM `" . $TBL_INTRODUCTION . "` 
-            WHERE `tool_id` = '" . (int)$moduleId . "'";
+            ORDER BY rank ASC";
 
     $textIntroList = claro_sql_query_fetch_all($sql);
 
-    if ( count($textIntroList) == 0 && $intro_dispCommand )
+    $introListCount = count($textIntroList);
+
+    if ( $introListCount == 0 )
     {
         echo '<div class="HelpText">' . "\n"
         .    $helpAddIntroText        . "\n" 
-        .    '</div>'                 . "\n"
-        .    '<p>' . "\n"
-        .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
-        .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="" border="0">'
-        .    get_lang('Add introduction text')
-        .    '</a>' . "\n"
-        .    '</p>' . "\n\n"
-        ;
-
+        .    '</div>'                 . "\n";
     }
     else
     {
-        foreach($textIntroList as $thisTextIntro)
+        foreach($textIntroList as $thisIntroKey => $thisTextIntro)
         {
             $introId       = $thisTextIntro['id'];
             $intro_content = claro_parse_user_text($thisTextIntro['content']);
@@ -202,24 +285,61 @@ if ($intro_dispDefault)
             if( trim(strip_tags($intro_content,'<img>')) != '' ) // no need to display a div for an empty string
             {
                 echo '<div class="claroIntroSection">' . "\n"
-                .    $intro_content . "\n"
-                .    '</div>' . "\n\n"
-                ;
+                .    $intro_content . "\n";
+
+                linker_display_resource('CLINTRO_');
             }
+
 
             if ($intro_dispCommand)
             {
-                echo '<p>' . "\n"
-                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqEd&introId='.$introId.'">'
-                .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Modify') . '" border="0">'
+                echo '<div>' . "\n";
+
+                echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+                .       '?introCmd=rqEd&introId='.$introId.'">'
+                .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Ok') . '" border="0">'
                 .    '</a>' . "\n"
-                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=exDel&introId='.$introId.'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('Please confirm your choice')).'\')) return false;"><img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0"></a>' . "\n"
-                .    '</p>' . "\n\n"
+                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] 
+                .      '?introCmd=exDel&introId='.$introId.'" ' 
+                .      'onclick="javascript:if(!confirm(\'' 
+                .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
+                .      'return false;">'
+                .    '<img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0">'
+                .    '</a>' . "\n"
                 ;
+
+                if ($thisIntroKey > 0 )
+                {
+                    echo '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
+                    .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('Move up').'">'
+                    .    '</a> ';
+                }
+
+                if ($thisIntroKey + 1 < $introListCount )
+                {
+                    echo ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
+                    .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.get_lang('Move down').'">'
+                    .    '</a>';
+                }
+
+                echo '</div>' . "\n\n";
             }
+
+            echo    '</div>' . "\n\n";
         } // end foreach textIntroList
 
     } // end if count textIntroList > 0
+
+    if ($intro_dispCommand)
+    {
+        echo '<p>' . "\n"
+        .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
+        .    '<img src="' . $urlAppend . '/claroline/img/textzone.gif" alt="" border="0">'
+        .    get_lang('Add Text')
+        .    '</a>' . "\n"
+        .    '</p>' . "\n\n"
+        ;
+    }
 } // end if intro_dispDefault
 
 
