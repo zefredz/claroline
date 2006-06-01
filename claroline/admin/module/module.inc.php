@@ -1048,7 +1048,7 @@ function readModuleManifest($modulePath)
     // Find XML manifest and parse it to retrieve module informations
 
     //check if manifest is present
-    $manifestPath = $modulePath. 'manifest.xml';
+    $manifestPath = $modulePath. '/manifest.xml';
     if (! check_name_exist($manifestPath))
     {
         return claro_failure::set_failure(get_lang('Manifest missing : %filename',array('%filename' => $manifestPath)));
