@@ -43,7 +43,7 @@ $intro_editAllowed = claro_is_allowed_to_edit();
 if ( isset($_REQUEST['introCmd']) && $intro_editAllowed )
 {
     $introCmd = $_REQUEST['introCmd'];
-    linker_init_session();
+    // linker_init_session();
 
     if ( $jpspanEnabled)
     {
@@ -245,7 +245,7 @@ if ($intro_dispForm)
     }
     else // popup mode
     {
-        if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['introId'], 'CLINTRO_');
+        if(isset($_REQUEST['introId'])) linker_set_display($_REQUEST['introId'], 'CLINTRO_', 'introId');
         else                       linker_set_display(false, 'CLINTRO_');
 
         
