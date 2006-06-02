@@ -106,6 +106,10 @@ if( $cmd == 'exEdit' )
 	{
 		$exercise->setTimeLimit( $_REQUEST['timeLimitMin']*60 + $_REQUEST['timeLimitSec'] );
 	}
+	else
+	{
+		$exercise->setTimeLimit(0);				
+	}
 	
 	$exercise->setAttempts($_REQUEST['attempts']);
 	$exercise->setAnonymousAttempts($_REQUEST['anonymousAttempts']);
