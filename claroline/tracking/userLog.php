@@ -35,7 +35,7 @@ $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
 $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
 $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
-$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+$tbl_qwz_exercise            = $tbl_cdb_names['qwz_exercise'		   ];
 $tbl_wrk_assignment          = $tbl_cdb_names['wrk_assignment'         ];
 $tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
@@ -290,7 +290,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 .    '<br />&nbsp;&nbsp;&nbsp;' . get_lang('Scores of exercises done').'<br />' . "\n"
                 ;
 
-                $sql = "SELECT `E`.`titre`, `E`.`id`,
+                $sql = "SELECT `E`.`title`, `E`.`id`,
                         MIN(`TEX`.`exe_result`) AS `minimum`,
                         MAX(`TEX`.`exe_result`) AS `maximum`,
                         AVG(`TEX`.`exe_result`) AS `average`,
@@ -298,11 +298,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                         COUNT(`TEX`.`exe_user_id`) AS `attempts`,
                         MAX(`TEX`.`exe_date`) AS `lastAttempt`,
                         AVG(`TEX`.`exe_time`) AS `avgTime`
-                    FROM `$tbl_quiz_test` AS `E` , `$tbl_track_e_exercises` AS `TEX`
+                    FROM `".$tbl_qwz_exercise."` AS `E` , `$tbl_track_e_exercises` AS `TEX`
                     WHERE `TEX`.`exe_user_id` = '". (int)$_GET['uInfo']."'
                         AND `TEX`.`exe_exo_id` = `E`.`id`
                     GROUP BY `TEX`.`exe_exo_id`
-                    ORDER BY `E`.`titre` ASC";
+                    ORDER BY `E`.`title` ASC";
 
                 $results = claro_sql_query_fetch_all($sql);
 
@@ -323,7 +323,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     foreach( $results as $exo_details )
                     {
                         echo '<tr>' . "\n"
-                        .    '<td><a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_GET['uInfo'].'&view='.$view.'&exoDet='.$exo_details['id'].'">'.$exo_details['titre'].'</td>' . "\n"
+                        .    '<td><a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_GET['uInfo'].'&view='.$view.'&exoDet='.$exo_details['id'].'">'.$exo_details['title'].'</td>' . "\n"
                         .    '<td>'.$exo_details['minimum'].'</td>' . "\n"
                         .    '<td>'.$exo_details['maximum'].'</td>' . "\n"
                         .    '<td>'.(round($exo_details['average']*10)/10).'</td>' . "\n"
