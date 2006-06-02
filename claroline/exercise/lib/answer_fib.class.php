@@ -89,7 +89,7 @@ class answerFillInBlanks
     	$this->id = -1;
     	
     	// directly fill with an example
-    	$this->answer = get_lang('[British people] live in [United Kingdom].');
+    	$this->answerText = get_lang('[British people] live in [United Kingdom].');
     	
     	$this->answerList = array();  
 		$this->gradeList = array();     	  	
@@ -129,7 +129,7 @@ class answerFillInBlanks
 	    if( !empty($data) )
 	    {
 	        $this->id = (int) $data['id'];
-	    	$this->answer = $data['answer'];
+	    	$this->answerText = $data['answer'];
 		    if( !empty($data['gradeList']) ) $this->gradeList = explode(',' , $data['gradeList'] );
 		    if( !empty($data['wrongAnswerList']) ) $this->wrongAnswerList = explode( ',' , $data['wrongAnswerList'] );
 		    $this->type = $data['type'];
@@ -160,7 +160,7 @@ class answerFillInBlanks
     		// insert	
 		    $sql = "INSERT INTO `".$this->tblAnswer."`
 		            SET `questionId` = ".(int) $this->questionId.",
-		            	`answer` = '".addslashes($this->answer)."',
+		            	`answer` = '".addslashes($this->answerText)."',
 		                `gradeList` = '".addslashes($sqlGradeList)."',
 		                `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
 		                `type` = '".addslashes($this->type)."'";
@@ -183,7 +183,7 @@ class answerFillInBlanks
     	{
     		// update
 		    $sql = "UPDATE `".$this->tblAnswer."`
-		            SET `answer` = '".addslashes($this->answer)."',
+		            SET `answer` = '".addslashes($this->answerText)."',
 		                `gradeList` = '".addslashes($sqlGradeList)."',
 		                `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
 		                `type` = '".addslashes($this->type)."'
@@ -243,7 +243,7 @@ class answerFillInBlanks
 	function validate() 
     {
     	// answer cannot be empty
-    	if( $this->answer == '' )
+    	if( $this->answerText == '' )
     	{	
     		$this->errorList[] = get_lang('Please type the text');
     		$this->step = 1;
@@ -252,7 +252,7 @@ class answerFillInBlanks
     	
     	// answer must contain at least one blank
     	$regex = '/\[.*\]/';
-    	if( ! preg_match($regex, $this->answer) )
+    	if( ! preg_match($regex, $this->answerText) )
     	{
     		$this->errorList[] = get_lang('Please define at least one blank with brackets [...]');
     		$this->step = 1;
@@ -275,8 +275,8 @@ class answerFillInBlanks
 		else								$this->step = 1;
 		
 		// for answer
-		if( isset($_REQUEST['answer']) )	$this->answer = trim($this->answerEncode($_REQUEST['answer']));
-		else								$this->answer = '';
+		if( isset($_REQUEST['answer']) )	$this->answerText = trim($this->answerEncode($_REQUEST['answer']));
+		else								$this->answerText = '';
 		// and update answerList
 		$this->setAnswerList();
 
@@ -409,7 +409,7 @@ class answerFillInBlanks
     		}
     		
     		// apply replacement on answer
-    		$displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answer) );
+    		$displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText) );
     		
 	    	$html = 
 				'<table width="100%">' . "\n\n"
@@ -500,7 +500,7 @@ class answerFillInBlanks
 		}
 		
 		// apply replacement on answer
-		$displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answer) );
+		$displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText) );
 		
 		
     	$html = 
@@ -544,7 +544,7 @@ class answerFillInBlanks
     	{	
     		$html .=
     			// populate hidden fields for other steps
-    			'<input type="hidden" name="answer" value="'.htmlspecialchars($this->answer).'" />' . "\n"
+    			'<input type="hidden" name="answer" value="'.htmlspecialchars($this->answerText).'" />' . "\n"
     		.	'<input type="hidden" name="type" value="'.htmlspecialchars($this->type).'" />' . "\n"
     		.	'<input type="hidden" name="wrongAnswerList" value="'.htmlspecialchars(implode("\n", $this->wrongAnswerList)).'" />' . "\n\n"
     		
@@ -585,7 +585,7 @@ class answerFillInBlanks
     		// answer
     		$html .= '<p>' . get_lang('Please type your text below, use brackets [...] to define one or more blanks') . ' :</p>' . "\n"
     		
-    		.	'<textarea name="answer" cols="65" rows="6">'.htmlspecialchars($this->answerDecode($this->answer)).'</textarea>' . "\n"
+    		.	'<textarea name="answer" cols="65" rows="6">'.htmlspecialchars($this->answerDecode($this->answerText)).'</textarea>' . "\n"
     		
     		// fill type
     		.	'<p>' . get_lang('Fill type') . '&nbsp;:</p>' . "\n"
@@ -627,7 +627,7 @@ class answerFillInBlanks
     	
     	$regex = '/\[([^]]*)\]/';
 			
-		preg_match_all( $regex, $this->answer, $matches);
+		preg_match_all( $regex, $this->answerText, $matches);
 
 
 		$this->answerList = $matches[1];
