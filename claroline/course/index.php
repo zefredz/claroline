@@ -49,7 +49,7 @@ if ( get_conf('enable_rss_in_course') )
  * see 'introductionSection.inc.php' file included later in the script
  */
 
-if (      isset( $_REQUEST['introCmd'] ) 
+if (      isset( $_REQUEST['introCmd'] )
      && ( $_REQUEST['introCmd']== 'rqEd' || $_REQUEST['introCmd'] == 'rqAdd') )
 {
     $introId = isset ($_REQUEST['introId']) ? $_REQUEST['introId'] : null;
@@ -60,10 +60,6 @@ if (      isset( $_REQUEST['introCmd'] )
     }
     linker_html_head_xtra();
 }
-
-
-// Display header
-include($includePath . '/claro_init_header.inc.php');
 
 /*
 * Tracking - Count only one time by course and by session
@@ -171,6 +167,8 @@ foreach($toolList as $thisTool)
     .                             '</a>'
     ;
 
+// Display header
+include($includePath . '/claro_init_header.inc.php');
 
 echo '<table border="0" cellspacing="10" cellpadding="10" width="100%">' . "\n"
 .    '<tr>' . "\n"
