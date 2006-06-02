@@ -110,6 +110,23 @@ h3{	font-size: 110%; }
 	font-size: 120%;
 }
 
+
+#campusBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#campusBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
@@ -143,6 +160,23 @@ h3{	font-size: 110%; }
     color: #369;
 
 }
+
+#userBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#userBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
@@ -199,6 +233,23 @@ h3{	font-size: 110%; }
 	padding-top: 5px;
 	margin: 0;
 }
+
+#courseBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#courseBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB LINE
  ----------------------------------------------------------------------------*/

@@ -75,6 +75,22 @@ h3{	font-size: 110%; }
 	margin: 0;
 }
 
+#campusBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#campusBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
@@ -109,6 +125,23 @@ h3{	font-size: 110%; }
     color: #FFF;
 	text-decoration: underline;
 }
+
+#userBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#userBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
@@ -170,6 +203,23 @@ h3{	font-size: 110%; }
 	padding-top: 5px;
 	margin: 0;
 }
+
+#courseBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#courseBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
