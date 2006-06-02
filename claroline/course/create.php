@@ -160,9 +160,9 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 
             $args['courseSysCode'  ] = $courseSysCode;
             $args['courseDbName'   ] = $courseDbName;
-            $args['courseDirectory'] = $courseDirectory; 
+            $args['courseDirectory'] = $courseDirectory;
             $args['courseCategory' ] = $courseCategory;
-            
+
             $eventNotifier->notifyEvent("course_created",$args);
             }
             else
@@ -175,51 +175,6 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                     {
                         $errorList['error'] = 'READ ONLY SYSTEM FILE';
                     } break;
-/*                  case 'CANT_CREATE_COURSE_REP_CLQWZ' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_REP_CLDOC' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_REP_CLWRK' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_REP_CLGRP' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_REP_CLCHT' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_REP_MODULES' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_REP_MODULE_1' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_REP_SCORM' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_CREATE_COURSE_INDEX' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_WRITE_COURSE_INDEX' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-                    case 'CANT_SAVE_COURSE_INDEX' :
-                    {
-                        $errorList['error'] = 'READ ONLY SYSTEM FILE';
-                    } break;
-*/
                     default:
                     {
                         $errorList['error'] = 'Error code : '. $lastFailure;
