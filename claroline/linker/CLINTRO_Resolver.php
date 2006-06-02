@@ -69,8 +69,9 @@
 
         function getResourceId($toolName)
         {
-            global $introId;
-            return $introId;
+            if     ( isset($GLOBALS['introId'])  ) return $GLOBALS['introId'];
+            elseif ( isset($_REQUEST['introId']) ) return $_REQUEST['introId'];
+            else                                   return null;
         }
     }
 ?>
