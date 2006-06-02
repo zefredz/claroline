@@ -455,19 +455,23 @@ if ( isset($cidToEdit) && ($is_platformAdmin))
 <tr valign="top" >
 <td align="right" nowrap><?php echo get_lang('Course access'); ?> : </td>
 <td>
+<img src="<?php echo $imgRepositoryWeb ?>access_open.gif" /> 
 <input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibility ? 'checked':'' ?>> <label for="visible_true"><?php echo get_lang('Public access from campus home page even without login'); ?></label><br />
+<img src="<?php echo $imgRepositoryWeb ?>access_locked.gif" /> 
 <input type="radio" id="visible_false" name="visible" value="false" <?php echo ! $visibility  ?'checked':''; ?>> <label for="visible_false"><?php echo get_lang('Private access (site accessible only to people on the <a href="%url">User list</a>)',array('%url'=> '../user/user.php')); ?></label>
 </td>
 </tr>
 <tr valign="top">
 <td align="right"><?php echo get_lang('Enrolment'); ?> : </td>
 <td>
+<img src="<?php echo $imgRepositoryWeb ?>enroll_open.gif" /> 
 <input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo get_lang('Allowed'); ?></label>
 <label for="enrollmentKey">
 - <?php echo get_lang('enrollment key') ?> <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($enrollmentKey); ?>">
 <br />
+<img src="<?php echo $imgRepositoryWeb ?>enroll_locked.gif" /> 
 <input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo ! $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_false"><?php echo get_lang('Denied'); ?></label>
 <?php
 if (isset($cidToEdit))
