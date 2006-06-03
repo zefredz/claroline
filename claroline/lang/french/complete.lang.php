@@ -1745,10 +1745,10 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>@@code ici@@</code>&nbsp;;</dd>
 <dt>Ancre</dt>
 <dd><code>~ancre~</code>&nbsp;;</dd>
-<dt>Tableau (experimental)</dt>
+<dt>Tableau</dt>
 <dd><code>{|</code> début de tableau (doit être sur une nouvelle ligne)</dd>
 <dd><code>||first cell|second cell|...||</code> ligne de tableau (sur une ligne)</dd>
-<dd><code>{|<code> fin de tableau (doit être sur une nouvelle ligne)</dd>
+<dd><code>|}</code> fin de tableau (doit être sur une nouvelle ligne)</dd>
 </dl>';
 $_lang['click here'] = 'cliquez ici';
 $_lang['click to zoom in'] = 'cliquez pour agrandir l\'image';

@@ -1804,10 +1804,10 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>@@your code here@@</code>&nbsp;;</dd>
 <dt>Named anchor</dt>
 <dd><code>~anchor~</code>&nbsp;;</dd>
-<dt>Table (experimental)</dt>
+<dt>Table</dt>
 <dd><code>{|</code>&nbsp; start of table (must be on a new ligne)</dd>
-<dd><code>||first cell|second cell|...||</code> table row</dd>
-<dd><code>{|<code> end of table (must be on a new ligne)</dd>
+<dd><code>||first cell|second cell|...||</code> table row (on one line)</dd>
+<dd><code>|}</code> end of table (must be on a new ligne)</dd>
 </dl>';
 $_lang['click here'] = 'click here';
 $_lang['click to zoom in'] = 'click to zoom in';
