@@ -29,8 +29,7 @@ function get_installed_module_list($type = null)
 {
     $tbl = claro_sql_get_main_tbl();
 
-    $sql = "SELECT label
-            FROM   `" . $tbl['module'] . "`";
+    $sql = "SELECT label FROM `" . $tbl['module'] . "`";
 
     if (isset($type))
     {
@@ -52,8 +51,8 @@ function get_installed_module_list($type = null)
 
 function get_module_repositories()
 {
-    $moduleRepositorySys = get_conf('rootSys') . 'claroline/module/';
 
+    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
     $folder_array = array();
     if(file_exists($moduleRepositorySys))
     {
@@ -89,15 +88,17 @@ function check_module_repositories()
     $mistake_array           = array();
     $mistake_array['folder'] = array();
 
-    $moduleInDbList = get_installed_module_list();
+    $registredModuleList = get_installed_module_list();
     $mistake_array['DB'] = array();
-    foreach ($moduleInDbList as $moduleInDb)
+    foreach ($registredModuleList as $registredModule)
     {
-        $moduleData = get_module_data($moduleInDb);
-        $moduleEntry = realpath(dirname($GLOBALS['includePath'] . '/../module/' . $moduleInDb . '/../' . $moduleData['entry']));
+        $moduleData = get_module_data($registredModule);
+        $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
+        $moduleEntry = realpath($moduleRepositorySys . $registredModule . $moduleData['entry']);
+
         if(!file_exists($moduleEntry))
         {
-            $mistake_array['DB'][] = $moduleInDb;
+            $mistake_array['DB'][] = $registredModule;
         }
 
 
@@ -108,7 +109,7 @@ function check_module_repositories()
 
     foreach ($folders_found as $module_folder)
     {
-        if (!in_array($module_folder,$moduleInDbList))
+        if (!in_array($module_folder,$registredModuleList))
         {
             $mistake_array['folder'][] = $module_folder;
         }
@@ -391,7 +392,7 @@ function get_and_unzip_uploaded_package()
     include_once (realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php');
     //unzip files
 
-    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','claroline/module/');
+    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
     //create temp dir for upload
     claro_mkdir($moduleRepositorySys);
     $uploadDirFullPath = tempdir($moduleRepositorySys);
@@ -436,8 +437,8 @@ function install_module($modulePath)
     }
 
     //check if a module with the same LABEL is already installed, if yes, we cancel everything
-    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','claroline/module/');
-    if (0&&check_name_exist($moduleRepositorySys . $module_info['LABEL'] . '/'))
+
+    if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
     {
         array_push ($backlog_message,get_lang('This module is already installed on your platform '));
         claro_delete_file($modulePath);
@@ -461,7 +462,7 @@ function install_module($modulePath)
         }
     }
 
-    if (count($module_info['DEFAULT_DOCK']) > 0)
+    if (array_key_exists('DEFAULT_DOCK',$module_info))
     {
         foreach($module_info['DEFAULT_DOCK'] as $dock)
         {
@@ -474,22 +475,20 @@ function install_module($modulePath)
 
     //4- Rename the module repository with label
 
-    if (!rename( $modulePath, $moduleRepositorySys . $module_info['LABEL'].'/'))
+    if (!rename( $modulePath, get_module_path($module_info['LABEL']).'/'))
     {
         array_push ($backlog_message, get_lang("Error while renaming the module's folder"));
         return $backlog_message;
     }
-    else
-    {
-        $backlog_message[] = get_lang('Repository renamed successfully');
-    }
+    else $backlog_message[] = get_lang('Repository renamed successfully');
+
 
 
     //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
 
-    if (file_exists($moduleRepositorySys . $module_info['LABEL'] . '/install/install.sql'))
+    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
     {
-        $sql = file_get_contents($moduleRepositorySys . $module_info['LABEL'] . '/install/install.sql');
+        $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
         if (!empty($sql))
         {
             $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
@@ -498,9 +497,9 @@ function install_module($modulePath)
         array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.sql')));
     }
 
-    if (file_exists($moduleRepositorySys . $module_info['LABEL'] . '/install/install.php'))
+    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
     {
-        require $moduleRepositorySys . $module_info['LABEL'] . '/install/install.php';
+        require get_module_path($module_info['LABEL']) . '/install/install.php';
         array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.php')));
     }
 
@@ -528,7 +527,6 @@ function uninstall_module($moduleId)
 
     $tbl = claro_sql_get_main_tbl();
 
-    $moduleRepositorySys = realpath(get_conf('claroModuleRepository', get_conf('clarolineRepositorySys') . '/module/'));
     $backlog_message = array();
 
     // 0- find info about the module to uninstall
@@ -543,9 +541,9 @@ function uninstall_module($moduleId)
 
     // 1- Include the local 'uninstall.sql' and 'uninstall.php' file of the module if they exist
 
-    if (file_exists($moduleRepositorySys . $module['label'] . '/uninstall/uninstall.sql'))
+    if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.sql'))
     {
-        $sql = file_get_contents($moduleRepositorySys . $module['label'] . '/uninstall/uninstall.sql');
+        $sql = file_get_contents(get_module_path($module['label']) . '/uninstall/uninstall.sql');
         if (!empty($sql))
         {
             $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
@@ -554,15 +552,15 @@ function uninstall_module($moduleId)
         array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'uninstall.sql')));
     }
 
-    if (file_exists($moduleRepositorySys . $module['label'] . '/uninstall/uninstall.php'))
+    if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.php'))
     {
-        require $moduleRepositorySys . $module['label'] . '/uninstall/uninstall.php';
+        require get_module_path($module['label']) . '/uninstall/uninstall.php';
         array_push ($backlog_message,get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'uninstall.php')));
     }
 
     // 2- delete related files and folders
 
-    $modulePath = $moduleRepositorySys . '/' . $module['label'];
+    $modulePath = get_module_path($module['label']);
 
     if(claro_delete_file($modulePath))
     $backlog_message[] = get_lang('<b>%dirname</b> has been deleted from file system',array('%dirname'=>$module['label']));
@@ -844,12 +842,13 @@ function generate_module_cache()
 
     fwrite($handle, '<?php '."\n");
 
+    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
     foreach($module_list as $module)
     {
-        if (file_exists($includePath.'/../module/'.$module['label'].'/functions.php'))
+        if (file_exists(get_module_path($module['label']) . '/functions.php'))
         {
-            $dock_include  = "if (file_exists('".$includePath.'/../module/'.$module['label'].'/functions.php\')) ';
-            $dock_include .= 'require "'.$includePath.'/../module/'.$module['label'].'/functions.php"; '."\n";
+            $dock_include  = "if (file_exists('" . get_module_path($module['label']) . '/functions.php\')) ';
+            $dock_include .= 'require "' . get_module_path($module['label']) . '/functions.php"; ' . "\n";
 
             if (fwrite($handle, $dock_include) === FALSE)
             {

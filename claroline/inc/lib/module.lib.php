@@ -231,12 +231,12 @@ function get_module_path($toolLabel)
         case 'CLDSC' : return get_conf('clarolineRepositorySys') . 'course_description';
         case 'CLUSR' : return get_conf('clarolineRepositorySys') . 'user';
         case 'CLLNP' : return get_conf('clarolineRepositorySys') . 'learnPath';
-        case 'CLQWZ' : return get_conf('clarolineRepositorySys') . 'exercice';
+        case 'CLQWZ' : return get_conf('clarolineRepositorySys') . 'exercise';
         case 'CLWRK' : return get_conf('clarolineRepositorySys') . 'work';
         case 'CLWIKI' : return get_conf('clarolineRepositorySys') . 'wiki';
         case 'CLLNK' : return get_conf('clarolineRepositorySys') . 'linker';
         case 'CLGRP' : return '';
-        default: return get_conf('clarolineRepositorySys') . 'module/' . $toolLabel;
+        default: return get_conf('rootSys') . get_conf('moduleRepository','module/') . $toolLabel;
     }
     return '';
 
@@ -262,12 +262,12 @@ function get_module_url($toolLabel)
         case 'CLDSC' : return get_conf('clarolineRepositoryWeb') . 'course_description';
         case 'CLUSR' : return get_conf('clarolineRepositoryWeb') . 'user';
         case 'CLLNP' : return get_conf('clarolineRepositoryWeb') . 'learnPath';
-        case 'CLQWZ' : return get_conf('clarolineRepositoryWeb') . 'exercice';
+        case 'CLQWZ' : return get_conf('clarolineRepositoryWeb') . 'exercise';
         case 'CLWRK' : return get_conf('clarolineRepositoryWeb') . 'work';
         case 'CLLNK' : return get_conf('clarolineRepositoryWeb') . 'linker';
         case 'CLWIKI' : return get_conf('clarolineRepositoryWeb') . 'wiki';
         case 'CLGRP' : return '';
-        default: return get_conf('clarolineRepositoryWeb') . 'module/' . $toolLabel;
+        default: return get_conf('rootWeb') . get_conf('moduleRepository','module/') . $toolLabel;
     }
     return '';
 
