@@ -52,10 +52,8 @@ $dockList = get_dock_list($module['type']);
 switch ( $cmd )
 {
     case 'activ' :
-    {
         activate_module($moduleId);
-    }
-    break;
+        break;
 
     case 'desactiv' :
         desactivate_module($moduleId);
@@ -153,56 +151,49 @@ echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
 .    get_lang('Icon')
 .    ' : </td>' . "\n"
 .    '<td>' . "\n"
+.    $icon . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . get_lang('Module name') . ' : </td>' . "\n"
+.    '<td >' . $module['module_name'] . '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . get_lang('Type') . ' : </td>' . "\n"
+.    '<td>' . $module['type'] . '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . get_lang('Version') . ' : </td>' . "\n"
+.    '<td >' . $module['version'] . '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . get_lang('License') . ' : </td>' . "\n"
+.    '<td >General Public License</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . get_lang('Author') . ' : </td>' . "\n"
+.    '<td >' . $module['author'] . '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . get_lang('Contact') . ' : </td>' . "\n"
+.    '<td >' . $module['author_email'] . '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td align="right">' . get_lang('Website') . ' : </td>' . "\n"
+.    '<td><a href="' . $module['website'] . '">' . $module['website'] . '</a></td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
+.    '</td>' . "\n"
+.    '<td>' . "\n"
+.    '<table>' . "\n"
+.    '<tr>' . "\n"
+.    '<td colspan="2">' . "\n"
+.    claro_html_tool_title(array('subTitle' => get_lang('Settings'))) . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
 ;
-
-    echo $icon;
-
-    ?>
-    </td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo get_lang('Module name'); ?> : </td>
-    <td ><?php echo $module['module_name'];?></td>
-  </tr>
-  <tr>
-   <td align="right"><?php echo get_lang('Type'); ?> : </td>
-   <td><?php echo $module['type'];?></td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo get_lang('Version'); ?> : </td>
-    <td ><?php echo $module['version'];?></td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo get_lang('License'); ?> : </td>
-    <td >General Public License</td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo get_lang('Author'); ?> : </td>
-    <td ><?php echo $module['author'];?></td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo get_lang('Contact'); ?> : </td>
-    <td ><?php echo $module['author_email'];?></td>
-  </tr>
-  <tr>
-    <td align="right"><?php echo get_lang('Website'); ?> : </td>
-    <td><a href="<?php echo $module['website'];?>"><?php echo $module['website'];?></a></td>
-  </tr>
-</table>
-</td>
-<td>
-<table>
-  <tr>
-   <td colspan="2">
-   <?php echo claro_html_tool_title(array('subTitle' => get_lang('Settings'))) . "\n" ?>
-   </td>
-  </tr>
-
-  <tr>
-
-<?php
-
-  //Activation form
+//Activation form
 
   if ('activated' == $module['activation'] )
   {
@@ -282,5 +273,7 @@ echo '</table>' . "\n"
 .    '</tr>' . "\n"
 .    '</table>' . "\n"
 ;
+
 include $includePath . '/claro_init_footer.inc.php';
+
 ?>
