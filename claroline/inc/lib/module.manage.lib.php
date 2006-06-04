@@ -17,6 +17,9 @@
  * @package MODULES
  *
  */
+
+ // code of module.inc.php would come here.
+
  include_once(realpath(dirname(__FILE__) . '/../../admin/module') . '/module.inc.php');
 
 ?>
