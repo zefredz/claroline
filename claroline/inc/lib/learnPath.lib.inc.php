@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This functions library is used by most of the pages of the learning path tool
  *
@@ -8,7 +8,7 @@
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
@@ -132,7 +132,7 @@ function commentBox($type, $mode)
                            SET `" . $col_name . "` = \"". addslashes($_POST['insertCommentBox'])."\"
                          WHERE " . $where_cond;
             claro_sql_query($sql);
-            
+
             if($mode == UPDATE_)
                 $dsp = true;
             elseif($mode == UPDATENOTSHOWN_)
@@ -314,7 +314,7 @@ function nameBox($type, $mode)
 
         $currentName = claro_sql_query_get_single_value($sql);
 
-        echo '<h4>' 
+        echo '<h4>'
         .    $currentName;
 
         if ( $is_AllowedToEdit )
@@ -469,11 +469,11 @@ function display_path_content()
     global $imgRepositoryWeb;
     $style = "";
 
-    $sql = "SELECT M.`name`, M.`contentType`, 
-                   LPM.`learnPath_module_id`, LPM.`parent`, 
+    $sql = "SELECT M.`name`, M.`contentType`,
+                   LPM.`learnPath_module_id`, LPM.`parent`,
                    A.`path`
             FROM `" . $tbl_lp_learnPath . "` AS LP,
-                 `" . $tbl_lp_rel_learnPath_module . "` AS LPM, 
+                 `" . $tbl_lp_rel_learnPath_module . "` AS LPM,
                  `" . $tbl_lp_module . "` AS M
             LEFT JOIN `" . $tbl_lp_asset . "` AS A
               ON M.`startAsset_id` = A.`asset_id`
@@ -511,41 +511,43 @@ function display_path_content()
     {
         $spacingString = '';
         for($i = 0; $i < $module['children']; $i++)
-            $spacingString .= '<td width="5">&nbsp;</td>'."\n";
-        $colspan = $maxDeep - $module['children']+1;
+            $spacingString .= '<td width="5" >&nbsp;</td>' . "\n";
+        $colspan = $maxDeep - $module['children'] + 1;
 
-        echo '<tr align="center" '.$style.'>' . "\n"
-        .    $spacingString 
+        echo '<tr align="center" ' . $style . '>' . "\n"
+        .    $spacingString
         .    '<td colspan="' . $colspan . '" align="left">'
         ;
 
-        if ($module['contentType'] == CTLABEL_) // chapter head
+        if (CTLABEL_ == $module['contentType']) // chapter head
         {
             echo '<b>' . $module['name'] . '</b>';
         }
         else // module
         {
-            if($module['contentType'] == CTEXERCISE_ )
+            if(CTEXERCISE_ == $module['contentType'] )
                 $moduleImg = 'quiz.gif';
             else
                 $moduleImg = choose_image(basename($module['path']));
-                
+
             $contentType_alt = selectAlt($module['contentType']);
 
             echo '<img src="' . $imgRepositoryWeb . $moduleImg . '" alt="' .$contentType_alt.'" border="0" />'
             .    $module['name']
             ;
         }
-        echo '</td>'."\n"
-        .     '</tr>'."\n\n";
+        echo '</td>' . "\n"
+        .     '</tr>' . "\n\n"
+        ;
     }
-    echo '</tbody>'."\n\n"
-    .     '</table>'."\n\n";
+    echo '</tbody>' . "\n\n"
+    .     '</table>' . "\n\n"
+    ;
 }
 
 /**
  * Compute the progression into the $lpid learning path in pourcent
- * 
+ *
  * @param $lpid id of the learning path
  * @param $lpUid user id
  *
@@ -600,7 +602,7 @@ function get_learnPath_progress($lpid, $lpUid)
             {
                 $modProgress = 100;
             }
-            
+
             if ($modProgress >= 0)
             {
                 $progress += $modProgress;
@@ -668,11 +670,11 @@ function display_my_exercises($dialogBox)
             FROM `" . $tbl_quiz_test . "`
             ORDER BY  `titre`, `id`";
     $exercises = claro_sql_query_fetch_all($sql);
-    
+
     if( is_array($exercises) && !empty($exercises) )
     {
         echo '<tbody>' . "\n\n";
-        
+
         foreach ( $exercises as $exercise )
         {
             echo '<tr>'."\n"
@@ -704,9 +706,9 @@ function display_my_exercises($dialogBox)
         }//end while another module to display
         echo '</tbody>'."\n\n";
     }
-    
+
     echo '<tfoot>'."\n\n";
-    
+
     if( !$atleastOne )
     {
         echo '<tr>'."\n"
@@ -856,7 +858,7 @@ function display_my_documents($dialogBox)
                 $image       = choose_image($fileName);
                 $size        = format_file_size($fileList['size'][$fileKey]);
                 $date        = format_date($fileList['date'][$fileKey]);
-                
+
                 if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
                     && get_conf('secureDocumentDownload') )
                 {
@@ -868,7 +870,7 @@ function display_my_documents($dialogBox)
                     // question mark argument method, for IIS ...
                     $doc_url = '?url=' . $cmdFileName;
                 }
-                
+
                 $urlFileName = '../document/goto/index.php'.$doc_url;
             }
             elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
@@ -967,7 +969,7 @@ function find_deep($id, $searchIn)
 }
 
 /**
- * Build an tree of $list from $id using the 'parent' 
+ * Build an tree of $list from $id using the 'parent'
  * table. (recursive function)
  * Rows with a father id not existing in the array will be ignored
  *
@@ -975,9 +977,9 @@ function find_deep($id, $searchIn)
  * @param $paramField name of the field containing the parent id
  * @param $idField name of the field containing the current id
  * @param $id learnPath_module_id of the node to build
- * @return tree of the learning path 
+ * @return tree of the learning path
  *
- * @author Piraux Sébastien <pir@cerdecam.be>     
+ * @author Piraux Sébastien <pir@cerdecam.be>
  */
 function build_element_list($list, $parentField, $idField, $id = 0)
 {
@@ -1017,12 +1019,12 @@ function build_element_list($list, $parentField, $idField, $id = 0)
 
 /**
  * return a flattened tree of the modules of a learnPath after having add
- * 'up' and 'down' fields to let know if the up and down arrows have to be 
+ * 'up' and 'down' fields to let know if the up and down arrows have to be
  * displayed. (recursive function)
- * 
+ *
  * @param $elementList a tree array as one returned by build_element_list
  * @param $deepness
- * @return array containing infos of the learningpath, each module is an element 
+ * @return array containing infos of the learningpath, each module is an element
     of this array and each one has 'up' and 'down' boolean and deepness added in
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
@@ -1133,7 +1135,7 @@ function delete_module_tree($module_tree)
                                         WHERE `learnPath_module_id` = " . (int)$module['learnPath_module_id']);
                 claro_sql_query("DELETE FROM `" . $tbl_lp_user_module_progress . "`
                                         WHERE `learnPath_module_id` = " . (int)$module['learnPath_module_id']);
-    
+
                 break;
         }
     }
@@ -1141,7 +1143,7 @@ function delete_module_tree($module_tree)
 }
 /**
  * This function return the node with $module_id (recursive)
- * 
+ *
  *
  * @param $lpModules array the tree of all modules in a learning path
  * @param $iid node we are looking for
@@ -1171,7 +1173,7 @@ function get_module_tree( $lpModules , $id, $field = 'module_id')
 }
 
 /**
- * Convert the time recorded in seconds to a scorm type 
+ * Convert the time recorded in seconds to a scorm type
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  * @param $time time in seconds to convert to a scorm type time
@@ -1196,7 +1198,7 @@ function seconds_to_scorm_time($time)
     }
 
     return     $hours . ':' . $min . ':' . $sec;
-} 
+}
 /**
   * This function allow to see if a time string is the SCORM requested format : hhhh:mm:ss.cc
   *
@@ -1231,7 +1233,7 @@ function addScormTime($time1, $time2)
           //extract hours, minutes, secondes, ... from time1 and time2
 
           $mask = "/^([0-9]{2,4}):([0-9]{2}):([0-9]{2}).?([0-9]?[0-9]?)$/";
-        
+
           preg_match($mask,$time1, $matches);
           $hours1 = $matches[1];
           $minutes1 = $matches[2];
@@ -1297,7 +1299,7 @@ function addScormTime($time1, $time2)
           if ($total_hours < 10) {$total_hours = "0" . $total_hours;}
           if ($total_minutes < 10) {$total_minutes = "0" . $total_minutes;}
           if ($total_secondes < 10) {$total_secondes = "0" . $total_secondes;}
-          
+
         $total_time = $total_hours . ":" . $total_minutes . ":" . $total_secondes;
         // add primes only if != 0
         if ($total_primes != 0) {$total_time .= "." . $total_primes;}
