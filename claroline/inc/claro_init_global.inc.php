@@ -219,9 +219,9 @@ if ( isset($_POST['claroFormId']) )
 
 $module_cache_filename = '/module_cache.php';
 
-if (!file_exists($includePath.$module_cache_filename))
+if (!file_exists($includePath . $module_cache_filename))
 {
-    require_once $includePath . '/../admin/module/module.inc.php';
+    require_once $includePath . '/module.manage.lib.php';
     generate_module_cache();
 }
 
