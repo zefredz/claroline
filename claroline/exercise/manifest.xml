@@ -1,9 +1,9 @@
 <module>
   <label>CLQWZ</label>
-  <name>qwizz</name>
+  <name>Quiz</name>
   <version>1.8</version>
   <license>GPL</license>
-  <icon>../../img/quiz.gif</icon>
+  <icon>quiz.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLQWZ/</web>
 

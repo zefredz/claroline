@@ -3,7 +3,7 @@
   <name>Announcement</name>
   <version>3.0</version>
   <license>GPL</license>
-  <icon>../../img/announcement.gif</icon>
+  <icon>announcement.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLANN/</web>
 

@@ -3,7 +3,7 @@
   <name>Calendar</name>
   <version>3.0</version>
   <license>GPL</license>
-  <icon>../../img/agenda.gif</icon>
+  <icon>agenda.gif</icon>
   <type>tool</type>
 
   <web>http://www.claroline.net/wiki/CLCAL/</web>

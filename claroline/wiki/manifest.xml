@@ -3,7 +3,7 @@
   <name>Wiki</name>
   <version>2.0</version>
   <license>GPL</license>
-  <icon>../../img/wiki.gif</icon>
+  <icon>wiki.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLWIKI/</web>
 

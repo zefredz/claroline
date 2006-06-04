@@ -3,7 +3,7 @@
  <name>Document</name>
  <version>4.0</version>
  <license>GPL</license>
- <icon>../../img/document.gif</icon>
+ <icon>document.gif</icon>
  <type>tool</type>
  <web>http://www.claroline.net/wiki/CLDOC/</web>
 

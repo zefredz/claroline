@@ -3,7 +3,7 @@
   <name>User list</name>
   <version>4.0</version>
   <license>GPL</license>
-  <icon>../../img/user.gif</icon>
+  <icon>user.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLUSR/</web>
 

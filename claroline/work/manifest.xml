@@ -3,7 +3,7 @@
   <name>Assignment</name>
   <version>1.8</version>
   <license>GPL</license>
-  <icon>../../img/assignment.gif</icon>
+  <icon>assignment.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLWRK/</web>
 

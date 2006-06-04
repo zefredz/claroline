@@ -3,7 +3,7 @@
   <name>Learning path</name>
   <version>1.0</version>
   <license>GPL</license>
-  <icon>../../img/learnpath.gif</icon>
+  <icon>learnpath.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLLNP/</web>
 
