@@ -112,19 +112,17 @@ echo claro_html_tool_title($nameTools . ' : ' . $module['module_name']);
 
 if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-
     if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/img/' . $module['icon']))
     {
         $icon = '<img src="' . get_module_url($module['label']) . '/img/' . $module['icon'] . '" />';
-
     }
-    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+    elseif (file_exists(get_module_path($module['label']) . '/icon.png'))
     {
-        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
+        $icon = '<img src="' . get_module_path($module['label']) . '/icon.png" />';
     }
-    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
+    elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
     {
-        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.gif" />';
+        $icon = '<img src="' . get_module_path($module['label']) . '/icon.gif" />';
 
     }
     else $icon = '<small>' . get_lang('No icon') . '</small>';

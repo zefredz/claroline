@@ -149,13 +149,13 @@ if ( !empty($dock) )
 
         //find icon
 
-        if (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+        if (file_exists(get_module_path($module['label']) . '/icon.png'))
         {
-            $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
+            $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" />';
         }
-        elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
+        elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
         {
-            $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.gif" />';
+            $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
         }
         else $icon = '<small>' . get_lang('No icon') . '</small>';
 
@@ -168,9 +168,9 @@ if ( !empty($dock) )
 
         //name column
 
-        if (file_exists($includePath . '/../module/' . $module['label'] . '/admin.php'))
+        if (file_exists(get_module_path($module['label']) . '/admin.php'))
         {
-            echo '<td align="left" class="' . $class_css . '" ><a href="'. $urlAppend . '/claroline/module/' . $module['label'] . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+            echo '<td align="left" class="' . $class_css . '" ><a href="'. get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
         }
         else
         {
