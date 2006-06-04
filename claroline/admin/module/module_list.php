@@ -125,40 +125,29 @@ $pagerSortDir = (isset($_REQUEST['dir' ])      ? $_REQUEST['dir' ]      : SORT_A
 switch ( $cmd )
 {
     case 'activ' :
-    {
         activate_module($module_id);
-    }
-    break;
+        break;
 
     case 'desactiv' :
-    {
         desactivate_module($module_id);
-    }
-    break;
+        break;
 
     case 'up' :
-    {
         move_module_in_dock($module_id, $dockname,'up');
-    }
-    break;
+        break;
 
     case 'down' :
-    {
         move_module_in_dock($module_id, $dockname,'down');
-    }
-    break;
+        break;
 
     case 'uninstall' :
-    {
         $result_log = uninstall_module($module_id);
         $dialogBox  = get_lang('Module uninstallation') . ' : <br>';
         foreach ( $result_log as $log) $dialogBox .= $log . '<br>';
 
-    }
-    break;
+        break;
 
     case 'show_install' :
-    {
         $dialogBox = '<p>'
         .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br>'
         .            get_lang('Find more available modules <a href="http://www.claroline.net/">here</a>.')
@@ -173,25 +162,24 @@ switch ( $cmd )
         .            '<small>' . get_lang('Max file size') . ' :  2&nbsp;MB</small>'
         .            '</form>'
         ;
-    }
-    break;
+        break;
 
     case 'do_install' :
-    {
-        //include needed librabries for treatment
-
-        if( false !== $modulePath= get_and_unzip_uploaded_package())
-
-        $result_log = install_module($modulePath);
-        $dialogBox = '';
-
-        //display the result message (fail or success)
-
-        foreach ($result_log as $log)
         {
-            $dialogBox .= $log . '<br>';
+            //include needed librabries for treatment
+
+            if( false !== $modulePath= get_and_unzip_uploaded_package())
+
+            $result_log = install_module($modulePath);
+            $dialogBox = '';
+
+            //display the result message (fail or success)
+
+            foreach ($result_log as $log)
+            {
+                $dialogBox .= $log . '<br>';
+            }
         }
-    }
 }
 
 //----------------------------------
@@ -205,23 +193,24 @@ switch($typeReq)
 {
     case 'applet' :
 
-            $sqlSelectType = "       D.`id`    AS dock_id, " . "\n"
-            .                "       D.`name`  AS dockname," . "\n"
-            ;
-            $sqlJoinType = " LEFT JOIN `" . $tbl_dock . "` AS D " . "\n"
-            .              "        ON D.`module_id`= M.id " . "\n"
-            ;
-            break;
+        $sqlSelectType = "       D.`id`    AS dock_id, " . "\n"
+        .                "       D.`name`  AS dockname," . "\n"
+        ;
+
+        $sqlJoinType = " LEFT JOIN `" . $tbl_dock . "` AS D " . "\n"
+        .              "        ON D.`module_id`= M.id " . "\n"
+        ;
+        break;
     case 'tool'   :
 
-            $sqlSelectType = "       MT.`id`    AS toolId, " . "\n"
-            .                "       MT.`icon`  AS icon," . "\n"
-            .                "       MT.`entry` AS entry," . "\n"
-            ;
-            $sqlJoinType = " LEFT JOIN `" . $tbl['module_tool'] . "` AS MT " . "\n"
-            .              "        ON MT.`module_id`= M.id " . "\n"
-            ;
-            break;
+        $sqlSelectType = "       MT.`id`    AS toolId, " . "\n"
+        .                "       MT.`icon`  AS icon," . "\n"
+        .                "       MT.`entry` AS entry," . "\n"
+        ;
+        $sqlJoinType = " LEFT JOIN `" . $tbl['module_tool'] . "` AS MT " . "\n"
+        .              "        ON MT.`module_id`= M.id " . "\n"
+        ;
+        break;
     default       : $sqlSelectType=""; $sqlJoinType = "";
 
 }
@@ -346,18 +335,19 @@ foreach($moduleList as $module)
     $class_css= ($module['activation']=='activated' ? 'item' : 'invisible item');
 
     //find icon
+    $modulePath = get_module_path($module['label']);
 
-    if (array_key_exists('icon',$module) && file_exists($includePath . '/../module/' . $module['label'] . '/' . $module['icon']))
+    if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/' . $module['icon']))
     {
-        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/' . $module['icon'] . '" />';
+        $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" />';
     }
-    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.png'))
+    elseif (file_exists(get_module_path($module['label']) . '/icon.png'))
     {
-        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.png" />';
+        $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" />';
     }
-    elseif (file_exists($includePath . '/../module/' . $module['label'] . '/icon.gif'))
+    elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
     {
-        $icon = '<img src="' . $urlAppend . '/claroline/module/' . $module['label'] . '/icon.gif" />';
+        $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
     }
     else $icon = '<small>' . get_lang('No icon') . '</small>';
 
@@ -370,9 +360,9 @@ foreach($moduleList as $module)
 
     //name column
 
-    if (file_exists($includePath . '/../module/' . $module['label'] . '/admin.php'))
+    if (file_exists(get_module_path($module['label']) . '/admin.php'))
     {
-        echo '<td align="left" class="' . $class_css . '" ><a href="'. $urlAppend . '/claroline/module/' . $module['label'] . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+        echo '<td align="left" class="' . $class_css . '" ><a href="' . get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
     }
     else
     {
