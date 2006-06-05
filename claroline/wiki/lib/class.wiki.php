@@ -389,7 +389,7 @@
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `title` = '".addslashes($title)."' "
+                . "WHERE BINARY `title` = '".addslashes($title)."' "
                 . "AND `wiki_id` = " . (int) $this->wikiId
                 ;
 
