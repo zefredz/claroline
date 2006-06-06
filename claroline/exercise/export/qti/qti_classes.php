@@ -174,7 +174,21 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
         foreach ($answerArray as $key => $answer)
         {
             if (!isset($answer['feedback'])) $answer['feedback'] = "";
-            if (!isset($questionArray['weighting'][$key])) $grade = 0; else $grade = $questionArray['weighting'][$key];
+            if (!isset($questionArray['weighting'][$key]))
+            {
+                if (isset($questionArray['default_weighting']))
+                {
+                    $grade = $questionArray['default_weighting'];
+                }
+                else
+                {
+                    $grade = 0;
+                }
+            }
+            else
+            {
+                $grade = $questionArray['weighting'][$key];
+            }
             if (in_array($key,$questionArray['correct_answers'])) $is_correct = true; else $is_correct = false;
             $addedAnswer = array( 
                             'answer' => $answer['value'],
@@ -405,9 +419,10 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
 
         //build correct_answsers array
         
-        /*foreach ($questionArray['correct_answers'])*/
-        $this->gradeList = $questionArray['weighting'];
-
+        if (isset($questionArray['weighting']))
+        {
+            $this->gradeList = $questionArray['weighting'];
+        }
     }
 }
 
