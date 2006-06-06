@@ -47,7 +47,20 @@ class ImsQuestion extends Question
 		}
 
 		return true;
-	}	
+	}
+
+    /**
+     * allow to import the question
+     *
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
+
+    function import($questionArray)
+    {
+        echo "Importing answers of the question <br>";
+        $this->answer->import($questionArray);
+    } 
 } 
 
 class ImsAnswerMultipleChoice extends answerMultipleChoice
@@ -142,7 +155,42 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
             }
         }
         return $out;
-     } 	
+     }
+
+     /**
+     * allow to import the answers, feedbacks, and grades of a question
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
+
+    function import($questionArray)
+    {
+
+        $answerArray = $questionArray['answer'];
+
+        var_dump($questionArray);
+
+        $this->answerList = array(); //re-initialize answer object content
+
+        
+
+        foreach ($answerArray as $key => $answer)
+        {
+            if (!isset($answer['feedback'])) $answer['feedback'] = "";
+            if (!isset($questionArray['weighting'][$key])) $grade = 0; else $grade = $questionArray['weighting'][$key];
+            if (in_array($key,$questionArray['correct_answers'])) $is_correct = true; else $is_correct = false;
+            $addedAnswer = array( 
+                            'answer' => $answer['value'],
+                            'correct' => $is_correct,
+                            'grade' => $grade,
+                            'comment' => $answer['feedback'],
+                            );
+
+            var_dump($addedAnswer);
+
+            $this->answerList[] = $addedAnswer;
+        }
+    }
 }
 
 class ImsAnswerTrueFalse extends answerTrueFalse
@@ -340,7 +388,32 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
      {
 		// no feedback in this question type
         return '';
-     } 
+     }
+
+    /**
+     * allow to import the answers, feedbacks, and grades of a question
+     *
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
+
+    function import($questionArray)
+    {
+        $answerArray = $questionArray['answer'];
+        $this->answerText = str_replace ("\n","",$questionArray['response_text']);
+        if ($questionArray['subtype'] == "TEXTFIELD_FILL") $this->type = TEXTFIELD_FILL;
+        if ($questionArray['subtype'] == "LISTBOX_FILL")
+        {
+            $this->wrongAnswerList = $questionArray['wrong_answers'];
+            $this->type = LISTBOX_FILL;
+        }
+
+        //build correct_answsers array
+        
+        /*foreach ($questionArray['correct_answers'])*/
+        $this->gradeList = $questionArray['weighting'];
+
+    }
 }
 
 class ImsAnswerMatching extends answerMatching
@@ -400,6 +473,63 @@ class ImsAnswerMatching extends answerMatching
      {
 		// no feedback in this question type
         return '';
-     }	
+     }
+
+    /**
+     * allow to import the answers, feedbacks, and grades of a question
+     *
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
+
+    function import($questionArray)
+    {
+        $answerArray = $questionArray['answer'];
+
+        //This tick to remove examples in the answers!!!!
+        $this->leftList = array();
+        $this->rightList = array();
+        
+
+        var_dump($questionArray);
+
+        //find right and left column
+
+        $right_column = array_pop($answerArray);
+        $left_column  = array_pop($answerArray);
+
+        echo "<br>correct answers : <br>";
+        var_dump($questionArray['correct_answers']);
+
+        //1- build answers
+
+        foreach ($right_column as $right_key => $right_element)
+        {
+            $code = $this->addRight($right_element);
+            echo "<br/>we just added ".$right_element." as right element<br/>";
+
+            foreach ($left_column as $left_key => $left_element)
+            {
+                $matched_pattern = $left_key." ".$right_key;
+                $matched_pattern_inverted = $right_key." ".$left_key;
+
+                echo "<br/>trying to match ".$matched_pattern."<br/>";
+
+                if (in_array($matched_pattern, $questionArray['correct_answers']) || in_array($matched_pattern_inverted, $questionArray['correct_answers']))
+                {
+                    echo "<br/>".$left_element." is matching with ".$right_element."<br/>";
+                    if (isset($questionArray['weighting'][$matched_pattern]))
+                    {
+                        $grade = $questionArray['weighting'][$matched_pattern];
+                    }
+                    else
+                    {
+                        $grade = 0;
+                    }
+                    $this->addLeft($left_element, $code, $grade);
+                }
+            }
+        }
+    }
 } 
 ?>
