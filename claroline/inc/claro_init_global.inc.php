@@ -1,5 +1,20 @@
 <?php // $Id$
 
+// Prevent direct call of this file from the web
+// NOTE. The use of PHP_SELF is not appropriate in this case 
+// as PHP_SELF can also contain the path info ...
+
+if ( basename( $_SERVER['SCRIPT_NAME'] ) === basename(__FILE__) ) die( '---' );
+
+// The CLARO_INCLUDE_ALLOWED constant allows to include PHP file further in the 
+// code. Files which are meant to be included check if this constant is defined.
+// If it isn't the case, these files immediately die.
+// This process prevents hacking by direct calls of included file and setting 
+// of global variable (when PHP register_globals is set to 'ON')
+
+define('CLARO_INCLUDE_ALLOWED', true);
+
+
 // include the main Claroline platform configuration file
 
 // Determine the directory path where this current file lies
