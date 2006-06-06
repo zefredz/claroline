@@ -282,11 +282,10 @@
         /**
          * Parse and execute wiki2xhtml macros
          *
-         *  wiki2xhtml macros are of the form """MACRO_COMMAND MACRO_ARGUMENT_LIST"""
-         *
          *  enabled macros are :
          *      - """start_html"""  : start of html block, the block begins on the next line
          *      - """end_html"""    : end of html block
+         *      - """home""" or """main""" : link to Main Page
          *      - default           : the surrounded string is interpreted as embedded html
          * @access private
          * @see class.wiki2xhtml.php
@@ -312,6 +311,18 @@
                     $this->setOpt( 'inline_html_allowed', 0 );
                     $str = "<!-- start of embedded html -->\n";
                     break;
+                }
+                // link to main page
+                case 'home':
+                case 'main':
+                {
+                    $str = "<a href=\"".$_SERVER['PHP_SELF']
+                        ."?action=show&amp;title=".rawurlencode( '__MainPage__' )
+                        . "&amp;wikiId=" . $this->wiki->getWikiId()
+                        . "\" class=\"wikiShow\">"
+                        . get_lang( 'Main page' )
+                        . "</a>"
+                        ;
                 }
                 // embedded html
                 default:
