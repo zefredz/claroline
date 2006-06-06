@@ -54,7 +54,7 @@ else															$quId = null;
 
 $question = new Question();
 
-if( is_null($quId) || !$question->load($quId) ) 	
+if( !is_null($quId) && !$question->load($quId) ) 	
 {
 	// question cannot be load, display new question creation form
 	$cmd = 'rqEdit';  
