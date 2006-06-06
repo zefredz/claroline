@@ -236,7 +236,7 @@ $module_cache_filename = '/module_cache.php';
 
 if (!file_exists($includePath . $module_cache_filename))
 {
-    require_once $includePath . '/module.manage.lib.php';
+    require_once $includePath . '/lib/module.manage.lib.php';
     generate_module_cache();
 }
 
