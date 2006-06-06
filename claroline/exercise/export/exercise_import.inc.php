@@ -56,7 +56,7 @@ function get_and_unzip_uploaded_exercise()
 
     //unzip files
 
-    $exerciseRepositorySys = get_conf('rootSys') . get_conf('exerciseRepository','claroline/tmp/');
+    $exerciseRepositorySys = get_conf('rootSys') . get_conf('exerciseRepository','cache/');
     //create temp dir for upload
     claro_mkdir($exerciseRepositorySys);
     $uploadDirFullPath = tempdir($exerciseRepositorySys);
