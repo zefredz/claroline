@@ -229,6 +229,11 @@
 					$line = preg_replace( '/\|\|$/', '</td></tr>', $line );
 					$line = preg_replace( '/\|/', '</td><td>', $line );
 				}
+                else
+                {
+                    $type = 'p';
+                    $line = trim($line);
+                }
 			}
             # Paragraphe
             else
@@ -512,6 +517,11 @@
          */
         function _getWikiPageLink( $pageName, &$tag, &$attr, &$type )
         {
+            if ( get_lang('Main page') == $pageName )
+            {
+                $pageName = '__MainPage__';
+            }
+            
             // allow links to use wikiwords for wiki page locations
             if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
             {
