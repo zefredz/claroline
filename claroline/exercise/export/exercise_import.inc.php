@@ -338,6 +338,10 @@ function import_exercise($file)
     $link = "<center><a href=\"../exercise_submit.php?exId=".$exercise_id."\">".get_lang('See the exercise')."</a></center>";
     array_push ($backlog_message, $link);
 
+    //delete the temp dir where the exercise was unzipped
+
+    claro_delete_file($exercisePath);
+
     return $backlog_message;
 }
 
@@ -529,6 +533,11 @@ function startElement($parser, $name, $attributes)
             }
         }
         break;
+
+        case 'MAPPING':
+        {
+            $exercise_info['question'][$current_question_ident]['default_weighting'] = $attributes['DEFAULTVALUE'];
+        }
 
         case 'ITEMBODY':
         {
