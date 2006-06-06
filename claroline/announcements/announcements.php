@@ -507,7 +507,7 @@ if ( $displayForm )
     .    '<tr>'
     .    '<td valign="top">'
     .    '<label for="newContent">'
-    .    'Content'
+    .    get_lang('Content')
     .    ' : '
     .    '</label>'
     .    '</td>'
