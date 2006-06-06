@@ -168,8 +168,6 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
 
         $answerArray = $questionArray['answer'];
 
-        var_dump($questionArray);
-
         $this->answerList = array(); //re-initialize answer object content
 
         
@@ -185,8 +183,6 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
                             'grade' => $grade,
                             'comment' => $answer['feedback'],
                             );
-
-            var_dump($addedAnswer);
 
             $this->answerList[] = $addedAnswer;
         }
@@ -490,16 +486,12 @@ class ImsAnswerMatching extends answerMatching
         $this->leftList = array();
         $this->rightList = array();
         
-
-        var_dump($questionArray);
-
         //find right and left column
 
         $right_column = array_pop($answerArray);
         $left_column  = array_pop($answerArray);
 
         echo "<br>correct answers : <br>";
-        var_dump($questionArray['correct_answers']);
 
         //1- build answers
 
