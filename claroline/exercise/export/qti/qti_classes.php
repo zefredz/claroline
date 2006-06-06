@@ -58,7 +58,6 @@ class ImsQuestion extends Question
 
     function import($questionArray)
     {
-        echo "Importing answers of the question <br>";
         $this->answer->import($questionArray);
     } 
 } 
@@ -491,25 +490,20 @@ class ImsAnswerMatching extends answerMatching
         $right_column = array_pop($answerArray);
         $left_column  = array_pop($answerArray);
 
-        echo "<br>correct answers : <br>";
-
         //1- build answers
 
         foreach ($right_column as $right_key => $right_element)
         {
             $code = $this->addRight($right_element);
-            echo "<br/>we just added ".$right_element." as right element<br/>";
 
             foreach ($left_column as $left_key => $left_element)
             {
                 $matched_pattern = $left_key." ".$right_key;
                 $matched_pattern_inverted = $right_key." ".$left_key;
 
-                echo "<br/>trying to match ".$matched_pattern."<br/>";
 
                 if (in_array($matched_pattern, $questionArray['correct_answers']) || in_array($matched_pattern_inverted, $questionArray['correct_answers']))
                 {
-                    echo "<br/>".$left_element." is matching with ".$right_element."<br/>";
                     if (isset($questionArray['weighting'][$matched_pattern]))
                     {
                         $grade = $questionArray['weighting'][$matched_pattern];
