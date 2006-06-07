@@ -31,39 +31,11 @@ if ( ! $is_courseAdmin )
 $nameTools = get_lang("Groups settings");
 $interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang("Groups"));
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_course_group_property   = $tbl_cdb_names['group_property'];
-$sql = "SELECT `self_registration`,`private`,`nbGroupPerUser`,
-               `forum`,`document`,`wiki`,`chat`
-        FROM `" . $tbl_course_group_property . "`";
+$_groupProperties = claro_get_main_group_properties($_cid);
 
-/**
- * This awful code  make usage of a stupid table with only one record.
- * $_groupProperties ['registrationAllowed']
- * $_groupProperties ['private'            ]
- * $_groupProperties ['nbGroupPerUser'     ]
- * arent in fact properties of the courses about groups link to it.
- * $_groupProperties ['tools'] is a course_tool properties to se if
- * roups can use or not these tools in the groups of this course
-*/
-list($gpData) = claro_sql_query_fetch_all($sql);
-$_groupProperties ['registrationAllowed'] =   $gpData['self_registration'] == 1;
-$_groupProperties ['private'            ] = !($gpData['private']           == 1);
-$_groupProperties ['nbGroupPerUser'     ] =   $gpData['nbGroupPerUser'];
 
-/**
- * @var $_groupProperties ['tools'] ['forum'    ] true = public
- */
-$_groupProperties ['tools'] ['forum'    ] =   $gpData['forum']             == 1;
-
-/**
- * @var $_groupProperties ['tools'] ['document' ]
- * doc is always  aivailable and private
- */
-$_groupProperties ['tools'] ['document' ] =   $gpData['document']          == 1;
-$_groupProperties ['tools'] ['wiki'     ] =   $gpData['wiki']              == 1;
-$_groupProperties ['tools'] ['chat'   ]   =   $gpData['chat']              == 1;
 session_register('_groupProperties');
+
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
 $groupPrivate               = $_groupProperties ['private'            ];
 
