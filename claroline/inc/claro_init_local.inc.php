@@ -568,27 +568,10 @@ if ( $cidReset ) // course session data refresh requested
 
             // read of group tools config related to this course
 
-            $sql = "SELECT self_registration AS registrationAllowed,
-                           private           AS private            ,
-                           nbGroupPerUser    AS nbGroupPerUser     ,
-                           forum             AS forum              ,
-                           document          AS document           ,
-                           wiki              AS wiki               ,
-                           chat              AS chat
+            $_groupProperties = claro_get_main_group_properties($_cid);
 
-                    FROM `".$_course['dbNameGlu']."group_property`";
+            if ($_groupProperties == false) die('WARNING !! INIT FAILED ! '.__LINE__);
 
-            $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
-
-            $gpData = mysql_fetch_array($result);
-
-            $_groupProperties ['registrationAllowed'] = (bool) ($gpData['registrationAllowed'] == 1);
-            $_groupProperties ['private'            ] = (bool) ($gpData['private'            ] == 1);
-            $_groupProperties ['nbGroupPerUser'     ] = $gpData['nbGroupPerUser'];
-            $_groupProperties ['tools'] ['forum'    ] = (bool) ($gpData['forum'            ] == 1);
-            $_groupProperties ['tools'] ['document' ] = (bool) ($gpData['document'         ] == 1);
-            $_groupProperties ['tools'] ['wiki'     ] = (bool) ($gpData['wiki'             ] == 1);
-            $_groupProperties ['tools'] ['chat'     ] = (bool) ($gpData['chat'             ] == 1);
         }
         else
         {
