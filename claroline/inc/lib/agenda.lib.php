@@ -22,6 +22,6 @@
 
 // moved to tool
 
-die('cette lib n\'est plus dans le rep partagé');
+die('agenda.lib.php n\'est plus dans le rep partagé');
 
 ?>
