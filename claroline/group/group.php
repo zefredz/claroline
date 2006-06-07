@@ -61,12 +61,13 @@ $nameTools = get_lang("Groups");
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
-$tbl_user             = $tbl_mdb_names['user'               ];
-$tbl_CoursUsers       = $tbl_mdb_names['rel_course_user'    ];
-$tbl_Groups           = $tbl_cdb_names['group_team'         ];
-$tbl_GroupsProperties = $tbl_cdb_names['group_property'     ];
-$tbl_GroupsUsers      = $tbl_cdb_names['group_rel_team_user'];
-$tbl_Forums           = $tbl_cdb_names['bb_forums'          ];
+$tbl_user              = $tbl_mdb_names['user'               ];
+$tbl_CoursUsers        = $tbl_mdb_names['rel_course_user'    ];
+$tbl_Groups            = $tbl_cdb_names['group_team'         ];
+$tbl_GroupsProperties  = $tbl_cdb_names['group_property'     ];
+$tbl_course_properties = $tbl_cdb_names['course_properties'  ];
+$tbl_GroupsUsers       = $tbl_cdb_names['group_rel_team_user'];
+$tbl_Forums            = $tbl_cdb_names['bb_forums'          ];
 
 /**
  * MAIN SETTINGS INIT
@@ -294,51 +295,51 @@ if ( $is_allowedToManage )
          * insert the parameters.
          */
 
-        if ( isset($_REQUEST['self_registration']) ) $self_registration = (int) $_REQUEST['self_registration'];
-        else                                         $self_registration = 0;
 
-        if ( isset($_REQUEST['private']) ) $private = (int) $_REQUEST['private'];
-        else                               $private = 0;
+        $newPropertyList['self_registration'] = isset($_REQUEST['self_registration'])  
+                                              ? (int) $_REQUEST['self_registration']
+                                              : 0;
 
-        if ( isset($_REQUEST['forum']) ) $forum = (int) $_REQUEST['forum'];
-        else                             $forum = 0;
+       $newPropertyList['private'           ] = isset($_REQUEST['private'] )
+                                              ? (int) $_REQUEST['private'] 
+                                              : $private = 0;
 
-        if ( isset($_REQUEST['document']) ) $document = (int) $_REQUEST['document'];
-        else                             $document = 0;
+        $newPropertyList['forum'            ] = isset($_REQUEST['forum']) 
+                                              ? (int) $_REQUEST['forum']
+                                              :  0;
 
-        if ( isset($_REQUEST['chat']) ) $chat = (int) $_REQUEST['chat'];
-        else                            $chat = 0;
+        $newPropertyList ['document'        ] = isset($_REQUEST['document']) 
+                                              ? (int) $_REQUEST['document']
+                                              : 0;
 
-        if ( isset($_REQUEST['wiki']) ) $wiki = (int) $_REQUEST['wiki'];
-        else                            $wiki = 0;
+        $newPropertyList ['chat'            ] = isset($_REQUEST['chat']) 
+                                              ? (int) $_REQUEST['chat']
+                                              :  0;
 
-        $sql = "INSERT IGNORE INTO `" . $tbl_GroupsProperties . "`
-               SET id                =  1 ,
-                   self_registration = '" . $self_registration . "',
-                   private           = '" . $private . "',
-                   forum             = '" . $forum . "',
-                   chat              = '" . $chat . "',
-                   wiki              = '" . $wiki . "',
-                   document          = '" . $document . "' ,
-                  `nbGroupPerUser`   = " . $sqlLimitNbGroupPerUser . ""; // DO NOT ADD '' around
+        $newPropertyList['wiki'             ] = isset($_REQUEST['wiki']) 
+                                              ? (int) $_REQUEST['wiki']
+                                              : 0;
 
-        claro_sql_query($sql);
+        foreach($newPropertyList as $propertyName => $propertyValue)
+        {
+            $sql = "UPDATE `".$tbl_course_properties."`
+                    SET `value` = '" . addslashes($propertyValue) . "'
+                    WHERE `name` = '" . addslashes($propertyName) . "'";
 
-        /*
-        * Real update ...
-        */
+            if ( claro_sql_query_affected_rows($sql) > 0 )
+            {
+                continue;
+            }
+            else
+            {
+                $sql = "INSERT INTO `".$tbl_course_properties."`
+                       SET value    = '" . addslashes($propertyValue) . "',
+                           name     = '" . addslashes($propertyName) . "',
+                           category = 'GROUP'";
 
-        $sql = "UPDATE `".$tbl_GroupsProperties."`
-                SET `self_registration` = '" . $self_registration . "',
-                    `private`           = '" . $private . "',
-                    `forum`             = '" . $forum . "',
-                    `chat`              = '" . $chat . "',
-                    `wiki`              = '" . $wiki ."',
-                    `document`          = '" . $document . "',
-                    `nbGroupPerUser`    = " . $sqlLimitNbGroupPerUser . " # DO NOT ADD '' around
-                WHERE id = 1" ;
-
-        claro_sql_query($sql);
+                if ( claro_sql_query($sql) !== false ) continue;
+            }
+        }
 
         $message  = get_lang("Group settings have been modified");
         event_default('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
