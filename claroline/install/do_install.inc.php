@@ -34,7 +34,7 @@
 ! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
 $display = DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
- // PATCH TO ACCEPT Prefixed DBs
+// PATCH TO ACCEPT Prefixed DBs
 $mainDbName     = $dbNameForm;
 $statsDbName    = $dbStatsForm;
 $resBdbHome = @claro_sql_query("SHOW VARIABLES LIKE 'datadir'");
@@ -48,7 +48,7 @@ $mysqlRepositorySys = $mysqlRepositorySys ['Value'];
 mysql_query("CREATE DATABASE `" . $mainDbName . "`");
 if (mysql_errno() >0)
 {
-    if (mysql_errno() == 1007)
+    if (1007 == mysql_errno())
     {   // DB already exist
         if ($confirmUseExistingMainDb)
         {
@@ -100,7 +100,7 @@ if($statsDbName != $mainDbName)
         claro_sql_query("CREATE DATABASE `" . $statsDbName . "`");
         if (mysql_errno() >0)
         {
-            if (mysql_errno() == 1007)
+            if (1007 == mysql_errno())
             {
                 if ($confirmUseExistingStatsDb)
                 {
@@ -172,18 +172,18 @@ if ($runfillMainDb && $runfillStatsDb)
     include './createMainBase.inc.php';
     include './fillMainBase.inc.php';
     $kernelSetupStatementList = array_merge( $dropStatementList
-                                           , $creationStatementList
-                                           , $fillStatementList);
+    , $creationStatementList
+    , $fillStatementList);
 
     foreach ($kernelSetupStatementList as $key => $statement)
     if(false === claro_sql_query($statement) )
     {
-         echo '<hr size="1" noshade>'
-                     .mysql_errno(), " : ", mysql_error(), '<br>'
-                     .'<pre style="color:red">'
-                     .$statement
-                     .'</pre>'
-                     .'<hr size="1" noshade>';
+        echo '<hr size="1" noshade>'
+        .mysql_errno(), " : ", mysql_error(), '<br>'
+        .'<pre style="color:red">'
+        .$statement
+        .'</pre>'
+        .'<hr size="1" noshade>';
     }
 
     mysql_select_db ($statsDbName);
@@ -195,18 +195,18 @@ if ($runfillMainDb && $runfillStatsDb)
     include './createStatBase.inc.php';
     include './fillStatBase.inc.php';
     $trackingSetUpStatementList = array_merge( $dropStatementList
-                                , $creationStatementList
-                                , $fillStatementList);
+    , $creationStatementList
+    , $fillStatementList);
 
     foreach ($trackingSetUpStatementList as $statement)
     if(false === claro_sql_query($statement) )
     {
-         echo '<hr size="1" noshade>'
-                     .mysql_errno(), " : ", mysql_error(), '<br>'
-                     .'<pre style="color:red">'
-                     .$statement
-                     .'</pre>'
-                     .'<hr size="1" noshade>';
+        echo '<hr size="1" noshade>'
+        .mysql_errno(), " : ", mysql_error(), '<br>'
+        .'<pre style="color:red">'
+        .$statement
+        .'</pre>'
+        .'<hr size="1" noshade>';
     }
 }
 
@@ -294,11 +294,11 @@ else
     );
 
     foreach ($arr_file_to_undist As $undist_this)
-        claro_undist_file($undist_this);
+    claro_undist_file($undist_this);
 
     /***
-     * Generate conf from definition files.
-     */
+    * Generate conf from definition files.
+    */
 
     $includePath = $newIncludePath;
     $def_file_list = get_def_file_list();
@@ -397,8 +397,27 @@ foreach($oldTools as $claroLabel)
 
     if (file_exists($modulePath))
     {
-        $moduleId = register_module($modulePath);
+        if(false !== $moduleId = register_module($modulePath))
+        {
+            // This code can only work  if config code == claro label
+            // Make better need to read an unexisting relation between config codes
+            // and currently installed module
+            // $configCodeList = get_config_file_by_module($moduleId)
 
+            $configCodeList = array($claroLabel);
+            foreach ($configCodeList as $configCode)
+            if (file_exists(claro_get_conf_def_file($configCode)))
+            {
+                $config = new Config($configCode);
+                if ( $config->load() ) $config->save();
+                else
+                {
+                    $configError = true ;
+                    $messageConfigErrorList[] = $claroLabel;
+                    $messageConfigErrorList = array_merge($messageConfigErrorList,$config->get_error_message());
+                }
+            }
+        }
         if (false !== activate_module($moduleId))
         trigger_error('module (id:' . $moduleId . ' ) not activated ',E_USER_WARNING );
 
@@ -406,49 +425,10 @@ foreach($oldTools as $claroLabel)
     else                          trigger_error('module path not found' ,E_USER_WARNING );
 }
 
-
-    $def_file_list = get_def_file_list();
-    $configError=false;
-    if ( is_array($def_file_list) )
-    {
-        foreach ( $def_file_list as $config_code => $def )
-        {
-            // new config object
-            $config = new Config($config_code);
-
-            // load configuration
-            if ( $config->load() )
-            {
-                $config_name = $config->config_code;
-
-                // validate config
-                if ( $config->validate($form_value_list) )
-                {
-                    // save config file
-                    $config->save();
-                }
-                else
-                {
-                    // no valid
-                    $configError = true ;
-                    $messageConfigErrorList = $config->get_error_message();
-                }
-            }
-            else
-            {
-                // error loading the configuration
-                $configError = true ;
-                $messageConfigErrorList = $config->get_error_message();
-            }
-        }
-    }
-
 if ($configError)
 {
     $display = DISP_RUN_INSTALL_NOT_COMPLETE;
 }
-
-
 
 /**
  * Add administrator in user and admin table
