@@ -1677,15 +1677,19 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
 
     if ($configError)
     {
-        if(is_array($messageConfigErrorList))
+        if(is_array($messageConfigErrorList) )
+        if(count($messageConfigErrorList) )
         {
             echo '<br />Error on config files creation : <ul>';
+
             foreach($messageConfigErrorList as $messageConfigError)
             {
                 echo '<li><b><font color="red">'. $messageConfigError . '</font></b></li>';
             }
             echo '</ul>';
         }
+        else echo '<br />Unidentified Error on config files creation';
+
     }
 
     if ($coursesRepositorySysMissing)
