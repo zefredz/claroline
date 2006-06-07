@@ -338,11 +338,6 @@ else
     }
 }
 
-if ($configError)
-{
-    $display = DISP_RUN_INSTALL_NOT_COMPLETE;
-}
-
 
 // write currentVersion.inc.php
 
@@ -403,12 +398,57 @@ foreach($oldTools as $claroLabel)
     if (file_exists($modulePath))
     {
         $moduleId = register_module($modulePath);
+
         if (false !== activate_module($moduleId))
-        trigger_error('module (id:' . $moduleId . ' label : ' . $module_info['LABEL'] . ' ) not activated ',E_USER_WARNING );
+        trigger_error('module (id:' . $moduleId . ' ) not activated ',E_USER_WARNING );
 
     }
-    else                          trigger_error('module path not found' . $module_info['LABEL'],E_USER_WARNING );
+    else                          trigger_error('module path not found' ,E_USER_WARNING );
 }
+
+
+    $def_file_list = get_def_file_list();
+    $configError=false;
+    if ( is_array($def_file_list) )
+    {
+        foreach ( $def_file_list as $config_code => $def )
+        {
+            // new config object
+            $config = new Config($config_code);
+
+            // load configuration
+            if ( $config->load() )
+            {
+                $config_name = $config->config_code;
+
+                // validate config
+                if ( $config->validate($form_value_list) )
+                {
+                    // save config file
+                    $config->save();
+                }
+                else
+                {
+                    // no valid
+                    $configError = true ;
+                    $messageConfigErrorList = $config->get_error_message();
+                }
+            }
+            else
+            {
+                // error loading the configuration
+                $configError = true ;
+                $messageConfigErrorList = $config->get_error_message();
+            }
+        }
+    }
+
+if ($configError)
+{
+    $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+}
+
+
 
 /**
  * Add administrator in user and admin table
