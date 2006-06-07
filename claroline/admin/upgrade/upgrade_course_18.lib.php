@@ -40,37 +40,85 @@
  * @return boolean whether true if succeed
  */
 
-/*
-function foo_upgrade_to_18($course_code)
+function group_upgrade_to_18($course_code)
 {
     global $currentCourseVersion;
 
     $versionRequiredToProceed = '/^1.7/';
-    $tool = 'CLFOO';
+    $tool = 'CLGRP';
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-    
+
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
         // On init , $step = 1
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
-            case 1 :  // add visibility fields in calendar
-                // taskjob 
-                // for sql task use following line  
-                // if ( ! upgrade_apply_sql($sql_step1) ) return $step;
+            case 1 :
 
-                // if task success call set_upgrade_status & set tonext step to run.
-                $step = set_upgrade_status($tool, 2, $course_code);
-            case 2 :  // add visibility fields in calendar
-                // taskjob 
-                
-                // if last task success call set_upgrade_status & set to 0
+                $sql = " CREATE TABLE 
+                        `".$currentCourseDbNameGlu."course_properties` 
+                        (
+                            `id` int(11) NOT NULL auto_increment,
+                            `name` varchar(255) NOT NULL default '',
+                            `value` varchar(255) default NULL,
+                            `category` varchar(255) default NULL,
+                            PRIMARY KEY  (`id`)
+                        )";
+
+                if ( upgrade_apply_sql($sql_step1) )
+                {
+                    $step = set_upgrade_status($tool, 2, $course_code);
+                }
+
+            case 2 :
+
+                $sql = "SELECT self_registration,
+                               private,
+                               nbGroupPerUser,
+                               forum, 
+                               document,
+                               wiki,
+                               chat
+                    FROM `".$currentCourseDbNameGlu."group_property`";
+
+                $groupSettingList = claro_sql_query_get_single_row($sql);
+
+                if ( is_array($groupSettings) )
+                {
+                    $sql = "INSERT 
+                            INTO `".$currentCourseDbNameGlu."course_properties` 
+                                   (`name`, `value`, `category`) 
+                            VALUES  
+                            ('self_registration', '".$groupSettings['self_registration']."', 'GROUP'),
+                            ('nbGroupPerUser',    '".$groupSettings['nbGroupPerUser'   ]."', 'GROUP'),
+                            ('private',           '".$groupSettings['private'          ]."', 'GROUP'),
+                            ('forum',             '".$groupSettings['forum'            ]."', 'GROUP'),
+                            ('document',          '".$groupSettings['document'         ]."', 'GROUP'),
+                            ('wiki',              '".$groupSettings['wiki'             ]."', 'GROUP'),
+                            ('chat',              '".$groupSettings['chat'             ]."', 'GROUP')";
+                }
+
+                if ( upgrade_apply_sql($sql) )
+                {
+                    $step = set_upgrade_status($tool, 3, $course_code);
+                }
+
+            case 3 :
+                $sql = "DROP TABLE IF EXISTS`".$currentCourseDbNameGlu."group_property`";
+
+                if ( upgrade_apply_sql($sql) )
+                {
+                    $step = set_upgrade_status($tool, 3, $course_code);
+                }
+
                 $step = set_upgrade_status($tool, 0, $course_code);
+
             default : 
+                $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
         }
     }
+
     return false;
 }
-*/
 ?>
