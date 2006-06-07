@@ -96,6 +96,42 @@ function claro_get_course_data($course_id = NULL)
     return $_courseDatas;
 }
 
+
+
+function claro_get_main_group_properties($courseId)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
+    $tbl_course_properties   = $tbl_cdb_names['course_properties'];
+    
+    $sql = "SELECT name, value 
+            FROM `".$tbl_course_properties."` 
+            WHERE category = 'GROUP'";
+
+    $dbDataList = claro_sql_query_fetch_all($sql);
+
+    if (is_array($dbDataList) )
+    {
+        foreach($dbDataList as $thisData)
+        {
+            $tempList[$thisData['name']] = (int) $thisData['value'];
+        }
+
+        $propertyList ['registrationAllowed'] =   $tempList['self_registration'] == 1;
+        $propertyList ['private'            ] = !($tempList['private']           == 1);
+        $propertyList ['nbGroupPerUser'     ] =   $tempList['nbGroupPerUser'];
+        $propertyList ['tools'] ['forum'    ] =   $tempList['forum']             == 1;
+        $propertyList ['tools'] ['document' ] =   $tempList['document']          == 1;
+        $propertyList ['tools'] ['wiki'     ] =   $tempList['wiki']              == 1;
+        $propertyList ['tools'] ['chat'     ] =   $tempList['chat']              == 1;
+
+        return $propertyList;
+    }
+    else
+    {
+    	return false;
+    }
+}
+
 /**
  * Get the db name of a course.
  * @param  string $course_id (optionnal)  If not set, it use the current course
