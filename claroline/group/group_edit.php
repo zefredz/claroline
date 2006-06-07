@@ -116,7 +116,6 @@ $tbl_rel_user_course         = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user                    = $tbl_mdb_names['user'             ];
 
 $tbl_bb_forum                = $tbl_cdb_names['bb_forums'];
-$tbl_course_group_property   = $tbl_cdb_names['group_property'];
 $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
 $tbl_group_team              = $tbl_cdb_names['group_team'];
 
