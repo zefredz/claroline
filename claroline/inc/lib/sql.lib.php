@@ -266,6 +266,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'calendar_event'         => $courseDbInCache . 'calendar_event',
               'course_description'     => $courseDbInCache . 'course_description',
               'document'               => $courseDbInCache . 'document',
+              'course_properties'      => $courseDbInCache . 'course_properties',
               'group_property'         => $courseDbInCache . 'group_property',
               'group_rel_team_user'    => $courseDbInCache . 'group_rel_team_user',
               'group_team'             => $courseDbInCache . 'group_team',
