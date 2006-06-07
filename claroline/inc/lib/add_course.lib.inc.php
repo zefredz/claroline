@@ -288,9 +288,11 @@ function update_db_course($courseDbName)
     $TABLEINTROS         = $tbl_cdb_names['tool_intro'];
 
     // Group
-    $TABLEGROUPS          = $tbl_cdb_names['group_team'];
-    $TABLEGROUPUSER       = $tbl_cdb_names['group_rel_team_user'];
-    $TABLEGROUPPROPERTIES = $tbl_cdb_names['group_property'];
+    $TABLEGROUPS           = $tbl_cdb_names['group_team'];
+    $TABLEGROUPUSER        = $tbl_cdb_names['group_rel_team_user'];
+    $TABLEGROUPPROPERTIES  = $tbl_cdb_names['group_property'];
+    $TABLECOURSEPROPERTIES = $tbl_cdb_names['course_properties'];
+
 
     // User Info
     $TABLETOOLUSERINFOCONTENT = $tbl_cdb_names['userinfo_content'];
@@ -721,17 +723,13 @@ function update_db_course($courseDbName)
     )";
 
     $sqlList[] = "
-    CREATE TABLE `".$TABLEGROUPPROPERTIES."` (
-    id tinyint(4) NOT NULL auto_increment,
-        self_registration tinyint(4) default '1',
-        `nbGroupPerUser` TINYINT UNSIGNED DEFAULT '1',
-        private tinyint(4) default '0',
-        forum tinyint(4) default '1',
-        document tinyint(4) default '1',
-        wiki tinyint(4) default '0',
-        chat tinyint(4) default '1',
-    PRIMARY KEY  (id)
-    )";
+    CREATE TABLE `".$TABLECOURSEPROPERTIES."` (
+        `id` int(11) NOT NULL auto_increment,
+        `name` varchar(255) NOT NULL default '',
+        `value` varchar(255) default NULL,
+        `category` varchar(255) default NULL,
+        PRIMARY KEY  (`id`)
+)";
 
     // Tool intro
     $sqlList[] = "
@@ -981,10 +979,11 @@ function fill_db_course($courseDbName,$language)
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
     $TABLECOURSEHOMEPAGE    = $tbl_cdb_names['tool'];
 
-    $TABLEGROUPPROPERTIES    = $tbl_cdb_names['group_property'];// $courseDbName."group_property";
+    $TABLEGROUPPROPERTIES    = $tbl_cdb_names['group_property'   ];// $courseDbName."group_property";
+    $TABLECOURSEPROPERTIES   = $tbl_cdb_names['course_properties'];
 
     // Exercise
-    $TABLEQWZEXERCISE         = $tbl_cdb_names['qwz_exercise'];
+    $TABLEQWZEXERCISE   = $tbl_cdb_names['qwz_exercise'];
     $TABLEQWZQUESTION   = $tbl_cdb_names['qwz_question'];
     $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
     
@@ -1067,9 +1066,16 @@ function fill_db_course($courseDbName,$language)
        '0',       '1',       NULL,       NULL,       NULL       )");
 
     ############################## GROUPS ###########################################
-    claro_sql_query("INSERT INTO `".$TABLEGROUPPROPERTIES."`
-(id, self_registration, private, forum, document, wiki, chat)
-VALUES (NULL, '1', '0', '1', '1', '1', '1')");
+    claro_sql_query("INSERT INTO `".$TABLECOURSEPROPERTIES."` 
+                            (`name`, `value`, `category`) 
+                    VALUES  ('self_registration', '1', 'GROUP'),
+                            ('nbGroupPerUser'   , '1', 'GROUP'),
+                            ('private'          , '1', 'GROUP'),
+                            ('forum'            , '1', 'GROUP'),
+                            ('document'         , '1', 'GROUP'),
+                            ('wiki'             , '1', 'GROUP'),
+                            ('chat'             , '1', 'GROUP')");
+
 
     ##################### register tools in course ######################################
 
