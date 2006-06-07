@@ -96,6 +96,7 @@ class Config
         else
         {
             // error definition file doesn't exist
+
             return false;
         }
     }
@@ -244,13 +245,17 @@ class Config
         }
         else
         {
-            $this->error_message('');
+            $this->error_message('property ' . $name . 'unknow');
             return false;
         }
     }
 
     /**
      * Validate value of the list of new properties
+     *
+     * Given property are checked only if defined in def file.
+     *
+     * Other are ignored and don't fail the validation
      */
 
     function validate($new_property_list)
