@@ -828,9 +828,9 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 function generate_module_cache()
 {
 
-    $module_cache_filename = get_conf('module_cache_filename','module_cache');
+    $module_cache_filename = get_conf('module_cache_filename','module_cache.inc.php');
     $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
-
+    claro_mkdir($cacheRepositorySys, CLARO_FILE_PERMISSIONS, true);
     $tbl = claro_sql_get_main_tbl();
 
 
@@ -838,8 +838,8 @@ function generate_module_cache()
               FROM `" . $tbl['module'] . "` AS M
              WHERE M.`activation` = 'activated'";
     $module_list = claro_sql_query_fetch_all($sql);
-    claro_mkdir($cacheRepositorySys);
-    if (is_writable($cacheRepositorySys)) $handle = fopen($cacheRepositorySys . $module_cache_filename,'w');
+
+    if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys)) $handle = fopen($cacheRepositorySys . $module_cache_filename,'w');
     else                          trigger_error('ERROR: directory ' . $cacheRepositorySys . ' is not writable',E_USER_NOTICE);
 
 
