@@ -51,25 +51,9 @@ function get_info_course($cid)
 
         // read of group tools config related to this course
 
-        $sql = "SELECT self_registration,
-                       private, 
-                       nbGroupPerUser, 
-                       forum, document, 
-                       wiki, 
-                       chat
-                FROM `".$_course['dbNameGlu']."group_property`";
+        $_course = claro_get_main_group_properties($cid);
 
-        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
-
-        $gpData = mysql_fetch_array($result);
-
-        $_course ['registrationAllowed'] = (bool) ($gpData['self_registration'] == 1);
-        $_course ['private'            ] = (bool) ($gpData['private'          ] == 1);
-        $_course ['nbGroupPerUser'     ] = $gpData['nbGroupPerUser'];
-        $_course ['tools'] ['forum'    ] = (bool) ($gpData['forum'            ] == 1);
-        $_course ['tools'] ['document' ] = (bool) ($gpData['document'         ] == 1);
-        $_course ['tools'] ['wiki'     ] = (bool) ($gpData['wiki'             ] == 1);
-        $_course ['tools'] ['chat'     ] = (bool) ($gpData['chat'             ] == 1);
+        if ($_course === false) trigger_error ('WARNING !! NO GROUP PROPERTIES !!');
     }
     else
     {
