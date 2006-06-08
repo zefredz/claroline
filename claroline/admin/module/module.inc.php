@@ -827,8 +827,10 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 
 function generate_module_cache()
 {
-    global $includePath;
+
     $module_cache_filename = get_conf('module_cache_filename','module_cache');
+    $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
+
     $tbl = claro_sql_get_main_tbl();
 
 
@@ -836,11 +838,13 @@ function generate_module_cache()
               FROM `" . $tbl['module'] . "` AS M
              WHERE M.`activation` = 'activated'";
     $module_list = claro_sql_query_fetch_all($sql);
+    claro_mkdir($cacheRepositorySys);
+    if (is_writable($cacheRepositorySys)) $handle = fopen($cacheRepositorySys . $module_cache_filename,'w');
+    else                          trigger_error('ERROR: directory ' . $cacheRepositorySys . ' is not writable',E_USER_NOTICE);
 
-    if (is_writable($includePath)) $handle = fopen($includePath . $module_cache_filename,'w');
-    else                           trigger_error('ERROR: directory is not writable',E_USER_NOTICE);
 
-    fwrite($handle, '<?php '."\n");
+    fwrite($handle, '<?php //auto created by claroline '."\n");
+    fwrite($handle, 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n");
 
     $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
     foreach($module_list as $module)
@@ -852,13 +856,15 @@ function generate_module_cache()
 
             if (fwrite($handle, $dock_include) === FALSE)
             {
-                echo "ERROR: could not write in (".$module_cache_filename.")";
+                echo "ERROR: could not write in (" . $module_cache_filename . ")";
             }
         }
     }
 
     fwrite($handle, "\n" . '?>');
     fclose($handle);
+
+
 }
 
 /**

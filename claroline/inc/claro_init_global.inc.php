@@ -1,15 +1,15 @@
 <?php // $Id$
 
 // Prevent direct call of this file from the web
-// NOTE. The use of PHP_SELF is not appropriate in this case 
+// NOTE. The use of PHP_SELF is not appropriate in this case
 // as PHP_SELF can also contain the path info ...
 
 if ( basename( $_SERVER['SCRIPT_NAME'] ) === basename(__FILE__) ) die( '---' );
 
-// The CLARO_INCLUDE_ALLOWED constant allows to include PHP file further in the 
+// The CLARO_INCLUDE_ALLOWED constant allows to include PHP file further in the
 // code. Files which are meant to be included check if this constant is defined.
 // If it isn't the case, these files immediately die.
-// This process prevents hacking by direct calls of included file and setting 
+// This process prevents hacking by direct calls of included file and setting
 // of global variable (when PHP register_globals is set to 'ON')
 
 define('CLARO_INCLUDE_ALLOWED', true);
@@ -142,13 +142,13 @@ or die ('<center>'
        .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
        .'</center>');
 
-// NOTE. CLIENT_FOUND_ROWS is required to make claro_sql_query_affected_rows() 
+// NOTE. CLIENT_FOUND_ROWS is required to make claro_sql_query_affected_rows()
 // work properly. When using UPDATE, MySQL will not update columns where the new
-// value is the same as the old value. This creates the possiblity that 
-// mysql_affected_rows() may not actually equal the number of rows matched, 
-// only the number of rows that were literally affected by the query. 
-// But this behavior can be changed by setting the CLIENT_FOUND_ROWS flag in 
-// mysql_connect(). mysql_affected_rows() will return then the number of rows 
+// value is the same as the old value. This creates the possiblity that
+// mysql_affected_rows() may not actually equal the number of rows matched,
+// only the number of rows that were literally affected by the query.
+// But this behavior can be changed by setting the CLIENT_FOUND_ROWS flag in
+// mysql_connect(). mysql_affected_rows() will return then the number of rows
 // matched, even if none are updated.
 
 
@@ -247,14 +247,18 @@ if ( isset($_POST['claroFormId']) )
 // TODO : move module_cache to cache directory
 // TODO : includePath is probably not needed
 
-$module_cache_filename = '/module_cache.php';
-
-if (!file_exists($includePath . $module_cache_filename))
+$module_cache_filename = get_conf('module_cache_filename','module_cache.php');
+$cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
+if (!file_exists($cacheRepositorySys . $module_cache_filename))
 {
     require_once $includePath . '/lib/module.manage.lib.php';
     generate_module_cache();
 }
 
-include $includePath . $module_cache_filename;
+if (file_exists($cacheRepositorySys . $module_cache_filename))
+{
+    include $cacheRepositorySys . $module_cache_filename;
+}
+else trigger_error('module_cache not found',E_USER_WARNING);
 
 ?>
