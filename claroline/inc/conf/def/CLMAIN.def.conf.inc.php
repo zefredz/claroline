@@ -25,11 +25,19 @@ $conf_def['config_class']='platform';
 
 // SECTION
 
-$conf_def['section']['PLATFORM_SETTING']['label']='Platform';
-$conf_def['section']['PLATFORM_SETTING']['description']='Global settings';
-$conf_def['section']['PLATFORM_SETTING']['properties'] =
+$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Campus';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your institution';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] =
 array ( 'siteName'
-      , 'claro_stylesheet'
+      , 'institution_name'
+      , 'institution_url'
+      );
+
+
+$conf_def['section']['LAYOUT']['label']='Layout';
+//$conf_def['section']['LAYOUT']['description']='';
+$conf_def['section']['LAYOUT']['properties'] =
+array ( 'claro_stylesheet'
       );
 
 $conf_def['section']['LANGUAGE']['label']='Language';
@@ -40,7 +48,7 @@ array ( 'platformLanguage'
       , 'CLAROLANG'
       );
 
-$conf_def['section']['ADMINISTRATOR_SETTING']['label']='Technical contact';
+$conf_def['section']['ADMINISTRATOR_SETTING']['label']='Contact';
 $conf_def['section']['ADMINISTRATOR_SETTING']['description']='These informations are displayed in each platform screen footer';
 $conf_def['section']['ADMINISTRATOR_SETTING']['properties'] =
 array ( 'administrator_name'
@@ -48,18 +56,13 @@ array ( 'administrator_name'
       , 'administrator_phone'
       );
 
-$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Institution';
-$conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your institution (optional)';
-$conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] =
-array ( 'institution_name'
-      , 'institution_url'
-      );
-
-$conf_def['section']['DISP_FILE_SYSTEM_SETTING']['label']='File system settings';
-$conf_def['section']['DISP_FILE_SYSTEM_SETTING']['properties'] =
+$conf_def['section']['FILE_SYSTEM_SETTING']['label']='File system settings';
+$conf_def['section']['FILE_SYSTEM_SETTING']['properties'] =
 array ( 'rootWeb'
       , 'rootSys'
       , 'urlAppend'
+      , 'mysqlRepositorySys'
+      , 'tmpPathSys'
       , 'garbageRepositorySys'
       , 'clarolineRepositoryAppend'
       , 'coursesRepositoryAppend'
@@ -83,13 +86,15 @@ array ( 'dbHost'
       , 'courseTablePrefix'
       );
 
-$conf_def['section']['advanced']['label']='Advanced settings';
-$conf_def['section']['advanced']['properties'] =
-array ( 'mysqlRepositorySys'
-      , 'tmpPathSys'
-      , 'userPasswordCrypted'
-      , 'allowSelfReg'
+$conf_def['section']['RIGHT']['label']='Right';
+$conf_def['section']['RIGHT']['properties'] =
+array ( 'allowSelfReg'
       , 'allowToSelfEnroll'
+      );
+
+$conf_def['section']['ADVANCED']['label']='Advanced settings';
+$conf_def['section']['ADVANCED']['properties'] =
+array ( 'userPasswordCrypted'
       , 'is_trackingEnabled'
       , 'claro_editor'
       , 'claro_texRendererUrl'
@@ -270,15 +275,15 @@ $conf_def_property_list['tmpPathSys'] =
 array ('label'         => 'Repository for temporary files and dirs'
       , 'description'  => 'Note : this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'
-      ,'default'       => get_conf('rootWeb') . 'claroline/tmp/'
-      ,'display'     => FALSE
-      ,'type'          => 'syspath'
+      ,'default'       => 'tmp/'
+      ,'display'       => true
+      ,'type'          => 'relpath'
       );
 
 $conf_def_property_list['garbageRepositorySys'] =
 array ('label'       => 'Garbage'
       ,'description' => 'Absolute sys path to the place where are move data of a deleted course.'
-      ,'default'     => ''
+      ,'default'     => 'tmp/garbage/'
       ,'type'        => 'syspath'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
@@ -316,7 +321,7 @@ array ('label'         => 'Language to display'
       );
 
 $conf_def_property_list['claro_stylesheet'] =
-array ('label'       => 'Layout'
+array ('label'       => 'Theme'
       ,'description' => 'Set the Cascading Style Sheet (CSS) layout.'
       ,'default'     => 'default.css'
       ,'type'        => 'enum'

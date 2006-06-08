@@ -47,7 +47,7 @@ $conf_def_property_list['rssRepositoryCache'] =
 array ('label'         => 'Where place rss files.'
       , 'description'  => 'Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.'
-      ,'default'       => 'cache/rss/'
+      ,'default'       => 'tmp/cache/rss/'
       ,'type'          => 'relpath'
       );
 
