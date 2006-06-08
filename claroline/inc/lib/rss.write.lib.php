@@ -37,9 +37,7 @@ function build_rss($context)
     {
         include_once dirname(__FILE__) . '/pear/XML/Serializer.php';
 
-        $rssRepositoryCache = get_conf('rssRepositoryCache');
-        $rssRepositoryCacheSys = get_conf('rootSys') . $rssRepositoryCache;
-
+        $rssRepositoryCacheSys = get_conf('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/');
         if (!file_exists($rssRepositoryCacheSys))
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
@@ -79,7 +77,7 @@ function build_rss($context)
             $rssEmail = '';
         }
 
-        $rssFilePath = $rssFilePath . '.' . RSS_FILE_EXT;
+        $rssFilePath = $rssFilePath . RSS_FILE_EXT;
 
 
         $data['channel'] = array(
@@ -154,7 +152,7 @@ function rss_get_tool_compatible_list()
 
             // Cache_lite setting & init
             $cache_options = array(
-            'cacheDir' => get_conf('rootSys') . 'cache/rss/',
+            'cacheDir' => get_conf('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
             'lifeTime' => get_conf('cache_lifeTime', get_conf('rssCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );
