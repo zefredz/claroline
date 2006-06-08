@@ -47,13 +47,11 @@ function get_info_course($cid)
     if ($cid)
     {
         $_course = claro_get_course_data($cid);
-        // GET COURSE TABLE
+        $_groupProperties = claro_get_main_group_properties($cid);
 
-        // read of group tools config related to this course
+        if ($_groupProperties === false) trigger_error ('WARNING !! NO GROUP PROPERTIES !!');
 
-        $_course = claro_get_main_group_properties($cid);
-
-        if ($_course === false) trigger_error ('WARNING !! NO GROUP PROPERTIES !!');
+        $_course = array_merge($_course, $_groupProperties);
     }
     else
     {
