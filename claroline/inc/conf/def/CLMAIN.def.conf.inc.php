@@ -63,6 +63,7 @@ array ( 'rootWeb'
       , 'urlAppend'
       , 'mysqlRepositorySys'
       , 'tmpPathSys'
+      , 'cacheRepository'
       , 'garbageRepositorySys'
       , 'clarolineRepositoryAppend'
       , 'coursesRepositoryAppend'
@@ -276,6 +277,15 @@ array ('label'         => 'Repository for temporary files and dirs'
       , 'description'  => 'Note : this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'
       ,'default'       => 'tmp/'
+      ,'display'       => true
+      ,'type'          => 'relpath'
+      );
+
+$conf_def_property_list['cacheRepository'] =
+array ('label'         => 'Repository for cache files and dirs'
+      , 'description'  => 'Note : this repository should be protected with a .htaccess or
+       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'
+      ,'default'       => 'tmp/cch/'
       ,'display'       => true
       ,'type'          => 'relpath'
       );
@@ -532,5 +542,18 @@ $conf_def_property_list['allowToSelfEnroll']
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'TRUE'=> 'Allowed', 'FALSE'=>'Not allowed' )
         );
+
+
+$conf_def_property_list['module_cache_filename']
+= array ('label'     => 'filename for one file module inclusion'
+        ,'description' => ''
+        ,'default'   => 'moduleCache.inc.php'
+        ,'type'      => 'filename'
+        ,'display'       => FALSE
+        ,'readonly'      => TRUE
+        ,'acceptedValue' => array ( 'pattern'=> '*.inc.php')
+        );
+
+
 
 ?>
