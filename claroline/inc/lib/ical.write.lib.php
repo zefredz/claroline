@@ -13,23 +13,32 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
-
 /**
  * This lib use
  * * cache lite
  * * icalendar/class.iCal.inc.php
  *
  */
-
 require_once dirname(__FILE__) . '/icalendar/class.iCal.inc.php';
+
+
+function get_ical_MimeType($calType)
+{
+
+    switch ($calType)
+    {
+    case 'ics' : return 'text/ics';
+    case 'xcs' : return 'text/xml';
+    case 'rdf' : return 'text/rdf';
+    }
+    return false;
+}
 
 function buildICal($context, $calType='ics')
 {
     if (is_array($context) && count($context) > 0)
     {
-        $iCalRepositorySys =  get_conf('rootSys') . get_conf('iCalRepository','iCal/');
-
-
+        $iCalRepositorySys =  get_conf('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
         if (!file_exists($iCalRepositorySys))
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
@@ -53,46 +62,45 @@ function buildICal($context, $calType='ics')
         }
 
 
-        $iCalFilePath = $iCalRepositorySys . '/' ;
+        $iCalFilePath = $iCalRepositorySys ;
         if (array_key_exists(CLARO_CONTEXT_COURSE,$context)) $iCalFilePath .= $context[CLARO_CONTEXT_COURSE] . '.';
         if (array_key_exists(CLARO_CONTEXT_GROUP,$context)) $iCalFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
 
 
-        if (get_conf('iCalGenStandard', true))
+        if ('ics' == $calType || get_conf('iCalGenStandard', true))
         {
             $stdICalFilePath = $iCalFilePath . 'ics';
             $fpICal = fopen($stdICalFilePath, 'w');
             fwrite($fpICal, $iCal->getOutput('ics'));
+            fclose($fpICal);
         }
 
-        if (get_conf('iCalGenXml', true))
+        if ('xcs' == $calType || get_conf('iCalGenXml', true))
         {
             $xmlICalFilePath = $iCalFilePath . 'xml';
             $fpICal = fopen($xmlICalFilePath, 'w');
             fwrite($fpICal, $iCal->getOutput('xcs'));
+            fclose($fpICal);
         }
 
-        if (get_conf('iCalGenRdf', false))
+        if ('rdf' == $calType || get_conf('iCalGenRdf', false))
         {
             $rdfICalFilePath = $iCalFilePath . 'rdf';
             $fpICal = fopen($rdfICalFilePath, 'w');
             fwrite($fpICal, $iCal->getOutput('rdf'));
+            fclose($fpICal);
         }
-
 
         switch ($calType)
         {
             case 'xcs' :
-                $iCalFilePath .= 'xml';
-                return $iCalFilePath;
+                return $xmlICalFilePath;
                 break;
             case 'rdf' :
-                $iCalFilePath .= 'rss';
-                return $iCalFilePath;
+                return $rdfICalFilePath;
                 break;
             default :
-                $iCalFilePath .= 'ics';
-                return $iCalFilePath;
+                return $stdICalFilePath;
                 break;
         }
 
@@ -123,7 +131,7 @@ function ical_get_tool_compatible_list()
 
             // Cache_lite setting & init
             $cache_options = array(
-            'cacheDir' => get_conf('rootSys') . 'cache/ical/',
+            'cacheDir' => get_conf('rootSys') . 'tmp/cache/ical/sources/',
             'lifeTime' => get_conf('cache_lifeTime', get_conf('iCalCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );
