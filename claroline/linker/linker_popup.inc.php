@@ -114,9 +114,13 @@ if ($isToolAllowed)
     // init the caddy
     if ( !isset ($_REQUEST['cmd']) )
     {
-        $crlSource = getSourceCrl();
+        $linkerTLabel = isset($_REQUEST['linkerTLabel']) ? $_REQUEST['linkerTLabel'] : null;
+        $crlSource = getSourceCrl($linkerTLabel);
         $caddy->initAttachmentList();
     }
+
+
+
     //-------------------------------------------------------------------------------------------------------------------------
     // get the request variable
     if ( isset ($_REQUEST['cmd']) )
