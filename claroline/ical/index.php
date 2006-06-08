@@ -24,10 +24,10 @@ $siteName ='';
 $is_courseAllowed = false;
 $calType='ics';
 require '../inc/claro_init_global.inc.php';
-include_once $includePath . '/conf/rss.conf.php';
-
+include_once $includePath . '/conf/ical.conf.php';
 // RSS enabled
-if ( ! get_conf('enableIcalInCourse') )
+
+if ( ! get_conf('enable_iCal_in_course') )
 {
     // Codes Status HTTP 404 for rss feeder
     header('HTTP/1.0 404 Not Found');
@@ -77,9 +77,10 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 
 // OK TO SEND FEED
 
-include $includePath . '/lib/ical.writer.inc.php';
+include $includePath . '/lib/ical.write.lib.php';
 
 header('Content-type: text/xml;');
 readfile ( buildICal(array(CLARO_CONTEXT_COURSE=> $_cid)), $calType);
+
 
 ?>
