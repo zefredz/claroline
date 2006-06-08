@@ -50,13 +50,13 @@
     * @param $extraGetVar integer who is id of a resource
     * @param $tLabel tlabel of a tool
     */
-    function linker_set_display( $extraGetVar = false, $tLabel = NULL )
+    function linker_set_display( $extraGetVar = false, $tLabel = NULL, $extraName = 'id' )
     {
         $url = "../linker/linker_popup.inc.php";
 
         if( $extraGetVar !== false )
         {
-            $url .= "?id=".$extraGetVar;
+            $url .= '?' . $extraName .'='.$extraGetVar;
         }
 
         if ( ! is_null( $tLabel ) )
