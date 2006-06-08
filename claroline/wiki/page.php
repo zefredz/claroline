@@ -643,7 +643,7 @@
     // Breadcrumps
 
     $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
-    $interbredcrump[]= array ( 'url' => NULL
+    $interbredcrump[]= array ( 'url' => $_SERVER['PHP_SELF'] . '?action=show&amp;wikiId=' . (int) $wikiId
         , 'name' => $wiki->getTitle() );
 
     switch( $action )
