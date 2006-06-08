@@ -13,6 +13,8 @@
 
 // This page is used to launch an event when a user click to download a document
 
+$tlabelReq = 'CLDOC___';
+
 require '../../inc/claro_init_global.inc.php';
 
 if (isset($_REQUEST['url']) )
