@@ -486,16 +486,7 @@
         */
         function _infoGroup()
         {
-            $courseInfoArray = get_info_course($this->_elementCRLArray['course_sys_code']); 
-            $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
-            $tbl_groups = $tbl_cdb_names['group_property'];
-            
-            $sql = 'SELECT `id`,`forum`,`document`,`wiki`,`chat` 
-                    FROM `'.$tbl_groups.'`';
-            $groups = claro_sql_query_fetch_all($sql);
-            
-            return $groups;
+            return claro_get_main_group_properties($this->_elementCRLArray['course_sys_code']);
         }
-
     }
 ?>
