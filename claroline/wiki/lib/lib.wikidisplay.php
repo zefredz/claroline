@@ -180,12 +180,13 @@
             . $wikiId
             . '" />' . "\n"
             ;
+            
+        $out .= '<input type="submit" name="action[edit]" value="'
+            . get_lang("Edit") . '"/>' . "\n"
+            ;
         
         $out .= '<input type="submit" name="action[save]" value="'
             . get_lang("Save").'" />' . "\n"
-            ;
-        $out .= '<input type="submit" name="action[edit]" value="'
-            . get_lang("Edit") . '"/>' . "\n"
             ;
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
