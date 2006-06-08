@@ -1276,7 +1276,7 @@ if (!function_exists('md5_file'))
 
 function claro_get_conf_def_file($configCode)
 {
-    $centralizedDef = array('CLCRS','CLAUTH','CLGRP', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL','CLRSS');
+    $centralizedDef = array('CLCRS','CLAUTH','CLGRP', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL');
     if(in_array($configCode,$centralizedDef)) return realpath($GLOBALS['includePath'] . '/conf/def/') ;
     else                                     return realpath(get_module_path($configCode) . '/conf/def/');
 }
@@ -1319,9 +1319,11 @@ function get_def_file_list()
                 {
                     $config_code = str_replace('.def.conf.inc.php','',$file);
                     $config = new Config($config_code);
-                    $config->load();
-                    $defConfFileList[$config_code]['name'] = $config->get_conf_name($config_code);
-                    $defConfFileList[$config_code]['class'] = $config->get_conf_class();
+                    if($config->load())
+                    {
+                        $defConfFileList[$config_code]['name'] = $config->get_conf_name($config_code);
+                        $defConfFileList[$config_code]['class'] = $config->get_conf_class();
+                    }
                 }
             }
             closedir($handle);
