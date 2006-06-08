@@ -521,6 +521,7 @@ class Config
                 else
                 {
                     $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
+                    $propertyLine .= '$GLOBALS[\'_claroConf\'][\''.$name.'\'] = '. $valueToWrite .';'."\n";
                 }
                 $propertyLine .= "\n\n";
 

@@ -102,9 +102,9 @@ function claro_get_main_group_properties($courseId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
     $tbl_course_properties   = $tbl_cdb_names['course_properties'];
-    
-    $sql = "SELECT name, value 
-            FROM `".$tbl_course_properties."` 
+
+    $sql = "SELECT name, value
+            FROM `".$tbl_course_properties."`
             WHERE category = 'GROUP'";
 
     $dbDataList = claro_sql_query_fetch_all($sql);
@@ -718,9 +718,10 @@ function claro_get_language_list()
 
 function get_conf($param, $default = null)
 {
-    if     ( isset($GLOBALS[$param]) )  return $GLOBALS[$param];
-    elseif ( defined($param)         )  return constant($param);
-    else                                return $default;
+    if     ( isset($GLOBALS['_claroConf'][$param]) )  return $GLOBALS['_claroConf'][$param];
+    elseif ( isset($GLOBALS[$param]) )                return $GLOBALS[$param];
+    elseif ( defined($param)         )                return constant($param);
+    else                                              return $default;
 }
 
 /**
