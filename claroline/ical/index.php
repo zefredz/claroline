@@ -22,10 +22,11 @@
 $_course = array();
 $siteName ='';
 $is_courseAllowed = false;
-$calType='ics';
+unset($includePath);
 require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/conf/ical.conf.php';
-// RSS enabled
+include_once $includePath . '/lib/ical.write.lib.php';
+$formatList = array('ics'=>'iCalendar','xcs'=>'xCalendar (xml)','rdf'=>'rdf');
 
 if ( ! get_conf('enable_iCal_in_course') )
 {
@@ -34,6 +35,7 @@ if ( ! get_conf('enable_iCal_in_course') )
     exit;
 }
 
+$calType = (array_key_exists('calFormat',$_REQUEST) && array_key_exists($_REQUEST['calFormat'],$formatList))?$_REQUEST['calFormat']:get_conf('calType','ics');
 if(!$GLOBALS['_cid'])
 {
     die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
@@ -77,10 +79,8 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 
 // OK TO SEND FEED
 
-include $includePath . '/lib/ical.write.lib.php';
 
-header('Content-type: text/xml;');
-readfile ( buildICal(array(CLARO_CONTEXT_COURSE=> $_cid)), $calType);
-
+header('Content-type: ' . get_ical_MimeType($calType) . ';');
+readfile ( buildICal(array(CLARO_CONTEXT_COURSE=> $_cid), $calType));
 
 ?>
