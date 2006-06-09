@@ -36,7 +36,7 @@ $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_access          = $tbl_cdb_names['track_e_access'         ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
-$tbl_quiz_test               = $tbl_cdb_names['quiz_test'              ];
+$tbl_qwz_exercise			 = $tbl_cdb_names['qwz_exercise'];
 $tbl_bb_topics               = $tbl_cdb_names['bb_topics'                ];
 $tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 
@@ -394,8 +394,8 @@ if( get_conf('is_trackingEnabled'))
         $sql = "SELECT TEX.`exe_exo_id`,
                         COUNT(DISTINCT TEX.`exe_user_id`) AS `nbr_distinct_user_attempts`,
                         COUNT(TEX.`exe_exo_id`) AS `nbr_total_attempts`,
-                        EX.`titre` AS `title`
-                    FROM `".$tbl_track_e_exercises."` AS TEX, `".$tbl_quiz_test."` AS EX
+                        EX.`title`
+                    FROM `".$tbl_track_e_exercises."` AS TEX, `".$tbl_qwz_exercise."` AS EX
                     WHERE TEX.`exe_exo_id` = EX.`id`
                     GROUP BY TEX.`exe_exo_id`";
 
@@ -414,7 +414,7 @@ if( get_conf('is_trackingEnabled'))
             foreach( $results as $result )
             {
                     echo '<tr>'."\n"
-                        .'<td><a href="exercises_details.php?exo_id='.$result['exe_exo_id'].'">'.$result['title'].'</a></td>'."\n"
+                        .'<td><a href="exercises_details.php?exId='.$result['exe_exo_id'].'">'.$result['title'].'</a></td>'."\n"
                         .'<td align="right">'.$result['nbr_distinct_user_attempts'].'</td>'."\n"
                         .'<td align="right">'.$result['nbr_total_attempts'].'</td>'."\n"
                         .'</tr>'."\n\n"
