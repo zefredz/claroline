@@ -38,6 +38,23 @@ include_once './lib/answer_matching.class.php';
 include_once $includePath . '/lib/htmlxtra.lib.php';
 include_once $includePath . '/lib/form.lib.php';
 
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_track_e_exercises         = $tbl_cdb_names['track_e_exercices'];
+
+if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
+{
+	require_once $includePath . '/lib/learnPath.lib.inc.php';
+	
+	$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+	$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+	$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+	$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+	$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+	
+	$hide_banner = true;
+	$hide_footer = true;	
+}
+
 
 /*
  * Execute commands
@@ -62,7 +79,20 @@ if( !isset($_SESSION['exercise']) )
 	}
 	else
 	{
-		$_SESSION['exercise'] = serialize($exercise);
+		// load successfull
+		// exercise must be visible or in learning path to be displayed to a student
+		if( $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit && ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] ) )
+		{
+			// exercise is required 
+			unset($_SESSION['exercise']);
+			
+			header("Location: ./exercise.php");
+			exit();		
+		}
+		else
+		{
+			$_SESSION['exercise'] = serialize($exercise);
+		}
 	}
 }
 else
@@ -70,10 +100,169 @@ else
 	$exercise = unserialize($_SESSION['exercise']);	
 }
 
-if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] )
+//-- get question list
+if( !isset($_SESSION['questionList']) || !is_array($_SESSION['questionList']) )
+{ 
+	if( $exercise->getShuffle() == 0 )
+	{
+		$qList = $exercise->getQuestionList();
+	}
+	else
+	{
+		$qList = $exercise->getRandomQuestionList();
+	}
+
+	foreach( $qList as $question )
+	{
+		$questionObj = new Question();
+		
+		if( $questionObj->load($question['id']) )
+		{
+			$_SESSION['questionList'][] = serialize($questionObj);
+			$questionList[] = $questionObj;
+		}
+		unset($questionObj);
+	}
+}
+else
+{
+	$questionList = array();
+	foreach( $_SESSION['questionList'] as $serializedQuestion )
+	{
+		$questionList[] = unserialize($serializedQuestion);
+	}
+}
+
+$questionCount = count($questionList);
+
+
+//-- exercise properties
+$dialogBox = '';
+$now = time();
+
+if( $_uid )
+{
+	// count number of attempts of the user
+	$sql="SELECT count(`exe_result`) AS `tryQty`
+	        FROM `".$tbl_track_e_exercises."`
+	       WHERE `exe_user_id` = '".(int) $_uid."'
+	         AND `exe_exo_id` = ".(int) $exId."
+	       GROUP BY `exe_user_id`";
+	
+	$userAttemptCount = claro_sql_query_get_single_value($sql);
+	
+	if( $userAttemptCount )	$userAttemptCount++;
+	else                 	$userAttemptCount = 1; // first try
+}
+else
+{
+	$userAttemptCount = 1;
+}
+
+
+$exerciseIsAvailable = true;
+
+if( !$is_allowedToEdit )
+{ 
+	// do the checks only if user has no edit right
+	
+	// check if exercise can be displayed
+	if( $exercise->getStartDate() > $now 
+		|| ( !is_null($exercise->getEndDate()) && $exercise->getEndDate() < $now )
+	   )
+	{
+		// not yet available, no more available
+		$dialogBox .= get_lang('Exercise not available') . '<br />' . "\n";
+		$exerciseIsAvailable = false;
+	}
+	elseif( $exercise->getAttempts() > 0 && $userAttemptCount > $exercise->getAttempts() ) // attempt #
+	{
+		$dialogBox .= get_lang('You have reached the maximum number of allowed attempts.') . '<br />' . "\n";
+		$exerciseIsAvailable = false;
+	}
+}
+
+
+if(!isset($_SESSION['exeStartTime']) )
+{
+    $_SESSION['exeStartTime'] = $now;
+}
+
+// exercise is submitted - GRADE EXERCISE
+if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
 {	
+	$timeToCompleteExe =  $now - $_SESSION['exeStartTime'];
+	$recordResults = true;
+	
+    // the time limit is set and the user take too much time to complete exercice
+	if ( $exercise->getTimeLimit() > 0 && $exercise->getTimeLimit() < $timeToCompleteExe )
+	{
+	    $showAnswers = false;
+	    $recordResults = false;
+	}
+	else
+	{	
+	    if ( $exercise->getShowAnswers()  == 'ALWAYS' )
+	    {
+	        $showAnswers = true;
+	    }
+	    elseif ( $exercise->getShowAnswers() == 'LASTTRY' && $exercise->getAttempts() == $userAttemptCount )
+	    {
+	        $showAnswers = true;
+	    }
+	    else
+	    {
+	        // $exercise->getShowAnswers()  == 'NEVER'
+	        $showAnswers = false;
+	    }
+	}
+		 
 	$showResult = true;
 	$showSubmitForm = false;
+	
+	// compute scores
+	$totalResult = 0;
+    $totalGrade = 0;
+    
+    $i = 0;
+    foreach( $questionList as $question )
+	{
+		// required by getGrade and getQuestionFeedbackHtml
+		$question->answer->extractResponseFromRequest();
+		
+		$questionResult[$i] = $question->answer->gradeResponse();
+		$questionGrade[$i] = $question->getGrade();			
+		
+		// sum of score
+		$totalResult += $questionResult[$i];
+		$totalGrade += $questionGrade[$i];
+		
+		$i++;
+	}
+	
+	// if tracking is enabled
+	if( $is_trackingEnabled )
+	{
+	    // if anonymous attempts are authorised : record anonymous user stats, record authentified user stats without uid
+	    if ( $exercise->getAnonymousAttempts() == 'ALLOWED' )
+	    {
+	        $exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe );
+	    }
+	    elseif( $_uid ) // anonymous attempts not allowed, record stats with uid only if uid is set
+	    {
+	        $exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe, $_uid );
+	    }
+
+	    if( isset($exerciseTrackId) && $exerciseTrackId && !empty($questionList) )
+	    {
+	    	$i = 0;
+			foreach ( $questionList as $question )
+			{	
+				event_exercise_details($exerciseTrackId,$question->getId(),$question->answer->getTrackingValues(),$questionResult[$i]);
+				$i++;
+			}
+	    }
+	}
 }
 else
 {
@@ -81,66 +270,11 @@ else
 	$showSubmitForm = true;
 } 
 
-//-- get question list
-if( !isset($_SESSION['questionList']) || !is_array($_SESSION['questionList']) )
-{ 
-	if( $exercise->getShuffle() == 0 )
-	{
-		$questionList = $exercise->getQuestionList();
-	}
-	else
-	{
-		$questionList = $exercise->getRandomQuestionList();
-	}
-	
-	foreach( $questionList as $question )
-	{
-		$questionObj = new Question();
-		
-		if( $questionObj->load($question['id']) )
-		{
-			$_SESSION['questionList'][] = serialize($questionObj);
-		}
-		
-		unset($questionObj);
-	}
-}
-
-$questionCount = count($_SESSION['questionList']);
-
-
-if(!isset($_SESSION['exeStartTime']) )
-{
-    $_SESSION['exeStartTime'] = time();
-}
-
 //-- update step
 if( isset($_REQUEST['cmdBack']) ) 	$step--;
 else								$step++;
 
-//-- exercise properties
-$dialogBox = '';
-$now = time();
 
-$userAttemptCount = 1; // TODO get it dynamically
-
-if( !$is_allowedToEdit )
-{ 
-	// check if exercise can be displayed
-		
-	if( $exercise->getStartDate() > $now 
-		|| ( !is_null($exercise->getEndDate()) && $exercise->getEndDate() < $now ) 
-	   )
-	{
-		$dialogBox .= get_lang('Exercise not available') . '<br />' . "\n";
-		$showSubmitForm = false;
-	}
-	elseif( $exercise->getAttempts() > 0 && $userAttemptCount > $exercise->getAttempts() ) // attempt #
-	{
-		$dialogBox .= get_lang('You have reached the maximum number of allowed attempts.') . '<br />' . "\n";
-		$showSubmitForm = false;
-	}
-}
 
 
 
@@ -148,8 +282,8 @@ if( !$is_allowedToEdit )
 /*
  * Output
  */
- 
-$interbredcrump[] = array ('url' => './exercise.php', 'name' => get_lang('Exercises'));
+
+$interbredcrump[] = array("url" => "exercise.php","name" => get_lang('Exercises'));
 
 $nameTools = $exercise->getTitle();
  
@@ -209,7 +343,7 @@ echo '</ul>' .  "\n\n";
 	
 
 // admin link 
-if( $is_allowedToEdit )
+if( $is_allowedToEdit && ( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) )
 {
 	echo '<a class="claroCmd" href="admin/edit_exercise.php?exId='.$exId.'">'
 	.	 '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="" />'
@@ -219,8 +353,7 @@ if( $is_allowedToEdit )
 	
 if( $showResult )
 {
-	$totalResult = 0;
-    $totalGrade = 0;
+
     
 	if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] ) 
     {
@@ -238,45 +371,38 @@ if( $showResult )
     echo "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
     
     //-- question(s)
-	if( !empty($_SESSION['questionList']) )
+	if( !empty($questionList) )
 	{
 		// foreach question
-		$questionIterator = 0;
-		foreach( $_SESSION['questionList'] as $serializedQuestion )
+		$questionIterator = 1;
+		$i = 0;
+
+	    foreach( $questionList as $question )
 		{
-			$questionIterator++;
-
-			$question = unserialize($serializedQuestion);
-			
-			// required by getGrade and getQuestionFeedbackHtml
-			$question->answer->extractResponseFromRequest();
-			
-			$questionResult = $question->answer->gradeResponse();
-			$questionGrade = $question->getGrade();
-
-			
-			echo '<tr class="headerX">' . "\n"
-			.	 '<th>'
-			.	 get_lang('Question') . ' ' . $questionIterator
-			.	 '</th>' . "\n"
-			.	 '</tr>' . "\n\n";
+			if( $showAnswers )
+			{
+				echo '<tr class="headerX">' . "\n"
+				.	 '<th>'
+				.	 get_lang('Question') . ' ' . $questionIterator
+				.	 '</th>' . "\n"
+				.	 '</tr>' . "\n\n";
 				
-			echo '<tr>'
-			.	 '<td>' . "\n";
-			
-			echo $question->getQuestionFeedbackHtml();
-						
-			echo '</td>' . "\n"
-			.	 '</tr>' . "\n\n"
-			.	 '<tr>'
-			.	 '<td align="right">' . "\n"
-			.	 '<strong>'.get_lang('Score').' : '.$questionResult.'/'.$questionGrade.'</strong>'			
-			.	 '</td>' . "\n"
-			.	 '</tr>' . "\n\n";
-			
-			// sum of score
-			$totalResult += $questionResult;
-			$totalGrade += $questionGrade; 
+				echo '<tr>'
+				.	 '<td>' . "\n";
+				
+				echo $question->getQuestionFeedbackHtml();
+							
+				echo '</td>' . "\n"
+				.	 '</tr>' . "\n\n"
+				
+				.	 '<tr>'
+				.	 '<td align="right">' . "\n"
+				.	 '<strong>'.get_lang('Score').' : '.$questionResult[$i].'/'.$questionGrade[$i].'</strong>'			
+				.	 '</td>' . "\n"
+				.	 '</tr>' . "\n\n";
+			}
+			$questionIterator++;
+			$i++;
 		}	
 	}
 		
@@ -285,7 +411,18 @@ if( $showResult )
 	.	 '<td align="center">'
 	.	 get_lang('Your time is %time', array('%time' => claro_disp_duration($timeToCompleteExe)) )
 	.	 '<br />' . "\n"
-	.	 '<strong>'.get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) ).'</strong>'
+	.	 '<strong>';
+	
+	if( $recordResults )
+	{
+		echo get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) );
+	}
+	else
+	{
+		echo get_lang('Time is over, results not submitted.');
+	}
+    
+    echo '</strong>'
     .	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n" 
 	.	 '<tr>' . "\n"
@@ -295,11 +432,12 @@ if( $showResult )
 	.	 '</tr>' . "\n\n"
 	.	 '</table>' . "\n\n"
 	.	 '</form>' . "\n\n";
+	
 }
 elseif( $showSubmitForm )
 {
 	//-- question(s)
-	if( !empty($_SESSION['questionList']) )
+	if( !empty($questionList) )
 	{
 		// form header, table header
 		echo '<form method="post" action="./exercise_submit.php?exId='.$exId.'">' . "\n";
@@ -313,11 +451,10 @@ elseif( $showSubmitForm )
 
 		// foreach question
 		$questionIterator = 0;
-		foreach( $_SESSION['questionList'] as $serializedQuestion )
+
+		foreach( $questionList as $question )
 		{
 			$questionIterator++;
-
-			$question = unserialize($serializedQuestion);
 
 			if( $exercise->getDisplayType() == 'SEQUENTIAL' )
 			{	
@@ -373,21 +510,19 @@ elseif( $showSubmitForm )
 		{
 			if( $step > 1 )
 			{
-				echo '<input type="submit" name="cmdBack" value="&lt; '.get_lang('Back').'" />&nbsp;' . "\n";
+				echo '<input type="submit" name="cmdBack" value="&lt; '.get_lang('Previous question').'" />&nbsp;' . "\n";
 			}
 			
 			if( $step < $questionCount )
 			{
-				echo '<input type="submit" name="cmdNext" value="'.get_lang('Next').' &gt;" />' . "\n";
+				echo '<input type="submit" name="cmdNext" value="'.get_lang('Next question').' &gt;" />' . "\n";
 			}
-			else
-			{
-				echo '<input type="submit" name="cmdOk" value="'.get_lang('Ok').'" />' . "\n";	
-			}
+			
+			echo '<p><input type="submit" name="cmdOk" value="'.get_lang('Submit all and finish').'" /></p>' . "\n";
 		}
 		else
 		{
-			echo '<input type="submit" name="cmdOk" value="'.get_lang('Ok').'" />' . "\n";
+			echo '<input type="submit" name="cmdOk" value="'.get_lang('Finish the test').'" />' . "\n";
 		} 
 		
 		echo '</td>' . "\n"
@@ -403,8 +538,7 @@ else // ! $showSubmitForm
 	{
 		$dialogBox .= '<br /><a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a><br />' . "\n";
 	}
-	if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
-	
+	if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);	
 }
 
 include($includePath.'/claro_init_footer.inc.php');
