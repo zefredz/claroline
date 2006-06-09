@@ -626,6 +626,7 @@ class Question
 			case 'MATCHING' :
 				include_once $path . '/answer_matching.class.php';
 				$this->answer = new answerMatching($this->id); 
+				$this->answer->addExample();
 				break;
 			default :
 				$this->answer = null;
