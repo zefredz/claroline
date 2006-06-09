@@ -644,6 +644,24 @@ class answerMultipleChoice
     		}
     	}
 	   	return $grade;
-	} 	    
+	} 	
+	
+	/**
+	 * return a array with values needed for tracking
+	 * 
+	 * @author Sebastien Piraux <pir@cerdecam.be>
+	 * @return array
+	 */
+	function getTrackingValues()
+	{
+		$values = array();
+		
+		foreach( $this->response as $responseId => $value )
+		{
+			if( $value )	$values[] = $responseId;
+		}
+		
+		return $values;
+	}  
 }
 ?>

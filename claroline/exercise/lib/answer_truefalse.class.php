@@ -553,5 +553,25 @@ class answerTrueFalse
 	   	
 	   	return 0;
 	}
+	
+	/**
+	 * return a array with values needed for tracking
+	 * 
+	 * @author Sebastien Piraux <pir@cerdecam.be>
+	 * @return array
+	 */
+	function getTrackingValues()
+	{
+		$values = array();
+		
+		$acceptedValues = array('TRUE', 'FALSE');
+		
+		if( in_array($this->response,$acceptedValues) )
+		{
+			$values[] = $this->response;
+		}
+				
+		return $values;
+	}  
 }
 ?>

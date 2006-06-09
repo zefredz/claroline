@@ -768,6 +768,17 @@ class answerFillInBlanks
     		$gradeSum += $grade;
     	}
 	   	return $gradeSum;
-	} 	
+	} 
+	
+	/**
+	 * return a array with values needed for tracking
+	 * 
+	 * @author Sebastien Piraux <pir@cerdecam.be>
+	 * @return array
+	 */
+	function getTrackingValues()
+	{
+		return $this->response;
+	}	
 }
 ?>
