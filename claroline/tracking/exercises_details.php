@@ -17,14 +17,17 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
-// exo_id is required
-if( empty($_REQUEST['exo_id']) )
+if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
+else															$exId = null;
+
+// exId is required
+if( is_null($exId) )
 {
-    header("Location: ../exercice/exercice.php");
+    header("Location: ../exercise/exercise.php");
     exit();
 }
 
-include('../exercice/exercise.class.php');
+include('../exercise/lib/exercise.class.php');
 /**
  * DB tables definition
  */
@@ -33,21 +36,21 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_quiz_test          = $tbl_cdb_names['quiz_test'              ];
-$tbl_quiz_question      = $tbl_cdb_names['quiz_question'          ];
-$tbl_quiz_answer        = $tbl_cdb_names['quiz_answer'              ];
-$tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
-$tbl_track_e_exercices     = $tbl_cdb_names['track_e_exercices'];
+$tbl_qwz_exercise            	= $tbl_cdb_names['qwz_exercise'];
+$tbl_qwz_question 				= $tbl_cdb_names['qwz_question'];
+$tbl_qwz_rel_exercise_question 	= $tbl_cdb_names['qwz_rel_exercise_question'];
+
+$tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
-$tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
+
 
 // get exercise details
 $exercise = new Exercise();
-$exercise->read($_REQUEST['exo_id']);
+$exercise->load($exId);
 
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
-    $interbredcrump[]= array ("url"=>"../exercice/exercice.php", "name"=> get_lang('Exercises'));
+    $interbredcrump[]= array ("url"=>"../exercise/exercise.php", "name"=> get_lang('Exercises'));
     $src = '&src=ex';
 }
 else
@@ -64,12 +67,12 @@ if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
     include($includePath.'/lib/export_exe_tracking.class.php');
 
     // contruction of XML flow
-    $csv = export_exercise_tracking($_REQUEST['exo_id']);
+    $csv = export_exercise_tracking($exId);
 
     if( isset($csv) )
     {
         header("Content-type: application/csv");
-        header('Content-Disposition: attachment; filename="exercise_'. $_REQUEST['exo_id'] . '.csv"');
+        header('Content-Disposition: attachment; filename="exercise_'. $exId . '.csv"');
         echo $csv;
         exit;
     }
@@ -79,7 +82,7 @@ include($includePath."/claro_init_header.inc.php");
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = $exercise->selectTitle();
+$titleTab['subTitle'] = $exercise->getTitle();
 
 echo claro_html_tool_title($titleTab);
 
@@ -93,8 +96,8 @@ if ( get_conf('is_trackingEnabled') )
                 COUNT(DISTINCT TEX.`exe_user_id`) AS `users`,
                 COUNT(TEX.`exe_user_id`) AS `tusers`,
                 AVG(`TEX`.`exe_time`) AS `avgTime`
-        FROM `".$tbl_track_e_exercices."` AS TEX
-        WHERE TEX.`exe_exo_id` = ". (int)$exercise->selectId()."
+        FROM `".$tbl_track_e_exercises."` AS TEX
+        WHERE TEX.`exe_exo_id` = ". (int)$exercise->getId()."
                 AND TEX.`exe_user_id` IS NOT NULL";
 
     $exo_scores_details = claro_sql_query_get_single_row($sql);
@@ -128,7 +131,7 @@ if ( get_conf('is_trackingEnabled') )
     .'</ul>'."\n\n";
     
     echo '<ul>'."\n"
-    .'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exo_id='.$_REQUEST['exo_id'].'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
+    .'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exId='.$exId.'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
     .'</ul>'."\n\n";
 
     //-- display details : USERS VIEW
@@ -138,14 +141,14 @@ if ( get_conf('is_trackingEnabled') )
             AVG(TE.`exe_result`) AS `average`,
             COUNT(TE.`exe_result`) AS `attempts`,
             AVG(TE.`exe_time`) AS `avgTime`
-    FROM (`".$tbl_user."` AS `U`, `".$tbl_rel_course_user."` AS `CU`, `".$tbl_quiz_test."` AS `QT`)
-    LEFT JOIN `".$tbl_track_e_exercices."` AS `TE`
+    FROM (`".$tbl_user."` AS `U`, `".$tbl_rel_course_user."` AS `CU`, `".$tbl_qwz_exercise."` AS `QT`)
+    LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
           ON `CU`.`user_id` = `TE`.`exe_user_id`
           AND `QT`.`id` = `TE`.`exe_exo_id`
     WHERE `CU`.`user_id` = `U`.`user_id`
       AND `CU`.`code_cours` = '".$_cid."'
       AND (
-            `TE`.`exe_exo_id` = ". (int)$exercise->selectId()."
+            `TE`.`exe_exo_id` = ". (int)$exercise->getId()."
             OR
             `TE`.`exe_exo_id` IS NULL
           )
@@ -184,7 +187,7 @@ if ( get_conf('is_trackingEnabled') )
         	$displayedAvgTime = claro_disp_duration(floor($exo_users_detail['avgTime']));	
         }
         echo      '<tr>'."\n"
-                  .'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->selectId().'">'."\n"
+                  .'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->getId().'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
@@ -197,20 +200,20 @@ if ( get_conf('is_trackingEnabled') )
     echo '</tbody>'."\n".'</table>'."\n\n";
 
     // display details : QUESTIONS VIEW
-    $sql = "SELECT `Q`.`id`, `Q`.`question`, `Q`.`type`, `Q`.`ponderation`,
+    $sql = "SELECT `Q`.`id`, `Q`.`title`, `Q`.`type`, `Q`.`grade`,
                   MIN(TED.`result`) AS `minimum`,
                 MAX(TED.`result`) AS `maximum`,
                 AVG(TED.`result`) AS `average`
-        FROM (`".$tbl_quiz_question."` AS `Q`, `".$tbl_quiz_rel_test_question."` AS `RTQ`)
-        LEFT JOIN `".$tbl_track_e_exercices."` AS `TE`
-            ON `TE`.`exe_exo_id` = `RTQ`.`exercice_id`
+        FROM (`".$tbl_qwz_question."` AS `Q`, `".$tbl_qwz_rel_exercise_question."` AS `RTQ`)
+        LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
+            ON `TE`.`exe_exo_id` = `RTQ`.`exerciseId`
         LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
               ON `TED`.`exercise_track_id` = `TE`.`exe_id`
             AND `TED`.`question_id` = `Q`.`id`
-        WHERE `Q`.`id` = `RTQ`.`question_id`
-            AND `RTQ`.`exercice_id` = ". (int)$exercise->selectId()."
+        WHERE `Q`.`id` = `RTQ`.`questionId`
+            AND `RTQ`.`exerciseId` = ". (int)$exercise->getId()."
         GROUP BY `Q`.`id`
-        ORDER BY `Q`.`q_position` ASC";
+        ORDER BY `RTQ`.`rank` ASC";
 
     $exo_questions_details = claro_sql_query_fetch_all($sql);
 
@@ -233,10 +236,10 @@ if ( get_conf('is_trackingEnabled') )
             $exo_questions_detail['maximum'] = 0;
         }
         echo      '<tr>'."\n"
-                  .'<td><a href="questions_details.php?question_id='.$exo_questions_detail['id'].'&exo_id='.$_REQUEST['exo_id'].$src.'">'.$exo_questions_detail['question'].'</a></td>'."\n"
-                  .'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
-                  .'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
-                  .'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['ponderation'].'</td>'."\n"
+                  .'<td><a href="questions_details.php?question_id='.$exo_questions_detail['id'].'&exId='.$exId.$src.'">'.$exo_questions_detail['title'].'</a></td>'."\n"
+                  .'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
+                  .'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
+                  .'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['grade'].'</td>'."\n"
                 .'</tr>'."\n\n";
     }
     // foot of table
