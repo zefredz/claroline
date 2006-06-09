@@ -1,0 +1,269 @@
+/******************************************************************************
+                              MAIN HTML TAGS STYLE
+ ******************************************************************************/
+@import url(default.css) all;
+
+body 
+{
+	color:#333333;
+	background-color: #efe;
+}
+
+a:link, a:active, a:visited 
+{
+	color: #006;
+}
+
+a img 
+{
+	border:none;
+	text-decoration: none;
+}
+
+.spacer 
+{
+	clear: both;
+}
+
+h3{
+	font-size: 110%;
+	color: #337733;
+}
+
+
+/******************************************************************************
+                              CLAROLINE TOP BANNER
+ ******************************************************************************/
+@import url(default.css) all;
+
+ /*----------------------------------------------------------------------------
+                                  CAMPUS LINE
+ ----------------------------------------------------------------------------*/
+
+#platformBanner
+{
+	color: #66FF00;
+	background-color: #003300;
+}
+
+#platformBanner a,
+#platformBanner a:active,
+#platformBanner a:link,
+#platformBanner a:visited
+{
+	text-decoration: none;
+   	color: #FFF;
+}
+
+#platformBanner a:hover 
+{
+	color: #FFF;
+	text-decoration: underline;
+}
+
+/*----------------------------------------------------------------------------
+                                   USER LINE
+ ----------------------------------------------------------------------------*/
+
+#userBanner
+{
+	background-color: #009900;
+	color:white;
+	border-top: 1px #0D0 solid;
+}
+
+
+#userBanner a,
+#userBanner a:active,
+#userBanner a:link,
+#userBanner a:visited
+{
+    color: #DFD;
+}
+
+#userBanner a:hover
+{
+   color: #DFD;
+}
+
+
+ /*----------------------------------------------------------------------------
+                                  COURSE LINE
+ ----------------------------------------------------------------------------*/
+#courseBanner
+{
+	background-color: #97DCBB;
+	color: #036;
+	border-top: #DFD;
+}
+
+
+#courseBanner a,
+#courseBanner a:active,
+#courseBanner a:link,
+#courseBanner a:visited
+{
+	color: #036;
+	text-decoration: none;
+}
+
+
+#campusFooter hr
+{
+	border: 0;
+	height: 1px;
+	background-color: #663333;
+}
+
+
+/******************************************************************************
+                             CLAROLINE ITEM
+ ******************************************************************************/
+
+/*
+ * Classes family to emphase some item in the tool interface.
+ * These two classes has to be used together to work correctly.
+ *
+ * SOME EXAMPLES :
+ *
+ *  <a href="0" class="item"><img src="icon.gif" />lorem ipsum</a><br />
+ *  <a href="0" class="item hot"><img src="icon.gif" />lorem ipsum</a><br />
+ *
+ *  <span class="item"><img src="icon.gif" />lorem ipsum</span><br>
+ *  <span class="item hot"><img src="icon.gif" />lorem ipsum<br>
+ *
+ *  <ul style="list-style-image:url(icon.gif);list-style-position:inside">
+ *   <li class="item">lorem ipsum</li>
+ *   <li class="item hot">lorem ipsum</li>
+ *  </ul>
+ */
+
+.claroTable .superHeader th, .claroTable th.superHeader {
+	color: white;
+	background-color: #669966;
+}
+
+.claroTable .superHeader a {
+	color: white;
+}
+
+
+.claroTable th.headerY, .claroTable .headerY th, 
+.claroTable th.headerX, .claroTable .headerX th {
+	font-weight: normal;
+	text-align: left;
+}
+
+.claroTable .headerX th,  .claroTable th.headerX {
+	background-color: #9DDE7C;
+}
+
+.emphaseLine tbody tr:hover {
+	background-color: #E3A3E3;
+}
+
+
+/******************************************************************************
+                             VARIOUS CLAROLINE CSS CLASS
+ ******************************************************************************/
+
+/*
+ * 'claroMessageBox' is used to display all messages from the platform like 
+ * action confirmation, parameter request, warning mesage...
+ * Things that are usually displayed in a dialog box into offline applications
+ */ 
+ 
+.claroMessageBox {
+	background-color: #DDDEBC;
+	border: solid 1px #666666;
+	color: #000;
+}
+
+.claroIntroSection { 
+	border: dashed 1px #D8D8D8;
+	padding: 10px;
+	margin-top : 10px;
+	margin-bottom: 10px;
+}
+
+.claroIntroSection hr
+{
+	border: 0;
+	height: 1px;
+	background-color: #D8D8D8;
+}
+
+
+/*
+ * 'invisible' is generally attached to element that shouldn't be visible into 
+ * common user interface but which are visible in course manager or platform 
+ * administrator screen, showing that the element is deactivated or isn't 
+ * visible fo the other users
+ */
+
+.invisible
+{
+	color: #999999;
+}
+
+.invisible a, 
+.invisible a:link, 
+.invisible a:visited,
+a.invisible,
+a:link.invisible,
+a:visited.invisible
+{
+	color: #999999;
+}
+
+
+/* 'correct' is attached to element that must be highlighted as correct
+	example : a good score in exercices
+*/
+.correct {
+	color: #009900;
+}
+
+/* 'error' is attached to element that must be highlighted as correct
+	example : a wrong score in exercices
+	example : an error message
+*/
+.error {
+	color: #990000;
+}
+
+/* 'highlight' is used when something needs to be especially shown to the user
+	example : 'today' in the agenda
+*/
+.highlight {
+ color: #FFB848;
+ font-weight: bold;
+}
+
+/* 'required' is used to set the color of the asterisk displayed before the required form field
+*/
+.required {
+ color: red;
+}
+
+/* 'hotItem' is used when something needs to be notified as new on the platform since the last login
+    to the user
+*/
+.hotItem,
+.hotItem a
+{
+ color: #FF00CC;
+ font-weight: bold;
+}
+
+/*
+ * 'rightMenu' is mainly use in the platform home page
+ */
+
+.claroRightMenu  {
+	background-color: #C4E188;	
+}
+
+.HelpText {
+    color:gray
+}
