@@ -51,7 +51,7 @@ class Config
 
     // array with error
     var $error = array();
-    
+
     var $def_loaded;
 
     /**
@@ -527,7 +527,7 @@ class Config
                 else
                 {
                     $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
-                    $propertyLine .= '$GLOBALS[\'_claroConf\'][\''.$name.'\'] = '. $valueToWrite .';'."\n";
+                    $propertyLine .= '$_conf[\''.$name.'\'] = '. $valueToWrite .';'."\n";
                 }
                 $propertyLine .= "\n\n";
 
@@ -1316,10 +1316,10 @@ function generate_conf(&$config,$properties = null)
 	        return array($message , false);
 	    }
     }
-	
+
 	$config_code = $config->conf_def['config_code'];
 	$config_name = $config->conf_def['config_name'];
-	
+
 	// validate config
     if ( $config->validate($properties) )
     {
@@ -1334,11 +1334,11 @@ function generate_conf(&$config,$properties = null)
         $error = true ;
         $message = $config->get_error_message();
     }
-    
+
     if (!empty($error))
     	return array ($message, true);
     else
-    	return array ($message, false);    	
+    	return array ($message, false);
 }
 
 

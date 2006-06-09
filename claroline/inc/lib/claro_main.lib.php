@@ -718,10 +718,10 @@ function claro_get_language_list()
 
 function get_conf($param, $default = null)
 {
-    if     ( isset($GLOBALS['_claroConf'][$param]) )  return $GLOBALS['_claroConf'][$param];
-    elseif ( isset($GLOBALS[$param]) )                return $GLOBALS[$param];
-    elseif ( defined($param)         )                return constant($param);
-    else                                              return $default;
+    if     ( isset($GLOBALS['_conf'][$param]) )  return $GLOBALS['_conf'][$param];
+    elseif ( isset($GLOBALS[$param]) )           return $GLOBALS[$param];
+    elseif ( defined($param)         )           return constant($param);
+    else                                         return $default;
 }
 
 /**
