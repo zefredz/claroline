@@ -221,7 +221,7 @@ function user_set_course_properties($userId, $courseId, $propertyList)
         }
         else
         {
-           $setList[] = 'status = ' . (int) STUDENT_STATUS;
+           $setList[] = 'statut = ' . (int) STUDENT_STATUS;
         }
     }
 
