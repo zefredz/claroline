@@ -648,6 +648,29 @@ class claro_datagrid
         else                     trigger_error('set_grid need an array : ' .var_export($datagrid,1). ' is not array' ,E_USER_NOTICE);
 
     }
+ 
+
+    function set_option_list($option_list)
+    {
+        foreach ( $option_list as $option => $value )
+        {
+            switch ( $option )
+            {
+                case 'idLineShift': 
+                    $this->set_idLineShift($value);   
+                    break;
+                case 'colTitleList': 
+                    $this->set_colTitleList($value);
+                    break;
+                case 'colAttributeList': 
+                    $this->set_colAttributeList($value);
+                    break;
+                case 'caption': 
+                    $this->set_caption($value);                    
+                    break;
+            }
+        }
+    }
 
     /**
      * set the  isLineType option
