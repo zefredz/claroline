@@ -44,6 +44,7 @@ h3{
 {
 	color: #66FF00;
 	background-color: #003300;
+	background: url(./green/bg-platform.jpg) repeat-x bottom;
 }
 
 #platformBanner a,
@@ -95,6 +96,7 @@ h3{
 	background-color: #97DCBB;
 	color: #036;
 	border-top: #DFD;
+	background: url(./green/bg-platform.jpg) repeat-x bottom;
 }
 
 
