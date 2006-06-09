@@ -69,8 +69,9 @@ h3{
 #userBanner
 {
 	background-color: #009900;
-	color:white;
+	color: Teal;
 	border-top: 1px #0D0 solid;
+	background: url(./green/bg-user.jpg) repeat-x bottom;
 }
 
 
@@ -94,9 +95,9 @@ h3{
 #courseBanner
 {
 	background-color: #97DCBB;
-	color: #036;
+	color: #FDF;
 	border-top: #DFD;
-	background: url(./green/bg-platform.jpg) repeat-x bottom;
+	background: url(./green/bg-course.jpg) repeat-x bottom;
 }
 
 
@@ -105,7 +106,7 @@ h3{
 #courseBanner a:link,
 #courseBanner a:visited
 {
-	color: #036;
+	color: #FDF;
 	text-decoration: none;
 }
 
@@ -161,7 +162,7 @@ h3{
 }
 
 .emphaseLine tbody tr:hover {
-	background-color: #E3A3E3;
+	background-color: #FFFF99;
 }
 
 
