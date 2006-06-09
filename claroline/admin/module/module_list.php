@@ -224,6 +224,7 @@ $sql = "SELECT M.`id`              AS `id`,         \n"
 .      "FROM `" . $tbl_module . "` AS M             \n"
 .      $sqlJoinType . "\n"
 .      "WHERE M.`type` = '" . addslashes($typeReq) . "' \n"
+.      "GROUP BY `id` \n"
 .      "ORDER BY `id` \n"
 ;
 
