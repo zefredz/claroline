@@ -327,7 +327,7 @@ function user_delete($userId)
 
     $courseList = claro_sql_query_fetch_all_cols($sql);
 
-    if ( user_remove_from_course($userId, $courseList['code'], true, true) == false ) return false;
+    if ( user_remove_from_course($userId, $courseList['code'], true, true, true) == false ) return false;
 
     $sqlList = array(
 
@@ -365,22 +365,23 @@ function user_delete($userId)
  *         boolean FALSE       otherwise.
  */
 
-function user_remove_from_course( $userId, $courseCodeList = array(), $force = false, $delTrackData = false)
+function user_remove_from_course( $userId, $courseCodeList = array(), $force = false, $delTrackData = false, $unregister_by_class = false)
 {
     $tbl_mdb_names         = claro_sql_get_main_tbl();
     $tbl_rel_course_user   = $tbl_mdb_names['rel_course_user'];
+    $tbl_course             = $tbl_mdb_names['course'];
 
     if ( ! is_array($courseCodeList) ) $courseCodeList = array($courseCodeList);
 
     if ( ! $force && $userId == $GLOBALS['_uid'] )
     {
-        // PREVIOUSLY CHECK THE USER IS NOT COURSE ADMIN OF THIS COURSE
+        // PREVIOUSLY CHECK THE USER IS NOT COURSE ADMIN OF THESE COURSES
 
         $sql = "SELECT COUNT(user_id)
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = ". (int) $userId ."
                   AND statut = '" . COURSE_ADMIN_STATUS . "'
-                  AND course_code IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "') ";
+                  AND code_cours IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "') ";
 
         if ( claro_sql_query_get_single_value($sql)  > 0 )
         {
@@ -388,47 +389,78 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
         }
     }
 
-    foreach($courseCodeList as $thisCourseCode)
+    $sql = "SELECT code_cours , count_user_enrol, count_class_enrol
+            FROM `".$tbl_rel_course_user."`
+            WHERE `code_cours` IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "')
+            AND   `user_id` = " . $userId ;
+
+    $userEnrolCourseList = claro_sql_query_fetch_all($sql);
+
+    foreach($userEnrolCourseList as $thisUserEnrolCourse)
     {
 
-        if ( user_remove_from_group($userId, $thisCourseCode) == false ) return false;
+        $thisCourseCode = $thisUserEnrolCourse['code_cours'];
+        $count_user_enrol = $thisUserEnrolCourse['count_user_enrol'];
+        $count_class_enrol = $thisUserEnrolCourse['count_class_enrol'];
 
-        $dbNameGlued   = claro_get_course_db_name_glued($thisCourseCode);
-        $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
+        if ( ( $count_user_enrol + $count_class_enrol ) == 1 ) 
+        {
+            // remove user from course
+            if ( user_remove_from_group($userId, $thisCourseCode) == false ) return false;
 
-        $tbl_bb_notify         = $tbl_cdb_names['bb_rel_topic_userstonotify'];
-        $tbl_group_team        = $tbl_cdb_names['group_team'         ];
-        $tbl_userinfo_content  = $tbl_cdb_names['userinfo_content'   ];
+            $dbNameGlued   = claro_get_course_db_name_glued($thisCourseCode);
+            $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
 
+            $tbl_bb_notify         = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+            $tbl_group_team        = $tbl_cdb_names['group_team'         ];
+            $tbl_userinfo_content  = $tbl_cdb_names['userinfo_content'   ];
 
-        $sqlList = array(
-          "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id        = " . (int) $userId ,
-          "DELETE FROM `" . $tbl_userinfo_content . "` WHERE user_id        = " . (int) $userId ,
-           // change tutor to NULL for the course WHERE the tutor is the user to delete
-          "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . (int) $userId . "'"
+            $sqlList = array(
+              "DELETE FROM `" . $tbl_bb_notify        . "` WHERE user_id        = " . (int) $userId ,
+              "DELETE FROM `" . $tbl_userinfo_content . "` WHERE user_id        = " . (int) $userId ,
+               // change tutor to NULL for the course WHERE the tutor is the user to delete
+              "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . (int) $userId . "'"
                         );
 
-        foreach($sqlList as $thisSql)
-        {
-            if ( claro_sql_query($thisSql) == false ) return false;
-            else                                      continue;
-        }
+            foreach($sqlList as $thisSql)
+            {
+                if ( claro_sql_query($thisSql) == false ) return false;
+                else                                      continue;
+            }
 
-        if ($delTrackData)
+            if ($delTrackData)
+            {
+                if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) return false;
+            }
+    
+            $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
+                WHERE user_id = " . (int) $userId . "
+                AND code_cours = '" . addslashes($thisCourseCode) . "'";
+
+            if ( claro_sql_query($sql) == false ) return false;
+        }
+        else
         {
-            if ( user_delete_course_tracking_data($userId, $thisCourseCode) == false) return false;
+            // decrement the count of enrolment by the user or class
+            if ( ! $unregister_by_class )  $count_user_enrol--;
+            else                         $count_class_enrol--;
+
+            // update enrol count in table rel_course_user
+
+  	        $sql = "UPDATE `".$tbl_rel_course_user."`
+  	                SET `count_user_enrol` = '" . $count_user_enrol . "',
+                        `count_class_enrol` = '" . $count_class_enrol . "'
+  	                WHERE `user_id` = ".(int) $userId . "
+  	                AND  `code_cours` = '" . addslashes($thisCourseCode) . "'";
+  	 
+  	        if ( claro_sql_query($sql) ) return true;
+  	        else                         return false;
+
         }
     }
 
-    $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
-            WHERE user_id = " . (int) $userId . "
-            AND code_cours IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "')";
-
-    if ( claro_sql_query($sql) == false ) return false;
-
     return true;
 }
-
 
 function user_delete_course_tracking_data($userId, $courseId)
 {
@@ -537,7 +569,7 @@ function user_set_platform_admin($status, $userId)
  * @return boolean TRUE  if it succeeds, FALSE otherwise
  */
 
-function user_add_to_course($userId, $courseId, $admin = false, $tutor = false)
+function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false, $register_by_class = false)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_user            = $tbl_mdb_names['user'];
@@ -555,25 +587,50 @@ function user_add_to_course($userId, $courseId, $admin = false, $tutor = false)
     else
     {
         // previously check if the user isn't already subscribed to the course
-        $sql = "SELECT COUNT(user_id)
+        $sql = "SELECT count_user_enrol, count_class_enrol
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = " . (int) $userId . "
-                  AND code_cours ='" . addslashes($courseId) . "'";
+                  AND code_cours ='" . addslashes($courseCode) . "'";
 
-        if ( claro_sql_query_get_single_value($sql) > 0 )
+        $course_user_list = claro_sql_query_get_single_row($sql);
+
+        if ( $course_user_list !== false && count($course_user_list) > 0 )
         {
-            return claro_failure::set_failure('already_enrolled_in_course');
+            $count_user_enrol = (int) $course_user_list['count_user_enrol'];
+            $count_class_enrol = (int) $course_user_list['count_class_enrol'];
+
+            // increment the count of enrolment by the user or class
+            if ( ! $register_by_class )  $count_user_enrol++;
+            else                         $count_class_enrol++;
+
+            $sql = "UPDATE `". $tbl_rel_course_user ."`
+                    SET `count_user_enrol` = " . $count_user_enrol . ", 
+                        `count_class_enrol` = " . $count_class_enrol . "
+                    WHERE `user_id` = ". (int)$userId . "
+                    AND  `code_cours` = '" . addslashes($courseCode) . "'";
+
+            if ( claro_sql_query($sql) ) return true;
+            else                         return false; 
         }
         else
         {
-                $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                        SET code_cours = '" . addslashes($courseId) . "',
-                            user_id    = " . (int) $userId . ",
-                            statut     = " . (int) ($admin ? COURSE_ADMIN_STATUS : STUDENT_STATUS) . ",
-                            tutor  = " . (int) ($tutor ? 1 : 0);
+            // first enrolment to the course
+            $count_user_enrol = 0;
+            $count_class_enrol = 0;
 
-                if ( claro_sql_query($sql) ) return true;
-                else                         return false;
+            if ( ! $register_by_class )  $count_user_enrol = 1; 
+            else                       $count_class_enrol = 1;  
+
+            $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
+                    SET code_cours = '" . addslashes($courseCode) . "',
+                        user_id    = " . (int) $userId . ",
+                        statut     = " . (int) ($admin ? COURSE_ADMIN_STATUS : STUDENT_STATUS) . ",
+                        tutor  = " . (int) ($tutor ? 1 : 0) . ",
+                        count_user_enrol = " . $count_user_enrol . ", 
+                        count_class_enrol = " . $count_class_enrol ;
+
+            if ( claro_sql_query($sql) ) return true;
+            else                         return false;
         }
     } // end else user register in the platform
 }
@@ -633,9 +690,7 @@ function get_course_enrollment_key($courseId)
  * @author Guillaume Lederer < guillaume@claroline.net >
  *
  * @param int $user_id user ID from the course_user table
- * @param string $course_code course code from the cours table
- * @param boolean $force_it if true  : it means we must'nt check if subcription is the course is set to allowed or not
- *                          if false : (default value) it means we must take account of the subscription setting
+ * @param int $class_id class id from the class table
  *
  * @return boolean TRUE  if subscribtion succeed
  *         boolean FALSE otherwise.
@@ -651,6 +706,8 @@ function user_add_to_class($user_id,$class_id)
     $tbl_mdb_names       = claro_sql_get_main_tbl();
     $tbl_rel_class_user  = $tbl_mdb_names['rel_class_user'];
     $tbl_class           = $tbl_mdb_names['class'];
+    $tbl_course_class    = $tbl_mdb_names['rel_course_class'];
+    $tbl_course          = $tbl_mdb_names['course'];
 
     // 1. See if there is a user with such ID in the main database
 
@@ -663,15 +720,19 @@ function user_add_to_class($user_id,$class_id)
 
     // 2. See if there is a class with such ID in the main DB
 
-    $sql = "SELECT `id`
+    $sql = "SELECT `class_parent_id`
             FROM `" . $tbl_class . "`
             WHERE `id` = '" . $class_id . "' ";
-    $handle = claro_sql_query($sql);
+    $result = claro_sql_query_get_single_row($sql);
 
-    if ( mysql_num_rows($handle) == 0 )
+    if ( count($result) == 0 )
     {
         return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
     }
+
+    // Get class parent id
+
+    $class_parent_id = $result['class_parent_id'];
 
     // 3. See if user is not already in class
 
@@ -691,8 +752,141 @@ function user_add_to_class($user_id,$class_id)
     $sql = "INSERT INTO `" . $tbl_rel_class_user . "`
             SET `user_id` = '" . $user_id . "',
                `class_id` = '" . $class_id . "' ";
+    claro_sql_query($sql);
 
-    return claro_sql_query($sql);
+    // 5. Add user to each course whose link with class
+
+    $sql = "SELECT `c`.`code`
+            FROM `".$tbl_course_class."` `cc`, `".$tbl_course."` `c`
+            WHERE `cc`.`cours_id` = `c`.`cours_id`
+            AND `cc`.`class_id` = " . $class_id ;
+  	 
+    $courseList = claro_sql_query_fetch_all($sql);
+ 
+    foreach ( $courseList as $course )
+    {
+        //check if every think is good
+        if( !user_add_to_course($user_id, $course['code'], false, false, true) )
+        {
+            return claro_failure::set_failure('PROBLEM_WITH_COURSE_SUBSCRIBE');
+            //TODO : améliorer la  gestion d'erreur ...
+        }
+    }
+  	 
+  	// 6. Add user to parent class
+  	
+    if( !empty($class_parent_id))
+  	{
+  	    user_add_to_class($user_id, $class_parent_id);
+  	    //TODO : bug tracking ? ! récursif
+  	}
+  	return true;
+}
+
+/**
+ * unsubscribe a specific user to a class
+ *
+ * @author damien Garros <dgarros@univ-catholyon.fr>
+ *
+ * @param int $user_id user ID from the course_user table
+ * @param int $class_id course code from the class table
+ *
+ * @return boolean TRUE  if subscribtion succeed
+ *         boolean FALSE otherwise.
+ */
+  	 
+function user_remove_to_class($user_id,$class_id)
+{
+    $user_id  = (int)$user_id;
+  	$class_id = (int)$class_id;
+  	 
+  	$tbl_mdb_names     = claro_sql_get_main_tbl();
+  	$tbl_class         = $tbl_mdb_names['class'];
+  	$tbl_course_class  = $tbl_mdb_names['rel_course_class'];
+  	$tbl_course        = $tbl_mdb_names['course'];
+  	$tbl_class_user    = $tbl_mdb_names['rel_class_user'];
+  	 
+  	// 1. See if there is a user with such ID in the main database
+  	 
+    $user_data = user_get_properties($user_id);
+  	 
+  	if ( !$user_data )
+  	{
+  	    return claro_failure::get_last_failure('USER_NOT_FOUND');
+  	}
+  	 
+  	// 2. See if there is a class with such ID in the main DB
+  	 
+  	$sql = "SELECT `id`
+  	        FROM `" . $tbl_class . "`
+  	        WHERE `id` = '" . $class_id . "' ";
+  	$result = claro_sql_query_fetch_all($sql);
+  	
+  	if ( !isset($result[0]['id']))
+  	{
+  	    return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
+  	}
+  	 
+  	// 3 - Check if user is subscribe to class and if class exist
+  	
+    $sql = "SELECT  cu.id
+  	        FROM `".$tbl_class_user."` cu, `".$tbl_class."` c
+  	        WHERE cu.`class_id` = c.`id`
+  	        AND cu.`class_id` = ". (int)$class_id."
+  	        AND cu.`user_id` = ". (int)$user_id;
+  	 
+  	if ( is_null(claro_sql_query_get_single_value($sql)))
+  	{
+  	    return claro_failure::set_failure('USER_NOT_SUSCRIBE_TO_CLASS');
+  	}
+  	 
+  	// 4 - Get the child class from this class and call the fonction recursively
+  	
+    $sql =" SELECT `id`
+  	        FROM `".$tbl_class."`
+  	        WHERE `class_parent_id` = ". $class_id;
+  	 
+  	$classList = claro_sql_query_fetch_all($sql);
+  	 
+  	foreach ($classList as $class)
+  	{
+  	    if ( isset($class['id']) )
+  	    {
+  	        user_remove_to_class($user_id, $class['id']);
+  	        //TODO Bug tracking ? !
+  	    }
+  	}
+  	 
+  	//3 - remove user to class in rel_class_user
+  	 
+  	$sql = "DELETE FROM `".$tbl_class_user."`
+  	        WHERE `user_id` = ". (int) $user_id."
+  	        AND `class_id` = ". (int) $class_id;
+  	 
+  	claro_sql_query($sql);
+  	 
+  	//4 - Get the list of course whose link with class and unsubscribe user for each
+  	 
+    $sql = "SELECT c.`code`
+  	        FROM `".$tbl_course_class."` cc, `".$tbl_course."` c
+  	        WHERE cc.`cours_id` = c.`cours_id`
+  	        AND cc.`class_id` = ".$class_id;
+  	 
+  	$courseList = claro_sql_query_fetch_all($sql);
+  	 
+    foreach ($courseList as $course)
+    {
+            if (isset($course['code']))
+            {
+                    //Check the return value of the function.
+                    if ( !user_remove_from_course($user_id, $course['code'], false, false, TRUE) )
+                    {
+                            return claro_failure::set_failure('PROBLEM_WITH_COURSE_UNSUSCRIBTION');
+                            //TODO : améliorer la détection d'erreur
+                    }
+            }
+    }
+    return true;
 }
 
 /**

@@ -13,12 +13,14 @@
  * @author Claro Team <cvs@claroline.net>
  * @author  Guillaume Lederer <lederer@cerdecam.be>
  */
+
 //used libraries
 
 require '../inc/claro_init_global.inc.php';
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/user.lib.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -60,28 +62,23 @@ function confirmation (name)
 if (isset($_REQUEST['cmd'])) $cmd = $_REQUEST['cmd'];
 else                         $cmd = null;
 
+if ( isset($_REQUEST['class']) ) $class_id = (int) $_REQUEST['class'];
+else                             $class_id = null;
+
+
 switch ($cmd)
 {
     //Delete an existing class
     case 'del' :
-    {
 
-        //check if class contains some children
+        $done = delete_class($class_id);
 
-        $sql = "SELECT count(id)
-                FROM `" . $tbl_class . "`
-                WHERE class_parent_id = " . (int) $_REQUEST['class'];
-        $has_children = (bool) claro_sql_query_get_single_value($sql);
-
-        // delete the class itself
-        if ($has_children) $dialogBox = get_lang('This class still contains some sub classes, delete them first');
-        else
+        if ( $done !== true )
         {
-            $sql = "DELETE FROM `" . $tbl_class . "`
-                WHERE id = " . (int) $_REQUEST['class'];
-            claro_sql_query($sql);
+            $dialogBox = $done;
         }
-    }   break;
+
+        break;
 
     //Display form to create a new class
     case 'formNew' :
@@ -191,22 +188,8 @@ switch ($cmd)
     //Move a class in the tree (do it from posted info)
     case 'exMove' :
     {
+        $dialogBox = move_class($_REQUEST['movedClassId'],$_REQUEST['theclass']);
 
-        if ($_REQUEST['theclass'] ==$_REQUEST['movedClassId'])
-        {
-            $dialogBox = get_lang('You can not move a class in itself!');
-        }
-        else
-        {
-            $parent = ($_REQUEST['theclass'] == 'root') ? 'null' : $_REQUEST['theclass'];
-
-            if (!is_null($parent) && ($parent != "null")) $parent = (int) $parent;
-            $sql_update="UPDATE `" . $tbl_class . "`
-                     SET class_parent_id= " . $parent . "
-                     WHERE id= " . (int) $_REQUEST['movedClassId'] ;
-            claro_sql_query($sql_update);
-            $dialogBox = get_lang('The class has been moved');
-        }
     }   break;
 
     //Move a class in the tree (display form)
@@ -272,6 +255,7 @@ echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=formNew">'
 .    '<tr class="headerX">'
 .    '<th>' . get_lang('Classes')    . '</th>'
 .    '<th>' . get_lang('Users')        . '</th>'
+.    '<th>' . get_lang('Courses') . '</th>'
 .    '<th>' . get_lang('Edit settings') . '</th>'
 .    '<th>' . get_lang('Move')         . '</th>'
 .    '<th>' . get_lang('Delete')       . '</th>'

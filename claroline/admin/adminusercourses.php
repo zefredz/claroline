@@ -73,7 +73,7 @@ if ('unsubscribe' == $cmd)
 
 if ('rem_user' == $do )
 {
-    if ( user_remove_from_course($uidToEdit,$courseId,true) )
+    if ( user_remove_from_course($uidToEdit,$courseId,true,false) )
     {
         $dialogBox .= get_lang('The user has been successfully unregistered');
     }

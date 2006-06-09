@@ -81,47 +81,7 @@ switch ($cmd)
         $dialogBox .= get_lang('has been enroled');
         $dialogBox .= '</b><br />';
 
-        $sql = " SELECT U.`user_id`,
-                    U.`nom` as `lastname` ,
-                    U.`prenom` as `firstname` ,
-                    U.`username` ,
-                    U.`email` ,
-                    U.`officialCode` ,
-                    U.`phoneNumber` as `phone`
-               FROM `" . $tbl_class_user . "` AS CU,
-                    `" . $tbl_users . "` AS U
-               WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='" . (int)$_REQUEST['class'] . "'
-               ORDER BY U.`nom`";
-
-        $user_list = claro_sql_query_fetch_all($sql);
-
-        foreach ($user_list as $user)
-        {
-            $user_id = $user['user_id'];
-
-            if ( user_add_to_course($user['user_id'], $_cid) )
-            {
-                // send mail to user
-                user_send_enroll_to_course_mail ($user_id, $user);
-                // add message
-                $dialogBox .= get_lang('%firstname %lastname is now registered to course',array('%firstname' => $user['firstname'] ,
-                                                                                                '%lastname' => $user['lastname']) ) ;
-            }
-            else
-            {
-                switch (claro_failure::get_last_failure())
-                {
-                    case 'already_enrolled_in_course' :
-                        $dialogBox .= get_lang('%firstname %lastname is already registered to course',array('%firstname' => $user['firstname'] ,
-                                                                                                            '%lastname' => $user['lastname']) ) ;
-                        break;
-                    default:
-                        $dialogBox .= get_lang('Enrolment of %firstname %lastname failed',array('%firstname' => $user['firstname'] ,
-                                                                                                '%lastname' => $user['lastname'])) ;
-                }
-            }
-            echo '<br />' . "\n" ;
-        }
+        register_class_to_course((int)$_REQUEST['class'],$_cid);
     }
     break;
 }
@@ -176,7 +136,7 @@ echo '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
 // display Class list (or tree)
 echo '<tbody>' . "\n" ;
 
-display_tree_class_in_user($class_list);
+display_tree_class_in_user($class_list, $_cid);
 
 echo '</tbody>' . "\n"
     . '</table>' . "\n" ;

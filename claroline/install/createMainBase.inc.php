@@ -57,6 +57,8 @@ CREATE TABLE `".$mainTblPrefixForm."cours_user` (
   `role` varchar(60) default NULL,
   `team` int(11) NOT NULL default '0',
   `tutor` int(11) NOT NULL default '0',
+  `count_user_enrol` int(11) NOT NULL default '0',
+  `count_class_enrol` int(11) NOT NULL default '0',
    PRIMARY KEY  (`code_cours`,`user_id`),
   KEY `statut` (`statut`)
 ) TYPE=MyISAM";
@@ -133,6 +135,13 @@ CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
   KEY `class_id` (`class_id`)
 ) TYPE=MyISAM";
 
+
+$creationStatementList[] = "
+  	 CREATE TABLE `".$mainTblPrefixForm."rel_course_class` (
+  	   `cours_id` int(11) NOT NULL default '0',
+  	   `class_id` int(11) NOT NULL default '0',
+  	   PRIMARY KEY  (`cours_id`,`class_id`)
+  	 ) TYPE=MyISAM";
 
 $creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."config_file` (

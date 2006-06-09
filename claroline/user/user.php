@@ -120,7 +120,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'register' && $req['user_id'])
     {
-        $done = user_add_to_course($req['user_id'], $_cid);
+        $done = user_add_to_course($req['user_id'], $_cid, false, false, false);
         if ($done)
         {
             $dialogBox = get_lang('User registered to the course');
@@ -145,7 +145,7 @@ if ( $is_allowedToEdit )
         elseif ( 0 < (int)  $req['user_id'] )
         {
             // delete user from course user list
-            if ( user_remove_from_course(  $req['user_id'], $_cid) )
+            if ( user_remove_from_course(  $req['user_id'], $_cid, false, false, false) )
             {
                $dialogBox .= get_lang('The user has been successfully unregistered from course');
             }

@@ -66,7 +66,7 @@ $pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0'
  */
 if ( $cmd == 'unsub' )
 {
-    if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true) )
+    if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, false) )
     {
         $dialogBox .= get_lang('The user has been successfully unregistered');
     }

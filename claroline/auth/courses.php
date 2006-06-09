@@ -200,7 +200,7 @@ Unsubscribe from a course
 
 if ( $cmd == 'exUnreg' )
 {
-    if ( user_remove_from_course($userId, $course) )
+    if ( user_remove_from_course($userId, $course, false, false, false) )
     {
         event_default('COURSE_UNSUBSCRIBE',array('user'=>$userId,'course'=>$course));
         $message = get_lang('Your enrolment on the course has been removed');
@@ -243,7 +243,7 @@ if ( $cmd == 'exReg' )
         && strtolower(trim($_REQUEST['enrollmentKey'] )) == strtolower(trim($courseEnrollmentKey))) )
         {
             // try to register user
-            if ( user_add_to_course($userId, $course) )
+            if ( user_add_to_course($userId, $course, false, false, false) )
             {
                 if ( $_uid != $uidToEdit )
                 {
@@ -441,7 +441,7 @@ switch ( $displayMode )
             $title = get_lang('Enrol class') . ' : ' . $classinfo['name'] ;
             $subTitle = get_lang('Select course in') . ' : ' . $currentCategoryName ;
 
-            echo claro_disp_tool_title ( array( 'mainTitle' =>  $title , 'subTitle'  => $subTitle ) );
+            echo claro_html_tool_title ( array( 'mainTitle' =>  $title , 'subTitle'  => $subTitle ) );
         }
 
         // Display message

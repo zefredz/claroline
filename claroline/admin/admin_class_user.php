@@ -19,6 +19,7 @@ require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/class.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();

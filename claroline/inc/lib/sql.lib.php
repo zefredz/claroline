@@ -203,6 +203,7 @@ function claro_sql_get_main_tbl()
         'user_rel_profile_category' => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
         'class'                     => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'class',
         'rel_class_user'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_class_user',
+        'rel_course_class'          => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'rel_course_class',
         'sso'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'sso',
         'notify'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'notify',
         'upgrade_status'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'upgrade_status',

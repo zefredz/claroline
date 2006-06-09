@@ -21,14 +21,13 @@ require_once $includePath . '/lib/pager.lib.php';
 require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/class.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $userPerPage = 20; // numbers of user to display on the same page
-
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
 /*
  * DB tables definition
@@ -70,11 +69,7 @@ switch ($cmd)
 
     case 'unsubscribe' :
     {
-        $sql ="DELETE FROM `".$tbl_class_user."`
-           WHERE `user_id` = ". (int) $_REQUEST['user_id']."
-             AND `class_id` = ". (int) $classinfo['id'];
-        claro_sql_query($sql);
-
+        user_remove_to_class($_REQUEST['user_id'],$classinfo['id']);
         $dialogBox = get_lang('User has been sucessfully unregistered from the class');
     } break;
 

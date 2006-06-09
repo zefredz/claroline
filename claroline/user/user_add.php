@@ -176,9 +176,7 @@ if ( $cmd == 'registration' )
 
     if ( $userId )
     {
-        $courseRegSucceed = user_add_to_course($userId, $_cid, 
-                                               $userData['courseAdmin'],
-                                               $userData['tutor'      ]);
+        $courseRegSucceed = user_add_to_course($userId, $_cid, $userData['courseAdmin'], $userData['tutor'],false);
     }
     else
     {

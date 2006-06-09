@@ -43,7 +43,7 @@ if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
 {
     if ( $_REQUEST['cmd'] == 'UnReg' )
     {
-        if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true) )
+        if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true, false) )
         {
             $dialogBox .= get_lang('The user has been successfully unregistered');
         }

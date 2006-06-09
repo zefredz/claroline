@@ -52,6 +52,7 @@ function delete_course($code)
     $tbl_course           = $tbl_mdb_names['course'           ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
     $tbl_notify           = $tbl_mdb_names['notify'  ];
+    $tbl_course_class      = $tbl_mdb_names['rel_course_class'];
 
     $this_course = claro_get_course_data($code);
     $currentCourseId = $this_course['sysCode'];
@@ -62,6 +63,19 @@ function delete_course($code)
             WHERE code_cours="' . $currentCourseId . '"';
 
     claro_sql_query($sql);
+
+    //Get the course id with the cours code and remove any recording in rel_cours_class
+  	 
+  	$sql = "SELECT `cours_id`
+  	        FROM `".$tbl_course."`
+  	        WHERE `code` = '". addslashes($currentCourseId) ."'";
+  	 
+  	$cours_id = claro_sql_query_get_single_value($sql);
+  	 
+  	$sql = 'DELETE FROM `' . $tbl_course_class . '`
+  	        WHERE cours_id ="' . $cours_id . '"';
+  	 
+  	claro_sql_query($sql);
 
     // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
 
