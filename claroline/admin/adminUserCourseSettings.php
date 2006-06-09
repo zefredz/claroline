@@ -191,7 +191,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
 
 $cmd_menu[] = '<a class="claroCmd" href="adminprofile.php'
 .             '?uidToEdit=' . $uidToEdit . '">'
-.             get_lang('Last 7 days')
+.             get_lang('User settings')
 .             '</a>'
 ;
 

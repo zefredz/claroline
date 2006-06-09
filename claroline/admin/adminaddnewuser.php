@@ -106,7 +106,7 @@ if ( $cmd == 'registration' && $error == false )
     .    '</li>'
     .    '<li>'
     .    '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category="> '
-    .    get_lang('Last 7 days')
+    .    get_lang('User settings')
     .    '</a>'
     .    '</li>'
     .    '<li>'
