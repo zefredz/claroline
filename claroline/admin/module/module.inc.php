@@ -427,6 +427,8 @@ function get_and_unzip_uploaded_package()
 
 function install_module($modulePath)
 {
+    global $includePath;
+    
     $backlog_message = array();
 
     if (false === ($module_info = readModuleManifest($modulePath)))
@@ -507,7 +509,14 @@ function install_module($modulePath)
 
     generate_module_cache();
 
-    //7- return the backlog
+    //7- generate the conf if a def file exists
+	
+	require_once $includePath . '/lib/config.lib.inc.php';
+	$config = new Config($module_info['LABEL']);
+	list ($confMessage, $error) = generate_conf($config);
+	$backlog_message = array_merge ($backlog_message,$confMessage);
+
+    //8- return the backlog
 
     return $backlog_message;
 }

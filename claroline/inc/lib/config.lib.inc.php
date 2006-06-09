@@ -51,6 +51,8 @@ class Config
 
     // array with error
     var $error = array();
+    
+    var $def_loaded;
 
     /**
      * constructor, build a config object
@@ -61,8 +63,10 @@ class Config
     function Config($config_code)
     {
         $this->config_code = $config_code;
-        $this->conf_dirname = realpath($GLOBALS['includePath'] . '/conf/') ;
+        //$this->conf_dirname = realpath($GLOBALS['includePath'] . '/conf/') ;
+        $this->conf_dirname = claro_get_conf_dir($config_code);
         $this->def_dirname = claro_get_conf_def_file($config_code) ;
+        $this->def_loaded = false;
     }
 
     /**
@@ -73,7 +77,6 @@ class Config
     {
         // search config file
         $def_filename = $this->def_dirname . '/' . $this->config_code . '.def.conf.inc.php';
-
         if ( file_exists($def_filename) )
         {
             // set definition filename
@@ -90,6 +93,9 @@ class Config
 
             // init md5
             $this->init_md5();
+
+			// set def_loaded var
+			$this->def_loaded = true;
 
             return true;
         }
@@ -669,7 +675,7 @@ class Config
      * @return the HTML code to display web form to edit config file
      */
 
-    function display_form($property_list=null,$section_selected=null)
+    function display_form($property_list=null,$section_selected=null,$url_params = null)
     {
         $form = '';
 
@@ -684,7 +690,7 @@ class Config
             }
 
             // display start form
-            $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code . '" name="editConfClass" >' . "\n"
+            $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
             . '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
             . '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
             . '<input type="hidden" name="cmd" value="save" />' . "\n";
@@ -1071,7 +1077,7 @@ class Config
      * Display section menu
      */
 
-    function display_section_menu($section_selected)
+    function display_section_menu($section_selected,$url_params = null)
     {
         $menu = '';
 
@@ -1093,10 +1099,10 @@ class Config
                 $menu .=  '<li>'
                     . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
                     . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code)
-                    . '&section=' . htmlspecialchars($section) . '">'
+                    . '&section=' . htmlspecialchars($section) . htmlspecialchars($url_params). '">'
                     . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
             }
-            $menu .= '<li><a class="viewall" href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code) . '&amp;section=viewall">' . get_lang('View all') . '</a></li>' . "\n";
+            $menu .= '<li><a class="viewall" href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code) . '&amp;section=viewall'.htmlspecialchars($url_params).'">' . get_lang('View all') . '</a></li>' . "\n";
             $menu .= '</ul>' . "\n";
             $menu .= '</div>' . "\n" ;
         }
@@ -1279,8 +1285,62 @@ function claro_get_conf_def_file($configCode)
 {
     $centralizedDef = array('CLCRS','CLAUTH','CLGRP', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL');
     if(in_array($configCode,$centralizedDef)) return realpath($GLOBALS['includePath'] . '/conf/def/') ;
-    else                                     return realpath(get_module_path($configCode) . '/conf/def/');
+    else           	                            return get_module_path($configCode) . '/conf/def/';
 }
+
+// TODO : rewrite this code :
+
+function claro_get_conf_dir($configCode)
+{
+    $confDirPath = get_module_path($configCode) . '/conf/';
+    if (is_dir($confDirPath))
+    	return $confDirPath;
+    else
+    	return realpath($GLOBALS['includePath'] . '/conf/');
+}
+
+/**
+ * Generate the conf for a given config
+ * @return array list of messages and error tag
+ */
+
+function generate_conf(&$config,$properties = null)
+{
+	// load configuration if not loaded before
+    if ( !$config->def_loaded )
+    {
+	    if ( !$config->load() )
+	    {
+	        // error loading the configuration
+	        $message[] = $config->get_error_message();
+	        return array($message , false);
+	    }
+    }
+	
+	$config_code = $config->conf_def['config_code'];
+	$config_name = $config->conf_def['config_name'];
+	
+	// validate config
+    if ( $config->validate($properties) )
+    {
+        // save config file
+        $config->save();
+        $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
+                         , array('%config_name' => $config_name, '%config_code' => $config_code));
+    }
+    else
+    {
+        // no valid
+        $error = true ;
+        $message = $config->get_error_message();
+    }
+    
+    if (!empty($error))
+    	return array ($message, true);
+    else
+    	return array ($message, false);    	
+}
+
 
 /**
  * Return array list of found definition files
@@ -1288,20 +1348,24 @@ function claro_get_conf_def_file($configCode)
  * @global string includePath use to access to def repository.
  */
 
-function get_def_file_list()
+function get_def_file_list($type = 'default')
 {
     require_once(dirname(__FILE__) . '/module.manage.lib.php');
 
     //path where we can search defFile : kernel and modules
     // defs of kernel
-    $defConfPathList[] = $GLOBALS['includePath'] . '/conf/def';
+    if ($type == 'kernel' || $type == 'default')
+    	$defConfPathList[] = $GLOBALS['includePath'] . '/conf/def';
 
     // defs of modules
-    $moduleList = get_installed_module_list();
-    foreach ($moduleList as $module)
+    if ($type == 'module' || $type == 'default')
     {
-        $possiblePath = get_module_path($module) . '/conf/def';
-        if (file_exists($possiblePath)) $defConfPathList[] = $possiblePath;
+	    $moduleList = get_installed_module_list();
+	    foreach ($moduleList as $module)
+	    {
+	        $possiblePath = get_module_path($module) . '/conf/def';
+	        if (file_exists($possiblePath)) $defConfPathList[] = $possiblePath;
+	    }
     }
 
     $defConfFileList = array();

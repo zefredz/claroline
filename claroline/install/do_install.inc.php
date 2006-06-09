@@ -297,11 +297,11 @@ else
         claro_undist_file($undist_this);
 
     /***
-     * Generate conf from definition files.
+     * Generate kernel conf from definition files.
      */
 
     $includePath = $newIncludePath;
-    $def_file_list = get_def_file_list();
+    $def_file_list = get_def_file_list('kernel');
     $configError=false;
     if ( is_array($def_file_list) )
     {
@@ -310,30 +310,8 @@ else
             // new config object
             $config = new Config($config_code);
 
-            // load configuration
-            if ( $config->load() )
-            {
-                $config_name = $config->config_code;
-
-                // validate config
-                if ( $config->validate($form_value_list) )
-                {
-                    // save config file
-                    $config->save();
-                }
-                else
-                {
-                    // no valid
-                    $configError = true ;
-                    $messageConfigErrorList = $config->get_error_message();
-                }
-            }
-            else
-            {
-                // error loading the configuration
-                $configError = true ;
-                $messageConfigErrorList = $config->get_error_message();
-            }
+			// generate conf
+			list ($message, $configError) = generate_conf($config,$form_value_list);
         }
     }
 }
@@ -406,8 +384,11 @@ foreach($oldTools as $claroLabel)
     else                          trigger_error('module path not found' ,E_USER_WARNING );
 }
 
+    /***
+     * Generate module conf from definition files.
+     */
 
-    $def_file_list = get_def_file_list();
+    $def_file_list = get_def_file_list('module');
     $configError=false;
     if ( is_array($def_file_list) )
     {
@@ -416,30 +397,8 @@ foreach($oldTools as $claroLabel)
             // new config object
             $config = new Config($config_code);
 
-            // load configuration
-            if ( $config->load() )
-            {
-                $config_name = $config->config_code;
-
-                // validate config
-                if ( $config->validate($form_value_list) )
-                {
-                    // save config file
-                    $config->save();
-                }
-                else
-                {
-                    // no valid
-                    $configError = true ;
-                    $messageConfigErrorList = $config->get_error_message();
-                }
-            }
-            else
-            {
-                // error loading the configuration
-                $configError = true ;
-                $messageConfigErrorList = $config->get_error_message();
-            }
+			//generate conf
+			list ($message, $configError) = generate_conf($config,$form_value_list);
         }
     }
 
