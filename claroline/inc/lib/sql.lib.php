@@ -568,6 +568,18 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
     {
         if ($dbHandler == '#') return mysql_affected_rows();
         else                   return mysql_affected_rows($dbHandler);
+
+        // NOTE. To make claro_sql_query_affected_rows() work properly, 
+        // database connection is required with CLIENT_FOUND_ROWS flag. 
+        //
+        // When using UPDATE, MySQL will not update columns where the new 
+        // value is the same as the old value. This creates the possiblity 
+        // that mysql_affected_rows() may not actually equal the number of 
+        // rows matched, only the number of rows that were literally affected 
+        // by the query. But this behavior can be changed by setting the 
+        // CLIENT_FOUND_ROWS flag in mysql_connect(). mysql_affected_rows() 
+        // will return then the number of rows matched, even if none are 
+        // updated.
     }
     else
     {
