@@ -374,14 +374,16 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
                '".(int) $questionId."',
                '".(int) $questionResult."'
           )";
+          
     $details_id = claro_sql_query_insert_id($sql);
 
     // check if previous query succeed to add answers
-    if( $details_id )
+    if( $details_id && is_array($values) )
     {
         // add, if needed, the different answers of the user
         // one line by answer
         // each entry of $values should be correctly formatted depending on the question type
+
         foreach( $values as $answer )
         {
             $sql = "INSERT INTO `".$tbl_track_e_exe_answers."`
@@ -394,6 +396,7 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
                     ". (int)$details_id.",
                     '".addslashes($answer)."'
                 )";
+                
             claro_sql_query($sql);
         }
     }
