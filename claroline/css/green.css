@@ -34,7 +34,7 @@ h3{
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
-@import url(default.css) all;
+/* @import url(default.css) all;*/
 
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
@@ -70,7 +70,7 @@ h3{
 {
 	background-color: #009900;
 	color: Teal;
-	border-top: 1px #0D0 solid;
+	border-top: 0px;
 	background: url(./green/bg-user.jpg) repeat-x bottom;
 }
 
@@ -96,7 +96,7 @@ h3{
 {
 	background-color: #97DCBB;
 	color: #FDF;
-	border-top: #DFD;
+	border-top: 0px;
 	background: url(./green/bg-course.jpg) repeat-x bottom;
 }
 
