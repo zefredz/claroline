@@ -988,7 +988,7 @@ if ('exDownload' == $cmd )
 
     require_once $includePath . '/lib/pclzip/pclzip.lib.php';
 
-    $downloadArchivePath = $requestDownloadPath.'/'.uniqid().'.zip';
+    $downloadArchivePath = $requestDownloadPath.'/'.uniqid('').'.zip';
     $downloadArchiveName = basename($requestDownloadPath.'.zip');
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
     if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang("Documents and Links").'.zip';
@@ -997,7 +997,7 @@ if ('exDownload' == $cmd )
 
     $downloadArchive->add($filePathList,
                           PCLZIP_OPT_REMOVE_PATH,
-                          $baseWorkDir.$requestDownloadPath);
+                          $requestDownloadPath);
 
     if ( file_exists($downloadArchivePath) )
     {
@@ -1802,8 +1802,8 @@ echo claro_html_tool_title($titleElement,
             .get_lang("Search")
             ."</a>\n";
 
-        if ( $searchPattern != '||') $downloadArgument = 'searchPattern='.$searchPattern;
-        else                         $downloadArgument = "file=".$cmdCurDirPath;
+        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.$searchPattern;
+        else                             $downloadArgument = "file=".$cmdCurDirPath;
 
         echo " | "
             ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;".$downloadArgument."\">\n"
