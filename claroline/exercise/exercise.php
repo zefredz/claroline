@@ -288,7 +288,7 @@ if( !empty($exerciseList) )
 		    if( $is_allowedToTrack )
 		    {
 		    	echo '<td align="center">'
-				.	 '<a href="../tracking/exercises_details.php?exo_id='.$anExercise['id'].'&amp;src=ex">'
+				.	 '<a href="../tracking/exercises_details.php?exId='.$anExercise['id'].'&amp;src=ex">'
 				.	 '<img src="'.$clarolineRepositoryWeb.'img/statistics.gif" border="0" alt="'.get_lang('Statistics').'" />'
 				.	 '</a>'
 				.	 '</td>' . "\n";
