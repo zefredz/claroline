@@ -64,9 +64,7 @@ class answerMatching
     	
     	$this->leftList = array();
     	$this->rightList = array();
-    	    
-    	$this->addExample();
-    		
+    	
     	$this->errorList = array();
     	
 		$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -777,6 +775,25 @@ class answerMatching
     	}
     	
 	   	return $grade;
-	} 	   
+	} 	 
+	
+	/**
+	 * return a array with values needed for tracking
+	 * 
+	 * @author Sebastien Piraux <pir@cerdecam.be>
+	 * @return array
+	 */
+	function getTrackingValues()
+	{
+		$values = array();
+		
+		foreach( $this->leftList as $leftElt )
+		{
+			$values[] = $leftElt['code']. '-' . $leftElt['response'];	
+		}
+		
+		return $values;
+	}	
+	 
 }
 ?>
