@@ -639,7 +639,7 @@ function get_learnPath_progress($lpid, $lpUid)
 function display_my_exercises($dialogBox)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
-    $tbl_quiz_test = $tbl_cdb_names['quiz_test'];
+    $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
     global $imgRepositoryWeb;
 
@@ -666,9 +666,9 @@ function display_my_exercises($dialogBox)
     // Display available modules
     echo '<form method="POST" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
     $atleastOne = FALSE;
-    $sql = "SELECT `id`, `titre` AS `title`, `description`
-            FROM `" . $tbl_quiz_test . "`
-            ORDER BY  `titre`, `id`";
+    $sql = "SELECT `id`, `title`, `description`
+            FROM `" . $tbl_quiz_exercise . "`
+            ORDER BY  `title`, `id`";
     $exercises = claro_sql_query_fetch_all($sql);
 
     if( is_array($exercises) && !empty($exercises) )
