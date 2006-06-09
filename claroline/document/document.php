@@ -953,7 +953,7 @@ if ('exDownload' == $cmd )
     {
         $requestDownloadPath = $baseWorkDir
                              . preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
-        $searchDownloadPatter = '';
+        $searchDownloadPattern = '';
     }
     elseif( isset($_REQUEST['searchPattern']) )
     {
