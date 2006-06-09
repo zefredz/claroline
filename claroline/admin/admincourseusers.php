@@ -205,9 +205,12 @@ include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title($nameTools);
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
+$userDataGrid = new claro_datagrid($userDataList);
+$userDataGrid->set_option_list($dg_opt_list);
+
 echo claro_html_menu_horizontal($command_list)
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
-.    claro_disp_datagrid($userDataList, $dg_opt_list)
+.    $userDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 ;
 
