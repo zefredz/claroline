@@ -199,7 +199,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
 
             /***************************************************************************
             *
-            *        Logins
+            *        Access
             *
             ***************************************************************************/
             $tempView = $view;
@@ -233,11 +233,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 $total = 0;
                 if( !empty($results) && is_array($results) )
                 {
-                    $langMonthNames = get_lang_month_name_list('long');
+                    $langLongMonthNames = get_lang_month_name_list('long');
                     foreach( $results as $result )
                     {
                         echo '<tr>' . "\n"
-                        .    '<td><a href="logins_details.php?uInfo='.$_REQUEST['uInfo'].'&reqdate='.$result['unix_date'].'">' . $langMonthNames[date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a></td>' . "\n"
+                        .    '<td><a href="logins_details.php?uInfo='.$_REQUEST['uInfo'].'&reqdate='.$result['unix_date'].'">' . $langLongMonthNames[date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a></td>' . "\n"
                         .    '<td valign="top" align="right">'.$result['nbr_login'].'</td>' . "\n"
                         .    '</tr>' . "\n"
                         ;
