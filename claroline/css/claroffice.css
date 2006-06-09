@@ -89,6 +89,22 @@ h3.claroToolTitle {
 	margin: 0;
 }
 
+#campusBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#campusBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
@@ -124,6 +140,21 @@ h3.claroToolTitle {
 	text-decoration: underline;
 }
 
+#userBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#userBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
@@ -186,6 +217,23 @@ h3.claroToolTitle {
 	padding-top: 5px;
 	margin: 0;
 }
+
+#courseBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#courseBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
@@ -228,7 +276,7 @@ h3.claroToolTitle {
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#footer
+#campusFooter
 {
 	background-color: #F7F3F7;
 	border-top: solid #9C9A9C	1px;
@@ -236,31 +284,48 @@ h3.claroToolTitle {
 	padding: 3px;
 }
 
-#footer a {
+#campusFooter a {
 }
 
-#footer hr
+#campusFooter hr
 {
 	display:none;
 }
 
-#footer #platformManager
+#campusFooterRight
 {
 	float: right;
 }
 
-#footer #courseManager
+#campusFooterLeft
+{
+	float: left;	
+}
+
+#campusFooterCenter
+{
+    clear: both;
+    text-align: center;
+}
+
+#campusFooter #platformManager
+{
+	float: right;
+}
+
+#campusFooter #courseManager
 {
 	float: left;
 	text-align: center;
 }
 
-
-#footer #poweredBy
+#campusFooter #poweredBy
 {
     clear: both;
     text-align: center;
 }
+
+
 
 /******************************************************************************
 	CLAROLINE COMMAND LINKS
