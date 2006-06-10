@@ -394,7 +394,7 @@ function get_and_unzip_uploaded_package()
 
     $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
     //create temp dir for upload
-    claro_mkdir($moduleRepositorySys);
+    claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
     $uploadDirFullPath = tempdir($moduleRepositorySys);
     $uploadDir         = str_replace($moduleRepositorySys,'',$uploadDirFullPath);
     $modulePath        = $moduleRepositorySys.$uploadDir.'/';
@@ -428,7 +428,7 @@ function get_and_unzip_uploaded_package()
 function install_module($modulePath)
 {
     global $includePath;
-    
+
     $backlog_message = array();
 
     if (false === ($module_info = readModuleManifest($modulePath)))
@@ -477,7 +477,7 @@ function install_module($modulePath)
 
     //4- Rename the module repository with label
 
-    if (!rename( $modulePath, get_module_path($module_info['LABEL']).'/'))
+    if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
     {
         array_push ($backlog_message, get_lang("Error while renaming the module's folder"));
         return $backlog_message;
@@ -510,7 +510,7 @@ function install_module($modulePath)
     generate_module_cache();
 
     //7- generate the conf if a def file exists
-	
+
 	require_once $includePath . '/lib/config.lib.inc.php';
 	$config = new Config($module_info['LABEL']);
 	list ($confMessage, $error) = generate_conf($config);
