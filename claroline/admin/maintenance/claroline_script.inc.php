@@ -260,7 +260,6 @@ $claroline_script[] = "/inc/lib/pear/PEAR.php";
 $claroline_script[] = "/inc/lib/pear/XML/Serializer.php";
 $claroline_script[] = "/inc/lib/pear/XML/Util.php";
 $claroline_script[] = "/inc/lib/profile.lib.php";
-$claroline_script[] = "/inc/lib/rss/write/gencourse_rss.inc.php";
 $claroline_script[] = "/inc/lib/statsUtils.lib.inc.php";
 $claroline_script[] = "/inc/lib/textarea.class.php";
 $claroline_script[] = "/inc/lib/tree.lib.php";
