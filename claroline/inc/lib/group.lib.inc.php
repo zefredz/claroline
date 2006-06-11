@@ -473,8 +473,8 @@ function group_count_group_of_a_user($user_id, $course_id=null)
 
 function create_group($groupName, $maxMember)
 {
-    require_once $GLOBALS['includePath'] . '/lib/forum.lib.php';
-    require_once $GLOBALS['includePath'] . '/lib/fileManage.lib.php';
+    require_once dirname(__FILE__) . '/forum.lib.php';
+    require_once dirname(__FILE__) . '/fileManage.lib.php';
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_groups    = $tbl_cdb_names['group_team'];
