@@ -236,7 +236,7 @@ function get_module_path($toolLabel)
         case 'CLWIKI' : return get_conf('clarolineRepositorySys') . 'wiki';
         case 'CLLNK' : return get_conf('clarolineRepositorySys') . 'linker';
         case 'CLGRP' : return '';
-        default: return get_conf('clarolineRepositorySys') . get_conf('moduleRepository','module/') . $toolLabel;
+        default: return get_conf('rootSys') . get_conf('moduleRepository','module/') . $toolLabel;
     }
     return '';
 
@@ -267,7 +267,7 @@ function get_module_url($toolLabel)
         case 'CLLNK' : return get_conf('clarolineRepositoryWeb') . 'linker';
         case 'CLWIKI' : return get_conf('clarolineRepositoryWeb') . 'wiki';
         case 'CLGRP' : return '';
-        default: return get_conf('clarolineRepositoryWeb') . get_conf('moduleRepository','module/') . $toolLabel;
+        default: return get_conf('rootWeb') . get_conf('moduleRepository','module/') . $toolLabel;
     }
     return '';
 
