@@ -1,16 +1,16 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
  * Initialize conf settings
  * Try to read  current values in current conf files
  * Build new conf file content with these settings
  * write it.
  *
- * @version 1.8 $Revision$ 
+ * @version 1.8 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.7
  *
@@ -24,7 +24,7 @@
 
 /*=====================================================================
   Init Section
- =====================================================================*/ 
+ =====================================================================*/
 
 if ( ! file_exists('../../currentVersion.inc.php') )
 {
@@ -51,39 +51,39 @@ $display = DISPLAY_WELCOME_PANEL;
 
 /*=====================================================================
   Main Section
- =====================================================================*/ 
+ =====================================================================*/
 
 $error = FALSE;
 
 if ( isset($_REQUEST['verbose']) ) $verbose = true;
 
-$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : ''; 
+$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
 
 if ( $cmd == 'run' )
 {
     // Prepare repository to backup files
     $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
-    claro_mkdir($backupRepositorySys);
+    claro_mkdir($backupRepositorySys, CLARO_FILE_PERMISSIONS, true);
 
-    $output = '<h3>Configuration file</h3>' . "\n" ;  
+    $output = '<h3>Configuration file</h3>' . "\n" ;
     $output.= '<ol>' . "\n" ;
-    
+
     // Generate configuration file from definition file
 
     $def_file_list = get_def_file_list();
 
     if ( is_array($def_file_list) )
-    {        
-        // Build table with current values in configuration files       
+    {
+        // Build table with current values in configuration files
         $current_value_list = array();
-        
+
         foreach ( array_keys($def_file_list) as $config_code )
         {
             unset($conf_def, $conf_def_property_list);
-        
+
             $def_file = get_def_file($config_code);
-        
-            if ( file_exists($def_file) ) 
+
+            if ( file_exists($def_file) )
             {
                 require($def_file);
             }
@@ -94,7 +94,7 @@ if ( $cmd == 'run' )
             if ( is_array($conf_def['old_config_file']) )
             {
                 // Browse configuration files
-                foreach ( $conf_def['old_config_file'] as $current_file_name ) 
+                foreach ( $conf_def['old_config_file'] as $current_file_name )
                 {
                     // Add config name an value in array current value list
                     $current_value_list = array_merge( $current_value_list,
@@ -113,22 +113,22 @@ if ( $cmd == 'run' )
 
         // Old variables from 1.5
         if ( isset($administrator) )
-        { 
+        {
             $current_value_list['administrator_name'] = $administrator['name'];
             $current_value_list['administrator_phone'] = $administrator['phone'];
             $current_value_list['administrator_email'] = $administrator['email'];
         }
 
         if ( isset($institution) )
-        { 
+        {
             $current_value_list['institution_name'] = $institution['name'];
             $current_value_list['institution_url'] = $institution['url'];
         }
 
         // Browse definition file and build them
-        
+
         reset( $def_file_list );
-        
+
         foreach ( $def_file_list as $config_code => $def)
         {
             // read configuration file
@@ -138,34 +138,34 @@ if ( $cmd == 'run' )
                     .  '<ul >' . "\n";
 
             $okToSave = TRUE;
-            
+
             unset($conf_def, $conf_def_property_list);
-    
+
             // read definition file
             $def_file = get_def_file($config_code);
-    
+
             if ( file_exists($def_file) ) require($def_file);
-            
+
             if ( isset($conf_def_property_list) && is_array($conf_def_property_list) )
             {
-                
+
                 $propertyList = array();
-                
+
                 // Browse each property of the definition files
 
                 foreach ( $conf_def_property_list as $propName => $propDef )
                 {
 
-                    // Get current property value if exists 
+                    // Get current property value if exists
                     // else get its default value
 
                     if ( isset($current_value_list[$propName]) )
-                    {  
+                    {
                         $propValue = $current_value_list[$propName];
                     }
-                    else 
+                    else
                     {
-                        $propValue = $propDef['default'];                                 
+                        $propValue = $propDef['default'];
                     }
 
                     /**
@@ -183,7 +183,7 @@ if ( $cmd == 'run' )
                     }
                     else
                     {
-                        // Validation succeed 
+                        // Validation succeed
                         $propertyList[] = array('propName'  => $propName
                                                ,'propValue' => $propValue);
                     }
@@ -194,7 +194,7 @@ if ( $cmd == 'run' )
                 $okToSave = FALSE;
                 $error = TRUE;
             }
-    
+
             // We save the upgraded configuration file
 
             if ($okToSave)
@@ -206,7 +206,7 @@ if ( $cmd == 'run' )
                 }
                 else
                 {
-                    // Backup current file 
+                    // Backup current file
                     $output .= '<li>Backup old file : ' ;
 
                     $fileBackup = $backupRepositorySys . basename($conf_file);
@@ -225,10 +225,10 @@ if ( $cmd == 'run' )
                     @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
                 }
 
-    
+
                 if ( is_array($propertyList) && count($propertyList)>0 )
                 {
-                    // Save the new configuration file 
+                    // Save the new configuration file
 
                     $output .= '<li>Upgrade file : ';
 
@@ -236,7 +236,7 @@ if ( $cmd == 'run' )
                     {
                         $output .= '<span class="success">Succeeded</span>';
                     }
-                    else 
+                    else
                     {
                         $output .= '<span class="warning">Failed</span>';
                         $error = TRUE;
@@ -244,17 +244,17 @@ if ( $cmd == 'run' )
                     $output .= '</li>'."\n";
                 }
             }
-            $output .= '</ul>' . "\n" 
+            $output .= '</ul>' . "\n"
                      . '</li>' . "\n";
 
         } // End browse definition file and build them
 
     }
-    
+
     /**
      * Config file to undist
      */
-    
+
     $arr_file_to_undist = array ( $includePath.'/../../textzone_top.inc.html',
                                  $includePath.'/../../textzone_right.inc.html',
                                  $includePath.'/conf/auth.conf.php'
@@ -279,7 +279,7 @@ if ( $cmd == 'run' )
     }
 
     $output .= '</ol>' . "\n";
-    
+
     if ( !$error )
     {
         $display = DISPLAY_RESULT_SUCCESS_PANEL;
@@ -291,12 +291,12 @@ if ( $cmd == 'run' )
     {
         $display = DISPLAY_RESULT_ERROR_PANEL;
     }
-    
-} // end if run 
+
+} // end if run
 
 /*=====================================================================
   Display Section
- =====================================================================*/ 
+ =====================================================================*/
 
 // Display Header
 echo upgrade_disp_header();
@@ -313,7 +313,7 @@ switch ($display)
               <center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch platform
               main settings upgrade</button></p></center>';
         break;
-        
+
     case DISPLAY_RESULT_ERROR_PANEL :
         echo '<h2>Step 1 of 3: platform main settings - <span class="error">Failed</span></h2>';
         echo $output;
