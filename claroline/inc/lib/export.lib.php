@@ -28,103 +28,103 @@ function get_tool_path($toolId)
 {
 	return '';
 }
-/**  
+/**
  * Based on the tool id, this function find the adequate export function
  * If there is no specified export function for the tool, we use the export generic function
- *  
+ *
  * @see http://www.claroline.net/wiki/index.php/Plugin_system_modelisation#Module_Class
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- * 
- * @param  string  $toolId  
+ *
+ * @param  string  $toolId
  * @param  string  $course_id
- * @param  string  $groupId     - can be used as parameter for some function    
- * 
- * @return false if a problem occured, true if not.  
- * 
- */     	  	
+ * @param  string  $groupId     - can be used as parameter for some function
+ *
+ * @return false if a problem occured, true if not.
+ *
+ */
 function export_data_tool($toolId,$courseId=null,$groupId=null)
 {
 	$exportLib      =  get_module_path($toolId) . '/connector/exchange.cnr.php';
 	$exportFuncName = $toolId . '_export_content';
-	
-	if (file_exists($exportLib)) 
+
+	if (file_exists($exportLib))
 	{
 		echo 'chargement de ' .$exportLib . '<BR />';
 		include_once($exportLib);
-		if (function_exists($exportFuncName)) 
+		if (function_exists($exportFuncName))
 		{
 			echo 'appel de ' . $exportFuncName . '<BR />';
 			call_user_func($exportFuncName,$courseId,$groupId);
-		}					
+		}
 		else {export_generic_data_tool($courseId,$toolId);}
-	}	
+	}
 	else {export_generic_data_tool($courseId,$toolId);}
-	
+
 }
-/**  
+/**
  * Manage the export of a course
  * It exports ALL tools and document of a course
  * and its meta data
- * 
- *   
+ *
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- * 
- * @param  string  $course_id 
- * 
- * @return false if a problem occured, true if not.  
- * 
- */     	
+ *
+ * @param  string  $course_id
+ *
+ * @return false if a problem occured, true if not.
+ *
+ */
 function export_all_data_course_in_file($courseId=null)
 {
-	
+
 	if (is_null($courseId)) $courseId = $GLOBALS['_cid'];
 	if ('' != $courseId)
-	{				
+	{
 		$toolList = import_get_course_tool_list($courseId);
-				
+
 		if(false === export_manifest($courseId))
 			return false;
 		if(false === export_tool($courseId))
-			return false;		
+			return false;
 		if(false === export_group($courseId))
 			return false;
 		if(false === export_users($courseId))
-			return false;						
-		
-		foreach($toolList[0] as $toolId)
-		{			
-			if(false === export_data_tool($toolId,$courseId))	
 			return false;
-		}						
-		
+
+		foreach($toolList[0] as $toolId)
+		{
+			if(false === export_data_tool($toolId,$courseId))
+			return false;
+		}
+
 		if (false == compress_directory(EXPORT_PATH.$courseId."/"))
 			return false;
-						
-		if (false == claro_delete_file(EXPORT_PATH.$courseId))		
-				return claro_failure::set_failure("can't delete dir");				
+
+		if (false == claro_delete_file(EXPORT_PATH.$courseId))
+				return claro_failure::set_failure("can't delete dir");
 
 		return true;
 	} else return claro_failure :: set_failure("invalid course id");
 }
-/**  
- * Get the tool list of this course 
+/**
+ * Get the tool list of this course
  * for the course and for the group
  * and put it into an array
- * 
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- *  
- * @param  string  $course_id    
- * 
- * @return false if a problem occured, the array if not.  
- * 
- */     	
+ *
+ * @param  string  $course_id
+ *
+ * @return false if a problem occured, the array if not.
+ *
+ */
 function export_get_course_tool_list($courseId)
 {
 	/*
 	 * IMPORTANT NOTE : THIS FUNCTION WILL REQUIRE MODIFICATIONS
-	 * 
+	 *
 	 * at this time those lines are written, the correct function cant be written
-	 * The acutel claroline devloppement version is not enough complete for that 
+	 * The acutel claroline devloppement version is not enough complete for that
 	 */
 	$tab[0][0] = "CLANN";
 	$tab[0][1] = "CLFRM";
@@ -135,8 +135,8 @@ function export_get_course_tool_list($courseId)
 	$tab[0][6] = "CLDOC";
 	$tab[0][7] = "CLWRK";
 	$tab[0][8] = "CLLNK";
-	$tab[0][8] = "CLCHT";	
-	
+	$tab[0][8] = "CLCHT";
+
 	$tbl = read_group_team_from_db($courseId);
 	foreach ($tbl as $group)
 	{
@@ -148,18 +148,18 @@ function export_get_course_tool_list($courseId)
 
 	return $tab;
 }
-/**  
- * Export a tool into a xml file (for the db data) and a zip file (for the document file) 
- * and put it in the temporary directory 
- *  
+/**
+ * Export a tool into a xml file (for the db data) and a zip file (for the document file)
+ * and put it in the temporary directory
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- *  
- * @param  string  $course_id    
+ *
+ * @param  string  $course_id
  * @param  string  $tool_id
- * 
- * @return false if a problem occured, the array if not.  
- * 
- */     	
+ *
+ * @return false if a problem occured, the array if not.
+ *
+ */
 function export_generic_data_tool($course_id,$tool_id)
 {
 	$tmp = getTablesList($course_id,$tool_id);
@@ -169,41 +169,41 @@ function export_generic_data_tool($course_id,$tool_id)
 	// export its documents
 	$course_path = get_module_path($course_id);
 	export_tool_document($course_id, $course_path);
-	
+
 	// exports its db data
 	foreach ($tablesNameList as $tableNameArr )
 	{
 		$tableName = array_pop($tableNameArr);
 		$tableContent = selectAllFromTable($tableName);
-		$toolData[$tableName] = $tableContent;		
-		$toolData[$tableName]['table_name'] = $tableName;	
+		$toolData[$tableName] = $tableContent;
+		$toolData[$tableName]['table_name'] = $tableName;
 	}
 	$prefix = str_replace("\_","_",$prefix);
 	$prefix = str_replace("%","",$prefix);
 	$prefix = str_replace("'","",$prefix);
 	$dom = export_generic_data_in_dom($toolData, $course_id,$tool_id,$prefix);
 	if (false !== $dom)
-	{		
+	{
 		dump_file("tools",$tool_id,$dom,$course_id);
 		return true;
 	}
 	else return false;
-	
+
 }
 
-/**  
- * Export all informations about a tool into a dom object 
+/**
+ * Export all informations about a tool into a dom object
  * Not only the db data but also other information, like the create table sql code of the tables
- *   
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
  * @param  array   $tablesContent  - the db data of the tool
- * @param  string  $course_id    
+ * @param  string  $course_id
  * @param  string  $tool_id
  * @param  string  $prefix		   - prefix of the tool tables, this will be usefull for the import
- * 
- * @return false if a problem occured, the dom object if not.  
- * 
- */     
+ *
+ * @return false if a problem occured, the dom object if not.
+ *
+ */
 function export_generic_data_in_dom($tablesContent,$course_id,$tool_id,$prefix)
 {
 	$dom = domxml_new_doc('1.0');
@@ -214,113 +214,113 @@ function export_generic_data_in_dom($tablesContent,$course_id,$tool_id,$prefix)
 		{
 			$tableElement= $generic_data->append_child($dom->create_element($tableName));
 			foreach ($tableContent as $genericId => $rawContent)
-			{					
+			{
 				if(isset($rawContent) && is_array($rawContent))
 				{
 					$genericElement = $tableElement->append_child($dom->create_element('content'));
 					$genericElement->set_attribute('id', $genericId);
 					foreach ($rawContent as $fieldName => $fieldContent)
-					{		
-						$index = $genericElement->append_child($dom->create_element($fieldName));	
+					{
+						$index = $genericElement->append_child($dom->create_element($fieldName));
 						if(is_null($fieldContent))
 						{
 							$index->set_attribute("isNull","true");
-						}						
-						$index->append_child($dom->create_text_node(utf8_encode($fieldContent)));		
+						}
+						$index->append_child($dom->create_text_node(utf8_encode($fieldContent)));
 					}
-				}				 
-			}	
-			
-			$sql = "SHOW CREATE TABLE `".$tableName."`";			
+				}
+			}
+
+			$sql = "SHOW CREATE TABLE `".$tableName."`";
 			$result = claro_sql_query_fetch_all($sql);
-			$create_table_sql_query = str_replace("CREATE TABLE","CREATE TABLE IF NOT EXISTS",$result[0]["Create Table"]);								
+			$create_table_sql_query = str_replace("CREATE TABLE","CREATE TABLE IF NOT EXISTS",$result[0]["Create Table"]);
 			$index = $tableElement->append_child($dom->create_element("create_table"));
 			$index->append_child($dom->create_cdata_section(utf8_encode($create_table_sql_query)));
 			$index = $tableElement->append_child($dom->create_element("prefix"));
-			$index->append_child($dom->create_text_node(utf8_encode($prefix)));	
+			$index->append_child($dom->create_text_node(utf8_encode($prefix)));
 			$index = $tableElement->append_child($dom->create_element("table_name"));
-			$index->append_child($dom->create_text_node(utf8_encode($tableContent['table_name'])));		
+			$index->append_child($dom->create_text_node(utf8_encode($tableContent['table_name'])));
 		}
 	}
-	return $dom;	
+	return $dom;
 }
 
 
-/**  
- * Select all from a table 
- * 
- *   
+/**
+ * Select all from a table
+ *
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
  *
- *  @param  array  $tableName    
- * 
- * @return the result of the query  
- * 
- */     
+ *  @param  array  $tableName
+ *
+ * @return the result of the query
+ *
+ */
 function selectAllFromTable($tableName)
 {
 	$sql = "SELECT * FROM `".$tableName."`";
 	return claro_sql_query_fetch_all($sql);
 }
 
-/**  
- * Select all from a table 
- *   
+/**
+ * Select all from a table
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
  *
- * @param  array  $course_id    
+ * @param  array  $course_id
  * @param  array  $tool_id
- * 
- * @return the result of the query  
- * 
- */    
+ *
+ * @return the result of the query
+ *
+ */
 function getTablesList($course_id,$tool_id)
 {
 	/*
 	 * IMPORTANT NOTE : THIS FUNCTION WILL NEED TO BE REWRITTEN
-	 * 
-	 * at the moment where these lines are written, the claroline devloppement version miss some functions to 
+	 *
+	 * at the moment where these lines are written, the claroline devloppement version miss some functions to
 	 * complete this function
-	 * 
+	 *
 	 * for now, this function return all tables of a course
-	 * 
+	 *
 	 */
 	$tab = array();
 	$tab["cid"] = $course_id;
 	$tab["tid"] = $tool_id;
 	//$prefix = claro_sql_get_tables("",$tab);
-	//$prefix = claro_sql_get_course_tbl("",$tab);	
-		
+	//$prefix = claro_sql_get_course_tbl("",$tab);
+
 	//$prefix = "claroline`.`c_es1_001_tool";  // Mono avec claro_sql_get_tables
 	//$prefix = "c_es1_001`.`tool";            // Multi avec claro_sql_get_tables
 	//$prefix = "c_es1_001_tool";              // Mono  avec claro_sql_get_course_tbl
 	//$prefix = "c_es1_001`.`tool";        	   // Multi avec claro_sql_get_course_tbl
 
-	
+
 	$prefix = "claroline`.`c_es1_001";
 	$tab = explode('`.`',$prefix);
 	$prefix = $tab[count($tab)-1];
 
-	
+
 	$prefix = str_replace("_","\_",$prefix);
 	$prefix = str_replace("%","\%",$prefix);
 	$prefix = "'".$prefix."%'";
-	
+
 	$sql = "SHOW TABLES LIKE ".$prefix;
 
 	$return[0] = $prefix;
-	$return[1] = claro_sql_query_fetch_all($sql); 
-	
+	$return[1] = claro_sql_query_fetch_all($sql);
+
 	return $return;
 }
 
 /**
- * 
+ *
  * Export all db data about tool in file "tool.xml"
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, true if not.  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, true if not.
  */
 function export_tool($course_id)
 {
@@ -331,64 +331,64 @@ function export_tool($course_id)
 		dump_file("meta_data","tool",$dom,$course_id);
 		return true;
 	}
-	else return false;			
+	else return false;
 }
 /**
- * 
+ *
  * Export all db data about the course in file "manifest.xml"
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, true if not.  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, true if not.
  */
 function export_manifest($course_id)
 {
 	$tbl['course'] = read_course_from_db($course_id);
 	$tbl['group_team'] = read_group_team_from_db($course_id);
 	$tbl['group_property'] = read_group_property_from_db($course_id);
-	$tbl['users'] = read_users_from_db($course_id);	
-	
+	$tbl['users'] = read_users_from_db($course_id);
+
 	$dom = export_manifest_in_dom($tbl, $course_id);
 	if (false !== $dom)
 	{
 		dump_file("meta_data","manifest",$dom,$course_id);
 		return true;
 	}
-	else return false;		
+	else return false;
 }
 
 /**
- * 
+ *
  * Export all db data about group in file "group.xml"
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, true if not.  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, true if not.
  */
 function export_group($course_id)
-{		
-	if (false == export_group_document($course_id))	
-			return false;				 
+{
+	if (false == export_group_document($course_id))
+			return false;
 	$tbl = read_group_from_db($course_id);
 	$dom = export_group_in_dom($tbl, $course_id);
 	if (false !== $dom)
-	{		
+	{
 		if(false === dump_file("tools","CLGRP",$dom,$course_id))
 			return false;
 		return true;
 	}
-	else return false;	
+	else return false;
 }
 /**
- * 
+ *
  * Export all db data about users in file "users.xml"
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, true if not.  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, true if not.
  */
 function export_users($course_id)
-{		
+{
 	$tbl['user'] = read_users_from_db($course_id);
 	$tbl['rel_course_user'] = read_rel_course_user_from_db($course_id);
 	$dom = export_users_in_dom($tbl, $course_id);
@@ -398,19 +398,19 @@ function export_users($course_id)
 			return false;
 		return true;
 	}
-	else return false;	
+	else return false;
 }
 /**
- * 
+ *
  * Export all data contained in the array $tbl about users into a $dom object
- *  
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- * @param  array   $tbl  		 - contain all data about users to export  
- * @param  string  $course_id    
+ * @param  array   $tbl  		 - contain all data about users to export
+ * @param  string  $course_id
  * @return the dom object
  */
 function export_users_in_dom($tbl, $course_id)
-{	
+{
 	$dom = domxml_new_doc('1.0');
 	$cl_user = $dom->append_child($dom->create_element('users'));
 
@@ -418,7 +418,7 @@ function export_users_in_dom($tbl, $course_id)
 	if (isset ($tbl["rel_course_user"]) && is_array($tbl["rel_course_user"]) && (count($tbl["rel_course_user"]) > 0))
 	{
 		foreach ($tbl["rel_course_user"] as $tab_content)
-		{			
+		{
 			$code_cours = $rel_course_user->append_child($dom->create_element('user_id'));
 			$code_cours->set_attribute('user_id', $tab_content['user_id']);
 			$user_id = $code_cours->append_child($dom->create_element('course_id'));
@@ -435,7 +435,7 @@ function export_users_in_dom($tbl, $course_id)
 	}
 
 	$user = $cl_user->append_child($dom->create_element('user'));
-		
+
 	if (is_array($tbl["user"]) && (count($tbl["user"]) > 0))
 	{
 		foreach ($tbl["user"] as $tab_content)
@@ -467,24 +467,24 @@ function export_users_in_dom($tbl, $course_id)
 		}
 	}
 	if (!file_exists(EXPORT_PATH."/".$course_id))
-		claro_mkdir(EXPORT_PATH."/".$course_id);
+		claro_mkdir(EXPORT_PATH."/".$course_id, CLARO_FILE_PERMISSIONS, true);
 
 	return $dom;
 }
 /**
- * 
+ *
  * Export all data contained in the array $tbl about the course and manifest into a $dom object
- *  
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- * @param  array   $tbl  		- contain all data about the course to export  
- * @param  string  $course_id    
- * @return the dom object 
+ * @param  array   $tbl  		- contain all data about the course to export
+ * @param  string  $course_id
+ * @return the dom object
  */
 function export_manifest_in_dom($tbl, $course_id)
 {
 	$dom = domxml_new_doc('1.0');
 	$manifest = $dom->append_child($dom->create_element('MANIFEST'));
-	
+
 	$group_team = $manifest->append_child($dom->create_element('group_team'));
 	if (is_array($tbl['group_team']) && (count($tbl['group_team']) > 0))
 	{
@@ -495,7 +495,7 @@ function export_manifest_in_dom($tbl, $course_id)
 			$name = $id->append_child($dom->create_element('name'));
 			$name->append_child($dom->create_text_node($tab_content['name']));
 		}
-	}	
+	}
 	$group_property = $manifest->append_child($dom->create_element('group_property'));
 	if (is_array($tbl['group_property']) && (count($tbl['group_property']) > 0))
 	{
@@ -536,13 +536,13 @@ function export_manifest_in_dom($tbl, $course_id)
 			$officialCode->append_child($dom->create_text_node($tab_content['officialCode']));
 		}
 	}
-		
+
 	$course = $manifest->append_child($dom->create_element('course'));
 
 	if (is_array($tbl['course']) && (count($tbl['course']) > 0))
 	{
 		foreach ($tbl['course'] as $tab_content)
-		{			
+		{
 			$cours_id = $course->append_child($dom->create_element('cours_id'));
 			$cours_id->append_child($dom->create_text_node($tab_content['cours_id']));
 			$code = $course->append_child($dom->create_element('code'));
@@ -558,7 +558,7 @@ function export_manifest_in_dom($tbl, $course_id)
 			$intitule = $course->append_child($dom->create_element('intitule'));
 			$intitule->append_child($dom->create_text_node(utf8_encode($tab_content['intitule'])));
 			$faculte = $course->append_child($dom->create_element('faculte'));
-			$faculte->append_child($dom->create_text_node(utf8_encode($tab_content['faculte'])));			
+			$faculte->append_child($dom->create_text_node(utf8_encode($tab_content['faculte'])));
 			$enrollment_key = $course->append_child($dom->create_element('enrollment_key'));
 			$enrollment_key->append_child($dom->create_text_node(utf8_encode($tab_content['enrollment_key'])));
 			$titulaires = $course->append_child($dom->create_element('titulaires'));
@@ -582,40 +582,40 @@ function export_manifest_in_dom($tbl, $course_id)
 			$creationDate = $course->append_child($dom->create_element('creationDate'));
 			$creationDate->append_child($dom->create_text_node($tab_content['creationDate']));
 			$expirationDate = $course->append_child($dom->create_element('expirationDate'));
-			$expirationDate->append_child($dom->create_text_node($tab_content['expirationDate']));									
-			
+			$expirationDate->append_child($dom->create_text_node($tab_content['expirationDate']));
+
 			if(1 == $tab_content['visible'])
-			{				
-				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+			{
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility'));
 				$courseVisibility->append_child($dom->create_text_node(false));
 				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
 				$courseEnrollAllowed->append_child($dom->create_text_node(true));
 			}
 			else if(2 == $tab_content['visible'])
-			{				
-				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+			{
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility'));
 				$courseVisibility->append_child($dom->create_text_node(true));
 				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
 				$courseEnrollAllowed->append_child($dom->create_text_node(true));
-			}			 
+			}
 			else if(3 == $tab_content['visible'])
-			{				
-				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+			{
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility'));
 				$courseVisibility->append_child($dom->create_text_node(true));
 				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
 				$courseEnrollAllowed->append_child($dom->create_text_node(false));
 			}
 			else
-			{			
-				$courseVisibility = $course->append_child($dom->create_element('courseVisibility')); 
+			{
+				$courseVisibility = $course->append_child($dom->create_element('courseVisibility'));
 				$courseVisibility->append_child($dom->create_text_node(false));
 				$courseEnrollAllowed = $course->append_child($dom->create_element('courseEnrollAllowed'));
 				$courseEnrollAllowed->append_child($dom->create_text_node(false));
 			}
-							
+
 		}
 	}
-	
+
 	$tool = $manifest->append_child($dom->create_element('toolsInfo'));
 	$groupToolList = import_get_course_tool_list($course_id);
 	foreach ($groupToolList as $id => $toolList)
@@ -623,12 +623,12 @@ function export_manifest_in_dom($tbl, $course_id)
 		$groupInfo = $tool->append_child($dom->create_element("group"));
 		$groupInfo->set_attribute("id",$id);
 		foreach ($toolList as $tool_id)
-		{			
-			$toolInfo = $groupInfo->append_child($dom->create_element("tool"));					
+		{
+			$toolInfo = $groupInfo->append_child($dom->create_element("tool"));
 			$toolInfo->append_child($dom->create_text_node($tool_id));
-		}		
+		}
 	}
-	$course = $manifest->append_child($dom->create_element('plateform'));	
+	$course = $manifest->append_child($dom->create_element('plateform'));
 	$plateform = $course->append_child($dom->create_element('plateform_id'));
 	$plateform->append_child($dom->create_text_node(get_conf('platform_id')));
 	$newversion = $course->append_child($dom->create_element('new_version'));
@@ -639,15 +639,15 @@ function export_manifest_in_dom($tbl, $course_id)
 	$clarolineVer->append_child($dom->create_text_node(get_conf('clarolineVersion')));
 	$verDb = $course->append_child($dom->create_element('versionDb'));
 	$verDb->append_child($dom->create_text_node(get_conf('versionDb')));
-		
+
 	return $dom;
 }
 /**
- * 
+ *
  * Export all data contained in db about tool into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
  * @return the array
  */
 function read_tool_from_db($course_id)
@@ -659,12 +659,12 @@ function read_tool_from_db($course_id)
 	return $tab;
 }
 /**
- * 
+ *
  * Export all data contained in the array $tbl about tool into a $dom object
- *  
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- * @param  array   $tbl  		- contain all data about tool to export  
- * @param  string  $course_id    
+ * @param  array   $tbl  		- contain all data about tool to export
+ * @param  string  $course_id
  * @return the dom object
  */
 function export_tool_in_dom($tbl, $course_id)
@@ -719,11 +719,11 @@ function export_tool_in_dom($tbl, $course_id)
 }
 
 /**
- * 
+ *
  * Export all data contained in db about group into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
  * @return the array
  */
 function read_group_from_db($course_id)
@@ -736,13 +736,13 @@ function read_group_from_db($course_id)
 	return $tab;
 }
 /**
- * 
+ *
  * Export all data contained in the array $tbl about group into a $dom object
- *  
+ *
  * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
- * @param  array   $tbl  		- contain all data about group to export  
- * @param  string  $course_id    
- * @return the dom object  
+ * @param  array   $tbl  		- contain all data about group to export
+ * @param  string  $course_id
+ * @return the dom object
  */
 function export_group_in_dom($tbl, $course_id)
 {
@@ -811,12 +811,12 @@ function export_group_in_dom($tbl, $course_id)
 }
 
 /**
- * 
+ *
  * Read tool intro table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function read_tool_intro_from_db($course_id)
 {
@@ -833,12 +833,12 @@ function read_tool_intro_from_db($course_id)
 	return claro_sql_query_fetch_all($sql);
 }
 /**
- * 
+ *
  * Read tool list table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function read_tool_list_from_db($course_id)
 {
@@ -851,17 +851,17 @@ function read_tool_list_from_db($course_id)
 							script_name,
 							addedTool
 			FROM `".$tbl['tool']."`";
-						
+
 	return claro_sql_query_fetch_all($sql);
 }
 
 /**
- * 
+ *
  * Read users table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function  read_users_from_db($course_id)
 {
@@ -877,21 +877,21 @@ function  read_users_from_db($course_id)
 							officialCode,
 							phoneNumber,
 							pictureUri,
-							creatorId 
+							creatorId
 	    	 FROM `".$tblMain['user']."` AS u
-	    	 INNER JOIN `".$tblMain['rel_course_user']."` AS c 
-			 ON u.user_id = c.user_id 				 		    	 		
+	    	 INNER JOIN `".$tblMain['rel_course_user']."` AS c
+			 ON u.user_id = c.user_id
 			 WHERE c.code_cours = '".$course_id."'";
-	 
+
 	return claro_sql_query_fetch_all($sql);
 }
 /**
- * 
+ *
  * Read rel_course_user table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function read_rel_course_user_from_db($course_id)
 {
@@ -902,19 +902,19 @@ function read_rel_course_user_from_db($course_id)
 					 role,
 					 team,
 					 tutor
-			FROM `".$tblMain['rel_course_user']."` 
+			FROM `".$tblMain['rel_course_user']."`
 		 	WHERE code_cours = '".$course_id."'";
-	
+
 	return claro_sql_query_fetch_all($sql);
 }
 
 /**
- * 
+ *
  * Read course table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function read_course_from_db($course_id)
 {
@@ -939,19 +939,19 @@ function read_course_from_db($course_id)
 						lastVisit,
 						lastEdit,
 						creationDate,
-						expirationDate							
+						expirationDate
 		  	FROM `".$tblMain['course']."`
 			WHERE code = '".$course_id."'";
 
 	return claro_sql_query_fetch_all($sql);
 }
 /**
- * 
+ *
  * Read group property table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function read_group_property_from_db($course_id)
 {
@@ -963,19 +963,19 @@ function read_group_property_from_db($course_id)
 						forum,
 						document,
 						wiki,
-						chat				
+						chat
 			FROM `".$tbl['group_property']."`";
 
 	return claro_sql_query_fetch_all($sql);
 }
 
 /**
- * 
+ *
  * Read rel_team_user table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function read_group_rel_team_user_from_db($course_id)
 {
@@ -990,12 +990,12 @@ function read_group_rel_team_user_from_db($course_id)
 	return claro_sql_query_fetch_all($sql);
 }
 /**
- * 
+ *
  * Read group_team table in db and put its data into an array
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, the array  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, the array
  */
 function read_group_team_from_db($course_id)
 {
@@ -1005,60 +1005,60 @@ function read_group_team_from_db($course_id)
 							description,
 							tutor,
 							maxStudent,
-							secretDirectory									
+							secretDirectory
 			FROM `".$tbl['group_team']."`";
 
 	return claro_sql_query_fetch_all($sql);
 }
 
 /**
- * 
+ *
  * Export group documents into file "group.zip"
- *  
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
- * @return false if a problem occured, true if not  
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
+ * @return false if a problem occured, true if not
  */
 function export_group_document($course_id)
-{	 
+{
 	return export_tool_document($course_id, "CLGRP");
 }
 
 
 /**
- * 
+ *
  * Export a directory from "rootsys"/courses/"course_id"
  * to a zip file of the same name
- *  
- * 
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $course_id    
+ *
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $course_id
  * @param  string  $toolName     - name of the directory
- * @return false if a problem occured, true if not  
+ * @return false if a problem occured, true if not
  */
 function export_tool_document($course_id, $toolId)
-{	
+{
 	$context[CLARO_CONTEXT_COURSE] = $course_id;
-	$course_path = claro_get_data_path($context);    
-    $context[CLARO_CONTEXT_TOOLLABEL] = $toolId;    	
+	$course_path = claro_get_data_path($context);
+    $context[CLARO_CONTEXT_TOOLLABEL] = $toolId;
     $course_tool_path = claro_get_data_path($context);
-    
+
 	//test if the course folder exist
 	if (file_exists($course_path) && is_dir($course_path))
-	{							
+	{
 		//test if the course tool folder exist
 		if (file_exists($course_tool_path) && is_dir($course_tool_path))
-		{		
-			
+		{
+
 			//test if no error occured while compressing
 			if (false !== compress_directory($course_tool_path))
 			{
-			
+
 				$tool_zip_folder_path = $course_path.basename($course_tool_path).".zip";
-				
+
 				$tool_zip_export_folder_path = EXPORT_PATH.$course_id.'/tools/'.$toolId.'/'.$toolId.".zip";
-				
-				//test if the temporary export folder exist 
+
+				//test if the temporary export folder exist
 				if (!file_exists(dirname($tool_zip_export_folder_path)) && !is_dir($tool_zip_export_folder_path))
 				{
 					claro_mkdir(dirname($tool_zip_export_folder_path),0777,TRUE);
@@ -1074,31 +1074,31 @@ function export_tool_document($course_id, $toolId)
 			} else
 				return claro_failure :: set_failure("document_export_failed");
 		} else{/*nothing to do*/}
-			
+
 	} else
 		return claro_failure :: set_failure("document_export_failed");
 }
- 
+
 /**
- * 
- * Dump the dom file   
- * 
- * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
- * @param  string  $data_type    - "metadata" or "tool", it's the name of the directory where the file must be 
- * 								   this is user to separate the metadata from the tool data    
+ *
+ * Dump the dom file
+ *
+ * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+ * @param  string  $data_type    - "metadata" or "tool", it's the name of the directory where the file must be
+ * 								   this is user to separate the metadata from the tool data
  * @param  string  $toolName     - name of the directory
  * @param  object  $dom          - the dom object contained the info to put in file
- * @param  string  $course_id 
+ * @param  string  $course_id
  * @return the path of the tool folder if it exist, false if not
  */
 function dump_file($data_type,$toolName,$dom,$course_id)
 {
 	$foo = EXPORT_PATH . '/' . $course_id . '/' . $data_type . '/' . $toolName . '/';
 	if (!file_exists($foo)) claro_mkdir($foo,0777,TRUE);
-			
+
 	$result = $dom->dump_file( $foo . $toolName . '.xml', true, false);
 	if ($result == 0)
-		return claro_failure :: set_failure('cant_write_xml_file');	
+		return claro_failure :: set_failure('cant_write_xml_file');
 	return true;
 }
 ?>

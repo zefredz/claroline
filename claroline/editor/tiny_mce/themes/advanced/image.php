@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * 
+ *
  *
  * @version 1.8 $Revision$
  *
@@ -40,7 +40,7 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
 
     if ( ! file_exists($uploadDirPathSys) )
     {
-        claro_mkdir($uploadDirPathSys);
+        claro_mkdir($uploadDirPathSys, CLARO_FILE_PERMISSIONS, true);
     }
 
     if( is_dir($uploadDirPathSys) && strstr($imgFile['type'], 'image') )
