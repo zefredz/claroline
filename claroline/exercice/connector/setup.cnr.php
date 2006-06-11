@@ -109,7 +109,7 @@ $sql= "
     )";
 
 claro_sql_query($sql);
-claro_mkdir($coursesRepositorySys . $courseRepository . '/exercise', CLARO_FILE_PERMISSIONS);
+claro_mkdir(get_conf('coursesRepositorySys') . $courseRepository . '/exercise', CLARO_FILE_PERMISSIONS);
 }
 
 /**

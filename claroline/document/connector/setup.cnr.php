@@ -45,7 +45,7 @@ function CLDOC_install_tool($context,$contextData)
         claro_sql_query($sql);
 
         $courseRepository = claro_get_course_path($contextData);
-        claro_mkdir($GLOBALS['coursesRepositorySys'] . $courseRepository . '/document', CLARO_FILE_PERMISSIONS);
+        claro_mkdir(get_conf('coursesRepositorySys') . $courseRepository . '/document', CLARO_FILE_PERMISSIONS);
         return true;
     }
     elseif (CLARO_CONTEXT_GROUP == $context)
@@ -54,7 +54,7 @@ function CLDOC_install_tool($context,$contextData)
         // Groups don't need table.
         $courseRepository = claro_get_course_path($contextData[CLARO_CONTEXT_COURSE]);
         $group = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP],$contextData[CLARO_CONTEXT_COURSE]);
-        claro_mkdir($GLOBALS['coursesRepositorySys'] . $courseRepository .'/group/' . $group['directory'] . '/document', CLARO_FILE_PERMISSIONS);
+        claro_mkdir(get_conf('coursesRepositorySys') . $courseRepository .'/group/' . $group['directory'] . '/document', CLARO_FILE_PERMISSIONS);
         return true;
     }
     else return claro_failure::set_failure($context.'_not_implemented');

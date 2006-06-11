@@ -135,7 +135,7 @@ function CLLNP_enable_tool($context,$contextData)
     global $langSampleLearnPath, $langSampleLearnPathDesc, $langSampleDocument,
            $langSampleDocumentDesc, $langExerciceEx, $langSampleExerciseDesc ;
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextData));
-      $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
+    $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
     $TABLEMODULE             = $tbl_cdb_names['lp_module'];//  "lp_module";
     $TABLELEARNPATHMODULE    = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
     $TABLEASSET              = $tbl_cdb_names['lp_asset'];//  "lp_asset";
