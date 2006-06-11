@@ -183,7 +183,7 @@ function define_course_keys ($wantedCode,
         {
             trigger_error('too many try for ' .  $wantedCode ,E_USER_WARNING);
             return FALSE;
-            
+
         }
     }
 
@@ -261,9 +261,6 @@ function prepare_course_repository($courseRepository, $courseId)
  * Add starting files in course
  *
  * @param   string  $courseDbName partial dbName form course table tu build real DbName
- * @global  boolean singleDbEnabled   whether all campus use only one DB
- * @global  string  courseTablePrefix common prefix for all table of courses
- * @global  string  dbGlu glu between logical name of DB and logical name of table 267
  *
  * @author Christophe Gesché <moosh@claroline.net>
  * @version 1.0
@@ -318,7 +315,7 @@ function update_db_course($courseDbName)
     $TABLEQWZEXERCISE         = $tbl_cdb_names['qwz_exercise'];
     $TABLEQWZQUESTION   = $tbl_cdb_names['qwz_question'];
     $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
-    
+
     //  Exercise answers
     $TABLEQWZANSWERTRUEFALSE = $tbl_cdb_names['qwz_answer_truefalse'];
     $TABLEQWZANSWERMULTIPLECHOICE = $tbl_cdb_names['qwz_answer_multiple_choice'];
@@ -551,7 +548,7 @@ function update_db_course($courseDbName)
         `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'ALLOWED',
     PRIMARY KEY  (`id`)
     )";
-    
+
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZQUESTION."` (
         `id` int(11) NOT NULL auto_increment,
@@ -562,14 +559,14 @@ function update_db_course($courseDbName)
         `grade` float NOT NULL default '0',
     PRIMARY KEY  (`id`)
     )";
-    
+
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZRELEXERCISEQUESTION."` (
         `exerciseId` int(11) NOT NULL,
         `questionId` int(11) NOT NULL,
         `rank` int(11) NOT NULL default '0'
     )";
-    
+
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERTRUEFALSE."` (
         `id` int(11) NOT NULL auto_increment,
@@ -581,7 +578,7 @@ function update_db_course($courseDbName)
         `correctAnswer` enum('TRUE','FALSE') NOT NULL,
         PRIMARY KEY  (`id`)
     )";
-    
+
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERMULTIPLECHOICE."` (
         `id` int(11) NOT NULL auto_increment,
@@ -592,7 +589,7 @@ function update_db_course($courseDbName)
         `comment` text NOT NULL,
         PRIMARY KEY  (`id`)
     )";
-    
+
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERFIB."` (
         `id` int(11) NOT NULL auto_increment,
@@ -603,7 +600,7 @@ function update_db_course($courseDbName)
         `type` tinyint(4) NOT NULL,
         PRIMARY KEY  (`id`)
     )";
-    
+
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERMATCHING."` (
         `id` int(11) NOT NULL auto_increment,
@@ -986,7 +983,7 @@ function fill_db_course($courseDbName,$language)
     $TABLEQWZEXERCISE   = $tbl_cdb_names['qwz_exercise'];
     $TABLEQWZQUESTION   = $tbl_cdb_names['qwz_question'];
     $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
-    
+
     //  Exercise answers
     $TABLEQWZANSWERTRUEFALSE = $tbl_cdb_names['qwz_answer_truefalse'];
     $TABLEQWZANSWERMULTIPLECHOICE = $tbl_cdb_names['qwz_answer_multiple_choice'];
@@ -1066,8 +1063,8 @@ function fill_db_course($courseDbName,$language)
        '0',       '1',       NULL,       NULL,       NULL       )");
 
     ############################## GROUPS ###########################################
-    claro_sql_query("INSERT INTO `".$TABLECOURSEPROPERTIES."` 
-                            (`name`, `value`, `category`) 
+    claro_sql_query("INSERT INTO `".$TABLECOURSEPROPERTIES."`
+                            (`name`, `value`, `category`)
                     VALUES  ('self_registration', '1', 'GROUP'),
                             ('nbGroupPerUser'   , '1', 'GROUP'),
                             ('private'          , '1', 'GROUP'),
@@ -1102,14 +1099,14 @@ function fill_db_course($courseDbName,$language)
     $questionId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZQUESTION."` (`title`, `description`, `attachment`, `type`, `grade`)
                 VALUES
                 ('".addslashes(get_lang('sampleQuizQuestionTitle'))."', '".addslashes(get_lang('sampleQuizQuestionText'))."', '', 'MCMA', '10' )");
-    
+
     claro_sql_query("INSERT INTO `".$TABLEQWZANSWERMULTIPLECHOICE."`(`questionId`,`answer`,`correct`,`grade`,`comment`)
                 VALUES
                 ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer1'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer1Comment'))."'),
                 ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer2'))."','0','-5','".addslashes(get_lang('sampleQuizAnswer2Comment'))."'),
                 ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer3'))."','1','5','".addslashes(get_lang('sampleQuizAnswer3Comment'))."'),
                 ('".$questionId."','".addslashes(get_lang('sampleQuizAnswer4'))."','1','5','".addslashes(get_lang('sampleQuizAnswer4Comment'))."')");
-    
+
 // create exercise
     $exerciseId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZEXERCISE."` (`title`, `description`, `visibility`, `startDate`, `endDate`)
                 VALUES
