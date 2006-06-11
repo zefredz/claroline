@@ -250,7 +250,7 @@ foreach ($moduleList as $module)
 
     if (!file_exists(get_module_path($module['label'])))
     {
-        $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.',array('%module_name'=>$module_DB)).'<br/>';
+        $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.',array('%module_name'=>$module['label'])).'<br/>';
     }
 
 }
