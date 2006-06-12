@@ -111,9 +111,9 @@ function delete_class($class_id)
     $tbl_mdb_names      = claro_sql_get_main_tbl();
     $tbl_user           = $tbl_mdb_names['user'];
     $tbl_class_user     = $tbl_mdb_names['rel_class_user'];
-    $tbl_course_class     = $tbl_mdb_names['rel_course_class'];
+    $tbl_course_class   = $tbl_mdb_names['rel_course_class'];
     $tbl_class          = $tbl_mdb_names['class'];
-    $tbl_course            = $tbl_mdb_names['course'];
+    $tbl_course         = $tbl_mdb_names['course'];
     
     // 1 - See if there is a class with such ID in the main DB
 
@@ -122,9 +122,9 @@ function delete_class($class_id)
             WHERE `id` = '" . $class_id . "' ";
     $result = claro_sql_query_fetch_all($sql);
     
-    if ( !isset($result[0]['id']))
+    if ( !isset($result[0]['id']) )
     {
-        return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
+        return claro_failure::set_failure('class_not_found'); // the class doesn't exist
     }
 
     // 2 - check if class contains some children
@@ -136,11 +136,10 @@ function delete_class($class_id)
 
     if ($has_children)
     {
-        return get_lang('Error : the class has sub-classes');
+        return claro_failure::set_failure('class_has_sub_classes'); // the class doesn't exist
     }
     else
-    {
-        
+    { 
         // 3 - Get the list of user and remove each from class 
 
         $sql = "SELECT * 
@@ -164,7 +163,7 @@ function delete_class($class_id)
         {
             foreach ($courseList as $course)
             {
-                user_remove_from_course($user['user_id'], $course['code'], false , TRUE); 
+                user_remove_from_course($user['user_id'], $course['code'], false , true); 
             }
         }
         
@@ -210,7 +209,7 @@ function move_class($class_id, $class_id_towards)
     // 1 - Check if $class_id is different with $move_class_id
     if ($class_id == $class_id_towards)
     {
-        return get_lang('ErrorMove');
+        return claro_failure::set_failure('move_same_class');
     }
     
     // 2 - Check if $class_id and $moved_class_id are in the main DB
@@ -223,10 +222,10 @@ function move_class($class_id, $class_id_towards)
     
     if ( !isset($result[0]['id']))
     {
-        return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
+        return claro_failure::set_failure('class_not_found'); // the class doesn't exist
     }
     
-    if ( $class_id_towards !== "root" )
+    if ( $class_id_towards != 0 )
     {    
         $sql = "SELECT `id`
                 FROM `" . $tbl_class . "`
@@ -235,7 +234,7 @@ function move_class($class_id, $class_id_towards)
         
         if ( !isset($result[0]['id']))
         {
-        return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
+            return claro_failure::set_failure('class_not_found'); // the parent class doesn't exist
         }
     }
     else
@@ -264,7 +263,7 @@ function move_class($class_id, $class_id_towards)
         user_add_to_class($user['user_id'],$class_id_towards);
     }
     
-    return get_lang('ClassMoved');
+    return true ;
 }
 
 /**
@@ -278,16 +277,13 @@ function move_class($class_id, $class_id_towards)
 function register_class_to_course($class_id, $course_code)
 {
     $tbl_mdb_names  = claro_sql_get_main_tbl();
-    $tbl_user       = $tbl_mdb_names['user'];
-    $tbl_class_user = $tbl_mdb_names['rel_class_user'];
-    $tbl_class      = $tbl_mdb_names['class'];
-    
+    $tbl_class        = $tbl_mdb_names['class'];
     $tbl_class_user   = $tbl_mdb_names['rel_class_user'];
     $tbl_course_class = $tbl_mdb_names['rel_course_class'];
-  	$tbl_class        = $tbl_mdb_names['class'];
   	$tbl_course       = $tbl_mdb_names['course'];
+    $tbl_user         = $tbl_mdb_names['user'];
 
-    //1.get cours_id with cours_code in cl_cours and check course
+    // 1.get cours_id with cours_code in cl_cours and check course
 	
 	$sql = "SELECT `cours_id`, `code`
 				FROM `".$tbl_course."` 
@@ -297,7 +293,7 @@ function register_class_to_course($class_id, $course_code)
 	
     if ( !isset($course_identifier[0]['code']))
     {
-        return claro_failure::set_failure('COURSE_NOT_FOUND');
+        return claro_failure::set_failure('course_not_found');
 		//TODO : aéméliorer la détection d'erreur
     }
 	
@@ -312,12 +308,14 @@ function register_class_to_course($class_id, $course_code)
 	
     if ( !isset($result[0]['id']))
     {
-        return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
+        return claro_failure::set_failure('class_not_found'); // the class doesn't exist
     }
 
     // 3. get the list of users in this class
 
-    $sql = "SELECT *
+    $sql = "SELECT u.user_id,
+                   u.nom as lastname,
+                   u.prenom as firstname
             FROM `" . $tbl_class_user . "` AS `rel_c_u`,
                  `" . $tbl_user . "`       AS `u`
                     WHERE `class_id`= " . (int) $class_id . "
@@ -333,7 +331,7 @@ function register_class_to_course($class_id, $course_code)
     {
         $done = user_add_to_course($user['user_id'], $course_code, false, false, true);
 
-        if ($done)
+        if ( $done )
         {
             $resultLog['OK'][] = $user;
         }
@@ -362,7 +360,7 @@ function register_class_to_course($class_id, $course_code)
 		claro_sql_query($sql);	
 	}
 
-    //find subclasses of current class
+    // Find subclasses of current class
 
     $sql = "SELECT `id`
             FROM `" . $tbl_class . "`
@@ -370,7 +368,7 @@ function register_class_to_course($class_id, $course_code)
 
     $subClassesList = claro_sql_query_fetch_all($sql);
 
-    //RECURSIVE CALL to register subClasses too
+    // RECURSIVE CALL to register subClasses too
 
     if (!isset($resultLog['OK'])) $resultLog['OK'] = array();
     if (!isset($resultLog['KO'])) $resultLog['KO'] = array();
@@ -688,29 +686,32 @@ function user_remove_to_class($user_id,$class_id)
 
 function display_tree_class_in_admin ($class_list, $parent_class = null, $deep = 0)
 {
-
-    //global variables needed
+    // Global variables needed
 
     global $clarolineRepositoryWeb;
     global $imgRepositoryWeb;
 
-    foreach ($class_list as $cur_class)
+    $html_form = '';
+
+    foreach ( $class_list as $cur_class )
     {
 
-        if (($parent_class == $cur_class['class_parent_id']))
+        if ( ( $parent_class == $cur_class['class_parent_id']) )
         {
 
-            //Set space characters to add in name display
+            // Set space characters to add in name display
 
             $blankspace = '&nbsp;&nbsp;&nbsp;';
-            for ($i = 0; $i < $deep; $i++)
+
+            for ( $i = 0; $i < $deep; $i++ )
             {
                 $blankspace .= '&nbsp;&nbsp;&nbsp;';
             }
 
-            //see if current class to display has children
+            // See if current class to display has children
 
             $has_children = FALSE;
+
             foreach ($class_list as $search_parent)
             {
                 if ($cur_class['id'] == $search_parent['class_parent_id'])
@@ -726,14 +727,14 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
             {
                 if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
                 {
-                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exClose&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
                     .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
-                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
                     .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
@@ -741,7 +742,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
             }
             else
             {
-                $open_close_link =" ° ";
+                $open_close_link = ' &deg; ';
             }
 
             //DISPLAY CURRENT ELEMENT (CLASS)
@@ -750,49 +751,52 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
             $qty_user = get_class_user_number($cur_class['id']);
             $qty_cours = get_class_cours_number($cur_class['id']);
 
-            echo '<tr>' . "\n"
-            .    '<td>' . "\n"
-            .    '    ' . $blankspace . $open_close_link . ' ' . $cur_class['name']
-            .    '</td>' . "\n"
-            .    '<td align="center">' . "\n"
-            .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $cur_class['id'] . '">' . "\n"
-            .    '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" />' . "\n"
-            .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
-            .    '<td align="center">' . "\n"
-  	        .    '<a href="'.$clarolineRepositoryWeb.'admin/admin_class_cours.php?class='.$cur_class['id'].'">' . "\n"
-  	        .    '<img src="'.$imgRepositoryWeb.'course.gif" border="0"> '
-  	        .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
-  	        .    '</a>' . "\n"
-  	        .    '</td>' . "\n"
-            .    '<td align="center">' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=edit&amp;class=' . $cur_class['id'] . '">' . "\n"
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
-            .    '<td align="center">' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=move&amp;class=' . $cur_class['id'] . '&classname=' . $cur_class['name'] . '">' . "\n"
-            .    '<img src="' . $imgRepositoryWeb . 'move.gif" border="0" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
-            .    '<td align="center">' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF']
-            .    '?cmd=del&amp;class=' . $cur_class['id'] . '"'
-            .    ' onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            ;
+            $html_form .= '<tr>' . "\n"
+                .    '<td>' . "\n"
+                .    '    ' . $blankspace . $open_close_link . ' ' . $cur_class['name']
+                .    '</td>' . "\n"
+                .    '<td align="center">' . "\n"
+                .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $cur_class['id'] . '">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" />' . "\n"
+                .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
+                .    '</a>' . "\n"
+                .    '</td>' . "\n"
+                .    '<td align="center">' . "\n"
+  	            .    '<a href="'.$clarolineRepositoryWeb.'admin/admin_class_cours.php?class='.$cur_class['id'].'">' . "\n"
+      	        .    '<img src="'.$imgRepositoryWeb.'course.gif" border="0"> '
+  	            .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
+      	        .    '</a>' . "\n"
+  	            .    '</td>' . "\n"
+                .    '<td align="center">' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;class_id=' . $cur_class['id'] . '">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" />' . "\n"
+                .    '</a>' . "\n"
+                .    '</td>' . "\n"
+                .    '<td align="center">' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMove&amp;class_id=' . $cur_class['id'] . '&class_name=' . $cur_class['name'] . '">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'move.gif" border="0" />' . "\n"
+                .    '</a>' . "\n"
+                .    '</td>' . "\n"
+                .    '<td align="center">' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;class_id=' . $cur_class['id'] . '"'
+                .    ' onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" />' . "\n"
+                .    '</a>' . "\n"
+                .    '</td>' . "\n"
+                .    '</tr>' . "\n"
+                ;
+
             // RECURSIVE CALL TO DISPLAY CHILDREN
 
-            if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && ($_SESSION['admin_visible_class'][$cur_class['id']]=="open"))
+            if ( isset($_SESSION['admin_visible_class'][$cur_class['id']]) && ($_SESSION['admin_visible_class'][$cur_class['id']]=="open") )
             {
-                display_tree_class_in_admin($class_list, $cur_class['id'], $deep+1);
+                $html_form .= display_tree_class_in_admin($class_list, $cur_class['id'], $deep+1);
             }
         }
     }
+
+    return $html_form ;
+
 }
 
 /**
@@ -884,13 +888,15 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
 
     $tbl_mdb_names  = claro_sql_get_main_tbl();
 
-	$tbl_cours_class 	= $tbl_mdb_names['rel_cours_class'];
-	$tbl_cours			= $tbl_mdb_names['course'];
+	$tbl_course_class 	= $tbl_mdb_names['rel_course_class'];
+	$tbl_course			= $tbl_mdb_names['course'];
 
-	//Get the course id with cours code
-	$sql = "SELECT `cours_id`
-				FROM `".$tbl_cours."`
-				WHERE `code` = '".$course_code."'";
+    $html_form = '';
+
+	// Get the course id with cours code
+	$sql = "SELECT `C`.`cours_id`
+	    	FROM `".$tbl_course."` as C 
+			WHERE `code` = '".$course_code."'";
 				
 	$cours_id = claro_sql_query_get_single_value($sql);
 
@@ -898,8 +904,7 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
     {
         if (($parent_class==$cur_class['class_parent_id']))
         {
-
-            //Set space characters to add in name display
+            // Set space characters to add in name display
 
             $blankspace = '&nbsp;&nbsp;&nbsp;';
             for ($i = 0; $i < $deep; $i++)
@@ -907,7 +912,7 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
                 $blankspace .= '&nbsp;&nbsp;&nbsp;';
             }
 
-            //see if current class to display has children
+            // See if current class to display has children
 
             $has_children = FALSE;
             foreach ($class_list as $search_parent)
@@ -919,21 +924,21 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
                 }
             }
 
-            //Set link to open or close current class
+            // Set link to open or close current class
 
             if ($has_children)
             {
                 if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && $_SESSION['class_add_visible_class'][$cur_class['id']]=="open")
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF']
-                    .                  '?cmd=exClose&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    .                  '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
                     .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
-                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class=' . $cur_class['id'] . '">' . "\n"
+                    $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
                     .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
@@ -941,40 +946,54 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             }
             else
             {
-                $open_close_link = '°';
+                $open_close_link = ' &deg; ';
             }
 
-            //DISPLAY CURRENT ELEMENT (CLASS)
+            // Display current class
 
-            //Name
+            $qty_user = get_class_user_number($cur_class['id']) ; // Need some optimisation here ...
 
-            echo '<tr>' . "\n"
+            $html_form .= '<tr>' . "\n"
             .    '<td>' . "\n"
-            .    $blankspace.$open_close_link." ".$cur_class['name'] . "\n"
+            .    $blankspace.$open_close_link." ".$cur_class['name']
             .    '</td>' . "\n"
             .    '<td align="center">' . "\n"
-            .    $qty_user . '  ' . get_lang('UsersMin') . "\n"
+            .    $qty_user . '  ' . get_lang('UsersMin') 
             .    '</td>' . "\n"
-            .    '<td align="center">' . "\n"
-            .    '<a onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');" href="' . $_SERVER['PHP_SELF'] . '?cmd=subscribe&amp;class=' . $cur_class['id'] . '&amp;classname=' . $cur_class['name'] . '">' . "\n"
-            .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Subscribe to course') . '" />' . "\n"
-            .    '</a>' . "\n"
-            .    '</td>' . "\n"
+            .    '<td align="center">' . "\n" ;
+
+            if ( empty($cur_class['course_id']) )
+            {
+                $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exEnrol&amp;class_id=' . $cur_class['id'] . '"'
+                .    ' onClick="return confirmation_enrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' 
+                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrol to course') . '" />' . "\n"
+                .    '</a>' . "\n";
+            }
+            else
+            {
+                $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnenrol&amp;class_id=' . $cur_class['id'] . '"'
+                .    ' onClick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' 
+                .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol to course') . '" />' . "\n"
+                .    '</a>' . "\n";
+            }
+
+            echo '</td>' . "\n"
             .    '</tr>' . "\n"
             ;
             // RECURSIVE CALL TO DISPLAY CHILDREN
 
-            if (isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && ($_SESSION['class_add_visible_class'][$cur_class['id']]=="open"))
+            if ( isset($_SESSION['class_add_visible_class'][$cur_class['id']]) && ($_SESSION['class_add_visible_class'][$cur_class['id']]=='open'))
             {
-                display_tree_class_in_user($class_list, $cur_class['id'], $deep+1);
+                $html_form .= display_tree_class_in_user($class_list, $course_code, $cur_class['id'], $deep+1);
             }
         }
     }
+    return $html_form;
 }
 
 
 /**
- *This function create the select box to choose the parent class
+ * This function create the select box to choose the parent class
  *
  * @param  the pre-selected class'id in the select box
  * @param  space to display for children to show deepness
@@ -993,8 +1012,8 @@ function displaySelectBox($selected=null,$space="&nbsp;&nbsp;&nbsp;")
              ORDER BY `name`";
     $classes = claro_sql_query_fetch_all($sql);
 
-    $result = '<select name="theclass">' . "\n"
-    .         '<option value="root">' . get_lang('Root') . '</option>';
+    $result = '<select name="class_parent_id">' . "\n"
+    .         '<option value="0">' . get_lang('Root') . '</option>';
     $result .= buildSelectClass($classes,$selected,null,$space);
     $result .= '</select>' . "\n";
     return $result;
