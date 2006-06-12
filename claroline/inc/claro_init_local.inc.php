@@ -538,54 +538,20 @@ if ( $cidReset ) // course session data refresh requested
 
     if ( $cidReq )
     {
-        $sql =  "SELECT c.code                           AS sysCode             ,
-                        c.intitule                       AS name                ,
-                        c.fake_code                      AS officialCode        ,
-                        c.directory                      AS path                ,
-                        c.dbName                         AS dbName              ,
-                        c.titulaires                     AS titular             ,
-                        c.email                          AS email               ,
-                        c.languageCourse                 AS language            ,
-                        c.departmentUrl                  AS extLinkUrl          ,
-                        c.departmentUrlName              AS extLinkName         ,
-                        (c.visible = 2 OR c.visible = 3) AS visibility          ,
-                        (c.visible = 1 OR c.visible = 2) AS registrationAllowed ,
-                        cat.code                         AS categoryCode        ,
-                        cat.name                         AS categoryName
-                 FROM     `".$tbl_course."`    `c`
-                 LEFT JOIN `".$tbl_category."` `cat`
-                 ON `c`.`faculte` =  `cat`.`code`
-                 WHERE `c`.`code` = '". addslashes($cidReq) ."'";
+        $_course = claro_get_course_data($cidReq, true);
 
-        $_course = claro_sql_query_get_single_row($sql);
+        if ($_course == false) die('WARNING !! INIT FAILED ! '.__LINE__);
 
-        if ( is_array($_course) )
-        {
-            $_cid                           =        $_course['sysCode'             ];
-            $_course['visibility'         ] = (bool) $_course['visibility'          ];
-            $_course['registrationAllowed'] = (bool) $_course['registrationAllowed' ];
-            $_course['dbNameGlu'          ] = get_conf('courseTablePrefix') . $_course['dbName'] . get_conf('dbGlu'); // used in all queries
+        $_cid    = $_course['sysCode'];
 
-            // read of group tools config related to this course
+        $_groupProperties = claro_get_main_group_properties($_cid);
 
-            $_groupProperties = claro_get_main_group_properties($_cid);
-
-            if ($_groupProperties == false) die('WARNING !! INIT FAILED ! '.__LINE__);
-
-        }
-        else
-        {
-            exit('WARNING UNDEFINED CID !! ');
-        }
+        if ($_groupProperties == false) die('WARNING !! INIT FAILED ! '.__LINE__);
     }
     else
     {
         $_cid    = null;
         $_course = null;
-
-        //// all groups of these course
-        ///  ( theses properies  are from the link  between  course and  group,
-        //// but a group  can be only in one course)
 
         $_groupProperties ['registrationAllowed'] = false;
         $_groupProperties ['tools'] ['forum'    ] = false;
