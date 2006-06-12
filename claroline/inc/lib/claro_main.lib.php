@@ -45,55 +45,62 @@ require_once(dirname(__FILE__) . '/module.lib.php');
  * @since 1.7
  */
 
-function claro_get_course_data($course_id = NULL)
+function claro_get_course_data($courseId = NULL, $force = false )
 {
-    global $_cid, $_course ;
-    static $courseDataInCache='';
-    static $_courseDatas = array();
-    if ( is_null($course_id) )
-    {
-        $course_id = $_cid;
-        $_courseDatas  = $_course;
-        $courseDataInCache = $_cid;
-    }
-    else
-    {
-        if($courseDataInCache != $course_id)
-        {
-            $tbl_mdb_names =  claro_sql_get_main_tbl();
-            $sql =  "SELECT
-                    `c`.`code`              AS `sysCode`,
-                    `c`.`intitule`          AS `name`,
-                    `c`.`fake_code`         AS `officialCode`,
-                    `c`.`directory`         AS `path`,
-                    `c`.`dbName`            AS `dbName`,
-                    `c`.`titulaires`        AS `titular`,
-                    `c`.`email`             AS `email`  ,
-                    `c`.`enrollment_key`    AS `enrollmentKey` ,
-                    `c`.`languageCourse`    AS `language`,
-                    `c`.`departmentUrl`     AS `extLinkUrl`,
-                    `c`.`departmentUrlName` AS `extLinkName`,
-                    `c`.`visible`           AS `visible`,
-                    `cat`.`code`            AS `categoryCode`,
-                    `cat`.`name`            AS `categoryName`,
-                    `c`.`diskQuota`         AS `diskQuota`
-             FROM `" . $tbl_mdb_names['course'] . "`        AS `c`
-             LEFT JOIN `" . $tbl_mdb_names['category'] . "` AS `cat`
-             ON `c`.`faculte` =  `cat`.`code`
-             WHERE `c`.`code` = '" . addslashes($course_id) . "'";
-            $_courseDatas = claro_sql_query_fetch_all($sql);
-            if (!is_array($_courseDatas) || 0 == count($_courseDatas))
-                return claro_failure::set_failure('course_not_found');
-            ;
-            $_courseDatas = $_courseDatas[0];
-            $courseDataInCache = $course_id;
-            $_courseDatas['visibility'  ]         = (bool) (2 == $_courseDatas['visible'] || 3 == $_courseDatas['visible'] );
-            $_courseDatas['registrationAllowed']  = (bool) (1 == $_courseDatas['visible'] || 2 == $_courseDatas['visible'] );
-            $_courseDatas['dbNameGlu'] = get_conf('courseTablePrefix') . $_courseDatas['dbName'] . get_conf('dbGlu'); // use in all queries
-        }
+    $courseDataList = null;
 
-    } // end if ( count($course_tbl) == 0 )
-    return $_courseDatas;
+    static $cachedDataList = null;
+
+    if ( ! $force)
+    {
+        if ( $cachedDataList && $courseId == $cachedDataList['sysCode'] )
+        {
+            $courseDataList = $cachedDataList;
+        }
+        elseif ( ( is_null($courseId) && $GLOBALS['_cid']) )
+        {
+            $courseDataList = $GLOBALS['_course'];
+        }
+    }
+
+    if ( ! $courseDataList )
+    {
+        $tbl_mdb_names =  claro_sql_get_main_tbl();
+
+        $sql =  "SELECT
+                c.code              AS sysCode,
+                c.intitule          AS name,
+                c.fake_code         AS officialCode,
+                c.directory         AS path,
+                c.dbName            AS dbName,
+                c.titulaires        AS titular,
+                c.email             AS email  ,
+                c.enrollment_key    AS enrollmentKey ,
+                c.languageCourse    AS language,
+                c.departmentUrl     AS extLinkUrl,
+                c.departmentUrlName AS extLinkName,
+                c.visible           AS visible,
+                cat.code            AS categoryCode,
+                cat.name            AS categoryName,
+                c.diskQuota         AS diskQuota
+
+                FROM      `" . $tbl_mdb_names['course'] . "`   AS c
+                LEFT JOIN `" . $tbl_mdb_names['category'] . "` AS cat
+                        ON c.faculte =  cat.code
+                WHERE c.code = '" . addslashes($courseId) . "'";
+
+        $courseDataList = claro_sql_query_get_single_row($sql);
+
+        if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
+
+        $courseDataList['visibility'         ] = (bool) (2 == $courseDataList['visible'] || 3 == $courseDataList['visible'] );
+        $courseDataList['registrationAllowed'] = (bool) (1 == $courseDataList['visible'] || 2 == $courseDataList['visible'] );
+        $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
+
+        $cachedDataList = $courseDataList; // cache for the next time ...
+    }
+
+    return $courseDataList;
 }
 
 
