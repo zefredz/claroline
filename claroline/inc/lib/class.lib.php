@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
@@ -15,6 +16,85 @@
  *
  * @since 1.6
  */
+
+/**
+ * Get class data on the platform
+ * @param integer $classId
+ *
+ * @return  array( `id`, `name`, `class_parent_id`, `class_level`)
+ */
+
+function class_get_properties ( $classId )
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_class     = $tbl_mdb_names['class'];
+
+    $sql = "SELECT id,
+                   name,
+                   class_parent_id,
+                   class_level                   
+            FROM `" . $tbl_class . "`
+            WHERE `id`= ". (int) $classId ;
+
+    $result = claro_sql_query_get_single_row($sql);
+
+    if ( $result ) return $result;
+    else           return claro_failure::set_failure('class_not_found');
+}
+
+/**
+ * Add a new class
+ *
+ * @param $className
+ * @param $parentId
+ *
+ */
+
+function class_create ( $className, $parentId )
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_class     = $tbl_mdb_names['class'];
+
+    $className = trim($className);
+    $parentId = (int) $parentId; 
+
+    $sql = "INSERT INTO `" . $tbl_class . "`
+            SET `name`='". addslashes($className) ."'";
+
+    if ( $parentId != 0 )
+    {
+        $sql.=", `class_parent_id`= ". (int) $parentId;
+    }
+
+    return claro_sql_query($sql);
+}
+
+/**
+ * Update class data
+ * @param $classId integer
+ * @param $className string
+ * @param $parentId integer  
+ */
+
+function class_set_properties ( $classId, $className, $parentId = 0 )
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_class     = $tbl_mdb_names['class'];
+
+    $className = trim($className);
+
+    $sql = "UPDATE `". $tbl_class ."`
+            SET name='". addslashes($className) ."'";
+
+    if ( $parentId != 0 )
+    {
+        $sql.=", `class_parent_id`= ". (int) $parentId;
+    } 
+
+    $sql .= "WHERE id= " . (int) $classId ;
+
+    return claro_sql_query($sql);
+}
 
 /**
  * This function delete a class and all this trace
@@ -186,8 +266,6 @@ function move_class($class_id, $class_id_towards)
     
     return get_lang('ClassMoved');
 }
-
-
 
 /**
  * Enter description here...
@@ -865,14 +943,6 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             {
                 $open_close_link = '°';
             }
-
-/*
-            $sqlcount="SELECT COUNT(`user_id`) AS qty_user
-                       FROM `" . $tbl_class_user . "`
-                       WHERE `class_id`= " . (int) $cur_class['id'];
-            $qty_user = claro_sql_query_get_single_value($sqlcount);
-*/
-
 
             //DISPLAY CURRENT ELEMENT (CLASS)
 
