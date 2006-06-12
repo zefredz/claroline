@@ -35,11 +35,10 @@ $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Class regi
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
 
-
-
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
+
 if (isset($cmd) && $is_platformAdmin)
 {
     if ($cmd == 'exReg')
@@ -51,7 +50,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['OK'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="green">OK</font>] ' . get_lang('<i>%firstname %lastname</i> has been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
+                $outputResultLog .= '[<font color="green">OK</font>] ' . get_lang('<i>%firstname %lastname</i> has been sucessfully registered to the course',array('%firstname'=>$thisUser['firstname'], '%lastname'=>$thisUser['lastname'])) . '<br />';
             }
         }
 
@@ -59,7 +58,7 @@ if (isset($cmd) && $is_platformAdmin)
         {
             foreach($resultLog['KO'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="red">KO</font>] ' . get_lang('<i>%firstname %lastname</i> has not been sucessfully registered to the course',array('%firstname'=>$thisUser['prenom'], '%lastname'=>$thisUser['nom'])) . '<br />';
+                $outputResultLog .= '[<font color="red">KO</font>] ' . get_lang('<i>%firstname %lastname</i> has not been sucessfully registered to the course',array('%firstname'=>$thisUser['firstname'], '%lastname'=>$thisUser['lastname'])) . '<br />';
             }
         }
     }
