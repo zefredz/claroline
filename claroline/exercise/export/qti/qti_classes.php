@@ -56,9 +56,22 @@ class ImsQuestion extends Question
      * @author Guillaume Lederer <guillaume@claroline.net>
      */
 
-    function import($questionArray)
+    function import($questionArray, $exerciseTempPath)
     {
+        //import answers
+
         $this->answer->import($questionArray);
+
+        //import attached file, if any
+
+        if (isset($questionArray['attached_file_url']))
+        {
+            $file= array();
+            $file['name'] = $questionArray['attached_file_url'];
+            $file['tmp_name'] = $exerciseTempPath.$file['name'];
+
+            $this->setAttachment($file);
+        }
     } 
 } 
 
