@@ -113,16 +113,18 @@ switch ($cmd)
     }
     else
     {
-        $dialogBox = get_lang('The new class has been created');
-        $sql = "INSERT INTO `" . $tbl_class . "`
-                SET `name`='". addslashes($_REQUEST['classname']) ."'";
-
-        if ($_REQUEST['theclass'] && ($_REQUEST['theclass']!='') && ($_REQUEST['theclass']!='root'))
+        $className = isset($_REQUEST['classname'])?$_REQUEST['classname']:'';
+        $classParent = isset($_REQUEST['theclass'])?$_REQUEST['theclass']:0;
+        
+        if ( ! is_int($classParent) )
         {
-            $sql.=", `class_parent_id`= ". (int) $_REQUEST['theclass'];
+            $classParent = 0;
         }
 
-        claro_sql_query($sql);
+        if ( class_create($className,$classParent) )
+        {
+            $dialogBox = get_lang('The new class has been created');
+        }
 
     }
     break;
@@ -136,41 +138,43 @@ switch ($cmd)
     }
     else
     {
-        $sql_update = "UPDATE `".$tbl_class."`
-                       SET name='". addslashes($_REQUEST['classname']) ."'
-                       WHERE id= " . (int) $_REQUEST['class'];
-        claro_sql_query($sql_update);
-        $dialogBox = get_lang('Name of the class has been changed');
-
+        if ( class_set_properties($_REQUEST['class'],$_REQUEST['classname']) ) 
+        {
+            $dialogBox = get_lang('Name of the class has been changed');
+        }
     }
+
     break;
 
     //Show form to edit class properties (display form)
     case 'edit' :
     {
+        if ( ( $thisClass = class_get_properties($_REQUEST['class']) ) !== false )
+        {
+            $classId =  $thisClass['id'];
+            $className =  $thisClass['name'];
 
-        $sqlGetClassName = "SELECT name
-                        FROM `" . $tbl_class . "`
-                        WHERE `id`= ". (int) $_REQUEST['class'];
-
-        $class_name =  claro_sql_query_get_single_value($sqlGetClassName);
-
-        $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
-        .           '<table>' . "\n"
-        .           '<tr>' . "\n"
-        .           '<td>' . "\n"
-        .           get_lang('Name').' : ' . "\n"
-        .           '</td>' . "\n"
-        .           '<td>' . "\n"
-        .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .           '<input type="hidden" name="class" value="' . $_REQUEST['class'].'" />' . "\n"
-        .           '<input type="text" name="classname" value="' . htmlspecialchars($class_name) . '" />' . "\n"
-        .           '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
-        .           '</td>' . "\n"
-        .           '</tr>' . "\n"
-        .           '</table>' . "\n"
-        .           '</form>'."\n "
-        ;
+            $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
+            .           '<table>' . "\n"
+            .           '<tr>' . "\n"
+            .           '<td>' . "\n"
+            .           get_lang('Name').' : ' . "\n"
+            .           '</td>' . "\n"
+            .           '<td>' . "\n"
+            .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+            .           '<input type="hidden" name="class" value="' . $classId . '" />' . "\n"
+            .           '<input type="text" name="classname" value="' . htmlspecialchars($className) . '" />' . "\n"
+            .           '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
+            .           '</td>' . "\n"
+            .           '</tr>' . "\n"
+            .           '</table>' . "\n"
+            .           '</form>'."\n "
+            ;
+        }
+        else
+        {
+            $dialogBox = get_lang('Class not found');
+        }
     }   break;
 
     //Open a class in the tree
