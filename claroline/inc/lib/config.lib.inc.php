@@ -20,6 +20,19 @@
  *
  */
 
+
+/**
+ * To use this class.
+ *
+ * Example :
+ * $fooConfig = new Config('CLFOO');
+ *
+ * $fooConfig->load(); Load property with actual values in configs files.
+ * $fooConfig->save(); write a new config file if (following def file),
+ *                     a property would be in the config file,
+ *                     and this property is in memory,
+ *                     the value would be write in the new config file)
+ */
 class Config
 {
     // config code
@@ -180,6 +193,8 @@ class Config
 
     /**
      * Build the path and filename of the config file
+     *
+     * @return string : complete path and name of config file
      */
 
     function build_conf_filename()
@@ -198,6 +213,8 @@ class Config
 
     /**
      * Get the name of configuration in definition
+     *
+     * @return string name of the current config
      */
 
     function get_conf_name()
@@ -217,6 +234,9 @@ class Config
 
     /**
      * Get the value of a property
+     *
+     * @param string $name value name
+     * @return value of the givent property | null if not found
      */
 
     function get_property($name)
@@ -232,7 +252,12 @@ class Config
     }
 
     /**
-     * Set the value of a property
+     * Set the value of a property with validation.
+     *
+     * @param string $name value name
+     * @param mixed $value content for the property to set
+     *
+     * @return boolean true on success | false if unvalid or unknow value
      */
 
     function set_property($name,$value)
@@ -262,9 +287,13 @@ class Config
      * Given property are checked only if defined in def file.
      *
      * Other are ignored and don't fail the validation
+     *
+     * @param array $newPropertyList array of property => new values
+     * @return boolean : true if ALL know value are valid.
+     *
      */
 
-    function validate($new_property_list)
+    function validate($newPropertyList)
     {
         $valid = true;
 
@@ -272,11 +301,11 @@ class Config
 
         foreach ( $property_name_list as $name )
         {
-            if ( isset($new_property_list[$name]) )
+            if ( isset($newPropertyList[$name]) )
             {
-                if ( $this->validate_property($name,$new_property_list[$name]) )
+                if ( $this->validate_property($name,$newPropertyList[$name]) )
                 {
-                    $this->property_list[$name] = $new_property_list[$name];
+                    $this->property_list[$name] = $newPropertyList[$name];
                 }
                 else
                 {
@@ -290,6 +319,10 @@ class Config
 
     /**
      * Validate value of a property
+     *
+     * @param string $name
+     * @param string $value
+     *
      */
 
     function validate_property($name,$value)
