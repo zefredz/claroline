@@ -69,6 +69,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
 
         $sql =  "SELECT
                 c.code              AS sysCode,
+                c.cours_id          AS courseId,
                 c.intitule          AS name,
                 c.fake_code         AS officialCode,
                 c.directory         AS path,
