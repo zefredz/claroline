@@ -95,11 +95,96 @@ if( $cmd == 'delQu' && !is_null($quId) )
 // export question
 if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
 {
-    include('../export/qti/qti_export.php');
+    include('../export/qti2/qti2_export.php');
 
     // contruction of XML flow
     $xml = export_question($quId);
 
+    //load the question
+    $question = new Question();
+    $question->load($quId);
+
+    //save question xml file
+    $handle = fopen($question->questionDirSys."question_".$quId.".xml", "w");
+    fwrite($handle, $xml);
+    fclose($handle);
+
+    /*
+     * BUILD THE ZIP ARCHIVE
+     */
+
+    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+
+    //do not take ther last char is it is a '/'
+
+    $lastChar = $question->questionDirSys{(strlen($question->questionDirSys)-1)};
+
+    //echo 'lastChar :'. $lastChar.'<br/>';
+
+    if ($lastChar == "/")
+    {
+        $question->questionDirSys = substr($question->questionDirSys,0,-1);
+    }
+
+
+    //find question file to copy
+
+    $filePathList = claro_search_file(search_string_to_pcre(''),
+                                      $question->questionDirSys,
+                                      true,
+                                      'ALL');
+
+    /*echo "filePathList : ";
+    var_dump($filePathList);
+    echo '<br/>';
+
+    die();*/
+
+    //prepare zip
+
+    $downloadArchivePath = $question->questionDirSys.'/'.uniqid(true).'.zip';
+    $downloadArchiveName = basename($question->questionDirSys).'.zip';
+    $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+
+    /*echo 'downloadArchivePath :'.$downloadArchivePath. '<br/>';
+    echo 'downloadArchiveName :'.$downloadArchiveName. '<br/>';
+    echo 'filpathlist :';
+    var_dump($filePathList);
+    echo '<br/>';
+    die();*/
+
+    $downloadArchive     = new PclZip($downloadArchivePath);
+    
+    $downloadArchive->add($filePathList,
+                          PCLZIP_OPT_REMOVE_PATH,
+                          $question->questionDirSys);
+
+    if ( file_exists($downloadArchivePath) )
+    {
+
+        $downloadArchiveSize = filesize($downloadArchivePath);
+
+        /*
+         * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+         */
+        
+        header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        header('Content-type: application/zip');
+        header('Content-Length: '.$downloadArchiveSize);
+        header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
+        readfile($downloadArchivePath);
+        unlink($downloadArchivePath);
+        exit();
+    }
+    else
+    {
+        $dialogBox .= get_lang("Unable to create zip file");
+    }
+
+    /*
     if (!empty($xml))
     {
         header("Content-type: application/xml");
@@ -107,6 +192,7 @@ if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
         echo $xml;
         exit();
     }
+    */
 }
 /*
  * Get list
