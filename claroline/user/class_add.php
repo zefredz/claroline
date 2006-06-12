@@ -33,9 +33,16 @@ require_once $includePath . '/lib/sendmail.lib.php';
 
 $htmlHeadXtra[] =
 '<script>
-    function confirmation (name)
+    function confirmation_enrol (name)
     {
         if (confirm("' . clean_str_for_javascript(get_lang('Are you sure you want to enrol the whole class on the course ?')) . '"))
+            {return true;}
+        else
+            {return false;}
+    }
+    function confirmation_unenrol (name)
+    {
+        if (confirm("' . clean_str_for_javascript(get_lang('Are you sure you want to unenrol the whole class on the course ?')) . '"))
             {return true;}
         else
             {return false;}
@@ -48,51 +55,76 @@ $htmlHeadXtra[] =
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_users           = $tbl_mdb_names['user'             ];
-$tbl_class           = $tbl_mdb_names['user_category'];
-$tbl_class_user      = $tbl_mdb_names['user_rel_profile_category'];
+$tbl_users      = $tbl_mdb_names['user'];
+$tbl_class      = $tbl_mdb_names['class'];
+$tbl_class_user = $tbl_mdb_names['rel_class_user'];
+$tbl_course_class = $tbl_mdb_names['rel_course_class'];
+
 
 /*---------------------------------------------------------------------*/
 /*----------------------EXECUTE COMMAND SECTION------------------------*/
 /*---------------------------------------------------------------------*/
 
-if (isset($_REQUEST['cmd'])) $cmd = $_REQUEST['cmd'];
-else                         $cmd = null;
+$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 
-switch ($cmd)
+$form_data['class_id'] = isset($_REQUEST['class_id'])?$_REQUEST['class_id']:0;
+$form_data['class_name'] = isset($_REQUEST['class_name'])?trim($_REQUEST['class_name']):'';
+
+switch ( $cmd )
 {
-    //Open a class in the tree
+    // Open a class in the tree
     case 'exOpen' :
-    {
-        $_SESSION['class_add_visible_class'][$_REQUEST['class']] = 'open';
-    } break;
 
-    //Close a class in the tree
+        $_SESSION['class_add_visible_class'][$form_data['class_id']] = 'open';
+        break;
+
+    // Close a class in the tree
     case 'exClose' :
-    {
-        $_SESSION['class_add_visible_class'][$_REQUEST['class']] = 'close';
-    } break;
 
-    // subscribe a class to the course
-    case 'subscribe' :
-    {
-        $dialogBox  = '<b>';
-        $dialogBox .= 'Class ' . $_REQUEST['classname'] . ' ' ;
-        $dialogBox .= get_lang('has been enroled');
-        $dialogBox .= '</b><br />';
+        $_SESSION['class_add_visible_class'][$form_data['class_id']] = 'close';
+        break;
 
-        register_class_to_course((int)$_REQUEST['class'],$_cid);
-    }
-    break;
+    // Enrol a class to the course
+
+    case 'exEnrol' :
+        
+        if ( register_class_to_course( $form_data['class_id'], $_cid) ) 
+        {
+            $dialogBox  = get_lang('Class has been enroled') ;
+        }
+        else
+        {
+
+        }
+        break;
+    
+    // Unenrol a class to the course
+
+    case 'exUnenrol' :
+        
+        if ( unregister_class_to_course( $form_data['class_id'], $_cid) ) 
+        {
+            $dialogBox  = get_lang('Class has been unenroled') ;
+        }
+        else
+        {
+
+        }
+        break;
 }
 
 /*---------------------------------------------------------------------*/
 /*----------------------FIND information SECTION-----------------------*/
 /*---------------------------------------------------------------------*/
 
-$sql = "SELECT *
-        FROM `" . $tbl_class . "`
-        ORDER BY `name`";
+$sql = "SELECT C.id, 
+               C.name, 
+               C.class_parent_id,
+               CC.cours_id as course_id
+        FROM `" . $tbl_class . "` C 
+              LEFT JOIN `" . $tbl_course_class . "` CC ON CC.`class_id` = C.`id`
+              AND CC.`cours_id` = " . $_course['courseId'] . "
+        ORDER BY C.`name`";
 $class_list = claro_sql_query_fetch_all($sql);
 
 /*---------------------------------------------------------------------*/
@@ -110,7 +142,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
-echo claro_html_tool_title(get_lang('Subscribe a class'));
+echo claro_html_tool_title(get_lang('Enrol class'));
 
 // Display Forms or dialog box (if needed)
 
@@ -120,7 +152,7 @@ if(isset($dialogBox) && $dialogBox!='')
 }
 
 // display tool links
-echo '<a class="claroCmd" href="user.php">' . get_lang('Back to list') . '</a><br /><br />' ;
+echo '<p><a class="claroCmd" href="user.php">' . get_lang('Back to list') . '</a></p>' ;
 
 // display cols headers
 
@@ -129,19 +161,18 @@ echo '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<tr class="headerX">' . "\n"
     .    '<th>' . get_lang('Classes') . '</th>' . "\n"
     .    '<th>' . get_lang('Users') . '</th>' . "\n"
-    .    '<th>' . get_lang('Subscribe to course') . '</th>' . "\n"
+    .    '<th>' . get_lang('Enrol to course') . '</th>' . "\n"
     .    '</tr>' . "\n"
-    .    '</thead>' . "\n" ;
+    .    '</thead>' . "\n"
+    .    '<tbody>' . "\n" ;
 
 // display Class list (or tree)
-echo '<tbody>' . "\n" ;
-
-display_tree_class_in_user($class_list, $_cid);
+echo display_tree_class_in_user($class_list, $_cid);
 
 echo '</tbody>' . "\n"
     . '</table>' . "\n" ;
 
-// footer banner
+// display footer banner
 
 include $includePath . '/claro_init_footer.inc.php';
 
