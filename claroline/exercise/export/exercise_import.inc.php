@@ -84,7 +84,7 @@ function get_and_unzip_uploaded_exercise()
     return $exercisePath;
 }
 /**
- * main fucntio to import an exercise, 
+ * main function to import an exercise,
  *
  * @return an array as a backlog of what was really imported, and error or debug messages to display
  */
@@ -96,6 +96,7 @@ function import_exercise($file)
     global $element_pile;
     global $non_HTML_tag_to_avoid;
     global $record_item_body;
+    global $backlog_message;
 
     //get required table names
 
@@ -128,7 +129,30 @@ function import_exercise($file)
     //find each question repository in the uploaded exercise folder
 
     array_push ($backlog_message, get_lang('XML question files found : '));
+
     $question_number = 0;
+
+    //used to specify the question directory where files could be found in relation in any question
+
+    global $questionTempDir;
+
+
+    //1- parse the parent directory
+
+    $questionHandle = opendir($exercisePath);
+
+    while (false !== ($questionFile = readdir($questionHandle)))
+    {
+        if (preg_match('/.xml$/i' ,$questionFile))
+        {
+            array_push ($backlog_message, get_lang("XML question file found : ".$questionFile));
+            parse_file($exercisePath, '', $questionFile);
+        }//end if xml question file found
+    }//end while question rep
+
+
+    //2- parse every subdirectory to search xml question files
+
     while (false !== ($file = readdir($exerciseHandle)))
     {
 
@@ -142,85 +166,7 @@ function import_exercise($file)
             {
                 if (preg_match('/.xml$/i' ,$questionFile))
                 {
-
-                    $questionFilePath = $exercisePath.$file.'/'.$questionFile;
-
-                    array_push ($backlog_message, "* ".$questionFile);
-
-                    if (!($fp = @fopen($questionFilePath, 'r')))
-                    {
-                        array_push ($backlog_message, get_lang("Error opening question's XML file"));
-                        return $backlog_message;
-                    }
-                    else
-                    {
-                        $data = fread($fp, filesize( $questionFilePath));
-                    }
-
-                    //parse XML question file
-
-                    //used global variable start values declaration :
-
-                    $record_item_body = false;
-                    $non_HTML_tag_to_avoid = array(
-                    "SIMPLECHOICE",
-                    "CHOICEINTERACTION",
-                    "INLINECHOICEINTERACTION",
-                    "INLINECHOICE",
-                    "SIMPLEMATCHSET",
-                    "SIMPLEASSOCIABLECHOICE",
-                    "TEXTENTRYINTERACTION",
-                    "FEEDBACKINLINE",
-                    "MATCHINTERACTION",
-                    "ITEMBODY",
-                    "BR"
-                    );
-
-                    //this array to detect tag not supported by claroline import in the xml file to warn the user.
-
-                    $non_supported_content_in_question = array( 
-                    "GAPMATCHINTERACTION",
-                    "EXTENDEDTEXTINTERACTION",
-                    "HOTTEXTINTERACTION",
-                    "HOTSPOTINTERACTION",
-                    "SELECTPOINTINTERACTION",
-                    "GRAPHICORDERINTERACTION",
-                    "GRAPHICASSOCIATIONINTERACTION",
-                    "GRAPHICGAPMATCHINTERACTION",
-                    "POSITIONOBJECTINTERACTION",
-                    "SLIDERINTERACTION",
-                    "DRAWINGINTERACTION",
-                    "UPLOADINTERACTION",
-                    "RESPONSECONDITION",
-                    "RESPONSEIF"
-                    );
-                    $question_format_supported = true;
-
-                    $xml_parser = xml_parser_create();
-                    xml_set_element_handler($xml_parser, 'startElement', 'endElement');
-                    xml_set_character_data_handler($xml_parser, 'elementData');
-
-                    if (!xml_parse($xml_parser, $data, feof($fp)))
-                    {
-                    // if reading of the xml file in not successfull :
-                    // set errorFound, set error msg, break while statement
-
-                        array_push ($backlog_message, get_lang('Error reading XML file') );
-                        return $backlog_message;
-                    }
-
-                    //close file
-
-                    fclose($fp);
-
-                    if ($question_format_supported)
-                    {
-                        array_push ($backlog_message, get_lang('Question format found') );
-                    }
-                    else
-                    {
-                        array_push ($backlog_message, get_lang('ERROR in:<b>'.$questionFile.'</b> Question format unknown') );
-                    }
+                    parse_file($exercisePath, $file, $questionFile);
                 }//end if xml question file found
             }//end while question rep
         } //if is_dir
@@ -231,7 +177,7 @@ function import_exercise($file)
 
 	array_push ($backlog_message, 'Exercise name  : <b>' . $exercise_info['name'] . '</b>');
 	array_push ($backlog_message, 'Exercise description  : ' . $exercise_info['description']);
-	
+
     foreach ($exercise_info['question'] as $key => $question)
     {
         $question_number++;
@@ -321,9 +267,10 @@ function import_exercise($file)
                 //3.create answers
     
                 $question->setAnswer();
-                $question->import($exercise_info['question'][$key]);
+                $question->import($exercise_info['question'][$key], $exercise_info['question'][$key]['tempdir']);
                 $exercise->addQuestion($question_id);
                 $question->answer->save();
+                $question->save();
             }
             else
             {
@@ -343,6 +290,97 @@ function import_exercise($file)
     claro_delete_file($exercisePath);
 
     return $backlog_message;
+}
+
+
+
+function parse_file($exercisePath, $file, $questionFile)
+{
+    global $exercise_info;
+    global $element_pile;
+    global $non_HTML_tag_to_avoid;
+    global $record_item_body;
+
+    $questionTempDir = $exercisePath.$file.'/';
+    $questionFilePath = $questionTempDir.$questionFile;
+
+    array_push ($backlog_message, "* ".$questionFile);
+
+    if (!($fp = @fopen($questionFilePath, 'r')))
+    {
+        array_push ($backlog_message, get_lang("Error opening question's XML file"));
+        return $backlog_message;
+    }
+    else
+    {
+        $data = fread($fp, filesize( $questionFilePath));
+    }
+
+    //parse XML question file
+
+    //used global variable start values declaration :
+
+    $record_item_body = false;
+    $non_HTML_tag_to_avoid = array(
+    "SIMPLECHOICE",
+    "CHOICEINTERACTION",
+    "INLINECHOICEINTERACTION",
+    "INLINECHOICE",
+    "SIMPLEMATCHSET",
+    "SIMPLEASSOCIABLECHOICE",
+    "TEXTENTRYINTERACTION",
+    "FEEDBACKINLINE",
+    "MATCHINTERACTION",
+    "ITEMBODY",
+    "BR",
+    "IMG"
+    );
+
+    //this array to detect tag not supported by claroline import in the xml file to warn the user.
+
+    $non_supported_content_in_question = array(
+    "GAPMATCHINTERACTION",
+    "EXTENDEDTEXTINTERACTION",
+    "HOTTEXTINTERACTION",
+    "HOTSPOTINTERACTION",
+    "SELECTPOINTINTERACTION",
+    "GRAPHICORDERINTERACTION",
+    "GRAPHICASSOCIATIONINTERACTION",
+    "GRAPHICGAPMATCHINTERACTION",
+    "POSITIONOBJECTINTERACTION",
+    "SLIDERINTERACTION",
+    "DRAWINGINTERACTION",
+    "UPLOADINTERACTION",
+    "RESPONSECONDITION",
+    "RESPONSEIF"
+    );
+    $question_format_supported = true;
+
+    $xml_parser = xml_parser_create();
+    xml_set_element_handler($xml_parser, 'startElement', 'endElement');
+    xml_set_character_data_handler($xml_parser, 'elementData');
+
+    if (!xml_parse($xml_parser, $data, feof($fp)))
+    {
+    // if reading of the xml file in not successfull :
+    // set errorFound, set error msg, break while statement
+
+        array_push ($backlog_message, get_lang('Error reading XML file') );
+        return $backlog_message;
+    }
+
+    //close file
+
+    fclose($fp);
+
+    if ($question_format_supported)
+    {
+        array_push ($backlog_message, get_lang('Question format found') );
+    }
+    else
+    {
+        array_push ($backlog_message, get_lang('ERROR in:<b>'.$questionFile.'</b> Question format unknown') );
+    }
 }
 
 
@@ -367,6 +405,7 @@ function startElement($parser, $name, $attributes)
     global $non_HTML_tag_to_avoid;
     global $current_inlinechoice_id;
     global $cardinality;
+    global $questionTempDir;
 
     array_push($element_pile,$name);
     $current_element = end($element_pile);
@@ -421,6 +460,7 @@ function startElement($parser, $name, $attributes)
             $exercise_info['question'][$current_question_ident]['answer'] = array();
             $exercise_info['question'][$current_question_ident]['correct_answers'] = array();
             $exercise_info['question'][$current_question_ident]['title'] = $attributes['TITLE'];
+            $exercise_info['question'][$current_question_ident]['tempdir'] = $questionTempDir;
         }
         break;
 		
@@ -529,7 +569,7 @@ function startElement($parser, $name, $attributes)
                 {
                     $exercise_info['question'][$current_question_ident]['weighting'] = array();
                 }
-                $exercise_info['question'][$current_question_ident]['weighting'][$answer_id] = (int)$attributes['MAPPEDVALUE'];
+                $exercise_info['question'][$current_question_ident]['weighting'][$answer_id] = $attributes['MAPPEDVALUE'];
             }
         }
         break;
@@ -543,6 +583,12 @@ function startElement($parser, $name, $attributes)
         {
             $record_item_body = true;
             $current_question_item_body = '';
+        }
+        break;
+
+        case 'IMG' :
+        {
+            $exercise_info['question'][$current_question_ident]['attached_file_url'] =  $attributes['SRC'];
         }
         break;
     }
@@ -683,9 +729,10 @@ function elementData($parser,$data)
             // if this is the right answer, then we must replace the claroline tags in the FIB text bye the answer between "[" and "]" :
 
             $answer_identifier = $exercise_info['question'][$current_question_ident]['correct_answers'][$current_answer_id];
-            
+
             if ($current_inlinechoice_id == $answer_identifier)
             {
+
                 $current_question_item_body = str_replace("**claroline_start**".$current_answer_id."**claroline_end**", "[".$data."]", $current_question_item_body);
             }
             else // save wrong answers in an array
