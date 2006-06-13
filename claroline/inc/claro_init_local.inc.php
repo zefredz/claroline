@@ -897,7 +897,7 @@ if ($uidReset || $cidReset)
         elseif ($_uid            ) $courseReqAccessLevel = 'PLATFORM_MEMBER';
         else                       $courseReqAccessLevel = 'ALL';
 
-        $_courseToolList = claro_get_course_tool_list($_cid, $courseReqAccessLevel, true);
+        $_courseToolList = claro_get_course_tool_list($_cid, $courseReqAccessLevel, true, true);
     }
     else
     {

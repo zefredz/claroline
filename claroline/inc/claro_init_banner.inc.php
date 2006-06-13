@@ -157,8 +157,8 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
  */
 if (is_array($_courseToolList) && $is_courseAllowed)
 {
+    $toolNameList = claro_get_active_tool_name_list();
 
-    $toolNameList = claro_get_tool_name_list();
     foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
     {
         if (is_null($_courseToolDatas['name']))
