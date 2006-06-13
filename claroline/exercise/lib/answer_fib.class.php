@@ -399,7 +399,7 @@ class answerFillInBlanks
     		}
     		else
     		{
-    			for( $i = 1; $i <= $answerCount; $i++ )
+    			for( $i = 0; $i < $answerCount; $i++ )
     			{
     				if( isset($this->response[$i]) ) 	$value = $this->response[$i];
     				else								$value = '';
