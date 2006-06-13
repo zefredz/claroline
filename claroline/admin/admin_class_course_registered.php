@@ -32,8 +32,9 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $nameTools=get_lang('Class registered');
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Class registered'));
 
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = null;
+$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
+$class_id = isset($_REQUEST['class_id'])?$_REQUEST['class_id']:0;
+$course_id = isset($_REQUEST['course_id'])?$_REQUEST['course_id']:null;
 
 //------------------------------------
 // Execute COMMAND section
@@ -43,7 +44,7 @@ if (isset($cmd) && $is_platformAdmin)
 {
     if ($cmd == 'exReg')
     {
-        $resultLog = register_class_to_course($_REQUEST['class'], $_REQUEST['course']);
+        $resultLog = register_class_to_course($class_id,$course_id);
         $outputResultLog = '';
 
         if ( isset($resultLog['OK']) && is_array($resultLog['OK']) )
@@ -69,13 +70,12 @@ if (isset($cmd) && $is_platformAdmin)
  * PREPARE DISPLAY
  */
 
-$classinfo =  get_class_info_by_id($_SESSION['admin_user_class_id']);
+$classinfo = class_get_properties($class_id);
 
 if ( !empty($outputResultLog) ) $dialogBox = $outputResultLog;
 $cmd_menu[] =  '<p><a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
 $cmd_menu[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
 $cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a></p>';
-
 
 /**
  * DISPLAY
@@ -89,24 +89,5 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 echo claro_html_menu_horizontal($cmd_menu);
 
 include $includePath . '/claro_init_footer.inc.php';
-
-/**
- * get info about a class
- *
- * @param integer $class_id
- * @return array (id, name)
- */
-function get_class_info_by_id($class_id)
-{
-
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_class       = $tbl_mdb_names['user_category'];
-    $sqlclass = "SELECT id,
-                        name
-                 FROM `" . $tbl_class . "`
-                 WHERE `id`='". (int) $class_id . "'";
-    return claro_sql_query_get_single_row($sqlclass);
-}
-
 
 ?>

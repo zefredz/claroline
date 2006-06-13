@@ -235,24 +235,27 @@ switch ($cmd)
         if (empty($user['email']))        $user['email'] = '';
         if (empty($user['officialCode'])) $user['officialCode'] = '';
 
-        $uid = user_create($user);
+        $user_id = user_create($user);
 
         // for each use case alos perform thze other needed action :
 
         switch ($AddType)
         {
             case 'adminTool':
-            //its all done in this case
-            break;
+                //its all done in this case
+                break;
 
-            case 'adminClassTool':
-            user_add_to_class($uid, $_SESSION['admin_user_class_id']);
-
-            break;
+            case 'adminClassTool':            
+                if ( isset($_REQUEST['class_id']) ) 
+                {
+                    $_SESSION['admin_user_class_id'] = $_REQUEST['class_id'];
+                }            
+                user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
+                break;
 
             case 'userTool':
-            user_add_to_course($uid, $_cid, false, false, false);
-            break;
+                user_add_to_course($user_id, $_cid, false, false, false);
+                break;
         }
     }
 
@@ -294,7 +297,7 @@ switch ($AddType)
         $nameTools           = get_lang('Add a user list in class');
         $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
         $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> get_lang('Classes'));
-        $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php', 'name'=> get_lang('Class members'));
+        $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'], 'name'=> get_lang('Class members'));
     }   break;
 
     case 'userTool':
@@ -374,7 +377,7 @@ switch ( $display )
         if ($_cid) $backButtonUrl = $clarolineRepositoryWeb . 'user/user.php';
         elseif (isset($addType) && $addType =='adminClassTool') //tricky fix, the use of addtype should be avoided
         {
-            $backButtonUrl = $clarolineRepositoryWeb.'admin/admin_class_user.php?class='.$_SESSION['admin_user_class_id'];
+            $backButtonUrl = $clarolineRepositoryWeb.'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id'];
         }
         elseif ($is_platformAdmin) $backButtonUrl = $clarolineRepositoryWeb.'admin/';
 

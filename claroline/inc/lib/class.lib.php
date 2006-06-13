@@ -153,7 +153,7 @@ function delete_class($class_id)
         $sql = "SELECT * 
             FROM `".$tbl_course_class."` `rel_c_c`, `".$tbl_course."` `c` 
             WHERE `rel_c_c`.`class_id`='". (int) $class_id ."'
-            AND `rel_c_c`.`cours_id` = `c`.`cours_id`";
+            AND `rel_c_c`.`courseId` = `c`.`code`";
             
         $courseList = claro_sql_query_fetch_all($sql);
     
@@ -175,7 +175,7 @@ function delete_class($class_id)
             
         // Clean the rel_course_class
         $sql = "DELETE FROM `" . $tbl_course_class . "`
-                WHERE class_id = " . (int) $class_id ;
+                WHERE classId = " . (int) $class_id ;
         
         claro_sql_query($sql);
         
@@ -285,7 +285,7 @@ function register_class_to_course($class_id, $course_code)
 
     // 1.get cours_id with cours_code in cl_cours and check course
 	
-	$sql = "SELECT `cours_id`, `code`
+	$sql = "SELECT `code`
 				FROM `".$tbl_course."` 
 				WHERE `code` = '". addslashes($course_code) ."'";
 	
@@ -296,8 +296,6 @@ function register_class_to_course($class_id, $course_code)
         return claro_failure::set_failure('course_not_found');
 		//TODO : aéméliorer la détection d'erreur
     }
-	
-	$course_id = $course_identifier[0]['cours_id'];
 
     // 2. See if there is a class with such ID in the main DB
 
@@ -344,18 +342,18 @@ function register_class_to_course($class_id, $course_code)
     // 5 - Record link between class and course
 	
 	// check if link already exist 
-	$sql = "SELECT `cours_id`
+	$sql = "SELECT `courseId`
 				FROM `".$tbl_course_class."`
-				WHERE `cours_id` = ".$course_id."
-				AND `class_id` = ".$class_id;	
+				WHERE `courseId` = '". addslashes($course_code) ."'
+				AND `classId` = ".$class_id;	
 	
 	$result = claro_sql_query_fetch_all($sql);
 		
 	if ( count($result) == 0 )
 	{	
-		//Insert value in table if not exist
-		$sql = "INSERT INTO `".$tbl_course_class."` (`cours_id`,`class_id`)
-		VALUES ('".$course_id."', '".$class_id."')";
+		// Insert value in table if not exist
+		$sql = "INSERT INTO `".$tbl_course_class."` (`courseId`,`classId`)
+		VALUES ('".addslashes($course_code)."', '".$class_id."')";
 		
 		claro_sql_query($sql);	
 	}
@@ -423,7 +421,7 @@ function unregister_class_to_course($class_id, $course_code)
 
 	$sql = "SELECT `cours_id`
 				FROM `".$tbl_course."`
-				WHERE `code` = '".$course_code."'";
+				WHERE `code` = '". addslashes($course_code) ."'";
 				
 	$course_id = claro_sql_query_get_single_value($sql);
 
@@ -461,9 +459,9 @@ function unregister_class_to_course($class_id, $course_code)
     // 5 - Remove link between class and course in rel_course_class
 
 	$sql = "DELETE FROM `".$tbl_course_class."`
-			WHERE `cours_id` = '".$course_id."' 
-			AND `class_id` = '".$class_id."'";
-	
+			WHERE `courseId` = '". addslashes($course_code) ."' 
+			AND `classId` = '".$class_id."'";
+
 	claro_sql_query($sql);
 	
     return $resultLog;
@@ -544,8 +542,8 @@ function user_add_to_class($user_id,$class_id)
 
     $sql = "SELECT `c`.`code`
             FROM `".$tbl_course_class."` `cc`, `".$tbl_course."` `c`
-            WHERE `cc`.`cours_id` = `c`.`cours_id`
-            AND `cc`.`class_id` = " . $class_id ;
+            WHERE `cc`.`courseId` = `c`.`code`
+            AND `cc`.`classId` = " . $class_id ;
   	 
     $courseList = claro_sql_query_fetch_all($sql);
  
@@ -655,8 +653,8 @@ function user_remove_to_class($user_id,$class_id)
   	 
     $sql = "SELECT c.`code`
   	        FROM `".$tbl_course_class."` cc, `".$tbl_course."` c
-  	        WHERE cc.`cours_id` = c.`cours_id`
-  	        AND cc.`class_id` = ".$class_id;
+  	        WHERE cc.`courseId` = c.`code`
+  	        AND cc.`classId` = ".$class_id;
   	 
   	$courseList = claro_sql_query_fetch_all($sql);
   	 
@@ -756,13 +754,13 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 .    '    ' . $blankspace . $open_close_link . ' ' . $cur_class['name']
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
-                .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $cur_class['id'] . '">' . "\n"
+                .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class_id=' . $cur_class['id'] . '">' . "\n"
                 .    '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" />' . "\n"
                 .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
-  	            .    '<a href="'.$clarolineRepositoryWeb.'admin/admin_class_cours.php?class='.$cur_class['id'].'">' . "\n"
+  	            .    '<a href="'.$clarolineRepositoryWeb.'admin/admin_class_cours.php?class_id='.$cur_class['id'].'">' . "\n"
       	        .    '<img src="'.$imgRepositoryWeb.'course.gif" border="0"> '
   	            .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
       	        .    '</a>' . "\n"
@@ -857,9 +855,9 @@ function get_class_cours_number($class_id)
 
     // 1- get class users number
 
-    $sqlcount = " SELECT COUNT(`cours_id`) AS qty_cours
+    $sqlcount = " SELECT COUNT(`courseId`) AS qty_cours
                   FROM `".$tbl_course_class ."`
-                  WHERE `class_id`='" . (int)$class_id . "'";
+                  WHERE `classId`='" . (int)$class_id . "'";
 
     $resultcount = claro_sql_query_fetch_all($sqlcount);
 

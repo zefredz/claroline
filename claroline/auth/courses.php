@@ -32,6 +32,7 @@ Include Files and initialize variables
 
 require $includePath . '/lib/admin.lib.inc.php';
 require $includePath . '/lib/user.lib.php';
+require $includePath . '/lib/class.lib.php';
 require $includePath . '/conf/user_profile.conf.php';
 
 $parentCategoryCode = '';
@@ -155,18 +156,15 @@ if ( !empty($fromAdmin) )
 
     if ( $fromAdmin == 'class' )
     {
+        if ( isset($_REQUEST['class_id']) )
+        {
+            $_SESSION['admin_user_class_id'] = $_REQUEST['class_id'];
+        }
+
         // bred different if we come from admin tool for a CLASS
         $nameTools = get_lang('Enrol class');
 
-        //find info about the class
-        $sqlclass = "SELECT id,
-                            name,
-                            class_parent_id,
-                            class_level
-                     FROM `" . $tbl_class . "`
-                     WHERE `id` = " . (int) $_SESSION['admin_user_class_id'];
-
-        $classinfo = claro_sql_query_get_single_row($sqlclass);
+        $classinfo = class_get_properties ($_SESSION['admin_user_class_id']);
     }
 }
 
@@ -562,8 +560,9 @@ switch ( $displayMode )
                 {
                     echo '<td valign="top"  align="center">' . "\n"
                     .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_course_registered.php'
-                    .    '?cmd=exReg&course=' . $thisCourse['sysCode']
-                    .    '&class=' . $classinfo['id'] . $inURL . '">'
+                    .    '?cmd=exReg'
+                    .    '&amp;course_id=' . $thisCourse['sysCode']
+                    .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
                     .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrol class') . '" />'
                     .     '</a>'
                     .     '</td>' . "\n"

@@ -41,7 +41,6 @@ function user_initialise()
                 );
 }
 
-
 /**
  * Get user data on the platform
  * @param integer $userId id of user to fetch properties
@@ -396,7 +395,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
 
     $userEnrolCourseList = claro_sql_query_fetch_all($sql);
 
-    foreach($userEnrolCourseList as $thisUserEnrolCourse)
+    foreach ( $userEnrolCourseList as $thisUserEnrolCourse )
     {
 
         $thisCourseCode = $thisUserEnrolCourse['code_cours'];
@@ -422,7 +421,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
               "UPDATE `" . $tbl_group_team . "` SET `tutor` = NULL WHERE `tutor`='" . (int) $userId . "'"
                         );
 
-            foreach($sqlList as $thisSql)
+            foreach( $sqlList as $thisSql )
             {
                 if ( claro_sql_query($thisSql) == false ) return false;
                 else                                      continue;
@@ -462,6 +461,18 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
     return true;
 }
 
+/**
+ * remove tracking user data from a course
+ *
+ * @author Hugues Peeters <hugues.peeters@advalvas.be>
+ *
+ * @param  int     $userId     user ID from the course_user table
+ * @param  string  $courseCode course code from the cours table
+ *
+ * @return boolean TRUE        if removing suceed
+ *         boolean FALSE       otherwise.
+ */
+
 function user_delete_course_tracking_data($userId, $courseId)
 {
     $dbNameGlued   = claro_get_course_db_name_glued($courseId);
@@ -487,7 +498,6 @@ function user_delete_course_tracking_data($userId, $courseId)
 
     return true;
 }
-
 
 /**
  * remove a specific user from a course groups
@@ -600,7 +610,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             $count_class_enrol = (int) $course_user_list['count_class_enrol'];
 
             // increment the count of enrolment by the user or class
-            if ( ! $register_by_class )  $count_user_enrol++;
+            if ( ! $register_by_class )  $count_user_enrol = 1;
             else                         $count_class_enrol++;
 
             $sql = "UPDATE `". $tbl_rel_course_user ."`
@@ -619,7 +629,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             $count_class_enrol = 0;
 
             if ( ! $register_by_class )  $count_user_enrol = 1; 
-            else                       $count_class_enrol = 1;  
+            else                         $count_class_enrol = 1;  
 
             $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                     SET code_cours = '" . addslashes($courseCode) . "',

@@ -120,10 +120,10 @@ switch ( $cmd )
 $sql = "SELECT C.id, 
                C.name, 
                C.class_parent_id,
-               CC.cours_id as course_id
+               CC.courseId as course_id
         FROM `" . $tbl_class . "` C 
-              LEFT JOIN `" . $tbl_course_class . "` CC ON CC.`class_id` = C.`id`
-              AND CC.`cours_id` = " . $_course['courseId'] . "
+              LEFT JOIN `" . $tbl_course_class . "` CC ON CC.`classId` = C.`id`
+              AND CC.`courseId` = '" . addslashes($_cid) . "'
         ORDER BY C.`name`";
 $class_list = claro_sql_query_fetch_all($sql);
 
