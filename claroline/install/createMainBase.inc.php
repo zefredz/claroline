@@ -138,9 +138,9 @@ CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
 
 $creationStatementList[] = "
   	 CREATE TABLE `".$mainTblPrefixForm."rel_course_class` (
-  	   `cours_id` int(11) NOT NULL default '0',
-  	   `class_id` int(11) NOT NULL default '0',
-  	   PRIMARY KEY  (`cours_id`,`class_id`)
+       `courseId` varchar(40) NOT NULL,
+  	   `classId` int(11) NOT NULL default '0',
+  	   PRIMARY KEY  (`courseId`,`classId`)
   	 ) TYPE=MyISAM";
 
 $creationStatementList[] ="
