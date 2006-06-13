@@ -27,9 +27,9 @@ function get_ical_MimeType($calType)
 
     switch ($calType)
     {
-    case 'ics' : return 'text/ics';
-    case 'xcs' : return 'text/xml';
-    case 'rdf' : return 'text/rdf';
+        case 'ics' : return 'text/Calendar';
+        case 'xcs' : return 'text/Calendar';
+        case 'rdf' : return 'text/xml';
     }
     return false;
 }
