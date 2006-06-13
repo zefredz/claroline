@@ -129,7 +129,7 @@ switch ( $cmd )
         break;
 
     case 'desactiv' :
-        desactivate_module($module_id);
+        deactivate_module($module_id);
         break;
 
     case 'up' :
@@ -318,13 +318,14 @@ echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th>' . get_lang('Id')                 . '</th>'
-.    '<th>' . get_lang('Icon')               . '</th>'
-.    '<th>' . get_lang('Module name')        . '</th>'
+.    '<th>' . get_lang('Id')                  . '</th>'
+.    '<th>' . get_lang('Icon')                . '</th>'
+.    '<th>' . get_lang('Module name')         . '</th>'
 .    '<th>' . get_lang('Display')             . '</th>'
 .    '<th>' . get_lang('Activation')          . '</th>'
-.    '<th>' . get_lang('Edit settings')       .'</th>'
-.    '<th>' . get_lang('Uninstall')           .'</th>'
+.    '<th>' . get_lang('Properties')          . '</th>'
+.    '<th>' . get_lang('Uninstall')           . '</th>'
+.    '<th>' . get_lang('Information ')        . '</th>'
 .    '</tr><tbody>'
 ;
 
@@ -361,7 +362,7 @@ foreach($moduleList as $module)
 
     //name column
 
-    if (file_exists(get_module_path($module['label']) . '/admin.php'))
+    if (file_exists(get_module_path($module['label']) . '/admin.php') && ($module['type']!='tool'))
     {
         echo '<td align="left" class="' . $class_css . '" ><a href="' . get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
     }
@@ -393,22 +394,22 @@ foreach($moduleList as $module)
 
     if ( 'activated' == $module['activation'] )
     {
-        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Activated') . '" /></a>'
+        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
+         . get_lang('Activated') . '</small></a>'
         ;
     }
     else
     {
-        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><img src="' . $imgRepositoryWeb . 'invisible.gif" border="0" alt="' . get_lang('Desactivated') . '" /></a>';
+        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Desactivated') . '</small></a>';
     }
 
     echo '</td>' . "\n";
 
-    //edit settings link
+    //Properties link
 
     echo '<td align="center">'
-    .    '<a href="module.php?module_id='.$module['id'].'">'
-    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+    .    '<a href="module.php?module_id='.$module['id'].'&item=GLOBAL">'
+    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
 
@@ -420,8 +421,19 @@ foreach($moduleList as $module)
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
-    .    '</tr>'
     ;
+
+    //module information link
+
+    echo '<td align="center">'
+    .    '<a href="module.php?module_id='.$module['id'].'&item=GENERAL">'
+    .    '<img src="' . $imgRepositoryWeb . 'info.gif" border="0" alt="' . get_lang('Information') . '" />'
+    .    '</a>'
+    .    '</td>' . "\n";
+
+    //end table line
+
+    echo '</tr>';
 }
 
 //end table...

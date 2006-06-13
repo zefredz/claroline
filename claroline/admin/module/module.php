@@ -43,7 +43,7 @@ $nameTools = get_lang('Module settings');
 
 $htmlHeadXtra[] = "
 <style type=\"text/css\">
-#moduletypelist
+#modulesettinglist
 {
 padding: 3px 0;
 margin-left: 0;
@@ -51,14 +51,14 @@ border-bottom: 1px solid #778;
 font: bold 12px Verdana, sans-serif;
 }
 
-#moduletypelist li
+#modulesettinglist li
 {
 list-style: none;
 margin: 0;
 display: inline;
 }
 
-#moduletypelist li a
+#modulesettinglist li a
 {
 padding: 3px 0.5em;
 margin-left: 3px;
@@ -68,17 +68,17 @@ background: #DDE;
 text-decoration: none;
 }
 
-#moduletypelist li a:link { color: #448; }
-#moduletypelist li a:visited { color: #667; }
+#modulesettinglist li a:link { color: #448; }
+#modulesettinglist li a:visited { color: #667; }
 
-#moduletypelist li a:hover
+#modulesettinglist li a:hover
 {
 color: #000;
 background: #AAE;
 border-color: #227;
 }
 
-#moduletypelist li a#current
+#modulesettinglist li a#current
 {
 background: white;
 border-bottom: 1px solid white;
@@ -162,12 +162,29 @@ $dockList = get_dock_list($module['type']);
 switch ( $cmd )
 {
     case 'activ' :
-        activate_module($moduleId);
-        break;
+        if (activate_module($moduleId))
+        {
+            $dialogBox = get_lang('Module sucessfully activated');
+            $module['activation']  = 'activated';
+        }
+        else
+        {
+            $dialogBox = get_lang('could not activate module');
+        }
+    break;
 
-    case 'desactiv' :
-        desactivate_module($moduleId);
-        break;
+    case 'deactiv' :
+        if (deactivate_module($moduleId))
+        {
+            $dialogBox = get_lang('Module sucessfully deactivated');
+            $module['activation']  = 'deactivated';
+        }
+        else
+        {
+            $dialogBox = get_lang('could not deactivate module');
+            $module['activation']  = 'activated';
+        }
+    break;
 
     case 'movedock' :
         if(is_array($dockList))
@@ -212,14 +229,36 @@ foreach($module_dock as $thedock)
 
 include $includePath . '/claro_init_header.inc.php';
 
+
+
+// find module icon, if any
+
+if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/img/' . $module['icon']))
+{
+    $icon = '<img src="' . get_module_url($module['label']) . '/img/' . $module['icon'] . '" />';
+}
+elseif (file_exists(get_module_path($module['label']) . '/icon.png'))
+{
+    $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" />';
+}
+elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
+{
+    $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
+}
+else $icon = '<small>' . get_lang('No icon') . '</small>';
+
 //display title
 
 echo claro_html_tool_title($nameTools . ' : ' . $module['module_name']);
 
+//Display Forms or dialog box(if needed)
+
+if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+
 //display tabbed navbar
 
-echo   '<div id="moduletypecontainer">'
-.    '<ul id="moduletypelist">';
+echo   '<div id="modulesettingscontainer">'
+.    '<ul id="modulesettinglist">';
 
 //display the module type tabbed naviguation bar
 
@@ -239,23 +278,6 @@ else
 echo '  </ul>
       </div>';
 
-//Display Forms or dialog box(if needed)
-
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
-
-    if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/img/' . $module['icon']))
-    {
-        $icon = '<img src="' . get_module_url($module['label']) . '/img/' . $module['icon'] . '" />';
-    }
-    elseif (file_exists(get_module_path($module['label']) . '/icon.png'))
-    {
-        $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" />';
-    }
-    elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
-    {
-        $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
-    }
-    else $icon = '<small>' . get_lang('No icon') . '</small>';
 
 switch ($item)
 {
@@ -274,13 +296,13 @@ switch ($item)
 
 		  if ('activated' == $module['activation'] )
 		  {
-		      $activ_form  = 'desactiv';
-		      $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Desactivate").'</a></small>]';
+		      $activ_form  = 'deactiv';
+		      $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]';
 		  }
 		  else
 		  {
 		      $activ_form  = 'activ';
-		      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'">'.get_lang("Activate").'</a></small>] | [<small><b>'.get_lang('Desactivated').'</b></small>]';
+		      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'&item=GLOBAL">'.get_lang("Activate").'</a></small>] | [<small><b>'.get_lang('Deactivate').'</b></small>]';
 		  }
 		
 		  echo '<td align="right" valign="top">'
