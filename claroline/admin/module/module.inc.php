@@ -155,7 +155,7 @@ function activate_module($moduleId)
  * @return boolean : Returns whether the desactivation suceeded, false otherwise
  */
 
-function desactivate_module($moduleId)
+function deactivate_module($moduleId)
 {
     //1- call desactivation script (if any) from the module repository
 
@@ -877,7 +877,7 @@ function generate_module_cache()
 }
 
 /**
- * Add module in claroline, giving  his path
+ * Add module in claroline, giving  its path
  *
  * @param string $modulePath
  * @return install result
