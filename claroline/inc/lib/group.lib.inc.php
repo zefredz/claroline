@@ -72,11 +72,13 @@ function empty_group($groupIdList = 'ALL', $course_id = null)
 /**
  * function delete_groups($groupIdList = 'ALL')
  * deletes groups and their datas.
+ *
  * @param  mixed   $groupIdList - group(s) to delete. It can be a single id
  *                                (int) or a list of id (array). If no id is
  *                                given all the course group are deleted
  *
- * @return integer              - number of groups deleted.
+ * @return integer : number of groups deleted.
+ * @throws claro_failure
  */
 
 function delete_groups($groupIdList = 'ALL')
@@ -125,7 +127,7 @@ function delete_groups($groupIdList = 'ALL')
         }
         else
         {
-            return false;
+            return claro_failure::set_failure('CANT_SET_ID_GROUP_AS_INTEGER ' . __LINE__);
         }
     }
 
@@ -241,8 +243,7 @@ function deleteAllGroups()
  * with the less enrolled users
  *
  * @param integer $nbGroupPerUser
- * @param string $course_id course context where the  group(s) can be founded   *
- *        default : null (get id from init)
+ * @param string  $course_id course context where the  group(s) can be founded
  *
  * @author Chrisptophe Gesché <moosh@claroline.net>,
  * @author Hugues Peeters     <hugues.peeters@claroline.net>
@@ -250,10 +251,8 @@ function deleteAllGroups()
  * @return void
  */
 
-function fill_in_groups($nbGroupPerUser, $course_id = NULL)
+function fill_in_groups($nbGroupPerUser, $course_id )
 {
-    $course_id = is_null($course_id) ? $course_id : $GLOBALS['_cid'];
-
     $tbl_m_names = claro_sql_get_main_tbl();
     $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
@@ -303,11 +302,11 @@ function fill_in_groups($nbGroupPerUser, $course_id = NULL)
             GROUP BY (cu.user_id)
             HAVING nbTicket > 0
             ORDER BY nbTicket DESC";
+    echo '<div>'.__LINE__.': $sql = <pre>'. var_export($sql,1).'</PRE></div>';
     $userToken = array();
     $userList = claro_sql_query_fetch_all($sql);
     foreach ($userList as $user) $userToken[$user['uid']] = $user['nbTicket'];
     unset($userList,$user);
-
     /**
      * Retrieve the present state of the users repartion in groups
      */
