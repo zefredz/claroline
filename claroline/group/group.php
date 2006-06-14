@@ -238,7 +238,7 @@ if ( $is_allowedToManage )
     EMPTY ALL GROUPS
     -------------------*/
 
-    elseif ( $cmd == 'exEmptyGroup' )
+    elseif ( 'exEmptyGroup' == $cmd )
     {
 
         if (empty_group())
@@ -258,9 +258,9 @@ if ( $is_allowedToManage )
     FILL ALL GROUPS
     -----------------*/
 
-    elseif ( $cmd == 'exFillGroup' )
+    elseif ( 'exFillGroup' == $cmd  )
     {
-        fill_in_groups($nbGroupPerUser);
+        fill_in_groups($nbGroupPerUser, $_cid);
         event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
 
         $message = get_lang("Groups have been filled (or completed) by students present in the 'Users' list.");
@@ -276,9 +276,9 @@ if ( $is_allowedToManage )
 
     if ( isset($_REQUEST['properties']) )
     {
-        if ( $_REQUEST['limitNbGroupPerUser'] == 'ALL')
+        if ( 'ALL' == $_REQUEST['limitNbGroupPerUser'] )
         {
-            $sqlLimitNbGroupPerUser = 'NULL';
+            $newPropertyList['nbGroupPerUser'] = null;
         }
         else
         {
@@ -286,7 +286,7 @@ if ( $is_allowedToManage )
 
             if ( $limitNbGroupPerUser < 1 ) $limitNbGroupPerUser = 1;
 
-            $sqlLimitNbGroupPerUser = "'" . $limitNbGroupPerUser . "'";
+            $newPropertyList['nbGroupPerUser'] =  (int) $limitNbGroupPerUser;
             $nbGroupPerUser         = $limitNbGroupPerUser;
         }
 
@@ -295,37 +295,40 @@ if ( $is_allowedToManage )
          * insert the parameters.
          */
 
-
-        $newPropertyList['self_registration'] = isset($_REQUEST['self_registration'])  
+        $newPropertyList['self_registration'] = isset($_REQUEST['self_registration'])
                                               ? (int) $_REQUEST['self_registration']
                                               : 0;
 
-       $newPropertyList['private'           ] = isset($_REQUEST['private'] )
-                                              ? (int) $_REQUEST['private'] 
+        $newPropertyList['private'          ] = isset($_REQUEST['private'] )
+                                              ? (int) $_REQUEST['private']
                                               : $private = 0;
 
-        $newPropertyList['forum'            ] = isset($_REQUEST['forum']) 
+        $newPropertyList['forum'            ] = isset($_REQUEST['forum'])
                                               ? (int) $_REQUEST['forum']
                                               :  0;
 
-        $newPropertyList ['document'        ] = isset($_REQUEST['document']) 
+        $newPropertyList ['document'        ] = isset($_REQUEST['document'])
                                               ? (int) $_REQUEST['document']
                                               : 0;
 
-        $newPropertyList ['chat'            ] = isset($_REQUEST['chat']) 
+        $newPropertyList ['chat'            ] = isset($_REQUEST['chat'])
                                               ? (int) $_REQUEST['chat']
                                               :  0;
 
-        $newPropertyList['wiki'             ] = isset($_REQUEST['wiki']) 
+        $newPropertyList['wiki'             ] = isset($_REQUEST['wiki'])
                                               ? (int) $_REQUEST['wiki']
                                               : 0;
 
         foreach($newPropertyList as $propertyName => $propertyValue)
         {
-            $sql = "UPDATE `".$tbl_course_properties."`
-                    SET `value` = '" . addslashes($propertyValue) . "'
-                    WHERE `name` = '" . addslashes($propertyName) . "'";
 
+            if (     is_null($propertyValue)) $sqlReadyPropertyValue = "NULL";
+            elseif ( is_int ($propertyValue)) $sqlReadyPropertyValue = $propertyValue;
+            else                              $sqlReadyPropertyValue = "'" . addslashes($propertyValue) . "'";
+
+            $sql = "UPDATE `".$tbl_course_properties."`
+                    SET `value` = " . $sqlReadyPropertyValue . "
+                    WHERE `name` = '" . $propertyName . "'";
             if ( claro_sql_query_affected_rows($sql) > 0 )
             {
                 continue;
@@ -333,8 +336,8 @@ if ( $is_allowedToManage )
             else
             {
                 $sql = "INSERT INTO `".$tbl_course_properties."`
-                       SET value    = '" . addslashes($propertyValue) . "',
-                           name     = '" . addslashes($propertyName) . "',
+                       SET value    = " . $sqlReadyPropertyValue . ",
+                           name     = '" . $propertyName . "',
                            category = 'GROUP'";
 
                 if ( claro_sql_query($sql) !== false ) continue;
@@ -731,7 +734,6 @@ foreach ($groupList as $thisGroup)
 echo '</tbody>' . "\n"
 .     '</table>' . "\n"
 ;
-
 
 include $includePath . '/claro_init_footer.inc.php';
 
