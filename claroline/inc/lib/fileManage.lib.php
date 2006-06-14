@@ -169,11 +169,10 @@ function claro_move_file($sourcePath, $targetPath)
 
 
 /**
- * Copy a a file or a directory and its content to an other area
+ * Copy a file or a directory and its content to an other directory
  *
- * @param  - $origDirPath (String) - the path of the directory to move
- * @param  - $destination (String) - the path of the new area
- * @param  - $delete (bool) - move or copy the file
+ * @param  - $sourcePath (String) - the path of the directory or the path of the file to move
+ * @param  - $targetPath (String) - the path of the destination directory
  * @return - void no return !!
  */
 
