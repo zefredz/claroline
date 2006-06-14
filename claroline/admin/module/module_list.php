@@ -100,7 +100,7 @@ function confirmation (name)
 
 //CONFIG and DEVMOD vars :
 
-$modulePerPage = get_conf('modulePerPage' , 10);
+$modulePerPage = get_conf('modulePerPage' , 20);
 
 $typeLabel['']    = get_lang('No name');
 $typeLabel['tool']    = get_lang('Tools');
