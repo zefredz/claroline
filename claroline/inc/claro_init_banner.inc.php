@@ -157,13 +157,13 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
  */
 if (is_array($_courseToolList) && $is_courseAllowed)
 {
-    $toolNameList = $toolNameList = claro_get_tool_name_list();// claro_get_active_tool_name_list();
+    $toolNameList = claro_get_tool_name_list();// claro_get_active_tool_name_list();
 
     foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
     {
         if (is_null($_courseToolDatas['name']))
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
-        else 
+        else
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($_courseToolList[ $_courseToolKey ] [ 'name' ]);
         // now recheck to be sure the value is really filled before going further
         if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
