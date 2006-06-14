@@ -37,7 +37,7 @@ $_groupProperties = claro_get_main_group_properties($_cid);
 session_register('_groupProperties');
 
 $registrationAllowedInGroup = $_groupProperties ['registrationAllowed'];
-$groupPrivate               = $_groupProperties ['private'            ];
+$groupPrivate               = $_groupProperties ['private'];
 
 if ( get_conf('multiGroupAllowed') )
 {
@@ -49,7 +49,7 @@ if ( get_conf('multiGroupAllowed') )
     {
         $checkedNbGroupPerUser['MANY'] = 'checked="checked"';
     }
-    else//if (is_null($_groupProperties ['nbGroupPerUser'     ]))
+    else//if (is_null($_groupProperties ['nbGroupPerUser']))
     {
         $checkedNbGroupPerUser['ALL'] = 'checked="checked"';
     }
@@ -58,147 +58,151 @@ if ( get_conf('multiGroupAllowed') )
 include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
-?>
+echo '<form method="post" action="group.php">' . "\n"
+.    '<table border="0" width="100%" cellspacing="0" cellpadding="4">' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<b>' . get_lang("Registration") . '</b>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<span class="item">' . "\n"
+.    '<input type="checkbox" name="self_registration" id="self_registration" value="1" '
+.    (($registrationAllowedInGroup) ?  'checked':'')  . ' >' . "\n"
+.    '<label for="self_registration" >'
+.    get_lang("Students are allowed to self-register in groups")
+.    '</label>' . "\n"
+.    '</span>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+;
 
-<form method="post" action="group.php">
-<table border="0" width="100%" cellspacing="0" cellpadding="4">
-    <tr>
-        <td valign="top">
-        <b><?php echo get_lang("Registration") ?></b>
-        </td>
-    </tr>
-
-    <tr>
-        <td valign="top">
-            <span class="item">
-            <input type="checkbox" name="self_registration" id="self_registration" value="1" <?php if($registrationAllowedInGroup) echo "checked";    ?> >
-            <label for="self_registration" ><?php echo get_lang("Students are allowed to self-register in groups"); ?></label>
-            </span>
-        </td>
-    </tr>
-<?php
-    if ( get_conf('multiGroupAllowed') )
+if ( get_conf('multiGroupAllowed') )
+{
+    if (is_null($_groupProperties['nbGroupPerUser']))
     {
-?>
-    <tr>
-        <td valign="top">
-        <b><?php echo get_lang("Limit") ?></b>
-        </td>
-    </tr>
-    <tr>
-        <td valign="top">
-            <span class="item">
-            <?php
-
-            if (is_null($_groupProperties ['nbGroupPerUser']))
-            {
-                $nbGroupsPerUserShow = "ALL";
-            }
-            else
-            {
-                $nbGroupsPerUserShow = $_groupProperties ['nbGroupPerUser'     ];
-            }
-
-            $selector_nb_groups = '<select name="limitNbGroupPerUser" >' . "\n";
-
-            for( $i = 1; $i <= 10; $i++ )
-            {
-                $selector_nb_groups .=  '<option value="'.$i.'"'
-                                    . ( $nbGroupsPerUserShow == $i ? ' selected="selected" ' : '')
-                                    .    '>' . $i . '</option>' ;
-            }
-
-            $selector_nb_groups .= '<option value="ALL" '
-                                 . ($nbGroupsPerUserShow == "ALL" ? ' selected="selected" ' : '')
-                                 . '>ALL</option>'
-                                 . '</select>' ;
-
-            echo get_lang('A user can be a member of maximum %nb groups', array ( '%nb' => $selector_nb_groups ));
-
-            ?>
-            </span>
-        </td>
-    </tr>
-
-<?php
+        $nbGroupsPerUserShow = "ALL";
     }
-?>
-    <tr>
-        <td><b><?php echo get_lang("Access"); ?></b></td>
-    </tr>
-    <tr>
-        <td valign="top">
-            <span class="item">
-            <input type="radio" name="private" id="private_1" value="1" <?php
-                if(!$groupPrivate)
-                    echo "checked"?> >
-            <label for="private_1"><?php echo get_lang("Private"); ?></label>
-            <input type="radio" name="private" id="private_0" value="0" <?php
-                if($groupPrivate)
-                    echo "checked"?> >
-            <label for="private_0"><?php echo get_lang("Public"); ?></label>
-            </span>
-        </td>
-    </tr>
-    <tr>
-        <td valign="top">
-            <b><?php echo get_lang("Tools") ?></b>
-        </td>
-    </tr>
-    <tr>
-        <td valign="top">
-            <span class="item">
-            <input type="checkbox" name="forum" id="forum" value="1"
-            <?php
-                if($_groupProperties['tools'] ['forum'])
-                    echo "checked" ?> >
-            <label for="forum"><?php echo get_lang("Forum"); ?></label>
-            </span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span class="item">
-            <input type="checkbox" name="document" id="document" value="1"
-            <?php
-                if($_groupProperties['tools'] ['document'])
-                    echo "checked" ?> >
-            <label for="document"><?php echo get_lang("Documents and Links") ?></label>
-            </span>
-        </td>
-    </tr>
-    <tr>
-        <td valign="top">
-            <span class="item">
-            <input type="checkbox" name="chat" id="chat" value="1"
-            <?php
-                if($_groupProperties['tools'] ['chat'])
-                    echo "checked" ?> >
-            <label for="chat"><?php echo get_lang("Chat"); ?></label>
-            </span>
-        </td>
-    </tr>
+    else
+    {
+        $nbGroupsPerUserShow = $_groupProperties ['nbGroupPerUser'];
+    }
 
-    <tr>
-        <td valign="top">
-            <span class="item">
-            <input type="checkbox" name="wiki" id="wiki" value="1"
-            <?php
-                if($_groupProperties['tools'] ['wiki'])
-                    echo "checked" ?> >
-            <label for="wiki"><?php echo get_lang("Wiki"); ?></label>
-            </span>
-        </td>
-    </tr>
+    $selector_nb_groups = '<select name="limitNbGroupPerUser" >' . "\n";
+    for( $i = 1; $i <= 10; $i++ )
+    {
+        $selector_nb_groups .=  '<option value="'.$i.'"'
+        . ( $nbGroupsPerUserShow == $i ? ' selected="selected" ' : '')
+        .    '>' . $i . '</option>' ;
+    }
 
-    <tr>
-        <td valign="top">
-            <input type="submit" name="properties" value="<?php echo get_lang("Ok") ?>">
-            <?php echo claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")); ?>
-        </td>
-    </tr>
-</table>
-</form>
-<?php
+    $selector_nb_groups .= '<option value="ALL" '
+    . ($nbGroupsPerUserShow == "ALL" ? ' selected="selected" ' : '')
+    . '>ALL</option>'
+    . '</select>' ;
+
+    echo '<tr>' . "\n"
+    .    '<td valign="top">' . "\n"
+    .    '<b>' . get_lang("Limit") . '</b>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td valign="top">' . "\n"
+    .    '<span class="item">' . "\n"
+    .    get_lang('A user can be a member of maximum %nb groups', array ( '%nb' => $selector_nb_groups )) . "\n"
+    .    '</span>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    ;
+
+}
+echo '<tr>' . "\n"
+.    '<td>' . "\n"
+.    '<b>' . "\n"
+.    get_lang("Access") . "\n"
+.    '</b></td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<span class="item">' . "\n"
+.    '<input type="radio" name="private" id="private_1" value="1" '
+;
+if(!$groupPrivate) echo "checked";
+echo ' >' . "\n"
+.    '<label for="private_1">' . get_lang("Private") . '</label>' . "\n"
+.    '<input type="radio" name="private" id="private_0" value="0" '
+;
+if($groupPrivate) echo 'checked';
+echo ' >' . "\n"
+.    '<label for="private_0">' . get_lang("Public") . '</label>' . "\n"
+.    '</span>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<b>' . get_lang("Tools") . '</b>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<span class="item">' . "\n"
+.    '<input type="checkbox" name="forum" id="forum" value="1" '
+;
+
+if($_groupProperties['tools'] ['forum']) echo "checked";
+echo ' >' . "\n"
+.    '<label for="forum">' . get_lang("Forum") . '</label>' . "\n"
+.    '</span>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td>' . "\n"
+.    '<span class="item">' . "\n"
+.    '<input type="checkbox" name="document" id="document" value="1"' . "\n"
+;
+if($_groupProperties['tools'] ['document']) echo "checked";
+echo '>' . "\n"
+.    '<label for="document">' . get_lang("Documents and Links") . '</label>' . "\n"
+.    '' . "\n"
+.    '</span>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<span class="item">' . "\n"
+.    '<input type="checkbox" name="chat" id="chat" value="1" '
+;
+
+if($_groupProperties['tools'] ['chat'])
+echo "checked";
+
+echo ' >' . "\n"
+.    '<label for="chat">' . get_lang("Chat") . '</label>' . "\n"
+.    '</span>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<span class="item">' . "\n"
+.    '<input type="checkbox" name="wiki" id="wiki" value="1" ' . "\n"
+;
+
+if($_groupProperties['tools'] ['wiki']) echo "checked";
+echo ' >' . "\n"
+.    '<label for="wiki">' . get_lang("Wiki") . '</label>' . "\n"
+.    '</span>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+.    '<input type="submit" name="properties" value="' . get_lang("Ok") . '">' . "\n"
+.    claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")) . '' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n"
+.    '</form>' . "\n"
+;
+
 include $includePath . '/claro_init_footer.inc.php';
 ?>
