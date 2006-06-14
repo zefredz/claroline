@@ -222,32 +222,6 @@ function claro_get_tool_name_list()
 }
 
 /**
- * Get Names of tools active in an array where the key are Claro_label
- * @return array list of localised name of activated tools
- * 
- */
-
-function claro_get_active_tool_name_list()
-{
-    $tbl_mdb_names        = claro_sql_get_main_tbl();
-    $tbl_module      = $tbl_mdb_names['module'];
-
-    $sql = "SELECT `label`, `name` FROM `" . $tbl_module . "`
-                           WHERE `activation`='activated'
-                             AND `type`='tool'";
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    $tool_list = array();
-
-    foreach ($result as $tool)
-    {
-       $tool_list[$tool['label']] = $tool['name'];
-    }
-    return $tool_list;
-}
-
-/**
  * Get Names of tools deactivated in an array where the key are Claro_label
  * @return array list of label of deactivated tools
  * 
