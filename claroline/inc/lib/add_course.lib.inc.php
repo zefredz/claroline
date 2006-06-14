@@ -287,7 +287,6 @@ function update_db_course($courseDbName)
     // Group
     $TABLEGROUPS           = $tbl_cdb_names['group_team'];
     $TABLEGROUPUSER        = $tbl_cdb_names['group_rel_team_user'];
-    $TABLEGROUPPROPERTIES  = $tbl_cdb_names['group_property'];
     $TABLECOURSEPROPERTIES = $tbl_cdb_names['course_properties'];
 
 
@@ -976,7 +975,6 @@ function fill_db_course($courseDbName,$language)
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
     $TABLECOURSEHOMEPAGE    = $tbl_cdb_names['tool'];
 
-    $TABLEGROUPPROPERTIES    = $tbl_cdb_names['group_property'   ];// $courseDbName."group_property";
     $TABLECOURSEPROPERTIES   = $tbl_cdb_names['course_properties'];
 
     // Exercise
