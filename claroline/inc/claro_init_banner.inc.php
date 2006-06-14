@@ -181,11 +181,34 @@ if (is_array($_courseToolList) && $is_courseAllowed)
     {
         foreach($_courseToolList as $_courseToolKey => $_courseToolData)
         {
-            // reset group to access course tool
-            $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
-                ? $_courseToolData['url'] . '&amp;gidReset=1'
-                : $_courseToolData['url'] . '?gidReset=1'
-                ;
+            //find correct url to access current tool
+
+            if (isset($_courseToolData['url']))
+            {
+
+                // reset group to access course tool
+
+                $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
+                    ? $_courseToolData['url'] . '&amp;gidReset=1'
+                    : $_courseToolData['url'] . '?gidReset=1'
+                    ;
+            }
+            elseif (isset($_courseToolData['tool_complete_url']))
+            {
+                 $_toolDataUrl = $_courseToolData['tool_complete_url'];
+            }
+
+
+            //find correct url for icon of the tool
+
+            if (isset($_courseToolData['icon']))
+            {
+                $_toolIconUrl = $imgRepositoryWeb.$_courseToolData['icon'];
+            }
+            elseif (isset($_courseToolData['icon_complete_url']))
+            {
+                $_toolIconUrl = $_courseToolData['icon_complete_url'];
+            }
 
             // select "groups" in group context instead of tool
             if ( isset( $_gid ) && $_gid )
@@ -199,8 +222,8 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
             $courseToolSelector .= '<option value="'.$_toolDataUrl.'" '
             .   $toolSelected
-            .   'style="padding-left:22px;background:url('.$imgRepositoryWeb.$_courseToolData['icon'].') no-repeat">'
-            .    $_courseToolData['name']
+            .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
+            .    get_lang($_courseToolData['name'])
             .    '</option>'."\n"
             ;
         }

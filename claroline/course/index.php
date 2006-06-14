@@ -118,8 +118,23 @@ $toolList = claro_get_course_tool_list($_cid, $reqAccessLevel, true);
 foreach($toolList as $thisTool)
 {
     $toolName = $thisTool['name'];
-    $url      = trim($thisTool['url']);
-    $icon     = $imgRepositoryWeb . $thisTool['icon'];
+
+    if (isset($thisTool['url']))
+    {
+        $url      = trim($thisTool['url']);
+    }
+    elseif (isset($thisTool['tool_complete_url']))
+    {
+        $url      = trim($thisTool['tool_complete_url']); 
+    }
+    if (isset($thisTool['icon']))
+    {
+        $icon = $imgRepositoryWeb . $thisTool['icon'];
+    }
+    elseif (isset($thisTool['icon_complete_url']))
+    {
+        $icon = $thisTool['icon_complete_url'];
+    }
 
     $style = ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL']) ? 'invisible ' : '';
     $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';

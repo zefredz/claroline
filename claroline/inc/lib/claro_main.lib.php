@@ -198,9 +198,12 @@ function claro_get_course_path($cid=NULL)
  * @return array list of localised name of tools
  * @todo with plugin, this lis would be read in a dynamic datasource
  */
-function claro_get_tool_name_list()
+function claro_get_tool_name_list($active = true)
 {
     static $toolNameList;
+
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+    $tbl_module      = $tbl_mdb_names['module'];
 
     if( ! isset( $toolNameList ) )
     {
@@ -218,6 +221,46 @@ function claro_get_tool_name_list()
         ,                     'CLWIKI__' => 'Wiki'
         );
     }
+
+    //add in result the module of type 'tool'
+
+    //see if we take only activated modules or all of them
+
+    if ($active)
+    {
+        $activationSQL = " AND `activation`='activated'";
+    }
+    else
+    {
+        $activationSQL = "";
+    }
+
+    //find tool modules
+
+    $sql = "SELECT `label`, `name` FROM `" . $tbl_module . "`
+                            WHERE `type`='tool'  
+                              ".$activationSQL;
+
+    $result = claro_sql_query_fetch_all($sql);
+
+    //add them in result array
+
+    foreach ($result as $tool)
+    {
+
+        //tricks to be sure that we get a 8 chars label :  CLBLAH__
+
+        while (strlen($tool['label'])<8)
+        {
+            $tool['label'] = $tool['label'].'_';
+        }
+
+        if (!isset($toolNameList[$tool['label']]))
+        {
+            $toolNameList[$tool['label']] = $tool['name'];
+        }
+    }
+    
     return $toolNameList;
 }
 
@@ -340,6 +383,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
          */
 
         $toolNameList = claro_get_tool_name_list();
+        $toolLabels = array();
 
         foreach ($courseToolList as $thisToolKey => $thisToolAttributeList)
         {
@@ -358,9 +402,70 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
             {
                 continue;
             }
+            $toolLabels[] = $thisToolAttributeList['label']; //needed for next step
         }
 
-        //if only the active tool had to be taken, then we unset the deactivated tool in the returned array
+        /*
+         * Complete the list with modules of type 'tool' which are activated
+         */
+
+        //add in result the module of type 'tool'
+
+        //see if we take only activated modules or all of them
+    
+        if ($active)
+        {
+            $activationSQL = " AND `activation`='activated'";
+        }
+        else
+        {
+            $activationSQL = "";
+        }
+    
+        //find tool modules
+    
+        $sql = "SELECT  `id`,
+                        `label`,
+                        `name`
+                  FROM `" . $tbl_module . "`
+                 WHERE `type`='tool'
+                 ".$activationSQL;
+    
+        $result = claro_sql_query_fetch_all($sql);
+        
+        //add them in result array
+
+        foreach ($result as $tool)
+        {
+    
+            //tricks to be sure that we get a 8 chars label :  CLBLAH__
+    
+            while (strlen($tool['label'])<8)
+            {
+                $tool['label'] = $tool['label'].'_';
+            }
+
+            if (!in_array($tool['label'], $toolLabels))
+            {
+                $tool['label'] = str_replace('_','', $tool['label']);
+        
+                $added_tool = array();
+                $added_tool['label']               = $tool['label'];
+                $added_tool['name']                = $tool['name'];
+                $added_tool['icon_complete_url']   = get_module_url($tool['label']).'/'.'icon.gif';
+                $added_tool['tool_complete_url']   = get_module_url($tool['label']).'/'.'entry.php';
+                $added_tool['id']                 = $tool['id'];
+
+                //this part must evolve!!!
+
+                $added_tool['access'] = 'ALL';
+                $courseToolList[]    = $added_tool;
+            }
+        }
+
+        /**
+         *  if only the active tool had to be taken, then we unset the deactivated tool in the returned array
+         */
 
         if (isset($active) && $active)
         {
@@ -368,7 +473,6 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 
             foreach ($courseToolList as $key=>$tool)
             {
-
 
                 if (in_array($tool['label'], $deactivated_tools))
                 {

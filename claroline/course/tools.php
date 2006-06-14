@@ -284,6 +284,17 @@ echo '<table class="claroTable" >'."\n\n"
     . '<tbody>'."\n"
     ;
 
+//trick to compare labels correctly
+
+foreach($toolList as $key=>$tool)
+{
+    while (strlen($toolList[$key]['label'])<8)
+    {
+        $toolList[$key]['label'] = $toolList[$key]['label'].'_';
+    }
+}
+
+
 foreach($toolList as $thisTool)
 {
     // get name and url from course or main database
@@ -291,7 +302,19 @@ foreach($toolList as $thisTool)
     if ( ! empty($thisTool['label'])) // standart claroline tool
     {
         $toolName      = $toolNameList[ $thisTool['label'] ];
-        $url           = trim($toolRepository.$thisTool['url']);
+
+        //find correct url to access tool
+
+        if (isset($thisTool['url']))
+        {
+            $url           = trim($toolRepository.$thisTool['url']);
+        }
+        elseif (isset($thisTool['tool_complete_url']))
+        {
+            $url = $thisTool['tool_complete_url'];
+            $toolName = get_lang($thisTool['name']);
+        }
+
         $removableTool = false;
     }
     else                            // external tool added by course manager
@@ -310,6 +333,10 @@ foreach($toolList as $thisTool)
     if (! empty($thisTool['icon']))
     {
         $icon = $imgRepositoryWeb.$thisTool['icon'];
+    }
+    elseif (isset($thisTool['icon_complete_url']))
+    {
+        $icon = $thisTool['icon_complete_url'];
     }
     else
     {
