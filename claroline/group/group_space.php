@@ -245,7 +245,7 @@ foreach($toolList as $thisTool)
     $style = '';
     }
     */
-    // see if tool name must be displayed in bold text or not
+    // see if tool name must be displayed 'as containing new items' (a red ball by default)  or not
     $classItem = '';
     if (in_array($thisTool['id'], $modified_tools)) $classItem = " hot";
 
@@ -423,12 +423,14 @@ include $includePath . '/claro_init_footer.inc.php';
  *
  * It's dirty because data structure is dirty.
  * Tool_list (with clarolabel and tid come from tool tables and  group properties and localinit)
+ * @param $course_id 
+ * @param boolean $active, if set to true, only activated tools of the platform must be returned 
  * @author Christophe Gesché <moosh@claroline.net>
  * @return array
  */
 
 
-function get_group_tool_list($course_id=NULL)
+function get_group_tool_list($course_id=NULL,$active = true)
 {
     global $_groupProperties, $forumId, $is_courseAdmin, $is_platformAdmin;
 
@@ -498,6 +500,21 @@ ON        ct.id = tl.tool_id";
                     }
                 }break;
 
+            }
+        }
+    }
+
+    if ($active)
+    {
+        //substrack the deactivated tool list, if needed
+        
+        $deactivated_tools = claro_get_deactivated_tool_list();
+        
+        foreach ($group_tool_list as $key=>$tool)
+        {
+            if (in_array($tool['label'], $deactivated_tools))
+            {
+                unset($group_tool_list[$key]);
             }
         }
     }
