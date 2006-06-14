@@ -88,6 +88,14 @@ h3{
    color: #DFD;
 }
 
+#userBanner #userName
+{
+	 font-size: 110%;
+	 font-weight: normal;
+	 margin: 0;
+     color: white;
+}
+
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
