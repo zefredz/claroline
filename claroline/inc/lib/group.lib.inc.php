@@ -302,7 +302,7 @@ function fill_in_groups($nbGroupPerUser, $course_id )
             GROUP BY (cu.user_id)
             HAVING nbTicket > 0
             ORDER BY nbTicket DESC";
-    echo '<div>'.__LINE__.': $sql = <pre>'. var_export($sql,1).'</PRE></div>';
+
     $userToken = array();
     $userList = claro_sql_query_fetch_all($sql);
     foreach ($userList as $user) $userToken[$user['uid']] = $user['nbTicket'];
