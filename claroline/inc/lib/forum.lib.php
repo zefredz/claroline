@@ -975,8 +975,12 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
     echo claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ');
 }
 
+/**
+ * @param
+ * @param boolean $active if set to true, only actvated tool will be considered for display
+ */
 
-function disp_forum_group_toolbar($gid)
+function disp_forum_group_toolbar($gid, $active = true)
 {
     global $imgRepositoryWeb, $_groupProperties, $is_courseAdmin, $is_groupTutor, $is_groupMember;
 
@@ -988,6 +992,10 @@ function disp_forum_group_toolbar($gid)
                                        || $is_groupMember
                                        || $is_groupTutor );
 
+    //deal with activated tools
+
+    $deactivated_tools = claro_get_deactivated_tool_list();
+
     // group space links
 
     echo  '<p>'
@@ -997,7 +1005,7 @@ function disp_forum_group_toolbar($gid)
         . '</a>'
         ;
 
-    if($_groupProperties['tools']['document'] && $is_allowedToDocAccess)
+    if($_groupProperties['tools']['document'] && $is_allowedToDocAccess && !(in_array('CLDOC___',$deactivated_tools)))
     {
         echo '&nbsp;|&nbsp'
             .'<a href="../document/document.php" class="claroCmd">'
@@ -1008,7 +1016,7 @@ function disp_forum_group_toolbar($gid)
             ;
     }
 
-    if($_groupProperties['tools']['wiki'])
+    if($_groupProperties['tools']['wiki'] && !(in_array('CLWIKI__',$deactivated_tools)))
     {
         echo '&nbsp;|&nbsp'
             .'<a href="../wiki/wiki.php" class="claroCmd">'
@@ -1018,7 +1026,7 @@ function disp_forum_group_toolbar($gid)
             ;
     }
 
-    if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess)
+    if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess && !(in_array('CLCHT___',$deactivated_tools)))
     {
         echo '&nbsp;|&nbsp'
             .'<a href="../chat/chat.php?gidReq=" . $gid . " class="claroCmd">'
