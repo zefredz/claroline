@@ -1163,8 +1163,8 @@ function get_module_info($moduleId)
                M.`type`       AS type,
                MT.`icon`       AS icon,
                MI.*
-        FROM `" . $tbl['module']      . "` AS M
-           , `" . $tbl['module_info'] . "` AS MI
+        FROM (`" . $tbl['module']      . "` AS M
+           , `" . $tbl['module_info'] . "` AS MI )
         LEFT JOIN `" . $tbl['module_tool'] . "` AS MT
               ON MT.`module_id`= M.id
 
