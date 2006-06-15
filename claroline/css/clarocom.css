@@ -1,7 +1,7 @@
 /******************************************************************************
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
-@import url(default.css) all;
+
 
 html {
 	margin: 0;
@@ -243,6 +243,23 @@ input[type=submit]:hover, button:hover {
 	padding-top: 5px;
 	margin: 0;
 }
+
+#courseBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#courseBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
+
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
