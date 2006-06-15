@@ -259,37 +259,43 @@ h3{	font-size: 110%; }
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#footer
+#campusFooter
 {
 	font-size: 80%;
 }
 
-#footer hr
+#campusFooter hr
 {
 	border: 0;
 	height: 1px;
 	background-color: gray;
 }
 
-#footer #platformManager
+#campusFooterRight
 {
 	float: right;
 }
 
-#footer #courseManager
+#campusFooterLeft
 {
-	float: left;
-	text-align: center;
+	float: left;	
 }
 
+#campusFooterLeft #courseManager
+{
+    text-align: center;
+}
 
-#footer #poweredBy
+#campusFooterCenter
 {
     clear: both;
     text-align: center;
-    font-style: italic;
 }
 
+#campusFooterCenter #poweredBy
+{
+    font-style: italic;
+}
 /******************************************************************************
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/
