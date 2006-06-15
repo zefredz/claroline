@@ -318,7 +318,6 @@ echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
 echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
-.    '<th>' . get_lang('Id')                  . '</th>'
 .    '<th>' . get_lang('Icon')                . '</th>'
 .    '<th>' . get_lang('Module name')         . '</th>'
 .    '<th>' . get_lang('Display')             . '</th>'
@@ -357,7 +356,6 @@ foreach($moduleList as $module)
     //module_id and icon column
 
     echo '<tr>'
-    .    '<td align="center">' . $module['id'] . '</td>' . "\n"
     .    '<td align="center">' . $icon . '</td>' . "\n";
 
     //name column
@@ -400,7 +398,7 @@ foreach($moduleList as $module)
     }
     else
     {
-        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Desactivated') . '</small></a>';
+        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
     }
 
     echo '</td>' . "\n";
