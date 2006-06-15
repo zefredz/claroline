@@ -458,9 +458,12 @@ function install_module($modulePath)
     {
         $idTool = register_module_tool($moduleId,$module_info);
 
-        foreach ($module_info['CONTEXT'] as $context => $contextPropertyList)
+        if (isset($module_info['CONTEXT']))
         {
-            register_module_tool_in_context($idTool,$context, $contextPropertyList);
+            foreach ($module_info['CONTEXT'] as $context => $contextPropertyList)
+            {
+                register_module_tool_in_context($idTool,$context, $contextPropertyList);
+            }
         }
     }
 
