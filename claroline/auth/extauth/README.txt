@@ -14,7 +14,7 @@ To use one of these drivers
 own context.
 
 2. Uncomment the concerned line in the main Claroline configuration file 
-(claroline/inc/conf/claro_main.conf.php)
+(claroline/inc/conf/auth.conf.php)
 
 
                                  HOW IT WORKS ?
