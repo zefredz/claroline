@@ -54,18 +54,13 @@ if ( !empty($profile_id) )
         $courseProfileRight->setCourseId($_cid);
         $courseProfileRight->load($profile);
 
-/*
-        $class_methods = get_class_methods('RightCourseProfileToolRight');
-
-        foreach ($class_methods as $method_name) {
-            echo "$method_name\n";
-        }
-*/
-
-        if ( $cmd == 'set_right' && !empty($tool_id) )
-        {        
-            $courseProfileRight->setToolRight($tool_id,$right_value);
-            $courseProfileRight->save();
+        if ( ! $profile->isLocked() )
+        {
+            if ( $cmd == 'set_right' && !empty($tool_id) )
+            {        
+                $courseProfileRight->setToolRight($tool_id,$right_value);
+                $courseProfileRight->save();
+            }
         }
     }
     else
@@ -94,9 +89,22 @@ if ( !empty($profile_id) )
     // display tool title
     echo claro_html_tool_title(array('mainTitle'=>get_lang('Course Profile'),'subTitle'=>$profile->getName()));
 
-    echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=view">View</a>' 
-    .    ' - <a href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=edit">Edit</a></p>'; 
-
+    if ( $profile->isLocked() )
+    {
+        $display = 'view';
+        echo '<p><em>' . get_lang('The profile is locked') . '</em></p>' . "\n" ;
+    }
+    else
+    {
+        // Display edit link
+        echo '<p>' 
+        . '<a href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=view">' . get_lang('View') . '</a>' 
+        . ' - '
+        . '<a href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=edit">' . get_lang('Edit') . '</a>'
+        . '</p>' . "\n" ; 
+    }
+    
+    // load display class
     $profileRightHtml = new RightProfileToolRightHtml($courseProfileRight);
 
     $profileRightHtml->addUrlParam('display',$display);
