@@ -417,57 +417,57 @@ elseif ($displayMode =="viewMainInfoEdit")
     ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = '';
 
 
-    echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">'
-    .    '<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'" />' . "\n"
-    .    '<table class="claroTable" width="80%" border="0">'
-    .    '<thead>' . "\n"
-    .    '<tr class="headerX">' . "\n"
-    .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
-    .    '<th align="left"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label></th>' . "\n"
-    .    '<th><label for="promoteTutor">' . get_lang('Group Tutor') . '</label></th>' . "\n"
-    .    '<th><label for="promoteCourseAdmin">' . get_lang('Course manager') . '</label></th>' . "\n"
-    .    '<th>&nbsp;</th>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</thead>' . "\n"
-    .    '<tfoot>' . "\n".'<tr align="center">' . "\n"
-    .    '<td align="left"><b>'
-    .    htmlize($mainUserInfo['firstName']) . ' '
-    .    htmlize($mainUserInfo['lastName'])  . '</b></td>' . "\n"
-    .    '<td align="left"><input type="text" name="role" id="role" value="'.htmlspecialchars($mainUserInfo['role']).'" maxlength="40" /></td>' . "\n"
-    .    '<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n";
+    echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">' . "\n"
+    .    '<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'" />' . "\n"; 
 
 
+    echo '<table class="claroTable" cellpadding="3" cellspacing="0" border="0">' . "\n";
+
+    // User firstname and lastname
+    echo '<tr >' . "\n"
+    .    '<td align="right">' . get_lang('Name') . ' :</td>' . "\n"
+    .    '<td ><b>' . htmlspecialchars($mainUserInfo['firstName']) . ' ' . htmlspecialchars($mainUserInfo['lastName'])  . '</b></td>' . "\n"
+    .    '</tr>' . "\n" ; 
+    
+    echo '<tr >' . "\n"
+    .    '<td align="right">' . get_lang('Email') . ' :</td>' . "\n"
+    .    '<td><a href="mailto:'.$mainUserInfo['email'].'?subject=['.rawurlencode($siteName).'])['.urlencode($_course['officialCode']).']">'
+    .    $mainUserInfo['email'] . '</a></td>'
+    .    '</tr>' . "\n" ; 
+    
+    // User role label
+    echo '<tr >' . "\n"
+    .    '<td align="right"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label> :</td>' . "\n"
+    .    '<td ><input type="text" name="role" id="role" value="'. htmlspecialchars($mainUserInfo['role']) . '" maxlength="40" /></td>' . "\n"
+    .    '</tr>' . "\n" ;
+    
+    // User is tutor
+    echo '<tr >' . "\n"
+    .    '<td align="right"><label for="promoteTutor">' . get_lang('Group Tutor') . '</label> :</td>' . "\n"
+    .    '<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n"
+    .    '</tr>' . "\n" ;
+
+
+    echo '<tr >' . "\n"
+    .    '<td align="right"><label for="promoteCourseAdmin">' . get_lang('Course manager') . '</label> :</td>' . "\n";
     if ( $_uid == $userIdViewed && ! $is_platformAdmin )  // admin is allowed to edit himself status
     {
-        echo '<td>'
-        .    get_lang('Course manager')
-        .    '</td>' . "\n"
-        ;
+        echo '<td>' . get_lang('Course manager') . '</td>' . "\n" ;
     }
     else
     {
-        echo '<td>'
-        .    '<input type="checkbox" name="promoteCourseAdmin"  id="promoteCourseAdmin" value="1" '.$courseAdminChecked.' />'
-        .    '</td>' . "\n"
-        ;
+        echo '<td>' . '<input type="checkbox" name="promoteCourseAdmin"  id="promoteCourseAdmin" value="1" '.$courseAdminChecked.' /></td>' . "\n" ;
     }
+    echo '</tr>' . "\n";
 
+    echo '<tr >' . "\n"
+    .    '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
+    .    '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
+                      . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+    .    '</tr>' . "\n";
 
-    echo '<td>'
-    .    '<input type="submit" name="submit" value="'.get_lang('Ok').'" />'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</tfoot>' . "\n"
-    .    '</table>' . "\n"
-    .    '</form>' . "\n"
-    ;
-
-    echo '<p>'
-    .    '<a href="mailto:'.$mainUserInfo['email'].'?subject=['.rawurlencode($siteName).'])['.urlencode($_course['officialCode']).']">'
-    .    $mainUserInfo['email']
-    .    '</a>'
-    .    '</p>'
-    ;
+    echo '</table>' . "\n"
+    .    '</form>' . "\n" ;
 
     }
 }
