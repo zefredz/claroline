@@ -97,11 +97,16 @@ if ( !empty($profile_id) )
     else
     {
         // Display edit link
-        echo '<p>' 
-        . '<a href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=view">' . get_lang('View') . '</a>' 
-        . ' - '
-        . '<a href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=edit">' . get_lang('Edit') . '</a>'
-        . '</p>' . "\n" ; 
+        if ( $display == 'edit' )
+        {
+            $menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=view">' . get_lang('View profile') . '</a>' ;
+        }
+        else
+        {
+            $menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=edit"><img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />&nbsp;' . get_lang('Edit profile') . '</a>' ;
+        }
+
+        echo claro_html_menu_horizontal($menu);
     }
     
     // load display class
