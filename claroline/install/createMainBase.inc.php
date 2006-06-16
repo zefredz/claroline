@@ -198,10 +198,7 @@ $creationStatementList[] = "CREATE TABLE `" . $mainTblPrefixForm . "module` (
   `activation` enum('activated','desactivated') NOT NULL default 'desactivated',
   `type`       enum('tool','applet')            NOT NULL default 'applet',
   PRIMARY KEY  (`id`)
-) TYPE=MyISAM AUTO_INCREMENT=0";
-
-
-
+) TYPE=MyISAM";
 
 $creationStatementList[] =
 "CREATE TABLE `".$mainTblPrefixForm."module_info` (
@@ -216,7 +213,6 @@ $creationStatementList[] =
   license        varchar(50)  default NULL,
   PRIMARY KEY (id)
 ) TYPE=MyISAM AUTO_INCREMENT=0";
-
 
 //table used to store claroline's modules complementary information
 /*
@@ -257,5 +253,39 @@ $creationStatementList[]=
   PRIMARY KEY  (id)
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each context'" ;
 
+$creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_profile` (
+  `profile_id` int(11) NOT NULL auto_increment,
+  `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
+  `name` varchar(255) NOT NULL default '',
+  `description` varchar(255) default '',
+  `courseManager` tinyint(4) default '0',
+  `mailingList` tinyint(4) default '0',
+  `userlistPublic` tinyint(4) default '0',
+  `groupTutor` tinyint(4) default '0',
+  `locked` tinyint(4) default '0',
+  `required` tinyint(4) default '0',
+  PRIMARY KEY  (`profile_id`),
+  KEY `type` (`type`)
+)TYPE=MyISAM" ;
+
+$creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_action` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '',
+  `description` varchar(255) default '',
+  `tool_id` int(11) default NULL,
+  `rank` int(11) default '0',
+  `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
+  PRIMARY KEY  (`id`),
+  KEY `tool_id` (`tool_id`),
+  KEY `type` (`type`)
+)TYPE=MyISAM";
+
+$creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_rel_profile_action` (
+  `profile_id` int(11) NOT NULL default '0',
+  `action_id` int(11) NOT NULL default '0',
+  `courseId`  varchar(40) default NULL,
+  `value` tinyint(4) default '0',
+  PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
+) TYPE=MyISAM";
 
 ?>
