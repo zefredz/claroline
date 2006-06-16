@@ -21,8 +21,8 @@
 
 
 /*----------------------------------------
-     CATEGORIES DEFINITION TREATMENT
- --------------------------------------*/
+CATEGORIES DEFINITION TREATMENT
+--------------------------------------*/
 
 /**
  * create a new category definition for the user information
@@ -57,9 +57,9 @@ function claro_user_info_create_cat_def($title='', $comment='', $nbline='5', $co
 
     $sql = "INSERT INTO `" . $tbl_userinfo_def."` SET
             `title`        = '" . addslashes($title) . "',
-            `comment`    = '" . addslashes($comment) . "',
-            `nbline`    = '" . (int) $nbline . "',
-            `rank`        = '" . (int) $thisRank . "'";
+            `comment`      = '" . addslashes($comment) . "',
+            `nbline`       = " . (int) $nbline . ",
+            `rank`         = " . (int) $thisRank ;
 
     return claro_sql_query_insert_id($sql);
 }
@@ -90,7 +90,7 @@ function claro_user_info_edit_cat_def($id, $title, $comment, $nbline, $course_id
     $sql = "UPDATE `" . $tbl_userinfo_def."` SET
             `title`      = '" . addslashes($title) . "',
             `comment` = '" . addslashes($comment) . "',
-            `nbline`  = '" . (int) $nbline . "'
+            `nbline`  = " . (int) $nbline . "
             WHERE id  = " . (int) $id;
 
     claro_sql_query($sql);
@@ -234,7 +234,7 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction, $course_id=NUL
              SET rank =" . (int) $nextCat['rank'] . "
              WHERE id = " . (int) $thisCat['id'];
     $sql2 = "UPDATE `" . $tbl_userinfo_def . "`
-             SET rank =" . (int) $thisCat['rank'] . "
+             SET rank = " . (int) $thisCat['rank'] . "
              WHERE id = " . (int) $nextCat['id'];
 
     claro_sql_query($sql1);
@@ -244,11 +244,11 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction, $course_id=NUL
 }
 
 /*----------------------------------------
-     CATEGORIES CONTENT TREATMENT
- --------------------------------------*/
+CATEGORIES CONTENT TREATMENT
+--------------------------------------*/
 
 
- /**
+/**
  * fill a bloc for information category
  *
  * @param  integer $def_id
@@ -283,7 +283,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 
     $sql = "SELECT id FROM `" . $tbl_userinfo_content . "`
             WHERE    `def_id`    = " . (int) $def_id . "
-            AND        `user_id`    = " . (int) $user_id;
+            AND      `user_id`   = " . (int) $user_id;
 
     $result = claro_sql_query($sql);
 
@@ -294,9 +294,9 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 
     $sql = "INSERT INTO `" . $tbl_userinfo_content . "` SET
             `content`    = '" . addslashes($content) . "',
-            `def_id`    = " . (int) $def_id . ",
+            `def_id`     = " . (int) $def_id . ",
             `user_id`    = " . (int) $user_id . ",
-            `ed_ip`        = '" . $user_ip . "',
+            `ed_ip`      = '" . $user_ip . "',
             `ed_date`    = now()";
 
     claro_sql_query($sql);
@@ -332,7 +332,7 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
 
     $content = trim($content);
 
-    if ( trim($content) == "")
+    if ( '' == trim($content) )
     {
         return claro_user_info_cleanout_cat_content($user_id, $def_id);
     }
@@ -342,7 +342,7 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
             `ed_ip`        = '" . $user_ip . "',
             `ed_date`    = now()
             WHERE def_id = " . (int) $def_id . "
-                  AND user_id = " . (int) $user_id;
+              AND user_id = " . (int) $user_id;
 
     claro_sql_query($sql);
 
@@ -368,8 +368,8 @@ function claro_user_info_cleanout_cat_content($user_id, $def_id, $course_id=NULL
     }
 
     $sql = "DELETE FROM `" . $tbl_userinfo_content . "`
-            WHERE user_id = ". (int) $user_id ."
-                  AND def_id = " . (int) $def_id ;
+            WHERE user_id = " . (int) $user_id ."
+              AND def_id  = " . (int) $def_id ;
 
     claro_sql_query($sql);
 
@@ -379,8 +379,8 @@ function claro_user_info_cleanout_cat_content($user_id, $def_id, $course_id=NULL
 
 
 /*----------------------------------------
-     SHOW USER INFORMATION TREATMENT
- --------------------------------------*/
+SHOW USER INFORMATION TREATMENT
+--------------------------------------*/
 
 /**
  * get the user info from the user id
@@ -403,7 +403,7 @@ function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
             FROM      `" . $tbl_userinfo_def . "` cat
             LEFT JOIN `" . $tbl_userinfo_content . "` content
             ON cat.id = content.def_id
-               AND content.user_id = '" . (int) $user_id . "'
+               AND content.user_id = " . (int) $user_id . "
             ORDER BY cat.rank, content.id";
 
     $result = claro_sql_query($sql);
@@ -480,9 +480,9 @@ function claro_user_info_get_cat_content($userId, $catId, $course_id = NULL)
     $tbl_userinfo_def     = $tbl_cdb_names['userinfo_def'];
     $tbl_userinfo_content = $tbl_cdb_names['userinfo_content'];
 
-    $sql = "SELECT cat.id catId    AS catId
-                   cat.title       AS title
-                   cat.comment     AS comment
+    $sql = "SELECT cat.id          AS catId,
+                   cat.title       AS title,
+                   cat.comment     AS comment,
                    cat.nbline      AS nbline,
                    content.id      AS contentId,
                    content.content AS content
@@ -516,7 +516,7 @@ function claro_user_info_get_cat_def($catId, $course_id=NULL)
 
     $sql = "SELECT id, title, comment, nbline, rank
             FROM `" . $tbl_userinfo_def . "`
-            WHERE id = '". (int) $catId . "'";
+            WHERE id = " . (int) $catId;
 
     $result = claro_sql_query($sql);
 
