@@ -357,7 +357,7 @@ input[type=submit]:hover, button:hover {
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#footer
+#campusFooter
 {
 	margin: 0;
 	padding: 0;
@@ -370,38 +370,38 @@ input[type=submit]:hover, button:hover {
 	background-repeat: repeat-x;
 }
 
-#footer a:link, a:visited {
+#campusFooter a:link, a:visited {
 	color: #FFFFFF;
 	font-weight: bold;
 }
 
-#footer a:hover, a:active {
+#campusFooter a:hover, a:active {
 	color: #D1E0F4;
 	font-weight: bold;
 }
 
-#footer hr
+#campusFooter hr
 {
 	border: 0;
 	height: 1px;
 	background-color: gray;
 }
 
-#footer #platformManager
+#campusFooter #platformManager
 {
 	float: right;
 	margin: 0 15px 0 0;
 	padding: 0;
 }
 
-#footer #courseManager
+#campusFooter #courseManager
 {
 	float: left;
 	margin: 0 0 0 15px;
 	padding: 0;
 }
 
-#footer #poweredBy
+#campusFooter #poweredBy
 {
     clear: both;
     text-align: center;
