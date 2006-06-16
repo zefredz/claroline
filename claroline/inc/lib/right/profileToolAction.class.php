@@ -91,23 +91,25 @@ class RightProfileToolAction
         }
         
         // load value of action
-        $sql = " SELECT PA.action_id, A.tool_id, A.name
+        $sql = " SELECT PA.action_id, PA.value, A.tool_id, A.name
                  FROM `" . $this->tbl['rel_profile_action'] . "` `PA`,
                       `" . $this->tbl['action'] . "` `A`
                  WHERE PA.profile_id = " . $this->profile->id . "
-                 AND PA.action_id = A.id ";
+                 AND PA.action_id = A.id 
+                 AND PA.courseId IS NULL";
 
-        $action_value_result = claro_sql_query_fetch_all($sql);
+        $action_list = claro_sql_query_fetch_all($sql);
 
         // load all actions value for the profile
-        foreach ( $action_value_result as $action_value )
+        foreach ( $action_list as $this_action )
         {   
-            $actionName = $action_value['name'];
-            $toolId = $action_value['tool_id'];
+            $actionName = $this_action['name'];
+            $actionValue = (bool) $this_action['value'];
+            $toolId = $this_action['tool_id'];
 
             if ( isset($this->toolActionList[$toolId][$actionName]) )
             {
-                $this->toolActionList[$toolId][$actionName] = true;
+                $this->toolActionList[$toolId][$actionName] = $actionValue ;
             }
         }
     }
@@ -132,20 +134,20 @@ class RightProfileToolAction
         {
             foreach ( $actionList as $actionName => $actionValue )
             {            
-                if ( $actionValue == true )
-                {
-                    $action = new RightToolAction();
+                if ( $actionValue == true ) $actionValue = 1;
+                else                        $actionValue = 0;
 
-                    $action->load($actionName, $toolId);
+                $action = new RightToolAction();
 
-                    $actionId = $action->getId();
+                $action->load($actionName, $toolId);
 
-                    $sql = "INSERT INTO `" . $this->tbl['rel_profile_action'] . "`
-                            SET profile_id = " . $this->profile->id . ", 
-                             action_id = " . $actionId ;
+                $actionId = $action->getId();
 
-                    claro_sql_query($sql);
-                }
+                $sql = "INSERT INTO `" . $this->tbl['rel_profile_action'] . "`
+                        SET profile_id = " . $this->profile->id . ", 
+                         action_id = " . $actionId . ",
+                         value = " . $actionValue ;
+                claro_sql_query($sql);
             }
         }
 
@@ -179,7 +181,7 @@ class RightProfileToolAction
 
     function getAction($toolId,$actionName)
     {
-        if ( $this->toolActionList[$toolId][$actionName] == true )
+        if ( isset($this->toolActionList[$toolId][$actionName]) )
         {
             return $this->toolActionList[$toolId][$actionName];
         }

@@ -38,7 +38,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
      * Constructor
      */
      
-    function RightProfileToolActionCourse()
+    function RightCourseProfileToolRight()
     {
         $this->RightProfileToolAction();
         $this->RightProfileToolRight();
@@ -53,30 +53,30 @@ class RightCourseProfileToolRight extends RightProfileToolRight
         // Load toolAction of the parent
         parent::load($profile);
 
-        $defaultToolActionList = $this->getToolActionList();
+        $this->defaultToolActionList = $this->getToolActionList();
 
         // load value of action of the courseId
-        $sql = " SELECT PA.action_id, A.tool_id, A.name
+        $sql = " SELECT PA.action_id, PA.value, A.tool_id, A.name
                  FROM `" . $this->tbl['rel_profile_action'] . "` `PA`,
                       `" . $this->tbl['action'] . "` `A`
                  WHERE PA.profile_id = " . $this->profile->id . "
                  AND PA.action_id = A.id 
                  AND PA.courseId = '" . addslashes($this->courseId) . "'";
 
-        $action_value_result = claro_sql_query_fetch_all($sql);
+        $action_list = claro_sql_query_fetch_all($sql);
 
         // load all actions value for the profile
-        foreach ( $action_value_result as $action_value )
+        foreach ( $action_list as $this_action )
         {   
-            $actionName = $action_value['name'];
-            $toolId = $action_value['tool_id'];
+            $actionName = $this_action['name'];
+            $actionValue = (bool) $this_action['value'];
+            $toolId = $this_action['tool_id'];
 
             if ( isset($this->toolActionList[$toolId][$actionName]) )
             {
-                $this->toolActionList[$toolId][$actionName] = true;
+                $this->toolActionList[$toolId][$actionName] = $actionValue;
             }
-        }
-        
+        }        
     }
 
     /**
@@ -85,14 +85,6 @@ class RightCourseProfileToolRight extends RightProfileToolRight
 
     function save()
     {
-        // difference between default and course
-    
-        /*
-        array_diff_assoc();
-        $this->toolActionList;
-        $this->defaultToolActionList; 
-        */
-
         // delete all relation
         $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
                 WHERE profile_id=" . $this->profile->id . "
@@ -104,26 +96,33 @@ class RightCourseProfileToolRight extends RightProfileToolRight
 
         foreach ( $this->toolActionList as $toolId => $actionList )
         {
-            foreach ( $actionList as $actionName => $actionValue )
-            {            
-                if ( $actionValue == true )
-                {
+            // get difference between default and course
+            $toolActionListDiff = array_diff_assoc($this->defaultToolActionList[$toolId],$actionList);
+
+            if ( !empty($toolActionListDiff) )
+            {
+                foreach ( $actionList as $actionName => $actionValue )
+                {            
+                    if ( $actionValue == true ) $actionValue = 1;
+                    else                        $actionValue = 0;
+
                     $action = new RightToolAction();
 
                     $action->load($actionName, $toolId);
 
                     $actionId = $action->getId();
-        
-        
+                        
                     $sql = "INSERT INTO `" . $this->tbl['rel_profile_action'] . "`
                             SET profile_id = " . $this->profile->id . ", 
                             action_id = " . $actionId . ", 
-                            courseId = '" . addslashes($courseId) . "'";
+                            value = " . $actionValue . ",
+                            courseId = '" . addslashes($this->courseId) . "'";
 
                     claro_sql_query($sql);        
                 }
             }
-        }        
+        }
+
     }
 
     /**
@@ -141,7 +140,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
 
     function setCourseId($value)
     {
-        $this->courseId($value);
+        $this->courseId = $value;
     }
 
 }
