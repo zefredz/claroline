@@ -170,10 +170,12 @@ if($is_allowedToEdit) // check teacher status
 
         if ( 'exDeleteAll' == $cmd )
         {
+            $announcementList = announcement_get_item_list($context);
             if ( announcement_delete_all_items() )
             {
                 $message = get_lang('Announcements list has been cleared up');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
+                $eventNotifier->notifyCourseEvent('all_anouncement_deleted', $_cid, $_tid, $announcementList , $_gid, '0');
                 $autoExportRefresh = TRUE;
 
                 linker_delete_all_tool_resources();
