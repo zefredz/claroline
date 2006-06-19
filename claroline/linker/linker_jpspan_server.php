@@ -18,24 +18,24 @@
     // include for JPSPAN 
     //-----------------------------------------------------------------------------------
     
-    require_once ("../inc/claro_init_global.inc.php");
+    require_once "../inc/claro_init_global.inc.php";
      
     if ( !defined('JPSPAN') )
     {
-        define('JPSPAN', '../inc/lib/JPSpan/JPSpan/' );
+        define( 'JPSPAN', '../inc/lib/JPSpan/JPSpan/' );
     }
      
-    define ('JPSPAN_ERROR_DEBUG', TRUE);
+    define ( 'JPSPAN_ERROR_DEBUG', TRUE );
      
-    require_once ('../inc/lib/JPSpan/JPSpan.php');
+    require_once dirname(__FILE__) . '/../inc/lib/JPSpan/JPSpan.php';
     require_once JPSPAN.'Server/PostOffice.php';
     
     //-----------------------------------------------------------------------------------
 
-    require_once ("CRLTool.php");
-    require_once ("navigator.lib.php");
-    require_once ("resolver.lib.php");
-    require_once ("linker_sql.lib.php");
+    require_once dirname(__FILE__) . "/CRLTool.php";
+    require_once dirname(__FILE__) . "/navigator.lib.php";
+    require_once dirname(__FILE__) . "/resolver.lib.php";
+    require_once dirname(__FILE__) . "/linker_sql.lib.php";
     
    /**
     * Class NavigatorJSP
