@@ -1,18 +1,18 @@
 <?php // $Id$
 // vim: expandtab sw=4 ts=4 sts=4:
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
- * 
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)     
- *  
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- * 
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @author see 'credits' file
  *
  * @package KERNEL
- * 
+ *
  */
 
     /*============================================================================
@@ -40,7 +40,7 @@
     *        cutted one
     * @return (string) the cutted string
     */
-    function cutstring( $str, $length, $allow_cut_word = true, 
+    function cutstring( $str, $length, $allow_cut_word = true,
         $extra_length = 0, $ending = "" )
     {
         if( $allow_cut_word )
@@ -157,12 +157,10 @@
     */
     function create_thumbnail($file, $thumbWidth, $title = '')
     {
-        global $curDirPath;
-        global $coursesRepositoryWeb;
         global $coursesRepositorySys;
         global $courseDir;
 
-        $imgPath = $coursesRepositorySys 
+        $imgPath = $coursesRepositorySys
             . $courseDir
             . $file
             ;
@@ -181,8 +179,8 @@
 
         $fileUrl = $file;
 
-        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') 
-             && get_conf('secureDocumentDownload') 
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
+             && get_conf('secureDocumentDownload')
            )
         {
             // slash argument method - only compatible with Apache
@@ -194,10 +192,10 @@
             $img_url = 'goto/?url=' . rawurlencode($fileUrl);
         }
 
-        return "<img src=\"" . $img_url 
-            . "\" width=\"" . $thumbWidth 
-            . "\" height=\"" . $newHeight 
-            . "\" " . $title . " alt=\"" 
+        return "<img src=\"" . $img_url
+            . "\" width=\"" . $thumbWidth
+            . "\" height=\"" . $newHeight
+            . "\" " . $title . " alt=\""
             . $file . "\" />\n"
             ;
 
@@ -318,7 +316,7 @@
                 $prevStyle = 'prev invisible';
             }
 
-            echo "<th class=\"". $prevStyle 
+            echo "<th class=\"". $prevStyle
                 . "\" width=\"30%\">\n"
                 ;
 
@@ -330,7 +328,7 @@
             echo "<br /><br />\n";
 
             // display thumbnail
-            echo "<a href=\"" . $_SERVER['PHP_SELF'] 
+            echo "<a href=\"" . $_SERVER['PHP_SELF']
                 . "?docView=image&file=" . urlencode($prevName)
                 . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
                 . create_thumbnail($prevName, get_conf('thumbnailWidth'))
@@ -341,7 +339,7 @@
         }
         else
         {
-            echo "<th class=\"". $prevStyle . "\" width=\"30%\">\n" 
+            echo "<th class=\"". $prevStyle . "\" width=\"30%\">\n"
                 . "<!-- empty -->\n" . "</th>\n"
                 ;
         } // end if has previous image
@@ -379,7 +377,7 @@
 
             echo "<th class=\"". $nextStyle . "\" width=\"30%\">\n";
 
-            echo "<a href=\"" . $_SERVER['PHP_SELF'] 
+            echo "<a href=\"" . $_SERVER['PHP_SELF']
                 . "?docView=image&file=" . urlencode($nextName)
                 . "&cwd=" . $curDirPath . $searchCmdUrl ."\">". basename($nextName)
                 . "&nbsp;&gt;&gt;</a>\n"
@@ -388,7 +386,7 @@
             echo "<br /><br />\n";
 
             // display thumbnail
-            echo "<a href=\"" . $_SERVER['PHP_SELF'] 
+            echo "<a href=\"" . $_SERVER['PHP_SELF']
                 . "?docView=image&file=" . urlencode($nextName)
                 . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
                 . create_thumbnail($nextName, get_conf('thumbnailWidth') )
@@ -501,7 +499,7 @@
     * @param numberOfRows (int) number of rows
     * @global curDirPath
     */
-    function display_thumbnails($imageList, $fileList, $page 
+    function display_thumbnails($imageList, $fileList, $page
         , $thumbnailWidth, $colWidth, $numberOfCols, $numberOfRows)
     {
         global $curDirPath;
@@ -535,8 +533,8 @@
                 }
 
                 // display thumbnail
-                echo "<td style=\"text-align: center;\" style=\"width:" 
-                    . $colWidth . "%;\">\n" 
+                echo "<td style=\"text-align: center;\" style=\"width:"
+                    . $colWidth . "%;\">\n"
                     ;
 
                 echo "<a href=\"". $_SERVER['PHP_SELF'] . "?docView=image&file="
@@ -563,7 +561,7 @@
 
                 // display image name
                 $imgName = ( strlen( basename( $fileList[$num]['path'] ) ) > 25 )
-                    ? substr( basename( $fileListi[$num]['path'] ), 0, 25 ) .  "..."
+                    ? substr( basename( $fileList[$num]['path'] ), 0, 25 ) .  "..."
                     : basename( $fileList[$num]['path'] )
                     ;
 
