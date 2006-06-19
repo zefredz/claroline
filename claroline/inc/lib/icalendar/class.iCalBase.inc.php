@@ -517,7 +517,8 @@ class iCalBase {
 	* @since 1.001 - 2002/10/19
 	*/
 	function isValidLanguageCode($code = '') {
-		return (boolean) ((preg_match('(^([a-zA-Z]{2})((_|-)[a-zA-Z]{2})?$)',trim($code)) > 0) ? TRUE : FALSE);
+		$ret = (boolean) ((preg_match('(^([a-zA-Z]{2})((_|-)[a-zA-Z]{2})?$)',trim($code)) > 0) ? TRUE : FALSE);
+        return $ret;
 	} // end function
 
 
@@ -533,7 +534,8 @@ class iCalBase {
 	* @see $startdate
 	*/
 	function &getLanguage() {
-		return (string) $this->lang;
+		$ret = (string) $this->lang;
+        return $ret;
 	} // end function
 
 	/**
@@ -545,7 +547,8 @@ class iCalBase {
 	* @see $description
 	*/
 	function &getDescription() {
-		return (string) $this->description;
+		$ret = (string) $this->description;
+        return $ret;
 	} // end function
 
 	/**
@@ -559,7 +562,8 @@ class iCalBase {
 	* @since 1.011 - 2002-12-22
 	*/
 	function &getOrganizerName() {
-		return (string) $this->organizer[0];
+		$ret = (string) $this->organizer[0];
+        return $ret;
 	} // end function
 
 	/**
@@ -573,7 +577,8 @@ class iCalBase {
 	* @since 1.011 - 2002-12-22
 	*/
 	function &getOrganizerMail() {
-		return (string) $this->organizer[1];
+		$ret = (string) $this->organizer[1];
+        return $ret;
 	} // end function
 
 	/**
@@ -586,7 +591,8 @@ class iCalBase {
 	* @since 1.011 - 2002-12-22
 	*/
 	function &getURL() {
-		return (string) $this->url;
+		$ret = (string) $this->url;
+        return $ret;
 	} // end function
 
 	/**
@@ -598,7 +604,8 @@ class iCalBase {
 	* @see $summary
 	*/
 	function &getSummary() {
-		return (string) $this->summary;
+		$ret = (string) $this->summary;
+        return $ret;
 	} // end function
 
 	/**
@@ -610,7 +617,8 @@ class iCalBase {
 	* @see $sequence
 	*/
 	function &getSequence() {
-		return (int) $this->sequence;
+		$ret = (int) $this->sequence;
+        return $ret;
 	} // end function
 
 	/**
@@ -623,7 +631,8 @@ class iCalBase {
 	* @since 1.010 - 2002-10-26
 	*/
 	function &getDays() {
-		return (string) $this->rec_days;
+		$ret = (string) $this->rec_days;
+        return $ret;
 	} // end function
 
 	/**
@@ -636,7 +645,8 @@ class iCalBase {
 	* @since 1.010 - 2002-10-26
 	*/
 	function &getWeekStart() {
-		return (string) ((array_key_exists($this->week_start, $this->shortDaynames)) ? $this->shortDaynames[$this->week_start] : $this->shortDaynames[1]);
+		$ret = (string) ((array_key_exists($this->week_start, $this->shortDaynames)) ? $this->shortDaynames[$this->week_start] : $this->shortDaynames[1]);
+        return $ret;
 	} // end function
 
 	/**
@@ -649,7 +659,8 @@ class iCalBase {
 	* @since 1.001 - 2002-10-10
 	*/
 	function &getAttendees() {
-		return (array) $this->attendees;
+		$ret = (array) $this->attendees;
+        return $ret;
 	} // end function
 
 	/**
@@ -661,7 +672,8 @@ class iCalBase {
 	* @see $location
 	*/
 	function &getLocation() {
-		return (string) $this->location;
+		$ret = (string) $this->location;
+        return $ret;
 	} // end function
 
 	/**
@@ -673,7 +685,8 @@ class iCalBase {
 	* @see $categories_array
 	*/
 	function &getCategoriesArray() {
-		return (array) $this->categories_array;
+		$ret = (array) $this->categories_array;
+        return $ret;
 	} // end function
 
 	/**
@@ -685,7 +698,8 @@ class iCalBase {
 	* @see $categories
 	*/
 	function &getCategories() {
-		return (string) $this->categories;
+		$ret = (string) $this->categories;
+        return $ret;
 	} // end function
 
 	/**
@@ -698,7 +712,8 @@ class iCalBase {
 	* @since 1.010 - 2002-10-26
 	*/
 	function &getFrequency() {
-		return (int) $this->frequency;
+		$ret = (int) $this->frequency;
+        return $ret;
 	} // end function
 
 	/**
@@ -711,7 +726,8 @@ class iCalBase {
 	* @since 1.011 - 2002-12-22
 	*/
 	function &getStatus() {
-		return (int) $this->status;
+		$ret = (int) $this->status;
+        return $ret;
 	} // end function
 
 	/**
@@ -724,7 +740,8 @@ class iCalBase {
 	* @since 1.010 - 2002-10-26
 	*/
 	function &getInterval() {
-		return (int) $this->interval;
+		$ret = (int) $this->interval;
+        return $ret;
 	} // end function
 
 	/**
@@ -742,7 +759,7 @@ class iCalBase {
 			$return .= (string) $date . ',';
 		} // end foreach
 		$return = (string) substr($return,0,strlen($return)-1);
-		return (string) $return;
+		return $return;
 	} // end function
 
 	/**
@@ -754,7 +771,8 @@ class iCalBase {
 	* @see $class
 	*/
 	function &getClass() {
-		return (int) $this->class;
+		$ret = (int) $this->class;
+        return $ret;
 	} // end function
 
 	/**
@@ -766,7 +784,8 @@ class iCalBase {
 	* @see $priority
 	*/
 	function &getPriority() {
-		return (int) $this->priority;
+		$ret = (int) $this->priority;
+        return $ret;
 	} // end function
 
 	/**
@@ -779,7 +798,8 @@ class iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getLastModTS() {
-		return (int) $this->last_mod_ts;
+		$ret = (int) $this->last_mod_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -792,7 +812,8 @@ class iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getLastMod() {
-		return (string) $this->last_mod;
+		$ret = (string) $this->last_mod;
+        return $ret;
 	} // end function
 	/**#@-*/
 } // end class iCalBase
