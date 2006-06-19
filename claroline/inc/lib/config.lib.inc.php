@@ -1325,25 +1325,7 @@ function claro_get_conf_def_file($configCode)
 {
     $centralizedDef = array('CLCRS','CLAUTH','CLGRP', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL');
     if(in_array($configCode,$centralizedDef)) return realpath($GLOBALS['includePath'] . '/conf/def/') ;
-    else           	                            return get_module_path($configCode) . '/conf/def/';
-}
-
-
-/**
- * return the directory of a config file for a given configCode.
- *
- * @param unknown_type $configCode
- * @return unknown
- */
-// TODO : rewrite this code :
-
-function claro_get_conf_dir($configCode)
-{
-    $confDirPath = get_module_path($configCode) . '/conf/';
-    if (is_dir($confDirPath))
-    return $confDirPath;
-    else
-    return realpath($GLOBALS['includePath'] . '/conf/');
+    else                                      return get_module_path($configCode) . '/conf/def/';
 }
 
 /**

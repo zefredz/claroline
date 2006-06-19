@@ -357,4 +357,24 @@ function claro_get_data_path($contextData=array())
     return $path;
 
 }
+
+
+/**
+ * return the directory of a config file for a given configCode.
+ *
+ * @param unknown_type $configCode
+ * @return unknown
+ */
+// TODO : rewrite this code :
+
+function claro_get_conf_dir($configCode)
+{
+    $confDirPath = get_module_path($configCode) . '/conf/';
+    if (is_dir($confDirPath))
+    return $confDirPath;
+    else
+    return realpath($GLOBALS['includePath'] . '/conf/');
+}
+
+
 ?>
