@@ -56,7 +56,7 @@ JPSpan_Serialize.prototype = {
                             
                         } else {
                             // Check for error objects
-                            var match = cname.match(/Error/);
+                            match = cname.match(/Error/);
                         
                             if ( match == null ) {
                                 return this.Encoder.encodeObject(v,this,'JPSpan_Object');
@@ -100,5 +100,7 @@ JPSpan_Serialize.prototype = {
                 return this.Encoder.encodeNull();
             break;
         }
+
+		return this.Encoder.encodeNull();
     }
 }

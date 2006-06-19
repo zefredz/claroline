@@ -53,7 +53,7 @@ if ( !defined('E_STRICT') ) {
 function JPSpan_ErrorHandler($level, $message, $file, $line) {
     $name = 'Server_Error';
     $message = strip_tags($message);
-    $file = addslashes($file);
+    $file = addcslashes($file,"\000\042\047\134");
 
     switch ( $level ) {
         case E_USER_NOTICE:
@@ -83,7 +83,7 @@ function JPSpan_ErrorHandler($level, $message, $file, $line) {
         $error .= "e.file = '$file';e.line = '$line';";
     }
     $error .= "throw e;";
-    echo 'new Function("'.addSlashes($error).'");';
+    echo 'new Function("'.addcslashes($error,"\000\042\047\134").'");';
 
     if ( !defined('JPSPAN') ) {
         define ('JPSPAN',dirname(__FILE__).'/');
@@ -111,7 +111,7 @@ set_error_handler('JPSpan_ErrorHandler');
 function JPSpan_ExceptionHandler($exception) {
 
     $name = 'Server_Error';
-    $file = addSlashes($exception->getFile());
+    $file = addcslashes($exception->getFile(),"\000\042\047\134");
     
     if ( !JPSPAN_ERROR_MESSAGES ) {
         $message = 'Server unable to respond';
@@ -126,7 +126,7 @@ function JPSpan_ExceptionHandler($exception) {
         $error .= "e.file = '$file';e.line = '".$exception->getLine()."';";
     }
     $error .= "throw e;";
-    echo 'new Function("'.addSlashes($error).'");';
+    echo 'new Function("'.addcslashes($error,"\000\042\047\134").'");';
 
     if ( !defined('JPSPAN') ) {
         define ('JPSPAN',dirname(__FILE__).'/');

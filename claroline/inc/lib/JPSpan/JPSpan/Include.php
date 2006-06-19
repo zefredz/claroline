@@ -111,7 +111,7 @@ function JPSpan_Include_ErrorReader($lang='en',$app=array(),$ser=array(),$cli=ar
     $script .= "JPSpan_Util_ErrorReader.prototype.errorList = new Object();\n";
     
     foreach ( $errors['Client_Error'] as $key => $value ) {
-        $value = addslashes($value);
+        $value = addcslashes($value,"\000\042\047\134");
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
     
@@ -119,12 +119,12 @@ function JPSpan_Include_ErrorReader($lang='en',$app=array(),$ser=array(),$cli=ar
         if ( array_key_exists($key, $errors['Client_Error']) ) {
             continue;
         }
-        $value = addslashes($value);
+        $value = addcslashes($value,"\000\042\047\134");
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
     
     foreach ( $errors['Server_Error'] as $key => $value ) {
-        $value = addslashes($value);
+        $value = addcslashes($value,"\000\042\047\134");
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
     
@@ -132,12 +132,12 @@ function JPSpan_Include_ErrorReader($lang='en',$app=array(),$ser=array(),$cli=ar
         if ( array_key_exists($key, $errors['Server_Error']) ) {
             continue;
         }
-        $value = addslashes($value);
+        $value = addcslashes($value,"\000\042\047\134");
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
     
     foreach ( $errors['Application_Error'] as $key => $value ) {
-        $value = addslashes($value);
+        $value = addcslashes($value,"\000\042\047\134");
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
     
@@ -145,7 +145,7 @@ function JPSpan_Include_ErrorReader($lang='en',$app=array(),$ser=array(),$cli=ar
         if ( array_key_exists($key, $errors['Application_Error']) ) {
             continue;
         }
-        $value = addslashes($value);
+        $value = addcslashes($value,"\000\042\047\134");
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
 

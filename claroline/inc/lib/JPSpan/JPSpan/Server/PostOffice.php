@@ -64,24 +64,23 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
     function serve($sendHeaders = TRUE) {
         require_once JPSPAN . 'Monitor.php';
         $M = & JPSpan_Monitor::instance();
-        
         $this->calledClass = NULL;
         $this->calledMethod = NULL;
         
+        if ( $_SERVER['REQUEST_METHOD'] != 'POST' ) {
+            trigger_error('Invalid HTTP request method: '.$_SERVER['REQUEST_METHOD'],E_USER_ERROR);
+            return FALSE;
+        }
         if ( $this->resolveCall() ) {
-        
             $M->setRequestInfo('class',$this->calledClass);
             $M->setRequestInfo('method',$this->calledMethod);
             
             if ( FALSE !== ($Handler = & $this->getHandler($this->calledClass) ) ) {
-            
                 $args = array();
                 $M->setRequestInfo('args',$args);
-                
+
                 if ( $this->getArgs($args) ) {
-                
                     $M->setRequestInfo('args',$args);
-                    
                     $response = call_user_func_array(
                         array(
                             & $Handler,
@@ -91,7 +90,6 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
                     );
                     
                 } else {
-                
                     $response = call_user_func(
                         array(
                             & $Handler,
@@ -100,7 +98,7 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
                     );
                     
                 }
-                
+
                 require_once JPSPAN . 'Serializer.php';
 
                 $M->setResponseInfo('payload',$response);
@@ -137,35 +135,46 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
     * @access private
     */
     function resolveCall() {
-        $uriPath = explode('/',JPSpan_Server::getUriPath());
+        // Hack between server.php?class/method and server.php/class/method
+        $uriPath = $_SERVER['QUERY_STRING'];
         
-        if ( count($uriPath) != 2 ) {
+        if ( $uriPath ) {
+            if ( preg_match('/\/$/',$uriPath) ) {
+                $uriPath = substr($uriPath,0, strlen($uriPath)-1);
+            }
+        } else {
+            $uriPath = JPSpan_Server::getUriPath();
+        }
+        
+        $uriPath = explode('/',$uriPath);
+        
+        if ( !isset($_GET['object']) || !isset($_GET['method']) ) {
             trigger_error('Invalid call syntax',E_USER_ERROR);
             return FALSE;
         }
         
-        if ( preg_match('/^[a-z]+[0-9a-z_]*$/',$uriPath[0]) != 1 ) {
-            trigger_error('Invalid handler name: '.$uriPath[0],E_USER_ERROR);
+        if ( preg_match('/^[a-z]+[0-9a-z_]*$/', $_GET['object']) != 1 ) {
+            trigger_error('Invalid handler name: '.$_GET['object'],E_USER_ERROR);
             return FALSE;
         }
         
-        if ( preg_match('/^[a-z]+[0-9a-z_]*$/',$uriPath[1]) != 1 ) {
-            trigger_error('Invalid handler method: '.$uriPath[1],E_USER_ERROR);
+        if ( preg_match('/^[a-z]+[0-9a-z_]*$/', $_GET['method']) != 1 ) {
+            trigger_error('Invalid handler method: '.$_GET['method'],E_USER_ERROR);
             return FALSE;
         }
         
-        if ( !array_key_exists($uriPath[0],$this->descriptions) ) {
-            trigger_error('Unknown handler: '.$uriPath[0],E_USER_ERROR);
+        if ( !array_key_exists($_GET['object'],$this->descriptions) ) {
+            trigger_error('Unknown handler: '.$_GET['object'],E_USER_ERROR);
             return FALSE;
         }
         
-        if ( !in_array($uriPath[1],$this->descriptions[$uriPath[0]]->methods) ) {
-            trigger_error('Unknown handler method: '.$uriPath[1],E_USER_ERROR);
+        if ( !in_array($_GET['method'],$this->descriptions[$_GET['object']]->methods) ) {
+            trigger_error('Unknown handler method: '.$_GET['method'],E_USER_ERROR);
             return FALSE;
         }
         
-        $this->calledClass = $uriPath[0];
-        $this->calledMethod = $uriPath[1];
+        $this->calledClass = $_GET['object'];
+        $this->calledMethod = $_GET['method'];
         
         return TRUE;
         
@@ -179,13 +188,13 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
     */
     function getArgs(& $args) {
         require_once JPSPAN . 'RequestData.php';
-        
+
         if ( $this->RequestEncoding == 'php' ) {
             $args = JPSpan_RequestData_Post::fetch($this->RequestEncoding);
         } else {
             $args = JPSpan_RequestData_RawPost::fetch($this->RequestEncoding);
         }
-        
+
         if ( is_array($args) ) {
             return TRUE;
         }
@@ -293,6 +302,10 @@ if ( $this->RequestEncoding == 'xml' ) {
     * @access private
     */
     function generateHandleClient(& $Code, & $Description) {
+		$url = $this->serverUrl;
+		$url .= strpos($url, '?') ? '&' : '?';
+		$url .= 'object='.$Description->Class;
+
         ob_start();
 ?>
 
@@ -305,7 +318,7 @@ function <?php echo $Description->Class; ?>() {
     }
     
     oParent.__serverurl = '<?php 
-        echo $this->serverUrl . '/' . $Description->Class; ?>';
+        echo $url; ?>';
     
     oParent.__remoteClass = '<?php echo $Description->Class; ?>';
     
@@ -325,7 +338,7 @@ foreach ( $Description->methods as $method ) {
     
     // @access public
     oParent.<?php echo $method; ?> = function() {
-        var url = this.__serverurl+'/<?php echo $method; ?>/';
+        var url = this.__serverurl+'&method=<?php echo $method; ?>';
         return this.__call(url,arguments,'<?php echo $method; ?>');
     };
 <?php

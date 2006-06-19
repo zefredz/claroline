@@ -38,11 +38,12 @@ JPSpan_RemoteObject.prototype = {
     // Replace with your own function as required
     // @access public
     clientErrorFunc: function(e) {
-    
+		var errorMsg = '';
+		
         try {
-            var errorMsg = '['+e.name+'] '+e.message;
+            errorMsg = '['+e.name+'] '+e.message;
         } catch (ex) {
-            var errorMsg = '[Client_Error] '+e;
+            errorMsg = '[Client_Error] '+e;
         }
 
         if ( e.client && e.call ) {
@@ -64,19 +65,23 @@ JPSpan_RemoteObject.prototype = {
     // @access public
 
     serverErrorFunc: function(e) {
-
+		var errorMsg = '';
+		
         try {
-            var errorMsg = '['+e.name+'] '+e.message;
+            errorMsg = '['+e.name+'] '+e.message;
         } catch (ex) {
-            var errorMsg = '[Server_Error] '+e;
+            errorMsg = '[Server_Error] '+e;
         }
 
         if ( e.client && e.call ) {
             errorMsg = errorMsg + ' while calling '+e.client+ '.'+e.call+'()';
         }
+	
+		if ( e.response ) {
+			errorMsg = errorMsg + '\nResponse:\n' + e.response;
+		}
 
         alert(errorMsg);
-
     },
     
     // Called when the application running on the server
@@ -86,11 +91,12 @@ JPSpan_RemoteObject.prototype = {
     // Replace with your own function as required
     // @access public
     applicationErrorFunc: function(e) {
-
+		var errorMsg = '';
+		
         try {
-            var errorMsg = '['+e.name+'] '+e.message;
+            errorMsg = '['+e.name+'] '+e.message;
         } catch (ex) {
-            var errorMsg = '[Application_Error] '+e;
+            errorMsg = '[Application_Error] '+e;
         }
 
         if ( e.client && e.call ) {
@@ -297,14 +303,13 @@ JPSpan_RemoteObject.prototype = {
 
         try {
             var response = this.__client.call(request);
-
+			
             try {
                 var dataFunc = eval(response);
                 
                 try {
                     return dataFunc();
                 } catch (e) {
-                
                     if ( e.name == 'Server_Error' ) {
                         this.serverErrorFunc(e);
                     } else {
@@ -324,6 +329,6 @@ JPSpan_RemoteObject.prototype = {
             this.clientErrorFunc(e);
         }
 
+		return null;
     }
-
 };

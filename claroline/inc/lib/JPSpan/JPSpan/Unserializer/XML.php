@@ -161,13 +161,14 @@ class JPSpan_Unserializer_XML {
         if ( !is_string($data) || !preg_match("/^\s*<\?xml(.+)\?>/U", $data, $match) ) {
             return $data;
         }
-        
-        $this->parser = & xml_parser_create('UTF-8');
+
+
+        $this->parser = xml_parser_create('UTF-8');
         xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
         xml_set_object($this->parser, $this);
         xml_set_element_handler($this->parser, 'open', 'close');
         xml_set_character_data_handler($this->parser, 'cdata');
-        
+
         if (!xml_parse($this->parser, trim($data), TRUE)) {
             $errorCode = xml_get_error_code($this->parser);
             $errorMsg = 'Badly formed XML: ('.$errorCode.') '.

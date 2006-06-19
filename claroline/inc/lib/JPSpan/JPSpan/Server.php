@@ -57,7 +57,7 @@ class JPSpan_Server {
         } else {
             $prot = 'http://';
         }
-        $this->serverUrl = $prot.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
+        $this->serverUrl = $prot.$_SERVER['HTTP_HOST'].$this->resolveScriptName();
     }
     
     /**
@@ -162,13 +162,13 @@ class JPSpan_Server {
     * @static
     */
     function getUriPath() {
-    
-        $basePath = explode('/',$_SERVER['SCRIPT_NAME']);
+        
+        $basePath = explode('/',$this->resolveScriptName());
         $script = array_pop($basePath);
         $basePath = implode('/',$basePath);
         
         // Determine URI path - path variables to the right of the PHP script
-        if ( false !== strpos ( $_SERVER['REQUEST_URI'], $script ) ) {
+        if ( $script && ( false !== strpos ( $_SERVER['REQUEST_URI'], $script ) ) ) {
             $uriPath = explode( $script,$_SERVER['REQUEST_URI'] );
             $uriPath = $uriPath[1];
         } else {
@@ -181,6 +181,22 @@ class JPSpan_Server {
         $uriPath = preg_replace(array('/^\//','/\/$/'),'',$uriPath);
         return $uriPath;
         
+    }
+    
+    /**
+    * Introspects the name of the script. Depending on the PHP SAPI
+    * determining the name of the current script varies. This will probably
+    * need updating later and testing under a number of environments
+    * @return string script name
+    * @access public
+    */
+    function resolveScriptName() {
+        if ( isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] == $_SERVER['PHP_SELF'] ) {
+            $script_name = $_SERVER['PATH_INFO'];
+        } else {
+            $script_name = $_SERVER['SCRIPT_NAME'];
+        }
+        return $script_name;
     }
     
     /**
