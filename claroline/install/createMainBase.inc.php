@@ -297,7 +297,7 @@ $creationStatementList[]= "CREATE TABLE
   `description` text NOT NULL,
   `required` tinyint(1) NOT NULL default '0',
   `rank` int(10) unsigned NOT NULL default '0',
-  `acceptedValue` text NOT NULL
+  `acceptedValue` text NOT NULL,
   PRIMARY KEY  (`contextScope`(2),`propertyId`),
   KEY `rank` (`rank`)
 )
