@@ -20,8 +20,7 @@
 
 ############# claroline DB CREATE #############################
 
-
-    $creationStatementList[] ="
+$creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."cours` (
   `cours_id` int(11) NOT NULL auto_increment,
   `code` varchar(40) default NULL,
@@ -102,7 +101,7 @@ CREATE TABLE `".$mainTblPrefixForm."user` (
 
 
 $creationStatementList[] ="
-CREATE TABLE `".$mainTblPrefixForm."course_tool` (
+CREATE TABLE `".$mainTblPrefixForm . "course_tool` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `claro_label` varchar(8) NOT NULL default '',
   `script_url` varchar(255) NOT NULL default '',
@@ -137,11 +136,11 @@ CREATE TABLE `".$mainTblPrefixForm."rel_class_user` (
 
 
 $creationStatementList[] = "
-  	 CREATE TABLE `".$mainTblPrefixForm."rel_course_class` (
-       `courseId` varchar(40) NOT NULL,
-  	   `classId` int(11) NOT NULL default '0',
-  	   PRIMARY KEY  (`courseId`,`classId`)
-  	 ) TYPE=MyISAM";
+CREATE TABLE `".$mainTblPrefixForm."rel_course_class` (
+    `courseId` varchar(40) NOT NULL,
+    `classId` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`courseId`,`classId`)
+    ) TYPE=MyISAM";
 
 $creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."config_file` (
@@ -152,7 +151,7 @@ CREATE TABLE `".$mainTblPrefixForm."config_file` (
 
 
 
-$creationStatementList[] = 
+$creationStatementList[] =
 "CREATE TABLE `".$mainTblPrefixForm."sso` (
   `id` int(11) NOT NULL auto_increment,
   `cookie` varchar(255) NOT NULL default '',
@@ -180,11 +179,11 @@ $creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."notify` (
 // table used for upgrading tools
 
 $creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."upgrade_status` (
-`id` INT NOT NULL auto_increment,
-`cid` VARCHAR( 40 ) NOT NULL ,
-`claro_label` VARCHAR( 8 ) ,
-`status` TINYINT NOT NULL ,
-PRIMARY KEY ( `id` )
+    `id` INT NOT NULL auto_increment,
+    `cid` VARCHAR( 40 ) NOT NULL ,
+    `claro_label` VARCHAR( 8 ) ,
+    `status` TINYINT NOT NULL ,
+    PRIMARY KEY ( `id` )
 ) TYPE=MyISAM";
 
 
@@ -287,5 +286,31 @@ $creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_rel_profile
   `value` tinyint(4) default '0',
   PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
 ) TYPE=MyISAM";
+
+$creationStatementList[]= "CREATE TABLE
+  `" . $mainTblPrefixForm . "property_definition` (
+  `propertyId` varchar(50) NOT NULL default '',
+  `contextScope` varchar(10) NOT NULL default '',
+  `label` varchar(50) NOT NULL default '',
+  `type` varchar(10) NOT NULL default '',
+  `defaultValue` varchar(255) NOT NULL default '',
+  `description` text NOT NULL,
+  `required` tinyint(1) NOT NULL default '0',
+  `rank` int(10) unsigned NOT NULL default '0',
+  `acceptedValue` text NOT NULL
+  PRIMARY KEY  (`contextScope`(2),`propertyId`),
+  KEY `rank` (`rank`)
+)
+";
+
+$creationStatementList[]= "
+CREATE TABLE  `" . $mainTblPrefixForm . "user_property` (
+  `userId`        int(10) unsigned NOT NULL default '0',
+  `propertyId`    varchar(255) NOT NULL default '',
+  `propertyValue` varchar(255) NOT NULL default '',
+  `scope`         varchar(45) NOT NULL default '',
+  PRIMARY KEY  (`scope`(2),`propertyId`,`userId`)
+)"
+;
 
 ?>
