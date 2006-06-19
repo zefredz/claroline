@@ -104,6 +104,7 @@ class RightProfile
     {
         $this->id = 0 ;
         $this->name = '';
+        $this->label = '';
         $this->type = PROFILE_TYPE_COURSE ;
         $this->description = '';
 
@@ -130,6 +131,7 @@ class RightProfile
     {
         $sql = " SELECT profile_id,
                         name,
+                        label,
                         type,
                         description,
                         locked,
@@ -147,6 +149,7 @@ class RightProfile
         {
             $this->id = (int) $data['profile_id'];
             $this->name = $data['name'];
+            $this->label = $data['label'];
             $this->type = $data['type'];
             $this->description = $data['description'];
 
@@ -179,6 +182,7 @@ class RightProfile
             // insert
             $sql = "INSERT INTO `" . $this->tbl['profile'] . "`
                     SET `name` = '" . addslashes($this->name) . "',
+                        `label` = '" . addslashes($this->label) . "',
                         `description` = '" . addslashes($this->description) . "',
                         `type` = '" . addslashes($this->type) . "',
                         `courseManager` = " . (int) $this->isCourseManager . ",
@@ -207,6 +211,7 @@ class RightProfile
             // update, main query
             $sql = "UPDATE `". $this->tbl['profile'] ."`
                     SET `name` = '" . addslashes($this->name) . "',
+                        `label` = '" . addslashes($this->label) . "',
                         `description` = '" . addslashes($this->description) . "',
                         `type` = '" . addslashes($this->type) . "',
                         `courseManager` = " . (int) $this->isCourseManager . ",
