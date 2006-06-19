@@ -488,6 +488,95 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 }
 
 /**
+ * Get the name of a tool 
+ */
+
+function claro_get_tool_name ( $identifier )
+{
+    static $cachedToolIdList = null ;
+
+    if ( is_int($identifier) )
+    {
+        // identifier is a tool_id
+        if ( ! $cachedToolIdList )
+        {
+            $tbl_mdb_names = claro_sql_get_main_tbl();
+            $tbl_tool_list = $tbl_mdb_names['tool'];
+            
+            $sql = "SELECT id, claro_label
+                    FROM `" . $tbl_tool_list . "`";
+
+            $result = claro_sql_query_fetch_all($sql);
+            
+            foreach ($result as $row)
+            {
+                $tool_id = $row['id'];
+                $claro_label =  $row['claro_label'];
+                $cachedToolIdList[$tool_id] = $claro_label;
+            }
+        }
+        // get tool label of the tool
+        $tool_label = $cachedToolIdList[$identifier];
+    }
+    else
+    {
+        // identifier is a tool label
+        $tool_label = $identifier;
+    }
+    
+    $toolNameList = claro_get_tool_name_list();
+
+    if ( isset($toolNameList[$tool_label]) )
+    {
+        return $toolNameList[$tool_label];
+    }
+    else
+    {
+       return get_lang('No tool name') ; 
+    }
+
+}
+
+/**
+ * Get the profile list name
+ */
+
+function claro_get_profile_name_list()
+{
+    static $cachedProfileNameList = null;
+
+    if ( ! $cachedProfileNameList )
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_profile = $tbl_mdb_names['right_profile'];        
+
+        $sql = "SELECT profile_id, name
+                FROM `" . $tbl_profile . "`";
+
+        $result = claro_sql_query_fetch_all($sql);
+
+        foreach ( $result as $row )
+        {
+            $profile_id = $row['profile_id'];
+            $profile_name = $row['name'];
+            $cachedProfileNameList[$profile_id] = $profile_name;
+        }
+    }
+    return $cachedProfileNameList ;
+}
+
+/**
+ * Get the name of the profile_id
+ */
+
+function claro_get_profile_name($profile_id)
+{
+    $profileNameList = claro_get_profile_name_list();
+
+    return $profileNameList[$profile_id];
+}
+
+/**
  * SECTION : CLAROLINE FAILURE MANGEMENT
  */
 
