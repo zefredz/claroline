@@ -432,4 +432,14 @@ if ( $runfillMainDb )
     else echo 'error in admin account creation';
 }
 
+/**
+ * Initialise profile
+ */
+
+if ( $runfillMainDb )
+{
+    include_once('init_profile_right.lib.php');
+    init_required_profile();
+}
+
 ?>

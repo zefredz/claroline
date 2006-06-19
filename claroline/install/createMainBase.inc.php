@@ -43,6 +43,7 @@ CREATE TABLE `".$mainTblPrefixForm."cours` (
   `lastEdit` datetime default NULL,
   `creationDate` datetime default NULL,
   `expirationDate` datetime default NULL,
+  `defaultProfileId` int(11) NOT NULL,
   PRIMARY KEY  (`cours_id`),
   KEY `fake_code` (`fake_code`),
   KEY `faculte` (`faculte`)
@@ -256,6 +257,7 @@ $creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_profile` (
   `profile_id` int(11) NOT NULL auto_increment,
   `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
   `name` varchar(255) NOT NULL default '',
+  `label` varchar(50) NOT NULL default '',
   `description` varchar(255) default '',
   `courseManager` tinyint(4) default '0',
   `mailingList` tinyint(4) default '0',
