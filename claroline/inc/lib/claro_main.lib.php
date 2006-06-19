@@ -238,7 +238,7 @@ function claro_get_tool_name_list($active = true)
     //find tool modules
 
     $sql = "SELECT `label`, `name` FROM `" . $tbl_module . "`
-                            WHERE `type`='tool'  
+                            WHERE `type`='tool'
                               ".$activationSQL;
 
     $result = claro_sql_query_fetch_all($sql);
@@ -260,14 +260,14 @@ function claro_get_tool_name_list($active = true)
             $toolNameList[$tool['label']] = $tool['name'];
         }
     }
-    
+
     return $toolNameList;
 }
 
 /**
  * Get Names of tools deactivated in an array where the key are Claro_label
  * @return array list of label of deactivated tools
- * 
+ *
  */
 
 function claro_get_deactivated_tool_list()
@@ -286,7 +286,7 @@ function claro_get_deactivated_tool_list()
     foreach ($result as $tool)
     {
         //tricks to be sure that we get a 8 chars label :  CLBLAH__
-        
+
         while (strlen($tool['label'])<8)
         {
             $tool['label'] = $tool['label'].'_';
@@ -412,7 +412,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
         //add in result the module of type 'tool'
 
         //see if we take only activated modules or all of them
-    
+
         if ($active)
         {
             $activationSQL = " AND `activation`='activated'";
@@ -421,25 +421,25 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
         {
             $activationSQL = "";
         }
-    
+
         //find tool modules
-    
+
         $sql = "SELECT  `id`,
                         `label`,
                         `name`
                   FROM `" . $tbl_module . "`
                  WHERE `type`='tool'
                  ".$activationSQL;
-    
+
         $result = claro_sql_query_fetch_all($sql);
-        
+
         //add them in result array
 
         foreach ($result as $tool)
         {
-    
+
             //tricks to be sure that we get a 8 chars label :  CLBLAH__
-    
+
             while (strlen($tool['label'])<8)
             {
                 $tool['label'] = $tool['label'].'_';
@@ -448,7 +448,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
             if (!in_array($tool['label'], $toolLabels))
             {
                 $tool['label'] = str_replace('_','', $tool['label']);
-        
+
                 $added_tool = array();
                 $added_tool['label']               = $tool['label'];
                 $added_tool['name']                = $tool['name'];
@@ -885,6 +885,12 @@ function claro_get_language_list()
 
 function get_conf($param, $default = null)
 {
+    if (CLARO_DEBUG_MODE)
+    {
+        if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
+        $GLOBALS['claroErrorList']['warning'][] = $param . ' use but not set. use default :' . var_export($default,1);
+    }
+
     if     ( isset($GLOBALS['_conf'][$param]) )  return $GLOBALS['_conf'][$param];
     elseif ( isset($GLOBALS[$param]) )           return $GLOBALS[$param];
     elseif ( defined($param)         )           return constant($param);

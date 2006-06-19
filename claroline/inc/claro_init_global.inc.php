@@ -37,10 +37,12 @@ else
        .'</center>');
 }
 
+
+
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
 if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
-
+else $claroErrorList=array();
 /*----------------------------------------------------------------------------
     CLAROLINE VERSIONS COMPATIBILITY FIXES
   ----------------------------------------------------------------------------*/

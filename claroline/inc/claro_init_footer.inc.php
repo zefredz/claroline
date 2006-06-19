@@ -89,5 +89,16 @@ echo $footerCenterDock->render();
 ?>
 </div>
 
+<?php
+
+    if (CLARO_DEBUG_MODE)
+    {
+        if (0 < count($claroErrorList))
+        echo claro_html_tool_title('Debug info');
+        echo claro_html_msg_list($claroErrorList);
+    }
+
+?>
+
 </body>
 </html>
