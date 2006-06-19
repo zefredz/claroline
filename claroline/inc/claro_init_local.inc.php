@@ -980,7 +980,10 @@ $_SESSION['_courseToolList'] = $_courseToolList;
 if (isset($_cid) && $_courseTool['label'])
 {
     $config_code = rtrim($_courseTool['label'],'_');
-    if (file_exists($includePath . '/conf/' . $config_code . '.conf.php'))
+
+    if (file_exists( claro_get_conf_dir($config_code) . $config_code . '.conf.php'))
+       require claro_get_conf_dir($config_code) . $config_code . '.conf.php';
+    elseif (file_exists($includePath . '/conf/' . $config_code . '.conf.php'))
         require $includePath . '/conf/' . $config_code . '.conf.php';
     if (isset($_cid) && file_exists($coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
         require $coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php';
