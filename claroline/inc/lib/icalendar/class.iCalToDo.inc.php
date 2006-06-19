@@ -369,7 +369,8 @@ class iCalToDo extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		return (string) $this->uid;
+		$ret = (string) $this->uid;
+        return $ret;
 	} // end function
 
 	/**
@@ -381,7 +382,8 @@ class iCalToDo extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		return (int) $this->startdate_ts;
+		$ret = (int) $this->startdate_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -393,7 +395,8 @@ class iCalToDo extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		return (string) $this->startdate;
+		$ret = (string) $this->startdate;
+        return $ret;
 	} // end function
 
 	/**
@@ -406,7 +409,8 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getCompletedTS() {
-		return (int) $this->completed_ts;
+		$ret = (int) $this->completed_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -419,7 +423,8 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getCompleted() {
-		return (string) $this->completed;
+		$ret = (string) $this->completed;
+        return $ret;
 	} // end function
 
 	/**
@@ -432,7 +437,8 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getPercent() {
-		return (int) $this->percent;
+		$ret = (int) $this->percent;
+        return $ret;
 	} // end function
 
 	/**
@@ -445,7 +451,8 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getDuration() {
-		return (int) $this->duration;
+		$ret = (int) $this->duration;
+        return $ret;
 	} // end function
 
 	/**
@@ -458,7 +465,8 @@ class iCalToDo extends iCalBase {
 	* @since 1.010 - 2002-10-26
 	*/
 	function &getRecEnd() {
-		return $this->rec_end;
+		$ret = $this->rec_end;
+        return $ret;
 	} // end function
 
 	/**
@@ -471,7 +479,8 @@ class iCalToDo extends iCalBase {
 	* @since 1.001 - 2002-10-10
 	*/
 	function &getAlarm() {
-		return ((is_object($this->alarm)) ? $this->alarm : FALSE);
+		$ret = ((is_object($this->alarm)) ? $this->alarm : FALSE);
+        return $ret;
 	} // end function
 	/**#@-*/
 } // end class iCalToDo

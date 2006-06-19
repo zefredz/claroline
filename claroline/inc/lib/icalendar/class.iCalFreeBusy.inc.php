@@ -284,7 +284,8 @@ class iCalFreeBusy extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		return (int) $this->startdate_ts;
+		$ret = (int) $this->startdate_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -296,7 +297,8 @@ class iCalFreeBusy extends iCalBase {
 	* @see $enddate_ts
 	*/
 	function &getEndDateTS() {
-		return (int) $this->enddate_ts;
+		$ret = (int) $this->enddate_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -308,7 +310,8 @@ class iCalFreeBusy extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		return (string) $this->startdate;
+		$ret = (string) $this->startdate;
+        return $ret;
 	} // end function
 
 	/**
@@ -320,7 +323,8 @@ class iCalFreeBusy extends iCalBase {
 	* @see $enddate
 	*/
 	function &getEndDate() {
-		return (string) $this->enddate;
+		$ret = (string) $this->enddate;
+        return $ret;
 	} // end function
 
 	/**
@@ -332,7 +336,8 @@ class iCalFreeBusy extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		return (string) $this->uid;
+		$ret = (string) $this->uid;
+        return $ret;
 	} // end function
 	/**#@-*/
 
@@ -347,7 +352,8 @@ class iCalFreeBusy extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getDuration() {
-		return (int) $this->duration;
+		$ret = (int) $this->duration;
+        return $ret;
 	} // end function
 
 	/**
@@ -361,7 +367,8 @@ class iCalFreeBusy extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getFBTimes() {
-		return (array) $this->freebusy_times;
+		$ret = (array) $this->freebusy_times;
+        return $ret;
 	} // end function
 
 	/**
@@ -375,7 +382,8 @@ class iCalFreeBusy extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getFBStatus($int = 0) {
-		return (string) ((array_key_exists($int, $this->fb_status)) ? $this->fb_status[$int] : $this->fb_status[0]);
+		$ret = (string) ((array_key_exists($int, $this->fb_status)) ? $this->fb_status[$int] : $this->fb_status[0]);
+        return $ret;
 	} // end function
 } // end class iCalFreeBusy
 ?>

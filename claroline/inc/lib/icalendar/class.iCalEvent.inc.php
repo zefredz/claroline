@@ -370,7 +370,8 @@ class iCalEvent extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		return (int) $this->startdate_ts;
+		$ret = (int) $this->startdate_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -382,7 +383,8 @@ class iCalEvent extends iCalBase {
 	* @see $enddate_ts
 	*/
 	function &getEndDateTS() {
-		return (int) $this->enddate_ts;
+		$ret = (int) $this->enddate_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -394,7 +396,8 @@ class iCalEvent extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		return (string) $this->startdate;
+		$ret = (string) $this->startdate;
+        return $ret;
 	} // end function
 
 	/**
@@ -406,7 +409,8 @@ class iCalEvent extends iCalBase {
 	* @see $enddate
 	*/
 	function &getEndDate() {
-		return (string) $this->enddate;
+		$ret = (string) $this->enddate;
+        return $ret;
 	} // end function
 
 	/**
@@ -419,7 +423,8 @@ class iCalEvent extends iCalBase {
 	*/
 	function &getTransp() {
 		$transps = (array) array('OPAQUE','TRANSPARENT');
-		return (string) ((array_key_exists($this->transp, $transps)) ? $transps[$this->transp] : $transps[0]);
+		$ret = (string) ((array_key_exists($this->transp, $transps)) ? $transps[$this->transp] : $transps[0]);
+        return $ret;
 	} // end function
 
 	/**
@@ -431,7 +436,8 @@ class iCalEvent extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		return (string) $this->uid;
+		$ret = (string) $this->uid;
+        return $ret;
 	} // end function
 
 	/**
@@ -444,7 +450,8 @@ class iCalEvent extends iCalBase {
 	* @since 1.001 - 2002-10-10
 	*/
 	function &getAlarm() {
-		return ((is_object($this->alarm)) ? $this->alarm : FALSE);
+		$ret = ((is_object($this->alarm)) ? $this->alarm : FALSE);
+        return $ret;
 	} // end function
 	/**#@-*/
 } // end class iCalEvent

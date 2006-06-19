@@ -302,7 +302,8 @@ class iCalJournal extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		return (int) $this->startdate_ts;
+		$ret = (int) $this->startdate_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -314,7 +315,8 @@ class iCalJournal extends iCalBase {
 	* @see $created_ts
 	*/
 	function &getCreatedTS() {
-		return (int) $this->created_ts;
+		$ret = (int) $this->created_ts;
+        return $ret;
 	} // end function
 
 	/**
@@ -326,7 +328,8 @@ class iCalJournal extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		return (string) $this->startdate;
+		$ret = (string) $this->startdate;
+        return $ret;
 	} // end function
 
 	/**
@@ -338,7 +341,8 @@ class iCalJournal extends iCalBase {
 	* @see $created
 	*/
 	function &getCreated() {
-		return (string) $this->created;
+		$ret = (string) $this->created;
+        return $ret;
 	} // end function
 
 	/**
@@ -350,7 +354,8 @@ class iCalJournal extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		return (string) $this->uid;
+		$ret = (string) $this->uid;
+        return $ret;
 	} // end function
 	/**#@-*/
 } // end class iCalJournal

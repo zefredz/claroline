@@ -245,7 +245,7 @@ class iCal {
 			$quotprint = (string) str_replace('\n',chr(13) . chr(10),$quotprint);
 			$quotprint = (string) preg_replace("~([\x01-\x1F\x3D\x7F-\xFF])~e", "sprintf('=%02X', ord('\\1'))", $quotprint);
 			$quotprint = (string) str_replace('\=0D=0A','=0D=0A',$quotprint);
-			return (string) $quotprint;
+			return $quotprint;
 		//} else {
 		//	return (string) mb_encode_mimeheader($quotprint, 'iso-8859-1', 'Q');
 		//} // end if
@@ -261,10 +261,12 @@ class iCal {
 	*/
 	function checkDownloadDir() {
 		if (!is_dir($this->download_dir)) {
-			return (boolean) ((!mkdir($this->download_dir, 0700)) ? FALSE : TRUE);
+			$ret = (boolean) ((!mkdir($this->download_dir, 0700)) ? FALSE : TRUE);
 		} else {
-			return (boolean) TRUE;
+			$ret = (boolean) TRUE;
 		} // end if
+        
+        return $ret;
 	} // end function
 
 
@@ -279,7 +281,8 @@ class iCal {
 	*/
 	function getAttendeeRole($role = 2) {
 		$roles = (array) array('CHAIR','REQ-PARTICIPANT','OPT-PARTICIPANT','NON-PARTICIPANT');
-		return (string) ((array_key_exists($role, $roles)) ? $roles[$role] : $roles[2]);
+		$ret = (string) ((array_key_exists($role, $roles)) ? $roles[$role] : $roles[2]);
+        return $ret;
 	} // end function
 
 	/**#@+
@@ -339,7 +342,8 @@ class iCal {
 	* @see $prodid
 	*/
 	function getProdID() {
-		return (string) $this->prodid;
+		$ret = (string) $this->prodid;
+        return $ret;
 	} // end function
 
 	/**
@@ -353,7 +357,8 @@ class iCal {
 	*/
 	function getMethod() {
 		$methods = (array) array('REQUEST','PUBLISH');
-		return (string) ((array_key_exists($this->method, $methods)) ? $methods[$this->method] : $methods[1]);
+		$ret = (string) ((array_key_exists($this->method, $methods)) ? $methods[$this->method] : $methods[1]);
+        return $ret;
 	} // end function
 
 	/**
@@ -365,7 +370,8 @@ class iCal {
 	* @see $ical_timestamp
 	*/
 	function &getiCalTimestamp() {
-		return (string) $this->ical_timestamp;
+		$ret = (string) $this->ical_timestamp;
+        return $ret;
 	} // end function
 
 	/**
@@ -377,7 +383,8 @@ class iCal {
 	*/
 	function &getClassName($int = 0) {
 		$classes = (array) array('PRIVATE','PUBLIC','CONFIDENTIAL');
-		return (string) ((array_key_exists($int, $classes)) ? $classes[$int] : $classes[0]);
+		$ret = (string) ((array_key_exists($int, $classes)) ? $classes[$int] : $classes[0]);
+        return $ret;
 	} // end function
 
 	/**
@@ -390,7 +397,8 @@ class iCal {
 	*/
 	function &getStatusName($int = 0) {
 		$statuscode = (array) array('TENTATIVE','CONFIRMED','CANCELLED');
-		return (string) ((array_key_exists($int, $statuscode)) ? $statuscode[$int] : $statuscode[0]);
+		$ret = (string) ((array_key_exists($int, $statuscode)) ? $statuscode[$int] : $statuscode[0]);
+        return $ret;
 	} // end function
 
 	/**
@@ -403,7 +411,8 @@ class iCal {
 	*/
 	function &getFrequencyName($int = 0) {
 		$frequencies = (array) array('ONCE','SECONDLY','MINUTELY','HOURLY','DAILY','WEEKLY','MONTHLY','YEARLY');
-		return (string) ((array_key_exists($int, $frequencies)) ? $frequencies[$int] : $frequencies[0]);
+		$ret = (string) ((array_key_exists($int, $frequencies)) ? $frequencies[$int] : $frequencies[0]);
+        return $ret;
 	} // end function
 	/**#@-*/
 
@@ -583,12 +592,13 @@ class iCal {
 	*/
 	function &getEvent($id = 0) {
 		if (count($this->icalevents) < 1) {
-			return (string) 'No Dates found';
+			$ret = (string) 'No Dates found';
 		} elseif (is_int($id) && array_key_exists($id, $this->icalevents)) {
-			return (object) $this->icalevents[$id];
+			$ret = (object) $this->icalevents[$id];
 		} else {
-			return (object) $this->icalevents[0];
+			$ret = (object) $this->icalevents[0];
 		} // end if
+        return $ret;
 	} // end function
 
 	/**
@@ -601,12 +611,13 @@ class iCal {
 	*/
 	function &getToDo($id = 0) {
 		if (count($this->icaltodos) < 1) {
-			return (string) 'No ToDos found';
+			$ret = (string) 'No ToDos found';
 		} elseif (is_int($id) && array_key_exists($id, $this->icaltodos)) {
-			return (object) $this->icaltodos[$id];
+			$ret = (object) $this->icaltodos[$id];
 		} else {
-			return (object) $this->icaltodos[0];
+			$ret = (object) $this->icaltodos[0];
 		} // end if
+        return $ret;
 	} // end function
 
 	/**
@@ -619,12 +630,13 @@ class iCal {
 	*/
 	function &getFreeBusy($id = 0) {
 		if (count($this->icalfbs) < 1) {
-			return (string) 'No FreeBusys found';
+			$ret = (string) 'No FreeBusys found';
 		} elseif (is_int($id) && array_key_exists($id, $this->icalfbs)) {
-			return (object) $this->icalfbs[$id];
+			$ret = (object) $this->icalfbs[$id];
 		} else {
-			return (object) $this->icalfbs[0];
+			$ret = (object) $this->icalfbs[0];
 		} // end if
+        return $ret;
 	} // end function
 
 	/**
@@ -637,12 +649,14 @@ class iCal {
 	*/
 	function &getJournal($id = 0) {
 		if (count($this->icaljournals) < 1) {
-			return (string) 'No Journals found';
+			$ret = (string) 'No Journals found';
 		} elseif (is_int($id) && array_key_exists($id, $this->icaljournals)) {
-			return (object) $this->icaljournals[$id];
+			$ret = (object) $this->icaljournals[$id];
 		} else {
-			return (object) $this->icaljournals[0];
+			$ret = (object) $this->icaljournals[0];
 		} // end if
+        
+        return $ret;
 	} // end function
 	/**#@-*/
 
@@ -658,7 +672,8 @@ class iCal {
 	* @see getEvent()
 	*/
 	function &getEvents() {
-		return (array) $this->icalevents;
+		$ret = (array) $this->icalevents;
+        return $ret;
 	} // end function
 
 	/**
@@ -671,7 +686,8 @@ class iCal {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getToDos() {
-		return (array) $this->icaltodos;
+		$ret = (array) $this->icaltodos;
+        return $ret;
 	} // end function
 
 	/**
@@ -684,7 +700,8 @@ class iCal {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getFreeBusys() {
-		return (array) $this->icalfbs;
+		$ret = (array) $this->icalfbs;
+        return $ret;
 	} // end function
 
 	/**
@@ -697,7 +714,8 @@ class iCal {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getJournals() {
-		return (array) $this->icaljournals;
+		$ret = (array) $this->icaljournals;
+        return $ret;
 	} // end function
 	/**#@-*/
 
@@ -713,7 +731,8 @@ class iCal {
 	* @uses $icalevents
 	*/
 	function countEvents() {
-		return (int) count($this->icalevents);
+		$ret = (int) count($this->icalevents);
+        return $ret;
 	} // end function
 
 	/**
@@ -724,7 +743,8 @@ class iCal {
 	* @uses $icaltodos
 	*/
 	function countToDos() {
-		return (int) count($this->icaltodos);
+		$ret = (int) count($this->icaltodos);
+        return $ret;
 	} // end function
 
 	/**
@@ -735,7 +755,8 @@ class iCal {
 	* @uses $icalfbs
 	*/
 	function countFreeBusys() {
-		return (int) count($this->icalfbs);
+		$ret = (int) count($this->icalfbs);
+        return $ret;
 	} // end function
 
 	/**
@@ -746,7 +767,8 @@ class iCal {
 	* @uses $icaljournals
 	*/
 	function countJournals() {
-		return (int) count($this->icaljournals);
+		$ret = (int) count($this->icaljournals);
+        return $ret;
 	} // end function
 	/**#@-*/
 
@@ -779,9 +801,9 @@ class iCal {
 			unset($temp_array);
 			unset($event_keys);
 			*/
-			return (boolean) TRUE;
+			return TRUE;
 		} else {
-			return (boolean) FALSE;
+			return FALSE;
 		} // end if
 	} // end function
 
@@ -808,9 +830,9 @@ class iCal {
 			unset($temp_array);
 			unset($todo_keys);
 			*/
-			return (boolean) TRUE;
+			return TRUE;
 		} else {
-			return (boolean) FALSE;
+			return FALSE;
 		} // end if
 	} // end function
 
@@ -837,9 +859,9 @@ class iCal {
 			unset($temp_array);
 			unset($fb_keys);
 			*/
-			return (boolean) TRUE;
+			return TRUE;
 		} else {
-			return (boolean) FALSE;
+			return FALSE;
 		} // end if
 	} // end function
 
@@ -866,9 +888,9 @@ class iCal {
 			unset($temp_array);
 			unset($journal_keys);
 			*/
-			return (boolean) TRUE;
+			return TRUE;
 		} else {
-			return (boolean) FALSE;
+			return FALSE;
 		} // end if
 	} // end function
 	/**#@-*/
@@ -886,7 +908,8 @@ class iCal {
 	* @since 1.031 - 2002-02-08
 	*/
 	function countiCalObjects() {
-		return (int) ($this->countEvents() + $this->countToDos() + $this->countFreeBusys() + $this->countJournals());
+		$ret = (int) ($this->countEvents() + $this->countToDos() + $this->countFreeBusys() + $this->countJournals());
+        return $ret;
 	} // end function
 
 	/**#@+
@@ -960,7 +983,8 @@ class iCal {
 				} // end if
 			} // end if
 		} // end if
-		return (string) $output;
+		$output = (string) $output;
+        return $output;
 	} // end function
 
 	/**
@@ -1000,7 +1024,8 @@ class iCal {
 				} // end if
 			} // end if
 		} // end if
-		return (string) $output;
+		$output = (string) $output;
+        return $output;
 	} // end function
 
 	/**
@@ -1525,7 +1550,8 @@ class iCal {
 		if (!isset($this->output) || $this->output_format != $format) {
 			$this->generateOutput($format);
 		} // end if
-		return (string) $this->output;
+		$ret = (string) $this->output;
+        return $ret;
 	} // end function
 
 	/**
@@ -1592,7 +1618,8 @@ class iCal {
 	function getFilePath() {
 		$path_parts = pathinfo($_SERVER['SCRIPT_NAME']);
 		$port = (string) (($_SERVER['SERVER_PORT'] != 80) ? ':' . $_SERVER['SERVER_PORT'] : '' );
-		return (string) 'http://' . $_SERVER['SERVER_NAME'] . $port . $path_parts["dirname"] . '/' . $this->download_dir . '/' . $this->events_filename;
+		$ret = (string) 'http://' . $_SERVER['SERVER_NAME'] . $port . $path_parts["dirname"] . '/' . $this->download_dir . '/' . $this->events_filename;
+        return $ret;
 	} // end function
 	/**#@-*/
 
@@ -1630,7 +1657,8 @@ class iCal {
 
 
 function isEmpty($variable) {
-    return (boolean) ((strlen(trim($variable)) > 0) ? FALSE : TRUE);
+    $ret = (boolean) ((strlen(trim($variable)) > 0) ? FALSE : TRUE);
+    return $ret;
 }
 
 ?>

@@ -199,7 +199,8 @@ class iCalAlarm extends iCalBase {
 	*/
 	function &getAction() {
 		$action_status = (array) array('DISPLAY', 'EMAIL', 'AUDIO', 'PROCEDURE');
-		return (string) ((array_key_exists($this->action, $action_status)) ? $action_status[$this->action] : $action_status[0]);
+		$ret = (string) ((array_key_exists($this->action, $action_status)) ? $action_status[$this->action] : $action_status[0]);
+        return $ret;
 	} // end function
 
 	/**
@@ -211,7 +212,8 @@ class iCalAlarm extends iCalBase {
 	* @see $trigger
 	*/
 	function &getTrigger() {
-		return (int) $this->trigger;
+		$ret = (int) $this->trigger;
+        return $ret;
 	} // end function
 	/**#@-*/
 
@@ -225,7 +227,8 @@ class iCalAlarm extends iCalBase {
 	* @access private
 	*/
 	function &getDuration() {
-		return (int) $this->duration;
+		$ret = (int) $this->duration;
+        return $ret;
 	} // end function
 
 	/**
@@ -238,7 +241,8 @@ class iCalAlarm extends iCalBase {
 	* @access private
 	*/
 	function &getRepeat() {
-		return (int) $this->duration;
+		$ret = (int) $this->duration;
+        return $ret;
 	} // end function
 } // end class iCalAlarm
 ?>
