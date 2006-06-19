@@ -96,7 +96,7 @@ class RightProfileToolAction
                       `" . $this->tbl['action'] . "` `A`
                  WHERE PA.profile_id = " . $this->profile->id . "
                  AND PA.action_id = A.id 
-                 AND PA.courseId IS NULL";
+                 AND PA.courseId = ''";
 
         $action_list = claro_sql_query_fetch_all($sql);
 
@@ -124,7 +124,8 @@ class RightProfileToolAction
 
         // delete all relation
         $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
-                WHERE profile_id=" . $this->profile->id ;
+                WHERE profile_id=" . $this->profile->id . "
+                AND courseId = '' ";
 
         claro_sql_query($sql);
 
@@ -146,7 +147,8 @@ class RightProfileToolAction
                 $sql = "INSERT INTO `" . $this->tbl['rel_profile_action'] . "`
                         SET profile_id = " . $this->profile->id . ", 
                          action_id = " . $actionId . ",
-                         value = " . $actionValue ;
+                         value = " . $actionValue . ",
+                         courseId = '' ";
                 claro_sql_query($sql);
             }
         }

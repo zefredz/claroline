@@ -282,7 +282,7 @@ $creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_action` (
 $creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_rel_profile_action` (
   `profile_id` int(11) NOT NULL default '0',
   `action_id` int(11) NOT NULL default '0',
-  `courseId`  varchar(40) default NULL,
+  `courseId`  varchar(40) NOT NULL default '',
   `value` tinyint(4) default '0',
   PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
 ) TYPE=MyISAM";
