@@ -17,53 +17,6 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-/**
- * replaces some dangerous character in a string for HTML use
- *
- * @param  string $string
- * @param  string $strict (optional) removes also scores and simple quotes
- * @return string : the string cleaned of dangerous character
- *
- */
-
-function replace_dangerous_char($string, $strict = 'loose')
-{
-    $search[] = ' ';  $replace[] = '_';
-    $search[] = '/';  $replace[] = '-';
-    $search[] = '\\'; $replace[] = '-';
-    $search[] = '"';  $replace[] = '-';
-    $search[] = '\'';  $replace[] = '_';
-    $search[] = '?';  $replace[] = '-';
-    $search[] = '*';  $replace[] = '-';
-    $search[] = '>';  $replace[] = '';
-    $search[] = '<';  $replace[] = '-';
-    $search[] = '|';  $replace[] = '-';
-    $search[] = ':';  $replace[] = '-';
-    $search[] = '$';  $replace[] = '-';
-    $search[] = '(';  $replace[] = '-';
-    $search[] = ')';  $replace[] = '-';
-    $search[] = '^';  $replace[] = '-';
-    $search[] = '[';  $replace[] = '-';
-    $search[] = ']';  $replace[] = '-';
-    $search[] = '..';  $replace[] = '';
-
-
-    foreach($search as $key=>$char )
-    {
-        $string = str_replace($char, $replace[$key], $string);
-    }
-
-    if ($strict == 'strict')
-    {
-        $string = str_replace('-', '_', $string);
-        $string = str_replace("'", '', $string);
-        $string = strtr($string,
-                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
-                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-    }
-
-    return $string;
-}
 
 //------------------------------------------------------------------------------
 

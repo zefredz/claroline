@@ -22,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 // Already logged
 if ( isset($_uid) )
 {
-    header('Location: ' . $urlAppend . '/index.php');
+    header('Location: ' . get_conf('urlAppend') . '/index.php');
     exit;
 }
 
@@ -129,7 +129,7 @@ if ( get_conf('allowSelfReg',false) )
     {
         $display = DISP_REGISTRATION_SUCCEED;
     }
-    elseif ( $cmd == 'agree' || ! get_conf('show_agreement_panel') || $cmd == 'registration' )
+    elseif ( 'agree' == $cmd || ! get_conf('show_agreement_panel') || $cmd == 'registration' )
     {
         $display = DISP_REGISTRATION_FORM;
     }
@@ -196,7 +196,7 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
-    .    claro_html_button( $urlAppend.'/index.php', get_lang('Cancel') )
+    .    claro_html_button( get_conf('urlAppend') . '/index.php', get_lang('Cancel') )
     .    '</form>' . "\n"
     ;
 }
@@ -209,7 +209,7 @@ elseif ( DISP_REGISTRATION_FORM == $display  )
         echo claro_html_message_box( implode('<br />', $messageList) );
     }
 
-    user_display_form_registration($user_data);
+    echo user_html_form_registration($user_data);
 }
 else
 {

@@ -95,7 +95,7 @@ include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title( array('mainTitle'=>$nameTools ) );
 
-if ( $cmd == 'registration' && $error == false )
+if ( 'registration' == $cmd && $error == false )
 {
     echo '<p>' . get_lang('The new user has been sucessfully created') . '</p>'
     .    '<ul>'
@@ -124,12 +124,13 @@ else
 
     if ( count($messageList) > 0 ) echo claro_html_message_box( implode('<br />', $messageList) );
 
-    echo get_lang('New users will receive an e-mail with their user name and password');
-
-    user_display_form_admin_add_new_user($user_data);
+    echo get_lang('New users will receive an e-mail with their user name and password')
+    .    user_html_form_admin_add_new_user($user_data)
+    ;
 }
 
 // Display footer
 
 include $includePath . '/claro_init_footer.inc.php';
+
 ?>

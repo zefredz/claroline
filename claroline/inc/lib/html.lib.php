@@ -648,7 +648,7 @@ class claro_datagrid
         else                     trigger_error('set_grid need an array : ' .var_export($datagrid,1). ' is not array' ,E_USER_NOTICE);
 
     }
- 
+
 
     function set_option_list($option_list)
     {
@@ -656,17 +656,17 @@ class claro_datagrid
         {
             switch ( $option )
             {
-                case 'idLineShift': 
-                    $this->set_idLineShift($value);   
+                case 'idLineShift':
+                    $this->set_idLineShift($value);
                     break;
-                case 'colTitleList': 
+                case 'colTitleList':
                     $this->set_colTitleList($value);
                     break;
-                case 'colAttributeList': 
+                case 'colAttributeList':
                     $this->set_colAttributeList($value);
                     break;
-                case 'caption': 
-                    $this->set_caption($value);                    
+                case 'caption':
+                    $this->set_caption($value);
                     break;
             }
         }
@@ -1251,6 +1251,89 @@ function claro_disp_tool_title($titlePart, $helpUrl = false)
     if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_tool_title is deprecated, use claro_html_tool_title', E_USER_WARNING);
 
     return claro_html_tool_title($titlePart, $helpUrl);
+}
+
+
+/**
+ * transform content in a html display
+ * @param  - string $string string to htmlize
+ * @return  - string htmlized
+ */
+
+function htmlize($phrase)
+{
+    return claro_parse_user_text(htmlspecialchars($phrase));
+}
+
+
+/**
+ * replaces some dangerous character in a string for HTML use
+ *
+ * @param  - string (string) string
+ * @return - the string cleaned of dangerous character
+
+
+function replace_dangerous_char($string)
+{
+    $search[]="/" ; $replace[]="-";
+    $search[]="\|"; $replace[]="-";
+    $search[]="\""; $replace[]=" ";
+
+    foreach($search as $key=>$char )
+    {
+        $string = str_replace($char, $replace[$key], $string);
+    }
+
+    return $string;
+}
+*/
+
+/**
+ * replaces some dangerous character in a string for HTML use
+ *
+ * @param  string $string
+ * @param  string $strict (optional) removes also scores and simple quotes
+ * @return string : the string cleaned of dangerous character
+ *
+ */
+
+function replace_dangerous_char($string, $strict = 'loose')
+{
+    $search[] = ' ';  $replace[] = '_';
+    $search[] = '/';  $replace[] = '-';
+    $search[] = '\\'; $replace[] = '-';
+    $search[] = '"';  $replace[] = '-';
+    $search[] = '\'';  $replace[] = '_';
+    $search[] = '?';  $replace[] = '-';
+    $search[] = '*';  $replace[] = '-';
+    $search[] = '>';  $replace[] = '';
+    $search[] = '<';  $replace[] = '-';
+    $search[] = '|';  $replace[] = '-';
+    $search[] = ':';  $replace[] = '-';
+    $search[] = '$';  $replace[] = '-';
+    $search[] = '(';  $replace[] = '-';
+    $search[] = ')';  $replace[] = '-';
+    $search[] = '^';  $replace[] = '-';
+    $search[] = '[';  $replace[] = '-';
+    $search[] = ']';  $replace[] = '-';
+    $search[] = '..';  $replace[] = '';
+
+
+    foreach($search as $key=>$char )
+    {
+        $string = str_replace($char, $replace[$key], $string);
+    }
+
+    if ($strict == 'strict')
+    {
+        $string = str_replace('-', '_', $string);
+        $string = str_replace("'", '', $string);
+        $string = strtr($string,
+                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
+    }
+
+    return $string;
 }
 
 ?>

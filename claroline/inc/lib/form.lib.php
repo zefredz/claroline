@@ -33,7 +33,7 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
 {
     if( $unixDate == 0) $selectedDate = date('Y-m-d');
 	else				$selectedDate = date('Y-m-d', $unixDate);
-    
+
     // split selectedDate
     list($selYear, $selMonth, $selDay) = split('-', $selectedDate);
 
@@ -101,7 +101,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 {
     if( $unixDate == 0) $selectedTime = date("H:i");
     else				$selectedTime = date("H:i",$unixDate);
-    
+
 
     //split selectedTime
     list($selHour, $selMinute) = split(':',$selectedTime);
@@ -189,6 +189,110 @@ function claro_html_option_list($list_option, $preselect)
         return false;
     }
 
+}
+
+/**
+ * Return html for a field label wich is required.
+ *
+ * @param string $field field label
+ * @return string html for a field label wich is required.
+ * @since 1.8
+ */
+
+function form_required_field($field)
+{
+    return '<span class="required">*</span>&nbsp;' . $field;
+}
+
+function form_row($legend, $element)
+{
+    return '<tr valign="top">' . "\n"
+    .      '<td align="right">' . "\n"
+    .      $legend
+    .      '</td>' . "\n"
+    .      '<td align="left">' . "\n"
+    .      $element . "\n"
+    .      '</td>' . "\n"
+    .      '</tr>' . "\n"
+    ;
+}
+
+/**
+ * Prepare an html output of an input wich  would be include in a <form>
+ *
+ * @param string  $name
+ * @param string  $value
+ * @param string  $displayedName (default '')
+ * @param boolean $required      (default false)
+ * @return string html content
+ * @since 1.8
+ */
+function form_input_text($name, $value, $displayedName = '', $required = false)
+{
+    if ( empty($displayedName) ) $displayedName = $name;
+    if ( $required )             $displayedName = form_required_field($displayedName);
+
+    return form_row( '<label for="' . $name . '">' . $displayedName . '&nbsp;: '
+    ,                '<input type="text" size="' . get_conf('formSize',40) . '"'
+    .                ' id="'.$name.'" name="'.$name.'"'
+    .                ' value="'.htmlspecialchars($value).'" />')
+    ;
+}
+
+/**
+ * Prepare an html output of an input wich  would be include in a <form>
+ *
+ * @param string  $name
+ * @param string  $value
+ * @param string  $displayedName (default '')
+ * @param boolean $required      (default false)
+ * @return string html content
+ * @since 1.8
+ */
+function form_input_password($name, $value, $displayedName = '', $required = false)
+{
+    if ( empty($displayedName) ) $displayedName = $name;
+    if ( $required )             $displayedName = form_required_field($displayedName);
+
+    return form_row( '<label for="'.$name.'">'.$displayedName . '&nbsp;: '
+    ,                '<input type="password" size="' . get_conf('formSize',40) . '"'
+    .                ' id="' . $name . '" name="' . $name . '"'
+    .                ' value="' . htmlspecialchars($value) . '" />')
+    ;
+}
+
+/**
+ * Enter description here...
+ *
+ * @param string $name
+ * @param string $value
+ * @return string : html stream
+ */
+function form_input_hidden($name, $value)
+{
+    return '<input type="hidden"' . ' id="'.$name.'" name="'.$name.'"' . ' value="'.htmlspecialchars($value).'" />';
+}
+
+/**
+ * Prepare an html output of an input wich  would be include in a <form>
+ *
+ * @param string  $name
+ * @param string  $value
+ * @param string  $displayedName (default '')
+ * @param boolean $required      (default false)
+ * @return string html content
+ * @since 1.8
+ */
+function form_input_textarea($name, $value, $displayedName = '', $required = false, $rows=6)
+{
+    if ( empty($displayedName) ) $displayedName = $name;
+    if ( $required )             $displayedName = form_required_field($displayedName);
+
+    $rows = (int) $rows;
+    return form_row( '<label for="' . $name . '">' . $displayedName . '&nbsp;: '
+    ,                '<textarea cols="' . get_conf('formSize',40) . '" rows="' . $rows . '"  '
+                   . ' id="' . $name . '" name="' . $name . '" >' . htmlspecialchars($value) . '</textarea>' )
+    ;
 }
 
 ?>

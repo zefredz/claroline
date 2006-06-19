@@ -12,7 +12,7 @@
  */
 /*=====================================================================
  Init Section
- =====================================================================*/ 
+ =====================================================================*/
 
 $tlabelReq = 'CLUSR___';
 
@@ -39,16 +39,16 @@ $courseRegSucceed   = false;
 
 /*=====================================================================
                                 MAIN SECTION
- =====================================================================*/ 
+ =====================================================================*/
 
-// Initialise field variable from subscription form 
+// Initialise field variable from subscription form
 $userData = user_initialise();
 
 $cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : null;
 
-if ( (isset($_REQUEST['applySearch'] ) && ( $_REQUEST['applySearch'] != '' ))) 
+if ( (isset($_REQUEST['applySearch'] ) && ( $_REQUEST['applySearch'] != '' )))
 {
-    $cmd = 'applySearch'; 
+    $cmd = 'applySearch';
 }
 
 $userData['lastname'        ] = isset($_REQUEST['lastname'        ]) ? strip_tags(trim($_REQUEST['lastname'    ])) : null;
@@ -92,7 +92,7 @@ if ( $cmd == 'registration' )
             $userList = user_search( array('officialCode' => $userData['officialCode']),
                                      $_cid, false, true);
 
-            $messageList[] = get_lang('This official code is already used by another user.')
+            $messageList['error'][] = get_lang('This official code is already used by another user.')
                            . '<br />' . get_lang('Take one of these options') . ' : '
                            . '<ul>'
                            . '<li>'
@@ -107,10 +107,10 @@ if ( $cmd == 'registration' )
 
              $displayResultTable = true;
         }
-        elseif (    ! $userData['confirmUserCreate'] 
+        elseif (    ! $userData['confirmUserCreate']
                  && ! ( empty($userData['lastname']) && empty($userData['email']) ) )
         {
-            $userList = user_search( array('lastname' => $userData['lastname'    ], 
+            $userList = user_search( array('lastname' => $userData['lastname'    ],
                                            'email'    => $userData['email'       ]),
                                      $_cid, false, true);
             if ( count($userList) > 0 )
@@ -123,12 +123,12 @@ if ( $cmd == 'registration' )
                  }
 
                  $confirmUserCreateUrl = $_SERVER['PHP_SELF']
-                                       . '?cmd=registration&amp;' 
+                                       . '?cmd=registration&amp;'
                                        . implode('&amp;', $confirmUserCreateUrl)
                                        . '&amp;confirmUserCreate=1';
 
 
-                 $messageList[] .= get_lang('Notice') . '. '
+                 $messageList['warning'][] .= get_lang('Notice') . '. '
                 . get_lang('Users with similar settings exist on the system yet')
                 . '<br />' . get_lang('Take one of these options') . ' : '
                 . '<ul>'
@@ -162,7 +162,7 @@ if ( $cmd == 'registration' )
 
         if ( count($errorMsgList) > 0 && count($userList) == 0 )
         {
-            $messageList   = array_merge($messageList, $errorMsgList);
+            $messageList['error']   = array_merge($messageList['error'], $errorMsgList);
         }
     }
 
@@ -188,14 +188,14 @@ if ($cmd == 'applySearch')
 {
     // search on username, official_code, ...
 
-    $displayResultTable = TRUE; 
+    $displayResultTable = TRUE;
 
-    if ( ! (   empty($userData['lastname'    ]) 
-            && empty($userData['email'       ]) 
+    if ( ! (   empty($userData['lastname'    ])
+            && empty($userData['email'       ])
             && empty($userData['officialCode']) ) )
     {
-        $userList = user_search( array('lastname'     => $userData['lastname'], 
-                                       'email'        => $userData['email'], 
+        $userList = user_search( array('lastname'     => $userData['lastname'],
+                                       'email'        => $userData['email'],
                                        'officialCode' => $userData['officialCode']),
                                  $_cid);
     }
@@ -208,18 +208,18 @@ if ( $courseRegSucceed )
 {
     user_send_enroll_to_course_mail($userId, user_get_properties($userId) );
     // display message
-    $messageList[]= get_lang('%firstname %lastname has been registered to your course', 
+    $messageList['info'][]= get_lang('%firstname %lastname has been registered to your course',
                             array ( '%firstname' => $userData['firstname'],
-                                    '%lastname'  => $userData['lastname']) 
+                                    '%lastname'  => $userData['lastname'])
                            );
 }
 
 
 /*=====================================================================
  Display Section
- =====================================================================*/ 
+ =====================================================================*/
 
-$htmlHeadXtra[] = 
+$htmlHeadXtra[] =
 "<script>
 highlight.previousValue = new Array();
 
@@ -245,19 +245,13 @@ include($includePath.'/claro_init_header.inc.php');
 
 echo claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
                 'help_user.php');
+echo claro_html_msg_list($messageList);
 
-// message box
-
-if ( count($messageList) > 0 ) 
-{
-    echo claro_html_message_box( implode('<br />', $messageList) );
-}
-
-if ( $courseRegSucceed ) 
+if ( $courseRegSucceed )
 {
     echo '<p><a href="user.php">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
 }
-else 
+else
 {
     if ($displayResultTable) //display result of search (if any)
     {
@@ -303,14 +297,15 @@ else
             }
             else
             {
-                echo '<small class="highlight">' 
+                echo '<small class="highlight">'
                 .    get_lang('Already enroled')
                 .    '</small>'
                 ;
             }
 
             echo '</td>' . "\n"
-                .'</tr>' . "\n";
+            .    '</tr>' . "\n"
+            ;
         }
 
         if ( sizeof($userList) == 0 )
@@ -328,13 +323,14 @@ else
 
     if ($displayForm)
     {
-        echo  '<p>' . get_lang('Add user manually') . ' :</p>'
-            . '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n";
-
-        user_display_form_add_new_user($userData);
+        echo '<p>' . get_lang('Add user manually') . ' :</p>'
+        .    '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
+        .    user_html_form_add_new_user($userData)
+        ;
     }
-} // end else of if ( $courseRegSucceed ) 
+} // end else of if ( $courseRegSucceed )
 
 // display footer
 include $includePath . '/claro_init_footer.inc.php';
+
 ?>

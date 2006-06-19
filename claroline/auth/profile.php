@@ -19,8 +19,8 @@
  */
 
 /*=====================================================================
-  Init Section
- =====================================================================*/
+Init Section
+=====================================================================*/
 
 $cidReset = TRUE;
 $gidReset = TRUE;
@@ -48,19 +48,38 @@ $tbl_user      = $tbl_mdb_names['user'];
 
 // define display
 define('DISP_PROFILE_FORM',__LINE__);
+define('DISP_MOREINFO_FORM',__LINE__);
 define('DISP_REQUEST_COURSE_CREATOR_STATUS',__LINE__);
 define('DISP_REQUEST_REVOQUATION',__LINE__);
+define('DISP_MERGE_ACCOUNT_FORM',__LINE__);
 
 $display = DISP_PROFILE_FORM;
 
 /*=====================================================================
- CONTROLER Section
- =====================================================================*/
+CONTROLER Section
+=====================================================================*/
+
+$extraInfoDefList = get_userInfoExtraDefinitionList();
+
 
 $user_data = user_initialise();
 
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = '';
+$acceptedCmdList = array( 'exCCstatus'
+                        , 'exRevoquation'
+                        , 'reqCCstatus'
+                        , 'reqRevoquation'
+                        , 'editExtraInfo'
+                        , 'exMoreInfo'
+                        );
+
+if ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCmdList) )
+{
+    $cmd = $_REQUEST['cmd'];
+}
+else
+{
+    $cmd = '';
+}
 
 if ( isset($_REQUEST['applyChange']) )
 {
@@ -78,12 +97,9 @@ if ( isset($_REQUEST['applyChange']) )
     if ( isset($_REQUEST['language']) )      $user_data['language'] = trim($_REQUEST['language']);
 
     // validate forum params
-
-    $messageList = user_validate_form_profile($user_data, $_uid);
-
-    if ( count($messageList) == 0 )
+    $messageList['warning'] = user_validate_form_profile($user_data, $_uid);
+    if ( count($messageList['warning']) == 0 )
     {
-
         // if no error update use setting
         user_set_properties($_uid, $user_data);
         event_default('PROFILE_UPDATE', array('user'=>$_uid));
@@ -92,7 +108,7 @@ if ( isset($_REQUEST['applyChange']) )
 
         $uidReset = true;
         include '../inc/claro_init_local.inc.php';
-        $messageList[] = get_lang('Your new profile has been saved') . '<br />' . "\n";
+        $messageList['info'][] = get_lang('Your new profile has been saved') . '<br />' . "\n";
 
     } // end if $userSettingChangeAllowed
     else
@@ -106,63 +122,81 @@ if ( isset($_REQUEST['applyChange']) )
 
 }
 elseif (    get_conf('can_request_course_creator_status')
-         && $cmd == 'exCCstatus' )
+&& 'exCCstatus' == $cmd )
 {
     // send a request for course creator status
     profile_send_request_course_creator_status($_REQUEST['explanation']);
-    $messageList[] = get_lang('Your request to become a course creator has been sent to platform administrator(s).');
+    $messageList['info'][] = get_lang('Your request to become a course creator has been sent to platform administrator(s).');
 }
 elseif (    get_conf('can_request_revoquation')
-         && $cmd == 'exRevoquation' )
+&& 'exRevoquation' == $cmd )
 {
     // send a request for revoquation
     profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
-    $messageList[] = get_lang('Your request to remove your account has been sent');
+    $messageList['info'][] = get_lang('Your request to remove your account has been sent');
 }
 elseif (    get_conf('can_request_course_creator_status')
-         && $cmd == 'reqCCstatus' )
+&& 'reqCCstatus' == $cmd )
 {
     // display course creator status form
     $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
+    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
     $nameTools = get_lang('Request course creation status');
 }
 elseif ( get_conf('can_request_revoquation')
-         && $cmd == 'reqRevoquation' )
+&& 'reqRevoquation' == $cmd )
 {
     // display revoquation form
     $noQUERY_STRING = TRUE;
+    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+    $nameTools = get_lang('Request to remove this account');
     $display = DISP_REQUEST_REVOQUATION;
 }
+elseif ( get_conf('user_can_merge',false)
+&& 'reqMerge' == $cmd)
+{
+    // display revoquation form
+    $noQUERY_STRING = TRUE;
+    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+    $nameTools = get_lang('Merge this account with another account');
+    $display = DISP_MERGE_ACCOUNT_FORM;
+}
+elseif ( 'editExtraInfo' == $cmd && 0 < count($extraInfoDefList) )
+{
+    // display revoquation form
+    $noQUERY_STRING = TRUE;
+    $display = DISP_MOREINFO_FORM;
+    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+    $nameTools = get_lang('Complementary fields');
+    $userInfo = get_user_property_list($_uid);
+
+}
+elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
+{
+    if (array_key_exists('extraInfoList',$_REQUEST))
+    {
+        foreach( $_REQUEST['extraInfoList'] as $extraInfoName=> $extraInfoValue)
+        {
+            set_user_property($_uid,$extraInfoName,$extraInfoValue,'userExtraInfo');
+        }
+    }
+
+
+}
+
 
 // Initialise
 $user_data = user_get_properties($_uid);
-
-/**********************************************************************
-  View Section
- **********************************************************************/
-
-// display header
-include $includePath . '/claro_init_header.inc.php';
-
-echo claro_html_tool_title($nameTools);
-
-if ( count($messageList) > 0 )
-{
-    echo claro_html_message_box( implode('<br />', $messageList) );
-}
+$user_data['userExtraInfoList'] =  get_user_property_list($_uid);
 
 switch ( $display )
 {
     case DISP_PROFILE_FORM :
 
-        // display form profile
-
-        user_display_form_profile($user_data);
-
         // display user tracking link
-        $profile_menu[] = '<a class="claroCmd" href="' . $urlAppend . '/claroline/tracking/personnalLog.php">'
-        .                 '<img src="' . $clarolineRepositoryWeb . '/img/statistics.gif" />' . get_lang('View my statistics')
+        $profile_menu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php">'
+        .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
         .                 '</a>'
         ;
 
@@ -178,66 +212,112 @@ switch ( $display )
             $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
         }
 
-        echo claro_html_menu_horizontal($profile_menu);
+        // display user revoquation
+        if ( get_conf('user_can_merge',false) )
+        {
+            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqMerge">' . get_lang('Merge my account') . '</a>' ;
+        }
+
+        break;
+}
+
+
+
+
+/**********************************************************************
+View Section
+**********************************************************************/
+
+// display header
+include $includePath . '/claro_init_header.inc.php';
+
+echo claro_html_tool_title($nameTools);
+echo claro_html_msg_list($messageList);
+switch ( $display )
+{
+    case DISP_PROFILE_FORM :
+
+        // display form profile
+
+        echo user_html_form_profile($user_data)
+        .    claro_html_menu_horizontal($profile_menu)
+        ;
+
+        break;
+
+    case DISP_MOREINFO_FORM :
+
+        // display request course creator form
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        .    '<input type="hidden" name="cmd" value="exMoreInfo" />' . "\n"
+        .    '<table>' . "\n"
+        ;
+
+        foreach ($extraInfoDefList as $extraInfoDef)
+        {
+            $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
+            ? $userInfo[$extraInfoDef['propertyId']]
+            : $extraInfoDef['defaultValue'];
+            $requirement = (bool) (TRUE == $extraInfoDef['required']);
+            echo form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($extraInfoDef['label']),$requirement);
+
+        }
+
+        echo '<tr valign="top">' . "\n"
+        .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
+        .    '<td><input type="submit" value="' . get_lang('Ok') . '"> ' . "\n"
+        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+        .    '</td></tr>' . "\n"
+        .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> ' . ' denotes required field') . '</small>')
+        .    '</table>' . "\n"
+        .    '</form>' . "\n"
+        ;
+
 
         break;
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
-    {
+
         if ( get_conf('can_request_course_creator_status') )
         {
             echo '<p>' . get_lang('Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).') . '</p>';
 
             // display request course creator form
-            echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-            .    '<input type="hidden" name="cmd" value="exCCstatus" />'
-            .    '<table>'
-            .    '<tr valign="top">'
-            .    '<td><label for="explanation">' . get_lang('Comment') . ': </label></td>'
-            .    '<td><textarea cols="60" rows="6" name="explanation" id="explanation"></textarea></td>'
-            .    '</tr>'
-            .    '<tr valign="top">'
-            .    '<td>' . get_lang('Submit') . ': </td>'
-            .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
-            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-            .    '</td></tr>'
-            .    '</table>'
-            .    '</form>'
+            echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            .    '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
+            .    '<table>' . "\n"
+            .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
+            .    '<tr valign="top">' . "\n"
+            .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
+            .    '<td><input type="submit" value="' . get_lang('Ok') . '" /> ' . "\n"
+            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+            .    '</td></tr>' . "\n"
+            .    '</table>' . "\n"
+            .    '</form>' . "\n"
             ;
         }
-    }    break;
+        break;
 
     case DISP_REQUEST_REVOQUATION :
-    {
-
         if ( get_conf('can_request_revoquation') )
         {
 
-            echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-            .    '<input type="hidden" name="cmd" value="exRevoquation" />'
-            .    '<table>'
-            .    '<tr valign="top">'
-            .    '<td>' . get_lang('Username') . ': </td>'
-            .    '<td><input type="text" name="loginToDelete" ></td>'
-            .    '</tr>'
-            .    '<tr valign="top">'
-            .    '<td>' . get_lang('Password') . ': </td>'
-            .    '<td><input type="password" name="passwordToDelete" ></td>'
-            .    '</tr>'
-            .    '<tr valign="top">'
-            .    '<td><label for="explanation">' . get_lang('Comment') . ': </label></td>'
-            .    '<td><textarea cols="60" rows="6" name="explanation" id="explanation"></textarea></td>'
-            .    '</tr>'
-            .    '<tr valign="top">'
-            .    '<td>' . get_lang('Delete my account') . ': </td>'
-            .    '<td><input type="submit" value="' . get_lang('Ok') . '"> '
-            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-            .    '</td></tr>'
-            .    '</table>'
-            .    '</form>'
+            echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            .    '<input type="hidden" name="cmd" value="exRevoquation" />' . "\n"
+            .    '<table>' . "\n"
+            .    form_input_text('loginToDelete','',get_lang('Username'),true)
+            .    form_input_password('passwordToDelete','',get_lang('Password'),true)
+            .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
+            .    '<tr valign="top">' . "\n"
+            .    '<td>' . get_lang('Delete my account') . ': </td>' . "\n"
+            .    '<td><input type="submit" value="' . get_lang('Ok') . '"> ' . "\n"
+            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+            .    '</td></tr>' . "\n"
+            .    '</table>' . "\n"
+            .    '</form>' . "\n"
             ;
         }
-    }   break;
+        break;
 
 } // end switch display
 

@@ -127,7 +127,7 @@ function claro_user_info_remove_cat_def($id, $force = false, $course_id=NULL)
         $sqlCondition = " WHERE id = ". (int) $id;
     }
 
-    if ($force == FALSE)
+    if ($force == false)
     {
         $sql = "SELECT *
                 FROM `" . $tbl_userinfo_content . "`
@@ -136,7 +136,7 @@ function claro_user_info_remove_cat_def($id, $force = false, $course_id=NULL)
 
         if ( mysql_num_rows($result) > 0)
         {
-            return FALSE;
+            return false;
         }
     }
 
@@ -164,7 +164,7 @@ function claro_user_info_move_cat_rank($id, $direction, $course_id=NULL)
 
     if ( 0 == (int) $id || ! ($direction == "up" || $direction == "down") )
     {
-        return FALSE;
+        return false;
     }
 
     $sql = "SELECT rank
@@ -174,7 +174,7 @@ function claro_user_info_move_cat_rank($id, $direction, $course_id=NULL)
 
     if (mysql_num_rows($result) < 1)
     {
-        return FALSE;
+        return false;
     }
 
     $cat = mysql_fetch_array($result);
@@ -200,7 +200,7 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction, $course_id=NUL
 
     if ( 0 == (int) $rank || ! ($direction == "up" || $direction == "down") )
     {
-        return FALSE;
+        return false;
     }
 
     if ($direction == 'down') // thus increase rank ...
@@ -224,7 +224,7 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction, $course_id=NUL
 
     if (mysql_num_rows($result) < 2)
     {
-        return FALSE;
+        return false;
     }
 
     $thisCat = mysql_fetch_array($result);
@@ -240,7 +240,7 @@ function claro_user_info_move_cat_rank_by_rank($rank, $direction, $course_id=NUL
     claro_sql_query($sql1);
     claro_sql_query($sql2);
 
-    return TRUE;
+    return true;
 }
 
 /*----------------------------------------
@@ -276,7 +276,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
     {
         // Here we should introduce an error handling system...
 
-        return FALSE;
+        return false;
     }
 
     // Do not create if already exist
@@ -289,7 +289,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 
     if (mysql_num_rows($result) > 0)
     {
-        return FALSE;
+        return false;
     }
 
     $sql = "INSERT INTO `" . $tbl_userinfo_content . "` SET
@@ -301,7 +301,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
 
     claro_sql_query($sql);
 
-    return TRUE;
+    return true;
 }
 
 /**
@@ -327,7 +327,7 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
 
     if (0 == (int) $user_id || 0 == (int) $def_id)
     {
-        return FALSE;
+        return claro_failure::set_failure('id_nul');
     }
 
     $content = trim($content);
@@ -346,7 +346,7 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
 
     claro_sql_query($sql);
 
-    return TRUE;
+    return true;
 }
 
 /**
@@ -364,7 +364,7 @@ function claro_user_info_cleanout_cat_content($user_id, $def_id, $course_id=NULL
 
     if (0 == (int) $user_id || 0 == (int) $def_id)
     {
-        return FALSE;
+        return false;
     }
 
     $sql = "DELETE FROM `" . $tbl_userinfo_content . "`
@@ -373,9 +373,8 @@ function claro_user_info_cleanout_cat_content($user_id, $def_id, $course_id=NULL
 
     claro_sql_query($sql);
 
-    return TRUE;
+    return true;
 }
-
 
 
 /*----------------------------------------
@@ -410,7 +409,7 @@ function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
 
     if (mysql_num_rows($result) > 0)
     {
-        while ($userInfo = mysql_fetch_array($result, MYSQL_ASSOC))
+        while (true === ($userInfo = mysql_fetch_array($result, MYSQL_ASSOC)))
         {
             $userInfos[]=$userInfo;
         }
@@ -418,7 +417,7 @@ function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
         return $userInfos;
     }
 
-    return FALSE;
+    return false;
 }
 
 /**
@@ -432,7 +431,7 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
 {
     if (0 == (int) $user_id)
     {
-        return FALSE;
+        return false;
     }
 
     $tbl_mdb_names       = claro_sql_get_main_tbl();
@@ -451,7 +450,7 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
                     `" . $tbl_rel_course_user . "` AS cu
             WHERE   u.user_id = cu.user_id
             AND     u.user_id = " . (int) $user_id . "
-            AND     cu.code_cours = '" . $courseCode . "'";
+            AND     cu.code_cours = '" . addslashes($courseCode) . "'";
 
     $result = claro_sql_query($sql);
 
@@ -461,7 +460,7 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
         return $userInfo;
     }
 
-    return FALSE;
+    return false;
 }
 
 /**
@@ -526,33 +525,36 @@ function claro_user_info_get_cat_def($catId, $course_id=NULL)
         return $catDef;
     }
 
-    return FALSE;
+    return false;
 }
 
 
 /**
- * get list of all this course categories
+ * Get list of all  user properties for this course
+ *
+ * @param string $course_id coude code of course
  * @return array containing a list of arrays.
  *           And each of these arrays contains
  *           'catId', 'title', 'comment', and 'nbline',
  *
  */
-
-
 function claro_user_info_claro_user_info_get_cat_def_list($course_id=NULL)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_userinfo_def = $tbl_cdb_names['userinfo_def'];
+    $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 
-    $sql = "SELECT    id catId,    title,    comment , nbline
-            FROM  `" . $tbl_userinfo_def . "`
-            ORDER BY rank";
+    $sql = "SELECT id catId, " . "\n"
+    .      "          title," . "\n"
+    .      "          comment ," . "\n"
+    .      "          nbline" . "\n"
+    .      "FROM  `" . $tbl['userinfo_def'] . "`" . "\n"
+    .      "ORDER BY rank"
+    ;
 
     $result = claro_sql_query($sql);
 
     if (mysql_num_rows($result) > 0)
     {
-        while ($cat_def = mysql_fetch_array($result, MYSQL_ASSOC))
+        while (true === ($cat_def = mysql_fetch_array($result, MYSQL_ASSOC)))
         {
             $cat_def_list[]=$cat_def;
         }
@@ -563,36 +565,5 @@ function claro_user_info_claro_user_info_get_cat_def_list($course_id=NULL)
     return FALSE;
 }
 
-/**
- * transform content in a html display
- * @param  - string $string string to htmlize
- * @return  - string htmlized
- */
 
-function htmlize($phrase)
-{
-    return claro_parse_user_text(htmlspecialchars($phrase));
-}
-
-
-/**
- * replaces some dangerous character in a string for HTML use
- *
- * @param  - string (string) string
- * @return - the string cleaned of dangerous character
- */
-
-function replace_dangerous_char($string)
-{
-    $search[]="/" ; $replace[]="-";
-    $search[]="\|"; $replace[]="-";
-    $search[]="\""; $replace[]=" ";
-
-    foreach($search as $key=>$char )
-    {
-        $string = str_replace($char, $replace[$key], $string);
-    }
-
-    return $string;
-}
 ?>
