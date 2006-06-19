@@ -1239,7 +1239,7 @@ if ( count($filePathList) > 0 )
     if ( count($xtraAttributeList['path']) > 0 )
     {
         $sql = "DELETE FROM `".$dbTable."`
-                WHERE `path` IN ( \"".implode("\" , \"" , $attributeList['path'])."\" )";
+                WHERE `path` IN ( \"".implode("\" , \"" , $xtraAttributeList['path'])."\" )";
 
         claro_sql_query($sql);
 
