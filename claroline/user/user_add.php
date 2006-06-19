@@ -162,7 +162,9 @@ if ( $cmd == 'registration' )
 
         if ( count($errorMsgList) > 0 && count($userList) == 0 )
         {
-            $messageList['error']   = array_merge($messageList['error'], $errorMsgList);
+            if (array_key_exists('error', $messageList)) $messageList['error'] = array_merge($messageList['error'], $errorMsgList);
+            else                                         $messageList['error'] = $errorMsgList;
+
         }
     }
 
