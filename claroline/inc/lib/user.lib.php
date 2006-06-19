@@ -1515,7 +1515,7 @@ function get_userInfoExtraDefinitionList()
     $tbl = claro_sql_get_tbl('property_definition');
     $sql =  "SELECT propertyId, label, type, defaultValue, required
              FROM `" . $tbl['property_definition'] . "`
-             WHERE context = 'USER'
+             WHERE contextScope = 'USER'
              ORDER BY rank
              ";
 
