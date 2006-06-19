@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
@@ -417,7 +417,7 @@ $_lang['Filename'] = 'Nom du fichier';
 $_lang['Fill groups (automatically)'] = 'Remplir le(s) groupe(s) (automatique)';
 $_lang['Fill in blanks'] = 'Remplissage de blancs';
 $_lang['Fill text field'] = 'Remplissage de zones de texte.';
-$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Remplis la zone de texte pour expliquer tes motivations et soumettre ta requête. Un e-mail sera envoyé aux administrateurs de la plate-forme.';
+$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Remplissez la zone de texte pour expliquer vos motivations. Un e-mail sera envoyé aux administrateurs de la plate-forme.';
 $_lang['Fill type'] = 'Type de remplissage';
 $_lang['Filter'] = 'Filtre';
 $_lang['Find doubled variables'] = 'Trouver les doublons';
