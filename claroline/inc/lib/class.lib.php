@@ -557,13 +557,6 @@ function user_add_to_class($user_id,$class_id)
         }
     }
   	 
-  	// 6. Add user to parent class
-  	
-    if( !empty($class_parent_id))
-  	{
-  	    user_add_to_class($user_id, $class_parent_id);
-  	    //TODO : bug tracking ? ! récursif
-  	}
   	return true;
 }
 
