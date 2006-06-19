@@ -100,6 +100,7 @@ function user_create($settingList, $creatorId = null)
     }
 
     if ($settingList['status'] != COURSE_ADMIN_STATUS) $status = STUDENT_STATUS;
+    else                                               $status = COURSE_ADMIN_STATUS;
 
     $password = get_conf('userPasswordCrypted') ? md5($settingList['password'])
                                                 : $settingList['password'];
