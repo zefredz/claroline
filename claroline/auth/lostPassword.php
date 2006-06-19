@@ -70,7 +70,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
             if ( in_array(strtolower($user[$i]['authSource']),
                           array('claroline', 'clarocrypt')))
             {
-                if ($userPasswordCrypted)
+                if (get_conf('userPasswordCrypted',false))
                 {
                     /*
                      * If password are crypted, we can not send them as such.
@@ -81,12 +81,11 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
                     // UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
-                    $sql = 'UPDATE `'.$tbl_user.'`
+                    $sql = 'UPDATE ' . $tbl_user . '
                             SET   `password` = "'. addslashes(md5($user[$i]['password'])) .'"
                              WHERE `user_id` = "'.$user[$i]['uid'].'"';
 
-                    $result = claro_sql_query($sql)
-                              or die('<p align="center">Unable to record new generated password !</p>');
+                    if (false === claro_sql_query($sql)) trigger_error('<p align="center">'. get_lang('Unable to record new generated password !') . '</p>', E_USER_ERROR);
                 }
             }
             else
@@ -104,16 +103,16 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
          */
 
         // mail subject
-        $emailSubject = get_lang('Login request') . ' ' . $siteName;
-
+        $emailSubject = get_lang('Login request') . ' ' . get_conf('siteName');
 
         // mail body
         foreach($user as $thisUser)
         {
-            $userAccountList [] =
-                $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
-                ."\t" . get_lang('Username') . ' : ' . $thisUser['loginName'] . "\r\n"
-                ."\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n";
+            $userAccountList[] =
+                $thisUser['firstName'] .' ' . $thisUser['lastName']  . "\r\n\r\n"
+                . "\t" . get_lang('Username') . ' : ' . $thisUser['loginName'] . "\r\n"
+                . "\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n"
+                ;
         }
 
         if ($userAccountList)
@@ -137,8 +136,8 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
             else
             {
                 $msg = get_lang('The system is unable to send you an e-mail.') . '<br />'
-                .   get_lang('Please contact') . ' : ' 
-                .   '<a href="mailto:'.$administrator_email.'?BODY='.$Femail.'">'
+                .   get_lang('Please contact') . ' : '
+                .   '<a href="mailto:' . get_conf('administrator_email') . '?BODY=' . $Femail . '">'
                 .   get_lang('Platform Administrator')
                 .   '</a>';
             }
@@ -202,4 +201,5 @@ if ( ! empty($msg) ) echo claro_html_message_box($msg);
 // display form
 
 include $includePath . '/claro_init_footer.inc.php';
+
 ?>
