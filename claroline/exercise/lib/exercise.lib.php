@@ -13,13 +13,13 @@
  */
  
  
-function get_filter_list()
+function get_filter_list($excludeId = '')
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
-    $filterList['all'] = get_lang('All exercises');
-    $filterList['orphan'] = get_lang('Orphan questions');
+    $filterList[get_lang('All exercises')] = 'all';
+    $filterList[get_lang('Orphan questions')] = 'orphan';
     
     // get exercise list
     $sql = "SELECT `id`, `title` 
@@ -31,7 +31,10 @@ function get_filter_list()
     {
         foreach( $exerciseList as $anExercise )
         {
-            $filterList[$anExercise['id']] = $anExercise['title'];
+        	if( $excludeId != $anExercise['id'] )
+            {
+            	$filterList[$anExercise['title']] = $anExercise['id'];
+            }
         }
     }     
     return $filterList;
