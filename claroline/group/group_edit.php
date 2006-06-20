@@ -218,11 +218,12 @@ $resultTutor = claro_sql_query_fetch_all($sql);
 // AND student_group.id='$_gid'    // This statement is DEACTIVATED
 
 $tutor_list=array();
+$tutor_list[get_lang("(none)")] = 0;
 foreach ($resultTutor as $myTutor)
 {
-    $tutor_list[$myTutor['user_id']]= htmlspecialchars($myTutor['nom'] . ' ' . $myTutor['prenom']);
+    $tutor_list[htmlspecialchars($myTutor['nom'] . ' ' . $myTutor['prenom'])]= $myTutor['user_id'];
 }
-$tutor_list[0] = get_lang("(none)");
+
 
 $sql = "SELECT `ug`.`id`       AS id,
                `u`.`user_id`   AS user_id,
@@ -240,7 +241,7 @@ $resultMember = claro_sql_query_fetch_all($sql);
 $usersInGroupList=array();
 foreach ($resultMember as $thisMember )
 {
-    $usersInGroupList[$thisMember['user_id']]= htmlspecialchars(ucwords(strtolower($thisMember['name'])) . ' ' . ucwords(strtolower($thisMember['firstname'])));
+    $usersInGroupList[ htmlspecialchars(ucwords(strtolower($thisMember['name'])) . ' ' . ucwords(strtolower($thisMember['firstname']))) ]= $thisMember['user_id'];
 }
 
 // Student registered to the course but inserted in no group
@@ -256,8 +257,8 @@ $sql = "SELECT `u`.`user_id`        AS `user_id`,
                COUNT(`ug`.`id`)     AS `nbg`,
                COUNT(`ugbloc`.`id`) AS `BLOCK`
 
-        FROM `" . $tbl_user . "`                     AS u
-           , `" . $tbl_rel_user_course . "`          AS cu
+        FROM (`" . $tbl_user . "`                     AS u
+           , `" . $tbl_rel_user_course . "`          AS cu )
 
         LEFT JOIN `" . $tbl_group_rel_team_user . "` AS ug
         ON `u`.`user_id`=`ug`.`user`
@@ -282,10 +283,11 @@ $result = claro_sql_query_fetch_all($sql);
 
 foreach ($result AS $myNotMember )
 {
-    $userNotInGroupList[$myNotMember['user_id']] =
-    htmlspecialchars(ucwords(strtolower($myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'])))
+    $label = htmlspecialchars(ucwords(strtolower($myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'])))
     .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
     ;
+    
+    $userNotInGroupList[$label] = $myNotMember['user_id'];
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
