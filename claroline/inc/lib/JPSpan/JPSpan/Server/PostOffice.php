@@ -148,33 +148,52 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
         
         $uriPath = explode('/',$uriPath);
         
+        // check QUERY_STRING
         if ( !isset($_GET['object']) || !isset($_GET['method']) ) {
+            // check PATH_INFO
+            if ( count($uriPath) != 2 ) {
+                trigger_error('Invalid call syntax',E_USER_ERROR);
+                return FALSE;
+            }
+            else
+            {
+                $obj = $uriPath[0];
+                $meth = $uriPath[1];
+            }
+        }
+        elseif ( isset($_GET['object']) && isset($_GET['method']) )
+        {
+            $obj = $_GET['object'];
+            $meth = $_GET['method'];
+        }
+        else
+        {
             trigger_error('Invalid call syntax',E_USER_ERROR);
             return FALSE;
         }
         
-        if ( preg_match('/^[a-z]+[0-9a-z_]*$/', $_GET['object']) != 1 ) {
-            trigger_error('Invalid handler name: '.$_GET['object'],E_USER_ERROR);
+        if ( preg_match('/^[a-z]+[0-9a-z_]*$/', $obj) != 1 ) {
+            trigger_error('Invalid handler name: '.$obj,E_USER_ERROR);
             return FALSE;
         }
         
-        if ( preg_match('/^[a-z]+[0-9a-z_]*$/', $_GET['method']) != 1 ) {
-            trigger_error('Invalid handler method: '.$_GET['method'],E_USER_ERROR);
+        if ( preg_match('/^[a-z]+[0-9a-z_]*$/', $meth) != 1 ) {
+            trigger_error('Invalid handler method: '.$meth,E_USER_ERROR);
             return FALSE;
         }
         
-        if ( !array_key_exists($_GET['object'],$this->descriptions) ) {
-            trigger_error('Unknown handler: '.$_GET['object'],E_USER_ERROR);
+        if ( !array_key_exists($obj,$this->descriptions) ) {
+            trigger_error('Unknown handler: '.$obj,E_USER_ERROR);
             return FALSE;
         }
         
-        if ( !in_array($_GET['method'],$this->descriptions[$_GET['object']]->methods) ) {
-            trigger_error('Unknown handler method: '.$_GET['method'],E_USER_ERROR);
+        if ( !in_array($meth,$this->descriptions[$obj]->methods) ) {
+            trigger_error('Unknown handler method: '.$meth,E_USER_ERROR);
             return FALSE;
         }
         
-        $this->calledClass = $_GET['object'];
-        $this->calledMethod = $_GET['method'];
+        $this->calledClass = $obj;
+        $this->calledMethod = $meth;
         
         return TRUE;
         
