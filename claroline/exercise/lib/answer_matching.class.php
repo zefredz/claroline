@@ -374,11 +374,11 @@ class answerMatching
 					$optionList = array();
 					$optionCpt = 'A';
 					$selected = '--';
-					$optionList[0] = '--';
+					$optionList['--'] = 0;
 					
 					foreach( $this->rightList as $rightElt )
 					{
-						$optionList[$rightElt['code']] = $optionCpt;
+						$optionList[$optionCpt] = $rightElt['code'];
 
 						if( $this->leftList[$i]['response'] == $rightElt['code'] ) $selected = $rightElt['code'];
 						
