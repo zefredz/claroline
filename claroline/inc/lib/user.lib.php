@@ -159,16 +159,16 @@ function user_set_properties($userId, $propertyList)
     // BUILD QUERY
 
     $sqlColumnList = array('nom'             => 'lastname',
-    'prenom'          => 'firstname',
-    'username'        => 'username',
-    'phoneNumber'     => 'phone',
-    'email'           => 'email',
-    'officialCode'    => 'officialCode',
-    'statut'          => 'status',
-    'password'        => 'password',
-    'language'        => 'language',
-    'pictureUri'      => 'picture',
-    'isPlatformAdmin' => 'isPlatformAdmin');
+                           'prenom'          => 'firstname',
+                           'username'        => 'username',
+                           'phoneNumber'     => 'phone',
+                           'email'           => 'email',
+                           'officialCode'    => 'officialCode',
+                           'statut'          => 'status',
+                           'password'        => 'password',
+                           'language'        => 'language',
+                           'pictureUri'      => 'picture',
+                           'isPlatformAdmin' => 'isPlatformAdmin');
 
     $setList = array();
 
@@ -847,12 +847,8 @@ function profile_send_request_revoquation($explanation,$login,$password)
  * @return string : the new password
  */
 
-function generate_passwd()
+function generate_passwd($nb=8)
 {
-    if (func_num_args() == 1) $nb = func_get_arg(0);
-    else                      $nb = 8;
-
-    // on utilise certains chiffres : 1 = i, 5 = S, 6=b, 3=E, 9=G, 0=O
 
     $lettre = array();
 
@@ -874,7 +870,7 @@ function generate_passwd()
     'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z',
     '5', '6', '9');
 
-    $retour   = "";
+    $retour   = '';
     $prec     = 1;
     $precprec = -1;
 
@@ -1180,16 +1176,17 @@ function user_html_form($data, $form_type='registration')
     }
 
     // USER PICTURE
-    if ( get_conf('CONFVAL_ASK_FOR_PICTURE',false) && 'profile' == $form_type )
+    if ( get_conf('userCanAddPhoto',false) && 'profile' == $form_type )
     {
-        $html .= form_row('<label for="picture">' . $data['picture'] ? get_lang('Change picture'):get_lang('Include picture') . ' :<br />' . "\n"
+        $html .= form_row('<label for="picture">'
+             . ( $data['picture'] ? get_lang('Change picture'):get_lang('Include picture')) . ' :<br />' . "\n"
         .    ' <small>(.jpg or .jpeg only)</small></label>'
         ,    '<input type="file" name="picture" id="picture" />'
-        .    empty($data['picture'])
+        .    (empty($data['picture'])
         ?    '<br />' . "\n"
         .    '<label for="del_picture">' . get_lang('Remove picture') . '</label>'
         .    '<input type="checkbox" name="del_picture" id="del_picture" value="yes" />'
-        :    '<input type="hidden" name="del_picture" id="del_picture" value="no" />'
+        :    '<input type="hidden" name="del_picture" id="del_picture" value="no" />')
         ) ;
     }
 
