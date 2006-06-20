@@ -48,7 +48,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
      * Load rights of a profile/course
      */
 
-    function load(&$profile)
+    function load($profile)
     {
         // Load toolAction of the parent
         parent::load($profile);

@@ -58,10 +58,10 @@ class RightProfileToolAction
      * Load rights of a profile
      */
 
-    function load(&$profile)
+    function load($profile)
     {
         // load profile
-        $this->profile = &$profile;
+        $this->profile = $profile;
 
         // load all tool_action
         $this->loadToolActionList();
