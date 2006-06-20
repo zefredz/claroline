@@ -202,13 +202,8 @@ if( !isset($_REQUEST['offset']) )	$offset = 0;
 else								$offset = $_REQUEST['offset'];
 
 //-- filters handling
-$filterList = get_filter_list();
-
-// in exercise context remove exercise from filters
-if( !is_null($exId) )
-{
-	if( isset($filterList[$exId]) ) unset($filterList[$exId]); 	
-}
+if( !is_null($exId) )	$filterList = get_filter_list($exId);
+else					$filterList = get_filter_list();
 
 if( is_numeric($filter) )
 {
