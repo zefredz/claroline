@@ -61,10 +61,10 @@ if ($disp_form)
 
     if (is_array($course_list))
     {
-        $coursesToCheck_list[' all ']= '** ' . get_lang('All') . ' ** !!! ' . get_lang('high resources') ;
+        $coursesToCheck_list['** ' . get_lang('All') . ' ** !!! ' . get_lang('high resources')]= ' all ';
         foreach ($course_list as $courseSel)
         {
-            $coursesToCheck_list[ $courseSel['sysCode'] ]=$courseSel['officialCode'];
+            $coursesToCheck_list[$courseSel['officialCode']] = $courseSel['sysCode'] ;
         }
     }
 }
