@@ -57,13 +57,13 @@ function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
         $langMonthNames['long'] = get_lang_month_name_list('long');
 
         for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-          $available_months[$monthCounter] = $langMonthNames['long'][$monthCounter-1];
+          $available_months[$langMonthNames['long'][$monthCounter-1]] = $monthCounter;
     }
     elseif( $formatMonth == 'short' )
     {
         $langMonthNames['short'] = get_lang_month_name_list('short');
         for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-          $available_months[$monthCounter] = $langMonthNames['short'][$monthCounter-1];
+          $available_months[$langMonthNames['short'][$monthCounter-1]] = $monthCounter;
     }
     $monthField = claro_html_form_select( $monthFieldName
                                    , $available_months
@@ -158,9 +158,9 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
 
 /**
  * return a string as html form option list to plce in a <select>
- * @param string $list_option 2D table where key are name and value are label
+ * @param string $list_option 2D table where key are label and value are values of options
  * @param string $preselect name of the key in $list_option would be preselected
- * @return html output from a 2D table where key are name and value are label
+ * @return html output of the select options
  *
  * @author Christophe Gesché <moosh@claroline.net>
  *
@@ -170,9 +170,9 @@ function claro_html_option_list($list_option, $preselect)
     $html_option_list ='';
     if(is_array($list_option))
     {
-        foreach($list_option as $option_value => $option_label)
+        foreach($list_option as $option_label => $option_value)
         {
-            if(empty($option_label)) $option_label = $option_value;
+            if(empty($option_value)) $option_value = $option_label;
             //if(empty($option_label)) $option_label = '-';
             // stupid empty consider empty(0) as true
             $html_option_list .= '<option value="' . $option_value . '"'
