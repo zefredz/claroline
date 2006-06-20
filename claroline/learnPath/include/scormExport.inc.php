@@ -37,32 +37,35 @@
     
 */
 
+
+function getIdCounter()
+{
+	global $idCounter;
+	
+	if( !isset($idCounter) || $idCounter < 0 )
+	{
+		$idCounter = 0;
+	}
+	else
+	{
+		$idCounter++;
+	}
+	
+	return $idCounter;
+}
+
+
 if(!class_exists('ScormExport')):
 
 include_once(dirname(__FILE__)."/../../inc/lib/fileUpload.lib.php");
 include_once(dirname(__FILE__)."/../../inc/lib/pclzip/pclzip.lib.php");
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_quiz_test              = $tbl_cdb_names['quiz_test'             ];
-$tbl_quiz_rel_test_question = $tbl_cdb_names['quiz_rel_test_question'];
-$tbl_quiz_question          = $tbl_cdb_names['quiz_question'         ];
-$tbl_quiz_answer            = $tbl_cdb_names['quiz_answer'           ];
+require_once('../exercise/lib/exercise.class.php');
+require_once('../exercise/export/scorm/scorm_classes.php');
 
+include_once $includePath . '/lib/htmlxtra.lib.php';
+include_once $includePath . '/lib/form.lib.php';
 
-require_once('../exercice/exercise.class.php');
-require_once('../exercice/question.class.php');
-require_once('../exercice/answer.class.php');
-require_once('../exercice/exercise.lib.php');
-
-define('UNIQUE_ANSWER',   1);
-define('MULTIPLE_ANSWER', 2);
-define('FILL_IN_BLANKS',  3);
-define('MATCHING',        4);
-define('TRUEFALSE',           5);
-
-// for fill in blanks questions
-define('TEXTFIELD_FILL', 1);
-define('LISTBOX_FILL',    2);
 /**
  * Exports a Learning Path to a SCORM package.
  *
@@ -101,8 +104,7 @@ class ScormExport
         $this->mp3Found = false;
         $this->resourceMap = array();
         $this->itemTree = array();
-        $this->error = array();
-        
+        $this->error = array();        
     }
     
    
@@ -228,7 +230,7 @@ class ScormExport
     */
     function prepareQuiz($quizId, $raw_to_pass=50)
     {
-        global $claro_stylesheet, $clarolineRepositorySys;
+        global $claro_stylesheet, $clarolineRepositorySys, $charset;
         
         // those two variables are needed by display_attached_file()
         global $attachedFilePathWeb;
@@ -241,8 +243,10 @@ class ScormExport
 <head>
 <meta http-equiv="expires" content="Tue, 05 DEC 2000 07:00:00 GMT">
 <meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="compatible.css" />
+<meta http-equiv="Content-Type" content="text/HTML; charset='.$charset.'"  />
+
 <link rel="stylesheet" type="text/css" href="' . $claro_stylesheet . '" media="screen, projection, tv" />
+
 <script language="javascript" type="text/javascript" src="APIWrapper.js"></script>
 <script language="javascript" type="text/javascript" src="scores.js"></script>
 ' . "\n";
@@ -250,20 +254,20 @@ class ScormExport
         
         $pageBody = '<body onload="loadPage()">
     <div id="claroBody"><form id="quiz">
-    <table width="100%" border="0" cellpadding="1" cellspacing="0"><tr><td>' . "\n";
+    <table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n";
         
         
         // read the exercise
         $quiz = new Exercise();
-        if (! $quiz->read($quizId))
+        if (! $quiz->load($quizId))
         {
             $this->error[] = get_lang('Unable to load the exercise');
             return false;
         }
         
         // Get the question list
-        $questionList = $quiz->selectQuestionList();
-        $questionCount = $quiz->selectNbrQuestions();
+        $questionList = $quiz->getQuestionList();
+        $questionCount = count($questionList);
         
         // Keep track of raw scores (ponderation) for each question
         $questionPonderationList = array();
@@ -271,37 +275,34 @@ class ScormExport
         // Keep track of correct texts for fill-in type questions
         $fillAnswerList = array();
 
-        // Counter used to generate the elements' id. Incremented after every <input> or <select>
-        $idCounter = 0;
-        
         // Display each question
         $questionCount = 0;
-        foreach($questionList as $questionId)
+        foreach( $questionList as $question )
         {
+        	
             // Update question number
             $questionCount++;
         
             // read the question, abort on error
-            $question = new Question();
-            if (!$question->read($questionId))
+            $scormQuestion = new ScormQuestion();
+            if (!$scormQuestion->load($question['id']))
             {
                 $this->error[] = get_lang('Unable to load exercise\'s question');
                 return false;
             }
-            $qtype        = $question->selectType();
-            $qtitle       = $question->selectTitle();
-            $qdescription = $question->selectDescription();
-            $questionPonderationList[$questionId] = $question->selectWeighting();
+            $questionPonderationList[] = $scormQuestion->getGrade();
             
-            // Generic display, valid for all kind of question
-            $pageBody .= '<table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
-    <tr class="headerX"><th valign="top" colspan="2">' . get_lang('Question') . ' ' . $questionCount . '</th></tr>
-    <tfoot>
-        <tr><td valign="top" colspan="2">' . $qtitle . '</td></tr>
-        <tr><td valign="top" colspan="2"><i>' . claro_parse_user_text($qdescription) . '</i></td></tr>' . "\n";
+            $pageBody .= 
+				'<tr class="headerX">' . "\n"
+			.	'<th>'.get_lang('Question').' '.$questionCount.'</th>' . "\n"
+			.	'</tr>' . "\n";
+			
+            $pageBody .= 
+            	'<tr>' . "\n" . '<td>' . "\n"
+            .	$scormQuestion->export() . "\n"
+            .	'</td>' . "\n" . '</tr>' . "\n";
             
-            // Attached file, if it exists.
-            $attachedFile = $question->selectAttachedFile();
+            /*
             if ( !empty($attachedFile))
             {
                 // copy the attached file
@@ -317,229 +318,17 @@ class ScormExport
                 
                 $pageBody .= '<tr><td colspan="2">' . display_attached_file($attachedFile) . '</td></tr>' . "\n";
             }
-        
+        */
             /*
              * Display the possible answers
              */
-            
-            $answer = new Answer($questionId);
-            $answerCount = $answer->selectNbrAnswers();
-            
-            // Used for matching:
-            $letterCounter = 'A';
-            $choiceCounter = 1;
-            $Select = array();
-            
-            for ($answerId=1; $answerId <= $answerCount; $answerId++)
-            {
-                $answerText = $answer->selectAnswer($answerId);
-                $answerCorrect = $answer->isCorrect($answerId);
-                
-                // Unique answer
-                if ( $qtype == UNIQUE_ANSWER || $qtype == TRUEFALSE )
-                {
-                    // Construct the identifier
-                    $htmlQuestionId = 'unique_' . $questionCount . '_x';
-                    
-                    $pageBody .= '<tr><td width="5%" align="center">
-                        <input type="radio" name="' . $htmlQuestionId . '"
-                        id="scorm_' . $idCounter . '"
-                        value="' . $answer->selectWeighting($answerId) . '"></td>
-                    <td width="95%"><label for="scorm_' . $idCounter . '">' . $answerText . '</label>
-                    </td></tr>';
-                    
-                    $idCounter++;
-                }
-                // Multiple answers
-                elseif ( $qtype == MULTIPLE_ANSWER )
-                {
-                    // Construct the identifier
-                    $htmlQuestionId = 'multiple_' . $questionCount . '_' . $answerId;
-                    
-                    // Compute the score modifier if this answer is checked
-                    $raw = $answer->selectWeighting($answerId);
-                    
-                    $pageBody .= '<tr><td width="5%" align="center">
-                        <input type="checkbox" name="' . $htmlQuestionId . '"
-                        id="scorm_' . $idCounter . '" 
-                        value="' . $raw . '"></td>
-                    <td width="95%"><label for="scorm_' . $idCounter . '">' . $answerText . '</label>
-                    </td></tr>';
-                    
-                    $idCounter++;
-                }
-                // Fill in blanks
-                elseif ( $qtype == FILL_IN_BLANKS )
-                {
-                    $pageBody .= '<tr><td colspan="2">';
-                
-                    // We must split the text, to be able to treat each input independently
-                    
-                    // separate the text and the scorings
-                    $explodedAnswer = explode( '::',$answerText);
-                    $phrase = (isset($explodedAnswer[0]))?$explodedAnswer[0]:'';
-                    $weighting = (isset($explodedAnswer[1]))?$explodedAnswer[1]:'';
-                    $fillType = (!empty($explodedAnswer[2]))?$explodedAnswer[2]:1;
-                    // default value if value is invalid
-                    if( $fillType != TEXTFIELD_FILL && $fillType != LISTBOX_FILL )  $fillType = TEXTFIELD_FILL;
-                    $wrongAnswers = (!empty($explodedAnswer[3]))?explode('[',$explodedAnswer[3]):array();
-                    // get the scorings as a list
-                    $fillScoreList = explode(',', $weighting);
-                    $fillScoreCounter = 0;
-                    
-                    if( $fillType == LISTBOX_FILL )// listbox
-                    {
-                        // get the list of propositions (good and wrong) to display in lists
-                        // add wrongAnswers in the list
-                        $answerList = $wrongAnswers;
-                        // add good answers in the list
-
-                        // we save the answer because it will be modified
-                        $temp = $phrase;
-                        while(1)
-                        {
-                            // quits the loop if there are no more blanks
-                            if(($pos = strpos($temp,'[')) === false)
-                            {
-                                break;
-                            }
-                            // removes characters till '['
-                            $temp = substr($temp,$pos+1);
-                            // quits the loop if there are no more blanks
-                            if(($pos = strpos($temp,']')) === false)
-                            {
-                                break;
-                            }
-                            // stores the found blank into the array
-                            $answerList[] = substr($temp,0,$pos);
-                            // removes the character ']'
-                            $temp = substr($temp,$pos+1);
-                        }
-                        // alphabetical sort of the array
-                        natcasesort($answerList);
-                    }
-                    // Split after each blank
-                    $responsePart = explode(']', $phrase);
-                    $acount = 0;
-                    foreach ( $responsePart as $part )
-                    {
-                        // Split between text and (possible) blank
-                        if( strpos($part,'[') !== false )
-                        {
-                            list($rawtext, $blankText) = explode('[', $part);
-                        }
-                        else
-                        {
-                            $rawtext = $part;
-                            $blankText = "";
-                        }
-                        
-                        $pageBody .= $rawtext;
-
-                        // If there's a blank to fill-in after the text (this is usually not the case at the end)
-                        if ( !empty($blankText) )
-                        {
-                            // Build the element's name
-                            $name = 'fill_' . $questionCount . '_' . $acount;
-                            // Keep track of the correspondance between element's name and correct value + scoring
-                            $fillAnswerList[$name] = array($blankText, $fillScoreList[$fillScoreCounter]);
-                            if( $fillType == LISTBOX_FILL )// listbox
-                            {
-                                  $pageBody .= '<select name="' . $name . '" id="scorm_' . $idCounter . '">'."\n"
-                                            .'<option value="">&nbsp</option>';
-
-                                foreach($answerList as $answer)
-                                {
-                                    $pageBody .= '<option value="'.htmlspecialchars($answer).'">'.$answer.'</option>'."\n";
-                                }
-
-                                $pageBody .= '</select>'."\n";
-                            }
-                            else
-                            {
-                                $pageBody .= '<input type="text" name="' . $name . '" size="10" id="scorm_' . $idCounter . '">';
-                            }
-                            $fillScoreCounter++;
-                            $idCounter++;
-                        }
-                    
-                        $acount++;
-                    }
-                    
-                    $pageBody .= '</td></tr>' . "\n";
-                
-                }
-                // Matching
-                elseif ( $qtype == MATCHING )
-                {
-                    if ( !$answer->isCorrect($answerId) )
-                    {
-                        // Add the option as a possible answer.
-                        $Select[$answerId] = $answerText;
-                    }
-                    else
-                    {
-                        $pageBody .= '<tr><td colspan="2">
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                        <tr>
-                            <td width="40%" valign="top"><b>' . $choiceCounter . '.</b> ' . $answerText . '</td>
-                            <td width="20%" valign="center">&nbsp;<select name="matching_' . $questionCount . '_' . 
-                            $answerId . '" id="scorm_' . $idCounter . '">
-                            <option value="0">--</option>';
-                            
-                        $idCounter++;
-                        
-                        // fills the list-box
-                        $letter = 'A';
-                        foreach ($Select as $key => $val)
-                        {
-                            $scoreModifier = ( $key == $answer->isCorrect($answerId) ) ? $answer->selectWeighting($answerId) : 0;
-                            $pageBody .= '<option value="' . $scoreModifier . '">' . $letter++ .
-                            '</option>';
-                        }
-                        
-                        $pageBody .= '</select></td><td width="40%" valign="top">';
-                        if ( isset($Select[$choiceCounter]) )
-                        {
-                            $pageBody .= '<b>' . $letterCounter . '.</b> ' . $Select[$choiceCounter];
-                        }
-                        $pageBody .= '&nbsp;</td></tr></table></td></tr>' . "\n";
-                        
-                        // Done with this one
-                        $letterCounter++;
-                        $choiceCounter++;
-                        
-                        // If the left side has been completely displayed :
-                        if ( $answerId == $answerCount )
-                        {
-                            // Add all possibly remaining answers to the right
-                            while ( isset($Select[$choiceCounter]) )
-                            {
-                                $pageBody .= '<tr><td colspan="2">
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td width="40%">&nbsp;</td>
-                                    <td width="20%">&nbsp;</td>
-                                    <td width="40%"><b>' . $letterCounter . '.</b> ' . $Select[$choiceCounter] . '</td>
-                                </tr>
-                                </table>
-                                </td></tr>' . "\n";
-                                
-                                $letterCounter++;
-                                $choiceCounter++;
-                            } // end while
-                        } // end if
-                    } // else
-                } // end if (MATCHING)
-            } // end for each answer
-            
+           
             // End of the question
-            $pageBody .= '</tfoot></table>' . "\n\n";
             
         } // foreach($questionList as $questionId)
         
         // No more questions, add the button.
-        $pageEnd = '</td></tr>
+        $pageEnd = '
             <tr>
                 <td align="center"><br><input type="button" value="' . get_lang('Ok') . '" onClick="calcScore()"></td>
             </tr>
@@ -562,12 +351,6 @@ class ScormExport
     var scoreCommited = false;
     var showScore = true;
     var fillAnswerList = new Array();' . "\n";
-    
-        // Add the data for fillAnswerList
-        foreach ($fillAnswerList as $key=>$val)
-        {
-            $pageHeader .= "    fillAnswerList['" . $key . "'] = new Array('" . $val[0] . "', '" . $val[1] . "');\n";
-        }
 
         // This is the actual code present in every exported exercise.
         $pageHeader .= '
@@ -576,7 +359,7 @@ class ScormExport
     {
         if( !scoreCommited )
         {
-            rawScore = CalculateRawScore(document, ' . $idCounter . ', fillAnswerList);
+            rawScore = CalculateRawScore(document, ' . getIdCounter() . ', fillAnswerList);
             var score = Math.max(Math.round(rawScore * 100 / weighting), 0);
             var oldScore = doLMSGetValue("cmi.core.score.raw");
 
@@ -658,8 +441,7 @@ class ScormExport
         
         // Copy usual files (.css, .js, .xsd, etc)
         if (
-               !claro_copy_file($clarolineRepositorySys . 'css/compatible.css', $this->destDir)
-            || !claro_copy_file($clarolineRepositorySys . 'css/' . $claro_stylesheet, $this->destDir)
+               !claro_copy_file($clarolineRepositorySys . 'css/' . $claro_stylesheet, $this->destDir)
             || !claro_copy_file('export/APIWrapper.js', $this->destDir)
             || !claro_copy_file('export/scores.js', $this->destDir)
             || !claro_copy_file('export/ims_xml.xsd', $this->destDir)
