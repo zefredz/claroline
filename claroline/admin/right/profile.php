@@ -37,6 +37,7 @@ $profile_id = isset($_REQUEST['profile_id'])?$_REQUEST['profile_id']:null;
 $tool_id = isset($_REQUEST['tool_id'])?$_REQUEST['tool_id']:null;
 $right_value = isset($_REQUEST['right_value'])?$_REQUEST['right_value']:null;
 $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
+$display = isset($_REQUEST['display'])?$_REQUEST['display']:null;
 
 if ( !empty($profile_id) )
 {
@@ -81,10 +82,25 @@ include $includePath . '/claro_init_header.inc.php';
 if ( !empty($profile_id) )
 {
     // display tool title
-    echo claro_html_tool_title(array('mainTitle'=>get_lang('Course Profile'),'subTitle'=>$profile->getName()));
+    echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=>$profile->getName()));
 
-    $profileRightHtml = new RightProfileToolRightHtml($profileRight);
+    $profileRightHtml = new RightProfileToolRightHtml();
     $profileRightHtml->setDisplayMode('edit');
+
+    $profileNameList = claro_get_profile_name_list();
+    $profileIdList = array_keys($profileNameList);
+
+    // Load all profiles
+
+    foreach ( $profileIdList as $profileId )
+    {
+        $profile = new RightProfile();
+        $profile->load($profileId);   
+        $profileRight = new RightProfileToolRight();
+        $profileRight->load($profile);
+        $profileRightHtml->addRightProfileToolRight($profileRight);
+    }
+
     echo $profileRightHtml->displayProfileToolRightList();
 }
 else
