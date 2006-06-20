@@ -123,11 +123,10 @@ echo claro_html_tool_title($nameTools . ' : ');
   <td>
 <?php 
 
-$action_list['all'] = get_lang('All');
-$action_list['followcourse'] = get_lang('Student');
-$action_list['createcourse'] =  get_lang('Course creator');
-$action_list['plateformadmin'] = get_lang('Platform Administrator');
-
+$action_list[get_lang('All')] = 'all';
+$action_list[get_lang('Student')] = 'followcourse';
+$action_list[get_lang('Course creator')] = 'createcourse';
+$action_list[get_lang('Platform Administrator')] = 'plateformadmin';
 
 echo claro_html_form_select( 'action'
                             , $action_list
