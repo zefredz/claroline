@@ -339,7 +339,7 @@ function claro_display_preferred_language_form()
 
         foreach ( $language_list as $key => $value )
         {
-            $languageOption_list[$_SERVER['PHP_SELF'].'?language='.urlencode($key)] = $value;
+            $languageOption_list[$value] = $_SERVER['PHP_SELF'].'?language='.urlencode($key);
         }
 
         // build language selector form
