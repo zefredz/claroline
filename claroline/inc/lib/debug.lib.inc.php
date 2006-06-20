@@ -463,4 +463,12 @@ function printConfig()
     echo "</TABLE>";
 }
 
+if (!isset($claroErrorList)) $claroErrorList= array();
+function pushClaroMessage($message,$errorClass='error')
+{
+    global $claroErrorList;
+    $claroErrorList[$errorClass][]= $message;
+    return true;
+}
+
 ?>

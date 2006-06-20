@@ -488,7 +488,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 }
 
 /**
- * Get the name of a tool 
+ * Get the name of a tool
  */
 
 function claro_get_tool_name ( $identifier )
@@ -502,12 +502,12 @@ function claro_get_tool_name ( $identifier )
         {
             $tbl_mdb_names = claro_sql_get_main_tbl();
             $tbl_tool_list = $tbl_mdb_names['tool'];
-            
+
             $sql = "SELECT id, claro_label
                     FROM `" . $tbl_tool_list . "`";
 
             $result = claro_sql_query_fetch_all($sql);
-            
+
             foreach ($result as $row)
             {
                 $tool_id = $row['id'];
@@ -523,7 +523,7 @@ function claro_get_tool_name ( $identifier )
         // identifier is a tool label
         $tool_label = $identifier;
     }
-    
+
     $toolNameList = claro_get_tool_name_list();
 
     if ( isset($toolNameList[$tool_label]) )
@@ -532,7 +532,7 @@ function claro_get_tool_name ( $identifier )
     }
     else
     {
-       return get_lang('No tool name') ; 
+       return get_lang('No tool name') ;
     }
 
 }
@@ -548,7 +548,7 @@ function claro_get_profile_name_list()
     if ( ! $cachedProfileNameList )
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_profile = $tbl_mdb_names['right_profile'];        
+        $tbl_profile = $tbl_mdb_names['right_profile'];
 
         $sql = "SELECT profile_id, name
                 FROM `" . $tbl_profile . "`";
@@ -977,7 +977,7 @@ function get_conf($param, $default = null)
     if (CLARO_DEBUG_MODE)
     {
         if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
-        $GLOBALS['claroErrorList']['warning'][] = $param . ' use but not set. use default :' . var_export($default,1);
+        pushClaroMessage($param . ' use but not set. use default :' . var_export($default,1),'warning');
     }
 
     if     ( isset($GLOBALS['_conf'][$param]) )  return $GLOBALS['_conf'][$param];
