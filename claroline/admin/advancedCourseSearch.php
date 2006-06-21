@@ -58,7 +58,7 @@ if (isset($_REQUEST['subscription']))  $subscription  = $_REQUEST['subscription'
 if (isset($_REQUEST['code']))          $code          = $_REQUEST['code'];          else $code = "";
 if (isset($_REQUEST['intitule']))      $intitule      = $_REQUEST['intitule'];      else $intitule = "";
 if (isset($_REQUEST['category']))      $category      = $_REQUEST['category'];      else $category = "";
-if (isset($_REQUEST['language']))      $language      = $_REQUEST['language'];      else $language = "";
+if (isset($_REQUEST['searchLang']))    $searchLang    = $_REQUEST['searchLang'];      else $searchLang = "";
 
 // Search needed info in db to create the right formulaire
 $arrayFaculty = course_category_get_list();
@@ -116,13 +116,13 @@ echo claro_html_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-   <label for="language"><?php echo get_lang('Language')?></label> : <br />
+   <label for="searchLang"><?php echo get_lang('Language')?></label> : <br />
   </td>
   <td colspan="3">
-    <?php echo claro_html_form_select( 'language'
+    <?php echo claro_html_form_select( 'searchLang'
                                  , $language_list
                                  , ''
-                                 , array('id'=>'language'))
+                                 , array('id'=>'searchLang'))
                                  ; ?>
     </td>
 </tr>
