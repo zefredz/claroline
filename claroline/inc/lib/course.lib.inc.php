@@ -207,11 +207,13 @@ function claro_get_cat_flat_list($separator = ' > ')
     {
         if ( $cat['childs'] == 'TRUE' )
         {
-            $fac_array[$cat['code']] = '('
-            .                          get_full_path($categories, $cat['code'], $separator)
-            .                          ') '
-            .                          htmlspecialchars($cat['name'])
+            $label = '('
+            .   get_full_path($categories, $cat['code'], $separator)
+            .   ') '
+            .   htmlspecialchars($cat['name'])
             ;
+            
+            $fac_array[$label] = $cat['code'];
         }
     }
 
