@@ -250,7 +250,7 @@ function claro_get_tool_name_list($active = true)
 
         //tricks to be sure that we get a 8 chars label :  CLBLAH__
 
-        $tool['label'] = str_pad($tool['label'],'_');
+        $tool['label'] = str_pad($tool['label'],8,'_');
 
         if (!isset($toolNameList[$tool['label']]))
         {
@@ -284,7 +284,7 @@ function claro_get_deactivated_tool_list()
     {
         //tricks to be sure that we get a 8 chars label :  CLBLAH__
 
-       $tool['label'] = str_pad($tool['label'],'_');
+       $tool['label'] = str_pad($tool['label'],8,'_');
 
        $tool_list[] = $tool['label'];
     }
@@ -431,12 +431,8 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 
         foreach ($result as $tool)
         {
-    
-            while (strlen($tool['label'])<8)
-            {
-                $tool['label'] = $tool['label'].'_';
-            }
 
+            $tool['label'] = str_pad($tool['label'],8,'_');
             if (!in_array($tool['label'], $toolLabels))
             {
                 $tool['label'] = rtrim($tool['label'],'_');
