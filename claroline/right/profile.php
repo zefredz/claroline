@@ -32,12 +32,13 @@ if ( ! $is_allowedToEdit )
 
 require_once $includePath . '/lib/right/courseProfileToolAction.class.php' ;
 require_once $includePath . '/lib/right/profileToolRightHtml.class.php' ;
-require_once $includePath . '/lib/pager.lib.php';
 
+//=================================
 // Main section
+//=================================
 
 $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
-$display = isset($_REQUEST['display'])?$_REQUEST['display']:null;
+$display_profile = isset($_REQUEST['display_profile'])?$_REQUEST['display_profile']:null;
 $profile_id = isset($_REQUEST['profile_id'])?$_REQUEST['profile_id']:null;
 $tool_id = isset($_REQUEST['tool_id'])?$_REQUEST['tool_id']:null;
 $right_value = isset($_REQUEST['right_value'])?$_REQUEST['right_value']:null;
@@ -69,65 +70,82 @@ if ( !empty($profile_id) )
     }
 }
 
+//---------------------------------
+// Build list of profile to display
+//---------------------------------
+
+$display_profile_list = array();
+$display_profile_url_param = null;
+
+if ( !empty($display_profile) )
+{
+    if ( is_numeric($display_profile) )
+    {
+        $display_profile_list[] = $display_profile;
+        $display_profile_url_param = $display_profile;
+    }
+}
+
+// default : display all profile
+
+if ( empty($display_profile_list) )
+{
+    $profileNameList = claro_get_profile_name_list();
+    $display_profile_list = array_keys($profileNameList);
+    $display_profile_url_param = 'all';
+}
+
+//=================================
 // Display section
+//=================================
 
 // define bredcrumb
 $interbredcrump[] = array ('url' => 'profile_list.php', 'name' => get_lang('Course Profile List'));
-
-if ( !empty($profile_id) )
-{
-      $nameTools = get_lang('Course profile : %name',array('%name' => $profile->getName() ));
-//    $interbredcrump[] = array ('url' => 'profile.php?profile_id=' . $profile->getId(), 'name' => $profile->getName() );
-}
+$interbredcrump[] = array ('url' => 'profile.php?display_profile=' . $display_profile_url_param
+                         , 'name' => get_lang('Right') ); 
 
 // Display header
 
 include $includePath . '/claro_init_header.inc.php';
 
-if ( !empty($profile_id) )
+// Set display right
+
+$profileRightHtml = new RightProfileToolRightHtml();
+$profileRightHtml->addUrlParam('display_profile', $display_profile_url_param);
+
+$profileFoundCount = 0;
+
+foreach ( $display_profile_list as $profileId )
 {
-    // display tool title
-    echo claro_html_tool_title(array('mainTitle'=>get_lang('Course Profile'),'subTitle'=>$profile->getName()));
-
-    if ( $profile->isLocked() )
+    $profile = new RightProfile();
+    if ( $profile->load($profileId) )
     {
-        $display = 'view';
-        echo '<p><em>' . get_lang('The profile is locked') . '</em></p>' . "\n" ;
+        $profileRight = new RightCourseProfileToolRight();
+        $profileRight->setCourseId($_cid);
+        $profileRight->load($profile);
+        $profileRightHtml->addRightProfileToolRight($profileRight);
+        $profileFoundCount++;
     }
-    else
-    {
-        // Display edit link
-        if ( $display == 'edit' )
-        {
-            $menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=view">' . get_lang('View profile') . '</a>' ;
-        }
-        else
-        {
-            $menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?profile_id=' . $profile->getId() . '&amp;display=edit"><img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />&nbsp;' . get_lang('Edit profile') . '</a>' ;
-        }
+}
 
-        echo claro_html_menu_horizontal($menu);
-    }
-    
-    // load display class
-    $profileRightHtml = new RightProfileToolRightHtml($courseProfileRight);
-
-    $profileRightHtml->addUrlParam('display',$display);
-
-    if ( $display == 'edit' )
-    {
-        $profileRightHtml->setDisplayMode('edit');
-        echo $profileRightHtml->displayProfileToolRightList();
-    }
-    else
-    {
-        $profileRightHtml->setDisplayMode('view');
-        echo $profileRightHtml->displayProfileToolRightList();
-    }
+if ( $profileFoundCount == 0 )
+{
+    echo claro_html_message_box(get_lang('Profile not found'));
 }
 else
 {
-    echo claro_html_message_box(get_lang('Profile not found'));
+    if ( $profileFoundCount == 1 )
+    {
+        // display tool title
+        echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=>$profile->getName()));
+        echo '<p>' . $profile->getDescription() . '</p>';
+    }
+    else
+    {
+        // display tool title
+        echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=> get_lang('All profiles') ));
+    }
+    echo $profileRightHtml->displayProfileToolRightList();
 }
 
 // Display footer

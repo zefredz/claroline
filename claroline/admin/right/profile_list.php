@@ -184,7 +184,7 @@ switch ( $display )
                 . '<td align="left">' . $thisProfile['name'] . '</td>' . "\n"
                 . '<td align="left">' . $thisProfile['description'] . '</td>' . "\n"
                 . '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n"
-                . '<td><a href="profile.php?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' .  $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n" ;
+                . '<td><a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'"><img src="' .  $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n" ;
 
             if ( $thisProfile['required'] == '0' )
             {

@@ -77,11 +77,11 @@ foreach ( $profileList as $thisProfile )
 
     if ( $thisProfile['locked'] == '1' )
     {
-        echo '<img src="' . $imgRepositoryWeb . 'locked.gif" alt="' . get_lang('Lock') . '" />';
+        echo '&nbsp;<img src="' . $imgRepositoryWeb . 'locked.gif" alt="' . get_lang('Lock') . '" />';
     }
 
     echo '<br /><em>' . $thisProfile['description'] . '</em>' . "\n"
-        . '<td><a href="profile.php?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' .  $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Rights') . '" /></td>' . "\n" ;
+        . '<td><a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'"><img src="' .  $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Rights') . '" /></td>' . "\n" ;
     echo '</tr>' . "\n\n";
 }
 
