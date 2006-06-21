@@ -232,7 +232,7 @@ $language_list = claro_get_lang_flat_list();
 $category_array = claro_get_cat_flat_list();
 if(get_conf('rootCanHaveCourse', true))
 {
-    $category_array = array_merge(array('root' => get_lang('Root')),$category_array);
+    $category_array = array_merge(array( get_lang('Root') => 'root'),$category_array);
 }
 
 // If there is no current $courseCategory, add a fake option
@@ -245,7 +245,7 @@ if ( array_key_exists( $courseCategory, $category_array ) )
 else
 {
     $cat_preselect = 'choose_one';
-    $category_array = array_merge( array('choose_one'=>'--'), $category_array);
+    $category_array = array_merge( array('--'=>'choose_one'), $category_array);
 }
 
 /******************************************************************************
@@ -409,7 +409,7 @@ echo claro_html_menu_horizontal($links);
 <td align="right"><label for="category"><span class="required">*</span><?php echo get_lang('Category') ?></label> :</td>
 <td>
 <?php echo claro_html_form_select( 'category'
-                                 , $category_array
+                                 , $category_array 
                                  , $cat_preselect
                                  , array('id'=>'category'))
                                  ; ?>

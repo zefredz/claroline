@@ -244,7 +244,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
     else
     {
         $cat_preselect        = 'choose_one';
-        $courseCategory_array = array_merge(array('choose_one'=>'--'),$courseCategory_array);
+        $courseCategory_array = array_merge(array('--'=>'choose_one'),$courseCategory_array);
     }
 ?>
 <form lang="<?php echo $iso639_2_code ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
@@ -298,7 +298,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 </td>
 <td>
 <?php echo claro_html_form_select( 'category'
-                                 , $courseCategory_array
+                                 , $courseCategory_array 
                                  , $cat_preselect
                                  , array('id'=>'category'))
                                  ; ?>
