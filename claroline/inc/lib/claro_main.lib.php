@@ -1279,4 +1279,15 @@ function claro_get_current_context($contextKeys = null)
 
     return $currentKeys;
 }
+
+if (!isset($claroErrorList)) $claroErrorList= array();
+function pushClaroMessage($message,$errorClass='error')
+{
+    global $claroErrorList;
+    $claroErrorList[$errorClass][]= $message;
+    return true;
+}
+
+
+
 ?>

@@ -124,9 +124,6 @@ require $includePath . '/lib/language.lib.php';
   ----------------------------------------------------------------------*/
 require $includePath . '/lib/buffer.lib.php';
 
-if( CLARO_DEBUG_MODE ) include $includePath . '/lib/debug.lib.inc.php';
-
-
 /*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
   ----------------------------------------------------------------------*/
