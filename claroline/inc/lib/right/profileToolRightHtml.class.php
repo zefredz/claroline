@@ -50,11 +50,11 @@ class RightProfileToolRightHtml
         {
             $this->addRightProfileToolRight($rightProfileToolRight);
         }
-        $this->displayMode='view';
+        $this->displayMode='edit';
     }
 
     /**
-     * 
+     * Add Right Profile object 
      */
 
     function addRightProfileToolRight ($rightProfileToolRight)
@@ -96,8 +96,20 @@ class RightProfileToolRightHtml
        
         foreach ( $this->rightProfileToolRightList as $profile_id => $rightProfileToolRight )
         {
-            $html_table_header_list[$profile_id] = claro_get_profile_name($profile_id);
             $isLocked = $rightProfileToolRight->profile->isLocked();
+            $className = get_class($rightProfileToolRight);
+            
+            $html_table_header_list[$profile_id] = claro_get_profile_name($profile_id);
+            
+            if ( $isLocked && $className == 'RightCourseProfileToolRight' )
+            {
+                $displayMode = 'read';
+                $html_table_header_list[$profile_id] .= '&nbsp;<img src="' . $imgRepositoryWeb . '/locked.gif" alt="' . get_lang('Profile locked') . '" />';
+            }
+            else
+            {
+                $displayMode = $this->displayMode;
+            }
 
             foreach ( $rightProfileToolRight->toolActionList as $tool_id => $action_list )
             {
@@ -105,7 +117,7 @@ class RightProfileToolRightHtml
 
                 $html_right = '';
             
-                if ( $this->displayMode == 'edit' )
+                if ( $displayMode == 'edit' )
                 {
                     $param_append = '?profile_id=' . urlencode($profile_id)
                                   . '&amp;tool_id=' . urlencode($tool_id)
@@ -133,7 +145,7 @@ class RightProfileToolRightHtml
                     $html_right = '<img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Manager') . '" />' . "\n" ;
                 } 
             
-                if ( $this->displayMode == 'edit' ) // TODO Locked
+                if ( $displayMode == 'edit' )
                 {
                     $html_right = '<a href="' .$_SERVER['PHP_SELF'] . $param_append . '&amp;right_value=' . $action_param_value . '">' . $html_right . '</a>';
                 }
