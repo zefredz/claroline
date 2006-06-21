@@ -111,7 +111,7 @@ function get_course_tool_settings ($toolId)
 }
 
 /**
- * Eneable tool by setting the minimum level to lowest value.
+ * Enable tool by setting the minimum level to lowest value.
  * So give a second param have  probably non sense,
  * use set_course_tool_access_level to do that
  *
@@ -123,6 +123,7 @@ function get_course_tool_settings ($toolId)
 
 function enable_course_tool($toolIdList, $accessLevel = 'ALL')
 {
+
     return set_course_tool_access_level($toolIdList, $accessLevel);
 }
 

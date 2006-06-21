@@ -243,7 +243,7 @@ function get_module_path($toolLabel)
 }
 
 /**
- * This function return the core repositroy of a module.
+ * This function return the core repository of a module.
  *
  * @param string $toolLabel
  * @return string
