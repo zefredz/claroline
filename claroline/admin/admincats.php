@@ -731,16 +731,15 @@ else
 $category_array = claro_get_cat_flat_list();
 // If there is no current $category, add a fake option
 // to prevent auto select the first in list
-// to prevent auto select the first in list
 if ( isset($category['id']) && is_array($category_array)
-&& array_key_exists($category['id'] ,$category_array))
+&& in_array($category['id'] ,$category_array))
 {
     $cat_preselect = $category['id'];
 }
 else
 {
     $cat_preselect = 'choose_one';
-    $category_array = array_merge(array('choose_one'=>'--'),$category_array);
+    $category_array = array_merge(array('--'=>'choose_one'),$category_array);
 }
 
 
