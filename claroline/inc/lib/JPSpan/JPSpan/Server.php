@@ -227,7 +227,7 @@ class JPSpan_Server {
         // HACK - this needs to change
         $I->loadString(__FILE__,$G->getClient());
         $client = $I->getCode();
-        header('Content-Type: application/x-javascript');
+        header('Content-Type: text/javascript');
         header('Content-Length: '.strlen($client));
         echo $client;
         exit();
