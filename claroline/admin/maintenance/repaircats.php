@@ -63,7 +63,8 @@ switch($cmd)
         $errorCounter = 0;
 
         $category_array = claro_get_cat_flat_list();
-        foreach (array_keys($category_array) as $catCode)
+
+        foreach( $category_array as $catName => $catCode )
         {
             $analyseResult = analyseCat($catCode);
             $dataAnalyseResult[] = array ( 'Code'=>$catCode
