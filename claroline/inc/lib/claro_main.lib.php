@@ -250,10 +250,7 @@ function claro_get_tool_name_list($active = true)
 
         //tricks to be sure that we get a 8 chars label :  CLBLAH__
 
-        while (strlen($tool['label'])<8)
-        {
-            $tool['label'] = $tool['label'].'_';
-        }
+        $tool['label'] = str_pad($tool['label'],'_');
 
         if (!isset($toolNameList[$tool['label']]))
         {
@@ -287,10 +284,7 @@ function claro_get_deactivated_tool_list()
     {
         //tricks to be sure that we get a 8 chars label :  CLBLAH__
 
-        while (strlen($tool['label'])<8)
-        {
-            $tool['label'] = $tool['label'].'_';
-        }
+       $tool['label'] = str_pad($tool['label'],'_');
 
        $tool_list[] = $tool['label'];
     }
@@ -437,9 +431,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 
         foreach ($result as $tool)
         {
-
-            //tricks to be sure that we get a 8 chars label :  CLBLAH__
-
+    
             while (strlen($tool['label'])<8)
             {
                 $tool['label'] = $tool['label'].'_';
@@ -447,14 +439,15 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 
             if (!in_array($tool['label'], $toolLabels))
             {
-                $tool['label'] = str_replace('_','', $tool['label']);
+                $tool['label'] = rtrim($tool['label'],'_');
 
                 $added_tool = array();
                 $added_tool['label']               = $tool['label'];
                 $added_tool['name']                = $tool['name'];
                 $added_tool['icon_complete_url']   = get_module_url($tool['label']).'/'.'icon.gif';
                 $added_tool['tool_complete_url']   = get_module_url($tool['label']).'/'.'entry.php';
-                $added_tool['id']                 = $tool['id'];
+                $added_tool['module_id']           = $tool['id'];
+                $added_tool['id']                  = 'module_'.$tool['id'];
 
                 //this part must evolve!!!
 
