@@ -232,12 +232,12 @@ if( $display == DISP_COURSE_CREATION_FORM )
 
     if(get_conf('rootCanHaveCourse', true))
     {
-        $courseCategory_array = array_merge(array('root' => get_lang('Root')),$courseCategory_array);
+        $courseCategory_array = array_merge(array(get_lang('Root') => 'root'),$courseCategory_array);
     }
     // If there is no current course category, add a fake option
     // to prevent user to simply select the first in list without purpose
 
-    if ( array_key_exists($courseCategory , $courseCategory_array))
+    if ( in_array($courseCategory , $courseCategory_array))
     {
         $cat_preselect = $courseCategory;
     }

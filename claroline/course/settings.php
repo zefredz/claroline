@@ -238,7 +238,7 @@ if(get_conf('rootCanHaveCourse', true))
 // If there is no current $courseCategory, add a fake option
 // to prevent auto select the first in list
 // to prevent auto select the first in list
-if ( array_key_exists( $courseCategory, $category_array ) )
+if ( in_array( $courseCategory, $category_array ) )
 {
     $cat_preselect = $courseCategory;
 }

@@ -63,9 +63,9 @@ if (isset($_REQUEST['language']))      $language      = $_REQUEST['language'];  
 // Search needed info in db to create the right formulaire
 $arrayFaculty = course_category_get_list();
 $category_array = claro_get_cat_flat_list();
-$category_array = array_merge(array('' => get_lang('All')),$category_array);
+$category_array = array_merge(array(get_lang('All') => ''),$category_array);
 $language_list = claro_get_lang_flat_list();
-$language_list = array_merge(array('' => get_lang('All')),$language_list);
+$language_list = array_merge(array(get_lang('All') => ''),$language_list);
 
 //----------------------------------
 // DISPLAY
@@ -107,7 +107,7 @@ echo claro_html_tool_title($nameTools . ' : ');
   </td>
   <td colspan="3">
   <?php echo claro_html_form_select( 'category'
-                                 , $category_array
+                                 , $category_array 
                                  , ''
                                  , array('id'=>'category'))
                                  ; ?>
