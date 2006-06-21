@@ -526,4 +526,30 @@ function create_group($groupName, $maxMember)
     return $createdGroupId;
 }
 
+/**
+ * Return the list of tutor in the current course.
+ *
+ * @param string $currentCourseId
+ * @return array (userId, name, firstname)
+ */
+
+function get_course_tutor_list($currentCourseId)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql = "SELECT `user`.`user_id`  AS `userId` ,
+                    `user`.`nom`     AS `name`,
+                    `user`.`prenom`  AS `firstname`
+                FROM `" . $tbl['user'] . "` AS `user`,
+                     `" . $tbl['rel_course_user'] . "` AS `cours_user`
+                WHERE `cours_user`.`user_id`    = `user`.`user_id`
+                AND   `cours_user`.`tutor`      = 1
+                AND   `cours_user`.`code_cours` = '" . $currentCourseId . "'";
+
+    $resultTutor = claro_sql_query_fetch_all($sql);
+    return $resultTutor;
+}
+
+
+
 ?>

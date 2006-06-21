@@ -21,6 +21,7 @@
 $tlabelReq = 'CLGRP___';
 require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/form.lib.php';
+require_once $includePath . '/lib/group.lib.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
@@ -204,24 +205,15 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 }    // end if $modify
 // SELECT TUTORS
 
-$sql = "SELECT `user`.`user_id` AS `user_id` ,
-                   `user`.`nom`     AS `nom`,
-                   `user`.`prenom`  AS `prenom`
-            FROM `" . $tbl_user . "` AS `user`,
-                 `" . $tbl_rel_user_course . "` AS `cours_user`
-            WHERE `cours_user`.`user_id`    = `user`.`user_id`
-            AND   `cours_user`.`tutor`      = 1
-            AND   `cours_user`.`code_cours` = '" . $currentCourseId . "'";
-
-$resultTutor = claro_sql_query_fetch_all($sql);
+$tutorList = get_course_tutor_list($currentCourseId);
 
 // AND student_group.id='$_gid'    // This statement is DEACTIVATED
 
 $tutor_list=array();
 $tutor_list[get_lang("(none)")] = 0;
-foreach ($resultTutor as $myTutor)
+foreach ($tutorList as $myTutor)
 {
-    $tutor_list[htmlspecialchars($myTutor['nom'] . ' ' . $myTutor['prenom'])]= $myTutor['user_id'];
+    $tutor_list[htmlspecialchars($myTutor['name'] . ' ' . $myTutor['firstname'])]= $myTutor['userId'];
 }
 
 
@@ -286,7 +278,7 @@ foreach ($result AS $myNotMember )
     $label = htmlspecialchars(ucwords(strtolower($myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'])))
     .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
     ;
-    
+
     $userNotInGroupList[$label] = $myNotMember['user_id'];
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
