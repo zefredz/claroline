@@ -44,8 +44,6 @@ $noQUERY_STRING     = TRUE;
 /*  INITIALISE VAR
 /* ************************************************************************** */
 
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_tool = $tbl_mdb_names['tool'];
 $urlEditConf = 'config_edit.php';
 
 // Get the list of definition files.
