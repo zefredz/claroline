@@ -17,9 +17,11 @@
  */
 
 require_once 'constants.inc.php';
+require_once 'courseProfileToolAction.class.php';
 
 /**
  * Get all names of profile in an array where key are profileId
+ * return
  */
 
 function get_all_profile_name_list ()
@@ -92,6 +94,137 @@ function get_profile_name ($profileId)
     {
         return false;
     }
+}
+
+/**
+ * Get course/profile right
+ *
+ * @param integer $profileId profile identifier
+ * @param integer $courseId course identifier
+ * @return array ['tool_id']['action_name'] value
+ */
+
+function claro_get_course_profile_right ($profileId, $courseId)
+{
+    $courseProfileRightList = null;
+
+    static $cachedProfileId = null ;
+    static $cachedCourseId = null ;
+    static $cachedCourseProfileRightList = null ;
+
+    if ( !empty($cachedCourseProfileRightList) &&
+         ( $cachedProfileId == $profileId ) && 
+         ( $cachedCourseId == $courseId )
+       )
+    {
+        $courseProfileRightList = $cachedCourseProfileRightList;
+    }
+    
+    if ( empty($courseProfileRightList) )
+    {
+        $profile = new RightProfile();
+    
+        if ( $profile->load($profileId) )
+        {
+            $courseProfileToolRight = new RightCourseProfileToolRight();
+            $courseProfileToolRight->setCourseId($courseId);
+            $courseProfileToolRight->load($profile);
+
+            $courseProfileRightList = $courseProfileToolRight->getToolActionList();
+            
+            // cache for the next time ...
+            $cachedProfileId = $profileId;
+            $cachedCourseId = $courseId;
+            $cachedCourseProfileRightList = $courseProfileRightList;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    return $courseProfileRightList ;
+}
+
+/**
+ * Is tool action allowed
+ *
+ * @param string $actionName name of the action
+ * @param integer $tid tool identifier 
+ * @param integer $profileId profile identifier
+ * @param integer $courseId course identifier
+ * @return boolean 'true' if it's allowed
+ */
+
+function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = null, $courseId = null)
+{
+    global $_tid;
+    global $_cid;
+    global $_user;
+
+    // load tool id
+    if ( is_null($tid) )
+    {
+        if ( !empty($_tid) ) $tid = $_tid ;
+        else                 return false ;
+    }
+
+    // load profile id
+    if ( is_null($profileId) )
+    {
+        if ( !empty($_user['profileId']) ) $profileId = $_user['profileId'] ;
+        else                               return false ;
+    }
+   
+    // load course id
+    if ( is_null($courseId) )
+    {
+        if ( !empty($_cid) ) $courseId = $_cid ;
+        else                       return false ;
+    }
+
+    // get course profile right    
+    $courseProfileRight = claro_get_course_profile_right($profileId,$courseId);
+
+    // return value for tool/action
+    if ( isset($courseProfileRight[$tid][$actionName]) )
+    {
+        return $courseProfileRight[$tid][$actionName];
+    }
+    else
+    {
+        return false;
+    }
+}
+
+/**
+ * Is tool read action allowed
+ * 
+ * @param string $actionName name of the action
+ * @param integer $tid tool identifier 
+ * @param integer $profileId profile identifier
+ * @param integer $courseId course identifier
+ * @return boolean 'true' if it's allowed
+ */
+
+function claro_is_allowed_tool_read ($tid = null, $profileId = null, $courseId = null)
+{
+    return claro_is_allowed_tool_action('read',$tid,$profileId,$courseId);
+}
+
+/**
+ * Is tool edit action allowed
+ *
+ * @param string $actionName name of the action
+ * @param integer $tid tool identifier 
+ * @param integer $profileId profile identifier
+ * @param integer $courseId course identifier
+ * @return boolean 'true' if it's allowed
+ */
+
+function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId = null)
+{
+    return claro_is_allowed_tool_action('edit',$tid,$profileId,$courseId);
 }
 
 ?>
