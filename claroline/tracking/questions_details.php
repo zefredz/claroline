@@ -38,7 +38,6 @@ else
 
 
 include('../exercise/lib/question.class.php');
-//include('../exercise/lib/answer.class.php');
 
 /**
  * DB tables definition
