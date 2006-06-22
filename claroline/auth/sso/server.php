@@ -57,7 +57,7 @@ $server->service($HTTP_RAW_POST_DATA);
 
 function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
 {
-    if (! is_allowed_to_recieve_user_info($auth) )
+    if (! is_allowed_to_receive_user_info($auth) )
     {
         return null;
     }
@@ -280,7 +280,7 @@ function record_sso_cookie($userId, $ssoCookie)
 
 
 /**
- * check if the soap client is allowed to recieve the user information
+ * check if the soap client is allowed to receive the user information
  * recorded into the system
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -289,7 +289,7 @@ function record_sso_cookie($userId, $ssoCookie)
  */
 
 
-function is_allowed_to_recieve_user_info($auth)
+function is_allowed_to_receive_user_info($auth)
 {
     if ( in_array($auth, get_conf('ssoAuthenticationKeyList')) )
     {
