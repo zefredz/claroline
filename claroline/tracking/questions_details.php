@@ -70,7 +70,7 @@ if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 }
 else
 {
- $interbredcrump[]= array ('url'=>'courseLog.php', 'name'=> get_lang('Statistics'));
+	$interbredcrump[]= array ('url'=>'courseLog.php', 'name'=> get_lang('Statistics'));
     $src = '';
 }
 $interbredcrump[]= array ('url'=>'exercises_details.php?exId='.$exId.$src, 'name'=> get_lang('Statistics of exercise'));
@@ -84,13 +84,13 @@ if( empty($_REQUEST['question_id']) )
     // a contribution of Jérémy Audry
     $sql = "SELECT `questionId`
             FROM `".$tbl_qwz_rel_exercise_question."`
-            WHERE `exerciceId` = ".(int) $exId;
+            WHERE `exerciseId` = ".(int) $exId;
             
     $questionList = claro_sql_query_fetch_all($sql);
     // store all question_id for the selected exercise in a tab
     foreach ( $questionList as $question )
     {
-        $questionIdsToShow[] = $question['question_id'];
+        $questionIdsToShow[] = $question['questionId'];
     }
 }
 // display only the stats of the requested question
@@ -111,7 +111,14 @@ echo $backLink;
 
 if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 {
-
+	echo "\n"
+	.	 '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n";
+		
+	if( count($questionIdsToShow) > 1 )
+	{		
+		$questionIterator = 1;	
+	}
+	
     foreach( $questionIdsToShow as $questionId )
     {
         // get infos about the question
@@ -311,10 +318,25 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 
 
         //-- DISPLAY (common)
-          //-- display a resume of the selected question
-        echo '<p><b>'.$question->getTitle().'</b></p>'."\n"
-            .'<blockquote>'.$displayedStatement.'</blockquote>'."\n\n"
-            .'<center>';
+		//-- display a resume of the selected question
+		
+        // several questions have to be shown on the page
+		if( isset($questionIterator) )
+		{
+			echo '<tr class="headerX">' . "\n"
+			.	 '<th>'
+			.	 get_lang('Question') . ' ' . $questionIterator
+			.	 '</th>' . "\n"
+			.	 '</tr>' . "\n\n"
+			.	 '<tr>'
+			.	 '<td>' . "\n";
+			
+			$questionIterator++;
+		}
+		
+        echo '<strong>'.$question->getTitle().'</strong>'."\n"
+        .	 '<blockquote>'.$displayedStatement.'</blockquote>'."\n\n"
+        .	 '<center>';
         //-- DISPLAY (by question type)
         // prepare list to display
         if( $question->getType() == 'MCUA' || $question->getType() == 'MCMA' )
@@ -515,9 +537,18 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             }
             echo '</table>'."\n\n";
         }
-         echo '</center>'."\n".'<br />'."\n";
+        echo '</center>'."\n".'<br /><br />'."\n";
+        
+        // several questions have to be shown on the page 
+        if( isset($questionIterator) )
+		{
+			echo '</td>' . "\n"
+			.	 '</tr>' . "\n\n";
+		}
     } // end of foreach( $questionIdsToShow as $questionId )
 
+	echo '</table>' . "\n";
+	
     echo $backLink;
 }
 // not allowed
