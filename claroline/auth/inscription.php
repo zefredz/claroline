@@ -50,21 +50,21 @@ if ( get_conf('allowSelfReg',false) )
      * Main Section
      */
 
-    if ( $cmd == 'registration' )
+    if ( 'registration' == $cmd )
     {
         // get params from the form
 
-        if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = strip_tags(trim($_REQUEST['lastname'])) ;
-        if ( isset($_REQUEST['firstname']) )     $user_data['firstname']  = strip_tags(trim($_REQUEST['firstname'])) ;
+        if ( isset($_REQUEST['lastname']) )      $user_data['lastname']      = strip_tags(trim($_REQUEST['lastname'])) ;
+        if ( isset($_REQUEST['firstname']) )     $user_data['firstname']     = strip_tags(trim($_REQUEST['firstname'])) ;
         if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
-        if ( isset($_REQUEST['username']) )      $user_data['username']  = strip_tags(trim($_REQUEST['username']));
-        if ( isset($_REQUEST['password']) )      $user_data['password']  = trim($_REQUEST['password']);
-        if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf']  = trim($_REQUEST['password_conf']);
-        if ( isset($_REQUEST['email']) )         $user_data['email'] = strip_tags(trim($_REQUEST['email'])) ;
+        if ( isset($_REQUEST['username']) )      $user_data['username']      = strip_tags(trim($_REQUEST['username']));
+        if ( isset($_REQUEST['password']) )      $user_data['password']      = trim($_REQUEST['password']);
+        if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
+        if ( isset($_REQUEST['email']) )         $user_data['email']         = strip_tags(trim($_REQUEST['email'])) ;
         if ( isset($_REQUEST['officialEmail']) ) $user_data['officialEmail'] = strip_tags(trim($_REQUEST['officialEmail'])) ;
-        if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
-        if ( isset($_REQUEST['status']) )        $user_data['status'] = (int) $_REQUEST['status'];
-        if ( isset($_REQUEST['language']) )      $user_data['language'] = $_REQUEST['language'];
+        if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
+        if ( isset($_REQUEST['status']) )        $user_data['status']        = (int) $_REQUEST['status'];
+        if ( isset($_REQUEST['language']) )      $user_data['language']      = $_REQUEST['language'];
 
         // validate forum params
 
@@ -78,18 +78,18 @@ if ( get_conf('allowSelfReg',false) )
 
             if ( $_uid )
             {
+
                 // add value in session
-                $_user['firstName'    ] = $user_data['firstname'];
-                $_user['lastName'     ] = $user_data['lastname'];
-                $_user['email'        ] = $user_data['email'];
-                $_user['officialEmail'] = $user_data['officialEmail'];
+                $_user = user_get_properties($_uid);
+                $_user['firstName'    ] = $_user['firstname'];
+                $_user['lastName'     ] = $_user['lastname'];
+                $_user['mail'         ] = $_user['email'];
                 $_user['lastLogin'    ] = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
-                $is_allowedCreateCourse = ($user_data['status'] == 1) ? TRUE : FALSE ;
+                $is_allowedCreateCourse = ($user_data['status'] == 0) ? FALSE : TRUE ;
 
                 $_SESSION['_uid'] = $_uid;
                 $_SESSION['_user'] = $_user;
                 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
-
                 // track user login
 
                 $eventNotifier->notifyEvent('user_login', array('uid' => $_uid));
@@ -125,11 +125,11 @@ if ( get_conf('allowSelfReg',false) )
 
     }
 
-    if ( $cmd == 'registration' && $error == false )
+    if ( 'registration' == $cmd && $error == false )
     {
         $display = DISP_REGISTRATION_SUCCEED;
     }
-    elseif ( 'agree' == $cmd || ! get_conf('show_agreement_panel') || $cmd == 'registration' )
+    elseif ( 'agree' == $cmd || ! get_conf('show_agreement_panel') || 'registration' == $cmd)
     {
         $display = DISP_REGISTRATION_FORM;
     }
