@@ -101,7 +101,7 @@ $subTitle = '';
 
 $id  = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
 $cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
-
+$cmd_menu=array();
 
 if($is_allowedToEdit) // check teacher status
 {
@@ -305,7 +305,7 @@ if($is_allowedToEdit) // check teacher status
                 $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
 
                 // email subject
-                $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ';
+                $emailSubject = '[' . get_conf('siteName') . ' - ' . $_course['officialCode'] . '] ';
                 if ( !empty($title) ) $emailSubject .= $title ;
                 else                  $emailSubject .= get_lang('Message from your lecturer');
 
@@ -334,7 +334,8 @@ if($is_allowedToEdit) // check teacher status
                 $msgAttachement . "\n" .
                 $courseSender . "\n" .
                 $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" .
-                $siteName . "\n";
+                get_conf('siteName') . "\n"
+                ;
 
                 // Select students id list
                 $sql = "SELECT u.user_id AS id
@@ -467,29 +468,17 @@ $noQUERY_STRING = true;
 // Add feed RSS in header
 if ( get_conf('enable_rss_in_course') )
 {
-    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
             .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
 }
 
 // Display header
 include $includePath . '/claro_init_header.inc.php' ;
 
-/*----------------------------------------------------------------------------
-TOOL TITLE
-----------------------------------------------------------------------------*/
-
 echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-/*----------------------------------------------------------------------------
-ACTION MESSAGE
-----------------------------------------------------------------------------*/
-
 if ( !empty($message) ) echo claro_html_message_box($message);
-
-/*----------------------------------------------------------------------------
-MAIN COMMANDS LINE
-----------------------------------------------------------------------------*/
-if ( $displayButtonLine ) echo claro_html_menu_horizontal($cmd_menu);
+echo claro_html_menu_horizontal($cmd_menu);
 
 
 /*----------------------------------------------------------------------------
@@ -532,10 +521,14 @@ if ( $displayForm )
     .    '<td></td>'
     .    '<td>'
     ;
+
+    // TODO :  add else case  wich show disabled version ton show that possible  with a filled email.
     if ($emailNotificationAllowed)
-    echo '<input type=checkbox value="1" name="emailOption" id="emailOption" />';
-    echo '<label for="emailOption">' . get_lang('Send this announcement by email to registered students') . '</label><hr />' . "\n"
-    ;
+        echo '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
+        .    '<label for="emailOption">'
+        .    get_lang('Send this announcement by email to registered students')
+        .    '</label><hr />' . "\n"
+        ;
 
     //---------------------
     // linker
