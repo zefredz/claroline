@@ -275,25 +275,14 @@ echo '<p>'.get_block('blockCourseHomePageIntroduction').'</p>'."\n"
 $toolList = claro_get_course_tool_list($_cid, $reqAccessLevel);
 
 echo '<table class="claroTable" >'."\n\n"
-    . '<thead>'."\n"
-    . '<tr class="headerX">'."\n"
-    . '<th>'.get_lang('Tools').'</th>'."\n"
-    . '<th>'.get_lang('Activate').'</th>'."\n"
-    . '</tr>'."\n"
-    . '</thead>'."\n\n"
-    . '<tbody>'."\n"
-    ;
-
-//trick to compare labels correctly
-
-foreach($toolList as $key=>$tool)
-{
-    while (strlen($toolList[$key]['label'])<8)
-    {
-        $toolList[$key]['label'] = $toolList[$key]['label'].'_';
-    }
-}
-
+.    '<thead>'."\n"
+.    '<tr class="headerX">'."\n"
+.    '<th>'.get_lang('Tools').'</th>'."\n"
+.    '<th>'.get_lang('Activate').'</th>'."\n"
+.    '</tr>'."\n"
+.    '</thead>'."\n\n"
+.    '<tbody>'."\n"
+;
 
 foreach($toolList as $thisTool)
 {
@@ -301,13 +290,13 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($thisTool['label'])) // standart claroline tool
     {
-        $toolName      = $toolNameList[ $thisTool['label'] ];
+        $toolName = $toolNameList[ str_pad($thisTool['label'],8,'_') ];
 
         //find correct url to access tool
 
         if (isset($thisTool['url']))
         {
-            $url           = trim($toolRepository.$thisTool['url']);
+            $url  = trim($toolRepository.$thisTool['url']);
         }
         elseif (isset($thisTool['tool_complete_url']))
         {
