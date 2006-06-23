@@ -19,10 +19,8 @@
  */
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
-// initialisation of global variables and used libraries
-defined('COURSE_CREATOR') || define('COURSE_CREATOR',1);
-defined('COURSE_STUDENT') || define('COURSE_STUDENT',5);
 
+// initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -376,7 +374,7 @@ function prepare_get_filtred_course_list()
                     C.`directory` AS `repository`,
                     count(IF(`CU`.`isCourseManager`=0,1,null))
                                   AS `qty_stu`,
-                    #count only lines where statut of user is COURSE_STUDENT
+                    #count only lines where user is not course manager
 
                     count(IF(`CU`.`isCourseManager`=1,1,null))
                                   AS `qty_cm`
