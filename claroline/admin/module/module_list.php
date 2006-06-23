@@ -149,17 +149,14 @@ switch ( $cmd )
 
     case 'show_install' :
         $dialogBox = '<p>'
-        .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br>'
+        .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br />'
         .            get_lang('Find more available modules <a href="http://www.claroline.net/">here</a>.')
         .            '</p>'
         .            '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">'
         .            '<input name="cmd" type="hidden" value="do_install" />'
-        .            '<input name="uploadedModule" type="file" /><br><br>'
-        .            get_lang('Install module') . ' : '
-        .            '<input value="' . get_lang('Ok') . '" type="submit" /> '
+        .            '<input name="uploadedModule" type="file" /><br /><br />'
+        .            '<input value="' . get_lang('Install module') . '" type="submit" /> '
         .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
-        .            '<br><br>'
-        .            '<small>' . get_lang('Max file size') . ' :  2&nbsp;MB</small>'
         .            '</form>'
         ;
         break;
