@@ -174,38 +174,4 @@ array ('label'       => 'Creation of Course Creator account'
       ,'readonly'    => FALSE
       );
 
-
-// DEFINE COURSE_MANAGER AND STUDENT CONSTANTS VALUE
-
-$conf_def['section']['const']['label'] = 'Const';
-$conf_def['section']['const']['display'] = FALSE;
-//$conf_def['section']['const']['description'] = '';
-$conf_def['section']['const']['properties'] =
-array ( 'COURSEMANAGER'
-       ,'STUDENT'
-      );
-
-$conf_def_property_list['COURSEMANAGER'] =
-array ('label'         => 'Database value for course manager status'
-      ,'description'   => 'Do not change this'
-      ,'display'       => FALSE
-      ,'readonly'      => TRUE
-      ,'default'       => '1'
-      ,'type'          => 'integer'
-      ,'acceptedValue' => array ('1'  => 'Course manager'
-                                )
-      , 'container'     => 'CONST'
-      );
-$conf_def_property_list['STUDENT'] =
-array ('label'         => 'Database value for student status'
-      ,'description'   => 'Do not change this'
-      ,'display'       => FALSE
-      ,'readonly'      => TRUE
-      ,'default'       => '5'
-      ,'type'          => 'integer'
-      ,'acceptedValue' => array ('5'  => 'Student'
-                                )
-      , 'container'     => 'CONST'
-      );
-
 ?>
