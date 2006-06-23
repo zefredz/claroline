@@ -70,6 +70,7 @@ array ( 'rootWeb'
       , 'rootAdminAppend'
       , 'imgRepositoryAppend'
       , 'userImageRepositoryAppend'
+      , 'moduleRepository'
      );
 
 $conf_def['section']['DB_CONNECT_SETTING']['label']= 'MySQL database settings';
@@ -549,6 +550,19 @@ $conf_def_property_list['module_cache_filename']
         ,'description' => ''
         ,'default'   => 'moduleCache.inc.php'
         ,'type'      => 'filename'
+        ,'display'       => FALSE
+        ,'readonly'      => TRUE
+        ,'acceptedValue' => array ( 'pattern'=> '*.inc.php')
+        );
+
+
+
+
+$conf_def_property_list['moduleRepository']
+= array ('label'     => 'filename for one file module inclusion'
+        ,'technicalInfo' => 'can be change by devels for tests'
+        ,'default'   => 'module/'
+        ,'type'      => 'relpath'
         ,'display'       => FALSE
         ,'readonly'      => TRUE
         ,'acceptedValue' => array ( 'pattern'=> '*.inc.php')
