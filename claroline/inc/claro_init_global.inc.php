@@ -14,7 +14,6 @@ if ( basename( $_SERVER['SCRIPT_NAME'] ) === basename(__FILE__) ) die( '---' );
 
 define('CLARO_INCLUDE_ALLOWED', true);
 
-
 // include the main Claroline platform configuration file
 
 // Determine the directory path where this current file lies
@@ -37,8 +36,6 @@ else
        .'</center>');
 }
 
-
-
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
 if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
@@ -52,7 +49,6 @@ if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
 
     $claro_CasEnabled           = false;
     $claro_displayLocalAuthForm = true;
-
 
 /*----------------------------------------------------------------------
   Various Path Init
@@ -116,13 +112,14 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-require $includePath . '/lib/claro_main.lib.php';
-require $includePath . '/lib/language.lib.php';
+require_once $includePath . '/lib/claro_main.lib.php';
+require_once $includePath . '/lib/language.lib.php';
+require_once $includePath . '/lib/right/right_profile.lib.php';
 
 /*----------------------------------------------------------------------
   Include Plugin libraries and create needed buffer
   ----------------------------------------------------------------------*/
-require $includePath . '/lib/buffer.lib.php';
+require_once $includePath . '/lib/buffer.lib.php';
 
 /*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
