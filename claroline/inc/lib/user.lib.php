@@ -15,6 +15,7 @@
 
 require_once(dirname(__FILE__) . '/form.lib.php');
 
+defined('COURSE_CREATOR_STATUS') || define('COURSE_CREATOR_STATUS', 1);
 defined('COURSE_ADMIN_STATUS') || define('COURSE_ADMIN_STATUS', 1);
 defined('STUDENT_STATUS'     ) || define('STUDENT_STATUS'     , 5);
 
@@ -98,8 +99,8 @@ function user_create($settingList, $creatorId = null)
         else return trigger_error('MISSING_DATA',E_USER_ERROR);
     }
 
-    if ($settingList['status'] != COURSE_ADMIN_STATUS) $status = STUDENT_STATUS;
-    else                                               $status = COURSE_ADMIN_STATUS;
+    if ($settingList['status'] != COURSE_CREATOR_STATUS) $status = STUDENT_STATUS;
+    else                                                 $status = COURSE_CREATOR_STATUS;
 
     $password = get_conf('userPasswordCrypted') ? md5($settingList['password'])
     : $settingList['password'];
@@ -136,10 +137,9 @@ function user_set_properties($userId, $propertyList)
     $tbl = claro_sql_get_main_tbl();
 
     // SPECIAL CASE
-
     if ( array_key_exists('status', $propertyList) )
     {
-        if ( $propertyList['status'] != COURSE_ADMIN_STATUS)
+        if ( $propertyList['status'] != COURSE_CREATOR_STATUS)
         {
             $propertyList['status'] = STUDENT_STATUS;
         }
@@ -964,6 +964,10 @@ function user_validate_form($formMode, $data, $userId = null)
         $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
     }
 
+    if(array_key_exists('password',$data) ||array_key_exists('password_conf',$data))
+    {
+
+
     if ( get_conf('SECURE_PASSWORD_REQUIRED') )
     {
         $validator->addRule('password',
@@ -979,9 +983,12 @@ function user_validate_form($formMode, $data, $userId = null)
     }
 
     $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
+
+
+    }
     $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
 
-    if ( $formMode == 'registration')
+    if ( 'registration' == $formMode)
     {
         $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
         $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
@@ -1001,10 +1008,13 @@ function user_validate_form($formMode, $data, $userId = null)
 
 /**
  * Check if the password chosen by the user is not too much easy to find
+ *
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
+ *
  * @param string requested password
  * @param array list of other values of the form we wnt to check the password
  * @return boolean true if not too much easy to find
+ *
  */
 
 function is_password_secure_enough($requestedPassword, $forbiddenValueList)
@@ -1015,6 +1025,20 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
         {
             return claro_failure::set_failure('ERROR_CODE_too_easy');
         }
+
+        if ( !empty($requestedPassword) && !empty($thisValue)
+        && ( false !== stristr($requestedPassword,$thisValue)
+        ||   false !== stristr($thisValue,$requestedPassword) ))
+        {
+            return claro_failure::set_failure('ERROR_CODE_too_easy');
+        }
+
+        if ( (function_exists('soundex')) && soundex($requestedPassword) == soundex($thisValue) )
+        {
+            return claro_failure::set_failure('ERROR_CODE_too_easy');
+        }
+
+
     }
 
     return true;
@@ -1029,11 +1053,10 @@ function is_password_secure_enough($requestedPassword, $forbiddenValueList)
 
 function is_username_available($username, $userId = null)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user = $tbl_mdb_names['user'];
+    $tbl = claro_sql_get_main_tbl();
 
     $sql = "SELECT COUNT(username)
-            FROM `" . $tbl_user . "`
+            FROM `" . $tbl['user'] . "`
             WHERE username='" . addslashes($username) . "' ";
 
     if ( ! is_null($userId) ) $sql .= " AND user_id <> "  . (int) $userId ;
@@ -1053,17 +1076,16 @@ function is_username_available($username, $userId = null)
 
 function is_official_code_available($official_code, $userId=null)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user = $tbl_mdb_names['user'];
+    $tbl = claro_sql_get_main_tbl();
 
     $sql = "SELECT COUNT(officialCode)
-            FROM `" . $tbl_user . "`
-            WHERE officialCode='" . addslashes($official_code) . "' ";
+            FROM `" . $tbl['user'] . "`
+            WHERE officialCode = '" . addslashes($official_code) . "' ";
 
     if ( ! is_null($userId) ) $sql .= " AND user_id <> "  . (int) $userId ;
 
     if ( claro_sql_query_get_single_value($sql) == 0 ) return true;
-    else                                                return false;
+    else                                               return false;
 }
 
 /**
@@ -1145,11 +1167,7 @@ function user_html_form($data, $form_type='registration')
     if ( array_key_exists('confirmUserCreate', $data) )
     {
         $html .= form_input_hidden('confirmUserCreate', $data['confirmUserCreate'] ? 1 : 0);
-        $onChange = 'onchange="getElementById(\'confirmUserCreate\').value=0;"';
-    }
-    else
-    {
-        $onChange = '';
+
     }
 
     // table begin
@@ -1299,12 +1317,12 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( get_lang('Action') .'&nbsp;: ',
         '<input type="radio" name="status" id="follow"'
         .' value="' . STUDENT_STATUS . '" '
-        . ($data['status'] != COURSE_ADMIN_STATUS ? ' checked' : '') . ' />'
+        . ($data['status'] != COURSE_CREATOR_STATUS ? ' checked' : '') . ' />'
         . '<label for="follow">' . get_lang('Follow courses') . '</label>'
         . '<br />'
         . '<input type="radio" name="status" id="create"'
-        . ' value="' . COURSE_ADMIN_STATUS . '"   '
-        . ($data['status'] == COURSE_ADMIN_STATUS ? ' checked'  :'') . ' />'
+        . ' value="' . COURSE_CREATOR_STATUS . '"   '
+        . ($data['status'] == COURSE_CREATOR_STATUS ? ' checked'  :'') . ' />'
         . '<label for="create">' . get_lang('Create course') . '</label>');
     }
 
