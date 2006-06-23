@@ -310,7 +310,10 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                     
                     if( !empty($leftAnswerId) && !empty($rightAnswerId) )
                     {
-                        $results[$rowTitlePosition[$leftAnswerId]][$columnTitlePosition[$rightAnswerId]] = $answer_details['nbr'];
+						if( isset($rowTitlePosition[$leftAnswerId]) && isset($columnTitlePosition[$rightAnswerId]) )
+						{
+                        	$results[$rowTitlePosition[$leftAnswerId]][$columnTitlePosition[$rightAnswerId]] = $answer_details['nbr'];
+						}
                     }
 				}
             }
@@ -334,7 +337,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 			$questionIterator++;
 		}
 		
-        echo '<strong>'.$question->getTitle().'</strong>'."\n"
+        echo '<p><strong>'.$question->getTitle().'</strong></p>'."\n"
         .	 '<blockquote>'.$displayedStatement.'</blockquote>'."\n\n"
         .	 '<center>';
         //-- DISPLAY (by question type)
