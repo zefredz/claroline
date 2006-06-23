@@ -276,15 +276,15 @@ function get_module_url($toolLabel)
 /**
  * Return the list of context that the tool can use but not manage.
  *
- * @param unknown_type $toolId
- * @return unknown
+ * @param string $toolId
+ * @return array
  */
 
 function get_module_db_dependance($toolId)
 {
     // actual place of this info prom module
 
-    $dbconfFile = get_conf('moduleRepository', get_conf('clarolineRepositorySys').'/module/' . $toolId . '/connector/db.conf.php');
+    $dbconfFile = get_conf('moduleRepository', get_conf('clarolineRepositorySys').'/module/') . $toolId . '/connector/db.conf.php';
     if (file_exists($dbconfFile))
     {
         $contextDbSupport =false;
