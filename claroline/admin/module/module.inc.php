@@ -128,19 +128,82 @@ function check_module_repositories()
 
 function activate_module($moduleId)
 {
+
+    //find module informations
+
     $tbl = claro_sql_get_main_tbl();
+    $module_info =  get_module_info($moduleId);
+
     //1- call activation script (if any) from the module repository
 
     /*TO DO*/
 
-    //2- change related entry in the main DB
+    //2- change related entry of module table in the main DB
 
     $sql = "UPDATE `" . $tbl['module']."`
             SET `activation` = 'activated'
             WHERE `id` = " . (int) $moduleId;
     $result = claro_sql_query($sql);
 
-    //3- cache file with the module's include must be renewed after activation of the module
+    //3- add the module in the cours_tool table, used for every course creation
+
+    if (($module_info['type'] =='tool') && $moduleId)
+    {
+
+        //find max rank in the course_tool table
+
+        $sql = "SELECT MAX(def_rank) as maxrank FROM `".$tbl['tool']."`";
+        $maxresult = claro_sql_query_get_single_row($sql);
+    
+            //insert the new course tool
+    
+        $module_info['label'] = str_pad($module_info['label'],8,'_');
+
+        $trimlabel = rtrim($module_info['label'],'_');
+
+        $sql = "INSERT INTO `" . $tbl['tool']."`
+                SET
+                claro_label = '".$module_info['label']."',
+                script_url = 'entry.php',
+                icon = '".$module_info['icon']."',
+                def_access = 'ALL',
+                def_rank = (".(int)$maxresult['maxrank']."+1),
+                add_in_course = 'AUTOMATIC',
+                access_manager = 'COURSE_ADMIN'
+            ";
+        $tool_id = claro_sql_query_insert_id($sql);
+    
+    //4- update every course tool list to add the tool if it is a tool
+    
+        $module_type = $module_info['type'];
+
+        $sql = "SELECT `code` FROM `".$tbl['course']."`";
+        $course_list = claro_sql_query_fetch_all($sql);
+        $default_access = 'COURSE_ADMIN';
+
+        foreach ($course_list as $course)
+        {
+            $currentCourseDbNameGlu = claro_get_course_db_name_glued($course['code']);
+            $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+
+            //find max rank in the tool_list
+
+            $sql = "SELECT MAX(rank) as maxrank FROM ".$course_tbl['tool'];
+            $maxresult = claro_sql_query_get_single_row($sql);
+            //insert the tool at the end of the list
+
+            $sql = "INSERT INTO `".$course_tbl['tool']."`
+            SET tool_id      = " . $tool_id . ",
+                rank         = (".(int)$maxresult['maxrank']."+1),
+                access       = '" . $default_access . "',
+                script_url   = NULL,
+                script_name  = NULL,
+                addedTool    = 'YES'";
+            claro_sql_query($sql);
+        }
+    }
+
+    //5- cache file with the module's include must be renewed after activation of the module
 
     generate_module_cache();
 
@@ -157,11 +220,53 @@ function activate_module($moduleId)
 
 function deactivate_module($moduleId)
 {
+    //find needed info :
+
+    $module_info =  get_module_info($moduleId);
+    $tbl = claro_sql_get_main_tbl();
+
     //1- call desactivation script (if any) from the module repository
 
     /*TO DO*/
 
-    //2- change related entry in the main DB
+    if (($module_info['type'] =='tool') && $moduleId)
+    {
+
+    //2- delete the module in the cours_tool table, used for every course creation
+    
+        $module_info['label'] = str_pad($module_info['label'],8,'_');
+
+        //retrieve thsi module_id first
+
+        $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
+                WHERE claro_label = '".$module_info['label']."'";
+        $tool_to_delete = claro_sql_query_get_single_row($sql);
+        $tool_id = $tool_to_delete['tool_id'];
+
+        $sql = "DELETE FROM `" . $tbl['tool']."`
+                WHERE claro_label = '".$module_info['label']."'
+            ";
+        
+        claro_sql_query($sql);
+    
+    //3- update every course tool list to add the tool if it is a tool
+
+        $sql = "SELECT `code` FROM `".$tbl['course']."`";
+        $course_list = claro_sql_query_fetch_all($sql);
+
+    
+        foreach ($course_list as $course)
+        {
+            $currentCourseDbNameGlu = claro_get_course_db_name_glued($course['code']);
+            $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+
+            $sql = "DELETE FROM `".$course_tbl['tool']."`
+                    WHERE  `tool_id` = " . (int)$tool_id;
+            claro_sql_query($sql);
+        }
+    }
+
+    //4- change related entry in the main DB, module table
 
     $tbl = claro_sql_get_main_tbl();
 
@@ -171,7 +276,7 @@ function deactivate_module($moduleId)
 
     $result = claro_sql_query($sql);
 
-    //3- cache file with the module's include must be renewed after desactivation of the module
+    //5- cache file with the module's include must be renewed after desactivation of the module
 
     generate_module_cache();
 
@@ -440,6 +545,8 @@ function install_module($modulePath)
 
     //check if a module with the same LABEL is already installed, if yes, we cancel everything
 
+    $module_info['LABEL'] = str_pad($module_info['LABEL'],8,'_');
+
     if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
     {
         array_push ($backlog_message,get_lang('This module is already installed on your platform '));
@@ -534,6 +641,10 @@ function install_module($modulePath)
 
 function uninstall_module($moduleId)
 {
+
+    //first thing to do : deactivate the module
+
+    deactivate_module($moduleId);
 
     //Needed tables and vars
 
@@ -726,6 +837,7 @@ function elementData($parser,$data)
             $parent = prev($element_pile);
             switch ($parent)
             {
+            
                 case 'MODULE':
                     {
                         $module_info['NAME'] = $data;
@@ -888,10 +1000,12 @@ function generate_module_cache()
 function register_module($modulePath)
 {
     global $regLog;
+
     $regLog = array();
     if (file_exists($modulePath))
     {
         $module_info = readModuleManifest($modulePath);
+        $module_info['LABEL'] = str_pad($module_info['LABEL'],8,'_');
         if (is_array($module_info) && false !== ($moduleId = register_module_core($module_info)))
         {
             $regLog['info'][] = get_lang('%claroLabel registred', array('%claroLabel'=>$module_info['LABEL']));
@@ -945,7 +1059,7 @@ function register_module($modulePath)
 
 /**
  * Add common info about a module in main module registry.
- * In Claroline 1.8 this  info is split in two type of info
+ * In Claroline this  info is split in two type of info
  * into two tables :
  * * module  for really use info,
  * * module_info for descriptive info
@@ -964,6 +1078,8 @@ function register_module_core($module_info)
 
     }
 
+    $module_info['LABEL'] = str_pad($module_info['LABEL'],8,'_');
+
     $sql = "INSERT INTO `" . $tbl['module'] . "`
             SET label = '" . addslashes($module_info['LABEL'      ]) . "',
                 name  = '" . addslashes($module_info['NAME']) . "',
@@ -979,6 +1095,7 @@ function register_module_core($module_info)
                 website      = '" . addslashes($module_info['AUTHOR']['WEB'   ]) . "',
                 description  = '" . addslashes($module_info['DESCRIPTION'     ]) . "',
                 license      = '" . addslashes($module_info['LICENSE'         ]) . "'";
+
     claro_sql_query($sql);
 
     return $moduleId;
@@ -998,8 +1115,9 @@ function register_module_tool($moduleId,$moduleToolData)
         $sql = "INSERT INTO `" . $tbl['module_tool'] . "`
             SET module_id = " . (int) $moduleId . ",
                 icon      = " . $icon  ;
+        $module_inserted_id = claro_sql_query_insert_id($sql);
 
-        return claro_sql_query_insert_id($sql);
+        return $module_inserted_id;
     }
 }
 
@@ -1123,8 +1241,6 @@ function readModuleManifest($modulePath)
 }
 
 
-;
-
 function get_dock_list($moduleType,$context='ALL')
 {
     $dockList   = array();
@@ -1145,11 +1261,7 @@ function get_dock_list($moduleType,$context='ALL')
             $dockList[] = "campusFooterRight";
             break;
         case 'tool' :
-            $dockList[] = "selectBox";
             $dockList[] = "commonToolList";
-            $dockList[] = "courseManageToolList";
-
-
     }
     return $dockList;
 }

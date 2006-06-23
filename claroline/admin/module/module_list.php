@@ -347,7 +347,11 @@ foreach($moduleList as $module)
     {
         $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
     }
-    else $icon = '<small>' . get_lang('No icon') . '</small>';
+    else
+    {
+        $icon = '<small>' . get_lang('No icon') . '</small>';
+        echo get_module_path($module['label']) . '/icon.gif';
+    }
 
 
     //module_id and icon column

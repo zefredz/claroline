@@ -337,7 +337,7 @@ switch ($item)
 		    $isfirstline = get_lang('Display') . ' : ';
 		
 		    //display each option
-		    if (is_array($dockList))
+		    if (is_array($dockList) && $module['type']!='tool')
 		    foreach ($dockList as $dock)
 		    {
 		
