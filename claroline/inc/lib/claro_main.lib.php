@@ -262,37 +262,6 @@ function claro_get_tool_name_list($active = true)
 }
 
 /**
- * Get Names of tools deactivated in an array where the key are Claro_label
- * @return array list of label of deactivated tools
- *
- */
-
-function claro_get_deactivated_tool_list()
-{
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_module      = $tbl_mdb_names['module'];
-
-    $sql = "SELECT `label`, `name` FROM `" . $tbl_module . "`
-                           WHERE `activation`='desactivated'
-                             AND `type`='tool'";
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    $tool_list = array();
-
-    foreach ($result as $tool)
-    {
-        //tricks to be sure that we get a 8 chars label :  CLBLAH__
-
-       $tool['label'] = str_pad($tool['label'],8,'_');
-
-       $tool_list[] = $tool['label'];
-    }
-    return $tool_list;
-}
-
-
-/**
  * SECTION :  Get kernel
  * SUBSECTION datas for rel tool courses
  */
@@ -349,129 +318,58 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
         /*
          * Search all the tool corresponding to this access levels
          */
+        if (isset($active) && $active)
+        {
+            $deactivatedSQL = " AND m.activation = 'activated' ";
+        }
+        else
+        {
+            $deactivatedSQL = '';
+        }
 
+        //find module or claroline existing tools
 
         $sql ="SELECT DISTINCT ctl.id             AS id,
                       pct.claro_label             AS label,
-                      ctl.script_name             AS name,
+                      ctl.script_name             AS external_name,
                       ctl.access                  AS access,
                       IFNULL(pct.icon,'tool.gif') AS icon,
                       pct.access_manager          AS access_manager,
                       ISNULL(ctl.tool_id)         AS external,
-
+                      m.name                      AS name,
                       IFNULL( ctl.script_url ,
-                              CONCAT('" . $clarolineRepositoryWeb . "', pct.script_url) )
+                              CONCAT('/', pct.script_url) )
                       AS url
-               FROM `" . $tbl_course_tool_list . "` AS ctl
-
-               LEFT JOIN `" . $tbl_tool_list . "` AS pct
-                      ON  pct.id = ctl.tool_id
+               FROM `" . $tbl_course_tool_list . "` AS ctl,
+                    `" . $tbl_module . "`           AS m,
+                    `" . $tbl_tool_list . "`        AS pct
 
                WHERE ctl.access IN ('" . implode("', '", $accessList) . "')
+                 AND pct.id = ctl.tool_id
+                 AND pct.claro_label = m.label
+                 ".$deactivatedSQL."
+
                ORDER BY external, ctl.rank";
 
         $courseToolList = claro_sql_query_fetch_all($sql);
 
-        /**
-         * Complete the list with the appropriate tool names
-         */
+        //find external url added by teacher
 
-        $toolNameList = claro_get_tool_name_list();
-        $toolLabels = array();
-
-        foreach ($courseToolList as $thisToolKey => $thisToolAttributeList)
-        {
-            if ( trim($thisToolAttributeList['name']) == '')
-            {
-                if ( ! empty ($thisToolAttributeList['label'] ) )
-                {
-                    $courseToolList[$thisToolKey]['name'] = get_lang($toolNameList[$thisToolAttributeList['label']]);
-                }
-                else
-                {
-                    $courseToolList[$thisToolKey]['name'] = get_lang('No name');
-                }
-            }
-            else
-            {
-                continue;
-            }
-            $toolLabels[] = $thisToolAttributeList['label']; //needed for next step
-        }
-
-        /*
-         * Complete the list with modules of type 'tool' which are activated
-         */
-
-        //add in result the module of type 'tool'
-
-        //see if we take only activated modules or all of them
-
-        if ($active)
-        {
-            $activationSQL = " AND `activation`='activated'";
-        }
-        else
-        {
-            $activationSQL = "";
-        }
-
-        //find tool modules
-
-        $sql = "SELECT  `id`,
-                        `label`,
-                        `name`
-                  FROM `" . $tbl_module . "`
-                 WHERE `type`='tool'
-                 ".$activationSQL;
+        $sql = "SELECT DISTINCT ctl.id            AS id,
+                      ctl.script_name             AS external_name,
+                      ctl.access                  AS access,
+                      'tool.gif'                  AS icon,
+                      ISNULL(ctl.tool_id)         AS external,
+                      ctl.script_url              AS url
+               FROM `" . $tbl_course_tool_list . "` AS ctl
+               WHERE ctl.access IN ('" . implode("', '", $accessList) . "')
+                 AND ISNULL(ctl.tool_id)
+               ";
 
         $result = claro_sql_query_fetch_all($sql);
 
-        //add them in result array
-
-        foreach ($result as $tool)
-        {
-
-            $tool['label'] = str_pad($tool['label'],8,'_');
-            if (!in_array($tool['label'], $toolLabels))
-            {
-                $tool['label'] = rtrim($tool['label'],'_');
-
-                $added_tool = array();
-                $added_tool['label']               = $tool['label'];
-                $added_tool['name']                = $tool['name'];
-                $added_tool['icon_complete_url']   = get_module_url($tool['label']).'/'.'icon.gif';
-                $added_tool['tool_complete_url']   = get_module_url($tool['label']).'/'.'entry.php';
-                $added_tool['module_id']           = $tool['id'];
-                $added_tool['id']                  = 'module_'.$tool['id'];
-
-                //this part must evolve!!!
-
-                $added_tool['access'] = 'ALL';
-                $courseToolList[]    = $added_tool;
-            }
-        }
-
-        /**
-         *  if only the active tool had to be taken, then we unset the deactivated tool in the returned array
-         */
-
-        if (isset($active) && $active)
-        {
-            $deactivated_tools = claro_get_deactivated_tool_list();
-
-            foreach ($courseToolList as $key=>$tool)
-            {
-
-                if (in_array($tool['label'], $deactivated_tools))
-                {
-                    unset($courseToolList[$key]);
-                }
-            }
-        }
-
-
-    } // end if $force
+        $courseToolList = array_merge($courseToolList,$result);
+    } 
 
     return $courseToolList;
 }

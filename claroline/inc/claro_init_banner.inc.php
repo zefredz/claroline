@@ -157,14 +157,16 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
  */
 if (is_array($_courseToolList) && $is_courseAllowed)
 {
-    $toolNameList = claro_get_tool_name_list();// claro_get_active_tool_name_list();
+    $toolNameList = claro_get_tool_name_list();
 
     foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
     {
-        if (is_null($_courseToolDatas['name']))
+
+
+        if (isset($_courseToolDatas['name']) && !is_null($_courseToolDatas['name']) && isset($_courseToolDatas['label']))
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
         else
-            $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($_courseToolList[ $_courseToolKey ] [ 'name' ]);
+            $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($_courseToolList[ $_courseToolKey ] [ 'external_name' ]);
         // now recheck to be sure the value is really filled before going further
         if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
             $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
@@ -193,21 +195,12 @@ if (is_array($_courseToolList) && $is_courseAllowed)
                     : $_courseToolData['url'] . '?gidReset=1'
                     ;
             }
-            elseif (isset($_courseToolData['tool_complete_url']))
-            {
-                 $_toolDataUrl = $_courseToolData['tool_complete_url'];
-            }
-
 
             //find correct url for icon of the tool
 
             if (isset($_courseToolData['icon']))
             {
                 $_toolIconUrl = $imgRepositoryWeb.$_courseToolData['icon'];
-            }
-            elseif (isset($_courseToolData['icon_complete_url']))
-            {
-                $_toolIconUrl = $_courseToolData['icon_complete_url'];
             }
 
             // select "groups" in group context instead of tool

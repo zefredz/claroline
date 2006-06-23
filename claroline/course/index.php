@@ -117,23 +117,29 @@ $toolList = claro_get_course_tool_list($_cid, $reqAccessLevel, true);
 
 foreach($toolList as $thisTool)
 {
-    $toolName = $thisTool['name'];
+    if (isset($thisTool['label'])) // standart claroline tool or module of type tool
+    {
+        $toolName      = get_lang($thisTool['name']);
 
-    if (isset($thisTool['url']))
-    {
-        $url      = trim($thisTool['url']);
+        //trick to find how to build URL, must be IMPROVED
+        if ($thisTool['url'] == '/entry.php')
+        {
+            $url = trim(get_module_url($thisTool['label']) .$thisTool['url']);
+        }
+        else
+        {
+            $url = trim(get_module_url($thisTool['label']) .'/..'.$thisTool['url']);
+        }
+        $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
+        $removableTool = false;
     }
-    elseif (isset($thisTool['tool_complete_url']))
+    else   // external tool added by course manager
     {
-        $url      = trim($thisTool['tool_complete_url']); 
-    }
-    if (isset($thisTool['icon']))
-    {
-        $icon = $imgRepositoryWeb . $thisTool['icon'];
-    }
-    elseif (isset($thisTool['icon_complete_url']))
-    {
-        $icon = $thisTool['icon_complete_url'];
+        if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
+        else $toolName = '<i>no name</i>';
+        $url           = trim($thisTool['url']);
+        $icon = $imgRepositoryWeb .'/tool.gif';
+        $removableTool = true;
     }
 
     $style = ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL']) ? 'invisible ' : '';

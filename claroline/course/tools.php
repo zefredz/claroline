@@ -286,50 +286,21 @@ echo '<table class="claroTable" >'."\n\n"
 
 foreach($toolList as $thisTool)
 {
-    // get name and url from course or main database
 
-    if ( ! empty($thisTool['label'])) // standart claroline tool
+    if (isset($thisTool['label'])) // standart claroline tool or module of type tool
     {
-        $toolName = $toolNameList[ str_pad($thisTool['label'],8,'_') ];
-
-        //find correct url to access tool
-
-        if (isset($thisTool['url']))
-        {
-            $url  = trim($toolRepository.$thisTool['url']);
-        }
-        elseif (isset($thisTool['tool_complete_url']))
-        {
-            $url = $thisTool['tool_complete_url'];
-            $toolName = get_lang($thisTool['name']);
-        }
-
+        $toolName      = get_lang($thisTool['name']);
+        $url           = trim(get_module_url($thisTool['label']) .$thisTool['url']);
+        $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
         $removableTool = false;
     }
-    else                            // external tool added by course manager
+    else   // external tool added by course manager
     {
-        if ( ! is_null($thisTool['name']) ||  ! is_null($thisTool['url']) )
-        {
-            $removableTool = true;
-
-            if ( ! empty($thisTool['name'])) $toolName = $thisTool['name'];
-            else                             $toolName = '<i>no name</i>';
-
-            $url = trim($thisTool['url']);
-        }
-    }
-
-    if (! empty($thisTool['icon']))
-    {
-        $icon = $imgRepositoryWeb.$thisTool['icon'];
-    }
-    elseif (isset($thisTool['icon_complete_url']))
-    {
-        $icon = $thisTool['icon_complete_url'];
-    }
-    else
-    {
-        $icon = $imgRepositoryWeb.'tool.gif'; // default icon if none defined
+        if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
+        else $toolName = '<i>no name</i>';
+        $url           = trim($thisTool['url']);
+        $icon = $imgRepositoryWeb .'/tool.gif';
+        $removableTool = true;
     }
 
     if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])

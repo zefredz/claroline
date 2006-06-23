@@ -223,20 +223,20 @@ function get_module_path($toolLabel)
 {
     switch ($toolLabel)
     {
-        case 'CLANN' : return get_conf('clarolineRepositorySys') . 'announcements';
-        case 'CLCAL' : return get_conf('clarolineRepositorySys') . 'calendar';
-        case 'CLFRM' : return get_conf('clarolineRepositorySys') . 'phpbb';
-        case 'CLCHT' : return get_conf('clarolineRepositorySys') . 'chat';
-        case 'CLDOC' : return get_conf('clarolineRepositorySys') . 'document';
-        case 'CLDSC' : return get_conf('clarolineRepositorySys') . 'course_description';
-        case 'CLUSR' : return get_conf('clarolineRepositorySys') . 'user';
-        case 'CLLNP' : return get_conf('clarolineRepositorySys') . 'learnPath';
-        case 'CLQWZ' : return get_conf('clarolineRepositorySys') . 'exercise';
-        case 'CLWRK' : return get_conf('clarolineRepositorySys') . 'work';
-        case 'CLWIKI' : return get_conf('clarolineRepositorySys') . 'wiki';
-        case 'CLLNK' : return get_conf('clarolineRepositorySys') . 'linker';
-        case 'CLGRP' : return '';
-        default: return get_conf('rootSys') . get_conf('moduleRepository','module/') . $toolLabel;
+        case 'CLANN___' : return get_conf('clarolineRepositorySys') . 'announcements';
+        case 'CLCAL___' : return get_conf('clarolineRepositorySys') . 'calendar';
+        case 'CLFRM___' : return get_conf('clarolineRepositorySys') . 'phpbb';
+        case 'CLCHT___' : return get_conf('clarolineRepositorySys') . 'chat';
+        case 'CLDOC___' : return get_conf('clarolineRepositorySys') . 'document';
+        case 'CLDSC___' : return get_conf('clarolineRepositorySys') . 'course_description';
+        case 'CLUSR___' : return get_conf('clarolineRepositorySys') . 'user';
+        case 'CLLNP___' : return get_conf('clarolineRepositorySys') . 'learnPath';
+        case 'CLQWZ___' : return get_conf('clarolineRepositorySys') . 'exercise';
+        case 'CLWRK___' : return get_conf('clarolineRepositorySys') . 'work';
+        case 'CLWIKI__' : return get_conf('clarolineRepositorySys') . 'wiki';
+        case 'CLLNK___' : return get_conf('clarolineRepositorySys') . 'linker';
+        case 'CLGRP___' : return '';
+        default: return get_conf('rootSys') . get_conf('moduleRepository','module/') . rtrim($toolLabel,'_');
     }
     return '';
 
@@ -254,20 +254,20 @@ function get_module_url($toolLabel)
 
     switch ($toolLabel)
     {
-        case 'CLANN' : return get_conf('clarolineRepositoryWeb') . 'announcements';
-        case 'CLCAL' : return get_conf('clarolineRepositoryWeb') . 'calendar';
-        case 'CLFRM' : return get_conf('clarolineRepositoryWeb') . 'phpbb';
-        case 'CLCHT' : return get_conf('clarolineRepositoryWeb') . 'chat';
-        case 'CLDOC' : return get_conf('clarolineRepositoryWeb') . 'document';
-        case 'CLDSC' : return get_conf('clarolineRepositoryWeb') . 'course_description';
-        case 'CLUSR' : return get_conf('clarolineRepositoryWeb') . 'user';
-        case 'CLLNP' : return get_conf('clarolineRepositoryWeb') . 'learnPath';
-        case 'CLQWZ' : return get_conf('clarolineRepositoryWeb') . 'exercise';
-        case 'CLWRK' : return get_conf('clarolineRepositoryWeb') . 'work';
-        case 'CLLNK' : return get_conf('clarolineRepositoryWeb') . 'linker';
-        case 'CLWIKI' : return get_conf('clarolineRepositoryWeb') . 'wiki';
-        case 'CLGRP' : return '';
-        default: return get_conf('rootWeb') . get_conf('moduleRepository','module/') . $toolLabel;
+        case 'CLANN___' : return get_conf('clarolineRepositoryWeb') . 'announcements';
+        case 'CLCAL___' : return get_conf('clarolineRepositoryWeb') . 'calendar';
+        case 'CLFRM___' : return get_conf('clarolineRepositoryWeb') . 'phpbb';
+        case 'CLCHT___' : return get_conf('clarolineRepositoryWeb') . 'chat';
+        case 'CLDOC___' : return get_conf('clarolineRepositoryWeb') . 'document';
+        case 'CLDSC___' : return get_conf('clarolineRepositoryWeb') . 'course_description';
+        case 'CLUSR___' : return get_conf('clarolineRepositoryWeb') . 'user';
+        case 'CLLNP___' : return get_conf('clarolineRepositoryWeb') . 'learnPath';
+        case 'CLQWZ___' : return get_conf('clarolineRepositoryWeb') . 'exercise';
+        case 'CLWRK___' : return get_conf('clarolineRepositoryWeb') . 'work';
+        case 'CLLNK___' : return get_conf('clarolineRepositoryWeb') . 'linker';
+        case 'CLWIKI__' : return get_conf('clarolineRepositoryWeb') . 'wiki';
+        case 'CLGRP___' : return '';
+        default: return get_conf('rootWeb') . get_conf('moduleRepository','module/') . rtrim($toolLabel,'_');
     }
     return '';
 
@@ -296,20 +296,20 @@ function get_module_db_dependance($toolId)
     {
         // read in manifest
 
-        case 'CLUNFO' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLANN'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLWIKI' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLQWZ'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLDOC'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
-        case 'CLCAL'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLUNFO__' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLANN___'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLWIKI__' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLQWZ___'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLDOC___'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        case 'CLCAL___'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
 
         //case 'CLBLOG' : return array (CLARO_CONTEXT_USER,CLARO_CONTEXT_COURSE);
-        case 'CLLNK' :  return array(CLARO_CONTEXT_COURSE);
-        case 'CLDSC'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLFRM'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLLNP'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLUSR'  : return array(CLARO_CONTEXT_COURSE);
-        case 'CLWRK'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLLNK___' :  return array(CLARO_CONTEXT_COURSE);
+        case 'CLDSC___'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLFRM___'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLLNP___'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLUSR___'  : return array(CLARO_CONTEXT_COURSE);
+        case 'CLWRK___'  : return array(CLARO_CONTEXT_COURSE);
 
         default :       return array();
     }
@@ -344,11 +344,11 @@ function claro_get_data_path($contextData=array())
     {
         switch ($contextData[CLARO_CONTEXT_TOOLLABEL])
         {
-            case 'CLDOC' : $path = $path . '/document/';		break;
-            case 'CLCHT' : $path = $path . '/chat/';			break;
-            case 'CLWRK' : $path = $path . '/work/';			break;
-            case 'CLQWZ' : $path = $path . '/exercise/';		break;
-            case 'CLLNP' : $path = $path . '/scormPackages/';	break;
+            case 'CLDOC___' : $path = $path . '/document/';		break;
+            case 'CLCHT___' : $path = $path . '/chat/';			break;
+            case 'CLWRK___' : $path = $path . '/work/';			break;
+            case 'CLQWZ___' : $path = $path . '/exercise/';		break;
+            case 'CLLNP___' : $path = $path . '/scormPackages/';	break;
             default : $path = $path . $contextData[CLARO_CONTEXT_TOOLLABEL] . '/';
 
         }
