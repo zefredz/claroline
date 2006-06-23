@@ -112,11 +112,7 @@ if ( $cmd == 'export' )
 // use viewMode
 claro_set_display_mode_available(true);
 
-//header
-include($includePath."/claro_init_header.inc.php");
 
-// title
-echo claro_html_tool_title($nameTools);
 
 // main page
 $is_AllowedToEdit = claro_is_allowed_to_edit();
@@ -360,15 +356,23 @@ switch ( $cmd )
             }
             else  // create form requested
             {
-                $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\">\n"
-                              ."<h4>".get_lang('Create a new learning path')."</h4>\n"
-                              ."<label for=\"newPathName\">".get_lang('New learning path name : ')."</label><br />\n"
-                              ."<input type=\"text\" name=\"newPathName\" id=\"newPathName\" maxlength=\"255\"></input><br /><br />\n"
-                              ."<label for=\"newComment\">".get_lang('Comment')."</label><br />\n"
-                              ."<textarea id=\"newComment\" name=\"newComment\" rows=\"2\" cols=\"50\"></textarea><br />\n"
-                              ."<input type=\"hidden\" name=\"cmd\" value=\"create\">\n"
-                              ."<input type=\"submit\" value=\"".get_lang('Ok')."\"></input>\n"
-                              ."</form>\n\n";
+                $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+                           . '<h4>' . get_lang('Create a new learning path') . '</h4>' . "\n"
+                           . '<label for="newPathName">'
+                           . get_lang('New learning path name')
+                           . ' : </label>' . "\n"
+                           . '<br />' . "\n"
+                           . '<input type="text" name="newPathName" id="newPathName" maxlength="255">' . "\n"
+                           . '<br />' . "\n"
+                           . '<br />' . "\n"
+                           . '<label for="newComment">' . get_lang('Comment') . '</label><br />' . "\n"
+                           . '<textarea id="newComment" name="newComment" rows="2" cols="50">'
+                           . '</textarea>' . "\n"
+                           . '<br />' . "\n"
+                           . '<input type="hidden" name="cmd" value="create">' . "\n"
+                           . '<input type="submit" value="' . get_lang('Ok') . '">' . "\n"
+                           . '</form>' . "\n"
+                           ;
             }
             break;
 }
@@ -422,6 +426,11 @@ if (isset($sortDirection) && $sortDirection)
          }
      }
 }
+
+// DISPLAY
+
+include $includePath . '/claro_init_header.inc.php';
+echo claro_html_tool_title($nameTools);
 
 if (isset($dialogBox))
 {
