@@ -35,11 +35,6 @@
         }
     }
 
-    // if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-
-    // config file
-    require_once $includePath . "/conf/CLWIKI.conf.php";
-
     // check and set user access level for the tool
 
     if ( ! isset( $_REQUEST['wikiId'] ) )
