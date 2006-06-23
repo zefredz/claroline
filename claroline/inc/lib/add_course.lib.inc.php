@@ -22,8 +22,6 @@
  *
  */
 
-require_once dirname(__FILE__) . '/right/right_profile.lib.php';
-
 /**
  * with  the WantedCode we can define the 4 keys  to find courses datas
  *
@@ -1177,7 +1175,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     $currenVersionFilePath = $includePath . '/currentVersion.inc.php';
     file_exists($currenVersionFilePath) && require $includePath . '/currentVersion.inc.php';
 
-    $defaultProfileId = get_profile_id('User');
+    $defaultProfileId = claro_get_profile_id('User');
 
     $sql = "INSERT INTO `" . $tbl_course . "` SET
             code              = '" . addslashes($courseSysCode)    . "',
