@@ -478,13 +478,15 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 
 /**
  * Get the name of a tool
+ * @param string identifier is tool_id or tool_label
+ * @return string tool name
  */
 
 function claro_get_tool_name ( $identifier )
 {
     static $cachedToolIdList = null ;
 
-    if ( is_int($identifier) )
+    if ( is_numeric($identifier) )
     {
         // identifier is a tool_id
         if ( ! $cachedToolIdList )
@@ -524,45 +526,6 @@ function claro_get_tool_name ( $identifier )
        return get_lang('No tool name') ;
     }
 
-}
-
-/**
- * Get the profile list name
- */
-
-function claro_get_profile_name_list()
-{
-    static $cachedProfileNameList = null;
-
-    if ( ! $cachedProfileNameList )
-    {
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_profile = $tbl_mdb_names['right_profile'];
-
-        $sql = "SELECT profile_id, name
-                FROM `" . $tbl_profile . "`";
-
-        $result = claro_sql_query_fetch_all($sql);
-
-        foreach ( $result as $row )
-        {
-            $profile_id = $row['profile_id'];
-            $profile_name = $row['name'];
-            $cachedProfileNameList[$profile_id] = $profile_name;
-        }
-    }
-    return $cachedProfileNameList ;
-}
-
-/**
- * Get the name of the profile_id
- */
-
-function claro_get_profile_name($profile_id)
-{
-    $profileNameList = claro_get_profile_name_list();
-
-    return $profileNameList[$profile_id];
 }
 
 /**

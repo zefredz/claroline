@@ -21,10 +21,10 @@ require_once 'courseProfileToolAction.class.php';
 
 /**
  * Get all names of profile in an array where key are profileId
- * return
+ * return array assoc profileId => profileName
  */
 
-function get_all_profile_name_list ()
+function claro_get_all_profile_name_list ()
 {
     $profileList = null;
 
@@ -62,9 +62,9 @@ function get_all_profile_name_list ()
  * Get profileId
  */
 
-function get_profile_id ($profileName)
+function claro_get_profile_id ($profileName)
 {
-    $profileList = get_all_profile_name_list();
+    $profileList = claro_get_all_profile_name_list();
 
     $profileList = array_flip($profileList);
 
@@ -80,11 +80,13 @@ function get_profile_id ($profileName)
 
 /**
  * Get profileName
+ * @param integer $profileId profile identifier
+ * @return array ['tool_id']['action_name'] value 
  */
 
-function get_profile_name ($profileId)
+function claro_get_profile_name ($profileId)
 {
-    $profileList = get_all_profile_name_list();
+    $profileList = claro_get_all_profile_name_list();
 
     if ( isset($profileList[$profileId]) )
     {
