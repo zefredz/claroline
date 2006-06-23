@@ -1631,7 +1631,7 @@ echo claro_html_tool_title($titleElement,
         }
 
         // compute column width
-         $colWidth = round(100 / $numberOfCols);
+         $colWidth = round(100 / get_conf('numberOfCols', 3));
 
         // display table
         echo "\n<table class=\"claroTable\" width=\"100%\">\n";
@@ -1681,7 +1681,7 @@ echo claro_html_tool_title($titleElement,
                  . get_lang("Thumbnails")."</a>\n";
         }
 
-        $colspan = $numberOfCols;
+        $colspan = get_conf( 'numberOfCols', 3 );
 
         echo "<!-- current dir name line -->\n"
                 ."<tr>\n"
@@ -1697,7 +1697,7 @@ echo claro_html_tool_title($titleElement,
         echo "<th class=\"prev\" colspan=\"1\" style=\"width: " . $colWidth . "%;\">\n";
         if( !isset($imageList) || count($imageList) == 0)
         {
-            $colspan = $numberOfCols;
+            $colspan = get_conf( 'numberOfCols', 3 );
 
             echo "<!-- current dir name line -->\n"
                 ."<tr>\n"
@@ -1724,7 +1724,7 @@ echo claro_html_tool_title($titleElement,
 
             echo "</th>\n";
 
-            echo "<th class=\"title\" colspan=\"" . ($numberOfCols - 2) . "\">\n"
+            echo "<th class=\"title\" colspan=\"" . (get_conf( 'numberOfCols', 3) - 2) . "\">\n"
                 . "<p align=\"center\">page&nbsp;" . $page . "</p>"
                 . "</th>\n"
                 ;
