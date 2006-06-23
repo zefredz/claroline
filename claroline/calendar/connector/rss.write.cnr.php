@@ -22,24 +22,25 @@ function CLCAL_write_rss($context)
         $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $GLOBALS['_cid'];
     }
 
-    $courseData = claro_get_course_data($courseId);
-
     require_once dirname(__FILE__) . '/../lib/agenda.lib.php';
     $eventList    = agenda_get_item_list($context, 'ASC');
     $toolNameList = claro_get_tool_name_list();
-    $eventRssList = array();
+
+    $itemRssList = array();
     foreach ($eventList as $id => $item)
     {
         if('SHOW' == $item['visibility'] )
         {
-            //prepare values
             $item['timestamp'] = strtotime($item['day'] . ' ' . $item['hour'] );
             $item['pubDate'] = date('r', $item['timestamp']);
             $item['dc:date'] = date('c', $item['timestamp']);
-            //c ISO 8601 date (added in PHP 5) 2004-02-12T15:19:21+00:00 
+
+            //prepare values
+            //c ISO 8601 date (added in PHP 5) 2004-02-12T15:19:21+00:00
             $item['dc:date'] = ('c' == $item['dc:date'])?date('Y-m-d\TH:i:sO', $item['timestamp']):$item['dc:date'];
-            $eventRssList[] = array( 'title'       => $item['title']
-            ,                        'category'    => trim($toolNameList[str_pad('CLCAL',8,'_')])
+
+            $itemRssList[] = array( 'title'       => $item['title']
+            ,                       'category'    => trim($toolNameList[str_pad('CLCAL',8,'_')])
             ,                        'guid'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
             ,                        'link'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
             ,                        'description' => trim(str_replace('<!-- content: html -->','',$item['content']))
@@ -50,7 +51,7 @@ function CLCAL_write_rss($context)
         }
     }
 
-    return $eventRssList;
+    return $itemRssList;
 }
 
 ?>
