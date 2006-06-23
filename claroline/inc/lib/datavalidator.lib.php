@@ -1,4 +1,4 @@
-<?php # -$Id$
+<?php // $Id$
 
 define ('DATAVALIDATOR_STRICT_MODE', true);
 
@@ -76,7 +76,7 @@ class DataValidator
 
     function addRule($dataKey, $errorMessage, $rule, $xtraParamList = array() )
     {
-        if ( $rule == 'required' )
+        if ( 'required' == $rule )
         {
             // 'required' rule is a special case needing to be treated appart
             $this->requiredDataList[]  = $dataKey;
@@ -164,7 +164,7 @@ class DataValidator
             }
             else
             {
-                trigger_error('CALL TO UNDEFINED FUNCTION : '.$ruleName);
+                trigger_error('CALL TO UNDEFINED FUNCTION : ' . $ruleName, E_USER_WARNING);
                 return false;
             }
 
