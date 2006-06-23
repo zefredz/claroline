@@ -105,6 +105,8 @@ $cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
 
 if($is_allowedToEdit) // check teacher status
 {
+    $emailNotificationAllowed = !empty($_user['mail']);
+
     //------------------------
     //linker
 
@@ -249,7 +251,7 @@ if($is_allowedToEdit) // check teacher status
 
             $title       = isset($_REQUEST['title'])      ? trim($_REQUEST['title']) : '';
             $content     = isset($_REQUEST['newContent']) ? trim($_REQUEST['newContent']) : '';
-            $emailOption = isset($_REQUEST['emailOption'])? (int) $_REQUEST['emailOption'] : 0;
+            $emailOption = ($emailNotificationAllowed && isset($_REQUEST['emailOption']))? (int) $_REQUEST['emailOption'] : 0;
 
             /* MODIFY ANNOUNCEMENT */
 
@@ -417,11 +419,20 @@ if ( $displayButtonLine )
     .             get_lang('Add announcement')
     .             '</a>' . "\n"
     ;
+    if ($emailNotificationAllowed)
     $cmd_menu[] = '<a class="claroCmd" href="messages.php">'
     .             '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
     ;
+    else
+
+    $cmd_menu[] = '<span class="claroCmdDisabled" title="' . get_lang('You need an email in your profile') . '" >'
+    .             '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
+    .             get_lang('Messages to selected users')
+    .             '</span>' . "\n"
+    ;
+
     if (($announcementQty > 0 ))
     {
         $cmd_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
@@ -520,8 +531,10 @@ if ( $displayForm )
     .    '<tr>'
     .    '<td></td>'
     .    '<td>'
-    .    '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
-    .    '<label for="emailOption">' . get_lang('Send this announcement by email to registered students') . '</label><hr />' . "\n"
+    ;
+    if ($emailNotificationAllowed)
+    echo '<input type=checkbox value="1" name="emailOption" id="emailOption" />';
+    echo '<label for="emailOption">' . get_lang('Send this announcement by email to registered students') . '</label><hr />' . "\n"
     ;
 
     //---------------------
