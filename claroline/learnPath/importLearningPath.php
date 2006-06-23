@@ -1176,12 +1176,15 @@ else // if method == 'post'
 <br /><br />
 
 <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
-<input type="file" name="uploadedPackage">
-<input type="submit" value="<?php echo get_lang('Import') ?>"><br />
 
-<small><?php echo get_lang('Max file size'); ?> :<?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
+<input type="file" name="uploadedPackage" /><br /> 
+<small><?php echo get_lang('Max file size : %formattedSize', array( '%formattedSize' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir)))); ?></small>
+
+<p>
+<input type="submit" value="<?php echo get_lang('Import') ?>">
+<?php echo claro_html_button( '../exercise.php', get_lang('Cancel')) . "\n"; ?>
+</p>
 
 </form>
 
