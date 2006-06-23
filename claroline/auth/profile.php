@@ -96,6 +96,14 @@ if ( isset($_REQUEST['applyChange']) )
     if ( isset($_REQUEST['phone']) )         $user_data['phone'] = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['language']) )      $user_data['language'] = trim($_REQUEST['language']);
 
+    // manage password.
+
+    if (empty($user_data['password']) && empty($user_data['password_conf']))
+    {
+        unset ($user_data['password']);
+        unset ($user_data['password_conf']);
+    }
+
     // validate forum params
     $messageList['warning'] = user_validate_form_profile($user_data, $_uid);
     if ( count($messageList['warning']) == 0 )
