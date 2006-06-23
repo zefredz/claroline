@@ -17,7 +17,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = get_lang('Course profile');
+$nameTools = get_lang('Course profile List');
 
 $dialogBox = '';
 $tidReset = true;

@@ -101,8 +101,6 @@ if ( empty($display_profile_list) )
 
 // define bredcrumb
 $interbredcrump[] = array ('url' => 'profile_list.php', 'name' => get_lang('Course Profile List'));
-$interbredcrump[] = array ('url' => 'profile.php?display_profile=' . $display_profile_url_param
-                         , 'name' => get_lang('Right') ); 
 
 // Display header
 
