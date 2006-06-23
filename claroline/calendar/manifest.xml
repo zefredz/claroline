@@ -1,6 +1,6 @@
 <module>
   <label>CLCAL</label>
-  <name>Calendar</name>
+  <name>Agenda</name>
   <version>3.0</version>
   <license>GPL</license>
   <icon>agenda.gif</icon>

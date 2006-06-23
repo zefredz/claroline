@@ -1,6 +1,6 @@
 <module>
   <label>CLUSR</label>
-  <name>User list</name>
+  <name>Users</name>
   <version>4.0</version>
   <license>GPL</license>
   <icon>user.gif</icon>
