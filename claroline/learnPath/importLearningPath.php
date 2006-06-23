@@ -24,11 +24,11 @@ $is_AllowedToEdit = $is_courseAdmin;
 if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ('url' => '../learnPath/learningPathList.php', 'name' => get_lang('Learning path list'));
 $nameTools = get_lang('Import a learning path');
 
 //header
-include($includePath."/claro_init_header.inc.php");
+include $includePath . '/claro_init_header.inc.php';
 
 /*
 * DB tables definition
@@ -50,10 +50,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
 //lib of this tool
-include($includePath."/lib/learnPath.lib.inc.php");
-include($includePath."/lib/fileManage.lib.php");
-include($includePath."/lib/fileUpload.lib.php");
-include($includePath."/lib/fileDisplay.lib.php");
+include_once $includePath . '/lib/learnPath.lib.inc.php';
+include_once $includePath . '/lib/fileManage.lib.php';
+include_once $includePath . '/lib/fileUpload.lib.php';
+include_once $includePath . '/lib/fileDisplay.lib.php';
 
 
 // error handling
@@ -91,16 +91,16 @@ function startElement($parser,$name,$attributes)
         case "MANIFEST" :
             if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['manifest'] = $attributes['XML:BASE'];
             break;
-        case "RESOURCES" :
+        case 'RESOURCES' :
             if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
-            $flagTag['type'] == "resources";
+            $flagTag['type'] == 'resources';
             break;
-        case "RESOURCE" :
+        case 'RESOURCE' :
             if ( isset($attributes['ADLCP:SCORMTYPE']) && $attributes['ADLCP:SCORMTYPE'] == 'sco' )
             {
                 if (isset($attributes['HREF'])) $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
                 if (isset($attributes['XML:BASE'])) $manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
-                $flagTag['type'] = "sco";
+                $flagTag['type'] = 'sco';
                 $flagTag['value'] = $attributes['IDENTIFIER'];
             }
             elseif(isset($attributes['ADLCP:SCORMTYPE'])&& $attributes['ADLCP:SCORMTYPE'] == 'asset' )
@@ -188,7 +188,7 @@ function endElement($parser,$name)
     switch($name)
     {
         case "ITEM" :
-            $trash = array_pop($itemsPile);
+            array_pop($itemsPile);
             if ( $flagTag['type'] == "item" && $flagTag['deep'] > 0 )
             {
                 $flagTag['deep']--;
@@ -207,7 +207,7 @@ function endElement($parser,$name)
 
     }
 
-    $poped = array_pop($elementsPile);
+    array_pop($elementsPile);
 }
 
 /**
@@ -289,7 +289,7 @@ function elementData($parser,$data)
                 else
                 {
                     if (!isset($cache)) $cache = "";
-                    while ($readdata = str_replace("\n","",fread($fp, 4096)))
+                    while (true === ($readdata = str_replace("\n","",fread($fp, 4096))))
                     {
                         // fix for fread breaking thing
                         // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
@@ -297,6 +297,7 @@ function elementData($parser,$data)
                         $readdata = $cache . $readdata;
                         if (!feof($fp))
                         {
+                            $regs = array();
                             if (preg_match_all("/<[^\>]*.>/", $readdata, $regs))
                             {
                                 $lastTagname = $regs[0][count($regs[0])-1];
@@ -524,7 +525,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if (!is_dir($baseWorkDir)) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS );
 
     // unzip package
-    include($includePath."/lib/pclzip/pclzip.lib.php");
+    include_once $includePath."/lib/pclzip/pclzip.lib.php";
 
     /*
      * Check if the file is valide (not to big and exists)
@@ -675,7 +676,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
             array_push ($okMsgs, get_lang('Manifest found in zip file : ').$manifestPath."imsmanifest.xml" );
 
-            while ($data = str_replace("\n","",fread($fp, 4096)))
+            while (true === ($data = str_replace("\n","",fread($fp, 4096))))
             {
                 // fix for fread breaking thing
                 // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
@@ -687,6 +688,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if (!feof($fp))
                 {
                     // search fo opening, closing, empty tags (with or without attributes)
+                    $regs = array();
                     if (preg_match_all("/<[^\>]*.>/", $data, $regs))
                     {
                         $lastTagname = $regs[0][count($regs[0])-1];
@@ -1195,5 +1197,5 @@ else // if method == 'post'
      <?php
 } // else if method == 'post'
 // footer
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>
