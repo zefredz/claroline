@@ -260,7 +260,7 @@ $sql = "SELECT `u`.`user_id`        AS `user_id`,
 
         WHERE `cu`.`code_cours` = '" . $currentCourseId . "'
         AND   `cu`.`user_id`    = `u`.`user_id`
-        AND ( `cu`.`statut`     = 5            OR `cu`.`statut` IS NULL)
+        AND ( `cu`.`isCourseManager` = 0 )
         AND   `cu`.`tutor`      = 0
         AND ( `ug`.`team`       <> " . (int) $_gid . " OR `ug`.`team` IS NULL )
 

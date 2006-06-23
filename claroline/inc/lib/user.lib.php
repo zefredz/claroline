@@ -15,10 +15,6 @@
 
 require_once(dirname(__FILE__) . '/form.lib.php');
 
-defined('COURSE_CREATOR_STATUS') || define('COURSE_CREATOR_STATUS', 1);
-defined('COURSE_ADMIN_STATUS') || define('COURSE_ADMIN_STATUS', 1);
-defined('STUDENT_STATUS'     ) || define('STUDENT_STATUS'     , 5);
-
 /**
  * Initialise user data
  * @return  array with user data
@@ -27,18 +23,19 @@ defined('STUDENT_STATUS'     ) || define('STUDENT_STATUS'     , 5);
 
 function user_initialise()
 {
-    return array('lastname'      => '',
-    'firstname'     => '',
-    'officialCode'  => '',
-    'officialEmail' => '',
-    'username'      => '',
-    'password'      => '',
-    'password_conf' => '',
-    'status'        => '',
-    'language'      => '',
-    'email'         => '',
-    'phone'         => '',
-    'picture'       => '',
+    return array(
+        'lastname'        => '',
+        'firstname'       => '',
+        'officialCode'    => '',
+        'officialEmail'   => '',
+        'username'        => '',
+        'password'        => '',
+        'password_conf'   => '',
+        'isCourseCreator' => '',
+        'language'        => '',
+        'email'           => '',
+        'phone'           => '',
+        'picture'         => '',
     );
 }
 
@@ -47,7 +44,7 @@ function user_initialise()
  * @param integer $userId id of user to fetch properties
  *
  * @return  array( `user_id`, `lastname`, `firstname`, `username`, `email`,
- *           `picture`, `officialCode`, `phone`, `status` ) with user data
+ *           `picture`, `officialCode`, `phone`, `isCourseCreator` ) with user data
  * @author Mathieu Laurent <laurent@cerdecam.be>
  */
 
@@ -66,7 +63,7 @@ function user_get_properties($userId)
                                    officialCode,
                                    officialEmail,
                     phoneNumber AS phone,
-                    statut      AS status,
+                                   isCourseCreator,
                                    isPlatformAdmin
             FROM   `" . $tbl['user'] . "`
             WHERE  `user_id` = " . (int) $userId;
@@ -91,16 +88,13 @@ function user_get_properties($userId)
 function user_create($settingList, $creatorId = null)
 {
     $requiredSettingList = array('lastname', 'firstname', 'username',
-    'password', 'language', 'email', 'officialCode', 'phone', 'status');
+    'password', 'language', 'email', 'officialCode', 'phone', 'isCourseCreator');
 
     foreach($requiredSettingList as $thisRequiredSetting)
     {
         if ( array_key_exists( $thisRequiredSetting, $settingList ) ) continue;
         else return trigger_error('MISSING_DATA',E_USER_ERROR);
     }
-
-    if ($settingList['status'] != COURSE_CREATOR_STATUS) $status = STUDENT_STATUS;
-    else                                                 $status = COURSE_CREATOR_STATUS;
 
     $password = get_conf('userPasswordCrypted') ? md5($settingList['password'])
     : $settingList['password'];
@@ -117,7 +111,7 @@ function user_create($settingList, $creatorId = null)
                 officialEmail   = '". addslashes($settingList['officialEmail']) ."',
                 phoneNumber     = '". addslashes($settingList['phone'        ]) ."',
                 password        = '". addslashes($password) . "',
-                statut          = " . (int) $status .",
+                isCourseCreator = " . (int) $settingList['isCourseCreator'] . ",
                 isPlatformAdmin = 0,
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
     $adminId = claro_sql_query_insert_id($sql);
@@ -137,12 +131,10 @@ function user_set_properties($userId, $propertyList)
     $tbl = claro_sql_get_main_tbl();
 
     // SPECIAL CASE
-    if ( array_key_exists('status', $propertyList) )
+
+    if ( array_key_exists('isCourseCreator', $propertyList) )
     {
-        if ( $propertyList['status'] != COURSE_CREATOR_STATUS)
-        {
-            $propertyList['status'] = STUDENT_STATUS;
-        }
+        $propertyList['isCourseCreator'] = $propertyList['isCourseCreator'] ? 1 :0;
     }
 
     if ( array_key_exists('password', $propertyList) && get_conf('userPasswordCrypted'))
@@ -164,7 +156,7 @@ function user_set_properties($userId, $propertyList)
                            'phoneNumber'     => 'phone',
                            'email'           => 'email',
                            'officialCode'    => 'officialCode',
-                           'statut'          => 'status',
+                           'isCourseCreator' => 'isCourseCreator',
                            'password'        => 'password',
                            'language'        => 'language',
                            'pictureUri'      => 'picture',
@@ -198,7 +190,7 @@ function user_set_properties($userId, $propertyList)
  *
  * @param $userId       integer user ID from the course_user table
  * @param $courseId     string course code from the cours table
- * @param $propertyList array should contain 'role', 'status', 'tutor'
+ * @param $propertyList array should contain 'role', 'isCourseManager', 'tutor'
  *
  * @return boolean TRUE if update succeed, FALSE otherwise.
  */
@@ -209,16 +201,10 @@ function user_set_course_properties($userId, $courseId, $propertyList)
 
     $setList = array();
 
-    if ( array_key_exists('status', $propertyList) )
+    if ( array_key_exists('isCourseManager', $propertyList) )
     {
-        if ( $propertyList['status'] ==  COURSE_ADMIN_STATUS )
-        {
-            $setList[] = 'statut = ' . (int) COURSE_ADMIN_STATUS;
-        }
-        else
-        {
-            $setList[] = 'statut = ' . (int) STUDENT_STATUS;
-        }
+        if ( $propertyList['isCourseManager'] ) $setList[] = 'isCourseManager = 1';
+        else                                    $setList[] = 'isCourseManager = 0';
     }
 
     if ( array_key_exists('tutor', $propertyList) )
@@ -261,10 +247,8 @@ function user_set_course_properties($userId, $courseId, $propertyList)
 
 function user_set_course_manager($status, $userId, $courseId)
 {
-    $status = ($status == true) ? COURSE_ADMIN_STATUS : STUDENT_STATUS;
-
     return user_set_course_properties($userId, $courseId,
-    array('status' => $status));
+    array('isCourseManager' => $status));
 
 }
 
@@ -367,7 +351,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
         $sql = "SELECT COUNT(user_id)
                 FROM `" . $tbl['rel_course_user'] . "`
                 WHERE user_id = ". (int) $userId ."
-                  AND statut = '" . COURSE_ADMIN_STATUS . "'
+                  AND isCourseManager = 1
                   AND code_cours IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "') ";
 
         if ( claro_sql_query_get_single_value($sql)  > 0 )
@@ -621,7 +605,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                     SET code_cours = '" . addslashes($courseCode) . "',
                         user_id    = " . (int) $userId . ",
-                        statut     = " . (int) ($admin ? COURSE_ADMIN_STATUS : STUDENT_STATUS) . ",
+                        isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
                         tutor  = " . (int) ($tutor ? 1 : 0) . ",
                         count_user_enrol = " . $count_user_enrol . ",
                         count_class_enrol = " . $count_class_enrol ;
@@ -1315,17 +1299,16 @@ function user_html_form($data, $form_type='registration')
     if ( ( get_conf('allowSelfRegProf') && 'registration' == $form_type) || 'admin_add_new_user' == $form_type || 'admin_user_profile' == $form_type )
     {
         $html .= form_row( get_lang('Action') .'&nbsp;: ',
-        '<input type="radio" name="status" id="follow"'
-        .' value="' . STUDENT_STATUS . '" '
-        . ($data['status'] != COURSE_CREATOR_STATUS ? ' checked' : '') . ' />'
+        '<input type="radio" name="isCourseCreator" id="follow"'
+        .' value="0" '
+        . (!$data['isCourseCreator']? ' checked' : '') . ' />'
         . '<label for="follow">' . get_lang('Follow courses') . '</label>'
         . '<br />'
-        . '<input type="radio" name="status" id="create"'
-        . ' value="' . COURSE_CREATOR_STATUS . '"   '
-        . ($data['status'] == COURSE_CREATOR_STATUS ? ' checked'  :'') . ' />'
+        . '<input type="radio" name="isCourseCreator" id="create"'
+        . ' value="1"   '
+        . ($data['isCourseCreator']? ' checked'  :'') . ' />'
         . '<label for="create">' . get_lang('Create course') . '</label>');
     }
-
 
     // Platform administrator
     if ( 'admin_user_profile' == $form_type)

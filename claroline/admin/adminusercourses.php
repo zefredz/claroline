@@ -19,10 +19,7 @@
  */
 
 $dialogBox = '';
-$iconForCuStatus['STUDENT']        = 'user.gif';
-$iconForCuStatus['COURSE_MANAGER'] = 'manager.gif';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
-
 
 require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/lib/admin.lib.inc.php';
@@ -146,8 +143,8 @@ $userCourseDataGrid->set_colTitleList(array (
 ,'delete'   => get_lang('Unregister user')
 ));
 
-$userCourseDataGrid->set_caption('<img src="' . $imgRepositoryWeb . $iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" >' . get_lang('Student')
-.                                '<img src="' . $imgRepositoryWeb . $iconForCuStatus['COURSE_MANAGER'] . '" alt="course manager" border="0" title="statut" >' . get_lang('Course manager'));
+$userCourseDataGrid->set_caption('<img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('Student') . '" border="0" title="statut" >' . get_lang('Student')
+.                                '<img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0" title="statut" >' . get_lang('Course manager'));
 
 
 if ( 0 == count($userCourseGrid)  )
@@ -233,8 +230,7 @@ function prepare_sql_get_courses_of_a_user($userId=null)
                    `C`.`departmentUrl`     `extLinkUrl`,
                    `C`.`departmentUrlName` `extLinkName`,
                    `C`.`visible` `visible`,
-
-                   IF(CU.statut=1,'COURSE_MANAGER','STUDENT') cuStatus
+                   CU.isCourseManager
             FROM `" . $tbl_course . "` AS C,
                  `" . $tbl_rel_course_user . "` AS CU
             WHERE CU.`code_cours` = C.`code`

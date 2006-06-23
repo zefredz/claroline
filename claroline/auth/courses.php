@@ -255,7 +255,7 @@ if ( $cmd == 'exReg' )
 
                 if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
                 {
-                    $properties['status'] = 1;
+                    $properties['isCourseCreator'] = 1;
                     $properties['role']   = get_lang('Course manager');
                     $properties['tutor']  = 1;
                     user_set_course_properties($userId, $course, $properties);

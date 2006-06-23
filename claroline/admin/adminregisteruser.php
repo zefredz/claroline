@@ -78,18 +78,20 @@ switch ( $cmd )
         $done = user_add_to_course($user_id, $cidToEdit, false, false, false);
 
         // Set status requested
-        if ( $_REQUEST['subas'] == 'teach' )     // ... as teacher
+
+        if ( $_REQUEST['isCourseManager'] )     // ... as teacher
         {
-            $properties['status'] = 1;
+            $properties['isCourseManager'] = 1;
             $properties['role']   = get_lang('Course manager');
             $properties['tutor']  = 1;
         }
-        elseif ($_REQUEST['subas']=='stud')  // ... as student
+        else // ... as student
         {
-            $properties['status'] = 5;
+            $properties['isCourseManager'] = 0;
             $properties['role']   = '';
             $properties['tutor']  = 0;
         }
+
         user_set_course_properties($user_id, $cidToEdit, $properties);
 
         //set dialogbox message
@@ -331,21 +333,8 @@ foreach($userList as $user)
     .   $user['prenom']
     .   '</td>'
     ;
-    if ($user['statut'] != "5")  // user is already enrolled but as student
-    {
-        // Register as user
-        echo '<td align="center">' . "\n"
-            .'<a href="' . $_SERVER['PHP_SELF']
-            .'?cidToEdit=' . $cidToEdit
-            .'&amp;cmd=sub&amp;search='.$search
-            .'&amp;user_id=' . $user['ID']
-            .'&amp;subas=stud' . $addToURL . '">'
-            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />' . "\n"
-            .'</a>'
-            .'</td>'."\n"
-            ;
-    }
-    else
+
+    if ( !is_null($user['isCourseManager']) && $user['isCourseManager'] == 0 )  // user is already enrolled but as student
     {
         // already enrolled as student
         echo '<td align="center" >' . "\n"
@@ -354,22 +343,24 @@ foreach($userList as $user)
         .    '</small>'
         .    '</td>' . "\n"
         ;
-    }
-    if ($user['statut'] != "1")  // user is not enrolled
-    {
-            //register as teacher
-        echo '<td align="center">' . "\n"
-        .    '<a href="' . $_SERVER['PHP_SELF']
-        .    '?cidToEdit=' . $cidToEdit
-        .    '&amp;cmd=sub&amp;search='.$search
-        .    '&amp;user_id=' . $user['ID']
-        .    '&amp;subas=teach' . $addToURL . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />'
-        .    '</a>' . "\n"
-        .    '</td>' . "\n"
-        ;
+
     }
     else
+    {
+        // Register as user
+        echo '<td align="center">' . "\n"
+            .'<a href="' . $_SERVER['PHP_SELF']
+            .'?cidToEdit=' . $cidToEdit
+            .'&amp;cmd=sub&amp;search='.$search
+            .'&amp;user_id=' . $user['ID']
+            .'&amp;isCourseManager=0' . $addToURL . '">'
+            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />' . "\n"
+            .'</a>'
+            .'</td>'."\n"
+            ;
+    }
+
+    if ( !is_null($user['isCourseManager']) && $user['isCourseManager'] == 1 )  // user is not enrolled
     {
         // already enrolled as teacher
         echo '<td align="center" >'."\n"
@@ -377,6 +368,20 @@ foreach($userList as $user)
         .    get_lang('Already enroled')
         .    '</small>'
         .    '</td>'."\n"
+        ;
+    }
+    else
+    {
+        //register as teacher
+        echo '<td align="center">' . "\n"
+        .    '<a href="' . $_SERVER['PHP_SELF']
+        .    '?cidToEdit=' . $cidToEdit
+        .    '&amp;cmd=sub&amp;search='.$search
+        .    '&amp;user_id=' . $user['ID']
+        .    '&amp;isCourseManager=1' . $addToURL . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />'
+        .    '</a>' . "\n"
+        .    '</td>' . "\n"
         ;
     }
     echo '</tr>';

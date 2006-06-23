@@ -411,10 +411,10 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
                            `user`.`nom`             AS lastName              ,
                            `user`.`email`           AS `mail`                ,
                            `user`.`officialEmail`   AS `officialEmail`       ,
-                           `user`.`language`                                  ,
-                           (`user`.`statut` = 1)    AS is_allowedCreateCourse,
-                            isPlatformAdmin         AS is_platformAdmin      ,
-                           `user`.`creatorId`       AS creatorId              , "
+                           `user`.`language`                                 ,
+                           `user`.`isCourseCreator`   AS is_courseCreator    ,
+                           `user`.`isPlatformAdmin`  AS is_platformAdmin    ,
+                           `user`.`creatorId`       AS creatorId             , "
 
                   .       (get_conf('is_trackingEnabled')
                            ? "UNIX_TIMESTAMP(`login`.`login_date`)"
@@ -440,8 +440,9 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
         {
             // Extracting the user data
 
-            $is_platformAdmin        = (bool) ( $_user['is_platformAdmin'       ] );
-            $is_allowedCreateCourse  = (bool) ($_user['is_allowedCreateCourse'] || $is_platformAdmin);
+            $is_platformAdmin        = (bool) ($_user['is_platformAdmin'       ] );
+            $is_allowedCreateCourse  = (bool) ($_user['is_courseCreator'] || $is_platformAdmin);
+
             if ( $_uid != $_user['creatorId'] )
             {
                 // first login for a not self registred (e.g. registered by a teacher)
@@ -582,7 +583,7 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 {
     if ( $_uid && $_cid ) // have keys to search data
     {
-        $sql = "SELECT statut,
+        $sql = "SELECT isCourseManager,
                        tutor,
                        role
                 FROM `".$tbl_rel_course_user."` `cours_user`
@@ -595,9 +596,9 @@ if ( $uidReset || $cidReset ) // session data refresh requested
         {
             $cuData = mysql_fetch_array($result);
 
-            $is_courseMember     = true;
-            $is_courseTutor      = (bool) ($cuData['tutor' ] == 1 );
-            $is_courseAdmin      = (bool) ($cuData['statut'] == 1 );
+            $is_courseMember = true;
+            $is_courseTutor  = (bool) ($cuData['tutor' ] == 1 );
+            $is_courseAdmin  = (bool) ($cuData['isCourseManager'] == 1 );
 
             $_courseUser['role'] = $cuData['role'  ]; // not used
 

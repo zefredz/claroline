@@ -155,10 +155,10 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
         echo '<br />'."\n";
 
         //--  number of users by status
-        $sql = "SELECT `statut`, count( `user_id` ) AS `nbr`
+        $sql = "SELECT `isCourseCreator`, count( `user_id` ) AS `nbr`
                     FROM `".$tbl_user."`
-                    WHERE `statut` IS NOT NULL
-                    GROUP BY `statut`";
+                    WHERE `isCourseCreator` IS NOT NULL
+                    GROUP BY `isCourseCreator`";
         $results = claro_sql_query_fetch_all($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users by status').' : <br />'."\n";
         buildTab2Col($results);

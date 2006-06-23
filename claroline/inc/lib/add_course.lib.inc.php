@@ -1202,10 +1202,12 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
     if ( claro_sql_query($sql) == false) return false;
 
+    // TODO use user.lib.php
+
     $sql = "INSERT INTO `" . $tbl_course_user . "`
             SET code_cours     = '" . $courseSysCode . "',
                 user_id = '" . (int) $uidCreator."',
-                statut  = 1,
+                isCourseManager = 1,
                 role    = '" . addslashes( get_lang('Course manager') ) . "',
                 tutor   = 1";
 

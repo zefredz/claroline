@@ -72,7 +72,13 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 {
      $controlMsg['warning'][] = get_lang('<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server');
 }
+
 // ----- is install visible ----- end
+
+if ( ini_get('register_globals') )
+{
+    $controlMsg['warning'][] = get_lang('<b>Security :</b> We recommend to set register_globals to off in php.ini');
+}
 
 include $includePath . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
@@ -138,10 +144,12 @@ function get_menu_item_list($type)
     .                   '</small>'
     .                   '</form>'
     ;
+
 $menuAdminUser[] = claro_html_tool_link('adminusers.php',       get_lang('User list'));
 $menuAdminUser[] = claro_html_tool_link('adminaddnewuser.php',  get_lang('Create user'));
 $menuAdminUser[] = claro_html_tool_link('admin_class.php',      get_lang('Manage classes'));
 $menuAdminUser[] = claro_html_tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('Add a user list'));
+$menuAdminUser[] = claro_html_tool_link('right/profile_list.php', get_lang('Right profile list'));
 
 
 $menuAdminCourse[] = '<form name="searchCourse" action="admincourses.php" method="GET" >' . "\n"
@@ -155,7 +163,6 @@ $menuAdminCourse[] = '<form name="searchCourse" action="admincourses.php" method
 $menuAdminCourse[] = claro_html_tool_link('admincourses.php',                   get_lang('Course list'));
 $menuAdminCourse[] = claro_html_tool_link('../course/create.php?fromAdmin=yes', get_lang('Create course'));
 $menuAdminCourse[] = claro_html_tool_link('admincats.php',                      get_lang('Manage course categories'));
-
 
 
 $menuAdminPlatform[] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));

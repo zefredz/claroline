@@ -374,11 +374,11 @@ function prepare_get_filtred_course_list()
                     C.faculte     AS `faculte`,
                     C.`code`      AS `sysCode`,
                     C.`directory` AS `repository`,
-                    count(IF(`CU`.`statut`=" . COURSE_STUDENT . ",".COURSE_CREATOR.",null))
+                    count(IF(`CU`.`isCourseManager`=0,1,null))
                                   AS `qty_stu`,
                     #count only lines where statut of user is COURSE_STUDENT
 
-                    count(IF(`CU`.`statut`=1,1,null))
+                    count(IF(`CU`.`isCourseManager`=1,1,null))
                                   AS `qty_cm`
                     #count only lines where statut of user is 1
 

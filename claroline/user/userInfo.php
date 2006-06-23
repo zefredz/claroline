@@ -21,9 +21,6 @@
 
 $tlabelReq = 'CLUSR___';
 
-define('CLARO_COURSE_CREATOR_STATUS', 1);
-define('CLARO_STUDENT_STATUS',        5);
-
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
 
 require '../inc/claro_init_global.inc.php';
@@ -148,11 +145,11 @@ if ($allowedToEditDef)
 
         if (isset($_REQUEST['promoteCourseAdmin']))
         {
-            $userProperties['status'] = CLARO_COURSE_CREATOR_STATUS;
+            $userProperties['isCourseManager'] = 1;
         }
         else
         {
-            $userProperties['status'] = CLARO_STUDENT_STATUS;
+            $userProperties['isCourseManager'] = 0;
         }
 
         //set variable for tutor setting
@@ -186,7 +183,7 @@ if ($allowedToEditDef)
 
         // apply changes in DB
 
-        if (($userIdViewed == $_uid) &&($userProperties['status']==CLARO_STUDENT_STATUS))
+        if (($userIdViewed == $_uid) &&($userProperties['isCourseManager']))
         {
             //prevent teacher to let the course without any teacher
 
@@ -413,7 +410,7 @@ elseif ($displayMode =="viewMainInfoEdit")
 
     if ($mainUserInfo)
     {
-    ($mainUserInfo['status'] == 1) ? $courseAdminChecked = "checked" : $courseAdminChecked = '';
+    ($mainUserInfo['isCourseManager'] == 1) ? $courseAdminChecked = "checked" : $courseAdminChecked = '';
     ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = '';
 
 
@@ -480,7 +477,7 @@ elseif ($displayMode == "viewContentList") // default display
     if ($mainUserInfo)
     {
         $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? get_lang('Group Tutor') : ' - ');
-        $mainUserInfo['status'] = ($mainUserInfo['status'] == 1 ? get_lang('Course manager') : ' - ');
+        $mainUserInfo['isCourseManager'] = ($mainUserInfo['isCourseManager'] == 1 ? get_lang('Course manager') : ' - ');
 
         if ($mainUserInfo['picture'] != '')
         {
@@ -504,7 +501,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
         .    '<td align="left">'.htmlize($mainUserInfo['role']).'</td>' . "\n"
         .    '<td>'.$mainUserInfo['tutor'].'</td>'
-        .    '<td>'.$mainUserInfo['status'].'</td>'
+        .    '<td>'.$mainUserInfo['isCourseManager'].'</td>'
         ;
 
         if($allowedToEditDef)

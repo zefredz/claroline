@@ -57,23 +57,23 @@ $ccfrom = (isset($_REQUEST['ccfrom']) ? $_REQUEST['ccfrom'] : '' );
 $cfrom  = (isset($_REQUEST['cfrom'])  ? $_REQUEST['cfrom']  : '' );
 
 $cmd    = (isset($_REQUEST['cmd'])    ? $_REQUEST['cmd']    : null );
-$statusReq = (isset($_REQUEST['status_form'])  ? $_REQUEST['status_form']  : null );
+$isCourseManager = (isset($_REQUEST['isCourseManager'])  ? (int) $_REQUEST['isCourseManager']  : null );
 
 switch ($cmd)
 {
     case 'changeStatus' :
 
-        if ( 'teacher' == $statusReq )
+        if ( $isCourseManager )
         {
-            $properties['status'] = 1;
+            $properties['isCourseManager'] = 1;
             $properties['role']   = get_lang('Course manager');
             $properties['tutor']  = 1;
             $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
             $dialogBox = $done ?  get_lang('User is now course manager') : get_lang('No change applied');
         }
-        elseif ( 'student' ==  $statusReq )
+        else
         {
-            $properties['status'] = 5;
+            $properties['isCourseManager'] = 0;
             $properties['role']   = get_lang('Student');
             $properties['tutor']  = 0;
             $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
@@ -128,21 +128,20 @@ if(isset($user_id))
 
     // claro_get_course_user_data
     // find course user settings, must see if the user is teacher for the course
-    $sql = 'SELECT * FROM `' . $tbl_mdb_names['rel_course_user'] . '`
+    $sql = 'SELECT * 
+            FROM `' . $tbl_mdb_names['rel_course_user'] . '`
             WHERE user_id="' . (int)$uidToEdit . '"
             AND code_cours="' . addslashes($cidToEdit) . '"';
     $resultCourseUser = claro_sql_query($sql);
     $list = mysql_fetch_array($resultCourseUser);
 
-    if ($list['statut'] == '1')
+    if ($list['isCourseManager'] == '1')
     {
-       $isCourseManager = TRUE;
-       $isStudent = FALSE;
+       $isCourseManager = true;
     }
     else
     {
        $isCourseManager = false;
-       $isStudent = TRUE;
     }
     // end of claro_get_course_user_data
 }
@@ -252,9 +251,9 @@ echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" class="claroTabl
 .    get_lang('Status') . "\n"
 .    ' : </td>' . "\n"
 .    '<td>' . "\n"
-.    '<input type="radio" name="status_form" value="student" id="status_form_student" ' . ($isStudent ? 'checked' : '' ) . ' />' . "\n"
+.    '<input type="radio" name="isCourseManager" value="0" id="status_form_student" ' . (!$isCourseManager ? 'checked' : '' ) . ' />' . "\n"
 .    '<label for="status_form_student">' . get_lang('Student') . '</label>'               . "\n"
-.    '<input type="radio" name="status_form" value="teacher" id="status_form_teacher" ' . ($isCourseManager ? 'checked' : '') . ' />' . "\n"
+.    '<input type="radio" name="isCourseManager" value="1" id="status_form_teacher" ' . ($isCourseManager ? 'checked' : '') . ' />' . "\n"
 .    '<label for="status_form_teacher">' . get_lang('Course manager') . '</label>'        . "\n"
 .    '<input type="hidden" name="uidToEdit" value="' . $user_id . '" />'                  . "\n"
 .    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '" />'                . "\n"

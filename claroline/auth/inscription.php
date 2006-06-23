@@ -62,9 +62,9 @@ if ( get_conf('allowSelfReg',false) )
         if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
         if ( isset($_REQUEST['email']) )         $user_data['email']         = strip_tags(trim($_REQUEST['email'])) ;
         if ( isset($_REQUEST['officialEmail']) ) $user_data['officialEmail'] = strip_tags(trim($_REQUEST['officialEmail'])) ;
-        if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
-        if ( isset($_REQUEST['status']) )        $user_data['status']        = (int) $_REQUEST['status'];
-        if ( isset($_REQUEST['language']) )      $user_data['language']      = $_REQUEST['language'];
+        if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
+        if ( isset($_REQUEST['isCourseCreator']))$user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
+        if ( isset($_REQUEST['language']) )      $user_data['language'] = $_REQUEST['language'];
 
         // validate forum params
 
@@ -85,11 +85,12 @@ if ( get_conf('allowSelfReg',false) )
                 $_user['lastName'     ] = $_user['lastname'];
                 $_user['mail'         ] = $_user['email'];
                 $_user['lastLogin'    ] = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
-                $is_allowedCreateCourse = ($user_data['status'] == 0) ? FALSE : TRUE ;
+                $is_allowedCreateCourse = ($user_data['isCourseCreator'] == 1) ? TRUE : FALSE ;
 
                 $_SESSION['_uid'] = $_uid;
                 $_SESSION['_user'] = $_user;
                 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
+
                 // track user login
 
                 $eventNotifier->notifyEvent('user_login', array('uid' => $_uid));

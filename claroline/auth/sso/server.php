@@ -152,7 +152,7 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
                        `c`.`titulaires` titular,
                        `c`.`dbName`,
                        `c`.`visible`    visibility,
-                       `cu`.`statut`    userStatus,
+                       `cu`.`isCourseManager`,
                        `cu`.`role`      userRole,
                        `cu`.`tutor`
                 FROM      `".$tbl_course."`          c
@@ -180,7 +180,7 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
 
             $res['is_courseMember' ] = (bool) ( ! is_null($course['userStatus']) );
             $res['is_courseTutor'  ] = (bool) (   $course['tutor'     ] == 1  );
-            $res['is_courseAdmin'  ] = (bool) (   $course['userStatus'] ==  1 );
+            $res['is_courseAdmin'  ] = (bool) (   $course['isCourseManager'] ==  1 );
             $res['is_courseAllowed'] = (bool) (   $course['visibility'     ]
                                                || $course['is_courseMember']  );
         }

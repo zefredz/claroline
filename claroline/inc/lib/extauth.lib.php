@@ -111,7 +111,7 @@ class ExternalAuthentication
                               'email'        => NULL,
                               'officialCode' => NULL,
                               'phoneNumber'  => NULL,
-                              'status'       => NULL,
+                              'isCourseCreator' => NULL,
                               'authSource'   => NULL);
 
         foreach($extAuthAttribNameList as $claroAttribName => $extAuthAttribName)
@@ -158,9 +158,17 @@ class ExternalAuthentication
                                    'email'        => 'email', 
                                    'officialCode' => 'officialCode', 
                                    'phoneNumber'  => 'phoneNumber', 
-                                   'statut'       => 'status', 
+                                   'isCourseCreator' => 'isCourseCreator', 
                                    'authSource'   => 'authSource');
         $sqlPrepareList = array();
+
+        // Status 1 == IsCourseCreator true
+
+        if ( isset($userAttrList['status']) )
+        {
+            if ( $userAttrList['status'] == 1 ) $userAttrList['isCourseCreator'] = 1;
+            else                                $userAttrList['isCourseCreator'] = 0;
+        }
 
         foreach($dbFieldToClaroMap as $dbFieldName => $claroAttribName)
         {
@@ -170,7 +178,8 @@ class ExternalAuthentication
             }
         }
 
-
+        // TODO use user.lib.php
+       
         $sql = ($uid ? 'UPDATE' : 'INSERT INTO') . " `".$userTbl['user']."` "
               ."SET ".implode(', ', $sqlPrepareList)
               .($uid ? 'WHERE user_id = '.(int)$uid : '');

@@ -188,7 +188,7 @@ class Notifier extends EventDriven
                 WHERE CU.`code_cours` = N.`course_code`
                     AND CU.`user_id` = '". (int)$user_id."'
                     AND N.`date` > '".$date."'
-                    AND ((N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."') OR CU.`statut`='1')
+                    AND ((N.`user_id` = '0' OR N.`user_id` = '". (int)$user_id."') OR CU.`isCourseManager`='1')
                     ";
 
             $courseList = claro_sql_query_fetch_all($sql);

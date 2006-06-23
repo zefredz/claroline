@@ -13,11 +13,9 @@
  */
 $cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 
-// initialisation of global variables and used libraries
-defined('COURSE_CREATOR') || define('COURSE_CREATOR' , 1);
-defined('COURSE_STUDENT') || define('COURSE_STUDENT' , 5);
 
 require '../inc/claro_init_global.inc.php';
+
 $userPerPage = get_conf('userPerPage',20); // numbers of user to display on the same page
 
 // Security check
@@ -113,8 +111,8 @@ $myPager->set_sort_key($pagerSortKey, $pagerSortDir);
 
 $userList = $myPager->get_result_list();
 
-
 $userGrid = array();
+
 foreach ($userList as $userKey => $user)
 {
     $userGrid[$userKey]['user_id']   = $user['user_id'];
@@ -133,11 +131,11 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
     $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
 
-    $userGrid[$userKey]['status'] =  ( $user['status'] == COURSE_CREATOR ? get_lang('Course creator') : get_lang('User'));
+    $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
 
     if ( $user['isPlatformAdmin'] )
     {
-        $userGrid[$userKey]['status'] .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
+        $userGrid[$userKey]['isCourseCreator'] .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
     }
     $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
     .                                 '?uidToEdit=' . $user['user_id']
@@ -169,7 +167,7 @@ $userDataGrid->set_colTitleList(array (
                 ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
                 ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>'
                 ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
-                ,'status'=>'<a href="' . $sortUrlList['status'] . '">' . get_lang('Status') . '</a>'
+                ,'isCourseCreator'=>'<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>'
                 ,'settings'=> get_lang('User settings')
                 ,'qty_course'=>'<a href="' . $sortUrlList['qty_course'  ] . '">' . get_lang('Courses') . '</a>'
                 ,'delete'=>get_lang('Delete') ));
@@ -303,7 +301,7 @@ function get_sql_filtered_user_list()
                    U.phoneNumber                 AS phoneNumber,
                    U.pictureUri                  AS pictureUri,
                    U.creatorId                   AS creator_id,
-                   U.statut                      AS status ,
+                   U.isCourseCreator ,
                    U.isPlatformAdmin             AS isPlatformAdmin,
                    count(DISTINCT CU.code_cours) AS qty_course
 
@@ -353,11 +351,11 @@ function get_sql_filtered_user_list()
 
     if ($filterOnStatus== 'createcourse' )
     {
-        $sql.=" AND (U.statut=" . COURSE_CREATOR . ")";
+        $sql.=" AND (U.isCourseCreator=1)";
     }
     elseif ($filterOnStatus=='followcourse' )
     {
-        $sql.=" AND (U.statut=" . COURSE_STUDENT . ")";
+        $sql.=" AND (U.isCourseCreator=0)";
     }
 
     $sql.=" GROUP BY U.user_id ";

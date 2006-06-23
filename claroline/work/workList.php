@@ -227,7 +227,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     $sortKeyList['S.last_edit_date'] = SORT_DESC;
     $sortKeyList['FB.last_edit_date'] = SORT_DESC;
     
-    $sortKeyList['CU.statut'] = SORT_ASC;
+    $sortKeyList['CU.isCourseManager'] = SORT_ASC;
     $sortKeyList['CU.tutor']  = SORT_DESC;
     $sortKeyList['U.nom']     = SORT_ASC;
     $sortKeyList['U.prenom']  = SORT_ASC;

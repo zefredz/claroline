@@ -174,7 +174,6 @@ function search_course($keyword, $userId = null)
  * @todo search and merge other instance of this functionality
  */
 
-
 function get_user_course_list($userId, $renew = false)
 {
     static $cached_uid = null, $userCourseList = null;
@@ -194,7 +193,7 @@ function get_user_course_list($userId, $renew = false)
                        course.intitule       AS `title`,
                        course.titulaires     AS `titular`,
                        course.languageCourse AS `language`,
-                       course_user.statut    AS `userSatus`
+                       course_user.isCourseManager
 
                        FROM `" . $tbl_courses . "`           AS course,
                             `" . $tbl_link_user_courses . "` AS course_user

@@ -53,14 +53,15 @@ CREATE TABLE `".$mainTblPrefixForm."cours` (
 CREATE TABLE `".$mainTblPrefixForm."cours_user` (
   `code_cours` varchar(40) NOT NULL default '0',
   `user_id` int(11) unsigned NOT NULL default '0',
-  `statut` tinyint(4) NOT NULL default '5',
+#  `profile_id` int(11) NOT NULL,
+  `isCourseManager` tinyint(4) NOT NULL default 0,
   `role` varchar(60) default NULL,
   `team` int(11) NOT NULL default '0',
   `tutor` int(11) NOT NULL default '0',
   `count_user_enrol` int(11) NOT NULL default '0',
   `count_class_enrol` int(11) NOT NULL default '0',
    PRIMARY KEY  (`code_cours`,`user_id`),
-  KEY `statut` (`statut`)
+  KEY `isCourseManager` (`isCourseManager`)
 ) TYPE=MyISAM";
 
 $creationStatementList[] ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
@@ -89,7 +90,7 @@ CREATE TABLE `".$mainTblPrefixForm."user` (
   `language` varchar(15) default NULL,
   `authSource` varchar(50) default 'claroline',
   `email` varchar(255) default NULL,
-  `statut` tinyint(4) default NULL,
+  `isCourseCreator` tinyint(4) default 0,
   `officialCode`  varchar(255) default NULL,
   `officialEmail` varchar(255) default NULL,
   `phoneNumber` varchar(30) default NULL,
@@ -282,8 +283,8 @@ $creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_action` (
 )TYPE=MyISAM";
 
 $creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_rel_profile_action` (
-  `profile_id` int(11) NOT NULL default '0',
-  `action_id` int(11) NOT NULL default '0',
+  `profile_id` int(11) NOT NULL,
+  `action_id` int(11) NOT NULL,
   `courseId`  varchar(40) NOT NULL default '',
   `value` tinyint(4) default '0',
   PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)

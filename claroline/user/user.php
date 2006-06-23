@@ -136,7 +136,7 @@ if ( $is_allowedToEdit )
         {
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
                     WHERE `code_cours` = '" . addslashes($currentCourseID) . "'
-                     AND `statut` = 5";
+                     AND `isCourseManager` = 0";
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
@@ -176,7 +176,7 @@ $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                        `user`.`nom`          AS `nom`,
                        `user`.`prenom`       AS `prenom`,
                        `user`.`email`        AS `email`,
-                       `cours_user`.`statut` AS `statut`,
+                       `cours_user`.`isCourseManager`,
                        `cours_user`.`tutor`  AS `tutor`,
                        `cours_user`.`role`   AS `role`
                FROM `" . $tbl_users . "`           AS user,
@@ -191,7 +191,7 @@ if ( isset($_GET['sort']) )
     $myPager->add_sort_key( $_GET['sort'], isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC );
 }
 
-$defaultSortKeyList = array ('cours_user.statut' => SORT_ASC,
+$defaultSortKeyList = array ('cours_user.isCourseManager' => SORT_DESC,
                              'cours_user.tutor'  => SORT_DESC,
                              'user.nom'          => SORT_ASC,
                              'user.prenom'       => SORT_ASC);
@@ -243,6 +243,7 @@ if ( count($usersId)> 0 )
 // PREPARE DISPLAY
 
 $nameTools = get_lang('Users');
+
 if ($can_add_user)
 {
     //add a user link
@@ -267,6 +268,13 @@ if ($can_add_user)
 
     ;
 
+    // Main group settings
+    $userMenu[] = '<a class="claroCmd" href="../right/profile_list.php">'
+    .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+    .          get_lang("Right Profile")
+    .          '</a>'
+    ;
+
 }
 
 $userMenu[] = '<a class="claroCmd" href="../group/group.php">'
@@ -286,11 +294,6 @@ $userMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
 /*=====================================================================
 Display section
   =====================================================================*/
-
-
-
-
-
 
 // Display header
 
@@ -344,7 +347,7 @@ echo '<table class="claroTable emphaseLine" '
     if($is_allowedToEdit) // EDIT COMMANDS
     {
         echo '<th scope="col" id="tut"  ><a href="'.$sortUrlList['tutor'].'">'.get_lang('Group Tutor').'</a></th>'."\n"
-           . '<th scope="col" id="CM"   ><a href="'.$sortUrlList['statut'].'">'.get_lang('Course manager').'</a></th>'."\n"
+           . '<th scope="col" id="CM"   ><a href="'.$sortUrlList['isCourseManager'].'">'.get_lang('Course manager').'</a></th>'."\n"
            . '<th scope="col" id="edit" >'.get_lang('Edit').'</th>'."\n"
            . '<th scope="col" id="del"  >'.get_lang('Unregister').'</th>'."\n"
            ;
@@ -429,7 +432,7 @@ foreach ( $userList as $thisUser )
         }
 
         // course manager column
-        if($thisUser['statut'] == '1')
+        if($thisUser['isCourseManager'] == '1')
         {
             echo '<td headers="CM u'.$i.'">'.get_lang('Course manager').'</td>'."\n";
         }

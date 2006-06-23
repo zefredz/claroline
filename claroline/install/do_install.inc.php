@@ -433,7 +433,7 @@ if ( $runfillMainDb )
     $user_data['password']      = $passForm;
     $user_data['email']         = $adminEmailForm;
     $user_data['language']      = '';
-    $user_data['status']        = 1; // COURSEMANAGER constant
+    $user_data['isCourseCreator'] = 1;
     $user_data['officialCode']  = '';
     $user_data['officialEmail'] = '';
     $user_data['phone'] = $adminPhoneForm;

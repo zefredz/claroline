@@ -267,8 +267,8 @@ switch ($display)
                     FROM `" . $tbl_course . "` c
                     LEFT JOIN `" . $tbl_rel_course_user . "` cu
                         ON c.code = cu.code_cours
-                        AND cu.statut = 1
-                    GROUP BY c.code, statut
+                        AND cu.isCourseManager = 1
+                    GROUP BY c.code, isCourseManager
                     HAVING qty = 0
                     ORDER BY code_cours";
 
@@ -331,8 +331,8 @@ switch ($display)
                     FROM `" . $tbl_course . "`               AS c
                     LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
                         ON c.code = cu.code_cours
-                        AND cu.statut = 5
-                    GROUP BY c.code, statut
+                        AND cu.isCourseManager = 0
+                    GROUP BY c.code, isCourseManager
                     HAVING qty = 0
                     ORDER BY code_cours";
                 $option['colTitleList'] = array('code','count');

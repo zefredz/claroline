@@ -72,7 +72,7 @@ foreach($personnalCourseList as $thisCourse)
         echo $thisCourse['title'] . ' (' . $thisCourse['officialCode'] . ')';
     }
 
-    if ($thisCourse['userSatus'] == 1)
+    if ($thisCourse['isCourseManager'] == 1)
     {
         $userStatusImg = '<img src="'.$imgRepositoryWeb.'manager.gif" alt="'.get_lang('Course manager').'">';
     }

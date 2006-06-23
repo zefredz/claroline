@@ -48,24 +48,22 @@ $user_data['is_admin'] = false;
 if ( isset($_REQUEST['applyChange']) )  //for formular modification
 {
     // get params form the form
-    if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = trim($_REQUEST['lastname']);
-    if ( isset($_REQUEST['firstname']) )     $user_data['firstname'] = trim($_REQUEST['firstname']);
-    if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode'] = trim($_REQUEST['officialCode']);
-    if ( isset($_REQUEST['username']) )      $user_data['username'] = trim($_REQUEST['username' ]);
-    if ( isset($_REQUEST['password']) )      $user_data['password'] = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) )         $user_data['email'] = trim($_REQUEST['email']);
-    if ( isset($_REQUEST['officialEmail']) ) $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
-    if ( isset($_REQUEST['phone']) )         $user_data['phone'] = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['language']) )      $user_data['language'] = trim($_REQUEST['language']);
-    if ( isset($_REQUEST['status']) )        $user_data['status'] = (int) $_REQUEST['status'];
-
-    if ( isset($_REQUEST['is_admin']) )      $user_data['is_admin'] = (bool) $_REQUEST['is_admin'];
+    if ( isset($_REQUEST['lastname']) )       $user_data['lastname'] = trim($_REQUEST['lastname']);
+    if ( isset($_REQUEST['firstname']) )      $user_data['firstname'] = trim($_REQUEST['firstname']);
+    if ( isset($_REQUEST['officialCode']) )   $user_data['officialCode'] = trim($_REQUEST['officialCode']);
+    if ( isset($_REQUEST['username']) )       $user_data['username'] = trim($_REQUEST['username' ]);
+    if ( isset($_REQUEST['password']) )       $user_data['password'] = trim($_REQUEST['password']);
+    if ( isset($_REQUEST['password_conf']) )  $user_data['password_conf'] = trim($_REQUEST['password_conf']);
+    if ( isset($_REQUEST['email']) )          $user_data['email'] = trim($_REQUEST['email']);
+    if ( isset($_REQUEST['officialEmail']) )  $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
+    if ( isset($_REQUEST['phone']) )          $user_data['phone'] = trim($_REQUEST['phone']);
+    if ( isset($_REQUEST['language']) )       $user_data['language'] = trim($_REQUEST['language']);
+    if ( isset($_REQUEST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
+    if ( isset($_REQUEST['is_admin']) )       $user_data['is_admin'] = (bool) $_REQUEST['is_admin'];
 
     // validate forum params
 
     $messageList = user_validate_form_profile($user_data, $user_id);
-
 
     if ( count($messageList) == 0 )
     {

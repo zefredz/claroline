@@ -444,7 +444,7 @@ function claro_user_info_get_main_user_info($user_id, $courseCode)
                     u.officialEmail  AS officialEmail,
                     u.pictureUri AS picture,
                     cu.role      AS role,
-                    cu.`statut`  AS `status`,
+                    cu.isCourseManager ,
                     cu.tutor     AS tutor
             FROM    `" . $tbl_user            . "` AS u,
                     `" . $tbl_rel_course_user . "` AS cu

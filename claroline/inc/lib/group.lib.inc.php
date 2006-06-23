@@ -298,7 +298,7 @@ function fill_in_groups($nbGroupPerUser, $course_id )
             LEFT JOIN  `" . $tbl_groupsUsers . "` AS ug
             ON    `ug`.`user`      = `cu`.`user_id`
             WHERE `cu`.`code_cours`='" . addslashes($course_id) . "'
-            AND   `cu`.`statut`    = 5 #no teacher
+            AND   `cu`.`isCourseManager`    = 0 #no teacher
             AND   `cu`.`tutor`     = 0 #no tutor
             GROUP BY (cu.user_id)
             HAVING tokenCount > 0
@@ -407,7 +407,7 @@ function group_count_students_in_course($course_id)
     $sql = "SELECT COUNT(user_id) AS qty
             FROM `" . $tbl_mdb_names['rel_course_user'] . "`
             WHERE  code_cours = '" . addslashes($course_id) . "'
-            AND    statut = 5 AND tutor = 0";
+            AND    isCourseManager = 0 AND tutor = 0";
 
     return claro_sql_query_get_single_value($sql);
 
