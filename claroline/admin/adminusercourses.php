@@ -111,10 +111,15 @@ foreach ($userCourseList as $courseKey => $course)
     $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
     $userCourseGrid[$courseKey]['name']      = '<a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name'].'</a>';
     $userCourseGrid[$courseKey]['titular'] = $course['titular'];
-    $userCourseGrid[$courseKey]['cuStatus'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
-    .                                         '<img src="' . $imgRepositoryWeb . $iconForCuStatus[$course['cuStatus']].'" alt="'.$course['cuStatus'].'" border="0" title="'.$course['cuStatus'].'" >'
-    .                                         '</a>'
-    ;
+
+    if ( $course['isCourseManager'] ) 
+    {
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist"><img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '"></a>';
+    }
+    else
+    {
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist"><img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('Student') . '" border="0" title="' . get_lang('User\'s course settings') . '"></a>';
+    }
 
     $userCourseGrid[$courseKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                       '?uidToEdit=' . $uidToEdit
@@ -139,13 +144,11 @@ $userCourseDataGrid->set_colTitleList(array (
 'officialCode'     => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code') . '</a>'
 ,'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Course title') . '</a>'
 ,'titular'  => '<a href="' . $sortUrlList['titular'] . '">' . get_lang('Course manager') . '</a>'
-,'cuStatus' => '<a href="' . $sortUrlList['cuStatus'] . '">' . get_lang('Role') . '</a>'
+,'isCourseManager' => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Role') . '</a>'
 ,'delete'   => get_lang('Unregister user')
 ));
 
-$userCourseDataGrid->set_caption('<img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('Student') . '" border="0" title="statut" >' . get_lang('Student')
-.                                '<img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0" title="statut" >' . get_lang('Course manager'));
-
+$userCourseDataGrid->set_caption('<img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('Student') . '" border="0" >' . get_lang('Student') . ' - <img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0">&nbsp;' . get_lang('Course manager'));
 
 if ( 0 == count($userCourseGrid)  )
 {
@@ -154,10 +157,10 @@ if ( 0 == count($userCourseGrid)  )
 else
 {
     $userCourseDataGrid->set_colAttributeList(array ( 'officialCode' => array ('align' => 'left')
-    , 'name'         => array ('align' => 'left')
-    , 'titular'      => array ('align' => 'left')
-    , 'cuStatus'     => array ('align' => 'center')
-    , 'delete'       => array ('align' => 'center')
+    , 'name'            => array ('align' => 'left')
+    , 'titular'         => array ('align' => 'left')
+    , 'isCourseManager' => array ('align' => 'center')
+    , 'delete'          => array ('align' => 'center')
     ));
 }
 
@@ -230,7 +233,7 @@ function prepare_sql_get_courses_of_a_user($userId=null)
                    `C`.`departmentUrl`     `extLinkUrl`,
                    `C`.`departmentUrlName` `extLinkName`,
                    `C`.`visible` `visible`,
-                   CU.isCourseManager
+                   `CU`.`isCourseManager`
             FROM `" . $tbl_course . "` AS C,
                  `" . $tbl_rel_course_user . "` AS CU
             WHERE CU.`code_cours` = C.`code`
