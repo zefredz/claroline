@@ -146,6 +146,11 @@ if($is_allowedToEdit) // for teacher only
     }
 }
 
+// XSS protection
+if (isset( $_REQUEST['cwd'] ) )
+{
+    $_REQUEST['cwd'] = strip_tags($_REQUEST['cwd']);
+}
 
 // clean information submited by the user from antislash
 
