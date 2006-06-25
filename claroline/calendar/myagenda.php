@@ -58,10 +58,10 @@ $userCourseList = claro_sql_query_fetch_all($sql);
 
 $today = getdate();
 
-if ( isset($_REQUEST['year']) ) $year = $_REQUEST['year' ];
+if ( isset($_REQUEST['year']) ) $year = (int) $_REQUEST['year' ];
 else                            $year = $today['year'];
 
-if( isset($_REQUEST['month']) ) $month = $_REQUEST['month'];
+if( isset($_REQUEST['month']) ) $month = (int) $_REQUEST['month'];
 else                            $month = $today['mon' ];
 
 $agendaItemList = get_agenda_items($userCourseList, $month, $year);
