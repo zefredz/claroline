@@ -139,7 +139,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
     }
     else // if $_REQUEST['uInfo'] is set
     {
-        if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
+        if( isset($_REQUEST['view']))   $view = preg_replace( '/[^01]/', '', $_REQUEST['view'] );
         else                            $view = "0000000";
         /***************************************************************************
         *
