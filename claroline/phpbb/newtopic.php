@@ -65,8 +65,14 @@ if ( isset( $_REQUEST['cancel'] ) )
 if ( isset($_REQUEST['subject']) ) $subject = $_REQUEST['subject'];
 else                               $subject = '';
 
+// XSS
+$subject = strip_tags( $subject );
+
 if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
 else                               $message = '';
+
+// XSS
+$message = preg_replace( '/(<script[^\>]*>|<\/script>|on[^=]+\s*=\s*"[^"]+")/i', '', $message );
 
 $forumSettingList = get_forum_settings($forum_id);
 
