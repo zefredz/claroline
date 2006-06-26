@@ -28,6 +28,23 @@ require_once $includePath . '/lib/fileUpload.lib.php';
 require_once $includePath . '/lib/html.lib.php';
 require_once $includePath . '/../admin/module/module.inc.php';
 
+//OLD TOOLS ;
+
+$old_tool_array = array('CLANN___',
+                        'CLCAL___', 
+                        'CLFRM___', 
+                        'CLCHT___', 
+                        'CLDOC___',
+                        'CLDSC___', 
+                        'CLUSR___',
+                        'CLLNP___', 
+                        'CLQWZ___', 
+                        'CLWRK___', 
+                        'CLWIKI__', 
+                        'CLLNK___', 
+                        'CLGRP___' 
+                        );
+
 //SQL table name
 
 $tbl_name        = claro_sql_get_main_tbl();
@@ -141,10 +158,18 @@ switch ( $cmd )
         break;
 
     case 'uninstall' :
-        $result_log = uninstall_module($module_id);
-        $dialogBox  = get_lang('Module uninstallation') . ' : <br>';
-        foreach ( $result_log as $log) $dialogBox .= $log . '<br>';
-
+    
+        $module_info = get_module_info($module_id);
+        if (in_array($module_info['label'], $old_tool_array))
+        {
+            $dialogBox  = get_lang('This tool can not be uninstalled.'); 
+        }
+        else
+        {
+            $result_log = uninstall_module($module_id);
+            $dialogBox  = get_lang('Module uninstallation') . ' : <br>';
+            foreach ( $result_log as $log) $dialogBox .= $log . '<br>';         
+        }
         break;
 
     case 'show_install' :
