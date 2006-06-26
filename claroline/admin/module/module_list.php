@@ -374,20 +374,25 @@ foreach($moduleList as $module)
 
     echo    '<td align="left" class="' . $class_css . '"><small>';
 
-    foreach ($module_dock[$module['id']] as $dock)
+    if ($module['type']!='tool')
     {
-        echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dock['dockname'] . '</a> <br/>';
-    }
 
-    if (empty($module_dock[$module['id']]))
-    {
-        echo '<div align="center">' . get_lang('No dock chosen') . '</div>';
-    }
+        foreach ($module_dock[$module['id']] as $dock)
+        {
+           echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dock['dockname'] . '</a> <br/>';
+        }
 
-    echo '</small></td>' . "\n"
-
-    .    '<td align="center" >'
-    ;
+        if (empty($module_dock[$module['id']]))
+        {
+            echo '<div align="center">' . get_lang('No dock chosen') . '</div>';
+        }
+   }
+   else
+   {
+        echo get_lang('Tool list');
+   }
+        
+   echo '</small></td>' . "\n".'<td align="center" >';
 
     //activation link
 
