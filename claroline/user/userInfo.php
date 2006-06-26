@@ -91,6 +91,8 @@ COMMANDS SECTION
 $displayMode = "viewContentList";
 $dialogBox = '';
 
+$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
+
 if ($allowedToEditDef)
 {
     if (isset($_REQUEST['submitDef']) && $_REQUEST['submitDef'])
@@ -138,13 +140,13 @@ if ($allowedToEditDef)
         $userIdViewed = (int) $_REQUEST['editMainUserInfo'];
         $displayMode = "viewMainInfoEdit";
     }
-    elseif (isset($_REQUEST['submitMainUserInfo']))
+    elseif ( $cmd == 'exUpdateCourseUserProperties' )
     {
         $userIdViewed = $_REQUEST['submitMainUserInfo'];
 
         //set variable for course manager or student status
 
-        if (isset($_REQUEST['promoteCourseAdmin']))
+        if (isset($_REQUEST['isCourseManager']))
         {
             $userProperties['isCourseManager'] = 1;
         }
@@ -155,7 +157,7 @@ if ($allowedToEditDef)
 
         //set variable for tutor setting
 
-        if (isset($_REQUEST['promoteTutor']))
+        if (isset($_REQUEST['isTutor']))
         {
             // check first the user isn't registered to a group yet
 
@@ -184,7 +186,7 @@ if ($allowedToEditDef)
 
         // apply changes in DB
 
-        if (($userIdViewed == $_uid) &&($userProperties['isCourseManager']))
+        if ( ($userIdViewed == $_uid) && $userProperties['isCourseManager'] )
         {
             //prevent teacher to let the course without any teacher
 
@@ -406,78 +408,24 @@ elseif ($displayMode =="viewMainInfoEdit")
 {
     /*>>>>>>>>>>>> CATEGORIES MAIN INFO : EDIT <<<<<<<<<<<<*/
 
-    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $course_id);
-
+    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
 
     if ($mainUserInfo)
     {
-    ($mainUserInfo['isCourseManager'] == 1) ? $courseAdminChecked = "checked" : $courseAdminChecked = '';
-    ($mainUserInfo['tutor' ] == 1) ? $tutorChecked       = "checked" : $tutorChecked       = '';
-
-
-    echo '<form action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'" method="post">' . "\n"
-    .    '<input type="hidden" name="submitMainUserInfo" value="'.$userIdViewed.'" />' . "\n"; 
-
-
-    echo '<table class="claroTable" cellpadding="3" cellspacing="0" border="0">' . "\n";
-
-    // User firstname and lastname
-    echo '<tr >' . "\n"
-    .    '<td align="right">' . get_lang('Name') . ' :</td>' . "\n"
-    .    '<td ><b>' . htmlspecialchars($mainUserInfo['firstName']) . ' ' . htmlspecialchars($mainUserInfo['lastName'])  . '</b></td>' . "\n"
-    .    '</tr>' . "\n" ; 
-    
-    echo '<tr >' . "\n"
-    .    '<td align="right">' . get_lang('Email') . ' :</td>' . "\n"
-    .    '<td><a href="mailto:'.$mainUserInfo['email'].'?subject=['.rawurlencode($siteName).'])['.urlencode($_course['officialCode']).']">'
-    .    $mainUserInfo['email'] . '</a></td>'
-    .    '</tr>' . "\n" ; 
-    
-    // User role label
-    echo '<tr >' . "\n"
-    .    '<td align="right"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label> :</td>' . "\n"
-    .    '<td ><input type="text" name="role" id="role" value="'. htmlspecialchars($mainUserInfo['role']) . '" maxlength="40" /></td>' . "\n"
-    .    '</tr>' . "\n" ;
-    
-    // User is tutor
-    echo '<tr >' . "\n"
-    .    '<td align="right"><label for="promoteTutor">' . get_lang('Group Tutor') . '</label> :</td>' . "\n"
-    .    '<td><input type="checkbox" name="promoteTutor" id="promoteTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n"
-    .    '</tr>' . "\n" ;
-
-
-    echo '<tr >' . "\n"
-    .    '<td align="right"><label for="promoteCourseAdmin">' . get_lang('Course manager') . '</label> :</td>' . "\n";
-    if ( $_uid == $userIdViewed && ! $is_platformAdmin )  // admin is allowed to edit himself status
-    {
-        echo '<td>' . get_lang('Course manager') . '</td>' . "\n" ;
-    }
-    else
-    {
-        echo '<td>' . '<input type="checkbox" name="promoteCourseAdmin"  id="promoteCourseAdmin" value="1" '.$courseAdminChecked.' /></td>' . "\n" ;
-    }
-    echo '</tr>' . "\n";
-
-    echo '<tr >' . "\n"
-    .    '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
-    .    '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
-                      . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
-    .    '</tr>' . "\n";
-
-    echo '</table>' . "\n"
-    .    '</form>' . "\n" ;
-
+        $hidden_param = array ( 'submitMainUserInfo' => $userIdViewed,
+                                'uInfo' => $userIdViewed);
+        echo course_user_html_form($mainUserInfo, $course_id, $userIdViewed, $hidden_param);
     }
 }
 elseif ($displayMode == "viewContentList") // default display
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : LIST <<<<<<<<<<<<*/
 
-    $mainUserInfo = claro_user_info_get_main_user_info($userIdViewed, $course_id);
+    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
 
     if ($mainUserInfo)
     {
-        $mainUserInfo['tutor'] = ($mainUserInfo['tutor'] == 1 ? get_lang('Group Tutor') : ' - ');
+        $mainUserInfo['tutor'] = ($mainUserInfo['isTutor'] == 1 ? get_lang('Group Tutor') : ' - ');
         $mainUserInfo['isCourseManager'] = ($mainUserInfo['isCourseManager'] == 1 ? get_lang('Course manager') : ' - ');
 
         if ($mainUserInfo['picture'] != '')

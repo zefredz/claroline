@@ -19,10 +19,8 @@
  *
  */
 
-define ('USER_SELECT_FORM', 1);
-define ('USER_DATA_FORM', 2);
-
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+
 require '../inc/claro_init_global.inc.php';
 
 // Security check
@@ -41,7 +39,6 @@ unset($_SESSION['userEdit']);
 
 
 // see which user we are working with ...
-$user_id   = $_REQUEST['uidToEdit'];
 $uidToEdit = $_REQUEST['uidToEdit'];
 $cidToEdit = $_REQUEST['cidToEdit'];
 
@@ -52,99 +49,48 @@ $cidToEdit = $_REQUEST['cidToEdit'];
 
 //Display "form and info" about the user
 
-$ccfrom = (isset($_REQUEST['ccfrom']) ? $_REQUEST['ccfrom'] : '' );
-$cfrom  = (isset($_REQUEST['cfrom'])  ? $_REQUEST['cfrom']  : '' );
+$ccfrom = isset($_REQUEST['ccfrom'])?$_REQUEST['ccfrom']:'';
+$cfrom  = isset($_REQUEST['cfrom'])?$_REQUEST['cfrom']:'';
 
-$cmd    = (isset($_REQUEST['cmd'])    ? $_REQUEST['cmd']    : null );
-$isCourseManager = (isset($_REQUEST['isCourseManager'])  ? (int) $_REQUEST['isCourseManager']  : null );
+$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null ;
 
 switch ($cmd)
 {
-    case 'changeStatus' :
+    case 'exUpdateCourseUserProperties' :
 
-        if ( $isCourseManager )
+        $properties['isCourseManager'] = isset($_REQUEST['isCourseManager'])?(int)$_REQUEST['isCourseManager']:null;
+        $properties['tutor'] = isset($_REQUEST['isTutor'])?(int)$_REQUEST['isTutor']:null;
+        
+        if ( $properties['isCourseManager'] )
         {
-            $properties['isCourseManager'] = 1;
-            $properties['role']   = get_lang('Course manager');
-            $properties['tutor']  = 1;
-            $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
-            $dialogBox = $done ?  get_lang('User is now course manager') : get_lang('No change applied');
+            $properties['role']  = get_lang('Course manager');
+            $dialogBox = get_lang('User is now course manager');
         }
         else
         {
-            $properties['isCourseManager'] = 0;
-            $properties['role']   = get_lang('Student');
-            $properties['tutor']  = 0;
-            $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
-            if ($done)
-            {
-                $dialogBox = get_lang('User is now student for this course');
-            }
-            else
-            {
-                $dialogBox = get_lang('No change applied');
-            }
+            $properties['role']  = get_lang('Student');
+            $dialogBox = get_lang('User is now student for this course');
+        }
+
+        $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
+
+        if ( ! $done )
+        {
+            $dialogBox = get_lang('No change applied');
         }
 
     break;
 }
 
 //------------------------------------
-//FIND GLOBAL INFO SECTION
+// FIND GLOBAL INFO SECTION
 //------------------------------------
 
-if(isset($user_id))
+if ( isset($uidToEdit) )
 {
-    // claro_get_user_data
-
-    $sqlGetInfoUser ="
-    SELECT user_id,
-           nom,
-           prenom,
-           username,
-           email,
-           phoneNumber
-        FROM  `" . $tbl_mdb_names['user'] . "`
-        WHERE user_id='". (int)$user_id . "'";
-    $result=claro_sql_query($sqlGetInfoUser);
-
-    //echo $sqlGetInfoUser;
-    $myrow          = mysql_fetch_array($result);
-    $user_id        = $myrow['user_id'];
-    $nom_form       = $myrow['nom'];
-    $prenom_form    = $myrow['prenom'];
-    $username_form  = $myrow['username'];
-    $email_form     = $myrow['email'];
-    $userphone_form = $myrow['phoneNumber'];
-    // end of claro_get_user_data
-
-
-    $display = USER_DATA_FORM;
-
-    $courseData = claro_get_course_data($cidToEdit);
-
-
-
-    // claro_get_course_user_data
-    // find course user settings, must see if the user is teacher for the course
-    $sql = 'SELECT * 
-            FROM `' . $tbl_mdb_names['rel_course_user'] . '`
-            WHERE user_id="' . (int)$uidToEdit . '"
-            AND code_cours="' . addslashes($cidToEdit) . '"';
-    $resultCourseUser = claro_sql_query($sql);
-    $list = mysql_fetch_array($resultCourseUser);
-
-    if ($list['isCourseManager'] == '1')
-    {
-       $isCourseManager = true;
-    }
-    else
-    {
-       $isCourseManager = false;
-    }
-    // end of claro_get_course_user_data
+    // get course user info 
+    $courseUserProperties = course_user_get_properties($uidToEdit, $cidToEdit);
 }
-
 
 //------------------------------------
 // PREPARE DISPLAY
@@ -177,12 +123,11 @@ elseif ('uclist'== $ccfrom)//coming from usercourse list
     $displayBackToUC = TRUE;
 }
 
-
 $cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
 .             '?cidToEdit=' . $cidToEdit
 .             '&amp;cmd=UnReg'
-.             '&amp;uidToEdit=' . $user_id . '" '
-.             ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript($prenom_form . ' ' . $nom_form) . '\');">'
+.             '&amp;uidToEdit=' . $uidToEdit . '" '
+.             ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript(htmlspecialchars($courseUserProperties['firstName']) . ' ' . htmlspecialchars($courseUserProperties['lastName'])) . '\');">'
 .             get_lang('Unsubscribe')
 .             '</a>'
 ;
@@ -214,9 +159,6 @@ elseif ( $displayBackToUC )//coming from usercourse list
     ;
 }
 
-
-
-
 //------------------------------------
 // DISPLAY
 //------------------------------------
@@ -227,45 +169,30 @@ include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title( array( 'mainTitle' =>$nameTools
                                  , 'subTitle' => get_lang('Course') . ' : '
-                                              .  $courseData['name']
+                                              .  htmlspecialchars($courseUserProperties['courseName'])
                                               .  '<br />'
                                               .  get_lang('User') . ' : '
-                                              .  $prenom_form
+                                              .  htmlspecialchars($courseUserProperties['firstName'])
                                               .  ' '
-                                              .  $nom_form
+                                              .  htmlspecialchars($courseUserProperties['lastName'])
                                  )
                           );
 
 //Display Forms or dialog box(if needed)
 
-if(isset($dialogBox))
+if ( isset($dialogBox) )
 {
     echo claro_html_message_box($dialogBox);
 }
 
-echo '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '" class="claroTableForm" >' . "\n"
-.    '<table width="100%" >' . "\n"
-.    '<tr>' . "\n"
-.    '<td>' . "\n"
-.    get_lang('Status') . "\n"
-.    ' : </td>' . "\n"
-.    '<td>' . "\n"
-.    '<input type="radio" name="isCourseManager" value="0" id="status_form_student" ' . (!$isCourseManager ? 'checked' : '' ) . ' />' . "\n"
-.    '<label for="status_form_student">' . get_lang('Student') . '</label>'               . "\n"
-.    '<input type="radio" name="isCourseManager" value="1" id="status_form_teacher" ' . ($isCourseManager ? 'checked' : '') . ' />' . "\n"
-.    '<label for="status_form_teacher">' . get_lang('Course manager') . '</label>'        . "\n"
-.    '<input type="hidden" name="uidToEdit" value="' . $user_id . '" />'                  . "\n"
-.    '<input type="hidden" name="cidToEdit" value="' . $cidToEdit . '" />'                . "\n"
-.    '<input type="submit" name="applyChange" value="' . get_lang('Save changes') . '" />' . "\n"
-.    '<input type="hidden" name="cmd"    value="changeStatus" / >'                        . "\n"
-.    '<input type="hidden" name="cfrom"  value="' . $cfrom .  '" />'                      . "\n"
-.    '<input type="hidden" name="ccfrom" value="' . $ccfrom . '" />'                      . "\n"
-.    '</td>'    . "\n"
-.    '</tr>'    . "\n"
-.    '</table>' . "\n"
-.    '</form>'  . "\n"
-.    claro_html_menu_horizontal($cmd_menu)
-;
+$hidden_param = array( 'uidToEdit' => $uidToEdit,
+                       'cidToEdit' => $cidToEdit,
+                       'cfrom' => $cfrom,
+                       'ccfrom' => $ccfrom);
+
+echo course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $hidden_param );
+
+echo claro_html_menu_horizontal($cmd_menu) ;
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

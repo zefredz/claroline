@@ -444,4 +444,125 @@ function user_send_enroll_to_course_mail($userId, $data, $course=null)
     }
 }
 
+/**
+ * get the main user information
+ * @param  integer $user_id user id as stored in the claroline main db
+ * @return array   containing user info as 'lastName', 'firstName'
+ *           'email', 'role'
+ */
+
+function course_user_get_properties($userId, $courseId)
+{
+    if (0 == (int) $userId)
+    {
+        return false;
+    }
+
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_user            = $tbl_mdb_names['user'];
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+    $tbl_course          = $tbl_mdb_names['course'];
+
+    $sql = "SELECT  u.nom        AS lastName,
+                    u.prenom     AS firstName,
+                    u.email      AS email,
+                    u.officialEmail  AS officialEmail,
+                    u.pictureUri AS picture,
+                    cu.role      AS role,
+                    cu.isCourseManager ,
+                    cu.tutor     AS isTutor,
+                    c.intitule   AS courseName
+            FROM    `" . $tbl_user            . "` AS u,
+                    `" . $tbl_rel_course_user . "` AS cu,
+                    `" . $tbl_course . "` AS c
+            WHERE   u.user_id = cu.user_id
+            AND     u.user_id = " . (int) $userId . "
+            AND     cu.code_cours = '" . addslashes($courseId) . "'
+            AND     c.code = cu.code_cours ";
+
+    $result = claro_sql_query($sql);
+
+    if (mysql_num_rows($result) > 0)
+    {
+        $userInfo = mysql_fetch_array($result, MYSQL_ASSOC);
+        return $userInfo;
+    }
+
+    return false;
+}
+
+/**
+ * Display form to edit course user properties
+ * @author Mathieu Laurent <laurent@cerdecam.be>
+ * @param $data array to fill the form
+ */
+
+function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null )
+{
+    global $_course, $_cid;
+    global $_uid, $is_platformAdmin;
+
+    ($data['isCourseManager'] == 1) ? $courseManagerChecked = "checked" : $courseManagerChecked = '';
+    ($data['isTutor'] == 1) ? $tutorChecked = "checked" : $tutorChecked = '';    
+
+    $form = '';
+
+    $form .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+          .  '<input type="hidden" name="cmd" value="exUpdateCourseUserProperties" />' . "\n"; 
+
+    if ( ! is_null($hiddenParam) && is_array($hiddenParam) )
+    {
+        foreach ( $hiddenParam as $name => $value )
+        {
+            $form .= '<input type="hidden" name="'. htmlspecialchars($name) .'" value="'. htmlspecialchars($value).'" />' . "\n";
+        }
+    }
+
+    $form.=  '<table class="claroTable" cellpadding="3" cellspacing="0" border="0">' . "\n";
+
+    // User firstname and lastname
+    $form .= '<tr >' . "\n"
+          .  '<td align="right">' . get_lang('Name') . ' :</td>' . "\n"
+          .  '<td ><b>' . htmlspecialchars($data['firstName']) . ' ' . htmlspecialchars($data['lastName'])  . '</b></td>' . "\n"
+          .  '</tr>' . "\n" ; 
+    
+    // User role label
+    $form .= '<tr >' . "\n"
+          .  '<td align="right"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label> :</td>' . "\n"
+          .  '<td ><input type="text" name="role" id="role" value="'. htmlspecialchars($data['role']) . '" maxlength="40" /></td>' . "\n"
+          .  '</tr>' . "\n" ;
+    
+    // User is tutor
+    $form .= '<tr >' . "\n"
+          .  '<td align="right"><label for="isTutor">' . get_lang('Group Tutor') . '</label> :</td>' . "\n"
+          .  '<td><input type="checkbox" name="isTutor" id="isTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n"
+          .  '</tr>' . "\n" ;
+
+
+    $form .= '<tr >' . "\n"
+          .  '<td align="right"><label for="isCourseManager">' . get_lang('Course manager') . '</label> :</td>' . "\n";
+    
+
+    if ( $_uid == $userId && ! $is_platformAdmin )  // admin is allowed to edit himself status
+    {
+        $form .= '<td>' . get_lang('Course manager') . '</td>' . "\n" ;
+    }
+    else
+    {
+        $form .= '<td>' . '<input type="checkbox" name="isCourseManager"  id="isCourseManager" value="1" '.$courseManagerChecked.' /></td>' . "\n" ;
+    }
+    $form .= '</tr>' . "\n";
+
+    $form .= '<tr >' . "\n"
+          .  '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
+          .  '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
+                      . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+          .  '</tr>' . "\n";
+
+    $form .= '</table>' . "\n"
+          .  '</form>' . "\n" ;
+
+    return $form;
+}
+
 ?>

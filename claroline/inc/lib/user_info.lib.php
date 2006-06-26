@@ -421,49 +421,6 @@ function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
 }
 
 /**
- * get the main user information
- * @param  integer $user_id user id as stored in the claroline main db
- * @return array   containing user info as 'lastName', 'firstName'
- *           'email', 'role'
- */
-
-function claro_user_info_get_main_user_info($user_id, $courseCode)
-{
-    if (0 == (int) $user_id)
-    {
-        return false;
-    }
-
-    $tbl_mdb_names       = claro_sql_get_main_tbl();
-    $tbl_user            = $tbl_mdb_names['user'  ];
-    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
-
-    $sql = "SELECT  u.nom        AS lastName,
-                    u.prenom     AS firstName,
-                    u.email      AS email,
-                    u.officialEmail  AS officialEmail,
-                    u.pictureUri AS picture,
-                    cu.role      AS role,
-                    cu.isCourseManager ,
-                    cu.tutor     AS tutor
-            FROM    `" . $tbl_user            . "` AS u,
-                    `" . $tbl_rel_course_user . "` AS cu
-            WHERE   u.user_id = cu.user_id
-            AND     u.user_id = " . (int) $user_id . "
-            AND     cu.code_cours = '" . addslashes($courseCode) . "'";
-
-    $result = claro_sql_query($sql);
-
-    if (mysql_num_rows($result) > 0)
-    {
-        $userInfo = mysql_fetch_array($result, MYSQL_ASSOC);
-        return $userInfo;
-    }
-
-    return false;
-}
-
-/**
  * get the user content of a categories plus the categories definition
  * @param  integer $userId id of the user
  * @param  integer $catId  id of the categories
