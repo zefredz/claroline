@@ -29,8 +29,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/course_user.lib.php';
 
 include($includePath . '/conf/user_profile.conf.php'); // find this file to modify values.
 

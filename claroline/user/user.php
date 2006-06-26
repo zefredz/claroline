@@ -34,6 +34,7 @@ claro_set_display_mode_available(true);
 
 require_once $includePath  . '/lib/admin.lib.inc.php';
 require_once $includePath  . '/lib/user.lib.php';
+require_once $includePath  . '/lib/course_user.lib.php';
 require_once $includePath  . '/lib/pager.lib.php';
 
 /*----------------------------------------------------------------------

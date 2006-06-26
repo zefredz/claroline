@@ -24,8 +24,7 @@ $cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 include_once $includePath . '/lib/pager.lib.php';
-include_once $includePath . '/lib/admin.lib.inc.php';
-include_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/lib/course_user.lib.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();

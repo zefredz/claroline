@@ -108,6 +108,8 @@ function class_set_properties ( $classId, $className, $parentId = 0 )
 
 function delete_class($class_id)
 {
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+
     $tbl_mdb_names      = claro_sql_get_main_tbl();
     $tbl_user           = $tbl_mdb_names['user'];
     $tbl_class_user     = $tbl_mdb_names['rel_class_user'];
@@ -197,7 +199,7 @@ function delete_class($class_id)
  * @param  int class_id_towards, id of the parent destination class
  *
  * @return true if everything is good or an error string 
-**/  
+ **/  
 
 function move_class($class_id, $class_id_towards)
 {
@@ -276,6 +278,8 @@ function move_class($class_id, $class_id_towards)
 
 function register_class_to_course($class_id, $course_code)
 {
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_class        = $tbl_mdb_names['class'];
     $tbl_class_user   = $tbl_mdb_names['rel_class_user'];
@@ -396,6 +400,7 @@ function register_class_to_course($class_id, $course_code)
 
 function unregister_class_to_course($class_id, $course_code)
 {
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
 
 	$tbl_mdb_names  	= claro_sql_get_main_tbl();
     $tbl_user       	= $tbl_mdb_names['user'];
@@ -482,6 +487,8 @@ function unregister_class_to_course($class_id, $course_code)
 
 function user_add_to_class($user_id,$class_id)
 {
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+
     $user_id  = (int)$user_id;
     $class_id = (int)$class_id;
 
@@ -574,6 +581,9 @@ function user_add_to_class($user_id,$class_id)
   	 
 function user_remove_to_class($user_id,$class_id)
 {
+    require_once $GLOBALS['includePath'] . '/lib/user.lib.php' ;
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+
     $user_id  = (int)$user_id;
   	$class_id = (int)$class_id;
   	 
@@ -736,7 +746,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 $open_close_link = ' &deg; ';
             }
 
-            //DISPLAY CURRENT ELEMENT (CLASS)
+            // DISPLAY CURRENT ELEMENT (CLASS)
 
             //Name
             $qty_user = get_class_user_number($cur_class['id']);
@@ -787,7 +797,6 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
     }
 
     return $html_form ;
-
 }
 
 /**

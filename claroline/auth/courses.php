@@ -15,6 +15,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
+
 require $includePath.'/lib/courselist.lib.php';
 
 $nameTools  = get_lang('User\'s course');
@@ -30,8 +31,8 @@ if ( ! $_uid ) claro_disp_auth_form();
 Include Files and initialize variables
 ---------------------------------------------------------------------*/
 
-require $includePath . '/lib/admin.lib.inc.php';
 require $includePath . '/lib/user.lib.php';
+require $includePath . '/lib/course_user.lib.php';
 require $includePath . '/lib/class.lib.php';
 require $includePath . '/conf/user_profile.conf.php';
 

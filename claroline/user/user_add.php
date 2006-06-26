@@ -27,6 +27,7 @@ include $includePath . '/conf/user_profile.conf.php';
 
 // include libraries
 require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/course_user.lib.php';
 require_once $includePath . '/lib/sendmail.lib.php';
 
 // Initialise variables

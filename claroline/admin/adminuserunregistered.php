@@ -20,8 +20,7 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/course_user.lib.php';
 
 include $includePath . '/conf/user_profile.conf.php';
 

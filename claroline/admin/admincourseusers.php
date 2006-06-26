@@ -35,8 +35,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $dialogBox = '';
 // initialisation of global variables and used libraries
 require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/course_user.lib.php';
 
 include $includePath . '/conf/user_profile.conf.php';
 

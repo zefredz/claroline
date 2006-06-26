@@ -22,10 +22,10 @@
 require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/course_user.lib.php' ;
 require_once $includePath . '/lib/import_csv.lib.php';
 
 include $includePath . '/conf/user_profile.conf.php';
-
 
 /*
 * See in which context of user we are and check WHO is using the tool,there are 3 possibilities :
