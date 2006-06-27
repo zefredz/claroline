@@ -38,6 +38,7 @@ if ( ! $is_allowedCreateCourse ) claro_die(get_lang('Not allowed'));
 include $includePath . '/conf/course_main.conf.php';
 require_once $includePath . '/lib/add_course.lib.inc.php';
 require_once $includePath . '/lib/course.lib.inc.php';
+require_once $includePath . '/lib/course_user.lib.php';
 require_once $includePath . '/lib/user.lib.php'; // for claro_get_uid_of_platform_admin()
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/form.lib.php';
