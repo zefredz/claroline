@@ -60,15 +60,14 @@ switch ($cmd)
 
         $properties['isCourseManager'] = isset($_REQUEST['isCourseManager'])?(int)$_REQUEST['isCourseManager']:null;
         $properties['tutor'] = isset($_REQUEST['isTutor'])?(int)$_REQUEST['isTutor']:null;
+        $properties['role']  = isset($_REQUEST['role'])?trim($_REQUEST['role']):null;
         
         if ( $properties['isCourseManager'] )
         {
-            $properties['role']  = get_lang('Course manager');
             $dialogBox = get_lang('User is now course manager');
         }
         else
         {
-            $properties['role']  = get_lang('Student');
             $dialogBox = get_lang('User is now student for this course');
         }
 
