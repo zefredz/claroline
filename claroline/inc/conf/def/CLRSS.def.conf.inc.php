@@ -26,39 +26,54 @@ $conf_def['config_class'] = 'kernel';
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
 $conf_def['section']['main']['properties'] =
-array ( 'enable_rss_in_course'
+array ( 'enableRssInCourse'
       , 'rssRepositoryCache'
-      , 'use_rss_cache'
+      , 'rssUseCache'
+      , 'rssCacheLifeTime'
       );
 
 //PROPERTIES
 
-$conf_def_property_list['enable_rss_in_course'] =
-array ('label'         => 'Enable RSS in course'
-      , 'description'  => ''
-      ,'default'       => 'TRUE'
-      ,'type'          => 'boolean'
+$conf_def_property_list['enableRssInCourse'] =
+array ('label'          => 'Enable RSS in course'
+      , 'description'   => ''
+      ,'default'        => 'TRUE'
+      ,'type'           => 'boolean'
       , 'readonly'      => FALSE
       , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
 
       );
 
 $conf_def_property_list['rssRepositoryCache'] =
-array ('label'         => 'Where place rss files.'
+array ('label'         => 'Where place RSS files.'
       , 'description'  => 'Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.'
       ,'default'       => 'tmp/cache/rss/'
       ,'type'          => 'relpath'
       );
 
-$conf_def_property_list['use_rss_cache'] =
-array ('label'         => 'Use the cache'
-      , 'description'  => 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.'
-      ,'default'       => 'TRUE'
-      ,'type'          => 'boolean'
+$conf_def_property_list['rssUseCache'] =
+array (
+        'label'         => 'Use the cache'
+      , 'description'   => 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.'
+      , 'default'       => 'TRUE'
+      ,'type'           => 'boolean'
       , 'readonly'      => FALSE
       , 'acceptedValue' => array('TRUE'=>'Use it, and build  on change', 'FALSE' => 'rebuild file on each request')
+      , 'oldName' => 'use_rss_cache'
+      );
 
+$conf_def_property_list['rssCacheLifeTime'] =
+array (
+        'label'         => 'Life time of cache'
+      , 'description'   => 'time before really compute data. 86400 = 1 day.'
+      , 'default'       => '86400'
+      , 'type'          => 'integer'
+      , 'unit'          => 'seconds'
+      , 'display'       => true
+      , 'readonly'      => FALSE
+      , 'acceptedValue' => array('min'=> '360', 'max' => '8640000')
+      , 'oldName'       => 'use_rss_cache'
       );
 
 ?>
