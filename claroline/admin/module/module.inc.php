@@ -52,7 +52,7 @@ function get_installed_module_list($type = null)
 function get_module_repositories()
 {
 
-    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
+    $moduleRepositorySys = get_conf('rootSys') . 'module/';
     $folder_array = array();
     if(file_exists($moduleRepositorySys))
     {
@@ -93,7 +93,7 @@ function check_module_repositories()
     foreach ($registredModuleList as $registredModule)
     {
         $moduleData = get_module_data($registredModule);
-        $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
+        $moduleRepositorySys = get_conf('rootSys') . 'module/';
         $moduleEntry = realpath($moduleRepositorySys . $registredModule . $moduleData['entry']);
 
         if(!file_exists($moduleEntry))
@@ -154,9 +154,9 @@ function activate_module($moduleId)
 
         $sql = "SELECT MAX(def_rank) as maxrank FROM `".$tbl['tool']."`";
         $maxresult = claro_sql_query_get_single_row($sql);
-    
+
             //insert the new course tool
-    
+
         $module_info['label'] = str_pad($module_info['label'],8,'_');
 
         $trimlabel = rtrim($module_info['label'],'_');
@@ -172,9 +172,9 @@ function activate_module($moduleId)
                 access_manager = 'COURSE_ADMIN'
             ";
         $tool_id = claro_sql_query_insert_id($sql);
-    
+
     //4- update every course tool list to add the tool if it is a tool
-    
+
         $module_type = $module_info['type'];
 
         $sql = "SELECT `code` FROM `".$tbl['course']."`";
@@ -233,7 +233,7 @@ function deactivate_module($moduleId)
     {
 
     //2- delete the module in the cours_tool table, used for every course creation
-    
+
         $module_info['label'] = str_pad($module_info['label'],8,'_');
 
         //retrieve thsi module_id first
@@ -246,15 +246,15 @@ function deactivate_module($moduleId)
         $sql = "DELETE FROM `" . $tbl['tool']."`
                 WHERE claro_label = '".$module_info['label']."'
             ";
-        
+
         claro_sql_query($sql);
-    
+
     //3- update every course tool list to add the tool if it is a tool
 
         $sql = "SELECT `code` FROM `".$tbl['course']."`";
         $course_list = claro_sql_query_fetch_all($sql);
 
-    
+
         foreach ($course_list as $course)
         {
             $currentCourseDbNameGlu = claro_get_course_db_name_glued($course['code']);
@@ -497,7 +497,7 @@ function get_and_unzip_uploaded_package()
     include_once (realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php');
     //unzip files
 
-    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
+    $moduleRepositorySys = get_conf('rootSys') . 'module/';
     //create temp dir for upload
     claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
     $uploadDirFullPath = tempdir($moduleRepositorySys);
@@ -837,7 +837,7 @@ function elementData($parser,$data)
             $parent = prev($element_pile);
             switch ($parent)
             {
-            
+
                 case 'MODULE':
                     {
                         $module_info['NAME'] = $data;
@@ -970,7 +970,7 @@ function generate_module_cache()
     fwrite($handle, '<?php //auto created by claroline '."\n");
     fwrite($handle, 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n");
 
-    $moduleRepositorySys = get_conf('rootSys') . get_conf('moduleRepository','module/');
+    $moduleRepositorySys = get_conf('rootSys') . 'module/';
     foreach($module_list as $module)
     {
         if (file_exists(get_module_path($module['label']) . '/functions.php'))

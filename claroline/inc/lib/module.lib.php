@@ -221,25 +221,27 @@ function claro_disable_module($tool_id, $course_id)
 
 function get_module_path($toolLabel)
 {
+
+    $toolLabel = rtrim($toolLabel,'_'); // keep this line until  all claro_label
     switch ($toolLabel)
     {
-        case 'CLANN___' : return get_conf('clarolineRepositorySys') . 'announcements';
-        case 'CLCAL___' : return get_conf('clarolineRepositorySys') . 'calendar';
-        case 'CLFRM___' : return get_conf('clarolineRepositorySys') . 'phpbb';
-        case 'CLCHT___' : return get_conf('clarolineRepositorySys') . 'chat';
-        case 'CLDOC___' : return get_conf('clarolineRepositorySys') . 'document';
-        case 'CLDSC___' : return get_conf('clarolineRepositorySys') . 'course_description';
-        case 'CLUSR___' : return get_conf('clarolineRepositorySys') . 'user';
-        case 'CLLNP___' : return get_conf('clarolineRepositorySys') . 'learnPath';
-        case 'CLQWZ___' : return get_conf('clarolineRepositorySys') . 'exercise';
-        case 'CLWRK___' : return get_conf('clarolineRepositorySys') . 'work';
-        case 'CLWIKI__' : return get_conf('clarolineRepositorySys') . 'wiki';
-        case 'CLLNK___' : return get_conf('clarolineRepositorySys') . 'linker';
-        case 'CLGRP___' : return '';
-        default: return get_conf('rootSys') . get_conf('moduleRepository','module/') . rtrim($toolLabel,'_');
+        case 'CLANN' : return get_conf('clarolineRepositorySys') . 'announcements';
+        case 'CLCAL' : return get_conf('clarolineRepositorySys') . 'calendar';
+        case 'CLFRM' : return get_conf('clarolineRepositorySys') . 'phpbb';
+        case 'CLCHT' : return get_conf('clarolineRepositorySys') . 'chat';
+        case 'CLDOC' : return get_conf('clarolineRepositorySys') . 'document';
+        case 'CLDSC' : return get_conf('clarolineRepositorySys') . 'course_description';
+        case 'CLUSR' : return get_conf('clarolineRepositorySys') . 'user';
+        case 'CLLNP' : return get_conf('clarolineRepositorySys') . 'learnPath';
+        case 'CLQWZ' : return get_conf('clarolineRepositorySys') . 'exercise';
+        case 'CLWRK' : return get_conf('clarolineRepositorySys') . 'work';
+        case 'CLWIKI' : return get_conf('clarolineRepositorySys') . 'wiki';
+        case 'CLLNK' : return get_conf('clarolineRepositorySys') . 'linker';
+        case 'CLGRP' : return get_conf('clarolineRepositorySys') . 'group';
+        case 'CLSTAT' : return get_conf('clarolineRepositorySys') . 'tracking';
+        default: return get_conf('rootSys') . 'module/' . rtrim($toolLabel,'_');
     }
     return '';
-
 }
 
 /**
@@ -267,7 +269,7 @@ function get_module_url($toolLabel)
         case 'CLLNK___' : return get_conf('clarolineRepositoryWeb') . 'linker';
         case 'CLWIKI__' : return get_conf('clarolineRepositoryWeb') . 'wiki';
         case 'CLGRP___' : return '';
-        default: return get_conf('rootWeb') . get_conf('moduleRepository','module/') . rtrim($toolLabel,'_');
+        default: return get_conf('rootWeb') . 'module/' . rtrim($toolLabel,'_');
     }
     return '';
 
@@ -284,7 +286,7 @@ function get_module_db_dependance($toolId)
 {
     // actual place of this info prom module
 
-    $dbconfFile = get_conf('moduleRepository', get_conf('clarolineRepositorySys').'/module/') . $toolId . '/connector/db.conf.php';
+    $dbconfFile = get_module_path($toolId) . '/connector/db.conf.php';
     if (file_exists($dbconfFile))
     {
         $contextDbSupport =false;
