@@ -79,6 +79,10 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.javascript.php";
     require_once "lib/lib.wikidisplay.php";
+    
+    // PHP 5 to PHP 4 compatibility library
+    // file_put_contents
+    require_once "lib/lib.compat.php";
 
     // filter request variables
 
