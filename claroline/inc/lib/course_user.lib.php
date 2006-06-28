@@ -73,9 +73,14 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             if ( ! $register_by_class )  $count_user_enrol = 1;
             else                         $count_class_enrol = 1;
 
+            // TODO 
+            if ( $admin ) $profileId = claro_get_profile_id('Manager');
+            else          $profileId = claro_get_profile_id('User');            
+
             $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                     SET code_cours = '" . addslashes($courseCode) . "',
                         user_id    = " . (int) $userId . ",
+                        profile_id = " . (int) $profileId . ",
                         isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
                         tutor  = " . (int) ($tutor ? 1 : 0) . ",
                         count_user_enrol = " . $count_user_enrol . ",
@@ -316,7 +321,7 @@ function user_delete_course_tracking_data($userId, $courseId)
  *
  * @param $userId       integer user ID from the course_user table
  * @param $courseId     string course code from the cours table
- * @param $propertyList array should contain 'role', 'isCourseManager', 'tutor'
+ * @param $propertyList array should contain 'role', 'profileId', 'isCOurseManager', 'tutor'
  *
  * @return boolean TRUE if update succeed, FALSE otherwise.
  */
@@ -326,6 +331,19 @@ function user_set_course_properties($userId, $courseId, $propertyList)
     $tbl = claro_sql_get_main_tbl();
 
     $setList = array();
+
+    if ( array_key_exists('isCourseManager', $propertyList) )
+    {
+        if ( $propertyList['isCourseManager'] ) $propertyList['profileId'] = claro_get_profile_id('Manager') ;
+    }
+    
+    if ( array_key_exists('profileId', $propertyList) )
+    {
+        $setList[] = "profile_id = '" . (int) $propertyList['profileId'] . "'";
+
+        if ( $propertyList['profileId'] == claro_get_profile_id('Manager') ) $propertyList['isCourseManager'] = 1 ;
+        else                                                                 $propertyList['isCourseManager'] = 0 ;
+    }
 
     if ( array_key_exists('isCourseManager', $propertyList) )
     {
@@ -343,7 +361,7 @@ function user_set_course_properties($userId, $courseId, $propertyList)
     {
         $setList[] = "role = '" . addslashes($propertyList['role']) . "'";
     }
-
+    
     if ( count($setList) > 0 )
     {
         $sql = "UPDATE `" . $tbl['rel_course_user'] . "`
@@ -375,7 +393,6 @@ function user_set_course_manager($status, $userId, $courseId)
 {
     return user_set_course_properties($userId, $courseId,
     array('isCourseManager' => $status));
-
 }
 
 /**
@@ -468,6 +485,7 @@ function course_user_get_properties($userId, $courseId)
                     u.email      AS email,
                     u.officialEmail  AS officialEmail,
                     u.pictureUri AS picture,
+                    cu.profile_id AS profileId,
                     cu.role      AS role,
                     cu.isCourseManager ,
                     cu.tutor     AS isTutor,
@@ -502,8 +520,9 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     global $_course, $_cid;
     global $_uid, $is_platformAdmin;
 
-    ($data['isCourseManager'] == 1) ? $courseManagerChecked = "checked" : $courseManagerChecked = '';
-    ($data['isTutor'] == 1) ? $tutorChecked = "checked" : $tutorChecked = '';    
+    $courseManagerChecked = $data['isCourseManager'] == 1 ? 'checked="checked"':'';
+    $tutorChecked = $data['isTutor'] == 1 ? 'checked="checked"':'';
+    $selectedProfileId = isset($data['profileId'])?(int)$data['profileId']:0;
 
     $form = '';
 
@@ -526,6 +545,25 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
           .  '<td ><b>' . htmlspecialchars($data['firstName']) . ' ' . htmlspecialchars($data['lastName'])  . '</b></td>' . "\n"
           .  '</tr>' . "\n" ; 
     
+    // Profile select box
+
+    $profileList = claro_get_all_profile_name_list ();
+
+    $form .= '<tr >' . "\n"
+          .  '<td align="right"><label for="profileId">' . get_lang('Profile') . ' :</label></td>' . "\n"
+          .  '<td ><select name="profileId" id="profileId">' ;
+
+    foreach ( $profileList as $id => $name )
+    {
+        if ( $name != 'Anonymous' )
+        {
+            $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . $name . '</option>' . "\n" ;
+        }
+    }
+
+    $form .= '</select></td>' . "\n"
+          .  '</tr>' . "\n" ; 
+
     // User role label
     $form .= '<tr >' . "\n"
           .  '<td align="right"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label> :</td>' . "\n"
@@ -537,21 +575,6 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
           .  '<td align="right"><label for="isTutor">' . get_lang('Group Tutor') . '</label> :</td>' . "\n"
           .  '<td><input type="checkbox" name="isTutor" id="isTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n"
           .  '</tr>' . "\n" ;
-
-
-    $form .= '<tr >' . "\n"
-          .  '<td align="right"><label for="isCourseManager">' . get_lang('Course manager') . '</label> :</td>' . "\n";
-    
-
-    if ( $_uid == $userId && ! $is_platformAdmin )  // admin is allowed to edit himself status
-    {
-        $form .= '<td>' . get_lang('Course manager') . '</td>' . "\n" ;
-    }
-    else
-    {
-        $form .= '<td>' . '<input type="checkbox" name="isCourseManager"  id="isCourseManager" value="1" '.$courseManagerChecked.' /></td>' . "\n" ;
-    }
-    $form .= '</tr>' . "\n";
 
     $form .= '<tr >' . "\n"
           .  '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
