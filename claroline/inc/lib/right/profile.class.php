@@ -348,6 +348,17 @@ class RightProfile
     {
         return $this->description;
     }
+    
+    /**
+     * Get required status
+     *
+     * @return boolean
+     */
+
+    function isRequired()
+    {
+        return (bool) $this->isRequired;
+    }
 
     /**
      * Get locked status
@@ -512,9 +523,18 @@ class RightProfile
         // Display name
         $form .= '
             <tr valign="top">
-            <td align="right"><label for="name">' . get_lang('Name') . ' :</label></td>
-            <td><input type="text" id="name" name="name" value="' . $this->name . '"/></td>
-            </tr>';
+            <td align="right"><label for="name">' . get_lang('Name') . ' :</label></td>' ;
+
+        if ( $this->isRequired() )
+        {
+            $form .= '<td>' . htmlspecialchars($this->name) . '</td>';
+        }
+        else
+        {
+            $form .= '<td><input type="text" id="name" name="name" value="' . $this->name . '"/></td>';
+        }
+
+        $form .= '</tr>';
 
         // Display description
         $form .= '
