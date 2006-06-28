@@ -91,16 +91,16 @@ function startElement($parser,$name,$attributes)
         case "MANIFEST" :
             if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['manifest'] = $attributes['XML:BASE'];
             break;
-        case 'RESOURCES' :
+        case "RESOURCES" :
             if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
-            $flagTag['type'] == 'resources';
+            $flagTag['type'] == "resources";
             break;
-        case 'RESOURCE' :
+        case "RESOURCE" :
             if ( isset($attributes['ADLCP:SCORMTYPE']) && $attributes['ADLCP:SCORMTYPE'] == 'sco' )
             {
                 if (isset($attributes['HREF'])) $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
                 if (isset($attributes['XML:BASE'])) $manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
-                $flagTag['type'] = 'sco';
+                $flagTag['type'] = "sco";
                 $flagTag['value'] = $attributes['IDENTIFIER'];
             }
             elseif(isset($attributes['ADLCP:SCORMTYPE'])&& $attributes['ADLCP:SCORMTYPE'] == 'asset' )
@@ -278,59 +278,29 @@ function elementData($parser,$data)
                 xml_set_character_data_handler($xml_parser, "elementData");
 
                 $file = $data; //url of secondary manifest files is relative to the position of the base imsmanifest.xml
-
-                // PHP extraction of zip file using zlib
+				
+				// PHP extraction of zip file using zlib
                 $unzippingState = $zipFile->extract(PCLZIP_OPT_BY_NAME,$pathToManifest.$file, PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
-                if ( !($fp = @fopen($file, "r")) )
-                {
-                    $errorFound = true;
-                    array_push ($errorMsgs, get_lang('Cannot find secondary initialisation file in the package.<br /> File not found : ').$pathToManifest.$file );
-                }
-                else
-                {
-                    if (!isset($cache)) $cache = "";
-                    while (true === ($readdata = str_replace("\n","",fread($fp, 4096))))
-                    {
-                        // fix for fread breaking thing
-                        // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
-                        // preg expression has been modified to match tag with inner attributes
-                        $readdata = $cache . $readdata;
-                        if (!feof($fp))
-                        {
-                            $regs = array();
-                            if (preg_match_all("/<[^\>]*.>/", $readdata, $regs))
-                            {
-                                $lastTagname = $regs[0][count($regs[0])-1];
-                                $split = false;
-                                for ($i=strlen($readdata)-strlen($lastTagname); $i>=strlen($lastTagname); $i--)
-                                {
-                                    if ($lastTagname == substr($readdata, $i, strlen($lastTagname)))
-                                    {
-                                        $cache = substr($readdata, $i, strlen($readdata));
-                                        $readdata = substr($readdata, 0, $i);
-                                        $split = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (!$split)
-                            {
-                                $cache = $readdata;
-                            }
-                        }
-                        // end of fix
-                        if (!xml_parse($xml_parser, $readdata, feof($fp)))
-                        {
-                            // if reading of the xml file in not successfull :
-                            // set errorFound, set error msg, break while statement
-                            $errorFound = true;
-                            array_push ($errorMsgs, get_lang('Error reading a secondary initialisation file : ').$pathToManifest.$file );
-                            break;
-                        }
-                    } // while $readdata
-                }    //if fopen
-                // close file
-                @fclose($fp);
+                
+		        if( file_exists( $pathToManifest.$file ) )
+		        {
+		            array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest."imsmanifest.xml" );
+		
+					$readData = file_get_contents($pathToManifest.$file);
+		
+		            if( !xml_parse($xml_parser, $readData) )
+		            {
+		                // if reading of the xml file in not successfull :
+		                // set errorFound, set error msg, break while statement
+		                $errorFound = true;
+		                array_push ($errorMsgs, get_lang('Error reading a secondary initialisation file : ').$pathToManifest.$file );
+		            }
+		        }
+		        else
+				{
+		            $errorFound = true;
+		            array_push ($errorMsgs, get_lang('Cannot find secondary initialisation file in the package.<br /> File not found : ').$pathToManifest.$file );
+		        }
             }
             break;
 
@@ -665,67 +635,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         // this file must be in the root the sent zip
         $file = "imsmanifest.xml";
 
-        if (!($fp = @fopen($file, "r")))
-        {
-            $errorFound = true;
-            array_push ($errorMsgs, get_lang('Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml') );
-        }
-        else
+        if( file_exists($file) )
         {
             if (!isset($manifestPath)) $manifestPath = "";
 
             array_push ($okMsgs, get_lang('Manifest found in zip file : ').$manifestPath."imsmanifest.xml" );
 
-            while (true === ($data = str_replace("\n","",fread($fp, 4096))))
+			$data = file_get_contents($manifestPath.$file);
+
+            if( !xml_parse($xml_parser, $data) )
             {
-                // fix for fread breaking thing
-                // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
-                // preg expression has been modified to match tag with inner attributes
+                // if reading of the xml file in not successfull :
+                // set errorFound, set error msg, break while statement
 
-                if (!isset($cache)) $cache = "";
-
-                $data = $cache . $data;
-                if (!feof($fp))
-                {
-                    // search fo opening, closing, empty tags (with or without attributes)
-                    $regs = array();
-                    if (preg_match_all("/<[^\>]*.>/", $data, $regs))
-                    {
-                        $lastTagname = $regs[0][count($regs[0])-1];
-                        $split = false;
-                        for ($i=strlen($data)-strlen($lastTagname); $i>=strlen($lastTagname); $i--)
-                        {
-                            if ($lastTagname == substr($data, $i, strlen($lastTagname)))
-                            {
-                                $cache = substr($data, $i, strlen($data));
-                                $data = substr($data, 0, $i);
-                                $split = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!$split)
-                    {
-                        $cache = $data;
-                    }
-                }
-                // end of fix
-
-                if (!xml_parse($xml_parser, $data, feof($fp)))
-                {
-                    // if reading of the xml file in not successfull :
-                    // set errorFound, set error msg, break while statement
-
-                    $errorFound = true;
-                    array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
-                    break;
-                }
+                $errorFound = true;
+                array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
+                break;
             }
-            // close file
-            fclose($fp);
-
-         }
+        }
+        else
+		{
+            $errorFound = true;
+            array_push ($errorMsgs, get_lang('Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml') );
+        }
+        
 
          // liberate parser ressources
          xml_parser_free($xml_parser);
