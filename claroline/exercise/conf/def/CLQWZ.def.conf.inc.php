@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file describe the parameter for user tool
  *
@@ -27,8 +27,9 @@ $conf_def['config_class']='tool';
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='';
-$conf_def['section']['main']['properties'] = 
+$conf_def['section']['main']['properties'] =
 array ( 'enableExerciseExportQTI'
+       ,'exercisesPerPage'
 );
 
 //PROPERTIES
@@ -42,5 +43,15 @@ array ('label'         => 'Enable IMS-QTI Export'
                                 ,'FALSE' => 'No'
                                 )
       );
+
+$conf_def_property_list['exercisesPerPage'] =
+array ( 'label'   => 'Number of exercices per page'
+      , 'default' => '25'
+      , 'unit'    => 'exercices'
+      , 'type'    => 'integer'
+      , 'acceptedValue' => array ('Min'=>'5')
+      );
+
+
 
 ?>
