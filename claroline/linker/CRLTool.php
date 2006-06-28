@@ -134,7 +134,7 @@
                         
                         if( count($crlArray) > 4 )
                         {
-                            $elementCRL["tool_name"] = $crlArray[4];
+                            $elementCRL["tool_name"] = str_pad( $crlArray[4], 8, '_' );
                             
                             if( count($crlArray) > 5 )
                             {
@@ -159,7 +159,7 @@
                 {
                     if( count($crlArray) > 2 )
                     {
-                        $elementCRL["tool_name"] = $crlArray[2];
+                        $elementCRL["tool_name"] = str_pad( $crlArray[2], 8, '_' );
                         
                         if( count($crlArray) > 3 )
                         {
