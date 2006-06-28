@@ -282,13 +282,15 @@ if ($intro_dispDefault)
             $introId       = $thisTextIntro['id'];
             $intro_content = claro_parse_user_text($thisTextIntro['content']);
             
+            echo '<div class="claroIntroSection">' . "\n";
+            
             if( trim(strip_tags($intro_content,'<img>')) != '' ) // no need to display a div for an empty string
             {
-                echo '<div class="claroIntroSection">' . "\n"
-                .    $intro_content . "\n";
-
-                linker_display_resource('CLINTRO_');
+                
+                echo $intro_content . "\n";
             }
+            
+            linker_display_resource('CLINTRO_');
 
 
             if ($intro_dispCommand)
