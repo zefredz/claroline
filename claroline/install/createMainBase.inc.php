@@ -53,7 +53,7 @@ CREATE TABLE `".$mainTblPrefixForm."cours` (
 CREATE TABLE `".$mainTblPrefixForm."cours_user` (
   `code_cours` varchar(40) NOT NULL default '0',
   `user_id` int(11) unsigned NOT NULL default '0',
-#  `profile_id` int(11) NOT NULL,
+  `profile_id` int(11) NOT NULL,
   `isCourseManager` tinyint(4) NOT NULL default 0,
   `role` varchar(60) default NULL,
   `team` int(11) NOT NULL default '0',
