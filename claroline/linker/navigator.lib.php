@@ -446,13 +446,13 @@
             $infoGroup = $this->_infoGroup();
              
             // list of groups tool             
-            $toolGroupList = array("CLCHT___","CLDOC___","CLFRM___"); 
+            $toolGroupList = array("CLCHT___","CLDOC___","CLFRM___","CLWIKI__"); 
             $elementList = array();       
            
             foreach($courseToolList as $toolTbl)
             {
                 $name = $toolTbl["name"];
-                $label = $toolTbl["label"];
+                $label = str_pad( $toolTbl["label"], 8, '_' );
                 
                 if( in_array($label,$toolGroupList) )
                 {
