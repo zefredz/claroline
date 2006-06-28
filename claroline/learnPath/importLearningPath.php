@@ -1189,7 +1189,7 @@ else // if method == 'post'
 
 <p>
 <input type="submit" value="<?php echo get_lang('Import') ?>">
-<?php echo claro_html_button( '../exercise.php', get_lang('Cancel')) . "\n"; ?>
+<?php echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"; ?>
 </p>
 
 </form>
