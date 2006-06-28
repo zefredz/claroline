@@ -200,6 +200,11 @@
         {
             $crl_sheme = "crl";
             $crl_virtual_host = "claroline.net";
+            
+            $tool_name = empty( $tool_name )
+            	? ''
+            	: str_pad( $tool_name, 8, '_' )
+            	;
 
             if($course_sys_code && $platform_id)
             {
@@ -246,7 +251,7 @@
             
             if( isset($array["tool_name"]))
             {
-                return ($array["tool_name"] == $tool_name);
+                return ( str_pad( $array["tool_name"], 8, '_' ) == str_pad( $tool_name, 8, '_' ) );
             }
             else
             {
