@@ -144,18 +144,14 @@ if ($allowedToEditDef)
     {
         $userIdViewed = $_REQUEST['submitMainUserInfo'];
 
-        //set variable for course manager or student status
+        // Set variable for course manager or student status
 
-        if (isset($_REQUEST['isCourseManager']))
+        if ( !empty($_REQUEST['profileId']) )
         {
-            $userProperties['isCourseManager'] = 1;
-        }
-        else
-        {
-            $userProperties['isCourseManager'] = 0;
+            $userProperties['profileId'] = $_REQUEST['profileId'];
         }
 
-        //set variable for tutor setting
+        // Set variable for tutor setting
 
         if (isset($_REQUEST['isTutor']))
         {
@@ -186,7 +182,7 @@ if ($allowedToEditDef)
 
         // apply changes in DB
 
-        if ( ($userIdViewed == $_uid) && $userProperties['isCourseManager'] )
+        if ( $userIdViewed == $_uid )
         {
             //prevent teacher to let the course without any teacher
 
@@ -437,6 +433,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th align="left">'.get_lang('Name').'</th>' . "\n"
+        .    '<th align="left">'.get_lang('Profile').'</th>' . "\n"
         .    '<th align="left">'.get_lang('Role').'</th>' . "\n"
         .    '<th>'.get_lang('Group Tutor').'</th>' . "\n"
         .    '<th>'.get_lang('Course manager').'</th>' . "\n"
@@ -448,6 +445,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<tbody>' . "\n"
         .    '<tr align="center">' . "\n"
         .    '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
+        .    '<td align="left">'.htmlize(claro_get_profile_name($mainUserInfo['profileId'])).'</td>' . "\n"
         .    '<td align="left">'.htmlize($mainUserInfo['role']).'</td>' . "\n"
         .    '<td>'.$mainUserInfo['tutor'].'</td>'
         .    '<td>'.$mainUserInfo['isCourseManager'].'</td>'

@@ -135,6 +135,7 @@ if ( $is_allowedToEdit )
 
         if ('allStudent' == $req['user_id'])
         {
+            // TODO : add a function to unenroll all users from a course
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
                     WHERE `code_cours` = '" . addslashes($currentCourseID) . "'
                      AND `isCourseManager` = 0";
@@ -177,13 +178,14 @@ $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                        `user`.`nom`          AS `nom`,
                        `user`.`prenom`       AS `prenom`,
                        `user`.`email`        AS `email`,
-                       `cours_user`.`isCourseManager`,
-                       `cours_user`.`tutor`  AS `tutor`,
-                       `cours_user`.`role`   AS `role`
+                       `course_user`.`profile_id`,
+                       `course_user`.`isCourseManager`,
+                       `course_user`.`tutor`  AS `tutor`,
+                       `course_user`.`role`   AS `role`
                FROM `" . $tbl_users . "`           AS user,
-                    `" . $tbl_rel_course_user . "` AS cours_user
-               WHERE `user`.`user_id`=`cours_user`.`user_id`
-               AND   `cours_user`.`code_cours`='" . addslashes($currentCourseID) . "'";
+                    `" . $tbl_rel_course_user . "` AS course_user
+               WHERE `user`.`user_id`=`course_user`.`user_id`
+               AND   `course_user`.`code_cours`='" . addslashes($currentCourseID) . "'";
 
 $myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 
@@ -192,8 +194,8 @@ if ( isset($_GET['sort']) )
     $myPager->add_sort_key( $_GET['sort'], isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC );
 }
 
-$defaultSortKeyList = array ('cours_user.isCourseManager' => SORT_DESC,
-                             'cours_user.tutor'  => SORT_DESC,
+$defaultSortKeyList = array ('course_user.isCourseManager' => SORT_DESC,
+                             'course_user.tutor'  => SORT_DESC,
                              'user.nom'          => SORT_ASC,
                              'user.prenom'       => SORT_ASC);
 
@@ -209,15 +211,15 @@ $userTotalNb = $myPager->get_total_item_count();
   Get groups
   ----------------------------------------------------------------------*/
 
-$usersId = array();
+$userListId = array();
 
 foreach ( $userList as $thisUser )
 {
-    $users[$thisUser['user_id']]    = $thisUser;
-    $usersId[]    = $thisUser['user_id'];
+    $users[$thisUser['user_id']] = $thisUser;
+    $userListId[] = $thisUser['user_id'];
 }
 
-if ( count($usersId)> 0 )
+if ( count($userListId)> 0 )
 {
     $sqlGroupOfUsers = "SELECT `ug`.`user` AS `uid`,
                                `ug`.`team` AS `team`,
@@ -225,7 +227,7 @@ if ( count($usersId)> 0 )
                         FROM `"  . $tbl_rel_users_groups . "` AS `ug`
                         LEFT JOIN `" . $tbl_groups . "` AS `sg`
                         ON `ug`.`team` = `sg`.`id`
-                        WHERE `ug`.`user` IN (" . implode(",",$usersId) . ")
+                        WHERE `ug`.`user` IN (" . implode(",",$userListId) . ")
                         ORDER BY `sg`.`name`";
 
     $userGroupList = claro_sql_query_fetch_all($sqlGroupOfUsers);
@@ -247,50 +249,45 @@ $nameTools = get_lang('Users');
 
 if ($can_add_user)
 {
-    //add a user link
-
+    // Add a user link
     $userMenu[] = '<a class="claroCmd" href="user_add.php">'
     .    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
     .    get_lang('Add a user')
     .    '</a>'
     ;
-    $userMenu[] =        //add CSV file of user link
-    '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
+
+    // Add CSV file of user link
+    $userMenu[] = '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
     .    '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
     .    get_lang('Add a user list')
-    .    '</a>'
-    ;
-    //add a class link
-    $userMenu[] =
-    '<a class="claroCmd" href="class_add.php">'
+    .    '</a>' ;
+
+    // Add a class link
+    $userMenu[] = '<a class="claroCmd" href="class_add.php">'
     .    '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
     .    get_lang('Enrol class')
-    .    '</a>'
-
-    ;
+    .    '</a>' ;
 
     // Main group settings
     $userMenu[] = '<a class="claroCmd" href="../right/profile_list.php">'
     .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
     .          get_lang("Right Profile")
-    .          '</a>'
-    ;
+    .          '</a>' ;
 
 }
+
 
 $userMenu[] = '<a class="claroCmd" href="../group/group.php">'
 .             '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
 .             get_lang('Group management')
-.             '</a>'
-;
+.             '</a>' ;
 
 $userMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
 .             '?cmd=unregister&amp;user_id=allStudent" '
 .             ' onClick="return confirmation(\'' . clean_str_for_javascript(' all students ') . '\')">'
 .             '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
 .             get_lang('Unregister all students')
-.             '</a>'
-;
+.             '</a>' ;
 
 /*=====================================================================
 Display section
@@ -310,13 +307,11 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 // Display tool links
 if ( $disp_tool_link ) echo claro_html_menu_horizontal($userMenu);
 
-
 /*----------------------------------------------------------------------
    Display pager
   ----------------------------------------------------------------------*/
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
@@ -324,40 +319,28 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
    Display table header
   ----------------------------------------------------------------------*/
 
-echo '<table class="claroTable emphaseLine" '
-.    ' width="100%" cellpadding="2" cellspacing="1" '
-.    ' border="0" summary="' . get_lang('Course users list') . '">' . "\n"
-.    '<colgroup span="4" align="left"></colgroup>' . "\n"
-;
+echo '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1" '
+.    ' border="0" summary="' . get_lang('Course users list') . '">' . "\n";
 
-    if($is_allowedToEdit)
-    {
-        echo '<colgroup span="2"></colgroup>' . "\n"
-        .    '<colgroup span="2" width="0" ></colgroup>' . "\n"
-        ;
-    }
+echo '<thead>' . "\n"
+.    '<tr class="headerX" align="center" valign="top">'."\n"
+.    '<th><a href="' . $sortUrlList['nom'] . '">' . get_lang('Last name') . '</a></th>' . "\n"
+.    '<th><a href="' . $sortUrlList['prenom'] . '">' . get_lang('First name') . '</a></th>'."\n"
+.    '<th><a href="' . $sortUrlList['profile_id'] . '">' . get_lang('Profile') . '</a></th>'."\n"
+.    '<th><a href="' . $sortUrlList['role'] . '">' . get_lang('Role') . '</a></th>'."\n"
+.    '<th>' . get_lang('Group') . '</th>' . "\n" ;
 
-    echo '<thead>' . "\n"
-    .    '<tr class="headerX" align="center" valign="top">'."\n"
-    .    '<th scope="col" id="lastname"><a href="' . $sortUrlList['nom'] . '">' . get_lang('Last name') . '</a></th>' . "\n"
-    .    '<th scope="col" id="firstname"><a href="' . $sortUrlList['prenom'] . '">' . get_lang('First name') . '</a></th>'."\n"
-    .    '<th scope="col" id="role"><a href="' . $sortUrlList['role'] . '">' . get_lang('Role') . '</a></th>'."\n"
-    .    '<th scope="col" id="team">' . get_lang('Group') . '</th>'."\n"
-    ;
-
-    if($is_allowedToEdit) // EDIT COMMANDS
-    {
-        echo '<th scope="col" id="tut"  ><a href="'.$sortUrlList['tutor'].'">'.get_lang('Group Tutor').'</a></th>'."\n"
-           . '<th scope="col" id="CM"   ><a href="'.$sortUrlList['isCourseManager'].'">'.get_lang('Course manager').'</a></th>'."\n"
-           . '<th scope="col" id="edit" >'.get_lang('Edit').'</th>'."\n"
-           . '<th scope="col" id="del"  >'.get_lang('Unregister').'</th>'."\n"
-           ;
-    }
+if ( $is_allowedToEdit ) // EDIT COMMANDS
+{
+    echo '<th><a href="'.$sortUrlList['tutor'].'">'.get_lang('Group Tutor').'</a></th>'."\n"
+       . '<th><a href="'.$sortUrlList['isCourseManager'].'">'.get_lang('Course manager').'</a></th>'."\n"
+       . '<th>'.get_lang('Edit').'</th>'."\n"
+       . '<th>'.get_lang('Unregister').'</th>'."\n" ;
+}
 
 echo '</tr>'."\n"
    . '</thead>'."\n"
-   . '<tbody>'."\n"
-   ;
+   . '<tbody>'."\n" ;
 
 /*----------------------------------------------------------------------
    Display users
@@ -373,7 +356,7 @@ foreach ( $userList as $thisUser )
     // User name column
     $i++;
     echo '<tr align="center" valign="top">'."\n"
-       . '<td id="u'.$i.'" headers="name" align="left">'
+       . '<td align="left">'
        . '<img src="'.$imgRepositoryWeb.'user.gif" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
        . '&nbsp;';
@@ -392,19 +375,22 @@ foreach ( $userList as $thisUser )
     echo '</td>';
 
     echo '<td align="left">'.$thisUser['prenom'].'</td>';
+    
+    // User profile column
+    echo '<td align="left">'. claro_get_profile_name($thisUser['profile_id']) .'</td>'."\n";
 
     // User role column
-    echo '<td headers="role u'.$i.'" align="left">'.$thisUser['role'].'</td>'."\n";
-
+    echo '<td align="left">'.$thisUser['role'].'</td>'."\n";
+    
     // User group column
     if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
     {
-        echo '<td headers="team" > - </td>'."\n";
+        echo '<td> - </td>'."\n";
     }
     else
     {
         $userGroups = $usersGroup[$thisUser['user_id']];
-        echo '<td headers="team u'.$i.'">'."\n";
+        echo '<td>'."\n";
         reset($userGroups);
         while (list($thisGroupsNo,$thisGroupsName)=each($userGroups))
         {
@@ -418,49 +404,50 @@ foreach ( $userList as $thisUser )
 
     if ($previousUser == $thisUser['user_id'])
     {
-        echo '<td headers="team u'.$i.'" >&nbsp;</td>'."\n";
+        echo '<td>&nbsp;</td>'."\n";
     }
     elseif ( $is_allowedToEdit )
     {
         // Tutor column
         if($thisUser['tutor'] == '0')
         {
-            echo '<td headers="tut u'.$i.'"> - </td>'."\n";
+            echo '<td> - </td>'."\n";
         }
         else
         {
-            echo '<td headers="tut u'.$i.'">'.get_lang('Group Tutor').'</td>'."\n";
+            echo '<td>'.get_lang('Group Tutor').'</td>'."\n";
         }
 
         // course manager column
         if($thisUser['isCourseManager'] == '1')
         {
-            echo '<td headers="CM u'.$i.'">'.get_lang('Course manager').'</td>'."\n";
+            echo '<td>'.get_lang('Course manager').'</td>'."\n";
         }
         else
         {
-            echo '<td headers="CM u'.$i.'"> - </td>'."\n";
+            echo '<td> - </td>'."\n";
         }
 
         // Edit user column
-        echo '<td headers="edit u'.$i.'">'
+        echo '<td>'
            . '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id'].'">'
            . '<img border="0" alt="'.get_lang('Edit').'" src="'.$imgRepositoryWeb.'edit.gif" />'
            . '</a>'
-           . '</td>'."\n"
+           . '</td>'."\n";
+
         // Unregister user column
-           . '<td headers="del u'.$i.'" >';
+        echo '<td>';
 
         if ($thisUser['user_id'] != $_uid)
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
             .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
             .    '<img border="0" alt="'.get_lang('Unregister').'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
-            .    '</a>'
-            ;
+            .    '</a>' ;
         }
 
         echo '</td>'."\n";
+
     }  // END - is_allowedToEdit
 
     echo '</tr>'."\n";
@@ -474,8 +461,7 @@ foreach ( $userList as $thisUser )
   ----------------------------------------------------------------------*/
 
 echo '</tbody>' . "\n"
-.    '</table>' . "\n"
-;
+.    '</table>' . "\n" ;
 
 /*----------------------------------------------------------------------
    Display pager

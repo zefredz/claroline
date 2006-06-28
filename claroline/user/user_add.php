@@ -34,7 +34,10 @@ require_once $includePath . '/lib/sendmail.lib.php';
 $nameTools        = get_lang('Add a user');
 $interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users') );
 
-$messageList        = array();
+$messageList = array();
+$messageList['warning'] = array();
+$messageList['error'] = array();
+
 $platformRegSucceed = false;
 $courseRegSucceed   = false;
 

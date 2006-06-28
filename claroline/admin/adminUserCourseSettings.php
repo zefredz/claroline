@@ -58,11 +58,11 @@ switch ($cmd)
 {
     case 'exUpdateCourseUserProperties' :
 
-        $properties['isCourseManager'] = isset($_REQUEST['isCourseManager'])?(int)$_REQUEST['isCourseManager']:null;
+        $properties['profileId'] = isset($_REQUEST['profileId'])?$_REQUEST['profileId']:null;
         $properties['tutor'] = isset($_REQUEST['isTutor'])?(int)$_REQUEST['isTutor']:null;
         $properties['role']  = isset($_REQUEST['role'])?trim($_REQUEST['role']):null;
         
-        if ( $properties['isCourseManager'] )
+        if ( claro_get_profile_name($properties['profileId']) == 'Manager' )
         {
             $dialogBox = get_lang('User is now course manager');
         }
@@ -145,8 +145,7 @@ if ( $displayBackToCU )//coming from courseuser list
     .             '?cidToEdit=' . $cidToEdit
     .             '&amp;uidToEdit=' . $uidToEdit . '">'
     .             get_lang('Back to list')
-    .             '</a> '
-    ;
+    .             '</a> ' ;
 }
 elseif ( $displayBackToUC )//coming from usercourse list
 {
@@ -154,8 +153,7 @@ elseif ( $displayBackToUC )//coming from usercourse list
     .             '?cidToEdit=' . $cidToEdit
     .             '&amp;uidToEdit=' . $uidToEdit . '">'
     .             get_lang('Back to list')
-    .             '</a> '
-    ;
+    .             '</a> ' ;
 }
 
 //------------------------------------
@@ -177,7 +175,7 @@ echo claro_html_tool_title( array( 'mainTitle' =>$nameTools
                                  )
                           );
 
-//Display Forms or dialog box(if needed)
+// Display Forms or dialog box(if needed)
 
 if ( isset($dialogBox) )
 {

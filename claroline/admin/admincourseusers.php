@@ -25,13 +25,13 @@ require '../inc/claro_init_global.inc.php';
 /*  Security Check
 /* ************************************************************************** */
 
-// Security check
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
+
 $dialogBox = '';
 // initialisation of global variables and used libraries
 require_once $includePath . '/lib/pager.lib.php';
@@ -44,6 +44,7 @@ $tbl_mdb_names   = claro_sql_get_main_tbl();
 /**
  * Manage incoming.
  */
+
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
@@ -91,6 +92,7 @@ $sql = "SELECT U.user_id  AS user_id,
                U.nom      AS name,
                U.prenom   AS firstname,
                U.username AS username,
+               CU.profile_id AS profileId,
                CU.isCourseManager
         FROM  `" . $tbl_mdb_names['user'] . "` AS U
             , `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
@@ -117,24 +119,27 @@ foreach($userList as $lineId => $user)
     $userDataList[$lineId]['user_id']         = $user['user_id'];
     $userDataList[$lineId]['name']            = $user['name'];
     $userDataList[$lineId]['firstname']       = $user['firstname'];
-    $userDataList[$lineId]['cmd_cu_setting']  = '<a href="adminUserCourseSettings.php'
-    .                                           '?cidToEdit=' . $cidToEdit
-    .                                           '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">';
+
+    $userDataList[$lineId]['profileId']       = claro_get_profile_name($user['profileId']);
 
     if ( $user['isCourseManager'] )
     {
-        $userDataList[$lineId]['cmd_cu_setting']  .= '<img src="' . get_conf('imgRepositoryWeb') .'manager.gif" '
+        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'manager.gif" '
                                                   . ' alt="' . get_lang('Course Manager') . '" border="0"  hspace="4" '
                                                   . ' title="' . get_lang('Course Manager') . '" />' ;
     }
     else
     {
-        $userDataList[$lineId]['cmd_cu_setting']  .= '<img src="' . get_conf('imgRepositoryWeb') .'user.gif" '
+        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'user.gif" '
                                                   . ' alt="' . get_lang('Student') . '" border="0"  hspace="4" '
                                                   . ' title="' . get_lang('Student') . '" />' ;
     }
     
-    $userDataList[$lineId]['cmd_cu_setting']  .= '</a>';
+    $userDataList[$lineId]['cmd_cu_edit'] = '<a href="adminUserCourseSettings.php'
+                                            . '?cidToEdit=' . $cidToEdit
+                                            . '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
+                                            . '<img src="' . get_conf('imgRepositoryWeb') .'edit.gif" alt="' . get_lang('Edit') . '"/>'
+                                            . '</a>';
 
     $userDataList[$lineId]['cmd_cu_unenroll']  = '<a href="' . $_SERVER['PHP_SELF']
     .                                            '?cidToEdit=' . $cidToEdit
@@ -170,12 +175,15 @@ $dg_opt_list['idLineShift'] = $myPager->offset + 1;
 $dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Userid') . '</a>'
                                      , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
                                      , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
-                                     , 'cmd_cu_setting'  => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Action') . '</a>'
+                                     , 'profileId'=> '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('Profile') . '</a>'
+                                     , 'isCourseManager'  => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Course Manager') . '</a>'
+                                     , 'cmd_cu_edit'  => get_lang('Edit')
                                      , 'cmd_cu_unenroll' => get_lang('Unregister user')
 );
 
 $dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'center')
-                                         , 'cmd_cu_setting'    => array ('align' => 'center')
+                                         , 'isCourseManager'    => array ('align' => 'center')
+                                         , 'cmd_cu_edit'    => array ('align' => 'center')
                                          , 'cmd_cu_unenroll' => array ('align' => 'center')
 );
 

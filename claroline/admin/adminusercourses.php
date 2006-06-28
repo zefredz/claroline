@@ -109,17 +109,21 @@ $userCourseGrid = array();
 foreach ($userCourseList as $courseKey => $course)
 {
     $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
-    $userCourseGrid[$courseKey]['name']      = '<a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name'].'</a>';
-    $userCourseGrid[$courseKey]['titular'] = $course['titular'];
+    $userCourseGrid[$courseKey]['name']      = '<a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name']. '</a><br />' . $course['titular'];
+        
+
+    $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
 
     if ( $course['isCourseManager'] ) 
     {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist"><img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '"></a>';
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Course manager') . '" border="0" />';
     }
     else
     {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist"><img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('Student') . '" border="0" title="' . get_lang('User\'s course settings') . '"></a>';
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('Student') . '" border="0" />';
     }
+        
+    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist"><img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '"></a>';
 
     $userCourseGrid[$courseKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                       '?uidToEdit=' . $uidToEdit
@@ -143,8 +147,9 @@ $userCourseDataGrid->set_grid($userCourseGrid);
 $userCourseDataGrid->set_colTitleList(array (
 'officialCode'     => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code') . '</a>'
 ,'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Course title') . '</a>'
-,'titular'  => '<a href="' . $sortUrlList['titular'] . '">' . get_lang('Course manager') . '</a>'
+,'profileId'  => '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('User profile') . '</a>'
 ,'isCourseManager' => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Role') . '</a>'
+,'edit_course_user' => get_lang('Edit settings') . '</a>'
 ,'delete'   => get_lang('Unregister user')
 ));
 
@@ -158,8 +163,8 @@ else
 {
     $userCourseDataGrid->set_colAttributeList(array ( 'officialCode' => array ('align' => 'left')
     , 'name'            => array ('align' => 'left')
-    , 'titular'         => array ('align' => 'left')
     , 'isCourseManager' => array ('align' => 'center')
+    , 'edit_course_user' => array ('align' => 'center')
     , 'delete'          => array ('align' => 'center')
     ));
 }
@@ -203,8 +208,8 @@ if( isset($dialogBox) && !empty($dialogBox) ) echo claro_html_message_box($dialo
 echo claro_html_menu_horizontal($cmdList)
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
 .    $userCourseDataGrid->render()
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
-;
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit) ;
+
 include $includePath . '/claro_init_footer.inc.php';
 
 /**
@@ -213,6 +218,7 @@ include $includePath . '/claro_init_footer.inc.php';
  * @param integer $userId id of you to fetch courses
  * @return string : mysql statement
  */
+
 function prepare_sql_get_courses_of_a_user($userId=null)
 {
     if (is_null($userId)) $userId = get_init('_uid');
@@ -232,8 +238,10 @@ function prepare_sql_get_courses_of_a_user($userId=null)
                    `C`.`languageCourse`    `language`,
                    `C`.`departmentUrl`     `extLinkUrl`,
                    `C`.`departmentUrlName` `extLinkName`,
-                   `C`.`visible` `visible`,
-                   `CU`.`isCourseManager`
+                   `C`.`visible`            `visible`,
+                   `CU`.`profile_id`        `profileId`,
+                   `CU`.`isCourseManager`,
+                   `CU`.`tutor`
             FROM `" . $tbl_course . "` AS C,
                  `" . $tbl_rel_course_user . "` AS CU
             WHERE CU.`code_cours` = C.`code`
