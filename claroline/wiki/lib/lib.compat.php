@@ -24,7 +24,7 @@
                 return false;
             }
             
-            if ( FILE_APPEND === $flag )
+            if ( FILE_APPEND === $flags )
             {
                 $fd = fopen( $file, 'a' );
             }
