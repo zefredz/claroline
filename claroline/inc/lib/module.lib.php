@@ -78,38 +78,6 @@ function get_module_list($context)
     return $moduleList;
 }
 
-/**
- * Return info about the given module
- *
- * @param string $claro_label
- * @return array (id, claro_label, icon, access_manager, add_in_course, def_rank, def_access)
- *
- */
-function get_module_data($claro_label)
-{
-    /*  for 1.9
-    $tbl = claro_sql_get_tbl(array('module', 'module_tool', 'module_rel_tool_context', ));
-    $sql ="SELECT mtc.tool_id                AS id,
-                  m.label                    AS claro_label,
-                  IFNULL(mt.icon,'tool.gif') AS icon,
-                  mtc.access_manager         AS access_manager,
-                  mtc.enabling               AS add_in_course,
-                  mtc.def_rank               AS def_rank,
-                  mtc.def_access             AS def_access,
-                  mt.entry                   AS entry
-
-           FROM `" . $tbl['module_tool'] . "` AS mt
-           INNER JOIN `" . $tbl['module'] . "` AS m
-           ON  mt.module_id = m.id
-
-           INNER JOIN `" . $tbl['module_rel_tool_context'] . "` AS mtc
-           ON  mt.id = mtc.tool_id AND mtc.context = 'COURSE'
-           WHERE m.label = '" . addslashes($claro_label) . "'";
-    */
-
-    return claro_sql_query_get_single_row($sql);
-}
-
 
 /**
  * Install tool in a course
