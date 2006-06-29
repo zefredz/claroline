@@ -383,7 +383,7 @@ function claro_get_conf_dir($configCode)
 function get_module_entry($moduleId)
 {
     $moduleData = get_module_data($moduleId);
-    return $moduleData['entry']
+    return $moduleData['entry'];
 
 }
 ?>
