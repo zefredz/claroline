@@ -253,7 +253,7 @@ function get_module_path($toolLabel)
 
 function get_module_url($toolLabel)
 {
-
+    $toolLabel = claro_clean_label($toolLabel);
     switch ($toolLabel)
     {
         case 'CLANN' : return get_conf('clarolineRepositoryWeb') . 'announcements';
@@ -268,8 +268,8 @@ function get_module_url($toolLabel)
         case 'CLWRK' : return get_conf('clarolineRepositoryWeb') . 'work';
         case 'CLLNK' : return get_conf('clarolineRepositoryWeb') . 'linker';
         case 'CLWIKI' : return get_conf('clarolineRepositoryWeb') . 'wiki';
-        case 'CLGRP' : return '';
-        default: return get_conf('rootWeb') . 'module/' . rtrim($toolLabel,'_');
+        case 'CLGRP' : return get_conf('clarolineRepositoryWeb') . 'group';
+        default: return get_conf('rootWeb') . 'module/' . $toolLabel;
     }
     return '';
 
@@ -364,7 +364,7 @@ function claro_get_data_path($contextData=array())
 /**
  * return the directory of a config file for a given configCode.
  *
- * @param unknown_type $configCode
+ * @param string $configCode
  * @return unknown
  */
 // TODO : rewrite this code :
