@@ -100,6 +100,7 @@
         function getResourceId($tool_name)
         {
             global $insert_id;
+            global $entryId;
             global $thisEvent;
               
             if( isset( $tool_name ) )
