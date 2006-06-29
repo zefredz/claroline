@@ -606,7 +606,10 @@
     {
         global $_courseToolList;
         
-        $tlabel = rtrim( $elementCRLArray["tool_name"], '_' ); 
+        if ( isset( $elementCRLArray["tool_name"] ) )
+        {
+            $tlabel = rtrim( $elementCRLArray["tool_name"], '_' ); 
+        }
 
         $toolIndex = false;
         if( isset($elementCRLArray["tool_name"]) )
