@@ -92,9 +92,9 @@ function check_module_repositories()
     $mistake_array['DB'] = array();
     foreach ($registredModuleList as $registredModule)
     {
-        $moduleData = get_module_data($registredModule);
+        $moduleData = get_module_info($registredModule);
         $moduleRepositorySys = get_conf('rootSys') . 'module/';
-        $moduleEntry = realpath($moduleRepositorySys . $registredModule . $moduleData['entry']);
+        $moduleEntry = realpath($moduleRepositorySys . $registredModule . $moduleData['script_url']);
 
         if(!file_exists($moduleEntry))
         {
