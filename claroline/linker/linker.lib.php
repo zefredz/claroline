@@ -605,11 +605,13 @@
     function get_toolname_title($elementCRLArray)
     {
         global $_courseToolList;
+        
+        $tlabel = rtrim( $elementCRLArray["tool_name"], '_' ); 
 
         $toolIndex = false;
         if( isset($elementCRLArray["tool_name"]) )
         {
-            $toolIndex = get_tool_index($elementCRLArray["tool_name"]);
+            $toolIndex = get_tool_index($tlabel);
         }
 
         $title  = get_course_title($elementCRLArray["course_sys_code"]);
@@ -629,7 +631,7 @@
                 $title = $resolver->getResourceName($crl); 
             }
 
-            $name =  get_tool_name($elementCRLArray['course_sys_code'],$elementCRLArray["tool_name"]);
+            $name =  get_tool_name($elementCRLArray['course_sys_code'],$tlabel);
            // $name = $_courseToolList[$toolIndex]["name"];
             $title .=  " > ".$name;
         }

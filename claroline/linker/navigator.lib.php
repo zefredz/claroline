@@ -72,7 +72,7 @@
         {
             if ( isset( $this->_elementCRLArray["tool_name"] ) )
             {
-                $tool = $this->_elementCRLArray["tool_name"]."Navigator";
+                $tool = str_pad( $this->_elementCRLArray["tool_name"], 8, '_' )."Navigator";
                 require_once($tool.".php");
                 $navigator = new $tool($this->_basePath);
                      
@@ -117,7 +117,7 @@
                 
                 if( isset($this->_elementCRLArray["tool_name"]) )
                 {
-                    $currentDir .= $this->_elementCRLArray["tool_name"];
+                    $currentDir .= str_pad( $this->_elementCRLArray["tool_name"], 8, '_' );
                     
                     if( isset($this->_elementCRLArray["resource_id"]))
                     {
@@ -395,9 +395,9 @@
             foreach($courseToolList as $toolTbl)
             {
                 $name = $toolTbl["name"];
-                $label = $toolTbl["label"];
+                $label = str_pad( $toolTbl["label"], 8, '_' );
                 
-                    if(  is_NULL($label) )
+                    if(  is_null($label) )
                     {
                         $node = $this->_node."/CLEXT___/".$toolTbl["url"];
                     }

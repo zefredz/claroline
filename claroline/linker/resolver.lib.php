@@ -162,7 +162,7 @@ class Resolver
         }
         else
         {
-            $tool =  $elementCRLArray['tool_name'] . 'Resolver';
+            $tool =  str_pad( $elementCRLArray['tool_name'] . 'Resolver', 8, '_' );
             require_once dirname(__FILE__) . '/' . $tool . '.php';
             $resolver = new $tool($this->_basePath);
 
@@ -186,7 +186,7 @@ class Resolver
             {
                 trigger_error('ERROR: tool_name required',E_USER_ERROR);
             }
-
+            
             $url = $this->_basePath . '/claroline/' . $this->_getToolPath($elementCRLArray['tool_name']);
             $url .= '?cidReq=' . $elementCRLArray['course_sys_code'];
 
@@ -232,6 +232,7 @@ class Resolver
      */
     function _getToolPath($toolName)
     {
+        $toolName = rtrim( $toolName, '_' );
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl = $tbl_mdb_names['tool'];
 

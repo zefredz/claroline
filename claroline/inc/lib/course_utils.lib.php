@@ -157,7 +157,7 @@ function get_course_tool_list($cid)
                {
                    if( isset($courseTool['label']) )
                    {
-                       $label = trim( $courseTool['label'], '_' );
+                       $label = $courseTool['label'];
                        $courseTool['name'] = $toolNameList[$label];    
                    } 
                    $tmp[] = $courseTool;
