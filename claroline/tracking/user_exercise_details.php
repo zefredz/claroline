@@ -13,19 +13,153 @@
  */
 require '../inc/claro_init_global.inc.php';
 
-include_once ('../exercice/question.class.php');
-include_once ('../exercice/answer.class.php');
-include_once ('../exercice/exercise.lib.php');
+include_once $includePath . '/lib/statsUtils.lib.inc.php';
+include_once $includePath . '/lib/htmlxtra.lib.php';
 
-// all I need from REQUEST is the track_id and it is required
-if( !isset($_REQUEST['track_id']) )  header("Location: ../exercice/exercice.php");
+$path = dirname(__FILE__);
+include_once $path . '/../exercise/lib/exercise.class.php';
+include_once $path . '/../exercise/lib/question.class.php'; 
+include_once $path . '/../exercise/lib/answer_multiplechoice.class.php';
+include_once $path . '/../exercise/lib/answer_truefalse.class.php';
+include_once $path . '/../exercise/lib/answer_fib.class.php';
+include_once $path . '/../exercise/lib/answer_matching.class.php';
 
-// answer types
-define('UNIQUE_ANSWER',     1);
-define('MULTIPLE_ANSWER',2);
-define('FILL_IN_BLANKS', 3);
-define('MATCHING',         4);
-define('TRUEFALSE',     5);
+
+/**
+ * extend Quesiton class to add extract from tracking method to each answer type
+ */
+class TrackQuestion extends Question
+{
+	/**
+	 * Include the correct answer class and create answer
+	 */
+	function setAnswer()
+	{
+		switch($this->type)
+		{
+			case 'MCUA' :
+				$this->answer = new TrackAnswerMultipleChoice($this->id, false);
+				break; 
+			case 'MCMA' :
+				$this->answer = new TrackAnswerMultipleChoice($this->id, true);	
+				break;
+			case 'TF' :
+				$this->answer = new TrackAnswerTrueFalse($this->id); 
+				break;
+			case 'FIB' :
+				$this->answer = new TrackAnswerFillInBlanks($this->id); 
+				break;
+			case 'MATCHING' :
+				$this->answer = new TrackAnswerMatching($this->id); 
+				break;
+			default :
+				$this->answer = null;
+				break;
+		}
+
+		return true;
+	}
+} 
+
+class TrackAnswerMultipleChoice extends answerMultipleChoice
+{
+	function extractResponseFromTracking( $attemptDetailsId )
+	{
+		$tbl_cdb_names = claro_sql_get_course_tbl();
+		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];		
+		
+		// get the answers the user has gaven for this question
+		$sql = "SELECT `answer`
+		        FROM `" . $tblTrackAnswers . "`
+		        WHERE `details_id` = " . (int) $attemptDetailsId;
+
+		$answers = claro_sql_query_fetch_all($sql);
+
+		$this->response = array();
+				
+		foreach( $answers as $answer )
+		{
+			$this->response[$answer['answer']] = true;
+		}
+		
+		return true;
+	}
+}
+
+class TrackAnswerTrueFalse extends answerTrueFalse
+{
+	function extractResponseFromTracking( $attemptDetailsId )
+	{
+		$tbl_cdb_names = claro_sql_get_course_tbl();
+		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];		
+		
+		// get the answers the user has gaven for this question
+		$sql = "SELECT `answer`
+		        FROM `" . $tblTrackAnswers . "`
+		        WHERE `details_id` = " . (int) $attemptDetailsId;
+
+		$this->response = claro_sql_query_get_single_value($sql);
+
+		return true;
+	}
+}
+
+class TrackAnswerFillInBlanks extends answerFillInBlanks 
+{
+	function extractResponseFromTracking( $attemptDetailsId )
+	{
+		$tbl_cdb_names = claro_sql_get_course_tbl();
+		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];		
+		
+		// get the answers the user has gaven for this question
+		$sql = "SELECT `answer`
+		        FROM `" . $tblTrackAnswers . "`
+		        WHERE `details_id` = " . (int) $attemptDetailsId;
+
+		$answers = claro_sql_query_fetch_all($sql);
+		
+		foreach( $answers as $answer )
+		{
+			$this->response[] = $answer['answer'];
+		}
+
+		return true;
+	}   
+}
+
+class TrackAnswerMatching extends answerMatching
+{
+	function extractResponseFromTracking( $attemptDetailsId )
+	{
+		$tbl_cdb_names = claro_sql_get_course_tbl();
+		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];		
+		
+		// get the answers the user has gaven for this question
+		$sql = "SELECT `answer`
+		        FROM `" . $tblTrackAnswers . "`
+		        WHERE `details_id` = " . (int) $attemptDetailsId;
+
+		$answers = claro_sql_query_fetch_all($sql);
+
+		$answerCount = count($this->leftList);
+
+		foreach( $answers as $answer )
+		{
+			list($leftProposal, $rightProposal) = explode('-',$answer['answer']);
+								   	
+	    	for( $i = 0; $i < $answerCount ; $i++ )
+	    	{
+	    		if( $this->leftList[$i]['code'] == $leftProposal ) 
+	    		{
+	    			$this->leftList[$i]['response'] = $rightProposal;	 
+					break;
+	    		}
+	    	}
+			
+		}
+		return true;
+	}   
+}
 
 /**
  * DB tables definition
@@ -35,28 +169,38 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_quiz_test      = $tbl_cdb_names['quiz_test'              ];
-$tbl_quiz_answer             = $tbl_cdb_names['quiz_answer'            ];
-$tbl_quiz_question           = $tbl_cdb_names['quiz_question'          ];
-$tbl_quiz_rel_test_question  = $tbl_cdb_names['quiz_rel_test_question' ];
+$tbl_qwz_exercise 				= $tbl_cdb_names['qwz_exercise'];
+
 $tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
-include_once ($includePath . '/lib/statsUtils.lib.inc.php');
+
+
+// all I need from REQUEST is the track_id and it is required
+if( isset($_REQUEST['trackedExId']) && is_numeric($_REQUEST['trackedExId']) ) 
+{	
+	$trackedExId = (int) $_REQUEST['trackedExId'];
+}
+else															
+{
+	header("Location: ../exercise/exercise.php");
+    exit();
+}
+
 
 //-- get infos
 // get infos about the exercise
 // get infos about the user
 // get infos about the exercise attempt
-$sql = "SELECT `E`.`titre`, `E`.`show_answer`, `E`.`max_attempt`,
+$sql = "SELECT `E`.`id`, `E`.`title`, `E`.`showAnswers`, `E`.`attempts`,
                 `U`.`user_id`, `U`.`nom` as `lastname`, `U`.`prenom` as `firstname`,
                 `TE`.`exe_exo_id`, `TE`.`exe_result`, `TE`.`exe_time`, `TE`.`exe_weighting`,
                 UNIX_TIMESTAMP(`TE`.`exe_date`) AS `unix_exe_date`
-        FROM `".$tbl_quiz_test."` as `E`, `".$tbl_track_e_exercices."` as `TE`, `".$tbl_user."` as `U`
+        FROM `".$tbl_qwz_exercise."` as `E`, `".$tbl_track_e_exercices."` as `TE`, `".$tbl_user."` as `U`
         WHERE `E`.`id` = `TE`.`exe_exo_id`
         AND `TE`.`exe_user_id` = `U`.`user_id`
-        AND `TE`.`exe_id` = ".(int)$_REQUEST['track_id'];
+        AND `TE`.`exe_id` = ". $trackedExId;
 
 $result = claro_sql_query_fetch_all($sql);
 
@@ -67,7 +211,7 @@ if( $result )
 else
 {
     // sql error, let's get out of here !
-    header("Location: ../exercice/exercice.php");
+    header("Location: ../exercise/exercise.php");
     die();
 }
 
@@ -78,7 +222,7 @@ $is_allowedToTrack = false;
 
 if( isset($_uid) )
 {
-      if( $is_courseAdmin )
+	if( $is_courseAdmin )
     {
         $is_allowedToTrack = true;
     }
@@ -116,9 +260,9 @@ if( isset($_uid) )
 }
 
 
-$interbredcrump[]= array ('url'=>'../exercice/exercice.php', 'name'=> get_lang('Exercises'));
+$interbredcrump[]= array ('url'=>'../exercise/exercise.php', 'name'=> get_lang('Exercises'));
 
-$backLink = '<p><small><a href="../exercice/exercice.php">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
+$backLink = '<p><small><a href="userLog.php?uInfo='.$thisAttemptDetails['user_id'].'&view=0100000&exoDet='.$thisAttemptDetails['id'].'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
 
 $nameTools = get_lang('Statistics of exercise attempt');
 
@@ -132,7 +276,46 @@ echo $backLink;
 
 if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
-    // display infos about the details ...
+    // get all question that user get for this attempt
+    $sql = "SELECT TD.`id` as `trackId`, TD.`question_id`, TD.`result`
+            FROM `".$tbl_track_e_exe_details."` as TD
+            WHERE `exercise_track_id` = ". $trackedExId;
+
+    $trackedQuestionList = claro_sql_query_fetch_all($sql);
+
+    $i = 0;
+    $totalResult = 0;
+    $totalGrade = 0;
+	$questionList = array();
+	
+    // for each question the user get
+    foreach( $trackedQuestionList as $trackedQuestion )
+	{
+		$question = new TrackQuestion();
+		
+		if( $question->load($trackedQuestion['question_id']) )
+		{
+			// required by getGrade and getQuestionFeedbackHtml
+			$question->answer->extractResponseFromTracking($trackedQuestion['trackId']);
+			
+			$questionResult[$i] = $question->answer->gradeResponse();
+			$questionGrade[$i] = $question->getGrade();			
+			
+			// sum of score
+			$totalResult += $questionResult[$i];
+			$totalGrade += $questionGrade[$i];
+			
+			// save question object in a list to reuse it later
+			$questionList[$i] = $question;
+						
+			$i++;
+		}
+		// else skip question		
+	}
+	
+	// display
+	
+	// display infos about the details ...
     echo '<ul>' . "\n"
     .    '<li>' . get_lang('Last name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
     .    '<li>' . get_lang('First name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
@@ -141,380 +324,44 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     .    '<li>' . get_lang('Time') . ' : ' . claro_disp_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
     .    '</ul>' . "\n\n"
     ;
+    
+    echo "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
+    
+	if( !empty($questionList) )
+	{
+		// foreach question
+		$questionIterator = 1;
+		$i = 0;
 
-    // get all question that user get for this attempt
-    $sql = "SELECT TD.`id`, TD.`question_id`, TD.`result`
-            FROM `".$tbl_track_e_exe_details."` as TD
-            WHERE `exercise_track_id` = ".(int)$_REQUEST['track_id'];
+	    foreach( $questionList as $question )
+		{
+			echo '<tr class="headerX">' . "\n"
+			.	 '<th>'
+			.	 get_lang('Question') . ' ' . $questionIterator
+			.	 '</th>' . "\n"
+			.	 '</tr>' . "\n\n";
+			
+			echo '<tr>'
+			.	 '<td>' . "\n";
+			
+			echo $question->getQuestionFeedbackHtml();
+					
+			echo '</td>' . "\n"
+			.	 '</tr>' . "\n\n"
+			
+			.	 '<tr>'
+			.	 '<td align="right">' . "\n"
+			.	 '<strong>'.get_lang('Score').' : '.$questionResult[$i].'/'.$questionGrade[$i].'</strong>'			
+			.	 '</td>' . "\n"
+			.	 '</tr>' . "\n\n";
 
-    $questions = claro_sql_query_fetch_all($sql);
-
-    $i = 0;
-    $totalScore = 0;
-    $totalWeighting = 0;
-
-    // for each question the user get
-    foreach( $questions as $question )
-    {
-        $objQuestionTmp = new Question();
-
-        // read question and skip display if question doesn't not exists
-        if( !$objQuestionTmp->read($question['question_id']) ) continue;
-
-        $questionTitle = $objQuestionTmp->selectTitle();
-        $questionStatement = $objQuestionTmp->selectDescription();
-        $attachedFile = $objQuestionTmp->selectAttachedFile();
-        $questionWeighting = $objQuestionTmp->selectWeighting();
-        $answerType = $objQuestionTmp->selectType();
-
-        // destruction of the Question object
-        unset($objQuestionTmp);
-
-        if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
-        {
-            $colspan = 4;
-        }
-        elseif($answerType == MATCHING)
-        {
-            $colspan = 2;
-        }
-        else
-        {
-            $colspan = 1;
-        }
-?>
-
-  <table width="100%" cellpadding="4" cellspacing="2" border="0" class="claroTable">
-  <tr class="headerX">
-  <th colspan="<?php echo $colspan; ?>">
-    <?php echo get_lang('Question').' '.($i+1); ?>
-  </th>
-</tr>
-<tfoot>
-<tr>
-  <td colspan="<?php echo $colspan; ?>">
-    <?php echo $questionTitle; ?>
-    <blockquote>
-    <?php
-        echo $questionStatement;
-
-        if( !empty($attachedFile) )
-        {
-            echo '<br />' . display_attached_file($attachedFile);
-        }
-    ?>
-    </blockquote>
-  </td>
-</tr>
-
-<?php
-        if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
-        {
-?>
-
-<tr>
-  <td width="5%" valign="top" align="center" nowrap="nowrap">
-    <small><i><?php echo get_lang('Choice'); ?></i></small>
-  </td>
-  <td width="5%" valign="top" nowrap="nowrap">
-    <small><i><?php echo get_lang('Expected choice'); ?></i></small>
-  </td>
-  <td width="45%" valign="top">
-    <small><i><?php echo get_lang('Answer'); ?></i></small>
-  </td>
-  <td width="45%" valign="top">
-    <small><i><?php echo get_lang('Comment'); ?></i></small>
-  </td>
-</tr>
-
-<?php
-        }
-        elseif($answerType == FILL_IN_BLANKS)
-        {
-?>
-
-<tr>
-  <td>
-    <small><i><?php echo get_lang('Answer'); ?></i></small>
-  </td>
-</tr>
-
-<?php
-        }
-        else
-        {
-?>
-
-<tr>
-  <td width="50%">
-    <small><i><?php echo get_lang('Element list'); ?></i></small>
-  </td>
-  <td width="50%">
-    <small><i><?php echo get_lang('Corresponds to'); ?></i></small>
-  </td>
-</tr>
-
-<?php
-        }
-
-        $objAnswerTmp = new Answer($question['question_id']);
-
-          $nbrAnswers = $objAnswerTmp->selectNbrAnswers();
-
-        // get the answers the user has gaven for this question
-        $sql = "SELECT `answer`
-                FROM `" . $tbl_track_e_exe_answers . "`
-                WHERE `details_id` = " . (int) $question['id'];
-
-        $answers = claro_sql_query_fetch_all($sql);
-
-        if( $answerType == MULTIPLE_ANSWER || $answerType == MATCHING || $answerType == FILL_IN_BLANKS )
-            $choice = array();
-        elseif( $answerType == UNIQUE_ANSWER || $answerType == TRUEFALSE )
-            $choice = "";
-
-
-        foreach( $answers as $answer )
-        {
-            switch($answerType)
-            {
-                case TRUEFALSE : // no break, execute UNIQUE_ANSWER instructions
-                case UNIQUE_ANSWER :      $choice = $answer['answer'];
-                                        break;
-                case MULTIPLE_ANSWER :  $choice[$answer['answer']] = 1;
-                                        break;
-                case FILL_IN_BLANKS  :  $choice[] = $answer['answer'];
-                                        break;
-                case MATCHING :         list($leftProp,$userChoice) = explode('-',$answer['answer']);
-                                        $choice[$leftProp] = $userChoice;
-                                        break;
-            }
-        }
-
-        $questionScore = 0;
-
-        for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
-        {
-            $answer = $objAnswerTmp->selectAnswer($answerId);
-            $answerComment = $objAnswerTmp->selectComment($answerId);
-            $answerCorrect = $objAnswerTmp->isCorrect($answerId);
-            $answerWeighting = $objAnswerTmp->selectWeighting($answerId);
-
-            $studentChoice = ''; // init to empty string, will be overwritten when a answer has been given
-
-            switch($answerType)
-            {
-                 // for unique answer or true/false (true/false IS a unique answer exercise)
-                case TRUEFALSE : // no break, execute UNIQUE_ANSWER instructions
-                case UNIQUE_ANSWER :    $studentChoice = ($choice == $answerId)?1:0;
-
-                                        if($studentChoice)
-                                        {
-                                            // if this answer has been selected by the user
-                                              $questionScore += $answerWeighting;
-                                            $totalScore += $answerWeighting;
-                                        }
-                                        break;
-                // for multiple answers
-                case MULTIPLE_ANSWER :  if( isset( $choice[$answerId]) ) $studentChoice = $choice[$answerId];
-                                        if($studentChoice)
-                                        {
-                                            $questionScore += $answerWeighting;
-                                            $totalScore += $answerWeighting;
-                                        }
-
-                                        break;
-                // for fill in the blanks
-                case FILL_IN_BLANKS :    // splits text and weightings that are joined with the character '::'
-                                        list($answer,$answerWeighting) = explode('::',$answer);
-
-                                        // splits weightings that are joined with a comma
-                                        $answerWeighting = explode(',',$answerWeighting);
-
-                                        // we save the answer because it will be modified
-                                        $temp = $answer;
-
-                                        $answer = '';
-
-                                        $j = 0;
-
-                                        // the loop will stop at the end of the text
-                                        while(1)
-                                        {
-                                            // quits the loop if there are no more blanks
-                                            if(($pos = strpos($temp,'[')) === false)
-                                            {
-                                                // adds the end of the text
-                                                $answer .= $temp;
-                                                break;
-                                            }
-
-                                            // adds the piece of text that is before the blank and ended by [
-                                            $answer .= substr($temp,0,$pos+1);
-
-                                            $temp = substr($temp,$pos+1);
-
-                                            // quits the loop if there are no more blanks
-                                            if(($pos = strpos($temp,']')) === false)
-                                            {
-                                                // adds the end of the text
-                                                $answer .= $temp;
-                                                break;
-                                            }
-
-                                               if( !isset($choice[$j]) ) $choice[$j] = '';
-
-                                            // if the word entered by the student IS the same as the one defined by the professor
-                                            if(strtolower(substr($temp,0,$pos)) == strtolower($choice[$j]))
-                                            {
-                                                // gives the related weighting to the student
-                                                $questionScore += $answerWeighting[$j];
-
-                                                // increments total score
-                                                $totalScore += $answerWeighting[$j];
-
-                                                // adds the word in green at the end of the string
-                                                $answer .= $choice[$j];
-
-                                            }
-                                            // else if the word entered by the student IS NOT the same as the one defined by the professor
-                                            elseif(!empty($choice[$j]))
-                                            {
-                                                // adds the word in red at the end of the string, and strikes it
-                                                $answer .= '<span class="error"><s>' . $choice[$j] . '</s></span>';
-                                            }
-                                            else
-                                            {
-                                                // adds a tabulation if no word has been typed by the student
-                                                $answer .= '&nbsp;&nbsp;&nbsp;';
-                                            }
-
-                                            // adds the correct word, followed by ] to close the blank
-                                            $answer .= ' / <span class="correct"><b>' . substr($temp,0,$pos) . '</b></span>]';
-
-                                            $j++;
-
-                                            $temp = substr($temp,$pos+1);
-                                        }
-
-                                        break;
-                // for matching
-                case MATCHING :         // in matching when $answerCorrect is true ( != 0 )
-                                        // it means that the answer is a LEFT column proposal
-                                        if($answerCorrect)
-                                        {
-                                            if( isset($choice[$answerId]) && $answerCorrect == $choice[$answerId] )
-                                            {
-                                                $questionScore += $answerWeighting;
-                                                $totalScore += $answerWeighting;
-                                                $choice[$answerId] = $matching[$choice[$answerId]];
-
-                                            }
-                                            elseif(!isset($choice[$answerId]))
-                                            {
-                                                $choice[$answerId] = '&nbsp;&nbsp;&nbsp;';
-                                            }
-                                            elseif( isset($choice[$answerId]) && isset($matching[$choice[$answerId]])  )
-                                            {
-                                                $choice[$answerId] = '<span class="error"><s>' . $matching[$choice[$answerId]] . '</s></span>';
-                                            }
-                                        }
-                                        else
-                                        {
-                                            // in matching $answerCorrect == 0 it means that the answer is a
-                                            // right column proposal
-                                            $matching[$answerId] = $answer;
-                                        }
-                                        break;
-            }    // end switch()
-
-
-            if( $answerType != MATCHING || $answerCorrect )
-            {
-                if($answerType == UNIQUE_ANSWER || $answerType == MULTIPLE_ANSWER || $answerType == TRUEFALSE)
-                {
-
-?>
-
-<tr>
-  <td width="5%" align="center">
-    <img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType != MULTIPLE_ANSWER)?'radio':'checkbox'; echo $studentChoice?'_on':'_off'; ?>.gif" border="0">
-  </td>
-  <td width="5%" align="center">
-    <img src="<?php echo $imgRepositoryWeb ?><?php echo ($answerType != MULTIPLE_ANSWER)?'radio':'checkbox'; echo $answerCorrect?'_on':'_off'; ?>.gif" border="0">
-  </td>
-  <td width="45%">
-    <?php echo $answer; ?>
-  </td>
-  <td width="45%">
-    <?php if($studentChoice) echo claro_parse_user_text($answerComment); else echo '&nbsp;'; ?>
-  </td>
-</tr>
-
-<?php
-                }
-                elseif($answerType == FILL_IN_BLANKS)
-                {
-?>
-
-<tr>
-  <td>
-    <?php echo claro_parse_user_text($answer); ?>
-  </td>
-</tr>
-
-<?php
-                }
-                else
-                {
-?>
-
-<tr>
-  <td width="50%">
-    <?php echo $answer; ?>
-  </td>
-  <td width="50%">
-    <?php echo $choice[$answerId]; ?> / <span class="correct"><b><?php echo $matching[$answerCorrect]; ?></b></span>
-  </td>
-</tr>
-
-<?php
-                }
-            } // end of if( $answerType != MATCHING || $answerCorrect )
-        }    // end for()
-?>
-<tr>
-  <td colspan="<?php echo $colspan; ?>" align="right">
-    <b><?php echo get_lang('Score')." : ".$questionScore."/".$questionWeighting; ?></b>
-  </td>
-</tr>
-</tfoot>
-</table>
-
-<?php
-        // destruction of Answer
-        unset($objAnswerTmp);
-
-        $i++;
-
-        $totalWeighting += $questionWeighting;
-    }    // end foreach of questions
-
-    // if there is no question (it is a old exercise attempt (before introduction of improved exo stats))
-    if( $i == 0 )
-    {
-        echo '<p>'.get_lang('There is no tracking for this attempt.').'</p>'."\n";
-    }
-
-    echo $backLink;
-
-    // check if computed score is the same than the recorded total score, same for weighting
-    // a difference could show a integrity error (i.e. an exercise that have been modified after the attempt)
-    if( $thisAttemptDetails['exe_weighting'] != $totalWeighting || $thisAttemptDetails['exe_result'] != $totalScore )
-    {
-        // display msg of integrity problem
-        echo '<p align="center">' . get_lang('Details may be incorrect as it seems that some questions have change between this attempt and now.') . '</p>' . "\n";
-    }
+			$questionIterator++;
+			$i++;
+		}	
+	}
+	
+    echo '</table>' . "\n\n";
+	
 }
 // not allowed
 else

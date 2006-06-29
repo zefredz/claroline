@@ -358,7 +358,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                             foreach ( $resListAttempts as $exo_attempt )
                             {
                                 echo '<tr>' . "\n"
-                                .    '<td><small><a href="user_exercise_details.php?track_id='.$exo_attempt['exe_id'].'">'.$exo_attempt['exe_date'].'</a></small></td>' . "\n"
+                                .    '<td><small><a href="user_exercise_details.php?trackedExId='.$exo_attempt['exe_id'].'">'.$exo_attempt['exe_date'].'</a></small></td>' . "\n"
                                 .    '<td><small>'.$exo_attempt['exe_result'].'/'.$exo_attempt['exe_weighting'].'</small></td>' . "\n"
                                 .    '<td><small>'.claro_disp_duration($exo_attempt['exe_time']).'</small></td>' . "\n"
                                 .    '</tr>' . "\n"
