@@ -198,6 +198,7 @@ $creationStatementList[] = "CREATE TABLE `" . $mainTblPrefixForm . "module` (
   `name`       char(100)                        NOT NULL default '',
   `activation` enum('activated','desactivated') NOT NULL default 'desactivated',
   `type`       enum('tool','applet')            NOT NULL default 'applet',
+  `script_url` char(255)                        NOT NULL default 'entry.php',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
 

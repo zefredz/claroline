@@ -367,17 +367,17 @@ else
  * ADD MODULES
  */
 
-$oldTools = array('CLDSC___',
-                  'CLANN___',
-                  'CLLNP___',
-                  'CLCAL___',
-                  'CLDOC___',
-                  'CLWIKI__',
-                  'CLFRM___',
-                  'CLCHT___',
-                  'CLQWZ___',
-                  'CLWRK___',
-                  'CLUSR___');
+$oldTools = array('CLDSC',
+                  'CLANN',
+                  'CLLNP',
+                  'CLCAL',
+                  'CLDOC',
+                  'CLWIKI',
+                  'CLFRM',
+                  'CLCHT',
+                  'CLQWZ',
+                  'CLWRK',
+                  'CLUSR');
 
 foreach($oldTools as $claroLabel)
 {

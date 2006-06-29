@@ -31,16 +31,16 @@ VALUES
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`id`,`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-(1, 'CLDSC___', 'course_description/index.php', 'info.gif', 'ALL', 1, 'AUTOMATIC', 'COURSE_ADMIN'),
-(5, 'CLQWZ___', 'exercise/exercise.php', 'quiz.gif', 'ALL', 5, 'AUTOMATIC', 'COURSE_ADMIN'),
-(6, 'CLLNP___', 'learnPath/learningPathList.php', 'learnpath.gif', 'ALL', 6, 'AUTOMATIC', 'COURSE_ADMIN')";
+(1, 'CLDSC', 'course_description/index.php', 'info.gif', 'ALL', 1, 'AUTOMATIC', 'COURSE_ADMIN'),
+(5, 'CLQWZ', 'exercise/exercise.php', 'quiz.gif', 'ALL', 5, 'AUTOMATIC', 'COURSE_ADMIN'),
+(6, 'CLLNP', 'learnPath/learningPathList.php', 'learnpath.gif', 'ALL', 6, 'AUTOMATIC', 'COURSE_ADMIN')";
 
 
 // ANNOUNCEMENT
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLANN___', 'announcements/announcements.php', 'announcement.gif', 'ALL', 3, 'AUTOMATIC', 'COURSE_ADMIN')";
+('CLANN', 'announcements/announcements.php', 'announcement.gif', 'ALL', 3, 'AUTOMATIC', 'COURSE_ADMIN')";
 
 
 
@@ -48,14 +48,14 @@ VALUES
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLCAL___', 'calendar/agenda.php', 'agenda.gif', 'ALL', 2, 'AUTOMATIC', 'COURSE_ADMIN')";
+('CLCAL', 'calendar/agenda.php', 'agenda.gif', 'ALL', 2, 'AUTOMATIC', 'COURSE_ADMIN')";
 
 
 // CHAT
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLCHT___', 'chat/chat.php', 'chat.gif', 'ALL', 11, 'AUTOMATIC', 'COURSE_ADMIN')";
+('CLCHT', 'chat/chat.php', 'chat.gif', 'ALL', 11, 'AUTOMATIC', 'COURSE_ADMIN')";
 
 
 
@@ -63,7 +63,7 @@ VALUES
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLDOC___', 'document/document.php', 'document.gif', 'ALL', 4, 'AUTOMATIC', 'COURSE_ADMIN')";
+('CLDOC', 'document/document.php', 'document.gif', 'ALL', 4, 'AUTOMATIC', 'COURSE_ADMIN')";
 
 
 
@@ -71,7 +71,7 @@ VALUES
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLFRM___', 'phpbb/index.php', 'forum.gif', 'ALL', 8, 'AUTOMATIC', 'COURSE_ADMIN')
+('CLFRM', 'phpbb/index.php', 'forum.gif', 'ALL', 8, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 
 
@@ -80,7 +80,7 @@ VALUES
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLGRP___', 'group/group.php', 'group.gif', 'ALL', 9, 'AUTOMATIC', 'COURSE_ADMIN')
+('CLGRP', 'group/group.php', 'group.gif', 'ALL', 9, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 
 
@@ -90,14 +90,14 @@ VALUES
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLUSR___', 'user/user.php', 'user.gif', 'ALL', 10, 'AUTOMATIC', 'COURSE_ADMIN')
+('CLUSR', 'user/user.php', 'user.gif', 'ALL', 10, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 
 //ASSIGNMENT
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLWRK___', 'work/work.php', 'assignment.gif', 'ALL', 7, 'AUTOMATIC', 'COURSE_ADMIN')
+('CLWRK', 'work/work.php', 'assignment.gif', 'ALL', 7, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 
 
@@ -105,7 +105,7 @@ VALUES
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
-('CLWIKI__', 'wiki/wiki.php', 'wiki.gif', 'ALL', 12, 'AUTOMATIC', 'COURSE_ADMIN')
+('CLWIKI', 'wiki/wiki.php', 'wiki.gif', 'ALL', 12, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 
 
