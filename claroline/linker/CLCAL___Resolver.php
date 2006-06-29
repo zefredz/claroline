@@ -99,7 +99,7 @@
         */
         function getResourceId($tool_name)
         {
-            global $insert_id;
+            // global $insert_id;
             global $entryId;
             global $thisEvent;
               
@@ -110,9 +110,9 @@
                        $resource_id = $thisEvent['id'];
                }
                    
-               else if( $insert_id != FALSE ) 
+               else if( $entryId != FALSE ) 
                {
-                       $resource_id = $insert_id;
+                       $resource_id = $entryId;
                }
                
                else if( isset($_REQUEST['id']) )

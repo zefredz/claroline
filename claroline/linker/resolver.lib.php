@@ -110,6 +110,7 @@ class Resolver
     {
         if( isset( $tool_name ) )
         {
+            $tool_name = str_pad( $tool_name, 8, '_' );
             $tool =  $tool_name . 'Resolver';
             require_once dirname(__FILE__) . '/' . $tool . '.php';
             $resolver = new $tool($this->_basePath);
