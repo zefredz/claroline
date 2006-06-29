@@ -394,8 +394,6 @@
         
         $crlSource = getSourceCrl( $tLabel );
         
-        var_dump( $crlSource );
-        
         if ( $jpspanEnabled )
         {
             if ( isset( $_REQUEST['servAdd'] ) )
