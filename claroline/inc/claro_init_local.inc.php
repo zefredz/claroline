@@ -12,7 +12,6 @@
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-
 /*******************************************************************************
  *
  *                             SCRIPT PURPOSE
@@ -109,8 +108,9 @@
  * boolean $_groupProperties ['tools'] ['chat'     ]
  *
  * REL COURSE USER VARIABLES
+ * int     $profileId
  * string  $_courseUser['role']
- * boolean $is_courseMember
+ * boolean $iscourseMember
  * boolean $is_courseTutor
  * boolean $is_courseAdmin
  *
@@ -198,7 +198,6 @@
 
 require_once dirname(__FILE__).'/conf/auth.conf.php'; // load the platform authentication settings
 
-
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the
   global name space.
@@ -251,14 +250,11 @@ $tbl_sso             = $tbl_mdb_names['sso'            ];
 $claro_loginRequested = false;
 $claro_loginSucceeded = false;
 
-
 if ($logout && !empty($_SESSION['_uid']))
 {
     // needed to notify that a user has just loggued out
     $logout_uid = $_SESSION['_uid'];
 }
-
-
 
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 {
@@ -536,7 +532,6 @@ if ( $cidReq && ( !isset($_SESSION['_cid']) || $cidReq != $_SESSION['_cid'] ) )
 
 if ( $cidReset ) // course session data refresh requested
 {
-
     if ( $cidReq )
     {
         $_course = claro_get_course_data($cidReq, true);
@@ -583,7 +578,8 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 {
     if ( $_uid && $_cid ) // have keys to search data
     {
-        $sql = "SELECT isCourseManager,
+        $sql = "SELECT profile_id as profileId,
+                       isCourseManager,
                        tutor,
                        role
                 FROM `".$tbl_rel_course_user."` `cours_user`
@@ -596,6 +592,7 @@ if ( $uidReset || $cidReset ) // session data refresh requested
         {
             $cuData = mysql_fetch_array($result);
 
+            $_profileId      = $cuData['profileId'];
             $is_courseMember = true;
             $is_courseTutor  = (bool) ($cuData['tutor' ] == 1 );
             $is_courseAdmin  = (bool) ($cuData['isCourseManager'] == 1 );
@@ -605,6 +602,7 @@ if ( $uidReset || $cidReset ) // session data refresh requested
         }
         else // this user has no status related to this course
         {
+            $_profileId      = claro_get_profile_id('guest');
             $is_courseMember = false;
             $is_courseAdmin  = false;
             $is_courseTutor  = false;
@@ -617,7 +615,8 @@ if ( $uidReset || $cidReset ) // session data refresh requested
     }
     else // keys missing => not anymore in the course - user relation
     {
-        //// course
+        // course
+        $_profileId      = claro_get_profile_id('anonymous');
         $is_courseMember = false;
         $is_courseAdmin  = false;
         $is_courseTutor  = false;
@@ -630,14 +629,16 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 }
 else // else of if ($uidReset || $cidReset) - continue with the previous values
 {
-    if ( !empty($_SESSION['is_courseMember']) ) $is_courseMember  = $_SESSION['is_courseMember' ];
-    else                                        $is_courseMember  = false;
-    if ( !empty($_SESSION['is_courseAdmin']) )  $is_courseAdmin   = $_SESSION['is_courseAdmin' ];
-    else                                        $is_courseAdmin   = false;
-    if ( !empty($_SESSION['is_courseAllowed']) )$is_courseAllowed = $_SESSION['is_courseAllowed' ];
-    else                                        $is_courseAllowed = false;
-    if ( !empty($_SESSION['is_courseTutor']) )  $is_courseTutor   = $_SESSION['is_courseTutor'];
-    else                                        $is_courseTutor   = false;
+    if ( !empty($_SESSION['_profileId']) )       $_profileId       = $_SESSION['_profileId'];
+    else                                         $_profileId       = false;
+    if ( !empty($_SESSION['is_courseMember']) )  $is_courseMember  = $_SESSION['is_courseMember' ];
+    else                                         $is_courseMember  = false;
+    if ( !empty($_SESSION['is_courseAdmin']) )   $is_courseAdmin   = $_SESSION['is_courseAdmin' ];
+    else                                         $is_courseAdmin   = false;
+    if ( !empty($_SESSION['is_courseAllowed']) ) $is_courseAllowed = $_SESSION['is_courseAllowed' ];
+    else                                         $is_courseAllowed = false;
+    if ( !empty($_SESSION['is_courseTutor']) )   $is_courseTutor   = $_SESSION['is_courseTutor'];
+    else                                         $is_courseTutor   = false;
 
     // not used
     if ( !empty($_SESSION['_courseUser']) )  $_courseUser      = $_SESSION['_courseUser'     ];
@@ -923,7 +924,6 @@ $_SESSION['_user'                 ] = $_user;
 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
 $_SESSION['is_platformAdmin'      ] = $is_platformAdmin;
 
-
 /*---------------------------------------------------------------------------
   Course info of $_cid course
  ---------------------------------------------------------------------------*/
@@ -936,6 +936,7 @@ $_SESSION['_groupProperties'] = $_groupProperties;
   User rights of $_uid in $_cid course
  ---------------------------------------------------------------------------*/
 
+$_SESSION['_profileId'      ] = $_profileId;
 $_SESSION['is_courseAdmin'  ] = $is_courseAdmin;
 $_SESSION['is_courseAllowed'] = $is_courseAllowed;
 $_SESSION['is_courseMember' ] = $is_courseMember;
@@ -960,13 +961,11 @@ $_SESSION['is_groupAllowed'] = $is_groupAllowed;
 $_SESSION['is_groupMember' ] = $is_groupMember;
 $_SESSION['is_groupTutor'  ] = $is_groupTutor;
 
-
 /*---------------------------------------------------------------------------
  Tool in $_cid course allowed to $_uid user
  ---------------------------------------------------------------------------*/
 
 $_SESSION['is_toolAllowed'] = $is_toolAllowed;
-
 
 /*---------------------------------------------------------------------------
   List of available tools in $_cid course

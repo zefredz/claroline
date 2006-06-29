@@ -126,7 +126,7 @@ function claro_get_profile_label ($profileId)
  * @return array ['tool_id']['action_name'] value
  */
 
-function claro_get_course_profile_right ($profileId, $courseId)
+function claro_get_course_profile_right ($profileId = null, $courseId = null)
 {
     $courseProfileRightList = null;
 
@@ -182,7 +182,7 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
 {
     global $_tid;
     global $_cid;
-    global $_user;
+    global $_profileId;
 
     // load tool id
     if ( is_null($tid) )
@@ -194,15 +194,15 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
     // load profile id
     if ( is_null($profileId) )
     {
-        if ( !empty($_user['profileId']) ) $profileId = $_user['profileId'] ;
-        else                               return false ;
+        if ( !empty($_prtofileId) ) $profileId = $_profileId ;
+        else                        return false ;
     }
    
     // load course id
     if ( is_null($courseId) )
     {
         if ( !empty($_cid) ) $courseId = $_cid ;
-        else                       return false ;
+        else                 return false ;
     }
 
     // get course profile right    
