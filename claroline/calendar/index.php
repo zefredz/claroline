@@ -15,7 +15,7 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
-$tlabelReq = 'CLANN___';
+$tlabelReq = 'CLANN';
 require '../inc/claro_init_global.inc.php';
 if (isset($_cid))
 {
