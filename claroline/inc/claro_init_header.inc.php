@@ -63,13 +63,20 @@ $titlePage .= get_conf('siteName');
 
 <script type="text/javascript">
 document.cookie="javascriptEnabled=true";
-function claro_session_loss_countdown(sessionLifeTime){
+<?php
+if ( true === get_conf( 'warnSessionLost', true ) )
+{
+    echo "function claro_session_loss_countdown(sessionLifeTime){
     var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
 }
 
 function claro_warn_of_session_loss() {
-    alert('WARNING ! You have just lost your session on the server. \n Copy any text you are currently writing and paste it outside the browser.');
+    alert('WARNING ! You have just lost your session on the server. \\n Copy any text you are currently writing and paste it outside the browser.');
 }
+";
+    $claroBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
+}
+?>
 </script>
 
 <?php
@@ -85,9 +92,14 @@ if ( isset($htmlHeadXtra) && is_array($htmlHeadXtra) )
 
 <?php
 
-$claroBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
-
-echo '<body dir="' . $text_dir . '" onload="' . implode('', $claroBodyOnload ) . '">';
+if ( isset( $claroBodyOnload ) )
+{
+    echo '<body dir="' . $text_dir . '" onload="' . implode('', $claroBodyOnload ) . '">';
+}
+else
+{
+    echo '<body dir="' . $text_dir . '">';
+}
 
 //  Banner
 
