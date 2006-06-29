@@ -74,8 +74,8 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             else                         $count_class_enrol = 1;
 
             // TODO 
-            if ( $admin ) $profileId = claro_get_profile_id('Manager');
-            else          $profileId = claro_get_profile_id('User');            
+            if ( $admin ) $profileId = claro_get_profile_id('manager');
+            else          $profileId = claro_get_profile_id('user');            
 
             $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                     SET code_cours = '" . addslashes($courseCode) . "',
@@ -334,14 +334,14 @@ function user_set_course_properties($userId, $courseId, $propertyList)
 
     if ( array_key_exists('isCourseManager', $propertyList) )
     {
-        if ( $propertyList['isCourseManager'] ) $propertyList['profileId'] = claro_get_profile_id('Manager') ;
+        if ( $propertyList['isCourseManager'] ) $propertyList['profileId'] = claro_get_profile_id('manager') ;
     }
     
     if ( array_key_exists('profileId', $propertyList) )
     {
         $setList[] = "profile_id = '" . (int) $propertyList['profileId'] . "'";
 
-        if ( $propertyList['profileId'] == claro_get_profile_id('Manager') ) $propertyList['isCourseManager'] = 1 ;
+        if ( $propertyList['profileId'] == claro_get_profile_id('manager') ) $propertyList['isCourseManager'] = 1 ;
         else                                                                 $propertyList['isCourseManager'] = 0 ;
     }
 
@@ -553,11 +553,11 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
           .  '<td align="right"><label for="profileId">' . get_lang('Profile') . ' :</label></td>' . "\n"
           .  '<td ><select name="profileId" id="profileId">' ;
 
-    foreach ( $profileList as $id => $name )
+    foreach ( $profileList as $id => $info )
     {
-        if ( $name != 'Anonymous' )
+        if ( $info['label'] != 'anonymous' )
         {
-            $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . $name . '</option>' . "\n" ;
+            $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . $info['name'] . '</option>' . "\n" ;
         }
     }
 

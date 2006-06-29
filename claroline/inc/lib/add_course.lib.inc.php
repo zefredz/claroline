@@ -1175,7 +1175,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     $currenVersionFilePath = $includePath . '/currentVersion.inc.php';
     file_exists($currenVersionFilePath) && require $includePath . '/currentVersion.inc.php';
 
-    $defaultProfileId = claro_get_profile_id('User');
+    $defaultProfileId = claro_get_profile_id('user');
 
     $sql = "INSERT INTO `" . $tbl_course . "` SET
             code              = '" . addslashes($courseSysCode)    . "',

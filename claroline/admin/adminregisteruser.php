@@ -81,13 +81,11 @@ switch ( $cmd )
         if ( $_REQUEST['isCourseManager'] )     // ... as teacher
         {
             $properties['isCourseManager'] = 1;
-            $properties['role']   = get_lang('Course manager');
             $properties['tutor']  = 1;
         }
         else // ... as student
         {
             $properties['isCourseManager'] = 0;
-            $properties['role']   = '';
             $properties['tutor']  = 0;
         }
 

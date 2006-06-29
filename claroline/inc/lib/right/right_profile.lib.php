@@ -39,7 +39,7 @@ function claro_get_all_profile_name_list ()
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_profile = $tbl_mdb_names['right_profile'];
 
-        $sql = "SELECT profile_id, name
+        $sql = "SELECT profile_id, name, label
                 FROM `" . $tbl_profile . "`
                 ORDER BY profile_id ";
 
@@ -49,7 +49,9 @@ function claro_get_all_profile_name_list ()
         {
             $profile_id = $profile['profile_id'];
             $profile_name = $profile['name'];
-            $profileList[$profile_id] = $profile_name; 
+            $profile_label = $profile['label'];
+            $profileList[$profile_id]['name'] = $profile_name; 
+            $profileList[$profile_id]['label'] = $profile_label; 
         }
 
         $cachedProfileList = $profileList ; // cache for the next time ...
@@ -62,15 +64,33 @@ function claro_get_all_profile_name_list ()
  * Get profileId
  */
 
-function claro_get_profile_id ($profileName)
+function claro_get_profile_id ($profileLabel)
 {
     $profileList = claro_get_all_profile_name_list();
 
-    $profileList = array_flip($profileList);
-
-    if ( isset($profileList[$profileName]) )
+    foreach ( $profileList as $profileId => $profileInfo)
     {
-        return $profileList[$profileName];
+        if ( $profileInfo['label'] ==  $profileLabel )
+        {
+            return $profileId;
+        }
+    }
+    return false;
+}
+
+/**
+ * Get profileName
+ * @param integer $profileId profile identifier
+ * @return array ['tool_id']['action_name'] value 
+ */
+
+function claro_get_profile_name ($profileId)
+{
+    $profileList = claro_get_all_profile_name_list();
+
+    if ( isset($profileList[$profileId]['name']) )
+    {
+        return $profileList[$profileId]['name'];
     }
     else
     {
@@ -84,13 +104,13 @@ function claro_get_profile_id ($profileName)
  * @return array ['tool_id']['action_name'] value 
  */
 
-function claro_get_profile_name ($profileId)
+function claro_get_profile_label ($profileId)
 {
     $profileList = claro_get_all_profile_name_list();
 
-    if ( isset($profileList[$profileId]) )
+    if ( isset($profileList[$profileId]['label']) )
     {
-        return $profileList[$profileId];
+        return $profileList[$profileId]['label'];
     }
     else
     {
