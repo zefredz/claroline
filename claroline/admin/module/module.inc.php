@@ -157,14 +157,12 @@ function activate_module($moduleId)
 
             //insert the new course tool
 
-        $module_info['label'] = str_pad($module_info['label'],8,'_');
-
         $trimlabel = rtrim($module_info['label'],'_');
 
         $sql = "INSERT INTO `" . $tbl['tool']."`
                 SET
                 claro_label = '".$module_info['label']."',
-                script_url = 'entry.php',
+                script_url = '".$module_info['script_url']."',
                 icon = '".$module_info['icon']."',
                 def_access = 'ALL',
                 def_rank = (".(int)$maxresult['maxrank']."+1),
@@ -233,8 +231,6 @@ function deactivate_module($moduleId)
     {
 
     //2- delete the module in the cours_tool table, used for every course creation
-
-        $module_info['label'] = str_pad($module_info['label'],8,'_');
 
         //retrieve thsi module_id first
 
@@ -544,8 +540,6 @@ function install_module($modulePath)
     }
 
     //check if a module with the same LABEL is already installed, if yes, we cancel everything
-
-    $module_info['LABEL'] = str_pad($module_info['LABEL'],8,'_');
 
     if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
     {
@@ -1005,7 +999,7 @@ function register_module($modulePath)
     if (file_exists($modulePath))
     {
         $module_info = readModuleManifest($modulePath);
-        $module_info['LABEL'] = str_pad($module_info['LABEL'],8,'_');
+
         if (is_array($module_info) && false !== ($moduleId = register_module_core($module_info)))
         {
             $regLog['info'][] = get_lang('%claroLabel registred', array('%claroLabel'=>$module_info['LABEL']));
@@ -1078,12 +1072,12 @@ function register_module_core($module_info)
 
     }
 
-    $module_info['LABEL'] = str_pad($module_info['LABEL'],8,'_');
-
     $sql = "INSERT INTO `" . $tbl['module'] . "`
-            SET label = '" . addslashes($module_info['LABEL'      ]) . "',
-                name  = '" . addslashes($module_info['NAME']) . "',
-                type  = '" . addslashes($module_info['TYPE']) . "'";
+            SET label      = '" . addslashes($module_info['LABEL'      ]) . "',
+                name       = '" . addslashes($module_info['NAME']) . "',
+                type       = '" . addslashes($module_info['TYPE']) . "',
+                script_url = '" . addslashes($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH'])."'
+                ";
     $moduleId = claro_sql_query_insert_id($sql);
 
 
@@ -1276,6 +1270,7 @@ function get_module_info($moduleId)
                M.`name`       AS `module_name`,
                M.`activation` AS `activation`,
                M.`type`       AS type,
+               M.`script_url` AS script_url,
                MT.`icon`       AS icon,
                MI.*
         FROM (`" . $tbl['module']      . "` AS M

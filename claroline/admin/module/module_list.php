@@ -30,19 +30,19 @@ require_once $includePath . '/../admin/module/module.inc.php';
 
 //OLD TOOLS ;
 
-$old_tool_array = array('CLANN___',
-                        'CLCAL___', 
-                        'CLFRM___', 
-                        'CLCHT___', 
-                        'CLDOC___',
-                        'CLDSC___', 
-                        'CLUSR___',
-                        'CLLNP___', 
-                        'CLQWZ___', 
-                        'CLWRK___', 
-                        'CLWIKI__', 
-                        'CLLNK___', 
-                        'CLGRP___' 
+$old_tool_array = array('CLANN',
+                        'CLCAL', 
+                        'CLFRM', 
+                        'CLCHT', 
+                        'CLDOC',
+                        'CLDSC', 
+                        'CLUSR',
+                        'CLLNP', 
+                        'CLQWZ', 
+                        'CLWRK', 
+                        'CLWIKI', 
+                        'CLLNK',
+                        'CLGRP' 
                         );
 
 //SQL table name
