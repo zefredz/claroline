@@ -320,7 +320,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     {
         $title   = get_lang('Select course in search results');
         $keyword = trim($_REQUEST['keyword']);
-        $result  = search_course($keyword);
+        $result  = search_course($keyword, $_uid);
 
         if ( count($result) > 0 )
         {
