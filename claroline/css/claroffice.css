@@ -89,6 +89,21 @@ h3.claroToolTitle {
 	margin: 0;
 }
 
+#platformBanner #institution a,
+#platformBanner #institution a:active,
+#platformBanner #institution a:link,
+#platformBanner #institution a:visited
+{
+	text-decoration: none;
+   color: #6789DE;
+}
+
+#platformBanner #institution a:hover 
+{
+	color: #6789DE;
+	text-decoration: underline;
+}
+
 #campusBannerRight
 {
     position: relative;
