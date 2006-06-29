@@ -485,7 +485,7 @@ class answerTrueFalse
     }
 
 	/** 
-	 * read response from request grade it, write grade in object, return grade
+	 * compute and return grade obtained from $this->response
 	 * 
      * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
@@ -493,8 +493,6 @@ class answerTrueFalse
 	 */
 	function gradeResponse()
 	{
-		$this->extractResponseFromRequest();
-		
 		if( $this->response == 'TRUE' )
 		{
 			return $this->trueGrade;
@@ -505,8 +503,9 @@ class answerTrueFalse
 		}
 		else
 		{
-			return false;
+			return 0;
 		}
+		
 	}
 	
 	/** 
