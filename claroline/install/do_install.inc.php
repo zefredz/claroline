@@ -377,7 +377,8 @@ $oldTools = array('CLDSC',
                   'CLCHT',
                   'CLQWZ',
                   'CLWRK',
-                  'CLUSR');
+                  'CLUSR',
+                  'CLGRP');
 
 foreach($oldTools as $claroLabel)
 {
