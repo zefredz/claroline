@@ -87,6 +87,7 @@ function get_module_list($context)
  */
 function get_module_data($claro_label)
 {
+    /*  for 1.9
     $tbl = claro_sql_get_tbl(array('module', 'module_tool', 'module_rel_tool_context', ));
     $sql ="SELECT mtc.tool_id                AS id,
                   m.label                    AS claro_label,
@@ -104,6 +105,7 @@ function get_module_data($claro_label)
            INNER JOIN `" . $tbl['module_rel_tool_context'] . "` AS mtc
            ON  mt.id = mtc.tool_id AND mtc.context = 'COURSE'
            WHERE m.label = '" . addslashes($claro_label) . "'";
+    */
 
     return claro_sql_query_get_single_row($sql);
 }
@@ -253,7 +255,7 @@ function get_module_path($toolLabel)
 
 function get_module_url($toolLabel)
 {
-    $toolLabel = claro_clean_label($toolLabel);
+    $toolLabel = rtrim($toolLabel,'_');
     switch ($toolLabel)
     {
         case 'CLANN' : return get_conf('clarolineRepositoryWeb') . 'announcements';
@@ -378,5 +380,10 @@ function claro_get_conf_dir($configCode)
     return realpath($GLOBALS['includePath'] . '/conf/');
 }
 
+function get_module_entry($moduleId)
+{
+    $moduleData = get_module_data($moduleId);
+    return $moduleData['entry']
 
+}
 ?>
