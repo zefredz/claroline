@@ -16,7 +16,7 @@
  *
  */
 
-$tlabelReq = 'CLWRK___';
+$tlabelReq = 'CLWRK';
 
 require '../inc/claro_init_global.inc.php';
 

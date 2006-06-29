@@ -34,7 +34,7 @@
 
 //**************** INITIALISATION************************
 
-$tlabelReq = 'CLGRP___';
+$tlabelReq = 'CLGRP';
 DEFINE('DISP_GROUP_LIST', __LINE__);
 DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
 $gidReq=null;

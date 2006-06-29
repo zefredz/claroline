@@ -25,7 +25,7 @@ function CLWRK_write_ical( & $iCal, $context)
         $organizer = (array) array($courseData['titular'], $courseData['email']);
         $attendees = array();
         $categories = array( get_conf('siteName'), $courseData['officialCode'],
-        trim($toolNameList[str_pad('CLWRK',8,'_')]), $courseData['categoryCode'] );
+        trim($toolNameList['CLWRK']), $courseData['categoryCode'] );
 
         foreach ($assignmentList as $thisAssignment)
         {

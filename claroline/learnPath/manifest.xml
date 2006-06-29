@@ -35,9 +35,9 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../learningPath/learningPathList.php" />
+          path="learnPath/learningPathList.php" />
     <link target="toolSelectBox"
-          path="../../learningPath/learningPathList.php" />
+          path="learnPath/learningPathList.php" />
   </course>
  </context>
 

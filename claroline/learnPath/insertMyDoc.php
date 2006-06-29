@@ -17,7 +17,7 @@
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-$tlabelReq = 'CLLNP___';
+$tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
 // if there is an auth information missing redirect to the first page of lp tool 

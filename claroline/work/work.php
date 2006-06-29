@@ -18,7 +18,7 @@
  *
  */
 
-$tlabelReq = 'CLWRK___';
+$tlabelReq = 'CLWRK';
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);

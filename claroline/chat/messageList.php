@@ -25,7 +25,7 @@
  */
 
 // CLAROLINE INIT
-$tlabelReq = 'CLCHT___'; // required
+$tlabelReq = 'CLCHT'; // required
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) )

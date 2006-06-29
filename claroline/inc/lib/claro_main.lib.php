@@ -207,18 +207,18 @@ function claro_get_tool_name_list($active = true)
 
     if( ! isset( $toolNameList ) )
     {
-        $toolNameList = array('CLANN___' => 'Announcement'
-        ,                     'CLFRM___' => 'Forums'
-        ,                     'CLCAL___' => 'Agenda'
-        ,                     'CLCHT___' => 'Chat'
-        ,                     'CLDOC___' => 'Documents and Links'
-        ,                     'CLDSC___' => 'Course description'
-        ,                     'CLGRP___' => 'Groups'
-        ,                     'CLLNP___' => 'Learning path'
-        ,                     'CLQWZ___' => 'Exercises'
-        ,                     'CLWRK___' => 'Assignments'
-        ,                     'CLUSR___' => 'Users'
-        ,                     'CLWIKI__' => 'Wiki'
+        $toolNameList = array('CLANN' => 'Announcement'
+        ,                     'CLFRM' => 'Forums'
+        ,                     'CLCAL' => 'Agenda'
+        ,                     'CLCHT' => 'Chat'
+        ,                     'CLDOC' => 'Documents and Links'
+        ,                     'CLDSC' => 'Course description'
+        ,                     'CLGRP' => 'Groups'
+        ,                     'CLLNP' => 'Learning path'
+        ,                     'CLQWZ' => 'Exercises'
+        ,                     'CLWRK' => 'Assignments'
+        ,                     'CLUSR' => 'Users'
+        ,                     'CLWIKI' => 'Wiki'
         );
     }
 
@@ -247,10 +247,6 @@ function claro_get_tool_name_list($active = true)
 
     foreach ($result as $tool)
     {
-
-        //tricks to be sure that we get a 8 chars label :  CLBLAH__
-
-        $tool['label'] = str_pad($tool['label'],8,'_');
 
         if (!isset($toolNameList[$tool['label']]))
         {

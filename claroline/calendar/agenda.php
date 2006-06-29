@@ -18,7 +18,7 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
-$tlabelReq = 'CLCAL___';
+$tlabelReq = 'CLCAL';
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 

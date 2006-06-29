@@ -373,7 +373,7 @@ class Notifier extends EventDriven
 
         //deal with specific case of folders in document tool
 
-        if (($_courseTool['label'] == 'CLDOC___') && ($thisFile['type'] == A_DIRECTORY))
+        if (($_courseTool['label'] == 'CLDOC') && ($thisFile['type'] == A_DIRECTORY))
         {
             $ressourceList = $this->toolNotifiedRessourceList;
 

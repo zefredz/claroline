@@ -18,7 +18,7 @@
  *
  */
 
-$tlabelReq = 'CLGRP___';
+$tlabelReq = 'CLGRP';
 require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/lib/group.lib.inc.php';

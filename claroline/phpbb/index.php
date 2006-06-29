@@ -23,7 +23,7 @@
   Init Section
  =================================================================*/
 
-$tlabelReq = 'CLFRM___';
+$tlabelReq = 'CLFRM';
 $gidReq=null;
 $gidReset=true;
 

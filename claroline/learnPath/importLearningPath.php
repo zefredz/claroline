@@ -17,7 +17,7 @@
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-$tlabelReq = 'CLLNP___';
+$tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
 $is_AllowedToEdit = $is_courseAdmin;

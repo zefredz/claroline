@@ -31,7 +31,7 @@ function CLANN_write_ical( & $iCal, $context)
     $attendees = array();
     $categories = array( get_conf('siteName'),
     $courseData['officialCode'],
-    trim($toolNameList[str_pad('CLANN',8,'_')]),
+    trim($toolNameList['CLANN']),
     $courseData['categoryCode']
     );
 
@@ -41,7 +41,7 @@ function CLANN_write_ical( & $iCal, $context)
         {
             /*
             $rssList[] = array( 'title'       => trim($announcementItem['title'])
-            ,                   'category'    => trim($toolNameList[str_pad('CLANN',8,'_')])
+            ,                   'category'    => trim($toolNameList['CLANN'])
             ,                   'guid'        => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
             ,                   'link'        => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
             ,                   'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))

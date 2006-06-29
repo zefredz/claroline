@@ -20,7 +20,7 @@
  *
  */
 
-$tlabelReq = 'CLCHT___';
+$tlabelReq = 'CLCHT';
 
 require '../inc/claro_init_global.inc.php'; 
 

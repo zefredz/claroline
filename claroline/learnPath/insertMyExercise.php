@@ -18,7 +18,7 @@
        CLAROLINE MAIN
  ======================================*/
 
-$tlabelReq = 'CLLNP___';
+$tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
 // main page

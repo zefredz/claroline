@@ -1005,7 +1005,7 @@ function disp_forum_group_toolbar($gid, $active = true)
         . '</a>'
         ;
 
-    if($_groupProperties['tools']['document'] && $is_allowedToDocAccess && !(in_array('CLDOC___',$deactivated_tools)))
+    if($_groupProperties['tools']['document'] && $is_allowedToDocAccess && !(in_array('CLDOC',$deactivated_tools)))
     {
         echo '&nbsp;|&nbsp'
             .'<a href="../document/document.php" class="claroCmd">'
@@ -1016,7 +1016,7 @@ function disp_forum_group_toolbar($gid, $active = true)
             ;
     }
 
-    if($_groupProperties['tools']['wiki'] && !(in_array('CLWIKI__',$deactivated_tools)))
+    if($_groupProperties['tools']['wiki'] && !(in_array('CLWIKI',$deactivated_tools)))
     {
         echo '&nbsp;|&nbsp'
             .'<a href="../wiki/wiki.php" class="claroCmd">'
@@ -1026,7 +1026,7 @@ function disp_forum_group_toolbar($gid, $active = true)
             ;
     }
 
-    if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess && !(in_array('CLCHT___',$deactivated_tools)))
+    if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess && !(in_array('CLCHT',$deactivated_tools)))
     {
         echo '&nbsp;|&nbsp'
             .'<a href="../chat/chat.php?gidReq=" . $gid . " class="claroCmd">'

@@ -55,7 +55,7 @@ define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
  *  CLAROLINE MAIN SETTINGS
  */
 
-$tlabelReq = 'CLANN___';
+$tlabelReq = 'CLANN';
 
 require '../inc/claro_init_global.inc.php';
 

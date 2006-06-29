@@ -33,9 +33,9 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../course_description/index.php" />
+          path="course_description/index.php" />
     <link target="toolSelectBox"
-          path="../../course_description/index.php" />
+          path="course_description/index.php" />
   </course>
  </context>
 

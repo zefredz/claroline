@@ -21,7 +21,7 @@
   Init Section
  =================================================================*/
 
-$tlabelReq = 'CLFRM___';
+$tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
 

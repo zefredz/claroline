@@ -33,18 +33,18 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../announcements/announcements.php" />
+          path="announcements/announcements.php" />
     <link target="toolSelectBox"
-          path="../../announcements/announcements.php" />
+          path="announcements/announcements.php" />
   </course>
   <group database="kernel"
           enabling="automatic"
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../announcements/announcements.php" />
+          path="announcements/announcements.php" />
     <link target="toolSelectBox"
-          path="../../announcements/announcements.php" />
+          path="announcements/announcements.php" />
   </group>
  </context>
 

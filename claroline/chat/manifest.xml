@@ -34,16 +34,16 @@
            default_access="all"
            access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../chat/chat.php" />
+          path="chat/chat.php" />
     <link target="toolSelectBox"
-          path="../../chat/chat.php" />
+          path="chat/chat.php" />
   </course>
    <group file="kernel"
           enabling="automatic"
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../chat/chat.php" />
+          path="chat/chat.php" />
   </group>
 
  </context>

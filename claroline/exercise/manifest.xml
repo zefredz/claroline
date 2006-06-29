@@ -32,9 +32,9 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../exercise/exercise.php" />
+          path="exercise/exercise.php" />
     <link target="toolSelectBox"
-          path="../../exercise/exercise.php" />
+          path="exercise/exercise.php" />
   </course>
  </context>
 

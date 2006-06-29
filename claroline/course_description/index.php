@@ -20,7 +20,7 @@
  *
  */
 
-$tlabelReq = 'CLDSC___';
+$tlabelReq = 'CLDSC';
 
 require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/lib/courseDescription.lib.php';

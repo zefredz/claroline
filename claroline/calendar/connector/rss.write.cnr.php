@@ -40,7 +40,7 @@ function CLCAL_write_rss($context)
             $item['dc:date'] = ('c' == $item['dc:date'])?date('Y-m-d\TH:i:sO', $item['timestamp']):$item['dc:date'];
 
             $itemRssList[] = array( 'title'       => $item['title']
-            ,                       'category'    => trim($toolNameList[str_pad('CLCAL',8,'_')])
+            ,                       'category'    => trim($toolNameList['CLCAL'])
             ,                        'guid'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
             ,                        'link'        => get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
             ,                        'description' => trim(str_replace('<!-- content: html -->','',$item['content']))

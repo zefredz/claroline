@@ -70,7 +70,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
         
     //document tool events
     
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLDOC___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLDOC") 
     {
     $claro_notifier->addListener( 'update',       "document_visible");
     $claro_notifier->addListener( 'update',       "document_file_added");
@@ -83,7 +83,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //agenda events
 
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLCAL___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLCAL") 
     {
     $claro_notifier->addListener( 'update',       "agenda_event_visible");
     $claro_notifier->addListener( 'update',       "agenda_event_added");
@@ -94,7 +94,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //announcement tool events
     
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLANN___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLANN") 
     {
     $claro_notifier->addListener( 'update',       "anouncement_visible");
     $claro_notifier->addListener( 'update',       "anouncement_added");
@@ -105,7 +105,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //course description tool events
 
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLDSC___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLDSC") 
     {
     $claro_notifier->addListener( 'update',       "course_description_added");
     $claro_notifier->addListener( 'update',       "course_description_modified");
@@ -115,7 +115,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //exercise tool events
     
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLQWZ___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLQWZ") 
     {
     $claro_notifier->addListener( 'update',       "exercise_visible");
     $claro_notifier->addListener( 'delete_notif', "exercise_invisible");
@@ -124,7 +124,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //learning path tool events
     
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLLNP___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLLNP") 
     {
     $claro_notifier->addListener( 'update',       "learningpath_created");
     $claro_notifier->addListener( 'update',       "learningpath_visible");
@@ -134,7 +134,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //assignment tool events
     
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLWRK___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLWRK") 
     {
     $claro_notifier->addListener( 'update',       "work_added");
     $claro_notifier->addListener( 'update',       "work_visible");
@@ -147,7 +147,7 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //forum tool events
     
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLFRM___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLFRM") 
     {
     $claro_notifier->addListener( 'update', "forum_new_topic");
     $claro_notifier->addListener( 'update', "forum_answer_topic");
@@ -155,14 +155,14 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     
     //group tool events
     
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLGRP___") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLGRP") 
     {
     $claro_notifier->addListener( 'delete_notif', "group_deleted");
     }
     
     //wiki tool events
 
-    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLWIKI__") 
+    if (isset($_courseTool['label']) && $_courseTool['label'] == "CLWIKI") 
     {
     $claro_notifier->addListener( 'update',       "wiki_added");
     $claro_notifier->addListener( 'update',       "wiki_modified");

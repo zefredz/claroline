@@ -1,6 +1,6 @@
 <?php # -$Id$
 
-$tlabelReq = 'CLFRM___';
+$tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
 require $includePath .'/lib/forum.lib.php';

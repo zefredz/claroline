@@ -37,15 +37,15 @@
            default_access="all"
            access_manager="course_admin">
     <link target="commonToolList"
-          path="../../wiki/wiki.php" />
+          path="wiki/wiki.php" />
     <link target="toolSelectBox"
-          path="../../wiki/wiki.php" />
+          path="wiki/wiki.php" />
    </course>
    <group database="module"
           enabling="automatic"
           default_access="course_member"
           access_manager="platform_admin">
-    <link target="commonToolList" path="../../wiki/wiki.php" />
+    <link target="commonToolList" path="wiki/wiki.php" />
    </group>
 
   </context>

@@ -19,7 +19,7 @@
      * @package Wiki
      */
 
-    $tlabelReq = 'CLWIKI__';
+    $tlabelReq = 'CLWIKI';
 
     require_once "../inc/claro_init_global.inc.php";
 

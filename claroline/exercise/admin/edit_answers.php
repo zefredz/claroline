@@ -12,7 +12,7 @@
  *
  */
  
-$tlabelReq = 'CLQWZ___';
+$tlabelReq = 'CLQWZ';
  
 require '../../inc/claro_init_global.inc.php';
 

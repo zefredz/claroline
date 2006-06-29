@@ -14,7 +14,7 @@
  Init Section
  =====================================================================*/
 
-$tlabelReq = 'CLUSR___';
+$tlabelReq = 'CLUSR';
 
 require '../inc/claro_init_global.inc.php';
 

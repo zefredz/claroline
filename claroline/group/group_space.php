@@ -20,7 +20,7 @@
 
 $cidNeeded = true;
 $gidNeeded = true;
-$tlabelReq = 'CLGRP___';
+$tlabelReq = 'CLGRP';
 
 require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/lib/group.lib.inc.php';

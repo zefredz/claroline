@@ -33,16 +33,16 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../phpbb/index.php" />
+          path="phpbb/index.php" />
     <link target="toolSelectBox"
-          path="../../phpbb/index.php" />
+          path="phpbb/index.php" />
   </course>
    <group database="module"
           enabling="automatic"
           default_access="course_member"
           access_manager="platform_admin">
     <link target="commonToolList"
-          path="../../phpbb/index.php" />
+          path="phpbb/index.php" />
    </group>
  </context>
 

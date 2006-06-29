@@ -34,9 +34,9 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../work/work.php" />
+          path="work/work.php" />
     <link target="toolSelectBox"
-          path="../../work/work.php" />
+          path="work/work.php" />
   </course>
  </context>
 </module>

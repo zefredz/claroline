@@ -35,15 +35,15 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../document/document.php" />
+          path="document/document.php" />
     <link target="toolSelectBox"
-          path="../../document/document.php" />
+          path="document/document.php" />
   </course>
    <group database="module"
           enabling="automatic"
           default_access="group_member"
           access_manager="platform_admin">
-    <link target="commonToolList" path="../../document/document.php" />
+    <link target="commonToolList" path="document/document.php" />
    </group>
  </context>
 

@@ -34,9 +34,9 @@
           default_access="all"
           access_manager="platform_admin" >
     <link target="commonToolList"
-          path="../../calendar/index.php" />
+          path="calendar/index.php" />
     <link target="toolSelectBox"
-          path="../../calendar/index.php" />
+          path="calendar/index.php" />
   </course>
  </context>
 

@@ -406,9 +406,9 @@ function move_course_tool($reqToolId, $moveDirection)
 
 //////////////////////////////////////////////////////////////////////////////
 
-//insert_course_tool('CLDOC___');
-//insert_course_tool('CLDOC___');
-//insert_course_tool('CLXXX___');
+//insert_course_tool('CLDOC');
+//insert_course_tool('CLDOC');
+//insert_course_tool('CLXXX');
 //echo  get_next_course_tool_rank();
 //set_course_tool_access_level(2, 'ALL');
 //enable_course_tool(2);
