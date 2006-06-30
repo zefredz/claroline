@@ -83,7 +83,7 @@ if ( !empty($display_profile) )
 
 if ( empty($display_profile_list) )
 {
-    $profileNameList = claro_get_profile_name_list();
+    $profileNameList = claro_get_all_profile_name_list();
     $display_profile_list = array_keys($profileNameList);
     $display_profile_url_param = 'all';
 }
