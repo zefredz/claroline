@@ -1098,11 +1098,20 @@ function register_module_core($module_info)
 
     }
 
+    if (isset($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH']))
+    {
+        $script_url = $module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH'];
+    }
+    else
+    {
+        $script_url = 'entry.php';
+    }
+
     $sql = "INSERT INTO `" . $tbl['module'] . "`
             SET label      = '" . addslashes($module_info['LABEL'      ]) . "',
                 name       = '" . addslashes($module_info['NAME']) . "',
                 type       = '" . addslashes($module_info['TYPE']) . "',
-                script_url = '" . addslashes($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH'])."'
+                script_url = '" . addslashes($script_url)."'
                 ";
     $moduleId = claro_sql_query_insert_id($sql);
 
