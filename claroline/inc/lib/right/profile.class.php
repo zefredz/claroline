@@ -236,7 +236,7 @@ class RightProfile
     }
 
     /**
-     * delete profile from DD
+     * delete profile from DB
      *
      * @todo TODO Possibility to delete used profile ?
      * @return boolean
@@ -248,7 +248,7 @@ class RightProfile
         {
             $sql = "DELETE FROM `". $this->tbl['profile'] ."`
                     WHERE `profile_id` = '". (int) $this->id."'";
-                    claro_sql_query($sql);
+            claro_sql_query($sql);
 
             // is it required to empty the fields of the object ?
             $this->id = -1;
