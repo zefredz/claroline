@@ -108,9 +108,9 @@
  * boolean $_groupProperties ['tools'] ['chat'     ]
  *
  * REL COURSE USER VARIABLES
- * int     $profileId
+ * int     $_profileId
  * string  $_courseUser['role']
- * boolean $iscourseMember
+ * boolean $is_courseMember
  * boolean $is_courseTutor
  * boolean $is_courseAdmin
  *
@@ -135,7 +135,7 @@
  *
  * string $_courseTool['label'         ]
  * string $_courseTool['name'          ]
- * string $_courseTool['access'        ]
+ * string $_courseTool['visibility'    ]
  * string $_courseTool['url'           ]
  * string $_courseTool['icon'          ]
  * string $_courseTool['access_manager']
@@ -148,7 +148,7 @@
  * int     $_courseToolList[]['id'            ]
  * string  $_courseToolList[]['label'         ]
  * string  $_courseToolList[]['name'          ]
- * string  $_courseToolList[]['access'        ]
+ * string  $_courseToolList[]['visibility'    ]
  * string  $_courseToolList[]['icon'          ]
  * string  $_courseToolList[]['access_manager']
  * string  $_courseToolList[]['url'           ]
@@ -665,9 +665,10 @@ if ( $tidReset || $cidReset ) // session data refresh requested
     if ( ( $tidReq || $tlabelReq) && $_cid ) // have keys to search data
     {
         $sql = " SELECT ctl.id                  AS id            ,
+                      pct.id                    AS toolId       ,
                       pct.claro_label           AS label         ,
                       ctl.script_name           AS name          ,
-                      ctl.access                AS access        ,
+                      ctl.visibility            AS visibility    ,
                       pct.icon                  AS icon          ,
                       pct.access_manager        AS access_manager,
                       CONCAT('".$clarolineRepositoryWeb."', pct.script_url)
@@ -686,7 +687,8 @@ if ( $tidReset || $cidReset ) // session data refresh requested
 
         if ( is_array($_courseTool) ) // this tool have a recorded state for this course
         {
-            $_tid                          = $_courseTool['id'];
+            $_tid        = $_courseTool['id'];
+            $_mainToolId = $_courseTool['toolId'];
         }
         else // this tool has no status related to this course
         {
@@ -697,6 +699,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
     {
         // course
         $_tid        = null;
+        $_mainToolId = null;
         $_courseTool = null;
     }
 
@@ -705,6 +708,9 @@ else // continue with the previous values
 {
     if ( !empty($_SESSION['_tid']) ) $_tid = $_SESSION['_tid'] ;
     else                             $_tid = null;
+    
+    if ( !empty($_SESSION['_mainToolId']) ) $_mainToolId = $_SESSION['_mainToolId'] ;
+    else                                    $_mainToolId = null;
 
     if ( !empty( $_SESSION['_courseTool']) ) $_courseTool = $_SESSION['_courseTool'];
     else                                     $_courseTool = null;
@@ -857,17 +863,15 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
     }
     elseif ( $_tid )
     {
-        switch($_courseTool['access'])
+        // TODO
+        if ( ( ! $_courseTool['visibility'] && ! claro_is_allowed_tool_edit($_mainToolId,$_profileId,$_cid) )
+             || ! claro_is_allowed_tool_read($_mainToolId,$_profileId,$_cid) )
         {
-            case 'PLATFORM_ADMIN'   : $is_toolAllowed = $is_platformAdmin; break;
-            case 'COURSE_ADMIN'     : $is_toolAllowed = $is_courseAdmin;   break;
-            case 'COURSE_TUTOR'     : $is_toolAllowed = $is_courseTutor;   break;
-            case 'GROUP_TUTOR'      : $is_toolAllowed = $is_groupTutor;    break;
-            case 'GROUP_MEMBER'     : $is_toolAllowed = $is_groupMember;   break;
-            case 'COURSE_MEMBER'    : $is_toolAllowed = $is_courseMember;  break;
-            case 'PLATFORM_MEMBER'  : $is_toolAllowed = (bool) $_uid;      break;
-            case 'ALL'              : $is_toolAllowed = true;              break;
-            default                 : $is_toolAllowed = false;
+            $is_toolAllowed = false;
+        }
+        else
+        {
+            $is_toolAllowed = true; 
         }
     }
     else
@@ -890,16 +894,7 @@ if ($uidReset || $cidReset)
 {
     if ($_cid) // have course keys to search data
     {
-        if     ($is_platformAdmin) $courseReqAccessLevel = 'PLATFORM_ADMIN' ;
-        elseif ($is_courseAdmin  ) $courseReqAccessLevel = 'COURSE_ADMIN'   ;
-        elseif ($is_courseTutor  ) $courseReqAccessLevel = 'COURSE_TUTOR'   ;
-        elseif ($is_groupTutor   ) $courseReqAccessLevel = 'GROUP_TUTOR'    ;
-        elseif ($is_groupMember  ) $courseReqAccessLevel = 'GROUP_MEMBER'   ;
-        elseif ($is_courseMember ) $courseReqAccessLevel = 'COURSE_MEMBER'  ;
-        elseif ($_uid            ) $courseReqAccessLevel = 'PLATFORM_MEMBER';
-        else                       $courseReqAccessLevel = 'ALL';
-
-        $_courseToolList = claro_get_course_tool_list($_cid, $courseReqAccessLevel, true, true);
+        $_courseToolList = claro_get_course_tool_list($_cid, $_profileId, true, true);
     }
     else
     {
@@ -949,6 +944,7 @@ if ( isset($_courseUser) ) $_SESSION['_courseUser'] = $_courseUser; // not used
  ---------------------------------------------------------------------------*/
 
 $_SESSION['_tid'       ] = $_tid;
+$_SESSION['_mainToolId'] = $_mainToolId;
 $_SESSION['_courseTool'] = $_courseTool;
 
 /*---------------------------------------------------------------------------
