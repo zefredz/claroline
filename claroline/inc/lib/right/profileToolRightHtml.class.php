@@ -41,6 +41,12 @@ class RightProfileToolRightHtml
     var $urlParamAppendList = array();
 
     /**
+     * @var $courseToolInfo
+     */
+
+    var $courseToolInfo = array();
+
+    /**
      * Constructor
      */
 
@@ -62,6 +68,24 @@ class RightProfileToolRightHtml
         // get profileId
         $profileId = $rightProfileToolRight->profile->getId();
         $this->rightProfileToolRightList[$profileId] = &$rightProfileToolRight; 
+    }
+
+    /**
+     * Set course tool info ('icon','tid','visibility')
+     */
+
+    function setCourseToolInfo ($courseToolInfo)
+    {
+        $this->courseToolInfo = $courseToolInfo;
+    }
+
+    /**
+     * Is set course Tool Info
+     */
+
+    function isSetCourseToolInfo ()
+    {
+        return (bool) count($this->courseToolInfo);
     }
 
     /**
@@ -163,6 +187,12 @@ class RightProfileToolRightHtml
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Tools') . '</th>' . "\n";
 
+        // visibility column
+        if ( $this->isSetCourseToolInfo() )
+        {
+            $html .= '<th style="text-align:center; width:100px;" >' . get_lang('Visibility') . '</th>' . "\n";
+        }  
+
         foreach ( $html_table_header_list as $html_table_header  )
         {
             $html .= '<th style="text-align:center; width:100px;" >' . $html_table_header . '</th>' . "\n";
@@ -174,8 +204,41 @@ class RightProfileToolRightHtml
         
         foreach ( $html_table_row_list as $tool_id => $html_table_row )
         {               
-            $html .= '<tr>' . "\n"
-                   . '<td>' . claro_get_tool_name($tool_id) . '</td>' . "\n" ; 
+            $html .= '<tr>' . "\n" ;
+
+            if ( $this->isSetCourseToolInfo() )
+            {
+                // Add visibility and icon from courseToolInfo
+                $html .= '<td ' . ($this->courseToolInfo[$tool_id]['visibility'] == true ?'':'class="invisible"') . '>'
+                   . '<img src="' . $this->courseToolInfo[$tool_id]['icon'] . '" alt="" />' . claro_get_tool_name($tool_id)
+                   . '</td>';
+            }
+            else
+            {
+                $html .= '<td>' . claro_get_tool_name($tool_id) . '</td>' . "\n" ; 
+            }
+
+            // visibility column
+
+            if ( $this->isSetCourseToolInfo() )
+            {
+                if ( $this->courseToolInfo[$tool_id]['visibility'] == true )
+                {
+                    $html .= '<td align="center">'
+                    . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] . '" >'
+                    . '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible') . '" />'
+                    . '</a></td>' . "\n";
+                }
+                else
+                {
+                    $html .= '<td align="center">' 
+                    . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] .'" >'
+                    . '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+                    . '</a></td>' . "\n" ;
+                }
+            }
+
+            // profile colums
 
             foreach ( $html_table_row as $html_table_row_cell)
             {
