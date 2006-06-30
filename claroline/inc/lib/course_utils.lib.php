@@ -129,7 +129,7 @@ function get_course_tool_list($cid)
         $sql ="SELECT ctl.id             id,
                         pct.claro_label    label,
                         ctl.script_name    name,
-                        ctl.access         access,
+                        ctl.visibility     visibility,
                         pct.icon           icon,
                         pct.access_manager access_manager,
 

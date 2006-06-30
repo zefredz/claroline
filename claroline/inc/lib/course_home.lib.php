@@ -14,7 +14,8 @@
  */
 
 /**
- * insert a new claroline standart course tool into the course
+ * insert a new claroline standart course tool into the course 
+ * TODO : use this function in course/create.php (note by mla)
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param  string $tool_label
@@ -51,10 +52,9 @@ function insert_course_tool($tool_label)
 
     $defaultToolSettingList['rank'] = get_next_course_tool_rank();
 
-
     $sql = "INSERT INTO `".$tbl_course_tool_list."`
             SET tool_id  = \"".(int)$defaultToolSettingList['id'        ]."\",
-                access = \""  .addslashes($defaultToolSettingList['def_access'])."\",
+                visibility = \""  . ($defaultToolSettingList['def_access']=='ALL'?1:0)."\",
                 rank     = \"".(int)$defaultToolSettingList['rank'      ]."\"";
 
     claro_sql_query($sql);
@@ -68,7 +68,7 @@ function insert_course_tool($tool_label)
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param int $toolId id of the tool
- * @return array containing 'id', 'name', 'access', 'rank', 'url', 'label',
+ * @return array containing 'id', 'name', 'visibility', 'rank', 'url', 'label',
  *                          'icon', 'access_manager'
  */
 
@@ -82,12 +82,12 @@ function get_course_tool_settings ($toolId)
 
     $sql = "SELECT tl.id                               id,
                    tl.script_name                      name,
-                   tl.access                         access,
+                   tl.visibility                       visibility,
                    tl.rank                             rank,
                    IFNULL(ct.script_url,tl.script_url) url,
                    ct.claro_label                      label,
-                   ct.icon                            icon,
-                   ct.access_manager                  access_manager
+                   ct.icon                             icon,
+                   ct.access_manager                   access_manager
 
             FROM      `" . $tbl_course_tool_list . "`             tl
 
@@ -111,58 +111,22 @@ function get_course_tool_settings ($toolId)
 }
 
 /**
- * Enable tool by setting the minimum level to lowest value.
- * So give a second param have  probably non sense,
- * use set_course_tool_access_level to do that
- *
- * @param mixed  $toolIdList ( id or array of int)
- * @param string $disablingLevel (want a valid access LEVEL)
- * @return true or error code
- */
-
-
-function enable_course_tool($toolIdList, $accessLevel = 'ALL')
-{
-
-    return set_course_tool_access_level($toolIdList, $accessLevel);
-}
-
-
-/**
- * Disable tool by setting the minimum level to Course_admin value.
- * So give a second param have probably non sense,
- * use set_course_tool_access_level to do that
- *
- * @param mixed  $toolIdList ( id or array of int)
- * @param string $disablingLevel (want a valid access LEVEL)
- * @return true or error code
- */
-function disable_course_tool($toolIdList, $disablingLevel = 'COURSE_ADMIN')
-{
-    return set_course_tool_access_level($toolIdList, $disablingLevel);
-}
-
-/**
- * Set the minimum access level needed to access this tool.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * Set the visibility of this tool.
  * @param int $toolId
- * @param string $level should be in 'ALL', 'COURSE_MEMBER', 'GROUP_MEMBER',
- *                      'COURSE_TUTOR', 'COURSE_MANAGER', 'PLATFORM_ADMIN'
+ * @param boolean $value
  * @return
  */
 
-
-function set_course_tool_access_level($toolIdList, $level)
+function set_course_tool_visibility($toolId, $value)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
 
-    if (! is_array ($toolIdList) ) $toolIdList = array($toolIdList);
+    $value = $value ? 1 : 0 ;
 
     $sql = "UPDATE `" . $tbl_course_tool_list . "`
-            SET   access = '" . addslashes($level) . "'
-            WHERE id IN ('" . implode("', '",$toolIdList) . "')";
+            SET visibility = " . (int) $value . "
+            WHERE id = " . $toolId . "";
 
     return claro_sql_query($sql);
 }
@@ -219,14 +183,12 @@ function set_local_course_tool($toolId, $name, $url)
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @param string $name
  * @param string $url
- * @param string $accessLevel (optionnal) should be in 'ALL', 'COURSE_MEMBER',
- *                             'GROUP_MEMBER', 'COURSE_TUTOR', 'COURSE_MANAGER',
- *                             'PLATFORM_ADMIN'
+ * @param boolean $visibility
  * @return bool true if it succeeds, false otherwise
  */
 
 
-function insert_local_course_tool($name, $url, $accessLevel = 'ALL')
+function insert_local_course_tool($name, $url, $visibility = true)
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
@@ -245,7 +207,7 @@ function insert_local_course_tool($name, $url, $accessLevel = 'ALL')
                 SET
                 script_name = '" . addslashes($name) . "',
                 script_url  = '" . addslashes($url) . "',
-                access      = '" . addslashes($accessLevel) . "',
+                visibility  = '" . ($visibility?1:0) . "',
                 rank        = "  . (int) $nextRank ;
 
     return claro_sql_query($sql);
@@ -255,8 +217,6 @@ function insert_local_course_tool($name, $url, $accessLevel = 'ALL')
 
 
 /**
- *
- *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @author Christophe Gesche
  * @param int $toolId
@@ -279,8 +239,6 @@ function delete_course_tool($toolId)
 
 
 /**
- *
- *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  * @return int
  */
@@ -410,7 +368,7 @@ function move_course_tool($reqToolId, $moveDirection)
 //insert_course_tool('CLDOC');
 //insert_course_tool('CLXXX');
 //echo  get_next_course_tool_rank();
-//set_course_tool_access_level(2, 'ALL');
+//set_course_visibility(2,true);
 //enable_course_tool(2);
 //insert_local_course_tool('yahoo', 'http://www.yahoo.com');
 //delete_course_tool(10);
