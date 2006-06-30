@@ -121,11 +121,14 @@ class RightProfileToolRightHtml
         foreach ( $this->rightProfileToolRightList as $profile_id => $rightProfileToolRight )
         {
             $isLocked = $rightProfileToolRight->profile->isLocked();
-            $className = get_class($rightProfileToolRight);
-            
+            $className = get_class($rightProfileToolRight); 
+
+            // use strtolower for PHP4 : get_class returns class name in lowercase            
+            $className = strtolower($className); 
+
             $html_table_header_list[$profile_id] = claro_get_profile_name($profile_id);
             
-            if ( $isLocked && $className == 'RightCourseProfileToolRight' )
+            if ( $isLocked && $className == strtolower('RightCourseProfileToolRight') )
             {
                 $displayMode = 'read';
                 $html_table_header_list[$profile_id] .= '&nbsp;<img src="' . $imgRepositoryWeb . '/locked.gif" alt="' . get_lang('Profile locked') . '" />';
