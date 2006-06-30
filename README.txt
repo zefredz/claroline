@@ -76,6 +76,15 @@ at :
 7. NEW FEATURES
    ============
 
+NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7.7
+-----------------------------------------------------
+* Module adminsitration
+* User rights and profiles administration
+* Support of Ical standard in Calendar tool
+* Complete refactoring of the exercise tool (no feature change)
+* ...(incomplete list)
+
+
 NEW FEATURES IN CLAROLINE 1.7.1 SINCE CLAROLINE 1.7.0
 -----------------------------------------------------
 
