@@ -170,7 +170,7 @@ if ($runfillMainDb && $runfillStatsDb)
     $fillStatementList = array();
     include './dropMainTables.inc.php';
     include './createMainBase.inc.php';
-    //include './fillMainBase.inc.php';
+    include './fillMainBase.inc.php';
     $kernelSetupStatementList = array_merge( $dropStatementList
                                            , $creationStatementList
                                            , $fillStatementList);
@@ -364,6 +364,13 @@ else
 }
 
 /**
+ * Initialise right profile
+ */
+
+include_once('init_profile_right.lib.php');
+create_required_profile();
+
+/**
  * ADD MODULES
  */
 
@@ -394,6 +401,9 @@ foreach($oldTools as $claroLabel)
     }
     else                          trigger_error('module path not found' ,E_USER_WARNING );
 }
+    
+// init default right profile
+init_default_right_profile();
 
     /***
      * Generate module conf from definition files.
@@ -441,16 +451,6 @@ if ( $runfillMainDb )
     $id_admin = user_create($user_data);
     if ($id_admin) user_set_platform_admin(true, $id_admin);
     else echo 'error in admin account creation';
-}
-
-/**
- * Initialise profile
- */
-
-if ( $runfillMainDb )
-{
-    include_once('init_profile_right.lib.php');
-    init_required_profile();
 }
 
 ?>

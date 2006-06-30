@@ -28,6 +28,8 @@ VALUES
 ( 'HUMA',   NULL,  3, 0, 'Humanities')
 ";
 
+/*
+
 $fillStatementList[] = " INSERT INTO `".$mainTblPrefixForm."course_tool`
 (`id`,`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
 VALUES
@@ -108,5 +110,6 @@ VALUES
 ('CLWIKI', 'wiki/wiki.php', 'wiki.gif', 'ALL', 12, 'AUTOMATIC', 'COURSE_ADMIN')
 ";
 
+*/
 
 ?>

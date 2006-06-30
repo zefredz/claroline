@@ -4,7 +4,7 @@
  * Funtions to initialise all course profiles, action, ...
  */
 
-function init_required_profile ()
+function create_required_profile ()
 {
     require_once get_conf('includePath') . '/lib/right/profileToolRight.class.php';
 
@@ -12,38 +12,6 @@ function init_required_profile ()
                                               'right_profile',
                                               'right_rel_profile_action',
                                               'right_action' ));
-
-    $sql = "TRUNCATE TABLE `" . $tbl_mdb_names['right_profile'] . "`";
-    claro_sql_query($sql);
-    $sql = "TRUNCATE TABLE `" . $tbl_mdb_names['right_rel_profile_action'] . "`";
-    claro_sql_query($sql);
-    $sql = "TRUNCATE TABLE `" . $tbl_mdb_names['right_action'] . "`";
-    claro_sql_query($sql);
-
-    /**
-     * Add new action value for each tool
-     */
-
-    $sql = " SELECT `id` as `toolId`
-             FROM `" . $tbl_mdb_names['course_tool'] . "`" ;
-
-    $result = claro_sql_query_fetch_all_cols($sql);
-    $toolList = $result['toolId'];
-
-    foreach ( $toolList as $toolId )
-    {
-        // Add read action
-        $action = new RightToolAction();
-        $action->setName('read');
-        $action->setToolId($toolId);
-        $action->save();
-
-        // Add edit action
-        $action = new RightToolAction();
-        $action->setName('edit');
-        $action->setToolId($toolId);
-        $action->save();
-    }
 
     /**
      * Initialise anonymous profile
@@ -57,11 +25,6 @@ function init_required_profile ()
     $profile->setIsRequired(true);
     $profile->save();
 
-    $profileAction = new RightProfileToolRight();
-    $profileAction->load($profile);
-    $profileAction->setToolListRight($toolList,'user');
-    $profileAction->save();
-
     /**
      * Initialise guest profile
      */
@@ -74,11 +37,6 @@ function init_required_profile ()
     $profile->setIsRequired(true);
     $profile->save();
 
-    $profileAction = new RightProfileToolRight();
-    $profileAction->load($profile);
-    $profileAction->setToolListRight($toolList,'user');
-    $profileAction->save();
-
     /**
      * Initialise user profile
      */
@@ -90,11 +48,6 @@ function init_required_profile ()
     $profile->setType(PROFILE_TYPE_COURSE);
     $profile->setIsRequired(true);
     $profile->save();
-
-    $profileAction = new RightProfileToolRight();
-    $profileAction->load($profile);
-    $profileAction->setToolListRight($toolList,'user');
-    $profileAction->save();
 
     /**
      * Initialise manager profile
@@ -110,6 +63,64 @@ function init_required_profile ()
     $profile->setIsCourseManager(true);
     $profile->save();
 
+    return true ;
+
+}
+
+function init_default_right_profile ()
+{
+    require_once get_conf('includePath') . '/lib/right/profileToolRight.class.php';
+
+    $tbl_mdb_names = claro_sql_get_tbl( array('course_tool',
+                                              'right_profile',
+                                              'right_rel_profile_action',
+                                              'right_action' ));
+
+    $sql = " SELECT `id` as `toolId`
+             FROM `" . $tbl_mdb_names['course_tool'] . "`" ;
+
+    $result = claro_sql_query_fetch_all_cols($sql);
+    $toolList = $result['toolId'];
+
+    /**
+     * Initialise anonymous profile
+     */
+
+    $profile = new RightProfile();
+    $profile->load(ANONYMOUS_PROFILE);
+    $profileAction = new RightProfileToolRight();
+    $profileAction->load($profile);
+    $profileAction->setToolListRight($toolList,'user');
+    $profileAction->save();
+
+    /**
+     * Initialise guest profile
+     */
+
+    $profile = new RightProfile();
+    $profile->load(GUEST_PROFILE);
+    $profileAction = new RightProfileToolRight();
+    $profileAction->load($profile);
+    $profileAction->setToolListRight($toolList,'user');
+    $profileAction->save();
+
+    /**
+     * Initialise user profile
+     */
+
+    $profile = new RightProfile();
+    $profile->load(USER_PROFILE);
+    $profileAction = new RightProfileToolRight();
+    $profileAction->load($profile);
+    $profileAction->setToolListRight($toolList,'user');
+    $profileAction->save();
+
+    /**
+     * Initialise manager profile
+     */
+
+    $profile = new RightProfile();
+    $profile->load(MANAGER_PROFILE);
     $profileAction = new RightProfileToolRight();
     $profileAction->load($profile);
     $profileAction->setToolListRight($toolList,'manager');
