@@ -384,12 +384,6 @@
         {
             $courseToolList = get_course_tool_list($this->_elementCRLArray["course_sys_code"]);
             
-            $accessLevelList = array('ALL' => 0, 
-                         'COURSE_MEMBER'   => 1, 
-                         'GROUP_TUTOR'     => 2, 
-                         'COURSE_ADMIN'    => 3, 
-                         'PLATFORM_ADMIN'  => 4);
-            
             $elementList = array();     
            
             foreach($courseToolList as $toolTbl)
@@ -405,14 +399,9 @@
                     {
                         $node = $this->_node."/".$label;
                     }
-                    
-                    
-                    $isVisible = TRUE; 
-                
-                    if ($accessLevelList[$toolTbl['access']] > $accessLevelList['ALL'])
-                       {
-                           $isVisible = FALSE; 
-                    }
+                                    
+                    if ( $toolTbl['visibility'] ) $isVisible = true;
+                    else                          $isVisible = false; 
 
                     if(  is_NULL($label) || !file_exists($label."Navigator.php") 
                         || ( $label == "CLGRP___" && get_conf('groupAllowed') == FALSE) )
