@@ -170,7 +170,7 @@ if ($runfillMainDb && $runfillStatsDb)
     $fillStatementList = array();
     include './dropMainTables.inc.php';
     include './createMainBase.inc.php';
-    include './fillMainBase.inc.php';
+    //include './fillMainBase.inc.php';
     $kernelSetupStatementList = array_merge( $dropStatementList
                                            , $creationStatementList
                                            , $fillStatementList);
