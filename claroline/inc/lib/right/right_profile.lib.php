@@ -180,21 +180,21 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
 
 function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = null, $courseId = null)
 {
-    global $_tid;
+    global $_mainToolId;
     global $_cid;
     global $_profileId;
 
     // load tool id
     if ( is_null($tid) )
     {
-        if ( !empty($_tid) ) $tid = $_tid ;
-        else                 return false ;
+        if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
+        else                        return false ;
     }
 
     // load profile id
     if ( is_null($profileId) )
     {
-        if ( !empty($_prtofileId) ) $profileId = $_profileId ;
+        if ( !empty($_profileId) ) $profileId = $_profileId ;
         else                        return false ;
     }
    
