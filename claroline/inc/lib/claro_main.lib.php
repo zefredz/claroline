@@ -841,11 +841,13 @@ function claro_get_language_list()
 
 function get_conf($param, $default = null)
 {
+/*
     if (CLARO_DEBUG_MODE)
     {
         if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
         pushClaroMessage($param . ' use but not set. use default :' . var_export($default,1),'warning');
     }
+*/
 
     if     ( isset($GLOBALS['_conf'][$param]) )  return $GLOBALS['_conf'][$param];
     elseif ( isset($GLOBALS[$param]) )           return $GLOBALS[$param];
