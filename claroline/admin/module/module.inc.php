@@ -15,6 +15,7 @@
  */
 
 require_once dirname(__FILE__). '/../../inc/lib/fileManage.lib.php';
+require_once dirname(__FILE__). '/../../inc/lib/right/profileToolRight.class.php';
 
 /**
  * Get installed module list, its effect is
@@ -129,33 +130,33 @@ function check_module_repositories()
 function activate_module($moduleId)
 {
 
-    //find module informations
+    // find module informations
 
     $tbl = claro_sql_get_main_tbl();
     $module_info =  get_module_info($moduleId);
 
-    //1- call activation script (if any) from the module repository
+    // 1- call activation script (if any) from the module repository
 
     /*TO DO*/
 
-    //2- change related entry of module table in the main DB
+    // 2- change related entry of module table in the main DB
 
     $sql = "UPDATE `" . $tbl['module']."`
             SET `activation` = 'activated'
             WHERE `id` = " . (int) $moduleId;
     $result = claro_sql_query($sql);
 
-    //3- add the module in the cours_tool table, used for every course creation
+    // 3 - add the module in the cours_tool table, used for every course creation
 
     if (($module_info['type'] =='tool') && $moduleId)
     {
 
-        //find max rank in the course_tool table
+        // find max rank in the course_tool table
 
         $sql = "SELECT MAX(def_rank) as maxrank FROM `".$tbl['tool']."`";
         $maxresult = claro_sql_query_get_single_row($sql);
 
-            //insert the new course tool
+        // insert the new course tool
 
         $trimlabel = rtrim($module_info['label'],'_');
 
@@ -169,9 +170,22 @@ function activate_module($moduleId)
                 add_in_course = 'AUTOMATIC',
                 access_manager = 'COURSE_ADMIN'
             ";
+
         $tool_id = claro_sql_query_insert_id($sql);
 
-    //4- update every course tool list to add the tool if it is a tool
+        // Manage right - Add read action
+        $action = new RightToolAction();
+        $action->setName('read');
+        $action->setToolId($tool_id);
+        $action->save();
+
+        // Manage right - Add edit action
+        $action = new RightToolAction();
+        $action->setName('edit');
+        $action->setToolId($tool_id);
+        $action->save();
+
+        // 4- update every course tool list to add the tool if it is a tool
 
         $module_type = $module_info['type'];
 
@@ -223,16 +237,16 @@ function deactivate_module($moduleId)
     $module_info =  get_module_info($moduleId);
     $tbl = claro_sql_get_main_tbl();
 
-    //1- call desactivation script (if any) from the module repository
+    // 1- call desactivation script (if any) from the module repository
 
     /*TO DO*/
 
     if (($module_info['type'] =='tool') && $moduleId)
     {
 
-    //2- delete the module in the cours_tool table, used for every course creation
+        // 2- delete the module in the cours_tool table, used for every course creation
 
-        //retrieve thsi module_id first
+        //retrieve this module_id first
 
         $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
                 WHERE claro_label = '".$module_info['label']."'";
@@ -245,7 +259,19 @@ function deactivate_module($moduleId)
 
         claro_sql_query($sql);
 
-    //3- update every course tool list to add the tool if it is a tool
+        // Manage right - Delete read action
+        $action = new RightToolAction();
+        $action->setName('read');
+        $action->setToolId($tool_id);
+        $action->delete();
+
+        // Manage right - Delete edit action
+        $action = new RightToolAction();
+        $action->setName('edit');
+        $action->setToolId($tool_id);
+        $action->delete();
+
+        // 3- update every course tool list to add the tool if it is a tool
 
         $sql = "SELECT `code` FROM `".$tbl['course']."`";
         $course_list = claro_sql_query_fetch_all($sql);
