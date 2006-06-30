@@ -273,19 +273,20 @@ function claro_get_tool_name_list($active = true)
  * @return array   the course list
  */
 
-function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $force = false, $active=true)
+function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false, $active=true )
 {
     global $clarolineRepositoryWeb;
 
-    static $courseTooList = null, $courseId = null, $accessLevel = null;
+    static $courseTooList = null, $courseId = null, $profileId = null;
 
     if (   is_null($courseTooList)
         || $courseId    != $courseIdReq
+        || $profileId   != $profileIdReq
         || $accessLevel != $accessLevelReq
         || $force )
     {
         $courseId   = $courseIdReq;
-        $accessLevel = $accessLevelReq;
+        $profileId  = $profileIdReq;
 
         $tbl_mdb_names        = claro_sql_get_main_tbl();
         $tbl_tool_list        = $tbl_mdb_names['tool'];
@@ -293,28 +294,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
         $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
         $tbl_course_tool_list = $tbl_cdb_names['tool'];
 
-        /*
-         * Build a list containing all the necessary access level
-         */
-
-        $standartAccessList = array('ALL',           'PLATFORM_MEMBER',
-                                    'COURSE_MEMBER', 'COURSE_TUTOR',
-                                    'GROUP_MEMBER',  'GROUP_TUTOR',
-                                    'COURSE_ADMIN',  'PLATFORM_ADMIN');
-
-        if ( ! in_array($accessLevel, $standartAccessList) ) claro_die('Wrong access level : '.$accessLevel);
-
-        foreach($standartAccessList as $thisAccessType)
-        {
-            $accessList[] = $thisAccessType;
-
-            if ($thisAccessType == $accessLevel) break;
-        }
-
-        /*
-         * Search all the tool corresponding to this access levels
-         */
-        if (isset($active) && $active)
+        if ( $active )
         {
             $deactivatedSQL = " AND m.activation = 'activated' ";
         }
@@ -323,14 +303,18 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
             $deactivatedSQL = '';
         }
 
-        //find module or claroline existing tools
+        /*
+         * Search all the tool corresponding to this access levels
+         */
 
-        $sql ="SELECT DISTINCT ctl.id             AS id,
+        // find module or claroline existing tools
+
+        $sql = "SELECT DISTINCT ctl.id             AS id,
+                      pct.id                      AS tool_id,
                       pct.claro_label             AS label,
                       ctl.script_name             AS external_name,
-                      ctl.access                  AS access,
+                      ctl.visibility              AS visibility,
                       IFNULL(pct.icon,'tool.gif') AS icon,
-                      pct.access_manager          AS access_manager,
                       ISNULL(ctl.tool_id)         AS external,
                       m.name                      AS name,
                       IFNULL( ctl.script_url ,
@@ -340,8 +324,7 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
                     `" . $tbl_module . "`           AS m,
                     `" . $tbl_tool_list . "`        AS pct
 
-               WHERE ctl.access IN ('" . implode("', '", $accessList) . "')
-                 AND pct.id = ctl.tool_id
+               WHERE pct.id = ctl.tool_id
                  AND pct.claro_label = m.label
                  ".$deactivatedSQL."
 
@@ -349,19 +332,41 @@ function claro_get_course_tool_list($courseIdReq, $accessLevelReq = 'ALL', $forc
 
         $courseToolList = claro_sql_query_fetch_all($sql);
 
-        //find external url added by teacher
+        // right profile management
+
+        $size = count($courseToolList);
+
+        for ( $i=0 ; $i<$size ; $i++ )
+        {
+            $toolId = $courseToolList[$i]['tool_id'];
+            $visibility = (bool) $courseToolList[$i]['visibility'];
+
+            // delete tool from course tool list if : 
+            // 1. tool is invisible and profile has no right to edit tool
+            // 2. profile has no right to view tool
+            if ( ( $visibility == false && ! claro_is_allowed_tool_edit($toolId,$profileId,$courseId) )
+                || ! claro_is_allowed_tool_read($toolId,$profileId,$courseId) )
+            {
+                unset($courseToolList[$i]);
+            }
+        }
+
+        // find external url added by teacher
 
         $sql = "SELECT DISTINCT ctl.id            AS id,
                       ctl.script_name             AS external_name,
-                      ctl.access                  AS access,
+                      ctl.visibility              AS visibility,
                       'tool.gif'                  AS icon,
                       ISNULL(ctl.tool_id)         AS external,
                       ctl.script_url              AS url
                FROM `" . $tbl_course_tool_list . "` AS ctl
-               WHERE ctl.access IN ('" . implode("', '", $accessList) . "')
-                 AND ISNULL(ctl.tool_id)
-               ";
+               WHERE ISNULL(ctl.tool_id) ";
 
+        if ( ! get_init('is_courseAdmin') )
+        {
+            $sql .= 'AND ctl.visibility = 1';
+        }
+        
         $result = claro_sql_query_fetch_all($sql);
 
         $courseToolList = array_merge($courseToolList,$result);
@@ -681,15 +686,31 @@ function claro_get_tool_view_mode()
 
 function claro_is_allowed_to_edit()
 {
-    global $is_courseAdmin;
+    global $is_courseAdmin, $_tid;
 
-    if ( claro_is_display_mode_available() )
+    if ( $is_courseAdmin )
     {
-        return $is_courseAdmin && (claro_get_tool_view_mode() != 'STUDENT');
+        $isAllowedToEdit = $is_courseAdmin ;
     }
     else
     {
-        return $is_courseAdmin;
+        if ( !empty($_tid) )
+        {
+            $isAllowedToEdit = claro_is_allowed_tool_edit();
+        }
+        else
+        {
+            $isAllowedToEdit = $is_courseAdmin ;
+        }
+    }
+
+    if ( claro_is_display_mode_available() )
+    {
+        return $isAllowedToEdit && (claro_get_tool_view_mode() != 'STUDENT');
+    }
+    else
+    {
+        return $isAllowedToEdit ;
     }
 }
 
