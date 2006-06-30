@@ -97,18 +97,18 @@ function claro_html_menu_vertical_br($itemList, $attrBloc=array())
 
 function claro_html_menu_horizontal($itemList)
 {
-if( is_array($itemList) && !empty($itemList) )
-{
-    	return "\n\n"
-    		. '<p>'
-    		. implode( "\n" . '&nbsp;|&nbsp;' . "\n",$itemList)
-    		. '</p>'
-    		. "\n\n";
-}
-else
-{
-return '';
-}
+    if( is_array($itemList) && !empty($itemList) )
+    {
+        return "\n\n"
+        . '<p><nobr>'
+        . implode( "\n" . '</nobr>&nbsp;| <nobr>' . "\n",$itemList)
+        . '</nobr></p>'
+        . "\n\n";
+    }
+    else
+    {
+        return '';
+    }
 }
 
 /**
