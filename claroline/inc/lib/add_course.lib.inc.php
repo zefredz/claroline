@@ -628,7 +628,7 @@ function update_db_course($courseDbName)
         `id` int(11) NOT NULL auto_increment,
         `tool_id` int(10) unsigned default NULL,
         `rank` int(10) unsigned NOT NULL,
-          `access` enum('ALL','PLATFORM_MEMBER','COURSE_MEMBER','COURSE_TUTOR','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
+        `visibility` tinyint(4) default 0,
         `script_url` varchar(255) default NULL,
         `script_name` varchar(255) default NULL,
         `addedTool` ENUM('YES','NO') DEFAULT 'YES',
@@ -1086,8 +1086,8 @@ function fill_db_course($courseDbName,$language)
         while ( ($courseTool = mysql_fetch_array($result, MYSQL_ASSOC) ))
         {
             $sql_insert = " INSERT INTO `" . $TABLECOURSEHOMEPAGE . "` "
-                        . " (tool_id, rank, access) "
-                        . " VALUES ('" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" . $courseTool['def_access'] . "')";
+                        . " (tool_id, rank, visibility) "
+                        . " VALUES ('" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" .($courseTool['def_access']=='ALL'?1:0) . "')";
             claro_sql_query_insert_id($sql_insert);
         }
     }
