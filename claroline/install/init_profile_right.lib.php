@@ -59,7 +59,7 @@ function init_required_profile ()
 
     $profileAction = new RightProfileToolRight();
     $profileAction->load($profile);
-    $profileAction->setToolListRight($toolList,'none');
+    $profileAction->setToolListRight($toolList,'user');
     $profileAction->save();
 
     /**
