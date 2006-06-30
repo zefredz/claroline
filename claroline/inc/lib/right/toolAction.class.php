@@ -40,6 +40,7 @@ class RightToolAction
 
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $this->tbl['action'] = $tbl_mdb_names['right_action'];
+        $this->tbl['rel_profile_action'] = $tbl_mdb_names['right_rel_profile_action'];
     }
 
     /**
@@ -120,9 +121,19 @@ class RightToolAction
 
     function delete()
     {
+        // Delete from rel_profile_action 
+        $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
+                WHERE action_id = " . (int) $this->id ;
+        claro_sql_query($sql);
+
+        // Delete from action 
         $sql = "DELETE FROM `" . $this->tbl['action'] . "`
                 WHERE id = " . (int) $this->id ;
+
+        claro_sql_query($sql);
+
         $this->id = -1;
+
         return true;
     }
 
