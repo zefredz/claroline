@@ -184,6 +184,15 @@ function activate_module($moduleId)
         $action->setName('edit');
         $action->setToolId($tool_id);
         $action->save();
+        
+        // load profile
+        $profile = new RightProfile();
+        $profile->load(claro_get_profile_id('manager'));
+        $profileRight = new RightProfileToolRight();
+        $profileRight->load($profile);
+        $profileRight->setToolRight($tool_id,'manager');
+        $profileRight->save();
+
 
         // 4- update every course tool list to add the tool if it is a tool
 
