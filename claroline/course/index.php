@@ -82,16 +82,7 @@ unset($_SESSION['tracking']['lastUsedTool']);
 */
 
 $toolNameList = claro_get_tool_name_list();
-/*
-* Initialisation for the access level types
-*/
 
-$accessLevelList = array( 'ALL'            => 0
-                        , 'COURSE_MEMBER'  => 1
-                        , 'GROUP_TUTOR'    => 2
-                        , 'COURSE_ADMIN'   => 3
-                        , 'PLATFORM_ADMIN' => 4
-                        );
 // get tool id where new events have been recorded since last login
 
 if (isset($_uid))
@@ -108,15 +99,17 @@ else $modified_tools = array();
 $is_allowedToEdit = claro_is_allowed_to_edit();
 $disp_edit_command = $is_allowedToEdit;
 
+$toolList = claro_get_course_tool_list($_cid,$_profileId,true);
+$toolLinkList = array();
 
-if     ($is_platformAdmin && $is_allowedToEdit) $reqAccessLevel   = 'PLATFORM_ADMIN';
-elseif ($is_allowedToEdit                     ) $reqAccessLevel   = 'COURSE_ADMIN';
-else                                            $reqAccessLevel   = 'ALL';
-
-$toolList = claro_get_course_tool_list($_cid, $reqAccessLevel, true);
-
-foreach($toolList as $thisTool)
+foreach ($toolList as $thisTool)
 {
+    // special case when display mode is student and tool invisible doesn't display it
+    if ( ( claro_get_tool_view_mode() == 'STUDENT' ) && ! $thisTool['visibility']  )
+    {
+        continue;
+    }
+
     if (isset($thisTool['label'])) // standart claroline tool or module of type tool
     {
         $toolName      = get_lang($thisTool['name']);
@@ -142,7 +135,7 @@ foreach($toolList as $thisTool)
         $removableTool = true;
     }
 
-    $style = ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL']) ? 'invisible ' : '';
+    $style = !$thisTool['visibility']? 'invisible ' : '';
     $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';
 
     //deal with specific case of group tool
@@ -189,6 +182,7 @@ foreach($toolList as $thisTool)
     ;
 
 // Display header
+
 include($includePath . '/claro_init_header.inc.php');
 
 echo '<table border="0" cellspacing="10" cellpadding="10" width="100%">' . "\n"
