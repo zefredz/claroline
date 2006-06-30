@@ -78,19 +78,19 @@ if ( isset($_uid) )
             .    get_lang('Create a course site')
             .    '</a>'
             ;
-            if (get_conf('allowToSelfEnroll',true)) echo '&nbsp;|&nbsp;';
+            if (get_conf('allowToSelfEnroll',true)) echo '</nobr>&nbsp;| <nobr>';
         }
 
         if (get_conf('allowToSelfEnroll',true))
         {
             echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
-            .    '<img src="'.$imgRepositoryWeb.'enroll.gif" alt="" /> '
+            .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="" /> '
             .    get_lang('Enrol on a new course')
             .    '</a>'
-            .    '&nbsp;|&nbsp;'
+            .    '&nbsp;| '
 
             .    '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
-            .    '<img src="'.$imgRepositoryWeb.'unenroll.gif" alt="" /> '
+            .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" /> '
             .    get_lang('Remove course enrolment')
             .    '</a>'
             ;
@@ -98,16 +98,16 @@ if ( isset($_uid) )
 
         if ( isset($_REQUEST['category']) )
         {
-            echo '&nbsp;|&nbsp;'
-                .'<a href="'.$_SERVER['PHP_SELF'].'" class="claroCmd">'
-                .'<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
-                . get_lang('My course list')
-                .'</a>'
-                ;
+            echo '</nobr>&nbsp;| <nobr>'
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
+            .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+            .    get_lang('My course list')
+            .    '</a>'
+            ;
         }
         else
         {
-            echo '&nbsp;|&nbsp;'
+            echo '</nobr>&nbsp;| <nobr>'
                 .'<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
                 .'<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
                 . get_lang('All platform courses')
