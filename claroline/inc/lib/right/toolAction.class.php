@@ -26,7 +26,7 @@ class RightToolAction
     var $type ;
     var $tbl = array();
 
-    /*
+    /**
      * Constructor
      */
 
@@ -42,7 +42,7 @@ class RightToolAction
         $this->tbl['action'] = $tbl_mdb_names['right_action'];
     }
 
-    /*
+    /**
      * Load action from DB
      *
      * @param $action_name
@@ -80,7 +80,7 @@ class RightToolAction
 
     }
 
-    /*
+    /**
      * Save action
      */
 
@@ -114,7 +114,19 @@ class RightToolAction
         }
     }
 
-    /*
+    /**
+     * Delete action
+     */
+
+    function delete()
+    {
+        $sql = "DELETE FROM `" . $this->tbl['action'] . "`
+                WHERE id = " . (int) $this->id ;
+        $this->id = -1;
+        return true;
+    }
+
+    /**
      * Check if action already exists
      */
 
@@ -130,7 +142,7 @@ class RightToolAction
         else                                               return true;
     }
     
-    /*
+    /**
      * Get action id
      */
 
@@ -139,7 +151,7 @@ class RightToolAction
         return $this->id;
     }
 
-    /*
+    /**
      * Get action name
      */
 
@@ -148,7 +160,7 @@ class RightToolAction
         return $this->name;
     }
 
-    /*
+    /**
      * Get action description
      */
 
@@ -157,7 +169,7 @@ class RightToolAction
         return $this->description;
     }
 
-    /*
+    /**
      * Get tool identifier
      */
 
@@ -166,7 +178,7 @@ class RightToolAction
         return $this->toolId;
     }
 
-    /*
+    /**
      * Get type
      */
 
@@ -175,7 +187,7 @@ class RightToolAction
         return $this->type;
     }
 
-    /*
+    /**
      * Set name
      */
 
@@ -184,7 +196,7 @@ class RightToolAction
         $this->name = $value;
     }
 
-    /*
+    /**
      * Set description
      */
 
@@ -193,7 +205,7 @@ class RightToolAction
         $this->description=$value;
     }
 
-    /*
+    /**
      * Set tool identifier
      */
 
@@ -202,7 +214,7 @@ class RightToolAction
         $this->toolId=$value;
     }
 
-    /*
+    /**
      * set type
      */
 
