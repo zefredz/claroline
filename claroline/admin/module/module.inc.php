@@ -177,7 +177,7 @@ function activate_module($moduleId)
 
         $sql = "SELECT `code` FROM `".$tbl['course']."`";
         $course_list = claro_sql_query_fetch_all($sql);
-        $default_access = 'COURSE_ADMIN';
+        $default_visibility = false ;
 
         foreach ($course_list as $course)
         {
@@ -193,7 +193,7 @@ function activate_module($moduleId)
             $sql = "INSERT INTO `".$course_tbl['tool']."`
             SET tool_id      = " . $tool_id . ",
                 rank         = (".(int)$maxresult['maxrank']."+1),
-                access       = '" . $default_access . "',
+                visibility   = '" . ($default_visibility?1:0) . "',
                 script_url   = NULL,
                 script_name  = NULL,
                 addedTool    = 'YES'";
