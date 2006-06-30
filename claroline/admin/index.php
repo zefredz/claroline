@@ -162,9 +162,10 @@ $menuAdminCourse[] = claro_html_tool_link('admincats.php',                      
 
 $menuAdminPlatform[] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));
 $menuAdminPlatform[] = claro_html_tool_link('managing/editFile.php',get_lang('Home page text zones'));
+$menuAdminPlatform[] = claro_html_tool_link('module/module_list.php', get_lang('Module list'));
 $menuAdminPlatform[] = claro_html_tool_link('campusLog.php',        get_lang('Platform statistics'));
 $menuAdminPlatform[] = claro_html_tool_link('campusProblem.php',    get_lang('Scan technical fault'));
-$menuAdminPlatform[] = claro_html_tool_link('module/module_list.php', get_lang('Module list'));
+
 
 $menuAdminPlatform[] = claro_html_tool_link('maintenance/repaircats.php', get_lang('Repair category structure'));
 $menuAdminPlatform[] = claro_html_tool_link('upgrade/index.php',    get_lang('Upgrade'));
