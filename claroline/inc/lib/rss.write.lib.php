@@ -181,7 +181,7 @@ function rss_get_tool_compatible_list()
 
             $rssToolListCache = new Cache_Lite($cache_options);
 
-            if (false !== ($rssToolListSerialized = $rssToolListCache->get('rssToolList')))
+            if (false === ($rssToolListSerialized = $rssToolListCache->get('rssToolList')))
             {
                 $toolList = $GLOBALS['_courseToolList'];
                 foreach ($toolList as $tool)
@@ -204,7 +204,7 @@ function rss_get_tool_compatible_list()
                 $rssToolListCache->save($rssToolListSerialized, 'rssToolList');
             }
             else
-            $rssToolList = unserialize($rssToolListSerialized);
+                $rssToolList = unserialize($rssToolListSerialized);
 
         }
         else
