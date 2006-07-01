@@ -42,6 +42,8 @@ function build_rss($context)
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
             claro_mkdir($rssRepositoryCacheSys, CLARO_FILE_PERMISSIONS, true);
+            if (!file_exists($rssRepositoryCacheSys))
+                return claro_failure::set_failure('CANT_CREATE_RSS_DIR');
         }
 
         $options = array(
@@ -120,9 +122,15 @@ function build_rss($context)
 
         if ($serializer->serialize($data))
         {
-            $fprss = fopen($rssFilePath, 'w');
-            fwrite($fprss, $serializer->getSerializedData());
-            fclose($fprss);
+            if( false !== $fprss = fopen($rssFilePath, 'w'))
+            {
+                fwrite($fprss, $serializer->getSerializedData());
+                fclose($fprss);
+            }
+            else
+            {
+                return claro_failure::set_failure('CANT_OPEN_RSS_FILE');
+            }
         }
         return $rssFilePath;
 
@@ -167,11 +175,13 @@ function rss_get_tool_compatible_list()
             {
                 include_once dirname(__FILE__) . '/fileManage.lib.php';
                 claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
+                if (! file_exists($cache_options['cacheDir']) )
+                    return claro_failure::set_failure('CANT_CREATE_RSS_CACHE');
             }
 
             $rssToolListCache = new Cache_Lite($cache_options);
 
-            if (false === $rssToolListSerialized = $rssToolListCache->get('rssToolList'))
+            if (false !== ($rssToolListSerialized = $rssToolListCache->get('rssToolList')))
             {
                 $toolList = $GLOBALS['_courseToolList'];
                 foreach ($toolList as $tool)
