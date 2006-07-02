@@ -169,7 +169,7 @@ function ical_get_tool_compatible_list()
                 include_once dirname(__FILE__) . '/fileManage.lib.php';
                 claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
                 if (! file_exists($cache_options['cacheDir']) )
-                claro_failure::set_failure('CANT_CREATE_CACHE_ICAL_SOURCE_LIST')
+                claro_failure::set_failure('CANT_CREATE_CACHE_ICAL_SOURCE_LIST');
             }
 
             $iCalToolListCache = new Cache_Lite($cache_options);
