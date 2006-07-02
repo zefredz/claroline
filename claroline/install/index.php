@@ -229,7 +229,7 @@ if ($_REQUEST['fromPanel'] == DISP_LAST_CHECK_BEFORE_INSTALL || $_REQUEST['cmdDo
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInstall'])
 {
     $stepStatus[DISP_ADMINISTRATOR_SETTING] = 'V';
-    if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
+    if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminPhoneForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
     {
         $stepStatus[DISP_ADMINISTRATOR_SETTING] = 'X';
         $adminDataMissing = TRUE;
@@ -237,6 +237,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
         if (empty($passForm))  $missing_admin_data[] = 'password';
         if (empty($adminSurnameForm)) $missing_admin_data[] = 'firstname';
         if (empty($adminNameForm)) $missing_admin_data[] = 'lastname';
+        if (empty($adminPhoneForm)) $missing_admin_data[] = 'phone';
         if (empty($adminEmailForm)) $missing_admin_data[] = 'email';
         if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm)) $error_in_admin_data[] = 'email';
         if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please, fill in '.implode(', ',$missing_admin_data).'</font><br />';
