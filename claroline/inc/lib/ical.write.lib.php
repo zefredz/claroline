@@ -22,6 +22,12 @@
 require_once dirname(__FILE__) . '/icalendar/class.iCal.inc.php';
 
 
+/**
+ * return the mime type for a requested format
+ *
+ * @param fortma $calType : ics,xcs,rdf
+ * @return string mimetype
+ */
 function get_ical_MimeType($calType)
 {
 
@@ -34,6 +40,13 @@ function get_ical_MimeType($calType)
     return false;
 }
 
+/**
+ * build the rss file and place it in directory
+ *
+ * @param array $context context of claroline
+ * @param string $calType : ics,xcs,rdf
+ * @return string ical file path
+ */
 function buildICal($context, $calType='ics')
 {
     if (is_array($context) && count($context) > 0)
@@ -43,6 +56,7 @@ function buildICal($context, $calType='ics')
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
             claro_mkdir($iCalRepositorySys, CLARO_FILE_PERMISSIONS, true);
+            if (!file_exists($iCalRepositorySys)) claro_failure::set_failure('CANT_CREATE_ICAL_DIR');
         }
 
         $iCal = (object) new iCal('', 0, $iCalRepositorySys ); // (ProgrammID, Method (1 = Publish | 0 = Request), Download Directory)
@@ -70,25 +84,33 @@ function buildICal($context, $calType='ics')
         if ('ics' == $calType || get_conf('iCalGenStandard', true))
         {
             $stdICalFilePath = $iCalFilePath . 'ics';
-            $fpICal = fopen($stdICalFilePath, 'w');
-            fwrite($fpICal, $iCal->getOutput('ics'));
-            fclose($fpICal);
+            if(false !== ($fpICal = @fopen($stdICalFilePath, 'w')))
+            {
+                fwrite($fpICal, $iCal->getOutput('ics'));
+                fclose($fpICal);
+            }
         }
 
         if ('xcs' == $calType || get_conf('iCalGenXml', true))
         {
             $xmlICalFilePath = $iCalFilePath . 'xml';
-            $fpICal = fopen($xmlICalFilePath, 'w');
-            fwrite($fpICal, $iCal->getOutput('xcs'));
-            fclose($fpICal);
+            if(false !== ($fpICal = @fopen($xmlICalFilePath, 'w')))
+            {
+                fwrite($fpICal, $iCal->getOutput('xcs'));
+                fclose($fpICal);
+            }
+
         }
 
         if ('rdf' == $calType || get_conf('iCalGenRdf', false))
         {
             $rdfICalFilePath = $iCalFilePath . 'rdf';
-            $fpICal = fopen($rdfICalFilePath, 'w');
-            fwrite($fpICal, $iCal->getOutput('rdf'));
-            fclose($fpICal);
+            if(false !== ($fpICal = @fopen($rdfICalFilePath, 'w')))
+            {
+
+                fwrite($fpICal, $iCal->getOutput('rdf'));
+                fclose($fpICal);
+            }
         }
 
         switch ($calType)
@@ -146,6 +168,8 @@ function ical_get_tool_compatible_list()
             {
                 include_once dirname(__FILE__) . '/fileManage.lib.php';
                 claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
+                if (! file_exists($cache_options['cacheDir']) )
+                claro_failure::set_failure('CANT_CREATE_CACHE_ICAL_SOURCE_LIST')
             }
 
             $iCalToolListCache = new Cache_Lite($cache_options);

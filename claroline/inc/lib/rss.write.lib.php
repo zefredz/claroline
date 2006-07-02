@@ -184,7 +184,7 @@ function rss_get_tool_compatible_list()
                 include_once dirname(__FILE__) . '/fileManage.lib.php';
                 claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
                 if (! file_exists($cache_options['cacheDir']) )
-                    return claro_failure::set_failure('CANT_CREATE_RSS_CACHE');
+                    return claro_failure::set_failure('CANT_CREATE_CACHE_RSS_SOURCE_LIST');
             }
 
             $rssToolListCache = new Cache_Lite($cache_options);
