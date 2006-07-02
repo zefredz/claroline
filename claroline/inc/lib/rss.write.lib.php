@@ -122,6 +122,8 @@ function build_rss($context)
 
         if ($serializer->serialize($data))
         {
+            if(is_writable($rssFilePath))
+            {
             if( false !== $fprss = fopen($rssFilePath, 'w'))
             {
                 fwrite($fprss, $serializer->getSerializedData());
@@ -131,6 +133,12 @@ function build_rss($context)
             {
                 return claro_failure::set_failure('CANT_OPEN_RSS_FILE');
             }
+            }
+            else
+            {
+                return claro_failure::set_failure('CANT_OPEN_RSS_FILE_REAND_ONLY');
+            }
+
         }
         return $rssFilePath;
 
