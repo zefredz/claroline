@@ -231,10 +231,6 @@ if( $display == DISP_COURSE_CREATION_FORM )
     $language_list        = claro_get_lang_flat_list();
     $courseCategory_array = claro_get_cat_flat_list();
 
-    if(get_conf('rootCanHaveCourse', true))
-    {
-        $courseCategory_array = array_merge(array(get_lang('Root') => 'root'),$courseCategory_array);
-    }
     // If there is no current course category, add a fake option
     // to prevent user to simply select the first in list without purpose
 
@@ -245,7 +241,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
     else
     {
         $cat_preselect        = 'choose_one';
-        $courseCategory_array = array_merge(array('--'=>'choose_one'),$courseCategory_array);
+        $courseCategory_array = array_merge(array(get_lang('Choose one')=>'choose_one'),$courseCategory_array);
     }
 ?>
 <form lang="<?php echo $iso639_2_code ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" accept-charset="<?php echo $charset ?>">
@@ -299,7 +295,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 </td>
 <td>
 <?php echo claro_html_form_select( 'category'
-                                 , $courseCategory_array 
+                                 , $courseCategory_array
                                  , $cat_preselect
                                  , array('id'=>'category'))
                                  ; ?>
