@@ -64,19 +64,90 @@ if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeri
 	{
 		include_once './lib/question.class.php';
 		 
-		include('./export/qti/qti_export.php');
-    
-	    // Get the corresponding XML
-	    $xml = export_exercise($_REQUEST['exId']);
+		include('./export/qti2/qti2_export.php');
+        include_once $includePath.'/lib/fileManage.lib.php';
 
-	    // Send it if we got something. Otherwise, just continue as if nothing happened.
-	    if(!empty($xml))
-	    {
-	        header("Content-type: application/xml");
-	        header('Content-Disposition: attachment; filename="quiz_'. http_response_splitting_workaround( $_REQUEST['exId'] ) . '.xml"');
-	        echo $xml;
-	        exit();
-	    }
+        //find exercise informations
+        
+        $exercise= new Exercise();
+        $exercise->load($_REQUEST['exId']);
+        $questionList = $exercise->getQuestionList();
+
+        $filePathList = array();
+
+        //prepare xml file of each question
+
+        foreach ($questionList as $question)
+        {
+            $quId = $question['id'];
+            $questionObj = new Question();
+            $questionObj->load($quId);
+
+            // contruction of XML flow
+            $xml = export_question($quId);
+
+            //save question xml file
+            $handle = fopen($questionObj->questionDirSys."question_".$quId.".xml", 'w');
+            fwrite($handle, $xml);
+            fclose($handle);
+
+            //prepare list of file to put in archive
+
+               //do not take the last char if it is a '/'
+
+            $lastChar = $questionObj->questionDirSys{(strlen($questionObj->questionDirSys)-1)};
+            if ($lastChar == "/")
+            {
+                $questionObj->questionDirSys = substr($questionObj->questionDirSys,0,-1);
+            }
+
+            $array_file_question = array($questionObj->questionDirSys);
+            $filePathList = array_merge($filePathList, $array_file_question);
+        }
+
+        /*
+         * BUILD THE ZIP ARCHIVE
+         */
+
+        require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+
+        //prepare zip
+
+        $downloadPlace = claro_get_data_path(array(CLARO_CONTEXT_COURSE=>$_cid, CLARO_CONTEXT_TOOLLABEL=>'CLQWZ' ));
+        $downloadArchivePath = $downloadPlace.'/'.uniqid(true).'.zip';
+        $downloadArchiveName = basename('exercise_'.$_REQUEST['exId']).'.zip';
+        $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+        
+        $downloadArchive     = new PclZip($downloadArchivePath);
+        $downloadArchive->add($filePathList,
+                          PCLZIP_OPT_REMOVE_PATH,
+                          $downloadPlace);
+
+        if ( file_exists($downloadArchivePath) )
+        {
+
+            $downloadArchiveSize = filesize($downloadArchivePath);
+    
+            /*
+            * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+            */
+            
+            header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
+            header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Pragma: no-cache');
+            header('Content-type: application/zip');
+            header('Content-Length: '.$downloadArchiveSize);
+            header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
+            readfile($downloadArchivePath);
+            unlink($downloadArchivePath);
+            exit();
+        }
+        else
+        {
+            $dialogBox .= get_lang("Unable to create zip file");
+        }
+
 	}
 	
 	//-- delete
