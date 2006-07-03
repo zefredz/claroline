@@ -598,12 +598,11 @@ class Config
 
     function init_md5()
     {
-        $tbl_mdb_names   = claro_sql_get_main_tbl();
-        $tbl_config_file = $tbl_mdb_names['config_file'];
+        $tbl = claro_sql_get_main_tbl();
 
-        $sql = 'SELECT `config_hash` `config_hash`
-                FROM `'.$tbl_config_file.'`
-                WHERE `config_code` = "'. addslashes($this->config_code) .'"';
+        $sql = "SELECT config_hash
+                FROM `" . $tbl['config_file'] . "`
+                WHERE config_code = '". addslashes($this->config_code) . "'";
 
         $result = claro_sql_query($sql);
 
