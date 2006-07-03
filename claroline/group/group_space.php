@@ -168,6 +168,12 @@ else $modified_tools = array();
 
 foreach($toolList as $thisTool)
 {
+    // special case when display mode is student and tool invisible doesn't display it
+    if ( ( claro_get_tool_view_mode() == 'STUDENT' ) && ! $thisTool['visibility']  )
+    {
+        continue;
+    }
+
 
     if ( ! empty($thisTool['label']))   // standart claroline tool
     {
@@ -423,8 +429,8 @@ include $includePath . '/claro_init_footer.inc.php';
  *
  * It's dirty because data structure is dirty.
  * Tool_list (with clarolabel and tid come from tool tables and  group properties and localinit)
- * @param $course_id 
- * @param boolean $active, if set to true, only activated tools of the platform must be returned 
+ * @param $course_id
+ * @param boolean $active, if set to true, only activated tools of the platform must be returned
  * @author Christophe Gesché <moosh@claroline.net>
  * @return array
  */
@@ -436,25 +442,30 @@ function get_group_tool_list($course_id=NULL,$active = true)
 
     $isAllowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $tbl_course_tool = $tbl_cdb_names['tool'];
+    $tbl = claro_sql_get_main_tbl(array('module','course_tool'));
 
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_tool  = $tbl_mdb_names['tool'];
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl['course_tool'] = $tbl_cdb_names['tool'];
+
 
     $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
 
     $sql = "
 SELECT tl.id                               id,
        tl.script_name                      name,
-       tl.access                           access,
+       tl.visibility                       visibility,
        tl.rank                             rank,
        IFNULL(ct.script_url,tl.script_url) url,
        ct.claro_label                      label,
-       ct.icon                             icon
-FROM      `" . $tbl_course_tool . "`       tl
-LEFT JOIN `" . $tbl_tool . "` `ct`
-ON        ct.id = tl.tool_id";
+       ct.icon                             icon,
+       m.activation                        activation
+FROM      `" . $tbl['course_tool'] . "`       tl
+LEFT JOIN `" . $tbl['tool'] . "` `ct`
+ON        ct.id = tl.tool_id
+LEFT JOIN `" . $tbl['module'] . "` `m`
+ON        m.label = ct.claro_label
+
+";
 
     $tool_list = claro_sql_query_fetch_all($sql);
 
@@ -464,6 +475,7 @@ ON        ct.id = tl.tool_id";
     {
         if (in_array(trim($tool['label'],'_'),$aivailable_tool_in_group))
         {
+            if (!$active || $tool['activation'] =='activated')
             switch (trim($tool['label'],'_'))
             {
                 case 'CLDOC' :
@@ -500,21 +512,6 @@ ON        ct.id = tl.tool_id";
                     }
                 }break;
 
-            }
-        }
-    }
-
-    if ($active)
-    {
-        //substrack the deactivated tool list, if needed
-        
-        $deactivated_tools = claro_get_deactivated_tool_list();
-        
-        foreach ($group_tool_list as $key=>$tool)
-        {
-            if (in_array($tool['label'], $deactivated_tools))
-            {
-                unset($group_tool_list[$key]);
             }
         }
     }
