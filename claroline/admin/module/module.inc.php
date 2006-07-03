@@ -153,7 +153,7 @@ function activate_module($moduleId)
 
         // find max rank in the course_tool table
 
-        $sql = "SELECT MAX(def_rank) as maxrank FROM `".$tbl['tool']."`";
+        $sql = "SELECT MAX(def_rank) AS maxrank FROM `" . $tbl['tool'] . "`";
         $maxresult = claro_sql_query_get_single_row($sql);
 
         // insert the new course tool
@@ -184,7 +184,7 @@ function activate_module($moduleId)
         $action->setName('edit');
         $action->setToolId($tool_id);
         $action->save();
-        
+
         // load profile
         $profile = new RightProfile();
         $profile->load(claro_get_profile_id('manager'));
@@ -198,7 +198,7 @@ function activate_module($moduleId)
 
         $module_type = $module_info['type'];
 
-        $sql = "SELECT `code` FROM `".$tbl['course']."`";
+        $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
         $course_list = claro_sql_query_fetch_all($sql);
         $default_visibility = false ;
 
@@ -209,13 +209,13 @@ function activate_module($moduleId)
 
             //find max rank in the tool_list
 
-            $sql = "SELECT MAX(rank) as maxrank FROM ".$course_tbl['tool'];
+            $sql = "SELECT MAX(rank) AS maxrank FROM  `" . $course_tbl['tool'] . "`";
             $maxresult = claro_sql_query_get_single_row($sql);
             //insert the tool at the end of the list
 
-            $sql = "INSERT INTO `".$course_tbl['tool']."`
+            $sql = "INSERT INTO `" . $course_tbl['tool'] . "`
             SET tool_id      = " . $tool_id . ",
-                rank         = (".(int)$maxresult['maxrank']."+1),
+                rank         = (" . (int) $maxresult['maxrank'] . "+1),
                 visibility   = '" . ($default_visibility?1:0) . "',
                 script_url   = NULL,
                 script_name  = NULL,
@@ -987,9 +987,9 @@ function generate_module_cache()
     $tbl = claro_sql_get_main_tbl();
 
 
-    $sql = "SELECT M.`label` AS `label`
-              FROM `" . $tbl['module'] . "` AS M
-             WHERE M.`activation` = 'activated'";
+    $sql = "SELECT `label`
+              FROM `" . $tbl['module'] . "`
+             WHERE activation = 'activated'";
     $module_list = claro_sql_query_fetch_all($sql);
 
     if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys)) $handle = fopen($cacheRepositorySys . $module_cache_filename,'w');
