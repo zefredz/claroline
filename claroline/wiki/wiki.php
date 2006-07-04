@@ -210,8 +210,22 @@
                 
                 $contents = $renderer->export();
                 
+                if ( 0 != $groupId )
+                {
+                    $groupPart = '_group' . (int) $groupId;
+                }
+                else
+                {
+                    $groupPart = '';
+                }
+                
                 require_once get_conf( 'includePath' ) . '/lib/fileUpload.lib.php';
-                $wikiFileName = replace_dangerous_char( $wikiTitle, 'strict' ) . '.html';
+                $exportFile = replace_dangerous_char( $wikiTitle, 'strict' ) . $groupPart;
+                
+                $i = 1;
+                while ( file_exists($exportFile.'_'.$i.'.html') ) $i++;
+                
+                $wikiFileName = $exportFile . '_' . $i . '.html';
                 
                 $exportDir = get_conf('coursesRepositorySys') . '/' . $_course['path'].'/document';
                 $exportPath = $exportDir . '/' . $wikiFileName;
