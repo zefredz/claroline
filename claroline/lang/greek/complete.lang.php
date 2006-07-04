@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! μέγεθος πηγής πληροφοριών μαθήματος (συμπεριλαμβάνεται το claroline και άχρηστα σε παλιά συστήματα)';
 $_lang['%1\$s by %2\$s'] = '%1$s απο %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s τροποποιήθηκε στις %2$s απο %3$s';
@@ -506,7 +506,7 @@ $_lang['Last attempt'] = 'Τελευαταίες προσπάθειες';
 $_lang['Last check before install'] = 'Τελεθταίος έλεγχος πρίν την εγκατάσταση';
 $_lang['Last edit date'] = 'Τελευταία ημέρα επιμέλειας';
 $_lang['Last message'] = 'Τελευταίο μην.';
-$_lang['Last message was on'] = 'Προηγούμενο μήνυμα ήταν ενεργό : ';
+$_lang['Last message was on'] = 'Προηγούμενο μήνυμα ήταν ενεργό';
 $_lang['Last messages'] = 'Τελευταία μηνύματα';
 $_lang['Last name'] = 'Όνομα';
 $_lang['Last session time'] = 'Τελευταία χρονική συνεδρίαση (???)';

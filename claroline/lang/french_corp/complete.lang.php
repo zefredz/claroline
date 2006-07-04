@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de l&acute;espace (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%moduleName has been added as module'] = 'a été ajouté comme module de cet espace et comme module de ce parcours';
 $_lang['%moduleName is already used as a module in this learning path'] = 'Cet exercice est déjà utilisé comme module dans ce parcours';
@@ -432,7 +432,7 @@ $_lang['Last attempt'] = 'Dernier essai';
 $_lang['Last check before install'] = 'Dernier contrôle avant installation';
 $_lang['Last edit date'] = 'Date dernière édition';
 $_lang['Last message'] = 'Dernier message';
-$_lang['Last message was on'] = 'Dernier message : ';
+$_lang['Last message was on'] = 'Dernier message';
 $_lang['Last messages'] = 'Derniers Messages';
 $_lang['Last name'] = 'Nom';
 $_lang['Last session time'] = 'Durée de la dernière session';

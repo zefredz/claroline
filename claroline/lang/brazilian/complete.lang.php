@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! tamanho do repositÃ³rio do curso (incluindo o claroline e o lixo de sistemas antigos)';
 $_lang['%moduleName has been added as module'] = 'foi adicionado como um módulo do curso para essa rota de aprendizagem';
 $_lang['%moduleName is already used as a module in this learning path'] = 'Esse exercício já está sendo usado como módulo dessa rota de aprendizagem';
@@ -228,14 +228,14 @@ $_lang['Current registration status :'] = 'Inscrições efetuadas até o momento: <
 ';
 $_lang['Current time'] = 'Tempo Atual';
 $_lang['DBSettingNamesIntro'] = '
-				O script de instalação irá criar a base de dados principal do claroline. 
+				O script de instalação irá criar a base de dados principal do claroline.
 				Você pode criar bases de dados diferentes
 				para o rastreamento e para a extensão do PhpMyAdmin se você quiser
-				ou armazenar todas essas coisas em uma base de dados, como você quiser. 
-				Posteriormente, o Claroline irá criar uma nova base de dados para cada novo curso criado. 
+				ou armazenar todas essas coisas em uma base de dados, como você quiser.
+				Posteriormente, o Claroline irá criar uma nova base de dados para cada novo curso criado.
 				Você pode especificar o prefixo para esses nomes de bases de dados.
 				<p>
-				Se você tem permissão para usar apenas uma base de dados, 
+				Se você tem permissão para usar apenas uma base de dados,
 				volte para a página anterior e selecione a opção "Único"
 				</p>
 				';
@@ -442,7 +442,7 @@ $_lang['Last attempt'] = 'Última tentativa';
 $_lang['Last check before install'] = 'Última verificação antes da instalação';
 $_lang['Last edit date'] = 'Última data definida';
 $_lang['Last message'] = 'Última mensagem';
-$_lang['Last message was on'] = 'A última mensagem foi em : ';
+$_lang['Last message was on'] = 'A última mensagem foi em';
 $_lang['Last messages'] = 'Últimas mensagens';
 $_lang['Last name'] = 'Nome';
 $_lang['Last session time'] = 'Tempo da última sessão';
@@ -592,7 +592,7 @@ $_lang['Number of users'] = 'Número de usuários';
 $_lang['Number of users by course'] = 'Número de usuários por curso';
 $_lang['Number of users by faculty'] = 'Número de usuários por faculdade';
 $_lang['Number of users by status'] = 'Número de usuários por status';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'O número proposto excede o máx. que você permitiu (você pode modificar isso abaixo). 
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'O número proposto excede o máx. que você permitiu (você pode modificar isso abaixo).
 				A composição do grupo não foi modificada';
 $_lang['Numero'] = 'Não.';
 $_lang['Ok'] = 'validar';
@@ -1011,7 +1011,7 @@ $_lang['blockClaroMainHelp'] = 'Aqui, professores e assitentes criam e administr
  discussão... </p><b>Inscrição</b><p>Se você é um Estudante, você deve apenas
  registrar-se selecionando \'Seguir cursos (estudante), então escolher os
  cursos que você gostaria de seguir.</p><p>Se você é um Professor ou um
- Assistente, registre-se também, mas selecione \'Criar cursos (professor)\'. 
+ Assistente, registre-se também, mas selecione \'Criar cursos (professor)\'.
  Você irá ter que preencher um formulário com o Código do Curso, Faculdade
  e Título do Curso. Uma vez confirmadom você poderá dirigir-se até osite que
  acabou de criar e modificar o seu conteúdo e organização de acordo com as
@@ -1020,13 +1020,13 @@ $_lang['blockClaroMainHelp'] = 'Aqui, professores e assitentes criam e administr
  sua Inscrição está na Home Page do Campus (canto superior direito).</p><b>
  Login</b><p>Nas suas próximas visitas, digite seu nome de usuário e senha
  e confirme para acessar seus cursos. O endereço do site é';
-$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Esse módulo está bloqueado. 
-Torná-lo invisível irá permitir que os estudantes acessem os próximos módulos sem ter que completá-lo. 
+$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Esse módulo está bloqueado.
+Torná-lo invisível irá permitir que os estudantes acessem os próximos módulos sem ter que completá-lo.
 
 Confirmar ?';
-$_lang['blockConfirmBlockingPathMadeInvisible'] = 'Essa rota está bloqueada. 
-Torná-la invisível irá permitir que os estudantes acessem 
- as próximas rotas sem ter que completá-la. 
+$_lang['blockConfirmBlockingPathMadeInvisible'] = 'Essa rota está bloqueada.
+Torná-la invisível irá permitir que os estudantes acessem
+ as próximas rotas sem ter que completá-la.
 
 Confirmar ?';
 $_lang['blockConfirmDeleteModule'] = 'Você tem certeza que quer deletar completamente esse módulo?
@@ -1059,15 +1059,15 @@ $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Quais os m
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Apresentação de atividades a serem executadas pelos estudantes (revisões bibliográficas,  trabalhos práticos, práticas em laboratórios, visitas, coleta de dados em grupo...).';
 $_lang['blockCourseHomePageIntroduction'] = 'Selecione as ferramentas que você quer tornar visíveis para seus usuários.
 Ferramentas invisíveis serão retiradas de sua interface pessoal';
-$_lang['blockCourseSettingsTip'] = 'Por padrão seu curso está acessível apenas para você como seu único usuário inscrito. No caso de você necessitar de algum sigilo, 
+$_lang['blockCourseSettingsTip'] = 'Por padrão seu curso está acessível apenas para você como seu único usuário inscrito. No caso de você necessitar de algum sigilo,
 o modo mais simples é abrir as inscrições durante
 uma semana, pedir aos estudantes que se inscrevam, então fechar as inscrições e checar possíveis intrusos na lista de usuários.';
 $_lang['blockDefaultLearningPathComment'] = 'Esse é o texto introdutório para essa rota de aprendizagem. Para trocá-lo pelo seu próprio texto, clique abaixo em <b>modificar</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Esse é um texto de introdução adicional sobre a presença desse módulo escrito especialmente para essa rota de aprendizagem. Para substituí-lo pelo seu próprio texto, clique abaixo em <b>modificar</b>.';
 $_lang['blockDefaultModuleComment'] = 'Esse é o texto introdutório para esse módulo, ele irá aparecer em cada rota de aprendizagem que contenha esse módulo. Para substituí-lo pelo seu próprio texto, clique abaixo em <b>modificar</b>.';
 $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerenciador de arquivo
- do seu computador.</p><p>Você pode enviar arquivos de qualquer tipo (HTML, 
- Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Sua única 
+ do seu computador.</p><p>Você pode enviar arquivos de qualquer tipo (HTML,
+ Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Sua única
  preocupação é que os seus estudantes precisa ter o software correspondente
  para lê-los.
  Alguns tipos de arquivo podem conter vírus, é sua responsabilidade não enviar
@@ -1093,39 +1093,39 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
   the Rename column</li>
   <li>Type the new name in the field (top left)</li>
   <li>Validate by clicking <input type=submit value=Ok name=submit24>
-	. 
+	.
 </ul>
 	<h4>Delete a document (or a directory)</h4>
 	<ul>
-	  
-  <li>Click on <img src=../document/img/supprimer.gif width=20 height=20> 
+
+  <li>Click on <img src=../document/img/supprimer.gif width=20 height=20>
 	in column \'Delete\'.</li>
 	</ul>
 	<h4>Make a document (or directory) invisible to students</h4>
 	<ul>
-	  
+
   <li>Click on <img src=../document/img/visible.gif width=20 height=20>in
  column \'Visible/invisible\'.</li>
 	  <li>The document (or directory) still exists but it is not visible by
- students anymore.</li>	  
+ students anymore.</li>
   <li>To make it invisible back again, click on <img
- src=../img/invisible.gif width=24 height=20> 
+ src=../img/invisible.gif width=24 height=20>
 	in column \'Visible/invisible\'</li>
 	</ul>
 	<h4>Add or modify a comment to a document (or a directory)</h4>
-	<ul>	  
+	<ul>
   <li>Click on <img src=../img/comment.gif width=20
- height=20> 
+ height=20>
 	in column \'Comment\'</li>
 	  <li>Type new comment in the corresponding field (top right).</li>
 	  <li>Validate by clicking <input type=submit value=OK name=submit2>
 		.</li>
 	</ul>
 	<p>To delete a comment, click on <img
- src=../img/comment.gif width=20 height=20>, 
+ src=../img/comment.gif width=20 height=20>,
 	  delete the old comment in the field and click <input type=submit
  value=OK name=submit22>
-	  . 
+	  .
 	<hr />
 	<p>You can organise your content through filing. For this:</p>
 	<h4><b>Create a directory</b></h4>
@@ -1139,12 +1139,12 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
 	<h4>Move a document (or directory)</h4>
 	<ul>
 	  <li>Cllick on button <img src=../img/deplacer.gif
- width=34 height=16> 
+ width=34 height=16>
 		in column \'Move\'</li>
 	  <li>Choose the directory into which you want to move the document (or
- directory) in the 
+ directory) in the
 	  corresponding scrolling menu (top left) (note: the word \'root\' means you
- cannot go 
+ cannot go
 	  upper than that level in the document tree of the server).</li>
 	  <li>Validate by clicking on <input type=submit value=OK
  name=submit232>.</li>
@@ -1327,7 +1327,7 @@ $_lang['blockHomepageHelp'] = 'Para maior conveniencia, as ferramentas do clarol
  que não precisa. Você terá apenas que clicar em \'desativar\'. Então ela
  irá para a seção cinza da sua Home Page. Ela não estará visível mais para
  os seus estudantes, mas você poderá reativá-la quando você quiser.</p><p>Você
- pode adicionar suas próprias páginas à sua Home Page. Essas páginas precisarão 
+ pode adicionar suas próprias páginas à sua Home Page. Essas páginas precisarão
  estar em formato HTML (que pode ser criado por qualquer Editor de Texto
  ou Compositor Web). Use \'Enviar página e link para a Home Page\' para enviar
  sua página para o servidor. O cabeçalho padrão de seu website será automáticamente
@@ -1338,7 +1338,7 @@ $_lang['blockHomepageHelp'] = 'Para maior conveniencia, as ferramentas do clarol
  adicionar à Home Page poderão ser desativadas ou apagadas, onde as ferramentas
  padrão podem ser desativadas mas não apagadas.</p><p>Uma vez que seu site de
  curso estiver pronto, vá até \'Modificar informações do curso\' e decida qual
- o nível de sigilo você precisa. Por padrão, seu curso estará escondido 
+ o nível de sigilo você precisa. Por padrão, seu curso estará escondido
  (para que você possa trabalhar nele).</p>';
 $_lang['blockIntroCourse'] = 'Você está na página inicial do seu curso.<br /><br />Nessa página, você pode :
 <ul>

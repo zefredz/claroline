@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s  %2$s tarihinde %3$s tarafýndan düzenlenmiþtir ';
 $_lang['(none)'] = '(yok)';
 $_lang['(optional)'] = '(seçimlik)';
@@ -178,7 +178,7 @@ $_lang['Last 7 days'] = 'Son 7 gün';
 $_lang['Last attempt'] = 'Son deneme';
 $_lang['Last check before install'] = 'Yükleme öncesi son kontrol';
 $_lang['Last message'] = 'Son ileti';
-$_lang['Last message was on'] = 'Son ileti aný : ';
+$_lang['Last message was on'] = 'Son ileti aný';
 $_lang['Last name'] = 'Adý';
 $_lang['Last session time'] = 'Son oturum zamaný';
 $_lang['Lasting'] = 'devam ediyor';

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!!a tanfolyam raktár mérete (régi rendszereken claroline-t és a szeméttár-at tartalmazza)';
 $_lang['%1\$s by %2\$s'] = '%1$s  %2$s által';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s módosítva: %2$s  %3$s által';
@@ -255,7 +255,7 @@ $_lang['Current file'] = 'Aktuális fájl';
 $_lang['Current registration status :'] = 'Aktuális regisztrációs státusz: <br /> <br />';
 $_lang['Current time'] = 'Aktuális idõ';
 $_lang['DBSettingNamesIntro'] = 'A telepítõ létrehozza a fõ Claroline adatbázisokat.
-Ha a rendszer adminisztrátor csak egy adatbázist engedélyez, akkor 
+Ha a rendszer adminisztrátor csak egy adatbázist engedélyez, akkor
 menjen vissza az elõzõ oldalra, és válassza az \'egyedüli\'-t az \'Adatbázis Mód\'-nál.<br /><br />';
 $_lang['Database Host'] = 'Adatbázis Szerver';
 $_lang['Database name'] = 'Adatbázis név';
@@ -498,7 +498,7 @@ $_lang['Last attempt'] = 'Utolsó próbálkozás';
 $_lang['Last check before install'] = 'Telepítés elõtti utolsó ellenörzés';
 $_lang['Last edit date'] = 'Utolsó szerkesztési dátum';
 $_lang['Last message'] = 'Utolsó üzenet';
-$_lang['Last message was on'] = 'Az utolsó üzenet érkezett:';
+$_lang['Last message was on'] = 'Az utolsó üzenet érkezett';
 $_lang['Last messages'] = 'Utolsó üzenetek';
 $_lang['Last name'] = 'Név';
 $_lang['Last session time'] = 'Utolsó kapcsolat ideje';
@@ -1142,27 +1142,27 @@ The list of publications related to the user and the assignment can be view by c
 </li>
 </ul>
 ';
-$_lang['blockClaroMainHelp'] = 'Itt az oktatók és segítõik létrehozhatnak és adminisztrálhatnak tanfolyam honlapokat. 
-A hallgatók olvashatnak (dokumentumok, eseménynaptár, információk), és esetenként 
+$_lang['blockClaroMainHelp'] = 'Itt az oktatók és segítõik létrehozhatnak és adminisztrálhatnak tanfolyam honlapokat.
+A hallgatók olvashatnak (dokumentumok, eseménynaptár, információk), és esetenként
 teszteket tölthetnek ki, dokumentumaikat publikálhatják, fórum megbeszéléseken vehetnek részt...
-</p><b>Regisztráció</b><p>A következõk abban az esetben érvényesek, ha a rendszer 
-a hallgatói regisztrációt megengedi (bizonyos helyek automatikusan regisztrálnak). 
-<br />Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató) 
-kiválasztásával, majd a kívánt tanfolyam kiválasztásával.</p><p>Ha Ön professzor vagy 
-tanársegéd, szintén regisztrálhat, de válassza a Tanfolyam létrehozása opciót, ezt 
-követõen egy ûrlapon megadhatja a Tanfolyam kódot, Kart és Tanfolyam nevet. 
-Ha ezt elküldi, akkor máris az Ön által létrehozott tanfolyam honlapon találja magát, 
-és tetszése szerint módosíthatja annak tartalmát és felépítését. </p><p>A \'Tennivaló\' 
-opció lehetõvé teszi, hogy visszacsatolást kapjanak a rendszer adminisztrátorok. Itt 
-olyan dolgokat tehet közzé, mint hibák és javítási javaslatok. A \'Tennivaló\' lista a 
+</p><b>Regisztráció</b><p>A következõk abban az esetben érvényesek, ha a rendszer
+a hallgatói regisztrációt megengedi (bizonyos helyek automatikusan regisztrálnak).
+<br />Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató)
+kiválasztásával, majd a kívánt tanfolyam kiválasztásával.</p><p>Ha Ön professzor vagy
+tanársegéd, szintén regisztrálhat, de válassza a Tanfolyam létrehozása opciót, ezt
+követõen egy ûrlapon megadhatja a Tanfolyam kódot, Kart és Tanfolyam nevet.
+Ha ezt elküldi, akkor máris az Ön által létrehozott tanfolyam honlapon találja magát,
+és tetszése szerint módosíthatja annak tartalmát és felépítését. </p><p>A \'Tennivaló\'
+opció lehetõvé teszi, hogy visszacsatolást kapjanak a rendszer adminisztrátorok. Itt
+olyan dolgokat tehet közzé, mint hibák és javítási javaslatok. A \'Tennivaló\' lista a
 Campus honlapjára kerül belinkelésre (amint bejelentkezik).</p>
-<p>A támogatási fórum ettõl eltér. Ez az összes Claroline felhasználót kapcsolatba 
+<p>A támogatási fórum ettõl eltér. Ez az összes Claroline felhasználót kapcsolatba
 hozza Önnel. Ha valamire saját rendszerén belül nem kap választ, akkor tegyen fel itt kérdést!</p>
 <p>A Regisztrációt indító link (ha van ilyen) a Campus honlapján található (jobb oldalon)
-</p><b>Belépés</b><p>Következõ látogatásakor adja meg felhasználói nevét és 
+</p><b>Belépés</b><p>Következõ látogatásakor adja meg felhasználói nevét és
 jelszavát, majd kattintson a gombra a rendszerbe való belépéshez. A rendszer címe:';
 $_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ez a modul blokkolva van.
-Ha láthatatlanná teszi, akkor a hallgatók a modul 
+Ha láthatatlanná teszi, akkor a hallgatók a modul
 teljesítése nélkül is tovább léphetnek.
 Biztos benne?';
 $_lang['blockConfirmBlockingPathMadeInvisible'] = 'Ez a Tanösvény blokkolva van.
@@ -1197,9 +1197,9 @@ $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Milyen mód
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'A tervezett tevékenységek bemutatása (szerzõi áttekintések, a hallgatók elvárt részvétele, gyakorlati munka, laboratóriumi találkozók, látogatások, meglévõ információk összegyûjtése...)';
 $_lang['blockCourseHomePageIntroduction'] = 'Válassza ki azokat az eszközöket, melyeket láthatóvá kíván tenni a felhasználó számára.
 A láthatatlan eszközök szürkén jelennek meg Önnek';
-$_lang['blockCourseSettingsTip'] = 'Alap beállításként a tanfolyamra bárki beléphet. Ha bizalmas a tartalom, 
- akkor javasoljuk, hogy nyissa meg a regisztrációt az egyik héten, kérje meg 
-a hallgatókat, hogy regisztráljanak, majd zárja be a regisztrációt, 
+$_lang['blockCourseSettingsTip'] = 'Alap beállításként a tanfolyamra bárki beléphet. Ha bizalmas a tartalom,
+ akkor javasoljuk, hogy nyissa meg a regisztrációt az egyik héten, kérje meg
+a hallgatókat, hogy regisztráljanak, majd zárja be a regisztrációt,
 és ellenõrizze az illetéktelenek jelenlétét.';
 $_lang['blockDefaultLearningPathComment'] = 'Ez a tanösvény bevezetõ szövege. Kattintson a <b>módosítás</b>-ra ha ki akarja cserélni a szöveget.';
 $_lang['blockDefaultModuleAddedComment'] = 'Ez egy további bevezetõ szöveg a modul létezésérõl a tanösvényen belül. Ha ki akarja cserélni a szöveget, kattintson a <b>módosítás</b>-ra.';
@@ -1210,7 +1210,7 @@ $_lang['blockDocumentsHelp'] = 'Fordítatlan!!!
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
  must be that your students have the corresponding software to read them.
  Some file types can contain viruses, it is your responsibilty not to
- upload virus contaminated files. It is a worthwhile precaution to check 
+ upload virus contaminated files. It is a worthwhile precaution to check
  documents with antivirus software before uploading them.</p>
 <hr />
 <h4>View modes</h4>
@@ -1219,7 +1219,7 @@ The Claroline document has 2 view mode
 <li>File list (default)</li>
 <li>Thumbnail</li>
 </ul>
-You can switch between \'file list\' and \'thumbnail\' mode simply by clicking on 
+You can switch between \'file list\' and \'thumbnail\' mode simply by clicking on
 the \'File list | Thumbnails\' commands  on the right in the directory toolbar.
 <h4>The image viewer</h4>
 <ul>
@@ -1247,7 +1247,7 @@ The search result wil be displayed just beside the directory toolbar.
 </ul>
 <hr />
 <h4>Managing documents</h4>
-This tool has a collection of commands allowing you to upload, edit and 
+This tool has a collection of commands allowing you to upload, edit and
 organize your file ressources.
 </hr />
 <h4>Upload a document</h4>
@@ -1259,11 +1259,11 @@ Click on the \'Upload file\' command in the upper left.
 Select the file on your computer using the \'Browse\' button in the dialog box.
 </li>
 <li>
-Optionnaly, you can attach a comment to this document. It will be displayed 
+Optionnaly, you can attach a comment to this document. It will be displayed
 just below the document line.
 <blockquote><small>
 <i>Note</i> If you upload a file collection gathered in archive file in <i>ZIP</i> format,
-check the \'uncompress zipped (.zip) file on the server\' option to extract them 
+check the \'uncompress zipped (.zip) file on the server\' option to extract them
 automatically once the archive is uploaded in your course repositoy on the server.
 </small></blockquote>
 </li>
@@ -1280,7 +1280,7 @@ Click on the \'create hyperlink\' command  in the upper side of your browser win
 Fill the \'Name\' field with a specific name to this hyperlink;
 </li>
 <li>
-Type the complete URL of the hyperlink 
+Type the complete URL of the hyperlink
 (example : http://my.domain/my/file.htm).
 </li>
 <li>
@@ -1296,7 +1296,7 @@ Validate by clicking on the \'OK\' button.
 <ul>
 <li> Click on the \'Create document\' command in the upper side of your browser windows.
 </li>
-<li> 
+<li>
 Fill appearing \'Document name\' field with a a name for this document.
 </li>
 <li>
@@ -1307,8 +1307,8 @@ Click on the \'OK\' button once finished.
 </li>
 </ul>
 <p>
-This command can be used for writing short documents. To write 
-longer texts we recommend you to use a more suitable tool on your personal 
+This command can be used for writing short documents. To write
+longer texts we recommend you to use a more suitable tool on your personal
 computer.
 </p>
 <h4>Rename a document, a directory or a hyperlink</h4>
@@ -1319,7 +1319,7 @@ computer.
 Type the new name in the field in the upper side of your browser window.
 </li>
 <li>
-Optionally, you can also add or modify a comment attached to this document. 
+Optionally, you can also add or modify a comment attached to this document.
 It will be displayed just below the document line.
 </li>
 <li>
@@ -1328,7 +1328,7 @@ Validate by clicking on the \'OK\' button.
 </ul>
 <p>
 <b>Tip. </b>
-Documents are presented in alphabetical order. If you want to present them in a 
+Documents are presented in alphabetical order. If you want to present them in a
 different order, number them: 01, 02, 03...
 </p>
 <h4>Delete a document, a directory or a hyperlink</h4>
@@ -1347,7 +1347,7 @@ Click on the icon beside the document in the \'Visible/invisible\' column.
 The element still exists but it is not visible by students anymore.
 </li>
 <li>
-To make it invisible back again, click once more on the icon beside the document 
+To make it invisible back again, click once more on the icon beside the document
 in the \'Visible/invisible\' column.
 </li>
 </ul>
@@ -1387,9 +1387,9 @@ Move a document a directory or a hyperlink
 Click on on the icon beside the concernent element in the \'Move\' column.
 </li>
 <li>
-Choose the directory into which you want to move the element in 
+Choose the directory into which you want to move the element in
 the corresponding scrolling menu (top left)
-<br />Note: the word \'root\' means you cannot go higher than that level in the 
+<br />Note: the word \'root\' means you cannot go higher than that level in the
 document tree of the server).
 </li>
 <li>
@@ -1425,7 +1425,7 @@ This tool allow you to create online exercises composed of a list of questions. 
 <hr />
 <h4>Questions</h4>
 <h4>Multiple choice questions</h4>
-<p>There are two kind of multiple choice question&nbsp;: 
+<p>There are two kind of multiple choice question&nbsp;:
 </p>
 <ul>
 <li> Question with unique answer</li>
@@ -1575,17 +1575,17 @@ $_lang['blockUsersHelp'] = 'Fordítatlan!!!
 </li>
 <li>
 <b>Roles</b>.
-Roles have no computer related function. They do not give rights on 
-operating the system. They just indicate to humans who is who. You can 
-modify them by clicking on the icon in the \'Edit\' column, then typing whatever 
+Roles have no computer related function. They do not give rights on
+operating the system. They just indicate to humans who is who. You can
+modify them by clicking on the icon in the \'Edit\' column, then typing whatever
 you want: lecturer, assistant, student, visitor, expert...
 </li>
 <li>
-<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can 
+<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can
 modify this status by clicking on the icon in the \'Edit\' column.
 </li>
 <li>
-<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can 
+<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can
 modify this status by clicking on the icon in the \'Edit\' column.
 </li>
 <li>

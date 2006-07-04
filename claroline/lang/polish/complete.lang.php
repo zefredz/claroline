@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! rozmiar repozytorium kursu (zawiera Claroline i ¶mieci w starym systemie)';
 $_lang['%1\$s by %2\$s'] = '%1$s przez %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s zmodyfikowane %2$s przez %3$s';
@@ -506,7 +506,7 @@ $_lang['Last attempt'] = 'Ostatnia próba';
 $_lang['Last check before install'] = 'Ostatnie sprawdzenie przed instalacj±';
 $_lang['Last edit date'] = 'Ostatnia data edycji';
 $_lang['Last message'] = 'Ostatnia wiadomo¶æ';
-$_lang['Last message was on'] = 'Ostatnia wiadomo¶æ by³a : ';
+$_lang['Last message was on'] = 'Ostatnia wiadomo¶æ by³a';
 $_lang['Last messages'] = 'Ostatnie wiadomo¶ci';
 $_lang['Last name'] = 'Nazwa';
 $_lang['Last session time'] = 'Ostatni czas sesji';
@@ -1118,8 +1118,8 @@ Studenci maj± mo¿liwo¶æ modyfikacji swojej pracy po prezentacji a zarz±dca kursu
 </li><li> Tekst z do³±czonym plikiem&nbsp;: tekst sformatowany przy u¿yciu edytora WYSIWYG i plik (plik nie jest wymagany)
 </li></ul>
 </li><li> data rozpoczêcia&nbsp;: data od kiedy u¿ytkownicy bêd± mogli wysy³aæ swoje publikacje do zadania
-</li><li> data zakoñczenia&nbsp;: data do kiedy u¿ytkownicy bêd± mogli wysy³aæ swoje publikacje do zadania 
-</li><li> domy¶lna widoczno¶æ publikacji&nbsp;: wybór czy publikacje bêd± dostêpne do innych u¿ytkowników lub nie 
+</li><li> data zakoñczenia&nbsp;: data do kiedy u¿ytkownicy bêd± mogli wysy³aæ swoje publikacje do zadania
+</li><li> domy¶lna widoczno¶æ publikacji&nbsp;: wybór czy publikacje bêd± dostêpne do innych u¿ytkowników lub nie
 </li><li> typ zadania&nbsp;:
 <ul><li> tryb indywidualny&nbsp;: ka¿dy autentykowany u¿ytkownik mo¿e wys³aæ publikacjê
 </li><li> tryb grupowy&nbsp;: u¿ytkownik musi byæ cz³onkiem przynajmniej jednej z kursu by publikowaæ prace, a prace bêd± wysy³ane w imieniu grupy/li></ul>
@@ -1163,7 +1163,7 @@ Czynienie go niewidocznym pozwoli studentom na dostêp do
 
 Potwierdzasz ?';
 $_lang['blockConfirmBlockingPathMadeInvisible'] = 'Ta ¶cie¿ka jest zablokowana.
-Czynienie jej niewidoczn± pozwoli studentom na dostêp do 
+Czynienie jej niewidoczn± pozwoli studentom na dostêp do
  nastêpnej ¶cie¿ki bez przymusu ukoñczenia obecnej.
 
 Potwierdzasz ?';
@@ -1217,25 +1217,25 @@ $_lang['blockDocumentsHelp'] = '<p>Narzedzie Dokumenty jest podobne do Menad¿era
   <li>kliknij na przycisk <img src=../document/img/edit.gif width=20 height=20
  align=baseline> w kolumnie Zmieñ nazwê</li>
   <li>Wpisz now± nazwê w polu (góra po lewej)</li>
-  <li>Zatwierd¼ przez klikniêcie <input type=submit value=Ok name=submit24>. 
+  <li>Zatwierd¼ przez klikniêcie <input type=submit value=Ok name=submit24>.
 </ul>
 	<h4>Usuwanie dokumentu (lub katalogu)</h4>
 	<ul>
-	  
-  <li>Kliknij na <img src=../document/img/delete.gif width=20 height=20> 
+
+  <li>Kliknij na <img src=../document/img/delete.gif width=20 height=20>
 	w kolumnie \'Usuñ\'.</li>
 	</ul>
 	<h4>Spowodowaæ, ¿eby dokument (katalog) by³ niewidzialny dla studentów</h4>
 	<ul>
-	  
+
   <li>Kliknij <img src=../document/img/visible.gif width=20 height=20>w kolumnie \'Poka¿/ukryj\'.</li>
-	  <li>Dokument (lub katalog) ca³y czas istnieje ale jest niewidoczny dla studentów.</li>	  
+	  <li>Dokument (lub katalog) ca³y czas istnieje ale jest niewidoczny dla studentów.</li>
   <li>¯eby przywrócic jego dostêpno¶æ, kliknij ponownie <img
- src=../img/invisible.gif width=24 height=20> 
+ src=../img/invisible.gif width=24 height=20>
 	w kolumnie \'Poka¿/ukryj\'</li>
 	</ul>
 	<h4>Dodawaæ lub modyfikowaæ komentarze do dokumentu</h4>
-	<ul>	  
+	<ul>
   <li>Kliknij <img src=../img/comment.gif width=20
  height=20> w kolumnie \'Komentarz\'</li>
 	  <li>Wpisz komentarze do odpowiedniego pola (na górze, po prawej).</li>
@@ -1243,10 +1243,10 @@ $_lang['blockDocumentsHelp'] = '<p>Narzedzie Dokumenty jest podobne do Menad¿era
 		.</li>
 	</ul>
 	<p>¯eby usun±æ komentarz, kliknij <img
- src=../img/comment.gif width=20 height=20>, 
+ src=../img/comment.gif width=20 height=20>,
 	  skasuj istniej±cy komentarz i kliknij <input type=submit
  value=OK name=submit22>
-	  . 
+	  .
 	<hr>
 	<p>Mo¿esz dowolnie zorganizowaæ zawarto¶æ. W tym celu:</p>
 	<h4><b>Twórz katalogi</b></h4>
@@ -1339,22 +1339,22 @@ Orphan questions are questions that don\'t belong to any exercise.</p>';
 $_lang['blockFeedbackHelp'] = 'Informacja zwrotna jest opcjonalna. To jest w³a¶ciwa wersja zadania. Je¶li nie jest pusta to bêdzie widoczna dla u¿ytkowników zgodnie z konfiguracj± \'Przedstaw informacjê zwrotn±\'.';
 $_lang['blockForumsHelp'] = 'Forum dyskusyjne jest asynchronicznym narzêdziem do prowadzenia dyskusji. Podczas gdy email pozwala na jednoznaczny dialog \'jeden do jednego\', Forum umo¿liwia publicznn± dyskusjê. </p><p>Od technicznej strony, studenci potrzebuj± tylko przegl±darki z Claroline Forum. </P><p>Do zarz±dzania Forum nale¿y wybrac \'Admin\'. Wszystkie wiadomo¶ci w Forach dyskusyjnych s± uporz±dkowane w zestawy i podzbiory nastêpuj±co: </p><p><b>Kategoria > Forum > Tematy > Odpowiedzi</b></p>Do tego, ¿eby uporz±dkowaæ dyskusje studentów niezbêdne jest zorganizowanie Kategorii i For wewn±trz nich. W obrêbie Forum (które dotyczy np. omawianego podczas zajêæ zagadnienia), studenci maj± mo¿liwo¶æ tworzenia nowych listów (Tematów) i odpowiadania na listy napisane wcze¶niej. Domy¶lnie Forum dyskusyjne Claroline zawiera tylko kategoriê \'Public\', a \'Przyk³adowe Forum\' - jeden \'Przyk³adowy Temat\'. </p><p>Pierwsza rzecz, któr± nale¿y zrobiæ to usun±æ przyk³adowy Temat i zmieniæ nazwê Forum. Teraz w kategorii \'Public\' mo¿na tworzyæ kolejne Fora tak, ¿eby odpowiada³o to scenariuszowi prowadzonych zajêæ w poszczególnych grupach i tematach. </p><p>Nie mo¿na myliæ Kategorii i For dyskusyjnych. Pusta Kategoria (bez Forum) nie bêdzie widoczna dla studentów. </p><p>Opis Forum mo¿e zawieraæ wykaz studentów, definicje celu, postawione zadania, szczegó³owe tematy...';
 $_lang['blockGroupsHelp'] = '<p><b>Wprowadzenie</b></p>
-	<p>To narzêdzie pozwala na tworzenie i zarz±dzanie grupami roboczymi. 
+	<p>To narzêdzie pozwala na tworzenie i zarz±dzanie grupami roboczymi.
 	Po utworzeniu (Tworzenie grup), grupy s± puste. Jest kilka sposobów na ich wype³nienie:
 	<ul><li>automatyczne (\'Wype³nij grupy\'),</li>
 	<li>rêczne (\'Edytuj\'),</li>
 	<li>samodzielna rejestracja studentów (Ustawienia grupy: \'Zezwalaj na samodzielna rejestracjê...\').</li>
 	</ul>
-	Te trzy sposoby mo¿na ³±czyæ. Mo¿esz np. najpierw poprosiæ studentów o samodzielne rejestrowanie siê w 	grupach. 
+	Te trzy sposoby mo¿na ³±czyæ. Mo¿esz np. najpierw poprosiæ studentów o samodzielne rejestrowanie siê w 	grupach.
 	Je¶li stwierdzisz, ¿e niektórzy nie zarejestrowali siê,  uzupe³nij grupy automatycznie. Mo¿esz tak¿e rêcznie 	edytowaæ sk³ad poszczególnych grup w dowolnym momencie.</p>
-	<p>Wype³nianie grup studentami czy to automatyczne, czy rêczne jest mo¿liwe tylko wtedy, gdy studenci s± 	zarejestrowani w kursie (nie nale¿y równocze¶nie rejestrowaæ studentów do kursu i do grup). 	
+	<p>Wype³nianie grup studentami czy to automatyczne, czy rêczne jest mo¿liwe tylko wtedy, gdy studenci s± 	zarejestrowani w kursie (nie nale¿y równocze¶nie rejestrowaæ studentów do kursu i do grup).
 	Lista zarejestrowanych studentów jest dostêpna w \'U¿ytkownicy\'.</p><hr noshade size=1>
 	<p><b>Tworzenie grup</b></p>
 	<p>¯eby utworzyæ now± grupê, kliknij \'Tworzenie nowej grupy (grup)\' i zdecyduj ile grup ma zostaæ utworzonych. 	Maksymalna liczba cz³onków grupy jest opcjonalna, jednak sygerujemy podanie jakiej¶ liczby. Je¶li pole max 	zostanie niewype³nione wielko¶æ grupy zostanie okre¶lona jako nieskoñczona.</p><hr noshade size=1>
 	<p><b>Ustawienia grup</b></p>
 	<p>Mo¿esz ustaliæ ustawienia grup globalnie (dla wszystkich grup).
-	<p><b>Je¶li studenci maj± uprawnienia do samodzielnej rejestracji w grupach:</b></p> 
-	<p>Utwórz puste grupy - studenci zarejestruj± siê sami. 
+	<p><b>Je¶li studenci maj± uprawnienia do samodzielnej rejestracji w grupach:</b></p>
+	<p>Utwórz puste grupy - studenci zarejestruj± siê sami.
 	Je¶li zdefiniowana zosta³a maksymalna liczba cz³onków grupy - po jej zape³nieniu nowi cz³onkowie nie bêd± 	przyjmowani. Taka metoda jest dobra dla nauczycieli, którzy nie znaj± studentów podczas tworzenia grup.</p>
 	<b>Narzêdzia</b>:</p>
 	<p>Ka¿da grupa posiada w³asne Forum dyskusyjne (zamkniête lub otwarte) lub obszar dokumentów (z mened¿erem plików) lub (najczê¶ciej) obydwa te elementy.</p>
@@ -1373,7 +1373,7 @@ $_lang['blockIntroCourse'] = 'Jeste¶ na stronie domowej kursu.<br /><br />Na tej
 </ul>
 Teraz, aby dodaæ tekst wprowadzenia prezentuj±cy Twój kurs studentom kliknij na ten przycisk';
 $_lang['blockIntroLearningPath'] = 'U¿yj tego narzêdzia celem dostarczenia Twoim studentom sekwencyjnej ¶cie¿ki pomiêdzy dokumentami, æwiczeniami, stronami HTML, linkami, ... <br /> <br />. Je¶li chcesz zaprezentowaæ Twoj± ¶cie¿kê nauczania studentom kliknij na przycisk poni¿ej <br />';
-$_lang['blockIntroWork'] = 'To narzêdzie pozwala nauczycielowi tworzyæ zadania w których ka¿dy student (dosownie do swoich ustawieñ zadañ) bêdzie móg³ na stronie kursu za³adowaæ dokument lub napisaæ tekst. 
+$_lang['blockIntroWork'] = 'To narzêdzie pozwala nauczycielowi tworzyæ zadania w których ka¿dy student (dosownie do swoich ustawieñ zadañ) bêdzie móg³ na stronie kursu za³adowaæ dokument lub napisaæ tekst.
 <br />Bêdziesz móg³ dodaæ komentarz lub oceniæ ka¿d± pracê.
 <br /><br />Je¶li chcesz zaprezentowaæ to narzêdzie lub podaæ kilka uwag studentom naci¶nij na przycisk poni¿ej.<br>';
 $_lang['blockModulePoolHelp'] = 'Ta strona umo¿liwia Ci widok wszystkich modu³ów dostêpnych w tym kursie <br />
@@ -1499,7 +1499,7 @@ $_lang['sampleForumMainCategory'] = 'G³ówna';
 $_lang['sampleForumMessage'] = 'Je¶li usuniesz Forum przyk³adowe, skasujesz tak¿e bie¿±c± wiadomo¶æ.';
 $_lang['sampleForumTitle'] = 'Forum przyk³adowe';
 $_lang['sampleForumTopicTitle'] = 'Wiadomo¶æ w Forum';
-$_lang['sampleLearnPathDescription'] = 'To jest przyk³adowa ¶cie¿ka nauczania, u¿ywa przyk³adowych æwiczeñ i dokumentów z puli æwiczeñ i puli dokumentów. Kliknij na 
+$_lang['sampleLearnPathDescription'] = 'To jest przyk³adowa ¶cie¿ka nauczania, u¿ywa przyk³adowych æwiczeñ i dokumentów z puli æwiczeñ i puli dokumentów. Kliknij na
                             <b>Zmodyfikuj</b> aby zmieniæ ten tekst.';
 $_lang['sampleLearnPathDocumentDescription'] = 'Mo¿na u¿ywaæ ka¿dy dokument istniej±cy w puli dokumentów tego kursu.';
 $_lang['sampleLearnPathDocumentTitle'] = 'przykladowy_dokument';

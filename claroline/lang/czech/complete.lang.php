@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! velikost úloištì kurzù (vèetnì claroline a zbytkù starıch systémù)';
 $_lang['%1\$s by %2\$s'] = '%1$s - %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s upraveno %2$s - %3$s';
@@ -260,7 +260,7 @@ $_lang['Current registration status :'] = 'Souèasnı stav registrace : <br /> <br
 $_lang['Current time'] = 'Aktuální èas';
 $_lang['DBSettingNamesIntro'] = '
 Instalátor vytvoøí hlavní databáze Claroline.
-Jestlie jste omezeni pouze na pouití jedné databáze, vrate se zpìt
+Jestlie jste omezeni pouze na pouití jedné databáze, vra?te se zpìt
  na pøedchozí stranu a vyberte volbu \'jedna\' pro \'Mód databáze\'.<br /><br />
 ';
 $_lang['Database Host'] = 'Database Host';
@@ -505,7 +505,7 @@ $_lang['Last attempt'] = 'Poslední pokus';
 $_lang['Last check before install'] = 'Poslední kontrola pøed instalací';
 $_lang['Last edit date'] = 'Datum poslední úpravy';
 $_lang['Last message'] = 'Poslední zpráva';
-$_lang['Last message was on'] = 'Poslední zpráva z : ';
+$_lang['Last message was on'] = 'Poslední zpráva z';
 $_lang['Last messages'] = 'Poslední zprávy';
 $_lang['Last name'] = 'Jméno';
 $_lang['Last session time'] = 'Èas poslední relace';
@@ -1143,7 +1143,7 @@ Seznam publikací vztahujících se k uivateli a zadání, lze zobrazit kliknutím na
 <p>Jako manaer kurzu máte právo upravovat, mazat, zviditelnit/zneviditelnit kteroukoli z prací. Ke kadé práci mùete také pøidat zpìtnou vazbu.
 </p>
 <ul>
-<li> <strong>Upravit</strong>&nbsp;: Pokud se zobrazí tato ikona, znamená to, e uivatel mùe upravit obsah práce. Zobrazí se, pokud je uivatel manaerem kurzu, èi pokud si uivatel prohlíí své práce nebo práce práce jeho skupiny. 
+<li> <strong>Upravit</strong>&nbsp;: Pokud se zobrazí tato ikona, znamená to, e uivatel mùe upravit obsah práce. Zobrazí se, pokud je uivatel manaerem kurzu, èi pokud si uivatel prohlíí své práce nebo práce práce jeho skupiny.
 </li>
 <li> <strong>Odstranit</strong>&nbsp;: Tento pøíkaz umoòuje manaerovi kurzu odstranit práci.
 </li>
@@ -1155,10 +1155,10 @@ Seznam publikací vztahujících se k uivateli a zadání, lze zobrazit kliknutím na
 </li>
 </ul>
 ';
-$_lang['blockClaroMainHelp'] = 'Lektoøi a asistenti zde vytváøejí a spravují stranu kurzù. Studenti ètou (dokumenty, zadání, informace), 
+$_lang['blockClaroMainHelp'] = 'Lektoøi a asistenti zde vytváøejí a spravují stranu kurzù. Studenti ètou (dokumenty, zadání, informace),
 nìkdy dìlají cvièení, publikují dokumenty a úèastní se diskuzí
 ...</p><b>Registrace</b><p>Následující instrukce platí pouze pokud Vaše verze Claroline dovoluje
- vlastní registraci, pokud není nastavená automatická registrace. <br />Jestli e jste student, 
+ vlastní registraci, pokud není nastavená automatická registrace. <br />Jestli e jste student,
  registrujte se vybráním \'Následujte kurzy (student)\', pak vyberte kurzy, které chcete absolvovat .</p>
  <p>Jestlie jste Lektor nebo Asistent, také  se registrujte, ale vyberte  \'Vytvoøit kurzy (lektor)\'.
  Budete muset vyplnit formuláø s kódem kurzu , Fakultou a Názvem kurzu. Kdy je toto
@@ -1207,7 +1207,7 @@ $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Prezentace
 $_lang['blockCourseHomePageIntroduction'] = ' Vyberte nástroje, které chcete uivatelùm zpøístupnit.
 Nepøístupnı (neviditelnı) nástroj bude ve Vaší nabídce zvıraznìn šedì.';
 $_lang['blockCourseSettingsTip'] = 'Standardnì je kurz pøístupen kadému.  Nejjednodušší cesta, jak ošetøit pøístup ke kurzu je:
- umonit v prùbìhu jednoho tıdne registraci, poádat studenty aby se registrovali a uzavøít monost registrovat se. Pak 
+ umonit v prùbìhu jednoho tıdne registraci, poádat studenty aby se registrovali a uzavøít monost registrovat se. Pak
  zkontrolovat potencionální záškodníky v seznamu uivatelù.';
 $_lang['blockDefaultLearningPathComment'] = 'Toto je úvodní text uèební cesty. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Toto je pøídavnı úvodní text o pøítomnosti tohoto modulu v uèební cestì. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.';
@@ -1481,14 +1481,14 @@ $_lang['blockFeedbackHelp'] = 'Zpìtná vazba je nepovinná. Toto je správnı postup
 $_lang['blockForumsHelp'] = 'Toto fórum je napsáno jako asynchronní diskuzní nástroj.
  E-mail umoòuje standardnì pouze komunikaci dvou lidí, fórum umoòuje veøejnou nebo poloveøejnou diskuzi.
  </p><p>Po stránce technické, pro úèast ve fóru studenti potøebují pouze webovı prohlíeè.</P>
- <p>Pro správu fóra kliknìte na  \'Administrace\'. 
+ <p>Pro správu fóra kliknìte na  \'Administrace\'.
  Diskuze jsou organizovány v následující struktuøe:</p>
  <p><b>Kategorie > Fórum > Téma > Odpovìdi</b></p>Pro strukturování diskuze studentù je tøeba dopøedu organizovat
  kategorie a fóra. Tvorba témat a odpovìdí je pak ji na studentech.
  Standardnì fórum Claroline obsahuje pouze kategorii \'Veøejné\', vzorové fórum a vzorové téma.</p>
  <p>První vìc, kterou by jste mìli udìlat je smazat vzorové téma a zmìnit název prvního fóra.
  Poté mùete vytvoøit v kategorii \'Veøejné\'  další fóra, dle skupin nebo témat, dle poadavkù vıukového scénáøe.</p>
- <p>Neplete Kategorie a fóra a nezapomeòte, e prázdné kategorie (bez fór), se studentùm nezobrazí.</p>
+ <p>Neple?te Kategorie a fóra a nezapomeòte, e prázdné kategorie (bez fór), se studentùm nezobrazí.</p>
  <p> Popis fóra mùe bıt seznam jeho èlenù, definice cíle, úkolu a tématu ...';
 $_lang['blockGroupsHelp'] = '<p><b>Úvod</b></p>
 <p>Tento nástroj umoòuje vytvoøení a správu práce skupiny.
@@ -1500,8 +1500,8 @@ Pøi vytvoøení (Vytvoøit skupiny), jsou skupiny prázdné. Je více zpùsobù, jak je 
 Tyto tøi cesty mohou bıt kombinované. Napøíklad mùete poádat studenty, aby se sami zaregistrovali.
 Po kontrole zjistíte, e nìkteøí z nich to neudìlali a rozhodnete se naplnit skupiny automaticky pro jejich zaøazení.
 Mùete upravit skupinu pro nastavení pouze jednoho èlenství studenta ve skupinì.</p>
-<p>Naplnìní skupin a ji automatické nebo ruèní, funguje pouze tehdy, kdy jsou v kurzu studenti zaregistrováni
- (neplete si registraci do kurzu s registrací do skupin).
+<p>Naplnìní skupin a? ji automatické nebo ruèní, funguje pouze tehdy, kdy jsou v kurzu studenti zaregistrováni
+ (neple?te si registraci do kurzu s registrací do skupin).
 Seznam studentù naleznete v <b>Uivatelskıch</b> nástrojích. </p><hr noshade size=1>
 <p><b>Vytvoøit skupiny</b></p>
 <p>Pro vytvoøení nové skupiny, kliknìte na \'Vytvoøit novu skupinu (y)\' a zvolte poèet skupin, kterı se má vytvoøit.
@@ -1523,28 +1523,28 @@ Tato metoda je vhodná pro uèitele, kteøí neznají seznam studentù, v dobì kdy vy
 <li><b>Odstranit</b> odstraní skupinu.</li></ul>
 <hr noshade size=1>';
 $_lang['blockHomepageHelp'] = 'Pro usnadnìní obsahují nástroje Claroline standardní záznamy.
-Kadı nástroj obsahuje malı pøíklad pro rychlé pochopení, jak funguje. 
+Kadı nástroj obsahuje malı pøíklad pro rychlé pochopení, jak funguje.
  Je na Vás, jestli pøíklady upravíte nebo odstraníte.
 </p>
 <p> Napøíklad zde na úvodní stranì Vašich kurzù je krátkı úvodní text:
- \'Toto je úvodní text Vašich kurzù. Pro jeho nahrazení Vaším vlastním textem, kliknìte na pøíkaz Upravit.\' 
+ \'Toto je úvodní text Vašich kurzù. Pro jeho nahrazení Vaším vlastním textem, kliknìte na pøíkaz Upravit.\'
  Kliknìte na upravit, zmìòte text a OK. Je to jednoduché.
  Kadı nástroj má stejnou logiku:
  pøidat, odstranit, upravit, co je cesta fungování dynamickıch webù.</p>
- <p>Kdy poprvé vytvoøíte web, vìtšina nástrojù je aktivních. 
+ <p>Kdy poprvé vytvoøíte web, vìtšina nástrojù je aktivních.
  Zde opìt pøipomenutí, je pouze na Vás, které uznáte za nepotøebné a vypnete je.
  Pouze kliknìte na \'vypnout\'. Poté se nástroj pøesune do šedé sekce úvodní strany Vašeho webu
-  a stane se neviditelnı pro studenty.  Samozøejmì ho mùete kdykoli znovu aktivovat a tím ho 
+  a stane se neviditelnı pro studenty.  Samozøejmì ho mùete kdykoli znovu aktivovat a tím ho
    zároveò i opìt zviditelníte pro studenty.</p>
 <p>Mùete pøidat vlastní strany do úvodní strany.
- Tyto strany musí bıt HTML stránky, vytvoøené jakımkoli textovım editorem nebo editorem webovıch stránek. 
+ Tyto strany musí bıt HTML stránky, vytvoøené jakımkoli textovım editorem nebo editorem webovıch stránek.
  Pouijte \'Nahrát stranu a odkaz do Úvodní strany\' k odeslání Vaší strany na server.
- Standardní hlavièka Vašeho webu bude automaticky spojena s Vaším novım dokumentem, 
-  take se staèí soustøedit pouze na obsah. 
+ Standardní hlavièka Vašeho webu bude automaticky spojena s Vaším novım dokumentem,
+  take se staèí soustøedit pouze na obsah.
   Pokud se chcete odkázat z úvodní strany na existující webové strany, které jsou umístìny nìkde jinde (i na Vašem webu),
    pouijte \'Pøidat odkaz na Úvodní stranì\'. Pøidaná strana mùe bıt vypnuta a pak smazána, narozdíl od
     standardní nástrojù, které mohou bıt vypnuty, ale ne odstranìny.</p>
-    <p>Ve chvíli, kdy je Váš web kurzù pøipraven, pøejdìte na  
+    <p>Ve chvíli, kdy je Váš web kurzù pøipraven, pøejdìte na
     \'Upravit popis kurzu\' a rozhodnìte jakı stupeò dùvìrnosti pouijete.
  Standardnì jsou Vaše kurzy skryté (protoe na nich pracujete).</p>';
 $_lang['blockIntroCourse'] = 'Jste na úvodní stranì kurzu.<br /><br />Na této stranì mùete :
@@ -1656,7 +1656,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Skladba Spolupráce</h1>
 <dl class="wikiHelp">
 <dt>Vytváøení stran Spolupráce a odkazy mezi nimi</dt>
 <dd><strong>Slova spolupráce</strong> : Slova spolupráce jsou slova napsaná jako <em>Slova Spolupráce</em>. Pøevadìè je automaticky rozpozná a pøevede je na odkazy strany Spolupráce. </dd>
-<dd><strong>Odkazy Spolupráce</strong> : Odkazy Spolupráce jsou jako hypertextové odkazy, bez udání protokolu (jako <em>http://</em> nebo <em>ftp://</em>) a jsou automaticky rozpoznané jako odkazy na Strany Spolupráce. 
+<dd><strong>Odkazy Spolupráce</strong> : Odkazy Spolupráce jsou jako hypertextové odkazy, bez udání protokolu (jako <em>http://</em> nebo <em>ftp://</em>) a jsou automaticky rozpoznané jako odkazy na Strany Spolupráce.
  Pro vytvoøení nové strany nebo vytvoøení odkazu na ji existující stranu pomocí odkazù Spolupráce, upravte stranu a vlote <code>[název strany]</code> nebo <code>[název odkazu|název strany]</code> do vlastního obsahu strany. Mùete také pouít zpùsob pro zmìnu textu odkazu: <code>[název odkazu|Slovo Spolupráce]</code>.</dd>
 <dt>Hypertextové odkazy</dt>
 <dd><code>[adresa]</code>, <code>[jméno|adresa]</code>, <code>[jméno|adresa|jazyk]</code> nebo <code>[jméno|adresa|jazyk|název]</code>.&nbsp;;</dd>
@@ -1733,7 +1733,7 @@ $_lang['sampleLearnPathQuizDescription'] = 'Mùete pouít kterıkoli cvièení z ná
 $_lang['sampleLearnPathTitle'] = 'Vzorové uèební cesta';
 $_lang['sampleQuizAnswer1'] = 'Utahovat si z úèastníka debaty s cílem donutit ho uznat chybu.';
 $_lang['sampleQuizAnswer1Comment'] = 'Ne, Sokratova ironie není otázka psychologie, ale argumentù.';
-$_lang['sampleQuizAnswer2'] = 'Pøipuste vlastní chybu k pøizvání úèastníka konverzace, aby udìlal toté.';
+$_lang['sampleQuizAnswer2'] = 'Pøipus?te vlastní chybu k pøizvání úèastníka konverzace, aby udìlal toté.';
 $_lang['sampleQuizAnswer2Comment'] = 'Ne, Sokratova ironie není metoda svádìní ani metoda zaloená na pøíkladu.';
 $_lang['sampleQuizAnswer3'] = 'Donutit diskutujícího sérií otázek a podotázek, pøipustit e neví, to co si myslí e ví.';
 $_lang['sampleQuizAnswer3Comment'] = 'Vskutku. Sokratova ironie je metoda dotazování se. Øecké "eirotao" znamená "pokládat otázky"';

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! tamaño del repositorio del curso (incluyendo claroline y la basura de los sistemas viejos)';
 $_lang['%1\$s by %2\$s'] = '%1$s por %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modificado el %2$s por %3$s';
@@ -507,7 +507,7 @@ $_lang['Last attempt'] = 'Ultimo intento';
 $_lang['Last check before install'] = 'Ultimo Marque before install';
 $_lang['Last edit date'] = 'Ultimo fecha de edición';
 $_lang['Last message'] = 'Ultimo mensaje';
-$_lang['Last message was on'] = 'El último mensaje fue el: ';
+$_lang['Last message was on'] = 'El último mensaje fue el';
 $_lang['Last messages'] = 'Ultimo mensajes';
 $_lang['Last name'] = 'Nombre';
 $_lang['Last session time'] = 'Ultimo tiempo de sesion';
