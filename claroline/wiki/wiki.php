@@ -220,14 +220,14 @@
                 }
                 
                 require_once get_conf( 'includePath' ) . '/lib/fileUpload.lib.php';
+                
+                $exportDir = get_conf('coursesRepositorySys') . '/' . $_course['path'].'/document';
                 $exportFile = replace_dangerous_char( $wikiTitle, 'strict' ) . $groupPart;
                 
                 $i = 1;
-                while ( file_exists($exportFile.'_'.$i.'.html') ) $i++;
+                while ( file_exists($exportDir . '/' .$exportFile.'_'.$i.'.html') ) $i++;
                 
                 $wikiFileName = $exportFile . '_' . $i . '.html';
-                
-                $exportDir = get_conf('coursesRepositorySys') . '/' . $_course['path'].'/document';
                 $exportPath = $exportDir . '/' . $wikiFileName;
                 
                 file_put_contents( $exportPath, $contents );
