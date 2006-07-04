@@ -542,31 +542,6 @@
         }
         case 'exExport':
         {
-            $cmdFileName = rawurlencode( '/' . $wikiFileName);
-            
-            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-                        && get_conf('secureDocumentDownload') )
-            {
-                // slash argument method - only compatible with Apache
-                $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);
-            }
-            else
-            {
-                // question mark argument method, for IIS ...
-                $urlFileName = 'goto/?url=' . $cmdFileName;
-            }
-            
-            $url = '../document/' . $urlFileName;
-            
-            if ( false !== strpos( $url, '?' ) )
-            {
-                $url .= '&amp;gidReset=1';
-            }
-            else
-            {
-                $url .= '?gidReset=1';
-            }
-            
             echo '<blockquote>' 
                 . get_lang( "Wiki %TITLE% exported to course documents. (this file is visible)"
                     , array( '%TITLE%' => $wikiTitle ) )
