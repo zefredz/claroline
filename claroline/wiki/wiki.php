@@ -575,7 +575,7 @@
                 . get_lang( "Go to the exported Wiki" )
                 . '</a>'
                 . '&nbsp;|&nbsp;'
-                . '<a class="claroCmd" href="' . '../document/' . '">' 
+                . '<a class="claroCmd" href="../document/document.php?gidReset=1">' 
                 . get_lang("Go to documents tool") 
                 .'</a>'
                 . '&nbsp;|&nbsp;'
