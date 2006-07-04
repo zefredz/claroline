@@ -73,15 +73,18 @@ switch($cmd)
             if (! $analyseResult) $errorCounter++;
 
         }
-        if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = get_lang('%nb errors found', array('%s'=>$errorCounter));
-        // analyse Course onwance
-        $courseOwnanceCheck = checkCourseOwnance();
-
         $dgDataAnalyseResult = new claro_datagrid($dataAnalyseResult);
         $dgDataAnalyseResult->set_idLineType('numeric');
-        $dgCourseOwnanceCheck = new claro_datagrid($courseOwnanceCheck);
-        $dgCourseOwnanceCheck->set_idLineType('numeric');
-        $dgCourseOwnanceCheck->set_colTitleList(array( get_lang('Course code'), get_lang('Unknow faculty')));
+
+        if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = get_lang('%nb errors found', array('%nb'=>$errorCounter));
+        // analyse Course onwance
+        if (false === $courseOwnanceCheck = checkCourseOwnance())
+        {
+            $courseOwnanceCheck = array();
+        }
+            $dgCourseOwnanceCheck = new claro_datagrid($courseOwnanceCheck);
+            $dgCourseOwnanceCheck->set_idLineType('numeric');
+            $dgCourseOwnanceCheck->set_colTitleList(array( get_lang('Course code'), get_lang('Unknow faculty')));
 
         $view = DISP_ANALYSE;
         break;
@@ -160,8 +163,10 @@ function checkCourseOwnance()
         LEFT JOIN  `" . $tbl_mdb_names['category']. "` AS f
         ON c.FACULTE = f.code
         WHERE f.id IS null ";
-    if (($res =  claro_sql_query_fetch_all($sql))) return $res;
-    else                                           return claro_failure::set_failure('QUERY_ERROR'.__LINE__);
+
+    if (false !== ($res =  claro_sql_query_fetch_all($sql))) return $res;
+    else
+        return claro_failure::set_failure('QUERY_ERROR_'.__LINE__ );
 
 
 }
