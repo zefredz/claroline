@@ -571,10 +571,7 @@
                 . get_lang( "Wiki %TITLE% exported to course documents. (this file is visible)"
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
-                . '<p><a class="claroCmd" href="' . $url . '">'
-                . get_lang( "Go to the exported Wiki" )
-                . '</a>'
-                . '&nbsp;|&nbsp;'
+                . '<p>'
                 . '<a class="claroCmd" href="../document/document.php?gidReset=1">' 
                 . get_lang("Go to documents tool") 
                 .'</a>'
