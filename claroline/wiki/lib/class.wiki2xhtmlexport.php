@@ -81,9 +81,16 @@
                 }
                 else
                 {
+                    $pgTitle = $wikiPage->getTitle();
+                    
+                    if ( '__MainPage__' === $pgTitle )
+                    {
+                        $pgTitle = get_lang( 'Main Page' );
+                    }
+                    
                     $result .= '<h2><a name="'
                         . $this->_makePageTitleAnchor( $page['title'] ) .'">'
-                        . $wikiPage->getTitle()
+                        . $pgTitle
                         .'</a></h2>' 
                         . "\n"
                         ;
