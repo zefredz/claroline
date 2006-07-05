@@ -53,7 +53,6 @@ if ( ! $_cid || ! $is_courseAllowed) claro_disp_auth_form(true);
 require_once $includePath . '/lib/image.lib.php';
 require_once $includePath . '/lib/pager.lib.php';
 
-
 /*
  * Library for the file display
  */
@@ -994,9 +993,19 @@ if ('exDownload' == $cmd )
     require_once $includePath . '/lib/pclzip/pclzip.lib.php';
 
     $downloadArchivePath = $requestDownloadPath.'/'.uniqid('').'.zip';
-    $downloadArchiveName = basename($requestDownloadPath.'.zip');
+    $downloadArchiveName = get_conf('siteName');
+    if (isset($_cid))             $downloadArchiveName .= '.' . $_course['officialCode'];
+    if (isset($_gid))             $downloadArchiveName .= '.' . $_group['name'];
+    if (isset($_REQUEST['file']))
+    {
+        $bnFile = basename($_REQUEST['file']);
+        if (empty($bnFile)) $downloadArchiveName .= '.' . get_lang('complete');
+        else                $downloadArchiveName .= '.' . $bnFile;
+    }
+    if (isset($_REQUEST['searchPattern'])) $downloadArchiveName .= '.' . get_lang('search') . '.' . $_REQUEST['searchPattern'];
+    $downloadArchiveName .= '.zip';
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
-    if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang("Documents and Links").'.zip';
+    if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang('Documents and Links') . '.zip';
 
     $downloadArchive     = new PclZip($downloadArchivePath);
 
