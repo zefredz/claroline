@@ -552,4 +552,106 @@ function get_course_tutor_list($currentCourseId)
 
 
 
+/**
+ * This dirty function is a blackbox to provide normalised output of tool list for a group
+ * like  get_course_tool_list($course_id=NULL) in course_home.
+ *
+ * It's dirty because data structure is dirty.
+ * Tool_list (with clarolabel and tid come from tool tables and  group properties and localinit)
+ * @param $course_id
+ * @param boolean $active, if set to true, only activated tools of the platform must be returned
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @return array
+ */
+
+
+function get_group_tool_list($course_id=NULL,$active = true)
+{
+    global $_groupProperties, $forumId, $is_courseAdmin, $is_platformAdmin;
+
+    $isAllowedToEdit = $is_courseAdmin || $is_platformAdmin;
+
+    $tbl = claro_sql_get_main_tbl(array('module','course_tool'));
+
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+    $tbl['course_tool'] = $tbl_cdb_names['tool'];
+
+    // This stupid array is an hack to simulate the context
+    // managing by module structure
+    // It's represent tools aivailable to work in a group context.
+
+
+    $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
+
+    $sql = "
+SELECT tl.id                               id,
+       tl.script_name                      name,
+       tl.visibility                       visibility,
+       tl.rank                             rank,
+       IFNULL(ct.script_url,tl.script_url) url,
+       ct.claro_label                      label,
+       ct.icon                             icon,
+       m.activation                        activation
+FROM      `" . $tbl['course_tool'] . "`       tl
+LEFT JOIN `" . $tbl['tool'] . "` `ct`
+ON        ct.id = tl.tool_id
+LEFT JOIN `" . $tbl['module'] . "` `m`
+ON        m.label = ct.claro_label
+ORDER BY tl.rank
+
+";
+
+    $tool_list = claro_sql_query_fetch_all($sql);
+
+    $group_tool_list = array();
+
+    foreach($tool_list as $tool)
+    {
+        $tool['label'] = trim($tool['label'],'_');
+
+        if (in_array($tool['label'],$aivailable_tool_in_group)
+        && ( $active !== true || 'activated' == $tool['activation']))
+        switch ($tool['label'])
+        {
+            case 'CLDOC' :
+                if($_groupProperties['tools']['document'] || $isAllowedToEdit)
+                {
+                    $group_tool_list[] = $tool;
+                }
+                break;
+
+            case 'CLFRM' :
+
+                if($_groupProperties['tools']['forum'] || $isAllowedToEdit)
+                {
+                    $tool['url'] = 'phpbb/viewforum.php?forum=' . $forumId ;
+                    $group_tool_list[] = $tool;
+                }
+
+                break;
+
+            case 'CLWIKI' :
+
+                if($_groupProperties['tools']['wiki'] || $isAllowedToEdit)
+                {
+                    $group_tool_list[] = $tool;
+                }
+                break;
+
+            case 'CLCHT' :
+
+                if($_groupProperties['tools']['chat'] || $isAllowedToEdit)
+                {
+                    $group_tool_list[] = $tool;
+                }
+                break;
+
+
+        }
+    }
+
+    return $group_tool_list;
+}
+
+
 ?>
