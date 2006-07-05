@@ -146,10 +146,7 @@ if($is_allowedToEdit) // for teacher only
 }
 
 // XSS protection
-if (isset( $_REQUEST['cwd'] ) )
-{
-    $_REQUEST['cwd'] = strip_tags($_REQUEST['cwd']);
-}
+$cwd =isset( $_REQUEST['cwd'] ) ? strip_tags($_REQUEST['cwd']):null;
 
 // clean information submited by the user from antislash
 
@@ -191,10 +188,10 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                 && $is_allowedToUnzip)                $unzip = 'unzip';
             else                                      $unzip = '';
 
-            $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
+            $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
             $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
-                                    $_REQUEST['cwd'], $maxFilledSpace, $unzip);
+                                    $cwd, $maxFilledSpace, $unzip);
 
             if ($uploadedFileName !== false)
             {
@@ -208,7 +205,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
                     if ( isset( $_REQUEST['comment'] ) && trim($_REQUEST['comment']) != '') // insert additional comment
                     {
-                        update_db_info('update', $_REQUEST['cwd'] . '/' . $uploadedFileName,
+                        update_db_info('update', $cwd . '/' . $uploadedFileName,
                                         array('comment' => trim($_REQUEST['comment']) ) );
                     }
                 }
@@ -249,7 +246,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             $eventNotifier->notifyCourseEvent('document_file_added'
                                              , $_cid
                                              , $_tid
-                                             , $_REQUEST['cwd'] . '/' . $uploadedFileName
+                                             , $cwd . '/' . $uploadedFileName
                                              , $_gid
                                              , '0');
 
@@ -263,7 +260,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             if (   strrchr($uploadedFileName, '.') == '.htm'
                 || strrchr($uploadedFileName, '.') == '.html')
             {
-                $imgFilePath = search_img_from_html($baseWorkDir . $_REQUEST['cwd'] . '/' . $uploadedFileName);
+                $imgFilePath = search_img_from_html($baseWorkDir . $cwd . '/' . $uploadedFileName);
 
                 /*
                  * Generate Form for image upload
@@ -277,7 +274,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                     .             '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
                     .             '<input type="hidden" name="cmd" value="submitImage" />' . "\n"
                     .             '<input type="hidden" name="relatedFile" '
-                    .             ' value="' . $_REQUEST['cwd'] . '/' . $uploadedFileName . '" />' . "\n"
+                    .             ' value="' . $cwd . '/' . $uploadedFileName . '" />' . "\n"
                     .             '<table border="0">' . "\n"
                     ;
 
@@ -301,7 +298,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                     .             '<td>'
                     .             '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '"> '
                     .             claro_html_button($_SERVER['PHP_SELF']
-                    .            '?cmd=exChDir&file=' . htmlspecialchars($_REQUEST['cwd']), get_lang("Cancel") )
+                    .            '?cmd=exChDir&file=' . htmlspecialchars($cwd), get_lang("Cancel") )
                     .             '</td>'
                     .             '</tr>'
                     .             '</table>' . "\n"
@@ -337,7 +334,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."?cmd=exUpload\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
-                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
+                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\">"
                      ."<label for=\"userFile\">".get_lang("Upload file")." : </label><br />"
                      ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
                      ."<table border='0'>"
@@ -370,7 +367,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= "<input style=\"font-weight: bold\" type=\"submit\" value=\"".get_lang("Ok")."\"> "
-                   .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                   .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                       get_lang("Cancel"))
                    ."</form>";
     }
@@ -434,7 +431,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
     if ('exMkHtml' == $cmd)
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
-        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
+        $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
         if (! empty($fileName) )
         {
@@ -444,14 +441,14 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $fileName = $fileName.'.htm';
             }
 
-            $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
+            $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
             $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
 
-            create_file($baseWorkDir.$_REQUEST['cwd'].'/'.$fileName,
+            create_file($baseWorkDir.$cwd.'/'.$fileName,
                         $htmlContent);
 
-            $eventNotifier->notifyCourseEvent("document_htmlfile_created",$_cid, $_tid, $_REQUEST['cwd'].'/'.$fileName, $_gid, "0");
+            $eventNotifier->notifyCourseEvent("document_htmlfile_created",$_cid, $_tid, $cwd.'/'.$fileName, $_gid, "0");
             $dialogBox .= get_lang("File created");
         }
         else
@@ -463,7 +460,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $dialogBox .= "<p>\n"
                              ."<a href=\"rqmkhtml.php"
                              ."?cmd=rqMkHtml"
-                             ."&amp;cwd=".urlencode($_REQUEST['cwd'])
+                             ."&amp;cwd=".urlencode($cwd)
                              ."&amp;htmlContent=".urlencode($_REQUEST['htmlContent'])."\">\n"
                              .get_lang("Back to the editor")."\n"
                              ."</p>\n";
@@ -519,7 +516,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
         $url = trim($_REQUEST['url']);
 
-        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
+        $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
         // check for "http://", if the user forgot "http://" or "ftp://" or ...
         // the link will not be correct
@@ -532,14 +529,14 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ( ! empty($fileName) && ! empty($url) )
         {
             $linkFileExt = '.url';
-            create_link_file( $baseWorkDir.$_REQUEST['cwd'].'/'.$fileName.$linkFileExt,
+            create_link_file( $baseWorkDir.$cwd.'/'.$fileName.$linkFileExt,
                               $url);
 
             if (   isset($_REQUEST['comment'])
                 && trim($_REQUEST['comment']) != ''
                 && $courseContext                     )
             {
-                update_db_info('update', $_REQUEST['cwd'].'/'.$fileName.$linkFileExt,
+                update_db_info('update', $cwd.'/'.$fileName.$linkFileExt,
                                 array('comment' => trim($_REQUEST['comment']) ) );
             }
         }
@@ -559,7 +556,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         $dialogBox .= "<h4>".get_lang("Create hyperlink")."</h4>\n"
                      ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exMkUrl\">\n"
-                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
+                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\">"
                      ."<label for=\"fileName\">".get_lang("Name")." : </label><br />\n"
                      ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
                      ."<label for=\"url\">".get_lang("URL : ")."</label><br />\n"
@@ -577,7 +574,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
-                     .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                     .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                        get_lang("Cancel"))
                      ."</form>\n";
 
@@ -858,25 +855,25 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $newDirName = replace_dangerous_char(trim($_REQUEST['newName']));
 
-        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
+        $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
-        if( check_name_exist($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName) )
+        if( check_name_exist($baseWorkDir.$cwd.'/'.$newDirName) )
         {
             $dialogBox = get_lang("Operation impossible.<br />A file with this name already exists.");
             $cmd = 'rqMkDir';
         }
         else
         {
-            claro_mkdir($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName, CLARO_FILE_PERMISSIONS);
+            claro_mkdir($baseWorkDir.$cwd.'/'.$newDirName, CLARO_FILE_PERMISSIONS);
 
             if ( trim($_REQUEST['comment']) != '' && $courseContext)
             {
-                update_db_info('update', $_REQUEST['cwd'].'/'.$newDirName,
+                update_db_info('update', $cwd.'/'.$newDirName,
                                 array('comment' => trim($_REQUEST['comment']) ) );
             }
 
             $dialogBox = get_lang("Directory created");
-            $eventNotifier->notifyCourseEvent("document_file_added",$_cid, $_tid, $_REQUEST['cwd'].'/'.$newDirName, $_gid, "0");
+            $eventNotifier->notifyCourseEvent("document_file_added",$_cid, $_tid, $cwd.'/'.$newDirName, $_gid, "0");
         }
     }
 
@@ -889,7 +886,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $dialogBox .= "<form>\n"
                       ."<input type=\"hidden\" name=\"cmd\" value=\"exMkDir\">\n"
-                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
+                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\">\n"
                       ."<label for=\"newName\">".get_lang("Name of the new directory")." : </label><br />\n"
                       ."<input type=\"text\" id=\"newName\" name=\"newName\">\n"
                       ."<br />"
@@ -900,7 +897,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                       ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
                       ."<br />\n"
                       ."<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
-                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                                 get_lang("Cancel"))
                       ."</form>\n";
     }
@@ -934,14 +931,14 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
 
 if ('rqSearch' == $cmd )
 {
-    $searchMsg = empty($_REQUEST['cwd']) ? get_lang("Search")." :" : get_lang("Search in ").$_REQUEST['cwd']." :" ;
+    $searchMsg = empty($cwd) ? get_lang("Search")." :" : get_lang("Search in ").$cwd." :" ;
     $dialogBox .=     "<form>\n"
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"
                     ."<label for=\"searchPattern\">".$searchMsg."</label><br />\n"
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
-                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\"><br />\n"
+                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\"><br />\n"
                     ."<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
-                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                        get_lang("Cancel"))
 
                     ."</form>\n";
@@ -1052,7 +1049,7 @@ if (in_array($cmd, array('rqMv', 'exRm', 'rqEdit', 'exEdit', 'exEditHtml',
 elseif (in_array($cmd, array('rqMkDir', 'exMkDir', 'rqUpload', 'exUpload',
                              'rqMkUrl', 'exMkUrl', 'reqMkHtml', 'exMkHtml', 'rqSearch')))
 {
-    $curDirPath = $_REQUEST['cwd'];
+    $curDirPath = $cwd;
 }
 elseif ($cmd == 'exChDir')
 {
@@ -1064,7 +1061,7 @@ elseif ($cmd == 'exMv')
 }
 elseif ($docView == 'image' || $docView == 'thumbnails' )
 {
-    $curDirPath = $_REQUEST['cwd'];
+    $curDirPath = $cwd;
 }
 else
 {
@@ -1124,14 +1121,8 @@ if ($cmd == 'exSearch')
       $searchExcludeList = array();
     }
 
-    if ( isset($_REQUEST['cwd']) )
-    {
-        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
-    }
-    else
-    {
-        $_REQUEST['cwd'] = '';
-    }
+    $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
+
 
     $searchPattern    = $_REQUEST['searchPattern'];
     $searchPatternSql = $_REQUEST['searchPattern'];
@@ -1142,7 +1133,7 @@ if ($cmd == 'exSearch')
     $searchPatternSql = str_replace('*', '%' , $searchPatternSql);
 
     $searchRecursive = true;
-    $searchBasePath  = $baseWorkDir.$_REQUEST['cwd'];
+    $searchBasePath  = $baseWorkDir.$cwd;
 }
 else
 {
