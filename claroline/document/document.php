@@ -1115,7 +1115,14 @@ if ($cmd == 'exSearch')
       $searchExcludeList = array();
     }
 
-    $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
+    if ( isset($_REQUEST['cwd']) )
+    {
+        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
+    }
+    else
+    {
+        $_REQUEST['cwd'] = '';
+    }
 
     $searchPattern    = $_REQUEST['searchPattern'];
     $searchPatternSql = $_REQUEST['searchPattern'];
