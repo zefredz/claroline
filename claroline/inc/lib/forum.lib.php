@@ -980,9 +980,12 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
  * @param boolean $active if set to true, only actvated tool will be considered for display
  */
 
-function disp_forum_group_toolbar($gid, $active = true)
+function forum_group_tool_list($gid, $active = true)
 {
     global $imgRepositoryWeb, $_groupProperties, $is_courseAdmin, $is_groupTutor, $is_groupMember;
+    $courseId = $GLOBALS['_cid'];
+    include_once(dirname(__FILE__) . '/group.lib.inc.php');
+    $groupToolList = get_group_tool_list($courseId,$active);
 
     $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
                                       || $is_groupMember
@@ -992,52 +995,27 @@ function disp_forum_group_toolbar($gid, $active = true)
                                        || $is_groupMember
                                        || $is_groupTutor );
 
-    //deal with activated tools
-
-    $deactivated_tools = claro_get_deactivated_tool_list();
 
     // group space links
 
-    echo  '<p>'
-        . '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
+    $toolList[] = '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
         . '<img src="' . $imgRepositoryWeb . 'group.gif" />&nbsp;'
         . get_lang('Group area')
         . '</a>'
         ;
 
-    if($_groupProperties['tools']['document'] && $is_allowedToDocAccess && !(in_array('CLDOC',$deactivated_tools)))
+    foreach ($groupToolList as $groupTool)
     {
-        echo '&nbsp;|&nbsp'
-            .'<a href="../document/document.php" class="claroCmd">'
-            .'<img src="'.$imgRepositoryWeb.'document.gif" />'
-            .'&nbsp;'
-            .get_lang('Documents of the group')
-            .'</a>'
-            ;
+        if ('CLFRM' !== $groupTool['label'])
+        $toolList[] = '<a href="' . get_module_url($groupTool['label']) . '/' . $groupTool['url']. '?gidReq=' .(int) $gid  . '" class="claroCmd">'
+        .             '<img src="' . $imgRepositoryWeb . $groupTool['icon'] . '" />'
+        .             '&nbsp;'
+        .             claro_get_tool_name ($groupTool['label'])
+        .             '</a>'
+        ;
     }
 
-    if($_groupProperties['tools']['wiki'] && !(in_array('CLWIKI',$deactivated_tools)))
-    {
-        echo '&nbsp;|&nbsp'
-            .'<a href="../wiki/wiki.php" class="claroCmd">'
-            .'<img src="'.$imgRepositoryWeb.'wiki.gif" />'
-            .'&nbsp;' . get_lang('Wiki of the group')
-            .'</a>'
-            ;
-    }
-
-    if($_groupProperties['tools']['chat'] && $is_allowedToChatAccess && !(in_array('CLCHT',$deactivated_tools)))
-    {
-        echo '&nbsp;|&nbsp'
-            .'<a href="../chat/chat.php?gidReq=" . $gid . " class="claroCmd">'
-            .'<img src="' . $imgRepositoryWeb . 'chat.gif" />'
-            .'&nbsp;' . get_lang('Chat of the group')
-            .'</a>'
-            ;
-    }
-
-    echo '</p>' . "\n";
-
+    return $toolList;
 }
 
 /**
@@ -1225,6 +1203,19 @@ function delete_forum($forum_id)
 }
 
 
+/**
+ * Create a new forum (set of threads)
+ *
+ * @param string $forum_name
+ * @param string $forum_desc
+ * @param boolean $forum_post_allowed
+ * @param integer $cat_id
+ * @param integer $group_id default null(current)
+ * @param string $course_id default null(current)
+ *
+ * @return integer id of new forum;
+ *
+ */
 
 function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $group_id = null, $course_id=NULL)
 {
@@ -1309,7 +1300,7 @@ function move_forum_rank($currForumId, $direction)
     {
         return false;
     }
-    
+
     return true;
 }
 
@@ -1407,23 +1398,35 @@ function move_down_category($cat_id)
     move_category_rank($cat_id, 'DOWN');
 }
 
+/**
+ * List of a group for a given user
+ *
+ * @param integer $uid
+ * @return array of integer
+ */
 function get_user_group_list($uid)
 {
     $tbl_cdb_names     = claro_sql_get_course_tbl();
     $tbl_student_group = $tbl_cdb_names['group_team'         ];
     $tbl_user_group    = $tbl_cdb_names['group_rel_team_user'];
 
-    $sql = "SELECT `g`.`id` `group_id`
-            FROM `" . $tbl_student_group . "` `g`,
-                 `" . $tbl_user_group    . "` `gu`
+    $sql = "SELECT `g`.`id` AS `group_id`
+            FROM `" . $tbl_student_group . "` AS `g`,
+                 `" . $tbl_user_group    . "` AS `gu`
             WHERE `g`.`id`    = `gu`.`team`
-              AND `gu`.`user` = '" . (int) $uid . "'";
+              AND `gu`.`user` = " . (int) $uid ;
 
     $groupList = claro_sql_query_fetch_all_cols($sql);
     $groupList = $groupList['group_id'];
     return $groupList;
 }
 
+/**
+ * return list of groups id where a given user (userId) is tutor
+ *
+ * @param integer $uid uid to find groups where he's tutor
+ * @return array of integer : group list
+ */
 function get_tutor_group_list($uid)
 {
     $tbl_cdb_names     = claro_sql_get_course_tbl();
@@ -1431,7 +1434,7 @@ function get_tutor_group_list($uid)
 
     $sql = "SELECT `id` `group_id`
             FROM `" . $tbl_student_group . "`
-            WHERE tutor = '" . $uid . "'";
+            WHERE tutor = " . (int) $uid ;
 
     $groupList = claro_sql_query_fetch_all_cols($sql);
     $groupList = $groupList['group_id'];
@@ -1450,8 +1453,8 @@ function get_forum_list()
                    f.forum_topics, f.forum_posts, f.forum_last_post_id,
                    f.cat_id, f.forum_type, f.forum_order,
             p.poster_id, p.post_time, f.group_id
-            FROM `" . $tbl_forums . "` f
-            LEFT JOIN `" . $tbl_posts . "` p
+            FROM `" . $tbl_forums . "` AS f
+            LEFT JOIN `" . $tbl_posts . "` AS p
                    ON p.post_id = f.forum_last_post_id
             ORDER BY f.forum_order, f.cat_id, f.forum_id ";
 
@@ -1468,8 +1471,8 @@ function get_category_list()
                    `c`.`cat_title`,
                    `c`.`cat_order`,
                    COUNT(`f`.`forum_id`) AS forum_count
-           FROM   `" . $tbl_categories . "` c
-           LEFT JOIN `" . $tbl_forums . "` f
+           FROM   `" . $tbl_categories . "` AS c
+           LEFT JOIN `" . $tbl_forums . "`  AS f
            ON `f`.`cat_id` = `c`.`cat_id`
            GROUP BY `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
            ORDER BY `c`.`cat_order` ASC";
@@ -1484,7 +1487,7 @@ function increase_topic_view_count($topicId)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_topics =  $tbl_cdb_names['bb_topics'];
 
-    $sql = "UPDATE `".$tbl_topics."`
+    $sql = "UPDATE `" . $tbl_topics . "`
             SET   topic_views = topic_views + 1
             WHERE topic_id    = " . (int) $topicId;
 
