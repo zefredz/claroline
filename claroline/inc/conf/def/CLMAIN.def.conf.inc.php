@@ -103,6 +103,7 @@ array ( 'userPasswordCrypted'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
       , 'DEVEL_MODE'
+      , 'warnSessionLost'
       );
 
 
@@ -517,6 +518,16 @@ array ('label'       => 'Debug mode'
       ,'type'        => 'boolean'
       ,'default'     => 'TRUE'
       ,'container'   => 'CONST'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
+      );
+      
+$conf_def_property_list['warnSessionLost'] =
+array ('label'       => 'Session lost warning'
+      ,'description' => 'Warn users when they loose their session on the platform'
+      ,'type'        => 'boolean'
+      ,'default'     => 'TRUE'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
