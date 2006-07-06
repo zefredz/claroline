@@ -114,10 +114,10 @@ $noPHP_SELF       = true;
     // Show Group Documents and Group Space
     // only if in Category 2 = Group Forums Category
 
-    if (    $forum_cat_id == GROUP_FORUMS_CATEGORY
-        // Why only for them ? function build the list following right
-        //($is_groupMember || $is_allowedToEdit )
-        )  $groupToolList = forum_group_tool_list($_gid);
+    if ( GROUP_FORUMS_CATEGORY == $forum_cat_id )
+    {
+        $groupToolList = forum_group_tool_list($_gid);
+    }
 
 
 include $includePath . '/claro_init_header.inc.php';
@@ -144,7 +144,10 @@ else
     echo claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
 
-    echo claro_html_menu_horizontal($groupToolList);
+    if ( isset($groupToolList) )
+    {
+        echo claro_html_menu_horizontal($groupToolList);
+    }
     if ($forum_post_allowed) disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
 
     disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
