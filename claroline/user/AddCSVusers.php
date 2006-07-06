@@ -502,17 +502,17 @@ switch ( $display )
         {
             case 'adminTool':
                 echo get_lang('%firstname %lastname has been added to the campus', array('%firstname'=>$user['firstname'],
-                                                                                         '%lastname'=>$user['lastname']) ) ;
+                                                                                         '%lastname'=>$user['lastname']) ). "<br />\n";
                 break;
 
             case 'adminClassTool':
                 echo get_lang('%firstname %lastname has been added to the campus and to the class', array('%firstname'=>$user['firstname'],
-                                                                                                          '%lastname'=>$user['lastname']) ) ;
+                                                                                                          '%lastname'=>$user['lastname']) ). "<br />\n";
                 break;
 
             case 'userTool':
                 echo get_lang('%firstname %lastname has been added to the campus and to the course', array('%firstname'=>$user['firstname'],
-                                                                                                           '%lastname'=>$user['lastname'])) ;
+                                                                                                           '%lastname'=>$user['lastname'])). "<br />\n";
                 break;
         }
     }
