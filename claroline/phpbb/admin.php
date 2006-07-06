@@ -1,4 +1,5 @@
-<?php # -$Id$
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // Confirm javascript code
 
@@ -72,20 +73,20 @@ if ( $cmd == 'exMkForum' )
     if (   ( ( trim($_REQUEST['forumName']) != '') )
         && (   0 < (int) $_REQUEST['forumCatId']   )  )
     {
-            if ( create_forum(trim($_REQUEST['forumName']), 
-                              trim($_REQUEST['forumDesc']), 
+            if ( create_forum(trim($_REQUEST['forumName']),
+                              trim($_REQUEST['forumDesc']),
                               $forumPostAllowed,
                               (int) $_REQUEST['forumCatId'] ) )
             {
                $dialogBox .= '<p>'.get_lang('Forum created').'</p>'."\n";
             }
             else
-            {                   
+            {
                $dialogBox .= '<p>'.get_lang('Unable to create forum').'</p>'."\n";
                $cmd        = 'rqMkForum';
             }
     }
-    else 
+    else
     {
         $dialogBox .= '<p>'.get_lang('Missing field(s)').'</p>'."\n";
         $cmd        = 'rqMkForum';
@@ -181,7 +182,7 @@ if ( $cmd == 'rqEdCat' )
                .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'."\n"
                .  "\n";
-    }   
+    }
 }
 
 if ( $cmd == 'exEdForum' )
@@ -189,9 +190,9 @@ if ( $cmd == 'exEdForum' )
     $forumPostAllowed = ( isset($_REQUEST['forumPostUnallowed']) ) ? false : true;
 
     if ( trim($_REQUEST['forumName'] != '') )
-    {   
-        if ( update_forum_settings($_REQUEST['forumId'   ], $_REQUEST['forumName'], 
-                                   $_REQUEST['forumDesc' ], $forumPostAllowed, 
+    {
+        if ( update_forum_settings($_REQUEST['forumId'   ], $_REQUEST['forumName'],
+                                   $_REQUEST['forumDesc' ], $forumPostAllowed,
                                    $_REQUEST['forumCatId']) )
         {
             $dialogBox .= '<p>'.get_lang('Forum updated').'</p>'."\n";
@@ -201,7 +202,7 @@ if ( $cmd == 'exEdForum' )
             $dialogBox .= '<p>'.get_lang('Unable to update forum').'</p>'."\n";
         }
     }
-    else 
+    else
     {
         $dialogBox .= '<p>'.get_lang('Missing field(s)').'</p>'."\n";
         $cmd        = 'rqEdForum';
@@ -228,7 +229,7 @@ if ( $cmd == 'rqEdForum' )
             else
             {
                 $selectedState = '';
-                
+
             }
             $catSelectBox .= '<option  value="'.$thisFormCategory['cat_id'].'"'.$selectedState.'>'
                           .  htmlspecialchars($thisFormCategory['cat_title'])
@@ -242,9 +243,9 @@ if ( $cmd == 'rqEdForum' )
         $catSelectBox = '';
     }
 
-    $formForumNameValue        = isset($_REQUEST['forumName']) ? 
+    $formForumNameValue        = isset($_REQUEST['forumName']) ?
                                  $_REQUEST['forumName'] : $forumSettingList['forum_name'];
-    
+
     $formForumDescriptionValue = isset($_REQUEST['forumDesc']) ?
                                  $_REQUEST['forumDesc'] : $forumSettingList['forum_desc'];
 
@@ -294,14 +295,14 @@ if ( $cmd == 'exDelCat' )
         {
             $dialogBox .= '<p>'.get_lang('You can not remove a group forum. You have to remove the group first').'</p>' ;
         }
-        
+
     }
 }
 
 if ( $cmd == 'exDelForum' )
 {
     $forumSettingList = get_forum_settings($_REQUEST['forumId']);
-    
+
     if ( is_null($forumSettingList['idGroup']) )
     {
         if ( delete_forum ($_REQUEST['forumId']) )

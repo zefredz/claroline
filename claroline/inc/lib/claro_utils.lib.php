@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -27,7 +28,7 @@
     *        cutted one
     * @return (string) the cutted string
     */
-    function cutstring( $str, $length, $allow_cut_word = TRUE, 
+    function cutstring( $str, $length, $allow_cut_word = TRUE,
         $extra_length = 0, $ending = "" )
     {
         if( $allow_cut_word )
@@ -37,9 +38,9 @@
         else
         {
             $words = preg_split( "~\s~", $str );
-            
+
             $ret = "";
-            
+
             foreach( $words as $word )
             {
                 if( strlen( $ret . $word ) + 1 <= $length + $extra_length )
@@ -52,15 +53,15 @@
                     break;
                 }
             }
-            
+
             return $ret;
         }
     }
-    
+
     /**
     * list the property of a course
     *
-    * @return $array a array  
+    * @return $array a array
     */
     function stripstresses( $str )
     {
@@ -105,7 +106,7 @@
                     $chr = 'y';
                 }
             };
-              
+
             $ret .= $chr;
         }
         return( $ret );

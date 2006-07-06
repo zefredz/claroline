@@ -1,4 +1,5 @@
-<?php # -$Id$
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 //----------------------------------------------------------------------
 // CLAROLINE
@@ -14,8 +15,8 @@
 
 
 /**
- * This class is mainly a bridge between the claroline system 
- * and the PEAR Auth library. It allows to use external authentication system 
+ * This class is mainly a bridge between the claroline system
+ * and the PEAR Auth library. It allows to use external authentication system
  * for claroline login process
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -39,9 +40,9 @@ class ExternalAuthentication
                                     $formFieldList = array('username' => 'login',
                                                            'password' => 'password'))
     {
-        // Auth library expects HTTP POST request with 'password' and 'username' 
-        // keys. The Claroline authentication form uses 'login' and 'password'. 
-        // The following line joins 'login' and 'password' enabling Auth to work 
+        // Auth library expects HTTP POST request with 'password' and 'username'
+        // keys. The Claroline authentication form uses 'login' and 'password'.
+        // The following line joins 'login' and 'password' enabling Auth to work
         // properly
 
         $_POST['username'] = $GLOBALS[ $formFieldList['username'] ];
@@ -49,9 +50,9 @@ class ExternalAuthentication
 
         if ($extAuthType == 'LDAP')
         {
-            // CASUAL PATCH (Nov 21 2005) : due to a sort of bug in the 
-            // PEAR AUTH LDAP container, we add a specific option wich forces 
-            // to return attributes to a format compatible with the attribute 
+            // CASUAL PATCH (Nov 21 2005) : due to a sort of bug in the
+            // PEAR AUTH LDAP container, we add a specific option wich forces
+            // to return attributes to a format compatible with the attribute
             // format of the other AUTH containers
 
             $authOptionList ['attrformat'] = 'AUTH';
@@ -75,28 +76,28 @@ class ExternalAuthentication
      * check if user is authenticated
      *
      * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
-     * @return 
+     * @return
      */
 
     function isAuth()
     {
         return $this->auth->getAuth();
     }
-    
+
     /**
      * record user data into the claroline system
      *
      * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
-     * @param array $extAuthAttribNameList - list that make correspondance 
-     *        between claroline attribute names and the external authentication 
+     * @param array $extAuthAttribNameList - list that make correspondance
+     *        between claroline attribute names and the external authentication
      *        system attribute name
-     * @param array $extAttribTreatmentList list of preliminary treatment before 
-     *        submitting the attribute values to the claroline system. Each 
-     *        claroline attributes destination can have its own preliminary 
+     * @param array $extAttribTreatmentList list of preliminary treatment before
+     *        submitting the attribute values to the claroline system. Each
+     *        claroline attributes destination can have its own preliminary
      *        treatment
-     * @param int $uid (optional) user id if the user is already registered to 
+     * @param int $uid (optional) user id if the user is already registered to
      *        claroline
-     * @return 
+     * @return
      */
 
     function recordUserData($extAuthAttribNameList, $extAuthAttribTreatmentList, $uid = false)
@@ -152,13 +153,13 @@ class ExternalAuthentication
 
         $userTbl = claro_sql_get_main_tbl();
 
-        $dbFieldToClaroMap = array('nom'          => 'lastname', 
-                                   'prenom'       => 'firstname', 
-                                   'username'     => 'loginName', 
-                                   'email'        => 'email', 
-                                   'officialCode' => 'officialCode', 
-                                   'phoneNumber'  => 'phoneNumber', 
-                                   'isCourseCreator' => 'isCourseCreator', 
+        $dbFieldToClaroMap = array('nom'          => 'lastname',
+                                   'prenom'       => 'firstname',
+                                   'username'     => 'loginName',
+                                   'email'        => 'email',
+                                   'officialCode' => 'officialCode',
+                                   'phoneNumber'  => 'phoneNumber',
+                                   'isCourseCreator' => 'isCourseCreator',
                                    'authSource'   => 'authSource');
         $sqlPrepareList = array();
 
@@ -179,13 +180,13 @@ class ExternalAuthentication
         }
 
         // TODO use user.lib.php
-       
+
         $sql = ($uid ? 'UPDATE' : 'INSERT INTO') . " `".$userTbl['user']."` "
               ."SET ".implode(', ', $sqlPrepareList)
               .($uid ? 'WHERE user_id = '.(int)$uid : '');
 
-        $res  = mysql_query($sql) 
-                or die('<center>UPDATE QUERY FAILED LINE '.__LINE__.'<center>');   
+        $res  = mysql_query($sql)
+                or die('<center>UPDATE QUERY FAILED LINE '.__LINE__.'<center>');
 
         if ($uid) $this->uid = $uid;
         else      $this->uid = mysql_insert_id();
@@ -197,7 +198,7 @@ class ExternalAuthentication
      * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
      * @return int
      */
-    
+
     function getUid()
     {
         return $this->uid;

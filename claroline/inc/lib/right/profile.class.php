@@ -1,5 +1,4 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -123,7 +122,7 @@ class RightProfile
 
     /**
      * Load a profile from DB
-     * 
+     *
      * @param integer $id identifier of profile
      * @return boolean load successfull
      */
@@ -174,7 +173,7 @@ class RightProfile
      * save profile to DB
      *
      * @return mixed false or id of the profile
-     */       
+     */
 
     function save()
     {
@@ -265,8 +264,8 @@ class RightProfile
     /**
      * Check if data are valide
      *
-     * @return boolean 
-     */ 
+     * @return boolean
+     */
 
     function validate()
     {
@@ -349,7 +348,7 @@ class RightProfile
     {
         return $this->description;
     }
-    
+
     /**
      * Get required status
      *
@@ -467,7 +466,7 @@ class RightProfile
     {
         $this->isRequired = (bool) $value;
     }
-    
+
     /**
      * Set course manager status
      * @param boolean $value
@@ -603,7 +602,7 @@ class RightProfile
 
         return $form;
     }
-    
+
     /**
      * Validate profile form data
      * @return boolean

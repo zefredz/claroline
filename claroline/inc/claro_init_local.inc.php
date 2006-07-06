@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 //----------------------------------------------------------------------
 // CLAROLINE
@@ -708,7 +709,7 @@ else // continue with the previous values
 {
     if ( !empty($_SESSION['_tid']) ) $_tid = $_SESSION['_tid'] ;
     else                             $_tid = null;
-    
+
     if ( !empty($_SESSION['_mainToolId']) ) $_mainToolId = $_SESSION['_mainToolId'] ;
     else                                    $_mainToolId = null;
 
@@ -871,7 +872,7 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
         }
         else
         {
-            $is_toolAllowed = true; 
+            $is_toolAllowed = true;
         }
     }
     else

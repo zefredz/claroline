@@ -1,7 +1,8 @@
 <?php // $Id$
-    
+if ( count( get_included_files() ) == 1 ) die( '---' );
+
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * CLAROLINE
      *
@@ -16,7 +17,7 @@
      *
      * @author Frederic Minne <zefredz@gmail.com>
      */
-    
+
     /**
      * Sanitize HTML content
      */
@@ -33,7 +34,7 @@
             $dangerousCharactersPattern = '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~';
             return preg_replace( $dangerousCharactersPattern, '', $url );
         }
-        
+
         /**
          * Remove potential javascript in urls
          * @access  public
@@ -50,7 +51,7 @@
 
             return $str;
         }
-        
+
         /**
          * Remove potential flaws in urls
          * @access  private
@@ -64,7 +65,7 @@
 
             return $url;
         }
-        
+
         /**
          * Remove potential flaws in href attributes
          * @access  private
@@ -79,7 +80,7 @@
                 , "'href=\"'.HTML_Sanitizer::sanitizeURL('\\1').'\"'"
                 , $str );
         }
-        
+
         /**
          * Remove dangerous attributes from html tags
          * @access  private
@@ -103,7 +104,7 @@
 
             return $str;
         }
-        
+
         /**
          * Remove dangerous HTML tags
          * @access  private
@@ -123,7 +124,7 @@
                 , "'<'.HTML_Sanitizer::removeEvilAttributes('\\1').'>'"
                 , $str );
         }
-        
+
         /**
          * Sanitize HTML
          *  remove dangerous tags and attributes

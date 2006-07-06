@@ -1,5 +1,4 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -29,7 +28,7 @@ function claro_get_all_profile_name_list ()
 {
     $profileList = null;
 
-    static $cachedProfileList = null ;    
+    static $cachedProfileList = null ;
 
     if ( $cachedProfileList )
     {
@@ -51,13 +50,13 @@ function claro_get_all_profile_name_list ()
             $profile_id = $profile['profile_id'];
             $profile_name = $profile['name'];
             $profile_label = $profile['label'];
-            $profileList[$profile_id]['name'] = $profile_name; 
-            $profileList[$profile_id]['label'] = $profile_label; 
+            $profileList[$profile_id]['name'] = $profile_name;
+            $profileList[$profile_id]['label'] = $profile_label;
         }
 
         $cachedProfileList = $profileList ; // cache for the next time ...
     }
-    
+
     return $profileList ;
 }
 
@@ -82,7 +81,7 @@ function claro_get_profile_id ($profileLabel)
 /**
  * Get profileName
  * @param integer $profileId profile identifier
- * @return array ['tool_id']['action_name'] value 
+ * @return array ['tool_id']['action_name'] value
  */
 
 function claro_get_profile_name ($profileId)
@@ -102,7 +101,7 @@ function claro_get_profile_name ($profileId)
 /**
  * Get profileName
  * @param integer $profileId profile identifier
- * @return array ['tool_id']['action_name'] value 
+ * @return array ['tool_id']['action_name'] value
  */
 
 function claro_get_profile_label ($profileId)
@@ -136,17 +135,17 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
     static $cachedCourseProfileRightList = null ;
 
     if ( !empty($cachedCourseProfileRightList) &&
-         ( $cachedProfileId == $profileId ) && 
+         ( $cachedProfileId == $profileId ) &&
          ( $cachedCourseId == $courseId )
        )
     {
         $courseProfileRightList = $cachedCourseProfileRightList;
     }
-    
+
     if ( empty($courseProfileRightList) )
     {
         $profile = new RightProfile();
-    
+
         if ( $profile->load($profileId) )
         {
             $courseProfileToolRight = new RightCourseProfileToolRight();
@@ -154,7 +153,7 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
             $courseProfileToolRight->load($profile);
 
             $courseProfileRightList = $courseProfileToolRight->getToolActionList();
-            
+
             // cache for the next time ...
             $cachedProfileId = $profileId;
             $cachedCourseId = $courseId;
@@ -173,7 +172,7 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
  * Is tool action allowed
  *
  * @param string $actionName name of the action
- * @param integer $tid tool identifier 
+ * @param integer $tid tool identifier
  * @param integer $profileId profile identifier
  * @param integer $courseId course identifier
  * @return boolean 'true' if it's allowed
@@ -198,7 +197,7 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
         if ( !empty($_profileId) ) $profileId = $_profileId ;
         else                        return false ;
     }
-   
+
     // load course id
     if ( is_null($courseId) )
     {
@@ -206,7 +205,7 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
         else                 return false ;
     }
 
-    // get course profile right    
+    // get course profile right
     $courseProfileRight = claro_get_course_profile_right($profileId,$courseId);
 
     // return value for tool/action
@@ -222,9 +221,9 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
 
 /**
  * Is tool read action allowed
- * 
+ *
  * @param string $actionName name of the action
- * @param integer $tid tool identifier 
+ * @param integer $tid tool identifier
  * @param integer $profileId profile identifier
  * @param integer $courseId course identifier
  * @return boolean 'true' if it's allowed
@@ -239,7 +238,7 @@ function claro_is_allowed_tool_read ($tid = null, $profileId = null, $courseId =
  * Is tool edit action allowed
  *
  * @param string $actionName name of the action
- * @param integer $tid tool identifier 
+ * @param integer $tid tool identifier
  * @param integer $profileId profile identifier
  * @param integer $courseId course identifier
  * @return boolean 'true' if it's allowed

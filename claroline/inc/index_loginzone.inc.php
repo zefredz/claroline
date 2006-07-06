@@ -1,57 +1,51 @@
-<?php # -$Id$
-
-// Prevent direct reference to this script
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 if ( get_conf('claro_CasEnabled') ) // CAS is a special case of external authentication
 {
-?>
-<!-- CAS login hyperlink -->
-<div align="center">
-<a href="<?php echo $clarolineRepositoryWeb ?>auth/login.php?authModeReq=CAS">
-<?php echo get_conf('claro_CasLoginString') ?>
-</a>
-</div>
-<?php
+    echo '<!-- CAS login hyperlink -->' . "\n"
+    .    '<div align="center">' . "\n"
+    .    '<a href="' . $clarolineRepositoryWeb . 'auth/login.php?authModeReq=CAS">' . "\n"
+    .    get_conf('claro_CasLoginString')  . "\n"
+    .    '</a>' . "\n"
+    .    '</div>' . "\n"
+    ;
 }
 
 if( get_conf('claro_displayLocalAuthForm') )
 {
-?>
-<!-- Authentication Form -->
-<form class="claroLoginForm"
-      action ="<?php echo $clarolineRepositoryWeb . 'auth/login.php' ?>" 
-      method="post">
-<fieldset style="padding: 7px;">
-<legend><?php echo get_lang('Authentication') ?> : </legend>
-<label for="login">
-<small><?php echo get_lang('Username'); ?></small><br />
-<input type="text" name="login" id="login" size="12"><br />
-</label>
+    echo '<!-- Authentication Form -->' . "\n"
+    .    '<form class="claroLoginForm"' . "\n"
+    .    'action ="' . $clarolineRepositoryWeb . 'auth/login.php' . '"' . "\n"
+    .    'method="post">' . "\n"
+    .    '<fieldset style="padding: 7px;">' . "\n"
+    .    '<legend>' . get_lang('Authentication') . ' : </legend>' . "\n"
+    .    '<label for="login">' . "\n"
+    .    '<small>' . get_lang('Username') . '</small><br />' . "\n"
+    .    '<input type="text" name="login" id="login" size="12"><br />' . "\n"
+    .    '</label>' . "\n"
+    .    '<label for="password" >' . "\n"
+    .    '<small>' . get_lang('Password') . '</small><br />' . "\n"
+    .    '<input type="password" name="password" id="password" size="12"><br />' . "\n"
+    .    '</label>' . "\n"
+    .    '<input type="submit" value="' . get_lang('Enter') . '" name="submitAuth">' . "\n"
+    .    '</fieldset>' . "\n"
+    .    '</form>' . "\n"
+    .    '<!-- "Lost Password" hyperlink -->' . "\n"
+    .    '<p>' . "\n"
+    .    '<a href="claroline/auth/lostPassword.php">' . get_lang('Lost password') . '</a>' . "\n"
+    .    '</p>' . "\n"
+    ;
 
-<label for="password" >
-<small><?php echo get_lang('Password') ?></small><br />
-<input type="password" name="password" id="password" size="12"><br />
-</label>
-<input type="submit" value="<?php echo get_lang('Enter') ?>" name="submitAuth">
-</fieldset>
-</form>
 
-<!-- 'Lost Password' hyperlink -->
-<p>
-<a href="claroline/auth/lostPassword.php"><?php echo get_lang('Lost password') ?></a>
-</p>
-
-<?php
-    if( $allowSelfReg )
-    {
-    ?>
-    <!-- 'Create user Account' hyperlink -->
-    <p>
-    <a href="claroline/auth/inscription.php"><?php echo get_lang('Create user account') ?></a>
-    </p>
-    <?php
-    }
+if( $allowSelfReg )
+{
+    echo '<!-- "Create user Account" hyperlink -->' . "\n"
+    .    '<p>' . "\n"
+    .    '<a href="claroline/auth/inscription.php">' . get_lang('Create user account') . '</a>' . "\n"
+    .    '</p>' . "\n"
+    ;
+}
 } // end else if claro_displayLocalAuthForm
 
 

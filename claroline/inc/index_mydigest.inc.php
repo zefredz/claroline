@@ -1,4 +1,5 @@
-<?php # -$Id$
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /******************************************************************************
  * CLAROLINE
@@ -10,9 +11,6 @@
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLINDEX
  ******************************************************************************/
-
-
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 if ( ! isset($_uid) ) claro_disp_auth_form();
 
 $courseDigestList = array('courseSysCode'      => array(),

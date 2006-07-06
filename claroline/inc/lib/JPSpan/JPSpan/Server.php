@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * @package JPSpan
 * @subpackage Server
@@ -32,14 +33,14 @@ class JPSpan_Server {
     * @access private
     */
     var $handlers = array();
-    
+
     /**
     * Descriptions of handlers stored here as hash
     * @var array
     * @access private
     */
     var $descriptions = array();
-    
+
     /**
     * URL where server is published
     * @var string
@@ -59,7 +60,7 @@ class JPSpan_Server {
         }
         $this->serverUrl = $prot.$_SERVER['HTTP_HOST'].$this->resolveScriptName();
     }
-    
+
     /**
     * Set the URL where the server is published
     * @param string server url (where the server is public)
@@ -69,7 +70,7 @@ class JPSpan_Server {
     function setServerUrl($serverUrl) {
         $this->serverUrl = $serverUrl;
     }
-    
+
     /**
     * Return the server url
     * @return string server url (where the server is public)
@@ -78,7 +79,7 @@ class JPSpan_Server {
     function getServerUrl() {
         return $this->serverUrl;
     }
-    
+
     /**
     * Return reference to a handler given it's name.
     * Note this will also resolve the handle
@@ -94,7 +95,7 @@ class JPSpan_Server {
         }
         return FALSE;
     }
-    
+
     /**
     * Return handler description given it's name
     * @param string handler name (class name)
@@ -151,7 +152,7 @@ class JPSpan_Server {
     * @abstact
     */
     function serve() {}
-    
+
     /**
     * Returns the portion of the URL to the right of the executed
     * PHP script e.g. http://localhost/index.php/foo/bar/ returns
@@ -162,11 +163,11 @@ class JPSpan_Server {
     * @static
     */
     function getUriPath() {
-        
+
         $basePath = explode('/',$this->resolveScriptName());
         $script = array_pop($basePath);
         $basePath = implode('/',$basePath);
-        
+
         // Determine URI path - path variables to the right of the PHP script
         if ( $script && ( false !== strpos ( $_SERVER['REQUEST_URI'], $script ) ) ) {
             $uriPath = explode( $script,$_SERVER['REQUEST_URI'] );
@@ -180,9 +181,9 @@ class JPSpan_Server {
         }
         $uriPath = preg_replace(array('/^\//','/\/$/'),'',$uriPath);
         return $uriPath;
-        
+
     }
-    
+
     /**
     * Introspects the name of the script. Depending on the PHP SAPI
     * determining the name of the current script varies. This will probably
@@ -198,7 +199,7 @@ class JPSpan_Server {
         }
         return $script_name;
     }
-    
+
     /**
     * Load the error reader
     * @param string (optional) 2 letter localization code e.g. 'en'
@@ -213,7 +214,7 @@ class JPSpan_Server {
         require_once JPSPAN . 'Include.php';
         JPSpan_Include_ErrorReader($lang,$app,$ser,$cli);
     }
-    
+
     /**
     * Display the Javascript client and exit
     * @return void
@@ -223,7 +224,7 @@ class JPSpan_Server {
         $G = & $this->getGenerator();
         require_once JPSPAN . 'Include.php';
         $I = & JPSpan_Include::instance();
-        
+
         // HACK - this needs to change
         $I->loadString(__FILE__,$G->getClient());
         $client = $I->getCode();
@@ -232,7 +233,7 @@ class JPSpan_Server {
         echo $client;
         exit();
     }
-    
+
 }
 
 

@@ -1,5 +1,4 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -28,22 +27,22 @@ class RightCourseProfileToolRight extends RightProfileToolRight
      */
 
     var $courseId ;
-    
+
     /**
      * @array $defaultToolActionList list action of the profile and their values
      */
 
-    var $defaultToolActionList = array(); 
+    var $defaultToolActionList = array();
 
     /**
      * Constructor
      */
-     
+
     function RightCourseProfileToolRight()
     {
         $this->RightProfileToolAction();
         $this->RightProfileToolRight();
-    }    
+    }
 
     /**
      * Load rights of a profile/course
@@ -61,14 +60,14 @@ class RightCourseProfileToolRight extends RightProfileToolRight
                  FROM `" . $this->tbl['rel_profile_action'] . "` `PA`,
                       `" . $this->tbl['action'] . "` `A`
                  WHERE PA.profile_id = " . $this->profile->id . "
-                 AND PA.action_id = A.id 
+                 AND PA.action_id = A.id
                  AND PA.courseId = '" . addslashes($this->courseId) . "'";
 
         $action_list = claro_sql_query_fetch_all($sql);
 
         // load all actions value for the profile
         foreach ( $action_list as $this_action )
-        {   
+        {
             $actionName = $this_action['name'];
             $actionValue = (bool) $this_action['value'];
             $toolId = $this_action['tool_id'];
@@ -77,7 +76,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
             {
                 $this->toolActionList[$toolId][$actionName] = $actionValue;
             }
-        }        
+        }
     }
 
     /**
@@ -91,7 +90,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
                 WHERE profile_id=" . $this->profile->id . "
                 AND courseId = '" . addslashes($this->courseId) . "'";
 
-        claro_sql_query($sql);        
+        claro_sql_query($sql);
 
         // insert new relation
 
@@ -103,7 +102,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
             if ( !empty($toolActionListDiff) )
             {
                 foreach ( $actionList as $actionName => $actionValue )
-                {            
+                {
                     if ( $actionValue == true ) $actionValue = 1;
                     else                        $actionValue = 0;
 
@@ -112,14 +111,14 @@ class RightCourseProfileToolRight extends RightProfileToolRight
                     $action->load($actionName, $toolId);
 
                     $actionId = $action->getId();
-                        
+
                     $sql = "INSERT INTO `" . $this->tbl['rel_profile_action'] . "`
-                            SET profile_id = " . $this->profile->id . ", 
-                            action_id = " . $actionId . ", 
+                            SET profile_id = " . $this->profile->id . ",
+                            action_id = " . $actionId . ",
                             value = " . $actionValue . ",
                             courseId = '" . addslashes($this->courseId) . "'";
 
-                    claro_sql_query($sql);        
+                    claro_sql_query($sql);
                 }
             }
         }

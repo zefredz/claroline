@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /*
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6                                                        |
@@ -41,7 +42,7 @@ class csvTrackSingle extends csv
        {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_user = $tbl_mdb_names['user'                    ];
-        
+
           $tbl_cdb_names = claro_sql_get_course_tbl();
           $tbl_quiz_answer            = $tbl_cdb_names['quiz_answer'            ];
         $tbl_quiz_question            = $tbl_cdb_names['quiz_question'        ];
@@ -49,7 +50,7 @@ class csvTrackSingle extends csv
           $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
         $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
         $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
-        
+
           // this query doesn't show attempts without any answer
         $sql = "SELECT `TE`.`exe_date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
@@ -72,7 +73,7 @@ class csvTrackSingle extends csv
                     AND `Q`.`id` = ".$this->question->selectId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
-        
+
         $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
@@ -91,16 +92,16 @@ class csvTrackSingle extends csv
         foreach( $attempts as $attempt )
         {
             $this->recordList[$i] = $attempt;
-            
+
             if( isset($orderedAnswers[$attempt['answer']]) )
                 $this->recordList[$i]['answer'] = $orderedAnswers[$attempt['answer']];
             else
                 $this->recordList[$i]['answer'] = '';
-                
+
             $i++;
         }
 
-        
+
           if( isset($this->recordList) && is_array($this->recordList) )
             return true;
         else
@@ -133,7 +134,7 @@ class csvTrackMulti extends csv
           $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
         $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
         $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
-        
+
         // this query doesn't show attempts without any answer
         $sql = "SELECT  `TE`.`exe_id`,
                         `TE`.`exe_date` AS `date`,
@@ -162,7 +163,7 @@ class csvTrackMulti extends csv
 
         // we need to compile all answers of one attempt on the same line
         $tmpRecordList = claro_sql_query_fetch_all($sql);
-        
+
         // get the list of possible answers and their ids
         $sql = "SELECT `A`.`id`, `A`.`reponse`
                 FROM `".$tbl_quiz_answer."` AS `A`
@@ -171,7 +172,7 @@ class csvTrackMulti extends csv
 
         // order the answer list to have the id as the key
         foreach( $answers as $answer )    $orderedAnswers[$answer['id']] = $answer['reponse'];
-        
+
         $previousKey = '';
         foreach( $tmpRecordList as $tmpRecord )
         {
@@ -190,7 +191,7 @@ class csvTrackMulti extends csv
                 $recordList[$key][] = $orderedAnswers[$tmpRecord['answer']];
             else
                 $recordList[$key][] = '';
-                
+
             $previousKey = $key;
         }
 
@@ -275,13 +276,13 @@ class csvTrackFIB extends csv
                 $recordList[$key]['name'] = $tmpRecord['name'];
                 $recordList[$key]['question'] = $tmpRecord['question'];
             }
-            
+
             // add answer one by one
             // for a better display replace entities by real chars
             $charsToReplace = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
             $replacingChars = array('::','[',']','<','>');
             $tmpRecord['answer'] = str_replace($charsToReplace,$replacingChars,trim($tmpRecord['answer']));
-            
+
             $recordList[$key][] = $tmpRecord['answer'];
 
             $previousKey = $key;
@@ -370,7 +371,7 @@ class csvTrackMatching extends csv
                 $letter++;
             }
         }
-        
+
         $previousKey = '';
         foreach( $tmpRecordList as $tmpRecord )
         {
@@ -404,7 +405,7 @@ class csvTrackMatching extends csv
         {
             return false;
         }
-        
+
     }
 }
 
@@ -415,7 +416,7 @@ function export_question_tracking($questionId, $exerciseId = '')
     {
         return "";
     }
-    
+
     switch($objQuestion->type)
     {
           case TRUEFALSE: // do the same as unique answer
@@ -434,7 +435,7 @@ function export_question_tracking($questionId, $exerciseId = '')
         /*default:
             break;*/
     }
-    
+
     if( isset($cvsTrack) )
     {
         $cvsTrack->buildRecords();
@@ -455,7 +456,7 @@ function export_exercise_tracking($exerciseId)
     }
 
     $questionList = $objExercise->selectQuestionList();
-    
+
     $exerciseCsv = '';
     foreach( $questionList as $questionId )
     {

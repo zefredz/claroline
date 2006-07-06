@@ -1,5 +1,4 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -20,7 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 require_once dirname(__FILE__) . '/constants.inc.php';
 require_once dirname(__FILE__) . '/profileToolRight.class.php';
 
-class RightProfileToolRightHtml 
+class RightProfileToolRightHtml
 {
 
     /**
@@ -53,7 +52,7 @@ class RightProfileToolRightHtml
 
     function RightProfileToolRightHtml($rightProfileToolRight=null)
     {
-        if ( $rightProfileToolRight ) 
+        if ( $rightProfileToolRight )
         {
             $this->addRightProfileToolRight($rightProfileToolRight);
         }
@@ -61,14 +60,14 @@ class RightProfileToolRightHtml
     }
 
     /**
-     * Add Right Profile object 
+     * Add Right Profile object
      */
 
     function addRightProfileToolRight ($rightProfileToolRight)
     {
         // get profileId
         $profileId = $rightProfileToolRight->profile->getId();
-        $this->rightProfileToolRightList[$profileId] = &$rightProfileToolRight; 
+        $this->rightProfileToolRightList[$profileId] = &$rightProfileToolRight;
     }
 
     /**
@@ -91,7 +90,7 @@ class RightProfileToolRightHtml
 
     /**
      * Set display mode
-     */    
+     */
 
     function setDisplayMode($value)
     {
@@ -106,9 +105,9 @@ class RightProfileToolRightHtml
     {
         $this->urlParamAppendList[$paramName] = $paramValue;
     }
-    
+
     /**
-     * Display table with tool/right of the profile 
+     * Display table with tool/right of the profile
      */
 
     function displayProfileToolRightList()
@@ -117,18 +116,18 @@ class RightProfileToolRightHtml
 
         $html = '';
         $html_table_header_list = array();
-        $html_table_row_list = array();        
-       
+        $html_table_row_list = array();
+
         foreach ( $this->rightProfileToolRightList as $profile_id => $rightProfileToolRight )
         {
             $isLocked = $rightProfileToolRight->profile->isLocked();
-            $className = get_class($rightProfileToolRight); 
+            $className = get_class($rightProfileToolRight);
 
-            // use strtolower for PHP4 : get_class returns class name in lowercase            
-            $className = strtolower($className); 
+            // use strtolower for PHP4 : get_class returns class name in lowercase
+            $className = strtolower($className);
 
             $html_table_header_list[$profile_id] = claro_get_profile_name($profile_id);
-            
+
             if ( $isLocked && $className == strtolower('RightCourseProfileToolRight') )
             {
                 $displayMode = 'read';
@@ -144,7 +143,7 @@ class RightProfileToolRightHtml
                 $action_right = $rightProfileToolRight->getToolRight($tool_id);
 
                 $html_right = '';
-            
+
                 if ( $displayMode == 'edit' )
                 {
                     $param_append = '?profile_id=' . urlencode($profile_id)
@@ -156,7 +155,7 @@ class RightProfileToolRightHtml
                         $param_append .= '&amp;' . $name . '=' . $value;
                     }
                 }
-                
+
                 if ( $action_right == 'none' )
                 {
                     $action_param_value = 'user';
@@ -171,13 +170,13 @@ class RightProfileToolRightHtml
                 {
                     $action_param_value = 'none';
                     $html_right = '<img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Manager') . '" />' . "\n" ;
-                } 
-            
+                }
+
                 if ( $displayMode == 'edit' )
                 {
                     $html_right = '<a href="' .$_SERVER['PHP_SELF'] . $param_append . '&amp;right_value=' . $action_param_value . '">' . $html_right . '</a>';
                 }
-                
+
                 $html_table_row_list[$tool_id][$profile_id] = $html_right;
 
                 $html .= '</tr>' . "\n";
@@ -185,7 +184,7 @@ class RightProfileToolRightHtml
         }
 
         // build table
-        
+
         $html .= '<table class="claroTable emphaseLine" >' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
@@ -195,7 +194,7 @@ class RightProfileToolRightHtml
         if ( $this->isSetCourseToolInfo() )
         {
             $html .= '<th style="text-align:center; width:100px;" >' . get_lang('Visibility') . '</th>' . "\n";
-        }  
+        }
 
         foreach ( $html_table_header_list as $html_table_header  )
         {
@@ -205,9 +204,9 @@ class RightProfileToolRightHtml
         $html .= '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' ;
-        
+
         foreach ( $html_table_row_list as $tool_id => $html_table_row )
-        {               
+        {
             $html .= '<tr>' . "\n" ;
 
             if ( $this->isSetCourseToolInfo() )
@@ -219,7 +218,7 @@ class RightProfileToolRightHtml
             }
             else
             {
-                $html .= '<td>' . claro_get_tool_name($tool_id) . '</td>' . "\n" ; 
+                $html .= '<td>' . claro_get_tool_name($tool_id) . '</td>' . "\n" ;
             }
 
             // visibility column
@@ -235,7 +234,7 @@ class RightProfileToolRightHtml
                 }
                 else
                 {
-                    $html .= '<td align="center">' 
+                    $html .= '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] .'" >'
                     . '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
                     . '</a></td>' . "\n" ;
@@ -251,11 +250,11 @@ class RightProfileToolRightHtml
             $html .= '</tr>' . "\n" ;
         }
 
-        $html .= '</tbody></table>'; 
-        
+        $html .= '</tbody></table>';
+
         return $html ;
     }
-     
+
 }
 
 ?>

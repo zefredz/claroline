@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * @file CAS/PGTStorage/pgt-file.php
@@ -7,7 +8,7 @@
 
 /**
  * @class PGTStorageFile
- * The PGTStorageFile class is a class for PGT file storage. An instance of 
+ * The PGTStorageFile class is a class for PGT file storage. An instance of
  * this class is returned by CASClient::SetPGTStorageFile().
  *
  * @author Pascal Aubry <pascal.aubry at univ-rennes1.fr>
@@ -17,9 +18,9 @@
 
 class PGTStorageFile extends PGTStorage
 {
-  /** 
-   * @addtogroup internalPGTStorageFile 
-   * @{ 
+  /**
+   * @addtogroup internalPGTStorageFile
+   * @{
    */
 
   /**
@@ -31,7 +32,7 @@ class PGTStorageFile extends PGTStorage
   var $_path;
 
   /**
-   * This method returns the name of the directory where PGT's should be stored 
+   * This method returns the name of the directory where PGT's should be stored
    * on the filesystem.
    *
    * @return the name of a directory (with leading and trailing '/')
@@ -66,7 +67,7 @@ class PGTStorageFile extends PGTStorage
   // ########################################################################
   //  DEBUGGING
   // ########################################################################
-  
+
   /**
    * This method returns an informational string giving the type of storage
    * used by the object (used for debugging purposes).
@@ -94,7 +95,7 @@ class PGTStorageFile extends PGTStorage
   // ########################################################################
   //  CONSTRUCTOR
   // ########################################################################
-  
+
   /**
    * The class constructor, called by CASClient::SetPGTStorageFile().
    *
@@ -118,7 +119,7 @@ class PGTStorageFile extends PGTStorage
 	phpCAS::error('an absolute path is needed for PGT storage to file');
       }
 
-      // store the path (with a leading and trailing '/')      
+      // store the path (with a leading and trailing '/')
       $path = preg_replace('|[/]*$|','/',$path);
       $path = preg_replace('|^[/]*|','/',$path);
       $this->_path = $path;
@@ -132,13 +133,13 @@ class PGTStorageFile extends PGTStorage
       default:
 	phpCAS::error('unknown PGT file storage format (`'.CAS_PGT_STORAGE_FILE_FORMAT_PLAIN.'\' and `'.CAS_PGT_STORAGE_FILE_FORMAT_XML.'\' allowed)');
       }
-      phpCAS::traceEnd();      
+      phpCAS::traceEnd();
     }
 
   // ########################################################################
   //  INITIALIZATION
   // ########################################################################
-  
+
   /**
    * This method is used to initialize the storage. Halts on error.
    *
@@ -152,7 +153,7 @@ class PGTStorageFile extends PGTStorage
 	return;
       // call the ancestor's method (mark as initialized)
       parent::init();
-      phpCAS::traceEnd();      
+      phpCAS::traceEnd();
     }
 
   // ########################################################################
@@ -171,9 +172,9 @@ class PGTStorageFile extends PGTStorage
     {
       phpCAS::traceBegin();
       return $this->getPath().$pgt_iou.'.'.$this->getFormat();
-      phpCAS::traceEnd();      
+      phpCAS::traceEnd();
     }
-  
+
   /**
    * This method stores a PGT and its corresponding PGT Iou into a file. Echoes a
    * warning on error.
@@ -195,11 +196,11 @@ class PGTStorageFile extends PGTStorage
       } else {
 	phpCAS::error('could not open `'.$fname.'\'');
       }
-      phpCAS::traceEnd();      
+      phpCAS::traceEnd();
     }
 
   /**
-   * This method reads a PGT corresponding to a PGT Iou and deletes the 
+   * This method reads a PGT corresponding to a PGT Iou and deletes the
    * corresponding file.
    *
    * @param $pgt_iou the PGT iou
@@ -218,7 +219,7 @@ class PGTStorageFile extends PGTStorage
       } else {
 	if ( ($pgt=fgets($f)) === FALSE ) {
 	  phpCAS::trace('could not read PGT from `'.$fname.'\'');
-	} 
+	}
 	fclose($f);
       }
 
@@ -228,10 +229,10 @@ class PGTStorageFile extends PGTStorage
       phpCAS::traceEnd($pgt);
       return $pgt;
     }
-  
+
   /** @} */
-  
+
 }
 
-  
+
 ?>

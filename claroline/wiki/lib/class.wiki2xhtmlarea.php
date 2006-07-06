@@ -1,5 +1,5 @@
 <?php // $Id$
-
+if ( count( get_included_files() ) == 1 ) die( '---' );
     // vim: expandtab sw=4 ts=4 sts=4:
 
     /**
@@ -18,9 +18,9 @@
      *
      * @package Wiki2xhtmlArea
      */
-     
+
     require_once dirname(__FILE__) . "/lib.javascript.php";
-    
+
     /**
      * Wiki2xhtml editor textarea
      */
@@ -28,7 +28,7 @@
     {
         var $content;
         var $attributeList;
-        
+
         /**
          * Constructor
          * @param string content of the area
@@ -45,19 +45,19 @@
             , $extraAttributes = null )
         {
             $this->setContent( $content );
-            
+
             $attributeList = array();
             $attributeList['name'] = $name;
             $attributeList['id'  ] = $name;
             $attributeList['cols'] = $cols;
             $attributeList['rows'] = $rows;
-            
+
             $this->attributeList = ( is_array( $extraAttributes ) )
                 ? array_merge( $attributeList, $extraAttributes )
                 : $attributeList
                 ;
         }
-        
+
         /**
          * Set area content
          * @param string content
@@ -66,7 +66,7 @@
         {
             $this->content = $content;
         }
-        
+
         /**
          * Get area content
          * @return string area content
@@ -75,7 +75,7 @@
         {
             return $this->content;
         }
-        
+
         /**
          * Get area wiki syntax toolbar
          * @return string toolbar javascript code
@@ -83,7 +83,7 @@
         function getToolbar()
         {
             $toolbar = '';
-            
+
 
             $toolbar .= '<script type="text/javascript" src="'
                 .document_web_path().'/lib/javascript/toolbar.js"></script>'
@@ -113,10 +113,10 @@
         tb.draw('');
     }
     </script>\n";
-            
+
             return $toolbar;
         }
-        
+
         /**
          * paint (ie echo) area
          */
@@ -124,7 +124,7 @@
         {
             echo $this->toHTML();
         }
-        
+
         /**
          * get area html code for string inclusion
          * @return string area html code

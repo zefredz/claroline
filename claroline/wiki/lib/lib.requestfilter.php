@@ -1,7 +1,8 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * CLAROLINE
      *
@@ -18,7 +19,7 @@
      *
      * @package Wiki
      */
-    
+
     /**
      * Get filtered value for a given variable in request tables based on
      * a regular expression
@@ -57,7 +58,7 @@
 
         return $_CLEAN;
     }
-    
+
     /**
      * Get filtered value for a given var in a given request table based on a
      * regular expression
@@ -73,7 +74,7 @@
     function filter_regexp_table( $varName, $regexp, $tblName )
     {
         $value = false;
-        
+
         switch ( $tblName )
         {
             case 'g' :
@@ -116,7 +117,7 @@
                     );
             }
         } // end switch
-        
+
         if ( preg_match( $regexp, $value ) )
         {
             return $value;
@@ -145,7 +146,7 @@
     function filter( $varName, $validValuesList, $order, $case_insensitive = false )
     {
         global $_CLEAN;
-        
+
         if ( ! isset( $_CLEAN ) )
         {
             $_CLEAN = array();
@@ -158,16 +159,16 @@
         for ( $i = 0; $i < strlen( $order ); $i++ )
         {
             $value = filter_table( $varName, $validValuesList, $order[$i], $case_insensitive );
-            
+
             if ( $value != false )
             {
                 $_CLEAN[$varName] = $value;
             }
         }
-        
+
         return $_CLEAN;
     }
-    
+
     /**
      * Get filtered value for a given var in request tables when request var is
      * given by an array key instead of its value.
@@ -204,7 +205,7 @@
         {
             $_COOKIE[$varName] = key( $_COOKIE[$varName] );
         }
-        
+
         if ( isset( $_REQUEST[$varName] ) && is_array( $_REQUEST[$varName] ) )
         {
             $_REQUEST[$varName] = key( $_REQUEST[$varName] );
@@ -230,7 +231,7 @@
     function filter_table( $varName, $validValuesList, $tblName, $case_insensitive = false )
     {
         $value = false;
-        
+
         switch ( $tblName )
         {
             case 'g' :
@@ -273,12 +274,12 @@
                     );
             }
         } // end switch
-        
+
         if ( $case_insensitive )
         {
             $value = strtolower( $value );
         }
-        
+
         if ( in_array( $value, $validValuesList ) )
         {
             return $value;

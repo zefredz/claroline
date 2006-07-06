@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -375,7 +375,7 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
                '".(int) $questionId."',
                '".(int) $questionResult."'
           )";
-          
+
     $details_id = claro_sql_query_insert_id($sql);
 
     // check if previous query succeed to add answers
@@ -397,7 +397,7 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
                     ". (int)$details_id.",
                     '".addslashes($answer)."'
                 )";
-                
+
             claro_sql_query($sql);
         }
     }

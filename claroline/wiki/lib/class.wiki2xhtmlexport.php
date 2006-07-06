@@ -1,7 +1,8 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * CLAROLINE
      *
@@ -16,12 +17,12 @@
      *
      * @author Frederic Minne <zefredz@gmail.com>
      */
-    
+
     require_once dirname(__FILE__) . '/class.wiki2xhtmlrenderer.php';
     require_once dirname(__FILE__) . '/class.wikistore.php';
     require_once dirname(__FILE__) . '/class.wikipage.php';
     require_once dirname(__FILE__) . '/class.wiki.php';
-    
+
     /**
      * Export a Wiki to a single HTML formated string
      * @todo    some refatoring
@@ -30,7 +31,7 @@
     {
         var $wiki;
         var $style = '';
-        
+
         /**
          * Constructor
          * @param   $wiki Wiki, Wiki to export
@@ -42,7 +43,7 @@
             $this->setOpt('note_str','<div class="footnotes"><h5>Notes</h5>%s</div>');
             $this->wiki =& $wiki;
         }
-        
+
         /**
          * Export a whole Wiki to a single HTML String
          * @return  string Wiki content in HTML
@@ -50,65 +51,65 @@
         function export()
         {
             $pageList = $this->wiki->allPagesByCreationDate();
-            
+
             $result = $this->_htmlHeader();
-            
+
             $result .= '<h1>' . $this->wiki->getTitle() . '</h1>' . "\n";
-            
+
             foreach ( $pageList as $page )
             {
-                $wikiPage = new WikiPage( 
+                $wikiPage = new WikiPage(
                     $this->wiki->con
                     , $this->wiki->config
                     , $this->wiki->getWikiId() );
-                    
+
                 $wikiPage->loadPage($page['title']);
-                
+
                 $this->setOpt('note_prefix', $page['title']);
-                
+
                 if ( $wikiPage->hasError() )
                 {
                     $result .= '<h2><a name="'
                         . $this->_makePageTitleAnchor( $page['title'] ) .'">'
-                        . $page['title'] 
-                        . '</a></h2>' 
+                        . $page['title']
+                        . '</a></h2>'
                         . "\n"
                         ;
-                        
-                    $result .= get_lang( "Could not load page %page%" 
+
+                    $result .= get_lang( "Could not load page %page%"
                         , array( '%page%' => $page['title'] ) ) . "\n";
-                    $wikiPage = null;                
+                    $wikiPage = null;
                 }
                 else
                 {
                     $pgTitle = $wikiPage->getTitle();
-                    
+
                     if ( '__MainPage__' === $pgTitle )
                     {
                         $pgTitle = get_lang( 'Main Page' );
                     }
-                    
+
                     $result .= '<h2><a name="'
                         . $this->_makePageTitleAnchor( $page['title'] ) .'">'
                         . $pgTitle
-                        .'</a></h2>' 
+                        .'</a></h2>'
                         . "\n"
                         ;
-                    
+
                     $content = $wikiPage->getContent();
                     $result .= $this->render($content) . "\n";
-    
+
                     $wikiPage = null;
                 }
             }
-            
+
             $result .= $this->_htmlFooter();
-            
+
             return $result;
         }
-        
+
         // private methods
-        
+
         /**
          * Make HTML anchor name from page title
          * @access  private
@@ -119,7 +120,7 @@
         {
             return $pageTitle;
         }
-        
+
         /**
          * Get Wiki style sheet
          * @access  private
@@ -171,10 +172,10 @@ td {
 	border: black inset 1px;
 }
 </style>' . "\n";
-            
+
             return $style;
         }
-        
+
         /**
          * Generate HTML page header
          * @access  private
@@ -187,10 +188,10 @@ td {
                 . '<title>' . $this->wiki->getTitle() . '</title>' . "\n"
                 . '</head>' . "\n" . '<body>' . "\n"
                 ;
-                
+
             return $header;
         }
-        
+
         /**
          * Generate HTML page footer
          * @access  private
@@ -199,12 +200,12 @@ td {
         function _htmlFooter()
         {
             $footer = '</body>' . "\n" . '</html>' . "\n";
-            
+
             return $footer;
         }
-        
+
         // Wiki2XHTML private methods
-        
+
         /**
          * @see Wiki2xhtmlRenderer
          */
@@ -212,7 +213,7 @@ td {
         {
             // $tag = 'a';
             // $attr = ' href="'.$this->_makePageTitleAnchor( $str ).'"';
-            
+
             if ( $this->wiki->pageExists( $str ) )
             {
                 return '<a href="#'.$this->_makePageTitleAnchor( $str )
@@ -229,7 +230,7 @@ td {
                     ;
             }
         }
-        
+
         /**
          * @see Wiki2xhtmlRenderer
          */

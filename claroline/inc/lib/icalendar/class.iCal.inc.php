@@ -1,5 +1,5 @@
-<?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 //+----------------------------------------------------------------------+
 //| WAMP (XP-SP1/1.3.24/4.0.12/4.3.0)                                    |
 //+----------------------------------------------------------------------+
@@ -265,7 +265,7 @@ class iCal {
 		} else {
 			$ret = (boolean) TRUE;
 		} // end if
-        
+
         return $ret;
 	} // end function
 
@@ -655,7 +655,7 @@ class iCal {
 		} else {
 			$ret = (object) $this->icaljournals[0];
 		} // end if
-        
+
         return $ret;
 	} // end function
 	/**#@-*/

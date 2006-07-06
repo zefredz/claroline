@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * Library for serializing PHP variables into Javascript for use with
 * Javascript eval()
@@ -181,7 +182,7 @@ class JPSpan_RootElement {
     function JPSpan_RootElement($data) {
         $this->data = $data;
     }
-    
+
     /**
     * Triggers code generation for child data structure then wraps
     * in anonymous function
@@ -217,7 +218,7 @@ class JPSpan_SerializedElement {
     * Temporary variable name to use in serialized Javascript
     * @var string
     * @access private
-    */    
+    */
     var $tmpName;
 
     /**
@@ -256,7 +257,7 @@ class JPSpan_SerializedElement {
     * @access protected
     */
     function generate(&$code) {}
-    
+
 }
 //-----------------------------------------------------------------------------
 
@@ -398,7 +399,7 @@ class JPSpan_SerializedArray extends JPSpan_SerializedElement {
                 $code->append("{$this->tmpName}['$key'] = $tmpName;");
             }
         }
-        
+
         // Override Javascript toString to display hash values
         $toString = "function() { ";
         $toString.= "var str = '[';";
@@ -459,7 +460,7 @@ class JPSpan_SerializedObject extends JPSpan_SerializedElement {
     * @param JPSpan_CodeWriter
     * @return void
     * @access protected
-    */    
+    */
     function generate(&$code) {
         $code->append('var '.$this->tmpName.' = new '.$this->classname.'();');
         $this->generateChildren($code);
@@ -470,7 +471,7 @@ class JPSpan_SerializedObject extends JPSpan_SerializedElement {
     * @param JPSpan_CodeWriter
     * @return void
     * @access protected
-    */    
+    */
     function generateChildren(&$code) {
         foreach ( array_keys($this->children) as $key ) {
             $this->children[$key]->generate($code);
@@ -529,14 +530,14 @@ class JPSpan_SerializedError {
         $this->message = str_replace("'",'',$this->message);
         $this->message = str_replace('"','',$this->message);
     }
-    
+
     /**
     * Conform to interface
     * @return void
     * @access protected
     */
     function setTmpVar() {}
-    
+
     /**
     * Errors do no return - exception thrown
     * @ return string empty
@@ -545,7 +546,7 @@ class JPSpan_SerializedError {
     function getReturn() {
         return '';
     }
-    
+
     /**
     * @param JPSpan_CodeWriter
     * @return void

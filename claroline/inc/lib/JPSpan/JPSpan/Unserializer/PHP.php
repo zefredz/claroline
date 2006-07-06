@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * @package JPSpan
 * @subpackage Unserialzier
@@ -49,7 +50,7 @@ class JPSpan_Unserializer_PHP {
     * @access public
     */
     function unserialize($data) {
-    
+
         if ( is_string($data) ) {
             if ( !$this->validateClasses($data) ) {
                 return FALSE;
@@ -58,21 +59,21 @@ class JPSpan_Unserializer_PHP {
             // It's not a string - give it back
             return $data;
         }
-        
+
         $old_cb = ini_get('unserialize_callback_func');
         ini_set('unserialize_callback_func','JPSpan_Unserializer_PHP_Callback');
-        
+
         $result = @unserialize(trim($data));
 
         ini_set('unserialize_callback_func',$old_cb);
-        
+
         // Check for a serialized FALSE value
         if ( $result !== FALSE || $data == 'b:0;' ) {
             return $result;
         }
         return $data;
     }
-    
+
     /**
     * Validates unserialized data, checking the class names of serialized objects,
     * to prevent unexpected objects from being instantiated by PHP's unserialize()
@@ -82,19 +83,19 @@ class JPSpan_Unserializer_PHP {
     */
     function validateClasses($data) {
         foreach ( $this->getClasses($data) as $class ) {
-        
+
             if ( !array_key_exists(strtolower($class),$GLOBALS['_JPSPAN_UNSERIALIZER_MAP']) ) {
-            
+
                 trigger_error('Illegal type: '.strtolower($class),E_USER_ERROR);
                 return FALSE;
-                
+
             }
-            
+
         }
 
         return TRUE;
     }
-    
+
     /**
     * Parses the serialized string, extracting class names
     * @param string serialized string to parse
@@ -102,7 +103,7 @@ class JPSpan_Unserializer_PHP {
     * @access private
     */
     function getClasses($string) {
-    
+
         // Stip any string representations (which might contain object syntax)
         $string = preg_replace('/s:[0-9]+:".*"/Us','',$string);
 

@@ -1,5 +1,4 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -54,7 +53,7 @@ class RightToolAction
 
     function load ($actionName,$toolId)
     {
-        $sql = "SELECT id, 
+        $sql = "SELECT id,
                        name,
                        description,
                        tool_id,
@@ -105,7 +104,7 @@ class RightToolAction
         }
         else
         {
-            // update action 
+            // update action
             $sql = "UPDATE `" . $this->tbl['action'] . "`
                     SET `description` = '" . addslashes($this->description) . "'
                     WHERE name ='" . addslashes($this->name) . "' AND
@@ -122,12 +121,12 @@ class RightToolAction
 
     function delete()
     {
-        // Delete from rel_profile_action 
+        // Delete from rel_profile_action
         $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
                 WHERE action_id = " . (int) $this->id ;
         claro_sql_query($sql);
 
-        // Delete from action 
+        // Delete from action
         $sql = "DELETE FROM `" . $this->tbl['action'] . "`
                 WHERE id = " . (int) $this->id ;
 
@@ -153,7 +152,7 @@ class RightToolAction
         if ( claro_sql_query_get_single_value($sql) == 0 ) return false;
         else                                               return true;
     }
-    
+
     /**
      * Get action id
      */

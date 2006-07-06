@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -12,85 +12,85 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claro Team <cvs@claroline.net>
  *
  */
- 
-class Exercise 
+
+class Exercise
 {
 	/**
      * @var $id id of exercise, -1 if exercise doesn't exist already
      */
     var $id;
-    
+
 	/**
      * @var $title name of the exercise
      */
     var $title;
-    
+
 	/**
      * @var $description statement of the exercise
      */
     var $description;
-    
+
     /**
      * @var $visibility visibility of the exercise
      */
     var $visibility;
-    
+
     /**
      * @var $sequential if exercise is displayed on one page or several
      */
     var $displayType;
-    
+
     /**
      * @var $shuffle expected submission type (text, text and file, file)
      */
     var $shuffle;
-    
+
     /**
      * @var $allowLateUpload is upload allowed after assignment end date
      */
     var $showAnswers;
-    
+
     /**
      * @var $startDate submissions are not possible before this date
      */
     var $startDate;
-    
+
     /**
      * @var $endDate submissions are not possible after this date (except if $allowLateUpload is true)
      */
     var $endDate;
-    
+
     /**
      * @var $timeLimit text of automatic feedback
      */
     var $timeLimit;
-    
+
     /**
      * @var $attempts file of automatic feedback
      */
     var $attempts;
-    
+
 	/**
      * @var $anonymousAttempts file of automatic feedback
      */
     var $anonymousAttempts;
-    
+
     /**
      * @var $tblExercise
      */
-    var $tblExercise; 
-    
+    var $tblExercise;
+
 	/**
      * @var $tblRelExerciseQuestion
      */
-    var $tblRelExerciseQuestion;     
+    var $tblRelExerciseQuestion;
 
     /**
      * @var $tblQuestion
      */
-    var $tblQuestion;         
-            
-    function Exercise($course_id = null) 
+    var $tblQuestion;
+
+    function Exercise($course_id = null)
     {
     	$this->id = (int) -1;
     	$this->title = '';
@@ -104,7 +104,7 @@ class Exercise
 	    $this->timeLimit = 0;
 	    $this->attempts = 0;
 	    $this->anonymousAttempts = 'NOTALLOWED';
-	    
+
 	    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
 		$this->tblExercise = $tbl_cdb_names['qwz_exercise'];
 		$this->tblQuestion = $tbl_cdb_names['qwz_question'];
@@ -112,14 +112,14 @@ class Exercise
     }
 
 	/**
-     * load an exercise from DB 
+     * load an exercise from DB
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $id id of exercise
      * @return boolean load successfull ?
-     */   
+     */
     function load($id)
-    {    		
+    {
 	    $sql = "SELECT
 					`id`,
 	                `title`,
@@ -135,7 +135,7 @@ class Exercise
 	                `anonymousAttempts`
 	        FROM `".$this->tblExercise."`
 	        WHERE `id` = ".(int) $id;
-	
+
 	    $data = claro_sql_query_get_single_row($sql);
 
 	    if( !empty($data) )
@@ -149,14 +149,14 @@ class Exercise
 		    $this->shuffle = $data['shuffle'];
 		    $this->showAnswers = $data['showAnswers'];
 		    $this->startDate = $data['unix_start_date'];
-		    
-		    // unix_end_date is null if the query return 0 for this value 
+
+		    // unix_end_date is null if the query return 0 for this value
 		    if( $data['unix_end_date'] > 0 )	$this->endDate = $data['unix_end_date'];
-		    		    
+
 		    $this->timeLimit = $data['timeLimit'];
 		    $this->attempts = $data['attempts'];
 		    $this->anonymousAttempts = $data['anonymousAttempts'];
-			
+
 			return true;
 	    }
 	    else
@@ -170,13 +170,13 @@ class Exercise
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
-     */   
+     */
     function save()
-    {		
+    {
     	// TODO method to validate data
     	if( $this->id == -1 )
     	{
-    		// insert	
+    		// insert
 		    $sql = "INSERT INTO `".$this->tblExercise."`
 		            SET `title` = '".addslashes($this->title)."',
 		                `description` = '".addslashes($this->description)."',
@@ -186,17 +186,17 @@ class Exercise
 		                `showAnswers` = '".addslashes($this->showAnswers)."',
 		                `startDate` = FROM_UNIXTIME('".addslashes($this->startDate)."'),
 		                `endDate` = FROM_UNIXTIME('".addslashes($this->endDate)."'),
-						`timeLimit` = '".addslashes($this->timeLimit)."', 	
-						`attempts` = '".addslashes($this->attempts)."', 	
+						`timeLimit` = '".addslashes($this->timeLimit)."',
+						`attempts` = '".addslashes($this->attempts)."',
 						`anonymousAttempts` = '".addslashes($this->anonymousAttempts)."'";
 
 		    // execute the creation query and get id of inserted assignment
 		    $insertedId = claro_sql_query_insert_id($sql);
-		
+
 		    if( $insertedId )
 		    {
 		    	$this->id = (int) $insertedId;
-		            		        
+
 		        return $this->id;
 		    }
 		    else
@@ -206,7 +206,7 @@ class Exercise
     	}
     	else
     	{
-    		// update, main query	
+    		// update, main query
 		    if( is_null($this->endDate) || $this->endDate == 0 )
 		    {
 		    	$endDateSql = "NULL";
@@ -215,7 +215,7 @@ class Exercise
 		    {
 		    	$endDateSql = "FROM_UNIXTIME('".addslashes($this->endDate)."')";
 		    }
-		        		
+
 		    $sql = "UPDATE `".$this->tblExercise."`
 		            SET `title` = '".addslashes($this->title)."',
 		                `description` = '".addslashes($this->description)."',
@@ -225,8 +225,8 @@ class Exercise
 		                `showAnswers` = '".addslashes($this->showAnswers)."',
 		                `startDate` = FROM_UNIXTIME('".addslashes($this->startDate)."'),
 		                `endDate` = ".$endDateSql.",
-						`timeLimit` = '".addslashes($this->timeLimit)."', 	
-						`attempts` = '".addslashes($this->attempts)."', 	
+						`timeLimit` = '".addslashes($this->timeLimit)."',
+						`attempts` = '".addslashes($this->attempts)."',
 						`anonymousAttempts` = '".addslashes($this->anonymousAttempts)."'
 		            WHERE `id` = '".$this->id."'";
 
@@ -241,28 +241,28 @@ class Exercise
 		    }
     	}
     }
-        
+
     /**
      * delete exercise from DB
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return boolean 
+     * @return boolean
      */
 	function delete()
 	{
 		$sql = "DELETE FROM `".$this->tblRelExerciseQuestion."`
 				WHERE `exerciseId` = '".(int) $this->id."'";
-		
+
 		if( claro_sql_query($sql) == false ) return false;
-		
-						
+
+
 		$sql = "DELETE FROM `".$this->tblExercise."`
 				WHERE `id` = '".(int) $this->id."'";
-				
+
 		if( claro_sql_query($sql) == false ) return false;
-		
+
 		// is it required to empty the fields of the object ?
-		$this->id = -1;		
+		$this->id = -1;
 		return true;
 	}
 
@@ -270,8 +270,8 @@ class Exercise
      * check if data are valide
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return boolean 
-     */	
+     * @return boolean
+     */
 	function validate()
 	{
 	    // title is a mandatory element
@@ -293,44 +293,44 @@ class Exercise
 	    }
 
 	    return true; // no errors, form is valide
-    }     
-    
+    }
+
 	/**
      * update visibility of an exercise
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $exerciseId
      * @param string $visibility
-     * @return boolean  
-     */    
+     * @return boolean
+     */
     function updateExerciseVisibility($exerciseId, $visibility)
     {
     	// this method is not used in object context so we cannot access $this->$tblAssignment
     	$tbl_cdb_names = claro_sql_get_course_tbl();
 		$tblExercise = $tbl_cdb_names['qwz_exercise'];
-		
+
 	    $acceptedValues = array('VISIBLE', 'INVISIBLE');
-		
+
 		if( in_array($visibility, $acceptedValues) )
-		{	
+		{
 		    $sql = "UPDATE `" . $tblExercise . "`
 		               SET `visibility` = '" . $visibility . "'
 		             WHERE `id` = " . (int) $exerciseId . "
 		               AND `visibility` != '" . $visibility . "'";
-		               
+
 		    return  claro_sql_query($sql);
 		}
-		
+
 		return false;
     }
-    
-    
+
+
     /**
      * get question list
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return array list of id of question used in this exercise 
-     */	 
+     * @return array list of id of question used in this exercise
+     */
 	function getQuestionList()
 	{
 		$sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`
@@ -338,10 +338,10 @@ class Exercise
 				WHERE REQ.`exerciseId` = '".$this->id."'
 				  AND REQ.`questionId` = Q.`id`
 				ORDER BY `rank`";
-		
+
 		$questionList = claro_sql_query_fetch_all($sql);
-		
-		if( is_array($questionList) ) 	
+
+		if( is_array($questionList) )
 		{
 			return $questionList;
 		}
@@ -349,51 +349,51 @@ class Exercise
 		{
 			$emptyArray = array();
 			return $emptyArray;
-		}		
+		}
 	}
 
     /**
      * get random question list
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return array list of id of question used in this exercise 
-     */	 
+     * @return array list of id of question used in this exercise
+     */
 	function getRandomQuestionList()
 	{
 		$questionList = $this->getQuestionList();
-		
+
 		$randomQuestionList = array();
-		
+
 		if( $this->shuffle > 0 && !empty($questionList) )
 		{
 			// shuffle the list
 			shuffle($questionList);
-			
-			$limit = min( $this->shuffle,count($questionList) );			
-			
+
+			$limit = min( $this->shuffle,count($questionList) );
+
 			for( $i = 0; $i < $limit; $i++ )
 			{
 				$randomQuestionList[] = $questionList[$i];
 			}
 		}
-		
-		return $randomQuestionList;			
+
+		return $randomQuestionList;
 	}
-	
+
 	/**
      * get the rank of a question
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param $questionId id of the question 
-     * @return int or boolean if query failed 
+     * @param $questionId id of the question
+     * @return int or boolean if query failed
      */
 	function getQuestionRank($questionId)
 	{
 		$sql = "SELECT `rank`
 				FROM ".$this->tblRelExerciseQuestion."
-				WHERE `exerciseId` = ".$this->id." 
-				AND `questionId` = ".$questionId;	
-				
+				WHERE `exerciseId` = ".$this->id."
+				AND `questionId` = ".$questionId;
+
 		return claro_sql_query_get_single_value($sql);
 	}
 
@@ -401,72 +401,72 @@ class Exercise
      * get the higher rank of a question in the exercise
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param $questionId id of the question 
-     * @return int or boolean if query failed 
+     * @param $questionId id of the question
+     * @return int or boolean if query failed
      */
 	function getRankMax()
 	{
 		$sql = "SELECT max(`rank`)
 				FROM ".$this->tblRelExerciseQuestion."
-				WHERE `exerciseId` = ".$this->id;	
-		
+				WHERE `exerciseId` = ".$this->id;
+
 		$rankMax = claro_sql_query_get_single_value($sql);
-		
+
 		if( is_null($rankMax) )	return 0;
 		else 					return $rankMax;
-	}	
-	
+	}
+
 	/**
      * change rank of a question in the exercise, jump one position up in the list
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param $questionId id of the question to move 
-     * @return boolean 
-     */	 
+     * @param $questionId id of the question to move
+     * @return boolean
+     */
 	function moveQuestionUp($questionId)
 	{
 		$questionList = $this->getQuestionList();
-		
+
 		// find question
 		$i = 0;
 		while( $i < count($questionList) )
 		{
-			if( $questionList[$i]['id'] == $questionId ) 
+			if( $questionList[$i]['id'] == $questionId )
 			{
 				$questionRank = $questionList[$i]['rank'];
 				break;
 			}
-			
-			$i++; 	
+
+			$i++;
 		}
-		
+
 		// question is first of the list, cannot move upper
 		// or question has not been found
 		if( $i == 0 || !isset($questionRank) )
 		{
 			return false;
 		}
-		
+
 		if( isset($questionList[$i-1]['rank']) )
 		{
-			
+
 			// previous question
 			$newRank = $questionList[$i-1]['rank'];
-			
+
 			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
 					SET `rank` = '".$questionRank."'
 					WHERE `exerciseId` = ".$this->id."
-					  AND `rank` = ".$newRank;	
+					  AND `rank` = ".$newRank;
 
 			if( claro_sql_query($sql) == false ) return false;
-			
+
 			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
 					SET `rank` = '".$newRank."'
 					WHERE `exerciseId` = ".$this->id."
 					  AND `questionId` = ".$questionId;
-		
+
 			if( claro_sql_query($sql) == false ) return false;
-	
+
 			return true;
 		}
 		return false;
@@ -476,24 +476,24 @@ class Exercise
      * change rank of a question in the exercise, jump one position down in the list
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param $questionId id of the question to move 
-     * @return boolean 
-     */	 
+     * @param $questionId id of the question to move
+     * @return boolean
+     */
 	function moveQuestionDown($questionId)
 	{
 		$questionList = $this->getQuestionList();
-		
+
 		// find question
 		$i = 0;
 		while( $i < count($questionList) )
 		{
-			if( $questionList[$i]['id'] == $questionId ) 
+			if( $questionList[$i]['id'] == $questionId )
 			{
 				$questionRank = $questionList[$i]['rank'];
 				break;
 			}
-			
-			$i++; 	
+
+			$i++;
 		}
 
 		// question is last of the list, cannot move down anymore
@@ -502,27 +502,27 @@ class Exercise
 		{
 			return false;
 		}
-		
+
 		if( isset($questionList[$i+1]['rank']) )
 		{
-			
+
 			// previous question
 			$newRank = $questionList[$i+1]['rank'];
 
 			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
 					SET `rank` = '".$questionRank."'
 					WHERE `exerciseId` = ".$this->id."
-					  AND `rank` = ".$newRank;	
+					  AND `rank` = ".$newRank;
 
 			if( claro_sql_query($sql) == false ) return false;
-			
+
 			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
 					SET `rank` = '".$newRank."'
 					WHERE `exerciseId` = ".$this->id."
 					  AND `questionId` = ".$questionId;
-		
+
 			if( claro_sql_query($sql) == false ) return false;
-	
+
 			return true;
 		}
 		return false;
@@ -532,306 +532,306 @@ class Exercise
      * add a question in the exercise
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	 
+     * @return string
+     */
 	function addQuestion($questionId)
 	{
-		$rankMax = $this->getRankMax();		
+		$rankMax = $this->getRankMax();
 		$rank = $rankMax + 1 ;
-		
+
 		$sql = "INSERT INTO ".$this->tblRelExerciseQuestion."
 				SET `exerciseId` = '".$this->id."',
 					`questionId` = '".(int) $questionId."',
 					`rank` = '".(int)$rank."'";
 
 		return claro_sql_query($sql);
-	}		
- 
- 
+	}
+
+
 	/**
      * remove a question from the exercise, the question stays available in question pool
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	 
+     * @return string
+     */
 	function removeQuestion($questionId)
 	{
 
 		$sql = "DELETE FROM ".$this->tblRelExerciseQuestion."
 				WHERE `exerciseId` = ".$this->id."
 				AND `questionId` = ".(int) $questionId;
-					
+
 		return claro_sql_query($sql);
-	}		
- 
+	}
+
  	/**
      * get id
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return int   
-     */	 
+     * @return int
+     */
 	function getId()
 	{
-		return (int) $this->id;		
+		return (int) $this->id;
 	}
-	
+
 	/**
      * get title
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	 
+     * @return string
+     */
 	function getTitle()
 	{
-		return $this->title;		
+		return $this->title;
 	}
 
 	/**
      * set title
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param string $value   
-     */	 	
+     * @param string $value
+     */
 	function setTitle($value)
 	{
-		$this->title = trim($value);	
+		$this->title = trim($value);
 	}
-	
+
 	/**
      * get description
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	  
+     * @return string
+     */
 	function getDescription()
 	{
-		return $this->description;	
+		return $this->description;
 	}
-	
+
 	/**
      * set description
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param string $value   
-     */	
+     * @param string $value
+     */
 	function setDescription($value)
 	{
-		$this->description = trim($value);	
+		$this->description = trim($value);
 	}
-	
+
 	/**
      * get visibility ('VISIBLE', 'INVISIBLE')
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	 	 
+     * @return string
+     */
 	function getVisibility()
 	{
 		return $this->visibility;
 	}
-	
+
 	/**
      * set visibility
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param string $value   
+     * @param string $value
      */
 	function setVisibility($value)
 	{
 		$acceptedValues = array('VISIBLE', 'INVISIBLE');
-		
+
 		if( in_array($value, $acceptedValues) )
 		{
 			$this->visibility = $value;
-			return true;	
+			return true;
 		}
 		return false;
-	}	
-	
+	}
+
 	/**
      * get display type ('SEQUENTIAL', 'ONEPAGE')
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	 	 
+     * @return string
+     */
 	function getDisplayType()
 	{
 		return $this->displayType;
 	}
-	
+
 	/**
      * set display type
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param string $value   
+     * @param string $value
      */
 	function setDisplayType($value)
 	{
 		$acceptedValues = array('SEQUENTIAL', 'ONEPAGE');
-		
+
 		if( in_array($value, $acceptedValues) )
 		{
 			$this->displayType = $value;
-			return true;	
+			return true;
 		}
 		return false;
-	}	  
-	
+	}
+
 	/**
      * get shuffle
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return int   
-     */	  
+     * @return int
+     */
 	function getShuffle()
 	{
-		return $this->shuffle;	
+		return $this->shuffle;
 	}
-	
+
 	/**
      * set shuffle
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param int $value   
-     */	
+     * @param int $value
+     */
 	function setShuffle($value)
 	{
-		$this->shuffle = (int) $value;	
-	}  
-	
+		$this->shuffle = (int) $value;
+	}
+
 	/**
      * get show answer ('ALWAYS', 'NEVER', 'LASTTRY')
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	 	 
+     * @return string
+     */
 	function getShowAnswers()
 	{
 		return $this->showAnswers;
 	}
-	
+
 	/**
      * set show answer
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param string $value   
+     * @param string $value
      */
 	function setShowAnswers($value)
 	{
 		$acceptedValues = array('ALWAYS', 'NEVER', 'LASTTRY');
-		
+
 		if( in_array($value, $acceptedValues) )
 		{
 			$this->showAnswers = $value;
-			return true;	
+			return true;
 		}
 		return false;
-	}	
-	
-	
+	}
+
+
 	/**
      * get start date (as unix timestamp)
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return integer a unix time stamp   
-     */	  
+     * @return integer a unix time stamp
+     */
 	function getStartDate()
 	{
 		return $this->startDate;
 	}
-	
+
 	function setStartDate($value)
 	{
 		$this->startDate = $value;
 	}
-	
+
 	/**
      * get end date (as unix timestamp)
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return integer a unix time stamp      
-     */	 
+     * @return integer a unix time stamp
+     */
 	function getEndDate()
 	{
 		return $this->endDate;
 	}
-	
+
 	function setEndDate($value)
 	{
 		$this->endDate = $value;
-	}	
-	
+	}
+
 	/**
      * get time limit
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return int   
-     */	  
+     * @return int
+     */
 	function getTimeLimit()
 	{
-		return $this->timeLimit;	
+		return $this->timeLimit;
 	}
-	
+
 	/**
      * set time limit
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param int $value   
-     */	
+     * @param int $value
+     */
 	function setTimeLimit($value)
 	{
-		$this->timeLimit = (int) $value;	
-	} 	
-	
+		$this->timeLimit = (int) $value;
+	}
+
 	/**
      * get attempts number
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return int   
-     */	  
+     * @return int
+     */
 	function getAttempts()
 	{
-		return $this->attempts;	
+		return $this->attempts;
 	}
-	
+
 	/**
      * set attempts number
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param int $value   
-     */	
+     * @param int $value
+     */
 	function setAttempts($value)
 	{
-		$this->attempts = (int) $value;	
-	} 	
-	
+		$this->attempts = (int) $value;
+	}
+
 	/**
      * get show answer ('ALLOWED','NOTALLOWED')
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string   
-     */	 	 
+     * @return string
+     */
 	function getAnonymousAttempts()
 	{
 		return $this->anonymousAttempts;
 	}
-	
+
 	/**
      * set show answer
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param string $value   
+     * @param string $value
      */
 	function setAnonymousAttempts($value)
 	{
 		$acceptedValues = array('ALLOWED','NOTALLOWED');
-		
+
 		if( in_array($value, $acceptedValues) )
 		{
 			$this->anonymousAttempts = $value;
-			return true;	
+			return true;
 		}
 		return false;
-	}	
+	}
 }
 ?>

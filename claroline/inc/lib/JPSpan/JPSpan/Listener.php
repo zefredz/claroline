@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * @package JPSpan
 * @subpackage Listener
@@ -36,14 +37,14 @@ class JPSpan_Listener {
     * @access public
     */
     var $encoding = 'xml';
-    
+
     /**
     * Object which responds to request
     * @var object implementing Responder interface
     * @access private
     */
     var $Responder;
-    
+
     /**
     * Constructs the listener, setting the default NullResponder
     * @access public
@@ -51,7 +52,7 @@ class JPSpan_Listener {
     function JPSpan_Listener() {
         $this->Response = & new JPSpan_NullResponder();
     }
-    
+
     /**
     * Set the Responder
     * @param object implementing Responder interface
@@ -61,16 +62,16 @@ class JPSpan_Listener {
     function setResponder(& $Responder) {
         $this->Responder= & $Responder;
     }
-    
+
     /**
     * Serve incoming requests
     * @return void
     * @access public
     */
-    function serve() {  
+    function serve() {
         $this->Responder->execute($this->getRequestData());
     }
-    
+
     /**
     * Detects the type of incoming request and calls the corresponding
     * RequestData handler to deal with it.
@@ -93,7 +94,7 @@ class JPSpan_Listener {
             break;
         }
     }
-    
+
 }
 //-----------------------------------------------------------------------------
 

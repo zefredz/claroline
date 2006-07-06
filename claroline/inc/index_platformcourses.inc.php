@@ -1,7 +1,5 @@
-<?php
-
-// Prevent direct reference to this script
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 
 if ( !empty ($_REQUEST['category']) ) $category = $_REQUEST['category'];

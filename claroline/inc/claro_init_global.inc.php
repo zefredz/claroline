@@ -1,10 +1,9 @@
 <?php // $Id$
-
+if ( count( get_included_files() ) == 1 ) die( '---' );
 // Prevent direct call of this file from the web
 // NOTE. The use of PHP_SELF is not appropriate in this case
 // as PHP_SELF can also contain the path info ...
 
-if ( basename( $_SERVER['SCRIPT_NAME'] ) === basename(__FILE__) ) die( '---' );
 
 // The CLARO_INCLUDE_ALLOWED constant allows to include PHP file further in the
 // code. Files which are meant to be included check if this constant is defined.

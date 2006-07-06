@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * Author Markus Baker: http://www.lastcraft.com
 * Version adapted from Simple Test: http://sourceforge.net/projects/simpletest/
@@ -29,7 +30,7 @@ class JPSpan_LexerParallelRegex {
 	var $_labels;
 	var $_regex;
 	var $_case;
-	
+
 	/**
 	 *    Constructor. Starts with no patterns.
 	 *    @param boolean $case    True for case sensitive, false
@@ -42,7 +43,7 @@ class JPSpan_LexerParallelRegex {
 		$this->_labels = array();
 		$this->_regex = null;
 	}
-	
+
 	/**
 	 *    Adds a pattern with an optional label.
 	 *    @param string $pattern      Perl style regex, but ( and )
@@ -57,7 +58,7 @@ class JPSpan_LexerParallelRegex {
 		$this->_labels[$count] = $label;
 		$this->_regex = null;
 	}
-	
+
 	/**
 	 *    Attempts to match all patterns at once against
 	 *    a string.
@@ -83,7 +84,7 @@ class JPSpan_LexerParallelRegex {
 		}
 		return true;
 	}
-	
+
 	/**
 	 *    Compounds the patterns into a single
 	 *    regular expression separated with the
@@ -104,7 +105,7 @@ class JPSpan_LexerParallelRegex {
 		}
 		return $this->_regex;
 	}
-	
+
 	/**
 	 *    Accessor for perl regex mode flags to use.
 	 *    @return string       Perl regex flags.
@@ -122,7 +123,7 @@ class JPSpan_LexerParallelRegex {
  */
 class JPSpan_LexerStateStack {
 	var $_stack;
-	
+
 	/**
 	 *    Constructor. Starts in named state.
 	 *    @param string $start        Starting state name.
@@ -131,7 +132,7 @@ class JPSpan_LexerStateStack {
 	function JPSpan_LexerStateStack($start) {
 		$this->_stack = array($start);
 	}
-	
+
 	/**
 	 *    Accessor for current state.
 	 *    @return string       State.
@@ -140,7 +141,7 @@ class JPSpan_LexerStateStack {
 	function getCurrent() {
 		return $this->_stack[count($this->_stack) - 1];
 	}
-	
+
 	/**
 	 *    Adds a state to the stack and sets it
 	 *    to be the current state.
@@ -150,7 +151,7 @@ class JPSpan_LexerStateStack {
 	function enter($state) {
 		array_push($this->_stack, $state);
 	}
-	
+
 	/**
 	 *    Leaves the current state and reverts
 	 *    to the previous one.
@@ -182,7 +183,7 @@ class JPSpan_Lexer {
 	var $_mode;
 	var $_mode_handlers;
 	var $_case;
-	
+
 	/**
 	 *    Sets up the lexer in case insensitive matching
 	 *    by default.
@@ -199,7 +200,7 @@ class JPSpan_Lexer {
 		$this->_mode = &new JPSpan_LexerStateStack($start);
 		$this->_mode_handlers = array();
 	}
-	
+
 	/**
 	 *    Adds a token search pattern for a particular
 	 *    parsing mode. The pattern does not change the
@@ -217,7 +218,7 @@ class JPSpan_Lexer {
 		}
 		$this->_regexes[$mode]->addPattern($pattern);
 	}
-	
+
 	/**
 	 *    Adds a pattern that will enter a new parsing
 	 *    mode. Useful for entering parenthesis, strings,
@@ -237,7 +238,7 @@ class JPSpan_Lexer {
 		}
 		$this->_regexes[$mode]->addPattern($pattern, $new_mode);
 	}
-	
+
 	/**
 	 *    Adds a pattern that will exit the current mode
 	 *    and re-enter the previous one.
@@ -252,7 +253,7 @@ class JPSpan_Lexer {
 		}
 		$this->_regexes[$mode]->addPattern($pattern, "__exit");
 	}
-	
+
 	/**
 	 *    Adds a pattern that has a special mode. Acts as an entry
 	 *    and exit pattern in one go, effectively calling a special
@@ -271,7 +272,7 @@ class JPSpan_Lexer {
 		}
 		$this->_regexes[$mode]->addPattern($pattern, "_$special");
 	}
-	
+
 	/**
 	 *    Adds a mapping from a mode to another handler.
 	 *    @param string $mode        Mode to be remapped.
@@ -281,7 +282,7 @@ class JPSpan_Lexer {
 	function mapHandler($mode, $handler) {
 		$this->_mode_handlers[$mode] = $handler;
 	}
-	
+
 	/**
 	 *    Splits the page text into tokens. Will fail
 	 *    if the handlers report an error or if no
@@ -312,7 +313,7 @@ class JPSpan_Lexer {
 		}
 		return $this->_invokeParser($raw, JPSPAN_LEXER_UNMATCHED);
 	}
-	
+
 	/**
 	 *    Sends the matched token and any leading unmatched
 	 *    text to the parser changing the lexer to a new
@@ -348,7 +349,7 @@ class JPSpan_Lexer {
 		}
 		return $this->_invokeParser($matched, JPSPAN_LEXER_MATCHED);
 	}
-	
+
 	/**
 	 *    Tests to see if the new mode is actually to leave
 	 *    the current mode and pop an item from the matching
@@ -360,7 +361,7 @@ class JPSpan_Lexer {
 	function _isModeEnd($mode) {
 		return ($mode === "__exit");
 	}
-	
+
 	/**
 	 *    Test to see if the mode is one where this mode
 	 *    is entered for this token only and automatically
@@ -372,7 +373,7 @@ class JPSpan_Lexer {
 	function _isSpecialMode($mode) {
 		return (strncmp($mode, "_", 1) == 0);
 	}
-	
+
 	/**
 	 *    Strips the magic underscore marking single token
 	 *    modes.
@@ -383,7 +384,7 @@ class JPSpan_Lexer {
 	function _decodeSpecial($mode) {
 		return substr($mode, 1);
 	}
-	
+
 	/**
 	 *    Calls the parser method named after the current
 	 *    mode. Empty content will be ignored. The lexer
@@ -403,7 +404,7 @@ class JPSpan_Lexer {
 		}
 		return $this->_parser->$handler($content, $is_match);
 	}
-	
+
 	/**
 	 *    Tries to match a chunk of text and if successful
 	 *    removes the recognised chunk and any leading

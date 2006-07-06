@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /* vim: set expandtab tabstop=4 shiftwidth=4:
   +----------------------------------------------------------------------+
@@ -82,7 +83,7 @@ function choose_image($fileName)
 
 /**
  * Transform the file size in a human readable format
- * 
+ *
  * @author - ???
  * @param  - fileSize (int) - size of the file in bytes
  */
@@ -91,7 +92,7 @@ function format_file_size($fileSize)
 {
     // byteUnits is setted in trad4all
     global $byteUnits;
-    
+
     if($fileSize >= 1073741824)
     {
         $fileSize = round($fileSize / 1073741824 * 100) / 100 . '&nbsp;' . $byteUnits[3]; //GB
@@ -120,7 +121,7 @@ function format_file_size($fileSize)
  * Transform a UNIX time stamp in human readable format date
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param - date - UNIX time stamp 
+ * @param - date - UNIX time stamp
  */
 
 function format_date($fileDate)
@@ -133,7 +134,7 @@ function format_date($fileDate)
 
 /**
  * Transform the file path in a url
- * 
+ *
  * @param - url (string) - relative local path of the file on the Hard disk
  * @return - relative url
  */
@@ -163,7 +164,7 @@ function format_url($url)
     {
         return $url;
     }
-    
+
     $urlArray = parse_url( $url );
 
     $urlToRet = '';
@@ -217,7 +218,7 @@ function format_url_path( $path )
 function format_url_query( $query )
 {
     $ret = '';
-    
+
     if ( strpos( $query, '&' ) !== false
         || strpos( $query, '&amp;' ) !== false
         || strpos( $query, '=' ) !== false )
@@ -271,7 +272,7 @@ function query_make_part( $matches )
 
 
 /**
- * 
+ *
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $curDirPath current path in the documents tree navugation

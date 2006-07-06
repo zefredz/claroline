@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 $tbl_name = claro_sql_get_main_tbl();
 
 $tbl_module = $tbl_name['module'];

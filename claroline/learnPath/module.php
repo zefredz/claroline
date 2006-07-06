@@ -1,7 +1,6 @@
 <?php // $Id$
-
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -143,8 +142,8 @@ $sql = "SELECT `contentType`,
                 `scoreMax`,
                 `raw`,
                 `lesson_status`
-        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, 
-             `".$TABLELEARNPATHMODULE."` AS LPM, 
+        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP,
+             `".$TABLELEARNPATHMODULE."` AS LPM,
              `".$TABLEMODULE."` AS M
         WHERE UMP.`user_id` = '$_uid'
           AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
@@ -279,7 +278,7 @@ if($module['contentType'] != CTLABEL_) //
             .'<td>'.get_lang('Last session time').'</td>'."\n"
             .'<td>'.$resultBrowsed['session_time'].'</td>'."\n"
             .'</tr>'."\n\n";
-            
+
         //display user best score
         if ($resultBrowsed['scoreMax'] > 0)
         {
@@ -291,7 +290,7 @@ if($module['contentType'] != CTLABEL_) //
         }
 
         $raw = max($raw, 0);
-        
+
         if (($resultBrowsed['contentType'] == CTSCORM_ ) && ($resultBrowsed['scoreMax'] <= 0)
             &&  (  ( ($resultBrowsed['lesson_status'] == "COMPLETED") || ($resultBrowsed['lesson_status'] == "PASSED") ) || ($resultBrowsed['raw'] != -1) ) )
         {
@@ -358,9 +357,9 @@ if($module['contentType'] != CTLABEL_) //
     {
         echo '<p><center>'.get_lang('There is no start asset defined for this module.').'</center></p>'."\n";
     }
-}// end if($module['contentType'] != CTLABEL_) 
+}// end if($module['contentType'] != CTLABEL_)
 // if module is a label, only allow to change its name.
-  
+
 //####################################################################################\\
 //################################# ADMIN DISPLAY ####################################\\
 //####################################################################################\\

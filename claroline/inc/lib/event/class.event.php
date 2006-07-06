@@ -1,5 +1,5 @@
 <?php // $Id$
-
+if ( count( get_included_files() ) == 1 ) die( '---' );
 // +----------------------------------------------------------------------+
 // | EventDriven Programming                                              |
 // | PHP version 4                                                        |
@@ -48,12 +48,12 @@ function array_size( $arry )
         return -1;
     }
     $size = 0;
-    
+
     foreach ( $arry as $value )
     {
         $size++;
     }
-    
+
     return $size;
 }
 
@@ -134,7 +134,7 @@ class EventManager
         {
             if ( defined( "DEBUG_MODE" ) && DEBUG_MODE )
             {
-                $errmsg = __CLASS__ 
+                $errmsg = __CLASS__
                     . "{no listener found for EVENT["
                     . $event->getEventType()
                     . "]}"
@@ -255,12 +255,12 @@ class EventGenerator
     {
         $this->_registry->eventOccurs($event);
     }
-    
+
     /**
-     * public function to notify manager that an event occured,  
+     * public function to notify manager that an event occured,
      * using this function instead of sendEvent allow to let the class create the Event instance for you
      *
-     * @param $eventType (string) the type of the event 
+     * @param $eventType (string) the type of the event
      * @param $args an array contening any parameters needed to describe the event occurence
      */
 
@@ -272,7 +272,7 @@ class EventGenerator
 
     /**
      * Public function to notify manager that an event occured IN A COURSE TOOL
-     * using this function allow to notify an event in any tool of any course into Claroline, 
+     * using this function allow to notify an event in any tool of any course into Claroline,
      * it allows to use only one call to this function in the Claroline code
      *
      * @param eventType (string)

@@ -1,6 +1,5 @@
 <?php // $Id$
-
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 if (!isset($hide_body) || $hide_body == false)
 {

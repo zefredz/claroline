@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 /**
  * CLAROLINE
  * @version 1.8

@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 
 /**
@@ -16,19 +17,19 @@
 */
 
 /**
- * 
+ *
  * parse the generic xml file of a tool into an array
- * 
+ *
  * @var array   $tab  		- xml content
  * @var string  $tag  		- xml tag
- * @var int     $id   		- id of the "record" 
+ * @var int     $id   		- id of the "record"
  * @var int     $deep 		- integer to inform how deep we are in the xml tree
  * @var string  $tabname    - name of the table to import into the array
  * @var boolean $isGeneric  - boolean to check if the tag name is "Generic"
  * @var boolean $isDataNull - boolean to check if the imported data value must be null
- * 
+ *
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class generic_tool_parser
@@ -37,42 +38,42 @@ class generic_tool_parser
 	var $tag;
 	var $id;
 	var $deep = 0;
-	var $tabname = null;	
+	var $tabname = null;
 	var $isGeneric = false;
 	var $isDataNull = false;
-	
+
 	/**
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
 	 */
 	function start_element($parser, $tag, $attributes)
-	{			
-		$this->deep ++;	
-		$this->tag = $tag;		
+	{
+		$this->deep ++;
+		$this->tag = $tag;
 		if(2 == $this->deep)
-		{			
-			$this->tabName = $tag;		
-			$this->tab[$this->tabName] = array();						
-		}		
-		
+		{
+			$this->tabName = $tag;
+			$this->tab[$this->tabName] = array();
+		}
+
 		if($this->isGeneric)
-		{								
+		{
 			if (! isset($attributes["isNull"]))
-			{							
+			{
 				$this->tab[$this->tabName]["content"][$this->id][$this->tag] = '';
-				$this->isDataNull = false;			
+				$this->isDataNull = false;
 			}
 			else
-			{							
+			{
 				$this->tab[$this->tabName]["content"][$this->id][$this->tag] = null;
-				$this->isDataNull = true;				
+				$this->isDataNull = true;
 			}
 		}
 		if(3 == $this->deep && "content" == $this->tag)
-		{			
+		{
 			$this->isGeneric = true;
-			$this->id = $attributes["id"];		
+			$this->id = $attributes["id"];
 			$this->tab[$this->tabName][$this->tag][$this->id] = array();
 		}
 		elseif(3 == $this->deep && "create_table" == $this->tag)
@@ -86,8 +87,8 @@ class generic_tool_parser
 		elseif(3 == $this->deep && "table_name" == $this->tag)
 		{
 			$this->tab[$this->tabName][$this->tag] = '';
-		}		
-		
+		}
+
 	}
 	/**
 	 * sax end_element handler
@@ -95,16 +96,16 @@ class generic_tool_parser
 	 * @see sax api
 	 */
 	function end_element($parser, $tag)
-	{			
-		
+	{
+
 		if($tag == $this->tabName)
-		{					
+		{
 			$this->deep = 1;
-			$this->tabName = null ;		
-		}			
+			$this->tabName = null ;
+		}
 		if('create_table' == $tag || 'prefix' == $tag || 'content' == $tag || 'table_name' == $tag)
-		{					
-			$this->deep = 2;			
+		{
+			$this->deep = 2;
 			$this->isGeneric = false;
 		}
 	}
@@ -115,42 +116,42 @@ class generic_tool_parser
 	 * @see sax api
 	 */
 	function get_data($parser, $data)
-	{		
-		 
+	{
+
 		if(3 == $this->deep && "create_table" == $this->tag)
-		{						
+		{
 			$this->tab[$this->tabName][$this->tag] .= $data;
 		}
 		elseif(3 == $this->deep && "prefix" == $this->tag)
-		{		
+		{
 			$this->tab[$this->tabName][$this->tag] = $data;
 		}
 		elseif(3 == $this->deep && "table_name" == $this->tag)
-		{			
+		{
 			$this->tab[$this->tabName][$this->tag] = $data;
 		}
 		elseif(! is_null($this->tabName) && ! $this->isDataNull)
-		{												
-			$this->tab[$this->tabName]["content"][$this->id][$this->tag] .= $data;										
-		}	
+		{
+			$this->tab[$this->tabName]["content"][$this->id][$this->tag] .= $data;
+		}
 	}
 	/**
 	 * return the tab contained the parsed data
 	 */
 	function get_tab()
-	{				
+	{
 		return $this->tab;
 	}
 }
 /**
- * 
+ *
  * parse the file "description.xml" into an array
- * 
+ *
  * @var array  $tab - xml content
  * @var string $tag - xml tag
- * @var int    $id  - id of the "record" 
+ * @var int    $id  - id of the "record"
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class description_parser
@@ -221,14 +222,14 @@ class description_parser
 	}
 }
 /**
-* 
+*
 * parse the file "announcement.xml" into an array
-* 
+*
 * @var array  $tab - xml content
 * @var string $tag - xml tag
-* @var int    $id  - id of the "record" 
+* @var int    $id  - id of the "record"
 * @since 1.8 - 10-avr.-2006
-* 
+*
 * @access public
 */
 class announcement_parser
@@ -241,7 +242,7 @@ class announcement_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -261,7 +262,7 @@ class announcement_parser
 	 * sax end_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function end_element($parser, $tag)
 	{
 
@@ -303,14 +304,14 @@ class announcement_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "calendar.xml" into an array
- * 
+ *
  * @var array  $tab - xml content
  * @var string $tag - xml tag
- * @var int    $id  - id of the "record" 
+ * @var int    $id  - id of the "record"
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class calendar_parser
@@ -323,7 +324,7 @@ class calendar_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -390,14 +391,14 @@ class calendar_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "link.xml" into an array
- * 
+ *
  * @var array  $tab - xml content
  * @var string $tag - xml tag
- * @var int    $id  - id of the "record" 
+ * @var int    $id  - id of the "record"
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class link_parser
@@ -411,7 +412,7 @@ class link_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -499,14 +500,14 @@ class link_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "learnpath.xml" into an array
- * 
+ *
  * @var array  $tab - xml content
  * @var string $tag - xml tag
- * @var int    $id  - id of the "record" 
+ * @var int    $id  - id of the "record"
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class lp_parser
@@ -520,7 +521,7 @@ class lp_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -800,14 +801,14 @@ class lp_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "quiz.xml" into an array
- * 
+ *
  * @var array  $tab - xml content
  * @var string $tag - xml tag
- * @var int    $id  - id of the "record" 
+ * @var int    $id  - id of the "record"
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class quiz_parser
@@ -822,7 +823,7 @@ class quiz_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -834,10 +835,10 @@ class quiz_parser
 		}
 		if ('questions' == $this->tag)
 		{
-			
+
 			$this->tabName = $tag;
 			$this->tab[$this->tabName] = array ();
-			
+
 		}
 		if ('rel_test_question' == $this->tag)
 		{
@@ -919,19 +920,19 @@ class quiz_parser
 			if ('id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['id'] .= $data;
-			} 
+			}
 			elseif ('question_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['question_id'] .= $data;
-			} 
+			}
 			elseif ('reponse' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['reponse'] .= $data;
-			} 
+			}
 			elseif ('correct' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['correct'] .= $data;
-			} 
+			}
 			elseif ('comment' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['comment'] .= $data;
@@ -950,11 +951,11 @@ class quiz_parser
 			if ('question' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['question'] .= $data;
-			} 
+			}
 			elseif ('description' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['description'] .= $data;
-			} 
+			}
 			elseif ('ponderation' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['ponderation'] .= $data;
@@ -962,11 +963,11 @@ class quiz_parser
 			if ('q_position' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['q_position'] .= $data;
-			} 
+			}
 			elseif ('type' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['type'] .= $data;
-			} 
+			}
 			elseif ('attached_file' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['attached_file'] .= $data;
@@ -977,7 +978,7 @@ class quiz_parser
 			if ('question_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->cpt]['question_id'] .= $data;
-			} 
+			}
 			elseif ('exercice_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->cpt]['exercice_id'] .= $data;
@@ -988,39 +989,39 @@ class quiz_parser
 			if ('title' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['titre'] .= $data;
-			} 
+			}
 			elseif ('description' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['description'] .= $data;
-			} 
+			}
 			elseif ('type' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['type'] .= $data;
-			} 
+			}
 			elseif ('random' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['random'] .= $data;
-			} 
+			}
 			elseif ('active' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['active'] .= $data;
-			} 
+			}
 			elseif ('max_time' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['max_time'] .= $data;
-			} 
+			}
 			elseif ('max_attempt' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['max_attempt'] .= $data;
-			} 
+			}
 			elseif ('show_answer' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['show_answer'] .= $data;
-			} 
+			}
 			elseif ('anonymous_attempts' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['anonymous_attempts'] .= $data;
-			} 
+			}
 			elseif ('start_date' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['start_date'] .= $data;
@@ -1040,15 +1041,15 @@ class quiz_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "tool.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record" 
- * @var string $tabName - contain the sub array index name 
+ * @var int    $id 		- id of the "record"
+ * @var string $tabName - contain the sub array index name
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class tool_parser
@@ -1062,7 +1063,7 @@ class tool_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -1126,23 +1127,23 @@ class tool_parser
 			if ('tool_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['tool_id'] .= $data;
-			} 
+			}
 			elseif ('title' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['title'] .= $data;
-			} 
+			}
 			elseif ('display_date' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['display_date'] .= $data;
-			} 
+			}
 			elseif ('content' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['content'] .= $data;
-			} 
+			}
 			elseif ('rank' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['rank'] .= $data;
-			} 
+			}
 			elseif ('visibility' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['visibility'] .= $data;
@@ -1153,23 +1154,23 @@ class tool_parser
 			if ('tool_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['tool_id'] .= $data;
-			} 
+			}
 			elseif ('rank' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['rank'] .= $data;
-			} 
+			}
 			elseif ('access' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['access'] .= $data;
-			} 
+			}
 			elseif ('script_url' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['script_url'] .= $data;
-			} 
+			}
 			elseif ('script_name' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['script_name'] .= $data;
-			} 
+			}
 			elseif ('addedTool' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['addedTool'] .= $data;
@@ -1185,14 +1186,14 @@ class tool_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "document.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record"  
+ * @var int    $id 		- id of the "record"
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 
@@ -1206,7 +1207,7 @@ class document_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -1242,7 +1243,7 @@ class document_parser
 		} elseif ('visibility' == $this->tag)
 		{
 			$this->tab[$this->id]['visibility'] .= $data;
-		} 
+		}
 		elseif ('comment' == $this->tag)
 		{
 			$this->tab[$this->id]['comment'] .= $data;
@@ -1257,15 +1258,15 @@ class document_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "group.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record" 
- * @var string $tabName - contain the sub array index name 
+ * @var int    $id 		- id of the "record"
+ * @var string $tabName - contain the sub array index name
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 
@@ -1280,7 +1281,7 @@ class group_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -1352,27 +1353,27 @@ class group_parser
 			if ('self_registration' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['self_registration'] .= $data;
-			} 
+			}
 			elseif ('nbGroupPerUser' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['nbGroupPerUser'] .= $data;
-			} 
+			}
 			elseif ('private' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['private'] .= $data;
-			} 
+			}
 			elseif ('forum' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum'] .= $data;
-			} 
+			}
 			elseif ('document' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['document'] .= $data;
-			} 
+			}
 			elseif ('wiki' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['wiki'] .= $data;
-			} 
+			}
 			elseif ('chat' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['chat'] .= $data;
@@ -1383,15 +1384,15 @@ class group_parser
 			if ('user' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user'] .= $data;
-			} 
+			}
 			elseif ('team' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['team'] .= $data;
-			} 
+			}
 			elseif ('status' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['status'] .= $data;
-			} 
+			}
 			elseif ('role' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['role'] .= $data;
@@ -1402,19 +1403,19 @@ class group_parser
 			if ('name' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['name'] .= $data;
-			} 
+			}
 			elseif ('description' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['description'] .= $data;
-			} 
+			}
 			elseif ('tutor' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['tutor'] .= $data;
-			} 
+			}
 			elseif ('maxStudent' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['maxStudent'] .= $data;
-			} 
+			}
 			elseif ('secretDirectory' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['secretDirectory'] .= $data;
@@ -1430,15 +1431,15 @@ class group_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "userinfo.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record" 
- * @var string $tabName - contain the sub array index name 
+ * @var int    $id 		- id of the "record"
+ * @var string $tabName - contain the sub array index name
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 
@@ -1453,7 +1454,7 @@ class userinfo_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -1508,15 +1509,15 @@ class userinfo_parser
 			if ('title' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['title'] .= $data;
-			} 
+			}
 			elseif ('comment' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['comment'] .= $data;
-			} 
+			}
 			elseif ('nbLine' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['nbLine'] .= $data;
-			} 
+			}
 			elseif ('rank' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['rank'] .= $data;
@@ -1527,19 +1528,19 @@ class userinfo_parser
 			if ('user_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_id'] .= $data;
-			} 
+			}
 			elseif ('def_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['def_id'] .= $data;
-			} 
+			}
 			elseif ('ed_ip' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['ed_ip'] .= $data;
-			} 
+			}
 			elseif ('ed_date' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['ed_date'] .= $data;
-			} 
+			}
 			elseif ('content' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['content'] .= $data;
@@ -1556,15 +1557,15 @@ class userinfo_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "bb.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record" 
- * @var string $tabName - contain the sub array index name 
+ * @var int    $id 		- id of the "record"
+ * @var string $tabName - contain the sub array index name
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 
@@ -1579,7 +1580,7 @@ class bb_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -1752,11 +1753,11 @@ class bb_parser
 			if ("cat_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['cat_id'] .= $data;
-			} 
+			}
 			elseif ("cat_title" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['cat_title'] .= $data;
-			} 
+			}
 			elseif ("cat_order" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['cat_order'] .= $data;
@@ -1767,43 +1768,43 @@ class bb_parser
 			if ("group_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['group_id'] .= $data;
-			} 
+			}
 			elseif ("forum_name" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_name'] .= $data;
-			} 
+			}
 			elseif ("forum_desc" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_desc'] .= $data;
-			} 
+			}
 			elseif ("forum_access" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_access'] .= $data;
-			} 
+			}
 			elseif ("forum_moderator" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_moderator'] .= $data;
-			} 
+			}
 			elseif ("forum_topics" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_topics'] .= $data;
-			} 
+			}
 			elseif ("forum_posts" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_posts'] .= $data;
-			} 
+			}
 			elseif ("forum_last_post_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_last_post_id'] .= $data;
-			} 
+			}
 			elseif ("cat_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['cat_id'] .= $data;
-			} 
+			}
 			elseif ("forum_type" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_type'] .= $data;
-			} 
+			}
 			elseif ("forum_order" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_order'] .= $data;
@@ -1814,27 +1815,27 @@ class bb_parser
 			if ("topic_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_id'] .= $data;
-			} 
+			}
 			elseif ("forum_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_id'] .= $data;
-			} 
+			}
 			elseif ("poster_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['poster_id'] .= $data;
-			} 
+			}
 			elseif ("post_time" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['post_time'] .= $data;
-			} 
+			}
 			elseif ("poster_ip" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['poster_ip'] .= $data;
-			} 
+			}
 			elseif ("lastname" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['lastname'] .= $data;
-			} 
+			}
 			elseif ("firstname" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['firstname'] .= $data;
@@ -1852,23 +1853,23 @@ class bb_parser
 			if ("from_userid" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['from_userid'] .= $data;
-			} 
+			}
 			elseif ("to_userid" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['to_userid'] .= $data;
-			} 
+			}
 			elseif ("msg_time" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['msg_time'] .= $data;
-			} 
+			}
 			elseif ("poster_ip" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['poster_ip'] .= $data;
-			} 
+			}
 			elseif ("msg_status" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['msg_status'] .= $data;
-			} 
+			}
 			elseif ("msg_text" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['msg_text'] .= $data;
@@ -1879,7 +1880,7 @@ class bb_parser
 			if ("user_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_id'] .= $data;
-			} 
+			}
 			elseif ("topic_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_id'] .= $data;
@@ -1890,43 +1891,43 @@ class bb_parser
 			if ("topic_title" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_title'] .= $data;
-			} 
+			}
 			elseif ("topic_poster" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_poster'] .= $data;
-			} 
+			}
 			elseif ("topic_time" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_time'] .= $data;
-			} 
+			}
 			elseif ("topic_views" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_views'] .= $data;
-			} 
+			}
 			elseif ("topic_replies" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_replies'] .= $data;
-			}							 
+			}
 			elseif ("topic_last_post_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_last_post_id'] .= $data;
-			} 
+			}
 			elseif ("forum_id" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['forum_id'] .= $data;
-			} 
+			}
 			elseif ("topic_status" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_status'] .= $data;
-			} 
+			}
 			elseif ("topic_notify" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['topic_notify'] .= $data;
-			} 
+			}
 			elseif ("firstname" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['firstname'] .= $data;
-			} 
+			}
 			elseif ("lastname" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['lastname'] .= $data;
@@ -1937,43 +1938,43 @@ class bb_parser
 			if ("username" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['username'] .= $data;
-			} 
+			}
 			elseif ("user_regdate" == $this->tag)
 			{
 					$this->tab[$this->tabName][$this->id]['user_regdate'] .= $data;
-			} 
+			}
 			elseif ("user_password" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_password'] .= $data;
-			} 
+			}
 			elseif ("user_email" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_email'] .= $data;
-			} 
+			}
 			elseif ("user_icq" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_icq'] .= $data;
-			} 
+			}
 			elseif ("user_website" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_website'] .= $data;
-			} 
+			}
 			elseif ("user_occ" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_occ'] .= $data;
-			} 
+			}
 			elseif ("user_from" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_from'] .= $data;
-			} 
+			}
 			elseif ("user_intrest" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_intrest'] .= $data;
-			} 
+			}
 			elseif ("user_sig" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_sig'] .= $data;
-			} 
+			}
 			elseif ("user_viewemail" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_viewemail'] .= $data;
@@ -1981,7 +1982,7 @@ class bb_parser
 			elseif ("user_theme" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_theme'] .= $data;
-			} 
+			}
 			elseif ("user_aim" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_aim'] .= $data;
@@ -1989,15 +1990,15 @@ class bb_parser
 			elseif ("user_yim" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_yim'] .= $data;
-			} 
+			}
 			elseif ("user_msnm" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_msnm'] .= $data;
-			} 
+			}
 			elseif ("user_posts" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_posts'] .= $data;
-			} 
+			}
 			elseif ("user_attachsig" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_attachsig'] .= $data;
@@ -2005,31 +2006,31 @@ class bb_parser
 			elseif ("user_desmile" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_desmile'] .= $data;
-			} 
+			}
 			elseif ("user_html" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_html'] .= $data;
-			} 
+			}
 			elseif ("user_bbcode" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_bbcode'] .= $data;
-			} 
+			}
 			elseif ("user_rank" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_rank'] .= $data;
-			} 
-			elseif ("user_level" == $this->tag)																								
+			}
+			elseif ("user_level" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_level'] .= $data;
 			}
 			elseif ("user_lang" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_lang'] .= $data;
-			} 
+			}
 			elseif ("user_actkey" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_actkey'] .= $data;
-			} 
+			}
 			elseif ("user_newpasswd" == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]['user_newpasswd'] .= $data;
@@ -2048,29 +2049,29 @@ class bb_parser
 
 
 /**
- * 
+ *
  * parse the file "manifest.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record"  
+ * @var int    $id 		- id of the "record"
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 class manifest_parser
 {
 	var $tab = array ();
 	var $tag;
-	var $id;	
+	var $id;
 	var $cpt = 0;
 	/**
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
-	{	
+	{
 		$this->tag = $tag;
 		if ('course' == $this->tag)
 		{
@@ -2089,11 +2090,11 @@ class manifest_parser
 			$this->tabName = $this->tag;
 		}
 		if ('toolsInfo' == $this->tag)
-		{			
-			$this->tabName = $this->tag;		
-		}			
+		{
+			$this->tabName = $this->tag;
+		}
 		if ('claro_info' == $this->tag)
-		{						
+		{
 			$this->tabName = $this->tab;
 			$this->tab[$this->tabName]['plateform_id'] = "";
 			$this->tab[$this->tabName]['new_version'] = "";
@@ -2107,13 +2108,13 @@ class manifest_parser
 			$this->tab[$this->tabName][$this->id]['user_id'] = $this->id;
 			$this->tab[$this->tabName][$this->id]['username'] = "";
 			$this->tab[$this->tabName][$this->id]['lastName'] = "";
-			$this->tab[$this->tabName][$this->id]['firstName'] = "";			
+			$this->tab[$this->tabName][$this->id]['firstName'] = "";
 		}
 		if ('id' == $this->tag && 'group_team' == $this->tabName)
 		{
-			$this->id = $attributes['id'];			
+			$this->id = $attributes['id'];
 			$this->tab[$this->tabName][$this->id]['id'] = $this->id;
-			$this->tab[$this->tabName][$this->id]['name'] = "";					
+			$this->tab[$this->tabName][$this->id]['name'] = "";
 		}
 		if ('id' == $this->tag && 'group_property' == $this->tabName)
 		{
@@ -2125,16 +2126,16 @@ class manifest_parser
 			$this->tab[$this->tabName][$this->id]['forum'] = "";
 			$this->tab[$this->tabName][$this->id]['document'] = "";
 			$this->tab[$this->tabName][$this->id]['wiki'] = "";
-			$this->tab[$this->tabName][$this->id]['chat'] = "";											
+			$this->tab[$this->tabName][$this->id]['chat'] = "";
 		}
 		if('group' == $this->tag && 'toolsInfo' == $this->tabName)
 		{
 			$this->id = $attributes['id'];
 			$this->tab[$this->tabName][$this->id] = array();
-			
+
 		}
 		if ('cours_id' == $this->tag && 'course' == $this->tabName)
-		{			
+		{
 			$this->tab[$this->tabName]['cours_id'] = $this->id;
 			$this->tab[$this->tabName]['code'] = "";
 			$this->tab[$this->tabName]['fake_code'] = "";
@@ -2142,7 +2143,7 @@ class manifest_parser
 			$this->tab[$this->tabName]['dbName'] = "";
 			$this->tab[$this->tabName]['languageCourse'] = "";
 			$this->tab[$this->tabName]['intitule'] = "";
-			$this->tab[$this->tabName]['faculte'] = "";			
+			$this->tab[$this->tabName]['faculte'] = "";
 			$this->tab[$this->tabName]['enrollment_key'] = "";
 			$this->tab[$this->tabName]['titulaires'] = "";
 			$this->tab[$this->tabName]['email'] = "";
@@ -2154,12 +2155,12 @@ class manifest_parser
 			$this->tab[$this->tabName]['lastVisit'] = "";
 			$this->tab[$this->tabName]['lastEdit'] = "";
 			$this->tab[$this->tabName]['creationDate'] = "";
-			$this->tab[$this->tabName]['expirationDate'] = "";				
+			$this->tab[$this->tabName]['expirationDate'] = "";
 			$this->tab[$this->tabName]['courseEnrollAllowed'] = "";
-			$this->tab[$this->tabName]['courseVisibility'] = "";											
+			$this->tab[$this->tabName]['courseVisibility'] = "";
 		}
-		
-		
+
+
 	}
 	/**
 	 * sax end_element handler
@@ -2178,60 +2179,60 @@ class manifest_parser
 	function get_data($parser, $data)
 	{
 		if ('claro_info' == $this->tag)
-		{				
+		{
 			if ('plateform_id' == $this->tag)
 			{
 				$this->tab['plateform_id'] = $data;
-			} 
+			}
 			elseif ('new_version' == $this->tag)
 			{
 				$this->tab['new_version'] = $data;
-			} 
+			}
 			elseif ('new_version_branch' == $this->tag)
 			{
 				$this->tab['new_version_branch'] = $data;
-			} 
+			}
 			elseif ('clarolineVersion' == $this->tag)
 			{
 				$this->tab['clarolineVersion'] = $data;
-			} 
+			}
 			elseif ('versionDb' == $this->tag)
 			{
 				$this->tab['versionDb'] = $data;
-			} 			
+			}
 		}
 		if ('user_id' == $this->tag && 'users' == $this->tabName)
 		{
 			if ('username' == $this->tag)
 			{
 				$this->tab[$this->tabName]['username'] = $data;
-			} 	
+			}
 			elseif ('lastName' == $this->tag)
 			{
 				$this->tab[$this->tabName]['lastName'] = $data;
-			} 	
+			}
 			elseif ('versionDb' == $this->tag)
 			{
 				$this->tab[$this->tabName]['versionDb'] = $data;
-			} 	
+			}
 			elseif ('firstName' == $this->tag)
 			{
 				$this->tab[$this->tabName]['firstName'] = $data;
-			} 					
+			}
 		}
 		if ('id' == $this->tag && 'group_team' == $this->tabName)
 		{
 			if ('name' == $this->tag)
 			{
 				$this->tab[$this->tabName]['name'] = $data;
-			} 						
+			}
 		}
 		if ('id' == $this->tag && 'group_property' == $this->tabName)
 		{
 			if ('self_registration' == $this->tag)
 			{
 				$this->tab[$this->tabName]['self_registration'] = $data;
-			} 	
+			}
 			elseif ('nbGroupPerUser' == $this->tag)
 			{
 				$this->tab[$this->tabName]['nbGroupPerUser'] = $data;
@@ -2239,99 +2240,99 @@ class manifest_parser
 			elseif ('private' == $this->tag)
 			{
 				$this->tab[$this->tabName]['private'] = $data;
-			} 	
+			}
 			elseif ('forum' == $this->tag)
 			{
 				$this->tab[$this->tabName]['forum'] = $data;
-			} 	 	
+			}
 			elseif ('document' == $this->tag)
 			{
 				$this->tab[$this->tabName]['document'] = $data;
-			} 	
+			}
 			elseif ('wiki' == $this->tag)
 			{
 				$this->tab[$this->tabName]['wiki'] = $data;
-			} 
+			}
 			elseif ('chat' == $this->tag)
 			{
 				$this->tab[$this->tabName]['chat'] = $data;
-			} 									
+			}
 		}
 		if ('toolsInfo' == $this->tabName && 'tool' == $this->tag)
-		{					
+		{
 			$this->tab[$this->tabName][$this->id][$this->cpt] = $data;
 			$this->cpt++;
 		}
 		if ('course' == $this->tabName)
-		{			
+		{
 			if ('cours_id' == $this->tag)
 			{
 				$this->tab[$this->tabName]['cours_id'] = $data;
-			} 
+			}
 			elseif ('code' == $this->tag)
 			{
 				$this->tab[$this->tabName]['code'] = $data;
-			} 
+			}
 			elseif ('fake_code' == $this->tag)
 			{
 				$this->tab[$this->tabName]['fake_code'] = $data;
-			} 
+			}
 			elseif ('directory' == $this->tag)
 			{
 				$this->tab[$this->tabName]['directory'] = $data;
-			} 
+			}
 			elseif ('dbName' == $this->tag)
 			{
 				$this->tab[$this->tabName]['dbName'] = $data;
-			} 
+			}
 			elseif ('languageCourse' == $this->tag)
 			{
 				$this->tab[$this->tabName]['languageCourse'] = $data;
-			} 
+			}
 			elseif ('intitule' == $this->tag)
 			{
 				$this->tab[$this->tabName]['intitule'] = $data;
-			} 	
+			}
 			elseif ('faculte' == $this->tag)
 			{
 				$this->tab[$this->tabName]['faculte'] = $data;
-			} 			
+			}
 			elseif ('enrollment_key' == $this->tag)
 			{
 				$this->tab[$this->tabName]['enrollment_key'] = $data;
-			} 
+			}
 			elseif ('titulaires' == $this->tag)
 			{
 				$this->tab[$this->tabName]['titulaires'] = $data;
-			} 
+			}
 			elseif ('email' == $this->tag)
 			{
 				$this->tab[$this->tabName]['email'] = $data;
-			} 
+			}
 			elseif ('departmentUrlName' == $this->tag)
 			{
 				$this->tab[$this->tabName]['departmentUrlName'] = $data;
-			} 
+			}
 			elseif ('departmentUrl' == $this->tag)
 			{
 				$this->tab[$this->tabName]['departmentUrl'] = $data;
-			} 
+			}
 			elseif ('diskQuota' == $this->tag)
 			{
 				$this->tab[$this->tabName]['diskQuota'] = $data;
-			} 
+			}
 			elseif ('versionDb' == $this->tag)
 			{
 				$this->tab[$this->tabName]['versionDb'] = $data;
-			} 
+			}
 			elseif ('versionClaro' == $this->tag)
 			{
 				$this->tab[$this->tabName]['versionClaro'] = $data;
-			} 
+			}
 			elseif ('lastVisit' == $this->tag)
 			{
 				$this->tab[$this->tabName]['lastVisit'] = $data;
-			} 
+			}
 			elseif ('lastEdit' == $this->tag)
 			{
 				$this->tab[$this->tabName]['lastEdit'] = $data;
@@ -2339,11 +2340,11 @@ class manifest_parser
 			elseif ('creationDate' == $this->tag)
 			{
 				$this->tab[$this->tabName]['creationDate'] = $data;
-			} 
+			}
 			elseif ('expirationDate' == $this->tag)
 			{
 				$this->tab[$this->tabName]['expirationDate'] = $data;
-			}				
+			}
 			elseif ('courseVisibility' == $this->tag)
 			{
 				$this->tab[$this->tabName]['courseVisibility'] = $data;
@@ -2351,9 +2352,9 @@ class manifest_parser
 			elseif ('courseEnrollAllowed' == $this->tag)
 			{
 				$this->tab[$this->tabName]['courseEnrollAllowed'] = $data;
-			}						
-		}		
-	}	
+			}
+		}
+	}
 	/**
 	 * return the tab contained the parsed data
 	 */
@@ -2363,16 +2364,16 @@ class manifest_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "wiki.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record" 
+ * @var int    $id 		- id of the "record"
  * @var string $tabName - contain the sub array index name
- * @var int    $cpt     - counter to set some ids 
+ * @var int    $cpt     - counter to set some ids
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 
@@ -2388,7 +2389,7 @@ class wiki_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -2545,15 +2546,15 @@ class wiki_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "work.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record" 
- * @var string $tabName - contain the sub array index name 
+ * @var int    $id 		- id of the "record"
+ * @var string $tabName - contain the sub array index name
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 
@@ -2568,7 +2569,7 @@ class wrk_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;
@@ -2640,47 +2641,47 @@ class wrk_parser
 			if ('title' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["title"] .= $data;
-			} 
+			}
 			elseif ('description' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["description"] .= $data;
-			} 
+			}
 			elseif ('visibility' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["visibility"] .= $data;
-			} 
+			}
 			elseif ('def_submission_visibility' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["def_submission_visibility"] .= $data;
-			} 
+			}
 			elseif ('assignment_type' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["assignment_type"] .= $data;
-			} 
+			}
 			elseif ('authorized_content' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["authorized_content"] .= $data;
-			} 
+			}
 			elseif ('allow_late_upload' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["allow_late_upload"] .= $data;
-			} 
+			}
 			elseif ('start_date' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["start_date"] .= $data;
-			} 
+			}
 			elseif ('end_date' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["end_date"] .= $data;
-			} 
+			}
 			elseif ('prefill_text' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["prefill_text"] .= $data;
-			} 
+			}
 			elseif ('prefill_doc_path' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["prefill_doc_path"] .= $data;
-			} 
+			}
 			elseif ('prefill_submit' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["prefill_submit"] .= $data;
@@ -2691,11 +2692,11 @@ class wrk_parser
 			if ('assignment_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["assignment_id"] .= $data;
-			} 
+			}
 			elseif ('parent_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["parent_id"] .= $data;
-			} 
+			}
 			elseif ('user_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["user_id"] .= $data;
@@ -2703,43 +2704,43 @@ class wrk_parser
 			elseif ('group_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["group_id"] .= $data;
-			} 
+			}
 			elseif ('title' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["title"] .= $data;
-			} 
+			}
 			elseif ('visibility' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["visibility"] .= $data;
-			} 
+			}
 			elseif ('creation_date' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["creation_date"] .= $data;
-			} 
+			}
 			elseif ('last_edit_date' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["last_edit_date"] .= $data;
-			} 
+			}
 			elseif ('authors' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["authors"] .= $data;
-			} 
+			}
 			elseif ('submitted_text' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["submitted_text"] .= $data;
-			} 
+			}
 			elseif ('submitted_doc_path' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["submitted_doc_path"] .= $data;
-			} 
+			}
 			elseif ('private_feedback' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["private_feedback"] .= $data;
-			} 
+			}
 			elseif ('original_id' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["original_id"] .= $data;
-			} 
+			}
 			elseif ('score' == $this->tag)
 			{
 				$this->tab[$this->tabName][$this->id]["score"] .= $data;
@@ -2755,16 +2756,16 @@ class wrk_parser
 	}
 }
 /**
- * 
+ *
  * parse the file "users.xml" into an array
- * 
+ *
  * @var array  $tab     - xml content
  * @var string $tag     - xml tag
- * @var int    $id 		- id of the "record" 
+ * @var int    $id 		- id of the "record"
  * @var string $tabName - contain the sub array index name
- * @var int    $cpt     - counter to set some ids 
+ * @var int    $cpt     - counter to set some ids
  * @since 1.8 - 10-avr.-2006
- * 
+ *
  * @access public
  */
 
@@ -2780,7 +2781,7 @@ class users_parser
 	 * sax start_element handler
 	 * @access private
 	 * @see sax api
-	 */	
+	 */
 	function start_element($parser, $tag, $attributes)
 	{
 		$this->tag = $tag;

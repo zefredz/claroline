@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * Include this file to have PHP errors displayed as Javascript exceptions
 * the client can interpret
@@ -91,7 +92,7 @@ function JPSpan_ErrorHandler($level, $message, $file, $line) {
     require_once JPSPAN . 'Monitor.php';
     $M = & JPSpan_Monitor::instance();
     $M->announceError($name, $code, $message, $file, $line);
-    
+
     // Must exit on any error in case of multiple errors
     // causing Javascript syntax errors
     exit();
@@ -112,13 +113,13 @@ function JPSpan_ExceptionHandler($exception) {
 
     $name = 'Server_Error';
     $file = addcslashes($exception->getFile(),"\000\042\047\134");
-    
+
     if ( !JPSPAN_ERROR_MESSAGES ) {
         $message = 'Server unable to respond';
     } else {
         $message = strip_tags($exception->getMessage());
     }
-    
+
     $code = 2005;
 
     $error = "var e = new Error('$message');e.name = '$name';e.code = '$code';";
@@ -134,7 +135,7 @@ function JPSpan_ExceptionHandler($exception) {
     require_once JPSPAN . 'Monitor.php';
     $M = & JPSpan_Monitor::instance();
     $M->announceError($name, $code, $message, $file, $exception->getLine());
-    
+
     exit();
 
 }

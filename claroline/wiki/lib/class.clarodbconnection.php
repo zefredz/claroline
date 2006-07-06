@@ -1,7 +1,8 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * CLAROLINE
      *
@@ -18,7 +19,7 @@
      *
      * @package Wiki
      */
-     
+
     require_once dirname(__FILE__) . "/class.dbconnection.php";
 
     class ClarolineDatabaseConnection extends DatabaseConnection

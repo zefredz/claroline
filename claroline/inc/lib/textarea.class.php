@@ -1,15 +1,16 @@
-<?php # $Id$
-/** 
- * CLAROLINE 
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
+/**
+ * CLAROLINE
  *
- * simply produces an HTML textarea. It allows to dynamicaly 
+ * simply produces an HTML textarea. It allows to dynamicaly
  * offers wysiwig editor or not, according the the browser possibilities.
  *
  * @version 1.8 $Revision$
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE   
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/config_def/
  *
@@ -26,15 +27,15 @@
  */
 class Textarea
 {
-    /** 
+    /**
      *@var $areaName content for  attribut name  of <textarea>
      */
     var $areaName, $areaContent;
-    /** 
+    /**
      *@var $standartCols content for  attribut Cols  of <textarea>
      */
     var $standartCols = 30;
-    /** 
+    /**
      *@var $standartRows content for  attribut rows  of <textarea>
      */
     var $standartRows = 30;
@@ -85,7 +86,7 @@ class Textarea
     }
 
 /**
- * Output the text area and adapt the editing possibilites 
+ * Output the text area and adapt the editing possibilites
  * according to the browser. Note : browser identifcation works
  * only with Apache server.
  *
@@ -100,7 +101,7 @@ class Textarea
         if (use_rich_text())
         {
             echo    "<object id=\"richedit\" \n",
-                    "        style=\"background-color: buttonface\" \n", 
+                    "        style=\"background-color: buttonface\" \n",
                     "        data=\"",$urlAppend,"/claroline/rte/richedit.html\" \n",
                     "        width=\"595\" height=\"400\" \n",
                     "        type=\"text/x-scriptlet\" viewastext>\n",

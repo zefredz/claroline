@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -19,17 +19,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE mySQL query wrapper. It allows to send multiple query at once to SQl server in a single string
- * 
+ *
  * @author Guillaume Lederer    <guillaume@claroline.net>,
  * @param  string  $sqlQueries   - the string containing sql queries to apply
- * @return always true 
+ * @return always true
  */
 
 function claro_sql_multi_query($sqlQueries)
 {
    $queryArray = array();
    $mysqlVersion = mysql_get_server_info();
- 
+
    if (PMA_splitSqlFile($queryArray, $sqlQueries, $mysqlVersion))
    {
         foreach ($queryArray as $theQuery)

@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * @package JPSpan
 * @subpackage Unserialzier
@@ -36,7 +37,7 @@ JPSpan_Register_Unserialization_Types();
 */
 class JPSpan_Unserializer {
     /**
-    * Unserialize a string into PHP data types. 
+    * Unserialize a string into PHP data types.
     * @param string data serialized with PHP's serialization protocol
     * @param string encoding (default = 'xml') - how the data is serialized
     * @return mixed PHP data
@@ -57,7 +58,7 @@ class JPSpan_Unserializer {
         }
         return $U->unserialize($data);
     }
-    
+
     /**
     * Register a known class for unserialization
     * Places a value in the global _JPSpan_UNSERIALIZER_MAP variable
@@ -70,7 +71,7 @@ class JPSpan_Unserializer {
     function addType($class, $file = NULL) {
         $GLOBALS['_JPSPAN_UNSERIALIZER_MAP'][strtolower($class)] = $file;
     }
-    
+
 
 }
 

@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /******************************************************************************
  * CLAROLINE
@@ -10,9 +11,6 @@
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLINDEX
  ******************************************************************************/
-
-// Prevent direct reference to the script by external browser
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
 
 if ( ! isset($_uid) ) claro_disp_auth_form();
 
@@ -36,7 +34,7 @@ echo '<ul style="list-style-image:url(claroline/img/course.gif);list-style-posit
 
 foreach($personnalCourseList as $thisCourse)
 {
-    // If the course contains new things to see since last user login, 
+    // If the course contains new things to see since last user login,
     // The course name will be displayed with the 'hot' class style in the list.
     // Otherwise it will name normally be displaied
 

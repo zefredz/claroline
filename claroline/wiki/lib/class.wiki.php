@@ -1,7 +1,8 @@
 <?php // $Id$
-     
+if ( count( get_included_files() ) == 1 ) die( '---' );
+
     // vim: expandtab sw=4 ts=4 sts=4:
-     
+
     /**
      * CLAROLINE
      *
@@ -18,7 +19,7 @@
      *
      * @package Wiki
      */
-     
+
     require_once dirname(__FILE__) . "/class.dbconnection.php";
     require_once dirname(__FILE__) . "/class.wikipage.php";
 
@@ -42,9 +43,9 @@
         var $desc;
         var $accessControlList;
         var $groupId;
-        
+
         var $con;
-        
+
         // default configuration
         var $config = array(
                 'tbl_wiki_pages' => 'wiki_pages',
@@ -56,7 +57,7 @@
         // error handling
         var $error = '';
         var $errno = 0;
-        
+
         /**
          * Constructor
          * @param DatabaseConnection con connection to the database
@@ -69,10 +70,10 @@
                 $this->config = array_merge( $this->config, $config );
             }
             $this->con =& $con;
-            
+
             $this->wikiId = 0;
         }
-        
+
         // accessors
 
         /**
@@ -155,7 +156,7 @@
         {
             $this->wikiId = $wikiId;
         }
-        
+
         /**
          * Set the ID of the Wiki
          * @return int ID of the Wiki
@@ -164,7 +165,7 @@
         {
             return $this->wikiId;
         }
-        
+
         // load and save
 
         /**
@@ -183,7 +184,7 @@
                 $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
             }
         }
-        
+
         /**
          * Load the properties of the Wiki
          * @param int wikiId ID of the Wiki
@@ -199,7 +200,7 @@
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
                 . "WHERE `id` = ". (int) $wikiId
                 ;
-                
+
             $result = $this->con->getRowFromQuery( $sql );
 
             $this->setWikiId( $result['id'] );
@@ -207,7 +208,7 @@
             $this->setDescription( stripslashes( $result['description'] ) );
             $this->setGroupId($result['group_id']);
         }
-        
+
         /**
          * Load the access control list of the Wiki
          * @param int wikiId ID of the Wiki
@@ -225,9 +226,9 @@
                 ;
 
             $result = $this->con->getAllRowsFromQuery( $sql );
-            
+
             $acl = array();
-            
+
             if( is_array( $result ) )
             {
                 foreach ( $result as $row )
@@ -246,9 +247,9 @@
         function save()
         {
             $this->saveProperties();
-            
+
             $this->saveACL();
-            
+
             if ( $this->hasError() )
             {
                 return 0;
@@ -258,7 +259,7 @@
                 return $this->wikiId;
             }
         }
-        
+
         /**
          * Save the access control list of the Wiki
          */
@@ -269,7 +270,7 @@
             {
                 $this->con->connect();
             }
-            
+
 
             $sql = "SELECT `wiki_id` FROM `"
                 . $this->config['tbl_wiki_acls']."` "
@@ -280,7 +281,7 @@
             if ( $this->con->queryReturnsResult( $sql ) )
             {
                 $acl = $this->getACL();
-                    
+
                 foreach ( $acl as $flag => $value )
                 {
                     $value = ( $value == false ) ? 'false' : 'true';
@@ -319,7 +320,7 @@
                 }
             }
         }
-        
+
         /**
          * Save the properties of the Wiki
          */
@@ -330,7 +331,7 @@
             {
                 $this->con->connect();
             }
-            
+
             // new wiki
             if ( $this->getWikiId() === 0 )
             {
@@ -346,7 +347,7 @@
                     . "'" . (int) $this->getGroupId() . "'"
                     . ")"
                     ;
-                    
+
                 // GET WIKIID
                 $this->con->executeQuery( $sql );
 
@@ -367,11 +368,11 @@
                     . "`group_id`='". (int) $this->getGroupId()."' "
                     . "WHERE `id`=" . (int) $this->getWikiId()
                     ;
-                    
+
                 $this->con->executeQuery( $sql );
             }
         }
-        
+
         // utility methods
 
         /**
@@ -395,7 +396,7 @@
 
             return $this->con->queryReturnsResult( $sql );
         }
-        
+
         /**
          * Check if a wiki exists using its title
          * @param string title wiki title
@@ -416,7 +417,7 @@
 
             return $this->con->queryReturnsResult( $sql );
         }
-        
+
         /**
          * Check if a wiki exists usind its ID
          * @param int id wiki ID
@@ -437,7 +438,7 @@
 
             return $this->con->queryReturnsResult( $sql );
         }
-        
+
         /**
          * Get all the pages of this wiki (at this time the method returns
          * only the titles of the pages...)
@@ -450,16 +451,16 @@
             {
                 $this->con->connect();
             }
-            
+
             $sql = "SELECT `title` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
                 . "ORDER BY `title` ASC"
                 ;
-                
+
             return $this->con->getAllRowsFromQuery( $sql );
         }
-        
+
         /**
          * Get all the pages of this wiki (at this time the method returns
          * only the titles of the pages...) ordered by creation date
@@ -472,16 +473,16 @@
             {
                 $this->con->connect();
             }
-            
+
             $sql = "SELECT `title` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
                 . "ORDER BY `ctime` ASC"
                 ;
-                
+
             return $this->con->getAllRowsFromQuery( $sql );
         }
-        
+
         /**
          * Get recently modified wiki pages
          * @param int offset start at given offset
@@ -495,9 +496,9 @@
             {
                 $this->con->connect();
             }
-            
+
             $limit = ($count == 0 ) ? "" : "LIMIT " . $offset . ", " . $count;
-            
+
             $sql = "SELECT `page`.`title`, `page`.`last_mtime`, `content`.`editor_id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` `page`, "
                 . "`".$this->config['tbl_wiki_pages_content']."` `content` "
@@ -506,10 +507,10 @@
                 . "ORDER BY `page`.`last_mtime` DESC "
                 . $limit
                 ;
-                
+
             return $this->con->getAllRowsFromQuery( $sql );
         }
-        
+
         function getNumberOfPages()
         {
             if ( ! $this->con->isConnected() )
@@ -517,17 +518,17 @@
                 $this->con->connect();
             }
 
-            
+
             $sql = "SELECT count( `id` ) as `pages` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `wiki_id` = " . (int) $this->wikiId
                 ;
-                
+
             $result = $this->con->getRowFromQuery( $sql );
-            
+
             return $result['pages'];
         }
-        
+
         // error handling
 
         function setError( $errmsg = '', $errno = 0 )

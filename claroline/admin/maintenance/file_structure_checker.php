@@ -1,5 +1,4 @@
 <?php // $Id$
-
 /**
  * File structure checker : Display difference between list of scripts 
  * on the server and the official claroline archive

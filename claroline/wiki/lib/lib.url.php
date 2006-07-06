@@ -1,7 +1,8 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * CLAROLINE
      *
@@ -36,10 +37,10 @@
         {
             $url .= "?$name=$value";
         }
-        
+
         return $url;
     }
-    
+
     /**
       * add a GET request variable list to the given URL
       * @param string url url
@@ -52,7 +53,7 @@
         {
             $url = add_request_variable_to_url( $url, $name, $value );
         }
-        
+
         return $url;
     }
 ?>

@@ -1,5 +1,4 @@
 <?php // $Id$
-
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
@@ -79,7 +78,7 @@ class RightProfileToolAction
                  FROM `" . $this->tbl['action'] . "` `A`,
                       `" . $this->tbl['course_tool'] . "` `CT`
                  WHERE type = '" . addslashes($this->profile->type) . "'
-                    AND A.tool_id = CT.id 
+                    AND A.tool_id = CT.id
                  ORDER BY CT.def_rank" ;
 
         $actionResult = claro_sql_query_fetch_all($sql);
@@ -91,20 +90,20 @@ class RightProfileToolAction
             $actionName = $action['name'];
             $this->toolActionList[$toolId][$actionName] = false;
         }
-        
+
         // load value of action
         $sql = " SELECT PA.action_id, PA.value, A.tool_id, A.name
                  FROM `" . $this->tbl['rel_profile_action'] . "` `PA`,
                       `" . $this->tbl['action'] . "` `A`
                  WHERE PA.profile_id = " . $this->profile->id . "
-                 AND PA.action_id = A.id 
+                 AND PA.action_id = A.id
                  AND PA.courseId = ''";
 
         $action_list = claro_sql_query_fetch_all($sql);
 
         // load all actions value for the profile
         foreach ( $action_list as $this_action )
-        {   
+        {
             $actionName = $this_action['name'];
             $actionValue = (bool) $this_action['value'];
             $toolId = $this_action['tool_id'];
@@ -136,7 +135,7 @@ class RightProfileToolAction
         foreach ( $this->toolActionList as $toolId => $actionList )
         {
             foreach ( $actionList as $actionName => $actionValue )
-            {            
+            {
                 if ( $actionValue == true ) $actionValue = 1;
                 else                        $actionValue = 0;
 
@@ -147,7 +146,7 @@ class RightProfileToolAction
                 $actionId = $action->getId();
 
                 $sql = "INSERT INTO `" . $this->tbl['rel_profile_action'] . "`
-                        SET profile_id = " . $this->profile->id . ", 
+                        SET profile_id = " . $this->profile->id . ",
                          action_id = " . $actionId . ",
                          value = " . $actionValue . ",
                          courseId = '' ";
@@ -159,7 +158,7 @@ class RightProfileToolAction
 
     /**
      * Set action value of the profile
-     * 
+     *
      * @param integer $tool_id tool identifier
      * @param string $action_name action name
      * @param boolean $value action value
@@ -177,10 +176,10 @@ class RightProfileToolAction
 
     /**
      * Get action value of the profile
-     * 
+     *
      * @param integer $toolId tool identifier
      * @param string $actionName action name
-     * @return boolean 
+     * @return boolean
      */
 
     function getAction($toolId,$actionName)

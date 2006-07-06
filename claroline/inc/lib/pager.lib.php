@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
  /**
   * Pager class allowing to manage the paging system into claroline
@@ -377,7 +378,7 @@ class claro_sql_pager extends claro_pager // implements sortable
      *
      * @param  string sort key
      * @param  int direction (use PHP constant SORT_ASC, SORT_DESC)
-     * @return boolean true if it suceeds, false otherwise (it probably means 
+     * @return boolean true if it suceeds, false otherwise (it probably means
      *                 that the key is already set in the sort sequence
      */
 
@@ -397,7 +398,7 @@ class claro_sql_pager extends claro_pager // implements sortable
 
     /**
      * Set a specificic sorting for the result returned by the query.
-     * Note. If a previous sorting was set, this function erase it and reset 
+     * Note. If a previous sorting was set, this function erase it and reset
      * a new one
      *
      * @param string $key - has to be something understable by the SQL parser.
@@ -411,7 +412,7 @@ class claro_sql_pager extends claro_pager // implements sortable
 
     /**
      * Set multiple sorting for the result returned by the query.
-     * Note. If a previous sorting was set, this function erase it and reste 
+     * Note. If a previous sorting was set, this function erase it and reste
      * a new one.
      *
      * @param array $keyList - each array key are the sort keys

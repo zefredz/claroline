@@ -1,14 +1,14 @@
-<?php # $Id$
-if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /*
  * The INTRODUCTION MICRO MODULE is used to insert and edit
  * an introduction section on a Claroline Module.
- * It can be inserted on any Claroline Module, provided a connection 
+ * It can be inserted on any Claroline Module, provided a connection
  * to a course Database is already active.
  *
- * The introduction content are stored on a table called "introduction" 
- * in the course Database. Each module introduction has an Id stored on 
+ * The introduction content are stored on a table called "introduction"
+ * in the course Database. Each module introduction has an Id stored on
  * the table. It is this id that can make correspondance to a specific module.
  *
  * 'introduction' table description
@@ -23,14 +23,14 @@ if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
  */
 
 // New trable sructure for intro section v2
-// 
+//
 // CREATE TABLE `c_ctc01_tool_intro` (
 //   `id` int(11) NOT NULL auto_increment,
 //   `content` text,
 //   `rank` int(11) default NULL,
 //   PRIMARY KEY  (`id`)
 // ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
-        
+
 
 require_once $clarolineRepositorySys . 'linker/linker.inc.php';
 
@@ -76,10 +76,10 @@ if ($intro_editAllowed)
 
             $intro_content = trim($_REQUEST['intro_content']);
 
-            $sql = "INSERT INTO `" . $TBL_INTRODUCTION . "` 
+            $sql = "INSERT INTO `" . $TBL_INTRODUCTION . "`
                     SET content = '" . addslashes($intro_content) . "',
                         rank = " . (int) $nextRank;
-           
+
            $introId = claro_sql_query_insert_id($sql);
 
            if ( $introId )
@@ -99,7 +99,7 @@ if ($intro_editAllowed)
 
         if ( ! empty($intro_content) )
         {
-            $sql = "UPDATE `" . $TBL_INTRODUCTION . "` 
+            $sql = "UPDATE `" . $TBL_INTRODUCTION . "`
                     SET   `content` = '" . addslashes($intro_content) . "'
                     WHERE `id` = ".(int)$introId;
 
@@ -114,7 +114,7 @@ if ($intro_editAllowed)
              // unsucceed
            }
         }
-        else 
+        else
         {
             $introCmd = 'exDel';    // got to the delete command
         }
@@ -122,7 +122,7 @@ if ($intro_editAllowed)
 
     if ($introCmd == 'rqEd')
     {
-    	$sql = "SELECT `id`, `content` 
+    	$sql = "SELECT `id`, `content`
                 FROM `" . $TBL_INTRODUCTION . "`
                 WHERE `id` = ".(int)$_REQUEST['introId'];
 
@@ -130,7 +130,7 @@ if ($intro_editAllowed)
 
        if (isset($introSettingList[0])) $introSettingList = $introSettingList[0];
        else                             $introSettingList = false;
-    
+
     }
 
 
@@ -138,7 +138,7 @@ if ($intro_editAllowed)
 
     if( $introCmd == 'exDel')
     {
-        $sql = "DELETE FROM `" . $TBL_INTRODUCTION . "` 
+        $sql = "DELETE FROM `" . $TBL_INTRODUCTION . "`
                 WHERE `id` = '" . $_REQUEST['introId'] . "'";
 
         if ( claro_sql_query($sql) != false )
@@ -171,7 +171,7 @@ if ($intro_editAllowed)
 
         if ( $currentEntryRank !== false)
         {
-            $sql = "SELECT id, rank 
+            $sql = "SELECT id, rank
                     FROM `". $TBL_INTRODUCTION ."`
                     WHERE rank ". $operator ." " . $currentEntryRank . "
                     ORDER BY rank ". $sortDirection . " LIMIT 1";
@@ -248,7 +248,7 @@ if ($intro_dispForm)
         if(isset($_REQUEST['introId'])) linker_set_display($_REQUEST['introId'], 'CLINTRO_', 'introId');
         else                       linker_set_display(false, 'CLINTRO_');
 
-        
+
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">'."\n";
     }
 
@@ -262,7 +262,7 @@ if ($intro_dispForm)
 if ($intro_dispDefault)
 {
     $sql = "SELECT `id`, `rank`, `content`
-            FROM `" . $TBL_INTRODUCTION . "` 
+            FROM `" . $TBL_INTRODUCTION . "`
             ORDER BY rank ASC";
 
     $textIntroList = claro_sql_query_fetch_all($sql);
@@ -272,7 +272,7 @@ if ($intro_dispDefault)
     if ( $introListCount == 0 )
     {
         echo '<div class="HelpText">' . "\n"
-        .    $helpAddIntroText        . "\n" 
+        .    $helpAddIntroText        . "\n"
         .    '</div>'                 . "\n";
     }
     else
@@ -281,15 +281,15 @@ if ($intro_dispDefault)
         {
             $introId       = $thisTextIntro['id'];
             $intro_content = claro_parse_user_text($thisTextIntro['content']);
-            
+
             echo '<div class="claroIntroSection">' . "\n";
-            
+
             if( trim(strip_tags($intro_content,'<img>')) != '' ) // no need to display a div for an empty string
             {
-                
+
                 echo $intro_content . "\n";
             }
-            
+
             linker_display_resource('CLINTRO_');
 
 
@@ -301,9 +301,9 @@ if ($intro_dispDefault)
                 .       '?introCmd=rqEd&introId='.$introId.'">'
                 .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Ok') . '" border="0">'
                 .    '</a>' . "\n"
-                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] 
-                .      '?introCmd=exDel&introId='.$introId.'" ' 
-                .      'onclick="javascript:if(!confirm(\'' 
+                .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+                .      '?introCmd=exDel&introId='.$introId.'" '
+                .      'onclick="javascript:if(!confirm(\''
                 .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
                 .      'return false;">'
                 .    '<img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0">'

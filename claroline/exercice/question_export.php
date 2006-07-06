@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /*
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6                                                        |
@@ -17,10 +18,10 @@
 /*
     Some quick notes on identifiers generation.
     The IMS format requires some blocks, like items, responses, feedbacks, to be uniquely
-    identified. 
+    identified.
     The unicity is mandatory in a single XML, of course, but it's prefered that the identifier stays
     coherent for an entire site.
-    
+
     Here's the method used to generate those identifiers.
     Question identifier :: "QST_" + <Question Id from the DB> + "_" + <Question numeric type>
     Response identifier :: <Question identifier> + "_A_" + <Response Id from the DB>
@@ -49,12 +50,12 @@ define('TRUEFALSE',           5);
   --------------------------------------------------------*/
 
 /**
- * An IMS/QTI item. It corresponds to a single question. 
+ * An IMS/QTI item. It corresponds to a single question.
  * This class allows export from Claroline to IMS/QTI XML format.
  * It is not usable as-is, but must be subclassed, to support different kinds of questions.
  *
  * Every start_*() and corresponding end_*(), as well as export_*() methods return a string.
- * 
+ *
  * @warning Attached files are NOT exported.
  * @author Amand Tihon <amand@alrj.org>
  */
@@ -76,7 +77,7 @@ class ImsItem
         $this->answer = new Answer($question->selectId());
         $this->question_ident = "QST_" . $question->selectId() . "_" . $question->selectType();
      }
-     
+
      /**
       * Start the XML flow.
       *
@@ -88,7 +89,7 @@ class ImsItem
       {
         return '<item title="' . htmlspecialchars($this->question->selectTitle()) . '" ident="' . $this->question_ident . '">' . "\n";
       }
-      
+
       /**
        * End the XML flow, closing the </item> tag.
        *
@@ -98,7 +99,7 @@ class ImsItem
       {
         return "</item>\n";
       }
-     
+
      /**
       * Create the opening, with the question itself.
       *
@@ -112,7 +113,7 @@ class ImsItem
         return '<presentation label="' . $this->question_ident . '"><flow>' . "\n"
              . '<material><mattext><![CDATA[' . $this->question->selectDescription() . "]]></mattext></material>\n";
      }
-     
+
      /**
       * End the </presentation> part, opened by export_header.
       *
@@ -122,17 +123,17 @@ class ImsItem
      {
         return "</flow></presentation>\n";
      }
-     
+
      /**
       * Start the response processing, and declare the default variable, SCORE, at 0 in the outcomes.
-      * 
+      *
       * @author Amand Tihon <amand@alrj.org>
       */
      function start_processing()
      {
         return '<resprocessing><outcomes><decvar vartype="Integer" defaultval="0" /></outcomes>' . "\n";
      }
-     
+
      /**
       * End the response processing part.
       *
@@ -142,10 +143,10 @@ class ImsItem
      {
         return "</resprocessing>\n";
      }
-     
+
      /**
       * Export the feedback (comments to selected answers) to IMS/QTI
-      * 
+      *
       * @author Amand Tihon <amand@alrj.org>
       */
      function export_feedback()
@@ -163,7 +164,7 @@ class ImsItem
         }
         return $out;
      }
-     
+
      /**
       * Export the question as an IMS/QTI Item.
       *
@@ -184,7 +185,7 @@ class ImsItem
             $foot = "</questestinterop>\n";
         }
         return $head
-               . $this->start_item() 
+               . $this->start_item()
                 . $this->start_presentation()
                     . $this->export_responses()
                 . $this->end_presentation()
@@ -194,7 +195,7 @@ class ImsItem
                 . $this->export_feedback()
                . $this->end_item()
               . $foot;
-     }     
+     }
 }
 
 
@@ -207,7 +208,7 @@ class ImsItem
 class ImsSingle extends ImsItem
 {
     /**
-     * Return the XML flow for the possible answers. 
+     * Return the XML flow for the possible answers.
      * That's one <response_lid>, containing several <flow_label>
      *
      * @author Amand Tihon <amand@alrj.org>
@@ -216,40 +217,40 @@ class ImsSingle extends ImsItem
     {
         // Opening of the response block.
         $out = '<response_lid ident="MCS_' . $this->question_ident . '" rcardinality="Single" rtiming="No"><render_choice shuffle="No">' . "\n";
-        
+
         // Loop over answers
         for ($i = 1; $i <= $this->answer->selectNbrAnswers(); $i++)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
-            
+
             $out.= '  <flow_label><response_label ident="' . $response_ident . '"><flow_mat class="list"><material>' . "\n"
                 . '    <mattext><![CDATA[' . $this->answer->selectAnswer($i) . "]]></mattext>\n"
                 . "  </material></flow_mat></response_label></flow_label>\n";
         }
         $out.= "</render_choice></response_lid>\n";
-        
+
         return $out;
     }
-    
+
     /**
-     * Return the XML flow of answer processing : a succession of <respcondition>. 
+     * Return the XML flow of answer processing : a succession of <respcondition>.
      *
      * @author Amand Tihon <amand@alrj.org>
      */
     function export_processing()
     {
         $out = '';
-        
+
         for ($i = 1; $i <= $this->answer->selectNbrAnswers(); $i++)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
             $feedback_ident = $this->question_ident . "_F_" . $i;
             $condition_ident = $this->question_ident . "_C_" . $i;
-            
+
             $out.= '<respcondition title="' . $condition_ident . '"><conditionvar>' . "\n"
                 . '  <varequal respident="MCS_' . $this->question_ident . '">' . $response_ident . '</varequal>' . "\n"
                 . "  </conditionvar>\n" . '  <setvar action="Add">' . $this->answer->weighting[$i] . "</setvar>\n";
-                
+
             // Only add references for actually existing comments/feedbacks.
             if ($this->answer->comment[$i])
             {
@@ -270,7 +271,7 @@ class ImsSingle extends ImsItem
 class ImsMulti extends ImsItem
 {
     /**
-     * Return the XML flow for the possible answers. 
+     * Return the XML flow for the possible answers.
      * That's several <flow_label> in a <render_choice>
      *
      * @author Amand Tihon <amand@alrj.org>
@@ -280,37 +281,37 @@ class ImsMulti extends ImsItem
         // Open the response block
         $out = '<response_lid ident = "MCM_' . $this->question_ident . '" rcardinality = "Multiple" rtiming = "No">' . "\n"
              . '<render_choice shuffle = "No" minnumber = "1" maxnumber = "' . $this->answer->selectNbrAnswers() . '">' . "\n";
-             
+
         // Loop over possible answers
         for ($i = 1; $i <= $this->answer->selectNbrAnswers(); $i++)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
-            
+
             $out.= '  <flow_label><response_label ident="' . $response_ident . '"><material>' . "\n"
                  . '    <mattext><![CDATA[' . $this->answer->selectAnswer($i) . "]]></mattext>\n"
                  . "  </material></response_label></flow_label>\n";
         }
-        
+
         $out.= "</render_choice></response_lid>\n";
-        
+
         return $out;
     }
-    
+
     /**
-     * Return the XML flow of answer processing : a succession of <respcondition>. 
+     * Return the XML flow of answer processing : a succession of <respcondition>.
      *
      * @author Amand Tihon <amand@alrj.org>
      */
     function export_processing()
     {
         $out = "";
-        
+
         for ($i = 1; $i <= $this->answer->selectNbrAnswers(); $i++)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
             $feedback_ident = $this->question_ident . "_F_" . $i;
             $condition_ident = $this->question_ident . "_C_" . $i;
-            
+
             $out.= '<respcondition title="' . $condition_ident . '" continue="Yes"><conditionvar>' . "\n"
                 . '  <varequal respident="MCM_' . $this->question_ident . '">' . $response_ident . '</varequal>' . "\n"
                 . "  </conditionvar>\n" . '  <setvar action="Add">' . $this->answer->weighting[$i] . "</setvar>\n";
@@ -335,7 +336,7 @@ class ImsFIB extends ImsItem
 {
     var $word;
     var $weighting;
-    
+
     /**
      * Export the text with missing words.
      *
@@ -347,12 +348,12 @@ class ImsFIB extends ImsItem
     function export_responses()
     {
         global $charset;
-    
+
         $out = "<flow>\n";
-        
+
         // Separate the text from the weightings.
         list($response, $weighting) = explode('::', $this->answer->selectAnswer(1));
-        
+
         // Save the weightings for later
         $this->weighting = explode(',',$weighting);
 
@@ -361,7 +362,7 @@ class ImsFIB extends ImsItem
         foreach($responsePart as $part)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
-        
+
             if( strpos($part,'[') !== false )
             {
                 list($rawText, $blank) = explode('[', $part);
@@ -376,7 +377,7 @@ class ImsFIB extends ImsItem
             {
                 $out.="  <material><mattext><![CDATA[" . $rawText . "]]></mattext></material>\n";
             }
-            
+
             if ($blank!="")
             {
                 $this->word[] = $blank;
@@ -391,9 +392,9 @@ class ImsFIB extends ImsItem
         $out.="</flow>\n";
 
         return $out;
-        
+
     }
-    
+
     /**
      * Exports the response processing.
      *
@@ -405,7 +406,7 @@ class ImsFIB extends ImsItem
     function export_processing()
     {
         $out = "";
-        
+
         for ($i=0; $i < count($this->word); $i++)
         {
             $response_ident = $this->question_ident . "_A_" . $i;
@@ -463,10 +464,10 @@ class ImsMatching extends ImsItem
                 $out.= "</flow_label></render_choice></response_lid>\n";
             }
         }
-        
-       return $out; 
+
+       return $out;
     }
-    
+
     /**
      * Export the response processing part
      * @author Amand Tihon <amand@alrj.org>
@@ -496,7 +497,7 @@ class ImsMatching extends ImsItem
 
 /**
  * Returns the XML flow corresponding to one question
- * 
+ *
  * @param int The question ID
  * @param bool standalone (ie including XML tag, DTD declaration, etc)
  * @author Amand Tihon <amand@alrj.org>
