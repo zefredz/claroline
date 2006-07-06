@@ -41,7 +41,7 @@ function claro_html_menu_vertical($itemList, $attrBloc=array(),$attrItem=array()
     $itemAttrString = '';
     foreach ($attrItem as $attrName => $attrValue) $itemAttrString .= ' ' . $attrName . '="' . $attrValue . '"';
 
-    if (is_array($itemList)&&count($itemList))
+    if (! empty($itemList) && is_array($itemList))
     {
         $htmlStream = '<ul class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
         foreach($itemList as $item )
@@ -77,7 +77,7 @@ function claro_html_menu_vertical_br($itemList, $attrBloc=array())
 
     $htmlStream = '<div class="menu vmenu ' . $classBlocAttr . '" ' . $otherBlocAttrString . '>' . "\n";
 
-    if (is_array($itemList)&&count($itemList))
+    if (! empty($itemList) && is_array($itemList))
     {
             $htmlStream .= implode('<br />' . "\n",$itemList );
     }
@@ -97,7 +97,7 @@ function claro_html_menu_vertical_br($itemList, $attrBloc=array())
 
 function claro_html_menu_horizontal($itemList)
 {
-    if( is_array($itemList) && !empty($itemList) )
+    if( !empty($itemList) && is_array($itemList))
     {
         return "\n\n"
         . '<p><nobr>'
