@@ -79,7 +79,7 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.javascript.php";
     require_once "lib/lib.wikidisplay.php";
-    
+
     // PHP 5 to PHP 4 compatibility library
     // file_put_contents
     require_once "lib/lib.compat.php";
@@ -195,7 +195,7 @@
         case 'exExport':
         {
             require_once "lib/class.wiki2xhtmlexport.php";
-            
+
             if ( ! $wikiStore->wikiIdExists( $wikiId ) )
             {
                 // die( get_lang("Invalid Wiki Id") );
@@ -207,9 +207,9 @@
                 $wiki = $wikiStore->loadWiki( $wikiId );
                 $wikiTitle = $wiki->getTitle();
                 $renderer = new WikiToSingleHTMLExporter( $wiki );
-                
+
                 $contents = $renderer->export();
-                
+
                 if ( 0 != $groupId )
                 {
                     $groupPart = '_group' . (int) $groupId;
@@ -218,27 +218,27 @@
                 {
                     $groupPart = '';
                 }
-                
+
                 require_once get_conf( 'includePath' ) . '/lib/fileUpload.lib.php';
-                
+
                 $exportDir = get_conf('coursesRepositorySys') . '/' . $_course['path'].'/document';
                 $exportFile = replace_dangerous_char( $wikiTitle, 'strict' ) . $groupPart;
-                
+
                 $i = 1;
                 while ( file_exists($exportDir . '/' .$exportFile.'_'.$i.'.html') ) $i++;
-                
+
                 $wikiFileName = $exportFile . '_' . $i . '.html';
                 $exportPath = $exportDir . '/' . $wikiFileName;
-                
+
                 file_put_contents( $exportPath, $contents );
             }
-            
+
             break;
         }
         case 'exSearch':
         {
             require_once "lib/class.wikisearchengine.php";
-            
+
             $pattern = isset( $_REQUEST['searchPattern'] )
                 ? trim($_REQUEST['searchPattern'])
                 : null
@@ -542,22 +542,22 @@
         }
         case 'exExport':
         {
-            echo '<blockquote>' 
+            echo '<blockquote>'
                 . get_lang( "Wiki %TITLE% exported to course documents. (this file is visible)"
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
                 . '<p>'
-                . '<a class="claroCmd" href="../document/document.php?gidReset=1">' 
-                . get_lang("Go to documents tool") 
+                . '<a class="claroCmd" href="../document/document.php?gidReset=1">'
+                . get_lang("Go to documents tool")
                 .'</a>'
                 . '&nbsp;|&nbsp;'
-                . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '">' 
-                . get_lang("Go back to Wiki list") 
+                . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '">'
+                . get_lang("Go back to Wiki list")
                 .'</a>'
                 . '</p>'
                 . "\n"
                 ;
-            
+
             break;
         }
         // edit form
@@ -750,7 +750,7 @@
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
-                        
+
                         if ( true === $is_allowedToAdmin )
                         {
                             echo '<td style="text-align:center;">';
@@ -769,7 +769,7 @@
                     if ( ! empty( $entry['description'] ) )
                     {
                         echo '<tr>' . "\n";
-                        
+
                         if ( $groupId && $is_groupMember )
                         {
                             $colspan = 5;
@@ -808,7 +808,7 @@
                 {
                     $colspan = 3;
                 }
-                        
+
                 echo '<tr><td colspan="'.$colspan.'" style="text-align: center;">'
                  . get_lang("No Wiki")
                  . '</td></tr>' . "\n"

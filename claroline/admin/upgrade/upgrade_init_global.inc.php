@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline

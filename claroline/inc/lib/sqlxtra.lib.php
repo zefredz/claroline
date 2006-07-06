@@ -1,4 +1,5 @@
 <?php
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -15,8 +16,9 @@
  */
 
 
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * Claroline mySQL query wrapper. It allows to send multiple query at once to SQl server in a single string
+ * CLAROLINE mySQL query wrapper. It allows to send multiple query at once to SQl server in a single string
  * 
  * @author Guillaume Lederer    <guillaume@claroline.net>,
  * @param  string  $sqlQueries   - the string containing sql queries to apply
