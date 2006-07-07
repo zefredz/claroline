@@ -62,8 +62,8 @@ if(!class_exists('ScormExport')):
 include_once(dirname(__FILE__)."/../../inc/lib/fileUpload.lib.php");
 include_once(dirname(__FILE__)."/../../inc/lib/pclzip/pclzip.lib.php");
 
-require_once('../exercise/lib/exercise.class.php');
-require_once('../exercise/export/scorm/scorm_classes.php');
+require_once('../../exercise/lib/exercise.class.php');
+require_once('../../exercise/export/scorm/scorm_classes.php');
 
 include_once $includePath . '/lib/htmlxtra.lib.php';
 include_once $includePath . '/lib/form.lib.php';
