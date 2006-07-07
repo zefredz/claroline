@@ -675,8 +675,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
                       ctl.visibility            AS visibility    ,
                       pct.icon                  AS icon          ,
                       pct.access_manager        AS access_manager,
-                      CONCAT('".$clarolineRepositoryWeb."', pct.script_url)
-                                                AS url
+                      pct.script_url            AS url
 
                    FROM `".$_course['dbNameGlu']."tool_list` ctl,
                     `".$tbl_tool."`  pct

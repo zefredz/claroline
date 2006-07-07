@@ -96,7 +96,7 @@ function check_module_repositories()
     {
         $moduleData = get_module_info($registredModule);
         $moduleRepositorySys = get_conf('rootSys') . 'module/';
-        $moduleEntry = realpath($moduleRepositorySys . $registredModule . $moduleData['script_url']);
+        $moduleEntry = realpath(get_module_url($moduleData['label']) . $moduleData['script_url']);
 
         if(!file_exists($moduleEntry))
         {
@@ -791,9 +791,6 @@ function startElement($parser, $name, $attributes)
 
     switch ($current_element)
     {
-        case 'ENTRY':
-            $module_info['ENTRY'] =  $attributes['VALUE'];
-            break;
 
         case 'DEFAULT_DOCK' :
             $module_info['DEFAULT_DOCK'][] = $attributes['VALUE'];
@@ -853,6 +850,10 @@ function elementData($parser,$data)
 
         case 'LABEL':
             $module_info['LABEL'] = $data;
+            break;
+
+        case 'ENTRY':
+            $module_info['ENTRY'] = $data;
             break;
 
         case 'LICENSE':
@@ -1112,6 +1113,14 @@ function register_module_core($module_info)
     {
         $script_url = $module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH'];
     }
+    elseif (isset($module_info['CONTEXT']['COURSE']['ENTRY']))
+    {
+        $script_url = $module_info['CONTEXT']['COURSE']['ENTRY'];
+    }
+    elseif (isset($module_info['ENTRY']))
+    {
+        $script_url = $module_info['ENTRY'];
+    }
     else
     {
         $script_url = 'entry.php';
@@ -1152,8 +1161,8 @@ function register_module_tool($moduleId,$moduleToolData)
         //        trigger_error($entry . 'not found', E_USER_WARNING);
         //    }
         $sql = "INSERT INTO `" . $tbl['module_tool'] . "`
-            SET module_id = " . (int) $moduleId . ",
-                icon      = " . $icon  ;
+                SET module_id = " . (int) $moduleId . ",
+                    icon      = " . $icon  ;
         $module_inserted_id = claro_sql_query_insert_id($sql);
 
         return $module_inserted_id;

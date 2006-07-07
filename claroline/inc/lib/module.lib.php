@@ -147,14 +147,14 @@ function claro_install_module($tool_label, $context, $contextData)
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_enable_module($claro_label, $context, $contextId)
+function claro_enable_module($claroLabel, $context, $contextId)
 {
     if (CLARO_CONTEXT_COURSE == $context)
     {
-        $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextId));
-        $moduleDataList = get_module_data($claro_label);
+        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextId));
+        $moduleDataList = get_module_data($claroLabel);
         $sql_insert = "
-                        INSERT INTO `" . $tbl_cdb_names['tool'] . "`
+                        INSERT INTO `" . $tbl['tool'] . "`
                         SET tool_id = '" . $moduleDataList['id'] . "',
                             rank    = '" . $moduleDataList['def_rank'] . "',
                             access  = '" . $moduleDataList['def_access'] . "'";
@@ -354,10 +354,54 @@ function claro_get_conf_dir($configCode)
 
 }
 
-function get_module_entry($moduleId)
+function get_module_entry($claroLabel)
 {
-    $moduleData = get_module_data($moduleId);
+    $moduleData = get_module_data($claroLabel);
     return $moduleData['entry'];
 
 }
+
+/**
+ * return the complete path to the entry of an module.
+ *
+ * @param string $claroLabel
+ * @return string
+ */
+function get_module_entry_url($claroLabel)
+{
+    $moduleData = get_module_data($claroLabel);
+    return get_module_url($claroLabel) . '/' . $moduleData['entry'];
+}
+
+function get_module_data($claroLabel, $ignoreCache=false)
+{
+    static $cachedModuleDataList = null;
+    if ($ignoreCache || is_null($cachedModuleDataList) || ! array_key_exists($claroLabel,$cachedModuleDataList))
+    {
+        $tbl = claro_sql_get_tbl(array('module', 'course_tool', 'module_tool'));
+        $sql = "SELECT M.`label`      AS label,
+                   M.`id`         AS id,
+                   M.`name`       AS moduleName,
+                   M.`activation` AS activation,
+                   M.`type`       AS type,
+                   M.`script_url` AS entry,
+                   MT.`icon`      AS icon,
+                   'm',M.*,
+                   'mt',Mt.*,
+                   'ct',ct.*
+
+
+
+        FROM `" . $tbl['module'] . "` AS M
+        LEFT JOIN `" . $tbl['module_tool'] . "` AS MT
+            ON MT.`module_id`= M.id
+        LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
+            ON CT.`claro_label`= M.label
+
+        WHERE  M.`label` = '" . addslashes($claroLabel) . "'";
+        $cachedModuleDataList[$claroLabel] = claro_sql_query_get_single_row($sql);
+    }
+    return $cachedModuleDataList[$claroLabel];
+}
+
 ?>

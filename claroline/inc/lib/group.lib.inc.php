@@ -581,7 +581,6 @@ function get_group_tool_list($course_id=NULL,$active = true)
     // managing by module structure
     // It's represent tools aivailable to work in a group context.
 
-
     $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
 
     $sql = "
@@ -617,6 +616,7 @@ ORDER BY tl.rank
             case 'CLDOC' :
                 if($_groupProperties['tools']['document'] || $isAllowedToEdit)
                 {
+
                     $group_tool_list[] = $tool;
                 }
                 break;
@@ -625,7 +625,7 @@ ORDER BY tl.rank
 
                 if($_groupProperties['tools']['forum'] || $isAllowedToEdit)
                 {
-                    $tool['url'] = 'phpbb/viewforum.php?forum=' . $forumId ;
+                    $tool['url'] = 'viewforum.php?forum=' . $forumId ;
                     $group_tool_list[] = $tool;
                 }
 

@@ -199,7 +199,12 @@ function claro_get_course_path($cid=NULL)
  * @return array list of localised name of tools
  * @todo with plugin, this lis would be read in a dynamic datasource
  */
-function claro_get_tool_name_list($active = true)
+function claro_get_tool_name_list()
+{
+    return claro_get_module_name_list();
+}
+
+function claro_get_module_name_list($active = true)
 {
     static $toolNameList;
 
@@ -294,14 +299,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
         $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
         $tbl_course_tool_list = $tbl_cdb_names['tool'];
 
-        if ( $active )
-        {
-            $deactivatedSQL = " AND m.activation = 'activated' ";
-        }
-        else
-        {
-            $deactivatedSQL = '';
-        }
+        $deactivatedSQL = ( $active ) ? " AND m.activation = 'activated' " :"";
 
         /*
          * Search all the tool corresponding to this access levels
@@ -309,7 +307,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
 
         // find module or claroline existing tools
 
-        $sql = "SELECT DISTINCT ctl.id             AS id,
+        $sql = "SELECT DISTINCT ctl.id            AS id,
                       pct.id                      AS tool_id,
                       pct.claro_label             AS label,
                       ctl.script_name             AS external_name,
@@ -383,47 +381,57 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
 
 function claro_get_tool_name ( $identifier )
 {
-    static $cachedToolIdList = null ;
+    return claro_get_module_name($identifier);
+}
 
+function claro_get_module_name ( $identifier )
+{
+    static $cachedModuleIdList = null ;
     if ( is_numeric($identifier) )
     {
         // identifier is a tool_id
-        if ( ! $cachedToolIdList )
+        if ( ! $cachedModuleIdList )
         {
-            $tbl_mdb_names = claro_sql_get_main_tbl();
-            $tbl_tool_list = $tbl_mdb_names['tool'];
+            $tbl = claro_sql_get_main_tbl();
 
-            $sql = "SELECT id, claro_label
-                    FROM `" . $tbl_tool_list . "`";
+            $sql = "SELECT id      AS toolId,
+                       claro_label AS claroLabel
+                    FROM `" . $tbl['tool'] . "`";
 
-            $result = claro_sql_query_fetch_all($sql);
+            $moduleList = claro_sql_query_fetch_all($sql);
 
-            foreach ($result as $row)
+            foreach ($moduleList as $thisModule)
             {
-                $tool_id = $row['id'];
-                $claro_label =  $row['claro_label'];
-                $cachedToolIdList[$tool_id] = $claro_label;
+                $toolId = $thisModule['toolId'];
+                $claroLabel =  $thisModule['claroLabel'];
+                $cachedModuleIdList[$toolId] = $claroLabel;
             }
         }
         // get tool label of the tool
-        $tool_label = $cachedToolIdList[$identifier];
+        $toolLabel = $cachedModuleIdList[$identifier];
     }
     else
     {
         // identifier is a tool label
-        $tool_label = $identifier;
+        $toolLabel = $identifier;
     }
 
     $toolNameList = claro_get_tool_name_list();
 
-    if ( isset($toolNameList[$tool_label]) )
+    if ( isset($toolNameList[$toolLabel]) )
     {
-        return $toolNameList[$tool_label];
+        return $toolNameList[$toolLabel];
     }
-    else
+
+    if ( isset($toolNameList[$toolLabel]) )
     {
-       return get_lang('No tool name') ;
+
+        $moduleData = get_module_data($toolLabel);
+        if (is_array($moduleData))
+        return  get_lang($moduleData['moduleName']);
     }
+
+    return get_lang('No tool name') ;
 
 }
 

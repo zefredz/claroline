@@ -1037,7 +1037,7 @@ function delete_all_post_in_forum($forumId)
     $tbl_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
     $sql = "SELECT post_id FROM `".$tbl_posts."`
-            WHERE forum_id = '" . (int) $forumId . "'";
+            WHERE forum_id = " . (int) $forumId;
 
     $postIdList = claro_sql_query_fetch_all_cols($sql);
     $postIdList = $postIdList['post_id'];

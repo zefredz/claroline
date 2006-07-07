@@ -7,7 +7,7 @@
   <type>tool</type>
 
   <web>http://www.claroline.net/wiki/CLCHT/</web>
-
+  <entry>chat.php</entry>
   <description>
   <![CDATA[
      This  tool  is an  original tool of claroline
@@ -28,24 +28,5 @@
       </configuration>
     </claroline>
  </requirements>
- <context>
-   <course file="kernel"
-           enabling="automatic"
-           default_access="all"
-           access_manager="platform_admin" >
-    <link target="commonToolList"
-          path="chat/chat.php" />
-    <link target="toolSelectBox"
-          path="chat/chat.php" />
-  </course>
-   <group file="kernel"
-          enabling="automatic"
-          default_access="all"
-          access_manager="platform_admin" >
-    <link target="commonToolList"
-          path="chat/chat.php" />
-  </group>
-
- </context>
 
 </module>

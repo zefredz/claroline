@@ -6,7 +6,7 @@
   <icon>forum.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLFRM/</web>
-
+  <entry>index.php</entry>
   <description>
   <![CDATA[
      This tool is an  original tool of claroline
@@ -27,23 +27,5 @@
       </configuration>
     </claroline>
  </requirements>
- <context>
-  <course database="kernel"
-          enabling="automatic"
-          default_access="all"
-          access_manager="platform_admin" >
-    <link target="commonToolList"
-          path="phpbb/index.php" />
-    <link target="toolSelectBox"
-          path="phpbb/index.php" />
-  </course>
-   <group database="module"
-          enabling="automatic"
-          default_access="course_member"
-          access_manager="platform_admin">
-    <link target="commonToolList"
-          path="phpbb/index.php" />
-   </group>
- </context>
 
 </module>

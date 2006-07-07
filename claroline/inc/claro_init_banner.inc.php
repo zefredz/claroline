@@ -187,7 +187,8 @@ if (is_array($_courseToolList) && $is_courseAllowed)
 
             if (isset($_courseToolData['url']))
             {
-
+                if (!empty($_courseToolData['label']))
+                $_courseToolData['url'] = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['url'];
                 // reset group to access course tool
 
                 $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
