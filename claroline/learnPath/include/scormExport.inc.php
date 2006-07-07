@@ -62,8 +62,8 @@ if(!class_exists('ScormExport')):
 include_once(dirname(__FILE__)."/../../inc/lib/fileUpload.lib.php");
 include_once(dirname(__FILE__)."/../../inc/lib/pclzip/pclzip.lib.php");
 
-require_once('../../exercise/lib/exercise.class.php');
-require_once('../../exercise/export/scorm/scorm_classes.php');
+require_once(dirname(__FILE__).'/../../exercise/lib/exercise.class.php');
+require_once(dirname(__FILE__).'/../../exercise/export/scorm/scorm_classes.php');
 
 include_once $includePath . '/lib/htmlxtra.lib.php';
 include_once $includePath . '/lib/form.lib.php';
@@ -516,7 +516,127 @@ class ScormExport
 
         return true;
     }
+    
+    /**
+     * Create the frame file that'll hold the document. This frame is supposed to
+     * set the SCO's status
+     * @param $filename string: the name of the file to create, absolute.
+     * @param $targetPath string: The actual document path, relative to the scorm
+     * @return False on error, true otherwise.
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function createFrameFile($fileName, $targetPath)
+    {
 
+        if ( !($f = fopen($fileName, 'w')) )
+        {
+            $this->error[] = get_lang('Unable to create frame file');
+            return false;
+        }
+
+        fwrite($f, '<html><head>
+<script src="APIWrapper.js" type="text/javascript" language="JavaScript"></script>
+<title>Default Title</title>
+</head>
+<frameset border="0" rows="100%,*" onload="immediateComplete()">
+<frame src="' . $targetPath . '" scrolling="auto">
+<frame src="SCOFunctions.js">
+</frameset>
+</html>');
+        fclose($f);
+
+        return true;
+    }
+
+    /**
+     * Create a simple <metadata>
+     *
+     *
+     * @param $title The resource title
+     * @param $description The resource description
+     * @return A string containing the metadata block.
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function makeMetaData($title, $description)
+    {
+        if ( empty($title) and empty($description) ) return '<metadata />';
+
+        $out = '<metadata>
+<imsmd:lom>
+    <imsmd:general>';
+
+        if (!empty($title))
+        {
+        $out .= '
+        <imsmd:title>
+            <imsmd:langstring>' . htmlspecialchars($title) . '</imsmd:langstring>
+        </imsmd:title>';
+        }
+
+        if (!empty($description))
+        {
+        $out .= '
+        <imsmd:description>
+            <imsmd:langstring>' . htmlspecialchars($description) . '</imsmd:langstring>
+        </imsmd:description>';
+        }
+
+        $out .= '
+    </imsmd:general>
+</imsmd:lom>
+</metadata>';
+
+        return $out;
+    }
+    
+    /**
+     * Recursive function to deal with the tree representation of the items
+     *
+     * @param $itemlist the subtree to build
+     * @param $depth indentation level. Is it really useful ?
+     * @return the (sub-)tree representation
+     * @author Amand Tihon <amand@alrj.org>
+     */
+    function createItemList($itemlist, $depth=0)
+    {
+        $out = "";
+        $ident = "";
+        for ($i=0; $i<$depth; $i++) $ident .= "    ";
+        foreach ($itemlist as $item)
+        {
+            $out .= $ident . '<item identifier="I_'.$item['ID'].'" isvisible="true" ';
+            if ( $item['contentType'] != 'LABEL' )
+            {
+                $out .= 'identifierref="R_' . $item['ID'] . '" ';
+            }
+            $out .= '>' . "\n";
+            $out .= $ident . '    <title>'.htmlspecialchars($item['name']).'</title>' . "\n";
+
+            // Check if previous was blocking
+            if (!empty($this->blocking) && ($item['contentType'] != 'LABEL'))
+            {
+                $out .= '        <adlcp:prerequisites type="aicc_script"><![CDATA[I_'.$this->blocking.']]></adlcp:prerequisites>'."\n";
+            }
+
+            // Add metadata, except for LABELS
+            if ( $item['contentType'] != 'LABEL' )
+            {
+                $out .= $this->makeMetaData($item['name'], $item['itemComment']) . "\n";
+            }
+
+            if ( ! isset($item['children']) )
+            {
+                // change only if we do not recurse.
+                $this->blocking = ($item['lock'] == 'CLOSE') ? $item['ID'] : '';
+            }
+            else
+            {
+                $out .= $this->createItemList($item['children'], $depth+1);
+            }
+            $out .= $ident . '</item>' . "\n";
+        }
+        return $out;
+    }
 
     /**
      * Create the imsmanifest.xml file.
@@ -526,138 +646,13 @@ class ScormExport
      */
     function createManifest()
     {
-        /**
-         * Create a simple <metadata>
-         *
-         *
-         * @param $title The resource title
-         * @param $description The resource description
-         * @return A string containing the metadata block.
-         * @author Amand Tihon <amand@alrj.org>
-         */
-        function makeMetaData($title, $description)
-        {
-            if ( empty($title) and empty($description) ) return '<metadata />';
-
-            $out = '<metadata>
-    <imsmd:lom>
-        <imsmd:general>';
-
-            if (!empty($title))
-            {
-            $out .= '
-            <imsmd:title>
-                <imsmd:langstring>' . htmlspecialchars($title) . '</imsmd:langstring>
-            </imsmd:title>';
-            }
-
-            if (!empty($description))
-            {
-            $out .= '
-            <imsmd:description>
-                <imsmd:langstring>' . htmlspecialchars($description) . '</imsmd:langstring>
-            </imsmd:description>';
-            }
-
-            $out .= '
-        </imsmd:general>
-    </imsmd:lom>
-</metadata>';
-
-            return $out;
-        }
-
-        /**
-         * Recursive function to deal with the tree representation of the items
-         *
-         * @param $itemlist the subtree to build
-         * @param $depth indentation level. Is it really useful ?
-         * @return the (sub-)tree representation
-         * @author Amand Tihon <amand@alrj.org>
-         */
-        $blocking = "";
-
-        function createItemList($itemlist, $depth=0)
-        {
-            global $blocking;
-            $out = "";
-            $ident = "";
-            for ($i=0; $i<$depth; $i++) $ident .= "    ";
-            foreach ($itemlist as $item)
-            {
-                $out .= $ident . '<item identifier="I_'.$item['ID'].'" isvisible="true" ';
-                if ( $item['contentType'] != 'LABEL' )
-                {
-                    $out .= 'identifierref="R_' . $item['ID'] . '" ';
-                }
-                $out .= '>' . "\n";
-                $out .= $ident . '    <title>'.htmlspecialchars($item['name']).'</title>' . "\n";
-
-                // Check if previous was blocking
-                if (!empty($blocking) && ($item['contentType'] != 'LABEL'))
-                {
-                    $out .= '        <adlcp:prerequisites type="aicc_script"><![CDATA[I_'.$blocking.']]></adlcp:prerequisites>'."\n";
-                }
-
-                // Add metadata, except for LABELS
-                if ( $item['contentType'] != 'LABEL' )
-                {
-                    $out .= makeMetaData($item['name'], $item['itemComment']) . "\n";
-                }
-
-                if ( ! isset($item['children']) )
-                {
-                    // change only if we do not recurse.
-                    $blocking = ($item['lock'] == 'CLOSE') ? $item['ID'] : '';
-                }
-                else
-                {
-                    $out .= createItemList($item['children'], $depth+1);
-                }
-                $out .= $ident . '</item>' . "\n";
-            }
-            return $out;
-        }
-
-        /**
-         * Create the frame file that'll hold the document. This frame is supposed to
-         * set the SCO's status
-         * @param $filename string: the name of the file to create, absolute.
-         * @param $targetPath string: The actual document path, relative to the scorm
-         * @return False on error, true otherwise.
-         * @author Amand Tihon <amand@alrj.org>
-         */
-        function createFrameFile($fileName, $targetPath)
-        {
-
-            if ( !($f = fopen($fileName, 'w')) )
-            {
-                $this->error[] = get_lang('Unable to create frame file');
-                return false;
-            }
-
-            fwrite($f, '<html><head>
-    <script src="APIWrapper.js" type="text/javascript" language="JavaScript"></script>
-    <title>Default Title</title>
-</head>
-<frameset border="0" rows="100%,*" onload="immediateComplete()">
-    <frame src="' . $targetPath . '" scrolling="auto">
-    <frame src="SCOFunctions.js">
-</frameset>
-</html>');
-            fclose($f);
-
-            return true;
-        }
-
-
-
         // Start creating sections for items and resources
-
+        $this->blocking = "";
+        
         // First the items...
         $manifest_itemTree = '<organizations default="A1"><organization identifier="A1">' . "\n"
             . '<title>' . $this->name . '</title>' . "\n"
-            . createItemList($this->itemTree)
+            . $this->createItemList($this->itemTree)
             . '</organization></organizations>' . "\n";
 
         // ...Then the resources
@@ -674,14 +669,14 @@ class ScormExport
                     $targetfile = 'Documents'.$module['path'];
 
                     // Create an html file with a frame for the document.
-                    if ( !createFrameFile($framefile, 'Documents'.$module['path'])) return false;
+                    if ( !$this->createFrameFile($framefile, 'Documents'.$module['path'])) return false;
 
                     // Add the resource to the manifest
                     $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormtype="sco" '
                         . ' href="' . basename($framefile) . '">' . "\n"
                         . '  <file href="' . basename($framefile) . '" />' . "\n"
                         . '  <file href="' . $targetfile . '" />' . "\n"
-                        . makeMetaData($module['name'], $module['resourceComment'])
+                        . $this->makeMetaData($module['name'], $module['resourceComment'])
                         . "</resource>\n";
                     break;
 
@@ -692,7 +687,7 @@ class ScormExport
                     $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormtype="sco" '
                         . ' href="' . $targetfile . '" >' . "\n"
                         . '  <file href="' . $targetfile . '" />' . "\n"
-                        . makeMetaData($module['name'], $module['resourceComment'])
+                        . $this->makeMetaData($module['name'], $module['resourceComment'])
                         . "</resource>\n";
                     break;
 
@@ -703,7 +698,7 @@ class ScormExport
                     $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormtype="sco" '
                         . ' href="OrigScorm' . $module['path'] . '">' . "\n"
                         . '  <file href="OrigScorm' . $module['path'] . '" />' . "\n"
-                        . makeMetaData($module['name'], $module['resourceComment'])
+                        . $this->makeMetaData($module['name'], $module['resourceComment'])
                         . "</resource>\n";
                     break;
 
@@ -721,7 +716,7 @@ class ScormExport
         }
 
         // Prepare Metadata
-        $metadata = makeMetaData($this->name, $this->comment);
+        $metadata = $this->makeMetaData($this->name, $this->comment);
 
         // Write header
         global $charset;
