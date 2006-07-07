@@ -165,6 +165,9 @@ function get_new_version ()
 {
     global $includePath;
 
+    $new_version = null;
+    $new_version_branch  = null;
+
     include ( $includePath . '/installedVersion.inc.php' ) ;
     
     $version = array( 'complete' => $new_version,
