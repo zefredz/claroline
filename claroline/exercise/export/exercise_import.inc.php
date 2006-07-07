@@ -304,7 +304,7 @@ function parse_file($exercisePath, $file, $questionFile)
 
     $questionTempDir = $exercisePath.$file.'/';
     $questionFilePath = $questionTempDir.$questionFile;
-
+    $backlog_message = array();
     array_push ($backlog_message, "* ".$questionFile);
 
     if (!($fp = @fopen($questionFilePath, 'r')))
