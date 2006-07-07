@@ -368,7 +368,7 @@ class Config
         switch ($type)
         {
             case 'boolean' :
-                if ( ! is_bool ($value ) && strtoupper($value) != 'TRUE'  &&  strtoupper($value) != 'FALSE' )
+                if ( ! is_bool ($value ) && ! in_array(strtoupper($value), array ('TRUE', 'FALSE','1','0' )))
                 {
                     $this->error_message(get_lang('%name should be boolean',array('%name'=>$label)));
                     $valid = false;
@@ -534,9 +534,17 @@ class Config
                     else
                     switch (strtoupper($value))
                     {
-                        case 'TRUE' : $valueToWrite = 'TRUE'; break;
-                        case 'FALSE' : $valueToWrite = 'FALSE'; break;
-                        default: $valueToWrite = trueFalse($value);
+                        case 'TRUE' :
+                        case '1' :
+                            $valueToWrite = 'TRUE';
+                            break;
+                        case 'FALSE' :
+                        case '0' :
+                            $valueToWrite = 'FALSE';
+                            break;
+                        default:
+                           trigger_error('$value is not a boolean ',E_USER_NOTICE);
+                           return false;
                     }
 
                         break;
