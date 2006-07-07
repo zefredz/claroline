@@ -257,7 +257,7 @@ function get_language_list()
     // init accepted_values list
     $language_list = array();
 
-    if ( is_dir($dirname) )
+    if ( is_dir($language_dirname) )
     {
         $handle = opendir($language_dirname);
         while ( $elt = readdir($handle) )

@@ -317,13 +317,13 @@ function move_course_tool($reqToolId, $moveDirection)
     if ($sortDirection)
     {
         $sql = "SELECT id, rank
-                FROM `" . $tbl_tool_list . "`
+                FROM `" . $tbl_course_tool_list . "`
                 ORDER BY rank ". $sortDirection;
 
         $toolList = claro_sql_query_fetch_all($sql);
 
         $reqToolFound = false; // init reqToolFound with default value
-
+        $reqToolRank = false;
         foreach($toolList as $thisTool)
         {
             // STEP 2 : FOUND THE NEXT ANNOUNCEMENT ID AND ORDER.

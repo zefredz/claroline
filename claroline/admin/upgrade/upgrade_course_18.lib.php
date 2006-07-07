@@ -56,7 +56,7 @@ function group_upgrade_to_18($course_code)
         {
             case 1 :
 
-                $sql = " CREATE TABLE 
+                $sql_step1 = " CREATE TABLE 
                         `".$currentCourseDbNameGlu."course_properties` 
                         (
                             `id` int(11) NOT NULL auto_increment,
@@ -82,7 +82,7 @@ function group_upgrade_to_18($course_code)
                                chat
                     FROM `".$currentCourseDbNameGlu."group_property`";
 
-                $groupSettingList = claro_sql_query_get_single_row($sql);
+                $groupSettings = claro_sql_query_get_single_row($sql);
 
                 if ( is_array($groupSettings) )
                 {
