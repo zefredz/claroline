@@ -250,15 +250,13 @@ class Exercise
      */
 	function delete()
 	{
-		$sql = "DELETE FROM `".$this->tblRelExerciseQuestion."`
-				WHERE `exerciseId` = '".(int) $this->id."'";
+		$sql = "DELETE FROM `" . $this->tblRelExerciseQuestion . "`
+				WHERE `exerciseId` = " . (int) $this->id ;
 
 		if( claro_sql_query($sql) == false ) return false;
 
-
 		$sql = "DELETE FROM `".$this->tblExercise."`
-				WHERE `id` = '".(int) $this->id."'";
-
+				WHERE `id` = " . (int) $this->id;
 		if( claro_sql_query($sql) == false ) return false;
 
 		// is it required to empty the fields of the object ?
@@ -334,8 +332,9 @@ class Exercise
 	function getQuestionList()
 	{
 		$sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`
-				 FROM `".$this->tblRelExerciseQuestion."` AS REQ, `".$this->tblQuestion."` AS Q
-				WHERE REQ.`exerciseId` = '".$this->id."'
+				 FROM `" . $this->tblRelExerciseQuestion . "` AS REQ,
+				      `" . $this->tblQuestion . "` AS Q
+				WHERE REQ.`exerciseId` = '" . $this->id . "'
 				  AND REQ.`questionId` = Q.`id`
 				ORDER BY `rank`";
 
@@ -390,10 +389,9 @@ class Exercise
 	function getQuestionRank($questionId)
 	{
 		$sql = "SELECT `rank`
-				FROM ".$this->tblRelExerciseQuestion."
-				WHERE `exerciseId` = ".$this->id."
+				FROM `".$this->tblRelExerciseQuestion."`
+ 			WHERE `exerciseId` = ".$this->id."
 				AND `questionId` = ".$questionId;
-
 		return claro_sql_query_get_single_value($sql);
 	}
 
@@ -407,7 +405,7 @@ class Exercise
 	function getRankMax()
 	{
 		$sql = "SELECT max(`rank`)
-				FROM ".$this->tblRelExerciseQuestion."
+				FROM `" . $this->tblRelExerciseQuestion . "`
 				WHERE `exerciseId` = ".$this->id;
 
 		$rankMax = claro_sql_query_get_single_value($sql);
@@ -453,14 +451,14 @@ class Exercise
 			// previous question
 			$newRank = $questionList[$i-1]['rank'];
 
-			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
+			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
 					SET `rank` = '".$questionRank."'
 					WHERE `exerciseId` = ".$this->id."
 					  AND `rank` = ".$newRank;
 
 			if( claro_sql_query($sql) == false ) return false;
 
-			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
+			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
 					SET `rank` = '".$newRank."'
 					WHERE `exerciseId` = ".$this->id."
 					  AND `questionId` = ".$questionId;
@@ -509,14 +507,14 @@ class Exercise
 			// previous question
 			$newRank = $questionList[$i+1]['rank'];
 
-			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
+			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
 					SET `rank` = '".$questionRank."'
 					WHERE `exerciseId` = ".$this->id."
 					  AND `rank` = ".$newRank;
 
 			if( claro_sql_query($sql) == false ) return false;
 
-			$sql = "UPDATE ".$this->tblRelExerciseQuestion."
+			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
 					SET `rank` = '".$newRank."'
 					WHERE `exerciseId` = ".$this->id."
 					  AND `questionId` = ".$questionId;
@@ -539,7 +537,8 @@ class Exercise
 		$rankMax = $this->getRankMax();
 		$rank = $rankMax + 1 ;
 
-		$sql = "INSERT INTO ".$this->tblRelExerciseQuestion."
+		$sql = "INSERT INTO `".$this->tblRelExerciseQuestion."`
+
 				SET `exerciseId` = '".$this->id."',
 					`questionId` = '".(int) $questionId."',
 					`rank` = '".(int)$rank."'";
@@ -557,7 +556,7 @@ class Exercise
 	function removeQuestion($questionId)
 	{
 
-		$sql = "DELETE FROM ".$this->tblRelExerciseQuestion."
+		$sql = "DELETE FROM `".$this->tblRelExerciseQuestion."`
 				WHERE `exerciseId` = ".$this->id."
 				AND `questionId` = ".(int) $questionId;
 
