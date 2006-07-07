@@ -39,8 +39,6 @@ $server->register('get_user_info_from_cookie',
 
 $server->service($HTTP_RAW_POST_DATA);
 
-get_lang()
-
 
 /*----------------------------------------------------------------------------
                             SSO FUNCTION DEFINITION
