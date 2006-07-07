@@ -157,17 +157,24 @@ if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeri
 		$exercise->load($_REQUEST['exId']);
 		
 		$exercise->delete();
+
+        //notify manager that the exercise is deleted
+                                
+        $eventNotifier->notifyCourseEvent("exercise_deleted",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
+
 	}
 		
 	//-- change visibility
 	if( $_REQUEST['cmd'] == 'exMkVis' )
 	{
 		Exercise::updateExerciseVisibility($_REQUEST['exId'],'VISIBLE');
+        $eventNotifier->notifyCourseEvent("exercise_visible",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
 	}
 	
 	if( $_REQUEST['cmd'] == 'exMkInvis' )
 	{
 		Exercise::updateExerciseVisibility($_REQUEST['exId'],'INVISIBLE');
+        $eventNotifier->notifyCourseEvent("exercise_invisible",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
 	}
 }
 
