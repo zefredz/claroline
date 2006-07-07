@@ -191,7 +191,6 @@ if ( get_conf('DEVEL_MODE', false) == TRUE )
         case 'AdminClaroline' : { $item_list = $menuAdminClaroline; } break;
         case 'AdminPlatform'  : { $item_list = $menuAdminPlatform;  } break;
         case 'AdminSDK'       : { $item_list = $menuAdminSDK;       } break;
-        case 'AdminModule'    : { $item_list = $menuAdminModule;    } break;
         default : $item_list=array();
     }
     return $item_list;
