@@ -283,7 +283,6 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
     if (   is_null($courseTooList)
         || $courseId    != $courseIdReq
         || $profileId   != $profileIdReq
-        || $accessLevel != $accessLevelReq
         || $force )
     {
         $courseId   = $courseIdReq;
