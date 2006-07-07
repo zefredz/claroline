@@ -231,7 +231,7 @@ function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
 
 function get_db_size($tdb)
 {
-    $db = mysql_connect(get_conf('dbHost'), $get_conf('dbLogin'), get_conf('dbPass')) or die ("Error connecting to MySQL Server!\n");
+    $db = mysql_connect(get_conf('dbHost'), get_conf('dbLogin'), get_conf('dbPass')) or die ("Error connecting to MySQL Server!\n");
     mysql_select_db($tdb, $db);
 
     $sql_result = "SHOW TABLE STATUS FROM " .$tdb;
