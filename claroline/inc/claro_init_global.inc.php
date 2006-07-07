@@ -34,7 +34,6 @@ else
        .'If it is your first connection to your Claroline platform, '
        .'read thoroughly INSTALL.txt file provided in the Claroline package.'
        .'</p>'
-       . $mainConfPath
        .'</center>');
 }
 
