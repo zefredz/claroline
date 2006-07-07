@@ -131,7 +131,7 @@ class Config
         // get default value from definition file
         foreach ( $this->conf_def_property_list as $property_name => $property_def )
         {
-            if ( !empty($property_def['default']) )
+            if ( isset($property_def['default']) )
             {
                 if ( 'boolean' == $property_def['type'] )
                 {
@@ -441,7 +441,7 @@ class Config
                 break;
 
             case 'regexp' :
-                if ( isset($acceptedValue) && !eregi( $acceptedValue, $propValue ))
+                if ( isset($acceptedValue) && !eregi( $acceptedValue, $value ))
                 {
                     $this->error_message( get_lang('%name would be match %regular_expression', array('%name' => $label,'%regular_expression'=> $acceptedValue) ));
                     $valid = false;
@@ -529,23 +529,24 @@ class Config
                 // property type define how to write the value
                 switch ($this->conf_def_property_list[$name]['type'])
                 {
+
                     case 'boolean':
-                    if (is_bool($value)) $valueToWrite = trueFalse($value);
-                    else
-                    switch (strtoupper($value))
-                    {
-                        case 'TRUE' :
-                        case '1' :
-                            $valueToWrite = 'TRUE';
-                            break;
-                        case 'FALSE' :
-                        case '0' :
-                            $valueToWrite = 'FALSE';
-                            break;
-                        default:
-                           trigger_error('$value is not a boolean ',E_USER_NOTICE);
-                           return false;
-                    }
+                        if (is_bool($value)) $valueToWrite = trueFalse($value);
+                        else
+                        switch (strtoupper($value))
+                        {
+                            case 'TRUE' :
+                            case '1' :
+                                $valueToWrite = 'TRUE';
+                                break;
+                            case 'FALSE' :
+                            case '0' :
+                                $valueToWrite = 'FALSE';
+                                break;
+                            default:
+                                trigger_error('$value is not a boolean ',E_USER_NOTICE);
+                                return false;
+                        }
 
                         break;
                     case 'integer':
@@ -714,9 +715,11 @@ class Config
     /**
      * Function to create the different elements of the configuration form to display
      *
+     * @param array $property_list
+     * @param string $section_selected
+     * @param string $url_params appeded to POST query
      * @return the HTML code to display web form to edit config file
      */
-
     function display_form($property_list=null,$section_selected=null,$url_params = null)
     {
         $form = '';
@@ -761,12 +764,14 @@ class Config
                 // display each property of the section
                 if ( is_array($section['properties']) )
                 {
+
                     foreach ( $section['properties'] as $name )
                     {
                         if ( key_exists($name,$this->conf_def_property_list) )
                         {
                             if ( is_array($this->conf_def_property_list[$name]) )
                             {
+
                                 if ( isset($property_list[$name]) )
                                 {
                                     // display elt with new content
@@ -877,32 +882,31 @@ class Config
                 {
                     case 'boolean' :
                     case 'enum' :
+
+                        if ( isset($property_def['acceptedValue'][$value]) )
                         {
-                            if ( isset($property_def['acceptedValue'][$value]) )
-                            {
-                                $elt_form .= $property_def['acceptedValue'][$value];
-                            }
-                            else
-                            {
-                                $elt_form .= $html['value'];
-                            }
-                        }   break;
+                            $elt_form .= $property_def['acceptedValue'][$value];
+                        }
+                        else
+                        {
+                            $elt_form .= $html['value'];
+                        }
+                        break;
                     case 'multi' :
+                        if ( empty($value) || ! is_array($value) )
                         {
-                            if ( empty($value) || ! is_array($value) )
+                            $elt_form .= get_lang('Empty');
+                        }
+                        else
+                        {
+                            $value_list = array();;
+                            foreach ( $value as $value_item )
                             {
-                                $elt_form .= get_lang('Empty');
+                                $value_list[] = htmlspecialchars($property_def['acceptedValue'][$value_item]);
                             }
-                            else
-                            {
-                                $value_list = array();;
-                                foreach ( $value as $value_item )
-                                {
-                                    $value_list[] = htmlspecialchars($property_def['acceptedValue'][$value_item]);
-                                }
-                                $elt_form .= implode(', ',$value_list);
-                            }
-                        }   break;
+                            $elt_form .= implode(', ',$value_list);
+                        }
+                        break;
                     case 'integer' :
                     case 'string' :
                     default :
@@ -1438,4 +1442,5 @@ function get_def_file_list($type = 'default')
     }
     return $defConfFileList;
 }
+
 ?>
