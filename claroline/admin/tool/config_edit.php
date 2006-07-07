@@ -155,6 +155,7 @@ else
 {
     // get config_code
     $config_code = trim($_REQUEST['config_code']);
+    $newPropertyList = isset($_REQUEST['property']) ?$_REQUEST['property']:array();
 
     // new config object
     $config = new Config($config_code);
@@ -168,32 +169,28 @@ else
         $form .= $config->display_section_menu($section);
 
         // init config name
-        $config_name = $config->config_code;
-
-        if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
+        $config_name = $config->get_conf_name();
+        if ( isset($_REQUEST['cmd']) && !empty($newPropertyList) )
         {
             if ( 'save' == $_REQUEST['cmd'] )
             {
-                if ( ! empty($_REQUEST['property']) )
+                // validate config
+                if ( $config->validate($newPropertyList) )
                 {
-                    // validate config
-                    if ( $config->validate($_REQUEST['property']) )
-                    {
-                        // save config file
-                        $config->save();
-                        $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
-                                         , array('%config_name' => $config_name, '%config_code' => $config_code));
-                    }
-                    else
-                    {
-                        // no valid
-                        $error = true ;
-                        $message = $config->get_error_message();
-                    }
+                    // save config file
+                    $config->save();
+                    $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
+                    , array('%config_name' => $config_name, '%config_code' => $config_code));
+                }
+                else
+                {
+                    // no valid
+                    $error = true ;
+                    $message = $config->get_error_message();
                 }
             }
             // display form
-            $form .= $config->display_form($_REQUEST['property'],$section);
+            $form .= $config->display_form($newPropertyList,$section);
         }
         else
         {

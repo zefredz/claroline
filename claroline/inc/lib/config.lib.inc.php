@@ -303,6 +303,7 @@ class Config
         {
             if ( isset($newPropertyList[$name]) )
             {
+
                 if ( $this->validate_property($name,$newPropertyList[$name]) )
                 {
                     $this->property_list[$name] = $newPropertyList[$name];
@@ -367,7 +368,7 @@ class Config
         switch ($type)
         {
             case 'boolean' :
-                if ( ! is_bool ($value ) )
+                if ( ! is_bool ($value ) && strtoupper($value) != 'TRUE'  &&  strtoupper($value) != 'FALSE' )
                 {
                     $this->error_message(get_lang('%name should be boolean',array('%name'=>$label)));
                     $valid = false;
@@ -529,7 +530,15 @@ class Config
                 switch ($this->conf_def_property_list[$name]['type'])
                 {
                     case 'boolean':
-                        $valueToWrite = trueFalse($value);
+                    if (is_bool($value)) $valueToWrite = trueFalse($value);
+                    else
+                    switch (strtoupper($value))
+                    {
+                        case 'TRUE' : $valueToWrite = 'TRUE'; break;
+                        case 'FALSE' : $valueToWrite = 'FALSE'; break;
+                        default: $valueToWrite = trueFalse($value);
+                    }
+
                         break;
                     case 'integer':
                         $valueToWrite = $value;
