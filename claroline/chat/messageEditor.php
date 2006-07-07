@@ -35,17 +35,16 @@ function prepare_message()
 </script>';
 
 
-$cmd_menu = array();
+$cmdMenu = array();
 if ($is_allowedToManage)
 {
-    $cmd_menu[] = '<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList">'
+    $cmdMenu[] = '<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList">'
     .             get_lang('Reset') . '</a>'
     ;
-    $cmd_menu[] = '<a class="claroCmd" href="messageList.php?cmd=store" target="messageList">'
+    $cmdMenu[] = '<a class="claroCmd" href="messageList.php?cmd=store" target="messageList">'
     .             get_lang('Store Chat') . '</a>'
     ;
 }
-
 
 $hide_banner = TRUE;
 include $includePath . '/claro_init_header.inc.php' ;
@@ -55,9 +54,10 @@ echo '<form name="chatForm" action="messageList.php#final" method="post" target=
 .    '<input type="hidden"  name="chatLine">' . "\n"
 .    '<input type="submit" value=" >> ">' . "\n"
 .    '<br />' . "\n"
-.    '' . "\n";
+.    '' . "\n"
+;
 
-echo claro_html_menu_horizontal($cmd_menu);
+echo claro_html_menu_horizontal($cmdMenu);
 
 echo '</form>';
 
