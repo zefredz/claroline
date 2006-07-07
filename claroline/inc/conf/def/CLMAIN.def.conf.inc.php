@@ -196,7 +196,7 @@ array ('label'       => 'unique id of the platform'
 $conf_def_property_list['is_trackingEnabled'] =
 array ('label'       => 'Tracking'
       ,'description' => 'Log of user activities  on the whole platform (course access, tool use, ...).'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -205,7 +205,7 @@ array ('label'       => 'Tracking'
 
 $conf_def_property_list['singleDbEnabled'] =
 array ('label'       => 'Database mode'
-      ,'default'     => 'TRUE'
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => TRUE
@@ -442,7 +442,7 @@ array ('label'       => 'Mathematical renderer URL'
 $conf_def_property_list['userPasswordCrypted'] =
 array ('label'         => 'Crypt passwords'
       ,'technical'     => 'By default use claroCrypt as authType'
-      ,'default'       => 'FALSE'
+      ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'display'       => false
       ,'readonly'      => True
@@ -452,7 +452,7 @@ array ('label'         => 'Crypt passwords'
 $conf_def_property_list['allowSelfReg'] =
 array ('label'           => 'User account creation allowed'
        ,'description'    => 'Can users create new accounts themselves ?'
-      ,'default'         => 'TRUE'
+      ,'default'         => TRUE
       ,'type'            => 'boolean'
       ,'display'         => TRUE
       ,'readonly'        => FALSE
@@ -516,18 +516,18 @@ $conf_def_property_list['CLARO_DEBUG_MODE'] =
 array ('label'       => 'Debug mode'
       ,'description' => 'More verbose when error occurs.'
       ,'type'        => 'boolean'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'container'   => 'CONST'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
-      
+
 $conf_def_property_list['warnSessionLost'] =
 array ('label'       => 'Session lost warning'
       ,'description' => 'Warn users when they loose their session on the platform'
       ,'type'        => 'boolean'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
@@ -537,7 +537,7 @@ $conf_def_property_list['DEVEL_MODE'] =
 array ('label'       => 'Development mode'
       ,'description' => 'Add addtionnal tools in the SDK section of the platform administration.'
       ,'type'        => 'boolean'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'container'   => 'CONST'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -548,7 +548,7 @@ array ('label'       => 'Development mode'
 $conf_def_property_list['allowToSelfEnroll']
 = array ('label'     => 'Personnal course list modification'
         ,'description' => 'Set if the users are allowed to modify their personnal courses list or not'
-        ,'default'   => 'TRUE'
+        ,'default'   => TRUE
         ,'type'      => 'boolean'
         ,'display'       => TRUE
         ,'readonly'      => FALSE

@@ -40,7 +40,7 @@ require_once $includePath  . '/lib/pager.lib.php';
 /*----------------------------------------------------------------------
    Load config
   ----------------------------------------------------------------------*/
-include $includePath  . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 /*----------------------------------------------------------------------
   Stats
@@ -375,13 +375,13 @@ foreach ( $userList as $thisUser )
     echo '</td>';
 
     echo '<td align="left">'.$thisUser['prenom'].'</td>';
-    
+
     // User profile column
     echo '<td align="left">'. claro_get_profile_name($thisUser['profile_id']) .'</td>'."\n";
 
     // User role column
     echo '<td align="left">'.$thisUser['role'].'</td>'."\n";
-    
+
     // User group column
     if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
     {

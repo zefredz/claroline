@@ -30,7 +30,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 define('RSS_FILE_EXT', 'xml');
-include dirname(__FILE__) . '/../conf/rss.conf.php';
+include claro_get_conf_repository() . 'rss.conf.php';
 
 function build_rss($context)
 {

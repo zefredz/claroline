@@ -341,7 +341,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
             $toolId = $courseToolList[$i]['tool_id'];
             $visibility = (bool) $courseToolList[$i]['visibility'];
 
-            // delete tool from course tool list if : 
+            // delete tool from course tool list if :
             // 1. tool is invisible and profile has no right to edit tool
             // 2. profile has no right to view tool
             if ( ( $visibility == false && ! claro_is_allowed_tool_edit($toolId,$profileId,$courseId) )
@@ -366,11 +366,11 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
         {
             $sql .= 'AND ctl.visibility = 1';
         }
-        
+
         $result = claro_sql_query_fetch_all($sql);
 
         $courseToolList = array_merge($courseToolList,$result);
-    } 
+    }
 
     return $courseToolList;
 }
@@ -826,9 +826,11 @@ function claro_get_language_list()
     return $language_list;
 }
 
-/**
- * SECTION : PHP COMPAT For PHP backward compatibility
- */
+
+function claro_get_conf_repository()
+{
+    return get_conf('rootSys') . 'platform/conf/';
+}
 
 /**
  * Return the value of a Claroline configuration parameter

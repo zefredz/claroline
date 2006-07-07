@@ -27,7 +27,7 @@ if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
 require '../inc/claro_init_global.inc.php';
 
 include $includePath . '/lib/course_home.lib.php';
-include $includePath . '/conf/rss.conf.php';
+include claro_get_conf_repository() . 'rss.conf.php';
 
 require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 

@@ -19,10 +19,12 @@ define('CLARO_INCLUDE_ALLOWED', true);
 // This path will be useful to include the other intialisation files
 
 $includePath = dirname(__FILE__);
+require_once $includePath . '/lib/claro_main.lib.php';
+$mainConfPath =  $includePath . '/../../platform/conf/' . 'claro_main.conf.php';
 
-if ( file_exists($includePath . '/conf/claro_main.conf.php') )
+if ( file_exists($mainConfPath) )
 {
-    require $includePath . '/conf/claro_main.conf.php';
+    include $mainConfPath;
 }
 else
 {
@@ -32,6 +34,7 @@ else
        .'If it is your first connection to your Claroline platform, '
        .'read thoroughly INSTALL.txt file provided in the Claroline package.'
        .'</p>'
+       . $mainConfPath
        .'</center>');
 }
 
@@ -111,7 +114,6 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-require_once $includePath . '/lib/claro_main.lib.php';
 require_once $includePath . '/lib/language.lib.php';
 require_once $includePath . '/lib/right/right_profile.lib.php';
 

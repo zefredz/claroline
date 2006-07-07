@@ -49,7 +49,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 // Place of Config file
 $configFileName = 'claro_main.conf.php';
-$configFilePath = '../inc/conf/' . $configFileName;
 
 session_start();
 $_SESSION = array();
@@ -560,6 +559,8 @@ if ($canRunCmd)
     }
     elseif($_REQUEST['cmdDoInstall'])
     {
+        $includePath = $newIncludePath;
+        $rootSys = realpath($newIncludePath . '/../../');
         include('./do_install.inc.php');
     }
  }

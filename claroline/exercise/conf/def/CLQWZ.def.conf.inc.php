@@ -38,7 +38,7 @@ array ( 'enableExerciseExportQTI'
 $conf_def_property_list['enableExerciseExportQTI'] =
 array ('label'         => 'Enable IMS-QTI Export'
       ,'description'   => ''
-      ,'default'       => 'TRUE'
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'

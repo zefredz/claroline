@@ -27,7 +27,7 @@ if ( isset($_uid) )
 }
 
 // include profile library
-include $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 include_once $includePath . '/lib/user.lib.php';
 include_once $includePath . '/lib/sendmail.lib.php';
 

@@ -25,7 +25,7 @@ require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/course_user.lib.php' ;
 require_once $includePath . '/lib/import_csv.lib.php';
 
-include $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 /*
 * See in which context of user we are and check WHO is using the tool,there are 3 possibilities :
@@ -118,7 +118,7 @@ if (!isset($_SESSION['CSV_enclosedBy']))     $_SESSION['CSV_enclosedBy'] = "\"";
 $usedFormat = $_SESSION['claro_usedFormat'];
 
 /**
- *    Execute command section 
+ *    Execute command section
  */
 
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null ;
@@ -245,11 +245,11 @@ switch ($cmd)
                 //its all done in this case
                 break;
 
-            case 'adminClassTool':            
-                if ( isset($_REQUEST['class_id']) ) 
+            case 'adminClassTool':
+                if ( isset($_REQUEST['class_id']) )
                 {
                     $_SESSION['admin_user_class_id'] = $_REQUEST['class_id'];
-                }            
+                }
                 user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
                 break;
 

@@ -22,7 +22,7 @@ require '../inc/claro_init_global.inc.php';
 
 require_once $includePath . '/lib/course_user.lib.php';
 
-include $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();

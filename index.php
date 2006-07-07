@@ -20,7 +20,7 @@ $tidReset = TRUE;
 // Include Library and configuration file
 
 require './claroline/inc/claro_init_global.inc.php'; // main init
-require $includePath . '/conf/CLHOME.conf.php'; // conf file
+include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 require_once $includePath . '/lib/courselist.lib.php'; // conf file
 

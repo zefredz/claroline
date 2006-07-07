@@ -22,7 +22,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 // Include configuration
-include $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Include libraries
 require_once $includePath . '/lib/user.lib.php';

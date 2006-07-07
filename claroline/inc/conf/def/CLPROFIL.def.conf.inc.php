@@ -39,7 +39,7 @@ array ( 'show_agreement_panel'
 $conf_def_property_list['show_agreement_panel'] =
 array ( 'label'         => 'Show the agreement panel before creating a new account'
       ,'description'   => 'The content of this panel is editable in administration '
-      , 'default'       => 'FALSE'
+      , 'default'       => FALSE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Show'
                                  ,'FALSE' => 'Hide'
@@ -58,7 +58,7 @@ array ( 'profile_editable'
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
 array ( 'label'         => 'Official Code is'
-      , 'default'       => 'TRUE'
+      , 'default'       => TRUE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Optional'
                                  ,'FALSE' => 'Required'
@@ -68,7 +68,7 @@ array ( 'label'         => 'Official Code is'
 $conf_def_property_list['userMailCanBeEmpty'] =
 array ( 'label'         => 'Email is'
       , 'description'   => 'Accept email as valid (best choice)'
-      , 'default'       => 'TRUE'
+      , 'default'       => TRUE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('FALSE' => 'Required'
                                  ,'TRUE'  => 'Optional'
@@ -78,7 +78,7 @@ array ( 'label'         => 'Email is'
 $conf_def_property_list['ask_for_official_code'] =
 array ( 'label'         => 'Ask the official code'
       , 'description'   => 'Display the field official code in form'
-      , 'default'       => 'TRUE'
+      , 'default'       => TRUE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE' => 'Yes'
                                  ,'FALSE'  => 'No'
@@ -111,7 +111,7 @@ array (
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
 array ('label'         => 'Check password strength'
       ,'description'   => 'Check if the password is not too easy to find'
-      ,'default'       => 'TRUE'
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -142,7 +142,7 @@ $conf_def_property_list['can_request_course_creator_status'] =
 array ( 'label'         => '"Request a Course Creator status" command ?'
       , 'description'   => 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'
       , 'display'       => true
-      , 'default'       => 'FALSE'
+      , 'default'       => FALSE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Displayed'
                                 ,'FALSE' => 'Hidden'
@@ -155,7 +155,7 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
                          .'This option allow only to request it, '."\n"
                          .'and don\'t prework the answer'."\n"
       , 'display'       => false
-      , 'default'       => 'FALSE'
+      , 'default'       => FALSE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
                                  ,'FALSE' => 'No'
@@ -166,7 +166,7 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
 $conf_def_property_list['allowSelfRegProf'] =
 array ('label'       => 'Creation of Course Creator account'
        ,'description' => 'Are users allowed to create themselves a Course Creator account ?'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Allowed'
                                 ,'FALSE' => 'Denied'

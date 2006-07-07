@@ -21,7 +21,7 @@ require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/class.lib.php';
 require_once $includePath . '/lib/user.lib.php';
 
-include $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
+include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();

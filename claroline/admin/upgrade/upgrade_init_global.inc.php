@@ -10,9 +10,9 @@ error_reporting(error_reporting() & ~ E_NOTICE);
 
 $includePath = realpath(dirname(__FILE__).'/../../inc');
 
-if ( file_exists($includePath . '/conf/claro_main.conf.php') )
+if ( file_exists(claro_get_conf_repository() . 'claro_main.conf.php') )
 {
-    require $includePath . '/conf/claro_main.conf.php';
+    include claro_get_conf_repository() . 'claro_main.conf.php';
 }
 else
 {

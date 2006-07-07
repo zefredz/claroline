@@ -34,7 +34,7 @@ Include Files and initialize variables
 require $includePath . '/lib/user.lib.php';
 require $includePath . '/lib/course_user.lib.php';
 require $includePath . '/lib/class.lib.php';
-require $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 $parentCategoryCode = '';
 $userSettingMode    = FALSE;

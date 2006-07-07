@@ -29,7 +29,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
+include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 $nameTools=get_lang('User settings');
 $interbredcrump[]= array ('url' => get_conf($rootAdminWeb), 'name' => get_lang('Administration'));

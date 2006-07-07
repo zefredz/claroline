@@ -16,18 +16,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /*
 
-CAS stands for 'Central Authentication Service' and is Single sign On (SSO) 
-system originally developed by the Yale University. SSO is an authentication 
-process enabling user to authenticate once and gain access to multiple systems. 
-For example, once authenticated in the library catalog, students don't have to 
+CAS stands for 'Central Authentication Service' and is Single sign On (SSO)
+system originally developed by the Yale University. SSO is an authentication
+process enabling user to authenticate once and gain access to multiple systems.
+For example, once authenticated in the library catalog, students don't have to
 re-enter their password to access their Claroline courses or their web mail.
 
-The CAS system of Claroline is based on the free phpCAS library available at 
+The CAS system of Claroline is based on the free phpCAS library available at
 http://esup-phpcas.sourceforge.net .
 
-IMPORTANT NOTE. CAS system only achieves user authentication, and doesn't permit 
-to retrieve additional user information like name, surname or e-mail address. 
-To get this information available on Claroline, you have to record them 
+IMPORTANT NOTE. CAS system only achieves user authentication, and doesn't permit
+to retrieve additional user information like name, surname or e-mail address.
+To get this information available on Claroline, you have to record them
 previously in the Claroline 'user' table.
 
  */
@@ -40,7 +40,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || ( basename($_SERVER['SCRIPT_NAME']) == 'login.php' && isset($_REQUEST['authModeReq']) && $_REQUEST['authModeReq'] == 'CAS' )
     || isset($_REQUEST['fromCasServer']) )
 {
-    include_once $claro_CasLibPath;
+    include_once dirname(__FILE__) . '/../../inc/lib/cas/CAS.php';
     phpCAS::client(CAS_VERSION_2_0, get_conf('claro_CasServerHostUrl'), get_conf('claro_CasServerHostPort',443) , '');
 
     if ($logout)

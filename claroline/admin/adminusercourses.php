@@ -25,7 +25,7 @@ require '../inc/claro_init_global.inc.php';
 include_once $includePath . '/lib/user.lib.php';
 include_once $includePath . '/lib/course_user.lib.php';
 include_once $includePath . '/lib/pager.lib.php';
-include $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Security check
 if ( ! get_init('_uid') ) claro_disp_auth_form();
@@ -110,11 +110,11 @@ foreach ($userCourseList as $courseKey => $course)
 {
     $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
     $userCourseGrid[$courseKey]['name']      = '<a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name']. '</a><br />' . $course['titular'];
-        
+
 
     $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
 
-    if ( $course['isCourseManager'] ) 
+    if ( $course['isCourseManager'] )
     {
         $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Course manager') . '" border="0" />';
     }
@@ -122,7 +122,7 @@ foreach ($userCourseList as $courseKey => $course)
     {
         $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('Student') . '" border="0" />';
     }
-        
+
     $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist"><img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '"></a>';
 
     $userCourseGrid[$courseKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']

@@ -23,7 +23,7 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_courseAdmin              ) claro_die(get_lang('Not allowed'));
 
 // include configuration file
-include $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // include libraries
 require_once $includePath . '/lib/user.lib.php';

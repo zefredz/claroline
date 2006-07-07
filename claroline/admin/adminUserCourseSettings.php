@@ -29,7 +29,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/course_user.lib.php';
 
-include($includePath . '/conf/user_profile.conf.php'); // find this file to modify values.
+include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 // used tables
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -61,7 +61,7 @@ switch ($cmd)
         $properties['profileId'] = isset($_REQUEST['profileId'])?$_REQUEST['profileId']:null;
         $properties['tutor'] = isset($_REQUEST['isTutor'])?(int)$_REQUEST['isTutor']:null;
         $properties['role']  = isset($_REQUEST['role'])?trim($_REQUEST['role']):null;
-        
+
         if ( claro_get_profile_name($properties['profileId']) == 'Manager' )
         {
             $dialogBox = get_lang('User is now course manager');
@@ -87,7 +87,7 @@ switch ($cmd)
 
 if ( isset($uidToEdit) )
 {
-    // get course user info 
+    // get course user info
     $courseUserProperties = course_user_get_properties($uidToEdit, $cidToEdit);
 }
 

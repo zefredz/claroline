@@ -22,7 +22,7 @@ $_course = array();
 $siteName ='';
 $is_courseAllowed = false;
 require '../inc/claro_init_global.inc.php';
-include_once $includePath . '/conf/rss.conf.php';
+include claro_get_conf_repository() . 'rss.conf.php';
 
 // RSS enabled
 if ( ! get_conf('enable_rss_in_course') )

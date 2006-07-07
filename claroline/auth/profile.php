@@ -33,7 +33,7 @@ $display = '';
 $error = false;
 
 // include configuration files
-include $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
+include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 // include library files
 include_once $includePath . '/lib/user.lib.php';

@@ -196,8 +196,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * 9. The script get the list of all the tool available into the current course
  *    for the current user.
  ******************************************************************************/
+require_once claro_get_conf_repository() .  'auth.extra.conf.php';
+require_once claro_get_conf_repository() .  'auth.sso.conf.php';
+require_once claro_get_conf_repository() .  'auth.cas.conf.php';
+require_once dirname(__FILE__) .  '/../auth/extauth/drivers/auth.drivers.conf.php';
 
-require_once dirname(__FILE__).'/conf/auth.conf.php'; // load the platform authentication settings
 
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the
@@ -273,19 +276,20 @@ else
     $_uid     = null;   // uid not in session ? prevent any hacking
     $uidReset = false;
 
-    if ( isset($claro_CasEnabled) && $claro_CasEnabled ) // CAS is a special case of external authentication
+    if ( get_conf('claro_CasEnabled', false) ) // CAS is a special case of external authentication
     {
         require($claro_CasProcessPath);
     }
 
     if ( $login && $password ) // $login && $password are given to log in
     {
+
         $claro_loginRequested = true;
 
         // lookup the user in the Claroline database
 
         $sql = 'SELECT user_id, username, password, authSource
-                FROM `' . $tbl_user . '` `user`
+                FROM `' . $tbl_user . '`
                 WHERE '
              . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY' : '')
              . ' username = "'. addslashes($login) .'"'
@@ -304,10 +308,9 @@ else
                     // determine first if the password needs to be crypted before checkin
                     // $userPasswordCrypted is set in main configuration file
 
-                    if ( $userPasswordCrypted ) $password = md5($password);
+                    if ( get_conf('userPasswordCrypted',false) ) $password = md5($password);
 
                     // check the user's password
-
                     if ( $password == $uData['password'] )
                     {
                         $_uid                 = $uData['user_id'];
@@ -460,7 +463,7 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
             // RECORD SSO COOKIE
             // $ssoEnabled set in claroline/conf/auth.conf.php
 
-            if ( $ssoEnabled )
+            if ( get_conf('ssoEnabled',false ))
             {
                $ssoCookieExpireTime = time() + $ssoCookiePeriodValidity;
                $ssoCookieValue      = md5( mktime() . rand(100, 1000000) );
@@ -978,10 +981,8 @@ if (isset($_cid) && $_courseTool['label'])
 {
     $config_code = rtrim($_courseTool['label'],'_');
 
-    if (file_exists( claro_get_conf_dir($config_code) . $config_code . '.conf.php'))
-       require claro_get_conf_dir($config_code) . $config_code . '.conf.php';
-    elseif (file_exists($includePath . '/conf/' . $config_code . '.conf.php'))
-        require $includePath . '/conf/' . $config_code . '.conf.php';
+    if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
+        include claro_get_conf_repository() . $config_code . '.conf.php';
     if (isset($_cid) && file_exists($coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
         require $coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php';
 }

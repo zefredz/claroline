@@ -42,7 +42,7 @@ array ( 'linkToUserInfo'
 $conf_def_property_list['linkToUserInfo'] =
 array ('label'         => 'Show user profile'
       ,'description'   => 'Allow user to see detail informations of other users'
-      ,'default'       => 'TRUE'
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -52,7 +52,7 @@ array ('label'         => 'Show user profile'
 $conf_def_property_list['user_email_hidden_to_anonymous'] =
 array ('label'         => 'Hidden email address to anonymous user'
       ,'description'   => 'Don\'t display email of user to anonymous (to avoid spam)'
-      ,'default'       => 'FALSE'
+      ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -69,7 +69,7 @@ array ( 'label'   => 'Number of user per page'
 
 $conf_def_property_list['is_coursemanager_allowed_to_add_user'] =
 array('label'         => 'Teacher can add user in his course'
-     ,'default'       => 'TRUE'
+     ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
      ,'readonly'      => FALSE
@@ -88,7 +88,7 @@ array ('label'         => 'Allow search in the add user option'
       ,'description'   => 'User search in the user tool is allowed'
       ,'display'       => TRUE
       ,'readonly'      => FALSE
-      ,'default'       => 'TRUE'
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Allowed'
                                 ,'FALSE' => 'Denied'

@@ -135,7 +135,7 @@ if ($is_allowedToAdmin)
     elseif ($cmd == 'clarconf')
     {
         echo '<div style="background-color: #dfdfff;"><hr />config file<hr />';
-        highlight_file($includePath . '/conf/claro_main.conf.php');
+        highlight_file(claro_get_conf_repository() . 'claro_main.conf.php');
         echo '<hr /></div>';
 
     }

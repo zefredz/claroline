@@ -31,7 +31,9 @@ else              $currentContext = claro_get_current_context('course');
 require_once get_conf('clarolineRepositorySys') . '/linker/linker.inc.php';
 require_once './lib/agenda.lib.php';
 require_once $includePath . '/lib/form.lib.php';
-require_once $includePath . '/conf/rss.conf.php';
+
+require claro_get_conf_repository() . 'rss.conf.php';
+
 $context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
@@ -278,11 +280,11 @@ if ( $is_allowedToEdit )
         // rss update
         if ( get_conf('enable_rss_in_course',1))
         {
-    
+
             require_once $includePath . '/lib/rss.write.lib.php';
             build_rss( array(CLARO_CONTEXT_COURSE => $_cid));
         }
-    
+
         // ical update
         if (get_conf('enableICalInCourse',1) )
         {

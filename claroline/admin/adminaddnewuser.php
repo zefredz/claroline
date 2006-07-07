@@ -24,7 +24,7 @@ if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 // Include library
-require $includePath . '/conf/user_profile.conf.php';
+require claro_get_conf_repository() . 'user_profile.conf.php';
 
 require_once $includePath . '/lib/user.lib.php';
 require_once $includePath . '/lib/sendmail.lib.php';

@@ -77,8 +77,7 @@ class Config
     function Config($config_code)
     {
         $this->config_code = $config_code;
-        //$this->conf_dirname = realpath($GLOBALS['includePath'] . '/conf/') ;
-        $this->conf_dirname = claro_get_conf_dir($config_code);
+        $this->conf_dirname = claro_get_conf_repository();
         $this->def_dirname = claro_get_conf_def_file($config_code) ;
         $this->def_loaded = false;
     }
@@ -203,12 +202,12 @@ class Config
         if ( !empty($this->conf_def['config_file']) )
         {
             // get the name of config file in definition file
-            return $this->conf_dirname.'/'.$this->conf_def['config_file'];
+            return $this->conf_dirname . '/' . $this->conf_def['config_file'];
         }
         else
         {
             // build the filename with the config_code
-            return $this->conf_dirname.'/'.$config_code.'.conf.php';
+            return $this->conf_dirname . $config_code . '.conf.php';
         }
     }
 
@@ -368,9 +367,9 @@ class Config
         switch ($type)
         {
             case 'boolean' :
-                if ( ! ($value == 'TRUE' || $value == 'FALSE' ) )
+                if ( ! is_bool ($value ) )
                 {
-                    $this->error_message(get_lang('%name would be boolean',array('%name'=>$label)));
+                    $this->error_message(get_lang('%name should be boolean',array('%name'=>$label)));
                     $valid = false;
                 }
                 break;
@@ -530,14 +529,7 @@ class Config
                 switch ($this->conf_def_property_list[$name]['type'])
                 {
                     case 'boolean':
-                        if ( is_bool($value) )
-                        {
-                            $valueToWrite = trueFalse($value);
-                        }
-                        else
-                        {
-                            $valueToWrite = $value;
-                        }
+                        $valueToWrite = trueFalse($value);
                         break;
                     case 'integer':
                         $valueToWrite = $value;
@@ -1323,7 +1315,7 @@ if (!function_exists('md5_file'))
 
 function claro_get_conf_def_file($configCode)
 {
-    $centralizedDef = array('CLCRS','CLAUTH', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL');
+    $centralizedDef = array('CLCRS','CLAUTH', 'CLSSO',  'CLCAS', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL');
     if(in_array($configCode,$centralizedDef)) return realpath($GLOBALS['includePath'] . '/conf/def/') ;
     else                                      return get_module_path($configCode) . '/conf/def/';
 }

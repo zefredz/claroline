@@ -218,11 +218,17 @@ if ($runfillMainDb && $runfillStatsDb)
 $rootSys                    = str_replace("\\","/",realpath($pathForm)."/") ;
 $coursesRepositoryAppend    = '';
 $coursesRepositorySys = $rootSys . $courseRepositoryForm;
-@mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS);
+if (! file_exists($coursesRepositorySys))
+mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS);
 $clarolineRepositoryAppend  = 'claroline/';
 $clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
 $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys) . '/claroline_garbage');
-@mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS);
+if (! file_exists($garbageRepositorySys))
+mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS);
+if (! file_exists($rootSys . '/platform/'))
+mkdir($rootSys . '/platform/', CLARO_FILE_PERMISSIONS);
+if (! file_exists(claro_get_conf_repository()))
+mkdir( claro_get_conf_repository() , CLARO_FILE_PERMISSIONS);
 
 ########################## WRITE claro_main.conf.php ##################################
 // extract the path to append to the url
@@ -231,6 +237,7 @@ $garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys)
 //$urlAppendPath = ereg_replace ("claroline/install/index.php", "", $_SERVER['PHP_SELF']);
 
 // here I want find  something to get garbage out of documentRoot
+$configFilePath = claro_get_conf_repository() . $configFileName;
 
 $fd = @fopen($configFilePath, 'w');
 if (!$fd)
@@ -253,8 +260,8 @@ else
     $form_value_list['statsDbName'] = $statsDbName;
     $form_value_list['statsTblPrefix'] = $statsTblPrefixForm ;
     $form_value_list['dbNamePrefix'] = $dbPrefixForm;
-    $form_value_list['is_trackingEnabled'] = trueFalse($enableTrackingForm);
-    $form_value_list['singleDbEnabled'] = trueFalse($singleDbForm);
+    $form_value_list['is_trackingEnabled'] = (bool) ($enableTrackingForm);
+    $form_value_list['singleDbEnabled'] = (bool) ($singleDbForm);
     $form_value_list['courseTablePrefix'] = $singleDbForm && empty($dbPrefixForm)?'crs_':'';
     $form_value_list['dbGlu'] = $singleDbForm?'_':'`.`';
     $form_value_list['mysqlRepositorySys']= str_replace("\\","/",realpath($mysqlRepositorySys)."/");
@@ -276,8 +283,8 @@ else
     $form_value_list['administrator_email'] = (empty($contactEmailForm)?$adminEmailForm:$contactEmailForm);
     $form_value_list['institution_name'] = $institutionForm;
     $form_value_list['institution_url'] = $institutionUrlForm;
-    $form_value_list['userPasswordCrypted'] = trueFalse($encryptPassForm);
-    $form_value_list['allowSelfReg'] = trueFalse($allowSelfReg);
+    $form_value_list['userPasswordCrypted'] = (bool) $encryptPassForm;
+    $form_value_list['allowSelfReg']     = (bool) $allowSelfReg;
     $form_value_list['platformLanguage'] = $languageForm ;
     $form_value_list['claro_stylesheet'] = 'default.css';
 
@@ -291,7 +298,8 @@ else
     array (
     $newIncludePath . '../../textzone_top.inc.html',
     $newIncludePath . '../../textzone_right.inc.html',
-    $newIncludePath . 'conf/auth.conf.php'
+    $newIncludePath . '../../platform/conf/auth.conf.php',
+    $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php'
     );
 
     foreach ($arr_file_to_undist As $undist_this)
@@ -312,8 +320,15 @@ else
             $config = new Config($config_code);
 
 			// generate conf
-			list ($message, $configError) = generate_conf($config,$form_value_list);
+			list ($message, $configKernelError) = generate_conf($config,$form_value_list);
+			if($configKernelError)
+			{
+			    $configError = true;
+			    $messageConfigErrorList = array_merge($messageConfigErrorList,$message);
+			}
+
         }
+        unset($configToolError);
     }
 }
 
@@ -402,7 +417,7 @@ foreach($oldTools as $claroLabel)
     }
     else                          trigger_error('module path not found' ,E_USER_WARNING );
 }
-    
+
 // init default right profile
 init_default_right_profile();
 
@@ -411,7 +426,7 @@ init_default_right_profile();
      */
 
     $def_file_list = get_def_file_list('module');
-    $configError=false;
+
     if ( is_array($def_file_list) )
     {
         foreach ( $def_file_list as $config_code => $def )
@@ -420,8 +435,15 @@ init_default_right_profile();
             $config = new Config($config_code);
 
 			//generate conf
-			list ($message, $configError) = generate_conf($config,$form_value_list);
+			list ($message, $configToolError) = generate_conf($config,$form_value_list);
+			if($configToolError)
+			{
+			    $configError = true;
+			    $messageConfigErrorList = array_merge($messageConfigErrorList,$message);
+			}
+
         }
+        unset($configToolError);
     }
 
 if ($configError)

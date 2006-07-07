@@ -18,9 +18,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     require_once dirname(__FILE__) . '/resolver.lib.php';
 
-    if ( file_exists(dirname(__FILE__).'/../inc/conf/CLDOC.conf.php') )
+    if ( file_exists(claro_get_conf_repository() .'CLDOC.conf.php') )
     {
-        include dirname(__FILE__) . '/../inc/conf/CLDOC.conf.php';
+        include claro_get_conf_repository() .'CLDOC.conf.php';
         // set the value of global variable secureDocumentDownload
         $GLOBALS['secureDocumentDownload'] = $secureDocumentDownload;
     }

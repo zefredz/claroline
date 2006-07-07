@@ -35,7 +35,7 @@ if ( ! $is_allowedToEdit )
 include_once $includePath . '/lib/user.lib.php'; // needed for is_well_formed_email-address()
 include_once $includePath . '/lib/course.lib.inc.php';
 include_once $includePath . '/lib/form.lib.php';
-include_once $includePath . '/conf/course_main.conf.php';
+include_once claro_get_conf_repository() . 'course_main.conf.php';
 
 /**
  * Configuration array , define here which field can be left empty or not

@@ -35,9 +35,9 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $dialogBox = '';
 // initialisation of global variables and used libraries
 require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/course_user.lib.php';
+include claro_get_conf_repository() . 'course_user.lib.php';
 
-include $includePath . '/conf/user_profile.conf.php';
+include claro_get_conf_repository() . 'user_profile.conf.php';
 
 $tbl_mdb_names   = claro_sql_get_main_tbl();
 
@@ -134,7 +134,7 @@ foreach($userList as $lineId => $user)
                                                   . ' alt="' . get_lang('Student') . '" border="0"  hspace="4" '
                                                   . ' title="' . get_lang('Student') . '" />' ;
     }
-    
+
     $userDataList[$lineId]['cmd_cu_edit'] = '<a href="adminUserCourseSettings.php'
                                             . '?cidToEdit=' . $cidToEdit
                                             . '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'

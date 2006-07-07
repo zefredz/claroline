@@ -1065,7 +1065,7 @@ function clean_str_for_javascript( $str )
 
 function claro_parse_user_text($userText)
 {
-   global $claro_texRendererUrl; // see 'inc/conf/claro_main.conf.php'
+   global $claro_texRendererUrl; // see 'conf/claro_main.conf.php'
 
    if ( !empty($claro_texRendererUrl) )
    {

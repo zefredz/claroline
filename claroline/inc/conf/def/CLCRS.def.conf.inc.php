@@ -1,7 +1,7 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * This file describe the parameter for Course creation tool config file
  *
@@ -27,7 +27,7 @@ $conf_def['config_class']='course';
 
 $conf_def['section']['create']['label']='Course main settings';
 $conf_def['section']['create']['description']='';
-$conf_def['section']['create']['properties'] = 
+$conf_def['section']['create']['properties'] =
 array ( 'defaultVisibilityForANewCourse'
       , 'human_code_needed'
       , 'human_label_needed'
@@ -41,7 +41,7 @@ array ( 'defaultVisibilityForANewCourse'
       , 'forceCodeCase'
       );
 
-$conf_def_property_list['forceCodeCase'] = 
+$conf_def_property_list['forceCodeCase'] =
 array ('label'       => 'Course code case'
       ,'description' => 'You can force the case  of course code'
       ,'default'     => 'upper'
@@ -53,7 +53,7 @@ array ('label'       => 'Course code case'
                                 ,'nochange'=>'dont change case'
                                 )
       );
-$conf_def_property_list['defaultVisibilityForANewCourse'] = 
+$conf_def_property_list['defaultVisibilityForANewCourse'] =
 array ('label'       => 'Default course access'
       ,'description' => ''
       ,'default'     => '2'
@@ -67,10 +67,10 @@ array ('label'       => 'Default course access'
                                 )
       );
 
-$conf_def_property_list['human_code_needed'] = 
+$conf_def_property_list['human_code_needed'] =
 array ('label'       => 'Course code is'
       ,'description' => 'User can leave course code (officialCode) field empty or not'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'display'     => false
       ,'readonly'    => true
@@ -79,20 +79,20 @@ array ('label'       => 'Course code is'
                                 )
       );
 
-$conf_def_property_list['human_label_needed'] = 
+$conf_def_property_list['human_label_needed'] =
 array ('label'       => 'Course Title is'
       ,'description' => 'User can leave course title field empty or not'
-      ,'default'     => 'TRUE'
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )
       );
 
-$conf_def_property_list['course_email_needed'] = 
+$conf_def_property_list['course_email_needed'] =
 array ('label'       => 'Course email email is'
       ,'description' => 'User can leave email field empty or not'
-      ,'default'     => 'FALSE'
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => true
       ,'readonly'    => FALSE
@@ -101,10 +101,10 @@ array ('label'       => 'Course email email is'
                               )
       );
 
-$conf_def_property_list['extLinkNameNeeded'] = 
+$conf_def_property_list['extLinkNameNeeded'] =
 array ('label'       => 'External label'
       ,'description' => 'This name is shown on the top right of course banner'
-      ,'default'     => 'FALSE'
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -112,10 +112,10 @@ array ('label'       => 'External label'
                               ,'FALSE'=>'Optional'
                               )
       );
-$conf_def_property_list['extLinkUrlNeeded'] = 
+$conf_def_property_list['extLinkUrlNeeded'] =
 array ('label'       => 'External Label (url)'
       ,'description' => 'URL anchored into the external label above'
-      ,'default'     => 'FALSE'
+      ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
@@ -124,7 +124,7 @@ array ('label'       => 'External Label (url)'
                               )
       );
 
-$conf_def_property_list['prefixAntiNumber'] = 
+$conf_def_property_list['prefixAntiNumber'] =
 array ('label'       => 'Prefix course code beginning with number'
       ,'description' => 'This string is prepend to course database name if it begins with a number'
       ,'default'     => 'No'
@@ -133,7 +133,7 @@ array ('label'       => 'Prefix course code beginning with number'
       ,'type'        => 'string'
       );
 
-$conf_def_property_list['prefixAntiEmpty'] = 
+$conf_def_property_list['prefixAntiEmpty'] =
 array ('label'       => 'Prefix for empty code course'
       ,'default'     => 'Course'
       ,'display'     => FALSE
@@ -141,7 +141,7 @@ array ('label'       => 'Prefix for empty code course'
       ,'type'        => 'string'
       );
 
-$conf_def_property_list['nbCharFinalSuffix'] = 
+$conf_def_property_list['nbCharFinalSuffix'] =
 array ('label'       => 'Lenght of course code suffix'
       ,'technicalInfo'=> 'Lenght of suffix added when key is already exist'
       ,'default'     => 3
@@ -157,7 +157,7 @@ array ('label'       => 'Lenght of course code suffix'
 $conf_def_property_list['showLinkToDeleteThisCourse']
 = array ('label'     => 'Course removal allowed'
         ,'description' => 'Allow course manager to delete their own courses'
-        ,'default'   => 'TRUE'
+        ,'default'   => TRUE
         ,'type'      => 'boolean'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ('TRUE'  => 'Yes'

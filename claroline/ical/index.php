@@ -24,7 +24,7 @@ $siteName ='';
 $is_courseAllowed = false;
 unset($includePath);
 require '../inc/claro_init_global.inc.php';
-include_once $includePath . '/conf/ical.conf.php';
+include_once claro_get_conf_repository() . 'ical.conf.php';
 include_once $includePath . '/lib/ical.write.lib.php';
 $formatList = array('ics'=>'iCalendar','xcs'=>'xCalendar (xml)','rdf'=>'rdf');
 

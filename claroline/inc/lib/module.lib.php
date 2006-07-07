@@ -342,11 +342,16 @@ function claro_get_data_path($contextData=array())
 
 function claro_get_conf_dir($configCode)
 {
-    $confDirPath = get_module_path($configCode) . '/conf/';
-    if (is_dir($confDirPath))
-    return $confDirPath;
-    else
-    return realpath($GLOBALS['includePath'] . '/conf/');
+    if (CLARO_DEBUG_MODE)
+    {
+        pushClaroMessage('claro_get_conf_dir still called in ' );
+        $dbgBtList = debug_backtrace();
+        foreach ($dbgBtList as $dbgBt)
+        foreach ($dbgBt as $infoName => $infoContent)
+        pushClaroMessage('<b>'.$infoName . '</b>: '. var_export($infoContent,1));
+    }
+    return claro_get_conf_repository();
+
 }
 
 function get_module_entry($moduleId)

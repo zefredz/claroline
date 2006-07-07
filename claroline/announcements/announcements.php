@@ -70,7 +70,7 @@ require_once $includePath . '/lib/sendmail.lib.php';
 require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 
 // get specific conf file
-require_once $includePath . '/conf/rss.conf.php';
+require claro_get_conf_repository() . 'rss.conf.php';
 
 claro_set_display_mode_available(TRUE);
 

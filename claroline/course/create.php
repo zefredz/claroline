@@ -35,7 +35,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid )                   claro_disp_auth_form();
 if ( ! $is_allowedCreateCourse ) claro_die(get_lang('Not allowed'));
 
-include $includePath . '/conf/course_main.conf.php';
+include claro_get_conf_repository() . 'course_main.conf.php';
 require_once $includePath . '/lib/add_course.lib.inc.php';
 require_once $includePath . '/lib/course.lib.inc.php';
 require_once $includePath . '/lib/course_user.lib.php';

@@ -108,7 +108,7 @@ $conf_def_property_list['numberOfCols']
 $conf_def_property_list['openNewWindowForDoc'] =
 array ( 'description' => 'When users click on a document, it opens a new window'
       , 'label'       => 'New window for documents'
-      , 'default'     => 'FALSE'
+      , 'default'     => FALSE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Yes'
                                ,'FALSE'=>'No'
@@ -120,7 +120,7 @@ array ( 'description' => 'When users click on a document, it opens a new window'
 $conf_def_property_list['secureDocumentDownload'] =
 array ( 'description' => 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the document directory of the course.'
       , 'label'       => 'Secure document download'
-      , 'default'     => 'FALSE'
+      , 'default'     => FALSE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Yes'
                                  ,'FALSE'=>'No'
