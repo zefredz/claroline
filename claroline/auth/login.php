@@ -94,7 +94,7 @@ if ( is_null($_uid) && $uidRequired )
             if ( get_conf('allowSelfReg',false))
             {
                 $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
-                $message .= get_lang('If you haven\'t a user account yet, use the <a href=\"%url\">the account creation form</a>.',array('%url'=>$urlAppend . '/claroline/auth/inscription.php'));
+                $message .= get_lang('If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.',array('%url'=>$urlAppend . '/claroline/auth/inscription.php'));
 
                 echo claro_html_message_box($message);
             }
