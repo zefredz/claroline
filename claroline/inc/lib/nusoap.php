@@ -6388,7 +6388,7 @@ class soap_parser extends nusoap_base {
 
 /**
 *
-* soapclient higher level class for easy usage.
+* nuSoapclient higher level class for easy usage.
 *
 * usage:
 *
@@ -6405,7 +6405,7 @@ class soap_parser extends nusoap_base {
 * @version  $Id$
 * @access   public
 */
-class soapclient extends nusoap_base  {
+class nuSoapclient extends nusoap_base  {
 
 	var $username = '';
 	var $password = '';
@@ -6472,7 +6472,7 @@ class soapclient extends nusoap_base  {
 	* @param	integer $response_timeout set the response timeout
 	* @access   public
 	*/
-	function soapclient($endpoint,$wsdl = false,$proxyhost = false,$proxyport = false,$proxyusername = false, $proxypassword = false, $timeout = 0, $response_timeout = 30){
+	function nuSoapclient($endpoint,$wsdl = false,$proxyhost = false,$proxyport = false,$proxyusername = false, $proxypassword = false, $timeout = 0, $response_timeout = 30){
 		parent::nusoap_base();
 		$this->endpoint = $endpoint;
 		$this->proxyhost = $proxyhost;
@@ -7052,7 +7052,7 @@ class soapclient extends nusoap_base  {
 				unset($paramCommentStr);
 			}
 		}
-		$evalStr = 'class soap_proxy_'.$r.' extends soapclient {
+		$evalStr = 'class soap_proxy_'.$r.' extends nuSoapclient {
 	'.$evalStr.'
 }';
 		return $evalStr;

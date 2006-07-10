@@ -294,7 +294,7 @@ define("COUNTRY_CODE_ERROR", 5);
 /*============================================================================
                         INIT SOAP CLIENT
   ============================================================================*/
-$soapclient = new soapclient('http://www.claroline.net/worldwide/worldwide_soap.php');
+$soapclient = new nuSoapclient('http://www.claroline.net/worldwide/worldwide_soap.php');
 
 /*============================================================================
                         COMMANDS
