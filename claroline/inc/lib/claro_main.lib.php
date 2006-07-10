@@ -1155,6 +1155,29 @@ function pushClaroMessage($message,$errorClass='error')
     return true;
 }
 
+/**
+ *
+ */
+function getClaroMessageList($errorClass=null)
+{
+    if (isset($GLOBALS['claroErrorList']))
+    {
+        $claroErrorList = $GLOBALS['claroErrorList'];
+        if (is_null($errorClass)) $returnedClaroErrorList = $claroErrorList;
+        else
+        {
+            if (array_key_exists($errorClass,$claroErrorList))
+            {
+                $returnedClaroErrorList[$errorClass] = $claroErrorList[$errorClass];
+            }
+            else $returnedClaroErrorList[]=array();
+        }
+    }
+    else $returnedClaroErrorList[]=array();
+
+    return $returnedClaroErrorList;
+}
+
 
 
 ?>
