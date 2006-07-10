@@ -183,16 +183,6 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
         echo '</div>';
     }
 
-    if ($is_platformAdmin)
-    {
-        echo '&nbsp;'
-        .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=2">'
-        .    '<img src="claroline/img/edit.gif" />' . get_lang('Edit text zone')
-        .    '</a>' . "\n"
-        .    '<br />' . "\n"
-        ;
-    }
-
     echo '<br />'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
