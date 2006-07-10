@@ -470,7 +470,7 @@ if ( $runfillMainDb )
     $user_data['isCourseCreator'] = 1;
     $user_data['officialCode']  = '';
     $user_data['officialEmail'] = '';
-    $user_data['phone'] = $adminPhoneForm;
+    $user_data['phone']         = '';
     $id_admin = user_create($user_data);
     if ($id_admin) user_set_platform_admin(true, $id_admin);
     else echo 'error in admin account creation';

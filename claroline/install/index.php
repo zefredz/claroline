@@ -228,7 +228,7 @@ if ($_REQUEST['fromPanel'] == DISP_LAST_CHECK_BEFORE_INSTALL || $_REQUEST['cmdDo
 if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInstall'])
 {
     $stepStatus[DISP_ADMINISTRATOR_SETTING] = 'V';
-    if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminPhoneForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
+    if (empty($adminSurnameForm)||empty($passForm)||empty($loginForm)||empty($adminNameForm)||empty($adminEmailForm)||!is_well_formed_email_address($adminEmailForm))
     {
         $stepStatus[DISP_ADMINISTRATOR_SETTING] = 'X';
         $adminDataMissing = TRUE;
@@ -236,7 +236,6 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
         if (empty($passForm))  $missing_admin_data[] = 'password';
         if (empty($adminSurnameForm)) $missing_admin_data[] = 'firstname';
         if (empty($adminNameForm)) $missing_admin_data[] = 'lastname';
-        if (empty($adminPhoneForm)) $missing_admin_data[] = 'phone';
         if (empty($adminEmailForm)) $missing_admin_data[] = 'email';
         if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm)) $error_in_admin_data[] = 'email';
         if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please, fill in '.implode(', ',$missing_admin_data).'</font><br />';
@@ -594,10 +593,6 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
         $contactEmailForm = $adminEmailForm;
     }
 
-    if ($contactPhoneForm == '*not set*')
-    {
-        $contactPhoneForm = $adminPhoneForm;
-    }
 }
 
 // BEGIN OUTPUT
@@ -711,14 +706,12 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
 .    '<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
 .    '<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
 .    '<input type="hidden" name="adminEmailForm"               value="'.htmlspecialchars($adminEmailForm).'">'   ."\n"
-.    '<input type="hidden" name="adminPhoneForm"               value="'.htmlspecialchars($adminPhoneForm).'">'   ."\n"
 .    '<input type="hidden" name="adminNameForm"                value="'.htmlspecialchars($adminNameForm).'">'    ."\n"
 .    '<input type="hidden" name="adminSurnameForm"             value="'.htmlspecialchars($adminSurnameForm).'">' ."\n\n"
 .    '<input type="hidden" name="loginForm"                    value="'.htmlspecialchars($loginForm).'">'        ."\n"
 .    '<input type="hidden" name="passForm"                     value="'.htmlspecialchars($passForm).'">'         ."\n\n"
 .    '<input type="hidden" name="languageForm"                 value="'.$languageForm.'">'                   ."\n\n"
 .    '<input type="hidden" name="campusForm"                   value="'.htmlspecialchars($campusForm).'">'       ."\n"
-.    '<input type="hidden" name="adminPhoneForm"               value="'.htmlspecialchars($adminPhoneForm).'">'   ."\n"
 .    '<input type="hidden" name="contactNameForm"              value="'.htmlspecialchars($contactNameForm).'">'  ."\n"
 .    '<input type="hidden" name="contactEmailForm"             value="'.htmlspecialchars($contactEmailForm).'">' ."\n"
 .    '<input type="hidden" name="contactPhoneForm"             value="'.htmlspecialchars($contactPhoneForm).'">' ."\n"
@@ -743,7 +736,7 @@ echo '<input type="hidden" name="alreadyVisited" value="1">'                    
 ###################################################################
 if ($display == DISP_WELCOME)
 {
-    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
+    echo '<input type="hidden" name="fromPanel" value="' . $display . '">'
     .    '<h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_WELCOME, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
@@ -1266,7 +1259,6 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    $msg_admin_exist.''  . "\n"
     .    '<table width="100%">'  . "\n"
     .    '<tr>'  . "\n"
-    .    '<tr>'  . "\n"
     .    '<td>'  . "\n"
     .    '<b><label for="loginForm">'.get_lang('Login').'</label></b>'  . "\n"
     .    '</td>' . "\n"
@@ -1288,6 +1280,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    'e.g. ' . generate_passwd(8) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
     .    '<td>'  . "\n"
     .    '<label for="adminEmailForm">'.get_lang('Email').'</label>'  . "\n"
     .    '</td>' . "\n"
@@ -1298,17 +1291,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    'e.g. jdoe@mydomain.net'  . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="adminPhoneForm">Phone</label>'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminPhoneForm" name="adminPhoneForm" value="'.htmlspecialchars($adminPhoneForm).'">'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. 877-426-6006'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'  . "\n"
+    .    '<tr>' . "\n"
     .    '<td>'  . "\n"
     .    '<label for="adminNameForm">'.get_lang('Last name').'</label>'  . "\n"
     .    '</td>' . "\n"
@@ -1489,6 +1472,14 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="contactPhoneForm">Phone</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td colspan="2">' . "\n"
+    .    '<input type="text" size="40" id="contactPhoneForm" name="contactPhoneForm" value="'.htmlspecialchars($contactPhoneForm).'">' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
     .    '<td colspan="3"><br />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1543,7 +1534,6 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    'Password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)) .'<br />' . "\n"
     .    '</div>' . "\n"
     .    'Email : '.htmlspecialchars($adminEmailForm).'<br />' . "\n"
-    .    'Phone : '.htmlspecialchars($adminPhoneForm).'<br />' . "\n"
     .    'Lastname : '.htmlspecialchars($adminNameForm).'<br />' . "\n"
     .    'Firstname : '.htmlspecialchars($adminSurnameForm).'<br />' . "\n"
     .    '</FIELDSET>' . "\n"
@@ -1566,6 +1556,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    '<em>Campus contact</em><br />' . "\n"
     .    '&nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br />' . "\n"
     .    '&nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br />' . "\n"
+    .    '&nbsp;Phone : '.htmlspecialchars($contactPhoneForm).'<br />' . "\n"
     .    '</FIELDSET>' . "\n"
     .    '</blockquote>' . "\n"
     .    '<center><input type="submit" name="cmdDoInstall" value="Install Claroline"></center>' . "\n"
