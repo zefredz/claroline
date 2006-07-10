@@ -16,6 +16,7 @@
 define('DISP_REGISTRATION_FORM',__LINE__);
 define('DISP_REGISTRATION_SUCCEED',__LINE__);
 define('DISP_REGISTRATION_AGREEMENT',__LINE__);
+define('DISP_REGISTRATION_NOT_ALLOWED',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
@@ -30,6 +31,15 @@ if ( isset($_uid) )
 include claro_get_conf_repository() . 'user_profile.conf.php';
 include_once $includePath . '/lib/user.lib.php';
 include_once $includePath . '/lib/sendmail.lib.php';
+
+
+$agreementText  ='';
+if (file_exists('./textzone_inscription.inc.html'))
+{
+    $agreementText = file_get_contents('./textzone_inscription.inc.html'); // Introduction message if needed
+    if ( '' == trim(strip_tags($agreementText,'<img><embed><object>'))) $agreementText = '';
+
+}
 
 
 if ( get_conf('allowSelfReg',false) )
@@ -130,7 +140,10 @@ if ( get_conf('allowSelfReg',false) )
     {
         $display = DISP_REGISTRATION_SUCCEED;
     }
-    elseif ( 'agree' == $cmd || ! get_conf('show_agreement_panel') || 'registration' == $cmd)
+    elseif ( 'agree' == $cmd
+        || ! get_conf('show_agreement_panel')
+        || 'registration' == $cmd
+        || '' == $agreementText)
     {
         $display = DISP_REGISTRATION_FORM;
     }
@@ -139,10 +152,16 @@ if ( get_conf('allowSelfReg',false) )
         $display = DISP_REGISTRATION_AGREEMENT;
     }
 }
-else
+elseif (! get_conf('show_agreement_panel'))
 {
     $display = DISP_REGISTRATION_AGREEMENT;
 }
+else
+{
+    $display = DISP_REGISTRATION_NOT_ALLOWED;
+}
+
+
 
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -179,7 +198,7 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
     if (file_exists('./textzone_inscription.inc.html'))
     {
         echo '<div class="info">';
-        readfile('./textzone_inscription.inc.html'); // Introduction message if needed
+
         echo '</div>';
     }
 
@@ -188,6 +207,17 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
     .    claro_html_button( get_conf('urlAppend') . '/index.php', get_lang('Cancel') )
+    .    '</form>' . "\n"
+    ;
+}
+elseif (  DISP_REGISTRATION_NOT_ALLOWED == $display )
+{
+
+    echo claro_html_msg_list(array(array('info'=>    get_lang('Subscription not allowed'))));
+
+    echo '<br />'
+    .    '<form action="' . get_conf('rootWeb','/') . '" >'
+    .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
     .    '</form>' . "\n"
     ;
 }
