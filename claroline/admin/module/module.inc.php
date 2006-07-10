@@ -1189,7 +1189,7 @@ function register_module_tool_in_context($toolId, $toolContext, $toolContextProp
 
 function add_tool_in_context_menu($toolId, $menu, $contextId, $path)
 {
-
+/** not use in  1.8
     $tbl = claro_sql_get_tbl(array('module_rel_tool_context_menu', 'module_menu',));
     $sql = "REPLACE  INTO `" . $tbl['module_menu'] . "`
             SET contextId     = '" . addslashes($menu) . "',
@@ -1210,7 +1210,7 @@ function add_tool_in_context_menu($toolId, $menu, $contextId, $path)
              defaultRank   = " . (int) $rank ;
 
     return claro_sql_query_insert_id($sql);
-
+*/ return true;
 }
 
 function claro_get_module_types()
