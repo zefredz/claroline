@@ -308,7 +308,7 @@ function assignment_upgrade_to_16($course_code)
                                              , `code_cours` = '" . $course_code . "'
                                              , `role` = 'Course missing manager';";
                     if ( ! claro_sql_query($sql_set_teacher) ) return $step;            
-                    log_message('Warning : Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager.');
+                    log_message('Warning : Course '.$course_code.' has no teacher, you are enrolled in as course manager.');
                 }
     
                 // add old work in submission of course manager
