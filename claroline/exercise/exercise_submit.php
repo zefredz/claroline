@@ -111,7 +111,10 @@ if( !isset($_SESSION['questionList']) || !is_array($_SESSION['questionList']) )
 	{
 		$qList = $exercise->getRandomQuestionList();
 	}
-
+	
+	$questionList = array();
+	$_SESSION['questionList'] = array();
+	// get all question objects and store them serialized in session
 	foreach( $qList as $question )
 	{
 		$questionObj = new Question();
