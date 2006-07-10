@@ -534,8 +534,6 @@ class answerFillInBlanks
      */
     function getFormHtml($exId = null) 
     {
-    	$exId = isset($_REQUEST['exId'])?$_REQUEST['exId']:'';	
-    	
     	$html = 
     		'<form method="post" action="./edit_answers?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     	.	'<input type="hidden" name="cmd" value="exEdit" />' . "\n"

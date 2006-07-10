@@ -433,11 +433,9 @@ class answerTrueFalse
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */	    
-    function getFormHtml()
+    function getFormHtml($exId = null)
     {
-		$exId = isset($_REQUEST['exId'])?$_REQUEST['exId']:'';
-		
-    	$html = 
+		$html = 
     		'<form method="post" action="./edit_answers?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     		. '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
