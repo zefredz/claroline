@@ -105,15 +105,34 @@ function claro_get_course_data($courseId = NULL, $force = false )
     return $courseDataList;
 }
 
+/**
+ * This function return properties for groups in a given course context.
+ *
+ * @param string $courseId sysCode of the course.
+ *
+ * @return array ('registrationAllowed' ,
+                  'self_registration',
+                  'private',
+                  'nbGroupPerUser',
+                  'tools' => array ('forum',
+                                    'document',
+                                    'wiki',
+                                    'chat')
+                                    )
 
+
+ * The 4th first properties  are course properties dedicated to groups as default value.
+ * The 'tool' array is like course.tool_list.
+ */
 
 function claro_get_main_group_properties($courseId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
     $tbl_course_properties   = $tbl_cdb_names['course_properties'];
 
-    $sql = "SELECT name, value
-            FROM `".$tbl_course_properties."`
+    $sql = "SELECT name,
+                   value
+            FROM `" . $tbl_course_properties . "`
             WHERE category = 'GROUP'";
 
     $dbDataList = claro_sql_query_fetch_all($sql);
@@ -1103,37 +1122,6 @@ function get_init($param)
     return null;
 }
 
-
-
-/**
- * convert a duration in seconds to a human readable duration
- * @author Sébastien Piraux <pir@cerdecam.be>
- * @param integer duration time in seconds to convert to a human readable duration
- */
-
-function claro_disp_duration( $duration  )
-{
-    if( $duration == 0 ) return '0 '.get_lang('SecondShort');
-
-    $days = floor(($duration/86400));
-    $duration = $duration % 86400;
-
-    $hours = floor(($duration/3600));
-    $duration = $duration % 3600;
-
-    $minutes = floor(($duration/60));
-    $duration = $duration % 60;
-    // $duration is now equal to seconds
-
-    $durationString = '';
-
-    if( $days > 0 ) $durationString .= $days . ' ' . get_lang('PeriodDayShort') . ' ';
-    if( $hours > 0 ) $durationString .= $hours . ' ' . get_lang('PeriodHourShort') . ' ';
-    if( $minutes > 0 ) $durationString .= $minutes . ' ' . get_lang('MinuteShort') . ' ';
-    if( $duration > 0 ) $durationString .= $duration . ' ' . get_lang('SecondShort');
-
-    return $durationString;
-}
 
 
 /**
