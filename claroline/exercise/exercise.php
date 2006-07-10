@@ -311,9 +311,11 @@ if( !empty($exerciseList) )
 	    }
 	    
 		echo '<tr'.$invisibleClass.'>' . "\n"
-		.	 '<td class="item'.$appendToStyle.'">'
+		.	 '<td>'
+		.	 '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
 		.	 '<img src="'.$imgRepositoryWeb.'quiz.gif" alt="" />'
-		.	 '<a href="exercise_submit.php?exId='.$anExercise['id'].'">' . $anExercise['title'] . '</a>'
+		.	 $anExercise['title'] 
+		.	 '</a>'
 		.	 '</td>' . "\n";
 		
 		if( $is_allowedToEdit )
