@@ -71,6 +71,7 @@ function create_required_profile ()
 function init_default_right_profile ()
 {
     require_once get_conf('includePath') . '/lib/right/profileToolRight.class.php';
+    
 
     $tbl_mdb_names = claro_sql_get_tbl( array('course_tool',
                                               'right_profile',
@@ -88,7 +89,7 @@ function init_default_right_profile ()
      */
 
     $profile = new RightProfile();
-    $profile->load(ANONYMOUS_PROFILE);
+    $profile->load(claro_get_profile_id(ANONYMOUS_PROFILE));
     $profileAction = new RightProfileToolRight();
     $profileAction->load($profile);
     $profileAction->setToolListRight($toolList,'user');
@@ -99,7 +100,7 @@ function init_default_right_profile ()
      */
 
     $profile = new RightProfile();
-    $profile->load(GUEST_PROFILE);
+    $profile->load(claro_get_profile_id(GUEST_PROFILE));
     $profileAction = new RightProfileToolRight();
     $profileAction->load($profile);
     $profileAction->setToolListRight($toolList,'user');
@@ -110,7 +111,7 @@ function init_default_right_profile ()
      */
 
     $profile = new RightProfile();
-    $profile->load(USER_PROFILE);
+    $profile->load(claro_get_profile_id(USER_PROFILE));
     $profileAction = new RightProfileToolRight();
     $profileAction->load($profile);
     $profileAction->setToolListRight($toolList,'user');
@@ -121,7 +122,7 @@ function init_default_right_profile ()
      */
 
     $profile = new RightProfile();
-    $profile->load(MANAGER_PROFILE);
+    $profile->load(claro_get_profile_id(MANAGER_PROFILE));
     $profileAction = new RightProfileToolRight();
     $profileAction->load($profile);
     $profileAction->setToolListRight($toolList,'manager');
