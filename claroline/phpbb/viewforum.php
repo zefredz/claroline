@@ -26,6 +26,7 @@ $tlabelReq = 'CLFRM';
 require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+$currentContext = ( isset($_gid)) ? CLARO_CONTEXT_GROUP : CLARO_CONTEXT_COURSE;
 
 claro_set_display_mode_available(true);
 
@@ -111,14 +112,13 @@ $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
 
-    // Show Group Documents and Group Space
-    // only if in Category 2 = Group Forums Category
+    // Show Group tools
+    // only if in group forum.
 
-    if ( GROUP_FORUMS_CATEGORY == $forum_cat_id )
+    if ( $currentContext == CLARO_CONTEXT_GROUP )
     {
         $groupToolList = forum_group_tool_list($_gid);
     }
-
 
 include $includePath . '/claro_init_header.inc.php';
 
