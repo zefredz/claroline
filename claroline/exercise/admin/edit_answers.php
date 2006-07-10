@@ -119,7 +119,7 @@ echo $question->getQuestionHtml();
 // dialog box if required 
 if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo $question->answer->getFormHtml();	
+echo $question->answer->getFormHtml($exId);	
 
 
 
