@@ -543,7 +543,7 @@
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
                 . '<p>'
-                . '<a class="claroCmd" href="../document/document.php?gidReset=1">'
+                . '<a class="claroCmd" href="'.$urlAppend.'/claroline/document/document.php?gidReset=1">'
                 . get_lang("Go to documents tool")
                 .'</a>'
                 . '&nbsp;|&nbsp;'
