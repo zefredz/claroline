@@ -222,7 +222,6 @@ function elementData($parser,$data)
     global $itemsPile;
     global $manifestData;
     global $flagTag;
-    global $iterator;
     global $dialogBox;
     global $errorFound;
     global $zipFile;
@@ -284,7 +283,7 @@ function elementData($parser,$data)
                 
 		        if( file_exists( $pathToManifest.$file ) )
 		        {
-		            array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest."imsmanifest.xml" );
+		            array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest.$file );
 		
 					$readData = file_get_contents($pathToManifest.$file);
 		
@@ -623,9 +622,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         $manifestData = array();   // for global data  of the learning path
         $manifestData['items'] = array(); // item tags content (attributes + some child elements data (title for an example)
         $manifestData['scos'] = array();  // for path of start asset id of each new module to create
-
-        $iterator = 0; // will be used to increment position of paths in manifestData['scosPaths"]
-                       // and to have the names at the same pos if found
 
         $xml_parser = xml_parser_create();
         xml_set_element_handler($xml_parser, "startElement", "endElement");
