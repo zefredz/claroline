@@ -22,6 +22,7 @@
 require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/class.lib.php';
 require_once $includePath . '/lib/course_user.lib.php' ;
 require_once $includePath . '/lib/import_csv.lib.php';
 
@@ -51,6 +52,11 @@ switch ($AddType)
     if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
     $AddType = 'userTool' ;
     break;
+}
+                
+if ( isset($_REQUEST['class_id']) )
+{
+    $_SESSION['admin_user_class_id'] = $_REQUEST['class_id'];
 }
 
 /*
@@ -246,10 +252,6 @@ switch ($cmd)
                 break;
 
             case 'adminClassTool':
-                if ( isset($_REQUEST['class_id']) )
-                {
-                    $_SESSION['admin_user_class_id'] = $_REQUEST['class_id'];
-                }
                 user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
                 break;
 
