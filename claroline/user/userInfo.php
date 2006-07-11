@@ -470,7 +470,7 @@ elseif ($displayMode == "viewContentList") // default display
         if($is_allowedToTrack)
         {
             echo '<td>'
-            .    '<a href="../tracking/userLog.php?uInfo='.$userIdViewed.'">'
+            .    '<a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$userIdViewed.'">'
             .    '<img border="0" alt="'.get_lang('Tracking').'" src="'.$imgRepositoryWeb.'statistics.gif" />'
             .    '</a>'
             .    '</td>' . "\n"
