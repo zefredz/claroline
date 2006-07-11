@@ -25,6 +25,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 require_once(dirname(__FILE__) . '/sql.lib.php');
 
 /**
+ * SECTION : PHP COMPAT For PHP backward compatibility
+ */
+
+require_once(dirname(__FILE__) . '/compat.lib.php');
+
+/**
  * SECTION :  Class & function to prepare a normalised html output.
  */
 
