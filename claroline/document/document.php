@@ -157,13 +157,10 @@ if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
 else                               $docView = 'files';
 
 
-                  /* > > > > > > MAIN SECTION  < < < < < < <*/
+/* > > > > > > MAIN SECTION  < < < < < < <*/
 
-
-if( $is_allowedToEdit ) // Document edition are reserved to certain people
+if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 {
-
-
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                                   UPLOAD FILE
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -185,8 +182,14 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         {
             if (   isset($_REQUEST['uncompress'])
                 && $_REQUEST['uncompress'] == 1
-                && $is_allowedToUnzip)                $unzip = 'unzip';
-            else                                      $unzip = '';
+                && $is_allowedToUnzip)
+            {
+                $unzip = 'unzip';
+            }
+            else
+            {
+                $unzip = '';
+            }
 
             $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
@@ -250,12 +253,9 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                                              , $_gid
                                              , '0');
 
-
-
             /*--------------------------------------------------------------------
                IN CASE OF HTML FILE, LOOKS FOR IMAGE NEEDING TO BE UPLOADED TOO
               --------------------------------------------------------------------*/
-
 
             if (   strrchr($uploadedFileName, '.') == '.htm'
                 || strrchr($uploadedFileName, '.') == '.html')
@@ -358,7 +358,7 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ($courseContext)
         {
             if (!isset($oldComment)) $oldComment = "";
-        $dialogBox .= "<p>\n"
+            $dialogBox .= "<p>\n"
                         ."<label for=\"comment\">".get_lang("Add a comment (optionnal) :")."</label>"
                         ."<br /><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
                         .$oldComment
@@ -629,7 +629,6 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
     }
 
-
     /*------------------------------------------------------------------------
                         MOVE FILE OR DIRECTORY : STEP 1
     --------------------------------------------------------------------------*/
@@ -639,12 +638,9 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         $dialogBox .= form_dir_list($_REQUEST['file'], $baseWorkDir);
     }
 
-
-
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                             DELETE FILE OR DIRECTORY
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-
 
     if ('exRm' == $cmd )
     {
@@ -666,9 +662,6 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
     }
 
-
-
-
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                                       EDIT
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -678,7 +671,6 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
      * so it allows to return to STEP 1
      * if STEP 2 unsucceds
      */
-
 
     /*------------------------------------------------------------------------
                                  EDIT : STEP 2
@@ -762,7 +754,6 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
     }
 
-
     /*------------------------------------------------------------------------
                                  EDIT : STEP 1
     -------------------------------------------------------------------------*/
@@ -833,9 +824,6 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
                      ."</form>\n";
 
     } // end if cmd == rqEdit
-
-
-
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                                 CREATE DIRECTORY
@@ -926,8 +914,6 @@ if( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
     }
 } // END is Allowed to Edit
-
-
 
 if ('rqSearch' == $cmd )
 {
@@ -1084,9 +1070,6 @@ if ($parentDir == '/' || $parentDir == '\\')
 {
     $parentDir = ''; // manage the root directory problem
 }
-
-
-
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                          READ CURRENT DIRECTORY CONTENT
@@ -1620,7 +1603,7 @@ echo claro_html_tool_title($titleElement,
                             VIEW THUMBNAILS
       -----------------------------------------------------------------------*/
 
-    else if ($docView == 'thumbnails' ) // thumbnails mode
+    elseif ($docView == 'thumbnails' ) // thumbnails mode
     {
         // intialize page number
          $page = 1; // if not set, set to first page
@@ -2148,3 +2131,5 @@ echo claro_html_tool_title($titleElement,
     } // END ELSE VIEW IMAGE
 
 include $includePath . '/claro_init_footer.inc.php';
+
+?>
