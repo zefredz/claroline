@@ -2,8 +2,8 @@
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
-$_lang['%moduleName has been added as module'] = 'a été ajouté comme module de ce cours et comme module de ce parcours pédagogique';
-$_lang['%moduleName is already used as a module in this learning path'] = 'Cet exercice est déjà utilisé comme module dans ce parcours pédagogique';
+$_lang['%moduleName has been added as module'] = '%moduleName a été ajouté comme module de ce cours et comme module de ce parcours pédagogique';
+$_lang['%moduleName is already used as a module in this learning path'] = '%moduleName est déjà utilisé comme module dans ce parcours pédagogique';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) utilisateurs anonymes, non inscrits au cours, etc.';
 $_lang['(When an user open the index of the campus)'] = '(Lorsqu\'un utilisateur accède au campus)';
 $_lang['(always private)'] = '(toujours privé)';
