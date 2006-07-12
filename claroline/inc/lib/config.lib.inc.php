@@ -1359,7 +1359,7 @@ function generate_conf(&$config,$properties = null)
         if ( !$config->load() )
         {
             // error loading the configuration
-            $message[] = $config->get_error_message();
+            $message = $config->get_error_message();
             return array($message , false);
         }
     }
