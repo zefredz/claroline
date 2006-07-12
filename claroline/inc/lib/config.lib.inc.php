@@ -571,7 +571,8 @@ class Config
                 else
                 {
                     $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
-                    $propertyLine .= '$_conf[\''.$name.'\'] = '. $valueToWrite .';'."\n";
+                    // in the next version, config would change to
+                    // $propertyLine .= '$_conf[\''.$name.'\'] = '. $valueToWrite .';'."\n";
                 }
                 $propertyLine .= "\n\n";
 
