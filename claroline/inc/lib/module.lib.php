@@ -328,8 +328,8 @@ function get_module_data($claroLabel, $ignoreCache=false)
     static $cachedModuleDataList = null;
     if ($ignoreCache || is_null($cachedModuleDataList) || ! array_key_exists($claroLabel,$cachedModuleDataList))
     {
-        $tbl = claro_sql_get_tbl(array('module', 'course_tool', 'module_tool'));
-        $sql = "SELECT M.`label`      AS label,
+        $tbl = claro_sql_get_tbl(array('module', 'course_tool'));
+        $sql = "SELECT M.`label`  AS label,
                    M.`id`         AS id,
                    M.`name`       AS moduleName,
                    M.`activation` AS activation,
@@ -337,11 +337,9 @@ function get_module_data($claroLabel, $ignoreCache=false)
                    M.`script_url` AS entry,
                    CT.`icon`      AS icon
 
-
         FROM `" . $tbl['module'] . "` AS M
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
             ON CT.`claro_label`= M.label
-
         WHERE  M.`label` = '" . addslashes($claroLabel) . "'";
         $cachedModuleDataList[$claroLabel] = claro_sql_query_get_single_row($sql);
     }
