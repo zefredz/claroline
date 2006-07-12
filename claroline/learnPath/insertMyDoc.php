@@ -72,7 +72,7 @@ include($includePath."/lib/fileManage.lib.php");
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
 {
-      die ("<center> Not allowed ! (path_id not set :@ )</center>");
+      header("Location: ./learningPath.php?path_id=".$_SESSION['path_id']);
 }
 
 /*======================================
