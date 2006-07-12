@@ -147,7 +147,7 @@ function activate_module($moduleId)
 
     // 3 - add the module in the cours_tool table, used for every course creation
 
-    if (($module_info['type'] =='tool') && $moduleId)
+    if (($moduleInfo['type'] =='tool') && $moduleId)
     {
 
         // find max rank in the course_tool table
@@ -197,7 +197,7 @@ function activate_module($moduleId)
 
         // 4- update every course tool list to add the tool if it is a tool
 
-        $module_type = $module_info['type'];
+        $module_type = $moduleInfo['type'];
 
         $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
         $course_list = claro_sql_query_fetch_all($sql);
@@ -244,13 +244,13 @@ function deactivate_module($moduleId)
 {
     //find needed info :
 
-    $module_info =  get_module_info($moduleId);
+    $moduleInfo =  get_module_info($moduleId);
     $tbl = claro_sql_get_main_tbl();
 
     // TODO : 1- call desactivation script (if any) from the module repository
 
 
-    if (($module_info['type'] =='tool') && $moduleId)
+    if (($moduleInfo['type'] =='tool') && $moduleId)
     {
 
         // 2- delete the module in the cours_tool table, used for every course creation
@@ -259,12 +259,12 @@ function deactivate_module($moduleId)
 
 
         $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
-                WHERE claro_label = '".$module_info['label']."'";
+                WHERE claro_label = '".$moduleInfo['label']."'";
         $tool_to_delete = claro_sql_query_get_single_row($sql);
         $tool_id = $tool_to_delete['tool_id'];
 
         $sql = "DELETE FROM `" . $tbl['tool']."`
-                WHERE claro_label = '".$module_info['label']."'
+                WHERE claro_label = '".$moduleInfo['label']."'
             ";
 
         claro_sql_query($sql);
