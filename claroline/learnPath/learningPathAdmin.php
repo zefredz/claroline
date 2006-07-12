@@ -53,7 +53,7 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=> $clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
 $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb 
