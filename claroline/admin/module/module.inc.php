@@ -1307,7 +1307,7 @@ function readModuleManifest($modulePath)
  * @param string $context
  * @return array
  */
-function get_dock_list($moduleType,$context='ALL')
+function get_dock_list($moduleType)
 {
     $dockList   = array();
     switch($moduleType)
