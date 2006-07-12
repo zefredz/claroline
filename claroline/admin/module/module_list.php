@@ -26,7 +26,7 @@ require_once $includePath . '/lib/sqlxtra.lib.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/fileUpload.lib.php';
 require_once $includePath . '/lib/html.lib.php';
-require_once $includePath . '/../admin/module/module.inc.php';
+require_once $includePath . '/lib/module.manage.lib.php';
 
 //OLD TOOLS ;
 
@@ -51,11 +51,13 @@ $tbl_name        = claro_sql_get_main_tbl();
 $tbl_module      = $tbl_name['module'];
 $tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
+$tbl_course_tool = $tbl_name['tool'];
 $tbl = claro_sql_get_tbl(array('module_tool'));
 
 
 $nameTools = get_lang('Module list');
 $interbredcrump[]= array ('url' => $rootAdminWeb,'name' => get_lang('Administration'));
+
 
 //NEEDED CSS
 
@@ -127,12 +129,13 @@ $typeLabel['theme']   = get_lang('Themes');
 $typeLabel['extauth'] = get_lang('External authentication');
 
 
-$cmd          = (isset($_REQUEST['cmd'])       ? $_REQUEST['cmd']       : null);
-$module_id    = (isset($_REQUEST['module_id']) ? $_REQUEST['module_id'] : null );
-$dockname     = (isset($_REQUEST['dockname'])  ? $_REQUEST['dockname']  : null );
-$typeReq      = (isset($_REQUEST['typeReq'])   ? $_REQUEST['typeReq']   : 'tool');
-$offset       = (isset($_REQUEST['offset'])    ? $_REQUEST['offset']    : 0 );
-$pagerSortDir = (isset($_REQUEST['dir' ])      ? $_REQUEST['dir' ]      : SORT_ASC);
+$cmd          = (isset($_REQUEST['cmd'])          ? $_REQUEST['cmd']          : null);
+$module_id    = (isset($_REQUEST['module_id'])    ? $_REQUEST['module_id']    : null );
+$courseToolId = (isset($_REQUEST['courseToolId']) ? $_REQUEST['courseToolId'] : null );
+$dockname     = (isset($_REQUEST['dockname'])     ? $_REQUEST['dockname']     : null );
+$typeReq      = (isset($_REQUEST['typeReq'])      ? $_REQUEST['typeReq']      : 'tool');
+$offset       = (isset($_REQUEST['offset'])       ? $_REQUEST['offset']       : 0 );
+$pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : SORT_ASC);
 
 
 //----------------------------------
@@ -150,11 +153,11 @@ switch ( $cmd )
         break;
 
     case 'up' :
-        move_module_in_dock($module_id, $dockname,'up');
+        move_module_tool($courseToolId, 'up');
         break;
 
     case 'down' :
-        move_module_in_dock($module_id, $dockname,'down');
+        move_module_tool($courseToolId, 'down');
         break;
 
     case 'uninstall' :
@@ -222,18 +225,21 @@ switch($typeReq)
         $sqlJoinType = " LEFT JOIN `" . $tbl_dock . "` AS D " . "\n"
         .              "        ON D.`module_id`= M.id " . "\n"
         ;
+        $orderType = "";
         break;
     case 'tool'   :
 
-        $sqlSelectType = "       MT.`id`    AS toolId, " . "\n"
-        .                "       MT.`icon`  AS icon," . "\n"
-        .                "       MT.`entry` AS entry," . "\n"
+        $sqlSelectType = "       CT.`id`    AS courseToolId, " . "\n"
+        .                "       CT.`icon`  AS icon," . "\n"
+        .                "       CT.`script_url` AS script_url," . "\n"
+        .                "       CT.`def_rank` AS rank," . "\n"
         ;
-        $sqlJoinType = " LEFT JOIN `" . $tbl['module_tool'] . "` AS MT " . "\n"
-        .              "        ON MT.`module_id`= M.id " . "\n"
+        $sqlJoinType = " LEFT JOIN `" . $tbl_course_tool . "` AS CT " . "\n"
+        .              "        ON CT.`claro_label`= M.label " . "\n"
         ;
+        $orderType = "ORDER BY `activation`,`def_rank` \n";
         break;
-    default       : $sqlSelectType=""; $sqlJoinType = "";
+    default       : $sqlSelectType=""; $sqlJoinType = ""; $orderType = "";
 
 }
 
@@ -244,10 +250,10 @@ $sql = "SELECT M.`id`              AS `id`,         \n"
 .      $sqlSelectType
 .      "       M.`type`            AS `type`        \n"
 .      "FROM `" . $tbl_module . "` AS M             \n"
-.      $sqlJoinType . "\n"
+.      $sqlJoinType . "\n "
 .      "WHERE M.`type` = '" . addslashes($typeReq) . "' \n"
 .      "GROUP BY `id` \n"
-.      "ORDER BY `id` \n"
+.      $orderType . "\n "
 ;
 
 //pager creation
@@ -287,10 +293,16 @@ foreach ($modules_found['folder'] as $module_folder)
     $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder)) . '<br/>';
 }
 
+//needed info for reorder buttons to known if we must display action (or not)
+
+$course_tool_min_rank = get_course_tool_min_rank();
+$course_tool_max_rank = get_course_tool_max_rank();
+
 //----------------------------------
 // DISPLAY
 //----------------------------------
 
+$noQUERY_STRING = true;
 include $includePath . '/claro_init_header.inc.php';
 
 //display title
@@ -341,12 +353,18 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<thead>'
 .    '<tr class="headerX" align="center" valign="top">'
 .    '<th>' . get_lang('Icon')                . '</th>'
-.    '<th>' . get_lang('Module name')         . '</th>'
-.    '<th>' . get_lang('Display')             . '</th>'
-.    '<th>' . get_lang('Activation')          . '</th>'
-.    '<th>' . get_lang('Properties')          . '</th>'
+.    '<th>' . get_lang('Module name')         . '</th>';
+if ($typeReq!='tool')
+{
+    echo '<th>' . get_lang('Display')             . '</th>';
+}
+else
+{
+    echo '<th colspan="2">' . get_lang('Display order')       . '</th>';
+}
+echo '<th>' . get_lang('Properties')          . '</th>'
 .    '<th>' . get_lang('Uninstall')           . '</th>'
-.    '<th>' . get_lang('Information ')        . '</th>'
+.    '<th>' . get_lang('Activation')          . '</th>'
 .    '</tr><tbody>'
 ;
 
@@ -397,11 +415,11 @@ foreach($moduleList as $module)
 
     //displaying location column
 
-    echo    '<td align="left" class="' . $class_css . '"><small>';
+    
 
-    if ($module['type']!='tool')
+    if ($module['type']!='tool' )
     {
-
+        echo '<td align="left" class="' . $class_css . '"><small>';
         foreach ($module_dock[$module['id']] as $dock)
         {
            echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dock['dockname'] . '</a> <br/>';
@@ -411,33 +429,35 @@ foreach($moduleList as $module)
         {
             echo '<div align="center">' . get_lang('No dock chosen') . '</div>';
         }
+        echo '</small></td>';
    }
    else
    {
-        echo get_lang('Tool list');
+        //up command
+        if ($course_tool_min_rank!=$module['rank'] && 'activated' == $module['activation'])
+        {
+            echo  '<td align="center"><a href="module_list.php?courseToolId='.$module['courseToolId'].'&cmd=up"><img src="' . $imgRepositoryWeb . 'up.gif"></a></td>';
+        }
+        else
+        {
+            echo '<td></td>';
+        }
+
+        //down command
+        if ($course_tool_max_rank!=$module['rank'] && 'activated' == $module['activation'])
+        {
+            echo  '<td align="center"><a href="module_list.php?courseToolId='.$module['courseToolId'].'&cmd=down"><img src="' . $imgRepositoryWeb . 'down.gif"></a></td>';
+        }
+        else
+        {
+            echo '<td></td>';
+        }
    }
-
-   echo '</small></td>' . "\n".'<td align="center" >';
-
-    //activation link
-
-    if ( 'activated' == $module['activation'] )
-    {
-        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
-         . get_lang('Activated') . '</small></a>'
-        ;
-    }
-    else
-    {
-        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
-    }
-
-    echo '</td>' . "\n";
 
     //Properties link
 
     echo '<td align="center">'
-    .    '<a href="module.php?module_id='.$module['id'].'&item=GLOBAL">'
+    .    '<a href="module.php?module_id='.$module['id'].'&item=GENERAL">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n"
@@ -452,13 +472,20 @@ foreach($moduleList as $module)
     .    '</td>' . "\n"
     ;
 
-    //module information link
+    //activation link
 
-    echo '<td align="center">'
-    .    '<a href="module.php?module_id='.$module['id'].'&item=GENERAL">'
-    .    '<img src="' . $imgRepositoryWeb . 'info.gif" border="0" alt="' . get_lang('Information') . '" />'
-    .    '</a>'
-    .    '</td>' . "\n";
+    echo '</small></td>' . "\n".'<td align="center" >';
+    if ( 'activated' == $module['activation'] )
+    {
+        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
+         . get_lang('Activated') . '</small></a>'
+        ;
+    }
+    else
+    {
+        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
+    }
+    echo '</td>' . "\n";
 
     //end table line
 
