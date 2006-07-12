@@ -439,16 +439,17 @@ function treat_secure_file_unzip($fileName, $filePath,
         return claro_failure::set_failure('not_enough_space');
     }
 
-    if ( is_array($zipFile->extract(PCLZIP_OPT_PATH, $extractPath . $filePath) ) )
+    $extractedFileNameList = $zipFile->extract(PCLZIP_OPT_PATH, $extractPath . $filePath);
+
+    if ( is_array($extractedFileNameList) )
     {
-        return true;
+        return $extractedFileNameList;
     }
     else
     {
         return false;
     }
 }
-
 
 /**
  * retrieve the image path list in a html file
