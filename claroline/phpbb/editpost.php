@@ -113,8 +113,6 @@ if ( $postSettingList && $is_allowedToEdit )
             $topic_id         = $postSettingList['topic_id' ];
             $this_post_time   = $postSettingList['post_time'];
             list($day, $time) = split(' ', $postSettingList['post_time']);
-
-            $posterdata       = get_userdata_from_id($poster_id);
             $date             = date('Y-m-d H:i');
 
             if ( isset($_REQUEST['message']) )
@@ -143,7 +141,7 @@ if ( $postSettingList && $is_allowedToEdit )
             }
             else
             {
-                delete_post($post_id, $topic_id, $forum_id, $posterdata['user_id']);
+                delete_post($post_id, $topic_id, $forum_id, $poster_id);
             }
 
         } // end submit management

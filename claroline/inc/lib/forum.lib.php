@@ -25,23 +25,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 define ('GROUP_FORUMS_CATEGORY', 1);
-function get_userdata_from_id($userId)
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users       = $tbl_mdb_names['user'];
-
-    $sql = "SELECT prenom first_name,
-                   nom    last_name,
-                   email,
-                   user_id
-            FROM `" . $tbl_users . "`
-            WHERE user_id = " . (int) $userId;
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    if ( count($result) == 1 ) return $result[0];
-    else                       return false;
-}
 
 /**
  * Returns the total number of posts in the whole system, a forum, or a topic
@@ -924,8 +907,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
     if ( isset($toolBar) && is_array($toolBar))
     {
-        $toolBar = implode(' | ', $toolBar);
-        echo '<p>' . $toolBar . '<p>' . "\n";
+        echo claro_html_menu_horizontal($toolBar);
     }
     return TRUE;
 }
