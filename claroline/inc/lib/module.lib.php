@@ -50,21 +50,20 @@ function get_module_list($context)
          * composed af a central table with common info and extended table with specific info.
          *
          */
-        $tbl = claro_sql_get_tbl(array('module', 'module_tool', 'module_rel_tool_context', ));
+        $tbl = claro_sql_get_tbl(array('module', 'course_tool', ));
 
-        $sql ="SELECT m.label                    AS claro_label,
-                      IFNULL(mt.icon,'tool.gif') AS icon,
-                      mtc.access_manager         AS access_manager,
-                      mtc.enabling               AS add_in_course
+        $sql ="SELECT m.label AS claro_label,
 
-               FROM `" . $tbl['module_tool'] . "` AS mt
+               FROM `" . $tbl['course_tool'] . "` AS ct
                INNER JOIN `" . $tbl['module'] . "` AS m
-               ON  mt.module_id = m.id
+               ON  ct.module_id = m.id
 
-               INNER JOIN `" . $tbl['module_rel_tool_context'] . "` AS mtc
-               ON  mt.id = mtc.tool_id AND mtc.context = 'COURSE'
                ";
         $moduleList = claro_sql_query_fetch_all($sql);
+    }
+    elseif( CLARO_CONTEXT_USER == $context)
+    {
+        $moduleList[] = array('claro_label' => 'CLCAL', 'add_in_context' => 'AUTOMATIC');
     }
     elseif( CLARO_CONTEXT_GROUP == $context)
     {
@@ -385,16 +384,10 @@ function get_module_data($claroLabel, $ignoreCache=false)
                    M.`activation` AS activation,
                    M.`type`       AS type,
                    M.`script_url` AS entry,
-                   MT.`icon`      AS icon,
-                   'm',M.*,
-                   'mt',Mt.*,
-                   'ct',ct.*
-
+                   CT.`icon`      AS icon
 
 
         FROM `" . $tbl['module'] . "` AS M
-        LEFT JOIN `" . $tbl['module_tool'] . "` AS MT
-            ON MT.`module_id`= M.id
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
             ON CT.`claro_label`= M.label
 
