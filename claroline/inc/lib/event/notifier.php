@@ -47,6 +47,43 @@ class Notifier extends EventDriven
         }
 
     }
+    
+    /**
+    * implements the parent update_rid function
+    * @param $event object
+    * @return void
+    */
+
+    function update_rid ($event)
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_notify     = $tbl_mdb_names['notify'];
+
+        // get needed info from event
+
+        $event_args = $event->getArgs();
+
+        $course     = $event_args['cid'];
+        $tool       = $event_args['tid'];
+        $ressource  = $event_args['rid'];
+        $gid        = $event_args['gid'];
+        $uid        = $event_args['uid'];
+        $eventType  = $event->getEventType();
+
+        $oldRessourceId = $ressource['old_uri'];
+        $newRessourceId = $ressource['new_uri'];
+
+        // update ressource_id
+            
+        $sql = "UPDATE `" . $tbl_notify . "`
+                SET `ressource_id`= '" . addslashes($newRessourceId) . "'
+                WHERE `course_code`='". addslashes($course) ."'
+                  AND `tool_id`= ". (int) $tool."
+                  AND `ressource_id`= '". addslashes($oldRessourceId) ."'
+                  AND `group_id` = ". (int) $gid;
+
+        claro_sql_query($sql);
+    }
 
     /**
      *  delete the notification information about a ressource that do not exist any longer
