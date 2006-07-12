@@ -1073,18 +1073,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
       status messages
      --------------------------------------*/
 
-    echo "\n<!-- Messages -->\n";
     foreach ( $okMsgs as $msg)
     {
-        echo "\n<b>[</b><span class=\"correct\">".get_lang('ok')."</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<b></b><span class=\"correct\">v</span><b></b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     foreach ( $errorMsgs as $msg)
     {
-        echo "\n<b>[</b><span class=\"error\">".get_lang('ko')."</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<b></b><span class=\"error\">x</span><b></b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
-
-    echo "\n<!-- End messages -->\n";
 
     // installation completed or not message
     if ( !$errorFound )
