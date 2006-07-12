@@ -75,7 +75,8 @@ if (isset($_uid) && isset($_cid) && isset($_courseTool))
     {
     $claro_notifier->addListener( 'update',       "document_visible");
     $claro_notifier->addListener( 'update',       "document_file_added");
-    $claro_notifier->addListener( 'update',       "document_file_modified");
+    $claro_notifier->addListener( 'update_rid',   "document_file_modified");
+    $claro_notifier->addListener( 'update_rid',   "document_moved");
     $claro_notifier->addListener( 'update',       "document_htmlfile_created");
     $claro_notifier->addListener( 'update',       "document_htmlfile_edited");
     $claro_notifier->addListener( 'delete_notif', "document_file_deleted");
