@@ -31,55 +31,6 @@ defined('CLARO_CONTEXT_TOOLINSTANCE') || define('CLARO_CONTEXT_TOOLINSTANCE','to
 defined('CLARO_CONTEXT_TOOLLABEL')    || define('CLARO_CONTEXT_TOOLLABEL','toolLabel');
 
 /**
- * get the list of aivailable  for a module
- *
- * @param string $context
- * @return array
- */
-function get_module_list($context)
-{
-    $moduleList = array();
-
-    if(CLARO_CONTEXT_COURSE == $context)
-    {
-        /**
-         * Actually, the next function look for info in the original table of tool
-         * When this table was prepared for claroline 1.5 they contain only tools FOR COURSES.
-         *
-         * Now with modularity implementation all tools would centralised in a data structure
-         * composed af a central table with common info and extended table with specific info.
-         *
-         */
-        $tbl = claro_sql_get_tbl(array('module', 'course_tool', ));
-
-        $sql ="SELECT m.label AS claro_label,
-
-               FROM `" . $tbl['course_tool'] . "` AS ct
-               INNER JOIN `" . $tbl['module'] . "` AS m
-               ON  ct.module_id = m.id
-
-               ";
-        $moduleList = claro_sql_query_fetch_all($sql);
-    }
-    elseif( CLARO_CONTEXT_USER == $context)
-    {
-        $moduleList[] = array('claro_label' => 'CLCAL', 'add_in_context' => 'AUTOMATIC');
-    }
-    elseif( CLARO_CONTEXT_GROUP == $context)
-    {
-        $moduleList = array();
-
-        $moduleList[] = array('claro_label' => 'CLWIKI', 'add_in_group' => 'AUTOMATIC');
-        $moduleList[] = array('claro_label' => 'CLFRM',  'add_in_group' => 'AUTOMATIC');
-        $moduleList[] = array('claro_label' => 'CLDOC',  'add_in_group' => 'AUTOMATIC');
-        $moduleList[] = array('claro_label' => 'CLCHT',  'add_in_group' => 'AUTOMATIC');
-    }
-
-    return $moduleList;
-}
-
-
-/**
  * Install tool in a course
  *
  * @return datatype description
