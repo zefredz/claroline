@@ -1090,5 +1090,27 @@ function getClaroMessageList($errorClass=null)
 }
 
 
+/**
+ * Return the list of tools for a user
+ *
+ *  in 1.8 only  CLCAL are both  course tool and user tool.
+ *  ie : profile is'nt view as module,
+ *  and other course tool can't work outside a course for a user.
+ *
+ * @param boolean $activeOnly default true
+ * @return array of tools
+ */
+function claro_get_user_tool_list($activeOnly=true)
+{
+     $toolDataList= array();
+     $toolData = get_module_data('CLCAL');
+
+     if (false !== $toolData && (!$activeOnly || $toolData['activation'] != 'desactivated'))
+     {
+         $toolData['entry'] = 'myagenda.php';
+         $toolDataList[]=$toolData;
+     }
+     return $toolDataList;
+}
 
 ?>

@@ -101,9 +101,9 @@ function claro_html_menu_horizontal($itemList)
     if( !empty($itemList) && is_array($itemList))
     {
         return "\n\n"
-        . '<p><nobr>'
+        . '<span><nobr>'
         . implode( "\n" . '</nobr>&nbsp;| <nobr>' . "\n",$itemList)
-        . '</nobr></p>'
+        . '</nobr></span>'
         . "\n\n";
     }
     else
