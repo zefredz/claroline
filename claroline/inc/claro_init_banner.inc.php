@@ -84,7 +84,7 @@ $userToolUrlList[]= '<a href="'. $urlAppend.'/index.php" target="_top">'. get_la
 $userToolList = claro_get_user_tool_list();
 foreach ($userToolList as $userTool)
 {
-    $userToolUrlList[] = '<a href="'. get_module_url('CLCAL') . $userTool['entry'] . '" target="_top">'. get_lang('My calendar').'</a>';
+    $userToolUrlList[] = '<a href="'. get_module_url('CLCAL') . '/' . $userTool['entry'] . '" target="_top">'. get_lang('My calendar').'</a>';
 }
 
 $userToolUrlList[]  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a>';
