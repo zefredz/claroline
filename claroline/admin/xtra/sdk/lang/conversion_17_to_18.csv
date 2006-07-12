@@ -1102,7 +1102,7 @@
 "WikiVersionPattern";"%1\$s by %2\$s"
 "WorkAuthors";"Author(s)"
 "WorksDetails";"Work uploaded by the student in the name of 'Authors'"
-"WorkTitle";"Work title"
+"WorkTitle";"Work title"Insert
 "WorkUploads";"Work uploads"
 "WrkAdded";"Work added"
 "WrkAuthors";"Author(s)"
@@ -1122,3 +1122,9 @@
 "YourTotalScore";"Your total score is"
 "_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course";"Your user profile doesn't seem to be enrolled on this course"
 "ZipNoPhp";"The zip file can not contain .PHP files"
+"Use a document";"Add a document"
+"Use an exercise";"Add an exercise"
+"Use a module of this course";"Add a module of this course"
+"Insert a document as module";"Add a document"
+"Insert my exercise";"Add an exercise"
+"Insert my module";"Add a module of this course"
