@@ -222,13 +222,13 @@ if (! file_exists($coursesRepositorySys))
 mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS);
 $clarolineRepositoryAppend  = 'claroline/';
 $clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
-$garbageRepositorySys   = str_replace("\\","/",realpath($clarolineRepositorySys) . '/claroline_garbage');
+$garbageRepositorySys   = $rootSys  . '/tmp/garbage';
 if (! file_exists($garbageRepositorySys))
-mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS);
+claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS);
 if (! file_exists($rootSys . '/platform/'))
-mkdir($rootSys . '/platform/', CLARO_FILE_PERMISSIONS);
+claro_mkdir($rootSys . '/platform/', CLARO_FILE_PERMISSIONS);
 if (! file_exists(claro_get_conf_repository()))
-mkdir( claro_get_conf_repository() , CLARO_FILE_PERMISSIONS);
+claro_mkdir( claro_get_conf_repository() , CLARO_FILE_PERMISSIONS);
 
 ########################## WRITE claro_main.conf.php ##################################
 // extract the path to append to the url
