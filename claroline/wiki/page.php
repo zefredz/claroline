@@ -39,7 +39,7 @@
 
     if ( ! isset( $_REQUEST['wikiId'] ) )
     {
-        header( "Location: wiki.php" );
+        claro_redirect("wiki.php");
         exit();
     }
 

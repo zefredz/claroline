@@ -49,7 +49,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     // toolId is required, go to the tool list if it is missing
     if( empty($_REQUEST['toolId']) ) 
     {
-        header("Location: ./courseLog.php?view=0010000");
+        claro_redirect("./courseLog.php?view=0010000");
         exit();
     }
     else

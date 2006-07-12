@@ -72,7 +72,7 @@ include($includePath."/lib/fileManage.lib.php");
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
 {
-      header("Location: ./learningPath.php?path_id=".$_SESSION['path_id']);
+      claro_redirect("./learningPath.php");
 }
 
 /*======================================

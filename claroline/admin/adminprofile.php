@@ -39,7 +39,7 @@ $messageList = array();
 
 // see which user we are working with ...
 
-if ( empty($_REQUEST['uidToEdit']) ) header('Location: adminusers.php');
+if ( empty($_REQUEST['uidToEdit']) ) claro_redirect('adminusers.php');
 else                                 $user_id = $_REQUEST['uidToEdit'];
 
 $user_data = user_initialise();

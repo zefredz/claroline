@@ -87,7 +87,7 @@ $assignment = new Assignment();
 if ( !$assignmentId || !$assignment->load($assignmentId) )
 {
     // we need to know in which assignment we are
-    header('Location: work.php');
+    claro_redirect('work.php');
     exit();
 }
 
@@ -123,7 +123,7 @@ $currentUserLastName        = $_user['lastName'];
 if( empty($authName) )
 {
 	// we also need a user/group
-    header("Location: work.php");
+    claro_redirect("work.php");
     exit();
 }
 
@@ -214,7 +214,7 @@ $is_allowedToEditAll  = (bool) claro_is_allowed_to_edit(); // can submit, edit, 
 if( !$assignmentIsVisible && !$is_allowedToEditAll )
 {
 	// if assignment is not visible and user is not course admin or upper
-	header("Location: work.php");
+	claro_redirect("work.php");
 	exit();
 }
 

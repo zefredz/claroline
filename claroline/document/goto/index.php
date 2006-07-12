@@ -116,8 +116,7 @@ else
                 . implode ( '/',   
                             array_map('rawurlencode', explode('/',$requestUrl)));
 
-    header('Location: ' . http_response_splitting_workaround( $doc_dl_url ) );
-    //header("Content-Location: $doc_dl_url");
+    claro_redirect($doc_dl_url);
 
     // if the browser doesn't support the location header
     echo  get_lang('IfNotRedirect')

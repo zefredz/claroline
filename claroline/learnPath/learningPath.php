@@ -48,7 +48,7 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
 elseif( (!isset($_SESSION['path_id']) || $_SESSION['path_id'] == "") )
 { 
     // if path id not set, redirect user to the home page of learning path
-    header("Location: ".$clarolineRepositoryWeb."learnPath/learningPathList.php");
+    claro_redirect($clarolineRepositoryWeb."learnPath/learningPathList.php");
     exit();
 }
 
@@ -59,7 +59,7 @@ claro_set_display_mode_available(true);
 if ( claro_is_allowed_to_edit() )
 {
     // if the fct return true it means that user is a course manager and than view mode is set to COURSE_ADMIN
-    header("Location: ".$clarolineRepositoryWeb."learnPath/learningPathAdmin.php?path_id=".$_SESSION['path_id']);
+    claro_redirect($clarolineRepositoryWeb."learnPath/learningPathAdmin.php?path_id=".$_SESSION['path_id']);
     exit();
 }
 

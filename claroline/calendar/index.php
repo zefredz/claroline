@@ -16,14 +16,17 @@
  */
 
 $tlabelReq = 'CLANN';
+
 require '../inc/claro_init_global.inc.php';
+
 if (isset($_cid))
 {
-    header('Location:./agenda.php');
+    claro_redirect('./agenda.php');
 }
 else
 {
-    header('Location:./myagenda.php');
+    claro_redirect('./myagenda.php');
 }
 exit();
+
 ?>

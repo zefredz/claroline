@@ -65,7 +65,7 @@ else                               $message = '';
 
 if ( isset($_REQUEST['cancel']) )
 {
-    header('Location: viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
+    claro_redirect('viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
     exit();
 }
 

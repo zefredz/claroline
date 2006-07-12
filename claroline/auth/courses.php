@@ -102,7 +102,7 @@ if ( !$is_platformAdmin )
     }
     else
     {
-        header('location:..');
+        claro_redirect('..');
     }
 
 }

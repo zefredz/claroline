@@ -30,13 +30,13 @@ require '../inc/claro_init_global.inc.php';
 
 if( empty($_REQUEST['uInfo']) )
 {
-    header("Location: ./userLog.php");
+    claro_redirect("./userLog.php");
     exit();
 }
     
 if( empty($_REQUEST['path_id']) )
 {
-      header("Location: ./userLog.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
+      claro_redirect("./userLog.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
       exit();
 }
 

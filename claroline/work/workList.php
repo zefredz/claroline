@@ -86,7 +86,7 @@ if ( !$req['assignmentId'] || !$assignment->load($req['assignmentId']) )
 {
     // we NEED to know in which assignment we are, so if assigId is not set
     // relocate the user to the previous page
-    header('Location: work.php');
+    claro_redirect('work.php');
     exit();
 }
 
@@ -100,7 +100,7 @@ GROUP 'publish' option
  */
 if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && isset($_gid) )
 {
-    header( 'Location: userWork.php?authId='
+    claro_redirect ('userWork.php?authId='
     .       $_gid
     .       '&cmd=rqSubWrk'
     .       '&assigId=' . $req['assignmentId']
@@ -123,7 +123,7 @@ $is_allowedToEditAll = (bool) claro_is_allowed_to_edit();
 if( !$assignmentIsVisible && !$is_allowedToEditAll )
 {
     // if assignment is not visible and user is not course admin or upper
-    header('Location: work.php');
+    claro_redirect('work.php');
     exit();
 }
 

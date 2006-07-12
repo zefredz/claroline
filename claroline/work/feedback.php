@@ -70,7 +70,7 @@ if ( !$assignmentId || !$assignment->load($assignmentId) )
 {
     // we NEED to know in which assignment we are, so if assigId is not set
     // relocate the user to the previous page
-    header('Location: work.php');
+    claro_redirect('work.php');
     exit();
 }
 

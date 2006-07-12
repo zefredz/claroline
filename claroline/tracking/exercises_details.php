@@ -23,7 +23,7 @@ else															$exId = null;
 // exId is required
 if( is_null($exId) )
 {
-    header("Location: ../exercise/exercise.php");
+    claro_redirect("../exercise/exercise.php");
     exit();
 }
 

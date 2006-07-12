@@ -41,7 +41,7 @@ else
 
 if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm',true))
 {
-    header('Location: ' . http_response_splitting_workaround($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl)));
+    claro_redirect($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl));
 }
 
 if ( $sourceUrl )
@@ -292,15 +292,15 @@ else // LOGIN SUCCEEDED
                        .  'gidReq=' . $_REQUEST['sourceGid'];
         }
 
-        header('Location: ' . http_response_splitting_workaround( $sourceUrl ) );
+        claro_redirect($sourceUrl);
     }
     elseif ( $_cid )
     {
-        header('Location: ' . $coursesRepositoryWeb . '/' . $_course['path']);
+        claro_redirect($coursesRepositoryWeb . '/' . $_course['path']);
     }
     else
     {
-        header('Location: ' . $clarolineRepositoryWeb);
+        claro_redirect($clarolineRepositoryWeb);
     }
 }
 ?>

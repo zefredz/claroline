@@ -1117,4 +1117,21 @@ function claro_get_user_tool_list($activeOnly=true)
      return $toolDataList;
 }
 
+/**
+ * Safe redirect
+ * Works around IIS Bug
+ */
+
+function claro_redirect($location)
+{
+    global $is_IIS;
+
+    $location = http_response_splitting_workaround($location);
+
+    if ($is_IIS)
+        header("Refresh: 0;url=$location");
+    else
+        header("Location: $location");
+}
+
 ?>

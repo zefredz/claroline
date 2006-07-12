@@ -22,7 +22,7 @@ if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed')) ;
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) )
 {
-    header("Location: ../learnPath/learningPathList.php");
+    claro_redirect("../learnPath/learningPathList.php");
     exit();
 }
 

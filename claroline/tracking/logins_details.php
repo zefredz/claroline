@@ -27,7 +27,7 @@ require_once $includePath . '/lib/statsUtils.lib.inc.php';
 // uInfo is required, back to user list if there is none
 if( empty($_REQUEST['uInfo']) )
 {
-    header('Location: ../user/user.php');
+    claro_redirect('../user/user.php');
     exit();
 }
 else $uInfo = (int) $_REQUEST['uInfo'];

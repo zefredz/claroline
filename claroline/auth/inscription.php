@@ -23,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 // Already logged
 if ( isset($_uid) )
 {
-    header('Location: ' . get_conf('urlAppend') . '/index.php');
+    claro_redirect(get_conf('urlAppend') . '/index.php');
     exit;
 }
 

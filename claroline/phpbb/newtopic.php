@@ -58,7 +58,7 @@ else                             $forum_id = 0;
 
 if ( isset( $_REQUEST['cancel'] ) )
 {
-    header('Location: viewforum.php?forum='.$forum);
+    claro_redirect('viewforum.php?forum='.$forum);
     exit();
 }
 

@@ -96,7 +96,7 @@ if ( $postSettingList && $is_allowedToEdit )
     {
         if ( isset($_REQUEST['cancel']) )
         {
-            header('Location: viewtopic.php?topic=' . $topic_id );
+            claro_redirect('viewtopic.php?topic=' . $topic_id );
             exit();
         }
 

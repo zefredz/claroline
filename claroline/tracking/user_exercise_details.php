@@ -184,7 +184,7 @@ if( isset($_REQUEST['trackedExId']) && is_numeric($_REQUEST['trackedExId']) )
 }
 else															
 {
-	header("Location: ../exercise/exercise.php");
+	claro_redirect("../exercise/exercise.php");
     exit();
 }
 
@@ -211,7 +211,7 @@ if( $result )
 else
 {
     // sql error, let's get out of here !
-    header("Location: ../exercise/exercise.php");
+    claro_redirect("../exercise/exercise.php");
     die();
 }
 

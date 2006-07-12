@@ -38,7 +38,7 @@ if ( ! $_gid
         && !isset($_REQUEST['selfReg'])
         || ( isset($_REQUEST['registration']) && $_REQUEST['registration'] != 1 ) ))
 {
-    header('Location:group.php');
+    claro_redirect('group.php');
     exit();
 }
 
@@ -112,7 +112,7 @@ if( isset($_REQUEST['registration']) )
         if (claro_sql_query($sql))
         {
             // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-            header('Location:' . $_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
+            claro_redirect($_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
             exit();
 
         }
