@@ -24,7 +24,7 @@ $is_AllowedToEdit = $is_courseAdmin;
 if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ('url' => '../learnPath/learningPathList.php', 'name' => get_lang('Learning path list'));
+$interbredcrump[]= array ('url' => $clarolineRepositoryWeb.'learnPath/learningPathList.php', 'name' => get_lang('Learning path list'));
 $nameTools = get_lang('Import a learning path');
 
 //header
@@ -1076,12 +1076,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     echo "\n<!-- Messages -->\n";
     foreach ( $okMsgs as $msg)
     {
-        echo "\n<b>[</b><span class=\"correct\">ok</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<b>[</b><span class=\"correct\">".get_lang('ok')."</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     foreach ( $errorMsgs as $msg)
     {
-        echo "\n<b>[</b><span class=\"error\">ko</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<b>[</b><span class=\"error\">".get_lang('ko')."</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     echo "\n<!-- End messages -->\n";
