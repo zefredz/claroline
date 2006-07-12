@@ -360,7 +360,7 @@ else
 </div>
 
 <?php
-if ( isset($claro_brailleViewMode) && $claro_brailleViewMode )
+if ( get_conf('claro_brailleViewMode',false))
 {
     $claro_banner = ob_get_contents();
     ob_clean();
