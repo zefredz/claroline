@@ -72,6 +72,7 @@ if($_uid)
 <div id="userBanner">
 <?php
 
+$userToolUrlList = array();
 //USER BANNER LEFT DOCK declaration
 
 $userBannerLeftDock = new Dock('userBannerLeft');
@@ -79,24 +80,23 @@ $userBannerLeftDock = new Dock('userBannerLeft');
 $userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
 $userBannerLeftDock->addOutput($userNameOutput);
 
-$courseListLink = '<a href="'. $urlAppend.'/index.php" target="_top">'. get_lang('My course list').'</a> | ';
-$userBannerLeftDock->addOutput($courseListLink);
+$userToolUrlList[]= '<a href="'. $urlAppend.'/index.php" target="_top">'. get_lang('My course list').'</a>';
+$userToolList = claro_get_user_tool_list();
+foreach ($userToolList as $userTool)
+{
+    $userToolUrlList[] = '<a href="'. get_module_url('CLCAL') . $userTool['entry'] . '" target="_top">'. get_lang('My calendar').'</a>';
+}
 
-$myAgendaLink   = '<a href="'. $clarolineRepositoryWeb. 'calendar/myagenda.php" target="_top">'. get_lang('My calendar').'</a> | ';
-$userBannerLeftDock->addOutput($myAgendaLink);
-
-$myProfileLink  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a> | ';
-$userBannerLeftDock->addOutput($myProfileLink);
+$userToolUrlList[]  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a>';
 
 if($is_platformAdmin)
 {
-    $administrationLink = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a> | ';
-    $userBannerLeftDock->addOutput($administrationLink);
+    $userToolUrlList[] = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a>';
 }
 
-$logoutLink = '<a href="'. $urlAppend.'/index.php?logout=true" target="_top">'. get_lang('Logout').'</a> ';
-$userBannerLeftDock->addOutput($logoutLink);
+$userToolUrlList[] = '<a href="'. $urlAppend.'/index.php?logout=true" target="_top">'. get_lang('Logout').'</a>';
 
+$userBannerLeftDock->addOutput(claro_html_menu_horizontal($userToolUrlList));
 echo $userBannerLeftDock->render();
 
 //USER BANNER RIGHT DOCK declaration
