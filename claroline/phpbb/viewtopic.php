@@ -269,6 +269,14 @@ else
     } // end for each
 
     echo '</table>' . "\n";
+    
+    if ($forum_post_allowed)
+    {
+        $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
+                   . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
+        echo claro_html_menu_horizontal($toolBar);
+    }
+
 
     $postLister->disp_pager_tool_bar($pagerUrl);
 
