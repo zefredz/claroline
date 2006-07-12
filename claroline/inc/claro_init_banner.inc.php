@@ -191,10 +191,13 @@ if (is_array($_courseToolList) && $is_courseAllowed)
                 $_courseToolData['url'] = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['url'];
                 // reset group to access course tool
 
+                if (isset($_gid) && !$_courseToolData['external'])
                 $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
                     ? $_courseToolData['url'] . '&amp;gidReset=1'
                     : $_courseToolData['url'] . '?gidReset=1'
                     ;
+                else $_toolDataUrl = $_courseToolData['url'];
+
             }
 
             //find correct url for icon of the tool
@@ -214,7 +217,7 @@ if (is_array($_courseToolList) && $is_courseAllowed)
                 $toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
             }
 
-            $courseToolSelector .= '<option value="'.$_toolDataUrl.'" '
+            $courseToolSelector .= '<option value="' . $_toolDataUrl . '" '
             .   $toolSelected
             .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
             .    get_lang($_courseToolData['name'])
