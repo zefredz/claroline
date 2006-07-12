@@ -29,10 +29,10 @@ $is_AllowedToEdit = $is_courseAdmin;
 
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 
-$nameTools = get_lang('Insert a document as module');
+$nameTools = get_lang('Add a document');
 
 //header
 @include($includePath."/claro_init_header.inc.php");

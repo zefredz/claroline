@@ -25,9 +25,10 @@ $is_AllowedToEdit = $is_courseAdmin;
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
-$nameTools = get_lang('Insert my module');
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+
+$nameTools = get_lang('Add a module of this course');
 
 //header
 include($includePath."/claro_init_header.inc.php");
@@ -105,7 +106,7 @@ function buildRequestModules()
 
 // display title
 
-echo claro_html_tool_title(get_lang('Insert a module of the course'));
+echo claro_html_tool_title($nameTools);
 
 //COMMAND ADD SELECTED MODULE(S):
 

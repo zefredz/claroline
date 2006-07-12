@@ -442,9 +442,9 @@ if (isset($dialogBox) && $dialogBox!="")
 
 ?>
  <p>
- <a class="claroCmd" href="insertMyDoc.php"><?php echo get_lang('Use a document'); ?></a> |
- <a class="claroCmd" href="insertMyExercise.php"><?php echo get_lang('Use an exercise'); ?></a> |
- <a class="claroCmd" href="insertMyModule.php"><?php echo get_lang('Use a module of this course'); ?></a> |
+ <a class="claroCmd" href="insertMyDoc.php"><?php echo get_lang('Add a document'); ?></a> |
+ <a class="claroCmd" href="insertMyExercise.php"><?php echo get_lang('Add an exercise'); ?></a> |
+ <a class="claroCmd" href="insertMyModule.php"><?php echo get_lang('Add a module of this course'); ?></a> |
  <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo get_lang('Create label'); ?></a>
  </p>
 <?php

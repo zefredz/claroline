@@ -480,10 +480,10 @@ $_lang['Include picture'] = 'Ajoutez une photo';
 $_lang['Individual'] = 'Individuel';
 $_lang['Information'] = 'Information';
 $_lang['Information to give to students'] = 'Informations à communiquer<br />à l\'étudiant';
-$_lang['Insert a document as module'] = 'Insérer un document comme module';
-$_lang['Insert a module of the course'] = 'Insérer un module du cours';
-$_lang['Insert my exercise'] = 'Ajouter mon exercice';
-$_lang['Insert my module'] = 'Insérer mon module';
+$_lang['Add a document'] = 'Ajouter un document';
+$_lang['Insert a module of the course'] = 'Ajouter un module de ce cours';
+$_lang['Add an exercise'] = 'Ajouter un exercice';
+$_lang['Add a module of this course'] = 'Ajouter un module de ce cours';
 $_lang['Insert new name'] = 'Insérer le nouveau nom';
 $_lang['Institution'] = 'Institution';
 $_lang['Institution URL'] = 'URL de l\'institution';
@@ -980,9 +980,9 @@ $_lang['Upload a new file to replace the file'] = 'Envoyez un nouveau fichier po
 $_lang['Upload document'] = 'Envoyer un fichier';
 $_lang['Upload file'] = 'Ajouter un fichier';
 $_lang['Uploaded file'] = 'Fichier envoyé';
-$_lang['Use a document'] = 'Utiliser un document';
-$_lang['Use a module of this course'] = 'Utiliser un module de ce cours';
-$_lang['Use an exercise'] = 'Utiliser un exercice';
+$_lang['Add a document'] = 'Ajouter un document';
+$_lang['Add a module of this course'] = 'Ajouter un module de ce cours';
+$_lang['Add an exercise'] = 'Ajouter un exercice';
 $_lang['Use format defined in first line of file'] = 'Utiliser le format défini à la première ligne du fichier';
 $_lang['User'] = 'Utilisateur';
 $_lang['User Id'] = 'ID de l\'utilisateur';
@@ -1746,7 +1746,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dt>Ancre</dt>
 <dd><code>~ancre~</code>&nbsp;;</dd>
 <dt>Tableau</dt>
-<dd><code>{|</code> début de tableau (doit être sur une nouvelle ligne)</dd>
+<dd><code>{|</code> début de tableau (doit être sur une nouvelle ligne)</dd>Insérer mon module
 <dd><code>||first cell|second cell|...||</code> ligne de tableau (sur une ligne)</dd>
 <dd><code>|}</code> fin de tableau (doit être sur une nouvelle ligne)</dd>
 </dl>';
