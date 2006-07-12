@@ -351,7 +351,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
                  AND pct.claro_label = m.label
                  ".$deactivatedSQL."
 
-               ORDER BY external, ctl.rank";
+               ORDER BY external, pct.def_rank, ctl.rank";
 
         $courseToolList = claro_sql_query_fetch_all($sql);
 

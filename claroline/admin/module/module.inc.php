@@ -120,6 +120,20 @@ function check_module_repositories()
 }
 
 /**
+ * @param the label of a course tool
+ * @return the id in the course tool tabel
+ */
+
+function get_course_tool_id($label)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql ="SELECT id FROM `" . $tbl['tool'] . "`
+           WHERE claro_label='".$label."'";
+    return claro_sql_query_get_single_value($sql);
+}
+
+/**
  * Activate a module, its effect is
  * * to call the activation script of the module (if there is any)
  * * to modify the information in the main DB
@@ -145,32 +159,13 @@ function activate_module($moduleId)
             WHERE `id` = " . (int) $moduleId;
     $result = claro_sql_query($sql);
 
-    // 3 - add the module in the cours_tool table, used for every course creation
-
     if (($moduleInfo['type'] =='tool') && $moduleId)
     {
 
-        // find max rank in the course_tool table
-
-        $sql = "SELECT MAX(def_rank) AS maxrank FROM `" . $tbl['tool'] . "`";
-        $maxresult = claro_sql_query_get_single_row($sql);
-
-        // insert the new course tool
-
         // TODO : remove fields script_url, claro_label, def_access, access_manager
         // TODO : rename def_rank to rank
-        $sql = "INSERT INTO `" . $tbl['tool']."`
-                SET
-                claro_label = '".$moduleInfo['label']."',
-                script_url = '".$moduleInfo['script_url']."',
-                icon = '".$moduleInfo['icon']."',
-                def_access = 'ALL',
-                def_rank = (". (int) $maxresult['maxrank']."+1),
-                add_in_course = 'AUTOMATIC',
-                access_manager = 'COURSE_ADMIN'
-            ";
 
-        $tool_id = claro_sql_query_insert_id($sql);
+        $tool_id = get_course_tool_id($moduleInfo['label']);
 
         // Manage right - Add read action
         $action = new RightToolAction();
@@ -261,23 +256,15 @@ function deactivate_module($moduleId)
         $tool_to_delete = claro_sql_query_get_single_row($sql);
         $tool_id = $tool_to_delete['tool_id'];
 
+        /*
         $sql = "DELETE FROM `" . $tbl['tool']."`
                 WHERE claro_label = '".$moduleInfo['label']."'
             ";
 
         claro_sql_query($sql);
+        */
 
-        // Manage right - Delete read action
-        $action = new RightToolAction();
-        $action->setName('read');
-        $action->setToolId($tool_id);
-        $action->delete();
 
-        // Manage right - Delete edit action
-        $action = new RightToolAction();
-        $action->setName('edit');
-        $action->setToolId($tool_id);
-        $action->delete();
 
         // 3- update every course tool list to add the tool if it is a tool
 
@@ -635,6 +622,8 @@ function install_module($modulePath)
         array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.php')));
     }
 
+
+
     //6- cache file with the module's include must be renewed after installation of the module
 
     generate_module_cache();
@@ -720,11 +709,23 @@ function uninstall_module($moduleId)
             WHERE `module_id` = " . (int) $moduleId;
     claro_sql_query($sql);
 
-    // 4- remove all docks entries in which the module displays
+    // 4-Manage right - Delete read action
+    $action = new RightToolAction();
+    $action->setName('read');
+    $action->setToolId($tool_id);
+    $action->delete();
+
+    // Manage right - Delete edit action
+    $action = new RightToolAction();
+    $action->setName('edit');
+    $action->setToolId($tool_id);
+    $action->delete();
+
+    // 5- remove all docks entries in which the module displays
 
     remove_module_dock($moduleId, 'ALL');
 
-    //5- cache file with the module's include must be renewed after uninstallation of the module
+    // 6- cache file with the module's include must be renewed after uninstallation of the module
 
     generate_module_cache();
 
@@ -1073,7 +1074,10 @@ function register_module($modulePath)
  */
 function register_module_core($module_info)
 {
-    $tbl = claro_sql_get_tbl(array('module','module_info'));
+    $tbl             = claro_sql_get_tbl(array('module','module_info','tool'));
+    $tbl_name        = claro_sql_get_main_tbl();
+    $tbl_course_tool = $tbl_name['tool'];
+
     $missingElement = array_diff(array('LABEL','NAME','TYPE','CLAROLINE','AUTHOR','DESCRIPTION','LICENSE'),array_keys($module_info));
     if (count($missingElement)>0)
     {
@@ -1118,6 +1122,33 @@ function register_module_core($module_info)
                 license      = '" . addslashes($module_info['LICENSE'         ]) . "'";
 
     claro_sql_query($sql);
+
+    // create the row in the course_tool table, in case of module tool
+
+    if ('tool' == $module_info['TYPE'])
+    {
+        // find max rank in the course_tool table
+
+        $sql = "SELECT MAX(def_rank) AS maxrank FROM `" . $tbl_course_tool . "`";
+        $maxresult = claro_sql_query_get_single_row($sql);
+
+        // insert the new course tool
+    
+        $trimlabel = rtrim($module_info['LABEL'],'_');
+    
+        $sql = "INSERT INTO `" . $tbl_course_tool ."`
+                SET
+                claro_label = '".$module_info['LABEL']."',
+                script_url = '".$module_info['ENTRY']."',
+                icon = '".$module_info['ICON']."',
+                def_access = 'ALL',
+                def_rank = (". (int) $maxresult['maxrank']."+1),
+                add_in_course = 'AUTOMATIC',
+                access_manager = 'COURSE_ADMIN'
+            ";
+        $tool_id = claro_sql_query_insert_id($sql);
+
+    }
 
     return $moduleId;
 }

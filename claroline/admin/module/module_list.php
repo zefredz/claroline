@@ -237,7 +237,7 @@ switch($typeReq)
         $sqlJoinType = " LEFT JOIN `" . $tbl_course_tool . "` AS CT " . "\n"
         .              "        ON CT.`claro_label`= M.label " . "\n"
         ;
-        $orderType = "ORDER BY `activation`,`def_rank` \n";
+        $orderType = "ORDER BY `def_rank` \n";
         break;
     default       : $sqlSelectType=""; $sqlJoinType = ""; $orderType = "";
 
@@ -415,8 +415,6 @@ foreach($moduleList as $module)
 
     //displaying location column
 
-    
-
     if ($module['type']!='tool' )
     {
         echo '<td align="left" class="' . $class_css . '"><small>';
@@ -434,7 +432,7 @@ foreach($moduleList as $module)
    else
    {
         //up command
-        if ($course_tool_min_rank!=$module['rank'] && 'activated' == $module['activation'])
+        if ($course_tool_min_rank!=$module['rank'])
         {
             echo  '<td align="center"><a href="module_list.php?courseToolId='.$module['courseToolId'].'&cmd=up"><img src="' . $imgRepositoryWeb . 'up.gif"></a></td>';
         }
@@ -444,7 +442,7 @@ foreach($moduleList as $module)
         }
 
         //down command
-        if ($course_tool_max_rank!=$module['rank'] && 'activated' == $module['activation'])
+        if ($course_tool_max_rank!=$module['rank'])
         {
             echo  '<td align="center"><a href="module_list.php?courseToolId='.$module['courseToolId'].'&cmd=down"><img src="' . $imgRepositoryWeb . 'down.gif"></a></td>';
         }
