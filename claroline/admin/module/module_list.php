@@ -31,18 +31,18 @@ require_once $includePath . '/../admin/module/module.inc.php';
 //OLD TOOLS ;
 
 $old_tool_array = array('CLANN',
-                        'CLCAL', 
-                        'CLFRM', 
-                        'CLCHT', 
+                        'CLCAL',
+                        'CLFRM',
+                        'CLCHT',
                         'CLDOC',
-                        'CLDSC', 
+                        'CLDSC',
                         'CLUSR',
-                        'CLLNP', 
-                        'CLQWZ', 
-                        'CLWRK', 
-                        'CLWIKI', 
+                        'CLLNP',
+                        'CLQWZ',
+                        'CLWRK',
+                        'CLWIKI',
                         'CLLNK',
-                        'CLGRP' 
+                        'CLGRP'
                         );
 
 //SQL table name
@@ -119,7 +119,7 @@ function confirmation (name)
 
 $modulePerPage = get_conf('modulePerPage' , 20);
 
-$typeLabel['']    = get_lang('No name');
+$typeLabel['']        = get_lang('No name');
 $typeLabel['tool']    = get_lang('Tools');
 $typeLabel['applet']  = get_lang('Applet');
 $typeLabel['lang']    = get_lang('Languages');
@@ -158,17 +158,17 @@ switch ( $cmd )
         break;
 
     case 'uninstall' :
-    
-        $module_info = get_module_info($module_id);
-        if (in_array($module_info['label'], $old_tool_array))
+
+        $moduleInfo = get_module_info($module_id);
+        if (in_array($moduleInfo['label'], $old_tool_array))
         {
-            $dialogBox  = get_lang('This tool can not be uninstalled.'); 
+            $dialogBox  = get_lang('This tool can not be uninstalled.');
         }
         else
         {
             $result_log = uninstall_module($module_id);
             $dialogBox  = get_lang('Module uninstallation') . ' : <br>';
-            foreach ( $result_log as $log) $dialogBox .= $log . '<br>';         
+            foreach ( $result_log as $log) $dialogBox .= $log . '<br>';
         }
         break;
 
@@ -416,7 +416,7 @@ foreach($moduleList as $module)
    {
         echo get_lang('Tool list');
    }
-        
+
    echo '</small></td>' . "\n".'<td align="center" >';
 
     //activation link

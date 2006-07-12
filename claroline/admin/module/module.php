@@ -83,7 +83,7 @@ border-color: #227;
 background: white;
 border-bottom: 1px solid white;
 }
-		
+
 #navlist, .tabTitle
 {
 padding: 3px 0;
@@ -153,7 +153,7 @@ border-left: 0px solid white;
 
 $cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : null);
 $item = (isset($_REQUEST['item'])? $_REQUEST['item'] : null);
-$section_selected = (isset($_REQUEST['section'])? $_REQUEST['section'] : null);  
+$section_selected = (isset($_REQUEST['section'])? $_REQUEST['section'] : null);
 $moduleId = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
 $module = get_module_info($moduleId);
 $dockList = get_dock_list($module['type']);
@@ -282,7 +282,7 @@ echo '  </ul>
 switch ($item)
 {
 	case 'GLOBAL':
-		
+
 		echo '<table>' . "\n"
 		.    '<tr>' . "\n"
 		.    '<td colspan="2">' . "\n"
@@ -297,14 +297,14 @@ switch ($item)
 		  if ('activated' == $module['activation'] )
 		  {
 		      $activ_form  = 'deactiv';
-		      $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]';
+		      $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['moduleId'].'&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]';
 		  }
 		  else
 		  {
 		      $activ_form  = 'activ';
-		      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'&item=GLOBAL">'.get_lang("Activate").'</a></small>] | [<small><b>'.get_lang('Deactivate').'</b></small>]';
+		      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['moduleId'].'&item=GLOBAL">'.get_lang("Activate").'</a></small>] | [<small><b>'.get_lang('Deactivate').'</b></small>]';
 		  }
-		
+
 		  echo '<td align="right" valign="top">'
 		  .    get_lang('Module status')
 		  .    ' : ' . "\n"
@@ -319,7 +319,7 @@ switch ($item)
 		  .    '</td>' . "\n"
 		  .    '</tr>' . "\n"
 		  ;
-		
+
 		if ('coursetool' == $module['type'])
 		{
 		    echo '<tr>' . "\n"
@@ -330,19 +330,19 @@ switch ($item)
 		}
 		else
 		{
-		    echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
-		
+		    echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['moduleId'] . '&amp;item='.$item.'" method="POST">';
+
 		    //choose the dock radio button list display
-		
+
 		    $isfirstline = get_lang('Display') . ' : ';
-		
+
 		    //display each option
 		    if (is_array($dockList) && $module['type']!='tool')
 		    foreach ($dockList as $dock)
 		    {
-		
+
 		        if (in_array($dock,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
-		
+
 		        echo '<tr>' ."\n"
 		        .    '<td syle="align:right">' . $isfirstline . '</td>' ."\n"
 		        .    '<td>' ."\n"
@@ -353,9 +353,9 @@ switch ($item)
 		        ;
 		        $isfirstline = '';
 		    }
-		
+
 		      // display submit button
-		
+
 		    echo '<tr>' ."\n"
 		    .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
 		    .    '<td >'
@@ -366,7 +366,7 @@ switch ($item)
 		    .    '</form>'
 		    ;
 		}
-		
+
 		echo '</table>' . "\n"
 		.    '</td>' . "\n"
 		.    '</tr>' . "\n"
@@ -375,23 +375,23 @@ switch ($item)
 	break;
 	case 'LOCAL':
 		require_once $includePath . '/lib/config.lib.inc.php';
-		
-		
+
+
 		$config_code = $module['label'];
-		
+
 		$form = '';
 	    // new config object
     	$config = new Config($config_code);
-    	
+
     	if ( $config->load() )
     	{
-        	$url_params = '&module_id='. $moduleId .'&item='. htmlspecialchars($item); 
-        	
+        	$url_params = '&module_id='. $moduleId .'&item='. htmlspecialchars($item);
+
         	$form = $config->display_section_menu($section_selected,$url_params);
-        	
+
 	       	// init config name
         	$config_name = $config->config_code;
-        	   
+
         	if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
 	        {
 	            if ( 'save' == $_REQUEST['cmd'] )
@@ -410,15 +410,15 @@ switch ($item)
 	            $form .= $config->display_form(null,$section_selected,$url_params);
 	        }
     	}
-    	
+
     	echo '<div style=padding-left:1em;padding-right:1em;>';
-    	
+
         if ( ! empty($message) ) echo claro_html_message_box(implode('<br />',$message));
-        
+
     	echo $form.'</div>';
-		
+
 	break;
-	default:	
+	default:
 		echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
 		.    '<p>'
 		.    $module['description']
@@ -434,7 +434,7 @@ switch ($item)
 		.    get_lang('Id') . "\n"
 		.    ': </td>' . "\n"
 		.    '<td>'
-		.    $module['module_id'] . "\n"
+		.    $module['moduleId'] . "\n"
 		.    '</td>' . "\n"
 		.    '</tr>' . "\n"
 		.    '<tr>' . "\n"

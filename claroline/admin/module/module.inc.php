@@ -92,15 +92,14 @@ function check_module_repositories()
 
     $registredModuleList = get_installed_module_list();
     $mistake_array['DB'] = array();
-    foreach ($registredModuleList as $registredModule)
+    foreach ($registredModuleList as $registredModuleId)
     {
-        $moduleData = get_module_info($registredModule);
-        $moduleRepositorySys = get_conf('rootSys') . 'module/';
+        $moduleData = get_module_info($registredModuleId);
         $moduleEntry = realpath(get_module_url($moduleData['label']) . $moduleData['script_url']);
 
         if(!file_exists($moduleEntry))
         {
-            $mistake_array['DB'][] = $registredModule;
+            $mistake_array['DB'][] = $registredModuleId;
         }
 
 
@@ -134,11 +133,10 @@ function activate_module($moduleId)
     // find module informations
 
     $tbl = claro_sql_get_main_tbl();
-    $module_info =  get_module_info($moduleId);
+    $moduleInfo =  get_module_info($moduleId);
 
-    // 1- call activation script (if any) from the module repository
+    // TODO : 1- call activation script (if any) from the module repository
 
-    /*TO DO*/
 
     // 2- change related entry of module table in the main DB
 
@@ -159,15 +157,17 @@ function activate_module($moduleId)
 
         // insert the new course tool
 
-        $trimlabel = rtrim($module_info['label'],'_');
+        $trimlabel = rtrim($moduleInfo['label'],'_');
 
+        // TODO : remove fields script_url, claro_label, def_access, access_manager
+        // TODO : rename def_rank to rank
         $sql = "INSERT INTO `" . $tbl['tool']."`
                 SET
-                claro_label = '".$module_info['label']."',
-                script_url = '".$module_info['script_url']."',
-                icon = '".$module_info['icon']."',
+                claro_label = '".$moduleInfo['label']."',
+                script_url = '".$moduleInfo['script_url']."',
+                icon = '".$moduleInfo['icon']."',
                 def_access = 'ALL',
-                def_rank = (".(int)$maxresult['maxrank']."+1),
+                def_rank = (". (int) $maxresult['maxrank']."+1),
                 add_in_course = 'AUTOMATIC',
                 access_manager = 'COURSE_ADMIN'
             ";
@@ -247,9 +247,8 @@ function deactivate_module($moduleId)
     $module_info =  get_module_info($moduleId);
     $tbl = claro_sql_get_main_tbl();
 
-    // 1- call desactivation script (if any) from the module repository
+    // TODO : 1- call desactivation script (if any) from the module repository
 
-    /*TO DO*/
 
     if (($module_info['type'] =='tool') && $moduleId)
     {
@@ -257,6 +256,7 @@ function deactivate_module($moduleId)
         // 2- delete the module in the cours_tool table, used for every course creation
 
         //retrieve this module_id first
+
 
         $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
                 WHERE claro_label = '".$module_info['label']."'";
@@ -595,6 +595,7 @@ function install_module($modulePath)
     {
         $idTool = register_module_tool($moduleId,$module_info);
 
+        /* probably disbled in 1.8
         if (isset($module_info['CONTEXT']))
         {
             foreach ($module_info['CONTEXT'] as $context => $contextPropertyList)
@@ -602,6 +603,7 @@ function install_module($modulePath)
                 register_module_tool_in_context($idTool,$context, $contextPropertyList);
             }
         }
+        */
     }
 
     if (array_key_exists('DEFAULT_DOCK',$module_info))
@@ -1001,7 +1003,6 @@ function generate_module_cache()
     fwrite($handle, '<?php //auto created by claroline '."\n");
     fwrite($handle, 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n");
 
-    $moduleRepositorySys = get_conf('rootSys') . 'module/';
     foreach($module_list as $module)
     {
         if (file_exists(get_module_path($module['label']) . '/functions.php'))
@@ -1149,6 +1150,13 @@ function register_module_core($module_info)
     return $moduleId;
 }
 
+/**
+ * Store all unique info about a tool during install
+ *
+ * @param integer $moduleId
+ * @param array $moduleToolData, data from manifest
+ * @return unknown
+ */
 function register_module_tool($moduleId,$moduleToolData)
 {
     $tbl = claro_sql_get_tbl('module_tool');
@@ -1160,17 +1168,20 @@ function register_module_tool($moduleId,$moduleToolData)
         //    {
         //        trigger_error($entry . 'not found', E_USER_WARNING);
         //    }
+        /*
         $sql = "INSERT INTO `" . $tbl['module_tool'] . "`
                 SET module_id = " . (int) $moduleId . ",
                     icon      = " . $icon  ;
         $module_inserted_id = claro_sql_query_insert_id($sql);
 
         return $module_inserted_id;
+        */
     }
 }
 
 function register_module_tool_in_context($toolId, $toolContext, $toolContextProperty)
 {
+/** not use in  1.8
     $tbl = claro_sql_get_tbl('module_rel_tool_context');
     $sql = "SELECT max(def_rank) FROM `" . $tbl['module_rel_tool_context'] . "`
             WHERE context        = '" . addslashes($toolContext) . "'";
@@ -1185,6 +1196,7 @@ function register_module_tool_in_context($toolId, $toolContext, $toolContextProp
              ";
 
     return claro_sql_query_insert_id($sql);
+    */
 }
 
 function add_tool_in_context_menu($toolId, $menu, $contextId, $path)
@@ -1210,7 +1222,7 @@ function add_tool_in_context_menu($toolId, $menu, $contextId, $path)
              defaultRank   = " . (int) $rank ;
 
     return claro_sql_query_insert_id($sql);
-*/ return true;
+*/
 }
 
 function claro_get_module_types()
@@ -1288,7 +1300,13 @@ function readModuleManifest($modulePath)
 
 }
 
-
+/**
+ * Return list of dock aivailable for a given type
+ *
+ * @param string $moduleType
+ * @param string $context
+ * @return array
+ */
 function get_dock_list($moduleType,$context='ALL')
 {
     $dockList   = array();
@@ -1314,23 +1332,36 @@ function get_dock_list($moduleType,$context='ALL')
     return $dockList;
 }
 
+/**
+ * Return info of a module, including extra info and specific info for tool if case
+ *
+ * @param integer $moduleId
+ * @return array (label, id, module_name,activation, type, script_url, icon, version, author, author_email, website, description, license)
+ */
 function get_module_info($moduleId)
 {
+    $tbl = claro_sql_get_tbl(array('module', 'module_info', 'course_tool'));
 
-    $tbl = claro_sql_get_tbl(array('module', 'module_info', 'module_tool'));
-
-    $sql = "SELECT M.`label`      AS label,
-               M.`id`         AS id,
-               M.`name`       AS `module_name`,
-               M.`activation` AS `activation`,
+    $sql = "SELECT M.`label`  AS label,
+               M.`id`         AS module_id,
+               M.`name`       AS module_name,
+               M.`activation` AS activation,
                M.`type`       AS type,
                M.`script_url` AS script_url,
-               MT.`icon`       AS icon,
-               MI.*
+
+               CT.`icon`       AS icon,
+
+               MI.version      AS version,
+               MI.author       AS author,
+               MI.author_email AS author_email ,
+               MI.website      AS website,
+               MI.description  AS description,
+               MI.license      AS license
+
         FROM (`" . $tbl['module']      . "` AS M
            , `" . $tbl['module_info'] . "` AS MI )
-        LEFT JOIN `" . $tbl['module_tool'] . "` AS MT
-              ON MT.`module_id`= M.id
+        LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
+              ON CT.`claro_label`= M.label
 
         WHERE  M.`id` = MI . `module_id`
         AND    M.`id` = " . (int) $moduleId;
@@ -1338,4 +1369,5 @@ function get_module_info($moduleId)
     return claro_sql_query_get_single_row($sql);
 
 }
+
 ?>
