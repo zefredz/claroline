@@ -1231,8 +1231,7 @@ $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Présentati
 (exposés magistraux, participation attendue des étudiants, travaux pratiques,
 séances de laboratoire, visites, recueil d\'informations sur le terrain,
 ...)';
-$_lang['blockCourseHomePageIntroduction'] = 'Sélectionnez les outils que vous voulez activer.
-En mode d\'affichage Étudiant, les outils désactivés seront invisiblesanbsp;en mode d\'affichage Gestionnaire du cours, ils apparaîtront en grisé dans la page d\'accueil du cours.';
+$_lang['blockCourseHomePageIntroduction'] = 'Sélectionnez les outils que vous voulez activer. En mode d\'affichage Étudiant, les outils désactivés seront invisibles; en mode d\'affichage Gestionnaire du cours, ils apparaîtront en grisé dans la page d\'accueil du cours';
 $_lang['blockCourseSettingsTip'] = 'Par défaut, votre cours est accessible à tout le monde. Si vous souhaitez un minimum de confidentialité, le plus simple est d\'ouvrir
 l\'inscription pendant une semaine, de demander aux étudiants de s\'inscrire eux-mêmes
 puis de fermer l\'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.';
