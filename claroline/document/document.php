@@ -191,25 +191,59 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $unzip = '';
             }
 
+            if ( isset( $_REQUEST['comment'] ) && trim($_REQUEST['comment']) != '') // insert additional comment
+            {
+                $comment = trim($_REQUEST['comment']);
+            }
+            else
+            {
+                $comment = '';
+            }
+
             $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
             $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
                                     $cwd, $maxFilledSpace, $unzip);
+                
+            $uploadedFileNameList = array();
 
             if ($uploadedFileName !== false)
             {
                 if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
                 {
-                    $dialogBox .= ' ' . get_lang("Zip file uploaded and uncompressed");
+                    $dialogBox .= ' ' . get_lang('Zip file uploaded and uncompressed');
+
+                    foreach ( $uploadedFileName as $uploadedFile )
+                    {
+                        $uploadedFileNameList[] = $cwd . '/' . $uploadedFile['stored_filename']; 
+                    }
                 }
                 else
                 {
-                    $dialogBox .= get_lang("The upload is finished");
+                    $dialogBox .= get_lang('The upload is finished');
+                    $uploadedFileNameList[] = $cwd . '/' . $uploadedFileName;
+                }
 
-                    if ( isset( $_REQUEST['comment'] ) && trim($_REQUEST['comment']) != '') // insert additional comment
+                if ( !empty($comment) )
+                {
+                    $cur_dir = $cwd;
+
+                    // add comment to each file
+                    foreach ( $uploadedFileNameList as $uploadedFileName )
                     {
-                        update_db_info('update', $cwd . '/' . $uploadedFileName,
-                                        array('comment' => trim($_REQUEST['comment']) ) );
+                        $uploadedFileName = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $uploadedFileName);
+
+                        if ( dirname($uploadedFileName) != $cwd ) 
+                        {
+                            // put a comment on the folder
+                            update_db_info('update', dirname($uploadedFileName),
+                                            array('comment' => $comment ) ); 
+                            $cur_dir = dirname($uploadedFileName);
+                        }
+ 
+                        // put a comment on the file
+                        update_db_info('update', $uploadedFileName,
+                                        array('comment' => $comment ) );
                     }
                 }
             }
@@ -257,8 +291,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                IN CASE OF HTML FILE, LOOKS FOR IMAGE NEEDING TO BE UPLOADED TOO
               --------------------------------------------------------------------*/
 
-            if (   strrchr($uploadedFileName, '.') == '.htm'
-                || strrchr($uploadedFileName, '.') == '.html')
+            if ( count($uploadedFileNameList) == 1 && ( strrchr($uploadedFileName, '.') == '.htm'
+                || strrchr($uploadedFileName, '.') == '.html' ) )
             {
                 $imgFilePath = search_img_from_html($baseWorkDir . $cwd . '/' . $uploadedFileName);
 
