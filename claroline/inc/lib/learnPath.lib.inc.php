@@ -1164,7 +1164,7 @@ function get_module_tree( $lpModules , $id, $field = 'module_id')
         }
         elseif ( isset($module['children']) && is_array($module['children']) )
         {
-            $temp = get_module_tree($module['children'], $id);
+            $temp = get_module_tree($module['children'], $id, $field);
             if( is_array($temp) )
             return $temp;
             // else check next node
