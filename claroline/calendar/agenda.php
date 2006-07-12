@@ -451,11 +451,11 @@ else
 {
     if ( $orderDirection == 'DESC' )
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=asc" >' . get_lang('Oldest first') . '</a>' . "\n";
+        echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?order=asc" >' . get_lang('Oldest first') . '</a>' . "\n";
     }
     else
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . get_lang('Newest first') . '</a>' . "\n";
+        echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . get_lang('Newest first') . '</a>' . "\n";
     }
 
     echo "\n" . '<table class="claroTable" width="100%">' . "\n";
