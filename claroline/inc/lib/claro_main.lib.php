@@ -377,11 +377,15 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
         // find external url added by teacher
 
         $sql = "SELECT DISTINCT ctl.id            AS id,
+                      NULL                        AS tool_id,
+                      NULL                        AS label,
                       ctl.script_name             AS external_name,
                       ctl.visibility              AS visibility,
                       'tool.gif'                  AS icon,
                       ISNULL(ctl.tool_id)         AS external,
+                      NULL                        AS name,
                       ctl.script_url              AS url
+
                FROM `" . $tbl_course_tool_list . "` AS ctl
                WHERE ISNULL(ctl.tool_id) ";
 
