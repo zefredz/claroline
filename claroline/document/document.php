@@ -1468,8 +1468,7 @@ echo claro_html_tool_title($titleElement,
 
         // compute absolute path to requested image
 
-        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-          && get_conf('secureDocumentDownload') )
+        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
         {
             // slash argument method - only compatible with Apache
             $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file));
@@ -2021,8 +2020,7 @@ echo claro_html_tool_title($titleElement,
                     $size        = format_file_size($thisFile['size']);
                     $date        = format_date($thisFile['date']);
 
-                    if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-                        && get_conf('secureDocumentDownload') )
+                    if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
                     {
                         // slash argument method - only compatible with Apache
                         $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);

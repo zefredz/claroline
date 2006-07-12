@@ -180,9 +180,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         $fileUrl = $file;
 
-        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-             && get_conf('secureDocumentDownload')
-           )
+        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
         {
             // slash argument method - only compatible with Apache
             $img_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($fileUrl));

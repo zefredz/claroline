@@ -77,6 +77,11 @@ $imgRepositoryWeb       = $clarolineRepositoryWeb . $imgRepositoryAppend;
 
 define('CLARO_FILE_PERMISSIONS', 0777);
 
+// Web server
+
+$is_IIS = strstr($_SERVER['SERVER_SOFTWARE'], 'Microsoft-IIS') ? 1 : 0;
+$is_Apache = strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') ? 1 : 0;
+
 // Compatibility with IIS web server - REQUEST_URI
 
 if ( !isset($_SERVER['REQUEST_URI']) )

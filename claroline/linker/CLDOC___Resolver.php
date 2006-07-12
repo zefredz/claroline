@@ -108,8 +108,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         }
                         else if( is_file($path))
                         {
-                            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-                                 && get_conf('secureDocumentDownload') )
+                            if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
                             {
                                 // slash argument method - only compatible with Apache
                                 $url .= '/goto/index.php/'

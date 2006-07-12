@@ -81,8 +81,7 @@ else
     $intermediatePath = $_course['path']. '/document';
 }
 
-if ( get_conf('secureDocumentDownload')
-    && strstr($_SERVER['SERVER_SOFTWARE'], 'Apache') )
+if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
 {
     $pathInfo = realpath($coursesRepositorySys . $intermediatePath . '/' . $requestUrl);
     $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...

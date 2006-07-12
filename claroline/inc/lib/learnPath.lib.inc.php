@@ -860,8 +860,7 @@ function display_my_documents($dialogBox)
                 $size        = format_file_size($fileList['size'][$fileKey]);
                 $date        = format_date($fileList['date'][$fileKey]);
 
-                if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
-                    && get_conf('secureDocumentDownload') )
+                if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
                 {
                     // slash argument method - only compatible with Apache
                     $doc_url = $cmdFileName;

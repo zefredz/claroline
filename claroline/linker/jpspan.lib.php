@@ -27,7 +27,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $jpspanEnabled = FALSE;
         
         /* IIS workaround : JPSPAN does not work on IIS */
-        if ( ! (strpos( $_SERVER['SERVER_SOFTWARE'], 'IIS' ) === false) )
+        if ( $GLOBALS['is_IIS'] )
         {
             return false;
         }
