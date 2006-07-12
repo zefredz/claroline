@@ -157,8 +157,6 @@ function activate_module($moduleId)
 
         // insert the new course tool
 
-        $trimlabel = rtrim($moduleInfo['label'],'_');
-
         // TODO : remove fields script_url, claro_label, def_access, access_manager
         // TODO : rename def_rank to rank
         $sql = "INSERT INTO `" . $tbl['tool']."`
@@ -593,17 +591,7 @@ function install_module($modulePath)
 
     if ('tool' == $module_info['TYPE'])
     {
-        $idTool = register_module_tool($moduleId,$module_info);
-
-        /* probably disbled in 1.8
-        if (isset($module_info['CONTEXT']))
-        {
-            foreach ($module_info['CONTEXT'] as $context => $contextPropertyList)
-            {
-                register_module_tool_in_context($idTool,$context, $contextPropertyList);
-            }
-        }
-        */
+        register_module_tool($moduleId,$module_info);
     }
 
     if (array_key_exists('DEFAULT_DOCK',$module_info))
@@ -1047,22 +1035,6 @@ function register_module($modulePath)
                 if (false !== ($toolId   = register_module_tool($moduleId,$module_info)))
                 {
                     $regLog['info'][] = get_lang('%claroLabel registred as tool', array('%claroLabel'=>$module_info['LABEL']));
-                    if (array_key_exists('CONTEXT', $module_info))
-                    {
-                        foreach ($module_info['CONTEXT'] as $context => $contextInfo)
-                        {
-                            if (false !== register_module_tool_in_context($toolId,$context,$contextInfo))
-                            {
-                                $regLog['info'][] = get_lang('%claroLabel registred in %context', array('%claroLabel'=>$module_info['LABEL'],'%context'=>$context));
-                                foreach ($contextInfo['LINKS'] AS $menu)
-                                {
-                                    add_tool_in_context_menu($toolId, $menu['TARGET'], $context, $menu['PATH']);
-                                    $regLog['info'][] = get_lang('Module found and set : %dock', array('%dock' => var_export($menu['TARGET'],1)));
-                                }
-                            }
-                        }
-                    }
-                    else  $regLog['error'][] = get_lang('tool %label have no context', array('%label' => $module_info['LABEL']));
                 }
                 else
                 {
@@ -1159,71 +1131,37 @@ function register_module_core($module_info)
  */
 function register_module_tool($moduleId,$moduleToolData)
 {
-    $tbl = claro_sql_get_tbl('module_tool');
+
+    $tbl = claro_sql_get_tbl('course_tool');
     if (is_array($moduleToolData))
     {
-        $entry = (array_key_exists('ENTRY',$moduleToolData) ? $moduleToolData['ENTRY']:'index.php');
         $icon     = (array_key_exists('ICON',$moduleToolData) ? "'" . addslashes( $moduleToolData['ICON']) . "'" :'NULL');
-        //    if (!file_exists($entry))
-        //    {
-        //        trigger_error($entry . 'not found', E_USER_WARNING);
-        //    }
-        /*
-        $sql = "INSERT INTO `" . $tbl['module_tool'] . "`
-                SET module_id = " . (int) $moduleId . ",
-                    icon      = " . $icon  ;
-        $module_inserted_id = claro_sql_query_insert_id($sql);
+        // TODO  insert data in course_tool
+        /**
+         *  quelque chose comme
+            $sql = "SELECT MAX(rank) AS maxrank FROM `" . $tbl['course_tool'] . "`";
+            $maxresult = claro_sql_query_get_single_row($sql);
 
-        return $module_inserted_id;
-        */
+            // pour bien faire
+            // claro_label ne devrait plus  être dans cette table mais  moduleId
+
+        $sql = "INSERT INTO `" . $tbl['course_tool']."`
+                SET claro_label = '".$moduleInfo['label']."',
+                    icon = '".$icon."',
+                    visiblity = ??
+                    rank = (". (int) $maxresult['maxrank']."+1), # ancien def_rank
+                    add_in_course = 'AUTOMATIC'";
+
+
+        $toolId = claro_sql_query($sql);
+
+        et ajouter le code des droits
+         */
+
+
     }
 }
 
-function register_module_tool_in_context($toolId, $toolContext, $toolContextProperty)
-{
-/** not use in  1.8
-    $tbl = claro_sql_get_tbl('module_rel_tool_context');
-    $sql = "SELECT max(def_rank) FROM `" . $tbl['module_rel_tool_context'] . "`
-            WHERE context        = '" . addslashes($toolContext) . "'";
-    $rank = claro_sql_query_get_single_value($sql);
-    $sql = "INSERT INTO `" . $tbl['module_rel_tool_context'] . "`
-        SET  tool_id        = " . (int) $toolId . ",
-             context        = '" . addslashes($toolContext) . "',
-             enabling       = '" . addslashes($toolContextProperty['ENABLING']) . "',
-             def_access     = '" . addslashes($toolContextProperty['DEFAULT_ACCESS']) . "',
-             def_rank       = '" . $rank . "',
-             access_manager = '" . addslashes($toolContextProperty['ACCESS_MANAGER']) . "'
-             ";
-
-    return claro_sql_query_insert_id($sql);
-    */
-}
-
-function add_tool_in_context_menu($toolId, $menu, $contextId, $path)
-{
-/** not use in  1.8
-    $tbl = claro_sql_get_tbl(array('module_rel_tool_context_menu', 'module_menu',));
-    $sql = "REPLACE  INTO `" . $tbl['module_menu'] . "`
-            SET contextId     = '" . addslashes($menu) . "',
-                menuId        = " . (int) $menuId ;
-    $menuId = claro_sql_query_insert_id($sql);
-
-    $sql = "SELECT max(defaultRank) FROM `" . $tbl['module_rel_tool_context_menu'] . "`
-            WHERE toolId        = " . (int) $toolId . ",
-              AND contextId     = '" . addslashes($contextId) . "',
-              AND menuId        = " . (int) $menuId ;
-
-    $rank = claro_sql_query_get_single_value($sql);
-    $sql = "INSERT INTO `" . $tbl['module_rel_tool_context_menu'] . "`
-        SET  toolId        = " . (int) $toolId . ",
-             contextId     = '" . addslashes($contextId) . "',
-             menuId        = " . (int) $menuId . ",
-             path          = '" . addslashes($path) . "',
-             defaultRank   = " . (int) $rank ;
-
-    return claro_sql_query_insert_id($sql);
-*/
-}
 
 function claro_get_module_types()
 {
