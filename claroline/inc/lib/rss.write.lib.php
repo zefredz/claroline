@@ -66,7 +66,7 @@ function build_rss($context)
             $_course = claro_get_course_data($context[CLARO_CONTEXT_COURSE]);
             $rssTitle = '[' . get_conf('siteName') . '] '.$_course['officialCode'];
             $rssDescription = $_course['name'];
-            $rssEmail = $_course['email'];
+            $rssEmail = $_course['email'] == '' ? get_conf('administrator_email') : $_course['email'];
             $rssLink = get_conf('coursesRepositoryWeb') . $_course['path'];
             if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
             {
