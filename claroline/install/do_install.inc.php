@@ -391,17 +391,17 @@ create_required_profile();
  */
 
 $oldTools = array('CLDSC',
-                  'CLANN',
-                  'CLLNP',
                   'CLCAL',
+                  'CLANN',
                   'CLDOC',
-                  'CLWIKI',
-                  'CLFRM',
-                  'CLCHT',
                   'CLQWZ',
+                  'CLLNP',
                   'CLWRK',
+                  'CLFRM',
+                  'CLGRP',
                   'CLUSR',
-                  'CLGRP');
+                  'CLCHT',
+                  'CLWIKI');
 
 foreach($oldTools as $claroLabel)
 {
