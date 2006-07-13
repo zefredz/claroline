@@ -222,18 +222,22 @@ $sql = "SELECT `ug`.`id`       AS id,
                `u`.`nom`       AS name,
                `u`.`prenom`    AS firstname,
                `u`.`email`     AS email,
-               `u`.`officialEmail` AS officialEmail
-        FROM `" . $tbl_user . "`                AS u
-           , `" . $tbl_group_rel_team_user . "` AS ug
-        WHERE `ug`.`team` = " . (int) $_gid . "
+               `u`.`officialEmail` AS officialEmail,
+               `cu`.`role`     AS `role`
+        FROM (`" . $tbl_user . "`                AS u
+           , `" . $tbl_rel_user_course . "`          AS cu
+           , `" . $tbl_group_rel_team_user . "` AS ug)
+        WHERE  `cu`.`code_cours` = '" . $currentCourseId . "'
+        AND   `cu`.`user_id`    = `u`.`user_id`
+        AND   `ug`.`team` = " . (int) $_gid . "
         AND   `ug`.`user` = `u`.`user_id`
-        ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
+        ORDER BY UPPER(`u`.`nom`), UPPER(`u`.`prenom`), `u`.`user_id`";
 
 $resultMember = claro_sql_query_fetch_all($sql);
 $usersInGroupList=array();
 foreach ($resultMember as $thisMember )
 {
-    $usersInGroupList[ htmlspecialchars(ucwords(strtolower($thisMember['name'])) . ' ' . ucwords(strtolower($thisMember['firstname']))) ]= $thisMember['user_id'];
+    $usersInGroupList[  '*' . htmlspecialchars(ucwords(strtolower($thisMember['name'])) . ' ' . ucwords(strtolower($thisMember['firstname']))  . ($thisMember['role']!=''?' (' . $thisMember['role'] . ')':'')) ]= $thisMember['user_id'];
 }
 
 // Student registered to the course but inserted in no group
@@ -246,6 +250,7 @@ $userNotInGroupList = array();
 $sql = "SELECT `u`.`user_id`        AS `user_id`,
                `u`.`nom`            AS `lastName`,
                `u`.`prenom`         AS `firstName`,
+               `cu`.`role`          AS `role`,
                COUNT(`ug`.`id`)     AS `nbg`,
                COUNT(`ugbloc`.`id`) AS `BLOCK`
 
@@ -269,16 +274,16 @@ $sql = "SELECT `u`.`user_id`        AS `user_id`,
         " . $limitNumOfGroups . "
         ORDER BY
         #`nbg`, #disabled because different of  right box
-        UPPER(`u`.`nom`), UPPER(`u`.`prenom`)";
+        UPPER(`u`.`nom`), UPPER(`u`.`prenom`), `u`.`user_id`";
 
 $result = claro_sql_query_fetch_all($sql);
 
+
 foreach ($result AS $myNotMember )
 {
-    $label = htmlspecialchars(ucwords(strtolower($myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'])))
+    $label = htmlspecialchars( ucwords( strtolower( $myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'] )) . ($myNotMember['role']!=''?' (' . $myNotMember['role'] . ')':'') )
     .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
     ;
-
     $userNotInGroupList[$label] = $myNotMember['user_id'];
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
