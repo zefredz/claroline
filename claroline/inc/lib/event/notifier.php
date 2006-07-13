@@ -500,7 +500,7 @@ class Notifier extends EventDriven
      *  @return an array with the ressources (paths in case of document tool) with recent unknow event until the date '$date' for the user_id and course_id concerned
      */
 
-    function get_notified_ressources($course_id, $date, $user_id, $gid = '0', $tid)
+    function get_notified_ressources($course_id, $date, $user_id, $gid, $tid)
     {
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_notify    = $tbl_mdb_names['notify'];
