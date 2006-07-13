@@ -189,20 +189,6 @@ function delete_groups($groupIdList = 'ALL')
         // Delete all Forum of deleted group(s)
         claro_sql_query($sql_deleteGroupForums);
 
-        // Reset auto_increment
-        $sql_getmaxId = 'SELECT MAX( id ) max From  `' . $tbl_groups . '` ';
-        $maxGroupId = claro_sql_query_fetch_all($sql_getmaxId);
-        $sql_reset_autoincrement = "ALTER TABLE `" . $tbl_groups . "`
-                                    PACK_KEYS =0
-                                    CHECKSUM =0
-                                    DELAY_KEY_WRITE =0
-                                    AUTO_INCREMENT = " . ($maxGroupId[0]['max']+1) ."
-                                    # ".__FUNCTION__."
-                                    # ".__FILE__."
-                                    # ".__LINE__
-        ;
-        claro_sql_query($sql_reset_autoincrement);
-
         /**
          * Archive and delete the group files
          */
@@ -475,13 +461,26 @@ function group_count_group_of_a_user($user_id, $course_id=null)
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  */
 
-function create_group($groupName, $maxMember)
+function create_group($prefixGroupName, $maxMember)
 {
     require_once dirname(__FILE__) . '/forum.lib.php';
     require_once dirname(__FILE__) . '/fileManage.lib.php';
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_groups    = $tbl_cdb_names['group_team'];
+
+    // Check name of group
+    $sql ="SELECT name FROM  `" . $tbl_groups . "` WHERE name LIKE  '" . addslashes($prefixGroupName) . "%'";
+    $existingGroupList = claro_sql_query_fetch_all_cols($sql);
+    $existingGroupList = $existingGroupList['name'];
+    $i=1;
+    do
+    {
+       $groupName = $prefixGroupName . str_pad($i, 4,' ',STR_PAD_LEFT);
+       $i++;
+       if ($i-2 > count($existingGroupList))  die($groupName . 'infiniteloop');
+    }
+    while ( in_array($groupName,$existingGroupList));
 
     /**
      * Create a directory allowing group student to upload documents
