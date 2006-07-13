@@ -167,27 +167,6 @@ function activate_module($moduleId)
 
         $tool_id = get_course_tool_id($moduleInfo['label']);
 
-        // Manage right - Add read action
-        $action = new RightToolAction();
-        $action->setName('read');
-        $action->setToolId($tool_id);
-        $action->save();
-
-        // Manage right - Add edit action
-        $action = new RightToolAction();
-        $action->setName('edit');
-        $action->setToolId($tool_id);
-        $action->save();
-
-        // load profile
-        $profile = new RightProfile();
-        $profile->load(claro_get_profile_id('manager'));
-        $profileRight = new RightProfileToolRight();
-        $profileRight->load($profile);
-        $profileRight->setToolRight($tool_id,'manager');
-        $profileRight->save();
-
-
         // 4- update every course tool list to add the tool if it is a tool
 
         $module_type = $moduleInfo['type'];
@@ -1127,7 +1106,6 @@ function register_module_core($module_info)
                 ";
     $moduleId = claro_sql_query_insert_id($sql);
 
-
     $sql = "INSERT INTO `" . $tbl['module_info'] . "`
             SET module_id    = " . (int) $moduleId . ",
                 version      = '" . addslashes($module_info['CLAROLINE']['VERSION']) . "',
@@ -1139,35 +1117,6 @@ function register_module_core($module_info)
 
     claro_sql_query($sql);
 
-    // create the row in the course_tool table, in case of module tool
-
-    if ('tool' == $module_info['TYPE'])
-    {
-        // find max rank in the course_tool table
-
-        $sql = "SELECT MAX(def_rank) AS maxrank FROM `" . $tbl_course_tool . "`";
-        $maxresult = claro_sql_query_get_single_row($sql);
-
-        // insert the new course tool
-
-        if(!isset($module_info['ENTRY'])) $module_info['ENTRY'] = 'entry.php';
-
-        $trimlabel = rtrim($module_info['LABEL'],'_');
-    
-        $sql = "INSERT INTO `" . $tbl_course_tool ."`
-                SET
-                claro_label = '".$module_info['LABEL']."',
-                script_url = '".$module_info['ENTRY']."',
-                icon = '".$module_info['ICON']."',
-                def_access = 'ALL',
-                def_rank = (". (int) $maxresult['maxrank']."+1),
-                add_in_course = 'AUTOMATIC',
-                access_manager = 'COURSE_ADMIN'
-            ";
-        $tool_id = claro_sql_query_insert_id($sql);
-
-    }
-
     return $moduleId;
 }
 
@@ -1178,39 +1127,78 @@ function register_module_core($module_info)
  * @param array $moduleToolData, data from manifest
  * @return unknown
  */
-function register_module_tool($moduleId,$moduleToolData)
+
+function register_module_tool($moduleId,$module_info)
 {
-
     $tbl = claro_sql_get_tbl('course_tool');
-    if (is_array($moduleToolData))
+
+    if ( is_array($module_info) )
     {
-        $icon     = (array_key_exists('ICON',$moduleToolData) ? "'" . addslashes( $moduleToolData['ICON']) . "'" :'NULL');
-        // TODO  insert data in course_tool
-        /**
-         *  quelque chose comme
-            $sql = "SELECT MAX(rank) AS maxrank FROM `" . $tbl['course_tool'] . "`";
-            $maxresult = claro_sql_query_get_single_row($sql);
+        $icon = array_key_exists('ICON',$module_info) ? "'" . addslashes($module_info['ICON']) . "'" :'NULL';
 
-            // pour bien faire
-            // claro_label ne devrait plus  être dans cette table mais  moduleId
+        if ( !isset($module_info['ENTRY'])) $module_info['ENTRY'] = 'entry.php';
 
-        $sql = "INSERT INTO `" . $tbl['course_tool']."`
-                SET claro_label = '".$moduleInfo['label']."',
-                    icon = '".$icon."',
-                    visiblity = ??
-                    rank = (". (int) $maxresult['maxrank']."+1), # ancien def_rank
-                    add_in_course = 'AUTOMATIC'";
+        // find max rank in the course_tool table
 
+        $sql = "SELECT MAX(def_rank) AS maxrank FROM `" . $tbl['course_tool'] . "`";
+        $maxresult = claro_sql_query_get_single_row($sql);
 
-        $toolId = claro_sql_query($sql);
+        // insert the new course tool
+    
+        $sql = "INSERT INTO `" . $tbl['course_tool'] ."`
+                SET
+                claro_label = '". addslashes($module_info['LABEL']) ."',
+                script_url = '". addslashes($module_info['ENTRY']) ."',
+                icon = " . $icon . ",
+                def_access = 'ALL',
+                def_rank = (". (int) $maxresult['maxrank']."+1),
+                add_in_course = 'AUTOMATIC',
+                access_manager = 'COURSE_ADMIN' ";
 
-        et ajouter le code des droits
-         */
+        $tool_id = claro_sql_query_insert_id($sql);
 
+        // Init action/right
 
+        // Manage right - Add read action
+        $action = new RightToolAction();
+        $action->setName('read');
+        $action->setToolId($tool_id);
+        $action->save();
+
+        // Manage right - Add edit action
+        $action = new RightToolAction();
+        $action->setName('edit');
+        $action->setToolId($tool_id);
+        $action->save();
+
+        // Init all profile/right
+
+        $profileList = array_keys(claro_get_all_profile_name_list());
+
+        foreach ( $profileList as $profileId )
+        {
+            $profile = new RightProfile();
+            $profile->load($profileId);
+            $profileRight = new RightProfileToolRight();
+            $profileRight->load($profile);
+            if ( claro_get_profile_id('manager') == $profileId )
+            {
+                $profileRight->setToolRight($tool_id,'manager');
+            }
+            else
+            {
+                $profileRight->setToolRight($tool_id,'user');
+            }
+            $profileRight->save();
+        }
+
+        return $tool_id;
+    }
+    else
+    {
+        return false ;
     }
 }
-
 
 function claro_get_module_types()
 {
