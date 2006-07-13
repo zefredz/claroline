@@ -47,7 +47,7 @@ if ( get_conf('allowSelfReg',false) )
     // Initialise variables
     $error = false;
     $messageList = array();
-
+    $mailSent = false;
 
     // Initialise field variable from subscription form
 
@@ -111,7 +111,7 @@ if ( get_conf('allowSelfReg',false) )
                 $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
 
                 // send info to user by email
-                user_send_registration_mail($_uid, $user_data);
+                $mailSent = user_send_registration_mail($_uid, $user_data);
 
             } // if _uid
             else
@@ -182,7 +182,13 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
 {
     // registration succeeded
 
-    echo get_lang('Dear %firstname %lastname. Your personal settings have been registered and an email has been sent to help you remember your user name and password.', array('%firstname'=>$user_data['firstname'],'%lastname'=>$user_data['lastname']));
+
+    echo '<p>'  . "\n"
+    .    get_lang('Dear %firstname %lastname. Your personal settings have been registered.', array('%firstname'=>$user_data['firstname'],'%lastname'=>$user_data['lastname']))  . "\n"
+    ;
+
+    if ( $mailSent ) echo '<br />' . "\n" . get_lang('An email has been sent to help you remember your user name and password.');
+    echo '</p>' . "\n";
 
     if ( $is_allowedCreateCourse ) echo '<p>' . get_lang('You can now create your  course') . '</p>' . "\n";
     else                           echo '<p>' . get_lang('You can now select, in the list, the courses you want to access') . '</p>' . "\n";
@@ -197,9 +203,10 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 
     if (file_exists('./textzone_inscription.inc.html'))
     {
-        echo '<div class="info">';
-
-        echo '</div>';
+        echo '<div class="info">'
+        .    $agreementText
+        .    '</div>'
+        ;
     }
 
     echo '<br />'
