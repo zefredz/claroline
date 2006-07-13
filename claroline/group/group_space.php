@@ -105,19 +105,45 @@ if( isset($_REQUEST['registration']) )
     //RECHECK if subscribe is aivailable
     if( $is_courseMember &&  ! $is_groupMember && $is_allowedToSelfRegInGroup)
     {
-        $sql = 'INSERT INTO `' . $tbl_group_rel_team_user . '`
-                SET `user` = "' . (int) $_uid . '",
-                    `team` = "' . (int) $_gid . '"';
-
-        if (claro_sql_query($sql))
+        if( isset($_REQUEST['doReg']) )
         {
-            // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-            claro_redirect($_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
-            exit();
+            //RECHECK if subscribe is aivailable
+            if( $is_courseMember &&  ! $is_groupMember && $is_allowedToSelfRegInGroup)
+            {
+
+                $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
+                SET `user` = " . (int) $_uid . ",
+                    `team` = " . (int) $_gid ;
+                if (claro_sql_query($sql))
+                {
+                    // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
+                    claro_redirect($_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
+                    exit();
+
+                }
+            }
+        }
+        else // Confirm reg
+        {
+            $message = get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>$_group['name'])) . "\n"
+            .          '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            .          '<input type="hidden" name="registration" value="1">' . "\n"
+            .          '<input type="hidden" name="doReg" value="1">' . "\n"
+            .          '<br />' . "\n"
+            .          '<input type="submit" value="' . get_lang("Ok") . '">' . "\n"
+            .          claro_html_button($_SERVER['PHP_SELF'] , get_lang("Cancel")) . "\n"
+            .          '</form>' . "\n"
+            ;
+
+
 
         }
+
+
+
     }
 }
+
 
 if ( isset($_REQUEST['regDone']) )
 {
@@ -290,7 +316,7 @@ if ( !empty($message) )
 }
 
 
-if($is_allowedToSelfRegInGroup)
+if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
 {
     echo '<p>' . "\n"
     .    '<a href="' . $_SERVER['PHP_SELF'] . '?registration=1" class="claroCmd">'
@@ -302,7 +328,7 @@ if($is_allowedToSelfRegInGroup)
 }
 
 
-echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
+echo '<p></p><table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 .    '<tr>'  . "\n"
 .    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
 

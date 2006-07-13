@@ -16,7 +16,7 @@
  *
  */
 
-$tlabelReq = 'CLGRP';
+
 require '../inc/claro_init_global.inc.php';
 
 // display login form

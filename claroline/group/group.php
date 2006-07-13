@@ -673,7 +673,7 @@ foreach ($groupList as $thisGroup)
             else
             {
                 echo '&nbsp;'
-                .    '<a href="group_space.php?selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
+                .    '<a href="group_space.php?registration=1&selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
                 .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang("register") . '">'
                 .    '</a>'
                 ;
