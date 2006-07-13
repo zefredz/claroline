@@ -1811,70 +1811,65 @@ echo claro_html_tool_title($titleElement,
 
         /* GO TO PARENT DIRECTORY */
 
-
-        echo "<p>\n";
+        $links = array();
 
         if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point
                                                   and we can't go to a parent dir */
         {
-
-            echo "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&amp;file=".$cmdParentDir."\">\n"
+            $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&amp;file=".$cmdParentDir."\">\n"
                 ."<img src=\"".$imgRepositoryWeb."parent.gif\" border=\"0\" alt=\"\">\n"
                 .get_lang("Up")
-                ."</a>\n";
+                ."</a>";
         }
         else
         {
-            echo "<span class=\"claroCmdDisabled\">"
+            $links[] = "<span class=\"claroCmdDisabled\">"
                 ."<img src=\"".$imgRepositoryWeb."parentdisabled.gif\" border=\"0\" alt=\"\">\n"
                 .get_lang("Up")
-                ."</span>\n";
+                ."</span>";
         }
 
 
-        echo " | "
-            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&amp;cwd=".$cmdCurDirPath."\">\n"
+        $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&amp;cwd=".$cmdCurDirPath."\">\n"
             ."<img src=\"".$imgRepositoryWeb."search.gif\" border=\"0\" alt=\"\">\n"
             .get_lang("Search")
-            ."</a>\n";
+            ."</a>";
 
         if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.$searchPattern;
         else                             $downloadArgument = "file=".$cmdCurDirPath;
 
-        echo " | "
-            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;".$downloadArgument."\">\n"
+        $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;".$downloadArgument."\">\n"
             ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">\n"
             .get_lang("Download current directory")
-            ."</a>\n";
+            ."</a>";
 
 
         if ($is_allowedToEdit)
         {
             /* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 
-            echo " | "
-                ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&amp;cwd=".$cmdCurDirPath."\">"
+            $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."download.gif\" alt=\"\">"
                 .get_lang('Upload file')
-                ."</a>\n"
-                ." | "
-                ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&amp;cwd=".$cmdCurDirPath."\">"
+                ."</a>";
+
+            $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."folder.gif\" alt=\"\">"
                 .get_lang('Create Directory')
-                ."</a>\n"
-                ."| "
-                ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&amp;cwd=".$cmdCurDirPath."\">"
+                ."</a>";
+
+            $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."link.gif\" alt=\"\">"
                 .get_lang('Create hyperlink')
-                ."</a>\n"
-                ." | "
-                ."<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&amp;cwd=".$cmdCurDirPath."\">"
+                ."</a>";
+
+            $links[] = "<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&amp;cwd=".$cmdCurDirPath."\">"
                 ."<img src=\"".$imgRepositoryWeb."html.gif\" alt=\"\">"
                 .get_lang('Create Document')
-                ."</a>\n";
+                ."</a>";
         }
 
-        echo "</p>\n";
+        echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n";
 
         echo claro_disp_document_breadcrumb($curDirPath);
 
@@ -1975,15 +1970,15 @@ echo claro_html_tool_title($titleElement,
                                    DISPLAY FILE LIST
           ------------------------------------------------------------------------*/
 
-                //find the recent documents with the notification system
+        // find the recent documents with the notification system
 
-                if (isset($_uid))
-                {
-                    $date = $claro_notifier->get_notification_date($_uid);
+        if (isset($_uid))
+        {
+            $date = $claro_notifier->get_notification_date($_uid);
 
-                }
+        }
 
-                if (isset($fileList))
+        if (isset($fileList))
         {
             foreach($fileList as $thisFile )
             {
