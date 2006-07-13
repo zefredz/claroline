@@ -362,6 +362,7 @@ th .claroCmdDisabled
  */
 
 .item {padding-left:16px}
+.item img {margin-right:5px;margin-top:1px}
 .hot {background:url(../img/hot.gif) no-repeat}
 
 /******************************************************************************
