@@ -24,22 +24,32 @@ echo $campusBannerLeftDock->render();
 //CAMPUS BANNER RIGHT DOCK declaration
 
 $campusBannerRightDock = new Dock('campusBannerRight');
-$institutionNameOutput = '<span id="institution">';
+$institutionNameOutput = '';
 
 if( !empty($institution_name) )
 {
     if( !empty($institution_url) )
-        $institutionNameOutput .= '<a href="'.$institution_url.'" target="_top">'.$institution_name.'</a>';
+        $institutionNameOutput .= '<a href="'
+            .$institution_url.'" target="_top">'
+            .$institution_name.'</a>'
+            ;
     else
         $institutionNameOutput .= $institution_name;
 }
 
-if( !empty($_course['extLinkName']) )    /* --- External Link Section --- */
+/* --- External Link Section --- */
+if( !empty($_course['extLinkName']) )
 {
-    $institutionNameOutput .= ' / ';
+    $institutionNameOutput .= !empty($institution_url)
+        ? ' / ' 
+        : ' '
+        ;
+        
     if( !empty($_course['extLinkUurl']) )
     {
-        $institutionNameOutput .= '<a href="' . $_course['extLinkUrl'] . '" target="_top">';
+        $institutionNameOutput .= '<a href="' 
+            . $_course['extLinkUrl'] . '" target="_top">'
+            ;
     }
 
     $institutionNameOutput .= $_course['extLinkName'];
@@ -50,7 +60,10 @@ if( !empty($_course['extLinkName']) )    /* --- External Link Section --- */
     }
 }
 
-$institutionNameOutput .= '</span>'."\n";
+$institutionNameOutput = '<span id="institution">' 
+    . $institutionNameOutput 
+    . '</span>'."\n"
+    ;
 
 $campusBannerRightDock->addOutput($institutionNameOutput);
 
