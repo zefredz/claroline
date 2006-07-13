@@ -341,8 +341,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
                       ISNULL(ctl.tool_id)         AS external,
                       m.name                      AS name,
                       IFNULL( ctl.script_url ,
-                              CONCAT('/', pct.script_url) )
-                      AS url
+                              pct.script_url )    AS url
                FROM `" . $tbl_course_tool_list . "` AS ctl,
                     `" . $tbl_module . "`           AS m,
                     `" . $tbl_tool_list . "`        AS pct
@@ -880,13 +879,11 @@ function claro_get_conf_repository()
 
 function get_conf($param, $default = null)
 {
-/*
     if (CLARO_DEBUG_MODE)
     {
         if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
         pushClaroMessage($param . ' use but not set. use default :' . var_export($default,1),'warning');
     }
-*/
 
     if     ( isset($GLOBALS['_conf'][$param]) )  return $GLOBALS['_conf'][$param];
     elseif ( isset($GLOBALS[$param]) )           return $GLOBALS[$param];
