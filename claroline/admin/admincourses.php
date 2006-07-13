@@ -202,15 +202,6 @@ if ( !empty($_REQUEST['subscription']) )
 if ( count($advanced_search_query_string) > 0 ) $addtoAdvanced = '?' . implode('&',$advanced_search_query_string);
 else                                            $addtoAdvanced = '';
 
-//finaly, form itself
-
-if( empty($isSearched) )
-{
-    $title = '&nbsp;';
-    $isSearched = '&nbsp;';
-}
-else $title = get_lang('Search on') . ' : ';
-
 $courseDataList=array();
 // Now read datas and rebuild cell content to set datagrid to display.
 foreach($courseList as $numLine => $courseLine)
@@ -296,16 +287,21 @@ include $includePath . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 if (isset($dialogBox)) echo claro_html_message_box($dialogBox);
 
+if ( !empty($isSearched) )
+{
+    echo claro_html_message_box ( '<b>' . get_lang('Search on') . '</b> : <small>' .$isSearched . '</small>' );
+}
+
 /**
  * DISPLAY : Search/filter panel
  */
 echo '<table width="100%">' . "\n\n"
 .    '<tr>' . "\n"
 .    '<td align="left" valign="top">' . "\n"
-.    '<b>' . $title . '</b>'
-.    '</td>' . "\n"
-.    '<td align="left"  valign="top">' . "\n\n"
-.    '<small>' .$isSearched . '</small>'
+.    '<a class="claroCmd" href="../course/create.php?fromAdmin=yes">'
+.    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+.    get_lang('Create course')
+.    '</a>'
 .    '</td>' . "\n"
 .    '<td align="right"  valign="top">' . "\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"

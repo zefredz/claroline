@@ -88,13 +88,11 @@ $addtoAdvanced = $searchInfo['addtoAdvanced'];
 
 if(count($searchInfo['isSearched']) )
 {
-    $title = get_lang('Search on') . ' : ';
     $isSearchedHTML = implode('<br>', $isSearched);
 }
 else
 {
-    $title = "&nbsp;";
-    $isSearchedHTML = "&nbsp;";
+    $isSearchedHTML = '';
 }
 
 //get the search keyword, if any
@@ -225,13 +223,18 @@ if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 //Display search form
 
+if ( !empty($isSearchedHTML) )
+{
+    echo claro_html_message_box ('<b>' . get_lang('Search on') . '</b> : <small>' . $isSearchedHTML . '</small>') ;
+}
+
 echo '<table width="100%">'
 .    '<tr>'
+.    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
+.    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
+.    get_lang('Create user')
+.    '</a></td>'
 .    '<td align="left">'
-.    '<b>' . $title . '</b>'
-.    '<small>'
-.    $isSearchedHTML
-.    '</small>'
 .    '</td>'
 .    '<td align="right">'
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">'
@@ -239,7 +242,7 @@ echo '<table width="100%">'
 .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />'
 .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />'
 .    '<input type="hidden" name="newsearch" value="yes" />'
-.    '[<a class="claroCmd" href="advancedUserSearch.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]'
+.    '&nbsp;[<a class="claroCmd" href="advancedUserSearch.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]'
 .    '</form>'
 .    '</td>'
 .    '</tr>'
