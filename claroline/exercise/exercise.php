@@ -115,7 +115,7 @@ if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeri
 
         $downloadPlace = claro_get_data_path(array(CLARO_CONTEXT_COURSE=>$_cid, CLARO_CONTEXT_TOOLLABEL=>'CLQWZ' ));
         $downloadArchivePath = $downloadPlace.'/'.uniqid(true).'.zip';
-        $downloadArchiveName = basename('exercise_'.$_REQUEST['exId']).'.zip';
+        $downloadArchiveName = basename($exercise->title).'.zip';
         $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
         
         $downloadArchive     = new PclZip($downloadArchivePath);
