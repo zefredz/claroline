@@ -1817,20 +1817,20 @@ echo claro_html_tool_title($titleElement,
                                                   and we can't go to a parent dir */
         {
             $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&amp;file=".$cmdParentDir."\">\n"
-                ."<img src=\"".$imgRepositoryWeb."parent.gif\" border=\"0\" alt=\"\">\n"
+                ."<img src=\"".$imgRepositoryWeb."parent.gif\" border=\"0\" alt=\"\">&nbsp;"
                 .get_lang("Up")
                 ."</a>";
         }
         else
         {
             $links[] = "<span class=\"claroCmdDisabled\">"
-                ."<img src=\"".$imgRepositoryWeb."parentdisabled.gif\" border=\"0\" alt=\"\">\n"
+                ."<img src=\"".$imgRepositoryWeb."parentdisabled.gif\" border=\"0\" alt=\"\">&nbsp;"
                 .get_lang("Up")
                 ."</span>";
         }
 
 
-        $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&amp;cwd=".$cmdCurDirPath."\">\n"
+        $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&amp;cwd=".$cmdCurDirPath."\">&nbsp;"
             ."<img src=\"".$imgRepositoryWeb."search.gif\" border=\"0\" alt=\"\">\n"
             .get_lang("Search")
             ."</a>";
@@ -1838,10 +1838,22 @@ echo claro_html_tool_title($titleElement,
         if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.$searchPattern;
         else                             $downloadArgument = "file=".$cmdCurDirPath;
 
-        $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;".$downloadArgument."\">\n"
-            ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">\n"
-            .get_lang("Download current directory")
-            ."</a>";
+        if ( isset($fileList) && count($fileList) > 0 )
+        {
+            // Download current folder
+            $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;".$downloadArgument."\">"
+                ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">&nbsp;"
+                .get_lang("Download current directory")
+                ."</a>";
+        }
+        else
+        {
+            // Download current folder disabled
+            $links[] = "<span class='claroCmdDisabled' >"
+                ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">&nbsp;"
+                .get_lang("Download current directory")
+                ."</span>"; 
+        }
 
 
         if ($is_allowedToEdit)
@@ -1849,22 +1861,22 @@ echo claro_html_tool_title($titleElement,
             /* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 
             $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&amp;cwd=".$cmdCurDirPath."\">"
-                ."<img src=\"".$imgRepositoryWeb."download.gif\" alt=\"\">"
+                ."<img src=\"".$imgRepositoryWeb."download.gif\" alt=\"\">&nbsp;"
                 .get_lang('Upload file')
                 ."</a>";
 
             $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&amp;cwd=".$cmdCurDirPath."\">"
-                ."<img src=\"".$imgRepositoryWeb."folder.gif\" alt=\"\">"
+                ."<img src=\"".$imgRepositoryWeb."folder.gif\" alt=\"\">&nbsp;"
                 .get_lang('Create Directory')
                 ."</a>";
 
             $links[] = "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&amp;cwd=".$cmdCurDirPath."\">"
-                ."<img src=\"".$imgRepositoryWeb."link.gif\" alt=\"\">"
+                ."<img src=\"".$imgRepositoryWeb."link.gif\" alt=\"\">&nbsp;"
                 .get_lang('Create hyperlink')
                 ."</a>";
 
             $links[] = "<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&amp;cwd=".$cmdCurDirPath."\">"
-                ."<img src=\"".$imgRepositoryWeb."html.gif\" alt=\"\">"
+                ."<img src=\"".$imgRepositoryWeb."html.gif\" alt=\"\">&nbsp;"
                 .get_lang('Create Document')
                 ."</a>";
         }
