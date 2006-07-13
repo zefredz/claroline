@@ -92,9 +92,10 @@ echo $footerCenterDock->render();
 
     if (CLARO_DEBUG_MODE)
     {
-        if (0 < count($claroErrorList))
+        $claroMsgList = getClaroMessageList();
+        if (0 < count($claroMsgList))
         echo claro_html_tool_title('Debug info');
-        echo claro_html_msg_list($claroErrorList);
+        echo claro_html_msg_list($claroMsgList);
     }
 
 ?>
