@@ -87,6 +87,10 @@ if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeri
             $xml = export_question($quId);
 
             //save question xml file
+            if (!file_exists($questionObj->questionDirSys))
+            {
+                mkdir($questionObj->questionDirSys);
+            }
             $handle = fopen($questionObj->questionDirSys."question_".$quId.".xml", 'w');
             fwrite($handle, $xml);
             fclose($handle);
