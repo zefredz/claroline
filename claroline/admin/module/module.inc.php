@@ -699,6 +699,22 @@ function uninstall_module($moduleId)
     else
     $backlog_message[] = get_lang('Error on deletion of <b>%dirname</b> of file system',array('%dirname'=>$module['label']));
 
+    //  delete the module in the cours_tool table, used for every course creation
+
+    //retrieve this module_id first
+
+    $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
+            WHERE claro_label = '".$module['label']."'";
+    $tool_to_delete = claro_sql_query_get_single_row($sql);
+    $tool_id = $tool_to_delete['tool_id'];
+
+    
+    $sql = "DELETE FROM `" . $tbl['tool']."`
+            WHERE claro_label = '".$module['label']."'
+        ";
+
+    claro_sql_query($sql);
+
     // 3- delete related entries in main DB
 
     $sql = "DELETE FROM `" . $tbl['module'] . "`
@@ -1133,7 +1149,9 @@ function register_module_core($module_info)
         $maxresult = claro_sql_query_get_single_row($sql);
 
         // insert the new course tool
-    
+
+        if(!isset($module_info['ENTRY'])) $module_info['ENTRY'] = 'entry.php';
+
         $trimlabel = rtrim($module_info['LABEL'],'_');
     
         $sql = "INSERT INTO `" . $tbl_course_tool ."`
