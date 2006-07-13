@@ -822,11 +822,12 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     WHERE path = \"".$_REQUEST['file']."\"";
 
             $result = mysql_query ($sql);
+            
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
             //list($oldComment) = claro_sql_query_fetch_all($sql);
 
-        if (!isset($oldComment)) $oldComment = "";
+            if (!isset($oldComment)) $oldComment = "";
 
             $dialogBox .= "<p>\n<label for=\"newComment\">"
                           .get_lang("Add/modify a comment to")." ".htmlspecialchars($fileName)."</label>\n"
@@ -888,10 +889,12 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         {
             claro_mkdir($baseWorkDir.$cwd.'/'.$newDirName, CLARO_FILE_PERMISSIONS);
 
-            if ( trim($_REQUEST['comment']) != '' && $courseContext)
+            $comment = isset($_REQUEST['comment'])?trim($_REQUEST['comment']):'';
+
+            if ( !empty($comment) && $courseContext)
             {
                 update_db_info('update', $cwd.'/'.$newDirName,
-                                array('comment' => trim($_REQUEST['comment']) ) );
+                                array('comment' => $comment) );
             }
 
             $dialogBox = get_lang("Directory created");
@@ -911,14 +914,19 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                       ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\">\n"
                       ."<label for=\"newName\">".get_lang("Name of the new directory")." : </label><br />\n"
                       ."<input type=\"text\" id=\"newName\" name=\"newName\">\n"
-                      ."<br />"
-                      ."<label for=\"comment\">\n"
-                      ."Add a comment (optionnal) :\n"
-                      ."</label>\n"
-                      ."<br />\n"
-                      ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
-                      ."<br />\n"
-                      ."<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+                      ."<br />";
+
+        if ( $courseContext )
+        {
+            $dialogBox .= "<label for=\"comment\">\n"
+                       ."Add a comment (optionnal) :\n"
+                       ."</label>\n"
+                       ."<br />\n"
+                       ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
+                       ."<br />\n";
+        }
+
+        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                                 get_lang("Cancel"))
                       ."</form>\n";
