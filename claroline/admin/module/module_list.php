@@ -57,7 +57,7 @@ $tbl = claro_sql_get_tbl(array('module_tool'));
 
 $nameTools = get_lang('Module list');
 $interbredcrump[]= array ('url' => $rootAdminWeb,'name' => get_lang('Administration'));
-
+$dialogBox  ='';
 
 //NEEDED CSS
 
@@ -311,7 +311,7 @@ echo claro_html_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ($dialogBox != '' ) echo claro_html_message_box($dialogBox);
 
 //display action links
 echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install a module') . '<a>'
