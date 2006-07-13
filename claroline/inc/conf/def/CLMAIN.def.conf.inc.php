@@ -104,6 +104,7 @@ array ( 'userPasswordCrypted'
       , 'CLARO_DEBUG_MODE'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
+      , 'claro_brailleViewMode'
       );
 
 
@@ -566,5 +567,14 @@ $conf_def_property_list['module_cache_filename']
         ,'acceptedValue' => array ( 'pattern'=> '*.inc.php')
         );
 
+$conf_def_property_list['claro_brailleViewMode'] =
+array ('label'       => 'Display banner'
+      ,'description' => 'This feature is use for institute with  blind users. ' . "\n" . ' I fact, System would be ehanced to activate this view user by user'
+      ,'default'     => false
+      ,'type'        => 'boolean'
+      ,'display'     => false
+      ,'readonly'    => false
+      ,'acceptedValue' => array ('FALSE' => 'on top', 'TRUE'=>'on bottom')
+      );
 
 ?>
