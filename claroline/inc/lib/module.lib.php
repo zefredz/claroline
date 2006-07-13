@@ -30,108 +30,113 @@ defined('CLARO_CONTEXT_USER')         || define('CLARO_CONTEXT_USER','user');
 defined('CLARO_CONTEXT_TOOLINSTANCE') || define('CLARO_CONTEXT_TOOLINSTANCE','toolInstance');
 defined('CLARO_CONTEXT_TOOLLABEL')    || define('CLARO_CONTEXT_TOOLLABEL','toolLabel');
 
-/**
- * Install tool in a course
- *
- * @return datatype description
- *
- * @author Christophe Gesché <moosh@claroline.net>
- */
 
-function claro_install_module($tool_label, $context, $contextData)
-{
-    $libPath =  get_module_path($tool_label) . '/connector/setup.cnr.php';
-
-    if(file_exists($libPath))
-    {
-        include_once($libPath );
-
-        if (class_exists($tool_label))
-        {
-            $thisTool = new $tool_label;
-            if(method_exists($thisTool,'aivailable_context_tool'))
-            {
-                if (in_array($context,$thisTool->aivailable_context_tool()))
-                {
-                    if(method_exists($thisTool,'install_tool'))
-                    {
-                        $thisTool->install_tool($context,$contextData);
-                    }
-                    if(method_exists($thisTool,'enable_tool'))
-                    {
-                        $thisTool->enable_tool($context,$contextData);
-                    }
-                }
-            }
-        }
-        else
-        {
-            $claro_context_check_function = $tool_label . '_aivailable_context_tool';
-            if(function_exists($claro_context_check_function))
-            {
-                if (in_array($context,call_user_func($claro_context_check_function)))
-                {
-                    $claro_install_function = $tool_label . '_install_tool';
-                    if(function_exists($claro_install_function))
-                    {
-                        call_user_func($claro_install_function,$context,$contextData);
-                    }
-                    $claro_enable_function = $tool_label . '_enable_tool';
-                    if(function_exists($claro_enable_function))
-                    {
-                        call_user_func($claro_enable_function,$context,$contextData);
-                    }
-                }
-            }
-        }
-    }
-    return true;
-
-}
-
-/**
- *
- * @param claro_label $tool_label label of tool to activate.
- * @return id of instance of the module tool in the context
- * @throws claro_failure : string
- * @author Christophe Gesché <moosh@claroline.net>
- *
- */
-function claro_enable_module($claroLabel, $context, $contextId)
-{
-    if (CLARO_CONTEXT_COURSE == $context)
-    {
-        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextId));
-        $moduleDataList = get_module_data($claroLabel);
-        $sql_insert = "
-                        INSERT INTO `" . $tbl['tool'] . "`
-                        SET tool_id = '" . $moduleDataList['id'] . "',
-                            rank    = '" . $moduleDataList['def_rank'] . "',
-                            access  = '" . $moduleDataList['def_access'] . "'";
-
-        return claro_sql_query_insert_id($sql_insert);
-    }
-    else
-    trigger_error('claro_enable_module support only course context',E_USER_NOTICE);
-}
-
-
-/**
- *
- * @param $tool_id integer id of tool to activate.
- * @return
- * @author Christophe Gesché <moosh@claroline.net>
- *
- */
-function claro_disable_module($tool_id, $course_id)
-{
-    $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-    $sql = " DELETE FROM `" . $tbl_cdb_names['tool'] . "` "
-         . " WHERE tool_id = '" . (int) $tool_id . "'";
-    return claro_sql_query($sql);
-}
-
-
+///**
+// * Install tool in a context
+// *
+// * @return datatype description
+// *
+// * @author Christophe Gesché <moosh@claroline.net>
+// */
+//
+//function claro_install_module_in_context($tool_label, $context, $contextData)
+//{
+//    $libPath =  get_module_path($tool_label) . '/connector/setup.cnr.php';
+//
+//    if(file_exists($libPath))
+//    {
+//        include_once($libPath );
+//
+//        if (class_exists($tool_label))
+//        {
+//            $thisTool = new $tool_label;
+//            if(method_exists($thisTool,'aivailable_context_tool'))
+//            {
+//                if (in_array($context,$thisTool->aivailable_context_tool()))
+//                {
+//                    if(method_exists($thisTool,'install_tool'))
+//                    {
+//                        $thisTool->install_tool($context,$contextData);
+//                    }
+//                    if(method_exists($thisTool,'enable_tool'))
+//                    {
+//                        $thisTool->enable_tool($context,$contextData);
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//            $claro_context_check_function = $tool_label . '_aivailable_context_tool';
+//            if(function_exists($claro_context_check_function))
+//            {
+//                if (in_array($context,call_user_func($claro_context_check_function)))
+//                {
+//                    $claro_install_function = $tool_label . '_install_tool';
+//                    if(function_exists($claro_install_function))
+//                    {
+//                        call_user_func($claro_install_function,$context,$contextData);
+//                    }
+//                    $claro_enable_function = $tool_label . '_enable_tool';
+//                    if(function_exists($claro_enable_function))
+//                    {
+//                        call_user_func($claro_enable_function,$context,$contextData);
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    return true;
+//
+//}
+//
+///**
+// *
+// * @param claro_label $tool_label label of tool to activate.
+// * @return id of instance of the module tool in the context
+// * @throws claro_failure : string
+// * @author Christophe Gesché <moosh@claroline.net>
+// *
+// */
+//function claro_enable_module_in_context($claroLabel, $context, $contextId)
+//{
+//    if (CLARO_CONTEXT_COURSE == $context)
+//    {
+//        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($contextId));
+//        $moduleDataList = get_module_data($claroLabel);
+//        $sql_insert = "
+//                        INSERT INTO `" . $tbl['tool'] . "`
+//                        SET tool_id = '" . $moduleDataList['id'] . "',
+//                            rank    = '" . $moduleDataList['def_rank'] . "',
+//                            access  = '" . $moduleDataList['def_access'] . "'";
+//
+//        return claro_sql_query_insert_id($sql_insert);
+//    }
+//    else
+//    trigger_error('claro_enable_module support only course context',E_USER_NOTICE);
+//}
+//
+//
+///**
+// *
+// * @param $tool_id integer id of tool to activate.
+// * @return
+// * @author Christophe Gesché <moosh@claroline.net>
+// *
+// */
+//function claro_disable_module_in_context($tool_id, $context, $contextId)
+//{
+//    if (CLARO_CONTEXT_COURSE == $context)
+//    {
+//    $tbl_cdb_names   = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+//    $sql = " DELETE FROM `" . $tbl_cdb_names['tool'] . "` "
+//         . " WHERE tool_id = '" . (int) $tool_id . "'";
+//    return claro_sql_query($sql);
+//    }
+//    else
+//    trigger_error('claro_enable_module support only course context',E_USER_NOTICE);
+//}
+//
 
 /**
  * This function return the core repositroy of a module.
@@ -281,29 +286,6 @@ function claro_get_data_path($contextData=array())
 
 }
 
-
-/**
- * return the directory of a config file for a given configCode.
- *
- * @param string $configCode
- * @return unknown
- */
-// TODO : rewrite this code :
-
-function claro_get_conf_dir($configCode)
-{
-    if (CLARO_DEBUG_MODE)
-    {
-        pushClaroMessage('claro_get_conf_dir still called in ' );
-        $dbgBtList = debug_backtrace();
-        foreach ($dbgBtList as $dbgBt)
-        foreach ($dbgBt as $infoName => $infoContent)
-        pushClaroMessage('<b>'.$infoName . '</b>: '. var_export($infoContent,1));
-    }
-    return claro_get_conf_repository();
-
-}
-
 function get_module_entry($claroLabel)
 {
     $moduleData = get_module_data($claroLabel);
@@ -320,7 +302,7 @@ function get_module_entry($claroLabel)
 function get_module_entry_url($claroLabel)
 {
     $moduleData = get_module_data($claroLabel);
-    return get_module_url($claroLabel) . '/' . $moduleData['entry'];
+    return get_module_url($claroLabel) . '/' . ltrim($moduleData['entry'],'/');
 }
 
 function get_module_data($claroLabel, $ignoreCache=false)
@@ -329,13 +311,15 @@ function get_module_data($claroLabel, $ignoreCache=false)
     if ($ignoreCache || is_null($cachedModuleDataList) || ! array_key_exists($claroLabel,$cachedModuleDataList))
     {
         $tbl = claro_sql_get_tbl(array('module', 'course_tool'));
-        $sql = "SELECT M.`label`  AS label,
-                   M.`id`         AS id,
-                   M.`name`       AS moduleName,
-                   M.`activation` AS activation,
-                   M.`type`       AS type,
-                   M.`script_url` AS entry,
-                   CT.`icon`      AS icon
+        $sql = "SELECT M.`label`      AS label,
+                   M.`id`             AS id,
+                   M.`name`           AS moduleName,
+                   M.`activation`     AS activation,
+                   M.`type`           AS type,
+                   M.`script_url`     AS entry,
+                   CT.`icon`          AS icon,
+                   CT.`def_rank`      AS rank,
+                   CT.`add_in_course` AS add_in_course
 
         FROM `" . $tbl['module'] . "` AS M
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
