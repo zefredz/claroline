@@ -105,6 +105,7 @@ array ( 'userPasswordCrypted'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
+      , 'secureDocumentDownload'
       );
 
 
@@ -575,6 +576,18 @@ array ('label'       => 'Display banner'
       ,'display'     => false
       ,'readonly'    => false
       ,'acceptedValue' => array ('FALSE' => 'on top', 'TRUE'=>'on bottom')
+      );
+
+$conf_def_property_list['secureDocumentDownload'] =
+array ( 'description' => 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the course folders.'
+      , 'label'       => 'Secure document download'
+      , 'default'     => FALSE
+      , 'type'        => 'boolean'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
+                               )
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
       );
 
 ?>

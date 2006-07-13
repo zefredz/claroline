@@ -117,16 +117,4 @@ array ( 'description' => 'When users click on a document, it opens a new window'
       , 'readonly'    => FALSE
       );
 
-$conf_def_property_list['secureDocumentDownload'] =
-array ( 'description' => 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the document directory of the course.'
-      , 'label'       => 'Secure document download'
-      , 'default'     => FALSE
-      , 'type'        => 'boolean'
-      , 'acceptedValue' => array ('TRUE'=>'Yes'
-                                 ,'FALSE'=>'No'
-                               )
-      , 'display'     => TRUE
-      , 'readonly'    => FALSE
-      );
-
 ?>
