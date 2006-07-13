@@ -73,7 +73,7 @@ if ( !empty($profile_id) )
 
     if ( $profile->load($profile_id) )
     {
-        // load profile tool right    
+        // load profile tool right
         $courseProfileRight = new RightCourseProfileToolRight();
         $courseProfileRight->setCourseId($_cid);
         $courseProfileRight->load($profile);
@@ -81,7 +81,7 @@ if ( !empty($profile_id) )
         if ( ! $profile->isLocked() )
         {
             if ( $cmd == 'set_right' && !empty($tool_id) )
-            {        
+            {
                 $courseProfileRight->setToolRight($tool_id,$right_value);
                 $courseProfileRight->save();
             }
@@ -124,11 +124,16 @@ if ( $cmd == 'exAdd' )
         if (insert_local_course_tool($_REQUEST['toolName'], $_REQUEST['toolUrl']) !== FALSE )
         {
 
-         // notify that tool list has been changed
-         $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
+            // notify that tool list has been changed
+            $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
 
-         $msg .= get_lang('External Tool added');
+            $msg .= get_lang('External Tool added');
 
+            $cidReset = TRUE;
+            $cidReq   = $_cid;
+
+            include $includePath . '/claro_init_local.inc.php';
+            $noQUERY_STRING = true;
         }
         else
         {
@@ -157,6 +162,12 @@ if ($cmd == 'exEdit')
             $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
 
             $msg .= get_lang('External tool updated');
+            $cidReset = TRUE;
+            $cidReq   = $_cid;
+
+            include $includePath . '/claro_init_local.inc.php';
+            $noQUERY_STRING = true;
+
         }
         else
         {
@@ -182,10 +193,16 @@ if ($cmd == 'exDelete')
         if (delete_course_tool($_REQUEST['externalToolId']) !== false)
         {
             $msg .= get_lang('External tool deleted');
+            $cidReset = TRUE;
+            $cidReq   = $_cid;
+
+            include $includePath . '/claro_init_local.inc.php';
+            $noQUERY_STRING = true;
+
         }
         else
         {
-           $msg .= get_lang('Unable to delete external tool');
+            $msg .= get_lang('Unable to delete external tool');
         }
     }
     else
@@ -226,8 +243,8 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-            .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
-              .'<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
+    .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
+    .'<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
 
     if ($externalToolId)
     {
@@ -235,12 +252,12 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= '<label for="toolName">'.get_lang('Name link').'</label><br />'."\n"
-            .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
-            .'<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
-            .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
-            .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp;'."\n"
-            .claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
-            .'</form>'."\n" ;
+    .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
+    .'<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
+    .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
+    .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp;'."\n"
+    .claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
+    .'</form>'."\n" ;
 }
 
 $backLink = '<p>'
@@ -326,7 +343,7 @@ echo '<blockquote>' . "\n"
 
 echo claro_html_tool_title(get_lang('Manage External link'));
 
-echo '<blockquote>'."\n" 
+echo '<blockquote>'."\n"
     . '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd"><img src="' . $imgRepositoryWeb . 'link.gif" alt="">' . get_lang('Add external link') . '</a></p>' . "\n";
 
 echo '<table class="claroTable" >'."\n\n"
@@ -345,37 +362,37 @@ foreach ( $displayLinkList as $linkId => $displayLink )
     echo '<tr>'."\n";
 
     echo '<td ' . ($displayLink['visibility']?'':'class="invisible"') . '>'
-       . '<img src="'.$displayLink['icon'].'" alt="" />' .$displayLink['name']
-       . '</td>';
+    . '<img src="'.$displayLink['icon'].'" alt="" />' .$displayLink['name']
+    . '</td>';
 
     echo '<td align="center">' ;
 
     if ( $displayLink['visibility'] )
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&tool_id=' . $linkId . '" >'
-            . '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible') . '" />'
-            . '</a>';
+        . '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible') . '" />'
+        . '</a>';
     }
     else
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&tool_id=' . $linkId .'" >'
-            . '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
-            . '</a>';
+        . '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+        . '</a>';
 
     }
 
-    echo '</td>'."\n"; 
-    
-    echo '<td align="center">'
-        . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'">'
-        . '<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.get_lang('Modify').'" />'
-        . '</a></td>' . "\n" ;
+    echo '</td>'."\n";
 
-    echo '<td align="center">' 
-        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'"'
-        .' onClick="return confirmation(\''.clean_str_for_javascript($displayLink['name']).'\');">'
-        .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.get_lang('Delete').'" />'
-        .'</a></td>'."\n";
+    echo '<td align="center">'
+    . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'">'
+    . '<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.get_lang('Modify').'" />'
+    . '</a></td>' . "\n" ;
+
+    echo '<td align="center">'
+    .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'"'
+    .' onClick="return confirmation(\''.clean_str_for_javascript($displayLink['name']).'\');">'
+    .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.get_lang('Delete').'" />'
+    .'</a></td>'."\n";
 
     echo '</tr>'."\n";
 }
