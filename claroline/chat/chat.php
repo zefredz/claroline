@@ -1,6 +1,6 @@
 <?php // $Id$
-/** 
- * CLAROLINE 
+/**
+ * CLAROLINE
  *
  * Build the frameset for chat.
  *
@@ -8,11 +8,11 @@
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
- * @package CLCHAT
+ * @package CLCHT
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -22,7 +22,7 @@
 
 $tlabelReq = 'CLCHT';
 
-require '../inc/claro_init_global.inc.php'; 
+require '../inc/claro_init_global.inc.php';
 
 if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
 

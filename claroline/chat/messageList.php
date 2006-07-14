@@ -16,7 +16,7 @@
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
- * @package CLCHAT
+ * @package CLCHT
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
