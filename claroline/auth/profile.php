@@ -278,7 +278,7 @@ switch ( $display )
         .    '<td><input type="submit" value="' . get_lang('Ok') . '"> ' . "\n"
         .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
         .    '</td></tr>' . "\n"
-        .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> ' . ' denotes required field') . '</small>')
+        .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>')
         .    '</table>' . "\n"
         .    '</form>' . "\n"
         ;

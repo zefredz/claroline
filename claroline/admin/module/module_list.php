@@ -314,7 +314,7 @@ echo claro_html_tool_title($nameTools);
 if ($dialogBox != '' ) echo claro_html_message_box($dialogBox);
 
 //display action links
-echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install a module') . '<a>'
+echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install module') . '<a>'
 .    '<br/><br/>'
 
 

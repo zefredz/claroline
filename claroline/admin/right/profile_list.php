@@ -121,7 +121,7 @@ $profileList = $profilePager->get_result_list();
 
 // define breadcrumb
 $interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$nameTools          = get_lang('Course Profile List');
+$nameTools          = get_lang('Course profile list');
 $noQUERY_STRING     = TRUE;
 
 // Display header
@@ -151,12 +151,12 @@ switch ( $display )
 
         // List of course profile
 
-        echo claro_html_tool_title(get_lang('Course Profile List'));
+        echo claro_html_tool_title(get_lang('Course profile list'));
 
         if ( $add_new_profile_enabled )
         {
             echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-                . get_lang('Add a new profile')
+                . get_lang('Add new profile')
                 . '</a></p>' . "\n" ;
         }
 

@@ -103,7 +103,7 @@ $panelTitle[DISP_DB_CONNECT_SETTING]        = get_lang('MySQL Database Settings'
 $panelTitle[DISP_DB_NAMES_SETTING]          = get_lang('MySQL Database and Table Names');
 $panelTitle[DISP_ADMINISTRATOR_SETTING]     = get_lang('Administrator Account');
 $panelTitle[DISP_PLATFORM_SETTING]          = get_lang('Platform Settings');
-$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = get_lang('Additional Informations<small> (optional)</small>');
+$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = get_lang('Additional Informations <small>(optional)</small>');
 $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = get_lang('Last check before install');
 $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = get_lang('Claroline Installation succeeds');
 

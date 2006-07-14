@@ -33,26 +33,27 @@ switch($cmd)
 	
 		if (export_all_data_course_in_file())
 		{
-			$dialogBox = get_lang('Export réussi');
+			$dialogBox = 'Export réussi';
 		}
 		else
 		{		
-			$dialogBox = get_lang("Export échoué : <br>");	
+			$dialogBox = 'Export échoué : <br>';	
 			if(claro_failure::get_last_failure() == "can't delete dir")
 			{
-				$dialogBox = get_lang("impossible d'écraser le répertoire temporaire'");
+				$dialogBox = "impossible d'écraser le répertoire temporaire";
 			}			
 			if(claro_failure::get_last_failure() == "can't_write_xml_file")
 			{
-				$dialogBox = get_lang("impossible d'écrire le fichier xml d'export");
+				$dialogBox = "impossible d'écrire le fichier xml d'export";
 			}
+
 			if(claro_failure::get_last_failure() == "dir doesn't exist" || claro_failure::get_last_failure() == "is not a directory")
 			{
-				$dialogBox = get_lang("impossible de crèer le fichier zip");
+				$dialogBox = "impossible de crèer le fichier zip";
 			}		
 			if(claro_failure :: get_last_failure() == "invalid course id")
 			{
-				$dialogBox = get_lang("Course_id invalide");
+				$dialogBox = "Course_id invalide";
 			}
 			else $dialogBox = claro_failure::get_last_failure();	
 		}
@@ -63,7 +64,7 @@ switch($cmd)
 
 
 // prepare display
-$nameTools = get_lang('Export course');
+$nameTools = 'Export course';
 
 // Display 
 include $includePath . '/claro_init_header.inc.php';
@@ -72,7 +73,7 @@ echo claro_html_tool_title($nameTools);
 
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=doExport">'. get_lang('Export this course') . '</a>';
+echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=doExport">'. 'Export this course' . '</a>';
 
 include $includePath . '/claro_init_footer.inc.php';
 

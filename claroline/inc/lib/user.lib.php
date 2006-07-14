@@ -931,7 +931,7 @@ function user_html_form($data, $form_type='registration')
         . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) );
     }
 
-    $html .= form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> ' . ' denotes required field') . '</small>');
+    $html .= form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>');
 
     // Personnal course list
     if ( 'admin_user_profile' == $form_type )

@@ -76,8 +76,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         . "\n"
                         ;
 
-                    $result .= get_lang( "Could not load page %page%"
-                        , array( '%page%' => $page['title'] ) ) . "\n";
+                    $result .= get_lang( "Could not load page %page"
+                        , array( '%page' => $page['title'] ) ) . "\n";
                     $wikiPage = null;
                 }
                 else
