@@ -109,7 +109,7 @@ class Notifier extends EventDriven
         if ($eventType == 'course_deleted')
         {
             $sql = "DELETE FROM `" . $tbl_notify . "`
-                      WHERE `course_code`='". addslashes($course)."'";
+                    WHERE `course_code`='". addslashes($course)."'";
         }
 
         // in case of a complete deletion of a GROUP, all event regarding this group must be deleted

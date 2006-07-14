@@ -35,9 +35,9 @@ include_once( dirname(__FILE__) . '/fileManage.lib.php');
 /**
  * delete a course of the plateform
  *
- * @author
+ * TODO detect failure with claro_failure
  *
- * @param
+ * @param string $cid
  *
  * @return boolean TRUE        if suceed
  *         boolean FALSE       otherwise.
@@ -80,10 +80,11 @@ function delete_course($code)
     claro_sql_query($sql);
 
     //notify the course deletion event
-    $args['courseSysCode'] = $this_course['sysCode'];
-    $args['courseDbName'] = $this_course['dbName'];
-    $args['courseDirectory'] = $this_course['path'];
-    $args['courseCategory']	= $this_course['categoryCode'];
+    $args['cid'] = $this_course['sysCode'];
+    $args['tid'] = null;
+    $args['rid'] = null;
+    $args['gid'] = null;
+    $args['uid'] = $GLOBALS['_uid'];
 
     $eventNotifier->notifyEvent("course_deleted",$args);
 
@@ -141,10 +142,12 @@ function delete_course($code)
         rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
         get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
         );
+
+        return true ;
     }
     else
     {
-        die('WRONG CID');
+        return false ;
     }
 }
 
