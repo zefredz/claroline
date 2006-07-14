@@ -66,8 +66,8 @@ if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
  * PREPARE DISPLAY
  */
 
-$cmd_menu[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
-$cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('Back to course list') . '</a>';
+$cmdList[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
+$cmdList[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('Back to course list') . '</a>';
 
 /**
  * DISPLAY
@@ -84,8 +84,10 @@ if ( !empty($dialogBox) )
     echo claro_html_message_box($dialogBox);
 }
 
-echo claro_html_menu_horizontal($cmd_menu);
-
+echo '<p>'
+.    claro_html_menu_horizontal($cmdList)
+.    '</p>'
+;
 // Display footer
 
 include $includePath . '/claro_init_footer.inc.php';

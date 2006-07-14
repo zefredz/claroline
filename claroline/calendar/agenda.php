@@ -314,7 +314,7 @@ $eventList = agenda_get_item_list($currentContext,$orderDirection);
  * Add event button
  */
 
-$cmd_menu[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
+$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
 .    '<img src="' . get_conf('imgRepositoryWeb') . 'agenda.gif" alt="" />'
 .    get_lang('Add an event')
 .    '</a>'
@@ -325,7 +325,7 @@ $cmd_menu[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd"
 */
 if ( count($eventList) > 0 )
 {
-    $cmd_menu[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
+    $cmdList[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
     .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}">'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .    get_lang('Clear up event list')
@@ -334,7 +334,7 @@ if ( count($eventList) > 0 )
 }
 else
 {
-    $cmd_menu[]=  '<span class="claroCmdDisabled" >'
+    $cmdList[]=  '<span class="claroCmdDisabled" >'
     .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .    get_lang('Clear up event list')
     .    '</span>'
@@ -439,7 +439,7 @@ if ($display_form)
     ;
 }
 
-if ( $display_command ) echo claro_html_menu_horizontal($cmd_menu);
+if ( $display_command ) echo '<p>' . claro_html_menu_horizontal($cmdList) . '</p>';
 
 $monthBar     = '';
 

@@ -248,7 +248,9 @@ switch ( $display )
         // display form profile
 
         echo user_html_form_profile($user_data)
+        .    '<p>'
         .    claro_html_menu_horizontal($profile_menu)
+        .    '</p>'
         ;
 
         break;

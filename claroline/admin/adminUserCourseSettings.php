@@ -187,9 +187,11 @@ $hidden_param = array( 'uidToEdit' => $uidToEdit,
                        'cfrom' => $cfrom,
                        'ccfrom' => $ccfrom);
 
-echo course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $hidden_param );
-
-echo claro_html_menu_horizontal($cmd_menu) ;
+echo course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $hidden_param )
+.    '<p>'
+.    claro_html_menu_horizontal($cmd_menu)
+.    '</p>'
+;
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>

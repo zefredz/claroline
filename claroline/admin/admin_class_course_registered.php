@@ -73,9 +73,9 @@ if (isset($cmd) && $is_platformAdmin)
 $classinfo = class_get_properties($class_id);
 
 if ( !empty($outputResultLog) ) $dialogBox = $outputResultLog;
-$cmd_menu[] =  '<p><a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
-$cmd_menu[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class_id=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
-$cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a></p>';
+$cmdList[] =  '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
+$cmdList[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class_id=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
+$cmdList[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a>';
 
 /**
  * DISPLAY
@@ -86,7 +86,10 @@ echo claro_html_tool_title(get_lang('Class registered') . ' : ' . $classinfo['na
 
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo claro_html_menu_horizontal($cmd_menu);
+echo '<p>'
+.    claro_html_menu_horizontal($cmdList)
+.    '</p>'
+;
 
 include $includePath . '/claro_init_footer.inc.php';
 

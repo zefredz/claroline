@@ -1,4 +1,4 @@
-<?php # $Id$
+<?php // $Id$
 /**
  * CLAROLINE
  *
@@ -88,8 +88,9 @@ switch ($display)
         .    get_lang('Course "%course_name" (%course_code) has been deleted' , array( '%course_name' => $currentCourseName,
                                                                                        '%course_code' => $currentCourseCode))
         .    '</p>'
-
+        .    '<p>'
         .    claro_html_menu_horizontal($cmd_menu)
+        .    '</p>'
         ;
     }   break;
 

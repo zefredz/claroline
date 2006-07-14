@@ -173,7 +173,10 @@ if ( count($messageList) > 0 )
 
 // Display "form and info" about the user
 echo user_html_form_admin_user_profile($user_data)
-.    claro_html_menu_horizontal($cmd_menu);
+.    '<p>'
+.    claro_html_menu_horizontal($cmd_menu)
+.    '</p>'
+;
 
 include $includePath . '/claro_init_footer.inc.php';
 

@@ -152,18 +152,18 @@ $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administra
 $interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes'));
 $nameTools = get_lang('Class members');
 
-$cmd_menu[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
+$cmdList[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_register.php'
 .             '?class_id=' . $classinfo['id'] . '">'
 .             '<img src="'.$imgRepositoryWeb . 'enroll.gif" border="0"/> '
 .             get_lang('Register a user for this class') . '</a>'
 ;
-$cmd_menu[] = '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
+$cmdList[] = '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
 .             '?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'">'
 .             '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
 .             get_lang('Register class for course')
 .             '</a>'
 ;
-$cmd_menu[] = '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php'
+$cmdList[] = '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVusers.php'
 .             '?AddType=adminClassTool&amp;class_id='.$class_id.'">'
 .             '<img src="'.$imgRepositoryWeb.'importlist.gif" border="0" /> '
 .             get_lang('Add a user list in class')
@@ -185,7 +185,7 @@ if ( !empty($class_id) )
     if (isset($dialogBox))  echo claro_html_message_box($dialogBox). '<br />';
 
     // Display menu
-    echo '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' ;
+    echo '<p>' . claro_html_menu_horizontal($cmdList) . '</p>' ;
 
     // Display pager
     echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'&amp;class_id='.$class_id)

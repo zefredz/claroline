@@ -224,7 +224,7 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 $userDataGrid = new claro_datagrid($userDataList);
 $userDataGrid->set_option_list($dg_opt_list);
 
-echo claro_html_menu_horizontal($command_list)
+echo '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 .    $userDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)

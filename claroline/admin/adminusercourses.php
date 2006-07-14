@@ -205,7 +205,9 @@ echo claro_html_tool_title($nameTools);
 
 if( isset($dialogBox) && !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo claro_html_menu_horizontal($cmdList)
+echo '<p>'
+.    claro_html_menu_horizontal($cmdList)
+.    '</p>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
 .    $userCourseDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit) ;

@@ -10,7 +10,7 @@
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
- * @package CLCHAT
+ * @package CLCHT
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -55,11 +55,8 @@ echo '<form name="chatForm" action="messageList.php#final" method="post" target=
 .    '<input type="submit" value=" >> ">' . "\n"
 .    '<br />' . "\n"
 .    '' . "\n"
-;
-
-echo claro_html_menu_horizontal($cmdMenu);
-
-echo '</form>';
+.    claro_html_menu_horizontal($cmdMenu)
+.    '</form>';
 
 include  $includePath . '/claro_init_footer.inc.php' ;
 ?>

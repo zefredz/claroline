@@ -101,7 +101,7 @@ $subTitle = '';
 
 $id  = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
 $cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
-$cmd_menu=array();
+$cmdList=array();
 
 if($is_allowedToEdit) // check teacher status
 {
@@ -415,20 +415,20 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 
 if ( $displayButtonLine )
 {
-    $cmd_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
+    $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
     .             '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
     .             get_lang('Add announcement')
     .             '</a>' . "\n"
     ;
     if ($emailNotificationAllowed)
-    $cmd_menu[] = '<a class="claroCmd" href="messages.php">'
+    $cmdList[] = '<a class="claroCmd" href="messages.php">'
     .             '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
     ;
     else
 
-    $cmd_menu[] = '<span class="claroCmdDisabled" title="' . get_lang('You need an email in your profile') . '" >'
+    $cmdList[] = '<span class="claroCmdDisabled" title="' . get_lang('You need an email in your profile') . '" >'
     .             '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</span>' . "\n"
@@ -436,7 +436,7 @@ if ( $displayButtonLine )
 
     if (($announcementQty > 0 ))
     {
-        $cmd_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
+        $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
         .             ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
         .             '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .             get_lang('Clear up list of announcements')
@@ -445,7 +445,7 @@ if ( $displayButtonLine )
     }
     else
     {
-        $cmd_menu[] = '<span class="claroCmdDisabled" >'
+        $cmdList[] = '<span class="claroCmdDisabled" >'
         .             '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .             get_lang('Clear up list of announcements')
         .             '</span>' . "\n"
@@ -478,8 +478,11 @@ include $includePath . '/claro_init_header.inc.php' ;
 echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
 if ( !empty($message) ) echo claro_html_message_box($message);
-echo claro_html_menu_horizontal($cmd_menu);
 
+echo '<p>'
+.    claro_html_menu_horizontal($cmdList)
+.    '</p>'
+;
 
 /*----------------------------------------------------------------------------
 FORM TO FILL OR MODIFY AN ANNOUNCEMENT
