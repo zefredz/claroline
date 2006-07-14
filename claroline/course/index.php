@@ -38,7 +38,7 @@ $toolRepository = $clarolineRepositoryWeb;
 claro_set_display_mode_available(TRUE);
 
 // Add feed RSS in header
-if ( get_conf('enable_rss_in_course') )
+if ( get_conf('enableRssInCourse') )
 {
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
             .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';

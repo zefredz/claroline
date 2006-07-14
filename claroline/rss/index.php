@@ -25,7 +25,7 @@ require '../inc/claro_init_global.inc.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
 // RSS enabled
-if ( ! get_conf('enable_rss_in_course') )
+if ( ! get_conf('enableRssInCourse') )
 {
     // Codes Status HTTP 404 for rss feeder
     header('HTTP/1.0 404 Not Found');

@@ -378,7 +378,7 @@ if($is_allowedToEdit) // check teacher status
              * in future, the 2 following calls would be pas by event manager.
              */
             // rss update
-            if ( get_conf('enable_rss_in_course',1))
+            if ( get_conf('enableRssInCourse',1))
             {
                 require_once $includePath . '/lib/rss.write.lib.php';
                 build_rss( array('course' => $_cid));
@@ -466,7 +466,7 @@ $nameTools = get_lang('Announcement');
 $noQUERY_STRING = true;
 
 // Add feed RSS in header
-if ( get_conf('enable_rss_in_course') )
+if ( get_conf('enableRssInCourse') )
 {
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
             .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';

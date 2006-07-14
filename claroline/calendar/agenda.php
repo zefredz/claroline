@@ -278,7 +278,7 @@ if ( $is_allowedToEdit )
     if ( $autoExportRefresh)
     {
         // rss update
-        if ( get_conf('enable_rss_in_course',1))
+        if ( get_conf('enableRssInCourse',1))
         {
 
             require_once $includePath . '/lib/rss.write.lib.php';
@@ -303,7 +303,7 @@ if ( $is_allowedToEdit )
 $noQUERY_STRING = true;
 
 // Add feed RSS in header
-if ( get_conf('enable_rss_in_course') )
+if ( get_conf('enableRssInCourse') )
 {
     $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
     .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
