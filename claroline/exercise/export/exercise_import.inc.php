@@ -577,7 +577,10 @@ function startElement($parser, $name, $attributes)
 
         case 'MAPPING':
         {
-            $exercise_info['question'][$current_question_ident]['default_weighting'] = $attributes['DEFAULTVALUE'];
+            if (isset($attributes['DEFAULTVALUE']))
+            {
+                $exercise_info['question'][$current_question_ident]['default_weighting'] = $attributes['DEFAULTVALUE'];
+            }
         }
 
         case 'ITEMBODY':
