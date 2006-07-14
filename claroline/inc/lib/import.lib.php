@@ -5,8 +5,8 @@
 	define('DISP_COURSE_CREATION_FAILED'   ,__LINE__);
 	define('DISP_COURSE_CREATION_PROGRESS' ,__LINE__);
 
-	require_once ($includePath . '/claro_init_global.inc.php');    
-    
+	require_once ($includePath . '/claro_init_global.inc.php');
+
     require_once ($includePath . '/lib/export_zip.lib.php');
     require_once ($includePath . '/../wiki/lib/lib.createwiki.php');
     require_once ($includePath . '/lib/pclzip/pclzip.lib.php');
@@ -19,261 +19,261 @@
 
     require $includePath.'/lib/debug.lib.inc.php';
     require $includePath.'/lib/group.lib.inc.php';
-     
+
     define("EXTRACT_PATH", 'C:\Program Files\EasyPHP1-8\www\cvs\claroline.test\export');
-    
+
     /**
-     * 
+     *
      * Call the adequate import function based on the toolId
      * The parameters of the import function must also be set for the call of this function
-     * 
-     * If a specified import function has not been written for a tool, a generic import functin will be called 
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
+     *
+     * If a specified import function has not been written for a tool, a generic import functin will be called
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
 	 * @param  string  $toolId
 	 * @param  string  $toolDir			 - path of the directory where the tool document are contained
 	 * @param  string  $course_id
 	 * @param  array   $importGroupInfo  - array containing informations about a group, used as param for some function called
 	 * @param  array   $usersIdToChange  - array which contains relation betweend the gold user_id and the new ones
-	 *  	  
-	 * @return false if an error occured, true if not 
-     * 
+	 *
+	 * @return false if an error occured, true if not
+     *
      */
 	function import_data_tool($toolId,$toolDir,$courseId=null,$importGroupInfo, $usersIdToChange)
 	{
 		$importLib      =  get_module_path($toolId) . '/connector/exchange.cnr.php';
 		$importFuncName = $toolId . '_import_content';
-	
-		if (file_exists($importLib)) 
+
+		if (file_exists($importLib))
 		{
 			include_once($importLib);
-			
-			if (function_exists($importFuncName)) 
-			{			
-				return call_user_func($importFuncName,$toolDir,$courseId,$importGroupInfo, $usersIdToChange);				
-			}				
-			else {import_generic_tool($toolId,$toolDir,$courseId,$importGroupInfo);}	
-		}	
-		else {import_generic_tool($toolId,$toolDir,$courseId,$importGroupInfo);}		
+
+			if (function_exists($importFuncName))
+			{
+				return call_user_func($importFuncName,$toolDir,$courseId,$importGroupInfo, $usersIdToChange);
+			}
+			else {import_generic_tool($toolId,$toolDir,$courseId,$importGroupInfo);}
+		}
+		else {import_generic_tool($toolId,$toolDir,$courseId,$importGroupInfo);}
 	}
-	  	
+
 	/**
-     * 
+     *
      * Import a tool generically
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
 	 * @param  string  $toolId
 	 * @param  string  $importedCourseDir - path of the directory where the archive of the imported course is unzipped
 	 * @param  string  $course_id
 	 * @param  array   $importGroupInfo  - array containing informations about a group, used as param for some function called
-	 *  	  
-	 * @return false if an error occured, true if not 
-     * 
+	 *
+	 * @return false if an error occured, true if not
+     *
      */
     function import_generic_tool($toolId,$importedCourseDir, $course_id, $importGroupInfo)
-    {        	          
+    {
        if (isset ($importGroupInfo[$toolId]) && true == $importGroupInfo[$toolId])
-       {       
+       {
             $tab = import_generic_tool_from_file($importedCourseDir,$toolId);
-            $prefix = get_table_prefix($course_id,$toolId);                  
-            
+            $prefix = get_table_prefix($course_id,$toolId);
+
             if(false == import_documents($toolId, $importedCourseDir, $course_id, $importGroupInfo))
-            	return false;            
-                          
+            	return false;
+
             if (false !== $tab)
             {
-            	$table_list = get_new_tool_table_list($tab,$prefix);                     	
+            	$table_list = get_new_tool_table_list($tab,$prefix);
             	if(false === import_create_generic_table($tab,$course_id,$toolId,$prefix))
-            		return false;            		
+            		return false;
             	if(false === delete_all_in_all_tool_table($table_list,$course_id))
             	 	return false;
                 if(false === import_generic_tool_in_db($table_list, $course_id))
                 	return false;
-            }           
+            }
             else return false;
         }
         return true;
     }
-    
+
     /**
-     * 
-     * Create new table to prepare the import of the generic tool. 
+     *
+     * Create new table to prepare the import of the generic tool.
      * The create table sql code must also be created based on the old sql code and the new tables prefix
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param  array   $tab				  - array containing the list of table who must be created,	  										 
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param  array   $tab				  - array containing the list of table who must be created,
 	 * 										the old "create table" sql code
 	 * 										and the table prefix which need to be replaced in the sql code
-	 * 													
+	 *
 	 * @param  string  $prefix			  - table prefix wich will replace the old prefix in the old sql code
 	 * @param  string  $toolId
-	 *  	  
-	 * @return false if an error occured, true if not 
-     * 
+	 *
+	 * @return false if an error occured, true if not
+     *
      */
     function import_create_generic_table($tab,$prefix)
-    {    
+    {
     	foreach ($tab as $tableName)
     	{
     		$ceate_table_old_sql_query = $tableName['create_table'];
-    		$old_prefix = $tableName['prefix'];    		
-    		$ceate_table_sql_query = str_replace($old_prefix,$prefix,$ceate_table_old_sql_query);    		    
+    		$old_prefix = $tableName['prefix'];
+    		$ceate_table_sql_query = str_replace($old_prefix,$prefix,$ceate_table_old_sql_query);
     		if (false=== claro_sql_query($ceate_table_sql_query))
-    			return claro_failure::set_failure('couldnt_create_table_in_db');    		
+    			return claro_failure::set_failure('couldnt_create_table_in_db');
     	}
-    	
+
     	return true;
-	
+
     }
      /**
-     * 
-     * Return the table prefix which must be used for the import in the new tables 
-	 * the prefix is composed of the course_id and the tool_id 
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param string $course_id  
-	 * @param string $toolId 	 
-	 * 
-	 * @return false if an error occured, the prefix if not 
-     * 
+     *
+     * Return the table prefix which must be used for the import in the new tables
+	 * the prefix is composed of the course_id and the tool_id
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param string $course_id
+	 * @param string $toolId
+	 *
+	 * @return false if an error occured, the prefix if not
+     *
      */
     function get_table_prefix($course_id,$toolId)
-   	{   	   		
+   	{
 		$context["course"] = $course_id;
 		$context["toolLabel"] = $toolId;
 		$prefixx = claro_sql_get_tables("",$context);
-	
+
 		$prefix = "claroline`.`c_es1_001";
 		if ($prefix!=$prefixx) echo "xxx: ".$prefix." ___ " . $prefixx . " :xxx";
 		$tbl = explode('`.`',$prefix);
-		$prefix = $tbl[count($tbl)-1];		
-					
-		return $prefix;	
+		$prefix = $tbl[count($tbl)-1];
+
+		return $prefix;
    	}
    	 /**
-     * 
-     * Based on the old table names and the new table prefix, this function create the new table names     
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+     *
+     * Based on the old table names and the new table prefix, this function create the new table names
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 *
-	 * @param array $tab 			- contains the list of all table who must be emptying  
-	 * @param string $prefix 		  
+	 * @param array $tab 			- contains the list of all table who must be emptying
+	 * @param string $prefix
  	 *
 
 	 * @return the array with the new table names
-     * 
+     *
      */
    	function get_new_tool_table_list($tab,$prefix)
     {
     	$tbl = array();
     	foreach ($tab as $index => $export_table)
-    	{ 
-    		$old_table_name = $export_table['table_name'];    		
+    	{
+    		$old_table_name = $export_table['table_name'];
     		$tbl[$index]['table_name'] = str_replace($export_table['prefix'],$prefix,$old_table_name);
-    	}    
-    	return tbl;	
+    	}
+    	return tbl;
     }
    	 /**
-     * 
-     * Delete all data contained in the tool tables   
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+     *
+     * Delete all data contained in the tool tables
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 *
-	 * @param array $tab 			- contains the list of all table who must be emptying  
-	 * @param string $course_id  
+	 * @param array $tab 			- contains the list of all table who must be emptying
+	 * @param string $course_id
  	 *
-	 * 
-	 * @return false if an error occured, true if not 
-     * 
+	 *
+	 * @return false if an error occured, true if not
+     *
      */
     function delete_all_in_all_tool_table($tab,$course_id)
-    {    	
+    {
    		foreach ($tab as $tab_name)
-    	{    		    	    		
+    	{
     		$sql = "DELETE FROM `".$tab_name."`";
     		if(false === claro_sql_query($sql))
-	    		return claro_failure::set_failure("coudlnt_delete_in_db");             
+	    		return claro_failure::set_failure("coudlnt_delete_in_db");
     	}
     	return true;
-    } 
+    }
     /**
-     * 
-     * import data of a tool in database   
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+     *
+     * import data of a tool in database
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 *
-	 * @param array $tab 			- contains all informations about the tool and the data to import  
-	 * @param string $course_id  
+	 * @param array $tab 			- contains all informations about the tool and the data to import
+	 * @param string $course_id
  	 *
-	 * 
-	 * @return false if an error occured, true if not 
-     * 
+	 *
+	 * @return false if an error occured, true if not
+     *
      */
     function import_generic_tool_in_db($tab, $course_id)
-    {       	
+    {
     	foreach ($tab as $export_table)
-    	{    		    	    		    		
-    		$table_name = $export_table['table_name'];      	
+    	{
+    		$table_name = $export_table['table_name'];
    			foreach ($export_table as $data_type => $export_table_index)
-   			{   			   		   				
+   			{
 				if("content" == $data_type)
-	    		{	    			    				    		
+	    		{
 	    			foreach($export_table_index as $table_data)
-	    			{	    				
+	    			{
 	    				$sql = "INSERT INTO `".$table_name."` ( `";
 	    				$index_tmp = array();
 	    				$data_tmp = array();
 	    				foreach($table_data as $index => $table_data_content)
-	    				{	    					
+	    				{
 	    					$index_tmp[$index] = $index;
 	    					if(! is_null($table_data_content))
-	    				 
+
 	    						$data_tmp[$index] = addslashes($table_data_content);
 	    					else {$data_tmp[$index] = "NULL";}
 
-	    					
-	    				}	 	    		    					    		
+
+	    				}
 	    				$sql .= implode("`,`",$index_tmp);
-	    				$sql .= "`) VALUES ('";	    			
+	    				$sql .= "`) VALUES ('";
 	    				$sql .= implode("','",$data_tmp);
 	    				$sql .= "')";
-	    				$sql = str_replace("'NULL'","NULL",$sql);	    	
+	    				$sql = str_replace("'NULL'","NULL",$sql);
 	    				if(false === claro_sql_query($sql))
-	    			 		return claro_failure::set_failure("coudlnt_write_in_db");         	
-	    			}	    				                    	    			
-	    					
-   				}    				
-   			}   		
+	    			 		return claro_failure::set_failure("coudlnt_write_in_db");
+	    			}
+
+   				}
+   			}
     	}
-    	
-        return true;  
+
+        return true;
     }
     /**
-     * 
+     *
      * Read from the xml file all data about a tool and put it into an array
-     * 
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+     *
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 *
-	 * @param string $course_id  
+	 * @param string $course_id
  	 * @param string $toolId
-	 * 
-	 * @return false if an error occured, the array if not 
-     * 
+	 *
+	 * @return false if an error occured, the array if not
+     *
      */
     function import_generic_tool_from_file($course_id,$toolId)
     {
         if (empty ($course_id))
             return claro_failure::set_failure("Empty dir name");
         $file = EXTRACT_PATH."/".$course_id."/tools/".$toolId."/".$toolId.".xml";
-         
+
         $xml = xml_parser_create($GLOBALS['charset']);
-         
+
         $generic = new generic_tool_parser;
-         
+
         xml_set_object($xml, $generic);
         xml_set_element_handler($xml, 'start_element', 'end_element');
         xml_set_character_data_handler($xml, 'get_data');
@@ -297,130 +297,130 @@
     }
     /**
      * Based on the $tab array containing user data,
-     * this function create the array $usersIdToChange which 
-     * say, for each users, what is his old id, his new id and 
-     * if we must import this user or not in the db	
-     * 
+     * this function create the array $usersIdToChange which
+     * say, for each users, what is his old id, his new id and
+     * if we must import this user or not in the db
+     *
      * We must import a user if it does not already exist
      * This mean if there isn't 'another user with the same firstname, lastname and/or officialCode
-     * 
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
 	 * @param  string  $course_id
-	 * @param  string  $tab              - contain the user data    	  
-	 * @return array $usersIdToChange which contains relation between the old user_id 
-	 * 		   and the new user_id who will be used for the import             
-	 * 
- 	 */     
+	 * @param  string  $tab              - contain the user data
+	 * @return array $usersIdToChange which contains relation between the old user_id
+	 * 		   and the new user_id who will be used for the import
+	 *
+ 	 */
     function filter_users($course_id,$tab)
-    {    	        	    	     
+    {
         $tbl = claro_sql_get_main_tbl();
         $sql = "SELECT max(user_id) FROM `".$tbl['user']."`";
     	$user_offset = claro_sql_query_get_single_value($sql);
-    	    	
+
     	foreach ($tab['user'] as $id => $userToAdd)
-    	{             		
-    	    $sql = "SELECT `user_id`, `nom` AS `firstname`, `prenom`  AS  `lastname`, `officialCode` 
-    	 		 	FROM `".$tbl['user']."` 
+    	{
+    	    $sql = "SELECT `user_id`, `nom` AS `firstname`, `prenom`  AS  `lastname`, `officialCode`
+    	 		 	FROM `".$tbl['user']."`
     	 			WHERE nom = '".$userToAdd['firstname']."' AND prenom = '".$userToAdd['lastname']."'";
-    	 			 		    	
+
     	 	$result = claro_sql_query_fetch_all($sql);
-    	 
-    	 	$usersIdToChange[$id]['oldUserId'] = $userToAdd['user_id'];   
-    	 	$usersIdToChange[$id]['newUserId'] = $userToAdd['user_id'] + $user_offset;   
+
+    	 	$usersIdToChange[$id]['oldUserId'] = $userToAdd['user_id'];
+    	 	$usersIdToChange[$id]['newUserId'] = $userToAdd['user_id'] + $user_offset;
     	 	$usersIdToChange[$id]['mustImportUser'] = true;
     	 	$usersIdToChange[$id]['mustImportUserInCourse'] = true;
-    	 	    	 	 
+
     	 	if (isset($result))
     	 	{
     	 		foreach($result as $userInDb)
-    	 		{    	    	 			    	 		    	 		
+    	 		{
     	 			if($userInDb['officialCode'] != $userToAdd['officialCode'] || ($userInDb['officialCode'] === "" && $userToAdd['officialCode'] === ""))
-    	 			{    	 		    	 			
-    	 				   
+    	 			{
+
     	 				$usersIdToChange[$id]['newUserId'] = $userInDb['user_id'];
-    	 				$usersIdToChange[$id]['mustImportUser'] = false;    
+    	 				$usersIdToChange[$id]['mustImportUser'] = false;
     	 			}
     	 		}
-    	 	}   
+    	 	}
     	}
 
-        $sql = "SELECT u.`user_id`, 
-        			   u.`nom` AS `firstname`, 
-        			   u.`prenom`  AS  `lastname`, 
-        			   u.`officialCode` 
+        $sql = "SELECT u.`user_id`,
+        			   u.`nom` AS `firstname`,
+        			   u.`prenom`  AS  `lastname`,
+        			   u.`officialCode`
         		FROM `".$tbl['rel_course_user']."` as rel
         		INNER JOIN `".$tbl['user']."` as u
-        		ON u.user_id = rel.user_id 
+        		ON u.user_id = rel.user_id
     	 		WHERE rel.code_cours = '".$course_id."'";
-		$result = claro_sql_query_fetch_all($sql);   
+		$result = claro_sql_query_fetch_all($sql);
 		if (isset($result))
-    	{    		
+    	{
     		foreach($result as $userInDb)
-    		{    			
+    		{
     			foreach($tab['user'] as $id => $userToAdd)
-    			{	
-    				if($userToAdd['firstname'] == $userInDb['firstname'] && 
-    				   $userToAdd['lastname'] == $userInDb['lastname'] && 
-    				   ($userInDb['officialCode'] != $userToAdd['officialCode'] || 
+    			{
+    				if($userToAdd['firstname'] == $userInDb['firstname'] &&
+    				   $userToAdd['lastname'] == $userInDb['lastname'] &&
+    				   ($userInDb['officialCode'] != $userToAdd['officialCode'] ||
     				   ($userInDb['officialCode'] == "" && $userToAdd['officialCode'] == "")))
     				{
     					$usersIdToChange[$id]['newUserId'] = $userInDb['user_id'];
     					$usersIdToChange[$id]['mustImportUserInCourse'] = false;
     				}
-    			}    			 
+    			}
     		}
-    	}	 	    		
-    	return $usersIdToChange;        	 
+    	}
+    	return $usersIdToChange;
     }
-  
+
      /**
-     * 		
+     *
      * Import users for a course from file to db.
      * If a user doesnt exist, we create it
      * The user is added in the users table and also in the courses-users relation table.
-     *   
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 * @param  string  $tooldir  - course_id of the exported course
 	 * @param  string  $course_id           - course_id of the course in which the import will occur
 	 * @param  array   $importGroupInfo     - array containing importation rules for the general course
-	 * @return false if a problem occured, true if not.         
-	 * 
- 	 */     
+	 * @return false if a problem occured, true if not.
+	 *
+ 	 */
     function import_users($tooldir,$course_id,$importGroupInfo)
-    {    	
+    {
     	$usersIdToChange = null;
 	    if(isset($importGroupInfo['mustImportUsers']) && true === $importGroupInfo['mustImportUsers'])
 	    {
 	        //import users from file in a tab
     	    $tab = import_users_from_file($tooldir);
         	if (false !== $tab)
-        	{        	        		
+        	{
             	//filter users and put it in a new tab
-            	$usersIdToChange = filter_users($course_id,$tab);           
-                         
+            	$usersIdToChange = filter_users($course_id,$tab);
+
 	            //put users in db
     	        if(false === import_users_in_db($tab,$course_id,$usersIdToChange))
     	        	return false;
-        	}        
+        	}
         	else
         		return false;
-	    }                  
-         
+	    }
+
         return $usersIdToChange;
     }
-    
-   
+
+
     function import_manifest($imported_course_dir, $course_id, $importGroupInfo)
-    {    	    	
+    {
     	$tab = import_manifest_from_file($imported_course_dir);
-    	    	    	
-        $course_ids['old'] = $tab['course']['code'];		
+
+        $course_ids['old'] = $tab['course']['code'];
         if (is_null($course_id) && isset ($importGroupInfo["manifest"]) && true == $importGroupInfo["manifest"])
-        {        	           
+        {
             if (false !== $tab)
-            {            
-                                               
+            {
+
                 $courseSysCode = $tab['course']['code'];
                 $courseOfficialCode = $tab['course']['fake_code'];
                 $courseDirectory = $tab['course']['directory'];
@@ -429,58 +429,58 @@
                 $courseEmail = $tab['course']['email'];
                 $courseCategory = $tab['course']['faculte'];
                 $courseTitle = $tab['course']['intitule'];
-                $courseLanguage = $tab['course']['languageCourse'];                
+                $courseLanguage = $tab['course']['languageCourse'];
                 $courseVisibility = $tab['course']['courseVisibility'];
                 $courseEnrollAllowed = $tab['course']['courseEnrollAllowed'];
                 $courseEnrollmentKey = $tab['course']['enrollment_key'];
                 $courseExpirationDate = $tab['course']['expirationDate'];
                 $extLinkName = $tab['course']['departmentUrlName'];
-                $extLinkUrl = $tab['course']['departmentUrl'];     
-            
+                $extLinkUrl = $tab['course']['departmentUrl'];
+
                 $courseSysCode = create_course(
                                    $courseOfficialCode
                    ,               $courseHolder
                    ,               $courseEmail
                    ,               $courseCategory
                    ,               $courseTitle
-                   ,               $courseLanguage                   
+                   ,               $courseLanguage
                    ,               $courseVisibility
                    ,               $courseEnrollAllowed
                    ,               $courseEnrollmentKey
                    ,               $courseExpirationDate
                    ,               $extLinkName
-                   ,               $extLinkUrl);      
+                   ,               $extLinkUrl);
             }
             else
             {
-            	return false;            
+            	return false;
             }
             $course_ids['new'] = $courseSysCode;
-        	return $course_ids;    
-        }   
-        else {        	
-        	$course_ids['new'] = $course_id;        	
         	return $course_ids;
-        }     
-        
+        }
+        else {
+        	$course_ids['new'] = $course_id;
+        	return $course_ids;
+        }
+
     }
     /**
-     * 		
+     *
      * Import tool data from file to db.
-     *   
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 * @param  string  $tooldir  - course_id of the exported course
 	 * @param  string  $course_id           - course_id of the course in which the import will occur
 	 * @param  array   $importGroupInfo     - array containing importation rules for a group
-	 * @return false if a problem occured, true if not.         
-	 * 
- 	 */    
+	 * @return false if a problem occured, true if not.
+	 *
+ 	 */
     function import_tool($coursedir, $course_id, $importGroupInfo)
     {
         flush_tool_table($course_id);
         if (isset ($importGroupInfo["tool"]) && true == $importGroupInfo["tool"])
-        {        	
-            $tab = import_tool_from_file($coursedir);            
+        {
+            $tab = import_tool_from_file($coursedir);
             if (false !== $tab)
             {
                 if(false === import_tool_in_db($tab, $course_id))
@@ -491,28 +491,28 @@
         }
         return true;
     }
-    /**     
-     * 
+    /**
+     *
      * import tool data in db
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
 	 * @param  array  $tab              - contain the tool data
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, true if not             
-	 * 
- 	 */      
+	 * @param  string $course_id
+	 * @return false if a problem occured, true if not
+	 *
+ 	 */
     function import_tool_in_db($tab, $course_id)
     {
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-         
+
         if (isset ($tab['tool_intro']) && (is_array($tab['tool_intro'])) && (count($tab['tool_intro']) > 0))
         {
             foreach ($tab['tool_intro'] as $tab_content)
             {
                 $sql = "INSERT INTO `".$tbl["tool_intro"].'` (tool_id,title,display_date,content,rank,visibility)
                     VALUES ("'.(int) $tab_content['tool_id'].'","'.addslashes($tab_content['title']).'","'.$tab_content['display_date'].'","'.addslashes($tab_content['content']).'","'.(int) $tab_content['rank'].'","'.addslashes($tab_content['visibility']).'")';
-                 
+
                 if (false === claro_sql_query($sql))
         			return claro_failure::set_failure('couldnt_write_in_db');
             }
@@ -528,7 +528,7 @@
                     ". (is_null($tab_content['script_url']) ? "NULL" : "'".addslashes($tab_content['script_url'])."'").",
                     ". (is_null($tab_content['script_name']) ? "NULL" : "'".addslashes($tab_content['script_name'])."'").",
                     '".addslashes($tab_content['addedTool'])."')";
-                 
+
                 if (false === claro_sql_query($sql))
         			return claro_failure::set_failure('couldnt_write_in_db');
             }
@@ -536,31 +536,31 @@
         return true;
     }
     /**
-     * 		
-     * Filter $tab containing group data for the db  
-     * 
-     * $tab contain data for all groups, the filter select data for only one group and return it     
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
-	 * @param  string  $tab - group data for the db  
+     *
+     * Filter $tab containing group data for the db
+     *
+     * $tab contain data for all groups, the filter select data for only one group and return it
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 * @param  string  $tab - group data for the db
 	 * @param  array   $importGroupInfo     - array containing importation rules for a group
-	 * @return false if a problem occured, an array containing filtered group data         
-	 * 
- 	 */    
+	 * @return false if a problem occured, an array containing filtered group data
+	 *
+ 	 */
     function filter_group($tab, $importGroupInfo)
     {
         $tbl = array();
         $tbl[0] = null;
-                
+
         if (isset ($tab["group_team"]))
         {
             foreach ($tab["group_team"] as $tab2_content)
-            {                            	                
+            {
                 if ($importGroupInfo["id"] == $tab2_content["id"])
-                {                	
-                
+                {
+
                     $tbl[0]["group_team"] = $tab2_content;
-                     
+
                     $tbl[1] = $importGroupInfo;
                     $tbl[1]['id'] = '';
                     $tbl[1]['oldId'] = $tab2_content['id'];
@@ -570,23 +570,23 @@
                     else $tbl[1]['document'] = false;
                     $tbl[1]['directory'] = $tab2_content['secretDirectory'];
                     $tbl[1]['name'] = $tab2_content['name'];
-                     
+
                 }
             }
         }
         $tbl[0]["group_rel_team_user"] = null;
-      
+
         if (isset ($tab["group_rel_team_user"]) && isset($importGroupInfo['mustImportUsers']) && true === $importGroupInfo['mustImportUsers'])
         {
            	foreach ($tab["group_rel_team_user"] as $id => $tab2_content)
-           	{            	
+           	{
                	if ($importGroupInfo["id"] == $tab2_content["team"])
                	{
                    	$tbl[0]["group_rel_team_user"][$id] = $tab2_content;
                	}
            	}
         }
-       
+
         $tbl[0]["group_property"] = null;
         if (isset ($tab["group_property"]))
         {
@@ -595,22 +595,22 @@
                 $tbl[0]["group_property"] = $tab2_content;
             }
         }
-         
+
         return $tbl;
     }
     /**
-     * 		
+     *
      * Modify the $usersIdToChange array by setting the 'newUserId' index to 0
-     * For some tools (like the wiki for example), a user_id = 0 mean the user is anonymous 
-     * 
-     * $tab contain data for all groups, the filter select data for only one group et return it     
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+     * For some tools (like the wiki for example), a user_id = 0 mean the user is anonymous
+     *
+     * $tab contain data for all groups, the filter select data for only one group et return it
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 * @param  array   $usersIdToChange     - array containing relation bewteen old users ids (at the export)
 	 * 										  and new users ids (for the import)
-	 * @return the array $usersIdToChange with all 'newUserId' = 0       
-	 * 
- 	 */    
+	 * @return the array $usersIdToChange with all 'newUserId' = 0
+	 *
+ 	 */
     function setAnonymousUser($usersIdToChange)
     {
         foreach ($usersIdToChange as $id => $users)
@@ -620,41 +620,41 @@
         return $usersIdToChange;
     }
     /**
-     * 		
-     * Manage a group importation. 
+     *
+     * Manage a group importation.
      * This include the group data in db and the tools (wiki,_forum, document,_etc...)
-     * 
-     * For each tool, a check is done if the exported data must be imported. If not, we create a empty tool     
-     *  
+     *
+     * For each tool, a check is done if the exported data must be imported. If not, we create a empty tool
+     *
 	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 * @param  string  $tooldir
 	 * @param  string  $course_id
-	 * @param  array   $importGroupInfo     - array containing importation rules for a group  
+	 * @param  array   $importGroupInfo     - array containing importation rules for a group
 	 * @param  array    $group_data			- array containing db data of a group
 	 * @param  array   $usersIdToChange     - array containing relation bewteen old users ids (at the export)
-	 * 										  and new users ids (for the import) 
-	 * @return the array $usersIdToChange with all 'newUserId' = 0       
-	 * 
- 	 */    
+	 * 										  and new users ids (for the import)
+	 * @return the array $usersIdToChange with all 'newUserId' = 0
+	 *
+ 	 */
     function create_group_for_import($tooldir,$imported_course_id, $course_id, $importGroupInfo, $group_data, $usersIdToChange,$mustImportusers)
-    {      	    	
+    {
         if (isset ($group_data["group_rel_team_user"]))
         {
             $group_data["group_rel_team_user"] = replaceUserId($usersIdToChange, $group_data["group_rel_team_user"], "user");
         }
-         
+
         $group_data = filter_group($group_data, $importGroupInfo,$mustImportusers);
-       
+
         if (isset($group_data[1])) $importGroupInfo = $group_data[1];
-        if (isset($group_data[0])) $group_data = $group_data[0];                      	                             
-                
+        if (isset($group_data[0])) $group_data = $group_data[0];
+
         $importGroupInfo = import_group_in_db($group_data, $course_id, $importGroupInfo);
-        
-        
+
+
         if (isset($group_data) && isset($importGroupInfo['mustImportTools']) && true === $importGroupInfo['mustImportTools'])
-        {           
+        {
             if (isset($importGroupInfo['wiki']) && true === $importGroupInfo['wiki'])
-            {                 
+            {
                 if (false === import_data_tool("CLWIKI",$tooldir, $course_id, $importGroupInfo, $usersIdToChange))
                 	return false;
             }
@@ -662,7 +662,7 @@
             {
                 if (false === create_wiki($importGroupInfo['id'], $importGroupInfo['name'].' - Wiki'))
                 	return false;
-            }                          
+            }
             if (isset($importGroupInfo['forum']) && true === $importGroupInfo['forum'])
             {
                 if (false === import_data_tool("CLFRM",$tooldir, $course_id, $importGroupInfo, $usersIdToChange))
@@ -672,7 +672,7 @@
             {
                 if (false === create_forum($importGroupInfo['name']." - forum", '', 2, 1, $importGroupInfo['id'], $course_id))
                 	return false;
-            }                        
+            }
         }
         else
         {
@@ -683,55 +683,55 @@
         }
         return $importGroupInfo;
     }
-   
+
     function create_new_group($imported_course_dir, $course_id, $importGroupInfo, $usersIdToChange)
-    {   
+    {
     	$group_data = import_group_from_file($imported_course_dir);
-    	        	            
+
     	if (isset ($group_data["group_rel_team_user"]))
         {
-            $group_data["group_rel_team_user"] = replaceUserId($usersIdToChange, $group_data["group_rel_team_user"], "user");            
-        }   
-       
+            $group_data["group_rel_team_user"] = replaceUserId($usersIdToChange, $group_data["group_rel_team_user"], "user");
+        }
+
         $group_data = filter_group($group_data, $importGroupInfo['group_info']);
-         
-                                     
+
+
         if (isset($group_data[1])) $importGroupInfo['group_info'] = $group_data[1];
-        if (isset($group_data[0])) $group_data = $group_data[0];                      	                             
-          
-          
-        $importGroupInfo = import_group_in_db($group_data, $course_id, $importGroupInfo['group_info']);    	
-    	    	
+        if (isset($group_data[0])) $group_data = $group_data[0];
+
+
+        $importGroupInfo = import_group_in_db($group_data, $course_id, $importGroupInfo['group_info']);
+
     	return $importGroupInfo;
     }
      /**
-     * 		
-     * Import groups data from file to db and import also their tools.  
+     *
+     * Import groups data from file to db and import also their tools.
      * To know which tool to import and which not, some information are contained in the $importGroupInfo array
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>  
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
 	 * @param  string  $tooldir
 	 * @param  string  $course_id
-	 * @param  array   $importGroupInfo     - array containing importation rules for a group    
+	 * @param  array   $importGroupInfo     - array containing importation rules for a group
 	 * @param  array   $usersIdToChange     - array containing relation bewteen old users ids (at the export)
 	 * 										  and new users ids (for the import)
 	 * @param  boolean $mustDeleteGroups    - boolean to indicate if the old groups must be deleted or not
-	 * @return false if a problem occured, true if not.         
-	 * 
- 	 */    
+	 * @return false if a problem occured, true if not.
+	 *
+ 	 */
     function import_group($tooldir,$imported_course_id, $course_id, $usersIdToChange, $importGroupInfo,$mustImportusers,$mustDeleteOldGroups = false)
-    {         
+    {
         $group_data = import_group_from_file($tooldir);
-        
+
         if(true === $mustDeleteOldGroups)
         {
         	deleteAllGroups();
         }
-        
+
         if (false !== $group_data)
         {
             foreach($importGroupInfo as $id => $groupInfo)
-            {            	
+            {
                 if ($groupInfo['id'] != null)
                 {
                     if (false === create_group_for_import($tooldir, $imported_course_id, $course_id, $groupInfo, $group_data, $usersIdToChange,$mustImportusers))
@@ -741,29 +741,29 @@
         }
         return $importGroupInfo;
     }
-    
-   
-    
-    /**     
-     * 
+
+
+
+    /**
+     *
      * import tool data from the xml file into an array
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, the array if not             
-	 * 
- 	 */      
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param  string $course_id
+	 * @return false if a problem occured, the array if not
+	 *
+ 	 */
     function import_tool_from_file($exportedCourseDir)
     {
         if (empty ($exportedCourseDir))
             return claro_failure::set_failure("Empty dir name");
         $file = EXTRACT_PATH."/".$exportedCourseDir."/meta_data/tool/tool.xml";
-         
+
         $xml = xml_parser_create($GLOBALS['charset']);
-         
+
         $tool = new tool_parser;
-         
+
         xml_set_object($xml, $tool);
         xml_set_element_handler($xml, 'start_element', 'end_element');
         xml_set_character_data_handler($xml, 'get_data');
@@ -785,20 +785,20 @@
         xml_parser_free($xml);
         return $tool->get_tab();
     }
-	/**     
-	 * 
+	/**
+	 *
 	 * Delete all record from the group table of the course
-	 *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, true if not             
-	 * 
-	 */ 
+	 *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param  string $course_id
+	 * @return false if a problem occured, true if not
+	 *
+	 */
 	function flush_tool_table($course_id)
 	{
 	        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-	         
+
 	        $sql = "DELETE FROM `".$tbl["tool_intro"]."`";
 	        if (false === claro_sql_query($sql))
 	  			return claro_failure::set_failure('couldnt_write_in_db');
@@ -806,19 +806,19 @@
 	        if (false === claro_sql_query($sql))
 	   			return claro_failure::set_failure('couldnt_write_in_db');
 	}
-    /**     
-     * 
+    /**
+     *
      * Delete all record from the group table of the course
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, true if not             
-	 * 
- 	 */ 
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param  string $course_id
+	 * @return false if a problem occured, true if not
+	 *
+ 	 */
     function flush_group_table($course_id)
     {
-        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));         
+        $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
         $sql = "DELETE FROM `".$tbl["group_property"]."`";
         if (false === claro_sql_query($sql))
         	return claro_failure::set_failure('couldnt_write_in_db');
@@ -828,27 +828,27 @@
         $sql = "DELETE FROM `".$tbl["group_team"]."`";
         if (false === claro_sql_query($sql))
         	return claro_failure::set_failure('couldnt_write_in_db');
-        	
+
     	return true;
     }
-    /**     
-     * 
+    /**
+     *
      * import group data in db
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
 	 * @param  array  $tab              - contain the group data
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, true if not             
-	 * 
- 	 */      
+	 * @param  string $course_id
+	 * @return false if a problem occured, true if not
+	 *
+ 	 */
     function import_group_in_db($tab, $course_id, $importGroupInfo)
     {
-    	     	  
+
         $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
         if(isset ($tab['group_property'])) $importGroupInfo_property = $tab['group_property'];
         if(isset ($tab['group_team'])) $importGroupInfo_team = $tab['group_team'];
-        if(isset ($tab['group_rel_team_user'])) $importGroupInfo_rel_team_user = $tab['group_rel_team_user'];        
+        if(isset ($tab['group_rel_team_user'])) $importGroupInfo_rel_team_user = $tab['group_rel_team_user'];
         if (isset ($tab['group_property']) && is_array($tab['group_property']) && (count($tab['group_property']) > 0))
         {
             $sql = "DELETE FROM`".$tbl["group_property"]."`";
@@ -856,26 +856,26 @@
         		return claro_failure::set_failure('couldnt_write_in_db');
             $sql = "INSERT INTO `".$tbl["group_property"].'` (self_registration,nbGroupPerUser,private,
                 											  forum,document,wiki,chat)
-                VALUES ("'.(int) $importGroupInfo_property['self_registration'].'","'.(int) $importGroupInfo_property['nbGroupPerUser'].'","'.(int) $importGroupInfo_property['private'].'","'.(int) $importGroupInfo_property['forum'].'","'.(int) $importGroupInfo_property['document'].'","'.(int) $importGroupInfo_property['wiki'].'","'.(int) $importGroupInfo_property['chat'].'")';
+                VALUES ("'.(int) $importGroupInfo_property['self_registration'].'","'.(int) $importGroupInfo_property['nbGroupPerUser'].'","'.(int) $importGroupInfo_property['private'].'","'.(int) $importGroupInfo_property['CLFRM'].'","'.(int) $importGroupInfo_property['document'].'","'.(int) $importGroupInfo_property['wiki'].'","'.(int) $importGroupInfo_property['chat'].'")';
             if (false === claro_sql_query($sql))
         		return claro_failure::set_failure('couldnt_write_in_db');
         }
-         
+
         if (isset ($tab['group_team']) && is_array($tab['group_team']) && (count($tab['group_team']) > 0))
-        {     
+        {
             if ($importGroupInfo_team['id'] == $importGroupInfo['oldId'])
-            { 
+            {
                 $sql = "INSERT INTO `".$tbl["group_team"].'` (name,description,tutor,maxStudent,secretDirectory)
-                    VALUES ("'.addslashes($importGroupInfo_team['name']).'","'.addslashes($importGroupInfo_team['description']).'","'.(int) $importGroupInfo_team['tutor'].'","'.(int) $importGroupInfo_team['maxStudent'].'","'.addslashes($importGroupInfo_team['secretDirectory']).'")';
-                 
+                        VALUES ("'.addslashes($importGroupInfo_team['name']).'","'.addslashes($importGroupInfo_team['description']).'","'.(int) $importGroupInfo_team['tutor'].'","'.(int) $importGroupInfo_team['maxStudent'].'","'.addslashes($importGroupInfo_team['secretDirectory']).'")';
+
                 if (false === ($id = claro_sql_query_insert_id($sql)))
         				return claro_failure::set_failure('couldnt_write_in_db');
-        				
-                 
+
+
                 if (isset ($tab['group_rel_team_user']) && is_array($tab['group_rel_team_user']) && (count($tab['group_rel_team_user']) > 0))
                 {
                 	foreach ($importGroupInfo_rel_team_user as $tab_content)
-                	{                		
+                	{
                     	$sql = "INSERT INTO `".$tbl["group_rel_team_user"].'` (user,team,status,role)
 	                        VALUES ("'.(int) $tab_content['user'].'","'.$id.'","'.(int) $tab_content['status'].'","'.addslashes($tab_content['role']).'")';
                     	if (false === claro_sql_query($sql))
@@ -885,29 +885,29 @@
                 $importGroupInfo['id'] = $id;
             }
         }
-         
+
         return $importGroupInfo;
     }
-    /**     
-     * 
+    /**
+     *
      * import group data from the xml file into an array
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, the array if not             
-	 * 
- 	 */      
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param  string $course_id
+	 * @return false if a problem occured, the array if not
+	 *
+ 	 */
     function import_group_from_file($exportedCourseDir)
     {
         if (empty ($exportedCourseDir))
             return claro_failure::set_failure("Empty dir name");
         $file = EXTRACT_PATH."/".$exportedCourseDir."/tools/CLGRP/CLGRP.xml";
-         
+
         $xml = xml_parser_create($GLOBALS['charset']);
-         
+
         $importGroupInfo = new group_parser;
-         
+
         xml_set_object($xml, $importGroupInfo);
         xml_set_element_handler($xml, 'start_element', 'end_element');
         xml_set_character_data_handler($xml, 'get_data');
@@ -929,28 +929,28 @@
         xml_parser_free($xml);
         return $importGroupInfo->get_tab();
     }
-  
-  
-    /**     
-     * 
+
+
+    /**
+     *
      * import manisfest data from the xml file into an array
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, the array if not             
-	 * 
- 	 */       
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param  string $course_id
+	 * @return false if a problem occured, the array if not
+	 *
+ 	 */
     function import_manifest_from_file($exportedCourseDir)
     {
         if (empty ($exportedCourseDir))
             return claro_failure::set_failure("Empty dir name");
         $file = EXTRACT_PATH."/".$exportedCourseDir."/meta_data/manifest/manifest.xml";
-         
+
         $xml = xml_parser_create($GLOBALS['charset']);
-         
+
         $manifest = new manifest_parser;
-         
+
         xml_set_object($xml, $manifest);
         xml_set_element_handler($xml, 'start_element', 'end_element');
         xml_set_character_data_handler($xml, 'get_data');
@@ -966,7 +966,7 @@
         while ($data = fread($fp, 4096))
         {
             if (false == xml_parse($xml, $data, feof($fp)))
-            {            	
+            {
                 return claro_failure::set_failure(xml_error_string(xml_get_error_code($xml)));
             }
         }
@@ -974,26 +974,26 @@
         xml_parser_free($xml);
         return $manifest->get_tab();
     }
-    /**     
-     * 
+    /**
+     *
      * import users data from the xml file into an array
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
-	 * @param  string $course_id    	  
-	 * @return false if a problem occured, the array if not             
-	 * 
- 	 */        
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
+	 * @param  string $course_id
+	 * @return false if a problem occured, the array if not
+	 *
+ 	 */
     function import_users_from_file($exportedCourseDir)
     {
         if (empty ($exportedCourseDir))
             return claro_failure::set_failure("Empty dir name");
         $file = EXTRACT_PATH."/".$exportedCourseDir."/meta_data/users/users.xml";
-         
+
         $xml = xml_parser_create($GLOBALS['charset']);
-         
+
         $users = new users_parser;
-         
+
         xml_set_object($xml, $users);
         xml_set_element_handler($xml, 'start_element', 'end_element');
         xml_set_character_data_handler($xml, 'get_data');
@@ -1015,33 +1015,33 @@
         xml_parser_free($xml);
         return $users->get_tab();
     }
-   /**     
-     * 
+   /**
+     *
      * import users in db
-     *  
-	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-	 *  
+     *
+	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+	 *
 	 * @param  array  $tab              - contain the user data
-	 * @param  string $course_id    	  
+	 * @param  string $course_id
 	 * @param  array  $usersImportInfo  - contain information for the users import
-	 * @return false if a problem occured, true if not             
-	 * 
- 	 */     
+	 * @return false if a problem occured, true if not
+	 *
+ 	 */
     function import_users_in_db($tab,$course_id,$usersImportInfo)
     {
         $tbl = claro_sql_get_main_tbl();
-          
+
         if (is_array($tab))
-        {           
+        {
             foreach ($usersImportInfo as $tab_content)
-            {                   	            	        	  	                        	               	                 	        	            	      	             
+            {
             	if(isset($tab_content['mustImportUser']) && true === $tab_content['mustImportUser'])
             	{
-            		$data_user = $tab['user'][$tab_content['oldUserId']] ;                                				               	 	                                    		            		
+            		$data_user = $tab['user'][$tab_content['oldUserId']] ;
                 	$sql = "INSERT INTO `".$tbl["user"].'` (user_id,nom,prenom,username,password,authsource,email,statut,officialCode,phoneNumber,
                     										pictureUri,creatorId)
                     	VALUES ('.(int) $tab_content['newUserId'].',"'.addslashes($data_user['firstname']).'","'.addslashes($data_user['lastname']).'","'.addslashes($data_user['username']).'","'.addslashes($data_user['password']).'","'.addslashes($data_user['authSource']).'","'.addslashes($data_user['email']).'","'.$data_user['statut'].'","'.addslashes($data_user['officialCode']).'","'.addslashes($data_user['phoneNumber']).'","'.addslashes($data_user['pictureUri']).'","'.(int) $data_user['creatorId'].'")';
-                                  	
+
                 	if(false === claro_sql_query($sql))
                 		return claro_failure::set_failure("coudlnt_write_in_db");
             	}
@@ -1052,13 +1052,13 @@
                 			VALUES ('".addslashes($course_id)."',".(int)$tab_content['newUserId'].",".(int)$data_rel_course_tab['statut'].",".
                 					 ($data_rel_course_tab['role'] == ""? "null" : "'".addslashes($data_rel_course_tab['role'])."'").",".(int)$data_rel_course_tab['team'].",".(int)$data_rel_course_tab['tutor'].")";
                 	if(false === claro_sql_query($sql))
-                		return claro_failure::set_failure("coudlnt_write_in_db");                				               	
+                		return claro_failure::set_failure("coudlnt_write_in_db");
             	}
-            }         
+            }
         }
         return true;
     }
-   
+
   	/**
   	 * Replace oldIds in $tab by newIds contained in usersIdToChange
   	 *
@@ -1066,22 +1066,22 @@
   	 * For each $id we check if the name $index is the index set in parameters
   	 * If true, we check its values and compare it to the oldUserIds contained in usersIdToChange
   	 * If a values is an old id, we change it.
-  	 * 
-  	 * 
-  	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+  	 *
+  	 *
+  	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
   	 * @param  array   $usersIdToChange     - array containing relation bewteen old users ids (at the export)
 	 * 										  and new users ids (for the import)
 	 *  									  it must be set like set : $usersIdToChange[$id]["oldUserId"]
-	 *									  												     ["newUserId"]		
+	 *									  												     ["newUserId"]
 	 * @param  array   $tab					- containing the array with the index to change
-	 * @param  string  $index				- is the index name to change of the second dimnsion of $tab 
+	 * @param  string  $index				- is the index name to change of the second dimnsion of $tab
   	 * @return
-  	 *  	 
+  	 *
   	 */
     function replaceUserId($usersIdToChange, $tab, $index)
     {
     	if(isset($usersIdToChange))
-    	{     
+    	{
         	foreach ($usersIdToChange as $tab_content)
         	{
             	foreach ($tab as $lacle => $tab2_content)
@@ -1103,41 +1103,41 @@
   	 * If true, we check its values and compare it to the oldIds contained in usersIdToChange
   	 * If a values is an old id, we change it.
   	 *
-  	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
+  	 * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
   	 * @param  array   $usersIdToChange     - array containing relation bewteen old users ids (at the export)
 	 * 										  and new users ids (for the import)
 	 *  									  it must be set like set : $usersIdToChange[$id]["oldId"]
-	 *									  												     ["newId"]		
+	 *									  												     ["newId"]
 	 * @param  array   $tab					- containing the array with the index to change
-	 * @param  string  $index				- is the index name to change of the second dimnsion of $tab 
+	 * @param  string  $index				- is the index name to change of the second dimnsion of $tab
   	 * @return the array with the new ids
-  	 *  	 
+  	 *
   	 */
     function replaceGroupId($importGroupInfo, $tab, $index)
     {
         foreach ($tab as $lacle => $tab2_content)
-        {             
+        {
             if ($tab2_content[$index] == $importGroupInfo["oldId"])
-            {                 
+            {
                 $tab[$lacle][$index] = $importGroupInfo["id"];
             }
         }
         return $tab;
     }
-   
-    /**	 
+
+    /**
      *
      * Import tool document file from the zip file to the claroline file system.
      * The name of the tool is set in parameter to define wich documents to import
-     * @author Yannick Wautelet <yannick_wautelet@hotmail.com> 
-     * @param  string  $toolName			
+     * @author Yannick Wautelet <yannick_wautelet@hotmail.com>
+     * @param  string  $toolName
 	 * @param  string  $tooldir  - course_id of the exported course
 	 * @param  string  $course_id           - course_id of the course in which the import will occur
 	 * @param  array   $importGroupInfo     - array containing importation rules for a group
 	 * @return false if a problem occured, true if not
 	 */
     function import_documents($toolId, $importedCourseDir, $course_id)
-    {           
+    {
         $course_path = get_conf("coursesRepositorySys").claro_get_course_path($course_id);
         $archive_path = EXTRACT_PATH."/".$importedCourseDir."/tools/".$toolId."/";
         if (file_exists($archive_path.$toolId.".zip"))
@@ -1146,18 +1146,18 @@
                 claro_failure::set_failure("cant_extract_file");
             else
                 return true;
-        }     
+        }
         return true;
-    }   
-      
-   
-     
+    }
+
+
+
     function create_course($courseOfficialCode
                    ,               $courseHolder
                    ,               $courseEmail
                    ,               $courseCategory
                    ,               $courseTitle
-                   ,               $courseLanguage                   
+                   ,               $courseLanguage
                    ,               $courseVisibility
                    ,               $courseEnrollAllowed
                    ,               $courseEnrollmentKey
@@ -1173,22 +1173,22 @@
     global $coursesRepositoryWeb;
     global $_uid;
     global $_user;
-    
+
     if($courseCategory == 'root') $courseCategory = null;
     $courseOfficialCode = ereg_replace('[^A-Za-z0-9_]', '', $courseOfficialCode);
     $courseOfficialCode = strtoupper($courseOfficialCode);
 
-	
+
     $keys = define_course_keys ($courseOfficialCode,'',$dbNamePrefix);
 
-	
+
 
     $courseSysCode      = $keys[ 'currentCourseId'         ];
     $courseDbName       = $keys[ 'currentCourseDbName'     ];
     $courseDirectory    = $keys[ 'currentCourseRepository' ];
     $courseExpirationDate = '';
-   
-      
+
+
     // START COURSE CREATION PORCESSS
 
     if (   prepare_course_repository($courseDirectory, $courseSysCode)
@@ -1235,18 +1235,18 @@
                                                                             '%course_url' => $coursesRepositoryWeb . $courseDirectory
                                                                           ) );
 
-                
-                
+
+
             // GET THE CONCERNED SENDERS OF THE EMAIL
             $platformAdminList = claro_get_uid_of_platform_admin();
 
             claro_mail_user( $platformAdminList, $mailBody, $mailSubject);
-                                                          
+
             $args['courseSysCode'] = $courseSysCode;
             $args['courseDbName'] = $courseDbName;
-            $args['courseDirectory'] = $courseDirectory; 
+            $args['courseDirectory'] = $courseDirectory;
             $args['courseCategory']	= $courseCategory;
-            
+
             //$eventNotifier->notifyEvent("course_created",$args);
       }
       else
@@ -1277,11 +1277,11 @@
 	 * @param  - $delete (bool) - move or copy the file
 	 * @return - void no return !!
 	 */
-	
+
 	function import_claro_copy_file($sourcePath, $targetPath)
 	{
 	    $fileName = basename($sourcePath);
-	
+
 	    if ( is_file($sourcePath) )
 	    {
 	        return copy($sourcePath , $targetPath . '/' . $fileName);
@@ -1289,39 +1289,39 @@
 	    elseif ( is_dir($sourcePath) )
 	    {
 	        // check to not copy the directory inside itself
-	        
+
 	        if ( ereg('^'.$sourcePath . '/', $targetPath . '/') ) return false;
-			
+
 	        if(! file_exists($targetPath . '/' . $fileName)) if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
-	
+
 	        $dirHandle = opendir($sourcePath);
-	
+
 	        if ( ! $dirHandle ) return false;
-		
+
 	        $copiableFileList = array();
-	
+
 	        while ($element = readdir($dirHandle) )
 	        {
 	            if ( $element == '.' || $element == '..') continue;
-	
+
 	            $copiableFileList[] = $sourcePath . '/' . $element;
 	        }
-	
+
 	        closedir($dirHandle);
-	
+
 	        if ( count($copiableFileList) > 0 )
 	        {
 	            foreach($copiableFileList as $thisFile)
 	            {
-	                if ( ! import_claro_copy_file($thisFile, $targetPath . '/' . $fileName) ) return false;              
+	                if ( ! import_claro_copy_file($thisFile, $targetPath . '/' . $fileName) ) return false;
 	            }
 	        }
-	
+
 	        return true;
-	    } // end elseif is_dir()   
+	    } // end elseif is_dir()
 	}
-	
-	
+
+
 
 
 ?>

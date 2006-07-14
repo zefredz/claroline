@@ -18,6 +18,7 @@
 
 
 require '../inc/claro_init_global.inc.php';
+include_once $includePath . '/lib/group.lib.inc.php';
 
 // display login form
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
@@ -54,6 +55,8 @@ if ( get_conf('multiGroupAllowed') )
         $checkedNbGroupPerUser['ALL'] = 'checked="checked"';
     }
 }
+
+$groupToolList = get_group_tool_list();
 
 include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
@@ -139,62 +142,38 @@ echo ' >' . "\n"
 .    '</span>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
-.    '<tr>' . "\n"
+;
+
+echo '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
 .    '<b>' . get_lang("Tools") . '</b>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
-.    '<tr>' . "\n"
-.    '<td valign="top">' . "\n"
-.    '<span class="item">' . "\n"
-.    '<input type="checkbox" name="forum" id="forum" value="1" '
 ;
 
-if($_groupProperties['tools'] ['forum']) echo "checked";
-echo ' >' . "\n"
-.    '<label for="forum">' . get_lang("Forum") . '</label>' . "\n"
-.    '</span>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr>' . "\n"
-.    '<td>' . "\n"
-.    '<span class="item">' . "\n"
-.    '<input type="checkbox" name="document" id="document" value="1"' . "\n"
-;
-if($_groupProperties['tools'] ['document']) echo "checked";
-echo '>' . "\n"
-.    '<label for="document">' . get_lang("Documents and Links") . '</label>' . "\n"
-.    '' . "\n"
-.    '</span>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr>' . "\n"
-.    '<td valign="top">' . "\n"
-.    '<span class="item">' . "\n"
-.    '<input type="checkbox" name="chat" id="chat" value="1" '
-;
 
-if($_groupProperties['tools'] ['chat'])
-echo "checked";
+foreach ($groupToolList as $groupTool)
+{
+    $toolName = claro_get_module_name ( $groupTool['label']);
 
-echo ' >' . "\n"
-.    '<label for="chat">' . get_lang("Chat") . '</label>' . "\n"
-.    '</span>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr>' . "\n"
-.    '<td valign="top">' . "\n"
-.    '<span class="item">' . "\n"
-.    '<input type="checkbox" name="wiki" id="wiki" value="1" ' . "\n"
-;
 
-if($_groupProperties['tools'] ['wiki']) echo "checked";
-echo ' >' . "\n"
-.    '<label for="wiki">' . get_lang("Wiki") . '</label>' . "\n"
-.    '</span>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr>' . "\n"
+    echo '<tr>' . "\n"
+    .    '<td valign="top">' . "\n"
+    .    '<span class="item">' . "\n"
+    .    '<input type="checkbox" name="' . $groupTool['label'] . '" id="' . $groupTool['label'] . '" value="1" '
+    ;
+
+    if($_groupProperties['tools'] [$groupTool['label']]) echo "checked";
+    echo ' >' . "\n"
+    .    '<label for="' . $groupTool['label'] . '">' . get_lang($toolName)  . '</label>' . "\n"
+    .    '</span>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    ;
+
+}
+
+echo '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
 .    '<input type="submit" name="properties" value="' . get_lang("Ok") . '">' . "\n"
 .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")) . '' . "\n"

@@ -231,40 +231,9 @@ foreach($toolList as $thisTool)
     // patchy
     if ( $is_platformAdmin || $is_courseAdmin )
     {
-        switch (trim($thisTool['label'],'_'))
+        if(!array_key_exists($thisTool['label'],$_groupProperties['tools']) || !$_groupProperties['tools'][$thisTool['label']])
         {
-            case 'CLDOC' :
-            {
-                if(!$_groupProperties['tools']['document'])
-                {
-                    $style = 'invisible ';
-                }
-            } break;
-
-            case 'CLFRM' :
-            {
-                if(!$_groupProperties['tools']['forum'])
-                {
-                    $style = 'invisible ';
-                }
-
-            } break;
-
-            case 'CLWIKI' :
-            {
-                if(!$_groupProperties['tools']['wiki'])
-                {
-                    $style = 'invisible ';
-                }
-            } break;
-
-            case 'CLCHT' :
-            {
-                if(!$_groupProperties['tools']['chat'])
-                {
-                    $style = 'invisible ';
-                }
-            }break;
+            $style = 'invisible ';
         }
     }
 

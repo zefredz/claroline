@@ -433,8 +433,6 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
             if ($valStat)    $statsDbNameExist = TRUE;
         }
 
-
-
     }
 
     if (   $databaseAlreadyExist
@@ -1617,7 +1615,6 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
     .    '<input type="submit" name="cmdDoInstall" value="Retry">' . "\n"
     .    '</p>'
     ;
-
 }
 
 ###################################################################
@@ -1714,6 +1711,24 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
         Claroline need to have write right to trash courses.<br />
         change right on this directory and retry.';
     }
+
+    if ($platformConfigRepositorySysMissing)
+    {
+        echo '<br /> <em>$garbageRepositorySys = ' . claro_get_conf_repository() . '</em> : <br />dir is missing';
+    }
+
+    if ($platformConfigRepositorySysWriteProtected)
+    {
+        echo '
+        <br />
+        <b>
+            <em>' . claro_get_conf_repository() . '</em>
+            is Write Protected.
+        </b>
+        Claroline need to have write right to trash courses.<br />
+        change right on this directory and retry.';
+    }
+
 
     echo '<p align="right">'
     .    '<input type="submit" name="alreadyVisited" value="Restart from beginning">' . "\n"

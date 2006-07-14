@@ -1305,10 +1305,10 @@ class group_parser
 			$this->tab[$this->tabName][$this->id]['self_registration'] = '';
 			$this->tab[$this->tabName][$this->id]['nbGroupPerUser'] = '';
 			$this->tab[$this->tabName][$this->id]['private'] = '';
-			$this->tab[$this->tabName][$this->id]['forum'] = '';
-			$this->tab[$this->tabName][$this->id]['document'] = '';
-			$this->tab[$this->tabName][$this->id]['wiki'] = '';
-			$this->tab[$this->tabName][$this->id]['chat'] = '';
+			$this->tab[$this->tabName][$this->id]['CLFRM'] = '';
+			$this->tab[$this->tabName][$this->id]['CLDOC'] = '';
+			$this->tab[$this->tabName][$this->id]['CLWIKI'] = '';
+			$this->tab[$this->tabName][$this->id]['CLCHT'] = '';
 		}
 		if (('id' == $this->tag) & ('group_rel_team_user' == $this->tabName))
 		{
@@ -1362,21 +1362,21 @@ class group_parser
 			{
 				$this->tab[$this->tabName][$this->id]['private'] .= $data;
 			}
-			elseif ('forum' == $this->tag)
+			elseif ('CLFRM' == $this->tag)
 			{
-				$this->tab[$this->tabName][$this->id]['forum'] .= $data;
+				$this->tab[$this->tabName][$this->id]['CLFRM'] .= $data;
 			}
-			elseif ('document' == $this->tag)
+			elseif ('CLDOC' == $this->tag)
 			{
-				$this->tab[$this->tabName][$this->id]['document'] .= $data;
+				$this->tab[$this->tabName][$this->id]['CLDOC'] .= $data;
 			}
-			elseif ('wiki' == $this->tag)
+			elseif ('CLWIKI' == $this->tag)
 			{
-				$this->tab[$this->tabName][$this->id]['wiki'] .= $data;
+				$this->tab[$this->tabName][$this->id]['CLWIKI'] .= $data;
 			}
-			elseif ('chat' == $this->tag)
+			elseif ('CLCHT' == $this->tag)
 			{
-				$this->tab[$this->tabName][$this->id]['chat'] .= $data;
+				$this->tab[$this->tabName][$this->id]['CLCHT'] .= $data;
 			}
 		}
 		if ('group_rel_team_user' == $this->tabName)
@@ -2122,11 +2122,11 @@ class manifest_parser
 			$this->tab[$this->tabName][$this->id]['id'] = $this->id;
 			$this->tab[$this->tabName][$this->id]['self_registration'] = "";
 			$this->tab[$this->tabName][$this->id]['nbGroupPerUser'] = "";
-			$this->tab[$this->tabName][$this->id]['private'] = "";
-			$this->tab[$this->tabName][$this->id]['forum'] = "";
-			$this->tab[$this->tabName][$this->id]['document'] = "";
-			$this->tab[$this->tabName][$this->id]['wiki'] = "";
-			$this->tab[$this->tabName][$this->id]['chat'] = "";
+			$this->tab[$this->tabName][$this->id]['private'] = '';
+			$this->tab[$this->tabName][$this->id]['CLFRM']   = '';
+			$this->tab[$this->tabName][$this->id]['CLDOC']   = '';
+			$this->tab[$this->tabName][$this->id]['CLWIKI']  = '';
+			$this->tab[$this->tabName][$this->id]['CLCHT']   = '';
 		}
 		if('group' == $this->tag && 'toolsInfo' == $this->tabName)
 		{
@@ -2241,21 +2241,21 @@ class manifest_parser
 			{
 				$this->tab[$this->tabName]['private'] = $data;
 			}
-			elseif ('forum' == $this->tag)
+			elseif ('CLFRM' == $this->tag)
 			{
-				$this->tab[$this->tabName]['forum'] = $data;
+				$this->tab[$this->tabName]['CLFRM'] = $data;
 			}
-			elseif ('document' == $this->tag)
+			elseif ('CLDOC' == $this->tag)
 			{
-				$this->tab[$this->tabName]['document'] = $data;
+				$this->tab[$this->tabName]['CLDOC'] = $data;
 			}
-			elseif ('wiki' == $this->tag)
+			elseif ('CLWIKI' == $this->tag)
 			{
-				$this->tab[$this->tabName]['wiki'] = $data;
+				$this->tab[$this->tabName]['CLWIKI'] = $data;
 			}
-			elseif ('chat' == $this->tag)
+			elseif ('CLCHT' == $this->tag)
 			{
-				$this->tab[$this->tabName]['chat'] = $data;
+				$this->tab[$this->tabName]['CLCHT'] = $data;
 			}
 		}
 		if ('toolsInfo' == $this->tabName && 'tool' == $this->tag)

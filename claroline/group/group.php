@@ -95,10 +95,10 @@ if ( ! $nbGroupPerUser )
     $nbGroupPerUser = claro_sql_query_get_single_value($sql);
 }
 
-$tools['forum'   ] = $_groupProperties['tools']['forum'    ];
-$tools['document'] = $_groupProperties['tools']['document' ];
-$tools['wiki'    ] = $_groupProperties['tools']['wiki'     ];
-$tools['chat'    ] = $_groupProperties['tools']['chat'     ];
+$tools['forum'   ] = $_groupProperties['tools']['CLFRM' ];
+$tools['document'] = $_groupProperties['tools']['CLDOC' ];
+$tools['wiki'    ] = $_groupProperties['tools']['CLWIKI'];
+$tools['chat'    ] = $_groupProperties['tools']['CLCHT' ];
 
 //// **************** ACTIONS ***********************
 
@@ -115,6 +115,8 @@ if ( $is_allowedToManage )
     {
         $noQUERY_STRING = true;
         // require the forum library to create the related forums
+
+        $groupNamePrefix = (isset($_REQUEST['groupNamePrefix'])) ? $_REQUEST['groupNamePrefix'] : get_lang("Group");
 
         // For all Group forums, cat_id=1
 
@@ -142,11 +144,11 @@ if ( $is_allowedToManage )
 
         for ( $i = 1, $groupNum = $startNum + 1 ; $i <= $groupQuantity; $i++, $groupNum++ )
         {
-            $groupId = create_group(get_lang("Group") . ' ' . $groupNum, $groupMax);
+            $groupId = create_group($groupNamePrefix, $groupMax);
             $groupCreatedList[] = $groupId;
         }
 
-        $message= count($groupCreatedList) . ' ' . get_lang("group(s) has (have) been added");
+        $message= get_lang("%groupQty group(s) has (have) been added", array('%groupQty' => count($groupCreatedList)));
 
         event_default( 'GROUPMANAGING' , array ('CREATE_GROUP' => $groupQuantity) );
 
@@ -303,20 +305,20 @@ if ( $is_allowedToManage )
                                               ? (int) $_REQUEST['private']
                                               : $private = 0;
 
-        $newPropertyList['forum'            ] = isset($_REQUEST['forum'])
-                                              ? (int) $_REQUEST['forum']
+        $newPropertyList['CLFRM'            ] = isset($_REQUEST['CLFRM'])
+                                              ? (int) $_REQUEST['CLFRM']
                                               :  0;
 
-        $newPropertyList ['document'        ] = isset($_REQUEST['document'])
-                                              ? (int) $_REQUEST['document']
+        $newPropertyList ['CLDOC'        ] = isset($_REQUEST['CLDOC'])
+                                              ? (int) $_REQUEST['CLDOC']
                                               : 0;
 
-        $newPropertyList ['chat'            ] = isset($_REQUEST['chat'])
-                                              ? (int) $_REQUEST['chat']
+        $newPropertyList ['CLCHT'            ] = isset($_REQUEST['CLCHT'])
+                                              ? (int) $_REQUEST['CLCHT']
                                               :  0;
 
-        $newPropertyList['wiki'             ] = isset($_REQUEST['wiki'])
-                                              ? (int) $_REQUEST['wiki']
+        $newPropertyList['CLWIKI'             ] = isset($_REQUEST['CLWIKI'])
+                                              ? (int) $_REQUEST['CLWIKI']
                                               : 0;
 
         foreach($newPropertyList as $propertyName => $propertyValue)
@@ -362,11 +364,11 @@ if ( $is_allowedToManage )
         )
         );
 
-        $groupPrivate    = $_groupProperties['private'           ];
-        $groupHaveForum  = $_groupProperties['tools']['forum'    ];
-        $groupHaveDocs   = $_groupProperties['tools']['document' ];
-        $groupHaveWiki   = $_groupProperties['tools']['wiki'     ];
-        $groupHaveChat   = $_groupProperties['tools']['chat'     ];
+        $groupPrivate    = $_groupProperties['private'        ];
+        $groupHaveForum  = $_groupProperties['tools']['CLFRM' ];
+        $groupHaveDocs   = $_groupProperties['tools']['CLDOC' ];
+        $groupHaveWiki   = $_groupProperties['tools']['CLWIKI'];
+        $groupHaveChat   = $_groupProperties['tools']['CLCHT' ];
 
     }    // end if $submit
 
@@ -518,7 +520,7 @@ if ( !empty($message) ) echo claro_html_message_box($message);
 /*==========================
 COURSE ADMIN ONLY
 ==========================*/
-if ( $display_groupadmin_manager ) echo claro_html_menu_horizontal($groupadmin_manager_menu);
+if ( $display_groupadmin_manager ) echo '<p>' . claro_html_menu_horizontal($groupadmin_manager_menu) . '</p>';
 
 /**
   VIEW COMMON TO STUDENT & TEACHERS

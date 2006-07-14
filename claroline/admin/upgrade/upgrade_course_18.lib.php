@@ -4,24 +4,24 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * CLAROLINE
  *
  * Function to update course tool 1.7 to 1.8
- * 
- * - READ THE SAMPLE AND COPY PASTE IT 
- * 
+ *
+ * - READ THE SAMPLE AND COPY PASTE IT
+ *
  * - ADD TWICE MORE COMMENT THAT YOU THINK NEEDED
- * 
+ *
  * This code would be splited by task for the 1.8 Stable but code inside
  * function won't change, so let's go to write it.
  *
  * @version 1.8 $Revision$
- * 
+ *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- * 
+ *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
  * @package UPGRADE
- * 
+ *
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -33,10 +33,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  ===========================================================================*/
 
 /**
- * Upgrade foo tool to 1.8 
- * 
+ * Upgrade foo tool to 1.8
+ *
  * explanation of task
- *  
+ *
  * @param $course_code string
  * @return boolean whether true if succeed
  */
@@ -56,8 +56,8 @@ function group_upgrade_to_18($course_code)
         {
             case 1 :
 
-                $sql_step1 = " CREATE TABLE 
-                        `".$currentCourseDbNameGlu."course_properties` 
+                $sql_step1 = " CREATE TABLE
+                        `".$currentCourseDbNameGlu."course_properties`
                         (
                             `id` int(11) NOT NULL auto_increment,
                             `name` varchar(255) NOT NULL default '',
@@ -76,7 +76,7 @@ function group_upgrade_to_18($course_code)
                 $sql = "SELECT self_registration,
                                private,
                                nbGroupPerUser,
-                               forum, 
+                               forum,
                                document,
                                wiki,
                                chat
@@ -86,17 +86,17 @@ function group_upgrade_to_18($course_code)
 
                 if ( is_array($groupSettings) )
                 {
-                    $sql = "INSERT 
-                            INTO `".$currentCourseDbNameGlu."course_properties` 
-                                   (`name`, `value`, `category`) 
-                            VALUES  
+                    $sql = "INSERT
+                            INTO `".$currentCourseDbNameGlu."course_properties`
+                                   (`name`, `value`, `category`)
+                            VALUES
                             ('self_registration', '".$groupSettings['self_registration']."', 'GROUP'),
                             ('nbGroupPerUser',    '".$groupSettings['nbGroupPerUser'   ]."', 'GROUP'),
                             ('private',           '".$groupSettings['private'          ]."', 'GROUP'),
-                            ('forum',             '".$groupSettings['forum'            ]."', 'GROUP'),
-                            ('document',          '".$groupSettings['document'         ]."', 'GROUP'),
-                            ('wiki',              '".$groupSettings['wiki'             ]."', 'GROUP'),
-                            ('chat',              '".$groupSettings['chat'             ]."', 'GROUP')";
+                            ('CLFRM',             '".$groupSettings['forum'            ]."', 'GROUP'),
+                            ('CLDOC',             '".$groupSettings['document'         ]."', 'GROUP'),
+                            ('CLWIKI',            '".$groupSettings['wiki'             ]."', 'GROUP'),
+                            ('CLCHT',             '".$groupSettings['chat'             ]."', 'GROUP')";
                 }
 
                 if ( upgrade_apply_sql($sql) )
@@ -114,7 +114,7 @@ function group_upgrade_to_18($course_code)
 
                 $step = set_upgrade_status($tool, 0, $course_code);
 
-            default : 
+            default :
                 $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
         }

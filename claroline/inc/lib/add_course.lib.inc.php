@@ -1067,10 +1067,10 @@ function fill_db_course($courseDbName,$language)
                     VALUES  ('self_registration', '1', 'GROUP'),
                             ('nbGroupPerUser'   , '1', 'GROUP'),
                             ('private'          , '1', 'GROUP'),
-                            ('forum'            , '1', 'GROUP'),
-                            ('document'         , '1', 'GROUP'),
-                            ('wiki'             , '1', 'GROUP'),
-                            ('chat'             , '1', 'GROUP')");
+                            ('CLFRM'            , '1', 'GROUP'),
+                            ('CLDOC'            , '1', 'GROUP'),
+                            ('CLWIKI'           , '1', 'GROUP'),
+                            ('CLCHT'            , '1', 'GROUP')");
 
 
     ##################### register tools in course ######################################
@@ -1198,7 +1198,7 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
             email             = '" . addslashes($email)            . "',
             fake_code         = '" . addslashes($courseScreenCode) . "',
             departmentUrlName = '".  addslashes($extLinkName)      . "',
-            departmentUrl     = '".  addslashes($extLinkUrl)       . "', 
+            departmentUrl     = '".  addslashes($extLinkUrl)       . "',
             defaultProfileId  = " . $defaultProfileId ;
 
     if ( claro_sql_query($sql) == false) return false;

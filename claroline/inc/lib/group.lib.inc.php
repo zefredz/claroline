@@ -613,7 +613,7 @@ ORDER BY tl.rank
         switch ($tool['label'])
         {
             case 'CLDOC' :
-                if($_groupProperties['tools']['document'] || $isAllowedToEdit)
+                if($_groupProperties['tools']['CLDOC'] || $isAllowedToEdit)
                 {
 
                     $group_tool_list[] = $tool;
@@ -622,7 +622,7 @@ ORDER BY tl.rank
 
             case 'CLFRM' :
 
-                if($_groupProperties['tools']['forum'] || $isAllowedToEdit)
+                if($_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
                 {
                     $tool['url'] = 'viewforum.php?forum=' . $forumId ;
                     $group_tool_list[] = $tool;
@@ -632,7 +632,7 @@ ORDER BY tl.rank
 
             case 'CLWIKI' :
 
-                if($_groupProperties['tools']['wiki'] || $isAllowedToEdit)
+                if($_groupProperties['tools']['CLWIKI'] || $isAllowedToEdit)
                 {
                     $group_tool_list[] = $tool;
                 }
@@ -640,7 +640,7 @@ ORDER BY tl.rank
 
             case 'CLCHT' :
 
-                if($_groupProperties['tools']['chat'] || $isAllowedToEdit)
+                if($_groupProperties['tools']['CLCHT'] || $isAllowedToEdit)
                 {
                     $group_tool_list[] = $tool;
                 }

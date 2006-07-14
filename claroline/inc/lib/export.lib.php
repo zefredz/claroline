@@ -510,14 +510,14 @@ function export_manifest_in_dom($tbl, $course_id)
 			$nbgroup->append_child($dom->create_text_node($tab_content['nbGroupPerUser']));
 			$private = $id->append_child($dom->create_element('private'));
 			$private->append_child($dom->create_text_node($tab_content['private']));
-			$forum = $id->append_child($dom->create_element('forum'));
-			$forum->append_child($dom->create_text_node($tab_content['forum']));
-			$document = $id->append_child($dom->create_element('document'));
-			$document->append_child($dom->create_text_node($tab_content['document']));
-			$wiki = $id->append_child($dom->create_element('wiki'));
-			$wiki->append_child($dom->create_text_node($tab_content['wiki']));
-			$chat = $id->append_child($dom->create_element('chat'));
-			$chat->append_child($dom->create_text_node($tab_content['chat']));
+			$forum = $id->append_child($dom->create_element('CLFRM'));
+			$forum->append_child($dom->create_text_node($tab_content['CLFRM']));
+			$document = $id->append_child($dom->create_element('CLDOC'));
+			$document->append_child($dom->create_text_node($tab_content['CLDOC']));
+			$wiki = $id->append_child($dom->create_element('CLWIKI'));
+			$wiki->append_child($dom->create_text_node($tab_content['CLWIKI']));
+			$chat = $id->append_child($dom->create_element('CLCHT'));
+			$chat->append_child($dom->create_text_node($tab_content['CLCHT']));
 		}
 	}
 	$users = $manifest->append_child($dom->create_element('users'));
@@ -762,14 +762,14 @@ function export_group_in_dom($tbl, $course_id)
 			$nbGroupPerUser->append_child($dom->create_text_node($tab_content["nbGroupPerUser"]));
 			$private = $id->append_child($dom->create_element('private'));
 			$private->append_child($dom->create_text_node($tab_content["private"]));
-			$forum = $id->append_child($dom->create_element('forum'));
-			$forum->append_child($dom->create_text_node($tab_content["forum"]));
-			$document = $id->append_child($dom->create_element('document'));
-			$document->append_child($dom->create_text_node($tab_content["document"]));
-			$wiki = $id->append_child($dom->create_element('wiki'));
-			$wiki->append_child($dom->create_text_node($tab_content["wiki"]));
-			$chat = $id->append_child($dom->create_element('chat'));
-			$chat->append_child($dom->create_text_node($tab_content["chat"]));
+			$forum = $id->append_child($dom->create_element('CLFRM'));
+			$forum->append_child($dom->create_text_node($tab_content['CLFRM']));
+			$document = $id->append_child($dom->create_element('CLDOC'));
+			$document->append_child($dom->create_text_node($tab_content['CLDOC']));
+			$wiki = $id->append_child($dom->create_element('CLWIKI'));
+			$wiki->append_child($dom->create_text_node($tab_content['CLWIKI']));
+			$chat = $id->append_child($dom->create_element('CLCHT'));
+			$chat->append_child($dom->create_text_node($tab_content['CLCHT']));
 		}
 	}
 	$resources = $link->append_child($dom->create_element('group_rel_team_user'));

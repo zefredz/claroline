@@ -103,10 +103,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * boolean $_groupProperties ['registrationAllowed']
  * boolean $_groupProperties ['private'            ]
  * int     $_groupProperties ['nbGroupPerUser'     ]
- * boolean $_groupProperties ['tools'] ['forum'    ]
- * boolean $_groupProperties ['tools'] ['document' ]
- * boolean $_groupProperties ['tools'] ['wiki'     ]
- * boolean $_groupProperties ['tools'] ['chat'     ]
+ * boolean $_groupProperties ['tools'] ['CLFRM']
+ * boolean $_groupProperties ['tools'] ['CLDOC']
+ * boolean $_groupProperties ['tools'] ['CLWIKI']
+ * boolean $_groupProperties ['tools'] ['CLCHT']
  *
  * REL COURSE USER VARIABLES
  * int     $_profileId
@@ -554,10 +554,10 @@ if ( $cidReset ) // course session data refresh requested
         $_course = null;
 
         $_groupProperties ['registrationAllowed'] = false;
-        $_groupProperties ['tools'] ['forum'    ] = false;
-        $_groupProperties ['tools'] ['document' ] = false;
-        $_groupProperties ['tools'] ['wiki'     ] = false;
-        $_groupProperties ['tools'] ['chat'     ] = false;
+        $_groupProperties ['tools'] ['CLFRM'    ] = false;
+        $_groupProperties ['tools'] ['CLDOC'    ] = false;
+        $_groupProperties ['tools'] ['CLWIKI'   ] = false;
+        $_groupProperties ['tools'] ['CLCHT'    ] = false;
         $_groupProperties ['private'            ] = true;
     }
 
@@ -845,16 +845,10 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
     {
         //echo 'passed here';
 
-        $group_tool_label = str_replace( '_', '', $_courseTool['label'] );
+        $toolLabel = trim( $_courseTool['label'] , '_');
 
-        switch ( $group_tool_label )
-        {
-            case 'CLWIKI': $is_toolAllowed = $_groupProperties ['tools'] ['wiki'    ]; break;
-            case 'CLDOC' : $is_toolAllowed = $_groupProperties ['tools'] ['document']; break;
-            case 'CLCHT' : $is_toolAllowed = $_groupProperties ['tools'] ['chat'    ]; break;
-            case 'CLFRM' : $is_toolAllowed = $_groupProperties ['tools'] ['forum'   ]; break;
-            default      : $is_toolAllowed = false;
-        }
+        $is_toolAllowed = array_key_exists($toolLabel, $_groupProperties ['tools'])
+                       && $_groupProperties ['tools'] [$toolLabel];
 
         if ( $_groupProperties ['private'] )
         {
@@ -866,7 +860,6 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
     }
     elseif ( $_tid )
     {
-        // TODO
         if ( ( ! $_courseTool['visibility'] && ! claro_is_allowed_tool_edit($_mainToolId,$_profileId,$_cid) )
              || ! claro_is_allowed_tool_read($_mainToolId,$_profileId,$_cid) )
         {
