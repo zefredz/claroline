@@ -217,18 +217,14 @@ if ($runfillMainDb && $runfillStatsDb)
 
 $rootSys                    = str_replace("\\","/",realpath($pathForm)."/") ;
 $coursesRepositoryAppend    = '';
-$coursesRepositorySys = $rootSys . $courseRepositoryForm;
-if (! file_exists($coursesRepositorySys))
-mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS);
+$coursesRepositorySys       = $rootSys . $courseRepositoryForm;
+if (! file_exists($coursesRepositorySys)) claro_mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS,true);
 $clarolineRepositoryAppend  = 'claroline/';
 $clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
-$garbageRepositorySys   = $rootSys  . '/tmp/garbage';
-if (! file_exists($garbageRepositorySys))
-claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS);
-if (! file_exists($rootSys . '/platform/'))
-claro_mkdir($rootSys . '/platform/', CLARO_FILE_PERMISSIONS);
-if (! file_exists(claro_get_conf_repository()))
-claro_mkdir( claro_get_conf_repository() , CLARO_FILE_PERMISSIONS);
+$garbageRepositorySys   = $rootSys  . 'tmp/garbage';
+if (! file_exists($garbageRepositorySys))       claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS,true);
+if (! file_exists($rootSys . 'platform/'))      claro_mkdir($rootSys . 'platform/', CLARO_FILE_PERMISSIONS,true);
+if (! file_exists(claro_get_conf_repository())) claro_mkdir( claro_get_conf_repository() , CLARO_FILE_PERMISSIONS,true);
 
 ########################## WRITE claro_main.conf.php ##################################
 // extract the path to append to the url
@@ -298,7 +294,6 @@ else
     array (
     $newIncludePath . '../../textzone_top.inc.html',
     $newIncludePath . '../../textzone_right.inc.html',
-    $newIncludePath . '../../platform/conf/auth.conf.php',
     $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php'
     );
 
@@ -349,7 +344,8 @@ $coursesRepositorySysWriteProtected = FALSE;
 $coursesRepositorySysMissing        = FALSE;
 $garbageRepositorySysWriteProtected = FALSE;
 $garbageRepositorySysMissing        = FALSE;
-
+$platformConfigRepositorySysWriteProtected = FALSE;
+$platformConfigRepositorySysMissing        = FALSE;
 if (file_exists($coursesRepositorySys))
 {
     if (!is_writable($coursesRepositorySys))
@@ -379,6 +375,20 @@ else
     $display=DISP_RUN_INSTALL_NOT_COMPLETE;
 }
 
+if (file_exists(claro_get_conf_repository()))
+{
+    if (!is_writable(claro_get_conf_repository()))
+    {
+        $platformConfigRepositorySysWriteProtected = TRUE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+    }
+}
+else
+{
+    $platformConfigRepositorySysMissing = TRUE;
+    $display=DISP_RUN_INSTALL_NOT_COMPLETE;
+}
+
 /**
  * Initialise right profile
  */
@@ -390,20 +400,20 @@ create_required_profile();
  * ADD MODULES
  */
 
-$oldTools = array('CLDSC',
-                  'CLCAL',
-                  'CLANN',
-                  'CLDOC',
-                  'CLQWZ',
-                  'CLLNP',
-                  'CLWRK',
-                  'CLFRM',
-                  'CLGRP',
-                  'CLUSR',
-                  'CLCHT',
-                  'CLWIKI');
+$preInstalledTools = array('CLDSC',
+                           'CLCAL',
+                           'CLANN',
+                           'CLDOC',
+                           'CLQWZ',
+                           'CLLNP',
+                           'CLWRK',
+                           'CLFRM',
+                           'CLGRP',
+                           'CLUSR',
+                           'CLCHT',
+                           'CLWIKI');
 
-foreach($oldTools as $claroLabel)
+foreach($preInstalledTools as $claroLabel)
 {
     $modulePath = get_module_path($claroLabel);
 
@@ -434,13 +444,13 @@ init_default_right_profile();
             // new config object
             $config = new Config($config_code);
 
-			//generate conf
-			list ($message, $configToolError) = generate_conf($config,$form_value_list);
-			if($configToolError)
-			{
-			    $configError = true;
-			    $messageConfigErrorList = array_merge($messageConfigErrorList,$message);
-			}
+            //generate conf
+            list ($message, $configToolError) = generate_conf($config,$form_value_list);
+            if($configToolError)
+            {
+                $configError = true;
+                $messageConfigErrorList = array_merge($messageConfigErrorList,$message);
+            }
 
         }
         unset($configToolError);
