@@ -84,7 +84,7 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
     function imsExportResponsesDeclaration($questionIdent)
     {
 
-        if ($this->multipleAnswer == 'MCMA')  $cardinality = 'mutliple'; else $cardinality = 'single';
+        if ($this->multipleAnswer == 'MCMA')  $cardinality = 'multiple'; else $cardinality = 'single';
 
         $out = '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="' . $cardinality . '" baseType="identifier">' . "\n";
 
