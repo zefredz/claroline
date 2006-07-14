@@ -905,9 +905,9 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         .            '</a>'
         ;
 
-    if ( isset($toolBar) && is_array($toolBar))
+    if ( count($toolBar) )
     {
-        echo claro_html_menu_horizontal($toolBar);
+        echo '<p>' . claro_html_menu_horizontal($toolBar) . '</p>';
     }
     return TRUE;
 }
@@ -990,7 +990,8 @@ function forum_group_tool_list($gid, $active = true)
     foreach ($groupToolList as $groupTool)
     {
         if ('CLFRM' !== $groupTool['label'])
-        $toolList[] = '<a href="' . get_module_url($groupTool['label']) . '/' . $groupTool['url']. '?gidReq=' .(int) $gid  . '" class="claroCmd">'
+        $toolList[] = '<a href="' . get_module_url($groupTool['label']) . '/' . $groupTool['url']. '?gidReq=' . (int) $gid  . '" '
+        .             ' class="claroCmd '.($groupTool['visibility'] ? 'visible':'invisible').'">'
         .             '<img src="' . $imgRepositoryWeb . $groupTool['icon'] . '" />'
         .             '&nbsp;'
         .             claro_get_tool_name ($groupTool['label'])
@@ -1025,7 +1026,7 @@ function delete_all_post_in_forum($forumId)
     $postIdList = $postIdList['post_id'];
 
     $sql = "SELECT topic_id FROM `".$tbl_topics."`
-            WHERE forum_id = ".(int) $forumId;
+            WHERE forum_id = " .(int) $forumId;
 
     $topicIdList = claro_sql_query_fetch_all_cols($sql);
     $topicIdList = $topicIdList['topic_id'];
