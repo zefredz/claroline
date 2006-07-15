@@ -277,16 +277,16 @@ function elementData($parser,$data)
                 xml_set_character_data_handler($xml_parser, "elementData");
 
                 $file = $data; //url of secondary manifest files is relative to the position of the base imsmanifest.xml
-				
+
 				// PHP extraction of zip file using zlib
                 $unzippingState = $zipFile->extract(PCLZIP_OPT_BY_NAME,$pathToManifest.$file, PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
-                
+
 		        if( file_exists( $pathToManifest.$file ) )
 		        {
 		            array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest.$file );
-		
+
 					$readData = file_get_contents($pathToManifest.$file);
-		
+
 		            if( !xml_parse($xml_parser, $readData) )
 		            {
 		                // if reading of the xml file in not successfull :
@@ -504,9 +504,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         $errorFound = true;
         array_push ($errorMsgs, get_lang('The file to upload is not valid.') . '<br />'
         		. get_lang('Notice').' : '
-        		. get_lang('Max file size : %formattedSize', array( '%formattedSize' => format_file_size( get_cfg_var('upload_max_filesize')))) 
+        		. get_lang('Max file size : %formattedSize', array( '%formattedSize' => format_file_size( get_cfg_var('upload_max_filesize'))))
         		);
-        		
+
     }
 
     /*
@@ -526,7 +526,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     elseif ( preg_match("/.zip$/i", $_FILES['uploadedPackage']['name']) )
     {
-        array_push ($okMsgs, get_lang('File received : ').basename($_FILES['uploadedPackage']['name']) );
+        array_push ($okMsgs, get_lang('File received : %filename', array('%filename' => basename($_FILES['uploadedPackage']['name']) ));
 
         if (!function_exists('gzopen'))
         {
@@ -654,7 +654,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             $errorFound = true;
             array_push ($errorMsgs, get_lang('Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml') );
         }
-        
+
 
          // liberate parser ressources
          xml_parser_free($xml_parser);
@@ -692,7 +692,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('Asset not found : ').$manifestData['scos'][$item['identifierref']]['href'] );
+                    array_push ($errorMsgs, get_lang('Asset not found : %asset', array('%asset' =>$manifestData['scos'][$item['identifierref']]['href'])) );
                     break;
                 }
             }
@@ -727,7 +727,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('Asset not found : ').$sco['href'] );
+                    array_push ($errorMsgs, get_lang('Asset not found : %asset', array('%asset' => $sco['href'])));
                     break;
                 }
             }
@@ -1110,7 +1110,7 @@ else // if method == 'post'
 <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 
-<input type="file" name="uploadedPackage" /><br /> 
+<input type="file" name="uploadedPackage" /><br />
 <small><?php echo get_lang('Max file size : %formattedSize', array( '%formattedSize' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir)))); ?></small>
 
 <p>

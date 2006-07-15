@@ -102,7 +102,7 @@ $_lang['Are you sure you want to remove the following module from the learning p
 $_lang['Are you sure you want to remove this course from your list ?'] = 'Are you sure you want to remove this course from your list ?';
 $_lang['Are you sure you want to unregister'] = 'Are you sure you want to unregister ';
 $_lang['Area for this group'] = 'Area for this group';
-$_lang['Asset not found :'] = 'Asset not found : ';
+$_lang['Asset not found :'] = 'Asset not found : %asset';
 $_lang['Assignment'] = 'Assignment';
 $_lang['Assignment deleted'] = 'Assignment deleted';
 $_lang['Assignment modified'] = 'Assignment modified';
@@ -400,7 +400,7 @@ $_lang['File description'] = 'File description';
 $_lang['File list'] = 'File list';
 $_lang['File must be a zip file (.zip)'] = 'File must be a zip file (.zip)';
 $_lang['File name is missing'] = 'File name is missing';
-$_lang['File received :'] = 'File received : ';
+$_lang['File received : %filename'] = 'File received : %filename ';
 $_lang['File structure checker'] = 'File structure checker';
 $_lang['Filename'] = 'Filename';
 $_lang['Fill groups (automatically)'] = 'Fill groups (automatically)';

@@ -98,7 +98,7 @@ $_lang['Are you sure you want to remove the following module from the learning p
 $_lang['Are you sure you want to remove this course from your list ?'] = 'مطمئنید می‌خواهید این درس را از �?هرست‌تان حذ�? کنید؟';
 $_lang['Are you sure you want to unregister'] = 'آیا مطمئنید که می‌خواهید ثبت نام‌تان را حذ�? کنید';
 $_lang['Area for this group'] = 'منطقه‌ی این گروه';
-$_lang['Asset not found :'] = 'Asset not found : ';
+$_lang['Asset not found :'] = 'Asset not found : %asset';
 $_lang['Assignment'] = 'تکلی�?';
 $_lang['Assignment deleted'] = 'تکلی�? حذ�? شد';
 $_lang['Assignment modified'] = 'تکلی�? تغییر داده شد';
@@ -388,7 +388,7 @@ $_lang['File description'] = 'شرح پرونده';
 $_lang['File list'] = '�?هرست پرونده‌ها';
 $_lang['File must be a zip file (.zip)'] = 'پرونده باید از نوع zip باشد (.zip)';
 $_lang['File name is missing'] = 'نام پرونده وجود ندارد';
-$_lang['File received :'] = 'پرونده دریا�?ت شد : ';
+$_lang['File received : %filename'] = 'پرونده دریا�?ت شد :  %filename';
 $_lang['File structure checker'] = 'بررسی‌کننده‌ی ساختار پرونده';
 $_lang['Filename'] = 'نام پرونده';
 $_lang['Fill groups (automatically)'] = 'گروه‌ها پر شود (به طور خودکار)';
