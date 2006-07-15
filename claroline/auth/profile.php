@@ -129,7 +129,7 @@ if ( isset($_REQUEST['applyChange']) )
     $user_data = user_get_properties($_uid);
 
 }
-elseif (    get_conf('can_request_course_creator_status')
+elseif ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
 && 'exCCstatus' == $cmd )
 {
     // send a request for course creator status
@@ -143,7 +143,7 @@ elseif (    get_conf('can_request_revoquation')
     profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
     $messageList['info'][] = get_lang('Your request to remove your account has been sent');
 }
-elseif (    get_conf('can_request_course_creator_status')
+elseif (  ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
 && 'reqCCstatus' == $cmd )
 {
     // display course creator status form
@@ -161,7 +161,7 @@ elseif ( get_conf('can_request_revoquation')
     $nameTools = get_lang('Request to remove this account');
     $display = DISP_REQUEST_REVOQUATION;
 }
-elseif ( get_conf('user_can_merge',false)
+elseif ( get_conf('userCanMerge',false)
 && 'reqMerge' == $cmd)
 {
     // display revoquation form
@@ -189,8 +189,6 @@ elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
             set_user_property($_uid,$extraInfoName,$extraInfoValue,'userExtraInfo');
         }
     }
-
-
 }
 
 
@@ -209,7 +207,7 @@ switch ( $display )
         ;
 
         // display request course creator status
-        if ( get_conf('can_request_course_creator_status') )
+        if ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status') )
         {
             $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('Request course creation status') . '</a>';
         }
@@ -288,24 +286,23 @@ switch ( $display )
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
 
-        if ( get_conf('can_request_course_creator_status') )
-        {
-            echo '<p>' . get_lang('Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).') . '</p>';
 
-            // display request course creator form
-            echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-            .    '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
-            .    '<table>' . "\n"
-            .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
-            .    '<tr valign="top">' . "\n"
-            .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-            .    '<td><input type="submit" value="' . get_lang('Ok') . '" /> ' . "\n"
-            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-            .    '</td></tr>' . "\n"
-            .    '</table>' . "\n"
-            .    '</form>' . "\n"
-            ;
-        }
+        echo '<p>' . get_lang('Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).') . '</p>';
+
+        // display request course creator form
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        .    '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
+        .    '<table>' . "\n"
+        .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
+        .    '<tr valign="top">' . "\n"
+        .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
+        .    '<td><input type="submit" value="' . get_lang('Ok') . '" /> ' . "\n"
+        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+        .    '</td></tr>' . "\n"
+        .    '</table>' . "\n"
+        .    '</form>' . "\n"
+        ;
+
         break;
 
     case DISP_REQUEST_REVOQUATION :
