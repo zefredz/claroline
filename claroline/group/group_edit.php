@@ -331,7 +331,7 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<td colspan="2">' . "\n"
 .    claro_html_form_select('tutor',$tutor_list,$myStudentGroup['tutorId'],array('id'=>'tutor')) . "\n"
 .    '&nbsp;&nbsp;'
-.    '<small><a href="../user/user.php">' . get_lang("User list") . '</a></small>'
+.    '<small><a href="../user/user.php?gidReset=true">' . get_lang("User list") . '</a></small>'
 .    '<td>'
 .    '<label for="maxMember">' . get_lang("Max.") . '</label> '
 
