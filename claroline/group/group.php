@@ -434,7 +434,8 @@ if (DISP_GROUP_LIST == $display )
 
           GROUP BY `g`.`id`";
 
-    $groupPager = new claro_sql_pager($sql);
+    $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
+    $groupPager = new claro_sql_pager($sql, $offset,20);
 
     $sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'name';
     $sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
