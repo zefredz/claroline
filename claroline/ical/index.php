@@ -28,7 +28,7 @@ include_once claro_get_conf_repository() . 'ical.conf.php';
 include_once $includePath . '/lib/ical.write.lib.php';
 $formatList = array('ics'=>'iCalendar','xcs'=>'xCalendar (xml)','rdf'=>'rdf');
 
-if ( ! get_conf('enable_iCal_in_course') )
+if ( ! get_conf('enableICalInCourse') )
 {
     // Codes Status HTTP 404 for rss feeder
     header('HTTP/1.0 404 Not Found');
