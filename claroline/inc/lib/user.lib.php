@@ -1051,10 +1051,19 @@ function user_display_preferred_language_select_box()
     return $form;
 }
 
-function get_user_property_list($userId)
+/**
+ * Get all properties for a user
+ *
+ * @param int $userId
+ * @return array of properties
+ */
+function get_user_property_list($userId, $force = false)
 {
-    $tbl = claro_sql_get_tbl(array('user_property','property_definition'));
-    $sql = "SELECT up.propertyId,
+    static $userPropertyList = array();
+    if (!array_key_exists($userId,$userPropertyList) || $force)
+    {
+        $tbl = claro_sql_get_tbl(array('user_property','property_definition'));
+        $sql = "SELECT up.propertyId,
                    up.propertyValue,
                    up.scope
             FROM  `" . $tbl['user_property'] . "` up
@@ -1063,20 +1072,35 @@ function get_user_property_list($userId)
             WHERE up.userId = " . (int) $userId . "
             ORDER BY pd.rank";
 
-    $result = claro_sql_query_fetch_all_rows($sql);
-    $userInfoList = array();
-    foreach ($result as $userInfo) $userInfoList[$userInfo['propertyId']] = $userInfo['propertyValue'];
-    return $userInfoList;
+        $result = claro_sql_query_fetch_all_rows($sql);
+        $propertyList = array();
+        foreach ($result as $userInfo) $propertyList[$userInfo['propertyId']] = $userInfo['propertyValue'];
+        $userPropertyList[$userId] = $propertyList;
+    }
+    return $userPropertyList[$userId];
 }
 
-function get_user_property($userId,$propertyId)
+/**
+ * return a property of a user.
+ *
+ * @param interger $userId
+ * @param string $propertyId
+ * @return mixed value of the selected property for given user
+ */
+
+function get_user_property($userId,$propertyId, $force = false)
 {
-    $tbl = claro_sql_get_tbl('user_property');
-    $sql = "SELECT propertyValue
-            FROM `" . $tbl['user_property'] . "`
-            WHERE userId = " . (int) $userId . "
-              AND propertyId = '" . addslashes($propertyId) . "'";
-    return claro_sql_query_get_single_value($sql);
+    static $userPropertyList = array();
+    if (!array_key_exists($userId,$userPropertyList) || !array_key_exists($propertyId,$userPropertyList[$userId]) || $force )
+    {
+        $tbl = claro_sql_get_tbl('user_property');
+        $sql = "SELECT propertyValue
+                FROM `" . $tbl['user_property'] . "`
+                WHERE userId = " . (int) $userId . "
+                  AND propertyId = '" . addslashes($propertyId) . "'";
+        $userPropertyList[$userId][$propertyId] = claro_sql_query_get_single_value($sql);
+    }
+    return $userPropertyList[$userId][$propertyId];
 }
 
 function set_user_property($userId,$propertyId,$propertyValue, $scope='')
@@ -1091,6 +1115,13 @@ function set_user_property($userId,$propertyId,$propertyValue, $scope='')
     return claro_sql_query($sql);
 }
 
+/**
+ * get the list of extraProperties for user accounts
+ *
+ * @since claroline 1.8
+ *
+ * @return array('propertyId'=>array('propertyId', 'label', 'type', 'defaultValue', 'required');
+ */
 function get_userInfoExtraDefinitionList()
 {
     $tbl = claro_sql_get_tbl('property_definition');
@@ -1099,7 +1130,6 @@ function get_userInfoExtraDefinitionList()
              WHERE contextScope = 'USER'
              ORDER BY rank
              ";
-
     $result = claro_sql_query_fetch_all_rows($sql);
     $extraInfoDefList = array();
     foreach ($result as $userPropertyDefinition)
