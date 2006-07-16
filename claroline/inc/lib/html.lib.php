@@ -388,7 +388,7 @@ function claro_html_progress_bar ($progress, $factor)
 *  error success warning
 *  ...
 *
-* @todo this mus be a message object where code add messages with a priority,
+* @todo this must be a message object where code add messages with a priority,
 * and the rendering is set by by priority
 *
 */
@@ -397,7 +397,7 @@ function claro_html_msg_list($msgArrBody, $return=true)
 {
     $msgBox = '';
     if (is_array($msgArrBody) && count($msgArrBody) > 0)
-    {
+{
         foreach ($msgArrBody as $classMsg => $thisMsgArr)
         {
             if( is_array($thisMsgArr) && count($thisMsgArr) > 0 )
@@ -406,8 +406,15 @@ function claro_html_msg_list($msgArrBody, $return=true)
                 foreach ($thisMsgArr as $anotherThis) $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
                 $msgBox .= '</div>';
             }
+            else
+            {
+                $msgBox .= '<div class="' . $classMsg . '">';
+                $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
+                $msgBox .= '</div>';
+            }
         }
     }
+
     if($return) return claro_html_message_box($msgBox);
     else        echo   claro_html_message_box($msgBox);
     return true;
