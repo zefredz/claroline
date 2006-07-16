@@ -18,8 +18,8 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! get_init('_uid') ) claro_disp_auth_form();
+if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
 
 // Include configuration
 include claro_get_conf_repository() . 'user_profile.conf.php';
@@ -71,7 +71,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
         user_set_properties($user_id, $user_data);  // if no error update use setting
 
-        if ( $user_id == $_uid  )// re-init system to take new settings in account
+        if ( $user_id == get_init('_uid')  )// re-init system to take new settings in account
         {
             $uidReset = true;
             include $includePath . '/claro_init_local.inc.php';
@@ -163,16 +163,11 @@ if ( isset($cfrom) && $cfrom == 'ulist' ) // if we come form user list, we must 
 include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
-echo claro_html_tool_title($nameTools);
-
-// Display Forms or dialog box(if needed)
-if ( count($messageList) > 0 )
-{
-    echo claro_html_message_box(implode('<br />', $messageList));
-}
+echo claro_html_tool_title($nameTools)
+.    claro_html_msg_list($messageList)
 
 // Display "form and info" about the user
-echo user_html_form_admin_user_profile($user_data)
+.    user_html_form_admin_user_profile($user_data)
 .    '<p>'
 .    claro_html_menu_horizontal($cmd_menu)
 .    '</p>'
