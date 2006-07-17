@@ -63,7 +63,7 @@ switch($cmd)
         $errorCounter = 0;
 
         $category_array = claro_get_cat_flat_list();
-
+        $dataAnalyseResult=array();
         foreach( $category_array as $catName => $catCode )
         {
             $analyseResult = analyseCat($catCode);
@@ -75,6 +75,11 @@ switch($cmd)
         }
         $dgDataAnalyseResult = new claro_datagrid($dataAnalyseResult);
         $dgDataAnalyseResult->set_idLineType('numeric');
+
+        $dgDataAnalyseResult->set_noRowMessage( get_lang('There is no category'));
+        $dgDataAnalyseResult->set_colTitleList(array ( 'Code' =>  get_lang('Code'),
+        'Result' =>  get_lang('Result'),
+        'Message' =>  get_lang('Message'),));
 
         if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = get_lang('%nb errors found', array('%nb'=>$errorCounter));
         // analyse Course onwance
