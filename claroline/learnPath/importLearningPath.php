@@ -1075,12 +1075,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     foreach ( $okMsgs as $msg)
     {
-        echo "\n<b></b><span class=\"correct\">v</span><b></b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<span class=\"correct\">v</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     foreach ( $errorMsgs as $msg)
     {
-        echo "\n<b></b><span class=\"error\">x</span><b></b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<span class=\"error\">x</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     // installation completed or not message
