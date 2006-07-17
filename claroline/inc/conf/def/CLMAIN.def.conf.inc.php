@@ -207,7 +207,7 @@ array ('label'       => 'Tracking'
 
 $conf_def_property_list['singleDbEnabled'] =
 array ('label'       => 'Database mode'
-      ,'default'     => FALSE
+      ,'default'     => TRUE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => TRUE
