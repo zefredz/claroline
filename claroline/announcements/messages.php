@@ -41,7 +41,7 @@
 /**************************************
 CLAROLINE MAIN SETTINGS
 **************************************/
-
+$gidReset = true;
 require '../inc/claro_init_global.inc.php'; //    settings initialisation
 
 if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);

@@ -56,6 +56,7 @@ define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
  */
 
 $tlabelReq = 'CLANN';
+$gidReset = true;
 
 require '../inc/claro_init_global.inc.php';
 

@@ -20,6 +20,7 @@
  */
 
 $tlabelReq = 'CLUSR';
+$gidReset = true;
 
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
 

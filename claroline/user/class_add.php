@@ -19,6 +19,7 @@
  */
 
 $tlabelReq = 'CLUSR';
+$gidReset = true;
 require '../inc/claro_init_global.inc.php';
 
 if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
@@ -87,8 +88,8 @@ switch ( $cmd )
     // Enrol a class to the course
 
     case 'exEnrol' :
-        
-        if ( register_class_to_course( $form_data['class_id'], $_cid) ) 
+
+        if ( register_class_to_course( $form_data['class_id'], $_cid) )
         {
             $dialogBox  = get_lang('Class has been enroled') ;
         }
@@ -97,12 +98,12 @@ switch ( $cmd )
 
         }
         break;
-    
+
     // Unenrol a class to the course
 
     case 'exUnenrol' :
-        
-        if ( unregister_class_to_course( $form_data['class_id'], $_cid) ) 
+
+        if ( unregister_class_to_course( $form_data['class_id'], $_cid) )
         {
             $dialogBox  = get_lang('Class has been unenroled') ;
         }
@@ -117,11 +118,11 @@ switch ( $cmd )
 /*----------------------FIND information SECTION-----------------------*/
 /*---------------------------------------------------------------------*/
 
-$sql = "SELECT C.id, 
-               C.name, 
+$sql = "SELECT C.id,
+               C.name,
                C.class_parent_id,
                CC.courseId as course_id
-        FROM `" . $tbl_class . "` C 
+        FROM `" . $tbl_class . "` C
               LEFT JOIN `" . $tbl_course_class . "` CC ON CC.`classId` = C.`id`
               AND CC.`courseId` = '" . addslashes($_cid) . "'
         ORDER BY C.`name`";

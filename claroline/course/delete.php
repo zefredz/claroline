@@ -16,6 +16,7 @@
  */
 
 $_tid='deletecourse';
+$gidReset = true;
 
 define('DISP_CONFIRM_DELETE', __LINE__);
 define('DISP_DELETE_RESULT',  __LINE__);
