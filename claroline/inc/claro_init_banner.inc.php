@@ -338,7 +338,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             .'</a>'
             .'</div>'."\n";
     }
-    elseif ($_cid && ! $is_courseMember && $_course['registrationAllowed'])
+    elseif ($_cid && ! $is_courseMember && $_course['registrationAllowed'] && ! $is_platformAdmin )
     {
         echo '<div id="toolViewOption">'
         .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
@@ -359,6 +359,16 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         {
             echo claro_disp_tool_view_option();
         }
+        
+        if ( $is_platformAdmin && ! $is_courseMember )
+        {
+            echo ' | <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
+            .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
+            .    '<b>'.get_lang('Enrolment').'</b>'
+            .    '</a>'
+            ;
+        }
+        
         echo "\n".'</div>'                                       ."\n";
     }
 
