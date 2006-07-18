@@ -45,8 +45,8 @@ event_access_tool($_tid, $_courseTool['label']);
 /*
  * Execute commands
  */
-unset($_SESSION['exercise']);
-unset($_SESSION['questionList']);
+unset($_SESSION['serializedExercise']);
+unset($_SESSION['serializedQuestionList']);
 unset($_SESSION['exeStartTime']);
 
 // prevent inPathMode to be used when browsing an exercise in the exercise tool
