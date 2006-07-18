@@ -526,9 +526,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     elseif ( preg_match("/.zip$/i", $_FILES['uploadedPackage']['name']) )
     {
-        array_push ($okMsgs, get_lang('File received : %filename', array('%filename' => basename($_FILES['uploadedPackage']['name']) ));
+        array_push ($okMsgs, get_lang('File received : %filename', array('%filename' => basename($_FILES['uploadedPackage']['name']) )));
 
-        if (!function_exists('gzopen'))
+        if(!function_exists('gzopen'))
         {
             $errorFound = true;
             array_push ($errorMsgs,get_lang('Zlib php extension is required to use this tool. Please contact your platform administrator.') );
