@@ -34,7 +34,7 @@ class Ims2Question extends Question
                 $this->answer = new ImsAnswerMultipleChoice($this->id, true);   
                 break;
             case 'TF' :
-                $this->answer = new ImsAnswerMultipleChoice($this->id, true); 
+                $this->answer = new ImsAnswerTrueFalse($this->id, false); 
                 break;
             case 'FIB' :
                 $this->answer = new ImsAnswerFillInBlanks($this->id); 
@@ -49,8 +49,32 @@ class Ims2Question extends Question
 
         return true;
     }
-} 
+	/**
+     * allow to import the question
+     *
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
 
+    function import($questionArray, $exerciseTempPath)
+    {
+        //import answers
+
+        $this->answer->import($questionArray);
+
+        //import attached file, if any
+
+        if (isset($questionArray['attached_file_url']))
+        {
+            $file= array();
+            $file['name'] = $questionArray['attached_file_url'];
+            $file['tmp_name'] = $exerciseTempPath.$file['name'];
+
+            $this->setAttachment($file);
+        }
+    } 
+}
+	
 class ImsAnswerMultipleChoice extends answerMultipleChoice
 {
     /**
@@ -118,7 +142,131 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
 
         return $out;
     }
+	
+	/**
+     * allow to import the answers, feedbacks, and grades of a question
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
+
+    function import($questionArray)
+    {
+
+        $answerArray = $questionArray['answer'];
+
+        $this->answerList = array(); //re-initialize answer object content
+
+        
+
+        foreach ($answerArray as $key => $answer)
+        {
+            if (!isset($answer['feedback'])) $answer['feedback'] = "";
+            if (!isset($questionArray['weighting'][$key]))
+            {
+                if (isset($questionArray['default_weighting']))
+                {
+                    $grade = $questionArray['default_weighting'];
+                }
+                else
+                {
+                    $grade = 0;
+                }
+            }
+            else
+            {
+                $grade = $questionArray['weighting'][$key];
+            }
+            if (in_array($key,$questionArray['correct_answers'])) $is_correct = true; else $is_correct = false;
+            $addedAnswer = array( 
+                            'answer' => $answer['value'],
+                            'correct' => $is_correct,
+                            'grade' => $grade,
+                            'comment' => $answer['feedback'],
+                            );
+
+            $this->answerList[] = $addedAnswer;
+        }
+    }
 }
+
+class ImsAnswerTrueFalse extends AnswerTrueFalse
+{
+	/**
+     * Return the XML flow for the possible answers. 
+     *
+     */
+    function imsExportResponses($questionIdent, $questionStatment)
+    {
+		$out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+        $out .= '      <prompt> ' . $questionStatment . ' </prompt>'. "\n";
+
+		//set true answer
+		
+		$out .= '      <simpleChoice identifier="answer_true" fixed="false">' . get_lang('True'). "\n";
+        if (isset($this->trueFeedback) && $this->trueFeedback != '')
+        {
+            $out .= '<feedbackInline identifier="answer_true">' . $this->trueFeedback . '</feedbackInline>'. "\n";
+        }
+        $out .= '</simpleChoice>'. "\n";
+			
+		//set false answer	
+			
+		$out .= '      <simpleChoice identifier="answer_false" fixed="false">' . get_lang('False'). "\n";
+        if (isset($this->falseFeedback) && $this->falseFeedback != '')
+        {
+            $out .= '<feedbackInline identifier="answer_false">' . $this->falseFeedback . '</feedbackInline>'. "\n";
+        }
+        $out .= '</simpleChoice>'. "\n";	
+		
+		
+        $out .= '    </choiceInteraction>'. "\n"; 
+        return $out;
+	}
+	
+	function imsExportResponsesDeclaration($questionIdent)
+    {	
+        $out = '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="single" baseType="identifier">' . "\n";
+
+        //Match the correct answers
+
+        $out .= '    <correctResponse>'. "\n";
+
+
+        if ($this->correctAnswer=='TRUE')
+        {
+            $out .= '      <value>answer_true</value>'. "\n";
+        }
+		else
+		{
+			$out .= '      <value>answer_false</value>'. "\n";
+		}
+
+        $out .= '    </correctResponse>'. "\n";
+
+        //Add the grading
+
+        $out .= '    <mapping>'. "\n";
+
+        if (isset($this->trueGrade))
+        {
+            $out .= '      <mapEntry mapKey="answer_true" mappedValue="'.$this->trueGrade.'" />'. "\n";
+        }
+		
+		if (isset($this->falseGrade))
+        {
+            $out .= '      <mapEntry mapKey="answer_false" mappedValue="'.$this->falseGrade.'" />'. "\n";
+        }	
+		
+        $out .= '    </mapping>'. "\n";
+
+        $out .= '  </responseDeclaration>'. "\n";
+
+        return $out;	
+		
+	}
+}
+
+
 
 class ImsAnswerFillInBlanks extends answerFillInBlanks 
 {
@@ -233,6 +381,35 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
 
        return $out;
     }
+	
+	/**
+     * allow to import the answers, feedbacks, and grades of a question
+     *
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
+
+    function import($questionArray)
+    {
+        $answerArray = $questionArray['answer'];
+        $this->answerText = str_replace ("\n","",$questionArray['response_text']);
+        if ($questionArray['subtype'] == "TEXTFIELD_FILL") 
+		{
+			$this->type = TEXTFIELD_FILL;
+        }
+		if ($questionArray['subtype'] == "LISTBOX_FILL")
+        {
+            $this->wrongAnswerList = $questionArray['wrong_answers'];
+            $this->type = LISTBOX_FILL;
+        }
+
+        //build correct_answsers array
+        
+        if (isset($questionArray['weighting']))
+        {
+            $this->gradeList = $questionArray['weighting'];
+        }
+    }
 }
 
 class ImsAnswerMatching extends answerMatching
@@ -284,7 +461,7 @@ class ImsAnswerMatching extends answerMatching
      */
     function imsExportResponsesDeclaration($questionIdent)
     {
-        $out =  '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="single" baseType="identifier">' . "\n";
+        $out =  '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="multiple" baseType="identifier">' . "\n";
         $out .= '    <correctResponse>' . "\n";
 
         $gradeArray = array();
@@ -314,6 +491,55 @@ class ImsAnswerMatching extends answerMatching
 
         return $out;
     }
+	
+	/**
+     * allow to import the answers, feedbacks, and grades of a question
+     *
+     * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
+     */
 
+    function import($questionArray)
+    {
+        $answerArray = $questionArray['answer'];
+
+        //This tick to remove examples in the answers!!!!
+        $this->leftList = array();
+        $this->rightList = array();
+        
+        //find right and left column
+
+        $right_column = array_pop($answerArray);
+        $left_column  = array_pop($answerArray);
+
+        //1- build answers
+
+        foreach ($right_column as $right_key => $right_element)
+        {
+            $code = $this->addRight($right_element);
+
+            foreach ($left_column as $left_key => $left_element)
+            {
+                $matched_pattern = $left_key." ".$right_key;
+                $matched_pattern_inverted = $right_key." ".$left_key;
+
+                if (in_array($matched_pattern, $questionArray['correct_answers']) || in_array($matched_pattern_inverted, $questionArray['correct_answers']))
+                {
+					echo "on a trouvé le pattern :".$matched_pattern;
+                    if (isset($questionArray['weighting'][$matched_pattern]))
+                    {
+                        $grade = $questionArray['weighting'][$matched_pattern];
+                    }
+                    else
+                    {
+                        $grade = 0;
+                    }
+                    $this->addLeft($left_element, $code, $grade);
+                }
+            }
+        }
+		
+		$this->save();
+    }
 } 
 ?>

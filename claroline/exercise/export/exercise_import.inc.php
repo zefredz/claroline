@@ -98,7 +98,7 @@ function import_exercise($file)
     global $non_HTML_tag_to_avoid;
     global $record_item_body;
     global $backlog_message;
-
+	
     //get required table names
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -253,7 +253,7 @@ function import_exercise($file)
     {
         //2.create question
 
-        $question = new ImsQuestion();
+        $question = new Ims2Question();
 
         if (isset($question_array['title'])) $question->setTitle($question_array['title']);
         if (isset($question_array['statement'])) $question->setDescription($question_array['statement']);
@@ -524,6 +524,8 @@ function startElement($parser, $name, $attributes)
 
         case 'MATCHINTERACTION' :
         {
+			//retrieve question type
+			
             $exercise_info['question'][$current_question_ident]['type'] = 'MATCHING';
         }
         break;

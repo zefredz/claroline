@@ -27,7 +27,7 @@ require_once $includePath . '/lib/fileUpload.lib.php';
 require_once 'exercise_import.inc.php';
 include_once '../lib/exercise.class.php';
 include_once '../lib/question.class.php';
-include_once 'qti/qti_classes.php';
+include_once 'qti2/qti2_classes.php';
 
 //SQL table name
 
@@ -76,7 +76,6 @@ switch ( $cmd )
 
     case 'import' :
     {
-        //include needed librabries for treatment
 
         $result_log = import_exercise($_FILES['uploadedExercise']['name']);
        

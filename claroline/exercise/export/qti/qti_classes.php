@@ -49,31 +49,6 @@ class ImsQuestion extends Question
 
 		return true;
 	}
-
-    /**
-     * allow to import the question
-     *
-     * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
-     */
-
-    function import($questionArray, $exerciseTempPath)
-    {
-        //import answers
-
-        $this->answer->import($questionArray);
-
-        //import attached file, if any
-
-        if (isset($questionArray['attached_file_url']))
-        {
-            $file= array();
-            $file['name'] = $questionArray['attached_file_url'];
-            $file['tmp_name'] = $exerciseTempPath.$file['name'];
-
-            $this->setAttachment($file);
-        }
-    } 
 } 
 
 class ImsAnswerMultipleChoice extends answerMultipleChoice
@@ -169,51 +144,6 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
         }
         return $out;
      }
-
-     /**
-     * allow to import the answers, feedbacks, and grades of a question
-     * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
-     */
-
-    function import($questionArray)
-    {
-
-        $answerArray = $questionArray['answer'];
-
-        $this->answerList = array(); //re-initialize answer object content
-
-        
-
-        foreach ($answerArray as $key => $answer)
-        {
-            if (!isset($answer['feedback'])) $answer['feedback'] = "";
-            if (!isset($questionArray['weighting'][$key]))
-            {
-                if (isset($questionArray['default_weighting']))
-                {
-                    $grade = $questionArray['default_weighting'];
-                }
-                else
-                {
-                    $grade = 0;
-                }
-            }
-            else
-            {
-                $grade = $questionArray['weighting'][$key];
-            }
-            if (in_array($key,$questionArray['correct_answers'])) $is_correct = true; else $is_correct = false;
-            $addedAnswer = array( 
-                            'answer' => $answer['value'],
-                            'correct' => $is_correct,
-                            'grade' => $grade,
-                            'comment' => $answer['feedback'],
-                            );
-
-            $this->answerList[] = $addedAnswer;
-        }
-    }
 }
 
 class ImsAnswerTrueFalse extends answerTrueFalse
@@ -412,32 +342,6 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
 		// no feedback in this question type
         return '';
      }
-
-    /**
-     * allow to import the answers, feedbacks, and grades of a question
-     *
-     * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
-     */
-
-    function import($questionArray)
-    {
-        $answerArray = $questionArray['answer'];
-        $this->answerText = str_replace ("\n","",$questionArray['response_text']);
-        if ($questionArray['subtype'] == "TEXTFIELD_FILL") $this->type = TEXTFIELD_FILL;
-        if ($questionArray['subtype'] == "LISTBOX_FILL")
-        {
-            $this->wrongAnswerList = $questionArray['wrong_answers'];
-            $this->type = LISTBOX_FILL;
-        }
-
-        //build correct_answsers array
-        
-        if (isset($questionArray['weighting']))
-        {
-            $this->gradeList = $questionArray['weighting'];
-        }
-    }
 }
 
 class ImsAnswerMatching extends answerMatching
@@ -499,52 +403,5 @@ class ImsAnswerMatching extends answerMatching
         return '';
      }
 
-    /**
-     * allow to import the answers, feedbacks, and grades of a question
-     *
-     * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
-     */
-
-    function import($questionArray)
-    {
-        $answerArray = $questionArray['answer'];
-
-        //This tick to remove examples in the answers!!!!
-        $this->leftList = array();
-        $this->rightList = array();
-        
-        //find right and left column
-
-        $right_column = array_pop($answerArray);
-        $left_column  = array_pop($answerArray);
-
-        //1- build answers
-
-        foreach ($right_column as $right_key => $right_element)
-        {
-            $code = $this->addRight($right_element);
-
-            foreach ($left_column as $left_key => $left_element)
-            {
-                $matched_pattern = $left_key." ".$right_key;
-                $matched_pattern_inverted = $right_key." ".$left_key;
-
-
-                if (in_array($matched_pattern, $questionArray['correct_answers']) || in_array($matched_pattern_inverted, $questionArray['correct_answers']))
-                {
-                    if (isset($questionArray['weighting'][$matched_pattern]))
-                    {
-                        $grade = $questionArray['weighting'][$matched_pattern];
-                    }
-                    else
-                    {
-                        $grade = 0;
-                    }
-                    $this->addLeft($left_element, $code, $grade);
-                }
-            }
-        }
-    }
 } 
 ?>
