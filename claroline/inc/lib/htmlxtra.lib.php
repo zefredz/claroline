@@ -20,7 +20,7 @@ function claro_html_media_player($filePath)
 	$pathParts = pathinfo($filePath);
 	 
 	$basename = $pathParts['basename'];
-	$extension = $pathParts['extension'];
+	$extension = strtolower($pathParts['extension']);
 
 	$returnedString = '<p>'."\n";
 	switch($extension)
