@@ -442,22 +442,6 @@ class Question
    	
     	return $html;	
     }
-    
-    /**
-     * get html required to display the question
-     *
-     * @author Sebastien Piraux <pir@cerdecam.be>
-     * @param float result   
-     */  
-    function computeResult()
-    {
-    	if( !is_null($this->answer) )
-    	{
-			//if( $this->answer->computeResult() <
-    	}
-    	
-    	return false;
-    }
       
 	/**
      * get id
