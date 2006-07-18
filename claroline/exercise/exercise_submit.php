@@ -18,7 +18,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
-claro_set_display_mode_available(true);
+claro_set_display_mode_available(false);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -343,16 +343,6 @@ if( !is_null($exercise->getEndDate()) )
 echo '</li>' . "\n";
 
 echo '</ul>' .  "\n\n";
-	
-
-// admin link 
-if( $is_allowedToEdit && ( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) )
-{
-	echo '<a class="claroCmd" href="admin/edit_exercise.php?exId='.$exId.'">'
-	.	 '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="" />'
-	.	 get_lang('Modify exercise')
-	.	 '</a>' . "\n";
-}	
 	
 if( $showResult )
 {
