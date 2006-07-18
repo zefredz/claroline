@@ -468,7 +468,7 @@ class answerMultipleChoice
     function getFormHtml($exId = null)
     {
 	   	$html = 
-    		'<form method="post" action="./edit_answers?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
+    		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     	. 	'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     	.	'<input type="hidden" name="answerCount" value="'.count($this->answerList).'" />' . "\n" 
     	.	'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"

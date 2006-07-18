@@ -504,7 +504,7 @@ class answerMatching
     function getFormHtml($exId = null) 
     {			
     	$html =
-    		'<form method="post" action="./edit_answers?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
+    		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     	.	'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     	.	'<input type="hidden" name="leftCount" value="'.count($this->leftList).'" />' . "\n"
     	.	'<input type="hidden" name="rightCount" value="'.count($this->rightList).'" />' . "\n" 
