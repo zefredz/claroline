@@ -65,14 +65,14 @@ else															$exId = null;
 if( isset($_REQUEST['step']) && is_numeric($_REQUEST['step']) ) $step = (int) $_REQUEST['step'];
 else															$step = 0;
 
-if( !isset($_SESSION['exercise']) )
+if( !isset($_SESSION['serializedExercise']) )
 {
 	$exercise = new Exercise();
 	
 	if( is_null($exId) || !$exercise->load($exId) )
 	{
 		// exercise is required 
-		unset($_SESSION['exercise']);
+		unset($_SESSION['serializedExercise']);
 		
 		header("Location: ./exercise.php");
 		exit();		
@@ -84,24 +84,24 @@ if( !isset($_SESSION['exercise']) )
 		if( $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit && ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] ) )
 		{
 			// exercise is required 
-			unset($_SESSION['exercise']);
+			unset($_SESSION['serializedExercise']);
 			
 			header("Location: ./exercise.php");
 			exit();		
 		}
 		else
 		{
-			$_SESSION['exercise'] = serialize($exercise);
+			$_SESSION['serializedExercise'] = serialize($exercise);
 		}
 	}
 }
 else
 {
-	$exercise = unserialize($_SESSION['exercise']);	
+	$exercise = unserialize($_SESSION['serializedExercise']);
 }
 
 //-- get question list
-if( !isset($_SESSION['questionList']) || !is_array($_SESSION['questionList']) )
+if( !isset($_SESSION['serializedQuestionList']) || !is_array($_SESSION['serializedQuestionList']) )
 { 
 	if( $exercise->getShuffle() == 0 )
 	{
@@ -113,7 +113,7 @@ if( !isset($_SESSION['questionList']) || !is_array($_SESSION['questionList']) )
 	}
 	
 	$questionList = array();
-	$_SESSION['questionList'] = array();
+	$_SESSION['serializedQuestionList'] = array();
 	// get all question objects and store them serialized in session
 	foreach( $qList as $question )
 	{
@@ -121,7 +121,7 @@ if( !isset($_SESSION['questionList']) || !is_array($_SESSION['questionList']) )
 		
 		if( $questionObj->load($question['id']) )
 		{
-			$_SESSION['questionList'][] = serialize($questionObj);
+			$_SESSION['serializedQuestionList'][] = serialize($questionObj);
 			$questionList[] = $questionObj;
 		}
 		unset($questionObj);
@@ -130,7 +130,7 @@ if( !isset($_SESSION['questionList']) || !is_array($_SESSION['questionList']) )
 else
 {
 	$questionList = array();
-	foreach( $_SESSION['questionList'] as $serializedQuestion )
+	foreach( $_SESSION['serializedQuestionList'] as $serializedQuestion )
 	{
 		$questionList[] = unserialize($serializedQuestion);
 	}
