@@ -51,6 +51,7 @@ function get_and_unzip_uploaded_exercise()
     {
         $backlog_message[] = get_lang('Temporary file is : ') . $_FILES['uploadedExercise']['tmp_name'];
     }
+
     //1- Unzip folder in a new repository in claroline/module
 
     include_once (realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php');
@@ -119,6 +120,14 @@ function import_exercise($file)
     $element_pile = array();  //pile to known the depth in which we are
     $module_info = array();   //array to store the info we need
 
+	//if file is not a .zip, then we cancel all 
+
+	if ( !preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']))
+	{
+		$backlog_message[] = get_lang('You must upload a zip file');
+		return $backlog_message;
+	}
+	
     //unzip the uploaded file in a tmp directory
 
     $exercisePath = get_and_unzip_uploaded_exercise();
@@ -136,10 +145,13 @@ function import_exercise($file)
     //used to specify the question directory where files could be found in relation in any question
 
     global $questionTempDir;
-
+	
+	
 
     //1- parse the parent directory
 
+	$file_found = false;
+	
     $questionHandle = opendir($exercisePath);
 
     while (false !== ($questionFile = readdir($questionHandle)))
@@ -148,6 +160,7 @@ function import_exercise($file)
         {
             array_push ($backlog_message, get_lang("XML question file found : ".$questionFile));
             parse_file($exercisePath, '', $questionFile);
+			$file_found = true;
         }//end if xml question file found
     }//end while question rep
 
@@ -168,12 +181,19 @@ function import_exercise($file)
                 if (preg_match('/.xml$/i' ,$questionFile))
                 {
                     parse_file($exercisePath, $file, $questionFile);
+					$file_found = true;				
                 }//end if xml question file found
             }//end while question rep
         } //if is_dir
     }//end while loop to find each question data's
 
-
+	if (!$file_found)
+	{
+		array_push ($backlog_message, get_lang('No XML file found in the zip'));
+		return $backlog_message;
+	}
+	
+	
     //Display data found
 
 	array_push ($backlog_message, 'Exercise name  : <b>' . $exercise_info['name'] . '</b>');
