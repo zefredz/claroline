@@ -45,6 +45,12 @@ $old_tool_array = array('CLANN',
                         'CLGRP'
                         );
 
+//UNDEACTIVABLE	TOOLS array
+
+$undeactivable_tool_array = array('CLDOC',
+								  'CLGRP'
+								 );					
+						
 //SQL table name
 
 $tbl_name        = claro_sql_get_main_tbl();
@@ -473,16 +479,24 @@ foreach($moduleList as $module)
     //activation link
 
     echo '</small></td>' . "\n".'<td align="center" >';
-    if ( 'activated' == $module['activation'] )
-    {
-        echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
-         . get_lang('Activated') . '</small></a>'
-        ;
-    }
-    else
-    {
-        echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
-    }
+	
+	if (in_array($module['label'],$undeactivable_tool_array))
+	{
+		echo '<small>'.get_lang('Activated').'</small>';
+	}
+	else
+	{
+    	if ( 'activated' == $module['activation'] )
+    	{
+        	echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
+         	. get_lang('Activated') . '</small></a>'
+        	;
+    	}
+    	else
+    	{
+        	echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
+    	}
+	}	
     echo '</td>' . "\n";
 
     //end table line
