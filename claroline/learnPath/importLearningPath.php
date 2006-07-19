@@ -93,7 +93,7 @@ function startElement($parser,$name,$attributes)
             break;
         case "RESOURCES" :
             if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
-            $flagTag['type'] == "resources";
+            $flagTag['type'] = "resources";
             break;
         case "RESOURCE" :
             if ( isset($attributes['ADLCP:SCORMTYPE']) && $attributes['ADLCP:SCORMTYPE'] == 'sco' )
@@ -271,17 +271,17 @@ function elementData($parser,$data)
         // found a link to another XML file, parse it ...
         case "ADLCP:LOCATION" :
             if (!$errorFound)
-               {
+            {
                 $xml_parser = xml_parser_create();
                 xml_set_element_handler($xml_parser, "startElement", "endElement");
                 xml_set_character_data_handler($xml_parser, "elementData");
 
                 $file = $data; //url of secondary manifest files is relative to the position of the base imsmanifest.xml
 
-				// PHP extraction of zip file using zlib
+				// we try to extract only the required file
                 $unzippingState = $zipFile->extract(PCLZIP_OPT_BY_NAME,$pathToManifest.$file, PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
 
-		        if( file_exists( $pathToManifest.$file ) )
+		        if( $unzippingState != 0 && file_exists( $pathToManifest.$file ) )
 		        {
 		            array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest.$file );
 
@@ -591,6 +591,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // PHP extraction of zip file using zlib
 
                 chdir($baseWorkDir);
+                // we try to extract the manifest file
                 $unzippingState = $zipFile->extract( PCLZIP_OPT_BY_NAME, $pathToManifest."imsmanifest.xml",
                                                      PCLZIP_OPT_PATH, '',
                                                      PCLZIP_OPT_REMOVE_PATH, $pathToManifest );
@@ -758,7 +759,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         //        - n modules
         //        - n asset as start asset of modules
 
-        if ( sizeof( $manifestData['items'] ) == 0 )
+		if( $unzippingState == 0 )
+		{
+			$errorFound = true;
+			array_push ($errorMsgs, get_lang('Cannot extract files.') );
+		}
+        elseif ( sizeof( $manifestData['items'] ) == 0 )
         {
             $errorFound = true;
             array_push ($errorMsgs, get_lang('No module in package') );
