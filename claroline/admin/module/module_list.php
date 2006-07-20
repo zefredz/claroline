@@ -50,6 +50,23 @@ $old_tool_array = array('CLANN',
 $undeactivable_tool_array = array('CLDOC',
 								  'CLGRP'
 								 );					
+
+//NONUNINSTALABLE TOOLS array
+
+$nonuninstalable_tool_array = array('CLANN',
+                        'CLCAL',
+                        'CLFRM',
+                        'CLCHT',
+                        'CLDOC',
+                        'CLDSC',
+                        'CLUSR',
+                        'CLLNP',
+                        'CLQWZ',
+                        'CLWRK',
+                        'CLWIKI',
+                        'CLLNK',
+                        'CLGRP'
+                        );
 						
 //SQL table name
 
@@ -464,21 +481,29 @@ foreach($moduleList as $module)
     .    '<a href="module.php?module_id='.$module['id'].'&item=GENERAL">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
-    .    '</td>' . "\n"
+    .    '</td>' . "\n";
 
     //uninstall link
-
-    .    '<td align="center">'
-    .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&cmd=uninstall"'
-    .    ' onClick="return confirmation(\'' . $module['name'].'\');">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
-    .    '</a>'
-    .    '</td>' . "\n"
-    ;
-
+	
+	echo '<td align="center">';
+	
+	if (!in_array($module['label'],$nonuninstalable_tool_array))
+	{  	
+    	echo '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&cmd=uninstall"'
+    	.    ' onClick="return confirmation(\'' . $module['name'].'\');">'
+    	.    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+    	.    '</a>'
+    	;
+	}
+	else
+	{
+		echo '<center>-</center>';
+	}
+	echo '</td>' . "\n";
+	
     //activation link
 
-    echo '</small></td>' . "\n".'<td align="center" >';
+    echo '<td align="center" >';
 	
 	if (in_array($module['label'],$undeactivable_tool_array))
 	{
