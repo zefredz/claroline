@@ -172,9 +172,9 @@ $userDataGrid->set_colTitleList(array (
 
 if ( count($userGrid)==0 )
 {
-    $userDataGrid->set_noRowMessage( get_lang('No user to display') . "\n"
+    $userDataGrid->set_noRowMessage( '<center>'.get_lang('No user to display') . "\n"
     .    '<br />' . "\n"
-    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>' . "\n"
+    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a></center>' . "\n"
     );
 }
 else
@@ -334,22 +334,22 @@ function get_sql_filtered_user_list()
 
     if (isset($_SESSION['admin_user_firstName']))
     {
-        $sql .= " AND (U.prenom LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
+        $sql .= " AND (U.prenom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
     }
 
     if (isset($_SESSION['admin_user_lastName']))
     {
-        $sql .= " AND (U.nom LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
+        $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
     }
 
     if (isset($_SESSION['admin_user_userName']))
     {
-        $sql.= " AND (U.username LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
+        $sql.= " AND (U.username LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
     }
 
     if (isset($_SESSION['admin_user_mail']))
     {
-        $sql.= " AND (U.email LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
+        $sql.= " AND (U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
     }
 
     if ($filterOnStatus== 'createcourse' )
@@ -379,24 +379,24 @@ function prepare_search()
 
     if ( !empty($_SESSION['admin_user_firstName']) )
     {
-        $isSearched[] = get_lang('First name') . '=' . $_SESSION['admin_user_firstName'] . '*';
+        $isSearched[] = get_lang('First name') . '=*' . $_SESSION['admin_user_firstName'] . '*';
         $queryStringElementList [] = 'firstName=' . urlencode($_SESSION['admin_user_firstName']);
     }
 
     if ( !empty($_SESSION['admin_user_lastName']) )
     {
-        $isSearched[] = get_lang('Last name') . '=' . $_SESSION['admin_user_lastName'] . '*';
+        $isSearched[] = get_lang('Last name') . '=*' . $_SESSION['admin_user_lastName'] . '*';
         $queryStringElementList[] = 'lastName=' . urlencode($_SESSION['admin_user_lastName']);
     }
 
     if ( !empty($_SESSION['admin_user_userName']) )
     {
-        $isSearched[] = get_lang('Username') . '=' . $_SESSION['admin_user_userName'] . '*';
+        $isSearched[] = get_lang('Username') . '=*' . $_SESSION['admin_user_userName'] . '*';
         $queryStringElementList[] = 'userName=' . urlencode($_SESSION['admin_user_userName']);
     }
     if ( !empty($_SESSION['admin_user_mail']) )
     {
-        $isSearched[] = get_lang('Email') . '=' . $_SESSION['admin_user_mail'] . '*';
+        $isSearched[] = get_lang('Email') . '=*' . $_SESSION['admin_user_mail'] . '*';
         $queryStringElementList[] = 'mail=' . urlencode($_SESSION['admin_user_mail']);
     }
 
