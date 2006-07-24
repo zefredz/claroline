@@ -1345,7 +1345,7 @@ function zoomOut ()
     nOriginalHeight = oImage.height;
     nOriginalWidth = oImage.width;
 
-    var nNewWidth = getWindowWidth() - 30;
+    var nNewWidth = getWindowWidth() - Math.floor(getWindowWidth() / 10);
 
     if ( nNewWidth < nOriginalWidth )
     {
