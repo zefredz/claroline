@@ -24,7 +24,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // | MA  02111-1307  USA                                                  |
 // +----------------------------------------------------------------------+
 // | Authors: Frederic Minne <zefredz@gmail.com>                          |
-// |          Contributor <contributor@example.com>                       |
+// |          Guillaume Lederer <guillaume@claroline.net>                 |
 // +----------------------------------------------------------------------+
 
 // TODO : modify the code to use Event class instead of string to represent events
@@ -280,7 +280,9 @@ class EventGenerator
      * @param tid identifier of the TOOL concerned by the event      (0 if not used)
      * @param rid identifier of the RESSOURCE concerned by the event (0 if not used)
      * @param gid identifier of the GROUP concerned by the event     (0 if not used)
-     * @param uid identifier of the USER concerned by the event      (0 if not used)
+     * @param uid identifier of the USER concerned by the event      
+	 * 		  - 0 if every users are concerned,
+	 * 		  - uid of the user if notification should only concerns himself
 	 */
 
     function notifyCourseEvent($eventType, $cid, $tid, $rid, $gid, $uid)
