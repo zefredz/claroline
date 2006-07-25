@@ -1271,30 +1271,46 @@
 
             if ( is_array( $history ) )
             {
-                $firstPass = true;
+                $size = count( $history );
+                $passes = 0;
 
                 foreach ( $history as $version )
                 {
+                    $passes++;
+                    
                     echo '<tr>' . "\n";
-
-                    if ( true == $firstPass )
+                    
+                    // diff between last and previous versions 
+                    // if available
+                    if ( 1 === $size && 1 === $passes  )
                     {
-                        $checked = ' checked="checked"';
-                        $firstPass = false;
+                        $checked1 = ' checked="checked"';
+                        $checked2 = ' checked="checked"';
+                    }
+                    elseif ( $size > 1 && 1 === $passes )
+                    {
+                        $checked1 = ' checked="checked"';
+                        $checked2 = '';
+                    }
+                    elseif ( $size > 1 && 2 === $passes )
+                    {
+                        $checked1 = '';
+                        $checked2 = ' checked="checked"';
                     }
                     else
                     {
-                        $checked = '';
+                        $checked1 = '';
+                        $checked2 = '';
                     }
 
                     echo '<td>'
-                        . '<input type="radio" name="old" value="'.$version['id'].'"'.$checked.' />' . "\n"
+                        . '<input type="radio" name="old" value="'.$version['id'].'"'.$checked1.' />' . "\n"
                         . '</td>'
                         . "\n"
                         ;
 
                     echo '<td>'
-                        . '<input type="radio" name="new" value="'.$version['id'].'"'.$checked.' />' . "\n"
+                        . '<input type="radio" name="new" value="'.$version['id'].'"'.$checked2.' />' . "\n"
                         . '</td>'
                         . "\n"
                         ;
