@@ -34,7 +34,7 @@
             claro_die(get_lang("Not allowed"));
         }
     }
-
+	
     // if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
     event_access_tool($_tid, $_courseTool['label']);
@@ -370,7 +370,7 @@
 
                 //notify wiki modification
 
-                $eventNotifier->notifyCourseEvent('wiki_modified'
+                $eventNotifier->notifyCourseEvent('wiki_added'
                                          , $_cid
                                          , $_tid
                                          , $wikiId
@@ -399,7 +399,7 @@
 
                 //notify wiki creation
 
-                $eventNotifier->notifyCourseEvent('wiki_added'
+                $eventNotifier->notifyCourseEvent('wiki_modified'
                                          , $_cid
                                          , $_tid
                                          , $wikiId
@@ -593,7 +593,7 @@
             if (isset($_uid))
             {
                 $date = $claro_notifier->get_notification_date($_uid);
-                $modified_wikis = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid,12);
+                $modified_wikis = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid, $_tid);
             }
             else
             {
