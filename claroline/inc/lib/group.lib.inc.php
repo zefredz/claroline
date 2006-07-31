@@ -93,8 +93,10 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_Forums           = $tbl_c_names['bb_forums'          ];
 
     require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
+    require_once $GLOBALS['includePath'] . '/lib/forum.lib.php';
 
     delete_group_wikis( $groupIdList );
+    delete_group_forums( $groupIdList );
 
     /**
      * Check the data and notify eventmanager of the deletion
@@ -174,20 +176,11 @@ function delete_groups($groupIdList = 'ALL')
                                     # ".__FILE__."
                                     # ".__LINE__;
 
-        $sql_deleteGroupForums  = "DELETE FROM `" . $tbl_Forums . "`
-                                   WHERE group_id IN (" . implode(' , ', $groupList['id']) . ")
-                                    # ".__FUNCTION__."
-                                    # ".__FILE__."
-                                    # ".__LINE__;
-
         // Deleting group record in table
         $deletedGroupNumber = claro_sql_query_affected_rows($sql_deleteGroup);
 
         // Delete all members of deleted group(s)
         claro_sql_query($sql_cleanOutGroupUsers);
-
-        // Delete all Forum of deleted group(s)
-        claro_sql_query($sql_deleteGroupForums);
 
         /**
          * Archive and delete the group files

@@ -232,7 +232,7 @@ if ( $is_allowedToManage )
         $cidReset = TRUE;
         $cidReq   = $_cid;
 
-        include($includePath . '\claro_init_local.inc.php');
+        include($includePath . '/claro_init_local.inc.php');
         $noQUERY_STRING = true;
     }
 

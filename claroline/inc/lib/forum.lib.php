@@ -1479,4 +1479,38 @@ function increase_topic_view_count($topicId)
     else                                 return true;
 }
 
+function delete_group_forums ($groupId)
+{
+    $forum_list = get_group_forum_list($groupId);
+
+    foreach ( $forum_list as $forum )
+    {
+        if ( ! delete_forum($forum['forum_id']) ) return false;
+    }
+
+    return true;
+}
+
+function get_group_forum_list ($groupId)
+{
+    $tbl_cdb_names  = claro_sql_get_course_tbl();
+    $tbl_forums     = $tbl_cdb_names['bb_forums'];
+
+    if ( $groupId == 'ALL' )
+    {
+        $sql = " SELECT forum_id 
+                FROM `" . $tbl_forums . "`
+                where group_id IS NOT NULL";
+    }
+    else
+    {
+        $sql = " SELECT forum_id 
+                FROM `" . $tbl_forums . "`
+                where group_id = " . (int) $groupId ;
+    }
+
+    return claro_sql_query_fetch_all_rows($sql);
+
+}
+
 ?>
