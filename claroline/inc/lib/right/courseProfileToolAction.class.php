@@ -142,6 +142,26 @@ class RightCourseProfileToolRight extends RightProfileToolRight
     {
         $this->courseId = $value;
     }
+    
+    /**
+     * Reset the values of the profile/course
+     */
+
+    function reset()
+    {
+        // Empty tool action list
+        $this->toolActionList = array();
+
+        // Set tool action list to default values
+        $this->toolActionList = $this->defaultToolActionList ;
+
+        // Delete all relations
+        $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
+                WHERE profile_id=" . $this->profile->id . "
+                AND courseId = '" . addslashes($this->courseId) . "'";
+
+        return claro_sql_query($sql);
+    }
 
 }
 
