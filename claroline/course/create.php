@@ -136,35 +136,34 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
 
                 // WARN PLATFORM ADMINISTRATOR OF THE COURSE CREATION
 
-		$mailSubject = get_lang('[%site_name] Course creation %course_name',array('%site_name'=> $siteName ,
+        		$mailSubject = get_lang('[%site_name] Course creation %course_name',array('%site_name'=> $siteName ,
                                                                                           '%course_name'=> $courseTitle) );
 
-		$mailBody = get_block('blockCourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
-                                                                            '%sitename' => $siteName,
-                                                                            '%user_firstname' => $_user['firstName'],
-                                                                            '%user_lastname' => $_user['lastName'],
-                                                                            '%user_email' => $_user['mail'],
-                                                                            '%course_code' => $courseOfficialCode,
-                                                                            '%course_title' => $courseTitle,
-                                                                            '%course_lecturers' => $courseHolder,
-                                                                            '%course_email' => $courseEmail,
-                                                                            '%course_category' => $courseCategory,
-                                                                            '%course_language' => $courseLanguage,
-                                                                            '%course_url' => $coursesRepositoryWeb . $courseDirectory
-                                                                          ) );
+		        $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_disp_localised_date($dateTimeFormatLong),
+                                                                                '%sitename' => $siteName,
+                                                                                '%user_firstname' => $_user['firstName'],
+                                                                                '%user_lastname' => $_user['lastName'],
+                                                                                '%user_email' => $_user['mail'],
+                                                                                '%course_code' => $courseOfficialCode,
+                                                                                '%course_title' => $courseTitle,
+                                                                                '%course_lecturers' => $courseHolder,
+                                                                                '%course_email' => $courseEmail,
+                                                                                '%course_category' => $courseCategory,
+                                                                                '%course_language' => $courseLanguage,
+                                                                                '%course_url' => $coursesRepositoryWeb . $courseDirectory
+                                                                              ) );
 
                 // GET THE CONCERNED SENDERS OF THE EMAIL
                 $platformAdminList = claro_get_uid_of_platform_admin();
 
                 claro_mail_user( $platformAdminList, $mailBody, $mailSubject);
 
+                $args['courseSysCode'  ] = $courseSysCode;
+                $args['courseDbName'   ] = $courseDbName;
+                $args['courseDirectory'] = $courseDirectory;
+                $args['courseCategory' ] = $courseCategory;
 
-            $args['courseSysCode'  ] = $courseSysCode;
-            $args['courseDbName'   ] = $courseDbName;
-            $args['courseDirectory'] = $courseDirectory;
-            $args['courseCategory' ] = $courseCategory;
-
-            $eventNotifier->notifyEvent("course_created",$args);
+                $eventNotifier->notifyEvent("course_created",$args);
             }
             else
             {
