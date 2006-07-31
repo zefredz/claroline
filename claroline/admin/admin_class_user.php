@@ -188,7 +188,7 @@ if ( !empty($class_id) )
     echo '<p>' . claro_html_menu_horizontal($cmdList) . '</p>' ;
 
     // Display pager
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'&amp;class_id='.$class_id)
+    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id)
 
     // Display list of users
 
