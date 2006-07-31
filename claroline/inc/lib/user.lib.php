@@ -723,6 +723,16 @@ function user_html_form_admin_user_profile($data)
 function user_html_form($data, $form_type='registration')
 {
     global $imgRepositoryWeb;
+    global $is_PlatformAdmin;
+
+    if ( $form_type == 'profile' )
+    {
+        $profile_editable = get_conf('profile_editable');
+    }
+    else
+    {
+        $profile_editable = array('name','official_code','login','password','email','phone','language');
+    }
 
     // display registration form
     $html = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
@@ -748,16 +758,38 @@ function user_html_form($data, $form_type='registration')
 
     }
 
-    $html .= form_input_text('lastname', $data['lastname'], get_lang('Last name'), true);
-    $html .= form_input_text('firstname', $data['firstname'], get_lang('First name'), true);
+    if ( in_array('name',$profile_editable) )
+    {
+        $html .= form_input_text('lastname', $data['lastname'], get_lang('Last name'), true);
+    }
+    else
+    {
+        $html .= form_readonly_text('lastname', $data['lastname'], get_lang('Last name'));
+    }
 
+    
+    if ( in_array('name',$profile_editable) )
+    {
+        $html .= form_input_text('firstname', $data['firstname'], get_lang('First name'), true);
+    }
+    else
+    {
+        $html .= form_readonly_text('firstname', $data['firstname'], get_lang('First name'));
+    }
 
     // OFFICIAL CODE
     if ( get_conf('ask_for_official_code') )
     {
-        $html .= form_input_text('officialCode', $data['officialCode'],
-        get_lang('Administrative code'),
-        get_conf('userOfficialCodeCanBeEmpty') ? false : true );
+        if ( in_array('official_code',$profile_editable) )
+        {
+            $html .= form_input_text('officialCode', $data['officialCode'],
+            get_lang('Administrative code'),
+            get_conf('userOfficialCodeCanBeEmpty') ? false : true );
+        }
+        else
+        {
+            $html .= form_readonly_text('officialCode', $data['officialCode'],get_lang('Administrative code'));
+        }
     }
 
     // USER PICTURE
@@ -794,13 +826,13 @@ function user_html_form($data, $form_type='registration')
     )
     {
         // DISABLE MODIFICATION OF USERNAME AND PASSWORD WITH EXTERNAL AUTENTICATION
-        $html .= form_row(get_lang('Username'),htmlspecialchars($data['username']) );
+        $html .= form_readonly_text('username',htmlspecialchars($data['username']),get_lang('Username'));
     }
     else
     {
         $html .= form_row('&nbsp;', '&nbsp;');
 
-        if ( strtolower($form_type) == 'profile' || strtolower($form_type) == 'admin_user_profile' )
+        if ( ( strtolower($form_type) == 'profile' || strtolower($form_type) == 'admin_user_profile' ) && in_array('password',$profile_editable))
         {
             $html .= form_row('&nbsp;',
             '<small>'
@@ -835,22 +867,49 @@ function user_html_form($data, $form_type='registration')
             $password_label = get_lang('Password');
         }
 
-        $html .= form_input_text( 'username', $data['username'], get_lang('Username'), true);
+        if ( in_array('login',$profile_editable) )
+        {
+            $html .= form_input_text( 'username', $data['username'], get_lang('Username'), true);
+        }
+        else
+        {
+            $html .= form_readonly_text( 'username', $data['username'], get_lang('Username'));
+        }
 
-        // password
-        $html .= form_row('<label for="password">' . $password_label . '&nbsp;:</label>',
-        '<input type="password" size="40" id="password" name="password" />');
+        if ( in_array('password',$profile_editable) )
+        {
+            // password
+            $html .= form_row('<label for="password">' . $password_label . '&nbsp;:</label>',
+            '<input type="password" size="40" id="password" name="password" />');
 
-        // password confirmation
-        $html .= form_row('<label for="password_conf">' . $password_label . '&nbsp;:<br/>'
-        . ' <small>(' . get_lang('Confirmation') . ')</small></label>',
-        '<input type="password" size="40" id="password_conf" name="password_conf" />');
+            // password confirmation
+            $html .= form_row('<label for="password_conf">' . $password_label . '&nbsp;:<br/>'
+            . ' <small>(' . get_lang('Confirmation') . ')</small></label>',
+            '<input type="password" size="40" id="password_conf" name="password_conf" />');
+        }
 
         $html .= form_row('&nbsp;', '&nbsp;');
     }
 
-    $html .= form_input_text('email', $data['email'], get_lang('Email'), get_conf('userMailCanBeEmpty') ? false : true)
-    .    form_input_text('phone', $data['phone'], get_lang('Phone') );
+    // Email
+    if ( in_array('email',$profile_editable) )
+    {
+        $html .= form_input_text('email', $data['email'], get_lang('Email'), get_conf('userMailCanBeEmpty') ? false : true);
+    }
+    else
+    {
+        $html .= form_readonly_text('email', $data['email'], get_lang('Email'));
+    }
+
+    // Phone
+    if ( in_array('phone',$profile_editable) )
+    {
+        $html .= form_input_text('phone', $data['phone'], get_lang('Phone') );
+    }
+    else
+    {
+        $html .= form_readonly_text('phone', $data['phone'], get_lang('Phone')); 
+    }
 
     // Group Tutor
     if ( 'add_new_user' == $form_type )
@@ -965,6 +1024,7 @@ function user_html_form($data, $form_type='registration')
     ;
     return $html;
 }
+
 /**
  * @param array $criterionList -
  *        Allowed keys are 'name', 'firstname', 'email', 'officialCode'

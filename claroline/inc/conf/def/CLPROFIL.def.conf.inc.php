@@ -95,6 +95,7 @@ array ( 'label'         => 'Profile form'
                                  ,'login' => 'Login'
                                  ,'password' => 'Password'
                                  ,'email' => 'Email'
+                                 ,'phone' => 'Phone'
                                  ,'language' => 'Language'
                                  )
       );

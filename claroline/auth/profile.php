@@ -63,6 +63,7 @@ $extraInfoDefList = get_userInfoExtraDefinitionList();
 
 
 $user_data = user_initialise();
+$user_data = user_get_properties($_uid);
 
 $acceptedCmdList = array( 'exCCstatus'
                         , 'exRevoquation'
@@ -83,18 +84,19 @@ else
 
 if ( isset($_REQUEST['applyChange']) )
 {
+    $profile_editable = get_conf('profile_editable');
 
     // get params form the form
-    if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = trim($_REQUEST['lastname']);
-    if ( isset($_REQUEST['firstname']) )     $user_data['firstname'] = trim($_REQUEST['firstname']);
-    if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode'] = trim($_REQUEST['officialCode']);
-    if ( isset($_REQUEST['username']) )      $user_data['username'] = trim($_REQUEST['username' ]);
-    if ( isset($_REQUEST['password']) )      $user_data['password'] = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) )         $user_data['email'] = trim($_REQUEST['email']);
-    if ( isset($_REQUEST['officialEmail']) ) $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
-    if ( isset($_REQUEST['phone']) )         $user_data['phone'] = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['language']) )      $user_data['language'] = trim($_REQUEST['language']);
+    if ( isset($_REQUEST['lastname']) && in_array('name',$profile_editable) )              $user_data['lastname'] = trim($_REQUEST['lastname']);
+    if ( isset($_REQUEST['firstname']) && in_array('name',$profile_editable) )             $user_data['firstname'] = trim($_REQUEST['firstname']);
+    if ( isset($_REQUEST['officialCode']) && in_array('official_code',$profile_editable) ) $user_data['officialCode'] = trim($_REQUEST['officialCode']);
+    if ( isset($_REQUEST['username']) && in_array('login',$profile_editable) )             $user_data['username'] = trim($_REQUEST['username' ]);
+    if ( isset($_REQUEST['password']) && in_array('password',$profile_editable) )          $user_data['password'] = trim($_REQUEST['password']);
+    if ( isset($_REQUEST['password_conf']) && in_array('password',$profile_editable) )     $user_data['password_conf'] = trim($_REQUEST['password_conf']);
+    if ( isset($_REQUEST['email']) && in_array('email',$profile_editable) )                $user_data['email'] = trim($_REQUEST['email']);
+    if ( isset($_REQUEST['officialEmail']) && in_array('email',$profile_editable) )        $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
+    if ( isset($_REQUEST['phone']) && in_array('phone',$profile_editable) )                $user_data['phone'] = trim($_REQUEST['phone']);
+    if ( isset($_REQUEST['language']) && in_array('language',$profile_editable) )          $user_data['language'] = trim($_REQUEST['language']);
 
     // manage password.
 
@@ -193,7 +195,6 @@ elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
 
 
 // Initialise
-$user_data = user_get_properties($_uid);
 $user_data['userExtraInfoList'] =  get_user_property_list($_uid);
 
 switch ( $display )

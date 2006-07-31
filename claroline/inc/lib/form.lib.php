@@ -250,6 +250,24 @@ function form_input_text($name, $value, $displayedName = '', $required = false)
  * @return string html content
  * @since 1.8
  */
+function form_readonly_text($name, $value, $displayedName = '')
+{
+    if ( empty($displayedName) ) $displayedName = $name;
+
+    return form_row( $displayedName . '&nbsp;: '
+    ,                htmlspecialchars($value) ) ;
+}
+
+/**
+ * Prepare an html output of an input wich  would be include in a <form>
+ *
+ * @param string  $name
+ * @param string  $value
+ * @param string  $displayedName (default '')
+ * @param boolean $required      (default false)
+ * @return string html content
+ * @since 1.8
+ */
 function form_input_password($name, $value, $displayedName = '', $required = false)
 {
     if ( empty($displayedName) ) $displayedName = $name;

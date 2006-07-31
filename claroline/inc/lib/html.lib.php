@@ -396,11 +396,12 @@ function claro_html_progress_bar ($progress, $factor)
 function claro_html_msg_list($msgArrBody, $return=true)
 {
     $msgBox = '';
+
     if (is_array($msgArrBody) && count($msgArrBody) > 0)
-{
+    {
         foreach ($msgArrBody as $classMsg => $thisMsgArr)
         {
-            if( is_array($thisMsgArr) && count($thisMsgArr) > 0 )
+            if( is_array($thisMsgArr) )
             {
                 $msgBox .= '<div class="' . $classMsg . '">';
                 foreach ($thisMsgArr as $anotherThis) $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
@@ -409,14 +410,14 @@ function claro_html_msg_list($msgArrBody, $return=true)
             else
             {
                 $msgBox .= '<div class="' . $classMsg . '">';
-                $msgBox .= '<div class="msgLine" >' . $anotherThis . '</div>';
+                $msgBox .= '<div class="msgLine" >' . $thisMsgArr . '</div>';
                 $msgBox .= '</div>';
             }
         }
     }
 
-    if($return) return claro_html_message_box($msgBox);
-    else        echo   claro_html_message_box($msgBox);
+    if ($return) return claro_html_message_box($msgBox);
+    else         echo   claro_html_message_box($msgBox);
     return true;
 }
 
