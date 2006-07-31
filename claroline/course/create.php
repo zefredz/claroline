@@ -331,8 +331,10 @@ if( $display == DISP_COURSE_CREATION_FORM )
 <tr valign="top" >
 <td align="right" nowrap><?php echo get_lang('Course access'); ?> : </td>
 <td>
+<img src="<?php echo $imgRepositoryWeb ?>access_open.gif" />
 <input type="radio" id="courseVisibility_true" name="courseVisibility" value="true" <?php echo $courseVisibility ? 'checked':'' ?> />
 <label for="courseVisibility_true"><?php echo get_lang('Public access from campus home page even without login'); ?></label><br />
+<img src="<?php echo $imgRepositoryWeb ?>access_locked.gif" />
 <input type="radio" id="courseVisibility_false" name="courseVisibility" value="false" <?php echo ! $courseVisibility  ?'checked':''; ?> />
 <label for="courseVisibility_false"><?php echo get_lang('Private access (site accessible only to people on the <a href="%url">User list</a>)',array('%url'=> '../user/user.php')); ?></label>
 </td>
@@ -340,6 +342,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 <tr valign="top">
 <td align="right"><?php echo get_lang('Enrolment'); ?> : </td>
 <td>
+<img src="<?php echo $imgRepositoryWeb ?>enroll_open.gif" />
 <input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?> />
 <label for="allowedToSubscribe_true"><?php echo get_lang('Allowed'); ?></label>
 <label for="courseEnrollmentKey">
@@ -348,6 +351,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($courseEnrollmentKey); ?>" />
 <br />
+<img src="<?php echo $imgRepositoryWeb ?>enroll_locked.gif" />
 <input type="radio" id="courseEnrollAllowed_false"  name="courseEnrollAllowed" value="false" <?php echo ! $courseEnrollAllowed ?'checked':''; ?> /> <label for="courseEnrollAllowed_false"><?php echo get_lang('Denied'); ?></label>
 <tr valign="top">
 <td align="right">
