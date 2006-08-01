@@ -19,7 +19,6 @@ $iso639_2_code = "eng";
 unset($langNameOfLang);
 unset($langDay_of_weekNames);
 unset($langMonthNames);
-unset($byteUnits);
 
 $langNameOfLang['arabic']        = "arabian";
 $langNameOfLang['brazilian']     = "brazilian";
