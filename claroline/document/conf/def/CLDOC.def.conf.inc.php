@@ -32,7 +32,7 @@ $conf_def['config_class']= 'tool';
 $conf_def['section']['main']['label']='Main';
 $conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] =
-array ( 'openNewWindowForDoc', 'secureDocumentDownload' );
+array ( 'openNewWindowForDoc');
 
 
 // CONFIG SECTIONS
