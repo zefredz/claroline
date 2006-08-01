@@ -324,8 +324,6 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
         $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
         $tbl_course_tool_list = $tbl_cdb_names['tool'];
 
-        $deactivatedSQL = ( $active ) ? " AND m.activation = 'activated' " :"";
-
         /*
          * Search all the tool corresponding to this access levels
          */
@@ -339,6 +337,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
                       ctl.visibility              AS visibility,
                       IFNULL(pct.icon,'tool.gif') AS icon,
                       ISNULL(ctl.tool_id)         AS external,
+                      m.activation ,
                       m.name                      AS name,
                       IFNULL( ctl.script_url ,
                               pct.script_url )    AS url
@@ -348,8 +347,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
 
                WHERE pct.id = ctl.tool_id
                  AND pct.claro_label = m.label
-                 ".$deactivatedSQL."
-
+                 ". ($active ? " AND m.activation = 'activated' " :"") . "
                ORDER BY external, pct.def_rank, ctl.rank";
 
         $courseToolList = claro_sql_query_fetch_all($sql);
