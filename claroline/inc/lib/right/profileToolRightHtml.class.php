@@ -71,7 +71,7 @@ class RightProfileToolRightHtml
     }
 
     /**
-     * Set course tool info ('icon','tid','visibility')
+     * Set course tool info ('icon','tid','visibility','activation')
      */
 
     function setCourseToolInfo ($courseToolInfo)
@@ -159,7 +159,7 @@ class RightProfileToolRightHtml
                 if ( $action_right == 'none' )
                 {
                     $action_param_value = 'user';
-                    $html_right = '-' . "\n" ;
+                    $html_right = '<img src="' . $imgRepositoryWeb . 'block.gif" alt="' . get_lang('None') . '" />' . "\n" ;
                 }
                 elseif ( $action_right == 'user' )
                 {
