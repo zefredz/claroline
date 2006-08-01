@@ -40,8 +40,13 @@ class RightCourseProfileToolRight extends RightProfileToolRight
 
     function RightCourseProfileToolRight()
     {
-        $this->RightProfileToolAction();
-        $this->RightProfileToolRight();
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+
+        $this->tbl['profile'] = $tbl_mdb_names['right_profile'];
+        $this->tbl['rel_profile_action'] = $tbl_mdb_names['right_rel_profile_action'];
+        $this->tbl['action'] = $tbl_mdb_names['right_action'];
+        $this->tbl['course_tool'] = $tbl_mdb_names['tool'];
+        $this->tbl['module'] = $tbl_mdb_names['module'];
     }
 
     /**
@@ -76,6 +81,21 @@ class RightCourseProfileToolRight extends RightProfileToolRight
             {
                 $this->toolActionList[$toolId][$actionName] = $actionValue;
             }
+        }
+
+        // Remove deactivated tool
+        $sql = "SELECT t.id
+                FROM `" . $this->tbl['module'] . "`  AS m,
+                    `" . $this->tbl['course_tool'] . "` AS t
+                WHERE t.claro_label = m.label
+                  AND m.activation <> 'activated'" ;
+
+        $deactivatedToolList = claro_sql_query_fetch_all($sql);
+
+        foreach ( $deactivatedToolList as $deactivatedTool )
+        {
+            if ( isset($this->toolActionList[$deactivatedTool['id']]) ) unset($this->toolActionList[$deactivatedTool['id']]);
+            if ( isset($this->defaultToolActionList[$deactivatedTool['id']]) ) unset($this->defaultToolActionList[$deactivatedTool['id']]);
         }
     }
 
