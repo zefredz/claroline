@@ -227,20 +227,17 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
 	$totalResult = 0;
     $totalGrade = 0;
     
-    $i = 0;
-    foreach( $questionList as $question )
+    for( $i = 0 ; $i < count($questionList); $i++)
 	{
 		// required by getGrade and getQuestionFeedbackHtml
-		$question->answer->extractResponseFromRequest();
+		$questionList[$i]->answer->extractResponseFromRequest();
 		
-		$questionResult[$i] = $question->answer->gradeResponse();
-		$questionGrade[$i] = $question->getGrade();			
+		$questionResult[$i] = $questionList[$i]->answer->gradeResponse();
+		$questionGrade[$i] = $questionList[$i]->getGrade();			
 		
 		// sum of score
 		$totalResult += $questionResult[$i];
 		$totalGrade += $questionGrade[$i];
-		
-		$i++;
 	}
 	
 	// if tracking is enabled
@@ -303,7 +300,6 @@ else
 }
 
 
-
 //-- display properties
 if( trim($exercise->getDescription()) != '' )
 {
@@ -346,8 +342,6 @@ echo '</ul>' .  "\n\n";
 	
 if( $showResult )
 {
-
-    
 	if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] ) 
     {
     	// Exercise mode
