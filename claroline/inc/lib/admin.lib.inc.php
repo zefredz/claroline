@@ -16,7 +16,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *     ...see details of pre/post for each function's proper use.
  *
  * @version 1.8 $Revision$
- * 
+ *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -66,10 +66,10 @@ function delete_course($code)
     claro_sql_query($sql);
 
     // Remove any recording in rel_cours_class
-  	 
+
   	$sql = "DELETE FROM `" . $tbl_course_class . "`
   	        WHERE courseId ='" . addslashes($currentCourseId) . "'";
-  	 
+
   	claro_sql_query($sql);
 
     // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
@@ -137,11 +137,15 @@ function delete_course($code)
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
 
-        claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
+        if(file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/'))
+        {
+            claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
 
-        rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
-        get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
-        );
+            rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
+            get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
+            );
+        }
+        // else pushClaroMessage('dir was already deleted');
 
         return true ;
     }
