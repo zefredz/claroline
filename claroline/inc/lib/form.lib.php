@@ -202,6 +202,14 @@ function form_required_field($field)
     return '<span class="required">*</span>&nbsp;' . $field;
 }
 
+/**
+ * Return html for a table row for claro_form_table.
+ *
+ * @param string $field field label
+ * @return string html for a field label wich is required.
+ * @since 1.8
+ */
+
 function form_row($legend, $element)
 {
     return '<tr valign="top">' . "\n"
@@ -278,9 +286,9 @@ function form_input_password($name, $value, $displayedName = '', $required = fal
 }
 
 /**
- * Enter description here...
+ * Prepare an html output of an input hidden wich  would be include in a <form>
  *
- * @param string $name
+ * @param string $name use for name and  by default, id
  * @param string $value
  * @return string : html stream
  */
@@ -290,7 +298,7 @@ function form_input_hidden($name, $value)
 }
 
 /**
- * Prepare an html output of an input wich  would be include in a <form>
+ * Prepare an html output of an textarea wich  would be include in a <form>
  *
  * @param string  $name
  * @param string  $value
