@@ -970,8 +970,7 @@ function claro_unquote_gpc()
           *    file_get_contents("http://sitre.com.scriptphp?foo={$str}");
           */
 
-            $inputList = array(&$_REQUEST, &$_GET, &$_POST,
-                               &$_COOKIE , &$_ENV, &$_SERVER);
+            $inputList = array(&$_REQUEST, &$_GET, &$_POST, &$_COOKIE);
 
             while ( list($topKey, $array) = each($inputList) )
             {
