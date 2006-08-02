@@ -173,9 +173,6 @@ function claro_html_option_list($list_option, $preselect)
     {
         foreach($list_option as $option_label => $option_value)
         {
-            if(empty($option_value)) $option_value = $option_label;
-            //if(empty($option_label)) $option_label = '-';
-            // stupid empty consider empty(0) as true
             $html_option_list .= '<option value="' . $option_value . '"'
             .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
             .                    htmlspecialchars($option_label)
