@@ -525,8 +525,7 @@ class ImsAnswerMatching extends answerMatching
 
                 if (in_array($matched_pattern, $questionArray['correct_answers']) || in_array($matched_pattern_inverted, $questionArray['correct_answers']))
                 {
-					echo "on a trouvé le pattern :".$matched_pattern;
-                    if (isset($questionArray['weighting'][$matched_pattern]))
+					if (isset($questionArray['weighting'][$matched_pattern]))
                     {
                         $grade = $questionArray['weighting'][$matched_pattern];
                     }
