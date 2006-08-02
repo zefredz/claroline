@@ -17,6 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * function to create a temporary directory (SAME AS IN MODULE ADMIN)
+ * concat a "unique" directory name to $dir
  */
 
 function tempdir($dir, $prefix='tmp', $mode=0777)
@@ -53,14 +54,14 @@ function get_and_unzip_uploaded_exercise()
 
     //unzip files
 
-    $cacheDirectory = get_conf('rootSys') . 'cache/';
+    $tmpUploadDir = get_conf('rootSys') . get_conf('tmpPathSys') . 'upload/';
     //create temp dir for upload
-    claro_mkdir($cacheDirectory);
+    claro_mkdir($tmpUploadDir);
     
-    $tmpExerciseDir = tempdir($cacheDirectory); // this function should return the dir name and not the full path ...
-    $uploadDir = str_replace($cacheDirectory,'',$tmpExerciseDir); // ... because we need to remove it
+    $tmpExerciseDir = tempdir($tmpUploadDir); // this function should return the dir name and not the full path ...
+    $uploadDir = str_replace($tmpUploadDir,'',$tmpExerciseDir); // ... because we need to remove it
 
-    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) && treat_uploaded_file($_FILES['uploadedExercise'],$cacheDirectory, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
+    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) && treat_uploaded_file($_FILES['uploadedExercise'],$tmpUploadDir, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
     {
         
         if (!function_exists('gzopen'))
@@ -226,6 +227,7 @@ function import_exercise($file)
                 $question->import($exercise_info['question'][$key], $exercise_info['question'][$key]['tempdir']);
                 $exercise->addQuestion($question_id);
                 $question->answer->save();
+                $question->setGrade($question->answer->getGrade());
                 $question->save();
             }
             else
