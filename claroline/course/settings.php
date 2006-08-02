@@ -20,6 +20,7 @@ $gidReset = true;
 require '../inc/claro_init_global.inc.php';
 
 $nameTools = get_lang('Course settings');
+$noPHP_SELF = true;
 
 $dialogBox = '';
 

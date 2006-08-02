@@ -20,6 +20,9 @@ $gidReset = true; // If user is here. It means he isn't in any group space now.
 
 require '../inc/claro_init_global.inc.php';
 
+$nameTools  = get_lang('Edit Tool list');
+$noPHP_SELF = TRUE;
+
 if ( !$_cid || !$_uid ) claro_disp_auth_form(true);
 
 if ( $is_courseAdmin ) $is_allowedToEdit = TRUE;
