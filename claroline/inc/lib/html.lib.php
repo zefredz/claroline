@@ -1236,7 +1236,7 @@ function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttr
 
 function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html_tool_title', E_USER_WARNING);
+    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html_textarea_editor', E_USER_WARNING);
 
     return claro_html_textarea_editor($name, $content, $rows, $cols, $optAttrib);
 }
