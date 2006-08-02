@@ -275,16 +275,25 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return object duplicated question 
      */
-     function duplicate()
-     {
-     	/*
-     	//-- duplicate question
-     	$duplicated = $this;
-     	$duplicated-;
-     	//-- duplicate answer with new question id	
-     	$duplicated->answer = '';
-     	*/
-     }
+    function duplicate()
+    {
+        // question
+        $duplicated = new Question();
+        $duplicated->setTitle($this->title);
+        $duplicated->setDescription($this->description);
+        $duplicated->setType($this->type);
+        $duplicated->setGrade($this->grade);
+
+        $duplicatedId = $duplicated->save();
+
+        // attachment need to be copied in the correct repository but for that we need the id
+        $duplicated->copyAttachment($this->questionDirSys.$this->attachment);
+
+        // and its answers
+        $duplicated->answer = $this->answer->duplicate($duplicatedId);
+
+        return $duplicated;
+    }
     
      	
 	/**
@@ -390,7 +399,31 @@ class Question
 		}
 		return true;		  			
 	}	
-		
+	
+    /*
+    * copy a file as the attachment of the question
+    *
+    * @author Sebastien Piraux <pir@cerdecam.be>
+    */
+    function copyAttachment($sourceFile)
+    {
+        if( empty( $this->questionDirSys ) ) return false;
+        
+        // delete current attachment
+        $this->deleteAttachment();
+        
+        $this->attachment = basename($sourceFile);
+        
+        if( claro_copy_file($sourceFile, $this->questionDirSys) )
+        {
+            return true;
+        }
+        else
+        {
+            $this->attachment = '';
+            return false;
+        }
+    }
 	/**
      * get html required to display the question
      *
