@@ -364,7 +364,7 @@ class answerMatching
 			$arrayLength = max( count($this->leftList), count($this->rightList) );
 	
 			$html = '<table width="100%">' . "\n\n";
-			
+            
 			$leftCpt = 1;
 			$rightCpt = 'A';
 			for( $i = 0; $i < $arrayLength; $i++ ) 
@@ -374,8 +374,8 @@ class answerMatching
 					// build html option list - we have to do this here for "selected" attribute
 					$optionList = array();
 					$optionCpt = 'A';
-					$selected = '--';
-					$optionList['--'] = 0;
+					$selected = '';
+					$optionList['--'] = '';
 					
 					foreach( $this->rightList as $rightElt )
 					{
@@ -385,7 +385,7 @@ class answerMatching
 						
 						$optionCpt++;		
 					}
-
+                    
 					$leftHtml = $leftCpt . '. ' . $this->leftList[$i]['answer'];
 					$centerHtml = claro_html_form_select('a_'.$this->questionId.'_'.$this->leftList[$i]['code'], $optionList, $selected);	
 				}
