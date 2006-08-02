@@ -68,6 +68,7 @@ if( !is_null($exId) )
 	if( !$exercise->load($exId) ) $exId = null;	
 }
 
+$askDuplicate = false;
 // quId and exId have been specified and load operations worked 
 if( !is_null($quId) && !is_null($exId) )
 {
@@ -77,14 +78,28 @@ if( !is_null($quId) && !is_null($exId) )
 	// do not duplicate when there is no $quId,
 	// it means that question is a new one
 	
-	
 	// check that question is used in several exercises
-	
-	// duplicate object if used in several exercises
-	
-	// if duplicate worked we have to create a new question
-	
-	//$quId = null;
+	if( count_exercise_using_question($quId) > 1 )
+    {
+        if( isset($_REQUEST['duplicate']) && $_REQUEST['duplicate'] == 'true' )
+        {
+            // duplicate object if used in several exercises
+            $duplicated = $question->duplicate();
+
+        	// make exercise use the new created question object instead of the new one
+        	$exercise->removeQuestion($quId);
+            
+            $quId = $duplicated->getId(); // and reset $quId
+            
+            $exercise->addQuestion($quId);
+            
+            $question = $duplicated;
+        }
+        else
+        {
+            $askDuplicate = true;
+        }
+    }    
 }
 
 $displayForm = false; 
@@ -193,8 +208,21 @@ if( $displayForm )
 	.	 '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
 	.	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n";
 	
-	echo '<table border="0" cellpadding="5">' . "\n";
+    echo '<table border="0" cellpadding="5">' . "\n";
 	
+    if( $askDuplicate )
+    {
+        echo '<tr>' . "\n"
+        .	 '<td>&nbsp;</td>' . "\n"
+        .    '<td valign="top">'
+        .    '<strong>' . get_lang('This question is used in several exercises.') . '</strong><br />' . "\n"
+        .    '<input type="radio" name="duplicate" id="doNotDuplicate" value="false" checked="checked" />'
+        .    '<label for="doNotDuplicate">' . get_lang('Modify it in all exercises') . '</label><br />' . "\n"
+        .    '<input type="radio" name="duplicate" id="duplicate" value="true" />'
+        .    '<label for="duplicate">' . get_lang('Modify it only in this exercise') . '</label>' . "\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n\n";
+    }
 	//-- 
 	// title
 	echo '<tr>' . "\n"
