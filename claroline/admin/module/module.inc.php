@@ -969,7 +969,7 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 function generate_module_cache()
 {
 
-    $module_cache_filename = get_conf('module_cache_filename','module_cache.inc.php');
+    $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
     $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
     claro_mkdir($cacheRepositorySys, CLARO_FILE_PERMISSIONS, true);
     $tbl = claro_sql_get_main_tbl();

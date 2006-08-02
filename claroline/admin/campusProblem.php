@@ -45,7 +45,7 @@ $is_allowedToCheckProblems = $is_platformAdmin;
 
 // Cache_lite setting & init
 $cache_options = array(
-'cacheDir' => get_conf('rootSys') . 'cache/campusProblem/',
+'cacheDir' => get_conf('rootSys') . 'tmp/cache/campusProblem/',
 'lifeTime' => get_conf('cache_lifeTime', 160000),
 'automaticCleaningFactor' => 50,
 );

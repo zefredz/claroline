@@ -289,7 +289,7 @@ $conf_def_property_list['cacheRepository'] =
 array ('label'         => 'Repository for cache files and dirs'
       , 'description'  => 'Note : this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'
-      ,'default'       => 'tmp/cch/'
+      ,'default'       => 'tmp/cache/'
       ,'display'       => true
       ,'type'          => 'relpath'
       );

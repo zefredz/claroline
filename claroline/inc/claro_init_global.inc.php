@@ -240,7 +240,7 @@ if ( isset($_POST['claroFormId']) )
 // TODO : move module_cache to cache directory
 // TODO : includePath is probably not needed
 
-$module_cache_filename = get_conf('module_cache_filename','module_cache.inc.php');
+$module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
 $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
 if (!file_exists($cacheRepositorySys . $module_cache_filename))
 {
