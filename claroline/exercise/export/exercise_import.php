@@ -25,6 +25,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/fileUpload.lib.php';
+include_once $includePath . '/lib/fileDisplay.lib.php';
 
 require_once 'exercise_import.inc.php';
 include_once '../lib/exercise.class.php';
@@ -38,6 +39,11 @@ $tbl_name        = claro_sql_get_course_tbl();
 $tbl_exercise              = $tbl_name['qwz_exercise'];
 $tbl_question              = $tbl_name['qwz_question'];
 $tbl_rel_exercise_question = $tbl_name['qwz_rel_exercise_question'];
+
+// directories
+$maxFilledSpace = 100000000;
+
+$courseDir = $coursesRepositorySys . $_course['path'];
 
 // tool libraries
 
@@ -61,17 +67,17 @@ switch ( $cmd )
 {
     case 'show_import' :
     {
-        $display = '<p>'
-        .            get_lang('Imported exercises must consist of a zip or an XML file (IMS-QTI) and be compatible with your Claroline version.') . '<br>'
-        .            '</p>'
-        .            '<form enctype="multipart/form-data" action="" method="post">'
-        .            '<input name="cmd" type="hidden" value="import" />'
-        .            '<input name="uploadedExercise" type="file" /><br><br>'
-        .            get_lang('Import exercise') . ' : '
-        .            '<input value="' . get_lang('Ok') . '" type="submit" /> '
+        $display = '<p>' . "\n"
+        .            get_lang('Imported exercises must consist of a zip or an XML file (IMS-QTI) and be compatible with your Claroline version.') . '<br />' . "\n"
+        .            '</p>' . "\n"
+        .            '<form enctype="multipart/form-data" action="" method="post">' . "\n"
+        .            '<input name="cmd" type="hidden" value="import" />' . "\n"
+        .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
+        .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
+        .            '<p>' . "\n"
+        .            '<input value="' . get_lang('Import exercise') . '" type="submit" /> ' . "\n"
         .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
-        .            '<br><br>'
-        .            '<small>' . get_lang('Max file size') . ' :  2&nbsp;MB</small>'
+        .            '</p>' . "\n"
         .            '</form>';
     }
     break;
@@ -93,12 +99,6 @@ switch ( $cmd )
     }
     break;
 }
-
-//----------------------------------
-// FIND INFORMATION
-//----------------------------------
-
-//empty!
 
 //----------------------------------
 // DISPLAY
