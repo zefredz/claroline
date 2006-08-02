@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 // TOOL
 $conf_def['config_code']  = 'CLICAL';
-$conf_def['config_file']  = 'iCal.conf.php';
+$conf_def['config_file']  = 'ical.conf.php';
 $conf_def['config_name']  = 'iCal generator';
 $conf_def['config_class'] = 'kernel';
 
