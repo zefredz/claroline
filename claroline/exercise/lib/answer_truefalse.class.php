@@ -217,11 +217,22 @@ class answerTrueFalse
      * clone the object
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return boolean result of operation   
+     * @return object duplicated object
      */	    
-    function duplicate()
+    function duplicate($duplicatedQuestionId)
     {
-    	// TODO duplicate	
+    	// TODO duplicate
+        $duplicated = new answerTrueFalse($duplicatedQuestionId);
+        
+        $duplicated->trueFeedback = $this->trueFeedback; 
+        $duplicated->trueGrade = $this->trueGrade; 
+        $duplicated->falseFeedback = $this->falseFeedback; 
+        $duplicated->falseGrade = $this->falseGrade;
+        $duplicated->correctAnswer = $this->correctAnswer;
+
+        $duplicated->save();
+        
+        return $duplicated;
     }
 
     /**
