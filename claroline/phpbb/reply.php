@@ -173,8 +173,9 @@ else
             echo claro_html_message_box($error_message);
         }
 
-        disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id);
-        disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_title);
+        echo disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id);
+
+        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $topic_title);
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
             . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"

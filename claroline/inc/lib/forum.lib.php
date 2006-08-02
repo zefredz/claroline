@@ -845,20 +845,18 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
     $toolBar = array();
 
+    $html = '';
+
     switch ( $pagetype )
     {
         // 'index' is covered by default
 
         case 'newtopic':
 
-            $toolBar[] = '<a class="claroCmd" href="viewforum.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                        . '&lt;&lt; ' . get_lang('Back to %name' , array('%name'=> $forum_name)) . '</a>' . "\n";
             break;
 
         case 'reply':
 
-            $toolBar[] = '<a class="claroCmd" href="viewtopic.php?topic=' . $topic_id . '&amp;gidReq=' . $_gid . '">'
-                        . '&lt;&lt; ' . get_lang('Back to %name' , array('%name'=> $topic_title)) . '</a>' . "\n";
             break;
 
 
@@ -898,7 +896,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             break;
     }
 
-    if ( ! in_array($pagetype, array('newtopic', 'reply') ) )
+    if ( ! in_array($pagetype, array('newtopic', 'reply','editpost') ) )
         $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">'
         .            '<img src="' . $imgRepositoryWeb . 'search.gif" /> '
         .            get_lang('Search')
@@ -907,9 +905,10 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
     if ( count($toolBar) )
     {
-        echo '<p>' . claro_html_menu_horizontal($toolBar) . '</p>';
+        $html = '<p>' . claro_html_menu_horizontal($toolBar) . '</p>';
     }
-    return TRUE;
+
+    return $html;
 }
 
 function disp_search_box()
@@ -931,7 +930,7 @@ function disp_search_box()
     }
 }
 
-function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name='')
+function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $topic_name='')
 {
     global $_gid;
 
@@ -943,10 +942,34 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
         $breadCrumbNameList[] = $forum_name;
         $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
 
-        if ( ! in_array($pagetype, array('viewforum', 'newtopic') ) )
+        switch ( $pagetype )
         {
-            $breadCrumbNameList[] = $topic_name;
-            $breadCrumbUrlList[]  = null;
+            case 'viewforum' :
+                break;
+
+            case 'viewtopic' :
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbNameUrl[] = '';
+                break;
+
+            case 'newtopic' : 
+                $breadCrumbNameList[] = get_lang('New topic');
+                $breadCrumbUrlList[]  = null;
+                break ;
+
+            case 'editpost' :
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
+                $breadCrumbNameList[] = get_lang('Edit post');
+                $breadCrumbUrlList[]  = null;
+                break ;
+
+            case 'reply' :
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
+                $breadCrumbNameList[] = get_lang('Reply');
+                $breadCrumbUrlList[]  = null;
+                break ;
         }
     }
     elseif ($pagetype == 'viewsearch')
@@ -955,7 +978,7 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_name=''
             $breadCrumbUrlList[]  = null;
     }
 
-    echo claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ');
+    return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
 }
 
 /**

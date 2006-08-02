@@ -212,15 +212,13 @@ else
             echo claro_html_message_box($error_message);
         }
 
-        disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0);
-        disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $subject);
+        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject);
+        
+        echo disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0);
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
             . '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
-            . '<table border="0">' . "\n"
-            . '<tr valign="top">' . "\n"
-            . '<td colspan="2"><b>' . get_lang('Edit post') . '</b></td>' . "\n"
-            . '</tr>' . "\n";
+            . '<table border="0">' . "\n";
 
         $first_post = is_first_post($topic_id, $post_id);
 

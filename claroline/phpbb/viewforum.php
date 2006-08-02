@@ -143,14 +143,14 @@ else
 
     echo claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
+    
+    echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
     if ( isset($groupToolList) )
     {
         echo claro_html_menu_horizontal($groupToolList);
     }
-    if ($forum_post_allowed) disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
-
-    disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
+    if ($forum_post_allowed) echo disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
 
     $topicLister->disp_pager_tool_bar($pagerUrl);
 

@@ -193,13 +193,13 @@ else
 
     echo claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
+    
+    echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
 
     if ($forum_post_allowed)
     {
-        disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
+        echo disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
     }
-
-    disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_subject);
 
     $postLister->disp_pager_tool_bar($pagerUrl);
 

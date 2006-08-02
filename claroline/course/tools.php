@@ -287,6 +287,7 @@ foreach ( $toolList as $thisTool )
         $displayToolList[$main_tid]['tid'] = $tid;
         $displayToolList[$main_tid]['icon'] = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
         $displayToolList[$main_tid]['visibility'] = (bool) $thisTool['visibility'] ;
+        $displayToolList[$main_tid]['activation'] = (bool) $thisTool['activation'] ;
     }
     else
     {

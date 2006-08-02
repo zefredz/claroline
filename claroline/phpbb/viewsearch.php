@@ -88,9 +88,9 @@ include $includePath . '/claro_init_header.inc.php';
 echo claro_html_tool_title(get_lang('Forums'), 
                            $is_allowedToEdit ? 'help_forum.php' : false);
 
-disp_forum_toolbar($pagetype, null);
+echo disp_forum_toolbar($pagetype, null);
 
-disp_forum_breadcrumb($pagetype, null, null, null);
+echo disp_forum_breadcrumb($pagetype, null, null, null);
 
 
 echo '<table class="claroTable" width="100%">'                          . "\n"

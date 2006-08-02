@@ -116,7 +116,7 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 // Forum toolbar
 
-disp_forum_toolbar($pagetype, 0, 0, 0);
+echo disp_forum_toolbar($pagetype, 0, 0, 0);
 
 /*-----------------------------------------------------------------
   Display Forum Index Page
