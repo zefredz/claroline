@@ -52,4 +52,19 @@ function get_localized_question_type()
     return $questionType;
 }
 
+function count_exercise_using_question($quId)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_quiz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question']; 
+    
+    $sql = "SELECT COUNT(`exerciseId`)
+            FROM `".$tbl_quiz_rel_exercise_question."`
+            WHERE `questionId` = '".(int) $quId."'";
+    
+    $exerciseCount = claro_sql_query_get_single_value($sql);
+    
+    if( ! $exerciseCount )  return 0;
+    else                    return $exerciseCount;    
+}
+
 ?>
