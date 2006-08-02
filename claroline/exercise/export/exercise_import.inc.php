@@ -38,18 +38,13 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 
 function get_and_unzip_uploaded_exercise()
 {
-    $backlog_message = array();
-
     //Check if the file is valid (not to big and exists)
 
     if( !isset($_FILES['uploadedExercise'])
     || !is_uploaded_file($_FILES['uploadedExercise']['tmp_name']))
     {
-        $backlog_message[] = get_lang('Problem with file upload');
-    }
-    else
-    {
-        $backlog_message[] = get_lang('Temporary file is : ') . $_FILES['uploadedExercise']['tmp_name'];
+        // upload failed
+        return false;
     }
 
     //1- Unzip folder in a new repository in claroline/module
@@ -58,32 +53,30 @@ function get_and_unzip_uploaded_exercise()
 
     //unzip files
 
-    $exerciseRepositorySys = get_conf('rootSys') . get_conf('exerciseRepository','cache/');
+    $cacheDirectory = get_conf('rootSys') . 'cache/';
     //create temp dir for upload
-    claro_mkdir($exerciseRepositorySys);
-    $uploadDirFullPath = tempdir($exerciseRepositorySys);
-    $uploadDir         = str_replace($exerciseRepositorySys,'',$uploadDirFullPath);
-    $exercisePath        = $exerciseRepositorySys.$uploadDir.'/';
+    claro_mkdir($cacheDirectory);
+    
+    $tmpExerciseDir = tempdir($cacheDirectory); // this function should return the dir name and not the full path ...
+    $uploadDir = str_replace($cacheDirectory,'',$tmpExerciseDir); // ... because we need to remove it
 
-    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) && treat_uploaded_file($_FILES['uploadedExercise'],$exerciseRepositorySys, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
+    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) && treat_uploaded_file($_FILES['uploadedExercise'],$cacheDirectory, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
     {
-        $backlog_message[] = get_lang('Files dezipped sucessfully in ' ) . $exercisePath;
-
+        
         if (!function_exists('gzopen'))
         {
-            $backlog_message[] = get_lang('Error : no zlib extension found');
-            claro_delete_file($exercisePath);
-            return claro_failure::set_failure($backlog_message);
+            claro_delete_file($tmpExerciseDir);
+            return false;
         }
+        // upload successfull
+        return $tmpExerciseDir;
     }
     else
     {
-        $backlog_message[] = get_lang('Impossible to unzip file');
-        claro_delete_file($exercisePath);
-        return claro_failure::set_failure($backlog_message);
+        claro_delete_file($tmpExerciseDir);
+        return false;
     }
 
-    return $exercisePath;
 }
 /**
  * main function to import an exercise,
@@ -98,8 +91,9 @@ function import_exercise($file)
     global $element_pile;
     global $non_HTML_tag_to_avoid;
     global $record_item_body;
-    global $backlog_message;
-	
+    //used to specify the question directory where files could be found in relation in any question
+    global $questionTempDir;
+    
     //get required table names
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -110,7 +104,7 @@ function import_exercise($file)
 
     $exercise_info   = array();
     $exercise_info['name'] = preg_replace('/.zip$/i','' ,$file);
-    $exercise_info['description'] = get_lang('undefined description');
+    $exercise_info['description'] = '';
     $exercise_info['question'] = array();
     $element_pile    = array();
     $backlog_message = array();
@@ -130,36 +124,33 @@ function import_exercise($file)
 	
     //unzip the uploaded file in a tmp directory
 
-    $exercisePath = get_and_unzip_uploaded_exercise();
-
+    $tmpExerciseDir = get_and_unzip_uploaded_exercise();
+    if( !$tmpExerciseDir )
+    {
+        $backlog_message[] = get_lang('Upload failed');
+        return $backlog_message;
+    }
+    
     //find the different manifests for each question and parse them.
 
-    $exerciseHandle = opendir($exercisePath);
+    $exerciseHandle = opendir($tmpExerciseDir);
 
     //find each question repository in the uploaded exercise folder
 
-    array_push ($backlog_message, get_lang('XML question files found : '));
-
     $question_number = 0;
 
-    //used to specify the question directory where files could be found in relation in any question
-
-    global $questionTempDir;
-	
-	
 
     //1- parse the parent directory
 
 	$file_found = false;
 	
-    $questionHandle = opendir($exercisePath);
+    $questionHandle = opendir($tmpExerciseDir);
 
     while (false !== ($questionFile = readdir($questionHandle)))
     {
         if (preg_match('/.xml$/i' ,$questionFile))
         {
-            array_push ($backlog_message, get_lang("XML question file found : ".$questionFile));
-            parse_file($exercisePath, '', $questionFile);
+            parse_file($tmpExerciseDir, '', $questionFile);
 			$file_found = true;
         }//end if xml question file found
     }//end while question rep
@@ -169,18 +160,17 @@ function import_exercise($file)
 
     while (false !== ($file = readdir($exerciseHandle)))
     {
-
-        if (is_dir($exercisePath.$file) && $file != "." && $file != "..")
+        if (is_dir($tmpExerciseDir.'/'.$file) && $file != "." && $file != "..")
         {
             //find each manifest for each question repository found
 
-            $questionHandle = opendir($exercisePath.$file);
+            $questionHandle = opendir($tmpExerciseDir.'/'.$file);
 
             while (false !== ($questionFile = readdir($questionHandle)))
             {
                 if (preg_match('/.xml$/i' ,$questionFile))
                 {
-                    parse_file($exercisePath, $file, $questionFile);
+                    parse_file($tmpExerciseDir, $file, $questionFile);
 					$file_found = true;				
                 }//end if xml question file found
             }//end while question rep
@@ -192,61 +182,7 @@ function import_exercise($file)
 		array_push ($backlog_message, get_lang('No XML file found in the zip'));
 		return $backlog_message;
 	}
-	
-	
-    //Display data found
-
-	array_push ($backlog_message, 'Exercise name  : <b>' . $exercise_info['name'] . '</b>');
-	array_push ($backlog_message, 'Exercise description  : ' . $exercise_info['description']);
-
-    foreach ($exercise_info['question'] as $key => $question)
-    {
-        $question_number++;
-        array_push ($backlog_message, '<b>'.$question_number.'-</b> Question found (' .$key. ')  : <b>' . $question['title'] . '</b>');
-		if (isset($question['statement'])) array_push ($backlog_message, '* Statement : ' . $question['statement']);
-		array_push ($backlog_message, '* Type : '      . $question['type']);
 		
-		foreach ($exercise_info['question'][$key]['answer'] as $answer)
-		{	
-            if ($question['type']=="MATCHING")
-            {
-                array_push ($backlog_message, '** Matchset : ');
-                foreach ($answer as $matchSetElement)
-                {
-                   array_push ($backlog_message, '*** Element ' . $matchSetElement);
-                }
-            }
-            else
-            {
-                array_push ($backlog_message, '** Answer found : '        . $answer['value']);
-                if (isset($answer['feedback'])) array_push ($backlog_message, '*** Answer feedback : '    . $answer['feedback']);
-            }
-		}
-
-        if (isset($question['weighting']))
-        {
-            array_push ($backlog_message, '* WEIGHTING for Answers :');
-            foreach ($question['weighting'] as $key => $weighting)
-            {
-                array_push ($backlog_message, '** Answer : '.$key.' ==> weighting : '.$weighting);
-            }
-        }
-
-        if (isset($question['correct_answers']))
-        {
-            array_push ($backlog_message, '* CORRECT ANSWERS :');
-            foreach ($question['correct_answers'] as $answerIdent)
-            {
-                array_push ($backlog_message, '* Answer : '.$answerIdent);
-            }
-        }
-
-		if (isset($question['response_text']))
-        {
-            array_push ($backlog_message, '* Text to fill in : '.$question['response_text'] );
-        }
-    }
-
     //---------------------
     //add exercise in tool
     //---------------------
@@ -285,8 +221,7 @@ function import_exercise($file)
 
             if ($question_id)
             {
-                //3.create answers
-    
+                //3.create answers    
                 $question->setAnswer();
                 $question->import($exercise_info['question'][$key], $exercise_info['question'][$key]['tempdir']);
                 $exercise->addQuestion($question_id);
@@ -306,9 +241,8 @@ function import_exercise($file)
     $link = "<center><a href=\"../exercise_submit.php?exId=".$exercise_id."\">".get_lang('See the exercise')."</a></center>";
     array_push ($backlog_message, $link);
 
-    //delete the temp dir where the exercise was unzipped
-
-    claro_delete_file($exercisePath);
+    // delete the temp dir where the exercise was unzipped
+    claro_delete_file($tmpExerciseDir);
 
     return $backlog_message;
 }
@@ -322,7 +256,7 @@ function parse_file($exercisePath, $file, $questionFile)
     global $non_HTML_tag_to_avoid;
     global $record_item_body;
 
-    $questionTempDir = $exercisePath.$file.'/';
+    $questionTempDir = $exercisePath.'/'.$file.'/';
     $questionFilePath = $questionTempDir.$questionFile;
     $backlog_message = array();
     array_push ($backlog_message, "* ".$questionFile);
