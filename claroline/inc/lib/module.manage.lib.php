@@ -25,7 +25,7 @@ require_once dirname(__FILE__). '/right/profileToolRight.class.php';
 /**
  * Get installed module list, its effect is
  * to return an array containing the installed module's labels
- * @param string $type : type of the module that msu be returned,
+ * @param string $type : type of the module that must be returned,
  *        if null, then all the modules are returned
  * @return array containing the labels of the modules installed
  *         on the platform
