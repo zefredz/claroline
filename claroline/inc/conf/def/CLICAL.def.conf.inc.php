@@ -58,7 +58,7 @@ $conf_def_property_list['iCalRepositoryCache'] =
 array ('label'         => 'Where place iCal files.'
       , 'description'  => 'Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.'
-      ,'default'       => 'tmp/cache/iCal/'
+      ,'default'       => 'tmp/cache/ical/'
       ,'type'          => 'relpath'
       );
 
