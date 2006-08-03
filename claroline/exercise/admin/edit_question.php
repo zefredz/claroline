@@ -88,9 +88,7 @@ if( !is_null($quId) && !is_null($exId) )
 
         	// make exercise use the new created question object instead of the new one
         	$exercise->removeQuestion($quId);
-            
             $quId = $duplicated->getId(); // and reset $quId
-            
             $exercise->addQuestion($quId);
             
             $question = $duplicated;
@@ -215,11 +213,7 @@ if( $displayForm )
         echo '<tr>' . "\n"
         .	 '<td>&nbsp;</td>' . "\n"
         .    '<td valign="top">'
-        .    '<strong>' . get_lang('This question is used in several exercises.') . '</strong><br />' . "\n"
-        .    '<input type="radio" name="duplicate" id="doNotDuplicate" value="false" checked="checked" />'
-        .    '<label for="doNotDuplicate">' . get_lang('Modify it in all exercises') . '</label><br />' . "\n"
-        .    '<input type="radio" name="duplicate" id="duplicate" value="true" />'
-        .    '<label for="duplicate">' . get_lang('Modify it only in this exercise') . '</label>' . "\n"
+        .    html_ask_duplicate()
         .    '</td>' . "\n"
         .    '</tr>' . "\n\n";
     }
@@ -297,7 +291,7 @@ if( $displayForm )
 	//--
 	echo '<tr>' . "\n"
 	.	 '<td>&nbsp;</td>' . "\n"
-	.	 '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</td>' . "\n"
+	.	 '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</small></td>' . "\n"
 	.	 '</tr>' . "\n\n";
 		
 	//-- buttons
