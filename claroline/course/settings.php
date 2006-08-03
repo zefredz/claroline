@@ -373,7 +373,7 @@ if ( isset($cfrom) && ($is_platformAdmin) )
 }
 
 
-echo '</p>'
+echo '<p>'
 .    claro_html_menu_horizontal($links)
 .    '</p>'
 ;
@@ -507,9 +507,6 @@ echo claro_html_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . html
 .    '</tr>' . "\n"
 .    '</table>' . "\n"
 .    '</form>' . "\n"
-.    '<p>'
-.    claro_html_menu_horizontal($links)
-.    '</p>'
 ;
 // Display footer
 include $includePath . '/claro_init_footer.inc.php' ;
