@@ -441,18 +441,26 @@ class answerTrueFalse
     /**
      * display the form to edit answers
      *
+     * @param $exId exercise id, required to get stay in the exercise context if required after posting the form
+     * @param $askDuplicate display or not the form elements allowing to choose if the question must be duplicated or modified in all exercises
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */	    
-    function getFormHtml($exId = null)
+    function getFormHtml($exId = null, $askDuplicate = false)
     {
 		$html = 
     		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     		. '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
-    		. '<table class="claroTable">' . "\n"
+    		. '<table class="claroTable">' . "\n";
     		
-    		. '<tr class="headerX">' . "\n"
+        if( !empty($exId) && $askDuplicate )
+        {
+            $html .= html_ask_duplicate();
+        }
+
+        $html .= 
+            '<tr class="headerX">' . "\n"
     		. '<th>' . get_lang('Expected choice') . '</th>' . "\n"
     		. '<th>' . get_lang('Answer') . '</th>' . "\n"
     		. '<th>' . get_lang('Comment') . '</th>' . "\n"
