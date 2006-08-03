@@ -287,7 +287,11 @@ class Question
         $duplicatedId = $duplicated->save();
 
         // attachment need to be copied in the correct repository but for that we need the id
-        $duplicated->copyAttachment($this->questionDirSys.$this->attachment);
+        if( !empty($this->attachment) && file_exists($this->questionDirSys.$this->attachment) )
+        {
+            $duplicated->copyAttachment($this->questionDirSys.$this->attachment);
+        }
+        // else $duplicated->attachment keeps its default value
 
         // and its answers
         $duplicated->answer = $this->answer->duplicate($duplicatedId);
@@ -408,7 +412,7 @@ class Question
     */
     function copyAttachment($sourceFile)
     {
-        if( !empty( $this->questionDirSys ) ) 
+        if( !empty( $this->questionDirSys ) && file_exists($sourceFile) ) 
         {        
             // delete current attachment
             $this->deleteAttachment();
