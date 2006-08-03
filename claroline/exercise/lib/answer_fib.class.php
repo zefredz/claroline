@@ -230,9 +230,19 @@ class answerFillInBlanks
      * @author Sbastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	    
-    function duplicate()
+    function duplicate($duplicatedQuestionId)
     {
-    	// TODO duplicate	
+        $duplicated = new answerFillInBlanks($duplicatedQuestionId);
+
+        $duplicated->answerText = $this->answerText; 
+        $duplicated->answerList = $this->answerList;
+        $duplicated->gradeList = $this->gradeList;
+        $duplicated->wrongAnswerList = $this->wrongAnswerList;
+        $duplicated->type = $this->type;
+                
+        $duplicated->save();
+        
+        return $duplicated;
     }
     
     /**
@@ -529,10 +539,12 @@ class answerFillInBlanks
     /**
      * display the form to edit answers
      *
+     * @param $exId exercise id, required to get stay in the exercise context if required after posting the form
+     * @param $askDuplicate display or not the form elements allowing to choose if the question must be duplicated or modified in all exercises
      * @author Sbastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */
-    function getFormHtml($exId = null) 
+    function getFormHtml($exId = null, $askDuplicate) 
     {
     	$html = 
     		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
@@ -545,9 +557,17 @@ class answerFillInBlanks
     			// populate hidden fields for other steps
     			'<input type="hidden" name="answer" value="'.htmlspecialchars($this->answerText).'" />' . "\n"
     		.	'<input type="hidden" name="type" value="'.htmlspecialchars($this->type).'" />' . "\n"
-    		.	'<input type="hidden" name="wrongAnswerList" value="'.htmlspecialchars(implode("\n", $this->wrongAnswerList)).'" />' . "\n\n"
+    		.	'<input type="hidden" name="wrongAnswerList" value="'.htmlspecialchars(implode("\n", $this->wrongAnswerList)).'" />' . "\n\n";
     		
-    		.	'<p>' . get_lang('Please give a weighting to each blank') . '&nbsp;:</p>' . "\n"
+            if( !empty($exId) && $askDuplicate )
+            {
+                if( isset($_REQUEST['duplicate']) )
+                {
+                    $html .= '<input type="hidden" name="duplicate" value="'.htmlspecialchars($_REQUEST['duplicate']).'" />' . "\n";
+                }
+            }
+    		
+            $html .= '<p>' . get_lang('Please give a weighting to each blank') . '&nbsp;:</p>' . "\n"
     		
     		.	'<table border="0" cellpadding="5" width="500">' . "\n";
     		
@@ -581,6 +601,12 @@ class answerFillInBlanks
  				$html .= '<input type="hidden" name="grade['.$i.']" value="'.$grade.'" />' . "\n";
  				$i++;
  			}
+        
+            if( !empty($exId) && $askDuplicate )
+            {
+                $html .= '<p>' . html_ask_duplicate() . '</p>' . "\n";
+            }
+            
     		// answer
     		$html .= '<p>' . get_lang('Please type your text below, use brackets [...] to define one or more blanks') . ' :</p>' . "\n"
     		
