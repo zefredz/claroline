@@ -13,7 +13,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
  
- 
+/**
+ * Build a list of available exercises that wil be used by claro_html_form_select to show a filter list
+ * @param $excludeId an exercise id that doesn't have to be shown in  filter list
+ * @return array 2d array where keys are the exercise name and value is the exercise id
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ */
 function get_filter_list($excludeId = '')
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -41,6 +46,12 @@ function get_filter_list($excludeId = '')
     return $filterList;
 }
 
+/**
+ * build a array making the correspondance between question type and its name
+ * 
+ * @return array array where key is the type and value is the corresponding translation
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ */
 function get_localized_question_type()
 {
     $questionType['MCUA']         = get_lang('Multiple choice (Unique answer)');
@@ -52,6 +63,13 @@ function get_localized_question_type()
     return $questionType;
 }
 
+/**
+ * return the number of exercises using question $quId
+ *
+ * @param $quId requested question id
+ * @return number of exercises using question $quId
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ */
 function count_exercise_using_question($quId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -67,4 +85,21 @@ function count_exercise_using_question($quId)
     else                    return $exerciseCount;    
 }
 
+/**
+ * return html required to display the required form elements to ask the user if the question must be modified in 
+ * all exercises or only the current one
+ *
+ * @return string html code
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ */
+function html_ask_duplicate()
+{
+    $html = '<strong>' . get_lang('This question is used in several exercises.') . '</strong><br />' . "\n"
+    .    '<input type="radio" name="duplicate" id="doNotDuplicate" value="false" checked="checked" />'
+    .    '<label for="doNotDuplicate">' . get_lang('Modify it in all exercises') . '</label><br />' . "\n"
+    .    '<input type="radio" name="duplicate" id="duplicate" value="true" />'
+    .    '<label for="duplicate">' . get_lang('Modify it only in this exercise') . '</label>' . "\n";
+    
+    return $html;
+}
 ?>
