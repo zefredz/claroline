@@ -77,6 +77,6 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 include $includePath . '/lib/rss.write.lib.php';
 
 header('Content-type: text/xml;');
-readfile (build_rss($_cid));
+readfile (build_rss(array('course' => $_cid)));
 
 ?>
