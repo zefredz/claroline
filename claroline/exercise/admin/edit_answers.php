@@ -35,6 +35,7 @@ include_once '../lib/question.class.php';
 include_once '../lib/exercise.lib.php'; 
 
 // claroline libraries
+include_once $includePath . '/lib/fileManage.lib.php';
 include_once $includePath . '/lib/form.lib.php';
 include_once $includePath . '/lib/htmlxtra.lib.php';
 
@@ -63,6 +64,38 @@ if( !is_null($exId) )
 	$exercise = new Exercise();
 	// if exercise cannot be load set exId to null , it probably don't exist
 	if( !$exercise->load($exId) ) $exId = null;	
+}
+
+$askDuplicate = false;
+// quId and exId have been specified and load operations worked 
+if( !is_null($quId) && !is_null($exId) )
+{
+	// do not duplicate when there is no $exId,
+	// it means that we modify the question from pool
+	
+	// do not duplicate when there is no $quId,
+	// it means that question is a new one
+	
+	// check that question is used in several exercises
+	if( count_exercise_using_question($quId) > 1 )
+    {
+        if( isset($_REQUEST['duplicate']) && $_REQUEST['duplicate'] == 'true' )
+        {
+            // duplicate object if used in several exercises
+            $duplicated = $question->duplicate();
+
+        	// make exercise use the new created question object instead of the new one
+        	$exercise->removeQuestion($quId);
+            $quId = $duplicated->getId(); // and reset $quId
+            $exercise->addQuestion($quId);
+            
+            $question = $duplicated;
+        }
+        else
+        {
+            $askDuplicate = true;
+        }
+    }    
 }
 
 if( $cmd == 'exEdit' )
@@ -112,14 +145,12 @@ include($includePath.'/claro_init_header.inc.php');
  
 echo claro_html_tool_title($nameTools);
 
-
-
 echo $question->getQuestionHtml();
 
 // dialog box if required 
 if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo $question->answer->getFormHtml($exId);	
+echo $question->answer->getFormHtml($exId,$askDuplicate);	
 
 
 
