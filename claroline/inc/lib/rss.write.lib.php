@@ -44,7 +44,7 @@ function build_rss($context)
             require_once dirname(__FILE__) . '/fileManage.lib.php';
             claro_mkdir($rssRepositoryCacheSys, CLARO_FILE_PERMISSIONS, true);
             if (!file_exists($rssRepositoryCacheSys))
-                return claro_failure::set_failure('CANT_CREATE_RSS_DIR');
+            return claro_failure::set_failure('CANT_CREATE_RSS_DIR');
         }
 
         $options = array(
@@ -123,21 +123,21 @@ function build_rss($context)
 
         if ($serializer->serialize($data))
         {
-            if(is_writable($rssFilePath))
+            if(is_writable($rssFilePath) || (!file_exists($rssFilePath) && is_writable(dirname($rssFilePath))))
             {
-            if( false !== $fprss = fopen($rssFilePath, 'w'))
-            {
-                fwrite($fprss, $serializer->getSerializedData());
-                fclose($fprss);
+                if( false !== $fprss = fopen($rssFilePath, 'w'))
+                {
+                    fwrite($fprss, $serializer->getSerializedData());
+                    fclose($fprss);
+                }
+                else
+                {
+                    return claro_failure::set_failure('CANT_OPEN_RSS_FILE');
+                }
             }
             else
             {
-                return claro_failure::set_failure('CANT_OPEN_RSS_FILE');
-            }
-            }
-            else
-            {
-                return claro_failure::set_failure('CANT_OPEN_RSS_FILE_REAND_ONLY');
+                return claro_failure::set_failure('CANT_OPEN_RSS_FILE_READ_ONLY');
             }
 
         }
@@ -185,7 +185,7 @@ function rss_get_tool_compatible_list()
                 include_once dirname(__FILE__) . '/fileManage.lib.php';
                 claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
                 if (! file_exists($cache_options['cacheDir']) )
-                    return claro_failure::set_failure('CANT_CREATE_CACHE_RSS_SOURCE_LIST');
+                return claro_failure::set_failure('CANT_CREATE_CACHE_RSS_SOURCE_LIST');
             }
 
             $rssToolListCache = new Cache_Lite($cache_options);
@@ -213,7 +213,7 @@ function rss_get_tool_compatible_list()
                 $rssToolListCache->save($rssToolListSerialized, 'rssToolList');
             }
             else
-                $rssToolList = unserialize($rssToolListSerialized);
+            $rssToolList = unserialize($rssToolListSerialized);
 
         }
         else
