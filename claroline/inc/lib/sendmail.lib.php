@@ -37,7 +37,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     $tbl      = claro_sql_get_main_tbl();
     $tbl_user = $tbl['user'];
 
-    $sql = 'SELECT email 
+    $sql = 'SELECT email
             FROM `'.$tbl_user.'`
             WHERE user_id IN ('. implode(', ', array_map('intval', $userIdList) ) . ')';
 
@@ -55,9 +55,13 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
 
     $mail->CharSet = $GLOBALS['charset'];
     $mail->IsMail();
+    if (strlen($subject)> 78)
+    {
+        $message = $subject . "\n" . $message;
+        $subject = substr($subject,0,73) . '...';
+    }
     $mail->Subject = $subject;
     $mail->Body    = $message;
-
     $emailSentCount = 0;
 
     foreach($emailList as $thisEmail)
