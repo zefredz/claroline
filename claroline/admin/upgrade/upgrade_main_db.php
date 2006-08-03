@@ -74,7 +74,9 @@ if ($cmd == 'run')
 {
     // include sql to upgrade the main Database
 
-    include('./upgrade_main_db.lib.php');
+    include('./upgrade_main_db_16.lib.php');
+    include('./upgrade_main_db_17.lib.php');
+    include('./upgrade_main_db_18.lib.php');
 
     $display = DISPLAY_RESULT_PANEL;
 
@@ -200,31 +202,6 @@ switch ( $display )
 
             // Apply sql query from $sqlForUpdate17 to main database
             $sqlForUpdate18 = query_to_upgrade_main_database_to_18();
-            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate18,$verbose);
-
-            if ( $nbError == 0 )
-            {
-                // Upgrade 1.7 to 1.8 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.8</p>' . "\n";
-
-                // Database version is 1.8
-                $currentDbVersion = $new_version;
-
-                // Update current version file
-                save_current_version_file($currentClarolineVersion, $new_version);
-            }
-        } // End of upgrade 1.7 to 1.8
-
-
-        // ADD a last step for developpers wich force to run  last step
-
-        elseif ( DEVEL_MODE && preg_match('/^1.[78]/',$currentDbVersion)  )
-        {
-            echo '<p >process developper upgrade to 1.8.CVS</p>' . "\n";
-
-            // Apply sql query from $sqlForUpdate17 to main database
-            $sqlForUpdate18 = query_to_upgrade_main_database_to_18();
-
             $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate18,$verbose);
 
             if ( $nbError == 0 )

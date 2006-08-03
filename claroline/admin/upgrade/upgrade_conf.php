@@ -98,11 +98,10 @@ if ( $cmd == 'run' )
                 {
                     // Add config name an value in array current value list
                     $current_value_list = array_merge( $current_value_list,
-                                                       get_values_from_confFile(claro_get_conf_repository() . $current_file_name,$conf_def_property_list)
+                                                       get_values_from_confFile($includePath . '/conf/' . $current_file_name,$conf_def_property_list)
                                                       );
                 }
             }
-
         }
 
         // Set platform_id if not set in current claroline version (new in 1.6)

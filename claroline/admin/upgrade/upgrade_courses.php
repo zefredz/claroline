@@ -22,6 +22,7 @@ require 'upgrade_init_global.inc.php';
 // Include Libraries
 include ('upgrade_course_16.lib.php');
 include ('upgrade_course_17.lib.php');
+include ('upgrade_course_18.lib.php');
 
 // Security Check
 if (!$is_platformAdmin) upgrade_disp_auth_form();
@@ -222,7 +223,7 @@ switch ($display)
             if ( ! $error ) 
             {
                 /*---------------------------------------------------------------------
-                  Upgrade 1.5 to 1.7
+                  Upgrade 1.5 to 1.6
                  ---------------------------------------------------------------------*/                
 
                 if ( preg_match('/^1.5/',$currentCourseVersion) )
@@ -299,13 +300,48 @@ switch ($display)
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
                 
                 }
+                
+                /*---------------------------------------------------------------------
+                  Upgrade 1.7 to 1.8
+                 ---------------------------------------------------------------------*/                
+
+                if ( preg_match('/^1.7/',$currentCourseVersion) )
+                {
+                    // Function to upgrade tool to 1.8
+                    $function_list = array( 'group_upgrade_to_18');
+
+                    foreach ( $function_list as $function )
+                    {
+                        $step = $function($currentCourseCode);
+                        if ( $step > 0 )
+                        {
+                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
+                            $error = true;
+                        }
+                    }
+                    
+                    if ( ! $error )
+                    {
+                        // Upgrade succeeded
+                        clean_upgrade_status($currentCourseCode);
+                        $currentCourseVersion = '1.8';
+                    }
+                    else
+                    {
+                        // Upgrade failed
+                        $currentCourseVersion = 'error-1.7';
+                    }
+                    // Save version
+                    save_course_current_version($currentCourseCode,$currentCourseVersion);
+                
+                }
 
             }
 
             
             if ( ! $error )
             {
-                if ( preg_match('/^1.7/',$currentCourseVersion) )
+                if ( preg_match('/^1.8/',$currentCourseVersion) )
                 {
                     $message .= '<p class="success">Upgrade succeeded</p>';
                     // course upgraded
