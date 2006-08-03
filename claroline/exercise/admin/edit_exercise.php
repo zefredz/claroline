@@ -324,12 +324,12 @@ if( $displayForm )
 	.	 '<td valign="top"><label for="attempts">'.get_lang('Attempts allowed').'&nbsp;:</label></td>' . "\n"
 	.	 '<td>'
 	.	 '<select name="attempts" id="attempts">' . "\n"
-	.	 '<option value="0"' . ( $form['attempts'] < 1?' checked="checked"':' ') . '>unlimited</option>' . "\n"
-	.	 '<option value="1"' . ( $form['attempts'] == 1?' checked="checked"':' ') . '>1</option>' ."\n"
-	.	 '<option value="2"' . ( $form['attempts'] == 2?' checked="checked"':' ') . '>2</option>' ."\n"
-	.	 '<option value="3"' . ( $form['attempts'] == 3?' checked="checked"':' ') . '>3</option>' ."\n"
-	.	 '<option value="4"' . ( $form['attempts'] == 4?' checked="checked"':' ') . '>4</option>' ."\n"
-	.	 '<option value="5"' . ( $form['attempts'] >= 5?' checked="checked"':' ') . '>5</option>' ."\n"
+	.	 '<option value="0"' . ( $form['attempts'] < 1?' selected="selected"':' ') . '>unlimited</option>' . "\n"
+	.	 '<option value="1"' . ( $form['attempts'] == 1?' selected="selected"':' ') . '>1</option>' ."\n"
+	.	 '<option value="2"' . ( $form['attempts'] == 2?' selected="selected"':' ') . '>2</option>' ."\n"
+	.	 '<option value="3"' . ( $form['attempts'] == 3?' selected="selected"':' ') . '>3</option>' ."\n"
+	.	 '<option value="4"' . ( $form['attempts'] == 4?' selected="selected"':' ') . '>4</option>' ."\n"
+	.	 '<option value="5"' . ( $form['attempts'] >= 5?' selected="selected"':' ') . '>5</option>' ."\n"
 	.	 '</select>' . "\n"      
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
@@ -369,7 +369,7 @@ if( $displayForm )
 	//-- 
 	echo '<tr>' . "\n"
 	.	 '<td>&nbsp;</td>' . "\n"
-	.	 '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</td>' . "\n"
+	.	 '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</small></td>' . "\n"
 	.	 '</tr>' . "\n\n";
 	
 	//-- buttons
