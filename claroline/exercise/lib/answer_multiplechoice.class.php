@@ -170,7 +170,6 @@ class answerMultipleChoice
      */	    
     function duplicate($duplicatedQuestionId)
     {
-    	// TODO duplicate
         $duplicated = new answerMultipleChoice($duplicatedQuestionId);
 
         $duplicated->multipleAnswer = $this->multipleAnswer; 
@@ -482,15 +481,15 @@ class answerMultipleChoice
     		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     	. 	'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     	.	'<input type="hidden" name="answerCount" value="'.count($this->answerList).'" />' . "\n" 
-    	.	'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
-    	.	'<table class="claroTable">' . "\n";
-    	
+    	.	'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n";
+        
         if( !empty($exId) && $askDuplicate )
         {
-            $html .= html_ask_duplicate();
+            $html .= '<p>' . html_ask_duplicate() . '</p>' . "\n";
         }
         
-    	$html .= '<tr class="headerX">' . "\n"
+    	$html .= '<table class="claroTable">' . "\n"
+        .   '<tr class="headerX">' . "\n"
     	.	'<th>' . get_lang('Expected choice') . '</th>' . "\n"
     	.	'<th>' . get_lang('Answer') . '</th>' . "\n"
     	.	'<th>' . get_lang('Comment') . '</th>' . "\n"
