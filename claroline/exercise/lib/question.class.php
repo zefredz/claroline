@@ -336,6 +336,7 @@ class Question
 				claro_failure::set_failure('cannot_create_tmp_dir');
 	        	return false;
 			}
+            echo 'on a créé le rep';
 		}
 	
 		// put file in directory
@@ -407,23 +408,29 @@ class Question
     */
     function copyAttachment($sourceFile)
     {
-        if( empty( $this->questionDirSys ) ) return false;
-        
-        // delete current attachment
-        $this->deleteAttachment();
-        
-        $this->attachment = basename($sourceFile);
-        
-        if( claro_copy_file($sourceFile, $this->questionDirSys) )
-        {
-            return true;
+        if( !empty( $this->questionDirSys ) ) 
+        {        
+            // delete current attachment
+            $this->deleteAttachment();
+            
+            $this->attachment = basename($sourceFile);
+            
+            if( claro_copy_file($sourceFile, $this->questionDirSys) )
+            {
+                return true;
+            }
+            else
+            {
+                $this->attachment = '';
+                return false;
+            }
         }
         else
         {
-            $this->attachment = '';
             return false;
         }
     }
+    
 	/**
      * get html required to display the question
      *
@@ -450,8 +457,10 @@ class Question
      */    
     function getQuestionHtml()
     {
-    	$html = '<strong>'.$this->title.'</strong>' . "\n"
-			. '<blockquote>' . "\n" . claro_parse_user_text($this->description) . "\n" . '</blockquote>' . "\n\n";
+    	$html = '<p>'
+        .   '<strong>'.$this->title.'</strong>' . "\n"
+        .   '</p>' . "\n"
+		.   '<blockquote>' . "\n" . claro_parse_user_text($this->description) . "\n" . '</blockquote>' . "\n\n";
 		
 		if( !empty($this->attachment) ) 
     	{
