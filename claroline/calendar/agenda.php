@@ -32,6 +32,7 @@ require_once get_conf('clarolineRepositorySys') . '/linker/linker.inc.php';
 require_once './lib/agenda.lib.php';
 require_once $includePath . '/lib/form.lib.php';
 
+require claro_get_conf_repository() . 'ical.conf.php';
 require claro_get_conf_repository() . 'rss.conf.php';
 
 $context = claro_get_current_context(CLARO_CONTEXT_COURSE);

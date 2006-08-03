@@ -20,6 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * * icalendar/class.iCal.inc.php
  *
  */
+require_once claro_get_conf_repository() . 'ical.conf.php';
 require_once dirname(__FILE__) . '/icalendar/class.iCal.inc.php';
 
 
