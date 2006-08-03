@@ -165,12 +165,21 @@ class answerMultipleChoice
     /**
      * clone the object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
-     * @return boolean result of operation   
+     * @author Sebastien Piraux <pir@cerdecam.be>
+     * @return object duplicated object
      */	    
-    function duplicate()
+    function duplicate($duplicatedQuestionId)
     {
-    	// TODO duplicate	
+    	// TODO duplicate
+        $duplicated = new answerMultipleChoice($duplicatedQuestionId);
+
+        $duplicated->multipleAnswer = $this->multipleAnswer; 
+        $duplicated->answerList = $this->answerList;
+        // we could remove the ids in this array but it is not required, they are ignored during save
+        
+        $duplicated->save();
+        
+        return $duplicated;
     }
     
     /**
@@ -216,19 +225,19 @@ class answerMultipleChoice
     function handleForm()
     {
     	$this->answerList = array();
-    	
+
     	// set form value in object
 		for( $i = 0; $i < $_REQUEST['answerCount']; $i++ )
 		{
 			$answerNumber = $i + 1;
 
 			//-- answer text			
-			$answer = 'answer_'.$this->questionId.'_'.$answerNumber;						
+			$answer = 'answer_'.$answerNumber;						
 			if( isset($_REQUEST[$answer]) ) 	$this->answerList[$i]['answer'] = $_REQUEST[$answer];
 			else								$this->answerList[$i]['answer'] = '';
 			
 			//-- correct answer
-			$correct = 'correct_'.$this->questionId.'_'.$answerNumber;
+			$correct = 'correct_'.$answerNumber;
 			if( $this->multipleAnswer )
 			{				
 				if( isset($_REQUEST[$correct]) ) 	$this->answerList[$i]['correct'] = 1;
@@ -247,12 +256,12 @@ class answerMultipleChoice
 			}
 			
 			//-- feedbacks
-			$comment = 'comment_'.$this->questionId.'_'.$answerNumber;
+			$comment = 'comment_'.$answerNumber;
 			if( isset($_REQUEST[$comment]) ) 	$this->answerList[$i]['comment'] = $_REQUEST[$comment];
 			else								$this->answerList[$i]['comment'] = '';
 			
 			//-- grade
-			$grade = 'grade_'.$this->questionId.'_'.$answerNumber;
+			$grade = 'grade_'.$answerNumber;
 			if( isset($_REQUEST[$grade]) ) 		
 			{	
 				if( $this->answerList[$i]['correct'] == 1 )
@@ -462,19 +471,26 @@ class answerMultipleChoice
     /**
      * display the form to edit answers
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @param $exId exercise id, required to get stay in the exercise context if required after posting the form
+     * @param $askDuplicate display or not the form elements allowing to choose if the question must be duplicated or modified in all exercises
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */	    
-    function getFormHtml($exId = null)
+    function getFormHtml($exId = null, $askDuplicate)
     {
 	   	$html = 
     		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     	. 	'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     	.	'<input type="hidden" name="answerCount" value="'.count($this->answerList).'" />' . "\n" 
     	.	'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
-    	.	'<table class="claroTable">' . "\n"
-    		
-    	.	'<tr class="headerX">' . "\n"
+    	.	'<table class="claroTable">' . "\n";
+    	
+        if( !empty($exId) && $askDuplicate )
+        {
+            $html .= html_ask_duplicate();
+        }
+        
+    	$html .= '<tr class="headerX">' . "\n"
     	.	'<th>' . get_lang('Expected choice') . '</th>' . "\n"
     	.	'<th>' . get_lang('Answer') . '</th>' . "\n"
     	.	'<th>' . get_lang('Comment') . '</th>' . "\n"
@@ -491,23 +507,23 @@ class answerMultipleChoice
     		if( $this->multipleAnswer )
     		{
 				$html .= 
-					'<input name="correct_'.$this->questionId.'_'.$i.'" id="correct_'.$this->questionId.'_'.$i.'" '
+					'<input name="correct_'.$i.'" id="correct_'.$i.'" '
 					.( $answer['correct'] ? 'checked="checked"':'')
 					.' type="checkbox" value="1" />';
     		}
     		else
     		{
     			$html .= 
-					'<input name="correct" id="correct_'.$this->questionId.'_'.$i.'" '
+					'<input name="correct" id="correct_'.$i.'" '
 					.( $answer['correct'] ? 'checked="checked"':'')
-					.' type="radio" value="correct_'.$this->questionId.'_'.$i.'" />';
+					.' type="radio" value="correct_'.$i.'" />';
     		}
     		
 			$html .= 
 				'</td>' . "\n"
-    		. 	'<td valign="top"><textarea rows="7" cols="25" name="answer_'.$this->questionId.'_'.$i.'">' . $answer['answer'] . '</textarea></td>' . "\n"
-    		. 	'<td><textarea rows="7" cols="25" name="comment_'.$this->questionId.'_'.$i.'">' .$answer['comment'] . '</textarea></td>' . "\n"
-    		. 	'<td valign="top"><input name="grade_'.$this->questionId.'_'.$i.'" size="5" value="' . $answer['grade'] . '" type="text" /></td>' . "\n"
+    		. 	'<td valign="top"><textarea rows="7" cols="25" name="answer_'.$i.'">' . $answer['answer'] . '</textarea></td>' . "\n"
+    		. 	'<td><textarea rows="7" cols="25" name="comment_'.$i.'">' .$answer['comment'] . '</textarea></td>' . "\n"
+    		. 	'<td valign="top"><input name="grade_'.$i.'" size="5" value="' . $answer['grade'] . '" type="text" /></td>' . "\n"
     		. 	'</tr>' . "\n\n";
 			
 			$i++;   		
