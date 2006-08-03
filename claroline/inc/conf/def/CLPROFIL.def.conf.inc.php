@@ -88,7 +88,7 @@ array ( 'label'         => 'Ask the official code'
 $conf_def_property_list['profile_editable'] =
 array ( 'label'         => 'Profile form'
       , 'description'   => 'Which parts of the profile can be changed?'
-      , 'default'       => array('name','login','password','email','language')
+      , 'default'       => array('name','official_code','login','password','email','phone','language')
       , 'type'          => 'multi'
       , 'acceptedValue' => array ('name' => 'Name'
                                  ,'official_code' => 'Official Code'
