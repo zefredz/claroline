@@ -31,12 +31,12 @@ $tbl_dock        = $tbl_name['dock'];
 
 //NEEDED LIBRAIRIES
 
-include_once(dirname(__FILE__) . '/module.inc.php');
-
+require_once $includePath . '/lib/module.manage.lib.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => 'module_list.php', 'name' => get_lang('Module list'));
+
 $nameTools = get_lang('Module settings');
 
 //NEEDED CSS
