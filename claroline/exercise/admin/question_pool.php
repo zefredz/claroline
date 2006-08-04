@@ -246,7 +246,7 @@ if( !is_null($exId) )
 			 " . $questionCondition . "
 			 " . $filterCondition . "
 		  GROUP BY Q.`id`
-		  ORDER BY Q.`title`";
+		  ORDER BY Q.`title`, Q.`id`";
 
 }
 else
@@ -258,7 +258,7 @@ else
 			  WHERE 1 = 1 
 			 " . $filterCondition . "
 		  GROUP BY Q.`id`
-		  ORDER BY Q.`title`";
+		  ORDER BY Q.`title`, Q.`id`";
 }
 
 // get list
