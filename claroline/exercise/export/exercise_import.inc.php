@@ -18,6 +18,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * function to create a temporary directory (SAME AS IN MODULE ADMIN)
  * concat a "unique" directory name to $dir
+ *
+ * @param string $dir repository for temp path
+ * @param string $prefix prefix the name
+ * @param integer $mode chmod of path
+ * @return string new dir path
  */
 
 function tempdir($dir, $prefix='tmp', $mode=0777)
@@ -57,13 +62,13 @@ function get_and_unzip_uploaded_exercise()
     $tmpUploadDir = get_conf('rootSys') . get_conf('tmpPathSys') . 'upload/';
     //create temp dir for upload
     claro_mkdir($tmpUploadDir);
-    
+
     $tmpExerciseDir = tempdir($tmpUploadDir); // this function should return the dir name and not the full path ...
     $uploadDir = str_replace($tmpUploadDir,'',$tmpExerciseDir); // ... because we need to remove it
 
     if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) && treat_uploaded_file($_FILES['uploadedExercise'],$tmpUploadDir, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
     {
-        
+
         if (!function_exists('gzopen'))
         {
             claro_delete_file($tmpExerciseDir);
@@ -80,11 +85,13 @@ function get_and_unzip_uploaded_exercise()
 
 }
 /**
- * main function to import an exercise
+ * Main function to import an exercise.
+ *
+ * @param string $file path of the file
+ * @param array $backlog_message
  *
  * @return the id of the created exercise or false if the operation failed
  */
-
 function import_exercise($file, &$backlog_message)
 {
     global $exercise_info;
@@ -93,7 +100,7 @@ function import_exercise($file, &$backlog_message)
     global $record_item_body;
     //used to specify the question directory where files could be found in relation in any question
     global $questionTempDir;
-    
+
     //get required table names
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -113,14 +120,14 @@ function import_exercise($file, &$backlog_message)
     $element_pile = array();  //pile to known the depth in which we are
     $module_info = array();   //array to store the info we need
 
-	//if file is not a .zip, then we cancel all 
+	//if file is not a .zip, then we cancel all
 
 	if ( !preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']))
 	{
 		$backlog_message[] = get_lang('You must upload a zip file');
 		return false;
 	}
-	
+
     //unzip the uploaded file in a tmp directory
 
     $tmpExerciseDir = get_and_unzip_uploaded_exercise();
@@ -129,7 +136,7 @@ function import_exercise($file, &$backlog_message)
         $backlog_message[] = get_lang('Upload failed');
         return false;
     }
-    
+
     //find the different manifests for each question and parse them.
 
     $exerciseHandle = opendir($tmpExerciseDir);
@@ -142,7 +149,7 @@ function import_exercise($file, &$backlog_message)
     //1- parse the parent directory
 
 	$file_found = false;
-	
+
     $questionHandle = opendir($tmpExerciseDir);
 
     while( false !== ($questionFile = readdir($questionHandle)) )
@@ -170,7 +177,7 @@ function import_exercise($file, &$backlog_message)
                 if (preg_match('/.xml$/i' ,$questionFile))
                 {
                     parse_file($tmpExerciseDir, $file, $questionFile);
-					$file_found = true;				
+					$file_found = true;
                 }//end if xml question file found
             }//end while question rep
         } //if is_dir
@@ -181,7 +188,7 @@ function import_exercise($file, &$backlog_message)
 		$backlog_message[] = get_lang('No XML file found in the zip');
 		return false;
 	}
-		
+
     //---------------------
     //add exercise in tool
     //---------------------
@@ -215,12 +222,12 @@ function import_exercise($file, &$backlog_message)
         $question->setType($question_array['type']);
 
         if ($question->validate())
-        { 
+        {
             $question_id = $question->save();
 
             if ($question_id)
             {
-                //3.create answers    
+                //3.create answers
                 $question->setAnswer();
                 $question->import($exercise_info['question'][$key], $exercise_info['question'][$key]['tempdir']);
                 $exercise->addQuestion($question_id);
@@ -240,15 +247,22 @@ function import_exercise($file, &$backlog_message)
             return false;
         }
     }
-    
+
     // delete the temp dir where the exercise was unzipped
     claro_delete_file($tmpExerciseDir);
-    
+
     $backlog_message[] = get_lang('Import successfull');
     return $exercise_id;
 }
 
-
+/**
+ * parse an xml file to find info
+ *
+ * @param unknown_type $exercisePath
+ * @param unknown_type $file
+ * @param unknown_type $questionFile
+ * @return unknown
+ */
 
 function parse_file($exercisePath, $file, $questionFile)
 {
@@ -385,10 +399,10 @@ function startElement($parser, $name, $attributes)
         {
             //in case of FIB question, we replace the IMS-QTI tag b y the correct answer between "[" "]",
             //we first save with claroline tags ,then when the answer will be parsed, the claroline tags will be replaced
-    
+
             if ($current_element=='INLINECHOICEINTERACTION')
             {
-           
+
                   $current_question_item_body .="**claroline_start**".$attributes['RESPONSEIDENTIFIER']."**claroline_end**";
             }
             if ($current_element=='TEXTENTRYINTERACTION')
@@ -402,7 +416,7 @@ function startElement($parser, $name, $attributes)
                 $current_question_item_body .= "<BR/>";
             }
         }
-        
+
     }
 
     switch ($current_element)
@@ -419,20 +433,20 @@ function startElement($parser, $name, $attributes)
             $exercise_info['question'][$current_question_ident]['tempdir'] = $questionTempDir;
         }
         break;
-		
+
         case 'SECTION' :
         {
          	//retrieve exercise name
-			
+
 			$exercise_info['name'] = $attributes['TITLE'];
-               
+
         }
 		break;
-		
+
 		case 'RESPONSEDECLARATION' :
         {
          	//retrieve question type
-			
+
 			if ( "multiple" == $attributes['CARDINALITY'])
 			{
 				$exercise_info['question'][$current_question_ident]['type'] = 'MCMA';
@@ -473,14 +487,14 @@ function startElement($parser, $name, $attributes)
             $exercise_info['question'][$current_question_ident]['response_text'] = $current_question_item_body;
 
             //replace claroline tags
-            
+
         }
         break;
 
         case 'MATCHINTERACTION' :
         {
 			//retrieve question type
-			
+
             $exercise_info['question'][$current_question_ident]['type'] = 'MATCHING';
         }
         break;
@@ -615,18 +629,18 @@ function elementData($parser,$data)
     global $non_HTML_tag_to_avoid;
     global $current_inlinechoice_id;
     global $cardinality;
-	
+
     $current_element       = end($element_pile);
 	if (sizeof($element_pile)>=2) $parent_element        = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
 	if (sizeof($element_pile)>=3) $grant_parent_element  = $element_pile[sizeof($element_pile)-3]; else $grant_parent_element = "";
-	
+
 	//treat the record of the full content of itembody tag (needed for question statment and/or FIB text:
 
     if ($record_item_body && (!in_array($current_element,$non_HTML_tag_to_avoid)))
     {
         $current_question_item_body .= $data;
     }
-	
+
     switch ($current_element)
     {
         case 'SIMPLECHOICE':
