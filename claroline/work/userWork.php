@@ -471,9 +471,10 @@ if( isset($_REQUEST['submitWrk']) )
 			}
 			elseif( isset($_REQUEST['submitGroupWorkUrl']) )
 			{
-				$wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl'])) . '.url';
+				$wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl']). '.url') ;
+                $targetOfLink = get_conf('rootWeb').$coursesRepositoryAppend.'/'.$_course['path'].'/'.$_REQUEST['submitGroupWorkUrl'];
 
-				create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], $coursesRepositoryWeb.$_course['path'].'/'.$_REQUEST['submitGroupWorkUrl']);
+				create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], $targetOfLink);
 			}
 			else
 			{
