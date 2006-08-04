@@ -603,8 +603,8 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
-            echo '<td>'
-			.	 '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '" class="item' . $classItem . '">'
+            echo '<td align="center">'
+			.	 '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '">'
 			. 	 '<small>' . get_lang('Publish') . '</small>'
 			.	 '</a>'
 			.	 '</td>' . "\n";
