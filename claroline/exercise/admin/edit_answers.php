@@ -67,37 +67,16 @@ if( !is_null($exId) )
 }
 
 $askDuplicate = false;
-// quId and exId have been specified and load operations worked 
-if( !is_null($quId) && !is_null($exId) )
+// do not duplicate when there is no $exId, it means that we modify the question from pool
+// do not duplicate when there is no $quId, it means that question is a new one
+// check that question is used in several exercises
+if( count_exercise_using_question($quId) > 1 
+    && !is_null($quId) && !is_null($exId)
+    )	
 {
-	// do not duplicate when there is no $exId,
-	// it means that we modify the question from pool
-	
-	// do not duplicate when there is no $quId,
-	// it means that question is a new one
-	
-	// check that question is used in several exercises
-	if( count_exercise_using_question($quId) > 1 )
-    {
-        if( isset($_REQUEST['duplicate']) && $_REQUEST['duplicate'] == 'true' )
-        {
-            // duplicate object if used in several exercises
-            $duplicated = $question->duplicate();
-
-        	// make exercise use the new created question object instead of the new one
-        	$exercise->removeQuestion($quId);
-            $quId = $duplicated->getId(); // and reset $quId
-            $exercise->addQuestion($quId);
-            
-            $question = $duplicated;
-        }
-        else
-        {
-            $askDuplicate = true;
-        }
-    }    
+    $askDuplicate = true;
 }
-
+	
 if( $cmd == 'exEdit' )
 {
 	// add or remove answer, change step,...
@@ -107,6 +86,22 @@ if( $cmd == 'exEdit' )
 		// form has to be saved, check input validity 
 		if( $question->answer->validate() )
 		{
+            if( count_exercise_using_question($quId) > 1 
+                && !is_null($quId) && !is_null($exId)
+                && isset($_REQUEST['duplicate']) && $_REQUEST['duplicate'] == 'true'
+                )
+            {
+                // duplicate object if used in several exercises
+                $duplicated = $question->duplicate();
+
+                // make exercise use the new created question object instead of the new one
+                $exercise->removeQuestion($quId);
+                $quId = $duplicated->getId(); // and reset $quId
+                $exercise->addQuestion($quId);
+
+                $question = $duplicated;
+            }
+            
 			if( $question->answer->save() )
 			{
 				// update grade in question
