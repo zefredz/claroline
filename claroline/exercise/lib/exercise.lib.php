@@ -95,9 +95,23 @@ function count_exercise_using_question($quId)
 function html_ask_duplicate()
 {
     $html = '<strong>' . get_lang('This question is used in several exercises.') . '</strong><br />' . "\n"
-    .    '<input type="radio" name="duplicate" id="doNotDuplicate" value="false" checked="checked" />'
+    .    '<input type="radio" name="duplicate" id="doNotDuplicate" value="false"';
+    
+    if( !isset($_REQUEST['duplicate']) || $_REQUEST['duplicate'] != 'true')
+    {
+        $html .= ' checked="checked" ';
+    }
+    
+    $html .= '/>'
     .    '<label for="doNotDuplicate">' . get_lang('Modify it in all exercises') . '</label><br />' . "\n"
-    .    '<input type="radio" name="duplicate" id="duplicate" value="true" />'
+    .    '<input type="radio" name="duplicate" id="duplicate" value="true"';
+    
+    if( isset($_REQUEST['duplicate']) && $_REQUEST['duplicate'] == 'true')
+    {
+        $html .= ' checked="checked" ';
+    }
+    
+    $html .= '/>'
     .    '<label for="duplicate">' . get_lang('Modify it only in this exercise') . '</label>' . "\n";
     
     return $html;
