@@ -61,44 +61,47 @@ $interbredcrump[]= array ('url' => '../exercise.php','name' => get_lang('Exercis
 // EXECUTE COMMAND
 //----------------------------------
 
-$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : 'show_import');
+$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : 'rqImport');
 
-switch ( $cmd )
+if( $cmd == 'exImport')
 {
-    case 'show_import' :
+    $result_log = array();
+    
+    $importedExId = import_exercise($_FILES['uploadedExercise']['name'], $result_log);
+    if( $importedExId )
     {
-        $display = '<p>' . "\n"
-        .            get_lang('Imported exercises must consist of a zip or an XML file (IMS-QTI) and be compatible with your Claroline version.') . '<br />' . "\n"
-        .            '</p>' . "\n"
-        .            '<form enctype="multipart/form-data" action="" method="post">' . "\n"
-        .            '<input name="cmd" type="hidden" value="import" />' . "\n"
-        .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
-        .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
-        .            '<p>' . "\n"
-        .            '<input value="' . get_lang('Import exercise') . '" type="submit" /> ' . "\n"
-        .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
-        .            '</p>' . "\n"
-        .            '</form>';
+        $display = '<p>'
+        .   '<a href="../exercise_submit.php?exId='.$importedExId.'">'.get_lang('See the exercise').'</a>'
+        .   '</p>' . "\n";
     }
-    break;
-
-    case 'import' :
+    else
     {
-
-        $result_log = import_exercise($_FILES['uploadedExercise']['name']);
-       
-        //display the result message (fail or success)
-
-        $dialogBox = '';
-
-        foreach ($result_log as $log)
-        {
-            $dialogBox .= $log . '<br>';
-        }
-
+        $cmd = 'rqImport';
     }
-    break;
+
+    $dialogBox = '';
+    foreach ($result_log as $log)
+    {
+        $dialogBox .= $log . '<br>';
+    }
 }
+
+if( $cmd == 'rqImport' )
+{
+    $display = '<p>' . "\n"
+    .            get_lang('Imported exercises must consist of a zip or an XML file (IMS-QTI) and be compatible with your Claroline version.') . '<br />' . "\n"
+    .            '</p>' . "\n"
+    .            '<form enctype="multipart/form-data" action="" method="post">' . "\n"
+    .            '<input name="cmd" type="hidden" value="exImport" />' . "\n"
+    .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
+    .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
+    .            '<p>' . "\n"
+    .            '<input value="' . get_lang('Import exercise') . '" type="submit" /> ' . "\n"
+    .            claro_html_button( '../exercise.php', get_lang('Cancel'))
+    .            '</p>' . "\n"
+    .            '</form>';
+}
+
 
 //----------------------------------
 // DISPLAY
