@@ -80,14 +80,13 @@ function get_and_unzip_uploaded_exercise()
 
 }
 /**
- * main function to import an exercise,
+ * main function to import an exercise
  *
- * @return an array as a backlog of what was really imported, and error or debug messages to display
+ * @return the id of the created exercise or false if the operation failed
  */
 
-function import_exercise($file)
+function import_exercise($file, &$backlog_message)
 {
-    
     global $exercise_info;
     global $element_pile;
     global $non_HTML_tag_to_avoid;
@@ -108,7 +107,6 @@ function import_exercise($file)
     $exercise_info['description'] = '';
     $exercise_info['question'] = array();
     $element_pile    = array();
-    $backlog_message = array();
 
     //create parser and array to retrieve info from manifest
 
@@ -120,7 +118,7 @@ function import_exercise($file)
 	if ( !preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']))
 	{
 		$backlog_message[] = get_lang('You must upload a zip file');
-		return $backlog_message;
+		return false;
 	}
 	
     //unzip the uploaded file in a tmp directory
@@ -129,7 +127,7 @@ function import_exercise($file)
     if( !$tmpExerciseDir )
     {
         $backlog_message[] = get_lang('Upload failed');
-        return $backlog_message;
+        return false;
     }
     
     //find the different manifests for each question and parse them.
@@ -147,9 +145,9 @@ function import_exercise($file)
 	
     $questionHandle = opendir($tmpExerciseDir);
 
-    while (false !== ($questionFile = readdir($questionHandle)))
+    while( false !== ($questionFile = readdir($questionHandle)) )
     {
-        if (preg_match('/.xml$/i' ,$questionFile))
+        if( preg_match('/.xml$/i' ,$questionFile) )
         {
             parse_file($tmpExerciseDir, '', $questionFile);
 			$file_found = true;
@@ -159,7 +157,7 @@ function import_exercise($file)
 
     //2- parse every subdirectory to search xml question files
 
-    while (false !== ($file = readdir($exerciseHandle)))
+    while( false !== ($file = readdir($exerciseHandle)) )
     {
         if (is_dir($tmpExerciseDir.'/'.$file) && $file != "." && $file != "..")
         {
@@ -178,10 +176,10 @@ function import_exercise($file)
         } //if is_dir
     }//end while loop to find each question data's
 
-	if (!$file_found)
+	if( !$file_found )
 	{
-		array_push ($backlog_message, get_lang('No XML file found in the zip'));
-		return $backlog_message;
+		$backlog_message[] = get_lang('No XML file found in the zip');
+		return false;
 	}
 		
     //---------------------
@@ -201,7 +199,7 @@ function import_exercise($file)
     }
     else
     {
-        array_push ($backlog_message, 'EXERCISE DATA INVALID !!!');
+        $backlog_message[] = get_lang('There is an error in exercise data of imported file.');
     }
 
     //For each question found...
@@ -232,21 +230,22 @@ function import_exercise($file)
             }
             else
             {
-                array_push ($backlog_message, 'IMPOSSIBLE TO SAVE QUESTION !!!');
+                $backlog_message[] = get_lang('Cannot save question.');
+                return false;
             }
         }
         else
         {
-            array_push ($backlog_message, 'QUESTION DATA INVALID !!!');
+            $backlog_message[] = get_lang('There is an error in exercise data of imported file.');
+            return false;
         }
     }
-    $link = "<center><a href=\"../exercise_submit.php?exId=".$exercise_id."\">".get_lang('See the exercise')."</a></center>";
-    array_push ($backlog_message, $link);
-
+    
     // delete the temp dir where the exercise was unzipped
     claro_delete_file($tmpExerciseDir);
-
-    return $backlog_message;
+    
+    $backlog_message[] = get_lang('Import successfull');
+    return $exercise_id;
 }
 
 
