@@ -188,11 +188,18 @@ class answerMatching
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	    
-    function duplicate()
+    function duplicate($duplicatedQuestionId)
     {
-    	// TODO duplicate	
+        $duplicated = new answerMatching($duplicatedQuestionId);
+
+        $duplicated->leftList = $this->leftList; 
+        $duplicated->rightList = $this->rightList;
+        
+        $duplicated->save();
+        
+        return $duplicated;
     }
-    
+        	
     /**
      * check if the object content is valide (use before using save method)
      *
@@ -498,19 +505,26 @@ class answerMatching
     /**
      * display the form to edit answers
      *
+     * @param $exId exercise id, required to get stay in the exercise context if required after posting the form
+     * @param $askDuplicate display or not the form elements allowing to choose if the question must be duplicated or modified in all exercises
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */
-    function getFormHtml($exId = null) 
+    function getFormHtml($exId = null, $askDuplicate) 
     {			
     	$html =
     		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
     	.	'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     	.	'<input type="hidden" name="leftCount" value="'.count($this->leftList).'" />' . "\n"
     	.	'<input type="hidden" name="rightCount" value="'.count($this->rightList).'" />' . "\n" 
-		.	'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
-    	.	'<table border="0" cellpadding="5">' . "\n\n"
-    		
+		.	'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n";
+        
+        if( !empty($exId) && $askDuplicate )
+        {
+            $html .= '<p>' . html_ask_duplicate() . '</p>' . "\n";
+        }
+        
+    	$html .= '<table border="0" cellpadding="5">' . "\n\n"    		
 		. 	'<tr>' . "\n"
 		.	'<td colspan="3">' . get_lang('Make correspond') . '&nbsp;:</td>' . "\n"
 		.	'<td>' . get_lang('Weighting') . '&nbsp;:</td>' . "\n"
