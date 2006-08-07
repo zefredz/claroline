@@ -150,9 +150,12 @@ class Exercise
 		    $this->showAnswers = $data['showAnswers'];
 		    $this->startDate = $data['unix_start_date'];
 
-		    // unix_end_date is null if the query return 0 for this value
-		    if( $data['unix_end_date'] > 0 )	$this->endDate = $data['unix_end_date'];
-
+		    // unix_end_date is null if the query returns 0 (UNIX_TIMESTAP('0000-00-00 00:00:00') == 0)
+            // for this value
+		    if( $data['unix_end_date'] == '0' ) $this->endDate = null;
+            else                                $this->endDate = $data['unix_end_date'];
+            
+            
 		    $this->timeLimit = $data['timeLimit'];
 		    $this->attempts = $data['attempts'];
 		    $this->anonymousAttempts = $data['anonymousAttempts'];
@@ -209,7 +212,7 @@ class Exercise
     		// update, main query
 		    if( is_null($this->endDate) || $this->endDate == 0 )
 		    {
-		    	$endDateSql = "NULL";
+		    	$endDateSql = "'0000-00-00 00:00:00'";
 		    }
 		    else
 		    {
