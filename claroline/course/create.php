@@ -344,8 +344,8 @@ if( $display == DISP_COURSE_CREATION_FORM )
 <td>
 <img src="<?php echo $imgRepositoryWeb ?>enroll_open.gif" />
 <input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?> />
-<label for="allowedToSubscribe_true"><?php echo get_lang('Allowed'); ?></label>
-<label for="courseEnrollmentKey">
+<label for="courseEnrollAllowed_true"><?php echo get_lang('Allowed'); ?></label>
+<label for="enrollmentKey">
 - <?php echo get_lang('enrollment key') ?>
 <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
 </label>
