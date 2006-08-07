@@ -189,7 +189,7 @@ class Resolver
                 trigger_error('ERROR: tool_name required',E_USER_ERROR);
             }
             
-            $url = $this->_basePath . '/claroline/' . $this->_getToolPath($elementCRLArray['tool_name']);
+            $url = $this->_getToolPath($elementCRLArray['tool_name']);
             $url .= '?cidReq=' . $elementCRLArray['course_sys_code'];
 
             // add the gidReq at the url
@@ -243,7 +243,7 @@ class Resolver
                 WHERE `claro_label`= '" . addslashes($toolName) . "'";
         $toolPath = claro_sql_query_get_single_value($sql);
 
-        return $toolPath;
+        return get_module_url( $toolName ) . '/' . $toolPath;
     }
 
     /**
