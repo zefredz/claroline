@@ -393,7 +393,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $name = $toolTbl["name"];
                 $label = str_pad( $toolTbl["label"], 8, '_' );
 
-                    if(  is_null($label) )
+                    if(  is_null($label) || '________' === $label )
                     {
                         $node = $this->_node."/CLEXT___/".$toolTbl["url"];
                     }
