@@ -235,15 +235,7 @@ class Resolver
     function _getToolPath($toolName)
     {
         $toolName = rtrim( $toolName, '_' );
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl = $tbl_mdb_names['tool'];
-
-        $sql = "SELECT `script_url` 
-                FROM `" . $tbl . "` 
-                WHERE `claro_label`= '" . addslashes($toolName) . "'";
-        $toolPath = claro_sql_query_get_single_value($sql);
-
-        return get_module_url( $toolName ) . '/' . $toolPath;
+        return get_module_url( $toolName ) . '/' . get_module_entry( $toolName );
     }
 
     /**
