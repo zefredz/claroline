@@ -160,8 +160,8 @@ if (DISP_FORM == $display)
 
 include($includePath . '/claro_init_header.inc.php');
 
-echo claro_html::tool_title($nameTools);
-echo claro_html::msg_list($msg);
+echo claro_html_tool_title($nameTools);
+echo claro_html_msg_list($msg);
 
 if  ( DISP_FLUSH_RESULT == $display)
 {
@@ -183,20 +183,21 @@ if  ( DISP_FLUSH_RESULT == $display)
     echo '<p>' . "\n"
     .    '<form action="' . $_SERVER['PHP_SELF'] . '">'
     .    get_lang('Delete all course statistics')
-    .    '<br>'
-    .    '<br>'
+    .    '<br />'
+    .    '<br />'
     .    '<input type="radio" name="scope" id="scope_all" value="ALL">'
     .    '<label for="scope_all">' . get_lang('All') . '</label>'
-    .    '<br>'
+    .    '<br />'
     .    '<input type="radio" name="scope" id="scope_before" value="BEFORE" checked="checked">'
     .    '<label for="scope_before" >' . get_lang('Before') . '</label> '
     .    claro_disp_date_form('beforeDate[day]', 'beforeDate[month]', 'beforeDate[year]', $beforeDate, 'short' )
     .    '<input type="hidden" name="cmd" value="delete">'
-    .    '<br>'
+    .    '<br />'
+    .    '<br />'
     .    '<input type="submit" name="action" value="' . get_lang('Ok') . '"> '
     .    claro_html_button('courseLog.php', get_lang('Cancel') )
-    .    '<br>'
-    .    '<br>'
+    .    '<br />'
+    .    '<br />'
     .    '</p>' . "\n"
     ;
 
