@@ -537,7 +537,7 @@ function update_db_course($courseDbName)
         `id` int(11) NOT NULL auto_increment,
         `title` varchar(255) NOT NULL,
         `description` text NOT NULL,
-        `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
+        `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'INVISIBLE',
         `displayType` enum('SEQUENTIAL','ONEPAGE') NOT NULL default 'ONEPAGE',
         `shuffle` smallint(6) NOT NULL default '0',
         `showAnswers` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
@@ -545,7 +545,7 @@ function update_db_course($courseDbName)
         `endDate` datetime NOT NULL,
         `timeLimit` smallint(6) NOT NULL default '0',
         `attempts` tinyint(4) NOT NULL default '0',
-        `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'ALLOWED',
+        `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'NOTALLOWED',
     PRIMARY KEY  (`id`)
     )";
 
