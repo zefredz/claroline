@@ -15,46 +15,42 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 +----------------------------------------------------------------------+
 */
 
-include_once(get_conf('rootSys').$clarolineRepositoryAppend.'exercice/question.class.php');
-include_once(get_conf('rootSys').$clarolineRepositoryAppend.'exercice/answer.class.php');
+include_once('../exercise/lib/question.class.php');
 include_once( dirname(__FILE__) . '/csv.class.php');
 
-// answer types
-if(!defined('UNIQUE_ANSWER'))     define('UNIQUE_ANSWER',   1);
-if(!defined('MULTIPLE_ANSWER')) define('MULTIPLE_ANSWER', 2);
-if(!defined('FILL_IN_BLANKS'))     define('FILL_IN_BLANKS',  3);
-if(!defined('MATCHING'))         define('MATCHING',        4);
-if(!defined('TRUEFALSE'))         define('TRUEFALSE',           5);
-
-class csvTrackSingle extends csv
+class csvTrackTrueFalse extends csv
 {
     var $question;
-    var $exerciseId;
-
-    function csvTrackSingle($objQuestion, $exerciseId = '')
+    var $exId;
+    
+    function csvTrackTrueFalse($question, $exId = '')
     {
-           parent::csv(); // call constructor of parent class
-        $this->question = $objQuestion;
-        $this->exerciseId = $exerciseId;
-      }
-    // build : date;username;statement;answer
-       function buildRecords()
-       {
+        parent::csv(); // call constructor of parent class
+        
+        $this->question = $question;
+        $this->exId = $exId;
+    }
+    
+    function buildRecords()
+    {
         $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_user = $tbl_mdb_names['user'                    ];
-
-          $tbl_cdb_names = claro_sql_get_course_tbl();
-          $tbl_quiz_answer            = $tbl_cdb_names['quiz_answer'            ];
-        $tbl_quiz_question            = $tbl_cdb_names['quiz_question'        ];
-        $tbl_quiz_rel_test_question    = $tbl_cdb_names['quiz_rel_test_question'];
-          $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
+        $tbl_user = $tbl_mdb_names['user'];
+        
+        
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_quiz_rel_test_question = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $tbl_quiz_question = $this->question->tblQuestion;
+        
+        $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
         $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
         $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
 
-          // this query doesn't show attempts without any answer
+        
+        
+        // this query doesn't show attempts without any answer
         $sql = "SELECT `TE`.`exe_date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
-                        `Q`.`question`,
+                        `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
                     `".$tbl_quiz_question."` AS `Q`,
@@ -65,12 +61,12 @@ class csvTrackSingle extends csv
                     )
                 LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
-                WHERE `RTQ`.`question_id` = `Q`.`id`
-                    AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
+                WHERE `RTQ`.`questionId` = `Q`.`id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
                     AND `TE`.`exe_id` = `TED`.`exercise_track_id`
                     AND `U`.`user_id` = `TE`.`exe_user_id`
                     AND `TED`.`question_id` = `Q`.`id`
-                    AND `Q`.`id` = ".$this->question->selectId();
+                    AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
@@ -78,71 +74,67 @@ class csvTrackSingle extends csv
 
         $attempts = claro_sql_query_fetch_all($sql);
 
-        // get the list of possible answers and their ids
-        $sql = "SELECT `A`.`id`, `A`.`reponse`
-                FROM `".$tbl_quiz_answer."` AS `A`
-                WHERE `A`.`question_id` = ".$this->question->selectId();
-        $answers = claro_sql_query_fetch_all($sql);
-
-        // order the answer list to have the id as the key
-        foreach( $answers as $answer )    $orderedAnswers[$answer['id']] = $answer['reponse'];
-
         // build recordlist with good values for answers
-        $i = 0;
-        foreach( $attempts as $attempt )
+        if( is_array($attempts) )
         {
-            $this->recordList[$i] = $attempt;
+            $i = 0;
+            foreach( $attempts as $attempt )
+            {
+                $this->recordList[$i] = $attempt;
 
-            if( isset($orderedAnswers[$attempt['answer']]) )
-                $this->recordList[$i]['answer'] = $orderedAnswers[$attempt['answer']];
-            else
-                $this->recordList[$i]['answer'] = '';
+                if( $attempt['answer'] == 'TRUE' )
+                    $this->recordList[$i]['answer'] = get_lang('True');
+                elseif( $attempt['answer'] == 'FALSE' )
+                    $this->recordList[$i]['answer'] = get_lang('False');
+                else
+                    $this->recordList[$i]['answer'] = '';
 
-            $i++;
+                $i++;
+            }
+
+            if( isset($this->recordList) && is_array($this->recordList) ) return true;
         }
-
-
-          if( isset($this->recordList) && is_array($this->recordList) )
-            return true;
-        else
-            return false;
+        
+        return false;
     }
 }
 
-class csvTrackMulti extends csv
+
+
+class csvTrackMultipleChoice extends csv
 {
     var $question;
-    var $exerciseId;
+    var $exId;
 
-    function csvTrackMulti($objQuestion, $exerciseId)
+    function csvTrackMultipleChoice($question, $exId = '')
     {
         parent::csv(); // call constructor of parent class
-        $this->question = $objQuestion;
-        $this->exerciseId = $exerciseId;
+        
+        $this->question = $question;
+        $this->exId = $exId;
     }
-
-    // build : date,username,statement,answer
-       function buildRecords()
-       {
+    
+    // build : date;username;statement;answer
+    function buildRecords()
+    {
         $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_user                     = $tbl_mdb_names['user'                    ];
+        $tbl_user = $tbl_mdb_names['user'];
 
-          $tbl_cdb_names = claro_sql_get_course_tbl();
-          $tbl_quiz_answer            = $tbl_cdb_names['quiz_answer'            ];
-        $tbl_quiz_question            = $tbl_cdb_names['quiz_question'        ];
-        $tbl_quiz_rel_test_question    = $tbl_cdb_names['quiz_rel_test_question'];
-          $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_quiz_rel_test_question    = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $tbl_quiz_question = $this->question->tblQuestion;
+        
+        $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
         $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
         $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
 
         // this query doesn't show attempts without any answer
-        $sql = "SELECT  `TE`.`exe_id`,
-                        `TE`.`exe_date` AS `date`,
+        $sql = "SELECT `TE`.`exe_date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
-                        `Q`.`question`,
+                        `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
-                     `".$tbl_quiz_question."` AS `Q`,
+                    `".$tbl_quiz_question."` AS `Q`,
                     `".$tbl_quiz_rel_test_question."` AS `RTQ`,
                     `".$tbl_track_e_exercises."` AS `TE`,
                     `".$tbl_track_e_exe_details."` AS `TED`,
@@ -150,153 +142,111 @@ class csvTrackMulti extends csv
                     )
                 LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
-                WHERE `RTQ`.`question_id` = `Q`.`id`
-                    AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
+                WHERE `RTQ`.`questionId` = `Q`.`id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
                     AND `TE`.`exe_id` = `TED`.`exercise_track_id`
                     AND `U`.`user_id` = `TE`.`exe_user_id`
                     AND `TED`.`question_id` = `Q`.`id`
-                    AND `Q`.`id` = ".$this->question->selectId();
+                    AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
         $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
-        // we need to compile all answers of one attempt on the same line
-        $tmpRecordList = claro_sql_query_fetch_all($sql);
+        $attempts = claro_sql_query_fetch_all($sql);
 
-        // get the list of possible answers and their ids
-        $sql = "SELECT `A`.`id`, `A`.`reponse`
-                FROM `".$tbl_quiz_answer."` AS `A`
-                WHERE `A`.`question_id` = ".$this->question->selectId();
-        $answers = claro_sql_query_fetch_all($sql);
-
-        // order the answer list to have the id as the key
-        foreach( $answers as $answer )    $orderedAnswers[$answer['id']] = $answer['reponse'];
-
-        $previousKey = '';
-        foreach( $tmpRecordList as $tmpRecord )
+        if( is_array($attempts) )
         {
-            // build a unique key for each line of the csv
-            // different answer of a same attempt have same date and name
-            $key = $tmpRecord['exe_id'];
-            if( $key != $previousKey )
+            // build recordlist with good values for answers
+            $i = 0;
+            foreach( $attempts as $attempt )
             {
-                // add infos in record list
-                $recordList[$key]['date'] = $tmpRecord['date'];
-                $recordList[$key]['name'] = $tmpRecord['name'];
-                $recordList[$key]['question'] = $tmpRecord['question'];
+                $this->recordList[$i] = $attempt;
+                $i++;
             }
-            // add answer one by one
-               if( isset($orderedAnswers[$tmpRecord['answer']]) )
-                $recordList[$key][] = $orderedAnswers[$tmpRecord['answer']];
+
+            if( isset($this->recordList) && is_array($this->recordList) )
+                return true;
             else
-                $recordList[$key][] = '';
-
-            $previousKey = $key;
+                return false;
         }
-
-          if( isset($recordList) && is_array($recordList) )
-          {
-              $this->recordList = $recordList;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        
+        return false;
     }
 }
+
 
 class csvTrackFIB extends csv
 {
     var $question;
     var $exerciseId;
 
-    function csvTrackFIB($objQuestion, $exerciseId)
+    function csvTrackFIB($question, $exId = '')
     {
         parent::csv(); // call constructor of parent class
-        $this->question = $objQuestion;
-        $this->exerciseId = $exerciseId;
-      }
-
-       // create record list
-       function buildRecords()
-       {
+        
+        $this->question = $question;
+        $this->exId = $exId;
+    }
+    
+    // build : date;username;statement;answer
+    function buildRecords()
+    {
         $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_user                     = $tbl_mdb_names['user'                    ];
+        $tbl_user = $tbl_mdb_names['user'];
 
-          $tbl_cdb_names = claro_sql_get_course_tbl();
-          $tbl_quiz_answer            = $tbl_cdb_names['quiz_answer'            ];
-        $tbl_quiz_question            = $tbl_cdb_names['quiz_question'        ];
-        $tbl_quiz_rel_test_question    = $tbl_cdb_names['quiz_rel_test_question'];
-          $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_quiz_rel_test_question    = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $tbl_quiz_question = $this->question->tblQuestion;
+        
+        $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
         $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
         $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
 
-        $sql = "SELECT  `TE`.`exe_id`,
-                        `TE`.`exe_date` as `date`,
+        // this query doesn't show attempts without any answer
+        $sql = "SELECT `TE`.`exe_date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
-                        `Q`.`question`,
+                        `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
                     `".$tbl_quiz_question."` AS `Q`,
                     `".$tbl_quiz_rel_test_question."` AS `RTQ`,
-                    `".$tbl_quiz_answer."` AS `A`,
                     `".$tbl_track_e_exercises."` AS `TE`,
                     `".$tbl_track_e_exe_details."` AS `TED`,
                     `".$tbl_user."` AS `U`
                     )
                 LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
-                WHERE `RTQ`.`question_id` = `Q`.`id`
-                    AND `Q`.`id` = `A`.`question_id`
-                    AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
+                WHERE `RTQ`.`questionId` = `Q`.`id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
                     AND `TE`.`exe_id` = `TED`.`exercise_track_id`
                     AND `U`.`user_id` = `TE`.`exe_user_id`
                     AND `TED`.`question_id` = `Q`.`id`
-                    AND `Q`.`id` = ".$this->question->selectId();
+                    AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
         $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
-        // we need to compile all answers of one attempt on the same line
-        $tmpRecordList = claro_sql_query_fetch_all($sql);
+        $attempts = claro_sql_query_fetch_all($sql);
 
-        $previousKey = '';
-        foreach( $tmpRecordList as $tmpRecord )
+        if( is_array($attempts) )
         {
-            // build a unique key for each line of the csv
-            // different answer of a same attempt have same date and name
-            $key = $tmpRecord['exe_id'];
-            if( $key != $previousKey )
+            // build recordlist with good values for answers
+            $i = 0;
+            foreach( $attempts as $attempt )
             {
-                // add infos in record list
-                $recordList[$key]['date'] = $tmpRecord['date'];
-                $recordList[$key]['name'] = $tmpRecord['name'];
-                $recordList[$key]['question'] = $tmpRecord['question'];
+                $this->recordList[$i] = $attempt;
+                $i++;
             }
 
-            // add answer one by one
-            // for a better display replace entities by real chars
-            $charsToReplace = array('&#58;&#58;','&#91;','&#93;','&lt;','&gt;');
-            $replacingChars = array('::','[',']','<','>');
-            $tmpRecord['answer'] = str_replace($charsToReplace,$replacingChars,trim($tmpRecord['answer']));
-
-            $recordList[$key][] = $tmpRecord['answer'];
-
-            $previousKey = $key;
+            if( isset($this->recordList) && is_array($this->recordList) )
+                return true;
+            else
+                return false;
         }
-
-          if( isset($recordList) && is_array($recordList) )
-          {
-              $this->recordList = $recordList;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        
+        return false;
     }
 }
 
@@ -305,31 +255,32 @@ class csvTrackMatching extends csv
     var $question;
     var $exerciseId;
 
-    function csvTrackMatching($objQuestion, $exerciseId)
+    function csvTrackMatching($question, $exId = '')
     {
         parent::csv(); // call constructor of parent class
-        $this->question = $objQuestion;
-        $this->exerciseId = $exerciseId;
+        
+        $this->question = $question;
+        $this->exId = $exId;
     }
-
-       // create record list
-       function buildRecords()
-       {
+    
+    // build : date;username;statement;answer
+    function buildRecords()
+    {
         $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_user                     = $tbl_mdb_names['user'                    ];
+        $tbl_user = $tbl_mdb_names['user'];
 
-          $tbl_cdb_names = claro_sql_get_course_tbl();
-          $tbl_quiz_answer            = $tbl_cdb_names['quiz_answer'            ];
-        $tbl_quiz_question            = $tbl_cdb_names['quiz_question'        ];
-        $tbl_quiz_rel_test_question    = $tbl_cdb_names['quiz_rel_test_question'];
-          $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_quiz_rel_test_question    = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $tbl_quiz_question = $this->question->tblQuestion;
+        
+        $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
         $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
         $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
 
-        $sql = "SELECT  `TE`.`exe_id`,
-                        `TE`.`exe_date` as `date`,
+        // this query doesn't show attempts without any answer
+        $sql = "SELECT `TE`.`exe_date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
-                        `Q`.`question`,
+                        `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
                     `".$tbl_quiz_question."` AS `Q`,
@@ -340,100 +291,68 @@ class csvTrackMatching extends csv
                     )
                 LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
-                WHERE `RTQ`.`question_id` = `Q`.`id`
-                    AND `RTQ`.`exercice_id` = `TE`.`exe_exo_id`
+                WHERE `RTQ`.`questionId` = `Q`.`id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
                     AND `TE`.`exe_id` = `TED`.`exercise_track_id`
                     AND `U`.`user_id` = `TE`.`exe_user_id`
                     AND `TED`.`question_id` = `Q`.`id`
-                    AND `Q`.`id` = ".$this->question->selectId();
+                    AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
         $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
 
-        // we need to compile all answers of one attempt on the same line
-        $tmpRecordList = claro_sql_query_fetch_all($sql);
+        $attempts = claro_sql_query_fetch_all($sql);
 
-        // get the list of right propositions (letters)
-        // we need id and order to get the correct letters
-        $objAnswer = new Answer($this->question->selectId());
-        $nbrAnswers = $objAnswer->selectNbrAnswers();
-        $letter = 'A';
-        for($answerId = 1;$answerId <= $nbrAnswers;$answerId++)
+        if( is_array($attempts) )
         {
-            $answer = $objAnswer->selectAnswer($answerId);
-            $answerCorrect = $objAnswer->isCorrect($answerId);
-
-            if(!$answerCorrect)
+            // build recordlist with good values for answers
+            $i = 0;
+            foreach( $attempts as $attempt )
             {
-                // so we can associate id of answer in tracking with letter in question display
-                $rightAnswer[$answerId] = $letter;
-                $letter++;
+                $this->recordList[$i] = $attempt;
+                $i++;
             }
-        }
 
-        $previousKey = '';
-        foreach( $tmpRecordList as $tmpRecord )
-        {
-            // build a unique key for each line of the csv
-            // different answer of a same attempt have same date and name
-            $key = $tmpRecord['exe_id'];
-            if( $key != $previousKey )
-            {
-                // add infos in record list
-                $recordList[$key]['date'] = $tmpRecord['date'];
-                $recordList[$key]['name'] = $tmpRecord['name'];
-                $recordList[$key]['question'] = $tmpRecord['question'];
-            }
-            // add answer one by one
-               $splittedAnswer = explode('-',$tmpRecord['answer']);
-
-            if( isset($rightAnswer[$splittedAnswer[1]]) )
-                $recordList[$key][] = $rightAnswer[$splittedAnswer[1]];
+            if( isset($this->recordList) && is_array($this->recordList) )
+                return true;
             else
-                $recordList[$key][] = '';
-
-            $previousKey = $key;
+                return false;
         }
-
-        if( isset($recordList) && is_array($recordList) )
-          {
-              $this->recordList = $recordList;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
+        
+        return false;
     }
 }
 
-function export_question_tracking($questionId, $exerciseId = '')
+/**
+ * @return string csv data or empty string
+ *
+ */
+function export_question_tracking($quId, $exId = '')
 {
-    $objQuestion = new Question();
-    if( !$objQuestion->read($questionId) )
+    $question = new Question();
+    if( !$question->load($quId) )
     {
         return "";
     }
 
-    switch($objQuestion->type)
+    switch($question->getType())
     {
-          case TRUEFALSE: // do the same as unique answer
-        case UNIQUE_ANSWER:
-            $cvsTrack = new csvTrackSingle($objQuestion, $exerciseId);
+        case 'TF': 
+            $cvsTrack = new csvTrackTrueFalse($question, $exId);
             break;
-        case MULTIPLE_ANSWER:
-            $cvsTrack = new csvTrackMulti($objQuestion, $exerciseId);
+        case 'MCUA':
+        case 'MCMA':
+            $cvsTrack = new csvTrackMultipleChoice($question, $exId);
             break;
-        case FILL_IN_BLANKS:
-            $cvsTrack = new csvTrackFIB($objQuestion, $exerciseId);
+        case 'FIB':
+            $cvsTrack = new csvTrackFIB($question, $exId);
             break;
-        case MATCHING:
-            $cvsTrack = new csvTrackMatching($objQuestion, $exerciseId);
+        case 'MATCHING':
+            $cvsTrack = new csvTrackMatching($question, $exId);
             break;
-        /*default:
-            break;*/
+        default:
+            break;
     }
 
     if( isset($cvsTrack) )
@@ -447,20 +366,20 @@ function export_question_tracking($questionId, $exerciseId = '')
     }
 }
 
-function export_exercise_tracking($exerciseId)
+function export_exercise_tracking($exId)
 {
-    $objExercise = new Exercise();
-    if( !$objExercise->read($exerciseId) )
+    $exercise = new Exercise();
+    if( !$exercise->load($exId) )
     {
         return "";
     }
 
-    $questionList = $objExercise->selectQuestionList();
-
+    $questionList = $exercise->getQuestionList();
+    
     $exerciseCsv = '';
-    foreach( $questionList as $questionId )
+    foreach( $questionList as $question )
     {
-        $exerciseCsv .= export_question_tracking($questionId, $exerciseId);
+        $exerciseCsv .= export_question_tracking($question['id'], $exId);
     }
 
     return $exerciseCsv;
