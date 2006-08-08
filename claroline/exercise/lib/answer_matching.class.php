@@ -791,7 +791,9 @@ class answerMatching
 	} 	 
 	
 	/**
-	 * return a array with values needed for tracking
+	 * return a array with values needed for tracking 
+     * we cannot rely on the code for tracking has the code 
+     * change when answers are edited
 	 * 
 	 * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return array
@@ -802,7 +804,7 @@ class answerMatching
 		
 		foreach( $this->leftList as $leftElt )
 		{
-			$values[] = $leftElt['code']. '-' . $leftElt['response'];	
+			$values[] = $leftElt['answer']. ' -> ' . $this->rightList[$leftElt['response']]['answer'];	
 		}
 		
 		return $values;

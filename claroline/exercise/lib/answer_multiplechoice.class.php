@@ -671,12 +671,14 @@ class answerMultipleChoice
 	function getTrackingValues()
 	{
 		$values = array();
-		
-		foreach( $this->response as $responseId => $value )
-		{
-			if( $value )	$values[] = $responseId;
-		}
-		
+        
+		foreach( $this->answerList as $answer )
+    	{
+    		if( array_key_exists($answer['id'], $this->response) ) 
+    		{
+				$values[] = $answer['answer'];
+    		}
+    	}
 		return $values;
 	}  
 }
