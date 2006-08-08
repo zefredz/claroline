@@ -804,7 +804,14 @@ class answerMatching
 		
 		foreach( $this->leftList as $leftElt )
 		{
-			$values[] = $leftElt['answer']. ' -> ' . $this->rightList[$leftElt['response']]['answer'];	
+            if( !empty($leftElt['response']) && isset($this->rightList[$leftElt['response']]['answer'])  )
+            {
+            	$values[] = $leftElt['answer']. ' -> ' . $this->rightList[$leftElt['response']]['answer'];	
+            }
+            else
+            {
+                $values[] = $leftElt['answer'].' -> ';
+            }
 		}
 		
 		return $values;
