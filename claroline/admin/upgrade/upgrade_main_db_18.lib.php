@@ -30,49 +30,149 @@ function query_to_upgrade_main_database_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
 
-// table used for claroline's modules
+    // course
 
-     $sqlForUpdate[]  = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['module'] . "` (
-       `id` int(11) NOT NULL auto_increment,
-       `label` varchar(8) NOT NULL default '',
-       `name` varchar(100) NOT NULL default '',
-       `activation` enum('activated','desactivated') NOT NULL default 'desactivated',
-       `type` enum('coursetool','applet') NOT NULL default 'applet',
-       `module_info_id` int(11) NOT NULL default '0',
-       PRIMARY KEY  (`id`)
-     ) TYPE=MyISAM AUTO_INCREMENT=0";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `defaultProfileId` int(11) NOT NULL";
+    
+    // rel_course_user
 
-     //table used to store claroline's modules complementary information
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `profile_id` int(11) NOT NULL ";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `count_user_enrol` int(11) NOT NULL default 0 ";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `count_class_enrol` int(11) NOT NULL default 0 ";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `isCourseManager` tinyint(4) NOT NULL default 0 "; 
+        
+    // `statut` tinyint(4) NOT NULL default '5' --> `isCourseManager` tinyint(4) NOT NULL default 0
 
-     $sqlForUpdate[]  = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['module_info'] . "` (
-       `id` int(11) NOT NULL auto_increment,
-       `module_id` int(11) NOT NULL default '0',
-       `version` varchar(10) NOT NULL default '',
-       `author` varchar(50) default NULL,
-       `author_email` varchar(100) default NULL,
-       `website` varchar(255) default NULL,
-       `description` varchar(255) default NULL,
-       `license` varchar(50) default NULL,
-       PRIMARY KEY  (`id`)
-     ) TYPE=MyISAM AUTO_INCREMENT=0";
+    $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['rel_course_user'] . "`
+                       SET `isCourseManager` = 1
+                       WHERE `statut` = 1 ";
+    
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` DROP COLUMN `statut` "; 
 
-     //table used to store claroline's docks (where some content can be displayed by the modules)
+    // course category
 
-     $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['dock'] . "` (
-       `id` int(11) NOT NULL auto_increment,
-       `module_id` int(11) NOT NULL default '0',
-       `name` varchar(50) NOT NULL default '',
-       `rank` int(11) NOT NULL default '0',
-       PRIMARY KEY  (`id`)
-     ) TYPE=MyISAM AUTO_INCREMENT=0";
-
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` DROP COLUMN `bc` ";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` CHANGE `nb_childs` `nb_childs` smallint(6) default 0";
+    
+    // user
 
     $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `language` varchar(15) default NULL";
     $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `officialEmail` varchar(255) default NULL AFTER `officialCode`";
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` CHANGE `email` `email` varchar(255) default NULL";
 
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` CHANGE `email` `email` varchar(255) default NULL";
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` CHANGE `officialCode` `officialCode`  varchar(255) default NULL";
+
+    // `statut` tinyint(4) default NULL, -->    `isCourseCreator` tinyint(4) default 0
+    
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `isCourseCreator` tinyint(4) default 0 ";
+
+    $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['user'] . "`
+                       SET `isCourseCreator` = 1
+                       WHERE `statut` = 1";
+
+    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` DROP COLUMN `statut` ";
+
+    // TODO `isPlatformAdmin` --> from admin table
     $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `isPlatformAdmin`  tinyint(4) default 0";
 
+    // course class
+
+    $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" .  $tbl_mdb_names['rel_course_class'] . "` (
+  	    `courseId` varchar(40) NOT NULL,
+  	    `classId` int(11) NOT NULL default '0',
+  	    PRIMARY KEY  (`courseId`,`classId`) ";
+
+    // add right table
+
+ 	$sqlForUpdate[] = " CREATE TABLE IF NOT EXISTS `". $tbl_mdb_names['right_profile'] . "` (
+  	   `profile_id` int(11) NOT NULL auto_increment,
+  	   `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
+  	   `name` varchar(255) NOT NULL default '',
+  	   `label` varchar(50) NOT NULL default '',
+  	   `description` varchar(255) default '',
+  	   `courseManager` tinyint(4) default '0',
+  	   `mailingList` tinyint(4) default '0',
+  	   `userlistPublic` tinyint(4) default '0',
+  	   `groupTutor` tinyint(4) default '0',
+  	   `locked` tinyint(4) default '0',
+  	   `required` tinyint(4) default '0',
+  	   PRIMARY KEY  (`profile_id`),
+  	   KEY `type` (`type`)
+  	)TYPE=MyISAM " ;
+  	 
+    $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_action'] . "` (
+  	   `id` int(11) NOT NULL auto_increment,
+  	   `name` varchar(255) NOT NULL default '',
+  	   `description` varchar(255) default '',
+  	   `tool_id` int(11) default NULL,
+  	   `rank` int(11) default '0',
+  	   `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
+  	   PRIMARY KEY  (`id`),
+  	   KEY `tool_id` (`tool_id`),
+  	   KEY `type` (`type`)
+  	 )TYPE=MyISAM ";
+  	 
+  	 $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_rel_profile_action'] . "` (
+  	   `profile_id` int(11) NOT NULL,
+  	   `action_id` int(11) NOT NULL,
+  	   `courseId`  varchar(40) NOT NULL default '',
+  	   `value` tinyint(4) default '0',
+  	   PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
+  	 ) TYPE=MyISAM ";
+
+    // module
+  	 
+  	$sqlForUpdate[] = "CREATE TABLE `" . $tbl_mdb_names['module'] . "` (
+  	  `id`         smallint    unsigned             NOT NULL auto_increment,
+  	  `label`      char(8)                          NOT NULL default '',
+  	  `name`       char(100)                        NOT NULL default '',
+  	  `activation` enum('activated','desactivated') NOT NULL default 'desactivated',
+  	  `type`       enum('tool','applet')            NOT NULL default 'applet',
+  	  `script_url` char(255)                        NOT NULL default 'entry.php',
+  	  PRIMARY KEY  (`id`)
+  	) TYPE=MyISAM";
+  	
+  	$sqlForUpdate[] = "CREATE TABLE `".$tbl_mdb_names['module_info'] . "` (
+  	  id             smallint     NOT NULL auto_increment,
+  	  module_id      smallint     NOT NULL default '0',
+  	  version        varchar(10)  NOT NULL default '',
+  	  author         varchar(50)  default NULL,
+  	  author_email   varchar(100) default NULL,
+  	  author_website varchar(255) default NULL,
+  	  description    varchar(255) default NULL,
+  	  website        varchar(255) default NULL,
+  	  license        varchar(50)  default NULL,
+  	  PRIMARY KEY (id)
+  	) TYPE=MyISAM AUTO_INCREMENT=0";
+  	
+  	$sqlForUpdate[]= "CREATE TABLE `" . $tbl_mdb_names['dock'] . "` (
+  	  id        smallint unsigned NOT NULL auto_increment,
+  	  module_id smallint unsigned NOT NULL default '0',
+  	  name      varchar(50)          NOT NULL default '',
+  	  rank      tinyint  unsigned NOT NULL default '0',
+  	  PRIMARY KEY  (id)
+  	) TYPE=MyISAM AUTO_INCREMENT=0";
+  	
+  	$sqlForUpdate[]= "CREATE TABLE `" . $tbl_mdb_names['module_tool'] . "` (
+  	  id        smallint  unsigned NOT NULL auto_increment,
+  	  module_id smallint  unsigned NOT NULL,
+  	  entry     varchar(255) NOT NULL default 'entry.php',
+  	  icon      varchar(255) NOT NULL default 'icon.png',
+  	  PRIMARY KEY  (id)
+  	) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
+  	
+  	$sqlForUpdate[]= "CREATE TABLE `" . $tbl_mdb_names['module_rel_tool_context'] . "` (
+  	  id         smallint unsigned NOT NULL auto_increment,
+  	  tool_id    smallint unsigned NOT NULL,
+  	  context    enum('PLATFORM','COURSE','USER','GROUP','CLASSE','SESSION') NOT NULL default 'COURSE',
+  	  enabling   enum('MANUAL','AUTOMATIC') NOT NULL default 'AUTOMATIC',
+  	  def_access enum('ALL','COURSE_MEMBER','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
+  	  def_rank   int(10) unsigned default NULL,
+  	  access_manager enum('PLATFORM_ADMIN','COURSE_ADMIN','GROUP_ADMIN','USER_ADMIN') NOT NULL default 'COURSE_ADMIN',
+  	  PRIMARY KEY  (id)
+  	) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each context'" ;
+  	
     return $sqlForUpdate;
 }
+
 ?>
