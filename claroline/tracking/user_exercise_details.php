@@ -73,15 +73,21 @@ class TrackAnswerMultipleChoice extends answerMultipleChoice
 		        FROM `" . $tblTrackAnswers . "`
 		        WHERE `details_id` = " . (int) $attemptDetailsId;
 
-		$answers = claro_sql_query_fetch_all($sql);
+		$trackedAnswers = claro_sql_query_fetch_all($sql);
 
 		$this->response = array();
-				
-		foreach( $answers as $answer )
-		{
-			$this->response[$answer['answer']] = true;
-		}
 		
+        foreach( $trackedAnswers as $trackedAnswer )
+        {
+            foreach( $this->answerList as $answer )
+        	{
+        		if( $answer['answer'] == $trackedAnswer['answer'] )
+                {
+                    $this->response[$answer['id']] = true;
+                }
+        	}	
+    	}	
+        
 		return true;
 	}
 }
@@ -139,23 +145,36 @@ class TrackAnswerMatching extends answerMatching
 		        FROM `" . $tblTrackAnswers . "`
 		        WHERE `details_id` = " . (int) $attemptDetailsId;
 
-		$answers = claro_sql_query_fetch_all($sql);
+		$trackedAnswers = claro_sql_query_fetch_all($sql);
 
 		$answerCount = count($this->leftList);
 
-		foreach( $answers as $answer )
+		foreach( $trackedAnswers as $trackedAnswer )
 		{
-			list($leftProposal, $rightProposal) = explode('-',$answer['answer']);
-								   	
+			list($leftProposal, $rightProposal) = explode(' -> ',$trackedAnswer['answer']);
+			
+            // find corresponding right code if exists
+            $rightCode = '';
+            if( isset($rightProposal) )
+            {
+                foreach( $this->rightList as $rightElt ) 
+                {
+                    if( $rightElt['answer'] == $rightProposal )
+                    {
+                        $rightCode = $rightElt['code'];
+                        break;
+                    }
+                }
+            }
+            
 	    	for( $i = 0; $i < $answerCount ; $i++ )
 	    	{
-	    		if( $this->leftList[$i]['code'] == $leftProposal ) 
+	    		if( $this->leftList[$i]['answer'] == $leftProposal ) 
 	    		{
-	    			$this->leftList[$i]['response'] = $rightProposal;	 
+	    			$this->leftList[$i]['response'] = $rightCode;	 
 					break;
 	    		}
-	    	}
-			
+	    	}			
 		}
 		return true;
 	}   
