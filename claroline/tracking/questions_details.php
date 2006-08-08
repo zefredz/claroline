@@ -131,35 +131,38 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             || $question->getType() == 'MCMA' )
         {
             // get the list of all possible answer and the number of times it was choose
-            $sql = "SELECT `A`.`id`, `A`.`answer`, `A`.`correct` , COUNT(`TEA`.`answer`) as `nbr`
-                        FROM (`".$tbl_qwz_question."` AS `Q` ,
-                            `".$tbl_qwz_rel_exercise_question."` AS `RTQ` ,
-                            `".$tbl_qwz_answer_multiple_choice."` AS `A`)
-                    LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
-                        ON `TE`.`exe_exo_id` = `RTQ`.`exerciseId`
+            $sql = "SELECT `TEA`.`answer`, COUNT(`TEA`.`answer`) as `nbr`
+                        FROM `".$tbl_track_e_exercises."` AS `TE`
                     LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
                         ON `TED`.`exercise_track_id` = `TE`.`exe_id`
-                        AND `TED`.`question_id` = `Q`.`id`
                     LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
                         ON `TEA`.`details_id` = `TED`.`id`
-                        AND `TEA`.`answer` = `A`.`id`
-                    WHERE `Q`.`id` = `RTQ`.`questionId`
-                        AND `Q`.`id` = `A`.`questionId`
-                        AND `Q`.`id` = ".(int) $questionId."
-                        AND `RTQ`.`exerciseId` = ".(int) $exId."
-                        AND (`TEA`.`answer` = `A`.`id`
-                        OR `TEA`.`answer` IS NULL)
-                    GROUP BY `A`.`id`";
+                    WHERE `TED`.`question_id` = ".(int) $questionId."
+                        AND `TE`.`exe_exo_id` = ".(int) $exId."
+                    GROUP BY `TEA`.`answer`";
 
-			$results = claro_sql_query_fetch_all($sql);
+			$trackedAnswers = claro_sql_query_fetch_all($sql);
 
             // we need to know the total number of answer given
             $multipleChoiceTotal = 0;
-            foreach( $results as $result )
+            $i = 0;
+            foreach( $question->answer->answerList as $answer )
             {
-                $multipleChoiceTotal += $result['nbr'];
+                $results[$i] = $answer;
+                
+                foreach( $trackedAnswers as $trackedAnswer )
+                {
+                    $results[$i]['nbr'] = 0;
+                    if( $results[$i]['answer'] == $trackedAnswer['answer'] )
+                    {
+                        $results[$i]['nbr'] = $trackedAnswer['nbr'];
+                        $multipleChoiceTotal += $trackedAnswer['nbr'];
+                        break;
+                    }                    
+                }
+                $i++;
             }
-
+            
             $displayedStatement = $question->getDescription();
         }
         elseif( $question->getType() == 'TF' )
@@ -182,7 +185,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                     GROUP BY `TEA`.`answer`";
 
 			$results = claro_sql_query_fetch_all($sql);
-			
+
             // we need to know the total number of answer given
             $multipleChoiceTotal = 0;
             foreach( $results as $result )
@@ -300,19 +303,47 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                         AND `RTQ`.`exerciseId` = ".(int) $exId."
                     GROUP BY `TEA`.`answer`";
 
-             $answers_details = claro_sql_query_fetch_all($sql);
+             $trackedAnswers = claro_sql_query_fetch_all($sql);
 
-             foreach( $answers_details as $answer_details )
+             foreach( $trackedAnswers as $trackedAnswer )
              {
-                if( !is_null($answer_details['answer']) )
+                if( !is_null($trackedAnswer['answer']) )
                 {
-                    list($leftAnswerId,$rightAnswerId) = explode('-',$answer_details['answer']);
+                    list($leftProposal, $rightProposal) = explode(' -> ',$trackedAnswer['answer']);
                     
-                    if( !empty($leftAnswerId) && !empty($rightAnswerId) )
+                    // find right code
+                    $rightCode = '';
+                    if( isset($rightProposal) )
                     {
-						if( isset($rowTitlePosition[$leftAnswerId]) && isset($columnTitlePosition[$rightAnswerId]) )
+                        foreach( $rightList as $rightElt ) 
+                        {
+                            if( $rightElt['answer'] == $rightProposal )
+                            {
+                                $rightCode = $rightElt['code'];
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // find left code
+                    $leftCode = '';
+                    if( isset($leftProposal) )
+                    {
+                        foreach( $leftList as $leftElt ) 
+                        {
+                            if( $leftElt['answer'] == $leftProposal )
+                            {
+                                $leftCode = $leftElt['code'];
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if( !empty($rightCode) && !empty($leftCode) )
+                    {
+						if( isset($rowTitlePosition[$leftCode]) && isset($columnTitlePosition[$rightCode]) )
 						{
-                        	$results[$rowTitlePosition[$leftAnswerId]][$columnTitlePosition[$rightAnswerId]] = $answer_details['nbr'];
+                        	$results[$rowTitlePosition[$leftCode]][$columnTitlePosition[$rightCode]] = $trackedAnswer['nbr'];
 						}
                     }
 				}
@@ -367,7 +398,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 if( $result['correct'] )    echo '_on';
                 else                        echo '_off';
                 
-                echo '.gif" />';
+                echo '.gif" alt="';
+                
+                if( $result['correct'] )    echo '(X)';
+                else                        echo '( )';
+                
+                echo '"/>';
 
                 // compute pourcentage
                 if( $result['nbr'] == 0 )	$pourcent = 0;
@@ -422,10 +458,10 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             echo '<img src="'.$imgRepositoryWeb;
             // choose image to display
             
-            if( $question->answer->correctAnswer == 'TRUE' )    echo 'radio_on.gif';
-            else												echo 'radio_off.gif';
+            if( $question->answer->correctAnswer == 'TRUE' )    echo 'radio_on.gif" alt="(X)"';
+            else												echo 'radio_off.gif" alt="( )"';
             
-            echo '" />';
+            echo ' />';
 
             
 
@@ -442,10 +478,10 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             echo '<img src="'.$imgRepositoryWeb;
             // choose image to display
             
-            if( $question->answer->correctAnswer == 'FALSE' )    echo 'radio_on.gif';
-            else												echo 'radio_off.gif';
+            if( $question->answer->correctAnswer == 'FALSE' )    echo 'radio_on.gif" alt="(X)"';
+            else												echo 'radio_off.gif" alt="( )"';
             
-            echo '" />';
+            echo ' />';
 
             
 
