@@ -33,8 +33,13 @@ function claro_html_media_player($filePath)
 	// get extension
 	$pathParts = pathinfo($filePath);
 
-	$basename = $pathParts['basename'];
-	$extension = strtolower($pathParts['extension']);
+    // filename
+    if( isset($pathParts['basename']) ) $basename = $pathParts['basename'];
+    else                                $basename = '';
+    
+    // extension
+	if( isset($pathParts['extension']) )    $extension = strtolower($pathParts['extension']);
+    else                                    $extension = '';
 
 	$returnedString = '<p>'."\n";
 	switch($extension)
