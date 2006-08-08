@@ -14,6 +14,10 @@ if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
     include $includePath . '/conf/claro_main.conf.php';
 }
+elseif ( file_exists($includePath . '/../../platform/conf/claro_main.conf.php') )
+{
+    include $includePath . '/../../platform/conf/claro_main.conf.php';
+}
 else
 {
     die ('<center>'
@@ -39,7 +43,7 @@ define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 // This action is mandatory because PEAR inner include() statements
 // rely on the php.ini include_path settings
 
-set_include_path( get_include_path(). PATH_SEPARATOR . PEAR_LIB_PATH );
+set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
 
 // Unix file permission access ...
 
@@ -206,11 +210,10 @@ else
         $sql = "SHOW TABLES FROM `". $mainDbName."` LIKE 'admin'";
         if(claro_sql_query_get_single_row($sql))
         {
-
-        $sql = "SELECT user_id, username, password, authSource, creatorId
-                    FROM `".$tbl_user."` `user`, `" . $tbl_admin . "`
-                    WHERE BINARY username = '". addslashes($login) ."'
-                    AND `user`.`user_id` = `admin`.`idUser` ";
+            $sql = "SELECT user_id, username, password, authSource, creatorId
+                        FROM `".$tbl_user."` `user`, `" . $tbl_admin . "`
+                        WHERE BINARY username = '". addslashes($login) ."'
+                        AND `user`.`user_id` = `admin`.`idUser` ";
         }
         else
         {
