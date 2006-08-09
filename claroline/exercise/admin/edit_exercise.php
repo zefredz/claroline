@@ -486,7 +486,7 @@ else
 		{
 			$questionIterator++;
 			
-			echo '<tr>'
+			echo '<tr>' . "\n"
 			.	 '<td>'.$question['title'].'</td>' . "\n";
 
 			// answer type			
@@ -536,7 +536,7 @@ else
 			}
 			echo '</td>' . "\n";
 				
-			echo '</tr>';
+			echo '</tr>' . "\n\n";;
 			
 		}
 		
