@@ -130,7 +130,7 @@ border-bottom: 1px solid white;
 ";
 
 $htmlHeadXtra[] =
-"<script>
+"<script type=\"text/javascript\">
 function confirmation (name)
 {
     if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to uninstall the module "))." \"+ name + \" ?\"))
@@ -199,16 +199,16 @@ switch ( $cmd )
         break;
 
     case 'show_install' :
-        $dialogBox = '<p>'
-        .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br />'
-        .            get_lang('Find more available modules <a href="http://www.claroline.net/">here</a>.')
-        .            '</p>'
-        .            '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-        .            '<input name="cmd" type="hidden" value="do_install" />'
-        .            '<input name="uploadedModule" type="file" /><br /><br />'
-        .            '<input value="' . get_lang('Install module') . '" type="submit" /> '
+        $dialogBox = '<p>' . "\n"
+        .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br />' . "\n"
+        .            get_lang('Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.')
+        .            '</p>' . "\n\n"
+        .            '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        .            '<input name="cmd" type="hidden" value="do_install" />' . "\n"
+        .            '<input name="uploadedModule" type="file" /><br /><br />' . "\n"
+        .            '<input value="' . get_lang('Install module') . '" type="submit" /> ' . "\n"
         .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
-        .            '</form>'
+        .            '</form>' . "\n"
         ;
         break;
 
@@ -301,7 +301,7 @@ foreach ($moduleList as $module)
 
     if (!file_exists(get_module_path($module['label'])))
     {
-        $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.',array('%module_name'=>$module['label'])).'<br/>';
+        $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.',array('%module_name'=>$module['label'])).'<br/>' . "\n";
     }
 
 }
@@ -313,7 +313,7 @@ $modules_found = check_module_repositories();
 foreach ($modules_found['folder'] as $module_folder)
 {
     if (!isset($dialogBox)) $dialogBox= '';
-    $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder)) . '<br/>';
+    $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder)) . '<br/>' . "\n";
 }
 
 //needed info for reorder buttons to known if we must display action (or not)
@@ -337,14 +337,14 @@ echo claro_html_tool_title($nameTools);
 if ($dialogBox != '' ) echo claro_html_message_box($dialogBox);
 
 //display action links
-echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install module') . '<a>'
-.    '<br/><br/>'
+echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install module') . '</a>' . "\n"
+.    '<br/><br/>' . "\n\n"
 
 
 //display tabbed navbar
 
-.    '<div id="moduletypecontainer">'
-.    '<ul id="moduletypelist">'
+.    '<div id="moduletypecontainer">' . "\n"
+.    '<ul id="moduletypelist">' . "\n"
 ;
 
 //display the module type tabbed naviguation bar
@@ -353,16 +353,16 @@ foreach ($moduleTypeList as $type)
 {
     if ($typeReq == $type)
     {
-        echo '<li id="active"><a href="module_list.php?typeReq=' . $type . '" id="current">' . $typeLabel[$type] . '</a></li>';
+        echo '<li id="active"><a href="module_list.php?typeReq=' . $type . '" id="current">' . $typeLabel[$type] . '</a></li>' . "\n";
     }
     else
     {
-        echo '<li><a href="module_list.php?typeReq=' . $type . '">' . $typeLabel[$type] . '</a></li>';
+        echo '<li><a href="module_list.php?typeReq=' . $type . '">' . $typeLabel[$type] . '</a></li>' . "\n";
     }
 }
 
-echo '  </ul>
-      </div>';
+echo '</ul>' . "\n"
+.    '</div>' . "\n";
 
 //Display list
 
@@ -372,23 +372,25 @@ echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
 
 // start table...
 
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-.    '<thead>'
-.    '<tr class="headerX" align="center" valign="top">'
-.    '<th>' . get_lang('Icon')                . '</th>'
-.    '<th>' . get_lang('Module name')         . '</th>';
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n\n"
+.    '<thead>' . "\n"
+.    '<tr class="headerX">' . "\n"
+.    '<th>' . get_lang('Icon')                . '</th>' . "\n"
+.    '<th>' . get_lang('Module name')         . '</th>' . "\n";
 if ($typeReq!='tool')
 {
-    echo '<th>' . get_lang('Display')             . '</th>';
+    echo '<th>' . get_lang('Display')             . '</th>' . "\n";
 }
 else
 {
-    echo '<th colspan="2">' . get_lang('Display order')       . '</th>';
+    echo '<th colspan="2">' . get_lang('Display order')       . '</th>' . "\n";
 }
-echo '<th>' . get_lang('Properties')          . '</th>'
-.    '<th>' . get_lang('Uninstall')           . '</th>'
-.    '<th>' . get_lang('Activation')          . '</th>'
-.    '</tr><tbody>'
+echo '<th>' . get_lang('Properties')          . '</th>' . "\n"
+.    '<th>' . get_lang('Uninstall')           . '</th>' . "\n"
+.    '<th>' . get_lang('Activation')          . '</th>' . "\n"
+.    '</tr>' . "\n"
+.    '</thead>' . "\n\n"
+.    '<tbody>'
 ;
 
 // Start the list of modules...
@@ -396,51 +398,50 @@ echo '<th>' . get_lang('Properties')          . '</th>'
 foreach($moduleList as $module)
 {
     //display settings...
-    $class_css= ($module['activation']=='activated' ? 'item' : 'invisible item');
+    $class_css = ($module['activation'] == 'activated') ? '' : ' class="invisible" ';
 
     //find icon
     $modulePath = get_module_path($module['label']);
 
     if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/' . $module['icon']))
     {
-        $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" />';
+        $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" alt="" />';
     }
     elseif (file_exists(get_module_path($module['label']) . '/icon.png'))
     {
-        $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" />';
+        $icon = '<img src="' . get_module_url($module['label']) . '/icon.png" alt="" />';
     }
     elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
     {
-        $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
+        $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" alt="" />';
     }
     else
     {
         $icon = '<small>' . get_lang('No icon') . '</small>';
-        echo get_module_path($module['label']) . '/icon.gif';
     }
 
 
     //module_id and icon column
 
-    echo '<tr>'
+    echo  "\n"  . '<tr ' . $class_css . '>' . "\n"
     .    '<td align="center">' . $icon . '</td>' . "\n";
 
     //name column
 
     if (file_exists(get_module_path($module['label']) . '/admin.php') && ($module['type']!='tool'))
     {
-        echo '<td align="left" class="' . $class_css . '" ><a href="' . get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+        echo '<td align="left"><a href="' . get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
     }
     else
     {
-        echo '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n";
+        echo '<td align="left">' . $module['name'] . '</td>' . "\n";
     }
 
     //displaying location column
 
     if ($module['type']!='tool' )
     {
-        echo '<td align="left" class="' . $class_css . '"><small>';
+        echo '<td align="left"><small>';
         foreach ($module_dock[$module['id']] as $dock)
         {
            echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dock['dockname'] . '</a> <br/>';
@@ -448,58 +449,65 @@ foreach($moduleList as $module)
 
         if (empty($module_dock[$module['id']]))
         {
-            echo '<div align="center">' . get_lang('No dock chosen') . '</div>';
+            echo '<span align="center">' . get_lang('No dock chosen') . '</span>';
         }
-        echo '</small></td>';
+        echo '</small></td>' . "\n";
    }
    else
    {
         //up command
         if ($course_tool_min_rank!=$module['rank'])
         {
-            echo  '<td align="center"><a href="module_list.php?courseToolId='.$module['courseToolId'].'&cmd=up"><img src="' . $imgRepositoryWeb . 'up.gif"></a></td>';
+            echo '<td align="center">'
+            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=up">'
+            .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.get_lang('Move up').'">'
+            .    '</a>'
+            .    '</td>' . "\n";
         }
         else
         {
-            echo '<td></td>';
+            echo '<td>&nbsp;</td>' . "\n";
         }
 
         //down command
         if ($course_tool_max_rank!=$module['rank'])
         {
-            echo  '<td align="center"><a href="module_list.php?courseToolId='.$module['courseToolId'].'&cmd=down"><img src="' . $imgRepositoryWeb . 'down.gif"></a></td>';
+            echo '<td align="center">'
+            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=down">'
+            .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.get_lang('Move down').'">'
+            .    '</a>'
+            .    '</td>' . "\n";
         }
         else
         {
-            echo '<td></td>';
+            echo '<td>&nbsp;</td>' . "\n";
         }
    }
 
     //Properties link
 
     echo '<td align="center">'
-    .    '<a href="module.php?module_id='.$module['id'].'&item=GENERAL">'
+    .    '<a href="module.php?module_id='.$module['id'].'&amp;item=GENERAL">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n";
 
     //uninstall link
 	
-	echo '<td align="center">';
-	
 	if (!in_array($module['label'],$nonuninstalable_tool_array))
 	{  	
-    	echo '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&cmd=uninstall"'
+    	echo '<td align="center">'
+        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=uninstall"'
     	.    ' onClick="return confirmation(\'' . $module['name'].'\');">'
     	.    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
     	.    '</a>'
+        .    '</td>' . "\n";
     	;
 	}
 	else
 	{
-		echo '<center>-</center>';
+		echo '<td align="center">-</td>' . "\n";
 	}
-	echo '</td>' . "\n";
 	
     //activation link
 
@@ -507,37 +515,36 @@ foreach($moduleList as $module)
 	
 	if (in_array($module['label'],$undeactivable_tool_array))
 	{
-		echo '<small>'.get_lang('Activated').'</small>';
+		echo '-';
 	}
 	else
 	{
     	if ( 'activated' == $module['activation'] )
     	{
-        	echo '<a class="item" href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
+        	echo '<a href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
          	. get_lang('Activated') . '</small></a>'
         	;
     	}
     	else
     	{
-        	echo '<a class="invisible item" href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
+        	echo '<a href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
     	}
 	}	
     echo '</td>' . "\n";
 
     //end table line
 
-    echo '</tr>';
+    echo '</tr>' . "\n\n";
 }
 
 //end table...
-echo '</tbody>'
-.    '</table>';
+echo '</tbody>' . "\n"
+.    '</table>' . "\n\n";
 
 //Display BOTTOM Pager list
 
 echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
 
 include $includePath . '/claro_init_footer.inc.php';
-
 
 ?>
