@@ -479,6 +479,8 @@ function move_module_in_dock($moduleId, $dockName, $direction)
 
 function get_and_unzip_uploaded_package()
 {
+    global $includePath;
+    
     $backlog_message = array();
 
     //Check if the file is valid (not to big and exists)
@@ -494,7 +496,7 @@ function get_and_unzip_uploaded_package()
     }
     //1- Unzip folder in a new repository in claroline/module
 
-    include_once (realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php');
+    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
     //unzip files
 
     $moduleRepositorySys = get_conf('rootSys') . 'module/';
