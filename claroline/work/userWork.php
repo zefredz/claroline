@@ -1210,7 +1210,10 @@ if( $dispWrkLst )
 	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == $_uid && $is_allowedToSubmit) || $is_allowedToEditAll )
     {
 		// link to create a new submission
-		echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?authId=' . $_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('Submit a work').'</a></p>'."\n";
+        $cmdMenu = array();
+		$cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?authId=' . $_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('Submit a work').'</a>';
+        
+        echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
     }
 
 	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )

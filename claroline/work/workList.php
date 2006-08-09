@@ -491,38 +491,30 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     }
     
     echo '</fieldset>'
-    .    '<br />'
+    .    '<br />' . "\n"
     ;
 }
 
 /**
  * COMMAND LINKS
  */
-echo '<p>';
+$cmdMenu = array();
 if ( $is_allowedToSubmit && ($assignment->getAssignmentType() != 'GROUP' ) )
 {
     // link to create a new assignment
-    echo '<a class="claroCmd" href="userWork.php'
-    .    '?authId=' . $_uid
-    .    '&amp;cmd=rqSubWrk'
-    .    '&amp;assigId=' . $req['assignmentId'] . '">'
-    .    get_lang('Submit a work')
-    .    '</a>' . "\n"
+    $cmdMenu[] = '<a class="claroCmd" href="userWork.php?authId=' . $_uid . '&amp;cmd=rqSubWrk'
+    .    '&amp;assigId=' . $req['assignmentId'] . '">' . get_lang('Submit a work') . '</a>' . "\n"
     ;
-
-    if( $is_allowedToEditAll ) echo ' | ';
 }
 
 if ( $is_allowedToEditAll )
 {
-    echo '<a class="claroCmd" href="feedback.php'
-    .    '?cmd=rqEditFeedback'
-    .    '&amp;assigId=' . $req['assignmentId'] . '">'
-    .    get_lang('Edit automatic feedback')
-    .    '</a>' . "\n"
+    $cmdMenu[] = '<a class="claroCmd" href="feedback.php?cmd=rqEditFeedback' 
+    .    '&amp;assigId=' . $req['assignmentId'] . '">' . get_lang('Edit automatic feedback') . '</a>' . "\n"
     ;
 }
-echo '</p>';
+
+if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
 
 
 /**
@@ -531,8 +523,6 @@ echo '</p>';
 $headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']);
 
 echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId'])
-
-
 
 .    '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<thead>' . "\n"

@@ -500,17 +500,17 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     /*--------------------------------------------------------------------
                         ADMIN LINKS
       --------------------------------------------------------------------*/
+    $cmdMenu = array();
     if( $is_allowedToEdit )
     {
         // link to create a new assignment
-        echo '<p>'
-        .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig">'
+        $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig">'
         .    '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" />' . get_lang('Create a new assignment')
-        .    '</a>'
-        .    '</p>' . "\n"
+        .    '</a>'. "\n"
         ;
     }
-
+    
+    if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
 
 	$headerUrl = $assignmentPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
