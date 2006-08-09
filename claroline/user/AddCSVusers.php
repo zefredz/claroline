@@ -327,9 +327,9 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     $compulsory_list = array('firstname','lastname','username','password');
 
     $dialogBox = get_lang('Modify the format') .' : ' . "\n"
-    .            '<br><br>' . "\n"
+    .            '<br /><br />' . "\n"
     .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
-    .            '<br><br>'
+    .            '<br /><br />'
     .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
@@ -365,7 +365,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 
 include $includePath.'/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
-if( isset( $dialogBox ) ) echo claro_html_message_box($dialogBox) . '<br>';
+if( isset( $dialogBox ) ) echo claro_html_message_box($dialogBox) . '<br />';
 
 switch ( $display )
 {
@@ -387,22 +387,22 @@ switch ( $display )
 
         echo get_lang('You must specify the CSV format used in your file')
         .    ':'
-        .    '<br><br>'
+        .    '<br /><br />'
         .    '<form enctype="multipart/form-data"  method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
         .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES">'
         .    ' '
         .    '<label for="firstLineFormat_YES">'
         .    get_lang('Use format defined in first line of file') . '</label>'
-        .    '<br><br>'
+        .    '<br /><br />'
         .    '<input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO">'
         .    '<label for="firstLineFormat_NO">'
         .    get_lang('Use the following format') . ' : '
         .    '</label>'
-        .    '<br><br>'
+        .    '<br /><br />'
         .    '<b>'
         .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
         .    $usedFormat
-        .    '<br><br>'
+        .    '<br /><br />'
         .    '</b>'
         .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
         .    '[<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
@@ -414,7 +414,7 @@ switch ( $display )
         .    '?display=default&amp;chformat=yes&amp;AddType=' . $AddType . '">'
         .    get_lang('Edit format to use')
         .    '</a>]'
-        .    '<br><br>'
+        .    '<br /><br />'
         .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
         ;
         ?>
@@ -422,7 +422,7 @@ switch ( $display )
 <?php
         echo '<input type="hidden" name="enclosedBy" value="' . $_SESSION['CSV_enclosedBy'] . '" />' . "\n"
         .    '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
-        .    '<br>' . "\n"
+        .    '<br />' . "\n"
         .    get_lang('CSV file with the user list : ')
         .    '<input type="file" name="CSVfile" />' . "\n"
         .    '<br /><br />' . "\n"
@@ -449,7 +449,7 @@ switch ( $display )
         !(count($_SESSION['claro_username_duplicate_error'])==0) ||
         !(count($_SESSION['claro_officialcode_duplicate_error'])==0))
         {
-            echo '<b>' . get_lang('The following errors were found ') . ' :</b><br><br>' . "\n";
+            echo '<b>' . get_lang('The following errors were found ') . ' :</b><br /><br />' . "\n";
 
             //display errors encountered while trying to add users
 
@@ -459,7 +459,7 @@ switch ( $display )
         }
         else
         {
-            echo get_lang('No error in file found.')."<br>";
+            echo get_lang('No error in file found.')."<br />";
 
             $noerror = TRUE;
         }
@@ -467,15 +467,15 @@ switch ( $display )
 
         if (!(isset($_SESSION['claro_invalid_format_error'])) || ($_SESSION['claro_invalid_format_error'] == false))
         {
-            echo '<br>'
+            echo '<br />'
             .    get_lang('Do you want to continue?')
-            .    '<br>'
+            .    '<br />'
             ;
             if (!$noerror)
             {
-                echo '(' . get_lang('if you choose to continue, lines with errors will simply be ignored') . ')<br>';
+                echo '(' . get_lang('if you choose to continue, lines with errors will simply be ignored') . ')<br />';
             }
-            echo '<br>'
+            echo '<br />'
             .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
             .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
             .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
@@ -485,7 +485,7 @@ switch ( $display )
         }
         else
         {
-            echo '<br>' . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '<br>';
+            echo '<br />' . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '<br />';
         }
     } break;
 
@@ -493,7 +493,7 @@ switch ( $display )
 
     case 'steptwo' :
 
-    echo '<b>' . get_lang('%nb_user new users in the platform',array( '%nb_user' => sizeof($usersToAdd) ) ) . '</b> <br><br>';
+    echo '<b>' . get_lang('%nb_user new users in the platform',array( '%nb_user' => sizeof($usersToAdd) ) ) . '</b> <br /><br />';
 
     foreach ($usersToAdd as $user)
     {
@@ -525,7 +525,7 @@ switch ( $display )
     {
         case 'adminTool' :
         {
-            echo '<br>'
+            echo '<br />'
             .    '<a href="../admin/adminusers.php">&gt;&gt; '
             .    get_lang('See user list')
             .    '</a>'
@@ -534,7 +534,7 @@ switch ( $display )
 
         case 'adminClassTool' :
         {
-            echo '<br><a href="../admin/admin_class.php">&gt;&gt; '
+            echo '<br /><a href="../admin/admin_class.php">&gt;&gt; '
             .    get_lang('Back to class list')
             .    '</a>'
             ;
@@ -542,7 +542,7 @@ switch ( $display )
 
         case 'userTool' :
         {
-            echo '<br><a href="user.php">&gt;&gt; ' . get_lang('Back to user list') . '</a>';
+            echo '<br /><a href="user.php">&lt;&lt; ' . get_lang('Back to user list') . '</a>';
         }   break;
     }
     break;
