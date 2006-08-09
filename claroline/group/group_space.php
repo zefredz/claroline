@@ -192,6 +192,8 @@ if (isset($_uid))
 }
 else $modified_tools = array();
 
+$toolLinkList = array();
+
 foreach($toolList as $thisTool)
 {
     // special case when display mode is student and tool invisible doesn't display it
