@@ -986,31 +986,35 @@ function generate_module_cache()
              WHERE activation = 'activated'";
     $module_list = claro_sql_query_fetch_all($sql);
 
-    if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys)) $handle = fopen($cacheRepositorySys . $module_cache_filename,'w');
-    else                          trigger_error('ERROR: directory ' . $cacheRepositorySys . ' is not writable',E_USER_NOTICE);
-
-
-    fwrite($handle, '<?php //auto created by claroline '."\n");
-    fwrite($handle, 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n");
-
-    foreach($module_list as $module)
+    if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys))
     {
-        if (file_exists(get_module_path($module['label']) . '/functions.php'))
+        $handle = fopen($cacheRepositorySys . $module_cache_filename,'w');
+        
+        fwrite($handle, '<?php //auto created by claroline '."\n");
+        fwrite($handle, 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n");
+    
+        foreach($module_list as $module)
         {
-            $dock_include  = "if (file_exists('" . get_module_path($module['label']) . '/functions.php\')) ';
-            $dock_include .= 'require "' . get_module_path($module['label']) . '/functions.php"; ' . "\n";
-
-            if (fwrite($handle, $dock_include) === FALSE)
+            if (file_exists(get_module_path($module['label']) . '/functions.php'))
             {
-                echo "ERROR: could not write in (" . $module_cache_filename . ")";
+                $dock_include  = "if (file_exists('" . get_module_path($module['label']) . '/functions.php\')) ';
+                $dock_include .= 'require "' . get_module_path($module['label']) . '/functions.php"; ' . "\n";
+    
+                if (fwrite($handle, $dock_include) === FALSE)
+                {
+                    echo "ERROR: could not write in (" . $module_cache_filename . ")";
+                }
             }
         }
+    
+        fwrite($handle, "\n" . '?>');
+        fclose($handle);
     }
-
-    fwrite($handle, "\n" . '?>');
-    fclose($handle);
-
-
+    else
+    {
+        // FIXME E_USER_ERROR instead of E_USER_NOTICE
+        trigger_error('ERROR: directory ' . $cacheRepositorySys . ' is not writable',E_USER_NOTICE);
+    }
 }
 
 /**
