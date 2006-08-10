@@ -22,6 +22,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 require_once dirname(__FILE__) . '/backlog.class.php';
+require_once dirname(__FILE__) . '/language.lib.php';
 
 /**
  * To use this class.
@@ -102,7 +103,7 @@ class Config
             $this->load_def_file();
 
             // set configuration filename
-            $this->conf_filename = $this->build_conf_filename();
+            $this->config_filename = $this->build_config_filename();
 
             // init list of properties
             $this->init_property_list();
@@ -118,7 +119,7 @@ class Config
         else
         {
             // error definition file doesn't exist
-            $this->backlog->failure(get_lang('Definition file not exists'));
+            $this->backlog->failure(get_lang('Definition file doesn\'t exist'));
             return false;
         }
     }
@@ -152,11 +153,11 @@ class Config
         }
 
         // get values from configuration file
-        if ( file_exists($this->conf_filename) )
+        if ( file_exists($this->config_filename) )
         {
-            $conf_filename = $this->conf_filename;
+            $config_filename = $this->config_filename;
 
-            include($conf_filename);
+            include($config_filename);
 
             foreach ( $this->conf_def_property_list as $property_name => $property_def )
             {
@@ -200,7 +201,7 @@ class Config
      * @return string : complete path and name of config file
      */
 
-    function build_conf_filename()
+    function build_config_filename()
     {
         if ( !empty($this->conf_def['config_file']) )
         {
@@ -506,7 +507,7 @@ class Config
         }
 
         // open configuration file
-        if ( false !== ($handle = fopen($this->conf_filename,'w') ) )
+        if ( false !== ($handle = @fopen($this->config_filename,'w') ) )
         {
 
             // write header
@@ -604,7 +605,7 @@ class Config
         }
         else
         {
-            $this->backlog->failure(get_lang('Cannot open %filename',array('%filename'=>$this->conf_filename)));
+            $this->backlog->failure(get_lang('Cannot open %filename',array('%filename'=>$this->config_filename)));
             return false;
         }
     }
@@ -651,7 +652,7 @@ class Config
 
     function calculate_md5()
     {
-        return md5_file($this->conf_filename);
+        return md5_file($this->config_filename);
     }
 
     /**
@@ -703,7 +704,7 @@ class Config
     {
         $current_md5 = '';
 
-        if ( file_exists($this->conf_filename) )
+        if ( file_exists($this->config_filename) )
         {
             $current_md5 = $this->calculate_md5();
         }
@@ -726,6 +727,7 @@ class Config
      * @param string $url_params appeded to POST query
      * @return the HTML code to display web form to edit config file
      */
+
     function display_form($property_list=null,$section_selected=null,$url_params = null)
     {
         $form = '';
@@ -752,6 +754,7 @@ class Config
             foreach ($section_list as $thisSection)
             {
                 if ($thisSection=='viewall') continue;
+
                 // section array
                 $section = $this->conf_def['section'][$thisSection];
 
@@ -763,9 +766,9 @@ class Config
                     $form .= '</td></tr>' . "\n";
 
                 }
+
                 // display description of the section
                 if ( !empty($section['description']) ) $form .= '<tr><td colspan="3"><p class="configSectionDesc" ><em>' . $section['description'] . '</em></p></td></tr>';
-
 
                 // display each property of the section
                 if ( is_array($section['properties']) )
