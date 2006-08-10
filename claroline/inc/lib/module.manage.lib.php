@@ -961,7 +961,7 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 
 /**
  * Generate the cache php file with the needed include of activated module of the platform.
- *
+ * @todo TODO use claro_failure or backlog class instead of this fu***** trigger_error
  */
 
 function generate_module_cache()
@@ -969,38 +969,56 @@ function generate_module_cache()
 
     $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
     $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
-    claro_mkdir($cacheRepositorySys, CLARO_FILE_PERMISSIONS, true);
+    $module_cache_filepath = $cacheRepositorySys . $module_cache_filename;
+    
+    if ( ! file_exists( $cacheRepositorySys ) )
+    {
+        claro_mkdir($cacheRepositorySys, CLARO_FILE_PERMISSIONS, true);
+    }
+    
     $tbl = claro_sql_get_main_tbl();
-
-
     $sql = "SELECT `label`
               FROM `" . $tbl['module'] . "`
              WHERE activation = 'activated'";
+             
     $module_list = claro_sql_query_fetch_all($sql);
 
     if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys))
     {
-        $handle = fopen($cacheRepositorySys . $module_cache_filename,'w');
-        
-        fwrite($handle, '<?php //auto created by claroline '."\n");
-        fwrite($handle, 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n");
-    
-        foreach($module_list as $module)
+        if ( file_exists( $module_cache_filepath ) && ! is_writable( $module_cache_filepath ) )
         {
-            if (file_exists(get_module_path($module['label']) . '/functions.php'))
+            trigger_error('ERROR: cannot write to cache file ' . $module_cache_filepath, E_USER_NOTICE);
+        }
+        else
+        {
+            if ( false !== ( $handle = fopen($module_cache_filepath, 'w') ) )
             {
-                $dock_include  = "if (file_exists('" . get_module_path($module['label']) . '/functions.php\')) ';
-                $dock_include .= 'require "' . get_module_path($module['label']) . '/functions.php"; ' . "\n";
-    
-                if (fwrite($handle, $dock_include) === FALSE)
+                $cache = '<?php #auto created by claroline modify it at your own risks'."\n";
+                $cache .= 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n";
+                $cache .= "\n" . '# ---- start of cache ----'."\n\n";
+                
+                foreach($module_list as $module)
                 {
-                    echo "ERROR: could not write in (" . $module_cache_filename . ")";
+                    $functionsFilePath = get_module_path($module['label']) . '/functions.php';
+                    
+                    if (file_exists( $functionsFilePath ))
+                    {
+                        $cache .= '# ' . $module['label'] . "\n" ;
+                        $cache .= 'if (file_exists("' . $functionsFilePath . '") ) ';
+                        $cache .= 'require "' . $functionsFilePath . '";' . "\n";
+                    }
                 }
+            
+                $cache .= "\n" . '?>';
+                
+                fwrite( $handle, $cache );
+                fclose( $handle );
+            }
+            else
+            {
+                trigger_error('ERROR: cannot open ' . $module_cache_filepath, E_USER_NOTICE);
             }
         }
-    
-        fwrite($handle, "\n" . '?>');
-        fclose($handle);
     }
     else
     {
