@@ -21,6 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
+require_once dirname(__FILE__) . '/backlog.class.php';
 
 /**
  * To use this class.
@@ -63,9 +64,10 @@ class Config
     // md5 of the properties
     var $md5;
 
-    // array with error
-    var $error = array();
+    // backlog object
+    var $backlog;
 
+    // definition file loaded
     var $def_loaded;
 
     /**
@@ -79,6 +81,7 @@ class Config
         $this->config_code = $config_code;
         $this->conf_dirname = claro_get_conf_repository();
         $this->def_dirname = claro_get_conf_def_file($config_code) ;
+        $this->backlog = new Backlog();
         $this->def_loaded = false;
     }
 
@@ -115,7 +118,7 @@ class Config
         else
         {
             // error definition file doesn't exist
-
+            $this->backlog->failure(get_lang('Definition file not exists'));
             return false;
         }
     }
@@ -276,9 +279,20 @@ class Config
         }
         else
         {
-            $this->error_message('property ' . $name . 'unknow');
+            $this->backlog->failure(str_replace('Property %name unknow',array('%name'=>$name)));
             return false;
         }
+    }
+
+    /**
+     * Get the property/value list
+     *
+     * @return array associative list property name/value
+     */
+
+    function get_property_list()
+    {
+        return $this->property_list;
     }
 
     /**
@@ -370,7 +384,7 @@ class Config
             case 'boolean' :
                 if ( ! is_bool ($value ) && ! in_array(strtoupper($value), array ('TRUE', 'FALSE','1','0' )))
                 {
-                    $this->error_message(get_lang('%name should be boolean',array('%name'=>$label)));
+                    $this->backlog->failure(get_lang('%name should be boolean',array('%name'=>$label)));
                     $valid = false;
                 }
                 break;
@@ -378,17 +392,17 @@ class Config
             case 'integer' :
                 if ( eregi('[^0-9]',$value) )
                 {
-                    $this->error_message( get_lang('%name would be integer',array('%name'=>$label)));
+                    $this->backlog->failure( get_lang('%name would be integer',array('%name'=>$label)));
                     $valid = false;
                 }
                 elseif ( isset($acceptedValue['max']) && $value > $acceptedValue['max'] )
                 {
-                    $this->error_message( get_lang('%name would be integer inferior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['max'])) );
+                    $this->backlog->failure( get_lang('%name would be integer inferior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['max'])) );
                     $valid = false;
                 }
                 elseif ( isset($acceptedValue['min']) && $value < $acceptedValue['min'] )
                 {
-                    $this->error_message( get_lang('%name would be integer superior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['min'])));
+                    $this->backlog->failure( get_lang('%name would be integer superior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['min'])));
                     $valid = false;
                 }
                 break;
@@ -399,7 +413,7 @@ class Config
                 {
                     if ( !in_array($value, array_keys($acceptedValue)) )
                     {
-                        $this->error_message( get_lang('%value would be in enum list of %name', array('%value'=>$value,'%name'=>$label)) );
+                        $this->backlog->failure( get_lang('%value would be in enum list of %name', array('%value'=>$value,'%name'=>$label)) );
                         $valid = false;
                     }
                 }
@@ -413,7 +427,7 @@ class Config
                     {
                         if ( !in_array($item_value,array_keys($acceptedValue)) )
                         {
-                            $this->error_message(get_lang('%value must be in the accepted value list of %name',array('%value' => $item_value, '%name' => $label)) );
+                            $this->backlog->failure(get_lang('%value must be in the accepted value list of %name',array('%value' => $item_value, '%name' => $label)) );
                             $valid = false;
                         }
                     }
@@ -422,7 +436,7 @@ class Config
                 {
                     if ( ! empty($value) )
                     {
-                        $this->error_message(get_lang('%name must be an array',array('%name' => $label) ));
+                        $this->backlog->failure(get_lang('%name must be an array',array('%name' => $label) ));
                         $valid = false;
                     }
                 }
@@ -435,7 +449,7 @@ class Config
             case 'wwwpath' :
                 if ( empty($value) )
                 {
-                    $this->error_message( get_lang('%name is required', array('%name' => $label)) );
+                    $this->backlog->failure( get_lang('%name is required', array('%name' => $label)) );
                     $valid = false;
                 }
                 break;
@@ -443,7 +457,7 @@ class Config
             case 'regexp' :
                 if ( isset($acceptedValue) && !eregi( $acceptedValue, $value ))
                 {
-                    $this->error_message( get_lang('%name would be match %regular_expression', array('%name' => $label,'%regular_expression'=> $acceptedValue) ));
+                    $this->backlog->failure( get_lang('%name would be match %regular_expression', array('%name' => $label,'%regular_expression'=> $acceptedValue) ));
                     $valid = false;
                 }
                 break;
@@ -590,18 +604,9 @@ class Config
         }
         else
         {
-            $this->error_message('');
+            $this->backlog->failure(get_lang('Cannot open %filename',array('%filename'=>$this->conf_filename)));
             return false;
         }
-    }
-
-    /**
-     * Get the property list of the config
-     */
-
-    function get_property_list()
-    {
-        return $this->property_list;
     }
 
     /**
@@ -685,7 +690,7 @@ class Config
         }
         else
         {
-            $this->error_message('');
+            $this->backlog->failure('');
             return false;
         }
     }
@@ -1216,20 +1221,10 @@ class Config
         }
         else
         {
-            $this->error_message('');
+            $this->backlog->failure('');
             return false;
         }
 
-    }
-
-    function error_message ($message)
-    {
-        $this->error[] = $message ;
-    }
-
-    function get_error_message ()
-    {
-        return $this->error;
     }
 
     /**
@@ -1243,6 +1238,15 @@ class Config
         : 'other';
 
         return $class;
+    }
+
+    /**
+     * Return the filename of configuration file
+     */ 
+
+    function get_config_filename()
+    {
+        return $this->config_filename;
     }
 
 }
@@ -1359,7 +1363,7 @@ function generate_conf(&$config,$properties = null)
         if ( !$config->load() )
         {
             // error loading the configuration
-            $message = $config->get_error_message();
+            $message = $config->backlog->output();
             return array($message , false);
         }
     }
@@ -1379,15 +1383,18 @@ function generate_conf(&$config,$properties = null)
     {
         // no valid
         $error = true ;
-        $message = $config->get_error_message();
+        $message = $config->backlog->output();
     }
 
     if (!empty($error))
-    return array ($message, true);
+    {
+        return array ($message, true);
+    }
     else
-    return array ($message, false);
+    {
+        return array ($message, false);
+    }
 }
-
 
 /**
  * Return array list of found definition files
@@ -1395,17 +1402,17 @@ function generate_conf(&$config,$properties = null)
  * @global string includePath use to access to def repository.
  */
 
-function get_def_file_list($type = 'default')
+function get_def_file_list($type = 'all')
 {
     require_once(dirname(__FILE__) . '/module.manage.lib.php');
 
     //path where we can search defFile : kernel and modules
     // defs of kernel
-    if ($type == 'kernel' || $type == 'default')
+    if ($type == 'kernel' || $type == 'all')
     $defConfPathList[] = $GLOBALS['includePath'] . '/conf/def';
 
     // defs of modules
-    if ($type == 'module' || $type == 'default')
+    if ($type == 'module' || $type == 'all')
     {
         $moduleList = get_installed_module_list();
         foreach ($moduleList as $module)

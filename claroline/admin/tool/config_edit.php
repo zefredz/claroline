@@ -62,7 +62,7 @@ $gidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
 $error = false ;
-$error_msg = array();
+$message = array();
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
@@ -178,15 +178,22 @@ else
                 if ( $config->validate($newPropertyList) )
                 {
                     // save config file
-                    $config->save();
-                    $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
+                    if ( $config->save() )
+                    {
+                        $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
                     , array('%config_name' => $config_name, '%config_code' => $config_code));
+                    }
+                    else
+                    {
+                        $error = true ;
+                        $message[] = $config->backlog->output();
+                    }
                 }
                 else
                 {
                     // no valid
                     $error = true ;
-                    $message = $config->get_error_message();
+                    $message[] = $config->backlog->output();
                 }
             }
             // display form
@@ -202,7 +209,7 @@ else
     {
         // error loading the configuration
         $error = true ;
-        $message = $config->get_error_message();
+        $message[] = $config->backlog->output();
     }
 
     if ( $config->is_modified() )
