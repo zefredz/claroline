@@ -139,7 +139,7 @@ class EventManager
                     . $event->getEventType()
                     . "]}"
                     ;
-                trigger_error( $errmsg, E_USER_ERROR );
+                trigger_error( $errmsg, E_USER_WARNING );
             }
         }
     }
