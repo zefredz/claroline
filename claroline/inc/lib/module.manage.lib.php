@@ -549,7 +549,7 @@ function install_module($modulePath)
 
     if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
     {
-        array_push ($backlog_message,get_lang('This module is already installed on your platform '));
+        array_push ($backlog_message,get_lang('This module is already installed on your platform.'));
         claro_delete_file($modulePath);
         // TODO : add code to point on existing instance of tool.
         // TODO : how to overwrite . prupose uninstall ?
@@ -571,11 +571,8 @@ function install_module($modulePath)
         foreach($module_info['DEFAULT_DOCK'] as $dock)
         {
             add_module_in_dock($moduleId, $dock);
-            array_push ($backlog_message, get_lang('Default dock of the module found and set') . ' : ' . $dock);
         }
     }
-
-    array_push ($backlog_message, get_lang("The information has been saved into the DB"));
 
     //4- Rename the module repository with label
 
@@ -584,9 +581,6 @@ function install_module($modulePath)
         array_push ($backlog_message, get_lang("Error while renaming the module's folder"));
         return $backlog_message;
     }
-    else $backlog_message[] = get_lang('Repository renamed successfully');
-
-
 
     //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
 
@@ -598,13 +592,11 @@ function install_module($modulePath)
             $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
             claro_sql_multi_query($sql); //multiquery should be assumed here
         }
-        array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.sql')));
     }
 
     if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
     {
         require get_module_path($module_info['LABEL']) . '/install/install.php';
-        array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'install.php')));
     }
 
 
