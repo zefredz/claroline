@@ -175,15 +175,15 @@ switch ( $cmd )
         deactivate_module($module_id);
         break;
 
-    case 'up' :
+    case 'mvUp' :
         move_module_tool($courseToolId, 'up');
         break;
 
-    case 'down' :
+    case 'mvDown' :
         move_module_tool($courseToolId, 'down');
         break;
 
-    case 'uninstall' :
+    case 'exUninstall' :
 
         $moduleInfo = get_module_info($module_id);
         if (in_array($moduleInfo['label'], $old_tool_array))
@@ -193,18 +193,34 @@ switch ( $cmd )
         else
         {
             $result_log = uninstall_module($module_id);
-            $dialogBox  = get_lang('Module uninstallation') . ' : <br>';
-            foreach ( $result_log as $log) $dialogBox .= $log . '<br>';
+            $dialogBox  = get_lang('Module uninstallation') . ' : <br />';
+            foreach ( $result_log as $log) $dialogBox .= $log . '<br />';
         }
         break;
+        
+    case 'exInstall' :
+        //include needed librabries for treatment
 
-    case 'show_install' :
+        if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
+
+        $result_log = install_module($modulePath);
+        $dialogBox = '';
+
+        //display the result message (fail or success)
+
+        foreach ($result_log as $log)
+        {
+            $dialogBox .= $log . '<br />';
+        }
+        break;
+        
+    case 'rqInstall' :
         $dialogBox = '<p>' . "\n"
         .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br />' . "\n"
         .            get_lang('Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.')
         .            '</p>' . "\n\n"
         .            '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .            '<input name="cmd" type="hidden" value="do_install" />' . "\n"
+        .            '<input name="cmd" type="hidden" value="exInstall" />' . "\n"
         .            '<input name="uploadedModule" type="file" /><br /><br />' . "\n"
         .            '<input value="' . get_lang('Install module') . '" type="submit" /> ' . "\n"
         .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
@@ -212,22 +228,7 @@ switch ( $cmd )
         ;
         break;
 
-    case 'do_install' :
-        {
-            //include needed librabries for treatment
 
-            if( false !== $modulePath= get_and_unzip_uploaded_package())
-
-            $result_log = install_module($modulePath);
-            $dialogBox = '';
-
-            //display the result message (fail or success)
-
-            foreach ($result_log as $log)
-            {
-                $dialogBox .= $log . '<br>';
-            }
-        }
 }
 
 //----------------------------------
@@ -250,6 +251,7 @@ switch($typeReq)
         ;
         $orderType = "";
         break;
+        
     case 'tool'   :
 
         $sqlSelectType = "       CT.`id`    AS courseToolId, " . "\n"
@@ -337,7 +339,7 @@ echo claro_html_tool_title($nameTools);
 if ($dialogBox != '' ) echo claro_html_message_box($dialogBox);
 
 //display action links
-echo '<a class="claroCmd" href="module_list.php?cmd=show_install">' . get_lang('Install module') . '</a>' . "\n"
+echo '<a class="claroCmd" href="module_list.php?cmd=rqInstall">' . get_lang('Install module') . '</a>' . "\n"
 .    '<br/><br/>' . "\n\n"
 
 
@@ -459,7 +461,7 @@ foreach($moduleList as $module)
         if ($course_tool_min_rank!=$module['rank'])
         {
             echo '<td align="center">'
-            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=up">'
+            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
             .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.get_lang('Move up').'">'
             .    '</a>'
             .    '</td>' . "\n";
@@ -473,7 +475,7 @@ foreach($moduleList as $module)
         if ($course_tool_max_rank!=$module['rank'])
         {
             echo '<td align="center">'
-            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=down">'
+            .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
             .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.get_lang('Move down').'">'
             .    '</a>'
             .    '</td>' . "\n";
@@ -497,7 +499,7 @@ foreach($moduleList as $module)
 	if (!in_array($module['label'],$nonuninstalable_tool_array))
 	{  	
     	echo '<td align="center">'
-        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=uninstall"'
+        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
     	.    ' onClick="return confirmation(\'' . $module['name'].'\');">'
     	.    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
     	.    '</a>'
