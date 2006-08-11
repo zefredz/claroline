@@ -170,7 +170,7 @@ if ( $is_allowedToManage )
         .          '<label for="group_quantity">' . get_lang("Create") . '</label>'
         .          '</td>'
         .          '<td>'
-        .          '<input type="text" name="group_quantity" id="group_quantity" size="3" value="1">'
+        .          '<input type="text" name="group_quantity" id="group_quantity" size="3" value="1"> '
         .          '<label for="group_quantity">' . get_lang("new group(s)") . '</label>'
         .          '</td>'                                                           ."\n"
         .          '</tr>'                                                           ."\n"
@@ -180,7 +180,7 @@ if ( $is_allowedToManage )
         .          '<label for="group_max">' . get_lang("Max.") . '</label>'
         .          '</td>'                                                           ."\n"
         .          '<td>'                                                            ."\n"
-        .          '<input type="text" name="group_max" id="group_max" size="3" value="8">'
+        .          '<input type="text" name="group_max" id="group_max" size="3" value="8"> '
         .          get_lang("seats by groups (optional)")
         .          '</td>'                                                           ."\n"
         .          '</tr>'                                                           ."\n"
