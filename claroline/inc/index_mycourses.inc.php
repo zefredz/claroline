@@ -21,7 +21,6 @@ $date            = $claro_notifier->get_notification_date($_uid);
 $modified_course = $claro_notifier->get_notified_courses($date,$_uid);
 
 
-
 /******************************************************************************
                                     DISPLAY
 ******************************************************************************/
@@ -91,11 +90,12 @@ foreach($personnalCourseList as $thisCourse)
 
 echo '</ul>' . "\n";
 
-//display legend
-
-echo '<br />'
-.    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>';
-echo '</td>' . "\n";
-
+//display legend if required 
+if( !empty($modified_course) )
+{
+	echo '<br />'
+	.    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>'
+	.	 '</td>' . "\n";
+}
 
 ?>

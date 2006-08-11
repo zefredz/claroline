@@ -188,7 +188,7 @@ echo '<table border="0" cellspacing="10" cellpadding="10" width="100%">' . "\n"
 
 if ($disp_edit_command) echo claro_html_menu_vertical_br($courseManageToolLinkList,  array('id'=>'courseManageToolList'));
 
-if ( !is_null(get_init('_uid') )) echo '<br /><small><span class="item hot"> '. get_lang('denotes new items') . '</span></small>';
+if ( !is_null(get_init('_uid')) && !empty($modified_tools) ) echo '<br /><small><span class="item hot"> '. get_lang('denotes new items') . '</span></small>';
 
 echo '</td>' . "\n"
 .    '<td width="20">' . "\n"
