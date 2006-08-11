@@ -154,59 +154,84 @@ function generate_conf(&$config,$properties = null)
     }
 }
 
-/**
- * Return array list of found definition files
- * @return array list of found definition files
- * @global string includePath use to access to def repository.
+/** 
+ * Return list of folder where we can retrieve definition configuration file
  */
 
-function get_def_file_list($type = 'all')
+function get_def_folder_list ( $type = 'all' )
 {
-    require_once(dirname(__FILE__) . '/module.manage.lib.php');
+    $folderList = array();
 
-    //path where we can search defFile : kernel and modules
-    // defs of kernel
-    if ($type == 'kernel' || $type == 'all')
-    $defConfPathList[] = $GLOBALS['includePath'] . '/conf/def';
+    require_once $GLOBALS['includePath'] . '/lib/module.manage.lib.php';
 
-    // defs of modules
+    // Kernel folder configuration folder
+    if ( $type == 'kernel' || $type == 'all') $folderList[] = $GLOBALS['includePath'] . '/conf/def';
+
+    // Module folder configuration folder
     if ($type == 'module' || $type == 'all')
     {
         $moduleList = get_installed_module_list();
+
         foreach ($moduleList as $module)
         {
-            $possiblePath = get_module_path($module) . '/conf/def';
-            if (file_exists($possiblePath)) $defConfPathList[] = $possiblePath;
+            $modulePath = get_module_path($module) . '/conf/def';
+            if (is_dir($modulePath)) $folderList[] = $modulePath;
         }
     }
 
-    $defConfFileList = array();
+    return $folderList ;
+}
 
-    foreach ($defConfPathList as $defConfPath)
+/**
+ * Return array list of found definition files
+ * @return array list of found definition files
+ */
+
+function get_config_code_list($type = 'all')
+{
+    $configCodeList = array();
+    $defFolderList = get_def_folder_list($type);
+
+    foreach ($defFolderList as $defFolder)
     {
-        if (is_dir($defConfPath) && $handle = opendir($defConfPath))
+        if ( is_dir($defFolder) && $handle = opendir($defFolder))
         {
-            // group of def list
-            // Browse folder of definition file
-
-            while (FALSE !== ($file = readdir($handle)))
+            while ( ($file = readdir($handle)) !== false )
             {
-
                 if ($file != "." && $file != ".." && substr($file, -17)=='.def.conf.inc.php')
                 {
                     $config_code = str_replace('.def.conf.inc.php','',$file);
-                    $config = new Config($config_code);
-                    if($config->load())
-                    {
-                        $defConfFileList[$config_code]['name'] = $config->get_conf_name($config_code);
-                        $defConfFileList[$config_code]['class'] = $config->get_conf_class();
-                    }
+                    $configCodeList[] = $config_code ;
                 }
             }
             closedir($handle);
         }
     }
-    return $defConfFileList;
+
+    return $configCodeList;
+}
+
+/**
+ * Return config code list with name and class of the configuration
+ */
+
+function get_config_code_class_list ( $type = 'all' )
+{
+    $configCodeClassList = array();
+    $configCodeList = get_config_code_list($type);
+
+    foreach ( $configCodeList as $config_code )
+    {
+        $config = new Config($config_code);
+
+        if ( $config->load() )
+        {
+            $configCodeClassList[$config_code]['name'] = $config->get_conf_name();
+            $configCodeClassList[$config_code]['class'] = $config->get_conf_class();
+        }
+    }
+
+    return $configCodeClassList ;
 }
 
 ?>
