@@ -22,6 +22,56 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 require_once dirname(__FILE__). '/fileManage.lib.php';
 require_once dirname(__FILE__). '/right/profileToolRight.class.php';
 
+// INFORMATION AND UTILITY FUNCTIONS
+
+/**
+ * Return info of a module, including extra info and specific info for tool if case
+ *
+ * @param integer $moduleId
+ * @return array (label, id, module_name,activation, type, script_url, icon, 
+ *  version, author, author_email, website, description, license)
+ */
+function get_module_info($moduleId)
+{
+    $tbl = claro_sql_get_tbl(array('module', 'module_info', 'course_tool'));
+
+    $sql = "SELECT M.`label`  AS label,
+               M.`id`         AS module_id,
+               M.`name`       AS module_name,
+               M.`activation` AS activation,
+               M.`type`       AS type,
+               M.`script_url` AS script_url,
+
+               CT.`icon`       AS icon,
+
+               MI.version      AS version,
+               MI.author       AS author,
+               MI.author_email AS author_email ,
+               MI.website      AS website,
+               MI.description  AS description,
+               MI.license      AS license
+
+        FROM (`" . $tbl['module']      . "` AS M
+           , `" . $tbl['module_info'] . "` AS MI )
+        LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
+              ON CT.`claro_label`= M.label
+
+        WHERE  M.`id` = MI . `module_id`
+        AND    M.`id` = " . (int) $moduleId;
+
+    return claro_sql_query_get_single_row($sql);
+
+}
+
+function claro_get_module_types()
+{
+    $tbl = claro_sql_get_tbl('module');
+    $sql = "SELECT distinct M.`type` AS `type`
+           FROM `" . $tbl['module'] . "` AS M";
+    $moduleType = claro_sql_query_fetch_all_cols($sql);
+    return $moduleType['type'];
+}
+
 /**
  * Get installed module list, its effect is
  * to return an array containing the installed module's labels
@@ -31,7 +81,6 @@ require_once dirname(__FILE__). '/right/profileToolRight.class.php';
  *         on the platform
  *         false if query failed
  */
-
 function get_installed_module_list($type = null)
 {
     $tbl = claro_sql_get_main_tbl();
@@ -56,6 +105,24 @@ function get_installed_module_list($type = null)
 }
 
 /**
+ * @param the label of a course tool
+ * @return the id in the course tool tabel
+ *         false if tool not found
+ */
+
+function get_course_tool_id($label)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql ="SELECT id FROM `" . $tbl['tool'] . "`
+           WHERE claro_label='".$label."'";
+           
+    return claro_sql_query_get_single_value($sql);
+}
+
+// MODULE REPOSITORIES FUNCTIONS
+
+/**
  * Get the list of the repositories found in the module repository
  * where all modules are installed, its effect is
  * returning the expected list
@@ -63,7 +130,6 @@ function get_installed_module_list($type = null)
  * @return an array with all the repositories found in the module repository
  * where all modules are installed
  */
-
 function get_module_repositories()
 {
 
@@ -105,7 +171,6 @@ function get_module_repositories()
  *            ['DB']     containing label of modules found in DB for which no 
  *                       corresponding folder was found on server
  */
-
 function check_module_repositories()
 {
     $mistake_array           = array();
@@ -138,20 +203,238 @@ function check_module_repositories()
     return $mistake_array;
 }
 
+// MODULE INSTALLATION AND ACTIVATION
+
 /**
- * @param the label of a course tool
- * @return the id in the course tool tabel
- *         false if tool not found
+ * function to create a temporary directory
+ */
+function tempdir($dir, $prefix='tmp', $mode=0777)
+{
+    if (substr($dir, -1) != '/') $dir .= '/';
+
+    do
+    {
+        $path = $dir.$prefix.mt_rand(0, 9999999);
+    } while (!claro_mkdir($path, $mode));
+
+    return $path;
+}
+
+function get_and_unzip_uploaded_package()
+{
+    global $includePath;
+    
+    $backlog_message = array();
+
+    //Check if the file is valid (not to big and exists)
+
+    if( !isset($_FILES['uploadedModule'])
+    || !is_uploaded_file($_FILES['uploadedModule']['tmp_name']))
+    {
+        $backlog_message[] = get_lang('Problem with file upload');
+    }
+    else
+    {
+        $backlog_message[] = get_lang('Temporary file is : ') . $_FILES['uploadedModule']['tmp_name'];
+    }
+    //1- Unzip folder in a new repository in claroline/module
+
+    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+    //unzip files
+
+    $moduleRepositorySys = get_conf('rootSys') . 'module/';
+    //create temp dir for upload
+    claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
+    $uploadDirFullPath = tempdir($moduleRepositorySys);
+    $uploadDir         = str_replace($moduleRepositorySys,'',$uploadDirFullPath);
+    $modulePath        = $moduleRepositorySys.$uploadDir.'/';
+
+    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) && treat_uploaded_file($_FILES['uploadedModule'],$moduleRepositorySys, $uploadDir, get_conf('maxFilledSpaceForModule' , 10000000),'unzip',true))
+    {
+        $backlog_message[] = get_lang('Files dezipped sucessfully in ' ) . $modulePath;
+
+        if (!function_exists('gzopen'))
+        {
+            $backlog_message[] = get_lang('Error : no zlib extension found');
+            claro_delete_file($modulePath);
+            return claro_failure::set_failure($backlog_message);
+        }
+    }
+    else
+    {
+        $backlog_message[] = get_lang('Impossible to unzip file');
+        claro_delete_file($modulePath);
+        return claro_failure::set_failure($backlog_message);
+    }
+
+    return $modulePath;
+}
+
+/**
+ * Generate the cache php file with the needed include of activated module of the platform.
+ * @return boolean true if succeed, false on failure
+ */
+function generate_module_cache()
+{
+
+    $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
+    $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
+    $module_cache_filepath = $cacheRepositorySys . $module_cache_filename;
+    
+    if ( ! file_exists( $cacheRepositorySys ) )
+    {
+        claro_mkdir($cacheRepositorySys, CLARO_FILE_PERMISSIONS, true);
+    }
+    
+    $tbl = claro_sql_get_main_tbl();
+    $sql = "SELECT `label`
+              FROM `" . $tbl['module'] . "`
+             WHERE activation = 'activated'";
+             
+    $module_list = claro_sql_query_fetch_all($sql);
+
+    if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys))
+    {
+        if ( file_exists( $module_cache_filepath ) && ! is_writable( $module_cache_filepath ) )
+        {
+            return claro_failure::set_failure('cannot write to cache file ' . $module_cache_filepath);
+        }
+        else
+        {
+            if ( false !== ( $handle = fopen($module_cache_filepath, 'w') ) )
+            {
+                $cache = '<?php #auto created by claroline modify it at your own risks'."\n";
+                $cache .= 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n";
+                $cache .= "\n" . '# ---- start of cache ----'."\n\n";
+                
+                foreach($module_list as $module)
+                {
+                    $functionsFilePath = get_module_path($module['label']) . '/functions.php';
+                    
+                    if (file_exists( $functionsFilePath ))
+                    {
+                        $cache .= '# ' . $module['label'] . "\n" ;
+                        $cache .= 'if (file_exists("' . $functionsFilePath . '") ) ';
+                        $cache .= 'require "' . $functionsFilePath . '";' . "\n";
+                    }
+                }
+            
+                $cache .= "\n" . '?>';
+                
+                fwrite( $handle, $cache );
+                fclose( $handle );
+            }
+            else
+            {
+                claro_failure::set_failure('cannot open ' . $module_cache_filepath);
+            }
+        }
+    }
+    else
+    {
+        // FIXME E_USER_ERROR instead of E_USER_NOTICE
+        return claro_failure::set_failure('directory ' . $cacheRepositorySys . ' is not writable');
+    }
+    
+    return true;
+}
+
+/**
+ * function to install a specific module to the platform
+ *
  */
 
-function get_course_tool_id($label)
+function install_module($modulePath)
 {
-    $tbl = claro_sql_get_main_tbl();
+    global $includePath;
 
-    $sql ="SELECT id FROM `" . $tbl['tool'] . "`
-           WHERE claro_label='".$label."'";
-           
-    return claro_sql_query_get_single_value($sql);
+    $backlog_message = array();
+    $moduleId = false;
+
+    if (false === ($module_info = readModuleManifest($modulePath)))
+    {
+        claro_delete_file($modulePath);
+        $backlog_message = claro_failure::get_last_failure();
+    }
+    else
+    {
+        //check if a module with the same LABEL is already installed, if yes, we cancel everything
+        if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
+        {
+            array_push ($backlog_message, get_lang('%module is already installed on your platform.', array('%module'=>$module_info['LABEL'])));
+            claro_delete_file($modulePath);
+            // TODO : add code to point on existing instance of tool.
+            // TODO : how to overwrite . prupose uninstall ?
+        }
+        else
+        {
+            //3- Save the module information into DB
+            $moduleId = register_module_core($module_info);
+        
+            //in case of tool type module, the dock can not be selected and must added also now
+        
+            if ('tool' == $module_info['TYPE'])
+            {
+                register_module_tool($moduleId,$module_info);
+            }
+        
+            if (array_key_exists('DEFAULT_DOCK',$module_info))
+            {
+                foreach($module_info['DEFAULT_DOCK'] as $dock)
+                {
+                    add_module_in_dock($moduleId, $dock);
+                }
+            }
+        
+            //4- Rename the module repository with label
+        
+            if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
+            {
+                array_push ($backlog_message, get_lang("Error while renaming module folder"));
+            }
+            else
+            {
+                //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
+            
+                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
+                {
+                    $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
+                    if (!empty($sql))
+                    {
+                        $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
+                        claro_sql_multi_query($sql); //multiquery should be assumed here
+                        array_push ($backlog_message,get_lang( 'Database installation script called' ));
+                    }
+                }
+                
+                // call install.php after initialising database in case it requires database to run
+                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
+                {
+                    require get_module_path($module_info['LABEL']) . '/install/install.php';
+                    array_push ($backlog_message,get_lang( 'Module installation script called' ));
+                }
+            
+            
+            
+                //6- cache file with the module's include must be renewed after installation of the module
+            
+                if ( ! generate_module_cache() )
+                {
+                    array_push ($backlog_message,get_lang( 'Module cache generation failed' ));
+                }
+            
+                //7- generate the conf if a def file exists
+            
+                require_once $includePath . '/lib/config.lib.inc.php';
+                $config = new Config($module_info['LABEL']);
+                list ($confMessage, $error) = generate_conf($config);
+                $backlog_message[] = $confMessage;
+                generate_conf($config);
+            }
+        }
+    }
+    
+    return array( implode( '<br />' . "\n", $backlog_message ), $moduleId );
 }
 
 /**
@@ -306,348 +589,6 @@ function deactivate_module($moduleId)
 }
 
 /**
- * Set the dock in which the module displays its content
- *
- * @param integer $moduleId id of the module to rename
- * @param string $newDockName new name  for the doc
- *
- * @return handler result of insert
- */
-function add_module_in_dock($moduleId, $newDockName, $context='')
-{
-    $tbl = claro_sql_get_main_tbl();
-
-    //find info about this module occurence in this dock in the DB
-
-    $sql = "SELECT D.`name`      AS dockname,
-                   D.`rank`      AS oldRank
-            FROM `" . $tbl['module'] . "` AS M
-               , `" . $tbl['dock']   . "` AS D
-            WHERE M.`id` = D.`module_id`
-            AND M.`id` = " . (int) $moduleId . "
-            AND D.`name` = '" . $newDockName . "'";
-    $module = claro_sql_query_get_single_row($sql);
-
-    //if the module is already in the dock ,we just do nothing and return true.
-
-    if (isset($module['dockname']) && $module['dockname'] == $newDockName)
-    {
-        return true;
-    }
-    else
-    {
-        //find the highest rank already used in the new dock
-        $max_rank = get_max_rank_in_dock($newDockName);
-        // the module is not already in this dock, we just insert it into this in the DB
-
-        $sql = "INSERT INTO `" . $tbl['dock'] . "`
-                SET module_id = " . (int) $moduleId . ",
-                    name    = '" . addslashes($newDockName) . "',
-                    #context = '" . addslashes($context) . "',
-                    rank    = " . ((int) $max_rank + 1) ;
-        $result = claro_sql_query($sql);
-        generate_module_cache();
-
-        return $result;
-    }
-}
-
-/**
- * Remove a module from a dock in which the module displays
- *
- * @param integer $moduleId
- * @param string  $dockName
- *
- */
-
-function remove_module_dock($moduleId, $dockName)
-{
-    $tbl = claro_sql_get_main_tbl();
-
-    // call of this function to remove ALL occurence of the module in any dock
-
-    if ('ALL' == $dockName)
-    {
-        //1- find all dock in which the dock displays
-
-        $sql="SELECT `name` AS dockName
-              FROM   `" . $tbl['dock'] . "`
-              WHERE  `module_id` = " . (int) $moduleId;
-
-        $dockList = claro_sql_query_fetch_all($sql);
-
-        //2- re-call of this function which each dock concerned
-
-        foreach($dockList as $dock)
-        {
-            remove_module_dock($moduleId,$dock['dockName']);
-        }
-    }
-
-    else
-
-    //call of this function to remove ONE SPECIFIC occurence of the module in the dock
-
-    {
-        //find the rank of the module in this dock :
-
-        $sql = "SELECT `rank` AS oldRank
-                FROM   `" . $tbl['dock'] . "`
-                WHERE  `module_id` = " . (int) $moduleId . "
-                AND    `name` = '" .$dockName . "'";
-        $module = claro_sql_query_get_single_row($sql);
-
-        //move up all modules displayed in this dock
-
-        $sql = "UPDATE `" . $tbl['dock'] . "`
-                SET `rank` = `rank` - 1
-                WHERE `name` = '" . $dockName . "'
-                AND `rank` > " . (int) $module['oldRank'];
-        claro_sql_query($sql);
-
-        //delete the module line in the dock table
-
-        $sql = "DELETE FROM `" . $tbl['dock'] . "`
-                WHERE `module_id` = " . (int) $moduleId. "
-                AND   `name` = '" . $dockName . "'";
-        claro_sql_query($sql);
-
-        generate_module_cache();
-    }
-}
-
-/**
- * Move a module inside its dock (change its position in the display
- *
- * @param integer $moduleId
- * @param string $dockName
- * @param string $direction 'up' or 'down'
- */
-
-function move_module_in_dock($moduleId, $dockName, $direction)
-{
-    $tbl = claro_sql_get_main_tbl();
-
-    switch ($direction)
-    {
-        case 'up' :
-
-            //1-find value of current module rank in the dock
-            $sql = "SELECT `rank`
-                    FROM `" . $tbl['dock'] . "`
-                    WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" . addslashes($dockName) . "'";
-            $result=claro_sql_query_get_single_value($sql);
-
-            //2-move down above module
-            $sql = "UPDATE `" . $tbl['dock'] . "`
-                    SET `rank` = `rank`+1
-                    WHERE `module_id` != " . (int) $moduleId . "
-                    AND `name`       = '" . addslashes($dockName) . "'
-                    AND `rank`       = " . (int) $result['rank'] . " -1 ";
-
-            claro_sql_query($sql);
-
-            //3-move up current module
-            $sql = "UPDATE `" . $tbl['dock'] . "`
-                    SET `rank` = `rank`-1
-                    WHERE `module_id` = " . (int) $moduleId . "
-                    AND `name`      = '" .  addslashes($dockName) . "'
-                    AND `rank` > 1"; // this last condition is to avoid wrong update due to a page refreshment
-            claro_sql_query($sql);
-
-            break;
-
-        case 'down' :
-
-            //1-find value of current module rank in the dock
-            $sql = "SELECT `rank`
-                    FROM `" . $tbl['dock'] . "`
-                    WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" . addslashes($dockName) . "'";
-            $result=claro_sql_query_get_single_value($sql);
-
-            //this second query is to avoid a page refreshment wrong update
-
-            $sqlmax= "SELECT MAX(`rank`) AS `max_rank`
-                      FROM `" . $tbl['dock'] . "`
-                      WHERE `name`='" .  addslashes($dockName) . "'";
-            $resultmax=claro_sql_query_get_single_value($sqlmax);
-
-            if ($resultmax['max_rank'] == $result['rank']) break;
-
-            //2-move up above module
-            $sql = "UPDATE `" . $tbl['dock'] . "`
-                    SET `rank` = `rank` - 1
-                    WHERE `module_id` != " . $moduleId . "
-                    AND `name` = '" . addslashes($dockName) . "'
-                    AND `rank` = " . (int) $result['rank'] . " + 1
-                    AND `rank` > 1";
-            claro_sql_query($sql);
-
-            //3-move down current module
-            $sql = "UPDATE `" . $tbl['dock'] . "`
-                    SET `rank` = `rank` + 1
-                    WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" .  addslashes($dockName) . "'";
-            claro_sql_query($sql);
-
-            break;
-    }
-
-    generate_module_cache();
-}
-
-
-function get_and_unzip_uploaded_package()
-{
-    global $includePath;
-    
-    $backlog_message = array();
-
-    //Check if the file is valid (not to big and exists)
-
-    if( !isset($_FILES['uploadedModule'])
-    || !is_uploaded_file($_FILES['uploadedModule']['tmp_name']))
-    {
-        $backlog_message[] = get_lang('Problem with file upload');
-    }
-    else
-    {
-        $backlog_message[] = get_lang('Temporary file is : ') . $_FILES['uploadedModule']['tmp_name'];
-    }
-    //1- Unzip folder in a new repository in claroline/module
-
-    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
-    //unzip files
-
-    $moduleRepositorySys = get_conf('rootSys') . 'module/';
-    //create temp dir for upload
-    claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
-    $uploadDirFullPath = tempdir($moduleRepositorySys);
-    $uploadDir         = str_replace($moduleRepositorySys,'',$uploadDirFullPath);
-    $modulePath        = $moduleRepositorySys.$uploadDir.'/';
-
-    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) && treat_uploaded_file($_FILES['uploadedModule'],$moduleRepositorySys, $uploadDir, get_conf('maxFilledSpaceForModule' , 10000000),'unzip',true))
-    {
-        $backlog_message[] = get_lang('Files dezipped sucessfully in ' ) . $modulePath;
-
-        if (!function_exists('gzopen'))
-        {
-            $backlog_message[] = get_lang('Error : no zlib extension found');
-            claro_delete_file($modulePath);
-            return claro_failure::set_failure($backlog_message);
-        }
-    }
-    else
-    {
-        $backlog_message[] = get_lang('Impossible to unzip file');
-        claro_delete_file($modulePath);
-        return claro_failure::set_failure($backlog_message);
-    }
-
-    return $modulePath;
-}
-
-/**
- * function to install a specific module to the platform
- *
- */
-
-function install_module($modulePath)
-{
-    global $includePath;
-
-    $backlog_message = array();
-    $moduleId = false;
-
-    if (false === ($module_info = readModuleManifest($modulePath)))
-    {
-        claro_delete_file($modulePath);
-        $backlog_message = claro_failure::get_last_failure();
-    }
-    else
-    {
-        //check if a module with the same LABEL is already installed, if yes, we cancel everything
-        if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
-        {
-            array_push ($backlog_message, get_lang('%module is already installed on your platform.', array('%module'=>$module_info['LABEL'])));
-            claro_delete_file($modulePath);
-            // TODO : add code to point on existing instance of tool.
-            // TODO : how to overwrite . prupose uninstall ?
-        }
-        else
-        {
-            //3- Save the module information into DB
-            $moduleId = register_module_core($module_info);
-        
-            //in case of tool type module, the dock can not be selected and must added also now
-        
-            if ('tool' == $module_info['TYPE'])
-            {
-                register_module_tool($moduleId,$module_info);
-            }
-        
-            if (array_key_exists('DEFAULT_DOCK',$module_info))
-            {
-                foreach($module_info['DEFAULT_DOCK'] as $dock)
-                {
-                    add_module_in_dock($moduleId, $dock);
-                }
-            }
-        
-            //4- Rename the module repository with label
-        
-            if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
-            {
-                array_push ($backlog_message, get_lang("Error while renaming module folder"));
-            }
-            else
-            {
-                //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
-            
-                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
-                {
-                    $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
-                    if (!empty($sql))
-                    {
-                        $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
-                        claro_sql_multi_query($sql); //multiquery should be assumed here
-                        array_push ($backlog_message,get_lang( 'Database installation script called' ));
-                    }
-                }
-                
-                // call install.php after initialising database in case it requires database to run
-                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
-                {
-                    require get_module_path($module_info['LABEL']) . '/install/install.php';
-                    array_push ($backlog_message,get_lang( 'Module installation script called' ));
-                }
-            
-            
-            
-                //6- cache file with the module's include must be renewed after installation of the module
-            
-                if ( ! generate_module_cache() )
-                {
-                    array_push ($backlog_message,get_lang( 'Module cache generation failed' ));
-                }
-            
-                //7- generate the conf if a def file exists
-            
-                require_once $includePath . '/lib/config.lib.inc.php';
-                $config = new Config($module_info['LABEL']);
-                list ($confMessage, $error) = generate_conf($config);
-                $backlog_message[] = $confMessage;
-                generate_conf($config);
-            }
-        }
-    }
-    
-    return array( implode( '<br />' . "\n", $backlog_message ), $moduleId );
-}
-
-/**
  * function to uninstall a specific module to the platform
  *
  * @param integer $moduleId the id of the module to uninstall
@@ -758,308 +699,7 @@ function uninstall_module($moduleId)
 
 }
 
-
-
-//---------------------------------------------------------------------------------
-
-
-
-/**
- * Function used by the SAX xml parser when the parser meets a opening tag
- *
- * @param tring $dockName the dock from which we want this info
- * @return integer : the max rank used for this dock
- *
- */
-
-
-function get_max_rank_in_dock($dockName)
-{
-    $tbl = claro_sql_get_main_tbl();
-
-
-    $sql = "SELECT MAX(rank) AS mrank
-            FROM `" . $tbl['dock'] . "` AS D
-            WHERE D . `name` = '" . addslashes($dockName) . "'";
-    $max_rank = claro_sql_query_get_single_value($sql);
-    return (int) $max_rank;
-}
-
-//XML PARSER FUNCTIONS : needed functions for the manifest parser :
-
-/**
- * Function used by the SAX xml parser when the parser meets a opening tag
- *
- * @param handler $parser xml parser created with "xml_parser_create()"
- * @param string $name name of the element
- * @param array  $attributes
- *
- * @global array $module_info array where are add found info
- * @return void
- */
-function startElement($parser, $name, $attributes)
-{
-    global $element_pile;
-    global $module_info;
-
-    array_push($element_pile,$name);
-    $current_element = end($element_pile);
-
-    switch ($current_element)
-    {
-
-        case 'DEFAULT_DOCK' :
-            $module_info['DEFAULT_DOCK'][] = $attributes['VALUE'];
-            break;
-
-        case 'LINK' :
-            $parent = prev($element_pile);
-            $module_info['CONTEXT'][$parent]['LINKS'][] = $attributes;
-            break;
-
-        case 'COURSE': case 'GROUP': case 'USER':
-            $parent = prev($element_pile);
-            if ('CONTEXT' == $parent)
-            {
-                $module_info['CONTEXT'][$current_element] = $attributes;
-            }
-
-            break;
-
-    }
-}
-
-/**
- * Function used by the SAX xml parser when the parser meets a closing tag
- *
- * @param $parser xml parser created with "xml_parser_create()"
- * @param $name name of the element
- */
-
-function endElement($parser,$name)
-{
-    global $element_pile;
-    array_pop($element_pile);
-}
-
-function elementData($parser,$data)
-{
-    global $element_pile;
-    global $module_info;
-
-    $current_element = end($element_pile);
-
-    switch ($current_element)
-    {
-        case 'TYPE' :
-            $module_info['TYPE'] = $data;
-            break;
-
-        case 'DESCRIPTION' :
-            {
-                $module_info['DESCRIPTION'] = $data;
-            }   break;
-
-        case 'EMAIL':
-            $module_info['AUTHOR']['EMAIL'] = $data;
-            break;
-
-        case 'LABEL':
-            $module_info['LABEL'] = $data;
-            break;
-
-        case 'ENTRY':
-            $module_info['ENTRY'] = $data;
-            break;
-
-        case 'LICENSE':
-            $module_info['LICENSE'] = $data;
-            break;
-
-        case 'ICON':
-            $module_info['ICON'] =  $data;
-            break;
-
-        case 'NAME':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-
-                case 'MODULE':
-                    {
-                        $module_info['NAME'] = $data;
-                    }break;
-
-                case 'AUTHOR':
-                    {
-                        $module_info['AUTHOR']['NAME'] = $data;
-                    }
-                    break;
-            }
-            break;
-
-        case 'MINVERSION':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'PHP':
-                    $module_info['PHP_MIN_VERSION'] = $data;
-                    break;
-
-                case 'MYSQL':
-                    $module_info['MYSQL_MIN_VERSION'] = $data;
-                    break;
-            }
-            break;
-
-        case 'MAXVERSION':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'PHP':
-                    $module_info['PHP_MAX_VERSION'] = $data;
-                    break;
-
-                case 'MYSQL':
-                    $module_info['MYSQL_MAX_VERSION'] = $data;
-                    break;
-            }
-            break;
-
-        case 'VERSION':
-
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'MODULE':
-                    $module_info['VERSION'] = $data;
-                    break;
-
-                case 'CLAROLINE' :
-                    $module_info['CLAROLINE']['VERSION'] = $data;
-                    break;
-            }
-            break;
-
-        case 'WEB':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'MODULE':
-                    $module_info['WEB'] = $data;
-                    break;
-
-                case 'AUTHOR':
-                    $module_info['AUTHOR']['WEB'] = $data;
-                    break;
-            }
-
-            break;
-
-        case 'LINK' :
-
-            $context = prev($element_pile);
-            $parent = prev($element_pile);
-            break;
-
-        case 'DATABASE' : case 'FILE' :
-
-            $context = prev($element_pile);
-            $parent = prev($element_pile);
-            if ('CONTEXT' == $parent)
-            {
-                $module_info['CONTEXT'][$context][$current_element] = $data;
-            }
-
-            break;
-    }
-}
-
-/**
- * function to create a temporary directory
- */
-
-function tempdir($dir, $prefix='tmp', $mode=0777)
-{
-    if (substr($dir, -1) != '/') $dir .= '/';
-
-    do
-    {
-        $path = $dir.$prefix.mt_rand(0, 9999999);
-    } while (!claro_mkdir($path, $mode));
-
-    return $path;
-}
-
-/**
- * Generate the cache php file with the needed include of activated module of the platform.
- * @return boolean true if succeed, false on failure
- */
-
-function generate_module_cache()
-{
-
-    $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
-    $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
-    $module_cache_filepath = $cacheRepositorySys . $module_cache_filename;
-    
-    if ( ! file_exists( $cacheRepositorySys ) )
-    {
-        claro_mkdir($cacheRepositorySys, CLARO_FILE_PERMISSIONS, true);
-    }
-    
-    $tbl = claro_sql_get_main_tbl();
-    $sql = "SELECT `label`
-              FROM `" . $tbl['module'] . "`
-             WHERE activation = 'activated'";
-             
-    $module_list = claro_sql_query_fetch_all($sql);
-
-    if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys))
-    {
-        if ( file_exists( $module_cache_filepath ) && ! is_writable( $module_cache_filepath ) )
-        {
-            return claro_failure::set_failure('cannot write to cache file ' . $module_cache_filepath);
-        }
-        else
-        {
-            if ( false !== ( $handle = fopen($module_cache_filepath, 'w') ) )
-            {
-                $cache = '<?php #auto created by claroline modify it at your own risks'."\n";
-                $cache .= 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n";
-                $cache .= "\n" . '# ---- start of cache ----'."\n\n";
-                
-                foreach($module_list as $module)
-                {
-                    $functionsFilePath = get_module_path($module['label']) . '/functions.php';
-                    
-                    if (file_exists( $functionsFilePath ))
-                    {
-                        $cache .= '# ' . $module['label'] . "\n" ;
-                        $cache .= 'if (file_exists("' . $functionsFilePath . '") ) ';
-                        $cache .= 'require "' . $functionsFilePath . '";' . "\n";
-                    }
-                }
-            
-                $cache .= "\n" . '?>';
-                
-                fwrite( $handle, $cache );
-                fclose( $handle );
-            }
-            else
-            {
-                claro_failure::set_failure('cannot open ' . $module_cache_filepath);
-            }
-        }
-    }
-    else
-    {
-        // FIXME E_USER_ERROR instead of E_USER_NOTICE
-        return claro_failure::set_failure('directory ' . $cacheRepositorySys . ' is not writable');
-    }
-    
-    return true;
-}
+// MODULE REGISTRATION FUNCTIONS
 
 /**
  * Add module in claroline, giving  its path
@@ -1254,15 +894,7 @@ function register_module_tool($moduleId,$module_info)
     }
 }
 
-function claro_get_module_types()
-{
-    $tbl = claro_sql_get_tbl('module');
-    $sql = "SELECT distinct M.`type` AS `type`
-           FROM `" . $tbl['module'] . "` AS M";
-    $moduleType = claro_sql_query_fetch_all_cols($sql);
-    return $moduleType['type'];
-}
-
+// MANIFEST PARSER
 
 function readModuleManifest($modulePath)
 {
@@ -1284,8 +916,8 @@ function readModuleManifest($modulePath)
     $module_info['DEFAULT_DOCK'] = array();//array off possible default dock in which module can be set
 
     $xml_parser = xml_parser_create();
-    xml_set_element_handler($xml_parser, 'startElement', 'endElement');
-    xml_set_character_data_handler($xml_parser, 'elementData');
+    xml_set_element_handler($xml_parser, 'moduleManifestStartElement', 'moduleManifestEndElement');
+    xml_set_character_data_handler($xml_parser, 'moduleManifestElementData');
 
     //open manifest
 
@@ -1329,6 +961,410 @@ function readModuleManifest($modulePath)
 
 }
 
+//XML PARSER FUNCTIONS : needed functions for the manifest parser :
+
+/**
+ * Function used by the SAX xml parser when the parser meets a opening tag
+ *
+ * @param handler $parser xml parser created with "xml_parser_create()"
+ * @param string $name name of the element
+ * @param array  $attributes
+ *
+ * @global array $module_info array where are add found info
+ * @return void
+ */
+function moduleManifestStartElement($parser, $name, $attributes)
+{
+    global $element_pile;
+    global $module_info;
+
+    array_push($element_pile,$name);
+    $current_element = end($element_pile);
+
+    switch ($current_element)
+    {
+
+        case 'DEFAULT_DOCK' :
+            $module_info['DEFAULT_DOCK'][] = $attributes['VALUE'];
+            break;
+
+        case 'LINK' :
+            $parent = prev($element_pile);
+            $module_info['CONTEXT'][$parent]['LINKS'][] = $attributes;
+            break;
+
+        case 'COURSE': case 'GROUP': case 'USER':
+            $parent = prev($element_pile);
+            if ('CONTEXT' == $parent)
+            {
+                $module_info['CONTEXT'][$current_element] = $attributes;
+            }
+
+            break;
+
+    }
+}
+
+/**
+ * Function used by the SAX xml parser when the parser meets a closing tag
+ *
+ * @param $parser xml parser created with "xml_parser_create()"
+ * @param $name name of the element
+ */
+
+function moduleManifestEndElement($parser,$name)
+{
+    global $element_pile;
+    array_pop($element_pile);
+}
+
+function moduleManifestElementData($parser,$data)
+{
+    global $element_pile;
+    global $module_info;
+
+    $current_element = end($element_pile);
+
+    switch ($current_element)
+    {
+        case 'TYPE' :
+            $module_info['TYPE'] = $data;
+            break;
+
+        case 'DESCRIPTION' :
+            {
+                $module_info['DESCRIPTION'] = $data;
+            }   break;
+
+        case 'EMAIL':
+            $module_info['AUTHOR']['EMAIL'] = $data;
+            break;
+
+        case 'LABEL':
+            $module_info['LABEL'] = $data;
+            break;
+
+        case 'ENTRY':
+            $module_info['ENTRY'] = $data;
+            break;
+
+        case 'LICENSE':
+            $module_info['LICENSE'] = $data;
+            break;
+
+        case 'ICON':
+            $module_info['ICON'] =  $data;
+            break;
+
+        case 'NAME':
+            $parent = prev($element_pile);
+            switch ($parent)
+            {
+
+                case 'MODULE':
+                    {
+                        $module_info['NAME'] = $data;
+                    }break;
+
+                case 'AUTHOR':
+                    {
+                        $module_info['AUTHOR']['NAME'] = $data;
+                    }
+                    break;
+            }
+            break;
+
+        case 'MINVERSION':
+            $parent = prev($element_pile);
+            switch ($parent)
+            {
+                case 'PHP':
+                    $module_info['PHP_MIN_VERSION'] = $data;
+                    break;
+
+                case 'MYSQL':
+                    $module_info['MYSQL_MIN_VERSION'] = $data;
+                    break;
+            }
+            break;
+
+        case 'MAXVERSION':
+            $parent = prev($element_pile);
+            switch ($parent)
+            {
+                case 'PHP':
+                    $module_info['PHP_MAX_VERSION'] = $data;
+                    break;
+
+                case 'MYSQL':
+                    $module_info['MYSQL_MAX_VERSION'] = $data;
+                    break;
+            }
+            break;
+
+        case 'VERSION':
+
+            $parent = prev($element_pile);
+            switch ($parent)
+            {
+                case 'MODULE':
+                    $module_info['VERSION'] = $data;
+                    break;
+
+                case 'CLAROLINE' :
+                    $module_info['CLAROLINE']['VERSION'] = $data;
+                    break;
+            }
+            break;
+
+        case 'WEB':
+            $parent = prev($element_pile);
+            switch ($parent)
+            {
+                case 'MODULE':
+                    $module_info['WEB'] = $data;
+                    break;
+
+                case 'AUTHOR':
+                    $module_info['AUTHOR']['WEB'] = $data;
+                    break;
+            }
+
+            break;
+
+        case 'LINK' :
+
+            $context = prev($element_pile);
+            $parent = prev($element_pile);
+            break;
+
+        case 'DATABASE' : case 'FILE' :
+
+            $context = prev($element_pile);
+            $parent = prev($element_pile);
+            if ('CONTEXT' == $parent)
+            {
+                $module_info['CONTEXT'][$context][$current_element] = $data;
+            }
+
+            break;
+    }
+}
+
+// MODULE DOCK MANAGEMENT FUNCTIONS
+
+/**
+ * Set the dock in which the module displays its content
+ *
+ * @param integer $moduleId id of the module to rename
+ * @param string $newDockName new name  for the doc
+ *
+ * @return handler result of insert
+ */
+function add_module_in_dock($moduleId, $newDockName, $context='')
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    //find info about this module occurence in this dock in the DB
+
+    $sql = "SELECT D.`name`      AS dockname,
+                   D.`rank`      AS oldRank
+            FROM `" . $tbl['module'] . "` AS M
+               , `" . $tbl['dock']   . "` AS D
+            WHERE M.`id` = D.`module_id`
+            AND M.`id` = " . (int) $moduleId . "
+            AND D.`name` = '" . $newDockName . "'";
+    $module = claro_sql_query_get_single_row($sql);
+
+    //if the module is already in the dock ,we just do nothing and return true.
+
+    if (isset($module['dockname']) && $module['dockname'] == $newDockName)
+    {
+        return true;
+    }
+    else
+    {
+        //find the highest rank already used in the new dock
+        $max_rank = get_max_rank_in_dock($newDockName);
+        // the module is not already in this dock, we just insert it into this in the DB
+
+        $sql = "INSERT INTO `" . $tbl['dock'] . "`
+                SET module_id = " . (int) $moduleId . ",
+                    name    = '" . addslashes($newDockName) . "',
+                    #context = '" . addslashes($context) . "',
+                    rank    = " . ((int) $max_rank + 1) ;
+        $result = claro_sql_query($sql);
+        generate_module_cache();
+
+        return $result;
+    }
+}
+
+/**
+ * Remove a module from a dock in which the module displays
+ *
+ * @param integer $moduleId
+ * @param string  $dockName
+ *
+ */
+
+function remove_module_dock($moduleId, $dockName)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    // call of this function to remove ALL occurence of the module in any dock
+
+    if ('ALL' == $dockName)
+    {
+        //1- find all dock in which the dock displays
+
+        $sql="SELECT `name` AS dockName
+              FROM   `" . $tbl['dock'] . "`
+              WHERE  `module_id` = " . (int) $moduleId;
+
+        $dockList = claro_sql_query_fetch_all($sql);
+
+        //2- re-call of this function which each dock concerned
+
+        foreach($dockList as $dock)
+        {
+            remove_module_dock($moduleId,$dock['dockName']);
+        }
+    }
+
+    else
+
+    //call of this function to remove ONE SPECIFIC occurence of the module in the dock
+
+    {
+        //find the rank of the module in this dock :
+
+        $sql = "SELECT `rank` AS oldRank
+                FROM   `" . $tbl['dock'] . "`
+                WHERE  `module_id` = " . (int) $moduleId . "
+                AND    `name` = '" .$dockName . "'";
+        $module = claro_sql_query_get_single_row($sql);
+
+        //move up all modules displayed in this dock
+
+        $sql = "UPDATE `" . $tbl['dock'] . "`
+                SET `rank` = `rank` - 1
+                WHERE `name` = '" . $dockName . "'
+                AND `rank` > " . (int) $module['oldRank'];
+        claro_sql_query($sql);
+
+        //delete the module line in the dock table
+
+        $sql = "DELETE FROM `" . $tbl['dock'] . "`
+                WHERE `module_id` = " . (int) $moduleId. "
+                AND   `name` = '" . $dockName . "'";
+        claro_sql_query($sql);
+
+        generate_module_cache();
+    }
+}
+
+/**
+ * Move a module inside its dock (change its position in the display
+ *
+ * @param integer $moduleId
+ * @param string $dockName
+ * @param string $direction 'up' or 'down'
+ */
+
+function move_module_in_dock($moduleId, $dockName, $direction)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    switch ($direction)
+    {
+        case 'up' :
+
+            //1-find value of current module rank in the dock
+            $sql = "SELECT `rank`
+                    FROM `" . $tbl['dock'] . "`
+                    WHERE `module_id`=" . (int) $moduleId . "
+                    AND `name`='" . addslashes($dockName) . "'";
+            $result=claro_sql_query_get_single_value($sql);
+
+            //2-move down above module
+            $sql = "UPDATE `" . $tbl['dock'] . "`
+                    SET `rank` = `rank`+1
+                    WHERE `module_id` != " . (int) $moduleId . "
+                    AND `name`       = '" . addslashes($dockName) . "'
+                    AND `rank`       = " . (int) $result['rank'] . " -1 ";
+
+            claro_sql_query($sql);
+
+            //3-move up current module
+            $sql = "UPDATE `" . $tbl['dock'] . "`
+                    SET `rank` = `rank`-1
+                    WHERE `module_id` = " . (int) $moduleId . "
+                    AND `name`      = '" .  addslashes($dockName) . "'
+                    AND `rank` > 1"; // this last condition is to avoid wrong update due to a page refreshment
+            claro_sql_query($sql);
+
+            break;
+
+        case 'down' :
+
+            //1-find value of current module rank in the dock
+            $sql = "SELECT `rank`
+                    FROM `" . $tbl['dock'] . "`
+                    WHERE `module_id`=" . (int) $moduleId . "
+                    AND `name`='" . addslashes($dockName) . "'";
+            $result=claro_sql_query_get_single_value($sql);
+
+            //this second query is to avoid a page refreshment wrong update
+
+            $sqlmax= "SELECT MAX(`rank`) AS `max_rank`
+                      FROM `" . $tbl['dock'] . "`
+                      WHERE `name`='" .  addslashes($dockName) . "'";
+            $resultmax=claro_sql_query_get_single_value($sqlmax);
+
+            if ($resultmax['max_rank'] == $result['rank']) break;
+
+            //2-move up above module
+            $sql = "UPDATE `" . $tbl['dock'] . "`
+                    SET `rank` = `rank` - 1
+                    WHERE `module_id` != " . $moduleId . "
+                    AND `name` = '" . addslashes($dockName) . "'
+                    AND `rank` = " . (int) $result['rank'] . " + 1
+                    AND `rank` > 1";
+            claro_sql_query($sql);
+
+            //3-move down current module
+            $sql = "UPDATE `" . $tbl['dock'] . "`
+                    SET `rank` = `rank` + 1
+                    WHERE `module_id`=" . (int) $moduleId . "
+                    AND `name`='" .  addslashes($dockName) . "'";
+            claro_sql_query($sql);
+
+            break;
+    }
+
+    generate_module_cache();
+}
+
+/**
+ * Function used by the SAX xml parser when the parser meets a opening tag
+ *
+ * @param tring $dockName the dock from which we want this info
+ * @return integer : the max rank used for this dock
+ *
+ */
+function get_max_rank_in_dock($dockName)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+
+    $sql = "SELECT MAX(rank) AS mrank
+            FROM `" . $tbl['dock'] . "` AS D
+            WHERE D . `name` = '" . addslashes($dockName) . "'";
+    $max_rank = claro_sql_query_get_single_value($sql);
+    return (int) $max_rank;
+}
+
 /**
  * Return list of dock aivailable for a given type
  *
@@ -1361,43 +1397,7 @@ function get_dock_list($moduleType)
     return $dockList;
 }
 
-/**
- * Return info of a module, including extra info and specific info for tool if case
- *
- * @param integer $moduleId
- * @return array (label, id, module_name,activation, type, script_url, icon, version, author, author_email, website, description, license)
- */
-function get_module_info($moduleId)
-{
-    $tbl = claro_sql_get_tbl(array('module', 'module_info', 'course_tool'));
-
-    $sql = "SELECT M.`label`  AS label,
-               M.`id`         AS module_id,
-               M.`name`       AS module_name,
-               M.`activation` AS activation,
-               M.`type`       AS type,
-               M.`script_url` AS script_url,
-
-               CT.`icon`       AS icon,
-
-               MI.version      AS version,
-               MI.author       AS author,
-               MI.author_email AS author_email ,
-               MI.website      AS website,
-               MI.description  AS description,
-               MI.license      AS license
-
-        FROM (`" . $tbl['module']      . "` AS M
-           , `" . $tbl['module_info'] . "` AS MI )
-        LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
-              ON CT.`claro_label`= M.label
-
-        WHERE  M.`id` = MI . `module_id`
-        AND    M.`id` = " . (int) $moduleId;
-
-    return claro_sql_query_get_single_row($sql);
-
-}
+// COURSE TOOL RANK MANAGEMENT FUNCTIONS
 
 /**
  * move the place of the module in the module list
@@ -1549,5 +1549,4 @@ function get_course_tool_min_rank()
     $sql = "SELECT MIN(def_rank) as minrank FROM `" . $tbl_tool_list . "`";
     return claro_sql_query_get_single_value($sql);
 }
-
 ?>
