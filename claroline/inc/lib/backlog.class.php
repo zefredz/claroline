@@ -134,6 +134,8 @@
             echo '</pre>';
             
             echo $bl->output();
+            $bl->append( $bl );
+            echo $bl->output();
         }
     }
     
