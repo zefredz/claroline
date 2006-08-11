@@ -321,6 +321,8 @@ else
     $includePath = $newIncludePath;
     $def_file_list = get_def_file_list('kernel');
     $configError=false;
+    $messageConfigErrorList = array();
+
     if ( is_array($def_file_list) )
     {
         foreach ( $def_file_list as $config_code => $def )
@@ -333,7 +335,7 @@ else
 			if($configKernelError)
 			{
 			    $configError = true;
-			    $messageConfigErrorList = array_merge($messageConfigErrorList,$message);
+			    $messageConfigErrorList[] = $message;
 			}
 
         }
@@ -463,7 +465,7 @@ init_default_right_profile();
             if($configToolError)
             {
                 $configError = true;
-                $messageConfigErrorList = array_merge($messageConfigErrorList,$message);
+                $messageConfigErrorList[] = $message;
             }
 
         }

@@ -134,7 +134,7 @@ function generate_conf(&$config,$properties = null)
     {
         // save config file
         $config->save();
-        $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
+        $message = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
         , array('%config_name' => $config_name, '%config_code' => $config_code));
     }
     else
