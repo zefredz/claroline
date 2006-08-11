@@ -319,13 +319,13 @@ else
      */
 
     $includePath = $newIncludePath;
-    $def_file_list = get_def_file_list('kernel');
+    $config_code_list = get_config_code_list('kernel');
     $configError=false;
     $messageConfigErrorList = array();
 
-    if ( is_array($def_file_list) )
+    if ( is_array($config_code_list) )
     {
-        foreach ( $def_file_list as $config_code => $def )
+        foreach ( $config_code_list as $config_code )
         {
             // new config object
             $config = new Config($config_code);
@@ -451,11 +451,11 @@ init_default_right_profile();
      * Generate module conf from definition files.
      */
 
-    $def_file_list = get_def_file_list('module');
+    $config_code_list = get_config_code_list('module');
 
-    if ( is_array($def_file_list) )
+    if ( is_array($config_code_list) )
     {
-        foreach ( $def_file_list as $config_code => $def )
+        foreach ( $config_code_list as $config_code )
         {
             // new config object
             $config = new Config($config_code);

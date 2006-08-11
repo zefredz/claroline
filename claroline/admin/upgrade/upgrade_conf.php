@@ -74,15 +74,18 @@ if ( $cmd == 'run' )
 
     $output.= '<ol>' . "\n" ;
 
-    // Generate configuration file from definition file
-    $def_file_list = get_def_file_list();
+    /*
+     * Generate configuration file from definition file
+     */
 
-    if ( is_array($def_file_list) )
+    $config_code_list = get_config_code_list();
+
+    if ( is_array($config_code_list) )
     {
         // Build table with current values in configuration files
         $current_property_list = array();
         
-        foreach ( array_keys($def_file_list) as $config_code )
+        foreach ( $config_code_list as $config_code )
         {
             // new config object
             $config = new Config($config_code);
@@ -115,9 +118,9 @@ if ( $cmd == 'run' )
 
         // Browse definition file and build them
 
-        reset( $def_file_list );
+        reset( $config_code_list );
 
-        foreach ( array_keys($def_file_list) as $config_code )
+        foreach ( $config_code_list as $config_code )
         {
             $config = new Config($config_code);
             

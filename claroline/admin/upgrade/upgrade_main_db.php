@@ -135,22 +135,16 @@ switch ( $display )
 
             // For each configuration file add a hash code in the new table config_list (new in 1.6)
 
-            $def_file_list = get_def_file_list();
-            foreach ( $def_file_list as $def_file_bloc)
+            $config_code_list = get_config_code_list();
+
+            foreach ( $config_code_list as $config_code )
             {
-                if ( isset($def_file_bloc['conf']) && is_array($def_file_bloc['conf']) )
-                {
-                    // blocs are use in visual config tool to list
-                    // in special order thes detected config files.
-                    foreach ( $def_file_bloc['conf'] as $config_code => $def_name)
-                    {
-                        $conf_file = get_conf_file($config_code);
-                        // The Hash compute and store is differed after creation table use for this storage
-                        // calculate hash of the config file
-                        $conf_hash = md5_file($conf_file);
-                        save_config_hash_in_db($config_code,$conf_hash);
-                    }
-                }
+                $conf_file = get_conf_file($config_code);
+
+                // The Hash compute and store is differed after creation table use for this storage
+                // calculate hash of the config file
+                $conf_hash = md5_file($conf_file);
+                save_config_hash_in_db($config_code,$conf_hash);
             }
 
             if ( $nbError == 0 )
