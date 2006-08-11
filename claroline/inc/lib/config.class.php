@@ -82,7 +82,7 @@ class Config
     function Config($config_code)
     {
         $this->config_code = $config_code;
-        $this->conf_dirname = claro_get_conf_repository();
+        $this->conf_dirname = claro_get_conf_repository(); // in 1.8 is 'platform/conf' folder
         $this->def_dirname = claro_get_conf_def_file($config_code) ;
         $this->backlog = new Backlog();
         $this->def_loaded = false;
@@ -103,6 +103,7 @@ class Config
 
             // load definition file
             $this->load_def_file();
+            $this->def_loaded = true;
 
             // set configuration filename
             $this->config_filename = $this->build_config_filename();
@@ -112,9 +113,6 @@ class Config
 
             // init md5
             $this->init_md5();
-
-            // set def_loaded var
-            $this->def_loaded = true;
 
             return true;
         }
