@@ -79,6 +79,7 @@ if ( $cmd == 'run' )
      */
 
     $config_code_list = get_config_code_list();
+    $config_code_list = array_merge($config_code_list,array('CLANN','CLCAL','CLFRM','CLCHT','CLDOC','CLDSC','CLUSR','CLLNP','CLQWZ','CLWRK','CLWIKI'));
 
     if ( is_array($config_code_list) )
     {
@@ -88,7 +89,7 @@ if ( $cmd == 'run' )
         foreach ( $config_code_list as $config_code )
         {
             // new config object
-            $config = new Config($config_code);
+            $config = new ConfigUpgrade($config_code);
             $config->load();
             $this_property_list = $config->get_property_list();            
             $current_property_list = array_merge($current_property_list, $this_property_list);
@@ -122,7 +123,7 @@ if ( $cmd == 'run' )
 
         foreach ( $config_code_list as $config_code )
         {
-            $config = new Config($config_code);
+            $config = new ConfigUpgrade($config_code);
             
             // load and initialise the config
             if ( $config->load() )

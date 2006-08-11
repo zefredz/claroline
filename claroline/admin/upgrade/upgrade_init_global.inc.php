@@ -49,10 +49,6 @@ set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_in
 
 define('CLARO_FILE_PERMISSIONS', 0777);
 
-// conf variables
-
-$coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
-
 // verbose mode
 
 if ( defined(CLARO_DEBUG_MODE) && CLARO_DEBUG_MODE )
@@ -81,11 +77,17 @@ session_start();
 
 require $includePath . '/lib/claro_main.lib.php';
 
+// conf variables
+
+$coursesRepositorySys   = get_conf('rootSys') . $coursesRepositoryAppend;
+$clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
+
 /*----------------------------------------------------------------------
   Include upgrade library
   ----------------------------------------------------------------------*/
 
 require $includePath . '/lib/config.lib.inc.php';
+require dirname(__FILE__) . '/configUpgrade.class.php';
 require 'upgrade.lib.php';
 
 /**
