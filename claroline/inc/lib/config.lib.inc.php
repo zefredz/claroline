@@ -89,20 +89,6 @@ function trueFalse($booleanState)
 }
 
 /**
- * redefine  unexisting function (compatibility for older php)
- */
-
-if (!function_exists('md5_file'))
-{
-    function md5_file($file_name)
-    {
-        $fileContent = file($file_name);
-        $fileContent = !$fileContent ? FALSE : implode('', $fileContent);
-        return md5($fileContent);
-    }
-}
-
-/**
  * return the path of a def file following the configCode
  *
  * @param string $configCode
