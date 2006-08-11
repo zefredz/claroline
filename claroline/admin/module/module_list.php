@@ -146,10 +146,12 @@ $modulePerPage = get_conf('modulePerPage' , 20);
 
 $typeLabel['']        = get_lang('No name');
 $typeLabel['tool']    = get_lang('Tools');
-$typeLabel['applet']  = get_lang('Applet');
-$typeLabel['lang']    = get_lang('Languages');
+$typeLabel['applet']  = get_lang('Applets');
+$typeLabel['lang']    = get_lang('Language packs');
 $typeLabel['theme']   = get_lang('Themes');
-$typeLabel['extauth'] = get_lang('External authentication');
+$typeLabel['extauth'] = get_lang('External authentication drivers');
+
+$moduleTypeList = array( 'tool', 'applet' );
 
 
 $cmd          = (isset($_REQUEST['cmd'])          ? $_REQUEST['cmd']          : null);
@@ -235,8 +237,8 @@ switch ( $cmd )
 // FIND INFORMATION
 //----------------------------------
 
-$moduleTypeList = claro_get_module_types();
-//$moduleTypeList = array_merge($moduleTypeList, array_keys($typeLabel));
+// $moduleTypeList = claro_get_module_types();
+// $moduleTypeList = array_merge($moduleTypeList, array_keys($typeLabel));
 
 switch($typeReq)
 {
