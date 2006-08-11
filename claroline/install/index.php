@@ -45,6 +45,7 @@ $cssStepStatus['!'] = 'caution';
 
 /* LET DEFINE ON SEPARATE LINES !!!*/
 
+// TODO remove this code
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 // Place of Config file
@@ -76,6 +77,8 @@ include_once $newIncludePath . 'lib/right/right_profile.lib.php';
 
 claro_unquote_gpc();
 
+
+// TODO remove this code
 if (count($_GET) > 0)      {extract($_GET, EXTR_OVERWRITE);}
 if (count($_POST) > 0)     {extract($_POST, EXTR_OVERWRITE);}
 if (count($_SERVER) > 0)   {extract($_SERVER, EXTR_OVERWRITE);}
