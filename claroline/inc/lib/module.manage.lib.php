@@ -635,7 +635,8 @@ function install_module($modulePath)
 	require_once $includePath . '/lib/config.lib.inc.php';
 	$config = new Config($module_info['LABEL']);
 	list ($confMessage, $error) = generate_conf($config);
-	$backlog_message = array_merge ($backlog_message,$confMessage);
+	$backlog_message[] = $confMessage;
+    generate_conf($config);
 
     //8- return the backlog
 
