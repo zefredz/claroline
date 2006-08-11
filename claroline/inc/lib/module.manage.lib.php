@@ -342,7 +342,9 @@ function generate_module_cache()
 
 /**
  * function to install a specific module to the platform
- *
+ * @return array( message, int )
+ *      int moduleId if the install process suceeded, false otherwise
+ *      message backlog messages
  */
 
 function install_module($modulePath)
@@ -401,11 +403,19 @@ function install_module($modulePath)
                 if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
                 {
                     $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
+                    
                     if (!empty($sql))
                     {
                         $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
-                        claro_sql_multi_query($sql); //multiquery should be assumed here
-                        $backlog->success(get_lang( 'Database installation script called' ));
+                        
+                        if ( false !== claro_sql_multi_query($sql) )
+                        {
+                            $backlog->success(get_lang( 'Database installation script succeeded' ));
+                        }
+                        else
+                        {
+                            $backlog->failure(get_lang( 'Database installation script failed' ));
+                        }
                     }
                 }
                 
@@ -413,7 +423,7 @@ function install_module($modulePath)
                 if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
                 {
                     require get_module_path($module_info['LABEL']) . '/install/install.php';
-                    $backlog->success(get_lang( 'Module installation script called' ));
+                    $backlog->info(get_lang( 'Module installation script called' ));
                 }
             
             
@@ -422,7 +432,11 @@ function install_module($modulePath)
             
                 if ( ! generate_module_cache() )
                 {
-                    $backlog->failure(get_lang( 'Module cache generation failed' ));
+                    $backlog->failure(get_lang( 'Module cache update failed' ));
+                }
+                else
+                {
+                    $backlog->success(get_lang( 'Module cache update succeeded' ));
                 }
             
                 //7- generate the conf if a def file exists
@@ -594,13 +608,16 @@ function deactivate_module($moduleId)
  * function to uninstall a specific module to the platform
  *
  * @param integer $moduleId the id of the module to uninstall
- * @return boolean true if the uninstall process suceeded, false otherwise
+ * @return array( message, boolean )
+ *      boolean true if the uninstall process suceeded, false otherwise
+ *      message backlog messages
  *
  */
 
 function uninstall_module($moduleId)
 {
-
+    $success = true;
+    
     //first thing to do : deactivate the module
 
     deactivate_module($moduleId);
@@ -609,7 +626,7 @@ function uninstall_module($moduleId)
 
     $tbl = claro_sql_get_main_tbl();
 
-    $backlog_message = array();
+    $backlog = new Backlog;
 
     // 0- find info about the module to uninstall
 
@@ -619,85 +636,112 @@ function uninstall_module($moduleId)
 
     $module = claro_sql_query_get_single_row($sql);
 
-    if ($module==false) return array(get_lang("No module to uninstall"));
-
-    // 1- Include the local 'uninstall.sql' and 'uninstall.php' file of the module if they exist
-    
-    // call uninstall.php first in case it requires module database schema to run
-    if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.php'))
+    if ( $module == false )
     {
-        require get_module_path($module['label']) . '/uninstall/uninstall.php';
-        array_push ($backlog_message,get_lang( 'module uninstallation script called' ));
+        $backlog->failure(get_lang("No module to uninstall"));
+        $success = false;
     }
-
-
-    if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.sql'))
-    {
-        $sql = file_get_contents(get_module_path($module['label']) . '/uninstall/uninstall.sql');
-        if (!empty($sql))
-        {
-            $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
-            claro_sql_multi_query($sql); //multiquery should be assumed here
-        }
-        array_push ($backlog_message, get_lang('database uninstalation script called') );
-    }
-
-    // 2- delete related files and folders
-
-    $modulePath = get_module_path($module['label']);
-
-    if(claro_delete_file($modulePath))
-    $backlog_message[] = get_lang('%module files deleted', array('%module'=>$module['label']));
     else
-    $backlog_message[] = get_lang('error while deleting %module files',array('%module'=>$module['label']));
-
-    //  delete the module in the cours_tool table, used for every course creation
-
-    //retrieve this module_id first
-
-    $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
-            WHERE claro_label = '".$module['label']."'";
-    $tool_to_delete = claro_sql_query_get_single_row($sql);
-    $tool_id = $tool_to_delete['tool_id'];
-
+    {
+        // 1- Include the local 'uninstall.sql' and 'uninstall.php' file of the module if they exist
+        
+        // call uninstall.php first in case it requires module database schema to run
+        if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.php'))
+        {
+            require get_module_path($module['label']) . '/uninstall/uninstall.php';
+            $backlog->info( get_lang( 'module uninstallation script called' ) );
+        }
     
-    $sql = "DELETE FROM `" . $tbl['tool']."`
-            WHERE claro_label = '".$module['label']."'
-        ";
+    
+        if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.sql'))
+        {
+            $sql = file_get_contents(get_module_path($module['label']) . '/uninstall/uninstall.sql');
+            if (!empty($sql))
+            {
+                $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
+                
+                if ( false !== claro_sql_multi_query($sql) )
+                {
+                    $backlog->success(get_lang( 'Database uninstallation succeeded' ));
+                }
+                else
+                {
+                    $backlog->failure(get_lang( 'Database uninstallation failed' ));
+                    $success = false;
+                }
+            }
+        }
+    
+        // 2- delete related files and folders
+    
+        $modulePath = get_module_path($module['label']);
+    
+        if(claro_delete_file($modulePath))
+        {
+            $backlog->success( get_lang('%module files deleted', array('%module'=>$module['label'])) );
+        }
+        else
+        {
+            $backlog->failure( get_lang('error while deleting %module files',array('%module'=>$module['label'])) );
+            $success = false;
+        }
+    
+        //  delete the module in the cours_tool table, used for every course creation
+    
+        //retrieve this module_id first
+    
+        $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
+                WHERE claro_label = '".$module['label']."'";
+        $tool_to_delete = claro_sql_query_get_single_row($sql);
+        $tool_id = $tool_to_delete['tool_id'];
+    
+        
+        $sql = "DELETE FROM `" . $tbl['tool']."`
+                WHERE claro_label = '".$module['label']."'
+            ";
+    
+        claro_sql_query($sql);
+    
+        // 3- delete related entries in main DB
+    
+        $sql = "DELETE FROM `" . $tbl['module'] . "`
+                WHERE `id` = ". (int) $moduleId;
+        claro_sql_query($sql);
+    
+        $sql = "DELETE FROM `" . $tbl['module_info'] . "`
+                WHERE `module_id` = " . (int) $moduleId;
+        claro_sql_query($sql);
+    
+        // 4-Manage right - Delete read action
+        $action = new RightToolAction();
+        $action->setName('read');
+        $action->setToolId($tool_id);
+        $action->delete();
+    
+        // Manage right - Delete edit action
+        $action = new RightToolAction();
+        $action->setName('edit');
+        $action->setToolId($tool_id);
+        $action->delete();
+    
+        // 5- remove all docks entries in which the module displays
+    
+        remove_module_dock($moduleId, 'ALL');
+    
+        // 6- cache file with the module's include must be renewed after uninstallation of the module
+    
+        if ( ! generate_module_cache() )
+        {
+            $backlog->failure(get_lang( 'Module cache update failed' ));
+            $success = false;
+        }
+        else
+        {
+            $backlog->success(get_lang( 'Module cache update succeeded' ));
+        }
+    }
 
-    claro_sql_query($sql);
-
-    // 3- delete related entries in main DB
-
-    $sql = "DELETE FROM `" . $tbl['module'] . "`
-            WHERE `id` = ". (int) $moduleId;
-    claro_sql_query($sql);
-
-    $sql = "DELETE FROM `" . $tbl['module_info'] . "`
-            WHERE `module_id` = " . (int) $moduleId;
-    claro_sql_query($sql);
-
-    // 4-Manage right - Delete read action
-    $action = new RightToolAction();
-    $action->setName('read');
-    $action->setToolId($tool_id);
-    $action->delete();
-
-    // Manage right - Delete edit action
-    $action = new RightToolAction();
-    $action->setName('edit');
-    $action->setToolId($tool_id);
-    $action->delete();
-
-    // 5- remove all docks entries in which the module displays
-
-    remove_module_dock($moduleId, 'ALL');
-
-    // 6- cache file with the module's include must be renewed after uninstallation of the module
-
-    generate_module_cache();
-
-    return $backlog_message;
+    return array( $backlog->output(), $success );
 
 }
 

@@ -194,9 +194,9 @@ switch ( $cmd )
         }
         else
         {
-            $result_log = uninstall_module($module_id);
+            list( $result_log, $success ) = uninstall_module($module_id);
             $dialogBox  = get_lang('Module uninstallation') . ' : <br />';
-            foreach ( $result_log as $log) $dialogBox .= $log . '<br />';
+            $dialogBox .= $result_log . '<br />';
         }
         break;
         
