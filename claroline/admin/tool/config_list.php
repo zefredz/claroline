@@ -55,8 +55,10 @@ $def_class_list['user']['name']     = 'User';
 $def_class_list['tool']['name']     = 'Tool';
 $def_class_list['others']['name']   = 'Others';
 
-$def_list = get_def_file_list();
+$def_list = get_config_code_class_list();
+
 //group by class
+
 if ( is_array($def_list) )
 {
     foreach( $def_list as $code => $def)
