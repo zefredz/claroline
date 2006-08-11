@@ -51,12 +51,35 @@ function get_lang ($name,$var_to_replace=null)
 
     if ( !empty($var_to_replace) && is_array($var_to_replace) )
     {
+        uksort( $var_to_replace, 'cmp_string_by_length' );
         return strtr($translation, $var_to_replace);
     }
     else
     {
         // return translation
         return $translation;
+    }
+}
+
+if ( ! function_exists( 'cmp_string_by_length' ) )
+{
+    /**
+     * Compare strings based on their length
+     */
+    function cmp_string_by_length( $a, $b )
+    {
+        if ( strlen( $a ) == strlen( $b ) )
+        {
+            return 0;
+        }
+        elseif ( strlen( $a ) > strlen( $b ) )
+        {
+            return -1;
+        }
+        else
+        {
+            return 1;
+        }
     }
 }
 
