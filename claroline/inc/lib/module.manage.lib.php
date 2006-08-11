@@ -29,6 +29,7 @@ require_once dirname(__FILE__). '/right/profileToolRight.class.php';
  *        if null, then all the modules are returned
  * @return array containing the labels of the modules installed
  *         on the platform
+ *         false if query failed
  */
 
 function get_installed_module_list($type = null)
@@ -37,13 +38,21 @@ function get_installed_module_list($type = null)
 
     $sql = "SELECT label FROM `" . $tbl['module'] . "`";
 
-    if (isset($type))
+    if (!is_null($type))
     {
         $sql.= " WHERE `type`= '" . addslashes($type) . "'";
     }
 
     $moduleList = claro_sql_query_fetch_all_cols($sql);
-    return  $moduleList['label'];
+    
+    if ( is_array( $moduleList ) && array_key_exists('label', $moduleList ) )
+    {
+        return  $moduleList['label'];
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /**
@@ -62,17 +71,22 @@ function get_module_repositories()
     $folder_array = array();
     if(file_exists($moduleRepositorySys))
     {
-        if (true === ($handle = opendir($moduleRepositorySys)))
+        if (false !== ($handle = opendir($moduleRepositorySys)))
         {
             while (false !== ($file = readdir($handle)))
             {
-                // skip eventual files found at this place
-                if (!is_dir($moduleRepositorySys . $file) ) continue ;
-
-                // skip '.', '..' and 'CVS'
-                if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
-
-                $folder_array[] = $file;
+                if ( $file == '.' || $file == '..' || $file == 'CVS' )
+                {
+                    continue;
+                }
+                elseif (!is_dir($moduleRepositorySys . $file) )
+                {
+                    continue ;
+                }
+                else 
+                {
+                    $folder_array[] = $file;
+                }
             }
         }
 
@@ -82,11 +96,14 @@ function get_module_repositories()
 }
 
 /**
- * Check the presence of unexpected module repositories or unexpected module in DB, its effect is
- * * returning a list of module not installed in DB but present on server, or module installed in DB but not present on server.
+ * Check the presence of unexpected module repositories or unexpected module 
+ * in DB, its effect is returning a list of module not installed in DB but 
+ * present on server, or module installed in DB but not present on server.
  * @return an array two arrays :
- *            ['folder'] containing paths of the suspicious folders found that did not correspond to an installed module in DB
- *            ['DB']     containing label of modules found in DB for which no corresponding folder was found on server
+ *            ['folder'] containing paths of the suspicious folders found that 
+ *                       did not correspond to an installed module in DB
+ *            ['DB']     containing label of modules found in DB for which no 
+ *                       corresponding folder was found on server
  */
 
 function check_module_repositories()
@@ -96,6 +113,7 @@ function check_module_repositories()
 
     $registredModuleList = get_installed_module_list();
     $mistake_array['DB'] = array();
+    
     foreach ($registredModuleList as $registredModuleId)
     {
         $moduleData = get_module_info($registredModuleId);
@@ -105,12 +123,9 @@ function check_module_repositories()
         {
             $mistake_array['DB'][] = $registredModuleId;
         }
-
-
     }
+    
     $folders_found = get_module_repositories();
-
-
 
     foreach ($folders_found as $module_folder)
     {
@@ -126,6 +141,7 @@ function check_module_repositories()
 /**
  * @param the label of a course tool
  * @return the id in the course tool tabel
+ *         false if tool not found
  */
 
 function get_course_tool_id($label)
@@ -134,13 +150,14 @@ function get_course_tool_id($label)
 
     $sql ="SELECT id FROM `" . $tbl['tool'] . "`
            WHERE claro_label='".$label."'";
+           
     return claro_sql_query_get_single_value($sql);
 }
 
 /**
  * Activate a module, its effect is
- * * to call the activation script of the module (if there is any)
- * * to modify the information in the main DB
+ * - to call the activation script of the module (if there is any)
+ * - to modify the information in the main DB
  * @param  integer $moduleId : ID of the module that must be activated
  * @return boolean Returns whether the activation succeed, false otherwise
  */
@@ -161,6 +178,7 @@ function activate_module($moduleId)
     $sql = "UPDATE `" . $tbl['module']."`
             SET `activation` = 'activated'
             WHERE `id` = " . (int) $moduleId;
+            
     $result = claro_sql_query($sql);
 
     if (($moduleInfo['type'] =='tool') && $moduleId)
@@ -168,15 +186,18 @@ function activate_module($moduleId)
 
         // TODO : remove fields script_url, claro_label, def_access, access_manager
         // TODO : rename def_rank to rank
-
-        $tool_id = get_course_tool_id($moduleInfo['label']);
+        // TODO : secure this code against query failure
+        
+        $tool_id = get_course_tool_id($moduleInfo['label'] );
 
         // 4- update every course tool list to add the tool if it is a tool
 
         $module_type = $moduleInfo['type'];
 
         $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
+        
         $course_list = claro_sql_query_fetch_all($sql);
+        
         $default_visibility = false ;
 
         foreach ($course_list as $course)
@@ -197,6 +218,7 @@ function activate_module($moduleId)
                 script_url   = NULL,
                 script_name  = NULL,
                 addedTool    = 'YES'";
+            
             claro_sql_query($sql);
         }
     }
@@ -549,7 +571,7 @@ function install_module($modulePath)
 
     if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
     {
-        array_push ($backlog_message,get_lang('This module is already installed on your platform.'));
+        array_push ($backlog_message,get_lang('%module is already installed on your platform.', array('%module'=>$module_info['LABEL'])));
         claro_delete_file($modulePath);
         // TODO : add code to point on existing instance of tool.
         // TODO : how to overwrite . prupose uninstall ?
@@ -578,7 +600,7 @@ function install_module($modulePath)
 
     if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
     {
-        array_push ($backlog_message, get_lang("Error while renaming the module's folder"));
+        array_push ($backlog_message, get_lang("Error while renaming module folder"));
         return $backlog_message;
     }
 
@@ -591,12 +613,15 @@ function install_module($modulePath)
         {
             $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
             claro_sql_multi_query($sql); //multiquery should be assumed here
+            array_push ($backlog_message,get_lang( 'database installation script called' ));
         }
     }
-
+    
+    // call install.php after initialising database in case it requires database to run
     if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
     {
         require get_module_path($module_info['LABEL']) . '/install/install.php';
+        array_push ($backlog_message,get_lang( 'module installation script called' ));
     }
 
 
@@ -649,6 +674,14 @@ function uninstall_module($moduleId)
     if ($module==false) return array(get_lang("No module to uninstall"));
 
     // 1- Include the local 'uninstall.sql' and 'uninstall.php' file of the module if they exist
+    
+    // call uninstall.php first in case it requires module database schema to run
+    if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.php'))
+    {
+        require get_module_path($module['label']) . '/uninstall/uninstall.php';
+        array_push ($backlog_message,get_lang( 'module uninstallation script called' ));
+    }
+
 
     if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.sql'))
     {
@@ -658,13 +691,7 @@ function uninstall_module($moduleId)
             $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
             claro_sql_multi_query($sql); //multiquery should be assumed here
         }
-        array_push ($backlog_message, get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'uninstall.sql')));
-    }
-
-    if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.php'))
-    {
-        require get_module_path($module['label']) . '/uninstall/uninstall.php';
-        array_push ($backlog_message,get_lang('<b>%filename</b> file found and called in the module repository',array('%filename'=>'uninstall.php')));
+        array_push ($backlog_message, get_lang('database uninstalation script called') );
     }
 
     // 2- delete related files and folders
@@ -672,9 +699,9 @@ function uninstall_module($moduleId)
     $modulePath = get_module_path($module['label']);
 
     if(claro_delete_file($modulePath))
-    $backlog_message[] = get_lang('<b>%dirname</b> has been deleted from file system',array('%dirname'=>$module['label']));
+    $backlog_message[] = get_lang('%module files deleted', array('%module'=>$module['label']));
     else
-    $backlog_message[] = get_lang('Error on deletion of <b>%dirname</b> of file system',array('%dirname'=>$module['label']));
+    $backlog_message[] = get_lang('error while deleting %module files',array('%module'=>$module['label']));
 
     //  delete the module in the cours_tool table, used for every course creation
 
@@ -961,7 +988,7 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 
 /**
  * Generate the cache php file with the needed include of activated module of the platform.
- * @todo TODO use claro_failure or backlog class instead of this fu***** trigger_error
+ * @return boolean true if succeed, false on failure
  */
 
 function generate_module_cache()
@@ -987,7 +1014,7 @@ function generate_module_cache()
     {
         if ( file_exists( $module_cache_filepath ) && ! is_writable( $module_cache_filepath ) )
         {
-            trigger_error('ERROR: cannot write to cache file ' . $module_cache_filepath, E_USER_NOTICE);
+            return claro_failure::set_failure('cannot write to cache file ' . $module_cache_filepath);
         }
         else
         {
@@ -1016,15 +1043,17 @@ function generate_module_cache()
             }
             else
             {
-                trigger_error('ERROR: cannot open ' . $module_cache_filepath, E_USER_NOTICE);
+                claro_failure::set_failure('cannot open ' . $module_cache_filepath);
             }
         }
     }
     else
     {
         // FIXME E_USER_ERROR instead of E_USER_NOTICE
-        trigger_error('ERROR: directory ' . $cacheRepositorySys . ' is not writable',E_USER_NOTICE);
+        return claro_failure::set_failure('directory ' . $cacheRepositorySys . ' is not writable');
     }
+    
+    return true;
 }
 
 /**
