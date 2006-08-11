@@ -1,17 +1,13 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
-ob_start();
-
-?>
-
-<!-- - - - - - - - - - -   Claroline Banner  - - - - - - - - - -  -->
+$clarolineBannerOutput = '<!-- - - - - - - - - - -   Claroline Banner  - - - - - - - - - -  -->
 
 <div id="topBanner">
 
 <!-- - - - - - - - - - -   Claroline platform Banner - - - - - - - - - -  -->
 <div id="platformBanner">
-<?php
+';
 
 //CAMPUS BANNER LEFT DOCK declaration
 
@@ -19,7 +15,7 @@ $campusBannerLeftDock = new Dock('campusBannerLeft');
 $siteNameOutput   = '<span id="siteName"><a href="'.$urlAppend.'/index.php" target="_top">'.$siteName.'</a></span>';
 $campusBannerLeftDock->addOutput($siteNameOutput);
 
-echo $campusBannerLeftDock->render();
+$clarolineBannerOutput .= $campusBannerLeftDock->render();
 
 //CAMPUS BANNER RIGHT DOCK declaration
 
@@ -67,12 +63,11 @@ $institutionNameOutput = '<span id="institution">'
 
 $campusBannerRightDock->addOutput($institutionNameOutput);
 
-echo $campusBannerRightDock->render();
+$clarolineBannerOutput .= $campusBannerRightDock->render();
 
-?>
-<div class="spacer"></div>
+$clarolineBannerOutput .= '<div class="spacer"></div>
 </div>
-<?php
+';
 
 /******************************************************************************
                                   USER SECTION
@@ -81,49 +76,45 @@ echo $campusBannerRightDock->render();
 
 if($_uid)
 {
-?>
-<div id="userBanner">
-<?php
+    $clarolineBannerOutput .= '<div id="userBanner">' . "\n";
 
-$userToolUrlList = array();
-//USER BANNER LEFT DOCK declaration
+    $userToolUrlList = array();
+    //USER BANNER LEFT DOCK declaration
 
-$userBannerLeftDock = new Dock('userBannerLeft');
+    $userBannerLeftDock = new Dock('userBannerLeft');
 
-$userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
-$userBannerLeftDock->addOutput($userNameOutput);
+    $userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
+    $userBannerLeftDock->addOutput($userNameOutput);
 
-$userToolUrlList[]= '<a href="'. $urlAppend.'/index.php" target="_top">'. get_lang('My course list').'</a>';
-$userToolList = claro_get_user_tool_list();
-foreach ($userToolList as $userTool)
-{
-    $userToolUrlList[] = '<a href="'. get_module_url('CLCAL') . '/' . $userTool['entry'] . '" target="_top">'. get_lang('My calendar').'</a>';
-}
+    $userToolUrlList[]= '<a href="'. $urlAppend.'/index.php" target="_top">'. get_lang('My course list').'</a>';
+    $userToolList = claro_get_user_tool_list();
 
-$userToolUrlList[]  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a>';
+    foreach ($userToolList as $userTool)
+    {
+        $userToolUrlList[] = '<a href="'. get_module_url('CLCAL') . '/' . $userTool['entry'] . '" target="_top">'. get_lang('My calendar').'</a>';
+    }
 
-if($is_platformAdmin)
-{
-    $userToolUrlList[] = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a>';
-}
+    $userToolUrlList[]  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a>';
 
-$userToolUrlList[] = '<a href="'. $urlAppend.'/index.php?logout=true" target="_top">'. get_lang('Logout').'</a>';
+    if($is_platformAdmin)
+    {
+        $userToolUrlList[] = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a>';
+    }
 
-$userBannerLeftDock->addOutput(claro_html_menu_horizontal($userToolUrlList));
-echo $userBannerLeftDock->render();
+    $userToolUrlList[] = '<a href="'. $urlAppend.'/index.php?logout=true" target="_top">'. get_lang('Logout').'</a>';
 
-//USER BANNER RIGHT DOCK declaration
+    $userBannerLeftDock->addOutput(claro_html_menu_horizontal($userToolUrlList));
+    $clarolineBannerOutput .= $userBannerLeftDock->render();
 
-$userBannerRightDock = new Dock('userBannerRight');
+    //USER BANNER RIGHT DOCK declaration
 
-echo $userBannerRightDock->render();
+    $userBannerRightDock = new Dock('userBannerRight');
 
-?>
+    $clarolineBannerOutput .= $userBannerRightDock->render();
 
-<div class="spacer"></div>
-</div>
-
-<?php
+    $clarolineBannerOutput .= '<div class="spacer"></div>
+    </div>
+    ';
 
 } // end if _uid
 
@@ -134,17 +125,16 @@ echo $userBannerRightDock->render();
 if (isset($_cid))
 {
 
-//COURSE BANNER LEFT DOCK declaration
+    //COURSE BANNER LEFT DOCK declaration
 
     /*------------------------------------------------------------------------
                          COURSE TITLE, CODE & TITULARS
       ------------------------------------------------------------------------*/
 
-$courseBannerLeftDock = new Dock('courseBannerLeft');
+    $courseBannerLeftDock = new Dock('courseBannerLeft');
 
-?>
-<div id="courseBanner">
-<?php
+    $clarolineBannerOutput .= '<div id="courseBanner">' . "\n";
+
     $courseName = '<div id="course"><h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '" target="_top">'.$_course['name'] .'</a></h2>';
     $courseBannerLeftDock->addOutput($courseName);
 
@@ -154,7 +144,7 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
 
     $courseBannerLeftDock->addOutput($courseCodeDisplay);
 
-    echo $courseBannerLeftDock->render();
+    $clarolineBannerOutput .= $courseBannerLeftDock->render();
 
 
     //COURSE BANNER LEFT DOCK declaration
@@ -165,116 +155,105 @@ $courseBannerLeftDock = new Dock('courseBannerLeft');
                              COURSE TOOLS SELECTOR
       ------------------------------------------------------------------------*/
 
-/*
- * Language initialisation of the tool names
- */
-if (is_array($_courseToolList) && $is_courseAllowed)
-{
-    $toolNameList = claro_get_tool_name_list();
-
-    foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
+    /*
+     * Language initialisation of the tool names
+     */
+    if (is_array($_courseToolList) && $is_courseAllowed)
     {
+        $toolNameList = claro_get_tool_name_list();
 
-
-        if (isset($_courseToolDatas['name']) && !is_null($_courseToolDatas['name']) && isset($_courseToolDatas['label']))
-            $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
-        else
-            $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($_courseToolList[ $_courseToolKey ] [ 'external_name' ]);
-        // now recheck to be sure the value is really filled before going further
-        if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
-            $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
-    }
-
-    $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php"
-      name="redirector" method="POST">
-    <select name="url" size="1"
-        onchange="top.location=redirector.url.options[selectedIndex].value" >';
-
-    $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
-
-    if (is_array($_courseToolList))
-    {
-        foreach($_courseToolList as $_courseToolKey => $_courseToolData)
+        foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
         {
-            //find correct url to access current tool
 
-            if (isset($_courseToolData['url']))
-            {
-                if (!empty($_courseToolData['label']))
-                $_courseToolData['url'] = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['url'];
-                // reset group to access course tool
-
-                if (isset($_gid) && !$_courseToolData['external'])
-                $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
-                    ? $_courseToolData['url'] . '&amp;gidReset=1'
-                    : $_courseToolData['url'] . '?gidReset=1'
-                    ;
-                else $_toolDataUrl = $_courseToolData['url'];
-
-            }
-
-            //find correct url for icon of the tool
-
-            if (isset($_courseToolData['icon']))
-            {
-                $_toolIconUrl = $imgRepositoryWeb.$_courseToolData['icon'];
-            }
-
-            // select "groups" in group context instead of tool
-            if ( isset( $_gid ) && $_gid )
-            {
-                $toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
-            }
+            if (isset($_courseToolDatas['name']) && !is_null($_courseToolDatas['name']) && isset($_courseToolDatas['label']))
+                $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
             else
-            {
-                $toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
-            }
-
-            $courseToolSelector .= '<option value="' . $_toolDataUrl . '" '
-            .   $toolSelected
-            .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
-            .    get_lang($_courseToolData['name'])
-            .    '</option>'."\n"
-            ;
+                $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($_courseToolList[ $_courseToolKey ] [ 'external_name' ]);
+            // now recheck to be sure the value is really filled before going further
+            if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
+                $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
         }
-    } // end if is_array _courseToolList
-    $courseToolSelector .='</select>
-                            <noscript>
-                            <input type="submit" name="gotool" value="go">
-                            </noscript>
-                            </form>';
-    $courseBannerRightDock->addOutput($courseToolSelector);
+        $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php"
+          name="redirector" method="POST">
+        <select name="url" size="1"
+            onchange="top.location=redirector.url.options[selectedIndex].value" >';
 
-} // end if is_array($courseTooList) && $isCourseAllowed
+        $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
-echo $courseBannerRightDock->render();
+        if (is_array($_courseToolList))
+        {
+            foreach($_courseToolList as $_courseToolKey => $_courseToolData)
+            {
+                //find correct url to access current tool
 
-?>
+                if (isset($_courseToolData['url']))
+                {
+                    if (!empty($_courseToolData['label']))
+                    $_courseToolData['url'] = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['url'];
+                    // reset group to access course tool
 
-</div>
-<div class="spacer"></div>
-</div>
+                    if (isset($_gid) && !$_courseToolData['external'])
+                    $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
+                        ? $_courseToolData['url'] . '&amp;gidReset=1'
+                        : $_courseToolData['url'] . '?gidReset=1'
+                        ;
+                    else $_toolDataUrl = $_courseToolData['url'];
 
+                }
 
+                //find correct url for icon of the tool
 
-<?php
+                if (isset($_courseToolData['icon']))
+                {
+                    $_toolIconUrl = $imgRepositoryWeb.$_courseToolData['icon'];
+                }
+
+                // select "groups" in group context instead of tool
+                if ( isset( $_gid ) && $_gid )
+                {
+                    $toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
+                }
+                else
+                {
+                    $toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
+                }
+
+                $courseToolSelector .= '<option value="' . $_toolDataUrl . '" '
+                .   $toolSelected
+                .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
+                .    get_lang($_courseToolData['name'])
+                .    '</option>'."\n"
+                ;
+            }
+        } // end if is_array _courseToolList
+        $courseToolSelector .='</select>
+                                <noscript>
+                                <input type="submit" name="gotool" value="go">
+                                </noscript>
+                                </form>';
+        $courseBannerRightDock->addOutput($courseToolSelector);
+
+    } // end if is_array($courseTooList) && $isCourseAllowed
+
+    $clarolineBannerOutput .= $courseBannerRightDock->render();
+
+    $clarolineBannerOutput .= '</div>
+    <div class="spacer"></div>
+    </div>
+    ';
 } // end if _cid
-?>
 
-</div>
-
-<?php
+$clarolineBannerOutput .= '</div>' . "\n";
 
 /******************************************************************************
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-?>
-<div id="breadcrumbLine">
-<?php
+$clarolineBannerOutput .= '<div id="breadcrumbLine">' . "\n";
+
 if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
 {
-        echo '<hr />' . "\n";
+        $clarolineBannerOutput .= '<hr />' . "\n";
             //'<img src="' . $imgRepositoryWeb . 'home.gif" alt="">'
 
         $breadcrumbUrlList = array();
@@ -326,12 +305,12 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             }
         }
 
-        echo claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
+        $clarolineBannerOutput .= claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
                                         ' &gt; ', $imgRepositoryWeb . 'home.gif');
 
     if ( is_null($_uid) )
     {
-        echo "\n".'<div id="toolViewOption" style="padding-right:10px">'
+        $clarolineBannerOutput .= "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
             .'?sourceUrl='.urlencode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). '" target="_top">'
             .get_lang('Login')
@@ -340,7 +319,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
     }
     elseif ($_cid && ! $is_courseMember && $_course['registrationAllowed'] && ! $is_platformAdmin )
     {
-        echo '<div id="toolViewOption">'
+        $clarolineBannerOutput .= '<div id="toolViewOption">'
         .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
         .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
         .    '<b>'.get_lang('Enrolment').'</b>'
@@ -349,52 +328,49 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
     }
     elseif ( claro_is_display_mode_available() )
     {
-        echo "\n".'<div id="toolViewOption">'                    ."\n";
+        $clarolineBannerOutput .= "\n".'<div id="toolViewOption">'                    ."\n";
 
         if ( isset($_REQUEST['View mode']) )
         {
-            echo claro_disp_tool_view_option($_REQUEST['View mode']);
+            $clarolineBannerOutput .= claro_disp_tool_view_option($_REQUEST['View mode']);
         }
         else
         {
-            echo claro_disp_tool_view_option();
+            $clarolineBannerOutput .= claro_disp_tool_view_option();
         }
         
         if ( $is_platformAdmin && ! $is_courseMember )
         {
-            echo ' | <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
+            $clarolineBannerOutput .= ' | <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
             .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
             .    '<b>'.get_lang('Enrolment').'</b>'
             .    '</a>'
             ;
         }
         
-        echo "\n".'</div>'                                       ."\n";
+        $clarolineBannerOutput .= "\n".'</div>'                                       ."\n";
     }
 
 
-    echo '<div class="spacer"></div>'                       ."\n"
+    $clarolineBannerOutput .= '<div class="spacer"></div>'                       ."\n"
     .    '<hr />'                                           ."\n";
 
 } // end if isset($_cid) isset($nameTools) && is_array($interbredcrump)
 else
 {
-    // echo '<div style="height:1em"></div>';
+    // $clarolineBannerOutput .= '<div style="height:1em"></div>';
 }
-?>
 
-</div>
+$clarolineBannerOutput .= '</div>' . "\n";
+$clarolineBannerOutput .= '<!-- - - - - - - - - - -  End of Claroline Banner  - - - - - - - - - - -->' . "\n";
 
-<?php
 if ( get_conf('claro_brailleViewMode',false))
 {
-    $claro_banner = ob_get_contents();
-    ob_clean();
+    $claro_banner = $clarolineBannerOutput;
 }
 else
 {
-    ob_end_flush();
+    echo $clarolineBannerOutput;
     $claro_banner = false;
 }
 ?>
-<!-- - - - - - - - - - -  End of Claroline Banner  - - - - - - - - - - -->
