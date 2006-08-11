@@ -19,8 +19,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
-require_once dirname(__FILE__). '/fileManage.lib.php';
-require_once dirname(__FILE__). '/right/profileToolRight.class.php';
+require_once dirname(__FILE__) . '/fileManage.lib.php';
+require_once dirname(__FILE__) . '/right/profileToolRight.class.php';
+require_once dirname(__FILE__) . '/backlog.class.php';
 
 // INFORMATION AND UTILITY FUNCTIONS
 
@@ -326,7 +327,7 @@ function generate_module_cache()
             }
             else
             {
-                claro_failure::set_failure('cannot open ' . $module_cache_filepath);
+                return claro_failure::set_failure('cannot open ' . $module_cache_filepath);
             }
         }
     }
@@ -348,20 +349,21 @@ function install_module($modulePath)
 {
     global $includePath;
 
-    $backlog_message = array();
+    $backlog = new Backlog;
     $moduleId = false;
 
     if (false === ($module_info = readModuleManifest($modulePath)))
     {
         claro_delete_file($modulePath);
-        $backlog_message = claro_failure::get_last_failure();
+        $backlog->failure( claro_failure::get_last_failure() );
     }
     else
     {
         //check if a module with the same LABEL is already installed, if yes, we cancel everything
         if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
         {
-            array_push ($backlog_message, get_lang('%module is already installed on your platform.', array('%module'=>$module_info['LABEL'])));
+            $backlog->failure( get_lang('%module is already installed on your platform.'
+                , array('%module'=>$module_info['LABEL'])));
             claro_delete_file($modulePath);
             // TODO : add code to point on existing instance of tool.
             // TODO : how to overwrite . prupose uninstall ?
@@ -390,7 +392,7 @@ function install_module($modulePath)
         
             if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
             {
-                array_push ($backlog_message, get_lang("Error while renaming module folder"));
+                $backlog->failure(get_lang("Error while renaming module folder"));
             }
             else
             {
@@ -403,7 +405,7 @@ function install_module($modulePath)
                     {
                         $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
                         claro_sql_multi_query($sql); //multiquery should be assumed here
-                        array_push ($backlog_message,get_lang( 'Database installation script called' ));
+                        $backlog->success(get_lang( 'Database installation script called' ));
                     }
                 }
                 
@@ -411,7 +413,7 @@ function install_module($modulePath)
                 if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
                 {
                     require get_module_path($module_info['LABEL']) . '/install/install.php';
-                    array_push ($backlog_message,get_lang( 'Module installation script called' ));
+                    $backlog->success(get_lang( 'Module installation script called' ));
                 }
             
             
@@ -420,21 +422,21 @@ function install_module($modulePath)
             
                 if ( ! generate_module_cache() )
                 {
-                    array_push ($backlog_message,get_lang( 'Module cache generation failed' ));
+                    $backlog->failure(get_lang( 'Module cache generation failed' ));
                 }
             
                 //7- generate the conf if a def file exists
             
                 require_once $includePath . '/lib/config.lib.inc.php';
                 $config = new Config($module_info['LABEL']);
-                list ($confMessage, $error) = generate_conf($config);
-                $backlog_message[] = $confMessage;
-                generate_conf($config);
+                list ($confMessage, $status ) = generate_conf($config);
+                
+                $backlog->info($confMessage);
             }
         }
     }
     
-    return array( implode( '<br />' . "\n", $backlog_message ), $moduleId );
+    return array( $backlog->output(), $moduleId );
 }
 
 /**
