@@ -205,15 +205,13 @@ switch ( $cmd )
 
         if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
 
-        $result_log = install_module($modulePath);
+        list( $result_log, $module_id ) = install_module($modulePath);
         $dialogBox = '';
 
         //display the result message (fail or success)
 
-        foreach ($result_log as $log)
-        {
-            $dialogBox .= $log . '<br />';
-        }
+        $dialogBox .= $result_log;
+        
         break;
         
     case 'rqInstall' :
@@ -231,6 +229,12 @@ switch ( $cmd )
         break;
 
 
+}
+
+if ( $module_id )
+{
+    $moduleInfo = get_module_info($module_id);
+    $typeReq = $moduleInfo['type'];
 }
 
 //----------------------------------
