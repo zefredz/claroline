@@ -61,7 +61,7 @@
         
         function output()
         {
-            $out = '';
+            $out = array();
             
             foreach ( $this->_backlog as $entry )
             {
@@ -72,26 +72,26 @@
                 {
                     case BACKLOG_SUCCESS: 
                     {
-                        $out .= '<span class="backlogSuccess">' . $msg . '</span><br />' . "\n";
+                        $out[] = '<span class="backlogSuccess">' . $msg . '</span>';
                     } break;
                     case BACKLOG_FAILURE: 
                     {
-                        $out .= '<span class="backlogFailure">' . $msg . '</span><br />' . "\n";
+                        $out[] = '<span class="backlogFailure">' . $msg . '</span>';
                     } break;
                     case BACKLOG_DEBUG: 
                     {
-                        $out .= '<span class="backlogDebug">' . $msg . '</span><br />' . "\n";
+                        $out[] = '<span class="backlogDebug">' . $msg . '</span>';
                     } break;
                     default: 
                     {
-                        $out .= '<span class="backlogMessage">' . $msg . '</span><br />' . "\n";
+                        $out[] = '<span class="backlogMessage">' . $msg . '</span>';
                     }
                 }
                 
                 unset ($type, $msg );
             }
             
-            return $out;
+            return implode( '<br />' . "\n", $out );
         }
         function main()
         {
