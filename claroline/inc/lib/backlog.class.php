@@ -5,6 +5,7 @@
     define ( 'BACKLOG_SUCCESS', 'BACKLOG_SUCCESS' );
     define ( 'BACKLOG_FAILURE', 'BACKLOG_FAILURE' );
     define ( 'BACKLOG_DEBUG',   'BACKLOG_DEBUG' );
+    define ( 'BACKLOG_INFO',   'BACKLOG_INFO' );
     
     class Backlog
     {
@@ -16,6 +17,7 @@
             $this->_size[BACKLOG_SUCCESS] = 0;
             $this->_size[BACKLOG_FAILURE] = 0;
             $this->_size[BACKLOG_DEBUG] = 0;
+            $this->_size[BACKLOG_INFO] = 0;
         }
         
         function success( $msg )
@@ -36,6 +38,12 @@
             $this->_size[BACKLOG_DEBUG]++;
         }
         
+        function info( $msg )
+        {
+            $this->message( $msg, BACKLOG_INFO );
+            $this->_size[BACKLOG_INFO]++;
+        }
+        
         function message( $msg, $type )
         {
             $this->_backlog[] = array( 'type' => $type, 'msg' => $msg );
@@ -48,6 +56,7 @@
                 case BACKLOG_SUCCESS:
                 case BACKLOG_FAILURE:
                 case BACKLOG_DEBUG: 
+                case BACKLOG_INFO:
                 {
                     return $this->_size[$type];
                 } break;
@@ -82,6 +91,10 @@
                     {
                         $out[] = '<span class="backlogDebug">' . $msg . '</span>';
                     } break;
+                    case BACKLOG_INFO: 
+                    {
+                        $out[] = '<span class="backlogInfo">' . $msg . '</span>';
+                    } break;
                     default: 
                     {
                         $out[] = '<span class="backlogMessage">' . $msg . '</span>';
@@ -101,6 +114,7 @@
             $bl->debug( 'message debug 1' );
             $bl->failure( 'message failure 1' );
             $bl->success( 'message success 2' );
+            $bl->info( 'message info 1' );
             var_dump( $bl->size() );
             var_dump( $bl->_size );
             echo '</pre>';
