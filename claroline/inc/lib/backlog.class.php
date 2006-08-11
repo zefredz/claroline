@@ -106,6 +106,20 @@
             
             return implode( '<br />' . "\n", $out );
         }
+        
+        function append( $other )
+        {
+            if ( 'Backlog' == get_class($other) )
+            {
+                $this->_backlog = array_merge( $this->_backlog, $other->_backlog );
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
         function main()
         {
             $bl = new Backlog;
