@@ -902,9 +902,12 @@ function get_conf($param, $default = null)
 function claro_die($message)
 {
     global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $urlAppend ,
-           $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email,
-           $is_platformAdmin, $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
-           $is_courseAllowed, $imgRepositoryWeb, $_tid, $is_courseMember, $_gid;
+               $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email;
+        global $is_platformAdmin, $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
+               $is_courseAllowed, $imgRepositoryWeb, $_tid, $is_courseMember, $_gid;
+        global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
+               $noPHP_SELF, $noQUERY_STRING;
+        global $institution_name, $institution_url, $hide_banner, $hide_footer, $hide_body;
 
     if ( ! headers_sent () )
     {
