@@ -111,10 +111,10 @@ function upgrade_disp_footer()
 
 function save_current_version_file ( $clarolineVersion, $databaseVersion )
 {
-    global $includePath;
+    global $rootSys;
 
     // open file in write mode
-    $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
+    $fp_currentVersion = fopen( $rootSys . 'platform/currentVersion.inc.php','w');
 
     // build content
     $currentVersionStr = '<?php 
@@ -139,9 +139,14 @@ $versionDb = "' . $databaseVersion . '";
 function get_current_version ()
 {
     global $clarolineVersion, $versionDb;
-    global $includePath;
+    global $includePath, $rootSys;
 
-    if ( file_exists($includePath.'/currentVersion.inc.php') )
+    if ( file_exists($rootSys.'platform/currentVersion.inc.php') )
+    {
+        // get claroline version in $rootSys folder
+        include($rootSys.'platform/currentVersion.inc.php');
+    }
+    elseif ( file_exists($includePath.'/currentVersion.inc.php') )
     {
         // get claroline version in currentVersion file (new in 1.6)
         // before the clarolineVersion was in claro_main.conf.php
@@ -171,7 +176,7 @@ function get_new_version ()
     include ( $includePath . '/installedVersion.inc.php' ) ;
     
     $version = array( 'complete' => $new_version,
-                          'branch' => $new_version_branch );
+                      'branch' => $new_version_branch );
 
     return $version;
 }

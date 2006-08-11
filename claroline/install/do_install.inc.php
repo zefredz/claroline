@@ -344,7 +344,7 @@ else
 
 // write currentVersion.inc.php
 
-$fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
+$fp_currentVersion = fopen($rootSys . 'platform/currentVersion.inc.php','w');
 $currentVersionStr = '<?php
 $clarolineVersion = "'.$new_version.'";
 $versionDb = "'.$new_version.'";
