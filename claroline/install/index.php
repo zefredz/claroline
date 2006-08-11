@@ -62,7 +62,7 @@ include '../lang/english/locale_settings.php';
 
 include_once $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
 include_once './install.lib.inc.php';
-include_once $newIncludePath . 'lib/config.lib.inc.php';
+require_once $newIncludePath . 'lib/config.lib.inc.php';
 include_once $newIncludePath . 'lib/form.lib.php';
 include_once $newIncludePath . 'lib/course.lib.inc.php';
 include_once $newIncludePath . 'lib/claro_main.lib.php';

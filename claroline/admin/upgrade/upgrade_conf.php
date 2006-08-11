@@ -36,11 +36,11 @@ if ( ! file_exists('../../inc/currentVersion.inc.php') )
 // Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 
-// Include library
-include ($includePath.'/lib/fileManage.lib.php');
-
 // Security Check
 if (!$is_platformAdmin) upgrade_disp_auth_form();
+
+// Include library
+include ($includePath.'/lib/fileManage.lib.php');
 
 // Define display
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
@@ -61,7 +61,12 @@ $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
 
 if ( $cmd == 'run' )
 {
-    // Prepare repository to backup files
+    // Create module, platform, tmp folders
+    if ( !file_exists($rootSys . 'module/') ) claro_mkdir($rootSys . 'module/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists($rootSys . 'platform/') ) claro_mkdir($rootSys . 'platform/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists($rootSys . 'tmp/') ) claro_mkdir($rootSys . 'tmp/', CLARO_FILE_PERMISSIONS, true);
+
+    // Create folder to backup configuration files
     $backupRepositorySys = $rootSys .'platform/bak.'.date('Y-z-B').'/';
     claro_mkdir($backupRepositorySys, CLARO_FILE_PERMISSIONS, true);
 

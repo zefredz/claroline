@@ -139,7 +139,7 @@ border-left: 0px solid white;
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 
-require_once $includePath . '/lib/config.lib.inc.php';
+require_once $includePath . '/lib/configHtml.class.php';
 
 /* ************************************************************************** */
 /* Process
@@ -158,7 +158,7 @@ else
     $newPropertyList = isset($_REQUEST['property']) ?$_REQUEST['property']:array();
 
     // new config object
-    $config = new Config($config_code);
+    $config = new ConfigHtml($config_code);
 
     // load configuration
     if ( $config->load() )

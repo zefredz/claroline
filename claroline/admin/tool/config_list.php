@@ -31,9 +31,8 @@ require '../../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-include_once $includePath . '/lib/debug.lib.inc.php';
-include_once $includePath . '/lib/course.lib.inc.php';
-include_once $includePath . '/lib/config.lib.inc.php';
+//require_once $includePath . '/lib/course.lib.inc.php';
+require_once $includePath . '/lib/config.lib.inc.php';
 
 // define
 $nameTools          = get_lang('Configuration');

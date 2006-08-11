@@ -279,9 +279,11 @@ else
 		$item = 'LOCAL';
 
 $config_code = $module['label'];
+
 // new config object
-require_once $includePath . '/lib/config.lib.inc.php';
-$config = new Config($config_code);
+require_once $includePath . '/lib/configHtml.class.php';
+
+$config = new ConfigHtml($config_code);
     	
 if ( $config->load() )
 {
