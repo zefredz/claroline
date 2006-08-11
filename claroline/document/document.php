@@ -400,7 +400,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ."</p>\n";
         }
 
-        $dialogBox .= "<input style=\"font-weight: bold\" type=\"submit\" value=\"".get_lang("Ok")."\"> "
+        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\"> "
                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                       get_lang("Cancel"))
                    ."</form>";
