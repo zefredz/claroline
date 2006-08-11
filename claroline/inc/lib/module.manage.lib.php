@@ -559,88 +559,92 @@ function install_module($modulePath)
     global $includePath;
 
     $backlog_message = array();
+    $moduleId = false;
 
     if (false === ($module_info = readModuleManifest($modulePath)))
     {
         claro_delete_file($modulePath);
-        $backlog_message[] = claro_failure::get_last_failure();
-        return $backlog_message;
+        $backlog_message = claro_failure::get_last_failure();
     }
-
-    //check if a module with the same LABEL is already installed, if yes, we cancel everything
-
-    if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
+    else
     {
-        array_push ($backlog_message,get_lang('%module is already installed on your platform.', array('%module'=>$module_info['LABEL'])));
-        claro_delete_file($modulePath);
-        // TODO : add code to point on existing instance of tool.
-        // TODO : how to overwrite . prupose uninstall ?
-        return $backlog_message;
-    }
-
-    //3- Save the module information into DB
-    $moduleId = register_module_core($module_info);
-
-    //in case of tool type module, the dock can not be selected and must added also now
-
-    if ('tool' == $module_info['TYPE'])
-    {
-        register_module_tool($moduleId,$module_info);
-    }
-
-    if (array_key_exists('DEFAULT_DOCK',$module_info))
-    {
-        foreach($module_info['DEFAULT_DOCK'] as $dock)
+        //check if a module with the same LABEL is already installed, if yes, we cancel everything
+        if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
         {
-            add_module_in_dock($moduleId, $dock);
+            array_push ($backlog_message, get_lang('%module is already installed on your platform.', array('%module'=>$module_info['LABEL'])));
+            claro_delete_file($modulePath);
+            // TODO : add code to point on existing instance of tool.
+            // TODO : how to overwrite . prupose uninstall ?
         }
-    }
-
-    //4- Rename the module repository with label
-
-    if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
-    {
-        array_push ($backlog_message, get_lang("Error while renaming module folder"));
-        return $backlog_message;
-    }
-
-    //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
-
-    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
-    {
-        $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
-        if (!empty($sql))
+        else
         {
-            $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
-            claro_sql_multi_query($sql); //multiquery should be assumed here
-            array_push ($backlog_message,get_lang( 'database installation script called' ));
+            //3- Save the module information into DB
+            $moduleId = register_module_core($module_info);
+        
+            //in case of tool type module, the dock can not be selected and must added also now
+        
+            if ('tool' == $module_info['TYPE'])
+            {
+                register_module_tool($moduleId,$module_info);
+            }
+        
+            if (array_key_exists('DEFAULT_DOCK',$module_info))
+            {
+                foreach($module_info['DEFAULT_DOCK'] as $dock)
+                {
+                    add_module_in_dock($moduleId, $dock);
+                }
+            }
+        
+            //4- Rename the module repository with label
+        
+            if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
+            {
+                array_push ($backlog_message, get_lang("Error while renaming module folder"));
+            }
+            else
+            {
+                //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
+            
+                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
+                {
+                    $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
+                    if (!empty($sql))
+                    {
+                        $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
+                        claro_sql_multi_query($sql); //multiquery should be assumed here
+                        array_push ($backlog_message,get_lang( 'Database installation script called' ));
+                    }
+                }
+                
+                // call install.php after initialising database in case it requires database to run
+                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
+                {
+                    require get_module_path($module_info['LABEL']) . '/install/install.php';
+                    array_push ($backlog_message,get_lang( 'Module installation script called' ));
+                }
+            
+            
+            
+                //6- cache file with the module's include must be renewed after installation of the module
+            
+                if ( ! generate_module_cache() )
+                {
+                    array_push ($backlog_message,get_lang( 'Module cache generation failed' ));
+                }
+            
+                //7- generate the conf if a def file exists
+            
+                require_once $includePath . '/lib/config.lib.inc.php';
+                $config = new Config($module_info['LABEL']);
+                list ($confMessage, $error) = generate_conf($config);
+                $backlog_message[] = $confMessage;
+                generate_conf($config);
+            }
         }
     }
     
-    // call install.php after initialising database in case it requires database to run
-    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
-    {
-        require get_module_path($module_info['LABEL']) . '/install/install.php';
-        array_push ($backlog_message,get_lang( 'module installation script called' ));
-    }
-
-
-
-    //6- cache file with the module's include must be renewed after installation of the module
-
-    generate_module_cache();
-
-    //7- generate the conf if a def file exists
-
-	require_once $includePath . '/lib/config.lib.inc.php';
-	$config = new Config($module_info['LABEL']);
-	list ($confMessage, $error) = generate_conf($config);
-	$backlog_message[] = $confMessage;
-    generate_conf($config);
-
-    //8- return the backlog
-
-    return $backlog_message;
+    return array( implode( '<br />' . "\n", $backlog_message ), $moduleId );
 }
 
 /**
