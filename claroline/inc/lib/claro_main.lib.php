@@ -637,8 +637,8 @@ function claro_disp_tool_view_option($viewModeRequested = false)
     * remove previous view mode request from the url
     */
 
-    $url = str_replace('&amp;viewMode=STUDENT'     , '', $url);
-    $url = str_replace('&amp;viewMode=COURSE_ADMIN', '', $url);
+    $url = str_replace('&viewMode=STUDENT'     , '', $url);
+    $url = str_replace('&viewMode=COURSE_ADMIN', '', $url);
 
     /*------------------------------------------------------------------------
     INIT BUTTONS
