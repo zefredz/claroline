@@ -566,13 +566,20 @@ foreach($moduleList as $module)
 	{
     	if ( 'activated' == $module['activation'] )
     	{
-        	echo '<a href="module_list.php?cmd=desactiv&amp;module_id=' . $module['id'] . '&amp;typeReq=' . $typeReq . '"><small>'
-         	. get_lang('Activated') . '</small></a>'
-        	;
+        	echo '<a href="module_list.php?cmd=desactiv&amp;module_id=' 
+                . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
+                . 'title="'.get_lang('Activated - Click to deactivate').'">' 
+                . '<img src="' . $imgRepositoryWeb 
+                . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /></a>'
+                ;
     	}
     	else
     	{
-        	echo '<a href="module_list.php?cmd=activ&amp;module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'"><small>' . get_lang('Deactivated') . '</small></a>';
+        	echo '<a href="module_list.php?cmd=activ&amp;module_id=' 
+                . $module['id'] . '&amp;typeReq='.$typeReq.'" '
+                . 'title="'.get_lang('Deactivated - Click to activate').'">' 
+                . '<img src="' . $imgRepositoryWeb 
+                . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
     	}
 	}	
     echo '</td>' . "\n";
