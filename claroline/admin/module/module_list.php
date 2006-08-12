@@ -432,7 +432,7 @@ else
 }
 echo '<th>' . get_lang('Properties')          . '</th>' . "\n"
 .    '<th>' . get_lang('Uninstall')           . '</th>' . "\n"
-.    '<th>' . get_lang('Activation')          . '</th>' . "\n"
+.    '<th>' . get_lang('Activated')          . '</th>' . "\n"
 .    '</tr>' . "\n"
 .    '</thead>' . "\n\n"
 .    '<tbody>'
