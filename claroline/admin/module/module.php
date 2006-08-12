@@ -317,12 +317,21 @@ switch ($item)
 		  if ('activated' == $module['activation'] )
 		  {
 		      $activ_form  = 'deactiv';
-		      $action_link = '[<b><small>'.get_lang('Activated').'</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]';
+		      $action_link = '[<b><small>'.get_lang('Activate')
+                . '</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] 
+                . '?cmd='.$activ_form.'&module_id='.$module['module_id']
+                . '&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]'
+                ;
 		  }
 		  else
 		  {
 		      $activ_form  = 'activ';
-		      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] . '?cmd='.$activ_form.'&module_id='.$module['module_id'].'&item=GLOBAL">'.get_lang("Activate").'</a></small>] | [<small><b>'.get_lang('Deactivate').'</b></small>]';
+		      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] 
+                . '?cmd='.$activ_form.'&module_id=' 
+                . $module['module_id'].'&item=GLOBAL">'
+                . get_lang("Activate").'</a></small>] | [<small><b>'
+                . get_lang('Deactivate').'</b></small>]'
+                ;
 		  }
 
 		  echo '<td align="right" valign="top">'
