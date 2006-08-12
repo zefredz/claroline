@@ -48,8 +48,16 @@ if ( get_conf('is_trackingEnabled') )
     if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
     else                                $period = 'day'; // default value
 
-    if( isset($_REQUEST['displayType']) )   $displayType = $_REQUEST['displayType'];
-    else                                    $displayType = ''; // default value
+    $displayTypeList = array ('month','day','hour');
+
+    if ( isset($_REQUEST['displayType']) && in_array($_REQUEST['displayType'],$displayTypeList) ) 
+    {
+        $displayType = $_REQUEST['displayType'];
+    }
+    else
+    {
+        $displayType = ''; // default value
+    }
 
     //** dislayed period
     echo '<tr>' . "\n"
