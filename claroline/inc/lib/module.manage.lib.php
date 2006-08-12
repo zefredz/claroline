@@ -458,12 +458,15 @@ function install_module($modulePath)
  * - to call the activation script of the module (if there is any)
  * - to modify the information in the main DB
  * @param  integer $moduleId : ID of the module that must be activated
- * @return boolean Returns whether the activation succeed, false otherwise
+ * @return array( message, boolean )
+ *      boolean true if the uninstall process suceeded, false otherwise
+ *      message backlog message
  */
 
 function activate_module($moduleId)
 {
-
+    $success = true;
+    $backlog = new Backlog;
     // find module informations
 
     $tbl = claro_sql_get_main_tbl();
@@ -479,54 +482,77 @@ function activate_module($moduleId)
             WHERE `id` = " . (int) $moduleId;
             
     $result = claro_sql_query($sql);
-
-    if (($moduleInfo['type'] =='tool') && $moduleId)
+    
+    if ( ! $result )
     {
-
-        // TODO : remove fields script_url, claro_label, def_access, access_manager
-        // TODO : rename def_rank to rank
-        // TODO : secure this code against query failure
-        
-        $tool_id = get_course_tool_id($moduleInfo['label'] );
-
-        // 4- update every course tool list to add the tool if it is a tool
-
-        $module_type = $moduleInfo['type'];
-
-        $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
-        
-        $course_list = claro_sql_query_fetch_all($sql);
-        
-        $default_visibility = false ;
-
-        foreach ($course_list as $course)
+        $success = false;
+        $backlog->failure(get_lang( 'Cannot update database' ));
+    }
+    else
+    {
+        if (($moduleInfo['type'] =='tool') && $moduleId)
         {
-            $currentCourseDbNameGlu = claro_get_course_db_name_glued($course['code']);
-            $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
-
-            //find max rank in the tool_list
-
-            $sql = "SELECT MAX(rank) AS maxrank FROM  `" . $course_tbl['tool'] . "`";
-            $maxresult = claro_sql_query_get_single_row($sql);
-            //insert the tool at the end of the list
-
-            $sql = "INSERT INTO `" . $course_tbl['tool'] . "`
-            SET tool_id      = " . $tool_id . ",
-                rank         = (" . (int) $maxresult['maxrank'] . "+1),
-                visibility   = '" . ($default_visibility?1:0) . "',
-                script_url   = NULL,
-                script_name  = NULL,
-                addedTool    = 'YES'";
+    
+            // TODO : remove fields script_url, claro_label, def_access, access_manager
+            // TODO : rename def_rank to rank
+            // TODO : secure this code against query failure
             
-            claro_sql_query($sql);
+            $tool_id = get_course_tool_id($moduleInfo['label'] );
+    
+            // 4- update every course tool list to add the tool if it is a tool
+    
+            $module_type = $moduleInfo['type'];
+    
+            $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
+            
+            $course_list = claro_sql_query_fetch_all($sql);
+            
+            $default_visibility = false ;
+    
+            foreach ($course_list as $course)
+            {
+                $currentCourseDbNameGlu = claro_get_course_db_name_glued($course['code']);
+                $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+    
+                //find max rank in the tool_list
+    
+                $sql = "SELECT MAX(rank) AS maxrank FROM  `" . $course_tbl['tool'] . "`";
+                $maxresult = claro_sql_query_get_single_row($sql);
+                //insert the tool at the end of the list
+    
+                $sql = "INSERT INTO `" . $course_tbl['tool'] . "`
+                SET tool_id      = " . $tool_id . ",
+                    rank         = (" . (int) $maxresult['maxrank'] . "+1),
+                    visibility   = '" . ($default_visibility?1:0) . "',
+                    script_url   = NULL,
+                    script_name  = NULL,
+                    addedTool    = 'YES'";
+                
+                if ( false === claro_sql_query($sql) )
+                {
+                    $success = false;
+                    $backlog->failure(get_lang( 'Cannot update course database for %course'
+                        , array( '%course' => $course['code'] )));
+                        
+                    break;
+                }
+            }
+        }
+    
+        //5- cache file with the module's include must be renewed after activation of the module
+    
+        if ( generate_module_cache() )
+        {
+            $backlog->success(get_lang( 'Module cache update succeeded' ));
+        }
+        else
+        {
+            $backlog->failure(get_lang( 'Module cache update failed' ));
+            $success = false;
         }
     }
 
-    //5- cache file with the module's include must be renewed after activation of the module
-
-    generate_module_cache();
-
-    return $result;
+    return array( $backlog->output(), $success );
 }
 
 /**
@@ -534,11 +560,16 @@ function activate_module($moduleId)
  *   - to call the desactivation script of the module (if there is any)
  *   - to modify the information in the main DB
  * @param  integer $moduleId : ID of the module that must be desactivated
- * @return boolean : Returns whether the desactivation suceeded, false otherwise
+ * @return array( message, boolean )
+ *      boolean true if the uninstall process suceeded, false otherwise
+ *      message backlog message
  */
 
 function deactivate_module($moduleId)
 {
+    $success = true;
+    $backlog = new Backlog;
+    
     //find needed info :
 
     $moduleInfo =  get_module_info($moduleId);
@@ -583,7 +614,14 @@ function deactivate_module($moduleId)
 
             $sql = "DELETE FROM `".$course_tbl['tool']."`
                     WHERE  `tool_id` = " . (int)$tool_id;
-            claro_sql_query($sql);
+            if ( false === claro_sql_query($sql) )
+            {
+                $success = false;
+                $backlog->failure(get_lang( 'Cannot update course database for %course'
+                    , array( '%course' => $course['code'] )));
+                    
+                break;
+            }
         }
     }
 
@@ -596,12 +634,28 @@ function deactivate_module($moduleId)
             WHERE `id`= " . (int) $moduleId;
 
     $result = claro_sql_query($sql);
+    
+    if ( ! $result )
+    {
+        $success = false;
+        $backlog->failure(get_lang( 'Cannot update database' ));
+    }
+    else
+    {
+        //5- cache file with the module's include must be renewed after desactivation of the module
+    
+        if ( generate_module_cache() )
+        {
+            $backlog->success(get_lang( 'Module cache update succeeded' ));
+        }
+        else
+        {
+            $backlog->failure(get_lang( 'Module cache update failed' ));
+            $success = false;
+        }
+    }
 
-    //5- cache file with the module's include must be renewed after desactivation of the module
-
-    generate_module_cache();
-
-    return $result;
+    return array( $backlog->output(), $success );
 }
 
 /**

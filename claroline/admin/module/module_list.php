@@ -166,27 +166,49 @@ $pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : 
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
-
+// TODO improve status message and backlog display
 switch ( $cmd )
 {
     case 'activ' :
-        activate_module($module_id);
+    {
+        list( $result_log, $success ) = activate_module($module_id);
+        if ( $success )
+        {
+            $dialogBox  = '<p>' . get_lang('Module activation succeeded') . '</p>';
+        }
+        else 
+        {
+            $dialogBox  = '<p>' . get_lang('Module activation failed') . '</p>';
+        }
+        $dialogBox .= $result_log . '<br />';
         break;
-
+    }
     case 'desactiv' :
-        deactivate_module($module_id);
+    {
+        list( $result_log, $success ) = deactivate_module($module_id);
+        if ( $success )
+        {
+            $dialogBox  = '<p>' . get_lang('Module deactivation succeeded') . '</p>';
+        }
+        else 
+        {
+            $dialogBox  = '<p>' . get_lang('Module deactivation failed') . '</p>';
+        }
+        $dialogBox .= $result_log . '<br />';
         break;
-
+    }
     case 'mvUp' :
+    {
         move_module_tool($courseToolId, 'up');
         break;
-
+    }
     case 'mvDown' :
+    {
         move_module_tool($courseToolId, 'down');
         break;
-
+    }
     case 'exUninstall' :
-
+    {
         $moduleInfo = get_module_info($module_id);
         if (in_array($moduleInfo['label'], $old_tool_array))
         {
@@ -206,8 +228,9 @@ switch ( $cmd )
             $dialogBox .= $result_log . '<br />';
         }
         break;
-        
+    }
     case 'exInstall' :
+    {
         //include needed librabries for treatment
 
         if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
@@ -227,8 +250,9 @@ switch ( $cmd )
         $dialogBox .= $result_log;
         
         break;
-        
+    }
     case 'rqInstall' :
+    {
         $dialogBox = '<p>' . "\n"
         .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br />' . "\n"
         .            get_lang('Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.')
@@ -241,8 +265,7 @@ switch ( $cmd )
         .            '</form>' . "\n"
         ;
         break;
-
-
+    }
 }
 
 if ( $module_id )
