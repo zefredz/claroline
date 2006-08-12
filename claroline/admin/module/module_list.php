@@ -195,7 +195,14 @@ switch ( $cmd )
         else
         {
             list( $result_log, $success ) = uninstall_module($module_id);
-            $dialogBox  = get_lang('Module uninstallation') . ' : <br />';
+            if ( $success )
+            {
+                $dialogBox  = '<p>' . get_lang('Module uninstallation succeeded') . '</p>';
+            }
+            else 
+            {
+                $dialogBox  = '<p>' . get_lang('Module uninstallation failed') . '</p>';
+            }
             $dialogBox .= $result_log . '<br />';
         }
         break;
@@ -206,7 +213,14 @@ switch ( $cmd )
         if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
 
         list( $result_log, $module_id ) = install_module($modulePath);
-        $dialogBox = '';
+        if ( false !== $module_id )
+        {
+            $dialogBox  = '<p>' . get_lang('Module installation succeeded') . '</p>';
+        }
+        else
+        {
+            $dialogBox  = '<p>' . get_lang('Module installation failed') . '</p>';
+        }
 
         //display the result message (fail or success)
 
