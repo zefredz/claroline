@@ -181,8 +181,7 @@ __ERRDISP__;
         }
     }
     
-    if ( ( isset( $argv ) && ( basename( __FILE__ ) === $argv[0] ) )
-        || basename( $_SERVER['PHP_SELF'] ) === basename(__FILE__) )
+    if ( basename( $_SERVER['PHP_SELF'] ) === basename(__FILE__) )
     {
         Backlog::main();
     }
