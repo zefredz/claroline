@@ -342,9 +342,9 @@ function generate_module_cache()
 
 /**
  * function to install a specific module to the platform
- * @return array( message, int )
+ * @return array( backlog, int )
+ *      backlog object containing the messages
  *      int moduleId if the install process suceeded, false otherwise
- *      message backlog messages
  */
 
 function install_module($modulePath)
@@ -450,7 +450,7 @@ function install_module($modulePath)
         }
     }
     
-    return array( $backlog->output(), $moduleId );
+    return array( $backlog, $moduleId );
 }
 
 /**
@@ -458,9 +458,9 @@ function install_module($modulePath)
  * - to call the activation script of the module (if there is any)
  * - to modify the information in the main DB
  * @param  integer $moduleId : ID of the module that must be activated
- * @return array( message, boolean )
- *      boolean true if the uninstall process suceeded, false otherwise
- *      message backlog message
+ * @return array( backlog, boolean )
+ *      backlog object
+ *      boolean true if the activation process suceeded, false otherwise
  */
 
 function activate_module($moduleId)
@@ -552,7 +552,7 @@ function activate_module($moduleId)
         }
     }
 
-    return array( $backlog->output(), $success );
+    return array( $backlog, $success );
 }
 
 /**
@@ -560,9 +560,9 @@ function activate_module($moduleId)
  *   - to call the desactivation script of the module (if there is any)
  *   - to modify the information in the main DB
  * @param  integer $moduleId : ID of the module that must be desactivated
- * @return array( message, boolean )
- *      boolean true if the uninstall process suceeded, false otherwise
- *      message backlog message
+ * @return array( backlog, boolean )
+ *      backlog object
+ *      boolean true if the deactivation process suceeded, false otherwise
  */
 
 function deactivate_module($moduleId)
@@ -590,15 +590,6 @@ function deactivate_module($moduleId)
                 WHERE claro_label = '".$moduleInfo['label']."'";
         $tool_to_delete = claro_sql_query_get_single_row($sql);
         $tool_id = $tool_to_delete['tool_id'];
-
-        /*
-        $sql = "DELETE FROM `" . $tbl['tool']."`
-                WHERE claro_label = '".$moduleInfo['label']."'
-            ";
-
-        claro_sql_query($sql);
-        */
-
 
 
         // 3- update every course tool list to add the tool if it is a tool
@@ -655,17 +646,16 @@ function deactivate_module($moduleId)
         }
     }
 
-    return array( $backlog->output(), $success );
+    return array( $backlog, $success );
 }
 
 /**
  * function to uninstall a specific module to the platform
  *
  * @param integer $moduleId the id of the module to uninstall
- * @return array( message, boolean )
+ * @return array( backlog, boolean )
+ *      backlog object
  *      boolean true if the uninstall process suceeded, false otherwise
- *      message backlog messages
- *
  */
 
 function uninstall_module($moduleId)
@@ -795,7 +785,7 @@ function uninstall_module($moduleId)
         }
     }
 
-    return array( $backlog->output(), $success );
+    return array( $backlog, $success );
 
 }
 

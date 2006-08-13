@@ -172,7 +172,8 @@ switch ( $cmd )
 {
     case 'activ' :
     {
-        list( $details, $success ) = activate_module($module_id);
+        list( $backlog, $success ) = activate_module($module_id);
+        $details = $backlog->output();
         if ( $success )
         {
             $summary  = get_lang('Module activation succeeded');
@@ -186,7 +187,8 @@ switch ( $cmd )
     }
     case 'desactiv' :
     {
-        list( $details, $success ) = deactivate_module($module_id);
+        list( $backlog, $success ) = deactivate_module($module_id);
+        $details = $backlog->output();
         if ( $success )
         {
             $summary  = get_lang('Module deactivation succeeded');
@@ -217,7 +219,8 @@ switch ( $cmd )
         }
         else
         {
-            list( $details, $success ) = uninstall_module($module_id);
+            list( $backlog, $success ) = uninstall_module($module_id);
+            $details = $backlog->output();
             if ( $success )
             {
                 $summary  = get_lang('Module uninstallation succeeded');
@@ -236,7 +239,8 @@ switch ( $cmd )
 
         if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
 
-        list( $details, $module_id ) = install_module($modulePath);
+        list( $backlog, $module_id ) = install_module($modulePath);
+        $details = $backlog->output();
         if ( false !== $module_id )
         {
             $summary  = get_lang('Module uninstallation succeeded');
