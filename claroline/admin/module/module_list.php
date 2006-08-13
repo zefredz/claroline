@@ -27,6 +27,7 @@ require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/fileUpload.lib.php';
 require_once $includePath . '/lib/html.lib.php';
 require_once $includePath . '/lib/module.manage.lib.php';
+require_once $includePath . '/lib/backlog.class.php';
 
 //OLD TOOLS ;
 
@@ -171,30 +172,30 @@ switch ( $cmd )
 {
     case 'activ' :
     {
-        list( $result_log, $success ) = activate_module($module_id);
+        list( $details, $success ) = activate_module($module_id);
         if ( $success )
         {
-            $dialogBox  = '<p>' . get_lang('Module activation succeeded') . '</p>';
+            $summary  = get_lang('Module activation succeeded');
         }
         else 
         {
-            $dialogBox  = '<p>' . get_lang('Module activation failed') . '</p>';
+            $summary  = get_lang('Module activation failed');
         }
-        $dialogBox .= $result_log . '<br />';
+        $dialogBox = Backlog_Reporter::report( $summary, $details );
         break;
     }
     case 'desactiv' :
     {
-        list( $result_log, $success ) = deactivate_module($module_id);
+        list( $details, $success ) = deactivate_module($module_id);
         if ( $success )
         {
-            $dialogBox  = '<p>' . get_lang('Module deactivation succeeded') . '</p>';
+            $summary  = get_lang('Module deactivation succeeded');
         }
         else 
         {
-            $dialogBox  = '<p>' . get_lang('Module deactivation failed') . '</p>';
+            $summary  = get_lang('Module deactivation failed');
         }
-        $dialogBox .= $result_log . '<br />';
+        $dialogBox = Backlog_Reporter::report( $summary, $details );
         break;
     }
     case 'mvUp' :
@@ -216,16 +217,16 @@ switch ( $cmd )
         }
         else
         {
-            list( $result_log, $success ) = uninstall_module($module_id);
+            list( $details, $success ) = uninstall_module($module_id);
             if ( $success )
             {
-                $dialogBox  = '<p>' . get_lang('Module uninstallation succeeded') . '</p>';
+                $summary  = get_lang('Module uninstallation succeeded');
             }
             else 
             {
-                $dialogBox  = '<p>' . get_lang('Module uninstallation failed') . '</p>';
+                $summary  = get_lang('Module uninstallation failed');
             }
-            $dialogBox .= $result_log . '<br />';
+            $dialogBox = Backlog_Reporter::report( $summary, $details );
         }
         break;
     }
@@ -235,19 +236,16 @@ switch ( $cmd )
 
         if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
 
-        list( $result_log, $module_id ) = install_module($modulePath);
+        list( $details, $module_id ) = install_module($modulePath);
         if ( false !== $module_id )
         {
-            $dialogBox  = '<p>' . get_lang('Module installation succeeded') . '</p>';
+            $summary  = get_lang('Module uninstallation succeeded');
         }
-        else
+        else 
         {
-            $dialogBox  = '<p>' . get_lang('Module installation failed') . '</p>';
+            $summary  = get_lang('Module uninstallation failed');
         }
-
-        //display the result message (fail or success)
-
-        $dialogBox .= $result_log;
+        $dialogBox = Backlog_Reporter::report( $summary, $details );
         
         break;
     }
