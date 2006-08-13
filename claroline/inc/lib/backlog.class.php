@@ -139,6 +139,48 @@
         }
     }
     
+    class Backlog_Reporter
+    {
+        function report( $summary, $details )
+        {
+            $id = uniqid('details');
+            
+            if ( empty( $details ) )
+            {
+                $display = '<p class="backlogSummary">'.$summary.'</p>';
+            }
+            else
+            {
+                $display = <<<__ERRDISP__
+<script type="text/javascript">
+function toggleDetails( id )
+{
+    var details = document.getElementById( id );
+    
+    if ( details.style.display == 'block' )
+    {
+        details.style.display = 'none';
+    }
+    else
+    {
+        details.style.display = 'block';
+    }
+}
+</script>
+<p class="backlogSummary">$summary
+[<a href="javascript:toggleDetails('$id')">
+details
+</a>]</p>
+<div id="$id" style="display: none;" class="backlogDetails">
+$details
+</div>
+__ERRDISP__;
+            }
+
+            return $display;
+        }
+    }
+    
     if ( ( isset( $argv ) && ( basename( __FILE__ ) === $argv[0] ) )
         || basename( $_SERVER['PHP_SELF'] ) === basename(__FILE__) )
     {
