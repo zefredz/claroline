@@ -251,6 +251,9 @@ switch ( $cmd )
         }
         $dialogBox = Backlog_Reporter::report( $summary, $details );
         
+        $moduleInfo = get_module_info($module_id);
+        $typeReq = $moduleInfo['type'];
+        
         break;
     }
     case 'rqInstall' :
