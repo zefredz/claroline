@@ -382,7 +382,7 @@ else
         if ( $fromAdmin == 'usercourse' ) // admin tool used: list of a user's courses.
         {
             $backUrl   = '../admin/adminusercourses.php?uidToEdit=' . $userId;
-            $backLabel = get_lang('Back to user course list');
+            $backLabel = get_lang('Back to user\'s course list');
         }
     }
     elseif ( $fromAdmin == 'class' ) // admin tool used : class registration
