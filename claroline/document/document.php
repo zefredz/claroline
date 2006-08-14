@@ -807,8 +807,15 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
         {
-            $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
-
+            if( file_exists($baseWorkDir.$_REQUEST['file']) )
+            {
+	            $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
+            }
+            else
+            {
+            	$url = '';
+            }
+            
             $dialogBox .= "<p><label for=\"url\">".get_lang("URL : ")."</label><br />\n"
                          ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($url)."\">\n"
                          ."</p>\n";
