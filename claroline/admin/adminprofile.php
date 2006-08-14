@@ -150,12 +150,9 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 
 ;
 
-if (isset($cfrom))
+if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come form user list, we must display go back to list
 {
-	if ($cfrom == 'ulist' ) // if we come form user list, we must display go back to list
-	{
-    	$cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
-	}
+    $cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
 }
 
 /**
