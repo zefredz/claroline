@@ -243,11 +243,11 @@ switch ( $cmd )
         $details = $backlog->output();
         if ( false !== $module_id )
         {
-            $summary  = get_lang('Module uninstallation succeeded');
+            $summary  = get_lang('Module installation succeeded');
         }
         else 
         {
-            $summary  = get_lang('Module uninstallation failed');
+            $summary  = get_lang('Module installation failed');
         }
         $dialogBox = Backlog_Reporter::report( $summary, $details );
         
