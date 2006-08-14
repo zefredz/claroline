@@ -374,29 +374,29 @@ function prepare_search()
 
     if ( !empty($_SESSION['admin_user_search']) )
     {
-        $isSearched[] = '*' . $_SESSION['admin_user_search'] . '*';
+        $isSearched[] =  $_SESSION['admin_user_search'];
     }
 
     if ( !empty($_SESSION['admin_user_firstName']) )
     {
-        $isSearched[] = get_lang('First name') . '=*' . $_SESSION['admin_user_firstName'] . '*';
+        $isSearched[] = get_lang('First name') . '=' . $_SESSION['admin_user_firstName'];
         $queryStringElementList [] = 'firstName=' . urlencode($_SESSION['admin_user_firstName']);
     }
 
     if ( !empty($_SESSION['admin_user_lastName']) )
     {
-        $isSearched[] = get_lang('Last name') . '=*' . $_SESSION['admin_user_lastName'] . '*';
+        $isSearched[] = get_lang('Last name') . '=' . $_SESSION['admin_user_lastName'];
         $queryStringElementList[] = 'lastName=' . urlencode($_SESSION['admin_user_lastName']);
     }
 
     if ( !empty($_SESSION['admin_user_userName']) )
     {
-        $isSearched[] = get_lang('Username') . '=*' . $_SESSION['admin_user_userName'] . '*';
+        $isSearched[] = get_lang('Username') . '=' . $_SESSION['admin_user_userName'];
         $queryStringElementList[] = 'userName=' . urlencode($_SESSION['admin_user_userName']);
     }
     if ( !empty($_SESSION['admin_user_mail']) )
     {
-        $isSearched[] = get_lang('Email') . '=*' . $_SESSION['admin_user_mail'] . '*';
+        $isSearched[] = get_lang('Email') . '=' . $_SESSION['admin_user_mail'];
         $queryStringElementList[] = 'mail=' . urlencode($_SESSION['admin_user_mail']);
     }
 
