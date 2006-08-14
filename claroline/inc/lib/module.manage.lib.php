@@ -429,8 +429,16 @@ function install_module($modulePath)
                 $moduleInfo =  get_module_info($moduleId);
                 if (($moduleInfo['type'] =='tool') && $moduleId)
                 {
-                    list ( $backlog2, $success ) = register_module_in_courses( $moduleId );
-                    $backlog->append( $backlog2 );
+                    list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
+                    
+                    if ( $success2 )
+                    {
+                        $backlog->success( get_lang('Courses updated') );
+                    }
+                    else
+                    {
+                        $backlog->append( $backlog2 );
+                    }
                 }
             
                 //6- cache file with the module's include must be renewed after installation of the module
@@ -578,6 +586,7 @@ function deactivate_module($moduleId)
 function uninstall_module($moduleId)
 {
     $success = true;
+    $backlog = new Backlog;
     
     //first thing to do : deactivate the module
 
@@ -588,8 +597,16 @@ function uninstall_module($moduleId)
 
         // 2- delete the module in the cours_tool table, used for every course creation
 
-        list ( $backlog2, $success ) = unregister_module_from_courses( $moduleId );
-        $backlog->append( $backlog2 );
+        list ( $backlog2, $success2 ) = unregister_module_from_courses( $moduleId );
+        
+        if ( $success2 )
+        {
+            $backlog->success( get_lang('Courses updated') );
+        }
+        else
+        {
+            $backlog->append( $backlog2 );
+        }
     }
 
     //Needed tables and vars
@@ -767,8 +784,9 @@ function register_module_in_courses( $moduleId )
  */
 function register_module_in_single_course( $tool_id, $course_code )
 {
-    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course['code']);
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
     $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+    $default_visibility = false;
 
     //find max rank in the tool_list
 
