@@ -270,7 +270,7 @@ switch ( $cmd )
     }
 }
 
-if ( $module_id )
+if ( empty( $typeReq ) && $module_id )
 {
     $moduleInfo = get_module_info($module_id);
     $typeReq = $moduleInfo['type'];
