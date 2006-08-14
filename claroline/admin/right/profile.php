@@ -133,6 +133,7 @@ else
         // display tool title
         echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=>$profile->getName()));
         echo '<p>' . $profile->getDescription() . '</p>';
+        echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?display_profile=all">' . get_lang('View all right profile') . '</a></p>';
     }
     else
     {
