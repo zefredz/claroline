@@ -196,11 +196,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * 9. The script get the list of all the tool available into the current course
  *    for the current user.
  ******************************************************************************/
+
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 require_once claro_get_conf_repository() .  'auth.cas.conf.php';
-require_once dirname(__FILE__) .  '/../auth/extauth/drivers/auth.drivers.conf.php';
-
+require_once claro_get_conf_repository() .  'auth.drivers.conf.php';
 
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the

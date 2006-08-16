@@ -200,17 +200,17 @@ if ( $cmd == 'run' )
      * Config file to undist
      */
 
-    $arr_file_to_undist = array ( $includePath.'/../../textzone_top.inc.html',
-                                 $includePath.'/../../textzone_right.inc.html',
-                                 $includePath.'/conf/auth.conf.php'
-                                );
+    $arr_file_to_undist = array ( $includePath.'/../../textzone_top.inc.html' => '',
+                                 $includePath.'/../../textzone_right.inc.html' => '',
+                                 $includePath.'/../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf'
+                                ) ;
 
-    foreach ( $arr_file_to_undist as $undist_this )
+    foreach ( $arr_file_to_undist as $undistFile => $undistPath )
     {
-        $output .= '<li>'. basename ($undist_this) . "\n"
+        $output .= '<li>'. basename ($undistFile) . "\n"
                 . '<ul><li>Undist : ' . "\n" ;
 
-        if ( claro_undist_file($undist_this) )
+        if ( claro_undist_file($undistFile, $undistPath) )
         {
             $output .= '<span class="success">Succeeded</span>';
         }

@@ -306,13 +306,15 @@ else
 
     $arr_file_to_undist =
     array (
-    $newIncludePath . '../../textzone_top.inc.html',
-    $newIncludePath . '../../textzone_right.inc.html',
-    $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php'
+    $newIncludePath . '../../textzone_top.inc.html' => '',
+    $newIncludePath . '../../textzone_right.inc.html' => '',
+    $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf' 
     );
 
-    foreach ($arr_file_to_undist As $undist_this)
-        claro_undist_file($undist_this);
+    foreach ($arr_file_to_undist as $undistFile,$undistPath)
+    {
+        claro_undist_file($undistFile,$undistPath);
+    }
 
     /***
      * Generate kernel conf from definition files.
