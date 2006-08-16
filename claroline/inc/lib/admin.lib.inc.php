@@ -31,6 +31,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 include_once( dirname(__FILE__) . '/fileManage.lib.php');
+include_once( dirname(__FILE__) . '/right/courseProfileToolAction.class.php');
 
 /**
  * delete a course of the plateform
@@ -78,6 +79,10 @@ function delete_course($code)
             WHERE code= "' . addslashes($currentCourseId) . '"';
 
     claro_sql_query($sql);
+
+    // DELETE course right
+    
+    RightCourseProfileToolRight::resetAllRightProfile($currentCourseId);
 
     //notify the course deletion event
     $args['cid'] = $this_course['sysCode'];

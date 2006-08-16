@@ -183,6 +183,24 @@ class RightCourseProfileToolRight extends RightProfileToolRight
         return claro_sql_query($sql);
     }
 
+    /*
+     * Delete all rights of a course
+     * @param string $courseId
+     * @return boolean
+     */
+
+    function resetAllRightProfile($courseId)
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+
+        $tbl_rel_profile_action = $tbl_mdb_names['right_rel_profile_action'];
+    
+        // Delete all relations
+        $sql = "DELETE FROM `" . $tbl_rel_profile_action . "`
+                WHERE courseId = '" . addslashes($courseId) . "'";
+
+        return claro_sql_query($sql);
+    }
 }
 
 ?>
