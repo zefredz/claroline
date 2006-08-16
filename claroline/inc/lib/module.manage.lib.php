@@ -1179,11 +1179,6 @@ function moduleManifestStartElement($parser, $name, $attributes)
 
     switch ($current_element)
     {
-
-        case 'DEFAULT_DOCK' :
-            $module_info['DEFAULT_DOCK'][] = $attributes['VALUE'];
-            break;
-
         case 'LINK' :
             $parent = prev($element_pile);
             $module_info['CONTEXT'][$parent]['LINKS'][] = $attributes;
@@ -1225,6 +1220,10 @@ function moduleManifestElementData($parser,$data)
     {
         case 'TYPE' :
             $module_info['TYPE'] = $data;
+            break;
+            
+        case 'DEFAULT_DOCK' :
+            $module_info['DEFAULT_DOCK'][] = $data;
             break;
 
         case 'DESCRIPTION' :
