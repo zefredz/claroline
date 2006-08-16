@@ -376,7 +376,7 @@ function install_module($modulePath)
             if ( false === ( $moduleId = register_module_core($module_info) ) )
             {
                 claro_delete_file($modulePath);
-                $backlog->failure( claro_failure::get_last_failure() );
+                $backlog->failure( get_lang('Module registration failed') );
             }
             else
             {        
