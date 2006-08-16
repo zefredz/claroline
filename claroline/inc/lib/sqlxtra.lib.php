@@ -22,10 +22,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Guillaume Lederer    <guillaume@claroline.net>,
  * @param  string  $sqlQueries   - the string containing sql queries to apply
+ * @param  bool $breakOnFailure  - stop query execution if one query failed (default true)
  * @return true on success, false on failure
  */
 
-function claro_sql_multi_query( $sqlQueries )
+function claro_sql_multi_query( $sqlQueries, $breakOnFailure = true )
 {
    $queryArray = PMA_splitSqlFile( $sqlQueries );
    
@@ -33,7 +34,8 @@ function claro_sql_multi_query( $sqlQueries )
     {
         if (!$theQuery['empty'])
         {
-            if ( false === claro_sql_query($theQuery['query'] ) )
+            if ( true === $breakOnFailure
+                && false === claro_sql_query($theQuery['query'] ) )
             {
                 return false;
             }
