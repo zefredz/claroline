@@ -238,21 +238,28 @@ switch ( $cmd )
         //include needed librabries for treatment
 
         if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
-
-        list( $backlog, $module_id ) = install_module($modulePath);
-        $details = $backlog->output();
-        if ( false !== $module_id )
         {
-            $summary  = get_lang('Module installation succeeded');
+            list( $backlog, $module_id ) = install_module($modulePath);
+            $details = $backlog->output();
+            if ( false !== $module_id )
+            {
+                $summary  = get_lang('Module installation succeeded');
+            }
+            else 
+            {
+                $summary  = get_lang('Module installation failed');
+            }
+            $dialogBox = Backlog_Reporter::report( $summary, $details );
+            
+            $moduleInfo = get_module_info($module_id);
+            $typeReq = $moduleInfo['type'];
         }
-        else 
+        else
         {
-            $summary  = get_lang('Module installation failed');
+            $summary = get_lang('Module installation failed');
+            $details = implode( "<br />\n", claro_failure::get_last_failure() );
+            $dialogBox = Backlog_Reporter::report( $summary, $details );
         }
-        $dialogBox = Backlog_Reporter::report( $summary, $details );
-        
-        $moduleInfo = get_module_info($module_id);
-        $typeReq = $moduleInfo['type'];
         
         break;
     }
