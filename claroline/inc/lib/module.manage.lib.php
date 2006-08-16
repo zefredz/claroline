@@ -373,92 +373,98 @@ function install_module($modulePath)
         else
         {
             //3- Save the module information into DB
-            $moduleId = register_module_core($module_info);
-        
-            //in case of tool type module, the dock can not be selected and must added also now
-        
-            if ('tool' == $module_info['TYPE'])
+            if ( false === ( $moduleId = register_module_core($module_info) ) )
             {
-                register_module_tool($moduleId,$module_info);
-            }
-        
-            if (array_key_exists('DEFAULT_DOCK',$module_info))
-            {
-                foreach($module_info['DEFAULT_DOCK'] as $dock)
-                {
-                    add_module_in_dock($moduleId, $dock);
-                }
-            }
-        
-            //4- Rename the module repository with label
-        
-            if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
-            {
-                $backlog->failure(get_lang("Error while renaming module folder"));
+                claro_delete_file($modulePath);
+                $backlog->failure( claro_failure::get_last_failure() );
             }
             else
-            {
-                //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
+            {        
+                //in case of tool type module, the dock can not be selected and must added also now
             
-                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
+                if ('tool' == $module_info['TYPE'])
                 {
-                    $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
-                    
-                    if (!empty($sql))
-                    {
-                        $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
-                        
-                        if ( false !== claro_sql_multi_query($sql) )
-                        {
-                            $backlog->success(get_lang( 'Database installation script succeeded' ));
-                        }
-                        else
-                        {
-                            $backlog->failure(get_lang( 'Database installation script failed' ));
-                        }
-                    }
+                    register_module_tool($moduleId,$module_info);
                 }
-                
-                // call install.php after initialising database in case it requires database to run
-                if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
+            
+                if (array_key_exists('DEFAULT_DOCK',$module_info))
                 {
-                    require get_module_path($module_info['LABEL']) . '/install/install.php';
-                    $backlog->info(get_lang( 'Module installation script called' ));
-                }
-                
-                $moduleInfo =  get_module_info($moduleId);
-                if (($moduleInfo['type'] =='tool') && $moduleId)
-                {
-                    list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
-                    
-                    if ( $success2 )
+                    foreach($module_info['DEFAULT_DOCK'] as $dock)
                     {
-                        $backlog->success( get_lang('Courses updated') );
-                    }
-                    else
-                    {
-                        $backlog->append( $backlog2 );
+                        add_module_in_dock($moduleId, $dock);
                     }
                 }
             
-                //6- cache file with the module's include must be renewed after installation of the module
+                //4- Rename the module repository with label
             
-                if ( ! generate_module_cache() )
+                if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
                 {
-                    $backlog->failure(get_lang( 'Module cache update failed' ));
+                    $backlog->failure(get_lang("Error while renaming module folder"));
                 }
                 else
                 {
-                    $backlog->success(get_lang( 'Module cache update succeeded' ));
-                }
-            
-                //7- generate the conf if a def file exists
-            
-                require_once $includePath . '/lib/config.lib.inc.php';
-                $config = new Config($module_info['LABEL']);
-                list ($confMessage, $status ) = generate_conf($config);
+                    //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
                 
-                $backlog->info($confMessage);
+                    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
+                    {
+                        $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
+                        
+                        if (!empty($sql))
+                        {
+                            $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
+                            
+                            if ( false !== claro_sql_multi_query($sql) )
+                            {
+                                $backlog->success(get_lang( 'Database installation script succeeded' ));
+                            }
+                            else
+                            {
+                                $backlog->failure(get_lang( 'Database installation script failed' ));
+                            }
+                        }
+                    }
+                    
+                    // call install.php after initialising database in case it requires database to run
+                    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
+                    {
+                        require get_module_path($module_info['LABEL']) . '/install/install.php';
+                        $backlog->info(get_lang( 'Module installation script called' ));
+                    }
+                    
+                    $moduleInfo =  get_module_info($moduleId);
+                    if (($moduleInfo['type'] =='tool') && $moduleId)
+                    {
+                        list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
+                        
+                        if ( $success2 )
+                        {
+                            $backlog->success( get_lang('Courses updated') );
+                        }
+                        else
+                        {
+                            $backlog->append( $backlog2 );
+                        }
+                    }
+                
+                    //6- cache file with the module's include must be renewed after installation of the module
+                
+                    if ( ! generate_module_cache() )
+                    {
+                        $backlog->failure(get_lang( 'Module cache update failed' ));
+                    }
+                    else
+                    {
+                        $backlog->success(get_lang( 'Module cache update succeeded' ));
+                    }
+                
+                    //7- generate the conf if a def file exists
+                
+                    require_once $includePath . '/lib/config.lib.inc.php';
+                    $config = new Config($module_info['LABEL']);
+                    list ($confMessage, $status ) = generate_conf($config);
+                    
+                    $backlog->info($confMessage);
+                }
             }
         }
     }
@@ -950,7 +956,7 @@ function register_module_core($module_info)
     $missingElement = array_diff(array('LABEL','NAME','TYPE','CLAROLINE','AUTHOR','DESCRIPTION','LICENSE'),array_keys($module_info));
     if (count($missingElement)>0)
     {
-        echo '<div>'.__LINE__.': $missingElement = <pre>'. var_export($missingElement,1).'</PRE></div>';
+        // echo '<div>'.__LINE__.': $missingElement = <pre>'. var_export($missingElement,1).'</PRE></div>';
         return claro_failure::set_failure($missingElement);
 
     }
@@ -1130,7 +1136,7 @@ function readModuleManifest($modulePath)
         // array_push ($backlog_message, '<PRE>' . htmlentities( implode("", file($file))) . '</pre>');
         foreach ($module_info as $key => $info)
         {
-            array_push ($backlog_message, 'The metadata ' . $key . ' as been found : <b>' . var_export($info,1) . '</b>');
+            array_push ($backlog_message, 'The metadata ' . $key . ' as been found : <b>' . var_export($info,true) . '</b>');
         }
     }
 
