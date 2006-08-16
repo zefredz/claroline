@@ -119,6 +119,9 @@ if ( isset($_REQUEST['applyChange']) )
         $uidReset = true;
         include '../inc/claro_init_local.inc.php';
         $messageList['info'][] = get_lang('Your new profile has been saved') . '<br />' . "\n";
+    
+        // Initialise
+        $user_data = user_get_properties($_uid);
 
     } // end if $userSettingChangeAllowed
     else
@@ -126,9 +129,6 @@ if ( isset($_REQUEST['applyChange']) )
         // user validate form return error messages
         $error = true;
     }
-
-    // Initialise
-    $user_data = user_get_properties($_uid);
 
 }
 elseif ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
