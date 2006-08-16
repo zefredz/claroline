@@ -34,43 +34,61 @@ require_once dirname(__FILE__) . '/config.class.php';
  *
  */
 
-function claro_undist_file ($file)
+function claro_undist_file ($distFile,$destinationPath='')
 {
-    if ( !file_exists($file))
+    if ( !empty($destinationPath) )
     {
-        if ( file_exists($file.".dist"))
+        // get destination path
+        $destinationPath = realpath($destinationPath);
+    }
+    else
+    {
+        // get directory of file.dist
+        $destinationPath = dirname($distFile);
+    }
+
+    $filename = basename($distFile);
+    $distFile = $distFile . '.dist';
+    $undistFile = $destinationPath . '/' . $filename;
+
+    if ( !file_exists($undistFile))
+    {
+        if ( file_exists($distFile))
         {
             /**
              * @var $perms file permission of dist file are keep to set perms of new file
              */
 
-            $perms = fileperms($file.".dist");
+            $perms = fileperms($distFile);
 
             /**
              * @var $group internal var for affect same group to new file
              */
 
-            $group = filegroup($file.".dist");
+            $group = filegroup($distFile);
 
             // $perms|bindec(110000) <- preserve perms but force rw right on group
-            @copy($file.".dist",$file) && chmod ($file,$perms|bindec(110000)) && @chgrp($file,$group);
-            if (file_exists($file))
+            @copy($distFile,$undistFile);
+            @chmod($undistFile,$perms|bindec(110000));
+            @chgrp($undistFile,$group);
+
+            if (file_exists($undistFile))
             {
-                return TRUE;
+                return true;
             }
             else
             {
-                return FALSE;
+                return false;
             }
         }
         else
         {
-            return FALSE;
+            return false;
         }
     }
     else
     {
-        return TRUE;
+        return true;
     }
 }
 
