@@ -384,6 +384,7 @@ function install_module($modulePath)
             
                 if ('tool' == $module_info['TYPE'])
                 {
+                    // TODO FIXME handle failure
                     register_module_tool($moduleId,$module_info);
                 }
             
@@ -391,6 +392,7 @@ function install_module($modulePath)
                 {
                     foreach($module_info['DEFAULT_DOCK'] as $dock)
                     {
+                        // TODO FIXME handle failure
                         add_module_in_dock($moduleId, $dock);
                     }
                 }
@@ -432,6 +434,7 @@ function install_module($modulePath)
                     }
                     
                     $moduleInfo =  get_module_info($moduleId);
+                    
                     if (($moduleInfo['type'] =='tool') && $moduleId)
                     {
                         list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
@@ -692,7 +695,7 @@ function uninstall_module($moduleId)
         $sql = "DELETE FROM `" . $tbl['tool']."`
                 WHERE claro_label = '".$module['label']."'
             ";
-    
+        
         claro_sql_query($sql);
     
         // 3- delete related entries in main DB
@@ -718,7 +721,7 @@ function uninstall_module($moduleId)
         $action->delete();
     
         // 5- remove all docks entries in which the module displays
-    
+        // TODO FIXME handle failure
         remove_module_dock($moduleId, 'ALL');
     
         // 6- cache file with the module's include must be renewed after uninstallation of the module
@@ -895,6 +898,7 @@ function unregister_module_from_single_course( $tool_id, $course_code )
  */
 function register_module($modulePath)
 {
+    // TODO use Backlog
     global $regLog;
 
     $regLog = array();
@@ -929,9 +933,15 @@ function register_module($modulePath)
                 }
             }
         }
-        else $regLog['error'][] = get_lang('can not register module %label', array('%label' => $module_info['LABEL']));
+        else
+        {
+            $regLog['error'][] = get_lang('can not register module %label', array('%label' => $module_info['LABEL']));
+        }
     }
-    else $regLog['error'][] = get_lang('can not find module');
+    else
+    {
+        $regLog['error'][] = get_lang('can not find module');
+    }
 
     return $moduleId;
     //return $regLog;
@@ -1380,6 +1390,8 @@ function add_module_in_dock($moduleId, $newDockName, $context='')
                     #context = '" . addslashes($context) . "',
                     rank    = " . ((int) $max_rank + 1) ;
         $result = claro_sql_query($sql);
+        
+        // TODO FIXME handle failure
         generate_module_cache();
 
         return $result;
@@ -1417,11 +1429,7 @@ function remove_module_dock($moduleId, $dockName)
             remove_module_dock($moduleId,$dock['dockName']);
         }
     }
-
-    else
-
-    //call of this function to remove ONE SPECIFIC occurence of the module in the dock
-
+    else //call of this function to remove ONE SPECIFIC occurence of the module in the dock
     {
         //find the rank of the module in this dock :
 
@@ -1465,7 +1473,7 @@ function move_module_in_dock($moduleId, $dockName, $direction)
     switch ($direction)
     {
         case 'up' :
-
+        {
             //1-find value of current module rank in the dock
             $sql = "SELECT `rank`
                     FROM `" . $tbl['dock'] . "`
@@ -1491,9 +1499,9 @@ function move_module_in_dock($moduleId, $dockName, $direction)
             claro_sql_query($sql);
 
             break;
-
+        }
         case 'down' :
-
+        {
             //1-find value of current module rank in the dock
             $sql = "SELECT `rank`
                     FROM `" . $tbl['dock'] . "`
@@ -1527,8 +1535,9 @@ function move_module_in_dock($moduleId, $dockName, $direction)
             claro_sql_query($sql);
 
             break;
+        }
     }
-
+    // TODO FIXME handle failure
     generate_module_cache();
 }
 
@@ -1564,6 +1573,7 @@ function get_dock_list($moduleType)
     switch($moduleType)
     {
         case 'applet' :
+        {
             $dockList[] = "campusBannerLeft";
             $dockList[] = "campusBannerRight";
             $dockList[] = "userBannerLeft";
@@ -1577,8 +1587,11 @@ function get_dock_list($moduleType)
             $dockList[] = "campusFooterLeft";
             $dockList[] = "campusFooterRight";
             break;
+        }
         case 'tool' :
+        {
             $dockList[] = "commonToolList";
+        }
     }
     return $dockList;
 }
