@@ -244,6 +244,7 @@ $creationStatementList[]=
   PRIMARY KEY  (id)
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
 
+/*
 $creationStatementList[]=
 "CREATE TABLE `" . $mainTblPrefixForm . "module_rel_tool_context` (
   id         smallint unsigned NOT NULL auto_increment,
@@ -255,6 +256,7 @@ $creationStatementList[]=
   access_manager enum('PLATFORM_ADMIN','COURSE_ADMIN','GROUP_ADMIN','USER_ADMIN') NOT NULL default 'COURSE_ADMIN',
   PRIMARY KEY  (id)
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each context'" ;
+*/
 
 $creationStatementList[]= "CREATE TABLE `".$mainTblPrefixForm."right_profile` (
   `profile_id` int(11) NOT NULL auto_increment,

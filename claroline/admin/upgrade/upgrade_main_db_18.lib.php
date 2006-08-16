@@ -161,17 +161,6 @@ function query_to_upgrade_main_database_to_18 ()
   	  PRIMARY KEY  (id)
   	) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
   	
-  	$sqlForUpdate[]= "CREATE TABLE `" . $tbl_mdb_names['module_rel_tool_context'] . "` (
-  	  id         smallint unsigned NOT NULL auto_increment,
-  	  tool_id    smallint unsigned NOT NULL,
-  	  context    enum('PLATFORM','COURSE','USER','GROUP','CLASSE','SESSION') NOT NULL default 'COURSE',
-  	  enabling   enum('MANUAL','AUTOMATIC') NOT NULL default 'AUTOMATIC',
-  	  def_access enum('ALL','COURSE_MEMBER','GROUP_MEMBER','GROUP_TUTOR','COURSE_ADMIN','PLATFORM_ADMIN') NOT NULL default 'ALL',
-  	  def_rank   int(10) unsigned default NULL,
-  	  access_manager enum('PLATFORM_ADMIN','COURSE_ADMIN','GROUP_ADMIN','USER_ADMIN') NOT NULL default 'COURSE_ADMIN',
-  	  PRIMARY KEY  (id)
-  	) TYPE=MyISAM COMMENT='based definiton of the claroline tool used in each context'" ;
-  	
     return $sqlForUpdate;
 }
 
