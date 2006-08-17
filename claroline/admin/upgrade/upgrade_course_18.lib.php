@@ -70,6 +70,10 @@ function group_upgrade_to_18($course_code)
                 {
                     $step = set_upgrade_status($tool, 2, $course_code);
                 }
+                else
+                {
+                    return $step;
+                }
 
             case 2 :
 
@@ -103,6 +107,10 @@ function group_upgrade_to_18($course_code)
                 {
                     $step = set_upgrade_status($tool, 3, $course_code);
                 }
+                else
+                {
+                    return $step;
+                }
 
             case 3 :
                 $sql = "DROP TABLE IF EXISTS`".$currentCourseDbNameGlu."group_property`";
@@ -110,6 +118,10 @@ function group_upgrade_to_18($course_code)
                 if ( upgrade_apply_sql($sql) )
                 {
                     $step = set_upgrade_status($tool, 0, $course_code);
+                }
+                else
+                {
+                    return $step;
                 }
 
             default :
@@ -150,6 +162,10 @@ function tool_list_upgrade_to_18 ($course_code)
                 {
                     $step = set_upgrade_status($tool, 2, $course_code);
                 }
+                else
+                {
+                    return $step;
+                }
 
             case 2 :
 
@@ -161,6 +177,10 @@ function tool_list_upgrade_to_18 ($course_code)
                 {
                     $step = set_upgrade_status($tool, 3, $course_code);
                 }
+                else
+                {
+                    return $step;
+                }
     
             case 3 :
 
@@ -170,6 +190,10 @@ function tool_list_upgrade_to_18 ($course_code)
                 {
                     $step = set_upgrade_status($tool, 4, $course_code);
                 }
+                else
+                {
+                    return $step;
+                }
 
             case 4 :
                 
@@ -178,6 +202,10 @@ function tool_list_upgrade_to_18 ($course_code)
                 if ( upgrade_apply_sql($sql_step4) )
                 {
                     $step = set_upgrade_status($tool, 0, $course_code);
+                }
+                else
+                {
+                    return $step;
                 }
 
             default :
@@ -288,6 +316,10 @@ function qwiz_upgrade_to_18 ($course_code)
                 if ( upgrade_apply_sql($sql_step1) )
                 {
                     $step = set_upgrade_status($tool, 2, $course_code);
+                }
+                else
+                {
+                    return $step;
                 }
 
         case 2 :

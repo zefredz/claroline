@@ -255,7 +255,8 @@ function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
     
     echo '</ol>' . "\n";
 
-    return $nb_error;
+    if ( $nb_error > 0 ) return false;
+    else                 return true;
 }
 
 /**
@@ -554,7 +555,7 @@ function sql_repair_course_database($courseDbNameGlu)
  * Get upgrade status of a tool
  *
  * @param string claro_label
- * @param string course_code
+ * @param string course_code optionnal
  *
  * @return integer status value
  *
@@ -604,7 +605,7 @@ function get_upgrade_status($claro_label,$course_code=null)
  *
  * @param string claro_label
  * @param int status value
- * @param string course_code
+ * @param string course_code optionnal
  *
  * @return integer status value
  *
@@ -757,6 +758,24 @@ function upgrade_disp_auth_form()
     // Display footer
     echo upgrade_disp_footer();
     die();
+}
+
+function fill_table_config_with_md5()
+{
+    // For each configuration file add a hash code in the new table config_list (new in 1.6)
+
+    $config_code_list = get_config_code_list();
+
+    foreach ( $config_code_list as $config_code )
+    {
+        $conf_file = get_conf_file($config_code);
+
+        // The Hash compute and store is differed after creation table use for this storage
+        // calculate hash of the config file
+        $conf_hash = md5_file($conf_file);
+        save_config_hash_in_db($config_code,$conf_hash);
+    }
+    return true;
 }
 
 ?>

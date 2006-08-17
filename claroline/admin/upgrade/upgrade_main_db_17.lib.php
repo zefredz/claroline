@@ -25,36 +25,60 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  Upgrade to claroline 1.7
  ===========================================================================*/
 
-function query_to_upgrade_main_database_to_17 ()
+function upgrade_main_database_to_17 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
 
-    // create notification table
-    $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['notify'] . "` (
-      `id` int(11) NOT NULL auto_increment,
-      `course_code` varchar(40) NOT NULL default '0',
-      `tool_id` int(11) NOT NULL default '0',
-      `ressource_id` varchar(255) NOT NULL default '0',
-      `group_id` int(11) NOT NULL default '0',
-      `user_id` int(11) NOT NULL default '0',
-      `date` datetime default '0000-00-00 00:00:00',
-      PRIMARY KEY  (`id`),
-      KEY `course_id` (`course_code`)
-    ) TYPE=MyISAM";
+    switch( $step = get_upgrade_status('MAINDB17') )
+    {
+        case 1 :
 
-    // add enrollment key
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `enrollment_key` varchar(255) default NULL";
+            // create notification table
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['notify'] . "` (
+              `id` int(11) NOT NULL auto_increment,
+              `course_code` varchar(40) NOT NULL default '0',
+              `tool_id` int(11) NOT NULL default '0',
+              `ressource_id` varchar(255) NOT NULL default '0',
+              `group_id` int(11) NOT NULL default '0',
+              `user_id` int(11) NOT NULL default '0',
+              `date` datetime default '0000-00-00 00:00:00',
+              PRIMARY KEY  (`id`),
+              KEY `course_id` (`course_code`)
+            ) TYPE=MyISAM";
 
-    // remove old columns : cahier_charges, scoreShow, description
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `cahier_charges`";
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `scoreShow`";
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `description`";
+            // add enrollment key
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `enrollment_key` varchar(255) default NULL";
 
-    // add index in rel_class_user table
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `user_id` ) ";
-    $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `class_id` ) ";
+            // remove old columns : cahier_charges, scoreShow, description
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `cahier_charges`";
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `scoreShow`";
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` DROP COLUMN `description`";
 
-    return $sqlForUpdate;
+            // add index in rel_class_user table
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `user_id` ) ";
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `class_id` ) ";
+
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) )
+            {
+                $step = set_upgrade_status($tool, 2);
+            }
+            else
+            {
+                return $step ;
+            }
+
+        case 2 :
+
+            register_tool_in_main_database('CLWIKI__','wiki/wiki.php','wiki.gif');
+            $step = set_upgrade_status($tool, 0);
+            return $step ;
+
+        default :
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    }
+
+    return false;
 }
 
 ?>

@@ -117,7 +117,7 @@ switch ( $display )
         echo '<h2>Step 2 of 3: main platform tables upgrade</h2>
              <h3>Upgrading main Claroline database (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
 
-        if ( ! preg_match('/^1.7/',$currentDbVersion) )
+        if ( ! preg_match('/^1.8/',$currentDbVersion) )
         {
             // repair tables
             sql_repair_main_database();
@@ -129,28 +129,22 @@ switch ( $display )
 
         if ( preg_match('/^1.5/',$currentDbVersion) )
         {
-            // Apply sql query from $sqlForUpdate16 to main dataabse
-            $sqlForUpdate16 = query_to_upgrade_main_database_to_16();
-            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate16,$verbose);
+            $function_list = array('upgrade_main_database_to_16');
 
-            // For each configuration file add a hash code in the new table config_list (new in 1.6)
-
-            $config_code_list = get_config_code_list();
-
-            foreach ( $config_code_list as $config_code )
+            foreach ( $function_list as $function )
             {
-                $conf_file = get_conf_file($config_code);
-
-                // The Hash compute and store is differed after creation table use for this storage
-                // calculate hash of the config file
-                $conf_hash = md5_file($conf_file);
-                save_config_hash_in_db($config_code,$conf_hash);
+                $step = $function();
+                if ( $step > 0 )
+                {
+                    $nbError++;
+                }
             }
 
             if ( $nbError == 0 )
             {
                 // Upgrade 1.5 to 1.6 Succeed
                 echo '<p class="success">The claroline main tables have been successfully upgraded to 1.6</p>' . "\n";
+                clean_upgrade_status();
 
                 // Database version is 1.6
                 $currentDbVersion = '1.6';
@@ -166,23 +160,28 @@ switch ( $display )
 
         if ( preg_match('/^1.6/',$currentDbVersion) )
         {
-            // Apply sql query from $sqlForUpdate17 to main database
-            $sqlForUpdate17 = query_to_upgrade_main_database_to_17();
-            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate17,$verbose);
+            $function_list = array('upgrade_main_database_to_17');
 
-            // Add wiki tool (new in 1.7)
-            register_tool_in_main_database('CLWIKI__','wiki/wiki.php','wiki.gif');
+            foreach ( $function_list as $function )
+            {
+                $step = $function();
+                if ( $step > 0 )
+                {
+                    $nbError++;
+                }
+            }
 
             if ( $nbError == 0 )
             {
                 // Upgrade 1.6 to 1.7 Succeed
                 echo '<p class="success">The claroline main tables have been successfully upgraded to 1.7</p>' . "\n";
+                clean_upgrade_status();
 
                 // Database version is 1.7
-                $currentDbVersion = $new_version;
+                $currentDbVersion = '1.7';
 
                 // Update current version file
-                save_current_version_file($currentClarolineVersion, $new_version);
+                save_current_version_file($currentClarolineVersion, $currentDbVersion);
             }
         } // End of upgrade 1.6 to 1.7
 
@@ -192,22 +191,28 @@ switch ( $display )
 
         if ( preg_match('/^1.7/',$currentDbVersion) )
         {
-            echo '<p >process upgrade to 1.8</p>' . "\n";
+            $function_list = array('upgrade_main_database_to_18');
 
-            // Apply sql query from $sqlForUpdate17 to main database
-            $sqlForUpdate18 = query_to_upgrade_main_database_to_18();
-            $nbError += upgrade_apply_sql_to_main_database($sqlForUpdate18,$verbose);
+            foreach ( $function_list as $function )
+            {
+                $step = $function();
+                if ( $step > 0 )
+                {
+                    $nbError++;
+                }
+            }
 
             if ( $nbError == 0 )
             {
                 // Upgrade 1.7 to 1.8 Succeed
                 echo '<p class="success">The claroline main tables have been successfully upgraded to 1.8</p>' . "\n";
+                clean_upgrade_status();
 
                 // Database version is 1.8
                 $currentDbVersion = $new_version;
 
                 // Update current version file
-                save_current_version_file($currentClarolineVersion, $new_version);
+                save_current_version_file($currentClarolineVersion, $currentDbVersion);
             }
         } // End of upgrade 1.7 to 1.8
 
