@@ -311,7 +311,7 @@ else
     $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf' 
     );
 
-    foreach ($arr_file_to_undist as $undistFile,$undistPath)
+    foreach ($arr_file_to_undist as $undistFile => $undistPath)
     {
         claro_undist_file($undistFile,$undistPath);
     }
