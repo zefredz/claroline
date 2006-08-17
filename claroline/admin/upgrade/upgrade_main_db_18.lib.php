@@ -38,6 +38,11 @@ function upgrade_main_database_to_18 ()
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `defaultProfileId` int(11) NOT NULL";
             
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+           
+        case 2 :
+ 
             // rel_course_user
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `profile_id` int(11) NOT NULL ";
@@ -52,12 +57,22 @@ function upgrade_main_database_to_18 ()
                                WHERE `statut` = 1 ";
             
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` DROP COLUMN `statut` "; 
+            
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+        case 3 :
 
             // course category
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` DROP COLUMN `bc` ";
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` CHANGE `nb_childs` `nb_childs` smallint(6) default 0";
             
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+            
+        case 4 :
+
             // user
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `language` varchar(15) default NULL";
@@ -78,6 +93,11 @@ function upgrade_main_database_to_18 ()
 
             // TODO `isPlatformAdmin` --> from admin table
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `isPlatformAdmin`  tinyint(4) default 0";
+            
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, 5);
+            else return $step ;
+
+        case 5 :
 
             // course class
 
@@ -85,44 +105,11 @@ function upgrade_main_database_to_18 ()
                 `courseId` varchar(40) NOT NULL,
                 `classId` int(11) NOT NULL default '0',
                 PRIMARY KEY  (`courseId`,`classId`) ";
+            
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
 
-            // add right table
-
-            $sqlForUpdate[] = " CREATE TABLE IF NOT EXISTS `". $tbl_mdb_names['right_profile'] . "` (
-               `profile_id` int(11) NOT NULL auto_increment,
-               `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
-               `name` varchar(255) NOT NULL default '',
-               `label` varchar(50) NOT NULL default '',
-               `description` varchar(255) default '',
-               `courseManager` tinyint(4) default '0',
-               `mailingList` tinyint(4) default '0',
-               `userlistPublic` tinyint(4) default '0',
-               `groupTutor` tinyint(4) default '0',
-               `locked` tinyint(4) default '0',
-               `required` tinyint(4) default '0',
-               PRIMARY KEY  (`profile_id`),
-               KEY `type` (`type`)
-            )TYPE=MyISAM " ;
-             
-            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_action'] . "` (
-               `id` int(11) NOT NULL auto_increment,
-               `name` varchar(255) NOT NULL default '',
-               `description` varchar(255) default '',
-               `tool_id` int(11) default NULL,
-               `rank` int(11) default '0',
-               `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
-               PRIMARY KEY  (`id`),
-               KEY `tool_id` (`tool_id`),
-               KEY `type` (`type`)
-             )TYPE=MyISAM ";
-             
-             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_rel_profile_action'] . "` (
-               `profile_id` int(11) NOT NULL,
-               `action_id` int(11) NOT NULL,
-               `courseId`  varchar(40) NOT NULL default '',
-               `value` tinyint(4) default '0',
-               PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
-             ) TYPE=MyISAM ";
+        case 6 :
 
             // module
              
@@ -164,20 +151,52 @@ function upgrade_main_database_to_18 ()
               icon      varchar(255) NOT NULL default 'icon.png',
               PRIMARY KEY  (id)
             ) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
+            
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
 
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) )
-            {
-                $step = set_upgrade_status($tool, 2);
-            }
-            else
-            {
-                return $step ;
-            }
+        case 7 :
 
-        case 2 :
+            // add right table
 
-            $step = set_upgrade_status($tool, 0);
-            return $step ;
+            $sqlForUpdate[] = " CREATE TABLE IF NOT EXISTS `". $tbl_mdb_names['right_profile'] . "` (
+               `profile_id` int(11) NOT NULL auto_increment,
+               `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
+               `name` varchar(255) NOT NULL default '',
+               `label` varchar(50) NOT NULL default '',
+               `description` varchar(255) default '',
+               `courseManager` tinyint(4) default '0',
+               `mailingList` tinyint(4) default '0',
+               `userlistPublic` tinyint(4) default '0',
+               `groupTutor` tinyint(4) default '0',
+               `locked` tinyint(4) default '0',
+               `required` tinyint(4) default '0',
+               PRIMARY KEY  (`profile_id`),
+               KEY `type` (`type`)
+            )TYPE=MyISAM " ;
+             
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_action'] . "` (
+               `id` int(11) NOT NULL auto_increment,
+               `name` varchar(255) NOT NULL default '',
+               `description` varchar(255) default '',
+               `tool_id` int(11) default NULL,
+               `rank` int(11) default '0',
+               `type` enum('COURSE','PLATFORM') NOT NULL default 'COURSE',
+               PRIMARY KEY  (`id`),
+               KEY `tool_id` (`tool_id`),
+               KEY `type` (`type`)
+             )TYPE=MyISAM ";
+             
+             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['right_rel_profile_action'] . "` (
+               `profile_id` int(11) NOT NULL,
+               `action_id` int(11) NOT NULL,
+               `courseId`  varchar(40) NOT NULL default '',
+               `value` tinyint(4) default '0',
+               PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
+             ) TYPE=MyISAM ";
+
+            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
 
         default :
             $step = set_upgrade_status($tool, 0);
