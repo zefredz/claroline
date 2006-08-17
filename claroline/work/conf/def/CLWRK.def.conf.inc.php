@@ -26,7 +26,7 @@ $conf_def['config_class']= 'tool';
 
 $conf_def['section']['main']['label']      = ' Main';
 $conf_def['section']['main']['properties'] =
-array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window' );
+array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification'  );
 
 $conf_def['section']['quota']['label']      = 'Quota';
 $conf_def['section']['quota']['description']= 'Disk space allowed for submitted files';
@@ -58,6 +58,26 @@ array ( 'description' => 'When users click on a submitted file, it opens a new w
       , 'readonly'    => FALSE
       );
 
+$conf_def_property_list['show_only_author'] =
+array ('label'     => 'Show only author submissions'
+        ,'description' => 'Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'
+        ,'default'   => FALSE
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'Only his own submissions', 'FALSE'=>'All visible submissions' )
+        );
+        
+$conf_def_property_list['mail_notification'] =
+array ('label'     => 'Mail notification'
+        ,'description' => 'If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.'
+        ,'default'   => FALSE
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
+        );
+        
 $conf_def_property_list['max_file_size_per_works'] =
 array ('label'         => 'Maximum size for an assignment'
       ,'description'   => 'Maximum size of a document that a user can upload'
