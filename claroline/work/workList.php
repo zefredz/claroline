@@ -154,7 +154,7 @@ $showOnlyVisibleCondition = '';
 
 if( ! $is_allowedToEditAll )
 {
-    $submissionConditionList[] = "`S`.`visibility` = 'VISIBLE'";
+    if( !get_conf('show_only_author') ) $submissionConditionList[] = "`S`.`visibility` = 'VISIBLE'";
     $feedbackConditionList[]   = "(`S`.`visibility` = 'VISIBLE' AND `FB`.`visibility` = 'VISIBLE')";
 
     if( !empty($userGroupList)  )
@@ -252,6 +252,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
      */
     $userCanPost = (bool) ! ( isset($userGroupList) && count($userGroupList) <= 0 );
 
+
     $sql = "SELECT `G`.`id`            AS `authId`,
                    `G`.`name`,
                    `S`.`title`,
@@ -272,7 +273,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
         LEFT JOIN `" . $tbl_wrk_submission . "` as `FB`
                ON `FB`.`parent_id` = `S`.`id`
         " . $feedbackFilterSql . "
-
+        
         GROUP BY `G`.`id`,          # group by 'group'
                  `S`.`original_id`
          " . $showOnlyVisibleCondition

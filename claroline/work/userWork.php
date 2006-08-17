@@ -291,6 +291,18 @@ else // GROUP
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost )
                                     || $is_allowedToEditAll;
 
+if( get_conf('show_only_author') && !$is_allowedToEditAll )
+{
+	// security check to avoid a user to see others submissions if not permitted
+	if( isset($wrk) && !$userCanEdit 
+		|| ( $assignment->getAssignmentType() == 'GROUP' && !isset($userGroupList[$_REQUEST['authId']]) )
+		|| ( $assignment->getAssignmentType() == 'INDIVIDUAL' && $_uid != $_REQUEST['authId'] )
+	)
+	{
+		header("Location: work.php");
+		exit();      
+	}
+}   
 /*============================================================================
                           HANDLING FORM DATA
   =============================================================================*/
