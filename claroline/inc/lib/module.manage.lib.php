@@ -342,12 +342,14 @@ function generate_module_cache()
 
 /**
  * function to install a specific module to the platform
+ * @param string $modulePath path to the module
+ * @param bool $skipCheckDir skip checking if module directory already exists (default false)
  * @return array( backlog, int )
  *      backlog object containing the messages
  *      int moduleId if the install process suceeded, false otherwise
  */
 
-function install_module($modulePath)
+function install_module($modulePath, $skipCheckDir = false)
 {
     global $includePath;
 
@@ -362,11 +364,12 @@ function install_module($modulePath)
     else
     {
         //check if a module with the same LABEL is already installed, if yes, we cancel everything
-        if (check_name_exist(get_module_path($module_info['LABEL']) . '/'))
+        // TODO extract from install function should be tested BEFORE calling install_module
+        if ( (!$skipCheckDir) && check_name_exist(get_module_path($module_info['LABEL']) . '/'))
         {
             $backlog->failure( get_lang('%module is already installed on your platform.'
                 , array('%module'=>$module_info['LABEL'])));
-            claro_delete_file($modulePath);
+            // claro_delete_file($modulePath);
             // TODO : add code to point on existing instance of tool.
             // TODO : how to overwrite . prupose uninstall ?
         }

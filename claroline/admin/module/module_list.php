@@ -244,15 +244,14 @@ switch ( $cmd )
             if ( false !== $module_id )
             {
                 $summary  = get_lang('Module installation succeeded');
+                $moduleInfo = get_module_info($module_id);
+                $typeReq = $moduleInfo['type'];
             }
             else 
             {
                 $summary  = get_lang('Module installation failed');
             }
             $dialogBox = Backlog_Reporter::report( $summary, $details );
-            
-            $moduleInfo = get_module_info($module_id);
-            $typeReq = $moduleInfo['type'];
         }
         else
         {
@@ -277,6 +276,44 @@ switch ( $cmd )
         .            '</form>' . "\n"
         ;
         break;
+    }
+    case 'exLocalInstall' :
+    {
+        if ( isset( $_REQUEST['moduleDir'] ) )
+        {
+            $moduleDir = str_replace ( '../', '', $_REQUEST['moduleDir']);
+            $moduleRepositorySys = get_conf('rootSys') . 'module/';
+            $modulePath = $moduleRepositorySys.$moduleDir.'/';
+            
+            if ( file_exists( $modulePath ) )
+            {
+                list( $backlog, $module_id ) = install_module($modulePath, true);
+                $details = $backlog->output();
+                if ( false !== $module_id )
+                {
+                    $summary  = get_lang('Module installation succeeded');
+                    $moduleInfo = get_module_info($module_id);
+                    $typeReq = $moduleInfo['type'];
+                }
+                else 
+                {
+                    $summary  = get_lang('Module installation failed');
+                }
+            }
+            else
+            {
+                $summary  = get_lang('Module installation failed');
+                $details = get_lang('Module directory not found');
+            }
+        
+        }
+        else
+        {
+            $summary  = get_lang('Module installation failed');
+            $details = get_lang('Missing module directory');
+        }
+        
+        $dialogBox = Backlog_Reporter::report( $summary, $details );
     }
 }
 
@@ -370,7 +407,12 @@ $modules_found = check_module_repositories();
 foreach ($modules_found['folder'] as $module_folder)
 {
     if (!isset($dialogBox)) $dialogBox= '';
-    $dialogBox .= get_lang('<b>Warning : </b>') . get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder)) . '<br/>' . "\n";
+    $url = $_SERVER['PHP_SELF'] . '?cmd=exLocalInstall&amp;moduleDir=' . rawurlencode($module_folder);
+    $repl = array( '%here' => '<a href="'.$url.'">'.get_lang( 'here' ).'</a>');
+    $dialogBox .= get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder))
+        . get_lang( 'to install this module click %here', $repl )
+        . '<br/>' . "\n"
+        ;
 }
 
 //needed info for reorder buttons to known if we must display action (or not)
