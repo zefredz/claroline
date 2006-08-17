@@ -93,7 +93,7 @@ function upgrade_main_database_to_16 ()
             // Update table login_user_id
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['track_e_login']  . "` CHANGE `login_user_id` `login_user_id` int(11) NOT NULL default '0'" ;
 
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) )
+            if ( upgrade_apply_sql($sqlForUpdate) )
             {
                 $step = set_upgrade_status($tool, 2);
             }

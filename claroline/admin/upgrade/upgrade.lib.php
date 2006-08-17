@@ -182,84 +182,6 @@ function get_new_version ()
 }
 
 /**
- * Apply sql queries to upgrade main database
- *
- * @param array sql queries
- * @param boolean verbose mode
- *
- * @return integer number of errors
- *
- * @since  1.7
- */
-
-function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
-{
-    global $accepted_error_list;
-
-    $nb_error = 0;
-
-    if ( $verbose ) echo '<p class="info">Mode Verbose:</p>' . "\n";
-
-    echo '<ol>' . "\n";
-
-    foreach ( $array_query as $sql )
-    {
-        if ( $sql[0] == "#" && $verbose )
-        {
-            // Upgrade comment displayed in verbose mode
-            echo '<p class="comment">' . 'Comment:' . $sql . '</p>' . "\n";
-        }
-        else
-        {
-            // Sql query
-            claro_sql_query($sql);
-
-            // Start Verbose Bloc
-            if ( $verbose )
-            {
-                echo  '<li>' . "\n"
-                    . '<p class="tt">' . $sql . '</p>' . "\n"
-                    . '<p>' 
-                    . sprintf('%d affected rows',mysql_affected_rows()) . '<br />' 
-                    . mysql_info() 
-                    . '</p>' . "\n";
-            }
-
-            // Sql error
-            if ( mysql_errno() > 0 )
-            {
-                if ( in_array(mysql_errno(),$accepted_error_list) )
-                {
-                    // Sql error is accepted
-                    if ( $verbose )
-                    {
-                        echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
-                    }
-                }
-                else
-                {
-                    echo '<p class="error">' . "\n"
-                        . (++$nb_error) . '<strong>' . 'n°' . mysql_errno() . '</strong>: '. mysql_error() . '<br />' . "\n"
-                        . '<code>' . $sql . '</code>' . "\n"
-                        . '</p>' . "\n";
-                }
-            }
-
-            // End Verbose Bloc
-            if ( $verbose ) {
-                echo '</li>' . "\n";
-                flush();
-            }
-        }
-    } // end foreach $array_query
-    
-    echo '</ol>' . "\n";
-
-    if ( $nb_error > 0 ) return false;
-    else                 return true;
-}
-
-/**
  * Apply sql queries to upgrade
  *
  * @param array sql queries
@@ -286,7 +208,7 @@ function upgrade_apply_sql ( $array_query )
 
 }
 
-function upgrade_sql_query($sql)
+function upgrade_sql_query($sql,$verbose=null)
 {
     global $accepted_error_list;
     global $verbose;
@@ -302,19 +224,21 @@ function upgrade_sql_query($sql)
             // error accepted
             if ( $verbose )
             {
-                $message  = 'Warning (error sql):' . mysql_errno() . '-message- ' . mysql_error() . "\n";
-                $message .= $sql;
+                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) ;
+                $message .= '<code>' . $sql . '</code>' . "\n";
+                $message .= mysql_info() . "\n";
                 log_message($message);
             }
-            return $handler;
+            return true;
         }
         else
         {
             // error not accepted
-            $message  = 'Error sql: ' . mysql_errno() . ' -message- '. mysql_error() . "\n";
-            $message .= $sql . "\n";
-            log_message($message);
-            return $handler;
+            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) ;
+            $message .= '<code>' . $sql . '</code>' . "\n";
+            $message .= mysql_info() . "\n";
+            log_message($message);   
+            return false;
         }
     }
     else
@@ -326,7 +250,7 @@ function upgrade_sql_query($sql)
                 $message  = 'Successfull sql: ' . $sql . "\n";
                 log_message($message);
             }
-            return $handler;
+            return true;
     }
 }
 

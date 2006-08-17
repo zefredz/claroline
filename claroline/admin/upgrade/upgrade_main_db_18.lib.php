@@ -38,7 +38,7 @@ function upgrade_main_database_to_18 ()
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `defaultProfileId` int(11) NOT NULL";
             
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
            
         case 2 :
@@ -58,7 +58,7 @@ function upgrade_main_database_to_18 ()
             
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` DROP COLUMN `statut` "; 
             
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
         case 3 :
@@ -68,7 +68,7 @@ function upgrade_main_database_to_18 ()
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` DROP COLUMN `bc` ";
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` CHANGE `nb_childs` `nb_childs` smallint(6) default 0";
             
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
             
         case 4 :
@@ -94,7 +94,7 @@ function upgrade_main_database_to_18 ()
             // TODO `isPlatformAdmin` --> from admin table
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `isPlatformAdmin`  tinyint(4) default 0";
             
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, 5);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 5);
             else return $step ;
 
         case 5 :
@@ -106,7 +106,7 @@ function upgrade_main_database_to_18 ()
                 `classId` int(11) NOT NULL default '0',
                 PRIMARY KEY  (`courseId`,`classId`) ";
             
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
         case 6 :
@@ -152,7 +152,7 @@ function upgrade_main_database_to_18 ()
               PRIMARY KEY  (id)
             ) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
             
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
         case 7 :
@@ -195,7 +195,7 @@ function upgrade_main_database_to_18 ()
                PRIMARY KEY  (`profile_id`,`action_id`,`courseId`)
              ) TYPE=MyISAM ";
 
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
         default :

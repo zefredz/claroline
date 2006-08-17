@@ -58,7 +58,7 @@ function upgrade_main_database_to_17 ()
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `user_id` ) ";
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_class_user'] . "` ADD INDEX ( `class_id` ) ";
 
-            if ( upgrade_apply_sql_to_main_database($sqlForUpdate) )
+            if ( upgrade_apply_sql($sqlForUpdate) )
             {
                 $step = set_upgrade_status($tool, 2);
             }

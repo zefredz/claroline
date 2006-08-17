@@ -66,7 +66,7 @@ function group_upgrade_to_18($course_code)
                             PRIMARY KEY  (`id`)
                         )";
 
-                if ( upgrade_apply_sql($sql_step1) )
+                if ( upgrade_sql_query($sql_step1) )
                 {
                     $step = set_upgrade_status($tool, 2, $course_code);
                 }
@@ -103,7 +103,7 @@ function group_upgrade_to_18($course_code)
                             ('CLCHT',             '".$groupSettings['chat'             ]."', 'GROUP')";
                 }
 
-                if ( upgrade_apply_sql($sql) )
+                if ( upgrade_sql_query($sql) )
                 {
                     $step = set_upgrade_status($tool, 3, $course_code);
                 }
@@ -115,7 +115,7 @@ function group_upgrade_to_18($course_code)
             case 3 :
                 $sql = "DROP TABLE IF EXISTS`".$currentCourseDbNameGlu."group_property`";
 
-                if ( upgrade_apply_sql($sql) )
+                if ( upgrade_sql_query($sql) )
                 {
                     $step = set_upgrade_status($tool, 0, $course_code);
                 }
@@ -158,7 +158,7 @@ function tool_list_upgrade_to_18 ($course_code)
 
                 $sql_step1 = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` ADD `visibility` tinyint(4) default 0 ";
 
-                if ( upgrade_apply_sql($sql_step1) )
+                if ( upgrade_sql_query($sql_step1) )
                 {
                     $step = set_upgrade_status($tool, 2, $course_code);
                 }
@@ -173,7 +173,7 @@ function tool_list_upgrade_to_18 ($course_code)
                       SET `visibility` = 1
                       WHERE `access` = 'ALL' ";
 
-                if ( upgrade_apply_sql($sql_step2) )
+                if ( upgrade_sql_query($sql_step2) )
                 {
                     $step = set_upgrade_status($tool, 3, $course_code);
                 }
@@ -186,7 +186,7 @@ function tool_list_upgrade_to_18 ($course_code)
 
                 $sql_step3 = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` DROP column `access` ";
 
-                if ( upgrade_apply_sql($sql_step3) )
+                if ( upgrade_sql_query($sql_step3) )
                 {
                     $step = set_upgrade_status($tool, 4, $course_code);
                 }
@@ -199,7 +199,7 @@ function tool_list_upgrade_to_18 ($course_code)
                 
                 $sql_step4 = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` ADD `addedTool` ENUM('YES','NO') DEFAULT 'YES' ";
 
-                if ( upgrade_apply_sql($sql_step4) )
+                if ( upgrade_sql_query($sql_step4) )
                 {
                     $step = set_upgrade_status($tool, 0, $course_code);
                 }
