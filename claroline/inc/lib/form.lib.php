@@ -259,6 +259,8 @@ function form_readonly_text($name, $value, $displayedName = '')
 {
     if ( empty($displayedName) ) $displayedName = $name;
 
+    if ( empty($value) ) $value = '-';
+
     return form_row( $displayedName . '&nbsp;: '
     ,                htmlspecialchars($value) ) ;
 }
