@@ -29,9 +29,11 @@ include_once $includePath . '/lib/fileManage.lib.php';
 include_once $includePath . '/lib/fileUpload.lib.php';
 include_once $includePath . '/lib/fileDisplay.lib.php';
 include_once $includePath . '/lib/learnPath.lib.inc.php';
+include_once $includePath . '/lib/sendmail.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
+$tbl_rel_cours_user	= $tbl_mdb_names['rel_course_user'];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment   = $tbl_cdb_names['wrk_assignment'   ];
@@ -589,7 +591,51 @@ if($is_allowedToEditAll)
 
             // notify eventmanager that a new correction has been posted
             $eventNotifier->notifyCourseEvent("work_correction_posted",$_cid, $_tid, $_REQUEST['gradedWrkId'], '0', '0');
+            
+            // mail notification if required by configuration
+            if( get_conf('mail_notification') )
+            {
+            	// get owner(s) email
+            	$userIdList = array();
+				if( $assignment->getAssignmentType() == 'GROUP' )
+				{
+					$sql = "SELECT `user`
+							FROM `".$tbl_group_rel_team_user."`
+							WHERE `team` = ".(int)$_REQUEST['authId'];							
+					
+					$userIdList = claro_sql_query_fetch_all($sql);
+				}
+				else
+				{
+					$userIdList[] = $_REQUEST['authId']; 	
+				}
 
+            	if( is_array($userIdList) )
+		        {
+		            // email subject
+		            $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ' . get_lang('New assignment feedback posted');
+		            
+		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
+						$authId = $wrkForm['wrkGroup'];
+					else
+						$authId = $_REQUEST['authId']; 
+						 
+					$url = $rootWeb.$clarolineRepositoryAppend.'work/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'];
+					
+		            // email content
+		            $emailBody = get_lang('New assignment feedback posted') . "\n\n"
+		            .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
+		            .			 $submission->getTitle() . "\n"
+		            .			 $url . "\n"
+		            ;
+
+		            foreach( $userIdList as $userId )
+		            {
+						claro_mail_user($userId, $emailBody, $emailSubject);
+		            }
+		
+		        }
+            }
 			// display flags
 			$dispWrkLst = true;
 		}
@@ -758,6 +804,45 @@ if( $is_allowedToSubmit )
 			// notify eventmanager that a new submission has been posted
 			$eventNotifier->notifyCourseEvent("work_submission_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
 
+            if( get_conf('mail_notification') )
+            {
+            	// get teacher(s) mail
+            	$sql = "SELECT `U`.`user_id`
+		            	FROM `".$tbl_rel_cours_user."` AS `CU`,`".$tbl_user."` AS `U`
+		            	WHERE `CU`.`user_id` = `U`.`user_id` 
+		            	AND `CU`.`code_cours` = '".$_cid."'
+		            	AND `CU`.`isCourseManager` = 1
+		            	AND `U`.`email` IS NOT NULL";
+
+				$userIdList = claro_sql_query_fetch_all($sql);
+
+            	if( is_array($userIdList) )
+		        {
+		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
+						$authId = $wrkForm['wrkGroup'];
+					else
+						$authId = $_REQUEST['authId']; ; 
+
+					// email subject
+		            $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ' . get_lang('New submission posted in assignment tool.');
+		            						
+					$url = $rootWeb.$clarolineRepositoryAppend.'work/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'];
+					
+		            // email content
+		            $emailBody = get_lang('New submission posted in assignment tool.') . "\n\n"
+		            .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
+		            .			 $wrkForm['wrkTitle'] . "\n"
+		            .			 $url . "\n"
+		            ;
+
+		            foreach( $userIdList as $userId )
+		            {
+						claro_mail_user($userId, $emailBody, $emailSubject);
+		            }
+		
+		        }
+			}
+			
 			// display flags
 			$dispWrkLst = true;
 		}
