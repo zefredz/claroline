@@ -170,6 +170,11 @@ class Config
                 }
                 else
                 {
+                    if ( isset($GLOBALS[$property_name]) )
+                    {
+                        $this->property_list[$property_name] = $GLOBALS[$property_name];
+                    }
+
                     if ( isset($$property_name) )
                     {
                         $this->property_list[$property_name] = $$property_name;
@@ -585,7 +590,8 @@ class Config
                 }
                 else
                 {
-                    $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
+                    $propertyLine = '$GLOBALS[\''.$name.'\'] = '. $valueToWrite .';'."\n";
+                    // $propertyLine = '$'.$name.' = '. $valueToWrite .';'."\n";
                     // in the next version, config would change to
                     // $propertyLine .= '$_conf[\''.$name.'\'] = '. $valueToWrite .';'."\n";
                 }
