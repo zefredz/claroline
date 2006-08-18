@@ -308,9 +308,9 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
 {
     global $clarolineRepositoryWeb;
 
-    static $courseTooList = null, $courseId = null, $profileId = null;
+    static $courseToolList = null, $courseId = null, $profileId = null;
 
-    if (   is_null($courseTooList)
+    if (   is_null($courseToolList)
         || $courseId    != $courseIdReq
         || $profileId   != $profileIdReq
         || $force )
