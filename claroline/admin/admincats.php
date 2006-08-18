@@ -97,9 +97,8 @@ else
         // If the new category have a name, a code and she can have child (categories or courses)
         if( !empty($_REQUEST['nameCat']) && !empty($_REQUEST['codeCat']) )
         {
-
-            // If a category with the same code already exists we only display an error message
-            $cat_data = get_cat_data(get_cat_id_from_code(addslashes($_REQUEST['nameCat'])));
+        	// If a category with the same code already exists we only display an error message
+            $cat_data = get_cat_data(get_cat_id_from_code(addslashes($_REQUEST['codeCat'])));
             if (isset($cat_data['code']))
             {
                 // Error message for attempt to create a duplicate
