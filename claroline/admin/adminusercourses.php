@@ -186,7 +186,7 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('User settings') . '</a>';
+$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
 $cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
 
 if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back to list
