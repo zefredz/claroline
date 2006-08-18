@@ -155,7 +155,7 @@ class answerMultipleChoice
      * @return boolean result of operation   
      */	      
     function delete() 
-    {
+    { 
     	$sql = "DELETE FROM `".$this->tblAnswer."` 
                 WHERE `questionId` = ".(int) $this->questionId;
         
@@ -453,7 +453,7 @@ class answerMultipleChoice
 	    	.	$answer['answer'] 
 	    	.	'</td>' . "\n"
 	    	.	'<td width="45%">'
-	    	.	( $isSelected ? $answer['comment'] : '&nbsp;' ) 
+	    	.	( ($isSelected || $answer['correct']) ? $answer['comment'] : '&nbsp;' ) 
 	    	.	'</td>' . "\n"
 	    	.	'</tr>' . "\n\n";
 		}

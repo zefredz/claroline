@@ -412,7 +412,7 @@ class answerTrueFalse
     	.	get_lang('True') 
     	.	'</td>' . "\n"
     	.	'<td width="45%">'
-    	.	( $this->response == 'TRUE' ? $this->trueFeedback : '&nbsp;' ) 
+    	.	$this->trueFeedback 
     	.	'</td>' . "\n"
     	.	'</tr>' . "\n\n"
     		
@@ -427,7 +427,7 @@ class answerTrueFalse
     	.	get_lang('False') 
     	.	'</td>' . "\n"
     	.	'<td width="45%">'
-    	.	( $this->response == 'FALSE' ? $this->falseFeedback : '&nbsp;' ) 
+    	.	$this->falseFeedback 
     	.	'</td>' . "\n"
     	.	'</tr>' . "\n\n"
 		
