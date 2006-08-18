@@ -174,7 +174,7 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
  * @param string $actionName name of the action
  * @param integer $tid tool identifier
  * @param integer $profileId profile identifier
- * @param integer $courseId course identifier
+ * @param string $courseId course identifier
  * @return boolean 'true' if it's allowed
  */
 
@@ -225,13 +225,44 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
  * @param string $actionName name of the action
  * @param integer $tid tool identifier
  * @param integer $profileId profile identifier
- * @param integer $courseId course identifier
+ * @param string $courseId course identifier
  * @return boolean 'true' if it's allowed
  */
 
 function claro_is_allowed_tool_read ($tid = null, $profileId = null, $courseId = null)
 {
-    return claro_is_allowed_tool_action('read',$tid,$profileId,$courseId);
+    if ( claro_is_tool_activated($tid,$courseId) )
+    {
+        if ( claro_is_allowed_tool_action('read',$tid,$profileId,$courseId) )
+        {
+            if ( claro_is_tool_visible($tid,$courseId) )
+            {
+                return true ;
+            }
+            else
+            {
+                // if tool isn't visible, only user with edit right have read right
+                if ( claro_is_allowed_tool_edit($tid,$profileId,$courseId) )
+                {
+                    return true ;
+                }
+                else
+                {
+                    return false ;
+                }
+            }
+        }
+        else
+        {
+            // no read right
+            return false ;
+        }
+    }
+    else
+    {
+        // tool deactivated
+        return false;
+    }
 }
 
 /**
@@ -240,13 +271,105 @@ function claro_is_allowed_tool_read ($tid = null, $profileId = null, $courseId =
  * @param string $actionName name of the action
  * @param integer $tid tool identifier
  * @param integer $profileId profile identifier
- * @param integer $courseId course identifier
+ * @param string $courseId course identifier
  * @return boolean 'true' if it's allowed
  */
 
 function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId = null)
 {
-    return claro_is_allowed_tool_action('edit',$tid,$profileId,$courseId);
+    if ( claro_is_tool_activated($tid,$courseId) )
+    {
+        return claro_is_allowed_tool_action('edit',$tid,$profileId,$courseId);
+    }
+    else
+    {
+        return false ;
+    }
+}
+
+/**
+ * Is tool activate
+ *
+ * @param integer $tid tool identifier
+ * @param string courseId
+ *
+ * @return boolean 'true' if it's activated
+ */
+
+function claro_is_tool_activated ($tid, $courseId)
+{
+    global $_mainToolId, $_cid;
+
+    // load tool id
+    if ( is_null($tid) )
+    {
+        if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
+        else                        return false ;
+    }
+    
+    // load course id
+    if ( is_null($courseId) )
+    {
+        if ( !empty($_cid) ) $courseId = $_cid ;
+        else                 return false ;
+    }
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    $sql = " SELECT m.activation
+             FROM `" . $tbl_mdb_names['module'] . "` as m,
+                  `" . $tbl_mdb_names['tool'] . "` as t                  
+             WHERE t.claro_label = m.label 
+             AND t.id = " . $tid ;
+
+    $tool_activation = claro_sql_query_get_single_value($sql);
+
+    if ( $tool_activation == 'activated' )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+/**
+ * Is tool visible
+ *
+ * @param integer $tid tool identifier
+ * @param string courseId
+ *
+ * @return boolean 'true' if it's visible
+ */
+
+function claro_is_tool_visible ($tid, $courseId)
+{
+    global $_mainToolId, $_cid;
+
+    // load tool id
+    if ( is_null($tid) )
+    {
+        if ( !empty($_mainToolId) ) $tid = $_mainToolId ;
+        else                        return false ;
+    }
+    
+    // load course id
+    if ( is_null($courseId) )
+    {
+        if ( !empty($_cid) ) $courseId = $_cid ;
+        else                 return false ;
+    }
+
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
+    $sql = " SELECT visibility 
+             FROM `" . $tbl_cdb_names['tool'] . "`
+             WHERE tool_id = " . $tid ;
+        
+    $tool_visibility = claro_sql_query_get_single_value($sql);
+
+    return (boolean) $tool_visibility ;
 }
 
 ?>
