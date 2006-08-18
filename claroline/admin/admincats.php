@@ -845,6 +845,7 @@ switch ($display_form)
 
         .    '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
+        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td >' . "\n"
@@ -915,6 +916,7 @@ switch ($display_form)
         .    claro_html_msg_list($controlMsg,1)
         .    '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
+        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
