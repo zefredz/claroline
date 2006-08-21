@@ -136,8 +136,12 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 /**
  *
  * @param string $select_name name of the form (other param can be adds with $attr
- * @param string $list_option 2D table where key are name and value are label
+ * @param array $list_option 2D table where key are labels and value are values 
+ *  with reverted set to false (default) or key are values and value are labels
+ *  with reverted set to true
  * @param string $preselect name of the key in $list_option would be preselected
+ * @param bool $reverted set the function in reverted mode to use value => label
+ *  instead of label => value arrays (default false)
  * @return html output from a 2D table where key are name and value are label
  *
  * @author Christophe Gesché <moosh@claroline.net>
@@ -159,8 +163,12 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
 
 /**
  * return a string as html form option list to plce in a <select>
- * @param string $list_option 2D table where key are label and value are values of options
+ * @param array $list_option 2D table where key are labels and value are values 
+ *  with reverted set to false (default) or key are values and value are labels
+ *  with reverted set to true
  * @param string $preselect name of the key in $list_option would be preselected
+ * @param bool $reverted set the function in reverted mode to use value => label
+ *  instead of label => value arrays (default false)
  * @return html output of the select options
  *
  * @author Christophe Gesché <moosh@claroline.net>
