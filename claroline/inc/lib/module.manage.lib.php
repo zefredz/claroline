@@ -409,10 +409,12 @@ function install_module($modulePath, $skipCheckDir = false)
                 else
                 {
                     //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
+                    if ( isset( $installSqlScript ) ) unset ( $installSqlScript );
+                    $installSqlScript = get_module_path( $module_info['LABEL'] ) . '/setup/install.sql'; 
                 
-                    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.sql'))
+                    if (file_exists( $installSqlScript ) )
                     {
-                        $sql = file_get_contents(get_module_path($module_info['LABEL']) . '/install/install.sql');
+                        $sql = file_get_contents( $installSqlScript );
                         
                         if (!empty($sql))
                         {
@@ -430,9 +432,13 @@ function install_module($modulePath, $skipCheckDir = false)
                     }
                     
                     // call install.php after initialising database in case it requires database to run
-                    if (file_exists(get_module_path($module_info['LABEL']) . '/install/install.php'))
+                    if ( isset( $installPhpScript ) ) unset ( $installPhpScript );
+                    $installPhpScript = get_module_path($module_info['LABEL']) . '/setup/install.php';
+                    
+                    if (file_exists($installPhpScript))
                     {
-                        require get_module_path($module_info['LABEL']) . '/install/install.php';
+                        // FIXME this is very dangerous !!!!
+                        require $installPhpScript;
                         $backlog->info(get_lang( 'Module installation script called' ));
                     }
                     
@@ -645,16 +651,19 @@ function uninstall_module($moduleId)
         // 1- Include the local 'uninstall.sql' and 'uninstall.php' file of the module if they exist
         
         // call uninstall.php first in case it requires module database schema to run
-        if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.php'))
+        if ( isset( $uninstallPhpScript ) ) unset ( $uninstallPhpScript );
+        $uninstallPhpScript = get_module_path($module['label']) . '/setup/uninstall.php'; 
+        if (file_exists( $uninstallPhpScript ))
         {
-            require get_module_path($module['label']) . '/uninstall/uninstall.php';
+            require $uninstallPhpScript;
             $backlog->info( get_lang( 'module uninstallation script called' ) );
         }
     
-    
-        if (file_exists(get_module_path($module['label']) . '/uninstall/uninstall.sql'))
+        if ( isset( $uninstallSqlScript ) ) unset ( $uninstallSqlScript );
+        $uninstallSqlScript = get_module_path($module['label']) . '/setup/uninstall.sql'; 
+        if (file_exists( $uninstallSqlScript ))
         {
-            $sql = file_get_contents(get_module_path($module['label']) . '/uninstall/uninstall.sql');
+            $sql = file_get_contents( $uninstallSqlScript );
             if (!empty($sql))
             {
                 $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
