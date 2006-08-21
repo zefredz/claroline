@@ -149,14 +149,19 @@ function claro_get_main_group_properties($courseId)
         {
             $tempList[$thisData['name']] = (int) $thisData['value'];
         }
-
-        $propertyList ['registrationAllowed'] =   $tempList['self_registration'] == 1;
-        $propertyList ['private'            ] = !($tempList['private']           == 1);
-        $propertyList ['nbGroupPerUser'     ] =   $tempList['nbGroupPerUser'];
-        $propertyList ['tools'] ['CLFRM'    ] =   $tempList['CLFRM']             == 1;
-        $propertyList ['tools'] ['CLDOC'    ] =   $tempList['CLDOC']             == 1;
-        $propertyList ['tools'] ['CLWIKI'   ] =   $tempList['CLWIKI']            == 1;
-        $propertyList ['tools'] ['CLCHT'    ] =   $tempList['CLCHT']             == 1;
+        
+        $propertyList = array();
+        
+        $propertyList ['registrationAllowed'] =  ($tempList['self_registration'] == 1);
+        $propertyList ['private'            ] =  ($tempList['private']           == 1);
+        $propertyList ['nbGroupPerUser'     ] =  $tempList['nbGroupPerUser'];
+        
+        $propertyList['tools'] = array();
+        
+        $propertyList ['tools'] ['CLFRM'    ] =   ($tempList['CLFRM']             == 1);
+        $propertyList ['tools'] ['CLDOC'    ] =   ($tempList['CLDOC']             == 1);
+        $propertyList ['tools'] ['CLWIKI'   ] =   ($tempList['CLWIKI']            == 1);
+        $propertyList ['tools'] ['CLCHT'    ] =   ($tempList['CLCHT']             == 1);
 
         return $propertyList;
     }
