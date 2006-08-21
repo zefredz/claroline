@@ -37,59 +37,46 @@ $nameTools = get_lang("Edit this group");
 $htmlHeadXtra[]='
 <script type="text/javascript" language="JavaScript">
 <!-- Begin javascript menu swapper
-
-function move(fbox, tbox)
+function move( inBox, outBox )
 {
- var arrFbox = new Array();
- var arrTbox = new Array();
- var arrLookup = new Array();
- var i;
-
- for (i = 0; i < tbox.options.length; i++)
- {
-  arrLookup[tbox.options[i].text] = tbox.options[i].value;
-  arrTbox[i] = tbox.options[i].text;
- }
-
- var fLength = 0;
- var tLength = arrTbox.length;
-
- for(i = 0; i < fbox.options.length; i++)
- {
-  arrLookup[fbox.options[i].text] = fbox.options[i].value;
-  if (fbox.options[i].selected && fbox.options[i].value != "")
-  {
-   arrTbox[tLength] = fbox.options[i].text;
-   tLength++;
-  }
-  else
-  {
-    arrFbox[fLength] = fbox.options[i].text;
-    fLength++;
-  }
- }
-
- arrFbox.sort();
- arrTbox.sort();
- fbox.length = 0;
- tbox.length = 0;
- var c;
-
- for(c = 0; c < arrFbox.length; c++)
- {
-  var no = new Option();
-  no.value = arrLookup[arrFbox[c]];
-  no.text = arrFbox[c];
-  fbox[c] = no;
- }
-
- for(c = 0; c < arrTbox.length; c++)
- {
-  var no = new Option();
-  no.value = arrLookup[arrTbox[c]];
-  no.text = arrTbox[c];
-  tbox[c] = no;
- }
+	var arrInBox = new Array();
+	var arrOutBox = new Array();
+	
+	for ( var i=0; i<outBox.options.length; i++ )
+	{
+		arrOutBox[i] = outBox.options[i];
+	}
+	
+	var outLength = arrOutBox.length;
+	var inLength = 0;
+	
+	for ( var i=0; i<inBox.options.length; i++ )
+	{
+		var opt = inBox.options[i];
+		if ( opt.selected )
+		{
+			arrOutBox[outLength] = opt;
+			outLength++;
+		}
+		else
+		{
+			arrInBox[inLength] = opt;
+			inLength++;
+		}
+	}
+	
+	inBox.length = 0;
+	outBox.length = 0;
+	
+	for ( var i = 0; i < arrOutBox.length; i++ )
+	{
+		outBox.options[i] = arrOutBox[i];
+	}
+	
+	for ( var i = 0; i < arrInBox.length; i++ )
+	{
+		inBox.options[i] = arrInBox[i];
+	}
 }
 //  End -->
 </script>
@@ -237,7 +224,10 @@ $resultMember = claro_sql_query_fetch_all($sql);
 $usersInGroupList=array();
 foreach ($resultMember as $thisMember )
 {
-    $usersInGroupList[  '*' . htmlspecialchars(ucwords(strtolower($thisMember['name'])) . ' ' . ucwords(strtolower($thisMember['firstname']))  . ($thisMember['role']!=''?' (' . $thisMember['role'] . ')':'')) ]= $thisMember['user_id'];
+    $label = htmlspecialchars(ucwords(strtolower($thisMember['name']))
+        . ' ' . ucwords(strtolower($thisMember['firstname']))  
+        . ($thisMember['role']!=''?' (' . $thisMember['role'] . ')':''));
+    $usersInGroupList[$thisMember['user_id']] = $label;
 }
 
 // Student registered to the course but inserted in no group
@@ -284,7 +274,7 @@ foreach ($result AS $myNotMember )
     $label = htmlspecialchars( ucwords( strtolower( $myNotMember['lastName'])) . ' ' . ucwords(strtolower($myNotMember['firstName'] )) . ($myNotMember['role']!=''?' (' . $myNotMember['role'] . ')':'') )
     .    ( $nbMaxGroupPerUser > 1 ?' (' . $myNotMember['nbg'] . ')' : '' )
     ;
-    $userNotInGroupList[$label] = $myNotMember['user_id'];
+    $userNotInGroupList[$myNotMember['user_id']] = $label;
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
@@ -344,7 +334,7 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<tr valign="top">'
 .    '<td align="right"><label for="inGroup">' . get_lang("Group members") . '</label> : </td>' . "\n"
 .    '<td>'
-.    claro_html_form_select('ingroup[]',$usersInGroupList,'',array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'))
+.    claro_html_form_select('ingroup[]',$usersInGroupList,'',array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'),true)
 .    '<br />' . "\n"
 .    '<br />' . "\n"
 .    '<input type=submit value="' . get_lang("Ok") . '" name="modify" onClick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
@@ -361,7 +351,7 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<input type="button" onClick="move(this.form.elements[\'nogroup\'],this.form.elements[\'ingroup\'])" value="   <<   " / >' . "\n"
 .    '</td>' . "\n"
 .    '<td>' . "\n"
-.    claro_html_form_select('nogroup[]',$userNotInGroupList,'',array('id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple')) . "\n"
+.    claro_html_form_select('nogroup[]',$userNotInGroupList,'',array('id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple'), true) . "\n"
 .    '<br />' . "\n"
 ;
 

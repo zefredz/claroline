@@ -143,13 +143,13 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=null)
+function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=null, $reverted = false)
 {
     $html_select = '<select name="' . $select_name . '" ';
     if (is_array($attr)) foreach($attr as $attr_name=>$attr_value)
     $html_select .=' ' . $attr_name . '="' . $attr_value . '" ';
     $html_select .= '>' . "\n"
-    .                claro_html_option_list($list_option,$preselect)
+    .                claro_html_option_list($list_option,$preselect, $reverted)
     .               '</select>' . "\n"
     ;
 
@@ -166,18 +166,32 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_html_option_list($list_option, $preselect)
+function claro_html_option_list($list_option, $preselect, $reverted = false)
 {
     $html_option_list ='';
     if(is_array($list_option))
     {
-        foreach($list_option as $option_label => $option_value)
+        if ( ! $reverted )
         {
-            $html_option_list .= '<option value="' . $option_value . '"'
-            .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-            .                    htmlspecialchars($option_label)
-            .                    '</option >' . "\n"
-            ;
+            foreach($list_option as $option_label => $option_value)
+            {
+                $html_option_list .= '<option value="' . $option_value . '"'
+                .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
+                .                    htmlspecialchars($option_label)
+                .                    '</option >' . "\n"
+                ;
+            }
+        }
+        else
+        {
+            foreach($list_option as $option_value => $option_label)
+            {
+                $html_option_list .= '<option value="' . $option_value . '"'
+                .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
+                .                    htmlspecialchars($option_label)
+                .                    '</option >' . "\n"
+                ;
+            }
         }
         return $html_option_list;
     }
