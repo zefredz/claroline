@@ -879,7 +879,7 @@ function unregister_module_from_courses( $moduleId )
 /**
  * Unregister module in a course
  * @param int $tool_id
- * @param int $course_id
+ * @param string $course_code
  * @return boolean true if suceeded, false otherwise
  */
 function unregister_module_from_single_course( $tool_id, $course_code )
@@ -890,6 +890,74 @@ function unregister_module_from_single_course( $tool_id, $course_code )
     $sql = "DELETE FROM `".$course_tbl['tool']."`
             WHERE  `tool_id` = " . (int)$tool_id;
             
+    if ( false === claro_sql_query($sql) )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+/**
+ * Set module visibility in all courses
+ * @param int $moduleId id of the module
+ * @param bool $visibility true for visible, false for invisible
+ * @return array( backlog, boolean )
+ *      backlog object
+ *      boolean true if suceeded, false otherwise
+ */
+function set_module_visibility( $moduleId, $visibility )
+{
+    $backlog = new Backlog;
+    $success = true;
+    
+    $tbl = claro_sql_get_main_tbl();
+    $moduleInfo =  get_module_info($moduleId);
+    
+    $tool_id = get_course_tool_id($moduleInfo['label'] );
+    
+    $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
+        
+    $course_list = claro_sql_query_fetch_all($sql);
+    
+    $default_visibility = false;
+
+    foreach ($course_list as $course)
+    {
+        if ( false === set_module_visibility_in_course( $tool_id, $course['code'], $visibility ) )
+        {
+            $success = false;
+            $backlog->failure(get_lang( 'Cannot change module visibility in %course'
+                , array( '%course' => $course['code'] )));
+                
+            break;
+        }
+    }
+    
+    return array( $backlog, $success );
+}
+
+/**
+ * Set module tool visibility in one course
+ * @param int $tool_id id of the module tool
+ * @param string $courseCode
+ * @param bool $visibility true for visible, false for invisible
+ * @return array( backlog, boolean )
+ *      backlog object
+ *      boolean true if suceeded, false otherwise
+ */
+function set_module_visibility_in_course( $tool_id, $courseCode, $visibility )
+{
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseCode );
+    $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+    $default_visibility = false;
+
+    $sql = "UPDATE `" . $course_tbl['tool'] . "`
+            SET visibility   = '" . ( $visibility ? 1 : 0 ) . "' 
+            WHERE `tool_id` = " . (int)$tool_id;
+    
     if ( false === claro_sql_query($sql) )
     {
         return false;

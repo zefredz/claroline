@@ -162,6 +162,7 @@ $dockList = get_dock_list($module['type']);
 switch ( $cmd )
 {
     case 'activ' :
+    {
         if (activate_module($moduleId))
         {
             $dialogBox = get_lang('Module sucessfully activated');
@@ -171,9 +172,10 @@ switch ( $cmd )
         {
             $dialogBox = get_lang('could not activate module');
         }
-    break;
-
+        break;
+    }
     case 'deactiv' :
+    {
         if (deactivate_module($moduleId))
         {
             $dialogBox = get_lang('Module sucessfully deactivated');
@@ -184,9 +186,10 @@ switch ( $cmd )
             $dialogBox = get_lang('could not deactivate module');
             $module['activation']  = 'activated';
         }
-    break;
-
+        break;
+    }
     case 'movedock' :
+    {
         if(is_array($dockList))
         {
             foreach ($dockList as $thedock)
@@ -203,6 +206,19 @@ switch ( $cmd )
             $dialogBox = get_lang('Changes in the display of the module have been applied');
         }
         break;
+    }
+    case 'makeVisible':
+    case 'makeInvisible':
+    {
+        $visibility = ( 'makeVisible' == $cmd ) ? true : false;
+        
+        list ( $log, $success ) = set_module_visibility( $moduleId, $visibility );
+        
+        if ( $success ) $dialogBox = get_lang('Module visibility updated');
+        else            $dialogBox = get_lang('Failed to upadte module visibility');
+        
+        break;
+    }
 }
 
 
@@ -267,16 +283,10 @@ if ($item == 'GENERAL' || is_null($item))
 else
 	echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GENERAL">'.get_lang('General Informations').'</a></li>';
 
-if ($module['type'] == 'applet')
-{
-	if ($item == 'GLOBAL')
-		echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL" id="current">'.get_lang('Global settings').'</a></li>';
-	else
-		echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'.get_lang('Global settings').'</a></li>';
-}
+if ($item == 'GLOBAL')
+    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL" id="current">'.get_lang('Global settings').'</a></li>';
 else
-	if ($item == 'GLOBAL')
-		$item = 'LOCAL';
+    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'.get_lang('Global settings').'</a></li>';
 
 $config_code = $module['label'];
 
@@ -300,10 +310,8 @@ echo '  </ul>
 switch ($item)
 {
 	case 'GLOBAL':
-		if ($module['type'] == 'applet')
-		{
-		
-			echo '<table>' . "\n"
+    
+        echo '<table>' . "\n"
 			.    '<tr>' . "\n"
 			.    '<td colspan="2">' . "\n"
 			.    claro_html_tool_title(array('subTitle' => get_lang('Settings'))) . "\n"
@@ -333,9 +341,9 @@ switch ($item)
                 . get_lang('Deactivate').'</b></small>]'
                 ;
 		  }
-
-		  echo '<td align="right" valign="top">'
-		  .    get_lang('Module status')
+          
+        echo '<td align="right" valign="top">'
+		  .    get_lang('Module activation')
 		  .    ' : ' . "\n"
 		  .    '</td>' . "\n"
 		  .    '<td>' . "\n"
@@ -348,8 +356,30 @@ switch ($item)
 		  .    '</td>' . "\n"
 		  .    '</tr>' . "\n"
 		  ;
-	
-		    echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
+        if ($module['type'] == 'tool')
+        {
+            echo '<tr><td>' 
+                . get_lang( 'Module Visibility' )
+                . ' : '
+                .    '</td>' . "\n"
+                .    '<td>' . "\n"
+                . '[<small><a href="'
+                . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL"'
+                . 'title="'.get_lang( 'Make module visible in all courses' ).'">'
+                . get_lang( 'make visible' )
+                . '</a></small>]'
+                . " | "
+                . '[<small><a href="'
+                . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL"'
+                . 'title="'.get_lang( 'Make module invisible in all courses' ).'">'
+                . get_lang( 'make invisible' )
+                . '</a></small>]'
+                . '<td><tr>' . "\n"
+                ;
+        }
+		elseif ($module['type'] == 'applet')
+        {
+		    echo '<tr><td><form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
 
 		    //choose the dock radio button list display
 
@@ -372,6 +402,8 @@ switch ($item)
 		        ;
 		        $isfirstline = '';
 		    }
+            
+            echo '</td></tr>';
 
 		      // display submit button
 
@@ -385,6 +417,10 @@ switch ($item)
 		    .    '</form>'
 		    ;
 		}
+        else // tool
+        {
+            
+        }
 
 		echo '</table>' . "\n"
 		.    '</td>' . "\n"
