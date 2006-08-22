@@ -365,14 +365,9 @@ switch ($item)
 {
 	case 'GLOBAL':
     {
-        echo '<table>' . "\n"
-            .    '<tr>' . "\n"
-            .    '<td colspan="2">' . "\n"
-            .    claro_html_tool_title(array('subTitle' => get_lang('Settings'))) . "\n"
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            .    '<tr>' . "\n"
-            ;
+        echo claro_html_tool_title(array('subTitle' => get_lang('Platform settings')));
+        
+        echo '<table>' . "\n";
     
         //Activation form
 
@@ -397,7 +392,7 @@ switch ($item)
         }
           
         echo '<td align="right" valign="top">'
-          .    get_lang('Module activation')
+          .    get_lang('Activation')
           .    ' : ' . "\n"
           .    '</td>' . "\n"
           .    '<td>' . "\n"
@@ -414,7 +409,7 @@ switch ($item)
         if ($module['type'] == 'tool')
         {
             echo '<tr><td>' 
-                . get_lang( 'Module visibility' )
+                . get_lang( 'Visibility' )
                 . ' : '
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
@@ -528,14 +523,23 @@ switch ($item)
     }
 	default:
     {
+        $moduleDescription = trim( $module['description'] );
+        
+        $moduleDescription = (empty( $moduleDescription ) )
+            ? get_lang('No description given')
+            : $moduleDescription
+            ;
+            
 		echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
 		.    '<p>'
-		.    $module['description']
-		.    '</p>' . "\n"		
+		.    htmlspecialchars( $moduleDescription )
+		.    '</p>' . "\n"
+        ;
+        
+        echo claro_html_tool_title(array('subTitle' => get_lang('General Informations'))) . "\n"
 		.    '<table>' . "\n"
 		.    '<tr>' . "\n"
 		.    '<td colspan="2">' . "\n"
-		.    claro_html_tool_title(array('subTitle' => get_lang('General Informations'))) . "\n"
 		.    '</td>' . "\n"
 		.    '</tr>' . "\n"
 		.    '<tr>' . "\n"
