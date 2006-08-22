@@ -586,7 +586,7 @@ foreach($moduleList as $module)
     //Properties link
 
     echo '<td align="center">'
-    .    '<a href="module.php?module_id='.$module['id'].'&amp;item=GENERAL">'
+    .    '<a href="module.php?module_id='.$module['id'].'">'
     .    '<img src="' . $imgRepositoryWeb . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n";

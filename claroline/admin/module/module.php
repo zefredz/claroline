@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  * @version 1.8 $Revision$
@@ -17,8 +18,15 @@ require '../../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid )
+{
+    claro_disp_auth_form();
+}
+
+if ( ! $is_platformAdmin )
+{
+    claro_die(get_lang('Not allowed'));
+}
 
 //CONFIG and DEVMOD vars :
 
@@ -148,16 +156,19 @@ border-left: 0px solid white;
 ";
 
 //----------------------------------
-// EXECUTE COMMAND
+// GET REQUEST VARIABLES
 //----------------------------------
 
 $cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : null);
-$item = (isset($_REQUEST['item'])? $_REQUEST['item'] : null);
+$item = (isset($_REQUEST['item'])? $_REQUEST['item'] : 'GLOBAL');
 $section_selected = (isset($_REQUEST['section'])? $_REQUEST['section'] : null);
 $moduleId = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
 $module = get_module_info($moduleId);
 $dockList = get_dock_list($module['type']);
 
+//----------------------------------
+// EXECUTE COMMAND
+//----------------------------------
 
 switch ( $cmd )
 {
@@ -214,23 +225,26 @@ switch ( $cmd )
         
         list ( $log, $success ) = set_module_visibility( $moduleId, $visibility );
         
-        if ( $success ) $dialogBox = get_lang('Module visibility updated');
-        else            $dialogBox = get_lang('Failed to upadte module visibility');
+        if ( $success )
+        {
+            $dialogBox = get_lang('Module visibility updated');
+        }
+        else
+        {
+            $dialogBox = get_lang('Failed to upadte module visibility');
+        }
         
         break;
     }
 }
 
-
+// create an array with only dock names
 
 $sql = "SELECT `name` AS `dockname`
         FROM `" . $tbl_dock        . "`
         WHERE `module_id` = " . (int) $moduleId;
 
 $module_dock = claro_sql_query_fetch_all($sql);
-
-//create an array with only dock names
-
 
 $dock_checked = array();
 
@@ -244,8 +258,6 @@ foreach($module_dock as $thedock)
 //----------------------------------
 
 include $includePath . '/claro_init_header.inc.php';
-
-
 
 // find module icon, if any
 
@@ -261,7 +273,10 @@ elseif (file_exists(get_module_path($module['label']) . '/icon.gif'))
 {
     $icon = '<img src="' . get_module_url($module['label']) . '/icon.gif" />';
 }
-else $icon = '<small>' . get_lang('No icon') . '</small>';
+else
+{
+    $icon = '<small>' . get_lang('No icon') . '</small>';
+}
 
 //display title
 
@@ -269,24 +284,35 @@ echo claro_html_tool_title($nameTools . ' : ' . $module['module_name']);
 
 //Display Forms or dialog box(if needed)
 
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ( isset($dialogBox) )
+{
+    echo claro_html_message_box($dialogBox);
+}
 
 //display tabbed navbar
 
-echo   '<div id="modulesettingscontainer">'
-.    '<ul id="modulesettinglist">';
+echo  '<div id="modulesettingscontainer">'
+    . '<ul id="modulesettinglist">'
+    . "\n"
+    ;
 
 //display the module type tabbed naviguation bar
 
-if ($item == 'GENERAL' || is_null($item))
-	echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GENERAL" id="current">'.get_lang('General Informations').'</a></li>';
-else
-	echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GENERAL">'.get_lang('General Informations').'</a></li>';
-
 if ($item == 'GLOBAL')
-    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL" id="current">'.get_lang('Global settings').'</a></li>';
+{
+    echo '<li><a href="module.php?module_id='.$moduleId
+        . '&amp;item=GLOBAL" id="current">'
+        . get_lang('Global settings').'</a></li>'
+        . "\n"
+        ;
+}
 else
-    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'.get_lang('Global settings').'</a></li>';
+{
+    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'
+        . get_lang('Global settings').'</a></li>'
+        . "\n"
+        ;
+}
 
 $config_code = $module['label'];
 
@@ -298,68 +324,97 @@ $config = new ConfigHtml($config_code);
 if ( $config->load() )
 {
 	if ($item == 'LOCAL')
-		echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=LOCAL" id="current">'.get_lang('Local settings').'</a></li>';
+    {
+		echo '<li><a href="module.php?module_id='.$moduleId
+            . '&amp;item=LOCAL" id="current">'
+            . get_lang('Local settings').'</a></li>'
+            . "\n"
+            ;
+    }
 	else
-		echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=LOCAL">'.get_lang('Local settings').'</a></li>';
+    {
+		echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=LOCAL">'
+            . get_lang('Local settings').'</a></li>'
+            . "\n"
+            ;
+    }
 }
 
-echo '  </ul>
-      </div>';
+if ($item == 'GENERAL' || is_null($item))
+{
+	echo '<li><a href="module.php?module_id='.$moduleId
+        . '&amp;item=GENERAL" id="current">'
+        . get_lang('About').'</a></li>'
+        . "\n"
+        ;
+}
+else
+{
+	echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GENERAL">'
+        . get_lang('About').'</a></li>'
+        . "\n"
+        ;
+}
+
+echo '</ul>'. "\n"
+    . '</div>'. "\n"
+    ;
 
 
 switch ($item)
 {
 	case 'GLOBAL':
-    
+    {
         echo '<table>' . "\n"
-			.    '<tr>' . "\n"
-			.    '<td colspan="2">' . "\n"
-			.    claro_html_tool_title(array('subTitle' => get_lang('Settings'))) . "\n"
-			.    '</td>' . "\n"
-			.    '</tr>' . "\n"
-			.    '<tr>' . "\n"
-			;
-	
-			//Activation form
-	
-		  if ('activated' == $module['activation'] )
-		  {
-		      $activ_form  = 'deactiv';
-		      $action_link = '[<b><small>'.get_lang('Activate')
-                . '</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] 
-                . '?cmd='.$activ_form.'&module_id='.$module['module_id']
-                . '&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]'
-                ;
-		  }
-		  else
-		  {
-		      $activ_form  = 'activ';
-		      $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] 
-                . '?cmd='.$activ_form.'&module_id=' 
-                . $module['module_id'].'&item=GLOBAL">'
-                . get_lang("Activate").'</a></small>] | [<small><b>'
-                . get_lang('Deactivate').'</b></small>]'
-                ;
-		  }
+            .    '<tr>' . "\n"
+            .    '<td colspan="2">' . "\n"
+            .    claro_html_tool_title(array('subTitle' => get_lang('Settings'))) . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '<tr>' . "\n"
+            ;
+    
+        //Activation form
+
+        if ('activated' == $module['activation'] )
+        {
+          $activ_form  = 'deactiv';
+          $action_link = '[<b><small>'.get_lang('Activate')
+            . '</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] 
+            . '?cmd='.$activ_form.'&module_id='.$module['module_id']
+            . '&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]'
+            ;
+        }
+        else
+        {
+          $activ_form  = 'activ';
+          $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] 
+            . '?cmd='.$activ_form.'&module_id=' 
+            . $module['module_id'].'&item=GLOBAL">'
+            . get_lang("Activate").'</a></small>] | [<small><b>'
+            . get_lang('Deactivate').'</b></small>]'
+            ;
+        }
           
         echo '<td align="right" valign="top">'
-		  .    get_lang('Module activation')
-		  .    ' : ' . "\n"
-		  .    '</td>' . "\n"
-		  .    '<td>' . "\n"
-		  .    $action_link . "\n"
-		  .    '</td>' . "\n"
-		  .    '</tr>' . "\n"
-		  .    '<tr>' . "\n"
-		  .    '<td>' . "\n"
-		  .    '<br/>' . "\n"
-		  .    '</td>' . "\n"
-		  .    '</tr>' . "\n"
-		  ;
+          .    get_lang('Module activation')
+          .    ' : ' . "\n"
+          .    '</td>' . "\n"
+          .    '<td>' . "\n"
+          .    $action_link . "\n"
+          .    '</td>' . "\n"
+          .    '</tr>' . "\n"
+          .    '<tr>' . "\n"
+          .    '<td>' . "\n"
+          .    '<br/>' . "\n"
+          .    '</td>' . "\n"
+          .    '</tr>' . "\n"
+          ;
+          
         if ($module['type'] == 'tool')
         {
             echo '<tr><td>' 
-                . get_lang( 'Module Visibility' )
+                . get_lang( 'Module visibility' )
                 . ' : '
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
@@ -377,58 +432,62 @@ switch ($item)
                 . '<td><tr>' . "\n"
                 ;
         }
-		elseif ($module['type'] == 'applet')
+        elseif ($module['type'] == 'applet')
         {
-		    echo '<tr><td><form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
-
-		    //choose the dock radio button list display
-
-		    $isfirstline = get_lang('Display') . ' : ';
-
-		    //display each option
-		    if (is_array($dockList) && $module['type']!='tool')
-		    foreach ($dockList as $dock)
-		    {
-
-		        if (in_array($dock,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
-
-		        echo '<tr>' ."\n"
-		        .    '<td syle="align:right">' . $isfirstline . '</td>' ."\n"
-		        .    '<td>' ."\n"
-		        .    '<input type="checkbox" name="' . $dock . '" value="' . $dock . '" ' . $is_checked . ' />'
-		        .    $dock
-		        .    '</td>' ."\n"
-		        .    '</tr>' ."\n"
-		        ;
-		        $isfirstline = '';
-		    }
+            echo '<tr><td><form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
+    
+            //choose the dock radio button list display
+    
+            $isfirstline = get_lang('Display') . ' : ';
+    
+            //display each option
+            if (is_array($dockList) && $module['type']!='tool')
+            {
+                foreach ($dockList as $dock)
+                {
+        
+                    if (in_array($dock,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
+        
+                    echo '<tr>' ."\n"
+                    .    '<td syle="align:right">' . $isfirstline . '</td>' ."\n"
+                    .    '<td>' ."\n"
+                    .    '<input type="checkbox" name="' . $dock . '" value="' . $dock . '" ' . $is_checked . ' />'
+                    .    $dock
+                    .    '</td>' ."\n"
+                    .    '</tr>' ."\n"
+                    ;
+                    $isfirstline = '';
+                }
+            }
             
             echo '</td></tr>';
-
-		      // display submit button
-
-		    echo '<tr>' ."\n"
-		    .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
-		    .    '<td >'
-		    .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
-		    .    '<input type="submit" value="' . get_lang('Ok') . '" /> '. "\n"
-		    .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
-		    .    '</tr>' . "\n"
-		    .    '</form>'
-		    ;
-		}
-        else // tool
-        {
-            
+    
+              // display submit button
+    
+            echo '<tr>' ."\n"
+            .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
+            .    '<td >'
+            .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
+            .    '<input type="submit" value="' . get_lang('Ok') . '" /> '. "\n"
+            .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '</form>'
+            ;
         }
-
-		echo '</table>' . "\n"
-		.    '</td>' . "\n"
-		.    '</tr>' . "\n"
-		.    '</table>' . "\n"
-		;
-	break;
+        else // not a tool, not an applet
+        {
+            // nothing to do at the moment
+        }
+    
+        echo '</table>' . "\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
+        .    '</table>' . "\n"
+        ;
+        break;
+    }
 	case 'LOCAL':
+    {
 		$form = '';
 
     	$url_params = '&module_id='. $moduleId .'&item='. htmlspecialchars($item); 
@@ -458,12 +517,17 @@ switch ($item)
     	
     	echo '<div style=padding-left:1em;padding-right:1em;>';
 
-        if ( ! empty($message) ) echo claro_html_message_box(implode('<br />',$message));
+        if ( ! empty($message) )
+        {
+            echo claro_html_message_box(implode('<br />',$message));
+        }
 
     	echo $form.'</div>';
 
-	break;
+        break;
+    }
 	default:
+    {
 		echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
 		.    '<p>'
 		.    $module['description']
@@ -523,6 +587,7 @@ switch ($item)
 		.    '<td>' . "\n"
 		.    '<table>' . "\n"
 		;
+    }
 }
 
 echo '</table>' . "\n"
