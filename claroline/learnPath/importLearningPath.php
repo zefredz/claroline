@@ -114,7 +114,7 @@ function startElement($parser,$name,$attributes)
             {
                 foreach ($manifestData['items'] as $itemToCheck )
                 {
-                    if ( $itemToCheck['identifierref'] == $attributes['IDENTIFIER'] )
+                    if ( isset($itemToCheck['identifierref']) && $itemToCheck['identifierref'] == $attributes['IDENTIFIER'] )
                     {
                         if (isset($attributes['HREF'])) $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
 
@@ -646,7 +646,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                 $errorFound = true;
                 array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
-                break;
             }
         }
         else
@@ -1098,7 +1097,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     {
         echo "\n<br /><center><b>".get_lang('An error occured.  Learning Path import failed.')."</b></center>";
     }
-    echo "\n<br /><a href=\"learningPathList.php\">".get_lang('Back')."</a>";
+    echo "\n<br /><a href=\"learningPathList.php\">&lt;&lt; ".get_lang('Back')."</a>";
 
 }
 else // if method == 'post'
