@@ -72,8 +72,8 @@ if( !$_uid || !$userProgressionDetails )
     $sco['lesson_status'] = "not attempted";
     $sco['entry'] = "ab-initio";
     $sco['raw'] = "";
-    $sco['scoreMin'] = "";
-    $sco['scoreMax'] = "";
+    $sco['scoreMin'] = "0";
+    $sco['scoreMax'] = "100";
     $sco['total_time'] = "0000:00:00.00";
     $sco['suspend_data'] = "";
     $sco['launch_data'] = "";
