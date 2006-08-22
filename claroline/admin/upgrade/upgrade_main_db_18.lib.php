@@ -26,24 +26,47 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  Upgrade to claroline 1.8
  ===========================================================================*/
 
-function upgrade_main_database_to_18 ()
+/**
+ * Upgrade table course (from main database) to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_course_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
 
-    switch( $step = get_upgrade_status('MAINDB18') )
+    switch( $step = get_upgrade_status('COURSE_18') )
     {
         case 1 :    
-
-            // course
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `defaultProfileId` int(11) NOT NULL";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
-           
-        case 2 :
- 
-            // rel_course_user
+        
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    
+    }
+  	
+    return false;
+
+}
+
+/**
+ * Upgrade table rel_course_user (from main database) to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_rel_course_user_to_18 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    switch( $step = get_upgrade_status('COURSEUSER_18') )
+    {           
+        case 1 :
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `profile_id` int(11) NOT NULL ";
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` ADD `count_user_enrol` int(11) NOT NULL default 0 ";
@@ -57,23 +80,67 @@ function upgrade_main_database_to_18 ()
                                WHERE `statut` = 1 ";
             
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['rel_course_user'] . "` DROP COLUMN `statut` "; 
-            
+
+            // count_user_enrol egals 1
+
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['rel_course_user'] . "` SET `count_user_enrol` = 1 ";
+
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
-        case 3 :
+        default :
 
-            // course category
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    
+    }
+  	
+    return false;
+
+}
+
+/**
+ * Upgrade table course_category (from main database) to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_course_category_to_18 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    switch( $step = get_upgrade_status('COURSECAT_18') )
+    {           
+
+        case 1 :
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` DROP COLUMN `bc` ";
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['category'] . "` CHANGE `nb_childs` `nb_childs` smallint(6) default 0";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
-            
-        case 4 :
 
-            // user
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    
+    }
+  	
+    return false;
+}
+
+/**
+ * Upgrade table user (from main database) to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_user_to_18 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    switch( $step = get_upgrade_status('USER_18') )
+    {                       
+        case 1 :
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `language` varchar(15) default NULL";
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `officialEmail` varchar(255) default NULL AFTER `officialCode`";
@@ -91,13 +158,51 @@ function upgrade_main_database_to_18 ()
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` DROP COLUMN `statut` ";
 
-            // TODO `isPlatformAdmin` --> from admin table
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['user'] . "` ADD `isPlatformAdmin`  tinyint(4) default 0";
             
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 5);
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
-        case 5 :
+        case 2 :
+            
+            // `isPlatformAdmin` --> from admin table
+            
+            $sql = " SELECT `admin`.`idUser` FROM . `" . $tbl_mdb_names['admin'] . "`";
+
+            $result = claro_sql_query_fetch_all_cols($sql);
+
+            $admin_uid_list = $result['idUser'];
+    
+            $sql = " UPDATE `" . $tbl_mdb_names['user'] . "`
+                     SET 
+                     WHERE user_id IN (" . implode(',',$admin_uid_list) . ")";
+
+            if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;            
+        
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    
+    }
+  	
+    return false;    
+
+}
+
+/**
+ * Upgrade table rel_course_class (from main database) to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_course_class_to_18 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    switch( $step = get_upgrade_status('COURSE_CLASS_18') )
+    {                       
+        case 1 :
 
             // course class
 
@@ -108,8 +213,29 @@ function upgrade_main_database_to_18 ()
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
+        
+        default :
 
-        case 6 :
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    
+    }
+  	
+    return false;    
+}
+
+/**
+ * Upgrade module (from main database) to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_module_to_18 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    switch( $step = get_upgrade_status('MODULE_18') )
+    {           
+        case 1 :
 
             // module
              
@@ -151,13 +277,41 @@ function upgrade_main_database_to_18 ()
               icon      varchar(255) NOT NULL default 'icon.png',
               PRIMARY KEY  (id)
             ) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
-            
+                        
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
-        case 7 :
+        case 2 :
+            
+            // TODO fill these tables
+            
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+        
+        default :
 
-            // add right table
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    
+    }
+  	
+    return false;    
+}
+
+/**
+ * Upgrade right (from main database) to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_right_to_18 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    switch( $step = get_upgrade_status('RIGHT_18') )
+    {           
+        case 1 :
+
+            // add right tables
 
             $sqlForUpdate[] = " CREATE TABLE IF NOT EXISTS `". $tbl_mdb_names['right_profile'] . "` (
                `profile_id` int(11) NOT NULL auto_increment,
@@ -198,7 +352,28 @@ function upgrade_main_database_to_18 ()
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
+        case 2 :
+
+            include_once $GLOBALS['includePath'] . '../../inc/lib/right/right_profile.lib.php' ;
+            include_once $GLOBALS['includePath'] . '../../install/init_profile_right.lib.php' ;
+
+            create_required_profile();
+            init_default_right_profile();
+            
+            // set profile_id in rel course_user
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['rel_course_user'] . "` SET `profile_id` = " . claro_get_profile_id(USER_PROFILE) . "
+                               WHERE `isCourseManager` = 0";
+            
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['rel_course_user'] . "` SET `profile_id` = " . claro_get_profile_id(MANAGER_PROFILE) . "
+                               WHERE `isCourseManager` = 0"; 
+
+            // set default profile_id in course
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
         default :
+
             $step = set_upgrade_status($tool, 0);
             return $step;
     
