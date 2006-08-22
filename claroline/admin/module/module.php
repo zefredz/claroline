@@ -46,6 +46,9 @@ $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administra
 $interbredcrump[]= array ('url' => 'module_list.php', 'name' => get_lang('Module list'));
 
 $nameTools = get_lang('Module settings');
+$undeactivable_tool_array = array('CLDOC',
+								  'CLGRP'
+								 );	
 
 //NEEDED CSS
 
@@ -370,26 +373,31 @@ switch ($item)
         echo '<table>' . "\n";
     
         //Activation form
-
-        if ('activated' == $module['activation'] )
+        if (in_array($module['label'],$undeactivable_tool_array))
         {
-          $activ_form  = 'deactiv';
-          $action_link = '[<b><small>'.get_lang('Activate')
-            . '</small></b>] | [<small><a href="' . $_SERVER['PHP_SELF'] 
-            . '?cmd='.$activ_form.'&module_id='.$module['module_id']
-            . '&item=GLOBAL">'.get_lang("Deactivate").'</a></small>]'
-            ;
-        }
-        else
-        {
-          $activ_form  = 'activ';
-          $action_link = '[<small><a href="' . $_SERVER['PHP_SELF'] 
-            . '?cmd='.$activ_form.'&module_id=' 
-            . $module['module_id'].'&item=GLOBAL">'
-            . get_lang("Activate").'</a></small>] | [<small><b>'
-            . get_lang('Deactivate').'</b></small>]'
-            ;
-        }
+            $action_link = get_lang('This module cannot be deactivated');
+	    }
+        elseif ( 'activated' == $module['activation'] )
+    	{
+            $activ_form  = 'deactiv';
+        	$action_link = '<a href="' . $_SERVER['PHP_SELF'] 
+                . '?cmd='.$activ_form.'&module_id='.$module['module_id']
+                . '&item=GLOBAL" title="'
+                . get_lang('Activated - Click to deactivate').'">' 
+                . '<img src="' . $imgRepositoryWeb 
+                . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /></a>'
+                ;
+    	}
+    	else
+    	{
+        	$activ_form  = 'activ';
+            $action_link = '<a href="' . $_SERVER['PHP_SELF'] 
+                . '?cmd='.$activ_form.'&module_id=' 
+                . $module['module_id'].'&item=GLOBAL" '
+                . 'title="'.get_lang('Deactivated - Click to activate').'">' 
+                . '<img src="' . $imgRepositoryWeb 
+                . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
+    	}
           
         echo '<td align="right" valign="top">'
           .    get_lang('Activation')
@@ -413,17 +421,21 @@ switch ($item)
                 . ' : '
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
-                . '[<small><a href="'
+                . '<small><a href="'
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module visible in all courses' ).'">'
+                . '<img src="' . $imgRepositoryWeb 
+                . 'visible.gif" border="0" alt="'. get_lang('visible') . '"/> '
                 . get_lang( 'make visible' )
-                . '</a></small>]'
+                . '</a></small>'
                 . " | "
-                . '[<small><a href="'
+                . '<small><a href="'
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module invisible in all courses' ).'">'
+                . '<img src="' . $imgRepositoryWeb 
+                . 'invisible.gif" border="0" alt="'. get_lang('invisible') . '"/> '
                 . get_lang( 'make invisible' )
-                . '</a></small>]'
+                . '</a></small>'
                 . '<td><tr>' . "\n"
                 ;
         }
