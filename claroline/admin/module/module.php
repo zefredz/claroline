@@ -158,6 +158,24 @@ border-left: 0px solid white;
 </style>
 ";
 
+$htmlHeadXtra[] =
+"<script type=\"text/javascript\">
+function confirmMakeVisible ()
+{
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to make this module visible in all courses ?"))."\"))
+        {return true;}
+    else
+        {return false;}
+}
+function confirmMakeInVisible ()
+{
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to make this module invisible in all courses ?"))."\"))
+        {return true;}
+    else
+        {return false;}
+}
+</script>";
+
 //----------------------------------
 // GET REQUEST VARIABLES
 //----------------------------------
@@ -423,7 +441,8 @@ switch ($item)
                 .    '<td>' . "\n"
                 . '<small><a href="'
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL"'
-                . 'title="'.get_lang( 'Make module visible in all courses' ).'">'
+                . 'title="'.get_lang( 'Make module visible in all courses' ).'"'
+                . ' onclick="return confirmMakeVisible();">'
                 . '<img src="' . $imgRepositoryWeb 
                 . 'visible.gif" border="0" alt="'. get_lang('visible') . '"/> '
                 . get_lang( 'make visible' )
@@ -431,7 +450,8 @@ switch ($item)
                 . " | "
                 . '<small><a href="'
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL"'
-                . 'title="'.get_lang( 'Make module invisible in all courses' ).'">'
+                . 'title="'.get_lang( 'Make module invisible in all courses' ).'"'
+                . ' onclick="return confirmMakeInVisible();">'
                 . '<img src="' . $imgRepositoryWeb 
                 . 'invisible.gif" border="0" alt="'. get_lang('invisible') . '"/> '
                 . get_lang( 'make invisible' )
