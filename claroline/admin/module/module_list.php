@@ -79,7 +79,7 @@ $tbl_course_tool = $tbl_name['tool'];
 $tbl = claro_sql_get_tbl(array('module_tool'));
 
 
-$nameTools = get_lang('Module list');
+$nameTools = get_lang('Modules');
 $interbredcrump[]= array ('url' => $rootAdminWeb,'name' => get_lang('Administration'));
 $dialogBox  ='';
 
