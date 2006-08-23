@@ -225,7 +225,7 @@ function tool_list_upgrade_to_18 ($course_code)
  * @return boolean whether true if succeed
  */
 
-function qwiz_upgrade_to_18 ($course_code)
+function quiz_upgrade_to_18 ($course_code)
 {
     global $currentCourseVersion;
 

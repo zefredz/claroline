@@ -308,7 +308,9 @@ switch ($display)
                 if ( preg_match('/^1.7/',$currentCourseVersion) )
                 {
                     // Function to upgrade tool to 1.8
-                    $function_list = array( 'group_upgrade_to_18');
+                    $function_list = array( 'group_upgrade_to_18',
+                                            'tool_list_upgrade_to_18',
+                                            'quiz_upgrade_to_18');
 
                     foreach ( $function_list as $function )
                     {
