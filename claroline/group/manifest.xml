@@ -8,9 +8,7 @@
     <web>http://www.claroline.net/wiki/CLGRP/</web>
     <entry>group.php</entry>
     <description>
-        <![CDATA[
-                 This tool is an original tool of claroline
-                 ]]>
+        This tool allows group-based activities and group management in Claroline
     </description>
 
     <author>
