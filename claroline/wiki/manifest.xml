@@ -9,18 +9,16 @@
   <entry>wiki.php</entry>
 
   <description>
-  <![CDATA[
      This is the original Wiki tool for the Claroline platform. It allows
      online collaborative edition of web pages using a simplified Wiki
      syntax based on Olivier Meunier's wiki2xhtml renderer from the
      Dotclear blog project.
-  ]]>
   </description>
 
   <author>
-     <name>Claro team</name>
-     <email>devteam@claroline.net</email>
-     <web>http://www.claroline.net/</web>
+     <name>Fr&#233;d&#233;ric Minne</name>
+     <email>zefredz@claroline.net</email>
+     <web>http://www.claroline.net/wiki/CLWIKI/</web>
   </author>
 
   <requirements>
