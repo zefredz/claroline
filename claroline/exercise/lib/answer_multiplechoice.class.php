@@ -359,7 +359,7 @@ class answerMultipleChoice
 	    		$html .=
 	    			'</td>' . "\n"
 	    		.	'<td width="95%">' . "\n"
-	    		.	'<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . $answer['answer'] . '</label>' . "\n"
+	    		.	'<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . htmlspecialchars($answer['answer']) . '</label>' . "\n"
 	    		.	'</td>' . "\n"
 	    		.	'</tr>' . "\n\n";
 			}	
