@@ -235,6 +235,7 @@ $creationStatementList[]=
   PRIMARY KEY  (id)
 ) TYPE=MyISAM AUTO_INCREMENT=0";
 
+/*
 $creationStatementList[]=
 "CREATE TABLE `" . $mainTblPrefixForm . "module_tool` (
   id        smallint  unsigned NOT NULL auto_increment,
@@ -244,7 +245,6 @@ $creationStatementList[]=
   PRIMARY KEY  (id)
 ) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
 
-/*
 $creationStatementList[]=
 "CREATE TABLE `" . $mainTblPrefixForm . "module_rel_tool_context` (
   id         smallint unsigned NOT NULL auto_increment,
