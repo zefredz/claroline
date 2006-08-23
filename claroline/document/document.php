@@ -478,6 +478,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
             $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
+            
+            $htmlContent = claro_parse_user_text( $htmlContent );
 
             create_file($baseWorkDir.$cwd.'/'.$fileName,
                         $htmlContent);
