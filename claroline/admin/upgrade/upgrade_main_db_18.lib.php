@@ -39,6 +39,8 @@ function upgrade_main_database_course_to_18 ()
     {
         case 1 :    
 
+            // Add defaultProfileId column
+
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "` ADD `defaultProfileId` int(11) NOT NULL";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -179,6 +181,15 @@ function upgrade_main_database_user_to_18 ()
 
             if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;            
+
+        case 3 :
+
+            // drop table admin
+
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . $tbl_mdb_names['admin'] . "`";
+            
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;            
         
         default :
 
@@ -269,23 +280,84 @@ function upgrade_main_database_module_to_18 ()
               rank      tinyint  unsigned NOT NULL default '0',
               PRIMARY KEY  (id)
             ) TYPE=MyISAM AUTO_INCREMENT=0";
-            
-            $sqlForUpdate[]= "CREATE TABLE `" . $tbl_mdb_names['module_tool'] . "` (
-              id        smallint  unsigned NOT NULL auto_increment,
-              module_id smallint  unsigned NOT NULL,
-              entry     varchar(255) NOT NULL default 'entry.php',
-              icon      varchar(255) NOT NULL default 'icon.png',
-              PRIMARY KEY  (id)
-            ) TYPE=MyISAM COMMENT='based definiton of the claroline tool'" ;
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
         case 2 :
             
-            // TODO fill these tables
+            // include libray to manage module
+            require_once $GLOBALS['includePath'] . '/inc/lib/module_manage.lib.php'; 
+
+            $error = false ;
+
+            $sql = " SELECT id, claro_label, script_url, icon, def_access, def_rank, add_in_course, access_manager
+                     FROM `" . $tbl_mdb_names['tool'] . "`";
+
+            $toolList = claro_sql_query_fetch_all($sql);
+
+            foreach ( $toolList as $tool )
+            {                
+                $toolLabel = $tool['claro_label'];
+
+                // get module path, for read module manifest
+                $toolPath = get_module_path($toolLabel);
+
+                if ( ( $toolInfo = readModuleManifest($toolPath) ) !== false )
+                {
+                    // get script url
+                    if (isset($toolInfo['ENTRY']))
+                    {
+                        $script_url = $module_info['ENTRY'];
+                    }
+                    else
+                    {
+                        $script_url = 'entry.php';
+                    }                    
+                }
+                else
+                {
+                    // init toolInfo
+                    $toolInfo['LABEL'] = $tool['claro_label'];
+                    $toolInfo['NAME'] = $tool['claro_label'];
+                    $toolInfo['TYPE'] = 'tool';
+                    $toolInfo['CLAROLINE']['VERSION'] = '1.8';
+                    $toolInfo['AUTHOR']['NAME'] = '' ;
+                    $toolInfo['AUTHOR']['EMAIL'] = '' ;
+                    $toolInfo['AUTHOR']['WEB'] = '' ;
+                    $toolInfo['DESCRIPTION'] = '';
+                    $toolInfo['LICENSE'] = 'unknown' ;                    
+                    $script_url = $tool['script_url'];
+                }
+
+                // fill table module and module_info
+                // code from register_module_core from inc/lib/module_manage.lib.php
+
+                $sql = "INSERT INTO `" . $tbl['module'] . "`
+                        SET label      = '" . addslashes($toolInfo['LABEL']) . "',
+                            name       = '" . addslashes($toolInfo['NAME']) . "',
+                            type       = '" . addslashes($toolInfo['TYPE']) . "',
+                            script_url = '" . addslashes($script_url). "'";
+
+                $moduleId = claro_sql_query_insert_id($sql);
+
+                $sql = "INSERT INTO `" . $tbl['module_info'] . "`
+                        SET module_id    = " . (int) $moduleId . ",
+                            version      = '" . addslashes($toolInfo['CLAROLINE']['VERSION']) . "',
+                            author       = '" . addslashes($toolInfo['AUTHOR']['NAME'  ]) . "',
+                            author_email = '" . addslashes($toolInfo['AUTHOR']['EMAIL' ]) . "',
+                            website      = '" . addslashes($toolInfo['AUTHOR']['WEB'   ]) . "',
+                            description  = '" . addslashes($toolInfo['DESCRIPTION'     ]) . "',
+                            license      = '" . addslashes($toolInfo['LICENSE'         ]) . "'";
+
+                if ( upgrade_sql_query($sql) === false )
+                {
+                    $error = true ;
+                    break;
+                }
+            }
             
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            if ( ! $error ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
         
         default :
@@ -354,8 +426,8 @@ function upgrade_main_database_right_to_18 ()
 
         case 2 :
 
-            include_once $GLOBALS['includePath'] . '../../inc/lib/right/right_profile.lib.php' ;
-            include_once $GLOBALS['includePath'] . '../../install/init_profile_right.lib.php' ;
+            include_once $GLOBALS['includePath'] . '/../../inc/lib/right/right_profile.lib.php' ;
+            include_once $GLOBALS['includePath'] . '/../../install/init_profile_right.lib.php' ;
 
             create_required_profile();
             init_default_right_profile();
