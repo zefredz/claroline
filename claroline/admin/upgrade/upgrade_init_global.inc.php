@@ -3,7 +3,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
-error_reporting(error_reporting() & ~ E_NOTICE);
+//error_reporting(error_reporting() & ~ E_NOTICE);
 
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
@@ -149,14 +149,7 @@ if ($statsDbName == '')
   Load language files
   ----------------------------------------------------------------------*/
 
-if ($_course['language'])
-{
-    $languageInterface = $_course['language'];
-}
-else
-{
-    $languageInterface = $platformLanguage;
-}
+$languageInterface = $platformLanguage;
 
 // include the language file with all language variables
 
