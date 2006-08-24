@@ -34,8 +34,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 function upgrade_main_database_course_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'COURSE_18' ;
 
-    switch( $step = get_upgrade_status('COURSE_18') )
+    switch( $step = get_upgrade_status($tool) )
     {
         case 1 :    
 
@@ -65,8 +66,9 @@ function upgrade_main_database_course_to_18 ()
 function upgrade_main_database_rel_course_user_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'COURSEUSER_18';
 
-    switch( $step = get_upgrade_status('COURSEUSER_18') )
+    switch( $step = get_upgrade_status($tool) )
     {           
         case 1 :
 
@@ -109,8 +111,9 @@ function upgrade_main_database_rel_course_user_to_18 ()
 function upgrade_main_database_course_category_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'COURSECAT_18';
 
-    switch( $step = get_upgrade_status('COURSECAT_18') )
+    switch( $step = get_upgrade_status($tool) )
     {           
 
         case 1 :
@@ -139,8 +142,9 @@ function upgrade_main_database_course_category_to_18 ()
 function upgrade_main_database_user_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'USER_18';
 
-    switch( $step = get_upgrade_status('USER_18') )
+    switch( $step = get_upgrade_status($tool) )
     {                       
         case 1 :
 
@@ -210,8 +214,9 @@ function upgrade_main_database_user_to_18 ()
 function upgrade_main_database_course_class_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'COURSE_CLASS_18';
 
-    switch( $step = get_upgrade_status('COURSE_CLASS_18') )
+    switch( $step = get_upgrade_status($tool) )
     {                       
         case 1 :
 
@@ -243,8 +248,9 @@ function upgrade_main_database_course_class_to_18 ()
 function upgrade_main_database_module_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'MODULE_18';
 
-    switch( $step = get_upgrade_status('MODULE_18') )
+    switch( $step = get_upgrade_status($tool) )
     {           
         case 1 :
 
@@ -378,8 +384,9 @@ function upgrade_main_database_module_to_18 ()
 function upgrade_main_database_right_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'RIGHT_18';
 
-    switch( $step = get_upgrade_status('RIGHT_18') )
+    switch( $step = get_upgrade_status($tool) )
     {           
         case 1 :
 
