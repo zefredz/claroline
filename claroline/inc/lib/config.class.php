@@ -141,6 +141,10 @@ class Config
                 {
                     $this->property_list[$property_name] = trueFalse($property_def['default']);
                 }
+                elseif ( 'multi' == $property_def['type'] && ! is_array($property_def['default']) )
+                {
+                    $this->property_list[$property_name][] = $property_def['default'];
+                }
                 else
                 {
                     $this->property_list[$property_name] = $property_def['default'];
