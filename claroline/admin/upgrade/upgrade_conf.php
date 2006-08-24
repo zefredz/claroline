@@ -64,6 +64,7 @@ if ( $cmd == 'run' )
     // Create module, platform, tmp folders
     if ( !file_exists($rootSys . 'module/') ) claro_mkdir($rootSys . 'module/', CLARO_FILE_PERMISSIONS, true);
     if ( !file_exists($rootSys . 'platform/') ) claro_mkdir($rootSys . 'platform/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists($rootSys . 'platform/conf/') ) claro_mkdir($rootSys . 'platform/conf/', CLARO_FILE_PERMISSIONS, true);
     if ( !file_exists($rootSys . 'tmp/') ) claro_mkdir($rootSys . 'tmp/', CLARO_FILE_PERMISSIONS, true);
 
     // Create folder to backup configuration files
@@ -103,7 +104,7 @@ if ( $cmd == 'run' )
         }
 
         // Old variables from 1.5
-        if ( isset($administrator) )
+        if ( isset($current_property_list['administrator']) )
         {
             $current_property_list['administrator_name'] = $administrator['name'];
             $current_property_list['administrator_phone'] = $administrator['phone'];
@@ -111,10 +112,10 @@ if ( $cmd == 'run' )
         }
 
         // Old variables from 1.5
-        if ( isset($institution) )
+        if ( isset($current_property_list['institution']) )
         {
-            $current_property_list['institution_name'] = $institution['name'];
-            $current_property_list['institution_url'] = $institution['url'];
+            $current_property_list['institution_name'] = $current_property_list['institution']['name'];
+            $current_property_list['institution_url'] = $current_property_list['institution']['url'];
         }
 
         // Browse definition file and build them
