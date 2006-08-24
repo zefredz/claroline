@@ -67,7 +67,16 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
 
     if (!is_array($contextData)) $contextData = array();
 
-    $contextDependance = get_context_db_discriminator(rtrim($GLOBALS['_courseTool']['label'],'_'));
+    if ( isset($GLOBALS['_courseTool']['label']) )
+    {
+        $toolId = rtrim($GLOBALS['_courseTool']['label'],'_');
+    }
+    else
+    {
+        $toolId = null;
+    }
+
+    $contextDependance = get_context_db_discriminator($toolId);
 
     // Now place discriminator in db & table name.
     // if a context is needed ($contextData) and $contextDependance is found,
