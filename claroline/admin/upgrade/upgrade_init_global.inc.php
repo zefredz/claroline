@@ -173,9 +173,9 @@ if ( $languageInterface  != 'english' ) // // Avoid useless include as English l
   Authentification as platform administrator
   ----------------------------------------------------------------------*/
 
-$tbl_mdb_names = claro_sql_get_tbl(array('user','admin'));
+$tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user' ];
-$tbl_admin     = $tbl_mdb_names['admin'];
+$tbl_admin     = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'admin' ;
 
 // default variables initialization
 $claro_loginRequested = false;
