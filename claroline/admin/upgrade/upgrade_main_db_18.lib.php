@@ -349,6 +349,7 @@ function upgrade_main_database_module_to_18 ()
                         SET label      = '" . addslashes($toolInfo['LABEL']) . "',
                             name       = '" . addslashes($toolInfo['NAME']) . "',
                             type       = '" . addslashes($toolInfo['TYPE']) . "',
+                            activation = 'activated' ,
                             script_url = '" . addslashes($script_url). "'";
 
                 $moduleId = claro_sql_query_insert_id($sql);
