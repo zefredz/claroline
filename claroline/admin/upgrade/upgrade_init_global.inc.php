@@ -198,15 +198,18 @@ if ( ! empty($_SESSION['_uid']) && ! ($login) )
 else
 {
     $_uid = null; // uid not in session ? prevent any hacking
+    $is_platformAdmin = false;
 
     if ( $login && $password ) // $login && $password are given to log in
     {
         // lookup the user in the Claroline database
-        $sql = "SHOW TABLES FROM `". $mainDbName."` LIKE 'admin'";
+        $sql = "SHOW TABLES FROM `". $mainDbName."` LIKE '" . get_conf('mainTblPrefix') . "admin'";
+        echo $sql;
+
         if(claro_sql_query_get_single_row($sql))
         {
             $sql = "SELECT user_id, username, password, authSource, creatorId
-                        FROM `".$tbl_user."` `user`, `" . $tbl_admin . "`
+                        FROM `".$tbl_user."` `user`, `" . $tbl_admin . "` `admin`
                         WHERE BINARY username = '". addslashes($login) ."'
                         AND `user`.`user_id` = `admin`.`idUser` ";
         }
@@ -243,6 +246,7 @@ else
             else // abnormal login -> login failed
             {
                 $_uid                 = null;
+                $is_platformAdmin     = false;
                 $claro_loginRequested = true;
                 $claro_loginSucceeded = false;
             }
