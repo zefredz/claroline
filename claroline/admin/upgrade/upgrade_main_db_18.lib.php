@@ -171,6 +171,8 @@ function upgrade_main_database_user_to_18 ()
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
+            unset($sqlForUpdate);
+
         case 2 :
             
             // `isPlatformAdmin` --> from admin table
@@ -196,6 +198,8 @@ function upgrade_main_database_user_to_18 ()
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;            
+            
+            unset($sqlForUpdate);
         
         default :
 
@@ -432,6 +436,8 @@ function upgrade_main_database_right_to_18 ()
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
+            
+            unset($sqlForUpdate);
 
         case 2 :
 
