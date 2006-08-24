@@ -220,7 +220,7 @@ function upgrade_main_database_course_class_to_18 ()
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" .  $tbl_mdb_names['rel_course_class'] . "` (
                 `courseId` varchar(40) NOT NULL,
                 `classId` int(11) NOT NULL default '0',
-                PRIMARY KEY  (`courseId`,`classId`) ";
+                PRIMARY KEY  (`courseId`,`classId`) ) ";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -250,7 +250,7 @@ function upgrade_main_database_module_to_18 ()
 
             // module
              
-            $sqlForUpdate[] = "CREATE TABLE `" . $tbl_mdb_names['module'] . "` (
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['module'] . "` (
               `id`         smallint    unsigned             NOT NULL auto_increment,
               `label`      char(8)                          NOT NULL default '',
               `name`       char(100)                        NOT NULL default '',
@@ -260,7 +260,7 @@ function upgrade_main_database_module_to_18 ()
               PRIMARY KEY  (`id`)
             ) TYPE=MyISAM";
             
-            $sqlForUpdate[] = "CREATE TABLE `".$tbl_mdb_names['module_info'] . "` (
+            $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['module_info'] . "` (
               id             smallint     NOT NULL auto_increment,
               module_id      smallint     NOT NULL default '0',
               version        varchar(10)  NOT NULL default '',
@@ -273,7 +273,7 @@ function upgrade_main_database_module_to_18 ()
               PRIMARY KEY (id)
             ) TYPE=MyISAM AUTO_INCREMENT=0";
             
-            $sqlForUpdate[]= "CREATE TABLE `" . $tbl_mdb_names['dock'] . "` (
+            $sqlForUpdate[]= "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['dock'] . "` (
               id        smallint unsigned NOT NULL auto_increment,
               module_id smallint unsigned NOT NULL default '0',
               name      varchar(50)          NOT NULL default '',
@@ -287,7 +287,7 @@ function upgrade_main_database_module_to_18 ()
         case 2 :
             
             // include libray to manage module
-            require_once $GLOBALS['includePath'] . '/inc/lib/module_manage.lib.php'; 
+            require_once $GLOBALS['includePath'] . '/lib/module.manage.lib.php'; 
 
             $error = false ;
 
@@ -331,7 +331,7 @@ function upgrade_main_database_module_to_18 ()
                 }
 
                 // fill table module and module_info
-                // code from register_module_core from inc/lib/module_manage.lib.php
+                // code from register_module_core from inc/lib/module.manage.lib.php
 
                 $sql = "INSERT INTO `" . $tbl['module'] . "`
                         SET label      = '" . addslashes($toolInfo['LABEL']) . "',
@@ -426,8 +426,8 @@ function upgrade_main_database_right_to_18 ()
 
         case 2 :
 
-            include_once $GLOBALS['includePath'] . '/../../inc/lib/right/right_profile.lib.php' ;
-            include_once $GLOBALS['includePath'] . '/../../install/init_profile_right.lib.php' ;
+            include_once $GLOBALS['includePath'] . '/lib/right/right_profile.lib.php' ;
+            include_once $GLOBALS['includePath'] . '/../install/init_profile_right.lib.php' ;
 
             create_required_profile();
             init_default_right_profile();
