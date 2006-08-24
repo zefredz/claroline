@@ -55,6 +55,10 @@ PRIMARY KEY ( `id` )
 
 claro_sql_query($sql);
 
+$sql = "ALTER IGNORE TABLE `" . $tbl_upgrade_status . "` CHANGE `claro_label` `claro_label` VARCHAR(50) ";
+
+claro_sql_query($sql);
+
 /**
  * Initialise variables
  */
