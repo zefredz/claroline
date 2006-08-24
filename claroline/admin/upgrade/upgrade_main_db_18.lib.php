@@ -175,14 +175,14 @@ function upgrade_main_database_user_to_18 ()
             
             // `isPlatformAdmin` --> from admin table
             
-            $sql = " SELECT `admin`.`idUser` FROM . `" . $tbl_mdb_names['admin'] . "`";
+            $sql = " SELECT `idUser` FROM `" . $tbl_mdb_names['admin'] . "`";
 
             $result = claro_sql_query_fetch_all_cols($sql);
 
             $admin_uid_list = $result['idUser'];
     
             $sql = " UPDATE `" . $tbl_mdb_names['user'] . "`
-                     SET 
+                     SET `isPlatformAdmin` = 1
                      WHERE user_id IN (" . implode(',',$admin_uid_list) . ")";
 
             if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1);
