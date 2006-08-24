@@ -97,11 +97,11 @@ function get_installed_module_list($type = null)
     
     if ( is_array( $moduleList ) && array_key_exists('label', $moduleList ) )
     {
-        return  $moduleList['label'];
+        return $moduleList['label'];
     }
     else
     {
-        return false;
+        return array();
     }
 }
 
