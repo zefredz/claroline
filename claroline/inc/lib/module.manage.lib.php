@@ -351,8 +351,6 @@ function generate_module_cache()
 
 function install_module($modulePath, $skipCheckDir = false)
 {
-    global $includePath;
-
     $backlog = new Backlog;
     $moduleId = false;
 
@@ -470,12 +468,15 @@ function install_module($modulePath, $skipCheckDir = false)
                     }
                 
                     //7- generate the conf if a def file exists
-                
-                    require_once $includePath . '/lib/config.lib.inc.php';
-                    $config = new Config($module_info['LABEL']);
-                    list ($confMessage, $status ) = generate_conf($config);
-                    
-                    $backlog->info($confMessage);
+                    if ( file_exists( get_module_path($module_info['LABEL']) 
+                        . '/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
+                    {
+                        require_once dirname(__FILE__) . '/config.lib.inc.php';
+                        $config = new Config($module_info['LABEL']);
+                        list ($confMessage, $status ) = generate_conf($config);
+                        
+                        $backlog->info($confMessage);
+                    }
                 }
             }
         }
