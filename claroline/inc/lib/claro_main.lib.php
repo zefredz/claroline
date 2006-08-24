@@ -35,6 +35,10 @@ require_once(dirname(__FILE__) . '/compat.lib.php');
  */
 
 require_once(dirname(__FILE__) . '/html.lib.php');
+
+/**
+ * SECTION :  Modules functions
+ */
 require_once(dirname(__FILE__) . '/module.lib.php');
 
 /**
