@@ -142,6 +142,8 @@ function upgrade_main_database_course_category_to_18 ()
 function upgrade_main_database_user_to_18 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_mdb_names['admin'] = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'admin' ;
+
     $tool = 'USER_18';
 
     switch( $step = get_upgrade_status($tool) )
@@ -314,7 +316,7 @@ function upgrade_main_database_module_to_18 ()
                     // get script url
                     if (isset($toolInfo['ENTRY']))
                     {
-                        $script_url = $module_info['ENTRY'];
+                        $script_url = $toolInfo['ENTRY'];
                     }
                     else
                     {
@@ -339,7 +341,7 @@ function upgrade_main_database_module_to_18 ()
                 // fill table module and module_info
                 // code from register_module_core from inc/lib/module.manage.lib.php
 
-                $sql = "INSERT INTO `" . $tbl['module'] . "`
+                $sql = "INSERT INTO `" . $tbl_mdb_names['module'] . "`
                         SET label      = '" . addslashes($toolInfo['LABEL']) . "',
                             name       = '" . addslashes($toolInfo['NAME']) . "',
                             type       = '" . addslashes($toolInfo['TYPE']) . "',
@@ -347,7 +349,7 @@ function upgrade_main_database_module_to_18 ()
 
                 $moduleId = claro_sql_query_insert_id($sql);
 
-                $sql = "INSERT INTO `" . $tbl['module_info'] . "`
+                $sql = "INSERT INTO `" . $tbl_mdb_names['module_info'] . "`
                         SET module_id    = " . (int) $moduleId . ",
                             version      = '" . addslashes($toolInfo['CLAROLINE']['VERSION']) . "',
                             author       = '" . addslashes($toolInfo['AUTHOR']['NAME'  ]) . "',
