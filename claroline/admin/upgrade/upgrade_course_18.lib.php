@@ -309,11 +309,216 @@ function quiz_upgrade_to_18 ($course_code)
                 {
                     return $step;
                 }
-
+                
+		// handle exercises and questions
         case 2 :
-                    
-                $step = set_upgrade_status($tool, 0, $course_code);
+                // add old exercise data in new exercise table
+				$sql_step2[] = "INSERT IGNORE INTO `". $currentCourseDbNameGlu . "qwz_exercise`
+                 (id,title,description,visibility,displayType,shuffle,showAnswers,startDate,endDate,timeLimit,attempts,anonymousAttempts)
+                 SELECT id, titre, description, IF(active,'VISIBLE','INVISIBLE'),IF(type = 1,'ONEPAGE','SEQUENTIAL'),random,show_answer,start_date,end_date,max_time,max_attempt,IF(anonymous_attempts = 'YES','ALLOWED','NOTALLOWED')
+                    FROM `".$currentCourseDbNameGlu."quiz_test`";
+                
+                // add old question data in new question table
+                $sql_step2[] = "INSERT IGNORE INTO `". $currentCourseDbNameGlu . "qwz_question`
+                 (id,title,description,attachment,type,grade)
+                 SELECT id,question,description,attached_file,
+                 		CASE type WHEN 1 THEN 'MCUA' WHEN 2 THEN 'MCMA' WHEN 3 THEN 'FIB' WHEN 4 THEN 'MATCHING' WHEN 5 THEN 'TF' END,
+                 		ponderation
+                    FROM `".$currentCourseDbNameGlu."quiz_question`";
+                
+                // add relations between exercises and questions and recalculate rank
+                $sql_step2[] = "INSERT IGNORE INTO `". $currentCourseDbNameGlu. "qwz_rel_exercise_question`
+                 (exerciseId,questionId,rank)
+                 SELECT exercice_id, question_id, q_position
+                    FROM `".$currentCourseDbNameGlu."quiz_rel_test_question` AS RTQ, `".$currentCourseDbNameGlu."quiz_question` AS Q
+                    WHERE RTQ.question_id = Q.id
+                    ORDER BY exercice_id ASC, q_position ASC";
+                // TODO rank should be "unique" for each exercise
+                
+                if ( upgrade_apply_sql($sql_step2) )
+                {
+                    $step = set_upgrade_status($tool, 3, $course_code);
+                }
+                else
+                {
+                    return $step;
+                }
+                
+        // handle answers        
+		case 3 :                
+                // add MCMA AND MCUA answers (let id auto increment)
+                $sql_step3[] = "INSERT IGNORE INTO `". $currentCourseDbNameGlu . "qwz_answer_multiple_choice`
+                 (questionId,answer,correct,grade,comment)
+                 SELECT A.question_id,A.reponse,A.correct,A.ponderation,A.comment
+                    FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
+                    WHERE A.question_id = Q.id 
+                     AND ( Q.type = 1 OR Q.type = 2 )"; // Q.type = mcma or mcua
 
+				// add FIB answers
+                $sql = "SELECT Q.id, A.reponse
+                    FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
+                    WHERE A.question_id = Q.id 
+                     AND Q.type = 3"; // Q.type = FIB
+
+                $result = upgrade_sql_query($sql);
+
+                if ( ! $result ) return $step;
+
+                while ( ( $row = mysql_fetch_array($result) ) )
+                {                
+                	$reponse = explode( '::',$row['reponse']);
+                	
+                 	$answer = (isset($reponse[0]))?$reponse[0]:'';
+     		       	$gradeList = (isset($reponse[1]))?$reponse[1]:'';
+            		$type = (!empty($reponse[2]))?$reponse[2]:1;
+            		$wrongAnswerList = (isset($reponse[3]))?$reponse[3]:'';
+            		
+            		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_fib`
+                            (`questionId`,`answer`, `gradeList`,`wrongAnswerList`,`type`)
+                            VALUES
+                            ('" . $row['id'] . "',
+                             '" . addslashes($answer) . "',
+                             '" . addslashes($gradeList) . "',
+                             '" . addslashes($type) . "',
+                             '" . addslashes($wrongAnswerList) . "',                             
+                            )";
+
+                    if ( ! upgrade_sql_query($sql) )  
+                    {
+                        return $step;
+                    }
+                }
+                
+                // add MATCHING answers
+				$sql = "SELECT A.id, A.question_id, A.reponse, A.correct, A.ponderation
+                    FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
+                    WHERE A.question_id = Q.id 
+                     AND Q.type = 4"; // Q.type = MATCHING
+
+                $result = upgrade_sql_query($sql);
+
+                if ( ! $result ) return $step;
+
+				$answerList = array();
+				
+                while ( ( $row = mysql_fetch_array($result) ) )
+                {                
+                	$answerId = $row['question_id'].'-'.$row['id'];
+               		$code = md5(uniqid(''));
+
+               		$answerList[$answerId]['questionId'] = $questionId;               		
+               		$answerList[$answerId]['answer'] = $row['reponse'];
+               		$answerList[$answerId]['code'] = $code;
+               		
+               		// if answer is a rightProposal
+                	if( $row['correct'] == 0 )
+                	{
+                		$answerList[$answerId]['match'] = 'NULL';
+                		$answerList[$answerId]['grade'] = 0;
+                	}
+                	else // if answer is a leftProposal
+                	{
+                		$answerList[$answerId]['match'] = $row['correct'];
+                		$answerList[$answerId]['grade'] = $row['ponderation'];
+                	}
+            	}
+            	
+            	foreach( $answerList as $answerId => $answer )
+            	{
+            		if( $answer['match'] == 'NULL' )
+            		{
+	            		// find the matching right proposal code for all left proposals            			
+	            		$matchingAnswerId = $answer['questionId'].'-'.$answer['match'];
+	            		
+	            		if( isset($answerList[$matchingAnswerId]['code']) ) 
+	            		{
+	            			$answer['match'] = $answerList[$matchingAnswerId]['code'];
+	            		}	            		
+            		}
+            		// else right proposal, leave match to 'NULL' value
+            		
+            		
+            		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_matching`
+                            (`questionId`,`answer`, `match`,`grade`,`code`)
+                            VALUES
+                            ('" . $answer['questionId'] . "',
+                             '" . addslashes($answer['answer']) . "',
+                             '" . $answer['match'] . "',
+                             '" . $answer['grade'] . "',
+                             '" . $answer['code'] . "'                            
+                            )";
+
+                    if ( ! upgrade_sql_query($sql) )  
+                    {
+                        return $step;
+                    }
+                }
+
+
+                // add TF answers
+                $sql = "SELECT A.id, A.question_id, A.reponse, A.correct, A.comment, A.ponderation
+                    FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
+                    WHERE A.question_id = Q.id 
+                     AND Q.type = 5"; // Q.type = TF
+                     
+                $result = upgrade_sql_query($sql);
+
+                if ( ! $result ) return $step;
+				
+				// build an answer array that looks like the new db format
+                while ( ( $row = mysql_fetch_array($result) ) )
+                {   
+                	$answerId = $row['question_id'].'-'.$row['id'];
+                	
+            		if( $row['id'] = '1' )
+            		{
+            			// 'True'
+            			$answerList[$answerId]['trueFeedback'] = $row['comment'];
+            			$answerList[$answerId]['trueGrade'] = $row['ponderation'];
+            			$answerList[$answerId]['correctAnswer'] = ($row['correct'] == 1)?'TRUE':'FALSE';
+            		}
+            		else
+            		{
+            			// $row['id'] = 2 so 'False'
+            			$answerList[$answerId]['falseFeedback'] = $row['comment'];
+            			$answerList[$answerId]['falseGrade'] = $row['ponderation'];
+            			$answerList[$answerId]['correctAnswer'] = ($row['correct'] == 1)?'FALSE':'TRUE';
+            		}
+				}
+				
+				foreach( $answerList as $answerId => $answer)
+				{            		
+					
+            		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_fib`
+                            (`questionId`,`trueFeedback`, `trueGrade`,`falseFeedback`,`falseGrade`,`correctAnswer`)
+                            VALUES
+                            ('" . $answer['questionId'] . "',
+                             '" . addslashes($answer['trueFeedback']) . "',
+                             '" . $answer['trueGrade'] . "',
+                             '" . addslashes($answer['falseFeedback']) . "',
+                             '" . $answer['falseGrade'] . "',                             
+                             '" . $answer['correctAnswer'] . "'                         
+                            )";
+
+                    if ( ! upgrade_sql_query($sql) )  
+                    {
+                        return $step;
+                    }
+                }                          
+                                          
+                                               
+                if ( upgrade_apply_sql($sql_step3) )
+                {
+                    $step = set_upgrade_status($tool, 4, $course_code);
+                }
+                else
+                {
+                    return $step;
+                }
+                
+		case 4 : 
+				// move attached files
+				$step = set_upgrade_status($tool, 0, $course_code);
         default :
                 return $step;
         }
