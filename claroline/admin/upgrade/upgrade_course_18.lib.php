@@ -360,7 +360,7 @@ function quiz_upgrade_to_18 ($course_code)
                     WHERE A.question_id = Q.id 
                      AND Q.type = 3"; // Q.type = FIB
 
-                $result = upgrade_sql_query($sql);
+                $result = claro_sql_query($sql);
 
                 if ( ! $result ) return $step;
 
@@ -395,7 +395,7 @@ function quiz_upgrade_to_18 ($course_code)
                     WHERE A.question_id = Q.id 
                      AND Q.type = 4"; // Q.type = MATCHING
 
-                $result = upgrade_sql_query($sql);
+                $result = claro_sql_query($sql);
 
                 if ( ! $result ) return $step;
 
@@ -461,7 +461,7 @@ function quiz_upgrade_to_18 ($course_code)
                     WHERE A.question_id = Q.id 
                      AND Q.type = 5"; // Q.type = TF
                      
-                $result = upgrade_sql_query($sql);
+                $result = claro_sql_query($sql);
 
                 if ( ! $result ) return $step;
 				
