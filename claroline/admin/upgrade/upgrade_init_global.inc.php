@@ -80,6 +80,7 @@ require $includePath . '/lib/claro_main.lib.php';
 // conf variables
 
 $coursesRepositorySys   = get_conf('rootSys') . $coursesRepositoryAppend;
+$coursesRepositoryWeb   = get_conf('urlAppend') . '/' . $coursesRepositoryAppend;
 $clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
 
 /*----------------------------------------------------------------------
