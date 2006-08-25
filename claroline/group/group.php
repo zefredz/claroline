@@ -619,10 +619,10 @@ foreach ($groupList as $thisGroup)
          * Tutors are allowed to enter in any groups, they
          * are also able to notice whose groups they are responsible
          */
-    if( $is_allowedToManage
+    if( $_uid && ( $is_allowedToManage
     ||   $thisGroup['id_tutor'] == $_uid
     ||   $thisGroup['is_member']
-    || ! $_groupProperties['private'])
+    || ! $_groupProperties['private']) )
     {
         // see if group name must be displayed as "containing new item" or not
 
