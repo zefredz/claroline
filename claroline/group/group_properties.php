@@ -131,12 +131,12 @@ echo '<tr>' . "\n"
 .    '<span class="item">' . "\n"
 .    '<input type="radio" name="private" id="private_1" value="1" '
 ;
-if(!$groupPrivate) echo "checked";
+if($groupPrivate) echo "checked";
 echo ' >' . "\n"
 .    '<label for="private_1">' . get_lang("Private") . '</label>' . "\n"
 .    '<input type="radio" name="private" id="private_0" value="0" '
 ;
-if($groupPrivate) echo 'checked';
+if(!$groupPrivate) echo 'checked';
 echo ' >' . "\n"
 .    '<label for="private_0">' . get_lang("Public") . '</label>' . "\n"
 .    '</span>' . "\n"
