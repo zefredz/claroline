@@ -33,10 +33,12 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 // block if !$_gid
 // accept  if $is_groupAllowed
 
-if ( ! $_gid
-    || (!   $is_groupAllowed
-        && !isset($_REQUEST['selfReg'])
-        || ( isset($_REQUEST['registration']) && $_REQUEST['registration'] != 1 ) ))
+if ( ! $_gid )
+{
+    claro_redirect('group.php');
+    exit();
+}
+elseif ( ! $is_groupAllowed && ! ( isset( $_REQUEST['selfReg'] ) || isset($_REQUEST['doReg']) ) )
 {
     claro_redirect('group.php');
     exit();
