@@ -204,7 +204,6 @@ else
     {
         // lookup the user in the Claroline database
         $sql = "SHOW TABLES FROM `". $mainDbName."` LIKE '" . get_conf('mainTblPrefix') . "admin'";
-        echo $sql;
 
         if(claro_sql_query_get_single_row($sql))
         {
