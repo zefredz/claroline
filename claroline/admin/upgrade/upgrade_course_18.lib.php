@@ -188,19 +188,6 @@ function tool_list_upgrade_to_18 ($course_code)
 
                 if ( upgrade_sql_query($sql_step3) )
                 {
-                    $step = set_upgrade_status($tool, 4, $course_code);
-                }
-                else
-                {
-                    return $step;
-                }
-
-            case 4 :
-                
-                $sql_step4 = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` ADD `addedTool` ENUM('YES','NO') DEFAULT 'YES' ";
-
-                if ( upgrade_sql_query($sql_step4) )
-                {
                     $step = set_upgrade_status($tool, 0, $course_code);
                 }
                 else
@@ -210,6 +197,7 @@ function tool_list_upgrade_to_18 ($course_code)
 
             default :
 
+                $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
         }
     }
