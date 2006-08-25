@@ -300,10 +300,16 @@ function upgrade_main_database_module_to_18 ()
 
         case 3 :
 
-            $sql = "UPDATE `" . $tbl_mdb_names['tool'] . "` SET claro_label = TRIM(TRAILING '_' FROM claro_label )";
-            
-            if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1);
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` 
+                             SET claro_label = TRIM(TRAILING '_' FROM claro_label )";
+           
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` 
+                             SET `script_url` = SUBSTRING(`script_url`,POSITION('/' IN `script_url`)+1) ";
+ 
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
+            
+            unset($sqlForUpdate);
 
         case 4 :
             
