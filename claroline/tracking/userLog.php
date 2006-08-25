@@ -209,7 +209,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>' . get_lang('Logins and access to tools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
+                echo '-&nbsp;&nbsp;<b>' . get_lang('Access to course and tools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
                 .    '<br />' . "\n"
                 .    '&nbsp;&nbsp;&nbsp;' . get_lang('Click on the month name for more details').'<br />' . "\n"
                 ;
@@ -268,7 +268,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Logins and access to tools').'</a>' . "\n"
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Access to course and tools').'</a>' . "\n"
                 ;
             }
             echo '<br />' . "\n"
