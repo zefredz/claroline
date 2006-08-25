@@ -149,6 +149,7 @@ switch ($display)
             // retry to upgrade course where upgrade failed
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.5' WHERE `versionClaro` = 'error-1.5'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.6' WHERE `versionClaro` = 'error-1.6'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.7' WHERE `versionClaro` = 'error-1.7'");
         }
 
         $sql_course_to_upgrade = " SELECT c.dbName dbName, 
