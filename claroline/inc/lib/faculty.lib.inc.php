@@ -510,13 +510,13 @@ function analyseCat($catCode)
 {
     $catData = get_cat_data(get_cat_id_from_code($catCode));
     //TEST 1 :
-    if(!ctype_digit($catData['id'])) return claro_failure::set_failure('id_not_numerical');
+    if(!ctype_digit($catData['id'])) return claro_failure::set_failure('id field of row "'.$catCode.'" is wrong. It would contain integer value');
     //TEST 2 :
-    if(!ctype_digit($catData['treePos'])) return claro_failure::set_failure('treePos_not_numerical');
+    if(!ctype_digit($catData['treePos'])) return claro_failure::set_failure('treePos field of row "'.$catCode.'" is wrong. It would contain integer value');
     //TEST 3 :
-    if(!ctype_digit($catData['nb_childs'])) return claro_failure::set_failure('nb_childs_not_numerical');
+    if(!ctype_digit($catData['nb_childs'])) return claro_failure::set_failure('nb_childs field of row "'.$catCode.'" is wrong. It would contain integer value');
     //TEST 4
-    if(!is_null($catData['code']) && !get_cat_id_from_code($catData['code'])) return claro_failure::set_failure('code_not_valid: ' . $catData['code']);
+    // Was stupid
     //TEST 5
     if(!is_null($catData['code_P']) && !get_cat_id_from_code($catData['code_P'])  ) return claro_failure::set_failure('parent_code_not_valid: '.$catData['code_P']);
     //TEST 6
@@ -525,7 +525,7 @@ function analyseCat($catCode)
     if($catData['treePos'] < $parentCatData['treePos']) return claro_failure::set_failure('loop_asendance ' .$catData['code'].':'.$catData['treePos'] . ' < ' .$parentCatData['code'].':'.$parentCatData['treePos'] );
 
     //TEST 7 // CheckPath
-    if(countChild($catCode)!=($catData['nb_childs'])) return claro_failure::set_failure('nb_childs_wrong'.countChild($catCode).':'.($catData['nb_childs']));
+    if(countChild($catCode)!=($catData['nb_childs'])) return claro_failure::set_failure('nb_childs field of row "'.$catCode.'" is wrong. Correct value : ' . countChild($catCode) . '; Stored Value : '.($catData['nb_childs']));
 
 
     return true;
