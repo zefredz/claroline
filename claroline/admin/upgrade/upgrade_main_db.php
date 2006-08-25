@@ -202,8 +202,8 @@ switch ( $display )
                                    'upgrade_main_database_course_category_to_18',
                                    'upgrade_main_database_user_to_18',
                                    'upgrade_main_database_course_class_to_18',
-                                   'upgrade_main_database_module_to_18',
-                                   'upgrade_main_database_right_to_18'
+                                   'upgrade_main_database_right_to_18',
+                                   'upgrade_main_database_module_to_18'
                                     );
 
             foreach ( $function_list as $function )

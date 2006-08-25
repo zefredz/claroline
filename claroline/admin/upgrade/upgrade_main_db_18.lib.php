@@ -296,7 +296,16 @@ function upgrade_main_database_module_to_18 ()
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
-        case 2 :
+            unset($sqlForUpdate);
+
+        case 3 :
+
+            $sql = "UPDATE `" . $tbl_mdb_names['tool'] . "` SET claro_label = TRIM(TRAILING '_' FROM claro_label )";
+            
+            if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+        case 4 :
             
             // include libray to manage module
             require_once $GLOBALS['includePath'] . '/lib/module.manage.lib.php'; 
@@ -390,6 +399,9 @@ function upgrade_main_database_module_to_18 ()
 
 function upgrade_main_database_right_to_18 ()
 {
+    include_once $GLOBALS['includePath'] . '/lib/right/right_profile.lib.php' ;
+    include_once $GLOBALS['includePath'] . '/../install/init_profile_right.lib.php' ;
+
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tool = 'RIGHT_18';
 
@@ -442,12 +454,44 @@ function upgrade_main_database_right_to_18 ()
 
         case 2 :
 
-            include_once $GLOBALS['includePath'] . '/lib/right/right_profile.lib.php' ;
-            include_once $GLOBALS['includePath'] . '/../install/init_profile_right.lib.php' ;
-
             create_required_profile();
-            init_default_right_profile();
+            $step = set_upgrade_status($tool, $step+1);
+        
+        case 3 :
             
+            // Init action/right
+
+            $sql = " SELECT id
+                     FROM `" . $tbl_mdb_names['tool'] . "`";
+
+            $result = claro_sql_query_fetch_all_cols($sql);
+
+            $toolIdList = $result['id'];
+
+            foreach ( $toolIdList as $toolId)
+            {
+                // Manage right - Add read action
+                $action = new RightToolAction();
+                $action->setName('read');
+                $action->setToolId($toolId);
+                $action->save();
+
+                // Manage right - Add edit action
+                $action = new RightToolAction();
+                $action->setName('edit');
+                $action->setToolId($toolId);
+                $action->save();
+            }
+            
+            $step = set_upgrade_status($tool, $step+1);
+
+        case 4 :
+
+            init_default_right_profile();
+            $step = set_upgrade_status($tool, $step+1);
+            
+        case 5 :
+
             // set profile_id in rel course_user
             $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['rel_course_user'] . "` SET `profile_id` = " . claro_get_profile_id(USER_PROFILE) . "
                                WHERE `isCourseManager` = 0";
@@ -460,6 +504,8 @@ function upgrade_main_database_right_to_18 ()
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
+            unset($sqlForUpdate);
+
         default :
 
             $step = set_upgrade_status($tool, 0);
@@ -469,5 +515,6 @@ function upgrade_main_database_right_to_18 ()
   	
     return false;
 }
+
 
 ?>
