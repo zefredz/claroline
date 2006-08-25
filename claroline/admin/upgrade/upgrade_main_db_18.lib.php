@@ -503,7 +503,7 @@ function upgrade_main_database_right_to_18 ()
                                WHERE `isCourseManager` = 0";
             
             $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['rel_course_user'] . "` SET `profile_id` = " . claro_get_profile_id(MANAGER_PROFILE) . "
-                               WHERE `isCourseManager` = 0"; 
+                               WHERE `isCourseManager` = 1"; 
 
             // set default profile_id in course
 
