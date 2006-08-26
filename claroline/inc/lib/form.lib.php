@@ -17,6 +17,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
+$formSize = 40;
+
 /**
  * @param string  $dayFieldName attribute name of the input DAY
  * @param string  $monthFieldName attribute name of the input MONTH
