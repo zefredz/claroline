@@ -807,15 +807,14 @@ function user_html_form($data, $form_type='registration')
         ) ;
     }
 
-    if ( get_conf('l10n_platform', true))
-    {
-        $language_select_box = user_display_preferred_language_select_box();
+    // Display language select box
 
-        if ( !empty($language_select_box) )
-        {
-            $html .= form_row('<label for="language_selector">' . get_lang('Language') . '&nbsp;:</label>',
-            $language_select_box );
-        }
+    $language_select_box = user_display_preferred_language_select_box();
+
+    if ( !empty($language_select_box) )
+    {
+        $html .= form_row('<label for="language_selector">' . get_lang('Language') . '&nbsp;:</label>',
+        $language_select_box );
     }
 
     if (     isset($data['authsource'])
