@@ -147,10 +147,7 @@ if ( isset($_uid) )
 else
 {
     // Display preferred language form
-    if ( get_conf('l10n_platform',true))
-    {
-        echo claro_display_preferred_language_form();
-    }
+    echo claro_display_preferred_language_form();
 
     // DISPLAY LOGIN FORM
     require $includePath . '/index_loginzone.inc.php';
