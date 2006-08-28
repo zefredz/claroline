@@ -260,7 +260,7 @@ function quiz_upgrade_to_18 ($course_code)
                     `rank` int(11) NOT NULL default '0'
                 )";
 
-                $sql_step1[] = "CREATE TABLE `" . $currentCourseDbNameGlu . "qwz_answer_truefalse'` (
+                $sql_step1[] = "CREATE TABLE `" . $currentCourseDbNameGlu . "qwz_answer_truefalse` (
                     `id` int(11) NOT NULL auto_increment,
                     `questionId` int(11) NOT NULL,
                     `trueFeedback` text NOT NULL,
@@ -343,16 +343,16 @@ function quiz_upgrade_to_18 ($course_code)
 				$rankList = array();			
 				while ( ( $row = mysql_fetch_array($result) ) )
 				{
-					if( isset($rankList[$row['exercise_id']]) ) ? 
+					if( isset($rankList[$row['exercice_id']]) ) 
 					{
-						$rankList[$row['exercise_id']]++
+						$rankList[$row['exercice_id']]++;
 					}
 					else
 					{
-						$rankList[$row['exercise_id']] = 1;
+						$rankList[$row['exercice_id']] = 1;
 					}
 					
-					$sql_upgrade_qwz_rel_values[] = "(".$row['exercise_id'].",".$row['question_id'].",".$rank.")";					
+					$sql_upgrade_qwz_rel_values[] = "(".$row['exercice_id'].",".$row['question_id'].",".$rankList[$row['exercice_id']].")";					
 				}
 				
 				if( !empty($sql_upgrade_qwz_rel_values) )
@@ -529,8 +529,7 @@ function quiz_upgrade_to_18 ($course_code)
                     {
                         return $step;
                     }
-                }                          
-                                          
+                }                                                                    
                                                
                 if ( upgrade_apply_sql($sql_step3) )
                 {
@@ -579,7 +578,24 @@ function quiz_upgrade_to_18 ($course_code)
                 }
                 
                 
-				$step = set_upgrade_status($tool, 0, $course_code);
+				$step = set_upgrade_status($tool, 5, $course_code);
+
+        case 5 :
+                
+                $sql_step5 = "DROP TABLE `".$currentCourseDbNameGlu."quiz_answer`, 
+                                         `".$currentCourseDbNameGlu."quiz_question`,
+                                         `".$currentCourseDbNameGlu."quiz_rel_test_question`, 
+                                         `".$currentCourseDbNameGlu."quiz_test`";
+
+                if ( upgrade_sql_query($sql_step5) )
+                {
+                    $step = set_upgrade_status($tool, 0, $course_code);
+                }
+                else
+                {
+                    return $step;
+                }
+
         default :
                 return $step;
         }
