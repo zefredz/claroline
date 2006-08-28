@@ -518,6 +518,42 @@ function quiz_upgrade_to_18 ($course_code)
                 
 		case 4 : 
 				// move attached files
+				$sql = "SELECT Q.id, Q.attached_file
+                    FROM `".$currentCourseDbNameGlu."quiz_question`";
+
+                $result = claro_sql_query($sql);
+	
+	            if ( ! $result ) return $step;
+
+                while ( ( $row = mysql_fetch_array($result) ) )
+                {  
+                	// create new folder
+                	$exe_dirname = $currentcoursePathSys.'exercise/'; // is also the dir where file where in previous versions
+	                $question_dirname = $exe_dirname . 'question_'.$row['id'].'/';
+	                
+                	if ( !is_dir($question_dirname) )
+                	{
+                    	if ( !@mkdir($question_dirname, CLARO_FILE_PERMISSIONS) )
+                    	{
+                        	log_message('Error: Cannot create ' . $question_dirname );
+                        	return $step;
+                    	}
+                	}
+
+                	// move file
+                	$filename = $row['attached_file'];
+                	
+                	if( !empty($filename) && file_exists($exe_dirname.$filename) )
+                	{
+                        if ( @rename($exe_dirname.$filename,$question_dirname.$filename) === FALSE )
+                        {
+                            log_message('Error: Cannot rename ' . $exe_dirname . $filename . ' to ' . $question_dirname . $filename );
+                            return $step;
+                        }
+                    }
+                }
+                
+                
 				$step = set_upgrade_status($tool, 0, $course_code);
         default :
                 return $step;
