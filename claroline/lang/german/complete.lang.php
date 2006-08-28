@@ -1514,4 +1514,85 @@ $_lang['uncompress zipped (.zip) file on the server'] = 'komprimierte (.zip -) D
 $_lang['use brackets [...] to define one or more blanks'] = 'Verwenden Sie eckige Klammern [...] um eine oder mehrere Lücken zu erzeugen';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'WICHTIGER HINWEIS : Bei der Installation wurde die Beschreibung des Lernpfads nicht gefunden und wurde durch eine Standard-Beschreibung ersetzt.  Sie sollten die Beschreibung ändern.';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'WICHTIGER HINWEIS : Bei der Installation wurde die Bezeichnung des Lernpfads nicht gefunden und wurde durch eine Standard-Bezeichnung ersetzta.  Sie sollten die Bezeichnung ändern.';
+$_lang['Are you sure to delete this group ?'] = "Möchten Sie diese Gruppe wirklich löschen?";
+$_lang['Authentication Required'] = "Bitte authentifizieren Sie sich";
+$_lang['Choose now a username and a password for the user account'] = "Wählen Sie nun einen Benutzernamen und ein Passwort für ihr Benutzerkonto";
+$_lang['Creating course (it may take a while) ...'] = "Erstelle gerade einen Kurs (dies kann ein wenig dauern) ...";
+$_lang['Enrol to course not allowed'] = "Es ist nicht erlaubt sich in diesen Kurs einzutragen";
+$_lang['Memorize them, you will use them the next time you will enter to this site.'] = "Merken Sie sie sich , sie brauchen sie, wenn sie die Seite das nächste Mal besuchen";
+$_lang['Registration not allowed on the platform'] = "Es ist nicht erlaubt, sich auf dieser Platform zu registrieren";
+$_lang['Repair category structure'] = "Kategorie-Struktur reparieren";
+$_lang['There is no tracking for this attempt.'] = "Dieser Versuch wird nicht mitgezählt.";
+$_lang['Unable to empty groups'] = "Es ist nicht möglich die Gruppen zu leeren";
+$_lang['Unable to save'] = "Es ist nicht möglich zu speichern";
+$_lang['blockAccountCreationNotification'] = "
+Sehr geehrte/r %firstname %lastname,
+Sie wurden registriert auf der Seite %siteName
+    Benutzernahme :  %username
+    Passwort  : %password
+    Adresse der Seite:  %siteName
+    Ist : %rootWeb
+    Wenn Sie Probleme haben, kontaktieren Sie uns.
+    Mit freundlichen Grüßen,
+    administratorName
+--
+Administrator: %administratorName
+Telefon: %administratorPhone
+E-Mail : %administratorEmail";
+$_lang['blockCourseCreationEmailMessage'] = "%date
+
+Kurs erstellt auf der Seite %sitename vom Benutzer %user_firstname %user_lastname ( %user_email )
+
+Kurs-Nr. : %course_code
+Kurs-Titel : %course_title
+Dozent/in(en) : %course_lecturers
+E-Mail : %course_email
+Kategorie : %course_category
+Sprache : %course_language
+Url : %course_url";
+$_lang['blockCourseSubscriptionNotification'] = "
+
+Sehr geehrte/r %firstname %lastname,
+einer der Administratoren des Kurses %courseCode hat sie in diesem Kurs registriert.
+
+Die Adresse des Kurses  %courseName ist :
+
+%coursePath
+
+Wenn Sie Probleme haben, kontaktieren Sie uns.
+
+Mit freundlichen Grüßen,
+%administratorName";
+$_lang['blockForumNotificationEmailMessage'] = "Sehr geehrte/r %firstname %lastname,
+
+Sie erhalten diese Mail, da es eine neue Mitteilung in einem Ihrer favorisierten Ordner unseres Forums gibt und Sie die Mitteilungsbenachrichtigung aktiviert haben.
+
+Hier finden Sie die Mitteilung:
+
+%url_topic
+
+Oder schauen Sie im Foren-Index nach:
+
+%url_forum
+
+Danke für die Nutzung unserer Foren.";
+$_lang['blockRequestCourseManagerStatusMail'] = "%time
+Kursersteller-Status von %firstname %lastname
+Benutzer : %user_id
+Name : %firstname %lastname
+E-Mail : %email
+Kommentar : %comment
+Link : %url";
+$_lang['blockRequestUserRevoquationMail'] = "%time
+Widerruf von %firstname %lastname
+Benutzer : %user_id
+Name : %firstname %lastname
+E-Mail : %email
+Login : %login
+Passwort : %password
+Kommentar : %comment
+Link : %url";
+$_lang['blockUsersWithoutValidEmail'] = "Von %userQty registrierten Benutzer dieser Seite haben %userInvalidQty eine fehlerhafte oder keine E-Mail-Adresse.
+
+%messageFailed";
 ?>
