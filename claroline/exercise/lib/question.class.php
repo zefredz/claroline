@@ -340,7 +340,6 @@ class Question
 				claro_failure::set_failure('cannot_create_tmp_dir');
 	        	return false;
 			}
-            echo 'on a créé le rep';
 		}
 	
 		// put file in directory
