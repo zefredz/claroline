@@ -1,10 +1,10 @@
 
- THIS  IS  AN ALPHA VERSION DON'T USE IT INPRODUCTION
+ THIS IS A DEVELOPMENT VERSION DON'T USE IT INPRODUCTION
 
 
-*********************************************
-          CLAROLINE 1.8 - INSTALL
-*********************************************
+*****************************************************
+     CLAROLINE 1.8 Release Candidate 1- INSTALL
+*****************************************************
 
 Thank you for downloading Claroline 1.8 . This text will guide you
 through the basics of installation and operation of Claroline 1.8. Please
@@ -24,7 +24,7 @@ TABLE OF CONTENT :
 REQUIREMENTS
 ============
 
-To install Claroline 1.8.alpha on a computer, whether locally or remotely,
+To install Claroline 1.8. "release candidate 1" on a computer, whether locally or remotely,
 you need the following on your machine :
 
 1. One of the following Operating systems :
@@ -52,8 +52,8 @@ you need the following on your machine :
         safe_mode            = Off
         magic_quotes_runtime = Off
 
-3. The MySQL databases server plus a login/password allowing to
-   administrate and create at least one database.
+3. The MySQL databases server (version 4.0 or later) plus a login/password 
+   allowing to administrate and create at least one database.
 
    Claroline can be installed in tow different modes : 'Single
    Database' and 'Multi Database'. In 'Multi Database' mode, Claroline
@@ -71,11 +71,7 @@ you need the following on your machine :
        occurs between table names of both applications that could conducts
        to serious problems.
 
-       NOTE 1. The backticks characters (`) inserted inside most of the
-       Claroline SQL queries since Claroline 1.3 doesn't work with MySQL
-       versions previous to 3.23.6.
-
-       NOTE 2. People using MySQL 4.1 (or later) could face connection
+       NOTE 1. People using MySQL 4.1 (or later) could face connection
        problem. To fix this problem, see on the my SQL web site :
 
             "Client does not support authentication protocol"
@@ -102,16 +98,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline18.alpha.tar.gz'
+1. Download 'claroline180rc1.tar.gz'
 
-   Windows : download 'claroline18.alpha.zip'.
+   Windows : download 'claroline180rc1.zip'.
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline18.alpha.tar.gz
+    tar -zxvf claroline180rc1.tar.gz
 
-   Windows : unzip 'claroline18.alpha.zip'.
+   Windows : unzip 'claroline180rc1.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory).
@@ -120,6 +116,11 @@ NEW CLAROLINE INSTALLATION
    Windows: If you use easyphp locally (http://www.easyphp.org), just
    drag and drop 'index.php' file and 'claroline' directory into
    C:\Program Files\easyphp\www\
+
+4. The following directories need to be readable, writeable and executable
+   for everyone:
+
+   claroline18x/
 
 4. Open Web Browser and go to
 
@@ -134,11 +135,46 @@ NEW CLAROLINE INSTALLATION
    Windows: if you use easyphp out of the box, login and password
    for MySQL should remain empty.
 
+UPDGRADE FROM PREVIOUS CLAROLINE VERSION
+----------------------------------------
+
+The upgrade works only from Claroline 1.5.x, 1.6.x and 1.7.x. Older Claroline 
+versions should upgrade first to Claroline 1.5.x before upgrade to Claroline 1.8.x
+
+Before upgrading we heavily recommend you do a full backup of the previous
+Claroline directories and databases. If you are unsure how to achieve this
+please ask your hosting provider for advice.
+
+1. Download 'claroline180rc1.tar.gz'
+
+   Windows : download 'claroline180rc1.zip'.
 
 
-   UPGRADE DOESN'T WORK FOR alpha and beta releases.
+2. Open a shell, go to download directory and type
+
+    tar -zxvf claroline180rc1.tar.gz
+
+   Windows : unzip 'claroline180rc1.zip'.
 
 
+3. Replace your previous Claroline directory and index.php by the new one.
+
+        WARNING ! Don't delete the previous directory before
+        installing the new one. You will loose your previous
+        configuration files (eg 'claro_main.conf.php'). Simply
+        replace the old directory with a new one with a 'copy'
+        command. That way, the new file versions will overwrite the
+        old ones and leave the others intact.
+
+4. Open Web Browser and go to
+
+   http://www.mydomain.org/mysite/mydir/claroline/admin/upgrade/upgrade.php
+
+   Windows with easyPhp locally, open:
+
+   http://localhost/mydir/claroline/admin/upgrade/upgrade.php
+
+5. Follow instructions.
 
 TROUBLESHOOTING
 ===============
@@ -158,5 +194,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - June 30 2006
+            Europe, Belgium, Louvain-la-Neuve - August 28 2006
 ================================== END ===================================
