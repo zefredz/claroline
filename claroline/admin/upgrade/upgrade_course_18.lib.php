@@ -215,7 +215,7 @@ function tool_list_upgrade_to_18 ($course_code)
 
 function quiz_upgrade_to_18 ($course_code)
 {
-    global $currentCourseVersion;
+    global $currentCourseVersion, $currentcoursePathSys;
 
     $versionRequiredToProceed = '/^1.7/';
     $tool = 'CLQWZ';
@@ -518,7 +518,7 @@ function quiz_upgrade_to_18 ($course_code)
                 
 		case 4 : 
 				// move attached files
-				$sql = "SELECT Q.id, Q.attached_file
+				$sql = "SELECT id, attached_file
                     FROM `".$currentCourseDbNameGlu."quiz_question`";
 
                 $result = claro_sql_query($sql);
