@@ -222,4 +222,40 @@ function get_module_data($claroLabel, $ignoreCache=false)
     return $cachedModuleDataList[$claroLabel];
 }
 
+/**
+ * Check if a module is installed and actived.
+ *
+ * @param string $modLabel
+ * @return array
+ */
+function check_module($modLabel)
+{
+	$tbl_name        = claro_sql_get_main_tbl();
+	$tbl_module      = $tbl_name['module'];
+	
+	$sql = "SELECT M.`id`              AS `id`,
+	               M.`label`           AS `label`,
+	               M.`activation`      AS `activation`
+	        FROM `" . $tbl_module . "` AS M
+	        WHERE M.`label` = '".$modLabel."'";
+	        
+	$result = claro_sql_query_get_single_row($sql);
+	
+	if (empty($result))
+	{
+		$message[] = "The ".$modLabel." hasn't been installed!";
+		return array(false,$message);
+	}
+	else
+	{
+		if ($result['activation'] == 'desactivated')
+		{		
+			$message[] = "The ".$modLabel." hasn't been activated!";	
+			return array(false,$message);
+		}
+		else
+			return array(true,null);		
+	}	
+}
+
 ?>
