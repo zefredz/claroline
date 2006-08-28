@@ -327,14 +327,39 @@ function quiz_upgrade_to_18 ($course_code)
                     FROM `".$currentCourseDbNameGlu."quiz_question`";
                 
                 // add relations between exercises and questions and recalculate rank
-                $sql_step2[] = "INSERT IGNORE INTO `". $currentCourseDbNameGlu. "qwz_rel_exercise_question`
-                 (exerciseId,questionId,rank)
-                 SELECT exercice_id, question_id, q_position
+                $sql = "SELECT exercice_id, question_id, q_position
                     FROM `".$currentCourseDbNameGlu."quiz_rel_test_question` AS RTQ, `".$currentCourseDbNameGlu."quiz_question` AS Q
                     WHERE RTQ.question_id = Q.id
                     ORDER BY exercice_id ASC, q_position ASC";
-                // TODO rank should be "unique" for each exercise
+                $result = claro_sql_query($sql);
                 
+                if( ! $result ) return $step;
+				
+				$sql_upgrade_qwz_rel = "INSERT INTO `". $currentCourseDbNameGlu . "qwz_rel_exercise_question`
+							( exerciseId, questionId, rank )
+							VALUES
+							";
+							
+				$rankList = array();			
+				while ( ( $row = mysql_fetch_array($result) ) )
+				{
+					if( isset($rankList[$row['exercise_id']]) ) ? 
+					{
+						$rankList[$row['exercise_id']]++
+					}
+					else
+					{
+						$rankList[$row['exercise_id']] = 1;
+					}
+					
+					$sql_upgrade_qwz_rel_values[] = "(".$row['exercise_id'].",".$row['question_id'].",".$rank.")";					
+				}
+				
+				if( !empty($sql_upgrade_qwz_rel_values) )
+				{
+					$sql_step2[] = $sql_upgrade_qwz_rel . implode(",",$sql_upgrade_qwz_rel_values);
+				}
+				
                 if ( upgrade_apply_sql($sql_step2) )
                 {
                     $step = set_upgrade_status($tool, 3, $course_code);
