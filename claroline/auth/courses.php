@@ -668,7 +668,7 @@ switch ( $displayMode )
                 .    '<td>' . "\n"
                 ;
 
-                if ( $thisCourse['userSatus'] != 1 )
+                if ( $thisCourse['isCourseManager'] != 1 )
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnreg&amp;course=' . $thisCourse['sysCode'] . $inURL . '"'
                     .    ' onclick="javascript:if(!confirm(\''
