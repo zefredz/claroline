@@ -6,7 +6,7 @@ unset($questionPlan);
 unset($info2Say);
 
 $titreBloc           [] = get_block('blockCourseDescriptionDescription');
-$titreBlocNotEditable[] = false;
+$titreBlocNotEditable[] = true;
 $questionPlan        [] = get_block('blockCourseDescriptionDescriptionComment1');
 $info2Say            [] = get_block('blockCourseDescriptionDescriptionComment2');
 
