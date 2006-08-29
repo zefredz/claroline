@@ -1274,29 +1274,6 @@ function htmlize($phrase)
     return claro_parse_user_text(htmlspecialchars($phrase));
 }
 
-
-/**
- * replaces some dangerous character in a string for HTML use
- *
- * @param  - string (string) string
- * @return - the string cleaned of dangerous character
-
-
-function replace_dangerous_char($string)
-{
-    $search[]="/" ; $replace[]="-";
-    $search[]="\|"; $replace[]="-";
-    $search[]="\""; $replace[]=" ";
-
-    foreach($search as $key=>$char )
-    {
-        $string = str_replace($char, $replace[$key], $string);
-    }
-
-    return $string;
-}
-*/
-
 /**
  * replaces some dangerous character in a string for HTML use
  *
