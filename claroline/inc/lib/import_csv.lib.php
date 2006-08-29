@@ -677,10 +677,9 @@ class CSV
 
     function CSV($filename,$delim=";",$linedef,$enclosed_by="",$eol="\n")
     {
-
-
         //open the file
         $this->raw_data = implode("",file($filename));
+
         // make sure all CRLF's are consistent
         $this->CRLFclean();
         // use custom $eol (if exists)
@@ -739,13 +738,20 @@ class CSV
 
         foreach($this->new_data AS $index1=>$line)
         {
-            $temp = @explode($delim,$line);
-            if(trim($line)=="")
-            // skip empty lines
+            if (trim($line)=="")
+            {
+                // skip empty lines
                 continue;
-            elseif(count($temp)==0)
-            // line didn't split properly so record error
-                $this->errors[] = "Couldn't split data line ".$c." via given \$delim.";
+            }
+            
+            // explode the line with the delimitator
+            $temp = @explode($delim,$line);
+
+            if ( count($temp)==0 )
+            {
+                // line didn't split properly so record error
+                $this->errors[] = "Couldn't split data line ". htmlspecialchars($line) ." via given \$delim.";
+            }
             elseif (!(($index1==0) && ($skipFirstLine)))
             {
                 $data_set = array();
