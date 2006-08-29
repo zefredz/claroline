@@ -31,9 +31,6 @@ $error_list = array();
 define('DISPLAY_LIST',__LINE__);
 define('DISPLAY_FORM',__LINE__);
 
-// TODO
-$add_new_profile_enabled = false ;
-
 $display = DISPLAY_LIST;
 
 // Main script
@@ -153,12 +150,9 @@ switch ( $display )
 
         echo claro_html_tool_title(get_lang('Course profile list'));
 
-        if ( $add_new_profile_enabled )
-        {
-            echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-                . get_lang('Add new profile')
-                . '</a></p>' . "\n" ;
-        }
+        echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
+             . get_lang('Add new profile')
+             . '</a></p>' . "\n" ;
 
         // Pager display
         echo $profilePager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
