@@ -366,7 +366,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
          * the form.
          */
 
-        $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."?cmd=exUpload\" method=\"post\" enctype=\"multipart/form-data\">"
+        $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"multipart/form-data\">"
                      ."<input type=\"hidden\" name=\"claroFormId\" value=\"' . uniqid('') . '\" />"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\">"
