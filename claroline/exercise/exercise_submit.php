@@ -263,13 +263,17 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
 			}
 	    }
 	}
+	
+	if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
+	{
+		set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,$_uid);
+	}
 }
 else
 {
 	$showResult = false;
 	$showSubmitForm = true;
 } 
-
 //-- update step
 if( isset($_REQUEST['cmdBack']) ) 	$step--;
 else								$step++;

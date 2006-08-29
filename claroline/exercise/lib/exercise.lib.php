@@ -85,6 +85,84 @@ function count_exercise_using_question($quId)
     else                    return $exerciseCount;    
 }
 
+function set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,$_uid)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+    $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+    
+    
+    // update raw in DB to keep the best one, so update only if new raw is better  AND if user NOT anonymous
+    if( $_uid )
+    {
+        // exercices can have a negative score, but we don't accept that in LP
+		// so if totalScore is negative use 0 as result
+		$totalResult = max($totalResult, 0);
+
+        if ( $totalGrade != 0 )
+        {
+            $newRaw = @round($totalResult/$totalGrade*100);
+        }
+        else
+        {
+            $newRaw = 0;
+        }
+
+        $scoreMin = 0;
+        $scoreMax = $totalGrade;
+        $scormSessionTime = seconds_to_scorm_time($timeToCompleteExe);
+        
+        // need learningPath_module_id and raw_to_pass value
+        $sql = "SELECT LPM.`raw_to_pass`, LPM.`learnPath_module_id`, UMP.`total_time`, UMP.`raw`
+                  FROM `".$tbl_lp_rel_learnPath_module."` AS LPM, `".$tbl_lp_user_module_progress."` AS UMP
+                 WHERE LPM.`learnPath_id` = '".(int)$_SESSION['path_id']."'
+                   AND LPM.`module_id` = '".(int)$_SESSION['module_id']."'
+				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
+				   AND UMP.`user_id` = ".(int) $_uid;
+				   
+        $lastProgression = claro_sql_query_get_single_row($sql);
+
+		if( $lastProgression )
+		{
+    		// build sql query
+		    $sql = "UPDATE `".$tbl_lp_user_module_progress."` SET ";
+    		// if recorded score is more than the new score => update raw, credit and status
+
+	    	if( $lastProgression['raw'] < $totalResult )
+		    {
+			    // update raw
+    			$sql .= "`raw` = ".$totalResult.",";
+	    		// update credit and statut if needed ( score is better than raw_to_pass )
+		    	if ( $newRaw >= $lastProgression['raw_to_pass'])
+			    {
+				    $sql .= "	`credit` = 'CREDIT',
+					     		`lesson_status` = 'PASSED',";
+			    }
+			    else // minimum raw to pass needed to get credit
+			    {
+				    $sql .= "	`credit` = 'NO-CREDIT',
+					    		`lesson_status` = 'FAILED',";
+    			}
+	    	}// else don't change raw, credit and lesson_status
+
+    		// default query statements
+	    	$sql .= "	`scoreMin` 		= " . (int)$scoreMin . ",
+		    			`scoreMax` 		= " . (int)$scoreMax . ",
+			    		`total_time`	= '".addScormTime($lastProgression['total_time'], $scormSessionTime)."',
+				    	`session_time`	= '".$scormSessionTime."'
+                     WHERE `learnPath_module_id` = ". (int)$lastProgression['learnPath_module_id']."
+                       AND `user_id` = " . (int)$_uid . "";
+                       
+    	    return claro_sql_query($sql);
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+}
+
+
 /**
  * return html required to display the required form elements to ask the user if the question must be modified in 
  * all exercises or only the current one
