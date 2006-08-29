@@ -140,18 +140,17 @@ if ( isset($_REQUEST['submitFromCoursProperties']) )
                                                                                           '%course_name'=> $courseTitle) );
 
 		        $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_disp_localised_date($dateTimeFormatLong),
-                                                                                '%sitename' => $siteName,
-                                                                                '%user_firstname' => $_user['firstName'],
-                                                                                '%user_lastname' => $_user['lastName'],
-                                                                                '%user_email' => $_user['mail'],
-                                                                                '%course_code' => $courseOfficialCode,
-                                                                                '%course_title' => $courseTitle,
-                                                                                '%course_lecturers' => $courseHolder,
-                                                                                '%course_email' => $courseEmail,
-                                                                                '%course_category' => $courseCategory,
-                                                                                '%course_language' => $courseLanguage,
-                                                                                '%course_url' => $coursesRepositoryWeb . $courseDirectory
-                                                                              ) );
+                                        '%sitename' => $siteName,
+                                        '%user_firstname' => $_user['firstName'],
+                                        '%user_lastname' => $_user['lastName'],
+                                        '%user_email' => $_user['mail'],
+                                        '%course_code' => $courseOfficialCode,
+                                        '%course_title' => $courseTitle,
+                                        '%course_lecturers' => $courseHolder,
+                                        '%course_email' => $courseEmail,
+                                        '%course_category' => $courseCategory,
+                                        '%course_language' => $courseLanguage,
+                                        '%course_url' => get_conf('rootWeb') . '/claroline/course/index.php?cid=' . htmlspecialchars($courseSysCode)) );
 
                 // GET THE CONCERNED SENDERS OF THE EMAIL
                 $platformAdminList = claro_get_uid_of_platform_admin();

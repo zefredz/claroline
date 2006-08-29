@@ -1057,7 +1057,7 @@ You are registered on %siteName
     Is : %rootWeb
     In case of problems, contact us.
     Yours sincerely,
-    administratorName
+    %administratorName
 --
 Manager %administratorName
 T. %administratorPhone

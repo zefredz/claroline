@@ -52,6 +52,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     else                         $mail->From = get_conf('administrator_email');
 
     if ($specificFromName != '') $mail->FromName = $specificFromName;
+    else                         $mail->FromName = get_conf('administrator_name');
 
     $mail->CharSet = $GLOBALS['charset'];
     $mail->IsMail();
