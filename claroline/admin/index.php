@@ -74,7 +74,9 @@ if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'
 
 // ----- is install visible ----- end
 
-if ( ini_get('register_globals') )
+$register_globals_value = ini_get('register_globals');
+
+if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 'off' )
 {
     $controlMsg['warning'][] = get_lang('<b>Security :</b> We recommend to set register_globals to off in php.ini');
 }
