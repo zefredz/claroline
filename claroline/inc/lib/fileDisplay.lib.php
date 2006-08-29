@@ -167,8 +167,12 @@ function format_url($url)
 
     $urlArray = parse_url( $url );
 
-    $urlToRet = '';
-
+	
+	$urlToRet = isset($urlArray['scheme'])
+		? $urlArray['scheme']
+		: ''
+		;
+		
     if ( isset( $urlArray['user'] ) )
     {
         $urlToRet = $urlArray['user'];
@@ -179,7 +183,10 @@ function format_url($url)
         $urlToRet .= '@';
     }
 
-    $urlToRet .= $urlArray['host'];
+    $urlToRet .= isset( $urlArray['host']  )
+    	? $urlArray['host']
+    	: ''
+    	;
     $urlToRet .= isset( $urlArray['port']  )
         ? ':' . $urlArray['port']
         : ''
@@ -200,7 +207,7 @@ function format_url($url)
         : ''
         ;
 
-    return $urlArray['scheme'] . '://' . $urlToRet;
+    return $urlToRet;
 }
 
 function format_url_path( $path )
