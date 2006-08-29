@@ -19,7 +19,7 @@ if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 //SECURITY CHECK
 
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
 //DECLARE NEEDED LIBRARIES
 
