@@ -377,6 +377,11 @@ function startElement($parser, $name, $attributes)
     global $cardinality;
     global $questionTempDir;
 
+    foreach( $attributes as $key => $value)
+    {
+        $attributes[$key] = utf8_decode_if_is_utf8($value);
+    }
+
     array_push($element_pile,$name);
     $current_element = end($element_pile);
     if (sizeof($element_pile)>=2) $parent_element        = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
@@ -630,6 +635,8 @@ function elementData($parser,$data)
     global $current_inlinechoice_id;
     global $cardinality;
 
+    $data = trim(utf8_decode_if_is_utf8($data));
+	
     $current_element       = end($element_pile);
 	if (sizeof($element_pile)>=2) $parent_element        = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
 	if (sizeof($element_pile)>=3) $grant_parent_element  = $element_pile[sizeof($element_pile)-3]; else $grant_parent_element = "";
@@ -722,4 +729,5 @@ function elementData($parser,$data)
         break;
     }
 }
+
 ?>
