@@ -263,6 +263,7 @@ if ($intro_dispDefault)
 {
     $sql = "SELECT `id`, `rank`, `content`
             FROM `" . $TBL_INTRODUCTION . "`
+            WHERE `tool_id` <= 0 
             ORDER BY rank ASC";
 
     $textIntroList = claro_sql_query_fetch_all($sql);
