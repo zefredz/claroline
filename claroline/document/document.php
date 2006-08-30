@@ -204,7 +204,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
                                     $cwd, $maxFilledSpace, $unzip);
-                
+
             $uploadedFileNameList = array();
 
             if ($uploadedFileName !== false)
@@ -215,7 +215,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
                     foreach ( $uploadedFileName as $uploadedFile )
                     {
-                        $uploadedFileNameList[] = $cwd . '/' . $uploadedFile['stored_filename']; 
+                        $uploadedFileNameList[] = $cwd . '/' . $uploadedFile['stored_filename'];
                     }
                 }
                 else
@@ -233,14 +233,14 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     {
                         $uploadedFileName = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $uploadedFileName);
 
-                        if ( dirname($uploadedFileName) != $cwd ) 
+                        if ( dirname($uploadedFileName) != $cwd )
                         {
                             // put a comment on the folder
                             update_db_info('update', dirname($uploadedFileName),
-                                            array('comment' => $comment ) ); 
+                                            array('comment' => $comment ) );
                             $cur_dir = dirname($uploadedFileName);
                         }
- 
+
                         // put a comment on the file
                         update_db_info('update', $uploadedFileName,
                                         array('comment' => $comment ) );
@@ -366,23 +366,35 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
          * the form.
          */
 
-        $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\" enctype=\"multipart/form-data\">"
-                     ."<input type=\"hidden\" name=\"claroFormId\" value=\"' . uniqid('') . '\" />"
-                     ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
-                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\">"
-                     ."<label for=\"userFile\">".get_lang("Upload file")." : </label><br />"
-                     ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
-                     ."<table border='0'>"
-                     ."<tr>"
-                     ."<td><small>".get_lang('Max file size')." :</small></td>"
-                     ."<td><small> : ".format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) )."</small></td>"
-                     ."</tr>"
-                     ."<tr>"
-                     ."<td><small>Disk space available</small></td>"
-                     ."<td><small>  : ".claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) .' '.format_file_size($maxFilledSpace - $spaceAlreadyOccupied)."</small></td>"
-                     ."</tr>"
-                     ."</table>\n";
-
+        $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
+                   .  '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+                   .  '<input type="hidden" name="cmd" value="exUpload">' . "\n"
+                   .  '<input type="hidden" name="cwd" value="' . $cwd . '">' . "\n"
+                   .  '<label for="userFile">' . get_lang("Upload file") . ' : </label>' . "\n"
+                   .  '<br />' . "\n"
+                   .  '<input type="file" id="userFile" name="userFile"> ' . "\n"
+                   .  '<table border="0">' . "\n"
+                   .  '<tr>' . "\n"
+                   .  '<td>' . "\n"
+                   .  '<small>' . get_lang("Max file size") . '</small>' . "\n"
+                   .  '</td>' . "\n"
+                   .  '<td>' . "\n"
+                   .  '<small> : ' . format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) . '</small>' . "\n"
+                   .  '</td>' . "\n"
+                   .  '</tr>' . "\n"
+                   .  '<tr>' . "\n"
+                   .  '<td>' . "\n"
+                   .  '<small>' . get_lang("Disk space available") . '</small>' . "\n"
+                   .  '</td>' . "\n"
+                   .  '<td>' . "\n"
+                   .  '<small>  :' . "\n"
+                   .  claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) . "\n"
+                   .  format_file_size($maxFilledSpace - $spaceAlreadyOccupied)
+                   . '</small>' . "\n"
+                   .  '</td>' . "\n"
+                   .  '</tr>' . "\n"
+                   .  '</table>' . "\n"
+                   ;
         if ($is_allowedToUnzip)
         {
             $dialogBox .= "<img src=\"".$imgRepositoryWeb."zip.gif\" alt=\"\">"
@@ -479,7 +491,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
 
             $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
-            
+
             $htmlContent = claro_parse_user_text( $htmlContent );
 
             create_file($baseWorkDir.$cwd.'/'.$fileName,
@@ -818,7 +830,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             {
             	$url = '';
             }
-            
+
             $dialogBox .= "<p><label for=\"url\">".get_lang("URL : ")."</label><br />\n"
                          ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($url)."\">\n"
                          ."</p>\n";
@@ -832,7 +844,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     WHERE path = \"".$_REQUEST['file']."\"";
 
             $result = mysql_query ($sql);
-            
+
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
             //list($oldComment) = claro_sql_query_fetch_all($sql);
@@ -1862,7 +1874,7 @@ echo claro_html_tool_title($titleElement,
             $links[] = "<span class='claroCmdDisabled' >"
                 ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">&nbsp;"
                 .get_lang("Download current directory")
-                ."</span>"; 
+                ."</span>";
         }
 
 
