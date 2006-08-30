@@ -514,7 +514,7 @@ function quiz_upgrade_to_18 ($course_code)
 				foreach( $answerList as $answerId => $answer)
 				{            		
 					
-            		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_trueFalse`
+            		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_truefalse`
                             (`questionId`,`trueFeedback`, `trueGrade`,`falseFeedback`,`falseGrade`,`correctAnswer`)
                             VALUES
                             ('" . $answer['questionId'] . "',
