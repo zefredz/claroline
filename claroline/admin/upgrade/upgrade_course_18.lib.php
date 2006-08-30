@@ -405,7 +405,7 @@ function quiz_upgrade_to_18 ($course_code)
                              '" . addslashes($answer) . "',
                              '" . addslashes($gradeList) . "',
                              '" . addslashes($type) . "',
-                             '" . addslashes($wrongAnswerList) . "',                             
+                             '" . addslashes($wrongAnswerList) . "'              
                             )";
 
                     if ( ! upgrade_sql_query($sql) )  
@@ -514,7 +514,7 @@ function quiz_upgrade_to_18 ($course_code)
 				foreach( $answerList as $answerId => $answer)
 				{            		
 					
-            		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_fib`
+            		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_trueFalse`
                             (`questionId`,`trueFeedback`, `trueGrade`,`falseFeedback`,`falseGrade`,`correctAnswer`)
                             VALUES
                             ('" . $answer['questionId'] . "',
