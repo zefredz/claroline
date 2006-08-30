@@ -424,6 +424,18 @@ if ($is_allowedToEdit)
       </tr>
 
       <tr>
+        <td valign="top"><?php echo get_lang('Assignment type'); ?>&nbsp;:</td>
+        <td>
+          <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" <?php if($assignment->getAssignmentType() == "INDIVIDUAL") echo 'checked="checked"'; ?>>
+            <label for="individual">&nbsp;<?php echo get_lang('Individual'); ?></label>
+            <br />
+          <input type="radio" name="assignment_type" id="group" value="GROUP" <?php if($assignment->getAssignmentType() == "GROUP") echo 'checked="checked"'; ?>>
+            <label for="group">&nbsp;<?php echo get_lang('Groups (from groups tool, only group members can post)'); ?></label>
+            <br />
+        </td>
+      </tr>
+      
+      <tr>
         <td valign="top"><?php echo get_lang('Start date'); ?>&nbsp;:</td>
         <td>
 <?php
@@ -444,6 +456,18 @@ if ($is_allowedToEdit)
       </tr>
 
       <tr>
+        <td valign="top"><?php echo get_lang('Allow late upload'); ?>&nbsp;:</td>
+        <td>
+        <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" <?php if($assignment->getAllowLateUpload() == "YES") echo 'checked="checked"'; ?>>
+          <label for="allowUpload">&nbsp;<?php echo get_lang('Yes, allow users to submit works after end date'); ?></label>
+          <br />
+        <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" <?php if($assignment->getAllowLateUpload() == "NO") echo 'checked="checked"'; ?>>
+          <label for="preventUpload">&nbsp;<?php echo get_lang('No, prevent users submitting work after the end date'); ?></label>
+          <br />
+        </td>
+      </tr>
+      
+      <tr>
         <td valign="top"><?php echo get_lang('Default works visibility'); ?>&nbsp;:</td>
         <td>
           <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "VISIBLE") echo 'checked="checked"'; ?>>
@@ -455,29 +479,6 @@ if ($is_allowedToEdit)
         </td>
       </tr>
 
-      <tr>
-        <td valign="top"><?php echo get_lang('Assignment type'); ?>&nbsp;:</td>
-        <td>
-          <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" <?php if($assignment->getAssignmentType() == "INDIVIDUAL") echo 'checked="checked"'; ?>>
-            <label for="individual">&nbsp;<?php echo get_lang('Individual'); ?></label>
-            <br />
-          <input type="radio" name="assignment_type" id="group" value="GROUP" <?php if($assignment->getAssignmentType() == "GROUP") echo 'checked="checked"'; ?>>
-            <label for="group">&nbsp;<?php echo get_lang('Groups (from groups tool, only group members can post)'); ?></label>
-            <br />
-        </td>
-      </tr>
-
-      <tr>
-        <td valign="top"><?php echo get_lang('Allow late upload'); ?>&nbsp;:</td>
-        <td>
-        <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" <?php if($assignment->getAllowLateUpload() == "YES") echo 'checked="checked"'; ?>>
-          <label for="allowUpload">&nbsp;<?php echo get_lang('Yes, allow users to submit works after end date'); ?></label>
-          <br />
-        <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" <?php if($assignment->getAllowLateUpload() == "NO") echo 'checked="checked"'; ?>>
-          <label for="preventUpload">&nbsp;<?php echo get_lang('No, prevent users submitting work after the end date'); ?></label>
-          <br />
-        </td>
-      </tr>
       <tr>
         <td>&nbsp;</td>
         <td>
