@@ -552,7 +552,17 @@ function quiz_upgrade_to_18 ($course_code)
                 while ( ( $row = mysql_fetch_array($result) ) )
                 {  
                 	// create new folder
-                	$exe_dirname = $currentcoursePathSys.'exercise/'; // is also the dir where file where in previous versions
+                	$exe_dirname = $currentcoursePathSys.'exercise/'; // is also the dir where file where in previous versions                  
+
+                	if ( !is_dir($exe_dirname) )
+                	{
+                    	if ( !@mkdir($exe_dirname, CLARO_FILE_PERMISSIONS) )
+                    	{
+                        	log_message('Error: Cannot create ' . $exe_dirname );
+                        	return $step;
+                    	}
+                	}
+
 	                $question_dirname = $exe_dirname . 'question_'.$row['id'].'/';
 	                
                 	if ( !is_dir($question_dirname) )
