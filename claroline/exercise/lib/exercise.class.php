@@ -246,7 +246,7 @@ class Exercise
     }
 
     /**
-     * delete exercise from DB
+     * delete exercise from DB && delete all occurences of exercise in learning path
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
@@ -258,11 +258,17 @@ class Exercise
 
 		if( claro_sql_query($sql) == false ) return false;
 
+
 		$sql = "DELETE FROM `".$this->tblExercise."`
 				WHERE `id` = " . (int) $this->id;
+				
 		if( claro_sql_query($sql) == false ) return false;
-
-		// is it required to empty the fields of the object ?
+		
+		// for learning path
+		global $includePath;
+		require_once $includePath . '/lib/learnPath.lib.inc.php';
+		delete_exercise_asset($this->id);
+		
 		$this->id = -1;
 		return true;
 	}
