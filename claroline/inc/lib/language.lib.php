@@ -470,4 +470,45 @@ function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
     return strftime($formatOfDate, $timestamp);
 }
 
+/**
+ * This function return true if $Str could be UTF-8, false otehrwise
+ *
+ * function found @ http://www.php.net/manual/en/function.utf8-encode.php
+ */
+function seems_utf8($str)
+{
+    for ($i=0; $i<strlen($str); $i++)
+    {
+        if (ord($str[$i]) < 0x80) continue; // 0bbbbbbb
+        elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n=1; // 110bbbbb
+        elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n=2; // 1110bbbb
+        elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n=3; // 11110bbb
+        elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n=4; // 111110bb
+        elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n=5; // 1111110b
+        else return false; // Does not match any model
+        for ($j=0; $j<$n; $j++) // n bytes matching 10bbbbbb follow ?
+        {
+            if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * decode $str if $str is utf8 encoded
+ */
+function utf8_decode_if_is_utf8($str) 
+{
+    if( $GLOBALS['charset'] == 'utf-8' || !seems_utf8($str) )
+    {
+        return $str;
+    }
+    else
+    {
+    	return utf8_decode($str);
+    }
+}
+
+
 ?>
