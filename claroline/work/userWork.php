@@ -235,7 +235,7 @@ $autoFeedbackIsDisplayedForAuthId = (bool)
 							);
 
 // if correction is automatically submitted user cannot edit his work
-if( isset($_uid) && $autoFeedbackIsDisplayedForAuthId )
+if( isset($_uid) && !$autoFeedbackIsDisplayedForAuthId )
 {
 	if( $assignment->getAssignmentType() == 'GROUP' && isset($_gid) )
 	{
