@@ -545,13 +545,14 @@ class RightProfile
 
         // Display type
 
+        // TODO after 1.8
+
         /*
         $form .= '
             <tr valign="top">
             <td align="right">' . get_lang('Type') . ' :</td>
             <td><input type="text" name="type" value="' . $this->type . '"/></td>
             </tr>';
-        */
 
         $form .= '<input type="hidden" name="type" value="' . PROFILE_TYPE_COURSE . '" />' ;
 
@@ -569,12 +570,16 @@ class RightProfile
             <td><input type="checkbox" id="isTutor" name="isTutor" value="1" ' . ($this->isTutor?'checked="checked"':'') . '/></td>
             </tr>';
 
+        */
+
         // Display 'is locked'
         $form .= '
             <tr valign="top">
             <td align="right"><label for="isLocked">' . get_lang('Locked') . ' :</label></td>
             <td><input type="checkbox" id="isLocked" name="isLocked" value="1" ' . ($this->isLocked?'checked="checked"':'') . '/></td>
             </tr>';
+
+        /*
 
         // Display is 'user public'
         $form .= '
@@ -589,6 +594,8 @@ class RightProfile
             <td align="right"><label for="isEmailNotify">' . get_lang('Email notification') . ' :</label></td>
             <td><input type="checkbox" id="isEmailNotify" name="isEmailNotify" value="1" ' . ($this->isEmailNotify?'checked="checked"':'') . '/></td>
             </tr>';
+
+        */
 
         // Display submit button
         $form .= '
