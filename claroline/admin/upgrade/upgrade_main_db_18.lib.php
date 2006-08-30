@@ -304,7 +304,7 @@ function upgrade_main_database_module_to_18 ()
                              SET claro_label = TRIM(TRAILING '_' FROM claro_label )";
            
             $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` 
-                             SET `script_url` = SUBSTRING(`script_url`,POSITION('/' IN `script_url`)+1) ";
+                             SET `script_url` = SUBSTRING_INDEX( `script_url` , '/', -1 ) ";
             
             $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "` 
                              SET `script_url` = 'exercise.php' WHERE `script_url` = 'exercice.php' ";
