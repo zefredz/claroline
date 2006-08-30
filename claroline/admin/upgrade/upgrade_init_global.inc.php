@@ -105,7 +105,7 @@ require 'upgrade.lib.php';
  */
 
 $accepted_error_list = array(1017,1050,1060,1062,1065,1091,1146);
-$accepted_error_list = array();
+$accepted_error_list = array(1060);
 
 /*
  * Initialize version variables
