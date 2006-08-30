@@ -1310,4 +1310,81 @@ function addScormTime($time1, $time2)
         return $time1;
     }
 }
+
+
+function delete_exercise_asset($exerciseId)
+{
+		$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued());
+		$tbl_lp_module = $tbl_cdb_names['lp_module'];
+		$tbl_lp_asset = $tbl_cdb_names['lp_asset'];
+		$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+		$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+		
+		// get id of all item to delete
+		$sql = "SELECT `A`.`asset_id`, `M`.`module_id`,`LPM`.`learnPath_module_id`
+				FROM `".$tbl_lp_asset."` AS `A`, `".$tbl_lp_module."` AS `M`,
+					`".$tbl_lp_rel_learnPath_module."` AS `LPM` 
+				WHERE `A`.`path` = '".$exerciseId."'
+				 AND `A`.`asset_id` = `M`.`startAsset_id`
+				 AND `M`.`module_id` = `LPM`.`module_id`";
+
+		$deleteItemList = claro_sql_query_fetch_all($sql);		
+
+		if( is_array($deleteItemList) && !empty($deleteItemList) ) 
+		{
+			foreach( $deleteItemList as $row ) 
+			{
+				if( isset($row['asset_id']) ) $assetList[] = $row['asset_id'];  				
+				if( isset($row['module_id']) ) $moduleList[] = $row['module_id'];
+				if( isset($row['learnPath_module_id']) ) $learnPathModuleList[] = $row['learnPath_module_id'];								
+			}
+			// remove doubled values
+			$assetList = array_unique($assetList);
+			$moduleList = array_unique($moduleList);			
+			$learnPathModuleList = array_unique($learnPathModuleList);
+			
+			// we should now have a list for each ressource type, build delete queries
+			if( is_array($assetList) && !empty($assetList) )
+			{
+				$sql = "DELETE 
+						FROM `".$tbl_lp_asset."`
+						WHERE `asset_id` IN (".implode(',',$assetList).")";
+
+				if( claro_sql_query($sql) == false ) return false;			
+			}
+			
+			if( is_array($moduleList) && !empty($moduleList) )
+			{
+				$sql = "DELETE 
+						FROM `".$tbl_lp_module."`
+						WHERE `module_id` IN (".implode(',',$moduleList).")";
+
+				if( claro_sql_query($sql) == false ) return false;			
+			}
+			
+			if( is_array($learnPathModuleList) && !empty($learnPathModuleList) )
+			{
+				$sql = "DELETE 
+						FROM `".$tbl_lp_rel_learnPath_module."`
+						WHERE `learnPath_module_id` IN (".implode(',',$learnPathModuleList).")";
+
+				if( claro_sql_query($sql) == false ) return false;	
+				
+				// and the user progression
+				
+				$sql = "DELETE 
+						FROM `".$tbl_lp_user_module_progress."`
+						WHERE `learnPath_module_id` IN (".implode(',',$learnPathModuleList).")";
+
+				if( claro_sql_query($sql) == false ) return false;
+							
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+		return true;
+}
 ?>
