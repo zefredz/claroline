@@ -103,9 +103,19 @@ $sql = get_sql_filtered_user_list();
 $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 $myPager      = new claro_sql_pager($sql, $offset, $userPerPage);
 
-$pagerSortKey = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'name';
-$pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
-$myPager->set_sort_key($pagerSortKey, $pagerSortDir);
+if ( isset($_GET['sort']) )
+{
+    $myPager->add_sort_key( $_GET['sort'], isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC );
+}
+
+$defaultSortKeyList = array ('isPlatformAdmin' => SORT_DESC,
+                             'name'          => SORT_ASC,
+                             'firstName'       => SORT_ASC);
+
+foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
+{
+    $myPager->add_sort_key( $thisSortKey, $thisSortDir);
+}
 
 $userList = $myPager->get_result_list();
 
