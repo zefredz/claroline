@@ -218,7 +218,7 @@ class RightProfileToolRightHtml
             }
             else
             {
-                $html .= '<td>' . claro_get_tool_name($tool_id) . '</td>' . "\n" ;
+                $html .= '<td>' . get_lang(claro_get_tool_name($tool_id)) . '</td>' . "\n" ;
             }
 
             // visibility column
