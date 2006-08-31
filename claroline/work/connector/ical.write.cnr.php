@@ -35,14 +35,16 @@ function CLWRK_write_ical( & $iCal, $context)
 
                 $categories[] = $thisAssignment['assignment_type'];
 
+
+                $assignmentContent = trim(strip_tags($thisAssignment['description']));
                 $iCal->addToDo(
                 trim($thisAssignment['title']), // Title
-                trim(str_replace('<!-- content: html -->','',$thisAssignment['description'])), // Description
+                $assignmentContent, // Description
                 '', // Location
                 (int) $thisAssignment['start_date_unix'], // Start time
                 3600, //(($thisAssignment['end_date_unix']-$thisAssignment['start_date_unix'])/60), // Duration in minutes
                 (int) $thisAssignment['end_date_unix'], // End time
-                1, // Percentage complete
+                0, // Percentage complete
                 5, // Priority = 0-9
                 1, // Status of the event (0 = TENTATIVE, 1 = CONFIRMED, 2 = CANCELLED)
                 1, // Class (0 = PRIVATE | 1 = PUBLIC | 2 = CONFIDENTIAL)
@@ -65,6 +67,7 @@ function CLWRK_write_ical( & $iCal, $context)
         }
     }
     return $iCal;
+
 }
 
 /**
