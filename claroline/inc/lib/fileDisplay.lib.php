@@ -47,6 +47,12 @@ function choose_image($fileName)
         $type['acrobat'   ] = array('pdf');
         $type['powerpoint'] = array('ppt', 'pps');
         $type['link'      ] = array('url');
+        $type['writer'	  ] = array('odt');
+        $type['calc'	  ] = array('ods');
+        $type['base'	  ] = array('odb');
+        $type['draw'	  ] = array('odg');
+        $type['impress'	  ] = array('odp');
+        $type['math'	  ] = array('odf');
 
         $image['word'      ] = 'doc.gif';
         $image['web'       ] = 'html.gif';
@@ -58,6 +64,14 @@ function choose_image($fileName)
         $image['acrobat'   ] = 'pdf.gif';
         $image['powerpoint'] = 'ppt.gif';
         $image['link'      ] = 'link.gif';
+        $image['writer'    ] = 'odt.png';
+        $image['calc'      ] = 'ods.png';
+        $image['base'      ] = 'odb.png';
+        $image['draw'      ] = 'odg.png';
+        $image['impress'   ] = 'odp.png';
+        $image['math'      ] = 'odf.png';
+        
+        
 
     }
 
