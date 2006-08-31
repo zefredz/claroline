@@ -528,9 +528,9 @@ array ('label'       => 'Debug mode'
 
 $conf_def_property_list['CLARO_PROFILE_SQL'] =
 array ('label'       => 'Profile SQL'
-      ,'description' => 'Profile SQL in DEBUG MODE.'
+      ,'description' => 'Profile SQL in DEBUG MODE.' ."\n" . 'Display for each request :duration, counter,  statement '
       ,'type'        => 'boolean'
-      ,'default'     => TRUE
+      ,'default'     => false
       ,'container'   => 'CONST'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
