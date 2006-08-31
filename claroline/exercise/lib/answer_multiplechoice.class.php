@@ -125,6 +125,9 @@ class answerMultipleChoice
      */	        
     function save() 
     {
+    	// we need at least 2 answers
+    	if( count($this->answerList) < 2 ) return false;
+    	
     	$sql = "DELETE FROM `".$this->tblAnswer."` 
                 WHERE questionId = ".(int) $this->questionId;
         
