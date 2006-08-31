@@ -89,7 +89,7 @@ if( $cmd == 'exImport')
 if( $cmd == 'rqImport' )
 {
     $display = '<p>' . "\n"
-    .            get_lang('Imported exercises must consist of a zip or an XML file (IMS-QTI) and be compatible with your Claroline version.') . '<br />' . "\n"
+    .            get_lang('Imported exercises must consist of a zip file (IMS-QTI) and be compatible with your Claroline version.') . '<br />' . "\n"
     .            '</p>' . "\n"
     .            '<form enctype="multipart/form-data" action="" method="post">' . "\n"
     .            '<input name="cmd" type="hidden" value="exImport" />' . "\n"
