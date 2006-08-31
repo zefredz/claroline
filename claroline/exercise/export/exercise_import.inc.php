@@ -283,7 +283,7 @@ function parse_file($exercisePath, $file, $questionFile)
     }
     else
     {
-        $data = fread($fp, filesize( $questionFilePath));
+        $data = html_entity_decode(urldecode(fread($fp, filesize( $questionFilePath))));
     }
 
     //parse XML question file
