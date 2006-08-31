@@ -79,40 +79,7 @@ class editor
         $this->prepareContent();
     }
     
-    /**
-     * Returns the html code needed to display a simple version of the editor
-     *
-     * @return string html code needed to display a simple version of the editor
-     */
-    /* not used at this time
-    function getSimpleEditor()
-    {
-        // configure editor
-        $returnString =
-            "\n\n"
-            .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce_src.js"></script>'."\n"
-            .'<script language="javascript" type="text/javascript">'."\n"
-            .'tinyMCE.init({'."\n"
-            .'    mode : "exact",'."\n"
-            .'    elements: "'.$this->name.'",'."\n"
-            .'    theme : "advanced",'."\n"
-            .'    theme_advanced_buttons1 : "bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright, justifyfull,bullist,numlist,undo,redo,link,unlink",'."\n"
-            .'    theme_advanced_buttons2 : "",'."\n"
-            .'    theme_advanced_buttons3 : "",'."\n"
-            .'    theme_advanced_toolbar_location : "top",'."\n"
-            .'    theme_advanced_toolbar_align : "left",'."\n"
-            .'    theme_advanced_path_location : "bottom",'."\n"
-            .'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
-            .'});'."\n"
-            .'</script>'."\n\n";
-
-        // add standard text area
-        $returnString .= $this->getTextArea();
-        
-        return  $returnString;
-    }
-    */
-    
+   
     /**
      * Returns the html code needed to display an advanced (default) version of the editor
      * Advanced version is now the standard one
@@ -128,15 +95,6 @@ class editor
             .'<script language="javascript" type="text/javascript">'."\n\n";
             
         $returnString .=
-            'function strip_old_htmlarea( content )'."\n"
-            .'{'."\n"
-            .'    content = content.replace(/style="[^"]*"/g, "");'."\n"
-            .'    content = content.replace(/<span [^>]*>/g, "");'."\n"
-            .'    content = content.replace(/<\/span>/g, "");'."\n\n"
-            .'    return content;'."\n"
-            .'}'."\n\n";
-		
-        $returnString .=
             'tinyMCE.init({'."\n"
             .'    mode : "exact",'."\n"
             .'    elements: "'.$this->name.'",'."\n"
@@ -150,12 +108,22 @@ class editor
             .'    theme_advanced_path : true,'."\n"
             .'    theme_advanced_path_location : "bottom",'."\n"
             .'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
-            .'});'."\n\n"
-            .'</script>'."\n\n";
-        
-        // use :     
-        // "tinyMCE.setContent(strip_old_htmlarea(document.getElementById('".$this->name."').value));"
-        // to update content 'on the fly' 
+            .'});'."\n\n";
+            
+
+       /* $returnString .=
+            'function strip_old_htmlarea()'."\n"
+            .'{'."\n"
+			.'    content = "'.$this->content.'"'."\n\n"	
+            .'    content = content.replace(/style="[^"]*"/g, "");'."\n"
+            .'    content = content.replace(/<span [^>]*>/g, "");'."\n"
+            .'    content = content.replace(/<\/span>/g, "");'."\n\n"
+            .'    tinyMCE.setContent( content );'."\n"
+            .'    return true;'."\n"
+            .'}'."\n\n"
+            .'if( confirm("test") ) strip_old_htmlarea();'."\n\n";
+		*/	
+            $returnString .= '</script>'."\n\n";
         
         // add standard text area
         $returnString .= $this->getTextArea();
@@ -193,8 +161,8 @@ class editor
     function prepareContent()
     {
     	// remove old 'metadata' and add the good one
-    	$this->content = preg_replace('/<!-- content: .*-->/', '', $this->content) . '<!-- content: html tiny_mce -->';
-        
+    	$this->content = preg_replace('/<!-- content:[^(\-\->)]*-->/', '', $this->content) . '<!-- content: html tiny_mce -->';
+
         return true;
     }
 
