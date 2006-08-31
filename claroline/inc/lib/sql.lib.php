@@ -336,7 +336,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
 
     if ( get_conf('CLARO_DEBUG_MODE',false)
-    // && get_conf('CLARO_DEBUG_SQL',false)
+      && get_conf('CLARO_PROFILE_SQL',false)
       )
       {
          $start = microtime();
@@ -351,12 +351,12 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
     }
 
     if ( get_conf('CLARO_DEBUG_MODE',false)
-    // && get_conf('CLARO_DEBUG_SQL',false)
+      && get_conf('CLARO_PROFILE_SQL',false)
       )
     {
         static $queryCounter = 1;
         $duration = microtime()-$start;
-        $info = 'execution time : ' . ($duration > 0.001 ? '<b>'.round($duration,4).'</b>':'&lt;0.001')  . '&#181;s'  ;
+        $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
         //$info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
         $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
         pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info ,'sqlinfo');
