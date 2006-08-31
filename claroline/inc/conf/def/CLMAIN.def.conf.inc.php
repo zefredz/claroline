@@ -102,6 +102,7 @@ array ( 'userPasswordCrypted'
       , 'claro_texRendererUrl'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
+      , 'CLARO_PROFILE_SQL'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
@@ -517,6 +518,17 @@ array ('label'        => 'relative path from root web to user pic repository'
 $conf_def_property_list['CLARO_DEBUG_MODE'] =
 array ('label'       => 'Debug mode'
       ,'description' => 'More verbose when error occurs.'
+      ,'type'        => 'boolean'
+      ,'default'     => TRUE
+      ,'container'   => 'CONST'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
+      );
+
+$conf_def_property_list['CLARO_PROFILE_SQL'] =
+array ('label'       => 'Profile SQL'
+      ,'description' => 'Profile SQL in DEBUG MODE.'
       ,'type'        => 'boolean'
       ,'default'     => TRUE
       ,'container'   => 'CONST'
