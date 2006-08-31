@@ -606,7 +606,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
             array_push ($okMsgs, get_lang('Manifest found in zip file : ').$manifestPath."imsmanifest.xml" );
 
-			$data = file_get_contents($manifestPath.$file);
+			$data = html_entity_decode(urldecode(file_get_contents($manifestPath.$file)));
 
             if( !xml_parse($xml_parser, $data) )
             {
