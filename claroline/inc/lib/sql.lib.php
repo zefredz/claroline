@@ -356,7 +356,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
     {
         static $queryCounter = 1;
         $duration = microtime()-$start;
-        $info = 'execution time : ' . ($duration > 0.001 ? round($duration,4):'&lt;0.001')  . 'ms'  ;
+        $info = 'execution time : ' . ($duration > 0.001 ? '<b>'.round($duration,4).'</b>':'&lt;0.001')  . '&#181;s'  ;
         //$info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
         $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
         pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info ,'sqlinfo');
