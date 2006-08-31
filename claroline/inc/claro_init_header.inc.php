@@ -53,6 +53,10 @@ $titlePage .= get_conf('siteName');
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="screen, projection, tv" />
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/print.css" media="print" />
 
+<?php
+
+if (CLARO_DEBUG_MODE) echo '<link rel="stylesheet" type="text/css" href="' . $clarolineRepositoryWeb . 'css/devel.css" media="screen" />';
+?>
 
 <link rel="top" href="<?php echo $urlAppend ?>/index.php" title="" />
 <link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo get_lang('Course list') ?>" />
