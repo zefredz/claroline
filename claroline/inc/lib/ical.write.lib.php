@@ -72,7 +72,7 @@ function buildICal($context, $calType='ics')
             if ( file_exists($icalToolLibPath)
             )
             {
-                include_once $icalToolLibPath;
+                require_once $icalToolLibPath;
                 if (function_exists($icalToolFuncName)) $iCal = call_user_func($icalToolFuncName, $iCal, $context );
             }
         }

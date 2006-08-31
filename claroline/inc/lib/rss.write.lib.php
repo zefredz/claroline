@@ -201,7 +201,7 @@ function rss_get_tool_compatible_list()
                     if ( file_exists($rssToolLibPath)
                     )
                     {
-                        include_once $rssToolLibPath;
+                        require_once $rssToolLibPath;
                         if (function_exists($rssToolFuncName))
                         {
                             $rssToolList[] = $toolLabel;

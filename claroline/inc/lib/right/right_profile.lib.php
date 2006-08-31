@@ -133,6 +133,20 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
     static $cachedProfileId = null ;
     static $cachedCourseId = null ;
     static $cachedCourseProfileRightList = null ;
+ 
+    // load courseId
+    if ( is_null($courseId) )
+    {
+        if ( !empty($GLOBALS['_cid'] ) ) $courseId = $_cid ;
+        else                             return false ;
+    }
+
+    // load profile id
+    if ( is_null($profileId) )
+    {
+        if ( !empty($GLOBALS['_profileId']) ) $profileId = $_profileId ;
+        else                                  return false ;
+    }
 
     if ( !empty($cachedCourseProfileRightList) &&
          ( $cachedProfileId == $profileId ) &&
