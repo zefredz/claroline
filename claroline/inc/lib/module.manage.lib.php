@@ -1205,7 +1205,7 @@ function readModuleManifest($modulePath)
     else
     {
         array_push ($backlog_message, get_lang('Manifest open : manifest.xml'));
-        $data = fread($fp, filesize($manifestPath));
+        $data = html_entity_decode(urldecode(fread($fp, filesize($manifestPath))));
     }
 
     //parse manifest
