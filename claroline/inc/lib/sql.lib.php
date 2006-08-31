@@ -395,14 +395,15 @@ function claro_sql_field_names( $sql, $resultPt = null )
 
     if ( ! array_key_exists( $sqlHash, $_colNameList) )
     {
-        if ( ! is_resource($resultPt) || get_resource_type($resultPt) != 'Unknown' )
+        if ( is_resource($resultPt) && get_resource_type($resultPt) == 'mysql result' )
         {
-            $resultPt     = claro_sql_query($sql);
-            $releasablePt = true;
+            // if ressource type is mysql result use it
+            $releasablePt = false;
         }
         else
         {
-            $releasablePt = false;
+            $resultPt     = claro_sql_query($sql);
+            $releasablePt = true;
         }
 
         $resultFieldCount = mysql_num_fields($resultPt);
