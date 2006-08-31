@@ -335,6 +335,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
 
+    if ( get_conf('CLARO_DEBUG_MODE',false)
+    // && get_conf('CLARO_DEBUG_SQL',false)
+      )
+      {
+         $start = microtime();
+      }
     if ( $dbHandler == '#')
     {
         $resultHandler =  @mysql_query($sqlQuery);
@@ -344,7 +350,20 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
-    if ( get_conf('CLARO_DEBUG_MODE',false)  && mysql_errno() )
+    if ( get_conf('CLARO_DEBUG_MODE',false)
+    // && get_conf('CLARO_DEBUG_SQL',false)
+      )
+    {
+        static $queryCounter = 1;
+        $duration = microtime()-$start;
+        $info = 'execution time : ' . ($duration > 0.001 ? round($duration,4):'&lt;0.001')  . 'ms'  ;
+        //$info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
+        $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
+        pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info ,'sqlinfo');
+        pushClaroMessage( '<code>' . nl2br($sqlQuery) . '</code>', (mysql_errno()?'error':'sqlinfo'));
+
+    }
+if ( get_conf('CLARO_DEBUG_MODE',false)  && mysql_errno() )
     {
                 echo '<hr size="1" noshade>'
                      .mysql_errno(), " : ", mysql_error(), '<br>'
@@ -588,16 +607,16 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
         if ($dbHandler == '#') return mysql_affected_rows();
         else                   return mysql_affected_rows($dbHandler);
 
-        // NOTE. To make claro_sql_query_affected_rows() work properly, 
-        // database connection is required with CLIENT_FOUND_ROWS flag. 
+        // NOTE. To make claro_sql_query_affected_rows() work properly,
+        // database connection is required with CLIENT_FOUND_ROWS flag.
         //
-        // When using UPDATE, MySQL will not update columns where the new 
-        // value is the same as the old value. This creates the possiblity 
-        // that mysql_affected_rows() may not actually equal the number of 
-        // rows matched, only the number of rows that were literally affected 
-        // by the query. But this behavior can be changed by setting the 
-        // CLIENT_FOUND_ROWS flag in mysql_connect(). mysql_affected_rows() 
-        // will return then the number of rows matched, even if none are 
+        // When using UPDATE, MySQL will not update columns where the new
+        // value is the same as the old value. This creates the possiblity
+        // that mysql_affected_rows() may not actually equal the number of
+        // rows matched, only the number of rows that were literally affected
+        // by the query. But this behavior can be changed by setting the
+        // CLIENT_FOUND_ROWS flag in mysql_connect(). mysql_affected_rows()
+        // will return then the number of rows matched, even if none are
         // updated.
     }
     else
