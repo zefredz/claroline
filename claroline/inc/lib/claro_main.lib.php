@@ -153,15 +153,15 @@ function claro_get_main_group_properties($courseId)
         {
             $tempList[$thisData['name']] = (int) $thisData['value'];
         }
-        
+
         $propertyList = array();
-        
+
         $propertyList ['registrationAllowed'] =  ($tempList['self_registration'] == 1);
         $propertyList ['private'            ] =  ($tempList['private']           == 1);
         $propertyList ['nbGroupPerUser'     ] =  $tempList['nbGroupPerUser'];
-        
+
         $propertyList['tools'] = array();
-        
+
         $propertyList ['tools'] ['CLFRM'    ] =   ($tempList['CLFRM']             == 1);
         $propertyList ['tools'] ['CLDOC'    ] =   ($tempList['CLDOC']             == 1);
         $propertyList ['tools'] ['CLWIKI'   ] =   ($tempList['CLWIKI']            == 1);
@@ -888,8 +888,17 @@ function get_conf($param, $default = null)
 {
     if (CLARO_DEBUG_MODE)
     {
+
         if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
-        pushClaroMessage($param . ' use but not set. use default :' . var_export($default,1),'warning');
+        {
+            static $paramList = array();
+
+            if (!in_array($param,$paramList))
+            {
+                $paramList[]=$param;
+                pushClaroMessage($param . ' use but not set. use default :' . var_export($default,1),'warning');
+            }
+        }
     }
 
     if     ( isset($GLOBALS['_conf'][$param]) )  return $GLOBALS['_conf'][$param];
