@@ -1,9 +1,5 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
-$tbl_name = claro_sql_get_main_tbl();
-
-$tbl_module = $tbl_name['module'];
-$tbl_dock = $tbl_name['dock'];
 
 class Buffer
 {
@@ -42,27 +38,64 @@ class Buffer
    }
 }
 
-
-function getAppletList($dock)
+function claro_get_docks_module_list()
 {
-    global $tbl_module;
-    global $tbl_dock;
-    global $includePath;
+    $tbl_name = claro_sql_get_main_tbl();
 
-    $sql = "SELECT *
+    $tbl_module = $tbl_name['module'];
+    $tbl_dock = $tbl_name['dock'];
+
+    $sql = "SELECT M.`label` AS `label`, D.`name` AS `dock`
               FROM `".$tbl_module."` AS M, `".$tbl_dock."` AS D
-             WHERE D.`name` = '".$dock."'
-               AND D.`module_id` = M.`id`
+             WHERE D.`module_id` = M.`id`
                AND M.`activation` = 'activated'
                ORDER BY D.`rank`
               ";
-    $module_list = claro_sql_query_fetch_all($sql);
+    $moduleList = claro_sql_query_fetch_all($sql);
+    
+    $ret = array();
+    
+    if ( $moduleList )
+    {
+        foreach ( $moduleList as $module )
+        {
+            if ( ! array_key_exists( $module['dock'], $ret ) )
+            {
+                $ret[$module['dock']] = array();
+            }
+            
+            $ret[$module['dock']][] = array( 'label' => $module['label']);
+        }
+        
+        return $ret;
+    }
+    else
+    {
+        return $ret;
+    }
+}
+
+function getAppletList($dock)
+{
+    global $includePath;
+    
+    static $moduleList = array();
+    
+    if ( empty( $moduleList ) )
+    {
+        $moduleList = claro_get_docks_module_list();
+    }
+    
+    $dockModuleList = array_key_exists( $dock, $moduleList )
+        ? $moduleList[$dock]
+        : array()
+        ;
 
     $appletList = array();
 
     //include each entry point of plugins supposed to display output in this buffer
 
-    foreach ($module_list as $module)
+    foreach ($dockModuleList as $module)
     {
         if (file_exists(get_module_path($module['label']) . '/entry.php'))
         {
@@ -116,8 +149,6 @@ class Dock
 
     function render()
     {
-
-
        $claro_buffer = new Buffer();
        $claro_buffer->append("\n" . '<div id="' . $this->name.'" class="dock">' . "\n");
 
