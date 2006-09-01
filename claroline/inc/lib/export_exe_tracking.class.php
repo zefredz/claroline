@@ -15,7 +15,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 +----------------------------------------------------------------------+
 */
 
-include_once('../exercise/lib/question.class.php');
+include_once( dirname(__FILE__) . '/../../exercise/lib/question.class.php');
 include_once( dirname(__FILE__) . '/csv.class.php');
 
 class csvTrackTrueFalse extends csv
