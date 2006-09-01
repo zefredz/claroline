@@ -138,7 +138,7 @@ function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 /**
  *
  * @param string $select_name name of the form (other param can be adds with $attr
- * @param array $list_option 2D table where key are labels and value are values 
+ * @param array $list_option 2D table where key are labels and value are values
  *  with reverted set to false (default) or key are values and value are labels
  *  with reverted set to true
  * @param string $preselect name of the key in $list_option would be preselected
@@ -165,7 +165,7 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
 
 /**
  * return a string as html form option list to plce in a <select>
- * @param array $list_option 2D table where key are labels and value are values 
+ * @param array $list_option 2D table where key are labels and value are values
  *  with reverted set to false (default) or key are values and value are labels
  *  with reverted set to true
  * @param string $preselect name of the key in $list_option would be preselected
@@ -262,7 +262,7 @@ function form_input_text($name, $value, $displayedName = '', $required = false)
     if ( empty($displayedName) ) $displayedName = $name;
     if ( $required )             $displayedName = form_required_field($displayedName);
 
-    return form_row( '<label for="' . $name . '">' . $displayedName . '&nbsp;: '
+    return form_row( '<label for="' . $name . '">' . $displayedName . '</label>&nbsp;: '
     ,                '<input type="text" size="' . get_conf('formSize',40) . '"'
     .                ' id="'.$name.'" name="'.$name.'"'
     .                ' value="'.htmlspecialchars($value).'" />')
@@ -304,7 +304,7 @@ function form_input_password($name, $value, $displayedName = '', $required = fal
     if ( empty($displayedName) ) $displayedName = $name;
     if ( $required )             $displayedName = form_required_field($displayedName);
 
-    return form_row( '<label for="'.$name.'">'.$displayedName . '&nbsp;: '
+    return form_row( '<label for="'.$name.'">'.$displayedName . '</label>&nbsp;: '
     ,                '<input type="password" size="' . get_conf('formSize',40) . '"'
     .                ' id="' . $name . '" name="' . $name . '"'
     .                ' value="' . htmlspecialchars($value) . '" />')
@@ -339,7 +339,7 @@ function form_input_textarea($name, $value, $displayedName = '', $required = fal
     if ( $required )             $displayedName = form_required_field($displayedName);
 
     $rows = (int) $rows;
-    return form_row( '<label for="' . $name . '">' . $displayedName . '&nbsp;: '
+    return form_row( '<label for="' . $name . '">' . $displayedName . '</label>&nbsp;: '
     ,                '<textarea cols="' . get_conf('formSize',40) . '" rows="' . $rows . '"  '
                    . ' id="' . $name . '" name="' . $name . '" >' . htmlspecialchars($value) . '</textarea>' )
     ;
