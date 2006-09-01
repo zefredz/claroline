@@ -63,7 +63,7 @@ if ($cmd ==  'rqMkHtml' )
     // get to the editor because of an error at creation 
     // (eg forgot to give a file name)
     ?> 
-    <input type="submit" value="<?php echo get_lang('Ok'); ?>" />
+    <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
     <?php echo claro_html_button('./document.php?cmd=exChDir&amp;file='.$cwd, get_lang('Cancel')); ?>
     </form>
     <?php
