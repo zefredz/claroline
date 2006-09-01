@@ -99,10 +99,9 @@ class ConfigUpgrade extends Config
         else
         {
             // build the filename with the config_code
-            return $GLOBALS['includePath'] . '/conf/' . $config_code . '.conf.php';
+            return $GLOBALS['includePath'] . '/conf/' . $this->config_code . '.conf.php';
         }
     }
 
 }
-
-
+?>
