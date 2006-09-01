@@ -328,14 +328,14 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ;
                     }
 
-                    $dialogBox .= '<tr>'
-                    .             '<td></td>'
-                    .             '<td>'
-                    .             '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '"> '
+                    $dialogBox .= '<tr>' . "\n"
+                    .             '<td>&nbsp;</td>' . "\n"
+                    .             '<td>' . "\n"
+                    .             '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '">&nbsp;' . "\n"
                     .             claro_html_button($_SERVER['PHP_SELF']
                     .            '?cmd=exChDir&file=' . htmlspecialchars($cwd), get_lang("Cancel") )
-                    .             '</td>'
-                    .             '</tr>'
+                    .             '</td>' . "\n"
+                    .             '</tr>' . "\n\n"
                     .             '</table>' . "\n"
                     .             '</form>' . "\n"
                     ;
@@ -414,7 +414,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ."</p>\n";
         }
 
-        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\"> "
+        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                       get_lang("Cancel"))
                    ."</form>";
@@ -623,7 +623,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ."<br />\n";
         }
 
-        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                        get_lang("Cancel"))
                      ."</form>\n";
@@ -876,7 +876,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                           ."</p>";
         }
 
-        $dialogBox .= "<br /><input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+        $dialogBox .= "<br /><input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars(claro_dirname($_REQUEST['file'])),
                                          get_lang("Cancel"))
                      ."</form>\n";
@@ -949,7 +949,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                        ."<br />\n";
         }
 
-        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                                 get_lang("Cancel"))
                       ."</form>\n";
@@ -988,7 +988,7 @@ if ('rqSearch' == $cmd )
                     ."<label for=\"searchPattern\">".$searchMsg."</label><br />\n"
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\"><br />\n"
-                    ."<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+                    ."<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
                     .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                        get_lang("Cancel"))
 
