@@ -107,13 +107,15 @@ class editor
             .'    theme_advanced_toolbar_align : "left",'."\n"
             .'    theme_advanced_path : true,'."\n"
             .'    theme_advanced_path_location : "bottom",'."\n"
+            .'    convert_urls : false,'."\n" // prevent forced conversion to relative url 
+            .'    relative_urls : false,'."\n" // prevent forced conversion to relative url
             .'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
             .'});'."\n\n"
             .'</script>'."\n\n";
         
         // add standard text area
         $returnString .= $this->getTextArea();
-		
+		/*
 		$returnString .=
             "\n\n"
             .'<script language="javascript" type="text/javascript">'."\n\n"
@@ -128,7 +130,7 @@ class editor
             .'}'."\n\n"
             .'if( confirm("test") ) strip_old_htmlarea();'."\n\n"     
             .'</script>'."\n\n";
-            
+            */
         return  $returnString;
     }
     
