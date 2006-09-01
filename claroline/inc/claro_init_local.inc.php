@@ -197,6 +197,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *    for the current user.
  ******************************************************************************/
 
+$extAuthSource = array(); // initialise extAuthSource Array (before include of auth.conf.php) - fix Remote File Inclusion (bug 707)
+
 require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 require_once claro_get_conf_repository() .  'auth.cas.conf.php';
@@ -461,7 +463,7 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
             }
 
             // RECORD SSO COOKIE
-            // $ssoEnabled set in claroline/conf/auth.conf.php
+            // $ssoEnabled set in conf/auth.soo.conf.php
 
             if ( get_conf('ssoEnabled',false ))
             {
