@@ -182,7 +182,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         {
             if (   isset($_REQUEST['uncompress'])
                 && $_REQUEST['uncompress'] == 1
-                && $is_allowedToUnzip)
+                && $is_allowedToUnzip
+                && preg_match('/.zip$/i',$_FILES['userFile']['name']))
             {
                 $unzip = 'unzip';
             }
@@ -209,7 +210,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             if ($uploadedFileName !== false)
             {
-                if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
+                if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1  && $unzip=='unzip')
                 {
                     $dialogBox .= ' ' . get_lang('Zip file uploaded and uncompressed');
 
@@ -291,8 +292,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                IN CASE OF HTML FILE, LOOKS FOR IMAGE NEEDING TO BE UPLOADED TOO
               --------------------------------------------------------------------*/
 
-            if ( count($uploadedFileNameList) == 1 && ( strrchr($uploadedFileName, '.') == '.htm'
-                || strrchr($uploadedFileName, '.') == '.html' ) )
+            if ( preg_match('/.htm$/i',$_FILES['userFile']['name'])
+                || preg_match('/.html$/i',$_FILES['userFile']['name']) )
             {
                 $imgFilePath = search_img_from_html($baseWorkDir . $cwd . '/' . $uploadedFileName);
 
@@ -327,7 +328,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                         ;
                     }
 
-                    $dialogBox .= 'tr>'
+                    $dialogBox .= '<tr>'
                     .             '<td></td>'
                     .             '<td>'
                     .             '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '"> '

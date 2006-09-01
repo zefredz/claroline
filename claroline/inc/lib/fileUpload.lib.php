@@ -482,7 +482,7 @@ function search_img_from_html($htmlFile)
     {
         foreach($imgTagList as $thisImgTag)
         {
-            if ( preg_match('~src[[:space:]]*=[[:space:]]*[\"]{1}([^\"]+)[\"]{1}~i',
+            if ( preg_match('~src[[:space:]]*=[[:space:]]*[\"||\']{1}([^\"]+)[\"||\']{1}~i',
                             $thisImgTag, $matches) )
             {
                 $imgPathList[] = $matches[1];
