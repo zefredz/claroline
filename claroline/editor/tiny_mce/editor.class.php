@@ -93,7 +93,7 @@ class editor
             "\n\n"
             .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce_src.js"></script>'."\n"
             .'<script language="javascript" type="text/javascript">'."\n\n";
-            
+  
         $returnString .=
             'tinyMCE.init({'."\n"
             .'    mode : "exact",'."\n"
@@ -108,26 +108,27 @@ class editor
             .'    theme_advanced_path : true,'."\n"
             .'    theme_advanced_path_location : "bottom",'."\n"
             .'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
-            .'});'."\n\n";
-            
-
-       /* $returnString .=
-            'function strip_old_htmlarea()'."\n"
-            .'{'."\n"
-			.'    content = "'.$this->content.'"'."\n\n"	
-            .'    content = content.replace(/style="[^"]*"/g, "");'."\n"
-            .'    content = content.replace(/<span [^>]*>/g, "");'."\n"
-            .'    content = content.replace(/<\/span>/g, "");'."\n\n"
-            .'    tinyMCE.setContent( content );'."\n"
-            .'    return true;'."\n"
-            .'}'."\n\n"
-            .'if( confirm("test") ) strip_old_htmlarea();'."\n\n";
-		*/	
-            $returnString .= '</script>'."\n\n";
+            .'});'."\n\n"
+            .'</script>'."\n\n";
         
         // add standard text area
         $returnString .= $this->getTextArea();
-
+		
+		$returnString .=
+            "\n\n"
+            .'<script language="javascript" type="text/javascript">'."\n\n"
+            .'function strip_old_htmlarea()'."\n"
+            .'{'."\n"
+			.'    content = tinyMCE.getContent()'."\n\n"	
+            .'    content = content.replace(/style="[^"]*"/g, "");'."\n"
+            .'    content = content.replace(/<span [^>]*>/g, "");'."\n"
+            .'    content = content.replace(/<\/span>/g, "");'."\n\n"
+            .'    tinyMCE.setContent(content) ;'."\n"
+            .'    return true;'."\n"
+            .'}'."\n\n"
+            .'if( confirm("test") ) strip_old_htmlarea();'."\n\n"     
+            .'</script>'."\n\n";
+            
         return  $returnString;
     }
     
