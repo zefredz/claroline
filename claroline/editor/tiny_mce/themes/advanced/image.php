@@ -66,9 +66,8 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
     <script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
     <script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
     <script language="javascript" type="text/javascript" src="jscripts/image.js"></script>
-
 </head>
-<body onload="<?php echo (empty($imgUrl))?'init();"':'getImageData()'; ?>" style="display: none">
+<body id="image" onload="<?php echo (empty($imgUrl))?'init();"':'getImageData()'; ?>" style="display: none">
 
 <p class="title">{$lang_insert_image_title}</p>
 
@@ -81,28 +80,10 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
             <td><table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td><input name="src" type="text" id="src" value="<?php echo htmlspecialchars($imgUrl)?>" style="width: 200px" onchange="getImageData();" /></td>
-                  <td><script language="javascript" type="text/javascript">renderBrowser('srcbrowser','src','image','theme_advanced_image');</script></td>
+                  <td id="srcbrowsercontainer">&nbsp;</td>
                 </tr>
               </table></td>
           </tr>
-          <!-- Image list -->
-          <script language="javascript">
-            if (typeof(tinyMCEImageList) != "undefined" && tinyMCEImageList.length > 0) {
-                var html = "";
-
-                html += '<tr><td>{$lang_image_list}:</td>';
-                html += '<td><select name="image_list" style="width: 200px" onchange="this.form.src.value=this.options[this.selectedIndex].value;resetImageData();getImageData();">';
-                html += '<option value="">---</option>';
-
-                for (var i=0; i<tinyMCEImageList.length; i++)
-                    html += '<option value="' + tinyMCEImageList[i][1] + '">' + tinyMCEImageList[i][0] + '</option>';
-
-                html += '</select></td></tr>';
-
-                document.write(html);
-            }
-          </script>
-          <!-- /Image list -->
           <tr>
             <td nowrap="nowrap">{$lang_insert_image_alt}:</td>
             <td><input name="alt" type="text" id="alt" value="" style="width: 200px" /></td>
