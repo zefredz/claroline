@@ -495,12 +495,9 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
 {
     global $urlAppend, $claro_editor;
 
-    if( !isset($claro_editor) ) $claro_editor = 'tiny_mce';
+    if( !get_conf('claro_editor') ) $claro_editor = 'tiny_mce';
 
     $returnString = '';
-
-    // default value of htmlEditor
-    if( !isset($_SESSION['htmlEditor']) ) $_SESSION['htmlEditor'] = 'enabled';
 
     // get content if in url
     if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
@@ -518,63 +515,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
         // editor instance
         $editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
 
-        if (claro_is_javascript_enabled())
-        {
-            if ( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-            {
-                $switchState = 'off';
-                $message     = get_lang('Disable text editor');
-                $confirmCommand = "if(!confirm('".clean_str_for_javascript(get_lang('SwitchEditorToTextConfirm'))."'))return(false);";
-            }
-            else
-            {
-                $switchState = 'on';
-                $message     = get_lang('Enable text editor');
-                $confirmCommand = '';
-            }
-
-            $location = '\''
-            .           $editorPath.'/editorswitcher.php?'
-            .           'switch='.$switchState
-            .           '&sourceUrl=' . urlencode($_SERVER['REQUEST_URI'])
-            .           '&areaContent='
-            .           '\''
-            .           '+escape(document.getElementById(\''.$name.'\').value)'
-            ;
-            // use REQUEST_URI in href to avoid an ugly error if there is a javascript error in onclick
-            $returnString .=
-            "\n".'<div align="right">'
-            .    '<small>'
-            .    '<b>'
-            .    '<a href="'.$_SERVER['REQUEST_URI'].'" '
-            .     'onClick ="' . $confirmCommand . 'window.location='
-            .    $location . ';return(false);">'
-            .    $message
-            .    '</a>'
-            .    '</b>'
-            .    '</small>'
-            .    '</div>'."\n"
-            ;
-        }
-
-        if( isset($_SESSION['htmlEditor']) && $_SESSION['htmlEditor'] != 'disabled' )
-        {
-            $returnString .= $editor->getAdvancedEditor();
-        }
-        else
-        {
-            // get standard text area
-            $returnString .=
-            '<textarea '
-            .'id="'.$name.'" '
-            .'name="'.$name.'" '
-            .'style="width:100%" '
-            .'rows="'.$rows.'" '
-            .'cols="'.$cols.'" '
-            .$optAttrib.' >'
-            ."\n".$content."\n"
-            .'</textarea>'."\n";
-        }
+        $returnString .= $editor->getAdvancedEditor();
     }
     else
     {
