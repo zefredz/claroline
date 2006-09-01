@@ -28,8 +28,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 function upgrade_main_database_to_16 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'MAINDB16';
 
-    switch( $step = get_upgrade_status('MAINDB16') )
+    switch( $step = get_upgrade_status($tool) )
     {
         case 1 :
 

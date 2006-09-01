@@ -431,7 +431,7 @@ function quiz_upgrade_to_18 ($course_code)
                 	$answerId = $row['question_id'].'-'.$row['id'];
                		$code = md5(uniqid(''));
 
-               		$answerList[$answerId]['questionId'] = $questionId;               		
+               		$answerList[$answerId]['questionId'] = $row['question_id'];               		
                		$answerList[$answerId]['answer'] = $row['reponse'];
                		$answerList[$answerId]['code'] = $code;
                		
