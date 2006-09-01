@@ -197,6 +197,9 @@ class Config
     {
         // get $conf_def and $conf_def_property_list from definition file
         $def_filename = $this->def_filename;
+        
+        $conf_def = array();
+        $conf_def_property_list = array();
 
         include $def_filename ;
 
@@ -220,7 +223,7 @@ class Config
         else
         {
             // build the filename with the config_code
-            return $this->conf_dirname . $config_code . '.conf.php';
+            return $this->conf_dirname . $this->config_code . '.conf.php';
         }
     }
 
