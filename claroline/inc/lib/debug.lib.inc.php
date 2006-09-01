@@ -60,7 +60,7 @@ function echo_session_value()
         print_r($status);
     }
 
-    if ('' != trim(get_conf('dbHost')) || '' != trim($get_conf('dbLogin')))
+    if ('' != trim(get_conf('dbHost')) || '' != trim(get_conf('dbLogin')))
     {
         $infoResult .= '
     <strong>mysql param</strong> :
