@@ -357,7 +357,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 <label for="submitFromCoursProperties"><?php echo get_lang('Create') ?> : </label>
 </td>
 <td>
-<input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo get_lang('Ok')?>">
+<input type="Submit" name="submitFromCoursProperties" id ="submitFromCoursProperties" value="<?php echo get_lang('Ok')?>">&nbsp;
 <?php echo claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')); ?>
 </td>
 </tr>
