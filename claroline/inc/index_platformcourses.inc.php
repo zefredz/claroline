@@ -89,9 +89,17 @@ if ( count($courseList) > 0 )
             . $thisCourse['officialCode'] . ' - '
             . $thisCourse['title']
             . '</a>'
-            . '<br>'
-            . '<small>' . $thisCourse['titular'] . '</small>' . "\n"
-            . '</li>' . "\n";
+            . '<br>';
+        if (isset($_uid))
+        {
+        	echo'<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
+        }
+        else 
+        {
+        	echo'<small>' . $thisCourse['titular'] . '</small>' . "\n";
+        }        
+        
+        echo '</li>' . "\n";
     }
 
 	echo '</ul>' . "\n";

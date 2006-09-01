@@ -94,6 +94,7 @@ class category_browser
                        fake_code                             AS officialCode,
                                                                 directory,
                                                                 visible,
+                                                                email,
                        "
               . ( $this->userId ? "cu.user_id" : "NULL") . " AS enrolled "
 

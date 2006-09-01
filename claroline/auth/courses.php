@@ -526,9 +526,8 @@ switch ( $displayMode )
             {
                 echo '<tr>' . "\n"
                 .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['title'] . '<br />' . "\n"
-                .    '<small>' . $thisCourse['titular'] . '</small>' ."\n"
-                .    '</td>' . "\n"
-                ;
+		        .	 '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n"
+				.	 '</td>' . "\n";
 
                 // enroll link
 
