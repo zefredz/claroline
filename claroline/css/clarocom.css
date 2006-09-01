@@ -319,7 +319,6 @@ input[type=submit]:hover, button:hover {
 
 #claroBody a:link,
 #claroBody a:visited {
-	color: #336699;
 	font-weight: normal;
 }
 
@@ -331,12 +330,11 @@ input[type=submit]:hover, button:hover {
 
 #claroBody a.item:link,
 #claroBody a.item:visited {
-	color: #336699;
 	font-weight: normal;
 }
 
 #claroBody a.item:hover,
-#claroBody a.item:active {
+#claroBody a.item:active  {
 	color: #999999;
 	font-weight: normal;
 }
@@ -702,6 +700,16 @@ div .wiki2xhtml p {
 a.invisible,
 a:link.invisible,
 a:visited.invisible {
+	color: #999999;
+}
+
+/* menu */
+
+.menu a.item:visited{
+	color: #336699;
+}
+
+.menu a.invisible:visited{
 	color: #999999;
 }
 
