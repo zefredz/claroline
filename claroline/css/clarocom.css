@@ -475,6 +475,10 @@ th .claroCmdDisabled
 	background: url(../img/hot.gif) no-repeat;
 }
 
+a.item:visited{
+	color: #336699;
+}
+
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
@@ -704,10 +708,6 @@ a:visited.invisible {
 }
 
 /* menu */
-
-.menu a.item:visited{
-	color: #336699;
-}
 
 .menu a.invisible:visited{
 	color: #999999;
