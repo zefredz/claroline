@@ -34,7 +34,7 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
 
     if ($_cid)
     {
-        $uploadDirPathWeb = $coursesRepositoryWeb.$_course['path'].'/document/images';
+        $uploadDirPathWeb = $rootWeb.$coursesRepositoryAppend.$_course['path'].'/document/images';
         $uploadDirPathSys = $coursesRepositorySys.$_course['path'].'/document/images';
     }
 
