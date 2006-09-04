@@ -368,12 +368,16 @@ input[type=submit]:hover, button:hover {
 	background-repeat: repeat-x;
 }
 
-#campusFooter a:link, a:visited {
+#campusFooter a:link, 
+#campusFooter a:visited 
+{
 	color: #FFFFFF;
 	font-weight: bold;
 }
 
-#campusFooter a:hover, a:active {
+#campusFooter a:hover, 
+#campusFooter a:active 
+{
 	color: #D1E0F4;
 	font-weight: bold;
 }
@@ -546,18 +550,22 @@ a.item:visited{
  * </table>
  */
 
-.claroTable td, th {
+.claroTable td, 
+.claroTable th {
 	vertical-align: middle;
 	padding: 2px 5px 2px 5px;
 	border: 1px solid #EDEDED;
 	font-size: 0.9em;
 }
 
-.claroTable td em, th em{
+.claroTable td em, 
+.claroTable th em{
 	font-size: 0.9em;
 }
 
-.claroTable .superHeader th, .claroTable th.superHeader {
+.claroTable .superHeader th, 
+.claroTable th.superHeader 
+{
 	color: #669933;
 	background-color: #DEEECE;
 	border: 1px #87B665 solid;
@@ -573,8 +581,11 @@ a.item:visited{
 }
 
 
-.claroTable th.headerY, .claroTable .headerY th, 
-.claroTable th.headerX, .claroTable .headerX th {
+.claroTable th.headerY, 
+.claroTable .headerY th, 
+.claroTable th.headerX, 
+.claroTable .headerX th 
+{
 	color: #669933;
 	font-size: 12px;
 	font-weight: bold;
@@ -582,7 +593,9 @@ a.item:visited{
 	padding: 2px 5px 2px 5px;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX {
+.claroTable .headerX th,
+.claroTable th.headerX 
+{
 	background-color: #EDF1E3;
 	border: 1px #96BB7A solid;
 	padding: 2px 5px 2px 5px;
@@ -699,7 +712,7 @@ div .wiki2xhtml p {
 }
 
 .invisible a, 
-.invisible a:link, 
+.invisible a:link,
 .invisible a:visited,
 a.invisible,
 a:link.invisible,
