@@ -137,14 +137,14 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
     // load courseId
     if ( is_null($courseId) )
     {
-        if ( !empty($GLOBALS['_cid'] ) ) $courseId = $_cid ;
+        if ( !empty($GLOBALS['_cid'] ) ) $courseId = $GLOBALS['_cid'];
         else                             return false ;
     }
 
     // load profile id
     if ( is_null($profileId) )
     {
-        if ( !empty($GLOBALS['_profileId']) ) $profileId = $_profileId ;
+        if ( !empty($GLOBALS['_profileId']) ) $profileId = $GLOBALS['_profileId'];
         else                                  return false ;
     }
 
