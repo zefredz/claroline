@@ -404,8 +404,8 @@ function quiz_upgrade_to_18 ($course_code)
                             ('" . $row['id'] . "',
                              '" . addslashes($answer) . "',
                              '" . addslashes($gradeList) . "',
-                             '" . addslashes($type) . "',
-                             '" . addslashes($wrongAnswerList) . "'              
+                             '" . addslashes($wrongAnswerList) . "',
+                             '" . addslashes($type) . "'
                             )";
 
                     if ( ! upgrade_sql_query($sql) )  
@@ -415,6 +415,9 @@ function quiz_upgrade_to_18 ($course_code)
                 }
                 
                 // add MATCHING answers
+
+				$answerList = array();
+
 				$sql = "SELECT A.id, A.question_id, A.reponse, A.correct, A.ponderation
                     FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
                     WHERE A.question_id = Q.id 
@@ -423,8 +426,6 @@ function quiz_upgrade_to_18 ($course_code)
                 $result = claro_sql_query($sql);
 
                 if ( ! $result ) return $step;
-
-				$answerList = array();
 				
                 while ( ( $row = mysql_fetch_array($result) ) )
                 {                
@@ -438,7 +439,7 @@ function quiz_upgrade_to_18 ($course_code)
                		// if answer is a rightProposal
                 	if( $row['correct'] == 0 )
                 	{
-                		$answerList[$answerId]['match'] = 'NULL';
+                		$answerList[$answerId]['match'] = 0;
                 		$answerList[$answerId]['grade'] = 0;
                 	}
                 	else // if answer is a leftProposal
@@ -450,7 +451,7 @@ function quiz_upgrade_to_18 ($course_code)
             	
             	foreach( $answerList as $answerId => $answer )
             	{
-            		if( $answer['match'] == 'NULL' )
+            		if( $answer['match'] != 0 )
             		{
 	            		// find the matching right proposal code for all left proposals            			
 	            		$matchingAnswerId = $answer['questionId'].'-'.$answer['match'];
@@ -468,7 +469,7 @@ function quiz_upgrade_to_18 ($course_code)
                             VALUES
                             ('" . $answer['questionId'] . "',
                              '" . addslashes($answer['answer']) . "',
-                             '" . $answer['match'] . "',
+                             " . ($answer['match']==0?'NULL':"'".$answer['match']."'"). ",
                              '" . $answer['grade'] . "',
                              '" . $answer['code'] . "'                            
                             )";
@@ -479,8 +480,10 @@ function quiz_upgrade_to_18 ($course_code)
                     }
                 }
 
-
                 // add TF answers
+
+                $answerList = array();
+
                 $sql = "SELECT A.id, A.question_id, A.reponse, A.correct, A.comment, A.ponderation
                     FROM `".$currentCourseDbNameGlu."quiz_answer` AS A, `".$currentCourseDbNameGlu."quiz_question` AS Q
                     WHERE A.question_id = Q.id 
@@ -493,9 +496,11 @@ function quiz_upgrade_to_18 ($course_code)
 				// build an answer array that looks like the new db format
                 while ( ( $row = mysql_fetch_array($result) ) )
                 {   
-                	$answerId = $row['question_id'].'-'.$row['id'];
+                	$answerId = $row['question_id'];
+            			
+                    $answerList[$answerId]['questionId'] = $answerId;
                 	
-            		if( $row['id'] = '1' )
+            		if( $row['id'] == '1' )
             		{
             			// 'True'
             			$answerList[$answerId]['trueFeedback'] = $row['comment'];
@@ -510,7 +515,7 @@ function quiz_upgrade_to_18 ($course_code)
             			$answerList[$answerId]['correctAnswer'] = ($row['correct'] == 1)?'FALSE':'TRUE';
             		}
 				}
-				
+
 				foreach( $answerList as $answerId => $answer)
 				{            		
 					
