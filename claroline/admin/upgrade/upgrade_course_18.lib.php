@@ -464,10 +464,9 @@ function quiz_upgrade_to_18 ($course_code)
             		
             		
             		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_matching`
-                            (`questionId`,`answer`, `match`,`grade`,`code`)
+                            (`answer`, `match`,`grade`,`code`)
                             VALUES
-                            ('" . $answer['questionId'] . "',
-                             '" . addslashes($answer['answer']) . "',
+                            ('" . addslashes($answer['answer']) . "',
                              '" . $answer['match'] . "',
                              '" . $answer['grade'] . "',
                              '" . $answer['code'] . "'                            
