@@ -397,6 +397,9 @@ function quiz_upgrade_to_18 ($course_code)
      		       	$gradeList = (isset($reponse[1]))?$reponse[1]:'';
             		$type = (!empty($reponse[2]))?$reponse[2]:1;
             		$wrongAnswerList = (isset($reponse[3]))?$reponse[3]:'';
+
+                    $wrongAnswerList = str_replace(',','&#44;',$wrongAnswerList);
+                    $wrongAnswerList = str_replace('[',',',$wrongAnswerList);
             		
             		$sql = "INSERT INTO `" . $currentCourseDbNameGlu . "qwz_answer_fib`
                             (`questionId`,`answer`, `gradeList`,`wrongAnswerList`,`type`)
@@ -455,7 +458,7 @@ function quiz_upgrade_to_18 ($course_code)
             		{
 	            		// find the matching right proposal code for all left proposals            			
 	            		$matchingAnswerId = $answer['questionId'].'-'.$answer['match'];
-	            		
+
 	            		if( isset($answerList[$matchingAnswerId]['code']) ) 
 	            		{
 	            			$answer['match'] = $answerList[$matchingAnswerId]['code'];
