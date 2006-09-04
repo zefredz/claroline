@@ -149,10 +149,11 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             foreach( $question->answer->answerList as $answer )
             {
                 $results[$i] = $answer;
+                $results[$i]['nbr'] = 0;
                 
                 foreach( $trackedAnswers as $trackedAnswer )
                 {
-                    $results[$i]['nbr'] = 0;
+                    
                     if( $results[$i]['answer'] == $trackedAnswer['answer'] )
                     {
                         $results[$i]['nbr'] = $trackedAnswer['nbr'];
@@ -385,6 +386,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                   .'<tbody>'."\n\n";
 
             // display tab content
+
             foreach( $results as $result )
             {
                 echo      '<tr>'."\n"
