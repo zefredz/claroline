@@ -677,6 +677,37 @@ function user_remove_to_class($user_id,$class_id)
 }
 
 /**
+ * unsubscribe all users of the class
+ *
+ * @author damien Garros <dgarros@univ-catholyon.fr>
+ *
+ * @param int $class_id course code from the class table
+ *
+ * @return boolean TRUE  if subscribtion succeed
+ *         boolean FALSE otherwise.
+ */
+
+function class_remove_all_users ($classId)
+{
+  	$tbl_mdb_names     = claro_sql_get_main_tbl();
+  	$tbl_class_user    = $tbl_mdb_names['rel_class_user'];
+
+    $sql = "SELECT user_id
+            FROM `" . $tbl_class_user . "` AS `rel_c_u`
+                    WHERE `class_id`= " . (int) $classId ;
+
+    $userList = claro_sql_query_fetch_all($sql);
+
+    foreach ( $userList as $user )
+    {
+        $userId = $user['user_id'];
+        user_remove_to_class($userId,$classId);
+    }
+
+    return true ;
+}
+
+/**
  * Display the tree of classes
  *
  * @param unknown_type $class_list list of all the classes informations of the platform
