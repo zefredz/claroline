@@ -177,12 +177,23 @@ $cmdList[] = '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'user/AddCSVus
 .             get_lang('Add a user list in class')
 .             '</a>'
 ;
-$cmdList[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'] . '?cmd=unsubscribe_all&amp;class_id='.$class_id.'"'
-.    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Unregister all users ?')) . '\')){return true;}else{return false;}">'
-.             '<img src="'.$imgRepositoryWeb.'deluser.gif" border="0" /> '
-.             get_lang('Unregister all users')
-.             '</a>'
-;
+if ( !empty($resultList) )
+{
+    $cmdList[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'] . '?cmd=unsubscribe_all&amp;class_id='.$class_id.'"'
+    .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Unregister all users ?')) . '\')){return true;}else{return false;}">'
+    .             '<img src="'.$imgRepositoryWeb.'deluser.gif" border="0" /> '
+    .             get_lang('Unregister all users')
+    .             '</a>'
+    ;
+}
+else
+{
+    $cmdList[] = '<span class="claroCmdDisabled" >'
+    .    '<img src="' . $imgRepositoryWeb . 'deluser.gif" alt="" />'
+    .    get_lang('Unregister all users')
+    .    '</span>'
+    ;
+}
 
 
 //------------------------------------
