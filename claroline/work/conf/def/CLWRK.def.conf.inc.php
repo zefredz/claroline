@@ -26,7 +26,7 @@ $conf_def['config_class']= 'tool';
 
 $conf_def['section']['main']['label']      = ' Main';
 $conf_def['section']['main']['properties'] =
-array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification'  );
+array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'assignmentsPerPage', 'usersPerPage' );
 
 $conf_def['section']['quota']['label']      = 'Quota';
 $conf_def['section']['quota']['description']= 'Disk space allowed for submitted files';
@@ -77,7 +77,27 @@ array ('label'     => 'Mail notification'
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
         );
-        
+
+$conf_def_property_list['assignmentsPerPage'] =
+array ('label'         => 'Number of assignment per page'
+      ,'description'   => 'For assignments list'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      ,'default'       => '20'
+      ,'type'          => 'integer'
+      ,'unit'          => 'assignments'
+      );
+
+$conf_def_property_list['usersPerPage'] =
+array ('label'         => 'Number of user per page'
+      ,'description'   => 'For submissions list'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      ,'default'       => '20'
+      ,'type'          => 'integer'
+      ,'unit'          => 'users'
+      );
+              
 $conf_def_property_list['max_file_size_per_works'] =
 array ('label'         => 'Maximum size for an assignment'
       ,'description'   => 'Maximum size of a document that a user can upload'
