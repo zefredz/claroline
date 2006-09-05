@@ -2,15 +2,18 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-body {
+body 
+{
 	font-family: sans-serif;
 }
 
-a:link, a:active, a:visited {
+a:link, a:active, a:visited 
+{
 	color: black;
 }
 
-a img {
+a img 
+{
 	border:none;
 	text-decoration: none;
 }
@@ -20,7 +23,10 @@ a img {
 	clear: both;
 }
 
-h3{	font-size: 110%; }
+h3
+{
+	font-size: 110%;
+}
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -55,18 +61,10 @@ h3{	font-size: 110%; }
 
 #platformBanner #siteName
 {
-	position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
 }
 
 #platformBanner #institution
 {
-	position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
 }
 
 #campusBannerRight
@@ -300,13 +298,15 @@ h3{	font-size: 110%; }
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
-.claroCmd{
+.claroCmd
+{
 		font-size: smaller;
 		font-weight: bold;
 		text-decoration: underline;
 }
 
-.claroCmdDisabled {
+.claroCmdDisabled
+{
 		color: Gray;
 		font-size: smaller;
 		font-weight: bold;
@@ -315,13 +315,15 @@ h3{	font-size: 110%; }
 
 /* Added for document view mode toolbar */
 
-th .claroCmd{
+th .claroCmd
+{
         font-size: smaller;
 		font-weight: bold;
 		text-decoration: underline;
 }
 
-th .claroCmdDisabled{
+th .claroCmdDisabled
+{
         color: white;
         font-size: smaller;
 		font-weight: bold;
@@ -331,103 +333,28 @@ th .claroCmdDisabled{
 /******************************************************************************
                              CLAROLINE ITEM
  ******************************************************************************/
+.item 
+{
+	padding-left: 16px;
+}
 
-/*
- * Classes family to emphase some item in the tool interface.
- * These two classes has to be used together to work correctly.
- *
- * SOME EXAMPLES :
- *
- *  <a href="0" class="item"><img src="icon.gif" />lorem ipsum</a><br />
- *  <a href="0" class="item hot"><img src="icon.gif" />lorem ipsum</a><br />
- *
- *  <span class="item"><img src="icon.gif" />lorem ipsum</span><br>
- *  <span class="item hot"><img src="icon.gif" />lorem ipsum<br>
- *
- *  <ul style="list-style-image:url(icon.gif);list-style-position:inside">
- *   <li class="item">lorem ipsum</li>
- *   <li class="item hot">lorem ipsum</li>
- *  </ul>
- */
-
-.item {padding-left:16px}
-.hot {background:url(../img/hot.gif) no-repeat}
-
+.hot
+{
+	background: url(../img/hot.gif) no-repeat;
+}
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
-
-/* Uniformize claroline table format. The class provide 3 header type
- *
- *     - superHeader : allowing to define table title above the column header
- *     - headerX : define header in the X axis for each column
- *     - headerY : define header in the Y axis for each rank
- * 
- * Example of table using a super header and header in X axis
- *
- * <table class="claroTable">
- * <tr class="superHeader">
- * <th colspan="3">User Birthdate</th>
- * </tr>
- * <tr class="headerX">
- * <th>Firstname</th>
- * <th>Lastname</th>
- * <th>Birthdate</th>
- * </tr>
- * 
- * <tbody>
- * 
- * <tr>
- * <td>Hugues</td>
- * <td>Peeters</td>
- * <td>1969-09-27</td>
- * </tr>
- * <tr>
- * ...
- * </tr>
- * 
- * </tbody>
- * 
- * </table>
- * 
- * Example of table using header in Y axis
- * 
- * 
- * <table class="claroTable">
- *
- * <tr class="superHeader">
- * <th colspan="3">User Birthdate</th>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Firstname</th>
- * <td>Hugues</td>
- * <td> ...  </td>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Lastname</th>
- * <td>Peeters</td>
- * <td> ...  </td>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Birthdate</th>
- * <td>1969-09-27</td>
- * <td> ...  </td>
- * </tr>
- *
- * </table>
- */
-
-.claroTable td, th {
+.claroTable td, th
+{
 	margin:  1px;
 	padding: 4px;
 	border: none;
 }
 
 
-.claroTable .superHeader th, .claroTable th.superHeader {
+.claroTable .superHeader th, .claroTable th.superHeader
+{
 	color: white;
 	background-color: #e771a1;
 	border: #e21773 1px solid;
@@ -435,35 +362,40 @@ th .claroCmdDisabled{
 	text-align: left;
 }
 
-.claroTable .superHeader a {
+.claroTable .superHeader a
+{
 	color: white;
 }
 
 
 .claroTable th.headerY, .claroTable .headerY th, 
-.claroTable th.headerX, .claroTable .headerX th {
+.claroTable th.headerX, .claroTable .headerX th
+{
 	font-weight: normal;
 	text-align: left;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX {
+.claroTable .headerX th,  .claroTable th.headerX
+{
     color: #000;
 	background-color: #eee;
     border: #ccc 1px solid;
 }
 
 /* extension of claroTable class for Image Viewer */
-.claroTable tr th.toolbar {
+.claroTable tr th.toolbar
+{
 	background: white;
 	font-weight: normal;
 }
 
-.claroTable tr.toolbar th.prev{
+.claroTable tr.toolbar th.prev
+{
 	text-align:left;
 	font-weight: normal;
 }
 
-.claroTable tr.toolbar th.title{
+.claroTable tr.toolbar th.title
 	font-weight:bold;
 	text-align:center;
 }
@@ -473,7 +405,7 @@ th .claroCmdDisabled{
 	font-weight: normal;
 }
 
-.emphaseLine tbody td {
+.emphaseLine tbody td{
 	border-bottom: solid #ddd 1px ;
 }
 

@@ -42,11 +42,10 @@ h3{
 
 #platformBanner
 {
-	/* color: #303B7D; */
 	color:white;
     height:30px;
 	background-color:#167F89;
-	background:url(netscape/campus_banner_bg.png) repeat-x;
+	background:url(./netscape/campus_banner_bg.png) repeat-x;
 	padding: 4px;
 	font-size: 120%;
 	font-weight: bold;
@@ -58,31 +57,21 @@ h3{
 #platformBanner a:visited
 {
 	text-decoration: none;
-   	/* color: #303B7D; */
 	color:white;
 }
 
 #platformBanner a:hover 
 {
-	/* color: #303B7D; */
 	color:white;
 	text-decoration: underline;
 }
 
 #platformBanner #siteName
 {
-	position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
 }
 
 #platformBanner #institution
 {
-	position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
 }
 
 #campusBannerRight
@@ -187,7 +176,8 @@ h3{
    text-align: right;
 }
 
-#courseBanner #courseName {
+#courseBanner #courseName
+{
 	font-size: 120%;
 	padding: 0;
 	margin: 0;
@@ -275,42 +265,48 @@ h3{
                              CLAROLINE BODY
  ******************************************************************************/
 
-#claroBody{
-
-}
+#claroBody{}
 
 
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#footer
+#campusFooter
 {
 	font-size: 80%;
 }
 
-#footer hr
+#campusFooter hr
 {
+	background-color: gray;
 	border: 0;
 	height: 1px;
-	background-color: gray;
 }
 
-#footer #platformManager
+#campusFooterRight
 {
 	float: right;
 }
 
-#footer #courseManager
+#campusFooterLeft
 {
-	float: left;
-	text-align: center;
+	float: left;	
 }
 
-#footer #poweredBy
+#campusFooterLeft #courseManager
+{
+    text-align: center;
+}
+
+#campusFooterCenter
 {
     clear: both;
     text-align: center;
+}
+
+#campusFooterCenter #poweredBy
+{
     font-style: italic;
 }
 
