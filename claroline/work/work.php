@@ -318,7 +318,8 @@ else
         				`title`, 
         				`def_submission_visibility`,
 	      				`visibility`, 
-        				`assignment_type`, 
+        				`assignment_type`,
+        				`authorized_content`, 
         				unix_timestamp(`start_date`) as `start_date_unix`, 
         				unix_timestamp(`end_date`) as `end_date_unix`
 		        FROM `" . $tbl_wrk_assignment . "`
@@ -604,11 +605,20 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
-            echo '<td align="center">'
-			.	 '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '">'
-			. 	 '<small>' . get_lang('Publish') . '</small>'
-			.	 '</a>'
-			.	 '</td>' . "\n";
+        	if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
+        	{
+	            echo '<td align="center">'
+				.	 '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '">'
+				. 	 '<small>' . get_lang('Publish') . '</small>'
+				.	 '</a>'
+				.	 '</td>' . "\n";
+        	}
+        	else
+        	{
+        		echo '<td align="center">'
+				. 	 '<small>-</small>'
+				.	 '</td>' . "\n";
+        	}
         }
         
         if ( $is_allowedToEdit )
