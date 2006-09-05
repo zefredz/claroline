@@ -500,7 +500,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
  * COMMAND LINKS
  */
 $cmdMenu = array();
-if ( $is_allowedToSubmit && ($assignment->getAssignmentType() != 'GROUP' ) )
+if ( $is_allowedToSubmit )
 {
     // link to create a new assignment
     $cmdMenu[] = '<a class="claroCmd" href="userWork.php?authId=' . $_uid . '&amp;cmd=rqSubWrk'
