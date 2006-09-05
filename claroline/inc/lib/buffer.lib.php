@@ -150,7 +150,7 @@ class Dock
     function render()
     {
        $claro_buffer = new Buffer();
-       $claro_buffer->append("\n" . '<div id="' . $this->name.'" class="dock">' . "\n");
+       $claro_buffer->append("\n" . '<div id="' . $this->name.'">' . "\n");
 
        $claro_buffer->append($this->kernelOutput);
 
