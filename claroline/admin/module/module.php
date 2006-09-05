@@ -386,7 +386,7 @@ switch ($item)
 {
 	case 'GLOBAL':
     {
-        echo claro_html_tool_title(array('subTitle' => get_lang('Platform settings')));
+        echo claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
         
         echo '<table>' . "\n";
     

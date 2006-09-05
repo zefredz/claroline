@@ -105,14 +105,14 @@ if ($taskDoImport)
     if (false === extract_archive($archive_file, EXTRACT_PATH))
     {    	
     	$errorFound = true;
-    	$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+    	$dialogBox['error'][] = get_lang('Import failed : %error',array('%error'=>claro_failure::get_last_failure()));
     }     
     else
     {                         	
     	if (false === ($course_ids = import_manifest($tmpDir, $course_id, $importGroupInfo[0]['group_info'])))
     	{    
 	    	$errorFound = true;
-       		$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());       	       	  
+    	    $dialogBox['error'][] = get_lang('Import failed : %error',array('%error'=>claro_failure::get_last_failure()));
     	}
     	else
     	{
@@ -127,7 +127,7 @@ if ($taskDoImport)
 	    if (false === ($usersIdToChange = import_users($tmpDir,$course_id,$importGroupInfo[0]['group_info'])))
     	{
     		$errorFound = true;
-    		$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+        	$dialogBox['error'][] = get_lang('Import failed : %error',array('%error'=>claro_failure::get_last_failure()));
     	} 
     	    	
 	    if (isset($importGroupInfo[0]['group_info']['mustImportUsers']) && true === $importGroupInfo[0]['group_info']['mustImportUsers']) 
@@ -137,7 +137,7 @@ if ($taskDoImport)
 	    if (false === import_tool($tmpDir, $course_id, $importGroupInfo[0]['group_info']))
     	{
     		$errorFound = true;
-     	    $dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+    	    $dialogBox['error'][] = get_lang('Import failed : %error',array('%error'=>claro_failure::get_last_failure()));
     	}   
     	foreach($importGroupInfo as $index => $group_array)
     	{
@@ -156,7 +156,7 @@ if ($taskDoImport)
 		    		if (false === import_data_tool($tool_label,$tmpDir, $course_id, $group_array["group_info"], $usersIdToChange))
 		        	{            	
 		            	$errorFound = true;
-		    	    	$dialogBox['error'][] = get_lang("Import failed : <br>".claro_failure::get_last_failure());
+                    	$dialogBox['error'][] = get_lang('Import failed : %error',array('%error'=>claro_failure::get_last_failure()));
 		        	}
     			}		        		
     		}

@@ -461,7 +461,7 @@ if ( isset($cidToEdit) && ($is_platformAdmin))
 <img src="<?php echo $imgRepositoryWeb ?>enroll_open.gif" />
 <input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo get_lang('Allowed'); ?></label>
 <label for="enrollmentKey">
-- <?php echo get_lang('enrollment key') ?> <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
+- <?php echo get_lang('Enrolment key') ?> <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($enrollmentKey); ?>">
 <br />

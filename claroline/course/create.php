@@ -345,7 +345,7 @@ if( $display == DISP_COURSE_CREATION_FORM )
 <input type="radio" id="courseEnrollAllowed_true" name="courseEnrollAllowed" value="true" <?php echo $courseEnrollAllowed ?'checked':''; ?> />
 <label for="courseEnrollAllowed_true"><?php echo get_lang('Allowed'); ?></label>
 <label for="enrollmentKey">
-- <?php echo get_lang('enrollment key') ?>
+- <?php echo get_lang('Enrolment key') ?>
 <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
 </label>
 <input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($courseEnrollmentKey); ?>" />

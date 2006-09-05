@@ -691,7 +691,7 @@ function uninstall_module($moduleId)
         }
         else
         {
-            $backlog->failure( get_lang('error while deleting %module files',array('%module'=>$module['label'])) );
+            $backlog->failure( get_lang('Error while deleting %module files',array('%module'=>$module['label'])) );
             $success = false;
         }
     
@@ -999,7 +999,7 @@ function register_module($modulePath)
                 }
                 else
                 {
-                    $regLog['error'][] = get_lang('can not register tool %label', array('%label' => $module_info['LABEL']));
+                    $regLog['error'][] = get_lang('Cannot register tool %label', array('%label' => $module_info['LABEL']));
                 }
             }
             elseif('APPLET' == $module_info['TYPE'])
@@ -1016,12 +1016,12 @@ function register_module($modulePath)
         }
         else
         {
-            $regLog['error'][] = get_lang('can not register module %label', array('%label' => $module_info['LABEL']));
+            $regLog['error'][] = get_lang('Cannot register module %label', array('%label' => $module_info['LABEL']));
         }
     }
     else
     {
-        $regLog['error'][] = get_lang('can not find module');
+        $regLog['error'][] = get_lang('Cannot find module');
     }
 
     return $moduleId;
