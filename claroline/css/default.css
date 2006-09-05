@@ -27,7 +27,8 @@ a img
 	clear: both;
 }
 
-h3{
+h3
+{
 	font-size: 110%;
 }
 
@@ -65,13 +66,11 @@ h3{
 }
 
 #platformBanner #siteName
-{
-	
+{	
 }
 
 #platformBanner #institution
-{
-	
+{	
 }
 
 #campusBannerRight
@@ -100,8 +99,8 @@ h3{
 	color:white;
 	font-size: 80%;
 	font-weight:bold;
-	border-top: 1px #FFF solid;
 	padding: 4px;
+	border-top: 1px #FFF solid;
 }
 
 #userBanner #userName
@@ -147,10 +146,10 @@ h3{
  ----------------------------------------------------------------------------*/
 #courseBanner
 {
-   	padding: 4px;
+   	color: #036;
 	background-color: #DDDEBC;
-	color: #036;
 	font-weight: bold;
+	padding: 4px;
 	border-top: 1px #FFF solid;
 }
 
@@ -170,10 +169,11 @@ h3{
 {
 	position: relative;
 	float: right;
-   text-align: right;
+    text-align: right;
 }
 
-#courseBanner #courseName {
+#courseBanner #courseName 
+{
 	font-size: 120%;
 	padding: 0;
 	margin: 0;
@@ -193,7 +193,8 @@ h3{
 	text-decoration: underline;
 }
 
-#courseBanner #courseCode {
+#courseBanner #courseCode 
+{
 	font-size: 80%;
 }
 
@@ -255,8 +256,8 @@ h3{
                              CLAROLINE BODY
  ******************************************************************************/
 
-#claroBody{
-
+#claroBody
+{
 }
 
 
@@ -271,9 +272,9 @@ h3{
 
 #campusFooter hr
 {
+	background-color: gray;
 	border: 0;
 	height: 1px;
-	background-color: gray;
 }
 
 #campusFooterRight
@@ -308,17 +309,17 @@ h3{
  
 .claroCmd
 {
-		font-size: smaller;
-		font-weight: bold;
-		text-decoration: underline;
+	font-size: smaller;
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 .claroCmdDisabled 
 {
-		color: Gray;
-		font-size: smaller;
-		font-weight: bold;
-		text-decoration: none;
+	color: Gray;
+	font-size: smaller;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 /* Added for document view mode toolbar */
@@ -332,8 +333,8 @@ th .claroCmd
 
 th .claroCmdDisabled
 {
-   color: white;
-   font-size: smaller;
+    color: white;
+    font-size: smaller;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -361,8 +362,15 @@ th .claroCmdDisabled
  *  </ul>
  */
 
-.item {padding-left:16px}
-.hot {background:url(../img/hot.gif) no-repeat}
+.item 
+{
+	padding-left: 16px;
+}
+
+.hot
+{
+	background: url(../img/hot.gif) no-repeat;
+}
 
 /******************************************************************************
                              CLAROLINE TABLE
@@ -431,61 +439,72 @@ th .claroCmdDisabled
  * </table>
  */
 
-.claroTable td, th {
+.claroTable td, th 
+{
 	margin:  1px;
 	padding: 4px;
 	border: none;
 }
 
 
-.claroTable .superHeader th, .claroTable th.superHeader {
+.claroTable .superHeader th, .claroTable th.superHeader 
+{
 	color: white;
 	background-color: #666666;
 	font-weight: bold;
 	text-align: left;
 }
 
-.claroTable .superHeader a {
+.claroTable .superHeader a 
+{
 	color: white;
 }
 
 
 .claroTable th.headerY, .claroTable .headerY th, 
-.claroTable th.headerX, .claroTable .headerX th {
+.claroTable th.headerX, .claroTable .headerX th 
+{
 	font-weight: normal;
 	text-align: left;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX {
+.claroTable .headerX th,  .claroTable th.headerX 
+{
 	background-color: #DDDEBC;
 }
 
 /* extension of claroTable class for Image Viewer */
-.claroTable tr th.toolbar {
+.claroTable tr th.toolbar 
+{
 	background: white;
 	font-weight: normal;
 }
 
-.claroTable tr.toolbar th.prev{
+.claroTable tr.toolbar th.prev
+{
 	text-align:left;
 	font-weight: normal;
 }
 
-.claroTable tr.toolbar th.title{
+.claroTable tr.toolbar th.title
+{
 	font-weight:bold;
 	text-align:center;
 }
 
-.claroTable tr.toolbar th.next{
+.claroTable tr.toolbar th.next
+{
 	text-align:right;
 	font-weight: normal;
 }
 
-.emphaseLine tbody td {
+.emphaseLine tbody td
+{
 	border-bottom: solid #DDDEBC 1px ;
 }
 
-.emphaseLine tbody tr:hover {
+.emphaseLine tbody tr:hover 
+{
 	background-color: #E3E3E3;
 }
 
@@ -500,13 +519,15 @@ th .claroCmdDisabled
  * Things that are usually displayed in a dialog box into offline applications
  */ 
  
-.claroMessageBox {
+.claroMessageBox 
+{
 	background-color: #DDDEBC;
 	border: solid 1px #666666;
 	color: #000;
 }
 
-.claroIntroSection { 
+.claroIntroSection 
+{ 
 	border: dashed 1px #D8D8D8;
 	padding: 10px;
 	margin-top : 10px;
@@ -547,7 +568,8 @@ a:visited.invisible
 /* 'correct' is attached to element that must be highlighted as correct
 	example : a good score in exercices
 */
-.correct {
+.correct 
+{
 	color: #009900;
 }
 
@@ -555,22 +577,25 @@ a:visited.invisible
 	example : a wrong score in exercices
 	example : an error message
 */
-.error {
+.error 
+{
 	color: #990000;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
 	example : 'today' in the agenda
 */
-.highlight {
- color: #FFB848;
- font-weight: bold;
+.highlight 
+{
+	color: #FFB848;
+	font-weight: bold;
 }
 
 /* 'required' is used to set the color of the asterisk displayed before the required form field
 */
-.required {
- color: red;
+.required 
+{
+	color: red;
 }
 
 /* 'hotItem' is used when something needs to be notified as new on the platform since the last login
@@ -579,33 +604,38 @@ a:visited.invisible
 .hotItem,
 .hotItem a
 {
- color: #FF00CC;
- font-weight: bold;
+	color: #FF00CC;
+	font-weight: bold;
 }
 
 /*
  * 'rightMenu' is mainly use in the platform home page
  */
 
-.claroRightMenu  {
+.claroRightMenu  
+{
 	background-color: #DDDEBC;	
 }
 	
 .claroRightMenu a, 
 .claroRightMenu a:visited, 
-.claroRightMenu a:active {
+.claroRightMenu a:active 
+{
 		
 }
 	
-claroRightMenu a:hover {
+claroRightMenu a:hover 
+{
 				
 }
 
-.HelpText {
+.HelpText 
+{
     color:gray
 }
 
-.claroToolTitle {
+.claroToolTitle 
+{
 	padding-top: 5px;
 }
 
@@ -613,15 +643,8 @@ claroRightMenu a:hover {
  * 'comment' is used for comment of documents, forum description, ...
  */
 
-.comment {
+.comment 
+{
     font-size: smaller;
     margin-left: 30px;
-}
-
-/******************************************************************************
-                             PLUGIN 'S DOCK CSS CLASSES
- ******************************************************************************/
-.dock
-{
-   
 }
