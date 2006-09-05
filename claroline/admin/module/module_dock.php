@@ -131,7 +131,6 @@ if ( !empty($dock) )
     echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
     .    '<tr class="headerX" align="center" valign="top">'
-    .    '<th>' . get_lang('Id')                 . '</th>'
     .    '<th>' . get_lang('Icon')               . '</th>'
     .    '<th>' . get_lang('Module name')        . '</th>'
     .    '<th colspan="2">' . get_lang('Order')           .'</th>'
@@ -163,7 +162,6 @@ if ( !empty($dock) )
         //module_id and icon column
 
         echo '<tr>'
-        .    '<td align="center">' . $module['id'] . '</td>' . "\n"
         .    '<td align="center">' . $icon . '</td>' . "\n";
 
         //name column

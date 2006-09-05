@@ -134,7 +134,7 @@ $htmlHeadXtra[] =
 "<script type=\"text/javascript\">
 function confirmation (name)
 {
-    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to uninstall the module "))." \"+ name + \" ?\"))
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure you want to uninstall the module "))." \"+ name + \" ?\"))
         {return true;}
     else
         {return false;}

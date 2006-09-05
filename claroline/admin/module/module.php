@@ -162,14 +162,14 @@ $htmlHeadXtra[] =
 "<script type=\"text/javascript\">
 function confirmMakeVisible ()
 {
-    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to make this module visible in all courses ?"))."\"))
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure you want to make this module visible in all courses ?"))."\"))
         {return true;}
     else
         {return false;}
 }
 function confirmMakeInVisible ()
 {
-    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to make this module invisible in all courses ?"))."\"))
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure you want to make this module invisible in all courses ?"))."\"))
         {return true;}
     else
         {return false;}
@@ -252,7 +252,7 @@ switch ( $cmd )
         }
         else
         {
-            $dialogBox = get_lang('Failed to upadte module visibility');
+            $dialogBox = get_lang('Failed to update module visibility');
         }
         
         break;
@@ -572,14 +572,6 @@ switch ($item)
 		.    '<table>' . "\n"
 		.    '<tr>' . "\n"
 		.    '<td colspan="2">' . "\n"
-		.    '</td>' . "\n"
-		.    '</tr>' . "\n"
-		.    '<tr>' . "\n"
-		.    '<td align="right">' . "\n"
-		.    get_lang('Id') . "\n"
-		.    ': </td>' . "\n"
-		.    '<td>'
-		.    $module['module_id'] . "\n"
 		.    '</td>' . "\n"
 		.    '</tr>' . "\n"
 		.    '<tr>' . "\n"

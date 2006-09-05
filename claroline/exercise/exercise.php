@@ -248,7 +248,7 @@ if($is_allowedToEdit)
 {
     $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit">'.get_lang('New exercise').'</a>';
     $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php">'.get_lang('Question pool').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="export/exercise_import.php">'.get_lang('Import an exercise').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="export/exercise_import.php">'.get_lang('Import exercise').'</a>';
 }
 
 echo claro_html_menu_horizontal($cmd_menu);
