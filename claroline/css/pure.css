@@ -65,18 +65,10 @@ h3{
 
 #platformBanner #siteName
 {
-	position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
 }
 
 #platformBanner #institution
 {
-	position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
 }
 
 #campusBannerRight
