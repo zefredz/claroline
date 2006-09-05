@@ -290,4 +290,201 @@ function claro_get_lang_flat_list()
     return $language_flat_list;
 }
 
+/**
+ * Display course form
+ *
+ * $_course['title']
+ * $_course['officialCode']
+ * $_course['titular']
+ * $_course['email']
+ * $_course['category']
+ * $_course['departmentName']
+ * $_course['departmentUrl']
+ * $_course['language']
+ * $_course['access']
+ * $_course['enrolment']
+ * $_course['enrolmentKey']
+ */
+
+function course_display_form ()
+{
+    global $clarolineRepositoryWeb, $imgRepositoryWeb;
+
+    $languageList = claro_get_lang_flat_list();
+    $categoryList = claro_get_cat_flat_list();
+
+    if ( empty($course['language']) ) $course['language'] = get_conf('platformLanguage');
+
+    if ( ! in_array($course['category'],$categoryList) )
+    {
+        $course['category'] = 'choose_one';
+        $categoryList = array_merge( array(get_lang('Choose one')=>'choose_one'), $categoryList);
+    }
+
+    $html = '';
+
+    $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        . '<table  cellpadding="3" border="0">' . "\n" ;
+
+    // Course title
+
+    $html .= '<tr>' . "\n"
+        . '<td align="right">'
+        . '<label for="course_title">'
+        . (get_conf('human_label_needed') ? '<span class="required">*</span>':'') . get_lang('Course title')
+        .'</label>&nbsp;:</td>' 
+        . '<td><input type="text" name="course_title" id="course_title" value="' . htmlspecialchars($course['title']) . '" size="60"></td>'
+        . '</tr>' . "\n" ;
+
+    // Course code
+
+    $html .= '<tr>' . "\n"
+        . '<td align="right">'
+        . '<label for="course_code">' 
+        . (get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Course code')
+        . '</label>&nbsp;:</td>'
+        . '<td><input type="text" id="course_code" name="course_code" value="' . htmlspecialchars($course['officialCode']) . '" size="20"></td>'
+        . '</tr>' . "\n" ;
+
+    // Course titular
+
+    $html .= '<tr>' . "\n"
+        . '<td align="right">'
+        . '<label for="course_titular">' . get_lang('Lecturer(s)') . '</label>&nbsp;:</td>'
+        . '<td><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($course['titular']) . '" size="60"></td>'
+        . '</tr>' . "\n" ;
+
+    // Course email
+
+    $html .= '<tr>' . "\n"
+        . '<td align="right">'
+        . '<label for="course_email">'
+        . (get_conf('course_email_needed')?'<span class="required">*</span>':'') . get_lang('Email')
+        . '</label>&nbsp;:</td>'
+        . '<td><input type="text" id="course_email" name="course_email" value="' . htmlspecialchars($course['email']) . '" size="60" maxlength="255"></td>'
+        . '</tr>' . "\n";
+
+    // Course category select box
+
+    $html .= '<tr>' . "\n"
+        . '<td align="right">'
+        . '<label for="course_category"><span class="required">*</span>' . get_lang('Category') . '</label> :</td>'
+        . '<td>'
+        . claro_html_form_select( 'course_category', $categoryList, $course['category'], array('id'=>'course_category') )
+        . '</td>'
+        . '</tr>' . "\n" ;
+
+    // Course department name
+
+    $html .= '<tr valign="top">' . "\n"
+        . '<td align="right"><label for="course_dept_name">' . get_lang('Department') . '</label>&nbsp;: </td>'
+        . '<td><input type="text" name="course_dept_name" id="course_dept_name" value="' . htmlspecialchars($course['departmentName']) . '" size="20" maxlength="30"></td>'
+        . '</tr>' . "\n" ;
+
+    // Course department url
+
+    $html .= '<tr valign="top" >' . "\n"
+        . '<td align="right" nowrap="nowrap"><label for="course_dept_url" >' . get_lang('Department URL') . '</label>&nbsp;:</td>'
+        . '<td><input type="text" name="course_dept_url" id="course_dept_url" value="' . htmlspecialchars($course['departmentUrl']) . '" size="60" maxlength="180"></td>'
+        . '</tr>' . "\n" ;
+
+    // Course language select box
+
+    $html .= '<tr valign="top" >' . "\n"
+        . '<td align="right">'
+        . '<label for="course_language"><span class="required">*</span>' . get_lang('Language') . '</label>&nbsp;:</td>'
+        . '<td>'
+        . claro_html_form_select('course_language', $languageList, $course['language'], array('id'=>'course_language'))
+        . '</td>'
+        . '</tr>' . "\n" ;
+
+    // Course access
+
+    $html .= '<tr valign="top" >' . "\n"
+        . '<td align="right" nowrap>' . get_lang('Course access') . '&nbsp;:</td>'
+        . '<td>'
+        . '<img src="' . $imgRepositoryWeb . '/access_open.gif" />'
+        . '<input type="radio" id="access_true" name="course_access" value="true" ' . ($course['access'] ? 'checked':'') . '>&nbsp;'
+        . '<label for="access_true">' . get_lang('Public access from campus home page even without login') . '</label>'
+        . '<br />' . "\n"
+        . '<img src="' . $imgRepositoryWeb . 'access_locked.gif" />'
+        . '<input type="radio" id="access_false" name="course_access" value="false" ' . ( ! $course['access'] ? 'checked':'' ) . '>&nbsp;'
+        . '<label for="access_false">' . get_lang('Private access (site accessible only to people on the <a href="%url">User list</a>)' ,
+                                          array('%url'=> '../user/user.php')) 
+        . '</label>'
+        . '</td>'
+        . '</tr>' . "\n" ;
+
+    // Course enrolment + enrolment key
+
+    $html .= '<tr valign="top">' . "\n"
+        . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
+        . '<td>'
+        . '<img src="' . $imgRepositoryWeb . '/enroll_open.gif" />'
+        . '<input type="radio" id="enrolment_true" name="course_enrolment" value="true" ' . ($course['enrolment']?'checked':'') . '>&nbsp;'
+        . '<label for="enrolment_true">' . get_lang('Allowed') . '</label>'
+        . '<label for="enrolment_key">'
+        . ' - ' . get_lang('Enrolment key') . '<small>(' . get_lang('Optional') . ')</small> :'
+        . '</label>'
+        . '<input type="text" id="enrolment_key" name="course_enrolment_key" value="' . htmlspecialchars($course['enrolmentKey']) . '>'
+        . '<br />' . "\n"
+        . '<img src="' . $imgRepositoryWeb . 'enroll_locked.gif" />'
+        . '<input type="radio" id="enrolment_false"  name="course_enrolment" value="false"' . (! $course['enrolment'] ?'checked':'') . '>&nbsp;'
+        . '<label for="enrolment_false">' . get_lang('Denied') . '</label>'
+        . '</td>'
+        . '</tr>' . "\n" ;
+
+    // Block course settings tip
+
+    $html .= '<tr>' . "\n"
+        . '<td>&nbsp;</td>'
+        . '<td><small><font color="gray">' . get_block('blockCourseSettingsTip') . '</font></small></td>'
+        . '</tr>' . "\n" ;
+
+    // Required legend
+
+    $html .= '<tr>' . "\n"
+        . '<td>&nbsp;</td>'
+        . '<td>' . get_lang('<span class=\"required\">*</span> denotes required field') . '</td>'
+        . '</tr>' . "\n" ;
+
+    $html .= '<tr>' . "\n"
+        . '<td>&nbsp;</td>'
+        . '<td>'
+        . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />'
+        . claro_html_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
+        . '</td>' . "\n"
+        . '</tr>' . "\n" ;
+
+    $html .= '</table>' . "\n"
+        .'</form>' . "\n" ;
+
+    return $html;
+
+}
+
+function getCourseVisibility ( $access, $enrolment )
+{
+    $visibility = 0 ;
+
+    if     ( ! $access && ! $enrolment ) $visibility = 0;
+    elseif ( ! $access &&   $enrolment ) $visibility = 1;
+    elseif (   $access && ! $enrolment ) $visibility = 3;
+    elseif (   $access &&   $enrolment ) $visibility = 2;
+
+    return $visibility ;
+}
+
+function getCourseAccess ( $visibility )
+{
+    if ( $visibility >= 2 ) return true ;
+    else                    return false ;
+}
+
+function getCourseEnrolment ( $visibility )
+{
+    if ( $visibility == 1 || $visibility == 2 ) return true ;
+    else                                        return false;
+}
+
 ?>
