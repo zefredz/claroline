@@ -2,22 +2,24 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-body {
+body 
+{
  font-family: arial, helvetica, sans-serif;
  color: #000;
  margin: 10px;
  padding: 0;
 }
 
-a:link, a:active, a:visited {
+a:link, 
+a:active, 
+a:visited, 
+a:hover
+{
 	color : #003390;
 }
 
-a:hover {
-    color : #003390;
-}
-
-a img {
+a img 
+{
 	border:none;
 	text-decoration: none;
 }
@@ -27,7 +29,10 @@ a img {
 	clear: both;
 }
 
-h3{	font-size: 110%; }
+h3
+{
+	font-size: 110%;
+}
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -38,10 +43,11 @@ h3{	font-size: 110%; }
 
 #platformBanner
 {
-    padding: 4px;
-	font-size: 120%;
+	color: #fff;
     background-color: #4171B5;
-    color: #fff;
+	font-size: 120%;
+    padding: 4px;
+
 }
 
 #platformBanner a,
@@ -61,18 +67,10 @@ h3{	font-size: 110%; }
 
 #platformBanner #siteName
 {
-	position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
 }
 
 #platformBanner #institution
 {
-	position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
 }
 
 #campusBannerRight
@@ -97,12 +95,12 @@ h3{	font-size: 110%; }
 
 #userBanner
 {
-	background-color: #666;
 	color:white;
+	background-color: #666;
 	font-size: 80%;
 	font-weight:bold;
+	padding: 4px;	
 	border-top: 1px #FFF solid;
-	padding: 4px;
 }
 
 #userBanner #userName
@@ -148,10 +146,10 @@ h3{	font-size: 110%; }
  ----------------------------------------------------------------------------*/
 #courseBanner
 {
-   	padding: 4px;
+	color: #fff;   	
 	background-color:  #90AFDD;
-	color: #fff;
 	font-weight: bold;
+   	padding: 4px;
 	border-top: 1px #FFF solid;
 }
 
@@ -206,7 +204,6 @@ h3{	font-size: 110%; }
 
 #courseBannerRight
 {
-    position: relative;
 	float: right;
 	text-align: right;
 	margin: 0;
@@ -214,7 +211,6 @@ h3{	font-size: 110%; }
 
 #courseBannerLeft
 {
-    position: relative;
 	float: left;
 	text-align: left;
 	margin: 0;
@@ -309,13 +305,15 @@ h3{	font-size: 110%; }
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
-.claroCmd{
+.claroCmd
+{
 		font-size: smaller;
 		font-weight: bold;
 		text-decoration: underline;
 }
 
-.claroCmdDisabled {
+.claroCmdDisabled
+{
 		color: Gray;
 		font-size: smaller;
 		font-weight: bold;
@@ -324,13 +322,15 @@ h3{	font-size: 110%; }
 
 /* Added for document view mode toolbar */
 
-th .claroCmd{
+th .claroCmd
+{
         font-size: smaller;
 		font-weight: bold;
 		text-decoration: underline;
 }
 
-th .claroCmdDisabled{
+th .claroCmdDisabled
+{
         color: white;
         font-size: smaller;
 		font-weight: bold;
@@ -359,130 +359,83 @@ th .claroCmdDisabled{
  *  </ul>
  */
 
-.item {padding-left:16px}
-.hot {background:url(../img/hot.gif) no-repeat}
+.item 
+{
+	padding-left: 16px;
+}
 
+.hot
+{
+	background: url(../img/hot.gif) no-repeat;
+}
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
-
-/* Uniformize claroline table format. The class provide 3 header type
- *
- *     - superHeader : allowing to define table title above the column header
- *     - headerX : define header in the X axis for each column
- *     - headerY : define header in the Y axis for each rank
- * 
- * Example of table using a super header and header in X axis
- *
- * <table class="claroTable">
- * <tr class="superHeader">
- * <th colspan="3">User Birthdate</th>
- * </tr>
- * <tr class="headerX">
- * <th>Firstname</th>
- * <th>Lastname</th>
- * <th>Birthdate</th>
- * </tr>
- * 
- * <tbody>
- * 
- * <tr>
- * <td>Hugues</td>
- * <td>Peeters</td>
- * <td>1969-09-27</td>
- * </tr>
- * <tr>
- * ...
- * </tr>
- * 
- * </tbody>
- * 
- * </table>
- * 
- * Example of table using header in Y axis
- * 
- * 
- * <table class="claroTable">
- *
- * <tr class="superHeader">
- * <th colspan="3">User Birthdate</th>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Firstname</th>
- * <td>Hugues</td>
- * <td> ...  </td>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Lastname</th>
- * <td>Peeters</td>
- * <td> ...  </td>
- * </tr>
- * 
- * <tr>
- * <th class="headerY">Birthdate</th>
- * <td>1969-09-27</td>
- * <td> ...  </td>
- * </tr>
- *
- * </table>
- */
-
-.claroTable td, th {
+.claroTable td, th 
+{
 	margin:  1px;
 	padding: 4px;
 	border: none;
 }
 
 
-.claroTable .superHeader th, .claroTable th.superHeader {
+.claroTable .superHeader th, .claroTable th.superHeader
+{
 	color: #fff;
 	background-color: #4171B5;
 	font-weight: bold;
 	text-align: left;
 }
 
-.claroTable .superHeader a {
+.claroTable .superHeader a
+{
 	color: #fff;
 }
 
 .claroTable th.headerY, .claroTable .headerY th, 
-.claroTable th.headerX, .claroTable .headerX th {
+.claroTable th.headerX, .claroTable .headerX th
+{
 	font-weight: normal;
 	text-align: left;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX {
+.claroTable .headerX th,  .claroTable th.headerX
+{
 	background-color: #E6E6E6;
 }
 
 /* extension of claroTable class for Image Viewer */
-.claroTable tr th.toolbar {
+.claroTable tr th.toolbar
+{
 	background: white;
 	font-weight: normal;
 }
 
-.claroTable tr.toolbar th.prev{
+.claroTable tr.toolbar th.prev
+{
 	text-align:left;
 	font-weight: normal;
 }
 
-.claroTable tr.toolbar th.title{
+.claroTable tr.toolbar th.title
+{
 	font-weight:bold;
 	text-align:center;
 }
 
-.claroTable tr.toolbar th.next{
+.claroTable tr.toolbar th.next
+{
 	text-align:right;
 	font-weight: normal;
 }
 
-.emphaseLine tbody td {
+.emphaseLine tbody td 
+{
 	border-bottom: solid #ccc 1px ;
 }
 
-.emphaseLine tbody tr:hover {
+.emphaseLine tbody tr:hover
+{
 	background-color: #f0f0f0;
 }
 
@@ -497,14 +450,16 @@ th .claroCmdDisabled{
  * Things that are usually displayed in a dialog box into offline applications
  */ 
  
-.claroMessageBox {
+.claroMessageBox
+{
     background-color: #eef; 
     border: 1px solid #4171B5;
     padding: 6px;
 	color: #000;
 }
 
-.claroIntroSection { 
+.claroIntroSection
+{ 
 	background-color: #F5F5F5;
 	padding: 5px;
 	margin-top : 5px;
@@ -518,7 +473,8 @@ th .claroCmdDisabled{
  * visible fo the other users
  */
 
-.invisible  {
+.invisible 
+{
 	color: #999999;
 }
 
@@ -527,7 +483,8 @@ th .claroCmdDisabled{
 .invisible a:visited,
 a.invisible,
 a:link.invisible,
-a:visited.invisible{
+a:visited.invisible
+{
 	color: #999999;
 }
 
@@ -535,7 +492,8 @@ a:visited.invisible{
 /* 'correct' is attached to element that must be highlighted as correct
 	example : a good score in exercices
 */
-.correct {
+.correct
+{
 	color: #009900;
 }
 
@@ -543,14 +501,16 @@ a:visited.invisible{
 	example : a wrong score in exercices
 	example : an error message
 */
-.error {
+.error
+{
 	color: #990000;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
 	example : 'today' in the agenda
 */
-.highlight {
+.highlight 
+{
  color: #000066;
  font-weight: bold;
 }
@@ -559,22 +519,26 @@ a:visited.invisible{
  * 'rightMenu' is mainly use in the platform home page
  */
 
-.claroRightMenu  {
+.claroRightMenu
+{
     background-color: #eef; border: 1px solid #4171B5;
     padding: 6px;
 }
 	
 .claroRightMenu a, 
 .claroRightMenu a:visited, 
-.claroRightMenu a:active {
+.claroRightMenu a:active
+{
 		
 }
 	
-claroRightMenu a:hover {
+claroRightMenu a:hover
+{
 				
 }
 
-.HelpText {
+.HelpText
+{
     color:gray
 }
 
@@ -582,7 +546,8 @@ claroRightMenu a:hover {
  * 'comment' is used for comment of documents, forum description, ...
  */
 
-.comment {
+.comment
+{
     font-size: smaller;
     margin-left: 30px;
 }

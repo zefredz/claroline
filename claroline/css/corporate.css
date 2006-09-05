@@ -2,7 +2,8 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-body {
+body 
+{
 	background-color:#E5E5E5;
 	color:#000;
 	font-family: Verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
@@ -10,12 +11,14 @@ body {
 	padding: 3px;
 }
 
-a, a:link, a:active, a:visited {
+a, a:link, a:active, a:visited 
+{
 	color: #333;
 	text-decoration: none;
 }
 
-a:hover {
+a:hover 
+{
 	text-decoration: underline; 
 	color: #069;
 }
@@ -94,20 +97,10 @@ h3{	font-size: 110%; }
 
 #platformBanner #siteName
 {
-	position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
-	font-size: 120%;
 }
 
 #platformBanner #institution
 {
-	position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
-	font-size: 120%;
 }
 
 
@@ -207,24 +200,28 @@ h3{	font-size: 110%; }
 	text-align: right;
 }
 
-#courseBanner #courseName {
+#courseBanner #courseName
+{
 	font-size: 120%;
 	margin: 0;
 	padding: 0;
 }
 
-#courseBanner #courseCode {
+#courseBanner #courseCode
+{
 	font-size: 80%;
 }
 
 #courseBanner a,
 #courseBanner a:active,
 #courseBanner a:link,
-#courseBanner a:visited {
+#courseBanner a:visited
+{
 	color:#c60;
 }
 
-#courseBanner a:hover {
+#courseBanner a:hover
+{
 	color:#369;
 }
 
@@ -405,43 +402,33 @@ th .claroCmdDisabled{
 /******************************************************************************
                              CLAROLINE ITEM
  ******************************************************************************/
+.item 
+{
+	padding-left: 16px;
+}
 
-/*
- * Classes family to emphase some item in the tool interface.
- * These two classes has to be used together to work correctly.
- *
- * SOME EXAMPLES :
- *
- *  <a href="0" class="item"><img src="icon.gif" />lorem ipsum</a><br />
- *  <a href="0" class="item hot"><img src="icon.gif" />lorem ipsum</a><br />
- *
- *  <span class="item"><img src="icon.gif" />lorem ipsum</span><br>
- *  <span class="item hot"><img src="icon.gif" />lorem ipsum<br>
- *
- *  <ul style="list-style-image:url(icon.gif);list-style-position:inside">
- *   <li class="item">lorem ipsum</li>
- *   <li class="item hot">lorem ipsum</li>
- *  </ul>
- */
-
-.item {padding-left:16px}
-.hot  {background:url(../img/hot.gif) no-repeat}
-
+.hot
+{
+	background: url(../img/hot.gif) no-repeat;
+}
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
 
-.claroTable {
+.claroTable
+{
 	border: 2px solid #98AAB1;
 }
-.claroTable td, th {
+.claroTable td, th
+{
 	margin:  1px;
 	padding: 4px;
 	border: none;
 }
 
 
-.claroTable .superHeader th, .claroTable th.superHeader {
+.claroTable .superHeader th, .claroTable th.superHeader
+{
 	color: white;
     background-image: url('corporate/hard.gif');
 	background-color: #03699c;
@@ -451,23 +438,27 @@ th .claroCmdDisabled{
 
 .claroTable .superHeader a,
 .claroTable .superHeader a:link,
-.claroTable .superHeader a:visited {
+.claroTable .superHeader a:visited
+{
 	color: white;
 }
 
 .claroTable .superHeader a:hover { color: #c7d0d7; }
 
 .claroTable th.headerY, .claroTable .headerY th,
-.claroTable th.headerX, .claroTable .headerX th {
+.claroTable th.headerX, .claroTable .headerX th
+{
     background-image: url('corporate/soft.gif');
 	font-weight: normal;
 	text-align: left;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX { background-color: #c7d0d7; }
+.claroTable .headerX th,  .claroTable th.headerX 
+{ background-color: #c7d0d7; }
 
 /* extension of claroTable class for Image Viewer */
-.claroTable tr th.toolbar {
+.claroTable tr th.toolbar 
+{
 	background: white;
 	font-weight: normal;
 }
@@ -487,11 +478,13 @@ th .claroCmdDisabled{
 	font-weight: normal;
 }
 
-.emphaseLine tbody td {
+.emphaseLine tbody td
+{
 	border-bottom: solid #98AAB1 1px ;
 }
 
-.emphaseLine tbody tr:hover {
+.emphaseLine tbody tr:hover
+{
 	background-color: #EEEEEE;
 }
 
@@ -506,13 +499,15 @@ th .claroCmdDisabled{
  * Things that are usually displayed in a dialog box into offline applications
  */ 
  
-.claroMessageBox {
+.claroMessageBox
+{
   background-color: #E5ECF9;
   color: #369;
   border: 1px solid #369;
 }
 
-.claroIntroSection { 
+.claroIntroSection
+{ 
 	border: dashed 1px #D8D8D8;
 	padding: 10px;
 	margin-top : 10px;
@@ -533,7 +528,8 @@ th .claroCmdDisabled{
  * visible fo the other users
  */
 
-.invisible  {
+.invisible
+{
 	color: #999;
 }
 
@@ -550,24 +546,34 @@ a:visited.invisible{
 /* 'correct' is attached to element that must be highlighted as correct 
 	example : a good score in exercices
 */
-.correct { color: #090; }
+.correct
+{ 
+	color: #090;
+}
 
 /* 'error' is attached to element that must be highlighted as correct
 	example : a wrong score in exercices
 	example : an error message
 */
-.error { color: #900; }
+.error
+{
+	color: #900;
+}
 
 /* 
 'highlight' 
 */
-.highlight { color: #c60; }
+.highlight
+{
+	color: #c60;
+}
 
 /*
  * 'rightMenu' is mainly use in the platform home page
  */
 
-.claroRightMenu  {
+.claroRightMenu
+{
 	color: #000;
 	background-color: #E5ECF9;	
 	border: 1px solid #808080;
@@ -585,13 +591,17 @@ a:visited.invisible{
 	color:#369;
 }
 
-.HelpText { color: #ccc; }
+.HelpText
+{
+	color: #ccc;
+}
 
 /*
  * 'comment' is used for comment of documents, forum description, ...
  */
 
-.comment {
+.comment
+{
     font-size: smaller;
     margin-left: 30px;
 }
