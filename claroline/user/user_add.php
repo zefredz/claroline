@@ -102,11 +102,11 @@ if ( $cmd == 'registration' )
                            . '<ul>'
                            . '<li>'
                            . '<a href="#resultTable" onclick="highlight(\'resultTable\');">'
-                           . ucfirst(get_lang('click on the enrollment command beside the concerned user'))
+                           . get_lang('Click on the enrollment command beside the concerned user')
                            . '</a>'
                            . '</li>'
                            . '<li>'
-                           . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . ucfirst( get_lang('cancel the operation') ) . '</a>'
+                           . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . get_lang('Cancel the operation') . '</a>'
                            . '</li>'
                            . '</ul>';
 
@@ -139,7 +139,7 @@ if ( $cmd == 'registration' )
                 . '<ul>'
                 . '<li>'
                 . '<a href="#resultTable" onclick="highlight(\'resultTable\');">'
-                . ucfirst(get_lang('click on the enrollment command beside the concerned user'))
+                . get_lang('Click on the enrollment command beside the concerned user')
                 . '</a>'
                 . '</li>'
                 . '<li>'
@@ -152,7 +152,7 @@ if ( $cmd == 'registration' )
                 . '</small>'
                 . '</li>'
                 . '<li>'
-                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . ucfirst(get_lang('cancel the operation') ) . '</a>'
+                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . get_lang('Cancel the operation') . '</a>'
                 . '</li>'
                 . '</ul>';
 

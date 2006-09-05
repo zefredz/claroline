@@ -108,8 +108,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         tb.btList('".get_lang('Ordered list')."','ol');
         tb.addSpace(10);
         tb.btLink('".get_lang('External link')."','".get_lang('URL?')
-            . "','".get_lang('Language?')."','" . $GLOBALS['iso639_1_code']."');
-        tb.btImgLink('".get_lang('External image')."','".get_lang('URL?')."');
+            . "','".get_lang('Language')."','" . $GLOBALS['iso639_1_code']."');
+        tb.btImgLink('".get_lang('External image')."','".get_lang('URL')."');
         tb.draw('');
     }
     </script>\n";

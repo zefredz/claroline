@@ -57,10 +57,10 @@ $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
  * this maner to manage problem would be more discuss.  uidToEdit can neve empty....
  */
 $userData = user_get_properties($uidToEdit);
-if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= get_lang('user code to view is not valid');
+if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= 'not valid user id';
 if ('unsubscribe' == $cmd)
 {
-    if (is_null($courseId)) $dialogBox .= get_lang('course code to manage is not valid');
+    if (is_null($courseId)) $dialogBox .= 'not valid course code';
     else                    $do = 'rem_user';
 }
 

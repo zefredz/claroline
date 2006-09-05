@@ -202,7 +202,7 @@ switch ( $cmd )
         }
         else
         {
-            $dialogBox = get_lang('could not activate module');
+            $dialogBox = get_lang('Cannot activate module');
         }
         break;
     }
@@ -215,7 +215,7 @@ switch ( $cmd )
         }
         else
         {
-            $dialogBox = get_lang('could not deactivate module');
+            $dialogBox = get_lang('Cannot deactivate module');
             $module['activation']  = 'activated';
         }
         break;
