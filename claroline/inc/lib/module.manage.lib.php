@@ -989,13 +989,13 @@ function register_module($modulePath)
 
         if (is_array($module_info) && false !== ($moduleId = register_module_core($module_info)))
         {
-            $regLog['info'][] = get_lang('%claroLabel registred', array('%claroLabel'=>$module_info['LABEL']));
+            $regLog['info'][] = get_lang('%claroLabel registered', array('%claroLabel'=>$module_info['LABEL']));
 
             if('TOOL' == strtoupper($module_info['TYPE']))
             {
                 if (false !== ($toolId   = register_module_tool($moduleId,$module_info)))
                 {
-                    $regLog['info'][] = get_lang('%claroLabel registred as tool', array('%claroLabel'=>$module_info['LABEL']));
+                    $regLog['info'][] = get_lang('%claroLabel registered as tool', array('%claroLabel'=>$module_info['LABEL']));
                 }
                 else
                 {

@@ -405,17 +405,17 @@ class Config
             case 'integer' :
                 if ( eregi('[^0-9]',$value) )
                 {
-                    $this->backlog->failure( get_lang('%name would be integer',array('%name'=>$label)));
+                    $this->backlog->failure( get_lang('%name should be integer',array('%name'=>$label)));
                     $valid = false;
                 }
                 elseif ( isset($acceptedValue['max']) && $value > $acceptedValue['max'] )
                 {
-                    $this->backlog->failure( get_lang('%name would be integer inferior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['max'])) );
+                    $this->backlog->failure( get_lang('%name should be integer inferior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['max'])) );
                     $valid = false;
                 }
                 elseif ( isset($acceptedValue['min']) && $value < $acceptedValue['min'] )
                 {
-                    $this->backlog->failure( get_lang('%name would be integer superior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['min'])));
+                    $this->backlog->failure( get_lang('%name should be integer superior or equal to %value', array('%name'=>$label,'%value'=>$acceptedValue['min'])));
                     $valid = false;
                 }
                 break;
@@ -426,7 +426,7 @@ class Config
                 {
                     if ( !in_array($value, array_keys($acceptedValue)) )
                     {
-                        $this->backlog->failure( get_lang('%value would be in enum list of %name', array('%value'=>$value,'%name'=>$label)) );
+                        $this->backlog->failure( get_lang('%value should be in enum list of %name', array('%value'=>$value,'%name'=>$label)) );
                         $valid = false;
                     }
                 }
@@ -440,7 +440,7 @@ class Config
                     {
                         if ( !in_array($item_value,array_keys($acceptedValue)) )
                         {
-                            $this->backlog->failure(get_lang('%value must be in the accepted value list of %name',array('%value' => $item_value, '%name' => $label)) );
+                            $this->backlog->failure(get_lang('%value should be in the accepted value list of %name',array('%value' => $item_value, '%name' => $label)) );
                             $valid = false;
                         }
                     }
@@ -449,7 +449,7 @@ class Config
                 {
                     if ( ! empty($value) )
                     {
-                        $this->backlog->failure(get_lang('%name must be an array',array('%name' => $label) ));
+                        $this->backlog->failure(get_lang('%name should be an array',array('%name' => $label) ));
                         $valid = false;
                     }
                 }
@@ -470,7 +470,7 @@ class Config
             case 'regexp' :
                 if ( isset($acceptedValue) && !eregi( $acceptedValue, $value ))
                 {
-                    $this->backlog->failure( get_lang('%name would be match %regular_expression', array('%name' => $label,'%regular_expression'=> $acceptedValue) ));
+                    $this->backlog->failure( get_lang('%name should be match %regular_expression', array('%name' => $label,'%regular_expression'=> $acceptedValue) ));
                     $valid = false;
                 }
                 break;
