@@ -213,8 +213,11 @@ function is_scannable($filePath,
     $parentPath  = str_replace($rootSys, '', $parentPath);
 
     $forbiddenDirNameList    = array_merge( array('claroline/lang',
+                                                  'claroline/install',
                                                   'claroline/inc/conf',
                                                   'courses',
+                                                  'platform',
+                                                  'tmp',
                                                   'claroline/admin/devTools',
                                                   'claroline/claroline_garbage'),
                                             $additionnalForbiddenDirNameList);
