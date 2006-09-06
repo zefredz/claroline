@@ -306,7 +306,7 @@ function claro_get_lang_flat_list()
  * $_course['enrolmentKey']
  */
 
-function course_display_form ()
+function course_display_form ($course, $cid)
 {
     global $clarolineRepositoryWeb, $imgRepositoryWeb;
 
@@ -404,11 +404,11 @@ function course_display_form ()
         . '<td align="right" nowrap>' . get_lang('Course access') . '&nbsp;:</td>'
         . '<td>'
         . '<img src="' . $imgRepositoryWeb . '/access_open.gif" />'
-        . '<input type="radio" id="access_true" name="course_access" value="true" ' . ($course['access'] ? 'checked':'') . '>&nbsp;'
+        . '<input type="radio" id="access_true" name="course_access" value="1" ' . ($course['access'] ? 'checked="checked"':'') . '>&nbsp;'
         . '<label for="access_true">' . get_lang('Public access from campus home page even without login') . '</label>'
         . '<br />' . "\n"
         . '<img src="' . $imgRepositoryWeb . 'access_locked.gif" />'
-        . '<input type="radio" id="access_false" name="course_access" value="false" ' . ( ! $course['access'] ? 'checked':'' ) . '>&nbsp;'
+        . '<input type="radio" id="access_false" name="course_access" value="0" ' . ( ! $course['access'] ? 'checked="checked"':'' ) . '>&nbsp;'
         . '<label for="access_false">' . get_lang('Private access (site accessible only to people on the <a href="%url">User list</a>)' ,
                                           array('%url'=> '../user/user.php')) 
         . '</label>'
@@ -421,15 +421,15 @@ function course_display_form ()
         . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
         . '<td>'
         . '<img src="' . $imgRepositoryWeb . '/enroll_open.gif" />'
-        . '<input type="radio" id="enrolment_true" name="course_enrolment" value="true" ' . ($course['enrolment']?'checked':'') . '>&nbsp;'
+        . '<input type="radio" id="enrolment_true" name="course_enrolment" value="1" ' . ($course['enrolment']?'checked="checked"':'') . '>&nbsp;'
         . '<label for="enrolment_true">' . get_lang('Allowed') . '</label>'
         . '<label for="enrolment_key">'
         . ' - ' . get_lang('Enrolment key') . '<small>(' . get_lang('Optional') . ')</small> :'
         . '</label>'
-        . '<input type="text" id="enrolment_key" name="course_enrolment_key" value="' . htmlspecialchars($course['enrolmentKey']) . '>'
+        . '<input type="text" id="enrolment_key" name="course_enrolment_key" value="' . htmlspecialchars($course['enrolmentKey']) . '" />'
         . '<br />' . "\n"
         . '<img src="' . $imgRepositoryWeb . 'enroll_locked.gif" />'
-        . '<input type="radio" id="enrolment_false"  name="course_enrolment" value="false"' . (! $course['enrolment'] ?'checked':'') . '>&nbsp;'
+        . '<input type="radio" id="enrolment_false"  name="course_enrolment" value="0"' . ( ! $course['enrolment'] ?'checked="checked"':'') . '>&nbsp;'
         . '<label for="enrolment_false">' . get_lang('Denied') . '</label>'
         . '</td>'
         . '</tr>' . "\n" ;
@@ -452,7 +452,7 @@ function course_display_form ()
         . '<td>&nbsp;</td>'
         . '<td>'
         . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />'
-        . claro_html_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
+        . claro_html_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($cid), get_lang('Cancel'))
         . '</td>' . "\n"
         . '</tr>' . "\n" ;
 
