@@ -37,10 +37,22 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 // deal with session variables (must unset variables if come back from enroll script)
 unset($_SESSION['userEdit']);
 
+$nameTools=get_lang('User course settings');
+
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+
 
 // see which user we are working with ...
-$uidToEdit = $_REQUEST['uidToEdit'];
-$cidToEdit = $_REQUEST['cidToEdit'];
+
+if ( isset($_REQUEST['uidToEdit']) && isset($_REQUEST['cidToEdit']) )
+{
+    $uidToEdit = $_REQUEST['uidToEdit'];
+    $cidToEdit = $_REQUEST['cidToEdit'];
+}
+else
+{
+    claro_die('Missing parameters');
+}
 
 //------------------------------------
 // Execute COMMAND section
@@ -109,10 +121,6 @@ if ( isset($uidToEdit) )
 //------------------------------------
 // PREPARE DISPLAY
 //------------------------------------
-
-$nameTools=get_lang('User course settings');
-
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 // javascript confirm pop up declaration
 $htmlHeadXtra[] =
