@@ -71,8 +71,8 @@ function build_rss($context)
             if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
             {
                 $rssFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
-                $rssTitle .= '[' . get_lang('group') . $context[CLARO_CONTEXT_GROUP] . ']';
-                $rssDescription .= get_lang('group') . $context[CLARO_CONTEXT_GROUP];
+                $rssTitle .= '[' . get_lang('Group') . $context[CLARO_CONTEXT_GROUP] . ']';
+                $rssDescription .= get_lang('Group') . $context[CLARO_CONTEXT_GROUP];
             }
         }
         else

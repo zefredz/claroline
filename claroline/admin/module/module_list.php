@@ -408,9 +408,8 @@ foreach ($modules_found['folder'] as $module_folder)
 {
     if (!isset($dialogBox)) $dialogBox= '';
     $url = $_SERVER['PHP_SELF'] . '?cmd=exLocalInstall&amp;moduleDir=' . rawurlencode($module_folder);
-    $repl = array( '%here' => '<a href="'.$url.'">'.get_lang( 'here' ).'</a>');
     $dialogBox .= get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder))
-        . get_lang( 'to install this module click %here', $repl )
+        . get_lang( 'To install this module click <a href="%url">here</a>.', array('%url' => $url ) )
         . '<br/>' . "\n"
         ;
 }
