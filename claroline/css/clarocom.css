@@ -139,7 +139,7 @@ input[type=submit]:hover, button:hover {
 	font-size: O.95em;
 	font-weight: bold;
 	margin-top: -1px;
-	padding: 15px 15px; 0 0;
+	padding: 15px 15px;
 	background-image: url(clarocom/cornerright_header.jpg);
 	background-position: right top;
 	background-repeat: no-repeat;
