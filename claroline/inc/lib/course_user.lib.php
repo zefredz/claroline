@@ -551,19 +551,30 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     $profileList = claro_get_all_profile_name_list ();
 
     $form .= '<tr >' . "\n"
-          .  '<td align="right"><label for="profileId">' . get_lang('Profile') . ' :</label></td>' . "\n"
-          .  '<td ><select name="profileId" id="profileId">' ;
+        . '<td align="right"><label for="profileId">' . get_lang('Profile') . ' :</label></td>' . "\n" 
+        . '<td>' ;
 
-    foreach ( $profileList as $id => $info )
+    if ( $userId == $GLOBALS['_uid'] )
     {
-        if ( $info['label'] != 'anonymous' )
+        $form .= htmlspecialchars($profileList[$selectedProfileId]['name']) ;
+    }
+    else
+    {
+        $form .= '<select name="profileId" id="profileId">' ;
+
+        foreach ( $profileList as $id => $info )
         {
-            $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . $info['name'] . '</option>' . "\n" ;
-        }
+            if ( $info['label'] != 'anonymous' )
+            {
+                $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . $info['name'] . '</option>' . "\n" ;
+            }
+        }    
+
+        $form .= '</select>' ;
     }
 
-    $form .= '</select></td>' . "\n"
-          .  '</tr>' . "\n" ; 
+    $form .= '</td>' . "\n"
+              .  '</tr>' . "\n" ;
 
     // User role label
     $form .= '<tr >' . "\n"

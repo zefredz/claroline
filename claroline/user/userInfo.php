@@ -147,7 +147,7 @@ if ($allowedToEditDef)
 
         // Set variable for course manager or student status
 
-        if ( !empty($_REQUEST['profileId']) )
+        if ( !empty($_REQUEST['profileId']) && $userIdViewed != $_uid )
         {
             $userProperties['profileId'] = $_REQUEST['profileId'];
         }
@@ -183,18 +183,8 @@ if ($allowedToEditDef)
 
         // apply changes in DB
 
-        if ( $userIdViewed == $_uid )
-        {
-            //prevent teacher to let the course without any teacher
-
-            $displayMode = "viewMainInfoEdit";
-            $dialogBox   = get_lang('You can not change your own status');
-        }
-        else
-        {
-            user_set_course_properties($userIdViewed, $course_id, $userProperties);
-            $displayMode = "viewContentList";
-        }
+        user_set_course_properties($userIdViewed, $course_id, $userProperties);
+        $displayMode = "viewContentList";
     }
 }
 
@@ -206,7 +196,7 @@ if ($allowedToEditContent)
     {
         if ($cntId)    // submit a content change
         {
-            claro_user_info_edit_cat_content($_REQUEST['catId'], $userIdViewed, $_REQUEST['content'], $$_SERVER['REMOTE_ADDR']);
+            claro_user_info_edit_cat_content($_REQUEST['catId'], $userIdViewed, $_REQUEST['content'], $_SERVER['REMOTE_ADDR']);
         }
         else        // submit a totally new content
         {

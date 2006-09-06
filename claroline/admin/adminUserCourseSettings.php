@@ -58,17 +58,32 @@ switch ($cmd)
 {
     case 'exUpdateCourseUserProperties' :
 
-        $properties['profileId'] = isset($_REQUEST['profileId'])?$_REQUEST['profileId']:null;
-        $properties['tutor'] = isset($_REQUEST['isTutor'])?(int)$_REQUEST['isTutor']:null;
-        $properties['role']  = isset($_REQUEST['role'])?trim($_REQUEST['role']):null;
-
-        if ( claro_get_profile_name($properties['profileId']) == 'Manager' )
+        if ( isset($_REQUEST['profileId']) )
         {
-            $dialogBox = get_lang('User is now course manager');
+            $properties['profileId'] = $_REQUEST['profileId'];
+
+            if ( claro_get_profile_name($properties['profileId']) == 'Manager' )
+            {
+                $dialogBox = get_lang('User is now course manager');
+            }
+            else
+            {
+                $dialogBox = get_lang('User is now student for this course');
+            }
+        }
+
+        if ( isset($_REQUEST['isTutor']) )
+        {
+            $properties['tutor'] = (int) $_REQUEST['isTutor'];
         }
         else
         {
-            $dialogBox = get_lang('User is now student for this course');
+            $properties['tutor'] = 0 ;
+        }
+
+        if ( isset($_REQUEST['role']) )
+        {
+            $properties['role'] = trim($_REQUEST['role']);
         }
 
         $done = user_set_course_properties($uidToEdit, $cidToEdit, $properties);
