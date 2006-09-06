@@ -166,12 +166,17 @@ if (isset($_cid))
         {
 
             if (isset($_courseToolDatas['name']) && !is_null($_courseToolDatas['name']) && isset($_courseToolDatas['label']))
+            {
                 $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
+            }
             else
-                $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($_courseToolList[ $_courseToolKey ] [ 'external_name' ]);
+            {
+                $external_name = $_courseToolList[ $_courseToolKey ] [ 'external_name' ] ;
+                $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($external_name);
+            }
             // now recheck to be sure the value is really filled before going further
             if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
-                $_courseToolList[ $_courseToolKey ] [ 'name' ] = 'No Name';
+                $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No Name');
         }
         $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php"
           name="redirector" method="POST">
