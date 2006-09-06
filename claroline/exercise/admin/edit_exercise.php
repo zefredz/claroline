@@ -331,7 +331,7 @@ if( $displayForm )
 	.	 '<td valign="top"><label for="attempts">'.get_lang('Attempts allowed').'&nbsp;:</label></td>' . "\n"
 	.	 '<td>'
 	.	 '<select name="attempts" id="attempts">' . "\n"
-	.	 '<option value="0"' . ( $form['attempts'] < 1?' selected="selected"':' ') . '>unlimited</option>' . "\n"
+	.	 '<option value="0"' . ( $form['attempts'] < 1?' selected="selected"':' ') . '>' . get_lang('unlimited') . '</option>' . "\n"
 	.	 '<option value="1"' . ( $form['attempts'] == 1?' selected="selected"':' ') . '>1</option>' ."\n"
 	.	 '<option value="2"' . ( $form['attempts'] == 2?' selected="selected"':' ') . '>2</option>' ."\n"
 	.	 '<option value="3"' . ( $form['attempts'] == 3?' selected="selected"':' ') . '>3</option>' ."\n"

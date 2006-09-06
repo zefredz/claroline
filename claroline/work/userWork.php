@@ -973,14 +973,10 @@ if( $is_allowedToSubmit )
 			echo '<p>' . "\n" . '<small>' . "\n"
 			.    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 			.    $assignment->getTitle() . '<br />'  . "\n"
-			.    '<b>' . get_lang('From') . '</b>' . "\n"
-			.    claro_disp_localised_date($dateTimeFormatLong, $assignment->getStartDate()) . "\n"
-
-			.    '<b>' . get_lang('until') . '</b>' . "\n"
-			.    claro_disp_localised_date($dateTimeFormatLong, $assignment->getEndDate())
-
+            .    get_lang('<b>From</b> %start_date <b>until</b> %end_date', 
+                   array ( '%start_date' => claro_disp_localised_date($dateTimeFormatLong, $assignment->getStartDate()),
+                           '%end_date' => claro_disp_localised_date($dateTimeFormatLong, $assignment->getEndDate()) ) )
 			.	'<br />'  .  "\n"
-
 			.    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
 
 			if( $assignment->getSubmissionType() == 'TEXT'  )
