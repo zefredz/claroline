@@ -321,6 +321,16 @@ function course_display_form ($course, $cid)
         $categoryList = array_merge( array(get_lang('Choose one')=>'choose_one'), $categoryList);
     }
 
+	if ( is_null($course['access']) )
+	{
+		$course['access'] = get_conf('defaultVisibilityForANewCourse') == 2 or get_conf('defaultVisibilityForANewCourse') == 3 ? true : false;
+	}
+	
+	if ( is_null($course['enrolment']) )
+	{
+		$course['enrolment'] = get_conf('defaultVisibilityForANewCourse') == 1 or get_conf('defaultVisibilityForANewCourse') == 2 ? true : false;
+	}
+	
     $html = '';
 
     $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
@@ -487,4 +497,47 @@ function getCourseEnrolment ( $visibility )
     else                                        return false;
 }
 
+/**
+ * Check e-mail validity
+ *
+ * email can be a list
+ *  accept ; [space] and , as separator but  if all is right replace all by ;
+ * if  one is wrong display the erronous and dont change
+ */
+function check_email_validity($email)
+{
+
+    if ( ! empty( $email ))
+    {
+        $is_emailListValid = true;
+
+        /* TODO check if the fix for bug #716 and 717 does not break the code
+         * since moosh does not remember why the strpos was there.
+         */
+        $emailControlList = strtr($email,', ',';');
+        $emailControlList = preg_replace( '/;+/', ';', $emailControlList );
+
+        $emailControlList = explode(';',$emailControlList);
+        
+        foreach ($emailControlList as $emailControl )
+        {
+            if ( ! is_well_formed_email_address( trim($emailControl)) )
+            {
+                $is_emailListValid = false;
+                $errorMsgList[] = get_lang('The email address is not valid');
+            }
+            else
+            {
+                $emailValidList[] = trim($emailControl);
+            }
+        }
+
+        if ($is_emailListValid && is_array($emailValidList))
+        {
+            $email = implode(';',$emailValidList);
+        }
+    }
+    
+    return $email;
+}
 ?>
