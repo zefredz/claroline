@@ -277,7 +277,7 @@ else
         .    '<th>' . get_lang('First name')          . '</th>' . "\n"
         .    '<th>' . get_lang('Email')               . '</th>' . "\n"
         .    '<th>' . get_lang('Administrative code') . '</th>' . "\n"
-        .    '<th>' . get_lang('Register')            . '</th>' . "\n"
+        .    '<th>' . get_lang('Enrol as student')            . '</th>' . "\n"
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
@@ -298,7 +298,7 @@ else
             if ( empty($thisUser['registered']) )
             {
                 echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=registration&amp;userId=' . $thisUser['uid'] . $regUrlAddParam . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Register') . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
                 .    '</a>'
                 ;
             }
