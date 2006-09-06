@@ -540,4 +540,92 @@ function check_email_validity($email)
     
     return $email;
 }
+
+function course_validate($course)
+{
+    require_once dirname(__FILE__) . '/backlog.class.php';
+
+    $backlog = new Backlog();
+    $success = true ;
+
+    /**
+     * Configuration array , define here which field can be left empty or not
+     */
+
+    $fieldRequiredStateList['title'        ] = get_conf('human_label_needed');
+    $fieldRequiredStateList['officialCode' ] = get_conf('human_code_needed');
+    $fieldRequiredStateList['titular'      ] = false;
+    $fieldRequiredStateList['email'        ] = get_conf('course_email_needed');
+    $fieldRequiredStateList['category'     ] = true;
+    $fieldRequiredStateList['language'     ] = true;
+
+    // Course title
+    if ( empty($course['title']) && $fieldRequiredStateList['title'] )
+    {
+        $backlog->failure(get_lang('Course title needed'));
+        $success = false ;
+    }
+    
+    // Course code
+    if ( empty($course['officialCode']) && $fieldRequiredStateList['officialCode'])
+    {
+        $backlog->failure(get_lang('Course code needed'));
+        $success = false ;
+    }
+    
+    // Course email
+    if ( empty($course['email']) && $fieldRequiredStateList['email'])
+    {
+        $backlog->failure(get_lang('Email needed'));
+        $success = false ;
+    }
+
+    // TODO : email validation 
+
+    if ( !empty($course['email']) )
+    {
+        
+    }
+
+    // Course category
+    if ( is_null($course['category']) && $fieldRequiredStateList['category'])
+    {
+        $backlog->failure(get_lang('Category needed (you must choose a category)'));
+        $success = false ;
+    }
+    
+    // Course language
+    if ( empty($course['language']) && $fieldRequiredStateList['language'])
+    {
+        $backlog->failure(get_lang('language needed'));
+        $success = false ;
+    }
+
+    // Course department url
+
+    // check if department url is set properly
+    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+
+    if ( (!empty($course['departmentUrl'])) && !eregi( $regexp, $course['departmentUrl']) )
+    {
+        // Problem with url. try to repair
+        // if  it  only the protocol missing add http
+        if ( ! eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $course['departmentUrl'])
+        && ( ! eregi($regexp, 'http://' . $course['departmentUrl'])))
+        {
+             $backlog->failure(get_lang('Department URL is not valid'));
+            $success = false ;
+        }
+    }
+
+    return array ($backlog, $success);
+}
+
+function course_save()
+{
+
+
+
+}
+
 ?>
