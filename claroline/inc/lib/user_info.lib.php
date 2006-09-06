@@ -406,19 +406,10 @@ function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
                AND content.user_id = " . (int) $user_id . "
             ORDER BY cat.rank, content.id";
 
-    $result = claro_sql_query($sql);
-
-    if (mysql_num_rows($result) > 0)
-    {
-        while (true === ($userInfo = mysql_fetch_array($result, MYSQL_ASSOC)))
-        {
-            $userInfos[]=$userInfo;
-        }
-
-        return $userInfos;
-    }
-
-    return false;
+	$userInfos = claro_sql_query_fetch_all_rows($sql);
+	
+	if( ! empty($userInfos) )  return $userInfos;
+	else                       return false;
 }
 
 /**
@@ -449,15 +440,9 @@ function claro_user_info_get_cat_content($userId, $catId, $course_id = NULL)
             AND content.user_id = " . (int) $userId . "
             WHERE cat.id = " . (int) $catId ;
 
-    $result = claro_sql_query($sql);
-
-    if (mysql_num_rows($result) > 0)
-    {
-        $catContent = mysql_fetch_array($result, MYSQL_ASSOC);
-        return $catContent;
-    }
-
-    return FALSE;
+	$catContent = claro_sql_query_get_single_row($sql);
+	
+	return $catContent;
 }
 
 /**
@@ -475,15 +460,9 @@ function claro_user_info_get_cat_def($catId, $course_id=NULL)
             FROM `" . $tbl_userinfo_def . "`
             WHERE id = " . (int) $catId;
 
-    $result = claro_sql_query($sql);
-
-    if (mysql_num_rows($result) > 0)
-    {
-        $catDef = mysql_fetch_array($result, MYSQL_ASSOC);
-        return $catDef;
-    }
-
-    return false;
+	$catDef = claro_sql_query_get_single_row($sql);
+	
+	return $catDef;
 }
 
 
@@ -508,19 +487,10 @@ function claro_user_info_claro_user_info_get_cat_def_list($course_id=NULL)
     .      "ORDER BY rank"
     ;
 
-    $result = claro_sql_query($sql);
-
-    if (mysql_num_rows($result) > 0)
-    {
-        while (true === ($cat_def = mysql_fetch_array($result, MYSQL_ASSOC)))
-        {
-            $cat_def_list[]=$cat_def;
-        }
-
-        return $cat_def_list;
-    }
-
-    return FALSE;
+	$cat_def_list = claro_sql_query_fetch_all_rows($sql);
+	
+	if( ! empty($cat_def_list) )  return $cat_def_list;
+	else                          return false;
 }
 
 
