@@ -45,8 +45,8 @@ include_once claro_get_conf_repository() . 'course_main.conf.php';
 $fieldRequiredStateList['category'     ] = true;
 $fieldRequiredStateList['lanCourseForm'] = true;
 $fieldRequiredStateList['lecturer'     ] = false;
-$fieldRequiredStateList['intitule'     ] = get_conf('human_label_needed');
-$fieldRequiredStateList['screenCode'   ] = get_conf('human_code_needed');
+$fieldRequiredStateList['title'        ] = get_conf('human_label_needed');
+$fieldRequiredStateList['officialCode' ] = get_conf('human_code_needed');
 $fieldRequiredStateList['email'        ] = get_conf('course_email_needed');
 
 /**
@@ -66,26 +66,25 @@ $tbl_category         = $tbl_mdb_names['category'       ];
 
 $thisCourse = claro_get_course_data($_cid);
 
-$courseTitle        = isset($_REQUEST['int'          ]) ? trim(strip_tags($_REQUEST['int'          ])) : $thisCourse['name'    ];
-$courseHolder       = isset($_REQUEST['titulary'     ]) ? trim(strip_tags($_REQUEST['titulary'     ])) : $thisCourse['titular' ];
-$courseLanguage     = isset($_REQUEST['lanCourseForm']) ? trim(strip_tags($_REQUEST['lanCourseForm'])) : $thisCourse['language'];
-$courseEmail        = isset($_REQUEST['email'        ]) ? trim(strip_tags($_REQUEST['email'        ])) : $thisCourse['email'   ];
-$courseCategory     = isset($_REQUEST['category'     ]) ? trim(strip_tags($_REQUEST['category'     ])) : $thisCourse['categoryCode'];
-$courseOfficialCode = isset($_REQUEST['screenCode'   ]) ? trim(strip_tags($_REQUEST['screenCode'   ])) : $thisCourse['officialCode'];
-$extLinkName        = isset($_REQUEST['extLinkName'  ]) ? trim(strip_tags($_REQUEST['extLinkName'  ])) : $thisCourse['extLinkName'];
-$extLinkUrl         = isset($_REQUEST['extLinkUrl'   ]) ? trim(strip_tags($_REQUEST['extLinkUrl'   ])) : $thisCourse['extLinkUrl'];
-$enrollmentKey      = isset($_REQUEST['enrollmentKey']) ? trim(strip_tags($_REQUEST['enrollmentKey'])) : $thisCourse['enrollmentKey'];
+$course = array();
+$course['title']          = isset($_REQUEST['course_title'        ]) ? trim(strip_tags($_REQUEST['course_title'        ])) : $thisCourse['name'    ];
+$course['titular']        = isset($_REQUEST['course_titular'      ]) ? trim(strip_tags($_REQUEST['course_titular'      ])) : $thisCourse['titular' ];
+$course['language']       = isset($_REQUEST['course_language'     ]) ? trim(strip_tags($_REQUEST['course_language'     ])) : $thisCourse['language'];
+$course['email']          = isset($_REQUEST['course_email'        ]) ? trim(strip_tags($_REQUEST['course_email'        ])) : $thisCourse['email'   ];
+$course['category']       = isset($_REQUEST['course_category'     ]) ? trim(strip_tags($_REQUEST['course_category'     ])) : $thisCourse['categoryCode'];
+$course['officialCode']   = isset($_REQUEST['course_code'         ]) ? trim(strip_tags($_REQUEST['course_code'         ])) : $thisCourse['officialCode'];
+$course['departmentName'] = isset($_REQUEST['course_dept_name'    ]) ? trim(strip_tags($_REQUEST['course_dept_name'    ])) : $thisCourse['extLinkName'];
+$course['departmentUrl']  = isset($_REQUEST['course_dept_url'     ]) ? trim(strip_tags($_REQUEST['course_dept_url'     ])) : $thisCourse['extLinkUrl'];
+$course['enrolmentKey']   = isset($_REQUEST['course_enrolment_key']) ? trim(strip_tags($_REQUEST['course_enrolment_key'])) : $thisCourse['enrollmentKey'];
 
-$visibility          = isset($_REQUEST['visible']           )
-                       ? ($_REQUEST['visible'            ] == 'true' ? true : false)
-                       :  $thisCourse['visibility'];
-$registrationAllowed = isset($_REQUEST['allowedToSubscribe'])
-                       ? ($_REQUEST['allowedToSubscribe'] == 'true' ? true : false)
-                       : $thisCourse['registrationAllowed'];
+$course['access']         = isset($_REQUEST['course_access'       ]) ? (bool) $_REQUEST['course_access'       ] : $thisCourse['visibility'];
+$course['enrolment']      = isset($_REQUEST['course_enrolment'    ]) ? (bool) $_REQUEST['course_enrolment'    ] : $thisCourse['registrationAllowed'];
 
-$directory               = $thisCourse['path'   ];
-$currentCourseID         = $thisCourse['sysCode'];
-$currentCourseRepository = $thisCourse['path'   ];
+$visibility               = getCourseVisibility($course['access'],$course['enrolment']);
+
+$directory                = $thisCourse['path'   ];
+$currentCourseID          = $thisCourse['sysCode'];
+$currentCourseRepository  = $thisCourse['path'   ];
 
 // in case of admin access (from admin tool) to the script,
 // we must determine which course we are working with
@@ -115,26 +114,26 @@ if ( isset($_REQUEST['changeProperties']) )
   ----------------------------------------------------------------------------*/
     $errorMsgList = array();
 
-    if ( empty($courseTitle)        && $fieldRequiredStateList['intitule'])
+    if ( empty($course['title'])        && $fieldRequiredStateList['title'])
         $errorMsgList[] = get_lang('Course title needed');
-    if ( is_null($courseCategory)   && $fieldRequiredStateList['category'])
+    if ( is_null($course['category'])   && $fieldRequiredStateList['category'])
         $errorMsgList[] = get_lang('Category needed (you must choose a category)');
-    if ( empty($courseOfficialCode) && $fieldRequiredStateList['screenCode'])
+    if ( empty($course['officialCode']) && $fieldRequiredStateList['officialCode'])
         $errorMsgList[] = get_lang('Course code needed');
-    if ( empty($courseEmail)        && $fieldRequiredStateList['email'])
+    if ( empty($course['email'])        && $fieldRequiredStateList['email'])
         $errorMsgList[] = get_lang('Email needed');
 
 
     // check if department url is set properly
     $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
-    if ( (!empty($extLinkUrl)) && !eregi( $regexp, $extLinkUrl) )
+    if ( (!empty($course['departmentUrl'])) && !eregi( $regexp, $course['departmentUrl']) )
     {
         // problem with url. try to repair
         // if  it  only the protocol missing add http
-        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $extLinkUrl )
-        && (eregi($regexp, 'http://' . $extLinkUrl )))
+        if (eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $course['departmentUrl'])
+        && (eregi($regexp, 'http://' . $course['departmentUrl'])))
         {
-            $extLinkUrl = 'http://' . $extLinkUrl;
+            $course['departmentUrl'] = 'http://' . $course['departmentUrl'];
         }
         else
         {
@@ -149,14 +148,16 @@ if ( isset($_REQUEST['changeProperties']) )
      *  accept ; [space] and , as separator but  if all is right replace all by ;
      * if  one is wrong display the erronous and dont change
      */
-    if ( ! empty( $courseEmail ) || $fieldRequiredStateList['email'] )
+    if ( ! empty( $course['email'] ) || $fieldRequiredStateList['email'] )
     {
         $is_emailListValid = true;
+
         /* TODO check if the fix for bug #716 and 717 does not break the code
          * since moosh does not remember why the strpos was there.
          */
-        $emailControlList = strtr($courseEmail,', ',';;');
+        $emailControlList = strtr($course['email'],', ',';');
         $emailControlList = preg_replace( '/;+/', ';', $emailControlList );
+
         $emailControlList = explode(';',$emailControlList);
         
         foreach ($emailControlList as $emailControl )
@@ -174,7 +175,7 @@ if ( isset($_REQUEST['changeProperties']) )
 
         if ($is_emailListValid && is_array($emailValidList))
         {
-            $courseEmail = implode(';',$emailValidList);
+            $course['email'] = implode(';',$emailValidList);
         }
     }
 
@@ -197,25 +198,20 @@ if ( isset($_REQUEST['changeProperties']) )
 
     if ( $dbUpdateAllowed )
     {
-        if     ( ! $visibility && ! $registrationAllowed) $visibilityState = 0;
-        elseif ( ! $visibility &&   $registrationAllowed) $visibilityState = 1;
-        elseif (   $visibility && ! $registrationAllowed) $visibilityState = 3;
-        elseif (   $visibility &&   $registrationAllowed) $visibilityState = 2;
-
         /**
          * @todo TODO create a function and  merge this  job with create course
          */
         $sql = "UPDATE `" . $tbl_course . "`
-                SET `intitule`         = '" . addslashes($courseTitle)       . "',
-                    `faculte`          = '" . addslashes($courseCategory)    . "',
-                    `titulaires`       = '" . addslashes($courseHolder)      . "',
-                    `fake_code`        = '" . addslashes($courseOfficialCode). "',
-                    `languageCourse`   = '" . addslashes($courseLanguage)    . "',
-                    `departmentUrlName`= '" . addslashes($extLinkName)       . "',
-                    `departmentUrl`    = '" . addslashes($extLinkUrl)        . "',
-                    `email`            = '" . addslashes($courseEmail)       . "',
-                    `enrollment_key`   = '" . addslashes($enrollmentKey)     . "',
-                    `visible`          = "  . (int) $visibilityState         . "
+                SET `intitule`         = '" . addslashes($course['title'])       . "',
+                    `faculte`          = '" . addslashes($course['category'])    . "',
+                    `titulaires`       = '" . addslashes($course['titular'])      . "',
+                    `fake_code`        = '" . addslashes($course['officialCode']). "',
+                    `languageCourse`   = '" . addslashes($course['language'])    . "',
+                    `departmentUrlName`= '" . addslashes($course['departmentName'])       . "',
+                    `departmentUrl`    = '" . addslashes($course['departmentUrl'])        . "',
+                    `email`            = '" . addslashes($course['email'])       . "',
+                    `enrollment_key`   = '" . addslashes($course['enrolmentKey'])     . "',
+                    `visible`          = "  . (int) $visibility         . "
                 WHERE code='" . addslashes($current_cid) . "'";
 
         claro_sql_query($sql);
@@ -229,25 +225,6 @@ if ( isset($_REQUEST['changeProperties']) )
 $cidReset = true;
 $cidReq = $current_cid;
 include($includePath . '/claro_init_local.inc.php');
-}
-
-//////////////////////PREPARE DISPLAY
-
-$language_list = claro_get_lang_flat_list();
-
-$category_array = claro_get_cat_flat_list();
-
-// If there is no current $courseCategory, add a fake option
-// to prevent auto select the first in list
-// to prevent auto select the first in list
-if ( in_array( $courseCategory, $category_array ) )
-{
-    $cat_preselect = $courseCategory;
-}
-else
-{
-    $cat_preselect = 'choose_one';
-    $category_array = array_merge( array(get_lang('Choose one')=>'choose_one'), $category_array);
 }
 
 /******************************************************************************
@@ -379,134 +356,8 @@ echo '<p>'
 
 // Display form
 
-?>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+echo course_display_form($course,$currentCourseID);
 
-<table  cellpadding="3" border="0">
-
-<tr>
-<td align="right"><label for="int"><?php echo (get_conf('human_label_needed') ? '<span class="required">*</span>' :'') . get_lang('Course title') ?></label> :</td>
-<td><input type="Text" name="int" id="int" value="<?php echo htmlspecialchars($courseTitle); ?>" size="60"></td>
-</tr>
-
-<tr>
-<td align="right"><label for="screenCode"><?php echo (get_conf('human_code_needed') ? '<span class="required">*</span>' :'') . get_lang('Course code') ?></label>&nbsp;:</td>
-<td><input type="text" id="screenCode" name="screenCode" value="<?php echo htmlspecialchars($courseOfficialCode); ?>" size="20"></td>
-</tr>
-
-<tr>
-<td align="right"><label for="titulary"><?php echo get_lang('Lecturer(s)') ?></label>&nbsp;:</td>
-<td><input type="text"  id="titulary" name="titulary" value="<?php echo htmlspecialchars($courseHolder); ?>" size="60"></td>
-</tr>
-
-<tr>
-<td align="right"><label for="email"><?php echo ( get_conf('course_email_needed') ? '<span class="required">*</span>' : '') . get_lang('Email') ?></label>&nbsp;:</td>
-<td><input type="text"  id="email" name="email" value="<?php echo htmlspecialchars($courseEmail); ?>" size="60" maxlength="255"></td>
-</tr>
-
-<tr>
-<td align="right"><label for="category"><span class="required">*</span><?php echo get_lang('Category') ?></label> :</td>
-<td>
-<?php echo claro_html_form_select( 'category'
-                                 , $category_array
-                                 , $cat_preselect
-                                 , array('id'=>'category'))
-                                 ; ?>
-</td>
-</tr>
-
-<tr valign="top">
-<td align="right"><label for="extLinkName"><?php echo get_lang('Department') ?></label>&nbsp;: </td>
-<td><input type="text" name="extLinkName" id="extLinkName" value="<?php echo htmlspecialchars($extLinkName); ?>" size="20" maxlength="30"></td>
-</tr>
-
-<tr valign="top" >
-<td align="right" nowrap><label for="extLinkUrl" ><?php echo get_lang('Department URL') ?></label>&nbsp;:</td>
-<td><input type="text" name="extLinkUrl" id="extLinkUrl" value="<?php echo htmlspecialchars($extLinkUrl); ?>" size="60" maxlength="180"></td>
-</tr>
-
-<tr valign="top" >
-<td align="right">
-<label for="lanCourseForm"><span class="required">*</span><?php echo get_lang('Language') ?></label> :
-</td>
-<td>
-<?php echo claro_html_form_select( 'lanCourseForm'
-                                 , $language_list
-                                 , $courseLanguage
-                                 , array('id'=>'lanCourseForm'))
-                                 ; ?>
-</td>
-</tr>
-
-<tr>
-<td></td>
-<td>
-<?php
-if ( isset($cidToEdit) && ($is_platformAdmin))
-{
-    $url_admin_course_user = $clarolineRepositoryWeb . 'admin/admincourseusers.php?cidToEdit=' . $cidToEdit ;
-    echo '<a  href="' . $url_admin_course_user . '">' . get_lang('Course members') . '</a>' ;
-}
-?>
-</td>
-</tr>
-
-<tr valign="top" >
-<td align="right" nowrap><?php echo get_lang('Course access'); ?> : </td>
-<td>
-<img src="<?php echo $imgRepositoryWeb ?>access_open.gif" />
-<input type="radio" id="visible_true" name="visible" value="true" <?php echo $visibility ? 'checked':'' ?>> <label for="visible_true"><?php echo get_lang('Public access from campus home page even without login'); ?></label><br />
-<img src="<?php echo $imgRepositoryWeb ?>access_locked.gif" />
-<input type="radio" id="visible_false" name="visible" value="false" <?php echo ! $visibility  ?'checked':''; ?>> <label for="visible_false"><?php echo get_lang('Private access (site accessible only to people on the <a href="%url">User list</a>)',array('%url'=> '../user/user.php')); ?></label>
-</td>
-</tr>
-<tr valign="top">
-<td align="right"><?php echo get_lang('Enrolment'); ?> : </td>
-<td>
-<img src="<?php echo $imgRepositoryWeb ?>enroll_open.gif" />
-<input type="radio" id="allowedToSubscribe_true" name="allowedToSubscribe" value="true" <?php echo $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_true"><?php echo get_lang('Allowed'); ?></label>
-<label for="enrollmentKey">
-- <?php echo get_lang('Enrolment key') ?> <small>(<?php echo strtolower(get_lang('Optional')); ?>)</small> :
-</label>
-<input type="text" id="enrollmentKey" name="enrollmentKey" value="<?php echo htmlspecialchars($enrollmentKey); ?>">
-<br />
-<img src="<?php echo $imgRepositoryWeb ?>enroll_locked.gif" />
-<input type="radio" id="allowedToSubscribe_false"  name="allowedToSubscribe" value="false" <?php echo ! $registrationAllowed ?'checked':''; ?>> <label for="allowedToSubscribe_false"><?php echo get_lang('Denied'); ?></label>
-<?php
-if (isset($cidToEdit))
-{
-    echo '<input type="hidden" name="cidToEdit" value="'.$cidToEdit.'">';
-}
-?>
-</td>
-</tr>
-<tr valign="top">
-<td align="right"></small></td>
-<td>
-
-</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td><small><font color="gray"><?php echo get_block('blockCourseSettingsTip') ?></font></small></td>
-</tr>
-<tr>
-<td></td>
-<td>
-<?php echo get_lang('<span class=\"required\">*</span> denotes required field') ?>
-</td>
-</tr>
-<tr>
-<td></td>
-<td>
-<input type="submit" name="changeProperties" value=" <?php echo get_lang('Ok') ?> ">
-<?php
-echo claro_html_button( $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid), get_lang('Cancel'))
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '</table>' . "\n"
-.    '</form>' . "\n"
-;
 // Display footer
 include $includePath . '/claro_init_footer.inc.php' ;
 ?>
