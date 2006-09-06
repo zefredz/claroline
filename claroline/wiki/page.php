@@ -522,7 +522,7 @@
             }
             else
             {
-                $message = get_lang( "Page" ) . " " . $title . " " . get_lang ( "not found" );
+                $message = get_lang('Page %title not found', array('%title'=>$title) );
             }
             break;
         }

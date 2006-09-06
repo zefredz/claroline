@@ -290,7 +290,7 @@ echo "\n"
 .	 '<label for="filter">'.get_lang('Filter').'&nbsp;:&nbsp;</label>' . "\n"
 .	 claro_html_form_select('filter',$filterList, $filter, $attr) . "\n"
 .	 '<noscript>' . "\n"
-.	 '<input type="submit" value="'.get_lang('ok').'" />' . "\n"
+.	 '<input type="submit" value="'.get_lang('Ok').'" />' . "\n"
 .	 '</noscript>' . "\n"
 .	 '</p>' . "\n"
 .	 '</form>' . "\n\n";

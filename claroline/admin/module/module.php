@@ -444,8 +444,8 @@ switch ($item)
                 . 'title="'.get_lang( 'Make module visible in all courses' ).'"'
                 . ' onclick="return confirmMakeVisible();">'
                 . '<img src="' . $imgRepositoryWeb 
-                . 'visible.gif" border="0" alt="'. get_lang('visible') . '"/> '
-                . get_lang( 'make visible' )
+                . 'visible.gif" border="0" alt="'. get_lang('Visible') . '"/> '
+                . get_lang( 'Make visible' )
                 . '</a></small>'
                 . " | "
                 . '<small><a href="'
@@ -453,8 +453,8 @@ switch ($item)
                 . 'title="'.get_lang( 'Make module invisible in all courses' ).'"'
                 . ' onclick="return confirmMakeInVisible();">'
                 . '<img src="' . $imgRepositoryWeb 
-                . 'invisible.gif" border="0" alt="'. get_lang('invisible') . '"/> '
-                . get_lang( 'make invisible' )
+                . 'invisible.gif" border="0" alt="'. get_lang('Invisible') . '"/> '
+                . get_lang( 'Make invisible' )
                 . '</a></small>'
                 . '<td><tr>' . "\n"
                 ;

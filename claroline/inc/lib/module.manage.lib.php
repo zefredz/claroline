@@ -657,7 +657,7 @@ function uninstall_module($moduleId)
         if (file_exists( $uninstallPhpScript ))
         {
             require $uninstallPhpScript;
-            $backlog->info( get_lang( 'module uninstallation script called' ) );
+            $backlog->info( get_lang('Module uninstallation script called') );
         }
     
         if ( isset( $uninstallSqlScript ) ) unset ( $uninstallSqlScript );

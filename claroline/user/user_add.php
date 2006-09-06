@@ -270,7 +270,7 @@ else
         .    '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="superHeader">'
-        .    '<th colspan="5">' . ucfirst(get_lang('search result')) . '</th>'
+        .    '<th colspan="5">' . get_lang('Search result') . '</th>'
         .    '</tr>'
         .    '<tr class="headerX" align="center" valign="top">' . "\n"
         .    '<th>' . get_lang('Last name')           . '</th>' . "\n"

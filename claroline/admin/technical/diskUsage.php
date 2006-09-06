@@ -90,17 +90,17 @@ if ($disp_claro )
     ;
 
 if ($disp_allcrs)
+{
+    $diskUsage = sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2];
     echo '<li>'
-    .    get_lang('Courses') . ' : '
-    .    sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2]
-    .    '(' . get_lang('perhaps with others directory') . ')</li>'
-    ;
+    .    get_lang('Courses : %disk_usage (perhaps with others directory)',
+         array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
+}
 
 if ($disp_garbage )
+    $diskUsage = sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2];
     echo '<li>'
-    .    get_lang('Garbage')
-    .    ' :  '
-    .    sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2]
+    .    get_lang('Garbage : %disk_usage', array('%disk_usage'=>$diskUsage) )
     .    '</li>'
     ;
 ?>
@@ -108,7 +108,7 @@ if ($disp_garbage )
 <hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
-<label for="disp_claro"><?php echo get_lang(' size of claroline scripts') ?></label>
+<label for="disp_claro"><?php echo ' ' . get_lang('size of claroline scripts') ?></label>
 <br />
 <input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
 <label for="disp_allcrs"><?php echo get_lang('!!!! size of course repository (include claroline and garbage in old systems)') ?></label>

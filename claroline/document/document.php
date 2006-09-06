@@ -812,14 +812,13 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $fileName = basename($_REQUEST['file']);
 
-        $dialogBox .=     "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">"
-                        ."<input type=\"hidden\" name=\"cmd\" value=\"exEdit\">\n"
-                        ."<input type=\"hidden\" name=\"file\" value=\"".$_REQUEST['file']."\">\n"
-                        ."<p>\n"
-                        ."<label for=\"newName\">".get_lang("Rename")." ".htmlspecialchars($fileName)
-                        ." ".get_lang("in")." : </Label>\n"
-                        ."<br /><input type=\"text\" id=\"newName\" name=\"newName\" value=\"". htmlspecialchars($fileName) ."\">\n"
-                        ."</p>\n";
+        $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+                      .'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+                      .'<input type="hidden" name="file" value="' . $_REQUEST['file'] . '" />' . "\n"
+                      .'<p>'
+                      .'<label for="newName">'. get_lang('Rename %filename in', array ('%filename' => htmlspecialchars($fileName) ) ) .' : </Label>' . "\n"
+                      .'<br /><input type="text" id="newName" name="newName" value="' . htmlspecialchars($fileName) . '" />' . "\n"
+                      .'</p>' . "\n";
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
         {
@@ -1050,7 +1049,7 @@ if ('exDownload' == $cmd )
         if (empty($bnFile)) $downloadArchiveName .= '.' . get_lang('complete');
         else                $downloadArchiveName .= '.' . $bnFile;
     }
-    if (isset($_REQUEST['searchPattern'])) $downloadArchiveName .= '.' . get_lang('search') . '.' . $_REQUEST['searchPattern'];
+    if (isset($_REQUEST['searchPattern'])) $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
     $downloadArchiveName .= '.zip';
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
     if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang('Documents and Links') . '.zip';

@@ -269,13 +269,20 @@ if( $displayForm )
 		.	 '<td valign="top">'.get_lang('Random questions').'&nbsp;:</td>' . "\n"
 		.	 '<td>' . "\n"
 		.	 '<input type="checkbox" name="randomize" id="randomize" '
-		.	 ( $form['randomize']?' checked="checked"':' ') . '/>'
-		.	 ' <label for="randomize">'.get_lang('Yes').'</label>,' . "\n"
-		.	 ' <label for="questionDrawn">'.get_lang('take').'</label> '
-		.	 claro_html_form_select('questionDrawn', $questionDrawnOptions, $form['questionDrawn'] )
-		.	 ' ' . get_lang('questions among %questionCount', array('%questionCount' => $questionCount))
+		.	 ( $form['randomize']?' checked="checked"':' ') . '/> '
+        . get_lang('<label1>Yes</label1>, <label2>take</label2> %nb questions among %total',
+                    array ( '<label1>' => '<label for="randomize">',
+                            '</label1>' => '</label>',
+                            '<label2>' => '<label for="questionDrawn">',
+                            '</label2>' => '</label>',
+                            '%nb' => claro_html_form_select('questionDrawn', 
+                                                            $questionDrawnOptions,
+                                                            $form['questionDrawn'],
+                                                            array('id' => 'questionDrawn') ) , 
+                            '%total' =>  $questionCount ) )
 		.	 '</td>' . "\n"
 		.	 '</tr>' . "\n\n";	
+
 	}
 	
 	//-- advanced part

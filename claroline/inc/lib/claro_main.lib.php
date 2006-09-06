@@ -463,7 +463,10 @@ function claro_get_module_name ( $identifier )
 
         $moduleData = get_module_data($toolLabel);
         if (is_array($moduleData))
-        return  get_lang($moduleData['moduleName']);
+        {
+            $moduleName = $moduleData['moduleName'];
+            return  get_lang($moduleName);
+        }
     }
 
     return get_lang('No tool name') ;
