@@ -152,8 +152,13 @@ if ( isset($_REQUEST['changeProperties']) )
     if ( ! empty( $courseEmail ) || $fieldRequiredStateList['email'] )
     {
         $is_emailListValid = true;
-        $emailControlList = (strpos($courseEmail,';')===false) ? strtr($courseEmail,', ',';;'):$email;
+        /* TODO check if the fix for bug #716 and 717 does not break the code
+         * since moosh does not remember why the strpos was there.
+         */
+        $emailControlList = strtr($courseEmail,', ',';;');
+        $emailControlList = preg_replace( '/;+/', ';', $emailControlList );
         $emailControlList = explode(';',$emailControlList);
+        
         foreach ($emailControlList as $emailControl )
         {
             if ( ! is_well_formed_email_address( trim($emailControl)) )
