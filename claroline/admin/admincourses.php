@@ -239,7 +239,7 @@ foreach($courseList as $numLine => $courseLine)
     ;
 
     // Course Settings
-    $courseDataList[$numLine]['cmdSetting'] = '<a href="' . $clarolineRepositoryWeb . '/course/settings.php?adminContext=1'
+    $courseDataList[$numLine]['cmdSetting'] = '<a href="' . $clarolineRepositoryWeb . 'course/settings.php?adminContext=1'
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
     .                                         '<img src="' . get_conf('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings'). '" />'
     .                                         '</a>'
