@@ -61,12 +61,12 @@ $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 $adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
 
 // New course object
-$course = new ClaroCourse();
+$course = new ClaroCourse($_user['firstName'], $_user['lastName'], $_user['mail']);
 
 if ( $adminContext && $is_platformAdmin )
 {
 	// from admin, add param to form
-    $course->addHiddenParamForm('adminContext','1');
+    $course->addHtmlParam('adminContext','1');
 }
 
 if ( $cmd == 'exEdit' )
@@ -102,7 +102,7 @@ if( $cmd == 'rqProgress' )
 	
 	if( $course->validate() )
     {
-		// TRIG WAITING SCREEN AS COURSE CREATION MAY TAKE A WHILE ...
+		// Trig a waiting screen as course creation may take a while ...
 	    
 	    $progressUrl = $course->buildProgressUrl();
 
