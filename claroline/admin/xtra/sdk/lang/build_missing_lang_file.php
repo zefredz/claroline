@@ -158,6 +158,10 @@ if (isset($_REQUEST['language']))
                 {
                     $thisLangVar['content'] = $row['varFullContent'];
                 }
+                elseif ( $language == DEFAULT_LANGUAGE )
+                {
+                    $thisLangVar['content'] = $thisLangVar['name'] ;
+                }
                 else
                 {
                     $thisLangVar['content'] = '';
