@@ -322,7 +322,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             .'</a>'
             .'</div>'."\n";
     }
-    elseif ($_cid && ! $is_courseMember && $_course['registrationAllowed'] && ! $is_platformAdmin )
+    elseif ( isset($_cid) && ! $is_courseMember && $_course['registrationAllowed'] && ! $is_platformAdmin )
     {
         $clarolineBannerOutput .= '<div id="toolViewOption">'
         .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
