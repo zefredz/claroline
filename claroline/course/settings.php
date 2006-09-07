@@ -39,16 +39,20 @@ if ( ! $is_allowedToEdit )
 include claro_get_conf_repository() . 'course_main.conf.php';
 require_once $includePath . '/lib/course.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/form.lib.php';
 require_once $includePath . '/lib/claroCourse.class.php';
 
-// initialise variables
+// initialisation
+define('DISP_COURSE_EDIT_FORM',__LINE__);
+define('DISP_COURSE_RQ_DELETE',__LINE__);
 
 $dialogBox = '';
 
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 $adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
 $current_cid = null;
+$display = DISP_COURSE_EDIT_FORM;
 
 // New course object
 
@@ -69,8 +73,8 @@ if ( $adminContext && $is_platformAdmin )
 	}		
 
     // add param to form
-    $course->addHiddenParamForm('adminContext','1');
-    $course->addHiddenParamForm('cidToEdit',$current_cid);
+    $course->addHtmlParam('adminContext','1');
+    $course->addHtmlParam('cidToEdit',$current_cid);
 
 	// Back url    
    	$backUrl = $rootAdminWeb . 'admincourses.php' ;
@@ -92,9 +96,9 @@ if ( $course->load($current_cid) )
 	{
 	    $course->handleForm();
 	    
-	    if( $course->validate() )
+	    if ( $course->validate() )
 	    {
-	    	if( $course->save() )
+	    	if ( $course->save() )
 	    	{
 	    		$dialogBox = get_lang('The information has been modified') . '<br />' . "\n"
 	    			. '<a href="' . $backUrl . '">' . get_lang('Continue') . '</a>' ;
@@ -116,6 +120,31 @@ if ( $course->load($current_cid) )
 	    {
 	    	$dialogBox = $course->backlog->output();
 	    }
+	}
+	
+	if ( $cmd == 'exDelete' )
+	{
+		if ( $course->delete() )
+		{
+			event_default( 'DELETION COURSE' , array ('courseName' => addslashes($course->title), 'uid' => $_uid));
+			if( $adminContext )
+			{
+				claro_redirect($rootAdminWeb . '/admincourses.php');
+			}
+			else
+			{
+				claro_redirect($urlAppend . '/index.php');	
+			}
+		}
+		else
+		{
+			$dialogBox = get_lang('Unable to save');
+		}
+	}
+	
+	if ( $cmd == 'rqDelete' )
+	{
+		$display = DISP_COURSE_RQ_DELETE;	
 	}
 
 }
@@ -162,7 +191,11 @@ if ( get_conf('is_trackingEnabled') )
 
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
-	$url_course_delete = $clarolineRepositoryWeb . 'course/delete.php';
+	$paramString = $course->getHtmlParamList('GET');
+	
+	$url_course_delete = $clarolineRepositoryWeb . 'course/settings.php?cmd=rqDelete' 
+			. ( !empty($paramString) ? '&amp;'.$paramString : '');
+	 
 
     $links[] = '<a class="claroCmd" href="' . $url_course_delete . '">'
     .          '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
@@ -193,9 +226,16 @@ if ( ! empty ($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
 
-
-// Display form
-echo $course->displayForm($backUrl);
+if( $display == DISP_COURSE_EDIT_FORM )
+{
+	// Display form
+	echo $course->displayForm($backUrl);
+}
+elseif( $display == DISP_COURSE_RQ_DELETE )
+{
+	// display delete confirmation request
+	echo $course->displayDeleteConfirmation();
+} 
 
 
 include $includePath . '/claro_init_footer.inc.php' ;
