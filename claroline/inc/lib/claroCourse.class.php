@@ -63,20 +63,20 @@ class ClaroCourse
     // Backlog object
     var $backlog;
     
-    // List of form's hidden-input
-    var $hiddenParamFormList = array();
+    // List of GET or POST parameters
+    var $htmlParamList = array();
 
     /**
      * Constructor
      */
 
-    function ClaroCourse ()
+    function ClaroCourse ($creatorFirstName = '', $creatorLastName = '', $creatorEmail = '')
     {
         $this->courseId = '';
         $this->title = '';
         $this->officialCode = '';
-        $this->titular = '';
-        $this->email = '';
+        $this->titular = $creatorFirstName . ' ' . $creatorLastName;
+        $this->email = $creatorEmail;
         $this->category = '';
         $this->departmentName = '';
         $this->departmentUrl = '';
@@ -421,14 +421,11 @@ class ClaroCourse
 
         $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         	. '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
-    		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n" ;
+    		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n" 
     		
-    	foreach ( $this->hiddenParamFormList as $name => $value )
-    	{
-    		$html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '">' . "\n" ;
-    	}
+    		. $this->getHtmlParamList('POST')
     		
-        $html .= '<table  cellpadding="3" border="0">' . "\n" ;
+        	. '<table  cellpadding="3" border="0">' . "\n" ;
 
         // Course title
 
@@ -575,17 +572,86 @@ class ClaroCourse
     }
     
     /**
-     * Add hidden parameter to list
+     * Display question of delete confirmation
+     *
+     * @param $cancelUrl string url of the cancel button
+     * @return string html output of form
+     */
+     
+    function displayDeleteConfirmation ()
+    {
+    	$paramString = $this->getHtmlParamList('GET');
+    	
+		$deleteUrl = './settings.php?cmd=exDelete&amp;'.$paramString;
+        $cancelUrl = './settings.php?'.$paramString ;
+
+        $html = '';
+        
+        $html .= '<p>'
+        .    '<font color="#CC0000">'
+        .    get_lang('Deleting this course will permanently delete all its documents and unenroll all its students.')
+        .    get_lang('Do you really want to delete the course "%course_name" ( %course_code ) ?', array('%course_name' => $this->title,
+                                                                                                         '%course_code' => $this->officialCode ))
+        .    '</font>'
+        .    '</p>'
+        .    '<p>'
+        .    '<font color="#CC0000">'
+        .    '<a href="'.$deleteUrl.'">'.get_lang('Yes').'</a>'
+        .    '&nbsp;|&nbsp;'
+        .    '<a href="'.$cancelUrl.'">'.get_lang('No').'</a>'
+        .    '</font>'
+        .    '</p>'
+        ;    	
+        
+        return $html;	
+    }
+     
+    /**
+     * Add html parameter to list
      *
      * @param $name string input name
      * @param $value string input value
      */
     
-    function addHiddenParamForm($name, $value)
+    function addHtmlParam($name, $value)
     {
-	    $this->hiddenParamFormList[$name] = $value;
+	    $this->htmlParamList[$name] = $value;
     }
 
+    /**
+     * Get html representing parameter list depending on method (POST for form, GET for URL's')
+     *
+     * @param $method string GET OR POST
+     * @return string html output of params for $method method
+     */
+    
+    function getHtmlParamList($method = 'GET')
+    {
+    	if ( empty($this->htmlParamList) ) return '';
+    	
+    	$html = '';
+    	
+    	if ( $method == 'POST' )
+    	{   	
+	    	foreach ( $this->htmlParamList as $name => $value )
+	    	{
+	    		$html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '">' . "\n" ;
+	    	}
+    	}
+    	else // GET
+    	{
+		    $params = array();
+	    	foreach ( $this->htmlParamList as $name => $value )
+	    	{
+	    		$params[] = rawurlencode($name) . '=' . rawurlencode($value);
+	    	}
+	    	
+	    	$html = implode('&amp;', $params );
+    	}
+		
+		return $html;
+    }
+    
     /**
      * Get visibility
      *
@@ -688,7 +754,7 @@ class ClaroCourse
         $paramList['course_enrolment'] = $this->enrolment;
         $paramList['course_enrolmentKey'] = $this->enrolmentKey;
         
-        $paramList = array_merge($paramList, $this->hiddenParamFormList);
+        $paramList = array_merge($paramList, $this->htmlParamList);
 
 	    foreach ($paramList as $key => $value)
 	    {
