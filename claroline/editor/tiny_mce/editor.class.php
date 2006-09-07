@@ -88,6 +88,9 @@ class editor
        */
     function getAdvancedEditor()
     {
+    	if( false !== strpos($this->content,'<!-- content: html tiny_mce -->') ) $askStrip = true; 
+    	else																	  $askStrip = false; 
+    	
         // configure editor
         $returnString =
             "\n\n"
@@ -108,29 +111,39 @@ class editor
             .'    theme_advanced_path : true,'."\n"
             .'    theme_advanced_path_location : "bottom",'."\n"
             .'    convert_urls : false,'."\n" // prevent forced conversion to relative url 
-            .'    relative_urls : false,'."\n" // prevent forced conversion to relative url
-            .'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
+            .'    relative_urls : false,'."\n"; // prevent forced conversion to relative url
+		
+		if( $askStrip ) $returnString .='    setupcontent_callback : "strip_old_htmlarea",'."\n";
+            
+        $returnString .=
+            '    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
             .'});'."\n\n"
             .'</script>'."\n\n";
         
         // add standard text area
         $returnString .= $this->getTextArea();
-		/*
-		$returnString .=
-            "\n\n"
-            .'<script language="javascript" type="text/javascript">'."\n\n"
-            .'function strip_old_htmlarea()'."\n"
-            .'{'."\n"
-			.'    content = tinyMCE.getContent()'."\n\n"	
-            .'    content = content.replace(/style="[^"]*"/g, "");'."\n"
-            .'    content = content.replace(/<span [^>]*>/g, "");'."\n"
-            .'    content = content.replace(/<\/span>/g, "");'."\n\n"
-            .'    tinyMCE.setContent(content) ;'."\n"
-            .'    return true;'."\n"
-            .'}'."\n\n"
-            .'if( confirm("test") ) strip_old_htmlarea();'."\n\n"     
-            .'</script>'."\n\n";
-            */
+		
+		if( $askStrip )
+		{
+			$returnString .=
+	            "\n\n"
+            	.'<script language="javascript" type="text/javascript">'."\n\n"
+        	    .'function strip_old_htmlarea(editor_id,body,doc)'."\n"
+		        .'{'."\n"
+        	    .'    if( confirm(" '.get_lang('This text needs to be stripped to be correctly edited by editor.\nDo you want to clean it (some layout details could be lost in operation) ?').' ") )'."\n"
+    	        .'    {'."\n"
+				.'        content = body.innerHTML;'."\n\n"	
+        	    .'        content = content.replace(/style="[^"]*"/g, "");'."\n"
+    	        .'        content = content.replace(/<span [^>]*>/g, "");'."\n"
+	            .'        content = content.replace(/<\/span>/g, "");'."\n\n"
+        	    .'        body.innerHTML = content ;'."\n"
+    	        .'        return true;'."\n"            
+	            .'    }'."\n"            
+        	    .'    return false;'."\n"
+    	        .'}'."\n\n"
+	            .'</script>'."\n\n";
+        }
+            
         return  $returnString;
     }
     
