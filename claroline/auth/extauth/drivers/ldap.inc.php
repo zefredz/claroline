@@ -65,7 +65,7 @@ $extAuthAttribTreatmentList = array (
     'email'        => 'ldap_to_claroline',
     'officialCode' => 'ldap_to_claroline',
     'phoneNumber'  => 'ldap_to_claroline',
-    'status'       => 5
+    'isCourseCreator' => 0
 );
 
 
