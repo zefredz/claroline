@@ -488,7 +488,18 @@ class answerFillInBlanks
 		for( $i = 0; $i < $answerCount; $i++ )
 		{
 			// correct 
-			if( $this->response[$i] == $this->answerList[$i] )
+			if( $this->type == LISTBOX_FILL )
+            {
+                // case sensitive check when select box are used
+                $answerIsCorrect = $this->response[$i] == $this->answerList[$i];
+            }
+            else
+            {
+                // case insensitive check when text box are used
+                $answerIsCorrect = strtolower($this->response[$i]) == strtolower($this->answerList[$i]);
+            }
+            
+			if( $answerIsCorrect )
 			{
 				$displayedResponse = htmlspecialchars($this->response[$i]);
 			}
