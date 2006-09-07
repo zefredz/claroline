@@ -51,7 +51,7 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . '" + name + \'"? \'))
+    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' \"" + name + "\" ? "))
         {return true;}
     else
         {return false;}
