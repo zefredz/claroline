@@ -298,7 +298,7 @@ if ( !empty($isSearched) )
 echo '<table width="100%">' . "\n\n"
 .    '<tr>' . "\n"
 .    '<td align="left" valign="top">' . "\n"
-.    '<a class="claroCmd" href="../course/create.php?fromAdmin=yes">'
+.    '<a class="claroCmd" href="../course/create.php?adminContext=1">'
 .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
 .    get_lang('Create course')
 .    '</a>'

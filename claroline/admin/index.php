@@ -158,7 +158,7 @@ $menuAdminCourse[] = '<form name="searchCourse" action="admincourses.php" method
 ;
 
 $menuAdminCourse[] = claro_html_tool_link('admincourses.php',                   get_lang('Course list'));
-$menuAdminCourse[] = claro_html_tool_link('../course/create.php?fromAdmin=yes', get_lang('Create course'));
+$menuAdminCourse[] = claro_html_tool_link('../course/create.php?adminContext=1', get_lang('Create course'));
 $menuAdminCourse[] = claro_html_tool_link('admincats.php',                      get_lang('Manage course categories'));
 
 
