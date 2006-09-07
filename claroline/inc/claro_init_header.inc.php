@@ -59,8 +59,6 @@ if (CLARO_DEBUG_MODE) echo '<link rel="stylesheet" type="text/css" href="' . $cl
 ?>
 
 <link rel="top" href="<?php echo $urlAppend ?>/index.php" title="" />
-<link rel="courses" href="<?php echo $clarolineRepositoryWeb ?>auth/courses.php" title="<?php echo get_lang('Course list') ?>" />
-<link rel="profil" href="<?php echo $clarolineRepositoryWeb ?>auth/profile.php" title="<?php echo get_lang('My User Account') ?>" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
 <link href="http://www.claroline.net" rel="Copyright" />
