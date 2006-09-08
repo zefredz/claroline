@@ -55,6 +55,11 @@ class editor
      * @var $webPath path to access via the web to the directory of the editor
      */
     var $webPath;
+    
+    /**
+     * @var $askStrip true if we have to ask user before stripping old text, false otherwise
+     */
+    var $askStrip;
 
     /**
      * constructor
@@ -76,6 +81,12 @@ class editor
         $this->optAttrib = $optAttrib;
         $this->webPath = $webPath;
         
+        // check if we have to strip content        
+       	if( !empty($this->content) && false === strpos($this->content,'<!-- content: html tiny_mce -->') ) 
+    		$this->askStrip = true; 
+    	else
+    		$this->askStrip = false; 
+        
         $this->prepareContent();
     }
     
@@ -83,20 +94,17 @@ class editor
     /**
      * Returns the html code needed to display an advanced (default) version of the editor
      * Advanced version is now the standard one
-     *
+     * $returnString .= $this->getTextArea();
      * @return string html code needed to display an advanced (default) version of the editor
        */
     function getAdvancedEditor()
     {
-    	if( false !== strpos($this->content,'<!-- content: html tiny_mce -->') ) $askStrip = true; 
-    	else																	  $askStrip = false; 
-    	
         // configure editor
         $returnString =
             "\n\n"
             .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce_src.js"></script>'."\n"
             .'<script language="javascript" type="text/javascript">'."\n\n";
-  
+
         $returnString .=
             'tinyMCE.init({'."\n"
             .'    mode : "exact",'."\n"
@@ -113,17 +121,14 @@ class editor
             .'    convert_urls : false,'."\n" // prevent forced conversion to relative url 
             .'    relative_urls : false,'."\n"; // prevent forced conversion to relative url
 		
-		if( $askStrip ) $returnString .='    setupcontent_callback : "strip_old_htmlarea",'."\n";
+		if( $this->askStrip ) $returnString .='    setupcontent_callback : "strip_old_htmlarea",'."\n";
             
         $returnString .=
             '    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
             .'});'."\n\n"
             .'</script>'."\n\n";
         
-        // add standard text area
-        $returnString .= $this->getTextArea();
-		
-		if( $askStrip )
+		if( $this->askStrip )
 		{
 			$returnString .=
 	            "\n\n"
@@ -143,6 +148,9 @@ class editor
     	        .'}'."\n\n"
 	            .'</script>'."\n\n";
         }
+        
+        // add standard text area
+        $returnString .= $this->getTextArea();
             
         return  $returnString;
     }
