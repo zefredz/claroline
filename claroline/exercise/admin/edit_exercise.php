@@ -120,12 +120,12 @@ if( $cmd == 'exEdit' )
 		{
 			if( is_null($exId) )
 			{
-				$dialogBox = get_lang('%name added', array('%name' => get_lang('Exercise')));
+				$dialogBox = get_lang('Exercise added');
 				$exId = $insertedId;
 			}
 			else
 			{
-				$dialogBox = get_lang('%name modified', array('%name' => get_lang('Exercise')));
+				$dialogBox = get_lang('Exercise modified');
 			} 
 			$displaySettings = true;				
 		}
