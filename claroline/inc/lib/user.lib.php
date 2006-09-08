@@ -848,9 +848,6 @@ function user_html_form($data, $form_type='registration')
                 '<small>'
                 . get_lang('Choose now a username and a password for the user account') . '<br />'
                 . get_lang('Memorize them, you will use them the next time you will enter to this site.') . '<br />'
-                . '<strong>'
-                . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters')
-                . '</strong>'
                 . '</small>');
             }
 

@@ -91,20 +91,20 @@ if ( is_null($_uid) && $uidRequired )
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
+            $message = get_lang('Login failed.') . ' ' . get_lang('Please try again.') . '<br />' . "\n" ;
+
             if ( get_conf('allowSelfReg',false))
             {
-                $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
-                $message .= get_lang('If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.',array('%url'=>$urlAppend . '/claroline/auth/inscription.php'));
-
-                echo claro_html_message_box($message);
+                $message .= get_lang('If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.',array('%url'=>$urlAppend . '/claroline/auth/inscription.php')) . '<br / ><br />' . "\n";
             }
             else
             {
-                $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
                 $message .= get_lang('Contact your administrator.');
-
-                echo claro_html_message_box($message);
             }
+            $message .= '<small>' . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters') . '</small>' . "\n" ;
+
+            echo claro_html_message_box($message);
+            
         }
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
