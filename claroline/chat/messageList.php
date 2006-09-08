@@ -194,7 +194,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
 
         $cmdMsg = "\n"
                 . '<blockquote>'
-                . get_lang('%chat_filename is now in  your document tool. (<em>This file is visible</em>)',array('%chat_filename'=>$chat_filename))
+                . get_lang('%chat_filename is now in the document tool. (<em>This file is visible</em>)',array('%chat_filename'=>$chat_filename))
                 . '</blockquote>'."\n";
 
         @unlink($onflySaveFile);
