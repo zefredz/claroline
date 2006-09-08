@@ -1,11 +1,8 @@
 <?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '！！！！课程储存的大小 (包含旧系统中的claroline和垃圾)';
 $_lang['%1\$s by %2\$s'] = '%1$s 由 %2$s';
-$_lang['%moduleName has been added as module'] = '作为课程和学习路线的一个模块已经被加入';
-$_lang['%moduleName is already used as a module in this learning path'] = '该练习作为模块，已经在学校路线中被使用';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) 匿名用户，非本课程学员……';
 $_lang['(When an user open the index of the campus)'] = '(当用户打开虚拟校园的时候)';
-$_lang['(always private)'] = '(总是私密的)';
 $_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
 $_lang['(none)'] = '(无)';
 $_lang['(optional)'] = '(可选)';
@@ -29,23 +26,24 @@ $_lang['Accounts with same <i>Email</i>'] = '相同 <i>电子邮件</i>的帐户';
 $_lang['Accounts with same <i>User name</i>'] = '相同 <i>用户名</i>的帐户';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = '有相同<i>用户名</i> AND same <i>密码的帐户 </i>';
 $_lang['Action'] = '动作';
-$_lang['Activate'] = '激活';
 $_lang['Add'] = '添加';
 $_lang['Add a category'] = '增加一个新类别';
 $_lang['Add a comment'] = '添加/更新摘要:';
 $_lang['Add a comment (optionnal) :'] = '添加一个评论(可选) :';
+$_lang['Add a document'] = '插入一个文件作为模块';
+$_lang['Add a module of this course'] = '插入我的模块';
 $_lang['Add a user'] = '增加一个用户';
 $_lang['Add a user list'] = '添加一个用户列表';
 $_lang['Add a user list in class'] = '添加一个用户列表到虚拟班级';
 $_lang['Add a user list in course'] = '添加一个用户列表到课程';
 $_lang['Add an event'] = '增加一个事件';
+$_lang['Add an exercise'] = '插入我的练习';
 $_lang['Add announcement'] = '新通知:';
 $_lang['Add answ.'] = '添加 answ.';
 $_lang['Add elem.'] = '添加 elem.';
 $_lang['Add external link'] = '添加外部链接';
 $_lang['Add feedback'] = '添加反馈信息';
 $_lang['Add forum'] = '添加论坛';
-$_lang['Add introduction text'] = '增加课程介绍';
 $_lang['Add me to this group'] = '把我添加到这个学习小组';
 $_lang['Add module(s)'] = '添加组件';
 $_lang['Add my campus on Claroline.net website'] = '添加我的虚拟校园到Claroline.net';
@@ -76,7 +74,6 @@ $_lang['Allowed'] = '已允许';
 $_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = '允许：追踪中不记录用户名，匿名的用户能做练习。';
 $_lang['Already browsed'] = '已浏览';
 $_lang['Already enroled'] = '已经登记';
-$_lang['Among'] = '当中';
 $_lang['An error occured.  Learning Path import failed.'] = '发生一个错误。学习路线输入失败。';
 $_lang['An error occurred while contacting Claroline.net'] = '联系Claroline.net的时候发生一个错误';
 $_lang['Announcement'] = '公告通知';
@@ -86,22 +83,20 @@ $_lang['Announcement has been modified'] = '通知列表已更新';
 $_lang['Announcements list has been cleared up'] = '通知列表已清除';
 $_lang['Anonymous'] = '匿名用户';
 $_lang['Anonymous attempts'] = '匿名的企图';
-$_lang['Anonymous users access count :'] = '匿名用户进入计数： ';
+$_lang['Anonymous users access count : '] = '匿名用户进入计数： ';
 $_lang['Answer'] = '选项';
 $_lang['Answer is required'] = '需要回答';
 $_lang['Answer type'] = '答案类型';
-$_lang['Answers to the question'] = '问题的答案';
 $_lang['Are you sure to delete'] = '你确认删除';
 $_lang['Are you sure you want to completely delete this question ?'] = '你确信你要完全删除该问题吗？';
 $_lang['Are you sure you want to delete all groups ?'] = '你确信你要删除所有的学习小组吗？';
 $_lang['Are you sure you want to delete this exercise ?'] = '你确信你要删除该练习吗？';
 $_lang['Are you sure you want to empty all groups ?'] = '你确信你要清空所有的学习小组吗？';
 $_lang['Are you sure you want to enrol the whole class on the course ?'] = '你确信你要把整个虚拟班级都登记到该课程？';
-$_lang['Are you sure you want to remove the following module from the learning path :'] = '你确认你想从学习路线上移除下列模块： ';
+$_lang['Are you sure you want to remove the following module from the learning path : '] = '你确认你想从学习路线上移除下列模块： ';
 $_lang['Are you sure you want to remove this course from your list ?'] = '你确信从你的列表中移除该课程？';
-$_lang['Are you sure you want to unregister'] = '你确信想删除自己的用户名 ';
+$_lang['Are you sure you want to unregister '] = '你确信想删除自己的用户名 ';
 $_lang['Area for this group'] = '学习小组区';
-$_lang['Asset not found :'] = '没有发现项目：';
 $_lang['Assignment'] = '作业';
 $_lang['Assignment deleted'] = '作业删除';
 $_lang['Assignment modified'] = '作业修改';
@@ -136,7 +131,6 @@ $_lang['Back to class members'] = '返回虚拟班级成员';
 $_lang['Back to course list'] = '返回课程列表';
 $_lang['Back to learning path administration'] = '返回学习路线管理';
 $_lang['Back to list'] = '返回列表';
-$_lang['Back to my course list'] = '返回我的课程列表';
 $_lang['Back to my personal course list'] = '返回我的个人课程列表';
 $_lang['Back to page'] = '返回页面';
 $_lang['Back to parent category'] = '返回上级分类';
@@ -148,7 +142,7 @@ $_lang['Best score'] = '最大';
 $_lang['Block'] = '区域';
 $_lang['Build language files'] = '建立语言文件';
 $_lang['By deleting a label you will delete all modules or label it contains.'] = '删除一个标签，你就删除所有的模块或标签所包含的内容。';
-$_lang['CSV file with the user list :'] = '带有用户列表的CSV文件：';
+$_lang['CSV file with the user list : '] = '带有用户列表的CSV文件：';
 $_lang['Campus name'] = '网站名称';
 $_lang['Can have courses'] = '可以有的课程 ';
 $_lang['Cancel'] = '取消';
@@ -156,7 +150,7 @@ $_lang['Cannot copy the file'] = '不能复制该文件。';
 $_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = '从zip文件中不能引用清单(文件损坏？)。';
 $_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = '数据包中没有发现Cannot find <i>清单</i> 文件。<br /> 没有发现文件：
 imsmanifest.xml';
-$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = '数据包中没有发现次初始化文件。<br /> 没有发现文件：';
+$_lang['Cannot find secondary initialisation file in the package.<br /> File not found : '] = '数据包中没有发现次初始化文件。<br /> 没有发现文件：';
 $_lang['Categories'] = '类别';
 $_lang['Category'] = '分类';
 $_lang['Category code'] = '分类代码：';
@@ -167,15 +161,13 @@ $_lang['Category moved'] = '分类移动';
 $_lang['Category name'] = '分类名称：';
 $_lang['Category name is required'] = '分类名称必填';
 $_lang['Category updated'] = '课程分类已更新';
-$_lang['Change minimum raw mark to pass this module (percentage) :'] = '修改最低的原始分以通过该模块（百分比）: ';
+$_lang['Change minimum raw mark to pass this module (percentage) : '] = '修改最低的原始分以通过该模块（百分比）: ';
 $_lang['Change picture'] = '改变图片';
 $_lang['Changes have been applied to the user settings'] = '用户设置已经被应用';
 $_lang['Changes have been saved'] = '变化被保存';
 $_lang['Chat'] = '聊天答疑';
-$_lang['Chat of the group'] = '学习小组实时交流资源';
 $_lang['Chat reset by'] = '聊天重置：';
 $_lang['Check this box to delete the attached file'] = '检查这个格删除附件。';
-$_lang['Choice'] = '选项';
 $_lang['Choose a course to access this page.'] = '请选择一门课程以访问本页面';
 $_lang['Clarodoc'] = 'Claro文本';
 $_lang['Claroline help'] = '上手帮助';
@@ -252,18 +244,9 @@ $_lang['Create/edit document'] = '建立/编辑讲义材料';
 $_lang['Current attached file'] = '当前附件';
 $_lang['Current feedback file'] = '当前反馈文件';
 $_lang['Current file'] = '当前文件';
-$_lang['Current registration status :'] = '当前注册状态： <br /> <br />
+$_lang['Current registration status : '] = '当前注册状态： <br /> <br />
 ';
 $_lang['Current time'] = '当前时间';
-$_lang['DBSettingNamesIntro'] = '
-安装程序正在建立Claroline主要数据库。如果你被数据库系统管
-理者限制使用一个数据库的话，返回到前页，勾选“数据库模式”
-前的“单个”复选框。
-<br /><br />
-';
-$_lang['Database Host'] = '数据库主机';
-$_lang['Database name'] = '数据库名';
-$_lang['Database usage'] = '数据库使用';
 $_lang['Date'] = '日期';
 $_lang['Day'] = '日';
 $_lang['Default works visibility'] = '默认作业明显性';
@@ -272,7 +255,7 @@ $_lang['Delete'] = '删除';
 $_lang['Delete Wiki'] = '删除共建资源';
 $_lang['Delete all course statistics'] = '删除课程所有的统计数字';
 $_lang['Delete all groups'] = '删除所有学习小组';
-$_lang['Delete all messages of'] = '删除所有的信息';
+$_lang['Delete all messages of '] = '删除所有的信息';
 $_lang['Delete attached file'] = '删除附件';
 $_lang['Delete my account'] = '删除我的帐户';
 $_lang['Delete the whole course website'] = '移除整个课程网站';
@@ -290,18 +273,15 @@ $_lang['Description of the Wiki'] = '共建资源描述';
 $_lang['Description updated'] = '介绍升级。';
 $_lang['Detail'] = '内容';
 $_lang['Details'] = '细节';
-$_lang['Details may be incorrect as it seems that some questions have change between this attempt and now.'] = '由于上次尝试到目前好像有一些问题已经被修改，所以一些跟踪的详细数据可能不正确。';
 $_lang['Devel Tools'] = 'Devel工具';
 $_lang['Differences :'] = '差别：';
 $_lang['Directory created'] = '目录已创建';
 $_lang['Disable'] = '使失效';
-$_lang['Disable text editor'] = '移除文本编辑器';
 $_lang['Disk Usage'] = '磁盘使用量';
 $_lang['Display of detailled answers is not authorized.'] = '无权浏览练习考试详细内容';
-$_lang['Do you really want to delete the category'] = '你真的想删除该分类 ';
+$_lang['Do you really want to delete the category '] = '你真的想删除该分类 ';
 $_lang['Do you want to continue?'] = '你想继续吗？';
 $_lang['Document'] = '讲义材料';
-$_lang['Document content'] = '文件内容：';
 $_lang['Document deleted'] = '文件已删除';
 $_lang['Document in module'] = '模块中的文件';
 $_lang['Document name'] = '文件名称： ';
@@ -309,10 +289,7 @@ $_lang['Documents'] = '文件';
 $_lang['Documents and Links'] = '讲义材料';
 $_lang['Documents downloaded by the student'] = '被学生下载的文件';
 $_lang['Documents help'] = '讲义帮助';
-$_lang['Documents of the group'] = '学习小组的文件 ';
 $_lang['Down'] = '向下';
-$_lang['Download attached file'] = '下载附件';
-$_lang['EG'] = 'e. g.';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = '错误：你提供的格式和Claroline不兼容';
 $_lang['Edit'] = '编辑';
 $_lang['Edit Event'] = '编辑事件';
@@ -343,8 +320,6 @@ $_lang['Empty'] = '有些项目没有填写.<br />返回重试.<br />如果不清除课程代码,请参
 $_lang['Empty (or NULL)'] = '空白 (或 无)';
 $_lang['Empty all groups'] = '清空所有学习小组';
 $_lang['Empty language file'] = '空白的语言文件';
-$_lang['Enable'] = '使生效';
-$_lang['Enable text editor'] = '显示文本编辑器';
 $_lang['End date'] = '截止日期';
 $_lang['Enrol as course manager'] = '作为课程负责人登记';
 $_lang['Enrol as student'] = '作为学生登记';
@@ -366,7 +341,7 @@ $_lang['Error : cannot read RSS feed'] = '错误：不能阅读RSS feed';
 $_lang['Error copying existing SCORM content'] = '复制已有SCORM文件内容出错';
 $_lang['Error in SQL statement'] = 'SQL表述错误';
 $_lang['Error reading <i>manifest</i> file'] = '读<i>清单</i>文件错误';
-$_lang['Error reading a secondary initialisation file :'] = '读次初始化文件错误：';
+$_lang['Error reading a secondary initialisation file : '] = '读次初始化文件错误：';
 $_lang['Error reading zip file.'] = '读zip文件错误。';
 $_lang['Error when copying needed SCORM files'] = '复制所需SCORM文件出错';
 $_lang['Error!! you cannot unregister a course manager'] = '错误！！你不能注销一个课程管理者';
@@ -374,14 +349,10 @@ $_lang['ErrorInvalidParms'] = '错误：无效的参数(仅使用数字) ';
 $_lang['Event added to the agenda'] = '事件加入到日程表。';
 $_lang['Event deleted from the agenda'] = '事件从日程表中删除。';
 $_lang['Event updated into the agenda'] = '事件升级到日程表。';
-$_lang['Exercice not found'] = '没有发现练习';
+$_lang['Exercise'] = 'Claroline练习';
 $_lang['Exercise cancelled, choose a module in the list to continue.'] = '练习取消，选择列表中的一个模块后继续。';
-$_lang['Exercise description'] = '练习简介';
 $_lang['Exercise done, choose a module in the list to continue.'] = '练习做完，选择列表中的一个模块继续。';
 $_lang['Exercise in module'] = '模块中的练习';
-$_lang['Exercise management'] = '练习管理';
-$_lang['Exercise name'] = '练习名称';
-$_lang['Exercise no longer available'] = '不再有效的练习';
 $_lang['Exercise not available'] = '不开放的练习';
 $_lang['Exercise type'] = '练习类型';
 $_lang['Exercises'] = '课程练习';
@@ -409,7 +380,6 @@ $_lang['File description'] = '文件简介';
 $_lang['File list'] = '文件列表';
 $_lang['File must be a zip file (.zip)'] = '文件必须是zip文件(.zip)';
 $_lang['File name is missing'] = '文件名丢失';
-$_lang['File received : %filename'] = '接受的文件：  %filename';
 $_lang['File structure checker'] = '文件结构检查器';
 $_lang['Filename'] = '文件名';
 $_lang['Fill groups (automatically)'] = '填写学习小组(自动)';
@@ -436,12 +406,9 @@ $_lang['From language files'] = '来源于语言文件';
 $_lang['From script files'] = '来源于脚本文件';
 $_lang['Fullscreen'] = '全屏';
 $_lang['Function list'] = '功能列表';
-$_lang['Garbage'] = '垃圾';
 $_lang['Get a question from another exercise'] = '从另一个练习那里获得一个问题';
 $_lang['Get tracking data in a CSV file'] = '从 CSV 文件中导出跟踪数据';
 $_lang['Go back to the exercise'] = '返回练习';
-$_lang['Go back to the question list'] = '返回问题列表';
-$_lang['Go back to the question pool'] = '返回问题池';
 $_lang['Go to the account creation page'] = '转到账户创建页面';
 $_lang['Group'] = '学习小组';
 $_lang['Group Tutor'] = '学习小组助教';
@@ -478,10 +445,6 @@ $_lang['Include picture'] = '包括图片';
 $_lang['Individual'] = '单个的';
 $_lang['Information'] = '信息';
 $_lang['Information to give to students'] = '提供给学生的信息';
-$_lang['Insert a document as module'] = '插入一个文件作为模块';
-$_lang['Insert a module of the course'] = '插入一个课程的模块';
-$_lang['Insert my exercise'] = '插入我的练习';
-$_lang['Insert my module'] = '插入我的模块';
 $_lang['Insert new name'] = '插入新的名称';
 $_lang['Institution'] = '机构';
 $_lang['Institution URL'] = '机构网址';
@@ -499,7 +462,6 @@ $_lang['Last 7 days'] = '过去一周';
 $_lang['Last access'] = '上一次进入';
 $_lang['Last active topics'] = '上一个活跃的主题';
 $_lang['Last attempt'] = '上一次尝试';
-$_lang['Last check before install'] = '安装前最后的检查';
 $_lang['Last edit date'] = '上一次编辑时间';
 $_lang['Last message'] = '最近一篇';
 $_lang['Last message was on'] = '最后一条消息是在： ';
@@ -517,10 +479,9 @@ $_lang['Learning path admin'] = '学习路线管理';
 $_lang['Learning path content'] = '学习路线内容';
 $_lang['Learning path has been successfully imported.'] = '学习路线已经成功输入。';
 $_lang['Learning path list'] = '学习路线列表';
-$_lang['Learning path progression :'] = '学习路线进展： ';
+$_lang['Learning path progression : '] = '学习路线进展： ';
 $_lang['Learning paths tracking'] = '学习路线追踪';
 $_lang['Lecturer(s)'] = '教授';
-$_lang['Licence'] = '许可证';
 $_lang['Limit'] = '限制';
 $_lang['Line Number'] = '行数';
 $_lang['List of Wiki'] = '共建资源列表';
@@ -538,7 +499,6 @@ $_lang['Lost password'] = '密码遗失';
 $_lang['Mail is already used by another user.'] = '邮件已经被另一个用户使用。';
 $_lang['Mail synthax error.'] = '电子邮件写法错误。';
 $_lang['Main Group Settings'] = '主群组设定';
-$_lang['Main database'] = '主要数据库';
 $_lang['Main page'] = '主页面';
 $_lang['Maintenance'] = '平台维护';
 $_lang['Make correspond'] = '使之一致';
@@ -549,7 +509,7 @@ $_lang['Make visible'] = '使之显示';
 $_lang['Manage classes'] = '管理虚拟班级';
 $_lang['Manage course categories'] = '管理课程分类';
 $_lang['Manager'] = '管理员';
-$_lang['Manifest found in zip file :'] = 'zip文件中没有发现清单：';
+$_lang['Manifest found in zip file : '] = 'zip文件中没有发现清单：';
 $_lang['Manifest read.'] = '阅读清单';
 $_lang['Matching'] = '匹配';
 $_lang['Max file size'] = '文件最大尺寸： ';
@@ -569,10 +529,9 @@ $_lang['Missing value'] = '遗失的数值';
 $_lang['Modifies this announcement'] = '修改该通告';
 $_lang['Modify'] = '更新';
 $_lang['Modify a work'] = '修改一个作业';
-$_lang['Modify exercise'] = '修改练习测试';
 $_lang['Modify the format'] = '修改格式';
 $_lang['Module'] = '模块';
-$_lang['Module added :'] = '模块添加： ';
+$_lang['Module added : '] = '模块添加： ';
 $_lang['Module moved'] = '模块移动';
 $_lang['Module status'] = '模块状况';
 $_lang['Module type'] = '模块类型';
@@ -585,7 +544,6 @@ $_lang['Move'] = '移动';
 $_lang['Move down'] = '向下';
 $_lang['Move up'] = '向上';
 $_lang['Moved line'] = '已移动的行';
-$_lang['Multiple answers'] = '多个答案';
 $_lang['Multiple choice (Multiple answers)'] = '多选题 (多个答案)';
 $_lang['Multiple choice (Unique answer)'] = '多选题 (答案唯一)';
 $_lang['My User Account'] = '个人资料';
@@ -594,23 +552,20 @@ $_lang['My course list'] = '我的课程';
 $_lang['My other courses'] = '我的其他课程';
 $_lang['My personal course list'] = '我的课程表';
 $_lang['My results'] = '我的结果';
-$_lang['MySQL Database and Table Names'] = 'MySQL数据库和表名';
 $_lang['Mysql Repository'] = 'Mysql存储';
-$_lang['Mysql connection parameters'] = 'Mysql连接参数';
 $_lang['Name cannot be empty'] = '姓名必须要填写完整';
 $_lang['Name link'] = '名称链接';
 $_lang['Name of the class has been changed'] = '虚拟班级名称已经修改';
 $_lang['Name of the new directory'] = '新建目录名称';
 $_lang['Name of the tool'] = '工具名称';
 $_lang['Never browsed'] = '从未浏览';
-$_lang['Never connected students :'] = '从未联系的学生：';
+$_lang['Never connected students : '] = '从未联系的学生：';
 $_lang['Never used'] = '从未使用';
 $_lang['New Class name'] = '新虚拟班级名称';
 $_lang['New Wiki'] = '新共建资源';
 $_lang['New assignment created'] = '新作业建立';
 $_lang['New chat'] = '新的聊天答疑';
 $_lang['New exercise'] = '新建练习';
-$_lang['New learning path name :'] = '新的学习路线名称：';
 $_lang['New question'] = '新建问题';
 $_lang['New topic'] = '新话题';
 $_lang['New users will receive an e-mail with their user name and password'] = '新用户将收到一封附有用户名和密码的电子邮件';
@@ -643,7 +598,6 @@ $_lang['No post'] = '没有帖子';
 $_lang['No quota'] = '没有定额';
 $_lang['No result'] = '没有结果';
 $_lang['No score'] = '没有分数';
-$_lang['No scripts'] = '不允许脚本';
 $_lang['No stats to show.  You haven\'t registered any course.'] = '没有显示统计数字。你没有注册任何课程。';
 $_lang['No time limitation'] = '没有时间限制';
 $_lang['No user found'] = '用户没找到';
@@ -654,7 +608,7 @@ $_lang['No, prevent users submitting work after the end date'] = '不，防止用户在
 $_lang['None'] = '无';
 $_lang['Not allowed'] = '操作禁止';
 $_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = '不允许：追踪中记录用户名，匿名的用户不能做练习。';
-$_lang['Not recently connected students :'] = '最近没有联系的学生：';
+$_lang['Not recently connected students : '] = '最近没有联系的学生：';
 $_lang['Notice'] = '注意';
 $_lang['Notify by email when replies are posted'] = '有回复文章,用邮件通知我.';
 $_lang['Now'] = '现在';
@@ -662,7 +616,7 @@ $_lang['Number of courses'] = '课程数';
 $_lang['Number of courses by faculty'] = '从师资角度统计的课程数';
 $_lang['Number of courses by language'] = '从语言角度统计的课程数';
 $_lang['Number of courses by visibility'] = '从显示与否的角度统计的课程数';
-$_lang['Number of learning paths using this module :'] = ' 使用该模块的学习路线数：';
+$_lang['Number of learning paths using this module : '] = ' 使用该模块的学习路线数：';
 $_lang['Number of logins'] = '登录次数';
 $_lang['Number of pages'] = '页面数目';
 $_lang['Number of rows'] = '列数';
@@ -690,7 +644,7 @@ $_lang['Others (*)'] = '其他用户 (*)';
 $_lang['PHP system information'] = 'PHP系统信息';
 $_lang['Page history'] = '页面历史';
 $_lang['Page saved'] = '页面已保存';
-$_lang['Parent category'] = '父级分类 ';
+$_lang['Parent category '] = '父级分类 ';
 $_lang['Password'] = '密码';
 $_lang['Password given is too simple or too close to the username.'] = '设置的密码太简单或太接近用户名。';
 $_lang['Period'] = '周期';
@@ -704,30 +658,24 @@ $_lang['Platform Administrator'] = '平台管理者';
 $_lang['Platform statistics'] = '平台统计';
 $_lang['Please check that your campus URL is reachable from the internet.'] = '请检查您的校园链接是否能通过因特网访问。';
 $_lang['Please choose a good answer'] = '请选择一个正确答案';
-$_lang['Please choose one or more good answers'] = '请选择一个正确的一个或多个答案';
 $_lang['Please confirm your choice'] = '请确认你的选择';
 $_lang['Please define at least one blank with brackets [...]'] = '请至少用括号[...]定义一个空格 ';
 $_lang['Please define the options'] = '请定义选项';
 $_lang['Please fill the two lists below'] = '请填写以下两个表';
 $_lang['Please give a weighting to each blank'] = '请给每一个空赋分';
 $_lang['Please give the answers to the question'] = '请给问题做答案';
-$_lang['Please give the exercise name'] = '请给练习命名';
-$_lang['Please give the question'] = '请给出问题';
 $_lang['Please type the text'] = '请打出文本';
-$_lang['Please type your text below'] = '请在下面输入你的文本';
 $_lang['Pool of modules'] = '模块池';
 $_lang['Posted'] = '张贴';
 $_lang['Posts'] = '文章';
 $_lang['Powered by'] = '技术支持';
-$_lang['Prefix for names of course databases'] = '课程数据库名的前缀';
 $_lang['Preview'] = '预览';
-$_lang['Preview :'] = '预览：';
+$_lang['Preview : '] = '预览：';
 $_lang['Previous'] = '先前的';
 $_lang['Previous day'] = '前一天';
 $_lang['Previous month'] = '上个月';
 $_lang['Previous week'] = '上一周';
 $_lang['Previous year'] = '上一年';
-$_lang['PrintVers'] = '打印版';
 $_lang['Private'] = '私密的';
 $_lang['Private course only'] = '仅供私密课程';
 $_lang['Private feedback'] = '私密反馈';
@@ -743,17 +691,12 @@ $_lang['Public courses'] = '公共课程';
 $_lang['Publish'] = '发布';
 $_lang['Published on'] = '发布';
 $_lang['Question'] = '问题';
-$_lang['Question / Answer management'] = '问题 / 答案 管理 ';
-$_lang['Question list of the exercise'] = '练习的问题列表';
-$_lang['Question not found'] = '没有发现问题';
 $_lang['Question pool'] = '问题池';
 $_lang['Question title'] = '问题标题';
 $_lang['Question to lecturer'] = '讲师的问题';
-$_lang['Questions'] = '问题';
 $_lang['Random questions'] = '随机问题';
 $_lang['Read Pages'] = '已阅读页面';
 $_lang['Recent changes'] = '最近更改';
-$_lang['Register'] = '注册';
 $_lang['Register a user for this class'] = '注册该虚拟班级的用户';
 $_lang['Register class for course'] = '注册课程的虚拟班级';
 $_lang['Register my campus'] = '注册我的虚拟校园';
@@ -770,12 +713,10 @@ $_lang['Remove course enrolment'] = '移除课程登记';
 $_lang['Remove course from your personal course list'] = '从你个人课程表中移除课程';
 $_lang['Remove picture'] = '移除图片';
 $_lang['Rename'] = '更名';
-$_lang['Replace attached file'] = '替代附件';
 $_lang['Replies'] = '回复';
 $_lang['Reply'] = '回复';
 $_lang['Request course creation status'] = '课程建设者身份申请';
 $_lang['Required'] = '必需';
-$_lang['Requirements'] = '条件';
 $_lang['Reset'] = '重置';
 $_lang['Restore course repository'] = '修复课程储存';
 $_lang['Result'] = '分数';
@@ -808,7 +749,7 @@ $_lang['SecondShort'] = 'sec.';
 $_lang['See below the files you can edit from this tool.'] = '看下面文件，你可以用该工具编辑。';
 $_lang['See user list'] = '浏览用户列表';
 $_lang['Seen'] = '浏览';
-$_lang['Select course in'] = '选择课程在 ';
+$_lang['Select course in '] = '选择课程在 ';
 $_lang['Select course in search results'] = '在搜索结果中选择课程';
 $_lang['Select in drop down list'] = '从下拉框中选择';
 $_lang['Selected Users'] = '选中的用户';
@@ -822,11 +763,9 @@ $_lang['Size'] = '大小';
 $_lang['Start Module'] = '开始模块';
 $_lang['Start date'] = '开始日期';
 $_lang['Start date must be before end date ...'] = '起始日期必须在结束日期之前...';
-$_lang['Statement'] = '表述';
 $_lang['Statistics'] = '统计信息';
 $_lang['Statistics by question'] = '按问题统计的数据';
 $_lang['Statistics by user'] = '按用户统计的数据';
-$_lang['Statistics of course'] = '课程统计数字';
 $_lang['Statistics of exercise'] = '练习统计数字';
 $_lang['Statistics of exercise attempt'] = '练习测试尝试统计数据';
 $_lang['Statistics of question'] = '问题统计数据';
@@ -841,20 +780,15 @@ $_lang['Submissions'] = '提交';
 $_lang['Submit'] = '提交';
 $_lang['Submit a work'] = '提交一份作业';
 $_lang['Submit feedback'] = '提交反馈';
-$_lang['Subscribe a class'] = '订阅一个班';
-$_lang['Subscribe to course'] = '订阅课程';
 $_lang['Support forum'] = '支持论坛';
-$_lang['SwitchEditorToTextConfirm'] = '该命令将移出当前文本。你想继续吗？';
-$_lang['Take'] = '带走';
 $_lang['Technical Tools'] = '技术工具';
 $_lang['Text only (text required, no file)'] = '仅文本 (文本必需，不要附件)';
 $_lang['Text with attached file (text required, file optional)'] = '带附件的文本(文本必需，附件可选)';
 $_lang['The changes have been carried out correctly'] = '已经实现正确的变化';
-$_lang['The class has been moved'] = '虚拟班级被移除';
 $_lang['The course has been successfully deleted'] = '课程已经被成功删除';
 $_lang['The email address is not valid'] = '邮件地址不正确,存在非法字符';
 $_lang['The file to upload is not valid.'] = '上载文件无效';
-$_lang['The following errors were found'] = '发现下列错误 ';
+$_lang['The following errors were found '] = '发现下列错误 ';
 $_lang['The information has been modified'] = '课程信息已更新';
 $_lang['The module will still be available in the pool of modules.'] = '模块池中的模块将可以利用。';
 $_lang['The new category has been created.'] = '新的分类已经建立。';
@@ -873,14 +807,12 @@ $_lang['There is no assignment at the moment'] = '此刻没有可见的功课。';
 $_lang['There is no category available !'] = '没有可利用的分类';
 $_lang['There is no course matching such criteria'] = '没有符合这样标准的课程';
 $_lang['There is no exercise for the moment'] = '现在还没有课程练习.';
-$_lang['There is no question for the moment'] = '此刻没有问题';
 $_lang['There is no start asset defined for this module.'] = '没有为该模块定义有用的开始部分。';
 $_lang['There is no user account with this email address.'] = '找不到有该电邮的用户帐户。';
 $_lang['This category already exists!'] = '该分类已经存在！';
 $_lang['This category contains other categories, you must delete them before !'] = '该分类包含子目录，你必须首先删除它们！';
 $_lang['This category contains some courses, you can\'t erase it!'] = '该分类包含一些课程，你不能删除它！';
 $_lang['This category include some courses, you must delete or move them before'] = '该分类包括一些课程，你必须首先删除或移动它们';
-$_lang['This class still contains some sub classes, delete them first'] = '该虚拟班级含有一些子班级，要先删除它们';
 $_lang['This course is currently not described'] = '该课程当前没有被介绍';
 $_lang['This day'] = '这一天';
 $_lang['This is the faculty, department or school where the course is delivered'] = '上面选项是本门课程内容应属院系.';
@@ -898,13 +830,12 @@ $_lang['Time in learning path'] = '在学习路线中花的时间';
 $_lang['Time is over, results not submitted.'] = '时间到了，结果没有提交。';
 $_lang['Time limit'] = '允许最长时间';
 $_lang['Title'] = '标题';
-$_lang['Title added :'] = '标题添加： ';
+$_lang['Title added : '] = '标题添加： ';
 $_lang['Title of the wiki'] = '共建资源题目';
 $_lang['To'] = '到';
 $_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = '为了发出一条信息，选择用户组(用*号在前面标出)
 或左边用户列表中的单个用户。';
 $_lang['Tool'] = '工具';
-$_lang['Tool accesses changed'] = '工具通道改变';
 $_lang['Tools'] = '工具';
 $_lang['Topic'] = '话题';
 $_lang['Topic review'] = '话题评论';
@@ -917,23 +848,21 @@ $_lang['Total attempts'] = '总共尝试';
 $_lang['Total number of connection to this course'] = '链接该课程的总数';
 $_lang['Total time'] = '总共时间';
 $_lang['Tracking'] = '追踪';
-$_lang['Tracking database'] = '追踪数据库';
 $_lang['Tracking has been disabled by system administrator.'] = '追踪功能被管理员关闭。';
 $_lang['Traffic Details'] = '流量明细';
 $_lang['Translation Progression'] = '翻译进程';
 $_lang['Translation Tools'] = '翻译工具';
 $_lang['True'] = '答案';
 $_lang['True/False'] = '正确/错误';
-$_lang['URL :'] = '网址: ';
+$_lang['URL : '] = '网址: ';
 $_lang['URL link'] = '网址链接';
 $_lang['Unable to add description'] = '不能添加简介';
 $_lang['Unable to add external tool'] = '不能添加外部工具';
 $_lang['Unable to add the event to the agenda'] = '不能添加事件到日程表。';
-$_lang['Unable to change tool access'] = '不能改变工具';
-$_lang['Unable to copy file :'] = '无法复制文件： ';
+$_lang['Unable to copy file : '] = '无法复制文件： ';
 $_lang['Unable to create category'] = '无法创建分类';
-$_lang['Unable to create directory :'] = '无法创建课程分类';
-$_lang['Unable to create file :'] = '无法创建文件';
+$_lang['Unable to create directory : '] = '无法创建课程分类';
+$_lang['Unable to create file : '] = '无法创建文件';
 $_lang['Unable to create forum'] = '无法创建论坛';
 $_lang['Unable to create frame file'] = '无法创建框架文件';
 $_lang['Unable to create the SCORM archive'] = '无法创建 SCORM 存档';
@@ -958,7 +887,6 @@ $_lang['Unamed path'] = '未命名的路线';
 $_lang['Unassigned students'] = '未指定的学生';
 $_lang['Unblock'] = '解锁';
 $_lang['Unchanged line'] = '未改变的行';
-$_lang['Unique answer'] = '答案唯一';
 $_lang['Unregister'] = '未注册用户';
 $_lang['Unregister all students'] = '注销所有学生';
 $_lang['Unregister from class'] = '注销虚拟班级';
@@ -972,9 +900,6 @@ $_lang['Upload a new file to replace the file'] = '上载新文件代替原有文件。';
 $_lang['Upload document'] = '上载文件';
 $_lang['Upload file'] = '上传本地文件';
 $_lang['Uploaded file'] = '上载的文件';
-$_lang['Use a document'] = '使用一个文件';
-$_lang['Use a module of this course'] = '使用该课程的一个模块';
-$_lang['Use an exercise'] = '使用一个练习';
 $_lang['Use format defined in first line of file'] = '使用文件首行定义的格式';
 $_lang['User'] = '用户列表';
 $_lang['User Id'] = '用户Id';
@@ -1015,7 +940,6 @@ $_lang['Visible'] = '可见的';
 $_lang['Visits'] = '访问';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = '警告：您将要删除此共建资源及其所有页面。确信您要继续？';
 $_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = '警告：这是预览页面。您对共建资源的修改尚未保存！如要保存请不要忘记点击页面底部的‘保存’按钮。';
-$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = '警告！这个问题和它的答案已经用在好几个练习中，你想修改它们吗？';
 $_lang['Week'] = '周';
 $_lang['Weighting'] = '赋分';
 $_lang['Wiki'] = 'Wiki';
@@ -1026,12 +950,9 @@ $_lang['Wiki creation succeed'] = '共建资源成功创建';
 $_lang['Wiki deletion succeed'] = '共建资源成功删除';
 $_lang['Wiki description'] = '共建资源描述';
 $_lang['Wiki edition succeed'] = '共建资源版本编辑成功';
-$_lang['Wiki of the group'] = '学习小组共建资源';
 $_lang['Wiki syntax'] = '共建资源句法（Wiki2xhtml）';
-$_lang['Work'] = '作业';
 $_lang['Work added'] = '作业添加';
 $_lang['Work modified'] = '作业修改';
-$_lang['Work title'] = '作业标题';
 $_lang['Work title required'] = '作业标题必需';
 $_lang['Work uploaded by the student in the name of \'Authors\''] = '用\'作者\'名上载的作业';
 $_lang['Work uploads'] = '作业上载';
@@ -1046,20 +967,17 @@ $_lang['You are not allowed to create pages'] = '您无权创建页面';
 $_lang['You are not allowed to edit this page'] = '您无权编辑页面';
 $_lang['You are not allowed to read this page'] = '您无权阅读此页面';
 $_lang['You are now a member of this group.'] = '你现在是该学习小组的成员了。';
-$_lang['You can choose a title an a description for the wiki :'] = '您可以为共建资源的描述选择一个标题：';
+$_lang['You can choose a title an a description for the wiki : '] = '您可以为共建资源的描述选择一个标题：';
 $_lang['You can delete these scripts from you server'] = '您可以从服务器上删除这些脚本';
 $_lang['You can not change your own settings!'] = '你不可修改你自己的设置！';
-$_lang['You can not change your own status'] = '你不能改变你自己的身份';
-$_lang['You can not move a class in itself!'] = '你不能将一个虚拟班级移入它自己！';
 $_lang['You can not remove a group forum. You have to remove the group first'] = '您无法移除学习小组论坛。请您先移除学习小组。';
 $_lang['You can now create your  course'] = '你现在可以建立你的课程';
 $_lang['You can now select, in the list, the courses you want to access'] = '你现在可以在列表中选择你想进入的课程。';
-$_lang['You can set access rights for users using the following grid :'] = '您可以利用下面的指示设置用户的访问权： ';
+$_lang['You can set access rights for users using the following grid : '] = '您可以利用下面的指示设置用户的访问权： ';
 $_lang['You cannot give a blank name to a class'] = '你不能给一个虚拟班级起空的名称';
 $_lang['You cannot post an empty message'] = '不能张贴空消息.';
 $_lang['You cannot unsubscribe the last course manager of the course'] = '您不能注销最后一位课程管理员';
 $_lang['You didnt choose any file to send, or it is too big'] = '没有选择任何文件或者文件过大';
-$_lang['You have already answered the question'] = '你已经回答了该问题';
 $_lang['You have just created the course website'] = '您刚刚创建了新的课程网站.';
 $_lang['You have reached the maximum number of allowed attempts.'] = '你已经达到允许尝试次数的最高值。';
 $_lang['You left some required fields empty'] = '有些项未填写!返回重试.';
@@ -1080,12 +998,10 @@ $_lang['Your message has been deleted'] = '您的 文章 已删除.';
 $_lang['Your message has been entered'] = ' 消息 已被保存到数据库中.';
 $_lang['Your mother is'] = 'Your mother is';
 $_lang['Your new profile has been saved'] = '您的个人信息已经保存.';
-$_lang['Your password has been emailed to'] = '你的密码已经发出到';
+$_lang['Your password has been emailed to '] = '你的密码已经发出到';
 $_lang['Your progression in this module'] = '你在该模块的进展';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = '你要成为课程负责人的申请信息已经发到平台管理员';
 $_lang['Your request to remove your account has been sent'] = '你要删除用户名的请求已经发出';
-$_lang['Your time is'] = '你的名字是';
-$_lang['Your total score is'] = '你的总分是';
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = '你的用户资料似乎没有在该课程登记';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip文件上载并且解压缩';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = '使用该工具必须有Zlib php 扩展。请联系平台管理员。';
@@ -1217,8 +1133,6 @@ $_lang['blockConfirmBlockingPathMadeInvisible'] = '该路线被锁住。
 $_lang['blockConfirmDeleteModule'] = '你确认一起删除该模块？它将从服务器上和学习路线中完全删除。你将不能在任何学习路线中使用它。
 确信删除： ';
 $_lang['blockConfirmDeleteScorm'] = '该学习路线是SCORM标准输入包的组成部分。如果你删除该路线， 它的所有符合SCORM标准的模块和相关文件将被从平台上删除。你确认你想删除该学习路线';
-$_lang['blockConfirmDeleteStats'] = '课程统计数字被删除之后，是不能恢复的！
-<br /><br />你确信你要完全删除这些统计数字？';
 $_lang['blockCourseDescriptionCourseContent'] = '课程内容';
 $_lang['blockCourseDescriptionCourseContentComment1'] = '在一个课程框架中，哪些重要的需要教？
 该内容的难度水平是什么？该单元如何被建构的？这些内容的序列是什么？导向什么？';
@@ -1262,59 +1176,59 @@ $_lang['blockDocumentsHelp'] = '<p>讲义材料 管理工具类似桌面电脑应用中的文件管理
 <h4>上传文件</h4>
 <ul>
   <li>选择您电脑上的文件,点击<input type=submit value=Browse name=submit2>
-    在您屏幕的右侧.</li>
+	在您屏幕的右侧.</li>
   <li>开始上传,点击上传按钮<input type=submit value=Upload name=submit2>
-    .</li>
+	.</li>
 </ul>
 <h4>为文件(或者目录)更名</h4>
 <ul>
   <li>点击<img src=../document/img/edit.gif width=20 height=20 align=baseline> 按钮(位于\'更名\'栏)</li>
   <li>在左上角区域填写新的文件名</li>
   <li>确认,点击<input type=submit value=Ok name=submit24>
-    .
+	.
 </ul>
-    <h4>删除文件(或目录)</h4>
-    <ul>
+	<h4>删除文件(或目录)</h4>
+	<ul>
 
   <li>点击 <img src=../document/img/delete.gif width=20 height=20>
-    (位于 \'删除\'栏).</li>
-    </ul>
-    <h4>显示/隐藏文件(或目录)</h4>
-    <ul>
+	(位于 \'删除\'栏).</li>
+	</ul>
+	<h4>显示/隐藏文件(或目录)</h4>
+	<ul>
 
   <li>点击 <img src=../document/img/visible.gif width=20 height=20>位于\'显示/隐藏\'栏.</li>
-      <li>隐藏文件(或目录)后,它还是存在的,只是对学生已经不可见.</li>
+	  <li>隐藏文件(或目录)后,它还是存在的,只是对学生已经不可见.</li>
   <li>要使得其对学生可见, 点击 <img src=../img/invisible.gif width=24 height=20>
-    (位于\'显示/隐藏\'栏)</li>
-    </ul>
-    <h4>为文件(或目录)添加或更新摘要</h4>
-    <ul>
+	(位于\'显示/隐藏\'栏)</li>
+	</ul>
+	<h4>为文件(或目录)添加或更新摘要</h4>
+	<ul>
   <li>点击 <img src=../img/comment.gif width=20 height=20>
-    (位于\'摘要\'栏)</li>
-      <li>在右上角相应区域填写新的摘要.</li>
-      <li>确认,点击<input type=submit value=OK name=submit2>
-        .</li>
-    </ul>
-    <p>删除摘要,点击 <img src=../img/comment.gif width=20 height=20>,
-      删除相应区域旧的摘要 <input type=submit value=OK name=submit22>
-      .
-    <hr />
-    <p>通过 分类 整理来组织内容. 如下所示:</p>
-    <h4><b>创建一个目录</b></h4>
-    <ul>
-      <li>点击 <img src=../img/folder.gif> \'创建目录\'(左上角)</li>
-      <li>在相应区域键入新目录的名称(左上角)</li>
-      <li>确认,点击 <input type=submit value=OK name=submit23>.</li>
-    </ul>
-    <h4>移动文件(或目录)</h4>
-    <ul>
-      <li>点击 <img src=../img/deplacer.gif width=34 height=16>
-        位于\'移动\'栏</li>
-      <li>在相应下拉菜单(左上)选择目标文件(或目录).(提示: \'root\' 意思是已经位于文件目录树的顶层了,服务器上的相应上层目录不能上传文件.</li>
-      <li>确认,点击 <input type=submit value=OK name=submit232>.</li>
-    </ul>
-    <center>
-      <p>';
+	(位于\'摘要\'栏)</li>
+	  <li>在右上角相应区域填写新的摘要.</li>
+	  <li>确认,点击<input type=submit value=OK name=submit2>
+		.</li>
+	</ul>
+	<p>删除摘要,点击 <img src=../img/comment.gif width=20 height=20>,
+	  删除相应区域旧的摘要 <input type=submit value=OK name=submit22>
+	  .
+	<hr />
+	<p>通过 分类 整理来组织内容. 如下所示:</p>
+	<h4><b>创建一个目录</b></h4>
+	<ul>
+	  <li>点击 <img src=../img/folder.gif> \'创建目录\'(左上角)</li>
+	  <li>在相应区域键入新目录的名称(左上角)</li>
+	  <li>确认,点击 <input type=submit value=OK name=submit23>.</li>
+	</ul>
+	<h4>移动文件(或目录)</h4>
+	<ul>
+	  <li>点击 <img src=../img/deplacer.gif width=34 height=16>
+		位于\'移动\'栏</li>
+	  <li>在相应下拉菜单(左上)选择目标文件(或目录).(提示: \'root\' 意思是已经位于文件目录树的顶层了,服务器上的相应上层目录不能上传文件.</li>
+	  <li>确认,点击 <input type=submit value=OK name=submit232>.</li>
+	</ul>
+	<center>
+	  <p>';
 $_lang['blockExercisesHelp'] = '<h4>练习工具是什么？</h4>
 该工具允许你建立包含一个问题列表的在线练习。
 问题可以是多种多样，学生可以做练习，如果他们注册了你的课程，那么
@@ -1513,11 +1427,6 @@ $_lang['blockIntroCourse'] = '你在课程主页。<br /><br />在这里，你可以使用：
 $_lang['blockIntroLearningPath'] = '使用该工具提供文件、练习、网页、链接之间的连续路线给你的学生，...<br /><br />
 
 如果你想提供学习路线给你的学生，点击下面的按钮。<br />';
-$_lang['blockIntroWork'] = '该工具允许教师建立功课，任何学生(按照每个功课的设置)可以在课程主页上上载文件、写一段文本。
-
-<br />你将可以添加一个评论或给每个作业升级。
-
-<br /><br />如果你想提供这个工具或给学生一些忠告，点击下面的按钮。<br />';
 $_lang['blockModulePoolHelp'] = '该页允许你查看课程中所有可用的模块。<br />
 
                      已经添加到学习路线中的任何练习或文件将显示在这个列表中。';
@@ -1610,10 +1519,7 @@ $_lang['denotes new items'] = '标记新项目';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = '%2$s 修改的%1$s 版本和%4$s修改的%3$s版本之间的差别';
 $_lang['e.g. <em>History of Literature</em>'] = 'e.g. <i>文学历史</i>';
 $_lang['good looking'] = 'good looking';
-$_lang['group(s) has (have) been added'] = '学习小组已经加入';
-$_lang['has been enroled'] = '已经登记';
 $_lang['if you choose to continue, lines with errors will simply be ignored'] = '如果你选择继续，有错的线条将被忽略';
-$_lang['in all exercises'] = '在所有的练习中';
 $_lang['line'] = '行';
 $_lang['lines'] = '行';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = '最多12个字母,比如<i>ROM2121</i>';
@@ -1621,7 +1527,6 @@ $_lang['my group'] = '我的学习小组';
 $_lang['my supervision'] = '我的管理';
 $_lang['new group(s)'] = '新学习小组';
 $_lang['number'] = '用户数';
-$_lang['only in the current exercise'] = '仅在当前的练习中';
 $_lang['previous level'] = '上个水平';
 $_lang['register'] = '注册';
 $_lang['rich'] = 'rich';
@@ -1644,10 +1549,8 @@ $_lang['sampleQuizQuestionTitle'] = 'Socratic irony is...';
 $_lang['sampleQuizTitle'] = '练习示例';
 $_lang['seats (optional)'] = '座位(可选)';
 $_lang['seats by groups (optional)'] = '按学习小组就座 (可选)';
-$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = '这个密码太简单。使用的密码要像：';
 $_lang['to'] = '到';
 $_lang['uncompress zipped (.zip) file on the server'] = '在服务器上解压缩.zip文件';
-$_lang['use brackets [...] to define one or more blanks'] = '使用括号 [...] 定义一个或更多的空';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = '警告：安装程序没有发现学习路线的简介，于是设置了一个默认的说明。你要修改它。';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = '警告： 安装程序没有发现学习路线的名称，于是设置了一个默认的说明。你要修改它。';
 ?>

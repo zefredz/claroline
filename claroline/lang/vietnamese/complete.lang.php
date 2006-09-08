@@ -1,17 +1,6 @@
 <?php 
-$_lang['(When an user open the index of the campus)'] = '(When an user open the index of the campus)';
-$_lang['(none)'] = '(none)';
-$_lang['(optional)'] = '(optional)';
-$_lang['A reply to your topic has been posted'] = 'A reply to your topic has been posted.';
-$_lang['Access'] = 'Access';
-$_lang['Access to campus'] = 'Access to campus';
-$_lang['Access to courses'] = 'Access to courses';
 $_lang['Access to tools'] = 'Truy cập các công cụ';
-$_lang['Accounts with same <i>Email</i>'] = 'Accounts with same <i>Email</i>';
-$_lang['Accounts with same <i>User name</i>'] = 'Accounts with same <i>Username</i>';
-$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Accounts with same <i>Username</i> AND same <i>Password</i>';
 $_lang['Action'] = 'Hành động';
-$_lang['Activate'] = 'Kích hoạt';
 $_lang['Add'] = 'Thêm';
 $_lang['Add a category'] = 'Thêm chuyên mục';
 $_lang['Add a comment'] = 'Thêm/Sửa ghi chú';
@@ -20,17 +9,13 @@ $_lang['Add an event'] = 'Thêm sự kiện';
 $_lang['Add announcement'] = 'Tạo thông báo mới';
 $_lang['Add answ.'] = '+answ';
 $_lang['Add elem.'] = '+elem';
-$_lang['Add introduction text'] = 'Lời giới thiệu';
 $_lang['Add me to this group'] = 'Add me to this group';
 $_lang['Add new heading'] = 'Add new heading';
 $_lang['Add user manually'] = 'Sau khi đăng ký';
 $_lang['Agenda'] = 'Agenda (Lịch công tác)';
 $_lang['All exercises'] = 'Tất cả bài tập';
-$_lang['All groups are now empty'] = 'All groups are now empty';
-$_lang['All groups have been deleted'] = 'All groups have been deleted';
 $_lang['Allowed'] = 'Được phép';
 $_lang['Already enroled'] = 'đã tham gia rồi';
-$_lang['Among'] = 'trong số';
 $_lang['Announcement'] = 'Thông báo';
 $_lang['Announcement has been added'] = 'Thông báo mới đã được đưa vào';
 $_lang['Announcement has been deleted'] = 'Thông báo đã bị xoá';
@@ -39,7 +24,6 @@ $_lang['Announcements list has been cleared up'] = 'Danh mục các thông báo 
 $_lang['Anonymous'] = 'Vô danh';
 $_lang['Answer'] = 'Trả lời';
 $_lang['Answer type'] = 'Kiểu trả lời';
-$_lang['Answers to the question'] = 'Trả lời cho câu hỏi';
 $_lang['Are you sure to delete'] = 'Chắc chắn xoá?';
 $_lang['Area for this group'] = 'Area for this group';
 $_lang['Author'] = 'Ngu?i g?i';
@@ -52,7 +36,6 @@ $_lang['Back to user list'] = 'Trở về danh sách người dùng';
 $_lang['Cancel'] = 'Cancel';
 $_lang['Categories'] = 'Danh mục website theo chủ đề';
 $_lang['Chat'] = 'Thảo luận';
-$_lang['Choice'] = 'Lựa chọn của bạn';
 $_lang['Claroline help'] = 'Start Help';
 $_lang['Clear up list of announcements'] = 'Xoá tất cả thông báo';
 $_lang['Click on the month name for more details'] = 'Bấm vào tên tháng để xem chi tiết';
@@ -77,7 +60,6 @@ $_lang['Create Directory'] = 'Tạo thư mục';
 $_lang['Create a course site'] = 'Tạo một khoá học';
 $_lang['Create a course website'] = 'Tạo một website cho khoá học mới';
 $_lang['Create new group(s)'] = 'Create new group(s)';
-$_lang['Database Host'] = 'Database Host';
 $_lang['Date'] = 'Ngày';
 $_lang['Day'] = 'Ngày';
 $_lang['Define Headings'] = 'Define Headings';
@@ -97,8 +79,6 @@ $_lang['Documents'] = 'Tài liệu';
 $_lang['Documents and Links'] = 'Tài liệu';
 $_lang['Documents downloaded by the student'] = 'Tài liệu HS download về';
 $_lang['Documents help'] = 'Help Documents';
-$_lang['Documents of the group'] = 'Tài li?u nhóm ';
-$_lang['EG'] = 'e. g.';
 $_lang['Edit'] = 'Sửa';
 $_lang['Edit this group'] = 'Edit this group';
 $_lang['Element list'] = 'Liệt kê';
@@ -110,10 +90,6 @@ $_lang['Empty (or NULL)'] = 'Empty (or NULL)';
 $_lang['Empty all groups'] = 'Empty all groups';
 $_lang['Enrolment'] = 'Subscription';
 $_lang['Enter'] = 'Trở lại danh mục khoá học';
-$_lang['Exercice not found'] = 'Không tìm thấy bài tập';
-$_lang['Exercise description'] = 'Ghi chú về bài tập';
-$_lang['Exercise management'] = 'Quản lý bài tập';
-$_lang['Exercise name'] = ' Tên bài tập';
 $_lang['Exercise type'] = 'Loại bài tập';
 $_lang['Exercises'] = 'Exercices';
 $_lang['Exercises help'] = 'Help exercises';
@@ -130,8 +106,6 @@ $_lang['Forums help'] = 'Help Forums';
 $_lang['From'] = 'Của';
 $_lang['Get a question from another exercise'] = 'Lấy câu hỏi từ một bài tập khác';
 $_lang['Go back to the exercise'] = 'Về bài tập';
-$_lang['Go back to the question list'] = 'Trở về phần danh mục câu hỏi';
-$_lang['Go back to the question pool'] = 'Trở về phần lập câu hỏi';
 $_lang['Group'] = 'Nhóm';
 $_lang['Group Tutor'] = 'Tutor';
 $_lang['Group area'] = 'Khu vực nhóm';
@@ -156,12 +130,10 @@ $_lang['Invalid user : this user doesn\'t exist in your group'] = 'Không có tr
 $_lang['Language'] = 'Ngôn ngữ';
 $_lang['Last 31 days'] = 'Trong 31 ngày gần đây';
 $_lang['Last 7 days'] = 'Trong 7 ngày gần đây';
-$_lang['Last check before install'] = 'Last check before install';
 $_lang['Last message'] = 'Bài g?i g?n dây nh?t';
 $_lang['Last name'] = 'Họ';
 $_lang['Lasting'] = 'Kéo dài';
 $_lang['Lecturer(s)'] = 'Giáo viên';
-$_lang['Licence'] = 'License';
 $_lang['Line Number'] = 'Số dòng';
 $_lang['List of students in this group'] = 'Danh sách học sinh trong nhóm';
 $_lang['Login'] = 'login';
@@ -171,7 +143,6 @@ $_lang['Logins and access to tools'] = 'Công cụ đăng nhập và truy cập'
 $_lang['Logins not used'] = 'Logins not used';
 $_lang['Logout'] = 'Logout';
 $_lang['Lost password'] = 'Quên mật khẩu';
-$_lang['Main database'] = 'Main claroline DB';
 $_lang['Make correspond'] = 'Thiết lập tương ứng';
 $_lang['Manager'] = 'Người quản lý';
 $_lang['Matching'] = 'Ghép cột';
@@ -220,8 +191,8 @@ $_lang['Number of users'] = 'Number of users';
 $_lang['Number of users by course'] = 'Number of users by course';
 $_lang['Number of users by faculty'] = 'Number of users by faculte';
 $_lang['Number of users by status'] = 'Number of users by status';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Number proposed exceeds max. that you allowed (you can modify it below).
-                Group composition has not been modified';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Number proposed exceeds max. that you allowed (you can modify it below). 
+				Group composition has not been modified';
 $_lang['Ok'] = 'Ok';
 $_lang['Oldest first'] = 'Từ cũ đến mới';
 $_lang['On'] = 'On';
@@ -236,38 +207,28 @@ $_lang['Other'] = 'Khác';
 $_lang['Password'] = 'password';
 $_lang['Period'] = 'Chu kỳ';
 $_lang['Please choose a good answer'] = 'Chọn câu trả lời đúng';
-$_lang['Please choose one or more good answers'] = 'Chọn một hay nhiều câu trả lời đúng';
 $_lang['Please confirm your choice'] = 'Hãy xác nhận lại lựa chọn của bạn';
 $_lang['Please define at least one blank with brackets [...]'] = 'Phải có í nhất 1 từ trong ngoặc [...]';
 $_lang['Please define the options'] = 'Định nghĩa các chọn lựa';
 $_lang['Please fill the two lists below'] = 'Hãy điền vào hai danh sách dưới đây';
 $_lang['Please give a weighting to each blank'] = 'Xin cho điểm vào mỗi ô trống';
 $_lang['Please give the answers to the question'] = 'Phải nêu trả lời cho câu hỏi';
-$_lang['Please give the exercise name'] = 'Xin ghi tên bài tập';
-$_lang['Please give the question'] = 'Hãy đặt câu hỏi';
 $_lang['Please type the text'] = 'Gõ vào';
-$_lang['Please type your text below'] = 'Nhập vào phần sau đây';
 $_lang['Posted'] = 'Ngày';
 $_lang['Posts'] = 'Bài g?i';
 $_lang['Powered by'] = 'Powered by';
-$_lang['Prefix for names of course databases'] = 'MySQL Prefix';
 $_lang['Previous day'] = 'Ngày trước';
 $_lang['Previous month'] = 'Tháng trước';
 $_lang['Previous week'] = 'Tuần trước';
 $_lang['Previous year'] = 'Năm trước';
-$_lang['PrintVers'] = 'Printable version';
 $_lang['Private'] = 'private';
 $_lang['Public'] = 'public';
 $_lang['Public access from campus home page even without login'] = 'Truy cập không cần login';
 $_lang['Publish'] = 'Xuất bản';
 $_lang['Published on'] = 'Ngày';
 $_lang['Question'] = 'Câu hỏi';
-$_lang['Question / Answer management'] = 'Quản lý câu hỏi/câu trả lờit';
-$_lang['Question list of the exercise'] = 'Danh mục câu hỏi trong bài tập';
-$_lang['Question not found'] = 'Không tìm thấy câu hỏi';
 $_lang['Question pool'] = 'Kho câu hỏi';
 $_lang['Question to lecturer'] = 'Câu hỏi với giáo viên';
-$_lang['Questions'] = 'Câu hỏi';
 $_lang['Random questions'] = 'Câu hỏi ngẫu nhiên';
 $_lang['Registered'] = 'Registered';
 $_lang['Registration'] = 'Registration';
@@ -276,7 +237,6 @@ $_lang['Rem. elem.'] = '-elem';
 $_lang['Remove'] = 'Xoá';
 $_lang['Rename'] = 'Đổi tên';
 $_lang['Reply'] = 'Tr? l?i';
-$_lang['Requirements'] = 'Requirements';
 $_lang['Result'] = 'Kết quả';
 $_lang['Return to the list'] = 'Về danh mục';
 $_lang['Reuse'] = 'Dùng lại';
@@ -284,22 +244,19 @@ $_lang['Role'] = 'Vai trò';
 $_lang['Save'] = 'Save';
 $_lang['Score'] = 'Điểm';
 $_lang['Seen'] = 'Ðã xem';
-$_lang['Select course in'] = 'Chọn khoá học trong ';
+$_lang['Select course in '] = 'Chọn khoá học trong ';
 $_lang['Select course in search results'] = 'Chọn khoá học trong kết quả tìm kiếm';
 $_lang['Send this announcement by email to registered students'] = 'Gửi thông báo này cho các học sinh có đăng ký';
 $_lang['Show all'] = 'Xem tất cả';
 $_lang['Show none'] = 'Thu lại';
 $_lang['Size'] = 'Kích thước';
-$_lang['Statement'] = 'Ghi chú tuỳ chọnt';
 $_lang['Statistics'] = 'Thống kê';
-$_lang['Statistics of course'] = 'Thống kê khoá học';
 $_lang['Statistics of user'] = 'Thống kê user';
 $_lang['Status'] = 'Chức năng';
 $_lang['Student'] = 'học sinh';
 $_lang['Students are allowed to self-register in groups'] = 'Students are allowed to self-register in groups';
 $_lang['Subject'] = 'Subject';
 $_lang['Support forum'] = 'Diễn đàn hỗ trợ';
-$_lang['Take'] = 'cần';
 $_lang['The email address is not valid'] = 'The email address is not complete or contains some unvalid characters';
 $_lang['The file to upload is not valid.'] = 'không hợp lệ.';
 $_lang['The information has been modified'] = 'Thông tin đã được hiệu chỉnh';
@@ -309,7 +266,6 @@ $_lang['The zip file can not contain .PHP files'] = '';
 $_lang['There are no topics for this forum. You can post one'] = 'Chua có bài vi?t nào.';
 $_lang['There is no answer for the moment'] = 'Chưa có câu trả lời';
 $_lang['There is no exercise for the moment'] = 'Chưa có bài tập';
-$_lang['There is no question for the moment'] = 'Chưa có câu hỏi';
 $_lang['This course is currently not described'] = 'Giáo trình này không có phần diễn giải';
 $_lang['This day'] = 'Hôm nay';
 $_lang['This is the faculty, department or school where the course is delivered'] = '';
@@ -326,7 +282,6 @@ $_lang['Total Clicks'] = 'Tổng số lượt truy cập';
 $_lang['Total Downloads'] = 'Tổng số lần Downloads';
 $_lang['Total number of connection to this course'] = 'Tổng số lượt truy cập khoá học';
 $_lang['Tracking'] = 'Theo dõi';
-$_lang['Tracking database'] = 'Tracking DB.  Useful only if several DB';
 $_lang['Tracking has been disabled by system administrator.'] = 'Tracking has been disabled by system administrator.';
 $_lang['Traffic Details'] = 'Traffic Details';
 $_lang['True'] = 'True';
@@ -349,11 +304,8 @@ $_lang['View my statistics'] = 'Xem thống kê';
 $_lang['Visibility'] = 'Visibility';
 $_lang['Visibility modified'] = 'Đã thay đổi tính hiển thị';
 $_lang['Visits'] = 'Lượt viếng thăm';
-$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Coi chừng! Câu hỏi này dùng trong nhiều bài tập khác nhau.';
 $_lang['Week'] = 'Tuần';
 $_lang['Weighting'] = 'Điểm';
-$_lang['Work'] = 'Công việc';
-$_lang['Work title'] = 'Tiêu đề';
 $_lang['Work uploaded by the student in the name of \'Authors\''] = 'Bài làm do HS tải lên';
 $_lang['Work uploads'] = 'Các bài đã upload';
 $_lang['Year'] = 'Năm';
@@ -363,13 +315,11 @@ $_lang['You can now create your  course'] = 'You can now go to create  your  cou
 $_lang['You can now select, in the list, the courses you want to access'] = 'You can now go to select, in the list, the courses you want to access.';
 $_lang['You cannot post an empty message'] = 'You must type a Bài to post. You cannot post an empty Bài.';
 $_lang['You didnt choose any file to send, or it is too big'] = 'You didn\'t choose any file to send, or it is too big';
-$_lang['You have already answered the question'] = 'Bạn đã trả lời câu này rồi';
 $_lang['You have just created the course website'] = 'Bạn đã tạo xong một website cho khoá học';
 $_lang['You left some required fields empty'] = 'You left some fields empty. Use your browser\'s back button and try again.';
 $_lang['Your message has been deleted'] = 'Bài g?i dã b? xoá.';
 $_lang['Your message has been entered'] = 'Bài c?a b?n dã du?c luu.';
 $_lang['Your new profile has been saved'] = 'Your new profile has been saved';
-$_lang['Your total score is'] = 'Tổng điểm của bạn là';
 $_lang['Zip file uploaded and uncompressed'] = ' Tệp Zip đã tải lên và giải nén';
 $_lang['[British people] live in [United Kingdom].'] = '[Biên Hoà] là thành phố thuộc tỉnh [Đồng Nai].';
 $_lang['archive'] = 'Lưu trữ';
@@ -415,107 +365,107 @@ $_lang['blockDocumentsHelp'] = '<p>The Documents tool is similar to the FileMana
 <ul>
   <li>Select the file on your computer using the Browse button <input
  type=submit value=Browse name=submit2>
-    on the right of your screen.</li>
-        <li>
-            Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.
-        </li>
-    </ul>
-    <h4>
-        Rename a document (a directory)
-    </h4>
-    <ul>
-        <li>
-            click on the <img src=../document/img/edit.gif width=20 height=20 align=baseline>
-            button in the Rename column
-        </li>
-        <li>
-            Type the new name in the field (top left)
-        </li>
-        <li>
-            Validate by clicking <input type=submit value=Ok name=submit24>.
-        </li>
-    </ul>
-        <h4>
-            Delete a document (or a directory)
-        </h4>
-        <ul>
-            <li>
-                Click on <img src=../document/img/delete.gif width=20 height=20>
-                in column \'Delete\'.
-            </li>
-        </ul>
-        <h4>
-            Make a document (or directory) invisible to students
-        </h4>
-        <ul>
-            <li>
-                Click on <img src=../document/img/visible.gif width=20 height=20>
-                in column \'Visible/invisible\'.
-            </li>
-            <li>
-                The document (or directory) still exists but it is not visible by students anymore.
-            </li>
-            <li>
-                To make it invisible back again, click on
-                <img src=../img/invisible.gif width=24 height=20>
-                in column \'Visible/invisible\'
-            </li>
-        </ul>
-        <h4>
-            Add or modify a comment to a document (or a directory)
-        </h4>
-        <ul>
-            <li>
-                Click on <img src=../img/comment.gif width=20 height=20> in column \'Comment\'
-            </li>
-            <li>
-                Type new comment in the corresponding field (top right).
-            </li>
-            <li>
-                Validate by clicking <input type=submit value=OK name=submit2>
-            .</li>
-        </ul>
-        <p>
-        To delete a comment, click on <img src=../img/comment.gif width=20 height=20>,
-        delete the old comment in the field and click
-        <input type=submit value=OK name=submit22>.
-        <hr />
-        <p>
-            You can organise your content through filing. For this:
-        </p>
-        <h4>
-            <b>
-                Create a directory
-            </b>
-        </h4>
-        <ul>
-            <li>
-                Click on
-                <img src=../img/folder.gif>
-                \'Create a directory\' (top left)
-            </li>
-            <li>
-                Type the name of your new directory in the corresponding field (top left)
-            </li>
-            <li>
-                Validate by clicking <input type=submit value=OK name=submit23>.
-            </li>
-        </ul>
-        <h4>
-            Move a document (or directory)
-        </h4>
-        <ul>
-            <li>
-                Click on button <img src=../img/deplacer.gif width=34 height=16>
-                in column \'Move\'
-            </li>
-            <li>
-                Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word \'root\' means you cannot go upper than that level in the document tree of the server).
-            </li>
-            <li>
-                Validate by clicking on <input type=submit value=OK name=submit232>.
-            </li>
-        </ul>
+	on the right of your screen.</li>
+		<li>
+			Launch the upload with the Upload Button <input type=submit value=Upload name=submit2>.
+		</li>
+	</ul>
+	<h4>
+		Rename a document (a directory)
+	</h4>
+	<ul>
+		<li>
+			click on the <img src=../document/img/edit.gif width=20 height=20 align=baseline>
+			button in the Rename column
+		</li>
+		<li>
+			Type the new name in the field (top left)
+		</li>
+		<li>
+			Validate by clicking <input type=submit value=Ok name=submit24>.
+		</li>
+	</ul>
+		<h4>
+			Delete a document (or a directory)
+		</h4>
+		<ul>
+			<li>
+				Click on <img src=../document/img/delete.gif width=20 height=20>
+				in column \'Delete\'.
+			</li>
+		</ul>
+		<h4>
+			Make a document (or directory) invisible to students
+		</h4>
+		<ul>
+			<li>
+				Click on <img src=../document/img/visible.gif width=20 height=20>
+				in column \'Visible/invisible\'.
+			</li>
+			<li>
+				The document (or directory) still exists but it is not visible by students anymore.
+			</li>
+			<li>
+				To make it invisible back again, click on
+				<img src=../img/invisible.gif width=24 height=20>
+				in column \'Visible/invisible\'
+			</li>
+		</ul>
+		<h4>
+			Add or modify a comment to a document (or a directory)
+		</h4>
+		<ul>
+			<li>
+				Click on <img src=../img/comment.gif width=20 height=20> in column \'Comment\'
+			</li>
+			<li>
+				Type new comment in the corresponding field (top right).
+			</li>
+			<li>
+				Validate by clicking <input type=submit value=OK name=submit2>
+			.</li>
+		</ul>
+		<p>
+		To delete a comment, click on <img src=../img/comment.gif width=20 height=20>,
+		delete the old comment in the field and click
+		<input type=submit value=OK name=submit22>.
+		<hr />
+		<p>
+			You can organise your content through filing. For this:
+		</p>
+		<h4>
+			<b>
+				Create a directory
+			</b>
+		</h4>
+		<ul>
+			<li>
+				Click on
+				<img src=../img/folder.gif>
+				\'Create a directory\' (top left)
+			</li>
+			<li>
+				Type the name of your new directory in the corresponding field (top left)
+			</li>
+			<li>
+				Validate by clicking <input type=submit value=OK name=submit23>.
+			</li>
+		</ul>
+		<h4>
+			Move a document (or directory)
+		</h4>
+		<ul>
+			<li>
+				Click on button <img src=../img/deplacer.gif width=34 height=16>
+				in column \'Move\'
+			</li>
+			<li>
+				Choose the directory into which you want to move the document (or directory) in the corresponding scrolling menu (top left) (note: the word \'root\' means you cannot go upper than that level in the document tree of the server).
+			</li>
+			<li>
+				Validate by clicking on <input type=submit value=OK name=submit232>.
+			</li>
+		</ul>
 <center>
 <p>';
 $_lang['blockExercisesHelp'] = '<p>The exercise tool allows you to create exercises that will contains as many questions as you like.<br /><br />
@@ -690,8 +640,6 @@ $_lang['blockUsersHelp'] = '<b>Roles</b><p>Roles have no computer related functi
 will receive an email telling him/her you have registered him/her and telling
 him/her or reminding him/her his/her login and  password.</p>';
 $_lang['e.g. <em>History of Literature</em>'] = 'ví dụ. <i>Lích sử văn học </i>';
-$_lang['group(s) has (have) been added'] = 'group(s) has (have) been added';
-$_lang['in all exercises'] = 'trong tất cả bài tập';
 $_lang['line'] = 'dòng';
 $_lang['lines'] = 'dòng';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'tối đa 12 ký tự, v.d. <i>TOAN12</i>';
@@ -699,7 +647,6 @@ $_lang['my group'] = 'nhóm c?a tôi';
 $_lang['my supervision'] = 'my supervision';
 $_lang['new group(s)'] = 'new group(s)';
 $_lang['number'] = 'số lượng';
-$_lang['only in the current exercise'] = 'chỉ trong bài tập hiện hành';
 $_lang['register'] = 'register';
 $_lang['sampleForumDescription'] = 'Bạn có thể xoá đi bằng công cụ quản trị';
 $_lang['sampleForumGroupCategory'] = 'Diễn đàn nhóm';
@@ -708,9 +655,6 @@ $_lang['sampleForumMessage'] = 'Khi bạn xoá, các bài trong diễn đàn cũ
 $_lang['sampleForumTitle'] = 'Diễn đàn mẫu';
 $_lang['sampleForumTopicTitle'] = 'Bài mẫu';
 $_lang['sampleQuizTitle'] = 'Bài tập mẫu';
-$_lang['seats (optional)'] = 'seats (optional';
-$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'mật khẩu này quá đơn giản. Nên dùng mật khẩu như ';
 $_lang['to'] = 'đến';
 $_lang['uncompress zipped (.zip) file on the server'] = 'giải nén tệp (.zip) trên server';
-$_lang['use brackets [...] to define one or more blanks'] = 'dùng ngoặc vuông [...] để định nghĩa các chỗ cần điền';
 ?>
