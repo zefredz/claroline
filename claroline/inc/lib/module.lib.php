@@ -258,4 +258,30 @@ function check_module($modLabel)
 	}	
 }
 
+/**
+ * Merge module lang with lang file
+ *
+ * @param $moduleLabel label of module
+ * @return array
+ */
+function add_module_lang_array($moduleLabel)
+{
+	global $_lang; 
+	
+	$module_uri = get_conf('rootSys').'module/'.$moduleLabel.'/';
+	
+	$current_lang = language::current_language();	
+
+	if ($current_lang != 'english' && file_exists($module_uri.'lang/lang_'.$current_lang.'.php'))
+	{
+		include $module_uri.'lang/lang_'.$current_lang.'.php';
+		$_lang = array_merge($_lang,$mod_lang);
+	}
+	elseif (file_exists($module_uri.'lang/lang_english.php'))
+	{
+		include $cmodule_uri.'lang/lang_english.php';
+		$_lang = array_merge($_lang,$mod_lang);
+	}
+}
+
 ?>
