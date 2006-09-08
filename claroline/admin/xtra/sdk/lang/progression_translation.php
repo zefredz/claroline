@@ -73,9 +73,9 @@ echo "<p>Total variables in Claroline scripts: <strong>" . $count_total_diff_var
 if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
 {
 
-    if ( isset($_REQUEST['language']))
+    if ( isset($_REQUEST['lang']))
     {
-        $language = $_REQUEST['language'];
+        $language = $_REQUEST['lang'];
 	}
     else 
     {
@@ -101,7 +101,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     $result_missing_var = $myPager->get_result_list();
 
     // display pager
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
+    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&lang='.$language);
 	
     // display table header
     echo "<table class=\"claroTable\" width=\"100%\" >\n";
@@ -148,7 +148,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     echo "</table>";
     
     // display pager
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&language='.$language);
+    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&lang='.$language);
     
     // display nb results
     echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;
@@ -217,7 +217,7 @@ else
         } 
         else
         {
-            echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?exCmd=ToTranslate&language=" . $language . "\">" . $count_var_to_translate . "</a>";
+            echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?exCmd=ToTranslate&lang=" . $language . "\">" . $count_var_to_translate . "</a>";
         }
         
 	    echo "</td>\n" 
