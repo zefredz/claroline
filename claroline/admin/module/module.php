@@ -387,6 +387,8 @@ switch ($item)
 	case 'GLOBAL':
     {
         echo claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
+
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
         
         echo '<table>' . "\n";
     
@@ -426,9 +428,7 @@ switch ($item)
           .    '</td>' . "\n"
           .    '</tr>' . "\n"
           .    '<tr>' . "\n"
-          .    '<td>' . "\n"
-          .    '<br/>' . "\n"
-          .    '</td>' . "\n"
+          .    '<td colspan="2">&nbsp;</td>' . "\n"
           .    '</tr>' . "\n"
           ;
           
@@ -461,37 +461,33 @@ switch ($item)
         }
         elseif ($module['type'] == 'applet')
         {
-            echo '<tr><td><form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
-    
             //choose the dock radio button list display
-    
-            $isfirstline = get_lang('Display') . ' : ';
-    
-            //display each option
             if (is_array($dockList) && $module['type']!='tool')
             {
+                echo '<tr>' ."\n"
+                .    '<td syle="align:right" colspan="2">' . get_lang('Display'). '&nbsp;:</td>' ."\n"
+                .    '</tr>' ."\n"
+                    ;
+
+                //display each option
                 foreach ($dockList as $dock)
                 {
-        
                     if (in_array($dock,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
         
                     echo '<tr>' ."\n"
-                    .    '<td syle="align:right">' . $isfirstline . '</td>' ."\n"
+                    .    '<td>&nbsp;</td>' ."\n"
                     .    '<td>' ."\n"
                     .    '<input type="checkbox" name="' . $dock . '" value="' . $dock . '" ' . $is_checked . ' />'
                     .    $dock
                     .    '</td>' ."\n"
                     .    '</tr>' ."\n"
                     ;
-                    $isfirstline = '';
                 }
             }
-            
-            echo '</td></tr>';
     
-              // display submit button
-    
-            echo '<tr>' ."\n"
+            // display submit button
+            echo '<tr><td colspan="2">&nbsp;</td></tr>' . "\n"
+            .    '<tr>' ."\n"
             .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
             .    '<td >'
             .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
