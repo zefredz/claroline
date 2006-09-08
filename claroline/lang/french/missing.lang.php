@@ -1,5 +1,4 @@
 <?php 
-$_lang['%name modified'] = '%name modified';
 $_lang['Cannot update course database for %course'] = 'Cannot update course database for %course';
 $_lang['Cannot update database'] = 'Cannot update database';
 $_lang['Categories'] = 'Categories';
@@ -19,6 +18,8 @@ $_lang['Dear %firstname %lastname. Your personal settings have been registered.'
 $_lang['Delete all event before %date in statistics'] = 'Delete all event before %date in statistics';
 $_lang['Do you really want to delete the course "%course_name" ( %course_code ) ?'] = 'Do you really want to delete the course "%course_name" ( %course_code ) ?';
 $_lang['ERROR in:<b>%file</b> Question format unknown'] = 'ERROR in:<b>%file</b> Question format unknown';
+$_lang['Exercise added'] = 'Exercise added';
+$_lang['Exercise modified'] = 'Exercise modified';
 $_lang['Failed to update module visibility'] = 'Failed to update module visibility';
 $_lang['Feedback Edited'] = 'Feedback Edited';
 $_lang['File not know'] = 'File not know';
@@ -73,7 +74,7 @@ $_lang['No tool name'] = 'No tool name';
 $_lang['Node Moved, relaunch repair process to complete'] = 'Node Moved, relaunch repair process to complete';
 $_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.';
 $_lang['Please contact'] = 'Please contact';
-$_lang['Please type your text below, use brackets [...] to define one or more blanks'] = 'Please type your text below, use brackets [...] to define one or more blanks';
+$_lang['Please type your text below, use brackets &#91;...&#93; to define one or more blanks'] = 'Please type your text below, use brackets &#91;...&#93; to define one or more blanks';
 $_lang['Preformated text'] = 'Preformated text';
 $_lang['Previous question'] = 'Previous question';
 $_lang['Private access (site accessible only to people on the <a href="%url">user list</a>)'] = 'Private access (site accessible only to people on the <a href="%url">user list</a>)';

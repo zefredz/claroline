@@ -12,9 +12,7 @@ $_lang['%module files deleted'] = '%module files deleted';
 $_lang['%module is already installed on your platform.'] = '%module is already installed on your platform.';
 $_lang['%moduleName has been added as module'] = '%moduleName has been added as a module of the course and of this learning path';
 $_lang['%moduleName is already used as a module in this learning path'] = '%moduleName is already used as a module in this learning path';
-$_lang['%name added'] = '%name added';
 $_lang['%name is required'] = '%name is required';
-$_lang['%name modified'] = '%name modified';
 $_lang['%name should be an array'] = '%name should be an array';
 $_lang['%name should be boolean'] = '%name should be boolean';
 $_lang['%name should be integer'] = '%name should be integer';
@@ -142,6 +140,8 @@ $_lang['Error opening question\'s XML file'] = 'Error opening question\'s XML fi
 $_lang['Error reading XML file'] = 'Error reading XML file';
 $_lang['Error while deleting %module files'] = 'Error while deleting %module files';
 $_lang['Error while renaming module folder'] = 'Error while renaming module folder';
+$_lang['Exercise added'] = 'Exercise added';
+$_lang['Exercise modified'] = 'Exercise modified';
 $_lang['Exercise results'] = 'Exercise results';
 $_lang['Exercise title'] = 'Exercise title';
 $_lang['External authentication drivers'] = 'External authentication drivers';
@@ -266,7 +266,7 @@ $_lang['Platform Settings'] = 'Platform Settings';
 $_lang['Please contact'] = 'Please contact';
 $_lang['Please contact course titular(s)'] = 'Please contact course titular(s)';
 $_lang['Please try again.'] = 'Please try again.';
-$_lang['Please type your text below, use brackets [...] to define one or more blanks'] = 'Please type your text below, use brackets [...] to define one or more blanks';
+$_lang['Please type your text below, use brackets &#91;...&#93; to define one or more blanks'] = 'Please type your text below, use brackets &#91;...&#93; to define one or more blanks';
 $_lang['Preformated text'] = 'Preformated text';
 $_lang['Previous question'] = 'Previous question';
 $_lang['Private access (site accessible only to people on the <a href="%url">user list</a>)'] = 'Private access (site accessible only to people on the <a href="%url">user list</a>)';
@@ -398,6 +398,7 @@ Email : %course_email
 Category : %course_category
 Language : %course_language
 Url : %course_url';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.';
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,

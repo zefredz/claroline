@@ -1195,7 +1195,6 @@ $_lang['blockCourseDescriptionCourseContentComment1'] = '¿Cu&aacute;l es la impo
 $_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentaci&oacute;n del contenido del curso, la estructura del contenido, su progreso y el calendario';
 $_lang['blockCourseDescriptionDescription'] = 'Descripci&oacute;n';
 $_lang['blockCourseDescriptionDescriptionComment1'] = '¿Cu&aacute;l es el lugar y la especificidad del curso en el programa?, ¿existen cursos que sea un prerequisito cursar?, ¿cu&aacute;l es la relaci&oacute;n con otros cursos?';
-$_lang['blockCourseDescriptionDescriptionComment2'] = '';
 $_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Cuales son los recursos humanos y f&iacute;sicos disponibles? Cu&aacute;l ser&aacute;
 su estructura?. Qu&eacute; pueden esperar los estudiantes del equipo de organizaci&oacute;n o del profesor?';
 $_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentaci&oacute;n de los otros profesores que organizan el curso (asistentes,

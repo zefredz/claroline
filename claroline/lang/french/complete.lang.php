@@ -15,7 +15,6 @@ $_lang['%module files deleted'] = 'Les fichiers du module %module ont été suppri
 $_lang['%module is already installed on your platform.'] = 'Le module %module est déjà installé sur la plate-forme';
 $_lang['%moduleName has been added as module'] = '"%moduleName" a été ajouté comme module de ce cours et comme module de ce parcours pédagogique';
 $_lang['%moduleName is already used as a module in this learning path'] = '"%moduleName" est déjà utilisé comme module dans ce parcours pédagogique';
-$_lang['%name added'] = '%name a été ajouté(e)';
 $_lang['%name is required'] = '%name est requis(e)';
 $_lang['%name should be an array'] = '%name devrait être un tableau';
 $_lang['%name should be boolean'] = '%name devrait être un booléen';

@@ -1227,7 +1227,6 @@ progresi&oacute;n e o seu calendario';
 $_lang['blockCourseDescriptionDescription'] = 'Descrici&oacute;n';
 $_lang['blockCourseDescriptionDescriptionComment1'] = 'Cal &eacute; o lugar e a especificidade do curso no programa?
 Que outros cursos se consideran prerrequisitos para este? Que relaci&oacute;n ten con outros cursos?';
-$_lang['blockCourseDescriptionDescriptionComment2'] = '';
 $_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Que recursos humanos e materiais est&aacute;n dispo&ntilde;ibles? Cal &eacute; a natureza da estructura?
 Que poden agarda-los estudantes do equipo de organizaci&oacute;n ou da organizaci&oacute;n do profesor?';
 $_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentaci&oacute;n dos outros profesores que organizar&aacute;n o curso (asistentes,
