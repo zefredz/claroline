@@ -34,7 +34,7 @@ $langNameOfLang['japanese'		]="japonés";
 $langNameOfLang['polish'		]="polaco";
 $langNameOfLang['simpl_chinese'		]="chino";
 $langNameOfLang['spanish'		]="español";
-$langNameOfLang['spanish_latin'		]="español latin";
+$langNameOfLang['spanish_latin'		]="español latinoamericano";
 $langNameOfLang['swedish'		]="sueco";
 $langNameOfLang['thai'			]="thailandés";
 $langNameOfLang['turkish'		]="turco";
@@ -47,7 +47,7 @@ $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 
-$langDay_of_weekNames['init'] = array('S', 'M', 'T', 'W', 'T', 'F', 'S');
+$langDay_of_weekNames['init'] = array('D', 'L', 'M', 'M', 'J', 'V', 'S');
 $langDay_of_weekNames['short'] = array('Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab');
 $langDay_of_weekNames['long'] = array('Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado');
 

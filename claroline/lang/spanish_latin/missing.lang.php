@@ -1,5 +1,4 @@
 <?php 
-$_lang['%chat_filename is now in  your document tool. (<em>This file is visible</em>)'] = '%chat_filename is now in  your document tool. (<em>This file is visible</em>)';
 $_lang['%claroLabel registered'] = '%claroLabel registered';
 $_lang['%claroLabel registered as tool'] = '%claroLabel registered as tool';
 $_lang['%date not valid'] = '%date not valid';
@@ -10,8 +9,6 @@ $_lang['%firstname %lastname has been registered to your course'] = '%firstname 
 $_lang['%groupQty group(s) has (have) been added'] = '%groupQty group(s) has (have) been added';
 $_lang['%module files deleted'] = '%module files deleted';
 $_lang['%module is already installed on your platform.'] = '%module is already installed on your platform.';
-$_lang['%moduleName has been added as module'] = '%moduleName has been added as a module of the course and of this learning path';
-$_lang['%moduleName is already used as a module in this learning path'] = '%moduleName is already used as a module in this learning path';
 $_lang['%name is required'] = '%name is required';
 $_lang['%name should be an array'] = '%name should be an array';
 $_lang['%name should be boolean'] = '%name should be boolean';
@@ -56,7 +53,6 @@ $_lang['Are you sure you want to unenrol the whole class on the course ?'] = 'Ar
 $_lang['Are you sure you want to uninstall the module'] = 'Are you sure you want to uninstall the module';
 $_lang['Asset not found : %asset'] = 'Asset not found : %asset';
 $_lang['Assignments'] = 'Assignments';
-$_lang['Back to Home page of %site_name'] = 'Back to Home page of %site_name';
 $_lang['Back to user\'s course list'] = 'Back to user\'s course list';
 $_lang['Before'] = 'Before';
 $_lang['Blank space'] = 'Blank space';
@@ -97,7 +93,6 @@ $_lang['Contact your administrator.'] = 'Contact your administrator.';
 $_lang['Conversion'] = 'Conversion';
 $_lang['Conversion 1.7 to 1.8'] = 'Conversion 1.7 to 1.8';
 $_lang['Could not load page %page'] = 'Could not load page %page';
-$_lang['Course "%course_name" (%course_code) has been deleted'] = 'Course "%course_name" (%course_code) has been deleted';
 $_lang['Course Manager'] = 'Course Manager';
 $_lang['Course profile'] = 'Course profile';
 $_lang['Course profile list'] = 'Course profile list';
@@ -120,7 +115,6 @@ $_lang['Disk space available'] = 'Disk space available';
 $_lang['Display'] = 'Display';
 $_lang['Display order'] = 'Display order';
 $_lang['Do you really want to delete the course "%course_name" ( %course_code ) ?'] = 'Do you really want to delete the course "%course_name" ( %course_code ) ?';
-$_lang['Document content'] = 'Document content : ';
 $_lang['Download current directory'] = 'Download current directory';
 $_lang['Download file'] = 'Download file';
 $_lang['ERROR in:<b>%file</b> Question format unknown'] = 'ERROR in:<b>%file</b> Question format unknown';
@@ -149,7 +143,6 @@ $_lang['Failed to update module visibility'] = 'Failed to update module visibili
 $_lang['Feedback Edited'] = 'Feedback Edited';
 $_lang['Field \'%name\' is required'] = 'Field \'%name\' is required';
 $_lang['File not know'] = 'File not know';
-$_lang['File received : %filename'] = 'File received : %filename ';
 $_lang['Files dezipped sucessfully in'] = 'Files dezipped sucessfully in';
 $_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.';
 $_lang['Finish the test'] = 'Finish the test';
@@ -250,7 +243,6 @@ $_lang['No item'] = 'No item';
 $_lang['No language folder'] = 'No language folder';
 $_lang['No module to uninstall'] = 'No module to uninstall';
 $_lang['No name'] = 'No name';
-$_lang['No scripts'] = 'No scripts';
 $_lang['No tool name'] = 'No tool name';
 $_lang['Node Moved, relaunch repair process to complete'] = 'Node Moved, relaunch repair process to complete';
 $_lang['OVER QUOTA'] = 'OVER QUOTA';
@@ -311,7 +303,6 @@ $_lang['This module cannot be deactivated'] = 'This module cannot be deactivated
 $_lang['This page is empty, use the editor to add content.'] = 'This page is empty, use the editor to add content.';
 $_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'This password is too simple. Use a password like this <code>%passProposed</code>';
 $_lang['This question is used in several exercises.'] = 'This question is used in several exercises.';
-$_lang['This text needs to be stripped to be correctly edited by editor.\nDo you want to clean it (some layout details could be lost in operation) ?'] = 'This text needs to be stripped to be correctly edited by editor.\nDo you want to clean it (some layout details could be lost in operation) ?';
 $_lang['This tool can not be uninstalled.'] = 'This tool can not be uninstalled.';
 $_lang['To install this module click <a href="%url">here</a>.'] = 'To install this module click <a href="%url">here</a>.';
 $_lang['Type'] = 'Type';
@@ -350,7 +341,6 @@ $_lang['Visible to other users'] = 'Visible to other users';
 $_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Warning the system distinguishes uppercase (capital) and lowercase (small) letters';
 $_lang['Website'] = 'Website';
 $_lang['Wiki %TITLE% exported to course documents. (this file is visible)'] = 'Wiki %TITLE% exported to course documents. (this file is visible)';
-$_lang['Work title'] = 'Work title';
 $_lang['Wrong enrolment key'] = 'Wrong enrolment key';
 $_lang['Wrong page title'] = 'Wrong page title';
 $_lang['Wrong parameters'] = 'Wrong parameters';
@@ -368,84 +358,6 @@ $_lang['Your total score is %score'] = 'Your total score is %score';
 $_lang['[%site_name] Course creation %course_name'] = '[%site_name] Course creation %course_name';
 $_lang['[%sitename][Request] Course creator status to %firstname %lastname'] = '[%sitename][Request] Course creator status to %firstname %lastname';
 $_lang['[%sitename][Request] Revocation of %firstname %lastname'] = '[%sitename][Request] Revocation of %firstname %lastname';
-$_lang['blockAccountCreationNotification'] = '
-Dear %firstname %lastname,
-You are registered on %siteName
-    Login name :  %username
-    Password  : %password
-    The address of  %siteName
-    Is : %rootWeb
-    In case of problems, contact us.
-    Yours sincerely,
-    %administratorName
---
-Manager %administratorName
-T. %administratorPhone
-Email : %administratorEmail
-    ';
-$_lang['blockCourseCreationEmailMessage'] = '%date
-
-Course creation on %sitename by the user %user_firstname %user_lastname ( %user_email )
-
-Course code : %course_code
-Course title : %course_title
-Lecturer(s) : %course_lecturers
-Email : %course_email
-Category : %course_category
-Language : %course_language
-Url : %course_url';
-$_lang['blockCourseSubscriptionNotification'] = '
-
-Dear %firstname %lastname,
-One of administrators of the course %courseCode has registered you on this course.
-
-The address of  %courseName is :
-
-%coursePath
-
-In case of problems, contact us.
-
-Yours sincerely,
-%administratorName
-
---
-Manager : %administratorName
-Phone : %administratorPhone
-Email : %administratorEmail
-';
-$_lang['blockForumNotificationEmailMessage'] = 'Dear %firstname %lastname,
-
-You are receiving this email because a new message in one of your favourite topics on our forums has been added, and
-you selected to be notified on this event.
-
-You may view the topic at:
-
-%url_topic
-
-Or view the forum index at
-
-%url_forum
-
-Thank you for using our forums.';
-$_lang['blockRequestCourseManagerStatusMail'] = '%time
-Course creator status to %firstname %lastname
-User : %user_id
-Name : %firstname %lastname
-Email : %email
-Comment : %comment
-Link : %url';
-$_lang['blockRequestUserRevoquationMail'] = '%time
-Revocation of %firstname %lastname
-User : %user_id
-Name : %firstname %lastname
-Email : %email
-Login : %login
-Password : %password
-Comment : %comment
-Link : %url';
-$_lang['blockUsersWithoutValidEmail'] = 'On %userQty registered users of the site, %userInvalidQty have unvalid or no email address.
-
-%messageFailed';
 $_lang['code'] = 'code';
 $_lang['complete'] = 'complete';
 $_lang['confirm the creation of a new user'] = 'confirm the creation of a new user';
