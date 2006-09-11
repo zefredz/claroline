@@ -359,7 +359,7 @@ switch ( $cmd )
                 $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
                            . '<h4>' . get_lang('Create a new learning path') . '</h4>' . "\n"
                            . '<label for="newPathName">'
-                           . get_lang('New learning path name')
+                           . get_lang('Rename')
                            . ' : </label>' . "\n"
                            . '<br />' . "\n"
                            . '<input type="text" name="newPathName" id="newPathName" maxlength="255">' . "\n"

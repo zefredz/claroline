@@ -590,7 +590,7 @@ class ClaroCourse
         $html .= '<p>'
         .    '<font color="#CC0000">'
         .    get_lang('Deleting this course will permanently delete all its documents and unenroll all its students.')
-        .    get_lang('Do you really want to delete the course "%course_name" ( %course_code ) ?', array('%course_name' => $this->title,
+        .    get_lang('Are you sure to delete the course "%course_name" ( %course_code ) ?', array('%course_name' => $this->title,
                                                                                                          '%course_code' => $this->officialCode ))
         .    '</font>'
         .    '</p>'
