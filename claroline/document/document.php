@@ -1046,7 +1046,7 @@ if ('exDownload' == $cmd )
     if (isset($_REQUEST['file']))
     {
         $bnFile = basename($_REQUEST['file']);
-        if (empty($bnFile)) $downloadArchiveName .= '.' . get_lang('complete');
+        if (empty($bnFile)) $downloadArchiveName .= '.complete';
         else                $downloadArchiveName .= '.' . $bnFile;
     }
     if (isset($_REQUEST['searchPattern'])) $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
