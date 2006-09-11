@@ -981,7 +981,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
 if ('rqSearch' == $cmd )
 {
-    $searchMsg = empty($cwd) ? get_lang("Search")." :" : get_lang("Search in ").$cwd." :" ;
+    $searchMsg = empty($cwd) ? get_lang("Search")." :" : get_lang('Search in %currentDirectory', array('%currentDirectory'=>$cwd) )." :" ;
     $dialogBox .=     "<form>\n"
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"
                     ."<label for=\"searchPattern\">".$searchMsg."</label><br />\n"
