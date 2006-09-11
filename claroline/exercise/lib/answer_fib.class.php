@@ -619,7 +619,7 @@ class answerFillInBlanks
             }
             
     		// answer
-    		$html .= '<p>' . get_lang('Please type your text below, use brackets &#91;...&#93; to define one or more blanks') . ' :</p>' . "\n"
+    		$html .= '<p>' . get_lang('Please type your text below, use brackets %mask to define one or more blanks', array('%mask'=>'&#91;...&#93;'))   . ' :</p>' . "\n"
     		
     		.	'<textarea name="answer" cols="65" rows="6">'.htmlspecialchars($this->answerDecode($this->answerText)).'</textarea>' . "\n"
     		
