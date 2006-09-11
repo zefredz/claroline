@@ -382,10 +382,10 @@ function profile_send_request_revoquation($explanation,$login,$password)
     $mailToUidList = claro_get_uid_of_platform_admin();
 
     $requestMessage_Title =
-    get_block('[%sitename][Request] Revocation of %firstname %lastname',
-    array('%sitename'  => get_conf('siteName'),
+    get_block('%sitename Request - Revocation of %firstname %lastname',
+    array('%sitename'  => '['.get_conf('siteName').']',
     '%firstname' => $_user['firstName'],
-    '%firstname' => $_user['lastName'] ) );
+    '%lastname' => $_user['lastName'] ) );
 
     $requestMessage_Content =
     get_block('blockRequestUserRevoquationMail',
