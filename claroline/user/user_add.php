@@ -144,7 +144,7 @@ if ( $cmd == 'registration' )
                 . '</li>'
                 . '<li>'
                 . '<a href="'.$confirmUserCreateUrl.'">'
-                . ucfirst( get_lang('confirm the creation of a new user') )
+                . get_lang('Confirm the creation of a new user')
                 . '</a>'
                 . '<br /><small>'
                 . $userData['lastname'    ] . ' ' . $userData['firstname']
