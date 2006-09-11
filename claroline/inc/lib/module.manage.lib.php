@@ -1651,23 +1651,23 @@ function get_dock_list($moduleType)
     {
         case 'applet' :
         {
-            $dockList[] = "campusBannerLeft";
-            $dockList[] = "campusBannerRight";
-            $dockList[] = "userBannerLeft";
-            $dockList[] = "userBannerRight";
-            $dockList[] = "courseBannerLeft";
-            $dockList[] = "courseBannerRight";
-            $dockList[] = "homePageCenter";
-            $dockList[] = "campusHomePageBottom";
-            $dockList[] = "homePageRightMenu";
-            $dockList[] = "campusFooterCenter";
-            $dockList[] = "campusFooterLeft";
-            $dockList[] = "campusFooterRight";
+            $dockList['campusBannerLeft'] = get_lang('Campus banner - left');
+            $dockList['campusBannerRight'] = get_lang('Campus banner - right');
+            $dockList['userBannerLeft'] = get_lang('User banner - left');
+            $dockList['userBannerRight'] = get_lang('User banner - right');
+            $dockList['courseBannerLeft'] = get_lang('Course banner - left');
+            $dockList['courseBannerRight'] = get_lang('Course banner - right');
+            $dockList['campusHomePageTop'] = get_lang('Campus homepage - top');
+            $dockList['campusHomePageBottom'] = get_lang('Campus homepage - bottom');
+            $dockList['campusHomePageRightMenu'] = get_lang('Campus homepage - right menu');
+            $dockList['campusFooterCenter'] = get_lang('Campus footer - center');
+            $dockList['campusFooterLeft'] = get_lang('Campus footer - left');
+            $dockList['campusFooterRight'] = get_lang('Campus footer - right');
             break;
         }
         case 'tool' :
         {
-            $dockList[] = "commonToolList";
+            $dockList['commonToolList'] = get_lang('Tool list');
         }
     }
     return $dockList;
