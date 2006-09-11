@@ -1822,17 +1822,17 @@ $_lang['blockFeedbackHelp'] = 'Le corrigé est optionnel. S\'il est complété, il 
 $_lang['blockForumNotificationEmailMessage'] = '
 Cher (chère) %firstname %lastname,
 
-Vous recevez cet email parce qu\\'un message que vous avez posté sur les forums a reçu une réponse, et que vous avez choisi d\\'en être informé.
+Vous recevez cet email parce qu\'un message que vous avez posté sur les forums a reçu une réponse, et que vous avez choisi d\'en être informé.
 
 Vous pouvez voir le sujet à:
 
 %url_topic
 
-Ou voir l\\'index du forum à
+Ou voir l\'index du forum à
 
 %url_forum
 
-Merci d\\'utiliser les forums.
+Merci d\'utiliser les forums.
 
 Bonne journée.';
 $_lang['blockForumsHelp'] = 'Le forum est un outil de discussion asynchrone par écrit.
