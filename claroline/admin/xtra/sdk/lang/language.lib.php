@@ -127,15 +127,18 @@ function store_lang_var($languageVarList, $sourceFileName, $languageName)
 
     global $problemMessage, $rootSys, $tbl_translation;
 
-    foreach($languageVarList as $thisVarKey => $thisVarContent)
+    foreach ( $languageVarList as $thisVarKey => $thisVarContent )
     {
-        $sql = "INSERT INTO " . $tbl_translation . " SET
-         VarName    = \"". addslashes($thisVarKey)."\",
-         VarContent = \"". addslashes($thisVarContent) ."\",
-         varFullContent  = \"". addslashes($thisVarContent) ."\",
-         language   = \"".addslashes($languageName)."\",
-         sourceFile = \"" . str_replace($rootSys,"",$sourceFileName) ."\"";
-        mysql_query($sql) or die($problemMessage);
+        if ( ! empty($thisVarContent) )
+        {
+            $sql = "INSERT INTO " . $tbl_translation . " SET
+             VarName    = \"". addslashes($thisVarKey)."\",
+             VarContent = \"". addslashes($thisVarContent) ."\",
+             varFullContent  = \"". addslashes($thisVarContent) ."\",
+             language   = \"".addslashes($languageName)."\",
+             sourceFile = \"" . str_replace($rootSys,"",$sourceFileName) ."\"";
+            mysql_query($sql) or die($problemMessage);
+        }
     }
 
 }
