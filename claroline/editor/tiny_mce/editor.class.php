@@ -57,10 +57,15 @@ class editor
     var $webPath;
     
     /**
-     * @var $askStrip true if we have to ask user before stripping old text, false otherwise
+     * @var $tag metadata comment added to identify editor
+     */
+    var $tag;
+
+    /**
+     * @var $askStrip ask user if the content can be cleaned ?
      */
     var $askStrip;
-
+    
     /**
      * constructor
      *
@@ -81,13 +86,12 @@ class editor
         $this->optAttrib = $optAttrib;
         $this->webPath = $webPath;
         
-        // check if we have to strip content        
-       	if( !empty($this->content) && false === strpos($this->content,'<!-- content: html tiny_mce -->') ) 
-    		$this->askStrip = true; 
-    	else
-    		$this->askStrip = false; 
-        
-        $this->prepareContent();
+		$this->tag = '<!-- content: html tiny_mce -->';
+		
+		// test content before preparing because preparation adds $this->tag
+		$this->askStrip = $this->needCleaning();		
+		
+	    $this->prepareContent();
     }
     
    
@@ -139,7 +143,7 @@ class editor
     	        .'    {'."\n"
 				.'        content = body.innerHTML;'."\n\n"	
         	    .'        content = content.replace(/style="[^"]*"/g, "");'."\n"
-    	        .'        content = content.replace(/<span [^>]*>/g, "");'."\n"
+    	        .'        content = content.replace(/<span[^>]*>/g, "");'."\n"
 	            .'        content = content.replace(/<\/span>/g, "");'."\n\n"
         	    .'        body.innerHTML = content ;'."\n"
     	        .'        return true;'."\n"            
@@ -185,9 +189,40 @@ class editor
     function prepareContent()
     {
     	// remove old 'metadata' and add the good one
-    	$this->content = preg_replace('/<!-- content:[^(\-\->)]*-->/', '', $this->content) . '<!-- content: html tiny_mce -->';
+    	$this->content = preg_replace('/<!-- content:[^(\-\->)]*-->/', '', $this->content) . $this->tag;
 
         return true;
+    }
+    
+    /**
+     * check if the text require a cleaning to be editable by tinymce
+     *
+     * @return boolean is content requiring a cleaning to be
+     * @access private
+     */
+    function needCleaning()
+    {
+    	// if we already have the tinymce tag content cleaning is not required
+	    if( strpos($this->content,$this->tag) !== false ) return false;    
+
+	    // if content contains only the tiny_mce tag cleaning is not required
+	    if( '' == str_replace($this->tag,'',$this->content) ) return false;
+
+    	if( preg_match('/style="[^"]*"/',$this->content) )
+    	{
+   			// if we have style attributes : cleaning is required
+    		return true;
+    	}    	
+    	elseif( preg_match('/<span[^>]*>/', $this->content) )
+    	{
+  			// if we have span tags : cleaning is required
+    		return true;
+    	}
+    	else
+    	{
+    		// nor style attributes neither span tags : cleaning is not required
+    		return false;
+    	}    	
     }
 
 }
