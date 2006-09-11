@@ -472,10 +472,10 @@ if ($is_allowedToEdit)
         <td valign="top"><?php echo get_lang('Default works visibility'); ?>&nbsp;:</td>
         <td>
           <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "VISIBLE") echo 'checked="checked"'; ?>>
-            <label for="visible">&nbsp;<?php echo get_lang('Visible to other users'); ?></label>
+            <label for="visible">&nbsp;<?php echo get_lang('Visible for all users'); ?></label>
             <br />
           <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "INVISIBLE") echo 'checked="checked"'; ?>>
-            <label for="invisible">&nbsp;<?php echo get_lang('Invisible to other users'); ?></label>
+            <label for="invisible">&nbsp;<?php echo get_lang('Only visible for teacher(s) and submitter(s)'); ?></label>
             <br />
         </td>
       </tr>

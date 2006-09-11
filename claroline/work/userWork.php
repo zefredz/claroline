@@ -990,7 +990,7 @@ if( $is_allowedToSubmit )
 			echo '<br />'  .  "\n"
 
 			.    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
-			.    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible to all users') : get_lang('Only visible by teacher and submitter'))
+			.    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)'))
 
 			.	'<br />'  .  "\n"
 
