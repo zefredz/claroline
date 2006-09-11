@@ -182,7 +182,7 @@ if($is_allowedToEdit)
         // form data have been handled before this point if the form was sent
         if( $formCorrectlySent && $assignment->save() )
         {
-            $dialogBox .= get_lang('Feedback Edited') . '<br /><br />';
+            $dialogBox .= get_lang('Feedback edited') . '<br /><br />';
             $dialogBox .= '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">';
             $dialogBox .= get_lang('Back');
             $dialogBox .= '</a>';

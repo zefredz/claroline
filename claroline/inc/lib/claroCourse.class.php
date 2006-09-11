@@ -305,14 +305,14 @@ class ClaroCourse
         // Validate course category
         if ( is_null($this->category) && $fieldRequiredStateList['category'] || $this->category == 'choose_one' )
         {
-            $this->backlog->failure(get_lang('Category needed (you must choose a category)'));
+            $this->backlog->failure(get_lang('Category needed'));
             $success = false ;
         }
         
         // Validate course language
         if ( empty($this->language) && $fieldRequiredStateList['language'])
         {
-            $this->backlog->failure(get_lang('language needed'));
+            $this->backlog->failure(get_lang('Language needed'));
             $success = false ;
         }
 

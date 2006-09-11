@@ -97,7 +97,7 @@ switch($cmd)
         $repairResult = repairTree();
         if ($repairResult)
         {
-            $repairResultMsg['success'][] = get_lang('Categories Structure is right');
+            $repairResultMsg['success'][] = get_lang('Categories structure is right');
         }
         else
         switch ($failure = claro_failure::get_last_failure())

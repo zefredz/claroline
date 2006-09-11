@@ -184,7 +184,7 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
 
 
     echo '<p>'  . "\n"
-    .    get_lang('Dear %firstname %lastname. Your personal settings have been registered.', array('%firstname'=>$user_data['firstname'],'%lastname'=>$user_data['lastname']))  . "\n"
+    .    get_lang('Dear %firstname %lastname, your personal settings have been registered.', array('%firstname'=>$user_data['firstname'],'%lastname'=>$user_data['lastname']))  . "\n"
     ;
 
     if ( $mailSent ) echo '<br />' . "\n" . get_lang('An email has been sent to help you remember your user name and password.');

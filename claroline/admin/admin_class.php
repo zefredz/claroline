@@ -206,7 +206,7 @@ switch ( $cmd )
 
         if ( move_class($form_data['class_id'],$form_data['class_parent_id']) )
         {
-            $dialogBox = get_lang('ClassMoved');
+            $dialogBox = get_lang('The class has been moved');
         }
         else
         {
