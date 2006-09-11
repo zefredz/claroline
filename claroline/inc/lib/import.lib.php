@@ -1218,7 +1218,7 @@
 
        	    // WARN PLATFORM ADMINISTRATOR OF THE COURSE CREATION
 
-			$mailSubject = get_lang('[%site_name] Course creation %course_name',array('%site_name'=> $siteName ,
+			$mailSubject = get_lang('%site_name Course creation %course_name',array('%site_name'=> '['.$siteName.']' ,
                                                                                           '%course_name'=> $courseTitle) );
 
 			$mailBody = get_block('blockCourseCreationEmailMessage', array ( '%date' => $dateTimeFormatLong,
