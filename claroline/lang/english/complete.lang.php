@@ -2188,4 +2188,12 @@ $_lang['unlimited'] = 'unlimited';
 $_lang['until'] = 'until';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.';
+$_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename is now in the document tool. (<em>This file is visible</em>)';
+$_lang['Categories structure is right'] = 'Categories structure is right';
+$_lang['Category needed'] = 'Category needed';
+$_lang['Dear %firstname %lastname, your personal settings have been registered.'] = 'Dear %firstname %lastname, your personal settings have been registered.';
+$_lang['Feedback edited'] = 'Feedback edited';
+$_lang['Language needed'] = 'Language needed';
+$_lang['The class has been moved'] = 'The class has been moved';
+$_lang['This text layout should be modified to be editable in this editor.\nCancel to keep your original text layout.\n'] = 'This text layout should be modified to be editable in this editor.\nCancel to keep your original text layout.\n';
 ?>
