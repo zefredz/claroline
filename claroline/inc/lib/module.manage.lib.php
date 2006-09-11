@@ -234,13 +234,18 @@ function get_and_unzip_uploaded_package()
     {
         $backlog_message[] = get_lang('Problem with file upload');
     }
-    else
-    {
-        $backlog_message[] = get_lang('Temporary file is : ') . $_FILES['uploadedModule']['tmp_name'];
-    }
+
     //1- Unzip folder in a new repository in claroline/module
 
     require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+        
+    if (!function_exists('gzopen'))
+    {
+        $backlog_message[] = get_lang('Error : no zlib extension found');
+        claro_delete_file($modulePath);
+        return claro_failure::set_failure($backlog_message);
+    }
+
     //unzip files
 
     $moduleRepositorySys = get_conf('rootSys') . 'module/';
@@ -252,14 +257,7 @@ function get_and_unzip_uploaded_package()
 
     if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) && treat_uploaded_file($_FILES['uploadedModule'],$moduleRepositorySys, $uploadDir, get_conf('maxFilledSpaceForModule' , 10000000),'unzip',true))
     {
-        $backlog_message[] = get_lang('Files dezipped sucessfully in ' ) . $modulePath;
-
-        if (!function_exists('gzopen'))
-        {
-            $backlog_message[] = get_lang('Error : no zlib extension found');
-            claro_delete_file($modulePath);
-            return claro_failure::set_failure($backlog_message);
-        }
+        $backlog_message[] = get_lang('Files dezipped sucessfully in %path', array ('%path' => $modulePath )) ;
     }
     else
     {
@@ -327,14 +325,14 @@ function generate_module_cache()
             }
             else
             {
-                return claro_failure::set_failure('cannot open ' . $module_cache_filepath);
+                return claro_failure::set_failure('Cannot open path %path', array('%path'=> $module_cache_filepath));
             }
         }
     }
     else
     {
         // FIXME E_USER_ERROR instead of E_USER_NOTICE
-        return claro_failure::set_failure('directory ' . $cacheRepositorySys . ' is not writable');
+        return claro_failure::set_failure('Directory %directory is not writable', array('%directory' => $cacheRepositorySys) );
     }
     
     return true;
@@ -365,7 +363,7 @@ function install_module($modulePath, $skipCheckDir = false)
         // TODO extract from install function should be tested BEFORE calling install_module
         if ( (!$skipCheckDir) && check_name_exist(get_module_path($module_info['LABEL']) . '/'))
         {
-            $backlog->failure( get_lang('%module is already installed on your platform.'
+            $backlog->failure( get_lang('Module %module is already installed on your platform'
                 , array('%module'=>$module_info['LABEL'])));
             // claro_delete_file($modulePath);
             // TODO : add code to point on existing instance of tool.
@@ -418,13 +416,9 @@ function install_module($modulePath, $skipCheckDir = false)
                         {
                             $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
                             
-                            if ( false !== claro_sql_multi_query($sql) )
+                            if ( claro_sql_multi_query($sql) === false )
                             {
-                                $backlog->success(get_lang( 'Database installation script succeeded' ));
-                            }
-                            else
-                            {
-                                $backlog->failure(get_lang( 'Database installation script failed' ));
+                                $backlog->failure(get_lang( 'Sql installation query failed' ));
                             }
                         }
                     }
@@ -446,9 +440,9 @@ function install_module($modulePath, $skipCheckDir = false)
                     {
                         list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
                         
-                        if ( $success2 )
+                        if ( ! $success2 )
                         {
-                            $backlog->success( get_lang('Courses updated') );
+                            $backlog->success( get_lang('Module installed in all courses') );
                         }
                         else
                         {
@@ -620,7 +614,7 @@ function uninstall_module($moduleId)
         
         if ( $success2 )
         {
-            $backlog->success( get_lang('Courses updated') );
+            $backlog->success( get_lang('Module uninstalled in all courses') );
         }
         else
         {
@@ -684,15 +678,18 @@ function uninstall_module($moduleId)
         // 2- delete related files and folders
     
         $modulePath = get_module_path($module['label']);
-    
-        if(claro_delete_file($modulePath))
+
+        if ( file_exists($modulePath) )
         {
-            $backlog->success( get_lang('%module files deleted', array('%module'=>$module['label'])) );
-        }
-        else
-        {
-            $backlog->failure( get_lang('Error while deleting %module files',array('%module'=>$module['label'])) );
-            $success = false;
+            if(claro_delete_file($modulePath))
+            {
+                $backlog->success( get_lang('Delete scripts of the module') );
+            }
+            else
+            {
+                $backlog->failure( get_lang('Error while deleting the scripts of the module') );
+                $success = false;
+            }
         }
     
         //  delete the module in the cours_tool table, used for every course creation
@@ -995,7 +992,7 @@ function register_module($modulePath)
             {
                 if (false !== ($toolId   = register_module_tool($moduleId,$module_info)))
                 {
-                    $regLog['info'][] = get_lang('%claroLabel registered as tool', array('%claroLabel'=>$module_info['LABEL']));
+                    $regLog['info'][] = get_lang('%label registered as tool', array('%claroLabel'=>$module_info['LABEL']));
                 }
                 else
                 {
@@ -1009,7 +1006,7 @@ function register_module($modulePath)
                     foreach($module_info['DEFAULT_DOCK'] as $dock)
                     {
                         add_module_in_dock($moduleId, $dock);
-                        $regLog['info'][] = get_lang('Module found and set : %dock', array('%dock' => $dock));
+                        $regLog['info'][] = get_lang('Module added in dock : %dock', array('%dock' => $dock));
                     }
                 }
             }
