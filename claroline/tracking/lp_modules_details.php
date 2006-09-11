@@ -160,7 +160,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
     }
   
     //### SOME USER DETAILS ###########################################
-    echo ucfirst(strtolower(get_lang('User'))).' : <br />'."\n"
+    echo get_lang('User') .' : <br />'."\n"
         .'<ul>'."\n"
         .'<li>'.get_lang('Last name').' : '.$uDetails['lastname'].'</li>'."\n"
         .'<li>'.get_lang('First name').' : '.$uDetails['firstname'].'</li>'."\n"

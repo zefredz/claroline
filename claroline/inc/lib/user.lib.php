@@ -961,13 +961,13 @@ function user_html_form($data, $form_type='registration')
     // Submit
     if ( 'registration' == $form_type )
     {
-        $html .= form_row( ucfirst(get_lang('Create')) . '&nbsp;: ',
+        $html .= form_row( get_lang('Create') . '&nbsp;: ',
         '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
         . claro_html_button(get_conf('urlAppend').'/index.php', get_lang('Cancel')) );
     }
     elseif ( 'admin_add_new_user' == $form_type)
     {
-        $html .= form_row( ucfirst(get_lang('Create')) . '&nbsp;: ' ,
+        $html .= form_row( get_lang('Create') . '&nbsp;: ' ,
         '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
         . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) );
     }
