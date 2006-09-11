@@ -85,7 +85,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
                             SET   `password` = "'. addslashes(md5($user[$i]['password'])) .'"
                              WHERE `user_id` = "'.$user[$i]['uid'].'"';
 
-                    if (false === claro_sql_query($sql)) trigger_error('<p align="center">'. get_lang('Unable to record new generated password !') . '</p>', E_USER_ERROR);
+                    if (false === claro_sql_query($sql)) trigger_error('<p align="center">'. get_lang('Wrong operation') . '</p>', E_USER_ERROR);
                 }
             }
             else

@@ -1004,7 +1004,7 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnenrol&amp;class_id=' . $cur_class['id'] . '"'
                 .    ' onClick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
-                .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol to course') . '" />' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
 
