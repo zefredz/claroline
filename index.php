@@ -61,6 +61,11 @@ if ($is_platformAdmin)
     ;
 }
 
+// Dock - Campus homepage - Top
+
+$campusHomePageTop = new Dock('campusHomePageTop');
+
+echo $campusHomePageTop->render();
 
 if ( isset($_uid) )
 {
@@ -131,6 +136,12 @@ else
     require $includePath . '/index_platformcourses.inc.php';
 }
 
+// Dock - Campus homepage - Bottom
+
+$campusHomePageBottom = new Dock('campusHomePageBottom');
+
+echo $campusHomePageBottom->render();
+
 ?>
 
 </td>
@@ -155,7 +166,7 @@ else
 
 //RIGHT MENU DOCK declaration
 
-$homePageRightMenu = new Dock('homePageRightMenu');
+$homePageRightMenu = new Dock('campusHomePageRightMenu');
 
 echo $homePageRightMenu->render();
 
