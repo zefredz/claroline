@@ -222,17 +222,21 @@ switch ( $cmd )
     }
     case 'movedock' :
     {
-        if(is_array($dockList))
+        if( is_array($dockList) )
         {
-            foreach ($dockList as $thedock)
+            if ( isset($_REQUEST['displayDockList']) && is_array($_REQUEST['displayDockList']) )
             {
-                if (isset($_REQUEST[$thedock]))
+                foreach ($dockList as $dockId => $dockName)
                 {
-                    add_module_in_dock($moduleId, $thedock);
-                }
-                else
-                {
-                    remove_module_dock($moduleId, $thedock);
+
+                    if ( in_array($dockId,$_REQUEST['displayDockList']) )
+                    {
+                        add_module_in_dock($moduleId, $dockId);
+                    }
+                    else
+                    {
+                        remove_module_dock($moduleId, $dockId);
+                    }
                 }
             }
             $dialogBox = get_lang('Changes in the display of the module have been applied');
@@ -462,26 +466,30 @@ switch ($item)
         elseif ($module['type'] == 'applet')
         {
             //choose the dock radio button list display
-            if (is_array($dockList) && $module['type']!='tool')
+            if ( is_array($dockList) && $module['type']!='tool')
             {
                 echo '<tr>' ."\n"
                 .    '<td syle="align:right" colspan="2">' . get_lang('Display'). '&nbsp;:</td>' ."\n"
                 .    '</tr>' ."\n"
                     ;
 
+                $i = 1;
+
                 //display each option
-                foreach ($dockList as $dock)
+                foreach ($dockList as $dockId => $dockName)
                 {
-                    if (in_array($dock,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
+                    if (in_array($dockId,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
         
                     echo '<tr>' ."\n"
                     .    '<td>&nbsp;</td>' ."\n"
                     .    '<td>' ."\n"
-                    .    '<input type="checkbox" name="' . $dock . '" value="' . $dock . '" ' . $is_checked . ' />'
-                    .    $dock
+                    .    '<input type="checkbox" name="displayDockList[]" value="' . $dockId . '" id="displayDock_' . $i . '" ' . $is_checked . ' />'
+                    .    '<label for="displayDock_' . $i . '">' . $dockName . '</label>'
                     .    '</td>' ."\n"
                     .    '</tr>' ."\n"
                     ;
+
+                    $i++;
                 }
             }
     
