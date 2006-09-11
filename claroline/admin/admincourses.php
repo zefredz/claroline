@@ -165,27 +165,39 @@ if ( !empty($_REQUEST['category']) )
     $isSearched .= get_lang('Category') . ' = ' . $_REQUEST['category'] . ' ';
     $advanced_search_query_string[] = 'category=' . urlencode($_REQUEST['category']);
 }
+
 if ( !empty($_REQUEST['language']) )
 {
     $isSearched .= get_lang('Language') . ' : ' . $_REQUEST['language'] . ' ';
     $advanced_search_query_string[] = 'language=' . urlencode($_REQUEST['language']);
 }
-if (isset($_REQUEST['access'])   && $_REQUEST['access'] == 'public')
-{
-    $isSearched .= ' <b><br />' . get_lang('Public course only') . ' </b> ';
 
-}
-if (isset($_REQUEST['access']) && $_REQUEST['access'] == 'private')
+if ( isset($_REQUEST['access']))
 {
-    $isSearched .= ' <b><br />' . get_lang('Private course only') . ' </b>  ';
+    $isSearched .= '<br />' . "\n";
+    
+    if ($_REQUEST['access'] == 'public')
+    {
+        $isSearched .= '<b>' . get_lang('Public course only') . '</b>';
+    }
+    else
+    {
+        $isSearched .= '<b>' . get_lang('Private course only') . '</b>';
+    }
 }
-if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'allowed')
+
+if ( isset($_REQUEST['subscription']) )
 {
-    $isSearched .= ' <b><br />' . get_lang('Enrolment allowed only') . ' </b>  ';
-}
-if (isset($_REQUEST['subscription']) && $_REQUEST['subscription'] == 'denied')
-{
-    $isSearched .= ' <b><br />' . get_lang('Enrolment denied only') . ' </b>  ';
+    $isSearched .= '<br />' . "\n";
+
+    if ( $_REQUEST['subscription'] == 'allowed' )
+    {
+        $isSearched .= '<b>' . get_lang('Enrolment allowed only') . '</b>';
+    }
+    else
+    {
+        $isSearched .= '<b>' . get_lang('Enrolment denied only') . ' </b>';
+    }
 }
 
 //see what must be kept for advanced links
