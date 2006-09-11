@@ -38,41 +38,42 @@ class Buffer
    }
 }
 
-function claro_get_docks_module_list()
+function claro_get_docks_module_list($force = false)
 {
-    $tbl_name = claro_sql_get_main_tbl();
+	static $dockList = null;
+	
+	if( is_null($dockList) || $force)
+	{
 
-    $tbl_module = $tbl_name['module'];
-    $tbl_dock = $tbl_name['dock'];
-
-    $sql = "SELECT M.`label` AS `label`, D.`name` AS `dock`
-              FROM `".$tbl_module."` AS M, `".$tbl_dock."` AS D
-             WHERE D.`module_id` = M.`id`
-               AND M.`activation` = 'activated'
-               ORDER BY D.`rank`
-              ";
-    $moduleList = claro_sql_query_fetch_all($sql);
-    
-    $ret = array();
-    
-    if ( $moduleList )
-    {
-        foreach ( $moduleList as $module )
-        {
-            if ( ! array_key_exists( $module['dock'], $ret ) )
-            {
-                $ret[$module['dock']] = array();
-            }
-            
-            $ret[$module['dock']][] = array( 'label' => $module['label']);
-        }
-        
-        return $ret;
-    }
-    else
-    {
-        return $ret;
-    }
+	    $tbl_name = claro_sql_get_main_tbl();
+	
+	    $sql = "SELECT M.`label` AS `label`, 
+	                   D.`name` AS `dock`
+	            FROM `" . $tbl_name['module'] . "` AS M, 
+	                 `" . $tbl_name['dock'] . "` AS D
+	             WHERE D.`module_id` = M.`id`
+	               AND M.`activation` = 'activated'
+	               ORDER BY D.`rank` ";
+	    $moduleList = claro_sql_query_fetch_all($sql);
+	    
+	    $dockList = array();
+	    
+	    if ( $moduleList )
+	    {
+	        foreach ( $moduleList as $module )
+	        {
+	            if ( ! array_key_exists( $module['dock'], $dockList ) )
+	            {
+	                $dockList[$module['dock']] = array();
+	            }
+	            
+	            $dockList[$module['dock']][] = array( 'label' => $module['label']);
+	        }
+	        
+	        
+	    }
+	}
+    return $dockList;
 }
 
 function getAppletList($dock)
