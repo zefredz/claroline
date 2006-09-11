@@ -468,7 +468,7 @@ switch ($display)
                 $data = claro_sql_query_fetch_all($sql);
                 if (!is_array($data) || 0 == sizeof($data))
                 $data[] = array( '-','qty'=>'-');
-                $dg->set_colTitleList(array(get_lang('paire'), get_lang('count')));
+                $dg->set_colTitleList(array(get_lang('Pairs'), get_lang('count')));
                 $dg->set_grid($data);
                 $datagrid[$levelView] = $dg->render();
                 $Cache_Lite->save($datagrid[$levelView],$levelView);
