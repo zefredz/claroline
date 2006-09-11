@@ -176,7 +176,7 @@ if (isset($_cid))
             }
             // now recheck to be sure the value is really filled before going further
             if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
-                $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No Name');
+                $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
         }
         $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php"
           name="redirector" method="POST">

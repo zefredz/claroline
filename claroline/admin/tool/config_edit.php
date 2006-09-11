@@ -149,7 +149,7 @@ $form = '';
 
 if ( !isset($_REQUEST['config_code']) )
 {
-    $message[] = get_lang('No configuration code');
+    $message[] = get_lang('Wrong parameters');
 }
 else
 {

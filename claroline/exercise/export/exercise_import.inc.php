@@ -251,7 +251,7 @@ function import_exercise($file, &$backlog_message)
     // delete the temp dir where the exercise was unzipped
     claro_delete_file($tmpExerciseDir);
 
-    $backlog_message[] = get_lang('Import successfull');
+    $backlog_message[] = get_lang('Import done');
     return $exercise_id;
 }
 

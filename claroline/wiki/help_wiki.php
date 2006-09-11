@@ -45,7 +45,7 @@
         }
         default:
         {
-            echo '<center><h1>'.get_lang("Missing help request").'</h1></center>';
+            echo '<center><h1>'.get_lang('Wrong parameters').'</h1></center>';
         }
     }
     
