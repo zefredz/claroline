@@ -39,11 +39,16 @@ function get_mime_on_ext($fileName)
             'hqx'   => 'application/mac-binhex40',
             'jpg'   => 'image/jpeg',
             'jpeg'  => 'image/jpeg',
+            'm3u'   => 'audio/x-mpegurl',
             'mid'   => 'audio/midi',
             'mov'   => 'video/quicktime',
             'mp3'   => 'audio/mpeg',
+            'mp4'   => 'video/mp4',
             'mpg'   => 'video/mpeg',
             'mpeg'  => 'video/mpeg',
+            'ogg'   => 'application/x-ogg',
+            
+            # Open Document Formats
             'odt'   => 'application/vnd.oasis.opendocument.text',
             'ott'   => 'application/vnd.oasis.opendocument.text-template',
             'oth'   => 'application/vnd.oasis.opendocument.text-web',
@@ -58,17 +63,22 @@ function get_mime_on_ext($fileName)
             'odf'   => 'application/vnd.oasis.opendocument.formula',
             'odb'   => 'application/vnd.oasis.opendocument.database',
             'odi'   => 'application/vnd.oasis.opendocument.image',
+            
             'pdf'   => 'application/pdf',
             'png'   => 'image/png',
             'ppt'   => 'application/vnd.ms-powerpoint',
             'pps'   => 'application/vnd.ms-powerpoint',
             'ps'    => 'application/postscript',
+            'ra'    => 'audio/x-realaudio',
+            'ram'   => 'audio/x-pn-realaudio',
             'rm'    => 'audio/x-pn-realaudio',
             'rpm'   => 'audio/x-pn-realaudio-plugin',
             'rtf'   => 'application/rtf',
             'sit'   => 'application/x-stuffit',
             'svg'   => 'image/svg+xml',
             'swf'   => 'application/x-shockwave-flash',
+            
+            # Open Office 1 Documents
             'sxw'   => 'application/vnd.sun.xml.writer',
             'stw'   => 'application/vnd.sun.xml.writer.template',
             'sxc'   => 'application/vnd.sun.xml.calc',
@@ -79,6 +89,7 @@ function get_mime_on_ext($fileName)
             'sti'   => 'application/vnd.sun.xml.impress.template',
             'sxg'   => 'application/vnd.sun.xml.writer.global',
             'sxm'   => 'application/vnd.sun.xml.math',
+            
             'tar'   => 'application/x-tar',
             'tex'   => 'application/x-tex',
             'tgz'   => 'application/x-gzip',
