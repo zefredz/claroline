@@ -88,15 +88,23 @@ if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
 {
     $pathInfo = realpath($coursesRepositorySys . $intermediatePath . '/' . $requestUrl);
     $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
+}
+else
+{
+    $pathInfo = $coursesRepositorySys. $intermediatePath 
+                . implode ( '/',   
+                            array_map('rawurlencode', explode('/',$requestUrl)));
+}
 
-    if ( preg_match('|^'.$coursesRepositorySys . $intermediatePath.'|', $pathInfo) )
+// Check if path exists in course folder
+
+if ( preg_match('|^'.$coursesRepositorySys . $intermediatePath.'|', $pathInfo) )
+{
+    if (file_exists($pathInfo) && ! is_dir($pathInfo) )
     {
-        if (file_exists($pathInfo) && ! is_dir($pathInfo) )
-        {
-            $mimeType = get_mime_on_ext( basename($pathInfo) );
-            if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
-            if( readfile($pathInfo)  > 0) event_download($requestUrl);
-        }
+        $mimeType = get_mime_on_ext( basename($pathInfo) );
+        if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
+        if( readfile($pathInfo)  > 0) event_download($requestUrl);
     }
     else
     {
@@ -105,27 +113,9 @@ if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
 }
 else
 {
-    header('Cache-Control: no-store, no-cache, must-revalidate');   // HTTP/1.1
-    header('Cache-Control: post-check=0, pre-check=0', false);
-    header('Pragma: no-cache');                                     // HTTP/1.0
+    header('HTTP/1.1 404 Not Found'); exit;
+}
 
-    // check that the file really exists before trigging the download tracking
-    if ( file_exists($coursesRepositorySys . $intermediatePath . $requestUrl) )
-    {
-        event_download($requestUrl);
-    }
+die();
 
-    $doc_dl_url = $coursesRepositoryWeb. $intermediatePath 
-                . implode ( '/',   
-                            array_map('rawurlencode', explode('/',$requestUrl)));
-
-    header('Location: ' . http_response_splitting_workaround( $doc_dl_url ) );
-
-    // if the browser doesn't support the location header
-    echo  get_lang('IfNotRedirect')
-        .'<a href="'.$doc_dl_url.'">'.get_lang('click here').'</a> .';
-
-    // exit to be sure the script stop running
-    exit();
-} // end else if $secureDownload
 ?>
