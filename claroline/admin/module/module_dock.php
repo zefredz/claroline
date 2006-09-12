@@ -34,14 +34,15 @@ $tbl_dock        = $tbl_name['dock'];
 if ( isset($_REQUEST['dock']) )
 {
     $dock = $_REQUEST['dock'];
+    $nameTools = get_lang('Modules in dock') . ' : ' . $dock;
 }
 else
 {
     $dock = null;
     $dialogBox = get_lang('No dock selected');
+    $nameTools = get_lang('Modules in dock');
 }
 
-$nameTools = get_lang('Module list in the dock : ') . $dock;
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => 'module_list.php','name' => get_lang('Module list'));
 
