@@ -349,7 +349,7 @@ function parse_file($exercisePath, $file, $questionFile)
     }
     else
     {
-        array_push ($backlog_message, get_lang('ERROR in:<b>%file</b> Question format unknown', array ('%file' => $questionFile) ) );
+        array_push ($backlog_message, get_lang('Error : Unknown question format in file %file', array ('%file' => $questionFile) ) );
     }
 }
 

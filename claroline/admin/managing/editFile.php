@@ -51,7 +51,7 @@ $fileId = (int) isset($_REQUEST['file']) ? $_REQUEST['file'] : null;
 if (!in_array($fileId,array_keys($filenameList)))
 {
     $fileId=null;
-    $controlMsg['error'][]=get_lang('File not know');
+    $controlMsg['error'][] = get_lang('Wrong parameters');
 };
 
 $textContent = isset($_REQUEST['textContent']) ? $_REQUEST['textContent'] : null;
