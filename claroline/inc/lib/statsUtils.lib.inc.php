@@ -252,66 +252,6 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
 }
 
 /**
- * This function is used to display
- * integrity errors in the platform
- * if results is not an array there is
- * no error, else errors are displayed
- *
- * @param array $results a 2 columns array
- *
- * @return void
- */
-
-function buildTabDefcon($results)
-{
-    echo '<table class="claroTable" width="60%" cellpadding="2" cellspacing="1" align="center">' . "\n";
-
-    if( !empty($results) && is_array($results) )
-    {
-        // there is some strange cases ...
-        echo '<tr class="headerX">' . "\n"
-        .    '<th colspan="2" align="center"><span class="error">'.get_lang('Ooops, stranges cases detected !!').'</span></th>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr class="headerX">' . "\n"
-        .    '<th colspan="2">' . get_lang('Number of rows') . ' : ' . count($results) . ' </th>' . "\n"
-        .    '</tr>' . "\n"
-        ;
-
-        foreach( $results as $result )
-        {
-            $keys = array_keys($result);
-
-            if( !isset($result[$keys[0]]) || $result[$keys[0]] == '') $key = get_lang('Empty (or NULL)');
-            else                                                      $key = $result[$keys[0]];
-
-            echo '<tr>' . "\n"
-            .    '<td width="70%">' . $key . '</td>' . "\n"
-            .    '<td width="30%" align="right">' . "\n"
-            ;
-
-            if( isset($result[$keys[1]]) ) echo $result[$keys[1]];
-            else                           echo '&nbsp;';
-
-            echo '</td>' . "\n"
-            .    '</tr>' . "\n\n"
-            ;
-        }
-
-    }
-    else
-    {
-        // all right
-        echo '<tr>' . "\n"
-        .    '<td colspan="2" align="center">'
-        .    '<span class="correct">' . get_lang('There is no strange case here') . '</span>'
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        ;
-    }
-    echo '</table>' . "\n\n";
-}
-
-/**
  * Complete the content of visibility column a with the litteral meaning
  *
  * @param results
