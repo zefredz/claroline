@@ -102,8 +102,9 @@ if ( preg_match('|^'.$coursesRepositorySys . $intermediatePath.'|', $pathInfo) )
 {
     if (file_exists($pathInfo) && ! is_dir($pathInfo) )
     {
-        $mimeType = get_mime_on_ext( basename($pathInfo) );
+        $mimeType = get_mime_on_ext($pathInfo);
         if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
+        header('Content-Disposition: inline; filename="' . basename($pathInfo) . '"');
         if( readfile($pathInfo)  > 0) event_download($requestUrl);
     }
     else
