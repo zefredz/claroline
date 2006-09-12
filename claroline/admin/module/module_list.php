@@ -526,13 +526,15 @@ foreach($moduleList as $module)
 
     //name column
 
+    $moduleName = $module['name'];
+
     if (file_exists(get_module_path($module['label']) . '/admin.php') && ($module['type']!='tool'))
     {
-        echo '<td align="left"><a href="' . get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+        echo '<td align="left"><a href="' . get_module_url($module['label']) . '/admin.php" >' . get_lang($moduleName) . '</a></td>' . "\n";
     }
     else
     {
-        echo '<td align="left">' . $module['name'] . '</td>' . "\n";
+        echo '<td align="left">' . get_lang($moduleName) . '</td>' . "\n";
     }
 
     //displaying location column
