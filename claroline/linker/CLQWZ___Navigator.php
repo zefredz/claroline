@@ -75,7 +75,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                          foreach ($exercices as $itemExercice )
                          {
                              $crl = $node."/".$itemExercice["id"];
-                             if( $itemExercice["active"] == 1 )
+                             if( $itemExercice["visibility"] == 'VISIBLE' )
                              {
                                  $isVisible = TRUE;
                              }
@@ -83,7 +83,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                              {
                                  $isVisible = FALSE;
                              }
-                             $container = new ClaroObject( $itemExercice["titre"] , $crl , TRUE , FALSE , $isVisible);
+                             $container = new ClaroObject( $itemExercice["title"] , $crl , TRUE , FALSE , $isVisible);
                              $elementList[] = $container ;
                          }
 
@@ -123,9 +123,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $courseInfoArray = get_info_course($course_sys_code);
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
-            $tbl_exercice = $tbl_cdb_names['quiz_test'];
+            $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
-            $sql = 'SELECT `id`,`titre`,`active` FROM `'.$tbl_exercice.'`';
+            $sql = 'SELECT `id`,`title`,`visibility` FROM `'.$tbl_quiz_exercise.'`';
             $exercice = claro_sql_query_fetch_all($sql);
 
             return $exercice;

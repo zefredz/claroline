@@ -63,11 +63,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 if(CRLTool::isForThisTool($crl,'CLQWZ___'))
                {
                    $elementCRLArray = CRLTool::parseCRL($crl);
-                   $url = $this->_basePath . "/claroline/exercice/";
+                   $url = $this->_basePath . "/claroline/exercise/";
 
                    if( isset($elementCRLArray['resource_id']) )
                    {
-                        $url .= "exercice_submit.php?exerciseId={$elementCRLArray['resource_id']}&cidReq={$elementCRLArray['course_sys_code']}";
+                        $url .= "exercise_submit.php?exId={$elementCRLArray['resource_id']}&cidReq={$elementCRLArray['course_sys_code']}";
                        return $url;
                    }
                    else
@@ -124,10 +124,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $courseInfoArray = get_info_course($course_sys_code);
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
-            $tbl_exercice = $tbl_cdb_names['quiz_test'];
+            $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
-            $sql = 'SELECT `titre`
-                    FROM '.$tbl_exercice.'
+            $sql = 'SELECT `title`
+                    FROM '.$tbl_quiz_exercise.'
                     WHERE `id`='. (int)$id;
             $exerciceTitle = claro_sql_query_get_single_value($sql);
 
