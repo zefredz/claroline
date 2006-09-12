@@ -343,11 +343,7 @@ function parse_file($exercisePath, $file, $questionFile)
 
     fclose($fp);
 
-    if ($question_format_supported)
-    {
-        array_push ($backlog_message, get_lang('Question format found') );
-    }
-    else
+    if( !$question_format_supported )
     {
         array_push ($backlog_message, get_lang('Error : Unknown question format in file %file', array ('%file' => $questionFile) ) );
     }
