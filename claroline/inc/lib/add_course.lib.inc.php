@@ -274,7 +274,7 @@ function update_db_course($courseDbName)
     if (!get_conf('singleDbEnabled'))
     {
         claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
-        if (mysql_errno() > 0) return CLARO_ERROR_CANT_CREATE_DB;
+        if (mysql_errno() > 0) return claro_failure::set_failure('CLARO_ERROR_CANT_CREATE_DB');
     }
 
     $courseDbName = get_conf('courseTablePrefix') . $courseDbName . get_conf('dbGlu');
