@@ -144,7 +144,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
     }
     else
     {
-        $msg = get_lang('There is no user account with this email address.');
+        $msg = '<p>' . get_lang('There is no user account with this email address.') . '</p>';
     }
 
     if ($extAuthPasswordCount > 0 )
