@@ -17,6 +17,9 @@ $tlabelReq = 'CLDOC';
 
 require '../../inc/claro_init_global.inc.php';
 
+require_once $includePath . '/lib/url.lib.php';
+require_once $includePath . '/lib/file.lib.php';
+
 if (isset($_REQUEST['url']) )
 {
     $requestUrl = $_REQUEST['url'];
@@ -125,134 +128,4 @@ else
     // exit to be sure the script stop running
     exit();
 } // end else if $secureDownload
-
-
-function get_slashed_argument($completePath, $baseFile)
-{
-    
-    $pahtElementList = explode($baseFile, $completePath);
-
-    if ( count($pahtElementList) > 1)
-    {
-        $argument = array_pop($pahtElementList);
-
-        $questionMarkPos = strpos($argument, '?');
-        
-        if (is_int($questionMarkPos)) return substr($argument, 0, $questionMarkPos);
-        else                          return $argument;
-        
-    }
-    else
-    {
-        return '';
-    }
-}
-
-/**
- * Returns the name of the current script, WITH the querystring portion.
- * this function is necessary because PHP_SELF and REQUEST_URI and SCRIPT_NAME
- * return different things depending on a lot of things like your OS, Web
- * server, and the way PHP is compiled (ie. as a CGI, module, ISAPI, etc.)
- * <b>NOTE:</b> This function returns false if the global variables needed are not set.
- *
- * @return string
- */
- function get_request_uri() {
-
-    if (!empty($_SERVER['REQUEST_URI'])) {
-        return $_SERVER['REQUEST_URI'];
-
-    } else if (!empty($_SERVER['PHP_SELF'])) {
-        if (!empty($_SERVER['QUERY_STRING'])) {
-            return $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
-        }
-        return $_SERVER['PHP_SELF'];
-
-    } else if (!empty($_SERVER['SCRIPT_NAME'])) {
-        if (!empty($_SERVER['QUERY_STRING'])) {
-            return $_SERVER['SCRIPT_NAME'] .'?'. $_SERVER['QUERY_STRING'];
-        }
-        return $_SERVER['SCRIPT_NAME'];
-
-    } else if (!empty($_SERVER['URL'])) {     // May help IIS (not well tested)
-        if (!empty($_SERVER['QUERY_STRING'])) {
-            return $_SERVER['URL'] .'?'. $_SERVER['QUERY_STRING'];
-        }
-        return $_SERVER['URL'];
-
-    } else {
-        notify('Warning: Could not find any of these web server variables: $REQUEST_URI, $PHP_SELF, $SCRIPT_NAME or $URL');
-        return false;
-    }
-}
-
-function get_mime_on_ext($fileName)
-{
-    $mimeType = null;
-
-    /*
-     * Check if the file has an extension AND if the browser has send a MIME Type
-     */
-
-    if( preg_match('|.[[:alnum:]]+$|', $fileName, $match) )
-    {
-        $fileExtension = strtolower( $match[0] );
-
-        /*
-         * Build a "MIME-types / extensions" connection table
-         */
-
-        $mimeTypeList = array(); $extensionList = array();
-
-        $mimeTypeList[] = 'text/plain';                     $extensionList[] = '.txt';
-        $mimeTypeList[] = 'application/msword';             $extensionList[] = '.doc';
-        $mimeTypeList[] = 'application/rtf';                $extensionList[] = '.rtf';
-        $mimeTypeList[] = 'application/vnd.ms-powerpoint';  $extensionList[] = '.ppt';
-        $mimeTypeList[] = 'application/vnd.ms-powerpoint';  $extensionList[] = '.pps';
-        $mimeTypeList[] = 'application/vnd.ms-excel';       $extensionList[] = '.xls';
-        $mimeTypeList[] = 'application/pdf';                $extensionList[] = '.pdf';
-        $mimeTypeList[] = 'application/postscript';         $extensionList[] = '.ps';
-        $mimeTypeList[] = 'application/mac-binhex40';       $extensionList[] = '.hqx';
-        $mimeTypeList[] = 'application/x-gzip';             $extensionList[] = 'tar.gz';
-        $mimeTypeList[] = 'application/x-shockwave-flash';  $extensionList[] = '.swf';
-        $mimeTypeList[] = 'application/x-stuffit';          $extensionList[] = '.sit';
-        $mimeTypeList[] = 'application/x-tar';              $extensionList[] = '.tar';
-        $mimeTypeList[] = 'application/zip';                $extensionList[] = '.zip';
-        $mimeTypeList[] = 'application/x-tar';              $extensionList[] = '.tar';
-        $mimeTypeList[] = 'text/html';                      $extensionList[] = '.htm';
-        $mimeTypeList[] = 'text/plain';                     $extensionList[] = '.txt';
-        $mimeTypeList[] = 'text/rtf';                       $extensionList[] = '.rtf';
-        $mimeTypeList[] = 'image/gif';                      $extensionList[] = '.gif';
-        $mimeTypeList[] = 'image/jpeg';                     $extensionList[] = '.jpg';
-        $mimeTypeList[] = 'image/png';                      $extensionList[] = '.png';
-        $mimeTypeList[] = 'audio/midi';                     $extensionList[] = '.mid';
-        $mimeTypeList[] = 'audio/mpeg';                     $extensionList[] = '.mp3';
-        $mimeTypeList[] = 'audio/x-aiff';                   $extensionList[] = '.aif';
-        $mimeTypeList[] = 'audio/x-pn-realaudio';           $extensionList[] = '.rm';
-        $mimeTypeList[] = 'audio/x-pn-realaudio-plugin';    $extensionList[] = '.rpm';
-        $mimeTypeList[] = 'audio/x-wav';                    $extensionList[] = '.wav';
-        $mimeTypeList[] = 'video/mpeg';                     $extensionList[] = '.mpg';
-        $mimeTypeList[] = 'video/quicktime';                $extensionList[] = '.mov';
-        $mimeTypeList[] = 'video/x-msvideo';                $extensionList[] = '.avi';
-        $mimeTypeList[] = 'image/svg+xml';                  $extensionList[] = '.svg';
-        $mimeTypeList[] = 'application/octet-stream';       $extensionList[] = '.fla'; 
-
-        /*
-         * Check if the MIME type send by the browser is in the table
-         */
-
-        foreach($extensionList as $key => $extension)
-        {
-            if ($extension == $fileExtension)
-            {
-                $mimeType = $mimeTypeList[$key];
-                break;
-            }
-        }
-    }
-
-    return $mimeType;
-}
-
-
 ?>
