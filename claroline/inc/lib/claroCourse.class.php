@@ -159,6 +159,9 @@ class ClaroCourse
                    ,               $this->departmentUrl)
                 )
             {
+                // set course id
+                $this->courseId = $courseSysCode;
+
             	// notify event manager
                 $args['courseSysCode'  ] = $courseSysCode;
                 $args['courseDbName'   ] = $courseDbName;
