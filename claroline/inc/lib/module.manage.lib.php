@@ -232,7 +232,7 @@ function get_and_unzip_uploaded_package()
     if( !isset($_FILES['uploadedModule'])
     || !is_uploaded_file($_FILES['uploadedModule']['tmp_name']))
     {
-        $backlog_message[] = get_lang('Problem with file upload');
+        $backlog_message[] = get_lang('Upload failed');
     }
 
     //1- Unzip folder in a new repository in claroline/module
