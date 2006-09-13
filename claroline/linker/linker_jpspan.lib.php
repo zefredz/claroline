@@ -70,7 +70,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 . "var lang_attachements = '".addslashes(get_lang("Attached resources"))."';</script>\n";
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_already_in_attachement_list = '".addslashes(get_lang(" is already attached"))."';</script>\n";
+                . "var lang_already_in_attachement_list = '".addslashes(get_lang("%itemName is already attached"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var lang_linker_add_new_attachment = '".addslashes(get_lang("Attach an existing resource"))."';</script>\n"; 

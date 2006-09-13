@@ -156,7 +156,7 @@
             }
             else
             {
-                alert( "["+ title + "] " + lang_already_in_attachement_list );
+                alert( lang_already_in_attachement_list.replace("%itemName","["+title+"]") );
             }
             
             display_shopping_cart();
