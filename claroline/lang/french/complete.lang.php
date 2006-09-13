@@ -2169,4 +2169,29 @@ $_lang['uncompress zipped (.zip) file on the server'] = 'Décompresser fichier zi
 $_lang['unlimited'] = 'Essais illimités';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Attention : l\'installation n\'a pas trouvé la description du parcours pédagogique et a attribué un commentaire par défaut. Vous pourrez le changer par la suite';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Attention : l\'installation n\'a pas trouvé le nom du parcours pédagogique et a attribué un nom par défaut. Vous pourrez le changer par la suite.';
+$_lang['%delay ago'] = "il y a %delay";
+$_lang['Cannot update course database for %course'] = "Impossible de mettre à jour la base de données pour le cours %course";
+$_lang['Cannot update database'] = "Impossible de mettre à jour la base de données";
+$_lang['Error : Unknown question format in file %file'] = "Erreur : le format de la question trouvée dans le fichier %file est inconnu";
+$_lang['Module sucessfully activated'] = "Le module a été activé avec succès";
+$_lang['Module sucessfully deactivated'] = "Le module a été désactivé avec succès";
+$_lang['No dock chosen'] = "Vous devez choisir un emplacement";
+$_lang['No dock selected'] = "Pas d'emplacement sélectionné";
+$_lang['Node Moved, relaunch repair process to complete'] = "Le noeud a été déplacé, relancez la procédure pour terminer la réparation de la structure.";
+$_lang['Remove from the dock'] = "Retirer de cet emplacement";
+$_lang['Secondary manifest found in zip file :'] = "Un manifeste secondaire a été trouvé :";
+$_lang['Sql installation query failed'] = "La requête SQL d'installation a échoué";
+$_lang['Store failed'] = "Echec lors de la sauvegarde de la discussion.";
+$_lang['The module has been removed from this dock'] = "Le module a été retiré de cet emplacement";
+$_lang['There is a folder called <b><i>%module_name</i></b> for which there is no module installed.'] = "Il existe un dossier <b><i>%module_name</i></b> ne correspondant à aucun des modules déjà installés.";
+$_lang['There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.'] = "Le module <b><i>%module_name</i></b> est enregistré en base de données mais n'a pas de répertoire correspondant sur le serveur.";
+$_lang['There is an error in exercise data of imported file.'] = "Il y a une erreur dans les données de l'exercice importé.";
+$_lang['Unenrol from course'] = "Désinscrire du cours";
+$_lang['Unknow error during unsubscribing'] = "Erreur inattendue durant la désinscription";
+$_lang['Unknown error'] = "Erreur inattendue";
+$_lang['blockUsersWithoutValidEmail'] = "%userInvalidQty utilisateurs parmi les %userQty utilisateurs enregistrés sur le site ont une adresse e-mail invalide ou inexistante.
+
+%messageFailed";
+$_lang['count'] = "nombre";
+$_lang['until'] = "jusqu'au";
 ?>
