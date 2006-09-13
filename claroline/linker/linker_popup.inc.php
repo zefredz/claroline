@@ -1,5 +1,7 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+// NE PAS PROTEGER CE SCRIPT : IL EST APPELE EN DIRECT
+
 /**
  * CLAROLINE 
  *
