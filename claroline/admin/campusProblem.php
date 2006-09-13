@@ -608,11 +608,11 @@ switch ($display)
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
-                //-- subscription to courses without account
+                //-- Courses with unexisting users registered : courses that have users not registered on the platform
                 echo '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
-                .    get_lang('Subscription to courses without account')
+                .    get_lang('Courses with unexisting users registered')
                 .    '</b>'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<small>'
@@ -663,7 +663,7 @@ switch ($display)
                 echo '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-                .    get_lang('Subscription to courses without account')
+                .    get_lang('Courses with unexisting users registered')
                 .    '</a>'
                 ;
             }
