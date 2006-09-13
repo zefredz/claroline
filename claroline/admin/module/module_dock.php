@@ -33,14 +33,16 @@ $tbl_dock        = $tbl_name['dock'];
 
 if ( isset($_REQUEST['dock']) )
 {
-    $dock = $_REQUEST['dock'];
-    $nameTools = get_lang('Modules in dock') . ' : ' . $dock;
+	$dockList = get_dock_list('applet');
+	$dock = $_REQUEST['dock'];
+    $dockName = isset($dockList[$dock]) ? $dockList[$dock] : $dock ;
+    $nameTools = get_lang('Dock') . ' : ' . $dockName;
 }
 else
 {
     $dock = null;
     $dialogBox = get_lang('No dock selected');
-    $nameTools = get_lang('Modules in dock');
+    $nameTools = get_lang('Dock');
 }
 
 $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
@@ -188,6 +190,10 @@ if ( !empty($dock) )
             .    '</a>' . "\n"
             ;
         }
+        else
+        {
+        	echo '&nbsp;';
+        }
         echo '</td>' . "\n";
 
         //down
@@ -199,6 +205,10 @@ if ( !empty($dock) )
             .    '<img src="' . $imgRepositoryWeb . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
             .    '</a>'
             ;
+        }        
+        else
+        {
+        	echo '&nbsp;';
         }
         echo '</td>' . "\n";
 
