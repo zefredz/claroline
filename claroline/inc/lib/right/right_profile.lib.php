@@ -219,6 +219,9 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
         else                 return false ;
     }
 
+    // FIXME
+    if ( $GLOBALS['is_platformAdmin'] ) return true;
+
     // get course profile right
     $courseProfileRight = claro_get_course_profile_right($profileId,$courseId);
 
