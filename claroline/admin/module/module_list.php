@@ -381,7 +381,8 @@ $moduleList = $myPager->get_result_list();
 
 //find docks in which the modules do appear.
 
-$module_docks = array();
+$module_dock = array();
+$dockList = get_dock_list($typeReq); // will be usefull to display correctly the dock names
 
 foreach ($moduleList as $module)
 {
@@ -493,7 +494,6 @@ echo '<th>' . get_lang('Properties')          . '</th>' . "\n"
 ;
 
 // Start the list of modules...
-
 foreach($moduleList as $module)
 {
     //display settings...
@@ -543,15 +543,18 @@ foreach($moduleList as $module)
     if ($module['type']!='tool' )
     {
         echo '<td align="left"><small>';
-        foreach ($module_dock[$module['id']] as $dock)
-        {
-           echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dock['dockname'] . '</a> <br/>';
-        }
-
         if (empty($module_dock[$module['id']]))
         {
             echo '<span align="center">' . get_lang('No dock chosen') . '</span>';
         }
+        else
+        {
+            foreach ($module_dock[$module['id']] as $dock)
+	        {
+           		echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dockList[$dock['dockname']] . '</a> <br/>';
+        	}
+        }
+        
         echo '</small></td>' . "\n";
    }
    else
