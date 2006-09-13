@@ -12,6 +12,7 @@
  * @author claro team <cvs@claroline.net>
  */
 
+$cidReset=true;$gidReset=true;
 require '../../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
