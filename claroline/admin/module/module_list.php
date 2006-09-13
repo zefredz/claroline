@@ -482,7 +482,7 @@ if ($typeReq!='tool')
 }
 else
 {
-    echo '<th colspan="2">' . get_lang('Display order')       . '</th>' . "\n";
+    echo '<th colspan="2">' . get_lang('Order')       . '</th>' . "\n";
 }
 echo '<th>' . get_lang('Properties')          . '</th>' . "\n"
 .    '<th>' . get_lang('Uninstall')           . '</th>' . "\n"
