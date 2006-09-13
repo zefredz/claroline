@@ -91,10 +91,10 @@ include $includePath . '/claro_init_footer.inc.php';
  * @global $clarolineRepositorySys
  */
 
-function restore_course_repository($courseID, $courseRepository)
+function restore_course_repository($courseId, $courseRepository)
 {
 
-    global $clarolineRepositorySys, $includePath;
+    global $clarolineRepositorySys, $clarolineRepositoryWeb, $includePath;
 
     if ( is_writable($courseRepository) )
     {
@@ -109,27 +109,25 @@ function restore_course_repository($courseID, $courseRepository)
         if ( !is_dir($courseRepository . '/modules'       ) ) mkdir($courseRepository . '/modules'       , CLARO_FILE_PERMISSIONS);
         if ( !is_dir($courseRepository . '/scormPackages' ) ) mkdir($courseRepository . '/scormPackages' , CLARO_FILE_PERMISSIONS);
 
-        /**
-         *    add $cidReq in index.php (Missing var in claroline 1.3)
-         */
-
         // build index.php of course
-        $fd = fopen( $courseRepository . '/index.php', 'w');
+        $fd = fopen($courseRepository . '/index.php', 'w');
+        if ( ! $fd) return claro_failure::set_failure('CANT_CREATE_COURSE_INDEX');
 
-        // str_replace() removes \r that cause squares to appear at the end of each line
-        $string=str_replace("\r","","<?"."php
-              \$cidReq = \"$courseID\";
-              \$claroGlobalPath = \"$includePath\";
-              include(\"".$clarolineRepositorySys."course_home/course_home.php\");
-    ?>");
-        
-        fwrite($fd, "$string");
-        fclose($fd);
-        $fd=fopen($courseRepository."/group/index.php", "w");
-        $string="<"."?"."php"." session_start"."()"."; ?>";
-        fwrite($fd, "$string");
-        fclose($fd);        
-        return 1;
+        $string = '<?php ' . "\n"
+                . 'header (\'Location: '. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
+              . '?' . '>' . "\n" ;
+
+        if ( ! fwrite($fd, $string) ) return false;
+        if ( ! fclose($fd) )          return false;
+
+        $fd = fopen($courseRepository . '/group/index.php', 'w');
+        if ( ! $fd ) return false;
+
+        $string = '<?php session_start(); ?'.'>';
+
+        if ( ! fwrite($fd, $string) ) return false;
+
+        return true;
     
     } else {
         printf ('repository %s not writable', $courseRepository);
