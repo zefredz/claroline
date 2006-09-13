@@ -119,10 +119,22 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 
 $userList = $myPager->get_result_list();
 
-$userGrid = array();
-
+if (is_array($userList))
 foreach ($userList as $userKey => $user)
 {
+	$sql ="Select count(DISTINCT code_cours) AS qty_course
+           FROM  `" . $tbl_mdb_names['rel_course_user'] . "` 
+           WHERE user_id = '". (int) $user['user_id'] ."'
+		  GROUP BY user_id";
+	$userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
+}
+
+
+$userGrid = array();
+if (is_array($userList))
+foreach ($userList as $userKey => $user)
+{
+	
     $userGrid[$userKey]['user_id']   = $user['user_id'];
     $userGrid[$userKey]['name']      = $user['name'];
     $userGrid[$userKey]['firstname'] = $user['firstname'];
@@ -150,6 +162,9 @@ foreach ($userList as $userKey => $user)
     .                                 '&amp;cfrom=ulist' . $addToURL . '">'
     .                                 '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
     .    '</a>';
+
+	
+    
     $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
     .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
     .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
@@ -177,7 +192,7 @@ $userDataGrid->set_colTitleList(array (
                 ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
                 ,'isCourseCreator'=>'<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>'
                 ,'settings'=> get_lang('User settings')
-                ,'qty_course'=>'<a href="' . $sortUrlList['qty_course'  ] . '">' . get_lang('Courses') . '</a>'
+                ,'qty_course' => get_lang('Courses') 
                 ,'delete'=>get_lang('Delete') ));
 
 if ( count($userGrid)==0 )
@@ -315,13 +330,8 @@ function get_sql_filtered_user_list()
                    U.pictureUri                  AS pictureUri,
                    U.creatorId                   AS creator_id,
                    U.isCourseCreator ,
-                   U.isPlatformAdmin             AS isPlatformAdmin,
-                   count(DISTINCT CU.code_cours) AS qty_course
-
+                   U.isPlatformAdmin             AS isPlatformAdmin
            FROM  `" . $tbl_mdb_names['user'] . "` AS U
-           LEFT JOIN `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
-                  ON CU.user_id = U.user_id
-
            WHERE 1=1 ";
 
     //deal with admin user search only
@@ -371,7 +381,6 @@ function get_sql_filtered_user_list()
         $sql.=" AND (U.isCourseCreator=0)";
     }
 
-    $sql.=" GROUP BY U.user_id ";
         return $sql;
 }
 
