@@ -421,11 +421,7 @@ echo claro_html_tool_title($pageTitle);
 echo '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 .    $assignment->getTitle() . '<br />'  . "\n"
-.    '<b>' . get_lang('From') . '</b>' . "\n"
-.    claro_disp_localised_date($dateTimeFormatLong, $assignment->getStartDate()) . "\n"
-
-.    '<b>' . get_lang('until') . '</b>' . "\n"
-.    claro_disp_localised_date($dateTimeFormatLong, $assignment->getEndDate())
+.    get_lang('<b>From</b> %startDate <b>until</b> %endDate', array('%startDate' => claro_disp_localised_date($dateTimeFormatLong, $assignment->getStartDate()), '%endDate' => claro_disp_localised_date($dateTimeFormatLong, $assignment->getEndDate()) ) )
 
 .	'<br />'  .  "\n"
 
