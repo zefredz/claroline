@@ -90,7 +90,7 @@ array ('label'       => 'Course Title is'
       );
 
 $conf_def_property_list['course_email_needed'] =
-array ('label'       => 'Course email email is'
+array ('label'       => 'Course email is'
       ,'description' => 'User can leave email field empty or not'
       ,'default'     => FALSE
       ,'type'        => 'boolean'
