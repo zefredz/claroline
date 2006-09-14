@@ -112,7 +112,8 @@ foreach ($toolList as $thisTool)
 
     if (isset($thisTool['label'])) // standart claroline tool or module of type tool
     {
-        $toolName = get_lang($thisTool['name']);
+        $thisToolName = $thisTool['name'];
+        $toolName = get_lang($thisToolName);
 
         //trick to find how to build URL, must be IMPROVED
 

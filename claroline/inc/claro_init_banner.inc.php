@@ -222,11 +222,12 @@ if (isset($_cid))
                 {
                     $toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
                 }
-
+                
+                $_courseToolDataName = $_courseToolData['name'];
                 $courseToolSelector .= '<option value="' . $_toolDataUrl . '" '
                 .   $toolSelected
                 .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
-                .    get_lang($_courseToolData['name'])
+                .    get_lang($_courseToolDataName)
                 .    '</option>'."\n"
                 ;
             }
