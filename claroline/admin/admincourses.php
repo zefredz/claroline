@@ -31,7 +31,6 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/pager.lib.php';
 
-
 /**
  * Check incoming data
  */
@@ -139,6 +138,29 @@ $myPager->set_sort_key($sortKey, $sortDir);
 $myPager->set_pager_call_param_name('offsetC');
 $courseList = $myPager->get_result_list();
 
+
+if (is_array($courseList))
+foreach ($courseList as $courseKey => $course)
+{
+    $sql ="SELECT
+    count(IF(`isCourseManager`=0,1,null))
+    AS `qty_stu`,
+    #count only lines where user is not course manager
+
+    count(IF(`isCourseManager`=1,1,null))
+    AS `qty_cm`
+    #count only lines where statut of user is 1
+           FROM  `" . $tbl_mdb_names['rel_course_user'] . "`
+           WHERE code_cours  = '". addslashes($course['sysCode']) ."'
+		  GROUP BY code_cours";
+
+
+    $result = claro_sql_query_get_single_row($sql);
+    $courseList[$courseKey]['qty_stu'] =  $result['qty_stu'];
+    $courseList[$courseKey]['qty_cm']  =  $result['qty_cm'];
+}
+
+
 /**
  * Prepare display of search/Filter panel
  */
@@ -175,7 +197,7 @@ if ( !empty($_REQUEST['language']) )
 if ( isset($_REQUEST['access']))
 {
     $isSearched .= '<br />' . "\n";
-    
+
     if ($_REQUEST['access'] == 'public')
     {
         $isSearched .= '<b>' . get_lang('Public course only') . '</b>';
@@ -204,11 +226,11 @@ if ( isset($_REQUEST['subscription']) )
 
 if ( !empty($_REQUEST['access']) )
 {
-   $advanced_search_query_string[] ='access=' . urlencode($_REQUEST['access']);
+    $advanced_search_query_string[] ='access=' . urlencode($_REQUEST['access']);
 }
 if ( !empty($_REQUEST['subscription']) )
 {
-   $advanced_search_query_string[] ='subscription=' . urlencode($_REQUEST['subscription']);
+    $advanced_search_query_string[] ='subscription=' . urlencode($_REQUEST['subscription']);
 }
 
 if ( count($advanced_search_query_string) > 0 ) $addtoAdvanced = '?' . implode('&',$advanced_search_query_string);
@@ -219,8 +241,8 @@ $courseDataList=array();
 foreach($courseList as $numLine => $courseLine)
 {
     if (    isset($_SESSION['admin_course_search'])
-        && $_SESSION['admin_course_search'] != '' )
-        //trick to prevent "//1" display when no keyword used in search
+    && $_SESSION['admin_course_search'] != '' )
+    //trick to prevent "//1" display when no keyword used in search
     {
         $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
         $courseLine['officialCode'] = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['officialCode']);
@@ -287,7 +309,7 @@ $courseDataGrid->set_idLineType('none');
 $courseDataGrid->set_colHead('officialCode') ;
 
 $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such criteria') . '<br />'
-   .    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
+.    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
 
 /** ***********************************************************************************
  * DISPLAY
@@ -379,23 +401,9 @@ function prepare_get_filtred_course_list()
                     C.intitule    AS `intitule`,
                     C.faculte     AS `faculte`,
                     C.`code`      AS `sysCode`,
-                    C.`directory` AS `repository`,
-                    count(IF(`CU`.`isCourseManager`=0,1,null))
-                                  AS `qty_stu`,
-                    #count only lines where user is not course manager
-
-                    count(IF(`CU`.`isCourseManager`=1,1,null))
-                                  AS `qty_cm`
-                    #count only lines where statut of user is 1
-
-            FROM `" . $tbl_mdb_names['course'] . "` AS C
-            LEFT JOIN `" . $tbl_mdb_names['rel_course_user' ] . "` AS CU
-              ON `CU`.`code_cours` = `C`.`code`
-            " . $sqlFilter . "
-            GROUP BY C.code";
+                    C.`directory` AS `repository`
+           " . $sqlFilter ;
 
     return $sql;
-
-
 }
 ?>
