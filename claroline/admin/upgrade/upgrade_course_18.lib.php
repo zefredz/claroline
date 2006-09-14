@@ -168,10 +168,9 @@ function tool_list_upgrade_to_18 ($course_code)
                 }
 
             case 2 :
-
-                $sql_step2 = "UPDATE `" . $currentCourseDbNameGlu . "tool_list` 
-                      SET `visibility` = 1
-                      WHERE `access` = 'ALL' ";
+                
+                $sql_step2 = "DELETE FROM `" . $currentCourseDbNameGlu . "tool_list` 
+                              WHERE `access` <> 'ALL' AND `access` <> 'COURSE_ADMIN' ";
 
                 if ( upgrade_sql_query($sql_step2) )
                 {
@@ -181,12 +180,27 @@ function tool_list_upgrade_to_18 ($course_code)
                 {
                     return $step;
                 }
-    
+
             case 3 :
 
-                $sql_step3 = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` DROP column `access` ";
+                $sql_step3 = "UPDATE `" . $currentCourseDbNameGlu . "tool_list` 
+                      SET `visibility` = 1
+                      WHERE `access` = 'ALL' ";
 
                 if ( upgrade_sql_query($sql_step3) )
+                {
+                    $step = set_upgrade_status($tool, 4, $course_code);
+                }
+                else
+                {
+                    return $step;
+                }
+    
+            case 4 :
+
+                $sql_step4 = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` DROP column `access` ";
+
+                if ( upgrade_sql_query($sql_step4) )
                 {
                     $step = set_upgrade_status($tool, 0, $course_code);
                 }
