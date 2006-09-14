@@ -522,8 +522,8 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     .	 '<tr class="headerX">'
     .	 '<th><a href="' . $headerUrl['title'] . '">' . get_lang('Title') . '</a></th>' . "\n"
     .	 '<th><a href="' . $headerUrl['assignment_type'] . '">' . get_lang('Type') . '</a></th>' . "\n"
-    .	 '<th><a href="' . $headerUrl['start_date_unix'] . '">' . get_lang('Available from') . '</a></th>' . "\n"
-    .	 '<th><a href="' . $headerUrl['end_date_unix'] . '">' . get_lang('Until') . '</a></th>' . "\n";
+    .	 '<th><a href="' . $headerUrl['start_date_unix'] . '">' . get_lang('Start date') . '</a></th>' . "\n"
+    .	 '<th><a href="' . $headerUrl['end_date_unix'] . '">' . get_lang('End date') . '</a></th>' . "\n";
     
     $colspan = 4;
     
