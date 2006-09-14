@@ -463,7 +463,7 @@ function install_module($modulePath, $skipCheckDir = false)
                 
                     //7- generate the conf if a def file exists
                     if ( file_exists( get_module_path($module_info['LABEL']) 
-                        . '/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
+                        . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
                     {
                         require_once dirname(__FILE__) . '/config.lib.inc.php';
                         $config = new Config($module_info['LABEL']);
