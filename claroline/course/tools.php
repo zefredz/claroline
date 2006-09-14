@@ -275,9 +275,8 @@ $backLink = '<p>'
 $toolList = claro_get_course_tool_list($_cid,$_profileId);
 
 $displayToolList = array() ;
-$displayLinkList = array() ;
 
-// Split course tool and external link
+// Split course tool
 
 foreach ( $toolList as $thisTool )
 {
@@ -292,17 +291,10 @@ foreach ( $toolList as $thisTool )
         $displayToolList[$main_tid]['visibility'] = (bool) $thisTool['visibility'] ;
         $displayToolList[$main_tid]['activation'] = (bool) $thisTool['activation'] ;
     }
-    else
-    {
-        $displayLinkList[$tid]['icon'] = $imgRepositoryWeb .'/tool.gif';
-
-        if ( !empty($thisTool['external_name'])) $displayLinkList[$tid]['name'] = $thisTool['external_name'];
-        else                                     $displayLinkList[$tid]['name'] = '<i>no name</i>';
-
-        $displayLinkList[$tid]['url'] = trim($thisTool['url']);
-        $displayLinkList[$tid]['visibility'] = (bool) $thisTool['visibility'] ;
-    }
 }
+
+// Get external link list
+$courseExtLinkList = claro_get_course_external_link_list();
 
 /*============================================================================
     DISPLAY
@@ -361,17 +353,17 @@ echo '<table class="claroTable" >'."\n\n"
 .    '</thead>'."\n\n"
 .    '<tbody>'."\n" ;
 
-foreach ( $displayLinkList as $linkId => $displayLink )
+foreach ( $courseExtLinkList as $linkId => $link )
 {
     echo '<tr>'."\n";
 
-    echo '<td ' . ($displayLink['visibility']?'':'class="invisible"') . '>'
-    . '<img src="'.$displayLink['icon'].'" alt="" />' .$displayLink['name']
+    echo '<td ' . ($link['visibility']?'':'class="invisible"') . '>'
+    . '<img src="'.$link['icon'].'" alt="" />' .$link['name']
     . '</td>';
 
     echo '<td align="center">' ;
 
-    if ( $displayLink['visibility'] )
+    if ( $link['visibility'] == true )
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&tool_id=' . $linkId . '" >'
         . '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible') . '" />'
@@ -394,7 +386,7 @@ foreach ( $displayLinkList as $linkId => $displayLink )
 
     echo '<td align="center">'
     .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'"'
-    .' onClick="return confirmation(\''.clean_str_for_javascript($displayLink['name']).'\');">'
+    .' onClick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
     .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.get_lang('Delete').'" />'
     .'</a></td>'."\n";
 
