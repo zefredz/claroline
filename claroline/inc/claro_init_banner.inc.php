@@ -1,18 +1,15 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
-$clarolineBannerOutput = '<!-- - - - - - - - - - -   Claroline Banner  - - - - - - - - - -  -->
-
-<div id="topBanner">
-
-<!-- - - - - - - - - - -   Claroline platform Banner - - - - - - - - - -  -->
-<div id="platformBanner">
-';
+$clarolineBannerOutput = "\n\n" 
+. '<!-- - - - - - - - - - -   Claroline Banner  - - - - - - - - - -  -->' . "\n"
+. '<div id="topBanner">' . "\n\n"
+. '<div id="platformBanner">' . "\n";
 
 //CAMPUS BANNER LEFT DOCK declaration
 
 $campusBannerLeftDock = new Dock('campusBannerLeft');
-$siteNameOutput   = '<span id="siteName"><a href="'.$urlAppend.'/index.php" target="_top">'.$siteName.'</a></span>';
+$siteNameOutput   = '<span id="siteName"><a href="'.$urlAppend.'/index.php" target="_top">'.$siteName.'</a></span>' . "\n";
 $campusBannerLeftDock->addOutput($siteNameOutput);
 
 $clarolineBannerOutput .= $campusBannerLeftDock->render();
@@ -58,16 +55,16 @@ if( !empty($_course['extLinkName']) )
 
 $institutionNameOutput = '<span id="institution">' 
     . $institutionNameOutput 
-    . '</span>'."\n"
+    . '</span>' . "\n"
     ;
 
 $campusBannerRightDock->addOutput($institutionNameOutput);
 
 $clarolineBannerOutput .= $campusBannerRightDock->render();
 
-$clarolineBannerOutput .= '<div class="spacer"></div>
-</div>
-';
+$clarolineBannerOutput .= '<div class="spacer"></div>' . "\n\n"
+. '</div>' . "\n"
+. '<!-- end of platformBanner -->' . "\n\n";
 
 /******************************************************************************
                                   USER SECTION
@@ -112,9 +109,9 @@ if($_uid)
 
     $clarolineBannerOutput .= $userBannerRightDock->render();
 
-    $clarolineBannerOutput .= '<div class="spacer"></div>
-    </div>
-    ';
+	$clarolineBannerOutput .= "\n" . '<div class="spacer"></div>' . "\n\n"
+	. '</div>' . "\n"
+	. '<!-- end of userBanner -->' . "\n\n";
 
 } // end if _uid
 
@@ -135,12 +132,12 @@ if (isset($_cid))
 
     $clarolineBannerOutput .= '<div id="courseBanner">' . "\n";
 
-    $courseName = '<div id="course"><h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '" target="_top">'.$_course['name'] .'</a></h2>';
+    $courseName = '<div id="course">' . "\n"
+	. '<h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '" target="_top">'.$_course['name'] .'</a></h2>' . "\n";
     $courseBannerLeftDock->addOutput($courseName);
 
-    $courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>
-        </div>
-    <div id="courseToolList">';
+    $courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>' . "\n"
+    . '</div>' . "\n";
 
     $courseBannerLeftDock->addOutput($courseCodeDisplay);
 
@@ -178,10 +175,8 @@ if (isset($_cid))
             if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
                 $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
         }
-        $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php"
-          name="redirector" method="POST">
-        <select name="url" size="1"
-            onchange="top.location=redirector.url.options[selectedIndex].value" >';
+        $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" name="redirector" method="POST">' . "\n"
+        . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
 
         $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
@@ -232,30 +227,32 @@ if (isset($_cid))
                 ;
             }
         } // end if is_array _courseToolList
-        $courseToolSelector .='</select>
-                                <noscript>
-                                <input type="submit" name="gotool" value="go">
-                                </noscript>
-                                </form>';
+        $courseToolSelector .= "\n"
+		. '</select>' . "\n"
+		. '<noscript>' . "\n"
+		. '<input type="submit" name="gotool" value="go">' . "\n"
+		. '</noscript>' . "\n"
+		. '</form>' . "\n\n";
+				
         $courseBannerRightDock->addOutput($courseToolSelector);
 
     } // end if is_array($courseTooList) && $isCourseAllowed
 
     $clarolineBannerOutput .= $courseBannerRightDock->render();
 
-    $clarolineBannerOutput .= '</div>
-    <div class="spacer"></div>
-    </div>
-    ';
+	$clarolineBannerOutput .= "\n".'<div class="spacer"></div>' . "\n\n"
+	. '</div>' . "\n"
+	. '<!-- end of courseBanner -->' . "\n\n";
 } // end if _cid
 
-$clarolineBannerOutput .= '</div>' . "\n";
+$clarolineBannerOutput .= '</div>' . "\n"
+. '<!-- - - - - - - - - - -  end of Claroline Banner  - - - - - - - - - -  -->' . "\n\n";;
 
 /******************************************************************************
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-$clarolineBannerOutput .= '<div id="breadcrumbLine">' . "\n";
+$clarolineBannerOutput .= '<div id="breadcrumbLine">' . "\n\n";
 
 if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
 {
