@@ -555,7 +555,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
  *
  * @param  string  $sqlQuery  the sql query
  * @param  handler $dbHandler optional
- * @return associative array containing all the result rows
+ * @return associative array containing all the result column
  * @since  1.5.1
  * @see    claro_sql_query()
  *
@@ -566,7 +566,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
-
+    // TODO if $result is empty it can't return false but empty array.
     if($result)
     {
         $row = mysql_fetch_array($result, MYSQL_ASSOC);
