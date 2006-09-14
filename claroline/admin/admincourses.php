@@ -402,6 +402,7 @@ function prepare_get_filtred_course_list()
                     C.faculte     AS `faculte`,
                     C.`code`      AS `sysCode`,
                     C.`directory` AS `repository`
+                    FROM  `" . $tbl_mdb_names['course'] . "` C
            " . $sqlFilter ;
 
     return $sql;
