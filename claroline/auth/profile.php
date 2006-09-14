@@ -268,7 +268,10 @@ switch ( $display )
             ? $userInfo[$extraInfoDef['propertyId']]
             : $extraInfoDef['defaultValue'];
             $requirement = (bool) (TRUE == $extraInfoDef['required']);
-            echo form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($extraInfoDef['label']),$requirement);
+
+            $labelExtraInfoDef = $extraInfoDef['label'];
+
+            echo form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
 
         }
 

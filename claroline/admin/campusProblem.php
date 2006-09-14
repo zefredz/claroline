@@ -283,7 +283,7 @@ switch ($display)
                     $data = claro_sql_query_fetch_all($sql);
                     if (!is_array($data) || 0 == sizeof($data))
                     $data[] = array( '-','qty'=>'-');
-                    $dg->set_colTitleList(array(get_lang('code'), get_lang('count')));
+                    $dg->set_colTitleList(array(get_lang('Code'), get_lang('Total')));
                     $dg->set_grid($data);
                     $datagrid[$levelView] = $dg->render();
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
@@ -349,7 +349,7 @@ switch ($display)
                     $option['colTitleList'] = array('code','count');
                     $data = claro_sql_query_fetch_all($sql);
                     if (!is_array($data) || 0 == sizeof($data))
-                    $dg->set_colTitleList(array(get_lang('code'), get_lang('count')));
+                    $dg->set_colTitleList(array(get_lang('Code'), get_lang('Total')));
                     $dg->set_grid($data);
                     $datagrid[$levelView] = $dg->render();
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
@@ -485,7 +485,7 @@ switch ($display)
                     $data = claro_sql_query_fetch_all($sql);
                     if (!is_array($data) || 0 == sizeof($data))
                     $data[] = array( '-','qty'=>'-');
-                    $dg->set_colTitleList(array(get_lang('Pairs'), get_lang('count')));
+                    $dg->set_colTitleList(array(get_lang('Pairs'), get_lang('Total')));
                     $dg->set_grid($data);
                     $datagrid[$levelView] = $dg->render();
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
@@ -554,7 +554,7 @@ switch ($display)
                     $courseWithoutAccess = claro_sql_query_fetch_all($sql);
                     if (!is_array($courseWithoutAccess) || 0 == sizeof($courseWithoutAccess))
                     $courseWithoutAccess[] = array( '-','qty'=>'-');
-                    $dg->set_colTitleList(array(get_lang('code'), get_lang('count')));
+                    $dg->set_colTitleList(array(get_lang('Code'), get_lang('Total')));
                     $dg->set_grid($courseWithoutAccess);
                     $datagrid[$levelView] = '- '
                     .    '&nbsp;&nbsp;'
@@ -640,7 +640,7 @@ switch ($display)
                     $option['colTitleList'] = array('code','count');
                     $data = claro_sql_query_fetch_all($sql);
                     if (!is_array($data) || 0 == sizeof($data))
-                    $dg->set_colTitleList(array(get_lang('code'), get_lang('count')));
+                    $dg->set_colTitleList(array(get_lang('Code'), get_lang('Total')));
                     $dg->set_grid($data);
                     $datagrid[$levelView] = $dg->render();
                     $Cache_Lite->save($datagrid[$levelView],$levelView);

@@ -1042,7 +1042,7 @@
                     }
                     else
                     {
-                        $userStr = get_lang( "Unknown" );
+                        $userStr = get_lang('Unknown user');
                     }
 
                     if ( $is_courseMember )
@@ -1323,7 +1323,7 @@
                     }
                     else
                     {
-                        $userStr = get_lang( "Unknown" );
+                        $userStr = get_lang('Unknown user');
                     }
 
                     if ( $is_courseMember )
