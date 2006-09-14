@@ -233,6 +233,7 @@ function claro_get_course_path($cid=NULL)
  * @return array list of localised name of tools
  * @todo with plugin, this lis would be read in a dynamic datasource
  */
+
 function claro_get_tool_name_list()
 {
     return claro_get_module_name_list();
@@ -303,11 +304,78 @@ function claro_get_module_name_list($active = true)
  */
 
 /**
+ * Return the list of tool installed on the platform
+ * 
+ * @param  boolean $force (optionnal) - reset the result cache, default is false
+ *
+ * @return array the main course list array ( $tid => 'label','name','url','icon','activation' )
+ */
+
+function claro_get_main_course_tool_list ( $force = false )
+{
+    static $courseToolList = null ;
+
+    if ( is_null($courseToolList) || $force )
+    {
+        // Initialise course tool list
+        $courseToolList = array();
+        
+        // Get name of the tables
+        $tbl_mdb_names        = claro_sql_get_main_tbl();
+        $tbl_tool_list        = $tbl_mdb_names['tool'];
+        $tbl_module           = $tbl_mdb_names['module'];
+
+        // Find module tools
+        $sql = "SELECT t.id,
+                       t.claro_label as label,
+                       m.name,
+                       m.activation,
+                       t.icon,
+                       t.script_url as url
+                FROM `" . $tbl_module . "` as m,
+                     `" . $tbl_tool_list . "` as t
+               WHERE t.claro_label = m.label
+                 AND m.type = 'tool'
+               ORDER BY t.def_rank";
+
+        $courseToolResult = claro_sql_query_fetch_all($sql);
+
+        // Fill course tool list
+        foreach ( $courseToolResult as $courseTool )
+        {
+            $toolId = $courseTool['id'];
+
+            $courseToolList[$toolId]['label'] = $courseTool['label'];
+            $courseToolList[$toolId]['name'] = $courseTool['name'];
+            $courseToolList[$toolId]['url'] = get_module_url($courseTool['label']) . '/' . $courseTool['url'] ;
+
+            if ( !empty($courseTool['icon']) )
+            {
+                $courseToolList[$toolId]['icon'] = get_module_url($courseTool['label']) . $courseTool['icon'];
+            }
+            else
+            {
+                $courseToolList[$toolId]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.gif';
+            }
+
+            if ( $courseTool['activation'] == 'activated' )
+            {
+                $courseToolList[$toolId]['activation'] = true;
+            }
+            else
+            {
+                $courseToolList[$toolId]['activation'] = false;
+            }
+        }
+    }
+    
+    return $courseToolList ;
+}
+
+/**
  * Return the tool list for a course according a certain access level
  * @param  string  $courseIdReq - the requested course id
- * @param  string  $accessLevelReq (optionnal) -  should be in 'ALL', 'COURSE_MEMBER',
- *                'GROUP_MEMBER', 'COURSE_TUTOR','COURSE_MANAGER', 'PLATFORM_ADMIN'.
- *                 Default is 'ALL'
+ * 
  * @param  boolean $force (optionnal)  - reset the result cache, default is false
  * @param  boolean $active (optionnal) - get the list of active tool only if set to true (default behaviour)
  * @return array   the course list
@@ -406,6 +474,63 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
     }
 
     return $courseToolList;
+}
+
+/**
+ * Return the tool list for a course according a certain access level
+ *
+ * @param  boolean $force (optionnal) - reset the result cache, default is false
+ *
+ * @return array the main course list array ( $id => 'name','url','icon','visibility' )
+ */
+
+function claro_get_course_external_link_list ( $courseIdReq = null, $force = false )
+{
+    static $courseExtLinkList = null, $courseId = null ;
+
+    if ( is_null($courseIdReq) )
+    {
+        $courseIdReq = get_init('_cid');
+    }
+
+    if ( is_null($courseExtLinkList)
+        || $courseIdReq != $courseId
+        || $force )
+    {
+        // Initialise course tool list
+        $courseId = $courseIdReq;
+        $courseExtLinkList = array();
+        
+        // Get name of the tables
+        $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
+        $tbl_course_tool_list = $tbl_cdb_names['tool'];
+
+        // Find external link
+        $sql = "SELECT id,
+                       script_name,
+                       script_url,
+                       visibility
+               FROM `" . $tbl_course_tool_list . "`
+               WHERE ISNULL(tool_id) ";
+
+        if ( ! ( get_init('is_courseAdmin') || get_init('is_platformAdmin') ) )
+        {
+            $sql .= 'AND visibility = 1';
+        }
+
+        $courseExtLinkResult = claro_sql_query_fetch_all($sql);
+
+        foreach ( $courseExtLinkResult as $courseExtLink )
+        {
+            $id = $courseExtLink['id'];
+            $courseExtLinkList[$id]['name'] = $courseExtLink['script_name'];
+            $courseExtLinkList[$id]['url'] = $courseExtLink['script_url'];
+            $courseExtLinkList[$id]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.gif';
+            $courseExtLinkList[$id]['visibility'] = (bool) $courseExtLink['visibility'];
+        }
+    }
+
+    return $courseExtLinkList;
 }
 
 /**
