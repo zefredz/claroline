@@ -37,7 +37,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     $tbl      = claro_sql_get_main_tbl();
     $tbl_user = $tbl['user'];
 
-    $sql = 'SELECT email
+    $sql = 'SELECT DISTINCT email
             FROM `'.$tbl_user.'`
             WHERE user_id IN ('. implode(', ', array_map('intval', $userIdList) ) . ')';
 
