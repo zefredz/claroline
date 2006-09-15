@@ -280,7 +280,7 @@ else
 
     if ( get_conf('claro_CasEnabled', false) ) // CAS is a special case of external authentication
     {
-        require($claro_CasProcessPath);
+        require($rootSys.'/claroline/auth/extauth/casProcess.inc.php');
     }
 
     if ( $login && $password ) // $login && $password are given to log in
