@@ -1,8 +1,6 @@
 /******************************************************************************
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
-@import url(default.css) all;
-
 body 
 {
 	font-family: tahoma, verdana, helvetica, arial, sans-serif;
@@ -28,7 +26,8 @@ a img
 	clear: both;
 }
 
-h3{
+h3
+{
 	font-size: 110%;
 }
 
@@ -65,22 +64,21 @@ h3{
 	text-decoration: underline;
 }
 
-#platformBanner #siteName
+#campusBannerRight
 {
-	position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
-}
-
-#platformBanner #institution
-{
-	position: relative;
+    position: relative;
 	float: right;
 	text-align: right;
 	margin: 0;
 }
 
+#campusBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
@@ -99,7 +97,6 @@ h3{
 {
 	 font-size: 110%;
 	 font-weight: normal;
-	 margin: 0;
 }
 
 #userBanner a,
@@ -113,11 +110,25 @@ h3{
 
 #userBanner a:hover
 {
-   color: #FFF;
+    color: #FFF;
 	text-decoration: underline;
 }
 
+#userBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
 
+#userBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
@@ -177,6 +188,22 @@ h3{
 	padding-top: 5px;
 	margin: 0;
 }
+
+#courseBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#courseBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
@@ -221,38 +248,39 @@ h3{
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
-
-#footer
+#campusFooter
 {
 	font-size: 80%;
 }
 
-#footer hr
+#campusFooter hr
 {
+	background-color: gray;
 	border: 0;
 	height: 1px;
-	background-color: gray;
 }
 
-#footer #platformManager
+#campusFooterRight
 {
 	float: right;
+	text-align: right;
 }
 
-#footer #courseManager
+#campusFooterLeft
 {
-	float: left;
-	text-align: center;
+	float: left;	
 }
 
-#footer #poweredBy
+#campusFooterCenter
 {
     clear: both;
     text-align: center;
-    font-style: italic;
 }
 
-
+#campusFooterCenter #poweredBy
+{
+    font-style: italic;
+}
 /******************************************************************************
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/
