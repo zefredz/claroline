@@ -121,7 +121,7 @@ h3
 
 #userBanner a:hover
 {
-   color: #FFF;
+	color: #FFF;
 	text-decoration: underline;
 }
 
@@ -256,9 +256,7 @@ h3
                              CLAROLINE BODY
  ******************************************************************************/
 
-#claroBody
-{
-}
+#claroBody{}
 
 
 /******************************************************************************
@@ -280,16 +278,12 @@ h3
 #campusFooterRight
 {
 	float: right;
+	text-align: right;
 }
 
 #campusFooterLeft
 {
 	float: left;	
-}
-
-#campusFooterLeft #courseManager
-{
-    text-align: center;
 }
 
 #campusFooterCenter
