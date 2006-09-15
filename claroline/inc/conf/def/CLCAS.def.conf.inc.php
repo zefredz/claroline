@@ -68,22 +68,4 @@ array ('label'         => 'port of CAS server'
       ,'type'          => 'integer'
       );
 
-$conf_def_property_list['claro_CasLibPath'] =
-array ('label'         => 'CAS lib path'
-      ,'display'       => false
-      ,'default'       => $GLOBALS['includePath'].'/lib/cas/CAS.php'
-      ,'type'          => 'sysPath'
-      );
-
-
-$conf_def_property_list['claro_CasProcessPath'] =
-array ('label'         => 'casProcess path'
-      ,'display'       => false
-      ,'default'       => $GLOBALS['clarolineRepositorySys'] . '/auth/extauth/casProcess.inc.php'
-      ,'type'          => 'sysPath'
-      );
-
-
-
-
 ?>
