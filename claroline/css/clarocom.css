@@ -2,7 +2,6 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-
 html {
 	margin: 0;
 	padding: 0;
@@ -95,14 +94,14 @@ input[type=submit]:hover, button:hover {
 	background-position: left 0 0 0 10px;
 	background-repeat: repeat-x;
 	border: 1px solid #FFFFFF;
+	height: 50px;
 }
 
 #platformBanner a,
 #platformBanner a:active,
 #platformBanner a:link,
-#platformBanner a:visited {
-	display: block;
-	margin: 15px 15px 0 15px;
+#platformBanner a:visited 
+{
 	text-decoration: none;
    	color: #336699;
 	font-weight: bold;
@@ -114,41 +113,46 @@ input[type=submit]:hover, button:hover {
 	font-weight: bold;
 }
 
-#platformBanner #siteName {
-	display: block;
-	float: left;
-	height: 50px;
-	position: relative;
-	text-align: left;
+#platformBanner #siteName
+{
 	font-weight: bold;
 	letter-spacing: 3px;
-	margin-top: -1px;
-	padding: 0;
-	background-image: url(clarocom/cornerleft_header.jpg);
-	background-position: left top;
-	background-repeat: no-repeat;
-	margin /**/: 0;
 }
 
-#platformBanner #institution {
-	display: block;
-	float: right;
-	height: 50px;
-	position: relative;
-	text-align: right;
-	font-size: O.95em;
+#platformBanner #institution 
+{
 	font-weight: bold;
+}
+
+#campusBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+/*	height: 35px;
+	font-size: O.95em;
 	margin-top: -1px;
 	padding: 15px 15px 0 0;
+	margin /**/: 0;
 	background-image: url(clarocom/cornerright_header.jpg);
 	background-position: right top;
 	background-repeat: no-repeat;
-	margin /**/: 0;
 }
 
-#platformBanner #institution a {
-	display: inline;
+#campusBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+/*	height: 35px;
+	margin-top: -1px;
+	padding: 15px 0 0 15px;
+	margin /**/: 0;
+	background-image: url(clarocom/cornerleft_header.jpg);
+	background-position: left top;
+	background-repeat: no-repeat;
 }
+
 
  /*----------------------------------------------------------------------------
                                    USER LINE
@@ -183,6 +187,19 @@ input[type=submit]:hover, button:hover {
 	font-weight: normal;
 }
 
+#userBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+}
+
+#userBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+}
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
@@ -389,18 +406,25 @@ input[type=submit]:hover, button:hover {
 	background-color: gray;
 }
 
-#campusFooter #platformManager
+#campusFooterRight
 {
 	float: right;
+	text-align: right;
 	margin: 0 15px 0 0;
 	padding: 0;
 }
 
-#campusFooter #courseManager
+#campusFooterLeft
 {
-	float: left;
+	float: left;	
 	margin: 0 0 0 15px;
 	padding: 0;
+}
+
+#campusFooterCenter
+{
+    clear: both;
+    text-align: center;
 }
 
 #campusFooter #poweredBy
