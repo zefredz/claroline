@@ -242,7 +242,6 @@ function get_and_unzip_uploaded_package()
     if (!function_exists('gzopen'))
     {
         $backlog_message[] = get_lang('Error : no zlib extension found');
-        claro_delete_file($modulePath);
         return claro_failure::set_failure($backlog_message);
     }
 
