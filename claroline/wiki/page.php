@@ -44,6 +44,8 @@
     }
 
     // set admin mode and groupId
+    
+    claro_set_display_mode_available(TRUE);
 
     $is_allowedToAdmin = claro_is_allowed_to_edit();
 
