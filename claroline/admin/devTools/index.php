@@ -18,7 +18,7 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
-if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+if (file_exists($rootSys.'platform/currentVersion.inc.php')) include ($rootSys.'platform/currentVersion.inc.php');
 
 $is_allowedToUseSDK = $is_platformAdmin;
 

@@ -24,7 +24,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $claroCreditFilePath = get_conf('rootSys').'CREDITS.txt';
 
-if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
+if(file_exists($rootSys.'platform/currentVersion.inc.php')) include ($rootSys.'platform/currentVersion.inc.php');
 if ( ! $is_platformAdmin ) claro_disp_auth_form();
 
 

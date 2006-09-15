@@ -18,7 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 //used libraries
 require $includePath . '/installedVersion.inc.php';
-require $includePath . '/currentVersion.inc.php';
+require $rootSys . 'platform/currentVersion.inc.php';
 require_once $includePath . '/lib/fileManage.lib.php';
 require_once $includePath . '/lib/export_zip.lib.php';
 

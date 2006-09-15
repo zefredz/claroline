@@ -1173,8 +1173,8 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     if ($expirationDate == '') $expirationDate = 'NULL';
     else                       $expirationDate = 'FROM_UNIXTIME('.$expirationDate.')';
 
-    $currenVersionFilePath = $includePath . '/currentVersion.inc.php';
-    file_exists($currenVersionFilePath) && require $includePath . '/currentVersion.inc.php';
+    $currenVersionFilePath = $rootSys.'platform/currentVersion.inc.php';
+    file_exists($currenVersionFilePath) && require $currenVersionFilePath;
 
     $defaultProfileId = claro_get_profile_id('user');
 
