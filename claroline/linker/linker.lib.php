@@ -489,6 +489,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     * display the list of the resources which are related to a resource
     *
     * @param string tLable tool label if different form current tool
+    * @todo TODO move hr and add class to CSS
     */
     function linker_display_resource( $tLabel = NULL )
     {
@@ -500,7 +501,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             //style=\"margin-top:1em;\"
             echo "<hr />\n";
-            echo "<div  style=\"margin-bottom:2em;\">\n";
+            echo "<div  class=\"linkerResourceList\">\n";
+            
+            $resourceList = array();
 
             foreach ( $linkList as $link )
             {
@@ -508,9 +511,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                    $url = $res->resolve($link["crl"]);
                 $name = $link["title"];
 
-                echo "<a href=\"".htmlspecialchars($url)."\">".htmlspecialchars($name)."</a><br />\n";
+                $resourceList[] = "<a href=\"".htmlspecialchars($url)."\">"
+                    . htmlspecialchars($name) ."</a>"
+                    ;
             }
+            
+            echo implode( "<br />\n", $resourceList );
+            
             echo "</div>\n";
+            echo "<hr />\n";
         }
     }
 
