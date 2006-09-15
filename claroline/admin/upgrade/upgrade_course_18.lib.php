@@ -36,7 +36,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Upgrade course repository files and script to 1.8
  */
 
-function course_repository_to_18 ($course_code)
+function course_repository_upgrade_to_18 ($course_code)
 {
     global $currentCourseVersion, $currentcoursePathSys;
 
@@ -689,6 +689,39 @@ function quiz_upgrade_to_18 ($course_code)
                 }
 
         default :
+                return $step;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Function to upgrade tool intro 
+ */
+
+function tool_intro_upgrade_to_18 ($course_code)
+{    
+    global $currentCourseVersion, $currentcoursePathSys;
+
+    $versionRequiredToProceed = '/^1.7/';
+    $tool = 'CLINTRO';
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+
+                // remove tool intro
+                $sql = "DELETE FROM `".$currentCourseDbNameGlu."tool_intro`
+                        WHERE tool_id > 0" ;
+
+                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
+                else return $step;
+
+            default :
                 return $step;
         }
     }
