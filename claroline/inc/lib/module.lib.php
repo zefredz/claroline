@@ -274,12 +274,16 @@ function add_module_lang_array($moduleLabel)
 
 	if ($current_lang != 'english' && file_exists($module_uri.'lang/lang_'.$current_lang.'.php'))
 	{
+        /* TODO use $_lang instead of $mod_lang in module lang files */
+        $mod_lang = array();
 		include $module_uri.'lang/lang_'.$current_lang.'.php';
 		$_lang = array_merge($_lang,$mod_lang);
 	}
 	elseif (file_exists($module_uri.'lang/lang_english.php'))
 	{
-		include $cmodule_uri.'lang/lang_english.php';
+        /* TODO use $_lang instead of $mod_lang in module lang files */
+        $mod_lang = array();
+		include $module_uri.'lang/lang_english.php';
 		$_lang = array_merge($_lang,$mod_lang);
 	}
 }
