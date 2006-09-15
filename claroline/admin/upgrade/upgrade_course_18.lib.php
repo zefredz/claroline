@@ -33,6 +33,66 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  ===========================================================================*/
 
 /**
+ * Upgrade course repository files and script to 1.8
+ */
+
+function course_repository_to_18 ($course_code)
+{
+    global $currentCourseVersion, $currentcoursePathSys;
+
+    $versionRequiredToProceed = '/^1.7/';
+    $tool = 'CLINDEX';
+
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                
+                if ( is_writable($currentcoursePathSys) )
+                {
+                    if ( !is_dir($currentcoursePathSys) ) 
+                        claro_mkdir($currentcoursePathSys);
+                    if ( !is_dir($currentcoursePathSys.'/chat') )
+                        claro_mkdir($currentcoursePathSys.'/chat');
+                    if ( !is_dir($currentcoursePathSys.'/modules') )
+                        claro_mkdir($currentcoursePathSys.'/modules');
+                    if ( !is_dir($currentcoursePathSys.'/scormPackages') )
+                        claro_mkdir($currentcoursePathSys . '/scormPackages');
+            
+                    $step = set_upgrade_status($tool, 2, $course_code);
+                }
+                else
+                {
+                    log_message(sprintf('Repository %s not writable', $currentcoursePathSys));
+                    return $step;
+                }
+
+            case 2 :
+
+                // build index.php of course
+                $fd = fopen($currentcoursePathSys . '/index.php', 'w');
+        
+                if (!$fd) return $step ;
+
+                // build index.php
+                $string = '<?php ' . "\n"
+                    . 'header (\'Location: '. $GLOBALS['urlAppend'] . 'course/index.php?cid=' . rawurlencode($course_code) . '\') ;' . "\n"
+                    . '?' . '>' . "\n" ;
+
+                if ( ! fwrite($fd, $string) ) return $step;
+                if ( ! fclose($fd) )          return $step;
+                    
+                $step = set_upgrade_status($tool, 0, $course_code);
+
+            default :
+                return $step;
+        }
+    }
+    return false ;
+}
+
+/**
  * Upgrade foo tool to 1.8
  *
  * explanation of task
