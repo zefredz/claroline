@@ -129,7 +129,7 @@ input[type=submit]:hover, button:hover {
     position: relative;
 	float: right;
 	text-align: right;
-/*	height: 35px;
+	height: 35px;
 	font-size: O.95em;
 	margin-top: -1px;
 	padding: 15px 15px 0 0;
@@ -144,7 +144,7 @@ input[type=submit]:hover, button:hover {
     position: relative;
 	float: left;
 	text-align: left;
-/*	height: 35px;
+	height: 35px;
 	margin-top: -1px;
 	padding: 15px 0 0 15px;
 	margin /**/: 0;
