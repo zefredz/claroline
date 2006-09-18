@@ -173,7 +173,23 @@ function group_upgrade_to_18($course_code)
                 }
 
             case 3 :
+
                 $sql = "DROP TABLE IF EXISTS`".$currentCourseDbNameGlu."group_property`";
+
+                if ( upgrade_sql_query($sql) )
+                {
+                    $step = set_upgrade_status($tool, 4, $course_code);
+                }
+                else
+                {
+                    return $step;
+                }
+
+            case 4 :
+
+                $sql = "UPGRADE `".$currentCourseDbNameGlu."group_team`
+                        SET `maxStudent` = NULL
+                        WHERE `maxStudent` = 0 ";
 
                 if ( upgrade_sql_query($sql) )
                 {
@@ -183,6 +199,7 @@ function group_upgrade_to_18($course_code)
                 {
                     return $step;
                 }
+
 
             default :
                 return $step;
