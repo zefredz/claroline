@@ -689,7 +689,9 @@ a.item:visited{
  */ 
  
 .claroMessageBox {
-	background-color: #FEFEFE;
+	background-color: #FDFDFD;
+	border: 1px solid #DEDEDE;
+	margin-left: 5px;
 	font-size: 0.9em;
 	color: #000;
 }
