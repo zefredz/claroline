@@ -324,7 +324,7 @@ function user_send_registration_mail ($userId, $data)
         );
 
         if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
-        else                                                        return false;
+        else                                                       return false;
     }
     else
     {
@@ -358,13 +358,13 @@ function profile_send_request_course_creator_status($explanation)
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
-    '%comment'   => nl2br($explanation),
-    '%url'       => get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid
+    '%comment'   => $explanation,
+    '%url'       => get_conf('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . $_uid
     )
     );
 
     claro_mail_user($mailToUidList, $requestMessage_Content,
-    $requestMessage_Title, get_conf('administrator_email'), 'profile');
+    $requestMessage_Title, get_conf('administrator_email'), get_conf('administrator_name'));
 
     return true;
 }
