@@ -64,7 +64,7 @@ if (CLARO_DEBUG_MODE) echo '<link rel="stylesheet" type="text/css" href="' . $cl
 <link href="http://www.claroline.net" rel="Copyright" />
 
 <script type="text/javascript">
-document.cookie="javascriptEnabled=true";
+document.cookie="javascriptEnabled=true; path=<?php echo get_conf('urlAppend')?>";
 <?php
 if ( true === get_conf( 'warnSessionLost', true ) )
 {
@@ -73,7 +73,7 @@ if ( true === get_conf( 'warnSessionLost', true ) )
 }
 
 function claro_warn_of_session_loss() {
-    alert('WARNING ! You have just lost your session on the server. \\n Copy any text you are currently writing and paste it outside the browser.');
+    alert('" . clean_str_for_javascript (get_lang('WARNING ! You have just lost your session on the server.') . "\n" . get_lang('Copy any text you are currently writing and paste it outside the browser')) . "');
 }
 ";
     $claroBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
