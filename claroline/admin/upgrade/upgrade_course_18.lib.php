@@ -187,7 +187,7 @@ function group_upgrade_to_18($course_code)
 
             case 4 :
 
-                $sql = "UPGRADE `".$currentCourseDbNameGlu."group_team`
+                $sql = "UPDATE `".$currentCourseDbNameGlu."group_team`
                         SET `maxStudent` = NULL
                         WHERE `maxStudent` = 0 ";
 
