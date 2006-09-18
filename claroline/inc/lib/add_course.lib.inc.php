@@ -399,7 +399,7 @@ function update_db_course($courseDbName)
     CREATE TABLE `".$TABLEPHPBBCATEGORIES."` (
         cat_id int(10) NOT NULL auto_increment,
         cat_title varchar(100),
-        cat_order varchar(10),
+        cat_order int(10),
     PRIMARY KEY (cat_id)
     )";
 
