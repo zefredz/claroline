@@ -246,7 +246,7 @@ if (isset($_cid))
 } // end if _cid
 
 $clarolineBannerOutput .= '</div>' . "\n"
-. '<!-- - - - - - - - - - -  end of Claroline Banner  - - - - - - - - - -  -->' . "\n\n";;
+. '<!-- - - - - - - - - - -  End of Banner  - - - - - - - - - -  -->' . "\n\n";
 
 /******************************************************************************
                                 BREADCRUMB LINE
