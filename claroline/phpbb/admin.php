@@ -53,13 +53,13 @@ if ( $cmd == 'rqMkCat' )
     if ( isset($_REQUEST['catName']) ) $catName = $_REQUEST['catName'];
     else                               $catName = '';
 
-    $dialogBox .= '<h4>'.get_lang('Add a category').'</h4>'
+    $dialogBox .= '<strong>'.get_lang('Add a category').'</strong>'
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exMkCat" />'."\n"
                .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
                .  '<input type="text" name="catName" id="catName"'
-               .  ' value="' . $catName . '" /><br />'."\n"
+               .  ' value="' . $catName . '" /><br /><br />'."\n"
                .  '<input type="submit" value="'.get_lang('Ok').'" /> '
                .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'
@@ -123,7 +123,7 @@ if ( $cmd == 'rqMkForum' )
                                   ' checked ' : '';
 
 
-    $dialogBox .= '<h4>'.get_lang('Add forum').'</h4>'
+    $dialogBox .= '<strong>'.get_lang('Add forum').'</strong>'
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
@@ -170,14 +170,14 @@ if ( $cmd == 'rqEdCat' )
 
     if ( $categorySettingList )
     {
-        $dialogBox .= '<h4>'.get_lang('Edit category').'</h4>'."\n"
+        $dialogBox .= '<strong>'.get_lang('Edit category').'</strong>'."\n"
                .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exEdCat" />'."\n"
                .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
                .  '<input type="text" name="catName" id="catName"'
-               .  ' value="'.$categorySettingList['cat_title'].'" /><br />'."\n"
+               .  ' value="'.$categorySettingList['cat_title'].'" /><br /><br />'."\n"
                .  '<input type="submit" value="'.get_lang('Ok').'" /> '
                .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'."\n"
@@ -254,7 +254,7 @@ if ( $cmd == 'rqEdForum' )
                                    :
                                     ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
 
-    $dialogBox .= '<h4>'.get_lang('Add forum').'</h4>'."\n"
+    $dialogBox .= '<strong>'.get_lang('Add forum').'</strong>'."\n"
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
