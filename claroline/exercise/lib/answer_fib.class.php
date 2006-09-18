@@ -265,7 +265,7 @@ class answerFillInBlanks
     	$regex = '/\[.*\]/';
     	if( ! preg_match($regex, $this->answerText) )
     	{
-    		$this->errorList[] = get_lang('Please define at least one blank with brackets [...]');
+    		$this->errorList[] = get_lang('Please define at least one blank with brackets %mask', array('%mask'=>'&#91;...&#93;'));
     		$this->step = 1;
     		return false;
     	}
