@@ -187,11 +187,12 @@ function format_url($url)
 		: ''
 		;
         
-    if ( 'mailto' == $urlArray['scheme'] )
+    if ( isset($urlArray['scheme'])
+        && 'mailto' == $urlArray['scheme'] )
     {
         $urlToRet .= ':';
     }
-    else
+    elseif ( isset($urlArray['scheme']) )
     {
         $urlToRet .= '://';
     }
