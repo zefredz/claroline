@@ -91,17 +91,24 @@ function user_create($settingList, $creatorId = null)
     $requiredSettingList = array('lastname', 'firstname', 'username',
     'password', 'language', 'email', 'officialCode', 'phone', 'isCourseCreator');
 
-    //set non compulsory fields
+    // Set non compulsory fields
 
     if (!isset($settingList['language']))            $settingList['language'] = '';
     if (!isset($settingList['phone']))               $settingList['phone'] = '';
     if (!isset($settingList['isCourseCreator']))     $settingList['isCourseCreator'] = false;
     if (!isset($settingList['officialEmail']))       $settingList['officialEmail'] = false;
 
+    // Verify required fields
     foreach($requiredSettingList as $thisRequiredSetting)
     {
         if ( array_key_exists( $thisRequiredSetting, $settingList ) ) continue;
         else return trigger_error('MISSING_DATA : ',E_USER_ERROR);
+    }
+
+    // Check if the username is available
+    if ( ! is_username_available($settingList['username']) )
+    {
+        return false ;
     }
 
     $password = get_conf('userPasswordCrypted') ? md5($settingList['password'])
