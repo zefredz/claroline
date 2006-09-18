@@ -603,7 +603,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('rqMkUrl' == $cmd )
     {
-        $dialogBox .= "<h4>".get_lang("Create hyperlink")."</h4>\n"
+        $dialogBox .= get_lang("Create hyperlink")."\n"
                      ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                      ."<input type=\"hidden\" name=\"cmd\" value=\"exMkUrl\">\n"
                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\">"
@@ -611,16 +611,16 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                      ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
                      ."<label for=\"url\">".get_lang("URL : ")."</label><br />\n"
                      ."<input type=\"text\" id=\"url\" name=\"url\" value=\"\">\n"
-                     ."<br /><br />\n";
+                     ."<br />\n";
 
         if ($courseContext)
         {
-            $dialogBox .= "<label for=\"comment\">\n"
-                        ."Add a comment (optionnal) :\n"
+            $dialogBox .= "<p><label for=\"comment\">\n"
+                        .get_lang("Add a comment (optionnal) :") . "\n"
                         ."</label>\n"
                         ."<br />\n"
                         ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
-                        ."<br />\n";
+                        ."</p>\n";
         }
 
         $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
@@ -940,12 +940,12 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         if ( $courseContext )
         {
-            $dialogBox .= "<label for=\"comment\">\n"
-                       ."Add a comment (optionnal) :\n"
+            $dialogBox .= "<p><label for=\"comment\">\n"
+                       .get_lang("Add a comment (optionnal) :") . "\n"
                        ."</label>\n"
                        ."<br />\n"
                        ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
-                       ."<br />\n";
+                       ."</p>\n";
         }
 
         $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
@@ -986,7 +986,7 @@ if ('rqSearch' == $cmd )
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"
                     ."<label for=\"searchPattern\">".$searchMsg."</label><br />\n"
                     ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
-                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\"><br />\n"
+                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$cwd."\"><br /><br />\n"
                     ."<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
                     .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
                                        get_lang("Cancel"))
