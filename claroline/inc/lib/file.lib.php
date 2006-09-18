@@ -96,6 +96,7 @@ function get_mime_on_ext($fileName)
             'tif'   => 'image/tiff',
             'tiff'  => 'image/tiff',
             'txt'   => 'text/plain',
+            'url'   => 'text/html',
             'wav'   => 'audio/x-wav',
             'wmv'   => 'video/x-ms-wmv',
             'xml'   =>'application/xml',
