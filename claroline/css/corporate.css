@@ -325,6 +325,7 @@ h3{	font-size: 110%; }
 #campusFooterRight
 {
 	float: right;
+	text-align: right;
 }
 
 #campusFooterLeft
@@ -345,20 +346,7 @@ h3{	font-size: 110%; }
 	color: #333;
 }
 
-#campusFooter #platformManager
-{
-	float: right;
-}
-
-#campusFooter #courseManager
-{
-	float: left;
-	text-align: center;
-}
-
-
-
-#campusFooter #poweredBy 
+#campusFooterCenter
 {
 	clear: both;
 	border-top: 1px dashed #ccc;

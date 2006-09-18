@@ -272,6 +272,7 @@ h3
 #campusFooterRight
 {
 	float: right;
+	text-align: right;
 }
 
 #campusFooterLeft

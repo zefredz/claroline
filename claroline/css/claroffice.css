@@ -299,9 +299,6 @@ h3.claroToolTitle {
 	padding: 3px;
 }
 
-#campusFooter a {
-}
-
 #campusFooter hr
 {
 	display:none;
@@ -310,6 +307,7 @@ h3.claroToolTitle {
 #campusFooterRight
 {
 	float: right;
+	text-align: right;
 }
 
 #campusFooterLeft
@@ -322,25 +320,6 @@ h3.claroToolTitle {
     clear: both;
     text-align: center;
 }
-
-#campusFooter #platformManager
-{
-	float: right;
-}
-
-#campusFooter #courseManager
-{
-	float: left;
-	text-align: center;
-}
-
-#campusFooter #poweredBy
-{
-    clear: both;
-    text-align: center;
-}
-
-
 
 /******************************************************************************
 	CLAROLINE COMMAND LINKS

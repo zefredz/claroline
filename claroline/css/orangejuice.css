@@ -301,7 +301,6 @@ h3
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
-
 #campusFooter
 {
 	background-color: #FFFFF;
@@ -318,23 +317,13 @@ h3
 #campusFooterRight
 {
 	float: right;
+	text-align: right;
+	padding-right: 10px;
 }
 
 #campusFooterLeft
 {
 	float: left;	
-}
-
-#platformManager
-{
-	float: right;
-	padding-right: 10px;	
-}
-
-#courseManager
-{
-	float: left;
-	text-align: center;
 	padding-left: 10px;
 }
 
@@ -346,9 +335,8 @@ h3
 
 #campusFooterCenter #poweredBy
 {
-	font-style: italic;
+    font-style: italic;
 }
-
 /******************************************************************************
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/

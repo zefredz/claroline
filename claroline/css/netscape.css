@@ -287,16 +287,12 @@ h3{
 #campusFooterRight
 {
 	float: right;
+	text-align: right;
 }
 
 #campusFooterLeft
 {
 	float: left;	
-}
-
-#campusFooterLeft #courseManager
-{
-    text-align: center;
 }
 
 #campusFooterCenter
