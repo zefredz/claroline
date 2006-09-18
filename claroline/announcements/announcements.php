@@ -504,12 +504,12 @@ if ( $displayForm )
          )
     .    '<table>'
     .    '<tr>'
-    .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>'
+    .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>' . "\n"
     .    '<td>'
     .    '<input type="text" id="title" name="title" value = "'
     .    ( isset($announcementToEdit['title']) ? htmlspecialchars($announcementToEdit['title']) : '' )
     .    '" size="80" />'
-    .    '</td>'
+    .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>'
     .    '<td valign="top">'
@@ -517,24 +517,32 @@ if ( $displayForm )
     .    get_lang('Content')
     .    ' : '
     .    '</label>'
-    .    '</td>'
+    .    '</td>' . "\n"
     .    '<td>'
     .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['content']) : '',12,67, $optAttrib=' wrap="virtual"')
-    .    '</td>'
+    .    '</td>' . "\n"
     .    '</tr>' . "\n"
-    .    '<tr>'
-    .    '<td></td>'
-    .    '<td>'
     ;
 
     // TODO :  add else case  wich show disabled version ton show that possible  with a filled email.
     if ($emailNotificationAllowed)
-        echo '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
+    {
+    	echo '<tr>'
+	    .    '<td>&nbsp;</td>' . "\n"
+    	.    '<td>'
+        .	 '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
         .    '<label for="emailOption">'
         .    get_lang('Send this announcement by email to registered students')
         .    '</label><hr />' . "\n"
+        .	 '</td>' . "\n"
+        .	 '</tr>' . "\n"        
         ;
+    }
 
+	echo '<tr>'
+	.	 '<td>&nbsp;</td>' . "\n"
+	.	 '<td>' . "\n";
+	
     //---------------------
     // linker
 
@@ -542,16 +550,28 @@ if ( $displayForm )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
         linker_set_display();
-        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
     else // popup mode
     {
         if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
         else                       linker_set_display();
-
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
+	echo '</td>' . "\n"
+	.	 '</tr>' . "\n"
+	.	 '<tr>'
+	.	 '<td>&nbsp;</td>' . "\n"
+	.	 '<td>' . "\n";
+	
+    if( $jpspanEnabled )
+    {
+    	echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
+    }
+    else
+    {
+    	echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
+    }
+    
     echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel')
     .    '</td>'
     .    '<tr>' . "\n"
