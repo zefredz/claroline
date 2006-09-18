@@ -45,8 +45,8 @@ $currentCourseRepository = $_course['path'];
 
 // Library
 require_once $includePath . '/lib/course_home.lib.php';
-require_once $includePath . '/lib/right/courseProfileToolAction.class.php' ;
-require_once $includePath . '/lib/right/profileToolRightHtml.class.php' ;
+require_once $includePath . '/lib/right/courseProfileToolAction.class.php';
+require_once $includePath . '/lib/right/profileToolRightHtml.class.php';
 
 /*
  * Language initialisation of the tool names
@@ -62,6 +62,9 @@ $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $tool_id = isset($_REQUEST['tool_id'])?(int)$_REQUEST['tool_id']:null;
 $profile_id = isset($_REQUEST['profile_id'])?$_REQUEST['profile_id']:null;
 $right_value = isset($_REQUEST['right_value'])?$_REQUEST['right_value']:null;
+
+$externalLinkName = isset($_REQUEST['toolName'])?$_REQUEST['toolName']:null;
+$externalLinkUrl = isset($_REQUEST['toolUrl'])?$_REQUEST['toolUrl']:null;
 
 $msg = '';
 
@@ -122,11 +125,10 @@ if ( $cmd == 'exVisible' || $cmd == 'exInvisible' )
 
 if ( $cmd == 'exAdd' )
 {
-    if ( ! empty ($_REQUEST['toolName']) && ! empty ($_REQUEST['toolUrl']))
+    if ( ! empty($externalLinkName) && ! empty($externalLinkUrl))
     {
-        if (insert_local_course_tool($_REQUEST['toolName'], $_REQUEST['toolUrl']) !== FALSE )
+        if( insert_local_course_tool($externalLinkName, $externalLinkUrl) !== FALSE )
         {
-
             // notify that tool list has been changed
             $eventNotifier->notifyCourseEvent('toollist_changed', $_cid, "0", "0", "0", '0');
 
@@ -156,9 +158,9 @@ if ( $cmd == 'exAdd' )
 
 if ($cmd == 'exEdit')
 {
-    if ( ! empty ($_REQUEST['toolName']) && ! empty ($_REQUEST['toolUrl']))
+    if ( ! empty($externalLinkName) && ! empty($externalLinkUrl))
     {
-        if ( set_local_course_tool($_REQUEST['externalToolId'],$_REQUEST['toolName'],$_REQUEST['toolUrl']) !== false )
+        if ( set_local_course_tool($_REQUEST['externalToolId'],$externalLinkName,$externalLinkUrl) !== false )
         {
             // notify that tool list has been changed
 
@@ -225,24 +227,16 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     {
         $externalToolId = $_REQUEST['externalToolId'];
 
-        if ( isset ($_REQUEST['toolName']) && isset ($_REQUEST['toolUrl']))
-        {
-            $toolName = $_REQUEST['toolName'];
-            $toolUrl  = $_REQUEST['toolUrl'];
-        }
-        else
+        if ( empty($externalLinkName) || empty($externalLinkUrl) )
         {
             $toolSettingList = get_course_tool_settings($externalToolId);
-            $toolName = $toolSettingList['name'];
-            $toolUrl  = $toolSettingList['url'];
+            $externalLinkName = $toolSettingList['name'];
+            $externalLinkUrl  = $toolSettingList['url'];
         }
     }
     else
     {
         $externalToolId = null;
-
-        $toolName = '';
-        $toolUrl  = '';
     }
 
     $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
@@ -255,9 +249,9 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= '<label for="toolName">'.get_lang('Name link').'</label><br />'."\n"
-    .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($toolName).'"><br />'."\n"
+    .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'"><br />'."\n"
     .'<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
-    .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($toolUrl).'"><br /><br />'."\n"
+    .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($externalLinkUrl).'"><br /><br />'."\n"
     .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp;'."\n"
     .claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
     .'</form>'."\n" ;
