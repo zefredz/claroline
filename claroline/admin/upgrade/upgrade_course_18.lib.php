@@ -729,4 +729,37 @@ function tool_intro_upgrade_to_18 ($course_code)
     return false;
 }
 
+/**
+ * Upgrade forum tool to 1.8
+ */
+
+function forum_upgrade_to_18($course_code)
+{
+    $versionRequiredToProceed = '/^1.7/';
+    $tool = 'CLFRM';
+    
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+
+                // update type of cat_order (fix bug 740)
+                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_categories`
+                        CHANGE `cat_order` `cat_order` int(10)" ;
+
+                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
+                else return $step;
+
+            default :
+                return $step;
+        }
+    }
+
+    return false;
+}
+
 ?>
