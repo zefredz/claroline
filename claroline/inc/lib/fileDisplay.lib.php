@@ -186,6 +186,15 @@ function format_url($url)
 		? $urlArray['scheme']
 		: ''
 		;
+        
+    if ( 'mailto' == $urlArray['scheme'] )
+    {
+        $urlToRet .= ':';
+    }
+    else
+    {
+        $urlToRet .= '://';
+    }
 		
     if ( isset( $urlArray['user'] ) )
     {
