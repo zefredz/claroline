@@ -155,7 +155,7 @@ array ( 'label'         => 'Is user allowed to request to be deleted from platfo
       , 'description'   => 'If yes, the user have access to a request system. '."\n"
                          .'This option allow only to request it, '."\n"
                          .'and don\'t prework the answer'."\n"
-      , 'display'       => false
+      , 'display'       => true
       , 'default'       => FALSE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Yes'
