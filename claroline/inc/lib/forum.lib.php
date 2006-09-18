@@ -579,17 +579,17 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = get_lang('A reply to your topic has been posted');
 
-    $url_topic = get_conf('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&amp;cidReq=' . $_course['sysCode'];
-    $url_forum = get_conf('rootWeb') . 'claroline/phpbb/index.php?amp;cidReq=' . $_course['sysCode'];
+    $url_topic = get_conf('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
+    $url_forum = get_conf('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . $_course['sysCode'];
 
     // send mail to registered user for notification
 
     while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-	$message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
+    	$message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
 								  '%lastname' => $list['lastname'],
-                                                                  '%url_topic' => $url_topic,
-                                                                  '%url_forum' => $url_forum ) );
+                                  '%url_topic' => $url_topic,
+                                  '%url_forum' => $url_forum ) );
 
        	claro_mail_user($list['user_id'], $message, $subject);
     }
