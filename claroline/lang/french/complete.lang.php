@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
@@ -1413,7 +1413,7 @@ $_lang['Your total score is %score'] = 'Vous avez obtenu un total de %score';
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Votre compte utilisateur ne semble pas inscrit à ce cours';
 $_lang['Zip file uploaded and uncompressed'] = ' Le fichier .zip a été envoyé et décompressé';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'L\'extension php \'zlib\' est requise pour l\'utilisation de cet outil. Contactez l\'administrateur de la plate-forme.';
-$_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = 'Les [Anglais] vivent en [Angleterre].';
+$_lang['[British people] live in [United Kingdom].'] = 'Les [Anglais] vivent en [Angleterre].';
 $_lang['archive'] = 'archive';
 $_lang['blockAccountCreationNotification'] = '
 Cher (chère) %firstname %lastname,
