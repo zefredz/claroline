@@ -42,8 +42,7 @@ $messageList = array();
 if ( empty($_REQUEST['uidToEdit']) ) claro_redirect('adminusers.php');
 else                                 $user_id = $_REQUEST['uidToEdit'];
 
-$user_data = user_initialise();
-$user_data['is_admin'] = false;
+$user_data = user_get_properties($user_id);
 
 if ( isset($_REQUEST['applyChange']) )  //for formular modification
 {
@@ -115,8 +114,6 @@ $htmlHeadXtra[] =
                     {return false;}
             }
             </script>";
-
-$user_data = user_get_properties($user_id);
 
 $user_data['is_admin'] = user_is_admin($user_id);
 
