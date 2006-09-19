@@ -1150,7 +1150,7 @@ function fill_db_course($courseDbName,$language)
 
 function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse='', $uidCreator, $visibility, $registrationAllowed, $enrollmentKey='', $expirationDate='', $extLinkName='', $extLinkUrl='')
 {
-    global $includePath, $versionDb, $clarolineVersion;
+    global $includePath, $versionDb, $clarolineVersion, $rootSys;
 
     $tblList         = claro_sql_get_main_tbl();
     $tbl_course      = $tblList['course'         ];
