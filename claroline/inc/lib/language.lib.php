@@ -49,8 +49,25 @@ function get_lang ($name,$var_to_replace=null)
         $translation = $name;
     }
 
+
     if ( !empty($var_to_replace) && is_array($var_to_replace) )
     {
+        if (get_conf('CLARO_DEBUG_MODE',false))
+        {
+            foreach (array_keys($var_to_replace) as $signature)
+            {
+
+                if (false === strpos($translation, $signature))
+                if (is_numeric($signature) && isset($var_to_replace[($signature+1)]) )
+                {
+                     pushClaroMessage($signature . ' not in varlang.<br>
+"<b>' . $var_to_replace[$signature] . '</b>" is probably the key of "<b>' . $var_to_replace[($signature+1)] . '</b>"' ,'translation' );
+                }
+                else pushClaroMessage($signature . ' not in varlang.' ,'translation');
+            }
+        }
+
+
         uksort( $var_to_replace, 'cmp_string_by_length' );
         return strtr($translation, $var_to_replace);
     }
@@ -498,7 +515,7 @@ function seems_utf8($str)
 /**
  * decode $str if $str is utf8 encoded
  */
-function utf8_decode_if_is_utf8($str) 
+function utf8_decode_if_is_utf8($str)
 {
     if( $GLOBALS['charset'] == 'utf-8' || !seems_utf8($str) )
     {
