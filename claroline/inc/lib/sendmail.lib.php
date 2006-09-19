@@ -65,6 +65,11 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     $mail->Body    = $message;
     $emailSentCount = 0;
 
+    if (get_conf('CLARO_DEBUG_MODE',false))
+    {
+        pushClaroMessage('<span class="mailSubject">Subject = ' . $subject . '</span><br /><span class="mailContent"><pre>' . $message . '</pre></span><span class="mailRecipient">Dest : '.implode(', ', $emailList).'</span>','mail');
+    }
+
     foreach($emailList as $thisEmail)
     {
         $mail->AddAddress($thisEmail);
