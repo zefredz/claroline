@@ -730,7 +730,6 @@ function user_html_form_admin_user_profile($data)
 function user_html_form($data, $form_type='registration')
 {
     global $imgRepositoryWeb;
-    global $is_PlatformAdmin;
 
     if ( $form_type == 'profile' )
     {
