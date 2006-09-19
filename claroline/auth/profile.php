@@ -51,7 +51,6 @@ define('DISP_PROFILE_FORM',__LINE__);
 define('DISP_MOREINFO_FORM',__LINE__);
 define('DISP_REQUEST_COURSE_CREATOR_STATUS',__LINE__);
 define('DISP_REQUEST_REVOQUATION',__LINE__);
-define('DISP_MERGE_ACCOUNT_FORM',__LINE__);
 
 $display = DISP_PROFILE_FORM;
 
@@ -163,15 +162,6 @@ elseif ( get_conf('can_request_revoquation')
     $nameTools = get_lang('Request to remove this account');
     $display = DISP_REQUEST_REVOQUATION;
 }
-elseif ( get_conf('userCanMerge',false)
-&& 'reqMerge' == $cmd)
-{
-    // display revoquation form
-    $noQUERY_STRING = TRUE;
-    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
-    $nameTools = get_lang('Merge this account with another account');
-    $display = DISP_MERGE_ACCOUNT_FORM;
-}
 elseif ( 'editExtraInfo' == $cmd && 0 < count($extraInfoDefList) )
 {
     // display revoquation form
@@ -217,12 +207,6 @@ switch ( $display )
         if ( get_conf('can_request_revoquation') )
         {
             $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
-        }
-
-        // display user revoquation
-        if ( get_conf('user_can_merge',false) )
-        {
-            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqMerge">' . get_lang('Merge my account') . '</a>' ;
         }
 
         break;
