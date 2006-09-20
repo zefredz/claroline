@@ -271,6 +271,88 @@ function claro_get_uid_of_platform_admin()
 }
 
 /**
+ * @return list of users wich have status to receipt REQUESTS
+ * @author Christophe Gesché <Moosh@claroline.net>
+ *
+ */
+
+function claro_get_uid_of_request_admin()
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql = "SELECT user_id AS id
+            FROM `" . $tbl['user'] . "` AS u
+            INNER JOIN `" . $tbl['user_property'] . "` AS up
+            ON up.userId = u.user_id
+            WHERE u.isPlatformAdmin = 1
+              AND up.propertyId = 'adminContactForRequest'
+              AND up.propertyValue = 1
+              AND up.scope = 'contacts'
+              ";
+    $resutlList = claro_sql_query_fetch_all_cols($sql);
+
+    return $resutlList['id'];
+}
+
+
+/**
+ * @return list of users wich have status to receive system notification
+ * @author Christophe Gesché <Moosh@claroline.net>
+ *
+ */
+
+function claro_get_uid_of_system_notification_recipient()
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql = "SELECT user_id AS id
+            FROM `" . $tbl['user'] . "` AS u
+            INNER JOIN `" . $tbl['user_property'] . "` AS up
+            ON up.userId = u.user_id
+            WHERE up.propertyId = 'adminContactForSystemNotification'
+              #AND u.isPlatformAdmin = 1
+              AND up.propertyValue = 1
+              AND up.scope = 'contacts'
+              ";
+    $resutlList = claro_sql_query_fetch_all_cols($sql);
+
+    return $resutlList['id'];
+}
+
+function claro_set_uid_recipient_of_system_notification($user_id,$state=true)
+{
+   $tbl = claro_sql_get_main_tbl();
+
+    $sql = "REPLACE INTO `" . $tbl['user_property'] . "`
+            SET userId = " . (int) $user_id . ",
+                propertyId = 'adminContactForSystemNotification',
+                propertyValue = " . (int) $state . ",
+                scope = 'contacts'
+              ";
+    $resutl = claro_sql_query_affected_rows($sql);
+
+    return $resutl;
+
+}
+
+function claro_set_uid_recipient_of_request_admin($user_id,$state=true)
+{
+   $tbl = claro_sql_get_main_tbl();
+
+    $sql = "REPLACE INTO `" . $tbl['user_property'] . "`
+            SET userId = " . (int) $user_id . ",
+                propertyId = 'adminContactForRequest',
+                propertyValue = " . (int) $state . ",
+                scope = 'contacts'
+              ";
+    $resutl = claro_sql_query_affected_rows($sql);
+
+    return $resutl;
+
+}
+
+
+/**
  * Return true, if user is admin on the platform
  * @param $userId
  * @return boolean
@@ -350,7 +432,8 @@ function profile_send_request_course_creator_status($explanation)
 {
     global $_uid, $_user, $dateFormatLong;
 
-    $mailToUidList = claro_get_uid_of_platform_admin();
+    $mailToUidList = claro_get_uid_of_request_admin();
+    if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
 
     $requestMessage_Title =
     get_block('%sitename Request - Course creator status for %firstname %lastname',
@@ -384,9 +467,13 @@ function profile_send_request_course_creator_status($explanation)
 
 function profile_send_request_revoquation($explanation,$login,$password)
 {
-    global $_uid, $_user, $dateFormatLong;
+    if (empty($explanation)) return claro_failure::set_failure('EXPLANATION_EMPTY');
 
-    $mailToUidList = claro_get_uid_of_platform_admin();
+    $_user = get_init('_user');
+    global $dateFormatLong;
+
+    $mailToUidList = claro_get_uid_of_request_admin();
+    if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
 
     $requestMessage_Title =
     get_block('%sitename Request - Revocation of %firstname %lastname',
@@ -397,19 +484,22 @@ function profile_send_request_revoquation($explanation,$login,$password)
     $requestMessage_Content =
     get_block('blockRequestUserRevoquationMail',
     array('%time'      => claro_disp_localised_date($dateFormatLong),
-    '%user_id'   => $_uid,
+    '%user_id'   => get_init('_uid'),
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%login'     => $login,
     '%password'  => $password,
     '%comment'   => nl2br($explanation),
-    '%url' =>  get_conf('rootAdminWeb') . 'adminprofile.php?uidToEdit=' . $_uid
+    '%url'       => get_conf('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . get_init('_uid')
     )
     );
 
-    claro_mail_user($mailToUidList, $requestMessage_Content,
-    $requestMessage_Title, get_conf('administrator_email'), 'profile');
+    claro_mail_user( $mailToUidList,
+                     $requestMessage_Content,
+                     $requestMessage_Title,
+                     get_conf('administrator_email'),
+                     get_conf('siteName') . '-profile');
 
     return true;
 }
@@ -773,7 +863,7 @@ function user_html_form($data, $form_type='registration')
         $html .= form_readonly_text('lastname', $data['lastname'], get_lang('Last name'));
     }
 
-    
+
     if ( in_array('name',$profile_editable) )
     {
         $html .= form_input_text('firstname', $data['firstname'], get_lang('First name'), true);
@@ -796,21 +886,6 @@ function user_html_form($data, $form_type='registration')
         {
             $html .= form_readonly_text('officialCode', $data['officialCode'],get_lang('Administrative code'));
         }
-    }
-
-    // USER PICTURE
-    if ( get_conf('userCanAddPhoto',false) && 'profile' == $form_type )
-    {
-        $html .= form_row('<label for="picture">'
-             . ( $data['picture'] ? get_lang('Change picture'):get_lang('Include picture')) . ' :<br />' . "\n"
-        .    ' <small>(.jpg or .jpeg only)</small></label>'
-        ,    '<input type="file" name="picture" id="picture" />'
-        .    (empty($data['picture'])
-        ?    '<br />' . "\n"
-        .    '<label for="del_picture">' . get_lang('Remove picture') . '</label>'
-        .    '<input type="checkbox" name="del_picture" id="del_picture" value="yes" />'
-        :    '<input type="hidden" name="del_picture" id="del_picture" value="no" />')
-        ) ;
     }
 
     // Display language select box
@@ -910,7 +985,7 @@ function user_html_form($data, $form_type='registration')
     }
     else
     {
-        $html .= form_readonly_text('phone', $data['phone'], get_lang('Phone')); 
+        $html .= form_readonly_text('phone', $data['phone'], get_lang('Phone'));
     }
 
     // Group Tutor
@@ -951,7 +1026,7 @@ function user_html_form($data, $form_type='registration')
         . '<input type="radio" name="isCourseCreator" id="create"'
         . ' value="1"   '
         . ($data['isCourseCreator']? ' checked'  :'') . ' />'
-        . '<label for="create">' . get_lang('Create course') . '</label>');
+        . '<label for="create">' . get_lang('Create courses allowed') . '</label>');
     }
 
     // Platform administrator
@@ -999,7 +1074,7 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('&nbsp;',
         '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
-        . '<img src="'.$imgRepositoryWeb.'course.gif" alt="">' . get_lang('PersonalCourseList')
+        . '<img src="' . $imgRepositoryWeb . 'course.gif" alt="">' . get_lang('PersonalCourseList')
         . '</a>');
     }
 
@@ -1119,12 +1194,24 @@ function user_display_preferred_language_select_box()
  * @param int $userId
  * @return array of properties
  */
-function get_user_property_list($userId, $force = false)
+function get_user_property_list($userId, $force = false, $getUndefinedProperties = false)
 {
     static $userPropertyList = array();
     if (!array_key_exists($userId,$userPropertyList) || $force)
     {
         $tbl = claro_sql_get_tbl(array('user_property','property_definition'));
+        if ($getUndefinedProperties)
+        {
+        $sql = "SELECT propertyId,
+                   propertyValue,
+                   scope
+            FROM  `" . $tbl['user_property'] . "`
+            WHERE userId = " . (int) $userId . "
+            ORDER BY propertyId";
+
+        }
+        else
+        {
         $sql = "SELECT up.propertyId,
                    up.propertyValue,
                    up.scope
@@ -1132,7 +1219,8 @@ function get_user_property_list($userId, $force = false)
             INNER JOIN `" . $tbl['property_definition'] . "` pd
             ON up.propertyId = pd.propertyId
             WHERE up.userId = " . (int) $userId . "
-            ORDER BY pd.rank";
+            ORDER BY pd.rank, up.propertyId";
+        }
 
         $result = claro_sql_query_fetch_all_rows($sql);
         $propertyList = array();
