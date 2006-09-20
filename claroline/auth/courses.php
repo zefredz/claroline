@@ -43,24 +43,14 @@ $courseList = array();
 $categoryList = array();
 
 /*---------------------------------------------------------------------
-Get tables name
----------------------------------------------------------------------*/
-
-$tbl_mdb_names = claro_sql_get_main_tbl();
-
-$tbl_course           = $tbl_mdb_names['course'           ];
-$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-$tbl_course_nodes     = $tbl_mdb_names['category'         ];
-$tbl_class            = $tbl_mdb_names['class'            ];
-
-/*---------------------------------------------------------------------
 Define Display
 ---------------------------------------------------------------------*/
 
-define ('DISPLAY_USER_COURSES'       , __LINE__);
-define ('DISPLAY_COURSE_TREE'        , __LINE__);
-define ('DISPLAY_MESSAGE_SCREEN'     , __LINE__);
-define ('DISPLAY_ENROLLMENT_KEY_FORM', __LINE__);
+define ('DISPLAY_USER_COURSES'       ,      __LINE__);
+define ('DISPLAY_COURSE_TREE'        ,      __LINE__);
+define ('DISPLAY_MESSAGE_SCREEN'     ,      __LINE__);
+define ('DISPLAY_ENROLLMENT_KEY_FORM',      __LINE__);
+define ('DISPLAY_ENROLLMENT_DISABLED_FORM', __LINE__);
 
 $displayMode = DISPLAY_USER_COURSES; // default display
 
@@ -290,7 +280,8 @@ if ( $cmd == 'exReg' )
     else
     {
         $message = get_lang('Unable to enrol you to the course');
-        $displayMode = DISPLAY_MESSAGE_SCREEN;
+        $courseData = claro_get_course_data($course);
+        $displayMode = DISPLAY_ENROLLMENT_DISABLED_FORM;
     }
 
 
@@ -357,8 +348,8 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 } // end cmd == rqReg
 
 /*=====================================================================
-Display Section
-=====================================================================*/
+   Display Section
+  =====================================================================*/
 
 /*
 * SET 'BACK' LINK
@@ -586,7 +577,11 @@ switch ( $displayMode )
                     }
                     else
                     {
-                        echo '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('Locked') . '" />';
+                        echo '<a href="' . $_SERVER['PHP_SELF']
+                        .    '?cmd=exReg&course=' . $thisCourse['sysCode'] . $inURL . '">'
+                        .    '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('Locked') . '" />'
+                        .    '</a>'
+                        ;
                     }
 
                     echo '</td>' . "\n";
@@ -717,6 +712,42 @@ switch ( $displayMode )
         .     '</form>' . "\n"
         .     '</blockquote>'
         ;
+    }   break;
+
+    case DISPLAY_ENROLLMENT_DISABLED_FORM :
+    {
+
+        if ( ! empty($message) ) echo claro_html_message_box($message);
+
+        if ( empty($courseData['email']) ) $courseData['email'] = get_conf('administrator_email');
+        if ( empty($courseData['titular']) ) $courseData['titular'] = get_conf('administrator_name');
+
+        echo '<blockquote>'
+        .    '<div>'
+        .    get_locked_course_explanation($course)
+        .    '</div>'
+        .    '<br />'
+        .    '<span>'
+        .	 get_lang('Contact') . ': <a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $courseData['titular'] . '</a>' . "\n"
+        .    '</span>'
+        .    '</blockquote>'
+        ;
+        /*
+
+        if (false)
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        .    '<input type="hidden" name="cmd" value="exContactAdmin">' . "\n"
+        .    '<input type="hidden" name="course" value="' . $_REQUEST['course'] . '" />'
+        .    '<textarea name="content" cols="35" rows="6">'
+        .    '</textarea>'
+        .    '<p>'
+        .    '<input type="submit" value="' . get_lang('Send') . '" />&nbsp;' . "\n"
+        .    claro_html_button($_SERVER['PHP_SELF'].'?cmd=rqReg', get_lang('Cancel'))
+        .    '</p>'
+        .    '</form>' . "\n"
+        ;
+*/
+
     }   break;
 
 
