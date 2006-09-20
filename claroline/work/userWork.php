@@ -1325,8 +1325,8 @@ if( $dispWrkLst )
 					)
 				;
 
-			if( $thisWrk['visibility'] == "INVISIBLE" )	$visStyle = ' class="invisible"';
-			else										$visStyle = '';
+			if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )	$visStyle = ' class="invisible"';
+			else                                                                $visStyle = '';
 
 			if( $is_feedback )  $feedbackStyle = 'style="padding-left: 35px;"';
 			else				$feedbackStyle = '';
