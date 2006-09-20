@@ -30,14 +30,15 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $do=null;
 $controlMsg = array();
 //The name of the files
-$filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html');
+$filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html','course.subscription.locked.inc.html');
 //The path of the files
-$filePathList = array(get_conf('rootSys') . $filenameList[0], get_conf('rootSys') . $filenameList[1], $clarolineRepositorySys . '/auth/' . $filenameList[2]);
+$filePathList = array( get_conf('rootSys') . $filenameList[0]
+                     , get_conf('rootSys') . $filenameList[1]
+                     , $clarolineRepositorySys . '/auth/' . $filenameList[2]
+                     , get_conf('rootSys') . 'platform/textzone/' . $filenameList[3]
+                     );
 
 $display = DISP_FILE_LIST;
-
-
-
 
 // preserve compatibility waiting to replaces all ?modify=1 by ?cmd=modify
 if (isset($_REQUEST['modify']))  $_REQUEST['cmd'] ='modify';
@@ -64,6 +65,11 @@ if ( 'modify' == $cmd )
     $text = trim($textContent);
     if ( trim( strip_tags( $text,'<img>' ) ) != '' )
     {
+        if(!file_exists($filePathList[$fileId]))
+        {
+            require_once $includePath . '/lib/fileManage.lib.php';
+            claro_mkdir(dirname($filePathList[$fileId]),CLARO_FILE_PERMISSIONS,true);
+        }
         $fp = fopen($filePathList[$fileId], 'w+');
         fwrite($fp,$text);
     }
@@ -122,38 +128,46 @@ echo claro_html_tool_title($titles)
 //OUTPUT
 
 if($display==DISP_FILE_LIST
-|| $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE // remove this  whe  display edit  prupose a link to back to list
+// TODO remove nextline when display edit  prupose a link to back to list
+|| $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE
 )
 {
-?>
-<p>
-<?php echo get_lang('Here you can modify the content of the text zones displayed on the platform home page.') ?>
-<br />
-<?php echo get_lang('See below the files you can edit from this tool.') ?>
-</p>
+   echo '<p>'
+   .    get_lang('Here you can modify the content of the text zones displayed on the platform home page.')
+   .    '<br />'
+   .    get_lang('See below the files you can edit from this tool.')
+   .    '</p>' . "\n"
+   .    '<table cellspacing="2" cellpadding="2" border="0" class="claroTable">' . "\n"
+   .    '<tr class="headerX">' . "\n"
+   .    '<th >' . get_lang('Filename') . '</th>' . "\n"
+   .    '<th >' . get_lang('Edit') . '</th>' . "\n"
+   .    '<th >' . get_lang('Preview') . '</th>' . "\n"
+   .    '</tr>' . "\n"
+   ;
 
-<table cellspacing="2" cellpadding="2" border="0" class="claroTable">
-<tr class="headerX">
-    <th ><?php echo get_lang('Filename') ?></th>
-    <th ><?php echo get_lang('Edit') ?></th>
-    <th ><?php echo get_lang('Preview') ?></th>
-</tr>
-
-    <?php
     foreach($filenameList as $idFile => $fileName)
     {
-    ?>
-<tr>
-    <td ><?php echo basename($fileName); ?></td>
-    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=edit&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo get_lang('Edit') ?>" ></a></td>
-    <td align="center"><a href="<?php echo $_SERVER['PHP_SELF']."?cmd=view&amp;file=".$idFile; ?>"><img src="<?php echo $imgRepositoryWeb ?>preview.gif" border="0" alt="<?php echo get_lang('Preview') ?>" ></a></td>
-</tr>
-    <?php
-    }
-    ?>
-</table><br />
+        echo '<tr>' . "\n"
+        .    '<td >' . basename($fileName) . '</td>' . "\n"
+        .    '<td align="center">' . "\n"
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=edit&amp;file=' . $idFile . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" >' . "\n"
+        .    '</a>' . "\n"
+        .    '</td>' . "\n"
+        .    '<td align="center">' . "\n"
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=view&amp;file=' . $idFile . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'preview.gif" border="0" alt="' . get_lang('Preview') . '" >' . "\n"
+        .    '</a>' . "\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
+        ;
 
-    <?php
+    }
+
+    echo '</table>' . "\n"
+    .    '<br />' . "\n"
+    ;
+
 }
 
 if( DISP_EDIT_FILE == $display )
