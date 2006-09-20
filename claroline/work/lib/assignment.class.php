@@ -748,5 +748,22 @@ class Assignment
 	{
 		return $this->assigDirWeb;
 	}
+	
+	/**
+	 * check if the user can upload a submission at this date
+	 *
+     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @return boolean
+	 */
+	function isUploadDateOk()
+	{
+		$now = time();
+		
+		$assignmentStarted = (bool) ( $this->startDate <= $now );
+		$assignmentNotFinished = (bool) ( $now < $this->endDate );
+		$canUploadAfterEnd = (bool) $this->allowLateUpload == 'YES';
+		
+		return (bool) $assignmentStarted && ( $assignmentNotFinished || $canUploadAfterEnd );
+	}
 }
 ?>
