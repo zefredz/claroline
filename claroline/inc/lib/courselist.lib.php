@@ -143,6 +143,7 @@ function search_course($keyword, $userId = null)
                    c.fake_code  AS officialCode,
                    c.directory  AS directory,
                    c.code       AS code,
+                   c.email      AS email,
                    c.visible    AS visible"
 
          .  ($userId ? ", cu.user_id AS enrolled" : "")
@@ -216,6 +217,29 @@ function get_user_course_list($userId, $renew = false)
     }
 
     return $userCourseList;
+}
+
+function get_locked_course_explanation($course_id=null)
+{
+    return claro_text_zone::get_content('course.subscription.locked', array('course'=>$course_id));
+}
+
+
+// TODO MOVE THIS NEW CLASS TO A DEDICATED LIB. 
+class claro_text_zone
+{
+    function get_content($key, $context=null)
+    {
+        $textZoneFile = null;
+        if (array_key_exists('course',$context))
+        {
+            $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_path($context['course']) . '/textzone/' . $key . '.inc.html';
+        }
+        if(is_null($textZoneFile) || !file_exists($textZoneFile)) $textZoneFile = get_conf('rootSys') . 'platform/textzone/' . $key . '.inc.html';
+        if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
+        else                           $content = get_lang('Enrollement for this course is closed');
+        return $content;
+    }
 }
 
 ?>
