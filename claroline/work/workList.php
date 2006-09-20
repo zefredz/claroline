@@ -49,8 +49,8 @@ event_access_tool($_tid, $_courseTool['label']);
 claro_set_display_mode_available(true);
 
 /*============================================================================
-BASIC VARIABLES DEFINITION
-=============================================================================*/
+	Basic Variables Definitions
+  ============================================================================*/
 
 $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes (from config file)
 $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
@@ -59,8 +59,8 @@ $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 $dialogBox = '';
 
 /*============================================================================
-CLEAN INFORMATIONS SEND BY USER
-=============================================================================*/
+	Clean informations sent by user
+  ============================================================================*/
 unset ($req);
 
 // Probably deletable line
@@ -74,8 +74,8 @@ $req['assignmentId'] = ( isset($_REQUEST['assigId'])
                     : false;
 
 /*============================================================================
-PREREQUISITES
-=============================================================================*/
+	Prerequisites
+  ============================================================================*/
 
 /*--------------------------------------------------------------------
 ASSIGNMENT INFORMATIONS
@@ -91,8 +91,8 @@ if ( !$req['assignmentId'] || !$assignment->load($req['assignmentId']) )
 }
 
 /*============================================================================
-GROUP 'publish' option
-=============================================================================*/
+	Group Publish Option
+  ============================================================================*/
 // redirect to the submission form prefilled with a .url document targetting the published document
 
 /**
@@ -110,12 +110,9 @@ if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWork
 }
 
 /*============================================================================
-PERMISSIONS
-=============================================================================*/
-// assignment opening period is started
-$afterStartDate      = (bool) ( $assignment->getStartDate() <= time() );
+	Permissions
+  ============================================================================*/
 
-// assignment is invisible
 $assignmentIsVisible = (bool) ( $assignment->getVisibility() == 'VISIBLE' );
 
 $is_allowedToEditAll = (bool) claro_is_allowed_to_edit();
@@ -128,24 +125,35 @@ if( !$assignmentIsVisible && !$is_allowedToEditAll )
 }
 
 // upload or update is allowed between start and end date or after end date if late upload is allowed
-$uploadDateIsOk      = (bool) ( $afterStartDate
-                              && ( time() < $assignment->getEndDate()
-                                 || $assignment->getAllowLateUpload() == 'YES'
-                                 )
-                              );
+$uploadDateIsOk      = $assignment->isUploadDateOk();
 
+
+
+if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
+{
+    // user is authed and allowed
+    $userCanPost = (bool) ( isset($_uid) && $is_courseAllowed );
+}
+else
+{
+	$userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
+	// check if user is member of at least one group
+	$userCanPost = (bool) ( !empty($userGroupList) );
+}
+
+$is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
+
+/*============================================================================
+	Update notification
+  ============================================================================*/
 if (isset($_uid))
 {
     // call this function to set the __assignment__ as seen, all the submission as seen
     $claro_notifier->is_a_notified_ressource($_cid, $claro_notifier->get_notification_date($_uid), $_uid, $_gid, $_tid, $req['assignmentId']);
 }
-
-
-if( $assignment->getAssignmentType() == 'GROUP' )
-{
-    $userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
-}
-
+/*============================================================================
+	Prepare List
+  ============================================================================*/
 /* Prepare submission and feedback SQL filters - remove hidden item from count */
 
 $submissionConditionList = array();
@@ -172,8 +180,6 @@ if( ! $is_allowedToEditAll )
         $submissionConditionList[] = "`S`.`user_id` = "      . (int) $_uid;
         $feedbackConditionList[]   = "`FB`.`original_id` = " . (int) $_uid;
     }
-    
-    $showOnlyVisibleCondition = " HAVING `submissionCount` > 0";
 }
 
 $submissionFilterSql = implode(' OR ', $submissionConditionList);
@@ -184,9 +190,8 @@ if ( !empty($feedbackFilterSql) ) $feedbackFilterSql = ' AND ('.$feedbackFilterS
 
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
-    // user is authed and allowed
-    $userCanPost = (bool) ( isset($_uid) && $is_courseAllowed );
-
+	if( ! $is_allowedToEditAll ) $showOnlyVisibleCondition = " HAVING `submissionCount` > 0";
+	
     $sql = "SELECT `U`.`user_id`                        AS `authId`,
                    CONCAT(`U`.`nom`, ' ', `U`.`prenom`) AS `name`,
                    `S`.`title`,
@@ -247,12 +252,10 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 }
 else  // $assignment->getAssignmentType() == 'GROUP'
 {
+	
     /**
      * USER GROUP INFORMATIONS
      */
-    $userCanPost = (bool) ! ( isset($userGroupList) && count($userGroupList) <= 0 );
-
-
     $sql = "SELECT `G`.`id`            AS `authId`,
                    `G`.`name`,
                    `S`.`title`,
@@ -272,13 +275,12 @@ else  // $assignment->getAssignmentType() == 'GROUP'
         # SEARCH ON FEEBACKS
         LEFT JOIN `" . $tbl_wrk_submission . "` as `FB`
                ON `FB`.`parent_id` = `S`.`id`
-        " . $feedbackFilterSql . "
-        
-        GROUP BY `G`.`id`,          # group by 'group'
-                 `S`.`original_id`
-         " . $showOnlyVisibleCondition
-        ;
+        " . $feedbackFilterSql ."
 
+        GROUP BY `G`.`id`,          # group by 'group'
+                 `S`.`original_id`"
+        ;
+        
     if ( isset($_GET['sort']) && isset($_GET['dir']) ) 		$sortKeyList[$_GET['sort']] = $_GET['dir'];
     elseif( isset($_GET['sort']) && isset($_GET['dir']) ) 	$sortKeyList[$_GET['sort']] = SORT_ASC;
 	
@@ -302,7 +304,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
             " . $submissionFilterSql . "";	
 }
 
-$is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
+
 
 /*--------------------------------------------------------------------
 WORK LIST
@@ -496,12 +498,13 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
  * COMMAND LINKS
  */
 $cmdMenu = array();
-if ( $is_allowedToSubmit )
+if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 {
-    // link to create a new assignment
+	// link to create a new assignment
     $cmdMenu[] = '<a class="claroCmd" href="userWork.php?authId=' . $_uid . '&amp;cmd=rqSubWrk'
     .    '&amp;assigId=' . $req['assignmentId'] . '">' . get_lang('Submit a work') . '</a>' . "\n"
     ;
+
 }
 
 if ( $is_allowedToEditAll )
@@ -592,6 +595,5 @@ echo '</tbody>' . "\n"
 .    $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']);
 
 include $includePath . '/claro_init_footer.inc.php';
-
 
 ?>

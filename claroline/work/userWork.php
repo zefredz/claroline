@@ -97,7 +97,7 @@ if ( !$assignmentId || !$assignment->load($assignmentId) )
 /*--------------------------------------------------------------------
                     REQUIRED : USER INFORMATIONS
   --------------------------------------------------------------------*/
-if( isset($assignment) && isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
+if( isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 {
   	if( $assignment->getAssignmentType() == 'GROUP')
 	{
@@ -205,10 +205,8 @@ if( $assignment->getAssignmentType() == 'GROUP' && isset($_uid) )
 /*============================================================================
                           PERMISSIONS
   =============================================================================*/
-// assignment opening period is started
-$afterStartDate = ( $assignment->getStartDate() <= time() )?true:false;
-// assignment is invisible
-$assignmentIsVisible = ( $assignment->getVisibility() == "VISIBLE" )?true:false;
+
+$assignmentIsVisible = (bool) ( $assignment->getVisibility() == 'VISIBLE' );
 
 // --
 $is_allowedToEditAll  = (bool) claro_is_allowed_to_edit(); // can submit, edit, delete
@@ -220,11 +218,11 @@ if( !$assignmentIsVisible && !$is_allowedToEditAll )
 	exit();
 }
 
+// upload or update is allowed between start and end date or after end date if late upload is allowed
+$uploadDateIsOk = $assignment->isUploadDateOk();
+
 //-- is_allowedToEdit
 // TODO check if submission has feedback
-// upload or update is allowed between start and end date or after end date if late upload is allowed
-$uploadDateIsOk = (bool) ( $afterStartDate
-                              && ( time() < $assignment->getEndDate() || $assignment->getAllowLateUpload() == "YES" ) );
 
 $autoFeedbackIsDisplayedForAuthId = (bool)
 							( trim(strip_tags($assignment->getAutoFeedbackText(),$allowedTags)) != '' || $assignment->getAutoFeedbackFilename() != '' )
@@ -239,25 +237,17 @@ if( isset($_uid) && !$autoFeedbackIsDisplayedForAuthId )
 {
 	if( $assignment->getAssignmentType() == 'GROUP' && isset($_gid) )
 	{
-		$userCanEdit = (bool) ($submission->getGroupId() == $_gid);
+		$userCanEdit = (bool) ( $submission->getGroupId() == $_gid );
 	}
 	elseif( $assignment->getAssignmentType() == 'GROUP' )
 	{
 		// check if user is in the group that owns the work
-		if( isset($userGroupList[$submission->getGroupId()]))
-		{
-			$userCanEdit = true;
-		}
-		else
-		{
-			// if the creator of submission is no more in group he cannot edit
-			$userCanEdit = false;
-		}
+		$userCanEdit = ( isset($userGroupList[$submission->getGroupId()]) );
 	}
 	elseif( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     {
 		// a work is set, assignment is individual, user is authed and the work is his work
-		$userCanEdit = (bool) ($submission->getUserId() == $_uid);
+		$userCanEdit = (bool) ( $submission->getUserId() == $_uid );
 	}
 }
 else
@@ -271,40 +261,19 @@ $is_allowedToEdit = (bool)  (  ( $uploadDateIsOk && $userCanEdit ) || $is_allowe
 
 //-- is_allowedToSubmit
 
-
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
-      // user is authed and allowed
-      $userCanPost = (bool)( isset($_uid) && $is_courseAllowed );
+    // user is authed and allowed
+    $userCanPost = (bool) ( isset($_uid) && $is_courseAllowed );
 }
-else // GROUP
+else
 {
-      if( !empty($userGroupList) && isset($userGroupList[$_REQUEST['authId']]) )
-      {
-            // user is member of the displayed group
-            $userCanPost = true;
-      }
-      else
-      {
-            $userCanPost = false;
-      }
+	$userCanPost = (bool) ( !empty($userGroupList) && isset($userGroupList[$_REQUEST['authId']]) );
 }
 
-$is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost )
-                                    || $is_allowedToEditAll;
+$is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
 
-if( get_conf('show_only_author') && !$is_allowedToEditAll )
-{
-	// security check to avoid a user to see others submissions if not permitted
-	if( isset($wrk) && !$userCanEdit 
-		|| ( $assignment->getAssignmentType() == 'GROUP' && !isset($userGroupList[$_REQUEST['authId']]) )
-		|| ( $assignment->getAssignmentType() == 'INDIVIDUAL' && $_uid != $_REQUEST['authId'] )
-	)
-	{
-		header("Location: work.php");
-		exit();      
-	}
-}   
+
 /*============================================================================
                           HANDLING FORM DATA
   =============================================================================*/
@@ -1250,6 +1219,29 @@ if( $is_allowedToSubmit )
   --------------------------------------------------------------------*/
 if( $dispWrkLst )
 {
+	$showOnlyAuthorCondition = '';
+	if( get_conf('show_only_author') && !$is_allowedToEditAll )
+	{
+		// security check to avoid a user to see others submissions if not permitted
+		if( $assignment->getAssignmentType() == 'GROUP' && !isset($userGroupList[$_REQUEST['authId']]) )			
+		{
+			if( ! isset($userGroupIdList) )
+			{
+			    $userGroupIdList = array();
+		    	foreach( $userGroupList as $userGroup )
+		    	{
+		    		$userGroupIdList[] = $userGroup['id'];
+		    	}
+		    }
+			$showOnlyAuthorCondition = "AND `".$authField."` IN (".implode(',',$userGroupIdList).")";			
+		}		
+		elseif( $assignment->getAssignmentType() == 'INDIVIDUAL' && $_uid != $_REQUEST['authId'] )
+		{
+			$showOnlyAuthorCondition = "AND `".$authField."` = ". (int)$_uid;			
+		}		
+	}
+
+
 	// select all submissions from this user in this assignment (not feedbacks !)
 	$sql = "SELECT *,
 				UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
@@ -1257,7 +1249,8 @@ if( $dispWrkLst )
 			FROM `".$tbl_wrk_submission."`
 			WHERE `".$authField."` = ". (int)$_REQUEST['authId']."
 				AND `original_id` IS NULL
-				AND `assignment_id` = ". (int)$_REQUEST['assigId']."
+				AND `assignment_id` = ".(int)$_REQUEST['assigId']."
+				". $showOnlyAuthorCondition . "
 			ORDER BY `last_edit_date` ASC";
 
 	$wrkLst = claro_sql_query_fetch_all($sql);
