@@ -225,7 +225,7 @@ function get_locked_course_explanation($course_id=null)
 }
 
 
-// TODO MOVE THIS NEW CLASS TO A DEDICATED LIB. 
+// TODO MOVE THIS NEW CLASS TO A DEDICATED LIB.
 class claro_text_zone
 {
     function get_content($key, $context=null)
@@ -237,7 +237,9 @@ class claro_text_zone
         }
         if(is_null($textZoneFile) || !file_exists($textZoneFile)) $textZoneFile = get_conf('rootSys') . 'platform/textzone/' . $key . '.inc.html';
         if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
-        else                           $content = get_lang('Enrollement for this course is closed');
+        else                           $content = get_lang('Your not allowed to enroll to this course.')
+                                       .          get_lang('Please contact the course manager.')
+                                       ;
         return $content;
     }
 }
