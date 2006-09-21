@@ -526,7 +526,7 @@ function upgrade_main_database_right_to_18 ()
 }
 
 /**
- * Upgrade right (from main database) to 1.8
+ * Upgrade user_property to 1.8
  * @return step value, 0 if succeed
  */
 
@@ -565,6 +565,38 @@ function upgrade_main_database_user_property_to_18 ()
               KEY `rank` (`rank`)
             )
             ";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+            unset($sqlForUpdate);
+
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step; 
+    }
+  	
+    return false;
+}
+
+/**
+ * Upgrade tracking to 1.8
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_tracking_to_18 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'TRACKING_18';
+
+    switch( $step = get_upgrade_status($tool) )
+    {           
+        case 1 :
+
+            // Add indexes
+            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['track_e_default'] . "` ADD INDEX `default_user_id` ( `default_user_id` )";
+            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['track_e_login'] . "` ADD INDEX `login_user_id` ( `login_user_id` )";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
