@@ -32,7 +32,7 @@ class ClaroCourse
 
     // Official code
     var $officialCode;
-    
+
     // Titular
     var $titular;
 
@@ -62,7 +62,7 @@ class ClaroCourse
 
     // Backlog object
     var $backlog;
-    
+
     // List of GET or POST parameters
     var $htmlParamList = array();
 
@@ -87,7 +87,7 @@ class ClaroCourse
 
         $this->backlog = new Backlog();
     }
-    
+
     /**
      * load course data from database
      *
@@ -121,7 +121,7 @@ class ClaroCourse
 
     /**
      * insert or update course data
-     * 
+     *
      * @return boolean success
      */
 
@@ -129,14 +129,14 @@ class ClaroCourse
     {
         if ( empty($this->courseId) )
         {
-            // insert            
+            // insert
             $keys = define_course_keys ($this->officialCode,'',get_conf('dbNamePrefix'));
 
 		    $courseSysCode      = $keys['currentCourseId'];
 		    $courseDbName       = $keys['currentCourseDbName'];
 		    $courseDirectory    = $keys['currentCourseRepository'];
 		    $courseExpirationDate = '';
-		    
+
 		    if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && fill_course_repository($courseDirectory)
                 && update_db_course($courseDbName)
@@ -169,7 +169,7 @@ class ClaroCourse
                 $args['courseCategory' ] = $this->category;
 
                 $GLOBALS['eventNotifier']->notifyEvent("course_created",$args);
-                
+
             	return true;
             }
             else
@@ -177,7 +177,7 @@ class ClaroCourse
                 $lastFailure = claro_failure::get_last_failure();
 
                 switch ($lastFailure )
-                {	
+                {
                 	// TODO improve error handling of creation functions
                     case 'READ_ONLY_SYSTEM_FILE' :
                     {
@@ -188,10 +188,10 @@ class ClaroCourse
                         $this->Backlog->failure( 'Error code : '. $lastFailure );
                     }
                 }
-                
+
             	return false;
             }
-		    
+
         }
         else
         {
@@ -200,7 +200,7 @@ class ClaroCourse
 	        $tbl_course = $tbl_mdb_names['course'];
 
 	        $visibility = $this->getVisibility($this->access,$this->enrolment);
-	        	        
+
             $sql = "UPDATE `" . $tbl_course . "`
                     SET `intitule`         = '" . addslashes($this->title) . "',
                         `faculte`          = '" . addslashes($this->category) . "',
@@ -217,18 +217,18 @@ class ClaroCourse
             return claro_sql_query($sql);
         }
     }
-    
+
     /**
      * delete course data and content
      *
      * @return boolean success
      */
-     
+
     function delete ()
     {
         return delete_course($this->courseId);
     }
-    
+
     /**
      * retrieve course data from form
      */
@@ -236,23 +236,23 @@ class ClaroCourse
     function handleForm ()
     {
         if ( isset($_REQUEST['course_title'        ]) ) $this->title = trim(strip_tags($_REQUEST['course_title']));
-        
-        if ( isset($_REQUEST['course_officialCode' ]) ) 
+
+        if ( isset($_REQUEST['course_officialCode' ]) )
         {
         	$this->officialCode = trim(strip_tags($_REQUEST['course_officialCode']));
         	$this->officialCode = ereg_replace('[^A-Za-z0-9_]', '', $this->officialCode);
 		    $this->officialCode = strtoupper($this->officialCode);
         }
-        
+
         if ( isset($_REQUEST['course_titular'      ]) ) $this->titular = trim(strip_tags($_REQUEST['course_titular']));
         if ( isset($_REQUEST['course_email'        ]) ) $this->email = trim(strip_tags($_REQUEST['course_email']));
-        if ( isset($_REQUEST['course_category'     ]) ) $this->category = trim(strip_tags($_REQUEST['course_category']));        
-        if ( isset($_REQUEST['course_departmentName']) ) $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));        
+        if ( isset($_REQUEST['course_category'     ]) ) $this->category = trim(strip_tags($_REQUEST['course_category']));
+        if ( isset($_REQUEST['course_departmentName']) ) $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));
         if ( isset($_REQUEST['course_departmentUrl']) ) $this->departmentUrl = trim(strip_tags($_REQUEST['course_departmentUrl']));
-        if ( isset($_REQUEST['course_language'     ]) ) $this->language = trim(strip_tags($_REQUEST['course_language'])); 
+        if ( isset($_REQUEST['course_language'     ]) ) $this->language = trim(strip_tags($_REQUEST['course_language']));
         if ( isset($_REQUEST['course_access'       ]) ) $this->access = (bool) $_REQUEST['course_access'];
         if ( isset($_REQUEST['course_enrolment'    ]) ) $this->enrolment = (bool) $_REQUEST['course_enrolment'];
-        if ( isset($_REQUEST['course_enrolmentKey']) ) $this->enrolmentKey = trim(strip_tags($_REQUEST['course_enrolmentKey']));         
+        if ( isset($_REQUEST['course_enrolmentKey']) ) $this->enrolmentKey = trim(strip_tags($_REQUEST['course_enrolmentKey']));
     }
 
     /**
@@ -282,14 +282,14 @@ class ClaroCourse
             $this->backlog->failure(get_lang('Course title needed'));
             $success = false ;
         }
-        
+
         // Validate course code
         if ( empty($this->officialCode) && $fieldRequiredStateList['officialCode'])
         {
             $this->backlog->failure(get_lang('Course code needed'));
             $success = false ;
         }
-        
+
         // Validate email
         if ( empty($this->email) && $fieldRequiredStateList['email'])
         {
@@ -311,7 +311,7 @@ class ClaroCourse
             $this->backlog->failure(get_lang('Category needed'));
             $success = false ;
         }
-        
+
         // Validate course language
         if ( empty($this->language) && $fieldRequiredStateList['language'])
         {
@@ -324,22 +324,22 @@ class ClaroCourse
 		if ( ! $this->validateDepartmentUrl() )
 		{
 			$this->backlog->failure(get_lang('Department URL is not valid'));
-            $success = false ; 
+            $success = false ;
 		}
 
         return $success;
-    }    
-    
+    }
+
     /**
      * validate url and try to repair it if no protocol specified
      *
      * @return boolean success
      */
-     
+
     function validateDepartmentUrl ()
     {
     	if ( empty($this->departmentUrl) ) return true;
-    	
+
         $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
 
         if ( ! eregi($regexp,$this->departmentUrl) )
@@ -353,35 +353,35 @@ class ClaroCourse
             }
             else
             {
-                 return false;                      
+                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * validate email ( and semi-column separated email list )
      *
      * @return boolean success
      */
-     
+
     function validateEmailList ()
     {
     	// empty email is valide as we already checked if field was required
     	if( empty($this->email) ) return true;
-    	
+
 		$emailControlList = strtr($this->email,', ',';');
         $emailControlList = preg_replace( '/;+/', ';', $emailControlList );
 
         $emailControlList = explode(';',$emailControlList);
-        
+
         $emailValidList = array();
-        
+
    		foreach ( $emailControlList as $emailControl )
         {
         	$emailControl = trim($emailControl);
-        	
+
    		    if ( ! is_well_formed_email_address( $emailControl ) )
        		{
                 return false;
@@ -395,7 +395,7 @@ class ClaroCourse
    		$this->email = implode(';',$emailValidList);
    		return true;
     }
-     
+
     /**
      * Display form
      *
@@ -419,15 +419,15 @@ class ClaroCourse
         // TODO cancelUrl cannot be null
         if ( is_null($cancelUrl) )
             $cancelUrl = $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($this->courseId);
-        
+
         $html = '';
 
         $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         	. '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
-    		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n" 
-    		
+    		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+
     		. $this->getHtmlParamList('POST')
-    		
+
         	. '<table  cellpadding="3" border="0">' . "\n" ;
 
         // Course title
@@ -436,7 +436,7 @@ class ClaroCourse
             . '<td align="right">'
             . '<label for="course_title">'
             . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'') . get_lang('Course title')
-            .'</label>&nbsp;:</td>' 
+            .'</label>&nbsp;:</td>'
             . '<td><input type="text" name="course_title" id="course_title" value="' . htmlspecialchars($this->title) . '" size="60">'
             . (empty($this->courseId) ? '<br /><small>'.get_lang('e.g. <em>History of Literature</em>').'</small>':'')
             . '</td></tr>' . "\n" ;
@@ -445,7 +445,7 @@ class ClaroCourse
 
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">'
-            . '<label for="course_officialCode">' 
+            . '<label for="course_officialCode">'
             . (get_conf('human_code_needed') ? '<span class="required">*</span> ' :'') . get_lang('Course code')
             . '</label>&nbsp;:</td>'
             . '<td><input type="text" id="course_officialCode" name="course_officialCode" value="' . htmlspecialchars($this->officialCode) . '" size="20">'
@@ -517,12 +517,12 @@ class ClaroCourse
             . '<img src="' . $imgRepositoryWeb . 'access_locked.gif" />'
             . '<input type="radio" id="access_false" name="course_access" value="0" ' . ( ! $this->access ? 'checked="checked"':'' ) . '>&nbsp;'
             . '<label for="access_false">';
-        
+
         if( empty($this->courseId) )
 			$html .= get_lang('Private access (site accessible only to people on the user list)');
         else
         	$html .= get_lang('Private access (site accessible only to people on the <a href="%url">user list</a>)' , array('%url'=> '../user/user.php'));
-        	
+
         $html .= '</label>'
             . '</td>'
             . '</tr>' . "\n" ;
@@ -573,23 +573,23 @@ class ClaroCourse
         return $html;
 
     }
-    
+
     /**
      * Display question of delete confirmation
      *
      * @param $cancelUrl string url of the cancel button
      * @return string html output of form
      */
-     
+
     function displayDeleteConfirmation ()
     {
     	$paramString = $this->getHtmlParamList('GET');
-    	
+
 		$deleteUrl = './settings.php?cmd=exDelete&amp;'.$paramString;
         $cancelUrl = './settings.php?'.$paramString ;
 
         $html = '';
-        
+
         $html .= '<p>'
         .    '<font color="#CC0000">'
         .    get_lang('Deleting this course will permanently delete all its documents and unenroll all its students.')
@@ -604,18 +604,18 @@ class ClaroCourse
         .    '<a href="'.$cancelUrl.'">'.get_lang('No').'</a>'
         .    '</font>'
         .    '</p>'
-        ;    	
-        
-        return $html;	
+        ;
+
+        return $html;
     }
-     
+
     /**
      * Add html parameter to list
      *
      * @param $name string input name
      * @param $value string input value
      */
-    
+
     function addHtmlParam($name, $value)
     {
 	    $this->htmlParamList[$name] = $value;
@@ -627,15 +627,15 @@ class ClaroCourse
      * @param $method string GET OR POST
      * @return string html output of params for $method method
      */
-    
+
     function getHtmlParamList($method = 'GET')
     {
     	if ( empty($this->htmlParamList) ) return '';
-    	
+
     	$html = '';
-    	
+
     	if ( $method == 'POST' )
-    	{   	
+    	{
 	    	foreach ( $this->htmlParamList as $name => $value )
 	    	{
 	    		$html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '">' . "\n" ;
@@ -648,19 +648,19 @@ class ClaroCourse
 	    	{
 	    		$params[] = rawurlencode($name) . '=' . rawurlencode($value);
 	    	}
-	    	
+
 	    	$html = implode('&amp;', $params );
     	}
-		
+
 		return $html;
     }
-    
+
     /**
      * Get visibility
      *
      * @param $access string
      * @param $enrolment string
-     * @return integer value of visibility field 
+     * @return integer value of visibility field
      */
 
 	function getVisibility ( $access, $enrolment )
@@ -679,7 +679,7 @@ class ClaroCourse
      * Get access value from visibility field
      *
      * @param $visbility integer value of field
-     * @return boolean public true, private false     
+     * @return boolean public true, private false
      */
 
 	function getAccess ( $visibility )
@@ -692,7 +692,7 @@ class ClaroCourse
      * Get enrolment value from visibility field
      *
      * @param $visbility integer value of field
-     * @return boolean open true, close false     
+     * @return boolean open true, close false
      */
 
 	function getEnrolment ( $visibility )
@@ -700,7 +700,7 @@ class ClaroCourse
 	    if ( $visibility == 1 || $visibility == 2 ) return true ;
 	    else                                        return false;
 	}
-	
+
     /**
      * Send course creation information by mail to all platform administrators
      *
@@ -728,14 +728,18 @@ class ClaroCourse
                                 '%course_url' => get_conf('rootWeb') . '/claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
 
         // Get the concerned senders of the email
+
+        $mailToUidList = claro_get_uid_of_system_notification_recipient();
+        if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
+
         $platformAdminList = claro_get_uid_of_platform_admin();
 
-        return claro_mail_user( $platformAdminList, $mailBody, $mailSubject);
+        return claro_mail_user( $mailToUidList, $mailBody, $mailSubject);
 	}
 
     /**
      * Build progress param url
-     * 
+     *
      * @return string url
      */
 
@@ -744,7 +748,7 @@ class ClaroCourse
 	    $url = $_SERVER['PHP_SELF'] . '?cmd=exEdit';
 
         $paramList = array();
-        
+
         $paramList['course_title'] = $this->title;
         $paramList['course_officialCode'] = $this->officialCode;
         $paramList['course_titular'] = $this->titular;
@@ -756,15 +760,15 @@ class ClaroCourse
         $paramList['course_access'] = $this->access;
         $paramList['course_enrolment'] = $this->enrolment;
         $paramList['course_enrolmentKey'] = $this->enrolmentKey;
-        
+
         $paramList = array_merge($paramList, $this->htmlParamList);
 
 	    foreach ($paramList as $key => $value)
 	    {
 	        $url .= '&amp;' . rawurlencode($key) . '=' . rawurlencode($value);
 	    }
-	    
-	    return $url;    	
+
+	    return $url;
 	}
 }
 
