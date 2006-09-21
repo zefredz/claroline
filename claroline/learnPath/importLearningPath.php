@@ -472,7 +472,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     {
         $errorFound = true;
         array_push ($errorMsgs, get_lang('The file to upload is not valid.') . '<br />'
-        		. get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) )
+                    . get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) )
         		);
 
     }
@@ -1084,7 +1084,7 @@ else // if method == 'post'
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 
 <input type="file" name="uploadedPackage" /><br />
-<small><?php echo get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
+<small><?php echo get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ); ?></small>
 
 <p>
 <input type="submit" value="<?php echo get_lang('Import') ?>">
