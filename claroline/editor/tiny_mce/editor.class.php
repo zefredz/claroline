@@ -20,51 +20,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
  
+require dirname(__FILE__) . '/../GenericEditor.class.php';
 /**
  * Class to manage htmlarea overring simple textarea html
  * @package EDITOR
  */
-class editor
+class editor extends GenericEditor
 {
-      /**
-     * @var $name content for attribute name and id of textarea
+    /**
+     * @var $_tag metadata comment added to identify editor
      */
-    var $name;
+    var $_tag;
 
     /**
-     * @var $content content of textarea
+     * @var $_askStrip ask user if the content can be cleaned ?
      */
-    var $content;
-    
-    /**
-     * @var $rows number of lines of textarea
-     */
-    var $rows;
-
-    /**
-     * @var $cols number of cols of textarea
-     */
-    var $cols;
-
-    /**
-     * @var $optAttrib additionnal attributes that can be added to textarea
-     */
-    var $optAttrib;
-
-    /**
-     * @var $webPath path to access via the web to the directory of the editor
-     */
-    var $webPath;
-    
-    /**
-     * @var $tag metadata comment added to identify editor
-     */
-    var $tag;
-
-    /**
-     * @var $askStrip ask user if the content can be cleaned ?
-     */
-    var $askStrip;
+    var $_askStrip;
     
     /**
      * constructor
@@ -79,19 +50,14 @@ class editor
      */
     function editor( $name,$content,$rows,$cols,$optAttrib,$webPath )
     {
-        $this->name = $name;
-        $this->content = $content;
-        $this->rows = $rows;
-        $this->cols = $cols;
-        $this->optAttrib = $optAttrib;
-        $this->webPath = $webPath;
+        parent::GenericEditor( $name,$content,$rows,$cols,$optAttrib,$webPath );
         
-		$this->tag = '<!-- content: html tiny_mce -->';
-		
-		// test content before preparing because preparation adds $this->tag
-		$this->askStrip = $this->needCleaning();		
-		
-	    $this->prepareContent();
+        $this->_tag = '<!-- content: html tiny_mce -->';
+        		
+        // test content before preparing because preparation adds $this->_tag
+        $this->_askStrip = $this->needCleaning();		
+
+        $this->prepareContent();
     }
     
    
@@ -114,6 +80,7 @@ class editor
             .'    mode : "exact",'."\n"
             .'    elements: "'.$this->name.'",'."\n"
             .'    theme : "advanced",'."\n"
+            .'    browsers : "msie,gecko,opera",' . "\n" // disable tinymce for safari. default value is "msie,gecko,safari,opera"
             .'    plugins : "flash,paste",'."\n"
             .'    theme_advanced_buttons1 : "fontselect,fontsizeselect,formatselect,bold,italic,underline,strikethrough,separator,sub,sup,separator,undo,redo,separator",'."\n"
             .'    theme_advanced_buttons2 : "cut,copy,paste,pasteword,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,image,flash,code,separator,help",'."\n"
@@ -125,14 +92,15 @@ class editor
             .'    convert_urls : false,'."\n" // prevent forced conversion to relative url 
             .'    relative_urls : false,'."\n"; // prevent forced conversion to relative url
 		
-		if( $this->askStrip ) $returnString .='    setupcontent_callback : "strip_old_htmlarea",'."\n";
+		// if required call the function that will ask user if the text has to be cleaned
+		if( $this->_askStrip ) $returnString .='    setupcontent_callback : "strip_old_htmlarea",'."\n";
             
         $returnString .=
             '    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
             .'});'."\n\n"
             .'</script>'."\n\n";
         
-		if( $this->askStrip )
+		if( $this->_askStrip )
 		{
 			$returnString .=
 	            "\n\n"
@@ -160,28 +128,6 @@ class editor
     }
     
     /**
-     * Returns the html code needed to display the default textarea
-     *
-     * @access private
-     * @return string html code needed to display the default textarea
-     */
-    function getTextArea()
-    {
-        $textArea = "\n"
-            .'<textarea '
-            .'id="'.$this->name.'" '
-            .'name="'.$this->name.'" '
-            .'style="width:100%" '
-            .'rows="'.$this->rows.'" '
-            .'cols="'.$this->cols.'" '
-            .$this->optAttrib.' >'
-            ."\n".$this->content."\n"
-            .'</textarea>'."\n";
-
-        return $textArea;
-    }
-
-    /**
      * Introduce a comment stating that the content is html and edited with this editor
      *
      * @access private
@@ -189,7 +135,7 @@ class editor
     function prepareContent()
     {
     	// remove old 'metadata' and add the good one
-    	$this->content = preg_replace('/<!-- content:[^(\-\->)]*-->/', '', $this->content) . $this->tag;
+    	$this->content = preg_replace('/<!-- content:[^(\-\->)]*-->/', '', $this->content) . $this->_tag;
 
         return true;
     }
@@ -203,10 +149,10 @@ class editor
     function needCleaning()
     {
     	// if we already have the tinymce tag content cleaning is not required
-	    if( strpos($this->content,$this->tag) !== false ) return false;    
+	    if( strpos($this->content,$this->_tag) !== false ) return false;    
 
 	    // if content contains only the tiny_mce tag cleaning is not required
-	    if( '' == str_replace($this->tag,'',$this->content) ) return false;
+	    if( '' == str_replace($this->_tag,'',$this->content) ) return false;
 
     	if( preg_match('/style="[^"]*"/',$this->content) )
     	{
