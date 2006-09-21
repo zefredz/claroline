@@ -111,11 +111,7 @@ echo claro_html_tool_title($nameTools)
 .    claro_html_msg_list($messageList)
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
 .    '<input type="hidden" name="cmd" value="setRecipient" />' . "\n"
-.    '<fieldset>'
-.    '<legend>' . get_lang('Recipient List') . '</legend>'
 .    $adminDataGrid->render()
-.   '</fieldset>'
-.    get_lang('Submit') . ': ' . "\n"
 .    '<input type="submit" value="' . get_lang('Ok') . '"> ' . "\n"
 .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
 .    '</form>' . "\n"
