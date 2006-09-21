@@ -35,20 +35,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                   `default_event_type` varchar(20) NOT NULL default '',
                   `default_value_type` varchar(20) NOT NULL default '',
                   `default_value` tinytext NOT NULL,
-                  PRIMARY KEY  (`default_id`)
+                  PRIMARY KEY  (`default_id`),
+                  KEY `default_user_id` (`default_user_id`)
                 ) TYPE=MyISAM COMMENT='Use for other developpers users'";
-
-
 
         $creationStatementList[] = "CREATE TABLE `".$statsTblPrefixForm."track_e_login` (
                   `login_id` int(11) NOT NULL auto_increment,
                   `login_user_id` int(11)  NOT NULL default '0',
                   `login_date` datetime NOT NULL default '0000-00-00 00:00:00',
                   `login_ip` char(15) NOT NULL default '',
-                  PRIMARY KEY  (`login_id`)
+                  PRIMARY KEY  (`login_id`),
+                  KEY `login_user_id` (`login_user_id`)
                 ) TYPE=MyISAM COMMENT='Record informations about logins'";
-
-
 
         $creationStatementList[] = "CREATE TABLE `".$statsTblPrefixForm."track_e_open` (
                   `open_id` int(11) NOT NULL auto_increment,
