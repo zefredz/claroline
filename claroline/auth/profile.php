@@ -42,10 +42,6 @@ include_once $includePath . '/lib/fileManage.lib.php';
 
 $nameTools = get_lang('My User Account');
 
-// DB tables definition
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user      = $tbl_mdb_names['user'];
-
 // define display
 define('DISP_PROFILE_FORM',__LINE__);
 define('DISP_MOREINFO_FORM',__LINE__);
@@ -118,7 +114,7 @@ if ( isset($_REQUEST['applyChange']) )
         $uidReset = true;
         include '../inc/claro_init_local.inc.php';
         $messageList['info'][] = get_lang('Your new profile has been saved') . '<br />' . "\n";
-    
+
         // Initialise
         $user_data = user_get_properties($_uid);
 
@@ -141,8 +137,21 @@ elseif (    get_conf('can_request_revoquation')
 && 'exRevoquation' == $cmd )
 {
     // send a request for revoquation
-    profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']);
+    if (profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']))
     $messageList['info'][] = get_lang('Your request to remove your account has been sent');
+    else
+    switch (claro_failure::get_last_failure())
+    {
+        case 'EXPLANATION_EMPTY' :
+            $messageList['warn'][] = get_lang('Your request to remove your account has NOT sent');
+            $messageList['info'][] = get_lang('Your need to explain');
+            $noQUERY_STRING = TRUE;
+            $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+            $nameTools = get_lang('Request to remove this account');
+            $display = DISP_REQUEST_REVOQUATION;
+        break;
+
+    }
 }
 elseif (  ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
 && 'reqCCstatus' == $cmd )
@@ -254,7 +263,6 @@ switch ( $display )
             $requirement = (bool) (TRUE == $extraInfoDef['required']);
 
             $labelExtraInfoDef = $extraInfoDef['label'];
-
             echo form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
 
         }
@@ -268,8 +276,6 @@ switch ( $display )
         .    '</table>' . "\n"
         .    '</form>' . "\n"
         ;
-
-
         break;
 
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
