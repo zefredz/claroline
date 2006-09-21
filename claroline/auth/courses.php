@@ -279,7 +279,6 @@ if ( $cmd == 'exReg' )
     }
     else
     {
-        $message = get_lang('Unable to enrol you to the course');
         $courseData = claro_get_course_data($course);
         $displayMode = DISPLAY_ENROLLMENT_DISABLED_FORM;
     }
@@ -717,21 +716,17 @@ switch ( $displayMode )
     case DISPLAY_ENROLLMENT_DISABLED_FORM :
     {
 
-        if ( ! empty($message) ) echo claro_html_message_box($message);
-
         if ( empty($courseData['email']) ) $courseData['email'] = get_conf('administrator_email');
         if ( empty($courseData['titular']) ) $courseData['titular'] = get_conf('administrator_name');
 
-        echo '<blockquote>'
-        .    '<div>'
-        .    get_locked_course_explanation($course)
-        .    '</div>'
-        .    '<br />'
-        .    '<span>'
-        .	 get_lang('Contact') . ': <a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $courseData['titular'] . '</a>' . "\n"
-        .    '</span>'
-        .    '</blockquote>'
+        $message .= get_locked_course_explanation($course)
+        .    '<p>'
+        .	 get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>'))
+        .    '</p>'
         ;
+        
+        if ( ! empty($message) ) echo claro_html_message_box($message);
+
         /*
 
         if (false)
@@ -741,7 +736,7 @@ switch ( $displayMode )
         .    '<textarea name="content" cols="35" rows="6">'
         .    '</textarea>'
         .    '<p>'
-        .    '<input type="submit" value="' . get_lang('Send') . '" />&nbsp;' . "\n"
+        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
         .    claro_html_button($_SERVER['PHP_SELF'].'?cmd=rqReg', get_lang('Cancel'))
         .    '</p>'
         .    '</form>' . "\n"
