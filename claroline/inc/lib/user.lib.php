@@ -301,6 +301,31 @@ function claro_get_uid_of_request_admin()
  *
  */
 
+function claro_get_uid_of_platform_contact()
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql = "SELECT user_id AS id
+            FROM `" . $tbl['user'] . "` AS u
+            INNER JOIN `" . $tbl['user_property'] . "` AS up
+            ON up.userId = u.user_id
+            WHERE up.propertyId = 'adminContactForContactPage'
+              #AND u.isPlatformAdmin = 1
+              AND up.propertyValue = 1
+              AND up.scope = 'contacts'
+              ";
+    $resutlList = claro_sql_query_fetch_all_cols($sql);
+
+    return $resutlList['id'];
+}
+
+
+/**
+ * @return list of users wich have status to receive system notification
+ * @author Christophe Gesché <Moosh@claroline.net>
+ *
+ */
+
 function claro_get_uid_of_system_notification_recipient()
 {
     $tbl = claro_sql_get_main_tbl();
@@ -329,9 +354,27 @@ function claro_set_uid_recipient_of_system_notification($user_id,$state=true)
                 propertyValue = " . (int) $state . ",
                 scope = 'contacts'
               ";
-    $resutl = claro_sql_query_affected_rows($sql);
 
-    return $resutl;
+    $result = claro_sql_query_affected_rows($sql);
+
+    return $result;
+
+}
+
+function claro_set_uid_of_platform_contact($user_id,$state=true)
+{
+   $tbl = claro_sql_get_main_tbl();
+
+    $sql = "REPLACE INTO `" . $tbl['user_property'] . "`
+            SET userId = " . (int) $user_id . ",
+                propertyId = 'adminContactForContactPage',
+                propertyValue = " . (int) $state . ",
+                scope = 'contacts'
+              ";
+
+    $result = claro_sql_query_affected_rows($sql);
+
+    return $result;
 
 }
 
@@ -345,9 +388,9 @@ function claro_set_uid_recipient_of_request_admin($user_id,$state=true)
                 propertyValue = " . (int) $state . ",
                 scope = 'contacts'
               ";
-    $resutl = claro_sql_query_affected_rows($sql);
+    $result = claro_sql_query_affected_rows($sql);
 
-    return $resutl;
+    return $result;
 
 }
 
