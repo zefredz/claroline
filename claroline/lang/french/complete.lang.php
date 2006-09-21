@@ -1371,8 +1371,7 @@ $_lang['You cannot unsubscribe the last course manager of the course'] = 'Vous n
 $_lang['You didnt choose any file to send, or it is too big'] = 'Vous n\'avez pas sélectionné le fichier à envoyer ou celui-ci est trop gros';
 $_lang['You have just created the course website'] = 'Vous venez de créer le site du cours';
 $_lang['You have reached the maximum number of allowed attempts.'] = 'Vous avez atteint le nombre maximum de tentatives autorisées.';
-$_lang['You left some required fields empty'] = 'Vous n\'avez pas rempli tous les champs.
-Utilisez le bouton de retour en arrière de votre navigateur et recommencez.';
+$_lang['You left some required fields empty'] = 'Vous n\'avez pas rempli tous les champs';
 $_lang['You must introduce the message text'] = 'Tapez le message à envoyer.';
 $_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'Vous ne pouvez pas voir ces statistiques avant d\'avoir atteint le nombre maximum d\'essais.';
 $_lang['You must select a file'] = 'Vous devez sélectionner un fichier';

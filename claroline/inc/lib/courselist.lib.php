@@ -237,8 +237,7 @@ class claro_text_zone
         }
         if(is_null($textZoneFile) || !file_exists($textZoneFile)) $textZoneFile = get_conf('rootSys') . 'platform/textzone/' . $key . '.inc.html';
         if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
-        else                           $content = get_lang('Your not allowed to enroll to this course.')
-                                       .          get_lang('Please contact the course manager.')
+        else                           $content = get_lang('Unable to enrol you to the course') ;
                                        ;
         return $content;
     }
