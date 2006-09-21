@@ -40,9 +40,10 @@ $platformAdminUidList = claro_get_uid_of_platform_admin();
 
 if ( isset($_REQUEST['cmd']) )  //for formular modification
 {
-    $notifiedList = (array_key_exists('notifiedList',$_REQUEST) && is_array($_REQUEST['notifiedList']))?$_REQUEST['notifiedList']:array();
-    $requestList = (array_key_exists('requestList',$_REQUEST) && is_array($_REQUEST['requestList']))?$_REQUEST['requestList']:array();
-    $contactList = (array_key_exists('contactList',$_REQUEST) && is_array($_REQUEST['contactList']))?$_REQUEST['contactList']:array();
+    $notifiedList = isset($_REQUEST['notifiedList']) && is_array($_REQUEST['notifiedList'])?$_REQUEST['notifiedList']:array();
+    $requestList = isset($_REQUEST['requestList']) && is_array($_REQUEST['requestList'])?$_REQUEST['requestList']:array();
+    $contactList = isset($_REQUEST['contactList']) && is_array($_REQUEST['contactList'])?$_REQUEST['contactList']:array();
+
     foreach ($platformAdminUidList as $platformAdminUid )
     {
         claro_set_uid_of_platform_contact($platformAdminUid,in_array($platformAdminUid,$contactList));
@@ -83,14 +84,14 @@ foreach ($platformAdminUidList as $k => $platformAdminUid )
 $adminDataGrid = new claro_datagrid($userDataGrid);
 $adminDataGrid->set_idLineType('none');
 $adminDataGrid->set_colHead('name');
-$adminDataGrid->set_colTitleList(array ( 'user id'              => get_lang('user id')
+$adminDataGrid->set_colTitleList(array ( 'user id'              => get_lang('User id')
                                         , 'name'                => get_lang('Last name')
                                         , 'firstname'           => get_lang('First name')
                                         , 'email'               => get_lang('Email')
-                                        , 'authsource'          => get_lang('authentication source')
+                                        , 'authsource'          => get_lang('Authentication source')
                                         , 'contact_switch'      => get_lang('Contact')
-                                        , 'request_switch'      => get_lang('request')
-                                        , 'notification_switch' => get_lang('notify')
+                                        , 'request_switch'      => get_lang('Request')
+                                        , 'notification_switch' => get_lang('Notify')
                                         )
                                         );
 
