@@ -265,9 +265,9 @@ function claro_get_uid_of_platform_admin()
             FROM `" . $tbl['user'] . "`
             WHERE isPlatformAdmin = 1 ";
 
-    $resutlList = claro_sql_query_fetch_all_cols($sql);
+    $resultList = claro_sql_query_fetch_all_cols($sql);
 
-    return $resutlList['id'];
+    return $resultList['id'];
 }
 
 /**
@@ -289,9 +289,9 @@ function claro_get_uid_of_request_admin()
               AND up.propertyValue = 1
               AND up.scope = 'contacts'
               ";
-    $resutlList = claro_sql_query_fetch_all_cols($sql);
+    $resultList = claro_sql_query_fetch_all_cols($sql);
 
-    return $resutlList['id'];
+    return $resultList['id'];
 }
 
 
@@ -339,9 +339,9 @@ function claro_get_uid_of_system_notification_recipient()
               AND up.propertyValue = 1
               AND up.scope = 'contacts'
               ";
-    $resutlList = claro_sql_query_fetch_all_cols($sql);
+    $resultList = claro_sql_query_fetch_all_cols($sql);
 
-    return $resutlList['id'];
+    return $resultList['id'];
 }
 
 function claro_set_uid_recipient_of_system_notification($user_id,$state=true)
@@ -354,7 +354,7 @@ function claro_set_uid_recipient_of_system_notification($user_id,$state=true)
                 propertyValue = " . (int) $state . ",
                 scope = 'contacts'
               ";
-
+    
     $result = claro_sql_query_affected_rows($sql);
 
     return $result;
