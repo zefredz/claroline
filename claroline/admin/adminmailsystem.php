@@ -40,9 +40,9 @@ $platformAdminUidList = claro_get_uid_of_platform_admin();
 
 if ( isset($_REQUEST['cmd']) )  //for formular modification
 {
-    $notifiedList = $_REQUEST['notifiedList'];
-    $requestList  = $_REQUEST['requestList'];
-    $contactList  = $_REQUEST['contactList'];
+    $notifiedList = (array_key_exists('notifiedList',$_REQUEST) && is_array($_REQUEST['notifiedList']))?$_REQUEST['notifiedList']:array();
+    $requestList = (array_key_exists('requestList',$_REQUEST) && is_array($_REQUEST['requestList']))?$_REQUEST['requestList']:array();
+    $contactList = (array_key_exists('contactList',$_REQUEST) && is_array($_REQUEST['contactList']))?$_REQUEST['contactList']:array();
     foreach ($platformAdminUidList as $platformAdminUid )
     {
         claro_set_uid_of_platform_contact($platformAdminUid,in_array($platformAdminUid,$contactList));
