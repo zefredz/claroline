@@ -54,14 +54,14 @@ if ( ( count($categoryList) - 1 )  >= 0 )
 
         if ( $thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0 )
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?category='.$thisCategory['code'].'">'."\n"
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?category='.$thisCategory['code'].'">'
             .    $thisCategory['name']
-            .    '</a>'                                                                  ."\n"
+            .    '</a>'                                                                  
             ;
         }
         else
         {
-            echo $thisCategory['name'] . "\n";
+            echo $thisCategory['name'];
         }
 
         echo ' <small>('.$thisCategory['nbCourse'].')</small>'."\n"
@@ -89,7 +89,7 @@ if ( count($courseList) > 0 )
             . $thisCourse['officialCode'] . ' - '
             . $thisCourse['title']
             . '</a>'
-            . '<br>';
+            . '<br />';
         if (isset($_uid))
         {
         	echo'<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
@@ -110,7 +110,7 @@ else
 	// echo "<blockquote>",$lang_No_course_publicly_available,"</blockquote>\n";
 }
 
-echo '<blockquote>' . "\n"
+echo "\n" . '<blockquote>' . "\n"
 .    '<p><label for="keyword">' . get_lang('Search from keyword') . '</label> : </p>' . "\n"
 .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<input type="hidden" name="cmd" value="search" />' . "\n"
@@ -120,8 +120,5 @@ echo '<blockquote>' . "\n"
 .    '</blockquote>' . "\n";
 
 echo $backCommandLine;
-
-
-echo '</td>';
 
 ?>
