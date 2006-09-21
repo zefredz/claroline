@@ -41,8 +41,8 @@ $platformAdminUidList = claro_get_uid_of_platform_admin();
 if ( isset($_REQUEST['cmd']) )  //for formular modification
 {
     $notifiedList = $_REQUEST['notifiedList'];
-    $requestList = $_REQUEST['requestList'];
-    $contactList = $_REQUEST['contactList'];
+    $requestList  = $_REQUEST['requestList'];
+    $contactList  = $_REQUEST['contactList'];
     foreach ($platformAdminUidList as $platformAdminUid )
     {
         claro_set_uid_of_platform_contact($platformAdminUid,in_array($platformAdminUid,$contactList));
@@ -84,9 +84,9 @@ $adminDataGrid = new claro_datagrid($userDataGrid);
 $adminDataGrid->set_idLineType('none');
 $adminDataGrid->set_colHead('name');
 $adminDataGrid->set_colTitleList(array ( 'user id'              => get_lang('user id')
-                                        , 'name'                => get_lang('lastname')
-                                        , 'firstname'           => get_lang('firstname')
-                                        , 'email'               => get_lang('email')
+                                        , 'name'                => get_lang('Last name')
+                                        , 'firstname'           => get_lang('First name')
+                                        , 'email'               => get_lang('Email')
                                         , 'authsource'          => get_lang('authentication source')
                                         , 'contact_switch'      => get_lang('Contact')
                                         , 'request_switch'      => get_lang('request')
