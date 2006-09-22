@@ -38,18 +38,17 @@ if( !empty($_course['extLinkName']) )
         : ' '
         ;
         
-    if( !empty($_course['extLinkUurl']) )
+    if( !empty($_course['extLinkUrl']) )
     {
         $institutionNameOutput .= '<a href="' 
             . $_course['extLinkUrl'] . '" target="_top">'
+            . $_course['extLinkName']
+            . '</a>'
             ;
     }
-
-    $institutionNameOutput .= $_course['extLinkName'];
-
-    if( !empty($_course['extLinkUrl']) )
+    else
     {
-        $institutionNameOutput .= '</a>';
+        $institutionNameOutput .= $_course['extLinkName'];    
     }
 }
 
