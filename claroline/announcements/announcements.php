@@ -502,7 +502,7 @@ if ( $displayForm )
          ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '" />' . "\n"
          : ''
          )
-    .    '<table>'
+    .    '<table cellpadding="5">'
     .    '<tr>'
     .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>' . "\n"
     .    '<td>'
@@ -533,7 +533,7 @@ if ( $displayForm )
         .	 '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
         .    '<label for="emailOption">'
         .    get_lang('Send this announcement by email to registered students')
-        .    '</label><hr />' . "\n"
+        .    '</label>' . "\n"
         .	 '</td>' . "\n"
         .	 '</tr>' . "\n"        
         ;
@@ -574,7 +574,7 @@ if ( $displayForm )
     
     echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel')
     .    '</td>'
-    .    '<tr>' . "\n"
+    .    '</tr>' . "\n"
     .    '</table>'
     .    '</form>' . "\n"
     ;
