@@ -72,9 +72,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
         }
 
-        echo "<A href=\"javascript:popup('"
-            . $url."')\">".get_lang('Attached Resources : Add / Delete attachement')
-            ."</A>\n";
+        echo '<p>' . "\n"
+            . '<a href="javascript:popup(\''
+            . $url.'\')">'.get_lang('Attached Resources : Add / Delete attachement')
+            . '</a>' . "\n"
+            . '</p>' . "\n\n";
     }
 
 //--------------------------------------------------------------------------------------------------------
