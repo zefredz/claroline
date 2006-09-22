@@ -1,7 +1,6 @@
 /******************************************************************************
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
-@import url(default.css) all;
 
 body 
 {
@@ -45,10 +44,10 @@ h3{
 #platformBanner
 {
 	color: #595959;
-	background: url(./cupertino/bg-platform.gif) repeat-x bottom;
-	background-color:E9E9E9;
+	background-color: #E9E9E9;
 	font-size: 120%;
-	font-weight: bold;
+	padding: 0;
+	background: url(./cupertino/bg-platform.gif) repeat-x bottom;
 }
 
 #platformBanner a,
@@ -70,15 +69,16 @@ h3{
 {
 	height:23px;
 	text-align: left;
-	margin: 0px;
-	padding: 0px;
+	padding: 0;
+	margin-left: 5px;
+	font-weight: bold;
 	background: white url(./cupertino/tag-right.gif) no-repeat top right;
 }
 
 #platformBanner #siteName a 
 {
-	margin:0px;
-	margin:0px;
+	margin:0;
+	margin:0;
 	padding-left:10px;
 	padding-right:10px;
 	text-indent:10px;
@@ -88,7 +88,9 @@ h3{
 
 #platformBanner #institution
 {
+   	font-weight: bold;
 	text-align: right;
+	font-weight: bold;
 	margin: 0;
 }
 
@@ -230,6 +232,23 @@ h3{
 	padding-top: 5px;
 	margin: 0;
 }
+
+
+#courseBannerRight
+{
+    position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+}
+
+#courseBannerLeft
+{
+    position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+}
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
@@ -269,7 +288,7 @@ h3{
 #claroBody{
 
 	clear:both;
-
+    background-color: #FFF;
 }
 
 
