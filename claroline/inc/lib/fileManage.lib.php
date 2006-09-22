@@ -509,15 +509,15 @@ function claro_search_file($searchPattern             , $baseDirPath,
 
         while ( $fileName = readdir($dirPt) )
         {
+            $filePath = $baseDirPath.'/'.$fileName;
+
             if (   $fileName == '.' || $fileName == '..'
-                || in_array($baseDirPath.'/'.$fileName, $excludedPathList ) )
+                || in_array($filePath, $excludedPathList ) )
             {
                 continue;
             }
             else
             {
-
-                $filePath = $baseDirPath.'/'.$fileName;
 
                 if ( is_dir($filePath) ) $dirList[] = $filePath;
 
@@ -574,6 +574,39 @@ function search_string_to_pcre($searchPattern)
     $searchPattern   = str_replace('?', '.?' , $searchPattern);
     $searchPattern   = '|'.$searchPattern.'|i';
     return $searchPattern;
+}
+
+/**
+ * Get the list of invisible documents of the current course
+ * 
+ * @param $baseWorkDir path document
+ * @param $cidReq course identifier
+ * @return list of invisible document
+ */
+
+function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
+{
+    $documentList = array();
+
+    if ( is_null($cidReq) ) $cid = $GLOBALS['_cid'] ;
+    else                    $cid = $cidReq ;
+
+    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid));
+    $tbl_document = $tbl_cdb_names['document'];
+
+    $sql = "SELECT path 
+            FROM `". $tbl_document ."`
+            WHERE visibility = 'i'";
+
+    $documentList = claro_sql_query_fetch_all_cols($sql);
+    $documentList = $documentList['path'];
+
+    for( $i=0; $i < count($documentList); $i++ )
+    {
+        $documentList[$i] = $baseWorkDir.$documentList[$i];
+    }    
+    
+    return $documentList ;
 }
 
 /**
