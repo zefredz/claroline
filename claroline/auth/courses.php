@@ -456,7 +456,7 @@ switch ( $displayMode )
 
                     if ($thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0)
                     {
-			$url = $_SERVER['PHP_SELF'] . '?cmd=rqReg&amp;category=' . $thisCategory['code'] . $inURL ;
+                        $url = $_SERVER['PHP_SELF'] . '?cmd=rqReg&amp;category=' . $thisCategory['code'] . $inURL ;
 
                         echo '<a href="' . $url . '">' . $thisCategory['name'] . '</a>' . '&nbsp<small>(' . $thisCategory['nbCourse'] . ')</small>' ;
                     }
@@ -516,8 +516,18 @@ switch ( $displayMode )
             {
                 echo '<tr>' . "\n"
                 .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['title'] . '<br />' . "\n"
-		        .	 '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n"
-				.	 '</td>' . "\n";
+		        .	 '<small>';
+		        
+		        if( !empty($thisCourse['email']) )
+		        {
+		            echo '<a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a>';
+		        }
+		        else
+		        {
+		            echo $thisCourse['titular'];
+		        }
+		           
+				echo '</small>' . "\n" . '</td>' . "\n";
 
                 // enroll link
 
@@ -569,7 +579,7 @@ switch ( $displayMode )
                     elseif($thisCourse['visible'] == 1 || $thisCourse['visible'] == 2)
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF']
-                        .    '?cmd=exReg&course=' . $thisCourse['sysCode'] . $inURL . '">'
+                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
                         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrolment') . '" />'
                         .    '</a>'
                         ;
@@ -577,7 +587,7 @@ switch ( $displayMode )
                     else
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF']
-                        .    '?cmd=exReg&course=' . $thisCourse['sysCode'] . $inURL . '">'
+                        .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
                         .    '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('Locked') . '" />'
                         .    '</a>'
                         ;
