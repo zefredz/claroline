@@ -1016,11 +1016,7 @@ if ('exDownload' == $cmd )
     {
         // Build an exclude file list to prevent simple user
         // to see document contained in "invisible" directories
-
-        $sql = "SELECT path FROM `".$dbTable."` WHERE visibility ='i'";
-
-        $searchExcludeList = claro_sql_query_fetch_all_cols($sql);
-        $searchExcludeList = $searchExcludeList['path'];
+        $searchExcludeList = getInvisibleDocumentList($baseWorkDir);
     }
     else
     {
@@ -1030,7 +1026,7 @@ if ('exDownload' == $cmd )
     $filePathList = claro_search_file(search_string_to_pcre($searchDownloadPattern),
                                       $requestDownloadPath,
                                       true,
-                                      'ALL',
+                                      'FILE',
                                       $searchExcludeList);
 
     /*
@@ -1151,17 +1147,7 @@ if ($cmd == 'exSearch')
     {
         // Build an exclude file list to prevent simple user
         // to see document contained in "invisible" directories
-
-        $sql = "SELECT path FROM `".$dbTable."`
-                WHERE visibility ='i'";
-
-        $searchExcludeList = claro_sql_query_fetch_all_cols($sql);
-        $searchExcludeList = $searchExcludeList['path'];
-
-        for( $i=0; $i < count($searchExcludeList); $i++ )
-        {
-            $searchExcludeList[$i] = $baseWorkDir.$searchExcludeList[$i];
-        }
+        $searchExcludeList = getInvisibleDocumentList($baseWorkDir);
     }
     else
     {
