@@ -1152,36 +1152,6 @@ function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttr
     return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
 }
 
-
-
-/**
- * Insert a Wysiwyg editor inside a form instead of a textarea
- * A standard textarea is displayed if the Wysiwyg editor is disabled or if
- * the user's browser have no activated javascript support
- *
- * @param string $name content for name attribute in textarea tag
- * @param string $content optional content previously inserted into    the    area
- * @param int    $rows optional    textarea rows
- * @param int    $cols optional    textarea columns
- * @param string $optAttrib    optional - additionnal tag attributes
- *                                       (wrap, class, ...)
- * @return string html output for standard textarea or Wysiwyg editor
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @author Sébastien Piraux <pir@cerdecam.be>
- *
- * @deprecated would be removed after 1.8
- * @see claro_html_textarea_editor
- *
- */
-
-function claro_disp_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
-{
-    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_textarea_editor is deprecated, use claro_html_textarea_editor', E_USER_WARNING);
-
-    return claro_html_textarea_editor($name, $content, $rows, $cols, $optAttrib);
-}
-
 /**
  * Displays the title of a tool. Optionally, there can be a subtitle below
  * the normal title, and / or a supra title above the normal title.
