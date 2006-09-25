@@ -238,7 +238,7 @@ if( $displayForm )
 	// description
 	echo '<tr>' . "\n"
 	.	 '<td valign="top"><label for="description">'.get_lang('Description').'&nbsp;:</label></td>' . "\n"
-	.	 '<td>'.claro_html_textarea_editor('description', htmlspecialchars($form['description'])).'</td>' . "\n"
+	.	 '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
 	.	 '</tr>' . "\n\n";
 	
 	// exercise type

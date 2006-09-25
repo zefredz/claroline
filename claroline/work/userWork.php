@@ -1155,7 +1155,7 @@ if( $is_allowedToSubmit )
                         .get_lang('Answer')
                         .'&nbsp;*&nbsp;:</label></td>'."\n"
                         .'<td>'
-                        .claro_html_textarea_editor('wrkTxt', htmlspecialchars($form['wrkTxt']))
+                        .claro_html_textarea_editor('wrkTxt', $form['wrkTxt'])
                         .'</td>'."\n"
                         .'</tr>'."\n\n";
             }
