@@ -320,8 +320,8 @@ function register_class_to_course($class_id, $course_code)
                    u.prenom as firstname
             FROM `" . $tbl_class_user . "` AS `rel_c_u`,
                  `" . $tbl_user . "`       AS `u`
-                    WHERE `class_id`= " . (int) $class_id . "
-               AND `rel_c_u`.`user_id` = `u`.`user_id`";
+            WHERE `rel_c_u`.`class_id`= " . (int) $class_id . "
+              AND `rel_c_u`.`user_id` = `u`.`user_id`";
 
     $result = claro_sql_query_fetch_all($sql);
 
