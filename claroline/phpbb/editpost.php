@@ -237,7 +237,7 @@ else
         echo '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . get_lang('Message body') . ' : </td>' . "\n"
             . '<td>' . "\n"
-            .claro_html_textarea_editor('message', htmlspecialchars($message))
+            .claro_html_textarea_editor('message', $message)
             .'</td>' . "\n"
             . '</tr>' . "\n"
 

@@ -185,7 +185,7 @@ else
             . '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . get_lang('Message body') . '&nbsp;:</td>'
             . '<td>'
-            .claro_html_textarea_editor('message', htmlspecialchars($message))
+            .claro_html_textarea_editor('message', $message)
             .'</td>'
             . '</tr>'
             . '<tr valign="top"><td>&nbsp;</td>'
