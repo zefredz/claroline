@@ -86,7 +86,23 @@ if     ( 'rqAdd' == $cmd ) $subTitle = get_lang('Add an event');
 elseif ( 'rqEdit' == $cmd ) $subTitle = get_lang('Edit Event');
 else                       $subTitle = '&nbsp;';
 
-$orderDirection = isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' ?'DESC':'ASC';
+//-- order direction
+if( !empty($_REQUEST['order']) )
+    $orderDirection = strtoupper($_REQUEST['order']);
+elseif( !empty($_SESSION['orderDirection']) )
+    $orderDirection = strtoupper($_SESSION['orderDirection']);
+else
+    $orderDirection = 'ASC';
+
+$acceptedValues = array('DESC','ASC');
+
+if( ! in_array($orderDirection, $acceptedValues) )
+{
+    $orderDirection = 'ASC';
+}
+
+$_SESSION['orderDirection'] = $orderDirection;
+
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 /**
