@@ -184,7 +184,7 @@ if($is_allowedToEdit)
         {
             $dialogBox .= get_lang('Feedback edited') . '<br /><br />';
             $dialogBox .= '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">';
-            $dialogBox .= get_lang('Back');
+            $dialogBox .= get_lang('Continue');
             $dialogBox .= '</a>';
 
             $displayFeedbackForm = false;
@@ -290,7 +290,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_html_textarea_editor('autoFeedbackText', htmlspecialchars($form['autoFeedbackText']))
+    .    claro_html_textarea_editor('autoFeedbackText', $form['autoFeedbackText'])
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     ;
