@@ -324,7 +324,7 @@ if($is_allowedToEdit) // check teacher status
 
                 $msgContent = preg_replace('|< *a +href *= *["\']([^"\']+)["\'][^>]*>([^<]+)</a>|', '$2 [ $1 ]', $msgContent);
                 $msgContent = str_replace('  ',' ',$msgContent);
-                $msgContent = unhtmlentities($msgContent);
+                $msgContent = html_entity_decode( $msgContent, ENT_QUOTES, $charset );
                 $msgContent = strip_tags($msgContent);
 
                 // attached resource
