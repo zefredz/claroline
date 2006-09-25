@@ -104,6 +104,14 @@ if ( preg_match('|^'.$coursesRepositorySys . $intermediatePath.'|', $pathInfo) )
     {
         $mimeType = get_mime_on_ext($pathInfo);
         if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
+        
+        // IE no-cache bug
+        // TODO move $lifetime to config
+        $lifetime = 3600;
+        header('Cache-Control: max-age='.$lifetime);
+        header('Expires: '. gmdate('D, d M Y H:i:s', time() + $lifetime) .' GMT');
+        header('Pragma: ');
+        
         header('Content-Disposition: inline; filename="' . basename($pathInfo) . '"');
         if( readfile($pathInfo)  > 0) event_download($requestUrl);
     }
