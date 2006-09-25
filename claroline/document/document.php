@@ -528,7 +528,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                              EDIT DOCUMENT CONTENT
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-
+      
+    // TODO use the same code as exMkHml
     if ('exEditHtml' == $cmd)
     {
         $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
@@ -537,6 +538,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ($fp)
         {
             $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
+            $htmlContent = claro_parse_user_text( $htmlContent );
 
             if ( fwrite($fp, $htmlContent) )
             {
