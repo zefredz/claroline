@@ -364,7 +364,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ( $diskQuotaExceeded )
         {
             $adminEmailUrl = '<a href="mailto:'.get_conf('administrator_email').'">'
-                . get_lang('administrator') . '</a>';
+                . get_lang('Platform Administrator') . '</a>';
             $dialogBox .= '<p>' . get_lang( "Disk quota exceeded, please contact the %administrator",
                     array ( '%administrator' => $adminEmailUrl ) ) 
                 . '<br /><small>' . get_lang("Maximum disk space") 

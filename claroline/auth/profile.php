@@ -143,8 +143,8 @@ elseif (    get_conf('can_request_revoquation')
     switch (claro_failure::get_last_failure())
     {
         case 'EXPLANATION_EMPTY' :
-            $messageList['warn'][] = get_lang('Your request to remove your account has NOT sent');
-            $messageList['info'][] = get_lang('Your need to explain');
+            $messageList['warn'][] = get_lang('You left some required fields empty');
+            $messageList['info'][] = get_lang('Explain cannot be empty');
             $noQUERY_STRING = TRUE;
             $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
             $nameTools = get_lang('Request to remove this account');

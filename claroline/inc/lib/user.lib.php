@@ -1069,7 +1069,7 @@ function user_html_form($data, $form_type='registration')
         . '<input type="radio" name="isCourseCreator" id="create"'
         . ' value="1"   '
         . ($data['isCourseCreator']? ' checked'  :'') . ' />'
-        . '<label for="create">' . get_lang('Create courses allowed') . '</label>');
+        . '<label for="create">' . get_lang('Create course') . '</label>');
     }
 
     // Platform administrator
