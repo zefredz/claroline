@@ -102,7 +102,6 @@ $_lang['Empty'] = 'чЩ ЪБРПМОЙМЙ ОЕ ЧУЕ РПМС.
 <br />
  йУРПМШЪХКФЕ ЛОПРЛХ оБЪБД ЧБЫЕЗП ВТПХЪЕТБ Й ОБЮОЙФЕ УОБЮБМБ
 <br />еУМЙ ЧЩ ОЕ ЪОБЕФЕ ЛПД ЧБЫЕЗП ЛХТУБ, РПУНПФТЙФЕ Ч РТПЗТБННЕ ЛХТУБ ОБ ЛБЖЕДТЕ.';
-$_lang['Empty (or NULL)'] = 'Пустой (или <i>NULL</i>)';
 $_lang['Empty all groups'] = 'пЮЙУФЙФШ ЧУЕ ЗТХРРЩ';
 $_lang['Enrolment'] = 'Регистрация';
 $_lang['Enter'] = 'Вернуться к вашему списку курсов';
@@ -217,7 +216,6 @@ $_lang['Oldest first'] = 'Изменить порядок';
 $_lang['On'] = 'на';
 $_lang['On an unique page'] = 'Вопросы на одной странице';
 $_lang['One question per page (sequential)'] = 'Один вопрос на страницу (разбивка)';
-$_lang['Ooops, stranges cases detected !!'] = 'Ой, обнаружены особы случаи !';
 $_lang['Operation impossible'] = 'Невозможно осуществить операцию';
 $_lang['Operation impossible.<br />A file with this name already exists.'] = 'Невозможно осуществить операцию.
 
@@ -230,7 +228,6 @@ $_lang['Password'] = 'пароль';
 $_lang['Period'] = 'Период';
 $_lang['Please choose a good answer'] = 'Выберите правильный ответ';
 $_lang['Please confirm your choice'] = 'Подтвердите ваш выбор';
-$_lang['Please define at least one blank with brackets [...]'] = 'Создайте минимум один пропуск, используя квадратные скобки [...]';
 $_lang['Please define the options'] = 'выберите вариант';
 $_lang['Please fill the two lists below'] = 'Заполните два списка ниже';
 $_lang['Please give a weighting to each blank'] = 'Дайте вес каждому вопросу';
@@ -266,7 +263,7 @@ $_lang['Role'] = 'Роль';
 $_lang['Save'] = 'Сохранить';
 $_lang['Score'] = 'баллы';
 $_lang['Seen'] = 'Прочитанные';
-$_lang['Select course in '] = 'Выберите курс в ';
+$_lang['Select course in'] = 'Выберите курс в ';
 $_lang['Select course in search results'] = 'Выберите курс в результатах поиска';
 $_lang['Send this announcement by email to registered students'] = 'Отправить это объявление по электронной почте студентам';
 $_lang['Show all'] = 'Показать все';
