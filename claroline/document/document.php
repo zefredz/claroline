@@ -351,73 +351,87 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
          */
 
         $spaceAlreadyOccupied = dir_total_space($baseWorkDir);
-
-        /*
-         * Technical note: 'cmd=exUpload' is added into the 'action'
-         * attributes of the form, rather than simply put in a post
-         * hidden input. That way, this parameter is concatenated with
-         * the URL, and it guarantees than it will be received by the
-         * server. The reason of this trick, is because, sometimes,
-         * when file upload fails, no form data are received at all by
-         * the server. For example when the size of the sent file is so
-         * huge that its reception exceeds the max execution time
-         * allowed for the script. When no 'cmd' argument are sent it is
-         * impossible to manage this error gracefully. That's why,
-         * exceptionally, we pass 'cmd' in the 'action' attribute of
-         * the form.
-         */
-
-        $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
-                   .  '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
-                   .  '<input type="hidden" name="cmd" value="exUpload">' . "\n"
-                   .  '<input type="hidden" name="cwd" value="' . $cwd . '">' . "\n"
-                   .  '<label for="userFile">' . get_lang("Upload file") . ' : </label>' . "\n"
-                   .  '<br />' . "\n"
-                   .  '<input type="file" id="userFile" name="userFile"> ' . "\n"
-                   .  '<table border="0">' . "\n"
-                   .  '<tr>' . "\n"
-                   .  '<td>' . "\n"
-                   .  '<small>' . get_lang("Max file size") . '</small>' . "\n"
-                   .  '</td>' . "\n"
-                   .  '<td>' . "\n"
-                   .  '<small> : ' . format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) . '</small>' . "\n"
-                   .  '</td>' . "\n"
-                   .  '</tr>' . "\n"
-                   .  '<tr>' . "\n"
-                   .  '<td>' . "\n"
-                   .  '<small>' . get_lang("Disk space available") . '</small>' . "\n"
-                   .  '</td>' . "\n"
-                   .  '<td>' . "\n"
-                   .  '<small>  :' . "\n"
-                   .  claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) . "\n"
-                   .  format_file_size($maxFilledSpace - $spaceAlreadyOccupied)
-                   . '</small>' . "\n"
-                   .  '</td>' . "\n"
-                   .  '</tr>' . "\n"
-                   .  '</table>' . "\n"
-                   ;
-        if ($is_allowedToUnzip)
+        $remainingDiskSpace = $maxFilledSpace - $spaceAlreadyOccupied;
+        $maxUploadSize = get_max_upload_size( $maxFilledSpace,$baseWorkDir );
+        $diskQuotaExceeded = ( $remainingDiskSpace < 0 );
+        
+        
+        if ( $diskQuotaExceeded )
         {
-            $dialogBox .= "<img src=\"".$imgRepositoryWeb."zip.gif\" alt=\"\">"
-                          ."<input type=\"checkbox\" id=\"uncompress\" name=\"uncompress\" value=\"1\">"
-                          ."<label for=\"uncompress\">".get_lang("uncompress zipped (.zip) file on the server")."</label>";
+            $adminEmailUrl = '<a href="mailto:'.get_conf('administrator_email').'">'
+                . get_lang('administrator') . '</a>';
+            $dialogBox .= '<p>' . get_lang( "Disk quota exceeded, please contact the %administrator",
+                array ( '%administrator' => $adminEmailUrl ) ) . '</p>';
         }
-
-        if ($courseContext)
+        else
         {
-            if (!isset($oldComment)) $oldComment = "";
-            $dialogBox .= "<p>\n"
-                        ."<label for=\"comment\">".get_lang("Add a comment (optionnal) :")."</label>"
-                        ."<br /><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
-                        .$oldComment
-                        ."</textarea>\n"
-                        ."</p>\n";
+            /*
+             * Technical note: 'cmd=exUpload' is added into the 'action'
+             * attributes of the form, rather than simply put in a post
+             * hidden input. That way, this parameter is concatenated with
+             * the URL, and it guarantees than it will be received by the
+             * server. The reason of this trick, is because, sometimes,
+             * when file upload fails, no form data are received at all by
+             * the server. For example when the size of the sent file is so
+             * huge that its reception exceeds the max execution time
+             * allowed for the script. When no 'cmd' argument are sent it is
+             * impossible to manage this error gracefully. That's why,
+             * exceptionally, we pass 'cmd' in the 'action' attribute of
+             * the form.
+             */
+    
+            $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
+                       .  '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+                       .  '<input type="hidden" name="cmd" value="exUpload">' . "\n"
+                       .  '<input type="hidden" name="cwd" value="' . $cwd . '">' . "\n"
+                       .  '<label for="userFile">' . get_lang("Upload file") . ' : </label>' . "\n"
+                       .  '<br />' . "\n"
+                       .  '<input type="file" id="userFile" name="userFile"> ' . "\n"
+                       .  '<table border="0">' . "\n"
+                       .  '<tr>' . "\n"
+                       .  '<td>' . "\n"
+                       .  '<small>' . get_lang("Max file size") . '</small>' . "\n"
+                       .  '</td>' . "\n"
+                       .  '<td>' . "\n"
+                       .  '<small> : ' . format_file_size( $maxUploadSize ) . '</small>' . "\n"
+                       .  '</td>' . "\n"
+                       .  '</tr>' . "\n"
+                       .  '<tr>' . "\n"
+                       .  '<td>' . "\n"
+                       .  '<small>' . get_lang("Disk space available") . '</small>' . "\n"
+                       .  '</td>' . "\n"
+                       .  '<td>' . "\n"
+                       .  '<small>  :' . "\n"
+                       .  claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) . "\n"
+                       .  format_file_size($remainingDiskSpace)
+                       . '</small>' . "\n"
+                       .  '</td>' . "\n"
+                       .  '</tr>' . "\n"
+                       .  '</table>' . "\n"
+                       ;
+            if ($is_allowedToUnzip)
+            {
+                $dialogBox .= "<img src=\"".$imgRepositoryWeb."zip.gif\" alt=\"\">"
+                              ."<input type=\"checkbox\" id=\"uncompress\" name=\"uncompress\" value=\"1\">"
+                              ."<label for=\"uncompress\">".get_lang("uncompress zipped (.zip) file on the server")."</label>";
+            }
+    
+            if ($courseContext)
+            {
+                if (!isset($oldComment)) $oldComment = "";
+                $dialogBox .= "<p>\n"
+                            ."<label for=\"comment\">".get_lang("Add a comment (optionnal) :")."</label>"
+                            ."<br /><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
+                            .$oldComment
+                            ."</textarea>\n"
+                            ."</p>\n";
+            }
+    
+            $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
+                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
+                                          get_lang("Cancel"))
+                       ."</form>";
         }
-
-        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">&nbsp;"
-                   .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
-                                      get_lang("Cancel"))
-                   ."</form>";
     }
 
 
