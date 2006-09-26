@@ -118,13 +118,13 @@ if (isset($_REQUEST['lang']))
 
         // get the different variables
 
-        $sql = " SELECT DISTINCT trans.varName, trans.varFullContent
+        $sql = " SELECT DISTINCT used.varName, trans.varFullContent
                 FROM " . $tbl_used_lang . " used, " . $tbl_translation  . " trans
                 WHERE trans.language = '$language'
                   AND used.varName = trans.varName
-                ORDER BY trans.varName, trans.varContent";
+                ORDER BY used.varName, trans.varContent";
 
-        $result = mysql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
+        $result = claro_sql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
 
         if ($result)
         {
