@@ -49,11 +49,11 @@ if ($cmd ==  'rqMkHtml' )
     <input type="hidden" name="cmd" value="exMkHtml" />
     <input type="hidden" name="cwd" value="<?php echo $cwd; ?>" />
     <p>
-    <b><?php echo get_lang('Document name') ?>: </b><br />
+    <b><?php echo get_lang('Document name') ?>&nbsp;: </b><br />
     <input type="text" name="fileName" size="80" />
     </p>
     <p>
-    <b><?php echo get_lang('Document content') ?>: </b>
+    <b><?php echo get_lang('Document content') ?>&nbsp;: </b>
     <?php
     if (!empty($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
     
