@@ -2,36 +2,78 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-body 
-{
-	font-family: arial, helvetica, sans-serif;
-	color:#333333;
-	background-color: #fff;
-	padding: 1px;
-	margin: 1px;
+html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 
-a:link, a:active, a:visited 
-{
-	color: #006;
+body {
+	margin: 0;
+	padding: 0;
+	color: #666666;
+	background: #FFF; 
+	text-align: left;
+	font-size: 0.9em;
+	font-family: Verdana, Arial, Helvetica, Sans-Serif;
+	height: 100%;
 }
 
-a img 
-{
-	border:none;
+a:link, a:visited  {
+	color: #336699;
+	font-weight: normal;
 	text-decoration: none;
 }
 
-.spacer 
-{
+a:hover, a:active {
+	color: #669933;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+a img {
+	border: none;
+	text-decoration: none;
+}
+
+.spacer {
 	clear: both;
 }
 
-h3
-{
-	font-size: 110%;
+ul {
+	list-style-type: square;
 }
 
+label {
+	padding: 2px;
+	vertical-align: bottom;
+	color: #555555;
+	font-style: italic;
+}
+
+input[type=submit], input[type=reset], button {
+	margin-left: 2px;
+	color: #666666;
+} 
+
+input, textarea, button {
+	border: 1px solid #aaa;
+	color: #336699;
+}
+
+input[type], textarea[name], button {
+	background: #ffffff;
+}
+
+input[type=submit], input[type=reset], button {
+	background: #fffffff;
+	color: #000000;
+}
+
+input[type=submit]:hover, button:hover {
+	background-color: #336699;
+	color: #ffffff;
+}
 
 /******************************************************************************
                               CLAROLINE TOP BANNER
@@ -41,161 +83,158 @@ h3
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
 
-#platformBanner
-{
+#platformBanner {
+	margin: 0;
+	padding: 0;
 	color: #FFF;
-	background-color:#006;
-	padding: 4px;
-	font-size: 120%;
-	font-weight: bold;
+	background: url('default/bg_header.jpg') repeat-x top left #c5d4e2;
+	height: 50px;
 }
 
 #platformBanner a,
 #platformBanner a:active,
 #platformBanner a:link,
-#platformBanner a:visited
+#platformBanner a:visited 
 {
 	text-decoration: none;
-   	color: #FFF;
+ 	color: #FFF;
+	font-weight: bold;
 }
 
-#platformBanner a:hover 
-{
-	color: #FFF;
+#platformBanner a:hover {
 	text-decoration: underline;
+	font-weight: bold;
 }
+
 
 #platformBanner #siteName
-{	
+{
+	font-weight: bold;
+	letter-spacing: 3px;
 }
 
-#platformBanner #institution
-{	
+#platformBanner #institution 
+{
+	font-weight: bold;
 }
 
 #campusBannerRight
 {
-    position: relative;
 	float: right;
 	text-align: right;
-	margin: 0;
+	height: 35px;
+	margin-top: -1px;
+	padding: 15px 15px 0 0;
+	margin /**/: 0;
 }
 
 #campusBannerLeft
 {
-    position: relative;
 	float: left;
 	text-align: left;
-	margin: 0;
+	height: 35px;
+	margin-top: -1px;
+	padding: 15px 0 0 15px;
+	margin /**/: 0;
 }
+
 
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
 
-#userBanner
-{
-	background-color: #666;
-	color:white;
-	font-size: 80%;
-	font-weight:bold;
-	padding: 4px;
-	border-top: 1px #FFF solid;
+#userBanner {
+	color: #336699;
+	font-weight: bold;
+	font-size: 0.8em;
+	padding: 0 0 0 5px;
+	background: #ddd;
+	border-top: 1px #999999 solid;
 }
 
-#userBanner #userName
-{
-	 font-size: 110%;
-	 font-weight: normal;
-	 margin: 0;
+#userBanner #userName {
+	color: #669933;
+	font-weight: bold;
+	margin: 0;
 }
 
 #userBanner a,
-#userBanner a:active,
 #userBanner a:link,
-#userBanner a:visited
-{
+#userBanner a:visited {
 	text-decoration: none;
-    color: #FFF;
+    color: #3f7fbf;
+	font-weight: normal;
 }
 
-#userBanner a:hover
-{
-	color: #FFF;
+#userBanner a:hover,
+#userBanner a:active {
+   	color: #336699;
 	text-decoration: underline;
+	font-weight: normal;
 }
 
 #userBannerRight
 {
-    position: relative;
 	float: right;
 	text-align: right;
-	margin: 0;
 }
 
 #userBannerLeft
 {
-    position: relative;
 	float: left;
 	text-align: left;
-	margin: 0;
 }
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
-#courseBanner
-{
-   	color: #036;
-	background-color: #DDDEBC;
+#courseBanner {
+   	padding: 4px;
+	color: #336699;
+	font-size: 0.8em;
 	font-weight: bold;
-	padding: 4px;
-	border-top: 1px #FFF solid;
+	border-top: 1px #999999 solid;
 }
 
-#courseBanner #course
-{
-	position: relative;
+#courseBanner #course {
 	float: left;
 	text-align: left;
 }
 
-#courseBanner #course span
-{
+#courseBanner #course span {
    	display: block;
 }
 
-#courseBanner #courseToolList
-{
-	position: relative;
+#courseBanner #courseToolList {
 	float: right;
-    text-align: right;
+   	text-align: right;
 }
 
-#courseBanner #courseName 
-{
-	font-size: 120%;
+#courseBanner #courseName {
 	padding: 0;
 	margin: 0;
+	text-indent: 12px;
+	background-image: url(default/arrow_blue.gif);
+	background-position: left;
+	background-repeat: no-repeat;
 }
 
 #courseBanner a,
-#courseBanner a:active,
 #courseBanner a:link,
-#courseBanner a:visited
-{
-	color: #036;
+#courseBanner a:visited {
+	color: #336699;
 	text-decoration: none;
+	font-weight: normal;
 }
 
-#courseBanner a:hover
-{
+#courseBanner a:hover,
+#courseBanner a:active {
+	color: #669933;
 	text-decoration: underline;
+	font-weight: normal;
 }
 
-#courseBanner #courseCode 
-{
-	font-size: 80%;
+#courseBanner #courseCode {
 }
 
 #courseBanner form
@@ -206,7 +245,6 @@ h3
 
 #courseBannerRight
 {
-    position: relative;
 	float: right;
 	text-align: right;
 	margin: 0;
@@ -214,7 +252,6 @@ h3
 
 #courseBannerLeft
 {
-    position: relative;
 	float: left;
 	text-align: left;
 	margin: 0;
@@ -224,40 +261,88 @@ h3
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
 
-#breadcrumbLine
-{
+#breadcrumbLine {
+	font-size: 0.8em;
+	color: #666666;
 	border: none;
 }
 
-#breadcrumbLine hr
-{
+#breadcrumbLine hr {
 	display: none;
 }
 
-#breadcrumbLine .breadcrumbTrail
-{
+#breadcrumbLine .breadcrumbTrail {
 	float: left;
 }
 
-#breadcrumbLine #toolViewOption
-{
+#breadcrumbLine #toolViewOption {
 	float: right;
 	text-align: right;
-	font-size: 80%;
 }
 
 
-.breadcrumbTrail
-{
-	font-size: 80%;
+.breadcrumbTrail {
+}
+
+#breadcrumbLine a:link,
+#breadcrumbLine a:visited {
+	color: #669933;
+	font-weight: normal;
+}
+
+#breadcrumbLine a:hover,
+#breadcrumbLine a:active {
+	color: #999999;
+	font-weight: normal;
 }
 
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/
 
-#claroBody{}
+#claroBody {
+	padding-top:15px;
+	color: #666666;
+	background: url('default/bg_body.jpg') repeat-x top left #fff;
+}
 
+#claroBody small {
+	font-size: 12px;
+}
+
+#claroBody a:link,
+#claroBody a:visited {
+	font-weight: normal;
+}
+
+#claroBody a:hover,
+#claroBody a:active {
+	color: #999999;
+	font-weight: normal;
+}
+
+#claroBody a.item:link,
+#claroBody a.item:visited {
+	font-weight: normal;
+}
+
+#claroBody a.item:hover,
+#claroBody a.item:active  {
+	color: #999999;
+	font-weight: normal;
+}
+
+#claroBody a.claroCmd:link,
+#claroBody a.claroCmd:visited {
+	color: #336699;
+	font-weight: normal;
+}
+
+#claroBody a.claroCmd:hover,
+#claroBody a.claroCmd:active {
+	color: #999999;
+	font-weight: normal;
+}
 
 /******************************************************************************
                               CLAROLINE FOOTER
@@ -265,25 +350,44 @@ h3
 
 #campusFooter
 {
-	font-size: 80%;
+	margin: 0;
+	margin-top : 25px;
+	padding: 5px 15px;
+	font-size: 0.8em;
+	color: #666;
+	background: url('default/bg_footer.jpg') repeat-x top left #fff;
+}
+
+#campusFooter a:link, 
+#campusFooter a:visited 
+{
+	color: #666;
+	font-weight: bold;
+}
+
+#campusFooter a:hover, 
+#campusFooter a:active 
+{
+	color: #369;
+	font-weight: bold;
 }
 
 #campusFooter hr
 {
-	background-color: gray;
-	border: 0;
-	height: 1px;
+    display: none;
 }
 
 #campusFooterRight
 {
 	float: right;
 	text-align: right;
+	padding: 0;
 }
 
 #campusFooterLeft
 {
 	float: left;	
+	padding: 0;
 }
 
 #campusFooterCenter
@@ -292,10 +396,12 @@ h3
     text-align: center;
 }
 
+
 #campusFooterCenter #poweredBy
 {
     font-style: italic;
 }
+
 
 /******************************************************************************
 	CLAROLINE COMMAND LINKS
@@ -303,32 +409,32 @@ h3
  
 .claroCmd
 {
-	font-size: smaller;
-	font-weight: bold;
-	text-decoration: underline;
+		font-size: O.8em;
+		font-weight: bold;
+		text-decoration: underline;
 }
 
 .claroCmdDisabled 
 {
-	color: Gray;
-	font-size: smaller;
-	font-weight: bold;
-	text-decoration: none;
+		color: Gray;
+		font-size: O.8em;
+		font-weight: bold;
+		text-decoration: none;
 }
 
 /* Added for document view mode toolbar */
 
 th .claroCmd
 {
-	font-size: smaller;
+	font-size: O.8em;
 	font-weight: bold;
 	text-decoration: underline;
 }
 
 th .claroCmdDisabled
 {
-    color: white;
-    font-size: smaller;
+   	color: white;
+   	font-size: O.8em;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -356,14 +462,16 @@ th .claroCmdDisabled
  *  </ul>
  */
 
-.item 
-{
+.item {
 	padding-left: 16px;
 }
 
-.hot
-{
+.hot {
 	background: url(../img/hot.gif) no-repeat;
+}
+
+a.item:visited{
+	color: #336699;
 }
 
 /******************************************************************************
@@ -433,75 +541,110 @@ th .claroCmdDisabled
  * </table>
  */
 
-.claroTable td, th 
-{
-	margin:  1px;
-	padding: 4px;
-	border: none;
+.claroTable td, 
+.claroTable th {
+	vertical-align: middle;
+	padding: 2px 5px 2px 5px;
+	border: 1px solid #EDEDED;
+	font-size: 0.9em;
 }
 
+.claroTable td em, 
+.claroTable th em{
+	font-size: 0.9em;
+}
 
-.claroTable .superHeader th, .claroTable th.superHeader 
+.claroTable .superHeader th, 
+.claroTable th.superHeader 
 {
-	color: white;
-	background-color: #666666;
+	color: #669933;
+	background-color: #DEEECE;
+	border: 1px #87B665 solid;
+	padding: 2px 5px 2px 5px;
+	font-size: 12px;
 	font-weight: bold;
-	text-align: left;
+	text-align: center;
 }
 
-.claroTable .superHeader a 
-{
-	color: white;
+.claroTable .superHeader a {
+	color: #669933;
+	padding: 2px 5px 2px 5px;
 }
 
 
-.claroTable th.headerY, .claroTable .headerY th, 
-.claroTable th.headerX, .claroTable .headerX th 
+.claroTable th.headerY, 
+.claroTable .headerY th, 
+.claroTable th.headerX, 
+.claroTable .headerX th 
 {
-	font-weight: normal;
-	text-align: left;
+	color: #669933;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	padding: 2px 5px 2px 5px;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX 
+.claroTable .headerX th,
+.claroTable th.headerX 
 {
-	background-color: #DDDEBC;
+	background-color: #EDF1E3;
+	border: 1px #96BB7A solid;
+	padding: 2px 5px 2px 5px;
 }
 
 /* extension of claroTable class for Image Viewer */
-.claroTable tr th.toolbar 
-{
-	background: white;
+.claroTable tr th.toolbar {
 	font-weight: normal;
+	padding: 2px 5px 2px 5px;
 }
 
-.claroTable tr.toolbar th.prev
-{
-	text-align:left;
+.claroTable tr.toolbar th.prev{
+	text-align: left;
 	font-weight: normal;
+	padding: 2px 5px 2px 5px;
 }
 
-.claroTable tr.toolbar th.title
-{
-	font-weight:bold;
-	text-align:center;
+.claroTable tr.toolbar th.title{
+	font-weight: bold;
+	text-align: center;
+	padding: 2px 5px 2px 5px;
 }
 
-.claroTable tr.toolbar th.next
-{
-	text-align:right;
+.claroTable tr.toolbar th.next{
+	text-align: center;
 	font-weight: normal;
+	padding: 2px 5px 2px 5px;
 }
 
-.emphaseLine tbody td
-{
+.claroTable td.workingWeek {
+	vertical-align: top;
+	font-size: 14px;
+	font-weight: bold;
+	color: #999999;
+	padding: 2px 5px 2px 5px;
+}
+
+.claroTable td.weekEnd {
+	vertical-align: top;
+	font-size: 14px;
+	color: #FF003C;
+	padding: 2px 5px 2px 5px;
+}
+.claroTable td.highlight {
+	vertical-align: top;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFB848;
+	padding: 2px 5px 2px 5px;
+}
+
+.emphaseLine tbody td {
 	border-bottom: solid #DDDEBC 1px ;
 }
 
-.emphaseLine tbody tr:hover 
-{
+.emphaseLine tbody tr:hover {
 	background-color: #E3E3E3;
 }
-
 
 /******************************************************************************
                              VARIOUS CLAROLINE CSS CLASS
@@ -513,28 +656,41 @@ th .claroCmdDisabled
  * Things that are usually displayed in a dialog box into offline applications
  */ 
  
-.claroMessageBox 
-{
-	background-color: #DDDEBC;
-	border: solid 1px #666666;
+.claroMessageBox {
+	background: url(default/bg_msgBox.jpg) repeat-x top right #FFF; 
+	border: 1px #87B665 solid;
+	margin-left: 5px;
+	font-size: 0.9em;
 	color: #000;
 }
 
-.claroIntroSection 
-{ 
-	border: dashed 1px #D8D8D8;
-	padding: 10px;
-	margin-top : 10px;
-	margin-bottom: 10px;
+.claroIntroSection { 
+	background-color: #F5F5F5;
+	padding: 5px;
+	margin-top : 5px;
+	margin-bottom: 5px;
 }
 
-.claroIntroSection hr
-{
-	border: 0;
-	height: 1px;
-	background-color: #D8D8D8;
+.warning {
+	color: #FF0000;
 }
 
+div .wikiTitle h1 {
+	margin: 10px 0 10px 10px;
+	padding: 0;
+	font-size: 0.9em;
+	border-bottom: 1px solid #DEDEDE;
+	color: #666666;
+	text-indent: 15px;
+	background-image: url(default/arrow_blue.gif);
+	background-position: left;
+	background-repeat: no-repeat;
+}
+
+div .wiki2xhtml p {
+	font-size: 0.8em;
+	color: #666666;
+}
 
 /*
  * 'invisible' is generally attached to element that shouldn't be visible into 
@@ -549,12 +705,17 @@ th .claroCmdDisabled
 }
 
 .invisible a, 
-.invisible a:link, 
+.invisible a:link,
 .invisible a:visited,
 a.invisible,
 a:link.invisible,
-a:visited.invisible
-{
+a:visited.invisible {
+	color: #999999;
+}
+
+/* menu */
+
+.menu a.invisible:visited{
 	color: #999999;
 }
 
@@ -562,8 +723,7 @@ a:visited.invisible
 /* 'correct' is attached to element that must be highlighted as correct
 	example : a good score in exercices
 */
-.correct 
-{
+.correct {
 	color: #009900;
 }
 
@@ -571,25 +731,22 @@ a:visited.invisible
 	example : a wrong score in exercices
 	example : an error message
 */
-.error 
-{
+.error {
 	color: #990000;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
 	example : 'today' in the agenda
 */
-.highlight 
-{
-	color: #FFB848;
-	font-weight: bold;
+.highlight {
+ color: #FFB848;
+ font-weight: bold;
 }
 
 /* 'required' is used to set the color of the asterisk displayed before the required form field
 */
-.required 
-{
-	color: red;
+.required {
+ color: red;
 }
 
 /* 'hotItem' is used when something needs to be notified as new on the platform since the last login
@@ -598,47 +755,69 @@ a:visited.invisible
 .hotItem,
 .hotItem a
 {
-	color: #FF00CC;
-	font-weight: bold;
+ color: #FF00CC;
+ font-weight: bold;
 }
 
 /*
  * 'rightMenu' is mainly use in the platform home page
  */
 
-.claroRightMenu  
-{
-	background-color: #DDDEBC;	
+.claroRightMenu  {
+    border: 1px solid #669933;
+	background : #e7f2c1;
+	padding-left: 10px;
+	font-size: 0.9em;
 }
 	
-.claroRightMenu a, 
-.claroRightMenu a:visited, 
-.claroRightMenu a:active 
-{
-		
+.claroRightMenu a:link, 
+.claroRightMenu a:visited {
+		color: #336699;
 }
 	
-claroRightMenu a:hover 
-{
-				
+.claroRightMenu a:hover,
+.claroRightMenu a:active {
+		color: #669933;
 }
 
-.HelpText 
-{
-    color:gray
+.claroRightMenu form {
+	color: #336699;
 }
 
-.claroToolTitle 
-{
-	padding-top: 5px;
+.claroRightMenu label {
+	display: block;
+	padding: 2px;
+	vertical-align: bottom;
+	color: #555555;
+	font-size: 0.9em;
+	font-style: italic;
+}
+
+.HelpText {
+    color: #666666;
+	font-size: O.9em;
+}
+.HelpText ul{
+    color: #666666;
+	font-size: O.9em;
+}
+
+.claroToolTitle {
+	margin: 10px 0 5px 5px;
+	padding: 0;
+	font-weight: bold;
+	border-bottom: 1px solid #DEDEDE;
+	text-indent: 15px;
+	background-image: url(default/arrow_green.gif);
+	background-position: 0px 5px;
+	background-repeat: no-repeat;
 }
 
 /*
  * 'comment' is used for comment of documents, forum description, ...
  */
 
-.comment 
-{
+.comment {
     font-size: smaller;
     margin-left: 30px;
 }
