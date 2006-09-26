@@ -118,7 +118,7 @@ function dir_total_space($dirPath)
     $handle  = opendir($dirPath);
     $sumSize = 0;
 
-    while (true === ($element = readdir($handle) ) )
+    while (false !== ($element = readdir($handle) ) )
     {
         if ( $element == '.' || $element == '..')
         {
