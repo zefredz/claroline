@@ -253,31 +253,31 @@ if ( !empty($isSearchedHTML) )
     echo claro_html_message_box ('<b>' . get_lang('Search on') . '</b> : <small>' . $isSearchedHTML . '</small>') ;
 }
 
-echo '<table width="100%">'
-.    '<tr>'
+echo '<table width="100%">' . "\n"
+.    '<tr>' . "\n"
 .    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
 .    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
 .    get_lang('Create user')
-.    '</a></td>'
-.    '<td align="left">'
-.    '</td>'
-.    '<td align="right">'
-.    '<form action="' . $_SERVER['PHP_SELF'] . '">'
-.    '<label for="search">' . get_lang('Make new search') . '  </label>'
-.    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />'
-.    '<input type="submit" value=" ' . get_lang('Ok') . ' " />'
-.    '<input type="hidden" name="newsearch" value="yes" />'
-.    '&nbsp;[<a class="claroCmd" href="advancedUserSearch.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]'
-.    '</form>'
-.    '</td>'
-.    '</tr>'
-.    '</table>'
+.    '</a></td>' . "\n"
+.    '<td align="right">' . "\n"
+.    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+.    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
+.    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
+.    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
+.    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
+.    '&nbsp;[<a class="claroCmd" href="advancedUserSearch.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]' . "\n"
+.    '</form>' . "\n"
+.    '</td>' . "\n"
+.    '</tr>' . "\n"
+.    '</table>' . "\n\n"
 ;
 
-if ( count($userGrid) == 0 )
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+if ( count($userGrid) == 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
 echo $userDataGrid->render();
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+if ( count($userGrid) == 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
 include $includePath . '/claro_init_footer.inc.php';
 
 /**
