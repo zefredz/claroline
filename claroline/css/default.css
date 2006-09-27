@@ -1,5 +1,7 @@
+
 /******************************************************************************
                               MAIN HTML TAGS STYLE
+ $Id$                          
  ******************************************************************************/
 
 html {
@@ -14,8 +16,8 @@ body {
 	color: #666666;
 	background: #FFF; 
 	text-align: left;
-	font-size: 0.9em;
-	font-family: Verdana, Arial, Helvetica, Sans-Serif;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.75em;
 	height: 100%;
 }
 
@@ -51,12 +53,13 @@ label {
 	font-style: italic;
 }
 
+
 input[type=submit], input[type=reset], button {
 	margin-left: 2px;
 	color: #666666;
 } 
 
-input, textarea, button {
+input, textarea, button{
 	border: 1px solid #aaa;
 	color: #336699;
 }
@@ -85,17 +88,15 @@ input[type=submit]:hover, button:hover {
 
 #platformBanner {
 	margin: 0;
-	padding: 0;
+	padding: 15px;
 	color: #FFF;
 	background: url('default/bg_header.jpg') repeat-x top left #c5d4e2;
-	height: 50px;
 }
 
 #platformBanner a,
 #platformBanner a:active,
 #platformBanner a:link,
-#platformBanner a:visited 
-{
+#platformBanner a:visited {
 	text-decoration: none;
  	color: #FFF;
 	font-weight: bold;
@@ -107,34 +108,31 @@ input[type=submit]:hover, button:hover {
 }
 
 
-#platformBanner #siteName
-{
+#platformBanner #siteName {
 	font-weight: bold;
 	letter-spacing: 3px;
+	font-size: 1.3em;
 }
 
-#platformBanner #institution 
-{
+#platformBanner #institution {
 	font-weight: bold;
+	letter-spacing: 3px;
+	font-size: 1.3em;
 }
 
-#campusBannerRight
-{
+#campusBannerRight {
 	float: right;
 	text-align: right;
-	height: 35px;
 	margin-top: -1px;
-	padding: 15px 15px 0 0;
+	padding: 5px;
 	margin /**/: 0;
 }
 
-#campusBannerLeft
-{
+#campusBannerLeft {
 	float: left;
 	text-align: left;
-	height: 35px;
 	margin-top: -1px;
-	padding: 15px 0 0 15px;
+	padding: 5px;
 	margin /**/: 0;
 }
 
@@ -146,8 +144,8 @@ input[type=submit]:hover, button:hover {
 #userBanner {
 	color: #336699;
 	font-weight: bold;
-	font-size: 0.8em;
-	padding: 0 0 0 5px;
+	font-size: 0.9em;
+	padding: 1px 5px;
 	background: #ddd;
 	border-top: 1px #999999 solid;
 }
@@ -173,14 +171,12 @@ input[type=submit]:hover, button:hover {
 	font-weight: normal;
 }
 
-#userBannerRight
-{
+#userBannerRight {
 	float: right;
 	text-align: right;
 }
 
-#userBannerLeft
-{
+#userBannerLeft {
 	float: left;
 	text-align: left;
 }
@@ -191,7 +187,7 @@ input[type=submit]:hover, button:hover {
 #courseBanner {
    	padding: 4px;
 	color: #336699;
-	font-size: 0.8em;
+	font-size: 1em;
 	font-weight: bold;
 	border-top: 1px #999999 solid;
 }
@@ -237,21 +233,18 @@ input[type=submit]:hover, button:hover {
 #courseBanner #courseCode {
 }
 
-#courseBanner form
-{
+#courseBanner form {
 	padding-top: 5px;
 	margin: 0;
 }
 
-#courseBannerRight
-{
+#courseBannerRight {
 	float: right;
 	text-align: right;
 	margin: 0;
 }
 
-#courseBannerLeft
-{
+#courseBannerLeft {
 	float: left;
 	text-align: left;
 	margin: 0;
@@ -262,7 +255,7 @@ input[type=submit]:hover, button:hover {
  ----------------------------------------------------------------------------*/
 
 #breadcrumbLine {
-	font-size: 0.8em;
+	font-size: 0.9em;
 	color: #666666;
 	border: none;
 }
@@ -301,13 +294,9 @@ input[type=submit]:hover, button:hover {
  ******************************************************************************/
 
 #claroBody {
-	padding-top:15px;
+	padding:15px;
 	color: #666666;
 	background: url('default/bg_body.jpg') repeat-x top left #fff;
-}
-
-#claroBody small {
-	font-size: 12px;
 }
 
 #claroBody a:link,
@@ -332,73 +321,53 @@ input[type=submit]:hover, button:hover {
 	font-weight: normal;
 }
 
-#claroBody a.claroCmd:link,
-#claroBody a.claroCmd:visited {
-	color: #336699;
-	font-weight: normal;
-}
-
-#claroBody a.claroCmd:hover,
-#claroBody a.claroCmd:active {
-	color: #999999;
-	font-weight: normal;
-}
-
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#campusFooter
-{
+#campusFooter {
 	margin: 0;
 	margin-top : 25px;
 	padding: 5px 15px;
-	font-size: 0.8em;
+	font-size: 0.9em;
 	color: #666;
 	background: url('default/bg_footer.jpg') repeat-x top left #fff;
 }
 
 #campusFooter a:link, 
-#campusFooter a:visited 
-{
+#campusFooter a:visited {
 	color: #666;
 	font-weight: bold;
 }
 
 #campusFooter a:hover, 
-#campusFooter a:active 
-{
+#campusFooter a:active {
 	color: #369;
 	font-weight: bold;
 }
 
-#campusFooter hr
-{
+#campusFooter hr {
     display: none;
 }
 
-#campusFooterRight
-{
+#campusFooterRight {
 	float: right;
 	text-align: right;
 	padding: 0;
 }
 
-#campusFooterLeft
-{
+#campusFooterLeft {
 	float: left;	
 	padding: 0;
 }
 
-#campusFooterCenter
-{
+#campusFooterCenter {
     clear: both;
     text-align: center;
 }
 
 
-#campusFooterCenter #poweredBy
-{
+#campusFooterCenter #poweredBy {
     font-style: italic;
 }
 
@@ -407,38 +376,42 @@ input[type=submit]:hover, button:hover {
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
-.claroCmd
-{
-		font-size: O.8em;
-		font-weight: bold;
-		text-decoration: underline;
-}
-
-.claroCmdDisabled 
-{
-		color: Gray;
-		font-size: O.8em;
-		font-weight: bold;
-		text-decoration: none;
-}
-
-/* Added for document view mode toolbar */
-
-th .claroCmd
-{
-	font-size: O.8em;
-	font-weight: bold;
-	text-decoration: underline;
-}
-
-th .claroCmdDisabled
-{
-   	color: white;
-   	font-size: O.8em;
+#claroBody .claroCmd,
+#claroBody a.claroCmd:link,
+#claroBody a.claroCmd:visited {
+	color: #336699;
+	font-size: O.9em;
 	font-weight: bold;
 	text-decoration: none;
 }
 
+#claroBody a.claroCmd:hover,
+#claroBody a.claroCmd:active {
+	color: #999999;
+	text-decoration: none;
+}
+
+.claroCmdDisabled {
+	color: #999999;
+	font-size: O.9em;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* Added for document view mode toolbar */
+
+th .claroCmd {
+	font-size: O.9em;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+th .claroCmdDisabled {
+   	color: gray;
+   	font-size: O.9em;
+	font-weight: bold;
+	text-decoration: none;
+}
 
 /******************************************************************************
                              CLAROLINE ITEM
@@ -550,18 +523,16 @@ a.item:visited{
 }
 
 .claroTable td em, 
-.claroTable th em{
+.claroTable th em {
 	font-size: 0.9em;
 }
 
 .claroTable .superHeader th, 
-.claroTable th.superHeader 
-{
+.claroTable th.superHeader {
 	color: #669933;
 	background-color: #DEEECE;
 	border: 1px #87B665 solid;
 	padding: 2px 5px 2px 5px;
-	font-size: 12px;
 	font-weight: bold;
 	text-align: center;
 }
@@ -575,18 +546,16 @@ a.item:visited{
 .claroTable th.headerY, 
 .claroTable .headerY th, 
 .claroTable th.headerX, 
-.claroTable .headerX th 
-{
+.claroTable .headerX th {
 	color: #669933;
-	font-size: 12px;
+	font-size: 1em;
 	font-weight: bold;
 	text-align: center;
 	padding: 2px 5px 2px 5px;
 }
 
 .claroTable .headerX th,
-.claroTable th.headerX 
-{
+.claroTable th.headerX {
 	background-color: #EDF1E3;
 	border: 1px #96BB7A solid;
 	padding: 2px 5px 2px 5px;
@@ -598,19 +567,19 @@ a.item:visited{
 	padding: 2px 5px 2px 5px;
 }
 
-.claroTable tr.toolbar th.prev{
+.claroTable tr.toolbar th.prev {
 	text-align: left;
 	font-weight: normal;
 	padding: 2px 5px 2px 5px;
 }
 
-.claroTable tr.toolbar th.title{
+.claroTable tr.toolbar th.title {
 	font-weight: bold;
 	text-align: center;
 	padding: 2px 5px 2px 5px;
 }
 
-.claroTable tr.toolbar th.next{
+.claroTable tr.toolbar th.next {
 	text-align: center;
 	font-weight: normal;
 	padding: 2px 5px 2px 5px;
@@ -618,7 +587,7 @@ a.item:visited{
 
 .claroTable td.workingWeek {
 	vertical-align: top;
-	font-size: 14px;
+	font-size: 1.2em;
 	font-weight: bold;
 	color: #999999;
 	padding: 2px 5px 2px 5px;
@@ -626,13 +595,13 @@ a.item:visited{
 
 .claroTable td.weekEnd {
 	vertical-align: top;
-	font-size: 14px;
+	font-size: 1.2em;
 	color: #FF003C;
 	padding: 2px 5px 2px 5px;
 }
 .claroTable td.highlight {
 	vertical-align: top;
-	font-size: 14px;
+	font-size: 1.2em;
 	font-weight: bold;
 	color: #FFB848;
 	padding: 2px 5px 2px 5px;
@@ -699,8 +668,7 @@ div .wiki2xhtml p {
  * visible fo the other users
  */
 
-.invisible
-{
+.invisible {
 	color: #999999;
 }
 
@@ -715,7 +683,7 @@ a:visited.invisible {
 
 /* menu */
 
-.menu a.invisible:visited{
+.menu a.invisible:visited {
 	color: #999999;
 }
 
@@ -739,22 +707,21 @@ a:visited.invisible {
 	example : 'today' in the agenda
 */
 .highlight {
- color: #FFB848;
- font-weight: bold;
+    color: #FFB848;
+    font-weight: bold;
 }
 
 /* 'required' is used to set the color of the asterisk displayed before the required form field
 */
 .required {
- color: red;
+    color: red;
 }
 
 /* 'hotItem' is used when something needs to be notified as new on the platform since the last login
     to the user
 */
 .hotItem,
-.hotItem a
-{
+.hotItem a {
  color: #FF00CC;
  font-weight: bold;
 }
@@ -763,21 +730,20 @@ a:visited.invisible {
  * 'rightMenu' is mainly use in the platform home page
  */
 
-.claroRightMenu  {
+.claroRightMenu {
     border: 1px solid #669933;
 	background : #e7f2c1;
 	padding-left: 10px;
-	font-size: 0.9em;
 }
 	
 .claroRightMenu a:link, 
 .claroRightMenu a:visited {
-		color: #336699;
+	color: #336699;
 }
 	
 .claroRightMenu a:hover,
 .claroRightMenu a:active {
-		color: #669933;
+	color: #669933;
 }
 
 .claroRightMenu form {
@@ -789,17 +755,16 @@ a:visited.invisible {
 	padding: 2px;
 	vertical-align: bottom;
 	color: #555555;
-	font-size: 0.9em;
 	font-style: italic;
 }
 
 .HelpText {
-    color: #666666;
-	font-size: O.9em;
+    color: #999;
+	font-size: O.8em;
 }
-.HelpText ul{
-    color: #666666;
-	font-size: O.9em;
+.HelpText ul {
+    color: #999;
+	font-size: O.8em;
 }
 
 .claroToolTitle {
@@ -808,7 +773,7 @@ a:visited.invisible {
 	font-weight: bold;
 	border-bottom: 1px solid #DEDEDE;
 	text-indent: 15px;
-	background-image: url(default/arrow_green.gif);
+	background-image: url(./default/arrow_green.gif);
 	background-position: 0px 5px;
 	background-repeat: no-repeat;
 }
