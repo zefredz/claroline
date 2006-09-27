@@ -72,55 +72,45 @@ if ( isset($_uid) )
     /*
      * Commands line
      */
+	$userCommands = array();
 
-    echo '<p><nobr>';
+    if ($is_allowedCreateCourse) // 'Create Course Site' command. Only available for teacher. 
+    {
+        $userCommands[] = '<a href="claroline/course/create.php" class="claroCmd">'
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
+        .    get_lang('Create a course site')
+        .    '</a>';
+    }
 
-        if ($is_allowedCreateCourse) /* 'Create Course Site' command.
-                                         Only available for teacher. */
-        {
-            echo '<a href="claroline/course/create.php" class="claroCmd">'
-            .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
-            .    get_lang('Create a course site')
-            .    '</a>'
-            ;
-            if (get_conf('allowToSelfEnroll',true)) echo '</nobr>&nbsp;| <nobr>';
-        }
+    if (get_conf('allowToSelfEnroll',true))
+    {
+        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
+        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="" /> '
+        .    get_lang('Enrol on a new course')
+        .    '</a>';
 
-        if (get_conf('allowToSelfEnroll',true))
-        {
-            echo '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
-            .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="" /> '
-            .    get_lang('Enrol on a new course')
-            .    '</a>'
-            .    '&nbsp;| '
+        $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
+        .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" /> '
+        .    get_lang('Remove course enrolment')
+        .    '</a>';
+    }
 
-            .    '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
-            .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" /> '
-            .    get_lang('Remove course enrolment')
-            .    '</a>'
-            ;
-        }
-
-        if ( isset($_REQUEST['category']) )
-        {
-            echo '</nobr>&nbsp;| <nobr>'
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
-            .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
-            .    get_lang('My course list')
-            .    '</a>'
-            ;
-        }
-        else
-        {
-            echo '</nobr>&nbsp;| <nobr>'
-                .'<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
-                .'<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
-                . get_lang('All platform courses')
-                .'</a>'
-                ;
-        }
-
-        echo  '</nobr></p>' . "\n";
+    if ( isset($_REQUEST['category']) )
+    {
+        $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+        .    get_lang('My course list')
+        .    '</a>';
+    }
+    else
+    {
+        $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
+        .	 '<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
+        .	 get_lang('All platform courses')
+        .	 '</a>';
+    }
+		
+    echo '<p>' . claro_html_menu_horizontal($userCommands) . '</p>' . "\n";
 }
 
 if ( $_uid && ! isset($_REQUEST['category']) )
