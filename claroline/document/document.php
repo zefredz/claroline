@@ -353,26 +353,20 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $spaceAlreadyOccupied = dir_total_space($baseWorkDir);
         $remainingDiskSpace = $maxFilledSpace - $spaceAlreadyOccupied;
         $maxUploadSize = get_max_upload_size( $maxFilledSpace,$baseWorkDir );
-        $diskQuotaExceeded = ( $remainingDiskSpace < 0 );
-        
-        if ( 0 > $remainingDiskSpace )
+                
+        if ( $remainingDiskSpace < 0 )
         {
+            // Disk quota exceeded
+
             $remainingDiskSpace = 0;
-        }
-        
-        
-        if ( $diskQuotaExceeded )
-        {
+
             $adminEmailUrl = '<a href="mailto:'.get_conf('administrator_email').'">'
                 . get_lang('Platform Administrator') . '</a>';
-            $dialogBox .= '<p>' . get_lang( "Disk quota exceeded, please contact the %administrator",
-                    array ( '%administrator' => $adminEmailUrl ) ) 
-                . '<br /><small>' . get_lang("Maximum disk space") 
-                . ' : ' . format_file_size($maxFilledSpace) . '</small>'
-                . '<br /><small>' . get_lang("Disk space occupied") 
-                . ' : ' . format_file_size($spaceAlreadyOccupied) . '</small>'
-                . '<br /><small>' . get_lang("Disk space available") 
-                . ' : ' . format_file_size($remainingDiskSpace) . '</small>'
+            $dialogBox .= '<p>' . get_lang( 'Disk quota exceeded, please contact the %administrator',
+                    array ( '%administrator' => $adminEmailUrl ) ) . '<br />' . "\n"
+                . '<small>' . get_lang('Maximum disk space : %size',array('%size'=>format_file_size($maxFilledSpace))) . '</small><br />' . "\n"
+                . '<small>' . get_lang('Disk space occupied : %size',array('%size'=>format_file_size($spaceAlreadyOccupied))) . '</small><br />' . "\n"
+                . '<small>' . get_lang('Disk space available : %size',array('%size'=>format_file_size($remainingDiskSpace))) . '</small>'
                 . '</p>' . "\n";
         }
         else
