@@ -101,9 +101,9 @@ function claro_html_menu_horizontal($itemList)
     if( !empty($itemList) && is_array($itemList))
     {
         return "\n\n"
-        . '<span><nobr>'
-        . implode( "\n" . '</nobr>&nbsp;| <nobr>' . "\n",$itemList)
-        . '</nobr></span>'
+        . '<span>' . "\n"
+        . implode( "\n" . ' | ' . "\n",$itemList) . "\n"
+        . '</span>'
         . "\n\n";
     }
     else
@@ -177,7 +177,7 @@ function claro_html_button($url, $text, $confirmMessage = '')
     }
     else
     {
-        return '<nobr>[ <a href="' . $url . '">' . $text . '</a> ]</nobr>';
+        return '[ <a href="' . $url . '">' . $text . '</a> ]';
     }
 }
 
