@@ -187,16 +187,12 @@ $dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'cen
                                          , 'cmd_cu_unenroll' => array ('align' => 'center')
 );
 
-$dg_opt_list['caption'] = '<small>'
-.                         '<img src="' . get_conf('imgRepositoryWeb') . 'user.gif" '
+$dg_opt_list['caption'] = '<img src="' . get_conf('imgRepositoryWeb') . 'user.gif" '
 .                         ' alt="' . get_lang('Student') . '" border="0" title="' . get_lang('Student') . '" />'
 .                         get_lang('Student')
-.                         '<wbr>'
-.                         '<img src="' . get_conf('imgRepositoryWeb') . 'manager.gif" '
+.                         ' - <img src="' . get_conf('imgRepositoryWeb') . 'manager.gif" '
 .                         ' alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('Course manager') . '" />'
 .                         get_lang('Course manager')
-.                         '</nobr>'
-.                         '</small>'
 ;
 
 $nameTools = get_lang('Course members');
