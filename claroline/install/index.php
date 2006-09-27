@@ -868,7 +868,7 @@ if ($display == DISP_WELCOME)
     ? ''
     : '</li>'
     . '<font color="red">Warning !</font> Claroline is not able to write on : <br />'
-    . '<nobr><code>' . realpath('../..') . '</code><nobr>'
+    . '<code>' . realpath('../..') . '</code>'
     . '<br />'
     . 'Change this file permission the server file system.'
     . '</li>')
@@ -878,7 +878,7 @@ if ($display == DISP_WELCOME)
     : '<li>'
     . '<font color="red">Warning !</font> '
     . 'Claroline is not able to read on : <br />'
-    . '<nobr><code>' . realpath('../..') . '</code><nobr>'
+    . '<code>' . realpath('../..') . '</code>'
     . '<br />'
     . 'Change this file permission the server file system.'
     . '</li>')
