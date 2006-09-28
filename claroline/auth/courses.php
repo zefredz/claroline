@@ -707,7 +707,8 @@ switch ( $displayMode )
 
         if ( ! empty($message) ) echo claro_html_message_box($message);
 
-        echo  '<blockquote>' . get_lang('This course requires a key for enrolment') . '</p>' . "\n"
+        echo  '<blockquote><p>' . get_lang('This course requires a key for enrolment') . '</p>' . "\n"
+        .     '<p><small>(' . get_lang('If you do not have the key, please contact the course manager') . ')</small></p>' . "\n"
         .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .     '<input type="hidden" name="cmd" value="exReg">' . "\n"
         .     get_lang('Enrolment key')
