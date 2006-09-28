@@ -49,12 +49,24 @@ require $includePath . '/claro_init_header.inc.php';
 <?php
 
 // INTRODUCTION MESSAGE
-if ( file_exists('./textzone_top.inc.html') ) include './textzone_top.inc.html';
-
-if ($is_platformAdmin)
+if ( file_exists('./textzone_top.inc.html') ) 
 {
-    // EDIT COMMAND
-    echo '&nbsp;'
+    include './textzone_top.inc.html';
+}
+else
+{
+    echo '<div style="text-align: center">'
+    .    '<img src="./claroline/img/logo.png" border="0" alt="Claroline logo" height="250" width="254" />' . "\n"
+    .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
+    .    '</div>';   
+}
+
+if($is_platformAdmin)
+{
+    echo '<p>'
+    .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_top.inc.html'))
+    .    '</p>' . "\n"
+    .    '&nbsp;'
     .    '<a href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
     .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
     .    '</a>' . "\n"
@@ -161,10 +173,18 @@ $homePageRightMenu = new Dock('campusHomePageRightMenu');
 echo $homePageRightMenu->render();
 
 //Include right text zone, if there is any
+if ( file_exists('./textzone_right.inc.html') ) 
+{
+    include './textzone_right.inc.html';
+}
+elseif($is_platformAdmin)
+{
+    echo '<p>'
+    .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_right.inc.html'))
+    .    '</p>' . "\n";
+}
 
-if ( file_exists('./textzone_right.inc.html') ) include './textzone_right.inc.html';
-
-if ( $is_platformAdmin )
+if($is_platformAdmin)
 {
     echo '&nbsp;'
     .    '<a href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
