@@ -884,7 +884,7 @@ $_lang['Number proposed exceeds max. that you allowed (you can modify it below).
     La composition du groupe n\'a pas été modifiée. Vous pouvez modifier le nombre maximum ci-dessous.';
 $_lang['Numero'] = 'N°';
 $_lang['OVER QUOTA'] = 'QUOTA DEPASSE';
-$_lang['Ok'] = 'OK';
+$_lang['Ok'] = 'Ok';
 $_lang['Oldest first'] = 'Inverser';
 $_lang['On'] = 'Sur';
 $_lang['On an unique page'] = 'Questions sur une seule page';
