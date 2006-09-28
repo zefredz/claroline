@@ -1,5 +1,0 @@
-<div style="margin: 10px; padding: 10px;" class="HelpText">
-This text zone is displayed to each user. 
-Platform administrator can change its content 
-or remove it by editing the <b>textzone_top.inc.html</b> file.
-</div>
