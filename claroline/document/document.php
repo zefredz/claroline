@@ -1858,7 +1858,7 @@ echo claro_html_tool_title($titleElement,
 
 
         $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.urlencode($cmdCurDirPath).'">&nbsp;'
-            .'<img src="'.$imgRepositoryWeb.'search.gif" border="0" alt="">'
+            .'<img src="'.$imgRepositoryWeb.'search.gif" border="0" alt="">&nbsp;'
             . get_lang('Search')
             ."</a>";
 
