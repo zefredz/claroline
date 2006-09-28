@@ -15,23 +15,21 @@ if ( get_conf('claro_CasEnabled') ) // CAS is a special case of external authent
 if( get_conf('claro_displayLocalAuthForm') )
 {
     echo '<!-- Authentication Form -->' . "\n"
-    .    '<form class="claroLoginForm"' . "\n"
-    .    'action ="' . $clarolineRepositoryWeb . 'auth/login.php' . '"' . "\n"
-    .    'method="post">' . "\n"
+    .    '<form class="claroLoginForm" action ="' . $clarolineRepositoryWeb . 'auth/login.php' . '" method="post">' . "\n"
     .    '<fieldset style="padding: 7px;">' . "\n"
     .    '<legend>' . get_lang('Authentication') . ' : </legend>' . "\n"
     .    '<label for="login">' . "\n"
-    .    '<small>' . get_lang('Username') . '</small><br />' . "\n"
-    .    '<input type="text" name="login" id="login" size="12"><br />' . "\n"
+    .    get_lang('Username') . '<br />' . "\n"
+    .    '<input type="text" name="login" id="login" size="12" tabindex="1"><br />' . "\n"
     .    '</label>' . "\n"
     .    '<label for="password" >' . "\n"
-    .    '<small>' . get_lang('Password') . '</small><br />' . "\n"
+    .    get_lang('Password') . '<br />' . "\n"
     .    '<input type="password" name="password" id="password" size="12"><br />' . "\n"
     .    '</label>' . "\n"
     .    '<input type="submit" value="' . get_lang('Enter') . '" name="submitAuth">' . "\n"
     .    '</fieldset>' . "\n"
-    .    '</form>' . "\n"
-    .    '<!-- "Lost Password" hyperlink -->' . "\n"
+    .    '</form>' . "\n\n"
+    .    '<!-- "Lost Password" -->' . "\n"
     .    '<p>' . "\n"
     .    '<a href="claroline/auth/lostPassword.php">' . get_lang('Lost password') . '</a>' . "\n"
     .    '</p>' . "\n"
@@ -40,13 +38,11 @@ if( get_conf('claro_displayLocalAuthForm') )
 
 if( $allowSelfReg )
 {
-    echo '<!-- "Create user Account" hyperlink -->' . "\n"
+    echo '<!-- "Create user Account" -->' . "\n"
     .    '<p>' . "\n"
     .    '<a href="claroline/auth/inscription.php">' . get_lang('Create user account') . '</a>' . "\n"
     .    '</p>' . "\n"
     ;
 }
 } // end else if claro_displayLocalAuthForm
-
-
 ?>
