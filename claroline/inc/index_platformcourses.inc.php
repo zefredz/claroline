@@ -45,7 +45,7 @@ echo claro_html_tool_title($pageTitle);
 
 if ( ( count($categoryList) - 1 )  >= 0 )
 {
-    echo '<h4>'.get_lang('Categories').'</h4>' . "\n";
+    echo '<h4>'.get_lang('Categories').'</h4>' . "\n\n";
     echo '<ul>'                                . "\n";
 
     foreach($categoryList as $thisCategory)
@@ -69,34 +69,34 @@ if ( ( count($categoryList) - 1 )  >= 0 )
         ;
     }
 
-    echo "</ul>\n";
+    echo '</ul>' . "\n";
 }
 
 if ( count($courseList) > 0 )
 {
-   if ( ( count($categoryList) - 1 )  > 0 )
-   {
-       echo "<hr size=\"1\" noshade=\"noshade\">\n";
-   }
+    if ( ( count($categoryList) - 1 )  > 0 )
+    {
+        echo '<hr size="1" noshade="noshade">' . "\n";
+    }
 
-    echo "<h4>".get_lang('Course list')."</h4>\n"
-        ."<ul style=\"list-style-image:url(claroline/img/course.gif);\">\n";
+    echo '<h4>'.get_lang('Course list').'</h4>' . "\n"
+    .    '<ul style="list-style-image:url(claroline/img/course.gif);">' . "\n";
 
     foreach($courseList as $thisCourse)
     {
         echo '<li>' . "\n"
-            . '<a href="' .  $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">'
-            . $thisCourse['officialCode'] . ' - '
-            . $thisCourse['title']
-            . '</a>'
-            . '<br />';
+        .    '<a href="' .  $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">'
+        .    $thisCourse['officialCode'] . ' - '
+        .    $thisCourse['title']
+        .    '</a>'
+        .    '<br />';
         if (isset($_uid))
         {
-        	echo'<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
+        	echo '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
         }
         else 
         {
-        	echo'<small>' . $thisCourse['titular'] . '</small>' . "\n";
+        	echo '<small>' . $thisCourse['titular'] . '</small>' . "\n";
         }        
         
         echo '</li>' . "\n";
