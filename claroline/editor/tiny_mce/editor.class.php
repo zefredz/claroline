@@ -107,7 +107,7 @@ class editor extends GenericEditor
             	.'<script language="javascript" type="text/javascript">'."\n\n"
         	    .'function strip_old_htmlarea(editor_id,body,doc)'."\n"
 		        .'{'."\n"
-        	    .'    if( confirm(" '.get_lang('This text layout should be modified to be editable in this editor.\nCancel to keep your original text layout.\n').' ") )'."\n"
+        	    .'    if( confirm(" '.clean_str_for_javascript(get_lang('This text layout should be modified to be editable in this editor.\nCancel to keep your original text layout.\n')).' ") )'."\n"
     	        .'    {'."\n"
 				.'        content = body.innerHTML;'."\n\n"	
         	    .'        content = content.replace(/style="[^"]*"/g, "");'."\n"
