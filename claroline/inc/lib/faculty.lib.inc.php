@@ -292,6 +292,8 @@ function addNbChildFather($fatherChangeChild, $newNbChild)
 
 function build_select_faculty($elem,$father, $editFather, $space)
 {
+    $html = '';
+
     if($elem)
     {
         $space .= '&nbsp;&nbsp;&nbsp;';
@@ -299,15 +301,17 @@ function build_select_faculty($elem,$father, $editFather, $space)
         {
             if(!strcmp($one_faculty['code_P'],$father))
             {
-                echo '<option value="' . $one_faculty['code'] . '" '
+                $html .= '<option value="' . $one_faculty['code'] . '" '
                 .    ($one_faculty['code'] == $editFather ? 'selected="selected" ':'')
                 .    '> ' . $space . $one_faculty['code'] . ' </option>'
                 ;
 
-                build_select_faculty($elem,$one_faculty['code'], $editFather, $space);
+                $html .= build_select_faculty($elem,$one_faculty['code'], $editFather, $space);
             }
         }
     }
+
+    return $html ;
 }
 
 
@@ -323,8 +327,9 @@ function get_cat_data($cat_id)
     $tbl_mdb_names   = claro_sql_get_main_tbl();
     $tbl_course_node = $tbl_mdb_names['category'];
     $sql_get_cat_data = " SELECT id, name, code, code_P, treePos, nb_childs, canHaveCatChild, canHaveCoursesChild
-                       FROM `" . $tbl_course_node . "`
-                                       WHERE id= ". (int) $cat_id;
+                          FROM `" . $tbl_course_node . "`
+                          WHERE id= ". (int) $cat_id;
+
     return claro_sql_query_get_single_row($sql_get_cat_data);
 
 }

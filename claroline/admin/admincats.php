@@ -757,9 +757,7 @@ switch ($display_form)
 {
     case DISP_FORM_CREATE :
     {
-        echo claro_html_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => get_lang('Create a category')))
-        .    claro_html_msg_list($controlMsg,1)
-        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exCreate" >' . "\n"
         .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
@@ -795,9 +793,9 @@ switch ($display_form)
         ;
 
         if(isset($editedCat_CanHaveCoursesChild))
-            echo (!strcmp($editedCat_CanHaveCoursesChild,"FALSE")?"checked":"");
+            $form .= (!strcmp($editedCat_CanHaveCoursesChild,"FALSE")?"checked":"");
 
-        echo ' value="0">' . "\n"
+        $form .= ' value="0">' . "\n"
         .    ' ' . "\n"
         .    '<label for="canHaveCoursesChild_0">' .  get_lang('No') . '</label>' . "\n"
         .    '</td>' . "\n"
@@ -812,9 +810,9 @@ switch ($display_form)
         ;
 
         // Display each category in the select
-        build_select_faculty($categories,NULL,$editFather,'');
+        $form .= build_select_faculty($categories,null,null,'');
 
-        echo '</select>' . "\n"
+        $form .= '</select>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -831,6 +829,13 @@ switch ($display_form)
         .    '</table>' . "\n"
         .    '</form>' . "\n"
         ;
+        
+        echo claro_html_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => get_lang('Create a category'))) ;
+
+        echo claro_html_msg_list($controlMsg,1);
+
+        echo claro_html_message_box ($form) ;
+
     }
     break;
     case DISP_FORM_EDIT :
@@ -840,10 +845,7 @@ switch ($display_form)
          * Display information to edit a category and the bom of categories
          */
 
-        echo claro_html_tool_title(array('mainTitle' => $nameTools,'subTitle' => get_lang('Edit a category')))
-        .    claro_html_msg_list($controlMsg,1)
-
-        .    '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        $form = '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
         .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
@@ -872,19 +874,20 @@ switch ($display_form)
         ;
 
         if(isset($editedCat_CanHaveCoursesChild))
-            echo (!strcmp($editedCat_CanHaveCoursesChild,'TRUE') ? 'checked' : '');
+            $form .= (!strcmp($editedCat_CanHaveCoursesChild,'TRUE') ? 'checked' : '');
         else
-            echo "checked";
+            $form .= "checked";
 
-        echo ' value="1" />' . "\n"
+        $form .= ' value="1" />' . "\n"
         .    ' ' . "\n"
         .    '<label for="canHaveCoursesChild_1">' .  get_lang('Yes') . '</label>' . "\n"
         .    '' . "\n"
         .    '<input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_0" '
         ;
-        if(isset($editedCat_CanHaveCoursesChild)) echo (!strcmp($editedCat_CanHaveCoursesChild, 'FALSE') ? 'checked' : '');
 
-        echo ' value="0" />' . "\n"
+        if(isset($editedCat_CanHaveCoursesChild)) $form .= (!strcmp($editedCat_CanHaveCoursesChild, 'FALSE') ? 'checked' : '');
+
+        $form .= ' value="0" />' . "\n"
         .    '<label for="canHaveCoursesChild_0">' .  get_lang('No') . '</label>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
@@ -904,17 +907,22 @@ switch ($display_form)
         .    '</form>' . "\n"
         .    '<br />' . "\n"
         ;
+        
+        echo claro_html_tool_title(array('mainTitle' => $nameTools,'subTitle' => get_lang('Edit a category'))) ;
+
+        echo claro_html_msg_list($controlMsg,1) ;
+
+        echo claro_html_message_box($form);
+
     }
     break;
     case  DISP_FORM_MOVE :
     {
         /**
-     * Display information to change root of the category
-     */
+         * Display information to change root of the category
+         */
 
-        echo claro_html_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_lang("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))))
-        .    claro_html_msg_list($controlMsg,1)
-        .    '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        $form = '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
         .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
@@ -926,9 +934,11 @@ switch ($display_form)
         .    '<select name="fatherCat">' . "\n"
         .    '<option value="NULL" > &nbsp;&nbsp;&nbsp;' .  get_conf('siteName') . ' </option>' . "\n"
         ;
+
         //Display each category in the select
-        build_select_faculty($categories,NULL,$editFather, '');
-        echo '</select>' . "\n"
+        $form .= build_select_faculty($categories,NULL,$editFather, '');
+
+        $form .= '</select>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -948,6 +958,12 @@ switch ($display_form)
         .    '</form>' . "\n"
         .    '<br />' . "\n"
         ;
+        
+        echo claro_html_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_lang("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))));
+
+        echo claro_html_msg_list($controlMsg,1);
+
+        echo claro_html_message_box($form);
     }
     break;
     default :
@@ -955,6 +971,8 @@ switch ($display_form)
         echo claro_html_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>get_lang('Manage course categories')))
         .    claro_html_msg_list($controlMsg,1)
         ;
+
+        
     }
 }
 
