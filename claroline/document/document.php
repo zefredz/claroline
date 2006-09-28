@@ -1508,7 +1508,7 @@ echo claro_html_tool_title($titleElement,
         if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
         {
             // slash argument method - only compatible with Apache
-            $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file)) . '&amp;cidReq=' . urlencode($_cid);
+            $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file)) . '?cidReq=' . urlencode($_cid);
         }
         else
         {
@@ -2064,7 +2064,7 @@ echo claro_html_tool_title($titleElement,
                     if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
                     {
                         // slash argument method - only compatible with Apache
-                        $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName) . '&amp;cidReq=' . urlencode($_cid);
+                        $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName) . '?cidReq=' . urlencode($_cid);
                     }
                     else
                     {
