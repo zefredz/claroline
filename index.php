@@ -42,7 +42,7 @@ require $includePath . '/claro_init_header.inc.php';
 
 ?>
 
-<table width="100%" border="0" cellpadding="4" >
+<table width="100%" border="0" cellpadding="4">
 <tr>
 <td valign="top">
 
@@ -55,7 +55,7 @@ if ($is_platformAdmin)
 {
     // EDIT COMMAND
     echo '&nbsp;'
-    .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
+    .    '<a href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
     .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
     .    '</a>' . "\n"
     ;
@@ -98,14 +98,14 @@ if ( isset($_uid) )
     if ( isset($_REQUEST['category']) )
     {
         $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
         .    get_lang('My course list')
         .    '</a>';
     }
     else
     {
         $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
-        .	 '<img src="'.$imgRepositoryWeb.'course.gif" alt="" />'
+        .	 '<img src="'.$imgRepositoryWeb.'course.gif" alt="" /> '
         .	 get_lang('All platform courses')
         .	 '</a>';
     }
@@ -167,7 +167,7 @@ if ( file_exists('./textzone_right.inc.html') ) include './textzone_right.inc.ht
 if ( $is_platformAdmin )
 {
     echo '&nbsp;'
-    .    '<a style="font-size: smaller" href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
+    .    '<a href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
     .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
     .    '</a>' . "\n"
     ;
