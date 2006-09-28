@@ -2146,4 +2146,5 @@ $_lang['uncompress zipped (.zip) file on the server'] = 'uncompress zipped (.zip
 $_lang['unlimited'] = 'unlimited';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.';
+$_lang['blockTextZoneHelp'] = 'This text zone is displayed to each user. Platform administrator can change its content or remove it by editing the <b>%textZoneFile</b> file.'; 
 ?>
