@@ -306,8 +306,6 @@ else
 
     $arr_file_to_undist =
     array (
-    $newIncludePath . '../../textzone_top.inc.html' => '',
-    $newIncludePath . '../../textzone_right.inc.html' => '',
     $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf' 
     );
 

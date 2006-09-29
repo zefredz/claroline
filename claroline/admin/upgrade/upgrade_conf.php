@@ -201,10 +201,7 @@ if ( $cmd == 'run' )
      * Config file to undist
      */
 
-    $arr_file_to_undist = array ( $includePath.'/../../textzone_top.inc.html' => '',
-                                 $includePath.'/../../textzone_right.inc.html' => '',
-                                 $includePath.'/../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf'
-                                ) ;
+    $arr_file_to_undist = array ( $includePath.'/../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys.'platform/conf' );
 
     foreach ( $arr_file_to_undist as $undistFile => $undistPath )
     {
