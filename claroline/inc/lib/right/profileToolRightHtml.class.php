@@ -178,8 +178,6 @@ class RightProfileToolRightHtml
                 }
 
                 $html_table_row_list[$tool_id][$profile_id] = $html_right;
-
-                $html .= '</tr>' . "\n";
             }
         }
 
