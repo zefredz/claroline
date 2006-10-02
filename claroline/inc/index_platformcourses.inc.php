@@ -107,7 +107,10 @@ if ( count($courseList) > 0 )
 }
 else
 {
-	// echo "<blockquote>",$lang_No_course_publicly_available,"</blockquote>\n";
+    if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] = 'search')
+    {
+	    echo '<blockquote>' . get_lang('Your search did not match any courses') . '</blockquote>' . "\n";
+    }
 }
 
 echo "\n" . '<blockquote>' . "\n"
