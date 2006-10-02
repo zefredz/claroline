@@ -221,7 +221,6 @@ class answerTrueFalse
      */	    
     function duplicate($duplicatedQuestionId)
     {
-    	// TODO duplicate
         $duplicated = new answerTrueFalse($duplicatedQuestionId);
         
         $duplicated->trueFeedback = $this->trueFeedback; 
@@ -412,7 +411,7 @@ class answerTrueFalse
     	.	get_lang('True') 
     	.	'</td>' . "\n"
     	.	'<td width="45%">'
-    	.	$this->trueFeedback 
+    	.	$this->trueFeedback
     	.	'</td>' . "\n"
     	.	'</tr>' . "\n\n"
     		
@@ -427,7 +426,7 @@ class answerTrueFalse
     	.	get_lang('False') 
     	.	'</td>' . "\n"
     	.	'<td width="45%">'
-    	.	$this->falseFeedback 
+    	.	$this->falseFeedback
     	.	'</td>' . "\n"
     	.	'</tr>' . "\n\n"
 		
@@ -474,7 +473,7 @@ class answerTrueFalse
 				.'type="radio" value="true" />'
 			. '</td>' . "\n"
     		. '<td valign="top"><label for="trueCorrect">' . get_lang('True') . '</label></td>' . "\n"
-    		. '<td><textarea wrap="virtual" rows="7" cols="25" name="trueFeedback">' . $this->trueFeedback . '</textarea></td>' . "\n"
+    		. '<td><textarea wrap="virtual" rows="7" cols="25" name="trueFeedback">' . htmlspecialchars($this->trueFeedback) . '</textarea></td>' . "\n"
     		. '<td valign="top"><input name="trueGrade" size="5" value="' . $this->trueGrade . '" type="text" /></td>' . "\n"
     		. '</tr>' . "\n\n"
     		
@@ -485,7 +484,7 @@ class answerTrueFalse
 				.'type="radio" value="false" />'
 			. '</td>' . "\n"
     		. '<td valign="top"><label for="falseCorrect">' . get_lang('False') . '</label></td>' . "\n"
-    		. '<td><textarea wrap="virtual" rows="7" cols="25" name="falseFeedback">' . $this->falseFeedback . '</textarea></td>' . "\n"
+    		. '<td><textarea wrap="virtual" rows="7" cols="25" name="falseFeedback">' . htmlspecialchars($this->falseFeedback) . '</textarea></td>' . "\n"
     		. '<td valign="top"><input name="falseGrade" size="5" value="' . $this->falseGrade . '" type="text" /></td>' . "\n"
     		. '</tr>' . "\n\n"
     		
