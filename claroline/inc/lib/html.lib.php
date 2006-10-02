@@ -738,6 +738,7 @@ class claro_datagrid
              */
             if (!is_array($this->colTitleList)&&count($this->datagrid))
             {
+                if (is_array($this->datagrid) && isset($this->datagrid[0]) && is_array($this->datagrid[0]))
                 $this->colTitleList = array_keys($this->datagrid[0]);
             }
 
