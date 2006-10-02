@@ -113,7 +113,7 @@ if ( isset($_REQUEST['applyChange']) )
 
         $uidReset = true;
         include '../inc/claro_init_local.inc.php';
-        $messageList['info'][] = get_lang('Your new profile has been saved') . '<br />' . "\n";
+        $messageList['info'][] = get_lang('The information have been modified') . '<br />' . "\n";
 
         // Initialise
         $user_data = user_get_properties($_uid);

@@ -100,7 +100,7 @@ if ( $course->load($current_cid) )
 	    {
 	    	if ( $course->save() )
 	    	{
-	    		$dialogBox = get_lang('The information has been modified') . '<br />' . "\n"
+	    		$dialogBox = get_lang('The information have been modified') . '<br />' . "\n"
 	    			. '<a href="' . $backUrl . '">' . get_lang('Continue') . '</a>' ;
 	    		
 	    		if ( ! $adminContext )
