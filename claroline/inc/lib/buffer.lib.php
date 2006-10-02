@@ -1,6 +1,8 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
+// TODO rename this lib to dock.lib.php
+
 class Buffer
 {
    var $buffer;
@@ -122,6 +124,8 @@ class Dock
     function Dock($name)
     {
        $this->name = $name;
+       // TODO move call to getAppletList outside the constructor
+       // this is magical code !!!!
        $appletList = getAppletList($this->name);
        $this->setAppletList($appletList);
     }
