@@ -77,6 +77,10 @@ if ( $cmd == 'exEdit' )
     {
     	if( $course->save() )
     	{
+            // include the platform language file with all language variables
+            language::load_translation();
+            language::load_locale_settings();
+
     		$course->mailAdministratorOnCourseCreation($_user['firstName'], $_user['lastName'], $_user['mail']);
     		
     		$dialogBox = get_lang('You have just created the course website')
