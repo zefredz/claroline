@@ -125,10 +125,18 @@ if ( isset($_uid) )
     echo '<p>' . claro_html_menu_horizontal($userCommands) . '</p>' . "\n";
 }
 
-if ( $_uid && ! isset($_REQUEST['category']) )
+if ( $_uid )
 {
-    // DISPLAY USER OWN COURSE LIST
-    require $includePath . '/index_mycourses.inc.php';
+    if ( isset($_REQUEST['category']) || (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
+    {
+        // DISPLAY PLATFORM COURSE LIST and search result
+        require $includePath . '/index_platformcourses.inc.php';
+    }
+    else
+    {
+        // DISPLAY USER OWN COURSE LIST
+        require $includePath . '/index_mycourses.inc.php';
+    }
 }
 else
 {
