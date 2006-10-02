@@ -31,7 +31,7 @@ foreach($personnalCourseList as $thisCourse)
 
     $sql = "SELECT '" . addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
                    '" . addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
-                   'CLANN___'                                       AS `toolLabel`,
+                   'CLANN'                                          AS `toolLabel`,
                    CONCAT(`temps`, ' ', '00:00:00')                 AS `date`,
                    CONCAT(`title`,' - ',`contenu`)                  AS `content`
 
@@ -58,7 +58,7 @@ foreach($personnalCourseList as $thisCourse)
 
     $sql = "SELECT '". addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
                    '". addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
-                   'CLCAL___' AS `toolLabel`,
+                   'CLCAL' AS `toolLabel`,
             CONCAT(`day`, ' ',`hour`) AS `date`,
             CONCAT(`titre`,' - ',`contenu`) AS `content`
             FROM `" . $tableCal . "`
@@ -99,14 +99,14 @@ for( $i=0, $itemCount = count($courseDigestList['toolLabel']); $i < $itemCount; 
 {
     switch ($courseDigestList['toolLabel'][$i])
     {
-        case 'CLANN___':
+        case 'CLANN':
             $itemIcon = 'announcement.gif';
             $url = 'claroline/announcements/announcements.php?cidReq='
                  . $courseDigestList['courseSysCode'][$i];
             $name = get_lang('Latest announcements');
             break;
 
-        case 'CLCAL___':
+        case 'CLCAL':
             $itemIcon = 'agenda.gif';
             $url = 'claroline/calendar/agenda.php?cidReq='
                  . $courseDigestList['courseSysCode'][$i];
@@ -117,7 +117,7 @@ for( $i=0, $itemCount = count($courseDigestList['toolLabel']); $i < $itemCount; 
     if ($title != $name)
     {
         $title = $name;
-        echo "<h4>".$title."</h4>\n";
+        echo '<h4>' . $title . '</h4>' . "\n";
     }
 
     $courseDigestList['content'][$i] = preg_replace('/<br( \/)?>/', ' ', $courseDigestList['content'][$i]);
@@ -128,7 +128,7 @@ for( $i=0, $itemCount = count($courseDigestList['toolLabel']); $i < $itemCount; 
     .    '<small>'
     .    '<a href="' . $url . '">'
     .    '<img src="' . $imgRepositoryWeb . $itemIcon . '" alt="" />'
-    .    '</a>'
+    .    '</a>' . "\n"
 
     .    claro_disp_localised_date( $dateFormatLong,
                                  strtotime($courseDigestList['date'][$i]) )
@@ -136,8 +136,10 @@ for( $i=0, $itemCount = count($courseDigestList['toolLabel']); $i < $itemCount; 
     .    '<a href="' . $url . '">'
     .    $courseDigestList['courseOfficialCode'][$i]
     .    '</a> : ' . "\n"
-    .    '<small>' . $courseDigestList['content'][$i] . '</small>'
-    .    '</small>'
+    .    '<small>'  . "\n"
+    .    $courseDigestList['content'][$i]  . "\n"
+    .    '</small>' . "\n"
+    .    '</small>' . "\n"
     .    '</p>' . "\n"
     ;
 } // end for( $i=0, ... $i < $itemCount; $i++)
