@@ -497,7 +497,7 @@ function profile_send_request_course_creator_status($explanation)
     );
 
     claro_mail_user($mailToUidList, $requestMessage_Content,
-    $requestMessage_Title, get_conf('administrator_email'), get_conf('administrator_name'));
+    $requestMessage_Title, $_user['mail'], $_user['firstName'] . ' ' . $_user['lastName']);
 
     return true;
 }
@@ -541,8 +541,8 @@ function profile_send_request_revoquation($explanation,$login,$password)
     claro_mail_user( $mailToUidList,
                      $requestMessage_Content,
                      $requestMessage_Title,
-                     get_conf('administrator_email'),
-                     get_conf('siteName') . '-profile');
+                     $_user['mail'],
+                     $_user['firstName'] . ' ' . $_user['lastName']);
 
     return true;
 }
