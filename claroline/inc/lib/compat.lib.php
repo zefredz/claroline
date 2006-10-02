@@ -211,4 +211,31 @@ if ( ! function_exists( 'file_put_contents' ) )
     }
 }
 
+/**
+ * define array_intersect_key() of PHP 5
+ *
+ * @category    PHP
+ * @package     PHP_Compat
+ * @link        http://php.net/function.file-put-contents.php
+ * @since       CLAROLINE 1.8.1
+ * @require     PHP 4.0.0 (user_error)
+ * @note
+ */
+
+
+if(!function_exists('array_intersect_key'))
+{
+    function array_intersect_key($array1,$array2)
+    {
+        $array3=array();
+        foreach (array_keys($array2) as $keyToKeep)
+        {
+            if (array_key_exists($keyToKeep,$array1))
+            $array3[$keyToKeep] = $array1[$keyToKeep];
+        }
+        return $array3;
+    }
+}
+
+
 ?>
