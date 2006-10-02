@@ -85,6 +85,11 @@ if ( isset($_uid) )
      * Commands line
      */
 	$userCommands = array();
+    
+    $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
+    .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
+    .    get_lang('My course list')
+    .    '</a>';
 
     if ($is_allowedCreateCourse) // 'Create Course Site' command. Only available for teacher. 
     {
@@ -107,20 +112,10 @@ if ( isset($_uid) )
         .    '</a>';
     }
 
-    if ( isset($_REQUEST['category']) )
-    {
-        $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
-        .    get_lang('My course list')
-        .    '</a>';
-    }
-    else
-    {
-        $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
-        .	 '<img src="'.$imgRepositoryWeb.'course.gif" alt="" /> '
-        .	 get_lang('All platform courses')
-        .	 '</a>';
-    }
+    $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
+    .	 '<img src="'.$imgRepositoryWeb.'course.gif" alt="" /> '
+    .	 get_lang('All platform courses')
+    .	 '</a>';
 		
     echo '<p>' . claro_html_menu_horizontal($userCommands) . '</p>' . "\n";
 }
