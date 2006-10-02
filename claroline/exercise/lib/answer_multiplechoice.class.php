@@ -362,7 +362,7 @@ class answerMultipleChoice
 	    		$html .=
 	    			'</td>' . "\n"
 	    		.	'<td width="95%">' . "\n"
-	    		.	'<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . htmlspecialchars($answer['answer']) . '</label>' . "\n"
+	    		.	'<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . claro_parse_user_text($answer['answer']) . '</label>' . "\n"
 	    		.	'</td>' . "\n"
 	    		.	'</tr>' . "\n\n";
 			}	
@@ -453,10 +453,10 @@ class answerMultipleChoice
 	   		.	( $answer['correct'] ? $imgOnHtml : $imgOffHtml )
 	    	.	'</td>' . "\n"
 			.	'<td width="45%">'
-	    	.	$answer['answer'] 
+	    	.	claro_parse_user_text($answer['answer']) 
 	    	.	'</td>' . "\n"
 	    	.	'<td width="45%">'
-	    	.	( ($isSelected || $answer['correct']) ? $answer['comment'] : '&nbsp;' ) 
+	    	.	( ($isSelected || $answer['correct']) ? claro_parse_user_text($answer['comment']) : '&nbsp;' )
 	    	.	'</td>' . "\n"
 	    	.	'</tr>' . "\n\n";
 		}
@@ -523,9 +523,9 @@ class answerMultipleChoice
     		
 			$html .= 
 				'</td>' . "\n"
-    		. 	'<td valign="top"><textarea rows="7" cols="25" name="answer_'.$i.'">' . $answer['answer'] . '</textarea></td>' . "\n"
-    		. 	'<td><textarea rows="7" cols="25" name="comment_'.$i.'">' .$answer['comment'] . '</textarea></td>' . "\n"
-    		. 	'<td valign="top"><input name="grade_'.$i.'" size="5" value="' . $answer['grade'] . '" type="text" /></td>' . "\n"
+    		. 	'<td valign="top"><textarea rows="7" cols="25" name="answer_'.$i.'">' . htmlspecialchars($answer['answer']) . '</textarea></td>' . "\n"
+    		. 	'<td><textarea rows="7" cols="25" name="comment_'.$i.'">' . htmlspecialchars($answer['comment']) . '</textarea></td>' . "\n"
+    		. 	'<td valign="top"><input name="grade_'.$i.'" size="5" value="' . htmlspecialchars($answer['grade']) . '" type="text" /></td>' . "\n"
     		. 	'</tr>' . "\n\n";
 			
 			$i++;   		
