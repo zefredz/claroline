@@ -67,7 +67,11 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
 
     if (get_conf('CLARO_DEBUG_MODE',false))
     {
-        pushClaroMessage('<span class="mailSubject">Subject = ' . $subject . '</span><br /><span class="mailContent"><pre>' . $message . '</pre></span><span class="mailRecipient">Dest : '.implode(', ', $emailList).'</span>','mail');
+        $message = '<p>Subject : ' . htmlspecialchars($subject) . '</p>' . "\n"
+                 . '<p>Message : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"                 
+                 . '<p>From : ' . htmlspecialchars($mail->FromName) . ' - ' . htmlspecialchars($mail->From) . '</p>' . "\n"
+                 . '<p>Dest : ' . implode(', ', $emailList) . '</p>' . "\n";
+        pushClaroMessage($message,'mail');
     }
 
     foreach($emailList as $thisEmail)
