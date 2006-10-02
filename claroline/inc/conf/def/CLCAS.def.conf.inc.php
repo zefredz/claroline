@@ -30,8 +30,6 @@ $conf_def['section']['CAS']['properties'] =
 array ( 'claro_CasEnabled'
       , 'claro_CasServerHostUrl'
       , 'claro_CasServerHostPort'
-      , 'claro_CasLibPath'
-      , 'claro_CasProcessPath'
       , 'claro_CasLoginString'
       );
 
