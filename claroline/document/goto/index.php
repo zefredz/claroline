@@ -107,7 +107,7 @@ if ( preg_match('|^'.$coursesRepositorySys . $intermediatePath.'|', $pathInfo) )
         
         // IE no-cache bug
         // TODO move $lifetime to config
-        $lifetime = 3600;
+        $lifetime = 60;
         header('Cache-Control: max-age='.$lifetime);
         header('Expires: '. gmdate('D, d M Y H:i:s', time() + $lifetime) .' GMT');
         header('Pragma: ');

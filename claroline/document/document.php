@@ -1080,11 +1080,13 @@ if ('exDownload' == $cmd )
         /*
          * SEND THE ZIP ARCHIVE FOR DOWNLOAD
          */
-
-        header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
-        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-        header('Cache-Control: no-cache, must-revalidate');
-        header('Pragma: no-cache');
+        
+        // IE no-cache bug
+        // TODO move $lifetime to config
+        $lifetime = 60;
+        header('Cache-Control: max-age='.$lifetime);
+        header('Expires: '. gmdate('D, d M Y H:i:s', time() + $lifetime) .' GMT');
+        header('Pragma: ');
         header('Content-type: application/zip');
         header('Content-Length: '.$downloadArchiveSize);
         header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
