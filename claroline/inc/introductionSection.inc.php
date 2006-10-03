@@ -283,7 +283,7 @@ if ($intro_dispDefault)
 
     $introListCount = count($textIntroList);
 
-    if ( $introListCount == 0 )
+    if ( $introListCount == 0 && $intro_editAllowed )
     {
         echo '<div class="HelpText">' . "\n"
         .    $helpAddIntroText        . "\n"
