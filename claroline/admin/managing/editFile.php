@@ -30,12 +30,13 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $do=null;
 $controlMsg = array();
 //The name of the files
-$filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html','course.subscription.locked.inc.html');
+$filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html','course.subscription.locked.inc.html','course.subscription.locked.by.key.inc.html');
 //The path of the files
 $filePathList = array( get_conf('rootSys') . $filenameList[0]
                      , get_conf('rootSys') . $filenameList[1]
                      , $clarolineRepositorySys . '/auth/' . $filenameList[2]
                      , get_conf('rootSys') . 'platform/textzone/' . $filenameList[3]
+                     , get_conf('rootSys') . 'platform/textzone/' . $filenameList[4]
                      );
 
 $display = DISP_FILE_LIST;
