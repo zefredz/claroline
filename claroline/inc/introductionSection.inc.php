@@ -298,8 +298,10 @@ if ($intro_dispDefault)
             
             if ( $introVisibility == 'SHOW' || $intro_editAllowed )
             {
+                $style = ($introVisibility == 'HIDE') ? ' invisible' :'';
+                
                 $intro_content = claro_parse_user_text($thisTextIntro['content']);
-                echo '<div class="claroIntroSection">' . "\n";
+                echo '<div class="claroIntroSection'.$style.'">' . "\n";
     
                 if( trim(strip_tags($intro_content,'<img><embed><object>')) != '' ) // no need to display a div for an empty string
                 {
