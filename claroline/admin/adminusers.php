@@ -123,7 +123,7 @@ if (is_array($userList))
 foreach ($userList as $userKey => $user)
 {
 	$sql ="Select count(DISTINCT code_cours) AS qty_course
-           FROM  `" . $tbl_mdb_names['rel_course_user'] . "` 
+           FROM  `" . $tbl_mdb_names['rel_course_user'] . "`
            WHERE user_id = '". (int) $user['user_id'] ."'
 		  GROUP BY user_id";
 	$userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
@@ -134,7 +134,7 @@ $userGrid = array();
 if (is_array($userList))
 foreach ($userList as $userKey => $user)
 {
-	
+
     $userGrid[$userKey]['user_id']   = $user['user_id'];
     $userGrid[$userKey]['name']      = $user['name'];
     $userGrid[$userKey]['firstname'] = $user['firstname'];
@@ -163,8 +163,8 @@ foreach ($userList as $userKey => $user)
     .                                 '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
     .    '</a>';
 
-	
-    
+
+
     $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
     .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
     .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
@@ -192,7 +192,7 @@ $userDataGrid->set_colTitleList(array (
                 ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
                 ,'isCourseCreator'=>'<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>'
                 ,'settings'=> get_lang('User settings')
-                ,'qty_course' => get_lang('Courses') 
+                ,'qty_course' => get_lang('Courses')
                 ,'delete'=>get_lang('Delete') ));
 
 if ( count($userGrid)==0 )
@@ -272,11 +272,11 @@ echo '<table width="100%">' . "\n"
 .    '</table>' . "\n\n"
 ;
 
-if ( count($userGrid) == 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 echo $userDataGrid->render();
 
-if ( count($userGrid) == 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 include $includePath . '/claro_init_footer.inc.php';
 
