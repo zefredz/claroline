@@ -63,8 +63,10 @@ if ($cmd ==  'rqMkHtml' )
     // get to the editor because of an error at creation 
     // (eg forgot to give a file name)
     ?> 
+    <p>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
     <?php echo claro_html_button('./document.php?cmd=exChDir&amp;file='.$cwd, get_lang('Cancel')); ?>
+    </p>
     </form>
     <?php
 }
@@ -93,8 +95,10 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     <?php
     echo claro_html_textarea_editor('htmlContent', $fileContent );
     ?>
-    <input type="submit" value="<?php echo get_lang('Ok'); ?>">
+    <p>
+    <input type="submit" value="<?php echo get_lang('Ok'); ?>">&nbsp;
     <?php echo claro_html_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>
+    </p>
     </form>
     <?php
 }
