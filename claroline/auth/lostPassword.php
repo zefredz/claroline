@@ -190,7 +190,7 @@ if ( ! $passwordFound )
     .       '<br />'
     .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($Femail) . '" />'
     .       '<br /><br />'
-    .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" /> '
+    .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" />&nbsp; '
     .       claro_html_button('../../index.php', get_lang('Cancel'))
     .       '</form>'
     ;
