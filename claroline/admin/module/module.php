@@ -499,7 +499,7 @@ switch ($item)
             .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
             .    '<td >'
             .    '<input type="hidden" name="cmd" value="movedock" />'. "\n"
-            .    '<input type="submit" value="' . get_lang('Ok') . '" /> '. "\n"
+            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'. "\n"
             .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
             .    '</tr>' . "\n"
             .    '</form>'

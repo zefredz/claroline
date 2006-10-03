@@ -278,7 +278,7 @@ switch ( $cmd )
             .            '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             .            '<input name="cmd" type="hidden" value="exInstall" />' . "\n"
             .            '<input name="uploadedModule" type="file" /><br /><br />' . "\n"
-            .            '<input value="' . get_lang('Install module') . '" type="submit" /> ' . "\n"
+            .            '<input value="' . get_lang('Install module') . '" type="submit" />&nbsp;' . "\n"
             .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
             .            '</form>' . "\n"
             ;

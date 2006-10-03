@@ -112,7 +112,7 @@ echo claro_html_tool_title($nameTools)
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
 .    '<input type="hidden" name="cmd" value="setRecipient" />' . "\n"
 .    $adminDataGrid->render()
-.    '<input type="submit" value="' . get_lang('Ok') . '"> ' . "\n"
+.    '<input type="submit" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
 .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
 .    '</form>' . "\n"
 ;

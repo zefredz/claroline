@@ -177,7 +177,7 @@ if( DISP_EDIT_FILE == $display )
     .    claro_html_textarea_editor('textContent', $textContent)
     .    '<br /><br /> &nbsp;&nbsp;' . "\n"
     .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
-    .    '<input type="submit" class="claroButton" name="modify" value="' . get_lang('Ok') . '" />' . "\n"
+    .    '<input type="submit" class="claroButton" name="modify" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
     .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</form>' . "\n"
     ;
