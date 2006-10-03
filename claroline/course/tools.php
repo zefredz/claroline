@@ -252,7 +252,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'"><br />'."\n"
     .'<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
     .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($externalLinkUrl).'"><br /><br />'."\n"
-    .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp;'."\n"
+    .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp; '."\n"
     .claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
     .'</form>'."\n" ;
 }
