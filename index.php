@@ -56,7 +56,7 @@ if ( file_exists('./textzone_top.inc.html') )
 else
 {
     echo '<div style="text-align: center">'
-    .    '<img src="./claroline/img/logo.png" border="0" alt="Claroline logo" height="250" width="254" />' . "\n"
+    .    '<img src="./claroline/img/logo.gif" border="0" alt="Claroline logo" />' . "\n"
     .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
     .    '</div>';   
 }
