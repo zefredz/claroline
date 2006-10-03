@@ -517,7 +517,7 @@ switch ( $displayMode )
                 echo '<tr>' . "\n"
                 .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['title'] . '<br />' . "\n"
 		        .	 '<small>';
-		        
+
 		        if( !empty($thisCourse['email']) )
 		        {
 		            echo '<a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a>';
@@ -526,7 +526,7 @@ switch ( $displayMode )
 		        {
 		            echo $thisCourse['titular'];
 		        }
-		           
+
 				echo '</small>' . "\n" . '</td>' . "\n";
 
                 // enroll link
@@ -709,6 +709,7 @@ switch ( $displayMode )
 
         echo  '<blockquote><p>' . get_lang('This course requires a key for enrolment') . '</p>' . "\n"
         .     '<p><small>(' . get_lang('If you do not have the key, please contact the course manager') . ')</small></p>' . "\n"
+        .     get_locked_course_by_key_explanation($course)
         .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .     '<input type="hidden" name="cmd" value="exReg">' . "\n"
         .     get_lang('Enrolment key')
@@ -735,7 +736,7 @@ switch ( $displayMode )
         .	 get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>'))
         .    '</p>'
         ;
-        
+
         if ( ! empty($message) ) echo claro_html_message_box($message);
 
         /*
