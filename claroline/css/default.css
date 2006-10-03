@@ -48,14 +48,6 @@ ul {
 	font-size: 0.9em;
 }
 
-label {
-	padding: 2px;
-	vertical-align: bottom;
-	color: #555555;
-	font-style: italic;
-	font-size: 0.9em;
-}
-
 
 input[type=submit], input[type=reset], button {
 	margin-left: 2px;
@@ -91,9 +83,11 @@ input[type=submit]:hover, button:hover {
 
 #platformBanner {
 	margin: 0;
-	padding: 15px;
-	color: #FFF;
-	background: url('default/bg_header.jpg') repeat-x top left #c5d4e2;
+	padding: 20px 15px 10px 15px;
+	color: #e1e1f4;
+	font-family : georgia;
+	background: url('default/bg_header.gif') repeat-x top left #c5d4e2;
+	border-bottom: 1px solid #fff;
 }
 
 #platformBanner a,
@@ -101,24 +95,20 @@ input[type=submit]:hover, button:hover {
 #platformBanner a:link,
 #platformBanner a:visited {
 	text-decoration: none;
- 	color: #FFF;
-	font-weight: bold;
+ 	color: #e1e1f4;
 }
 
 #platformBanner a:hover {
 	text-decoration: underline;
-	font-weight: bold;
 }
 
 
 #platformBanner #siteName {
-	font-weight: bold;
 	letter-spacing: 3px;
 	font-size: 1.3em;
 }
 
 #platformBanner #institution {
-	font-weight: bold;
 	letter-spacing: 3px;
 	font-size: 1.3em;
 }
@@ -150,11 +140,11 @@ input[type=submit]:hover, button:hover {
 	font-size: 0.8em;
 	padding: 1px 5px;
 	background: #ddd;
-	border-top: 1px #999999 solid;
+	border-top: 1px #999 solid;
 }
 
 #userBanner #userName {
-	color: #669933;
+	color: #6162AD;
 	font-weight: bold;
 	margin: 0;
 }
@@ -192,7 +182,7 @@ input[type=submit]:hover, button:hover {
 	color: #336699;
 	font-size: 0.8em;
 	font-weight: bold;
-	border-top: 1px #999999 solid;
+	border-top: 1px #999 solid;
 }
 
 #courseBanner #course {
@@ -261,6 +251,9 @@ input[type=submit]:hover, button:hover {
 	font-size: 0.8em;
 	color: #666666;
 	border: none;
+	border-top: 1px #ccc solid;
+	padding : 2px 5px;
+	display: none;
 }
 
 #breadcrumbLine hr {
@@ -622,11 +615,12 @@ a.item:visited{
  */ 
  
 .claroMessageBox {
-	background: url(default/bg_msgBox.jpg) repeat-x top right #FFF; 
-	border: 1px #87B665 solid;
+	//background: url(default/bg_msgBox.jpg) repeat-x top right #FFF; 
+	background-color : #EDF1E3;
+	border: 1px #669933 solid;
 	margin-left: 5px;
 	font-size: 0.9em;
-	color: #000;
+	color: #666;
 }
 
 .claroIntroSection { 
@@ -729,6 +723,8 @@ a:visited.invisible {
 .claroRightMenu {
     border: 1px solid #669933;
 	background : #e7f2c1;
+	background-color : #EDF1E3;
+	border: 1px #669933 solid;
 	padding-left: 10px;
 	font-size: 0.9em;
 }
@@ -747,13 +743,6 @@ a:visited.invisible {
 	color: #336699;
 }
 
-.claroRightMenu label {
-	display: block;
-	padding: 2px;
-	vertical-align: bottom;
-	color: #555555;
-	font-style: italic;
-}
 
 .HelpText {
     color: #999;
