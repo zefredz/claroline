@@ -51,7 +51,9 @@ $controlMsg = array();
 $display_form = null;
 //Get Parameters from URL or post
 
-$cmd = (isset($_REQUEST['cmd'])? $_REQUEST['cmd'] : '');
+$validCmdList = array('exCreate','exDelete', 'exUp', 'exDown', 'rqCreate', 'rqEdit', 'rqMove', 'exChange');
+$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : '');
+
 
 /**
  * Show or hide sub categories
@@ -829,7 +831,7 @@ switch ($display_form)
         .    '</table>' . "\n"
         .    '</form>' . "\n"
         ;
-        
+
         echo claro_html_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => get_lang('Create a category'))) ;
 
         echo claro_html_msg_list($controlMsg,1);
@@ -907,7 +909,7 @@ switch ($display_form)
         .    '</form>' . "\n"
         .    '<br />' . "\n"
         ;
-        
+
         echo claro_html_tool_title(array('mainTitle' => $nameTools,'subTitle' => get_lang('Edit a category'))) ;
 
         echo claro_html_msg_list($controlMsg,1) ;
@@ -958,7 +960,7 @@ switch ($display_form)
         .    '</form>' . "\n"
         .    '<br />' . "\n"
         ;
-        
+
         echo claro_html_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_lang("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))));
 
         echo claro_html_msg_list($controlMsg,1);
@@ -972,7 +974,7 @@ switch ($display_form)
         .    claro_html_msg_list($controlMsg,1)
         ;
 
-        
+
     }
 }
 
