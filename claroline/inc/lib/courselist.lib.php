@@ -225,22 +225,10 @@ function get_locked_course_explanation($course_id=null)
 }
 
 
-// TODO MOVE THIS NEW CLASS TO A DEDICATED LIB.
-class claro_text_zone
+function get_locked_course_by_key_explanation($course_id=null)
 {
-    function get_content($key, $context=null)
-    {
-        $textZoneFile = null;
-        if (array_key_exists('course',$context))
-        {
-            $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_path($context['course']) . '/textzone/' . $key . '.inc.html';
-        }
-        if(is_null($textZoneFile) || !file_exists($textZoneFile)) $textZoneFile = get_conf('rootSys') . 'platform/textzone/' . $key . '.inc.html';
-        if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
-        else                           $content = get_lang('Unable to enrol you to the course') ;
-                                       ;
-        return $content;
-    }
+    return claro_text_zone::get_content('course.subscription.locked.by.key', array('course'=>$course_id));
 }
+
 
 ?>

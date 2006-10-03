@@ -37,6 +37,12 @@ require_once(dirname(__FILE__) . '/compat.lib.php');
 require_once(dirname(__FILE__) . '/html.lib.php');
 
 /**
+ * SECTION :  Class & function to get text zone contents.
+ */
+
+require_once(dirname(__FILE__) . '/textzone.lib.php');
+
+/**
  * SECTION :  Modules functions
  */
 require_once(dirname(__FILE__) . '/module.lib.php');
@@ -305,7 +311,7 @@ function claro_get_module_name_list($active = true)
 
 /**
  * Return the list of tool installed on the platform
- * 
+ *
  * @param  boolean $force (optionnal) - reset the result cache, default is false
  *
  * @return array the main course list array ( $tid => 'label','name','url','icon','activation' )
@@ -319,7 +325,7 @@ function claro_get_main_course_tool_list ( $force = false )
     {
         // Initialise course tool list
         $courseToolList = array();
-        
+
         // Get name of the tables
         $tbl_mdb_names        = claro_sql_get_main_tbl();
         $tbl_tool_list        = $tbl_mdb_names['tool'];
@@ -368,14 +374,14 @@ function claro_get_main_course_tool_list ( $force = false )
             }
         }
     }
-    
+
     return $courseToolList ;
 }
 
 /**
  * Return the tool list for a course according a certain access level
  * @param  string  $courseIdReq - the requested course id
- * 
+ *
  * @param  boolean $force (optionnal)  - reset the result cache, default is false
  * @param  boolean $active (optionnal) - get the list of active tool only if set to true (default behaviour)
  * @return array   the course list
@@ -500,7 +506,7 @@ function claro_get_course_external_link_list ( $courseIdReq = null, $force = fal
         // Initialise course tool list
         $courseId = $courseIdReq;
         $courseExtLinkList = array();
-        
+
         // Get name of the tables
         $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
         $tbl_course_tool_list = $tbl_cdb_names['tool'];
