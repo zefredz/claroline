@@ -392,7 +392,7 @@ function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
                     $weekdayType = 'weekEnd';
                 }
 
-                $dayheader = '<small>' . $curday . '</small>';
+                $dayheader = $curday ;
 
 
                 $htmlStream .= '<td height="40" width="12%" valign="top" class="' . $weekdayType . '">'

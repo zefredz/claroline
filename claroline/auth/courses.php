@@ -536,7 +536,7 @@ switch ( $displayMode )
                     if ( $thisCourse['enrolled'] )
                     {
                         echo '<td valign="top" colspan="2" align="center">' . "\n"
-                        .    '<small><span class="highlight">' . get_lang('Already enroled') . '</span></small>'
+                        .    '<span class="highlight">' . get_lang('Already enroled') . '</span>'
                         .    '</td>' . "\n"
                         ;
                     }
@@ -574,7 +574,7 @@ switch ( $displayMode )
 
                     if ( $thisCourse['enrolled'] )
                     {
-                        echo '<small><span class="highlight">' . get_lang('Already enroled') . '</span></small>' . "\n";
+                        echo '<span class="highlight">' . get_lang('Already enroled') . '</span>' . "\n";
                     }
                     elseif($thisCourse['visible'] == 1 || $thisCourse['visible'] == 2)
                     {
@@ -683,10 +683,9 @@ switch ( $displayMode )
                 }
                 else
                 {
-                    echo '<small>'
-                    .    '<span class="highlight">'
+                    echo '<span class="highlight">'
                     .    get_lang('Course manager')
-                    .    '</span></small>' . "\n"
+                    .    '</span>' . "\n"
                     ;
                 }
 
