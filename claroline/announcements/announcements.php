@@ -685,14 +685,14 @@ if ($displayList)
             if ($thisAnnouncement['visibility']=='SHOW')
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible').'" />'
+                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible').'" />'
                 .    '</a>' . "\n"
                 ;
             }
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
+                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
