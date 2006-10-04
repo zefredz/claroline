@@ -313,7 +313,9 @@ switch ($display)
                                             'group_upgrade_to_18',
                                             'tool_list_upgrade_to_18',
                                             'quiz_upgrade_to_18',
-                                            'tool_intro_upgrade_to_18' );
+                                            'tool_intro_upgrade_to_18',
+                                            'tracking_upgrade_to_18',
+                                            'forum_upgrade_to_18' );
 
                     foreach ( $function_list as $function )
                     {

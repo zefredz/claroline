@@ -779,4 +779,36 @@ function forum_upgrade_to_18($course_code)
     return false;
 }
 
+/**
+ * Upgrade tracking tool to 1.8
+ */
+
+function tracking_upgrade_to_18($course_code)
+{
+    $versionRequiredToProceed = '/^1.7/';
+    $tool = 'CLSTATS';
+    
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+
+                $sqlForUpdate[] = "UPDATE `".$currentCourseDbNameGlu."track_e_access` 
+                                   SET access_tlabel = TRIM(TRAILING '_' FROM access_tlabel)";
+                
+                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
+                else return $step;
+
+            default :
+                return $step;
+        }
+    }
+
+    return false;
+}
+
 ?>
