@@ -355,7 +355,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<tr>' . "\n"
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">' . "\n"
+    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
     .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
