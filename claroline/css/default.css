@@ -14,7 +14,7 @@ html {
 body {
 	margin: 0;
 	padding: 0;
-	color: #666666;
+	color: #444;
 	background: #FFF; 
 	text-align: left;
 	font-family: Arial, Verdana, Helvetica, Sans-Serif;
@@ -29,7 +29,7 @@ a:link, a:visited  {
 }
 
 a:hover, a:active {
-	color: #669933;
+	color: #111C99;
 	font-weight: normal;
 	text-decoration: none;
 }
@@ -83,11 +83,11 @@ input[type=submit]:hover, button:hover {
 
 #platformBanner {
 	margin: 0;
-	padding: 20px 15px 10px 15px;
+	padding: 10px 15px 10px 15px;
 	color: #fff;
 	font-weight: bold;
 	background: url('default/bg_header.gif') repeat-x top left #c5d4e2;
-	border-bottom: 1px solid #fff;
+	border-top: 3px solid #010065;
 }
 
 #platformBanner a,
@@ -146,7 +146,7 @@ input[type=submit]:hover, button:hover {
 }
 
 #userBanner #userName {
-	color: #6162AD;
+	color: #669933;
 	font-weight: bold;
 	margin: 0;
 }
@@ -155,7 +155,7 @@ input[type=submit]:hover, button:hover {
 #userBanner a:link,
 #userBanner a:visited {
 	text-decoration: none;
-    color: #3f7fbf;
+    color: #336699;
 	font-weight: normal;
 }
 
@@ -291,7 +291,6 @@ input[type=submit]:hover, button:hover {
 
 #claroBody {
 	padding:15px;
-	color: #666666;
 	font-size: 0.9em;
 	background: url('default/bg_body.jpg') repeat-x top left #fff;
 }
@@ -303,7 +302,7 @@ input[type=submit]:hover, button:hover {
 
 #claroBody a:hover,
 #claroBody a:active {
-	color: #999999;
+	color: #111C99;
 	font-weight: normal;
 }
 
@@ -314,7 +313,7 @@ input[type=submit]:hover, button:hover {
 
 #claroBody a.item:hover,
 #claroBody a.item:active  {
-	color: #999999;
+	color: #111C99;
 	font-weight: normal;
 }
 
@@ -373,26 +372,28 @@ input[type=submit]:hover, button:hover {
 	CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
+.claroCmd, .claroCmdDisabled
+{
+	font-size: 0.8em;
+}
+
 #claroBody .claroCmd,
 #claroBody a.claroCmd:link,
 #claroBody a.claroCmd:visited {
 	color: #336699;
-	font-size: 0.8em;
 	font-weight: bold;
 	text-decoration: none;
 }
 
 #claroBody a.claroCmd:hover,
 #claroBody a.claroCmd:active {
-	color: #999999;
-	font-size: 0.8em;
+	color: #111C99;
 	font-weight: bold;
 	text-decoration: none;
 }
 
 .claroCmdDisabled {
 	color: #999999;
-	font-size: 0.8em;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -400,14 +401,14 @@ input[type=submit]:hover, button:hover {
 /* Added for document view mode toolbar */
 
 th .claroCmd {
-	font-size: 0.8em;
+	font-size: 0.9em;
 	font-weight: bold;
 	text-decoration: underline;
 }
 
 th .claroCmdDisabled {
    	color: #999999;
-   	font-size: 0.8em;
+   	font-size: 0.9em;
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -528,28 +529,33 @@ a.item:visited{
 	border: 1px #87B665 solid;
 	padding: 2px 5px 2px 5px;
 	font-weight: bold;
-	text-align: center;
 }
 
 .claroTable .superHeader a {
 	color: #669933;
 }
 
-
-.claroTable th.headerY, 
-.claroTable .headerY th, 
-.claroTable th.headerX, 
+.claroTable .headerY th,
 .claroTable .headerX th {
 	color: #669933;
 	font-weight: bold;
-	text-align: center;
 	padding: 2px 5px 2px 5px;
-}
-
-.claroTable .headerX th,
-.claroTable th.headerX {
 	background-color: #EDF1E3;
 	border: 1px #96BB7A solid;
+}
+
+.claroTable .headerX th a
+{
+	font-weight: bold !important ;
+	color: #669933;
+    text-decoration : underline;
+}
+
+.claroTable .headerX th a:active,
+.claroTable .headerX th a:hover
+{
+	color: #669933 !important;
+	text-decoration : underline;
 }
 
 /* extension of claroTable class for Image Viewer */
@@ -578,21 +584,18 @@ a.item:visited{
 
 .claroTable td.workingWeek {
 	vertical-align: top;
-	font-weight: bold;
 	color: #999999;
 	padding: 2px 5px 2px 5px;
 }
 
 .claroTable td.weekEnd {
 	vertical-align: top;
-/*	font-size: 1.2em;*/
-	color: #FF003C;
+	color: #73A244;
 	padding: 2px 5px 2px 5px;
 }
 .claroTable td.highlight {
 	vertical-align: top;
-	font-weight: bold;
-	color: #FFB848;
+	color: #CD853F;
 	padding: 2px 5px 2px 5px;
 }
 
@@ -630,8 +633,12 @@ a.item:visited{
 	margin-bottom: 5px;
 }
 
+.warning b, .waring strong {
+	color: #000;
+}
+
 .warning {
-	color: #FF0000;
+    color: #333;
 }
 
 div .wikiTitle h1 {
@@ -697,7 +704,7 @@ a:visited.invisible {
 	example : 'today' in the agenda
 */
 .highlight {
-    color: #FFB848;
+    color: #CD853F;
     font-weight: bold;
 }
 
@@ -705,15 +712,6 @@ a:visited.invisible {
 */
 .required {
     color: red;
-}
-
-/* 'hotItem' is used when something needs to be notified as new on the platform since the last login
-    to the user
-*/
-.hotItem,
-.hotItem a {
- color: #FF00CC;
- font-weight: bold;
 }
 
 /*
@@ -769,6 +767,10 @@ a:visited.invisible {
  */
 
 .comment {
-    font-size: x-small;
+    font-size : 0.85em;
     margin-left: 30px;
+}
+
+small {
+    font-size : 0.85em;
 }
