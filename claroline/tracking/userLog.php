@@ -118,7 +118,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
         /*----------------------------------------------------------------------
         Display user list
         ----------------------------------------------------------------------*/
-        echo '<table class="claroTable" width="100%" cellpadding="2" cellspacing="1" border="0">' . "\n"
+        echo '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1" border="0">' . "\n"
         .    '<tr class="headerX" align="center" valign="top">' . "\n"
         .    '<th align="left">' . get_lang('Username').'</th>' . "\n"
         .    '</tr>' . "\n"
@@ -222,7 +222,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 ;
                 $results = claro_sql_query_fetch_all($sql);
 
-                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+                echo '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Month') . '</th>' . "\n"
                 .    '<th>' . get_lang('Number of logins') . '</th>' . "\n"
@@ -306,7 +306,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
 
                 $results = claro_sql_query_fetch_all($sql);
 
-                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+                echo '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Exercises').'</th>' . "\n"
                 .    '<th>' . get_lang('Worst score').'</th>' . "\n"
@@ -346,7 +346,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                             echo '<tr>'
                             .    '<td class="noHover">&nbsp;</td>' . "\n"
                             .    '<td colspan="6" class="noHover">' . "\n"
-                            .    '<table class="claroTable" cellspacing="1" cellpadding="2" border="0" width="100%">' . "\n"
+                            .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%">' . "\n"
                             .    '<tr class="headerX">' . "\n"
                             .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
                             .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"
@@ -424,7 +424,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 $lpList = claro_sql_query_fetch_all($sql);
 
                 // table header
-                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+                echo '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Learning path').'</th>' . "\n"
                 .    '<th colspan="2">' . get_lang('Progress').'</th>' . "\n"
@@ -538,7 +538,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     $i++;
                 }
 
-                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+                echo '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Assignment').'</th>' . "\n"
                 .    '<th>' . get_lang('Work title').'</th>' . "\n"
@@ -635,7 +635,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                             GROUP BY `down_doc_path`";
                 $results = claro_sql_query_fetch_all($sql);
 
-                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+                echo '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Document').'</th>' . "\n"
                 .    '</tr>' . "\n"
@@ -721,7 +721,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
 
                 $results = claro_sql_query_fetch_all($sql);
 
-                echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+                echo '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Topic').'</th>' . "\n"
                 .    '<th>' . get_lang('Last messages').'</th>' . "\n"
