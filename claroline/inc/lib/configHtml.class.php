@@ -125,7 +125,7 @@ class ConfigHtml extends Config
             // display submit button
             $form .= '<tr>' ."\n"
             . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
-            . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" /> '
+            . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
             . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
             . '</tr>' . "\n";
 

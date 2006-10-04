@@ -1087,7 +1087,7 @@ else // if method == 'post'
 <small><?php echo get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ); ?></small>
 
 <p>
-<input type="submit" value="<?php echo get_lang('Import') ?>">
+<input type="submit" value="<?php echo get_lang('Import') ?>">&nbsp;
 <?php echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"; ?>
 </p>
 

@@ -919,7 +919,7 @@ function disp_search_box()
         '<form action="viewsearch.php" method="post">'
         .            get_lang('Search') . ' : <br />'
         .            '<input type="text" name="searchPattern"><br />'
-        .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
+        .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
         .            claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
         );
