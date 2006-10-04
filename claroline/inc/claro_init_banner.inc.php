@@ -251,13 +251,11 @@ $clarolineBannerOutput .= '</div>' . "\n"
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-$clarolineBannerOutput .= '<div id="breadcrumbLine">' . "\n\n";
-
 if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
 {
-        $clarolineBannerOutput .= '<hr />' . "\n";
-            //'<img src="' . $imgRepositoryWeb . 'home.gif" alt="">'
-
+        $clarolineBannerOutput .= '<div id="breadcrumbLine">' . "\n\n"
+        . '<hr />' . "\n";
+        
         $breadcrumbUrlList = array();
         $breadcrumbNameList = array();
 
@@ -355,7 +353,8 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
 
 
     $clarolineBannerOutput .= '<div class="spacer"></div>'                       ."\n"
-    .    '<hr />'                                           ."\n";
+    .    '<hr />'                                           ."\n"
+    .    '</div>' . "\n";
 
 } // end if isset($_cid) isset($nameTools) && is_array($interbredcrump)
 else
@@ -363,7 +362,6 @@ else
     // $clarolineBannerOutput .= '<div style="height:1em"></div>';
 }
 
-$clarolineBannerOutput .= '</div>' . "\n";
 $clarolineBannerOutput .= '<!-- - - - - - - - - - -  End of Claroline Banner  - - - - - - - - - - -->' . "\n";
 
 if ( get_conf('claro_brailleViewMode',false))
