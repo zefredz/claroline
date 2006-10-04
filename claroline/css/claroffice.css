@@ -1,7 +1,7 @@
 /******************************************************************************
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
-@import url(default.css) all;
+
 body 
 {
 	/* background-color: #6386DE; */
@@ -50,7 +50,6 @@ h3.claroToolTitle {
 {
 	color: #FFF;
 	background-color: #6386DE;
-	/* background: url(claroffice/topnav1m.gif) repeat-y; */
 	background: url(claroffice/topnav1m_alt.gif) no-repeat;
 	padding: 4px;
 	font-size: 120%;
