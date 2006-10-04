@@ -51,10 +51,6 @@ echo claro_html_tool_title(
     )
 );
 
-// initialise tool name list
-
-$toolNameList= claro_get_tool_name_list();
-
 // check if uid is prof of this group
 
 if( get_conf('is_trackingEnabled'))
@@ -269,10 +265,10 @@ if( get_conf('is_trackingEnabled'))
         echo '-&nbsp;&nbsp;<b>'.get_lang('Access to tools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
 
         $sql = "SELECT `access_tid`,
-                        COUNT(DISTINCT `access_user_id`) AS `nbr_distinct_users_access`,
-                        COUNT( `access_tid` ) AS `nbr_access`,
+                COUNT(DISTINCT `access_user_id`) AS `nbr_distinct_users_access`,
+                COUNT( `access_tid` )            AS `nbr_access`,
                         `access_tlabel`
-                    FROM `".$tbl_track_e_access."`
+                    FROM `" . $tbl_track_e_access . "`
                     WHERE `access_tid` IS NOT NULL
                       AND `access_tid` <> ''
                     GROUP BY `access_tid`";
@@ -286,6 +282,8 @@ if( get_conf('is_trackingEnabled'))
             .'</tr>'."\n"
             .'<tbody>'."\n"
             ;
+        $toolNameList= claro_get_tool_name_list();
+
         if( !empty($results) && is_array($results))
         {
             foreach( $results as $result )
@@ -293,7 +291,7 @@ if( get_conf('is_trackingEnabled'))
                 echo '<tr>' . "\n"
                 .    '<td>'
                 .    '<a href="toolaccess_details.php?toolId='.$result['access_tid'].'">'
-                .    $toolNameList[$result['access_tlabel']] . '</a></td>' . "\n"
+                .    $toolNameList[trim($result['access_tlabel'],'_')] . '</a></td>' . "\n"
                 .    '<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$result['access_tid'].'">'.$result['nbr_distinct_users_access'] . '</a></td>' . "\n"
                 .    '<td align="right">' . $result['nbr_access'] . '</td>' . "\n"
                 .    '</tr>'
@@ -319,7 +317,6 @@ if( get_conf('is_trackingEnabled'))
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Access to tools').'</a>';
     }
     echo '</p>'."\n\n";
-
     /***************************************************************************
      *
      *        Documents
