@@ -90,7 +90,7 @@ if ( get_conf('is_trackingEnabled') )
             $usersList = claro_sql_query_fetch_all($sql);
 
             // display tab header
-            echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
+            echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
                    .'<tr class="headerX" align="center" valign="top">'."\n"
                 .'<th>'.get_lang('Student').'</th>'."\n"
                 .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"

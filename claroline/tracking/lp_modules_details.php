@@ -169,7 +169,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 
     //### TABLE HEADER ################################################
     echo '<br />'."\n"
-        .'<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+        .'<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th colspan="'.($maxDeep+1).'">'.get_lang('Module').'</th>'."\n"
         .'<th>'.get_lang('Last session time').'</th>'."\n"

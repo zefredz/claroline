@@ -160,7 +160,7 @@ if ( get_conf('is_trackingEnabled') )
 
     echo '<p><b>'.get_lang('Statistics by user').'</b></p>'."\n";
     // display tab header
-    echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
+    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Student').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"
@@ -219,7 +219,7 @@ if ( get_conf('is_trackingEnabled') )
 
     echo '<p><b>'.get_lang('Statistics by question').'</b></p>'."\n";
     // display tab header
-    echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Question title').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"

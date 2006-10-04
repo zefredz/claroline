@@ -156,7 +156,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
     global $clarolineRepositoryWeb;
 
-    echo '<table class="claroTable" width="100%" cellpadding="0" cellspacing="1" align="center">' . "\n";
+    echo '<table class="claroTable emphaseLine" width="100%" cellpadding="0" cellspacing="1" align="center">' . "\n";
     // titles
     echo '<tr class="headerX">' . "\n"
     .    '<th width="15%">' . $periodTitle . '</th>' . "\n"
