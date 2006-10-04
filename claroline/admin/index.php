@@ -138,9 +138,9 @@ function get_menu_item_list($type)
         $menu['AdminUser'][] =  '<form name="searchUser" action="adminusers.php" method="GET" >' . "\n"
         .                   '<label for="search_user">' . get_lang('User') . '</label>'
         .                   ' : '
-        .                   '<input name="search" id="search_user" />'
+        .                   '<input name="search" id="search_user" />&nbsp;'
         .                   '<input type="submit" value="' . get_lang('Search') . '" />'
-        .                   '&nbsp;&nbsp;'
+        .                   '&nbsp;'
         .                   '<small>'
         .                   '<a href="advancedUserSearch.php">'
         .                   get_lang('Advanced')
@@ -157,9 +157,9 @@ function get_menu_item_list($type)
 
         $menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="GET" >' . "\n"
         .                    '<label for="search_course">' . get_lang('Course') . '</label> :' . "\n"
-        .                    '<input name="search" id="search_course" />' . "\n"
-        .                    '<input type="submit" value="' . get_lang('Search'). '" />' . "\n"
-        .                    '&nbsp; &nbsp;<small><a href="advancedCourseSearch.php">' . get_lang('Advanced') . '</a></small>' . "\n"
+        .                    '<input name="search" id="search_course" />&nbsp;' 
+        .                    '<input type="submit" value="' . get_lang('Search'). '" />'
+        .                    '&nbsp;<small><a href="advancedCourseSearch.php">' . get_lang('Advanced') . '</a></small>' . "\n"
         .                    '</form>'
         ;
 
