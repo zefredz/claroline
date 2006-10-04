@@ -221,13 +221,13 @@ function get_user_course_list($userId, $renew = false)
 
 function get_locked_course_explanation($course_id=null)
 {
-    return claro_text_zone::get_content('course.subscription.locked', array('course'=>$course_id));
+    return claro_text_zone::get_content('course_subscription_locked', array('course'=>$course_id));
 }
 
 
 function get_locked_course_by_key_explanation($course_id=null)
 {
-    return claro_text_zone::get_content('course.subscription.locked.by.key', array('course'=>$course_id));
+    return claro_text_zone::get_content('course_subscription_locked_by_key', array('course'=>$course_id));
 }
 
 

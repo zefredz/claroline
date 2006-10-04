@@ -19,33 +19,29 @@ define('DISP_FILE_LIST', __LINE__);
 define('DISP_EDIT_FILE', __LINE__);
 define('DISP_VIEW_FILE', __LINE__);
 
-
 $cidReset=TRUE;
+
 require '../../inc/claro_init_global.inc.php';
+require_once $includePath . '/lib/fileManage.lib.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-$do=null;
 $controlMsg = array();
+
 //The name of the files
-$filenameList = array('textzone_top.inc.html', 'textzone_right.inc.html', 'textzone_inscription.inc.html','course.subscription.locked.inc.html','course.subscription.locked.by.key.inc.html');
-//The path of the files
-$filePathList = array( get_conf('rootSys') . $filenameList[0]
-                     , get_conf('rootSys') . $filenameList[1]
-                     , $clarolineRepositorySys . '/auth/' . $filenameList[2]
-                     , get_conf('rootSys') . 'platform/textzone/' . $filenameList[3]
-                     , get_conf('rootSys') . 'platform/textzone/' . $filenameList[4]
-                     );
+$filenameList = array( get_conf('rootSys') . 'textzone_top.inc.html', 
+                       get_conf('rootSys') . 'textzone_right.inc.html',
+                       $clarolineRepositorySys . '/auth/textzone_inscription.inc.html',
+                       get_conf('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
+                       get_conf('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html');
 
 $display = DISP_FILE_LIST;
 
-// preserve compatibility waiting to replaces all ?modify=1 by ?cmd=modify
-if (isset($_REQUEST['modify']))  $_REQUEST['cmd'] ='modify';
-
 // Get command
-$validCmdList = array('modify','edit','view');
+$validCmdList = array('rqEdit','exEdit','exView');
+
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 
 // input Datas
@@ -56,64 +52,62 @@ if (!in_array($fileId,array_keys($filenameList)))
     $controlMsg['error'][] = get_lang('Wrong parameters');
 };
 
-$textContent = isset($_REQUEST['textContent']) ? $_REQUEST['textContent'] : null;
-
 //If choose a file to modify
 //Modify a file
 
-if ( 'modify' == $cmd )
+if ( !is_null($fileId) )
 {
-    $text = trim($textContent);
-    if ( trim( strip_tags( $text,'<img>' ) ) != '' )
+
+    if ( $cmd == 'exEdit' )
     {
-        if(!file_exists($filePathList[$fileId]))
+        $text = isset($_REQUEST['textContent']) ? trim($_REQUEST['textContent']) : null;
+
+        if( !file_exists($filenameList[$fileId]) )
         {
-            require_once $includePath . '/lib/fileManage.lib.php';
-            claro_mkdir(dirname($filePathList[$fileId]),CLARO_FILE_PERMISSIONS,true);
+            claro_mkdir(dirname($filenameList[$fileId]),CLARO_FILE_PERMISSIONS,true);
         }
-        $fp = fopen($filePathList[$fileId], 'w+');
+        $fp = fopen($filenameList[$fileId], 'w+');
         fwrite($fp,$text);
-    }
-    // remove file if empty
-    elseif ( file_exists($filePathList[$fileId]) ) unlink($filePathList[$fileId]);
-
-    $controlMsg['info'][] = get_lang('The changes have been carried out correctly')
-    .                       ' <br />'
-    .                       '<strong>'
-    .                       basename($filePathList[$fileId])
-    .                       '</strong>'
-    ;
-
-    $display = DISP_FILE_LIST;
-}
-
-if( !is_null($fileId) )
-{
-    $textContent = (file_exists( $filePathList[$fileId] ) ) ? implode("\n", file($filePathList[$fileId]) ) : false;
-
-    if ( 'edit' == $cmd )
-    {
-        $subtitle = 'Edit : ' . basename($filenameList[$fileId]);
-        $display = DISP_EDIT_FILE;
-    }
-    else
-    {
-        if ( trim( strip_tags( $textContent,'<img>' ) ) == '' )
-        $textContent = '<blockquote>' . "\n"
-        .              '<font color="#808080">- <em>' . "\n"
-        .              get_lang('No Content') . "\n"
-        .              '</em> -</font><br />' . "\n"
-        .              '</blockquote>' . "\n"
+    
+        $controlMsg['info'][] = get_lang('The changes have been carried out correctly')
+        .                       ' <br />'
+        .                       '<strong>'
+        .                       basename($filenameList[$fileId])
+        .                       '</strong>'
         ;
-        $subtitle = 'Preview : '.basename($filenameList[$fileId]);
-        $display = DISP_VIEW_FILE;
+
+        $display = DISP_FILE_LIST;
+    }
+
+    if ( $cmd == 'rqEdit' || $cmd = 'exView' )
+    {
+        $textContent = (file_exists( $filenameList[$fileId] ) ) ? implode("\n", file($filenameList[$fileId]) ) : null;
+
+        if ( $cmd == 'rqEdit' )
+        {
+            $subtitle = 'Edit : ' . basename($filenameList[$fileId]);
+            $display = DISP_EDIT_FILE;
+        }
+        else
+        {
+            if ( trim( strip_tags( $textContent,'<img>' ) ) == '' )
+            $textContent = '<blockquote>' . "\n"
+            .              '<font color="#808080">- <em>' . "\n"
+            .              get_lang('No Content') . "\n"
+            .              '</em> -</font><br />' . "\n"
+            .              '</blockquote>' . "\n"
+            ;
+            $subtitle = 'Preview : '.basename($filenameList[$fileId]);
+            $display = DISP_VIEW_FILE;
+        }
     }
 }
 
 // DISPLAY
 
 $nameTools = get_lang('Home page text zones');
-$interbredcrump[]    = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$noQUERY_STRING = true;
 
 include $includePath . '/claro_init_header.inc.php';
 
@@ -126,19 +120,37 @@ echo claro_html_tool_title($titles)
 .    claro_html_msg_list($controlMsg,1)
 ;
 
-//OUTPUT
+if ( $display == DISP_EDIT_FILE )
+{
+    echo '<h4>' . basename($filenameList[$fileId]) . '</h4>'
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+    .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
+    .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+    .    claro_html_textarea_editor('textContent', $textContent)
+    .    '<p>' . "\n"
+    .    '<input type="submit" class="claroButton" value="' . get_lang('Ok') . '" />&nbsp; '
+    .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '</p>' . "\n"
+    .    '</form>' . "\n"
+    ;
+}
+elseif( $display == DISP_VIEW_FILE )
+{
+    echo '<br />'
+    .    '<h4>' . basename($filenameList[$fileId]) . '</h4>'
+    .    $textContent
+    .    '<br />'
+    ;
 
-if($display==DISP_FILE_LIST
-// TODO remove nextline when display edit  prupose a link to back to list
-|| $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE
-)
+}
+
+if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE )
 {
    echo '<p>'
    .    get_lang('Here you can modify the content of the text zones displayed on the platform home page.')
    .    '<br />'
    .    get_lang('See below the files you can edit from this tool.')
    .    '</p>' . "\n"
-   .    '<table cellspacing="2" cellpadding="2" border="0" class="claroTable">' . "\n"
+   .    '<table cellspacing="2" cellpadding="2" border="0" class="claroTable emphaseLine">' . "\n"
    .    '<tr class="headerX">' . "\n"
    .    '<th >' . get_lang('Filename') . '</th>' . "\n"
    .    '<th >' . get_lang('Edit') . '</th>' . "\n"
@@ -146,17 +158,17 @@ if($display==DISP_FILE_LIST
    .    '</tr>' . "\n"
    ;
 
-    foreach($filenameList as $idFile => $fileName)
+    foreach($filenameList as $idFile => $filename)
     {
         echo '<tr>' . "\n"
-        .    '<td >' . basename($fileName) . '</td>' . "\n"
+        .    '<td >' . basename($filename) . '</td>' . "\n"
         .    '<td align="center">' . "\n"
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=edit&amp;file=' . $idFile . '">'
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;file=' . $idFile . '">'
         .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" >' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         .    '<td align="center">' . "\n"
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=view&amp;file=' . $idFile . '">'
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exView&amp;file=' . $idFile . '">'
         .    '<img src="' . $imgRepositoryWeb . 'preview.gif" border="0" alt="' . get_lang('Preview') . '" >' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
@@ -167,28 +179,6 @@ if($display==DISP_FILE_LIST
 
     echo '</table>' . "\n"
     .    '<br />' . "\n"
-    ;
-
-}
-
-if( DISP_EDIT_FILE == $display )
-{
-    echo '<h4>' . basename($filenameList[$fileId]) . '</h4>'
-    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">'
-    .    claro_html_textarea_editor('textContent', $textContent)
-    .    '<br /><br /> &nbsp;&nbsp;' . "\n"
-    .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
-    .    '<input type="submit" class="claroButton" name="modify" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-    .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-    .    '</form>' . "\n"
-    ;
-}
-elseif( DISP_VIEW_FILE == $display)
-{
-    echo '<br />'
-    .    '<h4>' . basename($filenameList[$fileId]) . '</h4>'
-    .    $textContent
-    .    '<br />'
     ;
 
 }
