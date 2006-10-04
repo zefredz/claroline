@@ -224,7 +224,7 @@ else
             .'</td>'
             . '</tr>'
             . '<tr  valign="top"><td>&nbsp;</td>'
-            . '<td><input type="submit" name="submit" value="' . get_lang('Ok') . '" />'
+            . '<td><input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
             . '&nbsp;<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />' . "\n"
             . '</td></tr>'
             . '</table>'

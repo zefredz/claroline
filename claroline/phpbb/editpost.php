@@ -251,7 +251,7 @@ else
             . '<tr>'
             . '<td>&nbsp;</td>' ."\n"
             . '<td>'
-            . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />' . "\n"
+            . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
             . '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
             . '</td>' . "\n"
             . '</tr>' . "\n"

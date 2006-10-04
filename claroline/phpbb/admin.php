@@ -60,7 +60,7 @@ if ( $cmd == 'rqMkCat' )
                .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
                .  '<input type="text" name="catName" id="catName"'
                .  ' value="' . $catName . '" /><br /><br />'."\n"
-               .  '<input type="submit" value="'.get_lang('Ok').'" /> '
+               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
                .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'
                .  "\n";
@@ -139,7 +139,7 @@ if ( $cmd == 'rqMkForum' )
                .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$reqForumPostUnallowedState.' />'."\n"
                .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
                .'<br />'."\n"
-               .'<input type="submit" value="'.get_lang('Ok').'" />'."\n"
+               .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
                . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 }
@@ -178,7 +178,7 @@ if ( $cmd == 'rqEdCat' )
                .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
                .  '<input type="text" name="catName" id="catName"'
                .  ' value="'.$categorySettingList['cat_title'].'" /><br /><br />'."\n"
-               .  '<input type="submit" value="'.get_lang('Ok').'" /> '
+               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
                .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'."\n"
                .  "\n";
@@ -271,7 +271,7 @@ if ( $cmd == 'rqEdForum' )
                .'<input type="checkbox" id="forumPostUnallowed" name="forumPostUnallowed" '.$formForumPostUnallowedState.' />'."\n"
                .'<label for="forumPostUnallowed">'.get_lang('Locked').' <small>('.get_lang('No new post allowed').')</small></label><br />'."\n"
                .'<br />'."\n"
-               .'<input type="submit" value="'.get_lang('Ok').'" /> '."\n"
+               .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
                . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 

@@ -194,7 +194,7 @@ if  ( DISP_FLUSH_RESULT == $display)
     .    '<input type="hidden" name="cmd" value="delete">'
     .    '<br />'
     .    '<br />'
-    .    '<input type="submit" name="action" value="' . get_lang('Ok') . '"> '
+    .    '<input type="submit" name="action" value="' . get_lang('Ok') . '">&nbsp; '
     .    claro_html_button('courseLog.php', get_lang('Cancel') )
     .    '<br />'
     .    '<br />'
