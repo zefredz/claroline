@@ -304,9 +304,9 @@ else
             }
             else
             {
-                echo '<small class="highlight">'
+                echo '<span class="highlight">'
                 .    get_lang('Already enroled')
-                .    '</small>'
+                .    '</span>'
                 ;
             }
 
