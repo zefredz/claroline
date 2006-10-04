@@ -59,18 +59,22 @@ else
     .    '<img src="./claroline/img/logo.gif" border="0" alt="Claroline logo" />' . "\n"
     .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
     .    '</div>';   
+
+    if($is_platformAdmin)
+    {
+        echo '<p>'
+        .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_top.inc.html'))
+        .    '</p>' . "\n";
+    }
 }
 
-if($is_platformAdmin)
+if( $is_platformAdmin )
 {
     echo '<p>'
-    .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_top.inc.html'))
-    .    '</p>' . "\n"
-    .    '&nbsp;'
-    .    '<a href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=0">'
+    .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=0">'
     .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
-    .    '</a>' . "\n"
-    ;
+    .    '</a>'
+    .    '</p>' . "\n";
 }
 
 // Dock - Campus homepage - Top
@@ -189,11 +193,11 @@ elseif($is_platformAdmin)
 
 if($is_platformAdmin)
 {
-    echo '&nbsp;'
-    .    '<a href="claroline/admin/managing/editFile.php?cmd=edit&amp;file=1">'
+    echo '<p>'
+    .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=1">'
     .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
-    .    '</a>' . "\n"
-    ;
+    .    '</a>'
+    .    '</p>' . "\n";
 }
 
 ?>
