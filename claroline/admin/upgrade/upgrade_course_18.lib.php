@@ -797,8 +797,8 @@ function tracking_upgrade_to_18($course_code)
         {
             case 1 :
 
-                $sqlForUpdate[] = "UPDATE `".$currentCourseDbNameGlu."track_e_access` 
-                                   SET access_tlabel = TRIM(TRAILING '_' FROM access_tlabel)";
+                $sql = "UPDATE `".$currentCourseDbNameGlu."track_e_access` 
+                        SET access_tlabel = TRIM(TRAILING '_' FROM access_tlabel)";
                 
                 if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
                 else return $step;
