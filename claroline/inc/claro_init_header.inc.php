@@ -53,11 +53,6 @@ $titlePage .= get_conf('siteName');
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/<?php echo $claro_stylesheet ?>" media="screen, projection, tv" />
 <link rel="stylesheet" type="text/css" href="<?php echo $clarolineRepositoryWeb ?>css/print.css" media="print" />
 
-<?php
-
-if (CLARO_DEBUG_MODE) echo '<link rel="stylesheet" type="text/css" href="' . $clarolineRepositoryWeb . 'css/devel.css" media="screen" />';
-?>
-
 <link rel="top" href="<?php echo $urlAppend ?>/index.php" title="" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
