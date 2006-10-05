@@ -1,33 +1,33 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.5.0
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-
-      +----------------------------------------------------------------------+
-      | Translator :                                                         |
-      |          Xavier de Pedro   <xavidp@confluencia.net>                  |
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @author: Xavier de Pedro   <xavidp@confluencia.net>                 
+ * @author: claro team <cvs@claroline.net>
+ *
+ * @package LANG-CA
  */
 
-$iso639_1_code = "ca";
+$iso639_1_code = "ca"; 
 $iso639_2_code = "cat";
 
-$langNameOfLang['brazilian'			]="brasileny";
-$langNameOfLang['english'			]="anglès";
-$langNameOfLang['finnish'			]="finlandès";
-$langNameOfLang['french'			]="francès";
-$langNameOfLang['german'			]="alemany";
-$langNameOfLang['italian'			]="italià";
-$langNameOfLang['japanese'			]="japonès";
-$langNameOfLang['polish'			]="polonès";
-$langNameOfLang['simpl_chinese'		]="xinès simplificat";
-$langNameOfLang['spanish'			]="castellà";
-$langNameOfLang['swedish'			]="suec";
-$langNameOfLang['thai'				]="tailandès";
-$langNameOfLang['catalan'			]="català";
+$langNameOfLang['brazilian'] = "brasileny";
+$langNameOfLang['english'  ]="anglès";
+$langNameOfLang['finnish'  ]="finlandès";
+$langNameOfLang['french'   ]="francès";
+$langNameOfLang['german'   ]="alemany";
+$langNameOfLang['italian'  ]="italià";
+$langNameOfLang['japanese' ]="japonès";
+$langNameOfLang['polish'   ]="polonès";
+$langNameOfLang['simpl_chinese'        ]="xinès simplificat";
+$langNameOfLang['spanish'  ]="castellà";
+$langNameOfLang['swedish'  ]="suec";
+$langNameOfLang['thai'     ]="tailandès";
+$langNameOfLang['catalan'  ]="català";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
