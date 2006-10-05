@@ -83,6 +83,7 @@ class ConfigHtml extends Config
                     $form .= '<tr><td colspan="3">' . "\n";
                     $form .= '<ul class="tabTitle">' . "\n";
                     $form .= '<li><a href="#">' . htmlspecialchars($this->conf_def['section'][$thisSection]['label']) . '</a></li>' . "\n";
+                    $form .= '</ul>' . "\n";
                     $form .= '</td></tr>' . "\n";
 
                 }
@@ -474,7 +475,7 @@ class ConfigHtml extends Config
                 $menu .=  '<li>'
                 . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
                 . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code)
-                . '&section=' . htmlspecialchars($section) . htmlspecialchars($url_params). '">'
+                . '&amp;section=' . htmlspecialchars($section) . htmlspecialchars($url_params). '">'
                 . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
             }
             $menu .= '<li><a class="viewall" href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code) . '&amp;section=viewall'.htmlspecialchars($url_params).'">' . get_lang('View all') . '</a></li>' . "\n";
