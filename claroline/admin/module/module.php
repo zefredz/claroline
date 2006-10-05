@@ -236,7 +236,7 @@ $config_code = $module['label'];
 // new config object
 require_once $includePath . '/lib/configHtml.class.php';
 
-$config = new ConfigHtml($config_code);
+$config = new ConfigHtml($config_code, $_SERVER['HTTP_REFERER']);
     	
 if ( $config->load() )
 {
