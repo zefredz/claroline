@@ -91,7 +91,7 @@ else
     $newPropertyList = isset($_REQUEST['property']) ?$_REQUEST['property']:array();
 
     // new config object
-    $config = new ConfigHtml($config_code);
+    $config = new ConfigHtml($config_code, 'config_list.php');
 
     // load configuration
     if ( $config->load() )
