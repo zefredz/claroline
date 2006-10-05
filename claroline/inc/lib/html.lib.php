@@ -224,7 +224,7 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
         $stringPart[] = '<small>' . $titleElement['subTitle'] . '</small>';
     }
 
-    $string = "\n" . '<h3 class="claroToolTitle">' . "\n";
+    $string = "\n" . '<h3 class="claroToolTitle">';
 
     if ($helpUrl)
     {
@@ -1152,28 +1152,6 @@ function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttr
     // becomes a alias while the function call is not replaced by the new one
     return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
 }
-
-/**
- * Displays the title of a tool. Optionally, there can be a subtitle below
- * the normal title, and / or a supra title above the normal title.
- *
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @param  mixed $titleElement - it could either be a string or an array
- *                               containing 'supraTitle', 'mainTitle',
- *                               'subTitle'
- * @return void
- *
- * @deprecated in 1.8
- * @see claro_html_tool_title($titlePart, $helpUrl);
- */
-
-function claro_disp_tool_title($titlePart, $helpUrl = false)
-{
-    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_tool_title is deprecated, use claro_html_tool_title', E_USER_WARNING);
-
-    return claro_html_tool_title($titlePart, $helpUrl);
-}
-
 
 /**
  * transform content in a html display
