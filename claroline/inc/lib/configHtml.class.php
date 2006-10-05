@@ -38,7 +38,14 @@ require_once dirname(__FILE__) . '/config.class.php';
 
 class ConfigHtml extends Config
 {
-
+    var $back_url = null;
+    
+    function ConfigHtml($config_code, $back_url)
+    {
+        parent::Config($config_code);
+        
+        $this->backUrl = $back_url;
+    }
     /**
      * Function to create the different elements of the configuration form to display
      *
@@ -48,7 +55,7 @@ class ConfigHtml extends Config
      * @return the HTML code to display web form to edit config file
      */
 
-    function display_form($property_list=null,$section_selected=null,$url_params = null)
+    function display_form($property_list = null,$section_selected = null,$url_params = null)
     {
         $form = '';
 
@@ -127,13 +134,12 @@ class ConfigHtml extends Config
             $form .= '<tr>' ."\n"
             . '<td style="text-align: right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
             . '<td colspan="2"><input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-            . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+            . claro_html_button($this->backUrl, get_lang('Cancel')) . '</td>' . "\n"
             . '</tr>' . "\n";
 
             // display end form
             $form .= '</table>' . "\n"
             . '</form>' . "\n";
-
         }
 
         return $form ;
