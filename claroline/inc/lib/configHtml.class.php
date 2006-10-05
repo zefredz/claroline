@@ -286,15 +286,15 @@ class ConfigHtml extends Config
                         $form_title = $html['label'] ;
 
                         // display true/false radio button
-                        $form_value = '<input id="'. $name .'_TRUE"  type="radio" name="'. $input_name.'" value="TRUE"  '
+                        $form_value = '<input id="label_'. $name .'_TRUE"  type="radio" name="'. $input_name.'" value="TRUE"  '
                         . ( $value=='TRUE'?' checked="checked" ':' ') . ' >'
-                        . '<label for="'. $name .'_TRUE"  >'
+                        . '<label for="label_'. $name .'_TRUE"  >'
                         . ($property_def['acceptedValue']['TRUE']?$property_def['acceptedValue']['TRUE' ]:'TRUE')
                         . '</label>'
                         . '<br />'
-                        . '<input id="'. $name .'_FALSE" type="radio" name="'. $input_name.'" value="FALSE" '
+                        . '<input id="label_'. $name .'_FALSE" type="radio" name="'. $input_name.'" value="FALSE" '
                         . ($value=='FALSE'?' checked="checked" ': ' ') . ' >'
-                        . '<label for="'. $name.'_FALSE" >'
+                        . '<label for="label_'. $name.'_FALSE" >'
                         . ($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
                         . '</label>';
 
@@ -331,9 +331,9 @@ class ConfigHtml extends Config
 
                             foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                             {
-                                $form_value .= '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
+                                $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
                                 . ($value==$keyVal?' checked="checked" ':' ').' >'
-                                . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                                . '<label for="label_'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
                                 . '<span class="propUnit">'.$html['unit'].'</span>'
                                 . '<br />'."\n";
                             }
@@ -341,10 +341,10 @@ class ConfigHtml extends Config
                         elseif ( $total_accepted_value > 2 )
                         {
                             // display label
-                            $form_title = '<label for="'.$name.'"  >'.$html['label'].'</label>' ;
+                            $form_title = '<label for="label_'.$name.'"  >'.$html['label'].'</label>' ;
 
                             // display select box with accepted value
-                            $form_value = '<select id="' . $name . '" name="'.$input_name.'">' . "\n";
+                            $form_value = '<select id="label_' . $name . '" name="'.$input_name.'">' . "\n";
 
                             foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal )
                             {
@@ -371,9 +371,9 @@ class ConfigHtml extends Config
 
                         foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                         {
-                            $form_value .= '<input id="'.$name.'_'.$keyVal.'"  type="checkbox" name="'.$input_name.'[]" value="'.$keyVal.'"  '
+                            $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="checkbox" name="'.$input_name.'[]" value="'.$keyVal.'"  '
                             . (is_array($value)&&in_array($keyVal,$value)?' checked="checked" ':' ').' >'
-                            . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                            . '<label for="label_'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
                             . '<span class="propUnit">'.$html['unit'].'</span>'
                             . '<br />'."\n";
                         }
@@ -382,9 +382,9 @@ class ConfigHtml extends Config
 
                     case 'integer' :
 
-                        $form_title = '<label for="'.$name.'"  >'.$html['label'].'</label>';
+                        $form_title = '<label for="label_'.$name.'"  >'.$html['label'].'</label>';
 
-                        $form_value = '<input size="'.$input_size.'" align="right" id="'.$name.'" '
+                        $form_value = '<input size="'.$input_size.'" align="right" id="label_'.$name.'" '
                         . ' type="text" name="'.$input_name.'" value="'. $html['value'] .'"> '."\n"
                         . '<span class="propUnit">'.$html['unit'].'</span>'
                         . '<span class="propType">'.$html['type'].'</span>';
@@ -393,9 +393,9 @@ class ConfigHtml extends Config
 
                     default:
                         // by default is a string
-                        $form_title = '<label for="'.$name.'"  >' . $html['label'] . '</label>' ;
+                        $form_title = '<label for="label_'.$name.'"  >' . $html['label'] . '</label>' ;
 
-                        $form_value = '<input size="'.$input_size.'" id="'.$name.'" type="text" name="'.$input_name.'" value="'.$html['value'].'"> '
+                        $form_value = '<input size="'.$input_size.'" id="label_'.$name.'" type="text" name="'.$input_name.'" value="'.$html['value'].'"> '
                         . '<span class="propUnit">'.$html['unit'].'</span>'
                         . '<span class="propType">'.$html['type'].'</span>'. "\n" ;
 
