@@ -49,15 +49,15 @@ ul {
 }
 
 
+input, textarea, button, select{
+	border: 1px solid #aaa;
+	color: #336699;
+}
+
 input[type=submit], input[type=reset], button {
 	margin-left: 2px;
 	color: #666666;
 } 
-
-input, textarea, button{
-	border: 1px solid #aaa;
-	color: #336699;
-}
 
 input[type], textarea[name], button {
 	background: #ffffff;
@@ -71,6 +71,10 @@ input[type=submit], input[type=reset], button {
 input[type=submit]:hover, button:hover {
 	background-color: #336699;
 	color: #ffffff;
+}
+
+label {
+    cursor: pointer;
 }
 
 /******************************************************************************
