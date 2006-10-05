@@ -66,7 +66,6 @@ $_lang['Add user manually'] = 'Engadir un usuario manualmente';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Engadir respostas err&oacute;neas para desplegar listas <small>(opcional.
 
 						Unha resposta err&oacute;nea por li&ntilde;a)</small>';
-$_lang['Add/modify a comment to'] = 'Engadir/modificar un comentario a';
 $_lang['Added line'] = 'Li&ntilde;a engadida';
 $_lang['Admin'] = 'Administrador';
 $_lang['Administration'] = 'Administraci&oacute;n';
@@ -657,7 +656,6 @@ $_lang['On'] = 'Activo';
 $_lang['On an unique page'] = 'Nunha &uacute;nica p&aacute;xina';
 $_lang['One question per page (sequential)'] = 'Unha cuesti&oacute;n por p&aacute;xina (secuencial)';
 $_lang['Operation impossible'] = 'Non &eacute; posible realizar esta operaci&oacute;n';
-$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Non &eacute; posible realizar esta operaci&oacute;n.<br />Existe xa un arquivo co mesmo nome';
 $_lang['Optional'] = 'Opcional';
 $_lang['Order'] = 'Ordear';
 $_lang['Orphan questions'] = 'Cuesti&oacute;ns orfas';
@@ -810,7 +808,6 @@ $_lang['The email address is not valid'] = 'O enderezo electr&oacute;nico non es
 							caracteres non v&aacute;lidos';
 $_lang['The file to upload is not valid.'] = 'O ficheiro para cargar non &eacute; v&aacute;lido';
 $_lang['The following errors were found'] = 'Atop&aacute;ronse os seguintes erros';
-$_lang['The information has been modified'] = 'A informaci&oacute;n foi modificada';
 $_lang['The module will still be available in the pool of modules.'] = 'O m&oacute;dulo estar&aacute; a&iacute;nda dispo&ntilde;ible
    											no Dep&oacute;sito de m&oacute;dulos.';
 $_lang['The new category has been created.'] = 'A nova categor&iacute;a foi creada.';
@@ -878,7 +875,6 @@ $_lang['Translation Progression'] = 'Progresi&oacute;n da traducci&oacute;n';
 $_lang['Translation Tools'] = 'Ferramentas de traducci&oacute;n';
 $_lang['True'] = 'Verdadeiro';
 $_lang['True/False'] = 'Verdadeiro/Falso';
-$_lang['URL :'] = 'URL : ';
 $_lang['URL link'] = 'Ligaz&oacute;n &aacute; URL';
 $_lang['Unable to add description'] = 'Habilitado para engadir descrici&oacute;n';
 $_lang['Unable to add external tool'] = 'Non &eacute; posible engadi-la ferramenta externa';
@@ -1028,7 +1024,6 @@ $_lang['Your enrolment on the course has been removed'] = 'A s&uacute;a subscric
 $_lang['Your message has been deleted'] = 'O seu Env&iacute;o foi eliminado';
 $_lang['Your message has been entered'] = 'A s&uacute; Mensaxe foi almacenada na base de datos.';
 $_lang['Your mother is'] = 'A t&uacute;a nai &eacute;';
-$_lang['Your new profile has been saved'] = 'O seu perfil foi gardado';
 $_lang['Your password has been emailed to'] = 'O seu contrasinal foi enviado por correo electr&oacute;nico &oacute; enderezo ';
 $_lang['Your progression in this module'] = 'A s&uacute;a progresi&oacute;n neste m&oacute;dulo';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'A s&uacute;a solicitude para se converter en xestor de cursos foi enviada';

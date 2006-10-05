@@ -39,6 +39,7 @@ $_lang['<i>%firstname %lastname</i> has been sucessfully registered to the cours
 $_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = '<i>%firstname %lastname</i> has not been sucessfully registered to the course';
 $_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total'] = '<label1>Yes</label1>, <label2>take</label2> %nb questions among %total';
 $_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> denotes required field';
+$_lang['A file with this name already exists.'] = 'A file with this name already exists.';
 $_lang['A user can be a member of maximum %nb groups'] = 'A user can be a member of maximum %nb groups';
 $_lang['About'] = 'About';
 $_lang['Access to course and tools'] = 'Access to course and tools';
@@ -47,6 +48,7 @@ $_lang['Activated - Click to deactivate'] = 'Activated - Click to deactivate';
 $_lang['Activation'] = 'Activation';
 $_lang['Add Text'] = 'Add Text';
 $_lang['Add new profile'] = 'Add new profile';
+$_lang['Add/modify a comment to %documentName'] = 'Add/modify a comment to %documentName';
 $_lang['Administrator for %site_name'] = 'Administrator for %site_name';
 $_lang['All modules of this course are already used in this learning path.'] = 'All modules of this course are already used in this learning path.';
 $_lang['All platform courses'] = 'All platform courses';
@@ -104,6 +106,8 @@ $_lang['Click <a href="%url">here</a> to return to the forum index'] = 'Click <a
 $_lang['Click <a href="%url">here</a> to return to the forum topic list'] = 'Click <a href="%url">here</a> to return to the forum topic list';
 $_lang['Click <a href="%url">here</a> to view your message'] = 'Click <a href="%url">here</a> to view your message';
 $_lang['Click on the enrollment command beside the concerned user'] = 'Click on the enrollment command beside the concerned user';
+$_lang['Click to make invisible'] = 'Click to make invisible';
+$_lang['Click to make visible'] = 'Click to make visible';
 $_lang['Code'] = 'Code';
 $_lang['Complementary fields'] = 'Complementary fields';
 $_lang['Confirm Operation'] = 'Confirm Operation';
@@ -136,7 +140,8 @@ $_lang['Deleting this course will permanently delete all its documents and unenr
 $_lang['Direct link to image'] = 'Direct link to image';
 $_lang['Disk quota exceeded, please contact the %administrator'] = 'Disk quota exceeded, please contact the %administrator';
 $_lang['Disk space available'] = 'Disk space available';
-$_lang['Disk space occupied'] = 'Disk space occupied';
+$_lang['Disk space available : %size'] = 'Disk space available : %size';
+$_lang['Disk space occupied : %size'] = 'Disk space occupied : %size';
 $_lang['Display'] = 'Display';
 $_lang['Dock'] = 'Dock';
 $_lang['Document content'] = 'Document content';
@@ -182,6 +187,7 @@ $_lang['Go back to Wiki list'] = 'Go back to Wiki list';
 $_lang['Go to documents tool'] = 'Go to documents tool';
 $_lang['Icon'] = 'Icon';
 $_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'If after while no message appears confirming the course creation, please click <a href="%url">here</a>';
+$_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
 $_lang['Import course'] = 'Import course';
 $_lang['Import done'] = 'Import done';
@@ -219,7 +225,7 @@ $_lang['Manager(s) for %course_code'] = 'Manager(s) for %course_code';
 $_lang['Manifest missing : %filename'] = 'Manifest missing : %filename';
 $_lang['Manifest open : manifest.xml'] = 'Manifest open : manifest.xml';
 $_lang['Max file size : %size'] = 'Max file size : %size';
-$_lang['Maximum disk space'] = 'Maximum disk space';
+$_lang['Maximum disk space : %size'] = 'Maximum disk space : %size';
 $_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Memorize them, you will use them the next time you will enter to this site.';
 $_lang['Message'] = 'Message';
 $_lang['Message sent'] = 'Message sent';
@@ -268,7 +274,9 @@ $_lang['Node Moved, relaunch repair process to complete'] = 'Node Moved, relaunc
 $_lang['Notify'] = 'Notify';
 $_lang['OVER QUOTA'] = 'OVER QUOTA';
 $_lang['Only visible for teacher(s) and submitter(s)'] = 'Only visible for teacher(s) and submitter(s)';
+$_lang['Operation impossible.'] = 'Operation impossible.';
 $_lang['Ordered list'] = 'Ordered list';
+$_lang['Page'] = 'Page';
 $_lang['Page %title not found'] = 'Page %title not found';
 $_lang['Pairs'] = 'Pairs';
 $_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.';
@@ -316,6 +324,7 @@ $_lang['System mail : recipients list'] = 'System mail : recipients list';
 $_lang['Take one of these options'] = 'Take one of these options';
 $_lang['The class has been moved'] = 'The class has been moved';
 $_lang['The fields <em>%field_list</em> are compulsory'] = 'The fields <em>%field_list</em> are compulsory';
+$_lang['The information have been modified'] = 'The information have been modified';
 $_lang['The module has been removed from this dock'] = 'The module has been removed from this dock';
 $_lang['The system is unable to send you an e-mail.'] = 'The system is unable to send you an e-mail.';
 $_lang['Themes'] = 'Themes';
@@ -385,6 +394,7 @@ $_lang['You typed two different passwords'] = 'You typed two different passwords
 $_lang['Your choice'] = 'Your choice';
 $_lang['Your password(s) is (are) recorded in an external authentication system outside the platform.'] = 'Your password(s) is (are) recorded in an external authentication system outside the platform.';
 $_lang['Your registration'] = 'Your registration';
+$_lang['Your search did not match any courses'] = 'Your search did not match any courses';
 $_lang['Your time is %time'] = 'Your time is %time';
 $_lang['Your total score is %score'] = 'Your total score is %score';
 $_lang['blockAccountCreationNotification'] = '
@@ -462,10 +472,12 @@ Login : %login
 Password : %password
 Comment : %comment
 Link : %url';
+$_lang['blockTextZoneHelp'] = 'This text zone is displayed to each user. Platform administrator can change its content or remove it by editing the <b>%textZoneFile</b> file.';
 $_lang['blockUsersWithoutValidEmail'] = 'On %userQty registered users of the site, %userInvalidQty have unvalid or no email address.
 
 %messageFailed';
 $_lang['count'] = 'count';
+$_lang['details'] = 'details';
 $_lang['email'] = 'email';
 $_lang['high resources'] = 'high resources';
 $_lang['iCal feed for %course'] = 'iCal feed for %course';

@@ -217,9 +217,6 @@ $_lang['On'] = 'на';
 $_lang['On an unique page'] = 'Вопросы на одной странице';
 $_lang['One question per page (sequential)'] = 'Один вопрос на страницу (разбивка)';
 $_lang['Operation impossible'] = 'Невозможно осуществить операцию';
-$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Невозможно осуществить операцию.
-
-<br />Файл с таким именем уже существует.';
 $_lang['Optional'] = 'не обязательный';
 $_lang['Orphan questions'] = 'Одиночные вопросы';
 $_lang['Other'] = 'Другой';
@@ -278,7 +275,6 @@ $_lang['Subject'] = 'Тема';
 $_lang['Support forum'] = 'Форум поддержки';
 $_lang['The email address is not valid'] = 'Указанный вами электронный адрес неполон или содержит неподходящие символы. ';
 $_lang['The file to upload is not valid.'] = 'Файл для размещения не подходит.';
-$_lang['The information has been modified'] = 'Информация была изменена';
 $_lang['The upload has failed. There is not enough space in your directory'] = 'Размещение файла не удалось. В вашей папке недостаточно места';
 $_lang['The upload is finished'] = 'Размещение файла завершено';
 $_lang['The zip file can not contain .PHP files'] = 'Файл ZIP не может содержать файлов с расширением .php';
@@ -341,7 +337,6 @@ $_lang['You left some required fields empty'] = 'Вы заполнили не все поля.
 Используйте кнопку Назад вашего браузера и повторите операцию.';
 $_lang['Your message has been deleted'] = 'Ваше Сообщение удалено.';
 $_lang['Your message has been entered'] = 'Ваше Сообщение записано.';
-$_lang['Your new profile has been saved'] = 'Ваши новые настройки сохранены.';
 $_lang['Zip file uploaded and uncompressed'] = ' Файл .zip был послан и раскрыт';
 $_lang['[British people] live in [United Kingdom].'] = '[Англичане] живут в [Англии].';
 $_lang['archive'] = 'архив';

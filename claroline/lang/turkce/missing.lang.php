@@ -52,6 +52,7 @@ $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivate
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>';
 $_lang['A file is required'] = 'A file is required';
+$_lang['A file with this name already exists.'] = 'A file with this name already exists.';
 $_lang['A user can be a member of maximum %nb groups'] = 'A user can be a member of maximum %nb groups';
 $_lang['About'] = 'About';
 $_lang['Access'] = 'Access';
@@ -80,7 +81,7 @@ $_lang['Add new heading'] = 'Add new heading';
 $_lang['Add new profile'] = 'Add new profile';
 $_lang['Add user list'] = 'Add user list';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>';
-$_lang['Add/modify a comment to'] = 'Add/modify a comment to';
+$_lang['Add/modify a comment to %documentName'] = 'Add/modify a comment to %documentName';
 $_lang['Added line'] = 'Added line';
 $_lang['Admin'] = 'Admin';
 $_lang['Administrative code'] = 'Administrative code';
@@ -214,6 +215,8 @@ $_lang['Click <a href="%url">here</a> to return to the forum topic list'] = 'Cli
 $_lang['Click <a href="%url">here</a> to view your message'] = 'Click <a href="%url">here</a> to view your message';
 $_lang['Click on the enrollment command beside the concerned user'] = 'Click on the enrollment command beside the concerned user';
 $_lang['Click on the month name for more details'] = 'Click on the month name for more details';
+$_lang['Click to make invisible'] = 'Click to make invisible';
+$_lang['Click to make visible'] = 'Click to make visible';
 $_lang['Close popup'] = 'Close popup';
 $_lang['Close window'] = 'Close window';
 $_lang['Code'] = 'Code';
@@ -303,7 +306,8 @@ $_lang['Direct link to image'] = 'Direct link to image';
 $_lang['Disk Usage'] = 'Disk Usage';
 $_lang['Disk quota exceeded, please contact the %administrator'] = 'Disk quota exceeded, please contact the %administrator';
 $_lang['Disk space available'] = 'Disk space available';
-$_lang['Disk space occupied'] = 'Disk space occupied';
+$_lang['Disk space available : %size'] = 'Disk space available : %size';
+$_lang['Disk space occupied : %size'] = 'Disk space occupied : %size';
 $_lang['Display'] = 'Display';
 $_lang['Display of detailled answers is not authorized.'] = 'Display of detailled answers is not authorized.';
 $_lang['Do you really want to delete the category'] = 'Do you really want to delete the category ';
@@ -452,6 +456,7 @@ $_lang['Hits'] = 'Hits';
 $_lang['Icon'] = 'Icon';
 $_lang['Identical content<br />no modification saved'] = 'Identical content<br />no modification saved';
 $_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'If after while no message appears confirming the course creation, please click <a href="%url">here</a>';
+$_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
 $_lang['If you wish to enrol on this course'] = 'If you wish to enrol on this course';
 $_lang['Import course'] = 'Import course';
@@ -534,7 +539,7 @@ $_lang['Manifest missing : %filename'] = 'Manifest missing : %filename';
 $_lang['Manifest open : manifest.xml'] = 'Manifest open : manifest.xml';
 $_lang['Manifest read.'] = 'Manifest read.';
 $_lang['Max file size : %size'] = 'Max file size : %size';
-$_lang['Maximum disk space'] = 'Maximum disk space';
+$_lang['Maximum disk space : %size'] = 'Maximum disk space : %size';
 $_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Memorize them, you will use them the next time you will enter to this site.';
 $_lang['Message'] = 'Message';
 $_lang['Message from your lecturer'] = 'Message from your lecturer';
@@ -666,10 +671,12 @@ $_lang['Number proposed exceeds max. that you allowed (you can modify it below).
 $_lang['Numero'] = 'No.';
 $_lang['OVER QUOTA'] = 'OVER QUOTA';
 $_lang['Only visible for teacher(s) and submitter(s)'] = 'Only visible for teacher(s) and submitter(s)';
+$_lang['Operation impossible.'] = 'Operation impossible.';
 $_lang['Ordered list'] = 'Ordered list';
 $_lang['Orphan questions'] = 'Orphan questions';
 $_lang['Others (*)'] = 'Others (*)';
 $_lang['PHP system information'] = 'PHP system information';
+$_lang['Page'] = 'Page';
 $_lang['Page %title not found'] = 'Page %title not found';
 $_lang['Page history'] = 'Page history';
 $_lang['Page saved'] = 'Page saved';
@@ -797,6 +804,7 @@ $_lang['The course has been successfully deleted'] = 'The course has been succes
 $_lang['The fields <em>%field_list</em> are compulsory'] = 'The fields <em>%field_list</em> are compulsory';
 $_lang['The file to upload is not valid.'] = 'The file to upload is not valid.';
 $_lang['The following errors were found'] = 'The following errors were found ';
+$_lang['The information have been modified'] = 'The information have been modified';
 $_lang['The module has been removed from this dock'] = 'The module has been removed from this dock';
 $_lang['The module will still be available in the pool of modules.'] = 'The module will still be available in the pool of modules.';
 $_lang['The new category has been created.'] = 'The new category has been created.';
@@ -855,7 +863,6 @@ $_lang['Traffic Details'] = 'Traffic Details';
 $_lang['Translation Progression'] = 'Translation Progression';
 $_lang['Type'] = 'Type';
 $_lang['URL'] = 'URL';
-$_lang['URL :'] = 'URL : ';
 $_lang['URL link'] = 'URL link';
 $_lang['URL?'] = 'URL?';
 $_lang['Unable to add description'] = 'Unable to add description';
@@ -1021,6 +1028,7 @@ $_lang['Your password(s) is (are) recorded in an external authentication system 
 $_lang['Your registration'] = 'Your registration';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Your request to become a course creator has been sent to platform administrator(s).';
 $_lang['Your request to remove your account has been sent'] = 'Your request to remove your account has been sent';
+$_lang['Your search did not match any courses'] = 'Your search did not match any courses';
 $_lang['Your time is %time'] = 'Your time is %time';
 $_lang['Your total score is %score'] = 'Your total score is %score';
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Your user profile doesn\'t seem to be enrolled on this course';
@@ -1570,6 +1578,7 @@ Login : %login
 Password : %password
 Comment : %comment
 Link : %url';
+$_lang['blockTextZoneHelp'] = 'This text zone is displayed to each user. Platform administrator can change its content or remove it by editing the <b>%textZoneFile</b> file.';
 $_lang['blockUsedInSeveralPath'] = 'This exercise is used in one or more learning path. If you delete it it will be no longer be available in the learning path.';
 $_lang['blockUsersHelp'] = '<p>The \'Users\' tool displays user informations in a digest table. Here is below the column descriptions resumed.
 <ul>
@@ -1717,6 +1726,7 @@ $_lang['click here'] = 'click here';
 $_lang['click to zoom in'] = 'click to zoom in';
 $_lang['click to zoom out'] = 'click to zoom out';
 $_lang['count'] = 'count';
+$_lang['details'] = 'details';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'differences between version of %1$s modified by %2$s and version of %3$s modified by %4$s';
 $_lang['email'] = 'email';
 $_lang['good looking'] = 'good looking';
@@ -1731,8 +1741,7 @@ $_lang['previous level'] = 'previous level';
 $_lang['rich'] = 'rich';
 $_lang['sampleForumDescription'] = 'Remove this through the forum admin tool';
 $_lang['sampleForumMessage'] = 'When you remove the test forum, it will remove all messages in that forum too.';
-$_lang['sampleLearnPathDescription'] = 'This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on
-                            <b>Modify</b> to change this text.';
+$_lang['sampleLearnPathDescription'] = 'This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on <b>Modify</b> to change this text.';
 $_lang['sampleLearnPathDocumentDescription'] = 'You can use any document existing in the documents tool of this course.';
 $_lang['sampleLearnPathDocumentTitle'] = 'example_document';
 $_lang['sampleLearnPathQuizDescription'] = 'You can use any exercise of the exercises tool of your course.';

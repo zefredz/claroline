@@ -52,7 +52,6 @@ $_lang['Add new heading'] = 'إضافة عنوان جديد';
 $_lang['Add user list'] = 'إضافة قائمة مستخدمين';
 $_lang['Add user manually'] = 'إضافة مستخدم بشكل يدوي';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'إضافة الأجوبة الخاطئة للقوائم المنسدلة <small> (اختياري:سؤال غير صحيح واحد ضمن كل سطر)</small>';
-$_lang['Add/modify a comment to'] = 'إضافة/تعديل الملاحظة ل';
 $_lang['Added line'] = 'الأسطر المضافة';
 $_lang['Admin'] = 'مدير';
 $_lang['Administration'] = 'المدير';
@@ -632,7 +631,6 @@ $_lang['On'] = 'On';
 $_lang['On an unique page'] = 'ضمن صفحة واحدة';
 $_lang['One question per page (sequential)'] = 'سؤال واحد في كل صفحة ( اسئلة متتابعة)';
 $_lang['Operation impossible'] = 'العملية غير ممكنة';
-$_lang['Operation impossible.<br />A file with this name already exists.'] = 'العملية غير ممكنة<br />يوجد ملف له نفس اسم الملف';
 $_lang['Optional'] = 'اختياري';
 $_lang['Order'] = 'الترتيب';
 $_lang['Orphan questions'] = 'اسئلة وحيدة';
@@ -784,7 +782,6 @@ $_lang['The course has been successfully deleted'] = 'تم حذف المقرر �
 $_lang['The email address is not valid'] = 'عنوان البريد الإلكتروني غير صحيح';
 $_lang['The file to upload is not valid.'] = 'الملف الذي تحاول تحميله غير صحيح';
 $_lang['The following errors were found'] = 'تم العثور على الأخطاء التالية ';
-$_lang['The information has been modified'] = 'تم تعديل المعلومات';
 $_lang['The module will still be available in the pool of modules.'] = 'ستبقى الوحدة متوفرة في مخزن الوحدات.';
 $_lang['The new category has been created.'] = 'تم إنشاء التصنيف الجديد';
 $_lang['The new class has been created'] = 'تم إنشاء الصف الجديد';
@@ -848,7 +845,6 @@ $_lang['Translation Progression'] = 'مستوى التقدم في عملية ا�
 $_lang['Translation Tools'] = 'ادوات الترجمة';
 $_lang['True'] = 'صحيح';
 $_lang['True/False'] = 'صح/خطأ';
-$_lang['URL :'] = 'URL : ';
 $_lang['URL link'] = 'URL وصلة';
 $_lang['Unable to add description'] = 'فشل في إضافة الوصف';
 $_lang['Unable to add external tool'] = 'فشل في إضافة الأداة الخارجية';
@@ -991,7 +987,6 @@ $_lang['Your enrolment on the course has been removed'] = 'تمت  عملية إ
 $_lang['Your message has been deleted'] = 'تم حذف مشاركتك';
 $_lang['Your message has been entered'] = 'تم تخرين رسالتك في قاعدة البيانات';
 $_lang['Your mother is'] = 'والدتك هي';
-$_lang['Your new profile has been saved'] = 'تم حفظ المعلومات الخاصة بك';
 $_lang['Your password has been emailed to'] = 'تم إرسال كلمة السر الخاصة بك إلى ';
 $_lang['Your progression in this module'] = 'مستوى تقدمك في هذه الوحدة';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'طلبك بان تصبح قادراً على إنشاء مواقع المقررات تم إرساله لمدير النظام';
