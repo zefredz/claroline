@@ -369,7 +369,7 @@ function update_db_course($courseDbName)
       `ordre` mediumint(11) NOT NULL default '0',
       `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
       PRIMARY KEY  (`id`)
-    ) COMMENT='announcements table'";
+    ) TYPE=MyISAM COMMENT='announcements table'";
 
     // User Info
     $sqlList[] = "
@@ -382,7 +382,7 @@ function update_db_course($courseDbName)
        `content` text,
        PRIMARY KEY  (`id`),
        KEY `user_id` (`user_id`)
-    ) COMMENT='content of users information - organisation based on userinfo'";
+    ) TYPE=MyISAM COMMENT='content of users information - organisation based on userinfo'";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
@@ -401,7 +401,7 @@ function update_db_course($courseDbName)
         cat_title varchar(100),
         cat_order int(10),
     PRIMARY KEY (cat_id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBFORUMS."`(
@@ -419,7 +419,7 @@ function update_db_course($courseDbName)
         forum_order int(10) DEFAULT '0',
     PRIMARY KEY (forum_id),
     KEY forum_last_post_id (forum_last_post_id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBPOSTS."`(
@@ -436,14 +436,14 @@ function update_db_course($courseDbName)
     KEY forum_id (forum_id),
     KEY topic_id (topic_id),
     KEY poster_id (poster_id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBPOSTSTEXT."` (
         post_id int(10) DEFAULT '0' NOT NULL,
         post_text text,
     PRIMARY KEY (post_id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBPRIVMSG."` (
@@ -457,7 +457,7 @@ function update_db_course($courseDbName)
     PRIMARY KEY (msg_id),
     KEY msg_id (msg_id),
     KEY to_userid (to_userid)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBTOPICS."` (
@@ -477,7 +477,7 @@ function update_db_course($courseDbName)
     KEY topic_id (topic_id),
     KEY forum_id (forum_id),
     KEY topic_last_post_id (topic_last_post_id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBUSERS."` (
@@ -508,7 +508,7 @@ function update_db_course($courseDbName)
         user_actkey varchar(32),
         user_newpasswd varchar(32),
     PRIMARY KEY (user_id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBWHOSONLINE."` (
@@ -520,7 +520,7 @@ function update_db_course($courseDbName)
         username varchar(40),
         forum int(10),
     PRIMARY KEY (id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEPHPBBNOTIFY."` (
@@ -529,7 +529,7 @@ function update_db_course($courseDbName)
     `topic_id` int(10) NOT NULL default '0',
     PRIMARY KEY  (`notify_id`),
     KEY `SECONDARY` (`user_id`,`topic_id`)
-    )";
+    ) TYPE=MyISAM ";
 
     //-- exercise
     $sqlList[] = "
@@ -547,7 +547,7 @@ function update_db_course($courseDbName)
         `attempts` tinyint(4) NOT NULL default '0',
         `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'NOTALLOWED',
     PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZQUESTION."` (
@@ -558,14 +558,14 @@ function update_db_course($courseDbName)
         `type` enum('MCUA','MCMA','TF','FIB','MATCHING') NOT NULL default 'MCUA',
         `grade` float NOT NULL default '0',
     PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZRELEXERCISEQUESTION."` (
         `exerciseId` int(11) NOT NULL,
         `questionId` int(11) NOT NULL,
         `rank` int(11) NOT NULL default '0'
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERTRUEFALSE."` (
@@ -577,7 +577,7 @@ function update_db_course($courseDbName)
         `falseGrade` float NOT NULL,
         `correctAnswer` enum('TRUE','FALSE') NOT NULL,
         PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERMULTIPLECHOICE."` (
@@ -588,7 +588,7 @@ function update_db_course($courseDbName)
         `grade` float NOT NULL,
         `comment` text NOT NULL,
         PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERFIB."` (
@@ -599,7 +599,7 @@ function update_db_course($courseDbName)
         `wrongAnswerList` text NOT NULL,
         `type` tinyint(4) NOT NULL,
         PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEQWZANSWERMATCHING."` (
@@ -610,7 +610,7 @@ function update_db_course($courseDbName)
         `grade` float NOT NULL default '0',
         `code` varchar(32) default NULL,
         PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     // Course description
     $sqlList[] = "
@@ -621,7 +621,7 @@ function update_db_course($courseDbName)
         `upDate` DATETIME NOT NULL,
         `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
     UNIQUE (`id`)
-    ) COMMENT = 'for course description tool' ";
+    ) TYPE=MyISAM  COMMENT = 'for course description tool' ";
 
     // Tool List
     $sqlList[] = "
@@ -634,7 +634,7 @@ function update_db_course($courseDbName)
         `script_name` varchar(255) default NULL,
         `addedTool` ENUM('YES','NO') DEFAULT 'YES',
     PRIMARY KEY  (`id`)
-    ) ";
+    ) TYPE=MyISAM  ";
 
     // Agenda
     $sqlList[] = "
@@ -647,7 +647,7 @@ function update_db_course($courseDbName)
         `lasting` varchar(20),
         `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
     PRIMARY KEY (id)
-    )";
+    ) TYPE=MyISAM ";
 
     // Documents and Links
     $sqlList[] = "
@@ -656,7 +656,7 @@ function update_db_course($courseDbName)
         path varchar(255) NOT NULL,
         visibility char(1) DEFAULT 'v' NOT NULL,
         comment varchar(255),
-    PRIMARY KEY (id))";
+    PRIMARY KEY (id)) TYPE=MyISAM ";
 
     // Assignments
     $sqlList[] = "
@@ -677,7 +677,7 @@ function update_db_course($courseDbName)
         `original_id` int(11) default NULL,
         `score` smallint(3) NULL default NULL,
     PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLWRKASSIGNMENT."` (
@@ -695,7 +695,7 @@ function update_db_course($courseDbName)
         `prefill_doc_path` varchar(200) NOT NULL default '',
         `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
     PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     // Groups
     $sqlList[] = "
@@ -707,7 +707,7 @@ function update_db_course($courseDbName)
         maxStudent int(11) NULL default '0',
         secretDirectory varchar(30) NOT NULL default '0',
     PRIMARY KEY  (id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEGROUPUSER."` (
@@ -717,7 +717,7 @@ function update_db_course($courseDbName)
         status int(11) NOT NULL default '0',
         role varchar(50) NOT NULL default '',
     PRIMARY KEY  (id)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLECOURSEPROPERTIES."` (
@@ -726,7 +726,7 @@ function update_db_course($courseDbName)
         `value` varchar(255) default NULL,
         `category` varchar(255) default NULL,
         PRIMARY KEY  (`id`)
-)";
+) TYPE=MyISAM ";
 
     // Tool intro
     $sqlList[] = "
@@ -739,7 +739,7 @@ function update_db_course($courseDbName)
         `rank` int(11) default '1',
         `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
     PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     // Learning Path
     $sqlList[] = "
@@ -752,7 +752,7 @@ function update_db_course($courseDbName)
         `contentType` enum('CLARODOC','DOCUMENT','EXERCISE','HANDMADE','SCORM','LABEL') NOT NULL,
         `launch_data` text NOT NULL,
     PRIMARY KEY  (`module_id`)
-    ) COMMENT='List of available modules used in learning paths' ";
+    ) TYPE=MyISAM  COMMENT='List of available modules used in learning paths' ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLELEARNPATH."` (
@@ -764,7 +764,7 @@ function update_db_course($courseDbName)
         `rank` int(11) NOT NULL default '0',
     PRIMARY KEY  (`learnPath_id`),
     UNIQUE KEY rank (`rank`)
-    ) COMMENT='List of learning Paths' ";
+    ) TYPE=MyISAM  COMMENT='List of learning Paths' ";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLELEARNPATHMODULE."` (
@@ -778,7 +778,7 @@ function update_db_course($courseDbName)
         `parent` int(11) NOT NULL default '0',
         `raw_to_pass` tinyint(4) NOT NULL default '50',
     PRIMARY KEY  (`learnPath_module_id`)
-    ) COMMENT='This table links module to the learning path using them'";
+    ) TYPE=MyISAM  COMMENT='This table links module to the learning path using them'";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEASSET."` (
@@ -787,7 +787,7 @@ function update_db_course($courseDbName)
         `path` varchar(255) NOT NULL default '',
         `comment` varchar(255) default NULL,
     PRIMARY KEY  (`asset_id`)
-    ) COMMENT='List of resources of module of learning paths'";
+    ) TYPE=MyISAM  COMMENT='List of resources of module of learning paths'";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLEUSERMODULEPROGRESS."` (
@@ -806,7 +806,7 @@ function update_db_course($courseDbName)
         `suspend_data` text NOT NULL,
         `credit` enum('CREDIT','NO-CREDIT') NOT NULL default 'NO-CREDIT',
     PRIMARY KEY  (`user_module_progress_id`)
-    ) COMMENT='Record the last known status of the user in the course'";
+    ) TYPE=MyISAM  COMMENT='Record the last known status of the user in the course'";
 
     // Tracking
     $sqlList[] = "
@@ -817,7 +817,7 @@ function update_db_course($courseDbName)
         `access_tid` int(10) default NULL,
         `access_tlabel` varchar(8) default NULL,
     PRIMARY KEY  (`access_id`)
-    ) COMMENT='Record informations about access to course or tools'";
+    ) TYPE=MyISAM  COMMENT='Record informations about access to course or tools'";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETRACKDOWNLOADS."` (
@@ -826,7 +826,7 @@ function update_db_course($courseDbName)
         `down_date` datetime NOT NULL default '0000-00-00 00:00:00',
         `down_doc_path` varchar(255) NOT NULL default '0',
     PRIMARY KEY  (`down_id`)
-    ) COMMENT='Record informations about downloads'";
+    ) TYPE=MyISAM  COMMENT='Record informations about downloads'";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETRACKEXERCICES."` (
@@ -838,7 +838,7 @@ function update_db_course($courseDbName)
         `exe_time`    mediumint(8) NOT NULL default '0',
         `exe_weighting` float NOT NULL default '0',
     PRIMARY KEY  (`exe_id`)
-    ) COMMENT='Record informations about exercices'";
+    ) TYPE=MyISAM  COMMENT='Record informations about exercices'";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETRACKEXEDETAILS."` (
@@ -847,7 +847,7 @@ function update_db_course($courseDbName)
         `question_id` int(11) NOT NULL default '0',
         `result` float NOT NULL default '0',
     PRIMARY KEY  (`id`)
-    ) COMMENT='Record answers of students in exercices'";
+    ) TYPE=MyISAM  COMMENT='Record answers of students in exercices'";
 
     $sqlList[] = "
     CREATE TABLE `" . $TABLETRACKEXEANSWERS . "` (
@@ -855,7 +855,7 @@ function update_db_course($courseDbName)
         `details_id` int(11) NOT NULL default '0',
         `answer` text NOT NULL,
     PRIMARY KEY  (`id`)
-    ) COMMENT=''";
+    ) TYPE=MyISAM  COMMENT=''";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETRACKUPLOADS."` (
@@ -864,7 +864,7 @@ function update_db_course($courseDbName)
         `upload_date` datetime NOT NULL default '0000-00-00 00:00:00',
         `upload_work_id` int(11) NOT NULL default '0',
     PRIMARY KEY  (`upload_id`)
-    ) COMMENT='Record some more informations about uploaded works'";
+    ) TYPE=MyISAM  COMMENT='Record some more informations about uploaded works'";
 
     // Linker
     $sqlList[] = "
@@ -874,7 +874,7 @@ function update_db_course($courseDbName)
         `dest_id` int(11) NOT NULL default '0',
         `creation_time` timestamp(14) NOT NULL,
     PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
@@ -882,7 +882,7 @@ function update_db_course($courseDbName)
         `crl` text NOT NULL,
         `title` text NOT NULL,
     PRIMARY KEY  (`id`)
-    )";
+    ) TYPE=MyISAM ";
 
     // Wiki
     $sqlList[] = "
@@ -892,14 +892,14 @@ function update_db_course($courseDbName)
         `description` TEXT NULL,
         `group_id` INT(11) NOT NULL DEFAULT 0,
     PRIMARY KEY(`id`)
-    )" ;
+    ) TYPE=MyISAM " ;
 
     $sqlList[] = "
     CREATE TABLE IF NOT EXISTS `".$TABLEWIKIACLS."` (
         `wiki_id` INT(11) UNSIGNED NOT NULL,
         `flag` VARCHAR(255) NOT NULL,
         `value` ENUM('false','true') NOT NULL DEFAULT 'false'
-    )";
+    ) TYPE=MyISAM ";
 
     $sqlList[] = "
     CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGES."` (
@@ -911,7 +911,7 @@ function update_db_course($courseDbName)
         `last_version` int(11) unsigned NOT NULL default '0',
         `last_mtime` datetime NOT NULL default '0000-00-00 00:00:00',
     PRIMARY KEY  (`id`)
-    )" ;
+    ) TYPE=MyISAM " ;
 
     $sqlList[] = "
     CREATE TABLE IF NOT EXISTS `".$TABLEWIKIPAGESCONTENT."` (
@@ -921,7 +921,7 @@ function update_db_course($courseDbName)
         `mtime` datetime NOT NULL default '0000-00-00 00:00:00',
         `content` text NOT NULL,
     PRIMARY KEY  (`id`)
-    )" ;
+    ) TYPE=MyISAM " ;
 
     foreach($sqlList as $thisSql)
     {

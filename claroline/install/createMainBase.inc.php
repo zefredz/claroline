@@ -307,8 +307,7 @@ $creationStatementList[]= "CREATE TABLE
   `acceptedValue` text NOT NULL,
   PRIMARY KEY  (`contextScope`(2),`propertyId`),
   KEY `rank` (`rank`)
-)
-";
+) TYPE=MyISAM ";
 
 $creationStatementList[]= "
 CREATE TABLE  `" . $mainTblPrefixForm . "user_property` (
@@ -317,7 +316,6 @@ CREATE TABLE  `" . $mainTblPrefixForm . "user_property` (
   `propertyValue` varchar(255) NOT NULL default '',
   `scope`         varchar(45) NOT NULL default '',
   PRIMARY KEY  (`scope`(2),`propertyId`,`userId`)
-)"
-;
+) TYPE=MyISAM" ;
 
 ?>
