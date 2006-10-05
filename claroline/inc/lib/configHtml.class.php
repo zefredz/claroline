@@ -68,7 +68,7 @@ class ConfigHtml extends Config
             . '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
             . '<input type="hidden" name="cmd" value="save" />' . "\n";
 
-            $form .= '<table class="claroTable"  border="0" cellpadding="5" width="100%">' . "\n";
+            $form .= '<table border="0" cellpadding="5" width="100%">' . "\n";
             if ($section_selected!='viewall') $section_list = $section_list= array($section_selected);
 
             foreach ($section_list as $thisSection)
@@ -470,15 +470,14 @@ class ConfigHtml extends Config
             $menu .= '<ul id="navlist">' . "\n";
 
             foreach ( $section_list as $section )
-            if($section != 'viewall')
             {
                 $menu .=  '<li>'
                 . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
                 . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code)
                 . '&amp;section=' . htmlspecialchars($section) . htmlspecialchars($url_params). '">'
                 . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
+
             }
-            $menu .= '<li><a class="viewall" href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code) . '&amp;section=viewall'.htmlspecialchars($url_params).'">' . get_lang('View all') . '</a></li>' . "\n";
             $menu .= '</ul>' . "\n";
             $menu .= '</div>' . "\n" ;
         }
