@@ -1,48 +1,40 @@
 <?php // $Id$
-/*
-      +----------------------------------------------------------------------+
-      | CLAROLINE version 1.4.0 $Revision$                             |
-      +----------------------------------------------------------------------+
-      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
-      +----------------------------------------------------------------------+
-      |   Polish Translation                                                 |
-      +----------------------------------------------------------------------+
-      |   This program is free software; you can redistribute it and/or      |
-      |   modify it under the terms of the GNU General Public License        |
-      |   as published by the Free Software Foundation; either version 2     |
-      |   of the License, or (at your option) any later version.             |
-
-
-
-      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
-      +----------------------------------------------------------------------+
-      | Translator: S³awomir Gurda³a <guslaw@uni.lodz.pl>                    |
-      +----------------------------------------------------------------------+
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @author: S³awomir Gurda³a <guslaw@uni.lodz.pl>                    |
+ * @author: claro team <cvs@claroline.net>
+ *
+ * @package LANG-PL
 */
 $englishLangName = "Polish";
 
 $iso639_1_code = "pl";
 $iso639_2_code = "pol";
 
-$langNameOfLang[arabic]		="arabian";
-$langNameOfLang[brazilian]	="brazilian";
-//$langNameOfLang[catalan]	="";
-//$langNameOfLang[croatian]	="";
-//$langNameOfLang[dutch]	="";
-$langNameOfLang[english]	="english";
-$langNameOfLang[finnish]	="finnish";
-$langNameOfLang[french]		="french";
-//$langNameOfLang[galician]	="";
-$langNameOfLang[german]		="german";
-//$langNameOfLang[greek]	="";
-$langNameOfLang[italian]	="italian";
-$langNameOfLang[japanese]	="japanese";
-$langNameOfLang[polish]		="polish";
+$langNameOfLang[arabic]        ="arabian";
+$langNameOfLang[brazilian]    ="brazilian";
+//$langNameOfLang[catalan]    ="";
+//$langNameOfLang[croatian]    ="";
+//$langNameOfLang[dutch]    ="";
+$langNameOfLang[english]    ="english";
+$langNameOfLang[finnish]    ="finnish";
+$langNameOfLang[french]        ="french";
+//$langNameOfLang[galician]    ="";
+$langNameOfLang[german]        ="german";
+//$langNameOfLang[greek]    ="";
+$langNameOfLang[italian]    ="italian";
+$langNameOfLang[japanese]    ="japanese";
+$langNameOfLang[polish]        ="polish";
 $langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]	="spanish";
-$langNameOfLang[swedish]	="swedish";
-$langNameOfLang[thai]		="thai";
-$langNameOfLang[turkish]	="turkish";
+$langNameOfLang[spanish]    ="spanish";
+$langNameOfLang[swedish]    ="swedish";
+$langNameOfLang[thai]        ="thai";
+$langNameOfLang[turkish]    ="turkish";
 
 $charset = 'iso-8859-2';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -69,4 +61,3 @@ $dateTimeFormatLong  = '%d %B %Y at %H:%M';
 $timeNoSecFormat = '%H:%M';
 
 ?>
-

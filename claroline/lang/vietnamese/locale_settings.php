@@ -1,34 +1,35 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @author: claro team <cvs@claroline.net>
+ *
+ * @package LANG-VI
+ */
+
 $englishLangName = "Vietnamese";
 
 $iso639_1_code = "vi";
 $iso639_2_code = "vie";
 
-$langNameOfLang['arabic'		]="arabian";
-$langNameOfLang['brazilian'		]="brazilian";
-$langNameOfLang['english'		]="english";
-$langNameOfLang['finnish'		]="finnish";
-$langNameOfLang['french'		]="french";
-$langNameOfLang['german'		]="german";
-$langNameOfLang['italian'		]="italian";
-$langNameOfLang['japanese'		]="japanese";
-$langNameOfLang['polish'		]="polish";
-$langNameOfLang['simpl_chinese'	]="simplified chinese";
-$langNameOfLang['spanish'		]="spanish";
-$langNameOfLang['swedish'		]="swedish";
-$langNameOfLang['thai'			]="thai";
-$langNameOfLang['turkish'		]="turkish";
+$langNameOfLang['arabic'        ]="arabian";
+$langNameOfLang['brazilian'        ]="brazilian";
+$langNameOfLang['english'        ]="english";
+$langNameOfLang['finnish'        ]="finnish";
+$langNameOfLang['french'        ]="french";
+$langNameOfLang['german'        ]="german";
+$langNameOfLang['italian'        ]="italian";
+$langNameOfLang['japanese'        ]="japanese";
+$langNameOfLang['polish'        ]="polish";
+$langNameOfLang['simpl_chinese'    ]="simplified chinese";
+$langNameOfLang['spanish'        ]="spanish";
+$langNameOfLang['swedish'        ]="swedish";
+$langNameOfLang['thai'            ]="thai";
+$langNameOfLang['turkish'        ]="turkish";
 
 //$charset = 'iso-8859-1';
 //$text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
