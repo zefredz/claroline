@@ -2118,8 +2118,7 @@ $_lang['sampleForumMainCategory'] = 'Main';
 $_lang['sampleForumMessage'] = 'When you remove the test forum, it will remove all messages in that forum too.';
 $_lang['sampleForumTitle'] = 'Test forum';
 $_lang['sampleForumTopicTitle'] = 'Example message';
-$_lang['sampleLearnPathDescription'] = 'This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on
-                            <b>Modify</b> to change this text.';
+$_lang['sampleLearnPathDescription'] = 'This is a sample learning path, it uses the sample exercise and the sample document of the exercise tool and the document tool. Click on <b>Modify</b> to change this text.';
 $_lang['sampleLearnPathDocumentDescription'] = 'You can use any document existing in the documents tool of this course.';
 $_lang['sampleLearnPathDocumentTitle'] = 'example_document';
 $_lang['sampleLearnPathQuizDescription'] = 'You can use any exercise of the exercises tool of your course.';
@@ -2147,4 +2146,17 @@ $_lang['unlimited'] = 'unlimited';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.';
 $_lang['blockTextZoneHelp'] = 'This text zone is displayed to each user. Platform administrator can change its content or remove it by editing the <b>%textZoneFile</b> file.'; 
+$_lang['A file with this name already exists.'] = 'A file with this name already exists.';
+$_lang['Add/modify a comment to %documentName'] = 'Add/modify a comment to %documentName';
+$_lang['Click to make invisible'] = 'Click to make invisible';
+$_lang['Click to make visible'] = 'Click to make visible';
+$_lang['Disk space available : %size'] = 'Disk space available : %size';
+$_lang['Disk space occupied : %size'] = 'Disk space occupied : %size';
+$_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
+$_lang['Maximum disk space : %size'] = 'Maximum disk space : %size';
+$_lang['Operation impossible.'] = 'Operation impossible.';
+$_lang['Page'] = 'Page';
+$_lang['The information have been modified'] = 'The information have been modified';
+$_lang['Your search did not match any courses'] = 'Your search did not match any courses';
+$_lang['details'] = 'details';
 ?>
