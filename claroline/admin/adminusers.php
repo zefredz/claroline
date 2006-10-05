@@ -155,7 +155,7 @@ foreach ($userList as $userKey => $user)
 
     if ( $user['isPlatformAdmin'] )
     {
-        $userGrid[$userKey]['isCourseCreator'] .= '<br /><font color="red">' . get_lang('Administrator').'</font>';
+        $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
     }
     $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
     .                                 '?uidToEdit=' . $user['user_id']
