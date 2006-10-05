@@ -202,6 +202,8 @@ class ConfigHtml extends Config
         }
         else
         {
+            $form_title = '';
+            $form_value = '';
 
             if ( isset($property_def['readonly']) && $property_def['readonly'] )
             {
@@ -329,7 +331,7 @@ class ConfigHtml extends Config
 
                             foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                             {
-                                $form_value = '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
+                                $form_value .= '<input id="'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
                                 . ($value==$keyVal?' checked="checked" ':' ').' >'
                                 . '<label for="'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
                                 . '<span class="propUnit">'.$html['unit'].'</span>'
