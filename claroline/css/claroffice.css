@@ -264,15 +264,16 @@ h3.claroToolTitle {
 	display: none;
 }
 
-#breadcrumbLine #breadcrumbTrail
-{
+#breadcrumbLine .breadcrumbTrail {
 	float: left;
 }
 
-#breadcrumbLine #toolViewOption
-{
+#breadcrumbLine #toolViewOption {
 	float: right;
 	text-align: right;
+}
+
+.breadcrumbTrail {
 }
 
 /******************************************************************************
