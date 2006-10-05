@@ -647,3 +647,48 @@ claroRightMenu a:hover {
     font-size: smaller;
     margin-left: 30px;
 }
+
+
+/*
+ * Navigation with tabs : configuration, modules, ...
+ */
+ 
+#navlist {
+    margin: 10px;
+    padding: 0 0 7px 10px;
+    border-bottom: 1px solid #DEDEDE;   
+}
+
+.tabTitle {
+    padding: 3px 0;
+    margin-left: 0;
+    border-bottom: 1px solid #DEDEDE; 
+}
+
+.tabTitle a {
+    border-bottom: 4px solid #0466A7;
+    text-decoration: none;
+}
+
+#navlist li, .tabTitle li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline;
+}
+
+#navlist li a:link,
+#navlist li a:visited {
+    margin: 0 5px 4px 5px;
+    padding: 3px 0.5em;
+    text-decoration: none;
+}
+
+#navlist li a:hover {
+    border-bottom: 4px solid #DEDEDE;
+}
+
+#navlist li a.current {
+    border-bottom: 4px solid #0466A7;
+}
+

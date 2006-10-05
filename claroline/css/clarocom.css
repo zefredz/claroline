@@ -853,3 +853,46 @@ a:visited.invisible {
     font-size: smaller;
     margin-left: 30px;
 }
+
+/*
+ * Navigation with tabs : configuration, modules, ...
+ */
+ 
+#navlist {
+    margin: 10px;
+    padding: 0 0 7px 10px;
+    border-bottom: 1px solid #DEDEDE;   
+}
+
+.tabTitle {
+    padding: 3px 0;
+    margin-left: 0;
+    font-weight: bold;
+    border-bottom: 1px solid #DEDEDE; 
+}
+
+.tabTitle a {
+    border-bottom: 4px solid #669933;
+}
+
+#navlist li, .tabTitle li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline;
+}
+
+#navlist li a:link,
+#navlist li a:visited {
+    margin: 0 5px 4px 5px;
+    padding: 3px 0.5em;
+    text-decoration: none;
+}
+
+#navlist li a:hover {
+    border-bottom: 4px solid #EDF1E3;
+}
+
+#navlist li a.current {
+    border-bottom: 4px solid #669933;
+}

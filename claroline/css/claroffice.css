@@ -36,6 +36,7 @@ h3{
 
 h3.claroToolTitle {
 	margin-top: 30px;
+	padding-top: 5px;
 }
 
 /******************************************************************************
@@ -580,14 +581,46 @@ claroRightMenu a:hover {
     color:gray
 }
 
-.claroToolTitle {
-	padding-top: 5px;
+/*
+ * Navigation with tabs : configuration, modules, ...
+ */
+ 
+#navlist {
+    margin: 10px;
+    padding: 0 0 7px 10px;
+    border-bottom: 1px solid #DEDEDE;   
 }
 
-/******************************************************************************
-                             PLUGIN 'S DOCK CSS CLASSES
- ******************************************************************************/
-.dock
-{
-   
+.tabTitle {
+    padding: 3px 0;
+    margin-left: 0;
+    border-bottom: 1px solid #DEDEDE; 
+    text-decoration: none;
+}
+
+.tabTitle a {
+    border-bottom: 4px solid #9C9A9C;
+    text-decoration: none;
+}
+
+#navlist li, .tabTitle li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline;
+}
+
+#navlist li a:link,
+#navlist li a:visited {
+    margin: 0 5px 4px 5px;
+    padding: 3px 0.5em;
+    text-decoration: none;
+}
+
+#navlist li a:hover {
+    border-bottom: 4px solid #DEDEDE;
+}
+
+#navlist li a.current {
+    border-bottom: 4px solid #9C9A9C;
 }
