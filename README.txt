@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.8.0 rc1 - README
+        CLAROLINE 1.8.0 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -11,7 +11,6 @@ TABLE OF CONTENT :
   5. DOCUMENTATION
   6. CONTACT
   7. NEW FEATURES
-
 
 1. DESCRIPTION
    ===========
@@ -469,5 +468,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - August 28 2006
+                Europe, Belgium, Louvain-la-Neuve - October 5 2006
 ================================== END ===================================

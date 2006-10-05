@@ -1,12 +1,8 @@
-
- THIS IS A DEVELOPMENT VERSION DON'T USE IT INPRODUCTION
-
-
 *****************************************************
-     CLAROLINE 1.8 Release Candidate 1- INSTALL
+     CLAROLINE 1.8
 *****************************************************
 
-Thank you for downloading Claroline 1.8 . This text will guide you
+Thank you for downloading Claroline 1.8. This text will guide you
 through the basics of installation and operation of Claroline 1.8. Please
 ensure you read this fully BEFORE proceeding with the installation.
 
@@ -19,12 +15,10 @@ TABLE OF CONTENT :
   3. TROUBLESHOOTING
   4. ADMIN
 
-
-
 REQUIREMENTS
 ============
 
-To install Claroline 1.8. "release candidate 1" on a computer, whether locally or remotely,
+To install Claroline 1.8 on a computer, whether locally or remotely,
 you need the following on your machine :
 
 1. One of the following Operating systems :
@@ -33,7 +27,7 @@ you need the following on your machine :
         Windows (9x, Me, NT4, 2000, XP)
         MacOs X.
 
-  (*) We thoroughly test Claroline on Debian and Mandrake distributions,
+  (*) We thoroughly test Claroline on Debian, Ubuntu and Mandrake distributions,
       but other Linux distributions should work too. We've received
       positive feedbacks from users working on Red Hat and Suse.
       Don't hesitate to notify us of any problem encountered on other
@@ -41,7 +35,7 @@ you need the following on your machine :
 
 1. A web server (We recommend Apache, but others should work too),
 
-2. PHP scripting language (version 4.3 or later), configured with the
+2. PHP scripting language (version 4.3.10 or later), configured with the
    following modules : mysql, zlib, preg. Most of the PHP4 compiled
    distributions are provided with these modules. Anyway, their presence
    is checked by the Claroline install script.
@@ -71,12 +65,6 @@ you need the following on your machine :
        occurs between table names of both applications that could conducts
        to serious problems.
 
-       NOTE 1. People using MySQL 4.1 (or later) could face connection
-       problem. To fix this problem, see on the my SQL web site :
-
-            "Client does not support authentication protocol"
-            http://dev.mysql.com/doc/mysql/en/Old_client.html
-
 4. Web Write access to web directory where Claroline has been moved
    or unzipped to. On a Windows machine locally, this
    is not a problem. Remotely, you need to be allowed to CHMOD
@@ -91,23 +79,22 @@ you need the following on your machine :
    Several MTA are freely available for Windows (Mercury, Blat,
    Netmail95, WMailto , Hamster ...).
 
-
 INSTALLATION PROCEDURE
 ======================
 
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline180rc1.tar.gz'
+1. Download 'claroline180.tar.gz'
 
-   Windows : download 'claroline180rc1.zip'.
+   Windows : download 'claroline180.zip
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline180rc1.tar.gz
+    tar -zxvf claroline180.tar.gz
 
-   Windows : unzip 'claroline180rc1.zip'.
+   Windows : unzip 'claroline180.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory).
@@ -117,10 +104,10 @@ NEW CLAROLINE INSTALLATION
    drag and drop 'index.php' file and 'claroline' directory into
    C:\Program Files\easyphp\www\
 
-4. The following directories need to be readable, writeable and executable
-   for everyone:
+4. The following directory need to be readable, writeable and executable
+   for everyone: 
 
-   claroline18x/
+    chmod ugo+w claroline180/
 
 4. Open Web Browser and go to
 
@@ -145,16 +132,16 @@ Before upgrading we heavily recommend you do a full backup of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline180rc1.tar.gz'
+1. Download 'claroline180.tar.gz'
 
-   Windows : download 'claroline180rc1.zip'.
+   Windows : download 'claroline180.zip'
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline180rc1.tar.gz
+    tar -zxvf claroline180.tar.gz
 
-   Windows : unzip 'claroline180rc1.zip'.
+   Windows : unzip 'claroline180.zip'
 
 
 3. Replace your previous Claroline directory and index.php by the new one.
@@ -179,12 +166,11 @@ please ask your hosting provider for advice.
 TROUBLESHOOTING
 ===============
 
-In case web install doesn't work, you can try manual install.
+In case web install doesn't work
 
 1. Go, if needed, to 'http://www.claroline.net' and ask a question on the
    Support forum. Read however the previous messages to see if there is
    already an answer to your question.
-
 
 
 ADMINISTRATION SECTION
@@ -194,5 +180,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - August 28 2006
+            Europe, Belgium, Louvain-la-Neuve - October 5 2006
 ================================== END ===================================
