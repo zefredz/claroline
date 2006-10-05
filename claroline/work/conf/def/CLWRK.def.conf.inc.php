@@ -103,7 +103,7 @@ array ('label'         => 'Maximum size for an assignment'
       ,'description'   => 'Maximum size of a document that a user can upload'
       ,'display'       => TRUE
       ,'readonly'      => FALSE
-      ,'default'       => '200000000'
+      ,'default'       => '3000000' // 3mo
       ,'type'          => 'integer'
       ,'unit'          => 'bytes'
       );
