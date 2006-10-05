@@ -84,59 +84,6 @@ $nameTools = get_lang('Modules');
 $interbredcrump[]= array ('url' => $rootAdminWeb,'name' => get_lang('Administration'));
 $dialogBox  ='';
 
-//NEEDED CSS
-
-$htmlHeadXtra[] = "
-<style type=\"text/css\">
-.backlogDetails
-{
-    padding: 3px;
-    border: 1px solid #778;
-    background: silver;
-}
-#moduletypelist
-{
-padding: 3px 0;
-margin-left: 0;
-border-bottom: 1px solid #778;
-font: bold 12px Verdana, sans-serif;
-}
-
-#moduletypelist li
-{
-list-style: none;
-margin: 0;
-display: inline;
-}
-
-#moduletypelist li a
-{
-padding: 3px 0.5em;
-margin-left: 3px;
-border: 1px solid #778;
-border-bottom: none;
-background: #DDE;
-text-decoration: none;
-}
-
-#moduletypelist li a:link { color: #448; }
-#moduletypelist li a:visited { color: #667; }
-
-#moduletypelist li a:hover
-{
-color: #000;
-background: #AAE;
-border-color: #227;
-}
-
-#moduletypelist li a#current
-{
-background: white;
-border-bottom: 1px solid white;
-}
-</style>
-";
-
 $htmlHeadXtra[] =
 "<script type=\"text/javascript\">
 function confirmation (name)
@@ -444,8 +391,8 @@ echo '<a class="claroCmd" href="module_list.php?cmd=rqInstall">' . get_lang('Ins
 
 //display tabbed navbar
 
-.    '<div id="moduletypecontainer">' . "\n"
-.    '<ul id="moduletypelist">' . "\n"
+.    '<div>' . "\n"
+.    '<ul id="navlist">' . "\n"
 ;
 
 //display the module type tabbed naviguation bar
@@ -454,7 +401,7 @@ foreach ($moduleTypeList as $type)
 {
     if ($typeReq == $type)
     {
-        echo '<li id="active"><a href="module_list.php?typeReq=' . $type . '" id="current">' . $typeLabel[$type] . '</a></li>' . "\n";
+        echo '<li><a href="module_list.php?typeReq=' . $type . '" class="current">' . $typeLabel[$type] . '</a></li>' . "\n";
     }
     else
     {

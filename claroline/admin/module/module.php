@@ -50,114 +50,6 @@ $undeactivable_tool_array = array('CLDOC',
 								  'CLGRP'
 								 );	
 
-//NEEDED CSS
-
-$htmlHeadXtra[] = "
-<style type=\"text/css\">
-#modulesettinglist
-{
-padding: 3px 0;
-margin-left: 0;
-border-bottom: 1px solid #778;
-font: bold 12px Verdana, sans-serif;
-}
-
-#modulesettinglist li
-{
-list-style: none;
-margin: 0;
-display: inline;
-}
-
-#modulesettinglist li a
-{
-padding: 3px 0.5em;
-margin-left: 3px;
-border: 1px solid #778;
-border-bottom: none;
-background: #DDE;
-text-decoration: none;
-}
-
-#modulesettinglist li a:link { color: #448; }
-#modulesettinglist li a:visited { color: #667; }
-
-#modulesettinglist li a:hover
-{
-color: #000;
-background: #AAE;
-border-color: #227;
-}
-
-#modulesettinglist li a#current
-{
-background: white;
-border-bottom: 1px solid white;
-}
-
-#navlist, .tabTitle
-{
-padding: 3px 0;
-margin-left: 0;
-border-bottom: 1px solid #778;
-font: bold 12px Verdana, sans-serif;
-}
-
-#navlist li, .tabTitle li
-{
-list-style: none;
-margin: 0;
-display: inline;
-}
-
-#navlist li a, .tabTitle li a
-{
-padding: 3px 0.5em;
-margin-left: 3px;
-border: 1px solid #778;
-border-bottom: none;
-background: #DDDEBC;
-text-decoration: none;
-}
-
-#navlist li a:link { color: #448; }
-#navlist li a:visited { color: #667; }
-
-#navlist li a:hover
-{
-color: #000;
-background: #AAE;
-border-color: #227;
-}
-
-#navlist li a.current
-{
-color: #000;
-background: white;
-border-bottom: 1px solid white;
-}
-
-#navlist li a.viewall
-{
-align : right;
-background: white;
-border-right: 0px solid white;
-border-top: 0px solid white;
-border-left: 0px solid white;
-}
-
-.configSectionDesc
-{
-    padding: 3px 0.5em;
-    margin-left: 10px;
-    background: #eD2;
-    border: 1px solid #778;
-    // Yes its awfull but volontary to be changed
-
-}
-</style>
-";
-
 $htmlHeadXtra[] =
 "<script type=\"text/javascript\">
 function confirmMakeVisible ()
@@ -316,8 +208,8 @@ if ( isset($dialogBox) )
 
 //display tabbed navbar
 
-echo  '<div id="modulesettingscontainer">'
-    . '<ul id="modulesettinglist">'
+echo  '<div>'
+    . '<ul id="navlist">'
     . "\n"
     ;
 
@@ -326,7 +218,7 @@ echo  '<div id="modulesettingscontainer">'
 if ($item == 'GLOBAL')
 {
     echo '<li><a href="module.php?module_id='.$moduleId
-        . '&amp;item=GLOBAL" id="current">'
+        . '&amp;item=GLOBAL" class="current">'
         . get_lang('Global settings').'</a></li>'
         . "\n"
         ;
@@ -351,7 +243,7 @@ if ( $config->load() )
 	if ($item == 'LOCAL')
     {
 		echo '<li><a href="module.php?module_id='.$moduleId
-            . '&amp;item=LOCAL" id="current">'
+            . '&amp;item=LOCAL" class="current">'
             . get_lang('Local settings').'</a></li>'
             . "\n"
             ;
@@ -368,7 +260,7 @@ if ( $config->load() )
 if ($item == 'GENERAL' || is_null($item))
 {
 	echo '<li><a href="module.php?module_id='.$moduleId
-        . '&amp;item=GENERAL" id="current">'
+        . '&amp;item=GENERAL" class="current">'
         . get_lang('About').'</a></li>'
         . "\n"
         ;
