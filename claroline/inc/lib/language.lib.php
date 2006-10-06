@@ -150,6 +150,10 @@ class language
           Common language properties and generic expressions
           ----------------------------------------------------------------------*/
 
+        // FIXME : force translation mode
+
+        $mode = 'TRANSLATION'; 
+
         if ( $mode == 'TRANSLATION' )
         {
             // TRANSLATION MODE : include the language file with all language variables
