@@ -37,6 +37,31 @@
  *
  *  * 4th section display all of that on a HTML page
  */
+ 
+/* Programmer's documentation :
+ * 
+ * Action variable : $_REQUEST['cmd']
+ * 
+ * Available actions
+ * - exUpload       : upload a file
+ * - rqUpload       : display upload dialog
+ * - submitImage    : upload image within html documents
+ * - exMkHtml       : create html file
+ * - exEditHtml     : edit html file
+ * - exMkUrl        : create a link
+ * - rqMkUrl        : display link creation dialog
+ * - exMv           : move a file or directory
+ * - rqMv           : display move dialog
+ * - exRm           : delete a file or directory
+ * - exEdit         : edit file or directory properties
+ * - rqEdit         : display file properties dialog
+ * - exMkDir        : create a directory
+ * - rqMkDir        : display directory creation dialog
+ * - exChVis        : change file or directory visibility
+ * - rqSearch       : display search dialog
+ * - exDownload     : download directory contents
+ * - exSearch       : execute search
+ */ 
 
 /*= = = = = = = = = = = = = = = = =
        CLAROLINE MAIN
