@@ -607,7 +607,7 @@ echo '<html>' . "\n"
 .    ' -- version ' . $new_version
 .    ' -- Step  ' . (array_search($display, $panelSequence) + 1)  . "\n"
 .    '</title>' . "\n"
-.    '<link rel="stylesheet" href="../css/default.css" type="text/css" >' . "\n"
+//.    '<link rel="stylesheet" href="../css/default.css" type="text/css" >' . "\n"
 .    '<link rel="stylesheet" href="./install.css" type="text/css" >' . "\n"
 .    '<style media="print" type="text/css"  >' . "\n"
 .    '    .notethis { font-weight : bold;  }' . "\n"
@@ -621,14 +621,12 @@ echo '<html>' . "\n"
 .    '<body dir="' . $text_dir . '">' . "\n"
 .    '<center>' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-.    '<table class="installer" cellpadding="5" cellspacing="0" border="0"  >' . "\n"
-.    '<tr bgcolor="#000066">' . "\n"
-.    '<th valign="top"  colspan="2">' . "\n"
-.    '<FONT color="White">' . "\n"
+.    '<table id="installer" cellpadding="5" cellspacing="0" border="0"  >' . "\n"
+.    '<tr>' . "\n"
+.    '<th valign="top" colspan="2">' . "\n"
 .    'Claroline ' . $new_version  . ' - Installation' . "\n"
-.    '</font>' . "\n"
 .    '</th>' . "\n"
-.    '</TR>' . "\n"
+.    '</tr>' . "\n"
 .    '<tr>' . "\n"
 .    '<td valign="top" >' . "\n"
 ;
@@ -659,9 +657,9 @@ if (DISP_RUN_INSTALL_COMPLETE != $display )
 
 echo '</td>' . "\n"
 .    '<td valign="top">' . "\n"
-.    '<table class="panel" cellpadding="10" cellspacing="0" border="0" width="575">' . "\n"
+.    '<table class="panel" cellpadding="10" cellspacing="0" border="0">' . "\n"
 .    '<tr>' . "\n"
-.    '<td>' . "\n"
+.    '<td valign="top">' . "\n"
 ;
 
 if (DISP_RUN_INSTALL_COMPLETE != $display )
@@ -904,11 +902,11 @@ elseif(DISP_LICENSE == $display)
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_LICENSE] ) )
     .    '</h2>'  . "\n"
-    .    '<P>'  . "\n"
+    .    '<p>'  . "\n"
     .    'Claroline is free software, distributed under GNU General Public licence (GPL).'  . "\n"
-    .    'Please read the licence and click &quot;I accept&quot;.'  . "\n"
-    .    '<a href="../../LICENCE.txt">' . get_lang('PrintVers') . '</a>'  . "\n"
-    .    '</P>'  . "\n"
+    .    'Please read the licence and click &quot;Next &gt;&quot;.'  . "\n"
+    .    '<a href="../../LICENCE.txt">Printer-friendly version</a>'  . "\n"
+    .    '</p>'  . "\n"
     .    '<textarea wrap="virtual" cols="65" rows="15">'
     ;
 
@@ -918,16 +916,6 @@ elseif(DISP_LICENSE == $display)
     .    '</tr>'
     .    '<tr>'
     .    '<td>'
-    .    '<table width="100%">'
-    .    '<tr>'
-    .    '<td>'
-    .    '</td>'
-    .    '<td align="right">'
-    .    '<label for="I_ACCEPT_LICENSE"></label>'
-//    .    '<input type="checkbox" name="I_ACCEPT_LICENSE" value="1">'
-    .    '</td>'
-    .    '</tr>'
-    .    '</table>'
     ;
 
 }
