@@ -385,9 +385,7 @@ echo claro_html_tool_title($nameTools);
 if ($dialogBox != '' ) echo claro_html_message_box($dialogBox);
 
 //display action links
-echo '<a class="claroCmd" href="module_list.php?cmd=rqInstall">' . get_lang('Install module') . '</a>' . "\n"
-.    '<br/><br/>' . "\n\n"
-
+echo '<p><a class="claroCmd" href="module_list.php?cmd=rqInstall">' . get_lang('Install module') . '</a></p>' . "\n\n"
 
 //display tabbed navbar
 
