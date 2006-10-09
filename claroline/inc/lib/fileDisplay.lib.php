@@ -1,23 +1,22 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
-/* vim: set expandtab tabstop=4 shiftwidth=4:
-  +----------------------------------------------------------------------+
-  | CLAROLINE version 1.3.0 $Revision$                             |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 2000, 2001 Universite catholique de Louvain (UCL)      |
-  +----------------------------------------------------------------------+
-  | $Id$  |
-  +----------------------------------------------------------------------+
-  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
-  | available through the world-wide-web at                              |
-  | http://www.gnu.org/copyleft/gpl.html                                 |
-  +----------------------------------------------------------------------+
-  | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
-  |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
-  |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
-  +----------------------------------------------------------------------+
-*/
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/config_def/
+ *
+ * @package KERNEL
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
 
 
 /**
@@ -70,9 +69,6 @@ function choose_image($fileName)
         $image['draw'      ] = 'odg.png';
         $image['impress'   ] = 'odp.png';
         $image['math'      ] = 'odf.png';
-        
-        
-
     }
 
     /* FUNCTION CORE */
@@ -90,7 +86,7 @@ function choose_image($fileName)
         }
     }
 
-    return "default.gif";
+    return 'default.gif';
 }
 
 //------------------------------------------------------------------------------
@@ -153,20 +149,6 @@ function format_date($fileDate)
  * @return - relative url
  */
 
-/*function format_url($url)
-{
-    $path = substr($url, strpos($url, '://') +3 );
-
-    $pathElementList = explode('/', $path);
-
-    for ($i = 0; $i < sizeof($pathElementList); $i++)
-    {
-        $pathElementList[$i] = rawurlencode($pathElementList[$i]);
-    }
-
-    return substr($url, 0, strpos($url, '://')+3) . implode('/',$pathElementList);
-}*/
-
 function url_already_encoded( $url )
 {
     return ( false !== strpos( $url, '%' ) );
@@ -181,12 +163,12 @@ function format_url($url)
 
     $urlArray = parse_url( $url );
 
-	
+
 	$urlToRet = isset($urlArray['scheme'])
 		? $urlArray['scheme']
 		: ''
 		;
-        
+
     if ( isset($urlArray['scheme'])
         && 'mailto' == $urlArray['scheme'] )
     {
@@ -196,7 +178,7 @@ function format_url($url)
     {
         $urlToRet .= '://';
     }
-		
+
     if ( isset( $urlArray['user'] ) )
     {
         $urlToRet = $urlArray['user'];
@@ -234,6 +216,13 @@ function format_url($url)
     return $urlToRet;
 }
 
+/**
+ * Enter description here...
+ *
+ * @param string $path
+ * @return string
+ *
+ */
 function format_url_path( $path )
 {
     $pathElementList = explode('/', $path);
@@ -246,6 +235,12 @@ function format_url_path( $path )
     return implode('/',$pathElementList);
 }
 
+/**
+ * Enter description here...
+ *
+ * @param string $query
+ * @return string
+ */
 function format_url_query( $query )
 {
     $ret = '';
@@ -293,6 +288,13 @@ function format_url_query( $query )
     return $ret;
 }
 
+
+/**
+ * Callbacked function
+ *
+ * @param array $matches
+ * @return string
+ */
 function query_make_part( $matches )
 {
     return $matches[1] . '=' . rawurlencode( $matches[2] );
