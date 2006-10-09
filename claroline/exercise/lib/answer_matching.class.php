@@ -213,7 +213,7 @@ class answerMatching
     	// check that all right values are filled
     	foreach( $this->rightList as $rightElt )
     	{
-    		if( empty($rightElt['answer']) )
+    		if( $rightElt['answer'] == '' )
     		{
     			$this->errorList[] = get_lang('Please fill the two lists below');
 	    		return false;	
@@ -224,7 +224,7 @@ class answerMatching
     	foreach( $this->leftList as $leftElt )
     	{
     		// check that all left values are filled
-    		if( empty($leftElt['answer']) )
+    		if( $leftElt['answer'] == '' )
     		{
     			$this->errorList[] = get_lang('Please fill the two lists below');
 	    		return false;	
