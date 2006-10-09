@@ -553,20 +553,25 @@ function get_unexisting_file_name($desiredDirName)
 function move_uploaded_file_collection_into_directory($uploadedFileCollection, $destPath)
 {
     $uploadedFileNb = count($uploadedFileCollection['name']);
+    
+    $newFileList = array();
 
     for ($i=0; $i < $uploadedFileNb; $i++)
     {
-
-        if (is_uploaded_file($uploadedFileCollection['tmp_name'][$i]))
+        if ( !empty ( $uploadedFileCollection['name'] ) )
         {
-            if ( move_uploaded_file($uploadedFileCollection['tmp_name'][$i],
-                                    $destPath.'/'.php2phps($uploadedFileCollection['name'][$i])) )
+            if (is_uploaded_file($uploadedFileCollection['tmp_name'][$i]))
             {
-                $newFileList[$i] = basename($destPath).'/'.$uploadedFileCollection['name'][$i];
-            }
-            else
-            {
-                die('<center>can not move uploaded file</center>');
+                if ( move_uploaded_file($uploadedFileCollection['tmp_name'][$i],
+                                        $destPath.'/'.php2phps($uploadedFileCollection['name'][$i])) )
+                {
+                    $newFileList[$i] = basename($destPath).'/'.$uploadedFileCollection['name'][$i];
+                }
+                else
+                {
+                    // FIXME use clro_die or a better error reporting system
+                    die('<center>can not move uploaded file</center>');
+                }
             }
         }
     }

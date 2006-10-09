@@ -488,19 +488,21 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $mkInvisibl = str_replace($baseWorkDir, '', $imgDirectory);
 
             // move the uploaded image files into the corresponding image directory
-
+            
             // Try to create  a directory to store the image files
             $newImgPathList = move_uploaded_file_collection_into_directory($_FILES['imgFile'], $imgDirectory);
 
-
-            $newImgPathList = array_map('urlencode', $newImgPathList);
-            // urlencode() does too much. We don't need to replace '/' by '%2F'
-            $newImgPathList = str_replace('%2F', '/', $newImgPathList);
-
-            replace_img_path_in_html_file($_REQUEST['imgFilePath'],
+            if ( !empty( $newImgPathList ) )
+            {
+                $newImgPathList = array_map('urlencode', $newImgPathList);
+                // urlencode() does too much. We don't need to replace '/' by '%2F'
+                $newImgPathList = str_replace('%2F', '/', $newImgPathList);
+    
+                replace_img_path_in_html_file($_REQUEST['imgFilePath'],
                                           $newImgPathList,
                                           $baseWorkDir.$_REQUEST['relatedFile']);
 
+            }
         }                                            // end if ($uploadImgFileNb > 0)
     }                                        // end if ($submitImage)
 
