@@ -399,7 +399,7 @@ else
   User initialisation
  ---------------------------------------------------------------------------*/
 
-if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
+if ( $uidReset && !empty($_uid) ) // session data refresh requested && uid is given (log in succeeded)
 {
     // Update the current session id with a newly generated one ( PHP >= 4.3.2 )
     // This function is vital in preventing session fixation attackselle
@@ -407,100 +407,97 @@ if ( $uidReset && $claro_loginSucceeded ) // session data refresh requested
     $cidReset = true;
     $gidReset = true;
 
-    if ( !empty($_uid) ) // a uid is given (log in succeeded)
+    $sql = "SELECT `user`.`prenom`          AS firstName             ,
+                   `user`.`nom`             AS lastName              ,
+                   `user`.`email`           AS `mail`                ,
+                   `user`.`officialEmail`   AS `officialEmail`       ,
+                   `user`.`language`                                 ,
+                   `user`.`isCourseCreator`   AS is_courseCreator    ,
+                   `user`.`isPlatformAdmin`  AS is_platformAdmin    ,
+                   `user`.`creatorId`       AS creatorId             , "
+
+          .       (get_conf('is_trackingEnabled')
+                   ? "UNIX_TIMESTAMP(`login`.`login_date`)"
+                   : "DATE_SUB(CURDATE(), INTERVAL 1 DAY)") . " AS lastLogin
+
+            FROM `".$tbl_user."` `user` "
+
+         . (get_conf('is_trackingEnabled')
+            ? "LEFT JOIN `". $tbl_track_e_login ."` `login`
+                      ON `user`.`user_id`  = `login`.`login_user_id` "
+            : '')
+
+         .   "WHERE `user`.`user_id` = ". (int) $_uid
+
+         .  (get_conf('is_trackingEnabled')
+             ? " ORDER BY `login`.`login_date` DESC LIMIT 1"
+             : '')
+         ;
+
+    $_user = claro_sql_query_get_single_row($sql);
+
+    if ( is_array($_user) )
     {
-            $sql = "SELECT `user`.`prenom`          AS firstName             ,
-                           `user`.`nom`             AS lastName              ,
-                           `user`.`email`           AS `mail`                ,
-                           `user`.`officialEmail`   AS `officialEmail`       ,
-                           `user`.`language`                                 ,
-                           `user`.`isCourseCreator`   AS is_courseCreator    ,
-                           `user`.`isPlatformAdmin`  AS is_platformAdmin    ,
-                           `user`.`creatorId`       AS creatorId             , "
+        // Extracting the user data
 
-                  .       (get_conf('is_trackingEnabled')
-                           ? "UNIX_TIMESTAMP(`login`.`login_date`)"
-                           : "DATE_SUB(CURDATE(), INTERVAL 1 DAY)") . " AS lastLogin
+        $is_platformAdmin        = (bool) ($_user['is_platformAdmin'       ] );
+        $is_allowedCreateCourse  = (bool) ($_user['is_courseCreator'] || $is_platformAdmin);
 
-                    FROM `".$tbl_user."` `user` "
-
-                 . (get_conf('is_trackingEnabled')
-                    ? "LEFT JOIN `". $tbl_track_e_login ."` `login`
-                              ON `user`.`user_id`  = `login`.`login_user_id` "
-                    : '')
-
-                 .   "WHERE `user`.`user_id` = ". (int) $_uid
-
-                 .  (get_conf('is_trackingEnabled')
-                     ? " ORDER BY `login`.`login_date` DESC LIMIT 1"
-                     : '')
-                 ;
-
-        $_user = claro_sql_query_get_single_row($sql);
-
-        if ( is_array($_user) )
+        if ( $_uid != $_user['creatorId'] )
         {
-            // Extracting the user data
+            // first login for a not self registred (e.g. registered by a teacher)
+            // do nothing (code may be added later)
+            $sql = "UPDATE `".$tbl_user."`
+                    SET   creatorId = user_id
+                    WHERE user_id='" . (int)$_uid . "'";
 
-            $is_platformAdmin        = (bool) ($_user['is_platformAdmin'       ] );
-            $is_allowedCreateCourse  = (bool) ($_user['is_courseCreator'] || $is_platformAdmin);
+            claro_sql_query($sql);
 
-            if ( $_uid != $_user['creatorId'] )
-            {
-                // first login for a not self registred (e.g. registered by a teacher)
-                // do nothing (code may be added later)
-                $sql = "UPDATE `".$tbl_user."`
-                        SET   creatorId = user_id
-                        WHERE user_id='" . (int)$_uid . "'";
-
-                claro_sql_query($sql);
-
-                $_SESSION['firstLogin'] = true;
-            }
-            else
-            {
-                $_SESSION['firstLogin'] = false;
-            }
-
-            // RECORD SSO COOKIE
-            // $ssoEnabled set in conf/auth.soo.conf.php
-
-            if ( get_conf('ssoEnabled',false ))
-            {
-               $ssoCookieExpireTime = time() + $ssoCookiePeriodValidity;
-               $ssoCookieValue      = md5( mktime() . rand(100, 1000000) );
-
-                $sql = "UPDATE `".$tbl_sso."`
-                        SET cookie    = '".$ssoCookieValue."',
-                            rec_time  = NOW()
-                        WHERE user_id = ". (int) $_uid;
-
-                $affectedRowCount = claro_sql_query_affected_rows($sql);
-
-                if ($affectedRowCount < 1)
-                {
-                    $sql = "INSERT INTO `".$tbl_sso."`
-                            SET cookie    = '".$ssoCookieValue."',
-                                rec_time  = NOW(),
-                                user_id   = ". (int) $_uid;
-
-                    claro_sql_query($sql);
-                }
-
-               $boolCookie = setcookie($ssoCookieName, $ssoCookieValue,
-                                       $ssoCookieExpireTime,
-                                       $ssoCookiePath, $ssoCookieDomain);
-
-               // Note. $ssoCookieName, $ssoCookieValussoCookieExpireTime,
-               //       $soCookiePath and $ssoCookieDomain are coming from
-               //       claroline/inc/conf/auth.conf.php
-
-            } // end if ssoEnabled
+            $_SESSION['firstLogin'] = true;
         }
         else
         {
-            exit('WARNING UNDEFINED UID !! ');
+            $_SESSION['firstLogin'] = false;
         }
+
+        // RECORD SSO COOKIE
+        // $ssoEnabled set in conf/auth.soo.conf.php
+
+        if ( get_conf('ssoEnabled',false ))
+        {
+           $ssoCookieExpireTime = time() + $ssoCookiePeriodValidity;
+           $ssoCookieValue      = md5( mktime() . rand(100, 1000000) );
+
+            $sql = "UPDATE `".$tbl_sso."`
+                    SET cookie    = '".$ssoCookieValue."',
+                        rec_time  = NOW()
+                    WHERE user_id = ". (int) $_uid;
+
+            $affectedRowCount = claro_sql_query_affected_rows($sql);
+
+            if ($affectedRowCount < 1)
+            {
+                $sql = "INSERT INTO `".$tbl_sso."`
+                        SET cookie    = '".$ssoCookieValue."',
+                            rec_time  = NOW(),
+                            user_id   = ". (int) $_uid;
+
+                claro_sql_query($sql);
+            }
+
+           $boolCookie = setcookie($ssoCookieName, $ssoCookieValue,
+                                   $ssoCookieExpireTime,
+                                   $ssoCookiePath, $ssoCookieDomain);
+
+           // Note. $ssoCookieName, $ssoCookieValussoCookieExpireTime,
+           //       $soCookiePath and $ssoCookieDomain are coming from
+           //       claroline/inc/conf/auth.conf.php
+
+        } // end if ssoEnabled
+    }
+    else
+    {
+        exit('WARNING UNDEFINED UID !! ');
     }
 }
 elseif ( !empty($_uid) ) // elseif of if($uidReset) continue with the previous values
