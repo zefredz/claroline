@@ -54,20 +54,26 @@ $pagetype  = 'reply';
   Main Section
  =================================================================*/
 
+
+
 if ( isset($_REQUEST['forum']) ) $forum_id = (int) $_REQUEST['forum'];
 else                             $forum_id = 0;
 
 if ( isset($_REQUEST['topic']) ) $topic_id = (int) $_REQUEST['topic'];
 else                             $topic_id = 0;
 
-if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
-else                               $message = '';
-
 if ( isset($_REQUEST['cancel']) )
 {
     claro_redirect('viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
     exit();
 }
+
+if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
+else                               $message = '';
+
+// XSS
+$message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
+
 
 $topicSettingList = get_topic_settings($topic_id);
 

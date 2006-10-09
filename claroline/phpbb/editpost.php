@@ -118,8 +118,9 @@ if ( $postSettingList && $is_allowedToEdit )
             if ( isset($_REQUEST['message']) )
             {
                 $message = $_REQUEST['message'];
-
-                if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
+                
+                // XSS
+                $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
             }
             else
             {
