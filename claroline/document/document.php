@@ -172,7 +172,7 @@ if($is_allowedToEdit) // for teacher only
 }
 
 // XSS protection
-$cwd =isset( $_REQUEST['cwd'] ) ? strip_tags($_REQUEST['cwd']):null;
+$cwd =isset( $_REQUEST['cwd'] ) ? urldecode($_REQUEST['cwd']):null;
 
 // clean information submited by the user from antislash
 
@@ -182,6 +182,7 @@ else                           $cmd = null;
 if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
 else                               $docView = 'files';
 
+if ( isset($_REQUEST['file']) ) $_REQUEST['file'] = urldecode($_REQUEST['file']);
 
 /* > > > > > > MAIN SECTION  < < < < < < <*/
 
@@ -415,7 +416,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
                        .  '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
                        .  '<input type="hidden" name="cmd" value="exUpload">' . "\n"
-                       .  '<input type="hidden" name="cwd" value="' . $cwd . '">' . "\n"
+                       .  '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '">' . "\n"
                        .  '<label for="userFile">' . get_lang("Upload file") . ' : </label>' . "\n"
                        .  '<br />' . "\n"
                        .  '<input type="file" id="userFile" name="userFile"> ' . "\n"
@@ -461,7 +462,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
     
             $dialogBox .= '<input type="submit" value="' . get_lang('Ok') . '">&nbsp; '
-                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd), get_lang('Cancel'))
+                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. urlencode($cwd), get_lang('Cancel'))
                        .'</form>';
         }
     }
@@ -505,7 +506,6 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
         }                                            // end if ($uploadImgFileNb > 0)
     }                                        // end if ($submitImage)
-
 
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -653,7 +653,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $dialogBox .= get_lang('Create hyperlink')."\n"
                      .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">' . "\n"
                      .'<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
-                     .'<input type="hidden" name="cwd" value="'.$cwd.'" />' . "\n" 
+                     .'<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n" 
                      .'<label for="fileName">' . get_lang('Name'). ' : </label><br />' . "\n"
                      .'<input type="text" id="fileName" name="fileName"><br />' . "\n"
                      .'<label for="url">'. get_lang('URL'). ' : </label><br />' . "\n"
@@ -671,7 +671,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= '<input type="submit" value="'.get_lang('Ok').'">&nbsp; '
-                     .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd), get_lang('Cancel'))
+                     .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.urlencode($cwd), get_lang('Cancel'))
                      .'</form>' . "\n";
 
     }
@@ -978,7 +978,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $dialogBox .= '<form>' . "\n"
                       . '<input type="hidden" name="cmd" value="exMkDir" />' . "\n"
-                      . '<input type="hidden" name="cwd" value="'.$cwd.'" />' . "\n"
+                      . '<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
                       . '<label for="newName">' . get_lang('Name of the new directory').' : </label><br />' . "\n"
                       . '<input type="text" id="newName" name="newName" />' . "\n"
                       . '<br />' . "\n" ;
@@ -994,7 +994,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd), get_lang('Cancel'))
+                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.urlencode($cwd), get_lang('Cancel'))
                       .'</form>' . "\n";
     }
 
@@ -1030,9 +1030,9 @@ if ('rqSearch' == $cmd )
                     . '<input type="hidden" name="cmd" value="exSearch">' . "\n"
                     . '<label for="searchPattern">' .$searchMsg . '</label><br />' . "\n"
                     . '<input type="text" id="searchPattern" name="searchPattern">' . "\n"
-                    . '<input type="hidden" name="cwd" value="' . $cwd . '"><br /><br />' . "\n"
+                    . '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '"><br /><br />' . "\n"
                     . '<input type="submit" value="' . get_lang('Ok' ) . '">&nbsp;'
-                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($cwd),
+                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. urlencode($cwd),
                                        get_lang("Cancel"))
 
                     .'</form>' . "\n";
@@ -1046,6 +1046,8 @@ if ('exDownload' == $cmd )
 
     if ( isset($_REQUEST['file'] ) )
     {
+        $_REQUEST['file'] = urldecode($_REQUEST['file']);
+
         $requestDownloadPath = $baseWorkDir
                              . preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
         $searchDownloadPattern = '';
@@ -1464,7 +1466,7 @@ $dspCurDirPath = htmlspecialchars($curDirPath);
 $cmdCurDirPath = rawurlencode($curDirPath);
 $cmdParentDir  = rawurlencode($parentDir);
 
-//display toot title and subtitle
+//display toot title and subtitl)e
 
 $titleElement['mainTitle'] = get_lang("Documents and Links");
 if ( $_gid && $is_groupAllowed) $titleElement['supraTitle'] = $_group['name'];
@@ -1573,7 +1575,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. $curDirPath . $searchCmdUrl . '">'
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. urlencode($curDirPath) . $searchCmdUrl . '">'
                  . '<img src="' . $imgRepositoryWeb . 'document.gif" alt="">'
                  . get_lang('File list')
                  . '</a>';
@@ -1588,7 +1590,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd=' . $curDirPath . $searchCmdUrl . '">'
+                 . '?docView=thumbnails&amp;cwd=' . urlencode($curDirPath) . $searchCmdUrl . '">'
                  . '<img src="' . $imgRepositoryWeb . 'image.gif" alt="">'
                  . get_lang('Thumbnails').'</a>';
         }
