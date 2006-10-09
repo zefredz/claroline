@@ -33,42 +33,42 @@ require_once $includePath . '/lib/backlog.class.php';
 //OLD TOOLS ;
 
 $old_tool_array = array('CLANN',
-'CLCAL',
-'CLFRM',
-'CLCHT',
-'CLDOC',
-'CLDSC',
-'CLUSR',
-'CLLNP',
-'CLQWZ',
-'CLWRK',
-'CLWIKI',
-'CLLNK',
-'CLGRP'
-);
+                        'CLCAL',
+                        'CLFRM',
+                        'CLCHT',
+                        'CLDOC',
+                        'CLDSC',
+                        'CLUSR',
+                        'CLLNP',
+                        'CLQWZ',
+                        'CLWRK',
+                        'CLWIKI',
+                        'CLLNK',
+                        'CLGRP'
+                        );
 
 //UNDEACTIVABLE	TOOLS array
 
 $undeactivable_tool_array = array('CLDOC',
-'CLGRP'
-);
+                                  'CLGRP'
+                                  );
 
 //NONUNINSTALABLE TOOLS array
 
 $nonuninstalable_tool_array = array('CLANN',
-'CLCAL',
-'CLFRM',
-'CLCHT',
-'CLDOC',
-'CLDSC',
-'CLUSR',
-'CLLNP',
-'CLQWZ',
-'CLWRK',
-'CLWIKI',
-'CLLNK',
-'CLGRP'
-);
+                        'CLCAL',
+                        'CLFRM',
+                        'CLCHT',
+                        'CLDOC',
+                        'CLDSC',
+                        'CLUSR',
+                        'CLLNP',
+                        'CLQWZ',
+                        'CLWRK',
+                        'CLWIKI',
+                        'CLLNK',
+                        'CLGRP'
+                        );
 
 //SQL table name
 
