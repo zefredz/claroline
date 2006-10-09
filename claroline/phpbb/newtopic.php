@@ -58,7 +58,7 @@ else                             $forum_id = 0;
 
 if ( isset( $_REQUEST['cancel'] ) )
 {
-    claro_redirect('viewforum.php?forum='.$forum);
+    claro_redirect('viewforum.php?forum='.$forum_id);
     exit();
 }
 
@@ -72,7 +72,7 @@ if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
 else                               $message = '';
 
 // XSS
-$message = preg_replace( '/(<script[^\>]*>|<\/script>|on[^=]+\s*=\s*"[^"]+")/i', '', $message );
+$message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
 
 $forumSettingList = get_forum_settings($forum_id);
 
