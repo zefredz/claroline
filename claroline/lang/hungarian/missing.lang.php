@@ -339,7 +339,7 @@ $_lang['This module cannot be deactivated'] = 'This module cannot be deactivated
 $_lang['This page is empty, use the editor to add content.'] = 'This page is empty, use the editor to add content.';
 $_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'This password is too simple. Use a password like this <code>%passProposed</code>';
 $_lang['This question is used in several exercises.'] = 'This question is used in several exercises.';
-$_lang['This text layout should be modified to be editable in this editor.\nCancel to keep your original text layout.\n'] = 'This text layout should be modified to be editable in this editor.\nCancel to keep your original text layout.\n';
+$_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.';
 $_lang['This tool can not be uninstalled.'] = 'This tool can not be uninstalled.';
 $_lang['To install this module click <a href="%url">here</a>.'] = 'To install this module click <a href="%url">here</a>.';
 $_lang['Tool list'] = 'Tool list';

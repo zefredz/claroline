@@ -1146,6 +1146,7 @@ $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Qu
 $_lang['This page is empty, use the editor to add content.'] = 'Questa pagina è vuota, usa l\'editor per scrivere contenuti.';
 $_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'Questa password è troppo semplice. Usa una password del tipo <code>%passProposed</code>';
 $_lang['This question is used in several exercises.'] = 'Questa domanda è usata in diversi esercizi.';
+$_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'Questo layout deve essere modificato per essere modificabile con questo editor. Annulla per mantenere il layout di testo originario.';
 $_lang['This tool can not be uninstalled.'] = 'Questo strumento non può essere disinstallato.';
 $_lang['This user name is already taken'] = 'Questo nome utente è già in uso';
 $_lang['This will also delete all works submitted in this assignment !'] = 'Attenzione: questa operazione eliminerà anche tutti i lavori inseriti per questo compito!';

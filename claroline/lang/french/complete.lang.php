@@ -411,7 +411,7 @@ $_lang['Details'] = 'Détails';
 $_lang['Devel Tools'] = 'Outils de développement';
 $_lang['Differences :'] = 'Différences :';
 $_lang['Direct link to image'] = 'Lien direct vers l\'image';
-$_lang['Directory created'] = 'répertoire créé';
+$_lang['Directory created'] = 'Répertoire créé';
 $_lang['Disable'] = 'Désactiver';
 $_lang['Disk Usage'] = 'Utilisation disque';
 $_lang['Disk quota exceeded, please contact the %administrator'] = 'Quota disque dépassé, contactez l\'%administrator';
@@ -1147,9 +1147,7 @@ $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Ce
 $_lang['This page is empty, use the editor to add content.'] = 'Cette page est vide, utilisez l\'éditeur pour ajouter du contenu.';
 $_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'Ce mot de passe est trop simple. Choisissez un autre mot de passe, par exemple : <code>%passProposed</code>';
 $_lang['This question is used in several exercises.'] = 'Cette question est utilisée dans plusieurs exercices.';
-$_lang['This text layout should be modified to be editable in this editor.\nCancel to keep your original text layout.\n'] = 'La mise en page de ce texte devrait être modifiée pour être éditable dans cet éditeur.
-Annulez pour conserver la mise en page.
-';
+$_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'La mise en page de ce texte devrait être modifiée pour être éditable dans cet éditeur. Annulez pour conserver la mise en page.';
 $_lang['This tool can not be uninstalled.'] = 'Cet outil ne peut être désinstallé.';
 $_lang['This user name is already taken'] = 'L\'identifiant que vous avez choisi est déjà pris';
 $_lang['This will also delete all works submitted in this assignment !'] = 'Attention : cela supprimera aussi tous les travaux soumis dans cette session !';
