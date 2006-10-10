@@ -426,7 +426,7 @@ switch ($item)
             {
                 if ( ! empty($_REQUEST['property']) )
                 {
-                    list ($message, $error) = generate_conf($config,$_REQUEST['property']);
+                    list($message, $error) = generate_conf($config,$_REQUEST['property']);
                 }
             }
             // display form
@@ -442,7 +442,7 @@ switch ($item)
 
         if ( ! empty($message) )
         {
-            echo claro_html_message_box(implode('<br />',$message));
+            echo claro_html_message_box($message);
         }
 
     	echo $form.'</div>';
