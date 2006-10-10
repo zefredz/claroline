@@ -36,11 +36,11 @@ foreach($personnalCourseList as $thisCourse)
                    CONCAT(`title`,' - ',`contenu`)                  AS `content`
 
             FROM `" . $tableAnn . "`
-            WHERE    CONCAT(`title`, `contenu`) != ''
-              AND    DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', $_user['lastLogin'])."'
-
+            WHERE CONCAT(`title`, `contenu`) != ''
+              AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', $_user['lastLogin'])."'
+              AND visibility = 'SHOW'
             ORDER BY `date` DESC
-            LIMIT     1";
+            LIMIT 1";
 
     $resultList = claro_sql_query_fetch_all_cols($sql);
 
@@ -64,6 +64,7 @@ foreach($personnalCourseList as $thisCourse)
             FROM `" . $tableCal . "`
             WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
               AND CONCAT(`titre`, `contenu`) != ''
+              AND visibility = 'SHOW'
             ORDER BY `date`
             LIMIT 1";
 
