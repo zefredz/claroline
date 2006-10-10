@@ -74,13 +74,25 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7.7
+NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7
 -----------------------------------------------------
-* Module administration
-* User rights and profiles administration
-* Support of Ical standard in Calendar tool
-* Complete refactoring of the exercise tool (no feature change)
-...
+
+This new stable version, that comes with a new logo, offers a bunch of interesting new features :
+
+ * A new default layout
+ * Module system : build your own Claroline extension
+ * User rights and profiles are now completely customizable
+ * Classes management improved
+ * Personal language selector
+ * Course Tools Improvements :
+  o Documents : Download all documents in a compressed file
+  o Exercises : Import/export your exercises, ...
+  o Wiki : Internal search engine
+ * Configuration : many new parameters
+
+You'll find more information and screenshots about Claroline 1.8 in our detailed claroline 1.8 page :
+
+ * http://www.claroline.net/doc/en/index.php/Claroline_18
 
 NEW FEATURES IN CLAROLINE 1.7.7 SINCE CLAROLINE 1.7.6
 -----------------------------------------------------
@@ -468,5 +480,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 5 2006
+                Europe, Belgium, Louvain-la-Neuve - October 10 2006
 ================================== END ===================================
