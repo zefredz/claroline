@@ -16,25 +16,34 @@ $englishLangName = "Polish";
 $iso639_1_code = "pl";
 $iso639_2_code = "pol";
 
-$langNameOfLang[arabic]        ="arabian";
-$langNameOfLang[brazilian]    ="brazilian";
-//$langNameOfLang[catalan]    ="";
-//$langNameOfLang[croatian]    ="";
-//$langNameOfLang[dutch]    ="";
-$langNameOfLang[english]    ="english";
-$langNameOfLang[finnish]    ="finnish";
-$langNameOfLang[french]        ="french";
-//$langNameOfLang[galician]    ="";
-$langNameOfLang[german]        ="german";
-//$langNameOfLang[greek]    ="";
-$langNameOfLang[italian]    ="italian";
-$langNameOfLang[japanese]    ="japanese";
-$langNameOfLang[polish]        ="polish";
-$langNameOfLang[simpl_chinese]="simplified chinese";
-$langNameOfLang[spanish]    ="spanish";
-$langNameOfLang[swedish]    ="swedish";
-$langNameOfLang[thai]        ="thai";
-$langNameOfLang[turkish]    ="turkish";
+$langNameOfLang['arabic']          = 'Arabski';
+$langNameOfLang['armenian']        = 'Ormiañski';
+//$langNameOfLang['brazilian]      = "brazilian";
+$langNameOfLang['ulgarian']        = 'Bu³garski';
+//$langNameOfLang['catalan']       = "";
+$langNameOfLang['croatian']        = 'Chorwacki';
+$langNameOfLang['czech']           = 'Czeski';
+$langNameOfLang['czechSlovak']     = 'Czesko-s³owacki';
+$langNameOfLang['danish']          = 'Duñski';
+//$langNameOfLang['dutch']         = "";
+//$langNameOfLang['dutch']         = "";
+$langNameOfLang['english']         = 'Angielski';
+$langNameOfLang['esperanto']       = 'Esperanto';
+$langNameOfLang['estonian']        = 'Estoñski';
+//$langNameOfLang['finnish']       = "finnish";
+//$langNameOfLang['french']        = "french";
+$langNameOfLang['georgian']        = 'Gruziñski';
+$langNameOfLang['german']          = 'Niemiecki';
+$langNameOfLang['greek']           = 'Grecki';
+//$langNameOfLang['italian']       = "italian";
+//$langNameOfLang['japanese']      = "japanese";
+$langNameOfLang['polish']          = 'Polski';
+//$langNameOfLang['simpl_chinese'] = "simplified chinese";
+$langNameOfLang['spanish']         = 'Hiszpañski';
+$langNameOfLang['swedish']         = 'Szwedzki';
+$langNameOfLang['thai']            = 'Tajski';
+$langNameOfLang['turkish']         = 'Turecki';
+$langNameOfLang['ukrainian']       = 'Ukraiñski';;
 
 $charset = 'iso-8859-2';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -42,7 +51,8 @@ $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
 $number_thousands_separator = ' ';
 $number_decimal_separator = ',';
-$byteUnits = array('Bytes', 'KB', 'MB', 'GB');
+// shortcuts for Byte, Kilo, Mega, Giga, Tera, Peta, Exa
+$byteUnits = array('bajtów', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
 
 $langDay_of_weekNames['init'] = array('N', 'P', 'W', '¦', 'C', 'Pt', 'S');
 $langDay_of_weekNames['short'] = array('Nied', 'Pon', 'Wt', '¦r', 'Czw', 'Pt', 'Sob');
@@ -57,7 +67,8 @@ $langMonthNames['long'] = array('Styczeñ', 'Luty', 'Marzec', 'Kwiecieñ', 'Maj', 
 
 $dateFormatShort =  "%d %b %y";
 $dateFormatLong  = '%A, %d %B %Y';
-$dateTimeFormatLong  = '%d %B %Y at %H:%M';
+$dateTimeFormatLong  = '%d %B %Y, %H:%M';
 $timeNoSecFormat = '%H:%M';
+$timespanfmt = '%s dni, %s godzin, %s minut i %s sekund';
 
 ?>
