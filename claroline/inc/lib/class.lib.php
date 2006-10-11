@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)c
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -154,7 +154,7 @@ function delete_class($class_id)
         // 4 - Get the list of course
         $sql = "SELECT *
             FROM `".$tbl_course_class."` `rel_c_c`, `".$tbl_course."` `c`
-            WHERE `rel_c_c`.`class_id`='". (int) $class_id ."'
+            WHERE `rel_c_c`.`classId`='". (int) $class_id ."'
             AND `rel_c_c`.`courseId` = `c`.`code`";
 
         $courseList = claro_sql_query_fetch_all($sql);
