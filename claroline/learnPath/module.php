@@ -75,11 +75,9 @@ include($includePath."/lib/fileManage.lib.php");
 include($includePath."/lib/fileUpload.lib.php");
 
 // clean exercise session vars
-if(session_is_registered('objExercise'))        { session_unregister('objExercise');        }
-if(session_is_registered('objQuestion'))        { session_unregister('objQuestion');        }
-if(session_is_registered('objAnswer'))          { session_unregister('objAnswer');          }
-if(session_is_registered('questionList'))       { session_unregister('questionList');       }
-if(session_is_registered('exerciseResult'))     { session_unregister('exerciseResult');     }
+unset($_SESSION['serializedExercise']);
+unset($_SESSION['serializedQuestionList']);
+unset($_SESSION['exeStartTime']);
 
 // main page
 // FIRST WE SEE IF USER MUST SKIP THE PRESENTATION PAGE OR NOT
