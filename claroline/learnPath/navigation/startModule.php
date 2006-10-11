@@ -133,12 +133,9 @@ switch ($module['contentType'])
 
 	case CTEXERCISE_ :
 		// clean session vars of exercise
-		unset($_SESSION['questionList']);
-		unset($_SESSION['exerciseResult']);
+		unset($_SESSION['serializedExercise']);
+		unset($_SESSION['serializedQuestionList']);
 		unset($_SESSION['exeStartTime'	]);
-		session_unregister('questionList');
-		session_unregister('exerciseResult');
-		session_unregister('exeStartTime');
 
 		$_SESSION['inPathMode'] = true;
 		$startAssetpage = $clarolineRepositoryWeb."exercise/exercise_submit.php";
