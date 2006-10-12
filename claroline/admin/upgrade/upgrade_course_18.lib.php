@@ -77,7 +77,7 @@ function course_repository_upgrade_to_18 ($course_code)
 
                 // build index.php
                 $string = '<?php ' . "\n"
-                    . 'header (\'Location: '. $GLOBALS['urlAppend'] . 'course/index.php?cid=' . rawurlencode($course_code) . '\') ;' . "\n"
+                    . 'header (\'Location: '. $GLOBALS['urlAppend'] . '/claroline/course/index.php?cid=' . rawurlencode($course_code) . '\') ;' . "\n"
                     . '?' . '>' . "\n" ;
 
                 if ( ! fwrite($fd, $string) ) return $step;

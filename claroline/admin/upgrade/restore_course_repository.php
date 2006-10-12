@@ -94,7 +94,7 @@ include $includePath . '/claro_init_footer.inc.php';
 function restore_course_repository($courseId, $courseRepository)
 {
 
-    global $clarolineRepositorySys, $clarolineRepositoryWeb, $includePath;
+    global $clarolineRepositorySys, $clarolineRepositoryWeb, $urlAppend, $includePath;
 
     if ( is_writable($courseRepository) )
     {
@@ -114,7 +114,7 @@ function restore_course_repository($courseId, $courseRepository)
         if ( ! $fd) return claro_failure::set_failure('CANT_CREATE_COURSE_INDEX');
 
         $string = '<?php ' . "\n"
-                . 'header (\'Location: '. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
+                . 'header (\'Location: '. $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
               . '?' . '>' . "\n" ;
 
         if ( ! fwrite($fd, $string) ) return false;
