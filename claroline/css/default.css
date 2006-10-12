@@ -727,7 +727,7 @@ a:visited.invisible {
 	background : #e7f2c1;
 	background-color : #EDF1E3;
 	border: 1px #669933 solid;
-	padding-left: 10px;
+	padding: 0 10px;
 	font-size: 0.9em;
 }
 	
