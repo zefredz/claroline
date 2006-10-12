@@ -651,7 +651,7 @@ function quiz_upgrade_to_18 ($course_code)
                 while ( ( $row = mysql_fetch_array($result) ) )
                 {  
                 	// create new folder
-                	$exe_dirname = $currentcoursePathSys.'exercise/'; // is also the dir where file where in previous versions                  
+                	$exe_dirname = $currentcoursePathSys.'exercise'; // is also the dir where file where in previous versions                  
 
                 	if ( !is_dir($exe_dirname) )
                 	{
@@ -662,7 +662,7 @@ function quiz_upgrade_to_18 ($course_code)
                     	}
                 	}
 
-	                $question_dirname = $exe_dirname . 'question_'.$row['id'].'/';
+	                $question_dirname = $exe_dirname . '/question_'.$row['id'];
 	                
                 	if ( !is_dir($question_dirname) )
                 	{
@@ -678,9 +678,9 @@ function quiz_upgrade_to_18 ($course_code)
                 	
                 	if( !empty($filename) && file_exists($exe_dirname.$filename) )
                 	{
-                        if ( @rename($exe_dirname.$filename,$question_dirname.$filename) === FALSE )
+                        if ( @rename($exe_dirname.'/'.$filename,$question_dirname.'/'.$filename) === FALSE )
                         {
-                            log_message('Error: Cannot rename ' . $exe_dirname . $filename . ' to ' . $question_dirname . $filename );
+                            log_message('Error: Cannot rename ' . $exe_dirname . '/' . $filename . ' to ' . $question_dirname . '/' . $filename );
                             return $step;
                         }
                     }
