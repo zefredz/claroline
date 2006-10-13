@@ -93,7 +93,7 @@ else
 {
     $pathInfo = $coursesRepositorySys. $intermediatePath 
                 . implode ( '/',   
-                            array_map('rawurlencode', explode('/',$requestUrl)));
+                            array_map('rawurldecode', explode('/',$requestUrl)));
 }
 
 // Check if path exists in course folder
