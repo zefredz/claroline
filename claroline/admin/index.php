@@ -157,7 +157,7 @@ function get_menu_item_list($type)
 
         $menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="GET" >' . "\n"
         .                    '<label for="search_course">' . get_lang('Course') . '</label> :' . "\n"
-        .                    '<input name="search" id="search_course" />&nbsp;' 
+        .                    '<input name="search" id="search_course" />&nbsp;'
         .                    '<input type="submit" value="' . get_lang('Search'). '" />'
         .                    '&nbsp;<small><a href="advancedCourseSearch.php">' . get_lang('Advanced') . '</a></small>' . "\n"
         .                    '</form>'
@@ -175,6 +175,7 @@ function get_menu_item_list($type)
         $menu['AdminPlatform'][] = claro_html_tool_link('campusProblem.php',    get_lang('Scan technical fault'));
 
         $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/repaircats.php', get_lang('Repair category structure'));
+        $menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Choose messages dest'));
         $menu['AdminPlatform'][] = claro_html_tool_link('upgrade/index.php',    get_lang('Upgrade'));
 
 
