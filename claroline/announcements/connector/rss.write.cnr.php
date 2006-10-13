@@ -35,8 +35,8 @@ function CLANN_write_rss($context)
         {
             $rssList[] = array( 'title'       => trim($announcementItem['title'])
             ,                   'category'    => trim($toolNameList['CLANN'])
-            ,                   'guid'        => get_conf('clarolineRepositoryWeb') . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
-            ,                   'link'        => get_conf('clarolineRepositoryWeb') . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
+            ,                   'guid'        => get_conf('rootWeb') .'claroline/' . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
+            ,                   'link'        => get_conf('rootWeb') .'claroline/' . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
             ,                   'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
             ,                   'pubDate'     => date('r', stripslashes(strtotime($announcementItem['time'])))
           //,                   'author'      => $_course['email']

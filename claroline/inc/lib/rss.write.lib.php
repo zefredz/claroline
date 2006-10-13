@@ -67,7 +67,7 @@ function build_rss($context)
             $rssTitle = '[' . get_conf('siteName') . '] '.$_course['officialCode'];
             $rssDescription = $_course['name'];
             $rssEmail = $_course['email'] == '' ? get_conf('administrator_email') : $_course['email'];
-            $rssLink = get_conf('coursesRepositoryWeb') . $_course['path'];
+            $rssLink = get_conf('rootWeb') .  get_conf('coursesRepositoryAppend') . $_course['path'];
             if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
             {
                 $rssFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
@@ -127,7 +127,14 @@ function build_rss($context)
             {
                 if( false !== $fprss = fopen($rssFilePath, 'w'))
                 {
-                    fwrite($fprss, $serializer->getSerializedData());
+                    fwrite($fprss,
+                        //str_replace('//','/',
+                       //     str_replace(get_conf('urlAppend'),
+                         //               get_conf('rootWeb'),
+                                        $serializer->getSerializedData()
+                                       // )
+                          //              )
+                                        );
                     fclose($fprss);
                 }
                 else
