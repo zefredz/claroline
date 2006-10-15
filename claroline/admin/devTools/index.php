@@ -41,6 +41,7 @@ include($includePath.'/claro_init_header.inc.php');
 
 echo claro_html_tool_title($nameTools);
 
+// TODO use claro_disp_title
 ?>
 <h4><?php echo get_lang('Translations') ?></h4>
 <ul>
