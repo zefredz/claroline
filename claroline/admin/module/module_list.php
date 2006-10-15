@@ -627,6 +627,4 @@ function get_module_dock_list($moduleId)
     }
     return $dockListByModule[$moduleId];
 }
-
-
 ?>

@@ -122,7 +122,6 @@ if ( ( get_conf('DEVEL_MODE', false) == TRUE )
 }
 echo '</tr>';
 ?>
-
 </table>
 <?php
 include $includePath . '/claro_init_footer.inc.php';

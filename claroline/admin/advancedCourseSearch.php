@@ -80,7 +80,6 @@ include($includePath . '/claro_init_header.inc.php' );
 echo claro_html_tool_title($nameTools . ' : ');
 
 ?>
-
 <form action="admincourses.php" method="GET" >
 <table border="0">
 <tr>
@@ -111,26 +110,23 @@ echo claro_html_tool_title($nameTools . ' : ');
                                  , ''
                                  , array('id'=>'category'))
                                  ; ?>
-  </td>
+</td>
 </tr>
-
 <tr>
-  <td align="right">
-   <label for="searchLang"><?php echo get_lang('Language')?></label> : <br />
-  </td>
-  <td colspan="3">
-    <?php echo claro_html_form_select( 'searchLang'
+<td align="right">
+<label for="searchLang"><?php echo get_lang('Language')?></label> : <br />
+</td>
+<td colspan="3">
+<?php echo claro_html_form_select( 'searchLang'
                                  , $language_list
                                  , ''
                                  , array('id'=>'searchLang'))
-                                 ; ?>
-    </td>
+                                 ; ?>    </td>
 </tr>
 
 <tr>
   <td align="right">
-   <?php echo get_lang('Course access') ?>
-   :
+   <?php echo get_lang('Course access') ?>   :
   </td>
   <td>
    <input type="radio" name="access" value="public"  id="access_public"  <?php if ($access=="public") echo "checked";?> >
@@ -148,8 +144,7 @@ echo claro_html_tool_title($nameTools . ' : ');
 
 <tr>
   <td align="right">
-      <?php echo get_lang('Enrolment') ?>
-    :
+      <?php echo get_lang('Enrolment') ?>    :
   </td>
   <td>
       <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?php if ($subscription=="allowed") echo "checked";?>>

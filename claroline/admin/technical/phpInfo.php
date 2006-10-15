@@ -74,7 +74,6 @@ if ($is_allowedToAdmin)
         }
     }
 ?>
-
 <br />
 <DIV class="elementServeur">
 <span class="elementServeur" >PHP</span>  <?php echo phpversion()?> :
@@ -142,7 +141,6 @@ if ($is_allowedToAdmin)
     elseif ($cmd == 'clarcredit' )
     {
     ?>
-
     <a href="http://www.claroline.net/credits.htm">See online Credits</a>
 
 <PRE>

@@ -127,7 +127,6 @@ echo claro_html_form_select( 'coursesToCheck[]'
                            , array( 'multiple'=>'multiple'
                                   , 'size'=>'' ))
                            ; ?>
-
 <input type="submit">
 </form>
 <hr />

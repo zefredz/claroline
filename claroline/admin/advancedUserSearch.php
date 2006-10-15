@@ -133,7 +133,6 @@ echo claro_html_form_select( 'action'
                             , $action
                             , array('id'=>'action'))
                                      ; ?>
-
     </td>
 </tr>
 <tr>
