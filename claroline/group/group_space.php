@@ -383,7 +383,6 @@ else
     echo get_lang("(none)");
 }
 ?>
-
 <br /><br />
 
 <b><?php echo get_lang("Group members") ?></b> :

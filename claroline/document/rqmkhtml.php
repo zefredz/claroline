@@ -106,4 +106,6 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 <br />
 <br />
 
-<?php include $includePath . '/claro_init_footer.inc.php'; ?>
+<?php 
+include $includePath . '/claro_init_footer.inc.php'; 
+?>
