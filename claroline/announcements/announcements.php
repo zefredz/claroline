@@ -319,7 +319,7 @@ if($is_allowedToEdit) // check teacher status
                 $str_to_replace = array("\n\n","\t* ","\n","\n","\n","\n","\n");
                 $msgContent = str_replace($str_to_search,$str_to_replace,$msgContent);
 
-                // Transform string like this : click <a hre="http://www.claroline.net">here</a>
+                // Transform string like this : click <a href="http://www.claroline.net">here</a>
                 // in string like that : click here [ http://www.claroline.net ]
 
                 $msgContent = preg_replace('|< *a +href *= *["\']([^"\']+)["\'][^>]*>([^<]+)</a>|', '$2 [ $1 ]', $msgContent);
@@ -535,14 +535,14 @@ if ( $displayForm )
         .    get_lang('Send this announcement by email to registered students')
         .    '</label>' . "\n"
         .	 '</td>' . "\n"
-        .	 '</tr>' . "\n"        
+        .	 '</tr>' . "\n"
         ;
     }
 
 	echo '<tr>'
 	.	 '<td>&nbsp;</td>' . "\n"
 	.	 '<td>' . "\n";
-	
+
     //---------------------
     // linker
 
@@ -562,7 +562,7 @@ if ( $displayForm )
 	.	 '<tr>'
 	.	 '<td>&nbsp;</td>' . "\n"
 	.	 '<td>' . "\n";
-	
+
     if( $jpspanEnabled )
     {
     	echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
@@ -571,7 +571,7 @@ if ( $displayForm )
     {
     	echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
-    
+
     echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel')
     .    '</td>'
     .    '</tr>' . "\n"
