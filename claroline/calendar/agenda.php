@@ -487,7 +487,21 @@ foreach ( $eventList as $thisEvent )
 
     if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit) || 'SHOW' == $thisEvent['visibility'])
     {
-        $style = 'HIDE' == $thisEvent['visibility'] ? 'invisible' : $style='';
+        //modify style if the event is recently added since last login
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisEvent['id']))
+        {
+            $cssItem = 'item hot';
+        }
+        else
+        {
+            $cssItem = 'item';
+        }
+        
+        $cssInvisible = '';
+        if ($thisEvent['visibility'] == 'HIDE') 
+        {
+            $cssInvisible = ' invisible';
+        }
 
         // TREAT "NOW" BAR CASE
         if ( ! $nowBarAlreadyShowed )
@@ -539,7 +553,7 @@ foreach ( $eventList as $thisEvent )
             $monthBar = date('m', strtotime($thisEvent['day']));
 
             echo '<tr>' . "\n"
-            .    '<th class="superHeader" valign="top">' . "\n"
+            .    '<th class="superHeader" valign="top">'
             .    ucfirst(claro_disp_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
             .    '</th>' . "\n"
             .    '</tr>' . "\n"
@@ -550,25 +564,15 @@ foreach ( $eventList as $thisEvent )
         * Display the event date
         */
 
-        //modify style if the event is recently added since last login
-
-        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisEvent['id']))
-        {
-            $classItem=' hot';
-        }
-        else // otherwise just display its name normally
-        {
-            $classItem='';
-        }
-
-
         echo '<tr class="headerX" valign="top">' . "\n"
-        .    '<th class="item' . $classItem . '">' . "\n"
+        .    '<th>' . "\n"
+        .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
         .    '<a href="#form" name="event' . $thisEvent['id'] . '"></a>' . "\n"
-        .    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt=" " />'
+        .    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt=" " />&nbsp;'
         .    ucfirst(claro_disp_localised_date( $dateFormatLong, strtotime($thisEvent['day']))) . ' '
         .    ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour']))) . ' '
-        .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] );
+        .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] )
+        .    '</span>';
 
         /*
         * Display the event content
@@ -578,15 +582,15 @@ foreach ( $eventList as $thisEvent )
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
-        .    '<div class="content ' . $style . '">' . "\n"
+        .    '<div class="content ' . $cssInvisible . '">' . "\n"
         .    ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
         .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
         .    '</div>' . "\n"
         ;
         linker_display_resource();
     }
+    
     if ($is_allowedToEdit)
-
     {
         echo '<a href="' . $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] . '">'
         .    '<img src="' . $imgRepositoryWeb.'edit.gif" border="O" alt="' . get_lang('Modify') . '">'

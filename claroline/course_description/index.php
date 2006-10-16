@@ -311,76 +311,74 @@ if ( count($descList) )
     {
 
         //modify style if the file is recently added since last login
-
         if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisDesc['id']))
         {
-            $classItem=' hot';
+            $cssItem = 'item hot';
         }
-        else // otherwise just display its name normally
+        else
         {
-            $classItem='';
+            $cssItem = 'item';
         }
 
-        if (($thisDesc['visibility']=='HIDE' && $is_allowedToEdit) || $thisDesc['visibility']=='SHOW')
+        if (($thisDesc['visibility'] == 'HIDE' && $is_allowedToEdit) || $thisDesc['visibility'] == 'SHOW')
         {
-            if ($thisDesc['visibility']=='HIDE') $style = ' class="invisible"';  else $style='';
+            $cssInvisible = '';
+            if ($thisDesc['visibility'] == 'HIDE') 
+            {
+                $cssInvisible = ' invisible';
+            }
 
-            //    echo "\n".''.
             echo '<tr class="superHeader">'
-            .    '<th class="item' . $classItem . '">'
-            .    '<div' . $style . '>';
+            .    '<th>'
+            .    '<span class="'. $cssItem . $cssInvisible .'">';
 
             if( trim($thisDesc['title']) == '' )
                 echo '&nbsp;';
             else
                 echo htmlspecialchars($thisDesc['title']);
 
-            echo '</div>'
+            echo '</span>'
             .    '</th>'
             .    '</tr>' . "\n"
             .    '<tr>'
             .    '<td>'
-            .    '<div' . $style . '>'
+            .    '<div '. $cssInvisible .'>'
             .    claro_parse_user_text($thisDesc['content'])
-            .    '</div>'
-            .    '</td>'
-            .    '</tr>' . "\n" . "\n"
-            ;
-            $hasDisplayedItems = true;
-        }
-        echo '<tr>' . "\n"
-        .    '<td>' . "\n"
-        ;
-        if ( $is_allowedToEdit )
-        {
-            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '">'
-            .    '</a>' . "\n"
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
-            .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
-            .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" />'
-            .    '</a>' . "\n"
-            ;
-            if ($thisDesc['visibility'] == 'SHOW')
-            {
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisDesc['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
-                .    '</a>' . "\n"
-                ;
-            }
-            else
-            {
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisDesc['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
-                .    '</a>' . "\n"
-                ;
-            }
-        }
-        echo '</td>'."\n"
-        .    '</tr>'."\n\n"
-        ;
+            .    '</div>';
 
+            $hasDisplayedItems = true;
+            
+            if ( $is_allowedToEdit )
+            {
+                echo '<p>' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '">'
+                .    '</a>' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
+                .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
+                .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" />'
+                .    '</a>' . "\n";                
+                
+                if ($thisDesc['visibility'] == 'SHOW')
+                {
+                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisDesc['id'] . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
+                    .    '</a>' . "\n";
+                }
+                else
+                {
+                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisDesc['id'] . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
+                    .    '</a>' . "\n";
+                }
+                echo '</p>' . "\n";
+            }
+            
+            echo '</td>'
+            .    '</tr>' . "\n" . "\n";
+        }
+        
     }
     echo '</table>'."\n\n";
 }
