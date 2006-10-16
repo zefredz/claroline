@@ -229,7 +229,11 @@ function user_delete($userId)
     $courseList = claro_sql_query_fetch_all_cols($sql);
 
     if ( user_remove_from_course($userId, $courseList['code'], true, true, true) == false ) return false;
-
+    else
+    {
+        foreach ($courseList['code'] as $k=>$courseCode) $log['course_' . $k] = $courseCode;
+        event_default( 'UNROL_USER_COURS' , array_merge( array ('USER' => $userId ) ,$log));
+    }
     $sqlList = array(
 
     "DELETE FROM `" . $tbl['user']            . "` WHERE user_id         = " . (int) $userId ,
@@ -237,10 +241,12 @@ function user_delete($userId)
     "DELETE FROM `" . $tbl['track_e_login']   . "` WHERE login_user_id   = " . (int) $userId ,
     "DELETE FROM `" . $tbl['rel_class_user']  . "` WHERE user_id         = " . (int) $userId ,
     "DELETE FROM `" . $tbl['sso']             . "` WHERE user_id         = " . (int) $userId ,
+
     // Change creatorId to NULL
     "UPDATE `" . $tbl['user'] . "` SET `creatorId` = NULL WHERE `creatorId` = " . (int) $userId
 
     );
+    event_default( 'USER_DELETED' , array_merge( array ('USER' => $userId ) ));
 
     foreach($sqlList as $thisSql)
     {
@@ -354,7 +360,7 @@ function claro_set_uid_recipient_of_system_notification($user_id,$state=true)
                 propertyValue = " . (int) $state . ",
                 scope = 'contacts'
               ";
-    
+
     $result = claro_sql_query_affected_rows($sql);
 
     return $result;
