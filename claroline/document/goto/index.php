@@ -26,8 +26,9 @@ if (isset($_REQUEST['url']) )
 }
 else
 {
-    $requestUrl = stripslashes( urldecode (get_slashed_argument( get_request_uri(), 
-                                           'document/goto/index.php' ) ) );
+    // $requestUrl = stripslashes( urldecode (get_slashed_argument( get_request_uri(),'document/goto/index.php' ) ) );
+                                           
+    $requestUrl = get_path_info();
 }
 
 if ( ! $_cid) claro_disp_auth_form(true);
@@ -91,6 +92,7 @@ if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
 }
 else
 {
+    // TODO check if we can remove rawurldecode
     $pathInfo = $coursesRepositorySys. $intermediatePath 
                 . implode ( '/',   
                             array_map('rawurldecode', explode('/',$requestUrl)));

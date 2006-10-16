@@ -81,4 +81,17 @@ function get_request_uri()
     }
 }
 
+function get_path_info()
+{
+    if ( isset( $_SERVER['PATH_INFO'] ) && !empty($_SERVER['PATH_INFO']) )
+    {
+        return $_SERVER['PATH_INFO'];
+    }
+    else
+    {
+        return urldecode( get_slashed_argument( get_request_uri(), 
+            'document/goto/index.php' ) );
+    }
+}
+
 ?>
