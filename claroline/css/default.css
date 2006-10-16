@@ -417,10 +417,6 @@ th .claroCmdDisabled {
 	text-decoration: none;
 }
 
-/******************************************************************************
-                             CLAROLINE ITEM
- ******************************************************************************/
-
 /*
  * Classes family to emphase some item in the tool interface.
  * These two classes has to be used together to work correctly.
@@ -440,7 +436,7 @@ th .claroCmdDisabled {
  */
 
 .item {
-	padding-left: 16px;
+	padding-left: 16px ;
 }
 
 .hot {
@@ -517,6 +513,10 @@ a.item:visited{
  *
  * </table>
  */
+
+.claroTable {
+    text-align: left;
+}
 
 .claroTable td, 
 .claroTable th {
