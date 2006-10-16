@@ -42,6 +42,4 @@
   // footer
   $hide_footer = true;
   include($includePath."/claro_init_footer.inc.php");
-
-
 ?>

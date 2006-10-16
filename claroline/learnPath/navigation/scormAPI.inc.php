@@ -103,7 +103,6 @@ $sco['exit'] = "";
 $sco['session_time'] = "0000:00:00.00";
 
 ?>
-
 <script type="text/javascript">
 
         var init_total_time = "<?php echo $sco['total_time']; ?>";

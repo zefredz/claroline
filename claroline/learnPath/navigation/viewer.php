@@ -49,8 +49,7 @@ $titlePage .= $siteName;
 
 // set charset as claro_header should do but we cannot include it here
 header('Content-Type: text/html; charset=' . $charset);
-?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
    "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 
@@ -88,7 +87,6 @@ else
 <?php
 }
 ?>
-
     <noframes>
         <body>
             <?php echo get_lang('Your browser cannot see frames.') ?>

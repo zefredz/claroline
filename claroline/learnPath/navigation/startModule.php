@@ -152,7 +152,6 @@ switch ($module['contentType'])
 } // end switch
 
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
    "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
@@ -183,6 +182,6 @@ switch ($module['contentType'])
 <?php
   echo get_lang('Your browser cannot see frames.');
 ?>
-   </body>
+</body>
 </noframes>
 </html>

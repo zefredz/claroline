@@ -181,6 +181,5 @@ echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning
 display_path_content();
 
 // footer
-@include($includePath."/claro_init_footer.inc.php");
-
+include $includePath . '/claro_init_footer.inc.php';
 ?>

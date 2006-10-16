@@ -116,18 +116,18 @@ if($_POST['ump_id'])
 ?>
 </head>
 <body>
-   <form name="cmiForm" method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
-	<input type="hidden" name="ump_id" />
-	<input type="hidden" name="lesson_status" />
-	<input type="hidden" name="lesson_location" />
+<form name="cmiForm" method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
+    <input type="hidden" name="ump_id" />
+    <input type="hidden" name="lesson_status" />
+    <input type="hidden" name="lesson_location" />
     <input type="hidden" name="credit" />
-	<input type="hidden" name="entry" />
-	<input type="hidden" name="raw" />
+    <input type="hidden" name="entry" />
+    <input type="hidden" name="raw" />
     <input type="hidden" name="total_time" />
-	<input type="hidden" name="session_time" />
-	<input type="hidden" name="suspend_data" />
-	<input type="hidden" name="scoreMin" />
-	<input type="hidden" name="scoreMax" />
-   </form>
+    <input type="hidden" name="session_time" />
+    <input type="hidden" name="suspend_data" />
+    <input type="hidden" name="scoreMin" />
+    <input type="hidden" name="scoreMax" />
+</form>
 </body>
 </html>
