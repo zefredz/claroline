@@ -74,9 +74,9 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             if ( ! $register_by_class )  $count_user_enrol = 1;
             else                         $count_class_enrol = 1;
 
-            // TODO 
+            // TODO
             if ( $admin ) $profileId = claro_get_profile_id('manager');
-            else          $profileId = claro_get_profile_id('user');            
+            else          $profileId = claro_get_profile_id('user');
 
             $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
                     SET code_cours = '" . addslashes($courseCode) . "',
@@ -175,6 +175,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
 
         if ( claro_sql_query_get_single_value($sql)  > 0 )
         {
+            event_default( 'DELETE_USER_FAILED' , array ('USER' => $userId, 'failure' => 'course_manager_cannot_unsubscribe_himself') );
             return claro_failure::set_failure('course_manager_cannot_unsubscribe_himself');
         }
     }
@@ -337,7 +338,7 @@ function user_set_course_properties($userId, $courseId, $propertyList)
     {
         if ( $propertyList['isCourseManager'] ) $propertyList['profileId'] = claro_get_profile_id('manager') ;
     }
-    
+
     if ( array_key_exists('profileId', $propertyList) )
     {
         $setList[] = "profile_id = '" . (int) $propertyList['profileId'] . "'";
@@ -362,7 +363,7 @@ function user_set_course_properties($userId, $courseId, $propertyList)
     {
         $setList[] = "role = '" . addslashes($propertyList['role']) . "'";
     }
-    
+
     if ( count($setList) > 0 )
     {
         $sql = "UPDATE `" . $tbl['rel_course_user'] . "`
@@ -528,7 +529,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     $form = '';
 
     $form .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-          .  '<input type="hidden" name="cmd" value="exUpdateCourseUserProperties" />' . "\n"; 
+    .  '<input type="hidden" name="cmd" value="exUpdateCourseUserProperties" />' . "\n";
 
     if ( ! is_null($hiddenParam) && is_array($hiddenParam) )
     {
@@ -542,17 +543,17 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
 
     // User firstname and lastname
     $form .= '<tr >' . "\n"
-          .  '<td align="right">' . get_lang('Name') . ' :</td>' . "\n"
-          .  '<td ><b>' . htmlspecialchars($data['firstName']) . ' ' . htmlspecialchars($data['lastName'])  . '</b></td>' . "\n"
-          .  '</tr>' . "\n" ; 
-    
+    .  '<td align="right">' . get_lang('Name') . ' :</td>' . "\n"
+    .  '<td ><b>' . htmlspecialchars($data['firstName']) . ' ' . htmlspecialchars($data['lastName'])  . '</b></td>' . "\n"
+    .  '</tr>' . "\n" ;
+
     // Profile select box
 
     $profileList = claro_get_all_profile_name_list ();
 
     $form .= '<tr >' . "\n"
-        . '<td align="right"><label for="profileId">' . get_lang('Profile') . ' :</label></td>' . "\n" 
-        . '<td>' ;
+    . '<td align="right"><label for="profileId">' . get_lang('Profile') . ' :</label></td>' . "\n"
+    . '<td>' ;
 
     if ( $userId == $GLOBALS['_uid'] )
     {
@@ -568,34 +569,34 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
             {
                 $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . $info['name'] . '</option>' . "\n" ;
             }
-        }    
+        }
 
         $form .= '</select>' ;
     }
 
     $form .= '</td>' . "\n"
-              .  '</tr>' . "\n" ;
+    .  '</tr>' . "\n" ;
 
     // User role label
     $form .= '<tr >' . "\n"
-          .  '<td align="right"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label> :</td>' . "\n"
-          .  '<td ><input type="text" name="role" id="role" value="'. htmlspecialchars($data['role']) . '" maxlength="40" /></td>' . "\n"
-          .  '</tr>' . "\n" ;
-    
+    .  '<td align="right"><label for="role">' . get_lang('Role') . ' (' . get_lang('Optional') .')</label> :</td>' . "\n"
+    .  '<td ><input type="text" name="role" id="role" value="'. htmlspecialchars($data['role']) . '" maxlength="40" /></td>' . "\n"
+    .  '</tr>' . "\n" ;
+
     // User is tutor
     $form .= '<tr >' . "\n"
-          .  '<td align="right"><label for="isTutor">' . get_lang('Group Tutor') . '</label> :</td>' . "\n"
-          .  '<td><input type="checkbox" name="isTutor" id="isTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n"
-          .  '</tr>' . "\n" ;
+    .  '<td align="right"><label for="isTutor">' . get_lang('Group Tutor') . '</label> :</td>' . "\n"
+    .  '<td><input type="checkbox" name="isTutor" id="isTutor" value="1" ' . $tutorChecked . ' /></td>' . "\n"
+    .  '</tr>' . "\n" ;
 
     $form .= '<tr >' . "\n"
-          .  '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
-          .  '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
-                      . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
-          .  '</tr>' . "\n";
+    .  '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
+    .  '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
+    . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+    .  '</tr>' . "\n";
 
     $form .= '</table>' . "\n"
-          .  '</form>' . "\n" ;
+    .  '</form>' . "\n" ;
 
     return $form;
 }
