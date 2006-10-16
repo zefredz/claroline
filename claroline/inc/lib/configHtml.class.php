@@ -76,7 +76,7 @@ class ConfigHtml extends Config
             . '<input type="hidden" name="cmd" value="save" />' . "\n";
 
             $form .= '<table border="0" cellpadding="5" width="100%">' . "\n";
-            if ($section_selected!='viewall') $section_list = $section_list= array($section_selected);
+            if ($section_selected!='viewall') $section_list = array($section_selected);
 
             foreach ($section_list as $thisSection)
             {
