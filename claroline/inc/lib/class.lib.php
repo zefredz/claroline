@@ -1109,5 +1109,4 @@ function getSubClasses($class_id)
 
     return $sub_classes_list;
 }
-
 ?>

@@ -398,4 +398,3 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 include($includePath.'/claro_init_footer.inc.php');
 ?>
-

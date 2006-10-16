@@ -21,7 +21,6 @@ if (!isset($hide_footer) || $hide_footer == false)
 {
 
 ?>
-
 <div id="campusFooter">
 <hr />
 <?php
@@ -85,11 +84,7 @@ echo $footerCenterDock->render();
 
 } // if (!isset($hide_footer) || $hide_footer == false)
 
-?>
-</div>
-
-<?php
-
+echo '</div>';
     if (CLARO_DEBUG_MODE)
     {
         $claroMsgList = getClaroMessageList();
@@ -98,7 +93,8 @@ echo $footerCenterDock->render();
         echo claro_html_msg_list($claroMsgList);
     }
 
-?>
+echo '</body>'
+.    '</html>'
+;
 
-</body>
-</html>
+?>

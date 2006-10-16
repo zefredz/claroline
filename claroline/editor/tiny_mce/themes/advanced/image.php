@@ -59,7 +59,6 @@ if ( isset($_FILES['imgFile']) && $_cid && $is_courseAdmin )
 }
 
 ?>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>{$lang_insert_image_title}</title>

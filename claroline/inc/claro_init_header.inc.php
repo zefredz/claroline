@@ -43,7 +43,6 @@ if(!empty($_course['officialCode']))
 $titlePage .= get_conf('siteName');
 
 ?>
-
 <title><?php echo $titlePage; ?></title>
 
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
