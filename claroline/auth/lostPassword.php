@@ -81,7 +81,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
                     // UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
-                    $sql = 'UPDATE ' . $tbl_user . '
+                    $sql = 'UPDATE `' . $tbl_user . '`
                             SET   `password` = "'. addslashes(md5($user[$i]['password'])) .'"
                              WHERE `user_id` = "'.$user[$i]['uid'].'"';
 
