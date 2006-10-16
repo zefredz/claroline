@@ -250,7 +250,6 @@ if ($displayMode == "viewDefEdit")
         $catToEdit['id'] = "";
     }
 ?>
-
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
 <input type="hidden" name="id" value="<?php echo $catToEdit['id']?>" />
@@ -281,22 +280,19 @@ if ($displayMode == "viewDefEdit")
 <select name="nbline" id="nbline">
 <?php
 if ($catToEdit['nbline'] && $catToEdit['nbline']!=1)
-{ ?>
-    <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo get_lang('line(s)')?></option>
+{ ?>    <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo get_lang('line(s)')?></option>
     <option>---</option>
 <?php
 }
 sort($descSizeToPrupose);
-?>
-<option value="1">1 <?php echo get_lang('line'); ?></option>
+?><option value="1">1 <?php echo get_lang('line'); ?></option>
 <?php
 foreach($descSizeToPrupose as $nblines)
 {
     echo '<option value="'.$nblines.'">'.$nblines.' '.get_lang('lines').'</option>';
 }
 
-?>
-</select>
+?></select>
 </td>
 <tr>
 <td>&nbsp;</td>
@@ -369,7 +365,6 @@ elseif ($displayMode == "viewContentEdit")
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : EDIT <<<<<<<<<<<<*/
     $catToEdit = claro_user_info_get_cat_content($userIdViewed,$_REQUEST['editContent']);
 ?>
-
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
 <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
 <input type="hidden" name="cntId" value="<?php echo $catToEdit['contentId']; ?>" />

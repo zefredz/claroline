@@ -824,9 +824,7 @@
         }
     }
 
-    // ------------ End of display ---------------
-
-    // Claroline footer
-
-    require_once $includePath . "/claro_init_footer.inc.php";
+// ------------ End of display ---------------
+// Claroline footer
+require_once $includePath . '/claro_init_footer.inc.php';
 ?>
