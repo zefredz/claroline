@@ -137,5 +137,5 @@ else
 }
 
 // footer
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 ?>

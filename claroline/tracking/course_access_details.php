@@ -34,9 +34,7 @@ echo claro_html_tool_title(
     )
 );
 
-?>
-<table width="100%" cellpadding="2" cellspacing="3" border="0">
-<?php
+echo '<table width="100%" cellpadding="2" cellspacing="3" border="0">';
 
 if ( get_conf('is_trackingEnabled') )
 {
@@ -199,9 +197,7 @@ else // tracking not enable
     echo get_lang('Tracking has been disabled by system administrator.');
 }
 
-?>
-</table>
+echo '</table>';
 
-<?php
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

@@ -250,5 +250,5 @@ else
     echo get_lang('Tracking has been disabled by system administrator.');
 }
 
-include($includePath."/claro_init_footer.inc.php");
+include $includePath . '/claro_init_footer.inc.php';
 ?>

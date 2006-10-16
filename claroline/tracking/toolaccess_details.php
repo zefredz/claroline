@@ -203,7 +203,9 @@ else // not allowed to track
 }
     
     
-echo "\n".'</table>'."\n\n";
+echo "\n"
+.    '</table>' . "\n\n"
+;
 // footer
-include($includePath."/claro_init_footer.inc.php");
+include($includePath . '/claro_init_footer.inc.php');
 ?>
