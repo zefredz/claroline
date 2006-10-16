@@ -601,20 +601,24 @@ if ($displayList)
 
     foreach ( $announcementList as $thisAnnouncement)
     {
-        //modify style if the file is recently added since last login
-
+        //modify style if the event is recently added since last login
         if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisAnnouncement['id']))
         {
-            $classItem=' hot';
+            $cssItem = 'item hot';
         }
-        else // otherwise just display its name normally
+        else
         {
-            $classItem='';
+            $cssItem = 'item';
         }
-
+        
         if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
         {
-            $style = ($thisAnnouncement['visibility'] == 'HIDE') ? 'invisible' :'';
+            $cssInvisible = '';
+            if ($thisAnnouncement['visibility'] == 'HIDE') 
+            {
+                $cssInvisible = ' invisible';
+            }
+            
             $title = $thisAnnouncement['title'];
 
             $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
@@ -623,17 +627,19 @@ if ($displayList)
             $imageFile = 'announcement.gif';
             $altImg    = '';
 
-            echo '<tr>'."\n"
-            .    '<th class="headerX item'.$classItem.'">'."\n"
+            echo '<tr class="headerX">'."\n"
+            .    '<th>'."\n"
+            .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
             .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
             .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '" />' . "\n"
             .    get_lang('Published on')
             .    ' : ' . claro_disp_localised_date($dateFormatLong, strtotime($last_post_date))
+            .    '</span>'
             .    '</th>' . "\n"
             .    '</tr>' . "\n"
             .    '<tr>' . "\n"
             .    '<td>' . "\n"
-            .    '<div class="content ' . $style . '">' . "\n"
+            .    '<div class="content ' . $cssInvisible . '">' . "\n"
             .    ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
                  : ''
                  )
@@ -642,67 +648,69 @@ if ($displayList)
             ;
 
             linker_display_resource();
+       
+            if ($is_allowedToEdit)
+            {
+                echo '<p>'
+                // EDIT Request LINK
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" />'
+                .    '</a>' . "\n"
+                // DELETE  Request LINK
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
+                .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
+                .    '</a>' . "\n"
+                ;
+
+                // DISPLAY MOVE UP COMMAND only if it is not the top announcement
+
+                if( $iterator != 1 )
+                {
+                    // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                    // the anchor dont refreshpage.
+                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('Move up') . '" />'
+                    .    '</a>' . "\n"
+                    ;
+                }
+
+                // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
+
+                if($iterator < $bottomAnnouncement)
+                {
+                    // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                    // the anchor dont refreshpage.
+                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Move down') . '" />'
+                    .    '</a>' . "\n"
+                    ;
+                }
+
+                //  Visibility
+                if ($thisAnnouncement['visibility']=='SHOW')
+                {
+                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible').'" />'
+                    .    '</a>' . "\n"
+                    ;
+                }
+                else
+                {
+                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
+                    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+                    .    '</a>' . "\n"
+                    ;
+                }
+                echo '</p>'."\n";
+                
+                         
+                echo '</td>' . "\n"
+                .    '</tr>' . "\n"
+                ;
+
+            } // end if is_AllowedToEdit
         }
-        if ($is_allowedToEdit)
-        {
-            echo '<p>'
-            // EDIT Request LINK
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" />'
-            .    '</a>' . "\n"
-            // DELETE  Request LINK
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
-            .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
-            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
-            .    '</a>' . "\n"
-            ;
-
-            // DISPLAY MOVE UP COMMAND only if it is not the top announcement
-
-            if( $iterator != 1 )
-            {
-                // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                // the anchor dont refreshpage.
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('Move up') . '" />'
-                .    '</a>' . "\n"
-                ;
-            }
-
-            // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
-
-            if($iterator < $bottomAnnouncement)
-            {
-                // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                // the anchor dont refreshpage.
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Move down') . '" />'
-                .    '</a>' . "\n"
-                ;
-            }
-
-            //  Visibility
-            if ($thisAnnouncement['visibility']=='SHOW')
-            {
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible').'" />'
-                .    '</a>' . "\n"
-                ;
-            }
-            else
-            {
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
-                .    '</a>' . "\n"
-                ;
-            }
-            echo '</p>'."\n";
-
-        } // end if is_AllowedToEdit
-
-        echo '</td>' . "\n"
-        .    '</tr>' . "\n"
-        ;
 
         $iterator ++;
     }    // end foreach ( $announcementList as $thisAnnouncement)
