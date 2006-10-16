@@ -50,6 +50,7 @@ $cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to u
 
 if ( $cmd == 'delete' && $req['uidToEdit'] )
 {
+    event_default( 'DELETE_USER' , array ('USER' => $req['uidToEdit']) );
     if(false !== $deletionResult = user_delete($req['uidToEdit']))
     $dialogBox =   get_lang('Deletion of the user was done sucessfully');
     else
