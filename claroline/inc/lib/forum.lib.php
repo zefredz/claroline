@@ -952,7 +952,7 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
                 $breadCrumbNameUrl[] = '';
                 break;
 
-            case 'newtopic' : 
+            case 'newtopic' :
                 $breadCrumbNameList[] = get_lang('New topic');
                 $breadCrumbUrlList[]  = null;
                 break ;
@@ -1146,6 +1146,12 @@ function create_category($cat_title, $course_id=NULL)
 
 }
 
+/**
+ * Delete the given category
+ *
+ * @param integer $cat_id
+ * @return boolean wheter success
+ */
 function delete_category($cat_id)
 {
     if ($cat_id == GROUP_FORUMS_CATEGORY)
@@ -1157,8 +1163,8 @@ function delete_category($cat_id)
     $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
 
     $sql = 'SELECT `forum_id`, `group_id`
-            FROM `'.$tbl_forum_forums.'`
-            WHERE `cat_id` = "'.$cat_id.'"';
+            FROM `' . $tbl_forum_forums . '`
+            WHERE `cat_id` = "' . $cat_id . '"';
 
     $result = claro_sql_query_fetch_all_cols($sql);
 
@@ -1337,6 +1343,13 @@ function get_category_settings($cat_id)
 }
 
 
+/**
+ * Change change rank of a category
+ *
+ * @param integer $currCatId id  of category
+ * @param string $direction (UP|DOWN)
+ * @return boolean true wheater success
+ */
 function move_category_rank($currCatId, $direction)
 {
     if ( strtoupper($direction) == 'UP')
@@ -1394,15 +1407,27 @@ function move_category_rank($currCatId, $direction)
     return true;
 }
 
-
+/**
+ * Increase the rank of the given category
+ *
+ * @param integer $cat_id
+ * @return boolean
+ */
 function move_up_category($cat_id)
 {
-    move_category_rank($cat_id, 'UP');
+    return move_category_rank($cat_id, 'UP');
 }
 
+
+/**
+ * Decrease the rank of the given category
+ *
+ * @param integer $cat_id
+ * @return boolean true whether success
+ */
 function move_down_category($cat_id)
 {
-    move_category_rank($cat_id, 'DOWN');
+    return move_category_rank($cat_id, 'DOWN');
 }
 
 /**
@@ -1448,6 +1473,15 @@ function get_tutor_group_list($uid)
     return $groupList;
 }
 
+
+/**
+ * Return the full list of forum
+ *
+ * @return array(forum_id, forum_name, forum_desc, forum_access, forum_moderator,
+                 forum_topics, forum_posts, forum_last_post_id, cat_id,
+                 forum_type, forum_order, poster_id, post_time, group_id)
+ */
+
 function get_forum_list()
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -1468,6 +1502,12 @@ function get_forum_list()
      return claro_sql_query_fetch_all($sql);
 }
 
+/**
+ * Get the list of not empty categories.
+ * The query return category only if there is forums inside
+ *
+ * @return array (cat_id, cat_title, cat_order);
+ */
 function get_category_list()
 {
     $tbl_cdb_names  = claro_sql_get_course_tbl();
@@ -1489,6 +1529,12 @@ function get_category_list()
     return claro_sql_query_fetch_all($sql);
 }
 
+/**
+ * Function to increase the counter of view a topic
+ *
+ * @param integer $topicId
+ * @return Success true whether false
+ */
 function increase_topic_view_count($topicId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -1502,6 +1548,14 @@ function increase_topic_view_count($topicId)
     else                                 return true;
 }
 
+/**
+ * Deletes forums for ALL or a given group
+ *
+ * @param integer $groupId or ALL
+ *        If param is 'ALL', all groups forums are returned
+ *        otherwise the param is use as group id to filter result.
+ * @return true whether false if  a  forum deletion failed
+ */
 function delete_group_forums ($groupId)
 {
     $forum_list = get_group_forum_list($groupId);
@@ -1514,6 +1568,14 @@ function delete_group_forums ($groupId)
     return true;
 }
 
+/**
+ * Get list of forums linked to ALL or a specific group.
+ *
+ * @param integer $groupId or ALL
+ *        If param is 'ALL', all groups forums are returned
+ *        otherwise the param is use as group id to filter result.
+ * @return array of integer. Each integer is a forum id.
+ */
 function get_group_forum_list ($groupId)
 {
     $tbl_cdb_names  = claro_sql_get_course_tbl();
@@ -1521,13 +1583,13 @@ function get_group_forum_list ($groupId)
 
     if ( $groupId == 'ALL' )
     {
-        $sql = " SELECT forum_id 
+        $sql = " SELECT forum_id
                 FROM `" . $tbl_forums . "`
                 where group_id IS NOT NULL";
     }
     else
     {
-        $sql = " SELECT forum_id 
+        $sql = " SELECT forum_id
                 FROM `" . $tbl_forums . "`
                 where group_id = " . (int) $groupId ;
     }
