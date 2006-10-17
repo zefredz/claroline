@@ -431,7 +431,8 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
             }
             else
             {
-                 if ( ! @mkdir($dirTrail , $mode) ) return false;
+                
+                if ( ! @mkdir($dirTrail , $mode) ) return false;
             }
 
         }
@@ -439,10 +440,15 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
     }
     else
     {
+        // remove trailing slash
+        if( substr($pathName, -1) == '/' )
+        {
+            $pathName = substr($pathName, 0, -1);
+        }
+        
         return @mkdir($pathName, $mode);
     }
 }
-
 
 /**
  * to extract the extention of the filename
