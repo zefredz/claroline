@@ -168,7 +168,6 @@ $exerciseIsAvailable = true;
 if( !$is_allowedToEdit )
 { 
 	// do the checks only if user has no edit right
-	
 	// check if exercise can be displayed
 	if( $exercise->getStartDate() > $now 
 		|| ( !is_null($exercise->getEndDate()) && $exercise->getEndDate() < $now )
@@ -268,6 +267,11 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
 	{
 		set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,$_uid);
 	}
+}
+elseif( ! $exerciseIsAvailable )
+{
+    $showResult = false;
+	$showSubmitForm = false;
 }
 else
 {
