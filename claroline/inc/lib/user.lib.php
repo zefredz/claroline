@@ -41,7 +41,7 @@ function user_initialise()
 }
 
 /**
- * Get user data on the platform
+ * Get common user data on the platform
  * @param integer $userId id of user to fetch properties
  *
  * @return  array( `user_id`, `lastname`, `firstname`, `username`, `email`,
@@ -1237,6 +1237,12 @@ function user_display_preferred_language_select_box()
     return $form;
 }
 
+
+/**
+ * Extended properties
+ * some  info  can  be added for each user without change structure of user table.
+ * To do that , add a description
+ */
 /**
  * Get all properties for a user
  *
@@ -1336,5 +1342,53 @@ function get_userInfoExtraDefinitionList()
 
     return $extraInfoDefList;
 }
+
+
+/**
+ * Set or redefine an extended data for users.
+ *
+ * @param integer $propertyId
+ * @param string $label
+ * @param string $type
+ * @param mixed $defaultValue
+ * @param string $contextScope
+ * @param integer $rank
+ * @param boolean $required
+ * @return claro_sql result
+ */
+function update_userInfoExtraDefinition($propertyId, $label, $type, $defaultValue, $contextScope, $rank, $required )
+{
+    $sql = "REPLACE INTO `" . $tbl['property_definition'] . "`
+            SET propertyId   = '" . addslashes($propertyId) . "',
+                label        = '" . addslashes($label) . "',
+                type         = '" . addslashes($type) . "',
+                defaultValue = '" . addslashes($defaultValue) . "',
+                contextScope = '" . addslashes($contextScope) . "',
+                rank         = " . (int) $rank . ",
+                required     = '" . addslashes($required) . "'
+             WHERE propertyId = '" . addslashes($propertyId) . "'
+             ";
+
+    return claro_sql_query($sql);
+
+}
+
+/**
+ * Set or redefine an extended data for users.
+ *
+ * @param integer $propertyId
+ * @param string $contextScope
+ * @return claro_sql result
+ */
+function delete_userInfoExtraDefinition($propertyId, $contextScope )
+{
+    $sql = "DELETE FROM `" . $tbl['property_definition'] . "`
+            WHERE propertyId = '" . addslashes($propertyId) . "'
+            AND  contextScope = '" . addslashes($contextScope) . "'";
+
+    return claro_sql_query($sql);
+
+}
+
 
 ?>
