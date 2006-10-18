@@ -116,7 +116,14 @@
     
         return $mimeType;
     }
-
+    
+    /**
+     * Send a file over HTTP
+     * @param   string $path file path
+     * @return  true on success,
+     *          false if file not found or file empty, 
+     *          set a claro_failure if file not found 
+     */
     function claro_send_file( $path )
     {
         if ( file_exists( $path ) )
