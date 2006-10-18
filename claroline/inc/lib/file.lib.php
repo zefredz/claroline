@@ -120,14 +120,17 @@
     /**
      * Send a file over HTTP
      * @param   string $path file path
+     * @param   string $name file name to force (optional)
      * @return  true on success,
      *          false if file not found or file empty, 
      *          set a claro_failure if file not found 
      */
-    function claro_send_file( $path )
+    function claro_send_file( $path, $name = '' )
     {
         if ( file_exists( $path ) )
         {
+            if ( empty( $name ) ) $name = basename( $path );
+            
             $mimeType = get_mime_on_ext( $path );
         
             if ( ! is_null( $mimeType ) )
@@ -149,7 +152,7 @@
             header( 'Pragma: ' );
             
             // force file name
-            header('Content-Disposition: inline; filename="' . basename( $path ) . '"');
+            header('Content-Disposition: inline; filename="' . $name . '"');
             
             return ( readfile( $path ) > 0 );
         }
