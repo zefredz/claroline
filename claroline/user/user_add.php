@@ -184,6 +184,7 @@ if ( $cmd == 'registration' )
     if ( $userId )
     {
         $courseRegSucceed = user_add_to_course($userId, $_cid, $userData['courseAdmin'], $userData['tutor'],false);
+        
     }
     else
     {
@@ -213,7 +214,9 @@ if ($cmd == 'applySearch')
 // Send mail notification
 if ( $courseRegSucceed )
 {
-    user_send_enroll_to_course_mail($userId, user_get_properties($userId) );
+    $userData = user_get_properties($userId);
+
+    user_send_enroll_to_course_mail($userId, $userData );
     // display message
     $messageList['info'][]= get_lang('%firstname %lastname has been registered to your course',
                             array ( '%firstname' => $userData['firstname'],
