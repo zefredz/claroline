@@ -833,7 +833,7 @@ function update_db_course($courseDbName)
         `exe_id` int(11) NOT NULL auto_increment,
         `exe_user_id` int(10) default NULL,
         `exe_date` datetime NOT NULL default '0000-00-00 00:00:00',
-        `exe_exo_id` tinyint(4) NOT NULL default '0',
+        `exe_exo_id` int(11) NOT NULL default '0',
         `exe_result` float NOT NULL default '0',
         `exe_time`    mediumint(8) NOT NULL default '0',
         `exe_weighting` float NOT NULL default '0',
