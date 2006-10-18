@@ -389,8 +389,6 @@ function claro_get_main_course_tool_list ( $force = false )
 
 function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false, $active=true )
 {
-    global $clarolineRepositoryWeb;
-
     static $courseToolList = null, $courseId = null, $profileId = null;
 
     if (   is_null($courseToolList)
@@ -1053,10 +1051,10 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-    global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $urlAppend ,
+        global $includePath, get_path('clarolineRepositoryWeb'), $claro_stylesheet, $urlAppend ,
                $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email;
-        global $is_platformAdmin, $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
-               $is_courseAllowed, $imgRepositoryWeb, $_tid, $is_courseMember, $_gid;
+        global $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
+               $is_courseAllowed, get_path('imgRepositoryWeb'), $_tid, $is_courseMember, $_gid;
         global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
                $noPHP_SELF, $noQUERY_STRING;
         global $institution_name, $institution_url, $hide_banner, $hide_footer, $hide_body;
@@ -1186,7 +1184,35 @@ function get_init($param)
     return null;
 }
 
+/**
+ * Return a common path of claroline
+ *
+ * @param string $pathKey key name of the path ( varname in previous version of claroline)
+ * @return path
+ */
+function get_path($pathKey)
+{
+    switch ($pathKey)
+    {
+        case 'imgRepositoryAppend'    : return 'img/'; // <-this line would be editable in claroline 1.7
+        case 'rootSys' : return get_conf('rootSys') ;
+        case 'rootWeb' : return get_conf('rootWeb') ;
+        case 'clarolineRepositorySys' : return get_conf('rootSys') . get_conf('clarolineRepositoryAppend','claroline/');
+        case 'clarolineRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('clarolineRepositoryAppend','claroline/');
+        case 'userImageRepositorySys' : return get_conf('rootSys') . get_conf('userImageRepositoryAppend','platform/img/users/');
+        case 'userImageRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('userImageRepositoryAppend','platform/img/users/');
+        case 'coursesRepositorySys'   : return get_conf('rootSys') . get_conf('coursesRepositoryAppend','courses/');
+        case 'coursesRepositoryWeb'   : return get_conf('urlAppend') . '/' . get_conf('coursesRepositoryAppend','courses/');
+        case 'rootAdminSys'           : return get_path('clarolineRepositorySys') . get_conf('rootAdminAppend','admin/');
+        case 'rootAdminWeb'           : return get_path('clarolineRepositoryWeb') . get_conf('rootAdminAppend','admin/');
+        case 'imgRepositorySys'       : return get_path('clarolineRepositorySys') . get_path('imgRepositoryAppend');
+        case 'imgRepositoryWeb'       : return get_path('clarolineRepositoryWeb') . get_path('imgRepositoryAppend');
 
+        default : pushClaroMessage($pathKey . 'is an unknow path');
+        return false;
+    }
+
+}
 
 /**
  * @param $contextKeys array or null
@@ -1199,7 +1225,6 @@ function claro_get_current_context($contextKeys = null)
 {
     $currentKeys = array();
 
-    $_courseTool = get_init('_courseTool');
     if(!is_null($contextKeys) && !is_array($contextKeys)) $contextKeys = array($contextKeys);
 
     if((is_null($contextKeys) || in_array(CLARO_CONTEXT_COURSE,$contextKeys))       && !is_null($GLOBALS['_cid'])) $currentKeys[CLARO_CONTEXT_COURSE]       = $GLOBALS['_cid'];
@@ -1211,6 +1236,12 @@ function claro_get_current_context($contextKeys = null)
     return $currentKeys;
 }
 
+
+/**
+ * Developper function to push a message in stack of devs messages
+ * in debug mod this stack is output in footer
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
 if (!isset($claroErrorList)) $claroErrorList= array();
 function pushClaroMessage($message,$errorClass='error')
 {
@@ -1220,7 +1251,7 @@ function pushClaroMessage($message,$errorClass='error')
 }
 
 /**
- *
+ * get stack of devel message
  */
 function getClaroMessageList($errorClass=null)
 {
