@@ -18,7 +18,7 @@ include_once $path . '/../../lib/answer_truefalse.class.php';
 include_once $path . '/../../lib/answer_fib.class.php';
 include_once $path . '/../../lib/answer_matching.class.php';
 
-class Ims2Question extends Question
+class Qti2Question extends Question
 {
     /**
      * Include the correct answer class and create answer
@@ -28,19 +28,19 @@ class Ims2Question extends Question
         switch($this->type)
         {
             case 'MCUA' :
-                $this->answer = new ImsAnswerMultipleChoice($this->id, false);
+                $this->answer = new Qti2AnswerMultipleChoice($this->id, false);
                 break; 
             case 'MCMA' :
-                $this->answer = new ImsAnswerMultipleChoice($this->id, true);   
+                $this->answer = new Qti2AnswerMultipleChoice($this->id, true);   
                 break;
             case 'TF' :
-                $this->answer = new ImsAnswerTrueFalse($this->id, false); 
+                $this->answer = new Qti2AnswerTrueFalse($this->id, false); 
                 break;
             case 'FIB' :
-                $this->answer = new ImsAnswerFillInBlanks($this->id); 
+                $this->answer = new Qti2AnswerFillInBlanks($this->id); 
                 break;
             case 'MATCHING' :
-                $this->answer = new ImsAnswerMatching($this->id); 
+                $this->answer = new Qti2AnswerMatching($this->id); 
                 break;
             default :
                 $this->answer = null;
@@ -63,25 +63,27 @@ class Ims2Question extends Question
         $this->answer->import($questionArray);
 
         //import attached file, if any
-
-        if (isset($questionArray['attached_file_url']))
+        if( !empty($questionArray['attached_file_url']) )
         {
-            $file= array();
-            $file['name'] = $questionArray['attached_file_url'];
-            $file['tmp_name'] = $exerciseTempPath.$file['name'];
-
-            $this->setAttachment($file);
+            $this->importAttachment($questionArray['attached_file_url'],$exerciseTempPath);
         }
     } 
+    
+    function importAttachment($file,$exerciseTempPath)
+    {
+        claro_copy_file($exerciseTempPath.$file, $this->questionDirSys);
+        
+        $this->attachment = basename($file);
+    }
 }
 	
-class ImsAnswerMultipleChoice extends answerMultipleChoice
+class Qti2AnswerMultipleChoice extends answerMultipleChoice
 {
     /**
      * Return the XML flow for the possible answers. 
      *
      */
-    function imsExportResponses($questionIdent, $questionStatment)
+    function qti2ExportResponses($questionIdent, $questionStatment)
     {
 
         $out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
@@ -98,6 +100,7 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
         }
 
         $out .= '    </choiceInteraction>'. "\n"; 
+
         return $out;
     }
 
@@ -105,7 +108,7 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
      * Return the XML flow of answer ResponsesDeclaration
      *
      */
-    function imsExportResponsesDeclaration($questionIdent)
+    function qti2ExportResponsesDeclaration($questionIdent)
     {
 
         if ($this->multipleAnswer == 'MCMA')  $cardinality = 'multiple'; else $cardinality = 'single';
@@ -189,16 +192,16 @@ class ImsAnswerMultipleChoice extends answerMultipleChoice
     }
 }
 
-class ImsAnswerTrueFalse extends AnswerTrueFalse
+class Qti2AnswerTrueFalse extends AnswerTrueFalse
 {
 	/**
      * Return the XML flow for the possible answers. 
      *
      */
-    function imsExportResponses($questionIdent, $questionStatment)
+    function qti2ExportResponses($questionIdent, $questionStatment)
     {
 		$out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
-        $out .= '      <prompt> ' . $questionStatment . ' </prompt>'. "\n";
+        $out .= '      <prompt>![CDATA[' . $questionStatment . ']]</prompt>'. "\n";
 
 		//set true answer
 		
@@ -223,7 +226,7 @@ class ImsAnswerTrueFalse extends AnswerTrueFalse
         return $out;
 	}
 	
-	function imsExportResponsesDeclaration($questionIdent)
+	function qti2ExportResponsesDeclaration($questionIdent)
     {	
         $out = '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="single" baseType="identifier">' . "\n";
 
@@ -268,14 +271,14 @@ class ImsAnswerTrueFalse extends AnswerTrueFalse
 
 
 
-class ImsAnswerFillInBlanks extends answerFillInBlanks 
+class Qti2AnswerFillInBlanks extends answerFillInBlanks 
 {
     /**
      * Export the text with missing words.
      *
      *
      */
-    function imsExportResponses($questionIdent, $questionStatment)
+    function qti2ExportResponses($questionIdent, $questionStatment)
     {
         global $charset;
 
@@ -340,7 +343,7 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
     /**
      *
      */
-    function imsExportResponsesDeclaration($questionIdent)
+    function qti2ExportResponsesDeclaration($questionIdent)
     {
 
         $out = '';
@@ -392,7 +395,9 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
     function import($questionArray)
     {
         $answerArray = $questionArray['answer'];
-        $this->answerText = str_replace ("\n","",$questionArray['response_text']);
+        
+        $this->answerText = $questionArray['response_text'];
+        
         if ($questionArray['subtype'] == "TEXTFIELD_FILL") 
 		{
 			$this->type = TEXTFIELD_FILL;
@@ -403,8 +408,7 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
             $this->type = LISTBOX_FILL;
         }
 
-        //build correct_answsers array
-        
+        //build correct_answsers array        
         if (isset($questionArray['weighting']))
         {
             $this->gradeList = $questionArray['weighting'];
@@ -412,12 +416,12 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
     }
 }
 
-class ImsAnswerMatching extends answerMatching
+class Qti2AnswerMatching extends answerMatching
 {
     /**
      * Export the question part as a matrix-choice, with only one possible answer per line.
      */
-    function imsExportResponses($questionIdent, $questionStatment)
+    function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $maxAssociation = max(count($this->leftList), count($this->rightList));
 
@@ -459,7 +463,7 @@ class ImsAnswerMatching extends answerMatching
     /**
      *
      */
-    function imsExportResponsesDeclaration($questionIdent)
+    function qti2ExportResponsesDeclaration($questionIdent)
     {
         $out =  '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="multiple" baseType="identifier">' . "\n";
         $out .= '    <correctResponse>' . "\n";

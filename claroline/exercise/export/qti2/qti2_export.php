@@ -79,6 +79,21 @@ class ImsAssessmentItem
      }
      
      /**
+      * Add oject container for attached file
+      * 
+      */
+     function object_attached_file()
+     {
+        $attachment = $this->question->getAttachment();
+        
+        if( !empty($attachment) )
+        {
+            $mimeType = get_mime_on_ext($attachment);
+            return '    <object type="'.$mimeType.'" data="'.htmlspecialchars($attachment, ENT_COMPAT).'" />' . "\n";            
+        }
+        return '';
+     }
+     /**
       * End the itemBody part.
       *
       */
@@ -118,9 +133,10 @@ class ImsAssessmentItem
         
         return $head
                . $this->start_item() 
-                 .$this->answer->imsExportResponsesDeclaration($this->questionIdent)
+                 .$this->answer->qti2ExportResponsesDeclaration($this->questionIdent)
                  . $this->start_item_body()
-                   . $this->answer->imsExportResponses($this->questionIdent, $this->question->description)
+                   . $this->object_attached_file() 
+                   . $this->answer->qti2ExportResponses($this->questionIdent, $this->question->description)
                  . $this->end_item_body()
                . $this->add_response_processing()
                . $this->end_item()
@@ -142,7 +158,7 @@ class ImsAssessmentItem
  * @param boolean $standalone Wether it should include XML tag and DTD line.
  * @return The XML as a string, or an empty string if there's no exercise with given ID.
  */
-function export_exercise($exerciseId, $standalone=True)
+function export_exercise($exerciseId, $standalone = true)
 {
     $exercise = new Exercise();
     if (! $exercise->load($exerciseId))
@@ -160,9 +176,9 @@ function export_exercise($exerciseId, $standalone=True)
  * @param int The question ID
  * @param bool standalone (ie including XML tag, DTD declaration, etc)
  */
-function export_question($questionId, $standalone=True)
+function export_question($questionId, $standalone = true)
 {
-    $question = new Ims2Question();
+    $question = new Qti2Question();
     if( !$question->load($questionId) )
     {
         return '';
@@ -172,6 +188,50 @@ function export_question($questionId, $standalone=True)
     
     return $ims->export($standalone);
 
+}
+
+/**
+ * Send a zip file for download, 
+ *
+ * @param string name of the downloaded file (without extension)
+ * @param 
+ *
+ * @return boolean result of operation
+ */
+function sendZip($archiveName, $archiveContent, $removedPath)
+{
+    // TODO find a better solution for removedPath
+    if( !is_array($archiveContent) || empty($archiveContent) )
+    {
+        return false;
+    }
+
+    $downloadPlace = get_conf('rootSys') . get_conf('tmpPathSys');
+    $downloadArchivePath = $downloadPlace.'/'.uniqid('').'.zip';
+    $downloadArchiveName = empty($archiveName) ? 'archive.zip' : $archiveName . '.zip';
+    $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+    
+    $downloadArchive     = new PclZip($downloadArchivePath);
+
+    $downloadArchive->add($archiveContent, PCLZIP_OPT_REMOVE_PATH, $removedPath);
+
+    if( file_exists($downloadArchivePath) )
+    {
+        if( claro_send_file($downloadArchivePath, $downloadArchiveName) )
+        {
+            unlink($downloadArchivePath);        
+            return true;
+        }
+        else
+        {
+            unlink($downloadArchivePath);        
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
 ?>
