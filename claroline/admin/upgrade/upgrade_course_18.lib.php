@@ -800,6 +800,14 @@ function tracking_upgrade_to_18($course_code)
                 $sql = "UPDATE `".$currentCourseDbNameGlu."track_e_access` 
                         SET access_tlabel = TRIM(TRAILING '_' FROM access_tlabel)";
                 
+                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 2, $course_code);
+                else return $step;
+
+            case 2 :
+
+                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` 
+                        CHANGE `exe_exo_id` `exe_exo_id` int(11)";
+                
                 if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
                 else return $step;
 
