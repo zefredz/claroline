@@ -133,20 +133,10 @@ else
             
 if ( $isDownloadable )
 {
-    $mimeType = get_mime_on_ext($pathInfo);
-    
-    if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
-        
-    // IE no-cache bug
-    // TODO move $lifetime to config
-    $lifetime = 60;
-    header('Cache-Control: max-age='.$lifetime);
-    header('Expires: '. gmdate('D, d M Y H:i:s', time() + $lifetime) .' GMT');
-    header('Pragma: ');
-
-    header('Content-Disposition: inline; filename="' . basename($pathInfo) . '"');
-    if( readfile($pathInfo)  > 0) event_download($requestUrl);
-
+    if( claro_send_file( $pathInfo )  > 0 )
+    {
+        event_download( $requestUrl );
+    }
 }
 else
 {
