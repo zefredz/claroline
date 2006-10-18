@@ -693,7 +693,7 @@ class Exercise
      */
 	function getShuffle()
 	{
-		return $this->shuffle;
+		return (int) $this->shuffle;
 	}
 
 	/**
@@ -777,7 +777,7 @@ class Exercise
      */
 	function getTimeLimit()
 	{
-		return $this->timeLimit;
+		return (int) $this->timeLimit;
 	}
 
 	/**
@@ -799,7 +799,7 @@ class Exercise
      */
 	function getAttempts()
 	{
-		return $this->attempts;
+		return (int) $this->attempts;
 	}
 
 	/**
