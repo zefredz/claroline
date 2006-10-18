@@ -215,7 +215,7 @@ function import_exercise($file, &$backlog_message)
     {
         //2.create question
 
-        $question = new Ims2Question();
+        $question = new Qti2Question();
 
         if (isset($question_array['title'])) $question->setTitle($question_array['title']);
         if (isset($question_array['statement'])) $question->setDescription($question_array['statement']);
@@ -562,9 +562,9 @@ function startElement($parser, $name, $attributes)
         }
         break;
 
-        case 'IMG' :
+        case 'OBJECT' :
         {
-            $exercise_info['question'][$current_question_ident]['attached_file_url'] =  $attributes['SRC'];
+            $exercise_info['question'][$current_question_ident]['attached_file_url'] =  $attributes['DATA'];
         }
         break;
     }
