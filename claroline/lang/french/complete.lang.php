@@ -1547,9 +1547,10 @@ l\'inscription pendant une semaine, de demander aux étudiants de s\'inscrire eux
 puis de fermer l\'inscription et de vérifier dans la liste des utilisateurs les intrus éventuels.';
 $_lang['blockCourseSubscriptionNotification'] = '
 Cher (chère) %firstname %lastname,
-Un des gestionnaires du cours %courseCode vous a inscrit à son cours.
 
-L\'adresse du cours %courseName est :
+Un des gestionnaires du cours "%courseName" vous a inscrit à son cours.
+
+L\'adresse du cours est :
 
 %coursePath
 

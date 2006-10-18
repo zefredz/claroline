@@ -1534,9 +1534,10 @@ one week, ask the students to register themselves, then close registration and c
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,
-One of administrators of the course %courseCode has registered you on this course.
 
-The address of  %courseName is :
+One of the administrators of the course "%courseName" has registered you on this course.
+
+The address of  the course is :
 
 %coursePath
 
