@@ -598,11 +598,7 @@ if($is_allowedToEditAll)
 		            .			 $url . "\n"
 		            ;
 
-		            foreach( $userIdList as $userId )
-		            {
-						claro_mail_user($userId, $emailBody, $emailSubject);
-		            }
-		
+		            claro_mail_user($userIdList, $emailBody, $emailSubject);
 		        }
             }
 			// display flags
