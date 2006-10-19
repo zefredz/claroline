@@ -73,8 +73,8 @@ if($_uid) // if not anonymous
 	if( !$num || $num == 0 )
 	{
 	    $sql = "INSERT INTO `".$TABLEUSERMODULEPROGRESS."`
-	            ( `user_id` , `learnPath_id` , `learnPath_module_id` )
-	            VALUES ( '" . (int)$_uid . "' , ". (int)$_SESSION['path_id']." , ". (int)$learnPathModuleId.")";
+	            ( `user_id` , `learnPath_id` , `learnPath_module_id`, `suspend_data` )
+	            VALUES ( " . (int)$_uid . " , ". (int)$_SESSION['path_id']." , ". (int)$learnPathModuleId.", '')";
 	    claro_sql_query($sql);
 	}
 }  // else anonymous : record nothing !
