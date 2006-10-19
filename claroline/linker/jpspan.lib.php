@@ -45,7 +45,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             
             // check the signature with mozilla/4.0, msie 5.5 or 6.0 and not with opera 
             if( preg_match( '~mozilla/4\.0~i', $_SERVER['HTTP_USER_AGENT'] ) 
-                &&( preg_match( '~msie (5\.5|6\.0)~i', $_SERVER['HTTP_USER_AGENT'] ) 
+                &&( preg_match( '~msie (5\.5|6\.0|7\.0)~i', $_SERVER['HTTP_USER_AGENT'] ) 
                     && !preg_match( '~opera~i', $_SERVER['HTTP_USER_AGENT'] )  ) )
             {
                 $jpspanEnabled = TRUE;
