@@ -812,10 +812,12 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
         else
         {
-            $newPath = secure_file_path( $_REQUEST['file']);
+            $newPath = secure_file_path( $_REQUEST['file'] );
         }
+        
+        $oldPath = secure_file_path( $_REQUEST['file'] );
 
-        $newPath = claro_rename_file($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath);
+        $newPath = claro_rename_file( $baseWorkDir.$oldPath, $baseWorkDir.$newPath );
 
         if ( $newPath )
         {
@@ -1013,7 +1015,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         if ($_REQUEST['vis'] == 'v')
         {
-        $eventNotifier->notifyCourseEvent("document_visible",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
+            $eventNotifier->notifyCourseEvent("document_visible",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
         }
         else
         {
@@ -1043,10 +1045,8 @@ if ('exDownload' == $cmd )
      * PREPARE THE FILE COLLECTION
      */
 
-    if ( isset($_REQUEST['file'] ) )
+    if ( isset( $_REQUEST['file'] ) )
     {
-        $_REQUEST['file'] = $_REQUEST['file'];
-
         $requestDownloadPath = $baseWorkDir
                              . secure_file_path( $_REQUEST['file']);
         $searchDownloadPattern = '';
@@ -1079,7 +1079,8 @@ if ('exDownload' == $cmd )
      */
 
     require_once $includePath . '/lib/pclzip/pclzip.lib.php';
-
+    
+    // TODO use tmp dir instead of course document dir
     $downloadArchivePath = $requestDownloadPath.'/'.uniqid('').'.zip';
     $downloadArchiveName = get_conf('siteName');
     
