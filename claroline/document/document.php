@@ -172,7 +172,7 @@ if($is_allowedToEdit) // for teacher only
 }
 
 // XSS protection
-$cwd =isset( $_REQUEST['cwd'] ) ? urldecode($_REQUEST['cwd']):null;
+$cwd = isset( $_REQUEST['cwd'] ) ? $_REQUEST['cwd'] : null;
 
 // clean information submited by the user from antislash
 
@@ -182,7 +182,7 @@ else                           $cmd = null;
 if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
 else                               $docView = 'files';
 
-if ( isset($_REQUEST['file']) ) $_REQUEST['file'] = urldecode($_REQUEST['file']);
+if ( isset($_REQUEST['file']) ) $_REQUEST['file'] = $_REQUEST['file'];
 
 /* > > > > > > MAIN SECTION  < < < < < < <*/
 
@@ -1046,6 +1046,8 @@ if ('exDownload' == $cmd )
 
     if ( isset($_REQUEST['file'] ) )
     {
+        // THIS URLDECODE IS MANDATORY SINCE $_REQUEST['file'] 
+        // IS DOUBLE URLENCODED
         $_REQUEST['file'] = urldecode($_REQUEST['file']);
 
         $requestDownloadPath = $baseWorkDir
@@ -1870,7 +1872,7 @@ echo claro_html_tool_title($titleElement,
         if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point
                                                   and we can't go to a parent dir */
         {
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.urlencode($cmdParentDir).'">' . "\n"
+            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.$cmdParentDir.'">' . "\n"
                 .'<img src="'.$imgRepositoryWeb.'parent.gif" border="0" alt="">&nbsp;'
                 .get_lang('Up')
                 .'</a>';
@@ -1884,13 +1886,13 @@ echo claro_html_tool_title($titleElement,
         }
 
 
-        $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.urlencode($cmdCurDirPath).'">&nbsp;'
+        $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath.'">&nbsp;'
             .'<img src="'.$imgRepositoryWeb.'search.gif" border="0" alt="">&nbsp;'
             . get_lang('Search')
             ."</a>";
 
-        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.$searchPattern;
-        else                             $downloadArgument = 'file='. urlencode($cmdCurDirPath);
+        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.urlencode($searchPattern);
+        else                             $downloadArgument = 'file='. $cmdCurDirPath;
 
         if ( isset($fileList) && count($fileList) > 0 )
         {
