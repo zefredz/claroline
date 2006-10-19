@@ -164,7 +164,7 @@ class answerFillInBlanks
 		            	`answer` = '".addslashes($this->answerText)."',
 		                `gradeList` = '".addslashes($sqlGradeList)."',
 		                `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
-		                `type` = '".addslashes($this->type)."'";
+		                `type` = ".(int) $this->type;
 		
 		    // execute the creation query and get id of inserted assignment
 		    $insertedId = claro_sql_query_insert_id($sql);
@@ -187,7 +187,7 @@ class answerFillInBlanks
 		            SET `answer` = '".addslashes($this->answerText)."',
 		                `gradeList` = '".addslashes($sqlGradeList)."',
 		                `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
-		                `type` = '".addslashes($this->type)."'
+		                `type` = ".(int) $this->type."
 		            WHERE `id` = ".(int) $this->id;
 		
 		    // execute and return main query
