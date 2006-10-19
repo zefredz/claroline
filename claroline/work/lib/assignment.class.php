@@ -431,7 +431,7 @@ class Assignment
      * @return array
      * @TODO get the full list is authId is not specified (submissions and feedback for all authors)
      */
-    function getSubmissionList($authId, $course_id = null)
+    function getSubmissionList($authId)
     {
     	if( $this->assignmentType == 'GROUP' )
     		$authCondition = '`group_id` = '.(int) $authId;
