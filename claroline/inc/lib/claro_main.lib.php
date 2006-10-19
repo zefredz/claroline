@@ -1159,6 +1159,8 @@ function get_init($param)
 {
 
     static $initValueList = array( '_uid','_cid','_gid','_tid'
+                                 , 'is_authenticated'
+                                 , 'in_course_context'
                                  , 'is_platformAdmin'
                                  , '_course'
                                  , '_user'
@@ -1170,6 +1172,7 @@ function get_init($param)
                                  , 'is_courseMember'
                                  , 'is_courseTutor'
                                  , 'is_courseAdmin'
+                                 , 'is_courseAllowed'
                                  , 'is_allowedCreateCourse'
                                  , 'is_groupMember'
                                  , 'is_groupTutor'
@@ -1177,10 +1180,13 @@ function get_init($param)
                                  , 'is_toolAllowed'
                                  );
 
-    if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name', E_USER_NOTICE);
+    if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
+    //TODO create a real auth function to eval this state
+    if ( $param == 'is_authenticated') return (bool) array_key_exists($param,$GLOBALS);
+    //TODO create a real course function to eval this state
+    if ( $param == 'in_course_context') return (bool) array_key_exists($param,$GLOBALS);
     if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
     elseif ( defined($param)         )            return constant($param);
-    else                                          trigger_error( htmlentities($param) . ' is not a setted init value name', E_USER_NOTICE);
     return null;
 }
 
@@ -1194,9 +1200,17 @@ function get_path($pathKey)
 {
     switch ($pathKey)
     {
-        case 'imgRepositoryAppend'    : return 'img/'; // <-this line would be editable in claroline 1.7
+        case 'includePath'            : return dirname( dirname(__FILE__) );
+        case 'incRepositorySys'       : return dirname( dirname(__FILE__) );
+
         case 'rootSys' : return get_conf('rootSys') ;
         case 'rootWeb' : return get_conf('rootWeb') ;
+
+        case 'imgRepositoryAppend'       : return 'img/'; // <-this line would be editable in claroline 1.7
+        case 'clarolineRepositoryAppend' : return get_conf('clarolineRepositoryAppend','claroline/');
+        case 'coursesRepositoryAppend'   : return get_conf('coursesRepositoryAppend','courses/');
+        case 'rootAdminAppend'           : return get_conf('rootAdminAppend','admin/');
+
         case 'clarolineRepositorySys' : return get_conf('rootSys') . get_conf('clarolineRepositoryAppend','claroline/');
         case 'clarolineRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('clarolineRepositoryAppend','claroline/');
         case 'userImageRepositorySys' : return get_conf('rootSys') . get_conf('userImageRepositoryAppend','platform/img/users/');
