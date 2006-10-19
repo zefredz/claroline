@@ -450,16 +450,16 @@ function event_default($type_event,$values)
     {
         if($sqlValues == "")
         {
-            $sqlValues .= "('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),'".addslashes($type_event)."','".addslashes($type_value)."','".addslashes($event_value)."')";
+            $sqlValues .= "(".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),'".addslashes($type_event)."','".addslashes($type_value)."','".addslashes($event_value)."')";
         }
         else
         {
-            $sqlValues .= ",('',".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),'".addslashes($type_event)."','".addslashes($type_value)."','".addslashes($event_value)."')";
+            $sqlValues .= ",(".$user_id.",".$cours_id.",FROM_UNIXTIME(".$reallyNow."),'".addslashes($type_event)."','".addslashes($type_value)."','".addslashes($event_value)."')";
         }
     }
     $sql = "INSERT INTO `".$tbl_track_e_default."`
+           ( `default_user_id` , `default_cours_code` , `default_date` , `default_event_type` , `default_value_type` , `default_value` ) 
             VALUES ".$sqlValues;
-
 
     $res = claro_sql_query($sql);
     return 1;
