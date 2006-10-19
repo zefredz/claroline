@@ -161,4 +161,9 @@
             return claro_failure::set_failure( 'FILE_NOT_FOUND' );
         }
     }
+    
+    function secure_file_path( $path )
+    {
+        return preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
+    }
 ?>

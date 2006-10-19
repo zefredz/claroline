@@ -160,6 +160,7 @@ event_access_tool($_tid, $_courseTool['label']);
 
 
 require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/file.lib.php';
 
 if($is_allowedToEdit) // for teacher only
 {
@@ -228,7 +229,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $comment = '';
             }
 
-            $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
+            $cwd = secure_file_path( $cwd );
 
             $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
                                     $cwd, $maxFilledSpace, $unzip);
@@ -259,7 +260,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     // add comment to each file
                     foreach ( $uploadedFileNameList as $uploadedFileName )
                     {
-                        $uploadedFileName = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $uploadedFileName);
+                        $uploadedFileName = secure_file_path( $uploadedFileName);
 
                         if ( dirname($uploadedFileName) != $cwd )
                         {
@@ -480,7 +481,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ($uploadImgFileNb > 0)
         {
             // Try to create  a directory to store the image files
-            $_REQUEST['relatedFile'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['relatedFile']);
+            $_REQUEST['relatedFile'] = secure_file_path( $_REQUEST['relatedFile']);
 
             $imgDirectory = $_REQUEST['relatedFile'].'_files';
             $imgDirectory = create_unexisting_directory($baseWorkDir.$imgDirectory);
@@ -527,7 +528,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     if ('exMkHtml' == $cmd)
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
-        $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
+        $cwd = secure_file_path( $cwd);
 
         if (! empty($fileName) )
         {
@@ -537,7 +538,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $fileName = $fileName.'.htm';
             }
 
-            $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
+            $cwd = secure_file_path( $cwd);
 
             $htmlContent = claro_parse_user_text( $_REQUEST['htmlContent'] );
             
@@ -577,7 +578,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     // TODO use the same code as exMkHml
     if ('exEditHtml' == $cmd)
     {
-        $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+        $_REQUEST['file'] = secure_file_path( $_REQUEST['file']);
         $fp = fopen($baseWorkDir.$_REQUEST['file'], 'w');
 
         if ($fp)
@@ -613,7 +614,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
         $url = trim($_REQUEST['url']);
 
-        $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
+        $cwd = secure_file_path( $cwd);
 
         // check for "http://", if the user forgot "http://" or "ftp://" or ...
         // the link will not be correct
@@ -687,8 +688,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('exMv' == $cmd )
     {
-        $_REQUEST['file'       ] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file'       ]);
-        $_REQUEST['destination'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['destination']);
+        $_REQUEST['file'       ] = secure_file_path( $_REQUEST['file'       ]);
+        $_REQUEST['destination'] = secure_file_path( $_REQUEST['destination']);
 
         if ( claro_move_file($baseWorkDir.$_REQUEST['file'],$baseWorkDir.$_REQUEST['destination']) )
         {
@@ -740,7 +741,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('exRm' == $cmd )
     {
-        $file = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+        $file = secure_file_path( $_REQUEST['file']);
 
         if ( claro_delete_file($baseWorkDir.$file))
         {
@@ -804,7 +805,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $directoryName = '';
         }
 
-        $_REQUEST['newName'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', trim($_REQUEST['newName']));
+        $_REQUEST['newName'] = secure_file_path( trim($_REQUEST['newName']));
 
 
         if ( ! empty($_REQUEST['newName']) )
@@ -813,7 +814,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
         else
         {
-            $newPath = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+            $newPath = secure_file_path( $_REQUEST['file']);
         }
 
         $newPath = claro_rename_file($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath);
@@ -944,7 +945,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $newDirName = replace_dangerous_char(trim($_REQUEST['newName']));
 
-        $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
+        $cwd = secure_file_path( $cwd);
 
         if( check_name_exist($baseWorkDir.$cwd.'/'.$newDirName) )
         {
@@ -1004,7 +1005,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('exChVis'  == $cmd && $courseContext)
     {
-        $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+        $_REQUEST['file'] = secure_file_path( $_REQUEST['file']);
 
         update_db_info('update', $_REQUEST['file'], array('visibility' => $_REQUEST['vis']) );
 
@@ -1049,7 +1050,7 @@ if ('exDownload' == $cmd )
         $_REQUEST['file'] = $_REQUEST['file'];
 
         $requestDownloadPath = $baseWorkDir
-                             . preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
+                             . secure_file_path( $_REQUEST['file']);
         $searchDownloadPattern = '';
     }
     elseif( isset($_REQUEST['searchPattern']) )
@@ -1202,7 +1203,7 @@ if ($cmd == 'exSearch')
       $searchExcludeList = array();
     }
 
-    $cwd = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $cwd);
+    $cwd = secure_file_path( $cwd);
 
 
     $searchPattern    = $_REQUEST['searchPattern'];
@@ -1224,7 +1225,7 @@ else
     $searchExcludeList = array();
 }
 
-$searchBasePath = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $searchBasePath);
+$searchBasePath = secure_file_path( $searchBasePath);
 
 $filePathList = claro_search_file( search_string_to_pcre($searchPattern),
                                   $searchBasePath,
