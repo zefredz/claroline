@@ -172,4 +172,55 @@
     {
         return preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
     }
+    
+if ( ! function_exists( 'replace_dangerous_char' ) )
+{
+    /**
+     * replaces some dangerous character in a file name
+     *
+     * @param  string $string
+     * @param  string $strict (optional) removes also scores and simple quotes
+     * @return string : the string cleaned of dangerous character
+     *
+     */
+    
+    function replace_dangerous_char($string, $strict = 'loose')
+    {
+        $search[] = ' ';  $replace[] = '_';
+        $search[] = '/';  $replace[] = '-';
+        $search[] = '\\'; $replace[] = '-';
+        $search[] = '"';  $replace[] = '-';
+        $search[] = '\'';  $replace[] = '_';
+        $search[] = '?';  $replace[] = '-';
+        $search[] = '*';  $replace[] = '-';
+        $search[] = '>';  $replace[] = '';
+        $search[] = '<';  $replace[] = '-';
+        $search[] = '|';  $replace[] = '-';
+        $search[] = ':';  $replace[] = '-';
+        $search[] = '$';  $replace[] = '-';
+        $search[] = '(';  $replace[] = '-';
+        $search[] = ')';  $replace[] = '-';
+        $search[] = '^';  $replace[] = '-';
+        $search[] = '[';  $replace[] = '-';
+        $search[] = ']';  $replace[] = '-';
+        $search[] = '..';  $replace[] = '';
+    
+    
+        foreach($search as $key=>$char )
+        {
+            $string = str_replace($char, $replace[$key], $string);
+        }
+    
+        if ($strict == 'strict')
+        {
+            $string = str_replace('-', '_', $string);
+            $string = str_replace("'", '', $string);
+            $string = strtr($string,
+                            'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+                            'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
+        }
+    
+        return $string;
+    }
+}
 ?>

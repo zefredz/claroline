@@ -1164,54 +1164,57 @@ function htmlize($phrase)
     return claro_parse_user_text(htmlspecialchars($phrase));
 }
 
-/**
- * replaces some dangerous character in a string for HTML use
- *
- * @param  string $string
- * @param  string $strict (optional) removes also scores and simple quotes
- * @return string : the string cleaned of dangerous character
- *
- */
-
-function replace_dangerous_char($string, $strict = 'loose')
+// TODO remove from this library and use the function defined in file.lib.php
+if ( ! function_exists( 'replace_dangerous_char' ) )
 {
-    $search[] = ' ';  $replace[] = '_';
-    $search[] = '/';  $replace[] = '-';
-    $search[] = '\\'; $replace[] = '-';
-    $search[] = '"';  $replace[] = '-';
-    $search[] = '\'';  $replace[] = '_';
-    $search[] = '?';  $replace[] = '-';
-    $search[] = '*';  $replace[] = '-';
-    $search[] = '>';  $replace[] = '';
-    $search[] = '<';  $replace[] = '-';
-    $search[] = '|';  $replace[] = '-';
-    $search[] = ':';  $replace[] = '-';
-    $search[] = '$';  $replace[] = '-';
-    $search[] = '(';  $replace[] = '-';
-    $search[] = ')';  $replace[] = '-';
-    $search[] = '^';  $replace[] = '-';
-    $search[] = '[';  $replace[] = '-';
-    $search[] = ']';  $replace[] = '-';
-    $search[] = '..';  $replace[] = '';
-
-
-    foreach($search as $key=>$char )
+    /**
+     * replaces some dangerous character in a file name
+     *
+     * @param  string $string
+     * @param  string $strict (optional) removes also scores and simple quotes
+     * @return string : the string cleaned of dangerous character
+     *
+     */
+    
+    function replace_dangerous_char($string, $strict = 'loose')
     {
-        $string = str_replace($char, $replace[$key], $string);
+        $search[] = ' ';  $replace[] = '_';
+        $search[] = '/';  $replace[] = '-';
+        $search[] = '\\'; $replace[] = '-';
+        $search[] = '"';  $replace[] = '-';
+        $search[] = '\'';  $replace[] = '_';
+        $search[] = '?';  $replace[] = '-';
+        $search[] = '*';  $replace[] = '-';
+        $search[] = '>';  $replace[] = '';
+        $search[] = '<';  $replace[] = '-';
+        $search[] = '|';  $replace[] = '-';
+        $search[] = ':';  $replace[] = '-';
+        $search[] = '$';  $replace[] = '-';
+        $search[] = '(';  $replace[] = '-';
+        $search[] = ')';  $replace[] = '-';
+        $search[] = '^';  $replace[] = '-';
+        $search[] = '[';  $replace[] = '-';
+        $search[] = ']';  $replace[] = '-';
+        $search[] = '..';  $replace[] = '';
+    
+    
+        foreach($search as $key=>$char )
+        {
+            $string = str_replace($char, $replace[$key], $string);
+        }
+    
+        if ($strict == 'strict')
+        {
+            $string = str_replace('-', '_', $string);
+            $string = str_replace("'", '', $string);
+            $string = strtr($string,
+                            'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+                            'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
+        }
+    
+        return $string;
     }
-
-    if ($strict == 'strict')
-    {
-        $string = str_replace('-', '_', $string);
-        $string = str_replace("'", '', $string);
-        $string = strtr($string,
-                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
-                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-    }
-
-    return $string;
 }
-
 
 /**
  * convert a duration in seconds to a human readable duration
