@@ -153,6 +153,7 @@
             
             // force file name
             header('Content-Disposition: inline; filename="' . $name . '"');
+            header('Content-Length: '. filesize( $path ) );
             
             return ( readfile( $path ) > 0 );
         }
@@ -162,6 +163,11 @@
         }
     }
     
+    /**
+     * Remove /.. ../ from file path
+     * @param   string $path file path
+     * @return  string, clean file path
+     */
     function secure_file_path( $path )
     {
         return preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
