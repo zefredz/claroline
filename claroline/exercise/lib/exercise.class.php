@@ -185,12 +185,12 @@ class Exercise
 		                `description` = '".addslashes($this->description)."',
 		                `visibility` = '".addslashes($this->visibility)."',
 		                `displayType` = '".addslashes($this->displayType)."',
-		                `shuffle` = '".addslashes($this->shuffle)."',
+		                `shuffle` = ".(int) $this->shuffle.",
 		                `showAnswers` = '".addslashes($this->showAnswers)."',
-		                `startDate` = FROM_UNIXTIME('".addslashes($this->startDate)."'),
-		                `endDate` = FROM_UNIXTIME('".addslashes($this->endDate)."'),
-						`timeLimit` = '".addslashes($this->timeLimit)."',
-						`attempts` = '".addslashes($this->attempts)."',
+		                `startDate` = FROM_UNIXTIME(".addslashes($this->startDate)."),
+		                `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".addslashes($this->endDate).")").",
+						`timeLimit` = ".(int) $this->timeLimit.",
+						`attempts` = ".(int) $this->attempts.",
 						`anonymousAttempts` = '".addslashes($this->anonymousAttempts)."'";
 
 		    // execute the creation query and get id of inserted assignment
@@ -210,26 +210,17 @@ class Exercise
     	else
     	{
     		// update, main query
-		    if( is_null($this->endDate) || $this->endDate == 0 )
-		    {
-		    	$endDateSql = "'0000-00-00 00:00:00'";
-		    }
-		    else
-		    {
-		    	$endDateSql = "FROM_UNIXTIME('".addslashes($this->endDate)."')";
-		    }
-
 		    $sql = "UPDATE `".$this->tblExercise."`
 		            SET `title` = '".addslashes($this->title)."',
 		                `description` = '".addslashes($this->description)."',
 		                `visibility` = '".addslashes($this->visibility)."',
 		                `displayType` = '".addslashes($this->displayType)."',
-		                `shuffle` = '".addslashes($this->shuffle)."',
+		                `shuffle` = ".(int) $this->shuffle.",
 		                `showAnswers` = '".addslashes($this->showAnswers)."',
 		                `startDate` = FROM_UNIXTIME('".addslashes($this->startDate)."'),
-		                `endDate` = ".$endDateSql.",
-						`timeLimit` = '".addslashes($this->timeLimit)."',
-						`attempts` = '".addslashes($this->attempts)."',
+		                `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".addslashes($this->endDate).")").",
+						`timeLimit` = ".(int) $this->timeLimit.",
+						`attempts` = ".(int) $this->attempts.",
 						`anonymousAttempts` = '".addslashes($this->anonymousAttempts)."'
 		            WHERE `id` = '".$this->id."'";
 
@@ -343,7 +334,7 @@ class Exercise
 		$sql = "SELECT Q.`id`, Q.`title`, Q.`type`, REQ.`rank`
 				 FROM `" . $this->tblRelExerciseQuestion . "` AS REQ,
 				      `" . $this->tblQuestion . "` AS Q
-				WHERE REQ.`exerciseId` = '" . $this->id . "'
+				WHERE REQ.`exerciseId` = " . (int) $this->id . "
 				  AND REQ.`questionId` = Q.`id`
 				ORDER BY `rank`";
 
@@ -399,8 +390,8 @@ class Exercise
 	{
 		$sql = "SELECT `rank`
 				FROM `".$this->tblRelExerciseQuestion."`
- 			WHERE `exerciseId` = ".$this->id."
-				AND `questionId` = ".$questionId;
+ 			WHERE `exerciseId` = ". (int) $this->id."
+				AND `questionId` = ". (int) $questionId;
 		return claro_sql_query_get_single_value($sql);
 	}
 
@@ -415,7 +406,7 @@ class Exercise
 	{
 		$sql = "SELECT max(`rank`)
 				FROM `" . $this->tblRelExerciseQuestion . "`
-				WHERE `exerciseId` = ".$this->id;
+				WHERE `exerciseId` = ". (int) $this->id;
 
 		$rankMax = claro_sql_query_get_single_value($sql);
 
@@ -461,16 +452,16 @@ class Exercise
 			$newRank = $questionList[$i-1]['rank'];
 
 			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
-					SET `rank` = '".$questionRank."'
-					WHERE `exerciseId` = ".$this->id."
-					  AND `rank` = ".$newRank;
+					SET `rank` = ".(int) $questionRank."
+					WHERE `exerciseId` = ".(int) $this->id."
+					  AND `rank` = ".(int) $newRank;
 
 			if( claro_sql_query($sql) == false ) return false;
 
 			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
-					SET `rank` = '".$newRank."'
-					WHERE `exerciseId` = ".$this->id."
-					  AND `questionId` = ".$questionId;
+					SET `rank` = ".(int) $newRank."
+					WHERE `exerciseId` = ".(int) $this->id."
+					  AND `questionId` = ".(int) $questionId;
 
 			if( claro_sql_query($sql) == false ) return false;
 
@@ -517,16 +508,16 @@ class Exercise
 			$newRank = $questionList[$i+1]['rank'];
 
 			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
-					SET `rank` = '".$questionRank."'
-					WHERE `exerciseId` = ".$this->id."
-					  AND `rank` = ".$newRank;
+					SET `rank` = ".(int) $questionRank."
+					WHERE `exerciseId` = ".(int) $this->id."
+					  AND `rank` = ".(int) $newRank;
 
 			if( claro_sql_query($sql) == false ) return false;
 
 			$sql = "UPDATE `".$this->tblRelExerciseQuestion."`
-					SET `rank` = '".$newRank."'
-					WHERE `exerciseId` = ".$this->id."
-					  AND `questionId` = ".$questionId;
+					SET `rank` = ".(int) $newRank."
+					WHERE `exerciseId` = ".(int) $this->id."
+					  AND `questionId` = ".(int) $questionId;
 
 			if( claro_sql_query($sql) == false ) return false;
 
@@ -548,9 +539,9 @@ class Exercise
 
 		$sql = "INSERT INTO `".$this->tblRelExerciseQuestion."`
 
-				SET `exerciseId` = '".$this->id."',
-					`questionId` = '".(int) $questionId."',
-					`rank` = '".(int)$rank."'";
+				SET `exerciseId` = ".(int) $this->id.",
+					`questionId` = ".(int) $questionId.",
+					`rank` = ".(int) $rank;
 
 		return claro_sql_query($sql);
 	}
@@ -566,7 +557,7 @@ class Exercise
 	{
 
 		$sql = "DELETE FROM `".$this->tblRelExerciseQuestion."`
-				WHERE `exerciseId` = ".$this->id."
+				WHERE `exerciseId` = ".(int) $this->id."
 				AND `questionId` = ".(int) $questionId;
 
 		return claro_sql_query($sql);
