@@ -1046,9 +1046,7 @@ if ('exDownload' == $cmd )
 
     if ( isset($_REQUEST['file'] ) )
     {
-        // THIS URLDECODE IS MANDATORY SINCE $_REQUEST['file'] 
-        // IS DOUBLE URLENCODED
-        $_REQUEST['file'] = urldecode($_REQUEST['file']);
+        $_REQUEST['file'] = $_REQUEST['file'];
 
         $requestDownloadPath = $baseWorkDir
                              . preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
