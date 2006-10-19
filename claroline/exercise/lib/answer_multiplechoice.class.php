@@ -129,7 +129,7 @@ class answerMultipleChoice
     	if( count($this->answerList) < 2 ) return false;
     	
     	$sql = "DELETE FROM `".$this->tblAnswer."` 
-                WHERE questionId = ".(int) $this->questionId;
+                WHERE `questionId` = ".(int) $this->questionId;
         
         if( claro_sql_query($sql) == false ) return false;
        
@@ -141,7 +141,7 @@ class answerMultipleChoice
         {
             $sql .= "(".(int) $this->questionId.",
             		'".addslashes($anAnswer['answer'])."',
-        			'".addslashes($anAnswer['correct'])."',
+        			".(int) $anAnswer['correct'].",
         			'".addslashes($anAnswer['grade'])."',
         			'".addslashes($anAnswer['comment'])."'),";
         }
