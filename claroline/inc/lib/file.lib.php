@@ -178,12 +178,12 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
     /**
      * replaces some dangerous character in a file name
      *
-     * @param  string $string
-     * @param  string $strict (optional) removes also scores and simple quotes
-     * @return string : the string cleaned of dangerous character
+     * @param   string $string
+     * @param   string $strict (optional) removes also scores and simple quotes
+     * @return  string : the string cleaned of dangerous character
+     * @todo    TODO use boolean instead as string for the second parameter 
      *
      */
-    
     function replace_dangerous_char($string, $strict = 'loose')
     {
         $search[] = ' ';  $replace[] = '_';
@@ -210,7 +210,8 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
         {
             $string = str_replace($char, $replace[$key], $string);
         }
-    
+        
+        // TODO FIXME is this valid in all charsets ???
         if ($strict == 'strict')
         {
             $string = str_replace('-', '_', $string);
