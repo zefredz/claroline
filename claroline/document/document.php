@@ -80,10 +80,12 @@ require_once $includePath . '/lib/image.lib.php';
 require_once $includePath . '/lib/pager.lib.php';
 
 /*
- * Library for the file display
+ * Library for file management and display
  */
 
 require_once $includePath . '/lib/fileDisplay.lib.php';
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/file.lib.php';
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                      FILEMANAGER BASIC VARIABLES DEFINITION
@@ -157,10 +159,6 @@ else
 $baseWorkDir = $baseServDir.$courseDir;
 
 event_access_tool($_tid, $_courseTool['label']);
-
-
-require_once $includePath . '/lib/fileManage.lib.php';
-require_once $includePath . '/lib/file.lib.php';
 
 if($is_allowedToEdit) // for teacher only
 {
@@ -1084,18 +1082,36 @@ if ('exDownload' == $cmd )
 
     $downloadArchivePath = $requestDownloadPath.'/'.uniqid('').'.zip';
     $downloadArchiveName = get_conf('siteName');
-    if (isset($_cid))             $downloadArchiveName .= '.' . $_course['officialCode'];
-    if (isset($_gid))             $downloadArchiveName .= '.' . $_group['name'];
+    
+    if (isset($_cid))
+    {
+        $downloadArchiveName .= '.' . $_course['officialCode'];
+    }
+    
+    if (isset($_gid))
+    {
+        $downloadArchiveName .= '.' . $_group['name'];
+    }
+    
     if (isset($_REQUEST['file']))
     {
         $bnFile = basename($_REQUEST['file']);
         if (empty($bnFile)) $downloadArchiveName .= '.complete';
         else                $downloadArchiveName .= '.' . $bnFile;
     }
-    if (isset($_REQUEST['searchPattern'])) $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
+    
+    if (isset($_REQUEST['searchPattern']))
+    {
+        $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
+    }
+    
     $downloadArchiveName .= '.zip';
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
-    if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang('Documents and Links') . '.zip';
+    
+    if ( $downloadArchiveName == '.zip')
+    {
+        $downloadArchiveName = get_lang('Documents and Links') . '.zip';
+    }
 
     $downloadArchive     = new PclZip($downloadArchivePath);
 
@@ -1105,23 +1121,12 @@ if ('exDownload' == $cmd )
 
     if ( file_exists($downloadArchivePath) )
     {
-        $downloadArchiveSize = filesize($downloadArchivePath);
-
         /*
          * SEND THE ZIP ARCHIVE FOR DOWNLOAD
          */
         
-        // IE no-cache bug
-        // TODO move $lifetime to config
-        $lifetime = 60;
-        header('Cache-Control: max-age='.$lifetime);
-        header('Expires: '. gmdate('D, d M Y H:i:s', time() + $lifetime) .' GMT');
-        header('Pragma: ');
-        header('Content-type: application/zip');
-        header('Content-Length: '.$downloadArchiveSize);
-        header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
-
-        readfile($downloadArchivePath);
+        claro_send_file( $downloadArchivePath, $downloadArchiveName );
+        
         unlink($downloadArchivePath);
         exit();
     }
