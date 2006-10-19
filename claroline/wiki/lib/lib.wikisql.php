@@ -116,7 +116,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         $mainPageContent = sprintf(
             get_lang("This is the main page of the Wiki %s. Click on '''Edit''' to modify the content.")
-            , $wikiTitle = '' );
+            , $wikiTitle );
 
         $config = array();
         // use claro functions
