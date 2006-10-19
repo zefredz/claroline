@@ -87,14 +87,14 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
     {
 
         $out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
-        $out .= '      <prompt> ' . $questionStatment . ' </prompt>'. "\n";
+        $out .= '      <prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
 
         foreach ($this->answerList as $current_answer)
         {
-            $out .= '      <simpleChoice identifier="answer_' . $current_answer['id'] . '" fixed="false">' . $current_answer['answer'];
+            $out .= '      <simpleChoice identifier="answer_' . $current_answer['id'] . '" fixed="false"><![CDATA[' . $current_answer['answer'] . ']]>';
             if (isset($current_answer['comment']) && $current_answer['comment'] != '')
             {
-                $out .= '<feedbackInline identifier="answer_' . $current_answer['id'] . '">' . $current_answer['comment'] . '</feedbackInline>';
+                $out .= '<feedbackInline identifier="answer_' . $current_answer['id'] . '"><![CDATA[' . $current_answer['comment'] . ']]></feedbackInline>';
             }
             $out .= '</simpleChoice>'. "\n";
         }
@@ -179,7 +179,7 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
             {
                 $grade = $questionArray['weighting'][$key];
             }
-            if (in_array($key,$questionArray['correct_answers'])) $is_correct = true; else $is_correct = false;
+            if (in_array($key,$questionArray['correct_answers'])) $is_correct = 1; else $is_correct = 0;
             $addedAnswer = array( 
                             'answer' => $answer['value'],
                             'correct' => $is_correct,
@@ -201,11 +201,11 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
 		$out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
-        $out .= '      <prompt>![CDATA[' . $questionStatment . ']]</prompt>'. "\n";
+        $out .= '      <prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
 
 		//set true answer
 		
-		$out .= '      <simpleChoice identifier="answer_true" fixed="false">' . get_lang('True'). "\n";
+		$out .= '      <simpleChoice identifier="answer_true" fixed="false"><![CDATA[' . get_lang('True') . ']]>' . "\n";
         if (isset($this->trueFeedback) && $this->trueFeedback != '')
         {
             $out .= '<feedbackInline identifier="answer_true">' . $this->trueFeedback . '</feedbackInline>'. "\n";
@@ -214,10 +214,10 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
 			
 		//set false answer	
 			
-		$out .= '      <simpleChoice identifier="answer_false" fixed="false">' . get_lang('False'). "\n";
+		$out .= '      <simpleChoice identifier="answer_false" fixed="false"><![CDATA[' . get_lang('False') . ']]>' . "\n";
         if (isset($this->falseFeedback) && $this->falseFeedback != '')
         {
-            $out .= '<feedbackInline identifier="answer_false">' . $this->falseFeedback . '</feedbackInline>'. "\n";
+            $out .= '<feedbackInline identifier="answer_false"><![CDATA[' . $this->falseFeedback . ']]></feedbackInline>'. "\n";
         }
         $out .= '</simpleChoice>'. "\n";	
 		
@@ -315,13 +315,13 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
                     foreach ($this->wrongAnswerList as $choiceKey=>$wrongAnswer)
                     {
-                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'">'.$wrongAnswer.'</inlineChoice>'. "\n";
+                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.$wrongAnswer.']]></inlineChoice>'. "\n";
                     }
 
                     //3- add correct answers array
                     foreach ($this->answerList as $choiceKey=>$correctAnswer)
                     {
-                        $inlineChoiceList .= '  <inlineChoice identifier="choice_c_'.$answerKey.'_'.$choiceKey.'">'.$correctAnswer.'</inlineChoice>'. "\n";
+                        $inlineChoiceList .= '  <inlineChoice identifier="choice_c_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.$correctAnswer.']]></inlineChoice>'. "\n";
                     }
 
                     //4- finish interaction tag
@@ -436,7 +436,7 @@ class Qti2AnswerMatching extends answerMatching
 
         foreach ($this->leftList as $leftKey=>$leftElement)
         {
-            $out .= '    <simpleAssociableChoice identifier="left_'.$leftKey.'" >'. $leftElement['answer'] .'</simpleAssociableChoice>'. "\n";
+            $out .= '    <simpleAssociableChoice identifier="left_'.$leftKey.'" ><![CDATA['. $leftElement['answer'] .']]></simpleAssociableChoice>'. "\n";
         }
 
         $out .= '  </simpleMatchSet>'. "\n";
@@ -449,7 +449,7 @@ class Qti2AnswerMatching extends answerMatching
 
         foreach($this->rightList as $rightKey=>$rightElement)
         {
-            $out .= '    <simpleAssociableChoice identifier="right_'.$i.'" >'. $rightElement['answer'] .'</simpleAssociableChoice>'. "\n";
+            $out .= '    <simpleAssociableChoice identifier="right_'.$i.'" ><![CDATA['. $rightElement['answer'] .']]></simpleAssociableChoice>'. "\n";
             $i++;
         }
 
