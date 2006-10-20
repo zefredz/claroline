@@ -39,38 +39,100 @@ $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
+// tracking
 event_access_tool($_tid, $_courseTool['label']);
 
-
-/*
- * Execute commands
- */
+// session cleaning to prevent sessions clashes
 unset($_SESSION['serializedExercise']);
 unset($_SESSION['serializedQuestionList']);
 unset($_SESSION['exeStartTime']);
 
-// prevent inPathMode to be used when browsing an exercise in the exercise tool
 $_SESSION['inPathMode'] = false;
 
-
+// init request vars
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
 
-// each command require exId
-if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) )
+if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
+else															$exId = null;
+
+// init other vars
+$maxFilledSpace = 100000000;
+$courseDir = $coursesRepositorySys . $_course['path'];
+
+$dialogBox = '';
+
+if( $is_allowedToEdit && !is_null($cmd) )
 {
+    //-- import
+    if( $cmd == 'exImport')
+    {
+        require_once $includePath . '/lib/fileManage.lib.php';
+        require_once $includePath . '/lib/fileDisplay.lib.php';
+        require_once $includePath . '/lib/fileUpload.lib.php';
+
+        require_once './export/exercise_import.inc.php';
+        require_once './lib/exercise.class.php';
+        require_once './lib/question.class.php';
+        require_once './export/qti2/qti2_classes.php';
+        
+        if ( !isset($_FILES['uploadedExercise']['name']) )
+        {
+            $dialogBox .= get_lang('Error : no file uploaded');
+        }
+        else
+        {
+            $result_log = array();
+            $importedExId = import_exercise($_FILES['uploadedExercise']['name'], $result_log);
+
+            if( $importedExId )
+            {
+                $dialogBox .= '<p>' . get_lang('Import done') . '</p>' . "\n";
+            }
+            else
+            {
+                $cmd = 'rqImport';
+            }
+
+            foreach ($result_log as $log)
+            {
+                $dialogBox .= $log . '<br />';
+            }
+        }
+    }
+
+    if( $cmd == 'rqImport' )
+    {
+        require_once $includePath . '/lib/fileDisplay.lib.php';
+        require_once $includePath . '/lib/fileUpload.lib.php';
+
+        $dialogBox .= "\n"
+        .            '<strong>' . get_lang('Import exercise') . '</strong><br />' . "\n"
+        .            get_lang('Imported exercises must be an ims-qti zip file.') . '<br />' . "\n"
+        .            '<form enctype="multipart/form-data" action="./exercise.php" method="post">' . "\n"
+        .            '<input name="cmd" type="hidden" value="exImport" />' . "\n"
+        .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
+        .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
+        .            '<p>' . "\n"
+        .            '<input value="' . get_lang('Import exercise') . '" type="submit" /> ' . "\n"
+        .            claro_html_button( './exercise.php', get_lang('Cancel'))
+        .            '</p>' . "\n"
+        .            '</form>' . "\n\n";
+    }
+    
 	//-- export
-	if( $_REQUEST['cmd'] == 'exExport' && get_conf('enableExerciseExportQTI') )
+	if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') && $exId )
 	{
 		include_once './lib/question.class.php';
 		 
 		include('./export/qti2/qti2_export.php');
         include_once $includePath.'/lib/fileManage.lib.php';
+        require_once $includePath . '/lib/file.lib.php';
 
         //find exercise informations
         
         $exercise= new Exercise();
-        $exercise->load($_REQUEST['exId']);
+        $exercise->load($exId);
         $questionList = $exercise->getQuestionList();
 
         $filePathList = array();
@@ -86,99 +148,73 @@ if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeri
             // contruction of XML flow
             $xml = export_question($quId);
 
-            //save question xml file
-            if (!file_exists($questionObj->questionDirSys))
+            // remove trailing slash
+            if( substr($questionObj->questionDirSys, -1) == '/' )
             {
-                claro_mkdir($questionObj->questionDirSys);
+                $questionObj->questionDirSys = substr($questionObj->questionDirSys, 0, -1);
             }
-            $handle = fopen($questionObj->questionDirSys."question_".$quId.".xml", 'w');
-            fwrite($handle, $xml);
-            fclose($handle);
-
-            // prepare list of file to put in archive
-
-            // do not take the last char if it is a '/'
-
-            $lastChar = $questionObj->questionDirSys{(strlen($questionObj->questionDirSys)-1)};
-            if ($lastChar == "/")
-            {
-                $questionObj->questionDirSys = substr($questionObj->questionDirSys,0,-1);
-            }
-
-            $array_file_question = array($questionObj->questionDirSys);
-            $filePathList = array_merge($filePathList, $array_file_question);
-        }
-
-        /*
-         * BUILD THE ZIP ARCHIVE
-         */
-
-        require_once $includePath . '/lib/pclzip/pclzip.lib.php';
-
-        //prepare zip
-
-        $downloadPlace = claro_get_data_path(array(CLARO_CONTEXT_COURSE=>$_cid, CLARO_CONTEXT_TOOLLABEL=>'CLQWZ' ));
-        $downloadArchivePath = $downloadPlace.'/'.uniqid(true).'.zip';
-        $downloadArchiveName = basename($exercise->title).'.zip';
-        $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
-        
-        $downloadArchive     = new PclZip($downloadArchivePath);
-        $downloadArchive->add($filePathList,
-                          PCLZIP_OPT_REMOVE_PATH,
-                          $downloadPlace);
-
-        if ( file_exists($downloadArchivePath) )
-        {
-
-            $downloadArchiveSize = filesize($downloadArchivePath);
-    
-            /*
-            * SEND THE ZIP ARCHIVE FOR DOWNLOAD
-            */
             
-            header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
-            header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-            header('Cache-Control: no-cache, must-revalidate');
-            header('Pragma: no-cache');
-            header('Content-type: application/zip');
-            header('Content-Length: '.$downloadArchiveSize);
-            header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
-            readfile($downloadArchivePath);
-            unlink($downloadArchivePath);
-            exit();
-        }
-        else
-        {
-            $dialogBox .= get_lang("Unable to create zip file");
-        }
+            //save question xml file
+            if( !file_exists($questionObj->questionDirSys) )
+            {
+                claro_mkdir($questionObj->questionDirSys,CLARO_FILE_PERMISSIONS);
+            }
+            
+            if( $fp = @fopen($questionObj->questionDirSys."/question_".$quId.".xml", 'w') )
+            {
+                fwrite($fp, $xml);
+                fclose($fp);
+            }
+            else
+            {
+                // interrupt process
+            }
 
+            // list of dirs to add in archive
+            $filePathList[] = $questionObj->questionDirSys;
+        }
+        
+        if( !empty($filePathList) )
+        {
+            require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+
+            // build and send the zip
+            if( sendZip($exercise->title, $filePathList, get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/' ) )
+            {
+                exit();
+            }
+            else
+            {
+                $dialogBox .= get_lang("Unable to create zip file");
+            }
+        }
 	}
 	
 	//-- delete
-	if( $_REQUEST['cmd'] == 'exDel' )
+	if( $cmd == 'exDel' && $exId )
 	{
 		$exercise = new Exercise();
-		$exercise->load($_REQUEST['exId']);
+		$exercise->load($exId);
 		
 		$exercise->delete();
 
         //notify manager that the exercise is deleted
                                 
-        $eventNotifier->notifyCourseEvent("exercise_deleted",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
+        $eventNotifier->notifyCourseEvent("exercise_deleted",$_cid, $_tid, $exId, $_gid, "0");
 
 	}
 		
 	//-- change visibility
-	if( $_REQUEST['cmd'] == 'exMkVis' )
+	if( $cmd == 'exMkVis' && $exId )
 	{
-		Exercise::updateExerciseVisibility($_REQUEST['exId'],'VISIBLE');
-        $eventNotifier->notifyCourseEvent("exercise_visible",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
+		Exercise::updateExerciseVisibility($exId,'VISIBLE');
+        $eventNotifier->notifyCourseEvent("exercise_visible",$_cid, $_tid, $exId, $_gid, "0");
 	}
 	
-	if( $_REQUEST['cmd'] == 'exMkInvis' )
+	if( $cmd == 'exMkInvis' && $exId )
 	{
-		Exercise::updateExerciseVisibility($_REQUEST['exId'],'INVISIBLE');
-        $eventNotifier->notifyCourseEvent("exercise_invisible",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
+		Exercise::updateExerciseVisibility($exId,'INVISIBLE');
+        $eventNotifier->notifyCourseEvent("exercise_invisible",$_cid, $_tid, $exId, $_gid, "0");
 	}
 }
 
@@ -233,9 +269,13 @@ $exerciseList = $myPager->get_result_list();
 
 $nameTools = get_lang('Exercises');
 
+$noQUERY_STRING = true;
 include($includePath.'/claro_init_header.inc.php');
  
 echo claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
+
+//-- dialogBox
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 //-- claroCmd
 $cmd_menu = array();
@@ -248,10 +288,10 @@ if($is_allowedToEdit)
 {
     $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit">'.get_lang('New exercise').'</a>';
     $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php">'.get_lang('Question pool').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="export/exercise_import.php">'.get_lang('Import exercise').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport">'.get_lang('Import exercise').'</a>';
 }
 
-echo claro_html_menu_horizontal($cmd_menu);
+echo '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
 
 //-- pager
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
