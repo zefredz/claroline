@@ -37,11 +37,11 @@
  *
  *  * 4th section display all of that on a HTML page
  */
- 
+
 /* Programmer's documentation :
- * 
+ *
  * Action variable : $_REQUEST['cmd']
- * 
+ *
  * Available actions
  * - exUpload       : upload a file
  * - rqUpload       : display upload dialog
@@ -61,7 +61,7 @@
  * - rqSearch       : display search dialog
  * - exDownload     : download directory contents
  * - exSearch       : execute search
- */ 
+ */
 
 /*= = = = = = = = = = = = = = = = =
        CLAROLINE MAIN
@@ -379,7 +379,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $spaceAlreadyOccupied = dir_total_space($baseWorkDir);
         $remainingDiskSpace = $maxFilledSpace - $spaceAlreadyOccupied;
         $maxUploadSize = get_max_upload_size( $maxFilledSpace,$baseWorkDir );
-                
+
         if ( $remainingDiskSpace < 0 )
         {
             // Disk quota exceeded
@@ -411,7 +411,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
              * exceptionally, we pass 'cmd' in the 'action' attribute of
              * the form.
              */
-    
+
             $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
                        .  '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
                        .  '<input type="hidden" name="cmd" value="exUpload">' . "\n"
@@ -447,7 +447,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                               .'<input type="checkbox" id="uncompress" name="uncompress" value="1">'
                               .'<label for="uncompress">'.get_lang('uncompress zipped (.zip) file on the server').'</label>';
             }
-    
+
             if ($courseContext)
             {
                 if (!isset($oldComment)) $oldComment = "";
@@ -459,7 +459,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                             .'</textarea>'
                             .'</p>' . "\n";
             }
-    
+
             $dialogBox .= '<input type="submit" value="' . get_lang('Ok') . '">&nbsp; '
                        .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. urlencode($cwd), get_lang('Cancel'))
                        .'</form>';
@@ -488,7 +488,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $mkInvisibl = str_replace($baseWorkDir, '', $imgDirectory);
 
             // move the uploaded image files into the corresponding image directory
-            
+
             // Try to create  a directory to store the image files
             $newImgPathList = move_uploaded_file_collection_into_directory($_FILES['imgFile'], $imgDirectory);
 
@@ -497,7 +497,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $newImgPathList = array_map('urlencode', $newImgPathList);
                 // urlencode() does too much. We don't need to replace '/' by '%2F'
                 $newImgPathList = str_replace('%2F', '/', $newImgPathList);
-    
+
                 replace_img_path_in_html_file($_REQUEST['imgFilePath'],
                                           $newImgPathList,
                                           $baseWorkDir.$_REQUEST['relatedFile']);
@@ -539,7 +539,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $cwd = secure_file_path( $cwd);
 
             $htmlContent = claro_parse_user_text( $_REQUEST['htmlContent'] );
-            
+
             $htmlContent =  $htmlContentHeader . $htmlContent . $htmlContentFooter;
 
             create_file($baseWorkDir.$cwd.'/'.$fileName,
@@ -572,7 +572,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                              EDIT DOCUMENT CONTENT
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-      
+
     // TODO use the same code as exMkHml
     if ('exEditHtml' == $cmd)
     {
@@ -652,7 +652,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $dialogBox .= get_lang('Create hyperlink')."\n"
                      .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">' . "\n"
                      .'<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
-                     .'<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n" 
+                     .'<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
                      .'<label for="fileName">' . get_lang('Name'). ' : </label><br />' . "\n"
                      .'<input type="text" id="fileName" name="fileName"><br />' . "\n"
                      .'<label for="url">'. get_lang('URL'). ' : </label><br />' . "\n"
@@ -814,7 +814,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         {
             $newPath = secure_file_path( $_REQUEST['file'] );
         }
-        
+
         $oldPath = secure_file_path( $_REQUEST['file'] );
 
         $newPath = claro_rename_file( $baseWorkDir.$oldPath, $baseWorkDir.$newPath );
@@ -1079,36 +1079,36 @@ if ('exDownload' == $cmd )
      */
 
     require_once $includePath . '/lib/pclzip/pclzip.lib.php';
-    
+
     // TODO use tmp dir instead of course document dir
     $downloadArchivePath = $requestDownloadPath.'/'.uniqid('').'.zip';
     $downloadArchiveName = get_conf('siteName');
-    
+
     if (isset($_cid))
     {
         $downloadArchiveName .= '.' . $_course['officialCode'];
     }
-    
+
     if (isset($_gid))
     {
         $downloadArchiveName .= '.' . $_group['name'];
     }
-    
+
     if (isset($_REQUEST['file']))
     {
         $bnFile = basename($_REQUEST['file']);
         if (empty($bnFile)) $downloadArchiveName .= '.complete';
         else                $downloadArchiveName .= '.' . $bnFile;
     }
-    
+
     if (isset($_REQUEST['searchPattern']))
     {
         $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
     }
-    
+
     $downloadArchiveName .= '.zip';
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
-    
+
     if ( $downloadArchiveName == '.zip')
     {
         $downloadArchiveName = get_lang('Documents and Links') . '.zip';
@@ -1125,9 +1125,9 @@ if ('exDownload' == $cmd )
         /*
          * SEND THE ZIP ARCHIVE FOR DOWNLOAD
          */
-        
+
         claro_send_file( $downloadArchivePath, $downloadArchiveName );
-        
+
         unlink($downloadArchivePath);
         exit();
     }
@@ -1233,11 +1233,20 @@ else
 
 $searchBasePath = secure_file_path( $searchBasePath);
 
-$filePathList = claro_search_file( search_string_to_pcre($searchPattern),
-                                  $searchBasePath,
-                                  $searchRecursive,
-                                  'ALL',
-                                  $searchExcludeList);
+if (false === ($filePathList = claro_search_file( search_string_to_pcre($searchPattern),$searchBasePath,$searchRecursive,'ALL',$searchExcludeList)))
+{
+    switch (claro_failure::get_last_failure())
+    {
+        case 'BASE_DIR_DONT_EXIST' :
+            pushClaroMessage($searchBasePath . ' : call to an unexisting directory in groups');
+        break;
+        default :
+            pushClaroMessage('Search failed');
+        break;
+    }
+    // TODO claro_search_file would return an empty array when failed
+    $filePathList=array();
+}
 
 for ($i =0; $i < count($filePathList); $i++ )
 {
@@ -1768,7 +1777,7 @@ echo claro_html_tool_title($titleElement,
         if( $docView == 'thumbnails' )
         {
             $docViewToolbar[] = '<span class="claroCmdDisabled">'
-                . '<img src="'.$imgRepositoryWeb.'image.gif" alt="">' 
+                . '<img src="'.$imgRepositoryWeb.'image.gif" alt="">'
                 . get_lang('Thumbnails').'</span>';
         }
         else
@@ -2126,7 +2135,7 @@ echo claro_html_tool_title($titleElement,
 
                 if( is_image( $thisFile['path'] ) )
                 {
-                    echo '<a class="'.$style.' item'.$classItem.'" href="'. $_SERVER['PHP_SELF'] . 
+                    echo '<a class="'.$style.' item'.$classItem.'" href="'. $_SERVER['PHP_SELF'] .
                         '?docView=image&amp;file=' . urlencode($thisFile['path']) . '&amp;cwd='
                         . $curDirPath . $searchCmdUrl .'">';
                 }
