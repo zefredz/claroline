@@ -431,7 +431,7 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
             }
             else
             {
-                
+
                 if ( ! @mkdir($dirTrail , $mode) ) return false;
             }
 
@@ -445,7 +445,7 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
         {
             $pathName = substr($pathName, 0, -1);
         }
-        
+
         return @mkdir($pathName, $mode);
     }
 }
@@ -509,9 +509,17 @@ function claro_search_file($searchPattern             , $baseDirPath,
 {
         $searchResultList = array();
 
+        //$baseDirPath unexisting is  a devel error or a data incoherence,
+        if (! file_exists($baseDirPath))
+        {
+            // TODO would push an error but return empty array instead of false.
+            return claro_failure::set_failure('BASE_DIR_DONT_EXIST');
+        }
+
         $dirPt = opendir($baseDirPath);
 
-        if ( ! $dirPt) return false;
+        //can't be false as if (! file_exists($baseDirPath))  have make a good control
+        //if ( ! $dirPt) return false;
 
         while ( $fileName = readdir($dirPt) )
         {
@@ -584,7 +592,7 @@ function search_string_to_pcre($searchPattern)
 
 /**
  * Get the list of invisible documents of the current course
- * 
+ *
  * @param $baseWorkDir path document
  * @param $cidReq course identifier
  * @return list of invisible document
@@ -600,7 +608,7 @@ function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid));
     $tbl_document = $tbl_cdb_names['document'];
 
-    $sql = "SELECT path 
+    $sql = "SELECT path
             FROM `". $tbl_document ."`
             WHERE visibility = 'i'";
 
@@ -610,8 +618,8 @@ function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
     for( $i=0; $i < count($documentList); $i++ )
     {
         $documentList[$i] = $baseWorkDir.$documentList[$i];
-    }    
-    
+    }
+
     return $documentList ;
 }
 
