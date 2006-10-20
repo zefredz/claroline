@@ -85,9 +85,8 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
      */
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
-
-        $out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
-        $out .= '      <prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
+        $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>' . "\n";
+        $out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
 
         foreach ($this->answerList as $current_answer)
         {
@@ -200,8 +199,8 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
      */
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
+        $out .= "\n" . '    <![CDATA[' . $questionStatment . ']]>'. "\n";
 		$out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
-        $out .= '      <prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
 
 		//set true answer
 		
@@ -428,7 +427,7 @@ class Qti2AnswerMatching extends answerMatching
         $out = "";
 
         $out .= '<matchInteraction responseIdentifier="' . $questionIdent . '" maxAssociations="'. $maxAssociation .'">'. "\n";
-        $out .= $questionStatment;
+        $out .= '<prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
 
         //add left column
 
