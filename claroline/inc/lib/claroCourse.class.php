@@ -269,12 +269,14 @@ class ClaroCourse
          * Configuration array , define here which field can be left empty or not
          */
 
-        $fieldRequiredStateList['title'        ] = get_conf('human_label_needed');
-        $fieldRequiredStateList['officialCode' ] = get_conf('human_code_needed');
-        $fieldRequiredStateList['titular'      ] = false;
-        $fieldRequiredStateList['email'        ] = get_conf('course_email_needed');
-        $fieldRequiredStateList['category'     ] = true;
-        $fieldRequiredStateList['language'     ] = true;
+        $fieldRequiredStateList['title'         ] = get_conf('human_label_needed');
+        $fieldRequiredStateList['officialCode'  ] = get_conf('human_code_needed');
+        $fieldRequiredStateList['titular'       ] = false;
+        $fieldRequiredStateList['email'         ] = get_conf('course_email_needed');
+        $fieldRequiredStateList['category'      ] = true;
+        $fieldRequiredStateList['language'      ] = true;
+        $fieldRequiredStateList['departmentName'] = get_conf('extLinkNameNeeded');
+        $fieldRequiredStateList['departmentUrl' ] = get_conf('extLinkUrlNeeded');
 
         // Validate course title
         if ( empty($this->title) && $fieldRequiredStateList['title'] )
@@ -319,8 +321,21 @@ class ClaroCourse
             $success = false ;
         }
 
-        // Validate department url
+        // Validate course departmentName
+        if ( empty($this->departmentName) && $fieldRequiredStateList['departmentName'])
+        {
+            $this->backlog->failure(get_lang('Department needed'));
+            $success = false ;
+        }
+        
+        // Validate course departmentUrl
+        if ( empty($this->departmentUrl) && $fieldRequiredStateList['departmentUrl'])
+        {
+            $this->backlog->failure(get_lang('Department url needed'));
+            $success = false ;
+        }
 
+        // Validate department url
 		if ( ! $this->validateDepartmentUrl() )
 		{
 			$this->backlog->failure(get_lang('Department URL is not valid'));
@@ -484,14 +499,18 @@ class ClaroCourse
         // Course department name
 
         $html .= '<tr valign="top">' . "\n"
-            . '<td align="right"><label for="course_departmentName">' . get_lang('Department') . '</label>&nbsp;: </td>'
+            . '<td align="right"><label for="course_departmentName">'
+            . (get_conf('extLinkNameNeeded')?'<span class="required">*</span> ':'')
+            . get_lang('Department') . '</label>&nbsp;: </td>'
             . '<td><input type="text" name="course_departmentName" id="course_departmentName" value="' . htmlspecialchars($this->departmentName) . '" size="20" maxlength="30"></td>'
             . '</tr>' . "\n" ;
 
         // Course department url
 
         $html .= '<tr valign="top" >' . "\n"
-            . '<td align="right" nowrap="nowrap"><label for="course_departmentUrl" >' . get_lang('Department URL') . '</label>&nbsp;:</td>'
+            . '<td align="right" nowrap="nowrap">'
+            . (get_conf('extLinkUrlNeeded')?'<span class="required">*</span> ':'')
+            . '<label for="course_departmentUrl" >' . get_lang('Department URL') . '</label>&nbsp;:</td>'
             . '<td><input type="text" name="course_departmentUrl" id="course_departmentUrl" value="' . htmlspecialchars($this->departmentUrl) . '" size="60" maxlength="180"></td>'
             . '</tr>' . "\n" ;
 
