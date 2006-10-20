@@ -249,8 +249,8 @@ array ('label'       => 'Mysql Base Path'
 
 $conf_def_property_list['rootWeb'] =
 array ('label'       => 'Platform web URL'
-      ,'description' => 'Exemple : http://www.yourdomaine.tld/mycampus/'
-      ,'default'     => 'http://www.yourdomaine.tld/mycampus/'
+      ,'description' => 'Example : http://www.yourdomain.tld/mycampus/'
+      ,'default'     => 'http://www.yourdomain.tld/mycampus/'
       ,'type'        => 'urlpath'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
