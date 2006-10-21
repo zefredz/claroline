@@ -28,6 +28,8 @@ $uidRequired = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
+if( ! $_uid ) claro_disp_auth_form();
+
 $messageList = array();
 $display = '';
 $error = false;
