@@ -744,7 +744,7 @@ class ClaroCourse
                                 '%course_email' => $this->email,
                                 '%course_category' => $this->category,
                                 '%course_language' => $this->language,
-                                '%course_url' => get_conf('rootWeb') . '/claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
+                                '%course_url' => get_conf('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
 
         // Get the concerned senders of the email
 
