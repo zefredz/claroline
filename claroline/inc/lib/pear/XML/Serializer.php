@@ -21,12 +21,12 @@
 /**
  * uses PEAR error management
  */
-require_once 'PEAR.php';
+require_once PEAR_LIB_PATH . '/PEAR.php';
 
 /**
  * uses XML_Util to create XML tags
  */
-require_once 'XML/Util.php';
+require_once PEAR_LIB_PATH . '/XML/Util.php';
 
 /**
  * error code for no serialization done
@@ -88,7 +88,7 @@ define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
  *
  *   to create a RDF document from this array do the following:
  *
- *   require_once 'XML/Serializer.php';
+ *   require_once PEAR_LIB_PATH . '/XML/Serializer.php';
  *
  *   $options = array(
  *                     'indent'         => "\t",        // indent with tabs
