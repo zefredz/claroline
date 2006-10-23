@@ -172,7 +172,7 @@ function rss_get_tool_compatible_list()
     {
         if(get_conf('rssUseCache',true))
         {
-            include_once dirname(__FILE__) . '/pear/Lite.php';
+            include_once  PEAR_LIB_PATH . '/Lite.php';
 
             // Cache_lite setting & init
             $cache_options = array(
