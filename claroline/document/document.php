@@ -581,9 +581,10 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         if ($fp)
         {
-            $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
-            $htmlContent = claro_parse_user_text( $htmlContent );
+            $htmlContent = claro_parse_user_text( $_REQUEST['htmlContent'] );
 
+            $htmlContent =  $htmlContentHeader . $htmlContent . $htmlContentFooter;
+            
             if ( fwrite($fp, $htmlContent) )
             {
                 $eventNotifier->notifyCourseEvent('document_htmlfile_edited',$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
