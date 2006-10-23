@@ -95,4 +95,39 @@ array ('label'         => 'Allow search in the add user option'
                                 )
       );
 
+$conf_def_property_list['is_coursemanager_allowed_to_add_single_user'] =
+array('label'         => 'Teacher can add user in his course'
+     ,'default'       => TRUE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+     );
+
+
+$conf_def_property_list['is_coursemanager_allowed_to_import_user_list'] =
+array('label'         => 'Teacher can add user in his course'
+     ,'default'       => TRUE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+     );
+
+
+$conf_def_property_list['is_coursemanager_allowed_to_import_user_class'] =
+array('label'         => 'Teacher can import an existing class course'
+     ,'default'       => TRUE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+     );
+
 ?>

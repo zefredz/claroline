@@ -74,8 +74,17 @@ $userPerPage = get_conf('nbUsersPerPage',50);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$can_add_user     = (bool) (   $is_courseAdmin
+$can_add_user     = (bool) ($is_courseAdmin
                      && get_conf('is_coursemanager_allowed_to_add_user') )
+                     || $is_platformAdmin;
+$can_add_single_user     = (bool) ($is_courseAdmin
+                     && get_conf('is_coursemanager_allowed_to_add_single_user') )
+                     || $is_platformAdmin;
+$can_import_user_list     = (bool) ($is_courseAdmin
+                     && get_conf('is_coursemanager_allowed_to_import_user_list') )
+                     || $is_platformAdmin;
+$can_import_user_class     = (bool) ($is_courseAdmin
+                     && get_conf('is_coursemanager_allowed_to_import_user_class') )
                      || $is_platformAdmin;
 
 $currentCourse = $currentCourseID  = $_course['sysCode'];
@@ -250,31 +259,68 @@ $nameTools = get_lang('Users');
 
 if ($can_add_user)
 {
+    $can_add_user     = (bool) ($is_courseAdmin
+    && get_conf('is_coursemanager_allowed_to_add_user') )
+    || $is_platformAdmin;
+    $can_add_single_user     = (bool) ($is_courseAdmin
+    && get_conf('is_coursemanager_allowed_to_add_single_user') )
+    || $is_platformAdmin;
+    $can_import_user_list     = (bool) ($is_courseAdmin
+    && get_conf('is_coursemanager_allowed_to_import_user_list') )
+    || $is_platformAdmin;
+    $can_import_user_class     = (bool) ($is_courseAdmin
+    && get_conf('is_coursemanager_allowed_to_import_user_class') )
+    || $is_platformAdmin;
+
+    if ($can_add_single_user)
+    {
+
     // Add a user link
     $userMenu[] = '<a class="claroCmd" href="user_add.php">'
     .    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
     .    get_lang('Add a user')
     .    '</a>'
     ;
+    }
+    if ($can_add_single_user)
+    {
+
+
+        $userMenu[] = '<a class="claroCmd" href="./userInfo.php?addDef=1">'
+        .             get_lang('Add new heading')
+        .             '</a>'
+        ;
+    }
+    if ($can_import_user_class)
+    {
+
 
     // Add CSV file of user link
     $userMenu[] = '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
     .    '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
     .    get_lang('Add a user list')
     .    '</a>' ;
-
+    }
+    if ($can_import_user_class)
+    {
     // Add a class link
     $userMenu[] = '<a class="claroCmd" href="class_add.php">'
     .    '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
     .    get_lang('Enrol class')
     .    '</a>' ;
+    }
+
+    if ($can_add_single_user)
+    {
+
 
     // Main group settings
     $userMenu[] = '<a class="claroCmd" href="../right/profile_list.php">'
     .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
     .          get_lang("Right Profile")
-    .          '</a>' ;
-
+        .          '</a>'
+        ;
+    }
 }
 
 
@@ -288,7 +334,8 @@ $userMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
 .             ' onClick="return confirmation(\'' . clean_str_for_javascript(' all students ') . '\')">'
 .             '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
 .             get_lang('Unregister all students')
-.             '</a>' ;
+.             '</a>'
+;
 
 /*=====================================================================
 Display section
@@ -412,21 +459,21 @@ foreach ( $userList as $thisUser )
         // Tutor column
         if($thisUser['tutor'] == '0')
         {
-            echo '<td> - </td>'."\n";
+            echo '<td> - </td>' . "\n";
         }
         else
         {
-            echo '<td>'.get_lang('Group Tutor').'</td>'."\n";
+            echo '<td>' . get_lang('Group Tutor') . '</td>' . "\n";
         }
 
         // course manager column
         if($thisUser['isCourseManager'] == '1')
         {
-            echo '<td>'.get_lang('Course manager').'</td>'."\n";
+            echo '<td>' . get_lang('Course manager') . '</td>' . "\n";
         }
         else
         {
-            echo '<td> - </td>'."\n";
+            echo '<td> - </td>' . "\n";
         }
 
         // Edit user column
@@ -444,10 +491,11 @@ foreach ( $userList as $thisUser )
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
             .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
             .    '<img border="0" alt="'.get_lang('Unregister').'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
-            .    '</a>' ;
+            .    '</a>'
+            ;
         }
 
-        echo '</td>'."\n";
+        echo '</td>' . "\n";
 
     }  // END - is_allowedToEdit
 
@@ -462,7 +510,8 @@ foreach ( $userList as $thisUser )
   ----------------------------------------------------------------------*/
 
 echo '</tbody>' . "\n"
-.    '</table>' . "\n" ;
+.    '</table>' . "\n"
+;
 
 /*----------------------------------------------------------------------
    Display pager
@@ -471,5 +520,4 @@ echo '</tbody>' . "\n"
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 include $includePath . '/claro_init_footer.inc.php';
-
 ?>
