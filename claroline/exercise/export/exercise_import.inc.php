@@ -251,7 +251,6 @@ function import_exercise($file, &$backlog_message)
     // delete the temp dir where the exercise was unzipped
     claro_delete_file($tmpExerciseDir);
 
-    $backlog_message[] = get_lang('Import done');
     return $exercise_id;
 }
 
@@ -288,9 +287,8 @@ function parse_file($exercisePath, $file, $questionFile)
 
     //parse XML question file
 
-    //used global variable start values declaration :
-
     $record_item_body = false;
+    
     $non_HTML_tag_to_avoid = array(
     "SIMPLECHOICE",
     "CHOICEINTERACTION",
@@ -301,13 +299,12 @@ function parse_file($exercisePath, $file, $questionFile)
     "TEXTENTRYINTERACTION",
     "FEEDBACKINLINE",
     "MATCHINTERACTION",
-    "ITEMBODY",
-    "BR",
-    "IMG"
+    "BR"
     );
-
+    
+    $inside_non_HTML_tag_to_avoid = 0;   
+    
     //this array to detect tag not supported by claroline import in the xml file to warn the user.
-
     $non_supported_content_in_question = array(
     "GAPMATCHINTERACTION",
     "EXTENDEDTEXTINTERACTION",
@@ -327,13 +324,14 @@ function parse_file($exercisePath, $file, $questionFile)
     $question_format_supported = true;
 
     $xml_parser = xml_parser_create();
+    xml_parser_set_option($xml_parser,XML_OPTION_SKIP_WHITE,false);
     xml_set_element_handler($xml_parser, 'startElement', 'endElement');
     xml_set_character_data_handler($xml_parser, 'elementData');
 
     if (!xml_parse($xml_parser, $data, feof($fp)))
     {
-    // if reading of the xml file in not successfull :
-    // set errorFound, set error msg, break while statement
+        // if reading of the xml file in not successfull :
+        // set errorFound, set error msg
 
         array_push ($backlog_message, get_lang('Error reading XML file') );
         return $backlog_message;
@@ -369,6 +367,7 @@ function startElement($parser, $name, $attributes)
     global $current_question_item_body;
     global $record_item_body;
     global $non_HTML_tag_to_avoid;
+    global $inside_non_HTML_tag_to_avoid;    
     global $current_inlinechoice_id;
     global $cardinality;
     global $questionTempDir;
@@ -381,12 +380,10 @@ function startElement($parser, $name, $attributes)
     array_push($element_pile,$name);
     $current_element = end($element_pile);
     if (sizeof($element_pile)>=2) $parent_element        = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
-    if (sizeof($element_pile)>=3) $grant_parent_element  = $element_pile[sizeof($element_pile)-3]; else $grant_parent_element ="";
 
     if ($record_item_body)
     {
-
-        if ((!in_array($current_element,$non_HTML_tag_to_avoid)))
+        if( !in_array($current_element,$non_HTML_tag_to_avoid) && $inside_non_HTML_tag_to_avoid == 0 )
         {
             $current_question_item_body .= "<".$name;
 
@@ -398,20 +395,23 @@ function startElement($parser, $name, $attributes)
         }
         else
         {
+            $inside_non_HTML_tag_to_avoid++;
+            
             //in case of FIB question, we replace the IMS-QTI tag b y the correct answer between "[" "]",
             //we first save with claroline tags ,then when the answer will be parsed, the claroline tags will be replaced
 
             if ($current_element=='INLINECHOICEINTERACTION')
             {
-
                   $current_question_item_body .="**claroline_start**".$attributes['RESPONSEIDENTIFIER']."**claroline_end**";
             }
+            
             if ($current_element=='TEXTENTRYINTERACTION')
             {
                 $correct_answer_value = $exercise_info['question'][$current_question_ident]['correct_answers'][$current_answer_id];
                 $current_question_item_body .= "[".$correct_answer_value."]";
 
             }
+            
             if ($current_element=='BR')
             {
                 $current_question_item_body .= "<BR/>";
@@ -585,15 +585,23 @@ function endElement($parser,$name)
     global $record_item_body;
     global $current_question_item_body;
     global $non_HTML_tag_to_avoid;
+    global $inside_non_HTML_tag_to_avoid;
     global $cardinality;
 
 	$current_element = end($element_pile);
 
     //treat the record of the full content of itembody tag :
 
-    if ($record_item_body && (!in_array($current_element,$non_HTML_tag_to_avoid)))
+    if( $record_item_body )
     {
-        $current_question_item_body .= "</".$name.">";
+        if( !in_array($current_element,$non_HTML_tag_to_avoid) && $inside_non_HTML_tag_to_avoid == 0 )
+        {
+            $current_question_item_body .= "</".$name.">";
+        }
+        elseif( $inside_non_HTML_tag_to_avoid > 0 )
+        {
+            $inside_non_HTML_tag_to_avoid--;
+        }
     }
 
     switch ($name)
@@ -618,7 +626,6 @@ function endElement($parser,$name)
 
 function elementData($parser,$data)
 {
-
     global $element_pile;
     global $exercise_info;
 	global $current_question_ident;
@@ -628,20 +635,23 @@ function elementData($parser,$data)
     global $current_question_item_body;
     global $record_item_body;
     global $non_HTML_tag_to_avoid;
+    global $inside_non_HTML_tag_to_avoid;    
     global $current_inlinechoice_id;
     global $cardinality;
 
-    $data = trim(utf8_decode_if_is_utf8($data));
+    $data = utf8_decode_if_is_utf8($data);
 	
     $current_element       = end($element_pile);
 	if (sizeof($element_pile)>=2) $parent_element        = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
-	if (sizeof($element_pile)>=3) $grant_parent_element  = $element_pile[sizeof($element_pile)-3]; else $grant_parent_element = "";
 
 	//treat the record of the full content of itembody tag (needed for question statment and/or FIB text:
 
-    if ($record_item_body && (!in_array($current_element,$non_HTML_tag_to_avoid)))
+    if( $record_item_body && $inside_non_HTML_tag_to_avoid == 0 ) 
     {
-        $current_question_item_body .= $data;
+        if( !in_array($current_element,$non_HTML_tag_to_avoid)  )
+        {
+            $current_question_item_body .= $data;
+        }
     }
 
     switch ($current_element)
@@ -697,7 +707,6 @@ function elementData($parser,$data)
         case 'ITEMBODY' :
         {
             $current_question_item_body .= $data;
-
         }
         break;
 
@@ -710,7 +719,6 @@ function elementData($parser,$data)
 
             if ($current_inlinechoice_id == $answer_identifier)
             {
-
                 $current_question_item_body = str_replace("**claroline_start**".$current_answer_id."**claroline_end**", "[".$data."]", $current_question_item_body);
             }
             else // save wrong answers in an array
