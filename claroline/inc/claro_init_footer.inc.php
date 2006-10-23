@@ -57,8 +57,7 @@ $footerRightDock = new Dock('campusFooterRight');
 $platformManagerOutput = '<div id="platformManager">'
                        . get_lang('Administrator for %site_name', array('%site_name'=>get_conf('siteName'))). ' : '
                        . '<a href="mailto:' . get_conf('administrator_email')
-                       . '?body=' . $_course['officialCode']
-                       . '&amp;subject=[' . rawurlencode( get_conf('siteName') ) . ']'.'">'
+                       . '?subject=[' . rawurlencode( get_conf('siteName') ) . ']'.'">'
                        . get_conf('administrator_name')
                        . '</a>'
                        . '</div>'
