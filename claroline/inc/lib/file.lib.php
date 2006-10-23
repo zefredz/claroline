@@ -155,7 +155,7 @@
             header('Content-Disposition: inline; filename="' . $name . '"');
             header('Content-Length: '. filesize( $path ) );
             
-            return ( readfile( $path ) > 0 );
+            return ( claro_readfile( $path ) > 0 );
         }
         else
         {
@@ -171,6 +171,61 @@
     function secure_file_path( $path )
     {
         return preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
+    }
+    
+    /**
+     * Read a file from the file system and echo it
+     * 
+     * Workaround for the readfile bug in PHP 5.0.4 and with host where
+     * PHP readfile is deactivated
+     * 
+     * @param   string $path file path
+     * @param   boolean $retbytes return file length (default true)
+     * @return  int file length if $retbytes
+     *          boolean true on success if not $retbytes
+     *          boolean false on failure
+     *          set claro_failure on failure
+     */
+    function claro_readfile( $path, $retbytes = true )
+    {
+        if ( ! file_exists( $path ) )
+        {
+            return claro_failure::set_failure( 'FILE_NOT_FOUND' );
+        }
+        
+        $chunksize = 1*(1024*1024); // how many bytes per chunk
+        $buffer = '';
+        $cnt =0;
+        
+        $handle = fopen( $path, 'rb' );
+        
+        if ( ! $handle )
+        {
+            return claro_failure::set_failure( 'CANNOT_OPEN_FILE' );
+        }
+        
+        while (!feof($handle))
+        {
+            $buffer = fread($handle, $chunksize);
+            
+            echo $buffer;
+            
+            if ( $retbytes )
+            {
+                $cnt += strlen($buffer);
+            }
+        }
+        
+        $status = fclose( $handle );
+        
+        if ( $retbytes && $status )
+        {
+            return $cnt;
+        }
+        else
+        {
+            return $status;
+        }
     }
     
 if ( ! function_exists( 'replace_dangerous_char' ) )
