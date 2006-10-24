@@ -22,7 +22,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
-
 /**
  * display a item list as vertical menu.
  *
@@ -989,7 +988,6 @@ function claro_build_nested_select_menu($name, $elementList)
  *
  */
 
-
 function prepare_option_tags($elementList, $deepness = 0)
 {
     foreach($elementList as $thisElement)
@@ -1011,8 +1009,6 @@ function prepare_option_tags($elementList, $deepness = 0)
 
     return  $optionTagList;
 }
-
-
 
 /**
  * Checks if the string has been written html style (ie &eacute; etc)
@@ -1311,6 +1307,5 @@ function claro_disp_duration( $duration  )
 
     return $durationString;
 }
-
 
 ?>
