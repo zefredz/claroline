@@ -31,11 +31,14 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 $controlMsg = array();
 
 //The name of the files
-$filenameList = array( get_conf('rootSys') . 'textzone_top.inc.html', 
+$filenameList = array( get_conf('rootSys') . 'textzone_top.inc.html',
                        get_conf('rootSys') . 'textzone_right.inc.html',
                        $clarolineRepositorySys . '/auth/textzone_inscription.inc.html',
                        get_conf('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
-                       get_conf('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html');
+                       get_conf('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html',
+                       get_conf('rootSys') . 'platform/textzone/textzone_inscription_form.inc.html',
+                       get_conf('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html'
+                       );
 
 $display = DISP_FILE_LIST;
 
@@ -68,7 +71,7 @@ if ( !is_null($fileId) )
         }
         $fp = fopen($filenameList[$fileId], 'w+');
         fwrite($fp,$text);
-    
+
         $controlMsg['info'][] = get_lang('The changes have been carried out correctly')
         .                       ' <br />'
         .                       '<strong>'
