@@ -483,7 +483,7 @@ function create_group($prefixGroupName, $maxMember)
 
     do
     {
-        $groupRepository = uniqid($groupName . '_');
+        $groupRepository = substr(uniqid(substr($groupName,0,19) . '_'),0,30);
     }
     while ( check_name_exist(  $GLOBALS['coursesRepositorySys']
     . $GLOBALS['currentCourseRepository']
@@ -506,7 +506,7 @@ function create_group($prefixGroupName, $maxMember)
     * Create a forum for the group in the forum table
     */
 
-    create_forum( $groupName. ' - '. strtolower(get_lang("Forum"))
+    create_forum( $groupName. ' - '. strtolower(get_lang('Forum'))
     , '' // forum description
     , 2  // means forum post allowed,
     , (int) GROUP_FORUMS_CATEGORY
