@@ -25,6 +25,7 @@ $is_allowedToTrack = claro_is_allowed_to_edit() && get_conf('is_trackingEnabled'
 
 // tool libraries
 include_once './lib/exercise.class.php'; 
+include_once './lib/exercise.lib.php';
 
 // claroline libraries
 include_once $includePath.'/lib/pager.lib.php';
@@ -72,7 +73,6 @@ if( $is_allowedToEdit && !is_null($cmd) )
         require_once $includePath . '/lib/fileUpload.lib.php';
 
         require_once './export/exercise_import.inc.php';
-        require_once './lib/exercise.class.php';
         require_once './lib/question.class.php';
         require_once './export/qti2/qti2_classes.php';
         
