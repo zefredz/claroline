@@ -19,8 +19,18 @@
  *
  */
 
+
+define ('DO_WRITE_EXTRA_FIELD','DO_WRITE_EXTRA_FIELD');
+define ('DO_REMOVE_EXTRA_FIELD','DO_REMOVE_EXTRA_FIELD');
+define ('DO_MOVE_DOWN_EXTRA_FIELD_RANK','DO_MOVE_DOWN_EXTRA_FIELD_RANK');
+define ('DO_MOVE_UP_EXTRA_FIELD_RANK','DO_MOVE_UP_EXTRA_FIELD_RANK');
+define ('DO_VIEW_EXTRA_FIELD_LIST','DO_VIEW_EXTRA_FIELD_LIST');
+define ('DO_ADD_EXTRA_FIELD','DO_ADD_EXTRA_FIELD');
+define ('DO_EDIT_EXTRA_FIELD','DO_EDIT_EXTRA_FIELD');
+
 $tlabelReq = 'CLUSR';
 $gidReset = true;
+$messageList = array();
 
 $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 1
 
@@ -56,19 +66,13 @@ Connection API between Claroline and the current script
 --------------------------------------------------------*/
 
 $course_id               = $_course['sysCode'];
-$tbl_mdb_names           = claro_sql_get_main_tbl();
-$tbl_crs_names           = claro_sql_get_course_tbl();
-$tbl_rel_course_user     = $tbl_mdb_names['rel_course_user'    ];
-$tbl_group_rel_team_user = $tbl_crs_names['group_rel_team_user'];
-$TBL_USERINFO_CONTENT    = $tbl_crs_names['userinfo_content'];
-
 
 $userIdViewer = $_uid; // id fo the user currently online
 //$userIdViewed = $_GET['userIdViewed']; // Id of the user we want to view
 
-$allowedToEditContent     = ($userIdViewer == $userIdViewed) || claro_is_allowed_to_edit();
+$allowedToEditContent     = ($userIdViewer == $userIdViewed); // || claro_is_allowed_to_edit();
 $allowedToEditDef         = claro_is_allowed_to_edit();
-$is_allowedToTrack        =  claro_is_allowed_to_edit() && get_conf('is_trackingEnabled')
+$is_allowedToTrack        = claro_is_allowed_to_edit() && get_conf('is_trackingEnabled')
 || ($userIdViewer == $userIdViewed );
 
 if ( ! claro_is_allowed_to_edit() && ! get_conf('linkToUserInfo') )
@@ -83,22 +87,67 @@ if ($_POST)
     {
         $$key = replace_dangerous_char($value);
     }
+
 }
+
+
+
 
 /*======================================
 COMMANDS SECTION
 ======================================*/
 
 $displayMode = "viewContentList";
-$dialogBox = '';
 
-$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
+$cmdList= array('submitDef','removeDef','editDef','addDef' , 'moveUpDef' , 'moveDownDef', 'viewDefList','editMainUserInfo', 'exUpdateCourseUserProperties' );
+$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$cmdList))?$_REQUEST['cmd']:null;
 
+$do = null;
+if($cmd == 'submitDef' || (isset($_REQUEST['submitDef']) && $_REQUEST['submitDef']))
+{
+    $do = DO_WRITE_EXTRA_FIELD;
+}
+elseif ($cmd == 'removeDef' || (isset($_REQUEST['removeDef']) && $_REQUEST['removeDef']))
+{
+    $do = DO_REMOVE_EXTRA_FIELD;
+}
+elseif ($cmd == 'editDef' || (isset($_REQUEST['editDef']) && $_REQUEST['editDef']))
+{
+    $defToEdit = $_REQUEST['editDef'];
+    $do = DO_EDIT_EXTRA_FIELD;
+}
+elseif ($cmd == 'addDef' || isset($_REQUEST['addDef']))
+{
+    $do = DO_ADD_EXTRA_FIELD;
+    $displayMode = "viewDefEdit";
+}
+elseif ($cmd == 'moveUpDef' || isset($_REQUEST['moveUpDef']))
+{
+    $do = DO_MOVE_UP_EXTRA_FIELD_RANK;
+}
+elseif ($cmd == 'moveDownDef' || isset($_REQUEST['moveDownDef']))
+{
+    $do = DO_MOVE_DOWN_EXTRA_FIELD_RANK;
+}
+elseif($cmd == 'viewDefList' || isset($_REQUEST['viewDefList']))
+{
+    $do = DO_VIEW_EXTRA_FIELD_LIST;
+}
+elseif ($cmd == 'editMainUserInfo' || isset($_REQUEST['editMainUserInfo']))
+{
+    $do = null;
+    $userIdViewed = (int) $_REQUEST['editMainUserInfo'];
+    $displayMode = "viewMainInfoEdit";
+}
+elseif ( $cmd == 'exUpdateCourseUserProperties' )
+{
+    $do = null;
+}
 if ($allowedToEditDef)
 {
-    if (isset($_REQUEST['submitDef']) && $_REQUEST['submitDef'])
+    if ($do == DO_WRITE_EXTRA_FIELD)
     {
-        if (isset($_REQUEST['id']) && $_REQUEST['id']!="")
+        if (isset($_REQUEST['id']) && $_REQUEST['id'] != '')
         {
             claro_user_info_edit_cat_def($_REQUEST['id'], $_REQUEST['title'], $_REQUEST['comment'], $_REQUEST['nbline']);
         }
@@ -109,30 +158,31 @@ if ($allowedToEditDef)
 
         $displayMode = "viewDefList";
     }
-    elseif (isset($_REQUEST['removeDef']) && $_REQUEST['removeDef'])
+    elseif ($do == DO_REMOVE_EXTRA_FIELD)
     {
         claro_user_info_remove_cat_def($_REQUEST['removeDef'], true);
         $displayMode = "viewDefList";
     }
-    elseif (isset($_REQUEST['editDef']) && $_REQUEST['editDef'])
+    elseif ($do == DO_EDIT_EXTRA_FIELD)
     {
+        $catToEdit = claro_user_info_get_cat_def($_REQUEST['editDef']);
         $displayMode = "viewDefEdit";
     }
     elseif (isset($_REQUEST['addDef']))
     {
         $displayMode = "viewDefEdit";
     }
-    elseif (isset($_REQUEST['moveUpDef']))
+    elseif ( $do == DO_MOVE_UP_EXTRA_FIELD_RANK )
     {
         claro_user_info_move_cat_rank($_REQUEST['moveUpDef'], "up");
         $displayMode = "viewDefList";
     }
-    elseif (isset($_REQUEST['moveDownDef']))
+    elseif ( $do == DO_MOVE_DOWN_EXTRA_FIELD_RANK )
     {
         claro_user_info_move_cat_rank($_REQUEST['moveDownDef'], "down");
         $displayMode = "viewDefList";
     }
-    elseif(isset($_REQUEST['viewDefList']))
+    elseif($do == DO_VIEW_EXTRA_FIELD_LIST)
     {
         $displayMode = "viewDefList";
     }
@@ -158,18 +208,14 @@ if ($allowedToEditDef)
         {
             // check first the user isn't registered to a group yet
 
-            $sql = "SELECT COUNT(user)
-                    FROM `".$tbl_group_rel_team_user."`
-                    WHERE user = ".(int) $userIdViewed;
-
-            if ( 0 == claro_sql_query_get_single_value($sql) )
+            if ( 0 == course_group_user::count_groups_of_user($userIdViewed) )
             {
                 $userProperties['tutor' ] = 1;
             }
             else
             {
                 $userProperties['tutor' ] = 0;
-                $dialogBox .= get_lang('Impossible to promote group tutor a student already register to group');
+                $messageList['error'] = get_lang('Impossible to promote group tutor a student already register to group');
             }
         }
         else
@@ -211,132 +257,154 @@ if ($allowedToEditContent)
     }
 }
 
-//////////////////////////////////////////////////////////////////////////////
-// OUTPUT
-//////////////////////////////
-if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
+//PREPARE DISPLAYS
 
-event_access_tool($_tid, $_courseTool['label']);
-
-include $includePath . '/claro_init_header.inc.php';
-
-echo claro_html_tool_title($nameTools);
-
-/*======================================
-DISPLAY MODES
-======================================*/
-
-// Back button for each display mode (Top)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;'.get_lang('Back to user list').'</a></small></p>' . "\n";
-
-// Display Forms or dialog box (if needed)
-
-if(isset($dialogBox) && $dialogBox!="")
-{
-    echo claro_html_message_box($dialogBox);
-}
 
 if ($displayMode == "viewDefEdit")
 {
-    /*>>>>>>>>>>>> CATEGORIES DEFINITIONS : EDIT <<<<<<<<<<<<*/
+    /* CATEGORIES DEFINITIONS : EDIT */
 
-    if (isset($_REQUEST['editDef'])) $catToEdit = claro_user_info_get_cat_def($_REQUEST['editDef']);
-    else
+    if ($do != DO_EDIT_EXTRA_FIELD)
     {
         $catToEdit = array();
-        $catToEdit['title'] = "";
-        $catToEdit['comment'] = "";
+        $catToEdit['title'] = '';
+        $catToEdit['comment'] = '';
         $catToEdit['nbline'] = 1;
-        $catToEdit['id'] = "";
+        $catToEdit['id'] = '';
     }
-?>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
-<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
-<input type="hidden" name="id" value="<?php echo $catToEdit['id']?>" />
-<table>
-<tr>
-<td>
-<label for="title" ><?php echo get_lang('Heading')?></label> :
-</td>
-<td>
-<input type="text" name="title" id="title" size="80" maxlength="80" value ="<?php echo htmlspecialchars($catToEdit['title']); ?>" />
-</td>
-</tr>
-
-<tr>
-<td>
-<label for="comment" ><?php echo get_lang('Comment')?></label> :
-</td>
-<td>
-<textarea name="comment" id="comment" cols="60" rows="3" wrap="virtual"><?php echo $catToEdit['comment']?></textarea>
-</td>
-</tr>
-
-<tr>
-<td nowrap>
-<label for="nbline" ><?php echo get_lang('Line Number')?></label> :
-</td>
-<td>
-<select name="nbline" id="nbline">
-<?php
-if ($catToEdit['nbline'] && $catToEdit['nbline']!=1)
-{ ?>    <option value="<?php echo $catToEdit['nbline']?>" selected><?php echo $catToEdit['nbline']?> <?php echo get_lang('line(s)')?></option>
-    <option>---</option>
-<?php
 }
-sort($descSizeToPrupose);
-?><option value="1">1 <?php echo get_lang('line'); ?></option>
-<?php
-foreach($descSizeToPrupose as $nblines)
+elseif ($displayMode == 'viewDefList')
 {
-    echo '<option value="'.$nblines.'">'.$nblines.' '.get_lang('lines').'</option>';
+    $catList = claro_user_info_claro_user_info_get_cat_def_list();
+}
+elseif ($displayMode == 'viewMainInfoEdit')
+{
+    /*>>>>>>>>>>>> CATEGORIES MAIN INFO : EDIT <<<<<<<<<<<<*/
+    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
+
+}
+elseif ($displayMode == 'viewContentEdit' )
+{
+    $catToEdit = claro_user_info_get_cat_content($userIdViewed,$_REQUEST['editContent']);
+}
+elseif ($displayMode == 'viewContentList') // default display
+{
+    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
 }
 
-?></select>
-</td>
-<tr>
-<td>&nbsp;</td>
-<td align="center"><input type="submit" name="submitDef" value="<?php echo get_lang('Ok')?>" /></td>
-</tr>
-</table>
-</form>
 
-<?php
+if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
+event_access_tool($_tid, $_courseTool['label']);
+
+//////////////////////////////
+// OUTPUT
+//////////////////////////////
+
+
+include $includePath . '/claro_init_header.inc.php';
+
+echo claro_html_tool_title($nameTools)
+// Back button for each display mode (Top)
+.    '<p>' . "\n"
+.    '<small>' . "\n"
+.    '<a href="user.php">'
+.    '&lt;&lt;&nbsp;'
+.    get_lang('Back to user list')
+.    '</a>' . "\n"
+.    '</small>' . "\n"
+.    '</p>' . "\n"
+.    claro_html_msg_list($messageList)
+;
+
+if ($displayMode == "viewDefEdit")
+{
+    /* CATEGORIES DEFINITIONS : EDIT */
+    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed . '">' . "\n"
+    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+    .    '<input type="hidden" name="id" value="' . $catToEdit['id'] . '" />' . "\n"
+    .    '<table>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="title" >' . get_lang('Heading') . '</label> :' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<input type="text" name="title" id="title" size="80" maxlength="80" value ="' . htmlspecialchars($catToEdit['title']) . '" />' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<label for="comment" >' . get_lang('Comment') . '</label> :' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<textarea name="comment" id="comment" cols="60" rows="3" wrap="virtual">' . $catToEdit['comment'] . '</textarea>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td nowrap>' . "\n"
+    .    '<label for="nbline" >' . get_lang('Line Number') . '</label> :' . "\n"
+    .    '' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<select name="nbline" id="nbline">' . "\n"
+    ;
+    if ($catToEdit['nbline'] && $catToEdit['nbline']!=1)
+    { echo '<option value="' . $catToEdit['nbline'] . '" selected>' . $catToEdit['nbline'] . ' ' . get_lang('line(s)') . '</option>' . "\n"
+    .    '<option>---</option>' . "\n"
+    ;
+    }
+    sort($descSizeToPrupose);
+    echo '<option value="1">1 ' . get_lang('line') . '</option>' . "\n"
+    ;
+    foreach($descSizeToPrupose as $nblines)
+    {
+        echo '<option value="'.$nblines.'">'.$nblines.' '.get_lang('lines').'</option>';
+    }
+
+    echo '</select>' . "\n"
+    .    '</td>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>&nbsp;</td>' . "\n"
+    .    '<td align="center">' . "\n"
+    .    '<input type="submit" name="submitDef" value="' . get_lang('Ok') . '" />' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</table>' . "\n"
+    .    '</form>' . "\n"
+    ;
 }
 elseif ($displayMode == "viewDefList")
 {
     /*>>>>>>>>>>>> CATEGORIES DEFINITIONS : LIST <<<<<<<<<<<<*/
 
-    $catList = claro_user_info_claro_user_info_get_cat_def_list();
-
     if ($catList)
     {
-
         foreach ($catList as $thisCat)
         {
             // displays Title and comments
 
-            echo    '<p>' . "\n"
+            echo '<div class="userInfoExtraField" >' . "\n"
+            .    '<p>' . "\n"
             .    '<b>'.htmlize($thisCat['title']).'</b><br />' . "\n"
             .    '<i>'.htmlize($thisCat['comment']).'</i>' . "\n"
             .    '</p>' . "\n";
 
             // displays lines
 
-            echo    '<blockquote>' . "\n"
-            .    '<font color="gray">' . "\n";
+            echo '<blockquote>' . "\n"
+            .    '<font color="gray">' . "\n"
+            ;
 
             for ($i=1;$i<=$thisCat['nbline'];$i++ )
             {
                 echo '<br />__________________________________________' . "\n";
             }
 
-            echo    '</font>' . "\n"
-            .    '</blockquote>' . "\n";
+            echo '</font>' . "\n"
+            .    '</blockquote>' . "\n"
 
             // displays commands
 
-            echo     '<a href="'.$_SERVER['PHP_SELF'].'?removeDef='.$thisCat['catId'].'">'
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?removeDef='.$thisCat['catId'].'">'
             .    '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Delete').'">'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'].'">'
@@ -347,63 +415,59 @@ elseif ($displayMode == "viewDefList")
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'].'">'
             .    '<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.get_lang('Move down').'">'
-            .    '</a>' . "\n";
+            .    '</a>' . "\n"
+            .    '</div>' . "\n"
+            ;
         } // end for each
 
     } // end if ($catList)
 
 
-    echo     '<div align="center">' . "\n"
+    echo '<div align="center">' . "\n"
     .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
     .    '<input type="submit" name="addDef" value="'.get_lang('Add new heading').'" />' . "\n"
     .    '</form>' . "\n"
-    .    '</div>' . "\n";
+    .    '</div>' . "\n"
+    ;
 
 }
-elseif ($displayMode == "viewContentEdit")
+elseif ($displayMode == 'viewContentEdit' )
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : EDIT <<<<<<<<<<<<*/
-    $catToEdit = claro_user_info_get_cat_content($userIdViewed,$_REQUEST['editContent']);
-?>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>?uInfo=<?php echo $userIdViewed; ?>">
-<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
-<input type="hidden" name="cntId" value="<?php echo $catToEdit['contentId']; ?>" />
-<input type="hidden" name="catId" value="<?php echo $catToEdit['catId'    ]; ?>" />
-<input type="hidden" name="uInfo"  value="<?php echo $userIdViewed; ?>" />
-<p><label for="content" ><b><?php echo $catToEdit['title']?></b></label></p>
-<p><i><?php echo htmlize($catToEdit['comment'])?></i></p>
-<?php if ($catToEdit['nbline']==1)
-{
-?><input  type="text" name="content" id="content" size="80" value="<?php echo htmlspecialchars($catToEdit['content']); ?>" />
-<?php
-}
-else
-{
-?><textarea  cols="80" rows="<?php echo $catToEdit['nbline']?>" name="content" id="content" wrap="VIRTUAL"><?php echo $catToEdit['content']?></textarea>
-<?php }
-?><input type="submit" name="submitContent" value="<?php echo get_lang('Ok')?>" />
-</form>
+    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed . '">' . "\n"
+    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+    .    '<input type="hidden" name="cntId" value="' . $catToEdit['contentId'] . '" />' . "\n"
+    .    '<input type="hidden" name="catId" value="' . $catToEdit['catId'    ] . '" />' . "\n"
+    .    '<input type="hidden" name="uInfo"  value="' . $userIdViewed . '" />' . "\n"
+    .    '<p><label for="content" ><b>' . $catToEdit['title'] . '</b></label></p>' . "\n"
+    .    '<p><i>' . htmlize($catToEdit['comment']) . '</i></p>' . "\n"
+    ;
+    if ($catToEdit['nbline']==1)
+    {
+        echo '<input type="text" name="content" id="content" size="80" value="' . htmlspecialchars($catToEdit['content']) . '" />';
+    }
+    else
+    {
+        echo '<textarea  cols="80" rows="' . $catToEdit['nbline'] . '" name="content" id="content" wrap="VIRTUAL">' . $catToEdit['content'] . '</textarea>'
+        ;
+    }
+    echo '<input type="submit" name="submitContent" value="' . get_lang('Ok') . '" />' . "\n"
+    .    '</form>'
+    ;
 
-<?php
 }
 elseif ($displayMode =="viewMainInfoEdit")
 {
-    /*>>>>>>>>>>>> CATEGORIES MAIN INFO : EDIT <<<<<<<<<<<<*/
-
-    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
-
     if ($mainUserInfo)
     {
         $hidden_param = array ( 'submitMainUserInfo' => $userIdViewed,
-                                'uInfo' => $userIdViewed);
+        'uInfo' => $userIdViewed);
         echo course_user_html_form($mainUserInfo, $course_id, $userIdViewed, $hidden_param);
     }
 }
 elseif ($displayMode == "viewContentList") // default display
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : LIST <<<<<<<<<<<<*/
-
-    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
 
     if ($mainUserInfo)
     {
@@ -465,7 +529,8 @@ elseif ($displayMode == "viewContentList") // default display
 
         echo '</tr>' . "\n"
         .    '</tbody>' . "\n"
-        .    '</table>'."\n\n";
+        .    '</table>' . "\n\n"
+        ;
 
         if ( ! empty($_uid) || ! get_conf('user_email_hidden_to_anonymous') )
         {
@@ -497,7 +562,9 @@ elseif ($displayMode == "viewContentList") // default display
         {
             // Category title
 
-            echo '<p><b>'.$thisCat['title'].'</b></p>' . "\n"
+            echo '<p>' . "\n"
+            .    '<b>'.$thisCat['title'].'</b>' . "\n"
+            .    '</p>' . "\n"
             .    '<blockquote>' . "\n"
             ;
             // Category content
@@ -516,13 +583,18 @@ elseif ($displayMode == "viewContentList") // default display
                 ;
             }
 
-            echo    '</blockquote>' . "\n";
+            echo '</blockquote>' . "\n";
         }
     }
 }
 
 // Back button for each display mode (bottom)
-echo '<p><small><a href="user.php">&lt;&lt;&nbsp;' . get_lang('Back to user list') . '</a></small></p>' . "\n";
+echo '<p>' . "\n"
+.    '<small>' . "\n"
+.    '<a href="user.php">&lt;&lt;&nbsp;' . get_lang('Back to user list') . '</a>' . "\n"
+.    '</small>' . "\n"
+.    '</p>' . "\n"
+;
 
 include $includePath . '/claro_init_footer.inc.php';
 ?>
