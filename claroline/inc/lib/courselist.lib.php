@@ -196,6 +196,7 @@ function get_user_course_list($userId, $renew = false)
                        course.intitule       AS `title`,
                        course.titulaires     AS `titular`,
                        course.languageCourse AS `language`,
+                       course.faculte        AS `categoryCode`,
                        course_user.isCourseManager
 
                        FROM `" . $tbl_courses . "`           AS course,
@@ -218,6 +219,13 @@ function get_user_course_list($userId, $renew = false)
 
     return $userCourseList;
 }
+
+/**
+ * return the editable textzone for a course where subscript are denied
+ *
+ * @param string $course_id
+ * @return string : html content
+ */
 
 function get_locked_course_explanation($course_id=null)
 {
