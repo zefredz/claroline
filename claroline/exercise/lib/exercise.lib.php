@@ -194,4 +194,21 @@ function html_ask_duplicate()
     
     return $html;
 }
+
+/**
+ * cast $value to a float with max 2 decimals
+ *
+ * @param string string to cast
+ * @return string html code
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ */
+function castToFloat($value)
+{
+    // use dot as decimal separator
+    $value = (float) str_replace(',','.',$value);
+    // round to max 2 decimals
+    $value = round($value*100)/100;
+    
+    return $value;
+}
 ?>
