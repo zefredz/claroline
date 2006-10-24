@@ -269,12 +269,12 @@ class answerMultipleChoice
 				if( $this->answerList[$i]['correct'] == 1 )
 				{
 					// correct answer must have positive answer
-					$this->answerList[$i]['grade'] = abs($_REQUEST[$grade]);
+					$this->answerList[$i]['grade'] = abs(castToFloat($_REQUEST[$grade]));
 				}
 				else
 				{
 					// incorrect answer must have negative score
-					$this->answerList[$i]['grade'] = 0 - abs($_REQUEST[$grade]);
+					$this->answerList[$i]['grade'] = 0 - abs(castToFloat($_REQUEST[$grade]));
 				}
 			}
 			else

@@ -603,7 +603,7 @@ class Question
      */	
 	function setGrade($value)
 	{
-		$this->grade = trim($value);	
+		$this->grade = castToFloat($value);	
 	}
 	
 	/**
