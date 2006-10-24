@@ -362,7 +362,7 @@ class answerMultipleChoice
 	    		$html .=
 	    			'</td>' . "\n"
 	    		.	'<td width="95%">' . "\n"
-	    		.	'<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . claro_parse_user_text($answer['answer']) . '</label>' . "\n"
+	    		.	'<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . renderTex($answer['answer']) . '</label>' . "\n"
 	    		.	'</td>' . "\n"
 	    		.	'</tr>' . "\n\n";
 			}	
@@ -453,10 +453,10 @@ class answerMultipleChoice
 	   		.	( $answer['correct'] ? $imgOnHtml : $imgOffHtml )
 	    	.	'</td>' . "\n"
 			.	'<td width="45%">'
-	    	.	claro_parse_user_text($answer['answer']) 
+	    	.	renderTex($answer['answer']) 
 	    	.	'</td>' . "\n"
 	    	.	'<td width="45%">'
-	    	.	( ($isSelected || $answer['correct']) ? claro_parse_user_text($answer['comment']) : '&nbsp;' )
+	    	.	( ($isSelected || $answer['correct']) ? renderTex($answer['comment']) : '&nbsp;' )
 	    	.	'</td>' . "\n"
 	    	.	'</tr>' . "\n\n";
 		}
