@@ -299,10 +299,10 @@ class answerMatching
 			
 			//-- grade
 			$gradeFieldName = 'grade_'.$this->questionId.'_'.$answerNumber;						
-			if( isset($_REQUEST[$gradeFieldName]) ) $grade = (int) $_REQUEST[$gradeFieldName];
-			else									$grade = '';
+			if( isset($_REQUEST[$gradeFieldName]) ) $grade = castToFloat($_REQUEST[$gradeFieldName]);
+			else                                    $grade = '';
 			
-			$this->addLeft($answer, $match, $grade );    	
+			$this->addLeft($answer, $match, $grade);    	
 		}
 				
     	//-- cmd
