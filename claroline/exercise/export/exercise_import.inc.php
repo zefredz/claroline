@@ -66,7 +66,8 @@ function get_and_unzip_uploaded_exercise()
     $tmpExerciseDir = tempdir($tmpUploadDir); // this function should return the dir name and not the full path ...
     $uploadDir = str_replace($tmpUploadDir,'',$tmpExerciseDir); // ... because we need to remove it
 
-    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) && treat_uploaded_file($_FILES['uploadedExercise'],$tmpUploadDir, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
+    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) 
+        && treat_uploaded_file($_FILES['uploadedExercise'],$tmpUploadDir, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
     {
 
         if (!function_exists('gzopen'))
@@ -214,32 +215,30 @@ function import_exercise($file, &$backlog_message)
     foreach($exercise_info['question'] as $key => $question_array)
     {
         //2.create question
-
         $question = new Qti2Question();
 
-        if (isset($question_array['title'])) $question->setTitle($question_array['title']);
-        if (isset($question_array['statement'])) $question->setDescription($question_array['statement']);
-        $question->setType($question_array['type']);
+        $question->import($question_array);
 
-        if ($question->validate())
+        if( $question->validate() )
         {
+            // I need to save the question after the answer because I need question id in answers
             $question_id = $question->save();
+            
+            //3.create answers
+            $question->setAnswer();
+            $question->answer->import($question_array);
 
-            if ($question_id)
+            
+            if( $question->answer->validate() )
             {
-                //3.create answers
-                $question->setAnswer();
-                $question->import($exercise_info['question'][$key], $exercise_info['question'][$key]['tempdir']);
-                $exercise->addQuestion($question_id);
-                $question->answer->save();
                 $question->setGrade($question->answer->getGrade());
-                $question->save();
+                $question->save(); // save computed grade
+                
+                $question->answer->save();
+
+                $exercise->addQuestion($question_id);
             }
-            else
-            {
-                $backlog_message[] = get_lang('Cannot save question.');
-                return false;
-            }
+            // TODO handle error handling and messages
         }
         else
         {
@@ -367,6 +366,7 @@ function startElement($parser, $name, $attributes)
     global $current_question_item_body;
     global $record_item_body;
     global $non_HTML_tag_to_avoid;
+    /* inside_non_HTML_tag_to_avoid is a hack to avoid adding of content of html tags contained by non html tags to avoid */
     global $inside_non_HTML_tag_to_avoid;    
     global $current_inlinechoice_id;
     global $cardinality;
