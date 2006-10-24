@@ -1085,15 +1085,22 @@ function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&n
     return $result;
 }
 
+/**
+ * return subClass of a given class
+ *
+ * @param unknown_type $class_id
+ * @return unknown
+ *
+ * @since 1.8.0
+ */
 function getSubClasses($class_id)
 {
-    $tbl_mdb_names  = claro_sql_get_main_tbl();
-    $tbl_class      = $tbl_mdb_names['class'];
+    $tbl = claro_sql_get_main_tbl();
 
     $sub_classes_list = array();
 
     $sql = "SELECT `id`
-            FROM `" . $tbl_class . "`
+            FROM `" . $tbl['class'] . "`
             WHERE `class_parent_id`=" . (int) $class_id;
 
     $query_result = claro_sql_query($sql);
@@ -1109,4 +1116,33 @@ function getSubClasses($class_id)
 
     return $sub_classes_list;
 }
+
+
+
+/**
+ * return list of class subscribed to a given course.
+ *
+ * @param string $courseId
+ * @since 1.8.1
+ * @return array(`id`,`name`,`class_parent_id`,`course_id`)
+ */
+
+function get_class_list_by_course($courseId)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql = "
+        SELECT C.id              AS `id`,
+               C.name            AS `name`,
+               C.class_parent_id AS `class_parent_id`,
+               CC.courseId       AS `course_id`
+        FROM `" . $tbl['class'] . "` C
+        LEFT JOIN `" . $tbl['rel_course_class'] . "` CC
+               ON CC.`classId` = C.`id`
+              AND CC.`courseId` = '" . addslashes($courseId) . "'
+        ORDER BY C.`name`";
+    return claro_sql_query_fetch_all($sql);
+}
+
+
 ?>
