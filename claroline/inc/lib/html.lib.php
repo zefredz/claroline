@@ -1018,7 +1018,7 @@ function claro_parse_user_text($userText)
     $userText = renderTex($userText);
     $userText = make_clickable($userText);
 
-    if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) )
+    if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) && !preg_match('/<br ?\/?>/i', $userText))
     {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
