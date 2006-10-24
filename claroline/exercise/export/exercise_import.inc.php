@@ -42,7 +42,7 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
  * @return the path of the temporary directory where the exercise was uploaded and unzipped
  */
 
-function get_and_unzip_uploaded_exercise()
+function get_and_unzip_uploaded_exercise($baseWorkDir, $uploadDir)
 {
     //Check if the file is valid (not to big and exists)
 
@@ -54,33 +54,23 @@ function get_and_unzip_uploaded_exercise()
     }
 
     //1- Unzip folder in a new repository in claroline/module
+    include_once realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php';
 
-    include_once (realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php');
-
-    //unzip files
-
-    $tmpUploadDir = get_conf('rootSys') . get_conf('tmpPathSys') . 'upload/';
-    //create temp dir for upload
-    claro_mkdir($tmpUploadDir);
-
-    $tmpExerciseDir = tempdir($tmpUploadDir); // this function should return the dir name and not the full path ...
-    $uploadDir = str_replace($tmpUploadDir,'',$tmpExerciseDir); // ... because we need to remove it
 
     if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) 
-        && treat_uploaded_file($_FILES['uploadedExercise'],$tmpUploadDir, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
+        && treat_uploaded_file($_FILES['uploadedExercise'],$baseWorkDir, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
     {
-
         if (!function_exists('gzopen'))
         {
-            claro_delete_file($tmpExerciseDir);
+            claro_delete_file($uploadDir);
             return false;
         }
         // upload successfull
-        return $tmpExerciseDir;
+        return true;
     }
     else
     {
-        claro_delete_file($tmpExerciseDir);
+        claro_delete_file($uploadDir);
         return false;
     }
 
@@ -99,29 +89,36 @@ function import_exercise($file, &$backlog_message)
     global $element_pile;
     global $non_HTML_tag_to_avoid;
     global $record_item_body;
-    //used to specify the question directory where files could be found in relation in any question
+    // used to specify the question directory where files could be found in relation in any question
     global $questionTempDir;
 
-    //get required table names
+    // get required table names
 
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
     $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 
-    //set some default values for the new exercise
+    // paths
+    $baseWorkDir = get_conf('rootSys') . get_conf('tmpPathSys') . 'upload/';
+    // create temp dir for upload
+    if( !file_exists($baseWorkDir) ) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS);
 
+    $uploadDir = tempdir($baseWorkDir); // this function should return the dir name and not the full path ...
+    $uploadPath = str_replace($baseWorkDir,'',$uploadDir);
+    
+    // set some default values for the new exercise
     $exercise_info   = array();
     $exercise_info['name'] = preg_replace('/.zip$/i','' ,$file);
     $exercise_info['description'] = '';
     $exercise_info['question'] = array();
     $element_pile    = array();
 
-    //create parser and array to retrieve info from manifest
+    // create parser and array to retrieve info from manifest
 
     $element_pile = array();  //pile to known the depth in which we are
     $module_info = array();   //array to store the info we need
 
-	//if file is not a .zip, then we cancel all
+	// if file is not a .zip, then we cancel all
 
 	if ( !preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']))
 	{
@@ -131,8 +128,7 @@ function import_exercise($file, &$backlog_message)
 
     //unzip the uploaded file in a tmp directory
 
-    $tmpExerciseDir = get_and_unzip_uploaded_exercise();
-    if( !$tmpExerciseDir )
+    if( !get_and_unzip_uploaded_exercise($baseWorkDir,$uploadPath) )
     {
         $backlog_message[] = get_lang('Upload failed');
         return false;
@@ -140,7 +136,7 @@ function import_exercise($file, &$backlog_message)
 
     //find the different manifests for each question and parse them.
 
-    $exerciseHandle = opendir($tmpExerciseDir);
+    $exerciseHandle = opendir($uploadDir);
 
     //find each question repository in the uploaded exercise folder
 
@@ -151,13 +147,13 @@ function import_exercise($file, &$backlog_message)
 
 	$file_found = false;
 
-    $questionHandle = opendir($tmpExerciseDir);
+    $questionHandle = opendir($uploadDir);
 
     while( false !== ($questionFile = readdir($questionHandle)) )
     {
         if( preg_match('/.xml$/i' ,$questionFile) )
         {
-            parse_file($tmpExerciseDir, '', $questionFile);
+            parse_file($uploadDir, '', $questionFile);
 			$file_found = true;
         }//end if xml question file found
     }//end while question rep
@@ -167,17 +163,17 @@ function import_exercise($file, &$backlog_message)
 
     while( false !== ($file = readdir($exerciseHandle)) )
     {
-        if (is_dir($tmpExerciseDir.'/'.$file) && $file != "." && $file != "..")
+        if (is_dir($uploadDir.'/'.$file) && $file != "." && $file != "..")
         {
             //find each manifest for each question repository found
 
-            $questionHandle = opendir($tmpExerciseDir.'/'.$file);
+            $questionHandle = opendir($uploadDir.'/'.$file);
 
             while (false !== ($questionFile = readdir($questionHandle)))
             {
                 if (preg_match('/.xml$/i' ,$questionFile))
                 {
-                    parse_file($tmpExerciseDir, $file, $questionFile);
+                    parse_file($uploadDir, $file, $questionFile);
 					$file_found = true;
                 }//end if xml question file found
             }//end while question rep
@@ -248,7 +244,7 @@ function import_exercise($file, &$backlog_message)
     }
 
     // delete the temp dir where the exercise was unzipped
-    claro_delete_file($tmpExerciseDir);
+    claro_delete_file($uploadDir);
 
     return $exercise_id;
 }
@@ -256,10 +252,9 @@ function import_exercise($file, &$backlog_message)
 /**
  * parse an xml file to find info
  *
- * @param unknown_type $exercisePath
- * @param unknown_type $file
- * @param unknown_type $questionFile
- * @return unknown
+ * @param string $exercisePath
+ * @param string $file dirname of question in zip file
+ * @param string $questionFile name of xml file in zip file
  */
 
 function parse_file($exercisePath, $file, $questionFile)
@@ -268,9 +263,11 @@ function parse_file($exercisePath, $file, $questionFile)
     global $element_pile;
     global $non_HTML_tag_to_avoid;
     global $record_item_body;
+    global $questionTempDir;
 
     $questionTempDir = $exercisePath.'/'.$file.'/';
     $questionFilePath = $questionTempDir.$questionFile;
+    
     $backlog_message = array();
     array_push ($backlog_message, "* ".$questionFile);
 
@@ -343,7 +340,10 @@ function parse_file($exercisePath, $file, $questionFile)
     if( !$question_format_supported )
     {
         array_push ($backlog_message, get_lang('Error : Unknown question format in file %file', array ('%file' => $questionFile) ) );
+        return $backlog_message;
     }
+    
+    return true;
 }
 
 
