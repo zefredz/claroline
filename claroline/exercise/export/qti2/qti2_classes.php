@@ -76,9 +76,22 @@ class Qti2Question extends Question
     
     function importAttachment($importedFilePath)
     {
+        // copy file in a tmp directory known by object,
+        // attached file will be copied to its final destination when saving question
+        $dir = $this->tmpQuestionDirSys;
         $filename = basename($importedFilePath);
         
-        if( claro_move_file($importedFilePath, $this->questionDirSys.$this->attachment) )
+		if( !is_dir( $dir ) )
+		{
+			// create it 
+			if( !claro_mkdir($dir, CLARO_FILE_PERMISSIONS) )
+			{
+				claro_failure::set_failure('cannot_create_tmp_dir');
+	        	return false;
+			}
+		}
+
+        if( claro_move_file($importedFilePath, $dir.$filename) )
         {
             $this->attachment = $filename;
             return true;
@@ -420,9 +433,13 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
         }
 
         //build correct_answsers array        
-        if (isset($questionArray['weighting']))
+        if( isset($questionArray['weighting']) && is_array($questionArray['weighting']) )
         {
-            $this->gradeList = castToFloat($questionArray['weighting']);
+            $this->gradeList = array();
+            foreach( $questionArray['weighting'] as $key => $value )
+            {
+                $this->gradeList[$key] = castToFloat($value);
+            }
         }
     }
 }
