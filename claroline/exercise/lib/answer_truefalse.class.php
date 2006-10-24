@@ -279,8 +279,8 @@ class answerTrueFalse
 		}
 		
     	//-- grades
-    	$trueGrade = (isset($_REQUEST['trueGrade']))?(int)$_REQUEST['trueGrade']:0;
-    	$falseGrade = (isset($_REQUEST['falseGrade']))?(int)$_REQUEST['falseGrade']:0;
+    	$trueGrade = (isset($_REQUEST['trueGrade']))?castToFloat($_REQUEST['trueGrade']):0;
+    	$falseGrade = (isset($_REQUEST['falseGrade']))?castToFloat($_REQUEST['falseGrade']):0;
     	
     	if( $this->correctAnswer == 'TRUE' )
     	{

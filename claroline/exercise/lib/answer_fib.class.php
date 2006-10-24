@@ -314,7 +314,7 @@ class answerFillInBlanks
 			// all values must be positive
 			foreach( $_REQUEST['grade'] as $grade )
 			{
-				$this->gradeList[] = abs($grade);
+				$this->gradeList[] = abs(castToFloat($grade));
 			}
 		}
 		// else keep the value in object (default or loaded)						
