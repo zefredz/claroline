@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)';
 $_lang['%1\$s by %2\$s'] = '%1$s door %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s gewijzigd op %2$s door %3$s';
@@ -431,7 +431,7 @@ $_lang['Help'] = 'Help';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Hier kan U de inhoud van de tekst zones op de home pagina van het platform bewerken.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Hulp startpagina';
-$_lang['Home page text zones'] = 'Home pagina tekst zones';
+$_lang['Edit text zones'] = 'Wijzig tekst zones';
 $_lang['Hour'] = 'Uur';
 $_lang['Identical content<br />no modification saved'] = 'Geen veranderingen gevonden <br />geen wijzigingen aangebracht';
 $_lang['If you wish to enrol on this course'] = 'Indien U wil inschrijven in deze cursus';
@@ -622,7 +622,7 @@ $_lang['Number of users'] = 'Aantal gebruikers';
 $_lang['Number of users by course'] = 'Aantal gebruikers per cursus';
 $_lang['Number of users by faculty'] = 'Aantal gebruikers per faculteit';
 $_lang['Number of users by status'] = 'Aantal gebruikers per status';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had. 
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had.
 	De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen';
 $_lang['Numero'] = 'Nr.';
 $_lang['Ok'] = 'Ok';
@@ -999,13 +999,13 @@ $_lang['Zlib php extension is required to use this tool. Please contact your pla
 $_lang['[British people] live in [United Kingdom].'] = 'Van alle [Galli&euml;rs] zijn de [Belgen] het dapperst.';
 $_lang['archive'] = 'archief';
 $_lang['blockAssignmentsHelp'] = '<p>
-Het taak gereedschap is een publicatiegebied voor studenten. 
+Het taak gereedschap is een publicatiegebied voor studenten.
 De cursusbeheerder maakt een of meerdere taken aan (verschillende publicatie mogelijkheden) waar
 de studenten hun werkjes kunnen publiceren.
 <br /><br />
 
 Elke taak kan meerdere doelen of vereisten hebben:
-Een publicatie moet een bestand en/of tekst zijn, en een publicatie kan in naam van een 
+Een publicatie moet een bestand en/of tekst zijn, en een publicatie kan in naam van een
 groep worden aangeboden.
  <br /><br />
 
@@ -1023,8 +1023,8 @@ aanklikken.
 <ul><li> Een titel &nbsp;: De naam van de taak.
 </li><li> Een omschrijving&nbsp;: Wat de taak inhoudt, hetgeen van de studenten verwacht wordt.
 </li><li> Wat dient ingediend:&nbsp;:
-<ul><li> Bestand&nbsp;: elk uploadbaar type bestand. Wees voorzichtig, er is een grens op de grootte van 
-de bestanden die men kan uploaden. Er kan een korte omschrijving van het bestand worden meegegegeven bij 
+<ul><li> Bestand&nbsp;: elk uploadbaar type bestand. Wees voorzichtig, er is een grens op de grootte van
+de bestanden die men kan uploaden. Er kan een korte omschrijving van het bestand worden meegegegeven bij
 het uploaden.
 
 </li><li> Alleen tekst&nbsp;: Een tekst (mogelijk met opmaak).
@@ -1032,7 +1032,7 @@ het uploaden.
 </li></ul>
 </li><li> Een begindatum&nbsp;: Datum vanaf wanneer de gebruikers hun werk mogen indienen.
 </li><li> Een einddatum&nbsp;: Datum tot wanneer de gebruikers hun werk mogen indienen.
-</li><li> Standaard zichtbaarheid van de werken&nbsp;: Duid aan of de werken zichtbaar 
+</li><li> Standaard zichtbaarheid van de werken&nbsp;: Duid aan of de werken zichtbaar
 zullen zijn voor andere gebruikers of niet.
 </li><li> Type taak&nbsp;:
 
@@ -1054,9 +1054,9 @@ Na de einddatum van de taak, of nadat het werk werd ingediend.
 <hr />
 <h4>Werken</h4>
 <p>Werken zijn de publicaties/teksten die de gebruikers uploaden.</p>
-<p>Voor elke taak toont de gereedschapsset een lijst van alle gebruikes in de cursus, en voor elke 
-gebruiker de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werkjes en 
-het aantal commentaren. De lijst van werkjes van een gebruiker kan opgevraagd worden door op de 
+<p>Voor elke taak toont de gereedschapsset een lijst van alle gebruikes in de cursus, en voor elke
+gebruiker de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werkjes en
+het aantal commentaren. De lijst van werkjes van een gebruiker kan opgevraagd worden door op de
 gebruikersnaam te klikken.
 </p>
 <p><strong>Een werk indienen</strong></p>
@@ -1067,7 +1067,7 @@ gebruikersnaam te klikken.
 Hij kan ook commentaar leveren op werkjes.
 </p>
 <ul>
-<li> <strong>Wijzigen</strong>&nbsp;: Indien dit pictogram verschijnt kan de gebruiker de inhoud van het werk kan wijzige, 
+<li> <strong>Wijzigen</strong>&nbsp;: Indien dit pictogram verschijnt kan de gebruiker de inhoud van het werk kan wijzige,
 dit is het geval voor de cursusbeheerder, of als de gebruiker naar zijn werkjes kijkt, of de werkjes van een groep waar hij in zit.
 
 </li>
@@ -1081,7 +1081,7 @@ dit is het geval voor de cursusbeheerder, of als de gebruiker naar zijn werkjes 
 
 </li>
 <li> <strong>Commentaar toevoegen</strong>&nbsp;: Via deze link kan de cursusbeheerder commentaar toevoegen
-aan een werkje. Dit kan een tekst en/of een bestand zijn, en kan een prive commentaar zijn, zodat enkel 
+aan een werkje. Dit kan een tekst en/of een bestand zijn, en kan een prive commentaar zijn, zodat enkel
 de cursusbeheerder de commentaar kan zien.
 </li>
 </ul>';
@@ -1352,7 +1352,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h3>Wiki2xhtml syntax</h3>
 <dd><ul>
 <li><strong>Wiki woorden</strong> : Wiki woorden zijn woorden als <em>WikiWord</em>.
  Wiki2xhtml herkent deze meteen en zet een link. Om een pagina of link te maken in Wiki, wijzig een bestaant en verander de titel in een WikiWord syntax, bijvoorbeeld <em>Mijnpagina</em>, bewaar dan de pagina. Wiki2xhtml zal meteen het Wiki Word veranderen <em>Mijnpagina</em> met een link naar <em>MijnPagina</em>&nbsp;;</li>
-<li><strong>Wiki links</strong> : Wiki links zijn net Hyperlinks (zie onderaan) verwacht niet dat ze een protocol bevatten (zoals <em>http://</em> of <em>ftp://</em>) 
+<li><strong>Wiki links</strong> : Wiki links zijn net Hyperlinks (zie onderaan) verwacht niet dat ze een protocol bevatten (zoals <em>http://</em> of <em>ftp://</em>)
 and thatthey are automaticaly recognise as links to Wiki pages. Om een nieuwe pagina te maken of een link te maken in een bestaand Wiki,wijzig een pagina en voeg toe <code>[page title]</code> of <code>[page title|link text]</code> in deze inhoud.
 om een text te veranderen in een link kunt u ook : <code>[WikiWord|text]</code>.</li>
 </ul></dd>

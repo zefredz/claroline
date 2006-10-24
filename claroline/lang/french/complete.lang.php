@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
@@ -613,7 +613,7 @@ $_lang['Help'] = 'Aide';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Vous pouvez modifier à partir d\'ici le contenu des zones de texte affichées sur la page d\'accueil du campus.';
 $_lang['Hits'] = 'Accès';
 $_lang['Home page help'] = 'Aide Page d\'accueil';
-$_lang['Home page text zones'] = 'Zones de texte de la page d\'accueil';
+$_lang['Edit text zones'] = 'Editer les zones de texte';
 $_lang['Hour'] = 'Heure';
 $_lang['Icon'] = 'Icône';
 $_lang['Identical content<br />no modification saved'] = 'Contenu identique<br />aucune modification enregistrée';

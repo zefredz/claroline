@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modified on %2$s by %3$s';
@@ -614,7 +614,7 @@ $_lang['Help'] = 'Help';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Here you can modify the content of the text zones displayed on the platform home page.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Help Home Page';
-$_lang['Home page text zones'] = 'Home page text zones';
+$_lang['Edit text zones'] = 'Edit text zones';
 $_lang['Hour'] = 'Hour';
 $_lang['Icon'] = 'Icon';
 $_lang['Identical content<br />no modification saved'] = 'Identical content<br />no modification saved';

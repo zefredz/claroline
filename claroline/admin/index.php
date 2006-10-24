@@ -134,6 +134,7 @@ function get_menu_item_list($type)
     // set static menu
     if(is_null($menu))
     {
+
         $menu['AdminUser'][] =  '<form name="searchUser" action="adminusers.php" method="GET" >' . "\n"
         .                   '<label for="search_user">' . get_lang('User') . '</label>'
         .                   ' : '
@@ -168,11 +169,12 @@ function get_menu_item_list($type)
 
 
         $menu['AdminPlatform'][] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('managing/editFile.php',get_lang('Home page text zones'));
+        $menu['AdminPlatform'][] = claro_html_tool_link('managing/editFile.php',get_lang('Edit text zones'));
         $menu['AdminPlatform'][] = claro_html_tool_link('module/module_list.php', get_lang('Modules'));
         $menu['AdminPlatform'][] = claro_html_tool_link('campusLog.php',        get_lang('Platform statistics'));
         $menu['AdminPlatform'][] = claro_html_tool_link('campusProblem.php',    get_lang('Scan technical fault'));
-
+        if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
+        $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/checkmails.php', get_lang('Check and Repair emails of users'));
         $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/repaircats.php', get_lang('Repair category structure'));
         $menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Choose messages dest'));
         $menu['AdminPlatform'][] = claro_html_tool_link('upgrade/index.php',    get_lang('Upgrade'));
