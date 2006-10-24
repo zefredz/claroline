@@ -259,28 +259,16 @@ $nameTools = get_lang('Users');
 
 if ($can_add_user)
 {
-    $can_add_user     = (bool) ($is_courseAdmin
-    && get_conf('is_coursemanager_allowed_to_add_user') )
-    || $is_platformAdmin;
-    $can_add_single_user     = (bool) ($is_courseAdmin
-    && get_conf('is_coursemanager_allowed_to_add_single_user') )
-    || $is_platformAdmin;
-    $can_import_user_list     = (bool) ($is_courseAdmin
-    && get_conf('is_coursemanager_allowed_to_import_user_list') )
-    || $is_platformAdmin;
-    $can_import_user_class     = (bool) ($is_courseAdmin
-    && get_conf('is_coursemanager_allowed_to_import_user_class') )
-    || $is_platformAdmin;
 
     if ($can_add_single_user)
     {
 
-    // Add a user link
-    $userMenu[] = '<a class="claroCmd" href="user_add.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
-    .    get_lang('Add a user')
-    .    '</a>'
-    ;
+        // Add a user link
+        $userMenu[] = '<a class="claroCmd" href="user_add.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
+        .    get_lang('Add a user')
+        .    '</a>'
+        ;
     }
     if ($can_add_single_user)
     {
@@ -291,33 +279,29 @@ if ($can_add_user)
         .             '</a>'
         ;
     }
-    if ($can_import_user_class)
+    if ($can_import_user_list)
     {
-
-
-    // Add CSV file of user link
-    $userMenu[] = '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
-    .    '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
-    .    get_lang('Add a user list')
-    .    '</a>' ;
+        // Add CSV file of user link
+        $userMenu[] = '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
+        .    '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
+        .    get_lang('Add a user list')
+        .    '</a>' ;
     }
     if ($can_import_user_class)
     {
-    // Add a class link
-    $userMenu[] = '<a class="claroCmd" href="class_add.php">'
-    .    '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
-    .    get_lang('Enrol class')
-    .    '</a>' ;
+        // Add a class link
+        $userMenu[] = '<a class="claroCmd" href="class_add.php">'
+        .    '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
+        .    get_lang('Enrol class')
+        .    '</a>' ;
     }
 
     if ($can_add_single_user)
     {
-
-
-    // Main group settings
-    $userMenu[] = '<a class="claroCmd" href="../right/profile_list.php">'
-    .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
-    .          get_lang("Right Profile")
+        // Main group settings
+        $userMenu[] = '<a class="claroCmd" href="../right/profile_list.php">'
+        .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+        .          get_lang("Right Profile")
         .          '</a>'
         ;
     }
