@@ -257,7 +257,8 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
         if (($currentCat['code'] == $parent))
         {
 
-            if ($currentCat['treePos'] > $childTreePos ) return claro_failure::set_failure('loop_in_structure');
+            if ($currentCat['treePos'] >= $childTreePos ) return claro_failure::set_failure('loop_in_structure');
+            if ($parent == $catcode ) return claro_failure::set_failure('loop_in_structure');
 
             return get_full_path($categories, $parent, $separator)
             .      $separator
