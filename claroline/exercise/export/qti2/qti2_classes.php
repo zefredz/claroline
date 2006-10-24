@@ -53,27 +53,40 @@ class Qti2Question extends Question
      * allow to import the question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
      */
 
-    function import($questionArray, $exerciseTempPath)
+    function import($questionInfo)
     {
-        //import answers
-
-        $this->answer->import($questionArray);
-
-        //import attached file, if any
-        if( !empty($questionArray['attached_file_url']) )
+        if( is_array($questionInfo) )
         {
-            $this->importAttachment($questionArray['attached_file_url'],$exerciseTempPath);
+            if( isset($questionInfo['title']) )       $this->setTitle($questionInfo['title']);
+            if( isset($questionInfo['statement']) )   $this->setDescription($questionInfo['statement']."\n".'<!-- content: imsqti -->');
+            $this->setType($questionInfo['type']);
+            
+            if( !empty($questionInfo['attached_file_url']) )
+            {
+                $this->importAttachment($questionInfo['tempdir'].$questionInfo['attached_file_url']);
+            }
+        }
+        else
+        {
+            return false;
         }
     } 
     
-    function importAttachment($file,$exerciseTempPath)
+    function importAttachment($importedFilePath)
     {
-        claro_copy_file($exerciseTempPath.$file, $this->questionDirSys);
+        $filename = basename($importedFilePath);
         
-        $this->attachment = basename($file);
+        if( claro_move_file($importedFilePath, $this->questionDirSys.$this->attachment) )
+        {
+            $this->attachment = $filename;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 	
@@ -148,26 +161,24 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
 	/**
      * allow to import the answers, feedbacks, and grades of a question
      * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
+
      */
 
     function import($questionArray)
     {
-
         $answerArray = $questionArray['answer'];
 
         $this->answerList = array(); //re-initialize answer object content
 
-        
-
         foreach ($answerArray as $key => $answer)
         {
             if (!isset($answer['feedback'])) $answer['feedback'] = "";
+            
             if (!isset($questionArray['weighting'][$key]))
             {
                 if (isset($questionArray['default_weighting']))
                 {
-                    $grade = $questionArray['default_weighting'];
+                    $grade = castToFloat($questionArray['default_weighting']);
                 }
                 else
                 {
@@ -176,9 +187,11 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
             }
             else
             {
-                $grade = $questionArray['weighting'][$key];
+                $grade = castToFloat($questionArray['weighting'][$key]);
             }
+            
             if (in_array($key,$questionArray['correct_answers'])) $is_correct = 1; else $is_correct = 0;
+            
             $addedAnswer = array( 
                             'answer' => $answer['value'],
                             'correct' => $is_correct,
@@ -199,8 +212,8 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
      */
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
-        $out .= "\n" . '    <![CDATA[' . $questionStatment . ']]>'. "\n";
-		$out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+        $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>'. "\n";
+		$out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
 
 		//set true answer
 		
@@ -388,13 +401,12 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
+
      */
 
     function import($questionArray)
     {
-        $answerArray = $questionArray['answer'];
-        
+        // $questionArray['answer'] should be empty for this question type
         $this->answerText = $questionArray['response_text'];
         
         if ($questionArray['subtype'] == "TEXTFIELD_FILL") 
@@ -410,7 +422,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
         //build correct_answsers array        
         if (isset($questionArray['weighting']))
         {
-            $this->gradeList = $questionArray['weighting'];
+            $this->gradeList = castToFloat($questionArray['weighting']);
         }
     }
 }
@@ -499,7 +511,7 @@ class Qti2AnswerMatching extends answerMatching
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
-     * @author Guillaume Lederer <guillaume@claroline.net>
+
      */
 
     function import($questionArray)
@@ -511,7 +523,6 @@ class Qti2AnswerMatching extends answerMatching
         $this->rightList = array();
         
         //find right and left column
-
         $right_column = array_pop($answerArray);
         $left_column  = array_pop($answerArray);
 
@@ -530,7 +541,7 @@ class Qti2AnswerMatching extends answerMatching
                 {
 					if (isset($questionArray['weighting'][$matched_pattern]))
                     {
-                        $grade = $questionArray['weighting'][$matched_pattern];
+                        $grade = castToFloat($questionArray['weighting'][$matched_pattern]);
                     }
                     else
                     {
