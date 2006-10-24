@@ -139,6 +139,59 @@ function claro_html_tool_link($url,$label,$attributeList=array())
 
 }
 
+
+/**
+* Return the claroline sytled url for a link to a tool
+*
+* @param string $url
+* @param string $label
+* @param array $attributeList array of array(attributeName,attributeValue)
+* @return string html stream
+*/
+function claro_html_cmd_link($url,$label,$attributeList=array())
+{
+
+    if(array_key_exists('class',$attributeList))
+    {
+        $attributeList['class'] .= ' claroCmd';
+    }
+    else
+    {
+        $attributeList['class'] = ' claroCmd';
+    }
+
+    return claro_html_link($url,$label,$attributeList);
+
+}
+
+/**
+* Return the claroline sytled url for a link to a tool
+*
+* @param string $url
+* @param string $label
+* @param array $attributeList array of array(attributeName,attributeValue)
+* @return string html stream
+*/
+function claro_html_link($url,$label,$attributeList=array())
+{
+    $attributeConcat ='';
+
+    if (is_array($attributeList))
+    {
+        foreach ($attributeList as $key => $attribute)
+        {
+            $attributeConcat .= (is_array($attribute) ? $attribute['name'].'="'.$attribute['value'].'" ' : $key.'="'.$attribute.'" ');
+        }
+
+    }
+    else trigger_error('$attributeList would be an array', E_USER_WARNING);
+    return '<a href="' . $url . '" ' . $attributeConcat . ' >'
+    .       $label
+    .       '</a>' . "\n"
+    ;
+
+}
+
 /**
 * Prepare the display of a clikcable button
 *
@@ -242,7 +295,7 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
     }
 
     $string .= implode('<br />' . "\n",$stringPart)
-    .          '</h3>' . "\n\n"
+    .       '</h3>' . "\n\n"
     ;
 
     return $string;
@@ -1188,7 +1241,7 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
      * @return string : the string cleaned of dangerous character
      *
      */
-    
+
     function replace_dangerous_char($string, $strict = 'loose')
     {
         $search[] = ' ';  $replace[] = '_';
@@ -1209,13 +1262,13 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
         $search[] = '[';  $replace[] = '-';
         $search[] = ']';  $replace[] = '-';
         $search[] = '..';  $replace[] = '';
-    
-    
+
+
         foreach($search as $key=>$char )
         {
             $string = str_replace($char, $replace[$key], $string);
         }
-    
+
         if ($strict == 'strict')
         {
             $string = str_replace('-', '_', $string);
@@ -1224,7 +1277,7 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
                             'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
                             'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
         }
-    
+
         return $string;
     }
 }
