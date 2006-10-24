@@ -34,17 +34,19 @@ include_once($includePath . '/lib/sendmail.lib.php');
 
 // Initialise variables
 
-$passwordFound = FALSE;
 $msg = '';
+$extAuthPasswordCount = 0;
+$passwordFound = false;
+$userAccountList = array();
 
 // Get the forgotten email from the form
 
-if ( isset ($_REQUEST['Femail']) ) $Femail = strtolower(trim($_REQUEST['Femail']));
-else                               $Femail = '';
+if ( isset ($_REQUEST['Femail']) ) $emailTo = strtolower(trim($_REQUEST['Femail']));
+else                               $emailTo = '';
 
 // Main section
 
-if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
+if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
 {
     // search user with this email
 
@@ -57,19 +59,19 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
                     `authSource`            ,
                     `creatorId`
              FROM `" . $tbl_user . "`
-             WHERE LOWER(email) = '" . addslashes($Femail) . "'";
+             WHERE LOWER(email) = '" . addslashes($emailTo) . "'";
 
-    $user = claro_sql_query_fetch_all($sql);
+    $userList = claro_sql_query_fetch_all($sql);
 
-    $extAuthPasswordCount = 0;
-
-    if ( count($user) > 0 )
+    if ( count($userList) > 0 )
     {
-        for ($i = 0, $j = count($user); $i < $j; $i++)
+        foreach ( $userList as $user )
         {
-            if ( in_array(strtolower($user[$i]['authSource']),
+            if ( in_array(strtolower($user['authSource']),
                           array('claroline', 'clarocrypt')))
             {
+                $passwordFound = true;
+
                 if (get_conf('userPasswordCrypted',false))
                 {
                     /*
@@ -77,70 +79,67 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
                      * We have to generate new ones.
                      */
 
-                    $user[$i]['password'] = generate_passwd();
+                    $user['password'] = generate_passwd();
 
                     // UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
                     $sql = 'UPDATE `' . $tbl_user . '`
-                            SET   `password` = "'. addslashes(md5($user[$i]['password'])) .'"
-                             WHERE `user_id` = "'.$user[$i]['uid'].'"';
+                            SET   `password` = "'. addslashes(md5($user['password'])) .'"
+                             WHERE `user_id` = "'.$user['uid'].'"';
 
-                    if (false === claro_sql_query($sql)) trigger_error('<p align="center">'. get_lang('Wrong operation') . '</p>', E_USER_ERROR);
+                    if ( claro_sql_query($sql) === false )
+                    {
+                        trigger_error('<p align="center">'. get_lang('Wrong operation') . '</p>', E_USER_ERROR);
+                    }
                 }
+                
+                // Build user account list for email
+                $userAccountList[] =
+                    $user['firstName'] .' ' . $user['lastName']  . "\r\n\r\n"
+                    . "\t" . get_lang('Username') . ' : ' . $user['loginName'] . "\r\n"
+                    . "\t" . get_lang('Password') . ' : ' . $user['password']  . " \r\n" ;
+
             }
             else
             {
-                unset($user[$i]); // remove
                 $extAuthPasswordCount ++;
             }
         }
 
-        // recount if there are still password found
-        if (count($user) > 0) $passwordFound = true;
-
-        /*
-         * Prepare the email message wich has to be send to the user
-         */
-
-        // mail subject
-        $emailSubject = get_lang('Login request') . ' ' . get_conf('siteName');
-
-        // mail body
-        foreach($user as $thisUser)
+        if ( $passwordFound ) 
         {
-            $userAccountList[] =
-                $thisUser['firstName'] .' ' . $thisUser['lastName']  . "\r\n\r\n"
-                . "\t" . get_lang('Username') . ' : ' . $thisUser['loginName'] . "\r\n"
-                . "\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n"
-                ;
-        }
 
-        if ($userAccountList)
-        {
-            $userAccountList = implode ("\r\n\r\n", $userAccountList);
-        }
+            /*
+             * Prepare the email message wich has to be send to the user
+             */
 
-        $emailBody = $emailSubject."\r\n"
-                    .get_conf('rootWeb')."\r\n"
-                    .get_lang('This is your account Login-Pass')."\r\n\r\n"
-                    .$userAccountList;
+            // mail subject
+            $emailSubject = get_lang('Login request') . ' ' . get_conf('siteName');
 
+            $emailBody = $emailSubject."\r\n"
+                        .get_conf('rootWeb')."\r\n"
+                        .get_lang('This is your account Login-Pass')."\r\n\r\n" ;
+            
+            // mail body
+            if ( count($userAccountList) > 0 )
+            {
+                $emailBody .= implode ("\r\n\r\n", $userAccountList);
+            }
 
             // send message
-            $emailTo = $user[0]['uid'];
-
-            if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
+            if( claro_mail_user($userList[0]['uid'], $emailBody, $emailSubject) )
             {
-                $msg = get_lang('Your password has been emailed to'). ' : ' . $Femail;
+                $msg = get_lang('Your password has been emailed to'). ' : ' . $emailTo;
             }
             else
             {
                 $msg = get_lang('The system is unable to send you an e-mail.') . '<br />'
                 .   get_lang('Please contact') . ' : '
-                .   '<a href="mailto:' . get_conf('administrator_email') . '?BODY=' . $Femail . '">'
+                .   '<a href="mailto:' . get_conf('administrator_email') . '?BODY=' . $emailTo . '">'
                 .   get_lang('Platform Administrator')
                 .   '</a>';
             }
+        }
     }
     else
     {
@@ -149,19 +148,19 @@ if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 
     if ($extAuthPasswordCount > 0 )
     {
-        if ( count ($user) > 0 )
-        {
-            $msg .= '<p>'
-                 . get_lang('Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.') . '<br />'
-                 . get_lang('For more information take contact with the platform administrator.')
-                 .  '</p>';
-        }
-        else
+        if ( $extAuthPasswordCount == count($userList) )
         {
             $msg .= '<p>'
                  . get_lang('Your password(s) is (are) recorded in an external authentication system outside the platform.') . '<br />'
                  . get_lang('For more information take contact with the platform administrator.')
                  . '</p>';
+        }
+        else
+        {
+            $msg .= '<p>'
+                 . get_lang('Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.') . '<br />'
+                 . get_lang('For more information take contact with the platform administrator.')
+                 .  '</p>';
         }
     }
 }
@@ -174,7 +173,7 @@ else
 ////////////////////////////////////////////////////
 // display section
 
-include$includePath . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // display title
 
@@ -188,10 +187,10 @@ if ( ! $passwordFound )
     .       '<input type="hidden" name="searchPassword" value="1" />'
     .       '<label for="Femail">' . get_lang('Email') . ' : </label>'
     .       '<br />'
-    .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($Femail) . '" />'
+    .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($emailTo) . '" />'
     .       '<br /><br />'
     .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" />&nbsp; '
-    .       claro_html_button('../../index.php', get_lang('Cancel'))
+    .       claro_html_button(get_conf('urlAppend') . '/index.php', get_lang('Cancel'))
     .       '</form>'
     ;
 }
