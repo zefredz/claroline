@@ -1008,48 +1008,61 @@ function clean_str_for_javascript( $str )
  * before displaying it to the screen
  * For example it change new line charater to <br> tag etc.
  *
- * @param string $userText original user tex
+ * @param string $userText original user text
  * @return string : parsed user text
  * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
 
 function claro_parse_user_text($userText)
 {
-   global $claro_texRendererUrl; // see 'conf/claro_main.conf.php'
+    $userText = renderTex($userText);
+    $userText = make_clickable($userText);
 
-   if ( !empty($claro_texRendererUrl) )
-   {
-       $userText = str_replace('[tex]',
-                          '<img src="'.$claro_texRendererUrl.'?',
-                          $userText);
-
-       $userText = str_replace('[/tex]',
-                           '" border="0" align="absmiddle">',
-                           $userText);
-   }
-   else
-   {
-       $userText = str_replace('[tex]',
-                              '<embed TYPE="application/x-techexplorer" texdata="',
-                              $userText);
-
-       $userText = str_replace('[/tex]',
-                               '" width="100%" pluginspace="http://www.integretechpub.com/">',
-                               $userText);
-   }
-
-   $userText = make_clickable($userText);
-
-   if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) )
-   {
+    if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) )
+    {
         // only if the content isn't HTML change new line to <br>
         // Note the '<!-- content: html -->' is introduced by HTML Area
         $userText = nl2br($userText);
-   }
+    }
 
     return $userText;
 }
 
+/**
+ * Parse the user text to transform bb code style tex tags to
+ * embedded tex plugin or tex generated image depending on
+ * campus config
+ *
+ * @param string $text original user text
+ * @return string : parsed user text
+ */
+function renderTex($text)
+{
+    $claro_texRendererUrl = get_conf('claro_texRendererUrl');
+    
+    if ( !empty($claro_texRendererUrl) )
+    {
+        $text = str_replace('[tex]',
+                            '<img src="'.$claro_texRendererUrl.'?',
+                            $text);
+
+        $text = str_replace('[/tex]',
+                            '" border="0" align="absmiddle">',
+                            $text);
+    }
+    else
+    {
+        $text = str_replace('[tex]',
+                                '<embed TYPE="application/x-techexplorer" texdata="',
+                                $text);
+
+        $text = str_replace('[/tex]',
+                                '" width="100%" pluginspace="http://www.integretechpub.com/">',
+                                $text);
+    }
+    
+    return $text;
+}
 /**
  * Completes url contained in the text with "<a href ...".
  * However the function simply returns the submitted text without any
