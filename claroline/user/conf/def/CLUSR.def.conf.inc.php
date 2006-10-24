@@ -33,7 +33,6 @@ $conf_def['section']['main']['label']='Main settings';
 $conf_def['section']['main']['properties'] =
 array ( 'linkToUserInfo'
       , 'user_email_hidden_to_anonymous'
-      , 'is_coursemanager_allowed_to_add_user'
       , 'nbUsersPerPage'
       );
 
@@ -81,7 +80,12 @@ array('label'         => 'Teacher can add user in his course'
 $conf_def['section']['add_user']['label'] = 'Add user';
 $conf_def['section']['add_user']['description'] = '';
 $conf_def['section']['add_user']['properties'] =
-array ( 'allowSearchInAddUser' );
+array ( 'is_coursemanager_allowed_to_add_user'
+      , 'allowSearchInAddUser'
+      , 'is_coursemanager_allowed_to_import_user_list'
+      , 'is_coursemanager_allowed_to_import_user_class'
+
+);
 
 $conf_def_property_list['allowSearchInAddUser'] =
 array ('label'         => 'Allow search in the add user option'
