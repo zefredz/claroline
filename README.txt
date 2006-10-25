@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.8.0 - README
+        CLAROLINE 1.8.1 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -73,6 +73,12 @@ at :
 
 7. NEW FEATURES
    ============
+
+NEW FEATURES IN CLAROLINE 1.8.1 SINCE CLAROLINE 1.8.0
+-----------------------------------------------------
+
+* Bug Fixes ; For more details, see the changelog on our documentation wiki :
+  http://www.claroline.net/wiki/index.php/Changelog_1.8.x
 
 NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7
 -----------------------------------------------------
@@ -480,5 +486,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 10 2006
+                Europe, Belgium, Louvain-la-Neuve - October 25 2006
 ================================== END ===================================
