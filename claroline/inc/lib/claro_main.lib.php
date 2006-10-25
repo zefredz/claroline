@@ -229,6 +229,106 @@ function claro_get_course_path($cid=NULL)
     else                   return NULL;
 }
 
+
+/**
+ * SECTION :  Get kernel
+ * SUBSECTION datas for groups
+ */
+
+/**
+ * Get unique keys of a course.
+ *
+ * @param  string $course_id (optionnal)  If not set, it use the current course
+ *         will be taken.
+ * @return array list of unique keys (sys, db & path) of a course
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @since 1.7
+ */
+
+function claro_get_group_data($context, $force = false )
+{
+
+
+    if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
+    {
+        $cid = $context[CLARO_CONTEXT_COURSE];
+    }
+
+    if (is_array($context) && array_key_exists(CLARO_CONTEXT_GROUP,$context))
+    {
+        $gid = $context[CLARO_CONTEXT_GROUP];
+    }
+
+    $groupDataList = null;
+
+    static $cachedGroupDataList = null;
+/*
+    if ( ! $force)
+    {
+        if ( $cachedGroupDataList && $groupId == $cachedGroupDataList['sysCode'] )
+        {
+            $groupDataList = $cachedGroupDataList;
+        }
+        elseif ( ( is_null($groupId) && $GLOBALS['_gid']) )
+        {
+            $groupDataList = $GLOBALS['_group'];
+        }
+    }
+*/
+    if ( ! $groupDataList )
+    {
+        $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid) );
+
+        $sql = "SELECT g.id               AS id          ,
+                       g.name             AS name        ,
+                       g.description      AS description ,
+                       g.tutor            AS tutorId     ,
+                       f.forum_id         AS forumId     ,
+                       g.secretDirectory  AS directory   ,
+                       g.maxStudent       AS maxMember
+
+                FROM `" . $tbl_c_names['group_team'] . "`      g
+                LEFT JOIN `" . $tbl_c_names['bb_forums'] . "`   f
+
+                   ON    g.id = f.group_id
+                WHERE    `id` = '". (int) $gid."'";
+
+        $groupDataList = claro_sql_query_get_single_row($sql);
+
+        if ( ! $groupDataList ) return claro_failure::set_failure('group_not_found');
+
+        $cachedGroupDataList = $groupDataList; // cache for the next time ...
+    }
+
+    return $groupDataList;
+}
+
+/**
+ * Get the path of a group in a course.
+ * @param  array $context
+ * @return string path
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @var $gData use to get groupdata
+ * @since 1.8.1
+ */
+function claro_get_course_group_path($context)
+{
+    if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
+    {
+        $cid = $context[CLARO_CONTEXT_COURSE];
+    }
+
+    if (is_array($context) && array_key_exists(CLARO_CONTEXT_GROUP,$context))
+    {
+        $gid = $context[CLARO_CONTEXT_GROUP];
+    }
+
+    $coursePath = claro_get_course_path($cid);
+    $gData = claro_get_group_data($context);
+    if (isset($k['directory'])) return $coursePath . '/group' . $gData['directory'];
+    else                   return NULL;
+}
+
 /**
  * SECTION :  Get kernel
  * SUBSECTION datas for tools
