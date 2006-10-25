@@ -74,7 +74,7 @@ else
              && ( ! $is_allowedToEdit ) )
         {
             $isDownloadable = false ;
-            $message = get_lang('Not Allowed');
+            $message = get_lang('Not allowed');
         }
     }
 
