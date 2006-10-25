@@ -307,6 +307,10 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
     {
         global $charset;
 
+        $out = '';
+        
+        $out .= '<prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n"; 
+        
         switch ($this->type)
         {
             case TEXTFIELD_FILL :
@@ -317,7 +321,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
                 {
                     $text = str_replace('['.$answer.']','<textEntryInteraction responseIdentifier="fill_'.$key.'" expectedLength="'.strlen($answer).'"/>', $text);
                 }
-                $out = $text;
+                $out .= $text;
             }
             break;
 
@@ -355,7 +359,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
                     $replacementList['['.$answer.']'] =  $inlineChoiceList;
                 }
 
-                $out = strtr($this->answerText, $replacementList);
+                $out .= strtr($this->answerText, $replacementList);
             }
             break;
         }
