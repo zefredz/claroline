@@ -223,8 +223,14 @@ $questionList = $myPager->get_result_list();
 $interbredcrump[]= array ('url' => '../exercise.php', 'name' => get_lang('Exercises'));
 if( !is_null($exId) )
 {
-	$interbredcrump[]= array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());	
+	$interbredcrump[] = array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());	
+	$pagerUrl = $_SERVER['PHP_SELF'].'?exId='.$exId;
 }
+else
+{
+    $pagerUrl = $_SERVER['PHP_SELF'];
+}
+
 $noQUERY_STRING = true;
 
 $nameTools = get_lang('Question pool');
@@ -259,7 +265,7 @@ $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?cmd=rqEdit">'.get_l
 echo claro_html_menu_horizontal($cmd_menu);
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($pagerUrl);
 
 //-- list
 echo '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
@@ -358,7 +364,7 @@ echo '</tbody>' . "\n\n"
 .	 '</table>' . "\n\n";
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $myPager->disp_pager_tool_bar($pagerUrl);
 
 include($includePath.'/claro_init_footer.inc.php');
 
