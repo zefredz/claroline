@@ -108,7 +108,7 @@ if ( !is_null($fileId) )
 
 // DISPLAY
 
-$nameTools = get_lang('Home page text zones');
+$nameTools = get_lang('Edit text zones');
 $interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $noQUERY_STRING = true;
 
