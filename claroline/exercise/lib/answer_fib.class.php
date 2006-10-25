@@ -417,10 +417,11 @@ class answerFillInBlanks
     		// get all enclosed answers
 			foreach( $this->answerList as $answer )
 			{
-				$blankList[] = '['.$answer.']';
+				$blankList[] = '/\['.$answer.'\]/';
 			}
-    		// apply replacement on answer
-    		$displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText) );
+    		// apply replacement on answer, require limit parameter to replace only the first occurrence in case we
+    		// have several times the same word in a blank.  
+    		$displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText), 1 );
     		
 	    	$html = 
 				'<table width="100%">' . "\n\n"
