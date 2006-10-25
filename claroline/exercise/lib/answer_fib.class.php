@@ -90,7 +90,7 @@ class answerFillInBlanks
     	$this->id = -1;
     	
     	// directly fill with an example
-    	$this->answerText = get_lang('[British people] live in [United Kingdom].');
+    	$this->answerText = get_lang('&#91;British people&#93; live in &#91;United Kingdom&#93;.');
     	
     	$this->answerList = array();  
 		$this->gradeList = array();     	  	
@@ -368,12 +368,7 @@ class answerFillInBlanks
     	}
     	else
 		{
-			// get all enclosed answers
-			foreach( $this->answerList as $answer )
-			{
-				$blankList[] = '['.$answer.']';
-			}
-			$answerCount = count($blankList);
+			$answerCount = count($this->answerList);
 								
     		// build replacement 
     		$replacementList = array();
@@ -419,6 +414,11 @@ class answerFillInBlanks
     			}
     		}
     		
+    		// get all enclosed answers
+			foreach( $this->answerList as $answer )
+			{
+				$blankList[] = '['.$answer.']';
+			}
     		// apply replacement on answer
     		$displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText) );
     		
