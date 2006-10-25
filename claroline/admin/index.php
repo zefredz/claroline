@@ -176,7 +176,7 @@ function get_menu_item_list($type)
         if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
         $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/checkmails.php', get_lang('Check and Repair emails of users'));
         $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/repaircats.php', get_lang('Repair category structure'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Choose messages dest'));
+        //$menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Choose messages dest'));
         $menu['AdminPlatform'][] = claro_html_tool_link('upgrade/index.php',    get_lang('Upgrade'));
 
 
