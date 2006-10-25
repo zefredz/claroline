@@ -323,11 +323,10 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
             case LISTBOX_FILL :
             {
-                $text = $this->answerText;
- 
-                foreach ($this->answerList as $answerKey=>$answer)
+                $replacementList = array();
+                
+                foreach ($this->answerList as $answerKey => $answer)
                 {
-
                     //build inlinechoice list
 
                     $inlineChoiceList = '';
@@ -338,13 +337,13 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
                     //2- add wrong answer array
 
-                    foreach ($this->wrongAnswerList as $choiceKey=>$wrongAnswer)
+                    foreach ($this->wrongAnswerList as $choiceKey => $wrongAnswer)
                     {
-                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.$wrongAnswer.']]></inlineChoice>'. "\n";
+                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.trim($wrongAnswer).']]></inlineChoice>'. "\n";
                     }
 
                     //3- add correct answers array
-                    foreach ($this->answerList as $choiceKey=>$correctAnswer)
+                    foreach ($this->answerList as $choiceKey => $correctAnswer)
                     {
                         $inlineChoiceList .= '  <inlineChoice identifier="choice_c_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.$correctAnswer.']]></inlineChoice>'. "\n";
                     }
@@ -353,10 +352,10 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
                     $inlineChoiceList .= '</inlineChoiceInteraction>';
 
-                    $text = str_replace('['.$answer.']',$inlineChoiceList, $text);
+                    $replacementList['['.$answer.']'] =  $inlineChoiceList;
                 }
-                $out = $text;
 
+                $out = strtr($this->answerText, $replacementList);
             }
             break;
         }
@@ -378,7 +377,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
             $out .= '  <responseDeclaration identifier="fill_' . $answerKey . '" cardinality="single" baseType="identifier">' . "\n";
             $out .= '    <correctResponse>'. "\n";
 
-            if ($this->type==TEXTFIELD_FILL)
+            if ($this->type == TEXTFIELD_FILL)
             {
                 $out .= '      <value>'.$answer.'</value>'. "\n";
             }
