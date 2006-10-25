@@ -296,7 +296,8 @@ function parse_file($exercisePath, $file, $questionFile)
     "FEEDBACKINLINE",
     "MATCHINTERACTION",
     "BR",
-    "OBJECT"
+    "OBJECT",
+    "PROMPT"
     );
     
     $inside_non_HTML_tag_to_avoid = 0;   
@@ -365,6 +366,7 @@ function startElement($parser, $name, $attributes)
     global $current_match_set;
     global $currentAssociableChoice;
     global $current_question_item_body;
+    global $prompt;
     global $record_item_body;
     global $non_HTML_tag_to_avoid;
     /* inside_non_HTML_tag_to_avoid is a hack to avoid adding of content of html tags contained by non html tags to avoid */
@@ -426,6 +428,12 @@ function startElement($parser, $name, $attributes)
 
     switch ($current_element)
     {
+        case 'PROMPT' : 
+        {
+            $prompt = '';
+        }
+        break;
+        
         case 'ASSESSMENTITEM' :
         {
             //retrieve current question
@@ -489,10 +497,6 @@ function startElement($parser, $name, $attributes)
         {
             $exercise_info['question'][$current_question_ident]['type'] = 'FIB';
             $exercise_info['question'][$current_question_ident]['subtype'] = 'TEXTFIELD_FILL';
-           //useless ? : $exercise_info['question'][$current_question_ident]['response_text'] = $current_question_item_body;
-// TODO add reference responseIdentifier to match responseDeclarion identifier with textentryinteraction identifier
-            //replace claroline tags
-
         }
         break;
 
@@ -588,6 +592,7 @@ function endElement($parser,$name)
 	global $current_question_ident;
     global $record_item_body;
     global $current_question_item_body;
+    global $prompt;
     global $non_HTML_tag_to_avoid;
     global $inside_non_HTML_tag_to_avoid;
     global $cardinality;
@@ -601,10 +606,12 @@ function endElement($parser,$name)
                 if ($exercise_info['question'][$current_question_ident]['type'] == 'FIB')
                 {
                     $exercise_info['question'][$current_question_ident]['response_text'] = $current_question_item_body;
+                    $exercise_info['question'][$current_question_ident]['statement'] = $prompt;
                 }
                 else
                 {
                     $exercise_info['question'][$current_question_ident]['statement'] = $current_question_item_body;
+                    $exercise_info['question'][$current_question_ident]['statement'] .= '<p><i>' . $prompt . '</i></p>';
                 }
                 
                 $record_item_body = false;
@@ -636,6 +643,7 @@ function elementData($parser,$data)
     global $current_match_set;
     global $currentAssociableChoice;
     global $current_question_item_body;
+    global $prompt;    
     global $record_item_body;
     global $non_HTML_tag_to_avoid;
     global $inside_non_HTML_tag_to_avoid;    
@@ -644,7 +652,7 @@ function elementData($parser,$data)
 
     $data = utf8_decode_if_is_utf8($data);
 	
-    $current_element       = end($element_pile);
+    $current_element = end($element_pile);
 	if (sizeof($element_pile) >= 2) $parent_element = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
 
 
@@ -658,6 +666,12 @@ function elementData($parser,$data)
 
     switch ($current_element)
     {
+        case 'PROMPT' : 
+        {
+            $prompt .= $data;
+        }
+        break;
+        
         case 'SIMPLECHOICE':
         {
             if (!isset($exercise_info['question'][$current_question_ident]['answer'][$current_answer_id]['value']))
