@@ -295,7 +295,8 @@ function parse_file($exercisePath, $file, $questionFile)
     "TEXTENTRYINTERACTION",
     "FEEDBACKINLINE",
     "MATCHINTERACTION",
-    "BR"
+    "BR",
+    "OBJECT"
     );
     
     $inside_non_HTML_tag_to_avoid = 0;   
@@ -379,19 +380,22 @@ function startElement($parser, $name, $attributes)
 
     array_push($element_pile,$name);
     $current_element = end($element_pile);
-    if (sizeof($element_pile)>=2) $parent_element        = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
+    if (sizeof($element_pile)>=2) $parent_element = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
 
     if ($record_item_body)
     {
-        if( !in_array($current_element,$non_HTML_tag_to_avoid) && $inside_non_HTML_tag_to_avoid == 0 )
+        if( !in_array($current_element,$non_HTML_tag_to_avoid) )
         {
-            $current_question_item_body .= "<".$name;
-
-            foreach ($attributes as $attribute_name => $attribute_value)
+            if( $inside_non_HTML_tag_to_avoid == 0 )
             {
-                $current_question_item_body .= " ".$attribute_name."=\"".$attribute_value."\"";
+                $current_question_item_body .= "<".$name;
+
+                foreach ($attributes as $attribute_name => $attribute_value)
+                {
+                    $current_question_item_body .= " ".$attribute_name."=\"".$attribute_value."\"";
+                }
+                $current_question_item_body .= ">";
             }
-            $current_question_item_body .= ">";
         }
         else
         {
@@ -400,24 +404,24 @@ function startElement($parser, $name, $attributes)
             //in case of FIB question, we replace the IMS-QTI tag b y the correct answer between "[" "]",
             //we first save with claroline tags ,then when the answer will be parsed, the claroline tags will be replaced
 
-            if ($current_element=='INLINECHOICEINTERACTION')
+            if ($current_element == 'INLINECHOICEINTERACTION')
             {
-                  $current_question_item_body .="**claroline_start**".$attributes['RESPONSEIDENTIFIER']."**claroline_end**";
+                  $current_question_item_body .= "**claroline_start**".$attributes['RESPONSEIDENTIFIER']."**claroline_end**";
             }
             
-            if ($current_element=='TEXTENTRYINTERACTION')
+            if ($current_element == 'TEXTENTRYINTERACTION')
             {
-                $correct_answer_value = $exercise_info['question'][$current_question_ident]['correct_answers'][$current_answer_id];
+                $correct_answer_value = $exercise_info['question'][$current_question_ident]['correct_answers'][$attributes['RESPONSEIDENTIFIER']];
+
                 $current_question_item_body .= "[".$correct_answer_value."]";
 
             }
             
-            if ($current_element=='BR')
+            if ($current_element == 'BR')
             {
-                $current_question_item_body .= "<BR/>";
+                $current_question_item_body .= "<br />";
             }
         }
-
     }
 
     switch ($current_element)
@@ -448,19 +452,19 @@ function startElement($parser, $name, $attributes)
         {
          	//retrieve question type
 
-			if ( "multiple" == $attributes['CARDINALITY'])
+			if( $attributes['CARDINALITY'] == "multiple" )
 			{
-				$exercise_info['question'][$current_question_ident]['type'] = 'MCMA';
+				$exercise_info['question'][$current_question_ident]['type'] = 'MCMA'; // will be overload if FIB
                 $cardinality = 'multiple';
 			}
-			if ( "single" == $attributes['CARDINALITY'])
+			
+			if( $attributes['CARDINALITY'] == "single" )
 			{
-				$exercise_info['question'][$current_question_ident]['type'] = 'MCUA';
+				$exercise_info['question'][$current_question_ident]['type'] = 'MCUA'; // will be overload if FIB
                 $cardinality = 'single';
 			}
 
             //needed for FIB
-
             $current_answer_id = $attributes['IDENTIFIER'];
 
         }
@@ -485,8 +489,8 @@ function startElement($parser, $name, $attributes)
         {
             $exercise_info['question'][$current_question_ident]['type'] = 'FIB';
             $exercise_info['question'][$current_question_ident]['subtype'] = 'TEXTFIELD_FILL';
-            $exercise_info['question'][$current_question_ident]['response_text'] = $current_question_item_body;
-
+           //useless ? : $exercise_info['question'][$current_question_ident]['response_text'] = $current_question_item_body;
+// TODO add reference responseIdentifier to match responseDeclarion identifier with textentryinteraction identifier
             //replace claroline tags
 
         }
@@ -538,7 +542,7 @@ function startElement($parser, $name, $attributes)
             {
                 $answer_id = $attributes['MAPKEY'];
 
-                if (!isset($exercise_info['question'][$current_question_ident]['weighting']))
+                if( !isset($exercise_info['question'][$current_question_ident]['weighting']) )
                 {
                     $exercise_info['question'][$current_question_ident]['weighting'] = array();
                 }
@@ -590,8 +594,24 @@ function endElement($parser,$name)
 
 	$current_element = end($element_pile);
 
-    //treat the record of the full content of itembody tag :
-
+    switch ($name)
+    {
+        case 'ITEMBODY':
+            {
+                if ($exercise_info['question'][$current_question_ident]['type'] == 'FIB')
+                {
+                    $exercise_info['question'][$current_question_ident]['response_text'] = $current_question_item_body;
+                }
+                else
+                {
+                    $exercise_info['question'][$current_question_ident]['statement'] = $current_question_item_body;
+                }
+                
+                $record_item_body = false;
+            }
+        break;
+    }
+    
     if( $record_item_body )
     {
         if( !in_array($current_element,$non_HTML_tag_to_avoid) && $inside_non_HTML_tag_to_avoid == 0 )
@@ -603,25 +623,8 @@ function endElement($parser,$name)
             $inside_non_HTML_tag_to_avoid--;
         }
     }
-
-    switch ($name)
-    {
-        case 'ITEMBODY':
-            {
-                $record_item_body = false;
-                if ($exercise_info['question'][$current_question_ident]['type']=='FIB')
-                {
-                    $exercise_info['question'][$current_question_ident]['response_text'] = $current_question_item_body;
-                }
-                else
-                {
-                    $exercise_info['question'][$current_question_ident]['statement'] = $current_question_item_body;
-                }
-            }
-        break;
-    }
+    
     array_pop($element_pile);
-
 }
 
 function elementData($parser,$data)
@@ -642,9 +645,8 @@ function elementData($parser,$data)
     $data = utf8_decode_if_is_utf8($data);
 	
     $current_element       = end($element_pile);
-	if (sizeof($element_pile)>=2) $parent_element        = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
+	if (sizeof($element_pile) >= 2) $parent_element = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
 
-	//treat the record of the full content of itembody tag (needed for question statment and/or FIB text:
 
     if( $record_item_body && $inside_non_HTML_tag_to_avoid == 0 ) 
     {
@@ -690,9 +692,9 @@ function elementData($parser,$data)
 
         case 'VALUE':
         {
-            if ($parent_element=="CORRECTRESPONSE")
+            if ($parent_element == "CORRECTRESPONSE")
             {
-                if ($cardinality=="single")
+                if( $cardinality == "single" )
                 {
                     $exercise_info['question'][$current_question_ident]['correct_answers'][$current_answer_id] = $data;
                 }
@@ -704,15 +706,8 @@ function elementData($parser,$data)
         }
         break;
 
-        case 'ITEMBODY' :
-        {
-            $current_question_item_body .= $data;
-        }
-        break;
-
         case 'INLINECHOICE' :
         {
-
             // if this is the right answer, then we must replace the claroline tags in the FIB text bye the answer between "[" and "]" :
 
             $answer_identifier = $exercise_info['question'][$current_question_ident]['correct_answers'][$current_answer_id];
