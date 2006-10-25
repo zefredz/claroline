@@ -21,7 +21,10 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin              ) claro_die(get_lang('Not allowed'));
+$can_add_single_user     = (bool) ($is_courseAdmin
+                     && get_conf('is_coursemanager_allowed_to_add_single_user') )
+                     || $is_platformAdmin;
+if ( ! $can_add_single_user ) claro_die(get_lang('Not allowed'));
 
 // include configuration file
 include claro_get_conf_repository() . 'user_profile.conf.php';
@@ -184,7 +187,7 @@ if ( $cmd == 'registration' )
     if ( $userId )
     {
         $courseRegSucceed = user_add_to_course($userId, $_cid, $userData['courseAdmin'], $userData['tutor'],false);
-        
+
     }
     else
     {

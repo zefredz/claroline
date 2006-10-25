@@ -19,6 +19,14 @@
 
 //used libraries
 
+
+/**
+ * @todo TODO use is_coursemanager_allowed_to_import_user_list
+$can_import_user_list     = (bool) ($is_courseAdmin
+                     && get_conf('is_coursemanager_allowed_to_import_user_list') )
+                     || $is_platformAdmin;
+ */
+
 require '../inc/claro_init_global.inc.php';
 require_once $includePath . '/lib/admin.lib.inc.php';
 require_once $includePath . '/lib/user.lib.php';
@@ -28,12 +36,18 @@ require_once $includePath . '/lib/import_csv.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
+
 /*
 * See in which context of user we are and check WHO is using the tool,there are 3 possibilities :
 * - adding CSV users by the admin tool                                                     (AddType=adminTool)
 * - adding CSV users by the admin, but with the class tool                                  (AddType=adminClassTool)
 * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
 */
+
+$can_import_user_list     = (bool) ($is_courseAdmin
+                     && get_conf('is_coursemanager_allowed_to_import_user_list') )
+                     || $is_platformAdmin;
+
 
 if ( isset($_REQUEST['AddType']) ) $AddType = $_REQUEST['AddType'];
 else                               $AddType = 'userTool'; // default access is the user tool
@@ -49,7 +63,8 @@ switch ($AddType)
     case 'userTool' :
     default :
         if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-        if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+
+        if ( ! $can_import_user_list ) claro_die(get_lang('Not allowed'));
         $AddType = 'userTool' ;
         break;
 }
