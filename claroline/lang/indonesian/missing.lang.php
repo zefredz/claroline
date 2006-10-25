@@ -31,6 +31,7 @@ $_lang['%sitename Request - Course creator status for %firstname %lastname'] = '
 $_lang['%sitename Request - Revocation of %firstname %lastname'] = '%sitename Request - Revocation of %firstname %lastname';
 $_lang['%value should be in enum list of %name'] = '%value should be in enum list of %name';
 $_lang['%value should be in the accepted value list of %name'] = '%value should be in the accepted value list of %name';
+$_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[British people] live in [United Kingdom].';
 $_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>From</b> %startDate <b>until</b> %endDate';
 $_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>From</b> %start_date <b>until</b> %end_date';
 $_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Security :</b> We recommend to set register_globals to off in php.ini';
@@ -88,7 +89,6 @@ $_lang['Cannot find module'] = 'Cannot find module';
 $_lang['Cannot open %filename'] = 'Cannot open %filename';
 $_lang['Cannot register module %label'] = 'Cannot register module %label';
 $_lang['Cannot register tool %label'] = 'Cannot register tool %label';
-$_lang['Cannot save question.'] = 'Cannot save question.';
 $_lang['Cannot update course database for %course'] = 'Cannot update course database for %course';
 $_lang['Cannot update database'] = 'Cannot update database';
 $_lang['Categories structure is right'] = 'Categories structure is right';
@@ -136,18 +136,22 @@ $_lang['Definition file doesn\'t exist'] = 'Definition file doesn\'t exist';
 $_lang['Delete all event before %date in statistics'] = 'Delete all event before %date in statistics';
 $_lang['Delete scripts of the module'] = 'Delete scripts of the module';
 $_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Deleting this course will permanently delete all its documents and unenroll all its students.';
+$_lang['Department needed'] = 'Department needed';
+$_lang['Department url needed'] = 'Department url needed';
 $_lang['Direct link to image'] = 'Direct link to image';
 $_lang['Disk quota exceeded, please contact the %administrator'] = 'Disk quota exceeded, please contact the %administrator';
 $_lang['Disk space available'] = 'Disk space available';
 $_lang['Disk space available : %size'] = 'Disk space available : %size';
 $_lang['Disk space occupied : %size'] = 'Disk space occupied : %size';
 $_lang['Display'] = 'Display';
+$_lang['Display file'] = 'Display file';
 $_lang['Dock'] = 'Dock';
 $_lang['Document content'] = 'Document content';
 $_lang['Download current directory'] = 'Download current directory';
 $_lang['Download file'] = 'Download file';
 $_lang['Edit exercise'] = 'Edit exercise';
 $_lang['Edit profile'] = 'Edit profile';
+$_lang['Edit text zones'] = 'Edit text zones';
 $_lang['Enrol to course'] = 'Enrol to course';
 $_lang['Enrolment allowed only'] = 'Enrolment allowed only';
 $_lang['Enrolment denied only'] = 'Enrolment denied only';
@@ -155,6 +159,7 @@ $_lang['Enrolment key'] = 'Enrolment key';
 $_lang['Error : Class has sub-classes'] = 'Error : Class has sub-classes';
 $_lang['Error : Class not found'] = 'Error : Class not found';
 $_lang['Error : Unknown question format in file %file'] = 'Error : Unknown question format in file %file';
+$_lang['Error : no file uploaded'] = 'Error : no file uploaded';
 $_lang['Error : no zlib extension found'] = 'Error : no zlib extension found';
 $_lang['Error exporting SCORM package'] = 'Error exporting SCORM package';
 $_lang['Error opening question\'s XML file'] = 'Error opening question\'s XML file';
@@ -188,13 +193,9 @@ $_lang['Icon'] = 'Icon';
 $_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'If after while no message appears confirming the course creation, please click <a href="%url">here</a>';
 $_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
-$_lang['Import course'] = 'Import course';
 $_lang['Import done'] = 'Import done';
 $_lang['Import exercise'] = 'Import exercise';
-$_lang['Import failed : %error'] = 'Import failed : %error';
-$_lang['Import succeed'] = 'Import succeed';
-$_lang['Import this course'] = 'Import this course';
-$_lang['Imported exercises must consist of a zip file (IMS-QTI).'] = 'Imported exercises must consist of a zip file (IMS-QTI).';
+$_lang['Imported exercises must be an ims-qti zip file.'] = 'Imported exercises must be an ims-qti zip file.';
 $_lang['Imported modules must consist of a zip file and be compatible with your Claroline version.'] = 'Imported modules must consist of a zip file and be compatible with your Claroline version.';
 $_lang['Impossible to unzip file'] = 'Impossible to unzip file';
 $_lang['Inline quote'] = 'Inline quote';
@@ -229,6 +230,7 @@ $_lang['Memorize them, you will use them the next time you will enter to this si
 $_lang['Message'] = 'Message';
 $_lang['Message sent'] = 'Message sent';
 $_lang['Missing module directory'] = 'Missing module directory';
+$_lang['Missing parameters'] = 'Missing parameters';
 $_lang['Missing search keywords'] = 'Missing search keywords';
 $_lang['Modify it in all exercises'] = 'Modify it in all exercises';
 $_lang['Modify it only in this exercise'] = 'Modify it only in this exercise';
@@ -270,6 +272,7 @@ $_lang['No module to uninstall'] = 'No module to uninstall';
 $_lang['No name'] = 'No name';
 $_lang['No tool name'] = 'No tool name';
 $_lang['Node Moved, relaunch repair process to complete'] = 'Node Moved, relaunch repair process to complete';
+$_lang['Not found'] = 'Not found';
 $_lang['Notify'] = 'Notify';
 $_lang['OVER QUOTA'] = 'OVER QUOTA';
 $_lang['Only visible for teacher(s) and submitter(s)'] = 'Only visible for teacher(s) and submitter(s)';
@@ -310,7 +313,6 @@ $_lang['Rss feed for %course'] = 'Rss feed for %course';
 $_lang['Search in %currentDirectory'] = 'Search in %currentDirectory';
 $_lang['Search in pages'] = 'Search in pages';
 $_lang['Secondary manifest found in zip file :'] = 'Secondary manifest found in zip file :';
-$_lang['See the exercise'] = 'See the exercise';
 $_lang['Sql installation query failed'] = 'Sql installation query failed';
 $_lang['Statistics of course : %courseCode'] = 'Statistics of course : %courseCode';
 $_lang['Store failed'] = 'Store failed';
@@ -325,6 +327,7 @@ $_lang['The class has been moved'] = 'The class has been moved';
 $_lang['The fields <em>%field_list</em> are compulsory'] = 'The fields <em>%field_list</em> are compulsory';
 $_lang['The information have been modified'] = 'The information have been modified';
 $_lang['The module has been removed from this dock'] = 'The module has been removed from this dock';
+$_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'The requested file <strong>%file</strong> was not found on the platform.';
 $_lang['The system is unable to send you an e-mail.'] = 'The system is unable to send you an e-mail.';
 $_lang['Themes'] = 'Themes';
 $_lang['There is a folder called <b><i>%module_name</i></b> for which there is no module installed.'] = 'There is a folder called <b><i>%module_name</i></b> for which there is no module installed.';
@@ -346,6 +349,7 @@ $_lang['URL?'] = 'URL?';
 $_lang['Unable to create zip file'] = 'Unable to create zip file';
 $_lang['Unable to empty groups'] = 'Unable to empty groups';
 $_lang['Unable to save'] = 'Unable to save';
+$_lang['Unable to send zip file'] = 'Unable to send zip file';
 $_lang['Underline'] = 'Underline';
 $_lang['Unenrol from course'] = 'Unenrol from course';
 $_lang['Uninstall'] = 'Uninstall';
@@ -425,9 +429,10 @@ Url : %course_url';
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,
-One of administrators of the course %courseCode has registered you on this course.
 
-The address of  %courseName is :
+One of the administrators of the course "%courseName" has registered you on this course.
+
+The address of  the course is :
 
 %coursePath
 

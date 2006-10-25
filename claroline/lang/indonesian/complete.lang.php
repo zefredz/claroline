@@ -437,7 +437,6 @@ $_lang['Here you can modify the content of the text zones displayed on the platf
 yang ditampilkan ole halaman utama situs elearning.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Home Page Pertolongan';
-$_lang['Home page text zones'] = 'Zona teks halaman utama situs elearning';
 $_lang['Hour'] = 'Jam';
 $_lang['Identical content<br />no modification saved'] = 'Isi identik<br />tidak ada perubahan yang disimpan';
 $_lang['If you wish to enrol on this course'] = 'Jika ingin ikut serta dalam mata kuliah ini';
@@ -1001,7 +1000,6 @@ ikut serta pada mata kuliah ini';
 $_lang['Zip file uploaded and uncompressed'] = ' file Zip di-upload dan di-didekoompres';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Dibutuhkan ekstensi php Zlib untuk menggunkan tool ini.
  Silahkan hubungi administrator platform.';
-$_lang['[British people] live in [United Kingdom].'] = '[Orang Britania] tinggal di [Kerajaan Inggris].';
 $_lang['archive'] = 'arsip';
 $_lang['blockAssignmentsHelp'] = '<p>
 Bagi mahasiswa, tool tugas adalah tempat untuk mengumpulkan publikasi. Pengelola mata kuliah membuat satu atau beberapa tugas

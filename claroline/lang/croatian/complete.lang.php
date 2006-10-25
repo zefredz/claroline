@@ -368,7 +368,6 @@ $_lang['Heading'] = 'Zaglavlje';
 $_lang['Help'] = 'Pomoć';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Primjenom ovog alata moguće je promijeniti sadržaj tekstualnih područja koja se prikazuju na početnoj stranici.';
 $_lang['Hits'] = 'Broj pregleda';
-$_lang['Home page text zones'] = 'Tekstualna područja početne stranice';
 $_lang['Hour'] = 'Za sat';
 $_lang['If you wish to enrol on this course'] = 'Ukoliko se želite prijaviti na ovaj predmet kliknite na sljedeći <i>link</i>';
 $_lang['Import'] = '<i>Import</i>';
@@ -837,7 +836,6 @@ $_lang['Your request to remove your account has been sent'] = 'Zahtjev za uklanj
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Niste prijavljeni na ovaj predmet';
 $_lang['Zip file uploaded and uncompressed'] = 'Zip datoteka <i>uploadana</i> i odkomprimirana';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = '<i>Zlib</i> php ekstenzija je potrebana za korištenje ovog alata. Kontaktirajte administratora sustava.';
-$_lang['[British people] live in [United Kingdom].'] = '[Kinezi] žive u Kini.';
 $_lang['archive'] = 'arhiva';
 $_lang['blockAssignmentsHelp'] = '<p>
 Alat \'Zadaci\' služi voditeljima predmeta za stvaranje zadataka. Korisnici putem ovog alata mogu poslati rješenja.

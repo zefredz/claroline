@@ -313,7 +313,6 @@ $_lang['You left some required fields empty'] = 'You left some fields empty. Use
 $_lang['Your message has been deleted'] = 'Bài g?i dã b? xoá.';
 $_lang['Your message has been entered'] = 'Bài c?a b?n dã du?c luu.';
 $_lang['Zip file uploaded and uncompressed'] = ' Tệp Zip đã tải lên và giải nén';
-$_lang['[British people] live in [United Kingdom].'] = '[Biên Hoà] là thành phố thuộc tỉnh [Đồng Nai].';
 $_lang['archive'] = 'Lưu trữ';
 $_lang['blockClaroMainHelp'] = 'Here, professors and assistants create and administer
  courses websites. Students read (documents, agendas, informations) and,

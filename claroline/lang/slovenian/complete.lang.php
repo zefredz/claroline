@@ -432,7 +432,6 @@ $_lang['Help'] = 'Pomoè';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Tukaj lahko spremenite vsebino tekstnih podroèij, ki so prikazana na domaèi strani.';
 $_lang['Hits'] = 'Zadetki';
 $_lang['Home page help'] = 'Domaèa stran pomoèi';
-$_lang['Home page text zones'] = 'Besedila na domaèi strani';
 $_lang['Hour'] = 'Ura';
 $_lang['Identical content<br />no modification saved'] = 'Identièna vsebina<br />spremembe niso shranjene';
 $_lang['If you wish to enrol on this course'] = 'Èe se ¾elite vpisati na ta teèaj';
@@ -997,7 +996,6 @@ $_lang['Your request to remove your account has been sent'] = 'Va¹ zahtevek za o
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Va¹ uporabni¹ki profil ni vpisan na ta teèaj';
 $_lang['Zip file uploaded and uncompressed'] = ' Arhiv ZIP vstavljen in razpakiran';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Raz¹iritev Zlib PHP-ja je zahtevana za uporabo tega orodja.  Prosim kontaktirajte skrbnika va¹ega sistema.';
-$_lang['[British people] live in [United Kingdom].'] = '[Slovenci] ¾ivijo v [Sloveniji].';
 $_lang['archive'] = 'arhiv';
 $_lang['blockAssignmentsHelp'] = '<p>Orodje Naloge je publikacijsko podroèje za ¹tudente. Upravitelj teèaja ustvari eno ali veè nalog (razliène cone publikacij), kamor bodo lahko ¹tudenti objavili svoje delo.<br /><br />
 Vsaka naloga lahko ima razliène cilje ali zahteve: publikacija mora biti datoteka, ali besedeilo, ali pa besedilo in datoteka. Publikacijo lahko ustvari skupina namesto posameznika itd.<br /><br />

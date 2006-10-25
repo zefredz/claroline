@@ -432,7 +432,6 @@ $_lang['Help'] = 'المساعدة';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'تستطيع من خلال هذه الصفحة تعديل النصوص الترحيبية التي تظهر في الصفحة الرئيسية للموقع';
 $_lang['Hits'] = 'عدد مرات الدخول';
 $_lang['Home page help'] = 'صفحة المساعدة';
-$_lang['Home page text zones'] = 'نصوص الترحيب في الصفحة الرئيسية للموقع';
 $_lang['Hour'] = 'الساعة';
 $_lang['Identical content<br />no modification saved'] = 'المحتويات متطابقة<br />لم يتم حفظ أي تغيرات';
 $_lang['If you wish to enrol on this course'] = 'إذا كان لديك رغبة بالالتحاق بهذا المقرر';
@@ -994,7 +993,6 @@ $_lang['Your request to remove your account has been sent'] = 'تم إرسال �
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'ملفك الشخصي يظهر أنك غير مسجل في هذا المقرر التعليمي';
 $_lang['Zip file uploaded and uncompressed'] = ' تم تحميل الملف المضغوط و فك ضغطه';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'التوسيعة Zlib للـ PHP مطلوبة لاستخدام هذه الأداة. الرجاء الاتصال بمدير منصتك.';
-$_lang['[British people] live in [United Kingdom].'] = '[البريطانيون] يعيشون في [المملكة المتحدة].';
 $_lang['archive'] = 'الأرشيف';
 $_lang['blockAssignmentsHelp'] = '<p>
 اداة الوظائف هي مساحة خاصة للطلاب لنشر الوظائف و المقالات و الأعمال التي يكلفهم بها مدير المقرر<br /> <br />

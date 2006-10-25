@@ -431,7 +431,6 @@ $_lang['Help'] = 'Помощ';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'От тук можете да променяте съдържанието на текстовите зони на началната страница.';
 $_lang['Hits'] = 'Хита';
 $_lang['Home page help'] = 'Помощ начална страница';
-$_lang['Home page text zones'] = 'Текстови зони на началната страница';
 $_lang['Hour'] = 'Час';
 $_lang['Identical content<br />no modification saved'] = 'Идентично съдържание<br />промените не са запазени.';
 $_lang['If you wish to enrol on this course'] = 'Ако искате да се запишете в курса';
@@ -987,7 +986,6 @@ $_lang['Your request to remove your account has been sent'] = 'Заявката Ви за за
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Вашият профил не е зачислен към този курс';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip файлът записан и разкомпресиран';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php разширение е необходимо за този инструмент.  Моля свържете се с администратора.';
-$_lang['[British people] live in [United Kingdom].'] = '[Англичаните] живеят в [Обединеното кралство].';
 $_lang['archive'] = 'архив';
 $_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Този модул блокира.
 Ако стане невидим, това ще позволи на студенти достъп

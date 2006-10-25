@@ -432,7 +432,6 @@ $_lang['Help'] = 'Pomoc';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Tutaj mo¿na modyfikowaæ zawarto¶æ strefy tekstowej wy¶wietlanej na stronie domowej platformy.';
 $_lang['Hits'] = 'odwiedzin';
 $_lang['Home page help'] = 'Pomoc - Strona g³ówna';
-$_lang['Home page text zones'] = 'Obszar tekstu strony domowej';
 $_lang['Hour'] = 'Godzina';
 $_lang['Identical content<br />no modification saved'] = 'Identyczna zawarto¶æ <br /> nie nagrano modyfikacji';
 $_lang['If you wish to enrol on this course'] = 'Je¶li chcesz zapisaæ siê na ten kurs ';
@@ -995,7 +994,6 @@ $_lang['Your request to remove your account has been sent'] = 'Wys³ano ¿±danie u
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Ten kurs nie wydaje siê byæ przeznaczony dla u¿ytkownika o Twoim profilu ';
 $_lang['Zip file uploaded and uncompressed'] = ' Plik zip za³adowany i rozpakowany';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Do u¿ycia tego modu³u jesy wymagane rozszerzenie php Zlib. Proszê skontaktowaæ siê z administratorem';
-$_lang['[British people] live in [United Kingdom].'] = '[Brytyjczycy] mieszkaj± w [Zjednoczonym Królestwie].';
 $_lang['archive'] = 'archiwizowane';
 $_lang['blockAssignmentsHelp'] = '<p>
 Narzêdzie zadania jest publicznym obszarem dla studentów. Zarz±dca kursu tworzy jedno lub kilka zadañ (ró¿ne obszary publikacji), gdzie studenci bêd± mogli publikowaæ swoje prace.<br /><br />

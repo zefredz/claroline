@@ -427,7 +427,6 @@ $_lang['Help'] = '°ïÖú';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'ÕâÀïÄã¿ÉÒÔĞŞ¸ÄÔÚÆ½Ì¨Ö÷Ò³ÏÔÊ¾µÄÎÄ±¾ÇøÄÚÈİ¡£';
 $_lang['Hits'] = 'µã»÷';
 $_lang['Home page help'] = 'ÍøÕ¾°ïÖú';
-$_lang['Home page text zones'] = 'ÎÄ±¾ÇøÖ÷Ò³';
 $_lang['Hour'] = 'Ê±';
 $_lang['Identical content<br />no modification saved'] = 'ÄÚÈİÖØ¸´<br />ĞŞ¸ÄÎ´±£´æ';
 $_lang['If you wish to enrol on this course'] = 'Èç¹ûÄãÏ£Íû¼ÓÈë¸Ã¿Î³Ì';
@@ -987,7 +986,6 @@ $_lang['Your request to remove your account has been sent'] = 'ÄãÒªÉ¾³ıÓÃ»§ÃûµÄÇ
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'ÄãµÄÓÃ»§×ÊÁÏËÆºõÃ»ÓĞÔÚ¸Ã¿Î³ÌµÇ¼Ç';
 $_lang['Zip file uploaded and uncompressed'] = ' ZipÎÄ¼şÉÏÔØ²¢ÇÒ½âÑ¹Ëõ';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Ê¹ÓÃ¸Ã¹¤¾ß±ØĞëÓĞZlib php À©Õ¹¡£ÇëÁªÏµÆ½Ì¨¹ÜÀíÔ±¡£';
-$_lang['[British people] live in [United Kingdom].'] = '[Ó¢¹úÈË] ¾Ó×¡ÔÚ [Ó¢¹ú]¡£';
 $_lang['archive'] = 'µµ°¸';
 $_lang['blockAssignmentsHelp'] = '<p>
 ¹¦¿Î¹¤¾ßÊÇÑ§Éú·¢±íÇø¡£¿Î³Ì¸ºÔğÈË½¨Á¢Ò»¸ö»ò¼¸¸ö¹¦¿Î£¨²»Í¬µÄ·¢±íÇø£©¡£

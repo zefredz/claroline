@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)';
 $_lang['%1\$s by %2\$s'] = '%1$s door %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s gewijzigd op %2$s door %3$s';
@@ -310,6 +310,7 @@ $_lang['Edit properties'] = 'wijzig eigenschappen';
 $_lang['Edit question'] = 'Vraag bewerken';
 $_lang['Edit settings'] = 'Voorkeurinstellingen bewerken';
 $_lang['Edit text zone'] = 'Wijzig tekst zone';
+$_lang['Edit text zones'] = 'Wijzig tekst zones';
 $_lang['Edit this group'] = 'Deze groep wijzigen';
 $_lang['Edit this page'] = 'wijzig deze pagina';
 $_lang['Element list'] = 'Elementen lijst';
@@ -431,7 +432,6 @@ $_lang['Help'] = 'Help';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Hier kan U de inhoud van de tekst zones op de home pagina van het platform bewerken.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Hulp startpagina';
-$_lang['Edit text zones'] = 'Wijzig tekst zones';
 $_lang['Hour'] = 'Uur';
 $_lang['Identical content<br />no modification saved'] = 'Geen veranderingen gevonden <br />geen wijzigingen aangebracht';
 $_lang['If you wish to enrol on this course'] = 'Indien U wil inschrijven in deze cursus';
@@ -996,7 +996,6 @@ $_lang['Your request to remove your account has been sent'] = 'Uw verzoek uw acc
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Uw gebruikersprofiel is niet gekoppeld aan deze cursus';
 $_lang['Zip file uploaded and uncompressed'] = ' ZIP bestand werd opgestuurd en gedecomprimeerd';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'De Zlib php uitbreiding is vereist om deze tool te gebruiken.  Contacteer de platform beheerder.';
-$_lang['[British people] live in [United Kingdom].'] = 'Van alle [Galli&euml;rs] zijn de [Belgen] het dapperst.';
 $_lang['archive'] = 'archief';
 $_lang['blockAssignmentsHelp'] = '<p>
 Het taak gereedschap is een publicatiegebied voor studenten.

@@ -434,7 +434,6 @@ $_lang['Help'] = 'Ajutor
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Aici poti modifica continutul spatiilor de text afisate in pagina de start a plaformei.';
 $_lang['Hits'] = 'Acces';
 $_lang['Home page help'] = 'Pagina principala de ajutor';
-$_lang['Home page text zones'] = 'Spatii de text in pagina de start';
 $_lang['Hour'] = 'Ora';
 $_lang['Identical content<br />no modification saved'] = 'Continut identic <br /> nici o modificare nu fost salvata';
 $_lang['If you wish to enrol on this course'] = 'Daca vrei sa te inscrii la acest curs';
@@ -1001,7 +1000,6 @@ $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Profi
 nu apare inregistrat la acest curs';
 $_lang['Zip file uploaded and uncompressed'] = 'Fisier zip incarcat si decomprimat';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Pentru a folosi acest instrument este necesara extensia Zlib php. Contacteaza administratorul platformei tale.';
-$_lang['[British people] live in [United Kingdom].'] = '[Britanicii] traiesc in [Marea Britanie].';
 $_lang['archive'] = 'arhiva';
 $_lang['blockAssignmentsHelp'] = '<p>
 Instrumentul tema este o zona de publicare pentru cursanti. Gestionarul cursului creeaza una sau mai multe teme (zone diferite de publicare) in care cursantii isi vor putea publica lucrarile.<br /><br />

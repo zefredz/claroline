@@ -432,7 +432,6 @@ $_lang['Help'] = 'Nápovìda';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Zde mù¾ete upravit texty zobrazené na titulní stranì platformy.';
 $_lang['Hits'] = 'Kliknutí';
 $_lang['Home page help'] = 'Úvodní strana nápovìdy';
-$_lang['Home page text zones'] = 'Textové oblasti Úvodní strany';
 $_lang['Hour'] = 'Hodina';
 $_lang['Identical content<br />no modification saved'] = 'Identický obsah<br />úprava nebyla ulo¾ena';
 $_lang['If you wish to enrol on this course'] = 'Pokud si pøejete zapsat se do tohoto kurzu';
@@ -997,7 +996,6 @@ $_lang['Your request to remove your account has been sent'] = 'Vá¹ po¾adavek na 
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Zdá se, ¾e jste nebyl pøihlá¹en do tohoto kurzu';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip soubor nahrán a rozbalen';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Roz¹íøení php Zlib je nutné pro tento nástroj. Kontaktujte správce.';
-$_lang['[British people] live in [United Kingdom].'] = '[Anglièané] ¾ijí v [Anglii].';
 $_lang['archive'] = 'archiv';
 $_lang['blockAssignmentsHelp'] = '<p>
 Nástroj zadání je publikaèní oblastí pro studenty. Správce kurzu mù¾e vytvoøit jedno nebo více zadání ( rùzné zóny pro publikování), kde studenti budou moci publikovat své práce.<br /><br />

@@ -454,7 +454,6 @@ $_lang['Here you can modify the content of the text zones displayed on the platf
 texto amosadas na p&aacute;xina de inicio da plataforma.';
 $_lang['Hits'] = 'Intentos';
 $_lang['Home page help'] = 'Axuda p&aacute;xina principal';
-$_lang['Home page text zones'] = 'Zonas de texto da p&aacute;xina de inicio';
 $_lang['Hour'] = 'Hora';
 $_lang['Identical content<br />no modification saved'] = 'Contido id&eacute;ntico<br />non se gardou modificaci&oacute;n ningunha';
 $_lang['If you wish to enrol on this course'] = 'Se vostede desexa matricularse neste curso';
@@ -1033,7 +1032,6 @@ $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'No se
 $_lang['Zip file uploaded and uncompressed'] = 'Arquivo zip cargado e descomprimido';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = '&Eacute; precisa a extensi&oacute;n de php Zlib para empregar esta
    										ferramenta. Por favor, contacte co administrador da plataforma.';
-$_lang['[British people] live in [United Kingdom].'] = '[Os brit&aacute;nicos] viven no [Reino Unido].';
 $_lang['archive'] = 'arquivo';
 $_lang['blockAssignmentsHelp'] = '<p>
 A ferramenta de tarefas &eacute; unha &aacute;rea de publicaci&oacute;n para estudantes. O xestor do curso

@@ -431,7 +431,6 @@ $_lang['Help'] = '幫助';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = '這裡您可以修改在平台主頁顯示的檔案區內容。';
 $_lang['Hits'] = '點擊';
 $_lang['Home page help'] = '網站幫助';
-$_lang['Home page text zones'] = '檔案區主頁';
 $_lang['Hour'] = '時';
 $_lang['Identical content<br />no modification saved'] = '內容重複<br />修改未保存';
 $_lang['If you wish to enrol on this course'] = '如果您希望加入該課程';
@@ -993,7 +992,6 @@ $_lang['Your request to remove your account has been sent'] = '您要刪除帳�
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = '您的使用者資料似乎沒有在該課程登記';
 $_lang['Zip file uploaded and uncompressed'] = 'Zip檔案上傳並且解壓縮';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = '使用該工具必須有Zlib php 擴展。請聯繫平台管理員。';
-$_lang['[British people] live in [United Kingdom].'] = '[英國人] 居住在 [英國]。';
 $_lang['archive'] = '檔案';
 $_lang['blockAssignmentsHelp'] = '<p>
 功課工具是學生發表區。課程負責人建立一個或幾個功課（不同的發表區）。

@@ -426,7 +426,6 @@ $_lang['Help'] = 'Segítség';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Itt módosíthatja a rendszer honlapján látható szöveges területeket.';
 $_lang['Hits'] = 'Találatok';
 $_lang['Home page help'] = 'Honlap, segítség';
-$_lang['Home page text zones'] = 'Honlap szöveges részei';
 $_lang['Hour'] = 'Óra';
 $_lang['Identical content<br />no modification saved'] = 'Egyedi tartalom<br />változás nincsen mentve';
 $_lang['If you wish to enrol on this course'] = 'Ha be kíván iratkozni a tanfolyamra';
@@ -984,7 +983,6 @@ $_lang['Your request to remove your account has been sent'] = 'Az Ön fiók törlés
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Úgy tûnik, Ön nincsen beiratkozva a tanfolyamra';
 $_lang['Zip file uploaded and uncompressed'] = 'Zip fájl feltöltve és kicsomagolva';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php kiterjesztés szükséges az eszköz használatához. Kérjük, lépjen kapcsolatba a rendszer adminisztrátorral.';
-$_lang['[British people] live in [United Kingdom].'] = '[A britek] az [Egyesült Királyságban] élnek.';
 $_lang['archive'] = 'tárol';
 $_lang['blockAssignmentsHelp'] = 'Fordítatlan!!!
 <p>

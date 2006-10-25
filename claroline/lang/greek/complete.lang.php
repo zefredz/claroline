@@ -432,7 +432,6 @@ $_lang['Help'] = 'Βοήθεια';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Εδώ μπορείς να επεξεργαστείς το περιεχόμενο των ζωνών που εμφανίζονται στην αρχική σελίδα της πλατφόρμας';
 $_lang['Hits'] = 'Hits (χτυπήματα/βολές???)';
 $_lang['Home page help'] = 'Αρχική σελίδα βοήθειας';
-$_lang['Home page text zones'] = 'Κείμενα ζωνών αρχικής σελίδας';
 $_lang['Hour'] = 'Ώρα';
 $_lang['Identical content<br />no modification saved'] = ' Ίδιο περιεχόμενο <br />καμιά αλλαγή δεν αποθηκεύτηκε';
 $_lang['If you wish to enrol on this course'] = 'Εάν επιθυμείτε να εγγραφείτε σε αυτό το μάθημα';
@@ -997,7 +996,6 @@ $_lang['Your request to remove your account has been sent'] = 'Το αίτημα σου για
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Το προφίλ χρήστη δεν φαινεται εγγεγραμένο σε αυτό το μάθημα';
 $_lang['Zip file uploaded and uncompressed'] = 'Το αρχείο zip ανέβηκε και αποσυμπιέστηκε';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Η επέκταση Zlib php απαιτείται για τη χρήση αυτού του εργαλείου.  Παρακαλώ επικοινωνήστε με τον διαχειριστή της πλατφόρμας σας.';
-$_lang['[British people] live in [United Kingdom].'] = '[Οι Βρετανοί] ζουν στο [Ηνωμένο Βασίλειο].';
 $_lang['archive'] = 'αποθήκευση';
 $_lang['blockAssignmentsHelp'] = '<p>
 To εργαλειο ανάθεσης εργασίας είναι μια περιοχή δημοσιευμένη για τους μαθητες. Ό διευθυντής του μαθήματος δημιουργεί μία ή περισσότερες αναθέσεις ( Διαφορετικές περιοχές δημοσίευσης ) όπου οι μαθητές θα μπορούν να δημοσιεύσουν τις εργασίες τους.<br /><br />

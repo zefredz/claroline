@@ -436,7 +436,6 @@ $_lang['Help'] = 'Hilfe';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Hier können Sie den Inhalt der Textzonen ändern, die auf der Startseite des Systems angezeigt werden.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Hilfe für die Homepage';
-$_lang['Home page text zones'] = 'Text-Bereich der Startseite';
 $_lang['Hour'] = 'Stunde';
 $_lang['Identical content<br />no modification saved'] = 'Der gesendete Inhalt ist identisch mit dem vorherigen.<br />Es wurde keine Änderung gespeichert.';
 $_lang['If you wish to enrol on this course'] = 'Wenn Sie sich in diese KursSite eintragen möchten';
@@ -1000,7 +999,6 @@ $_lang['Your request to remove your account has been sent'] = 'Ihre Bitte, Ihren
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Ihr Teilnehmerprofil scheint nicht in diese KursSite eingetragen zu sein';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip-Dateien hochgeladen und ausgepackt';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Die PHP Zlib-Erweiterung wird benötigt, um dieses Tool auszuführen. Wenden Sie sich bitte an den Systemadministrator.';
-$_lang['[British people] live in [United Kingdom].'] = '[Deutsche] leben in [Deutschland].';
 $_lang['archive'] = 'archiviert';
 $_lang['blockAccountCreationNotification'] = '
 Sehr geehrte/r %firstname %lastname,

@@ -403,7 +403,6 @@ $_lang['He or she will receive email confirmation with login and password'] = '�
 $_lang['Heading'] = 'سرصفحه';
 $_lang['Help'] = 'راهنما';
 $_lang['Home page help'] = 'راهنمای صفحه‌ی آغازه‌';
-$_lang['Home page text zones'] = 'قسمت‌های متنی صفحه‌ی اصلی';
 $_lang['Hour'] = 'ساعت';
 $_lang['Identical content<br />no modification saved'] = 'محتوای یکسان<br />هیچ تغییری ذخیره نشد';
 $_lang['If you wish to enrol on this course'] = 'اگر مایلید در این درس ثبت نام کنید';

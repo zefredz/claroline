@@ -338,7 +338,6 @@ $_lang['You left some required fields empty'] = 'Вы заполнили не все поля.
 $_lang['Your message has been deleted'] = 'Ваше Сообщение удалено.';
 $_lang['Your message has been entered'] = 'Ваше Сообщение записано.';
 $_lang['Zip file uploaded and uncompressed'] = ' Файл .zip был послан и раскрыт';
-$_lang['[British people] live in [United Kingdom].'] = '[Англичане] живут в [Англии].';
 $_lang['archive'] = 'архив';
 $_lang['blockClaroMainHelp'] = '<br /><p><b>Студент</b></p>
 <p>

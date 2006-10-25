@@ -370,7 +370,6 @@ $_lang['Help'] = 'Ajuda';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Aqui você pode modificar o conteúdo na área apresentada na página principal da plataforma em que estão hospedados os cursos.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Ajuda da Página Principal';
-$_lang['Home page text zones'] = 'Áreas de texto da página principal';
 $_lang['Hour'] = 'Hora';
 $_lang['If you wish to enrol on this course'] = 'Se você deseja se inscrever nesse curso';
 $_lang['Import'] = 'Importar';
@@ -844,7 +843,6 @@ $_lang['Your request to remove your account has been sent'] = 'Seu pedido para r
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Seu perfil de usuário não parece estar inscrito para esse curso';
 $_lang['Zip file uploaded and uncompressed'] = ' Arquivo Zip enviado e descompactado';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'A extensão Zlib do php é requerida para uso dessa ferramenta. Por favor contacte o administrador da plataforma.';
-$_lang['[British people] live in [United Kingdom].'] = '[O povo britânico] vive no [Reino Unido].';
 $_lang['archive'] = 'arquivo';
 $_lang['blockAssignmentsHelp'] = '<p>As atividades são  apresntadas a todos os estudantes (usuários). O administrador do curso pode definir uma ou mais atividades (tarefas), em diferentes espaços nos quais os estudantes poderão anexar os trabalhos feitos.<br /><br />
 

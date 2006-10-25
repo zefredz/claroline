@@ -34,6 +34,7 @@ $_lang['%sitename Request - Course creator status for %firstname %lastname'] = '
 $_lang['%sitename Request - Revocation of %firstname %lastname'] = '%sitename Request - Revocation of %firstname %lastname';
 $_lang['%value should be in enum list of %name'] = '%value should be in enum list of %name';
 $_lang['%value should be in the accepted value list of %name'] = '%value should be in the accepted value list of %name';
+$_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[British people] live in [United Kingdom].';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) anonymous users, users who are not members of this course...';
 $_lang['(When an user open the index of the campus)'] = '(When an user open the index of the campus)';
 $_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
@@ -195,7 +196,6 @@ $_lang['Cannot find secondary initialisation file in the package.<br /> File not
 $_lang['Cannot open %filename'] = 'Cannot open %filename';
 $_lang['Cannot register module %label'] = 'Cannot register module %label';
 $_lang['Cannot register tool %label'] = 'Cannot register tool %label';
-$_lang['Cannot save question.'] = 'Cannot save question.';
 $_lang['Cannot update course database for %course'] = 'Cannot update course database for %course';
 $_lang['Cannot update database'] = 'Cannot update database';
 $_lang['Categories structure is right'] = 'Categories structure is right';
@@ -323,6 +323,8 @@ $_lang['Deleted line'] = 'Deleted line';
 $_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Deleting this course will permanently delete all its documents and unenroll all its students.';
 $_lang['Deletion of the user was done sucessfully'] = 'Deletion of the user was done sucessfully';
 $_lang['Department URL is not valid'] = 'Department URL is invalid';
+$_lang['Department needed'] = 'Department needed';
+$_lang['Department url needed'] = 'Department url needed';
 $_lang['Description added.'] = 'Description added.';
 $_lang['Description deleted.'] = 'Description deleted.';
 $_lang['Description of the Wiki'] = 'Description of the Wiki';
@@ -337,6 +339,7 @@ $_lang['Disk space available'] = 'Disk space available';
 $_lang['Disk space available : %size'] = 'Disk space available : %size';
 $_lang['Disk space occupied : %size'] = 'Disk space occupied : %size';
 $_lang['Display'] = 'Display';
+$_lang['Display file'] = 'Display file';
 $_lang['Display of detailled answers is not authorized.'] = 'Display of detailled answers is not authorized.';
 $_lang['Do you really want to delete the category'] = 'Do you really want to delete the category ';
 $_lang['Do you want to continue?'] = 'Do you want to continue?';
@@ -367,6 +370,7 @@ $_lang['Edit properties'] = 'Edit properties';
 $_lang['Edit question'] = 'Edit question';
 $_lang['Edit settings'] = 'Edit settings';
 $_lang['Edit text zone'] = 'Edit text zone';
+$_lang['Edit text zones'] = 'Edit text zones';
 $_lang['Edit this page'] = 'Edit this page';
 $_lang['Email needed'] = 'Email can not be empty';
 $_lang['Empty language file'] = 'Empty language file';
@@ -394,6 +398,7 @@ $_lang['Error : Name already exists in the learning path or in the module pool']
 $_lang['Error : One or more values are doubled'] = 'Error : One or more values are doubled';
 $_lang['Error : Unknown question format in file %file'] = 'Error : Unknown question format in file %file';
 $_lang['Error : cannot read RSS feed'] = 'Error : cannot read RSS feed';
+$_lang['Error : no file uploaded'] = 'Error : no file uploaded';
 $_lang['Error : no zlib extension found'] = 'Error : no zlib extension found';
 $_lang['Error copying existing SCORM content'] = 'Error copying existing SCORM content';
 $_lang['Error exporting SCORM package'] = 'Error exporting SCORM package';
@@ -481,7 +486,6 @@ $_lang['Go to the account creation page'] = 'Go to the account creation page';
 $_lang['Group forums category can\'t be deleted'] = 'Group forums category can not be deleted.';
 $_lang['Groups (from groups tool, only group members can post)'] = 'Groups (from groups tool, only group members can post)';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Here you can modify the content of the text zones displayed on the platform home page.';
-$_lang['Home page text zones'] = 'Home page text zones';
 $_lang['Icon'] = 'Icon';
 $_lang['Identical content<br />no modification saved'] = 'Identical content<br />no modification saved';
 $_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'If after while no message appears confirming the course creation, please click <a href="%url">here</a>';
@@ -490,13 +494,9 @@ $_lang['If you haven\'t a user account yet, use the <a href="%url">the account c
 $_lang['If you wish to enrol on this course'] = 'If you wish to enrol on this course';
 $_lang['Import'] = 'Import';
 $_lang['Import a learning path'] = 'Import a learning path';
-$_lang['Import course'] = 'Import course';
 $_lang['Import done'] = 'Import done';
 $_lang['Import exercise'] = 'Import exercise';
-$_lang['Import failed : %error'] = 'Import failed : %error';
-$_lang['Import succeed'] = 'Import succeed';
-$_lang['Import this course'] = 'Import this course';
-$_lang['Imported exercises must consist of a zip file (IMS-QTI).'] = 'Imported exercises must consist of a zip file (IMS-QTI).';
+$_lang['Imported exercises must be an ims-qti zip file.'] = 'Imported exercises must be an ims-qti zip file.';
 $_lang['Imported modules must consist of a zip file and be compatible with your Claroline version.'] = 'Imported modules must consist of a zip file and be compatible with your Claroline version.';
 $_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Imported packages must consist of a zip file and be SCORM 1.2 conformable';
 $_lang['Impossible to promote group tutor a student already register to group'] = 'Impossible to promote group tutor a student already register to group';
@@ -589,6 +589,7 @@ $_lang['MinuteShort'] = 'min.';
 $_lang['Missing field(s)'] = 'Missing field(s)';
 $_lang['Missing language files'] = 'Missing language files';
 $_lang['Missing module directory'] = 'Missing module directory';
+$_lang['Missing parameters'] = 'Missing parameters';
 $_lang['Missing search keywords'] = 'Missing search keywords';
 $_lang['Missing value'] = 'Missing value';
 $_lang['Modify a work'] = 'Modify a work';
@@ -687,6 +688,7 @@ $_lang['No way'] = 'No way';
 $_lang['No, prevent users submitting work after the end date'] = 'No, prevent users submitting work after the end date';
 $_lang['Node Moved, relaunch repair process to complete'] = 'Node Moved, relaunch repair process to complete';
 $_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Not allowed : record usernames in tracking, anonymous users cannot do the exercise.';
+$_lang['Not found'] = 'Not found';
 $_lang['Not recently connected students :'] = 'Not recently connected students : ';
 $_lang['Notify'] = 'Notify';
 $_lang['Number of learning paths using this module :'] = '
@@ -800,7 +802,6 @@ $_lang['Search user'] = 'Search user';
 $_lang['SecondShort'] = 'sec.';
 $_lang['Secondary manifest found in zip file :'] = 'Secondary manifest found in zip file :';
 $_lang['See below the files you can edit from this tool.'] = 'See below the files you can edit from this tool.';
-$_lang['See the exercise'] = 'See the exercise';
 $_lang['See user list'] = 'See user list';
 $_lang['Select course in'] = 'Select course in ';
 $_lang['Select course in search results'] = 'Select course in search results';
@@ -847,6 +848,7 @@ $_lang['The module will still be available in the pool of modules.'] = 'The modu
 $_lang['The new category has been created.'] = 'The new category has been created.';
 $_lang['The new class has been created'] = 'The new class has been created';
 $_lang['The new user has been sucessfully created'] = 'The new user has been sucessfully created';
+$_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'The requested file <strong>%file</strong> was not found on the platform.';
 $_lang['The system is unable to send you an e-mail.'] = 'The system is unable to send you an e-mail.';
 $_lang['The user has been enroled to the course'] = 'The user has been enrolled to the course';
 $_lang['The user has been successfully unregistered'] = 'The user has been successfully unregistered';
@@ -925,6 +927,7 @@ $_lang['Unable to load exercise\'s question'] = 'Unable to load exercise\'s ques
 $_lang['Unable to load the exercise'] = 'Unable to load the exercise';
 $_lang['Unable to remove your registration to the course'] = 'Unable to remove your registration to the course';
 $_lang['Unable to save'] = 'Unable to save';
+$_lang['Unable to send zip file'] = 'Unable to send zip file';
 $_lang['Unable to update'] = 'Unable to update';
 $_lang['Unable to update category'] = 'Unable to update category.';
 $_lang['Unable to update external tool'] = 'Unable to update external tool';
@@ -1185,9 +1188,10 @@ An invisible tool will be greyed out on your personal interface';
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,
-One of administrators of the course %courseCode has registered you on this course.
 
-The address of  %courseName is :
+One of the administrators of the course "%courseName" has registered you on this course.
+
+The address of  the course is :
 
 %coursePath
 

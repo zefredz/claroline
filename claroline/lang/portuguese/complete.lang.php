@@ -324,7 +324,6 @@ Utilize o bot&atilde;o de Regressar do seu navegador e tente de novo.';
 $_lang['Your message has been deleted'] = 'A sua Enviar mensagem foi apagada.';
 $_lang['Your message has been entered'] = 'A sua Mensagem foi arquivada.';
 $_lang['Zip file uploaded and uncompressed'] = 'ficheiro Zip transferido e descomprimido';
-$_lang['[British people] live in [United Kingdom].'] = '[Os brit&acirc;nicos] vivem no [Reino Unido].';
 $_lang['archive'] = 'ficheiro';
 $_lang['blockCourseDescriptionCourseContent'] = 'Conte&uacute;do do Curso';
 $_lang['blockCourseDescriptionDescription'] = 'Descri&ccedil;&atilde;o';

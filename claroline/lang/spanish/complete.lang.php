@@ -443,7 +443,6 @@ $_lang['Help'] = 'ayuda';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Aqu&iacute; usted puede modificar el contenido de la zona de texto que se muestra en la p&aacute;gina principal de la plataforma.';
 $_lang['Hits'] = 'Accesos';
 $_lang['Home page help'] = 'Ayuda p&aacute;gina principal';
-$_lang['Home page text zones'] = 'Zonas de texto en la pagina de principal';
 $_lang['Hour'] = 'Hora';
 $_lang['Identical content<br />no modification saved'] = 'Contenido id&eacute;ntico<br />no se ha guardado ninguna modificaci&oacute;n';
 $_lang['If you wish to enrol on this course'] = 'Si desea usted matricularse en este curso';
@@ -1015,7 +1014,6 @@ $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Parec
 $_lang['Zip file uploaded and uncompressed'] = 'Archivo comprimido subido y descomprimido correctamente';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Se requiere la extensi&oacute;n Zlib php para usar esta herramienta.  Por favor
 							contacte con el administrador de su plataforma.';
-$_lang['[British people] live in [United Kingdom].'] = '[Los brit&aacute;nicos] viven en el [Reino Unido].';
 $_lang['archive'] = 'Archivar';
 $_lang['blockAssignmentsHelp'] = '<p>
 La herramienta de tareas es un &aacute;rea de publicaci&oacute;n para estudiantes. El gestor del curso

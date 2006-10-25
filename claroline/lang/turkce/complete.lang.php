@@ -160,7 +160,6 @@ $_lang['Groups settings'] = 'Grups ayarlar';
 $_lang['He or she will receive email confirmation with login and password'] = 'Ýlgili kiþi, kullanýcý adý ve þifresinin bulunduðu bir eposta teyidi alacaktýr';
 $_lang['Help'] = 'Yardým';
 $_lang['Home page help'] = 'Yardým Ana Sayfasý';
-$_lang['Home page text zones'] = 'Anasayfa dipnotlarý';
 $_lang['Hour'] = 'Saat';
 $_lang['Import'] = 'Al';
 $_lang['Import a learning path'] = 'Bir Öðrenme Hattý al';

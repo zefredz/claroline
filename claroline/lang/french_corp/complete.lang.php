@@ -369,7 +369,6 @@ $_lang['Help'] = 'aide';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Ici vous pouvez modifier le contenu des zones de texte affichées sur la page d\'accueil du campus.';
 $_lang['Hits'] = 'Accès';
 $_lang['Home page help'] = 'Aide Page d\'accueil';
-$_lang['Home page text zones'] = 'Zones de texte de la page d\'accueil';
 $_lang['Hour'] = 'Heure';
 $_lang['If you wish to enrol on this course'] = 'Si vous souhaitez vous inscrire à ce cours,';
 $_lang['Import'] = 'Importer';
@@ -845,7 +844,6 @@ $_lang['Your request to remove your account has been sent'] = 'Votre demande pou
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Votre profil utilisateur ne semble pas être inscrit à ce cours';
 $_lang['Zip file uploaded and uncompressed'] = ' Le fichier .zip a été envoyé et décompressé';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'l&acute;extension php \'zlib\' est requise pour l&acute;utilisation de cet outil. Contactez l&acute;administrateur de la plate-forme.';
-$_lang['[British people] live in [United Kingdom].'] = 'Les [anglais] vivent en [Angleterre].';
 $_lang['archive'] = 'archive';
 $_lang['blockAssignmentsHelp'] = '<p>L\'outil de soumissions  permet aux utilisateurs de poster des fichiers qu\'ils pensent pouvoir être intéressants pour les autres utilisateurs, ou lorsque le responsable de l\'espace leur a demandé de lui envoyer un fichier.  En effet, cet outil peut être utilisé de différentes manières, selon la façon dont le responsable  l\'a configuré.
 </p><p>Plusieurs sessions de travaux peuvent exister simultanément, avec pour chacune des objectifs et des contraintes différentes.  Un travail peut être un fichier, un texte ou un texte accompagné d\'un fichier.  Un travail peut également être posté à titre individuel ou au nom d\'un groupe d\'utilisateurs.

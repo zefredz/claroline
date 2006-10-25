@@ -329,7 +329,6 @@ $_lang['You left some required fields empty'] = 'Terdapat ruang kosong yang tida
 $_lang['Your message has been deleted'] = 'Hantar anda telah dipadam.';
 $_lang['Your message has been entered'] = 'Mesej telah disimpan di dalam pangkalan data.';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
-$_lang['[British people] live in [United Kingdom].'] = '[British people] live in [United Kingdom].';
 $_lang['archive'] = 'Arkib';
 $_lang['blockClaroMainHelp'] = 'eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br />Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status \'Pelajar\', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
 <p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status \'Pensyarah\' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
