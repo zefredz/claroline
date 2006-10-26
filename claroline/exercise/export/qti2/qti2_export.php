@@ -209,7 +209,7 @@ function sendZip($archiveName, $archiveContent, $removedPath)
     $downloadPlace = get_conf('rootSys') . get_conf('tmpPathSys');
     $downloadArchivePath = $downloadPlace.'/'.uniqid('').'.zip';
     $downloadArchiveName = empty($archiveName) ? 'archive.zip' : $archiveName . '.zip';
-    $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+    $downloadArchiveName = str_replace(',', '_', replace_dangerous_char($downloadArchiveName));
     
     $downloadArchive     = new PclZip($downloadArchivePath);
 
