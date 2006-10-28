@@ -46,33 +46,33 @@ if ($is_allowedToAdmin)
 {
     include($includePath . '/claro_init_header.inc.php');
     echo claro_html_tool_title( array( 'mainTitle'=>$nameTools
-                                , 'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - '
-                                )
-                         );
+    , 'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - '
+    )
+    );
 
 ?>
 <img src="http://www.claroline.net/image/logo.gif"  alt="claroline" border="0" align="right">
 <?php
-    if (isset($_REQUEST)) while( (list($name, $value) = each($_REQUEST)))  $$name = $value;
-    if (!isset($cmd)) $cmd = '';
-    if (!isset($ext)) $ext = '';
-    if (!isset($ext)) $do = '';
-    if (!isset($ext)) $directory = '';
+if (isset($_REQUEST)) while( (list($name, $value) = each($_REQUEST)))  $$name = $value;
+if (!isset($cmd)) $cmd = '';
+if (!isset($ext)) $ext = '';
+if (!isset($ext)) $do = '';
+if (!isset($ext)) $directory = '';
 
 
-    function localtest()
+function localtest()
+{
+    global $local_test;
+    $local_addr = $_SERVER['REMOTE_ADDR'];
+    if ($local_addr == "127.0.0.1")
     {
-        global $local_test;
-        $local_addr = $_SERVER['REMOTE_ADDR'];
-        if ($local_addr == "127.0.0.1")
-        {
-            $local_test = true;
-        }
-        else
-        {
-            $local_test = false;
-        }
+        $local_test = true;
     }
+    else
+    {
+        $local_test = false;
+    }
+}
 ?>
 <br />
 <DIV class="elementServeur">
@@ -94,64 +94,68 @@ if ($is_allowedToAdmin)
 <HR size="1" noshade="noshade">
 <?php
 
-    if ($cmd == 'ext')
+if ($cmd == 'ext')
+{
+    $extensions = @get_loaded_extensions();
+    echo count($extensions) . ' extensions <hr /><br />';
+    @sort($extensions);
+    foreach($extensions as $extension)
     {
-        $extensions = @get_loaded_extensions();
-        echo count($extensions) . ' extensions <hr /><br />';
-        @sort($extensions);
-        foreach($extensions as $extension)
+        echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
+        if ($extension==$ext)
         {
-            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
-            if ($extension==$ext)
+            $functions = @get_extension_funcs($ext);
+            @sort($functions);
+            if (is_array($functions))
             {
-                $functions = @get_extension_funcs($ext);
-                @sort($functions);
-                if (is_array($functions))
+                echo '<OL>';
+                foreach($functions as $function)
                 {
-                    echo '<OL>';
-                    foreach($functions as $function)
-                    {
-                        print '<LI>' . $function . '</li>';
-                    }
-                    echo '</OL>';
+                    print '<LI>' . $function . '</li>';
                 }
-                else
-                {
-                    echo '!! ' . get_lang('No function in this extension') . '!!<br />';
-                }
+                echo '</OL>';
+            }
+            else
+            {
+                echo '!! ' . get_lang('No function in this extension') . '!!<br />';
             }
         }
     }
-    elseif ($cmd == 'phpinfo')
-    {
-        phpinfo();
-    }
-    elseif ($cmd == 'phpcredit')
-    {
-        phpcredits(CREDITS_ALL);
-    }
+}
+elseif ($cmd == 'phpinfo')
+{
 
-    elseif ($cmd == 'clarconf')
-    {
-        echo '<div style="background-color: #dfdfff;"><hr />config file<hr />';
-        highlight_file(claro_get_conf_repository() . 'claro_main.conf.php');
-        echo '<hr /></div>';
+    require_once('./lib/PhpSecInfo.lib.php');
+    phpsecinfo();
+    phpinfo();
 
-    }
-    elseif ($cmd == 'clarcredit' )
-    {
+}
+elseif ($cmd == 'phpcredit')
+{
+    phpcredits(CREDITS_ALL);
+}
+
+elseif ($cmd == 'clarconf')
+{
+    echo '<div style="background-color: #dfdfff;"><hr />config file<hr />';
+    highlight_file(claro_get_conf_repository() . 'claro_main.conf.php');
+    echo '<hr /></div>';
+
+}
+elseif ($cmd == 'clarcredit' )
+{
     ?>
     <a href="http://www.claroline.net/credits.htm">See online Credits</a>
 
 <PRE>
 <?php
-        echo "\n";
-        if (file_exists($claroCreditFilePath)) include ($claroCreditFilePath);
-    }
-    else
-    {
-        $hideBar = true;
-    }
+echo "\n";
+if (file_exists($claroCreditFilePath)) include ($claroCreditFilePath);
+}
+else
+{
+    $hideBar = true;
+}
 
 
 }
