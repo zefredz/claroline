@@ -193,7 +193,7 @@ function import_exercise($file, &$backlog)
     else
     {
         $backlog->failure(get_lang('There is an error in exercise data of imported file.'));
-        $exercise_id = false;
+        return false;
     }
 
     //For each question found...
