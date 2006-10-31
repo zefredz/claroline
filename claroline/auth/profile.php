@@ -202,11 +202,14 @@ switch ( $display )
 {
     case DISP_PROFILE_FORM :
 
-        // display user tracking link
-        $profile_menu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php">'
-        .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
-        .                 '</a>'
-        ;
+        if( get_conf('is_trackingEnabled') )
+        {
+            // display user tracking link
+            $profile_menu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php">'
+            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
+            .                 '</a>'
+            ;
+        }
 
         // display request course creator status
         if ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status') )

@@ -169,12 +169,15 @@ foreach ($toolList as $thisTool)
     .                             get_lang('Course settings')
     .                             '</a>'
     ;
-
-    $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php">'
-    .                             '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt=""> '
-    .                             get_lang('Statistics')
-    .                             '</a>'
-    ;
+    
+    if( get_conf('is_trackingEnabled') )
+    {
+        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php">'
+        .                             '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt=""> '
+        .                             get_lang('Statistics')
+        .                             '</a>'
+        ;
+    }
 
 // Display header
 
