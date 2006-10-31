@@ -87,11 +87,7 @@ if ($_POST)
     {
         $$key = replace_dangerous_char($value);
     }
-
 }
-
-
-
 
 /*======================================
 COMMANDS SECTION

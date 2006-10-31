@@ -367,5 +367,4 @@ echo '</tbody>' . "\n\n"
 echo $myPager->disp_pager_tool_bar($pagerUrl);
 
 include($includePath.'/claro_init_footer.inc.php');
-
 ?>

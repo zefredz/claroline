@@ -336,11 +336,11 @@ class ClaroCourse
         }
 
         // Validate department url
-		if ( ! $this->validateDepartmentUrl() )
-		{
-			$this->backlog->failure(get_lang('Department URL is not valid'));
+        if ( ! $this->validateDepartmentUrl() )
+        {
+            $this->backlog->failure(get_lang('Department URL is not valid'));
             $success = false ;
-		}
+        }
 
         return $success;
     }
@@ -660,18 +660,18 @@ class ClaroCourse
 	    		$html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '">' . "\n" ;
 	    	}
     	}
-    	else // GET
-    	{
-		    $params = array();
-	    	foreach ( $this->htmlParamList as $name => $value )
-	    	{
-	    		$params[] = rawurlencode($name) . '=' . rawurlencode($value);
-	    	}
+        else // GET
+        {
+            $params = array();
+            foreach ( $this->htmlParamList as $name => $value )
+            {
+                $params[] = rawurlencode($name) . '=' . rawurlencode($value);
+            }
 
-	    	$html = implode('&amp;', $params );
-    	}
+            $html = implode('&amp;', $params );
+        }
 
-		return $html;
+        return $html;
     }
 
     /**
@@ -701,11 +701,11 @@ class ClaroCourse
      * @return boolean public true, private false
      */
 
-	function getAccess ( $visibility )
-	{
-	    if ( $visibility >= 2 ) return true ;
-	    else                    return false ;
-	}
+    function getAccess ( $visibility )
+    {
+        if ( $visibility >= 2 ) return true ;
+        else                    return false ;
+    }
 
     /**
      * Get enrolment value from visibility field
@@ -714,11 +714,11 @@ class ClaroCourse
      * @return boolean open true, close false
      */
 
-	function getEnrolment ( $visibility )
-	{
-	    if ( $visibility == 1 || $visibility == 2 ) return true ;
-	    else                                        return false;
-	}
+    function getEnrolment ( $visibility )
+    {
+        if ( $visibility == 1 || $visibility == 2 ) return true ;
+        else                                        return false;
+    }
 
     /**
      * Send course creation information by mail to all platform administrators
@@ -728,8 +728,8 @@ class ClaroCourse
      * @param string creator email
      */
 
-	function mailAdministratorOnCourseCreation ($creatorFirstName, $creatorLastName, $creatorEmail)
-	{
+    function mailAdministratorOnCourseCreation ($creatorFirstName, $creatorLastName, $creatorEmail)
+    {
         $mailSubject = get_lang('%site_name Course creation %course_name',array('%site_name'=> '['.get_conf('siteName').']' ,
                                                                                     '%course_name'=> $this->title) );
 
@@ -754,7 +754,7 @@ class ClaroCourse
         $platformAdminList = claro_get_uid_of_platform_admin();
 
         return claro_mail_user( $mailToUidList, $mailBody, $mailSubject);
-	}
+    }
 
     /**
      * Build progress param url
@@ -762,9 +762,9 @@ class ClaroCourse
      * @return string url
      */
 
-	function buildProgressUrl ()
-	{
-	    $url = $_SERVER['PHP_SELF'] . '?cmd=exEdit';
+    function buildProgressUrl ()
+    {
+        $url = $_SERVER['PHP_SELF'] . '?cmd=exEdit';
 
         $paramList = array();
 
@@ -787,8 +787,8 @@ class ClaroCourse
 	        $url .= '&amp;' . rawurlencode($key) . '=' . rawurlencode($value);
 	    }
 
-	    return $url;
-	}
+        return $url;
+    }
 }
 
 ?>

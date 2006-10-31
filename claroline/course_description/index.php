@@ -389,5 +389,4 @@ if( !$hasDisplayedItems )
 }
 
 include $includePath . '/claro_init_footer.inc.php';
-
 ?>
