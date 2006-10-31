@@ -110,6 +110,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
         .            '<strong>' . get_lang('Import exercise') . '</strong><br />' . "\n"
         .            get_lang('Imported exercises must be an ims-qti zip file.') . '<br />' . "\n"
         .            '<form enctype="multipart/form-data" action="./exercise.php" method="post">' . "\n"
+        .            '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
         .            '<input name="cmd" type="hidden" value="exImport" />' . "\n"
         .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
         .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
