@@ -12,7 +12,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @since 1.8
  *
  * @author claro team <cvs@claroline.net>
- * @author Guillaume Lederer <guillaume@claroline.net>
  */
 
 /**
@@ -83,7 +82,7 @@ function get_and_unzip_uploaded_exercise($baseWorkDir, $uploadDir)
  *
  * @return the id of the created exercise or false if the operation failed
  */
-function import_exercise($file, &$backlog_message)
+function import_exercise($file, &$backlog)
 {
     global $exercise_info;
     global $element_pile;
@@ -122,7 +121,7 @@ function import_exercise($file, &$backlog_message)
 
 	if ( !preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']))
 	{
-		$backlog_message[] = get_lang('You must upload a zip file');
+		$backlog->failure(get_lang('You must upload a zip file'));
 		return false;
 	}
 
@@ -130,40 +129,23 @@ function import_exercise($file, &$backlog_message)
 
     if( !get_and_unzip_uploaded_exercise($baseWorkDir,$uploadPath) )
     {
-        $backlog_message[] = get_lang('Upload failed');
+        $backlog->failure(get_lang('Upload failed'));
         return false;
     }
 
-    //find the different manifests for each question and parse them.
+    // find the different manifests for each question and parse them.
 
     $exerciseHandle = opendir($uploadDir);
 
-    //find each question repository in the uploaded exercise folder
-
     $question_number = 0;
+    $file_found = false;
 
-
-    //1- parse the parent directory
-
-	$file_found = false;
-
-    $questionHandle = opendir($uploadDir);
-
-    while( false !== ($questionFile = readdir($questionHandle)) )
-    {
-        if( preg_match('/.xml$/i' ,$questionFile) )
-        {
-            parse_file($uploadDir, '', $questionFile);
-			$file_found = true;
-        }//end if xml question file found
-    }//end while question rep
-
-
-    //2- parse every subdirectory to search xml question files
+    // parse every subdirectory to search xml question files
 
     while( false !== ($file = readdir($exerciseHandle)) )
     {
-        if (is_dir($uploadDir.'/'.$file) && $file != "." && $file != "..")
+        echo $file . "<br />\n";
+        if( is_dir($uploadDir.'/'.$file) && $file != "." && $file != ".." )
         {
             //find each manifest for each question repository found
 
@@ -173,16 +155,23 @@ function import_exercise($file, &$backlog_message)
             {
                 if (preg_match('/.xml$/i' ,$questionFile))
                 {
-                    parse_file($uploadDir, $file, $questionFile);
+                    list( $parsingBacklog, $success ) = parse_file($uploadDir, $file, $questionFile);
+                    $backlog->append($parsingBacklog);
 					$file_found = true;
-                }//end if xml question file found
-            }//end while question rep
-        } //if is_dir
-    }//end while loop to find each question data's
+                }
+            }
+        } 
+        elseif( preg_match('/.xml$/i' ,$file) )
+        {
+            list( $parsingBacklog, $success ) = parse_file($uploadDir, '', $file);
+            $backlog->append($parsingBacklog);
+			$file_found = true;
+        } // else ignore file
+    }
 
 	if( !$file_found )
 	{
-		$backlog_message[] = get_lang('No XML file found in the zip');
+		$backlog->failure(get_lang('No XML file found in the zip'));
 		return false;
 	}
 
@@ -203,17 +192,17 @@ function import_exercise($file, &$backlog_message)
     }
     else
     {
-        $backlog_message[] = get_lang('There is an error in exercise data of imported file.');
+        $backlog->failure(get_lang('There is an error in exercise data of imported file.'));
+        $exercise_id = false;
     }
 
     //For each question found...
-
     foreach($exercise_info['question'] as $key => $question_array)
     {
         //2.create question
         $question = new Qti2Question();
-
         $question->import($question_array);
+
 
         if( $question->validate() )
         {
@@ -223,7 +212,6 @@ function import_exercise($file, &$backlog_message)
             //3.create answers
             $question->setAnswer();
             $question->answer->import($question_array);
-
             
             if( $question->answer->validate() )
             {
@@ -234,12 +222,14 @@ function import_exercise($file, &$backlog_message)
 
                 $exercise->addQuestion($question_id);
             }
-            // TODO handle error handling and messages
+            else
+            {
+                $backlog->failure(get_lang('Invalid answer') . ' : ' . $key);
+            }
         }
         else
         {
-            $backlog_message[] = get_lang('There is an error in exercise data of imported file.');
-            return false;
+            $backlog->failure(get_lang('Invalid question') . ' : ' . $key);
         }
     }
 
@@ -255,6 +245,7 @@ function import_exercise($file, &$backlog_message)
  * @param string $exercisePath
  * @param string $file dirname of question in zip file
  * @param string $questionFile name of xml file in zip file
+ * @return array( backlog, boolean )
  */
 
 function parse_file($exercisePath, $file, $questionFile)
@@ -267,14 +258,13 @@ function parse_file($exercisePath, $file, $questionFile)
 
     $questionTempDir = $exercisePath.'/'.$file.'/';
     $questionFilePath = $questionTempDir.$questionFile;
-    
-    $backlog_message = array();
-    array_push ($backlog_message, "* ".$questionFile);
+
+    $backlog = new Backlog;
 
     if (!($fp = @fopen($questionFilePath, 'r')))
     {
-        array_push ($backlog_message, get_lang("Error opening question's XML file"));
-        return $backlog_message;
+        $backlog->failure(get_lang("Error opening question's XML file"));
+        return array($backlog,false);
     }
     else
     {
@@ -326,13 +316,11 @@ function parse_file($exercisePath, $file, $questionFile)
     xml_set_element_handler($xml_parser, 'startElement', 'endElement');
     xml_set_character_data_handler($xml_parser, 'elementData');
 
-    if (!xml_parse($xml_parser, $data, feof($fp)))
+    if( !xml_parse($xml_parser, $data, feof($fp)) )
     {
         // if reading of the xml file in not successfull :
-        // set errorFound, set error msg
-
-        array_push ($backlog_message, get_lang('Error reading XML file') );
-        return $backlog_message;
+        $backlog->failure(get_lang('Error reading XML file') . '(' . $questionFile . ':' . xml_get_current_line_number($xml_parser) . ': ' . xml_error_string(xml_get_error_code($xml_parser)) . ')');
+        return array($backlog,false);
     }
 
     //close file
@@ -341,11 +329,11 @@ function parse_file($exercisePath, $file, $questionFile)
 
     if( !$question_format_supported )
     {
-        array_push ($backlog_message, get_lang('Error : Unknown question format in file %file', array ('%file' => $questionFile) ) );
-        return $backlog_message;
+        $backlog->failure(get_lang('Unknown question format in file %file', array ('%file' => $questionFile) ) );
+        return array($backlog,false);
     }
     
-    return true;
+    return array($backlog,true);
 }
 
 
