@@ -112,7 +112,7 @@ array('label'         => 'Teacher can add user in his course'
 
 
 $conf_def_property_list['is_coursemanager_allowed_to_import_user_list'] =
-array('label'         => 'Teacher can add user in his course'
+array('label'         => 'Teacher can import user list in his course'
      ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
