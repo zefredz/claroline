@@ -75,6 +75,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
         require_once './export/exercise_import.inc.php';
         require_once './lib/question.class.php';
         require_once './export/qti2/qti2_classes.php';
+        require_once $includePath . '/lib/backlog.class.php';
         
         if ( !isset($_FILES['uploadedExercise']['name']) )
         {
@@ -82,22 +83,19 @@ if( $is_allowedToEdit && !is_null($cmd) )
         }
         else
         {
-            $result_log = array();
-            $importedExId = import_exercise($_FILES['uploadedExercise']['name'], $result_log);
+            $backlog = new Backlog();
+            $importedExId = import_exercise($_FILES['uploadedExercise']['name'], $backlog);
 
             if( $importedExId )
             {
-                $dialogBox .= '<p>' . get_lang('Import done') . '</p>' . "\n";
+                $dialogBox .= '<p><strong>' . get_lang('Import done') . '</strong></p>' . "\n";
             }
             else
             {
+                $dialogBox .= '<p><strong>' . get_lang('Import failed') . '</strong></p>' . "\n";
                 $cmd = 'rqImport';
             }
-
-            foreach ($result_log as $log)
-            {
-                $dialogBox .= $log . '<br />';
-            }
+            $dialogBox .= '<p>' . $backlog->output() . '</p>' . "\n";            
         }
     }
 
