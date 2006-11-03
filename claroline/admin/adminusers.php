@@ -13,7 +13,6 @@
  */
 $cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 
-
 require '../inc/claro_init_global.inc.php';
 
 $userPerPage = get_conf('userPerPage',20); // numbers of user to display on the same page
@@ -118,7 +117,6 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 }
 
 $userList = $myPager->get_result_list();
-
 if (is_array($userList))
 foreach ($userList as $userKey => $user)
 {
