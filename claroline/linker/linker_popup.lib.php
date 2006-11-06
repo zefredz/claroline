@@ -71,12 +71,24 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $url .= "?linkerTLabel=$tLabel";
             }
         }
-
-        echo '<p>' . "\n"
-            . '<a href="javascript:popup(\''
-            . $url.'\')">'.get_lang('Attached Resources : Add / Delete attachement')
-            . '</a>' . "\n"
-            . '</p>' . "\n\n";
+        
+        if ( claro_is_javascript_enabled() )
+        {
+            echo '<p>' . "\n"
+                . '<a href="javascript:popup(\''
+                . $url.'\')">'.get_lang('Attached Resources : Add / Delete attachement')
+                . '</a>' . "\n"
+                . '</p>' . "\n"
+                ;
+        }
+        else
+        {
+            echo '<p>' . "\n"
+                . '<a href="'.$url.'" target="_blank">'.get_lang('Attached Resources : Add / Delete attachement')
+                . '</a>' . "\n"
+                . '</p>' . "\n"
+                ;
+        }
     }
 
 //--------------------------------------------------------------------------------------------------------
