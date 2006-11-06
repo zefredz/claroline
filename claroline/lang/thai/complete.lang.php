@@ -1,312 +1,913 @@
 <?php 
-$_lang['Add'] = 'เพิ่ม';
+$_lang['%1\$s by %2\$s'] = '%1$s โดย %2$s';
+$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s แก้ไขเมื่อ %2$s by %3$s';
+$_lang['%delay ago'] = '%delay ที่ผ่านมา';
+$_lang['%nb course(s)'] = '%nb วิชา';
+$_lang['%nb course(s) manager(s)'] = '%nb ผู้จัดการวิชา';
+$_lang['%nb errors found'] = '%nb พบความผิพดลาด';
+$_lang['%nb member(s)'] = '%nb สมาชิก';
+$_lang['%nb student(s)'] = '%nb ผู้เรียน';
+$_lang['%number student(s) unregistered from this course'] = '%number ผู้เรียนได้ถูกถอนชื่อออกจากวิชาแล้ว';
+$_lang['(When an user open the index of the campus)'] = '(เมื่อมีผู้เข้าในหน้าแรกของเว็ปไซท์)';
+$_lang['(d/m/y hh:mm)'] = '(วัน/เดือน/ปี ชม:นาที)';
+$_lang['(none)'] = '(ยังไม่มี)';
+$_lang['(optional)'] = '(เลือกกำหนดค่า)';
+$_lang['(version of %1\$s modified by %2\$s)'] = '(เวอร์ชั่นของ %1$s พัฒนาโดย %2$s)';
+$_lang['- none -'] = '- ยังไม่มี -';
+$_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>เริ่มจาก</b> %startDate <b>จนถึง</b> %endDate';
+$_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>เริ่มจาก</b> %start_date <b>จนถึง</b> %end_date';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>คำเตือน :</b> ไฟล์แฟ้มรายการที่เป็นส่วนประกอบของกระบวนการติดตั้งระบบชื่อ claroline/install ยังคงสามารถค้นแสดงทางอินเตอร์เน็ตได้ ซึ่งหมายความว่า หากมีผู้รู้ในการเรียกใช้คำสั่ง การติดตั้งระบบนี้ ผ่านทางอินเตอร์เน็ต ก็จะสามารถติดตั้งระบบทับใหม่อีกครั้งได้เช่นกัน ดังนั้นเพื่อเป็นการรักษาความปลอดภัยให้แก่ระบบคลาโรไลน์ที่ทำการติดตั้งไว้แล้วนี้ ขอแนะนำว่าให้คุณดำเนินการป้องกันด้วยการเปลี่ยนชื่อแฟ้มรายการเป็นชื่อใหม่ หรือลบออกจากเครื่องแม่ข่ายของคุณ';
+$_lang['<b>Warning : </b>'] = '<b>คำเตือน : </b>';
+$_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> คือช่องรายการที่ต้องกรอกข้อมูล';
+$_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> คือช่องรายการที่จำเป็นต้องกรอกข้อมูล จึงจะดำเนินการต่อไปได้ หากไม่มีเครื่องหมายกำกับไว้ก็คือ ให้เพิ่มเติมภายหลังได้';
+$_lang['A user can be a member of maximum %nb groups'] = 'ผู้เรียนสามารถสมัครเข้าเป็นสมาชิกกลุ่มหรือชั้นเรียนได้ %nb กลุ่ม';
+$_lang['About'] = 'ข้อมูลที่เกี่ยวข้อง';
+$_lang['Access'] = 'การเข้าชมเว็ปไซท์';
+$_lang['Access control management'] = 'การเข้าใช้ระบบบริหารจัดการ';
+$_lang['Access count'] = 'นับจำนวนการเข้าชมเว็ปไซท์';
+$_lang['Access to campus'] = 'การเข้าใช้เว็ปไซท์ระบบการเรียน';
+$_lang['Access to course and tools'] = 'การเข้าเรียนและการใช้เครื่องมือ';
+$_lang['Access to courses'] = 'การเข้าเรียนในวิชา';
+$_lang['Access to tools'] = 'การเข้าใช้เครื่องมือ';
+$_lang['Action'] = 'บทบาท';
+$_lang['Activated'] = 'การใช้งาน';
+$_lang['Activated - Click to deactivate'] = 'เปิดใช้งานแล้ว - คลิกเพื่อปิดการใช้งาน';
+$_lang['Activation'] = 'การเปิดใช้งาน';
+$_lang['Add'] = 'เพิ่มเข้า';
+$_lang['Add Text'] = 'เพิ่มเนื้อหา';
 $_lang['Add a category'] = 'เพิ่มหมวดหมู่';
-$_lang['Add a comment'] = 'เพิ่ม/ปรับปรุงหมายเหตุที่';
-$_lang['Add a user'] = 'เพิ่มนักศึกษา';
-$_lang['Add an event'] = 'เพิ่มกำหนดการ';
+$_lang['Add a comment'] = 'แสดงความเห็น';
+$_lang['Add a comment (optionnal) :'] = 'เพิ่มเติมคำอธิบายไฟล์ที่ส่งขึ้น(ค่าเลือก):';
+$_lang['Add a document'] = 'เพิ่มเอกสาร';
+$_lang['Add a module of this course'] = 'เพิ่มหน่วยในวิชานี้';
+$_lang['Add a user'] = 'เพิ่มสมาชิก';
+$_lang['Add a user list'] = 'นำเข้าไฟล์รายชื่อผู้เรียน';
+$_lang['Add a user list in class'] = 'เพิ่มสมาชิกด้วยบัญชีรายชื่อของชั้นเรียน โดยการนำเข้าไฟล์บัญชีชื่อ';
+$_lang['Add a user list in course'] = 'เพิ่มบัญชีรายชื่อเข้าในวิชา';
+$_lang['Add an event'] = 'เพิ่มกิจกรรมและกำหนดการ';
+$_lang['Add an exercise'] = 'เพิ่มแบบฝึกหัด';
 $_lang['Add announcement'] = 'เพิ่มประกาศ';
+$_lang['Add external link'] = 'เพิ่มการเชื่อมโยงจากภายนอกเว็ป';
+$_lang['Add feedback'] = 'เพิ่ม การตอบกลับ';
+$_lang['Add forum'] = 'เพิ่มการอภิปราย';
+$_lang['Add me to this group'] = 'เพิ่มฉันเข้ากลุ่มนี้';
+$_lang['Add module(s)'] = 'เพิ่มโมดูล';
+$_lang['Add my campus on Claroline.net website'] = 'เพิ่มชื่อเว็ปไซท์หน่วยงานเราเข้าในเว็ปไซท์ของClaroline.net';
+$_lang['Add new profile'] = 'เพิ่มเติมรายการบทบาทและสิทธิ';
+$_lang['Add user list'] = 'เพิ่มบัญชีรายชื่อ';
+$_lang['Add user manually'] = 'เพิ่มชื่อสมาชิกให้เอง';
+$_lang['Administration'] = 'การบริหารจัดการ';
+$_lang['Administrative code'] = 'รหัส(ID)';
+$_lang['Administrator'] = 'ผู้จัดการระบบ';
+$_lang['Administrator for %site_name'] = 'ผู้บริหารระบบ %site_name';
+$_lang['Advanced'] = 'ตั้งค่าค้น';
+$_lang['Advanced course search'] = 'ค้นหาวิชาจากข้อความสืบค้น';
+$_lang['Advanced user search'] = 'ค้นหาสมาชิกจากข้อความสืบค้น';
+$_lang['After last allowed attempt'] = 'หลังจากที่เข้าทดสอบครั้งสุดท้าย';
 $_lang['Agenda'] = 'กำหนดการ';
-$_lang['Announcement has been added'] = 'เพิ่มประกาศเรียบร้อย';
-$_lang['Announcement has been deleted'] = 'ลบประกาศแล้ว';
-$_lang['Announcement has been modified'] = 'ประกาศได้รับการปรับปรุงเรียบร้อย';
-$_lang['Announcements list has been cleared up'] = 'รายการประกาศถูกล้างหมดแล้ว';
-$_lang['Anonymous'] = 'ผู้ไม่ประสงค์ออกนาม';
+$_lang['Agenda next events'] = 'กิจกรรม:กำหนดการ';
+$_lang['All'] = 'ที่มีทั้งหมด';
+$_lang['All exercises'] = 'แบบทดสอบทั้งหมด';
+$_lang['All pages'] = 'ทุกหน้า';
+$_lang['All platform courses'] = 'วิชาที่เปิดสอน';
+$_lang['Allow late upload'] = 'การอนุญาตส่งงานล่าช้า';
+$_lang['Allowed'] = 'อนุญาต';
+$_lang['Already browsed'] = 'ถูกเลือกค้นแล้ว';
+$_lang['Already enroled'] = 'ลงทะเบียนเรียนแล้ว';
+$_lang['Announcement'] = 'ประกาศข่าว';
+$_lang['Anonymous'] = 'คนทั่วไป';
 $_lang['Answer'] = 'คำตอบ';
-$_lang['Are you sure to delete'] = 'ท่านแน่ใจหรือว่าต้องการลบ';
-$_lang['Author'] = 'ผู้ส่ง';
-$_lang['Back'] = 'ย้อนกลับ';
-$_lang['Back to Home page'] = 'กลับหน้าแรก';
+$_lang['Answer is required'] = 'ต้องการคำตอบ';
+$_lang['Answer type'] = 'ประเภทคำตอบ';
+$_lang['Area for this group'] = 'ศูนย์กิจกรรมและบริการของกลุ่ม';
+$_lang['Assignment'] = 'กิจกรรมการเีรียน';
+$_lang['Assignment deleted'] = 'ลบกิจกรรมการเีรียนแล้ว';
+$_lang['Assignment modified'] = 'แก้ไขกิจกรรมการเีรียนแล้ว';
+$_lang['Assignment title'] = 'กิจกรรมการเีรียน เรื่อง';
+$_lang['Assignment title already exists'] = 'มีชื่อกิจกรรมการเีรียนนี้อยู่แล้ว';
+$_lang['Assignment title required'] = 'ต้องต้งชื่อเรื่องกิจกรรมการเีรียน';
+$_lang['Assignment type'] = 'การมอบหมายกิจกรรม';
+$_lang['Assignments'] = 'กิจกรรมการเีรียน:ใบงาน';
+$_lang['Assignments help'] = 'คำแนะนำกิจกรรมการเีรียน';
+$_lang['Attach'] = 'แนบไฟล์';
+$_lang['Attach a file'] = 'แนบไฟล์';
+$_lang['Attach an existing resource'] = 'แนบข้อมูลหรือสาระการเรียนที่มีอยู่ในวิชา';
+$_lang['Attached file'] = 'แนบไฟล์';
+$_lang['Attached resources'] = 'ข้อมูลที่จะแนบ';
+$_lang['Attempt'] = 'จำนวนครั้งที่ทำ';
+$_lang['Attempts'] = 'จำนวนครั้งที่ทำแบบทดสอบ';
+$_lang['Attempts allowed'] = 'จำนวนครั้งที่อนุญาต';
+$_lang['Authentication'] = 'เข้าสู่ระบบ';
+$_lang['Authentication Required'] = 'ต้องแจ้งสิทธิ์เข้าระบบ';
+$_lang['Author'] = 'ผู้ส่งกระทู้';
+$_lang['Author(s)'] = 'เจ้าของ';
+$_lang['Author(s) is(are) required'] = 'ต้องมีเจ้าของ';
+$_lang['Automatically, after each submission'] = 'โดยอัตโนมัติ, หลังการพิจารณาตัดสิน';
+$_lang['Automatically, after end date'] = 'โดยอัตโนมัติ, หลังพ้นกำหนด';
+$_lang['Available from'] = 'เริ่มทำได้ตั้งแต่';
+$_lang['Average Time'] = 'เวลาทำแบบทดสอบ';
+$_lang['Average score'] = 'ค่าคะแนนโดยเฉลี่ย';
+$_lang['Back'] = 'กลับ';
+$_lang['Back to Home page'] = 'กลับไปที่หน้าโฮมเพจของวิชา';
+$_lang['Back to administration page'] = 'กลับไปที่หน้าการจัดการ';
+$_lang['Back to class list'] = 'กลับไปที่รายชื่อกลุ่มเรียน';
+$_lang['Back to class members'] = 'กลับไปที่รายชื่อผู้เรียนในกลุ่ม';
+$_lang['Back to course list'] = 'กลับไปที่รายชื่อวิชา';
+$_lang['Back to learning path administration'] = 'กลับไปที่การจัดลำดับการเรียนรู้';
+$_lang['Back to list'] = 'กลับไปที่รายการ';
+$_lang['Back to my personal course list'] = 'กลับไปที่หน้ารายวิชาของเรา';
+$_lang['Back to page'] = 'กลับไปที่หน้า';
+$_lang['Back to parent category'] = 'กลับไปที่หมวดหมู่วิชา';
+$_lang['Back to the class'] = 'กลับไปที่กลุ่มเรียน';
+$_lang['Back to the editor'] = 'Back to the editor';
+$_lang['Back to user list'] = 'กลับไปที่รายชื่อสมาชิก';
+$_lang['Back to user settings'] = 'กลับไปที่การตั้งค่าสมาชิก';
+$_lang['Back to user\'s course list'] = 'กลับไปที่หน้ารายชื่อวิชาของสมาชิก';
+$_lang['Before'] = 'ก่อน';
+$_lang['Best score'] = 'คะแนนสูงที่สุด';
+$_lang['Blank space'] = 'วรรค';
+$_lang['Block'] = 'กั้นไม่ให้เข้า';
+$_lang['Bold'] = 'ตัวหนา';
+$_lang['Build language files'] = 'สร้างไฟล์ภาษา';
+$_lang['By deleting a label you will delete all modules or label it contains.'] = 'การลบป้ายชื่อนี้จะเป็นการลบโมดูลหรือป้ายที่อยู่ภายในด้วย.';
+$_lang['CSV file with the user list :'] = 'เลือกไฟล์รายชื่อรูปแบบ CVS จาก ';
+$_lang['Campus banner - left'] = 'ชื่อเว็ป - ด้านซ้าย';
+$_lang['Campus banner - right'] = 'ชื่อเว็ป - ด้านขวา';
+$_lang['Campus name'] = 'ชื่อเว็ปไซท์';
+$_lang['Can have courses'] = 'สามารถมีวิชาย่อยในหมวดได้';
 $_lang['Cancel'] = 'ยกเลิก';
-$_lang['Categories'] = 'หมวดหมู่';
-$_lang['Chat'] = 'Chat';
-$_lang['Claroline help'] = 'เริ่มต้น หน้าช่วยเหลือ';
-$_lang['Clear up list of announcements'] = 'ล้างรายการประกาศ';
-$_lang['Close'] = 'ปิดหน้าต่างนี้';
-$_lang['Comment'] = 'คำอธิบายเพิ่มเติม';
-$_lang['Comment modified'] = 'ปรับปรุงหมายเหตุเรียบร้อย';
-$_lang['Confirmation'] = 'ยืนยันรหัสผ่าน';
-$_lang['Copy'] = 'ย้าย';
+$_lang['Cancel the operation'] = 'ยกเลิกปฏิบัติการ';
+$_lang['Cannot activate module'] = 'ไม่สามารถเปิดใช้งานหน่วยของระบบ';
+$_lang['Cannot copy the file'] = 'ไม่สามารถทำสำเนาไฟล์.';
+$_lang['Cannot deactivate module'] = 'ไม่สามารถปิดการใช้งานหน่วยของระบบ';
+$_lang['Cannot extract files.'] = 'ไม่สามารถคลายคืนสภาพไฟล์';
+$_lang['Cannot open %filename'] = 'ไม่สมารถเปิดไฟล์ %ชื่อไฟล์';
+$_lang['Cannot update database'] = 'ไม่สามารถปรับฐานข้อมูลได้';
+$_lang['Categories'] = 'หมวดหมู่วิชาทั้งหมด';
+$_lang['Category'] = 'หมวดวิชา';
+$_lang['Category code'] = 'รหัสหมวดวิชา';
+$_lang['Category code is required'] = 'ต้องตั้งรหัสประจำหมวดวิชา';
+$_lang['Category created'] = 'ได้เพิ่มหมวดวิชาให้แล้ว';
+$_lang['Category deleted'] = 'ได้ลบหมวดวิชาให้แล้ว';
+$_lang['Category moved'] = 'ได้ย้ายหมวดวิชาให้แล้ว';
+$_lang['Category name'] = 'ชื่อหมวดวิชา';
+$_lang['Category name is required'] = 'ต้องตั้งชื่อหมวดวิชา';
+$_lang['Category needed'] = 'ต้องมีหมวดวิชา';
+$_lang['Category updated'] = 'ได้แก้ไขปรับปรุงหมวดวิชาให้แล้ว.';
+$_lang['Changes have been saved'] = 'ได้บันทึกการเปลี่ยนแปลงแก้ไขให้เรียบร้อยแล้ว';
+$_lang['Chat'] = 'สนทนาออนไลน์';
+$_lang['Chat reset by'] = 'เริ่มสนทนาใหม่โดย';
+$_lang['Choose a course to access this page.'] = 'คลิกเลือกวิชาที่จะเข้าเรียน.';
+$_lang['Choose now a username and a password for the user account'] = 'การตั้งชื่อสมาชิกใหม่ในระบบนี้ ควรใช้ภาษาอังกฤษ ตัวเลข หรือผสมกันอย่างน้อย 6 ตัวอักษร โดยต้องตั้งชื่อไม่ให้ซ้ำกับคนอื่นๆที่สมัครสมาชิกไว้ก่อนแล้ว หากเป็นผู้เรียนในสถานศึกษา ควรใช้รหัสเฉพาะประจำตัว และหรือผสมกับชื่อจริง เป็นชื่อสมาชิกของระบบหรือเข้าสู่ระบบ เพื่อที่อาจารย์ผู้สอนจะสามารถจำแนกข้อมูลและเทียบกับรายชื่อจากการลงทะเบียนเรียนจริงได้ง่าย';
+$_lang['Choose one'] = 'เลือกหมวดวิชา';
+$_lang['Class deleted'] = 'ลบกลุ่มเรียนออกแล้ว';
+$_lang['Class has been enroled'] = 'ได้สมัครเข้ากลุ่มเรียนแล้ว';
+$_lang['Class has been unenroled'] = 'ได้ถอนชื่อออกจากกลุ่มเรียนแล้ว';
+$_lang['Class members'] = 'สมาชิกในกล่มเรียน';
+$_lang['Class not found'] = 'ไม่พบกลุ่มเรียน';
+$_lang['Class registered'] = 'ลงทะเบียนกลุ่มเรียนแล้ว';
+$_lang['Class users'] = 'สมาชิกของกลุ่มเรียน';
+$_lang['Classes'] = 'กลุ่มเรียน';
+$_lang['Clear up event list'] = 'ล้างรายการกิจกรรม';
+$_lang['Click on the month name for more details'] = 'คลิกดูรายละเอียดต่างๆในแต่ละเดือน';
+$_lang['Click to make visible'] = 'คลิกเพื่อทำให้มองเห็น';
+$_lang['Close'] = 'ปิด';
+$_lang['Close popup'] = 'ปิดหน้าต่าง popup';
+$_lang['Close window'] = 'ปิดหน้าต่าง';
+$_lang['Code'] = 'รหัส';
+$_lang['Comment'] = 'ความเห็น';
+$_lang['Comment modified'] = 'แก้ไขความเห็นแล้ว';
+$_lang['Complementary fields'] = 'Complementary fields';
+$_lang['Complete language files'] = 'ไฟล์ภาษาที่สมบูรณ์';
+$_lang['Configuration'] = 'การตั้งค่าระบบหลัก';
+$_lang['Confirm Operation'] = 'ยืนยันการปฏิบัติ';
+$_lang['Confirm the creation of a new user'] = 'ยืนยันการสร้างชื่อให้แกสมาชิกใหม่';
+$_lang['Confirmation'] = 'การยืนยัน';
+$_lang['Contact'] = 'ติดต่อ';
+$_lang['Contact your administrator.'] = 'กรุณาติดต่อผู้จัดการระบบของคุณ.';
+$_lang['Content'] = 'เนื้อหา';
+$_lang['Continue'] = 'ต่อไป';
+$_lang['Conversion'] = 'เปลี่ยนเวอร์ชั่น';
+$_lang['Conversion 1.7 to 1.8'] = 'เปลี่ยนเวอร์ชั่น 1.7 ไปเป็นเวอร์ชั่น 1.8';
+$_lang['Copy'] = 'คัดลอก';
+$_lang['Copy any text you are currently writing and paste it outside the browser'] = 'กรุณาคัดลอก(copy)ข้อความใดๆที่คุณพิมพ์ในขณะนี้ไว้และไปวาง(paste)เก็บที่นอกหน้าเว็ปนี้ก่อนแล้วจึงเข้าระบบใหม่อีกครั้ง';
+$_lang['Corresponds to'] = 'สอดคล้องกับ';
+$_lang['Country'] = 'ประเทศ';
+$_lang['Country code seems to be incorrect.'] = 'รหัสประเทศไม่ถูกต้อง.';
+$_lang['Course'] = 'วิชา';
+$_lang['Course Home'] = 'โฮมเพจวิชา';
+$_lang['Course Manager'] = 'ผู้จัดการวิชา';
+$_lang['Course access'] = 'การเข้าเรียนวิชา';
+$_lang['Course administrator only'] = 'ผู้จัดการวิชาเท่านั้น';
+$_lang['Course banner - left'] = 'ป้ายชื่อวิชาด้านซ้าย';
+$_lang['Course banner - right'] = 'ป้ายชื่อวิชาด้านขวา';
 $_lang['Course code'] = 'รหัสวิชา';
+$_lang['Course code needed'] = 'ต้องใส่รหัสวิชา';
+$_lang['Course creator'] = 'ผู้สอน';
+$_lang['Course description'] = 'คำอธิบายรายวิชา:แนวคิด';
+$_lang['Course list'] = 'รายชื่อวิชาที่มีในระบบ';
+$_lang['Course manager'] = 'ผู้จัดการวิชา';
+$_lang['Course manager cannot unsubscribe himself'] = 'ผู้เป็นเจ้าของวิชาไม่สามารถถอนชื่อตัวเองออกได้';
+$_lang['Course members'] = 'การลงทะเบียน';
+$_lang['Course not found'] = 'ไม่พบวิชา';
+$_lang['Course profile'] = 'แฟ้มประวัติของวิชา';
+$_lang['Course profile list'] = 'รายการบทบาทและสิทธิสมาชิกในวิชา';
+$_lang['Course progression'] = 'ความคืบหน้าการเรียนในวิชา';
+$_lang['Course settings'] = 'การตั้งค่าวิชา';
+$_lang['Course statistics deleted'] = 'ลบค่าสถิติของวิชาแล้ว';
 $_lang['Course title'] = 'ชื่อวิชา';
-$_lang['Create Directory'] = 'สร้าง directory';
-$_lang['Create a course site'] = 'สร้างรายวิชา';
-$_lang['Create a course website'] = 'สร้างรายวิชา';
+$_lang['Course title needed'] = 'ต้องตั้งชื่อวิชา';
+$_lang['Course users list'] = 'รายชื่อวิชาของเรา';
+$_lang['Courses'] = 'วิชาที่มีในระบบ';
+$_lang['Courses not used'] = 'วิชาที่ยังไม่เปิด';
+$_lang['Courses with unexisting users registered'] = 'วิชาที่ไม่มีผู้ลงทะเบียน';
+$_lang['Courses without a lecturer'] = 'วิชาที่ไม่มีผู้สอน';
+$_lang['Courses without student'] = 'วิชาที่ไม่มีผู้เรียน';
+$_lang['Create'] = 'เพิ่มเข้า';
+$_lang['Create Directory'] = 'เพิ่มแฟ้มรายการใหม่';
+$_lang['Create Document'] = 'สร้างเอกสารคำสอน';
+$_lang['Create Pages'] = 'เพิ่มหน้า';
+$_lang['Create a category'] = 'เพิ่มหมวดหมู่ใหม่';
+$_lang['Create a course site'] = 'เพิ่มวิชา';
+$_lang['Create a course website'] = 'สร้าง-เพิ่มวิชาเรียนในระบบ';
+$_lang['Create a new Wiki'] = 'สร้างสารานุกรม Wiki ใหม่';
+$_lang['Create a new assignment'] = 'เพิ่มกิจกรรมการเีรียน';
+$_lang['Create a new class'] = 'เพิ่มชั้นเรียนใหม่';
+$_lang['Create a new learning path'] = 'สร้างลำดับการเรียนรู้ใหม่';
+$_lang['Create a new user'] = 'เชิญหรือเพิ่มชื่อสมาชิกให้';
+$_lang['Create another new user'] = 'เพิ่มชื่ออื่นอีก';
+$_lang['Create category'] = 'เพิ่มหมวดหมู่';
+$_lang['Create course'] = 'สร้างวิชาในฐานะอาจารย์หรือผู้จัดการวิชา';
+$_lang['Create first a user account on this platform'] = 'สร้างบัญชีชื่อสมาชิกของระบบ';
+$_lang['Create forum'] = 'เปิดการอภิปราย';
+$_lang['Create hyperlink'] = 'สร้างการเชื่อมโยง';
+$_lang['Create label'] = 'แทรกแถบป้าย';
+$_lang['Create new group(s)'] = 'เพิ่มกลุ่มเรียนใหม่';
+$_lang['Create user'] = 'เพิ่มสมาชิกในระบบ';
+$_lang['Create user account'] = 'สมัครเป็นสมาชิกใหม่ คลิกที่นี่';
+$_lang['Create/edit document'] = 'เพิ่ม/แก้ไขเอกสาร';
+$_lang['Creating course (it may take a while) ...'] = 'กำลังสร้างวิชา(กรุณารอสักครู่) ... ';
+$_lang['Current file'] = 'ไฟล์ปัจจุบัน';
+$_lang['Current registration status :'] = 'สถานภาพการลงทะเบียนปัจจุบัน : <br /> <br />
+';
+$_lang['Current time'] = 'เวลาปัจจุบัน';
+$_lang['Data missing'] = 'ไม่มีข้อมูล';
+$_lang['Database error :'] = 'ฐานข้อมูลมีปัญหา :';
+$_lang['Database uninstallation failed'] = 'การถอดถอนฐานข้อมูลล้มเหลว';
+$_lang['Database uninstallation succeeded'] = 'การถอดถอนฐานข้อมูลเสร็จเรียบร้อย';
 $_lang['Date'] = 'วันที่';
 $_lang['Day'] = 'วัน';
+$_lang['Deactivated'] = 'ยังไม่ใช้งาน';
+$_lang['Deactivated - Click to activate'] = 'ไม่ใช้งาน - คลิกเพื่อเปิดใช้งาน';
+$_lang['Default works visibility'] = 'ตั้งค่าการมองเห็นงานที่ส่ง';
 $_lang['Delete'] = 'ลบ';
+$_lang['Delete Wiki'] = 'ลบสารานุกรม Wiki';
+$_lang['Delete all course statistics'] = 'ลบค่าสถิติทุกอย่างของวิชา';
+$_lang['Delete all groups'] = 'ลบหมู่เรียนทั้งหมด';
+$_lang['Delete all messages of'] = 'ลบข้อความ/กระทู้ทั้งหมดของ ';
+$_lang['Delete attached file'] = 'ลบไฟล์ข้อมูลและเอกสารที่แนบ';
+$_lang['Delete my account'] = 'ลบบัญชีชื่อของเรา';
+$_lang['Delete the whole course website'] = 'ลบวิชาและหน่วยทั้งหมดออกจากระบบ';
+$_lang['Delete user'] = 'ลบสมาชิก';
+$_lang['Denied'] = 'ไม่อนุญาต';
+$_lang['Department'] = 'ชื่อหน่วยงาน';
+$_lang['Department URL'] = 'ชื่อที่อยู่เว็ปไซท์(URL)ของหน่วยงาน';
+$_lang['Department URL is not valid'] = 'ชื่อเว็ปไซท์ของหน่วยงานไม่ถูกต้อง';
+$_lang['Description'] = 'คำอธิบาย';
+$_lang['Description added.'] = 'เพิ่มคำชี้แจงแล้ว.';
+$_lang['Description deleted.'] = 'ลบคำชี้แจงแล้ว.';
+$_lang['Description of the Wiki'] = 'คำอธิบายของ Wiki';
+$_lang['Description updated'] = 'ได้ปรับปรุงแก้ไขคำอธิบายแล้ว.';
 $_lang['Detail'] = 'รายละเอียด';
-$_lang['Directory created'] = 'สร้างdirectory เรียบร้อย';
-$_lang['Document deleted'] = 'ลบเอกสารแล้ว';
-$_lang['Documents and Links'] = 'เอกสาร';
-$_lang['Documents help'] = 'ระบบช่วยเหลือ \'งานเอกสาร\'';
-$_lang['Element moved'] = 'ย้ายdirectory เรียบร้อย';
-$_lang['Element renamed'] = 'เปลี่ยนชื่อแล้ว';
-$_lang['Email'] = 'Email';
-$_lang['Empty'] = 'ท่านปล่อยให้บางช่องว่างเปล่า.<br />ใช้ปุ่ม ย้อนกลับ และลองใหม่อีกครั้ง<br />ถ้าท่านไม่มีรหัสวิชา โปรดใช้เป็นชื่อรายวิชาแทน';
-$_lang['Enter'] = 'ตกลง';
-$_lang['Exercises'] = 'แบบฝึกหัด';
-$_lang['Finish'] = 'เสร็จสิ้น';
-$_lang['Follow courses'] = 'เข้าสู่บทเรียน';
-$_lang['Forums'] = 'กระดานข่าว';
-$_lang['Forums help'] = 'ระบบช่วยเหลือ \'กระดานข่าว\'';
-$_lang['Group area'] = 'พื้นที่กลุ่ม';
-$_lang['Groups'] = 'กลุ่ม';
-$_lang['Groups help'] = 'หน้าช่วยเหลือกลุ่ม';
-$_lang['Help'] = 'ช่วยเหลือ';
-$_lang['Home page help'] = 'ระบบช่วยเหลือ \'หน้าหลักบทเรียน\'';
+$_lang['Details'] = 'รายละเอียด';
+$_lang['Devel Tools'] = 'เครื่องมือพัฒนาระบบ';
+$_lang['Direct link to image'] = 'เชื่อมโยงภาพ';
+$_lang['Directory created'] = 'สร้างแฟ้มรายการให้แล้ว';
+$_lang['Disable'] = 'ใช้ไม่ได้';
+$_lang['Disk Usage'] = 'ใช้พื้นที่เก็บไฟล์';
+$_lang['Disk space available'] = 'เหลือพื้นที่';
+$_lang['Disk space available : %size'] = 'เหลือพื้นที่เก็บไฟล์ : %ขนาด';
+$_lang['Disk space occupied : %size'] = 'พื้นที่ดิสก์ที่ได้รับจัดสรรให้ : %ขนาด';
+$_lang['Display'] = 'แสดงผล';
+$_lang['Do you want to continue?'] = 'คุณต้องการทำต่อไปหรือไม่?';
+$_lang['Document'] = 'เอกสารของวิชา';
+$_lang['Document content'] = 'เนื้อหาเอกสาร';
+$_lang['Document deleted'] = 'ลบเอกสารให้แล้ว';
+$_lang['Document in module'] = 'เอกสารประจำหน่วย';
+$_lang['Document name'] = 'ชื่อเอกสาร';
+$_lang['Documents'] = 'เอกสารการสอน';
+$_lang['Documents and Links'] = 'เอกสารการสอนและแหล่งข้อมูล';
+$_lang['Documents downloaded by the student'] = 'ไฟล์เอกสารการสอนที่ให้ผู้เรียนโอนลง';
+$_lang['Documents help'] = 'คำแนะนำเกี่ยวกับเอกสารการสอน';
+$_lang['Down'] = 'เรียงลง';
+$_lang['Download current directory'] = 'โอนไฟล์ที่มีในทุกแฟ้มรายการลงมาทั้งหมด';
+$_lang['Download file'] = 'โอนไฟล์ลง';
+$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'ผิดพลาด: รูปแบบที่คุณใช้ ไม่สามารถใช้หรือเข้ากันได้กับระบบของแคลโรไลน์';
+$_lang['Edit'] = 'แก้ไข';
+$_lang['Edit Event'] = 'แก้ไขกิจกรรม';
+$_lang['Edit Pages'] = 'แก้ไขหน้า';
+$_lang['Edit Tool list'] = 'การจัดการเครื่องมือ';
+$_lang['Edit a category'] = 'แก้ไขหมวดหมู่';
+$_lang['Edit answers'] = 'แก้ไขคำตอบ';
+$_lang['Edit category'] = 'แก้ไขหมวดหมู่';
+$_lang['Edit conflict'] = 'แก้ไขความขัดแย้งระบบ';
+$_lang['Edit exercise'] = 'แก้ไขแบบทดสอบ';
+$_lang['Edit exercise settings'] = 'แก้ไขและตั้งค่าแบบทดสอบ';
+$_lang['Edit file content'] = 'แก้ไขไฟล์เนื้อหา';
+$_lang['Edit format to use'] = 'แก้ไขรูปแบบที่จะนำไปใช้';
+$_lang['Edit post'] = 'แก้ไขกระทู้';
+$_lang['Edit profile'] = 'รายการบทบาทและสิทธิสมาชิกในวิชา';
+$_lang['Edit properties'] = 'แก้ไขคุณสมบัติ';
+$_lang['Edit question'] = 'แก้ไขคำถาม';
+$_lang['Edit settings'] = 'การแก้ไข/ตั้งค่า';
+$_lang['Edit text zone'] = 'คลิกสร้าง:แก้ไข:เพิ่มเติม';
+$_lang['Edit text zones'] = 'แก้ไขตั้งค่าหน้าโฮมเพจ';
+$_lang['Edit this group'] = 'แก้ไขตั้งค่าสมาชิกกลุ่มนี้';
+$_lang['Edit this page'] = 'แก้ไขหน้านี้';
+$_lang['Email'] = 'ชื่อที่อยู่อีเมล';
+$_lang['Email needed'] = 'ต้องกรอกอีเมล';
+$_lang['Empty'] = 'ล้าง';
+$_lang['Empty all groups'] = 'ล้างข้อมูลกลุ่มเรียนทั้งหมด';
+$_lang['Empty language file'] = 'ล้างไฟล์ข้อมูลภาษา';
+$_lang['End date'] = 'ถึงวันที่';
+$_lang['Enrol as course manager'] = 'ในบทบาทฐานะเป็นผู้จัดการวิชา';
+$_lang['Enrol as student'] = 'ในบทบาทฐานะเป็นผู้เรียน';
+$_lang['Enrol as teacher'] = 'ในบทบาทฐานะเป็นผู้สอน';
+$_lang['Enrol class'] = 'เลือกกลุ่มเรียน';
+$_lang['Enrol on a new course'] = 'สมัครเรียนวิชา';
+$_lang['Enrol to a new course'] = 'สมัครเรียนวิชาใหม่';
+$_lang['Enrol to course'] = 'สมัครเข้ากลุ่มเรียน';
+$_lang['Enrol to course not allowed'] = 'ไม่อนุญาตให้สมัครเรียนเอง';
+$_lang['Enroll a user'] = 'อนุญาตผู้เรียน';
+$_lang['Enrolment'] = 'การสมัครเข้าเรียนเอง';
+$_lang['Enrolment allowed only'] = 'ต้องอนุญาตให้สมัครเข้าเรียนได้ก่อนเท่านั้น';
+$_lang['Enrolment denied only'] = 'ไม่อนุญาตให้สมัครเข้าเรียนได้เอง เท่านั้น';
+$_lang['Enrolment key'] = 'โดยใช้รหัสที่กำหนดให้คือ';
+$_lang['Enter'] = 'คลิกเข้าระบบ';
+$_lang['Enter link url'] = 'ใส่ที่อยู่เชื่อมโยง url';
+$_lang['Enter new password twice to change, leave empty to keep it'] = 'หากต้องการเปลี่ยนรหัสใหม่ ต้องพิมพ์ยืนยันรหัสให้ครบทั้งสองช่อง หากยังไม่ต้องการเปลี่ยนก็ปล่อยว่างไว้ จะใช้รหัสผ่านเดิม';
+$_lang['Enter your email so we can send you your password.'] = 'กรอกที่อยู่อีเมลที่คุณใช้ลงทะเบียนเป็นสมาชิก เพื่อเราจะได้ส่งรหัสผ่านใหม่ไปให้คุณ';
+$_lang['Event deleted from the agenda'] = 'ได้ลบกิจกรรมและกำหนดการออกให้แล้ว';
+$_lang['Exercise'] = 'แบบทดสอบออนไลน์วิชา:';
+$_lang['Exercise added'] = 'เพิ่มแบบทดสอบให้แล้ว';
+$_lang['Exercise in module'] = 'แบบทดสอบประจำหน่วย';
+$_lang['Exercise modified'] = 'แก้ไขแบบทดสอบแล้ว';
+$_lang['Exercise not available'] = 'ยังไม่มีแบบทดสอบ';
+$_lang['Exercise results'] = 'ผลสอบ';
+$_lang['Exercise title'] = 'แบบทดสอบวิชา';
+$_lang['Exercise type'] = 'ให้แสดงคำถามแบบ';
+$_lang['Exercises'] = 'แบบทดสอบของวิชา';
+$_lang['Exercises help'] = 'คำแนะนำแบบทดสอบของวิชา';
+$_lang['Feedback'] = 'ตอบกลับ';
+$_lang['Feedbacks'] = 'ตอบกลับ';
+$_lang['Fields enclosed by'] = 'ข้อมูลในระหว่างเครื่องหมาย';
+$_lang['Fields separator used'] = 'ข้อมูลที่คั่นด้วยเครื่องหมาย';
+$_lang['File (file required, description text optional)'] = 'แนบไฟล์(ส่งงานเป็นไฟล์พร้อมคำอธิบายไฟล์งาน)';
+$_lang['File Name or URL is missing.'] = 'ชื่อไฟล์กรือที่อยู่URLหายไป.';
+$_lang['File content modified'] = 'ได้ปรับปรุงเนื้อหาของไฟล์ให้เรียบร้อยแล้ว';
+$_lang['File created'] = 'สร้างไฟล์ให้แล้ว';
+$_lang['File description'] = 'คำอธิบายเกี่ยวกับไฟล์';
+$_lang['File list'] = 'รายชื่อไฟล์';
+$_lang['File must be a zip file (.zip)'] = 'ต้องเป็นไฟล์ที่บีบอัดเป็นรูปแบบzip(.zip)';
+$_lang['File name is missing'] = 'ไม่มีชื่อไฟล์';
+$_lang['File received : %filename'] = 'ได้รับไฟล์แล้ว : %ชื่อไฟล์ ';
+$_lang['Filename'] = 'ชื่อไฟล์ของหน้าหลัก';
+$_lang['Fill groups (automatically)'] = 'จัดเข้ากลุ่ม(โดยอัตโนมัติ)';
+$_lang['Fill in blanks'] = 'เติมคำในช่องว่าง';
+$_lang['Fill text field'] = 'เติมคำให้สมบูรณ์';
+$_lang['Finish'] = 'จบ';
+$_lang['Finish the test'] = 'จบการทดสอบ';
+$_lang['First name'] = 'ชื่อจริง';
+$_lang['First submission date'] = 'First&nbsp;submission&nbsp;date';
+$_lang['Follow courses'] = 'สมาชิก/ผู้เรียนในระบบ';
+$_lang['Format changed'] = 'เปลี่ยนรูปแบบแล้ว';
+$_lang['Forum'] = 'กระทู้อภิปราย';
+$_lang['Forum created'] = 'ตั้งกระทู้แล้ว.';
+$_lang['Forum deleted'] = 'ลบกระทู้แล้ว.';
+$_lang['Forum emptied'] = 'ล้างกระทู้แล้ว.';
+$_lang['Forum posts'] = 'กระทู้อภิปราย';
+$_lang['Forum updated'] = 'แก้ไขกระทู้แล้ว.';
+$_lang['Forum usage'] = 'การเข้าร่วมอภิปราย';
+$_lang['Forums'] = 'การอภิปราย';
+$_lang['Forums help'] = 'คำแนะนำเกี่ยวกับกระทู้อภิปราย';
+$_lang['From'] = 'จาก';
+$_lang['From language files'] = 'จากไฟล์ภาษาต่างๆ';
+$_lang['From script files'] = 'จากไฟล์สคริ๊ป';
+$_lang['Fullscreen'] = 'ขยายหน้าเต็มจอ';
+$_lang['General Informations'] = 'ข้อมูลทั่วๆไป';
+$_lang['Global settings'] = 'การตั้งค่าโดยรวมทั้งระบบ';
+$_lang['Go back to Wiki list'] = 'ไปที่รายการ Wiki';
+$_lang['Go back to the exercise'] = 'ไปที่แบบทดสอบ';
+$_lang['Go to documents tool'] = 'ไปที่เครื่องมือ';
+$_lang['Go to the account creation page'] = 'ไปที่หน้าสร้างบัญชีชื่อ';
+$_lang['Group'] = 'กลุ่ม';
+$_lang['Group Tutor'] = 'อาจารย์ประจำกลุ่มเรียน';
+$_lang['Group area'] = 'ศูนย์กิจกรรมและบริการของกลุ่ม';
+$_lang['Group deleted'] = 'ลบกลุ่มเรียบร้อยแล้ว';
+$_lang['Group forums category can\'t be deleted'] = 'ไม่สามารถลบประเภทการอภิปรายกลุ่มได้.';
+$_lang['Group management'] = 'การบริหารจัดการกลุ่ม';
+$_lang['Group members'] = 'สมาชิกในกลุ่มเรียน';
+$_lang['Group name'] = 'ชื่อกลุ่มเรียน';
+$_lang['Group settings have been modified'] = 'ได้ปรับปรุงแก้ไขการตั้งค่ากลุ่มให้เรียบร้อยแล้ว';
+$_lang['Group settings modified'] = 'ได้ปรับปรุงแก้ไขการตั้งค่ากลุ่มให้แล้ว';
+$_lang['Groups'] = 'กลุ่มเรียน';
+$_lang['Groups (from groups tool, only group members can post)'] = 'งานกลุ่ม (เฉพาะสมาชิกในกลุ่ม เท่านั้น ที่สามารถส่งงานผ่านเครื่องมือของกลุ่มได้';
+$_lang['Groups help'] = 'คำแนะนำเกี่ยวกับกลุ่มเรียน';
+$_lang['Groups settings'] = 'การตั้งค่ากลุ่มเรียน';
+$_lang['He or she will receive email confirmation with login and password'] = 'การเพิ่มชื่อสมาชิกให้เองทีละคนวิธีนี้ ผู้เรียนหรือผู้ที่ได้รับเชิญนี้ จะได้รับข่าวแจ้งชื่อเข้าใช้ระบบ(User Name)และรหัสผ่าน(Password)ตามที่ตั้งให้นี้โดยอัตโนมัติ ผ่านทางอีเมลที่ใช้ลงทะเบียนในครั้งนี่ ';
+$_lang['Help'] = 'คำแนะนำ';
+$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'ในส่วนนี้ คุณสามารถปรับแก้ เพิ่มเติมเนื้อหาของไฟล์ในส่วนต่างๆ ที่จะแสดงผลในหน้าหลักของระบบ.';
+$_lang['Hits'] = 'ครั้ง';
+$_lang['Home page help'] = 'หน้าคำแนะนำ';
 $_lang['Hour'] = 'ชั่วโมง';
-$_lang['Last 7 days'] = '7วันที่แล้ว';
-$_lang['Last message'] = 'โพสครั้งล่าสุด';
-$_lang['Lasting'] = 'คาบ';
-$_lang['Lecturer(s)'] = 'อาจารย์';
-$_lang['Logout'] = 'Logout';
+$_lang['Icon'] = 'สัญรูป';
+$_lang['Import'] = 'นำเข้า';
+$_lang['Import a learning path'] = 'นำเข้าลำดับการเรียนรู้';
+$_lang['Import done'] = 'นำเข้าวิชาเรียบร้อยแล้ว';
+$_lang['Import exercise'] = 'นำเข้าแบบทดสอบ';
+$_lang['In frames'] = 'ในกรอบเฟรม';
+$_lang['Individual'] = 'งานเดี่ยว(ส่วนบุคคล)';
+$_lang['Information'] = 'ข้อมูล';
+$_lang['Information to give to students'] = 'ข้อมูลหรือข้อความที่จะบอกกล่าวผู้เรียน';
+$_lang['Insert new name'] = 'แทรกชื่อใหม่';
+$_lang['Install module'] = 'ติดตั้งหน่วยของระบบเพิ่มเติม';
+$_lang['Institution'] = 'สถาบันการศึกษา';
+$_lang['Institution URL'] = 'ที่อยู่เว็ปไซท์ของสถานศึกษา';
+$_lang['Invalid Wiki Id'] = 'Invalid Wiki Id';
+$_lang['Invalid email address'] = 'ชื่อที่อยู่อีเมลไม่ถูกต้อง';
+$_lang['Invalid matching choice'] = 'เลือกจับคู่ไม่ถูกต้อง';
+$_lang['Invalid url'] = 'ที่อยู่เว็ปไม่ถูกต้อง';
+$_lang['Invisible'] = 'ไม่ให้เห็น';
+$_lang['Is platform admin'] = 'เป็นผู้จัดการระบบ';
+$_lang['Item'] = 'รายการ';
+$_lang['Keys :'] = 'คำสำคัญ :';
+$_lang['Language'] = 'เลือกภาษาของวิชา';
+$_lang['Language needed'] = 'ต้องกำหนดภาษาของวิชา';
+$_lang['Language packs'] = 'ชุดภาษาที่มีในระบบ';
+$_lang['Last 31 days'] = 'ในรอบเดือนที่ผ่านมา';
+$_lang['Last 7 days'] = 'ในรอบสัปดาห์ที่ผ่านมา';
+$_lang['Last access'] = 'เข้าครั้งล่าสุดเมื่อ';
+$_lang['Last attempt'] = 'เข้าทำล่าสุดเมื่อ';
+$_lang['Last computing'] = 'ตรวจสอบล่าสุดเมื่อ';
+$_lang['Last edit date'] = 'วันที่แก้ไขครั้งสุดท้าย';
+$_lang['Last message'] = 'กระทู้ล่าสุด';
+$_lang['Last message was on'] = 'กระทู้ล่าสุดเมื่อ';
+$_lang['Last messages'] = 'กระทู้ล่าสุด';
+$_lang['Last name'] = 'นามสกุล';
+$_lang['Last score'] = 'คะแนนที่ได้ล่าสุด';
+$_lang['Lasting'] = 'จนถึง';
+$_lang['Late upload'] = 'ส่งไฟล์งานขึ้นหลังสุด';
+$_lang['Latest announcements'] = 'ประกาศล่าสุด';
+$_lang['Learning Path is empty'] = 'ยังไม่มีการกำหนดแผนสาระการเรียนรู้';
+$_lang['Learning Path not found'] = 'ไม่พบแผนสาระการเรียนรู้';
+$_lang['Learning path'] = 'การเรียนตามแผนสาระการเรียนรู้';
+$_lang['Learning path admin'] = 'การจัดการแผนสาระการเรียนรู้';
+$_lang['Learning path content'] = 'เนื้อหาสาระการเรียนรู้';
+$_lang['Learning path has been successfully imported.'] = 'ได้นำเข้าแผนสาระการเรียนรู้ เรียบร้อยแล้ว.';
+$_lang['Learning path list'] = 'หัวข้อแผนสาระการเรียนรู้';
+$_lang['Learning path progression :'] = 'ความก้าวหน้าการเรียนตามแผนสาระการเรียนรู้ : ';
+$_lang['Learning paths tracking'] = 'ติดตามผลการเข้าเรียนตามสาระการเรียนรู้';
+$_lang['Lecturer(s)'] = 'อาจารย์ผู้สอน';
+$_lang['License'] = 'สิทธิอนุญาต';
+$_lang['Limit'] = 'ข้อกำหนด';
+$_lang['Line Number'] = 'บรรทัดที่';
+$_lang['Line break'] = 'ขึ้นบรรทัดใหม่';
+$_lang['List of students in this group'] = 'รายชื่อผู้เรียนในกลุ่มนี้';
+$_lang['Load default format'] = 'เรียกคืนค่าตั้งต้นตามเดิม';
+$_lang['Local settings'] = 'ตั้งค่าสิทธิ์การเข้าเป็นสมาชิกกลุ่ม';
+$_lang['Location'] = 'ที่อยู่';
+$_lang['Login'] = 'การเข้าระบบ';
+$_lang['Login date'] = 'วันที่เข้าระบบ';
+$_lang['Login failed.'] = 'การแจ้งสิทธิ์เข้าสู่ระบบล้มเหลว.';
+$_lang['Login request'] = 'ร้องขอเข้าใช้ระบบ';
+$_lang['Logins'] = 'เข้าสู่ระบบ';
+$_lang['Logins and access to tools'] = 'เข้าระบบและใช้เครื่องมือ';
+$_lang['Logins not used'] = 'สมาชิกที่ไม่เคยเข้าใช้';
+$_lang['Logout'] = 'ออกจากระบบ';
+$_lang['Lost password'] = 'สมาชิกที่ลืมรหัสผ่าน คลิกแจ้งที่นี่';
+$_lang['Mail to'] = 'ส่งอีเมลถึง';
+$_lang['Main Group Settings'] = 'การตั้งค่ากลุ่มเรียน';
+$_lang['Main Page'] = 'หน้าหลัก';
+$_lang['Main page'] = 'หน้าหลัก';
+$_lang['Make invisible'] = 'ยังไม่ให้มองเห็น';
+$_lang['Make new search'] = 'ให้ค้นหาใหม่ : ';
+$_lang['Make search'] = 'ให้ค้นหา';
+$_lang['Make visible'] = 'ให้มองเห็น';
+$_lang['Manage External link'] = 'การจัดการ การเชื่อมโยงจากเว็ปไซท์ภายนอก';
+$_lang['Manage Right'] = 'การจัดการสิทธิ์';
+$_lang['Manage classes'] = 'การจัดการกลุ่มเรียน';
+$_lang['Manage course categories'] = 'การจัดการหมวดหมู่วิชา';
 $_lang['Manager'] = 'ผู้จัดการ';
-$_lang['Missing'] = 'ไม่พบ';
-$_lang['Modifies this announcement'] = 'ปรับปรุงรายการประกาศ';
-$_lang['Modify'] = 'ปรับปรุง';
+$_lang['Manager(s) for %course_code'] = 'ชื่อผู้สอน/ผู้จัดการวิชา รหัส %course_code';
+$_lang['Matching'] = 'จับคู่';
+$_lang['Max file size'] = 'ขนาดไฟล์ใหญ่สุดไม่เกิน';
+$_lang['Max file size : %size'] = 'ขนาดไฟล์ใหญ่สุด : %ขนาด';
+$_lang['Max.'] = 'จำนวนผู้เรียนไม่เกิน.';
+$_lang['Maximum disk space : %size'] = 'พื้นที่ดิสก์มากที่สุด : %ขนาด';
+$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'ให้จดจำชื่อสมาชิก(User Name) รหัสผ่าน(Password)ที่คุณตั้งเองข้างล่างนี้ เพื่อใช้ในการเข้าใช้ระบบต่อไป หลังจากลงทะเบียนผ่านแล้ว กรุณาปรับแก้ไขข้อมูล ภาพถ่าย ที่เป็นปัจจุบัน โดยใช้ชื่อจริง ที่อยู่อีเมลต้องมีจริง ถูกต้องและใช้อยู่ในปัจจุบัน  ';
+$_lang['Message'] = 'ข้อความ';
+$_lang['Message body'] = 'เนื้อความ';
+$_lang['Message from your lecturer'] = 'ข้อความจากอาจารย์ผู้สอน';
+$_lang['Message sent'] = 'ข้อความที่ส่งแล้ว';
+$_lang['Messages'] = 'ข้อความทั้งหมด';
+$_lang['Messages posted'] = 'ส่งข้อความกระทู้';
+$_lang['MinuteShort'] = 'นาที.';
+$_lang['Missing'] = 'หายไป';
+$_lang['Missing images detected'] = 'ตรวจพบว่ามีภาพหายไป';
+$_lang['Missing language files'] = 'ไม่มีไฟล์ภาษา';
+$_lang['Modify'] = 'แก้ไข';
+$_lang['Modify a work'] = 'แก้ไขงาน';
+$_lang['Modify the format'] = 'แก้ไขรูปแบบ';
+$_lang['Module'] = 'หน่วย';
+$_lang['Module activation succeeded'] = 'ได้เปิดการใช้งานหน่วย ส่วนนี้เรียบร้อยแล้ว';
+$_lang['Module added :'] = 'เพิ่มหน่วยแล้ว : ';
+$_lang['Module list'] = 'รายการหน่วย';
+$_lang['Module moved'] = 'ย้ายหน่วยแล้ว';
+$_lang['Module name'] = 'ชื่อหน่วยในระบบ';
+$_lang['Module settings'] = 'ตั้งค่าหน่วย';
+$_lang['Module status'] = 'สถานะหน่วย';
+$_lang['Module type'] = 'ประเภทของหน่วย';
+$_lang['Module visibility updated'] = 'ได้ปรับปรุงการตั้งค่า <b>การมองเห็น ของหน่วยนี้ </b>ให้เรียบร้อยแล้ว';
+$_lang['Modules'] = 'หน่วยของระบบ(Modules)';
+$_lang['Month'] = 'เดือน';
 $_lang['Move'] = 'ย้าย';
-$_lang['My User Account'] = 'ปรับปรุงข้อมูลส่วนตัว';
-$_lang['My course list'] = 'My courses';
-$_lang['Name of the new directory'] = 'ชื่อของdirectoryใหม่';
-$_lang['New exercise'] = 'แบบฝึกหัดใหม่';
+$_lang['Move down'] = 'เลื่อนลง';
+$_lang['Move up'] = 'เลื่อนลง';
+$_lang['Multiple choice (Multiple answers)'] = 'แบบปรนัย (เลือกตอบได้หลายข้อ)';
+$_lang['Multiple choice (Unique answer)'] = 'แบบปรนัย (ตอบได้ข้อเดียว)';
+$_lang['My User Account'] = 'ข้อมูลสมาชิก';
+$_lang['My calendar'] = 'ปฏิทินและกิจกรรม';
+$_lang['My course list'] = 'วิชาของเรา';
+$_lang['My other courses'] = 'วิชาอื่นๆของเรา';
+$_lang['My personal course list'] = 'รายชื่อวิชาของเรา';
+$_lang['My results'] = 'ผลการเรียนของเรา';
+$_lang['Name'] = 'ชื่อเอกสาร';
+$_lang['Name cannot be empty'] = 'ต้องกรอกชื่อ';
+$_lang['Name is missing'] = 'ชื่อขาดหายไป';
+$_lang['Name link'] = 'ชื่อเชื่อมโยง';
+$_lang['Name of the class has been changed'] = 'ได้เปลี่ยนแปลงชื่อชั้นรียนหรือกลุ่มเรียนให้แล้ว';
+$_lang['Name of the new directory'] = 'ตั้งชื่อแฟ้มรายการใหม่';
+$_lang['Name of the tool'] = 'ชื่อของเครื่องมือ';
+$_lang['Never browsed'] = 'ไม่เคยถูกเลือกค้น';
+$_lang['Never connected students :'] = 'ผู้ที่ไม่เคยเข้าเรียน :';
+$_lang['Never used'] = 'ไม่เคยใช้';
+$_lang['New Class name'] = 'ตั้งชื่อชั้นเรียนหรือกลุ่มเรียนขึ้นใหม่';
+$_lang['New Wiki'] = 'New Wiki';
+$_lang['New assignment created'] = 'สร้างใบงานใหม่ให้แล้ว';
+$_lang['New chat'] = 'สนทนาใหม่';
+$_lang['New exercise'] = 'สร้างแบบทดสอบวิชาใหม่';
 $_lang['New question'] = 'คำถามใหม่';
-$_lang['New topic'] = 'ตั้งกระทู้ใหม่';
-$_lang['Newest first'] = 'ใหม่ไปเก่า';
+$_lang['New users will receive an e-mail with their user name and password'] = 'สมาชิกคนใหม่ที่เชิญหรือตั้งเพิ่มให้นี้ จะได้รับอีเมลแจ้งข้อมูลคือ 1.ชื่อที่ตั้งให้เป็นสมาชิกในระบบ(UserName) และ2.รหัสผ่าน(Password)เพื่อเข้าใช้ระบบ ไปให้ทราบโดยอัตโนมัติ';
+$_lang['Newest first'] = 'ล่าสุดมาก่อน';
+$_lang['Next'] = 'ต่อไป';
+$_lang['Next day'] = 'วันถัดไป';
+$_lang['Next month'] = 'เดือนถัดไป';
+$_lang['Next question'] = 'คำถามถัดไป';
+$_lang['Next week'] = 'สัปดาห์ถัดป';
+$_lang['Next year'] = 'ปีถัดไป';
 $_lang['No'] = 'ไม่';
+$_lang['No Content'] = 'ยังไม่มีเนื้อหา';
+$_lang['No Wiki'] = 'ยังไม่มีสารานุกรม Wiki';
+$_lang['No XML file found in the zip'] = 'ไม่มีไฟล์ XML ในไฟล์ zip';
+$_lang['No announcement'] = 'ยังไม่มีประกาศ.';
+$_lang['No change applied'] = 'ยังไม่มีการเปลี่ยนแปลง';
+$_lang['No change applied.'] = 'ยังไม่มีการเปลี่ยนแปลง.';
+$_lang['No closing date'] = 'ไม่มีกำหนด';
+$_lang['No course to display'] = 'ยังไม่มีวิชาเรียนในขณะนี้';
+$_lang['No description given'] = 'ยังไม่มีคำอธิบาย';
+$_lang['No event in the agenda'] = 'ยังไม่มีกำหนดการทำกิจกรรมในวิชาเรียน';
+$_lang['No group deleted'] = 'ไม่มีกลุ่มที่ถูกลบไป';
+$_lang['No image to display'] = 'ไม่มีภาพแสดง';
+$_lang['No language folder'] = 'ไม่มีแฟ้มภาษา';
+$_lang['No learning path'] = 'ไม่มีลำดับการเรียนรู้';
+$_lang['No module'] = 'ไม่มีโมดูล';
+$_lang['No module to uninstall'] = 'ไม่มีหน่วยที่ถูกถอดถอน';
+$_lang['No name'] = 'ไม่มีชื่อ';
+$_lang['No post'] = 'ไม่มีกระทู้';
+$_lang['No quota'] = 'ไม่มีโควตา';
+$_lang['No result'] = 'ไม่มีรายงานผล';
+$_lang['No score'] = 'ไม่มีคะแนน';
+$_lang['No stats to show.  You haven\'t registered any course.'] = 'ยังไม่มีสถิติ.คุณยังไม่ได้สมัครเรียนวิชาใดๆ.';
+$_lang['No time limitation'] = 'ไม่จำกัดเวลา';
+$_lang['No tool name'] = 'ไม่มีชื่อเครื่องมือ';
+$_lang['No user found'] = 'ไม่มีสมาชิก';
+$_lang['No user to display'] = 'ไม่มีสมาชิกที่จะแสดง';
+$_lang['No way'] = 'ไม่มีทาง';
+$_lang['No, prevent users submitting work after the end date'] = 'ไม่อนุญาตให้มีการส่งงานหลังจากพ้นกำหนดเวลา';
 $_lang['None'] = 'ไม่มี';
 $_lang['Not allowed'] = 'ไม่อนุญาต';
-$_lang['Notify by email when replies are posted'] = 'เตื่อนทางอีเมล์ เมื่อมีผู้ตอบหรือส่งข้อความใหม่';
+$_lang['Not recently connected students :'] = 'ไม่มีผู้เรียนคนใดเข้าใช้งานในขณะเวลานี้ : ';
+$_lang['Notice'] = 'คำเตือน';
+$_lang['Notify'] = 'แจ้งเตือน';
 $_lang['Now'] = 'เดี๋ยวนี้';
-$_lang['Ok'] = 'ตกลง';
-$_lang['Oldest first'] = 'เก่าไปใหม่';
-$_lang['On'] = 'มี';
-$_lang['Operation impossible'] = 'ไม่สามารถปฏิบัติได้';
-$_lang['Posted'] = 'Posted';
-$_lang['Posts'] = 'Posts';
-$_lang['Powered by'] = 'Powered by';
-$_lang['Publish'] = 'ตีพิมพ์';
-$_lang['Published on'] = 'ประกาศเมื่อ';
+$_lang['Number of courses'] = 'จำนวนวิชา';
+$_lang['Number of logins'] = 'จำนวนรวมผู้เข้าใช้ทั้งหมด';
+$_lang['Number of pages'] = 'จำนวนหน้า';
+$_lang['Number of rows'] = 'จำนวนแถว';
+$_lang['Number of users'] = 'จำนวนผู้เข้าเรียน';
+$_lang['OVER QUOTA'] = 'เกินโควตา';
+$_lang['Ok'] = 'ตกลง:บันทึก:แก้ไขใหม่';
+$_lang['Oldest first'] = 'เรียงลำดับจากอดีต แสดงขึ้นก่อน';
+$_lang['Only visible for teacher(s) and submitter(s)'] = 'เฉพาะอาจารย์ผู้สอนและผู้ที่ส่งงาน';
+$_lang['Optional'] = 'เลือกค่า';
+$_lang['Order'] = 'เรียงลำดับ';
+$_lang['Ordered list'] = 'ลำดับรายการ';
+$_lang['Other'] = 'อื่นๆ';
+$_lang['Others (*)'] = 'อื่นๆ (*)';
+$_lang['Page'] = 'หน้า';
+$_lang['Parent category'] = 'จัดอยู่ในหมวดวิชา';
+$_lang['Password'] = 'รหัสผ่าน';
+$_lang['Period'] = 'ช่วงเวลา';
+$_lang['PeriodDayShort'] = 'ว.';
+$_lang['PeriodHourShort'] = 'ชม.';
+$_lang['PersonalCourseList'] = 'รายชื่อวิชาส่วนตัว';
+$_lang['Phone'] = 'โทรศัพท์';
+$_lang['Platform'] = 'ระบบ';
+$_lang['Platform Administration'] = 'การจัดการระบบ';
+$_lang['Platform Administrator'] = 'ผู้จัดการระบบ';
+$_lang['Platform Courses'] = 'วิชาที่มีในระบบ';
+$_lang['Platform Settings'] = 'ตั้งค่าระบบ';
+$_lang['Platform statistics'] = 'สถิติของระบบ';
+$_lang['Please check that your campus URL is reachable from the internet.'] = 'กรุณาตรวจสอบชื่อเว็ปไซท์ระบบอีเลิร์นนิ่งของคุณ ว่าเป็นที่อยู่เว็ปไซท์จริง(URL)ที่ติดต่อเข้าทางอินเตอร์เน็ตได้หรือไม่.';
+$_lang['Please choose a good answer'] = 'โปรดเลือกคำตอบที่เห็นว่าถูกต้องเหมาะสมมากที่สุด';
+$_lang['Please confirm your choice'] = 'กรุณายืนยันข้อเลือกตอบ';
+$_lang['Please contact'] = 'กรุณาติดต่อ';
+$_lang['Please try again.'] = 'กรุณาลองใหม่.';
+$_lang['Posted'] = 'กระทู้';
+$_lang['Posts'] = 'กระทู้';
+$_lang['Preview'] = 'ทดสอบดูผล';
+$_lang['Preview :'] = 'ทดสอบดูผล : ';
+$_lang['Previous'] = 'ที่ผ่านมา';
+$_lang['Previous day'] = 'วันที่ผ่านมา';
+$_lang['Previous month'] = 'เดือนที่ผ่านมา';
+$_lang['Previous question'] = 'คำถามที่ผ่านมา';
+$_lang['Previous week'] = 'สัปดาห์ที่ผ่านมา';
+$_lang['Previous year'] = 'ปีที่ผ่านมา';
+$_lang['Private'] = 'เฉพาะสมาชิกระบบ';
+$_lang['Private access (site accessible only to people on the user list)'] = 'เฉพาะสมาชิกระบบ (ต้องเป็นสมาชิกที่ลงทะเบียนไว้ในระบบ และสมัครลงทะเบียนเรียนหรือมีสิทธิ์ตามรายชื่อที่กำหนดไว้ในรายวิชา)';
+$_lang['Private course only'] = 'วิชาเฉพาะสมาชิก เท่านั้น';
+$_lang['Private feedback'] = 'ตอบกลับเป็นส่วนตัว';
+$_lang['Profile'] = 'ประวัติ';
+$_lang['Profile locked'] = 'ปิดประวัติ';
+$_lang['Profile not found'] = 'ไม่พบประวัติ';
+$_lang['Progress'] = 'เปอร์เซ็นต์ความก้าวหน้า';
+$_lang['Progress in learning paths'] = 'ความก้าวหน้าการเรียนตามลำดับสาระการเรียนรู้';
+$_lang['Progression of users on all learning paths'] = 'ความก้าวหน้าของผู้เรียนทุกคน ตามลำดับแผนจัดการเรียนรู้';
+$_lang['Properties'] = 'คุณลักษณะ';
+$_lang['Public'] = 'แบบสาธารณะ';
+$_lang['Public access from campus home page even without login'] = 'เข้าเรียนฟรีผ่านทางหน้าโฮมเพจหลัก โดยไม่ต้องแจ้งสิทธิ์หรือเข้าระบบก่อนเข้าใช้งาน';
+$_lang['Public course only'] = 'วิชาแบบสาธารณะเท่านั้น';
+$_lang['Public courses'] = 'หลักสูตรวิชาแบบสาธารณะ';
+$_lang['Publish'] = 'เผยแพร่';
+$_lang['Published on'] = 'เผยแพร่เมื่อ';
 $_lang['Question'] = 'คำถาม';
+$_lang['Question pool'] = 'คลังคำถาม';
+$_lang['Question title'] = 'ชื่อคำถาม';
+$_lang['Question to lecturer'] = 'คำถามถึงผู้สอน';
+$_lang['Random questions'] = 'สุ่มคำถาม';
+$_lang['Register my campus'] = 'แจ้งลงทะเบียนเว็ปไซท์';
+$_lang['Register user'] = 'สมาชิกที่ลงทะเบียน';
+$_lang['Registered'] = 'ลงทะเบียนแล้ว';
+$_lang['Registration'] = 'ลงทะเบียน';
 $_lang['Remove'] = 'เอาออก';
+$_lang['Remove course enrolment'] = 'ถอนวิชาเรียน';
 $_lang['Rename'] = 'เปลี่ยนชื่อ';
-$_lang['Reply'] = 'ตอบกระทู้';
-$_lang['Result'] = 'คะแนน';
-$_lang['Return to the list'] = 'ย้อนกลับ';
-$_lang['Role'] = 'สถานะภาพ';
+$_lang['Repair category structure'] = 'การซ่อมแซมโครงสร้างหมวดหมู่วิชา';
+$_lang['Replies'] = 'ผู้ตอบ';
+$_lang['Reply'] = 'ตอบ';
+$_lang['Reset'] = 'เริ่มใหม่';
+$_lang['Result'] = 'ผล';
+$_lang['Results of the exercises done'] = 'ผลการทำแบบทดสอบในวิชาที่เรียน';
+$_lang['Retry'] = 'ลองใหม่';
+$_lang['Return to the list'] = 'กลับไปที่รายการ';
+$_lang['Right profile list'] = 'บทบาทและสิทธิสมาชิก';
+$_lang['Rights'] = 'สิทธิ';
+$_lang['Role'] = 'บทบาท';
+$_lang['Root'] = 'root';
+$_lang['SDK'] = 'ชุดโปรแกรมพัฒนาระบบ(SDK)';
 $_lang['Save'] = 'บันทึก';
-$_lang['Seen'] = 'อ่าน';
-$_lang['Send this announcement by email to registered students'] = 'ส่งประกาศนี้ทางอีเมล์ไปยังนักศึกษาที่ลงทะเบียน';
-$_lang['Size'] = 'ขนาด';
-$_lang['Statistics'] = 'สถิติ';
-$_lang['Status'] = 'Action';
-$_lang['Student'] = 'นักศึกษา';
-$_lang['Subject'] = 'เรื่อง';
-$_lang['Support forum'] = 'กระดานข่าวสนับสนุน';
-$_lang['The email address is not valid'] = 'อีเมล์ไม่สมบูรณ์ หรือมีตัวอักษรต้องห้ามปะปน';
-$_lang['The upload has failed. There is not enough space in your directory'] = 'การอัพโหลดล้มเหลว มีเนื้อที่ไม่พอในไดเร็กทอรีของท่าน';
-$_lang['The upload is finished'] = 'สิ้นสุดการอัพโหลด';
-$_lang['The zip file can not contain .PHP files'] = 'ไฟล์ zip ไม่สามารถบรรจุ PHP filesได้';
-$_lang['There are no topics for this forum. You can post one'] = 'ไม่มีกระทู้สำหรับกระดานข่าวนี้ คุณสามารถตั้งกระทู้ใหม่ได้';
-$_lang['There is no exercise for the moment'] = 'ขณะนี้ ไม่มีแบบฝึกหัด';
-$_lang['This user name is already taken'] = 'ชื่อ username นี้ถูกใช้แล้ว';
-$_lang['Title'] = 'ชื่อวิชา';
-$_lang['To'] = 'ไปยัง';
+$_lang['Save changes'] = 'บันทึกการแก้ไข';
+$_lang['Scan technical fault'] = 'ตรวจสอบหาความผิดพลาดทางเทคนิค';
+$_lang['Score'] = 'คะแนน';
+$_lang['Score required'] = 'ต้องกรอกคะแนน';
+$_lang['Scores of exercises done'] = 'ผลคะแนนการทำแบบทดสอบของวิชา';
+$_lang['Search'] = 'ค้นหา';
+$_lang['Search again (advanced)'] = 'ค้นหาใหม่อีก (ขั้นสูง)';
+$_lang['Search course'] = 'ค้นหาวิชา';
+$_lang['Search from keyword'] = 'ค้นหาจากคำสำคัญค้น';
+$_lang['Search in %currentDirectory'] = 'ค้นหาใน %แฟ้มรายการปัจจุบัน';
+$_lang['Search in pages'] = 'ค้นหาในหน้า';
+$_lang['Search on'] = 'ค้นหาใน';
+$_lang['Search result'] = 'ผลการค้นหา';
+$_lang['Search user'] = 'ค้นหาสมาชิก';
+$_lang['SecondShort'] = 'วินาที.';
+$_lang['See below the files you can edit from this tool.'] = ' ดังรายชื่อไฟล์ และใช้เครื่องมือระบบข้างล่างนี้ ';
+$_lang['Send account information to user by email'] = 'แจ้งข้อมูลบัญชีชื่อสมาชิกให้ทราบทางอีเมล';
+$_lang['Send this announcement by email to registered students'] = 'แจ้งข่าวประกาศนี้ให้ผู้เรียนทราบทางอีเมล';
+$_lang['Show all'] = 'แสดงทั้งหมด';
+$_lang['Show answers'] = 'แสดงคำตอบ';
+$_lang['Show differences'] = 'แสดงส่วนที่แตกต่าง';
+$_lang['Show none'] = 'ไม่แสดง';
+$_lang['Size'] = 'ขนาดไฟล์';
+$_lang['Start date'] = 'วันเริ่ม';
+$_lang['Statistics'] = 'ค่าสถิติการเข้าใช้งาน';
+$_lang['Statistics of course : %courseCode'] = 'สถิติของรหัสวิชา : %รหัสวิชา';
+$_lang['Statistics of exercise'] = 'สถิติการทำแบบทดสอบ';
+$_lang['Statistics of question'] = 'สถิติของคำถาม';
+$_lang['Statistics of user'] = 'สถิติของสมาชิก';
+$_lang['Status'] = 'สถานภาพ';
+$_lang['Store Chat'] = 'จัดเก็บข้อความสนทนา';
+$_lang['Store failed'] = 'การจัดเก็บล้มเหลว';
+$_lang['Strike'] = 'Strike';
+$_lang['Student'] = 'ผู้เรียน';
+$_lang['Students are allowed to self-register in groups'] = 'ให้ผู้เรียนสามารถลงทะเบียนเข้าในกลุ่มเรียนได้ด้วยตัวเอง';
+$_lang['Subject'] = 'วิชา';
+$_lang['Submission type'] = 'การส่งไฟล์งาน';
+$_lang['Submit'] = 'ส่ง';
+$_lang['Submit a work'] = 'ส่งงาน';
+$_lang['Support forum'] = 'กลุ่มอภิปรายปรึกษาปัญหาการใช้ระบบ';
+$_lang['Text only (text required, no file)'] = 'ข้อความเท่านั้น(เฉพาะข้อความเนื้อหา ไม่แนบไฟล์)';
+$_lang['Text with attached file (text required, file optional)'] = 'ข้อความและแนบไฟล์ด้วยได้';
+$_lang['The course has been successfully deleted'] = 'ได้ลบวิชาออกจากระบบให้แล้ว';
+$_lang['The information have been modified'] = 'บันทึกการปรับเปลี่ยนข้อมูลให้เรียบร้อบแล้ว';
+$_lang['The new class has been created'] = 'ได้เพิ่มชั้นเรียนหรือกลุ่มเรียนให้แล้ว';
+$_lang['There is no course matching such criteria'] = 'ไม่มีวิชาที่ตรงกับที่ระบุคำค้นหา';
+$_lang['There is no exercise for the moment'] = 'ยังไม่มีแบบทดสอบหรือแบบฝึกหัดในขณะนี้';
+$_lang['This category already exists!'] = 'หมวดนี้มีอยู่ในระบบแล้ว!';
+$_lang['This course is currently not described'] = 'วิชานี้ยังไม่มีคำอธิบายรายวิชา';
+$_lang['This day'] = 'ในวันนี้';
+$_lang['This is the faculty, department or school where the course is delivered'] = 'เป็นชื่อของ หมวดวิชา ที่แยกหมวดหมู่ตามโครงสร้างของหลักสูตร หรือชื่อสถาบันการศึกษา ศูนย์การศึกษา คณะ ภาควิชา สาขาวิชา หมวดวิชา แผนก ฝ่าย ที่เป็นเจ้าของหลักสูตรหรือวิชาที่เพิ่มเข้าในระบบนี้';
+$_lang['This module cannot be deactivated'] = 'ไม่สามารถปิดการใช้งานในหน่วยนี้ได้';
+$_lang['Thumbnails'] = 'ดูภาพขนาดเล็ก';
+$_lang['Time'] = 'เวลา';
+$_lang['Time in learning path'] = 'เวลาเรียนของสาระการเรียนรู้';
+$_lang['Time is over, results not submitted.'] = 'หมดเวลา, ไม่ส่งผลการเรียน.';
+$_lang['Title'] = 'เรื่อง';
+$_lang['Title added :'] = 'ตั้งชื่อเรื่องแล้ว:';
+$_lang['To install this module click <a href="%url">here</a>.'] = 'การติดตั้งหน่วยเพิ่มเข้าในระบบให้คลิก <a href="%url">ที่นี่</a>.';
+$_lang['Tool'] = 'เครื่องมือ';
+$_lang['Tool list'] = 'รายการเครื่องมือ';
 $_lang['Tools'] = 'เครื่องมือ';
-$_lang['Topic'] = 'หัวข้อ';
-$_lang['Topic review'] = 'รายการกระทู้';
+$_lang['Topic'] = 'หัวข้อกระทู้ที่ตั้ง';
+$_lang['Topic review'] = 'หัวข้อวิจารณ์	: สรุป';
 $_lang['Topics'] = 'หัวข้อ';
-$_lang['True'] = 'จริง';
-$_lang['Unregister'] = 'ถอนการลงทะเบียน';
-$_lang['Up'] = 'ขึ้น';
-$_lang['Upload file'] = 'อัพโหลดข้อมูลไปที่เครื่องแม่ข่าย';
-$_lang['Username'] = 'ชื่อผู้ใช้';
-$_lang['Users'] = 'Users';
-$_lang['Users help'] = 'ระบบช่วยเหลือ \'Users\'';
-$_lang['Visibility'] = 'Visible/invisible';
-$_lang['Visibility modified'] = 'ปรับปรุงการให้เห็นเอกสารแล้ว';
+$_lang['Topics started'] = 'ตั้งหัวข้อกระทู้ถาม';
+$_lang['Total'] = 'รวม';
+$_lang['Total Clicks'] = 'จำนวนครั้งที่คลิกเข้าใช้';
+$_lang['Total Downloads'] = 'จำนวนครั้งที่มีการโอนไฟล์ลง';
+$_lang['Total attempts'] = 'จำนวนครั้งที่ทำแบบทดสอบ ';
+$_lang['Total number of connection to this course'] = 'รวมจำนวนครั้งของการเข้าเรียนในวิชา';
+$_lang['Total time'] = 'รวมเวลา';
+$_lang['Tracking'] = 'ติดตาม';
+$_lang['Traffic Details'] = 'รายละเอียดค่าสถิติการเข้าใช้งานระบบ';
+$_lang['Translation Progression'] = 'ความคืบหน้าการแปลภาษาของระบบ';
+$_lang['Translation Tools'] = 'เครื่องมือการแปลภาษาของระบบ';
+$_lang['True'] = 'ถูก';
+$_lang['True/False'] = 'ถูก/ผิด';
+$_lang['Type'] = 'ประเภท';
+$_lang['Unable to add description'] = 'ไม่สามารถเพิ่มเติมคำอธิบาย';
+$_lang['Unable to copy file :'] = 'ไม่สามารถที่จะทำสำเนาไฟล์ : ';
+$_lang['Unable to create category'] = 'ไม่สามารถที่จะสร้างหมวดหมู่';
+$_lang['Unable to create directory :'] = 'ไม่สามารถที่จะสร้างแฟ้ม : ';
+$_lang['Unable to create file :'] = 'ไม่สามารถที่จะสร้างไฟล์ : ';
+$_lang['Unable to create forum'] = 'ไม่สามารถที่จะสร้างกระทู้อภิปราย';
+$_lang['Unable to create zip file'] = 'ไม่สามารถสร้างไฟล์.zip';
+$_lang['Unable to delete'] = 'ไม่สามารถลบได้';
+$_lang['Unable to delete Forum'] = 'ไม่สามารถลบกระทู้อภิปราย.';
+$_lang['Unable to delete category'] = 'ไม่สามารถลบหมวดหมู่.';
+$_lang['Unable to empty forum'] = 'ไม่สามารถที่จะล้างกระทู้อภิปราย.';
+$_lang['Unable to enrol you to the course'] = 'ไม่สามารถที่จะรับเข้าเรียนในวิชา';
+$_lang['Unable to save'] = 'ไม่สามารถที่จะบันทึก';
+$_lang['Unable to update'] = 'ไม่สามารถที่จะปรับปรุงใหม่';
+$_lang['Unable to update category'] = 'ไม่สามารถที่จะปรับปรุงหมวดหมู่.';
+$_lang['Unenrol from course'] = 'ถอนชื่อออกจากกลุ่มเรียน';
+$_lang['Uninstall'] = 'ถอดถอน';
+$_lang['Unknow faculty'] = 'ไม่ทราบหน่วยงาน';
+$_lang['Unknown error'] = 'ไม่ทราบสาเหตูที่ผิดพลาด';
+$_lang['Unknown user'] = 'ไม่ทราบชื่อสมาชิก';
+$_lang['Unregister'] = 'ไม่ลงทะเบียน';
+$_lang['Unregister all students'] = 'ถอนชื่อผู้เรียนในวิชาออกทั้งหมด';
+$_lang['Unregister all users'] = 'ถอนชื่อสมาชิกออกทั้งหมด';
+$_lang['Unregister all users ?'] = 'ถอนชื่อสมาชิกออกทั้งหมด ?';
+$_lang['Unregister from class'] = 'ถอนชื่อสมาชิกออกจากกลุ่มเรียนทั้งหมด';
+$_lang['Unregister user'] = 'ถอนชื่อสมาชิกออกทั้งหมด';
+$_lang['Unsubscribe'] = 'ถอนการสมัคร';
+$_lang['Untitled'] = 'ยังไม่ตั้งชื่อ';
+$_lang['Upgrade'] = 'ปรับปรุงรุ่นใหม่';
+$_lang['Upload a new file to replace the file'] = 'ส่งไฟล์ใหม่ขึ้นทับไฟล์เดิมที่มี';
+$_lang['Upload document'] = 'ส่งไฟล์เอกสารขึ้น';
+$_lang['Upload failed'] = 'การส่งไฟล์ขึ้น ล้มเหลว';
+$_lang['Upload file'] = 'เลือกส่งไฟล์ขึ้น';
+$_lang['Uploaded file'] = 'ส่งไฟล์ขึ้น';
+$_lang['Use format defined in first line of file'] = 'ใช้รูปแบบของเอกสารที่เป็นชื่อแรกของไฟล์';
+$_lang['Use the following format'] = 'โดยใช้รูปแบบตามแบบอย่างนี้';
+$_lang['User'] = 'สมาชิก';
+$_lang['User Course list'] = 'รายชื่อวิชาของสมาชิก';
+$_lang['User Id'] = 'รหัสสมาชิก';
+$_lang['User access details'] = 'รายละเอียดการเข้าใช้ระบบของสมาชิก';
+$_lang['User attempts'] = 'สมาชิกที่เข้าทำแบบทดสอบ';
+$_lang['User id'] = 'รหัสสมาชิก';
+$_lang['User list'] = 'รายชื่อสมาชิกในระบบ';
+$_lang['User not found'] = 'ไม่พบชื่อสมาชิก';
+$_lang['User not in the class'] = 'ไม่มีชื่อในชั้นเรียน';
+$_lang['User profile'] = 'ประวัติสมาชิก';
+$_lang['User registered to the course'] = 'สมาชิกที่ลงทะเบียนเรียนวิชาแล้ว';
+$_lang['User settings'] = 'ตั้งค่าสมาชิก';
+$_lang['User unregistered'] = 'สมาชิกที่ยังไม่ลงทะเบียน';
+$_lang['User\'s course'] = 'วิชาของสมาชิก';
+$_lang['User\'s course settings'] = 'ตั้งค่าวิชาของสมาชิก';
+$_lang['Username'] = 'ชื่อสมาชิก';
+$_lang['UsernameUsed'] = 'ชื่อสมาชิกที่คุณตั้งนี้ มีผู้อื่นใช้ชื่อนี้อยู่ในระบบก่อนแล้ว';
+$_lang['Users'] = 'สมาชิก';
+$_lang['Users Downloads'] = 'จำนวนสมาชิกที่โอนไฟล์ลง';
+$_lang['Users can not submit after end date'] = 'สมาชิกไม่สามารถส่งหลังพ้นกำหนดได้';
+$_lang['Users can submit after end date'] = 'สมาชิกสามารถส่งหลังพ้นกำหนดได้';
+$_lang['Users not in this group'] = 'สมาชิกที่ไม่ได้้อยู่ในกลุ่มนี้';
+$_lang['Users\' Clicks'] = 'จำนวนสมาชิกที่คลิกเข้าใช้';
+$_lang['UsersMin'] = 'สมาชิก';
+$_lang['Version'] = 'เวอร์ชั่น';
+$_lang['View'] = 'ดู';
+$_lang['View all'] = 'ดูทั้งหมด';
+$_lang['View all right profile'] = 'ดูบทบาทและสิทธิทั้งหมด';
+$_lang['View by'] = 'ดูโดย';
+$_lang['View group data'] = 'ดูข้อมูลของกลุ่ม';
+$_lang['View list of all tools'] = 'ดูรายการทุกเครื่องมือ';
+$_lang['View mode'] = 'ภาวะการดู';
+$_lang['View my statistics'] = 'ดูบันทึกสถิติของเรา';
+$_lang['View user data'] = 'ดูแฟ้มข้อมูลสมาชิก';
+$_lang['Visibility'] = 'การมองเห็น';
+$_lang['Visibility modified'] = 'แก้ไขการให้มองเห็นแล้ว';
+$_lang['Visible'] = 'มองเห็น';
+$_lang['Visible for all users'] = 'สามารถมองเห็นได้ทุกคน';
+$_lang['Visits'] = 'ครั้ง';
+$_lang['WARNING ! You have just lost your session on the server.'] = 'คำเตือน ! คุณไม่ใช้งานระบบนานเกินกว่าเวลาที่กำหนด คุณได้ขาดการติดต่อจากระบบแล้ว.';
+$_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'คำเตือน ระบบตรวจสอบสิทธิ์นี้ มีการจดจำค่าการพิมพ์รหัสอักขระได้ทุกภาษา แต่แนะนำให้ใช้ภาษาอังกฤษหรือตัวเลข ไม่ควรใช้ภาษาไทยเป็นชื่อหรือรหัสผ่าน เพราะค่าเริ่มต้นภาษาระบบนั้นเป็นภาษาอังกฤษ บางครั้งจึงพิมพ์แจ้งสิทธิ์ไม่ผ่าน เพราะใช้โหมดภาษาไม่ถูกต้อง เช่นกำลังใช้โหมดพิมพ์ภาษาไทยอยู่ก่อน แล้วเข้าใช้งานระบบ โดยที่ไม่เปลี่ยนโหมดพิมพ์ให้ตรงตามรหัสภาษาที่ป้อนเข้า หรือแม้แต่ในการพิมพ์ภาษาอังกฤษก็เช่นกัน การพิมพ์ตัวพิมพ์ใหญ่หรือตัวพิมพ์เล็ก ระบบก็จะจำไว้ได้ด้วย ดังนั้นคุณควรจำว่าคุณใช้การพิมพ์อักขระเช่นไร โหมดพิมพ์ภาษาใด';
+$_lang['Website'] = 'เว็ปไซท์';
+$_lang['Week'] = 'สัปดาห์';
+$_lang['Weighting'] = 'คะแนน';
+$_lang['Wiki'] = 'สารานุกรมออนไลน์ Wiki';
+$_lang['Work added'] = 'ส่งงาน';
+$_lang['Work modified'] = 'แก้ไขงาน';
+$_lang['Work title'] = 'ชื่องาน';
+$_lang['Work title required'] = 'ต้องใส่ชื่องาน';
+$_lang['Work uploaded by the student in the name of \'Authors\''] = 'งานที่ผู้เรียนส่งในระบบแยกตามชื่อเจ้าของงาน';
+$_lang['Work uploads'] = 'การส่งงานในวิชา';
+$_lang['Worst score'] = 'คะแนนต่ำสุด';
+$_lang['Year'] = 'ปี';
 $_lang['Yes'] = 'ใช่';
-$_lang['You cannot post an empty message'] = 'คุณต้องพิมพ์ ข้อความ คุณไม่สามารถส่ง ข้อความ เปล่าได้';
-$_lang['You didnt choose any file to send, or it is too big'] = 'ท่านไม่ได้เลือกไฟล์ใดๆเพื่อส่ง หรือไฟล์มีขนาดใหญ่เกินไป';
-$_lang['You have just created the course website'] = 'You just created the course website';
-$_lang['You left some required fields empty'] = 'คุณปล่อยบางช่องไว้ว่างเปล่า คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง';
-$_lang['Your message has been deleted'] = 'Post ถูกลบแล้ว';
-$_lang['Your message has been entered'] = 'ข้อความ ของท่านได้เก็บไว้ในฐานข้อมูลเรียบร้อย';
-$_lang['Zip file uploaded and uncompressed'] = ' ส่งข้อมูลไฟล์บีบอัดและทำการขยายเรียบร้อยแล้ว';
-$_lang['archive'] = 'Archive';
-$_lang['blockCourseDescriptionDescription'] = 'คำอธิบาย';
-$_lang['blockDocumentsHelp'] = '<p> ระบบจัดการเอกสารประกอบการศึกษา มีลักษณะคล้าย FileManager 
-ของคอมพิวเตอร์ทั่วไป</p><p>
-ท่านสามารถ upload ไฟล์ข้อมูลชนิดใดก็ได้ (HTML, Word,
- Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) <br /><b> ++แต่ให้ตั้งชื่อไฟล์เป็นภาษาอังกฤษเท่านั้น++ </b><br />
-และท่านควรนึกถึงโปรแกรมที่นักศึกษา ต้องใช้สำหรับเปิดเอกสารของท่านด้วย <p>
-ไฟล์ข้อมูลบางประเภท อาจมีไวรัสแฝงอยู่ ท่านไม่ควรเสี่ยงที่จะ upload ขึ้นสู่บทเรียน และเพื่อให้แน่ใจยิ่งขึ้น 
-ควรทำการตรวจสอบไวรัสด้วยโปรแกรม antivirus ของท่านก่อนทำการ upload ทุกๆไฟล์</p>
-<p>เอกสารของท่านจะถูกจัดเรียงตามลำดับตัวอักษร<br />
-<b>Tip : </b>หากท่านต้องการจัดเรียงลำดับให้แตกต่างไป ให้กำหนดเป็นตัวเลข เข่น 01, 02,
- 03...แทน</p>
-<p>ท่านสามารถ :</p>
-<h4>Upload เอกสาร</h4>
-<ul>
-  <li>เลือกไฟล์บนคอมพิวเตอร์ของท่าน โดยใช้ปุ่ม Browse <input
- type=submit value=Browse name=submit2>
-	ที่ด้านขวาของจอภาพ</li>
-  <li>ทำการ upload ด้วยปุ่ม Upload <input type=submit
- value=Upload name=submit2>
-	.</li>
+$_lang['Yes, allow users to submit works after end date'] = 'ใช่, อนุญาตให้มีการส่งงานหลังพ้นกำหนดเวลาได้';
+$_lang['Yesterday'] = 'เมื่อวาน';
+$_lang['You are not a member of this group'] = 'คุณไม่ใช่สมาชิกของกลุ่มนี้';
+$_lang['You are now a member of this group.'] = 'คุณยังไม่ได้เป็นสมาชิกของกลุ่มนี้.';
+$_lang['You have just created the course website'] = 'คุณได้สร้างวิชาเรียนในระบบเรียบร้อยแล้ว รหัสวิชาที่สร้างเพิ่มคือ';
+$_lang['You left some required fields empty'] = 'คุณกรอกข้อมูลในช่องที่มีเครื่องหมาย * ไม่ครบ';
+$_lang['You must introduce the message text'] = 'คุณต้องพิมพ์ข้อความเกริ่นแนะนำก่อน';
+$_lang['You must select a file'] = 'คุณต้องเลือกไฟล์ที่ต้องการก่อน';
+$_lang['You must select a text file'] = 'คุณต้องเลือกไฟล์ขอความ(Text File)';
+$_lang['You must select some users'] = 'คุณต้องเลือกใครสักคน';
+$_lang['You must specify the CSV format used in your file'] = 'คุณต้องระบุรูปแบบไฟล์ CVSที่จะใช้';
+$_lang['You must upload a zip file'] = 'คุณต้องส่งไฟล์ขึ้นเป็นสกุล.zip';
+$_lang['You need an email in your profile'] = 'คุณต้องมีอีเมลแนบในประวัติของคุณ';
+$_lang['Your choice'] = 'ที่คุณตอบ';
+$_lang['Your message has been deleted'] = 'ได้ลบข้อความของคุณออกไปแล้ว';
+$_lang['blockCourseDescriptionCourseContent'] = 'หัวข้อ:หน่วยสาระการเรียนรู้';
+$_lang['blockCourseDescriptionDescription'] = 'คำอธิบายรายวิชา:แนวคิด';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'แหล่งข้อมูลการศึกษาค้นคว้าเพิ่มเติม';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'วิธีการประเมินผล';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'จุดประสงค์การเรียนรู้:ผลการเรียนรู้ที่คาดหวัง';
+$_lang['blockCourseDescriptionSupports'] = ' การให้คำปรึกษา';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'กิจกรรมการสอนและการฝึกอบรม';
+$_lang['blockCourseHomePageIntroduction'] = 'คลิกเปลี่ยนสัญรูป(Icon)ใต้แต่ละหัวข้อรายการ เพื่อเปลี่ยนแปลงสถานะว่า ต้องการกำหนดให้สมาชิกฐานะ บทบาทใด ที่จะสามารถมองเห็นและเข้าใช้งานในเครื่องมือ หน่วย หรือส่วนประกอบของวิชา ในรายการใดได้บ้าง';
+$_lang['blockCourseSettingsTip'] = 'โดยค่าเริ่มต้นแล้ว,วิชาที่ตั้งใหม่หรือเพิ่มเข้าในระบบจะจัดสถานะให้เป็นวิชาแบบเปิดเป็นสาธารณะ ที่ทุกคนสามารถเข้าสมัครเรียนได้เลยทันที. แต่ถ้าหากต้องการเปลี่ยนค่าให้เป็นวิชาที่เปิดให้เรียนแบบลับ เฉพาะสมาชิก หรือที่กำหนดสิทธิ์ให้เฉพาะที่เชิญ ก็ให้คลิกกำหนดค่าเลือกให้ตรงกับที่ต้องการในขั้นตอนนี้ก่อน หากไม่กำหนดในขั้นตอนนี้ หรือต้องการตั้งค่าให้เรียนเฉพาะผู้เรียนที่ต้องการในภายหลัง วิธีการที่ง่ายที่สุดที่คุณทำได้ก็คือให้ประกาศหรือ แจ้งกำหนดวันเปิด-ปิดการลงทะเบียนหรือให้สมัครเรียนเข้าเรียนวิชาด้วยตนเอง ให้ผู้เรียนทราบเป็นเวลาหนึ่งสัปดาห์หลัง จากนั้นก็ปิดไม่ให้สมัครเรียนเอง แล้วจึงทำการตรวจสอบคัดรายชื่อผู้ที่ไม่เกี่ยวข้องออกไป.';
+$_lang['blockIntroCourse'] = 'คุณกำลังเข้าใช้งานในหน้าโฮมเพจของวิชา.<br /><br />ในหน้านี้ คุณสามารถที่จะ :
+<ul><li>เลือกกำหนด ค่าเริ่มต้น เพิ่มเติม แก้ไขเนื้อหาในแต่ละส่วนประกอบของวิชา โดยคลิกใช้เมนูเครื่องมือของวิชา ในกรอบส่วนบนด้านซ้ายมือนี้</li>
+<li>เลือกกำหนดตั้งค่า เปิด-ปิดเครื่องมือหรือหน่วยของวิชาด้านซ้ายล่างสุด โดยคลิกใช้เมนูเครื่องมือของวิชา ในกรอบส่วนบนด้านซ้ายล่างนี้</li>
+<li>เลือกกำหนดตั้งค่าสถิติของ โดยคลิกใช้เมนูเครื่องมือของวิชา ในกรอบส่วนบนด้านซ้ายล่างนี้</li>
 </ul>
-<h4>เปลี่ยนชื่อเอกสาร (หรือชื่อ directory)</h4>
-<ul>
-  <li>คลิกที่รูป <img src=../document/img/edit.gif width=20 height=20
- align=baseline> ในช่องคอลัมม์ เปลี่ยนชื่อ</li>
-  <li>พิมพ์ชื่อใหม่ลงในช่อง (ด้านซ้ายบน)</li>
-  <li>คลิกปุ่ม <input type=submit value=Ok name=submit24>
-
-</ul>
-	<h4>ลบเอกสาร (หรือลบ directory)</h4>
-	<ul>
-	  
-  <li>คลิกที่รูป <img src=../document/img/delete.gif width=20 height=20> 
-	ในคอลัมม์ \'ลบ\'</li>
-	</ul>
-	<h4>การอนุญาตให้นักศึกษาเห็นเอกสาร (หรือ directory) หรือไม่</h4>
-	<ul>
-	  
-  <li>คลิกที่รูป <img src=../document/img/visible.gif width=20 height=20> 
-  ในคอลัมม์  \'Visible/invisible\'</li>
-<li>เอกสาร (หรือ directory) ยังคงมีอยู่ แต่นักศึกษาจะไม่สามารถมองเห็นได้</li>	  
-  <li>ทำให้กลับมามองเห็นเช่นเดิม คลิกที่รูป <img
- src=../img/invisible.gif width=24 height=20> 
-	ในคอลัมม์ \'Visible/invisible\'</li>
-	</ul>
-	<h4>เพิ่มหรือปรับปรุงหมายเหตุของเอกสาร (หรือ directory)</h4>
-	<ul>	  
-  <li>คลิกที่รูป <img src=../img/comment.gif width=20
- height=20> 
-	ในคอลัมม์ \'หมายเหตุ\'</li>
-	  <li>พิมพ์หมายเหตุในกรอบโต้ตอบ (ด้านบนซ้าย)</li>
-	  <li>คลิกปุ่ม <input type=submit value=OK name=submit2></li>
-	</ul>
-	<p> ต้องการลบหมายเหตุ คลิกที่รูป <img
- src=../img/comment.gif width=20 height=20>, 
-	 ลบหมายเหตุเก่าในช่องออก และคลิกปุ่ม <input type=submit
- value=OK name=submit22>
-
-	<hr />
-	<p>ท่านสามารถจัดระบบการเก็บเอกสารของท่านได้ โดย :</p>
-	<h4><b>สร้าง directory</b></h4>
-	<ul>
-	  <li>คลิกที่รูป <img src=../img/folder.gif> \'สร้าง directory\' (top left)</li>
-	  <li>พิมพ์ชื่อ directory ใหม่ในช่องกรอบโต้ตอบ (ซ้ายมือบน)</li>
-	  <li>คลิกปุ่ม <input type=submit value=OK
- name=submit23></li>
-	</ul>
-	<h4>ย้ายเอกสาร (หรือ directory)</h4>
-	<ul>
-	  <li>คลิกที่รูป <img src=../img/deplacer.gif
- width=34 height=16> 
-		ในคอลัมม์ \'ย้าย\'</li>
-	  <li>เลือก directory ที่ต้องการจะย้ายเอกสารไปไว้ ในกรอบโต้ตอบ (ด้านซ้ายบน) <br />
-	  (note: ข้อความ \'root\' หมายความว่า เป็น directory สูงสุดของ server นี้แล้ว</li>
-	  <li>คลิกปุ่ม <input type=submit value=OK
- name=submit232></li>
-	</ul>
-	<center>
-	  <p>';
-$_lang['blockForumsHelp'] = 'กระดานข่าวเป็นรูปแบบของการสนทนาแบบกลุ่ม ซึ่งจะแตกต่างจากอีเมล์ 
-ที่สามารถพูดคุยได้แค่ตัวต่อตัวเท่านั้น</p><p>เทคนิคการใช้กระดานข่าว - นักศึกษาเพียงแค่ใช้ browser 
-เปิดอ่าน , เขียน , หรือตอบกระทู้ที่ต้องการ</P><p>สำหรับการดูแลจัดการกระดานข่าว, คลิกที่ \'admin\'(ใต้หัวข้อกระดานข่าว) 
-เพื่อเข้าสู่ระบบจัดการกระดานข่าว ซึ่งมีเมนูคำสั่งต่างๆดังนี้
-:</p><p><b>สร้างหมวดหมู่ > สร้างกระดานข่าว > เขียนกระทู้ > ตอบหรือลบกระทู้</b></p>
-การกำหนดรูปแบบของการสนทนา หรือการเปิดกระดานข่าวของท่าน เพื่อให้นักศึกษาใช้งาน
-ท่านจะต้องทำการสร้างหมวดหมู่ และสร้างกระดานข่าว ในหัวข้อที่ท่านต้องการขึ้นมาก่อน จากนั้นจึงทิ้งกระดานให้ว่างไว้ 
-เพื่อให้นักศึกษาสามารถเข้ามาตั้งกระทู้ และพูดคุยปรึกษากันในกลุ่มได้ <p>
-claroline forum ได้สร้างกระดานข่าวหมวดหมู่ \'Public\' เพื่อเป็นตัวอย่างสำหรับการถามตอบกระทู้
-</p><p> สิ่งแรกที่ควรทำคือ ทำการลบกระทู้ตัวอย่างทิ้ง และปรับปรุงแก้ไขชื่อของกระดานเสียใหม่  ท่านอาจเปิดกระดานอื่นๆ 
-เพิ่มเติมได้อีกตามความเหมาะสมของบทเรียนของท่าน<p> แต่อย่ารวมทุกกระดานไว้ในหมวดหมู่เดียวกัน และอย่าลืมว่า
-หมวดหมู่ที่ไม่มีกระดานข่าวอยู่ภายใน จะไม่ถูกแสดงให้นักศึกษาเห็น </p><p>คำอธิบายของกระดานข่าวนั้นๆ จะช่วยให้นักศึกษา 
-เกิดความเข้าใจได้ง่าย ในการเข้าร่วมใช้งาน';
-$_lang['blockGroupsHelp'] = '<p><b>คำนำ</b></p>
-<p>เครื่องมือนี้เพื่อสำหรับใช้สร้างกลุ่มทำงาน  
-ในขั้นตอนการสร้าง (สร้างกลุ่มใหม่), กลุ่มจะว่างเปล่า มีหลายวิธีที่จะนำนักศึกษาเข้ากลุ่ม :
-<ul><li>อัตโนมัติ(\'เพิ่มนักศึกษาเข้ากลุ่ม\'),</li>
-<li>ทำด้วยตนเอง (\'แก้ไข\'),</li>
-<li>ให้นักศึกษาลงทะเบียนเข้ากลุ่มเอง (จัดระเบียบกลุ่ม: \'อนุญาตให้ลงทะเบียนเองได้...\').</li>
-</ul>
-ทั้งสามวิธีนี้สามารถใช้ประกอบกันได้  ท่านอาจบอกให้นักศึกษาลงทะเบียนเข้ากลุ่มเองก่อน
-จากนั้นจึงสำรวจดูว่าหากยังมีบางคนยังไม่ตัดสินใจ ท่านจึงค่อยนำพวกเขาเข้ากลุ่มให้เองโดยวิธีอัตโนมัติ
-นอกจากนี้ ท่านยังสามารถแก้ไขจำนวนสมาชิกของแต่ละกลุ่ม ในเวลาก่อนหรือหลังจากให้นักศึกษาลงทะเบียนเข้ากลุ่มเองแล้ว 
-หรือขณะเติมนักศึกษาเข้ากลุ่มโดยวิธีอัตโนมัติก็ได้</p>
-<p>การเติมนักศึกษาเข้ากลุ่ม ไม่ว่าอย่างอัตโนมัติ หรือกำหนดเอง จะทำได้ก็ต่อเมื่อมีนักศึกษาลงทะเบียนเข้าเรียนในรายวิชานั้นๆแล้วเท่านั้น
-(การลงทะเบียนเข้าเรียนในรายวิชา กับการลงทะเบียนเข้ากลุ่มนั้นแตกต่างกัน อย่ารวมเข้าด้วยกัน)
-รายชื่อนักศึกษาของท่านจะปรากฎอยู่ในเมนูเครื่องมือ <b>Users</b> </p><hr noshade size=1>
-<p><b>สร้างกลุ่มใหม่</b></p>
-<p>การสร้างกลุ่มใหม่ คลิกที่ \'สร้างกลุ่มใหม่\' และทำการกำหนดจำนวนของสมาชิกในกลุ่ม
- จำนวนสมาชิกสูงสุดสามารถกำหนดเท่าไรก็ได้ แต่ขอแนะนำให้มีจำนวนอย่างน้อยหนึ่งคน เพราะหากปล่อยช่องให้ว่างไว้
- ขนาดสูงสุดของจำนวนคนในกลุ่ม จะกลายเป็นไม่มีที่สิ้นสุด</p><hr noshade size=1>
-<p><b>จัดระเบียบกลุ่ม</b></p>
-<p>ท่านสามารถตั้งค่ากำหนดให้ครอบคลุมทุกกลุ่มที่สร้างขึ้นได้โดยกำหนดที่
-<b>นักศึกษาได้รับอนุญาตให้ลงทะเบียนด้วยตัวเองได้</b>: 
-<p>ทำการสร้างกลุ่มว่างขึ้นหนึ่งกลุ่ม เพื่อให้นักศึกษาลงทะเบียนเอง
-ถ้าหากท่านกำหนดจำนวนสมาชิกสูงสุดไว้ เมื่อเต็มแล้วนักศึกษาจะไม่สามารถลงทะเบียนเข้ากลุ่มได้อีก 
-วิธีนี้ดีสำหรับผู้สอนที่ไม่ทราบรายชื่อนักศึกษา ที่ลงทะเบียนในรายวิชานั้น ขณะทำการสร้างกลุ่มให้อยู่
-</p>
-<b>เครื่องมือ</b>:</p>
-<p>ทุกกลุ่มจะมีกระดานข่าวของกลุ่ม (ส่วนตัวหรือสาธารณะ) หรือส่วนงานเอกสารของกลุ่มเอง</p>
-<hr noshade size=1>
-<p><b>การแก้ไข</b></p>
-<p>เมื่อทำการสร้างกลุ่มแล้ว ท่านจะเห็นรายชื่อของกลุ่มอยู่ที่ด้านล่างของหน้า
-<ul><li><b>แก้ไข</b> เพือปรับปรุงชื่อของกลุ่ม คำอธิบาย กำหนดติวเตอร์ หรือรายชื่อสมาชิก</li>
-<li><b>ลบ</b> เพื่อลบกลุ่ม</li></ul>
-<hr noshade size=1>';
-$_lang['blockHomepageHelp'] = 'เพื่อความง่าย และสะดวกต่อการใช้งาน ภายในแต่ละระบบงานจะประกอบด้วยตัวอย่างเล็กๆ
-เพื่อช่วยให้ท่านเข้าใจการทำงานของเครื่องมือนั้นๆได้อย่างรวดเร็วขึ้น ท่านสามารถที่จะลบหรือปรับปรุงตัวอย่างเหล่านี้ 
-ได้ตามควมต้องการ </p><p>ตัวอย่างเช่น ตรงกลางหน้าหลักของบทเรียนท่าน มีแถบข้อความสั้นๆ ข้อความว่า 
-\'นี้คือคำนำของบทเรียนท่าน ต้องการแก้ไขข้อความ โปรดคลิกที่ปุ่ม ปรับปรุง ด้านล่าง\'  การแก้ไขเพื่อให้เป็นข้อความของท่านเอง
-เพี่ยงแต่คลิกที่ข้อความ \'ปรับปรุง\' และทำการแก้ไขเป็นข้อความของท่าน เสร็จแล้วคลิกปุ่ม \'ตกลง\' 
-บทนำดังกล่าวก็จะเปลี่ยนเป็นข้อความของตัวท่าน  การใช้เครื่องมืออื่นๆก็เป็นลักษณะเดียวกันคือ : เพิ่ม , ลบ , ปรับปรุง 
-ซึ่งกระบวนการเหล่านี้เป็นลักษณะเด่นของ dynamic website</p><p>
-เมื่อท่านเริ่มต้นสร้างบทเรียนของท่าน เครื่องมือส่วนใหญ่จะเปิดทำงาน  เช่นเดียวกันหากไม่ต้องการ เพียงแต่คลิก \'ปิดการใช้งาน\'
-ระบบงานนั้นก็จะถูกปิดลง กลายเป็นเมนูสีเทาอยู่ด้านล่างสุด  
-ซึ่งจะไม่สามารถมองเห็นได้ในมุมมองของนักศึกษา และท่านสามารถที่จะเปิดใช้งานอีกครั้งเมื่อใดก็ได้ที่ต้องการ</p><p>
-ท่านสามารถที่จะเพิ่มหน้าเนื้อหา เข้าในหน้าหลักบทเรียนของท่านได้  แต่หน้าเหล่านั้นต้องเป็นรูปแบบ HTML 
-(ซึ่งสามารถสร้างได้จาก Word Processor หรือ Web Composer ใดๆก็ได้)  ใช้เมนูคำสั่ง \'ส่งข้อมูลและเชื่อมเข้ากับบทเรียน\'
-หน้าเอกสาร HTML ที่เพิ่มเข้าไปนี้ ก็จะรวมเข้ากับบทเรียนของท่านโดยอัตโนมัติ  แต่ถ้าท่านต้องการเชื่อมบทเรียนของท่านเข้ากับ 
-web site อื่นๆ ภายนอกหรือภายในคณะก็ตาม ขอให้ใช้คำสั่ง \'เพิ่ม link ในบทเรียนนี้\' <p>
-หน้าเอกสารและ link ที่เพิ่มเข้าไปนี้ สามารถลบออกได้เมื่อท่านปิดการใช้งานของมันลงเสียก่อน</p><p>
-ตอนนี้บทเรียนของท่านพร้อมใช้งานแล้ว ขอให้เข้าไปที่ \'ปรับปรุงรายละเอียดวิชา\' 
-เพื่อตั้งค่ากำหนดการเข้าเรียนของนักศึกษาของท่าน  และขอแนะนำให้เลือก \'ปิดลงทะเบียน\' ไว้ก่อน 
-(เพราะท่านกำลังดำเนินการสร้างบทเรียนของท่านอยู่) เมื่อทุกอย่างพร้อม จึงค่อยเปลี่ยนเป็นตัวเลือกอื่นตามต้องการต่อไป </p>';
-$_lang['blockUsersHelp'] = '<b>สถานะภาพ</b><p>สถานะภาพ ใช้เพื่อแสดงบทบาทของผู้นั้นว่าเป็นใครเท่านั้น 
-ไม่เกี่ยวข้องกับสิทธิ์ในการดูแลระบบคอมพิวเตอร์นี้อย่างไร ท่านสามารถปรับเปลี่ยนได้ โดยคลิกที่ \'ปรับปรุง\'
-ในช่องคอลัมม์หน้าที่ และพิมพ์หน้าที่ที่ท่านต้องการให้ผู้นั้นเป็นลงไป เช่น อาจารย์ , ผู้ช่วย , นักศึกษา , ผู้เยี่ยมชม , 
-หรือผู้เชี่ยวชาญ เป็นต้น</P><hr />
-
-<b>สิทธิ์ในบทเรียน</b>
-<p>สิทธิ์ในบทเรียน คือการอนุญาตให้แก่ผู้หนึ่งผู้ใด มีสิทธิ์ในการเข้าร่วมแก้ไข ปรับปรุงข้อมูล หรือจัดการด้านอื่นๆ เทียบเท่า
-เจ้าของบทเรียนนั้นๆ  ท่านสามารถเลือกได้สองแบบเท่านั้น คือ ให้สิทธิ์ทั้งหมด หรือไม่ให้สิทธิ์เลย</P>
-
-<p>การอนุญาตผู้ช่วย ให้เข้าร่วมในการสร้างบทเรียน ท่านต้องลงทะเบียนให้เขา 
-หรือต้องแน่ใจว่าเขาได้ลงทะเบียนบทเรียนของท่านไว้แล้ว 
-จากนั้น จึงคลิก \'ปรับปรุง\' ที่คอลัมม์ \'สิทธิ์ในบทเรียน\' และเลือก \'ทั้งหมด\' </P><hr />
-
-<b>การเพิ่มผู้รับผิดชอบวิชา</b>
-<p>การเพิ่มชื่อผู้รับผิดชอบวิชาร่วม ที่ตำแหน่งส่วนหัวของบทเรียน ใช้เมนู \'ปรับปรุงรายละเอียดวิชา\' 
-(เมนูคำสั่งสีส้ม) และพิมพ์ชื่อเพิ่มในช่อง \'อาจารย์\' แต่การใช้คำสั่งนี้ 
-ไม่ใช่การอนุญาตสิทธิ์ในบทเรียน เช่นเดียวกับการทำในคำสั่ง \'สิทธิ์ในบทเรียน\'
-</p><hr />
-<b>เพิ่ม user</b>
-<p>การเพิ่ม user ในบทเรียนของท่าน  กรอกข้อมูลในช่องให้ครบ และคลิกปุ่มตกลง บุคคลนั้นจะได้รับอีเมล์ 
-แจ้งว่าท่านได้ทำการลงทะเบียนเข้าสู่บทเรียนแก่เขาแล้ว รวมทั้งแจ้งชื่อผู้ใช้และรหัสผ่านแก่เขาด้วย
-</p>';
-$_lang['e.g. <em>History of Literature</em>'] = 'ตัวอย่าง <i>History of Litterature</i>';
-$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'สูงสุด 12 ตัวอักษร, เช่น <i>ROM2121</i>';
-$_lang['sampleForumDescription'] = 'ลบออกโดยผ่านทางเครื่องมือควบคุบระบบกระดานข่าว';
-$_lang['sampleForumGroupCategory'] = 'กระดานข่าวกลุ่ม';
-$_lang['sampleForumMainCategory'] = 'Main';
-$_lang['sampleForumMessage'] = 'เมื่อท่านลบกระดานข่าวทดสอบออก ข้อมูลภายในทั้งหมดจะถูกลบไปด้วย';
-$_lang['sampleForumTitle'] = 'กระดานข่าวทดสอบ';
-$_lang['sampleForumTopicTitle'] = 'ตัวอย่างข้อความ';
-$_lang['sampleQuizQuestionText'] = '(มีคำตอบถูกต้องมากกว่าหนึ่งคำตอบ)';
-$_lang['sampleQuizTitle'] = 'ตัวอย่างแบบฝึกหัด';
-$_lang['uncompress zipped (.zip) file on the server'] = 'ขยายไฟล์บีบอัดบนเครื่องแม่ข่าย';
+และในหน้าส่วนด้านขวานี้ เป็นส่วนของการแนะนำวิชา หรือเกริ่นนำวิชาให้ผู้ที่สมัครเข้าเรียนในวิชานี้ ได้ทราบสรุปย่อวิชาหรือข้อตกลงที่จะแจ้งให้ทราบ  โดยคลิกที่คำสั่งข้างล่างนี้ ';
+$_lang['blockTextZoneHelp'] = 'ข้อความที่ปรากฏในกรอบพื้นที่นี้ จะเป็นส่วนพื้นที่แสดงเป็นกรอบรายการข้อความ ภาพกราฟิก หรือกำหนดเป็นเมนูเชื่อมโยง แสดงอยู่ด้านข้างซ้ายหรือขวาของหน้าโฮมเพจ ตามสไตล์รูปแบบกราฟิกที่เลือกใช้แสดงเป็นหน้าโฮมเพจ และเป็นหน้าแสดงโฮมเพจวิชาของสมาชิกทุกคน ดังนั้นผู้ที่เป็นผู้จัดการระบบ(Administrator) ต้องเข้าไปแก้ไขเพิ่มเติมข้อความ รายการเมนูเชื่อมโยง หรือส่วนประกอบของสคริ๊ปคำสั่งใดๆที่ต้องการใช้ร่วมแสดง บอกกล่าว ตามที่ต้องการ หรือลบข้อความนี้ออก โดยเข้าแก้ไขในไฟล์ชื่อ<b>%textZoneFile</b>หรือคลิกที่ข้อความข้างล่างนี้.';
+$_lang['click here'] = 'คลิกที่นี่';
+$_lang['click to zoom in'] = 'คลิกขยายขึ้น';
+$_lang['click to zoom out'] = 'คลิกย่อลง';
+$_lang['count'] = 'จำนวน';
+$_lang['details'] = 'รายละเอียด';
+$_lang['e.g. <em>History of Literature</em>'] = 'เช่น <b>การออกแบบบรรจุภัณฑ์</b>';
+$_lang['email'] = 'ชื่อที่อยู่อีเมล';
+$_lang['good looking'] = 'ดูดี';
+$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'ตั้งรหัสได้สูงสุด 12 หลัก เช่น, <b>ART2021106</b>';
+$_lang['my group'] = 'กลุ่มของเรา';
+$_lang['my supervision'] = 'เป็นอาจารย์ประจำกลุ่ม';
+$_lang['new group(s)'] = 'กลุ่ม(ใหม่)';
+$_lang['number'] = 'หมายเลข';
+$_lang['previous level'] = 'ย้อนกลับ';
+$_lang['register'] = 'ลงทะเบียนวิชา';
+$_lang['sampleForumGroupCategory'] = 'การอภิปรายกลุ่ม';
+$_lang['sampleForumTitle'] = 'ทดสอบตั้งกระทู้อภิปราย';
+$_lang['sampleForumTopicTitle'] = 'ตัวอย่างกระทู้';
+$_lang['sampleLearnPathTitle'] = 'ตัวอย่างแผนสาระการเรียนรู้';
+$_lang['sampleQuizTitle'] = 'ตัวอย่างแบบทดสอบหรือแบบฝึกหัด';
+$_lang['seats (optional)'] = 'คนต่อกลุ่ม';
+$_lang['seats by groups (optional)'] = 'คนต่อกลุ่ม(ไม่เกิน)';
+$_lang['uncompress zipped (.zip) file on the server'] = 'ให้คลายคืนสภาพไฟล์ที่ถูกบีบย่อไฟล์สกุล(.zip)มา ลงในพื้นที่เก็บบนเครื่องแม่ข่าย';
+$_lang['unlimited'] = 'ไม่จำกัด';
 ?>
