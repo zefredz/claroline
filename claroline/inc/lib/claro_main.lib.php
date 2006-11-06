@@ -177,7 +177,7 @@ function claro_get_main_group_properties($courseId)
     }
     else
     {
-    	return false;
+        return false;
     }
 }
 
@@ -492,9 +492,9 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
     static $courseToolList = null, $courseId = null, $profileId = null;
 
     if (   is_null($courseToolList)
-        || $courseId    != $courseIdReq
-        || $profileId   != $profileIdReq
-        || $force )
+    || $courseId    != $courseIdReq
+    || $profileId   != $profileIdReq
+    || $force )
     {
         $courseId   = $courseIdReq;
         $profileId  = $profileIdReq;
@@ -506,8 +506,8 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
         $tbl_course_tool_list = $tbl_cdb_names['tool'];
 
         /*
-         * Search all the tool corresponding to this access levels
-         */
+        * Search all the tool corresponding to this access levels
+        */
 
         // find module or claroline existing tools
 
@@ -546,7 +546,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
             // 1. tool is invisible and profile has no right to edit tool
             // 2. profile has no right to view tool
             if ( ( $visibility == false && ! claro_is_allowed_tool_edit($toolId,$profileId,$courseId) )
-                || ! claro_is_allowed_tool_read($toolId,$profileId,$courseId) )
+            || ! claro_is_allowed_tool_read($toolId,$profileId,$courseId) )
             {
                 unset($courseToolList[$i]);
             }
@@ -598,8 +598,8 @@ function claro_get_course_external_link_list ( $courseIdReq = null, $force = fal
     }
 
     if ( is_null($courseExtLinkList)
-        || $courseIdReq != $courseId
-        || $force )
+    || $courseIdReq != $courseId
+    || $force )
     {
         // Initialise course tool list
         $courseId = $courseIdReq;
@@ -738,12 +738,12 @@ $claro_failureList = array();
 class claro_failure
 {
     /*
-     * IMPLEMENTATION NOTE : For now the $claro_failureList list is set to the
-     * global scope, as PHP 4 is unable to manage static variable in class. But
-     * this feature is awaited in PHP 5. The class is already written to
-     * minimize the changes when static class variable will be possible. And the
-     * API won't change.
-     */
+    * IMPLEMENTATION NOTE : For now the $claro_failureList list is set to the
+    * global scope, as PHP 4 is unable to manage static variable in class. But
+    * this feature is awaited in PHP 5. The class is already written to
+    * minimize the changes when static class variable will be possible. And the
+    * API won't change.
+    */
 
     // var $claro_failureList = array();
 
@@ -778,9 +778,9 @@ class claro_failure
         global $claro_failureList;
 
         if( isset( $claro_failureList[ count($claro_failureList) - 1 ] ) )
-            return $claro_failureList[ count($claro_failureList) - 1 ];
+        return $claro_failureList[ count($claro_failureList) - 1 ];
         else
-            return '';
+        return '';
     }
 }
 
@@ -890,21 +890,21 @@ function claro_disp_tool_view_option($viewModeRequested = false)
     {
         case 'COURSE_ADMIN' :
 
-        $studentButton = '<a href="' . $url . '&amp;viewMode=STUDENT">'
-        .                get_lang('Student')
-        .                '</a>'
-        ;
-        $courseAdminButton = '<b>' . get_lang('Course manager') . '</b>';
+            $studentButton = '<a href="' . $url . '&amp;viewMode=STUDENT">'
+            .                get_lang('Student')
+            .                '</a>'
+            ;
+            $courseAdminButton = '<b>' . get_lang('Course manager') . '</b>';
 
-        break;
+            break;
 
         case 'STUDENT' :
 
-        $studentButton     = '<b>'.get_lang('Student').'</b>';
-        $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
-        . get_lang('Course manager')
-        . '</a>';
-        break;
+            $studentButton     = '<b>'.get_lang('Student').'</b>';
+            $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
+            . get_lang('Course manager')
+            . '</a>';
+            break;
     }
 
     /*------------------------------------------------------------------------
@@ -1035,8 +1035,8 @@ function claro_date($format, $timestamp = -1)
  */
 function claro_time()
 {
-     $mainTimeShift = (int) (isset($GLOBALS['mainTimeShift'])?$GLOBALS['mainTimeShift']:0);
-     return time()+(3600 * $mainTimeShift);
+    $mainTimeShift = (int) (isset($GLOBALS['mainTimeShift'])?$GLOBALS['mainTimeShift']:0);
+    return time()+(3600 * $mainTimeShift);
 }
 //////////////////////////////////////////////////////////////////////////////
 //                              INPUT HANDLING
@@ -1101,10 +1101,13 @@ function claro_get_language_list()
     return $language_list;
 }
 
-
-function claro_get_conf_repository()
+function claro_get_conf_repository($context=array())
 {
-    return get_conf('rootSys') . 'platform/conf/';
+    if (!isset($context) || !is_array($context) || empty($context) || is_null($context))
+        return get_conf('rootSys') . 'platform/conf/';
+
+    if (array_key_exists(CLARO_CONTEXT_COURSE, $context))
+        return get_conf('coursesRepositorySys') . claro_get_course_path($context[CLARO_CONTEXT_COURSE]) . '/conf/';
 }
 
 /**
@@ -1151,17 +1154,17 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-        global $includePath, $claro_stylesheet, $urlAppend ,
-               $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email;
-        global $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
-               $is_courseAllowed, $_tid, $is_courseMember, $_gid;
-        global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
-               $noPHP_SELF, $noQUERY_STRING;
-        global $institution_name, $institution_url, $hide_banner, $hide_footer, $hide_body;
+    global $includePath, $claro_stylesheet, $urlAppend ,
+           $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email;
+    global $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
+           $is_courseAllowed, $_tid, $is_courseMember, $_gid;
+    global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
+           $noPHP_SELF, $noQUERY_STRING;
+    global $institution_name, $institution_url, $hide_banner, $hide_footer, $hide_body;
 
     if ( ! headers_sent () )
     {
-    // display header
+        // display header
         require $includePath . '/claro_init_header.inc.php';
     }
 
@@ -1210,18 +1213,18 @@ function claro_unquote_gpc()
     {
         if ( get_magic_quotes_gpc() )
         {
-         /*
-          * The new version is written in a safer approach inspired by Ilia
-          * Alshanetsky. The previous approach which was using recursive
-          * function permits to smash the stack and crash PHP. For example if
-          * the user supplies a very deep multidimensional array, such as
-          * foo[][][][] ..., the recursion can reach the point of exhausting
-          * the stack. Generating such an attack is quite trivial, via the
-          * use of :
-          *
-          *    str_repeat() function example $str = str_repeat("[]", 100000);
-          *    file_get_contents("http://sitre.com.scriptphp?foo={$str}");
-          */
+            /*
+            * The new version is written in a safer approach inspired by Ilia
+            * Alshanetsky. The previous approach which was using recursive
+            * function permits to smash the stack and crash PHP. For example if
+            * the user supplies a very deep multidimensional array, such as
+            * foo[][][][] ..., the recursion can reach the point of exhausting
+            * the stack. Generating such an attack is quite trivial, via the
+            * use of :
+            *
+            *    str_repeat() function example $str = str_repeat("[]", 100000);
+            *    file_get_contents("http://sitre.com.scriptphp?foo={$str}");
+            */
 
             $inputList = array(&$_REQUEST, &$_GET, &$_POST, &$_COOKIE);
 
@@ -1387,7 +1390,6 @@ function getClaroMessageList($errorClass=null)
     return $returnedClaroErrorList;
 }
 
-
 /**
  * Return the list of tools for a user
  *
@@ -1400,15 +1402,15 @@ function getClaroMessageList($errorClass=null)
  */
 function claro_get_user_tool_list($activeOnly=true)
 {
-     $toolDataList= array();
-     $toolData = get_module_data('CLCAL');
+    $toolDataList= array();
+    $toolData = get_module_data('CLCAL');
 
-     if (false !== $toolData && (!$activeOnly || $toolData['activation'] != 'desactivated'))
-     {
-         $toolData['entry'] = 'myagenda.php';
-         $toolDataList[]=$toolData;
-     }
-     return $toolDataList;
+    if (false !== $toolData && (!$activeOnly || $toolData['activation'] != 'desactivated'))
+    {
+        $toolData['entry'] = 'myagenda.php';
+        $toolDataList[]=$toolData;
+    }
+    return $toolDataList;
 }
 
 /**
@@ -1423,9 +1425,9 @@ function claro_redirect($location)
     $location = http_response_splitting_workaround($location);
 
     if ($is_IIS)
-        header("Refresh: 0;url=$location");
+    header("Refresh: 0;url=$location");
     else
-        header("Location: $location");
+    header("Location: $location");
 }
 
 ?>
