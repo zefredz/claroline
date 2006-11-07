@@ -144,7 +144,6 @@ function import_exercise($file, &$backlog)
 
     while( false !== ($file = readdir($exerciseHandle)) )
     {
-        echo $file . "<br />\n";
         if( is_dir($uploadDir.'/'.$file) && $file != "." && $file != ".." )
         {
             //find each manifest for each question repository found
