@@ -63,20 +63,29 @@ class editor extends GenericEditor
    
     /**
      * Returns the html code needed to display an advanced (default) version of the editor
-     * Advanced version is now the standard one
-     * $returnString .= $this->getTextArea();
      * @return string html code needed to display an advanced (default) version of the editor
        */
     function getAdvancedEditor()
     {
-        // configure editor
-        $returnString =
-            "\n\n"
-            .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce_src.js"></script>'."\n"
-            .'<script language="javascript" type="text/javascript">'."\n\n";
-
+        // TODO limit to one editor object instance that will give output of several textarea instance
+        global $isJsLoaded;
+        
+        $returnString = '';
+        
+        if( !isset($isJsLoaded) )
+        {
+            $returnString .=
+                "\n\n"
+                .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce.js"></script>'."\n";
+                
+            $isJsLoaded = true;
+        }
+        
+        // configure this editor instance
         $returnString .=
-            'tinyMCE.init({'."\n"
+            "\n"
+            .'<script language="javascript" type="text/javascript">'."\n"
+            .'tinyMCE.init({'."\n"
             .'    mode : "exact",'."\n"
             .'    elements: "'.$this->name.'",'."\n"
             .'    theme : "advanced",'."\n"
@@ -89,6 +98,7 @@ class editor extends GenericEditor
             .'    theme_advanced_toolbar_align : "left",'."\n"
             .'    theme_advanced_path : true,'."\n"
             .'    theme_advanced_path_location : "bottom",'."\n"
+            .'    apply_source_formatting : true,'."\n"
             .'    convert_urls : false,'."\n" // prevent forced conversion to relative url 
             .'    relative_urls : false,'."\n"; // prevent forced conversion to relative url
 		
