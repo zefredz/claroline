@@ -28,7 +28,8 @@ $conf_def['config_class']='platform';
 $conf_def['section']['courselist']['label']='Course list';
 $conf_def['section']['courselist']['description']='Settings of the user course list';
 $conf_def['section']['courselist']['properties'] =
-array ( 'course_order_by' );
+array ( 'course_order_by',
+        'course_categories_hidden_to_anonymous' );
 
 $conf_def['section']['rightmenu']['label']='Right menu settings';
 $conf_def['section']['rightmenu']['description']='Settings of the right menu elements';
@@ -37,6 +38,7 @@ array ( 'max_char_from_content'
       );
 
 //PROPERTIES
+
 $conf_def_property_list['course_order_by']
 = array ('label'     => 'Order course by'
         ,'description' => ''
@@ -46,6 +48,17 @@ $conf_def_property_list['course_order_by']
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'official_code'=> 'Official code',
                                     'course_title' => 'Course title' )
+        );
+
+$conf_def_property_list['course_categories_hidden_to_anonymous']
+= array ('label'     => 'Hide course categories to anonymous'
+        ,'description' => ''
+        ,'default'   => false
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
+                                    'FALSE' => 'No' )
         );
 
 $conf_def_property_list['max_char_from_content']

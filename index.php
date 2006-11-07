@@ -141,8 +141,11 @@ else
 {
     event_open();
 
-    // DISPLAY PLATFORM COURSE LIST
-    require $includePath . '/index_platformcourses.inc.php';
+    if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
+    {
+        // DISPLAY PLATFORM COURSE LIST
+        require $includePath . '/index_platformcourses.inc.php';
+    }
 }
 
 // Dock - Campus homepage - Bottom
