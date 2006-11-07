@@ -60,7 +60,7 @@ $titlePage .= get_conf('siteName');
 <script type="text/javascript">
 document.cookie="javascriptEnabled=true; path=<?php echo get_conf('urlAppend')?>";
 <?php
-if ( true === get_conf( 'warnSessionLost', true ) )
+if ( true === get_conf( 'warnSessionLost', true ) && $_uid )
 {
     echo "function claro_session_loss_countdown(sessionLifeTime){
     var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
