@@ -488,19 +488,7 @@ class answerFillInBlanks
 
 		for( $i = 0; $i < $answerCount; $i++ )
 		{
-			// correct 
-			if( $this->type == LISTBOX_FILL )
-            {
-                // case sensitive check when select box are used
-                $answerIsCorrect = $this->response[$i] == $this->answerList[$i];
-            }
-            else
-            {
-                // case insensitive check when text box are used
-                $answerIsCorrect = strtolower($this->response[$i]) == strtolower($this->answerList[$i]);
-            }
-            
-			if( $answerIsCorrect )
+			if( $this->isResponseCorrect($this->response[$i],$this->answerList[$i]) )
 			{
 				$displayedResponse = htmlspecialchars($this->response[$i]);
 			}
@@ -743,19 +731,7 @@ class answerFillInBlanks
 		
 		for( $i = 0 ; $i < $answerCount ; $i++ )
     	{
-    		// check answer validity
-            if( $this->type == LISTBOX_FILL )
-            {
-                // case sensitive check when select box are used
-                $answerIsCorrect = $this->response[$i] == $this->answerList[$i];
-            }
-            else
-            {
-                // case insensitive check when text box are used
-                $answerIsCorrect = strtolower($this->response[$i]) == strtolower($this->answerList[$i]);
-            }
-            
-			if( $answerIsCorrect )
+			if( $this->isResponseCorrect($this->response[$i],$this->answerList[$i]) )
 			{
 				$grade += $this->gradeList[$i];
 			}
@@ -793,7 +769,7 @@ class answerFillInBlanks
 	/** 
 	 * compute grade of question from answer
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 */
 	function getGrade()
@@ -806,6 +782,26 @@ class answerFillInBlanks
     	}
 	   	return $gradeSum;
 	} 
+	
+	/** 
+	 * compare two string to check if given response is 
+	 * 
+     * @author Sebastien Piraux <pir@cerdecam.be>
+	 * @return float question grade 
+	 */	
+	function isResponseCorrect($response, $correctAnswer)
+	{
+        if( $this->type == LISTBOX_FILL )
+        {
+            // case sensitive check when select box are used
+            return (bool) ($response == $correctAnswer);
+        }
+        else
+        {
+            // case insensitive check when text box are used
+            return (bool) (strtolower($response) == strtolower($correctAnswer));
+        }
+	}
 	
 	/**
 	 * return a array with values needed for tracking
