@@ -829,6 +829,19 @@ class postLister
     {
         echo $this->sqlPager->disp_pager_tool_bar($pagerUrl);
     }
+
+        /**
+     * return count of post of the current topic
+     *
+     * @author Christophe Gesché <moosh@claroline.net>
+     * @return array post list
+     */
+
+    function get_total_post_count()
+    {
+        return $this->sqlPager->get_total_item_count();
+    }
+
 }
 
 /**
@@ -837,7 +850,6 @@ class postLister
  * @author Mathieu Laurent <mla@claroline.net>
  * @return void
  */
-
 
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
@@ -903,12 +915,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         .            '</a>'
         ;
 
-    if ( count($toolBar) )
-    {
-        $html = '<p>' . claro_html_menu_horizontal($toolBar) . '</p>';
-    }
-
-    return $html;
+    return $toolBar;
 }
 
 function disp_search_box()
@@ -1026,11 +1033,12 @@ function forum_group_tool_list($gid, $active = true)
 }
 
 /**
- * delete all post and topics from a sepcific forum
+ * Delete all post and topics from a sepcific forum
+ *
+ * @param int $forumId forum id
+ * @return boolean - true if it succeed, flase otherwise
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param int - forum id
- * @return boolean - true if it succeed, flase otherwise
  */
 
 function delete_all_post_in_forum($forumId)
@@ -1042,62 +1050,68 @@ function delete_all_post_in_forum($forumId)
     $tbl_posts_text              = $tbl_cdb_names['bb_posts_text'             ];
     $tbl_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
-    $sql = "SELECT post_id FROM `".$tbl_posts."`
+    $sql = "SELECT post_id FROM `" . $tbl_cdb_names['bb_posts'] . "`
             WHERE forum_id = " . (int) $forumId;
 
     $postIdList = claro_sql_query_fetch_all_cols($sql);
     $postIdList = $postIdList['post_id'];
 
-    $sql = "SELECT topic_id FROM `".$tbl_topics."`
-            WHERE forum_id = " .(int) $forumId;
+    $sql = "SELECT topic_id FROM `" . $tbl_cdb_names['bb_topics'] . "`
+            WHERE forum_id = " . (int) $forumId;
 
     $topicIdList = claro_sql_query_fetch_all_cols($sql);
     $topicIdList = $topicIdList['topic_id'];
 
     if ( count($topicIdList) > 0)
     {
-        $sql = "DELETE FROM `".$tbl_rel_topic_userstonotify."`
-                WHERE  topic_id IN (".implode(', ', $topicIdList).")";
+        $sql = "DELETE FROM `" . $tbl_cdb_names['bb_rel_topic_userstonotify'] . "`
+                WHERE  topic_id IN (" . implode(', ', $topicIdList) . ")";
         if (claro_sql_query($sql) == false) return false;
     }
 
-    $sql = "DELETE FROM `".$tbl_topics."`
+    $sql = "DELETE FROM `" . $tbl_cdb_names['bb_topics'] . "`
             WHERE forum_id = ".(int) $forumId;
 
     if (claro_sql_query($sql) == false) return false;
 
-    $sql = "DELETE FROM `" . $tbl_posts . "`
+    $sql = "DELETE FROM `" . $tbl_cdb_names['bb_posts'] . "`
             WHERE forum_id = " . (int) $forumId . "";
 
     if (claro_sql_query($sql) == false) return false;
 
     if ( count($postIdList) > 0 )
     {
-        $sql = "DELETE FROM `".$tbl_posts_text."`
-                WHERE post_id IN (".implode(', ', $postIdList).")";
+        $sql = "DELETE FROM `" . $tbl_cdb_names['bb_posts_text'] . "`
+                WHERE post_id IN (" . implode(', ', $postIdList) . ")";
 
         if (claro_sql_query($sql) == false) return false;
     }
 
-    $sql = "UPDATE `".$tbl_forums."`
+    $sql = "UPDATE `" . $tbl_cdb_names['bb_forums'] . "`
             SET  forum_topics = 0,
                  forum_posts  = 0
-            WHERE forum_id = ".(int)$forumId;
+            WHERE forum_id = " . (int) $forumId;
 
     if ( claro_sql_query($sql) == false ) return false;
 
     return true;
 }
 
+/**
+ * Change title of a category
+ *
+ * @param integer $catId
+ * @param string $catTitle new title
+ * @return boolean true if ok
+ */
 function update_category_title( $catId, $catTitle )
 {
-    $tbl_cdb_names        = claro_sql_get_course_tbl();
-    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
+    $tbl = claro_sql_get_course_tbl();
 
     if ( !empty($catTitle) )
     {
-        $sql = "UPDATE `".$tbl_forum_categories."`
-            SET   cat_title = '". addslashes($catTitle) ."'
+        $sql = "UPDATE `" . $tbl['bb_categories'] . "`
+            SET   cat_title = '". addslashes($catTitle) . "'
             WHERE cat_id    = ".(int) $catId;
 
         if (claro_sql_query($sql) != false) return true;
@@ -1105,6 +1119,17 @@ function update_category_title( $catId, $catTitle )
 
     return false;
 }
+
+/**
+ * Set properties of a forum
+ *
+ * @param integer $forum_id
+ * @param string  $forum_name
+ * @param string  $forum_desc
+ * @param boolean $forum_post_allowed
+ * @param integer $cat_id
+ * @return boolean true if set.
+ */
 
 function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_allowed, $cat_id)
 {
@@ -1123,6 +1148,13 @@ function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_
     else                                return false;
 }
 
+/**
+ * create a new forum category
+ *
+ * @param string            $cat_title
+ * @param context course id $course_id
+ * @return integer catgory id.
+ */
 function create_category($cat_title, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -1260,7 +1292,13 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $g
 
     return claro_sql_query_insert_id($sql);
 }
-
+/**
+ * swap rank of a forum in a category with his neiborgth
+ *
+ * @param integer $currForumId
+ * @param string $direction (UP|DOWN)
+ * @return boolean true whether success else claro_failure result
+ */
 function move_forum_rank($currForumId, $direction)
 {
     if ( strtoupper($direction) == 'UP')
@@ -1285,11 +1323,12 @@ function move_forum_rank($currForumId, $direction)
     $cat_id           = $forumSettingList['cat_id'];
     $currForumRank       = $forumSettingList['forum_rank'];
 
-    $sql = 'SELECT forum_id AS id, forum_order AS rank
-            FROM  `'.$tbl_forum_forums.'`
-            WHERE cat_id      = ' . (int) $cat_id     . '
-            AND   forum_order '  . $operator . ' ' . (int) $currForumRank . '
-            ORDER BY forum_order ' . $orderDirection . ' LIMIT 1';
+    $sql = "SELECT forum_id    AS id,
+                   forum_order AS rank
+            FROM  `" . $tbl_cdb_names['bb_forums'] . "`
+            WHERE cat_id      = " . (int) $cat_id     . "
+            AND   forum_order "  . $operator . " " . (int) $currForumRank . "
+            ORDER BY forum_order " . $orderDirection . " LIMIT 1";
 
     $adjacentForum = claro_sql_query_get_single_row($sql);
 
@@ -1297,15 +1336,15 @@ function move_forum_rank($currForumId, $direction)
     {
         // SWAP BOTH FORUM RANKS
 
-        $sql = 'UPDATE `'.$tbl_forum_forums.'`
-                SET `forum_order` = '. (int) $currForumRank. '
-                WHERE `forum_id` =  '. (int) $adjacentForum['id'] ;
+        $sql = "UPDATE `" . $tbl_cdb_names['bb_forums'] . "`
+                SET `forum_order` = " . (int) $currForumRank . "
+                WHERE `forum_id` =  " . (int) $adjacentForum['id'] ;
 
         if ( claro_sql_query($sql) == false ) return false;
 
-        $sql = 'UPDATE `'.$tbl_forum_forums.'`
-                SET   `forum_order` = '. (int) $adjacentForum['rank'] . '
-                WHERE `forum_id`    = '. (int) $currForumId ;
+        $sql = "UPDATE `" . $tbl_cdb_names['bb_forums'] . "`
+                SET   `forum_order` = " . (int) $adjacentForum['rank'] . "
+                WHERE `forum_id`    = " . (int) $currForumId ;
 
         if ( claro_sql_query($sql) == false ) return false;
     }
@@ -1317,23 +1356,45 @@ function move_forum_rank($currForumId, $direction)
     return true;
 }
 
+/**
+ * Move up a forum in his category
+ * This function is a helper for move_forum_rank()
+ *
+ * @param integer $forum_id id of  forum to uprank
+ * @see move_forum_rank()
+ * @return boolean true whether success else claro_failure result
+ */
 function move_up_forum($forum_id)
 {
-    move_forum_rank($forum_id, 'UP');
+    return move_forum_rank($forum_id, 'UP');
 }
 
+/**
+ * Move down a forum in his category
+ * This function is a helper for move_forum_rank()
+ *
+ * @param integer $forum_id id of  forum to downrank
+ * @see move_forum_rank()
+ * @return boolean true whether success else claro_failure result
+ */
 function move_down_forum($forum_id)
 {
-    move_forum_rank($forum_id, 'DOWN');
+    return move_forum_rank($forum_id, 'DOWN');
 }
 
+/**
+ * get setting of a given category
+ *
+ * @param integer $cat_id
+ * @return array : `cat_id`, `cat_title`, `cat_order`
+ */
 function get_category_settings($cat_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
 
     $sql = 'SELECT `cat_id`, `cat_title`, `cat_order`
-            FROM `'.$tbl_forum_categories.'` f
+            FROM `' . $tbl_forum_categories . '` f
             WHERE f.`cat_id` = ' . (int) $cat_id;
 
     $resultList = claro_sql_query_fetch_all($sql);
