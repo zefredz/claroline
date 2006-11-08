@@ -1,4 +1,4 @@
-<?php # -$Id$
+<?php // $Id$
 
 $tlabelReq = 'CLFRM';
 
@@ -54,14 +54,20 @@ if ( $sqlClauseString )
         $tbl_topics     = $tbl_cdb_names['bb_topics'    ];
         $tbl_forums     = $tbl_cdb_names['bb_forums'    ];
 
-        $sql = "SELECT pt.post_id, pt.post_text,
-                       p.nom lastname, p.prenom firstname, p.post_time,
-                       t.topic_id, t.topic_title,
-                       f.forum_id, f.forum_name, f.group_id
-               FROM  `".$tbl_posts_text."` pt,
-                     `".$tbl_posts."`     p,
-                     `".$tbl_topics."`    t,
-                     `".$tbl_forums."`    f
+        $sql = "SELECT pt.post_id,
+                       pt.post_text,
+                       p.nom         AS lastname,
+                       p.prenom      AS firstname,
+                       p.post_time,
+                       t.topic_id,
+                       t.topic_title,
+                       f.forum_id,
+                       f.forum_name,
+                       f.group_id
+               FROM  `" . $tbl_posts_text . "` AS pt,
+                     `" . $tbl_posts . "`      AS p,
+                     `" . $tbl_topics . "`     AS t,
+                     `" . $tbl_forums . "`     AS f
                WHERE ( ". $sqlClauseString . ")
                  AND pt.post_id = p.post_id
                  AND p.topic_id = t.topic_id
@@ -91,11 +97,10 @@ echo claro_html_tool_title(get_lang('Forums'),
 echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
 .    disp_forum_breadcrumb($pagetype, null, null, null)
 
-
 .    '<table class="claroTable" width="100%">'                          . "\n"
 .    '<tr align="left">'                                                . "\n"
 .    '<th class="superHeader">'                                         . "\n"
-.    get_lang('Search result'). ' : '. (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
+.    get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
 .    '</th>'                                                            . "\n"
 .    '</tr>'                                                            . "\n";
 
