@@ -143,14 +143,14 @@ else
 
     echo claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
-    
+
     echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
     if ( isset($groupToolList) )
     {
         echo claro_html_menu_horizontal($groupToolList);
     }
-    if ($forum_post_allowed) echo disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0);
+    if ($forum_post_allowed) echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0));
 
     $topicLister->disp_pager_tool_bar($pagerUrl);
 
@@ -188,7 +188,7 @@ else
             $topic_time     = $thisTopic['topic_time'   ];
             $last_post_time = datetime_to_timestamp( $thisTopic['post_time']);
             $last_post      = datetime_to_timestamp( $thisTopic['post_time'] );
-
+pushClaroMessage( '<div>'.__LINE__.': $thisTopic = <pre>'. var_export($thisTopic,1).'</PRE></div>');
             if ( empty($last_post_time) )
             {
                 $last_post_time = datetime_to_timestamp($topic_time);
@@ -235,7 +235,7 @@ else
             }
             else
             {
-                echo '  <td align="center"><small>' . get_lang('No post') . '<small></td>' . "\n";
+                echo '<td align="center"><small>' . get_lang('No post') . '<small></td>' . "\n";
             }
 
             echo ' </tr>' . "\n";

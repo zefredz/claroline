@@ -201,20 +201,20 @@ else
             // display error message
             echo claro_html_message_box($error_message);
         }
-        
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
-        echo disp_forum_toolbar($pagetype, $forum_id, 0, 0);
+        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name)
+        .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, 0))
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-         . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
 
-         . '<table border="0">' . "\n"
-         . '<tr valign="top">' . "\n"
-         . '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
-         . '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
-         . '<tr  valign="top">' . "\n"
-         . '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
+        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        .    '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
+
+        .    '<table border="0">' . "\n"
+        .    '<tr valign="top">' . "\n"
+        .    '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
+        .    '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
+        .    '<tr  valign="top">' . "\n"
+        .    '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
 
         if ( !empty($message) ) $content = htmlspecialchars($message);
         else                    $content = '';

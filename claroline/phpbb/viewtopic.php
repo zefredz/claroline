@@ -18,8 +18,8 @@
  */
 
 /*=================================================================
-  Init Section
- =================================================================*/
+Init Section
+=================================================================*/
 
 $tlabelReq = 'CLFRM';
 
@@ -30,19 +30,19 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 claro_set_display_mode_available(true);
 
 /*-----------------------------------------------------------------
-  Stats
- -----------------------------------------------------------------*/
+Stats
+-----------------------------------------------------------------*/
 
 event_access_tool($_tid, $_courseTool['label']);
 
 /*-----------------------------------------------------------------
-  Library
- -----------------------------------------------------------------*/
+Library
+-----------------------------------------------------------------*/
 
 include_once $includePath . '/lib/forum.lib.php';
 /*-----------------------------------------------------------------
-  Initialise variables
- -----------------------------------------------------------------*/
+Initialise variables
+-----------------------------------------------------------------*/
 
 $last_visit    = $_user['lastLogin'];
 $error         = FALSE;
@@ -50,8 +50,8 @@ $allowed       = TRUE;
 $error_message = '';
 
 /*=================================================================
-  Main Section
- =================================================================*/
+Main Section
+=================================================================*/
 
 // Get params
 
@@ -77,14 +77,15 @@ if ($topicSettingList)
     $forum_name         = $forumSettingList['forum_name'];
     $forum_cat_id       = $forumSettingList['cat_id'    ];
     $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
+    $lastPostId         = $topicSettingList['topic_last_post_id'];
 
     /*
-     * Check if the topic isn't attached to a group,  or -- if it is attached --,
-     * check the user is allowed to see the current group forum.
-     */
+    * Check if the topic isn't attached to a group,  or -- if it is attached --,
+    * check the user is allowed to see the current group forum.
+    */
 
     if (   ! is_null($forumSettingList['idGroup'])
-        && ! ( $forumSettingList['idGroup'] == $_gid || $is_groupAllowed) )
+    && ! ( $forumSettingList['idGroup'] == $_gid || $is_groupAllowed) )
     {
         $allowed = FALSE;
         $error_message = get_lang('Not allowed');
@@ -94,7 +95,8 @@ if ($topicSettingList)
         // get post and use pager
         $postLister = new postLister($topic_id, $start, get_conf('posts_per_page'));
         $postList   = $postLister->get_post_list();
-        $pagerUrl   = $_SERVER['PHP_SELF']."?topic=".$topic_id;
+        $totalPosts = $postLister->sqlPager->get_total_item_count();
+        $pagerUrl   = $_SERVER['PHP_SELF'] . '?topic=' . $topic_id;
 
         // EMAIL NOTIFICATION COMMANDS
         // Execute notification preference change if the command was called
@@ -113,8 +115,8 @@ if ($topicSettingList)
             }
 
             $increaseTopicView = false; // the notification change command doesn't
-                                        // have to be considered as a new topic
-                                        // consult
+            // have to be considered as a new topic
+            // consult
         }
 
         // Allow user to be have notification for this topic or disable it
@@ -122,27 +124,32 @@ if ($topicSettingList)
         if ( isset($_uid) )  //anonymous user do not have this function
         {
             $notification_bloc = '<div style="float: right;">' . "\n"
-                                . '<small>';
+            . '<small>';
 
             if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
             {
-                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
-                                    . get_lang('Notify by email when replies are posted')
-                                    . ' [<a href="' . $_SERVER['PHP_SELF'] . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exdoNotNotify">'
-                                    .get_lang('Disable')
-                                    . '</a>]';
+                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />';
+                $notification_bloc .= get_lang('Notify by email when replies are posted');
+                $notification_bloc .= ' [<a href="' . $_SERVER['PHP_SELF'] ;
+                $notification_bloc .= '?forum=' . $forum_id ;
+                $notification_bloc .= '&amp;topic=' . $topic_id ;
+                $notification_bloc .= '&amp;cmd=exdoNotNotify">';
+                $notification_bloc .= get_lang('Disable');
+                $notification_bloc .= '</a>]';
             }
             else   //display link to be notified for this topic
             {
-                $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF']
-                                    . '?forum=' . $forum_id . '&amp;topic=' . $topic_id . '&amp;cmd=exNotify">'
-                                    . '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" /> '
-                                    . get_lang('Notify by email when replies are posted')
-                                    . '</a>';
+                $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'];
+                $notification_bloc .= '?forum=' . $forum_id ;
+                $notification_bloc .= '&amp;topic=' . $topic_id ;
+                $notification_bloc .= '&amp;cmd=exNotify">';
+                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" /> ';
+                $notification_bloc .= get_lang('Notify by email when replies are posted');
+                $notification_bloc .= '</a>';
             }
 
             $notification_bloc .= '</small>' . "\n"
-                                . '</div>' . "\n";
+            . '</div>' . "\n";
         } //end not anonymous user
     }
 }
@@ -156,12 +163,12 @@ else
 if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop
 
 /*=================================================================
-  Display Section
- =================================================================*/
+Display Section
+=================================================================*/
 // Confirm javascript code
 
 $htmlHeadXtra[] =
-          "<script type=\"text/javascript\">
+"<script type=\"text/javascript\">
            function confirm_delete()
            {
                if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . " ?'))
@@ -183,29 +190,39 @@ if ( ! $allowed )
 else
 {
     /*-----------------------------------------------------------------
-      Display Forum Header
-     -----------------------------------------------------------------*/
+    Display Forum Header
+    -----------------------------------------------------------------*/
 
     $pagetype  = 'viewtopic';
 
     $is_allowedToEdit = claro_is_allowed_to_edit()
-                        || ( $is_groupTutor && !$is_courseAdmin);
+    || ( $is_groupTutor && !$is_courseAdmin);
 
     echo claro_html_tool_title(get_lang('Forums'),
-                          $is_allowedToEdit ? 'help_forum.php' : false);
-    
+    $is_allowedToEdit ? 'help_forum.php' : false);
+
     echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
 
     if ($forum_post_allowed)
     {
-        echo disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
+        $toolList = disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
+        if ( count($postList) > 2 ) // if less than 2 las message is visible
+        {
+            $lastMsgUrl = 'viewtopic.php?forum=' . $forum_id
+            .             '&amp;topic=' . $topic_id
+            .             '&amp;start=' . ($totalPosts - get_conf('posts_per_page'))
+            .             '#post' . $lastPostId;
+            $toolList[] = claro_html_cmd_link($lastMsgUrl,get_lang('Last message'));
+        }
+        echo claro_html_menu_horizontal($toolList);
     }
 
     $postLister->disp_pager_tool_bar($pagerUrl);
 
     echo '<table class="claroTable" width="100%">' . "\n"
-    .    ' <tr align="left">' . "\n"
-    .    '  <th class="superHeader">';
+    .    '<tr align="left">' . "\n"
+    .    '<th class="superHeader">'
+    ;
 
     // display notification link
 
@@ -215,8 +232,9 @@ else
     }
 
     echo $topic_subject
-        . '  </th>' . "\n"
-        . ' </tr>' . "\n";
+    .    '</th>' . "\n"
+    .    '</tr>' . "\n"
+    ;
 
     if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
 
@@ -232,48 +250,48 @@ else
         else
         $postImg = 'post.gif';
 
-        echo ' <tr>' . "\n"
+        echo '<tr>' . "\n"
+        .    '<th class="headerX">' . "\n"
+        .    '<a name="post'. $thisPost['post_id'] .'" >' . "\n"
+        .    '<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
+        .    get_lang('Author')
+        .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+        .    '<small>' . get_lang('Posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
+        .    '  </th>' . "\n"
+        .' </tr>'. "\n"
 
-            .'  <th class="headerX">' . "\n"
-            .'<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
-            . get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-            .'<small>' . get_lang('Posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
-            .'  </th>' . "\n"
+        .' <tr>' . "\n"
 
-            .' </tr>'. "\n"
-
-            .' <tr>' . "\n"
-
-            .'  <td>' . "\n"
-            .claro_parse_user_text($thisPost['post_text']) . "\n";
+        .'  <td>' . "\n"
+        .claro_parse_user_text($thisPost['post_text']) . "\n";
 
         if ( $is_allowedToEdit )
         {
             echo '<p>' . "\n"
 
-                . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
-                . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
-                . '</a>' . "\n"
+            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
+            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+            . '</a>' . "\n"
 
-                . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
-                . 'onClick="return confirm_delete();" >'
-                . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
-                . '</a>' . "\n"
+            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
+            . 'onClick="return confirm_delete();" >'
+            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+            . '</a>' . "\n"
 
-                . '</p>' . "\n";
+            . '</p>' . "\n";
         }
 
         echo    '  </td>' . "\n",
-                ' </tr>' . "\n";
+        ' </tr>' . "\n";
 
     } // end for each
 
     echo '</table>' . "\n";
-    
+
     if ($forum_post_allowed)
     {
         $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
-                   . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
+        . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
         echo claro_html_menu_horizontal($toolBar);
     }
 
@@ -283,8 +301,8 @@ else
 }
 
 /*-----------------------------------------------------------------
-  Display Forum Footer
- -----------------------------------------------------------------*/
+Display Forum Footer
+-----------------------------------------------------------------*/
 
 include($includePath.'/claro_init_footer.inc.php');
 

@@ -20,8 +20,8 @@
  */
 
 /*=================================================================
-  Init Section
- =================================================================*/
+Init Section
+=================================================================*/
 
 $tlabelReq = 'CLFRM';
 $gidReq=null;
@@ -36,38 +36,38 @@ if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 claro_set_display_mode_available(true); // view mode
 
 /*-----------------------------------------------------------------
-  Stats
- -----------------------------------------------------------------*/
+Stats
+-----------------------------------------------------------------*/
 
 event_access_tool($_tid, $_courseTool['label']);
 
 /*-----------------------------------------------------------------
-  Library
- -----------------------------------------------------------------*/
+Library
+-----------------------------------------------------------------*/
 
 include_once $includePath . '/lib/forum.lib.php';
 
 /*-----------------------------------------------------------------
-  Initialise variables
- -----------------------------------------------------------------*/
+Initialise variables
+-----------------------------------------------------------------*/
 
 $last_visit = $_user['lastLogin'];
 $is_allowedToEdit = $is_courseAdmin ;
 $dialogBox = '';
 
 /*=================================================================
-  Main Section
- =================================================================*/
+Main Section
+=================================================================*/
 
 /*-----------------------------------------------------------------
-  Administration command
- -----------------------------------------------------------------*/
+Administration command
+-----------------------------------------------------------------*/
 
 if ( $is_allowedToEdit ) include_once('./admin.php');
 
 /*-----------------------------------------------------------------
-  Get forums categories
- -----------------------------------------------------------------*/
+Get forums categories
+-----------------------------------------------------------------*/
 
 $categories       = get_category_list();
 $total_categories = count($categories);
@@ -87,8 +87,8 @@ else
 
 
 /*=================================================================
-  Display Section
- =================================================================*/
+Display Section
+=================================================================*/
 
 // Claroline Header
 
@@ -97,18 +97,18 @@ include $includePath . '/claro_init_header.inc.php';
 $pagetype  = 'index';
 
 $is_allowedToEdit = claro_is_allowed_to_edit()
-                    || ( $is_groupTutor && !$is_courseAdmin);
-                    // ( $is_groupTutor
-                    //  is added to give admin status to tutor
-                    // && !$is_courseAdmin)
-                    // is added  to let course admin, tutor of current group, use student mode
+|| ( $is_groupTutor && !$is_courseAdmin);
+// ( $is_groupTutor
+//  is added to give admin status to tutor
+// && !$is_courseAdmin)
+// is added  to let course admin, tutor of current group, use student mode
 
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
 $is_groupPrivate   = $_groupProperties ['private'];
 
 echo claro_html_tool_title(get_lang('Forums'),
-                      $is_allowedToEdit ? 'help_forum.php' : false);
+$is_allowedToEdit ? 'help_forum.php' : false);
 
 echo disp_search_box();
 
@@ -116,10 +116,10 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 // Forum toolbar
 
-echo disp_forum_toolbar($pagetype, 0, 0, 0);
+echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, 0, 0, 0));
 
 /*-----------------------------------------------------------------
-  Display Forum Index Page
+Display Forum Index Page
 ------------------------------------------------------------------*/
 
 echo '<table width="100%" class="claroTable emphaseLine">' . "\n";
@@ -140,13 +140,15 @@ foreach ( $categories as $this_category )
 
     echo '<tr class="superHeader" align="left" valign="top">' . "\n"
 
-    .    '<th colspan="'.$colspan.'" '.$thCssClass.'>';
+    .    '<th colspan="'.$colspan.'" '.$thCssClass.'>'
+    ;
 
     if($is_allowedToEdit)
     {
         echo '<div style="float:right">'
-        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'edit.gif" alt="'.get_lang('Edit').'" />'
+        .    '<a href="' . $_SERVER['PHP_SELF']
+        .    '?cmd=rqEdCat&amp;catId=' . $this_category['cat_id'] . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Edit') . '" />'
         .    '</a>'
         .    '&nbsp;'
         ;
@@ -162,12 +164,17 @@ foreach ( $categories as $this_category )
         if ( $categoryIterator > 1)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
         .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('Move up').'" />'
-        .    '</a>';
+        .    '</a>'
+        ;
 
         if ( $categoryIterator < $total_categories)
-        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.get_lang('Move down').'" />'
-        .    '</a>';
+        {
+            echo '<a href="' . $_SERVER['PHP_SELF']
+            .    '?cmd=exMvDownCat&amp;catId=' . $this_category['cat_id'] . '">'
+            .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Move down') . '" />'
+            .    '</a>'
+            ;
+        }
 
         echo '</div>'
         ;
@@ -230,7 +237,7 @@ foreach ( $categories as $this_category )
             $total_posts  = (int) $this_forum['forum_posts' ];
             $forum_id     = (int) $this_forum['forum_id'    ];
             $group_id     = is_null($this_forum['group_id']) ?
-                            null : (int) $this_forum['group_id'];
+            null : (int) $this_forum['group_id'];
 
             $forum_post_allowed = ($this_forum['forum_access'] != 0) ? true : false;
 
@@ -266,9 +273,9 @@ foreach ( $categories as $this_category )
             if ( ! is_null($group_id ) )
             {
                 if (   in_array($group_id, $userGroupList )
-                    || in_array($group_id, $tutorGroupList)
-                    || ! $is_groupPrivate || $is_forumAdmin
-                   )
+                || in_array($group_id, $tutorGroupList)
+                || ! $is_groupPrivate || $is_forumAdmin
+                )
                 {
                     echo '<a href="viewforum.php?gidReq=' . $group_id
                     .    '&amp;forum=' . $forum_id . '">'
@@ -277,8 +284,8 @@ foreach ( $categories as $this_category )
                     ;
 
                     echo  '&nbsp;<a href="'.$clarolineRepositoryWeb.'group/group_space.php?gidReq='.$group_id.'">'
-                        . '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . get_lang('Group area') . '">'
-                        . '</a>';
+                    . '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . get_lang('Group area') . '">'
+                    . '</a>';
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
                     {
@@ -317,10 +324,10 @@ foreach ( $categories as $this_category )
             .    '<td align="center">' . "\n"
             .    '<small>'
             .    (
-                   ($last_post > 0) ?
-                   claro_disp_localised_date($dateTimeFormatShort, datetime_to_timestamp($last_post)) :
-                   get_lang('No post')
-                  )
+            ($last_post > 0) ?
+            claro_disp_localised_date($dateTimeFormatShort, datetime_to_timestamp($last_post)) :
+            get_lang('No post')
+            )
             . '</small>'
             .    '</td>' . "\n"
             ;
@@ -374,9 +381,9 @@ foreach ( $categories as $this_category )
                 }
                 else echo '&nbsp;';
 
-                echo '</td>';
-
-                echo '<td align="center">';
+                echo '</td>'
+                .    '<td align="center">'
+                ;
 
                 if ( $forumIterator < $this_category['forum_count'] )
                 {

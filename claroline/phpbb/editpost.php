@@ -118,7 +118,7 @@ if ( $postSettingList && $is_allowedToEdit )
             if ( isset($_REQUEST['message']) )
             {
                 $message = $_REQUEST['message'];
-                
+
                 // XSS
                 $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
             }
@@ -207,74 +207,78 @@ else
     }
     else
     {
+        $first_post = is_first_post($topic_id, $post_id);
 
         if ( $error )
         {
             echo claro_html_message_box($error_message);
         }
 
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject);
-        
-        echo disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0);
+        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
+        .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0))
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
-            . '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
-            . '<table border="0">' . "\n";
-
-        $first_post = is_first_post($topic_id, $post_id);
+        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
+        .    '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
+        .    '<table border="0">' . "\n"
+        ;
 
         if ( $first_post )
         {
             echo '<tr valign="top">' . "\n"
-                . '<td align="right">' . "\n"
-                . '<label for="subject">' . get_lang('Subject') . '</label> : '
-                . '</td>' . "\n"
-                . '<td>' . "\n"
-                . '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
-                . '</td>' . "\n"
-                . '</tr>' . "\n";
+            .    '<td align="right">' . "\n"
+            .    '<label for="subject">' . get_lang('Subject') . '</label> : '
+            .    '</td>' . "\n"
+            .    '<td>' . "\n"
+            .    '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
         }
 
         echo '<tr valign="top">' . "\n"
-            . '<td align="right"><br />' . get_lang('Message body') . ' : </td>' . "\n"
-            . '<td>' . "\n"
-            .claro_html_textarea_editor('message', $message)
-            .'</td>' . "\n"
-            . '</tr>' . "\n"
+        .    '<td align="right">' . "\n"
+        .    '<br />' . get_lang('Message body') . ' : ' . "\n"
+        .    '</td>' . "\n"
+        .    '<td>' . "\n"
+        .    claro_html_textarea_editor('message', $message)
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
 
-            . '<tr valign="top">' . "\n"
-            . '<td align="right"><label for="delete" >' . get_lang('Delete') . '</label> : </td>' . "\n"
-            . '<td>' . "\n"
-            . '<input type="checkbox" name="delete" id="delete" />' . "\n"
-            . '</td>' . "\n"
-            . '</tr>' . "\n"
+        .    '<tr valign="top">' . "\n"
+        .    '<td align="right">' . "\n"
+        .    '<label for="delete" >' . get_lang('Delete') . '</label>' . "\n"
+        .    ' : ' . "\n"
+        .    '</td>' . "\n"
+        .    '<td>' . "\n"
+        .    '<input type="checkbox" name="delete" id="delete" />' . "\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
 
-            . '<tr>'
-            . '<td>&nbsp;</td>' ."\n"
-            . '<td>'
-            . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-            . '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
-            . '</td>' . "\n"
-            . '</tr>' . "\n"
-            . '</table>'. "\n"
+        .    '<tr>'
+        .    '<td>&nbsp;</td>' ."\n"
+        .    '<td>'
+        .    '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
+        .    '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
+        .    '</table>'. "\n"
 
-            . '<br />' . "\n"
-            . '<center>'
-            . '<a href="viewtopic.php?topic=' . $topic_id . '" target="_blank">'
-            . get_lang('Topic review')
-            . '</a>'
-            . '</center>'
-            . '<br />' ."\n";
+        .    '<br />' . "\n"
+        .    '<center>'
+        .    '<a href="viewtopic.php?topic=' . $topic_id . '" target="_blank">'
+        .    get_lang('Topic review')
+        .    '</a>'
+        .    '</center>'
+        .    '<br />' . "\n"
+        ;
 
     } // end // else if ! isset submit
-
 
 }
 
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/
-
 include($includePath . '/claro_init_footer.inc.php');
 
 ?>

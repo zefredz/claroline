@@ -31,7 +31,7 @@ elseif ( isset($_REQUEST['searchPattern']) )
             $thisSearchPattern = str_replace('?', '_' , $thisSearchPattern);
             $thisSearchPattern = str_replace('*', '%' , $thisSearchPattern);
 
-            $sqlClauseList[] = 
+            $sqlClauseList[] =
             "   pt.post_text  LIKE '%".addslashes($thisSearchPattern)."%'
              OR p.nom           LIKE '%".addslashes($thisSearchPattern)."%'
              OR p.prenom        LIKE '%".addslashes($thisSearchPattern)."%'
@@ -54,13 +54,13 @@ if ( $sqlClauseString )
         $tbl_topics     = $tbl_cdb_names['bb_topics'    ];
         $tbl_forums     = $tbl_cdb_names['bb_forums'    ];
 
-        $sql = "SELECT pt.post_id, pt.post_text, 
+        $sql = "SELECT pt.post_id, pt.post_text,
                        p.nom lastname, p.prenom firstname, p.post_time,
                        t.topic_id, t.topic_title,
                        f.forum_id, f.forum_name, f.group_id
-               FROM  `".$tbl_posts_text."` pt, 
-                     `".$tbl_posts."`     p, 
-                     `".$tbl_topics."`    t, 
+               FROM  `".$tbl_posts_text."` pt,
+                     `".$tbl_posts."`     p,
+                     `".$tbl_topics."`    t,
                      `".$tbl_forums."`    f
                WHERE ( ". $sqlClauseString . ")
                  AND pt.post_id = p.post_id
@@ -85,15 +85,14 @@ $noPHP_SELF       = true;
 
 include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html_tool_title(get_lang('Forums'), 
+echo claro_html_tool_title(get_lang('Forums'),
                            $is_allowedToEdit ? 'help_forum.php' : false);
 
-echo disp_forum_toolbar($pagetype, null);
+echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
+.    disp_forum_breadcrumb($pagetype, null, null, null)
 
-echo disp_forum_breadcrumb($pagetype, null, null, null);
 
-
-echo '<table class="claroTable" width="100%">'                          . "\n"
+.    '<table class="claroTable" width="100%">'                          . "\n"
 .    '<tr align="left">'                                                . "\n"
 .    '<th class="superHeader">'                                         . "\n"
 .    get_lang('Search result'). ' : '. (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
@@ -131,7 +130,7 @@ echo '<table class="claroTable" width="100%">'                          . "\n"
             .   '<th class="headerX">'                                    . "\n"
             .   '<img src="' . $imgRepositoryWeb . 'topic.gif" alt="">'
             .   '<a href="viewtopic.php?topic='.$thisPost['topic_id'].'">'
-            .   $thisPost['topic_title'] 
+            .   $thisPost['topic_title']
             .   '</a><br />'                                              . "\n"
             .   '<img src="' . $imgRepositoryWeb . $postImg . '" alt="">'
             .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
@@ -141,17 +140,17 @@ echo '<table class="claroTable" width="100%">'                          . "\n"
             .   '</tr>'                                                  . "\n"
 
             .   '<tr>'                                                   . "\n"
-        
+
             .   '<td>'                                                   . "\n"
             .   claro_parse_user_text($thisPost['post_text'])            . "\n"
             .   '</td>'                                                  . "\n"
             .   '</tr>'                                                  . "\n";
         } // end else if ( ! is_null($thisPost['group_id'])
-    
+
     } // end for each
-    
+
     echo '</table>' . "\n";
-    
+
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/

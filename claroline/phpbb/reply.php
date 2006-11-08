@@ -179,7 +179,7 @@ else
             echo claro_html_message_box($error_message);
         }
 
-        echo disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id);
+        echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id));
 
         echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $topic_title);
 
