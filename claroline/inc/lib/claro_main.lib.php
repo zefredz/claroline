@@ -325,7 +325,7 @@ function claro_get_course_group_path($context)
 
     $coursePath = claro_get_course_path($cid);
     $gData = claro_get_group_data($context);
-    if (isset($k['directory'])) return $coursePath . '/group' . $gData['directory'];
+    if (isset($gData['directory'])) return $coursePath . '/group' . $gData['directory'];
     else                   return NULL;
 }
 
@@ -1249,6 +1249,25 @@ function claro_unquote_gpc()
     }
 }
 
+function get_current_user_id()
+{
+    return get_init('_uid');
+}
+
+function get_current_course_id()
+{
+    return get_init('_cid');
+}
+
+function get_current_group_id()
+{
+    return get_init('_gid');
+}
+
+function get_current_tool_id()
+{
+    return get_init('_tid');
+}
 /**
  * Return the value of a Claroline configuration parameter
  * @param string $param config parameter
@@ -1261,33 +1280,36 @@ function claro_unquote_gpc()
 function get_init($param)
 {
 
-    static $initValueList = array( '_uid','_cid','_gid','_tid'
-                                 , 'is_authenticated'
-                                 , 'in_course_context'
-                                 , 'is_platformAdmin'
-                                 , '_course'
-                                 , '_user'
-                                 , '_group'
-                                 , '_groupProperties'
-                                 , '_courseUser'
-                                 , '_courseTool'
-                                 , '_courseToolList'
-                                 , 'is_courseMember'
-                                 , 'is_courseTutor'
-                                 , 'is_courseAdmin'
-                                 , 'is_courseAllowed'
-                                 , 'is_allowedCreateCourse'
-                                 , 'is_groupMember'
-                                 , 'is_groupTutor'
-                                 , 'is_groupAllowed'
-                                 , 'is_toolAllowed'
+    static $initValueList = array( '_uid'                   // get_current_user_id()
+                                 , '_cid'                   // get_current_course_id()
+                                 , '_gid'                   // get_current_group_id()
+                                 , '_tid'                   // get_current_tool_id()
+                                 , 'is_authenticated'       // is_authenticated()
+                                 , 'in_course_context'      // is_in_course_context()
+                                 , 'is_platformAdmin'       // is_platformAdmin()
+                                 , '_course'                // get_current_course_data(field=all)
+                                 , '_user'                  // get_current_user_data(field=all)
+                                 , '_group'                 // get_current_group_data(field=all)
+                                 , '_groupProperties'       // get_current_groupProperties_data(field=all)
+                                 , '_courseUser'            // get_current_courseUser_data(field=all)
+                                 , '_courseTool'            // get_current_courseTool_data(field=all)
+                                 , '_courseToolList'        // get_current_courseToolList_data(field=all)
+                                 , 'is_courseMember'        // is_courseMember()
+                                 , 'is_courseTutor'         // is_courseTutor()
+                                 , 'is_courseAdmin'         // is_courseAdmin()
+                                 , 'is_courseAllowed'       // is_courseAllowed()
+                                 , 'is_allowedCreateCourse' // is_allowedCreateCourse()
+                                 , 'is_groupMember'         // is_groupMember()
+                                 , 'is_groupTutor'          // is_groupTutor()
+                                 , 'is_groupAllowed'        // is_groupAllowed()
+                                 , 'is_toolAllowed'         // is_toolAllowed()
                                  );
 
     if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
     //TODO create a real auth function to eval this state
-    if ( $param == 'is_authenticated') return (bool) array_key_exists($param,$GLOBALS);
+    if ( $param == 'is_authenticated') return (bool) is_null($GLOBALS['_uid']);
     //TODO create a real course function to eval this state
-    if ( $param == 'in_course_context') return (bool) array_key_exists($param,$GLOBALS);
+    if ( $param == 'in_course_context') return (bool) is_null($GLOBALS['_cid']);
     if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
     elseif ( defined($param)         )            return constant($param);
     return null;
