@@ -94,33 +94,6 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
             {
                 $schemaPrefix[] = get_conf('courseTablePrefix') . claro_get_course_db_name($contextData[CLARO_CONTEXT_COURSE]);
             }
-            if (array_key_exists('toolInstance',$contextData)
-            && !is_null($contextData['toolInstance'])
-            && in_array('toolInstance', $contextDependance['schema']))
-            {
-                $schemaPrefix[] = get_conf('dbPrefixForToolInstance', 'TI_')  . $contextData['toolInstance'];
-            }
-            if (array_key_exists('session',$contextData)
-            && !is_null($contextData['session'])
-            && in_array('session', $contextDependance['schema']))
-            {
-                $schemaPrefix[] = get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
-            }
-
-            if (array_key_exists(CLARO_CONTEXT_GROUP,$contextData)
-            && !is_null($contextData[CLARO_CONTEXT_GROUP])
-            && in_array(CLARO_CONTEXT_GROUP, $contextDependance['schema'])
-            )
-            {
-                $schemaPrefix[] = get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP];
-            }
-            if (array_key_exists(CLARO_CONTEXT_USER,$contextData)
-            && !is_null($contextData[CLARO_CONTEXT_USER])
-            && in_array(CLARO_CONTEXT_USER, $contextDependance['schema'])
-            )
-            {
-                $schemaPrefix[] = get_conf('dbPrefixForUser', 'U_') . $contextData[CLARO_CONTEXT_USER] ;
-            }
         }
 
         $tablePrefix = '';
@@ -133,33 +106,6 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
             {
                 $tablePrefix .= 'C_' . $contextData[CLARO_CONTEXT_COURSE] . '_';
             }
-            if (array_key_exists('toolInstance',$contextData)
-            && !is_null($contextData['toolInstance'])
-            && in_array('toolInstance', $contextDependance['table']))
-            {
-                $tablePrefix .= get_conf('dbPrefixForToolInstance', 'TI_') . $contextData['toolInstance'] . '_';
-            }
-            if (array_key_exists('session',$contextData)
-            && !is_null($contextData['session'])
-            && in_array('session', $contextDependance['table']))
-            {
-                $tablePrefix .= get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
-            }
-            if (array_key_exists(CLARO_CONTEXT_GROUP,$contextData)
-            && !is_null($contextData[CLARO_CONTEXT_GROUP])
-            && in_array(CLARO_CONTEXT_GROUP, $contextDependance['table'])
-            )
-            {
-                $tablePrefix .=  get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP] . '_';
-            }
-            if (array_key_exists(CLARO_CONTEXT_USER,$contextData)
-            && !is_null($contextData[CLARO_CONTEXT_USER])
-            && in_array(CLARO_CONTEXT_USER, $contextDependance['table'])
-            )
-            {
-                $tablePrefix .= get_conf('dbPrefixForUser', 'U_') . $contextData[CLARO_CONTEXT_USER] . '_';
-            }
-
         }
     }
 
