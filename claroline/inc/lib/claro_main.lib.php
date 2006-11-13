@@ -1315,6 +1315,53 @@ function get_init($param)
     return null;
 }
 
+function is_courseMember()
+{
+    return get_init('is_courseMember');
+}
+
+function is_courseTutor()
+{
+    return get_init('is_courseTutor');
+}
+
+function  is_courseAdmin()
+{
+    return get_init('is_courseAdmin');
+}
+
+function  is_courseAllowed()
+{
+    return get_init('is_courseAllowed');
+}
+
+function  is_allowedCreateCourse()
+{
+    return get_init('is_allowedCreateCourse');
+}
+
+function  is_groupMember()
+{
+    return get_init('is_groupMember');
+}
+
+function  is_groupTutor()
+{
+    return get_init('is_groupTutor');
+}
+
+function  is_groupAllowed()
+{
+    return get_init('is_groupAllowed');
+}
+
+function is_toolAllowed()
+{
+    return get_init('is_toolAllowed');
+}
+
+
+
 /**
  * Return a common path of claroline
  *
