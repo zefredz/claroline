@@ -45,6 +45,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @todo $keysCourseCode is always
  */
 
+include_once(get_include_path().'lib/course_user.lib.php');
 function define_course_keys ($wantedCode,
                              $prefix4all = '',
                              $prefix4baseName = '',
