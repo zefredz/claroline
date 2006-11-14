@@ -636,15 +636,15 @@ function get_context_db_discriminator($toolId)
     // if the descriminator needed (because not managed by tool )
     // would be placed in table name or schema name.
 
- // switch n'as plus trop de sens ici.
- // le default  devrait probablement sortir
- // et le swtich des debrayage dans if (!get_conf('singleDbEnabled'))
- // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT tre vide
+    // switch n'as plus trop de sens ici.
+    // le default  devrait probablement sortir
+    // et le switch des debrayages dans if (!get_conf('singleDbEnabled'))
+    // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT tre vide
 
     switch ($toolId)
     {
 // ie        case 'CLANN' : return array('schema' => array (CLARO_CONTEXT_COURSE), 'table' => array(CLARO_CONTEXT_GROUP));
-// ie        case 'CLWIKI' : return array('schema' => array (CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP));
+// ie        case 'CLWIKI' : return array('schema' => array (CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP));
         default:
             $dependance = get_module_db_dependance($toolId);
 
@@ -655,7 +655,7 @@ function get_context_db_discriminator($toolId)
                 if (!get_conf('singleDbEnabled'))
                 {
                     $genericConfig['schema'] = array(CLARO_CONTEXT_COURSE);
-                    $genericConfig['table'] = array_diff ($genericConfig['table'],$genericConfig['schema'] );
+                    $genericConfig['table'] = array_diff ($genericConfig['table'], $genericConfig['schema'] );
                 }
             }
             return $genericConfig;
