@@ -20,10 +20,9 @@ if ( isset($claro_banner) )
 if (!isset($hide_footer) || $hide_footer == false)
 {
 
-?>
-<div id="campusFooter">
-<hr />
-<?php
+    echo '<div id="campusFooter">' . "\n"
+    .    '<hr />'
+    ;
 
 // FOOTER LEFT DOCK declaration
 
@@ -90,9 +89,9 @@ echo '</div>';
         if (0 < count($claroMsgList))
         $dbgTitle = claro_html_tool_title('Debug info');
         $dbgContent = claro_html_msg_list($claroMsgList);
-        
+
         require_once dirname( __FILE__ ) . '/lib/backlog.class.php';
-        
+
         echo Backlog_Reporter::report( $dbgTitle, $dbgContent, get_lang('expand'), true );
     }
 
