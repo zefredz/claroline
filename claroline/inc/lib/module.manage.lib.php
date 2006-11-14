@@ -419,6 +419,10 @@ function install_module($modulePath, $skipCheckDir = false)
                             {
                                 $backlog->failure(get_lang( 'Sql installation query failed' ));
                             }
+                            else
+                            {
+                                $backlog->failure(get_lang( 'Sql installation query succeeded' ));
+                            }
                         }
                     }
                     
@@ -439,7 +443,7 @@ function install_module($modulePath, $skipCheckDir = false)
                     {
                         list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
                         
-                        if ( ! $success2 )
+                        if ( $success2 )
                         {
                             $backlog->success( get_lang('Module installed in all courses') );
                         }
@@ -515,6 +519,7 @@ function activate_module($moduleId)
     }
     else
     {
+        $backlog->success(get_lang( 'Database update successful' ));
         //5- cache file with the module's include must be renewed after activation of the module
     
         if ( generate_module_cache() )
@@ -570,6 +575,7 @@ function deactivate_module($moduleId)
     }
     else
     {
+        $backlog->success(get_lang( 'Database update successful' ));
         //5- cache file with the module's include must be renewed after desactivation of the module
     
         if ( generate_module_cache() )
