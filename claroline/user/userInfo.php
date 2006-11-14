@@ -202,8 +202,14 @@ if ($allowedToEditDef)
         if (isset($_REQUEST['isTutor']))
         {
             // check first the user isn't registered to a group yet
+            $tbl_crs_names           = claro_sql_get_course_tbl();
+            $tbl_group_rel_team_user = $tbl_crs_names['group_rel_team_user'];
 
-            if ( 0 == course_group_user::count_groups_of_user($userIdViewed) )
+            $sql = "SELECT COUNT(user)
+                    FROM `".$tbl_group_rel_team_user."` 	 
+                    WHERE user = ".(int) $userIdViewed; 	 
+  	 
+            if ( claro_sql_query_get_single_value($sql) == 0 )
             {
                 $userProperties['tutor' ] = 1;
             }
