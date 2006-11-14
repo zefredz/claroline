@@ -83,10 +83,13 @@ echo $footerCenterDock->render();
 } // if (!isset($hide_footer) || $hide_footer == false)
 
 echo '</div>';
-    if (CLARO_DEBUG_MODE)
+
+if (CLARO_DEBUG_MODE)
+{
+    $claroMsgList = getClaroMessageList();
+
+    if ( count($claroMsgList) > 0)
     {
-        $claroMsgList = getClaroMessageList();
-        if (0 < count($claroMsgList))
         $dbgTitle = claro_html_tool_title('Debug info');
         $dbgContent = claro_html_msg_list($claroMsgList);
 
@@ -94,6 +97,7 @@ echo '</div>';
 
         echo Backlog_Reporter::report( $dbgTitle, $dbgContent, get_lang('expand'), true );
     }
+}
 
 echo '</body>'
 .    '</html>'
