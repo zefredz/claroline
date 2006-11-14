@@ -141,7 +141,7 @@
 
     class Backlog_Reporter
     {
-        function report( $summary, $details )
+        function report( $summary, $details, $label = '', $focus = false )
         {
             $id = uniqid('details');
 
@@ -151,7 +151,8 @@
             }
             else
             {
-                $labeldetails = get_lang('details');
+                $linkName = ( $focus ) ? "#lnk_$id" : "#";
+                $labeldetails = empty( $label ) ? get_lang('details') : $label;
                 $display = <<<__ERRDISP__
 <script type="text/javascript">
 function toggleDetails( id )
@@ -168,8 +169,9 @@ function toggleDetails( id )
     }
 }
 </script>
+<a name="lnk_$id"></a>
 <p class="backlogSummary">$summary
-[<a href="javascript:toggleDetails('$id')">$labeldetails</a>]
+[<a href="$linkName" onclick="toggleDetails('$id');return none;">$labeldetails</a>]
 </p>
 <div id="$id" style="display: none;" class="backlogDetails">
 $details
