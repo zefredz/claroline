@@ -1305,14 +1305,62 @@ function get_init($param)
                                  , 'is_toolAllowed'         // is_toolAllowed()
                                  );
 
-    if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
-    //TODO create a real auth function to eval this state
-    if ( $param == 'is_authenticated') return (bool) is_null($GLOBALS['_uid']);
-    //TODO create a real course function to eval this state
-    if ( $param == 'in_course_context') return (bool) is_null($GLOBALS['_cid']);
-    if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
-    elseif ( defined($param)         )            return constant($param);
-    return null;
+                                 if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
+                                 //TODO create a real auth function to eval this state
+                                 if ( $param == 'is_authenticated') return (bool) is_null($GLOBALS['_uid']);
+                                 //TODO create a real course function to eval this state
+                                 if ( $param == 'in_course_context') return (bool) is_null($GLOBALS['_cid']);
+                                 if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
+                                 elseif ( defined($param)         )            return constant($param);
+                                 return null;
+}
+
+function get_current_course_data($dataName=null)
+{
+    $c = get_init('_course');
+    if (is_null($dataName)) return $c;
+    elseif (is_array($c) && array_key_exists($dataName,$c)) return $c[$dataName];
+    else
+    {
+        pushClaroMessage($dataName . ' dont exist','error');
+    }
+}
+
+function get_current_user_data($dataName=null)
+{
+    $u = get_init('_user');
+    if (is_null($dataName)) return $u;
+    elseif (is_array($u) && array_key_exists($dataName,$u)) return $u[$dataName];
+    else
+    {
+        pushClaroMessage($dataName . ' dont exist','error');
+    };
+
+}
+
+function get_current_group_data($dataName=null)
+{
+    return get_init('_group');
+}
+
+function get_current_groupProperties_data($dataName=null)
+{
+    return get_init('_groupProperties');
+}
+
+function get_current_courseUser_data($dataName=null)
+{
+    return get_init('_courseUser');
+}
+
+function get_current_courseTool_data($dataName=null)
+{
+    return get_init('_courseTool');
+}
+
+function get_current_courseToolList_data($dataName=null)
+{
+    return get_init('_courseToolList');
 }
 
 function is_courseMember()
