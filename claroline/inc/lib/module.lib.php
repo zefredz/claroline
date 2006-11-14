@@ -116,7 +116,7 @@ function get_module_db_dependance($toolId)
     {
         // read in manifest
 
-        case 'CLUNFO' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
+        //case 'CLUNFO' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
         case 'CLANN'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
         case 'CLWIKI' : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
         case 'CLQWZ'  : return array(CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP);
@@ -146,7 +146,7 @@ function claro_get_data_path($contextData=array())
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))       $contextData[CLARO_CONTEXT_COURSE]       = get_init('_cid');
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))        $contextData[CLARO_CONTEXT_GROUP]        = get_init('_gid');
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_USER,$contextData))         $contextData[CLARO_CONTEXT_USER]         = get_init('_uid');
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData)) $contextData[CLARO_CONTEXT_TOOLINSTANCE] = get_init('_tid');
+    //if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData)) $contextData[CLARO_CONTEXT_TOOLINSTANCE] = get_init('_tid');
 
     if (isset($contextData[CLARO_CONTEXT_COURSE]))
     {
@@ -232,15 +232,15 @@ function check_module($modLabel)
 {
 	$tbl_name        = claro_sql_get_main_tbl();
 	$tbl_module      = $tbl_name['module'];
-	
+
 	$sql = "SELECT M.`id`              AS `id`,
 	               M.`label`           AS `label`,
 	               M.`activation`      AS `activation`
 	        FROM `" . $tbl_module . "` AS M
 	        WHERE M.`label` = '".$modLabel."'";
-	        
+
 	$result = claro_sql_query_get_single_row($sql);
-	
+
 	if (empty($result))
 	{
 		$message[] = "The ".$modLabel." hasn't been installed!";
@@ -249,13 +249,13 @@ function check_module($modLabel)
 	else
 	{
 		if ($result['activation'] == 'desactivated')
-		{		
-			$message[] = "The ".$modLabel." hasn't been activated!";	
+		{
+			$message[] = "The ".$modLabel." hasn't been activated!";
 			return array(false,$message);
 		}
 		else
-			return array(true,null);		
-	}	
+			return array(true,null);
+	}
 }
 
 /**
@@ -266,11 +266,11 @@ function check_module($modLabel)
  */
 function add_module_lang_array($moduleLabel)
 {
-	global $_lang; 
-	
+	global $_lang;
+
 	$module_uri = get_conf('rootSys').'module/'.$moduleLabel.'/';
-	
-	$current_lang = language::current_language();	
+
+	$current_lang = language::current_language();
 
 	if ($current_lang != 'english' && file_exists($module_uri.'lang/lang_'.$current_lang.'.php'))
 	{
