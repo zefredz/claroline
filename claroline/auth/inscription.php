@@ -146,6 +146,8 @@ if ( get_conf('allowSelfReg',false) )
         || '' == $agreementText)
     {
         $display = DISP_REGISTRATION_FORM;
+        $subscriptionText = claro_text_zone::get_content('textzone_inscription_form');
+
     }
     else
     {
@@ -201,7 +203,8 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
 elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 {
 
-    if (file_exists('./textzone_inscription.inc.html'))
+    $agreementText = claro_text_zone::get_content('textzone_inscription');
+    if ( trim ($agreementText) != '')
     {
         echo '<div class="info">'
         .    $agreementText
@@ -235,6 +238,14 @@ elseif ( DISP_REGISTRATION_FORM == $display  )
     if ( count($messageList) > 0 )
     {
         echo claro_html_message_box( implode('<br />', $messageList) );
+    }
+
+    if ( trim ($subscriptionText) != '')
+    {
+        echo '<div class="info subscribe">'
+        .    $subscriptionText
+        .    '</div>'
+        ;
     }
 
     echo user_html_form_registration($user_data);
