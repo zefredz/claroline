@@ -202,6 +202,11 @@ switch ( $display )
 {
     case DISP_PROFILE_FORM :
 
+
+        // display user tracking link
+
+        $profileText = claro_text_zone::get_content('textzone_edit_profile_form');
+
         if( get_conf('is_trackingEnabled') )
         {
             // display user tracking link
@@ -214,13 +219,13 @@ switch ( $display )
         // display request course creator status
         if ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status') )
         {
-            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('Request course creation status') . '</a>';
+            $profileMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('Request course creation status') . '</a>';
         }
 
         // display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
-            $profile_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
+            $profileMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
         }
 
         break;
@@ -243,10 +248,17 @@ switch ( $display )
     case DISP_PROFILE_FORM :
 
         // display form profile
+        if ( trim ($profileText) != '')
+        {
+            echo '<div class="info profileEdit">'
+            .    $profileText
+            .    '</div>'
+            ;
+        }
 
         echo user_html_form_profile($user_data)
         .    '<p>'
-        .    claro_html_menu_horizontal($profile_menu)
+        .    claro_html_menu_horizontal($profileMenu)
         .    '</p>'
         ;
 
@@ -328,6 +340,7 @@ switch ( $display )
 } // end switch display
 
 // display footer
+
 include $includePath . '/claro_init_footer.inc.php';
 
 ?>
