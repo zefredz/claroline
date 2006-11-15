@@ -845,7 +845,7 @@ class postLister
 }
 
 /**
- * display a pager tool bar
+ * Display a pager tool bar
  *
  * @author Mathieu Laurent <mla@claroline.net>
  * @return void
