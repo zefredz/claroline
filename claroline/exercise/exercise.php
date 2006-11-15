@@ -124,8 +124,8 @@ if( $is_allowedToEdit && !is_null($cmd) )
 	{
 		include_once './lib/question.class.php';
 		 
-		include('./export/qti2/qti2_export.php');
-        include_once $includePath.'/lib/fileManage.lib.php';
+        require_once './export/qti2/qti2_export.php';
+        require_once $includePath . '/lib/fileManage.lib.php';
         require_once $includePath . '/lib/file.lib.php';
 
         //find exercise informations
