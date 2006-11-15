@@ -18,6 +18,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 class claro_text_zone
 {
 
+    /**
+     * Build the file path of a textzone in a given context
+     *
+     * @param string $key
+     * @param array $context
+     * @return file path
+     */
     function get_textzone_file_path($key, $context=null)
     {
         $textZoneFile = null;
@@ -43,14 +50,14 @@ class claro_text_zone
      * @return string : html content
      */
 
-        function get_content($key, $context=null)
-        {
+    function get_content($key, $context=null)
+    {
         $textZoneFile = claro_text_zone::get_textzone_file_path($key, $context=null);
 
-            if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
-            else                           $content = '' ;
-            ;
-            return $content;
-        }
+        if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
+        else                           $content = '' ;
+        ;
+        return $content;
+    }
 }
 ?>
