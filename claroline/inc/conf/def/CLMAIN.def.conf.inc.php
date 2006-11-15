@@ -30,8 +30,10 @@ $conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Campus';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your institution';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] =
 array ( 'siteName'
+      , 'siteLogo'
       , 'institution_name'
       , 'institution_url'
+      , 'institutionLogo'
       );
 
 
@@ -315,6 +317,16 @@ array ('label'       => 'Campus name'
       ,'readonly'    => FALSE
       );
 
+$conf_def_property_list['siteLogo'] =
+array ('label'       => 'Campus logo'
+      ,'description' => 'url of logo'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+
 $conf_def_property_list['platformLanguage'] =
 array ('label'         => 'Platform language'
       ,'description'   => 'Set the default language of the platform.'."\n".'It doesn\'t prevent course managers to set an other language for each course they create.'
@@ -410,6 +422,15 @@ array ('label'       => 'Organisation - URL'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
+$conf_def_property_list['institutionLogo'] =
+array ('label'       => 'Organisation logo'
+      ,'description' => 'url of logo'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
 
 // Latex
 
