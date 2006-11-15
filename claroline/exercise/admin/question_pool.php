@@ -95,9 +95,11 @@ if( $cmd == 'delQu' && !is_null($quId) )
 // export question
 if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
 {
-    include('../export/qti2/qti2_export.php');
+    require_once '../export/qti2/qti2_export.php';
+    require_once $includePath . '/lib/fileManage.lib.php';
     require_once $includePath . '/lib/file.lib.php';
-
+    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+    
     $question = new Question();
     $question->load($quId);
 
@@ -133,10 +135,9 @@ if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
     /*
      * BUILD THE ZIP ARCHIVE
      */
-    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
 
     // build and send the zip
-    if( sendZip('question_'.$quId, $filePathList, $question->questionDirSys) )
+    if( sendZip($question->getTitle(), $filePathList, $question->questionDirSys) )
     {
         exit();
     }
