@@ -48,6 +48,10 @@ claro_set_display_mode_available(TRUE);
 
 $is_allowedToEdit = $is_courseAdmin;
 
+$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '#today">'
+.    get_lang('Go to today')
+.    '</a>'
+;
 
 if ( $is_allowedToEdit )
 {
@@ -496,9 +500,9 @@ foreach ( $eventList as $thisEvent )
         {
             $cssItem = 'item';
         }
-        
+
         $cssInvisible = '';
-        if ($thisEvent['visibility'] == 'HIDE') 
+        if ($thisEvent['visibility'] == 'HIDE')
         {
             $cssInvisible = ' invisible';
         }
@@ -529,12 +533,14 @@ foreach ( $eventList as $thisEvent )
             .    '<td>' . "\n"
             .    '<img src="' . $imgRepositoryWeb . 'pixel.gif" width="20" alt=" " />'
             .    '<span class="highlight">'
+            .    '<a name="today">'
             .    '<i>'
             .    ucfirst(claro_disp_localised_date( $dateFormatLong)) . ' '
             .    ucfirst(strftime( $timeNoSecFormat))
             .    ' -- '
             .    get_lang('Now')
             .    '</i>'
+            .    '</a>'
             .    '</span>' . "\n"
             .    '</td>' . "\n"
             .    '</tr>' . "\n"
@@ -589,7 +595,7 @@ foreach ( $eventList as $thisEvent )
         ;
         linker_display_resource();
     }
-    
+
     if ($is_allowedToEdit)
     {
         echo '<a href="' . $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] . '">'
