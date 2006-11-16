@@ -9,7 +9,10 @@ $clarolineBannerOutput = "\n\n"
 //CAMPUS BANNER LEFT DOCK declaration
 
 $campusBannerLeftDock = new Dock('campusBannerLeft');
-$siteNameOutput   = '<span id="siteName"><a href="'.$urlAppend.'/index.php" target="_top">'.$siteName.'</a></span>' . "\n";
+$bannerSiteName =  get_conf('siteLogo') != ''
+                ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" >'
+                : get_conf('siteName');
+$siteNameOutput   = '<span id="siteName"><a href="'.$urlAppend.'/index.php" target="_top">'.$bannerSiteName.'</a></span>' . "\n";
 $campusBannerLeftDock->addOutput($siteNameOutput);
 
 $clarolineBannerOutput .= $campusBannerLeftDock->render();
@@ -19,21 +22,27 @@ $clarolineBannerOutput .= $campusBannerLeftDock->render();
 $campusBannerRightDock = new Dock('campusBannerRight');
 $institutionNameOutput = '';
 
-if( !empty($institution_name) )
+$bannerInstitutionName = (get_conf('institutionLogo') != '')
+                       ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'" >'
+                       : get_conf('institution_name')
+                       ;
+
+
+if( !empty($bannerInstitutionName) )
 {
     if( !empty($institution_url) )
         $institutionNameOutput .= '<a href="'
             .$institution_url.'" target="_top">'
-            .$institution_name.'</a>'
+            .$bannerInstitutionName.'</a>'
             ;
     else
-        $institutionNameOutput .= $institution_name;
+        $institutionNameOutput .= $bannerInstitutionName;
 }
 
 /* --- External Link Section --- */
 if( !empty($_course['extLinkName']) )
 {
-    $institutionNameOutput .= !empty($institution_url)
+    $institutionNameOutput .= get_conf('institution_url') != ''
         ? ' / ' 
         : ' '
         ;
