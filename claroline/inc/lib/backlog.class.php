@@ -171,7 +171,7 @@ function toggleDetails( id )
 </script>
 <a name="lnk_$id"></a>
 <p class="backlogSummary">$summary
-[<a href="$linkName" onclick="toggleDetails('$id');return none;">$labeldetails</a>]
+[<a href="$linkName" onclick="toggleDetails('$id');return false;">$labeldetails</a>]
 </p>
 <div id="$id" style="display: none;" class="backlogDetails">
 $details
