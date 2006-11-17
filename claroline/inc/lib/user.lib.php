@@ -111,8 +111,10 @@ function user_create($settingList, $creatorId = null)
         return false ;
     }
 
-    $password = get_conf('userPasswordCrypted') ? md5($settingList['password'])
-    : $settingList['password'];
+    $password = get_conf('userPasswordCrypted') 
+        ? md5($settingList['password'])
+        : $settingList['password']
+        ;
 
     $tbl = claro_sql_get_main_tbl();
 
@@ -1358,6 +1360,8 @@ function get_userInfoExtraDefinitionList()
  */
 function update_userInfoExtraDefinition($propertyId, $label, $type, $defaultValue, $contextScope, $rank, $required )
 {
+    $tbl = claro_sql_get_tbl('property_definition');
+    
     $sql = "REPLACE INTO `" . $tbl['property_definition'] . "`
             SET propertyId   = '" . addslashes($propertyId) . "',
                 label        = '" . addslashes($label) . "',
@@ -1382,6 +1386,8 @@ function update_userInfoExtraDefinition($propertyId, $label, $type, $defaultValu
  */
 function delete_userInfoExtraDefinition($propertyId, $contextScope )
 {
+    $tbl = claro_sql_get_tbl('property_definition');
+    
     $sql = "DELETE FROM `" . $tbl['property_definition'] . "`
             WHERE propertyId = '" . addslashes($propertyId) . "'
             AND  contextScope = '" . addslashes($contextScope) . "'";
