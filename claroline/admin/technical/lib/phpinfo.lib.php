@@ -32,6 +32,20 @@
     }
     
     /**
+     * Returns phpinfo without html, head and body tags
+     * @return  string
+     */ 
+    function phpcreditsNoHtml()
+    {
+        ob_start();
+        phpcredits();
+        $content = ob_get_contents();
+        ob_end_clean();
+        
+        return phpcredits_extractContent( $content );
+    }
+    
+    /**
      * Returns string without html, head and body tags (based on phpinfo output)
      * @return  string
      */
@@ -55,6 +69,44 @@
             {
                 $startCapture = false;
                 $extract[] = $line;
+            }
+            elseif ( $startCapture && !empty( $line ) )
+            {
+                $extract[] = $line;
+            }
+            else
+            {
+                //skip
+            }
+        }
+        
+        $extract = implode( "\n", $extract );
+        
+        return $extract;
+    }
+    
+    /**
+     * Returns string without html, head and body tags (based on phpinfo output)
+     * @return  string
+     */
+    function phpcredits_extractContent( $str )
+    {
+        $contentArr =preg_split( '~(\r\n|\r|\n)~', $str );
+        
+        $extract = array();
+        $startCapture = false;
+        
+        foreach ( $contentArr as $line )
+        {
+            $line = trim( $line );
+            
+            if ( preg_match( '~\<body~', $line ) )
+            {
+                $startCapture = true;
+            }
+            elseif ( preg_match( '~\</body~', $line ) )
+            {
+                $startCapture = false;
             }
             elseif ( $startCapture && !empty( $line ) )
             {

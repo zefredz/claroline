@@ -143,7 +143,9 @@ elseif ($cmd == 'phpinfo')
 }
 elseif ($cmd == 'phpcredit')
 {
-    phpcredits(CREDITS_ALL);
+    echo '<div class="center">';
+    echo phpcreditsNoHtml();
+    echo '</div>';
 }
 
 elseif ($cmd == 'clarconf')
