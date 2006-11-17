@@ -98,11 +98,14 @@ if ($disp_allcrs)
 }
 
 if ($disp_garbage )
+{
     $diskUsage = sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2];
     echo '<li>'
     .    get_lang('Garbage : %disk_usage', array('%disk_usage'=>$diskUsage) )
     .    '</li>'
     ;
+}
+
 ?>
 <li>
 <hr />
