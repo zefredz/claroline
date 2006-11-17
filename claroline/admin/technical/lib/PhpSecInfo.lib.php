@@ -159,14 +159,19 @@ class PhpSecInfo
 		//echo "<pre>"; echo print_r($test_root, true); echo "</pre>";
 
 		while (false !== ($entry = $test_root->read())) {
-			if ( is_dir($test_root->path.DIRECTORY_SEPARATOR.$entry) && !preg_match('|^\.(.*)$|', $entry) ) {
+			if ( is_dir($test_root->path.DIRECTORY_SEPARATOR.$entry) 
+                && !preg_match( '|^\.(.*)$|', $entry ) 
+                && !preg_match( '|^\.CVS$|i', $entry )
+                && ( 'CVS' != $entry) ) 
+            {
 				$test_dirs[] = $entry;
 			}
 		}
-		//echo "<pre>"; echo print_r($test_dirs, true); echo "</pre>";
+		// echo "<pre>"; echo print_r($test_dirs, true); echo "</pre>";
 
 		// include_once all files in each test dir
 		foreach ($test_dirs as $test_dir) {
+            
 			$this_dir = dir($test_root->path.DIRECTORY_SEPARATOR.$test_dir);
 
 			while (false !== ($entry = $this_dir->read())) {
