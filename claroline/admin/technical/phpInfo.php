@@ -77,7 +77,8 @@ function localtest()
 <br />
 <DIV class="elementServeur">
 <span class="elementServeur" >PHP</span>  <?php echo phpversion()?> :
-[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo">PHP info</a>]&nbsp;
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=info">PHP info</a>]&nbsp;
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo">PHP security information</a>]&nbsp;
 [<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpcredit">PHP credit</a>]&nbsp;
 [<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=ext">Extentions</a>]
 </DIV>
@@ -122,12 +123,16 @@ if ($cmd == 'ext')
         }
     }
 }
+elseif ( $cmd == 'info' )
+{
+    phpinfo();
+}
 elseif ($cmd == 'phpinfo')
 {
 
     require_once('./lib/PhpSecInfo.lib.php');
     phpsecinfo();
-    phpinfo();
+    // phpinfo();
 
 }
 elseif ($cmd == 'phpcredit')
