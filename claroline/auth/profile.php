@@ -198,6 +198,8 @@ elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
 // Initialise
 $user_data['userExtraInfoList'] =  get_user_property_list($_uid);
 
+$profileMenu =  array();
+
 switch ( $display )
 {
     case DISP_PROFILE_FORM :
@@ -210,7 +212,7 @@ switch ( $display )
         if( get_conf('is_trackingEnabled') )
         {
             // display user tracking link
-            $profile_menu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php">'
+            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php">'
             .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
             .                 '</a>'
             ;
