@@ -11,6 +11,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLCALDIGEST
  *
+ * @todo add rss reader
+ * @change this in a applet.
+ *
  */
 if ( ! isset($_uid) ) claro_disp_auth_form();
 
@@ -164,6 +167,7 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.$_uid))
         .    '</p>' . "\n"
         ;
     } // end for( $i=0, ... $i < $itemCount; $i++)
+
     $Cache_LiteCLCALDIGEST->save($htmlCLCALDIGEST,'CALDIGEST'.$_uid);
 }
 
