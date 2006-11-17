@@ -54,7 +54,7 @@ $menu['AdminUser']      = get_menu_item_list('AdminUser');
 $menu['AdminCourse']    = get_menu_item_list('AdminCourse');
 $menu['AdminClaroline'] = get_menu_item_list('AdminClaroline');
 $menu['AdminPlatform']  = get_menu_item_list('AdminPlatform');
-$menu['AdminSDK']       = get_menu_item_list('AdminSDK');
+$menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
 
 
 //----------------------------------
@@ -109,18 +109,14 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    claro_html_menu_vertical($menu['AdminClaroline'])
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
-.    '<tr valign="top">' . "\n";
+.    '<tr valign="top">' . "\n"
+.    '<td nowrap="nowrap">' . "\n"
+.    claro_html_tool_title('<img src="' . $imgRepositoryWeb . 'exe.gif" alt="" />&nbsp;' . get_lang('Tools'))
+.    claro_html_menu_vertical($menu['AdminTechnical'])
+.    '</td>' . "\n"
+.    '</tr>'
+;
 
-if ( ( get_conf('DEVEL_MODE', false) == TRUE )
-|| ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
-{
-    echo '<td nowrap="nowrap">'
-    .    claro_html_tool_title('<img src="' . $imgRepositoryWeb . 'exe.gif" alt="" />&nbsp;'.get_lang('SDK')) . "\n"
-    .    claro_html_menu_vertical($menu['AdminSDK'])
-    .    '</td>'
-    ;
-}
-echo '</tr>';
 ?>
 </table>
 <?php
@@ -175,7 +171,7 @@ function get_menu_item_list($type)
         $menu['AdminPlatform'][] = claro_html_tool_link('campusProblem.php',    get_lang('Scan technical fault'));
         if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
         $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/checkmails.php', get_lang('Check and Repair emails of users'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/repaircats.php', get_lang('Repair category structure'));
+        // Broken $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/repaircats.php', get_lang('Repair category structure'));
         //$menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Choose messages dest'));
         $menu['AdminPlatform'][] = claro_html_tool_link('upgrade/index.php',    get_lang('Upgrade'));
 
@@ -184,10 +180,13 @@ function get_menu_item_list($type)
         $menu['AdminClaroline'][] = claro_html_tool_link('http://www.claroline.net/forum', get_lang('Support forum'));
         $menu['AdminClaroline'][] = claro_html_tool_link('clarolinenews.php',              get_lang('Claroline.net news'));
 
-        if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menu['AdminSDK'][] = claro_html_tool_link('xtra/sdk/translation_index.php', get_lang('Translation Tools'));
+        $menu['AdminTechnical'][] = claro_html_tool_link('technical/diskUsage.php',  get_lang('Disk usage'));
+        $menu['AdminTechnical'][] = claro_html_tool_link('technical/phpInfo.php',    get_lang('System Info'));
+
+        if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menu['AdminTechnical'][] = claro_html_tool_link('xtra/sdk/translation_index.php', get_lang('Translation Tools'));
         if ( get_conf('DEVEL_MODE', false) == TRUE )
         {
-            $menu['AdminSDK'][] =  claro_html_tool_link('devTools', get_lang('Devel Tools'));
+            $menu['AdminTechnical'][] =  claro_html_tool_link('devTools', get_lang('Devel Tools'));
         }
 
 
