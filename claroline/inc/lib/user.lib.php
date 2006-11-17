@@ -705,7 +705,6 @@ function user_validate_form($formMode, $data, $userId = null)
 
     if ( 'registration' == $formMode)
     {
-        $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
         $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available');
@@ -716,6 +715,8 @@ function user_validate_form($formMode, $data, $userId = null)
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
+    
+    $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
 
     if ( $validator->validate() ) return array();
     else return array_unique($validator->getErrorList());

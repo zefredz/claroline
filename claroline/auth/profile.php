@@ -105,6 +105,7 @@ if ( isset($_REQUEST['applyChange']) )
 
     // validate forum params
     $messageList['warning'] = user_validate_form_profile($user_data, $_uid);
+    
     if ( count($messageList['warning']) == 0 )
     {
         // if no error update use setting
@@ -244,7 +245,9 @@ View Section
 include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
+
 echo claro_html_msg_list($messageList);
+
 switch ( $display )
 {
     case DISP_PROFILE_FORM :
