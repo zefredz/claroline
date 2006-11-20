@@ -7,7 +7,7 @@ else                                  $category = null;
 
 
 
-if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] = 'search')
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search')
 {
     $categoryList = array();
     $courseList = search_course($_REQUEST['keyword']);
@@ -56,7 +56,7 @@ if ( ( count($categoryList) - 1 )  >= 0 )
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?category='.$thisCategory['code'].'">'
             .    $thisCategory['name']
-            .    '</a>'                                                                  
+            .    '</a>'
             ;
         }
         else
@@ -94,11 +94,11 @@ if ( count($courseList) > 0 )
         {
         	echo '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
         }
-        else 
+        else
         {
         	echo '<small>' . $thisCourse['titular'] . '</small>' . "\n";
-        }        
-        
+        }
+
         echo '</li>' . "\n";
     }
 
