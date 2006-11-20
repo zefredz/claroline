@@ -162,7 +162,6 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
     $tbl = claro_sql_get_main_tbl();
 
     if ( ! is_array($courseCodeList) ) $courseCodeList = array($courseCodeList);
-
     if ( ! $force && $userId == $GLOBALS['_uid'] )
     {
         // PREVIOUSLY CHECK THE USER IS NOT COURSE ADMIN OF THESE COURSES
@@ -183,13 +182,10 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
     $sql = "SELECT code_cours , count_user_enrol, count_class_enrol
             FROM `" . $tbl['rel_course_user'] . "`
             WHERE `code_cours` IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "')
-            AND   `user_id` = " . $userId ;
-
+            AND   `user_id` = " . (int) $userId ;
     $userEnrolCourseList = claro_sql_query_fetch_all($sql);
-
     foreach ( $userEnrolCourseList as $thisUserEnrolCourse )
     {
-
         $thisCourseCode    = $thisUserEnrolCourse['code_cours'];
         $count_user_enrol  = $thisUserEnrolCourse['count_user_enrol'];
         $count_class_enrol = $thisUserEnrolCourse['count_class_enrol'];
