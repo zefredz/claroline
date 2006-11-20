@@ -310,6 +310,9 @@ if( $displayForm )
 else
 {
 	$cmd_menu = array();
+	$cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'">'
+				. '&lt;&lt; ' . get_lang('Back to the question list')
+				. '</a>';
 	$cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit&amp;quId='.$quId.'">'
 				. '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="" />'
 				. get_lang('Edit question')
