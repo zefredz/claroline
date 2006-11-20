@@ -129,7 +129,7 @@ foreach ($userCourseList as $courseKey => $course)
     .                                       '?uidToEdit=' . $uidToEdit
     .                                       '&amp;cmd=unsubscribe'
     .    $addToUrl
-    .    '&amp;code=' . $course['sysCode']
+    .    '&amp;courseId=' . $course['sysCode']
     .    '&amp;offset=' . $offset . '"'
     .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
     .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
