@@ -31,11 +31,11 @@ class REL_GROUP_USER
     /**
      * Return list of groupe subscribed by a given user in a given/current course
      *
-     * @param integer $_uid
+     * @param integer $user_id
      * @param course_syscode $course
      *
      */
-    function get_user_group_list($_uid,$course=null)
+    function get_user_group_list($userId,$course=null)
     {
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
         $tbl_group_team          = $tbl_cdb_names['group_team'];
@@ -47,7 +47,7 @@ class REL_GROUP_USER
                 FROM `" . $tbl_group_rel_team_user . "` as `tu`
                 INNER JOIN `" . $tbl_group_team . "`    as `t`
                   ON `tu`.`team` = `t`.`id`
-                WHERE `tu`.`user` = " . (int) $_uid ;
+                WHERE `tu`.`user` = " . (int) $userId ;
 
         $groupList = claro_sql_query_fetch_all($sql);
 
