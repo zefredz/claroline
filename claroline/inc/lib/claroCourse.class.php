@@ -175,20 +175,7 @@ class ClaroCourse
             else
             {
                 $lastFailure = claro_failure::get_last_failure();
-
-                switch ($lastFailure )
-                {
-                	// TODO improve error handling of creation functions
-                    case 'READ_ONLY_SYSTEM_FILE' :
-                    {
-                        $this->backlog->failure( 'READ ONLY SYSTEM FILE' );
-                    } break;
-                    default:
-                    {
-                        $this->backlog->failure( 'Error code : '. $lastFailure );
-                    }
-                }
-
+                $this->backlog->failure( 'Error : '. $lastFailure );
             	return false;
             }
 

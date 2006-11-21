@@ -90,6 +90,7 @@ if ( $cmd == 'exEdit' )
     	}
     	else
     	{
+    	    $dialogBox .= $course->backlog->output();
     		$display = DISP_COURSE_CREATION_FAILED;
     	}
     }
