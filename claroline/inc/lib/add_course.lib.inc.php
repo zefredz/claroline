@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * add is, find keys names aivailable, build the the course database
  * fill the course database, build the content directorys, build the index page
  * build the directory tree, register the course.
- *
+ 
  * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
@@ -245,21 +245,21 @@ function prepare_course_repository($courseRepository, $courseId)
 
     // build index.php of course
     $fd = fopen($courseDirPath . '/index.php', 'w');
-    if ( ! $fd) return claro_failure::set_failure('CANT_CREATE_COURSE_INDEX');
+    if ( ! $fd) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
 
     $string = '<?php ' . "\n"
             . 'header (\'Location: '. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
           . '?' . '>' . "\n" ;
 
-    if ( ! fwrite($fd, $string) ) return claro_failure::set_failure('CANT_WRITE_COURSE_INDEX');
-    if ( ! fclose($fd) )          return claro_failure::set_failure('CANT_SAVE_COURSE_INDEX');
+    if ( ! fwrite($fd, $string) ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
+    if ( ! fclose($fd) )          return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
 
     $fd     = fopen($coursesRepositorySys.$courseRepository . '/group/index.php', 'w');
-    if ( ! $fd ) return false;
+    if ( ! $fd ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'group/index.php')));
 
     $string = '<?php session_start(); ?'.'>';
 
-    if ( ! fwrite($fd, $string) ) return false;
+    if ( ! fwrite($fd, $string) ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'group/index.php')));
 
     return true;
 };
@@ -276,11 +276,10 @@ function prepare_course_repository($courseRepository, $courseId)
 function update_db_course($courseDbName)
 {
 
-
     if (!get_conf('singleDbEnabled'))
     {
         claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
-        if (mysql_errno() > 0) return claro_failure::set_failure('CLARO_ERROR_CANT_CREATE_DB');
+        if (mysql_errno() > 0) return claro_failure::set_failure(get_lang('Unable to create course database'));
     }
 
     $courseDbName = get_conf('courseTablePrefix') . $courseDbName . get_conf('dbGlu');
