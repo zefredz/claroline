@@ -458,6 +458,9 @@ else
 	
 	//-- claroCmd
 	$cmd_menu = array();
+	$cmd_menu[] = '<a class="claroCmd" href="../exercise.php">'
+				. '&lt;&lt; ' . get_lang('Back to the exercise list')
+				. '</a>';
 	$cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit">'
 				. '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="" />'
 				. get_lang('Edit exercise settings')
