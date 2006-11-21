@@ -78,7 +78,7 @@ class answerFillInBlanks
 	/**
      * constructor
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId integer question that use this answer 
      * @param $course_id to use the class when not in course context
      * @return string   
@@ -111,7 +111,7 @@ class answerFillInBlanks
     /**
      * load answers in object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	        
     function load() 
@@ -148,7 +148,7 @@ class answerFillInBlanks
     /**
      * save object in db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	     
 	function save() 
@@ -205,7 +205,7 @@ class answerFillInBlanks
     /**
      * delete answers from db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	 
     function delete() 
@@ -227,7 +227,7 @@ class answerFillInBlanks
     /**
      * clone the object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	    
     function duplicate($duplicatedQuestionId)
@@ -248,7 +248,7 @@ class answerFillInBlanks
     /**
      * check if the object content is valide (use before using save method)
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	
 	function validate() 
@@ -276,7 +276,7 @@ class answerFillInBlanks
     /**
      * handle the form, get data of request and put in the object, handle commands if required
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean true if form can be checked and saved, false   
      */
     function handleForm() 
@@ -346,7 +346,7 @@ class answerFillInBlanks
     /**
      * provide the list of error that validate found
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of errors   
      */	
 	function getErrorList() 
@@ -357,7 +357,7 @@ class answerFillInBlanks
 	/**
      * display the answers as a form part for display in quizz submission page
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer   
      */	 
 	function getAnswerHtml() 
@@ -386,20 +386,21 @@ class answerFillInBlanks
 	
 				foreach( $allAnswerList as $answer )
 				{
-					$optionList[htmlspecialchars($answer)] = htmlspecialchars($answer);
+				    $optionListValue = $this->answerDecode($answer);
+					$optionList[$optionListValue] = $optionListValue;
 				}
 						
     			for( $i = 0; $i < $answerCount; $i++ )
     			{
-					if( isset($this->response[$i]) && in_array($this->response[$i],$allAnswerList) )
-					{ 
-						$selected = htmlspecialchars($this->response[$i]);
+					if( isset($this->response[$i]) && array_key_exists($this->response[$i],$optionList) )
+					{
+						$selected = $this->response[$i];
 					}
 					else
 					{
 						$selected = ''; // default is the empty element									
 					}
-					
+
     				$replacementList[] = claro_html_form_select('a_'.$this->questionId.'_'.$i, $optionList, $selected);
     			}
     		}
@@ -417,11 +418,15 @@ class answerFillInBlanks
     		// get all enclosed answers
 			foreach( $this->answerList as $answer )
 			{
-				$blankList[] = '/\['.$answer.'\]/';
+   			    // filter slashes as they are modifiers in preg expressions
+			    $blank = str_replace('/','\/',$answer);			    
+			    
+				$blankList[] = '/\['.$this->answerDecode($this->addslashesEncodedBrackets($blank)).'\]/';
 			}
+			
     		// apply replacement on answer, require limit parameter to replace only the first occurrence in case we
     		// have several times the same word in a blank.  
-    		$displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText), 1 );
+    		$displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
     		
 	    	$html = 
 				'<table width="100%">' . "\n\n"
@@ -444,16 +449,16 @@ class answerFillInBlanks
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of hidden sent data    
      */	   
     function getHiddenAnswerHtml()
     {
     	$html = "\n" . '<!-- ' . $this->questionId . ' -->' . "\n";
-    	    	
+
     	while( list($key, $response) = each($this->response))
     	{	  		
-    		$html .= '<input type="hidden" name="a_'.$this->questionId.'_'.$key.'" value="'.htmlspecialchars($response).'" />' . "\n";
+    		$html .= '<input type="hidden" name="a_'.$this->questionId.'_'.$key.'" value="'.$response.'" />' . "\n";
     		
     	}
     	$html .= "\n" . '<!-- ' . $this->questionId . '(end) -->' . "\n";
@@ -464,7 +469,7 @@ class answerFillInBlanks
 	/**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of feedback for this answer   
      */	   
     function getAnswerFeedbackHtml()
@@ -479,7 +484,10 @@ class answerFillInBlanks
 		// get all enclosed answers
 		foreach( $this->answerList as $answer )
 		{
-			$blankList[] = '['.$answer.']';
+		    // filter slashes as they are modifiers in preg expressions
+		    $blank = str_replace('/','\/',$answer);			    
+
+			$blankList[] = '/\['.$this->answerDecode($this->addslashesEncodedBrackets($blank)).'\]/';
 		}
 		$answerCount = count($blankList);
 							
@@ -488,9 +496,9 @@ class answerFillInBlanks
 
 		for( $i = 0; $i < $answerCount; $i++ )
 		{
-			if( $this->isResponseCorrect($this->response[$i],$this->answerList[$i]) )
+			if( $this->isResponseCorrect($this->response[$i],$this->answerDecode($this->answerList[$i])) )
 			{
-				$displayedResponse = htmlspecialchars($this->response[$i]);
+				$displayedResponse = htmlspecialchars($this->answerDecode($this->response[$i]));
 			}
 			else
 			{
@@ -502,17 +510,16 @@ class answerFillInBlanks
 				else
 				{
 					// response incorrect
-					$displayedResponse = '<span class="error"><s>'.htmlspecialchars($this->response[$i]).'</s></span>';
+					$displayedResponse = '<span class="error"><s>'.htmlspecialchars($this->answerDecode($this->response[$i])).'</s></span>';
 				
 				}
 			}
-			$replacementList[] = '[' . $displayedResponse . ' / <span class="correct"><b>'.htmlspecialchars($this->answerList[$i]).'</b></span>]' . "\n";
+			$replacementList[] = '[' . $displayedResponse . ' / <span class="correct"><b>'.htmlspecialchars($this->answerDecode($this->answerList[$i])).'</b></span>]' . "\n";
 			
 		}
-		
+
 		// apply replacement on answer
-		$displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText) );
-		
+		$displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
 		
     	$html = 
 			'<table width="100%">' . "\n\n"
@@ -541,7 +548,7 @@ class answerFillInBlanks
      *
      * @param $exId exercise id, required to get stay in the exercise context if required after posting the form
      * @param $askDuplicate display or not the form elements allowing to choose if the question must be duplicated or modified in all exercises
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer edition form   
      */
     function getFormHtml($exId = null, $askDuplicate) 
@@ -608,9 +615,12 @@ class answerFillInBlanks
             }
             
     		// answer
+    		$text = $this->addslashesEncodedBrackets($this->answerText);
+    		$text = htmlspecialchars($this->answerDecode($text));
+    		
     		$html .= '<p>' . get_lang('Please type your text below, use brackets %mask to define one or more blanks', array('%mask'=>'&#91;...&#93;'))   . ' :</p>' . "\n"
     		
-    		.	'<textarea name="answer" cols="65" rows="6">'.htmlspecialchars($this->answerDecode($this->answerText)).'</textarea>' . "\n"
+    		.	'<textarea name="answer" cols="65" rows="6">'.$text.'</textarea>' . "\n"
     		
     		// fill type
     		.	'<p>' . get_lang('Fill type') . '&nbsp;:</p>' . "\n"
@@ -626,7 +636,7 @@ class answerFillInBlanks
     		// wrong answers list
     		.	'<p>'.get_lang('Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>').'</p>'
     		
-    		.	'<textarea name="wrongAnswerList" cols="30" rows="5">'.htmlspecialchars($this->wrongAnswerDecode(implode("\n", $this->wrongAnswerList))).'</textarea>' . "\n"
+    		.	'<textarea name="wrongAnswerList" cols="30" rows="5">'.htmlspecialchars($this->answerDecode(implode("\n", $this->wrongAnswerList))).'</textarea>' . "\n"
     		
     		.	'<p>' . "\n"
     		.	'<input type="submit" name="cmdNext" value="' . get_lang('Next') . ' &gt;" />&nbsp;&nbsp;'
@@ -643,20 +653,24 @@ class answerFillInBlanks
     /**
      * get all blank in answer text and set the value of answer list
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
-     * @return array 2 dimension array ([0] contains "[blank]", [1] contains "blank")
+     * @author Sebastien Piraux <pir@cerdecam.be>
+     * @return array array containing
      */	    
     function setAnswerList()
     {
-    	$matches = array();
+    	$matches = array();    	
     	
     	$regex = '/\[([^]]*)\]/';
 			
 		preg_match_all( $regex, $this->answerText, $matches);
 
-
-		$this->answerList = $matches[1];
-
+        $this->answerList = array();
+        
+        if( is_array($matches[1]) && !empty($matches[1]) )
+        {
+   		    $this->answerList = $matches[1];
+        }
+        
 		return true;
     }
 
@@ -668,23 +682,23 @@ class answerFillInBlanks
      */	        
     function answerEncode($answer)
     {
-    	$charsToReplace = array('\[','\]','<','>');
-        $replacingChars = array('&#91;','&#93;','&lt;','&gt;');
+        $charsToReplace = array('\[','\]', '<' , '>');
+        $replacingChars = array('&#91;','&#93;', '&lt;', '&gt;');
         
         return str_replace($charsToReplace,$replacingChars,trim($answer));
     }
     
     /**
-     * decode the answer : replace some htmlentities by forbidden and escaped chars for proper display in edit form
+     * decode the answer : replace some htmlentities by forbidden and escaped chars for proper display
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string decoded answer
      */	        
     function answerDecode($answer)
     {
-    	$charsToReplace = array('&#91;','&#93;','&lt;','&gt;');
-        $replacingChars = array('\[','\]','<','>');
-        
+        $charsToReplace = array('&#91;','&#93;', '&lt;', '&gt;', '&#44;');
+        $replacingChars = array('[',']', '<' , '>', ',');
+
         return str_replace($charsToReplace,$replacingChars,trim($answer));
     }
     
@@ -703,23 +717,22 @@ class answerFillInBlanks
     }
     
     /**
-     * decode the wrong answers list : replace some htmlentities by forbidden and escaped chars for proper display in edit form
+     * add slahes before encoded [ (&#91;) and ] (&#93;)
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
-     * @return string decoded wrong answers list
-     */	   
-    function wrongAnswerDecode($wrongAnswer)
+     * @return string text with backslashes before encoded brackets
+     */	 
+    function addslashesEncodedBrackets($text)
     {
-    	$charsToReplace = array('&#44;' , '&lt;' , '&gt;');
-        $replacingChars = array(',' , '<' , '>');
+        $charsToReplace = array('&#91;','&#93;');
+        $replacingChars = array('\\&#91;','\\&#93;');
         
-        return str_replace($charsToReplace,$replacingChars,trim($wrongAnswer));
+        return str_replace($charsToReplace,$replacingChars,trim($text));
     }
-
 	/** 
 	 * read response from request grade it, write grade in object, return grade
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 * @desc return score of checked answer or 0 if nothing was checked
 	 */
@@ -731,7 +744,7 @@ class answerFillInBlanks
 		
 		for( $i = 0 ; $i < $answerCount ; $i++ )
     	{
-			if( $this->isResponseCorrect($this->response[$i],$this->answerList[$i]) )
+			if( $this->isResponseCorrect($this->response[$i],$this->answerDecode($this->answerList[$i])) )
 			{
 				$grade += $this->gradeList[$i];
 			}
@@ -742,7 +755,7 @@ class answerFillInBlanks
 	/** 
 	 * get response of user via $_REQUEST and store it in object
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return boolean result of operation 
 	 */
 	function extractResponseFromRequest()
@@ -762,7 +775,7 @@ class answerFillInBlanks
 				$this->response[$i] = '';
 			}
     	}
-	
+
     	return true;
 	}
 	
