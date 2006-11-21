@@ -46,7 +46,6 @@ include_once( dirname(__FILE__) . '/right/courseProfileToolAction.class.php');
 
 function delete_course($code)
 {
-    global $coursesRepositorySys;
     global $eventNotifier;
 
     //declare needed tables
