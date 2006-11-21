@@ -92,8 +92,6 @@ function claro_get_docks_module_list($force = false)
 
 function getAppletList($dock)
 {
-    global $includePath;
-
     static $moduleList = array();
 
     if ( empty( $moduleList ) )
