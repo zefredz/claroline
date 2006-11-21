@@ -48,7 +48,9 @@ function array_size( $arry )
         return -1;
     }
     $size = 0;
-
+    
+    // do not use count because it poduces some mysterious 
+    // values with self referencing objects
     foreach ( $arry as $value )
     {
         $size++;
