@@ -110,11 +110,11 @@ function claro_get_course_officialCode($cid=NULL)
     *
     * @param $cid the id of a course
     * @return array (array) an associative array containing all info of tool for a course
-    * @global $clarolineRepositoryWeb
+
     */
 function get_course_tool_list($cid)
 {
-    global $clarolineRepositoryWeb;
+
 
     $toolNameList = claro_get_tool_name_list();
 
@@ -135,7 +135,7 @@ function get_course_tool_list($cid)
                         pct.access_manager access_manager,
 
                         IF(pct.script_url IS NULL ,
-                           ctl.script_url,CONCAT('".$clarolineRepositoryWeb."',
+                           ctl.script_url,CONCAT('".get_path('clarolineRepositoryWeb')."',
                            pct.script_url)) url
 
                            FROM `".$_course['dbNameGlu']."tool_list` ctl
