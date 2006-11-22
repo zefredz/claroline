@@ -589,7 +589,7 @@ if($is_allowedToEditAll)
 					else
 						$authId = $_REQUEST['authId']; 
 						 
-					$url = $rootWeb.$clarolineRepositoryAppend.'work/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'];
+					$url = $rootWeb.$clarolineRepositoryAppend.'work/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . $_cid;
 					
 		            // email content
 		            $emailBody = get_lang('New assignment feedback posted') . "\n\n"
@@ -791,7 +791,7 @@ if( $is_allowedToSubmit )
 					// email subject
 		            $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ' . get_lang('New submission posted in assignment tool.');
 		            						
-					$url = $rootWeb.$clarolineRepositoryAppend.'work/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'];
+					$url = $rootWeb.$clarolineRepositoryAppend.'work/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . $_cid;
 					
 		            // email content
 		            $emailBody = get_lang('New submission posted in assignment tool.') . "\n\n"
