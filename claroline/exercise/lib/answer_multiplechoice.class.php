@@ -56,7 +56,7 @@ class answerMultipleChoice
     /**
      * constructor
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param $questionId integer question that use this answer 
      * @param $multipleAnswer boolean true if several answer can be checked by user
      * @param $course_id to use the class when not in course context
@@ -83,7 +83,7 @@ class answerMultipleChoice
     /**
      * load answers in object
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	      
     function load() 
@@ -120,7 +120,7 @@ class answerMultipleChoice
     /**
      * save object in db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	        
     function save() 
@@ -154,7 +154,7 @@ class answerMultipleChoice
     /**
      * delete answers from db
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	      
     function delete() 
@@ -187,7 +187,7 @@ class answerMultipleChoice
     /**
      * check if the object content is valide (use before using save method)
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean result of operation   
      */	     
     function validate()
@@ -221,7 +221,7 @@ class answerMultipleChoice
     /**
      * handle the form, get data of request and put in the object, handle commands if required
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean true if form can be checked and saved, false   
      */
     function handleForm()
@@ -303,7 +303,7 @@ class answerMultipleChoice
     /**
      * provide the list of error that validate found
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array list of errors   
      */	    
     function getErrorList()
@@ -314,7 +314,7 @@ class answerMultipleChoice
     /**
      * display the answers as a form part for display in quizz submission page
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of answer   
      */	   
     function getAnswerHtml()
@@ -378,7 +378,7 @@ class answerMultipleChoice
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of hidden sent data 
      */	   
     function getHiddenAnswerHtml()
@@ -409,7 +409,7 @@ class answerMultipleChoice
     /**
      * display the input hidden field depending on what was submitted in exercise submit form
      *
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string html code for display of feedback for this answer   
      */	   
     function getAnswerFeedbackHtml()
@@ -485,6 +485,12 @@ class answerMultipleChoice
     	. 	'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     	.	'<input type="hidden" name="answerCount" value="'.count($this->answerList).'" />' . "\n" 
     	.	'<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n";
+        
+        if( $this->multipleAnswer )
+   		{
+   		    // warn course admin that if the user checks all answer he will have the sum of all wieghting values
+            $html .= '<p><small>' . get_lang('Use negative weighting for incorrect choices to penalize a user that check all answers.') . '</small></p>' . "\n";
+        }
         
         if( !empty($exId) && $askDuplicate )
         {
@@ -596,7 +602,7 @@ class answerMultipleChoice
 	/** 
 	 * read response from request grade it, write grade in object, return grade
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 * @desc return score of checked answer or 0 if nothing was checked
 	 */
@@ -607,9 +613,9 @@ class answerMultipleChoice
 		foreach( $this->answerList as $answer )
     	{
     		if( array_key_exists($answer['id'], $this->response) )
-    		{
+    		{ 
    				$grade += $answer['grade'];
-    			
+
     			// if not multiple we only need one response so get out of the loop
     			if( !$this->multipleAnswer ) break;
     		}
@@ -620,7 +626,7 @@ class answerMultipleChoice
 	/** 
 	 * get response of user via $_REQUEST and store it in object
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return boolean result of operation 
 	 */
 	function extractResponseFromRequest()
@@ -648,7 +654,7 @@ class answerMultipleChoice
 	/** 
 	 * compute grade of question from answer
 	 * 
-     * @author Sbastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
 	 * @return float question grade 
 	 */
 	function getGrade()
