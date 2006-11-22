@@ -315,7 +315,7 @@ $userMenu[] = '<a class="claroCmd" href="../group/group.php">'
 
 $userMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
 .             '?cmd=unregister&amp;user_id=allStudent" '
-.             ' onClick="return confirmation(\'' . clean_str_for_javascript(' all students ') . '\')">'
+.             ' onClick="return confirmation(\' ' . clean_str_for_javascript(get_lang('all students')) . ' \')">'
 .             '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
 .             get_lang('Unregister all students')
 .             '</a>'
