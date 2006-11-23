@@ -31,11 +31,11 @@ if ( ! $_cid) claro_disp_auth_form(true);
 
 if ( isset($_REQUEST['url']) )
 {
-    $requestUrl = $_REQUEST['url'];
+    $requestUrl = secure_file_path( $_REQUEST['url'] );
 }
 else
 {
-    $requestUrl = get_path_info();
+    $requestUrl = secure_file_path( get_path_info() );
 }
 
 if ( empty($requestUrl) )
@@ -107,34 +107,14 @@ else
     }
 
     // Check if path exists in course folder    
-    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+    if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
     {
-        // FILE PATH NOT CASE SENSITIVE ON WINDOWS
-        $regexp = '~^'.$coursesRepositorySys . $intermediatePath.'~i';
-    }
-    else
-    {
-        $regexp = '~^'.$coursesRepositorySys . $intermediatePath.'~';
-    }
-
-    if ( preg_match($regexp, $pathInfo) )
-    {
-        if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
-        {
-            $isDownloadable = false ;
-        
-            $message = '<h1>' . get_lang('Not found') . '</h1>' . "\n"
-                . '<p>' . get_lang('The requested file <strong>%file</strong> was not found on the platform.', 
-                                    array('%file' => basename($pathInfo) ) ) . '</p>' ;
-        }
-
-    }
-    else
-    {
-        // file outside of the course document folder
         $isDownloadable = false ;
-        $message = get_lang('Not allowed');
-    }   
+    
+        $message = '<h1>' . get_lang('Not found') . '</h1>' . "\n"
+            . '<p>' . get_lang('The requested file <strong>%file</strong> was not found on the platform.', 
+                                array('%file' => basename($pathInfo) ) ) . '</p>' ;
+    }  
 
 }
 
