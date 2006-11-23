@@ -198,9 +198,13 @@ if ( isset($_REQUEST['access']))
 {
     $isSearched .= '<br />' . "\n";
 
-    if ($_REQUEST['access'] == 'public')
+    if ($_REQUEST['access'] == 'public' )
     {
         $isSearched .= '<b>' . get_lang('Public course only') . '</b>';
+    }
+    elseif ( $_REQUEST['access'] == 'all' )
+    {
+        $isSearched .= '<b>' . get_lang('Both private and Public course') . '</b>';
     }
     else
     {
@@ -215,6 +219,10 @@ if ( isset($_REQUEST['subscription']) )
     if ( $_REQUEST['subscription'] == 'allowed' )
     {
         $isSearched .= '<b>' . get_lang('Enrolment allowed only') . '</b>';
+    }
+    elseif (  $_REQUEST['subscription'] == 'all' )
+    {
+        $isSearched .= '<b>' . get_lang('Enrolment allowed or not') . '</b>';
     }
     else
     {
