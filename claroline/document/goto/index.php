@@ -106,9 +106,18 @@ else
         pushClaroMessage('<p>File path : ' . $pathInfo . '</p>','pathInfo');
     }
 
-    // Check if path exists in course folder
+    // Check if path exists in course folder    
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+    {
+        // FILE PATH NOT CASE SENSITIVE ON WINDOWS
+        $regexp = '~^'.$coursesRepositorySys . $intermediatePath.'~i';
+    }
+    else
+    {
+        $regexp = '~^'.$coursesRepositorySys . $intermediatePath.'~';
+    }
 
-    if ( preg_match('|^'.$coursesRepositorySys . $intermediatePath.'|', $pathInfo) )
+    if ( preg_match($regexp, $pathInfo) )
     {
         if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
         {
