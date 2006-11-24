@@ -36,7 +36,6 @@ require_once $includePath . '/lib/pager.lib.php';
 
 // Main section
 
-$cmd = isset($_REQUYEST['cmd'])?$_REQUYEST['cmd']:null;
 
 // Build profile list
 
