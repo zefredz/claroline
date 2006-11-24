@@ -342,14 +342,14 @@ class ClaroCourse
     {
     	if ( empty($this->departmentUrl) ) return true;
 
-        $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+        $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+(\.[a-zA-Z]{2,3})?(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
 
         if ( ! eregi($regexp,$this->departmentUrl) )
         {
             // Problem with url. try to repair
             // if  it  only the protocol missing add http
             if ( eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $this->departmentUrl)
-            && ( eregi($regexp, 'http://' . $this->departmentUrl)))
+                && ( eregi($regexp, 'http://' . $this->departmentUrl)))
             {
                 $this->departmentUrl = 'http://' . $this->departmentUrl;
             }
