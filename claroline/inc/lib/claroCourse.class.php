@@ -342,7 +342,7 @@ class ClaroCourse
     {
     	if ( empty($this->departmentUrl) ) return true;
 
-        $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+(\.[a-zA-Z]{2,3})?(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+        $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$";
 
         if ( ! eregi($regexp,$this->departmentUrl) )
         {
