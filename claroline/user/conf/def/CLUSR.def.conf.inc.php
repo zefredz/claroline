@@ -67,20 +67,21 @@ array ( 'label'   => 'Number of user per page'
       );
 
 $conf_def_property_list['is_coursemanager_allowed_to_add_user'] =
-array('label'         => 'Teacher can add user in his course'
+array('label'         => 'Teacher can add some users in his course'
      ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
      ,'readonly'      => FALSE
      ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
+                               ,'FALSE'=>'No'
+                               )
      );
 
 $conf_def['section']['add_user']['label'] = 'Add user';
 $conf_def['section']['add_user']['description'] = '';
 $conf_def['section']['add_user']['properties'] =
 array ( 'is_coursemanager_allowed_to_add_user'
+      , 'is_coursemanager_allowed_to_add_single_user'
       , 'allowSearchInAddUser'
       , 'is_coursemanager_allowed_to_import_user_list'
       , 'is_coursemanager_allowed_to_import_user_class'
@@ -100,7 +101,7 @@ array ('label'         => 'Allow search in the add user option'
       );
 
 $conf_def_property_list['is_coursemanager_allowed_to_add_single_user'] =
-array('label'         => 'Teacher can add user in his course'
+array('label'         => 'Teacher can add a user in his course'
      ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
