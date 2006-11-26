@@ -173,7 +173,7 @@ class ConfigHtml extends Config
         $input_name = 'property['.$name.']';
 
         // label of property
-        $html['label'] = !empty($property_def['label'])?htmlspecialchars( get_lang($property_def['label'])):htmlspecialchars($name);
+        $html['label'] = !empty($property_def['label'])?htmlspecialchars( get_lang($property_def['label'])):htmlspecialchars(get_lang($name));
 
         // value of property
         if ( ! is_array($value) ) $html['value'] = htmlspecialchars($value);
@@ -234,7 +234,7 @@ class ConfigHtml extends Config
                             $value_list = array();;
                             foreach ( $value as $value_item )
                             {
-                                $value_list[] = htmlspecialchars($property_def['acceptedValue'][$value_item]);
+                                $value_list[] = htmlspecialchars(get_lang($property_def['acceptedValue'][$value_item]));
                             }
                             $form_value = implode(', ',$value_list);
                         }
@@ -333,15 +333,15 @@ class ConfigHtml extends Config
                             {
                                 $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
                                 . ($value==$keyVal?' checked="checked" ':' ').' >'
-                                . '<label for="label_'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
-                                . '<span class="propUnit">'.$html['unit'].'</span>'
+                                . '<label for="label_'.$name.'_'.$keyVal.'"  >'.get_lang(($labelVal?$labelVal:$keyVal )).'</label>'
+                                . '<span class="propUnit">'.get_lang($html['unit']).'</span>'
                                 . '<br />'."\n";
                             }
                         }
                         elseif ( $total_accepted_value > 2 )
                         {
                             // display label
-                            $form_title = '<label for="label_'.$name.'"  >'.$html['label'].'</label>' ;
+                            $form_title = '<label for="label_'.$name.'"  >'.get_lang($html['label']).'</label>' ;
 
                             // display select box with accepted value
                             $form_value = '<select id="label_' . $name . '" name="'.$input_name.'">' . "\n";
@@ -350,11 +350,11 @@ class ConfigHtml extends Config
                             {
                                 if ( $keyVal == $value )
                                 {
-                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $html['unit'] .'</option>' . "\n";
+                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . get_lang(($labelVal?$labelVal:$keyVal )).get_lang( $html['unit']) .'</option>' . "\n";
                                 }
                                 else
                                 {
-                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'">' . ($labelVal?$labelVal:$keyVal ). $html['unit'] .'</option>' . "\n";
+                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'">' .get_lang( ($labelVal?$labelVal:$keyVal )). get_lang($html['unit']) .'</option>' . "\n";
                                 }
                             } // end foreach
 
@@ -373,8 +373,8 @@ class ConfigHtml extends Config
                         {
                             $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="checkbox" name="'.$input_name.'[]" value="'.$keyVal.'"  '
                             . (is_array($value)&&in_array($keyVal,$value)?' checked="checked" ':' ').' >'
-                            . '<label for="label_'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
-                            . '<span class="propUnit">'.$html['unit'].'</span>'
+                            . '<label for="label_'.$name.'_'.$keyVal.'"  >'.get_lang(($labelVal?$labelVal:$keyVal )).'</label>'
+                            . '<span class="propUnit">'.get_lang($html['unit']).'</span>'
                             . '<br />'."\n";
                         }
 
