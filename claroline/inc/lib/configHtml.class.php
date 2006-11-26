@@ -39,11 +39,11 @@ require_once dirname(__FILE__) . '/config.class.php';
 class ConfigHtml extends Config
 {
     var $back_url = null;
-    
+
     function ConfigHtml($config_code, $back_url)
     {
         parent::Config($config_code);
-        
+
         $this->backUrl = $back_url;
     }
     /**
@@ -89,14 +89,14 @@ class ConfigHtml extends Config
                 {
                     $form .= '<tr><td colspan="3">' . "\n";
                     $form .= '<ul class="tabTitle">' . "\n";
-                    $form .= '<li><a href="#">' . htmlspecialchars($this->conf_def['section'][$thisSection]['label']) . '</a></li>' . "\n";
+                    $form .= '<li><a href="#">' . htmlspecialchars( get_lang($this->conf_def['section'][$thisSection]['label'])) . '</a></li>' . "\n";
                     $form .= '</ul>' . "\n";
                     $form .= '</td></tr>' . "\n";
 
                 }
 
                 // display description of the section
-                if ( !empty($section['description']) ) $form .= '<tr><td colspan="3"><p class="configSectionDesc" ><em>' . $section['description'] . '</em></p></td></tr>';
+                if ( !empty($section['description']) ) $form .= '<tr><td colspan="3"><p class="configSectionDesc" ><em>' . get_lang($section['description']) . '</em></p></td></tr>';
 
                 // display each property of the section
                 if ( is_array($section['properties']) )
@@ -173,19 +173,19 @@ class ConfigHtml extends Config
         $input_name = 'property['.$name.']';
 
         // label of property
-        $html['label'] = !empty($property_def['label'])?htmlspecialchars($property_def['label']):htmlspecialchars($name);
+        $html['label'] = !empty($property_def['label'])?htmlspecialchars( get_lang($property_def['label'])):htmlspecialchars($name);
 
         // value of property
         if ( ! is_array($value) ) $html['value'] = htmlspecialchars($value);
 
         // description of property
-        $html['description'] = !empty($property_def['description'])?nl2br(htmlspecialchars($property_def['description'])):'';
+        $html['description'] = !empty($property_def['description'])?nl2br(htmlspecialchars( get_lang($property_def['description']))):'';
 
         // unit of property
-        $html['unit'] = !empty($property_def['unit'])?htmlspecialchars($property_def['unit']):'';
+        $html['unit'] = !empty($property_def['unit'])?htmlspecialchars( get_lang($property_def['unit'])):'';
 
         // type of property
-        $html['type'] = !empty($property_def['type'])?' <small>('.htmlspecialchars($property_def['type']).')</small>':'';
+        $html['type'] = !empty($property_def['type'])?' <small>('.htmlspecialchars (get_lang($property_def['type'])).')</small>':'';
 
         // evaluate the size of input box
         if(!is_array($value))
@@ -289,13 +289,13 @@ class ConfigHtml extends Config
                         $form_value = '<input id="label_'. $name .'_TRUE"  type="radio" name="'. $input_name.'" value="TRUE"  '
                         . ( $value=='TRUE'?' checked="checked" ':' ') . ' >'
                         . '<label for="label_'. $name .'_TRUE"  >'
-                        . ($property_def['acceptedValue']['TRUE']?$property_def['acceptedValue']['TRUE' ]:'TRUE')
+                        . ($property_def['acceptedValue']['TRUE']?get_lang($property_def['acceptedValue']['TRUE' ]):'TRUE')
                         . '</label>'
                         . '<br />'
                         . '<input id="label_'. $name .'_FALSE" type="radio" name="'. $input_name.'" value="FALSE" '
                         . ($value=='FALSE'?' checked="checked" ': ' ') . ' >'
                         . '<label for="label_'. $name.'_FALSE" >'
-                        . ($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
+                        . ($property_def['acceptedValue']['FALSE']?get_lang($property_def['acceptedValue']['FALSE']):'FALSE')
                         . '</label>';
 
                         break;
@@ -401,7 +401,7 @@ class ConfigHtml extends Config
 
                 } // end switch on property type
             }
-            
+
             // display elt
             $elt_form = '<tr style="vertical-align: top">' . "\n"
                 . '<td style="text-align: right" width="25%">' . $form_title . '&nbsp;:</td>' . "\n"
