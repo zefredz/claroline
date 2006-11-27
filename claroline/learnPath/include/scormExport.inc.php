@@ -569,7 +569,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:title>
-                <imsmd:langstring>' . htmlspecialchars($title) . '</imsmd:langstring>
+                <imsmd:langstring>' . html_entity_decode($title) . '</imsmd:langstring>
             </imsmd:title>';
             }
     
@@ -577,7 +577,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:description>
-                <imsmd:langstring>' . htmlspecialchars($description) . '</imsmd:langstring>
+                <imsmd:langstring>' . html_entity_decode($description) . '</imsmd:langstring>
             </imsmd:description>';
             }
     
