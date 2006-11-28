@@ -299,8 +299,10 @@ if ($intro_dispDefault)
             if ( $introVisibility == 'SHOW' || $intro_editAllowed )
             {
                 $cssClass = ($introVisibility == 'HIDE') ? ' invisible' :'';
-                $style    = ($intro_editAllowed) ? 'border-left:1px solid silver;margin-bottom:25px;border-bottom:1px dashed silver;padding-bottom:8px;' :'';
-                $js       = ($intro_editAllowed) ? 'onmouseover="this.style.backgroundColor= \'#eee\';" onmouseOut="this.style.backgroundColor= \'white\';"' :'';
+                $cssClass = ($intro_editAllowed) ? ' editable' :'';
+                //$style    = ($intro_editAllowed) ? 'border-left:1px solid silver;margin-bottom:25px;border-bottom:1px dashed silver;padding-bottom:8px;' :'';
+                $js = '';
+           //     $js       = ($intro_editAllowed) ? 'onmouseover="this.style.backgroundColor= \'#eee\';" onmouseOut="this.style.backgroundColor= \'white\';"' :'';
 
                 $intro_content = claro_parse_user_text($thisTextIntro['content']);
                 echo '<div class="claroIntroSection' . $cssClass . '" ' . $js . ' style="' . $style . '">' . "\n";
