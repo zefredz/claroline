@@ -111,7 +111,7 @@ function user_create($settingList, $creatorId = null)
         return false ;
     }
 
-    $password = get_conf('userPasswordCrypted') 
+    $password = get_conf('userPasswordCrypted')
         ? md5($settingList['password'])
         : $settingList['password']
         ;
@@ -1249,8 +1249,13 @@ function user_display_preferred_language_select_box()
 /**
  * Get all properties for a user
  *
- * @param int $userId
- * @return array of properties
+ * @param int     $userId
+ * @param boolean $force reload data from database.
+ *                Use it if data can change between
+ *                two call in same script
+ * @param boolean $getUndefinedProperties. if false, function return only field where data overwrite the default value (NULL)
+ *
+ * @return array of properties array (array[]=array(propertyId, propertyValue,scope )
  */
 function get_user_property_list($userId, $force = false, $getUndefinedProperties = false)
 {
@@ -1362,7 +1367,7 @@ function get_userInfoExtraDefinitionList()
 function update_userInfoExtraDefinition($propertyId, $label, $type, $defaultValue, $contextScope, $rank, $required )
 {
     $tbl = claro_sql_get_tbl('property_definition');
-    
+
     $sql = "REPLACE INTO `" . $tbl['property_definition'] . "`
             SET propertyId   = '" . addslashes($propertyId) . "',
                 label        = '" . addslashes($label) . "',
@@ -1388,7 +1393,7 @@ function update_userInfoExtraDefinition($propertyId, $label, $type, $defaultValu
 function delete_userInfoExtraDefinition($propertyId, $contextScope )
 {
     $tbl = claro_sql_get_tbl('property_definition');
-    
+
     $sql = "DELETE FROM `" . $tbl['property_definition'] . "`
             WHERE propertyId = '" . addslashes($propertyId) . "'
             AND  contextScope = '" . addslashes($contextScope) . "'";
