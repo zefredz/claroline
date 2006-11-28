@@ -196,13 +196,13 @@ if ($intro_editAllowed)
             }
         }
     }
-    
+
     if ( $introCmd == 'mkVisible' || $introCmd == 'mkInvisible' )
     {
         $currentEntryId = (int) $_REQUEST['introId'];
-        
+
         $visibility = ($introCmd == 'mkVisible') ? 'SHOW' : 'HIDE';
-        
+
         $sql = "UPDATE `" . $TBL_INTRODUCTION . "`
                 SET `visibility` = '".$visibility."'
                 WHERE id =  '" . (int) $currentEntryId . "'";
@@ -276,7 +276,7 @@ if ($intro_dispDefault)
 {
     $sql = "SELECT `id`, `rank`, `content`, `visibility`
             FROM `" . $TBL_INTRODUCTION . "`
-            WHERE `tool_id` <= 0 
+            WHERE `tool_id` <= 0
             ORDER BY rank ASC";
 
     $textIntroList = claro_sql_query_fetch_all($sql);
@@ -295,26 +295,32 @@ if ($intro_dispDefault)
         {
             $introId       = $thisTextIntro['id'];
             $introVisibility = $thisTextIntro['visibility'];
-            
+
             if ( $introVisibility == 'SHOW' || $intro_editAllowed )
             {
-                $style = ($introVisibility == 'HIDE') ? ' invisible' :'';
-                
+                $cssClass = ($introVisibility == 'HIDE') ? ' invisible' :'';
+                $style    = ($intro_editAllowed) ? 'border-left:1px solid silver;margin-bottom:25px;border-bottom:1px dashed silver;padding-bottom:8px;' :'';
+                $js       = ($intro_editAllowed) ? 'onmouseover="this.style.backgroundColor= \'#eee\';" onmouseOut="this.style.backgroundColor= \'white\';"' :'';
+
                 $intro_content = claro_parse_user_text($thisTextIntro['content']);
-                echo '<div class="claroIntroSection'.$style.'">' . "\n";
-    
+                echo '<div class="claroIntroSection' . $cssClass . '" ' . $js . ' style="' . $style . '">' . "\n";
+
                 if( trim(strip_tags($intro_content,'<img><embed><object>')) != '' ) // no need to display a div for an empty string
                 {
                     echo $intro_content . "\n";
                 }
-    
+                elseif ($intro_editAllowed)
+                {
+                    echo '<div style="text-align:center;background-color:silver;margin:3px;">' . get_lang('This zone is empty') . '</div>' . "\n";
+                }
+
                 linker_display_resource('CLINTRO_');
-    
-    
+
+
                 if ($intro_dispCommand)
                 {
                     echo '<div class="toolbar">' . "\n";
-    
+
                     echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .       '?introCmd=rqEd&introId='.$introId.'">'
                     .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Ok') . '" border="0">'
@@ -327,54 +333,54 @@ if ($intro_dispDefault)
                     .    '<img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0">'
                     .    '</a>' . "\n"
                     ;
-    
+
                     if ($thisIntroKey > 0 )
                     {
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
                         .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('Move up').'">'
                         .    '</a> ';
                     }
-    
+
                     if ($thisIntroKey + 1 < $introListCount )
                     {
                         echo ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
                         .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.get_lang('Move down').'">'
                         .    '</a>';
                     }
-                    
+
                     //  Visibility
-                    
+
                     if ( $introVisibility =='SHOW' )
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] 
-                            . '?introCmd=mkInvisible&amp;introId=' 
+                        echo '<a href="' . $_SERVER['PHP_SELF']
+                            . '?introCmd=mkInvisible&amp;introId='
                             . $introId . '" title="'
                             . get_lang( 'Click to make invisible' ).'">'
                             ;
-                        echo '<img src="' . $imgRepositoryWeb 
-                            . 'visible.gif" alt="' 
+                        echo '<img src="' . $imgRepositoryWeb
+                            . 'visible.gif" alt="'
                             . get_lang('Visible').'" />'
                             ;
                         echo '</a>' . "\n";
                     }
                     else
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] 
-                            . '?introCmd=mkVisible&amp;introId=' 
+                        echo '<a href="' . $_SERVER['PHP_SELF']
+                            . '?introCmd=mkVisible&amp;introId='
                             . $introId . '" title="'
                             . get_lang( 'Click to make visible' ).'">'
                             ;
-                        echo '<img src="' . $imgRepositoryWeb 
-                            . 'invisible.gif" alt="' 
+                        echo '<img src="' . $imgRepositoryWeb
+                            . 'invisible.gif" alt="'
                             . get_lang('Invisible') . '" />'
                             ;
                         echo '</a>' . "\n";
-                        
+
                     }
-    
+
                     echo '</div>' . "\n\n";
                 }
-    
+
                 echo    '</div>' . "\n\n";
             }
         } // end foreach textIntroList
