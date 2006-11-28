@@ -301,15 +301,16 @@ if ($intro_dispDefault)
                 $cssClass = ($introVisibility == 'HIDE') ? ' invisible' :'';
                 $cssClass = ($intro_editAllowed) ? ' editable' :'';
                 $intro_content = claro_parse_user_text($thisTextIntro['content']);
-                echo '<div class="claroIntroSection' . $cssClass . '" ">' . "\n";
+                
+                $section = '';
 
                 if( trim(strip_tags($intro_content,'<img><embed><object>')) != '' ) // no need to display a div for an empty string
                 {
-                    echo $intro_content . "\n";
+                    $section .= $intro_content . "\n";
                 }
                 elseif ($intro_editAllowed)
                 {
-                    echo '<div style="text-align:center;background-color:silver;margin:3px;">' . get_lang('This zone is empty') . '</div>' . "\n";
+                    $section .= '<div style="text-align:center;background-color:silver;margin:3px;">' . get_lang('This zone is empty') . '</div>' . "\n";
                 }
 
                 linker_display_resource('CLINTRO_');
@@ -317,9 +318,9 @@ if ($intro_dispDefault)
 
                 if ($intro_dispCommand)
                 {
-                    echo '<div class="toolbar">' . "\n";
+                    $section .= '<div class="toolbar">' . "\n";
 
-                    echo '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+                    $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .       '?introCmd=rqEd&introId='.$introId.'">'
                     .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Ok') . '" border="0">'
                     .    '</a>' . "\n"
@@ -334,14 +335,14 @@ if ($intro_dispDefault)
 
                     if ($thisIntroKey > 0 )
                     {
-                        echo '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
+                        $section .= '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
                         .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('Move up').'">'
                         .    '</a> ';
                     }
 
                     if ($thisIntroKey + 1 < $introListCount )
                     {
-                        echo ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
+                        $section .= ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
                         .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.get_lang('Move down').'">'
                         .    '</a>';
                     }
@@ -350,36 +351,45 @@ if ($intro_dispDefault)
 
                     if ( $introVisibility =='SHOW' )
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF']
+                        $section .= '<a href="' . $_SERVER['PHP_SELF']
                             . '?introCmd=mkInvisible&amp;introId='
                             . $introId . '" title="'
                             . get_lang( 'Click to make invisible' ).'">'
                             ;
-                        echo '<img src="' . $imgRepositoryWeb
+                        $section .= '<img src="' . $imgRepositoryWeb
                             . 'visible.gif" alt="'
                             . get_lang('Visible').'" />'
                             ;
-                        echo '</a>' . "\n";
+                        $section .= '</a>' . "\n";
                     }
                     else
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF']
+                        $section .= '<a href="' . $_SERVER['PHP_SELF']
                             . '?introCmd=mkVisible&amp;introId='
                             . $introId . '" title="'
                             . get_lang( 'Click to make visible' ).'">'
                             ;
-                        echo '<img src="' . $imgRepositoryWeb
+                        $section .= '<img src="' . $imgRepositoryWeb
                             . 'invisible.gif" alt="'
                             . get_lang('Invisible') . '" />'
                             ;
-                        echo '</a>' . "\n";
+                        $section .= '</a>' . "\n";
 
                     }
-
-                    echo '</div>' . "\n\n";
+                    
+                    $section .= '</div>' . "\n\n";
                 }
 
-                echo    '</div>' . "\n\n";
+                if ( !empty( $section ) || $intro_editAllowed )
+                {
+                    $section = '<div class="claroIntroSection' . $cssClass . '" ">' 
+                        . "\n" . $section
+                        ;
+                    
+                    $section .= '</div>' . "\n\n";
+                }
+                
+                echo $section;
             }
         } // end foreach textIntroList
 
