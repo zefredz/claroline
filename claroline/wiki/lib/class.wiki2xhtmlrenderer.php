@@ -230,10 +230,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 				{
 					$type = null;
 
-					// $line = $this->__inlineWalk( $line );
-                    $line = '';
+					$line = $this->__inlineWalk( $cap[1] );
                     
-                    $content = explode( '|', $cap[1] );
+                    $content = explode( '|', $line );
                     
                     $th = false;
                     $cell = array();
@@ -245,11 +244,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         if ( strpos( $r, '!' ) === 0 )
                         {
                             $th = true;
-                            $cell[] = $this->__inlineWalk( substr($r,1) );
+                            $cell[] = substr($r,1);
                         }
                         else
                         {
-                            $cell[] = $this->__inlineWalk($r);
+                            $cell[] = $r;
                         }
                     }
                     
