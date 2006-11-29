@@ -31,10 +31,15 @@
     color: red;
 }
 
-.wikiTable {
+.wiki2xhtml table {
 	border: black outset 1px;
 }
-.wikiTable td {
+
+.wiki2xhtml table caption {
+	border: black outset 1px;
+}
+
+.wiki2xhtml table td, .wiki2xhtml table th {
 	border: black inset 1px;
 }
 
