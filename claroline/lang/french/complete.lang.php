@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
@@ -178,8 +178,6 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Ressources jointes : 
 $_lang['Attached file'] = 'Fichier joint';
 $_lang['Attached resources'] = 'Ressources jointes';
 $_lang['Attempt'] = 'Essai';
-$_lang['Attempt %attemptCount on %attempts'] = 'Essai %attemptCount sur %attempts';
-$_lang['Attempt %attemptCount'] = 'Essai %attemptCount';
 $_lang['Attempts'] = 'Essais';
 $_lang['Attempts allowed'] = 'Essais autorisés';
 $_lang['Authentication'] = 'Identification';
@@ -916,9 +914,10 @@ $_lang['Number proposed exceeds max. that you allowed (you can modify it below).
     La composition du groupe n\'a pas été modifiée. Vous pouvez modifier le nombre maximum ci-dessous.';
 $_lang['Numero'] = 'N°';
 $_lang['OVER QUOTA'] = 'QUOTA DEPASSE';
+$_lang['Off'] = 'Désactivé';
 $_lang['Ok'] = 'Ok';
 $_lang['Oldest first'] = 'Inverser';
-$_lang['On'] = 'Sur';
+$_lang['On'] = 'Activé';
 $_lang['On an unique page'] = 'Questions sur une seule page';
 $_lang['One question per page (sequential)'] = 'Une question par page (séquentiel)';
 $_lang['Only visible for teacher(s) and submitter(s)'] = 'Visible uniquement par le(s) gestionnaire(s) et le(s) propriétaire(s)';
@@ -1340,6 +1339,7 @@ $_lang['Wiki deletion succeed'] = 'Le wiki a été supprimé.';
 $_lang['Wiki description'] = 'Description du wiki';
 $_lang['Wiki edition succeed'] = 'Le wiki a été édité avec succès';
 $_lang['Wiki syntax'] = 'Syntaxe Wiki';
+$_lang['Wiki tool'] = 'Outil Wiki';
 $_lang['Work added'] = 'Soumission ajoutée';
 $_lang['Work modified'] = 'Soumission modifiée';
 $_lang['Work title'] = 'Titre';
@@ -1354,6 +1354,9 @@ $_lang['Wrong parameters'] = 'Paramètres incorrects';
 $_lang['Year'] = 'Année';
 $_lang['Yes'] = 'Oui';
 $_lang['Yes, allow users to submit works after end date'] = 'Oui, autoriser les utilisateurs à soumettre leur travail après la date de fin';
+$_lang['Yes, create RDF version'] = 'Oui, créer une version RDF ';
+$_lang['Yes, create XML version'] = 'Oui, créer une version XML';
+$_lang['Yes, create ics version'] = 'Oui, créer une version ics';
 $_lang['Yesterday'] = 'Hier';
 $_lang['You are not a member of this group'] = 'Vous n\'êtes pas membre de ce groupe.';
 $_lang['You are not allowed to create pages'] = 'Vous n\'êtes pas autorisé à créer des pages';
@@ -2132,16 +2135,22 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>||first cell|second cell|...||</code> ligne de tableau (sur une ligne)</dd>
 <dd><code>|}</code> fin de tableau (doit être sur une nouvelle ligne)</dd>
 </dl>';
+$_lang['boolean'] = 'booléen';
 $_lang['click here'] = 'cliquez ici';
 $_lang['click to zoom in'] = 'cliquez pour agrandir l\'image';
 $_lang['click to zoom out'] = 'cliquez pour diminuer la taille de l\'image';
 $_lang['count'] = 'nombre';
+$_lang['db glu'] = 'séparateur';
 $_lang['denotes new items'] = 'Nouveautés';
+$_lang['description'] = 'description';
 $_lang['details'] = 'détails';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'différences entre la version du %1$s modifiée par %2$s et la version du %3$s modifiée par %4$s';
 $_lang['dont change case'] = 'Ne pas modifier la casse';
 $_lang['e.g. <em>History of Literature</em>'] = 'p. ex. <i>Histoire de la littérature</i>';
 $_lang['email'] = 'e-mail';
+$_lang['enum'] = 'énumération';
+$_lang['expand'] = 'étendre';
+$_lang['filename'] = 'Nom de fichier';
 $_lang['good looking'] = 'Japon';
 $_lang['high resources'] = 'Utilise beaucoup de ressources';
 $_lang['iCal feed for %course'] = 'Fichier iCal du cours %course';
@@ -2167,6 +2176,7 @@ $_lang['previous level'] = 'catégorie supérieure';
 $_lang['rebuild file on each request'] = 'reconstruire les fichiers à chaque requête';
 $_lang['register'] = 'm\'inscrire';
 $_lang['relPath'] = 'Chemin relatif';
+$_lang['relpath'] = 'Chemin relatif';
 $_lang['rich'] = 'Royaume-Uni';
 $_lang['sampleForumDescription'] = 'À supprimer via l\'administration des forums';
 $_lang['sampleForumGroupCategory'] = 'Forums des Groupes';
