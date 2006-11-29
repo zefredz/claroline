@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!marimea documentului de curs (include claroline si deseurile din vechile sisteme)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modificata in data de %2$s de %3$s';
@@ -113,6 +113,8 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Resurse atasate : Ada
 $_lang['Attached file'] = 'Fisier atasat';
 $_lang['Attached resources'] = 'Resurse atasate';
 $_lang['Attempt'] = 'Incercare';
+$_lang['Attempt %attemptCount on %attempts'] = 'Incercari %attemptCount pe %attempts';
+$_lang['Attempt %attemptCount'] = 'Incercari %attemptCount';
 $_lang['Attempts'] = 'Incercari';
 $_lang['Attempts allowed'] = 'incercari autorizate';
 $_lang['Authentication'] = 'Autentificare';
@@ -935,7 +937,7 @@ $_lang['Visits'] = 'Vizite';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'AVERTISMENT: Esti pe cale sa stergi acest Wiki impreuna cu toate paginile sale.
  Esti sigur ca vrei sa continui?';
 $_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'AVERTISMENT : acesta pagina este o previzualizare.
- Modificarile tale nu au fost salvate inca. 
+ Modificarile tale nu au fost salvate inca.
  Pentru a le salva, nu uita sa apesi butonul "salveaza" din josul paginii.';
 $_lang['Week'] = 'Saptamana';
 $_lang['Weighting'] = 'Apreciere/Ponderare';
@@ -996,7 +998,7 @@ $_lang['Your password has been emailed to'] = 'Parola ta a fost trimisa prin ema
 $_lang['Your progression in this module'] = 'Progesul tau in acest modul';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Cererea ta de a deveni creator de curs a fost trimisa administratorului(rilor) platformei.';
 $_lang['Your request to remove your account has been sent'] = 'Cererea ta de a-ti sterge contul a fost trimisa';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Profilul tau de utilizator 
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Profilul tau de utilizator
 nu apare inregistrat la acest curs';
 $_lang['Zip file uploaded and uncompressed'] = 'Fisier zip incarcat si decomprimat';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Pentru a folosi acest instrument este necesara extensia Zlib php. Contacteaza administratorul platformei tale.';
@@ -1016,7 +1018,7 @@ Cursantii isi pot modifica lucrarile dupa ce le-au publicat si administratorul d
 </li><li> o descriere&nbsp;: obiectivul temei, ce trebuie sa faca cursantii
 </li><li> tipul publicarii&nbsp;:
 <ul><li> File&nbsp;: orice tip de fiser care poate fi incarcat, nu uita ca exista o marime limita care depinde de platforma, fisierul poate fi insotit de un text de descriere
-</li><li> doar text&nbsp;: un text formatat folosind editorul wysiwyg 
+</li><li> doar text&nbsp;: un text formatat folosind editorul wysiwyg
 </li><li> Text cu un fisier atasat &nbsp;: un text formatat folosind editorul wysiwyg si un fisierr  (fisierul nu este necesar)
 </li></ul>
 </li><li> o data de inceput&nbsp;: data de la care utilizatorii vor putea adauga o publicare in cadrul temei
@@ -1142,7 +1144,7 @@ Acest instrument contine mai multe comenzi care iti permit sa incarci, sa scrii 
 Apasa comanda "Incarca fisier" din stanga sus.
 </li>
 <li>
-Selecteza fisierul din computerul tau folosind butonul \'Browse\' din casuta de dialog 
+Selecteza fisierul din computerul tau folosind butonul \'Browse\' din casuta de dialog
 </li>
 <li>
 Optional, poti atasa un comentariu acestui document. Va fi afisat in josul paginii langa linia documentului.
@@ -1191,7 +1193,7 @@ Aceasta comanda poate fi folosita pentru scrierea documentelor scurte. Pentru do
 </p>
 <h4>Redenumeste un document, un director sau un hyperlink</h4>
 <ul>
-<li>Apasa icoana din coloana \'Edit\' 
+<li>Apasa icoana din coloana \'Edit\'
 </li>
 <li>
 Tastati noul nume in partea de sus a ferestrei browser-ului tau.
@@ -1231,7 +1233,7 @@ Adauga sau modifica comentariu la un document, un director sau la un hyperlink.
 </h4>
 <ul>
 <li>
-Apasa pe icoana de langa document din coloana \'edit\' 
+Apasa pe icoana de langa document din coloana \'edit\'
 <li>
 Scrie un nou comentariu in campul corespunzator.
 </li>
@@ -1249,7 +1251,7 @@ Pentru a sterge un comentariu, apasa pe icoana de langa document din coloana "Ed
 Scrie numele noului tau director in campul corespunzator (stanga sus).
 </li>
 <li>
-Valideza apasand butonul  \'OK\' 
+Valideza apasand butonul  \'OK\'
 </li>
 </ul>
 <h4>
@@ -1405,23 +1407,23 @@ $_lang['blockUsersHelp'] = '<p>Instrumentul "Utilizatori" permite afesarea unui 
 </li>
 <li>
 <b>Roluri</b>.
-Rolurile nu au o functie tehnica speciala. Ele nu dau drepturi de operare a sistemului. 
-Indica doar oamenilor cine e cine.Le poti modifica apasand icoana din coloana "Edit" si scriind 
+Rolurile nu au o functie tehnica speciala. Ele nu dau drepturi de operare a sistemului.
+Indica doar oamenilor cine e cine.Le poti modifica apasand icoana din coloana "Edit" si scriind
 apoi orice vrei ca de exemplu: lector, asistent, cursant, vizitator, expert...
 </li>
 <li>
-<b>Preparatorul grupului</b>Preparatorul cursului este un statut care permite unui utilizator 
-sa supravegheze inadeaproape un grup. 
-Aceasta ii permite utilizatorului sa aiba acces la intreaga zona a grupului si sa vada toate mesaje 
+<b>Preparatorul grupului</b>Preparatorul cursului este un statut care permite unui utilizator
+sa supravegheze inadeaproape un grup.
+Aceasta ii permite utilizatorului sa aiba acces la intreaga zona a grupului si sa vada toate mesaje
 de pe forumul grupului. Poti modifica acest statut apasand icoana din coloana "Edit".
 </li>
 <li>
-<b>Gestionarul cursului</b>Statutul este rezervat persoanelor care gestioneaza si 
+<b>Gestionarul cursului</b>Statutul este rezervat persoanelor care gestioneaza si
 administreaza cursul.Poti modifica acest statut apasand icoana din coloana "Edit".
 </li>
 <li>
-<b>Editeaza</b> (rezervat Gestionarului cursului). Aceasta comanda ii permite gestionarului sa  
-inlature un utilizator de la curs.Asa nu inseamna ca contul de utilizator nu mai exista, 
+<b>Editeaza</b> (rezervat Gestionarului cursului). Aceasta comanda ii permite gestionarului sa
+inlature un utilizator de la curs.Asa nu inseamna ca contul de utilizator nu mai exista,
 ci doar ca  acest cont nu mai este inregistrat la curs.
 </li>
 </ul>
@@ -1430,15 +1432,15 @@ Principalele comenzi
 </h4>
 <ul>
 <li>
-<b>Adauga un utilizator</b>. Apasa pentru a adauga un utilizator la acest curs, 
-completeaza campurile si valideaza. 
+<b>Adauga un utilizator</b>. Apasa pentru a adauga un utilizator la acest curs,
+completeaza campurile si valideaza.
 Persona va primi un email in care i se va spune ca s-a inregistrat si i se va reaminti parola.
 </li>
-<li><b>Adauga o lista de utilizatori</b></li> Apasa aceasta comanda pentru a adauga o lista 
+<li><b>Adauga o lista de utilizatori</b></li> Apasa aceasta comanda pentru a adauga o lista
 cu cativa utilizatori cu un fisier in format CSV.
 </li>
 <li>
-<b>Inscrie o clasa</b>. Apasa aceasta comanda pentru a dauga o acolectie de utilizatori grupati 
+<b>Inscrie o clasa</b>. Apasa aceasta comanda pentru a dauga o acolectie de utilizatori grupati
 pe clase predefinite de catre administratorul platformei.
 </li>
 <li>
@@ -1447,13 +1449,13 @@ pe clase predefinite de catre administratorul platformei.
 </ul>
 <h4>Sfaturi</h4>
 <p>
-De exemplu, pentru a-i permite unui asistent sa co-administreze site-ul, 
-trebuie sa il inregistrezi la curs sau sa te asiguri ca e inregistrat deja, 
-apoi sa apesi pe "modifica" sub "drepturi de administrator", apoi 
+De exemplu, pentru a-i permite unui asistent sa co-administreze site-ul,
+trebuie sa il inregistrezi la curs sau sa te asiguri ca e inregistrat deja,
+apoi sa apesi pe "modifica" sub "drepturi de administrator", apoi
 apasa "tot" si apoi "ok". Co-presedinte
 </p>
 <p>
-Pentru a mentiona in antetul cursului de pe website numele co-presedintelui, 
+Pentru a mentiona in antetul cursului de pe website numele co-presedintelui,
 foloseste intrumentul "Modifica informatiile cursului" (instrumentele portocalii).
  Aceasta modificare nu inseamna ca co-presedintele devine utilizator al cursului.
   Campul "Lectori" este independent complet de lista de utilizatori.
@@ -1461,7 +1463,7 @@ Adauga un utilizator
 </p>
 
 ';
-$_lang['blockWikiConflictHowTo'] = '<p><strong>Conflict de editaret</strong>: Pagina 
+$_lang['blockWikiConflictHowTo'] = '<p><strong>Conflict de editaret</strong>: Pagina
 pe care incerci sa o vezi se pare ca a suferit modificare de cand ai modificat-o.<br /><br />
 Ce vrei sa faci acum?<ul>
 <li>Poti salva modificarea ta intr-un editor de text (de exemplu notepad) apoi apasa
@@ -1505,20 +1507,20 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h3>Sintaxa Wiki2xhtml</h3>
 <dl class="wikiHelp">
 <dt>Crearea paginilor wiki si a legaturilor intre ele</dt>
 <dd><ul>
-<li><strong>Cuvintele Wiki</strong>: 
+<li><strong>Cuvintele Wiki</strong>:
 Cuvintele Wiki sunt cuvinte scrise ca <em>WikiWord</em>.
  Wiki2xhtml le recunoaste automat ca legaturi intrepaginile Wiki.
-  Pentru a crea pagini Wiki sau un o legtura cu o pagina Wiki, 
-  editeaza o pagina existenta si adauga titlul paginii in sintaxa WikiWord  
+  Pentru a crea pagini Wiki sau un o legtura cu o pagina Wiki,
+  editeaza o pagina existenta si adauga titlul paginii in sintaxa WikiWord
   , de exemplu <em>MyPage</em>, si apoi salveaza pagina.
   Wiki2xhtml va inlocui automat Wiki Word <em>MyPage</em> cu un link catre pagina Wiki <em>MyPage</em>&nbsp;;</li>
 <li><strong>Wiki links</strong> : Linkurile Wiki sunt Hiperlink-uri (vezi mai jos),
- nu contin nici o schema de protocol  
- (ca <em>http://</em> or <em>ftp://</em>) si sunt recunoscute automat ca legaturi 
- catre paginile Wiki.Pentru a crea o pagina noua sau pentru a crea o legatura catre 
+ nu contin nici o schema de protocol
+ (ca <em>http://</em> or <em>ftp://</em>) si sunt recunoscute automat ca legaturi
+ catre paginile Wiki.Pentru a crea o pagina noua sau pentru a crea o legatura catre
  o pagina existenta folosind linkurile Wiki ,
-  editeaza o pagina sau adauga <code>[page title]</code> sau 
-  <code>[page title|link text]</code> continutului sau. 
+  editeaza o pagina sau adauga <code>[page title]</code> sau
+  <code>[page title|link text]</code> continutului sau.
   Poti folosi sintaxa pentru a schimba textul unui WikiWord link :
    <code>[WikiWord|text]</code>.</li>
 </ul></dd>
@@ -1535,7 +1537,7 @@ Cuvintele Wiki sunt cuvinte scrise ca <em>WikiWord</em>.
 <li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> inaintea fiecarei linii.</li>
 </ul></dd>
 <dt>Inline elements</dt>
-<dd><ul><li>Corectia automata a punctuatiei activa : 
+<dd><ul><li>Corectia automata a punctuatiei activa :
 Un spatiu continuu va precede fiecare dintre urmatoarele simboluri ";","?",":" si "!".&nbsp;;</li>
 <li><strong>Emphasis</strong> : inconjoara textul tau cu 2 citate <code>\'\'text\'\'</code>&nbsp;;</li>
 <li><strong>Subliniere puternica</strong> : inconjoara textul tau cu 3 citate
@@ -1543,10 +1545,10 @@ underscores <code>\'\'\'text\'\'\'</code>&nbsp;;</li>
 <li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
 <li><strong>Underline</strong> : inconjoara textul tau cu 2 underscores <code>__text__</code>&nbsp;;</li>
 <li><strong>Stroke</strong> : inconjoara textul tau cu 2 simboluri de minus <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> 
+<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code>
 or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Imagine</strong> : aceeasi ca Hyperlinks<br>Put a 0 in ultimul argument pentru a evita recunoasterea 
-imaginii si pentru a lua un Hyperlink pentru o imagine. 
+<li><strong>Imagine</strong> : aceeasi ca Hyperlinks<br>Put a 0 in ultimul argument pentru a evita recunoasterea
+imaginii si pentru a lua un Hyperlink pentru o imagine.
 De exemplu <code>[image|image.gif||0]</code>
  va afisa un link catre imagine.gif in locul afisarii imaginii.<br>
   Syntax este dezaprobata, foloseste-o pe urmatoarea&nbsp;;</li>
@@ -1565,7 +1567,7 @@ $_lang['click here'] = 'apasa aici';
 $_lang['click to zoom in'] = 'apasa pentru a mari imaginea';
 $_lang['click to zoom out'] = 'apasa pentru a micsora imaginea';
 $_lang['denotes new items'] = 'Noutati';
-$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'diferente intre versiunea %1$s modificata de catre %2$s si versiunea %3$s modificata 
+$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'diferente intre versiunea %1$s modificata de catre %2$s si versiunea %3$s modificata
 de catre %4$s';
 $_lang['e.g. <em>History of Literature</em>'] = 'Exemplu <i>Istoria Literaturii</i>';
 $_lang['good looking'] = 'aratos';

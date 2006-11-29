@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! velikost úlo¾i¹tì kurzù (vèetnì claroline a zbytkù starých systémù)';
 $_lang['%1\$s by %2\$s'] = '%1$s - %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s upraveno %2$s - %3$s';
@@ -113,6 +113,8 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Pøipojené zdroje : Pø
 $_lang['Attached file'] = 'Pøipojený soubor';
 $_lang['Attached resources'] = 'Pøipojit zdroje';
 $_lang['Attempt'] = 'Pokus';
+$_lang['Attempt %attemptCount on %attempts'] = 'Pokus %attemptCount na %attempts';
+$_lang['Attempt %attemptCount'] = 'Pokus %attemptCount';
 $_lang['Attempts'] = 'Pokusù';
 $_lang['Attempts allowed'] = 'Povolených pokusù';
 $_lang['Authentication'] = 'Pøihlá¹ení';
@@ -1041,7 +1043,7 @@ Seznam publikací vztahujících se k u¾ivateli a zadání, lze zobrazit kliknutím na
 <p>Jako mana¾er kurzu máte právo upravovat, mazat, zviditelnit/zneviditelnit kteroukoli z prací. Ke ka¾dé práci mù¾ete také pøidat zpìtnou vazbu.
 </p>
 <ul>
-<li> <strong>Upravit</strong>&nbsp;: Pokud se zobrazí tato ikona, znamená to, ¾e u¾ivatel mù¾e upravit obsah práce. Zobrazí se, pokud je u¾ivatel mana¾erem kurzu, èi pokud si u¾ivatel prohlí¾í své práce nebo práce práce jeho skupiny. 
+<li> <strong>Upravit</strong>&nbsp;: Pokud se zobrazí tato ikona, znamená to, ¾e u¾ivatel mù¾e upravit obsah práce. Zobrazí se, pokud je u¾ivatel mana¾erem kurzu, èi pokud si u¾ivatel prohlí¾í své práce nebo práce práce jeho skupiny.
 </li>
 <li> <strong>Odstranit</strong>&nbsp;: Tento pøíkaz umo¾òuje mana¾erovi kurzu odstranit práci.
 </li>
@@ -1053,10 +1055,10 @@ Seznam publikací vztahujících se k u¾ivateli a zadání, lze zobrazit kliknutím na
 </li>
 </ul>
 ';
-$_lang['blockClaroMainHelp'] = 'Lektoøi a asistenti zde vytváøejí a spravují stranu kurzù. Studenti ètou (dokumenty, zadání, informace), 
+$_lang['blockClaroMainHelp'] = 'Lektoøi a asistenti zde vytváøejí a spravují stranu kurzù. Studenti ètou (dokumenty, zadání, informace),
 nìkdy dìlají cvièení, publikují dokumenty a úèastní se diskuzí
 ...</p><b>Registrace</b><p>Následující instrukce platí pouze pokud Va¹e verze Claroline dovoluje
- vlastní registraci, pokud není nastavená automatická registrace. <br />Jestli ¾e jste student, 
+ vlastní registraci, pokud není nastavená automatická registrace. <br />Jestli ¾e jste student,
  registrujte se vybráním \'Následujte kurzy (student)\', pak vyberte kurzy, které chcete absolvovat .</p>
  <p>Jestli¾e jste Lektor nebo Asistent, také  se registrujte, ale vyberte  \'Vytvoøit kurzy (lektor)\'.
  Budete muset vyplnit formuláø s kódem kurzu , Fakultou a Názvem kurzu. Kdy¾ je toto
@@ -1104,7 +1106,7 @@ $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Prezentace
 $_lang['blockCourseHomePageIntroduction'] = ' Vyberte nástroje, které chcete u¾ivatelùm zpøístupnit.
 Nepøístupný (neviditelný) nástroj bude ve Va¹í nabídce zvýraznìn ¹edì.';
 $_lang['blockCourseSettingsTip'] = 'Standardnì je kurz pøístupen ka¾dému.  Nejjednodu¹¹í cesta, jak o¹etøit pøístup ke kurzu je:
- umo¾nit v prùbìhu jednoho týdne registraci, po¾ádat studenty aby se registrovali a uzavøít mo¾nost registrovat se. Pak 
+ umo¾nit v prùbìhu jednoho týdne registraci, po¾ádat studenty aby se registrovali a uzavøít mo¾nost registrovat se. Pak
  zkontrolovat potencionální zá¹kodníky v seznamu u¾ivatelù.';
 $_lang['blockDefaultLearningPathComment'] = 'Toto je úvodní text uèební cesty. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Toto je pøídavný úvodní text o pøítomnosti tohoto modulu v uèební cestì. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.';
@@ -1378,7 +1380,7 @@ $_lang['blockFeedbackHelp'] = 'Zpìtná vazba je nepovinná. Toto je správný postup
 $_lang['blockForumsHelp'] = 'Toto fórum je napsáno jako asynchronní diskuzní nástroj.
  E-mail umo¾òuje standardnì pouze komunikaci dvou lidí, fórum umo¾òuje veøejnou nebo poloveøejnou diskuzi.
  </p><p>Po stránce technické, pro úèast ve fóru studenti potøebují pouze webový prohlí¾eè.</P>
- <p>Pro správu fóra kliknìte na  \'Administrace\'. 
+ <p>Pro správu fóra kliknìte na  \'Administrace\'.
  Diskuze jsou organizovány v následující struktuøe:</p>
  <p><b>Kategorie > Fórum > Téma > Odpovìdi</b></p>Pro strukturování diskuze studentù je tøeba dopøedu organizovat
  kategorie a fóra. Tvorba témat a odpovìdí je pak ji¾ na studentech.
@@ -1420,28 +1422,28 @@ Tato metoda je vhodná pro uèitele, kteøí neznají seznam studentù, v dobì kdy¾ vy
 <li><b>Odstranit</b> odstraní skupinu.</li></ul>
 <hr noshade size=1>';
 $_lang['blockHomepageHelp'] = 'Pro usnadnìní obsahují nástroje Claroline standardní záznamy.
-Ka¾dý nástroj obsahuje malý pøíklad pro rychlé pochopení, jak funguje. 
+Ka¾dý nástroj obsahuje malý pøíklad pro rychlé pochopení, jak funguje.
  Je na Vás, jestli pøíklady upravíte nebo odstraníte.
 </p>
 <p> Napøíklad zde na úvodní stranì Va¹ich kurzù je krátký úvodní text:
- \'Toto je úvodní text Va¹ich kurzù. Pro jeho nahrazení Va¹ím vlastním textem, kliknìte na pøíkaz Upravit.\' 
+ \'Toto je úvodní text Va¹ich kurzù. Pro jeho nahrazení Va¹ím vlastním textem, kliknìte na pøíkaz Upravit.\'
  Kliknìte na upravit, zmìòte text a OK. Je to jednoduché.
  Ka¾dý nástroj má stejnou logiku:
  pøidat, odstranit, upravit, co¾ je cesta fungování dynamických webù.</p>
- <p>Kdy¾ poprvé vytvoøíte web, vìt¹ina nástrojù je aktivních. 
+ <p>Kdy¾ poprvé vytvoøíte web, vìt¹ina nástrojù je aktivních.
  Zde opìt pøipomenutí, je pouze na Vás, které uznáte za nepotøebné a vypnete je.
  Pouze kliknìte na \'vypnout\'. Poté se nástroj pøesune do ¹edé sekce úvodní strany Va¹eho webu
-  a stane se neviditelný pro studenty.  Samozøejmì ho mù¾ete kdykoli znovu aktivovat a tím ho 
+  a stane se neviditelný pro studenty.  Samozøejmì ho mù¾ete kdykoli znovu aktivovat a tím ho
    zároveò i opìt zviditelníte pro studenty.</p>
 <p>Mù¾ete pøidat vlastní strany do úvodní strany.
- Tyto strany musí být HTML stránky, vytvoøené jakýmkoli textovým editorem nebo editorem webových stránek. 
+ Tyto strany musí být HTML stránky, vytvoøené jakýmkoli textovým editorem nebo editorem webových stránek.
  Pou¾ijte \'Nahrát stranu a odkaz do Úvodní strany\' k odeslání Va¹í strany na server.
- Standardní hlavièka Va¹eho webu bude automaticky spojena s Va¹ím novým dokumentem, 
-  tak¾e se staèí soustøedit pouze na obsah. 
+ Standardní hlavièka Va¹eho webu bude automaticky spojena s Va¹ím novým dokumentem,
+  tak¾e se staèí soustøedit pouze na obsah.
   Pokud se chcete odkázat z úvodní strany na existující webové strany, které jsou umístìny nìkde jinde (i na Va¹em webu),
    pou¾ijte \'Pøidat odkaz na Úvodní stranì\'. Pøidaná strana mù¾e být vypnuta a pak smazána, narozdíl od
     standardní nástrojù, které mohou být vypnuty, ale ne odstranìny.</p>
-    <p>Ve chvíli, kdy je Vá¹ web kurzù pøipraven, pøejdìte na  
+    <p>Ve chvíli, kdy je Vá¹ web kurzù pøipraven, pøejdìte na
     \'Upravit popis kurzu\' a rozhodnìte jaký stupeò dùvìrnosti pou¾ijete.
  Standardnì jsou Va¹e kurzy skryté (proto¾e na nich pracujete).</p>';
 $_lang['blockIntroCourse'] = 'Jste na úvodní stranì kurzu.<br /><br />Na této stranì mù¾ete :
@@ -1549,7 +1551,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Skladba Spolupráce</h1>
 <dl class="wikiHelp">
 <dt>Vytváøení stran Spolupráce a odkazy mezi nimi</dt>
 <dd><strong>Slova spolupráce</strong> : Slova spolupráce jsou slova napsaná jako <em>Slova Spolupráce</em>. Pøevadìè je automaticky rozpozná a pøevede je na odkazy strany Spolupráce. </dd>
-<dd><strong>Odkazy Spolupráce</strong> : Odkazy Spolupráce jsou jako hypertextové odkazy, bez udání protokolu (jako <em>http://</em> nebo <em>ftp://</em>) a jsou automaticky rozpoznané jako odkazy na Strany Spolupráce. 
+<dd><strong>Odkazy Spolupráce</strong> : Odkazy Spolupráce jsou jako hypertextové odkazy, bez udání protokolu (jako <em>http://</em> nebo <em>ftp://</em>) a jsou automaticky rozpoznané jako odkazy na Strany Spolupráce.
  Pro vytvoøení nové strany nebo vytvoøení odkazu na ji¾ existující stranu pomocí odkazù Spolupráce, upravte stranu a vlo¾te <code>[název strany]</code> nebo <code>[název odkazu|název strany]</code> do vlastního obsahu strany. Mù¾ete také pou¾ít zpùsob pro zmìnu textu odkazu: <code>[název odkazu|Slovo Spolupráce]</code>.</dd>
 <dt>Hypertextové odkazy</dt>
 <dd><code>[adresa]</code>, <code>[jméno|adresa]</code>, <code>[jméno|adresa|jazyk]</code> nebo <code>[jméno|adresa|jazyk|název]</code>.&nbsp;;</dd>

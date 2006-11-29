@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
@@ -178,6 +178,8 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Ressources jointes : 
 $_lang['Attached file'] = 'Fichier joint';
 $_lang['Attached resources'] = 'Ressources jointes';
 $_lang['Attempt'] = 'Essai';
+$_lang['Attempt %attemptCount on %attempts'] = 'Essai %attemptCount sur %attempts';
+$_lang['Attempt %attemptCount'] = 'Essai %attemptCount';
 $_lang['Attempts'] = 'Essais';
 $_lang['Attempts allowed'] = 'Essais autorisés';
 $_lang['Authentication'] = 'Identification';

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! μέγεθος πηγής πληροφοριών μαθήματος (συμπεριλαμβάνεται το claroline και άχρηστα σε παλιά συστήματα)';
 $_lang['%1\$s by %2\$s'] = '%1$s απο %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s τροποποιήθηκε στις %2$s από %3$s';
@@ -113,6 +113,8 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Επισυναπτόμενες πηγές
 $_lang['Attached file'] = 'Το αρχείο έχει επισυναφθεί';
 $_lang['Attached resources'] = 'Επισυναπτόμενες πηγές';
 $_lang['Attempt'] = 'Προσπάθεια';
+$_lang['Attempt %attemptCount on %attempts'] = 'Προσπάθειες %attemptCount on %attempts';
+$_lang['Attempt %attemptCount'] = 'Προσπάθειες %attemptCount';
 $_lang['Attempts'] = 'Προσπάθειες';
 $_lang['Attempts allowed'] = 'Επιτρεπτές προσπάθειες';
 $_lang['Authentication'] = 'Ταυτοποίηση χρήστη';
@@ -826,7 +828,7 @@ $_lang['Title'] = 'Tίτλος';
 $_lang['Title added :'] = 'Ο τίτλος προστέθηκε : ';
 $_lang['Title of the wiki'] = 'Τίτλος του wiki';
 $_lang['To'] = 'στο';
-$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Για να στείλεις μήνυμα, επέλεξε ομάδες χρηστών (σημειωμένες με ένα * μπροστά) 
+$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Για να στείλεις μήνυμα, επέλεξε ομάδες χρηστών (σημειωμένες με ένα * μπροστά)
 ή μεμονομένους χρήστες απο τη λίστα αριστερά.';
 $_lang['Tool'] = 'Εργαλείο';
 $_lang['Tools'] = 'Εργαλεία';
@@ -1114,7 +1116,7 @@ $_lang['blockCourseDescriptionSupportsComment2'] = 'Παρουσίαση της υποστήριξης τ
 $_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Δραστηριότητες διδασκαλίας - εκπαίδευσης';
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Ποιές μεθόδους και ποιές δραστηριότητες θα υποστηρίξουν τα  αντικείμενα που έχουν οριστεί για το μάθημα?  Ποιές είναι οι δραστηριότητες του ημερολογίου?';
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Παρουσίαση των εξεταζόμενων δραστηριοτήτων (έγγυρες κριτικές, αναμενόμενη συμμετοχή μαθητών, πρακτική άσκηση, εργαστηριακές συναντήσεις, επισκέψεις, συλλογή πληροφοριών...).';
-$_lang['blockCourseHomePageIntroduction'] = 'Διαλέξτε τα εργαλεία που θέλετε να φαίνονται στους χρήστες σας.  
+$_lang['blockCourseHomePageIntroduction'] = 'Διαλέξτε τα εργαλεία που θέλετε να φαίνονται στους χρήστες σας.
 Τα απενεργοποιημένα θα εμφανίζονται με γκρι χρώμα σε εσάς';
 $_lang['blockCourseSettingsTip'] = 'Εξ\' ορισμού, το μάθημα είναι προσπελάσιμο μόνο από εσάς. Αν θέλετε ελεγχόμενη πρόσβαση, μπορείτε να επιλέξετε \'Ελεγχόμενη Προσβαση με ανοιχτή
 εγγραφή\' και να ζητήσετε από τους χρήστες να γραφτούν. Μόλις τελειώσει η εγγραφή μπορείτε να επιλέξετε \'Ελεγχομενη προσβαση\'.';

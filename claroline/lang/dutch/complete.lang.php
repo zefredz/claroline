@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)';
 $_lang['%1\$s by %2\$s'] = '%1$s door %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s gewijzigd op %2$s door %3$s';
@@ -113,6 +113,8 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Voeg bron toe : voeg 
 $_lang['Attached file'] = 'Toegevoegd bestand';
 $_lang['Attached resources'] = 'toegevoegt bron';
 $_lang['Attempt'] = 'Poging';
+$_lang['Attempt %attemptCount on %attempts'] = 'Poging %attemptCount op %attempts';
+$_lang['Attempt %attemptCount'] = 'Poging %attemptCount';
 $_lang['Attempts'] = 'Pogingen';
 $_lang['Attempts allowed'] = 'pogingen toegestaan';
 $_lang['Authentication'] = 'Authenticatie';

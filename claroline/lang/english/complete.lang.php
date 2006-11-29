@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
 $_lang['"Request a Course Creator status" command ?'] = '"Request a Course Creator status" command ?';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
@@ -208,6 +208,9 @@ $_lang['Attach an existing resource'] = 'Attach an existing resource';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Attached Resources : Add / Delete attachement';
 $_lang['Attached file'] = 'Attached file';
 $_lang['Attached resources'] = 'Attached resources';
+$_lang['Attempt'] = 'Attempt';
+$_lang['Attempt %attemptCount on %attempts'] = 'Attempt %attemptCount on %attempts';
+$_lang['Attempt %attemptCount'] = 'Attempt %attemptCount';
 $_lang['Attempt'] = 'Attempt';
 $_lang['Attempts'] = 'Attempts';
 $_lang['Attempts allowed'] = 'Attempts allowed';

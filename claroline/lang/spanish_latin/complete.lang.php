@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! tamaño del repositorio del curso (incluyendo claroline y la basura de los sistemas viejos)';
 $_lang['%1\$s by %2\$s'] = '%1$s por %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modificado el %2$s por %3$s';
@@ -115,6 +115,8 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Recursos Adjuntos : A
 $_lang['Attached file'] = 'Archivo adjunto';
 $_lang['Attached resources'] = 'Adjunto';
 $_lang['Attempt'] = 'Intento';
+$_lang['Attempt %attemptCount on %attempts'] = 'Intento %attemptCount en %attempts';
+$_lang['Attempt %attemptCount'] = 'Intento %attemptCount';
 $_lang['Attempts'] = 'Intentos';
 $_lang['Attempts allowed'] = 'Intentos permitidos';
 $_lang['Authentication'] = 'Autenticación';
@@ -1445,14 +1447,14 @@ Cuando usted crear este tipo de pregunta&nbsp;:
 $_lang['blockFeedbackHelp'] = 'La Contestación es opcional. Es las versión correcta de la tarea. Si no la borra ésta será mostrada a los usuarios de acuerdo a la configuración de \'enviar contastación\'.';
 $_lang['blockForumNotificationEmailMessage'] = 'Estimado/a %firstname %lastname,
 
-Está recibiendo este correo porque se ha colocado un mensaje nuevo en su tema preferido en los foros, 
+Está recibiendo este correo porque se ha colocado un mensaje nuevo en su tema preferido en los foros,
 y Usted indicó que se le notofique de este evento.
 
 Puede visualizar el tema en :
 
 %url_topic
 
-O ver el índice del foro en 
+O ver el índice del foro en
 
 %url_forum
 

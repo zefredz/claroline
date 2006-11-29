@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! velikost repozitorija teèaja (vkljuèuje Claroline in smeti v starih sistemih)';
 $_lang['%1\$s by %2\$s'] = '%1$s, avtor %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s spremenil dne %2$s, avtor %3$s';
@@ -113,6 +113,8 @@ $_lang['Attached Resources : Add / Delete attachement'] = 'Pripeti viri: Dodaj/z
 $_lang['Attached file'] = 'Pripeta datoteka';
 $_lang['Attached resources'] = 'Pripeti viri';
 $_lang['Attempt'] = 'Poskus';
+$_lang['Attempt %attemptCount on %attempts'] = 'Poskus %attemptCount na %attempts';
+$_lang['Attempt %attemptCount'] = 'Poskus %attemptCount';
 $_lang['Attempts'] = 'Poskusi';
 $_lang['Attempts allowed'] = 'poskusi dovoljeni';
 $_lang['Authentication'] = 'Avtentikacija';
@@ -1062,14 +1064,14 @@ $_lang['blockClaroMainHelp'] = 'Tu lahko uèitelji in njihovi asistenti ustvarijo
 <p>Naslednja navodila veljajo le, èe va¹a verzija Claroline dovoljuje samo-registracijo (nekatere spletne lokacije vas avtomatsko registrirajo). <br />
 Èe ste ¹tudent, se morate vpisati z izbiro \'Sledi teèajem (¹tudent)\', nato pa izbrati teèaje, ki bi jih rad obiskovali.</p>
 <p>Èe ste uèitelj ali asistent, se morate prav tako registrirati vendar izberete \'Ustvarjanje teèajev (uèitelj)\'. Izpolniti boste morali
-obrazec s kodo teèaja, nazivom organizacije in imenom teèaja. Ko je to potrjeno, boste napoteni na spletno stran, 
+obrazec s kodo teèaja, nazivom organizacije in imenom teèaja. Ko je to potrjeno, boste napoteni na spletno stran,
 ki ste jo pravkar ustvarili. Tu boste lahko spreminjali njeno vsebino in organizacijo v skladu z va¹imi zahtevami. </p>
 <p>Opcija \'Predlogi\' omogoèa posredovanje predlogov skrbnikom Claroline.
 Tu lahko navedete predloge za izbolj¹ave. Seznam \'Predlogi\' je povezan na domaèo stran kampusa (po va¹i prijavi).</p>
 <p>Forum pomoèi je drugaèen. Pove¾e se na uporabnike Claroline po svetu.
 Èe ne najdete odgovora na svoja vpra¹anja znotraj svojega kampusa, posredujte vpra¹anja prek tega foruma.</p>
 <p>Povezava na registracijo (èe jo imate) je na domaèi strani kampusa (desno zgoraj).</p>
-<b>Vstop</b><p>Pri naslednjem obisku vtipkajte svoje uporabni¹ko ime in geslo ter kliknite Vstop, 
+<b>Vstop</b><p>Pri naslednjem obisku vtipkajte svoje uporabni¹ko ime in geslo ter kliknite Vstop,
 èe ¾elite dostopati do svojih teèajev.';
 $_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ta modul je blokiran.
 Èe ga spremenite v nevidnega, bodo ¹tudenti lahko dostopali
@@ -1375,7 +1377,7 @@ $_lang['blockGroupsHelp'] = '<p><b>Uvod</b></p>
 <li>samo-registracija ¹tudentov (Globalne nastavitve skupin: \'©tudenti se lahko samo-registrirajo ...\').</li>
 </ul>
 Te tri naèine lahko kombiniramo. Tako lahko ¹tudente najprej prosimo, da se sami registrirajo.
-Nato ugotovimo, da tega nekateri niso storili in se odloèimo za avtomatsko zapolnjenje skupin. Lahko tudi uredite vsako skupino tako, da dodajate posamezne ¹tudente po samostojni registraciji in/ali po 
+Nato ugotovimo, da tega nekateri niso storili in se odloèimo za avtomatsko zapolnjenje skupin. Lahko tudi uredite vsako skupino tako, da dodajate posamezne ¹tudente po samostojni registraciji in/ali po
 avtomatskem zapolnjenju.</p>
 <p>Polnjenje skupin, roèno ali avtomatièno, je izvedljivo le, èe so ¹tudenti ¾e registrirani v teèaj (ne me¹ajte registracije v teèaj z registracijami v skupine).
 Seznam ¹tudentov je viden v orodju <b>Uporabniki</b>.</p>
@@ -1386,7 +1388,7 @@ Seznam ¹tudentov je viden v orodju <b>Uporabniki</b>.</p>
 <p><b>Globalne nastavitve skupin</b></p>
 <p>Nastavitve skupin lahko doloèite globalno (za vse skupine).
 <b>©tudenti se lahko samo-registrirajo v skupine</b>:
-<p>Ustvarite prazne skupine, ¹tudenti se vanje vpi¹ejo sami. 
+<p>Ustvarite prazne skupine, ¹tudenti se vanje vpi¹ejo sami.
 Èe ste doloèili maksimalno ¹tevilo èlanov, polne skupine ne bodo veè dovoljevale vpisa novih èlanov.
 Ta metoda je uporabna za uèitelje, ki pri tvorbi skupin ne poznajo seznama ¹tudentov.</p>
 <p><b>Orodja</b>:</p>
@@ -1568,7 +1570,7 @@ $_lang['sampleForumMainCategory'] = 'Glavno';
 $_lang['sampleForumMessage'] = 'Ko zbri¹ete testni forum, boste odstranili tudi vsa sporoèila v tem forumu.';
 $_lang['sampleForumTitle'] = 'Testni forum';
 $_lang['sampleForumTopicTitle'] = 'Primer sporoèila';
-$_lang['sampleLearnPathDescription'] = 'To je testna uèna pot, ki uporablja testni dokument in test v orodjih Dokumenti in Testi. Izberite 
+$_lang['sampleLearnPathDescription'] = 'To je testna uèna pot, ki uporablja testni dokument in test v orodjih Dokumenti in Testi. Izberite
                             <b>Spremeni</b> za spremembo tega besedila.';
 $_lang['sampleLearnPathDocumentDescription'] = 'Uporabite lahko poljuben dokument, ki obstaja v orodju Dokumenti tega teèaja.';
 $_lang['sampleLearnPathDocumentTitle'] = 'testni_dokument';
