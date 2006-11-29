@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
@@ -321,7 +321,7 @@ $_lang['Course administrator only'] = 'Réservé à l\'administrateur du cours';
 $_lang['Course banner - left'] = 'Bannière de cours - à gauche';
 $_lang['Course banner - right'] = 'Bannière de cours - à droite';
 $_lang['Course code'] = 'Code';
-$_lang['Course code case'] = 'La casse du cours';
+$_lang['Course code case'] = 'La casse du code cours';
 $_lang['Course code is'] = 'Le code du cours est';
 $_lang['Course code needed'] = 'Le code cours doit être fourni';
 $_lang['Course creator'] = 'Créateur de cours';
@@ -2228,4 +2228,14 @@ $_lang['uncompress zipped (.zip) file on the server'] = 'Décompresser fichier zi
 $_lang['unlimited'] = 'Essais illimités';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Attention : l\'installation n\'a pas trouvé la description du parcours pédagogique et a attribué un commentaire par défaut. Vous pourrez le changer par la suite';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Attention : l\'installation n\'a pas trouvé le nom du parcours pédagogique et a attribué un nom par défaut. Vous pourrez le changer par la suite.';
+$_lang['Force preview before saving in wiki editor'] = 'Force preview before saving in wiki editor';
+$_lang['Force to lowercase the course code'] = 'Forcée en minuscule';
+$_lang['Force to uppercase the course code'] = 'Forcée en majuscule';
+
+$_lang['Right menu settings'] = 'Paramètres du menu de droite';
+$_lang['Rss (read and write) tool'] = 'Lecture et écriture RSS';
+$_lang['SSO settings'] = 'Paramètres du SSO';
+$_lang['Quota for courses'] = 'Quota pour les cours';
+$_lang['Quota for groups'] = 'Quota pour les groupes';
+$_lang['Refresh time'] = 'Temps de rafraichissement';
 ?>
