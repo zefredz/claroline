@@ -208,27 +208,63 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 			elseif ($this->getOpt('active_tables'))
 			{
                 # table start
-				if ( preg_match('/^{\|$/', $line, $cap) )
-				{
-					$type = null;
-					$line = '<table class="wikiTable">';
-				}
+                if ( preg_match('/^\s*{\|(\w+)\s*/', $line, $cap) )
+                {
+                    $type = null;
+                    $line = '<table>';
+                    $line .= '<caption>'.$cap[1].'</caption>';
+                }
+                elseif ( preg_match('/^\s*{\|\s*/', $line, $cap) )
+                {
+                    $type = null;
+                    $line = '<table>';
+                }
                 # table end
-				elseif ( preg_match('/^\|}$/', $line, $cap) )
+				elseif ( preg_match('/^\s*\|}\s*$/', $line, $cap) )
 				{
 					$type = null;
 					$line = '</table>';
 				}
                 # table row
-				elseif( preg_match('/^\|\|(.*)\|\|$/', $line, $cap) )
+				elseif( preg_match('/^\s*\|\|(.*)\|\|\s*$/', $line, $cap) )
 				{
 					$type = null;
 
-					$line = $this->__inlineWalk( $line );
-
-					$line = preg_replace( '/^\|\|/', '<tr><td>', $line );
-					$line = preg_replace( '/\|\|$/', '</td></tr>', $line );
-					$line = preg_replace( '/\|/', '</td><td>', $line );
+					// $line = $this->__inlineWalk( $line );
+                    $line = '';
+                    
+                    $content = explode( '|', $cap[1] );
+                    
+                    $th = false;
+                    $cell = array();
+                    
+                    for ( $i = 0; $i < count( $content ); $i++ )
+                    {
+                        $r = trim( $content[$i] );
+                        
+                        if ( strpos( $r, '!' ) === 0 )
+                        {
+                            $th = true;
+                            $cell[] = $this->__inlineWalk( substr($r,1) );
+                        }
+                        else
+                        {
+                            $cell[] = $this->__inlineWalk($r);
+                        }
+                    }
+                    
+                    if ( true === $th )
+                    {
+                       $line = '<tr><th>';
+                       $line .= implode( '</th><th>', $cell );
+                       $line .= '</th></tr>';
+                    }
+                    else
+                    {
+					   $line = '<tr><td>';
+					   $line .= implode( '</td><td>', $cell );
+                       $line .= '</td></tr>';
+                    }
 				}
                 else
                 {
