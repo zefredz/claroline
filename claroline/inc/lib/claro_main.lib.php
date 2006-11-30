@@ -1408,8 +1408,15 @@ function is_toolAllowed()
     return get_init('is_toolAllowed');
 }
 
+/**
+Http://www.domain.tld/whereisMyCampus/claroline/blah
 
+$rootWeb    = Http://www.domain.tld/whereisMyCampus/claroline/blah
+$hostWeb    = Http://www.domain.tld
+$urlAppend  = /whereisMyCampus/claroline/blah
+$clarolineRepositorySys = Http://www.domain.tld/whereisMyCampus/claroline
 
+*/
 /**
  * Return a common path of claroline
  *
@@ -1426,10 +1433,13 @@ function get_path($pathKey)
         case 'rootSys' : return get_conf('rootSys') ;
         case 'rootWeb' : return get_conf('rootWeb') ;
 
+        // private translation / Dont use theses paths
         case 'imgRepositoryAppend'       : return 'img/'; // <-this line would be editable in claroline 1.7
         case 'clarolineRepositoryAppend' : return get_conf('clarolineRepositoryAppend','claroline/');
         case 'coursesRepositoryAppend'   : return get_conf('coursesRepositoryAppend','courses/');
         case 'rootAdminAppend'           : return get_conf('rootAdminAppend','admin/');
+
+
 
         case 'clarolineRepositorySys' : return get_conf('rootSys') . get_conf('clarolineRepositoryAppend','claroline/');
         case 'clarolineRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('clarolineRepositoryAppend','claroline/');
@@ -1441,6 +1451,7 @@ function get_path($pathKey)
         case 'rootAdminWeb'           : return get_path('clarolineRepositoryWeb') . get_conf('rootAdminAppend','admin/');
         case 'imgRepositorySys'       : return get_path('clarolineRepositorySys') . get_path('imgRepositoryAppend');
         case 'imgRepositoryWeb'       : return get_path('clarolineRepositoryWeb') . get_path('imgRepositoryAppend');
+        case 'url'                    : return get_conf('urlAppend');
 
         default : pushClaroMessage($pathKey . 'is an unknow path');
         return false;
