@@ -57,10 +57,12 @@ $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
  * this maner to manage problem would be more discuss.  uidToEdit can neve empty....
  */
 $userData = user_get_properties($uidToEdit);
-if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= 'not valid user id';
+
+if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= get_lang('Not valid user id');
+
 if ('unsubscribe' == $cmd)
 {
-    if (is_null($courseId)) $dialogBox .= 'not valid course code';
+    if (is_null($courseId)) $dialogBox .= get_lang('Not valid course code');
     else                    $do = 'rem_user';
 }
 
@@ -129,7 +131,7 @@ foreach ($userCourseList as $courseKey => $course)
     .                                       '?uidToEdit=' . $uidToEdit
     .                                       '&amp;cmd=unsubscribe'
     .    $addToUrl
-    .    '&amp;courseId=' . $course['sysCode']
+    .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
     .    '&amp;offset=' . $offset . '"'
     .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
     .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
