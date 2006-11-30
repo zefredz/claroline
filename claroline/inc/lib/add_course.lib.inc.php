@@ -387,7 +387,7 @@ function update_db_course($courseDbName)
        `content` text,
        PRIMARY KEY  (`id`),
        KEY `user_id` (`user_id`)
-    ) TYPE=MyISAM COMMENT='content of users information - organisation based on userinfo'";
+    ) TYPE=MyISAM COMMENT='content of users information'";
 
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
