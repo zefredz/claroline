@@ -125,7 +125,7 @@ function retrieve_lang_var($fileName, $languageName)
 function store_lang_var($languageVarList, $sourceFileName, $languageName)
 {
 
-    global $problemMessage, $rootSys, $tbl_translation;
+    global $problemMessage, $tbl_translation;
 
     foreach ( $languageVarList as $thisVarKey => $thisVarContent )
     {
@@ -136,7 +136,7 @@ function store_lang_var($languageVarList, $sourceFileName, $languageName)
              VarContent = \"". addslashes($thisVarContent) ."\",
              varFullContent  = \"". addslashes($thisVarContent) ."\",
              language   = \"".addslashes($languageName)."\",
-             sourceFile = \"" . str_replace($rootSys,"",$sourceFileName) ."\"";
+             sourceFile = \"" . str_replace(get_path('rootSys'),"",$sourceFileName) ."\"";
             mysql_query($sql) or die($problemMessage);
         }
     }
@@ -284,17 +284,17 @@ function is_scannable($filePath,
 function store_lang_used_in_script($languageVarList, $sourceFileName)
 {
 
-    global $problemMessage, $rootSys, $tbl_used_lang;
+    global $problemMessage, $tbl_used_lang;
 
-    $sourceFileName =  str_replace($rootSys,"",$sourceFileName);
+    $sourceFileName =  str_replace(get_path('rootSys'),'',$sourceFileName);
     $languageFileName = compose_language_production_filename($sourceFileName);
 
     foreach($languageVarList as $thisVar)
     {
-        $sql = "INSERT INTO " . $tbl_used_lang . " SET
-         VarName    = \"". addslashes($thisVar) ."\",
-         langFile    = \"".$languageFileName."\",
-         sourceFile = \"" . $sourceFileName ."\"";
+        $sql = "INSERT INTO " . $tbl_used_lang . "
+                   SET VarName    = '". addslashes($thisVar) . "',
+                       langFile   = '" .$languageFileName."',
+                       sourceFile = '" . $sourceFileName ."'";
         mysql_query($sql) or die($problemMessage);
     }
 
@@ -750,5 +750,48 @@ function build_translation_line_file($key,$value)
 
     return $string;
 }
+
+
+/**
+ * Get the list of language variables in a script and its included files
+ *
+ * @return - array $languageVarList or boolean FALSE
+ * @param - string $file
+ */
+
+function get_lang_vars_from_deffile($file)
+{
+
+    $conf_def['section'] = array();
+    $conf_def_property_list = array();
+
+    include($file);
+    if(array_key_exists('config_name',$conf_def))  $deflang[] = $conf_def['config_name'];
+
+
+    if(is_array($conf_def['section']))
+    foreach ($conf_def['section'] as $conf_def_section)
+    {
+        if(array_key_exists('label',$conf_def_section)) $deflang[] = $conf_def_section['label'];
+        if(array_key_exists('description',$conf_def_section)) $deflang[] = $conf_def_section['description'];
+    }
+
+    if(is_array($conf_def_property_list))
+    foreach ($conf_def_property_list as $conf_def_property)
+    {
+        if(array_key_exists('label',$conf_def_property)) $deflang[] = $conf_def_property['label'];
+        if(array_key_exists('description',$conf_def_property)) $deflang[] = $conf_def_property['description'];
+        if(array_key_exists('type',$conf_def_property)) $deflang[] = $conf_def_property['type'];
+        if(array_key_exists('acceptedValue',$conf_def_property))
+        {
+            foreach ($conf_def_property['acceptedValue'] as $acceptedValue)
+            {
+                $deflang[] = $acceptedValue;
+            }
+        }
+    }
+    return $deflang;
+}
+
 
 ?>
