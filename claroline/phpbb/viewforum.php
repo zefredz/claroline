@@ -100,7 +100,7 @@ else
     // No forum
     $forumAllowed       = false;
     $forum_post_allowed = false;
-    $$forum_cat_id      = null;
+    $forum_cat_id       = null;
     $error_message      = get_lang('Not allowed');
 }
 
