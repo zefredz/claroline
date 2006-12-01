@@ -49,7 +49,7 @@ claro_set_display_mode_available(TRUE);
 $is_allowedToEdit = $is_courseAdmin;
 
 $cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '#today">'
-.    get_lang('Go to today')
+.    get_lang('Today')
 .    '</a>'
 ;
 
