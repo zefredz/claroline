@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.8.1 - README
+        CLAROLINE 1.8.2 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -74,7 +74,7 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.1 SINCE CLAROLINE 1.8.0
+NEW FEATURES IN CLAROLINE 1.8.2 SINCE CLAROLINE 1.8.0
 -----------------------------------------------------
 
 * Bug Fixes ; For more details, see the changelog on our documentation wiki :
