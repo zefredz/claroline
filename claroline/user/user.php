@@ -270,6 +270,7 @@ if ($can_add_user)
         .    '</a>'
         ;
     }
+    /*
     if ($can_add_single_user)
     {
 
@@ -279,6 +280,7 @@ if ($can_add_user)
         .             '</a>'
         ;
     }
+    */
     if ($can_import_user_list)
     {
         // Add CSV file of user link
