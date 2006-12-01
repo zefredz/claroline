@@ -190,7 +190,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
         $count_user_enrol  = $thisUserEnrolCourse['count_user_enrol'];
         $count_class_enrol = $thisUserEnrolCourse['count_class_enrol'];
 
-        if ( ( $count_user_enrol + $count_class_enrol ) == 1 )
+        if ( ( $count_user_enrol + $count_class_enrol ) <= 1 )
         {
             // remove user from course
             if ( user_remove_from_group($userId, $thisCourseCode) == false ) return false;
