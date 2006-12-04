@@ -397,7 +397,7 @@ $showAfterPost = (bool)
                  &&
                  (  $assignment->getAutoFeedbackSubmitMethod() == 'AFTERPOST'
                     &&
-                    count($assignment->getSubmissionList($_uid) > 0)
+                    count($assignment->getSubmissionList($_uid)) > 0
                  );
 
 
