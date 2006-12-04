@@ -26,8 +26,8 @@ $conf_def['config_class']='platform';
 
 // SECTION
 
-$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Campus';
-$conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your institution';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Platform & Organisation';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your platform and your organisation';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] =
 array ( 'siteName'
       , 'siteLogo'
@@ -52,7 +52,7 @@ array ( 'platformLanguage'
       );
 
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Contact';
-$conf_def['section']['ADMINISTRATOR_SETTING']['description']='These informations are displayed in each platform screen footer';
+$conf_def['section']['ADMINISTRATOR_SETTING']['description']='These informations are displayed on the footer of the platform';
 $conf_def['section']['ADMINISTRATOR_SETTING']['properties'] =
 array ( 'administrator_name'
       , 'administrator_email'
@@ -111,6 +111,87 @@ array ( 'userPasswordCrypted'
       , 'secureDocumentDownload'
       );
 
+// Platform
+
+$conf_def_property_list['siteName'] =
+array ('label'       => 'Platform name'
+      ,'description' => ''
+      ,'default'     => 'Claroline'
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+$conf_def_property_list['siteLogo'] =
+array ('label'       => 'Platform logo url'
+      ,'description' => 'Display the logo of the platform. (http://www.domain.tld/logo.gif)'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+// Institution
+$conf_def_property_list['institution_name'] =
+array ('label'       => 'Organisation Name'
+      ,'default'     => ''
+      ,'description' => 'Name displayed in the top banner.'
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+$conf_def_property_list['institution_url'] =
+array ('label'       => 'Organisation website'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+$conf_def_property_list['institutionLogo'] =
+array ('label'       => 'Organisation logo url'
+      ,'description' => 'Display the logo of the organisation. (http://www.domain.tld/logo.gif)'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      );
+
+// Language
+
+$conf_def_property_list['platformLanguage'] =
+array ('label'         => 'Platform language'
+      ,'description'   => 'Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.'
+      ,'default'       => 'english'
+      ,'type'          => 'enum'
+      , 'acceptedValueType' => 'lang'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      );
+
+$conf_def_property_list['language_to_display'] =
+array ('label'         => 'Personal language selector'
+      ,'description'   => 'For multilingual platform. Allow user to select his language from the list.'
+      ,'default'       => array()
+      ,'type'          => 'multi'
+      ,'display'       => true
+      ,'acceptedValueType' => 'lang'
+      ,'readonly'      => FALSE
+      );
+
+$conf_def_property_list['CLAROLANG'] =
+array('label'         => 'Language mode'
+     ,'description'   => 'Translation: use a single language file'."\n".'Production: each script use its own language file.'
+     ,'default'       => 'TRANSLATION'
+     ,'type'          => 'enum'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'container'     => 'CONST'
+     ,'acceptedValue' => array ('TRANSLATION'=>'Translation'
+                               ,'PRODUCTION'=>'Production'
+                               )
+     );
+
+// Database settings
 
 $conf_def_property_list['dbHost'] =
 array ('label'       => 'Host name'
@@ -123,7 +204,7 @@ array ('label'       => 'Host name'
 
 
 $conf_def_property_list['dbLogin'] =
-array ('label'       => 'User account'
+array ('label'       => 'Login'
       ,'default'     => 'root'
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -163,7 +244,6 @@ array ('label'       => 'Main database name'
 
 $conf_def_property_list['mainTblPrefix'] =
 array ('label'       => 'Prefix for main table names'
-      //,'description' => ''
       ,'default'     => ''
       ,'type'        => 'string'
       ,'display'     => TRUE
@@ -247,7 +327,7 @@ array ('label'       => 'Mysql Base Path'
       ,'readonly'    => FALSE
       );
 
-//paths
+// Path
 
 $conf_def_property_list['rootWeb'] =
 array ('label'       => 'Platform web URL'
@@ -306,46 +386,7 @@ array ('label'       => 'Garbage'
       ,'readonly'    => FALSE
       );
 
-// Platform
-
-$conf_def_property_list['siteName'] =
-array ('label'       => 'Campus name'
-      ,'description' => ''
-      ,'default'     => 'Claroline'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
-$conf_def_property_list['siteLogo'] =
-array ('label'       => 'Campus logo'
-      ,'description' => 'url of logo'
-      ,'default'     => ''
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
-
-$conf_def_property_list['platformLanguage'] =
-array ('label'         => 'Platform language'
-      ,'description'   => 'Set the default language of the platform.'."\n".'It doesn\'t prevent course managers to set an other language for each course they create.'
-      ,'default'       => 'english'
-      ,'type'          => 'enum'
-      , 'acceptedValueType' => 'lang'
-      ,'display'       => TRUE
-      ,'readonly'      => FALSE
-      );
-
-$conf_def_property_list['language_to_display'] =
-array ('label'         => 'Language to display'
-      ,'description'   => ''
-      ,'default'       => array()
-      ,'type'          => 'multi'
-      ,'display'       => true
-      ,'acceptedValueType' => 'lang'
-      ,'readonly'      => FALSE
-      );
+// Layout
 
 $conf_def_property_list['claro_stylesheet'] =
 array ('label'       => 'Theme'
@@ -366,19 +407,6 @@ array ('label'       => 'Editor'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-
-$conf_def_property_list['CLAROLANG'] =
-array('label'         => 'Language mode'
-     ,'description'   => 'Translation: use a single language file'."\n".'Production: each script use its own language file.'
-     ,'default'       => 'TRANSLATION'
-     ,'type'          => 'enum'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'container'     => 'CONST'
-     ,'acceptedValue' => array ('TRANSLATION'=>'Translation'
-                               ,'PRODUCTION'=>'Production'
-                               )
-     );
 
 // Administrator
 
@@ -405,32 +433,6 @@ array ('label'       => 'Phone'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
-
-// Institution
-$conf_def_property_list['institution_name'] =
-array ('label'       => 'Organisation Name'
-      ,'default'     => ''
-      ,'description' => 'Name displayed in the top banner.'
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-$conf_def_property_list['institution_url'] =
-array ('label'       => 'Organisation - URL'
-      ,'default'     => ''
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-$conf_def_property_list['institutionLogo'] =
-array ('label'       => 'Organisation logo'
-      ,'description' => 'url of logo'
-      ,'default'     => ''
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      );
-
 
 // Latex
 
@@ -475,7 +477,7 @@ array ('label'         => 'Crypt passwords'
 
 $conf_def_property_list['allowSelfReg'] =
 array ('label'           => 'User account creation allowed'
-       ,'description'    => 'Can users create new accounts themselves ?'
+       ,'description'    => 'Display link "Create user account" on the platform homepage.'
       ,'default'         => TRUE
       ,'type'            => 'boolean'
       ,'display'         => TRUE
@@ -483,27 +485,8 @@ array ('label'           => 'User account creation allowed'
       ,'acceptedValue' => array('TRUE' => 'Yes', 'FALSE' => 'No')
       );
 
-////for new login module
-////uncomment these to activate ldap
-////$extAuthSource['ldap']['login'] = "./claroline/auth/ldap/login.php";
-////$extAuthSource['ldap']['newUser'] = "./claroline/auth/ldap/newUser.php";
-//
-////Probably Nothing to change after this
-//
-//// these values are keet  to  have no problem with script not upgraded to  the  new init system
-//$serverAddress        =   $rootWeb ;
-//$webDir               =   $rootSys;
-//$language             =   $platformLanguage ;
-//
-//// MYSQL
-//$mysqlServer      =   $dbHost ;
-//$mysqlUser            =   $dbLogin;
-//$mysqlPassword        =   $dbPass;
-//$mysqlPrefix      =   $dbNamePrefix;
-//$mysqlMainDb      =   $mainDbName;
-//
 $conf_def_property_list['clarolineRepositoryAppend'] =
-array ('label'       => 'relative path from root campus to claroline code'
+array ('label'       => 'Relative path from root campus to claroline code'
       ,'type'        => 'relpath'
       ,'default'     => 'claroline/'
       ,'display'     => false
@@ -516,13 +499,13 @@ array ( 'label'      => 'relative path from root campus to courses'
       );
 
 $conf_def_property_list['rootAdminAppend'] =
-array ('label'        => 'relative path from claroline kernel to root of admin section'
+array ('label'        => 'Relative path from claroline kernel to root of admin section'
       ,'type'        => 'relpath'
       ,'default'     => 'admin/'
       ,'display'     => false
       );
 $conf_def_property_list['imgRepositoryAppend'] =
-array ('label'        => 'relative path from claroline web to iconset'
+array ('label'        => 'Relative path from claroline web to icon set'
       ,'type'        => 'relpath'
       ,'default'     => 'img/'
       ,'display'     => FALSE

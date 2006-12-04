@@ -102,19 +102,19 @@ array ('label'       => 'Course email is'
       );
 
 $conf_def_property_list['extLinkNameNeeded'] =
-array ('label'       => 'External label'
-      ,'description' => 'This name is shown on the top right of course banner'
+array ('label'       => 'Department name'
+      ,'description' => ''
       ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE'=>'Required (choose this is Url of external Link is set)'
+      ,'acceptedValue' => array ('TRUE'=>'Required'
                               ,'FALSE'=>'Optional'
                               )
       );
 $conf_def_property_list['extLinkUrlNeeded'] =
-array ('label'       => 'External Label (url)'
-      ,'description' => 'URL anchored into the external label above'
+array ('label'       => 'Department website'
+      ,'description' => ''
       ,'default'     => FALSE
       ,'type'        => 'boolean'
       ,'display'     => TRUE
@@ -155,7 +155,7 @@ array ('label'       => 'Lenght of course code suffix'
 // Course Setting Section
 
 $conf_def_property_list['showLinkToDeleteThisCourse']
-= array ('label'     => 'Course removal allowed'
+= array ('label'     => 'Delete course allowed'
         ,'description' => 'Allow course manager to delete their own courses'
         ,'default'   => TRUE
         ,'type'      => 'boolean'

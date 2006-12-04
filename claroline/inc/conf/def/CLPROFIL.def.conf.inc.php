@@ -37,12 +37,12 @@ array ( 'show_agreement_panel'
       );
 
 $conf_def_property_list['show_agreement_panel'] =
-array ( 'label'         => 'Show the agreement panel before creating a new account'
+array ( 'label'         => 'Display an agreement page before the "create user account" form'
       ,'description'   => 'The content of this panel is editable in administration '
       , 'default'       => FALSE
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Show'
-                                 ,'FALSE' => 'Hide'
+      , 'acceptedValue' => array ('TRUE'  => 'Yes'
+                                 ,'FALSE' => 'No'
                                  )
       );
 
@@ -110,9 +110,9 @@ array (
       );
 
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
-array ('label'         => 'Check password strength'
+array ('label'         => 'Password security check'
       ,'description'   => 'Check if the password is not too easy to find'
-      ,'default'       => TRUE
+      ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
