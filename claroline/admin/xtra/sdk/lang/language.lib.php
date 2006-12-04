@@ -786,7 +786,10 @@ function get_lang_vars_from_deffile($file)
         {
             foreach ($conf_def_property['acceptedValue'] as $acceptedValue)
             {
-                $deflang[] = $acceptedValue;
+                if ( $conf_def_property['type'] != 'integer' )
+                {
+                    $deflang[] = $acceptedValue;
+                }
             }
         }
     }
