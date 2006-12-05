@@ -291,11 +291,14 @@ function store_lang_used_in_script($languageVarList, $sourceFileName)
 
     foreach($languageVarList as $thisVar)
     {
-        $sql = "INSERT INTO " . $tbl_used_lang . "
-                   SET VarName    = '". addslashes($thisVar) . "',
-                       langFile   = '" .$languageFileName."',
-                       sourceFile = '" . $sourceFileName ."'";
-        mysql_query($sql) or die($problemMessage);
+        if ( trim($thisVar) != '' )
+        {
+            $sql = "INSERT INTO " . $tbl_used_lang . "
+                       SET VarName    = '". addslashes($thisVar) . "',
+                           langFile   = '" .$languageFileName."',
+                           sourceFile = '" . $sourceFileName ."'";
+            mysql_query($sql) or die($problemMessage);
+        }
     }
 
 }
@@ -784,9 +787,17 @@ function get_lang_vars_from_deffile($file)
         if(array_key_exists('type',$conf_def_property)) $deflang[] = $conf_def_property['type'];
         if(array_key_exists('acceptedValue',$conf_def_property))
         {
-            foreach ($conf_def_property['acceptedValue'] as $acceptedValue)
+            foreach ($conf_def_property['acceptedValue'] as $key => $acceptedValue)
             {
-                if ( $conf_def_property['type'] != 'integer' )
+                if ( $conf_def_property['type'] == 'integer' )
+                {
+                    continue ;                
+                }
+                elseif ( $key == 'pattern' ) 
+                {
+                    continue ;
+                }
+                else
                 {
                     $deflang[] = $acceptedValue;
                 }
