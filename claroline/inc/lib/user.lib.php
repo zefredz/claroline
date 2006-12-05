@@ -680,28 +680,25 @@ function user_validate_form($formMode, $data, $userId = null)
         $validator->addRule('officialCode', get_lang('You left some required fields empty'), 'required');
     }
 
-    if(array_key_exists('password',$data) ||array_key_exists('password_conf',$data))
+    if(array_key_exists('password',$data) || array_key_exists('password_conf',$data))
     {
-
-
-    if ( get_conf('SECURE_PASSWORD_REQUIRED') )
-    {
-        $validator->addRule('password',
-        get_lang( 'This password is too simple. Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
-        'is_password_secure_enough',
-        array(array( $data['username'] ,
-        $data['officialCode'] ,
-        $data['lastname'] ,
-        $data['firstname'] ,
-        $data['email'] )
-        )
-        );
+        if ( get_conf('SECURE_PASSWORD_REQUIRED') )
+        {
+            $validator->addRule('password',
+            get_lang( 'This password is too simple. Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
+            'is_password_secure_enough',
+            array(array( $data['username'] ,
+            $data['officialCode'] ,
+            $data['lastname'] ,
+            $data['firstname'] ,
+            $data['email'] )
+            )
+            );
+        }
+    
+        $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
     }
-
-    $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
-
-
-    }
+    
     $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
 
     if ( 'registration' == $formMode)
@@ -713,7 +710,14 @@ function user_validate_form($formMode, $data, $userId = null)
     }
     else // profile mode
     {
-
+        /*
+         * FIX for the empty password issue
+         */
+        if ( !empty( $data['password'] ) || !empty( $data['password_conf'] ) )
+        {
+            $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
+        }
+        
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
