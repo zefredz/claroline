@@ -769,8 +769,8 @@ function get_lang_vars_from_deffile($file)
     $conf_def_property_list = array();
 
     include($file);
-    if(array_key_exists('config_name',$conf_def))  $deflang[] = $conf_def['config_name'];
 
+    if(array_key_exists('config_name',$conf_def))  $deflang[] = $conf_def['config_name'];
 
     if(is_array($conf_def['section']))
     foreach ($conf_def['section'] as $conf_def_section)
@@ -782,6 +782,8 @@ function get_lang_vars_from_deffile($file)
     if(is_array($conf_def_property_list))
     foreach ($conf_def_property_list as $conf_def_property)
     {
+        if(array_key_exists('display',$conf_def_property) && $conf_def_property['display'] === false ) continue ;
+
         if(array_key_exists('label',$conf_def_property)) $deflang[] = $conf_def_property['label'];
         if(array_key_exists('description',$conf_def_property)) $deflang[] = $conf_def_property['description'];
         if(array_key_exists('type',$conf_def_property)) $deflang[] = $conf_def_property['type'];
