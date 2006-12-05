@@ -461,11 +461,13 @@ class ConfigHtml extends Config
 
             foreach ( $section_list as $section )
             {
+                $section_name = $this->conf_def['section'][$section]['label'];
+
                 $menu .=  '<li>'
                 . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
                 . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code)
                 . '&amp;section=' . htmlspecialchars($section) . htmlspecialchars($url_params). '">'
-                . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
+                . get_lang($section_name) . '</a></li>' . "\n";
 
             }
             $menu .= '</ul>' . "\n";

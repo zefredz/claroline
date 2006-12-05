@@ -114,7 +114,7 @@ else
                     if ( $config->save() )
                     {
                         $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
-                    , array('%config_name' => $config_name, '%config_code' => $config_code));
+                    , array('%config_name' => get_lang($config_name), '%config_code' => $config_code));
                     }
                     else
                     {
@@ -160,6 +160,7 @@ else
 {
     // tool name and url to edit config file
     $nameTools = $config->get_conf_name(); // the name of the configuration page
+    $nameTools = get_lang($nameTools);
     $_SERVER['QUERY_STRING'] = 'config_code=' . $config_code;
 }
 
