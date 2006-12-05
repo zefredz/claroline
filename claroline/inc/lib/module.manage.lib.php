@@ -29,7 +29,7 @@ require_once dirname(__FILE__) . '/backlog.class.php';
  * Return info of a module, including extra info and specific info for tool if case
  *
  * @param integer $moduleId
- * @return array (label, id, module_name,activation, type, script_url, icon, 
+ * @return array (label, id, module_name,activation, type, script_url, icon,
  *  version, author, author_email, website, description, license)
  */
 function get_module_info($moduleId)
@@ -94,7 +94,7 @@ function get_installed_module_list($type = null)
     }
 
     $moduleList = claro_sql_query_fetch_all_cols($sql);
-    
+
     if ( is_array( $moduleList ) && array_key_exists('label', $moduleList ) )
     {
         return $moduleList['label'];
@@ -117,7 +117,7 @@ function get_course_tool_id($label)
 
     $sql ="SELECT id FROM `" . $tbl['tool'] . "`
            WHERE claro_label='".$label."'";
-           
+
     return claro_sql_query_get_single_value($sql);
 }
 
@@ -150,7 +150,7 @@ function get_module_repositories()
                 {
                     continue ;
                 }
-                else 
+                else
                 {
                     $folder_array[] = $file;
                 }
@@ -163,13 +163,13 @@ function get_module_repositories()
 }
 
 /**
- * Check the presence of unexpected module repositories or unexpected module 
- * in DB, its effect is returning a list of module not installed in DB but 
+ * Check the presence of unexpected module repositories or unexpected module
+ * in DB, its effect is returning a list of module not installed in DB but
  * present on server, or module installed in DB but not present on server.
  * @return an array two arrays :
- *            ['folder'] containing paths of the suspicious folders found that 
+ *            ['folder'] containing paths of the suspicious folders found that
  *                       did not correspond to an installed module in DB
- *            ['DB']     containing label of modules found in DB for which no 
+ *            ['DB']     containing label of modules found in DB for which no
  *                       corresponding folder was found on server
  */
 function check_module_repositories()
@@ -179,7 +179,7 @@ function check_module_repositories()
 
     $registredModuleList = get_installed_module_list();
     $mistake_array['DB'] = array();
-    
+
     foreach ($registredModuleList as $registredModuleId)
     {
         $moduleData = get_module_info($registredModuleId);
@@ -190,7 +190,7 @@ function check_module_repositories()
             $mistake_array['DB'][] = $registredModuleId;
         }
     }
-    
+
     $folders_found = get_module_repositories();
 
     foreach ($folders_found as $module_folder)
@@ -224,7 +224,7 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 function get_and_unzip_uploaded_package()
 {
     global $includePath;
-    
+
     $backlog_message = array();
 
     //Check if the file is valid (not to big and exists)
@@ -238,7 +238,7 @@ function get_and_unzip_uploaded_package()
     //1- Unzip folder in a new repository in claroline/module
 
     require_once $includePath . '/lib/pclzip/pclzip.lib.php';
-        
+
     if (!function_exists('gzopen'))
     {
         $backlog_message[] = get_lang('Error : no zlib extension found');
@@ -278,17 +278,17 @@ function generate_module_cache()
     $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
     $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
     $module_cache_filepath = $cacheRepositorySys . $module_cache_filename;
-    
+
     if ( ! file_exists( $cacheRepositorySys ) )
     {
         claro_mkdir($cacheRepositorySys, CLARO_FILE_PERMISSIONS, true);
     }
-    
+
     $tbl = claro_sql_get_main_tbl();
     $sql = "SELECT `label`
               FROM `" . $tbl['module'] . "`
              WHERE activation = 'activated'";
-             
+
     $module_list = claro_sql_query_fetch_all($sql);
 
     if (file_exists($cacheRepositorySys) && is_writable($cacheRepositorySys))
@@ -304,11 +304,11 @@ function generate_module_cache()
                 $cache = '<?php #auto created by claroline modify it at your own risks'."\n";
                 $cache .= 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n";
                 $cache .= "\n" . '# ---- start of cache ----'."\n\n";
-                
+
                 foreach($module_list as $module)
                 {
                     $functionsFilePath = get_module_path($module['label']) . '/functions.php';
-                    
+
                     if (file_exists( $functionsFilePath ))
                     {
                         $cache .= '# ' . $module['label'] . "\n" ;
@@ -316,9 +316,9 @@ function generate_module_cache()
                         $cache .= 'require "' . $functionsFilePath . '";' . "\n";
                     }
                 }
-            
+
                 $cache .= "\n" . '?>';
-                
+
                 fwrite( $handle, $cache );
                 fclose( $handle );
             }
@@ -333,7 +333,7 @@ function generate_module_cache()
         // FIXME E_USER_ERROR instead of E_USER_NOTICE
         return claro_failure::set_failure('Directory %directory is not writable', array('%directory' => $cacheRepositorySys) );
     }
-    
+
     return true;
 }
 
@@ -377,15 +377,15 @@ function install_module($modulePath, $skipCheckDir = false)
                 $backlog->failure( get_lang('Module registration failed') );
             }
             else
-            {        
+            {
                 //in case of tool type module, the dock can not be selected and must added also now
-            
+
                 if ('tool' == $module_info['TYPE'])
                 {
                     // TODO FIXME handle failure
                     register_module_tool($moduleId,$module_info);
                 }
-            
+
                 if (array_key_exists('DEFAULT_DOCK',$module_info))
                 {
                     foreach($module_info['DEFAULT_DOCK'] as $dock)
@@ -394,9 +394,9 @@ function install_module($modulePath, $skipCheckDir = false)
                         add_module_in_dock($moduleId, $dock);
                     }
                 }
-            
+
                 //4- Rename the module repository with label
-            
+
                 if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
                 {
                     $backlog->failure(get_lang("Error while renaming module folder"));
@@ -405,16 +405,16 @@ function install_module($modulePath, $skipCheckDir = false)
                 {
                     //5-Include the local 'install.sql' and 'install.php' file of the module if they exist
                     if ( isset( $installSqlScript ) ) unset ( $installSqlScript );
-                    $installSqlScript = get_module_path( $module_info['LABEL'] ) . '/setup/install.sql'; 
-                
+                    $installSqlScript = get_module_path( $module_info['LABEL'] ) . '/setup/install.sql';
+
                     if (file_exists( $installSqlScript ) )
                     {
                         $sql = file_get_contents( $installSqlScript );
-                        
+
                         if (!empty($sql))
                         {
                             $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
-                            
+
                             if ( claro_sql_multi_query($sql) === false )
                             {
                                 $backlog->failure(get_lang( 'Sql installation query failed' ));
@@ -425,24 +425,24 @@ function install_module($modulePath, $skipCheckDir = false)
                             }
                         }
                     }
-                    
+
                     // call install.php after initialising database in case it requires database to run
                     if ( isset( $installPhpScript ) ) unset ( $installPhpScript );
                     $installPhpScript = get_module_path($module_info['LABEL']) . '/setup/install.php';
-                    
+
                     if (file_exists($installPhpScript))
                     {
                         // FIXME this is very dangerous !!!!
                         require $installPhpScript;
                         $backlog->info(get_lang( 'Module installation script called' ));
                     }
-                    
+
                     $moduleInfo =  get_module_info($moduleId);
-                    
+
                     if (($moduleInfo['type'] =='tool') && $moduleId)
                     {
                         list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
-                        
+
                         if ( $success2 )
                         {
                             $backlog->success( get_lang('Module installed in all courses') );
@@ -452,9 +452,9 @@ function install_module($modulePath, $skipCheckDir = false)
                             $backlog->append( $backlog2 );
                         }
                     }
-                
+
                     //6- cache file with the module's include must be renewed after installation of the module
-                
+
                     if ( ! generate_module_cache() )
                     {
                         $backlog->failure(get_lang( 'Module cache update failed' ));
@@ -463,22 +463,22 @@ function install_module($modulePath, $skipCheckDir = false)
                     {
                         $backlog->success(get_lang( 'Module cache update succeeded' ));
                     }
-                
+
                     //7- generate the conf if a def file exists
-                    if ( file_exists( get_module_path($module_info['LABEL']) 
+                    if ( file_exists( get_module_path($module_info['LABEL'])
                         . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
                     {
                         require_once dirname(__FILE__) . '/config.lib.inc.php';
                         $config = new Config($module_info['LABEL']);
                         list ($confMessage, $status ) = generate_conf($config);
-                        
+
                         $backlog->info($confMessage);
                     }
                 }
             }
         }
     }
-    
+
     return array( $backlog, $moduleId );
 }
 
@@ -509,9 +509,9 @@ function activate_module($moduleId)
     $sql = "UPDATE `" . $tbl['module']."`
             SET `activation` = 'activated'
             WHERE `id` = " . (int) $moduleId;
-            
+
     $result = claro_sql_query($sql);
-    
+
     if ( ! $result )
     {
         $success = false;
@@ -521,7 +521,7 @@ function activate_module($moduleId)
     {
         $backlog->success(get_lang( 'Database update successful' ));
         //5- cache file with the module's include must be renewed after activation of the module
-    
+
         if ( generate_module_cache() )
         {
             $backlog->success(get_lang( 'Module cache update succeeded' ));
@@ -550,7 +550,7 @@ function deactivate_module($moduleId)
 {
     $success = true;
     $backlog = new Backlog;
-    
+
     //find needed info :
 
     $moduleInfo =  get_module_info($moduleId);
@@ -567,7 +567,7 @@ function deactivate_module($moduleId)
             WHERE `id`= " . (int) $moduleId;
 
     $result = claro_sql_query($sql);
-    
+
     if ( ! $result )
     {
         $success = false;
@@ -577,7 +577,7 @@ function deactivate_module($moduleId)
     {
         $backlog->success(get_lang( 'Database update successful' ));
         //5- cache file with the module's include must be renewed after desactivation of the module
-    
+
         if ( generate_module_cache() )
         {
             $backlog->success(get_lang( 'Module cache update succeeded' ));
@@ -605,7 +605,7 @@ function uninstall_module($moduleId)
 {
     $success = true;
     $backlog = new Backlog;
-    
+
     //first thing to do : deactivate the module
 
     // deactivate_module($moduleId);
@@ -616,7 +616,7 @@ function uninstall_module($moduleId)
         // 2- delete the module in the cours_tool table, used for every course creation
 
         list ( $backlog2, $success2 ) = unregister_module_from_courses( $moduleId );
-        
+
         if ( $success2 )
         {
             $backlog->success( get_lang('Module uninstalled in all courses') );
@@ -649,25 +649,25 @@ function uninstall_module($moduleId)
     else
     {
         // 1- Include the local 'uninstall.sql' and 'uninstall.php' file of the module if they exist
-        
+
         // call uninstall.php first in case it requires module database schema to run
         if ( isset( $uninstallPhpScript ) ) unset ( $uninstallPhpScript );
-        $uninstallPhpScript = get_module_path($module['label']) . '/setup/uninstall.php'; 
+        $uninstallPhpScript = get_module_path($module['label']) . '/setup/uninstall.php';
         if (file_exists( $uninstallPhpScript ))
         {
             require $uninstallPhpScript;
             $backlog->info( get_lang('Module uninstallation script called') );
         }
-    
+
         if ( isset( $uninstallSqlScript ) ) unset ( $uninstallSqlScript );
-        $uninstallSqlScript = get_module_path($module['label']) . '/setup/uninstall.sql'; 
+        $uninstallSqlScript = get_module_path($module['label']) . '/setup/uninstall.sql';
         if (file_exists( $uninstallSqlScript ))
         {
             $sql = file_get_contents( $uninstallSqlScript );
             if (!empty($sql))
             {
                 $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
-                
+
                 if ( false !== claro_sql_multi_query($sql) )
                 {
                     $backlog->success(get_lang( 'Database uninstallation succeeded' ));
@@ -679,9 +679,9 @@ function uninstall_module($moduleId)
                 }
             }
         }
-    
+
         // 2- delete related files and folders
-    
+
         $modulePath = get_module_path($module['label']);
 
         if ( file_exists($modulePath) )
@@ -696,51 +696,51 @@ function uninstall_module($moduleId)
                 $success = false;
             }
         }
-    
+
         //  delete the module in the cours_tool table, used for every course creation
-    
+
         //retrieve this module_id first
-    
+
         $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
                 WHERE claro_label = '".$module['label']."'";
         $tool_to_delete = claro_sql_query_get_single_row($sql);
         $tool_id = $tool_to_delete['tool_id'];
-    
-        
+
+
         $sql = "DELETE FROM `" . $tbl['tool']."`
                 WHERE claro_label = '".$module['label']."'
             ";
-        
+
         claro_sql_query($sql);
-    
+
         // 3- delete related entries in main DB
-    
+
         $sql = "DELETE FROM `" . $tbl['module'] . "`
                 WHERE `id` = ". (int) $moduleId;
         claro_sql_query($sql);
-    
+
         $sql = "DELETE FROM `" . $tbl['module_info'] . "`
                 WHERE `module_id` = " . (int) $moduleId;
         claro_sql_query($sql);
-    
+
         // 4-Manage right - Delete read action
         $action = new RightToolAction();
         $action->setName('read');
         $action->setToolId($tool_id);
         $action->delete();
-    
+
         // Manage right - Delete edit action
         $action = new RightToolAction();
         $action->setName('edit');
         $action->setToolId($tool_id);
         $action->delete();
-    
+
         // 5- remove all docks entries in which the module displays
         // TODO FIXME handle failure
         remove_module_dock($moduleId, 'ALL');
-    
+
         // 6- cache file with the module's include must be renewed after uninstallation of the module
-    
+
         if ( ! generate_module_cache() )
         {
             $backlog->failure(get_lang( 'Module cache update failed' ));
@@ -769,20 +769,20 @@ function register_module_in_courses( $moduleId )
     $success = true;
     // TODO : remove fields script_url, claro_label, def_access, access_manager
     // TODO : rename def_rank to rank
-    // TODO : secure this code against query failure    
+    // TODO : secure this code against query failure
     $tbl = claro_sql_get_main_tbl();
     $moduleInfo =  get_module_info($moduleId);
-    
+
     $tool_id = get_course_tool_id($moduleInfo['label'] );
 
     // 4- update every course tool list to add the tool if it is a tool
 
     // $module_type = $moduleInfo['type'];
-    
+
     $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
-        
+
     $course_list = claro_sql_query_fetch_all($sql);
-    
+
     $default_visibility = false;
 
     foreach ($course_list as $course)
@@ -792,11 +792,11 @@ function register_module_in_courses( $moduleId )
             $success = false;
             $backlog->failure(get_lang( 'Cannot update course database for %course'
                 , array( '%course' => $course['code'] )));
-                
+
             break;
         }
     }
-    
+
     return array( $backlog, $success );
 }
 
@@ -825,7 +825,7 @@ function register_module_in_single_course( $tool_id, $course_code )
         script_url   = NULL,
         script_name  = NULL,
         addedTool    = 'YES'";
-    
+
     if ( false === claro_sql_query($sql) )
     {
         return false;
@@ -848,7 +848,7 @@ function unregister_module_from_courses( $moduleId )
     $backlog = new Backlog;
     $success = true;
     //retrieve this module_id first
-    
+
     $moduleInfo =  get_module_info($moduleId);
     $tbl = claro_sql_get_main_tbl();
 
@@ -871,11 +871,11 @@ function unregister_module_from_courses( $moduleId )
             $success = false;
             $backlog->failure(get_lang( 'Cannot update course database for %course'
                 , array( '%course' => $course['code'] )));
-                
+
             break;
         }
     }
-    
+
     return array( $backlog, $success );
 }
 
@@ -892,7 +892,7 @@ function unregister_module_from_single_course( $tool_id, $course_code )
 
     $sql = "DELETE FROM `".$course_tbl['tool']."`
             WHERE  `tool_id` = " . (int)$tool_id;
-            
+
     if ( false === claro_sql_query($sql) )
     {
         return false;
@@ -915,16 +915,16 @@ function set_module_visibility( $moduleId, $visibility )
 {
     $backlog = new Backlog;
     $success = true;
-    
+
     $tbl = claro_sql_get_main_tbl();
     $moduleInfo =  get_module_info($moduleId);
-    
+
     $tool_id = get_course_tool_id($moduleInfo['label'] );
-    
+
     $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
-        
+
     $course_list = claro_sql_query_fetch_all($sql);
-    
+
     $default_visibility = false;
 
     foreach ($course_list as $course)
@@ -934,11 +934,11 @@ function set_module_visibility( $moduleId, $visibility )
             $success = false;
             $backlog->failure(get_lang( 'Cannot change module visibility in %course'
                 , array( '%course' => $course['code'] )));
-                
+
             break;
         }
     }
-    
+
     return array( $backlog, $success );
 }
 
@@ -958,9 +958,9 @@ function set_module_visibility_in_course( $tool_id, $courseCode, $visibility )
     $default_visibility = false;
 
     $sql = "UPDATE `" . $course_tbl['tool'] . "`
-            SET visibility   = '" . ( $visibility ? 1 : 0 ) . "' 
+            SET visibility   = '" . ( $visibility ? 1 : 0 ) . "'
             WHERE `tool_id` = " . (int)$tool_id;
-    
+
     if ( false === claro_sql_query($sql) )
     {
         return false;
@@ -1044,14 +1044,11 @@ function register_module_core($module_info)
 {
     $tbl             = claro_sql_get_tbl(array('module','module_info','tool'));
     $tbl_name        = claro_sql_get_main_tbl();
-    $tbl_course_tool = $tbl_name['tool'];
 
     $missingElement = array_diff(array('LABEL','NAME','TYPE','CLAROLINE','AUTHOR','DESCRIPTION','LICENSE'),array_keys($module_info));
     if (count($missingElement)>0)
     {
-        // echo '<div>'.__LINE__.': $missingElement = <pre>'. var_export($missingElement,1).'</PRE></div>';
         return claro_failure::set_failure($missingElement);
-
     }
 
     if (isset($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH']))
@@ -1117,7 +1114,7 @@ function register_module_tool($moduleId,$module_info)
         $maxresult = claro_sql_query_get_single_row($sql);
 
         // insert the new course tool
-    
+
         $sql = "INSERT INTO `" . $tbl['course_tool'] ."`
                 SET
                 claro_label = '". addslashes($module_info['LABEL']) ."',
@@ -1304,7 +1301,7 @@ function moduleManifestElementData($parser,$data)
         case 'TYPE' :
             $module_info['TYPE'] = $data;
             break;
-            
+
         case 'DEFAULT_DOCK' :
             $module_info['DEFAULT_DOCK'][] = $data;
             break;
@@ -1472,7 +1469,7 @@ function add_module_in_dock($moduleId, $newDockName, $context='')
                     #context = '" . addslashes($context) . "',
                     rank    = " . ((int) $max_rank + 1) ;
         $result = claro_sql_query($sql);
-        
+
         // TODO FIXME handle failure
         generate_module_cache();
 
@@ -1749,7 +1746,7 @@ function move_module_tool($toolId, $sense)
 }
 
 /**
- * 
+ *
  * @param id of the course_tool module to get rank
  * @return the value of the rank (def_rank table)
  */
@@ -1759,7 +1756,7 @@ function get_course_tool_rank($toolId)
     $tbl_mdb_names        = claro_sql_get_main_tbl();
     $tbl_tool_list        = $tbl_mdb_names['tool'];
 
-    $sql = "SELECT def_rank 
+    $sql = "SELECT def_rank
             FROM `" . $tbl_tool_list . "`
             WHERE id=".(int)$toolId;
     return claro_sql_query_get_single_value($sql);
@@ -1794,7 +1791,7 @@ function get_before_course_tool($rank)
     $tbl_mdb_names        = claro_sql_get_main_tbl();
     $tbl_tool_list        = $tbl_mdb_names['tool'];
 
-    $sql = "SELECT def_rank 
+    $sql = "SELECT def_rank
             FROM `" . $tbl_tool_list . "`
             WHERE (def_rank<".(int)$rank.") ORDER BY def_rank DESC";
     return claro_sql_query_get_single_value($sql);
@@ -1803,7 +1800,7 @@ function get_before_course_tool($rank)
 
 /**
  * get maximum position already used in the course_tool of the def_rank value
- * 
+ *
  * @return : the maximum value
  */
 
@@ -1818,7 +1815,7 @@ function get_course_tool_max_rank()
 
 /**
  * get minimum position already used in the course_tool of the def_rank value
- * 
+ *
  * @return : the minimum value
  */
 
