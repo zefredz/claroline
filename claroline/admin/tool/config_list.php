@@ -97,7 +97,9 @@ if ( is_array($def_class_list) )
     {
         if ( isset($class_def_list['conf']) && is_array($class_def_list['conf']) )
         {
-            echo '<h4>' . $class_def_list['name'] . '</h4>' . "\n";
+            $sectionName = $class_def_list['name'];
+
+            echo '<h4>' . get_lang($sectionName) . '</h4>' . "\n";
 
             asort($class_def_list['conf']);
 
@@ -106,7 +108,7 @@ if ( is_array($def_class_list) )
             {
                 echo '<li>'
                 .    '<a href="' . $urlEditConf . '?config_code=' . $code .'">'
-                .    $name
+                .    get_lang($name)
                 .    '</a>'
                 .    '</li>' . "\n"
                 ;
