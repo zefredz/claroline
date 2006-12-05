@@ -465,7 +465,7 @@ if ( $uidReset && !empty($_uid) ) // session data refresh requested && uid is gi
 
         if ( get_conf('ssoEnabled',false ))
         {
-           $ssoCookieExpireTime = time() + $ssoCookiePeriodValidity;
+           $ssoCookieExpireTime = time() + get_conf('ssoCookiePeriodValidity',3600);
            $ssoCookieValue      = md5( mktime() . rand(100, 1000000) );
 
             $sql = "UPDATE `".$tbl_sso."`
@@ -485,9 +485,11 @@ if ( $uidReset && !empty($_uid) ) // session data refresh requested && uid is gi
                 claro_sql_query($sql);
             }
 
-           $boolCookie = setcookie($ssoCookieName, $ssoCookieValue,
+           $boolCookie = setcookie(get_conf('ssoCookieName','clarolineSsoCookie'),
+                                   $ssoCookieValue,
                                    $ssoCookieExpireTime,
-                                   $ssoCookiePath, $ssoCookieDomain);
+                                   get_conf('ssoCookiePath','/'),
+                                   get_conf('ssoCookieDomain','sso.claroline.net'));
 
            // Note. $ssoCookieName, $ssoCookieValussoCookieExpireTime,
            //       $soCookiePath and $ssoCookieDomain are coming from
