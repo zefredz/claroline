@@ -41,7 +41,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || isset($_REQUEST['fromCasServer']) )
 {
     include_once dirname(__FILE__) . '/../../inc/lib/cas/CAS.php';
-    phpCAS::client(CAS_VERSION_2_0, get_conf('claro_CasServerHostUrl'), get_conf('claro_CasServerHostPort',443) , '');
+    phpCAS::client(CAS_VERSION_2_0, get_conf('claro_CasServerHostUrl'), get_conf('claro_CasServerHostPort',443) , get_conf('claro_CasServerRoot','') );
 
     if ($logout)
     {
