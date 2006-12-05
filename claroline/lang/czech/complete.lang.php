@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! velikost úlo¾i¹tì kurzù (vèetnì claroline a zbytkù starých systémù)';
 $_lang['%1\$s by %2\$s'] = '%1$s - %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s upraveno %2$s - %3$s';
@@ -112,9 +112,8 @@ $_lang['Attach an existing resource'] = 'Pøipojit existující zdroj';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Pøipojené zdroje : Pøidat / Odebrat pøílohu';
 $_lang['Attached file'] = 'Pøipojený soubor';
 $_lang['Attached resources'] = 'Pøipojit zdroje';
-$_lang['Attempt'] = 'Pokus';
-$_lang['Attempt %attemptCount on %attempts'] = 'Pokus %attemptCount na %attempts';
 $_lang['Attempt %attemptCount'] = 'Pokus %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Pokus %attemptCount na %attempts';
 $_lang['Attempts'] = 'Pokusù';
 $_lang['Attempts allowed'] = 'Povolených pokusù';
 $_lang['Authentication'] = 'Pøihlá¹ení';
@@ -124,7 +123,6 @@ $_lang['Author(s)'] = 'Autor(øi)';
 $_lang['Author(s) is(are) required'] = 'Jsou po¾adováni Autor(øi)';
 $_lang['Automatically, after each submission'] = 'Automaticky po ka¾dém odevzdání';
 $_lang['Automatically, after end date'] = 'Automaticky po datu ukonèení';
-$_lang['Available from'] = 'K dispozici od';
 $_lang['Average Time'] = 'Prùmìrný èas';
 $_lang['Average score'] = 'Prùmìrný výsledek';
 $_lang['Back'] = 'Zpìt';

@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!!a tanfolyam raktár mérete (régi rendszereken claroline-t és a szeméttár-at tartalmazza)';
 $_lang['%1\$s by %2\$s'] = '%1$s  %2$s által';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s módosítva: %2$s  %3$s által';
@@ -111,9 +111,8 @@ $_lang['Attach an existing resource'] = 'Meglévõ erõforrás csatolása';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Csatolt erõforrások: Csatolmányok hozzáadása/törlése';
 $_lang['Attached file'] = 'Csatolt fájl';
 $_lang['Attached resources'] = 'Csatolt erõforrások';
-$_lang['Attempt'] = 'Próbálkozás';
-$_lang['Attempt %attemptCount on %attempts'] = 'Próbálkozás %attemptCount idõpontkor %attempts';
 $_lang['Attempt %attemptCount'] = 'Próbálkozás %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Próbálkozás %attemptCount idõpontkor %attempts';
 $_lang['Attempts'] = 'Próbálkozások';
 $_lang['Attempts allowed'] = 'megengedett próbálkozások';
 $_lang['Authentication'] = 'Azonosítás';
@@ -122,7 +121,6 @@ $_lang['Author(s)'] = 'Szerzõ(k)';
 $_lang['Author(s) is(are) required'] = 'Szerzõ(k) kötelezõ(ek)';
 $_lang['Automatically, after each submission'] = 'Automatikusa, minden beküldés után';
 $_lang['Automatically, after end date'] = 'Automatikusa, a zárási dátum után';
-$_lang['Available from'] = 'Elérhetõ a következõ idõponttól';
 $_lang['Average Time'] = 'Átlagos idõtartam';
 $_lang['Average score'] = 'Átlageredmény';
 $_lang['Back'] = 'Vissza';

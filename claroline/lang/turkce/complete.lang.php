@@ -67,13 +67,11 @@ $_lang['Are you sure you want to remove the following module from the learning p
 $_lang['Area for this group'] = 'Bu grubun alaný';
 $_lang['Attach a file'] = 'Dosya ekle';
 $_lang['Attach an existing resource'] = 'Varolan bir kaynak ekle';
-$_lang['Attempt'] = 'Deneme';
 $_lang['Attempts'] = 'Deneme sayýsý';
 $_lang['Attempts allowed'] = 'Deneme sayýsý';
 $_lang['Authentication'] = 'Yetki Doðrulama';
 $_lang['Authentication Required'] = 'Üzgünüm. Geçersiz kullanýcý adý veya þifresi.';
 $_lang['Author'] = 'Gönderen';
-$_lang['Available from'] = 'Geçerlilik';
 $_lang['Average Time'] = 'Zaman ortalamasý';
 $_lang['Average score'] = 'Ortalama deðer';
 $_lang['Back'] = 'Geri';

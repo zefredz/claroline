@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! dimensione della cartella dei corsi (inclusi Claroline e il cestino delle vecchie versioni)';
 $_lang['%1\$s by %2\$s'] = '%1$s da %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modificato il %2$s da %3$s';
@@ -176,9 +176,8 @@ $_lang['Attach an existing resource'] = 'Allega una risorsa esistente';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Risorse allegate: Aggiungi/Elimina';
 $_lang['Attached file'] = 'File allegato';
 $_lang['Attached resources'] = 'Risorse allegate';
-$_lang['Attempt'] = 'Tentativo';
-$_lang['Attempt %attemptCount on %attempts'] = 'Tentativo %attemptCount attivo %attempts';
 $_lang['Attempt %attemptCount'] = 'Tentativo %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Tentativo %attemptCount attivo %attempts';
 $_lang['Attempts'] = 'Tentativi';
 $_lang['Attempts allowed'] = 'Tentativi consentiti';
 $_lang['Authentication'] = 'Autenticazione';
@@ -189,7 +188,6 @@ $_lang['Author(s)'] = 'Autore/i';
 $_lang['Author(s) is(are) required'] = 'Autore/i obbligatorio';
 $_lang['Automatically, after each submission'] = 'Automatico, dopo ogni invio';
 $_lang['Automatically, after end date'] = 'Automatico, dopo la data di consegna';
-$_lang['Available from'] = 'Disponibile dal';
 $_lang['Average Time'] = 'Tempo medio (sec.)';
 $_lang['Average score'] = 'Punteggio medio';
 $_lang['Back'] = 'Indietro';
@@ -491,7 +489,6 @@ $_lang['Error : Class has sub-classes'] = 'Errore: la classe ha sotto-classi';
 $_lang['Error : Class not found'] = 'Errore: classe non trovata';
 $_lang['Error : Name already exists in the learning path or in the module pool'] = 'Errore: questo nome è già presente nel percorso o nella banca dei moduli';
 $_lang['Error : One or more values are doubled'] = 'Errore: uno o più valori sono identici';
-$_lang['Error : Unknown question format in file %file'] = 'Errore: formato della domanda sconosciuto nel file %file';
 $_lang['Error : cannot read RSS feed'] = 'Errore: impossibile leggere i feed RSS.';
 $_lang['Error : no zlib extension found'] = 'Errore: plugin zlib non trovato';
 $_lang['Error copying existing SCORM content'] = 'Si è verificato un errore durante la copia dei contenuti SCORM esistenti';

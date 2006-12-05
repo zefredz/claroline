@@ -45,7 +45,6 @@ $_lang['Author'] = '投稿者';
 $_lang['Author(s)'] = '提出者';
 $_lang['Automatically, after each submission'] = '課題提出があったら模範解答を自動的に掲示する';
 $_lang['Automatically, after end date'] = '締切後、模範解答を自動的に掲載する';
-$_lang['Available from'] = '提出期限';
 $_lang['Back'] = '戻る';
 $_lang['Back to Home page'] = 'トップページへ戻る';
 $_lang['Back to administration page'] = '管理ページに戻る';

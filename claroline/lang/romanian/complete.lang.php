@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!marimea documentului de curs (include claroline si deseurile din vechile sisteme)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modificata in data de %2$s de %3$s';
@@ -112,9 +112,8 @@ $_lang['Attach an existing resource'] = 'Ayaseaza o resursa existenta';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Resurse atasate : Adauga/Sterge atasament';
 $_lang['Attached file'] = 'Fisier atasat';
 $_lang['Attached resources'] = 'Resurse atasate';
-$_lang['Attempt'] = 'Incercare';
-$_lang['Attempt %attemptCount on %attempts'] = 'Incercari %attemptCount pe %attempts';
 $_lang['Attempt %attemptCount'] = 'Incercari %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Incercari %attemptCount pe %attempts';
 $_lang['Attempts'] = 'Incercari';
 $_lang['Attempts allowed'] = 'incercari autorizate';
 $_lang['Authentication'] = 'Autentificare';
@@ -123,7 +122,6 @@ $_lang['Author(s)'] = 'Autor(i)';
 $_lang['Author(s) is(are) required'] = 'Sunt necesari autor(i)';
 $_lang['Automatically, after each submission'] = 'Depune automat, dupa fiecare depunere';
 $_lang['Automatically, after end date'] = 'Depune automat, dupa data de sfarsit';
-$_lang['Available from'] = 'Disponibil de la';
 $_lang['Average Time'] = 'Timpul mediu';
 $_lang['Average score'] = 'Punctaj mediu';
 $_lang['Back'] = 'Inapoi';

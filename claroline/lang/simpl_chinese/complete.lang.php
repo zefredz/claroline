@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '！！！！课程储存的大小 (包含旧系统中的claroline和垃圾)';
 $_lang['%1\$s by %2\$s'] = '%1$s 由 %2$s';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) 匿名用户，非本课程学员……';
@@ -110,9 +110,8 @@ $_lang['Attach an existing resource'] = '添加已有资源';
 $_lang['Attached Resources : Add / Delete attachement'] = '已附加资源：添加/删除附件';
 $_lang['Attached file'] = '附件';
 $_lang['Attached resources'] = '已添加资源';
-$_lang['Attempt'] = '尝试';
-$_lang['Attempt %attemptCount on %attempts'] = '尝试 %attemptCount 在 %attempts';
 $_lang['Attempt %attemptCount'] = '尝试 %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = '尝试 %attemptCount 在 %attempts';
 $_lang['Attempts'] = '尝试';
 $_lang['Attempts allowed'] = '尝试允许';
 $_lang['Authentication'] = '身份鉴定';
@@ -121,7 +120,6 @@ $_lang['Author(s)'] = '作者';
 $_lang['Author(s) is(are) required'] = '作者是必需的';
 $_lang['Automatically, after each submission'] = '在提交之后，自动';
 $_lang['Automatically, after end date'] = '在截止日期之后，自动';
-$_lang['Available from'] = '可得到的地方';
 $_lang['Average Time'] = '平均时间(秒)';
 $_lang['Average score'] = '平均';
 $_lang['Back'] = '返回课程信息';

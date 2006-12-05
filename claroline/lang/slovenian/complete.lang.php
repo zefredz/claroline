@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! velikost repozitorija teèaja (vkljuèuje Claroline in smeti v starih sistemih)';
 $_lang['%1\$s by %2\$s'] = '%1$s, avtor %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s spremenil dne %2$s, avtor %3$s';
@@ -112,9 +112,8 @@ $_lang['Attach an existing resource'] = 'Pripni obstojeèi vir';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Pripeti viri: Dodaj/zbri¹i priponko';
 $_lang['Attached file'] = 'Pripeta datoteka';
 $_lang['Attached resources'] = 'Pripeti viri';
-$_lang['Attempt'] = 'Poskus';
-$_lang['Attempt %attemptCount on %attempts'] = 'Poskus %attemptCount na %attempts';
 $_lang['Attempt %attemptCount'] = 'Poskus %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Poskus %attemptCount na %attempts';
 $_lang['Attempts'] = 'Poskusi';
 $_lang['Attempts allowed'] = 'poskusi dovoljeni';
 $_lang['Authentication'] = 'Avtentikacija';
@@ -124,7 +123,6 @@ $_lang['Author(s)'] = 'Avtor(ji)';
 $_lang['Author(s) is(are) required'] = 'Avtor(ji) je(so) obvezni';
 $_lang['Automatically, after each submission'] = 'Avtomatsko, po vsaki vstavitvi';
 $_lang['Automatically, after end date'] = 'Avtomatsko, po konènem datumu';
-$_lang['Available from'] = 'Dostopen od';
 $_lang['Average Time'] = 'Povpreèni èas';
 $_lang['Average score'] = 'Povpreèni rezultat';
 $_lang['Back'] = 'Vrnitev';

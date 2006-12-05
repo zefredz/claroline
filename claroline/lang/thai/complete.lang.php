@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['%1\$s by %2\$s'] = '%1$s โดย %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s แก้ไขเมื่อ %2$s by %3$s';
 $_lang['%delay ago'] = '%delay ที่ผ่านมา';
@@ -94,9 +94,8 @@ $_lang['Attach a file'] = 'แนบไฟล์';
 $_lang['Attach an existing resource'] = 'แนบข้อมูลหรือสาระการเรียนที่มีอยู่ในวิชา';
 $_lang['Attached file'] = 'แนบไฟล์';
 $_lang['Attached resources'] = 'ข้อมูลที่จะแนบ';
-$_lang['Attempt'] = 'จำนวนครั้งที่ทำ';
-$_lang['Attempt %attemptCount on %attempts'] = 'จำนวนครั้งที่ทำ %attemptCount sur %attempts';
 $_lang['Attempt %attemptCount'] = 'จำนวนครั้งที่ทำ %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'จำนวนครั้งที่ทำ %attemptCount sur %attempts';
 $_lang['Attempts'] = 'จำนวนครั้งที่ทำแบบทดสอบ';
 $_lang['Attempts allowed'] = 'จำนวนครั้งที่อนุญาต';
 $_lang['Authentication'] = 'เข้าสู่ระบบ';
@@ -106,7 +105,6 @@ $_lang['Author(s)'] = 'เจ้าของ';
 $_lang['Author(s) is(are) required'] = 'ต้องมีเจ้าของ';
 $_lang['Automatically, after each submission'] = 'โดยอัตโนมัติ, หลังการพิจารณาตัดสิน';
 $_lang['Automatically, after end date'] = 'โดยอัตโนมัติ, หลังพ้นกำหนด';
-$_lang['Available from'] = 'เริ่มทำได้ตั้งแต่';
 $_lang['Average Time'] = 'เวลาทำแบบทดสอบ';
 $_lang['Average score'] = 'ค่าคะแนนโดยเฉลี่ย';
 $_lang['Back'] = 'กลับ';

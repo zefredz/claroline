@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! rozmiar repozytorium kursu (zawiera Claroline i ¶mieci w starym systemie)';
 $_lang['%1\$s by %2\$s'] = '%1$s przez %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s zmodyfikowane %2$s przez %3$s';
@@ -112,9 +112,8 @@ $_lang['Attach an existing resource'] = 'Do³±cz istniej±cy zasób';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Do³±czone zasoby Dodaj/Usuñ za³±cznik';
 $_lang['Attached file'] = 'Plik do³±czony';
 $_lang['Attached resources'] = 'Do³±czone zasoby';
-$_lang['Attempt'] = 'Próba';
-$_lang['Attempt %attemptCount on %attempts'] = 'Próba %attemptCount W³±czone %attempts';
 $_lang['Attempt %attemptCount'] = 'Próba %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Próba %attemptCount W³±czone %attempts';
 $_lang['Attempts'] = 'Próby';
 $_lang['Attempts allowed'] = 'próby dozwolone';
 $_lang['Authentication'] = 'Autentykacja';
@@ -124,7 +123,6 @@ $_lang['Author(s)'] = 'Autor / Autorzy';
 $_lang['Author(s) is(are) required'] = 'Autor / Autorzy s± wymagani';
 $_lang['Automatically, after each submission'] = 'Automatycznie po ka¿dym przed³o¿eniu';
 $_lang['Automatically, after end date'] = 'Automatycznie, po dacie koñcowej';
-$_lang['Available from'] = 'Dostêpne od';
 $_lang['Average Time'] = '¶redni czas';
 $_lang['Average score'] = '¶rednia punktacja';
 $_lang['Back'] = 'Wstecz';

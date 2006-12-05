@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! besar perbendaharaan mata kuliah (termasuk claroline dan sampah dalam system lama)';
 $_lang['%1\$s by %2\$s'] = '%1$s oleh %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s dimodifikasi pada %2$s by %3$s';
@@ -114,9 +114,8 @@ $_lang['Attach an existing resource'] = 'Lampirkan sumberdaya yang ada';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Sumberdaya terlampir : Tambah / Hapus lampiran';
 $_lang['Attached file'] = 'File terlampir';
 $_lang['Attached resources'] = 'Sumberdaya terlampir';
-$_lang['Attempt'] = 'Upaya';
-$_lang['Attempt %attemptCount on %attempts'] = 'Upaya %attemptCount tampil %attempts';
 $_lang['Attempt %attemptCount'] = 'Upaya %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Upaya %attemptCount tampil %attempts';
 $_lang['Attempts'] = 'Pengulangan';
 $_lang['Attempts allowed'] = 'pengulangan diijinkan';
 $_lang['Authentication'] = 'Otentikasi';
@@ -125,7 +124,6 @@ $_lang['Author(s)'] = 'Pengarang';
 $_lang['Author(s) is(are) required'] = 'Pengarang wajib diisi';
 $_lang['Automatically, after each submission'] = 'Otomatis, setelah setiap pengumpulan tugas';
 $_lang['Automatically, after end date'] = 'Otomatis, setelah tanggal berakhir';
-$_lang['Available from'] = 'Disediakan oleh';
 $_lang['Average Time'] = 'Waktu rata-rata';
 $_lang['Average score'] = 'Nilai rata-rata';
 $_lang['Back'] = 'Kembali';

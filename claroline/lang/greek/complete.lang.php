@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! μέγεθος πηγής πληροφοριών μαθήματος (συμπεριλαμβάνεται το claroline και άχρηστα σε παλιά συστήματα)';
 $_lang['%1\$s by %2\$s'] = '%1$s απο %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s τροποποιήθηκε στις %2$s από %3$s';
@@ -112,9 +112,8 @@ $_lang['Attach an existing resource'] = 'Επισυνάψτε ήδη υπάρχων πηγή';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Επισυναπτόμενες πηγές : Προσθέστε / διαγράψετε επισυναπτόμενο αρχείο';
 $_lang['Attached file'] = 'Το αρχείο έχει επισυναφθεί';
 $_lang['Attached resources'] = 'Επισυναπτόμενες πηγές';
-$_lang['Attempt'] = 'Προσπάθεια';
-$_lang['Attempt %attemptCount on %attempts'] = 'Προσπάθειες %attemptCount on %attempts';
 $_lang['Attempt %attemptCount'] = 'Προσπάθειες %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Προσπάθειες %attemptCount on %attempts';
 $_lang['Attempts'] = 'Προσπάθειες';
 $_lang['Attempts allowed'] = 'Επιτρεπτές προσπάθειες';
 $_lang['Authentication'] = 'Ταυτοποίηση χρήστη';
@@ -124,7 +123,6 @@ $_lang['Author(s)'] = 'Συγγραφέας -εις';
 $_lang['Author(s) is(are) required'] = 'Οι \'Συγγραφείς\' απαιτούνται';
 $_lang['Automatically, after each submission'] = 'Αυτόματα, μετά απο κάθε υποβολή ';
 $_lang['Automatically, after end date'] = 'Αυτόματα, μετά απο το τέλος της ημερομηνίας';
-$_lang['Available from'] = 'Διαθέσιμο από';
 $_lang['Average Time'] = 'Μέσο όρο χρόνου (s.)';
 $_lang['Average score'] = 'Μέσος όρος';
 $_lang['Back'] = 'Επιστροφή';

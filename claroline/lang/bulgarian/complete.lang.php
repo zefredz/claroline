@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! големина на пространството за курса (включително кларолайн и боклуците при стари системи)';
 $_lang['%1\$s by %2\$s'] = '%1$s от %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s променяно на %2$s by %3$s';
@@ -167,9 +167,8 @@ $_lang['Attach an existing resource'] = 'Прикачи съществуващ ресурс';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Прикачен ресурс : Добави/Изтрий ';
 $_lang['Attached file'] = 'Прикачен файл';
 $_lang['Attached resources'] = 'Прикачени ресурси';
-$_lang['Attempt'] = 'Опит';
-$_lang['Attempt %attemptCount on %attempts'] = 'Опит %attemptCount Включени %attempts';
 $_lang['Attempt %attemptCount'] = 'Опит %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Опит %attemptCount Включени %attempts';
 $_lang['Attempts'] = 'Опити';
 $_lang['Attempts allowed'] = 'опита разрешени';
 $_lang['Authentication'] = 'Лог-ин';
@@ -180,7 +179,6 @@ $_lang['Author(s)'] = 'Автор(и)';
 $_lang['Author(s) is(are) required'] = 'Автор(и) е(са) задължителен';
 $_lang['Automatically, after each submission'] = 'Автоматично, след всяко изпращане';
 $_lang['Automatically, after end date'] = 'Автоматично, след крайна дата';
-$_lang['Available from'] = 'Достъпен от';
 $_lang['Average Time'] = 'Средно време';
 $_lang['Average score'] = 'Средна оценка';
 $_lang['Back'] = 'Назад';

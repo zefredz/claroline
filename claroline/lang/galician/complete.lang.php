@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!!tama&ntilde;o do repositorio do curso (inclu&iacute;do o claroline e o lixo nos vellos sistemas)';
 $_lang['%1\$s by %2\$s'] = '%1$s por %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modificada(s) en %2\%s por %3$s';
@@ -129,9 +129,8 @@ $_lang['Attach an existing resource'] = 'Adxuntar un recurso existente';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Recursos adxuntados: Engadir / Eliminar';
 $_lang['Attached file'] = 'Arquivo adxuntado';
 $_lang['Attached resources'] = 'Recursos adxuntados';
-$_lang['Attempt %attemptCount on %attempts'] = 'Intento %attemptCount sur %attempts';
 $_lang['Attempt %attemptCount'] = 'Intento %attemptCount';
-$_lang['Attempt'] = 'Intento';
+$_lang['Attempt %attemptCount on %attempts'] = 'Intento %attemptCount sur %attempts';
 $_lang['Attempts'] = 'Intentos';
 $_lang['Attempts allowed'] = 'intentos permitidos';
 $_lang['Authentication'] = 'Autentificaci&oacute;n';
@@ -140,7 +139,6 @@ $_lang['Author(s)'] = 'Autor(es)';
 $_lang['Author(s) is(are) required'] = '&Eacute; preciso introducir autor(es)';
 $_lang['Automatically, after each submission'] = 'Autom&aacute;ticamente, logo de cada env&iacute;o';
 $_lang['Automatically, after end date'] = 'Automaticamente, logo da data l&iacute;mite de entrega';
-$_lang['Available from'] = 'Dispo&ntilde;ible desde';
 $_lang['Average Time'] = 'Tempo medio [s]';
 $_lang['Average score'] = 'Media';
 $_lang['Back'] = 'Volver';

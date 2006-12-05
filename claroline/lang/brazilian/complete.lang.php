@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! tamanho do repositÃ³rio do curso (incluindo o claroline e o lixo de sistemas antigos)';
 $_lang['(When an user open the index of the campus)'] = '(Quando um usuário abre o índice do campus)';
 $_lang['(d/m/y hh:mm)'] = '(dia/mês/ano hh:mm)';
@@ -96,10 +96,8 @@ $_lang['Assignment type'] = 'Tipo de Atividade';
 $_lang['Assignments help'] = 'Help  da Atividade';
 $_lang['Attach a file'] = 'Anexar arquivo';
 $_lang['Attached file'] = 'Arquivo anexado';
-$_lang['Attempt'] = 'Tentativa';
-$_lang['Attempt'] = 'Essai';
-$_lang['Attempt %attemptCount on %attempts'] = 'Tentativas %attemptCount ativo %attempts';
 $_lang['Attempt %attemptCount'] = 'Tentativas %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Tentativas %attemptCount ativo %attempts';
 $_lang['Attempts'] = 'Tentativas';
 $_lang['Attempts allowed'] = 'Tentativas permitidas';
 $_lang['Authentication'] = 'Autenticação';
@@ -108,7 +106,6 @@ $_lang['Author(s)'] = 'Autor(es)';
 $_lang['Author(s) is(are) required'] = 'Informe o(s) Autor(es)';
 $_lang['Automatically, after each submission'] = 'Automaticamente, após cada envio';
 $_lang['Automatically, after end date'] = 'Automaticamente, após a data limite';
-$_lang['Available from'] = 'Disponível a partir de';
 $_lang['Average Time'] = 'Tempo(s) médio(s.)';
 $_lang['Average score'] = 'Média';
 $_lang['Back'] = 'Voltar';
