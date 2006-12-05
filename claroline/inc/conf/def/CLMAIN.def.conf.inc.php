@@ -285,7 +285,7 @@ array ('label'       => 'Tracking'
       ,'type'        => 'boolean'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE'=>'Enabled', 'FALSE' => 'Disabled')
+      ,'acceptedValue' => array ('TRUE'=>'On', 'FALSE' => 'Off')
       );
 
 $conf_def_property_list['singleDbEnabled'] =
@@ -599,8 +599,8 @@ array ( 'description' => 'Increase the security of file download. This option on
       , 'label'       => 'Secure document download'
       , 'default'     => FALSE
       , 'type'        => 'boolean'
-      , 'acceptedValue' => array ('TRUE'=>'Yes'
-                                 ,'FALSE'=>'No'
+      , 'acceptedValue' => array ('TRUE'=>'On'
+                                 ,'FALSE'=>'Off'
                                )
       , 'display'     => TRUE
       , 'readonly'    => FALSE

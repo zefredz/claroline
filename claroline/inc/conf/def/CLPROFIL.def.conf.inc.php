@@ -140,21 +140,20 @@ array ( 'allowSelfRegProf'
       );
 
 $conf_def_property_list['can_request_course_creator_status'] =
-array ( 'label'         => '"Request a Course Creator status" command ?'
+array ( 'label'         => 'Display "Request a Course Creator status"'
       , 'description'   => 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'
       , 'display'       => true
       , 'default'       => FALSE
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Displayed'
-                                ,'FALSE' => 'Hidden'
+      , 'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
                                 )
       );
 
 $conf_def_property_list['can_request_revoquation'] =
-array ( 'label'         => 'Is user allowed to request to be deleted from platform ?'
-      , 'description'   => 'If yes, the user have access to a request system. '."\n"
-                         .'This option allow only to request it, '."\n"
-                         .'and don\'t prework the answer'."\n"
+array ( 'label'         => 'Display "Request to be deleted from the platform"'
+      , 'description'   => 'This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.'."\n"
+                         .'This option allow only to request it, and don\'t prework the answer'."\n"
       , 'display'       => true
       , 'default'       => FALSE
       , 'type'          => 'boolean'
@@ -169,8 +168,8 @@ array ('label'       => 'Creation of Course Creator account'
        ,'description' => 'Are users allowed to create themselves a Course Creator account ?'
       ,'default'     => TRUE
       ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Allowed'
-                                ,'FALSE' => 'Denied'
+      ,'acceptedValue' => array ('TRUE'  => 'On'
+                                ,'FALSE' => 'Off'
                                 )
       ,'display'     => TRUE
       ,'readonly'    => FALSE

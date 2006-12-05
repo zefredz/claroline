@@ -39,8 +39,8 @@ array ( 'linkToUserInfo'
 //PROPERTIES
 
 $conf_def_property_list['linkToUserInfo'] =
-array ('label'         => 'Show user profile'
-      ,'description'   => 'Allow user to see detail informations of other users'
+array ('label'         => 'Show user profile page'
+      ,'description'   => 'Allow users to see detailed informations about other users'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -49,8 +49,8 @@ array ('label'         => 'Show user profile'
       );
 
 $conf_def_property_list['user_email_hidden_to_anonymous'] =
-array ('label'         => 'Hidden email address to anonymous user'
-      ,'description'   => 'Don\'t display email of user to anonymous (to avoid spam)'
+array ('label'         => 'Hide email address to anonymous user'
+      ,'description'   => 'Don\'t display email of the users to anonymous (to avoid spam)'
       ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'

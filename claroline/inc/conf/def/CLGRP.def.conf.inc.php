@@ -43,8 +43,8 @@ array ( 'tutorCanBeSimpleMemberOfOthersGroupsAsStudent'
 
 //PROPERTIES
 $conf_def_property_list['multiGroupAllowed'] =
-array ( 'description' => 'Allow teacher to subscribe users in several groups'
-      , 'label'       => 'Multi group allowed'
+array ( 'label'       => 'Allow teachers to subscribe a user in several groups'
+      ,'description' => ''
       , 'default'     => TRUE
       , 'type'        => 'boolean'
       , 'display'     => TRUE
@@ -54,8 +54,8 @@ array ( 'description' => 'Allow teacher to subscribe users in several groups'
       );
 
 $conf_def_property_list['tutorCanBeSimpleMemberOfOthersGroupsAsStudent'] =
-array ( 'description' => 'A tutor attached to a group can subscribe himself to another group as a simple user.'
-      , 'label'       => 'Tutors can subscribe to a group as a simple member'
+array ( 'label'       => 'Tutors can subscribe to a group as a simple member'
+      , 'description' => 'A tutor attached to a group can subscribe himself to another group as a simple user.'
       , 'default'     => FALSE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Yes'

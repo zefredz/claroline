@@ -30,29 +30,30 @@ $conf_def['section']['CAS']['properties'] =
 array ( 'claro_CasEnabled'
       , 'claro_CasServerHostUrl'
       , 'claro_CasServerHostPort'
+      , 'claro_CasServerRoot'
       , 'claro_CasLoginString'
       );
 
 //PROPERTIES
 $conf_def_property_list['claro_CasEnabled'] =
-array ('label'         => 'Enable Cas system'
-      ,'description'   => 'if false, other field are optional'
+array ('label'         => 'Enable CAS system'
+      ,'description'   => 'If false, other field are optional'
       ,'default'       => FALSE
       ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Enabled'
-                                ,'FALSE' => 'Disabled'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
                                 )
       );
 
 $conf_def_property_list['claro_CasServerHostUrl'] =
-array ('label'         => 'Url host of CAS server'
+array ('label'         => 'Host of CAS server'
       //,'description'   => ''
       ,'default'       => 'my.cas.server.domain.com'
       ,'type'          => 'string'
       );
 
 $conf_def_property_list['claro_CasLoginString'] =
-array ('label'         => 'Label of link to cas login'
+array ('label'         => 'Label of the login url to CAS'
       //,'description'   => ''
       ,'default'       => 'Magic Login'
       ,'type'          => 'string'
@@ -60,10 +61,17 @@ array ('label'         => 'Label of link to cas login'
 
 
 $conf_def_property_list['claro_CasServerHostPort'] =
-array ('label'         => 'port of CAS server'
+array ('label'         => 'Port of CAS server'
       //,'description'   => ''
       ,'default'       => '443'
       ,'type'          => 'integer'
+      );
+
+$conf_def_property_list['claro_CasServerRoot'] =
+array ('label'         => 'Root of CAS server'
+      ,'description'   => 'Root folder of CAS (example : \'esup-cas/\')'
+      ,'default'       => ''
+      ,'type'          => 'string'
       );
 
 ?>

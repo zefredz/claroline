@@ -36,10 +36,9 @@ array ( 'enableICalInCourse'
 
 $conf_def['section']['cache']['label']='Cache settings';
 $conf_def['section']['cache']['properties'] =
-array ( 'iCalRepositoryCache'
-      , 'iCalUseCache'
-      , 'iCalCacheLifeTime'
+array ( 'iCalUseCache'
       , 'iCalRepositoryCache'
+      , 'iCalCacheLifeTime'
       );
 
 //PROPERTIES
@@ -55,7 +54,7 @@ array ('label'         => 'Enable iCal in course'
       );
 
 $conf_def_property_list['iCalRepositoryCache'] =
-array ('label'         => 'Where place iCal files.'
+array ('label'         => 'Repository for cache files'
       , 'description'  => 'Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.'
       ,'default'       => 'tmp/cache/ical/'
@@ -68,7 +67,7 @@ array ('label'         => 'Use the cache'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       , 'readonly'      => FALSE
-      , 'acceptedValue' => array('TRUE'=>'Use it, and build  on change', 'FALSE' => 'rebuild file on each request')
+      , 'acceptedValue' => array('TRUE'=>'Yes, and rebuild the file on change', 'FALSE' => 'No, rebuild the file on each request')
       );
 
 $conf_def_property_list['iCalGenStandard'] =
@@ -118,7 +117,7 @@ array (
 $conf_def_property_list['iCalCacheLifeTime'] =
 array (
         'label'         => 'Life time of cache'
-      , 'description'   => 'time before really compute data. 86400 = 1 day.'
+      , 'description'   => 'Time before really compute data. 86400 = 1 day.'
       , 'default'       => '86400'
       , 'type'           => 'integer'
       , 'unit'           => 'seconds'

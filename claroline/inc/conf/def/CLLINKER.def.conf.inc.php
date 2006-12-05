@@ -18,6 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLUSR
  *
  */
+
 // TOOL
 $conf_def['config_code'] = 'CLLINKER';
 $conf_def['config_file'] = 'linker.conf.php';
@@ -27,6 +28,7 @@ $conf_def['config_class']='kernel';
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
+
 //$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] =
 array ( 'jpspanAllowed'

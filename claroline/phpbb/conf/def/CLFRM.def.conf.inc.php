@@ -43,13 +43,13 @@ $conf_def_property_list['allow_html']
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'readonly'      => FALSE
-        ,'acceptedValue' => array ( '1'=>'Allow'
-                                  , '0'=>'Deny'
+        ,'acceptedValue' => array ( '1'=>'Yes'
+                                  , '0'=>'No'
                                   )
         );
 
 $conf_def_property_list['posts_per_page']
-= array ('label'     => 'Maximum of posts per page'
+= array ('label'     => 'Number of posts per page'
         ,'default'   => '5'
         ,'unit'      => 'posts'
         ,'type'      => 'integer'
@@ -60,7 +60,7 @@ $conf_def_property_list['posts_per_page']
         );
 
 $conf_def_property_list['topics_per_page']
-= array ('label'     => 'Maximum of topics per page'
+= array ('label'     => 'Number of topics per page'
         ,'default'   => '5'
         ,'unit'      => 'topics'
         ,'type'      => 'integer'

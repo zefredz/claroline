@@ -36,7 +36,7 @@ array ( 'showWikiEditorToolbar'
 //PROPERTIES
 
 $conf_def_property_list['showWikiEditorToolbar'] =
-array ('label'         => 'Show wiki syntax toolbar in wiki editor'
+array ('label'         => 'Show wiki syntax toolbar'
  //     ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
@@ -46,7 +46,7 @@ array ('label'         => 'Show wiki syntax toolbar in wiki editor'
       );
 
 $conf_def_property_list['forcePreviewBeforeSaving'] =
-array ('label'         => 'Force preview before saving in wiki editor'
+array ('label'         => 'Force text preview before saving it'
     //  ,'description'   => '...'
       ,'default'       => FALSE
       ,'type'          => 'boolean'

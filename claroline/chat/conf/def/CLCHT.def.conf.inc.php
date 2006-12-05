@@ -25,24 +25,22 @@ $conf_def['config_name']='Chat tool';
 $conf_def['config_class']='tool';
 
 
-$conf_def['section']['main']['label']='Main Settings';
-$conf_def['section']['main']['properties'] =
-array ( 'refresh_display_rate'
-      ,'max_line_in_file'
-      );
-
 $conf_def['section']['display']['label']='Display Settings';
 $conf_def['section']['display']['properties'] =
-array ( 'max_nick_length'
-      , 'max_line_to_display'
+array ( 'refresh_display_rate' , 
+        'max_nick_length' , 
+        'max_line_to_display'
       );
+
+$conf_def['section']['advanced']['label']='Advanced Settings';
+$conf_def['section']['advanced']['properties'] =
+array ( 'max_line_in_file' );
+
 
 $conf_def_property_list['refresh_display_rate'] =
 array ( 'label'       => 'Refresh time'
-      , 'description' => 'Time to automatically refresh the user screen'."\n"
-                       . 'Each refresh is a request to your server.'."\n"
-                       . 'Too low value can be hard for your server.'."\n"
-                       . 'Too high value can be hard for user.'."\n"
+      , 'description' => 'Time to automatically refresh the user screen. Each refresh is a request to your server.'."\n"
+                       . 'Too low value can be hard for your server. Too high value can be hard for user.'."\n"
       , 'default'     => '10'
       , 'unit'        => 'seconds'
       , 'acceptedValue' => array( 'min' => 4, 'max' => 90)
@@ -64,11 +62,10 @@ array ( 'label'         => 'Maximum conversation lines'
       );
 
 $conf_def_property_list['max_line_in_file'] =
-array ( 'label'       => 'Maximum conversation lines in buffer'
+array ( 'label'       => 'Maximum conversation lines in chat file'
       , 'description' => 'Maximum lines in the active chat file. '
-                        .'For performance, it\'s interresting '
-                        .'to not work with too big file.'."\n"
-                        .' Note that this value don\'t reduce the saved file'
+                        .'For performance, it\'s interesting '
+                        .'to not work with too big file.'
       , 'default'     => '200'
       , 'unit'        => 'lines'
       , 'type'        => 'integer'
@@ -76,12 +73,10 @@ array ( 'label'       => 'Maximum conversation lines in buffer'
 
 $conf_def_property_list['max_nick_length'] =
 array ( 'label'       => 'Maximum lengh for a nick'
-      , 'description' => 'If  name and firstname is longer '
-                       . 'than this value, the script reduce it.'."\n"
-                       . 'For revelance, it\'s interresting '
-                       . 'to not work with to littel value'
+      , 'description' => 'If the name and the firstname are longer than this value, the script reduce it.'."\n"
+                       . 'For revelance, it\'s interesting to not work with to little value'
       , 'default'     => '20'
-      , 'unit'        => 'charachers'
+      , 'unit'        => 'characters'
       , 'acceptedValue' => array( 'min' => 5, 'max' => 60)
       , 'type'        => 'integer'
       );
