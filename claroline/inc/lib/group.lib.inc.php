@@ -88,9 +88,8 @@ function delete_groups($groupIdList = 'ALL')
 
     $tbl_c_names = claro_sql_get_course_tbl();
 
-    $tbl_groups           = $tbl_c_names['group_team'         ];
-    $tbl_groupsUsers      = $tbl_c_names['group_rel_team_user'];
-    $tbl_Forums           = $tbl_c_names['bb_forums'          ];
+    $tbl_groups      = $tbl_c_names['group_team'         ];
+    $tbl_groupsUsers = $tbl_c_names['group_rel_team_user'];
 
     require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
     require_once $GLOBALS['includePath'] . '/lib/forum.lib.php';

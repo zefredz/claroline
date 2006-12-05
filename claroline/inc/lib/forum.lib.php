@@ -1048,7 +1048,6 @@ function delete_all_post_in_forum($forumId)
     $tbl_topics                  = $tbl_cdb_names['bb_topics'                 ];
     $tbl_posts                   = $tbl_cdb_names['bb_posts'                  ];
     $tbl_posts_text              = $tbl_cdb_names['bb_posts_text'             ];
-    $tbl_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
     $sql = "SELECT post_id FROM `" . $tbl_cdb_names['bb_posts'] . "`
             WHERE forum_id = " . (int) $forumId;
@@ -1317,7 +1316,6 @@ function move_forum_rank($currForumId, $direction)
     }
 
     $tbl_cdb_names    = claro_sql_get_course_tbl();
-    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
     $forumSettingList = get_forum_settings($currForumId);
     $cat_id           = $forumSettingList['cat_id'];
