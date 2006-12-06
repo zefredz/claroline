@@ -71,7 +71,7 @@ $is_allowedToAdmin     = $is_platformAdmin;
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
-    $controlMsg['warning'][] = get_lang('<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect this directory or to remove it from your server');
+    $controlMsg['warning'][] = get_block('blockWarningRemoveInstallDirectory');
 }
 
 // ----- is install visible ----- end

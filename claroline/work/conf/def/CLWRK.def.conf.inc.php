@@ -21,10 +21,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code'] = 'CLWRK';
 $conf_def['config_file'] = 'CLWRK.conf.php';
-$conf_def['config_name'] = 'Assignments tool';
+$conf_def['config_name'] = 'Assignments';
 $conf_def['config_class']= 'tool';
 
-$conf_def['section']['main']['label']      = ' Main';
+$conf_def['section']['main']['label']      = 'Main';
 $conf_def['section']['main']['properties'] =
 array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'assignmentsPerPage', 'usersPerPage' );
 

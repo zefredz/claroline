@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 $conf_def['config_file']='CLCHT.conf.php';
 $conf_def['config_code']='CLCHT';
-$conf_def['config_name']='Chat tool';
+$conf_def['config_name']='Chat';
 $conf_def['config_class']='tool';
 
 

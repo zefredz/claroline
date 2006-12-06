@@ -25,7 +25,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 $conf_def['config_code'] = 'CLDOC';
 $conf_def['config_file'] = 'CLDOC.conf.php';
-$conf_def['config_name'] = 'Documents and Links tool';
+$conf_def['config_name'] = 'Documents and Links';
 $conf_def['config_class']= 'tool';
 
 // CONFIG SECTIONS

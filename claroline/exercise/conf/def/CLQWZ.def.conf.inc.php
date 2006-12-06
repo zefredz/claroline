@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code'] = 'CLQWZ';
 $conf_def['config_file'] = 'CLQWZ.conf.php';
-$conf_def['config_name'] = 'Exercise tool';
+$conf_def['config_name'] = 'Exercises';
 $conf_def['config_class']='tool';
 
 
