@@ -114,9 +114,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         $tblList = claro_sql_get_course_tbl();
 
-        $mainPageContent = sprintf(
-            get_lang("This is the main page of the Wiki %s. Click on '''Edit''' to modify the content.")
-            , $wikiTitle );
+        $mainPageContent = sprintf(get_lang("This is the main page of the Wiki %s. Click on '''Edit''' to modify the content."), $wikiTitle );
+        $mainPageContent = get_lang("This is the main page of the Wiki %wikiTitle. Click on '''Edit''' to modify the content.", array('%wikiTitle'=>$wikiTitle ));
+
 
         $config = array();
         // use claro functions
