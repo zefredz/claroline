@@ -126,7 +126,7 @@ foreach ($toolList as $thisTool)
         if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
         else $toolName = '<i>no name</i>';
         $url           = trim($thisTool['url']);
-        $icon = $imgRepositoryWeb .'/tool.gif';
+        $icon = $imgRepositoryWeb . '/tool.gif';
         $removableTool = true;
     }
 
@@ -134,9 +134,13 @@ foreach ($toolList as $thisTool)
     $classItem = (in_array($thisTool['id'], $modified_tools)) ? ' hot' : '';
 
     //deal with specific case of group tool
-    if (is_null('_uid') && ('CLGRP___' == $thisTool['label']))
+
+    // TODO : get_notified_groups can know itself if $_uid is set
+    pushClaroMessage($thisTool['label']);
+    if ( $_uid && ('CLGRP' == $thisTool['label']))
     {
         // we must notify if there is at least one group containing notification
+
         $groups = $claro_notifier->get_notified_groups($_cid, $date);
         $classItem = ( ! empty($groups) ) ? ' hot ' : '';
     }
@@ -169,7 +173,7 @@ foreach ($toolList as $thisTool)
     .                             get_lang('Course settings')
     .                             '</a>'
     ;
-    
+
     if( get_conf('is_trackingEnabled') )
     {
         $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php">'
