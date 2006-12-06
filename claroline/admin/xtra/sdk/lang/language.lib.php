@@ -517,7 +517,13 @@ function detect_get_lang($tokenList)
                     }
                     elseif ( is_string($thisToken) && $thisToken == ',')
                     {
-                        // bracket close - end parsing of parameters
+                        // comma, end parsing of parameters
+                        $i++;
+                        break;
+                    }
+                    elseif ( is_int($thisToken[0]) && ( $thisToken[0] == T_VARIABLE ) )
+                    {
+                        // variable - end parsing
                         $i++;
                         break;
                     }
