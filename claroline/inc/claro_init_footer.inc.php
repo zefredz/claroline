@@ -58,9 +58,14 @@ $platformManagerOutput = '<div id="platformManager">'
                        . '<a href="mailto:' . get_conf('administrator_email')
                        . '?subject=[' . rawurlencode( get_conf('siteName') ) . ']'.'">'
                        . get_conf('administrator_name')
-                       . '</a>'
-                       . '</div>'
-                       ;
+                       . '</a>';
+
+if ( get_conf('administrator_phone') != '' )
+{
+    $platformManagerOutput .= '<br />' . "\n" . get_lang('Phone : %phone_number', array('%phone_number' => get_conf('administrator_phone'))) ;
+}
+
+$platformManagerOutput .= '</div>' ;
 
 $footerRightDock->addOutput($platformManagerOutput,true);
 
