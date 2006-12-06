@@ -44,7 +44,6 @@ $_lang['(version of %1\$s modified by %2\$s)'] = '(verze z %1$s upravená %2$s)';
 $_lang['- none -'] = '- ¾ádný -';
 $_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>Od</b> %startDate <b>do</b> %endDate';
 $_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>Od/b> %start_date <b>do</b> %end_date';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Poznámka :</b> Adresáø, který obsahuje instalaèní proces Claroline (<code>claroline/install/</code>) je stále pøístupný z Internetu. To znamená, ¾e kdokoli mù¾e pøeinstalovat Va¹i pøedchozí instalaci. Je dùraznì doporuèeno odstranit nebo pøesunout tento adresáø.';
 $_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Zabezpeèení :</b> Doporuèujeme nastavit register_globals na off v php.ini';
 $_lang['<b>Warning : </b>'] = '<b>Varování : </b>';
 $_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = '<i>%firstname %lastname</i> byl(a) úspì¹nì zaregistrován(a) do kurzu.';

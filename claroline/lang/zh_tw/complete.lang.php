@@ -9,7 +9,6 @@ $_lang['(none)'] = '(無)';
 $_lang['(optional)'] = '(可選)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(版本 %1$s 由 %2$ 修改)';
 $_lang['- none -'] = '- 無 -';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>注意：</b>包含 Claroline 安裝程式(<code>claroline/install/</code>) 的目錄仍然可以瀏覽。這將意味著任何人都可以重新安裝 Claroline 使您以前的安裝毀壞。我們強烈推薦您在伺服器上保存或刪除此目錄。';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> 為必須填寫';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>核准</strong><p>您的虛擬校園註冊已經被Claroline團隊核准。<br />Claroline國際網頁上已經連結了您的電子校園。</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>刪除</strong><p>您的虛擬校園註冊沒有被啟用，如果您認為是一個錯誤的話，請聯繫我們或者瀏覽我們的網站。</p>';

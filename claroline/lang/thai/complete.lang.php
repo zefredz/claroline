@@ -16,7 +16,6 @@ $_lang['(version of %1\$s modified by %2\$s)'] = '(เวอร์ชั่นของ %1$s พัฒนาโดย %2
 $_lang['- none -'] = '- ยังไม่มี -';
 $_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>เริ่มจาก</b> %startDate <b>จนถึง</b> %endDate';
 $_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>เริ่มจาก</b> %start_date <b>จนถึง</b> %end_date';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>คำเตือน :</b> ไฟล์แฟ้มรายการที่เป็นส่วนประกอบของกระบวนการติดตั้งระบบชื่อ claroline/install ยังคงสามารถค้นแสดงทางอินเตอร์เน็ตได้ ซึ่งหมายความว่า หากมีผู้รู้ในการเรียกใช้คำสั่ง การติดตั้งระบบนี้ ผ่านทางอินเตอร์เน็ต ก็จะสามารถติดตั้งระบบทับใหม่อีกครั้งได้เช่นกัน ดังนั้นเพื่อเป็นการรักษาความปลอดภัยให้แก่ระบบคลาโรไลน์ที่ทำการติดตั้งไว้แล้วนี้ ขอแนะนำว่าให้คุณดำเนินการป้องกันด้วยการเปลี่ยนชื่อแฟ้มรายการเป็นชื่อใหม่ หรือลบออกจากเครื่องแม่ข่ายของคุณ';
 $_lang['<b>Warning : </b>'] = '<b>คำเตือน : </b>';
 $_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> คือช่องรายการที่ต้องกรอกข้อมูล';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> คือช่องรายการที่จำเป็นต้องกรอกข้อมูล จึงจะดำเนินการต่อไปได้ หากไม่มีเครื่องหมายกำกับไว้ก็คือ ให้เพิ่มเติมภายหลังได้';

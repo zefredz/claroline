@@ -9,7 +9,6 @@ $_lang['(none)'] = '(semmi)';
 $_lang['(optional)'] = '(opcionális)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(verzió: %1$s módosítva: %2$s által)';
 $_lang['- none -'] = '-semmi-';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Megjegyzés :</b>A Claroline telepítõanyagát tartalmazó könyvtár (<code>claroline/install/</code>) még mindig megtalálható a neten. Ez azt jelenti, hogy bárki újratelepítheti a Claroline-t és tönkreteheti a meglévõ telepítést. Javasoljuk, hogy védje le a könyvtárat, vagy egyszerûen törölje a szerverrõl';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> kötelezõ mezõt jelöl';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Elfogadva</strong><p>A regisztrációját elfogadta a Claroline.net csapat.<br />Egy link mutat az Ön Campus-ára a Claroline.net Worldwide oldalán.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Törölve</strong><p>Az Ön felhasználói profilja deaktiválásra került, lépjen velünk kapcsolatba, ha ön szerint ez tévedés</p>';

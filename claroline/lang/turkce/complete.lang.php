@@ -3,10 +3,6 @@ $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s  %2$s tarihinde %3$s tarafýnd
 $_lang['(d/m/y hh:mm)'] = '(gün/ay/yýl saat:dakika)';
 $_lang['(none)'] = '(yok)';
 $_lang['(optional)'] = '(seçimlik)';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Notice :</b> Site yükleme modülünüz web ortamýnda görünür durumda. 
-Kötü niyetli kiþiler tarafýndan yeniden kurulum yapýlmaya ve siteniz çalýnmaya açýk konumda görünüyor.
-Bunu önlemek için sunucunuzdaki (<code>claroline/install/</code>)\'i ya sað týklayýp özelliklerini \'gizli\'ye deðiþtirerek
-yada tamamen silerek ulaþýlmaz hale getirin.';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> iþaretli bölümlerin doldurulmasý zorunludur';
 $_lang['A reply to your topic has been posted'] = 'Gönderinize yanýt verildi';
 $_lang['Access to campus'] = 'Siteye giriþ istatistiði';

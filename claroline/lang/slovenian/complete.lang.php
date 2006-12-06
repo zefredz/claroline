@@ -9,7 +9,6 @@ $_lang['(none)'] = '(ni)';
 $_lang['(optional)'] = '(opcijsko)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(verzija %1$s, ki jo je spremenil %2$s)';
 $_lang['- none -'] = '- nièesar -';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Obvestilo:</b> imenik, ki vsebuje va¹ namestitveni proces Claroline (<code>claroline/install/</code>) je ¹e vedno viden v Internetu. To pomeni, da lahko kdorkoli ponovno namesti Claroline in pokvari va¹o prej¹njo namestitev. Zelo priporoèamo, da za¹èitite ta imenik ali ga odstranite iz va¹ega stre¾nika';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> oznaèuje obvezno polje';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Odobreno</strong><p>Registracija va¹ega kampusa je bila odobrena s strani ekipe Claroline.net.<br />Povezava na va¹ kampus je prikazana na mednarodni strani spleti¹èa Claroline.net.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Zbrisano</strong><p>Registracija va¹ega kampusa je bila deaktivirana, kontaktirajte nas (glej na¹e spleti¹èe), èe mislite da se je zgodila napaka.</p>';

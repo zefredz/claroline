@@ -9,7 +9,6 @@ $_lang['(none)'] = '(κανένας)';
 $_lang['(optional)'] = '(προαιρετικό)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(έκδοση από %1$s τροποποιημένή απο%2$s)';
 $_lang['- none -'] = '- κανένα -';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b> Ειδοποίηση :</b> Ο κατάλογος που περιέχει το φάκελο εγκατάστασης το (<code>claroline/install/</code>) μπορεί να πλοηγηθεί απο το διαδίκτυο. Αυτό σημαίνει ότι ο οποιοσδήποτε μπορεί να επανεγκαταστήσει το Claroline και να συντρίψει την προηγούμενη εγκατάσταση. Σου προτείνουμε να προστατεύσεις το κατάλογο ή να το διαγράψεις απο τον εξυπηρέτη σου';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> δείχνει απαραίτητο πεδίο ';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Εγκρίθηκε</strong><p>Η εγγραφή σας στο campus έχει γίνει αποδεκτή απο την ομάδα του Claroline.net .<br />Σύνδεση με το campus σου. Φαίνεται στην σελίδα του Claroline.net.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Διαγραμμένο</strong><p>Η εγγραφή σας στο campus έχει απενεργοποιηθεί, επικοινωνήστε μαζί μας εαν θεωρείτε ότι υπάρχει κάποιο σφάλμα.</p>';

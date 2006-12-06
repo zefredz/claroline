@@ -43,7 +43,6 @@ $_lang['(version of %1\$s modified by %2\$s)'] = '(versione del %1$s modificata 
 $_lang['- none -'] = ' - nessun file -';
 $_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>Da</b> %startDate <b>a</b> %endDate';
 $_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>Da</b> %start_date <b>a</b> %end_date';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Avvertenza:</b> la cartella contenente l\'installazione di Claroline (<code>claroline/install/</code>) è ancora accessibile dal web. Ciò significa che chiunque potrà reinstallare Claroline ed eliminare la tua precedente installazione. Si raccomanda vivamente di proteggere questa cartella o di rimuoverla dal server.';
 $_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Sicurezza:</b> Si raccomanda di impostare register_globals a off nel file php.ini';
 $_lang['<b>Warning : </b>'] = '<b>Attenzione: </b>';
 $_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = '<i>%firstname %lastname</i> è stato registrato nel corso con successo';

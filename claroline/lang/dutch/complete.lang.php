@@ -9,7 +9,6 @@ $_lang['(none)'] = '(geen)';
 $_lang['(optional)'] = '(facultatief)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(versie van %1$s gewijzigt door %2$s)';
 $_lang['- none -'] = '- geen -';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Opmerking:</b> De map die Claroline instal script bevat <code>claroline/install/</code>) IS nog steeds aanwezig en bereikbaar via het web. Wat wil zeggen dat iedereen Claroline kan herinstalleren en jouw vorige installatie vernietiggen.We raden ten stelligste aan om deze map van je server te verwijderen , of ze onbereikbaar te maken voor bezoekers.';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> Moeten ingevuld zijn';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Goedgekeurd</strong><p>uw campus registratie is goedgekeurd door het Claroline.net team.<br />Een link naar uw campus is te zien op de Worldwide page van Claroline.net.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>verwijderd</strong><p>uw campus registratie is gedeactiveerd, contacteer ons (zie onze website) als U denkt dat dit een fout is.</p>';

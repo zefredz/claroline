@@ -9,17 +9,6 @@ $_lang['(none)'] = '(ning&uacute;n)';
 $_lang['(optional)'] = '(opcional)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(versi&oacute;n de %1$s modificada por %2$s)';
 $_lang['- none -'] = '- ning&uacute;n ficheiro -';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Atenci&oacute;n:</b> o directorio que cont&eacute;n o proceso de instalaci&oacute;n
-
-									da s&uacute;a plataforma Claroline (<code>claroline/install/</code>) &eacute; a&iacute;nda
-
-									navegable v&iacute;a web. Isto significa que calquera pode relanza-lo proceso de instalaci&oacute;n
-
-									da s&uacute;a plataforma, destrozando as&iacute; a instalaci&oacute;n que previamente vostede
-
-									realizou. Recomend&aacute;moslle encarecidamente que estableza permisos que protexan este
-
-									directorio ou ben que o elimine do seu servidor.';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> campo obrigatorio';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Aprobado</strong><p>O seu rexistro na plataforma foi aceptado polo equipo de
 Claroline.net.<br />Ser&aacute; engadido na p&aacute;xina web de Claroline.net un enlace &oacute; seu campus.</p>';

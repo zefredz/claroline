@@ -9,7 +9,6 @@ $_lang['(none)'] = '(brak)';
 $_lang['(optional)'] = '(opcjonalnie)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(wersja %1$s zmodyfikowana przez %2$s)';
 $_lang['- none -'] = '- ¿aden -';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Uwaga :</b> Katalog zawieraj±cy proces instalacji Claroline jest ci±gle mo¿liwy do ogl±dniêcia przez sieæ. To oznacza, ¿e ka¿dy mo¿e zreinstalowaæ Claroline i uszkodziæ Twoj± poprzedni± instalacjê. Bardzo rekomendujemy zabezpieczyæ ten katalog lub usun±æ go ze serwera';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> oznacza wymagane pole';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Zaaprobowany</strong><p>Twoja rejestracja kampusu zosta³a zaaprobowana przez grupê Claroline.net.<br />Link do Twojego kampusu jest widoczny na ¶wiatowej stronie Claroline.net.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Skasowany</strong><p>Deaktywowano rejestracjê Twojego kampusu, skontaktuj siê z nami (patrz nasza strona) je¶li uwa¿asz, ¿e to b³±d.</p>';

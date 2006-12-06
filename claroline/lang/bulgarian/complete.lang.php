@@ -35,7 +35,6 @@ $_lang['(version of %1\$s modified by %2\$s)'] = '(версия от %1$s променена от %
 $_lang['- none -'] = '- без -';
 $_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>От</b> %startDate <b>до</b> %endDate';
 $_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>От</b> %start_date <b>до</b> %end_date';
-$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Внимание :</b> Директорията съдържаща инсталационния процес на Claroline (<code>claroline/install/</code>)все още е видима в интернет. Това значи, че всеки би могъл да преинсталира Claroline и унищожи направеното от Вас. Настоятелно препоръчваме да защитите или премахнете тази директория';
 $_lang['<b>Warning : </b>'] = '<b>Внимание : </b>';
 $_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = '<i>%firstname %lastname</i> успешно се регистрира за курса';
 $_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = '<i>%firstname %lastname</i> не е регистриран успешно за курса';
