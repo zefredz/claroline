@@ -49,11 +49,14 @@ $urlEditConf = 'config_edit.php';
 // Each one corresponding to a config file.
 
 // Set  order of some know class and  set an name
-$def_class_list['platform']['name'] = 'Platform';
-$def_class_list['course']['name']   = 'Course';
-$def_class_list['user']['name']     = 'User';
-$def_class_list['tool']['name']     = 'Tool';
-$def_class_list['others']['name']   = 'Others';
+$def_class_list['platform']['name'] = get_lang('Platform');
+$def_class_list['course']['name']   = get_lang('Courses');
+$def_class_list['user']['name']     = get_lang('Users');
+$def_class_list['tool']['name']     = get_lang('Course tools');
+$def_class_list['auth']['name']     = get_lang('Authentication');
+$def_class_list['groups']['name']   = get_lang('Groups');
+$def_class_list['kernel']['name']   = get_lang('Kernel');
+$def_class_list['others']['name']   = get_lang('Others');
 
 $def_list = get_config_code_class_list();
 
@@ -99,7 +102,7 @@ if ( is_array($def_class_list) )
         {
             $sectionName = $class_def_list['name'];
 
-            echo '<h4>' . get_lang($sectionName) . '</h4>' . "\n";
+            echo '<h4>' . $sectionName . '</h4>' . "\n";
 
             asort($class_def_list['conf']);
 
