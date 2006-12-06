@@ -136,7 +136,6 @@ foreach ($toolList as $thisTool)
     //deal with specific case of group tool
 
     // TODO : get_notified_groups can know itself if $_uid is set
-    pushClaroMessage($thisTool['label']);
     if ( $_uid && ('CLGRP' == $thisTool['label']))
     {
         // we must notify if there is at least one group containing notification
