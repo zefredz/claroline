@@ -240,9 +240,19 @@ if ( !class_exists('ScormExport') )
             $attachedFilePathWeb = 'Exercises';
             $attachedFilePathSys = $this->destDir . '/Exercises';
     
+            // read the exercise
+            $quiz = new Exercise();
+            if (! $quiz->load($quizId))
+            {
+                $this->error[] = get_lang('Unable to load the exercise');
+                return false;
+            }
+                
     // Generate standard page header
-            $pageHeader = '<html>
+            $pageHeader = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
     <head>
+    <title>'.$quiz->getTitle().'</title>
     <meta http-equiv="expires" content="Tue, 05 DEC 2000 07:00:00 GMT">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Content-Type" content="text/HTML; charset='.$charset.'"  />
@@ -259,13 +269,7 @@ if ( !class_exists('ScormExport') )
         <table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n";
     
     
-            // read the exercise
-            $quiz = new Exercise();
-            if (! $quiz->load($quizId))
-            {
-                $this->error[] = get_lang('Unable to load the exercise');
-                return false;
-            }
+
     
             // Get the question list
             $questionList = $quiz->getQuestionList();
@@ -303,9 +307,8 @@ if ( !class_exists('ScormExport') )
                     '<tr>' . "\n" . '<td>' . "\n"
                 .	$scormQuestion->export() . "\n"
                 .	'</td>' . "\n" . '</tr>' . "\n";
-    
-                /*
-                if ( !empty($attachedFile))
+/*    
+                if( !empty($scormQuestion->getAttachment()) )
                 {
                     // copy the attached file
                     if ( !claro_copy_file($this->srcDirExercise . '/' . $attachedFile, $this->destDir . '/Exercises') )
@@ -320,7 +323,7 @@ if ( !class_exists('ScormExport') )
     
                     $pageBody .= '<tr><td colspan="2">' . display_attached_file($attachedFile) . '</td></tr>' . "\n";
                 }
-            */
+*/
                 /*
                  * Display the possible answers
                  */
@@ -355,6 +358,7 @@ if ( !class_exists('ScormExport') )
         var fillAnswerList = new Array();' . "\n";
     
             // This is the actual code present in every exported exercise.
+            // use html_entity_decode in output to prevent double encoding errors with some languages...
             $pageHeader .= '
     
         function calcScore()
@@ -392,7 +396,7 @@ if ( !class_exists('ScormExport') )
                 doLMSCommit();
                 doLMSFinish();
                 scoreCommited = true;
-                if(showScore) alert(\''.clean_str_for_javascript(get_lang('Score')).' :\n\' + rawScore + \'/\' + weighting );
+                if(showScore) alert(\''.clean_str_for_javascript(html_entity_decode(get_lang('Score'))).' :\n\' + rawScore + \'/\' + weighting );
             }
         }
     
