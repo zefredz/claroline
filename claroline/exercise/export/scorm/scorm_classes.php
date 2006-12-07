@@ -53,7 +53,19 @@ class ScormQuestion extends Question
 	
 	function export()
 	{
-		$out = $this->getQuestionHtml();
+	    // TODO : we cannot use $this->getQuestionHtml(); as it display attachement too
+       	$out = '<p>'
+        .   '<strong>'.$this->title.'</strong>' . "\n"
+        .   '</p>' . "\n"
+		.   '<blockquote>' . "\n" . claro_parse_user_text($this->description) . "\n" . '</blockquote>' . "\n\n";
+		
+		if( !empty($this->attachment) ) 
+    	{
+    		// TODO : attached file handling
+    		// filepath to the relative position in the exported file structure
+    		// $out .= claro_html_media_player($destDir.$this->attachment);
+    	}
+
 		
 		if( is_object($this->answer) )
 		{
