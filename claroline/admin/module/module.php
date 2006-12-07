@@ -102,7 +102,7 @@ switch ( $cmd )
     {
         if (deactivate_module($moduleId))
         {
-            $dialogBox = get_lang('Module deactivation failed');
+            $dialogBox = get_lang('Module deactivation succeeded');
             $module['activation']  = 'deactivated';
         }
         else
