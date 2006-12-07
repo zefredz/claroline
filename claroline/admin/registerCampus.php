@@ -334,9 +334,7 @@ if( isset($_REQUEST['register']) )
         $dialogBox = get_lang('An error occurred while contacting Claroline.net');
     }
 }
-
-// -- get current status
-if( !isset($_REQUEST['register']) )
+else
 {
     $parameters = array('campusUrl' => get_conf('rootWeb'));
     $soapResponse = $soapclient->call('getCampusRegistrationStatus', $parameters);
@@ -365,7 +363,7 @@ if( !isset($_REQUEST['register']) )
         }
         $alreadyRegistered = TRUE;
     }
-    // else : there is no current status or an erroe occurred so don't show current status
+    // else : there is no current status or an error occurred so don't show current status
 }
 
 /*============================================================================
@@ -387,7 +385,7 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
     echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
         .'<ul>'."\n"
         .'<li>'.get_lang('Campus name').' : '.stripslashes( get_conf('siteName')) . '</li>'."\n"
-        .'<li>'.get_lang('URL').'<a href="' . get_conf('rootWeb') . '">' . get_conf('rootWeb') . '</a></li>'."\n"
+        .'<li>'.get_lang('URL').' : <a href="' . get_conf('rootWeb') . '">' . get_conf('rootWeb') . '</a></li>'."\n"
         .'<li>'.get_lang('Institution').' : '.stripslashes($institution_name).'</li>'."\n"
         .'<li>'.get_lang('Institution URL') . ' : <a href="' . get_conf('institution_url') . '">' . get_conf('institution_url') . '</a></li>'."\n"
         .'<li>'.get_lang('Email').' : '.$administrator_email.'</li>'."\n"
