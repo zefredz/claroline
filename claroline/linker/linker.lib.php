@@ -486,22 +486,25 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     }
 
    /**
-    * display the list of the resources which are related to a resource
+    * get the html formated list of the resources related to a given resource
     *
     * @param string tLable tool label if different form current tool
     * @todo TODO move hr and add class to CSS
+    * @return string html code of the list
     */
     function linker_display_resource( $tLabel = NULL )
     {
         $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
         $baseServUrl = get_conf('rootWeb');
+        
+        $output = '';
 
         if ( is_array($linkList) && count($linkList) > 0 )
         {
             //style=\"margin-top:1em;\"
-            echo "<hr />\n";
-            echo "<div  class=\"linkerResourceList\">\n";
+            $output .=  "<hr />\n";
+            $output .= "<div  class=\"linkerResourceList\">\n";
             
             $resourceList = array();
 
@@ -516,11 +519,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     ;
             }
             
-            echo implode( "<br />\n", $resourceList );
+            $output .= implode( "<br />\n", $resourceList );
             
-            echo "</div>\n";
-            echo "<hr />\n";
+            $output .= "</div>\n";
+            $output .= "<hr />\n";
         }
+        
+        return $output;
     }
 
     /**

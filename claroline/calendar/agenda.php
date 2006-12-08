@@ -593,7 +593,8 @@ foreach ( $eventList as $thisEvent )
         .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
         .    '</div>' . "\n"
         ;
-        linker_display_resource();
+        
+        echo linker_display_resource();
     }
 
     if ($is_allowedToEdit)

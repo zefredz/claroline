@@ -313,7 +313,7 @@ if ($intro_dispDefault)
                     $section .= '<div style="text-align:center;background-color:silver;margin:3px;">' . get_lang('This zone is empty') . '</div>' . "\n";
                 }
 
-                linker_display_resource('CLINTRO_');
+                $section .= linker_display_resource('CLINTRO_');
 
 
                 if ($intro_dispCommand)

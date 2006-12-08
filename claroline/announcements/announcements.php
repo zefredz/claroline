@@ -647,7 +647,7 @@ if ($displayList)
             .    '</div>' . "\n"
             ;
 
-            linker_display_resource();
+            echo linker_display_resource();
        
             if ($is_allowedToEdit)
             {
