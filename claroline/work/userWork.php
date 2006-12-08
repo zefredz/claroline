@@ -968,10 +968,10 @@ if( $is_allowedToSubmit )
 			// description of assignment
 			if( trim($assignment->getDescription()) != '' )
 			{
-			    echo '<div>' . "\n" . '<small>' . "\n"
-			    .    '<b>' . get_lang('Description') . '</b><br />' . "\n"
+			    echo '<b><small>' . get_lang('Description') . '</small></b><br />' . "\n"
+			    .    '<blockquote>' . "\n" . '<small>' . "\n"
 			    .    claro_parse_user_text($assignment->getDescription())
-			    .    '</small>' . "\n" . '</div>' . "\n"
+			    .    '</small>' . "\n" . '</blockquote>' . "\n"
 			    .    '<br />' . "\n"
 			    ;
 			}
