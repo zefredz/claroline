@@ -2350,7 +2350,7 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dd>Click on the icon in the \'Export\' column to export a Wiki as a HTML file in the course documents tool.</dd>
 </dl>';
 $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
-<h2>1. Basic syntax</h2>
+<h2>Basic syntax</h2>
 <dl class="wikiHelp">
 <dt>Creating wiki pages and links between them</dt>
 <dd><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</dd>
@@ -2373,7 +2373,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dt>Paragraph</dt>
 <dd>Separate paragraphs with one or more new lines&nbsp;;</dd>
 </dl>
-<h2>2. Advanced syntax</h2>
+<h2>Advanced syntax</h2>
 <dl class="wikiHelp">
 <dt>Footnote</dt>
 <dd><code>$$footnote text$$</code>&nbsp;;</dd>
@@ -2393,10 +2393,18 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>@@your code here@@</code>&nbsp;;</dd>
 <dt>Named anchor</dt>
 <dd><code>~anchor~</code>&nbsp;;</dd>
-<dt>Table</dt>
-<dd><code>{|</code>&nbsp; start of table (must be on a new ligne)</dd>
-<dd><code>||first cell|second cell|...||</code> table row (on one line)</dd>
-<dd><code>|}</code> end of table (must be on a new ligne)</dd>
+</dl>
+<h2>Table syntax</h2>
+<dl>
+<dt>Simple table</dt>
+<dd><code>{|</code>&nbsp;: start of table (must be on a new ligne)</dd>
+<dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
+<dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
+<dt>Complete table</dt>
+<dd><code>{|Caption text</code>&nbsp;: start of table (must be on a new ligne)</dd>
+<dd><code>||!first column title|!second column title|...||</code>&nbsp;: column header</dd>
+<dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
+<dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
 </dl>';
 $_lang['boolean'] = 'boolean';
 $_lang['click here'] = 'click here';

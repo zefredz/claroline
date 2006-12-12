@@ -2342,7 +2342,7 @@ Pour chaque type d\'utilisateur, vous pouvez activer/désactiver trois types de d
 <dd>Cliquez sur l\'icône située dans la colonne \'Exporter\' pour exporter un Wiki sous forme de document HTML dans les documents du cours.</dd>
 </dl>';
 $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
-<h2>1. Syntaxe de base</h2>
+<h2>Syntaxe de base</h2>
 <dl class="wikiHelp">
 <dt>Création de pages et liens vers des pages du Wiki</dt>
 <dd><strong>Mots Wiki</strong> :les mots Wiki sont des mots du type <em>MotWiki</em>. Wiki2xhtml les reconnait automatiquement comme étant des liens vers de pages du Wiki. Pour créer une page ou créer un lien vers cette page, ajoutez son titre en mot Wiki, par example <em>MaPage</em>, au contenu d\'une page déjà existante et enregistrez vos modifications. Le titre en mot Wiki <em>MaPage</em> sera transformé automatiquement en lien vers la page de Wiki <em>MaPage</em> par wiki2xhtml&nbsp;;</dd>
@@ -2365,7 +2365,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dt>Paragraphes</dt>
 <dd>Séparer les paragraphes par une ou plusieurs ligne(s) vide(s)&nbsp;;</dd>
 </dl>
-<h2>2. Syntaxe avancée</h2>
+<h2>Syntaxe avancée</h2>
 <dl class="wikiHelp">
 <dt>Note en bas de page</dt>
 <dd><code>$$texte de la note$$</code>&nbsp;;</dd>
@@ -2385,10 +2385,18 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>@@code ici@@</code>&nbsp;;</dd>
 <dt>Ancre</dt>
 <dd><code>~ancre~</code>&nbsp;;</dd>
-<dt>Tableau</dt>
-<dd><code>{|</code> début de tableau (doit être sur une nouvelle ligne)</dd>Insérer mon module
-<dd><code>||first cell|second cell|...||</code> ligne de tableau (sur une ligne)</dd>
-<dd><code>|}</code> fin de tableau (doit être sur une nouvelle ligne)</dd>
+</dl>
+<h2>Tableaux</h2>
+<dl>
+<dt>Tableau simple</dt>
+<dd><code>{|</code>&nbsp;: début de tableau (doit être sur une nouvelle ligne)</dd>
+<dd><code>||first cell|second cell|...||</code>&nbsp;: ligne de tableau (sur une ligne)</dd>
+<dd><code>|}</code>&nbsp;: fin de tableau (doit être sur une nouvelle ligne)</dd>
+<dt>Tableau complet</dt>
+<dd><code>{|Caption text</code>&nbsp;: début de tableau (doit être sur une nouvelle ligne)</dd>
+<dd><code>||!titre de la premi&egrave;re colonne|!titre de la deuxi&egrave;me colonne|...||</code>&nbsp;: ent&ecirc;te de colonne</dd>
+<dd><code>||premi&egrave;re cellule|deuxi&egrave;me cellule|...||</code>&nbsp;: ligne de tableau (sur une ligne)</dd>
+<dd><code>|}</code>&nbsp;: fin de tableau (doit être sur une nouvelle ligne)</dd>
 </dl>';
 $_lang['boolean'] = 'booléen';
 $_lang['click here'] = 'cliquez ici';
