@@ -42,7 +42,7 @@ if( !empty($bannerInstitutionName) )
 /* --- External Link Section --- */
 if( !empty($_course['extLinkName']) )
 {
-    $institutionNameOutput .= get_conf('institution_url') != ''
+    $institutionNameOutput .= get_conf('institution_name') != ''
         ? ' / ' 
         : ' '
         ;
