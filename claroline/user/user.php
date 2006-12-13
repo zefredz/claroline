@@ -414,8 +414,15 @@ foreach ( $userList as $thisUser )
     echo '<td align="left">'. claro_get_profile_name($thisUser['profile_id']) .'</td>'."\n";
 
     // User role column
-    echo '<td align="left">'.$thisUser['role'].'</td>'."\n";
-
+    if ( empty($thisUser['role']) )    // NULL and not '0' because team can be inexistent
+    {
+        echo '<td> - </td>'."\n";
+    }
+    else
+    {
+        echo '<td>'.$thisUser['role'].'</td>'."\n";
+    }
+    
     // User group column
     if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
     {

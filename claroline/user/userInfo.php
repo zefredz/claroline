@@ -472,6 +472,7 @@ elseif ($displayMode == "viewContentList") // default display
 
     if ($mainUserInfo)
     {
+        $mainUserInfo['role'] = (!empty($mainUserInfo['role']) ? $mainUserInfo['role'] : ' - ');
         $mainUserInfo['tutor'] = ($mainUserInfo['isTutor'] == 1 ? get_lang('Group Tutor') : ' - ');
         $mainUserInfo['isCourseManager'] = ($mainUserInfo['isCourseManager'] == 1 ? get_lang('Course manager') : ' - ');
 
@@ -497,7 +498,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<tr align="center">' . "\n"
         .    '<td align="left"><b>'.htmlize($mainUserInfo['firstName']).' '.htmlize($mainUserInfo['lastName']).'</b></td>' . "\n"
         .    '<td align="left">'.htmlize(claro_get_profile_name($mainUserInfo['profileId'])).'</td>' . "\n"
-        .    '<td align="left">'.htmlize($mainUserInfo['role']).'</td>' . "\n"
+        .    '<td>'.htmlize($mainUserInfo['role']).'</td>' . "\n"
         .    '<td>'.$mainUserInfo['tutor'].'</td>'
         .    '<td>'.$mainUserInfo['isCourseManager'].'</td>'
         ;
