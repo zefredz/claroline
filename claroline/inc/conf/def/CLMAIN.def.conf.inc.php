@@ -30,10 +30,9 @@ $conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Platform & Organisation
 $conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your platform and your organisation';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] =
 array ( 'siteName'
-      , 'siteLogo'
       , 'institution_name'
       , 'institution_url'
-      , 'institutionLogo'
+      
       );
 
 
@@ -41,6 +40,8 @@ $conf_def['section']['LAYOUT']['label']='Layout';
 //$conf_def['section']['LAYOUT']['description']='';
 $conf_def['section']['LAYOUT']['properties'] =
 array ( 'claro_stylesheet'
+      , 'siteLogo'
+      , 'institutionLogo'
       );
 
 $conf_def['section']['LANGUAGE']['label']='Language';
