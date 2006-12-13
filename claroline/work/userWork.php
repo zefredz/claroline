@@ -593,7 +593,7 @@ if($is_allowedToEditAll)
 					
 		            // email content
 		            $emailBody = get_lang('New assignment feedback posted') . "\n\n"
-		            .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
+		            .            $currentUserFirstName.' '.$currentUserLastName . "\n"
 		            .			 $submission->getTitle() . "\n"
 		            .			 $url . "\n"
 		            ;
