@@ -494,8 +494,9 @@ if($is_AllowedToEdit)
             ."<th>".get_lang('Block')."</th>"
             ."<th>".get_lang('Visibility')."</th>"
             ."<th colspan=\"2\">".get_lang('Order')."</th>"
-            ."<th>".get_lang('Export')."</th>"
-            ."<th>".get_lang('Tracking')."</th>";
+            ."<th>".get_lang('Export')."</th>";
+            
+     if( get_conf('is_trackingEnabled') ) echo "<th>".get_lang('Tracking')."</th>";
 }
 elseif($lpUid)
 {
@@ -762,7 +763,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if (is_dir($real))
         {
             echo  "<td>\n",
-                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
+                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&amp;del_path_id=".$list['learnPath_id']."\" ",
                   "onClick=\"return scormConfirmation('",clean_str_for_javascript($list['name']),"');\">\n",
                   "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" />\n",
                   "</a>\n",
@@ -772,7 +773,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         else
         {
             echo  "<td>\n",
-                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&del_path_id=".$list['learnPath_id']."\" ",
+                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&amp;del_path_id=".$list['learnPath_id']."\" ",
                   "onClick=\"return confirmation('",clean_str_for_javascript($list['name']),"');\">\n",
                   "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" />\n",
                   "</a>\n",
@@ -785,13 +786,13 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         if ( $list['lock'] == 'OPEN')
         {
-            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$list['learnPath_id']."\">\n",
+            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&amp;cmdid=".$list['learnPath_id']."\">\n",
                   "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"".get_lang('Block')."\" border=\"0\">\n",
                   "</a>\n";
         }
         else
         {
-            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$list['learnPath_id']."\">\n",
+            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&amp;cmdid=".$list['learnPath_id']."\">\n",
                   "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"" . get_lang('Unblock') . "\" border=\"0\">\n",
                   "</a>\n";
         }
@@ -803,7 +804,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         if ( $list['visibility'] == 'HIDE')
         {
-            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&visibility_path_id=".$list['learnPath_id']."\">\n",
+            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&amp;visibility_path_id=".$list['learnPath_id']."\">\n",
                   "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\" />\n",
                   "</a>";
         }
@@ -818,7 +819,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 $onclick = "";
             }
 
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
+            echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&amp;visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
                  "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"".get_lang('Make invisible')."\" border=\"0\" />\n",
                  "</a>\n";
         }
@@ -830,7 +831,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ($iterator != 1)
         {
             echo  "<td>\n",
-                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&move_path_id=".$list['learnPath_id']."\">\n",
+                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&amp;move_path_id=".$list['learnPath_id']."\">\n",
                   "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('Move up') . "\" border=\"0\" />\n",
                   "</a>\n",
                   "</td>\n";
@@ -844,7 +845,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if($iterator < $LPNumber)
         {
             echo  "<td>\n",
-                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&move_path_id=".$list['learnPath_id']."\">\n",
+                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&amp;move_path_id=".$list['learnPath_id']."\">\n",
                   "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"".get_lang('Move down')."\" border=\"0\" />\n",
                   "</a>\n",
                   "</td>\n";
@@ -858,12 +859,15 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
             .'<img src="' . $clarolineRepositoryWeb . 'img/export.gif" alt="' . get_lang('Export') . '" border="0"></a></td>' . "\n";
 
-        // statistics links
-        echo "<td>\n
-          <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
-          <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"".get_lang('Tracking')."\" />
-          </a>
-          </td>\n";
+        if( get_conf('is_trackingEnabled') )
+        {
+            // statistics links
+            echo "<td>\n
+              <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
+              <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"".get_lang('Tracking')."\" />
+              </a>
+              </td>\n";
+        }
     }
     elseif($lpUid)
     {
