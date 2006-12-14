@@ -1268,6 +1268,7 @@ function get_current_tool_id()
 {
     return get_init('_tid');
 }
+
 /**
  * Return the value of a Claroline configuration parameter
  * @param string $param config parameter
@@ -1286,6 +1287,7 @@ function get_init($param)
                                  , '_tid'                   // get_current_tool_id()
                                  , 'is_authenticated'       // is_authenticated()
                                  , 'in_course_context'      // is_in_course_context()
+                                 , 'in_group_context'       // is_in_group_context()
                                  , 'is_platformAdmin'       // is_platformAdmin()
                                  , '_course'                // get_current_course_data(field=all)
                                  , '_user'                  // get_current_user_data(field=all)
@@ -1308,8 +1310,13 @@ function get_init($param)
                                  if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
                                  //TODO create a real auth function to eval this state
                                  if ( $param == 'is_authenticated') return !(bool) is_null($GLOBALS['_uid']);
+
                                  //TODO create a real course function to eval this state
                                  if ( $param == 'in_course_context') return !(bool) is_null($GLOBALS['_cid']);
+
+                                 //TODO create a real course function to eval this state
+                                 if ( $param == 'in_group_context')  return !(bool) is_null($GLOBALS['_gid']);
+
                                  if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
                                  elseif ( defined($param)         )            return constant($param);
                                  return null;
@@ -1556,6 +1563,51 @@ function claro_redirect($location)
     header("Refresh: 0;url=$location");
     else
     header("Location: $location");
+}
+
+
+function claro_form_relay_context($context=null)
+{
+    $html ='';
+    if(is_null($context))
+    {
+        if (get_init('in_course_context'))
+            $html .= '<input type="hidden" name="cidReq" value="' . get_current_course_id() . '" />';
+
+        if (get_init('in_group_context'))
+            $html .= '<input type="hidden" name="gidReq" value="' . get_current_group_id()  . '" />';
+    }
+    else
+    {
+        if (array_key_exists(CLARO_CONTEXT_COURSE,$context)) $html .= '<input type="hidden" name="cidReq" value="' . $context[CLARO_CONTEXT_COURSE] . '" />';
+        if (array_key_exists(CLARO_CONTEXT_GROUP,$context)) $html .= '<input type="hidden" name="gidReq" value="' . $context[CLARO_CONTEXT_GROUP] . '" />';
+    }
+
+    return $html;
+}
+
+function claro_url_relay_context($context=null)
+{
+    $html ='';
+    if(is_null($context))
+    {
+        if (get_init('in_course_context'))
+            $urlParam[] = 'cidReq=' . get_current_course_id();
+
+        if (get_init('in_group_context'))
+            $urlParam[] = 'gidReq=' . get_current_group_id();
+            
+    }
+    else
+    {
+        if (array_key_exists(CLARO_CONTEXT_COURSE,$context)) 
+            $urlParam[] = 'cidReq=' . $context[CLARO_CONTEXT_COURSE];
+        
+        if (array_key_exists(CLARO_CONTEXT_GROUP,$context)) 
+            $urlParam[] = 'gidReq=' . $context[CLARO_CONTEXT_GROUP];
+    }
+
+    return implode($urlParam,'&');
 }
 
 ?>
