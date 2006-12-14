@@ -240,8 +240,9 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     }
 
     $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-    .'<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
-    .'<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
+    .       claro_form_relay_context()
+    .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
+    .       '<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
 
     if ($externalToolId)
     {
@@ -334,7 +335,7 @@ echo '<blockquote>' . "\n"
 echo claro_html_tool_title(get_lang('Manage External link'));
 
 echo '<blockquote>'."\n"
-    . '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd"><img src="' . $imgRepositoryWeb . 'link.gif" alt="">' . get_lang('Add external link') . '</a></p>' . "\n";
+    . '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd&amp;' . claro_url_relay_context() . '"><img src="' . $imgRepositoryWeb . 'link.gif" alt="">' . get_lang('Add external link') . '</a></p>' . "\n";
 
 echo '<table class="claroTable" >'."\n\n"
 .    '<thead>'."\n"
@@ -388,10 +389,11 @@ foreach ( $courseExtLinkList as $linkId => $link )
 }
 
 echo '</tbody>'."\n"
-    . '</table>'."\n\n"
-    . '</blockquote>' . "\n"
-    . '<hr size="1" noshade="noshade" >' . "\n\n"
-    . $backLink ;
+.    '</table>'."\n\n"
+.    '</blockquote>' . "\n"
+.    '<hr size="1" noshade="noshade" >' . "\n\n"
+.    $backLink
+;
 
 // Display footer
 

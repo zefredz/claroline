@@ -48,10 +48,9 @@ claro_set_display_mode_available(TRUE);
 
 $is_allowedToEdit = $is_courseAdmin;
 
-$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '#today">'
-.    get_lang('Today')
-.    '</a>'
-;
+$cmdList[]=  claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?' . claro_url_relay_context() . '#today'
+                                , get_lang('Today')
+                                ) ;
 
 if ( $is_allowedToEdit )
 {
@@ -335,23 +334,21 @@ $eventList = agenda_get_item_list($currentContext,$orderDirection);
  * Add event button
  */
 
-$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.    '<img src="' . get_conf('imgRepositoryWeb') . 'agenda.gif" alt="" />'
-.    get_lang('Add an event')
-.    '</a>'
-;
+$cmdList[]=   claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqAdd&amp;' . claro_url_relay_context()
+                                 , '<img src="' . get_conf('imgRepositoryWeb') . 'agenda.gif" alt="" />'
+                                 . get_lang('Add an event'));
 
 /*
 * remove all event button
 */
 if ( count($eventList) > 0 )
 {
-    $cmdList[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-    .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}">'
-    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-    .    get_lang('Clear up event list')
-    .    '</a>'
-    ;
+    $cmdList[]= claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                   . '?cmd=exDeleteAll&amp;' . claro_url_relay_context()
+                                   , '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
+                                   . get_lang('Clear up event list')
+                                   , array('onclick'=>'if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}'
+                                   ) ) ;
 }
 else
 {
@@ -374,6 +371,7 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 if ($display_form)
 {
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
+    .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
     .    '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
@@ -593,7 +591,7 @@ foreach ( $eventList as $thisEvent )
         .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
         .    '</div>' . "\n"
         ;
-        
+
         echo linker_display_resource();
     }
 

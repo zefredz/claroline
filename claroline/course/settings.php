@@ -66,17 +66,17 @@ if ( $adminContext && $is_platformAdmin )
 	if ( isset($_REQUEST['cidToEdit']) )
 	{
 		$current_cid = trim($_REQUEST['cidToEdit']);
-	} 
+	}
 	elseif ( isset($_REQUEST['cidReq']) )
 	{
 		$current_cid = trim($_REQUEST['cidReq']);
-	}		
+	}
 
     // add param to form
     $course->addHtmlParam('adminContext','1');
     $course->addHtmlParam('cidToEdit',$current_cid);
 
-	// Back url    
+	// Back url
    	$backUrl = $rootAdminWeb . 'admincourses.php' ;
 }
 elseif ( !empty($_course['sysCode']) )
@@ -95,14 +95,14 @@ if ( $course->load($current_cid) )
 	if ( $cmd == 'exEdit' )
 	{
 	    $course->handleForm();
-	    
+
 	    if ( $course->validate() )
 	    {
 	    	if ( $course->save() )
 	    	{
 	    		$dialogBox = get_lang('The information have been modified') . '<br />' . "\n"
 	    			. '<a href="' . $backUrl . '">' . get_lang('Continue') . '</a>' ;
-	    		
+
 	    		if ( ! $adminContext )
 	    		{
 		    		// force reload of the "course session" of the user
@@ -121,7 +121,7 @@ if ( $course->load($current_cid) )
 	    	$dialogBox = $course->backlog->output();
 	    }
 	}
-	
+
 	if ( $cmd == 'exDelete' )
 	{
 		if ( $course->delete() )
@@ -133,7 +133,7 @@ if ( $course->load($current_cid) )
 			}
 			else
 			{
-				claro_redirect($urlAppend . '/index.php');	
+				claro_redirect($urlAppend . '/index.php');
 			}
 		}
 		else
@@ -141,10 +141,10 @@ if ( $course->load($current_cid) )
 			$dialogBox = get_lang('Unable to save');
 		}
 	}
-	
+
 	if ( $cmd == 'rqDelete' )
 	{
-		$display = DISP_COURSE_RQ_DELETE;	
+		$display = DISP_COURSE_RQ_DELETE;
 	}
 
 }
@@ -162,7 +162,7 @@ $links = array();
 
 // add course tool list edit
 
-$url_course_edit_tool_list = $clarolineRepositoryWeb . 'course/tools.php';
+$url_course_edit_tool_list = $clarolineRepositoryWeb . 'course/tools.php?' . claro_url_relay_context() . '';
 
 $links[] = '<a class="claroCmd" href="' . $url_course_edit_tool_list . '">'
 .          '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
@@ -170,7 +170,7 @@ $links[] = '<a class="claroCmd" href="' . $url_course_edit_tool_list . '">'
 .          '</a>' ;
 
 // Main group settings
-$links[] = '<a class="claroCmd" href="../group/group_properties.php">'
+$links[] = '<a class="claroCmd" href="../group/group_properties.php?' . claro_url_relay_context() . '">'
 .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
 .          get_lang("Main Group Settings")
 .          '</a>' ;
@@ -181,7 +181,7 @@ if ( get_conf('is_trackingEnabled') )
 {
 	$url_course_tracking = $clarolineRepositoryWeb . 'tracking/courseLog.php';
 
-    $links[] = '<a class="claroCmd" href="' . $url_course_tracking . '">'
+    $links[] = '<a class="claroCmd" href="' . $url_course_tracking . '?' . claro_url_relay_context() . '">'
     .          '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
     .          get_lang('Statistics')
     .          '</a>' ;
@@ -192,10 +192,10 @@ if ( get_conf('is_trackingEnabled') )
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
 	$paramString = $course->getHtmlParamList('GET');
-	
-	$url_course_delete = $clarolineRepositoryWeb . 'course/settings.php?cmd=rqDelete' 
+
+	$url_course_delete = $clarolineRepositoryWeb . 'course/settings.php?cmd=rqDelete&amp;' . claro_url_relay_context()
 			. ( !empty($paramString) ? '&amp;'.$paramString : '');
-	 
+
 
     $links[] = '<a class="claroCmd" href="' . $url_course_delete . '">'
     .          '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
@@ -207,8 +207,8 @@ if ( $adminContext && $is_platformAdmin )
 {
     // switch to admin breadcrumb
 	$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-    unset($_cid);    	
-    
+    unset($_cid);
+
     $links[] = '<a class="claroCmd" href="' . $backUrl . '">'
     .          get_lang('Back to course list')
     .          '</a>' ;
@@ -235,7 +235,7 @@ elseif( $display == DISP_COURSE_RQ_DELETE )
 {
 	// display delete confirmation request
 	echo $course->displayDeleteConfirmation();
-} 
+}
 
 
 include $includePath . '/claro_init_footer.inc.php' ;

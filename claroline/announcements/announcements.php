@@ -417,13 +417,15 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 
 if ( $displayButtonLine )
 {
-    $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
-    .             '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
+    $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+    .            '?cmd=rqCreate&amp;' . claro_url_relay_context() . '">'
+    .            '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
     .             get_lang('Add announcement')
     .             '</a>' . "\n"
     ;
+
     if ($emailNotificationAllowed)
-    $cmdList[] = '<a class="claroCmd" href="messages.php">'
+    $cmdList[] = '<a class="claroCmd" href="messages.php?' . claro_url_relay_context() . '">'
     .             '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
@@ -438,7 +440,7 @@ if ( $displayButtonLine )
 
     if (($announcementQty > 0 ))
     {
-        $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
+        $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll?' . claro_url_relay_context() . '" '
         .             ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
         .             '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .             get_lang('Clear up list of announcements')
@@ -496,6 +498,7 @@ if ( $displayForm )
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'."\n"
+    .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
     .    (isset( $announcementToEdit['id'] )
@@ -610,15 +613,15 @@ if ($displayList)
         {
             $cssItem = 'item';
         }
-        
+
         if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
         {
             $cssInvisible = '';
-            if ($thisAnnouncement['visibility'] == 'HIDE') 
+            if ($thisAnnouncement['visibility'] == 'HIDE')
             {
                 $cssInvisible = ' invisible';
             }
-            
+
             $title = $thisAnnouncement['title'];
 
             $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
@@ -648,7 +651,7 @@ if ($displayList)
             ;
 
             echo linker_display_resource();
-       
+
             if ($is_allowedToEdit)
             {
                 echo '<p>'
@@ -703,8 +706,8 @@ if ($displayList)
                     ;
                 }
                 echo '</p>'."\n";
-                
-                         
+
+
                 echo '</td>' . "\n"
                 .    '</tr>' . "\n"
                 ;

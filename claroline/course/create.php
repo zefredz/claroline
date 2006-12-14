@@ -72,7 +72,7 @@ if ( $adminContext && $is_platformAdmin )
 if ( $cmd == 'exEdit' )
 {
     $course->handleForm();
-    
+
     if( $course->validate() )
     {
     	if( $course->save() )
@@ -82,7 +82,7 @@ if ( $cmd == 'exEdit' )
             language::load_locale_settings();
 
     		$course->mailAdministratorOnCourseCreation($_user['firstName'], $_user['lastName'], $_user['mail']);
-    		
+
     		$dialogBox = get_lang('You have just created the course website')
 		    	. ' : ' . '<strong>' . $course->officialCode . '</strong>' . "\n";
 
@@ -102,13 +102,13 @@ if ( $cmd == 'exEdit' )
 }
 
 if( $cmd == 'rqProgress' )
-{   
+{
 	$course->handleForm();
-	
+
 	if( $course->validate() )
     {
 		// Trig a waiting screen as course creation may take a while ...
-	    
+
 	    $progressUrl = $course->buildProgressUrl();
 
 	    $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $progressUrl . '">';
@@ -146,7 +146,7 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 
 if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FAILED )
-{	
+{
 	// display form
 	echo $course->displayForm($backUrl);
 }
@@ -160,16 +160,16 @@ elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
     .      '<p>'
     .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $progressUrl))
     .      '</p>' . "\n\n";
-    
+
     echo claro_html_message_box( $msg );
 }
 elseif ( $display == DISP_COURSE_CREATION_SUCCEED )
 {
 	// display confirmation
     echo '<p>'
-    .    '<a class="claroCmd" href="' . $backUrl . '">'
-    .    get_lang('Continue')
-    .    '</a>'
+    .    claro_html_cmd_link( $backUrl . '&amp;' . claro_url_relay_context()
+                            , get_lang('Continue')
+                            )
     .	 '</p>' . "\n";
 }
 

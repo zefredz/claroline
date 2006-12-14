@@ -208,6 +208,7 @@ if ( $is_allowedToEdit )
         .    '<tr>'               . "\n"
         .    '<td>'               . "\n"
         .    '<form  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        .    claro_form_relay_context()
         .    '<input type="hidden" name="cmd" value="' . $cmdForm . '">'
         .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
         .    '<input type="hidden" name="id" value="' . $descItem['id'] . '">'
@@ -267,6 +268,7 @@ if ( $is_allowedToEdit )
 
         echo "\n\n"
         .    '<form method="get" action="' . $_SERVER['PHP_SELF'] . '?edIdBloc=add">' . "\n"
+        .    claro_form_relay_context()
         .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
         .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
         .    '<select name="tipsId">' . "\n"
@@ -323,7 +325,7 @@ if ( count($descList) )
         if (($thisDesc['visibility'] == 'HIDE' && $is_allowedToEdit) || $thisDesc['visibility'] == 'SHOW')
         {
             $cssInvisible = '';
-            if ($thisDesc['visibility'] == 'HIDE') 
+            if ($thisDesc['visibility'] == 'HIDE')
             {
                 $cssInvisible = ' invisible';
             }
@@ -347,7 +349,7 @@ if ( count($descList) )
             .    '</div>';
 
             $hasDisplayedItems = true;
-            
+
             if ( $is_allowedToEdit )
             {
                 echo '<p>' . "\n"
@@ -358,8 +360,8 @@ if ( count($descList) )
                 .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
                 .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
                 .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" />'
-                .    '</a>' . "\n";                
-                
+                .    '</a>' . "\n";
+
                 if ($thisDesc['visibility'] == 'SHOW')
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisDesc['id'] . '">'
@@ -374,11 +376,11 @@ if ( count($descList) )
                 }
                 echo '</p>' . "\n";
             }
-            
+
             echo '</td>'
             .    '</tr>' . "\n" . "\n";
         }
-        
+
     }
     echo '</table>'."\n\n";
 }
