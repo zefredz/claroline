@@ -264,64 +264,60 @@ if ($can_add_user)
     {
 
         // Add a user link
-        $userMenu[] = '<a class="claroCmd" href="user_add.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
-        .    get_lang('Add a user')
-        .    '</a>'
-        ;
+        $userMenu[] = claro_html_cmd_link( 'user_add.php?' . claro_url_relay_context()
+                                         , '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
+                                         . get_lang('Add a user')
+                                         )
+                                         ;
     }
     /*
     if ($can_add_single_user)
     {
-
-
-        $userMenu[] = '<a class="claroCmd" href="./userInfo.php?addDef=1">'
-        .             get_lang('Add new heading')
-        .             '</a>'
-        ;
+        $userMenu[] = claro_html_cmd_link( './userInfo.php?addDef=1'
+                                   
+                                         , get_lang('Add new heading')
+                                         );
     }
     */
     if ($can_import_user_list)
     {
         // Add CSV file of user link
-        $userMenu[] = '<a class="claroCmd" href="AddCSVusers.php?AddType=userTool">'
-        .    '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
-        .    get_lang('Add a user list')
-        .    '</a>' ;
+        $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php?AddType=userTool&' . claro_url_relay_context()
+                                         , '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
+                                         . get_lang('Add a user list')
+                                         );
     }
     if ($can_import_user_class)
     {
         // Add a class link
-        $userMenu[] = '<a class="claroCmd" href="class_add.php">'
-        .    '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
-        .    get_lang('Enrol class')
-        .    '</a>' ;
+        $userMenu[] = claro_html_cmd_link( 'class_add.php'
+                                         , '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
+                                         . get_lang('Enrol class')
+                                         );
     }
 
     if ($can_add_single_user)
     {
         // Main group settings
-        $userMenu[] = '<a class="claroCmd" href="../right/profile_list.php">'
-        .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
-        .          get_lang("Right Profile")
-        .          '</a>'
-        ;
+        $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
+                                         , '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+                                         . get_lang("Right Profile")
+                                         );
     }
 }
 
 
-$userMenu[] = '<a class="claroCmd" href="../group/group.php">'
-.             '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
-.             get_lang('Group management')
-.             '</a>' ;
+$userMenu[] = claro_html_cmd_link( '../group/group.php'
+                                 , '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
+                                 . get_lang('Group management')
+                                 );
 
-$userMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-.             '?cmd=unregister&amp;user_id=allStudent" '
-.             ' onClick="return confirmation(\' ' . clean_str_for_javascript(get_lang('all students')) . ' \')">'
-.             '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
-.             get_lang('Unregister all students')
-.             '</a>'
-;
+$userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                 . '?cmd=unregister&amp;user_id=allStudent'
+                                 , '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
+                                 . get_lang('Unregister all students')
+                                 , array('onClick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
+                                 );
 
 /*=====================================================================
 Display section

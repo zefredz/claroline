@@ -38,18 +38,21 @@ function prepare_message()
 $cmdMenu = array();
 if ($is_allowedToManage)
 {
-    $cmdMenu[] = '<a class="claroCmd" href="messageList.php?cmd=reset" target="messageList">'
-    .             get_lang('Reset') . '</a>'
-    ;
-    $cmdMenu[] = '<a class="claroCmd" href="messageList.php?cmd=store" target="messageList">'
-    .             get_lang('Store Chat') . '</a>'
-    ;
+    $cmdMenu[] = claro_html_cmd_link( 'messageList.php?cmd=reset&amp;' . claro_url_relay_context()
+                                    , get_lang('Reset')
+                                    , array('target'=> "messageList")
+                                    );
+    $cmdMenu[] = claro_html_cmd_link( 'messageList.php?cmd=store&amp;' . claro_url_relay_context()
+                                    , get_lang('Store Chat')
+                                    , array('target'=> "messageList")
+                                    );
 }
 
 $hide_banner = TRUE;
 include $includePath . '/claro_init_header.inc.php' ;
 
 echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">' . "\n"
+.    claro_form_relay_context()
 .    '<input type="text"    name="msg" size="80">' . "\n"
 .    '<input type="hidden"  name="chatLine">' . "\n"
 .    '<input type="submit" value=" >> ">' . "\n"

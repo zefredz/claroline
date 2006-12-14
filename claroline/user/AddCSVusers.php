@@ -420,15 +420,20 @@ switch ( $display )
             .    '<br /><br />'
             .    '</b>'
             .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-            .    '[<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-            .    '?display=default&amp;loadDefault=yes&amp;AddType=' . $AddType . '">'
-            .    get_lang('Load default format')
-            .    '</a>]'
+            .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                    . '?display=default'
+                                    . '&amp;loadDefault=yes'
+                                    . '&amp;AddType=' . $AddType
+                                    , get_lang('Load default format')
+                                    )
+
             .    ' | '
-            .    '[<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-            .    '?display=default&amp;chformat=yes&amp;AddType=' . $AddType . '">'
-            .    get_lang('Edit format to use')
-            .    '</a>]'
+            .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                    . '?display=default'
+                                    . '&amp;chformat=yes'
+                                    . '&amp;AddType=' . $AddType
+                                    , get_lang('Edit format to use')
+                                    )
             .    '<br /><br />'
             .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
             ;

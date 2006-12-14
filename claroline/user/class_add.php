@@ -131,7 +131,7 @@ echo claro_html_tool_title(get_lang('Enrol class'))
 
 // display tool links
 .    '<p>'
-.    '<a class="claroCmd" href="user.php">' . get_lang('Back to list') . '</a>'
+.    claro_html_cmd_link('user.php', get_lang('Back to list'))
 .    '</p>'
 // display cols headers
 .    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
