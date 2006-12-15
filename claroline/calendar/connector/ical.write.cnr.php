@@ -20,7 +20,7 @@ function CLCAL_write_ical( & $iCal, $context)
 
     if (is_array($context) && count($context)>0)
     {
-        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $GLOBALS['_cid'];
+        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : claro_get_current_course_id();
     }
 
     if (false !== $courseData = claro_get_course_data($courseId))
@@ -63,8 +63,8 @@ function CLCAL_write_ical( & $iCal, $context)
                 '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
                 0,  // Sets the time in minutes an alarm appears before the event in the programm. no alarm if empty string or 0
                 1, // Status of the event (0 = TENTATIVE, 1 = CONFIRMED, 2 = CANCELLED)
-                get_conf('rootWeb') . get_conf('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $thisEvent['id'], // optional URL for that event
-                get_conf('iso639_1_code'), // Language of the Strings
+                get_path('rootWeb') . get_path('clarolineRepositoryWeb') . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $thisEvent['id'], // optional URL for that event
+                get_locale('iso639_1_code'), // Language of the Strings
                 '' // Optional UID for this event
                 );
             }

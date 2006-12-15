@@ -19,7 +19,7 @@ $tlabelReq = 'CLANN';
 
 require '../inc/claro_init_global.inc.php';
 
-if (isset($_cid))
+if (! claro_is_in_a_course() )
 {
     claro_redirect('./agenda.php');
 }

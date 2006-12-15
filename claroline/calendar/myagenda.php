@@ -28,7 +28,7 @@ $cidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // check access
-if ( ! $_uid ) claro_disp_auth_form();
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 require_once './lib/agenda.lib.php';
 
@@ -52,7 +52,7 @@ $sql = "SELECT cours.code       AS sysCode,
                 `" . $tbl_rel_course_user . "` AS cours_user
 
         WHERE cours.code         = cours_user.code_cours
-        AND   cours_user.user_id = " . (int) $_uid ;
+        AND   cours_user.user_id = " . (int) claro_get_current_user_id() ;
 
 $userCourseList = claro_sql_query_fetch_all($sql);
 
@@ -65,19 +65,22 @@ if( isset($_REQUEST['month']) ) $month = (int) $_REQUEST['month'];
 else                            $month = $today['mon' ];
 
 $agendaItemList = get_agenda_items($userCourseList, $month, $year);
+$langMonthNames = get_locale('langMonthNames');
+$langDay_of_weekNames = get_locale('langDay_of_weekNames');
 
 $monthName = $langMonthNames['long'][$month-1];
 
 // Display
 
 // Header
-include $includePath . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+echo claro_html_tool_title($nameTools)
 
 // Display Calendar
-echo claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName);
+.    claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName)
+;
 
 // Footer
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>
