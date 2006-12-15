@@ -347,9 +347,22 @@ boolean
  */
 function  claro_is_course_admin()
 {
-    return get_init('is_courseAdmin');
+    pushClaroMessage('use claro_is_course_manager() instead of claro_is_course_admin()','code review');
+    return claro_is_course_manager;
 }
 
+
+/**
+ * Return the right of the current user
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @return
+boolean
+ */
+function  claro_is_course_manager()
+{
+    return get_init('is_courseAdmin');
+}
 /**
  * Return the right of the current user
  *
@@ -369,10 +382,12 @@ function claro_is_course_allowed()
  * @return
 boolean
  */
-function  claro_is_course_manager()
+function  claro_is_allowed_to_create_course()
 {
     return get_init('is_allowedCreateCourse');
 }
+
+
 
 /**
  * Return the right of the current user
@@ -452,39 +467,39 @@ string param value
 function get_init($param)
 {
     static $initValueList = array( '_uid'                   // claro_get_current_user_id()
-                                 , '_cid'                   // claro_get_current_course_id()
-                                 , '_gid'                   // claro_get_current_group_id()
-                                 , '_tid'                   // claro_get_current_tool_id()
-                                 , 'is_authenticated'       // is_authenticated()
-                                 , 'in_course_context'      // is_in_course_context()
-                                 , 'in_group_context'       // is_in_group_context()
-                                 , 'is_platformAdmin'       // claro_is_platformAdmin()
-                                 , '_course'                // claro_get_current_course_data(field=all)
-                                 , '_user'                  // claro_get_current_user_data(field=all)
-                                 , '_group'                 // claro_get_current_group_data(field=all)
-                                 , '_groupProperties'       // claro_get_current_group_properties_data(field=all)
-                                 , '_courseUser'            // claro_get_current_course_user_data(field=all)
-                                 , '_courseTool'            // claro_get_current_course_tool_data(field=all)
-                                 , '_courseToolList'        // claro_get_current_course_tool_list_data(field=all)
-                                 , 'is_courseMember'        // claro_is_courseMember()
-                                 , 'is_courseTutor'         // claro_is_courseTutor()
-                                 , 'is_courseAdmin'         // claro_is_courseAdmin()
-                                 , 'is_courseAllowed'       // claro_is_course_allowed()
-                                 , 'is_allowedCreateCourse' // claro_is_allowedCreateCourse()
-                                 , 'is_groupMember'         // claro_is_groupMember()
-                                 , 'is_groupTutor'          // claro_is_groupTutor()
-                                 , 'is_groupAllowed'        // claro_is_groupAllowed()
-                                 , 'is_toolAllowed'         // claro_is_toolAllowed()
-                                 );
+    , '_cid'                   // claro_get_current_course_id()
+    , '_gid'                   // claro_get_current_group_id()
+    , '_tid'                   // claro_get_current_tool_id()
+    , 'is_authenticated'       // is_authenticated()
+    , 'in_course_context'      // is_in_course_context()
+    , 'in_group_context'       // is_in_group_context()
+    , 'is_platformAdmin'       // claro_is_platformAdmin()
+    , '_course'                // claro_get_current_course_data(field=all)
+    , '_user'                  // claro_get_current_user_data(field=all)
+    , '_group'                 // claro_get_current_group_data(field=all)
+    , '_groupProperties'       // claro_get_current_group_properties_data(field=all)
+    , '_courseUser'            // claro_get_current_course_user_data(field=all)
+    , '_courseTool'            // claro_get_current_course_tool_data(field=all)
+    , '_courseToolList'        // claro_get_current_course_tool_list_data(field=all)
+    , 'is_courseMember'        // claro_is_courseMember()
+    , 'is_courseTutor'         // claro_is_courseTutor()
+    , 'is_courseAdmin'         // claro_is_courseAdmin()
+    , 'is_courseAllowed'       // claro_is_course_allowed()
+    , 'is_allowedCreateCourse' // claro_is_allowedCreateCourse()
+    , 'is_groupMember'         // claro_is_groupMember()
+    , 'is_groupTutor'          // claro_is_groupTutor()
+    , 'is_groupAllowed'        // claro_is_groupAllowed()
+    , 'is_toolAllowed'         // claro_is_toolAllowed()
+    );
 
-                                 if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
-                                 //TODO create a real auth function to eval this state
-                                 if ( $param == 'is_authenticated') return !(bool) is_null($GLOBALS['_uid']);
-                                 //TODO create a real course function to eval this state
-                                 if ( $param == 'in_course_context') return !(bool) is_null(claro_get_current_course_id());
-                                 if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
-                                 elseif ( defined($param)         )            return constant($param);
-                                 return null;
+    if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
+    //TODO create a real auth function to eval this state
+    if ( $param == 'is_authenticated') return !(bool) is_null($GLOBALS['_uid']);
+    //TODO create a real course function to eval this state
+    if ( $param == 'in_course_context') return !(bool) is_null(claro_get_current_course_id());
+    if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
+    elseif ( defined($param)         )            return constant($param);
+    return null;
 }
 
 ?>
