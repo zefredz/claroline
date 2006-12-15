@@ -52,7 +52,6 @@ function delete_course($code)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course           = $tbl_mdb_names['course'           ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
-    $tbl_notify           = $tbl_mdb_names['notify'  ];
     $tbl_course_class      = $tbl_mdb_names['rel_course_class'];
 
     $this_course = claro_get_course_data($code);
