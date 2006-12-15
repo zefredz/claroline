@@ -1429,8 +1429,9 @@ function claro_form_relay_context($context=null)
     return $html;
 }
 
-function claro_url_relay_context($context=null, $prepend='')
+function claro_url_relay_context($prepend='',$context=null)
 {
+    $urlParam = array();
     if(is_null($context))
     {
         if (claro_is_in_a_course())
@@ -1449,7 +1450,8 @@ function claro_url_relay_context($context=null, $prepend='')
             $urlParam[] = 'gidReq=' . $context[CLARO_CONTEXT_GROUP];
     }
 
-    return implode($urlParam,'&');
+    if (count($urlParam)>0) return $prepend . implode($urlParam,'&');
+    else                    return '';
 }
 
 ?>
