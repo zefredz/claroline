@@ -517,7 +517,7 @@ $conf_def_property_list['userImageRepositoryAppend'] =
 array ('label'        => 'relative path from root web to user pic repository'
       ,'type'        => 'relpath'
       ,'display'     => FALSE
-      ,'default'     => 'claroline/img/users/'
+      ,'default'     => 'platform/img/users/'
       );
 
 $conf_def_property_list['CLARO_DEBUG_MODE'] =
