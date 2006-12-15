@@ -44,7 +44,7 @@ array ( 'tutorCanBeSimpleMemberOfOthersGroupsAsStudent'
 //PROPERTIES
 $conf_def_property_list['multiGroupAllowed'] =
 array ( 'label'       => 'Allow teachers to subscribe a user in several groups'
-      ,'description' => ''
+      , 'description' => ''
       , 'default'     => TRUE
       , 'type'        => 'boolean'
       , 'display'     => TRUE
