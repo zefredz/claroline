@@ -151,7 +151,6 @@ class ConfigHtml extends Config
 
     function display_form_elt($name,$value)
     {
-        global $rootSys;
 
         $elt_form = '';
 
@@ -263,16 +262,16 @@ class ConfigHtml extends Config
                     switch ( $property_def['acceptedValueType'] )
                     {
                         case 'css' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css'));
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css'));
                             break;
                         case 'lang' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/lang','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/lang','folder');
                             break;
                         case 'auth':
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/auth/extauth/drivers','file','.php');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/auth/extauth/drivers','file','.php');
                             break;
                         case 'editor' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/editor','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/editor','folder');
                             break;
                     }
                 }

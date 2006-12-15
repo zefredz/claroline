@@ -19,6 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * Get class data on the platform
+ *
  * @param integer $classId
  *
  * @return  array( `id`, `name`, `class_parent_id`, `class_level`)
@@ -108,7 +109,7 @@ function class_set_properties ( $classId, $className, $parentId = 0 )
 
 function delete_class($class_id)
 {
-    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
 
     $tbl_mdb_names      = claro_sql_get_main_tbl();
     $tbl_user           = $tbl_mdb_names['user'];
@@ -278,7 +279,7 @@ function move_class($class_id, $class_id_towards)
 
 function register_class_to_course($class_id, $course_code)
 {
-    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
 
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_class        = $tbl_mdb_names['class'];
@@ -400,7 +401,7 @@ function register_class_to_course($class_id, $course_code)
 
 function unregister_class_to_course($class_id, $course_code)
 {
-    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
 
 	$tbl_mdb_names  	= claro_sql_get_main_tbl();
     $tbl_user       	= $tbl_mdb_names['user'];
@@ -487,7 +488,7 @@ function unregister_class_to_course($class_id, $course_code)
 
 function user_add_to_class($user_id,$class_id)
 {
-    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
 
     $user_id  = (int)$user_id;
     $class_id = (int)$class_id;
@@ -581,8 +582,8 @@ function user_add_to_class($user_id,$class_id)
 
 function user_remove_to_class($user_id,$class_id)
 {
-    require_once $GLOBALS['includePath'] . '/lib/user.lib.php' ;
-    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
+    require_once get_path('incRepositorySys') . '/lib/user.lib.php' ;
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
 
     $user_id  = (int)$user_id;
   	$class_id = (int)$class_id;
@@ -720,8 +721,6 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
 {
     // Global variables needed
 
-    global $clarolineRepositoryWeb;
-    global $imgRepositoryWeb;
 
     $html_form = '';
 
@@ -760,14 +759,14 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
@@ -788,31 +787,31 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 .    '    ' . $blankspace . $open_close_link . ' ' . $cur_class['name']
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
-                .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" />' . "\n"
+                .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_user.php?class_id=' . $cur_class['id'] . '">' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" border="0" />' . "\n"
                 .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
-  	            .    '<a href="'.$clarolineRepositoryWeb.'admin/admin_class_cours.php?class_id='.$cur_class['id'].'">' . "\n"
-      	        .    '<img src="'.$imgRepositoryWeb.'course.gif" border="0"> '
+  	            .    '<a href="'.get_path('clarolineRepositoryWeb').'admin/admin_class_cours.php?class_id='.$cur_class['id'].'">' . "\n"
+      	        .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" border="0"> '
   	            .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
       	        .    '</a>' . "\n"
   	            .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" />' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMove&amp;class_id=' . $cur_class['id'] . '&class_name=' . $cur_class['name'] . '">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'move.gif" border="0" />' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;class_id=' . $cur_class['id'] . '"'
                 .    ' onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" />' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '</tr>' . "\n"
@@ -914,20 +913,17 @@ function get_class_cours_number($class_id)
 function display_tree_class_in_user($class_list, $course_code, $parent_class = null, $deep = 0)
 {
 
-    global $clarolineRepositoryWeb;
-    global $imgRepositoryWeb;
-
     $tbl_mdb_names  = claro_sql_get_main_tbl();
 
-	$tbl_course_class 	= $tbl_mdb_names['rel_course_class'];
-	$tbl_course			= $tbl_mdb_names['course'];
+    $tbl_course_class = $tbl_mdb_names['rel_course_class'];
+    $tbl_course       = $tbl_mdb_names['course'];
 
     $html_form = '';
 
-	// Get the course id with cours code
-	$sql = "SELECT `C`.`cours_id`
-	    	FROM `".$tbl_course."` as C
-			WHERE `code` = '".$course_code."'";
+    // Get the course id with cours code
+    $sql = "SELECT `C`.`cours_id`
+            FROM `" . $tbl_course . "` as C
+            WHERE `code` = '".$course_code."'";
 
 	$cours_id = claro_sql_query_get_single_value($sql);
 
@@ -963,14 +959,14 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF']
                     .                  '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
@@ -997,14 +993,14 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exEnrol&amp;class_id=' . $cur_class['id'] . '"'
                 .    ' onClick="return confirmation_enrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
-                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrol to course') . '" />' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrol to course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
             else
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnenrol&amp;class_id=' . $cur_class['id'] . '"'
                 .    ' onClick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
-                .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
 
