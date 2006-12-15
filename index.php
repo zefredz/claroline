@@ -22,7 +22,7 @@ $tidReset = TRUE;
 require './claroline/inc/claro_init_global.inc.php'; // main init
 include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
-require_once $includePath . '/lib/courselist.lib.php'; // conf file
+require_once get_path('incRepositorySys') . '/lib/courselist.lib.php'; // conf file
 
 
 // logout request : delete session data
@@ -38,7 +38,7 @@ if (isset($_REQUEST['logout']))
 }
 
 // CLAROLINE HEADER AND BANNER
-require $includePath . '/claro_init_header.inc.php';
+require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 ?>
 
@@ -49,7 +49,7 @@ require $includePath . '/claro_init_header.inc.php';
 <?php
 
 // INTRODUCTION MESSAGE
-if ( file_exists('./textzone_top.inc.html') ) 
+if ( file_exists('./textzone_top.inc.html') )
 {
     include './textzone_top.inc.html';
 }
@@ -58,9 +58,9 @@ else
     echo '<div style="text-align: center">'
     .    '<img src="./claroline/img/logo.gif" border="0" alt="Claroline logo" />' . "\n"
     .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
-    .    '</div>';   
+    .    '</div>';
 
-    if($is_platformAdmin)
+    if(claro_is_platform_admin())
     {
         echo '<p>'
         .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_top.inc.html'))
@@ -68,7 +68,7 @@ else
     }
 }
 
-if( $is_platformAdmin )
+if( claro_is_platform_admin() )
 {
     echo '<p>'
     .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=0">'
@@ -83,22 +83,22 @@ $campusHomePageTop = new Dock('campusHomePageTop');
 
 echo $campusHomePageTop->render();
 
-if ( isset($_uid) )
+if ( claro_is_user_authenticated() )
 {
     /*
      * Commands line
      */
 	$userCommands = array();
-    
+
     $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
-    .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
+    .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
     .    get_lang('My course list')
     .    '</a>';
 
-    if ($is_allowedCreateCourse) // 'Create Course Site' command. Only available for teacher. 
+    if (claro_is_allowed_to_create_course()) // 'Create Course Site' command. Only available for teacher.
     {
         $userCommands[] = '<a href="claroline/course/create.php" class="claroCmd">'
-        .    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" /> '
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
         .    get_lang('Create a course site')
         .    '</a>';
     }
@@ -106,35 +106,36 @@ if ( isset($_uid) )
     if (get_conf('allowToSelfEnroll',true))
     {
         $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
-        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="" /> '
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> '
         .    get_lang('Enrol on a new course')
         .    '</a>';
 
         $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
-        .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" /> '
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" alt="" /> '
         .    get_lang('Remove course enrolment')
         .    '</a>';
     }
 
     $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
-    .	 '<img src="'.$imgRepositoryWeb.'course.gif" alt="" /> '
+    .                 '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
     .	 get_lang('All platform courses')
-    .	 '</a>';
-		
+    .                 '</a>'
+    ;
+
     echo '<p>' . claro_html_menu_horizontal($userCommands) . '</p>' . "\n";
 }
 
-if ( $_uid )
+if ( claro_get_current_user_id() )
 {
     if ( isset($_REQUEST['category']) || (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
     {
         // DISPLAY PLATFORM COURSE LIST and search result
-        require $includePath . '/index_platformcourses.inc.php';
+        require get_path('incRepositorySys') . '/index_platformcourses.inc.php';
     }
     else
     {
         // DISPLAY USER OWN COURSE LIST
-        require $includePath . '/index_mycourses.inc.php';
+        require get_path('incRepositorySys') . '/index_mycourses.inc.php';
     }
 }
 else
@@ -144,7 +145,7 @@ else
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
     {
         // DISPLAY PLATFORM COURSE LIST
-        require $includePath . '/index_platformcourses.inc.php';
+        require get_path('incRepositorySys') . '/index_platformcourses.inc.php';
     }
 }
 
@@ -162,10 +163,10 @@ echo $campusHomePageBottom->render();
 
 <?php
 
-if ( isset($_uid) )
+if ( claro_is_user_authenticated() )
 {
     // DISPLAY CROSS COURSE DIGEST FOR USER
-    require $includePath . '/index_mydigest.inc.php';
+    require get_path('incRepositorySys') . '/index_mydigest.inc.php';
 }
 else
 {
@@ -173,7 +174,7 @@ else
     echo claro_display_preferred_language_form();
 
     // DISPLAY LOGIN FORM
-    require $includePath . '/index_loginzone.inc.php';
+    require get_path('incRepositorySys') . '/index_loginzone.inc.php';
 }
 
 //RIGHT MENU DOCK declaration
@@ -183,18 +184,18 @@ $homePageRightMenu = new Dock('campusHomePageRightMenu');
 echo $homePageRightMenu->render();
 
 //Include right text zone, if there is any
-if ( file_exists('./textzone_right.inc.html') ) 
+if ( file_exists('./textzone_right.inc.html') )
 {
     include './textzone_right.inc.html';
 }
-elseif($is_platformAdmin)
+elseif(claro_is_platform_admin())
 {
     echo '<p>'
     .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_right.inc.html'))
     .    '</p>' . "\n";
 }
 
-if($is_platformAdmin)
+if(claro_is_platform_admin())
 {
     echo '<p>'
     .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=1">'
@@ -215,6 +216,6 @@ if($is_platformAdmin)
  * CLAROLINE FOOTER
  */
 
-require $includePath . '/claro_init_footer.inc.php';
+require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

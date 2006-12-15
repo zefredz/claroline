@@ -16,7 +16,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require $includePath.'/lib/courselist.lib.php';
+require get_path('incRepositorySys').'/lib/courselist.lib.php';
 
 $nameTools  = get_lang('User\'s course');
 $noPHP_SELF = TRUE;
@@ -25,15 +25,15 @@ $noPHP_SELF = TRUE;
 Security Check
 ---------------------------------------------------------------------*/
 
-if ( ! $_uid ) claro_disp_auth_form();
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 /*---------------------------------------------------------------------
 Include Files and initialize variables
 ---------------------------------------------------------------------*/
 
-require $includePath . '/lib/user.lib.php';
-require $includePath . '/lib/course_user.lib.php';
-require $includePath . '/lib/class.lib.php';
+require get_path('incRepositorySys') . '/lib/user.lib.php';
+require get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require get_path('incRepositorySys') . '/lib/class.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 $parentCategoryCode = '';
@@ -64,8 +64,8 @@ else                           $cmd = '';
 if ( isset($_REQUEST['uidToEdit']) ) $uidToEdit = (int) $_REQUEST['uidToEdit'];
 else                                 $uidToEdit = 0;
 
-if ( isset($_REQUEST['fromAdmin']) && $is_platformAdmin ) $fromAdmin = trim($_REQUEST['fromAdmin']);
-else                                 $fromAdmin = '';
+if ( isset($_REQUEST['fromAdmin']) && claro_is_platform_admin() ) $fromAdmin = trim($_REQUEST['fromAdmin']);
+else                                                              $fromAdmin = '';
 
 if ( isset($_REQUEST['course']) ) $course = trim($_REQUEST['course']);
 else                              $course = '';
@@ -83,12 +83,12 @@ Define user we are working with...
 
 $inURL = ''; // parameters to add in URL
 
-if ( !$is_platformAdmin )
+if ( !claro_is_platform_admin() )
 {
     if (get_conf('allowToSelfEnroll',true))
     {
-        $userId    = $_uid; // default use is enroll for itself...
-        $uidToEdit = $_uid;
+        $userId    = claro_get_current_user_id(); // default use is enroll for itself...
+        $uidToEdit = claro_get_current_user_id();
     }
     else
     {
@@ -119,11 +119,11 @@ else
     }
     else
     {
-        $userId = $_uid; // default use is enroll for itself...
-        $uidToEdit = $_uid;
+        $userId = claro_get_current_user_id(); // default use is enroll for itself...
+        $uidToEdit = claro_get_current_user_id();
     }
 
-} // if (!$is_platformAdmin)
+} // if (!claro_is_platform_admin())
 
 /*---------------------------------------------------------------------
 Define bredcrumps
@@ -142,7 +142,7 @@ if ( !empty($fromAdmin) )
 {
     if ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' || $fromAdmin == 'class' )
     {
-        $interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+        $interbredcrump[]= array ('url' => get_path('rootAdminWeb') , 'name' => get_lang('Administration'));
     }
 
     if ( $fromAdmin == 'class' )
@@ -222,11 +222,11 @@ if ( $cmd == 'exReg' )
     // if user is platform admin, register to private course can be forced.
     // Otherwise not
 
-    if ( is_course_enrollment_allowed($course) || $is_platformAdmin)
+    if ( is_course_enrollment_allowed($course) || claro_is_platform_admin())
     {
         $courseEnrollmentKey = get_course_enrollment_key($course);
 
-        if (    $is_platformAdmin
+        if (    claro_is_platform_admin()
         || ( is_null($courseEnrollmentKey) || empty($courseEnrollmentKey) )
         || (   isset($_REQUEST['enrollmentKey'] )
         && strtolower(trim($_REQUEST['enrollmentKey'] )) == strtolower(trim($courseEnrollmentKey))) )
@@ -234,7 +234,7 @@ if ( $cmd == 'exReg' )
             // try to register user
             if ( user_add_to_course($userId, $course, false, false, false) )
             {
-                if ( $_uid != $uidToEdit )
+                if ( claro_get_current_user_id() != $uidToEdit )
                 {
                     // message for admin
                     $message = get_lang('The user has been enroled to the course');
@@ -244,7 +244,7 @@ if ( $cmd == 'exReg' )
                     $message = get_lang('You\'ve been enroled on the course');
                 }
 
-                if ( !empty($_REQUEST['asTeacher']) && $is_platformAdmin )
+                if ( !empty($_REQUEST['asTeacher']) && claro_is_platform_admin() )
                 {
                     $properties['isCourseManager'] = 1;
                     $properties['role']   = get_lang('Course manager');
@@ -310,7 +310,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
     {
         $title   = get_lang('Select course in search results');
         $keyword = trim($_REQUEST['keyword']);
-        $result  = search_course($keyword, $_uid);
+        $result  = search_course($keyword, claro_get_current_user_id());
 
         if ( count($result) > 0 )
         {
@@ -394,7 +394,7 @@ $backLink = '<p><small><a href="' . $backUrl . '" title="' . $backLabel. '" >&lt
 Display header
 ---------------------------------------------------------------------*/
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if (isset($msg)) echo claro_html_message_box($msg);
 echo $backLink;
@@ -413,7 +413,7 @@ switch ( $displayMode )
         //        root name equal platform name
         //        $siteName comes from claro_main.conf.php
 
-        if ( empty($category) ) $currentCategoryName = $siteName;
+        if ( empty($category) ) $currentCategoryName = get_conf('siteName');
 
         //  Display Title
 
@@ -546,11 +546,11 @@ switch ( $displayMode )
 
                         echo '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
                         .    '</a></td>' . "\n"
                         .    '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['sysCode'] .$inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif"  alt="' . get_lang('Enrol as teacher') . '" />'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif"  alt="' . get_lang('Enrol as teacher') . '" />'
                         .    '</a>'
                         .    '</td>' . "\n"
                         ;
@@ -559,11 +559,11 @@ switch ( $displayMode )
                 elseif ( $fromAdmin == 'class')
                 {
                     echo '<td valign="top"  align="center">' . "\n"
-                    .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_course_registered.php'
+                    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_course_registered.php'
                     .    '?cmd=exReg'
                     .    '&amp;course_id=' . $thisCourse['sysCode']
                     .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
-                    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrol class') . '" />'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrol class') . '" />'
                     .     '</a>'
                     .     '</td>' . "\n"
                     ;
@@ -580,7 +580,7 @@ switch ( $displayMode )
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrolment') . '" />'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrolment') . '" />'
                         .    '</a>'
                         ;
                     }
@@ -588,7 +588,7 @@ switch ( $displayMode )
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
-                        .    '<img src="' . $imgRepositoryWeb . 'locked.gif" border="0" alt="' . get_lang('Locked') . '" />'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'locked.gif" border="0" alt="' . get_lang('Locked') . '" />'
                         .    '</a>'
                         ;
                     }
@@ -677,7 +677,7 @@ switch ( $displayMode )
                     .    ' onclick="javascript:if(!confirm(\''
                     .    clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?'))
                     .    '\')) return false;">' . "\n"
-                    .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unsubscribe') . '">' . "\n"
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unsubscribe') . '">' . "\n"
                     .    '</a>' . "\n"
                     ;
                 }
@@ -761,6 +761,6 @@ switch ( $displayMode )
 
 echo $backLink;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

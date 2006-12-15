@@ -17,14 +17,14 @@ $userPerPage = 20; // numbers of cours to display on the same page
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
 	
-require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/class.lib.php';
-require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/class.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 /**#@+
  * DB tables definition
@@ -77,7 +77,7 @@ if ( !empty($class_id) )
     }
 
     //find this class current content
-  	
+    // TODO Factorise this statement
     $sql = "SELECT distinct (CC.`courseId`), C.`code`, C.`languageCourse` ,C.`intitule`,C.`faculte`,C.`titulaires`
 	    	FROM `".$tbl_course_class."` CC, `".$tbl_cours."` C
 			WHERE C.`code` = CC.`courseId`
@@ -130,12 +130,12 @@ if ( !empty($class_id) )
 //------------------------------------
 
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes') );
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'admin_class.php', 'name' => get_lang('Classes') );
 $nameTools = get_lang('Class members');
 
 //Header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( empty($class_id) )
 {
@@ -156,10 +156,10 @@ else
     }
 
     // TOOL LINKS
-
-    echo '<p><a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
+    // TODO claro_html_menu
+    echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php'
     .    '?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'">'
-    .    '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
+    .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" /> '
     .    get_lang('Register class for course')
     .    '</a>'
     .    '</p>';
@@ -171,7 +171,7 @@ else
     // Display list of cours
 
     // start table...
-
+    // TODO datagrid
     echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
     .    '<tr class="headerX" align="center" valign="top">'
@@ -197,15 +197,16 @@ else
         .    '<td align="left" >'   . $list['faculte']       . '</td>'
         .	 '<td align="center">' 
         .    '<a href="../course/settings.php?adminContext=1'
+        // TODO cfrom=xxx is probably a hack
         .    '&amp;cidReq=' . $list['code'] . '&amp;cfrom=xxx">'
-        .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Course settings') . '" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings') . '" />'
         .    '</a>'
         .    '</td>'
         .    '<td align="center">'
         .    '<a href="'.$_SERVER['PHP_SELF']
         .    '?cmd=unsubscribe&amp;class_id='.$class_id.'&amp;offset='.$offset.'&amp;course_id='.$list['code'].'" '
         .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
-        .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="" />'
         .    '</a>'
         .    '</td>'
         .    '</tr>';
@@ -218,7 +219,7 @@ else
         .    '<td colspan="5" align="center">'
         .    get_lang('No course to display')
         .    '<br />'
-        .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class.php">'
+        .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class.php">'
         .    get_lang('Back')
         .    '</a>'
         .    '</td>'
@@ -237,6 +238,6 @@ else
 
 // Display footer
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

@@ -20,7 +20,7 @@ CAS stands for 'Central Authentication Service' and is Single sign On (SSO)
 system originally developed by the Yale University. SSO is an authentication
 process enabling user to authenticate once and gain access to multiple systems.
 For example, once authenticated in the library catalog, students don't have to
-re-enter their password to access their Claroline courses or their web mail.
+re-enter their password to access their Claroline courses or their Web mail.
 
 The CAS system of Claroline is based on the free phpCAS library available at
 http://esup-phpcas.sourceforge.net .
@@ -46,14 +46,14 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     if ($logout)
     {
         $userLoggedOnCas = false;
-        phpCAS::logout(get_conf('rootWeb').'index.php');
+        phpCAS::logout(get_path('rootWeb').'index.php');
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
         // set the call back url
         if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = $_REQUEST['sourceUrl'];
         elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
-        else                                           $casCallBackUrl = get_conf('rootWeb');
+        else                                           $casCallBackUrl = get_path('rootWeb');
 
         $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
                         .  'fromCasServer=true';

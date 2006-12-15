@@ -17,15 +17,15 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/class.lib.php';
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/class.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $userPerPage = 20; // numbers of user to display on the same page
 
@@ -135,13 +135,13 @@ if ( !empty($class_id) )
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes'));
-$interbredcrump[]    = array ('url' => $rootAdminWeb . 'admin_class_user.php?class_id='.$class_id, 'name' => get_lang('Class users'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'admin_class.php', 'name' => get_lang('Classes'));
+$interbredcrump[]    = array ('url' => get_path('rootAdminWeb') . 'admin_class_user.php?class_id='.$class_id, 'name' => get_lang('Class users'));
 $nameTools = get_lang('Register user to class');
 
 // Header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( empty($class_id) )
 {
@@ -159,7 +159,7 @@ else
     
     // Display tool link
 
-    echo '<p><a class="claroCmd" href="'.$clarolineRepositoryWeb.'admin/admin_class_user.php?class_id='.$class_id.'">'. 
+    echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'. 
          get_lang('Class members').'</a></p>'."\n";
 
     if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) echo claro_html_button('admincourses.php', get_lang('Back to course list'));
@@ -201,7 +201,7 @@ else
          {
              echo '<td align="center">' . "\n"
              .    '<a href="' . $_SERVER['PHP_SELF'] . '?class_id=' . $class_id . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
-             .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register to the class') . '" />' . "\n"
+             .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Register to the class') . '" />' . "\n"
              .    '</a>' . "\n"
              .    '</td>' . "\n"
              ;
@@ -220,7 +220,7 @@ else
          {
              echo '<td align="center">' . "\n"
              .    '<a href="'.$_SERVER['PHP_SELF'].'?class_id='.$class_id.'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">' . "\n"
-             .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unregister from class').'" />' . "\n"
+             .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister from class').'" />' . "\n"
              .    '</a>' . "\n"
              .    '</td>' . "\n"
              ;
@@ -247,5 +247,5 @@ else
 
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

@@ -28,7 +28,7 @@ $uidRequired = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-if( ! $_uid ) claro_disp_auth_form();
+if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 $messageList = array();
 $display = '';
@@ -38,9 +38,9 @@ $error = false;
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 // include library files
-include_once $includePath . '/lib/user.lib.php';
-include_once $includePath . '/lib/sendmail.lib.php';
-include_once $includePath . '/lib/fileManage.lib.php';
+include_once get_path('incRepositorySys') . '/lib/user.lib.php';
+include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 
 $nameTools = get_lang('My User Account');
 
@@ -60,7 +60,7 @@ $extraInfoDefList = get_userInfoExtraDefinitionList();
 
 
 $user_data = user_initialise();
-$user_data = user_get_properties($_uid);
+$user_data = user_get_properties(claro_get_current_user_id());
 
 $acceptedCmdList = array( 'exCCstatus'
                         , 'exRevoquation'
@@ -104,13 +104,13 @@ if ( isset($_REQUEST['applyChange']) )
     }
 
     // validate forum params
-    $messageList['warning'] = user_validate_form_profile($user_data, $_uid);
+    $messageList['warning'] = user_validate_form_profile($user_data, claro_get_current_user_id());
     
     if ( count($messageList['warning']) == 0 )
     {
         // if no error update use setting
-        user_set_properties($_uid, $user_data);
-        event_default('PROFILE_UPDATE', array('user'=>$_uid));
+        user_set_properties(claro_get_current_user_id(), $user_data);
+        event_default('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
 
         // re-init the system to take new settings in account
 
@@ -119,7 +119,7 @@ if ( isset($_REQUEST['applyChange']) )
         $messageList['info'][] = get_lang('The information have been modified') . '<br />' . "\n";
 
         // Initialise
-        $user_data = user_get_properties($_uid);
+        $user_data = user_get_properties(claro_get_current_user_id());
 
     } // end if $userSettingChangeAllowed
     else
@@ -181,7 +181,7 @@ elseif ( 'editExtraInfo' == $cmd && 0 < count($extraInfoDefList) )
     $display = DISP_MOREINFO_FORM;
     $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
     $nameTools = get_lang('Complementary fields');
-    $userInfo = get_user_property_list($_uid);
+    $userInfo = get_user_property_list(claro_get_current_user_id());
 
 }
 elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
@@ -190,14 +190,14 @@ elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
     {
         foreach( $_REQUEST['extraInfoList'] as $extraInfoName=> $extraInfoValue)
         {
-            set_user_property($_uid,$extraInfoName,$extraInfoValue,'userExtraInfo');
+            set_user_property(claro_get_current_user_id(),$extraInfoName,$extraInfoValue,'userExtraInfo');
         }
     }
 }
 
 
 // Initialise
-$user_data['userExtraInfoList'] =  get_user_property_list($_uid);
+$user_data['userExtraInfoList'] =  get_user_property_list(claro_get_current_user_id());
 
 $profileMenu =  array();
 
@@ -242,7 +242,7 @@ View Section
 **********************************************************************/
 
 // display header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
@@ -346,6 +346,6 @@ switch ( $display )
 
 // display footer
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

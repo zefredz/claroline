@@ -18,14 +18,14 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/class.lib.php';
-require_once $includePath . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/class.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 // Security check
 
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // DB tables definition
 
@@ -42,7 +42,7 @@ if ( !isset($_SESSION['admin_visible_class']))
 // Deal with interbredcrumps  and title variable
 
 $nameTools = get_lang('Classes');
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 
 // javascript confirm pop up declaration for header
 
@@ -259,7 +259,7 @@ $class_list = claro_sql_query_fetch_all($sql);
 
 // Display Header
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display title
 
@@ -272,7 +272,7 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 //display tool links
 
 echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.    '<img src="' . $imgRepositoryWeb . 'class.gif" />' . get_lang('Create a new class')
+.    '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" />' . get_lang('Create a new class')
 .    '</a>'
 .    '</p>' . "\n";
 
@@ -297,6 +297,6 @@ echo '</tbody>' . "\n"
 .    '</table>' ;
 
 // Display footer
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

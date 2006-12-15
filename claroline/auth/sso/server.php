@@ -27,7 +27,7 @@ require_once claro_get_conf_repository() .  'auth.cas.conf.php';
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 require_once claro_get_conf_repository() .  'auth.drivers.conf.php';
 
-require_once $includePath . '/lib/nusoap.php';
+require_once get_path('incRepositorySys') . '/lib/nusoap.php';
 
 $server = new soap_server();
 

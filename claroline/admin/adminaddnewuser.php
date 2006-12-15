@@ -20,14 +20,14 @@ $tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security Check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // Include library
 require claro_get_conf_repository() . 'user_profile.conf.php';
 
-require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/sendmail.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 // Initialise variables
 $nameTools = get_lang('Create a new user');
@@ -84,12 +84,12 @@ if ( $cmd == 'registration' )
   Display Section
  =====================================================================*/
 
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $noQUERY_STRING   = TRUE;
 
 // Display Header
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display title
 
@@ -131,6 +131,6 @@ else
 
 // Display footer
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>
