@@ -85,7 +85,6 @@ function commentBox($type, $mode)
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     // globals
     global $is_AllowedToEdit;
-    global $imgRepositoryWeb;
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
 
@@ -203,11 +202,11 @@ function commentBox($type, $mode)
                 echo '<p>' . "\n"
                 .    '<small>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
                 .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('Please confirm your choice')).'\')) return false;">' . "\n"
-                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />' . "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</small>' . "\n"
                 .    '</p>' . "\n"
@@ -237,7 +236,6 @@ function nameBox($type, $mode)
     // globals
     global $is_AllowedToEdit;
     global $urlAppend;
-    global $imgRepositoryWeb;
 
     // $dsp will be set 'true' if the comment has to be displayed
     $dsp = FALSE;
@@ -320,7 +318,7 @@ function nameBox($type, $mode)
 
         if ( $is_AllowedToEdit )
             echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
-            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />'
             .    '</a>' . "\n";
         echo '</h4>'."\n\n";
     }
@@ -466,8 +464,6 @@ function display_path_content()
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     $tbl_lp_asset                = $tbl_cdb_names['lp_asset'];
 
-    global $_cid;
-    global $imgRepositoryWeb;
     $style = "";
 
     $sql = "SELECT M.`name`, M.`contentType`,
@@ -533,7 +529,7 @@ function display_path_content()
 
             $contentType_alt = selectAlt($module['contentType']);
 
-            echo '<img src="' . $imgRepositoryWeb . $moduleImg . '" alt="' .$contentType_alt.'" border="0" />'
+            echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg . '" alt="' .$contentType_alt.'" border="0" />'
             .    $module['name']
             ;
         }
@@ -642,7 +638,6 @@ function display_my_exercises($dialogBox)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
-    global $imgRepositoryWeb;
 
     echo '<!-- display_my_exercises output -->' . "\n";
     /*--------------------------------------
@@ -684,7 +679,7 @@ function display_my_exercises($dialogBox)
             .    '</td>'."\n"
             .    '<td align="left">'
             .    '<label for="check_'.$exercise['id'].'" >'
-            .    '<img src="' . $imgRepositoryWeb . 'quiz.gif" alt="' . get_lang('Exercises') . '" />'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'quiz.gif" alt="' . get_lang('Exercises') . '" />'
             .    $exercise['title']
             .    '</label>'
             .    '</td>'."\n"
@@ -763,7 +758,6 @@ function display_my_documents($dialogBox)
     global $parentDir;
 
     global $fileList;
-    global $imgRepositoryWeb;
 
     /**
      * DISPLAY
@@ -794,7 +788,7 @@ function display_my_documents($dialogBox)
     and we can't go to a parent dir */
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
-        .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" align="absbottom" hspace="5" alt="" />'."\n"
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" align="absbottom" hspace="5" alt="" />'."\n"
         .    '<small>' . get_lang('Up') . '</small>' . "\n"
         .    '</a>' . "\n"
         ;
@@ -807,7 +801,7 @@ function display_my_documents($dialogBox)
         echo '<!-- current dir name -->' . "\n"
         .    '<tr>' . "\n"
         .    '<th class="superHeader" colspan="' . $colspan . '" align="left">'. "\n"
-        .    '<img src="' . $imgRepositoryWeb . 'opendir.gif" align="absbottom" vspace=2 hspace=5 alt="" />' . "\n"
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'opendir.gif" align="absbottom" vspace=2 hspace=5 alt="" />' . "\n"
         .    $dspCurDirName . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
@@ -898,7 +892,7 @@ function display_my_documents($dialogBox)
             }
             echo '<td align="left">'
             .    '<a href="' . $urlFileName . '" ' . $style . '>'
-            .    '<img src="' . $imgRepositoryWeb . $image . '" border="0" hspace="5" alt="" />' . $dspFileName . '</a>'
+            .    '<img src="' . get_path('imgRepositoryWeb') . $image . '" border="0" hspace="5" alt="" />' . $dspFileName . '</a>'
             .    '</td>'."\n"
             .    '<td><small>' . $size . '</small></td>' . "\n"
             .    '<td><small>' . $date . '</small></td>' . "\n"
