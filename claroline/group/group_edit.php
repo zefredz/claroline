@@ -20,12 +20,12 @@
 
 $tlabelReq = 'CLGRP';
 require '../inc/claro_init_global.inc.php';
-require_once $includePath . '/lib/form.lib.php';
-require_once $includePath . '/lib/group.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/form.lib.php';
+require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-$is_allowedToManage = $is_courseAdmin;
+$is_allowedToManage = claro_is_course_manager();
 
 if ( ! $is_allowedToManage )
 {
@@ -107,8 +107,9 @@ $tbl_bb_forum                = $tbl_cdb_names['bb_forums'];
 $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
 $tbl_group_team              = $tbl_cdb_names['group_team'];
 
-$currentCourseId     = $_course['sysCode'];
-$myStudentGroup      = $_group;
+$currentCourseId     = claro_get_current_course_id();
+$_groupProperties = claro_get_current_group_properties_data();
+$myStudentGroup      = claro_get_current_group_data();
 $nbMaxGroupPerUser   = $_groupProperties ['nbGroupPerUser'];
 
 if ( isset($_REQUEST['name']) ) $name = trim($_REQUEST['name']);
@@ -136,7 +137,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
                 `description` = '" . addslashes($description) . "',
                 `maxStudent`  = " . (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember . "'") .",
                 `tutor`       = '" . (int) $tutor ."'
-            WHERE `id`        = '" . (int) $_gid . "'";
+            WHERE `id`        = '" . (int) claro_get_current_group_id() . "'";
 
 
     // Update main group settings
@@ -164,7 +165,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     else
     {
         // Delete all members of this group
-        $sql = 'DELETE FROM `' . $tbl_group_rel_team_user . '` WHERE `team` = "' . (int)$_gid . '"';
+        $sql = 'DELETE FROM `' . $tbl_group_rel_team_user . '` WHERE `team` = "' . (int)claro_get_current_group_id() . '"';
 
         $delGroupUsers = claro_sql_query($sql);
         $numberMembers--;
@@ -173,7 +174,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
         {
             $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
                     SET user = " . (int) $ingroup[$i] . ",
-                        team = " . (int) $_gid ;
+                        team = " . (int) claro_get_current_group_id() ;
 
             $registerUserGroup = claro_sql_query($sql);
         }
@@ -183,18 +184,18 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     }    // else
 
     $gidReset = TRUE;
-    $gidReq   = $_gid;
+    $gidReq   = claro_get_current_group_id();
 
-    include $includePath . '/claro_init_local.inc.php';
+    include get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
-    $myStudentGroup = $_group;
+    $myStudentGroup = claro_get_current_group_data();
 
 }    // end if $modify
 // SELECT TUTORS
 
 $tutorList = get_course_tutor_list($currentCourseId);
 
-// AND student_group.id='$_gid'    // This statement is DEACTIVATED
+// AND student_group.id='claro_get_current_group_id()'    // This statement is DEACTIVATED
 
 $tutor_list=array();
 $tutor_list[get_lang("(none)")] = 0;
@@ -225,13 +226,13 @@ $sql = "SELECT `u`.`user_id`        AS `user_id`,
         ON `u`.`user_id`=`ug`.`user`
 
         LEFT JOIN `" . $tbl_group_rel_team_user . "` AS `ugbloc`
-        ON  `u`.`user_id`=`ugbloc`.`user` AND `ugbloc`.`team` = " . (int) $_gid . "
+        ON  `u`.`user_id`=`ugbloc`.`user` AND `ugbloc`.`team` = " . (int) claro_get_current_group_id() . "
 
         WHERE `cu`.`code_cours` = '" . $currentCourseId . "'
         AND   `cu`.`user_id`    = `u`.`user_id`
         AND ( `cu`.`isCourseManager` = 0 )
         AND   `cu`.`tutor`      = 0
-        AND ( `ug`.`team`       <> " . (int) $_gid . " OR `ug`.`team` IS NULL )
+        AND ( `ug`.`team`       <> " . (int) claro_get_current_group_id() . " OR `ug`.`team` IS NULL )
 
         GROUP BY `u`.`user_id`
         HAVING `BLOCK` = 0
@@ -252,13 +253,13 @@ foreach ($result AS $myNotMember )
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 
 echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
 if ( isset($messageGroupEdited) ) echo claro_html_message_box($messageGroupEdited);
 
-echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . $_gid . '">' . "\n"
+echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() . '">' . "\n"
 .    '<table border="0" cellspacing="3" cellpadding="5">' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td align="right">' . "\n"
@@ -268,8 +269,8 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<input type="text" name="name" id="name" size="40" value="' . htmlspecialchars($myStudentGroup['name']) . '">' . "\n"
 .    '</td>' . "\n"
 .    '<td>' . "\n"
-.    '<a href="group_space.php?gidReq=' . $_gid . '">' . "\n"
-.    '<img src="' . $imgRepositoryWeb . 'group.gif" />' . "\n"
+.    '<a href="group_space.php?gidReq=' . claro_get_current_group_id() . '">' . "\n"
+.    '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" />' . "\n"
 .    '&nbsp;' . get_lang("Area for this group") . '</a>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
@@ -346,7 +347,7 @@ echo '</td>'
 .    '</form>'
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 
 /**
@@ -357,8 +358,8 @@ include $includePath . '/claro_init_footer.inc.php';
  */
 function get_group_member_list($context=array())
 {
-    $currentCourseId = array_key_exists(CLARO_CONTEXT_COURSE, $context) ? $context['CLARO_CONTEXT_COURSE'] : get_init('_cid');
-    $currentGroupId  = array_key_exists(CLARO_CONTEXT_GROUP, $context) ? $context['CLARO_CONTEXT_GROUP'] : get_init('_gid');
+    $currentCourseId = array_key_exists(CLARO_CONTEXT_COURSE, $context) ? $context['CLARO_CONTEXT_COURSE'] : claro_get_current_course_id();
+    $currentGroupId  = array_key_exists(CLARO_CONTEXT_GROUP, $context) ? $context['CLARO_CONTEXT_GROUP'] : claro_get_current_group_id();
 
     $tblc = claro_sql_get_course_tbl();
     $tblm = claro_sql_get_main_tbl();

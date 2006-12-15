@@ -23,22 +23,22 @@ $gidNeeded = true;
 $tlabelReq = 'CLGRP';
 
 require '../inc/claro_init_global.inc.php';
-include_once $includePath . '/lib/group.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
 $toolNameList= claro_get_tool_name_list();
-$toolRepository = $clarolineRepositoryWeb;
+$toolRepository = get_path('clarolineRepositoryWeb');
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-// block if !$_gid
-// accept  if $is_groupAllowed
+// block if !claro_is_in_a_group()
+// accept  if claro_is_group_allowed()
 
-if ( ! $_gid )
+if ( ! claro_is_in_a_group() )
 {
     claro_redirect('group.php');
     exit();
 }
-elseif ( ! $is_groupAllowed && ! ( isset( $_REQUEST['selfReg'] ) || isset($_REQUEST['doReg']) ) )
+elseif ( ! claro_is_group_allowed() && ! ( isset( $_REQUEST['selfReg'] ) || isset($_REQUEST['doReg']) ) )
 {
     claro_redirect('group.php');
     exit();
@@ -51,8 +51,6 @@ claro_set_display_mode_available(true);
 * CONNECTION SECTION
 *********************/
 
-$is_courseMember     = $is_courseMember;
-$is_groupMember      = $is_groupMember;
 $is_allowedToManage  = claro_is_allowed_to_edit();
 /*
 * DB tables definition
@@ -67,15 +65,15 @@ $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
 $tbl_group_team              = $tbl_cdb_names['group_team'];
 /****************************************************************************/
 
-
+$_groupProperties = claro_get_current_group_properties_data();
 // COUNT IN HOW MANY GROUPS CURRENT USER ARE IN
 // (needed to give or refuse selfreg right)
 
-$groupMemberCount = group_count_students_in_group($_gid);
+$groupMemberCount = group_count_students_in_group(claro_get_current_group_id());
 
-$groupMemberQuotaExceeded = (bool) ( ! is_null($_group['maxMember']) && ($_group ['maxMember'] <= $groupMemberCount) ); // no limit assign to group per user;
+$groupMemberQuotaExceeded = (bool) ( ! is_null(claro_get_current_group_data('maxMember')) && (claro_get_current_group_data('maxMember') <= $groupMemberCount) ); // no limit assign to group per user;
 
-$userGroupRegCount = group_count_group_of_a_user($_uid);
+$userGroupRegCount = group_count_group_of_a_user(claro_get_current_user_id());
 
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
@@ -85,18 +83,18 @@ $userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $us
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $groupMemberQuotaExceeded )
 && ( ! $userGroupQuotaExceeded )
-&& ( ! $is_courseTutor ||
-     ( $is_courseTutor
+&& ( ! claro_is_course_tutor() ||
+     ( claro_is_course_tutor()
        &&
        get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
        )));
 
-$is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && $_uid && ( ! $is_groupMember ) && $is_courseMember;
+$is_allowedToSelfRegInGroup  = (bool) $is_allowedToSelfRegInGroup && claro_is_in_a_course() && ( ! claro_is_group_member() ) && claro_is_course_member();
 
 
 
-$is_allowedToDocAccess = (bool) ( $is_courseAdmin || $is_groupMember || $is_groupTutor);
-$is_allowedToChatAccess     = (bool) (     $is_courseAdmin || $is_groupMember || $is_groupTutor );
+$is_allowedToDocAccess = (bool) ( claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor());
+$is_allowedToChatAccess     = (bool) (     claro_is_course_manager() || claro_is_group_member() ||  claro_is_group_tutor() );
 
 /**
  * SELF-REGISTRATION PROCESS
@@ -105,21 +103,21 @@ $is_allowedToChatAccess     = (bool) (     $is_courseAdmin || $is_groupMember ||
 if( isset($_REQUEST['registration']) )
 {
     //RECHECK if subscribe is aivailable
-    if( $is_courseMember &&  ! $is_groupMember && $is_allowedToSelfRegInGroup)
+    if( claro_is_course_member() &&  ! claro_is_group_member() && $is_allowedToSelfRegInGroup)
     {
         if( isset($_REQUEST['doReg']) )
         {
             //RECHECK if subscribe is aivailable
-            if( $is_courseMember &&  ! $is_groupMember && $is_allowedToSelfRegInGroup)
+            if( claro_is_course_member() &&  ! claro_is_group_member() && $is_allowedToSelfRegInGroup)
             {
 
                 $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
-                SET `user` = " . (int) $_uid . ",
-                    `team` = " . (int) $_gid ;
+                SET `user` = " . (int) claro_get_current_user_id() . ",
+                    `team` = " . (int) claro_get_current_group_id() ;
                 if (claro_sql_query($sql))
                 {
                     // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
-                    claro_redirect($_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . $_gid . '&regDone=1');
+                    claro_redirect($_SERVER['PHP_SELF'] . '?gidReset=1&gidReq=' . claro_get_current_group_id() . '&regDone=1');
                     exit();
 
                 }
@@ -127,7 +125,7 @@ if( isset($_REQUEST['registration']) )
         }
         else // Confirm reg
         {
-            $message = get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>$_group['name'])) . "\n"
+            $message = get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
             .          '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             .          '<input type="hidden" name="registration" value="1">' . "\n"
             .          '<input type="hidden" name="doReg" value="1">' . "\n"
@@ -164,7 +162,7 @@ GET GROUP MEMBER LIST
 
 $sql = "SELECT `user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
         FROM `" . $tbl_user . "` `user`, `" . $tbl_group_rel_team_user . "` `user_group`
-        WHERE `user_group`.`team`= '" . $_gid . "'
+        WHERE `user_group`.`team`= '" . claro_get_current_group_id() . "'
         AND   `user_group`.`user`= `user`.`user_id`";
 
 $groupMemberList = claro_sql_query_fetch_all($sql);
@@ -176,21 +174,21 @@ GET TUTOR(S) DATA
 
 $sql = "SELECT user_id AS id, nom AS lastName, prenom AS firstName, email
         FROM `".$tbl_user."` user
-        WHERE user.user_id='".$_group['tutorId']."'";
+        WHERE user.user_id='".claro_get_current_group_data('tutorId')."'";
 
 $tutorDataList = claro_sql_query_fetch_all($sql);
 
 /*----------------------------------------------------------------------------
 GET FORUM POINTER
 ----------------------------------------------------------------------------*/
-$forumId = $_group['forumId'];
+$forumId = claro_get_current_group_data('forumId');
 
 $toolList = get_group_tool_list();
 
-if (isset($_uid))
+if (claro_is_in_a_course())
 {
-    $date = $claro_notifier->get_notification_date($_uid);
-    $modified_tools = $claro_notifier->get_notified_tools($_cid, $date, $_uid, $_gid);
+    $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+    $modified_tools = $claro_notifier->get_notified_tools(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id());
 }
 else $modified_tools = array();
 
@@ -224,17 +222,17 @@ foreach($toolList as $thisTool)
 
     if (! empty($thisTool['icon']))
     {
-        $icon = $imgRepositoryWeb . $thisTool['icon'];
+        $icon = get_path('imgRepositoryWeb') . $thisTool['icon'];
     }
     else
     {
-        $icon = $imgRepositoryWeb . 'tool.gif';
+        $icon = get_path('imgRepositoryWeb') . 'tool.gif';
     }
 
     $style = '';
 
     // patchy
-    if ( $is_platformAdmin || $is_courseAdmin )
+    if ( claro_is_platform_admin() || claro_is_course_manager() )
     {
         if(!array_key_exists($thisTool['label'],$_groupProperties['tools']) || !$_groupProperties['tools'][$thisTool['label']])
         {
@@ -279,10 +277,10 @@ foreach($toolList as $thisTool)
  ******************/
 
 // CLAROLINE HEADER AND BANNER
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 
 echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
-                                  'mainTitle' => $_group['name'] . ' <img src="'.$imgRepositoryWeb.'group.gif" alt="" />'));
+                                  'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'));
 
 if ( !empty($message) )
 {
@@ -294,7 +292,7 @@ if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
 {
     echo '<p>' . "\n"
     .    '<a href="' . $_SERVER['PHP_SELF'] . '?registration=1" class="claroCmd">'
-    .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang("Add me to this group") . '" />'
+    .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang("Add me to this group") . '" />'
     .    get_lang("Add me to this group")
     .    '</a>' . "\n"
     .    '</p>'
@@ -322,7 +320,7 @@ echo '<p></p><table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 if ($is_allowedToManage)
 {
     echo '<a href="group_edit.php" class="claroCmd">'
-    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang("Edit this group") . '" />'
+    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang("Edit this group") . '" />'
     .    get_lang("Edit this group")
     .    '</a>'
     ;
@@ -342,10 +340,10 @@ echo '</td>' . "\n"
 DISPLAY GROUP DESCRIPTION
 ----------------------------------------------------------------------------*/
 
-if( strlen($_group['description']) > 0)
+if( strlen(claro_get_current_group_data('description')) > 0)
 {
     echo '<br /><br />' . "\n"
-    .    $_group['description']
+    .    claro_get_current_group_data('description')
     ;
 }
 else // Show 'none' if no description
@@ -419,7 +417,7 @@ echo '</td>' . "\n"
 .    '</table>' . "\n"
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 
 ?>

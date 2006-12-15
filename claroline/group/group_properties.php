@@ -15,16 +15,15 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-
-
+$tlabelReq = 'CLGRP';
 require '../inc/claro_init_global.inc.php';
-include_once $includePath . '/lib/group.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
 // display login form
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 // check user right
-if ( ! $is_courseAdmin )
+if ( ! claro_is_course_manager() )
 {
     claro_die(get_lang("Not allowed"));
 }
@@ -32,7 +31,7 @@ if ( ! $is_courseAdmin )
 $nameTools = get_lang("Groups settings");
 $interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang("Groups"));
 
-$_groupProperties = claro_get_main_group_properties($_cid);
+$_groupProperties = claro_get_main_group_properties(claro_get_current_course_id());
 
 
 session_register('_groupProperties');
@@ -58,7 +57,7 @@ if ( get_conf('multiGroupAllowed') )
 
 $groupToolList = get_group_tool_list();
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
 echo '<form method="post" action="group.php">' . "\n"
@@ -183,5 +182,5 @@ echo '<tr>' . "\n"
 .    '</form>' . "\n"
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
