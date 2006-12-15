@@ -32,7 +32,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 
-require_once $clarolineRepositorySys . 'linker/linker.inc.php';
+require_once get_path('clarolineRepositorySys') . 'linker/linker.inc.php';
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TBL_INTRODUCTION = $tbl_cdb_names['tool_intro'];
@@ -107,7 +107,7 @@ if ($intro_editAllowed)
            {
                  linker_update('CLINTRO_');
                 // notify that a new introsection has been posted
-                $eventNotifier->notifyCourseEvent('introsection_modified', $_cid, $_tid, $moduleId, $_gid, '0');
+                $eventNotifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $moduleId, claro_get_current_group_id(), '0');
            }
            else
            {
@@ -399,7 +399,7 @@ if ($intro_dispDefault)
     {
         echo '<p>' . "\n"
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
-        .    '<img src="' . $urlAppend . '/claroline/img/textzone.gif" alt="" border="0">'
+        .    '<img src="' .  get_path('url') . '/claroline/img/textzone.gif" alt="" border="0">'
         .    get_lang('Add Text')
         .    '</a>' . "\n"
         .    '</p>' . "\n\n"

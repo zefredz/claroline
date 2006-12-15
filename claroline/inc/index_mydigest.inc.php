@@ -15,13 +15,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @change this in a applet.
  *
  */
-if ( ! isset($_uid) ) claro_disp_auth_form();
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-include_once $GLOBALS['includePath'] . '/lib/pear/Lite.php';
+include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
 
 // Cache_lite setting & init
 $cache_options = array(
-'cacheDir' => get_conf('rootSys') . 'tmp/cache/CLCALdigest/',
+'cacheDir' => get_path('rootSys') . 'tmp/cache/CLCALdigest/',
 'lifeTime' => get_conf('cache_lifeTime', 600),
 'automaticCleaningFactor' => 50,
 );
@@ -29,7 +29,7 @@ if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 120;
 if (! file_exists($cache_options['cacheDir']) )
 {
-    include_once $GLOBALS['includePath'] . '/lib/fileManage.lib.php';
+    include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
     claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
 }
 $Cache_LiteCLCALDIGEST = new Cache_Lite($cache_options);
@@ -40,9 +40,9 @@ $courseDigestList = array('courseSysCode'      => array(),
                           'date'               => array(),
                           'content'            => array());
 
-if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.$_uid))
+if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.claro_get_current_user_id()))
 {
-    $personnalCourseList = get_user_course_list($_uid);
+    $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
     foreach($personnalCourseList as $thisCourse)
     {
@@ -151,10 +151,10 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.$_uid))
         $htmlCLCALDIGEST .= '<p>' . "\n"
         .    '<small>'
         .    '<a href="' . $url . '">'
-        .    '<img src="' . $imgRepositoryWeb . $itemIcon . '" alt="" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . $itemIcon . '" alt="" />'
         .    '</a>' . "\n"
 
-        .    claro_disp_localised_date( $dateFormatLong,
+        .    claro_disp_localised_date( get_locale('dateFormatLong'),
         strtotime($courseDigestList['date'][$i]) )
         .    '<br />' . "\n"
         .    '<a href="' . $url . '">'
@@ -168,7 +168,7 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.$_uid))
         ;
     } // end for( $i=0, ... $i < $itemCount; $i++)
 
-    $Cache_LiteCLCALDIGEST->save($htmlCLCALDIGEST,'CALDIGEST'.$_uid);
+    $Cache_LiteCLCALDIGEST->save($htmlCLCALDIGEST,'CALDIGEST'.claro_get_current_user_id());
 }
 
 unset ($Cache_LiteCLCALDIGEST);

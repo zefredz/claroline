@@ -85,12 +85,12 @@ if ( count($courseList) > 0 )
     foreach($courseList as $thisCourse)
     {
         echo '<li>' . "\n"
-        .    '<a href="' .  $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">'
+        .    '<a href="' .   get_path('url') . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">'
         .    $thisCourse['officialCode'] . ' - '
         .    $thisCourse['title']
         .    '</a>'
         .    '<br />';
-        if (isset($_uid))
+        if (claro_is_user_authenticated())
         {
         	echo '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
         }

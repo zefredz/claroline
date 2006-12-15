@@ -12,9 +12,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLINDEX
  ******************************************************************************/
 
-if ( ! isset($_uid) ) claro_disp_auth_form();
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-$personnalCourseList = get_user_course_list($_uid);
+$personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
 // get the list of personnal courses marked as contening new events
 $date            = $claro_notifier->get_notification_date($_uid);
