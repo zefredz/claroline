@@ -382,7 +382,7 @@ if ($intro_dispDefault)
 
                 if ( !empty( $section ) || $intro_editAllowed )
                 {
-                    $section = '<div class="claroIntroSection' . $cssClass . '" ">' 
+                    $section = '<div class="claroIntroSection' . $cssClass . '">' 
                         . "\n" . $section
                         ;
                     
