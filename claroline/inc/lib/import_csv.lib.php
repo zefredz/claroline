@@ -358,6 +358,7 @@ function check_username_used_userlist($userlist)
 
     //for each user found, report the potential problem in an error array returned
 
+    // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
 
     while ($list = mysql_fetch_array($foundUser))
@@ -409,7 +410,7 @@ function check_officialcode_used_userlist($userlist)
     }
 
     //for each user found, report the potential problem
-
+    // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
 
     //echo $sql."<br>\n";
@@ -492,6 +493,7 @@ function check_mail_used_userlist($userlist)
     }
 
     //for each user found, report the potential problem for email
+    // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
     while ($list = mysql_fetch_array($foundUser))
     {
@@ -525,8 +527,6 @@ function check_mail_used_userlist($userlist)
 
 function check_duplicate_mail_userlist($userlist)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
@@ -565,8 +565,6 @@ function check_duplicate_mail_userlist($userlist)
 
 function check_duplicate_username_userlist($userlist)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
