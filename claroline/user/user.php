@@ -264,7 +264,7 @@ if ($can_add_user)
     {
 
         // Add a user link
-        $userMenu[] = claro_html_cmd_link( 'user_add.php?' . claro_url_relay_context()
+        $userMenu[] = claro_html_cmd_link( 'user_add.php' . claro_url_relay_context('?')
                                          , '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
                                          . get_lang('Add a user')
                                          )
@@ -274,7 +274,7 @@ if ($can_add_user)
     if ($can_add_single_user)
     {
         $userMenu[] = claro_html_cmd_link( './userInfo.php?addDef=1'
-                                   
+
                                          , get_lang('Add new heading')
                                          );
     }
@@ -282,7 +282,9 @@ if ($can_add_user)
     if ($can_import_user_list)
     {
         // Add CSV file of user link
-        $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php?AddType=userTool&' . claro_url_relay_context()
+        $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php'
+                                         . '?AddType=userTool'
+                                         . claro_url_relay_context('&amp;')
                                          , '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
                                          . get_lang('Add a user list')
                                          );
@@ -291,6 +293,7 @@ if ($can_add_user)
     {
         // Add a class link
         $userMenu[] = claro_html_cmd_link( 'class_add.php'
+                                         . claro_url_relay_context('?')
                                          , '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
                                          . get_lang('Enrol class')
                                          );
@@ -300,6 +303,7 @@ if ($can_add_user)
     {
         // Main group settings
         $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
+                                         . claro_url_relay_context('?')
                                          , '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
                                          . get_lang("Right Profile")
                                          );
@@ -308,12 +312,14 @@ if ($can_add_user)
 
 
 $userMenu[] = claro_html_cmd_link( '../group/group.php'
+                                 . claro_url_relay_context('?')
                                  , '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
                                  . get_lang('Group management')
                                  );
 
 $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
                                  . '?cmd=unregister&amp;user_id=allStudent'
+                                 . claro_url_relay_context('&amp;')
                                  , '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
                                  . get_lang('Unregister all students')
                                  , array('onClick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
@@ -418,7 +424,7 @@ foreach ( $userList as $thisUser )
     {
         echo '<td>'.$thisUser['role'].'</td>'."\n";
     }
-    
+
     // User group column
     if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
     {
