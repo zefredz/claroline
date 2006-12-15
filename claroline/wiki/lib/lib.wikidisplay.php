@@ -262,7 +262,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             . '<fieldset id="acl" style="padding: 10px;margin: 10px;">' . "\n"
             . '<legend>' . get_lang("Access control management") . '</legend>' . "\n"
             . '<p style="font-style: italic;">'
-            . get_lang("You can set access rights for users using the following grid : ")
+            . get_lang('You can set access rights for users using the following grid :')
             . '</p>' . "\n"
             . '<table style="text-align: center; padding: 5px;" id="wikiACL">' . "\n"
             . '<tr class="matrixAbs">' . "\n"
