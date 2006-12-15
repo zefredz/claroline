@@ -348,7 +348,7 @@ boolean
 function  claro_is_course_admin()
 {
     pushClaroMessage('use claro_is_course_manager() instead of claro_is_course_admin()','code review');
-    return claro_is_course_manager;
+    return claro_is_course_manager();
 }
 
 
