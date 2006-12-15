@@ -42,7 +42,6 @@ function get_course_title($cid)
 function get_info_course($cid)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_course    = $tbl_mdb_names['course'   ];
     $tbl_category  = $tbl_mdb_names['category' ];
 
     if ($cid)
