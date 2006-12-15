@@ -28,7 +28,7 @@ function CLCAL_write_rss($context)
     $toolNameList = claro_get_tool_name_list();
 
     $itemRssList = array();
-    foreach ($eventList as $id => $item)
+    foreach ($eventList as $item)
     {
         if('SHOW' == $item['visibility'] )
         {
