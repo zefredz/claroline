@@ -25,6 +25,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 require_once(dirname(__FILE__) . '/sql.lib.php');
 
 /**
+ * SECTION :  Class & function to prepare a normalised html output.
+ */
+
+require_once(dirname(__FILE__) . '/init.lib.php');
+
+/**
+ * SECTION :  Class & function to prepare a normalised html output.
+ */
+
+require_once(dirname(__FILE__) . '/path.lib.php');
+
+/**
  * SECTION : PHP COMPAT For PHP backward compatibility
  */
 
@@ -345,6 +357,15 @@ function claro_get_tool_name_list()
     return claro_get_module_name_list();
 }
 
+/**
+ * Get a list of tag names of some tools
+ * This is a bad named function because they return only tool type modules
+ *
+ * Returned tagname is the "Developpers english name" this tag would be passed to get_lang
+ *
+ * @param boolean $active true filter to keep only tools activated in platform
+ * @return array( `label`=>`tagname`)
+ */
 function claro_get_module_name_list($active = true)
 {
     static $toolNameList;
@@ -648,6 +669,14 @@ function claro_get_tool_name ( $identifier )
     return claro_get_module_name($identifier);
 }
 
+/**
+ * Return the name of a given module
+ *
+ * @param mixed $identifier
+ *        interger for a module id
+ *        string for a claro label
+ * @return string translated tool name;
+ */
 function claro_get_module_name ( $identifier )
 {
     static $cachedModuleIdList = null ;
@@ -961,21 +990,19 @@ function claro_get_tool_view_mode()
 
 function claro_is_allowed_to_edit()
 {
-    global $is_courseAdmin, $_tid;
-
-    if ( $is_courseAdmin )
+    if ( claro_is_course_admin() )
     {
-        $isAllowedToEdit = $is_courseAdmin ;
+        $isAllowedToEdit = claro_is_course_admin() ;
     }
     else
     {
-        if ( !empty($_tid) )
+        if ( claro_is_in_a_tool() )
         {
             $isAllowedToEdit = claro_is_allowed_tool_edit();
         }
         else
         {
-            $isAllowedToEdit = $is_courseAdmin ;
+            $isAllowedToEdit = claro_is_course_admin() ;
         }
     }
 
@@ -1019,7 +1046,13 @@ function claro_set_display_mode_available($mode)
 
 
 /**
- * compose currentdate with server time shift
+ * Compose currentdate with server time shift
+ *
+ * @param string $format date() format
+ * @param integer $timestamp timestamp or default  -1 for "now()"
+ * @return date()
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 function claro_date($format, $timestamp = -1)
@@ -1030,12 +1063,16 @@ function claro_date($format, $timestamp = -1)
 }
 
 /**
- * compose currentdate with server time shift
+ * Compose currentdate with server time shift
+ *
+ * @return timestamp shifted by mainTimeShift config value
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 function claro_time()
 {
-    $mainTimeShift = (int) (isset($GLOBALS['mainTimeShift'])?$GLOBALS['mainTimeShift']:0);
+    $mainTimeShift = (int) get_conf('mainTimeShift',0);
     return time()+(3600 * $mainTimeShift);
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -1077,8 +1114,8 @@ function claro_is_javascript_enabled()
  */
 function claro_get_language_list()
 {
-    global $includePath, $langNameOfLang;
-    $dirname = $includePath . '/../lang/';
+    $langNameOfLang = get_locale('langNameOfLang');
+    $dirname = get_path('incRepositorySys') . '/../lang/';
 
     if($dirname[strlen($dirname)-1]!='/')
     $dirname .= '/';
@@ -1101,13 +1138,36 @@ function claro_get_language_list()
     return $language_list;
 }
 
+/**
+ * Return the config ropisitory for a given context
+ *
+ * All platform config are stored in platform/conf/
+ * But a course or a group can overide some config values
+ *
+ * This function return the repository ignoring if it's  existing or empty
+ *
+ * @param array $context
+ * @return string
+ */
 function claro_get_conf_repository($context=array())
 {
     if (!isset($context) || !is_array($context) || empty($context) || is_null($context))
-        return get_conf('rootSys') . 'platform/conf/';
+        return get_path('rootSys') . 'platform/conf/';
 
     if (array_key_exists(CLARO_CONTEXT_COURSE, $context))
-        return get_conf('coursesRepositorySys') . claro_get_course_path($context[CLARO_CONTEXT_COURSE]) . '/conf/';
+    {
+        if (array_key_exists(CLARO_CONTEXT_GROUP, $context))
+        {
+            return claro_get_course_group_path($context) . '/conf/';
+        }
+        return get_path('coursesRepositorySys') . claro_get_course_path($context[CLARO_CONTEXT_COURSE]) . '/conf/';
+
+
+    }
+
+
+    pushClaroMessage('Unknown context passed to claro_get_conf_repository : ' . var_export($context,1));
+    return null;
 }
 
 /**
@@ -1165,7 +1225,7 @@ function claro_die($message)
     if ( ! headers_sent () )
     {
         // display header
-        require $includePath . '/claro_init_header.inc.php';
+        require get_path('incRepositorySys') . '/claro_init_header.inc.php';
     }
 
     echo '<table align="center">'
@@ -1175,7 +1235,7 @@ function claro_die($message)
     .    '</table>'
     ;
 
-    require $includePath . '/claro_init_footer.inc.php' ;
+    require get_path('incRepositorySys') . '/claro_init_footer.inc.php' ;
 
     die(); // necessary to prevent any continuation of the application
 }
@@ -1249,223 +1309,6 @@ function claro_unquote_gpc()
     }
 }
 
-function get_current_user_id()
-{
-    return get_init('_uid');
-}
-
-function get_current_course_id()
-{
-    return get_init('_cid');
-}
-
-function get_current_group_id()
-{
-    return get_init('_gid');
-}
-
-function get_current_tool_id()
-{
-    return get_init('_tid');
-}
-
-/**
- * Return the value of a Claroline configuration parameter
- * @param string $param config parameter
- * @param mixed $default (optionnal) - set a defaut to return value
- *                                     if no paramater with such a name is found.
- * @return string param value
- * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
-*/
-
-function get_init($param)
-{
-
-    static $initValueList = array( '_uid'                   // get_current_user_id()
-                                 , '_cid'                   // get_current_course_id()
-                                 , '_gid'                   // get_current_group_id()
-                                 , '_tid'                   // get_current_tool_id()
-                                 , 'is_authenticated'       // is_authenticated()
-                                 , 'in_course_context'      // is_in_course_context()
-                                 , 'in_group_context'       // is_in_group_context()
-                                 , 'is_platformAdmin'       // is_platformAdmin()
-                                 , '_course'                // get_current_course_data(field=all)
-                                 , '_user'                  // get_current_user_data(field=all)
-                                 , '_group'                 // get_current_group_data(field=all)
-                                 , '_groupProperties'       // get_current_groupProperties_data(field=all)
-                                 , '_courseUser'            // get_current_courseUser_data(field=all)
-                                 , '_courseTool'            // get_current_courseTool_data(field=all)
-                                 , '_courseToolList'        // get_current_courseToolList_data(field=all)
-                                 , 'is_courseMember'        // is_courseMember()
-                                 , 'is_courseTutor'         // is_courseTutor()
-                                 , 'is_courseAdmin'         // is_courseAdmin()
-                                 , 'is_courseAllowed'       // is_courseAllowed()
-                                 , 'is_allowedCreateCourse' // is_allowedCreateCourse()
-                                 , 'is_groupMember'         // is_groupMember()
-                                 , 'is_groupTutor'          // is_groupTutor()
-                                 , 'is_groupAllowed'        // is_groupAllowed()
-                                 , 'is_toolAllowed'         // is_toolAllowed()
-                                 );
-
-                                 if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
-                                 //TODO create a real auth function to eval this state
-                                 if ( $param == 'is_authenticated') return !(bool) is_null($GLOBALS['_uid']);
-
-                                 //TODO create a real course function to eval this state
-                                 if ( $param == 'in_course_context') return !(bool) is_null($GLOBALS['_cid']);
-
-                                 //TODO create a real course function to eval this state
-                                 if ( $param == 'in_group_context')  return !(bool) is_null($GLOBALS['_gid']);
-
-                                 if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
-                                 elseif ( defined($param)         )            return constant($param);
-                                 return null;
-}
-
-function get_current_course_data($dataName=null)
-{
-    $c = get_init('_course');
-    if (is_null($dataName)) return $c;
-    elseif (is_array($c) && array_key_exists($dataName,$c)) return $c[$dataName];
-    else
-    {
-        pushClaroMessage($dataName . ' dont exist','error');
-    }
-}
-
-function get_current_user_data($dataName=null)
-{
-    $u = get_init('_user');
-    if (is_null($dataName)) return $u;
-    elseif (is_array($u) && array_key_exists($dataName,$u)) return $u[$dataName];
-    else
-    {
-        pushClaroMessage($dataName . ' dont exist','error');
-    };
-
-}
-
-function get_current_group_data($dataName=null)
-{
-    return get_init('_group');
-}
-
-function get_current_groupProperties_data($dataName=null)
-{
-    return get_init('_groupProperties');
-}
-
-function get_current_courseUser_data($dataName=null)
-{
-    return get_init('_courseUser');
-}
-
-function get_current_courseTool_data($dataName=null)
-{
-    return get_init('_courseTool');
-}
-
-function get_current_courseToolList_data($dataName=null)
-{
-    return get_init('_courseToolList');
-}
-
-function is_courseMember()
-{
-    return get_init('is_courseMember');
-}
-
-function is_courseTutor()
-{
-    return get_init('is_courseTutor');
-}
-
-function  is_courseAdmin()
-{
-    return get_init('is_courseAdmin');
-}
-
-function  is_courseAllowed()
-{
-    return get_init('is_courseAllowed');
-}
-
-function  is_allowedCreateCourse()
-{
-    return get_init('is_allowedCreateCourse');
-}
-
-function  is_groupMember()
-{
-    return get_init('is_groupMember');
-}
-
-function  is_groupTutor()
-{
-    return get_init('is_groupTutor');
-}
-
-function  is_groupAllowed()
-{
-    return get_init('is_groupAllowed');
-}
-
-function is_toolAllowed()
-{
-    return get_init('is_toolAllowed');
-}
-
-/**
-Http://www.domain.tld/whereisMyCampus/claroline/blah
-
-$rootWeb    = Http://www.domain.tld/whereisMyCampus/claroline/blah
-$hostWeb    = Http://www.domain.tld
-$urlAppend  = /whereisMyCampus/claroline/blah
-$clarolineRepositorySys = Http://www.domain.tld/whereisMyCampus/claroline
-
-*/
-/**
- * Return a common path of claroline
- *
- * @param string $pathKey key name of the path ( varname in previous version of claroline)
- * @return path
- */
-function get_path($pathKey)
-{
-    switch ($pathKey)
-    {
-        case 'includePath'            : return dirname( dirname(__FILE__) );
-        case 'incRepositorySys'       : return dirname( dirname(__FILE__) );
-
-        case 'rootSys' : return get_conf('rootSys') ;
-        case 'rootWeb' : return get_conf('rootWeb') ;
-
-        // private translation / Dont use theses paths
-        case 'imgRepositoryAppend'       : return 'img/'; // <-this line would be editable in claroline 1.7
-        case 'clarolineRepositoryAppend' : return get_conf('clarolineRepositoryAppend','claroline/');
-        case 'coursesRepositoryAppend'   : return get_conf('coursesRepositoryAppend','courses/');
-        case 'rootAdminAppend'           : return get_conf('rootAdminAppend','admin/');
-
-
-
-        case 'clarolineRepositorySys' : return get_conf('rootSys') . get_conf('clarolineRepositoryAppend','claroline/');
-        case 'clarolineRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('clarolineRepositoryAppend','claroline/');
-        case 'userImageRepositorySys' : return get_conf('rootSys') . get_conf('userImageRepositoryAppend','platform/img/users/');
-        case 'userImageRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('userImageRepositoryAppend','platform/img/users/');
-        case 'coursesRepositorySys'   : return get_conf('rootSys') . get_conf('coursesRepositoryAppend','courses/');
-        case 'coursesRepositoryWeb'   : return get_conf('urlAppend') . '/' . get_conf('coursesRepositoryAppend','courses/');
-        case 'rootAdminSys'           : return get_path('clarolineRepositorySys') . get_conf('rootAdminAppend','admin/');
-        case 'rootAdminWeb'           : return get_path('clarolineRepositoryWeb') . get_conf('rootAdminAppend','admin/');
-        case 'imgRepositorySys'       : return get_path('clarolineRepositorySys') . get_path('imgRepositoryAppend');
-        case 'imgRepositoryWeb'       : return get_path('clarolineRepositoryWeb') . get_path('imgRepositoryAppend');
-        case 'url'                    : return get_conf('urlAppend');
-
-        default : pushClaroMessage($pathKey . 'is an unknow path');
-        return false;
-    }
-
-}
-
 /**
  * @param $contextKeys array or null
  *
@@ -1479,11 +1322,11 @@ function claro_get_current_context($contextKeys = null)
 
     if(!is_null($contextKeys) && !is_array($contextKeys)) $contextKeys = array($contextKeys);
 
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_COURSE,$contextKeys))       && !is_null($GLOBALS['_cid'])) $currentKeys[CLARO_CONTEXT_COURSE]       = $GLOBALS['_cid'];
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_GROUP,$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys[CLARO_CONTEXT_GROUP]        = get_init('_gid');
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_USER,$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys[CLARO_CONTEXT_USER]         = get_init('_uid');
+    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_COURSE,$contextKeys))       && claro_is_in_a_course()) $currentKeys[CLARO_CONTEXT_COURSE]       = claro_get_current_course_id();
+    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_GROUP,$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys[CLARO_CONTEXT_GROUP]        = claro_get_current_group_id();
+    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_USER,$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys[CLARO_CONTEXT_USER]         = claro_get_current_user_id();
     //if((is_null($contextKeys) || in_array('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
-    if((is_null($contextKeys) || in_array('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = get_init('_tid');
+    if((is_null($contextKeys) || in_array('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = claro_get_current_tool_id();
 
     return $currentKeys;
 }
@@ -1571,11 +1414,11 @@ function claro_form_relay_context($context=null)
     $html ='';
     if(is_null($context))
     {
-        if (get_init('in_course_context'))
-            $html .= '<input type="hidden" name="cidReq" value="' . get_current_course_id() . '" />';
+        if (claro_is_in_a_course())
+            $html .= '<input type="hidden" name="cidReq" value="' . claro_get_current_course_id() . '" />';
 
-        if (get_init('in_group_context'))
-            $html .= '<input type="hidden" name="gidReq" value="' . get_current_group_id()  . '" />';
+        if (claro_is_in_a_group())
+            $html .= '<input type="hidden" name="gidReq" value="' . claro_get_current_group_id()  . '" />';
     }
     else
     {
@@ -1586,24 +1429,23 @@ function claro_form_relay_context($context=null)
     return $html;
 }
 
-function claro_url_relay_context($context=null)
+function claro_url_relay_context($context=null, $prepend='')
 {
-    $html ='';
     if(is_null($context))
     {
-        if (get_init('in_course_context'))
-            $urlParam[] = 'cidReq=' . get_current_course_id();
+        if (claro_is_in_a_course())
+            $urlParam[] = 'cidReq=' . claro_get_current_course_id();
 
-        if (get_init('in_group_context'))
-            $urlParam[] = 'gidReq=' . get_current_group_id();
-            
+        if (claro_is_in_a_group())
+            $urlParam[] = 'gidReq=' . claro_get_current_group_id();
+
     }
     else
     {
-        if (array_key_exists(CLARO_CONTEXT_COURSE,$context)) 
+        if (array_key_exists(CLARO_CONTEXT_COURSE,$context))
             $urlParam[] = 'cidReq=' . $context[CLARO_CONTEXT_COURSE];
-        
-        if (array_key_exists(CLARO_CONTEXT_GROUP,$context)) 
+
+        if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
             $urlParam[] = 'gidReq=' . $context[CLARO_CONTEXT_GROUP];
     }
 

@@ -122,6 +122,39 @@ function get_block ($name,$var_to_replace=null)
     }
 }
 
+
+function get_locale($localeInfoName)
+{
+    static $initValueList = array('englishLangName',
+                                  'localLangName',
+                                  'iso639_1_code',
+                                  'iso639_2_code',
+                                  'langNameOfLang',
+                                  'charset',
+                                  'text_dir',
+                                  'left_font_family',
+                                  'right_font_family',
+                                  'number_thousands_separator',
+                                  'number_decimal_separator',
+                                  'byteUnits',
+                                  'langDay_of_weekNames',
+                                  'langMonthNames',
+                                  'dateFormatShort', // not used
+                                  'dateFormatLong', // used
+                                  'dateTimeFormatLong', // used
+                                  'dateTimeFormatShort',
+                                  'timeNoSecFormat');
+
+    if(!in_array($localeInfoName, $initValueList )) trigger_error( htmlentities($localeInfoName) . ' is not a know locale value name ', E_USER_NOTICE);
+                                 //TODO create a real auth function to eval this state
+
+                                 if     ( array_key_exists($localeInfoName,$GLOBALS) )  return $GLOBALS[$localeInfoName];
+                                 elseif ( defined($localeInfoName)         )            return constant($localeInfoName);
+                                 return null;
+
+}
+
+
 class language
 {
     /**
@@ -135,7 +168,7 @@ class language
     function load_translation ($language=null,$mode=null)
     {
         global $_lang ;
-        global $includePath, $urlAppend ;
+        global $urlAppend ;
 
         /*----------------------------------------------------------------------
           Initialise language array
@@ -158,11 +191,11 @@ class language
         {
             // TRANSLATION MODE : include the language file with all language variables
 
-            include($includePath . '/../lang/english/complete.lang.php');
+            include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
 
             if ($language  != 'english') // Avoid useless include as English lang is preloaded
             {
-                include($includePath . '/../lang/' . $language . '/complete.lang.php');
+                include(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
             }
 
         }
@@ -193,13 +226,13 @@ class language
             // add extension to file
             $languageFile = $languageFilename . '.lang.php';
 
-            if ( ! file_exists($includePath . '/../lang/english/' . $languageFile) )
+            if ( ! file_exists(get_path('incRepositorySys') . '/../lang/english/' . $languageFile) )
             {
-                include($includePath . '/../lang/english/complete.lang.php');
+                include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
             }
             else
             {
-                include($includePath . '/../lang/english/' . $languageFile);
+                include(get_path('incRepositorySys') . '/../lang/english/' . $languageFile);
             }
 
             // load previously english file to be sure every get_lang('variable')
@@ -207,7 +240,7 @@ class language
 
             if ( $language != 'english' )
             {
-                @include($includePath . '/../lang/' . $language . '/' . $languageFile);
+                @include(get_path('incRepositorySys') . '/../lang/' . $language . '/' . $languageFile);
             }
 
         }
@@ -216,8 +249,6 @@ class language
 
     function load_locale_settings($language=null)
     {
-        global $includePath;
-
         global $iso639_1_code, $iso639_2_code, $charset,
                $langNameOfLang , $langDay_of_weekNames, $langMonthNames, $byteUnits,
                $text_dir, $left_font_family, $right_font_family,
@@ -227,14 +258,14 @@ class language
         /*
         * tool specific language translation
         */
+
         if ( is_null($language) ) $language = language::current_language();
 
         // include the locale settings language
-        include($includePath.'/../lang/english/locale_settings.php');
-
+        include(get_path('incRepositorySys').'/../lang/english/locale_settings.php');
         if ( $language != 'english' ) // Avoid useless include as English lang is preloaded
         {
-            include($includePath.'/../lang/'.$language.'/locale_settings.php');
+            include(get_path('incRepositorySys') . '/../lang/' . $language . '/locale_settings.php');
         }
 
         $GLOBALS['langNameOfLang'] = $langNameOfLang;
@@ -296,7 +327,7 @@ language
 function get_language_list()
 {
     // language path
-    $language_dirname = get_conf('rootSys') . 'claroline/lang/' ;
+    $language_dirname = get_path('rootSys') . 'claroline/lang/' ;
 
     // init accepted_values list
     $language_list = array();
