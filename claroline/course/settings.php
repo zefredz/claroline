@@ -162,15 +162,13 @@ $links = array();
 
 // add course tool list edit
 
-$url_course_edit_tool_list = $clarolineRepositoryWeb . 'course/tools.php?' . claro_url_relay_context() . '';
-
-$links[] = '<a class="claroCmd" href="' . $url_course_edit_tool_list . '">'
+$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/tools.php' . claro_url_relay_context('?') . '">'
 .          '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
 .          get_lang('Edit Tool list')
 .          '</a>' ;
 
 // Main group settings
-$links[] = '<a class="claroCmd" href="../group/group_properties.php?' . claro_url_relay_context() . '">'
+$links[] = '<a class="claroCmd" href="../group/group_properties.php' . claro_url_relay_context('?') . '">'
 .          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
 .          get_lang("Main Group Settings")
 .          '</a>' ;
@@ -179,9 +177,7 @@ $links[] = '<a class="claroCmd" href="../group/group_properties.php?' . claro_ur
 
 if ( get_conf('is_trackingEnabled') )
 {
-	$url_course_tracking = $clarolineRepositoryWeb . 'tracking/courseLog.php';
-
-    $links[] = '<a class="claroCmd" href="' . $url_course_tracking . '?' . claro_url_relay_context() . '">'
+	$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
     .          '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
     .          get_lang('Statistics')
     .          '</a>' ;
@@ -193,7 +189,7 @@ if ( get_conf('showLinkToDeleteThisCourse') )
 {
 	$paramString = $course->getHtmlParamList('GET');
 
-	$url_course_delete = $clarolineRepositoryWeb . 'course/settings.php?cmd=rqDelete&amp;' . claro_url_relay_context()
+	$url_course_delete = $clarolineRepositoryWeb . 'course/settings.php?cmd=rqDelete' . claro_url_relay_context('&amp;')
 			. ( !empty($paramString) ? '&amp;'.$paramString : '');
 
 

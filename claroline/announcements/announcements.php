@@ -418,14 +418,14 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 if ( $displayButtonLine )
 {
     $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-    .            '?cmd=rqCreate&amp;' . claro_url_relay_context() . '">'
+    .            '?cmd=rqCreate' . claro_url_relay_context('&amp;') . '">'
     .            '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
     .             get_lang('Add announcement')
     .             '</a>' . "\n"
     ;
 
     if ($emailNotificationAllowed)
-    $cmdList[] = '<a class="claroCmd" href="messages.php?' . claro_url_relay_context() . '">'
+    $cmdList[] = '<a class="claroCmd" href="messages.php' . claro_url_relay_context('?') . '">'
     .             '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
@@ -440,7 +440,7 @@ if ( $displayButtonLine )
 
     if (($announcementQty > 0 ))
     {
-        $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll?' . claro_url_relay_context() . '" '
+        $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' . claro_url_relay_context('&amp;') . '" '
         .             ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
         .             '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .             get_lang('Clear up list of announcements')

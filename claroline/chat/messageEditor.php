@@ -38,11 +38,11 @@ function prepare_message()
 $cmdMenu = array();
 if ($is_allowedToManage)
 {
-    $cmdMenu[] = claro_html_cmd_link( 'messageList.php?cmd=reset&amp;' . claro_url_relay_context()
+    $cmdMenu[] = claro_html_cmd_link( 'messageList.php?cmd=reset' . claro_url_relay_context('&amp;')
                                     , get_lang('Reset')
                                     , array('target'=> "messageList")
                                     );
-    $cmdMenu[] = claro_html_cmd_link( 'messageList.php?cmd=store&amp;' . claro_url_relay_context()
+    $cmdMenu[] = claro_html_cmd_link( 'messageList.php?cmd=store' . claro_url_relay_context('&amp;')
                                     , get_lang('Store Chat')
                                     , array('target'=> "messageList")
                                     );

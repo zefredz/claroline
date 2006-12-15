@@ -334,8 +334,13 @@ echo '<blockquote>' . "\n"
 
 echo claro_html_tool_title(get_lang('Manage External link'));
 
-echo '<blockquote>'."\n"
-    . '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd&amp;' . claro_url_relay_context() . '"><img src="' . $imgRepositoryWeb . 'link.gif" alt="">' . get_lang('Add external link') . '</a></p>' . "\n";
+echo '<blockquote>' . "\n"
+.    '<p>' . "\n"
+.    '<a class="claroCmd" href="'
+.    $_SERVER['PHP_SELF']
+.    '?cmd=rqAdd' . claro_url_relay_context('&amp;') . '">'
+.    '<img src="' . $imgRepositoryWeb . 'link.gif" alt="">' . get_lang('Add external link') . '</a>' . "\n"
+.    '</p>' . "\n";
 
 echo '<table class="claroTable" >'."\n\n"
 .    '<thead>'."\n"

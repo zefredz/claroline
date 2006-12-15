@@ -167,7 +167,7 @@ elseif ( $display == DISP_COURSE_CREATION_SUCCEED )
 {
 	// display confirmation
     echo '<p>'
-    .    claro_html_cmd_link( $backUrl . '&amp;' . claro_url_relay_context()
+    .    claro_html_cmd_link( $backUrl . claro_url_relay_context('?')
                             , get_lang('Continue')
                             )
     .	 '</p>' . "\n";
