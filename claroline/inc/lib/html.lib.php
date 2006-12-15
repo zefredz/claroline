@@ -280,12 +280,11 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
 
     if ($helpUrl)
     {
-        global $clarolineRepositoryWeb, $imgRepositoryWeb;
 
-        $string .= "<a href='#' onClick=\"MyWindow=window.open('". $clarolineRepositoryWeb . "help/" .$helpUrl
+        $string .= "<a href='#' onClick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" .$helpUrl
         ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
 
-        .'<img src="'.$imgRepositoryWeb.'/help.gif" '
+        .'<img src="' . get_path('imgRepositoryWeb') . '/help.gif" '
         .' alt ="'.get_lang('Help').'"'
         .' align="right"'
         .' hspace="30">'
@@ -399,25 +398,24 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
 
 function claro_html_progress_bar ($progress, $factor)
 {
-    global $clarolineRepositoryWeb, $imgRepositoryWeb;
     $maxSize  = $factor * 100; //pixels
     $barwidth = $factor * $progress ;
 
     // display progress bar
     // origin of the bar
-    $progressBar = '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
+    $progressBar = '<img src="' . get_path('imgRepositoryWeb') . 'bar_1.gif" width="1" height="12" alt="" />';
 
     if($progress != 0)
-    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_path('imgRepositoryWeb') . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="" />';
     // display 100% bar
 
     if($progress!= 100 && $progress != 0)
-    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1m.gif" width="1" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_path('imgRepositoryWeb') . 'bar_1m.gif" width="1" height="12" alt="" />';
 
     if($progress != 100)
-    $progressBar .= '<img src="' . $imgRepositoryWeb . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_path('imgRepositoryWeb') . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
     // end of the bar
-    $progressBar .=  '<img src="' . $imgRepositoryWeb . 'bar_1.gif" width="1" height="12" alt="" />';
+    $progressBar .=  '<img src="' . get_path('imgRepositoryWeb') . 'bar_1.gif" width="1" height="12" alt="" />';
 
     return $progressBar;
 }
@@ -555,7 +553,7 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
 
     // $claro_editor is the directory name of the editor
-    $incPath = get_conf('rootSys') . 'claroline/editor/' . $claro_editor;
+    $incPath = get_path('rootSys') . 'claroline/editor/' . $claro_editor;
     $editorPath = $urlAppend . '/claroline/editor/';
     $webPath = $editorPath . $claro_editor;
 
@@ -910,14 +908,13 @@ class claro_datagrid
 
 function claro_disp_auth_form($cidRequired = false)
 {
-    global $urlAppend, $includePath, $_cid;
 
     // TODO check if it does not break the CAS mechanism
     $sourceUrl = $_SERVER['REQUEST_URI'];
 
     if ( ! headers_sent () )
     {
-        $urlCmd = ($cidRequired && ! $_cid ? '&cidRequired=true' : '');
+        $urlCmd = ($cidRequired && ! claro_is_in_a_course() ? '&cidRequired=true' : '');
         header('Location:' . $urlAppend . '/claroline/auth/login.php?sourceUrl=' . urlencode($sourceUrl) . $urlCmd );
     }
     else // HTTP header has already been sent - impossible to relocate
@@ -932,7 +929,7 @@ function claro_disp_auth_form($cidRequired = false)
         .    '</p>'
         ;
 
-        require $includePath . '/claro_init_footer.inc.php';
+        require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
     }
 
     die(); // necessary to prevent any continuation of the application
@@ -1083,7 +1080,7 @@ function claro_parse_user_text($userText)
 function renderTex($text)
 {
     $claro_texRendererUrl = get_conf('claro_texRendererUrl');
-    
+
     if ( !empty($claro_texRendererUrl) )
     {
         $text = str_replace('[tex]',
@@ -1104,7 +1101,7 @@ function renderTex($text)
                                 '" width="100%" pluginspace="http://www.integretechpub.com/">',
                                 $text);
     }
-    
+
     return $text;
 }
 /**

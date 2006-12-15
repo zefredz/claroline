@@ -184,8 +184,10 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
             WHERE `code_cours` IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "')
             AND   `user_id` = " . (int) $userId ;
     $userEnrolCourseList = claro_sql_query_fetch_all($sql);
+
     foreach ( $userEnrolCourseList as $thisUserEnrolCourse )
     {
+
         $thisCourseCode    = $thisUserEnrolCourse['code_cours'];
         $count_user_enrol  = $thisUserEnrolCourse['count_user_enrol'];
         $count_class_enrol = $thisUserEnrolCourse['count_class_enrol'];
@@ -425,7 +427,7 @@ function user_set_course_tutor($status , $userId, $courseId)
 
 function user_send_enroll_to_course_mail($userId, $data, $course=null)
 {
-    require_once $GLOBALS['includePath'] . '/lib/sendmail.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
     $courseData = claro_get_course_data($course);
 
@@ -441,6 +443,8 @@ function user_send_enroll_to_course_mail($userId, $data, $course=null)
         '%courseCode' => $courseData['officialCode'],
         '%courseName' => $courseData['name'],
         '%coursePath' => get_conf('rootWeb') . 'claroline/course/index.php?cid=' . $courseData['sysCode'],
+        '%siteName'=> get_conf('siteName'),
+        '%rootWeb' => get_path('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
         '%administratorPhone'=> get_conf('administrator_phone'),
         '%administratorEmail'=> get_conf('administrator_email')
@@ -513,8 +517,6 @@ function course_user_get_properties($userId, $courseId)
 
 function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null )
 {
-    global $_course, $_cid;
-    global $_uid, $is_platformAdmin;
 
     $courseManagerChecked = $data['isCourseManager'] == 1 ? 'checked="checked"':'';
     $tutorChecked = $data['isTutor'] == 1 ? 'checked="checked"':'';

@@ -37,7 +37,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * - ["currentCourseCode"]          : Must be alphaNumeric and outputable in HTML System
  * - ["currentCourseId"]            : Must be unique in mainDb.course it's the primary key
  * - ["currentCourseDbName"]        : Must be unique it's the database name.
- * - ["currentCourseRepository"]    : Must be unique in /$coursesRepositorySys/
+ * - ["currentCourseRepository"]    : Must be unique in /get_path('coursesRepositorySys')/
  *
  * @todo actually if suffix is not unique  the next append and not  replace
  * @todo add param listing keyg wich wouldbe identical
@@ -59,7 +59,6 @@ function define_course_keys ($wantedCode,
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course    = $tbl_mdb_names['course'];
 
-    GLOBAL $coursesRepositorySys;
 
     $nbCharFinalSuffix = get_conf('nbCharFinalSuffix','3');
 
@@ -159,7 +158,7 @@ function define_course_keys ($wantedCode,
             $finalSuffix['CourseDb']++;
         };
 
-        if (file_exists($coursesRepositorySys . '/' . $keysCourseRepository))
+        if (file_exists(get_path('coursesRepositorySys') . '/' . $keysCourseRepository))
         {
             $keysAreUnique = FALSE;
             $tryNewFSCDir++;
@@ -215,17 +214,16 @@ function define_course_keys ($wantedCode,
 
 function prepare_course_repository($courseRepository, $courseId)
 {
-    GLOBAL $coursesRepositorySys, $clarolineRepositorySys, $includePath, $clarolineRepositoryWeb;
 
-    if( ! is_dir($coursesRepositorySys) )
+    if( ! is_dir(get_path('coursesRepositorySys')) )
     {
-        claro_mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS, true);
+        claro_mkdir(get_path('coursesRepositorySys'), CLARO_FILE_PERMISSIONS, true);
     }
 
-    $courseDirPath = $coursesRepositorySys . $courseRepository;
+    $courseDirPath = get_path('coursesRepositorySys') . $courseRepository;
 
-    if ( ! is_writable($coursesRepositorySys) ) return claro_failure::set_failure( get_lang('Folder %folder is not writable',
-                                                                                            array('%folder'=>$coursesRepositorySys)));
+    if ( ! is_writable(get_path('coursesRepositorySys')) ) return claro_failure::set_failure( get_lang('Folder %folder is not writable',
+                                                                                            array('%folder'=>get_path('coursesRepositorySys'))));
 
     $folderList = array($courseDirPath ,
                         $courseDirPath . '/exercise',
@@ -248,13 +246,13 @@ function prepare_course_repository($courseRepository, $courseId)
     if ( ! $fd) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
 
     $string = '<?php ' . "\n"
-            . 'header (\'Location: '. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
+            . 'header (\'Location: '. get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
           . '?' . '>' . "\n" ;
 
     if ( ! fwrite($fd, $string) ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
     if ( ! fclose($fd) )          return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
 
-    $fd     = fopen($coursesRepositorySys.$courseRepository . '/group/index.php', 'w');
+    $fd     = fopen(get_path('coursesRepositorySys').$courseRepository . '/group/index.php', 'w');
     if ( ! $fd ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'group/index.php')));
 
     $string = '<?php session_start(); ?'.'>';
@@ -951,10 +949,8 @@ function fill_course_repository($courseRepository)
   // WARNING. Do not forget to adapt queries in fill_Db_course()
   // if something changed here
 
-    global $clarolineRepositorySys, $coursesRepositorySys;
-
-    return copy($clarolineRepositorySys.'document/Example_document.pdf',
-                $coursesRepositorySys.$courseRepository.'/document/Example_document.pdf');
+    return copy(get_path('clarolineRepositorySys').'document/Example_document.pdf',
+                get_path('coursesRepositorySys').$courseRepository.'/document/Example_document.pdf');
 };
 
 /**
@@ -971,7 +967,7 @@ function fill_course_repository($courseRepository)
 
 function fill_db_course($courseDbName,$language)
 {
-    global $clarolineRepositorySys, $_user, $includePath;
+    global $_user;
 
     // include the language file with all language variables
     language::load_translation($language,'TRANSLATION');
@@ -1155,7 +1151,7 @@ function fill_db_course($courseDbName,$language)
 
 function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse='', $uidCreator, $visibility, $registrationAllowed, $enrollmentKey='', $expirationDate='', $extLinkName='', $extLinkUrl='')
 {
-    global $includePath, $versionDb, $clarolineVersion, $rootSys;
+    global $versionDb, $clarolineVersion, $rootSys;
 
     $tblList         = claro_sql_get_main_tbl();
     $tbl_course      = $tblList['course'         ];

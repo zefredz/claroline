@@ -37,7 +37,7 @@ class claro_text_zone
             $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_path($context['course']) . '/textzone/' . $key . '.inc.html';
 
         }
-        if(is_null($textZoneFile) || !file_exists($textZoneFile)) $textZoneFile = get_conf('rootSys') . 'platform/textzone/' . $key . '.inc.html';
+        if(is_null($textZoneFile) || !file_exists($textZoneFile)) $textZoneFile = get_path('rootSys') . 'platform/textzone/' . $key . '.inc.html';
 
         return $textZoneFile;
     }
@@ -52,7 +52,7 @@ class claro_text_zone
 
     function get_content($key, $context=null)
     {
-        $textZoneFile = claro_text_zone::get_textzone_file_path($key, $context=null);
+        $textZoneFile = claro_text_zone::get_textzone_file_path($key, $context);
 
         if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
         else                           $content = '' ;

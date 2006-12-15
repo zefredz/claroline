@@ -158,10 +158,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function create_thumbnail($file, $thumbWidth, $title = '')
     {
-        global $coursesRepositorySys;
         global $courseDir;
 
-        $imgPath = $coursesRepositorySys
+        $imgPath = get_path('coursesRepositorySys')
             . $courseDir
             . $file
             ;

@@ -579,8 +579,8 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = get_lang('A reply to your topic has been posted');
 
-    $url_topic = get_conf('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
-    $url_forum = get_conf('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . $_course['sysCode'];
+    $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
+    $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
 
     // send mail to registered user for notification
 
@@ -853,7 +853,7 @@ class postLister
 
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
-    global $_gid, $forum_name, $topic_title, $imgRepositoryWeb;
+    global $forum_name, $topic_title;
 
     $toolBar = array();
 
@@ -874,18 +874,18 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'viewforum':
 
-            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                        . '<img src="' . $imgRepositoryWeb . 'topic.gif"> ' . get_lang('New topic') . '</a>';
+            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . claro_get_current_group_id() . '">'
+                        . '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif"> ' . get_lang('New topic') . '</a>';
 
             break;
 
         case 'viewtopic':
 
-            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
-                         . '<img src="' . $imgRepositoryWeb . 'topic.gif"> ' . get_lang('New topic') . '</a>';
+            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . claro_is_in_a_group() . '">'
+                         . '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif"> ' . get_lang('New topic') . '</a>';
 
-            $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
-                         . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
+            $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.claro_get_current_group_id().'">'
+                         . '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
 
             break;
 
@@ -901,7 +901,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                           .  '</a>';
 
                 $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
-                          .  '<img src="' . $imgRepositoryWeb . 'forum.gif" /> '
+                          .  '<img src="' . get_path('imgRepositoryWeb') . 'forum.gif" /> '
                           .  get_lang('Create forum')
                           .  '</a>';
             }
@@ -910,7 +910,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
     if ( ! in_array($pagetype, array('newtopic', 'reply','editpost') ) )
         $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">'
-        .            '<img src="' . $imgRepositoryWeb . 'search.gif" /> '
+        .            '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" /> '
         .            get_lang('Search')
         .            '</a>'
         ;
@@ -939,15 +939,13 @@ function disp_search_box()
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $topic_name='')
 {
-    global $_gid;
-
     $breadCrumbNameList   = array ('Forum Index');
     $breadCrumbUrlList    = array ('index.php');
 
     if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply', 'newtopic') ) )
     {
         $breadCrumbNameList[] = $forum_name;
-        $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
+        $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
 
         switch ( $pagetype )
         {
@@ -966,14 +964,14 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
 
             case 'editpost' :
                 $breadCrumbNameList[] = $topic_name;
-                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
                 $breadCrumbNameList[] = get_lang('Edit post');
                 $breadCrumbUrlList[]  = null;
                 break ;
 
             case 'reply' :
                 $breadCrumbNameList[] = $topic_name;
-                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
                 $breadCrumbNameList[] = get_lang('Reply');
                 $breadCrumbUrlList[]  = null;
                 break ;
@@ -995,24 +993,23 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
 
 function forum_group_tool_list($gid, $active = true)
 {
-    global $imgRepositoryWeb, $_groupProperties, $is_courseAdmin, $is_groupTutor, $is_groupMember;
-    $courseId = $GLOBALS['_cid'];
+    $courseId = claro_get_current_course_id();
     include_once(dirname(__FILE__) . '/group.lib.inc.php');
     $groupToolList = get_group_tool_list($courseId,$active);
 
-    $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
-                                      || $is_groupMember
-                                      || $is_groupTutor);
+    $is_allowedToDocAccess      = (bool) (   claro_is_course_manager()
+                                      || claro_is_group_member()
+                                      ||  claro_is_group_tutor());
 
-    $is_allowedToChatAccess     = (bool) (     $is_courseAdmin
-                                       || $is_groupMember
-                                       || $is_groupTutor );
+    $is_allowedToChatAccess     = (bool) (     claro_is_course_manager()
+                                       || claro_is_group_member()
+                                       ||  claro_is_group_tutor() );
 
 
     // group space links
 
     $toolList[] = '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
-        . '<img src="' . $imgRepositoryWeb . 'group.gif" />&nbsp;'
+        . '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" />&nbsp;'
         . get_lang('Group area')
         . '</a>'
         ;
@@ -1022,7 +1019,7 @@ function forum_group_tool_list($gid, $active = true)
         if ('CLFRM' !== $groupTool['label'])
         $toolList[] = '<a href="' . get_module_url($groupTool['label']) . '/' . $groupTool['url']. '?gidReq=' . (int) $gid  . '" '
         .             ' class="claroCmd '.($groupTool['visibility'] ? 'visible':'invisible').'">'
-        .             '<img src="' . $imgRepositoryWeb . $groupTool['icon'] . '" />'
+        .             '<img src="' . get_path('imgRepositoryWeb') . $groupTool['icon'] . '" />'
         .             '&nbsp;'
         .             claro_get_tool_name ($groupTool['label'])
         .             '</a>'

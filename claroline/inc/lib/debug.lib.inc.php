@@ -297,24 +297,11 @@ function printInit($selection="*")
     GLOBAL
     $uidReset,    $cidReset,    $gidReset, $tidReset,
     $uidReq,    $cidReq,     $gidReq,   $tidReq, $tlabelReq,
-    $_uid,       $_cid,       $_gid,       $_tid,
-    $_user,        $_course,    $_group,
-    $_groupProperties,
+    $_user,        $_course,
     $_groupUser,
     $_courseTool,
-    $is_platformAdmin,
-    $is_allowedCreateCourse,
-    $is_courseMember,
-    $is_courseAdmin,
-    $is_courseAllowed,
-    $is_courseTutor,
-    $is_toolAllowed,
     $_SESSION,
-    $_claro_local_run,
-
-    $is_groupMember,
-    $is_groupTutor,
-    $is_groupAllowed;
+    $_claro_local_run;
 
     if ($_claro_local_run)
     {
@@ -332,21 +319,21 @@ function printInit($selection="*")
         echo '
         <TD valign="top" >
             <strong>User</strong> :
-            (_uid)             : '.var_export($_uid,1).' |
+            (_uid)             : '.var_export(claro_get_current_user_id(),1).' |
             (session[_uid]) : '.var_export($_SESSION["_uid"],1).'
             <br />
             reset = '.var_export($uidReset,1).' |
             req = '.var_export($uidReq,1).'<br />
             _user : <pre>'.var_export($_user,1).'</pre>
-            <br />is_platformAdmin            :'.var_export($is_platformAdmin,1).'
-            <br />is_allowedCreateCourse    :'.var_export($is_allowedCreateCourse,1).'
+            <br />is_platformAdmin            :'.var_export(claro_is_platform_admin(),1).'
+            <br />is_allowedCreateCourse    :'.var_export(claro_is_allowed_to_create_course(),1).'
         </TD>';
     }
     if($selection == "*" or strstr($selection,"c"))
     {
         echo "
         <TD valign=\"top\" >
-            <strong>Course</strong> : (_cid)".var_export($_cid,1)."
+            <strong>Course</strong> : (_cid)".var_export(claro_get_current_course_id(),1)."
             <br />
             reset = ".var_export($cidReset,1)." | req = ".var_export($cidReq,1)."
             <br />
@@ -354,7 +341,7 @@ function printInit($selection="*")
             <br />
             _groupProperties :
             <PRE>
-                ".var_export($_groupProperties,1)."
+                ".var_export(claro_get_current_group_properties_data(),1)."
             </PRE>
         </TD>";
     }
@@ -364,14 +351,14 @@ function printInit($selection="*")
     if($selection == "*" or strstr($selection,"g"))
     {
         echo '<TD valign="top" ><strong>Group</strong> : (_gid) '
-        .    var_export(get_init('_gid'),1) . '<br />
+        .    var_export(claro_get_current_group_id(),1) . '<br />
         reset = ' . var_export($GLOBALS['gidReset'],1) . ' | req = ' . var_export($gidReq,1)."<br />
-        _group :<pre>".var_export(get_init('_group'),1).
+        _group :<pre>".var_export(claro_get_current_group_data(),1).
         "</pre></TD>";
     }
     if($selection == "*" or strstr($selection,"t"))
     {
-        echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export($_tid,1).'<br />
+        echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export(claro_get_current_tool_id(),1).'<br />
         reset = ' . var_export($tidReset,1).' |
         req = ' .   var_export($tidReq,1).'|
         req = ' .   var_export($tlabelReq,1).'
@@ -383,14 +370,14 @@ function printInit($selection="*")
     if($selection == "*" or (strstr($selection,"u")&&strstr($selection,"c")))
     {
         echo '<TR><TD valign="top" colspan="2"><strong>Course-User</strong>';
-        if ($_uid) echo '<br /><strong>User</strong> :'.var_export($_uid,1);
-        if ($_cid) echo ' in '.var_export($_cid,1).'<br />';
-        if ($_uid && $_cid)
+        if (claro_is_user_authenticated()) echo '<br /><strong>User</strong> :'.var_export(claro_is_in_a_course(),1);
+        if (claro_is_in_a_course()) echo ' in '.var_export(claro_get_current_course_id(),1).'<br />';
+        if ( claro_is_user_authenticated()  && claro_get_current_course_id())
         echo '_courseUser            : <pre>'.var_export(getInit('_courseUser'),1).'</pre>';
-        echo '<br />is_courseMember    : '.var_export($is_courseMember,1);
-        echo '<br />is_courseAdmin    : '.var_export($is_courseAdmin,1);
-        echo '<br />is_courseAllowed    : '.var_export($is_courseAllowed,1);
-        echo '<br />is_courseTutor    : '.var_export($is_courseTutor,1);
+        echo '<br />is_courseMember    : '.var_export(claro_is_course_member(),1);
+        echo '<br />is_courseAdmin    : '.var_export(claro_is_course_manager(),1);
+        echo '<br />is_courseAllowed    : '.var_export(claro_is_course_allowed(),1);
+        echo '<br />is_courseTutor    : '.var_export(claro_is_course_tutor(),1);
         echo '</TD></TR>';
     }
     echo "";
@@ -399,12 +386,12 @@ function printInit($selection="*")
 
         echo '<TR><TD valign="top"  colspan="2">'
         .    '<strong>Course-Group-User</strong>';
-        if (get_init('_uid')) echo '<br /><strong>User</strong> :'.var_export(get_init('_uid'),1);
-        if (get_init('_gid')) echo ' in '.var_export(get_init('$_gid'),1);
-        if (get_init('_gid')) echo '<br />_groupUser:' . var_export(get_init('_groupUser'),1);
-        echo '<br />is_groupMember:' . var_export(get_init('is_groupMember'),1)
-        .    '<br />is_groupTutor: ' . var_export(get_init('is_groupTutor'),1)
-        .    '<br />is_groupAllowed:' . var_export(get_init('is_groupAllowed'),1)
+        if ( claro_is_user_authenticated() ) echo '<br /><strong>User</strong> :'.var_export(claro_is_in_a_course(),1);
+        if ( claro_is_in_a_group() ) echo ' in '.var_export(claro_get_current_group_id(),1);
+        if ( claro_is_in_a_group() ) echo '<br />_groupUser:' . var_export(get_init('_groupUser'),1);
+        echo '<br />is_groupMember:' . var_export(claro_is_group_member(),1)
+        .    '<br />is_groupTutor: ' . var_export( claro_is_group_tutor(),1)
+        .    '<br />is_groupAllowed:' . var_export(claro_is_group_allowed(),1)
         .    '</TD>'
         .    '</tr>';
     }
@@ -413,11 +400,11 @@ function printInit($selection="*")
 
         echo '<tr>
         <TD valign="top" colspan="2" ><strong>Course-Tool</strong><br />';
-        if ($_tid) echo 'Tool :'.$_tid;
-        if ($_cid) echo ' in '.$_cid.'<br />';
+        if (claro_get_current_tool_id()) echo 'Tool :'.claro_get_current_tool_id();
+        if ( claro_is_in_a_course() ) echo ' in '.claro_get_current_course_id().'<br />';
 
-        if ($_tid) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br />';
-        echo 'is_toolAllowed : '.var_export($is_toolAllowed,1);
+        if (claro_get_current_tool_id()) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br />';
+        echo 'is_toolAllowed : '.var_export(claro_is_tool_allowed(),1);
         echo "</TD>";
     }
     echo "</TR></TABLE>";
@@ -425,7 +412,7 @@ function printInit($selection="*")
 
 function printConfig()
 {
-    GLOBAL $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend  , $coursesRepositoryAppend    , $rootAdminAppend            , $clarolineRepositoryWeb     , $clarolineRepositorySys        , $coursesRepositoryWeb        , $coursesRepositorySys        , $rootAdminSys                , $rootAdminWeb;
+    GLOBAL $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend;
     echo "<table width=\"100%\" border=\"1\" cellspacing=\"1\" cellpadding=\"1\" bordercolor=\"#808080\" bgcolor=\"#C0C0C0\" lang=\"en\"><TR>";
     echo "
     <tr><td colspan=2><strong>Mysql</strong></td></tr>
@@ -435,7 +422,7 @@ function printConfig()
     <tr><td>mainDbName        </TD><TD>" . get_conf('mainDbName') . "</td></tr>
     <tr><td>clarolineVersion    </TD><TD>$clarolineVersion</td></tr>
     <tr><td>versionDb             </TD><TD>$versionDb </td></tr>
-    <tr><td>rootWeb</TD><TD>" . get_conf('rootWeb'). "</td></tr>
+    <tr><td>rootWeb</TD><TD>" . get_path('rootWeb'). "</td></tr>
     <tr><td>urlAppend </TD><TD>$urlAppend</td></tr>
     <tr><td>serverAddress </TD><TD>$serverAddress</td></tr>
     <tr><td colspan=2><hr /></td></tr>
@@ -445,21 +432,21 @@ function printConfig()
     <tr><td>userMailCanBeEmpty             </TD><TD>" . get_conf('userMailCanBeEmpty') . "</td></tr>
     <tr><td>userPasswordCrypted             </TD><TD>$userPasswordCrypted             </td></tr>
     <tr><td colspan=2></td></tr>
-    <tr><td>platformLanguage     </TD><TD>$platformLanguage     </td></tr>
-    <tr><td>siteName            </TD><TD>$siteName            </td></tr>
-    <tr><td>rootWeb            </TD><TD>" . get_conf('rootWeb'). "</td></tr>
-    <tr><td>rootSys            </TD><TD>" . get_conf('rootSys') . "</td></tr>
+    <tr><td>platformLanguage     </TD><TD>". get_conf('platformLanguage') ."</td></tr>
+    <tr><td>siteName            </TD><TD>". get_conf('siteName') ."</td></tr>
+    <tr><td>rootWeb            </TD><TD>" . get_path('rootWeb'). "</td></tr>
+    <tr><td>rootSys            </TD><TD>" . get_path('rootSys') . "</td></tr>
     <tr><td colspan=2></td></tr>
-    <tr><td>clarolineRepository<strong>Append</strong>      </TD><TD>$clarolineRepositoryAppend </td></tr>
-    <tr><td>coursesRepository<strong>Append</strong>        </TD><TD>$coursesRepositoryAppend    </td></tr>
-    <tr><td>rootAdmin<strong>Append</strong>                </TD><TD>$rootAdminAppend            </td></tr>
+    <tr><td>clarolineRepository<strong>Append</strong>      </TD><TD>". get_path('clarolineRepositoryAppend') ."</td></tr>
+    <tr><td>coursesRepository<strong>Append</strong>        </TD><TD>". get_path('coursesRepositoryAppend') ."</td></tr>
+    <tr><td>rootAdmin<strong>Append</strong>                </TD><TD>". get_path('rootAdminAppend') ."</td></tr>
     <tr><td colspan=2></td></tr>
-    <tr><td>clarolineRepository<strong>Web</strong>    </TD><TD>$clarolineRepositoryWeb     </td></tr>
-    <tr><td>clarolineRepository<strong>Sys</strong>    </TD><TD>$clarolineRepositorySys        </td></tr>
-    <tr><td>coursesRepository<strong>Web</strong>    </TD><TD>$coursesRepositoryWeb        </td></tr>
-    <tr><td>coursesRepository<strong>Sys</strong>    </TD><TD>$coursesRepositorySys        </td></tr>
-    <tr><td>rootAdmin<strong>Sys</strong>            </TD><TD>$rootAdminSys                </td></tr>
-    <tr><td>rootAdmin<strong>Web</strong>            </TD><TD>$rootAdminWeb                </td></tr>
+    <tr><td>clarolineRepository<strong>Web</strong>    </TD><TD>".get_path('clarolineRepositoryWeb')." </td></tr>
+    <tr><td>clarolineRepository<strong>Sys</strong>    </TD><TD>" . get_path('clarolineRepositorySys') ."</td></tr>
+    <tr><td>coursesRepository<strong>Web</strong>    </TD><TD>" . get_path('coursesRepositoryWeb') . "</td></tr>
+    <tr><td>coursesRepository<strong>Sys</strong>    </TD><TD>" . get_path('coursesRepositorySys')."</td></tr>
+    <tr><td>rootAdmin<strong>Sys</strong>            </TD><TD>". get_path('rootAdminSys') ."</td></tr>
+    <tr><td>rootAdmin<strong>Web</strong>            </TD><TD>" . get_path('rootAdminWeb') . "                 </td></tr>
                 ";
     echo "</TABLE>";
 }

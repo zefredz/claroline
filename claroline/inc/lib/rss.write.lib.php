@@ -38,7 +38,7 @@ function build_rss($context)
     {
         include_once dirname(__FILE__) . '/pear/XML/Serializer.php';
 
-        $rssRepositoryCacheSys = get_conf('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/');
+        $rssRepositoryCacheSys = get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/');
         if (!file_exists($rssRepositoryCacheSys))
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
@@ -67,7 +67,7 @@ function build_rss($context)
             $rssTitle = '[' . get_conf('siteName') . '] '.$_course['officialCode'];
             $rssDescription = $_course['name'];
             $rssEmail = $_course['email'] == '' ? get_conf('administrator_email') : $_course['email'];
-            $rssLink = get_conf('rootWeb') .  get_conf('coursesRepositoryAppend') . $_course['path'];
+            $rssLink = get_path('rootWeb') .  get_path('coursesRepositoryAppend') . claro_get_course_path();
             if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
             {
                 $rssFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
@@ -90,7 +90,7 @@ function build_rss($context)
         'generator'      => 'Claroline-PEARSerializer',
         'webMaster'      => get_conf('administrator_email'),
         'managingEditor' => $rssEmail,
-        'language'       => get_conf('iso639_1_code'),
+        'language'       => get_locale('iso639_1_code'),
         'docs'           => 'http://blogs.law.harvard.edu/tech/rss',
         'pubDate'        => date("r",time())
         );
@@ -130,7 +130,7 @@ function build_rss($context)
                     fwrite($fprss,
                         //str_replace('//','/',
                        //     str_replace(get_conf('urlAppend'),
-                         //               get_conf('rootWeb'),
+                         //               get_path('rootWeb'),
                                         $serializer->getSerializedData()
                                        // )
                           //              )
@@ -176,7 +176,7 @@ function rss_get_tool_compatible_list()
 
             // Cache_lite setting & init
             $cache_options = array(
-            'cacheDir' => get_conf('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
+            'cacheDir' => get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
             'lifeTime' => get_conf('cache_lifeTime', get_conf('rssCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );

@@ -210,7 +210,7 @@ function user_set_properties($userId, $propertyList)
 
 function user_delete($userId)
 {
-    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
     if ( $GLOBALS['_uid'] == $userId ) // user cannot remove himself of the platform
     {
@@ -456,7 +456,7 @@ function user_send_registration_mail ($userId, $data)
         '%username' => $data['username'],
         '%password' => $data['password'],
         '%siteName'=> get_conf('siteName'),
-        '%rootWeb' => get_conf('rootWeb'),
+        '%rootWeb' => get_path('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
         '%administratorPhone'=> get_conf('administrator_phone'),
         '%administratorEmail'=> get_conf('administrator_email')
@@ -481,7 +481,7 @@ function user_send_registration_mail ($userId, $data)
 
 function profile_send_request_course_creator_status($explanation)
 {
-    global $_uid, $_user, $dateFormatLong;
+    global $_user;
 
     $mailToUidList = claro_get_uid_of_request_admin();
     if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
@@ -494,13 +494,13 @@ function profile_send_request_course_creator_status($explanation)
 
     $requestMessage_Content =
     get_block('blockRequestCourseManagerStatusMail',
-    array( '%time'      => claro_disp_localised_date($dateFormatLong),
-    '%user_id'   => $_uid,
+    array( '%time'      => claro_disp_localised_date(get_locale('dateFormatLong')),
+    '%user_id'   => claro_get_current_user_id(),
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%comment'   => $explanation,
-    '%url'       => get_conf('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . $_uid
+    '%url'       => get_path('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 
@@ -520,8 +520,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
 {
     if (empty($explanation)) return claro_failure::set_failure('EXPLANATION_EMPTY');
 
-    $_user = get_init('_user');
-    global $dateFormatLong;
+    $_user = claro_get_current_user_data();
 
     $mailToUidList = claro_get_uid_of_request_admin();
     if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
@@ -534,15 +533,15 @@ function profile_send_request_revoquation($explanation,$login,$password)
 
     $requestMessage_Content =
     get_block('blockRequestUserRevoquationMail',
-    array('%time'      => claro_disp_localised_date($dateFormatLong),
-    '%user_id'   => get_init('_uid'),
+    array('%time'      => claro_disp_localised_date(get_locale('dateFormatLong')),
+    '%user_id'   => claro_get_current_user_id(),
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%login'     => $login,
     '%password'  => $password,
     '%comment'   => nl2br($explanation),
-    '%url'       => get_conf('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . get_init('_uid')
+    '%url'       => get_path('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 
@@ -875,8 +874,6 @@ function user_html_form_admin_user_profile($data)
 
 function user_html_form($data, $form_type='registration')
 {
-    global $imgRepositoryWeb;
-
     if ( $form_type == 'profile' )
     {
         $profile_editable = get_conf('profile_editable');
@@ -1130,7 +1127,7 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('&nbsp;',
         '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
-        . '<img src="' . $imgRepositoryWeb . 'course.gif" alt="">' . get_lang('PersonalCourseList')
+        . '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="">' . get_lang('PersonalCourseList')
         . '</a>');
     }
 
@@ -1146,7 +1143,7 @@ function user_html_form($data, $form_type='registration')
             }
         }
         if (0<count($extraInfoDefList))
-        $html .= form_row( '','<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo"><img src="' . $imgRepositoryWeb . 'edit.gif" border="O" alt="' . get_lang('Modify') . '"></a>' );
+        $html .= form_row( '','<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify') . '"></a>' );
 
 
 

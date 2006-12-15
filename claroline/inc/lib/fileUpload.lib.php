@@ -614,7 +614,7 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
      */
 
     $fp = fopen($htmlFile, 'w')      or die('<center>cannot open file</center>');
-    fwrite($fp, $newHtmlFileContent) or die('<center>cannot write in file</center>');
+    return  fwrite($fp, $newHtmlFileContent) or die('<center>cannot write in file</center>');
 }
 
 /**
@@ -628,11 +628,10 @@ function replace_img_path_in_html_file($originalImgPath, $newImgPath, $htmlFile)
 
 function create_link_file($filePath, $url)
 {
-    global $charset;
 
     $fileContent = '<html>'
                   .'<head>'
-                  .'<meta http-equiv="content-Type" content="text/html;charset='.$charset.'">'
+                  .'<meta http-equiv="content-Type" content="text/html;charset='.get_locale('charset').'">'
                   .'<meta http-equiv="refresh" content="0;url='.format_url($url).'">'
                   .'</head>'
                   .'<body>'
@@ -648,7 +647,7 @@ function create_link_file($filePath, $url)
 function create_file($filePath, $fileContent)
 {
     $fp = fopen ($filePath, 'w') or die ('can not create file');
-    fwrite($fp, $fileContent);
+    return  fwrite($fp, $fileContent);
 }
 
 

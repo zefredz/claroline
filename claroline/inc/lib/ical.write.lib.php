@@ -53,7 +53,7 @@ function buildICal($context, $calType='ics')
 {
     if (is_array($context) && count($context) > 0)
     {
-        $iCalRepositorySys =  get_conf('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
+        $iCalRepositorySys =  get_path('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
         if (!file_exists($iCalRepositorySys))
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
@@ -155,7 +155,7 @@ function ical_get_tool_compatible_list()
 
             // Cache_lite setting & init
             $cache_options = array(
-            'cacheDir' => get_conf('rootSys') . 'tmp/cache/ical/sources/',
+            'cacheDir' => get_path('rootSys') . 'tmp/cache/ical/sources/',
             'lifeTime' => get_conf('cache_lifeTime', get_conf('iCalCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );

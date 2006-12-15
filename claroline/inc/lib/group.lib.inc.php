@@ -84,15 +84,15 @@ function empty_group($groupIdList = 'ALL', $course_id = null)
 
 function delete_groups($groupIdList = 'ALL')
 {
-    global $_cid,$_tid,$eventNotifier;
+    global $eventNotifier;
 
     $tbl_c_names = claro_sql_get_course_tbl();
 
     $tbl_groups      = $tbl_c_names['group_team'         ];
     $tbl_groupsUsers = $tbl_c_names['group_rel_team_user'];
 
-    require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
-    require_once $GLOBALS['includePath'] . '/lib/forum.lib.php';
+    require_once get_path('clarolineRepositorySys') . '/wiki/lib/lib.createwiki.php';
+    require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 
     delete_group_wikis( $groupIdList );
     delete_group_forums( $groupIdList );
@@ -121,8 +121,8 @@ function delete_groups($groupIdList = 'ALL')
             $sql_condition = '  WHERE id = ' . (int)$groupIdList ;
 
             $eventNotifier->notifyCourseEvent('group_deleted'
-            , $_cid
-            , $_tid
+            , claro_get_current_course_id()
+            , claro_get_current_tool_id()
             , '0'
             , $groupIdList
             , '0');
@@ -150,8 +150,8 @@ function delete_groups($groupIdList = 'ALL')
     foreach ($groupList['id'] as $thisGroupId )
     {
         $eventNotifier->notifyCourseEvent('group_deleted'
-        , $_cid
-        , $_tid
+        , claro_get_current_course_id()
+        , claro_get_current_tool_id()        
         , '0'
         , $thisGroupId
         , '0');
@@ -512,7 +512,7 @@ function create_group($prefixGroupName, $maxMember)
     , $createdGroupId
     );
 
-    require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
+    require_once get_path('clarolineRepositorySys') . '/wiki/lib/lib.createwiki.php';
     create_wiki( $createdGroupId, $groupName. ' - Wiki' );
 
     return $createdGroupId;
@@ -559,9 +559,9 @@ function get_course_tutor_list($currentCourseId)
 
 function get_group_tool_list($course_id=NULL,$active = true)
 {
-    global $_groupProperties, $forumId, $is_courseAdmin, $is_platformAdmin;
-
-    $isAllowedToEdit = $is_courseAdmin || $is_platformAdmin;
+    global $forumId;
+    $_groupProperties = claro_get_current_group_properties_data();
+    $isAllowedToEdit = claro_is_course_manager() || claro_is_platform_admin();
 
     $tbl = claro_sql_get_main_tbl(array('module','course_tool'));
 

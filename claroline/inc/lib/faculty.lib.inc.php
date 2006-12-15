@@ -32,7 +32,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function claro_disp_tree($elem,$father,$space)
 {
-    GLOBAL $imgRepositoryWeb;
 
     if($elem)
     {
@@ -60,8 +59,8 @@ function claro_disp_tree($elem,$father,$space)
                         .    '#pm' . $one_faculty['id'] .'" '
                         .    'name="pm' . $one_faculty['id'] . '"> '
                         .    ( $one_faculty['visible']
-                             ?    '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" alt="-" >'
-                             :    '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" alt="+" >'
+                             ?    '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" alt="-" >'
+                             :    '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" alt="+" >'
                              )
                         .    '</a> '
                         .    '&nbsp;'
@@ -94,17 +93,17 @@ function claro_disp_tree($elem,$father,$space)
                     </td>
                     <td  align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id']; ?>&amp;cmd=rqEdit" >
-                        <img src="<?php echo $imgRepositoryWeb ?>edit.gif" border="0" alt="<?php echo get_lang('Edit') ?>" > </a>
+                        <img src="<?php echo get_path('imgRepositoryWeb') ?>edit.gif" border="0" alt="<?php echo get_lang('Edit') ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=rqMove"; ?>" >
-                        <img src="<?php echo $imgRepositoryWeb ?>move.gif" border="0" alt="<?php echo get_lang('Move') ?>" > </a>
+                        <img src="<?php echo get_path('imgRepositoryWeb') ?>move.gif" border="0" alt="<?php echo get_lang('Move') ?>" > </a>
                     </td>
                     <td align="center">
                         <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDelete"; ?>"
                         onclick="javascript:if(!confirm('<?php echo
                          clean_str_for_javascript(get_lang('Do you really want to delete the category ').' '.$one_faculty['code']." ?") ?>')) return false;" >
-                        <img src="<?php echo $imgRepositoryWeb ?>delete.gif" border="0" alt="<?php echo get_lang('Delete') ?>"> </a>
+                        <img src="<?php echo get_path('imgRepositoryWeb') ?>delete.gif" border="0" alt="<?php echo get_lang('Delete') ?>"> </a>
                     </td>
                     <?php
 
@@ -128,7 +127,7 @@ function claro_disp_tree($elem,$father,$space)
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exUp&amp;date=".$date."#ud".$one_faculty['id'];
                             ?>" name ="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo $imgRepositoryWeb ?>up.gif" border="0" alt="<?php echo get_lang('Up') ?>"></a>
+                            <img src="<?php echo get_path('imgRepositoryWeb') ?>up.gif" border="0" alt="<?php echo get_lang('Up') ?>"></a>
                         <?php
                         }
                         else
@@ -146,7 +145,7 @@ function claro_disp_tree($elem,$father,$space)
                         ?>
                             <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty['id'];
                             ?>" name="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo $imgRepositoryWeb ?>down.gif" border="0" alt="<?php echo get_lang('Move down') ?>" > </a>
+                            <img src="<?php echo get_path('imgRepositoryWeb') ?>down.gif" border="0" alt="<?php echo get_lang('Move down') ?>" > </a>
                     <?php
                         }
                         else

@@ -61,8 +61,8 @@ function event_open()
         $referer = NULL;
 
     // record informations only if user comes from another site
-    //if(!eregi(get_conf('rootWeb'),$referer))
-    $pos = strpos($referer,get_conf('rootWeb'));
+    //if(!eregi(get_path('rootWeb'),$referer))
+    $pos = strpos($referer,get_path('rootWeb'));
     if( $pos === false )
     {
         $reallyNow = time();
@@ -89,8 +89,6 @@ function event_login()
     // if tracking is disabled record nothing
     if( ! get_conf('is_trackingEnabled') ) return 0;
 
-    global $_uid;
-
     // get table names
     $tbl_mdb_names     = claro_sql_get_main_tbl();
     $tbl_track_e_login = $tbl_mdb_names['track_e_login'];
@@ -102,7 +100,7 @@ function event_login()
              `login_date`)
 
              VALUES
-                ( " .  (int)$_uid . ",
+                ( " .  (int)claro_get_current_user_id() . ",
                 '". addslashes($_SERVER['REMOTE_ADDR']) ."',
                 FROM_UNIXTIME(" . $reallyNow . "))";
 
@@ -122,16 +120,16 @@ function event_access_course()
     // if tracking is disabled record nothing
     if( ! get_conf('is_trackingEnabled') ) return 0;
 
-    global $_uid;
+
 
     // get table names
     $tbl_cdb_names               = claro_sql_get_course_tbl();
     $tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
 
     $reallyNow = time();
-    if($_uid)
+    if(claro_is_user_authenticated())
     {
-        $user_id = "'".$_uid."'";
+        $user_id = "'".claro_get_current_user_id()."'";
     }
     else // anonymous
     {
@@ -162,7 +160,6 @@ function event_access_tool($tid, $tlabel)
     // if tracking is disabled record nothing
     if( ! get_conf('is_trackingEnabled') ) return 0;
 
-    global $_uid;
     global $_course;
 
     // get table names
@@ -173,9 +170,9 @@ function event_access_tool($tid, $tlabel)
     // record information only if user doesn't come from the tool itself
     if( !isset($_SESSION['tracking']['lastUsedTool']) || $_SESSION['tracking']['lastUsedTool'] != $tlabel )
     {
-        if($_uid)
+        if(claro_is_user_authenticated())
         {
-            $user_id = "'".$_uid."'";
+            $user_id = "'".claro_get_current_user_id()."'";
         }
         else // anonymous
         {
@@ -213,16 +210,14 @@ function event_download($doc_url)
     // if tracking is disabled record nothing
     if( ! get_conf('is_trackingEnabled') ) return 0;
 
-    global $_uid;
-
     // get table names
     $tbl_cdb_names               = claro_sql_get_course_tbl();
     $tbl_track_e_downloads    = $tbl_cdb_names['track_e_downloads'];
 
     $reallyNow = time();
-    if($_uid)
+    if(claro_is_user_authenticated())
     {
-        $user_id = "'".$_uid."'";
+        $user_id = "'".claro_get_current_user_id()."'";
     }
     else // anonymous
     {
@@ -260,16 +255,14 @@ function event_upload($doc_id)
     // if tracking is disabled record nothing
     if( ! get_conf('is_trackingEnabled') ) return 0;
 
-    global $_uid;
-
     // get table names
     $tbl_cdb_names               = claro_sql_get_course_tbl();
     $tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
 
     $reallyNow = time();
-    if($_uid)
+    if(claro_is_user_authenticated())
     {
-        $user_id = "'".$_uid."'";
+        $user_id = "'".claro_get_current_user_id()."'";
     }
     else // anonymous
     {
@@ -417,27 +410,24 @@ function event_default($type_event,$values)
     // if tracking is disabled record nothing
     if( ! get_conf('is_trackingEnabled') ) return 0;
 
-    global $_uid;
-    global $_cid;
-
     // get table names
     $tbl_mdb_names                = claro_sql_get_main_tbl();
     $tbl_track_e_default       = $tbl_mdb_names['track_e_default'];
 
     $reallyNow = time();
 
-    if($_uid)
+    if(claro_is_user_authenticated())
     {
-        $user_id = "'".(int)$_uid."'";
+        $user_id = "'" . (int)claro_get_current_user_id() . "'";
     }
     else // anonymous
     {
         $user_id = "NULL";
     }
 
-    if($_uid)
+    if(claro_is_user_authenticated())
     {
-        $cours_id = "'".addslashes($_cid)."'";
+        $cours_id = "'".addslashes(claro_get_current_course_id())."'";
     }
     else // anonymous
     {

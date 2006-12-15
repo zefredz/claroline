@@ -134,7 +134,7 @@ function get_course_tool_id($label)
 function get_module_repositories()
 {
 
-    $moduleRepositorySys = get_conf('rootSys') . 'module/';
+    $moduleRepositorySys = get_path('rootSys') . 'module/';
     $folder_array = array();
     if(file_exists($moduleRepositorySys))
     {
@@ -223,8 +223,6 @@ function tempdir($dir, $prefix='tmp', $mode=0777)
 
 function get_and_unzip_uploaded_package()
 {
-    global $includePath;
-
     $backlog_message = array();
 
     //Check if the file is valid (not to big and exists)
@@ -237,7 +235,7 @@ function get_and_unzip_uploaded_package()
 
     //1- Unzip folder in a new repository in claroline/module
 
-    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
 
     if (!function_exists('gzopen'))
     {
@@ -247,7 +245,7 @@ function get_and_unzip_uploaded_package()
 
     //unzip files
 
-    $moduleRepositorySys = get_conf('rootSys') . 'module/';
+    $moduleRepositorySys = get_path('rootSys') . 'module/';
     //create temp dir for upload
     claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
     $uploadDirFullPath = tempdir($moduleRepositorySys);
@@ -276,7 +274,7 @@ function generate_module_cache()
 {
 
     $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
-    $cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
+    $cacheRepositorySys = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
     $module_cache_filepath = $cacheRepositorySys . $module_cache_filename;
 
     if ( ! file_exists( $cacheRepositorySys ) )

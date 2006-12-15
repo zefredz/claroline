@@ -110,7 +110,8 @@ function claro_rename_file($oldFilePath, $newFilePath)
     /* REPLACE CHARACTER POTENTIALY DANGEROUS FOR THE SYSTEM */
 
     $newFilePath = dirname($newFilePath).'/'
-                  .replace_dangerous_char(basename($newFilePath));
+    .              replace_dangerous_char(basename($newFilePath))
+    ;
 
     if (check_name_exist($newFilePath)
         && $newFilePath != $oldFilePath)
@@ -402,14 +403,14 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
 {
     if ($recursive)
     {
-        if ( strstr($pathName,get_conf('rootSys')) !== false )
+        if ( strstr($pathName,get_path('rootSys')) !== false )
         {
             /* Remove rootSys path from pathName for system with safe_mode or open_basedir restrictions
                Functions (like file_exists, mkdir, ...) return false for files inaccessible with these restrictions
             */
 
-            $pathName = str_replace(get_conf('rootSys'),'',$pathName);
-            $dirTrail = get_conf('rootSys') ;
+            $pathName = str_replace(get_path('rootSys'),'',$pathName);
+            $dirTrail = get_path('rootSys') ;
         }
         else
         {
@@ -602,7 +603,7 @@ function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
 {
     $documentList = array();
 
-    if ( is_null($cidReq) ) $cid = $GLOBALS['_cid'] ;
+    if ( is_null($cidReq) ) $cid = claro_get_current_course_id() ;
     else                    $cid = $cidReq ;
 
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid));

@@ -276,16 +276,16 @@ class language
 
     function current_language()
     {
-        global $_course, $_user, $platformLanguage, $_cid, $_uid ;
+        global $_course, $_user, $platformLanguage;
 
-        if ( isset($_cid) && isset($_course['language']) )
+        if ( claro_is_in_a_course() && isset($_course['language']) )
         {
             // course language
             return $_course['language'];
         }
         else
         {
-            if ( isset($_uid) && !empty($_user['language']) )
+            if ( claro_is_user_authenticated() && !empty($_user['language']) )
             {
                 // user language
                 return $_user['language'];

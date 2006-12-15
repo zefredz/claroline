@@ -43,21 +43,21 @@ function get_module_path($toolLabel)
     $toolLabel = rtrim($toolLabel,'_'); // keep this line until  all claro_label
     switch ($toolLabel)
     {
-        case 'CLANN' : return get_conf('clarolineRepositorySys') . 'announcements';
-        case 'CLCAL' : return get_conf('clarolineRepositorySys') . 'calendar';
-        case 'CLFRM' : return get_conf('clarolineRepositorySys') . 'phpbb';
-        case 'CLCHT' : return get_conf('clarolineRepositorySys') . 'chat';
-        case 'CLDOC' : return get_conf('clarolineRepositorySys') . 'document';
-        case 'CLDSC' : return get_conf('clarolineRepositorySys') . 'course_description';
-        case 'CLUSR' : return get_conf('clarolineRepositorySys') . 'user';
-        case 'CLLNP' : return get_conf('clarolineRepositorySys') . 'learnPath';
-        case 'CLQWZ' : return get_conf('clarolineRepositorySys') . 'exercise';
-        case 'CLWRK' : return get_conf('clarolineRepositorySys') . 'work';
-        case 'CLWIKI' : return get_conf('clarolineRepositorySys') . 'wiki';
-        case 'CLLNK' : return get_conf('clarolineRepositorySys') . 'linker';
-        case 'CLGRP' : return get_conf('clarolineRepositorySys') . 'group';
-        case 'CLSTAT' : return get_conf('clarolineRepositorySys') . 'tracking';
-        default: return get_conf('rootSys') . 'module/' . rtrim($toolLabel,'_');
+        case 'CLANN' : return get_path('clarolineRepositorySys') . 'announcements';
+        case 'CLCAL' : return get_path('clarolineRepositorySys') . 'calendar';
+        case 'CLFRM' : return get_path('clarolineRepositorySys') . 'phpbb';
+        case 'CLCHT' : return get_path('clarolineRepositorySys') . 'chat';
+        case 'CLDOC' : return get_path('clarolineRepositorySys') . 'document';
+        case 'CLDSC' : return get_path('clarolineRepositorySys') . 'course_description';
+        case 'CLUSR' : return get_path('clarolineRepositorySys') . 'user';
+        case 'CLLNP' : return get_path('clarolineRepositorySys') . 'learnPath';
+        case 'CLQWZ' : return get_path('clarolineRepositorySys') . 'exercise';
+        case 'CLWRK' : return get_path('clarolineRepositorySys') . 'work';
+        case 'CLWIKI' : return get_path('clarolineRepositorySys') . 'wiki';
+        case 'CLLNK' : return get_path('clarolineRepositorySys') . 'linker';
+        case 'CLGRP' : return get_path('clarolineRepositorySys') . 'group';
+        case 'CLSTAT' : return get_path('clarolineRepositorySys') . 'tracking';
+        default: return get_path('rootSys') . 'module/' . rtrim($toolLabel,'_');
     }
     return '';
 }
@@ -74,20 +74,20 @@ function get_module_url($toolLabel)
     $toolLabel = rtrim($toolLabel,'_');
     switch ($toolLabel)
     {
-        case 'CLANN' : return get_conf('clarolineRepositoryWeb') . 'announcements';
-        case 'CLCAL' : return get_conf('clarolineRepositoryWeb') . 'calendar';
-        case 'CLFRM' : return get_conf('clarolineRepositoryWeb') . 'phpbb';
-        case 'CLCHT' : return get_conf('clarolineRepositoryWeb') . 'chat';
-        case 'CLDOC' : return get_conf('clarolineRepositoryWeb') . 'document';
-        case 'CLDSC' : return get_conf('clarolineRepositoryWeb') . 'course_description';
-        case 'CLUSR' : return get_conf('clarolineRepositoryWeb') . 'user';
-        case 'CLLNP' : return get_conf('clarolineRepositoryWeb') . 'learnPath';
-        case 'CLQWZ' : return get_conf('clarolineRepositoryWeb') . 'exercise';
-        case 'CLWRK' : return get_conf('clarolineRepositoryWeb') . 'work';
-        case 'CLLNK' : return get_conf('clarolineRepositoryWeb') . 'linker';
-        case 'CLWIKI' : return get_conf('clarolineRepositoryWeb') . 'wiki';
-        case 'CLGRP' : return get_conf('clarolineRepositoryWeb') . 'group';
-        default: return get_conf('rootWeb') . 'module/' . $toolLabel;
+        case 'CLANN' : return get_path('clarolineRepositoryWeb') . 'announcements';
+        case 'CLCAL' : return get_path('clarolineRepositoryWeb') . 'calendar';
+        case 'CLFRM' : return get_path('clarolineRepositoryWeb') . 'phpbb';
+        case 'CLCHT' : return get_path('clarolineRepositoryWeb') . 'chat';
+        case 'CLDOC' : return get_path('clarolineRepositoryWeb') . 'document';
+        case 'CLDSC' : return get_path('clarolineRepositoryWeb') . 'course_description';
+        case 'CLUSR' : return get_path('clarolineRepositoryWeb') . 'user';
+        case 'CLLNP' : return get_path('clarolineRepositoryWeb') . 'learnPath';
+        case 'CLQWZ' : return get_path('clarolineRepositoryWeb') . 'exercise';
+        case 'CLWRK' : return get_path('clarolineRepositoryWeb') . 'work';
+        case 'CLLNK' : return get_path('clarolineRepositoryWeb') . 'linker';
+        case 'CLWIKI' : return get_path('clarolineRepositoryWeb') . 'wiki';
+        case 'CLGRP' : return get_path('clarolineRepositoryWeb') . 'group';
+        default: return get_path('rootWeb') . 'module/' . $toolLabel;
     }
     return '';
 
@@ -143,10 +143,10 @@ function get_module_db_dependance($toolId)
 function claro_get_data_path($contextData=array())
 {
     if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))    $contextData[CLARO_CONTEXT_TOOLLABEL]    = rtrim($GLOBALS['_courseTool']['label'],'_');
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))       $contextData[CLARO_CONTEXT_COURSE]       = get_init('_cid');
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))        $contextData[CLARO_CONTEXT_GROUP]        = get_init('_gid');
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_USER,$contextData))         $contextData[CLARO_CONTEXT_USER]         = get_init('_uid');
-    //if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData)) $contextData[CLARO_CONTEXT_TOOLINSTANCE] = get_init('_tid');
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))       $contextData[CLARO_CONTEXT_COURSE]       = claro_get_current_course_id();
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))        $contextData[CLARO_CONTEXT_GROUP]        = claro_get_current_group_id();
+    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_USER,$contextData))         $contextData[CLARO_CONTEXT_USER]         = claro_get_current_user_id();
+    //if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData)) $contextData[CLARO_CONTEXT_TOOLINSTANCE] = claro_get_current_tool_id();
 
     if (isset($contextData[CLARO_CONTEXT_COURSE]))
     {
@@ -268,7 +268,7 @@ function add_module_lang_array($moduleLabel)
 {
 	global $_lang;
 
-	$module_uri = get_conf('rootSys').'module/'.$moduleLabel.'/';
+	$module_uri = get_path('rootSys').'module/'.$moduleLabel.'/';
 
 	$current_lang = language::current_language();
 
