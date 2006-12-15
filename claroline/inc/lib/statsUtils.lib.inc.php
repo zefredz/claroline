@@ -147,14 +147,12 @@ function monthTab($sql)
  * @return
  *
  * @todo variable $linkOnPeriod n'apparaît qu'une fois
- * @todo déclaration de globale inutilisée :  $clarolineRepositoryWeb
  * @todo La valeur de la variable $maxSize n'est jamais utilisée
- * @todo La variable $barwidth n'apparaît qu'une fois
  *
  */
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
-    global $clarolineRepositoryWeb;
+
 
     echo '<table class="claroTable emphaseLine" width="100%" cellpadding="0" cellspacing="1" align="center">' . "\n";
     // titles
@@ -175,7 +173,6 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             if($period_array['total'] == 0 ) $pourcent = 0;
             else                             $pourcent = round(100 * $cpt / $period_array['total']);
 
-            $barwidth = $factor * $pourcent ;
             echo '<tr>' . "\n"
                 .'<td align="center" width="15%">'.$periodPiece.'</td>' . "\n"
                 .'<td width="60%" align="center">'.claro_html_progress_bar($pourcent, 4).'</td>' . "\n"

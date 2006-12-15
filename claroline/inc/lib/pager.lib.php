@@ -658,7 +658,7 @@ class claro_array_pager extends claro_pager
     /**
      * This method is dedicated to the usort() process
      * into get_result_list() method
-     * @acess private
+     * @access private
      */
 
     function compare_array_rows($row1, $row2)
@@ -671,6 +671,8 @@ class claro_array_pager extends claro_pager
 
             if ($result != 0) return $result;
         }
+        // return ???? ?
+        // TODO ADD a return
     }
 
     /**

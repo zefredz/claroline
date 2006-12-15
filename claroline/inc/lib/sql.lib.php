@@ -33,7 +33,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 function claro_sql_get_tbl( $tableList, $contextData=null)
 {
     /**
-     * If it's in a course, $courseId is set or $courseId is null but not get_init('_cid')
+     * If it's in a course, $courseId is set or $courseId is null but not claro_get_current_course_id()
      * if both are null, it's a main table
      *
      * when
