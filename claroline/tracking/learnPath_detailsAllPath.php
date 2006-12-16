@@ -16,8 +16,8 @@
  
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
@@ -44,11 +44,11 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include($includePath."/claro_init_header.inc.php");
-include($includePath."/lib/statsUtils.lib.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 
-include($includePath."/lib/learnPath.lib.inc.php");
+include get_path('incRepositorySys')."/lib/learnPath.lib.inc.php";
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
@@ -63,7 +63,7 @@ if ( get_conf('is_trackingEnabled') )
     $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
           FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."`     AS CU
           WHERE U.`user_id`= CU.`user_id`
-           AND CU.`code_cours` = '". addslashes($_cid) ."'";
+           AND CU.`code_cours` = '". addslashes(claro_get_current_course_id()) ."'";
     $usersList = claro_sql_query_fetch_all($sql);
     
     // display tab header
@@ -108,7 +108,7 @@ if ( get_conf('is_trackingEnabled') )
         {
             $total = round($globalprog/($iterator-1));
             echo '<tr>'."\n"
-                .'<td><a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$user['user_id'].'&amp;view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+                .'<td><a href="'.get_path('clarolineRepositoryWeb').'tracking/userLog.php?uInfo='.$user['user_id'].'&amp;view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                 .'<td align="right">'
                 .claro_html_progress_bar($total, 1)
                 .'</td>'."\n"
@@ -129,5 +129,5 @@ else
 
 
 
-include($includePath . '/claro_init_footer.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
 ?>

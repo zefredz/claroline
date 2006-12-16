@@ -22,7 +22,7 @@ define('DISP_NOT_ALLOWED'       ,__LINE__);
 define('DISP_TRACKING_RESULT'   ,__LINE__);
 
 require '../inc/claro_init_global.inc.php';
-require_once $includePath . '/lib/statsUtils.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 // uInfo is required, back to user list if there is none
 if( empty($_REQUEST['uInfo']) )
@@ -46,11 +46,13 @@ $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_access          = $tbl_cdb_names['track_e_access'         ];
 
 $toolNameList = claro_get_tool_name_list();
-$is_allowedToTrack = $is_groupTutor; // allowed to track only user of one group
+$is_allowedToTrack =  claro_is_group_tutor(); // allowed to track only user of one group
 
-if ( isset($_uid) ) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == $_uid);
 
-$is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all student in course
+$langMonthNames = get_locale('langMonthNames');
+if ( claro_is_user_authenticated() ) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == claro_get_current_user_id());
+
+$is_allowedToTrackEverybodyInCourse = claro_is_course_manager(); // allowed to track all student in course
 
 // check if uid is tutor of this group
 
@@ -64,7 +66,7 @@ $nameTools = get_lang('Statistics') . ' : ' . get_lang('Logins and access to too
 if(!get_conf('is_trackingEnabled',false)) $display = DISP_TRACKING_DISABLED;
 elseif( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ))
 {
-    if( $is_allowedToTrackEverybodyInCourse  || ($uInfo == $_uid)  )
+    if( $is_allowedToTrackEverybodyInCourse  || ($uInfo == claro_get_current_user_id())  )
     {
         $sql = "SELECT `u`.`prenom` AS `firstname`,
                        `u`.`nom`    AS `lastname`,
@@ -72,7 +74,7 @@ elseif( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ))
                 FROM `" . $tbl_rel_course_user . "` AS cu
                    , `" . $tbl_user            . "` AS u
                     WHERE `cu`.`user_id` = `u`.`user_id`
-                        AND `cu`.`code_cours` = '" . $_cid . "'
+                        AND `cu`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
                         AND `u`.`user_id` = " . (int) $uInfo;
     }
     else // user is a tutor
@@ -83,7 +85,7 @@ elseif( ($is_allowedToTrackEverybodyInCourse || $is_allowedToTrack ))
                     FROM `" . $tbl_group_rel_team_user . "` AS gu ,
                          `" . $tbl_user                ."`  AS u
                     WHERE `gu`.`user` = `u`.`user_id`
-                      AND `gu`.`team` = " . (int) $_gid . "
+                      AND `gu`.`team` = " . (int) claro_get_current_group_id() . "
                       AND `u`.`user_id` = " . (int) $uInfo ;
     }
     $userDetails = claro_sql_query_get_single_row($sql);
@@ -133,7 +135,7 @@ else $display = DISP_NOT_ALLOWED;
  * DISPLAY
  */
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 
 switch ($display)
@@ -187,7 +189,7 @@ switch ($display)
                 while( $i < sizeof($loginDates) )
                 {
                     echo '<tr>' . "\n"
-                    .    '<td><small>' . claro_disp_localised_date( $dateTimeFormatLong, strtotime($loginDates[$i]['login_date']) ) . '</small></td>' . "\n"
+                    .    '<td><small>' . claro_disp_localised_date( get_locale('dateTimeFormatLong'), strtotime($loginDates[$i]['login_date']) ) . '</small></td>' . "\n"
                     .    '</tr>' . "\n"
                     ;
                     // $limit is used to select only results between current login and next one
@@ -261,5 +263,5 @@ switch ($display)
 }
 
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

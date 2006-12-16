@@ -20,7 +20,6 @@
 
 $_course = array();
 $siteName ='';
-$is_courseAllowed = false;
 require '../inc/claro_init_global.inc.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
@@ -32,19 +31,21 @@ if ( ! get_conf('enableRssInCourse') )
     exit;
 }
 
-if(!$_cid)
+if( ! claro_is_in_a_course() )
 {
-    die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
+    echo '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>';
+    exit;
 }
-
-if ( !$_course['visibility'] && !$is_courseAllowed )
+else
+{
+if ( !$_course['visibility'] && !claro_is_course_allowed() )
 {
     if (!isset($_SERVER['PHP_AUTH_USER']))
     {
         header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) . '"');
         header('HTTP/1.0 401 Unauthorized');
         echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-        .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
+        .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
         ;
         exit;
     }
@@ -61,12 +62,12 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
             $_REQUEST['password'] = $_SERVER['PHP_AUTH_PW'] ;
         }
         require '../inc/claro_init_local.inc.php';
-        if (!$_course['visibility'] && !$is_courseAllowed)
+        if (!$_course['visibility'] && !claro_is_course_allowed())
         {
             header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) .'"');
             header('HTTP/1.0 401 Unauthorized');
             echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-            .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
+            .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
             ;
             exit;
         }
@@ -74,9 +75,9 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 }
 
 // OK TO SEND FEED
-include $includePath . '/lib/rss.write.lib.php';
+include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
 
 header('Content-type: text/xml;');
-readfile (build_rss(array('course' => $_cid)));
-
+readfile (build_rss(array('course' => claro_get_current_course_id())));
+}
 ?>

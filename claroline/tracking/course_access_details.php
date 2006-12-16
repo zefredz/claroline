@@ -11,10 +11,10 @@
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid && ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_in_a_course() && ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
-include_once $includePath . '/lib/statsUtils.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 $interbredcrump[]= array ('url' => 'courseLog.php', 'name' => get_lang('Statistics'));
 
@@ -25,7 +25,7 @@ $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
 
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 
 echo claro_html_tool_title(
@@ -199,5 +199,5 @@ else // tracking not enable
 
 echo '</table>';
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
