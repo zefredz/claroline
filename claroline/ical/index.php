@@ -22,10 +22,10 @@
 $_course = array();
 $siteName ='';
 $is_courseAllowed = false;
-unset($includePath);
+
 require '../inc/claro_init_global.inc.php';
 include_once claro_get_conf_repository() . 'ical.conf.php';
-include_once $includePath . '/lib/ical.write.lib.php';
+include_once get_path('incRepositorySys') . '/lib/ical.write.lib.php';
 $formatList = array('ics'=>'iCalendar','xcs'=>'xCalendar (xml)','rdf'=>'rdf');
 
 if ( ! get_conf('enableICalInCourse') )
@@ -36,19 +36,19 @@ if ( ! get_conf('enableICalInCourse') )
 }
 
 $calType = (array_key_exists('calFormat',$_REQUEST) && array_key_exists($_REQUEST['calFormat'],$formatList))?$_REQUEST['calFormat']:get_conf('calType','ics');
-if(!$GLOBALS['_cid'])
+if(!claro_is_in_a_course())
 {
     die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
 }
 
-if ( !$_course['visibility'] && !$is_courseAllowed )
+if ( !$_course['visibility'] && !claro_is_course_allowed() )
 {
     if (!isset($_SERVER['PHP_AUTH_USER']))
     {
         header('WWW-Authenticate: Basic realm="'. get_lang('iCal feed for %course', array('%course' => $_course['name']) ) . '"');
         header('HTTP/1.0 401 Unauthorized');
         echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-        .    '<a href="index.php?cidReq=' . $GLOBALS['_cid'] . '">' . get_lang('Retry') . '</a>'
+        .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
         ;
         exit;
     }
@@ -65,12 +65,12 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
             $_REQUEST['password'] = $_SERVER['PHP_AUTH_PW'] ;
         }
         require '../inc/claro_init_local.inc.php';
-        if (!$_course['visibility'] && !$is_courseAllowed)
+        if (!$_course['visibility'] && !claro_is_course_allowed())
         {
             header('WWW-Authenticate: Basic realm="'. get_lang('iCal feed for %course', array('%course' => $_course['name']) ) .'"');
             header('HTTP/1.0 401 Unauthorized');
             echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-            .    '<a href="index.php?cidReq=' . $GLOBALS['_cid'] . '">' . get_lang('Retry') . '</a>'
+            .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
             ;
             exit;
         }
@@ -81,6 +81,6 @@ if ( !$_course['visibility'] && !$is_courseAllowed )
 
 
 header('Content-type: ' . get_ical_MimeType($calType) . ';');
-readfile ( buildICal(array(CLARO_CONTEXT_COURSE=> $_cid), $calType));
+readfile ( buildICal(array(CLARO_CONTEXT_COURSE=> claro_get_current_course_id()), $calType));
 
 ?>

@@ -23,20 +23,20 @@ $gidReset = true;
 $dialogBoxMsg = array();
 require '../inc/claro_init_global.inc.php';
 
-if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-$can_import_user_class  = (bool) ($is_courseAdmin
+$can_import_user_class  = (bool) (claro_is_course_manager()
                         && get_conf('is_coursemanager_allowed_to_import_user_class') )
-                        || $is_platformAdmin;
+                        || claro_is_platform_admin();
 
 // TODO replace calro_die by best usage.
 
 if ( !$can_import_user_class ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/class.lib.php';
-require_once $includePath . '/lib/sendmail.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/class.lib.php';
+require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 /*---------------------------------------------------------------------*/
 /*----------------------EXECUTE COMMAND SECTION------------------------*/
@@ -65,7 +65,7 @@ switch ( $cmd )
 
     case 'exEnrol' :
 
-        if ( register_class_to_course( $form_data['class_id'], $_cid) )
+        if ( register_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
         {
             $dialogBoxMsg[]  = get_lang('Class has been enroled') ;
         }
@@ -75,7 +75,7 @@ switch ( $cmd )
 
     case 'exUnenrol' :
 
-        if ( unregister_class_to_course( $form_data['class_id'], $_cid) )
+        if ( unregister_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
         {
             $dialogBoxMsg[]  = get_lang('Class has been unenroled') ;
         }
@@ -86,7 +86,7 @@ switch ( $cmd )
 /*----------------------FIND information SECTION-----------------------*/
 /*---------------------------------------------------------------------*/
 
-$classList = get_class_list_by_course($_cid);
+$classList = get_class_list_by_course(claro_get_current_course_id());
 
 /*---------------------------------------------------------------------*/
 /*----------------------DISPLAY SECTION--------------------------------*/
@@ -119,7 +119,7 @@ $htmlHeadXtra[] =
 
 // display top banner
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display tool title
 
@@ -144,13 +144,13 @@ echo claro_html_tool_title(get_lang('Enrol class'))
 .    '</thead>' . "\n"
 .    '<tbody>' . "\n"
 // display Class list (or tree)
-.    display_tree_class_in_user($classList, $_cid)
+.    display_tree_class_in_user($classList, claro_get_current_course_id())
 .    '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
 
 // display footer banner
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

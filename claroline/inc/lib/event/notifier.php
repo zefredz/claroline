@@ -161,8 +161,8 @@ class Notifier extends EventDriven
                      WHERE `course_code`= '".$course_id."'
                        AND `tool_id`= ". (int)$tool_id . "
                        AND `ressource_id`= '". addslashes($ressource_id) . "'
-                       AND `group_id` = ". (int)$gid . "
-                       AND `user_id` = ". (int)$uid;
+                       AND `group_id` = ". (int) $gid . "
+                       AND `user_id` = ". (int) $uid;
         $do_update = (bool) claro_sql_query_get_single_value($sql);
 
         // 2- update or create for concerned row
@@ -268,14 +268,13 @@ class Notifier extends EventDriven
 
     function get_notified_tools($course_id, $date, $user_id,$group_id = '0')
     {
-        global $is_courseAdmin;
 
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_notify    = $tbl_mdb_names['notify'];
 
         //if user is course admin, he is notified of event concerning all user in the course
 
-        if ($is_courseAdmin)
+        if (claro_is_course_manager())
         {
            $toadd = "";
         } // otherwise we must only know about what concerns everybody or himself
@@ -395,23 +394,22 @@ class Notifier extends EventDriven
      */
 
 
-    function is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $ressourceId,$setAsViewed=TRUE)
+    function is_a_notified_ressource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
     {
-        global $_courseTool;
         // global $fileList, $fileKey; //needed for the document tool
         global $thisFile;
-        $keysStrings = $_cid . ':' . $_tid . ':' . $_gid . ':';
+        $keysStrings = $course_id . ':' . $tool_id . ':' . $group_id . ':';
 
         // see if the ressource is new AND not consulted yet
 
         if (!isset($this->toolNotifiedRessourceList))
         {
-            $this->toolNotifiedRessourceList = $this->get_notified_ressources($_cid, $date, $_uid, $_gid, $_tid);
+            $this->toolNotifiedRessourceList = $this->get_notified_ressources($course_id, $date, $user_id, $group_id, $tool_id);
         }
 
         //deal with specific case of folders in document tool
 
-        if (($_courseTool['label'] == 'CLDOC') && ($thisFile['type'] == A_DIRECTORY))
+        if ((claro_get_current_course_tool_data('label') == 'CLDOC') && ($thisFile['type'] == A_DIRECTORY))
         {
             $ressourceList = $this->toolNotifiedRessourceList;
 
@@ -462,14 +460,14 @@ class Notifier extends EventDriven
      */
 
 
-    function is_a_notified_forum($_cid, $date, $_uid, $_gid, $_tid, $forumId)
+    function is_a_notified_forum($course_id, $date, $user_id, $group_id, $tool_id, $forumId)
     {
 
-        $keysStrings = $_cid . ':' . $_tid . ':' . $_gid . ':';
+        $keysStrings = $course_id . ':' . $tool_id . ':' . $group_id . ':';
 
         // see if the ressource is new AND not consulted yet
 
-        $notified_ressources = $this->get_notified_ressources($_cid, $date, $_uid, $_gid, $_tid);
+        $notified_ressources = $this->get_notified_ressources($course_id, $date, $user_id, $group_id, $tool_id);
 
         // see if the forum is to be notified or not.
 

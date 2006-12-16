@@ -20,19 +20,19 @@ $gidReset = true;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-$can_add_single_user     = (bool) ($is_courseAdmin
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+$can_add_single_user     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_add_single_user') )
-                     || $is_platformAdmin;
+                     || claro_is_platform_admin();
 if ( ! $can_add_single_user ) claro_die(get_lang('Not allowed'));
 
 // include configuration file
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // include libraries
-require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/course_user.lib.php';
-require_once $includePath . '/lib/sendmail.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 // Initialise variables
 $nameTools        = get_lang('Add a user');
@@ -98,7 +98,7 @@ if ( $cmd == 'registration' )
         if ( in_array(get_lang('This official code is already used by another user.'), $errorMsgList) ) // validation exception ...
         {
             $userList = user_search( array('officialCode' => $userData['officialCode']),
-                                     $_cid, false, true);
+                                     claro_get_current_course_id(), false, true);
 
             $messageList['error'][] = get_lang('This official code is already used by another user.')
                            . '<br />' . get_lang('Take one of these options') . ' : '
@@ -120,7 +120,7 @@ if ( $cmd == 'registration' )
         {
             $userList = user_search( array('lastname' => $userData['lastname'    ],
                                            'email'    => $userData['email'       ]),
-                                     $_cid, false, true);
+                                     claro_get_current_course_id(), false, true);
             if ( count($userList) > 0 )
             {
                  // PREPARE THE URL command TO CONFIRM THE USER CREATION
@@ -186,7 +186,7 @@ if ( $cmd == 'registration' )
 
     if ( $userId )
     {
-        $courseRegSucceed = user_add_to_course($userId, $_cid, $userData['courseAdmin'], $userData['tutor'],false);
+        $courseRegSucceed = user_add_to_course($userId, claro_get_current_course_id(), $userData['courseAdmin'], $userData['tutor'],false);
 
     }
     else
@@ -208,7 +208,7 @@ if ($cmd == 'applySearch')
         $userList = user_search( array('lastname'     => $userData['lastname'],
                                        'email'        => $userData['email'],
                                        'officialCode' => $userData['officialCode']),
-                                 $_cid);
+                                 claro_get_current_course_id());
     }
     else
         $userList = array();
@@ -254,7 +254,7 @@ function highlight(elementId)
 </script>";
 
 // display header
-include($includePath.'/claro_init_header.inc.php');
+include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 
 echo claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
                 'help_user.php');
@@ -304,7 +304,7 @@ else
             if ( empty($thisUser['registered']) )
             {
                 echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=registration&amp;userId=' . $thisUser['uid'] . $regUrlAddParam . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
                 .    '</a>'
                 ;
             }
@@ -344,6 +344,6 @@ else
 } // end else of if ( $courseRegSucceed )
 
 // display footer
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

@@ -25,7 +25,7 @@ $tlabelReq = 'CLUSR';
 $gidReset = true;
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
 
@@ -33,10 +33,10 @@ claro_set_display_mode_available(true);
    Include Library
   ----------------------------------------------------------------------*/
 
-require_once $includePath  . '/lib/admin.lib.inc.php';
-require_once $includePath  . '/lib/user.lib.php';
-require_once $includePath  . '/lib/course_user.lib.php';
-require_once $includePath  . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys')  . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys')  . '/lib/user.lib.php';
+require_once get_path('incRepositorySys')  . '/lib/course_user.lib.php';
+require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
 
 /*----------------------------------------------------------------------
    Load config
@@ -47,7 +47,7 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
   Stats
   ----------------------------------------------------------------------*/
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 /*----------------------------------------------------------------------
    JavaScript - Delete Confirmation
@@ -74,20 +74,18 @@ $userPerPage = get_conf('nbUsersPerPage',50);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$can_add_user     = (bool) ($is_courseAdmin
+$can_add_user     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_add_user') )
-                     || $is_platformAdmin;
-$can_add_single_user     = (bool) ($is_courseAdmin
+                     || claro_is_platform_admin();
+$can_add_single_user     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_add_single_user') )
-                     || $is_platformAdmin;
-$can_import_user_list     = (bool) ($is_courseAdmin
+                     || claro_is_platform_admin();
+$can_import_user_list     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
-                     || $is_platformAdmin;
-$can_import_user_class     = (bool) ($is_courseAdmin
+                     || claro_is_platform_admin();
+$can_import_user_class     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
-                     || $is_platformAdmin;
-
-$currentCourse = $currentCourseID  = $_course['sysCode'];
+                     || claro_is_platform_admin();
 
 $dialogBox = '';
 
@@ -131,7 +129,7 @@ if ( $is_allowedToEdit )
 
     if ( $cmd == 'register' && $req['user_id'])
     {
-        $done = user_add_to_course($req['user_id'], $_cid, false, false, false);
+        $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, false);
         if ($done)
         {
             $dialogBox = get_lang('User registered to the course');
@@ -147,7 +145,7 @@ if ( $is_allowedToEdit )
         {
             // TODO : add a function to unenroll all users from a course
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
-                    WHERE `code_cours` = '" . addslashes($currentCourseID) . "'
+                    WHERE `code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
                      AND `isCourseManager` = 0";
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
@@ -157,7 +155,7 @@ if ( $is_allowedToEdit )
         elseif ( 0 < (int)  $req['user_id'] )
         {
             // delete user from course user list
-            if ( user_remove_from_course(  $req['user_id'], $_cid, false, false, false) )
+            if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, false) )
             {
                $dialogBox .= get_lang('The user has been successfully unregistered from course');
             }
@@ -195,7 +193,7 @@ $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                FROM `" . $tbl_users . "`           AS user,
                     `" . $tbl_rel_course_user . "` AS course_user
                WHERE `user`.`user_id`=`course_user`.`user_id`
-               AND   `course_user`.`code_cours`='" . addslashes($currentCourseID) . "'";
+               AND   `course_user`.`code_cours`='" . addslashes(claro_get_current_course_id()) . "'";
 
 $myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 
@@ -265,7 +263,7 @@ if ($can_add_user)
 
         // Add a user link
         $userMenu[] = claro_html_cmd_link( 'user_add.php' . claro_url_relay_context('?')
-                                         , '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
+                                         , '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
                                          . get_lang('Add a user')
                                          )
                                          ;
@@ -285,7 +283,7 @@ if ($can_add_user)
         $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php'
                                          . '?AddType=userTool'
                                          . claro_url_relay_context('&amp;')
-                                         , '<img src="' . $imgRepositoryWeb . 'importlist.gif" alt="" />'
+                                         , '<img src="' . $get_path('imgRepositoryWeb') . 'importlist.gif" alt="" />'
                                          . get_lang('Add a user list')
                                          );
     }
@@ -294,7 +292,7 @@ if ($can_add_user)
         // Add a class link
         $userMenu[] = claro_html_cmd_link( 'class_add.php'
                                          . claro_url_relay_context('?')
-                                         , '<img src="' . $imgRepositoryWeb . 'class.gif" alt="" />'
+                                         , '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" alt="" />'
                                          . get_lang('Enrol class')
                                          );
     }
@@ -304,7 +302,7 @@ if ($can_add_user)
         // Main group settings
         $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
                                          . claro_url_relay_context('?')
-                                         , '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+                                         , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
                                          . get_lang("Right Profile")
                                          );
     }
@@ -313,14 +311,14 @@ if ($can_add_user)
 
 $userMenu[] = claro_html_cmd_link( '../group/group.php'
                                  . claro_url_relay_context('?')
-                                 , '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
+                                 , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'
                                  . get_lang('Group management')
                                  );
 
 $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
                                  . '?cmd=unregister&amp;user_id=allStudent'
                                  . claro_url_relay_context('&amp;')
-                                 , '<img src="' . $imgRepositoryWeb . 'unenroll.gif" alt="" />'
+                                 , '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" alt="" />'
                                  . get_lang('Unregister all students')
                                  , array('onClick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
                                  );
@@ -331,7 +329,7 @@ Display section
 
 // Display header
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
@@ -393,7 +391,7 @@ foreach ( $userList as $thisUser )
     $i++;
     echo '<tr align="center" valign="top">'."\n"
        . '<td align="left">'
-       . '<img src="'.$imgRepositoryWeb.'user.gif" alt="" />'."\n"
+       . '<img src="' . get_path('imgRepositoryWeb') . '/user.gif" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
        . '&nbsp;';
 
@@ -474,18 +472,18 @@ foreach ( $userList as $thisUser )
         // Edit user column
         echo '<td>'
            . '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id'].'">'
-           . '<img border="0" alt="'.get_lang('Edit').'" src="'.$imgRepositoryWeb.'edit.gif" />'
+           . '<img border="0" alt="'.get_lang('Edit').'" src="' . get_path('imgRepositoryWeb') . '/edit.gif" />'
            . '</a>'
            . '</td>'."\n";
 
         // Unregister user column
         echo '<td>';
 
-        if ($thisUser['user_id'] != $_uid)
+        if ($thisUser['user_id'] != claro_get_current_user_id())
         {
             echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
             .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-            .    '<img border="0" alt="'.get_lang('Unregister').'" src="'.$imgRepositoryWeb.'unenroll.gif" />'
+            .    '<img border="0" alt="'.get_lang('Unregister').'" src="' . get_path('imgRepositoryWeb') . '/unenroll.gif" />'
             .    '</a>'
             ;
         }
@@ -514,5 +512,6 @@ echo '</tbody>' . "\n"
 
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-include $includePath . '/claro_init_footer.inc.php';
+
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
