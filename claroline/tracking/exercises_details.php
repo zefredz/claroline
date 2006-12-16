@@ -14,8 +14,8 @@
  */
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
 else															$exId = null;
@@ -64,7 +64,7 @@ $nameTools = get_lang('Statistics of exercise');
 // get the tracking of a question as a csv file
 if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
 {
-    include($includePath.'/lib/export_exe_tracking.class.php');
+    include(get_path('incRepositorySys').'/lib/export_exe_tracking.class.php');
 
     // contruction of XML flow
     $csv = export_exercise_tracking($exId);
@@ -78,7 +78,7 @@ if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
     }
 }
 
-include($includePath."/claro_init_header.inc.php");
+include(get_path('incRepositorySys')."/claro_init_header.inc.php");
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
@@ -146,7 +146,7 @@ if ( get_conf('is_trackingEnabled') )
           ON `CU`.`user_id` = `TE`.`exe_user_id`
           AND `QT`.`id` = `TE`.`exe_exo_id`
     WHERE `CU`.`user_id` = `U`.`user_id`
-      AND `CU`.`code_cours` = '".$_cid."'
+      AND `CU`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
       AND (
             `TE`.`exe_exo_id` = ". (int)$exercise->getId()."
             OR
@@ -250,5 +250,5 @@ else
     echo get_lang('Tracking has been disabled by system administrator.');
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

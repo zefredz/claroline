@@ -13,8 +13,8 @@
  */
 require '../inc/claro_init_global.inc.php';
 
-include_once $includePath . '/lib/statsUtils.lib.inc.php';
-include_once $includePath . '/lib/htmlxtra.lib.php';
+include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 
 $path = dirname(__FILE__);
 include_once $path . '/../exercise/lib/exercise.class.php';
@@ -239,13 +239,13 @@ else
 // to see the answers at the end of the exercise
 $is_allowedToTrack = false;
 
-if( isset($_uid) )
+if( claro_is_user_authenticated() )
 {
-	if( $is_courseAdmin )
+    if( claro_is_course_manager() )
     {
         $is_allowedToTrack = true;
     }
-    elseif( $_uid == $thisAttemptDetails['user_id'] )
+    elseif( claro_get_current_user_id() == $thisAttemptDetails['user_id'] )
     {
         if( $thisAttemptDetails['show_answer'] == 'ALWAYS' )
         {
@@ -256,7 +256,7 @@ if( isset($_uid) )
             // we must check that user has at least "max_attempt" results
             $sql = "SELECT COUNT(`exe_id`)
                     FROM `".$tbl_track_e_exercices."`
-                    WHERE `exe_user_id` = ".$_uid."
+                    WHERE `exe_user_id` = " . (int) claro_get_current_user_id() . "
                     AND `exe_exo_id` = ".$thisAttemptDetails['exe_exo_id'];
             $userAttempts = claro_sql_query_get_single_value($sql);
 
@@ -285,7 +285,7 @@ $backLink = '<p><small><a href="userLog.php?uInfo='.$thisAttemptDetails['user_id
 
 $nameTools = get_lang('Statistics of exercise attempt');
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 // display title
 $titleTab['mainTitle'] = $nameTools;
 
@@ -338,7 +338,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     echo '<ul>' . "\n"
     .    '<li>' . get_lang('Last name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
     .    '<li>' . get_lang('First name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
-    .    '<li>' . get_lang('Date') . ' : ' . claro_disp_localised_date($dateTimeFormatLong,$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
+    .    '<li>' . get_lang('Date') . ' : ' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
     .    '<li>' . get_lang('Score') . ' : ' . $thisAttemptDetails['exe_result'] . '/' . $thisAttemptDetails['exe_weighting'] . '</li>' . "\n"
     .    '<li>' . get_lang('Time') . ' : ' . claro_disp_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
     .    '</ul>' . "\n\n"
@@ -393,5 +393,5 @@ else
     echo claro_html_message_box($dialogBox);
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

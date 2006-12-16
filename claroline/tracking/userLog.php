@@ -55,15 +55,15 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
-require_once $includePath . '/lib/statsUtils.lib.inc.php';
-require_once $includePath . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 
-$is_allowedToTrack = $is_groupTutor; // allowed to track only user of one group
-if (isset($_REQUEST['uInfo']) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($_REQUEST['uInfo'] == $_uid);
-$is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all student in course
+$is_allowedToTrack =  claro_is_group_tutor(); // allowed to track only user of one group
+if (isset($_REQUEST['uInfo']) && claro_is_user_authenticated()) $is_allowedToTrack = $is_allowedToTrack || ($_REQUEST['uInfo'] == claro_get_current_user_id());
+$is_allowedToTrackEverybodyInCourse = claro_is_course_manager(); // allowed to track all student in course
 
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 $toolTitle['mainTitle'] = $nameTools;
 $toolTitle['subTitle'] = get_lang('Statistics of user');
@@ -78,7 +78,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
         ***************************************************************************/
         echo '<h4>' . get_lang('List of students in this group').'</h4>' . "\n";
 
-        $userPerPage = get_conf($userPerPage, 50); // number of student per page
+        $userPerPage = get_conf('userPerPage', 50); // number of student per page
 
 
         if( $is_allowedToTrackEverybodyInCourse )
@@ -90,7 +90,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     FROM `" . $tbl_rel_course_user . "` AS cu
                        , `" . $tbl_user            . "` AS u
                     WHERE `cu`.`user_id` = `u`.`user_id`
-                      AND `cu`.`code_cours` = '" . addslashes($_cid) . "'";
+                      AND `cu`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'";
         }
         else
         {
@@ -101,7 +101,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     FROM `" . $tbl_group_rel_team_user . "` AS gu
                        , `" . $tbl_user                . "` AS u
                     WHERE `gu`.`user` = `u`.`user_id`
-                      AND `gu`.`team` = " . (int) $_gid;
+                      AND `gu`.`team` = " . (int) claro_get_current_group_id();
         }
 
         /**
@@ -149,13 +149,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
         // these checks exists for security reasons, neither a prof nor a tutor can see statistics of an user from
         // another course, or group
         //if( $is_allowedToTrackEverybodyInCourse )
-        if( $is_allowedToTrackEverybodyInCourse || ($_REQUEST['uInfo'] == $_uid) )
+        if( $is_allowedToTrackEverybodyInCourse || ($_REQUEST['uInfo'] == claro_get_current_user_id() ) )
         {
             // check if user is in this course
             $sql = "SELECT `u`.`nom` AS `lastname`,`u`.`prenom` AS `firstname`, `u`.`email`
                         FROM `".$tbl_rel_course_user."` as `cu` , `".$tbl_user."` as `u`
                         WHERE `cu`.`user_id` = `u`.`user_id`
-                            AND `cu`.`code_cours` = '". addslashes($_cid) ."'
+                            AND `cu`.`code_cours` = '". addslashes(claro_get_current_course_id()) ."'
                             AND `u`.`user_id` = '". (int)$_REQUEST['uInfo']."'";
         }
         else
@@ -164,7 +164,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             $sql = "SELECT `u`.`nom` AS `lastname`,`u`.`prenom` AS `firstname`, `u`.`email`
                         FROM `".$tbl_group_rel_team_user."` as `gu` , `".$tbl_user."` as `u`
                         WHERE `gu`.`user` = `u`.`user_id`
-                            AND `gu`.`team` = '". (int)$_gid."'
+                            AND `gu`.`team` = '". (int)claro_get_current_group_id()."'
                             AND `u`.`user_id` = '". (int)$_REQUEST['uInfo']."'";
         }
         $results = claro_sql_query_fetch_all($sql);
@@ -441,7 +441,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 else
                 {
                     // we need the library of learning paths, include it only if needed
-                    include($includePath."/lib/learnPath.lib.inc.php");
+                    include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
                     // display each learning path with the corresponding progression of the user
                     foreach($lpList as $lpDetails)
@@ -555,7 +555,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     foreach($results as $work)
                     {
                         $timestamp = strtotime($work['last_edit_date']);
-                        $beautifulDate = claro_disp_localised_date($dateTimeFormatLong,$timestamp);
+                        $beautifulDate = claro_disp_localised_date(get_locale('dateTimeFormatLong'),$timestamp);
 
                         if( $work['a_title'] == $prevATitle )
                         {
@@ -784,5 +784,5 @@ else
         echo get_lang('Not allowed');
     }
 }
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

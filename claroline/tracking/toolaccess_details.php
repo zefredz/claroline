@@ -22,21 +22,22 @@ require '../inc/claro_init_global.inc.php';
 
 $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
 
-if ( !$_uid || !$_cid) claro_disp_auth_form(true);
+if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course()) claro_disp_auth_form(true);
 
 $nameTools = get_lang('Details');
+$langMonthNames = get_locale('langMonthNames');
 
 // main page
-include($includePath."/lib/statsUtils.lib.inc.php");
+include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
 
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
-if(isset($_cid)) //stats for the current course
+if(! claro_is_in_a_course()) //stats for the current course
 {
     // to see stats of one course user must be courseAdmin of this course
-    $is_allowedToTrack = $is_courseAdmin;
+    $is_allowedToTrack = claro_is_course_manager();
 }
 else
 {
@@ -74,21 +75,20 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 
     $result = claro_sql_query_fetch_all($sql);
     
-    include($includePath."/claro_init_header.inc.php");
+    include(get_path('incRepositorySys')."/claro_init_header.inc.php");
     $title['mainTitle'] = $nameTools;
     
     if( isset($result[0]['label']) )
         if( isset($toolNameList[$result[0]['label']]) )
             $title['subTitle'] = $toolNameList[$result[0]['label']];
 
-    echo claro_html_tool_title( $title );
-
-    echo '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n";
-
-
+    echo claro_html_tool_title( $title )
+    .    '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n"
     /* ------ display ------ */
     // displayed period
-    echo '<tr>'."\n".'<td>'."\n";
+    .    '<tr>' . "\n" . '<td>' . "\n"
+    ;
+    $langDay_of_weekNames = get_locale('langDay_of_weekNames');
     switch($period)
     {
         case "month" : 
@@ -108,12 +108,13 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
             break;
     }
 
-    echo '</td>'."\n".'</tr>'."\n";
+    echo '</td>' . "\n"
+    .    '</tr>' . "\n"
     // periode choice
-    echo '<tr>'."\n"
-        .'<td>'."\n"
-        .'<small>'."\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('Day').'</a>]'."\n"
+    .    '<tr>' . "\n"
+    .    '<td>' . "\n"
+    .    '<small>' . "\n"
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?toolId=' . $toolId . '&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('Day').'</a>]'."\n"
         .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
         .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('Month').'</a>]'."\n"
         .'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
@@ -207,5 +208,5 @@ echo "\n"
 .    '</table>' . "\n\n"
 ;
 // footer
-include($includePath . '/claro_init_footer.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
 ?>

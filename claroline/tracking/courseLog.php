@@ -20,10 +20,10 @@
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
-include_once $includePath . '/lib/statsUtils.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -43,11 +43,11 @@ $tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 // regroup table names for maintenance purpose
 
 $nameTools = get_lang('Statistics');
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 echo claro_html_tool_title(
     array(
         'mainTitle' => $nameTools,
-        'subTitle'  => get_lang('Statistics of course : %courseCode', array('%courseCode' => $_course['officialCode']))
+        'subTitle'  => get_lang('Statistics of course : %courseCode', array('%courseCode' => claro_get_current_course_data('officialCode')))
     )
 );
 
@@ -84,7 +84,7 @@ if( get_conf('is_trackingEnabled'))
         //-- total number of user in the course
         $sql = "SELECT count(*)
                     FROM `".$tbl_rel_course_user."`
-                    WHERE code_cours = '".$_cid."'";
+                    WHERE code_cours = '".claro_get_current_course_id()."'";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users').' : '.$count.'<br />'."\n";
 
@@ -94,7 +94,7 @@ if( get_conf('is_trackingEnabled'))
             LEFT JOIN `".$tbl_track_e_access."` AS A
             ON A.`access_user_id` = CU.`user_id`
             WHERE U.`user_id` = CU.`user_id`
-            AND CU.`code_cours` = '".$_cid."'
+            AND CU.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
             AND A.`access_user_id` IS NULL
             ";
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students : ');
@@ -120,7 +120,7 @@ if( get_conf('is_trackingEnabled'))
         $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(A.`access_date`) AS `max_access_date`
             FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."` AS CU, `".$tbl_track_e_access."` AS A
             WHERE U.`user_id` = CU.`user_id`
-            AND CU.`code_cours` = '".$_cid."'
+            AND CU.`code_cours` = '".addslashes (claro_get_current_course_id())."'
             AND U.`user_id` = A.`access_user_id`
             GROUP BY A.`access_user_id`
             HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY )
@@ -588,7 +588,7 @@ if( get_conf('is_trackingEnabled'))
     // display link to delete all course stats
     echo '<hr />'."\n"
         .'<a class="claroButton" href="delete_course_stats.php">'
-        .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'.get_lang('Delete all course statistics')
+        .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="">'.get_lang('Delete all course statistics')
         .'</a>'."\n";
 }
 // not allowed
@@ -597,5 +597,5 @@ else
     echo get_lang('Tracking has been disabled by system administrator.');
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

@@ -16,10 +16,10 @@ define('DISP_FLUSH_RESULT', __LINE__);
 $msg = array();
 
 require '../inc/claro_init_global.inc.php';
-require_once $includePath . '/lib/form.lib.php';
+require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 $validCmdList = array('delete');
 $cmd = isset($_REQUEST['cmd'] ) && in_array($_REQUEST['cmd'],$validCmdList) ? $_REQUEST['cmd'] : null;
@@ -48,7 +48,7 @@ $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 
 if( 'delete' == $cmd && 'BEFORE' == $scope )
 {
-    $msg['info'][] = get_block('Delete all event before %date in statistics',array('%date'=>claro_disp_localised_date($GLOBALS['dateFormatLong'], $beforeDate)));
+    $msg['info'][] = get_block('Delete all event before %date in statistics',array('%date'=>claro_disp_localised_date(get_locale('dateFormatLong'), $beforeDate)));
 
     if(!is_null($beforeDate))
     {
@@ -86,7 +86,7 @@ if( 'delete' == $cmd && 'BEFORE' == $scope )
     }
     else
     {
-        $msg['error'][] = get_block('%date not valid',array('%date'=>claro_disp_localised_date($GLOBALS['dateFormatLong'])));
+        $msg['error'][] = get_block('%date not valid',array('%date'=>claro_disp_localised_date(get_locale('dateFormatLong'))));
     }
 
     $display = DISP_FLUSH_RESULT;
@@ -158,7 +158,7 @@ if (DISP_FORM == $display)
 
 // RUN DISPLAY
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 
 echo claro_html_tool_title($nameTools);
 echo claro_html_msg_list($msg);
@@ -203,5 +203,5 @@ if  ( DISP_FLUSH_RESULT == $display)
 
 }        // end else if $delete
 
-include ( $includePath . '/claro_init_footer.inc.php' );
+include ( get_path('incRepositorySys') . '/claro_init_footer.inc.php' );
 ?>

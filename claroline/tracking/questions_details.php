@@ -17,7 +17,7 @@
 require '../inc/claro_init_global.inc.php';
 
 // check if no anonymous
-if ( !$_cid || !$_uid ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated() ) claro_disp_auth_form(true);
 
 // answer types
 define('UNIQUE_ANSWER',  1);
@@ -60,7 +60,7 @@ $tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
-$is_allowedToTrack = $is_courseAdmin;
+$is_allowedToTrack = claro_is_course_manager();
  
 // bredcrump
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
@@ -100,7 +100,7 @@ else
 }
 
 
-include($includePath."/claro_init_header.inc.php");
+include(get_path('incRepositorySys')."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 echo claro_html_tool_title($titleTab);
@@ -392,7 +392,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 echo      '<tr>'."\n"
                         .'<td align="center">';
                 // expected choice image
-                echo '<img src="'.$imgRepositoryWeb;
+                echo '<img src="' . get_path('imgRepositoryWeb');
                 // choose image to display
                 if ($question->getType() != 'MCMA') echo 'radio';
                 else                                echo 'checkbox';
@@ -457,7 +457,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             echo      '<tr>'."\n"
                     .'<td align="center">';
             // expected choice image
-            echo '<img src="'.$imgRepositoryWeb;
+            echo '<img src="' . get_path('imgRepositoryWeb');
             // choose image to display
             
             if( $question->answer->correctAnswer == 'TRUE' )    echo 'radio_on.gif" alt="(X)"';
@@ -477,7 +477,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             echo      '<tr>'."\n"
                     .'<td align="center">';
             // expected choice image
-            echo '<img src="'.$imgRepositoryWeb;
+            echo '<img src="' . get_path('imgRepositoryWeb');
             // choose image to display
             
             if( $question->answer->correctAnswer == 'FALSE' )    echo 'radio_on.gif" alt="(X)"';
@@ -605,5 +605,5 @@ else
     }
 }
 
-include($includePath . '/claro_init_footer.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
 ?>

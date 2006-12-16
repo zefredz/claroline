@@ -21,13 +21,13 @@ $tbl_cdb_names       = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
 $TABLETRACK_DOWNLOADS        = $tbl_cdb_names['track_e_downloads'];
 
-include($includePath."/lib/statsUtils.lib.inc.php");
+include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
 
 $toolTitle['mainTitle'] = $nameTools;
 
-$is_allowedToTrack = $is_courseAdmin;
+$is_allowedToTrack = claro_is_course_manager();
 
-include($includePath."/claro_init_header.inc.php");
+include(get_path('incRepositorySys')."/claro_init_header.inc.php");
 
 if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
@@ -109,7 +109,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
             $i++;
             echo '<tr>'."\n"
                 .'<td>'.$userName.'</td>'."\n"
-                .'<td>'.claro_disp_localised_date($dateTimeFormatLong, $userAccess['data']).'</td>'."\n"
+                .'<td>'.claro_disp_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']).'</td>'."\n"
                 .'<td>'.$userAccess['nbr'].'</td>'."\n"
                 .'</tr>'."\n\n";
         }
@@ -137,5 +137,5 @@ else
 }
 
 // footer
-include($includePath . '/claro_init_footer.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
 ?>
