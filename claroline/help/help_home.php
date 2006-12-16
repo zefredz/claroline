@@ -4,7 +4,7 @@ require '../inc/claro_init_global.inc.php';
 $nameTools = get_lang('Home page help');
 $hide_banner = true;
 $hide_footer = true;
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 ?>
 <table width="100%" border="0" cellpadding="1" cellspacing="1">
@@ -33,5 +33,5 @@ include $includePath . '/claro_init_header.inc.php';
 </tr>
 </table>
 <?php
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
