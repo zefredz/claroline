@@ -14,16 +14,15 @@
 
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
-$includePath = null;
 
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! get_init('_uid') ) claro_disp_auth_form();
-if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // Include libraries
-require_once $includePath . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 
 // Initialise variables
@@ -104,7 +103,7 @@ $adminDataGrid->set_colAttributeList( array (  'request_switch' => array ('align
  */
 
 // Disdplay header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_html_tool_title($nameTools)
@@ -117,7 +116,6 @@ echo claro_html_tool_title($nameTools)
 .    '</form>' . "\n"
 ;
 
-
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

@@ -20,11 +20,11 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-include_once($includePath . '/lib/admin.lib.inc.php');
-include_once($includePath . '/lib/form.lib.php');
+include_once(get_path('incRepositorySys') . '/lib/admin.lib.inc.php');
+include_once(get_path('incRepositorySys') . '/lib/form.lib.php');
 
 //-----------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
@@ -47,7 +47,7 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $nameTools = get_lang('Advanced user search');
 
 //retrieve needed parameters from URL to prefill search form
@@ -71,7 +71,7 @@ if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $ma
 /////////////
 // OUTPUT
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 echo claro_html_tool_title($nameTools . ' : ');
 ?>
 <form action="adminusers.php" method="GET" >
@@ -145,5 +145,5 @@ echo claro_html_form_select( 'action'
 </table>
 </form>
 <?php
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

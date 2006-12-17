@@ -147,14 +147,6 @@ else
 
     echo claro_html_tool_title(get_lang('Course list') . ' : ' . $classinfo['name']);
 
-    // Display Forms or dialog box(if needed)
-
-    if (isset($dialogBox))
-    {
-        echo claro_html_message_box($dialogBox);
-        echo '<br />';
-    }
-
     // TOOL LINKS
     // TODO claro_html_menu
     echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php'
@@ -226,8 +218,8 @@ else
         .    '</tr>'
         ;
     }
-    echo '</tbody>'."\n"
-    .    '</table>'."\n"
+    echo '</tbody>' . "\n"
+    .    '</table>' . "\n"
     ;
 
     //Pager

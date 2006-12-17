@@ -20,25 +20,25 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-require_once $includePath . '/lib/course_user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $nameTools = get_lang('User settings');
 $dialogBox = '';
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
+if ( isset($_REQUEST['cmd'] ) && claro_is_platform_admin() )
 {
     if ( $_REQUEST['cmd'] == 'UnReg' )
     {
@@ -73,7 +73,7 @@ $cmdList[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user
  * DISPLAY
  */
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('User unregistered'));
 
@@ -90,6 +90,6 @@ echo '<p>'
 ;
 // Display footer
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

@@ -20,12 +20,12 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-include_once $includePath . '/lib/admin.lib.inc.php';
-include_once $includePath . '/lib/course.lib.inc.php';
-include_once $includePath . '/lib/form.lib.php';
+include_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/form.lib.php';
 
 //declare needed tables
 $tbl_mdb_names    = claro_sql_get_main_tbl();
@@ -33,7 +33,7 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $nameTools = get_lang('Advanced course search');
 
 //--------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ $language_list = array_merge(array(get_lang('All') => ''),$language_list);
 
 //header and bredcrump display
 
-include($includePath . '/claro_init_header.inc.php' );
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php' );
 
 //tool title
 
@@ -171,7 +171,7 @@ echo claro_html_tool_title($nameTools . ' : ');
 </table>
 </form>
 <?php
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 //NEEDED FUNCTION (to be moved in libraries)
 

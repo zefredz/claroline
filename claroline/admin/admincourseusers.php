@@ -25,8 +25,8 @@ require '../inc/claro_init_global.inc.php';
 /*  Security Check
 /* ************************************************************************** */
 
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
@@ -34,8 +34,8 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $dialogBox = '';
 // initialisation of global variables and used libraries
-require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/course_user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
@@ -198,7 +198,7 @@ $dg_opt_list['caption'] = '<img src="' . get_conf('imgRepositoryWeb') . 'user.gi
 $nameTools = get_lang('Course members');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 .    '?cidToEdit=' . $cidToEdit . '">'
 .    get_lang('Enroll a user')
@@ -213,7 +213,7 @@ if (isset($cfrom) && ($cfrom=='clist'))
  * DISPLAY
  */
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 echo claro_html_tool_title($nameTools);
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
@@ -226,5 +226,5 @@ echo '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

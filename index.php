@@ -85,7 +85,7 @@ echo $campusHomePageTop->render();
 
 if ( claro_is_user_authenticated() )
 {
-    /*
+   /**
      * Commands line
      */
 	$userCommands = array();
@@ -155,13 +155,9 @@ $campusHomePageBottom = new Dock('campusHomePageBottom');
 
 echo $campusHomePageBottom->render();
 
-?>
-
-</td>
-
-<td width="200" valign="top" class="claroRightMenu">
-
-<?php
+echo '</td>' . "\n"
+.    '<td width="200" valign="top" class="claroRightMenu">'
+;
 
 if ( claro_is_user_authenticated() )
 {

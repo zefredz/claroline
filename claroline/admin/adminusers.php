@@ -18,12 +18,12 @@ require '../inc/claro_init_global.inc.php';
 $userPerPage = get_conf('userPerPage',20); // numbers of user to display on the same page
 
 // Security check
-if ( ! get_init('_uid') ) claro_disp_auth_form();
-if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 // CHECK INCOMING DATAS
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
@@ -66,7 +66,7 @@ if (!isset($addToURL)) $addToURL ='';
 
 // Deal with interbredcrumps
 
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $nameTools = get_lang('User list');
 //TABLES
 
@@ -127,7 +127,6 @@ foreach ($userList as $userKey => $user)
 	$userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
 }
 
-
 $userGrid = array();
 if (is_array($userList))
 foreach ($userList as $userKey => $user)
@@ -158,7 +157,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
     .                                 '?uidToEdit=' . $user['user_id']
     .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
+    .                                 '<img src="' . get_path('imgRepositoryWeb') . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
     .    '</a>';
 
 
@@ -173,7 +172,7 @@ foreach ($userList as $userKey => $user)
     .                               '?cmd=delete&amp;user_id=' . $user['user_id']
     .                               '&amp;ffset=' . $offset . $addToURL . '" '
     .                               ' onClick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
-    .                               '<img src="' . $imgRepositoryWeb . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+    .                               '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
 
@@ -231,7 +230,7 @@ $htmlHeadXtra[] =
 
 
 //Header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_html_tool_title($nameTools) . "\n\n";
@@ -254,7 +253,7 @@ if ( !empty($isSearchedHTML) )
 echo '<table width="100%">' . "\n"
 .    '<tr>' . "\n"
 .    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
-.    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
+.    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
 .    get_lang('Create user')
 .    '</a></td>' . "\n"
 .    '<td align="right">' . "\n"
@@ -276,7 +275,7 @@ echo $userDataGrid->render();
 
 if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 /**
  *

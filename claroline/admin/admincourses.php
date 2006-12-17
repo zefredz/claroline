@@ -24,12 +24,12 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // initialisation of global variables and used libraries
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 
 /**
  * Check incoming data
@@ -160,7 +160,6 @@ foreach ($courseList as $courseKey => $course)
     $courseList[$courseKey]['qty_cm']  =  $result['qty_cm'];
 }
 
-
 /**
  * Prepare display of search/Filter panel
  */
@@ -262,7 +261,7 @@ foreach($courseList as $numLine => $courseLine)
     $courseDataList[$numLine]['officialCode'] = $courseLine['officialCode'];
 
     // Label
-    $courseDataList[$numLine]['intitule'] =  '<a href="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
+    $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
     .                                        $courseLine['intitule']
     .                                        '</a>';
     // Category
@@ -281,7 +280,7 @@ foreach($courseList as $numLine => $courseLine)
     ;
 
     // Course Settings
-    $courseDataList[$numLine]['cmdSetting'] = '<a href="' . $clarolineRepositoryWeb . 'course/settings.php?adminContext=1'
+    $courseDataList[$numLine]['cmdSetting'] = '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
     .                                         '<img src="' . get_conf('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings'). '" />'
     .                                         '</a>'
@@ -325,7 +324,7 @@ $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such cr
 
 /** DISPLAY : Common Header */
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 if (isset($dialogBox)) echo claro_html_message_box($dialogBox);
 
@@ -341,7 +340,7 @@ echo '<table width="100%">' . "\n\n"
 .    '<tr>' . "\n"
 .    '<td align="left" valign="top">' . "\n"
 .    '<a class="claroCmd" href="../course/create.php?adminContext=1">'
-.    '<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />'
+.    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />'
 .    get_lang('Create course')
 .    '</a>'
 .    '</td>' . "\n"
@@ -368,7 +367,7 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
 ;
 
 /** DISPLAY : Common footer */
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 
 function prepare_get_filtred_course_list()

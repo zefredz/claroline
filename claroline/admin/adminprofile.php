@@ -18,14 +18,14 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! get_init('_uid') ) claro_disp_auth_form();
-if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // Include configuration
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Include libraries
-require_once $includePath . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 
 // Initialise variables
@@ -70,10 +70,10 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
         user_set_properties($user_id, $user_data);  // if no error update use setting
 
-        if ( $user_id == get_init('_uid')  )// re-init system to take new settings in account
+        if ( $user_id == claro_get_current_user_id()  )// re-init system to take new settings in account
         {
             $uidReset = true;
-            include $includePath . '/claro_init_local.inc.php';
+            include get_path('incRepositorySys') . '/claro_init_local.inc.php';
         }
 
         $classMsg = 'success';
@@ -97,11 +97,11 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
  * PREPARE DISPLAY
  */
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 
 if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
 {
-    $interbredcrump[]= array ('url' => $rootAdminWeb . 'adminusers.php', 'name' => get_lang('User list'));
+    $interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'adminusers.php', 'name' => get_lang('User list'));
 }
 
 $htmlHeadXtra[] =
@@ -123,7 +123,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '&amp;uidToEdit=' . $user_id
 .             '&amp;fromAdmin=settings'
 .             '&amp;category=" >'
-.             '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
+.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif">'
 .             get_lang('Enrol to a new course')
 .             '</a>'
 
@@ -132,7 +132,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 .             '?Femail=' . urlencode($user_data['email'])
 .             '&amp;searchPassword=1" >'
-.             '<img src="' . $imgRepositoryWeb . 'email.gif" />'
+.             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" />'
 .             get_lang('Send account information to user by email')
 .             '</a>'
 ;
@@ -141,7 +141,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '?uidToEdit=' . $user_id
 .             '&amp;cmd=delete" '
 .             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
-.             '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
+.             '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" /> '
 .             get_lang('Delete user')
 .             '</a>'
 
@@ -157,7 +157,7 @@ if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come f
  */
 
 // Disdplay header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_html_tool_title($nameTools)
@@ -170,6 +170,5 @@ echo claro_html_tool_title($nameTools)
 .    '</p>'
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
-
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

@@ -157,7 +157,7 @@ switch ( $cmd )
     // Show form to edit class properties (display form)
     case 'rqEdit' :
 
-        if ( $thisClass = class_get_properties($form_data['class_id']) )
+        if ( false !== ($thisClass = class_get_properties($form_data['class_id']) ))
         {
             $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
             .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"

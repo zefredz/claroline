@@ -24,10 +24,10 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/course_user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
@@ -39,7 +39,7 @@ unset($_SESSION['userEdit']);
 
 $nameTools=get_lang('User course settings');
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 
 
 // see which user we are working with ...
@@ -183,7 +183,7 @@ elseif ( $displayBackToUC )//coming from usercourse list
 // DISPLAY
 //------------------------------------
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display tool title
 
@@ -216,5 +216,5 @@ echo course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $hid
 .    '</p>'
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

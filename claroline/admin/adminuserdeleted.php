@@ -24,15 +24,15 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 $nameTools=get_lang('User settings');
-$interbredcrump[]= array ('url' => get_conf($rootAdminWeb), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_conf(get_path('rootAdminWeb')), 'name' => get_lang('Administration'));
 
 //------------------------------------
 // Execute COMMAND section
@@ -70,7 +70,7 @@ else $dialogBox = get_lang('Unable to delete');
 // DISPLAY
 //------------------------------------
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('Delete user'));
 
@@ -81,5 +81,5 @@ echo '<p>'
 .    '</p>'
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
