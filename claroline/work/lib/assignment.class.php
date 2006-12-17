@@ -453,10 +453,8 @@ class Assignment
      */
 	function buildDirPaths()
 	{
-		global $_course;
-
-		$this->assigDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'work/assig_'.$this->id.'/';
-		$this->assigDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'work/assig_'.$this->id.'/';
+        $this->assigDirSys = get_conf('coursesRepositorySys').claro_get_course_path().'/'.'work/assig_'.$this->id.'/';
+        $this->assigDirWeb = get_conf('coursesRepositoryWeb').claro_get_course_path().'/'.'work/assig_'.$this->id.'/';
 	}
 
 	/**
@@ -748,7 +746,7 @@ class Assignment
 	{
 		return $this->assigDirWeb;
 	}
-	
+
 	/**
 	 * check if the user can upload a submission at this date
 	 *
@@ -758,11 +756,11 @@ class Assignment
 	function isUploadDateOk()
 	{
 		$now = time();
-		
+
 		$assignmentStarted = (bool) ( $this->startDate <= $now );
 		$assignmentNotFinished = (bool) ( $now < $this->endDate );
 		$canUploadAfterEnd = (bool) $this->allowLateUpload == 'YES';
-		
+
 		return (bool) $assignmentStarted && ( $assignmentNotFinished || $canUploadAfterEnd );
 	}
 }

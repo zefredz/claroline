@@ -19,14 +19,14 @@
 $tlabelReq = 'CLWRK';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 require_once './lib/assignment.class.php';
 //require_once './lib/submission.class.php';
 
-include_once $includePath . '/lib/fileManage.lib.php';
-include_once $includePath . '/lib/pager.lib.php';
-include_once $includePath . '/lib/assignment.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+include_once get_path('incRepositorySys') . '/lib/assignment.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user                = $tbl_mdb_names['user'];
@@ -37,13 +37,13 @@ $tbl_wrk_submission      = $tbl_cdb_names['wrk_submission'   ];
 $tbl_group_team          = $tbl_cdb_names['group_team'       ];
 $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
 
-$currentUserFirstName = $_user['firstName'];
-$currentUserLastName  = $_user['lastName'];
+$currentUserFirstName = claro_get_current_user_data('firstName');
+$currentUserLastName  = claro_get_current_user_data('lastName');
 
 // 'step' of pager
 $usersPerPage = get_conf('usersPerPage',20);
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 // use viewMode
 claro_set_display_mode_available(true);
@@ -98,10 +98,10 @@ if ( !$req['assignmentId'] || !$assignment->load($req['assignmentId']) )
 /**
  * @todo $_REQUEST['submitGroupWorkUrl'] must be treated in  filter process
  */
-if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && isset($_gid) )
+if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && claro_is_in_a_group() )
 {
     claro_redirect ('userWork.php?authId='
-    .       $_gid
+    .       claro_get_current_group_id()
     .       '&cmd=rqSubWrk'
     .       '&assigId=' . $req['assignmentId']
     .       '&submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
@@ -132,11 +132,11 @@ $uploadDateIsOk      = $assignment->isUploadDateOk();
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
     // user is authed and allowed
-    $userCanPost = (bool) ( isset($_uid) && $is_courseAllowed );
+    $userCanPost = (bool) ( claro_is_user_authenticated() && claro_is_course_allowed() );
 }
 else
 {
-	$userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
+	$userGroupList = REL_GROUP_USER::get_user_group_list(claro_get_current_user_id());
 	// check if user is member of at least one group
 	$userCanPost = (bool) ( !empty($userGroupList) );
 }
@@ -146,10 +146,10 @@ $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $u
 /*============================================================================
 	Update notification
   ============================================================================*/
-if (isset($_uid))
+if (claro_is_user_authenticated())
 {
     // call this function to set the __assignment__ as seen, all the submission as seen
-    $claro_notifier->is_a_notified_ressource($_cid, $claro_notifier->get_notification_date($_uid), $_uid, $_gid, $_tid, $req['assignmentId']);
+    $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $claro_notifier->get_notification_date(claro_get_current_user_id()), claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $req['assignmentId']);
 }
 /*============================================================================
 	Prepare List
@@ -175,10 +175,10 @@ if( ! $is_allowedToEditAll )
         $submissionConditionList[] = "S.group_id IN ("  . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
         $feedbackConditionList[]   = "FB.group_id IN (" . implode(', ', array_map( 'intval', $userGroupIdList) ) . ")";
     }
-    elseif ( isset($_uid)      )
+    elseif ( claro_is_user_authenticated() )
     {
-        $submissionConditionList[] = "`S`.`user_id` = "      . (int) $_uid;
-        $feedbackConditionList[]   = "`FB`.`original_id` = " . (int) $_uid;
+        $submissionConditionList[] = "`S`.`user_id` = "      . (int) claro_get_current_user_id();
+        $feedbackConditionList[]   = "`FB`.`original_id` = " . (int) claro_get_current_user_id();
     }
 }
 
@@ -205,7 +205,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
             #ONLY FROM COURSE
             INNER JOIN  `" . $tbl_rel_course_user . "` AS `CU`
                     ON  `U`.`user_id` = `CU`.`user_id`
-                   AND `CU`.`code_cours` = '" . addslashes($_cid) . "'
+                   AND `CU`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
 
             # SEARCH ON SUBMISSIONS
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S`
@@ -341,7 +341,7 @@ if( !empty($lastWorkTitleList) )
 foreach ( $workList as $workId => $thisWrk )
 {
 
-    $thisWrk['is_mine'] = (  ($assignment->getAssignmentType() == 'INDIVIDUAL' && $thisWrk['authId'] == $_uid)
+    $thisWrk['is_mine'] = (  ($assignment->getAssignmentType() == 'INDIVIDUAL' && $thisWrk['authId'] == claro_get_current_user_id())
                           || ($assignment->getAssignmentType() == 'GROUP'      && in_array($thisWrk['authId'], $userGroupList)));
 
     if ($thisWrk['is_mine']) $workList[$workId]['name'] = '<b>' . $thisWrk['name'] . '</b>';
@@ -393,11 +393,11 @@ $showAfterEndDate = (bool) (  $assignment->getAutoFeedbackSubmitMethod() == 'END
 // do not show to anonymous users because we can't know
 // if the user already uploaded a work
 $showAfterPost = (bool)
-                 isset($_uid)
+                 claro_is_user_authenticated()
                  &&
                  (  $assignment->getAutoFeedbackSubmitMethod() == 'AFTERPOST'
                     &&
-                    count($assignment->getSubmissionList($_uid)) > 0
+                    count($assignment->getSubmissionList(claro_get_current_user_id())) > 0
                  );
 
 
@@ -413,7 +413,7 @@ $showAfterPost = (bool)
   *
   */
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($pageTitle);
 
 /**
@@ -423,7 +423,7 @@ echo claro_html_tool_title($pageTitle);
 echo '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 .    $assignment->getTitle() . '<br />'  . "\n"
-.    get_lang('<b>From</b> %startDate <b>until</b> %endDate', array('%startDate' => claro_disp_localised_date($dateTimeFormatLong, $assignment->getStartDate()), '%endDate' => claro_disp_localised_date($dateTimeFormatLong, $assignment->getEndDate()) ) )
+.    get_lang('<b>From</b> %startDate <b>until</b> %endDate', array('%startDate' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()), '%endDate' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
 
 .	'<br />'  .  "\n"
 
@@ -501,7 +501,7 @@ $cmdMenu = array();
 if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 {
 	// link to create a new assignment
-    $cmdMenu[] = '<a class="claroCmd" href="userWork.php?authId=' . $_uid . '&amp;cmd=rqSubWrk'
+    $cmdMenu[] = '<a class="claroCmd" href="userWork.php?authId=' . claro_get_current_user_id() . '&amp;cmd=rqSubWrk'
     .    '&amp;assigId=' . $req['assignmentId'] . '">' . get_lang('Submit a work') . '</a>' . "\n"
     ;
 
@@ -594,6 +594,6 @@ echo '</tbody>' . "\n"
 
 .    $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']);
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>
