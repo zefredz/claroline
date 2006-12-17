@@ -21,22 +21,23 @@
 $tlabelReq = 'CLWRK';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 require_once './lib/assignment.class.php';
 
-require_once $includePath . '/lib/assignment.lib.php';
-require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/fileUpload.lib.php';
-require_once $includePath . '/lib/fileDisplay.lib.php'; // need format_url function
-require_once $includePath . '/lib/fileManage.lib.php'; // need claro_delete_file
+require_once get_path('incRepositorySys') . '/lib/assignment.lib.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php'; // need format_url function
+require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php'; // need claro_delete_file
 
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
 
-event_access_tool($_tid, $_courseTool['label']);
+$currentCoursePath =  claro_get_current_course_data('path');
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 // 'step' of pager
 $assignmentsPerPage = get_conf('assignmentsPerPage', 20);
@@ -47,8 +48,8 @@ claro_set_display_mode_available(TRUE);
 /*============================================================================
                      BASIC VARIABLES DEFINITION
   =============================================================================*/
-$currentCourseRepositorySys = $coursesRepositorySys . $_course['path'] . '/';
-$currentCourseRepositoryWeb = $coursesRepositoryWeb . $_course['path'] . '/';
+$currentCourseRepositorySys = get_path('coursesRepositorySys') . $currentCoursePath . '/';
+$currentCourseRepositoryWeb = get_path('coursesRepositoryWeb') . $currentCoursePath . '/';
 
 $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 
@@ -159,11 +160,11 @@ if ($is_allowedToEdit)
 
             if ( $_REQUEST['vis'] == 'v')
             {
-                $eventNotifier->notifyCourseEvent('work_visible', $_cid, $_tid, $_REQUEST['assigId'], $_gid, '0');
+                $eventNotifier->notifyCourseEvent('work_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
             }
             else
             {
-                $eventNotifier->notifyCourseEvent('work_invisible', $_cid, $_tid, $_REQUEST['assigId'], $_gid, '0');
+                $eventNotifier->notifyCourseEvent('work_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
             }
         }
     }
@@ -178,7 +179,7 @@ if ($is_allowedToEdit)
         $assignment->delete();
 
         //notify eventmanager
-        $eventNotifier->notifyCourseEvent('work_deleted', $_cid, $_tid, $_REQUEST['assigId'], $_gid, '0');
+        $eventNotifier->notifyCourseEvent('work_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
 
         $dialogBox .= get_lang('Assignment deleted');
     }
@@ -218,7 +219,7 @@ if ($is_allowedToEdit)
     // edit assignment / display the form
     if( $cmd == 'rqEditAssig' )
     {
-        include($includePath . '/lib/form.lib.php');
+        include(get_path('incRepositorySys') . '/lib/form.lib.php');
         // modify the command 'cmd' sent by the form
         $cmdToSend = 'exEditAssig';
         // ask the display of the form
@@ -245,7 +246,7 @@ if ($is_allowedToEdit)
             if($lastAssigId)
             {
                 //notify eventmanager that a new assignement is created
-                $eventNotifier->notifyCourseEvent("work_added",$_cid, $_tid, $lastAssigId, $_gid, "0");
+                $eventNotifier->notifyCourseEvent("work_added",claro_get_current_course_id(), claro_get_current_tool_id(), $lastAssigId, claro_get_current_group_id(), "0");
             }
         }
         else
@@ -267,7 +268,7 @@ if ($is_allowedToEdit)
     //--- create an assignment / display form
     if( $cmd == 'rqMkAssig' )
     {
-        include($includePath . '/lib/form.lib.php');
+        include(get_path('incRepositorySys') . '/lib/form.lib.php');
         // modify the command 'cmd' sent by the form
         $cmdToSend = 'exMkAssig';
         // ask the display of the form
@@ -311,7 +312,7 @@ else
                                   LIST
       --------------------------------------------------------------------*/
     // if user come from a group
-    if ( isset($_gid) && isset($is_groupAllowed) && $is_groupAllowed )
+    if ( claro_is_in_a_group() && claro_is_group_allowed() )
     {
         // select only the group assignments
         $sql = "SELECT `id`, 
@@ -356,7 +357,7 @@ else
 	$assignmentList = $assignmentPager->get_result_list();
 
 
-include $includePath . '/claro_init_header.inc.php' ;
+include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
 /*--------------------------------------------------------------------
                     TOOL TITLE
@@ -507,7 +508,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     {
         // link to create a new assignment
         $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig">'
-        .    '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" />' . get_lang('Create a new assignment')
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" />' . get_lang('Create a new assignment')
         .    '</a>'. "\n"
         ;
     }
@@ -560,7 +561,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         }
         elseif( isset($_uid) ) //otherwise just display its name normally and tell notifier that every ressources are seen (for tool list notification consistancy)
         {
-            $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id']);
+            $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), '', claro_get_current_tool_id(), $anAssignment['id']);
         }
 
 
@@ -582,26 +583,26 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
         echo '<tr ' . $style . '>'."\n"
         .    '<td>' . "\n"
-    	.	 '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">'        
-        .	 '<img src="' . $imgRepositoryWeb . 'assignment.gif" alt="" /> '
+        .    '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">'        
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" /> '
         .    $anAssignment['title']
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         ;
 
-		echo '<td align="center">';
-		
-		if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) 
-			echo '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" alt="' . get_lang('Individual') . '" />' ;
+        echo '<td align="center">';
+        
+        if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) 
+            echo '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" border="0" alt="' . get_lang('Individual') . '" />' ;
         elseif( $anAssignment['assignment_type'] == 'GROUP' ) 
-        	echo '<img src="' . $imgRepositoryWeb . 'group.gif" border="0" alt="' . get_lang('Groups (from groups tool, only group members can post)') . '" />' ;
+            echo '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" border="0" alt="' . get_lang('Groups (from groups tool, only group members can post)') . '" />' ;
         else 
         	echo '&nbsp;';
         	
         echo '</td>' . "\n";
         
-        echo '<td><small>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['start_date_unix']) . '</small></td>' . "\n"
-        .	 '<td><small>' . claro_disp_localised_date($dateTimeFormatLong,$anAssignment['end_date_unix']) . '</small></td>' . "\n";
+        echo '<td><small>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$anAssignment['start_date_unix']) . '</small></td>' . "\n"
+        .    '<td><small>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$anAssignment['end_date_unix']) . '</small></td>' . "\n";
         
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
@@ -623,27 +624,30 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         
         if ( $is_allowedToEdit )
         {
-            echo '<td align="center">'
-			.	 '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEditAssig&amp;assigId=' . $anAssignment['id'] . '">'
-			.	 '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Modify') . '"></a>'
-			.	 '</td>' . "\n"
-			.	 '<td align="center">'
-			.	 '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onClick="return confirmation(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
-			.	 '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '"></a>'
-			.	 '</td>' . "\n"
-			.	 '<td align="center">';
-			
+                        echo '<td align="center">'
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEditAssig&amp;assigId=' . $anAssignment['id'] . '">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '"></a>'
+            .    '</td>' . "\n"
+            .    '<td align="center">'
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onClick="return confirmation(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '"></a>'
+            .    '</td>' . "\n"
+            .    '<td align="center">'
+            ;
+
             if ( $anAssignment['visibility'] == "INVISIBLE" )
             {
-                echo "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exChVis&amp;assigId=".$anAssignment['id']."&amp;vis=v\">"
-                      ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".get_lang('Make visible')."\" />"
-                      ."</a>"
+                echo '<a href="' . $_SERVER['PHP_SELF'] 
+                .    '?cmd=exChVis&amp;assigId=' . $anAssignment['id']
+                .    '&amp;vis=v">'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" border="0" alt="' . get_lang('Make visible') . '" />'
+                .    '</a>'
                       ;
             }
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;assigId=' . $anAssignment['id'] . '&amp;vis=i">'
-                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
                 .    '</a>'
                 ;
             }
@@ -670,5 +674,5 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
 }
 // FOOTER
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

@@ -19,17 +19,17 @@
 $tlabelReq = 'CLWRK';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 require_once './lib/assignment.class.php';
 require_once './lib/submission.class.php';
 
-require_once $includePath . '/lib/assignment.lib.php';
-include_once $includePath . '/lib/fileManage.lib.php';
-include_once $includePath . '/lib/fileUpload.lib.php';
-include_once $includePath . '/lib/fileDisplay.lib.php';
-include_once $includePath . '/lib/learnPath.lib.inc.php';
-include_once $includePath . '/lib/sendmail.lib.php';
+require_once get_path('incRepositorySys') . '/lib/assignment.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+include_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
@@ -42,7 +42,7 @@ $tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];
 $tbl_group_team       = $tbl_cdb_names['group_team'       ];
 $tbl_group_rel_team_user  = $tbl_cdb_names['group_rel_team_user'];
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 // use viewMode
 claro_set_display_mode_available(true);
@@ -116,6 +116,7 @@ if( isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 	$authName = claro_sql_query_get_single_value($sql);
 }
 
+$_user = claro_get_current_user_data();
 $currentUserFirstName       = $_user['firstName'];
 $currentUserLastName        = $_user['lastName'];
 
@@ -149,8 +150,8 @@ if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
                         ASSIGNMENT CONTENT
   --------------------------------------------------------------------*/
 if( $assignment->getSubmissionType() == "TEXTFILE"
-      || ( $is_courseAdmin && (isset($wrk) && !empty($wrk['original_id']) ) )
-      || ( $is_courseAdmin && ( $cmd == 'rqGradeWrk' || $cmd == 'exGradeWrk') )
+      || ( claro_is_course_manager() && (isset($wrk) && !empty($wrk['original_id']) ) )
+      || ( claro_is_course_manager() && ( $cmd == 'rqGradeWrk' || $cmd == 'exGradeWrk') )
   )
 {
 	// IF text file is the default assignment type
@@ -170,36 +171,36 @@ else //if( $assignment->getSubmissionType() == "TEXT" )
                         USER GROUP INFORMATIONS
   --------------------------------------------------------------------*/
 // if this is a group assignement we will need some group infos about the user
-if( $assignment->getAssignmentType() == 'GROUP' && isset($_uid) )
+if( $assignment->getAssignmentType() == 'GROUP' && claro_is_user_authenticated() )
 {
-	// get complete group list
-	$sql = "SELECT `t`.`id`, `t`.`name`
-			FROM `" . $tbl_group_team . "` as `t`";
+    // get complete group list
+    $sql = "SELECT `id`, `name`
+            FROM `" . $tbl_group_team . "`";
+    
+    $groupList = claro_sql_query_fetch_all($sql);
+    if( is_array($groupList) && !empty($groupList) )
+    {
+        foreach( $groupList AS $group )
+        {
+            // yes it is redundant but it is for a easier user later in the script
+            $allGroupList[$group['id']]['id'] = $group['id'];
+            $allGroupList[$group['id']]['name'] = $group['name'];
+        }
+    }
 
-	$groupList = claro_sql_query_fetch_all($sql);
-	if( is_array($groupList) && !empty($groupList) )
-	{
-		foreach( $groupList AS $group )
-		{
-			// yes it is redundant but it is for a easier user later in the script
-			$allGroupList[$group['id']]['id'] = $group['id'];
-			$allGroupList[$group['id']]['name'] = $group['name'];
-		}
-	}
-
-	if( $is_courseAdmin )
-	{
-		$userGroupList = $allGroupList;
-	}
-	elseif( !empty($groupList) )
-	{
-		// get the list of group the user is in (if there is at least one group in course ...)
-		$userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
-	}
-	else
-	{
-		$userGroupList = array();
-	}
+    if( claro_is_course_manager() )
+    {
+        $userGroupList = $allGroupList;
+    }
+    elseif( !empty($groupList) )
+    {
+        // get the list of group the user is in (if there is at least one group in course ...)
+        $userGroupList = REL_GROUP_USER::get_user_group_list($_uid);
+    }
+    else
+    {
+        $userGroupList = array();
+    }
 }
 
 /*============================================================================
