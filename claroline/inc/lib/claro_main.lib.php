@@ -86,7 +86,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
         {
             $courseDataList = $cachedDataList;
         }
-        elseif ( ( is_null($courseId) && $GLOBALS['_cid']) )
+        elseif ( ( is_null($courseId) && claro_is_in_a_course()) )
         {
             $courseDataList = $GLOBALS['_course'];
         }
@@ -328,11 +328,6 @@ function claro_get_course_group_path($context)
     if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
     {
         $cid = $context[CLARO_CONTEXT_COURSE];
-    }
-
-    if (is_array($context) && array_key_exists(CLARO_CONTEXT_GROUP,$context))
-    {
-        $gid = $context[CLARO_CONTEXT_GROUP];
     }
 
     $coursePath = claro_get_course_path($cid);
@@ -883,9 +878,7 @@ function claro_set_tool_view_mode($viewMode)
 
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
-    global $is_courseAdmin;
-
-    if ( ! $is_courseAdmin || ! claro_is_display_mode_available() ) return false;
+    if ( ! claro_is_course_manager() || ! claro_is_display_mode_available() ) return false;
 
     if ($viewModeRequested) claro_set_tool_view_mode($viewModeRequested);
 
@@ -990,9 +983,9 @@ function claro_get_tool_view_mode()
 
 function claro_is_allowed_to_edit()
 {
-    if ( claro_is_course_admin() )
+    if ( claro_is_course_manager() )
     {
-        $isAllowedToEdit = claro_is_course_admin() ;
+        $isAllowedToEdit = true;
     }
     else
     {
@@ -1002,7 +995,7 @@ function claro_is_allowed_to_edit()
         }
         else
         {
-            $isAllowedToEdit = claro_is_course_admin() ;
+            $isAllowedToEdit = false;
         }
     }
 
@@ -1162,12 +1155,12 @@ function claro_get_conf_repository($context=array())
         }
         return get_path('coursesRepositorySys') . claro_get_course_path($context[CLARO_CONTEXT_COURSE]) . '/conf/';
 
-
     }
 
 
     pushClaroMessage('Unknown context passed to claro_get_conf_repository : ' . var_export($context,1));
     return null;
+
 }
 
 /**
@@ -1408,7 +1401,6 @@ function claro_redirect($location)
     header("Location: $location");
 }
 
-
 function claro_form_relay_context($context=null)
 {
     $html ='';
@@ -1453,5 +1445,6 @@ function claro_url_relay_context($prepend='',$context=null)
     if (count($urlParam)>0) return $prepend . implode($urlParam,'&');
     else                    return '';
 }
+
 
 ?>
