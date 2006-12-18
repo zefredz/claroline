@@ -21,17 +21,17 @@ $nameTools = get_lang('Course profile');
 $dialogBox = '';
 $tidReset = true;
 
-if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated()) claro_disp_auth_form(true);
 
-$is_allowedToEdit = $is_courseAdmin;
+$is_allowedToEdit = claro_is_course_manager();
 
 if ( ! $is_allowedToEdit )
 {
     claro_die(get_lang('Not allowed'));
 }
 
-require_once $includePath . '/lib/right/courseProfileToolAction.class.php' ;
-require_once $includePath . '/lib/right/profileToolRightHtml.class.php' ;
+require_once get_path('incRepositorySys') . '/lib/right/courseProfileToolAction.class.php' ;
+require_once get_path('incRepositorySys') . '/lib/right/profileToolRightHtml.class.php' ;
 
 //=================================
 // Main section
@@ -52,7 +52,7 @@ if ( !empty($profile_id) )
     {
         // load profile tool right    
         $courseProfileRight = new RightCourseProfileToolRight();
-        $courseProfileRight->setCourseId($_cid);
+        $courseProfileRight->setCourseId(claro_get_current_course_id());
         $courseProfileRight->load($profile);
 
         if ( ! $profile->isLocked() )
@@ -104,7 +104,7 @@ $interbredcrump[] = array ('url' => 'profile_list.php', 'name' => get_lang('Cour
 
 // Display header
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Set display right
 
@@ -119,7 +119,7 @@ foreach ( $display_profile_list as $profileId )
     if ( $profile->load($profileId) )
     {
         $profileRight = new RightCourseProfileToolRight();
-        $profileRight->setCourseId($_cid);
+        $profileRight->setCourseId(claro_get_current_course_id());
         $profileRight->load($profile);
         $profileRightHtml->addRightProfileToolRight($profileRight);
         $profileFoundCount++;
@@ -148,6 +148,5 @@ else
 
 // Display footer
 
-include $includePath . '/claro_init_footer.inc.php';
-
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

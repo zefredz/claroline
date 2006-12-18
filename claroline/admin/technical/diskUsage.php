@@ -15,18 +15,19 @@
 require_once '../../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! get_init('_uid') ) claro_disp_auth_form();
-if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/fileManage.lib.php';
-require_once $includePath . '/lib/form.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
 
 $nameTools = get_lang('Disk Usage');
+$byteUnits = get_locale('byteUnits');
 
-$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ( 'url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Tools'));
 
 $disp_form = true;
@@ -43,7 +44,7 @@ else                                  $disp_allcrs =  false;
 if (isset( $_REQUEST['disp_garbage']))
 {
     $disp_garbage =  $_REQUEST['disp_garbage'];
-    $garbagedisk_usage = disk_usage(get_conf('garbageRepositorySys'),'','m');
+    $garbagedisk_usage = disk_usage(get_path('garbageRepositorySys'),'','m');
 }
 else
 {
@@ -71,11 +72,11 @@ if ($disp_form)
 
 
 //OUTPUT
-include $includePath . '/claro_init_header.inc.php' ;
+include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
 echo claro_html_tool_title($nameTools);
 
-echo get_lang('Course Repository') . ' : ' . $coursesRepositorySys . '<br />' . get_lang('Mysql Repository') . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . get_lang('Missing')) . '<br />';
+echo get_lang('Course Repository') . ' : ' . get_path('coursesRepositorySys') . '<br />' . get_lang('Mysql Repository') . ' : ' . (get_conf('mysqlRepositorySys',false) ? get_conf('mysqlRepositorySys') : '!!! ' . get_lang('Missing')) . '<br />';
 
 
 
@@ -85,27 +86,24 @@ if ($disp_form)
 if ($disp_claro )
     echo '<li>'
     .    'Claroline : '
-    .    sprintf('%01.2f', disk_usage($clarolineRepositorySys,'','m')) . ' ' . $byteUnits[2]
+    .    sprintf('%01.2f', disk_usage(get_path('clarolineRepositorySys'),'','m')) . ' ' . $byteUnits[2]
     .    '</li>'
     ;
 
 if ($disp_allcrs)
 {
-    $diskUsage = sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2];
+    $diskUsage = sprintf('%01.2f', disk_usage(get_path('coursesRepositorySys'), get_path('mysqlRepositorySys'), 'm')) . ' ' . $byteUnits[2];
     echo '<li>'
     .    get_lang('Courses : %disk_usage (perhaps with others directory)',
          array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
 }
 
 if ($disp_garbage )
-{
     $diskUsage = sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2];
     echo '<li>'
     .    get_lang('Garbage : %disk_usage', array('%disk_usage'=>$diskUsage) )
     .    '</li>'
     ;
-}
-
 ?>
 <li>
 <hr />
@@ -155,17 +153,17 @@ if ($disp_selCrs && $coursesToCheck)
         $resCourses= claro_sql_query($sqlListCourses);
         while (($course = mysql_fetch_array($resCourses,MYSQL_ASSOC)))
         {
-            $duFiles = disk_usage($coursesRepositorySys . $course['dir'] . '/','','k');
-            $duBase  = disk_usage($mysqlRepositorySys . $course['db'] . '/','','k');
+            $duFiles = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/','','k');
+            $duBase  = disk_usage(get_path('mysqlRepositorySys') . $course['db'] . '/','','k');
 
 
 //            $duBase  = get_db_size($course["db"],k);
 
-            $duTotal = disk_usage($coursesRepositorySys . $course['dir'] . '/', $mysqlRepositorySys . $course['db'] . '/' , 'm');
-            echo '<p>' . $coursesRepositorySys . $course['dir'] . '/'
+            $duTotal = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/', get_path('coursesRepositorySys') . $course['db'] . '/' , 'm');
+            echo '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
             .    ' = '
             .    '<pre>'
-            .    var_export( $coursesRepositorySys . $course['dir'] . '/',1)
+            .    var_export( get_path('coursesRepositorySys') . $course['dir'] . '/',1)
             .    '</pre>'
             ;
 
@@ -199,7 +197,7 @@ if ($disp_selCrs && $coursesToCheck)
 
 <?php
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 
 

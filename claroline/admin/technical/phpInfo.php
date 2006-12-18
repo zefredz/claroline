@@ -21,13 +21,13 @@ require '../../inc/claro_init_global.inc.php';
 require_once dirname( __FILE__ ) . '/lib/phpinfo.lib.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-$claroCreditFilePath = get_conf('rootSys').'CREDITS.txt';
+$claroCreditFilePath = get_path('rootSys').'CREDITS.txt';
 
-if(file_exists($rootSys.'platform/currentVersion.inc.php')) include ($rootSys.'platform/currentVersion.inc.php');
-if ( ! $is_platformAdmin ) claro_disp_auth_form();
+if(file_exists(get_path('rootSys').'platform/currentVersion.inc.php')) include (get_path('rootSys').'platform/currentVersion.inc.php');
+if ( ! claro_is_platform_admin() ) claro_disp_auth_form();
 
 
 
@@ -43,14 +43,14 @@ if (isset($_REQUEST['to']))
     $nameTools = $_REQUEST['to'];
 }
 
-$is_allowedToAdmin = $is_platformAdmin;
+$is_allowedToAdmin = claro_is_platform_admin();
 if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
     
-    include($includePath . '/claro_init_header.inc.php');
+    include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
     echo claro_html_tool_title( array( 'mainTitle'=>$nameTools
-    , 'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - '
+    , 'subTitle'=> get_conf('siteName') . ' - ' . $clarolineVersion . ' - '
     )
     );
 
@@ -183,5 +183,5 @@ else
 [<a href="http://freshmeat.net/rate/20465/"  hreflang="en" >Rate it</a>]<br />
 [<a href="https://sourceforge.net/projects/claroline/" hreflang="en">SourceForge</a>]<br />
 <?php
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
