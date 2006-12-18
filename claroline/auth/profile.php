@@ -129,7 +129,7 @@ if ( isset($_REQUEST['applyChange']) )
     }
 
 }
-elseif ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
+elseif ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
 && 'exCCstatus' == $cmd )
 {
     // send a request for course creator status
@@ -156,7 +156,7 @@ elseif (    get_conf('can_request_revoquation')
 
     }
 }
-elseif (  ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
+elseif (  ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
 && 'reqCCstatus' == $cmd )
 {
     // display course creator status form
@@ -220,7 +220,7 @@ switch ( $display )
         }
 
         // display request course creator status
-        if ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status') )
+        if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
         {
             $profileMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('Request course creation status') . '</a>';
         }
