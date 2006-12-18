@@ -39,9 +39,6 @@ require 'upgrade_init_global.inc.php';
 // Security Check
 if (!$is_platformAdmin) upgrade_disp_auth_form();
 
-// Include library
-include ($includePath.'/lib/fileManage.lib.php');
-
 // Define display
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
 DEFINE ('DISPLAY_RESULT_ERROR_PANEL', __LINE__);
