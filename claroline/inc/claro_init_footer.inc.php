@@ -1,14 +1,13 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
+$currentCourse =  claro_get_current_course_data();
 if (!isset($hide_body) || $hide_body == false)
 {
     echo "\n" . '</div>' . "\n"
     .    '<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->' . "\n\n\n"
    ;
 }
-
-//echo "<pre>".var_export($_courseToolList,1)."</pre>";
 
 // depends on claro_brailleViewMode (in config)
 if ( isset($claro_banner) )
@@ -28,19 +27,19 @@ if (!isset($hide_footer) || $hide_footer == false)
 
 $footerLeftDock = new Dock('campusFooterLeft');
 
-if ( isset($_cid) )
+if ( claro_is_in_a_course() )
 {
 
     $courseManagerOutput = '<div id="courseManager">' . "\n"
-                         . get_lang('Manager(s) for %course_code', array('%course_code' => $_course['officialCode']) ) . ' : ' ;
+                         . get_lang('Manager(s) for %course_code', array('%course_code' => $currentCourse['officialCode']) ) . ' : ' ;
 
-    if ( empty($_course['email']) )
+    if ( empty($currentCourse['email']) )
     {
-        $courseManagerOutput .= '<a href="' . $clarolineRepositoryWeb . 'user/user.php">'. $_course['titular'].'</a>';
+        $courseManagerOutput .= '<a href="' . get_path('clarolineRepositoryWeb') . 'user/user.php">'. $currentCourse['titular'].'</a>';
     }
     else
     {
-        $courseManagerOutput .= '<a href="mailto:' . $_course['email'] . '?body=' . $_course['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $_course['titular'] . '</a>';
+        $courseManagerOutput .= '<a href="mailto:' . $currentCourse['email'] . '?body=' . $currentCourse['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $currentCourse['titular'] . '</a>';
     }
 
     $courseManagerOutput .= '</div>';
@@ -95,12 +94,12 @@ if (CLARO_DEBUG_MODE)
 
     if ( count($claroMsgList) > 0)
     {
-        echo claro_html_tool_title('Debug info');
+        $dbgTitle = claro_html_tool_title('Debug info');
         $dbgContent = claro_html_msg_list($claroMsgList);
 
         require_once dirname( __FILE__ ) . '/lib/backlog.class.php';
 
-        echo Backlog_Reporter::report( '', $dbgContent, get_lang('expand'), true );
+        echo Backlog_Reporter::report( $dbgTitle, $dbgContent, get_lang('expand'), true );
     }
 }
 

@@ -79,7 +79,7 @@ $clarolineBannerOutput .= '<div class="spacer"></div>' . "\n\n"
  ******************************************************************************/
 
 
-if($_uid)
+if(claro_get_current_user_id())
 {
     $clarolineBannerOutput .= '<div id="userBanner">' . "\n";
 
@@ -101,7 +101,7 @@ if($_uid)
 
     $userToolUrlList[]  = '<a href="'. $clarolineRepositoryWeb. 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a>';
 
-    if($is_platformAdmin)
+    if(claro_is_platform_admin())
     {
         $userToolUrlList[] = '<a href="'. $clarolineRepositoryWeb.'admin/" target="_top">'. get_lang('Platform Administration'). '</a>';
     }
@@ -127,7 +127,7 @@ if($_uid)
                               COURSE SECTION
  ******************************************************************************/
 
-if (isset($_cid))
+if (claro_is_in_a_course())
 {
 
     //COURSE BANNER LEFT DOCK declaration
@@ -141,7 +141,7 @@ if (isset($_cid))
     $clarolineBannerOutput .= '<div id="courseBanner">' . "\n";
 
     $courseName = '<div id="course">' . "\n"
-	. '<h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) . '" target="_top">'.$_course['name'] .'</a></h2>' . "\n";
+	. '<h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) . '" target="_top">'.$_course['name'] .'</a></h2>' . "\n";
     $courseBannerLeftDock->addOutput($courseName);
 
     $courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>' . "\n"
@@ -186,7 +186,7 @@ if (isset($_cid))
         $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" name="redirector" method="POST">' . "\n"
         . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
 
-        $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
+        $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
         if (is_array($_courseToolList))
         {
@@ -200,7 +200,7 @@ if (isset($_cid))
                     $_courseToolData['url'] = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['url'];
                     // reset group to access course tool
 
-                    if (isset($_gid) && !$_courseToolData['external'])
+                    if (claro_is_in_a_group() && !$_courseToolData['external'])
                     $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
                         ? $_courseToolData['url'] . '&amp;gidReset=1'
                         : $_courseToolData['url'] . '?gidReset=1'
@@ -217,13 +217,13 @@ if (isset($_cid))
                 }
 
                 // select "groups" in group context instead of tool
-                if ( isset( $_gid ) && $_gid )
+                if ( claro_is_in_a_group() )
                 {
                     $toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
                 }
                 else
                 {
-                    $toolSelected = $_courseToolData['id'] == $_tid ? 'selected="selected"' : '';
+                    $toolSelected = $_courseToolData['id'] == claro_get_current_tool_id() ? 'selected="selected"' : '';
                 }
                 
                 $_courseToolDataName = $_courseToolData['name'];
@@ -260,7 +260,7 @@ $clarolineBannerOutput .= '</div>' . "\n"
                                 BREADCRUMB LINE
  ******************************************************************************/
 
-if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
+if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && is_array($interbredcrump) ) )
 {
         $clarolineBannerOutput .= '<div id="breadcrumbLine">' . "\n\n"
         . '<hr />' . "\n";
@@ -271,18 +271,18 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         $breadcrumbUrlList[]  = $urlAppend . '/index.php';
         $breadcrumbNameList[] = $siteName;
 
-        if ( isset($_cid) )
+        if ( claro_is_in_a_course() )
         {
-            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($_cid);
+            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id());
             $breadcrumbNameList[] = $_course['officialCode'];
         }
 
-        if ( isset($_gid) )
+        if ( claro_is_in_a_group() )
         {
-            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'group/index.php?cidReq=' . htmlspecialchars($_cid);
+            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'group/index.php?cidReq=' . htmlspecialchars(claro_get_current_course_id());
             $breadcrumbNameList[] = get_lang('Groups');
-            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'group/group_space.php?cidReq=' . htmlspecialchars($_cid).'&gidReq=' . (int) $_gid;
-            $breadcrumbNameList[] = $_group['name'];
+            $breadcrumbUrlList[]  = $clarolineRepositoryWeb . 'group/group_space.php?cidReq=' . htmlspecialchars(claro_get_current_course_id()).'&gidReq=' . (int) claro_get_current_group_id();
+            $breadcrumbNameList[] = claro_get_current_group_data('name');
         }
 
         if (isset($interbredcrump) && is_array($interbredcrump) )
@@ -317,7 +317,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
         $clarolineBannerOutput .= claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
                                         ' &gt; ', $imgRepositoryWeb . 'home.gif');
 
-    if ( is_null($_uid) )
+    if ( ! claro_is_user_authenticated() )
     {
         $clarolineBannerOutput .= "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
@@ -326,10 +326,10 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             .'</a>'
             .'</div>'."\n";
     }
-    elseif ( isset($_cid) && ! $is_courseMember && $_course['registrationAllowed'] && ! $is_platformAdmin )
+    elseif ( claro_is_in_a_course() && ! claro_is_course_member() && $_course['registrationAllowed'] && ! claro_is_platform_admin() )
     {
         $clarolineBannerOutput .= '<div id="toolViewOption">'
-        .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
+        .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
         .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
         .    '<b>'.get_lang('Enrolment').'</b>'
         .    '</a>'
@@ -348,9 +348,9 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
             $clarolineBannerOutput .= claro_disp_tool_view_option();
         }
         
-        if ( $is_platformAdmin && ! $is_courseMember )
+        if ( claro_is_platform_admin() && ! claro_is_course_member() )
         {
-            $clarolineBannerOutput .= ' | <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.$_cid.'">'
+            $clarolineBannerOutput .= ' | <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
             .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
             .    '<b>'.get_lang('Enrolment').'</b>'
             .    '</a>'
@@ -365,7 +365,7 @@ if( isset($_cid) || isset($nameTools) || ( isset($interbredcrump) && is_array($i
     .    '<hr />'                                           ."\n"
     .    '</div>' . "\n";
 
-} // end if isset($_cid) isset($nameTools) && is_array($interbredcrump)
+} // end if isset(claro_get_current_course_id()) isset($nameTools) && is_array($interbredcrump)
 else
 {
     // $clarolineBannerOutput .= '<div style="height:1em"></div>';
