@@ -23,9 +23,9 @@ require '../inc/claro_init_global.inc.php';
 $nameTools = get_lang('Course settings');
 $noPHP_SELF = true;
 
-if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated()) claro_disp_auth_form(true);
 
-$is_allowedToEdit = $is_courseAdmin;
+$is_allowedToEdit = claro_is_course_manager();
 
 if ( ! $is_allowedToEdit )
 {
@@ -37,11 +37,11 @@ if ( ! $is_allowedToEdit )
 //=================================
 
 include claro_get_conf_repository() . 'course_main.conf.php';
-require_once $includePath . '/lib/course.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/fileManage.lib.php';
-require_once $includePath . '/lib/form.lib.php';
-require_once $includePath . '/lib/claroCourse.class.php';
+require_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/form.lib.php';
+require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 
 // initialisation
 define('DISP_COURSE_EDIT_FORM',__LINE__);
@@ -60,9 +60,9 @@ $course = new ClaroCourse();
 
 // Initialise current course id
 
-if ( $adminContext && $is_platformAdmin )
+if ( $adminContext && claro_is_platform_admin() )
 {
-	// from admin
+    // from admin
 	if ( isset($_REQUEST['cidToEdit']) )
 	{
 		$current_cid = trim($_REQUEST['cidToEdit']);
@@ -76,14 +76,14 @@ if ( $adminContext && $is_platformAdmin )
     $course->addHtmlParam('adminContext','1');
     $course->addHtmlParam('cidToEdit',$current_cid);
 
-	// Back url
-   	$backUrl = $rootAdminWeb . 'admincourses.php' ;
+    // Back url
+    $backUrl = get_path('rootAdminWeb') . 'admincourses.php' ;
 }
 elseif ( !empty($_course['sysCode']) )
 {
-	// from my course
-    $current_cid = $_course['sysCode'];
-    $backUrl = $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($current_cid);
+    // from my course
+    $current_cid = claro_get_current_course_id();
+    $backUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($current_cid);
 }
 else
 {
@@ -108,7 +108,7 @@ if ( $course->load($current_cid) )
 		    		// force reload of the "course session" of the user
 		    		$cidReset = true;
 					$cidReq = $current_cid;
-					include($includePath . '/claro_init_local.inc.php');
+					include(get_path('incRepositorySys') . '/claro_init_local.inc.php');
 				}
 	    	}
 	    	else
@@ -126,14 +126,14 @@ if ( $course->load($current_cid) )
 	{
 		if ( $course->delete() )
 		{
-			event_default( 'DELETION COURSE' , array ('courseName' => addslashes($course->title), 'uid' => $_uid));
+			event_default( 'DELETION COURSE' , array ('courseName' => addslashes($course->title), 'uid' => claro_get_current_user_id()));
 			if( $adminContext )
 			{
-				claro_redirect($rootAdminWeb . '/admincourses.php');
+				claro_redirect( get_path('rootAdminWeb') . '/admincourses.php');
 			}
 			else
 			{
-				claro_redirect($urlAppend . '/index.php');
+				claro_redirect(get_path('url') . '/index.php');
 			}
 		}
 		else
@@ -162,14 +162,14 @@ $links = array();
 
 // add course tool list edit
 
-$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'course/tools.php' . claro_url_relay_context('?') . '">'
-.          '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="" />'
+$links[] = '<a class="claroCmd" href="' .  get_path('clarolineRepositoryWeb') . 'course/tools.php' . claro_url_relay_context('?') . '">'
+.          '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="" />'
 .          get_lang('Edit Tool list')
 .          '</a>' ;
 
 // Main group settings
 $links[] = '<a class="claroCmd" href="../group/group_properties.php' . claro_url_relay_context('?') . '">'
-.          '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+.          '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
 .          get_lang("Main Group Settings")
 .          '</a>' ;
 
@@ -177,8 +177,8 @@ $links[] = '<a class="claroCmd" href="../group/group_properties.php' . claro_url
 
 if ( get_conf('is_trackingEnabled') )
 {
-	$links[] = '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
-    .          '<img src="' . $imgRepositoryWeb . 'statistics.gif" alt="" />'
+	$links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
+    .          '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt="" />'
     .          get_lang('Statistics')
     .          '</a>' ;
 }
@@ -189,20 +189,17 @@ if ( get_conf('showLinkToDeleteThisCourse') )
 {
 	$paramString = $course->getHtmlParamList('GET');
 
-	$url_course_delete = $clarolineRepositoryWeb . 'course/settings.php?cmd=rqDelete' . claro_url_relay_context('&amp;')
-			. ( !empty($paramString) ? '&amp;'.$paramString : '');
-
-
-    $links[] = '<a class="claroCmd" href="' . $url_course_delete . '">'
-    .          '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
-    .          get_lang('Delete the whole course website')
+    $links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?cmd=rqDelete' . ( !empty($paramString) ? '&amp;'.$paramString : '') . '">'
+    .          '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+    .          get_lang('Delete the whole course Website')
     .          '</a>' ;
 }
 
-if ( $adminContext && $is_platformAdmin )
+if ( $adminContext && claro_is_platform_admin() )
 {
     // switch to admin breadcrumb
-	$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+
+	$interbredcrump[]= array ('url' => get_path('rootAdminWeb') , 'name' => get_lang('Administration'));
     unset($_cid);
 
     $links[] = '<a class="claroCmd" href="' . $backUrl . '">'
@@ -214,7 +211,7 @@ if ( $adminContext && $is_platformAdmin )
 // Display section
 //=================================
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
@@ -234,6 +231,6 @@ elseif( $display == DISP_COURSE_RQ_DELETE )
 }
 
 
-include $includePath . '/claro_init_footer.inc.php' ;
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php' ;
 
 ?>
