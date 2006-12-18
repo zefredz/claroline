@@ -28,7 +28,7 @@
 $tlabelReq = 'CLCHT'; // required
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) )
+if ( ! claro_is_in_a_course() || ( ! claro_is_course_allowed() && ! claro_is_user_authenticated() ) )
 {
 die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
     .'<html>'."\n"
@@ -49,14 +49,17 @@ die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
         CONNECTION BLOC
 ============================================================================*/
 
+$coursePath  = get_path('coursesRepositorySys') . claro_get_course_path();
+$courseId    = claro_get_current_course_id();
+$groupId     = claro_get_current_group_id();
+$_user       = claro_get_current_user_data()
+;
+$_course     = claro_get_current_course_data();
+$_group      = claro_get_current_group_data();
 
-$coursePath  = $coursesRepositorySys.$_course['path'];
-$courseId    = $_cid;
-$groupId     = $_gid;
-
-$is_allowedToManage = $is_courseAdmin;
-$is_allowedToStore  = $is_courseAdmin;
-$is_allowedToReset  = $is_courseAdmin;
+$is_allowedToManage = claro_is_course_manager();
+$is_allowedToStore  = claro_is_course_manager();
+$is_allowedToReset  = claro_is_course_manager();
 
 
 if ( $_user['firstName'] == '' && $_user['lastName'] == '')
@@ -91,20 +94,20 @@ if ( ! is_dir($curChatRep) ) mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
 // DETERMINE IF THE CHAT SYSTEM WILL WORK
 // EITHER AT THE COURSE LEVEL OR THE GROUP LEVEL
 
-if ($_gid)
+if (claro_is_in_a_group())
 {
-    if ($is_groupAllowed)
+    if (claro_is_group_allowed())
     {
         $groupContext  = TRUE;
         $courseContext = FALSE;
 
-        $is_allowedToManage = $is_allowedToManage|| $is_groupTutor ;
-        $is_allowedToStore  = $is_allowedToStore || $is_groupTutor;
-        $is_allowedToReset  = $is_allowedToReset || $is_groupTutor;
+        $is_allowedToManage = $is_allowedToManage||  claro_is_group_tutor();
+        $is_allowedToStore  = $is_allowedToStore ||  claro_is_group_tutor();
+        $is_allowedToReset  = $is_allowedToReset ||  claro_is_group_tutor();
 
         $activeChatFile = $curChatRep.$courseId.'.'.$groupId.'.chat.html';
         $onflySaveFile  = $curChatRep.$courseId.'.'.$groupId.'.tmpChatArchive.html';
-        $exportFile     = $coursePath.'/group/'.$_group['directory'].'/';
+        $exportFile     = $coursePath.'/group/'.claro_get_current_group_data('directory').'/';
     }
     else
     {
@@ -122,7 +125,7 @@ else
 }
 
 
-$dateNow = claro_disp_localised_date($dateTimeFormatLong);
+$dateNow = claro_disp_localised_date(get_locale('dateTimeFormatLong'));
 $timeNow = claro_disp_localised_date('[%d/%m/%y %H:%M]');
 
 if ( ! file_exists($activeChatFile))
@@ -238,7 +241,7 @@ DISPLAY MESSAGE LIST
 if ( !isset($dateLastWrite) )
 {
     $dateLastWrite = get_lang('Last message was on') . ' : '
-    .                strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
+    .                strftime( get_locale('dateTimeFormatLong') , filemtime($activeChatFile) );
 }
 
 
@@ -270,7 +273,7 @@ else
 }
 
 // set http charset
-if (isset($charset)) header('Content-Type: text/html; charset='. $charset);
+if (! is_null(get_locale('charset'))) header('Content-Type: text/html; charset='. get_locale('charset'));
 
 // page header with meta to refresh the page
 echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
@@ -278,7 +281,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
     .'<head>'."\n"
     .'<title>'.get_lang('Chat').'</title>'
     .'<meta http-equiv="refresh" content="' . $refresh_display_rate . ';url=./messageList.php?x='.$x.'#final">'."\n"
-    .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
+    .'<link rel="stylesheet" type="text/css" href="'.get_path('clarolineRepositoryWeb').'css/'.$claro_stylesheet.'" >'."\n"
     .'</head>'."\n"
     .'<body>'."\n"."\n"
     ;

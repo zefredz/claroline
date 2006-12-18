@@ -24,12 +24,13 @@ $tlabelReq = 'CLCHT';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ( ! claro_is_course_allowed() && ! claro_is_user_authenticated() ) ) claro_disp_auth_form(true);
 
+$_course = claro_get_current_course_data();
 $nameTools  = get_lang('Chat');
 
 // STATS & TRACKING
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 $titlePage = '';
 

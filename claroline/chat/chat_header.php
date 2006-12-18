@@ -23,13 +23,14 @@ require '../inc/claro_init_global.inc.php';
 $nameTools  = get_lang('Chat');
 $noPHP_SELF = TRUE;
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+$_group = claro_get_current_group_data();
 
 $titleElement['mainTitle'] = $nameTools;
-if ( $_gid ) $titleElement['supraTitle'] = $_group['name'];
+if ( claro_is_in_a_group() ) $titleElement['supraTitle'] = claro_get_current_group_data('name');
 
 echo claro_html_tool_title($titleElement);
 
 $hide_footer = TRUE;
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

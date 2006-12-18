@@ -19,7 +19,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-$is_allowedToManage = $is_courseAdmin || (isset($_gid) && $is_groupTutor) ;
+$is_allowedToManage = claro_is_course_manager() || (claro_is_in_a_group() &&  claro_is_group_tutor()) ;
 
 // header
 
@@ -49,7 +49,7 @@ if ($is_allowedToManage)
 }
 
 $hide_banner = TRUE;
-include $includePath . '/claro_init_header.inc.php' ;
+include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
 echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">' . "\n"
 .    claro_form_relay_context()
@@ -61,5 +61,5 @@ echo '<form name="chatForm" action="messageList.php#final" method="post" target=
 .    claro_html_menu_horizontal($cmdMenu)
 .    '</form>';
 
-include  $includePath . '/claro_init_footer.inc.php' ;
+include  get_path('incRepositorySys') . '/claro_init_footer.inc.php' ;
 ?>
