@@ -549,21 +549,23 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
     $atLeastOneAssignmentToShow = false;
 
-    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
     foreach ( $assignmentList as $anAssignment )
     {
         //modify style if the file is recently added since last login and that assignment tool is used with visible default mode for submissions.
         $classItem='';
-        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, '', $_tid, $anAssignment['id'],FALSE) && ($anAssignment['def_submission_visibility']=="VISIBLE"  || $is_allowedToEdit))
+        if( claro_is_user_authenticated() )
+        {
+            if ( $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), '',  claro_get_current_tool_id(), $anAssignment['id'],FALSE) && ($anAssignment['def_submission_visibility']=="VISIBLE"  || $is_allowedToEdit))
         {
             $classItem=' hot';
         }
-        elseif( isset($_uid) ) //otherwise just display its name normally and tell notifier that every ressources are seen (for tool list notification consistancy)
+            else //otherwise just display its name normally and tell notifier that every ressources are seen (for tool list notification consistancy)
         {
             $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), '', claro_get_current_tool_id(), $anAssignment['id']);
         }
-
+        }
 
         if ( $anAssignment['visibility'] == "INVISIBLE" )
         {

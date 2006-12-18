@@ -20,13 +20,13 @@ $tlabelReq = 'CLWRK';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 require_once './lib/assignment.class.php';
 
-include_once $includePath . '/lib/fileUpload.lib.php';
-include_once $includePath . '/lib/fileDisplay.lib.php'; // need format_url function
-include_once $includePath . '/lib/fileManage.lib.php'; // need claro_delete_file
+include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php'; // need format_url function
+include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php'; // need claro_delete_file
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 BASIC VARIABLES DEFINITION
@@ -190,7 +190,7 @@ if($is_allowedToEdit)
             $displayFeedbackForm = false;
 
             //report event to eventmanager "feedback_posted"
-            $eventNotifier->notifyCourseEvent("work_feedback_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
+            $eventNotifier->notifyCourseEvent("work_feedback_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], '0', '0');
         }
         else
         {
@@ -204,7 +204,7 @@ if($is_allowedToEdit)
     // edit assignment / display the form
     if( $cmd == 'rqEditFeedback' )
     {
-        include($includePath . '/lib/form.lib.php');
+        include(get_path('incRepositorySys') . '/lib/form.lib.php');
 
         // check if it was already sent
         if( !$isFeedbackSubmitted )
@@ -255,7 +255,7 @@ $interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments
 $interbredcrump[]= array ('url' => './workList.php?assigId=' . $_REQUEST['assigId'], 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
@@ -341,7 +341,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<label for="prefillSubmitEndDate">' . "\n"
     .    '&nbsp;' . "\n"
     .    get_lang('Automatically, after end date')
-    .    ' (' . claro_disp_localised_date($dateTimeFormatLong, $form['unix_end_date']) . ')' . "\n"
+    .    ' (' . claro_disp_localised_date(get_locale('dateTimeFormatLong'), $form['unix_end_date']) . ')' . "\n"
     .    '</label>' . "\n"
     .    '<br />' . "\n"
     .    '<input type="radio" name="autoFeedbackSubmitMethod" id="prefillSubmitAfterPost" value="AFTERPOST" '
@@ -366,5 +366,5 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 }
 
 // FOOTER
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
