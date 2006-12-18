@@ -283,7 +283,7 @@ if ($can_add_user)
         $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php'
                                          . '?AddType=userTool'
                                          . claro_url_relay_context('&amp;')
-                                         , '<img src="' . $get_path('imgRepositoryWeb') . 'importlist.gif" alt="" />'
+                                         , '<img src="' . get_path('imgRepositoryWeb') . 'importlist.gif" alt="" />'
                                          . get_lang('Add a user list')
                                          );
     }
