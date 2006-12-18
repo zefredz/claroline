@@ -25,7 +25,7 @@ $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
 
@@ -33,18 +33,18 @@ claro_set_display_mode_available(true);
 Stats
 -----------------------------------------------------------------*/
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 /*-----------------------------------------------------------------
 Library
 -----------------------------------------------------------------*/
 
-include_once $includePath . '/lib/forum.lib.php';
+include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 /*-----------------------------------------------------------------
 Initialise variables
 -----------------------------------------------------------------*/
 
-$last_visit    = $_user['lastLogin'];
+$last_visit    = claro_get_current_user_data('lastLogin');
 $error         = FALSE;
 $allowed       = TRUE;
 $error_message = '';
@@ -85,7 +85,7 @@ if ($topicSettingList)
     */
 
     if (   ! is_null($forumSettingList['idGroup'])
-    && ! ( $forumSettingList['idGroup'] == $_gid || $is_groupAllowed) )
+    && ! ( ($forumSettingList['idGroup'] == claro_get_current_group_id()) || claro_is_group_allowed()) )
     {
         $allowed = FALSE;
         $error_message = get_lang('Not allowed');
@@ -101,16 +101,16 @@ if ($topicSettingList)
         // EMAIL NOTIFICATION COMMANDS
         // Execute notification preference change if the command was called
 
-        if ( $cmd && isset($_uid) )
+        if ( $cmd && claro_is_user_authenticated() )
         {
             switch ($cmd)
             {
                 case 'exNotify' :
-                    request_topic_notification($topic_id, $_uid);
+                    request_topic_notification($topic_id, claro_get_current_user_id());
                     break;
 
                 case 'exdoNotNotify' :
-                    cancel_topic_notification($topic_id, $_uid);
+                    cancel_topic_notification($topic_id, claro_get_current_user_id());
                     break;
             }
 
@@ -121,14 +121,14 @@ if ($topicSettingList)
 
         // Allow user to be have notification for this topic or disable it
 
-        if ( isset($_uid) )  //anonymous user do not have this function
+        if ( claro_is_user_authenticated() )  //anonymous user do not have this function
         {
             $notification_bloc = '<div style="float: right;">' . "\n"
             . '<small>';
 
-            if ( is_topic_notification_requested($topic_id, $_uid) )   // display link NOT to be notified
+            if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
             {
-                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />';
+                $notification_bloc .= '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= ' [<a href="' . $_SERVER['PHP_SELF'] ;
                 $notification_bloc .= '?forum=' . $forum_id ;
@@ -143,7 +143,7 @@ if ($topicSettingList)
                 $notification_bloc .= '?forum=' . $forum_id ;
                 $notification_bloc .= '&amp;topic=' . $topic_id ;
                 $notification_bloc .= '&amp;cmd=exNotify">';
-                $notification_bloc .= '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" /> ';
+                $notification_bloc .= '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" /> ';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= '</a>';
             }
@@ -181,7 +181,7 @@ $htmlHeadXtra[] =
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( ! $allowed )
 {
@@ -196,7 +196,7 @@ else
     $pagetype  = 'viewtopic';
 
     $is_allowedToEdit = claro_is_allowed_to_edit()
-    || ( $is_groupTutor && !$is_courseAdmin);
+    || ( claro_is_group_tutor() && !claro_is_course_manager());
 
     echo claro_html_tool_title(get_lang('Forums'),
     $is_allowedToEdit ? 'help_forum.php' : false);
@@ -236,7 +236,7 @@ else
     .    '</tr>' . "\n"
     ;
 
-    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
     foreach ( $postList as $thisPost )
     {
@@ -245,7 +245,7 @@ else
 
         $post_time = datetime_to_timestamp($thisPost['post_time']);
 
-        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $forum_id."-".$topic_id))
+        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id))
         $postImg = 'post_hot.gif';
         else
         $postImg = 'post.gif';
@@ -253,10 +253,10 @@ else
         echo '<tr>' . "\n"
         .    '<th class="headerX">' . "\n"
         .    '<a name="post'. $thisPost['post_id'] .'" >' . "\n"
-        .    '<img src="' . $imgRepositoryWeb . $postImg . '" alt="" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
         .    get_lang('Author')
         .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-        .    '<small>' . get_lang('Posted') . ' : ' . claro_disp_localised_date($dateTimeFormatLong, $post_time) . '</small>' . "\n"
+        .    '<small>' . get_lang('Posted') . ' : ' . claro_disp_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
         .    '  </th>' . "\n"
         .' </tr>'. "\n"
 
@@ -270,12 +270,12 @@ else
             echo '<p>' . "\n"
 
             . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
-            . '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
             . '</a>' . "\n"
 
             . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
             . 'onClick="return confirm_delete();" >'
-            . '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
             . '</a>' . "\n"
 
             . '</p>' . "\n";
@@ -290,8 +290,8 @@ else
 
     if ($forum_post_allowed)
     {
-        $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
-        . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
+        $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.claro_get_current_group_id().'">'
+        . '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
         echo claro_html_menu_horizontal($toolBar);
     }
 
@@ -304,6 +304,6 @@ else
 Display Forum Footer
 -----------------------------------------------------------------*/
 
-include($includePath.'/claro_init_footer.inc.php');
+include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 
 ?>

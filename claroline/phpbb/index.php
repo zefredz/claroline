@@ -31,7 +31,7 @@ require '../inc/claro_init_global.inc.php';
 
 $nameTools = get_lang('Forums');
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true); // view mode
 
@@ -39,20 +39,20 @@ claro_set_display_mode_available(true); // view mode
 Stats
 -----------------------------------------------------------------*/
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 /*-----------------------------------------------------------------
 Library
 -----------------------------------------------------------------*/
 
-include_once $includePath . '/lib/forum.lib.php';
+include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 
 /*-----------------------------------------------------------------
 Initialise variables
 -----------------------------------------------------------------*/
 
-$last_visit = $_user['lastLogin'];
-$is_allowedToEdit = $is_courseAdmin ;
+$last_visit = claro_get_current_user_data('lastLogin');
+$is_allowedToEdit = claro_is_course_manager() ;
 $dialogBox = '';
 
 /*=================================================================
@@ -74,10 +74,10 @@ $total_categories = count($categories);
 
 $forum_list = get_forum_list();
 
-if ( ! empty($_uid) )
+if ( claro_is_user_authenticated() )
 {
-    $userGroupList  = get_user_group_list($_uid);
-    $tutorGroupList = get_tutor_group_list($_uid);
+    $userGroupList  = get_user_group_list(claro_get_current_user_id());
+    $tutorGroupList = get_tutor_group_list(claro_get_current_user_id());
 }
 else
 {
@@ -92,20 +92,20 @@ Display Section
 
 // Claroline Header
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 $pagetype  = 'index';
 
 $is_allowedToEdit = claro_is_allowed_to_edit()
-|| ( $is_groupTutor && !$is_courseAdmin);
-// ( $is_groupTutor
+|| ( claro_is_group_tutor() && !claro_is_course_manager() );
+// ( claro_is_group_tutor()
 //  is added to give admin status to tutor
-// && !$is_courseAdmin)
+// && !claro_is_course_manager())
 // is added  to let course admin, tutor of current group, use student mode
 
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
-$is_groupPrivate   = $_groupProperties ['private'];
+$is_groupPrivate   = claro_get_current_group_properties_data('private');
 
 echo claro_html_tool_title(get_lang('Forums'),
 $is_allowedToEdit ? 'help_forum.php' : false);
@@ -148,7 +148,7 @@ foreach ( $categories as $this_category )
         echo '<div style="float:right">'
         .    '<a href="' . $_SERVER['PHP_SELF']
         .    '?cmd=rqEdCat&amp;catId=' . $this_category['cat_id'] . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Edit') . '" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" />'
         .    '</a>'
         .    '&nbsp;'
         ;
@@ -156,14 +156,14 @@ foreach ( $categories as $this_category )
         if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
         .    'onClick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
-        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="'.get_lang('Delete').'" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt="'.get_lang('Delete').'" />'
         .    '</a>'
         .    '&nbsp;'
         ;
 
         if ( $categoryIterator > 1)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('Move up').'" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . '/up.gif" alt="'.get_lang('Move up').'" />'
         .    '</a>'
         ;
 
@@ -171,7 +171,7 @@ foreach ( $categories as $this_category )
         {
             echo '<a href="' . $_SERVER['PHP_SELF']
             .    '?cmd=exMvDownCat&amp;catId=' . $this_category['cat_id'] . '">'
-            .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Move down') . '" />'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
         }
@@ -184,8 +184,8 @@ foreach ( $categories as $this_category )
 
     if ( $this_category['cat_id'] == GROUP_FORUMS_CATEGORY)
     {
-        echo '&nbsp;<a href="'.$clarolineRepositoryWeb.'group/group.php">'
-        .    '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . get_lang('Groups') . '">'
+        echo '&nbsp;<a href="'.get_path('clarolineRepositoryWeb').'group/group.php">'
+        .    '<img src="' . get_path('imgRepositoryWeb') . '/group.gif" alt="' . get_lang('Groups') . '">'
         .    '</a>';
     }
 
@@ -222,7 +222,7 @@ foreach ( $categories as $this_category )
 
     $forumIterator = 0;
 
-    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
     foreach ( $forum_list as $this_forum )
     {
@@ -243,7 +243,7 @@ foreach ( $categories as $this_category )
 
             echo '<tr align="left" valign="top">' . "\n";
 
-            if (isset($_uid) && $claro_notifier->is_a_notified_forum($_cid, $date, $_uid, $_gid, $_tid, $this_forum['forum_id']))
+            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_forum(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this_forum['forum_id']))
             {
                 $forum_img = 'forum_hot.gif';
             }
@@ -258,11 +258,11 @@ foreach ( $categories as $this_category )
             }
             else
             {
-                $locked_string = ' <img src="'.$imgRepositoryWeb.'locked.gif" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('No new post allowed').')</small>';
+                $locked_string = ' <img src="' . get_path('imgRepositoryWeb') . '/locked.gif" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('No new post allowed').')</small>';
             }
 
             echo '<td>'                                               . "\n"
-            .    '<img src="' . $imgRepositoryWeb . $forum_img . '" alt="" />' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . $forum_img . '" alt="" />' . "\n"
             .    '&nbsp;'                                             . "\n"
             ;
 
@@ -283,8 +283,8 @@ foreach ( $categories as $this_category )
                     .    '</a>'
                     ;
 
-                    echo  '&nbsp;<a href="'.$clarolineRepositoryWeb.'group/group_space.php?gidReq='.$group_id.'">'
-                    . '<img src="'.$imgRepositoryWeb. 'group.gif" alt="' . get_lang('Group area') . '">'
+                    echo  '&nbsp;<a href="'.get_path('clarolineRepositoryWeb').'group/group_space.php?gidReq='.$group_id.'">'
+                    . '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '">'
                     . '</a>';
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
@@ -340,7 +340,7 @@ foreach ( $categories as $this_category )
                 if ( is_null($group_id ) )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="'.get_lang('Edit').'" />'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="'.get_lang('Edit').'" />'
                     .    '</a>'
                     ;
                 }
@@ -354,7 +354,7 @@ foreach ( $categories as $this_category )
                 .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
                 .    'onClick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
-                .    '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="'.get_lang('Empty').'" />'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="'.get_lang('Empty').'" />'
                 .    '</a>'
                 .    '</td>'
 
@@ -364,7 +364,7 @@ foreach ( $categories as $this_category )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
                     .    'onClick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
-                    .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="'.get_lang('Delete').'" />'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
@@ -376,7 +376,7 @@ foreach ( $categories as $this_category )
                 if ($forumIterator > 1)
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.get_lang('Move up').'" />'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
@@ -388,7 +388,7 @@ foreach ( $categories as $this_category )
                 if ( $forumIterator < $this_category['forum_count'] )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.get_lang('Move down').'" />'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
@@ -405,6 +405,6 @@ echo '</table>' . "\n";
 
 // Display Forum Footer
 
-include($includePath . '/claro_init_footer.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
 
 ?>

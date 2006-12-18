@@ -25,7 +25,7 @@ $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
 
@@ -33,19 +33,17 @@ claro_set_display_mode_available(true);
   Stats
  -----------------------------------------------------------------*/
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 /*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
 
-include_once $includePath . '/lib/forum.lib.php';
+include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 
 // initialise variables
 
-$last_visit = $_user['lastLogin'];
-
-$last_visit = $_user['lastLogin'];
+$last_visit = claro_get_current_user_data('lastLogin');
 $error = FALSE;
 $allowed = TRUE;
 $error_message = '';
@@ -60,10 +58,10 @@ if ( isset($_REQUEST['post_id']) ) $post_id = (int) $_REQUEST['post_id'];
 else                               $post_id = 0;
 
 $is_allowedToEdit = claro_is_allowed_to_edit()
-                    || ( $is_groupTutor && !$is_courseAdmin);
-                    // ( $is_groupTutor
+                    || ( claro_is_group_tutor() && !claro_is_course_manager());
+                    // ( claro_is_group_tutor()
                     //  is added to give admin status to tutor
-                    // && !$is_courseAdmin)
+                    // && !claro_is_course_manager())
                     // is added  to let course admin, tutor of current group, use student mode
 
 $postSettingList =  get_post_settings($post_id);
@@ -83,9 +81,9 @@ if ( $postSettingList && $is_allowedToEdit )
      */
 
     if (   ! is_null($forumSettingList['idGroup'])
-        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
+        && ( ($forumSettingList['idGroup'] != claro_get_current_group_id()) || ! claro_is_group_allowed()) )
     {
-        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking
+        // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
         // attempt like rewriting the request without $cidReq. If we are in group
         // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
@@ -181,7 +179,7 @@ else
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Forum Title
 
@@ -279,6 +277,6 @@ else
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/
-include($includePath . '/claro_init_footer.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
 
 ?>

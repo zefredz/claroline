@@ -25,7 +25,7 @@ $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
 
@@ -33,17 +33,17 @@ claro_set_display_mode_available(true);
   Stats
  -----------------------------------------------------------------*/
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 /*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
 
-include_once $includePath . '/lib/forum.lib.php';
-include_once $includePath . '/lib/pager.lib.php';
+include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 
 // for notification
-include_once $includePath . '/lib/sendmail.lib.php';
+include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 $error = FALSE;
 $error_message = '';
@@ -77,7 +77,7 @@ $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|on
 
 $topicSettingList = get_topic_settings($topic_id);
 
-if ( ! $_uid || ! $_cid) claro_disp_auth_form(true);
+if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course()) claro_disp_auth_form(true);
 elseif ( $topicSettingList )
 {
     // Get forum and topics settings
@@ -99,9 +99,9 @@ elseif ( $topicSettingList )
 
     if ( ! $forum_post_allowed
         || ( ! is_null($forumSettingList['idGroup'])
-            && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) ) )
+            && ( $forumSettingList['idGroup'] != claro_is_in_a_group() || ! claro_is_group_allowed()) ) )
     {
-        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking
+        // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
         // attempt like rewriting the request without $cidReq. If we are in group
         // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
@@ -116,16 +116,16 @@ elseif ( $topicSettingList )
 
             if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
 
-            $lastName   = $_user['lastName'];
-            $firstName  = $_user['firstName'];
+            $lastName   = claro_get_current_user_data('lastName');
+            $firstName  = claro_get_current_user_data('firstName');
             $poster_ip  = $_SERVER['REMOTE_ADDR'];
             $time       = date('Y-m-d H:i');
 
-            create_new_post($topic_id, $forum_id, $_uid, $time, $poster_ip, $lastName, $firstName, $message);
+            create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $lastName, $firstName, $message);
 
             // notify eventmanager that a new message has been posted
 
-            $eventNotifier->notifyCourseEvent("forum_answer_topic",$_cid, $_tid, $forum_id."-".$topic_id, $_gid, "0");
+            $eventNotifier->notifyCourseEvent("forum_answer_topic",claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), "0");
 
             trig_topic_notification($topic_id);
         }
@@ -150,7 +150,7 @@ else
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 $pagetype  = 'reply';
 
@@ -209,6 +209,5 @@ else
 
 // Display Forum Footer
 
-include($includePath.'/claro_init_footer.inc.php');
-
+include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 ?>
