@@ -162,6 +162,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
     $tbl = claro_sql_get_main_tbl();
 
     if ( ! is_array($courseCodeList) ) $courseCodeList = array($courseCodeList);
+
     if ( ! $force && $userId == $GLOBALS['_uid'] )
     {
         // PREVIOUSLY CHECK THE USER IS NOT COURSE ADMIN OF THESE COURSES
@@ -182,7 +183,8 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
     $sql = "SELECT code_cours , count_user_enrol, count_class_enrol
             FROM `" . $tbl['rel_course_user'] . "`
             WHERE `code_cours` IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "')
-            AND   `user_id` = " . (int) $userId ;
+            AND   `user_id` = " . $userId ;
+
     $userEnrolCourseList = claro_sql_query_fetch_all($sql);
 
     foreach ( $userEnrolCourseList as $thisUserEnrolCourse )
@@ -442,9 +444,10 @@ function user_send_enroll_to_course_mail($userId, $data, $course=null)
         '%lastname' => $data['lastname'],
         '%courseCode' => $courseData['officialCode'],
         '%courseName' => $courseData['name'],
-        '%coursePath' => get_conf('rootWeb') . 'claroline/course/index.php?cid=' . $courseData['sysCode'],
+        '%coursePath' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . $courseData['sysCode'],
         '%siteName'=> get_conf('siteName'),
         '%rootWeb' => get_path('rootWeb'),
+
         '%administratorName' => get_conf('administrator_name'),
         '%administratorPhone'=> get_conf('administrator_phone'),
         '%administratorEmail'=> get_conf('administrator_email')
@@ -518,6 +521,7 @@ function course_user_get_properties($userId, $courseId)
 function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null )
 {
 
+    // TODO $courseManagerChecked never used
     $courseManagerChecked = $data['isCourseManager'] == 1 ? 'checked="checked"':'';
     $tutorChecked = $data['isTutor'] == 1 ? 'checked="checked"':'';
     $selectedProfileId = isset($data['profileId'])?(int)$data['profileId']:0;
