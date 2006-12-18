@@ -437,21 +437,6 @@ function claro_is_tool_allowed()
     return get_init('is_toolAllowed');
 }
 
-/**
- * Set status of current user in current tool
- *
- * @param unknown_type $is_allowed
- * @author Christophe Gesché <moosh@claroline.net>
- * @return
-unknown
- */
-function claro_set_tool_allowed($is_allowed)
-{
-    $GLOBALS['is_toolAllowed'] = (bool)$is_allowed;
-    return true;
-}
-
-
 // 5° Generic get_init
 /**
  * Return the value of a Claroline configuration parameter
