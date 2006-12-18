@@ -229,7 +229,7 @@ pushClaroMessage( '<div>'.__LINE__.': $thisTopic = <pre>'. var_export($thisTopic
             {
                 echo  '<td align="center">'
                     . '<small>'
-                    . claro_disp_localised_date($dateTimeFormatShort, $last_post)
+                    . claro_disp_localised_date(get_locale('dateTimeFormatShort'), $last_post)
                     . '<small>'
                     . '</td>' . "\n";
             }

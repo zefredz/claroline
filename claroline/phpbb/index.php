@@ -325,7 +325,7 @@ foreach ( $categories as $this_category )
             .    '<small>'
             .    (
             ($last_post > 0) ?
-            claro_disp_localised_date($dateTimeFormatShort, datetime_to_timestamp($last_post)) :
+            claro_disp_localised_date(get_locale('dateTimeFormatShort'), datetime_to_timestamp($last_post)) :
             get_lang('No post')
             )
             . '</small>'
