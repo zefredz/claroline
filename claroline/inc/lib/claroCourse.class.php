@@ -407,7 +407,6 @@ class ClaroCourse
 
     function displayForm ($cancelUrl=null)
     {
-        global $clarolineRepositoryWeb, $imgRepositoryWeb;
 
         $languageList = claro_get_lang_flat_list();
         $categoryList = claro_get_cat_flat_list();
@@ -420,7 +419,7 @@ class ClaroCourse
 
         // TODO cancelUrl cannot be null
         if ( is_null($cancelUrl) )
-            $cancelUrl = $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($this->courseId);
+            $cancelUrl = get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($this->courseId);
 
         $html = '';
 
@@ -516,11 +515,11 @@ class ClaroCourse
         $html .= '<tr valign="top" >' . "\n"
             . '<td align="right" nowrap>' . get_lang('Course access') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . $imgRepositoryWeb . '/access_open.gif" />'
+            . '<img src="' . get_path('imgRepositoryWeb') . '/access_open.gif" />'
             . '<input type="radio" id="access_true" name="course_access" value="1" ' . ($this->access ? 'checked="checked"':'') . '>&nbsp;'
             . '<label for="access_true">' . get_lang('Public access from campus home page even without login') . '</label>'
             . '<br />' . "\n"
-            . '<img src="' . $imgRepositoryWeb . 'access_locked.gif" />'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'access_locked.gif" />'
             . '<input type="radio" id="access_false" name="course_access" value="0" ' . ( ! $this->access ? 'checked="checked"':'' ) . '>&nbsp;'
             . '<label for="access_false">';
 
@@ -537,7 +536,7 @@ class ClaroCourse
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . $imgRepositoryWeb . '/enroll_open.gif" />'
+            . '<img src="' . get_path('imgRepositoryWeb') . '/enroll_open.gif" />'
             . '<input type="radio" id="enrolment_true" name="course_enrolment" value="1" ' . ($this->enrolment?'checked="checked"':'') . '>&nbsp;'
             . '<label for="enrolment_true">' . get_lang('Allowed') . '</label>'
             . '<label for="enrolmentKey">'
@@ -545,7 +544,7 @@ class ClaroCourse
             . '</label>'
             . '<input type="text" id="enrolmentKey" name="course_enrolmentKey" value="' . htmlspecialchars($this->enrolmentKey) . '" />'
             . '<br />' . "\n"
-            . '<img src="' . $imgRepositoryWeb . 'enroll_locked.gif" />'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_locked.gif" />'
             . '<input type="radio" id="enrolment_false"  name="course_enrolment" value="0"' . ( ! $this->enrolment ?'checked="checked"':'') . '>&nbsp;'
             . '<label for="enrolment_false">' . get_lang('Denied') . '</label>'
             . '</td>'
@@ -720,7 +719,7 @@ class ClaroCourse
         $mailSubject = get_lang('%site_name Course creation %course_name',array('%site_name'=> '['.get_conf('siteName').']' ,
                                                                                     '%course_name'=> $this->title) );
 
-        $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_disp_localised_date($GLOBALS['dateTimeFormatLong']),
+        $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_disp_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
                                 '%user_firstname' => $creatorFirstName,
                                 '%user_lastname' => $creatorLastName,
@@ -731,7 +730,7 @@ class ClaroCourse
                                 '%course_email' => $this->email,
                                 '%course_category' => $this->category,
                                 '%course_language' => $this->language,
-                                '%course_url' => get_conf('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
+                                '%course_url' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . htmlspecialchars($this->courseId)) );
 
         // Get the concerned senders of the email
 
