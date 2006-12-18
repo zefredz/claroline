@@ -31,21 +31,21 @@ define('DISP_NOT_ALLOWED',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
-include_once $includePath . '/lib/statsUtils.lib.inc.php';
-include_once $includePath . '/lib/pear/Lite.php';
+include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
 
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // right
-$is_allowedToCheckProblems = $is_platformAdmin;
+$is_allowedToCheckProblems = claro_is_platform_admin();
 
 
 // Cache_lite setting & init
 $cache_options = array(
-'cacheDir' => get_conf('rootSys') . 'tmp/cache/campusProblem/',
+'cacheDir' => get_path('rootSys') . 'tmp/cache/campusProblem/',
 'lifeTime' => get_conf('cache_lifeTime', 160000),
 'automaticCleaningFactor' => 50,
 );
@@ -53,7 +53,7 @@ if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 120;
 if (! file_exists($cache_options['cacheDir']) )
 {
-    include_once $includePath . '/lib/fileManage.lib.php';
+    include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
     claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
 }
 $Cache_Lite = new Cache_Lite($cache_options);
@@ -91,7 +91,7 @@ $display = ( $is_allowedToCheckProblems) ? DISP_RESULT : DISP_NOT_ALLOWED;
 
 ////////////// OUTPUT ///////////////
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title( $nameTools );
 
 switch ($display)
@@ -225,7 +225,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -293,7 +293,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -359,7 +359,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -434,7 +434,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -495,7 +495,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -578,7 +578,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -650,7 +650,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -673,6 +673,6 @@ switch ($display)
         break;
     default:trigger_error('display (' . $display . ') unknown', E_USER_NOTICE);
 }
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

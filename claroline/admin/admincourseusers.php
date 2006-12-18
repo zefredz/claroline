@@ -107,10 +107,7 @@ $myPager->set_sort_key($sortKey, $sortDir);
 $myPager->set_pager_call_param_name('pager_offset');
 
 $userList = $myPager->get_result_list();
-if(count($userList))
-{
 
-}
 // Start the list of users...
 $userDataList = array();
 

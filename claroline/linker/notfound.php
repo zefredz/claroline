@@ -24,7 +24,7 @@ $requestedFile = isset( $_REQUEST['requestedFile'] ) ? $_REQUEST['requestedFile'
 // $noBanner = true;
 $toolName = 'File not found';
 
-require_once $includePath . '/claro_init_header.inc.php';
+require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;">'
 .    '<strong>File ' . $requestedFile . ' not found !</strong>'
@@ -40,11 +40,11 @@ echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;" class=""
 echo '<p style="padding-left: 2em;">'
 .    'Back to :'
 .    '<ul>'
-.    '<li><a href="' . $clarolineRepositoryWeb . 'document/document.php">' . get_lang("Documents and Links") . '</a></li>'
+.    '<li><a href="' . get_path('clarolineRepositoryWeb') . 'document/document.php">' . get_lang("Documents and Links") . '</a></li>'
 .    ( (! empty($referer)) ? '<li><a href="' . $referer . '">Previous page</a></li>' : '' )
 .    '</ul>'
 .    '</p>'
 ;
 
-require_once $includePath . '/claro_init_footer.inc.php';
+require_once get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

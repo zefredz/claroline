@@ -20,8 +20,8 @@
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Administration'));
 
@@ -45,15 +45,15 @@ $tbl_document        = $tbl_cdb_names['document'];
 
 $toolNameList = claro_get_tool_name_list();
 
-require_once $includePath . '/lib/statsUtils.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 // used in strange cases, a course is unused if not used since $limitBeforeUnused
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
 $limitBeforeUnused = "INTERVAL 6 MONTH";
 
-$is_allowedToTrack     = $is_platformAdmin;
+$is_allowedToTrack     = claro_is_platform_admin();
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title(
     array(
     'mainTitle'=>$nameTools,
@@ -335,7 +335,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
               ORDER BY code ASC";
 
         $resCourseList = claro_sql_query_fetch_all($sql);
-
+        $resultsTools=array();
         foreach ( $resCourseList as $course )
         {
             // TODO : use claro_sql_get_course_tbl_name
@@ -408,5 +408,5 @@ else // not allowed to track
     else                     echo get_lang('Not allowed');
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
