@@ -137,7 +137,7 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
     // load courseId
     if ( is_null($courseId) )
     {
-        if ( !empty($GLOBALS['_cid'] ) ) $courseId = $GLOBALS['_cid'];
+        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id();
         else                             return false ;
     }
 
@@ -195,7 +195,6 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
 function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = null, $courseId = null)
 {
     global $_mainToolId;
-    global $_cid;
     global $_profileId;
 
     // load tool id
@@ -215,12 +214,12 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
     // load course id
     if ( is_null($courseId) )
     {
-        if ( !empty($_cid) ) $courseId = $_cid ;
+        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
         else                 return false ;
     }
 
     // FIXME
-    if ( $GLOBALS['is_platformAdmin'] ) return true;
+    if ( claro_is_platform_admin() ) return true;
 
     // get course profile right
     $courseProfileRight = claro_get_course_profile_right($profileId,$courseId);
@@ -315,7 +314,7 @@ function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId =
 
 function claro_is_tool_activated ($tid, $courseId)
 {
-    global $_mainToolId, $_cid;
+    global $_mainToolId;
 
     // load tool id
     if ( is_null($tid) )
@@ -327,7 +326,7 @@ function claro_is_tool_activated ($tid, $courseId)
     // load course id
     if ( is_null($courseId) )
     {
-        if ( !empty($_cid) ) $courseId = $_cid ;
+        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
         else                 return false ;
     }
 
@@ -363,7 +362,7 @@ function claro_is_tool_activated ($tid, $courseId)
 
 function claro_is_tool_visible ($tid, $courseId)
 {
-    global $_mainToolId, $_cid;
+    global $_mainToolId;
 
     // load tool id
     if ( is_null($tid) )
@@ -375,7 +374,7 @@ function claro_is_tool_visible ($tid, $courseId)
     // load course id
     if ( is_null($courseId) )
     {
-        if ( !empty($_cid) ) $courseId = $_cid ;
+        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
         else                 return false ;
     }
 
