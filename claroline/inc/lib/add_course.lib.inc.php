@@ -7,7 +7,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * add is, find keys names aivailable, build the the course database
  * fill the course database, build the content directorys, build the index page
  * build the directory tree, register the course.
- 
  * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
@@ -985,10 +984,7 @@ function fill_db_course($courseDbName,$language)
     $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
 
     //  Exercise answers
-    $TABLEQWZANSWERTRUEFALSE = $tbl_cdb_names['qwz_answer_truefalse'];
     $TABLEQWZANSWERMULTIPLECHOICE = $tbl_cdb_names['qwz_answer_multiple_choice'];
-    $TABLEQWZANSWERFIB = $tbl_cdb_names['qwz_answer_fib'];
-    $TABLEQWZANSWERMATCHING = $tbl_cdb_names['qwz_answer_matching'];
 
     $TABLEPHPBBCATEGORIES   = $tbl_cdb_names['bb_categories'];//  "bb_categories";
     $TABLEPHPBBFORUMS       = $tbl_cdb_names['bb_forums'];//  "bb_forums";
@@ -1155,7 +1151,6 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
 
     $tblList         = claro_sql_get_main_tbl();
     $tbl_course      = $tblList['course'         ];
-    $tbl_course_user = $tblList['rel_course_user'];
 
     // Needed parameters
     if ($courseSysCode    == '') return claro_failure::set_failure('courseSysCode is missing');
