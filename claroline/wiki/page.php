@@ -21,17 +21,16 @@
 
     $tlabelReq = 'CLWIKI';
 
-    require_once "../inc/claro_init_global.inc.php";
-
-    if ( ! $is_toolAllowed )
+    require_once '../inc/claro_init_global.inc.php';
+    if ( ! claro_is_tool_allowed() )
     {
-        if ( is_null( $_cid ) )
+        if ( claro_is_in_a_course() )
         {
-            claro_disp_auth_form( true );
+            claro_die(get_lang("Not allowed"));
         }
         else
         {
-            claro_die(get_lang("Not allowed"));
+            claro_disp_auth_form( true );
         }
     }
 
@@ -49,18 +48,17 @@
 
     $is_allowedToAdmin = claro_is_allowed_to_edit();
 
-
-    if ( $_gid && $is_groupAllowed )
+    if ( claro_is_in_a_group() && claro_is_group_allowed() )
     {
         // group context
-        $groupId = $_gid;
+        $groupId = claro_get_current_group_id();
 
     }
-    elseif ( $_gid && ! $is_groupAllowed )
+    elseif ( claro_is_in_a_group() && ! claro_is_group_allowed() )
     {
         claro_die(get_lang("Not allowed"));
     }
-    elseif ( $is_courseAllowed )
+    elseif ( claro_is_course_allowed() )
     {
         // course context
         $groupId = 0;
@@ -83,6 +81,7 @@
     require_once "lib/lib.wikidisplay.php";
     require_once "lib/lib.javascript.php";
 
+
     // security fix : disable access to other groups wiki
     if ( isset( $_REQUEST['wikiId'] ) )
     {
@@ -102,12 +101,11 @@
         $result = $con->getRowFromQuery( $sql );
 
         $wikiGroupId = (int) $result['group_id'];
-
-        if ( isset( $_gid ) && $_gid != $wikiGroupId )
+        if ( claro_is_in_a_group() && claro_get_current_group_id() != $wikiGroupId )
         {
             claro_die(get_lang("Not allowed"));
         }
-        elseif( !isset( $_gid ) && $result['group_id'] != 0 )
+        elseif( ! claro_is_in_a_group() && $result['group_id'] != 0 )
         {
             claro_die(get_lang("Not allowed"));
         }
@@ -115,7 +113,7 @@
 
     // Claroline libraries
 
-    require_once $includePath . '/lib/user.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
     // set request variables
 
@@ -164,22 +162,22 @@
 
     // set user access rights using user status and wiki access control list
 
-    if ( $_gid && $is_groupAllowed )
+    if ( claro_is_in_a_group() && claro_is_group_allowed() )
     {
         // group_context
         if ( is_array( $accessControlList ) )
         {
             $is_allowedToRead = $is_allowedToAdmin
-                || ( $is_groupMember && WikiAccessControl::isAllowedToReadPage( $accessControlList, 'group' ) )
-                || ( $is_courseMember && WikiAccessControl::isAllowedToReadPage( $accessControlList, 'course' ) )
+                || ( claro_is_group_member() && WikiAccessControl::isAllowedToReadPage( $accessControlList, 'group' ) )
+                || ( claro_is_course_member() && WikiAccessControl::isAllowedToReadPage( $accessControlList, 'course' ) )
                 || WikiAccessControl::isAllowedToReadPage( $accessControlList, 'other' );
             $is_allowedToEdit = $is_allowedToRead && ( $is_allowedToAdmin
-                || ( $is_groupMember && WikiAccessControl::isAllowedToEditPage( $accessControlList, 'group' ) )
-                || ( $is_courseMember && WikiAccessControl::isAllowedToEditPage( $accessControlList, 'course' ) )
+                || ( claro_is_group_member() && WikiAccessControl::isAllowedToEditPage( $accessControlList, 'group' ) )
+                || ( claro_is_course_member() && WikiAccessControl::isAllowedToEditPage( $accessControlList, 'course' ) )
                 || WikiAccessControl::isAllowedToEditPage( $accessControlList, 'other' ) );
             $is_allowedToCreate = $is_allowedToEdit && ( $is_allowedToAdmin
-                || ( $is_groupMember && WikiAccessControl::isAllowedToCreatePage( $accessControlList, 'group' ) )
-                || ( $is_courseMember && WikiAccessControl::isAllowedToCreatePage( $accessControlList, 'course' ) )
+                || ( claro_is_group_member() && WikiAccessControl::isAllowedToCreatePage( $accessControlList, 'group' ) )
+                || ( claro_is_course_member() && WikiAccessControl::isAllowedToCreatePage( $accessControlList, 'course' ) )
                 || WikiAccessControl::isAllowedToCreatePage( $accessControlList, 'other' ) );
         }
     }
@@ -189,7 +187,7 @@
         if ( is_array( $accessControlList ) )
         {
             // course member
-            if ( $is_courseMember )
+            if ( claro_is_course_member() )
             {
                 $is_allowedToRead = $is_allowedToAdmin
                     || WikiAccessControl::isAllowedToReadPage( $accessControlList, 'course' );
@@ -240,7 +238,7 @@
 
     // get request variables
 
-    $creatorId = $_uid;
+    $creatorId = claro_get_current_user_id();
 
     $versionId = ( isset( $_REQUEST['versionId'] ) ) ? (int) $_REQUEST['versionId'] : 0;
 
@@ -576,10 +574,10 @@
                     //notify modification of the page
 
                     $eventNotifier->notifyCourseEvent('wiki_page_modified'
-                                         , $_cid
-                                         , $_tid
+                                                     , claro_get_current_course_id()
+                                                     , claro_get_current_tool_id()
                                          , $wikiId
-                                         , $_gid
+                                                     , claro_get_current_group_id()
                                          , '0');
                 }
                 else
@@ -600,10 +598,10 @@
                     //notify creation of the page
 
                     $eventNotifier->notifyCourseEvent('wiki_page_added'
-                                         , $_cid
-                                         , $_tid
-                                         , $wikiId
-                                         , $_gid
+                                                     , claro_get_current_course_id()
+                                                     , claro_get_current_tool_id()
+                                                     , $wikiId
+                                                     , claro_get_current_group_id()
                                          , '0');
                 }
             }
@@ -629,7 +627,7 @@
 
     // set image repository
     $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-        . "\nvar sImgPath = '".$imgRepositoryWeb . "'"
+        . "\nvar sImgPath = '" . get_path('imgRepositoryWeb') . "'"
         . "\n</script>\n"
         ;
 
@@ -686,16 +684,16 @@
 
     // Claroline Header and Banner
 
-    require_once $includePath . '/claro_init_header.inc.php';
+    require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
     // tool title
 
     $toolTitle = array();
     $toolTitle['mainTitle'] = sprintf( get_lang("Wiki : %s"), $wiki->getTitle() );
 
-    if ( $_gid )
+    if ( claro_is_in_a_group() )
     {
-        $toolTitle['supraTitle'] = $_group['name'];
+        $toolTitle['supraTitle'] = claro_get_current_group_data('name');
     }
 
     switch( $action )
@@ -748,7 +746,7 @@
         . '&amp;action=show'
         . '&amp;title=__MainPage__'
         . '">'
-        . '<img src="'.$imgRepositoryWeb.'wiki.gif" border="0" alt="edit" />&nbsp;'
+        . '<img src="' . get_path('imgRepositoryWeb') . 'wiki.gif" border="0" alt="edit" />&nbsp;'
         . get_lang("Main page").'</a>'
         ;
 
@@ -757,7 +755,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=recent'
         . '">'
-        . '<img src="'.$imgRepositoryWeb.'history.gif" border="0" alt="recent changes" />&nbsp;'
+        . '<img src="' . get_path('imgRepositoryWeb') . 'history.gif" border="0" alt="recent changes" />&nbsp;'
         . get_lang("Recent changes").'</a>'
         ;
 
@@ -766,14 +764,14 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=all'
         . '">'
-        . '<img src="'.$imgRepositoryWeb.'book.gif" border="0" alt="all pages" />&nbsp;'
+        . '<img src="' . get_path('imgRepositoryWeb') . 'book.gif" border="0" alt="all pages" />&nbsp;'
         . get_lang("All pages").'</a>'
         ;
 
     echo '&nbsp;|&nbsp;<a class="claroCmd" href="'
         . 'wiki.php'
         . '">'
-        . '<img src="'.$imgRepositoryWeb.'info.gif" border="0" alt="all pages" />&nbsp;'
+        . '<img src="' . get_path('imgRepositoryWeb') . 'info.gif" border="0" alt="all pages" />&nbsp;'
         . get_lang("List of Wiki") .'</a>'
         ;
 
@@ -782,7 +780,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=rqSearch'
         . '">'
-        . '<img src="'.$imgRepositoryWeb.'search.gif" border="0" alt="all pages" />&nbsp;'
+        . '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" border="0" alt="all pages" />&nbsp;'
         . get_lang("Search").'</a>'
         ;
 
@@ -802,14 +800,14 @@
             . '&amp;action=show'
             . '&amp;title=' . rawurlencode($title)
             . '">'
-            . '<img src="'.$imgRepositoryWeb.'back.gif" border="0" alt="back" />&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'back.gif" border="0" alt="back" />&nbsp;'
             . get_lang("Back to page").'</a>'
             ;
     }
     else
     {
         echo '<span class="claroCmdDisabled">'
-            . '<img src="'.$imgRepositoryWeb.'back.gif" border="0" alt="back" />&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'back.gif" border="0" alt="back" />&nbsp;'
             . get_lang("Back to page").'</span>'
             ;
     }
@@ -826,7 +824,7 @@
                 . '&amp;title=' . rawurlencode( $title )
                 . '&amp;versionId=' . $versionId
                 . '">'
-                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
+                . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="edit" />&nbsp;'
                 . get_lang("Edit this page").'</a>'
                 ;
         }
@@ -834,7 +832,7 @@
         else
         {
             echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-                . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
+                . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="edit" />&nbsp;'
                 . get_lang("Edit this page") . '</span>'
                 ;
         }
@@ -842,7 +840,7 @@
     else
     {
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-            . '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="edit" />&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="edit" />&nbsp;'
             . get_lang("Edit this page") . '</span>'
             ;
     }
@@ -857,7 +855,7 @@
                 . '&amp;action=history'
                 . '&amp;title=' . rawurlencode( $title )
                 . '">'
-                . '<img src="'.$imgRepositoryWeb.'version.gif" border="0" alt="history" />&nbsp;'
+                . '<img src="' . get_path('imgRepositoryWeb') . 'version.gif" border="0" alt="history" />&nbsp;'
                 . get_lang("Page history").'</a>'
                 ;
     }
@@ -865,7 +863,7 @@
     {
         // inactive
         echo '&nbsp;|&nbsp;<span class="claroCmdDisabled">'
-            . '<img src="'.$imgRepositoryWeb.'version.gif" border="0" alt="history" />&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'version.gif" border="0" alt="history" />&nbsp;'
             . get_lang("Page history") . '</span>'
             ;
     }
@@ -876,7 +874,7 @@
             . 'help_wiki.php?help=syntax'
             . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
             . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
-            . '<img src="'.$imgRepositoryWeb.'help_little.gif" border="0" alt="history" />&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'help_little.gif" border="0" alt="history" />&nbsp;'
             . get_lang("Wiki syntax") . '</a>'
             ;
     }
@@ -941,14 +939,14 @@
                 $displaytitle = $title;
             }
 
-            $oldTime = claro_disp_localised_date( $dateTimeFormatLong
+            $oldTime = claro_disp_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($oldTime) )
                         ;
 
             $userInfo = user_get_properties( $oldEditor );
             $oldEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
 
-            $newTime = claro_disp_localised_date( $dateTimeFormatLong
+            $newTime = claro_disp_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($newTime) )
                         ;
 
@@ -1032,7 +1030,7 @@
                         . '>'.$pgtitle.'</a></strong>'
                         ;
 
-                    $time = claro_disp_localised_date( $dateTimeFormatLong
+                    $time = claro_disp_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($recentChange['last_mtime']) )
                         ;
 
@@ -1047,9 +1045,9 @@
                         $userStr = get_lang('Unknown user');
                     }
 
-                    if ( $is_courseMember )
+                    if ( claro_is_course_member() )
                     {
-                        $userUrl = '<a href="'. $clarolineRepositoryWeb
+                        $userUrl = '<a href="'. get_path('clarolineRepositoryWeb')
                             . 'user/userInfo.php?uInfo='
                             . $recentChange['editor_id'].'">'
                             .$userStr.'</a>'
@@ -1171,9 +1169,9 @@
 
                     $editorStr = $editorInfo['firstname'] . "&nbsp;" . $editorInfo['lastname'];
 
-                    if ( $is_courseMember )
+                    if ( claro_is_course_member() )
                     {
-                        $editorUrl = '&nbsp;-&nbsp;<a href="'. $clarolineRepositoryWeb
+                        $editorUrl = '&nbsp;-&nbsp;<a href="'. get_path('clarolineRepositoryWeb')
                             . 'user/userInfo.php?uInfo='
                             . $wikiPage->getEditorId() .'">'
                             . $editorStr.'</a>'
@@ -1184,7 +1182,7 @@
                         $editorUrl = '&nbsp;-&nbsp;' . $editorStr;
                     }
 
-                    $mtime = claro_disp_localised_date( $dateTimeFormatLong
+                    $mtime = claro_disp_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($wikiPage->getCurrentVersionMtime()) )
                         ;
 
@@ -1328,9 +1326,9 @@
                         $userStr = get_lang('Unknown user');
                     }
 
-                    if ( $is_courseMember )
+                    if ( claro_is_course_member() )
                     {
-                        $userUrl = '<a href="'. $clarolineRepositoryWeb
+                        $userUrl = '<a href="'. get_path('clarolineRepositoryWeb')
                             . 'user/userInfo.php?uInfo='
                             . $version['editor_id'].'">'
                             .$userStr.'</a>'
@@ -1345,7 +1343,7 @@
                         . $wikiId . '&amp;title=' . rawurlencode( $title )
                         . '&amp;action=show&amp;versionId=' . $version['id']
                         . '">'
-                        . claro_disp_localised_date( $dateTimeFormatLong
+                        . claro_disp_localised_date( get_locale('dateTimeFormatLong')
                             , strtotime($version['mtime']) )
                         . '</a>'
                         ;
@@ -1423,5 +1421,5 @@
 
     // Claroline footer
 
-    require_once $includePath . '/claro_init_footer.inc.php';
+    require_once get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

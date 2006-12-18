@@ -22,17 +22,17 @@
 
 /**
  * @todo TODO use is_coursemanager_allowed_to_import_user_list
-$can_import_user_list     = (bool) ($is_courseAdmin
+$can_import_user_list     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
-                     || $is_platformAdmin;
+                     || claro_is_platform_admin();
  */
 
 require '../inc/claro_init_global.inc.php';
-require_once $includePath . '/lib/admin.lib.inc.php';
-require_once $includePath . '/lib/user.lib.php';
-require_once $includePath . '/lib/class.lib.php';
-require_once $includePath . '/lib/course_user.lib.php' ;
-require_once $includePath . '/lib/import_csv.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/class.lib.php';
+require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
@@ -44,9 +44,9 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
 */
 
-$can_import_user_list     = (bool) ($is_courseAdmin
+$can_import_user_list     = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
-                     || $is_platformAdmin;
+                     || claro_is_platform_admin();
 
 
 if ( isset($_REQUEST['AddType']) ) $AddType = $_REQUEST['AddType'];

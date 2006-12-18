@@ -19,7 +19,7 @@ function CLANN_write_ical( & $iCal, $context)
 {
     if (is_array($context) && count($context)>0)
     {
-        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $GLOBALS['_cid'];
+        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : claro_get_current_course_id();
     }
 
     require_once dirname(__FILE__) . '/../lib/announcement.lib.php';
@@ -43,8 +43,8 @@ function CLANN_write_ical( & $iCal, $context)
             /*
             $rssList[] = array( 'title'       => trim($announcementItem['title'])
             ,                   'category'    => trim($toolNameList['CLANN'])
-            ,                   'guid'        => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
-            ,                   'link'        => $clarolineRepositoryWeb.'announcements/announcements.php?cidReq='.$_cid.'&l#ann'.$announcementItem['id']
+            ,                   'guid'        => get_path('clarolineRepositoryWeb').'announcements/announcements.php?cidReq='.claro_get_current_course_id().'&l#ann'.$announcementItem['id']
+            ,                   'link'        => get_path('clarolineRepositoryWeb').'announcements/announcements.php?cidReq='.claro_get_current_course_id().'&l#ann'.$announcementItem['id']
             ,                   'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
             ,                   'pubDate'     => date('r', stripslashes(strtotime($announcementItem['time'])))
             //,                   'author'      => $_course['email']
@@ -67,8 +67,8 @@ function CLANN_write_ical( & $iCal, $context)
             array(), // Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
             0, // Startday of the Week ( 0 = Sunday - 6 = Saturday)
             '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
-            get_conf('rootWeb') . get_conf('clarolineRepositoryWeb') . 'announcements/announcements.php?cidReq=' . $courseId . '&amp;l#ann' . $announcementItem['id'], // optional URL for that event
-            get_conf('iso639_1_code'), // Language of the Strings
+            get_path('rootWeb') . get_path('clarolineRepositoryWeb') . 'announcements/announcements.php?cidReq=' . $courseId . '&amp;l#ann' . $announcementItem['id'], // optional URL for that event
+            get_locale('iso639_1_code'), // Language of the Strings
             '' // Optional UID for this Journal
             );
         }

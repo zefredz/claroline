@@ -65,14 +65,14 @@ $error = false ;
 $message = array();
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 
-require_once $includePath . '/lib/configHtml.class.php';
+require_once get_path('incRepositorySys') . '/lib/configHtml.class.php';
 
 /* ************************************************************************** */
 /* Process
@@ -169,11 +169,11 @@ else
 /*************************************************************************** */
 
 // define bredcrumb
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'name' => get_lang('Configuration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb') . 'tool/config_list.php', 'name' => get_lang('Configuration'));
 
 // display claroline header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display tool title
 echo claro_html_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
@@ -188,6 +188,6 @@ if ( !empty($form) )
 }
 
 // display footer
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

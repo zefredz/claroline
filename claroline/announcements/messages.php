@@ -44,11 +44,11 @@ CLAROLINE MAIN SETTINGS
 $gidReset = true;
 require '../inc/claro_init_global.inc.php'; //    settings initialisation
 
-if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
-if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated() ) claro_disp_auth_form(true);
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 // get shared lib
-include_once $includePath . '/lib/sendmail.lib.php';
+include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 $htmlHeadXtra[] = "<script type=\"text/javascript\" language=\"JavaScript\">
 
@@ -159,7 +159,8 @@ $tbl_courseUser = $tbl_mdb_names['rel_course_user'];
 /*
 * Various connection variables from the initialisation scripts
 */
-
+$_user   = claro_get_current_user_data();
+$_course = claro_get_current_course_data();
 $courseCode      = $_course['officialCode'];
 $courseName      = $_course['name'        ];
 $senderFirstName = $_user  ['firstName'   ];
@@ -234,7 +235,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         */
 
         // email subject
-        $emailSubject = '[' . $siteName . ' - '
+        $emailSubject = '[' . get_conf('siteName') . ' - '
                       . $_course['officialCode'] . '] '
                       . get_lang('Message from your lecturer');
 
@@ -243,7 +244,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         .            '--' . "\n"
         .            $senderFirstName . ' ' . $senderLastName . "\n"
         .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n"
-        .            $siteName . "\n"
+        .            get_conf('siteName') . "\n"
         .            '(' . get_lang('Message from your lecturer') . ')'
         ;
 
@@ -303,7 +304,7 @@ if ( $displayForm == TRUE )
                       `u`.`user_id` AS `uid`
                  FROM `" . $tbl_user .     "` AS `u`
                     , `" . $tbl_courseUser."` AS `cu`
-                 WHERE `cu`.`code_cours` = '" . addslashes($_cid) . "'
+                 WHERE `cu`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
                  AND `cu`.`user_id` = `u`.`user_id`
                  ORDER BY `u`.`nom`, `u`.`prenom`";
 
@@ -393,7 +394,8 @@ if ( $displayForm == TRUE )
     .    '<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<p><b>' . get_lang('Selected Users') . '</b></p>' . "\n"
+    .    '<p>' . "\n"
+    .    '<b>' . get_lang('Selected Users') . '</b></p>' . "\n"
     .    '<p>'
     .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" width="20">'
     .    '</select>'
@@ -402,7 +404,8 @@ if ( $displayForm == TRUE )
     .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td colspan="3">' . "\n"
-    .    '<b>' . get_lang('Announcement') . '</b><br />' . "\n"
+    .    '<b>' . get_lang('Announcement') . '</b>' . "\n"
+    .    '<br />' . "\n"
     .    '<center>'
     .    '<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
     .    '</center>'
@@ -422,6 +425,5 @@ echo '</table>' . "\n\n"
 .    '</form>' . "\n\n"
 ;
 
-include ($includePath . '/claro_init_footer.inc.php');
-
+include (get_path('incRepositorySys') . '/claro_init_footer.inc.php');
 ?>

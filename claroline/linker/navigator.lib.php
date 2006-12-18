@@ -49,15 +49,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function Navigator( $basePath , $node = FALSE)
         {
-            global $platform_id;
-            global $_course;
-
             $this->_basePath = $basePath;
 
             if( !$node )
             {
-                $sysCode = $_course['sysCode'];
-                $node = CRLTool::createCRL($platform_id,$sysCode);
+                $node = CRLTool::createCRL(get_conf('platform_id'),claro_get_current_course_id());
             }
 
             $this->_node = $node;
@@ -98,11 +94,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         *
         * @return string  parent crl  of the current node
         *         or FALSE if there is not a parent crl  of the current node
-        * @global $platform_id
         */
         function getParent ()
         {
-            global $platform_id;
 
             // if current node has got a parent return its crl
              if( isset($this->_elementCRLArray["course_sys_code"])
@@ -131,7 +125,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $currentDir = preg_replace( '~/$~', "", $currentDir );
 
                 $dirParts = explode( "/", $currentDir );
-                $crl = CRLTool::createCRL($platform_id,$this->_elementCRLArray["course_sys_code"]) ;
+                $crl = CRLTool::createCRL(get_conf('platform_id'),$this->_elementCRLArray["course_sys_code"]) ;
 
                 if( count( $dirParts ) == 1 )
                 {
@@ -155,19 +149,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         *  get the list of other courses from a teacher
         *
         * @return array a a assosiatif array with info of courses
-        * @global $_course, $_uid
         */
         function getOtherCoursesList()
         {
-            global $_course,$_uid;
 
             $mainTbl = claro_sql_get_main_tbl();
             $publicCourseInfo = array();
 
-            $sql = 'SELECT `code` , `intitule` , `fake_code`
-                    FROM `'.$mainTbl['rel_course_user'].'`, `'.$mainTbl["course"].'`
-                    WHERE `'.$mainTbl["course"].'`.`code` =`'.$mainTbl['rel_course_user'].'`.`code_cours`
-                    AND `'.$mainTbl['rel_course_user'].'`.`user_id` = '. (int)$_uid;
+            $sql = "SELECT `code` , `intitule` , `fake_code`
+                    FROM `" . $mainTbl['rel_course_user'] . "`, `" . $mainTbl['course'] . "`
+                    WHERE `" . $mainTbl['course'] . "`.`code` =`" . $mainTbl['rel_course_user'] . "`.`code_cours`
+                    AND `" . $mainTbl['rel_course_user'] . "`.`user_id` = " . (int)claro_get_current_user_id();
 
 
             $otherCourseInfo = claro_sql_query_fetch_all($sql);
@@ -179,17 +171,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         /**
         *  get the list of public courses
         *
-        * @return array a a assosiatif array with info of courses
-        * @global $_course a assosiatif array with info of course
+        * @return array an assosiative array with info of courses
         */
         function getPublicCoursesList()
         {
-            global $_course;
-
             $mainTbl = claro_sql_get_main_tbl();
 
             $sql = "SELECT `code` , `intitule` , `fake_code`
-                    FROM `".$mainTbl["course"]."`
+                    FROM ` " .$mainTbl["course"] . "`
                     WHERE  `visible` = 2 or `visible` = 3";
             $publicCoursesInfo = claro_sql_query_fetch_all($sql);
 
@@ -201,7 +190,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         *  get the title of a course
         *
         * @return string the title of a course
-        * @global $_course a assosiatif array with info of course
         */
         function getCourseTitle()
            {
@@ -222,7 +210,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             global $baseServUrl;
 
-            $baseServUrl = get_conf('rootWeb');
+            $baseServUrl = get_path('rootWeb');
             $resourceArray = array();
             $passed = FALSE;
 
@@ -343,20 +331,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @param (array) a list of courses
         * @return array jpspan formated course info (name,title and crl)
                 or an empty array if courseList is not an array
-        * @global $platform_id
         */
         function fillCoursesList( $coursesList )
         {
-            global $platform_id;
 
-            $baseServUrl = get_conf('rootWeb');
+            $baseServUrl = get_path('rootWeb');
             $fileCoursesList = array();
 
             foreach( $coursesList as  $courseInfo )
             {
                    $processedCoursesInfo = array();
 
-                $crl = CRLTool::createCRL($platform_id,$courseInfo["code"]);
+                $crl = CRLTool::createCRL(get_conf('platform_id'),$courseInfo["code"]);
                 $res = new Resolver($baseServUrl);
                    $title = $res->getResourceName($crl);
 
