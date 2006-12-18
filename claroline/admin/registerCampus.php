@@ -22,7 +22,7 @@ $cidReset=true;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]   = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 /*--------------------------------------------------------------------
                LIST OF COUNTRY ISO CODES AND COUNTRY NAMES
   --------------------------------------------------------------------*/
@@ -275,12 +275,12 @@ $isoCode['ZW'] = "Zimbabwe";
 
 /*---------------------------------------------------------------------*/
 
-if(file_exists($rootSys.'platform/currentVersion.inc.php')) include ($rootSys.'platform/currentVersion.inc.php');
-require_once($includePath.'/lib/nusoap.php');
+if(file_exists( get_path('rootSys') . 'platform/currentVersion.inc.php')) include (get_path('rootSys') . 'platform/currentVersion.inc.php');
+require_once(get_path('incRepositorySys').'/lib/nusoap.php');
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // status codes
 // keep in mind that these code must be the same than those in the
@@ -304,9 +304,12 @@ $soapclient = new nuSoapclient('http://www.claroline.net/worldwide/worldwide_soa
 if( isset($_REQUEST['register']) )
 {
     $country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
-    $parameters = array('campusName' => addslashes($siteName), 'campusUrl' => get_conf('rootWeb'),
-                        'institutionName' => addslashes($institution_name), 'institutionUrl' => $institution_url,
-                        'country' => $country, 'adminEmail' => $administrator_email
+    $parameters = array('campusName' => addslashes(get_conf('siteName'))
+                      , 'campusUrl' => get_path('rootWeb')
+                      , 'institutionName' => addslashes(get_conf('institution_name'))
+                      , 'institutionUrl' => get_conf('institution_url')
+                      , 'country' => $country
+                      , 'adminEmail' => get_conf('administrator_email')
                         );
 
     // make the soap call to register the campus
@@ -336,7 +339,7 @@ if( isset($_REQUEST['register']) )
 }
 else
 {
-    $parameters = array('campusUrl' => get_conf('rootWeb'));
+    $parameters = array('campusUrl' => get_path('rootWeb'));
     $soapResponse = $soapclient->call('getCampusRegistrationStatus', $parameters);
 
     if( $soapResponse )
@@ -355,7 +358,7 @@ else
                 $dialogBox .= get_lang('<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>');
                 break;
             case 'HIDDEN' :
-                $dialogBox .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>');
+                $dialogBox .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our Website) if you think this is an error.</p>');
                 break;
             default :
                 // unknown status ?
@@ -372,7 +375,7 @@ else
 $nameTools = get_lang('Register my campus');
 // bread crumb à ajouter
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 $title['mainTitle'] = $nameTools;
 $title['subTitle'] = get_lang('Add my campus on Claroline.net website');
@@ -385,10 +388,10 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
     echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
         .'<ul>'."\n"
         .'<li>'.get_lang('Campus name').' : '.stripslashes( get_conf('siteName')) . '</li>'."\n"
-        .'<li>'.get_lang('URL').' : <a href="' . get_conf('rootWeb') . '">' . get_conf('rootWeb') . '</a></li>'."\n"
-        .'<li>'.get_lang('Institution').' : '.stripslashes($institution_name).'</li>'."\n"
+        .'<li>'.get_lang('URL').' : <a href="' . get_path('rootWeb') . '">' . get_path('rootWeb') . '</a></li>'."\n"
+        .'<li>'.get_lang('Institution').' : '.stripslashes(get_conf('institution_name')).'</li>'."\n"
         .'<li>'.get_lang('Institution URL') . ' : <a href="' . get_conf('institution_url') . '">' . get_conf('institution_url') . '</a></li>'."\n"
-        .'<li>'.get_lang('Email').' : '.$administrator_email.'</li>'."\n"
+        .'<li>'.get_lang('Email').' : ' . get_conf('administrator_email') .'</li>'."\n"
         .'<li>'
         .'<label for="country">'.get_lang('Country').' : </label>'."\n"
         .'<select name="country" id="country">'."\n";
@@ -408,10 +411,9 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
         .'<p>'
         .'<small>'.get_lang('Please check that your campus URL is reachable from the internet.').'</small>'
         .'</p>'."\n"
-        .'</form>'."\n";
+        .'</form>'."\n"
+        ;
 }
 
-include $includePath . '/claro_init_footer.inc.php';
-
-
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

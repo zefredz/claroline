@@ -18,12 +18,12 @@ require '../../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 
-if ( ! $_uid )
+if ( ! claro_is_user_authenticated() )
 {
     claro_disp_auth_form();
 }
 
-if ( ! $is_platformAdmin )
+if ( ! claro_is_platform_admin() )
 {
     claro_die(get_lang('Not allowed'));
 }
@@ -39,10 +39,10 @@ $tbl_dock        = $tbl_name['dock'];
 
 //NEEDED LIBRAIRIES
 
-require_once $includePath . '/lib/module.manage.lib.php';
-require_once $includePath . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
-$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => 'module_list.php', 'name' => get_lang('Module list'));
 
 $nameTools = get_lang('Module settings');
@@ -174,7 +174,7 @@ foreach($module_dock as $thedock)
 // DISPLAY
 //----------------------------------
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // find module icon, if any
 
@@ -234,7 +234,7 @@ else
 $config_code = $module['label'];
 
 // new config object
-require_once $includePath . '/lib/configHtml.class.php';
+require_once get_path('incRepositorySys') . '/lib/configHtml.class.php';
 
 $config = new ConfigHtml($config_code, $_SERVER['HTTP_REFERER']);
     	
@@ -300,7 +300,7 @@ switch ($item)
                 . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                 . '&item=GLOBAL" title="'
                 . get_lang('Activated - Click to deactivate').'">' 
-                . '<img src="' . $imgRepositoryWeb 
+                . '<img src="' . get_path('imgRepositoryWeb') 
                 . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /></a>'
                 ;
     	}
@@ -311,7 +311,7 @@ switch ($item)
                 . '?cmd='.$activ_form.'&module_id=' 
                 . $module['module_id'].'&item=GLOBAL" '
                 . 'title="'.get_lang('Deactivated - Click to activate').'">' 
-                . '<img src="' . $imgRepositoryWeb 
+                . '<img src="' . get_path('imgRepositoryWeb') 
                 . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
     	}
           
@@ -339,7 +339,7 @@ switch ($item)
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module visible in all courses' ).'"'
                 . ' onclick="return confirmMakeVisible();">'
-                . '<img src="' . $imgRepositoryWeb 
+                . '<img src="' . get_path('imgRepositoryWeb') 
                 . 'visible.gif" border="0" alt="'. get_lang('Visible') . '"/> '
                 . get_lang( 'Make visible' )
                 . '</a></small>'
@@ -348,7 +348,7 @@ switch ($item)
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module invisible in all courses' ).'"'
                 . ' onclick="return confirmMakeInVisible();">'
-                . '<img src="' . $imgRepositoryWeb 
+                . '<img src="' . get_path('imgRepositoryWeb') 
                 . 'invisible.gif" border="0" alt="'. get_lang('Invisible') . '"/> '
                 . get_lang( 'Make invisible' )
                 . '</a></small>'
@@ -520,6 +520,6 @@ echo '</table>' . "\n"
 .    '</table>' . "\n"
 ;
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

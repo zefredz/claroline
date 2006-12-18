@@ -17,18 +17,18 @@ require '../../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 //DECLARE NEEDED LIBRARIES
 
-require_once $includePath . '/lib/pager.lib.php';
-require_once $includePath . '/lib/sqlxtra.lib.php';
-require_once $includePath . '/lib/fileManage.lib.php';
-require_once $includePath . '/lib/fileUpload.lib.php';
-require_once $includePath . '/lib/html.lib.php';
-require_once $includePath . '/lib/module.manage.lib.php';
-require_once $includePath . '/lib/backlog.class.php';
+require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once get_path('incRepositorySys') . '/lib/sqlxtra.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+require_once get_path('incRepositorySys') . '/lib/html.lib.php';
+require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/backlog.class.php';
 
 //OLD TOOLS ;
 
@@ -81,7 +81,7 @@ $tbl = claro_sql_get_tbl(array('module_tool'));
 
 
 $nameTools = get_lang('Modules');
-$interbredcrump[]= array ('url' => $rootAdminWeb,'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => get_path('rootAdminWeb'),'name' => get_lang('Administration'));
 $dialogBox  ='';
 
 $htmlHeadXtra[] =
@@ -236,7 +236,7 @@ switch ( $cmd )
             if ( isset( $_REQUEST['moduleDir'] ) )
             {
                 $moduleDir = str_replace ( '../', '', $_REQUEST['moduleDir']);
-                $moduleRepositorySys = get_conf('rootSys') . 'module/';
+                $moduleRepositorySys = get_path('rootSys') . 'module/';
                 $modulePath = $moduleRepositorySys.$moduleDir.'/';
 
                 if ( file_exists( $modulePath ) )
@@ -374,7 +374,7 @@ $course_tool_max_rank = get_course_tool_max_rank();
 //----------------------------------
 
 $noQUERY_STRING = true;
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 //display title
 
@@ -510,7 +510,7 @@ foreach($moduleList as $module)
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
-            .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="'.get_lang('Move up').'">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'">'
             .    '</a>'
             .    '</td>' . "\n";
         }
@@ -524,7 +524,7 @@ foreach($moduleList as $module)
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
-            .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="'.get_lang('Move down').'">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'">'
             .    '</a>'
             .    '</td>' . "\n";
         }
@@ -538,7 +538,7 @@ foreach($moduleList as $module)
 
     echo '<td align="center">'
     .    '<a href="module.php?module_id='.$module['id'].'">'
-    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
+    .    '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n";
 
@@ -549,7 +549,7 @@ foreach($moduleList as $module)
         echo '<td align="center">'
         .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
         .    ' onClick="return confirmation(\'' . $module['name'].'\');">'
-        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
         ;
@@ -574,7 +574,7 @@ foreach($moduleList as $module)
             echo '<a href="module_list.php?cmd=desactiv&amp;module_id='
             . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
             . 'title="'.get_lang('Activated - Click to deactivate').'">'
-            . '<img src="' . $imgRepositoryWeb
+            . '<img src="' . get_path('imgRepositoryWeb')
             . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /></a>'
             ;
         }
@@ -583,7 +583,7 @@ foreach($moduleList as $module)
             echo '<a href="module_list.php?cmd=activ&amp;module_id='
             . $module['id'] . '&amp;typeReq='.$typeReq.'" '
             . 'title="'.get_lang('Deactivated - Click to activate').'">'
-            . '<img src="' . $imgRepositoryWeb
+            . '<img src="' . get_path('imgRepositoryWeb')
             . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
         }
     }
@@ -602,7 +602,7 @@ echo '</tbody>' . "\n"
 
 echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 /**
  * Return list of dock where a module is docked
@@ -618,10 +618,10 @@ function get_module_dock_list($moduleId)
     if(!array_key_exists($moduleId,$dockListByModule))
     {
         $tbl_name        = claro_sql_get_main_tbl();
-        $sql = "SELECT D.`id`    AS dock_id,
-                   D.`name`  AS dockname
-            FROM `" . $tbl_name['dock'] . "` AS D
-            WHERE D.`module_id`=" . (int) $moduleId;
+        $sql = "SELECT `id`    AS dock_id,
+                       `name`  AS dockname
+            FROM `" . $tbl_name['dock'] . "` 
+            WHERE `module_id`=" . (int) $moduleId;
         $dockListByModule[$moduleId] = claro_sql_query_fetch_all($sql);
 
     }

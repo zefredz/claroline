@@ -10,21 +10,21 @@
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/statsUtils.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 $tbl_mdb_names    = claro_sql_get_main_tbl();
 $tbl_track_e_open = $tbl_mdb_names['track_e_open'];
 
-$is_allowedToTrack = $is_platformAdmin;
+$is_allowedToTrack = claro_is_platform_admin();
 
 $interbredcrump[]= array ('url' => "index.php", 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('Platform statistics'));
 
 $nameTools = get_lang('Traffic Details');
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
 .    '<table width="100%" cellpadding="2" cellspacing="3" border="0">'
 ;
@@ -211,5 +211,5 @@ else // not allowed to track
 
 
 echo '</table>';
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

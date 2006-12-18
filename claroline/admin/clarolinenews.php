@@ -21,16 +21,16 @@ $cidReset=true;$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 // rss reader library
-require $includePath . '/lib/lastRSS/lastRSS.php';
+require get_path('incRepositorySys') . '/lib/lastRSS/lastRSS.php';
 
 
 $nameTools = get_lang('Claroline.net news');
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $noQUERY_STRING   = TRUE;
 
 
@@ -51,10 +51,10 @@ $rss->cache_time = 1200;
 // DISPLAY
 //----------------------------------
 // title variable
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 
-if ($rs = $rss->get($urlNewsClaroline))
+if (false !== $rs = $rss->get($urlNewsClaroline))
 {
     echo '<table class="claroTable" width="100%">'."\n\n";
 
@@ -68,7 +68,7 @@ if ($rs = $rss->get($urlNewsClaroline))
         echo '<tr>'."\n"
             .'<th class="headerX">'."\n"
             .'<a href="'.$href.'">'.$title.'</a>'."\n"
-            .'<small> - '.claro_disp_localised_date($dateFormatLong,$date).'</small>'."\n"
+            .'<small> - '.claro_disp_localised_date(get_locale('dateFormatLong'),$date).'</small>'."\n"
             .'</th>'."\n"
             .'</tr>'."\n"
             .'<tr>'."\n"
@@ -85,5 +85,5 @@ else
     echo claro_html_message_box(get_lang('Error : cannot read RSS feed'));
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
