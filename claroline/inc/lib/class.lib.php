@@ -27,14 +27,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function class_get_properties ( $classId )
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_class     = $tbl_mdb_names['class'];
+    $tbl = claro_sql_get_main_tbl();
 
     $sql = "SELECT id,
                    name,
                    class_parent_id,
                    class_level
-            FROM `" . $tbl_class . "`
+            FROM `" . $tbl['class'] . "`
             WHERE `id`= ". (int) $classId ;
 
     $result = claro_sql_query_get_single_row($sql);
@@ -53,13 +52,12 @@ function class_get_properties ( $classId )
 
 function class_create ( $className, $parentId )
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_class     = $tbl_mdb_names['class'];
+    $tbl = claro_sql_get_main_tbl();
 
     $className = trim($className);
     $parentId = (int) $parentId;
 
-    $sql = "INSERT INTO `" . $tbl_class . "`
+    $sql = "INSERT INTO `" . $tbl['class'] . "`
             SET `name`='". addslashes($className) ."'";
 
     if ( $parentId != 0 )
@@ -522,10 +520,6 @@ function user_add_to_class($user_id,$class_id)
         return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
     }
 
-    // Get class parent id
-
-    $class_parent_id = $result['class_parent_id'];
-
     // 3. See if user is not already in class
 
     $sql = "SELECT `user_id`
@@ -915,7 +909,6 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
 
     $tbl_mdb_names  = claro_sql_get_main_tbl();
 
-    $tbl_course_class = $tbl_mdb_names['rel_course_class'];
     $tbl_course       = $tbl_mdb_names['course'];
 
     $html_form = '';
@@ -925,7 +918,7 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             FROM `" . $tbl_course . "` as C
             WHERE `code` = '".$course_code."'";
 
-	$cours_id = claro_sql_query_get_single_value($sql);
+	claro_sql_query_get_single_value($sql);
 
     foreach ($class_list as $cur_class)
     {
