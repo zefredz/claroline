@@ -17,8 +17,8 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
 // get the list of personnal courses marked as contening new events
-$date            = $claro_notifier->get_notification_date($_uid);
-$modified_course = $claro_notifier->get_notified_courses($date,$_uid);
+$date            = $claro_notifier->get_notification_date(claro_get_current_user_id());
+$modified_course = $claro_notifier->get_notified_courses($date,claro_get_current_user_id());
 
 
 /******************************************************************************
@@ -58,7 +58,7 @@ foreach($personnalCourseList as $thisCourse)
     }
 
     echo '<li class="item' . $classItem . '">' . "\n"
-    .    '<a href="' . $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
+    .    '<a href="' .  get_path('url') . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
 
     if ( get_conf('course_order_by') == 'official_code' )
     {
@@ -71,7 +71,7 @@ foreach($personnalCourseList as $thisCourse)
 
     if ($thisCourse['isCourseManager'] == 1)
     {
-        $userStatusImg = '<img src="'.$imgRepositoryWeb.'manager.gif" alt="'.get_lang('Course manager').'">';
+        $userStatusImg = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="'.get_lang('Course manager').'">';
     }
     else
     {
