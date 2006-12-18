@@ -19,15 +19,15 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-include_once $includePath . '/lib/right/profileToolRight.class.php';
-include_once $includePath . '/lib/right/profileToolRightHtml.class.php';
+include_once get_path('incRepositorySys') . '/lib/right/profileToolRight.class.php';
+include_once get_path('incRepositorySys') . '/lib/right/profileToolRightHtml.class.php';
 
 //=================================
 // Security check
 //=================================
 
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 //=================================
 // Main section
@@ -93,15 +93,15 @@ if ( empty($display_profile_list) )
 //=================================
 
 // define bredcrumb
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => $rootAdminWeb . 'right/profile_list.php', 'name' => get_lang('Course profile list'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb') . 'right/profile_list.php', 'name' => get_lang('Course profile list'));
 
-$interbredcrump[] = array ('url' => $rootAdminWeb . 'right/profile.php?display_profile=' . $display_profile_url_param
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb') . 'right/profile.php?display_profile=' . $display_profile_url_param
                          , 'name' => get_lang('Right') ); 
 
 // Display header
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Set display right
 
@@ -145,6 +145,6 @@ else
 
 // Display footer
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>
