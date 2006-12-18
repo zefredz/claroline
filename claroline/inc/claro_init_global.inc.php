@@ -53,7 +53,7 @@ if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
 // administator can redirect to their own PEAR library directory by setting
 // its path to the PEAR_LIB_PATH constant.
 
-define('PEAR_LIB_PATH', $includePath . '/lib/pear');
+define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/pear');
 
 // Add the Claroline PEAR path to the php.ini include path
 // This action is mandatory because PEAR inner include() statements
@@ -61,17 +61,14 @@ define('PEAR_LIB_PATH', $includePath . '/lib/pear');
 
 set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
 
-$clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
-$clarolineRepositoryWeb = $urlAppend . '/' . $clarolineRepositoryAppend;
-$userImageRepositorySys = get_conf('rootSys') . $userImageRepositoryAppend;
-$userImageRepositoryWeb = $urlAppend . '/' . $userImageRepositoryAppend;
-$coursesRepositorySys   = get_conf('rootSys') . $coursesRepositoryAppend;
-$coursesRepositoryWeb   = $urlAppend . '/' . $coursesRepositoryAppend;
-$rootAdminSys           = $clarolineRepositorySys . $rootAdminAppend;
-$rootAdminWeb           = $clarolineRepositoryWeb . $rootAdminAppend;
-$imgRepositoryAppend    = 'img/'; // <-this line would be editable in claroline 1.7
-$imgRepositorySys       = $clarolineRepositorySys . $imgRepositoryAppend;
-$imgRepositoryWeb       = $clarolineRepositoryWeb . $imgRepositoryAppend;
+$clarolineRepositorySys = get_path('clarolineRepositorySys');
+$clarolineRepositoryWeb = get_path('clarolineRepositoryWeb');
+$coursesRepositorySys   = get_path('coursesRepositorySys');
+$coursesRepositoryWeb   = get_path('coursesRepositoryWeb');
+$rootAdminWeb           = get_path('rootAdminWeb');
+$imgRepositoryAppend    = get_path('imgRepositoryAppend');
+$imgRepositorySys       = get_path('imgRepositorySys');
+$imgRepositoryWeb       = get_path('imgRepositoryWeb');
 
 // Unix file permission access ...
 
@@ -97,10 +94,7 @@ if ( !isset($_SERVER['REQUEST_URI']) )
   Start session
   ----------------------------------------------------------------------*/
 
-if ( isset($platform_id) )
-{
-    session_name($platform_id);
-}
+session_name(get_conf('platform_id','claroline'));
 
 session_start();
 
@@ -108,13 +102,13 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-require_once $includePath . '/lib/language.lib.php';
-require_once $includePath . '/lib/right/right_profile.lib.php';
+require_once get_path('incRepositorySys') . '/lib/language.lib.php';
+require_once get_path('incRepositorySys') . '/lib/right/right_profile.lib.php';
 
 /*----------------------------------------------------------------------
   Include Plugin libraries and create needed buffer
   ----------------------------------------------------------------------*/
-require_once $includePath . '/lib/buffer.lib.php';
+require_once get_path('incRepositorySys') . '/lib/buffer.lib.php';
 
 /*----------------------------------------------------------------------
   Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
@@ -160,19 +154,19 @@ if ($statsDbName == '')
   Include the events library for tracking
   ----------------------------------------------------------------------*/
 
-require $includePath . '/lib/events.lib.inc.php';
+require get_path('incRepositorySys') . '/lib/events.lib.inc.php';
 
 /*----------------------------------------------------------------------
   Include the local (contextual) parameters of this course or section
   ----------------------------------------------------------------------*/
 
-require $includePath . '/claro_init_local.inc.php';
+require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
 /*----------------------------------------------------------------------
   Include the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
 
-require $includePath . '/lib/event/init_event_manager.inc.php';
+require get_path('incRepositorySys') . '/lib/event/init_event_manager.inc.php';
 
 /*----------------------------------------------------------------------
   Load language translation and locale settings
@@ -241,10 +235,10 @@ if ( isset($_POST['claroFormId']) )
 // TODO : includePath is probably not needed
 
 $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
-$cacheRepositorySys = get_conf('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
+$cacheRepositorySys = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
 if (!file_exists($cacheRepositorySys . $module_cache_filename))
 {
-    require_once $includePath . '/lib/module.manage.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
     generate_module_cache();
 }
 
