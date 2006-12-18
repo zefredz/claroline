@@ -447,7 +447,7 @@ unknown
  */
 function claro_set_tool_allowed($is_allowed)
 {
-    $GLOBALS['$is_allowed'] = (bool)$is_allowed;
+    $GLOBALS['is_toolAllowed'] = (bool)$is_allowed;
     return true;
 }
 
