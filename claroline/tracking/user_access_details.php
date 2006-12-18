@@ -8,7 +8,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author see CREDITS.txt
  *
- */ 
+ */
 require '../inc/claro_init_global.inc.php';
 
 $nameTools = get_lang('User access details');
@@ -21,13 +21,13 @@ $tbl_cdb_names       = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
 $TABLETRACK_DOWNLOADS        = $tbl_cdb_names['track_e_downloads'];
 
-include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
+include get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 $toolTitle['mainTitle'] = $nameTools;
 
 $is_allowedToTrack = claro_is_course_manager();
 
-include(get_path('incRepositorySys')."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
@@ -43,8 +43,8 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 
             if( isset($viewedToolLabel['label']) && isset($toolNameList[$viewedToolLabel['label']]) )
                     $toolTitle['subTitle'] = get_lang('Tool')." : ".$toolNameList[$viewedToolLabel['label']];
-                    
-                    
+
+
             // prepare SQL query
             $sql = "SELECT `nom` AS `lastName`,
                         `prenom` AS `firstName`,
@@ -83,14 +83,16 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 
-    echo '<br />'."\n\n"
-        .'<table class="claroTable" border="0" cellpadding="5" cellspacing="1">'."\n"
-        .'<tr class="headerX">'."\n"
-        .'<th>'.get_lang('Username').'</th>'."\n"
-        .'<th>'.get_lang('Last access').'</th>'."\n"
-        .'<th>'.get_lang('Access count').'</th>'."\n"
-        .'</tr>'."\n"
-        .'<tbody>'."\n\n";
+    // TODO  use datagrid
+    echo '<br />' . "\n\n"
+    .    '<table class="claroTable" border="0" cellpadding="5" cellspacing="1">' . "\n"
+    .    '<tr class="headerX">'."\n"
+    .    '<th>' . get_lang('Username') . '</th>' . "\n"
+    .    '<th>' . get_lang('Last access') . '</th>' . "\n"
+    .    '<th>' . get_lang('Access count') . '</th>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tbody>' . "\n\n"
+    ;
 
     $i = 0;
     $anonymousCount = 0;
@@ -110,18 +112,29 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
             echo '<tr>'."\n"
                 .'<td>'.$userName.'</td>'."\n"
                 .'<td>'.claro_disp_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']).'</td>'."\n"
-                .'<td>'.$userAccess['nbr'].'</td>'."\n"
-                .'</tr>'."\n\n";
+                .'<td>'.$userAccess['nbr'] . '</td>' . "\n"
+            .    '</tr>'."\n\n"
+            ;
         }
     }
     // in case of error or no results to display
-    if( $i == 0 || !isset($sql) ) echo '<td colspan="3"><center>'.get_lang('No result').'</center></td>'."\n\n";
- 
-    echo '</tbody>'."\n\n".'</table>'."\n\n";
-    
+    if( $i == 0 || !isset($sql) )
+    {
+        echo '<td colspan="3">' . "\n"
+        .    '<center>' . get_lang('No result') . '</center>' . "\n"
+        .    '</td>' . "\n\n"
+        ;
+    }
+
+    echo '</tbody>' . "\n\n"
+    .    '</table>' . "\n\n"
+    ;
+
     if( $anonymousCount != 0 )
+    {
         echo '<p>'.get_lang('Anonymous users access count : ').' '.$anonymousCount.'</p>'."\n";
- 
+    }
+
 }
 // not allowed
 else
@@ -137,5 +150,5 @@ else
 }
 
 // footer
-include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

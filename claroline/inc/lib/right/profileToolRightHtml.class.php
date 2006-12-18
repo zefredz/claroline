@@ -112,7 +112,6 @@ class RightProfileToolRightHtml
 
     function displayProfileToolRightList()
     {
-        global $imgRepositoryWeb;
 
         $html = '';
         $html_table_header_list = array();
@@ -131,7 +130,7 @@ class RightProfileToolRightHtml
             if ( $isLocked && $className == strtolower('RightCourseProfileToolRight') )
             {
                 $displayMode = 'read';
-                $html_table_header_list[$profile_id] .= '&nbsp;<img src="' . $imgRepositoryWeb . '/locked.gif" alt="' . get_lang('Profile locked') . '" />';
+                $html_table_header_list[$profile_id] .= '&nbsp;<img src="' . get_path('imgRepositoryWeb') . '/locked.gif" alt="' . get_lang('Profile locked') . '" />';
             }
             else
             {
@@ -159,17 +158,17 @@ class RightProfileToolRightHtml
                 if ( $action_right == 'none' )
                 {
                     $action_param_value = 'user';
-                    $html_right = '<img src="' . $imgRepositoryWeb . 'block.gif" alt="' . get_lang('None') . '" />' . "\n" ;
+                    $html_right = '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('None') . '" />' . "\n" ;
                 }
                 elseif ( $action_right == 'user' )
                 {
                     $action_param_value = 'manager';
-                    $html_right = '<img src="' . $imgRepositoryWeb . 'user.gif" alt="' . get_lang('User') . '" />' . "\n" ;
+                    $html_right = '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('User') . '" />' . "\n" ;
                 }
                 else
                 {
                     $action_param_value = 'none';
-                    $html_right = '<img src="' . $imgRepositoryWeb . 'manager.gif" alt="' . get_lang('Manager') . '" />' . "\n" ;
+                    $html_right = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Manager') . '" />' . "\n" ;
                 }
 
                 if ( $displayMode == 'edit' )
@@ -227,14 +226,14 @@ class RightProfileToolRightHtml
                 {
                     $html .= '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] . '" >'
-                    . '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Visible') . '" />'
+                    . '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible') . '" />'
                     . '</a></td>' . "\n";
                 }
                 else
                 {
                     $html .= '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] .'" >'
-                    . '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+                    . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
                     . '</a></td>' . "\n" ;
                 }
             }
