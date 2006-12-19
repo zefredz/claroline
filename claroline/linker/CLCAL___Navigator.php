@@ -73,7 +73,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                          foreach ($agenda as $itemAgenda )
                          {
                              $crl = $node."/".$itemAgenda["id"];
-                             $res = new CLCAL___Resolver(get_conf('rootWeb'));
+                             $res = new CLCAL___Resolver(get_path('rootWeb'));
                              $title = $res->getTitle($elementCRLArray['course_sys_code'],$itemAgenda["id"]);
                              $isVisible = ( $itemAgenda["visibility"] == 'SHOW');
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );

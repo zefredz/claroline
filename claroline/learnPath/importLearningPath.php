@@ -20,15 +20,15 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-$is_AllowedToEdit = $is_courseAdmin;
-if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+$is_AllowedToEdit = claro_is_course_manager();
+if (! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ('url' => $clarolineRepositoryWeb.'learnPath/learningPathList.php', 'name' => get_lang('Learning path list'));
+$interbredcrump[]= array ('url' => get_path('clarolineRepositoryWeb').'learnPath/learningPathList.php', 'name' => get_lang('Learning path list'));
 $nameTools = get_lang('Import a learning path');
 
 //header
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 /*
 * DB tables definition
@@ -50,10 +50,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
 //lib of this tool
-include_once $includePath . '/lib/learnPath.lib.inc.php';
-include_once $includePath . '/lib/fileManage.lib.php';
-include_once $includePath . '/lib/fileUpload.lib.php';
-include_once $includePath . '/lib/fileDisplay.lib.php';
+include_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 
 
 // error handling
@@ -222,7 +222,6 @@ function elementData($parser,$data)
     global $itemsPile;
     global $manifestData;
     global $flagTag;
-    global $dialogBox;
     global $errorFound;
     global $zipFile;
     global $errorMsgs,$okMsgs;
@@ -429,8 +428,8 @@ $errorMsgs = array();
 
 $maxFilledSpace = 100000000;
 
-$courseDir   = $_course['path']."/scormPackages/";
-$baseWorkDir = $coursesRepositorySys.$courseDir; // path_id
+$courseDir   = claro_get_course_path() . '/scormPackages/';
+$baseWorkDir = get_path('coursesRepositorySys').$courseDir; // path_id
 // handle upload
 // if the post is done a second time, the claroformid mecanism
 // will set $_POST to NULL, so we need to check it
@@ -463,7 +462,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if (!is_dir($baseWorkDir)) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS );
 
     // unzip package
-    include_once $includePath."/lib/pclzip/pclzip.lib.php";
+    include_once get_path('incRepositorySys')."/lib/pclzip/pclzip.lib.php";
 
     /*
      * Check if the file is valide (not to big and exists)
@@ -1100,13 +1099,14 @@ else // if method == 'post'
 
 <p>
 <input type="submit" value="<?php echo get_lang('Import') ?>">&nbsp;
-<?php echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"; ?>
-</p>
+<?php
+echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"
+.    '</p>'
+.    '</form>'
+;
 
-</form>
-
-     <?php
 } // else if method == 'post'
 // footer
-include $includePath . '/claro_init_footer.inc.php';
+
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

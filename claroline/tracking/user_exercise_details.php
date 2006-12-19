@@ -285,7 +285,7 @@ $backLink = '<p><small><a href="userLog.php?uInfo='.$thisAttemptDetails['user_id
 
 $nameTools = get_lang('Statistics of exercise attempt');
 
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 // display title
 $titleTab['mainTitle'] = $nameTools;
 

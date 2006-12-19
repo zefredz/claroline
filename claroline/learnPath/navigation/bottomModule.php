@@ -24,7 +24,6 @@ require '../../inc/claro_init_global.inc.php';
 // header
 $hide_banner = TRUE;
 $hide_body = TRUE;
-include($includePath.'/claro_init_header.inc.php');
-// footer
-include($includePath.'/claro_init_footer.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

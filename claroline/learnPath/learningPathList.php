@@ -37,7 +37,7 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 /*
  * DB tables definition
@@ -57,13 +57,13 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 //lib of this tool
-include_once ($includePath . '/lib/learnPath.lib.inc.php');
+include_once (get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php');
 
 //lib needed to delete packages
-include_once ($includePath . '/lib/fileManage.lib.php');
+include_once (get_path('incRepositorySys') . '/lib/fileManage.lib.php');
 
 // statistics
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 $htmlHeadXtra[] =
           '<script type="text/javascript">
@@ -116,10 +116,10 @@ claro_set_display_mode_available(true);
 
 // main page
 $is_AllowedToEdit = claro_is_allowed_to_edit();
-$lpUid = $_uid;
+$lpUid = claro_get_current_user_id();
 
 // display introduction
-$moduleId = $_tid; // Id of the Learning Path introduction Area
+$moduleId = claro_get_current_tool_id(); // Id of the Learning Path introduction Area
 $helpAddIntroText = get_block('blockIntroLearningPath');
 
 // execution of commands
@@ -145,8 +145,8 @@ switch ( $cmd )
 
             // in case of a learning path made by SCORM, we completely remove files and use in others path of the imported package
             // First we save the module_id of the SCORM modules in a table in case of a SCORM imported package
-
-            if (is_dir($coursesRepositorySys.$_course['path']."/scormPackages/path_".$_GET['del_path_id']))
+            //TODO use claro_get_course_data_repository()
+            if (is_dir(get_path('coursesRepositorySys').claro_get_course_path() . '/scormPackages/path_' . $_GET['del_path_id']))
             {
                 $findsql = "SELECT M.`module_id`
                             FROM  `".$TABLELEARNPATHMODULE."` AS LPM,
@@ -201,7 +201,8 @@ switch ( $cmd )
                 claro_sql_query($delModuleSql);
 
                 // DELETE the directory containing the package and all its content
-                $real = realpath($coursesRepositorySys.$_course['path']."/scormPackages/path_".$_GET['del_path_id']);
+                //TODO use claro_get_course_data_repository()
+                $real = realpath(get_path('coursesRepositorySys').claro_get_course_path() . '/scormPackages/path_' . $_GET['del_path_id']);
                 claro_delete_file($real);
 
             }   // end of dealing with the case of a scorm learning path.
@@ -252,7 +253,7 @@ switch ( $cmd )
             $query = claro_sql_query($sql3);
 
             // notify the event manager with the deletion
-            $eventNotifier->notifyCourseEvent("learningpath_deleted",$_cid, $_tid, $_GET['del_path_id'], $_gid, "0");
+            $eventNotifier->notifyCourseEvent("learningpath_deleted",claro_get_current_course_id(), claro_get_current_tool_id(), $_GET['del_path_id'], claro_get_current_group_id(), "0");
             break;
 
       // ACCESSIBILITY COMMAND
@@ -280,11 +281,11 @@ switch ( $cmd )
 
             if ($visibility == 'SHOW')
             {
-                $eventNotifier->notifyCourseEvent("learningpath_visible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
+                $eventNotifier->notifyCourseEvent("learningpath_visible",claro_get_current_course_id(), claro_get_current_tool_id(), $_GET['visibility_path_id'], claro_get_current_group_id(), "0");
             }
             else
             {
-                $eventNotifier->notifyCourseEvent("learningpath_invisible",$_cid, $_tid, $_GET['visibility_path_id'], $_gid, "0");
+                $eventNotifier->notifyCourseEvent("learningpath_invisible",claro_get_current_course_id(), claro_get_current_tool_id(), $_GET['visibility_path_id'], claro_get_current_group_id(), "0");
             }
 
             break;
@@ -346,7 +347,7 @@ switch ( $cmd )
                     $lp_id = claro_sql_query_insert_id($sql);
 
                     // notify the creation to eventmanager
-                    $eventNotifier->notifyCourseEvent("learningpath_created",$_cid, $_tid, $lp_id, $_gid, "0");
+                    $eventNotifier->notifyCourseEvent("learningpath_created",claro_get_current_course_id(), claro_get_current_tool_id(), $lp_id, claro_get_current_group_id(), "0");
                 }
                 else
                 {
@@ -430,7 +431,7 @@ if (isset($sortDirection) && $sortDirection)
 
 // DISPLAY
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 
 if (isset($dialogBox))
@@ -446,7 +447,7 @@ if($is_AllowedToEdit)
       <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=create"><?php echo get_lang('Create a new learning path'); ?></a> |
       <a class="claroCmd" href="importLearningPath.php"><?php echo get_lang('Import a learning path'); ?></a> |
       <a class="claroCmd" href="modules_pool.php"><?php echo get_lang('Pool of modules') ?></a> |
-      <a class="claroCmd" href="<?php echo $clarolineRepositoryWeb; ?>tracking/learnPath_detailsAllPath.php"><?php echo get_lang('Learning paths tracking'); ?></a>
+      <a class="claroCmd" href="<?php echo get_path('clarolineRepositoryWeb'); ?>tracking/learnPath_detailsAllPath.php"><?php echo get_lang('Learning paths tracking'); ?></a>
       </p>
 <?php
 }
@@ -479,7 +480,7 @@ if($is_AllowedToEdit)
  $resultB = claro_sql_query($sql);
  */
 
-if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid); // get date for notified "as new" paths
+if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); // get date for notified "as new" paths
 
 echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
  <thead>
@@ -549,7 +550,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 {
     //modify style if the file is recently added since last login
 
-    if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $list['learnPath_id']))
+    if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $list['learnPath_id']))
     {
         $classItem=' hot';
     }
@@ -582,7 +583,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     if ( !$is_blocked )
     {
         echo "<td align=\"left\"><a class=\"item".$classItem."\" href=\"learningPath.php?path_id="
-            .$list['learnPath_id']."\"><img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"\"
+            .$list['learnPath_id']."\"><img src=\"" . get_path('imgRepositoryWeb') . "learnpath.gif\" alt=\"\"
             border=\"0\" />  ".htmlspecialchars($list['name'])."</a></td>";
 
         /*
@@ -738,7 +739,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     }
     else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
     {
-        echo "<td align=\"left\"> <img src=\"".$imgRepositoryWeb."learnpath.gif\" alt=\"\"
+        echo "<td align=\"left\"> <img src=\"" . get_path('imgRepositoryWeb') . "learnpath.gif\" alt=\"\"
                     border=\"0\" /> ".$list['name'].$list['minRaw']."</td>\n";
     }
 
@@ -751,12 +752,12 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // Modify command / go to other page
         echo "<td>\n",
              "<a href=\"learningPathAdmin.php?path_id=".$list['learnPath_id']."\">\n",
-             "<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".get_lang('Modify')."\" />\n",
+             "<img src=\"" . get_path('imgRepositoryWeb') . "edit.gif\" border=\"0\" alt=\"".get_lang('Modify')."\" />\n",
              "</a>\n",
              "</td>\n";
 
         // DELETE link
-        $real = realpath($coursesRepositorySys.$_course['path']."/scormPackages/path_".$list['learnPath_id']);
+        $real = realpath(get_path('coursesRepositorySys') . claro_get_course_path() . '/scormPackages/path_' . $list['learnPath_id']);
 
         // check if the learning path is of a Scorm import package and add right popup:
 
@@ -765,7 +766,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&amp;del_path_id=".$list['learnPath_id']."\" ",
                   "onClick=\"return scormConfirmation('",clean_str_for_javascript($list['name']),"');\">\n",
-                  "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" />\n",
+                  "<img src=\"" . get_path('imgRepositoryWeb') . "delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" />\n",
                   "</a>\n",
                   "</td>\n";
 
@@ -775,7 +776,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             echo  "<td>\n",
                   "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=delete&amp;del_path_id=".$list['learnPath_id']."\" ",
                   "onClick=\"return confirmation('",clean_str_for_javascript($list['name']),"');\">\n",
-                  "<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" />\n",
+                  "<img src=\"" . get_path('imgRepositoryWeb') . "delete.gif\" border=\"0\" alt=\"".get_lang('Delete')."\" />\n",
                   "</a>\n",
                   "</td>\n";
         }
@@ -786,15 +787,21 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         if ( $list['lock'] == 'OPEN')
         {
-            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&amp;cmdid=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"".get_lang('Block')."\" border=\"0\">\n",
-                  "</a>\n";
+
+            echo '<a href="' . $_SERVER['PHP_SELF']
+                             . '?cmd=mkBlock'
+                             . '&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'unblock.gif" '
+                 .    'alt="' . get_lang('Block') . '" border="0">'. "\n"
+            .    '</a>' . "\n"
+            ;
         }
         else
         {
-            echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&amp;cmdid=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"" . get_lang('Unblock') . "\" border=\"0\">\n",
-                  "</a>\n";
+            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkUnblock&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('Unblock') . '" border="0">' . "\n"
+            .    '</a>' . "\n"
+            ;
         }
         echo  "</td>\n";
 
@@ -804,8 +811,9 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         if ( $list['visibility'] == 'HIDE')
         {
+
             echo  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&amp;visibility_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\" />\n",
+                  "<img src=\"" . get_path('imgRepositoryWeb') . "invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\" />\n",
                   "</a>";
         }
         else
@@ -819,9 +827,10 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 $onclick = "";
             }
 
-            echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&amp;visibility_path_id=".$list['learnPath_id']."\" ",$onclick, " >\n",
-                 "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"".get_lang('Make invisible')."\" border=\"0\" />\n",
-                 "</a>\n";
+            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '" ' . $onclick . ' >' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Make invisible') . '" border="0">' . "\n"
+            .    '</a>' . "\n"
+            ;
         }
         echo  "</td>\n";
 
@@ -830,43 +839,50 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // DISPLAY MOVE UP COMMAND only if it is not the top learning path
         if ($iterator != 1)
         {
-            echo  "<td>\n",
-                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&amp;move_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('Move up') . "\" border=\"0\" />\n",
-                  "</a>\n",
-                  "</td>\n";
+            echo '<td>' . "\n"
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveUp&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" border="0">' . "\n"
+            .    '</a>' . "\n"
+            .    '</td>' . "\n"
+            ;
         }
         else
         {
-            echo "<td>&nbsp;</td>\n";
+            echo '<td>&nbsp;</td>' . "\n";
         }
 
         // DISPLAY MOVE DOWN COMMAND only if it is not the bottom learning path
         if($iterator < $LPNumber)
         {
-            echo  "<td>\n",
-                  "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&amp;move_path_id=".$list['learnPath_id']."\">\n",
-                  "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"".get_lang('Move down')."\" border=\"0\" />\n",
-                  "</a>\n",
-                  "</td>\n";
+            echo '<td>' . "\n"
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" border="0">' . "\n"
+            .    '</a>' . "\n"
+            .    '</td>' . "\n"
+            ;
         }
         else
         {
-            echo "<td>&nbsp;</td>\n";
+            echo '<td>&nbsp;</td>' . "\n";
         }
 
         // EXPORT links
-        echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
-            .'<img src="' . $clarolineRepositoryWeb . 'img/export.gif" alt="' . get_lang('Export') . '" border="0"></a></td>' . "\n";
+        echo '<td>' . "\n"
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
+        .    '<img src="' . get_path('clarolineRepositoryWeb') . 'img/export.gif" alt="' . get_lang('Export') . '" border="0">'
+        .    '</a>' . "\n"
+        .    '</td>' . "\n"
+        ;
 
         if( get_conf('is_trackingEnabled') )
         {
             // statistics links
-            echo "<td>\n
-              <a href=\"".$clarolineRepositoryWeb."tracking/learnPath_details.php?path_id=".$list['learnPath_id']."\">
-              <img src=\"".$imgRepositoryWeb."statistics.gif\" border=\"0\" alt=\"".get_lang('Tracking')."\" />
-              </a>
-              </td>\n";
+            echo '<td>' . "\n"
+            .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/learnPath_details.php?path_id=' . $list['learnPath_id'] . '">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" border="0" alt="' . get_lang('Tracking') . '" />'
+            .    '</a>' . "\n"
+            .    '</td>'. "\n"
+            ;
         }
     }
     elseif($lpUid)
@@ -897,7 +913,7 @@ if( $iterator == 1 )
 {
       echo "<tr><td align=\"center\" colspan=\"8\">".get_lang('No learning path')."</td></tr>";
 }
-elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
+elseif (!claro_is_course_manager() && $iterator != 1 && $lpUid)
 {
     // add a blank line between module progression and global progression
     echo "<tr><td colspan=\"3\">&nbsp;</td></tr>";
@@ -915,11 +931,12 @@ elseif (!$is_courseAdmin && $iterator != 1 && $lpUid)
           </tr>
           ";
 }
-echo "</tfoot>\n";
-echo "</table>\n";
+echo '</tfoot>' . "\n"
+.    '</table>' . "\n"
+;
 
 // footer
 
-include($includePath."/claro_init_footer.inc.php");
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

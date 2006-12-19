@@ -24,18 +24,18 @@ require '../inc/claro_init_global.inc.php';
 // this page will do the necessary to auth the user, 
 // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
-$is_AllowedToEdit = $is_courseAdmin;
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+$is_AllowedToEdit = claro_is_course_manager();
 
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 
 $nameTools = get_lang('Add a document');
 
 //header
-@include($includePath."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // tables names
   
@@ -56,18 +56,19 @@ $TABLEASSET                = $tbl_lp_asset;
 $dbTable = $tbl_cdb_names['document'];
 
 // document browser vars
-$TABLEDOCUMENT     = $_course['dbNameGlu']."document";
+// TODO ue claro_sql_get_course_tbl
+$TABLEDOCUMENT = claro_get_current_course_data('dbNameGlu') . 'document';
 
-$courseDir   = $_course['path']."/document";
-$moduleDir   = $_course['path']."/modules";
-$baseWorkDir = $coursesRepositorySys.$courseDir;
-$moduleWorkDir = $coursesRepositorySys.$moduleDir;
+$courseDir   = claro_get_course_path() . '/document';
+$moduleDir   = claro_get_course_path() . '/modules';
+$baseWorkDir = get_path('coursesRepositorySys').$courseDir;
+$moduleWorkDir = get_path('coursesRepositorySys').$moduleDir;
 
 //lib of this tool
-@include($includePath."/lib/learnPath.lib.inc.php");
+include(get_path('incRepositorySys') . "/lib/learnPath.lib.inc.php");
 
-include($includePath."/lib/fileDisplay.lib.php");
-include($includePath."/lib/fileManage.lib.php");
+include(get_path('incRepositorySys') . "/lib/fileDisplay.lib.php");
+include(get_path('incRepositorySys') . "/lib/fileManage.lib.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
@@ -457,5 +458,5 @@ echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning
 display_path_content();
 
 // footer
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

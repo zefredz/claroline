@@ -35,7 +35,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     {
             // set the subtitle for the echo claro_disp_tool_title function
             $sql = "SELECT `access_tlabel` AS `label`
-                    FROM `".$TABLETRACK_ACCESS."`
+                    FROM `" . $TABLETRACK_ACCESS . "`
                     WHERE `access_tid` = ". (int)$_REQUEST['id']."
                     GROUP BY `access_tid`" ;
 
@@ -109,11 +109,11 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
                 continue;
             }
             $i++;
-            echo '<tr>'."\n"
-                .'<td>'.$userName.'</td>'."\n"
-                .'<td>'.claro_disp_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']).'</td>'."\n"
-                .'<td>'.$userAccess['nbr'] . '</td>' . "\n"
-            .    '</tr>'."\n\n"
+            echo '<tr>' . "\n"
+            .    '<td>' . $userName . '</td>' . "\n"
+            .    '<td>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']) . '</td>' . "\n"
+            .    '<td>' . $userAccess['nbr'] . '</td>' . "\n"
+            .    '</tr>' . "\n\n"
             ;
         }
     }

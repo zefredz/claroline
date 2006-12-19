@@ -254,7 +254,7 @@ function highlight(elementId)
 </script>";
 
 // display header
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
                 'help_user.php');

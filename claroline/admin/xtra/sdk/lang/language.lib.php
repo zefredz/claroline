@@ -313,8 +313,6 @@ function store_lang_used_in_script($languageVarList, $sourceFileName)
 
 function detect_included_files(&$tokenList)
 {
-    global $includePath;
-
     $includeFileList = array();
 
     for ($i = 0, $tokenCount =  count($tokenList); $i < $tokenCount ; $i++)
@@ -362,8 +360,8 @@ function detect_included_files(&$tokenList)
 
             // replace dirname(__FILE__) by nothing
             $includeFile = ereg_replace("dirname\(__FILE__\) *\. *(['\"])","\\1",$includeFile);
-            // replace $includePath by $includePath
-            $includeFile = ereg_replace('\$includePath *\. *([\'\"])',"\\1" . $GLOBALS['includePath'],$includeFile);
+            // replace get_path('incRepositorySys') by get_path('incRepositorySys')
+            $includeFile = ereg_replace('\$includePath *\. *([\'\"])',"\\1" . get_path('incRepositorySys'), $includeFile);
             // replace $rootSys by $rootSys
             $includeFile = ereg_replace('\$rootSys *\. *([\'\"])',"\\1" . $GLOBALS['rootSys'],$includeFile);
             // replace $rootAdminSys by $rootAdminSys
@@ -644,11 +642,9 @@ function is_a_lang_varname($var)
 
 function get_real_path_from_statement($statementString, $parsedFilePath)
 {
-    global $includePath, $rootSys;
-
     $evaluatedPath = eval("return ".$statementString.";");
 
-    if ( ! strstr($evaluatedPath, $rootSys) )
+    if ( ! strstr($evaluatedPath, get_path('rootSys')) )
     {
         $realPath = realpath( dirname($parsedFilePath) .'/'. $evaluatedPath);
     }
@@ -716,11 +712,9 @@ function get_lang_path_list($path_lang)
 
 function load_array_translation ($language)
 {
-    global $includePath;
-
-    if ( file_exists($includePath . '/../lang/' . $language . '/complete.lang.php') )
+    if ( file_exists(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php') )
     {
-        include($includePath . '/../lang/' . $language . '/complete.lang.php');
+        include(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
 
         $localVar = get_defined_vars();
 
@@ -746,7 +740,7 @@ function load_array_translation ($language)
             return $translations;
         }
     }
-
+    return array();
 }
 
 function build_translation_line_file($key,$value)

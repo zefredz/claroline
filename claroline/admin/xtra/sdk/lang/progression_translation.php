@@ -14,8 +14,8 @@
 require '../../../../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 /*
  * This script display progression of all language.
@@ -24,12 +24,13 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 // include configuration and library file
 include ('language.conf.php');
 include ('language.lib.php');
-include($includePath."/lib/pager.lib.php");
+include(get_path('incRepositorySys')."/lib/pager.lib.php");
 
 // table
 
-$tbl_used_lang = '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
-$tbl_translation =  '`' . $mainDbName . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+
+$tbl_used_lang = '`' . get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . TABLE_USED_LANG_VAR . '`';
+$tbl_translation =  '`' . get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . TABLE_TRANSLATION . '`';
 
 // get start time
 $starttime = get_time();
@@ -50,15 +51,13 @@ else
 // start content
 $nameTools = 'Display Progression of Translations';
 
-$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
+$urlSDK = get_path('rootAdminWeb') . 'xtra/sdk/';
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
+$interbredcrump[] = array ("url"=>get_path('rootAdminWeb'), "name"=> get_lang('Administration'));
 $interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
 $interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('Translation Tools'));
 
-include($includePath."/claro_init_header.inc.php");
-
-echo claro_html_tool_title($nameTools);
+include get_path('incRepositorySys')."/claro_init_header.inc.php";
 
 // count different variables in script
 $sql = " SELECT count(DISTINCT varName) 
@@ -68,7 +67,8 @@ $results = claro_sql_query($sql);
 $row = mysql_fetch_row($results);
 $count_total_diff_var = $row[0];
 
-echo "<p>Total variables in Claroline scripts: <strong>" . $count_total_diff_var . "</strong></p>";
+echo claro_html_tool_title($nameTools)
+.    '<p>Total variables in Claroline scripts: <strong>" . $count_total_diff_var . "</strong></p>";
 
 if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
 {
@@ -220,13 +220,13 @@ else
             echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?exCmd=ToTranslate&lang=" . $language . "\">" . $count_var_to_translate . "</a>";
         }
         
-	    echo "</td>\n" 
-	         . "<td style=\"text-align: right\">" . $pourcent_progession . " %</td>\n"
-	         . "</tr>\n";
-	}
-	
-	echo "</tbody>";
-	echo "</table>";
+        echo "</td>\n" 
+             . "<td style=\"text-align: right\">" . $pourcent_progession . " %</td>\n"
+             . "</tr>\n";
+    }
+    
+    echo "</tbody>";
+    echo "</table>";
 }
 
 // get end time
@@ -237,6 +237,6 @@ echo "<p><em>Execution time: $totaltime</em></p>";
 
 // display footer 
 
-include($includePath."/claro_init_footer.inc.php");
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

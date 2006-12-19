@@ -29,7 +29,7 @@ include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
 
 ////////////// OUTPUT //////////////////////
 
-include(get_path('incRepositorySys')."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 
 if ( get_conf('is_trackingEnabled') )
@@ -68,5 +68,5 @@ else
     echo get_lang('Tracking has been disabled by system administrator.');
 }
 
-include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

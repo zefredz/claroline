@@ -37,8 +37,10 @@ if ( ! file_exists('../../inc/currentVersion.inc.php') )
 require 'upgrade_init_global.inc.php';
 
 // Security Check
-if (!$is_platformAdmin) upgrade_disp_auth_form();
+if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
+// Include library
+include (get_path('incRepositorySys').'/lib/fileManage.lib.php');
 // Define display
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
 DEFINE ('DISPLAY_RESULT_ERROR_PANEL', __LINE__);
@@ -59,13 +61,13 @@ $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
 if ( $cmd == 'run' )
 {
     // Create module, platform, tmp folders
-    if ( !file_exists($rootSys . 'module/') ) claro_mkdir($rootSys . 'module/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists($rootSys . 'platform/') ) claro_mkdir($rootSys . 'platform/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists($rootSys . 'platform/conf/') ) claro_mkdir($rootSys . 'platform/conf/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists($rootSys . 'tmp/') ) claro_mkdir($rootSys . 'tmp/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists(get_path('rootSys') . 'module/') ) claro_mkdir(get_path('rootSys') . 'module/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists(get_path('rootSys') . 'platform/') ) claro_mkdir(get_path('rootSys') . 'platform/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists(get_path('rootSys') . 'platform/conf/') ) claro_mkdir(get_path('rootSys') . 'platform/conf/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists(get_path('rootSys') . 'tmp/') ) claro_mkdir(get_path('rootSys') . 'tmp/', CLARO_FILE_PERMISSIONS, true);
 
     // Create folder to backup configuration files
-    $backupRepositorySys = $rootSys .'platform/bak.'.date('Y-z-B').'/';
+    $backupRepositorySys = get_path('rootSys') .'platform/bak.'.date('Y-z-B').'/';
     claro_mkdir($backupRepositorySys, CLARO_FILE_PERMISSIONS, true);
 
     $output = '<h3>Configuration file</h3>' . "\n" ;
@@ -198,7 +200,7 @@ if ( $cmd == 'run' )
      * Config file to undist
      */
 
-    $arr_file_to_undist = array ( $includePath.'/../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys.'platform/conf' );
+    $arr_file_to_undist = array ( get_path('incRepositorySys').'/../auth/extauth/drivers/auth.drivers.conf.php' => get_path('rootSys').'platform/conf' );
 
     foreach ( $arr_file_to_undist as $undistFile => $undistPath )
     {

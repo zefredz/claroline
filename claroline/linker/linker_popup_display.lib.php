@@ -51,7 +51,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
    function displayAttachmentList($current_crl)
    {
        global $caddy;
-       global $imgRepositoryWeb;
 
        $content = $caddy->getAttachmentList();
 
@@ -69,7 +68,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
-               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.get_lang("Delete").'" />'
+               .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt='.get_lang("Delete").'" />'
                .    '</a></td></tr>' . "\n"
                ;
            }
@@ -215,12 +214,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     /**
     * display the list the other course
     *
-    * @global $platform_id  the id of the platforme
     * @throws E_USER_ERROR if it is not a array
     */
     function displayOtherCourse( $navigator , $crl )
     {
-        global $platform_id;
 
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
@@ -236,7 +233,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             foreach ($otherCourseInfo as $courseInfo )
             {
-                $crl = CRLTool::createCRL($platform_id , $courseInfo['code'] );
+                $crl = CRLTool::createCRL(get_conf('platform_id') , $courseInfo['code'] );
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
@@ -266,12 +263,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     /**
     * display the list the public course
     *
-    * @global $platform_id  the id of the platforme
     * @throw E_USER_ERROR if it is not a array
     */
     function displayPublicCourse( $navigator , $crl )
     {
-        global $platform_id;
 
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
@@ -289,7 +284,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             foreach ($publicCourseInfo as $courseInfo )
             {
-                $crl = CRLTool::createCRL($platform_id , $courseInfo['code'] );
+                $crl = CRLTool::createCRL(get_conf('platform_id') , $courseInfo['code'] );
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
@@ -321,8 +316,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function displayParentLink ( $navigator , $isLink = TRUE)
     {
-        global $imgRepositoryWeb;
-
         $crlParent = $navigator->getParent();
 
         if( $isLink && $crlParent)
@@ -331,7 +324,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .    '?fct=add'
             .    '&amp;cmd=browse'
             .    '&amp;current_crl=' . urlencode ($crlParent) . '" class="claroCmd">'
-            .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" alt="" />'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" alt="" />'
             .    get_lang("Up")
             .    '</a>'
             ;
@@ -339,7 +332,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         else
         {
             echo '<span class="claroCmdDisabled">'
-            .    '<img src="' . $imgRepositoryWeb . 'parentdisabled.gif" border="0" alt="" />'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'parentdisabled.gif" border="0" alt="" />'
             .    get_lang("Up")
             .    '</span>'
             ;

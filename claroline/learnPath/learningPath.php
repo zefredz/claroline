@@ -21,24 +21,25 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
 
 // tables names
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+
+$TABLELEARNPATH         = claro_get_current_course_data('dbNameGlu') . "lp_learnPath";
+$TABLEMODULE            = claro_get_current_course_data('dbNameGlu') . "lp_module";
+$TABLELEARNPATHMODULE   = claro_get_current_course_data('dbNameGlu') . "lp_rel_learnPath_module";
+$TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset";
+$TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
 
 //lib of this tool
-include($includePath."/lib/learnPath.lib.inc.php");
+include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 //lib of document tool
-include($includePath."/lib/fileDisplay.lib.php");
+include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
 
 // $_SESSION
 if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
@@ -48,7 +49,7 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
 elseif( (!isset($_SESSION['path_id']) || $_SESSION['path_id'] == "") )
 { 
     // if path id not set, redirect user to the home page of learning path
-    claro_redirect($clarolineRepositoryWeb."learnPath/learningPathList.php");
+    claro_redirect(get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php");
     exit();
 }
 
@@ -59,7 +60,7 @@ claro_set_display_mode_available(true);
 if ( claro_is_allowed_to_edit() )
 {
     // if the fct return true it means that user is a course manager and than view mode is set to COURSE_ADMIN
-    claro_redirect($clarolineRepositoryWeb."learnPath/learningPathAdmin.php?path_id=".$_SESSION['path_id']);
+    claro_redirect(get_path('clarolineRepositoryWeb')."learnPath/learningPathAdmin.php?path_id=".$_SESSION['path_id']);
     exit();
 }
 
@@ -68,9 +69,9 @@ if ( claro_is_allowed_to_edit() )
 //############################## MODULE TABLE LIST PREPARATION ###############################\\
 //####################################################################################\\
 
-if($_uid)
+if(claro_is_user_authenticated())
 {
-    $uidCheckString = "AND UMP.`user_id` = ".$_uid;
+    $uidCheckString = "AND UMP.`user_id` = " . (int) claro_get_current_user_id();
 }
 else // anonymous
 {
@@ -123,7 +124,7 @@ for( $i = 0 ; $i < sizeof($flatElementList) ; $i++ )
  ================================================================*/  
   
 //header
-include($includePath."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display title
 echo claro_html_tool_title($nameTools);
@@ -145,7 +146,7 @@ echo "\n".'<br />'."\n"
     .'<th colspan="'.($maxDeep+1).'">'.get_lang('Module').'</th>'."\n";
 
 
-if ( $_uid )
+if ( claro_is_user_authenticated() )
 {
     // show only progress column for authenticated users
     echo '<th colspan="2">'.get_lang('Progress').'</th>'."\n";
@@ -228,7 +229,7 @@ foreach ($flatElementList as $module)
             
         $contentType_alt = selectAlt($module['contentType']);
         echo '<a href="module.php?module_id='.$module['module_id'].'">'
-            .'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'
+            .'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'
             .htmlspecialchars($module['name']).'</a>'."\n";
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
@@ -240,7 +241,7 @@ foreach ($flatElementList as $module)
             && !$passExercise 
           )
         {
-            if($_uid)
+            if(claro_is_user_authenticated())
             {
                 $is_blocked = true; // following modules will be unlinked
             }
@@ -263,12 +264,12 @@ foreach ($flatElementList as $module)
             $moduleImg = choose_image(basename($module['path']));
         }
 
-        echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'."\n"
+        echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'."\n"
              .htmlspecialchars($module['name']);
     }
     echo '</td>'."\n";
 
-    if( $_uid && ($module['contentType'] != CTLABEL_) )
+    if( claro_is_user_authenticated() && ($module['contentType'] != CTLABEL_) )
     {
         // display the progress value for current module
         echo '<td align="right">'.claro_html_progress_bar ($progress, 1).'</td>'."\n"
@@ -277,7 +278,7 @@ foreach ($flatElementList as $module)
         .    '</td>' . "\n"
         ;
     }
-    elseif( $_uid && $module['contentType'] == CTLABEL_ )
+    elseif( claro_is_user_authenticated() && $module['contentType'] == CTLABEL_ )
     {
         echo '<td colspan="2">&nbsp;</td>'."\n";
     }
@@ -305,7 +306,7 @@ if ($atleastOne == false)
     .    '</tfoot>'."\n\n"
     ;
 }
-elseif($_uid && $moduleNb > 0)
+elseif(claro_is_user_authenticated() && $moduleNb > 0)
 {
     // add a blank line between module progression and global progression
     echo '<tfoot>'."\n\n"
@@ -329,6 +330,6 @@ echo '</table>'."\n\n";
 //####################################################################################\\
 //################################### FOOTER #########################################\\
 //####################################################################################\\
-include($includePath."/claro_init_footer.inc.php");
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

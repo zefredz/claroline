@@ -21,30 +21,31 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-$is_AllowedToEdit = $is_courseAdmin;
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+$is_AllowedToEdit = claro_is_course_manager();
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 
 $nameTools = get_lang('Add a module of this course');
 
 //header
-include($includePath."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // tables names
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+
+$TABLELEARNPATH         = claro_get_current_course_data('dbNameGlu') . "lp_learnPath";
+$TABLEMODULE            = claro_get_current_course_data('dbNameGlu') . "lp_module";
+$TABLELEARNPATHMODULE   = claro_get_current_course_data('dbNameGlu') . "lp_rel_learnPath_module";
+$TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset";
+$TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
 
 //lib of this tool
-include($includePath."/lib/learnPath.lib.inc.php");
+include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 //lib of document tool
-include($includePath."/lib/fileDisplay.lib.php");
+include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
@@ -190,7 +191,7 @@ while ($list=mysql_fetch_array($result))
         .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'">'."\n"
         .'</td>'."\n"
         .'<td align="left">'."\n"
-        .'<label for="check_'.$list['module_id'].'" ><img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" />'.$list['name'].'</label>'."\n"
+        .'<label for="check_'.$list['module_id'].'" ><img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" />'.$list['name'].'</label>'."\n"
         .'</td>'."\n"
         .'</tr>'."\n\n";
 
@@ -251,6 +252,6 @@ echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning
 display_path_content();
 
 // footer
-include($includePath."/claro_init_footer.inc.php");
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

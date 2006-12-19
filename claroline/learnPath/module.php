@@ -22,7 +22,7 @@ $tlabelReq = 'CLLNP';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 // $_SESSION
 // path_id
@@ -68,11 +68,11 @@ $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 $dbTable = $TABLEASSET; // for old functions of document tool
 
 //lib of this tool
-include($includePath."/lib/learnPath.lib.inc.php");
+include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
-include($includePath."/lib/fileDisplay.lib.php");
-include($includePath."/lib/fileManage.lib.php");
-include($includePath."/lib/fileUpload.lib.php");
+include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+include(get_path('incRepositorySys')."/lib/fileManage.lib.php");
+include(get_path('incRepositorySys')."/lib/fileUpload.lib.php");
 
 // clean exercise session vars
 unset($_SESSION['serializedExercise']);
@@ -143,7 +143,7 @@ $sql = "SELECT `contentType`,
         FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP,
              `".$TABLELEARNPATHMODULE."` AS LPM,
              `".$TABLEMODULE."` AS M
-        WHERE UMP.`user_id` = '$_uid'
+        WHERE UMP.`user_id` = '" . (int) claro_get_current_user_id() . "'
           AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
           AND LPM.`learnPath_id` = ".(int)$_SESSION['path_id']."
           AND LPM.`module_id` = ". (int)$_SESSION['module_id']."
@@ -164,7 +164,7 @@ if( !$is_AllowedToEdit
 }
 
 //header
-include($includePath."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 //####################################################################################\\
 //################################## MODULE NAME BOX #################################\\
@@ -262,7 +262,7 @@ if($module['contentType'] != CTLABEL_) //
         //display type of the module
         echo '<tr>'."\n"
             .'<td>'.get_lang('Module type').'</td>'."\n"
-            .'<td><img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
+            .'<td><img src="' . get_path('imgRepositoryWeb') . $contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
             .'</tr>'."\n\n";
 
         //display total time already spent in the module
@@ -383,5 +383,5 @@ if( $is_AllowedToEdit ) // for teacher only
 } // if ($is_AllowedToEdit)
 
 // footer
-include($includePath.'/claro_init_footer.inc.php');
+include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 ?>

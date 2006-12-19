@@ -129,5 +129,5 @@ else
 
 
 
-include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

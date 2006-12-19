@@ -100,7 +100,7 @@ else
 }
 
 
-include(get_path('incRepositorySys')."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 // display title
 $titleTab['mainTitle'] = $nameTools;
 echo claro_html_tool_title($titleTab);
@@ -605,5 +605,5 @@ else
     }
 }
 
-include(get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

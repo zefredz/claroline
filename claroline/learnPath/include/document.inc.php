@@ -16,8 +16,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 // document browser vars
-$TABLEDOCUMENT = $_course['dbNameGlu']."document";
 
+// TODO use
+$TABLEDOCUMENT = claro_sql_get_tbl('document', array(CLARO_CONTEXT_COURSE,claro_get_current_course_id()));
 
 // Update infos about asset
 $sql = "SELECT `path`
@@ -25,8 +26,8 @@ $sql = "SELECT `path`
         WHERE `module_id` = ". (int)$_SESSION['module_id'];
 $assetPath = claro_sql_query_get_single_value($sql);
 
-$courseDir = $_course['path']."/document";
-$baseWorkDir = $coursesRepositorySys.$courseDir;
+$courseDir = claro_get_course_path() . '/document';
+$baseWorkDir = get_path('coursesRepositorySys').$courseDir;
 $file = $baseWorkDir.$assetPath;
 $fileSize = format_file_size(filesize($file));
 $fileDate = format_date(filectime($file));

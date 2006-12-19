@@ -94,12 +94,12 @@ class ConfigUpgrade extends Config
         if ( !empty($this->conf_def['config_file']) )
         {
             // get the name of config file in definition file
-            return $GLOBALS['includePath'] . '/conf/' . $this->conf_def['config_file'];
+            return get_path('incRepositorySys') . '/conf/' . $this->conf_def['config_file'];
         }
         else
         {
             // build the filename with the config_code
-            return $GLOBALS['includePath'] . '/conf/' . $this->config_code . '.conf.php';
+            return get_path('incRepositorySys') . '/conf/' . $this->config_code . '.conf.php';
         }
     }
 

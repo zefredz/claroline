@@ -191,11 +191,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @param $elementCRLArray associative array who contains the information of a crl
         * @param $partResourceId  string element of a resource_id
         * @return string a valide crl
-        * @global $platform_id id of the platform
         */
         function _createObjectCRL($elementCRLArray,$partResourceId)
         {
-             global $platform_id;
 
              if( isset($elementCRLArray['resource_id']) )
              {
@@ -208,11 +206,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
              if( isset($elementCRLArray["team"]) )
              {
-                 $crl = CRLTool::createCRL($platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id ,$elementCRLArray["team"]);
+                 $crl = CRLTool::createCRL(get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id ,$elementCRLArray["team"]);
              }
              else
              {
-                 $crl = CRLTool::createCRL($platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
+                 $crl = CRLTool::createCRL(get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
              }
 
              return $crl;

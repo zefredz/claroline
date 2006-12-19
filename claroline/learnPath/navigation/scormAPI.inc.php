@@ -38,14 +38,14 @@ $TABLEASSET              = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
 $TABLEUSERS              = $tbl_user;
 
-$SCORMServerURL = $clarolineRepositoryWeb."learnPath/navigation/SCORMserver.php";
-$redirectionURL = $clarolineRepositoryWeb."learnPath/learningPath.php";
-$TOCurl = $clarolineRepositoryWeb."learnPath/navigation/tableOfContent.php";
+$SCORMServerURL = get_path('clarolineRepositoryWeb')."learnPath/navigation/SCORMserver.php";
+$redirectionURL = get_path('clarolineRepositoryWeb')."learnPath/learningPath.php";
+$TOCurl = get_path('clarolineRepositoryWeb')."learnPath/navigation/tableOfContent.php";
 /*======================================
        CLAROLINE MAIN
   ======================================*/
 
-if($_uid)
+if(claro_is_user_authenticated())
 {
     // Get general information to generate the right API inmplementation
     $sql = "SELECT *
@@ -53,7 +53,7 @@ if($_uid)
                    `".$TABLELEARNPATHMODULE."` AS LPM,
                    `".$TABLEUSERS."` AS U,
                    `".$TABLEMODULE."` AS M
-             WHERE UMP.`user_id` = ". (int)$_uid."
+             WHERE UMP.`user_id` = ". (int)claro_get_current_user_id()."
                AND UMP.`user_id` = U.`user_id`
                AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
                AND M.`module_id` = LPM.`module_id`
@@ -63,7 +63,7 @@ if($_uid)
     $userProgressionDetails = claro_sql_query_get_single_row($sql);
 }
 
-if( !$_uid || !$userProgressionDetails )
+if( ! claro_is_user_authenticated() || !$userProgressionDetails )
 {
     $sco['student_id'] = "-1";
     $sco['student_name'] = "Anonymous, User";
@@ -81,7 +81,7 @@ if( !$_uid || !$userProgressionDetails )
 else // authenticated user and no error in query
 {
     // set vars
-    $sco['student_id'] = $_uid;
+    $sco['student_id'] = claro_get_current_user_id();
     $sco['student_name'] = $userProgressionDetails['nom'].", ".$userProgressionDetails['prenom'];
     $sco['lesson_location'] = $userProgressionDetails['lesson_location'];
     $sco['credit'] = strtolower($userProgressionDetails['credit']);

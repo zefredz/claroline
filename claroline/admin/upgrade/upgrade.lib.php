@@ -28,7 +28,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function upgrade_disp_header()
 {
-    global $htmlHeadXtra, $text_dir;
+    global $htmlHeadXtra;
     global $new_version;
 
     $output = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -53,7 +53,7 @@ if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 }
 
 $output .='</head>
-<body bgcolor="white" dir="' . $text_dir . '">
+<body bgcolor="white" dir="' .get_locale('text_dir') . '">
 
 <center>
 
@@ -111,10 +111,8 @@ function upgrade_disp_footer()
 
 function save_current_version_file ( $clarolineVersion, $databaseVersion )
 {
-    global $rootSys;
-
     // open file in write mode
-    $fp_currentVersion = fopen( $rootSys . 'platform/currentVersion.inc.php','w');
+    $fp_currentVersion = fopen( get_path('rootSys') . 'platform/currentVersion.inc.php','w');
 
     // build content
     $currentVersionStr = '<?php 
@@ -139,18 +137,18 @@ $versionDb = "' . $databaseVersion . '";
 function get_current_version ()
 {
     global $clarolineVersion, $versionDb;
-    global $includePath, $rootSys;
+    global $rootSys;
 
-    if ( file_exists($rootSys.'platform/currentVersion.inc.php') )
+    if ( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
     {
-        // get claroline version in $rootSys folder
-        include($rootSys.'platform/currentVersion.inc.php');
+        // get claroline version in get_path('rootSys') folder
+        include(get_path('rootSys').'platform/currentVersion.inc.php');
     }
-    elseif ( file_exists($includePath.'/currentVersion.inc.php') )
+    elseif ( file_exists(get_path('incRepositorySys').'/currentVersion.inc.php') )
     {
         // get claroline version in currentVersion file (new in 1.6)
         // before the clarolineVersion was in claro_main.conf.php
-        include ($includePath.'/currentVersion.inc.php');
+        include (get_path('incRepositorySys').'/currentVersion.inc.php');
     }
     
     $current_version['claroline'] = $clarolineVersion;
@@ -168,12 +166,11 @@ function get_current_version ()
 
 function get_new_version ()
 {
-    global $includePath;
 
     $new_version = null;
     $new_version_branch  = null;
 
-    include ( $includePath . '/installedVersion.inc.php' ) ;
+    include ( get_path('incRepositorySys') . '/installedVersion.inc.php' ) ;
     
     $version = array( 'complete' => $new_version,
                       'branch' => $new_version_branch );
@@ -626,7 +623,6 @@ function log_message($message)
 
 function open_upgrade_log()
 {
-    global $includePath, $dateTimeFormatLong;
     global $new_version, $currentClarolineVersion, $currentDbVersion;
     global $fp_upgrade_log;
 
@@ -637,7 +633,7 @@ function open_upgrade_log()
                        . ' * Upgrade to ' . $new_version . "\n"
                        . ' * Current File Version : ' . $currentClarolineVersion . "\n"
                        . ' * Current Database Version : ' . $currentDbVersion . "\n"
-                       . ' * Date :'. claro_disp_localised_date($dateTimeFormatLong) . "\n"
+                       . ' * Date :'. claro_disp_localised_date(get_locale('dateTimeFormatLong')) . "\n"
                        . '========================================================'. "\n" ;
     
         // write content in file

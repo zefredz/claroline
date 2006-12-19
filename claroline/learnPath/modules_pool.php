@@ -26,8 +26,8 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-$is_AllowedToEdit = $is_courseAdmin;
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+$is_AllowedToEdit = claro_is_course_manager();
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
 $htmlHeadXtra[] =
@@ -68,14 +68,14 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
 //lib of this tool
-include($includePath."/lib/learnPath.lib.inc.php");
+include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 /*======================================
        CLAROLINE MAIN
   ======================================*/
 
 //header
-include($includePath."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display title
 echo claro_html_tool_title($nameTools);
@@ -91,10 +91,10 @@ switch( $cmd )
     // MODULE DELETE
     case "eraseModule" :
         // used to physically delete the module  from server
-        include($includePath."/lib/fileManage.lib.php");
+        include(get_path('incRepositorySys')."/lib/fileManage.lib.php");
 
-        $moduleDir   = $_course['path']."/modules";
-        $moduleWorkDir = $coursesRepositorySys.$moduleDir;
+        $moduleDir   = claro_get_course_path() . '/modules';
+        $moduleWorkDir = get_path('coursesRepositorySys').$moduleDir;
 
         // delete all assets of this module
         $sql = "DELETE
@@ -276,19 +276,19 @@ while ($list = mysql_fetch_array($result))
     $contentType_alt = selectAlt($list['contentType']);
     echo '<tr>' . "\n"
 	.	 '<td align="left">' . "\n"
-	.	 '<img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
+	.	 '<img src="' . get_path('imgRepositoryWeb') . $contentType_img.'" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
 	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
 	.	 ' onClick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
-	.	 '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+	.	 '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
 	.	 '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Rename').'" /></a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Rename').'" /></a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'"><img src="'.$imgRepositoryWeb.'comment.gif" border="0" alt="'.get_lang('Comment').'" /></a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'"><img src="' . get_path('imgRepositoryWeb') . 'comment.gif" border="0" alt="'.get_lang('Comment').'" /></a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
 
@@ -319,5 +319,5 @@ echo '</tbody>' . "\n"
 
 // footer
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

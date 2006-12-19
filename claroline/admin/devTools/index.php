@@ -37,7 +37,7 @@ $nameTools = get_lang('Devel Tools');
 
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 

@@ -43,7 +43,7 @@ class CourseResolver extends Resolver
     {
         global $coursesRepositoryAppend;
 
-        $this->_basePath = get_conf('rootWeb');
+        $this->_basePath = get_path('rootWeb');
 
     }
 

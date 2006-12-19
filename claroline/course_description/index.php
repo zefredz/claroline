@@ -23,9 +23,9 @@
 $tlabelReq = 'CLDSC';
 
 require '../inc/claro_init_global.inc.php';
-include_once $includePath . '/lib/courseDescription.lib.php';
+include_once get_path('incRepositorySys') . '/lib/courseDescription.lib.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(TRUE);
 $nameTools = get_lang('Course description');
@@ -34,8 +34,8 @@ $noQUERY_STRING = TRUE; // to remove parameters in the last breadcrumb link
 
 include 'tiplistinit.inc.php';
 
-$dialogBox = '';
 
+$messageList = array();
 /******************************************************************************
 UPDATE / ADD DESCRIPTION ITEM
 ******************************************************************************/
@@ -60,10 +60,10 @@ if ( $is_allowedToEdit )
         // Update description
         if ( course_description_set_item($descId, $descTitle, $descContent) != false )
         {
-            $eventNotifier->notifyCourseEvent('course_description_modified', $_cid, $_tid, $descId, $_gid, '0');
-            $dialogBox .= '<p>' . get_lang('Description updated') . '</p>';
+            $eventNotifier->notifyCourseEvent('course_description_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
+            $messageList['info'][] = '<p>' . get_lang('Description updated') . '</p>';
         }
-        else $dialogBox .= '<p>' . get_lang('Unable to update') . '</p>';
+        else $messageList['info'][] = '<p>' . get_lang('Unable to update') . '</p>';
 
     }
 
@@ -71,9 +71,9 @@ if ( $is_allowedToEdit )
     {
         // Add new description
         $descId = course_description_add_item($descId,$descTitle,$descContent,sizeof($titreBloc));
-        $dialogBox .= '<p>' . ($descId !== false ? get_lang('Description added.') : get_lang("Unable to add description") ) . '</p>';
+        $messageList['info'][] = '<p>' . ($descId !== false ? get_lang('Description added.') : get_lang("Unable to add description") ) . '</p>';
 
-        $eventNotifier->notifyCourseEvent('course_description_added',$_cid, $_tid, $descId, $_gid, 0);
+        $eventNotifier->notifyCourseEvent('course_description_added',claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), 0);
 
     }
 
@@ -129,20 +129,20 @@ if ( $is_allowedToEdit )
     ******************************************************************************/
     if ( 'rqDelete' == $cmd )
     {
-        $dialogBox .= '<p>' . get_lang('Are you sure to delete') . '</p>';
+        $messageList['info'][] = '<p>' . get_lang('Are you sure to delete') . '</p>';
     }
 
     if ( 'exDelete' == $cmd  && $descId >=0 )
     {
         if ( course_description_delete_item($descId) )
         {
-            $eventNotifier->notifyCourseEvent('course_description_deleted',$_cid, $_tid, $descId, $_gid, '0');
-            $dialogBox .= '<p>' . get_lang("Description deleted.") . '</p>';
+            $eventNotifier->notifyCourseEvent('course_description_deleted',claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
+            $messageList['info'][] = '<p>' . get_lang("Description deleted.") . '</p>';
         }
 
         else
         {
-            $dialogBox .= '<p>' . get_lang("Unable to delete") . '</p>';
+            $messageList['info'][] = '<p>' . get_lang("Unable to delete") . '</p>';
         }
     }
 
@@ -156,21 +156,21 @@ if ( $is_allowedToEdit )
     {
         if ( course_description_visibility_item($descId , $cmd) )
         {
-            $dialogBox .= '<p>' . get_lang('Visibility modified'). '</p>';
+            $messageList['info'][] = '<p>' . get_lang('Visibility modified'). '</p>';
         }
 
         //notify that an item is now visible
 
         if ( 'mkShow' == $cmd )
         {
-            $eventNotifier->notifyCourseEvent('course_description_visible',$_cid, $_tid, $descId, $_gid, '0');
+            $eventNotifier->notifyCourseEvent('course_description_visible',claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
         }
     }
 }
 
 /*---------------------------------------------------------------------------*/
 
-event_access_tool($_tid, $_courseTool['label']);
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 /******************************************************************************
 LOAD THE DESCRIPTION LIST
@@ -180,16 +180,11 @@ $descList = course_description_get_item_list();
 
 /*> > > > > > > > > > > > OUTPUT < < < < < < < < < < < < */
 
-require $includePath . '/claro_init_header.inc.php';
+require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
-echo claro_html_tool_title($nameTools);
-
-if ( isset($dialogBox) && ! empty($dialogBox) )
-{
-    echo claro_html_message_box($dialogBox)
-    .    '<br />' . "\n"
-    ;
-}
+echo claro_html_tool_title($nameTools)
+.    claro_html_msg_list($dialogBox)
+;
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -305,7 +300,7 @@ $hasDisplayedItems = false;
 if ( count($descList) )
 {
 
-    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
+    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
     echo '<table class="claroTable" width="100%">' . "\n";
 
@@ -313,7 +308,7 @@ if ( count($descList) )
     {
 
         //modify style if the file is recently added since last login
-        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisDesc['id']))
+        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisDesc['id']))
         {
             $cssItem = 'item hot';
         }
@@ -346,7 +341,8 @@ if ( count($descList) )
             .    '<td>'
             .    '<div '. $cssInvisible .'>'
             .    claro_parse_user_text($thisDesc['content'])
-            .    '</div>';
+            .    '</div>'
+            ;
 
             $hasDisplayedItems = true;
 
@@ -354,25 +350,28 @@ if ( count($descList) )
             {
                 echo '<p>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisDesc['id'] . '">'
-                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '">'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '">'
                 .    '</a>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisDesc['id'] . '"'
                 .    ' onClick="if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
                 .    ' ' . $thisDesc['title'] . ' ?\')){ return false}">'
-                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" />'
-                .    '</a>' . "\n";
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" />'
+                .    '</a>' . "\n"
+                ;
 
                 if ($thisDesc['visibility'] == 'SHOW')
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisDesc['id'] . '">'
-                    .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
-                    .    '</a>' . "\n";
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
+                    .    '</a>' . "\n"
+                    ;
                 }
                 else
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisDesc['id'] . '">'
-                    .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
-                    .    '</a>' . "\n";
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
+                    .    '</a>' . "\n"
+                    ;
                 }
                 echo '</p>' . "\n";
             }
@@ -390,5 +389,5 @@ if( !$hasDisplayedItems )
     echo "\n" . '<p>' . get_lang("This course is currently not described") . '</p>' . "\n";
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

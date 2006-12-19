@@ -25,7 +25,7 @@ include ('upgrade_course_17.lib.php');
 include ('upgrade_course_18.lib.php');
 
 // Security Check
-if (!$is_platformAdmin) upgrade_disp_auth_form();
+if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -185,8 +185,8 @@ switch ($display)
             // initialise variables
 
             $currentCourseDbName       = $course['dbName'];
-            $currentcoursePathSys      = $coursesRepositorySys . $course['coursePath'].'/';
-            $currentcoursePathWeb      = $coursesRepositoryWeb . $course['coursePath'].'/';
+            $currentcoursePathSys      = get_path('coursesRepositorySys') . $course['coursePath'].'/';
+            $currentcoursePathWeb      = get_path('coursesRepositoryWeb') . $course['coursePath'].'/';
             $currentCourseCode         = $course['code'];
             $currentCourseFakeCode     = $course['fake_code'];
             $currentCourseCreationDate = $course['creationDate'];

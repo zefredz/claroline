@@ -78,7 +78,7 @@ if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
     }
 }
 
-include(get_path('incRepositorySys')."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display title
 $titleTab['mainTitle'] = $nameTools;

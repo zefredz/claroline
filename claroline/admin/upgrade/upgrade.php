@@ -45,7 +45,7 @@ if ( ! file_exists('../../inc/currentVersion.inc.php') )
 require 'upgrade_init_global.inc.php';
 
 // Security Check
-if (!$is_platformAdmin) upgrade_disp_auth_form();
+if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 

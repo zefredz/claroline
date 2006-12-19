@@ -24,14 +24,14 @@
 // Include library file
 
 require '../../inc/claro_init_global.inc.php';
-include_once($includePath . '/lib/debug.lib.inc.php');
-include_once($includePath . '/lib/admin.lib.inc.php');
+include_once(get_path('incRepositorySys') . '/lib/debug.lib.inc.php');
+include_once(get_path('incRepositorySys') . '/lib/admin.lib.inc.php');
 
 $nameTools = get_lang('Restore course repository');
 
 // Security Check
 
-if ( !$is_platformAdmin ) claro_disp_auth_form();
+if ( !claro_is_platform_admin() ) claro_disp_auth_form();
 
 // Execute command
 
@@ -53,7 +53,7 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
         
         while ( ( $course = mysql_fetch_array($res_listCourses)) )
         {
-            $currentcoursePathSys = $coursesRepositorySys . $course['coursePath'] . '/';
+            $currentcoursePathSys = get_path('coursesRepositorySys') . $course['coursePath'] . '/';
             $currentCourseIDsys = $course['sysCode'];
             
             if ( restore_course_repository($currentCourseIDsys,$currentcoursePathSys) )
@@ -69,9 +69,9 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
 // Display
 
 // Deal with interbredcrumps  and title variable
-$interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]  = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 
-include($includePath . '/claro_init_header.inc.php');
+include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
 
 echo claro_html_tool_title($nameTools);
 
@@ -83,18 +83,12 @@ if (isset($restored_courses)) echo $restored_courses;
 
 echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . get_lang('Launch restore of the course repository') . '</a></p>';
 
-include $includePath . '/claro_init_footer.inc.php';
-
-
-/**
- * @global $includePath
- * @global $clarolineRepositorySys
- */
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 function restore_course_repository($courseId, $courseRepository)
 {
 
-    global $clarolineRepositorySys, $clarolineRepositoryWeb, $urlAppend, $includePath;
+    global $urlAppend;
 
     if ( is_writable($courseRepository) )
     {

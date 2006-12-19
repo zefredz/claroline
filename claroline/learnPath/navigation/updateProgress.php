@@ -18,7 +18,7 @@
 
 require '../../inc/claro_init_global.inc.php'; 
 
-include($includePath."/lib/learnPath.lib.inc.php");
+include get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php4;
 
 /**
  * DB tables definition
@@ -41,7 +41,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLEUSERS                    = $tbl_user;
 
 
-$TOCurl = $clarolineRepositoryWeb."learnPath/navigation/tableOfContent.php"; 
+$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php'; 
 
 /*********************/
 /* HANDLING API FORM */

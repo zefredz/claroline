@@ -19,7 +19,7 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 // the following constant defines the default display of the learning path browser
 // 0 : display only table of content and content
@@ -41,14 +41,14 @@ if(!empty($nameTools))
     $titlePage .= $nameTools.' - ';
 }
 
-if(!empty($_course['officialCode']))
+if(!empty(claro_get_current_course_data('officialCode')))
 {
-    $titlePage .= $_course['officialCode'] . ' - ';
+    $titlePage .= claro_get_current_course_data('officialCode') . ' - ';
 }
-$titlePage .= $siteName;
+$titlePage .= get_conf('siteName');
 
 // set charset as claro_header should do but we cannot include it here
-header('Content-Type: text/html; charset=' . $charset);
+header('Content-Type: text/html; charset=' . get_locale('charset'));
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
    "http://www.w3.org/TR/html4/frameset.dtd">
 <html>

@@ -14,8 +14,8 @@
 require '../../../../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 set_time_limit (0);
 
@@ -28,9 +28,7 @@ set_time_limit (0);
 include ('language.conf.php');
 include ('language.lib.php');
 
-require_once $includePath . '/lib/config.lib.inc.php';
-
-$includePath = $rootSys.'claroline/inc';
+require_once get_path('incRepositorySys') . '/lib/config.lib.inc.php';
 
 // table
 
@@ -44,13 +42,14 @@ $starttime = get_time();
 
 $nameTools = 'Extract variables from scripts';
 
-$urlSDK = $rootAdminWeb . 'xtra/sdk/';
+$urlSDK = get_path('rootAdminWeb') . 'xtra/sdk/';
+
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
+$interbredcrump[] = array ("url"=>get_path('rootAdminWeb'), "name"=> get_lang('Administration'));
 $interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
 $interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('Translation Tools'));
 
-include($includePath."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
@@ -73,7 +72,7 @@ mysql_query ($sql) or die($problemMessage . __LINE__);
 
 // Get Files and subfolders
 
-$scan=scan_dir ($rootSys,$recurse=TRUE);
+$scan=scan_dir (get_path('rootSys'),$recurse=TRUE);
 
 $files = $scan['files'];
 
@@ -141,6 +140,6 @@ echo "<p><em>Execution time: $totaltime</em></p>\n";
 
 // display footer
 
-include $includePath . "/claro_init_footer.inc.php";
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>

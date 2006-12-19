@@ -18,7 +18,7 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-if (! $is_courseAllowed) claro_disp_auth_form();
+if (! claro_is_course_allowed()) claro_disp_auth_form();
 
 /*
  * DB tables definition
@@ -37,16 +37,16 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 // lib of this tool
-include($includePath.'/lib/learnPath.lib.inc.php');
+include(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
 
 //lib of document tool
-include($includePath.'/lib/fileDisplay.lib.php');
+include(get_path('incRepositorySys').'/lib/fileDisplay.lib.php');
 
-$lpUid =  $_uid;
+$lpUid =  claro_get_current_user_id();
 
 // header
 $hide_banner = true;
-include($includePath.'/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if($lpUid)
 {
@@ -200,7 +200,7 @@ foreach ($flatElementList as $module)
 				$nextModule = $module['module_id'];
 			}
 			echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
-				.'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.' : '.$module['name'].'" border="0" />'.$displayedName.'</a>';
+				.'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.' : '.$module['name'].'" border="0" />'.$displayedName.'</a>';
 		}
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
@@ -234,7 +234,7 @@ foreach ($flatElementList as $module)
 			else
 				$displayedName = $module['name'];
 
-			echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'.$displayedName;
+			echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'.$displayedName;
 		}
 	}
 
@@ -253,7 +253,7 @@ foreach ($flatElementList as $module)
 
 		if($module['credit'] == 'CREDIT' || $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
 		{
-			echo '<img src="'.$imgRepositoryWeb.'mark.gif" alt="'.$module['lesson_status'].'" />';
+			echo '<img src="' . get_path('imgRepositoryWeb') . 'mark.gif" alt="'.$module['lesson_status'].'" />';
 		}
 		else
 		{
@@ -281,7 +281,7 @@ echo '</table>'."\n\n";
 
 
 //  set redirection link
-if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
 	$returl = '../learningPathAdmin.php';
 else
 	$returl = '../learningPath.php';
@@ -317,11 +317,10 @@ if ( $moduleNb > 1 )
 }
 
 //  set redirection link 
-if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
-	$returl = '../learningPathAdmin.php';
+if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+    $returl = '../learningPathAdmin.php';
 else
-	$returl = '../learningPath.php';
-	
+    $returl = '../learningPath.php';
 ?>
 <form action="<?php echo $returl; ?>" method="post" target="_top">
 <input type="submit" value="<?php echo get_lang('Back to list'); ?>">
@@ -330,7 +329,7 @@ else
 </center>
   
 <?php
-  // footer
-  $hide_footer = TRUE;
-  include($includePath.'/claro_init_footer.inc.php');
+// footer
+$hide_footer = TRUE;
+include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 ?>

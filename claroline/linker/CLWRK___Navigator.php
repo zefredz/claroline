@@ -46,7 +46,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function CLWRK___Navigator($basePath = NULL)
         {
-            global $_course;
             $this->_claroContainer = FALSE;
         }
 

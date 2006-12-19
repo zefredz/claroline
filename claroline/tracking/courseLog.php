@@ -43,7 +43,7 @@ $tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 // regroup table names for maintenance purpose
 
 $nameTools = get_lang('Statistics');
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title(
     array(
         'mainTitle' => $nameTools,

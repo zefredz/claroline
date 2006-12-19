@@ -15,21 +15,21 @@ $cidReset=true;
 $gidReset=true;
 
 require '../../../inc/claro_init_global.inc.php';
-include $includePath.'/lib/debug.lib.inc.php';
+include get_path('incRepositorySys').'/lib/debug.lib.inc.php';
 include 'lang/language.conf.php';
 
 $nameTools = get_lang('Translation Tools');
-$urlSDK = $rootAdminWeb . 'xtra/sdk/';
+$urlSDK = get_path('rootAdminWeb') . 'xtra/sdk/';
 $table_exists = TRUE;
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // table
 
-$tbl_used_lang = '`' . get_conf('mainDbName') . '`.`' . $mainTblPrefix . TABLE_USED_LANG_VAR . '`';
-$tbl_used_translation =  '`' . get_conf('mainDbName') . '`.`' . $mainTblPrefix . TABLE_TRANSLATION . '`';
+$tbl_used_lang = '`' . get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . TABLE_USED_LANG_VAR . '`';
+$tbl_used_translation =  '`' . get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . TABLE_TRANSLATION . '`';
 
 $sql1 = " select count(*) from " . $tbl_used_lang;
 $sql2 = " select count(*) from " . $tbl_used_translation;
@@ -44,10 +44,10 @@ if ( mysql_errno() == 1146 ) $table_exists = FALSE;
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $interbredcrump[] = array ('url' => $urlSDK, 'name' => get_lang('SDK'));
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // echo claro_html_tool_title('<img src="lang/language.png" style="vertical-align: middle;" alt="" /> '.$nameTools);
 echo claro_html_tool_title($nameTools);
@@ -91,5 +91,5 @@ if ( $table_exists == TRUE )
 ?>
 
 <?php
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

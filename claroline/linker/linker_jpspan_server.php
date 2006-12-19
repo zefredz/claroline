@@ -49,19 +49,16 @@
         *
         * @param string $crl a crl
         * @return array a array with the resource
-        * @global $coursesRepositorySys
         **/ 
         function getResource($crl = false)
         {
-            global $coursesRepositorySys;
-             
             if($crl)
             {    
                 $crl = urldecode($crl);
             }
              
-            $baseServDir = $coursesRepositorySys;
-            $baseServUrl = get_conf('rootWeb');
+            $baseServDir = get_path('coursesRepositorySys');
+            $baseServUrl = get_path('rootWeb');
              
             $nav = new Navigator($baseServDir, $crl);
             $tab = $nav->getArrayRessource();
@@ -95,19 +92,14 @@
         *
         * @param string $crl a crl
         * @return array a array with the resource of the other courses of the teacher
-        * @global $coursesRepositorySys        
-        * @global $platform_id
         * @global $_course
         **/  
         function getOtherCourse()
         {
-            global $coursesRepositorySys;
-            global $platform_id;
-            global $_course;
              
-            $baseServDir = $coursesRepositorySys;
+            $baseServDir = get_path('coursesRepositorySys');
              
-            $crl = CRLTool::createCRL($platform_id, $_course['sysCode']);
+            $crl = CRLTool::createCRL(get_conf('platform_id'), claro_get_current_course_id());
             $nav = new Navigator($baseServDir, $crl);
             $tab = $nav->getOtherCoursesArray();
              
@@ -119,19 +111,15 @@
         *
         * @param string $crl a crl
         * @return array a array with the resource of the other courses of the teacher
-        * @global $coursesRepositorySys        
-        * @global $platform_id
         * @global $_course
         **/  
         function getPublicCourses()
         {
-            global $coursesRepositorySys;
-            global $platform_id;
             global $_course;
              
-            $baseServDir = $coursesRepositorySys;
+            $baseServDir = get_path('coursesRepositorySys');
              
-            $crl = CRLTool::createCRL($platform_id, $_course['sysCode']);
+            $crl = CRLTool::createCRL(get_conf('platform_id'), claro_get_current_course_id());
             $nav = new Navigator($baseServDir, $crl);
             $tab = $nav->getPublicCoursesArray();
              
@@ -142,16 +130,14 @@
         *
         * @param string $crl a crl
         * @return array a array with the crl and the name of the button
-        * @global $coursesRepositorySys
         **/   
         function _getParent($crl = false)
         {
-            global $coursesRepositorySys;  
             $tab = array();
              
             if ($crl)
             {
-                $baseServDir = $coursesRepositorySys;
+                $baseServDir = get_path('coursesRepositorySys');
                  
                 $nav = new Navigator($baseServDir, $crl);
                  
@@ -166,17 +152,13 @@
         *
         * @param string $crl a crl
         * @return string the title of a course
-        * @global $coursesRepositorySys        
-        * @global $platform_id
         * @global $_course
         **/   
         function _getCourseTitle($crl = false)
         {
-            global $coursesRepositorySys;
-            global $platform_id;
             global $_course;
              
-            $baseServDir = $coursesRepositorySys;
+            $baseServDir = get_path('coursesRepositorySys');
              
             $nav = new Navigator($baseServDir, $crl);
             $courseTitle = $nav->getCourseTitle();
@@ -219,13 +201,13 @@
         {    
             global $baseServUrl;
             
-            $baseServUrl = get_conf('rootWeb');
-               $crlListe = linker_get_link_list($crl);
-               $resourceListe = array();
-               
-               foreach($crlListe as $crlElement)
-               {
-                   $infoResource = array();
+            $baseServUrl = get_path('rootWeb');
+            $crlListe = linker_get_link_list($crl);
+            $resourceListe = array();
+
+            foreach($crlListe as $crlElement)
+            {
+                $infoResource = array();
                 
                 $infoResource["crl"] = urlencode($crlElement["crl"]); 
                 $infoResource["title"] = htmlentities($crlElement["title"]); 

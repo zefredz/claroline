@@ -57,7 +57,7 @@ $TABLEUSER              = $tbl_user;
 include(get_path('incRepositorySys').'/lib/statsUtils.lib.inc.php');
 include(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
 
-include(get_path('incRepositorySys')."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( get_conf('is_trackingEnabled') )  
 {

@@ -78,7 +78,7 @@ if( $module )
         .'<p>'."\n"
         .htmlspecialchars($module['name'])
         .'<a href="../exercise/admin/edit_exercise.php?exId='.$module['exerciseId'].'">'
-        .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+        .'<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
         .'</a>'."\n"
         .'</p>'."\n";
 } // else sql error, do nothing except in debug mode, where claro_sql_query_fetch_all will show the error

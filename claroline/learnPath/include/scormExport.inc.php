@@ -59,14 +59,14 @@ function getIdCounter()
 
 if ( !class_exists('ScormExport') )
 {
-    include_once $includePath . "/lib/fileUpload.lib.php";
-    include_once $includePath . "/lib/pclzip/pclzip.lib.php";
+    include_once get_path('incRepositorySys') . "/lib/fileUpload.lib.php";
+    include_once get_path('incRepositorySys') . "/lib/pclzip/pclzip.lib.php";
     
     require_once dirname(__FILE__).'/../../exercise/lib/exercise.class.php';
     require_once dirname(__FILE__).'/../../exercise/export/scorm/scorm_classes.php';
     
-    include_once $includePath . '/lib/htmlxtra.lib.php';
-    include_once $includePath . '/lib/form.lib.php';
+    include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
+    include_once get_path('incRepositorySys') . '/lib/form.lib.php';
     
     /**
      * Exports a Learning Path to a SCORM package.
@@ -128,7 +128,7 @@ if ( !class_exists('ScormExport') )
          */
         function fetch()
         {
-            global $TABLELEARNPATH, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEASSET, $coursesRepositorySys;
+            global $TABLELEARNPATH, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEASSET;
     
             /* Get general infos about the learning path */
             $sql = 'SELECT `name`, `comment`
@@ -155,11 +155,11 @@ if ( !class_exists('ScormExport') )
             /* Build various directories' names */
     
             // Replace ',' too, because pclzip doesn't support it.
-            $this->destDir = $coursesRepositorySys . $_SESSION['_course']['path'] . '/temp/'
+            $this->destDir = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . '/temp/'
                 . str_replace(',', '_', replace_dangerous_char($this->name));
-            $this->srcDirDocument = $coursesRepositorySys . $_SESSION['_course']['path'] . "/document";
-            $this->srcDirExercise  = $coursesRepositorySys . $_SESSION['_course']['path'] . "/exercise";
-            $this->srcDirScorm    = $coursesRepositorySys . $_SESSION['_course']['path'] . "/scormPackages/path_".$this->id;
+            $this->srcDirDocument = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . "/document";
+            $this->srcDirExercise  = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . "/exercise";
+            $this->srcDirScorm    = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . "/scormPackages/path_".$this->id;
     
             /* Now, get the complete list of modules, etc... */
             $sql = 'SELECT  LPM.`learnPath_module_id` ID, LPM.`lock`, LPM.`visibility`, LPM.`rank`,
@@ -232,7 +232,7 @@ if ( !class_exists('ScormExport') )
         */
         function prepareQuiz($quizId, $raw_to_pass=50)
         {
-            global $claro_stylesheet, $clarolineRepositorySys, $charset;
+            global $claro_stylesheet;
     
             // those two variables are needed by display_attached_file()
             global $attachedFilePathWeb;
@@ -255,7 +255,7 @@ if ( !class_exists('ScormExport') )
     <title>'.$quiz->getTitle().'</title>
     <meta http-equiv="expires" content="Tue, 05 DEC 2000 07:00:00 GMT">
     <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Content-Type" content="text/HTML; charset='.$charset.'"  />
+    <meta http-equiv="Content-Type" content="text/HTML; charset='.get_locale('charset').'"  />
     
     <link rel="stylesheet" type="text/css" href="' . $claro_stylesheet . '" media="screen, projection, tv" />
     
@@ -279,6 +279,7 @@ if ( !class_exists('ScormExport') )
             $questionPonderationList = array();
     
             // Keep track of correct texts for fill-in type questions
+            // TODO La variable $fillAnswerList n'apparaît qu'une fois
             $fillAnswerList = array();
     
             // Display each question
@@ -435,7 +436,7 @@ if ( !class_exists('ScormExport') )
          */
         function prepare()
         {
-            global $clarolineRepositorySys, $claro_stylesheet;
+            global $claro_stylesheet;
     
             // (re)create fresh directory
             claro_delete_file($this->destDir);
@@ -447,7 +448,7 @@ if ( !class_exists('ScormExport') )
     
             // Copy usual files (.css, .js, .xsd, etc)
             if (
-                   !claro_copy_file($clarolineRepositorySys . 'css/' . $claro_stylesheet, $this->destDir)
+                   !claro_copy_file(get_path('clarolineRepositorySys') . 'css/' . $claro_stylesheet, $this->destDir)
                 || !claro_copy_file('export/APIWrapper.js', $this->destDir)
                 || !claro_copy_file('export/scores.js', $this->destDir)
                 || !claro_copy_file('export/ims_xml.xsd', $this->destDir)
@@ -508,9 +509,9 @@ if ( !class_exists('ScormExport') )
             // Did we find an mp3 ?
             if ( $this->mp3Found)
             {
-                if ( !claro_copy_file($clarolineRepositorySys . '/exercice/claroPlayer.swf', $this->destDir) )
+                if ( !claro_copy_file(get_path('clarolineRepositorySys') . '/exercice/claroPlayer.swf', $this->destDir) )
                 {
-                    $this->error[] = get_lang('Unable to copy file : ') . $clarolineRepositorySys . '/exercice/claroPlayer.swf';
+                    $this->error[] = get_lang('Unable to copy file : ') . get_path('clarolineRepositorySys') . '/exercice/claroPlayer.swf';
     
                     // This is *NOT* a fatal error.
                     // Do *NOT* return false.
@@ -573,7 +574,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:title>
-                <imsmd:langstring>' . html_entity_decode($title) . '</imsmd:langstring>
+                <imsmd:langstring>' . htmlspecialchars($title) . '</imsmd:langstring>
             </imsmd:title>';
             }
     
@@ -581,7 +582,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:description>
-                <imsmd:langstring>' . html_entity_decode($description) . '</imsmd:langstring>
+                <imsmd:langstring>' . htmlspecialchars($description) . '</imsmd:langstring>
             </imsmd:description>';
             }
     
@@ -676,7 +677,7 @@ if ( !class_exists('ScormExport') )
                         if ( !$this->createFrameFile($framefile, 'Documents'.$module['path'])) return false;
     
                         // Add the resource to the manifest
-                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormtype="sco" '
+                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="Webcontent"  adlcp:scormtype="sco" '
                             . ' href="' . basename($framefile) . '">' . "\n"
                             . '  <file href="' . basename($framefile) . '" />' . "\n"
                             . '  <file href="' . $targetfile . '" />' . "\n"
@@ -688,7 +689,7 @@ if ( !class_exists('ScormExport') )
                         $targetfile = $module['fileName'];
     
                         // Add the resource to the manifest
-                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormtype="sco" '
+                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="Webcontent"  adlcp:scormtype="sco" '
                             . ' href="' . $targetfile . '" >' . "\n"
                             . '  <file href="' . $targetfile . '" />' . "\n"
                             . $this->makeMetaData($module['name'], $module['resourceComment'])
@@ -698,8 +699,9 @@ if ( !class_exists('ScormExport') )
     
                     case 'SCORM'   :
                         // Add the resource to the manifest
+                        // TODO $path is unused
                         $path = 'OrigScorm';
-                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormtype="sco" '
+                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="Webcontent"  adlcp:scormtype="sco" '
                             . ' href="OrigScorm' . $module['path'] . '">' . "\n"
                             . '  <file href="OrigScorm' . $module['path'] . '" />' . "\n"
                             . $this->makeMetaData($module['name'], $module['resourceComment'])
@@ -723,8 +725,7 @@ if ( !class_exists('ScormExport') )
             $metadata = $this->makeMetaData($this->name, $this->comment);
     
             // Write header
-            global $charset;
-            fwrite($f, '<?xml version="1.0" encoding="' . $charset . '" ?>
+            fwrite($f, '<?xml version="1.0" encoding="' . get_locale('charset') . '" ?>
     <manifest identifier="SingleCourseManifest" version="1.1"
                 xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
                 xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"

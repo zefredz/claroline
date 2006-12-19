@@ -56,12 +56,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @throws  E_USER_ERROR if the path isn't valid
         * @throws  E_USER_ERROR if the crl isn't for tool document
         * @throws  E_USER_ERROR if crl is empty
-        * @global couseRepositorySys
         */
         function resolve($crl)
         {
-            global $coursesRepositorySys;
-
             if($crl)
             {
                 if(CRLTool::isForThisTool($crl,'CLDOC___'))
@@ -71,7 +68,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                     if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray['resource_id']) )
                     {
-                        $path = $coursesRepositorySys
+                        $path = get_path('coursesRepositorySys')
                         ."/".$elementCRLArray['course_sys_code'];
 
                         // the path is different if in groups

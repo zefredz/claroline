@@ -40,7 +40,7 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true); 
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $htmlHeadXtra[] =
             "<script>
@@ -53,7 +53,7 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$interbredcrump[]= array ("url"=> $clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=> get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
 $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb 
@@ -66,19 +66,22 @@ claro_set_display_mode_available(true);
 $is_AllowedToEdit = claro_is_allowed_to_edit();
   
 //lib of document tool
-include($includePath."/lib/fileDisplay.lib.php");
+include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
 
 // tables names
-$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
-$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
-$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
-$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
-$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+
+$TABLELEARNPATH         = claro_get_current_course_data('dbNameGlu') . "lp_learnPath";
+$TABLEMODULE            = claro_get_current_course_data('dbNameGlu') . "lp_module";
+$TABLELEARNPATHMODULE   = claro_get_current_course_data('dbNameGlu') . "lp_rel_learnPath_module";
+$TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset";
+$TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
+
+
 
 if (!isset($dialogBox)) $dialogBox = "";
 
 //lib of this tool
-include($includePath."/lib/learnPath.lib.inc.php");
+include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 // $_SESSION
 
@@ -367,7 +370,7 @@ $LPDetails = mysql_fetch_array($query);
   ================================================================*/
 
 //header
-include($includePath."/claro_init_header.inc.php");
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display title
 echo claro_html_tool_title($nameTools);
@@ -553,7 +556,7 @@ foreach ($flatElementList as $module)
                
         $contentType_alt = selectAlt($module['contentType']);
         echo "<a href=\"module.php?module_id=".$module['module_id']."\">" 
-            . "<img src=\"".$imgRepositoryWeb."".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
+            . "<img src=\"" . get_path('imgRepositoryWeb') . "".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
             . htmlspecialchars($module['name'])
             . "</a>";
     }
@@ -562,7 +565,7 @@ foreach ($flatElementList as $module)
     // Modify command / go to other page
     echo "<td>
           <a href=\"module.php?module_id=".$module['module_id']."\">".
-         "<img src=\"".$imgRepositoryWeb."edit.gif\" border=0 alt=\"".get_lang('Modify')."\" />".
+         "<img src=\"" . get_path('imgRepositoryWeb') . "edit.gif\" border=0 alt=\"".get_lang('Modify')."\" />".
          "</a>
          </td>";
 
@@ -581,7 +584,7 @@ foreach ($flatElementList as $module)
         echo clean_str_for_javascript(get_lang('The module will still be available in the pool of modules.'));
 
     echo   "');\"
-    ><img src=\"".$imgRepositoryWeb."delete.gif\" border=0 alt=\"".get_lang('Remove')."\"></a>
+    ><img src=\"" . get_path('imgRepositoryWeb') . "delete.gif\" border=0 alt=\"".get_lang('Remove')."\"></a>
        </td>";
 
     // LOCK
@@ -594,13 +597,13 @@ foreach ($flatElementList as $module)
     elseif ( $module['lock'] == 'OPEN')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."unblock.gif\" alt=\"" . get_lang('Block') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "unblock.gif\" alt=\"" . get_lang('Block') . "\" border=0>".
              "</a>";
     }
     elseif( $module['lock'] == 'CLOSE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."block.gif\" alt=\"" . get_lang('Unblock') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "block.gif\" alt=\"" . get_lang('Unblock') . "\" border=0>".
              "</a>";
     }
     echo "</td>";
@@ -611,7 +614,7 @@ foreach ($flatElementList as $module)
     if ( $module['visibility'] == 'HIDE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\">".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\">".
              "</a>";
     }
     else
@@ -625,7 +628,7 @@ foreach ($flatElementList as $module)
             $onclick = "";
         }
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-             "<img src=\"".$imgRepositoryWeb."visible.gif\" alt=\"" . get_lang('Make invisible') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "visible.gif\" alt=\"" . get_lang('Make invisible') . "\" border=0>".
              "</a>";
     }
 
@@ -635,7 +638,7 @@ foreach ($flatElementList as $module)
     // DISPLAY CATEGORY MOVE COMMAND 
     echo "<td>".
          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-         "<img src=\"".$imgRepositoryWeb."move.gif\" alt=\"" . get_lang('Move'). "\" border=0>".
+         "<img src=\"" . get_path('imgRepositoryWeb') . "move.gif\" alt=\"" . get_lang('Move'). "\" border=0>".
          "</a>".
          "</td>";
 
@@ -644,7 +647,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."up.gif\" alt=\"" . get_lang('Move up') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "up.gif\" alt=\"" . get_lang('Move up') . "\" border=0>".
              "</a>".
              "</td>";
     }
@@ -658,7 +661,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"".$imgRepositoryWeb."down.gif\" alt=\"" . get_lang('Move down') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "down.gif\" alt=\"" . get_lang('Move down') . "\" border=0>".
              "</a>".
              "</td>";
     }
@@ -687,5 +690,5 @@ echo "</tfoot>";
 echo "</table>";
 
 // footer
-include($includePath."/claro_init_footer.inc.php");
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

@@ -33,12 +33,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         global $htmlHeadXtra;
         global $claroBodyOnload;
-        global $platform_id;  
         global $_course;
-        global $imgRepositoryWeb;
-        global $includePath;
-        require_once($includePath . '/lib/JPSpan/JPSpan.php');
-        require_once($includePath . '/lib/JPSpan/JPSpan/Include.php');
+        require_once(get_path('incRepositorySys') . '/lib/JPSpan/JPSpan.php');
+        require_once(get_path('incRepositorySys') . '/lib/JPSpan/JPSpan/Include.php');
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\""
             . path() ."/linker_jpspan_server.php?client\"></script>\n"
@@ -139,13 +136,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }    
         
         // other variable 
-        $courseCrl = CRLTool::createCRL($platform_id,$_course['sysCode']);    
+        $courseCrl = CRLTool::createCRL(get_conf('platform_id'),claro_get_current_course_id());
         $htmlHeadXtra[] = "<script type=\"text/javascript\">
                 var coursecrl = '".$courseCrl."';</script>\n";    
         
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var img_repository_web  = '".$imgRepositoryWeb ."';</script>\n";    
+                . "var img_repository_web  = '" . get_path('imgRepositoryWeb') ."';</script>\n";
                 
         $claroBodyOnload[] = "clear_all();";    
         $claroBodyOnload[] = "hide_div('navbox');";    

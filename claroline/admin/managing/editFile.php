@@ -22,22 +22,22 @@ define('DISP_VIEW_FILE', __LINE__);
 $cidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
-require_once $includePath . '/lib/fileManage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 
 // Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $controlMsg = array();
 
 //The name of the files
-$filenameList = array( get_conf('rootSys') . 'textzone_top.inc.html',
-                       get_conf('rootSys') . 'textzone_right.inc.html',
-                       $clarolineRepositorySys . '/auth/textzone_inscription.inc.html',
-                       get_conf('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
-                       get_conf('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html',
-                       get_conf('rootSys') . 'platform/textzone/textzone_inscription_form.inc.html',
-                       get_conf('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html'
+$filenameList = array( get_path('rootSys') . 'textzone_top.inc.html',
+                       get_path('rootSys') . 'textzone_right.inc.html',
+                       get_path('clarolineRepositorySys') . '/auth/textzone_inscription.inc.html',
+                       get_path('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
+                       get_path('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html',
+                       get_path('rootSys') . 'platform/textzone/textzone_inscription_form.inc.html',
+                       get_path('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html'
                        );
 
 $display = DISP_FILE_LIST;
@@ -109,10 +109,10 @@ if ( !is_null($fileId) )
 // DISPLAY
 
 $nameTools = get_lang('Edit text zones');
-$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $noQUERY_STRING = true;
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 //display titles
 
@@ -167,12 +167,12 @@ if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_
         .    '<td >' . basename($filename) . '</td>' . "\n"
         .    '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;file=' . $idFile . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" >' . "\n"
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" >' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         .    '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exView&amp;file=' . $idFile . '">'
-        .    '<img src="' . $imgRepositoryWeb . 'preview.gif" border="0" alt="' . get_lang('Preview') . '" >' . "\n"
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'preview.gif" border="0" alt="' . get_lang('Preview') . '" >' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
@@ -186,5 +186,5 @@ if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_
 
 }
 
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>
