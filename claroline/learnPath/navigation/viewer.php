@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version version 1.7
  *
@@ -31,7 +31,7 @@ if(isset ($_GET['path_id']) && $_GET['path_id'] != '')
 	$_SESSION['path_id'] = $_GET['path_id'];
 
 if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
-	$_SESSION['module_id'] = $_GET['viewModule_id'];	
+	$_SESSION['module_id'] = $_GET['viewModule_id'];
 */
 $nameTools = get_lang('Learning path');
 
@@ -41,7 +41,7 @@ if(!empty($nameTools))
     $titlePage .= $nameTools.' - ';
 }
 
-if(!empty(claro_get_current_course_data('officialCode')))
+if(claro_get_current_course_data('officialCode') != '' )
 {
     $titlePage .= claro_get_current_course_data('officialCode') . ' - ';
 }
@@ -73,7 +73,7 @@ if( $displayFrames )
 ?>
     <frameset border="0" rows="150,*,70" frameborder="no">
         <frame src="topModule.php" name="headerFrame" />
-        <frame src="startModule.php" name="mainFrame" />         
+        <frame src="startModule.php" name="mainFrame" />
         <frame src="bottomModule.php" name="bottomFrame" />
     </frameset>
 <?php
@@ -82,7 +82,7 @@ else
 {
 ?>
     <frameset cols="*" border="0">
-        <frame src="startModule.php" name="mainFrame" />    
+        <frame src="startModule.php" name="mainFrame" />
     </frameset>
 <?php
 }
