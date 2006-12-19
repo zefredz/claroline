@@ -356,6 +356,7 @@ function claro_is_tool_activated ($tid, $courseId)
  *
  * @param integer $tid tool identifier
  * @param string courseId
+ * @todo to move in a lib
  *
  * @return boolean 'true' if it's visible
  */
