@@ -94,12 +94,12 @@ if (CLARO_DEBUG_MODE)
 
     if ( count($claroMsgList) > 0)
     {
-        $dbgTitle = claro_html_tool_title('Debug info');
+        echo claro_html_tool_title('Debug info');
         $dbgContent = claro_html_msg_list($claroMsgList);
 
         require_once dirname( __FILE__ ) . '/lib/backlog.class.php';
-
-        echo Backlog_Reporter::report( $dbgTitle, $dbgContent, get_lang('expand'), true );
+        // report title empty : this is not an error !!!!
+        echo Backlog_Reporter::report( '', $dbgContent, get_lang('expand'), true );
     }
 }
 
