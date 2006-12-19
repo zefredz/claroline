@@ -365,7 +365,7 @@ function detect_included_files(&$tokenList)
             // replace $rootSys by $rootSys
             $includeFile = ereg_replace('\$rootSys *\. *([\'\"])',"\\1" . $GLOBALS['rootSys'],$includeFile);
             // replace $rootAdminSys by $rootAdminSys
-            $includeFile = ereg_replace('\$rootAdminSys *\. *([\'\"])',"\\1" . $GLOBALS['rootAdminSys'],$includeFile);
+            $includeFile = ereg_replace('\$rootAdminSys *\. *([\'\"])',"\\1" . get_path('rootAdminSys'),$includeFile);
             // replace $clarolineRepositorySys by $clarolineRepositorySys
             $includeFile = ereg_replace('\$clarolineRepositorySys  *\. *([\'\"])',"\\1" . $GLOBALS['clarolineRepositorySys'],$includeFile);
 
@@ -793,9 +793,9 @@ function get_lang_vars_from_deffile($file)
             {
                 if ( $conf_def_property['type'] == 'integer' )
                 {
-                    continue ;                
+                    continue ;
                 }
-                elseif ( $key == 'pattern' ) 
+                elseif ( $key == 'pattern' )
                 {
                     continue ;
                 }
