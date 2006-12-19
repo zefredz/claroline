@@ -183,7 +183,8 @@ $descList = course_description_get_item_list();
 require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools)
-.    claro_html_msg_list($dialogBox)
+.    claro_html_msg_list($messageList)
+.    '<br />'
 ;
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
