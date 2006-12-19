@@ -68,7 +68,7 @@ $row = mysql_fetch_row($results);
 $count_total_diff_var = $row[0];
 
 echo claro_html_tool_title($nameTools)
-.    '<p>Total variables in Claroline scripts: <strong>" . $count_total_diff_var . "</strong></p>";
+.    '<p>Total variables in Claroline scripts: <strong>' . $count_total_diff_var . '</strong></p>';
 
 if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
 {
