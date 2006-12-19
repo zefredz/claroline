@@ -501,17 +501,18 @@ $cmdMenu = array();
 if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 {
 	// link to create a new assignment
-    $cmdMenu[] = '<a class="claroCmd" href="userWork.php?authId=' . claro_get_current_user_id() . '&amp;cmd=rqSubWrk'
-    .    '&amp;assigId=' . $req['assignmentId'] . '">' . get_lang('Submit a work') . '</a>' . "\n"
-    ;
-
+    $cmdMenu[] = claro_html_cmd_link( 'userWork.php?authId=' . claro_get_current_user_id()
+                                    . '&amp;cmd=rqSubWrk'
+                                    . '&amp;assigId=' . $req['assignmentId']
+                                    , get_lang('Submit a work'));
 }
 
 if ( $is_allowedToEditAll )
 {
-    $cmdMenu[] = '<a class="claroCmd" href="feedback.php?cmd=rqEditFeedback' 
-    .    '&amp;assigId=' . $req['assignmentId'] . '">' . get_lang('Edit automatic feedback') . '</a>' . "\n"
-    ;
+    $cmdMenu[] = claro_html_cmd_link( 'feedback.php?cmd=rqEditFeedback'
+                                    . '&amp;assigId=' . $req['assignmentId']
+                                    , get_lang('Edit automatic feedback')
+                                    );
 }
 
 if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
@@ -520,7 +521,7 @@ if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>
 /**
  * Submitter (User or group) listing
  */
-$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']);
+$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId']);
 
 echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId'])
 

@@ -560,8 +560,7 @@ if($is_allowedToEditAll)
 			$dialogBox .= get_lang('Feedback added');
 
             // notify eventmanager that a new correction has been posted
-            $eventNotifier->notifyCourseEvent("work_correction_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['gradedWrkId'], '0', '0');
-            
+            $eventNotifier->notifyCourseEvent('work_correction_posted',claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['gradedWrkId'], '0', '0');
             // mail notification if required by configuration
             if( get_conf('mail_notification') )
             {
@@ -584,14 +583,12 @@ if($is_allowedToEditAll)
 		        {
 		            // email subject
 		            $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_course_officialCode() . '] ' . get_lang('New assignment feedback posted');
-		            
 		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
 						$authId = $wrkForm['wrkGroup'];
 					else
 						$authId = $_REQUEST['authId']; 
 						 
 					$url = get_module_url('CLWRK') .'/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . claro_get_current_course_id();
-					
 		            // email content
 		            $emailBody = get_lang('New assignment feedback posted') . "\n\n"
 		            .            $currentUserFirstName.' '.$currentUserLastName . "\n"
@@ -776,7 +773,7 @@ if( $is_allowedToSubmit )
             	$sql = "SELECT `U`.`user_id`
 		            	FROM `".$tbl_rel_cours_user."` AS `CU`,`".$tbl_user."` AS `U`
 		            	WHERE `CU`.`user_id` = `U`.`user_id` 
-		            	AND `CU`.`code_cours` = '".claro_get_current_course_id()."'
+                    	AND `CU`.`code_cours` = '".claro_get_current_course_id()."'
 		            	AND `CU`.`isCourseManager` = 1
 		            	AND `U`.`email` IS NOT NULL";
 
@@ -790,9 +787,7 @@ if( $is_allowedToSubmit )
 						$authId = $_REQUEST['authId']; ; 
 
 					// email subject
-		            $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New submission posted in assignment tool.');
-
-		            						
+                    $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New submission posted in assignment tool.');
 					$url = get_module_url('CLWRK') . '/userWork.php?authId=' . $authId . '&assigId=' . $_REQUEST['assigId']
 					.      '&cidReq=' . claro_get_current_course_id();
 					
@@ -897,7 +892,7 @@ else
       $_SERVER['QUERY_STRING'] = 'authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'];
 }
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 
 /*--------------------------------------------------------------------
@@ -1239,6 +1234,7 @@ if( $dispWrkLst )
 
 
 	// select all submissions from this user in this assignment (not feedbacks !)
+	// TODO  * would be replace by fieldnames
 	$sql = "SELECT *,
 				UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
 				UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
@@ -1258,6 +1254,7 @@ if( $dispWrkLst )
 		$parentCondition .= " OR `parent_id` = ". (int) $thisWrk['id'];
 	}
 	// select all feedback relating to the user submission in this assignment
+	// TODO  * would be replace by fieldnames
 	$sql = "SELECT *,
 				UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
 				UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
@@ -1293,7 +1290,12 @@ if( $dispWrkLst )
     {
 		// link to create a new submission
         $cmdMenu = array();
-		$cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?authId=' . $_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'&amp;cmd=rqSubWrk">'.get_lang('Submit a work').'</a>';
+		$cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
+		                                . '?authId=' . $_REQUEST['authId']
+		                                . '&amp;assigId=' . $_REQUEST['assigId']
+		                                . '&amp;cmd=rqSubWrk'
+		                                , get_lang('Submit a work')
+		                                );
         
         echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
     }
@@ -1425,75 +1427,75 @@ if( $dispWrkLst )
 			echo '</p>'."\n";
 			// if user is allowed to edit, display the link to edit it
 			if( $is_allowedToEditThisWrk )
-			{
-				// the work can be edited
-				echo '<a href="' . $_SERVER['PHP_SELF']
-				.    '?authId=' . $_REQUEST['authId']
-				.    '&amp;assigId='.$_REQUEST['assigId']
-				.    '&amp;cmd=rqEditWrk&amp;wrkId=' . $thisWrk['id'] . '">'
-				.    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
-				.    '</a>'
-				;
-			}
+                {
+                    // the work can be edited
+                    echo '<a href="' . $_SERVER['PHP_SELF']
+                    .    '?authId=' . $_REQUEST['authId']
+                    .    '&amp;assigId='.$_REQUEST['assigId']
+                    .    '&amp;cmd=rqEditWrk&amp;wrkId=' . $thisWrk['id'] . '">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+                    .    '</a>'
+                    ;
+                }
+                
+                if( $is_allowedToEditAll )
+                {
+                	echo '<a href="' . $_SERVER['PHP_SELF']
+                	.    '?authId='.$_REQUEST['authId']
+                	.    '&amp;cmd=exRmWrk&amp;assigId=' . $_REQUEST['assigId']
+                	.    '&amp;wrkId=' . $thisWrk['id'] . '" '
+                	.    'onClick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
+                	.    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+                	.    '</a>'
+                	;
+                
+                if ($thisWrk['visibility'] == "INVISIBLE")
+                {
+                    echo '<a href="' . $_SERVER['PHP_SELF']
+                    .    '?authId=' . $_REQUEST['authId']
+                    .    '&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId']
+                    .    '&amp;wrkId='.$thisWrk['id']
+                    .    '&amp;vis=v">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" border="0" alt="' . get_lang('Make visible') . '" />'
+                    .    '</a>'
+                    ;
+                }
+                else
+                {
+                    echo '<a href="' . $_SERVER['PHP_SELF']
+                    .    '?authId=' . $_REQUEST['authId']
+                    .    '&amp;cmd=exChVis&amp;assigId=' . $_REQUEST['assigId']
+                    .    '&amp;wrkId='.$thisWrk['id']
+                    .    '&amp;vis=i">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
+                    .    '</a>'
+                    ;
+                }
+                if( !$is_feedback )
+                {
+                    // if there is no correction yet show the link to add a correction if user is course admin
+                    echo '&nbsp;'
+                    .    '<a href="' . $_SERVER['PHP_SELF']
+                    .    '?authId=' . $_REQUEST['authId']
+                    .    '&amp;assigId=' . $_REQUEST['assigId']
+                    .    '&amp;cmd=rqGradeWrk&amp;gradedWrkId='.$thisWrk['id'] . '">'
+                    .    get_lang('Add feedback')
+                    .    '</a>'
+                    ;
+                }
+            }
 
-			if( $is_allowedToEditAll )
-			{
-				echo '<a href="' . $_SERVER['PHP_SELF']
-				.    '?authId='.$_REQUEST['authId']
-				.    '&amp;cmd=exRmWrk&amp;assigId=' . $_REQUEST['assigId']
-				.    '&amp;wrkId=' . $thisWrk['id'] . '" '
-				.    'onClick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
-				.    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
-				.    '</a>'
-				;
-
-				if ($thisWrk['visibility'] == "INVISIBLE")
-				{
-				    echo '<a href="' . $_SERVER['PHP_SELF']
-				    .    '?authId=' . $_REQUEST['authId']
-				    .    '&amp;cmd=exChVis&amp;assigId='.$_REQUEST['assigId']
-				    .    '&amp;wrkId='.$thisWrk['id']
-				    .    '&amp;vis=v">'
-				    .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" border="0" alt="' . get_lang('Make visible') . '" />'
-				    .    '</a>'
-				    ;
-				}
-				else
-				{
-				    echo '<a href="' . $_SERVER['PHP_SELF']
-				    .    '?authId=' . $_REQUEST['authId']
-				    .    '&amp;cmd=exChVis&amp;assigId=' . $_REQUEST['assigId']
-				    .    '&amp;wrkId='.$thisWrk['id']
-				    .    '&amp;vis=i">'
-				    .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
-				    .    '</a>'
-				    ;
-				}
-				if( !$is_feedback )
-				{
-					// if there is no correction yet show the link to add a correction if user is course admin
-					echo '&nbsp;'
-					.    '<a href="' . $_SERVER['PHP_SELF']
-					.    '?authId=' . $_REQUEST['authId']
-					.    '&amp;assigId=' . $_REQUEST['assigId']
-					.    '&amp;cmd=rqGradeWrk&amp;gradedWrkId='.$thisWrk['id'] . '">'
-					.    get_lang('Add feedback')
-					.    '</a>'
-					;
-				}
-			}
-
-			echo '</div>' . "\n"
-			.	 '<br />' . "\n"
-			;
+            echo '</div>' . "\n"
+            .    '<br />' . "\n"
+            ;
 
 			$i++;
 		}
 	}
-	else
-	{
-		echo "\n".'<p>'."\n".'<blockquote>'.get_lang('No visible submission').'</blockquote>'."\n".'</p>'."\n";
-	}
+    else
+    {
+        echo claro_html_message_box(get_lang('No visible submission'));
+    }
 }
 // FOOTER
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';

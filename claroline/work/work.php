@@ -507,10 +507,10 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     if( $is_allowedToEdit )
     {
         // link to create a new assignment
-        $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" />' . get_lang('Create a new assignment')
-        .    '</a>'. "\n"
-        ;
+        $cmdMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig'
+                                         , '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" />'
+                                         . get_lang('Create a new assignment')
+                                         );
     }
     
     if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
@@ -601,11 +601,9 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         else 
         	echo '&nbsp;';
         	
-        echo '</td>' . "\n";
-        
-        echo '<td><small>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$anAssignment['start_date_unix']) . '</small></td>' . "\n"
+        echo '</td>' . "\n"
+        .    '<td><small>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$anAssignment['start_date_unix']) . '</small></td>' . "\n"
         .    '<td><small>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$anAssignment['end_date_unix']) . '</small></td>' . "\n";
-        
         if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
         {
         	if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
@@ -620,7 +618,8 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         	{
         		echo '<td align="center">'
 				. 	 '<small>-</small>'
-				.	 '</td>' . "\n";
+				.	 '</td>' . "\n"
+				;
         	}
         }
         
