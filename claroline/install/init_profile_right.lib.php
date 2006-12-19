@@ -9,11 +9,6 @@ function create_required_profile ()
 {
     require_once get_conf('includePath') . '/lib/right/profileToolRight.class.php';
 
-    $tbl_mdb_names = claro_sql_get_tbl( array('course_tool',
-                                              'right_profile',
-                                              'right_rel_profile_action',
-                                              'right_action' ));
-
     /**
      * Initialise anonymous profile
      */
