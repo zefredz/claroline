@@ -277,7 +277,7 @@ foreach($toolList as $thisTool)
  ******************/
 
 // CLAROLINE HEADER AND BANNER
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
                                   'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'));

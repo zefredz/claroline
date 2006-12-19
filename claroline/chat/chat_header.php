@@ -23,7 +23,7 @@ require '../inc/claro_init_global.inc.php';
 $nameTools  = get_lang('Chat');
 $noPHP_SELF = TRUE;
 
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 $_group = claro_get_current_group_data();
 
 $titleElement['mainTitle'] = $nameTools;

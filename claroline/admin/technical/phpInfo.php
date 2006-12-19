@@ -47,8 +47,8 @@ $is_allowedToAdmin = claro_is_platform_admin();
 if ($is_allowedToAdmin)
 {
     $htmlHeadXtra[] = phpinfo_getStyle();
-    
-    include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+    include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+
     echo claro_html_tool_title( array( 'mainTitle'=>$nameTools
     , 'subTitle'=> get_conf('siteName') . ' - ' . $clarolineVersion . ' - '
     )

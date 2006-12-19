@@ -253,7 +253,7 @@ foreach ($result AS $myNotMember )
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
