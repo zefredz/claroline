@@ -18,9 +18,10 @@ define('CLARO_INCLUDE_ALLOWED', true);
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
 
-$includePath = dirname(__FILE__);
-require_once $includePath . '/lib/claro_main.lib.php';
-$mainConfPath =  $includePath . '/../../platform/conf/' . 'claro_main.conf.php';
+
+require_once  dirname(__FILE__) . '/lib/claro_main.lib.php';
+$includePath = get_path('incRepositorySys');
+$mainConfPath = get_path('incRepositorySys') . '/../../platform/conf/' . 'claro_main.conf.php';
 
 if ( file_exists($mainConfPath) )
 {

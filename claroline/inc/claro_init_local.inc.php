@@ -280,7 +280,7 @@ else
 
     if ( get_conf('claro_CasEnabled', false) ) // CAS is a special case of external authentication
     {
-        require($rootSys.'/claroline/auth/extauth/casProcess.inc.php');
+        require(get_path('rootSys').'/claroline/auth/extauth/casProcess.inc.php');
     }
 
     if ( $login && $password ) // $login && $password are given to log in
@@ -440,7 +440,7 @@ if ( $uidReset && !empty($_uid) ) // session data refresh requested && uid is gi
     {
         // Extracting the user data
 
-        $is_platformAdmin        = (bool) ($_user['is_platformAdmin'       ] );
+        $is_platformAdmin = (bool) ($_user['is_platformAdmin'] );
         $is_allowedCreateCourse  = (bool) ($_user['is_courseCreator'] || $is_platformAdmin);
 
         if ( $_uid != $_user['creatorId'] )
@@ -818,7 +818,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
     }
 
     // user group access is allowed or user is group member or user is admin
-    $is_groupAllowed = (bool) (!$_groupProperties['private'] || $is_groupMember || $is_courseAdmin || $is_groupTutor  || $is_platformAdmin) ;
+    $is_groupAllowed = (bool) (!$_groupProperties['private'] || $is_groupMember || $is_courseAdmin || claro_is_group_tutor()  || $is_platformAdmin) ;
 
 }
 else // continue with the previous values
@@ -854,7 +854,7 @@ if ( $uidReset || $cidReset || $gidReset || $tidReset ) // session data refresh 
         if ( $_groupProperties ['private'] )
         {
             $is_toolAllowed = $is_toolAllowed
-                && ( $is_groupMember || $is_groupTutor );
+                && ( $is_groupMember || claro_is_group_tutor() );
         }
 
         $is_toolAllowed = $is_toolAllowed || ( $is_courseAdmin || $is_platformAdmin );
@@ -976,8 +976,8 @@ if (isset($_cid) && $_courseTool['label'])
 
     if (file_exists(claro_get_conf_repository() . $config_code . '.conf.php'))
         include claro_get_conf_repository() . $config_code . '.conf.php';
-    if (isset($_cid) && file_exists($coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
-        require $coursesRepositorySys . $_course['path'] . '/conf/' . $config_code . '.conf.php';
+    if ( claro_is_in_a_course() && file_exists(get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
+        require get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php';
 }
 
 ?>
