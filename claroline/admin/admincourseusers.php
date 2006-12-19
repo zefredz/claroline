@@ -52,15 +52,26 @@ if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_
 }
 else $cidToEdit = $_REQUEST['cidToEdit'];
 // See SESSION variables used for reorder criteria :
-if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
-else                           $cmd = null;
+$validCmdList = array('unsub',);
+$validRefererList = array('clist',);
+
+$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList) ? $_REQUEST['cmd'] : null);
+$cfrom = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
+
 $pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0';
+$addToURL = '';
+$do=null;
 
 /**
  * COMMAND
  */
 
 if ( $cmd == 'unsub' )
+{
+    $do = 'unsub';
+}
+
+if ( $do == 'unsub' )
 {
     if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, false) )
     {
@@ -201,7 +212,7 @@ $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 .    get_lang('Enroll a user')
 .    '</a>'
 ;
-if (isset($cfrom) && ($cfrom=='clist'))
+if ($cfrom=='clist')
 {
     $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('Back to course list') . '</a>';
 }
@@ -210,7 +221,7 @@ if (isset($cfrom) && ($cfrom=='clist'))
  * DISPLAY
  */
 
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 

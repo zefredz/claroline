@@ -200,7 +200,8 @@ else
    $search = $_REQUEST['search'];
 }
 
-if ( !isset($addToURL) ) $addToURL = '';
+
+$addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
 $nameTools .= ' : ' . $courseData['name'];
 
@@ -299,18 +300,19 @@ echo '<table width="100%" class="claroTableForm" >'
 ;
 
 // Start the list of users...
+$addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
-if (isset($order_crit))
+if (isset($_REQUEST['order_crit']))
 {
-    $addToURL = '&amp;order_crit=' . $order_crit;
+    $addToURL = '&amp;order_crit=' . $_REQUEST['order_crit'];
 }
-if (isset($offset))
+if (isset($_REQUEST['offset']))
 {
-    $addToURL = '&amp;offset=' . $offset;
+    $addToURL = '&amp;offset=' . $_REQUEST['offset'];
 }
 foreach($userList as $user)
 {
-    if (isset($_REQUEST['search'])&& ($_REQUEST['search']!=""))
+    if (isset($_REQUEST['search'])&& ($_REQUEST['search'] != ''))
     {
         $user['nom'] = eregi_replace("^(".$_REQUEST['search'].")",'<b>\\1</b>', $user['nom']);
         $user['prenom'] = eregi_replace("^(".$_REQUEST['search'].")","<b>\\1</b>", $user['prenom']);

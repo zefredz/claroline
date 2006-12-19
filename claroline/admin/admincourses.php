@@ -140,8 +140,11 @@ $courseList = $myPager->get_result_list();
 
 
 if (is_array($courseList))
-foreach ($courseList as $courseKey => $course)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    foreach ($courseList as $courseKey => $course)
+    {
     $sql ="SELECT
     count(IF(`isCourseManager`=0,1,null))
     AS `qty_stu`,
@@ -158,6 +161,7 @@ foreach ($courseList as $courseKey => $course)
     $result = claro_sql_query_get_single_row($sql);
     $courseList[$courseKey]['qty_stu'] =  $result['qty_stu'];
     $courseList[$courseKey]['qty_cm']  =  $result['qty_cm'];
+    }
 }
 
 /**

@@ -73,7 +73,7 @@ $language_list = array_merge(array(get_lang('All') => ''),$language_list);
 
 //header and bredcrump display
 
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php' );
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 //tool title
 

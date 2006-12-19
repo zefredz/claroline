@@ -58,8 +58,8 @@ if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_
 
 if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
+$addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
-if (!isset($addToURL)) $addToURL ='';
 
 //TABLES
 //declare needed tables
@@ -118,13 +118,16 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 
 $userList = $myPager->get_result_list();
 if (is_array($userList))
-foreach ($userList as $userKey => $user)
 {
-	$sql ="Select count(DISTINCT code_cours) AS qty_course
-           FROM  `" . $tbl_mdb_names['rel_course_user'] . "`
-           WHERE user_id = '". (int) $user['user_id'] ."'
-		  GROUP BY user_id";
-	$userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    foreach ($userList as $userKey => $user)
+    {
+        $sql ="SELECT count(DISTINCT code_cours) AS qty_course
+                 FROM `" . $tbl_mdb_names['rel_course_user'] . "`
+                 WHERE user_id = '". (int) $user['user_id'] ."'
+                 GROUP BY user_id";
+        $userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
+    }
 }
 
 $userGrid = array();
