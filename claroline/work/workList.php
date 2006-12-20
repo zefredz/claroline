@@ -81,7 +81,7 @@ $req['assignmentId'] = ( isset($_REQUEST['assigId'])
 ASSIGNMENT INFORMATIONS
 --------------------------------------------------------------------*/
 $assignment = new Assignment();
-    
+
 if ( !$req['assignmentId'] || !$assignment->load($req['assignmentId']) )
 {
     // we NEED to know in which assignment we are, so if assigId is not set
@@ -191,14 +191,14 @@ if ( !empty($feedbackFilterSql) ) $feedbackFilterSql = ' AND ('.$feedbackFilterS
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
 	if( ! $is_allowedToEditAll ) $showOnlyVisibleCondition = " HAVING `submissionCount` > 0";
-	
+
     $sql = "SELECT `U`.`user_id`                        AS `authId`,
                    CONCAT(`U`.`nom`, ' ', `U`.`prenom`) AS `name`,
                    `S`.`title`,
                    COUNT(`S`.`id`)                      AS `submissionCount`,
                    COUNT(`FB`.`id`)                     AS `feedbackCount`,
                    `FB`.`score`
-                    
+
             #GET USER LIST
             FROM  `" . $tbl_user . "` AS `U`
 
@@ -226,17 +226,17 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 
     if ( isset($_GET['sort']) && isset($_GET['dir']) ) 		$sortKeyList[$_GET['sort']] = $_GET['dir'];
     elseif( isset($_GET['sort']) && isset($_GET['dir']) ) 	$sortKeyList[$_GET['sort']] = SORT_ASC;
-	
+
 	if( !isset($sortKeyList['submissionCount']) ) $sortKeyList['submissionCount'] = SORT_DESC;
-    
+
     $sortKeyList['S.last_edit_date'] = SORT_DESC;
     $sortKeyList['FB.last_edit_date'] = SORT_DESC;
-    
+
     $sortKeyList['CU.isCourseManager'] = SORT_ASC;
     $sortKeyList['CU.tutor']  = SORT_DESC;
     $sortKeyList['U.nom']     = SORT_ASC;
     $sortKeyList['U.prenom']  = SORT_ASC;
-    
+
     // get last submission titles
     $sql2 = "SELECT `S`.`user_id` as `authId`, `S`.`title`
     			FROM `" . $tbl_wrk_submission . "` AS `S`
@@ -244,7 +244,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
             	ON `S`.`user_id` = `S2`.`user_id`
             	AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
             	AND `S`.`last_edit_date` < `S2`.`last_edit_date`
-            WHERE `S2`.`user_id` IS NULL 
+            WHERE `S2`.`user_id` IS NULL
                 AND `S`.`original_id` IS NULL
                 AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
             " . $submissionFilterSql . "";
@@ -252,7 +252,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 }
 else  // $assignment->getAssignmentType() == 'GROUP'
 {
-	
+
     /**
      * USER GROUP INFORMATIONS
      */
@@ -280,28 +280,28 @@ else  // $assignment->getAssignmentType() == 'GROUP'
         GROUP BY `G`.`id`,          # group by 'group'
                  `S`.`original_id`"
         ;
-        
+
     if ( isset($_GET['sort']) && isset($_GET['dir']) ) 		$sortKeyList[$_GET['sort']] = $_GET['dir'];
     elseif( isset($_GET['sort']) && isset($_GET['dir']) ) 	$sortKeyList[$_GET['sort']] = SORT_ASC;
-	
+
 	if( !isset($sortKeyList['submissionCount']) ) $sortKeyList['submissionCount'] = SORT_DESC;
-    
+
 	$sortKeyList['S.last_edit_date'] = SORT_ASC;
     $sortKeyList['FB.last_edit_date'] = SORT_ASC;
-    
+
     $sortKeyList['G.name'] = SORT_ASC;
 
-    // get last submission titles 
+    // get last submission titles
     $sql2 = "SELECT `S`.`group_id` as `authId`, `S`.`title`
     			FROM `" . $tbl_wrk_submission . "` AS `S`
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
             	ON `S`.`group_id` = `S2`.`group_id`
             	AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
             	AND `S`.`last_edit_date` < `S2`.`last_edit_date`
-            WHERE `S2`.`group_id` IS NULL 
+            WHERE `S2`.`group_id` IS NULL
                 AND `S`.`original_id` IS NULL
                 AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
-            " . $submissionFilterSql . "";	
+            " . $submissionFilterSql . "";
 }
 
 
@@ -419,7 +419,7 @@ echo claro_html_tool_title($pageTitle);
 /**
  * ASSIGNMENT INFOS
  */
- 
+
 echo '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 .    $assignment->getTitle() . '<br />'  . "\n"
@@ -440,12 +440,12 @@ else
 echo '<br />'  .  "\n"
 
 .    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
-.    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)')) 
+.    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)'))
 
 .	'<br />'  .  "\n"
 
 .    '<b>' . get_lang('Assignment type') . '</b> : ' . "\n"
-.    ($assignment->getAssignmentType() == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') ) 
+.    ($assignment->getAssignmentType() == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') )
 
 .	'<br />'  .  "\n"
 
@@ -488,7 +488,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
         .     '</a></p>'
         ;
     }
-    
+
     echo '</fieldset>'
     .    '<br />' . "\n"
     ;
@@ -504,6 +504,7 @@ if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
     $cmdMenu[] = claro_html_cmd_link( 'userWork.php?authId=' . claro_get_current_user_id()
                                     . '&amp;cmd=rqSubWrk'
                                     . '&amp;assigId=' . $req['assignmentId']
+                                    . claro_url_relay_context('&amp;')
                                     , get_lang('Submit a work'));
 }
 
@@ -511,6 +512,7 @@ if ( $is_allowedToEditAll )
 {
     $cmdMenu[] = claro_html_cmd_link( 'feedback.php?cmd=rqEditFeedback'
                                     . '&amp;assigId=' . $req['assignmentId']
+                                    . claro_url_relay_context('&amp;')
                                     , get_lang('Edit automatic feedback')
                                     );
 }
@@ -570,7 +572,7 @@ foreach ( $workList as $thisWrk )
     .     $thisWrk['name']
     .    '</td>' . "\n"
     .    '<td>'
-    .    ( !empty($thisWrk['title']) ? $thisWrk['title'] : '&nbsp;' ) 
+    .    ( !empty($thisWrk['title']) ? $thisWrk['title'] : '&nbsp;' )
     .    '</td>' . "\n"
     .    '<td>'
     .    $thisWrk['submissionCount']
@@ -578,14 +580,14 @@ foreach ( $workList as $thisWrk )
     .    '<td>'
     .    $thisWrk['feedbackCount']
     .    '</td>' . "\n";
-	
+
 	if( $is_allowedToEditAll )
 	{
 	    echo '<td>'
 		.    ( !empty($thisWrk['score']) ? $thisWrk['score'] : '&nbsp;' )
 		.    '</td>' . "\n";
 	}
-	   
+
     echo '</tr>' . "\n\n"
     ;
 }

@@ -176,7 +176,7 @@ if( $assignment->getAssignmentType() == 'GROUP' && claro_is_user_authenticated()
     // get complete group list
     $sql = "SELECT `id`, `name`
             FROM `" . $tbl_group_team . "`";
-    
+
     $groupList = claro_sql_query_fetch_all($sql);
     if( is_array($groupList) && !empty($groupList) )
     {
@@ -570,13 +570,13 @@ if($is_allowedToEditAll)
 				{
 					$sql = "SELECT `user`
 							FROM `".$tbl_group_rel_team_user."`
-							WHERE `team` = ".(int)$_REQUEST['authId'];							
-					
+							WHERE `team` = ".(int)$_REQUEST['authId'];
+
 					$userIdList = claro_sql_query_fetch_all($sql);
 				}
 				else
 				{
-					$userIdList[] = $_REQUEST['authId']; 	
+					$userIdList[] = $_REQUEST['authId'];
 				}
 
             	if( is_array($userIdList) )
@@ -586,8 +586,8 @@ if($is_allowedToEditAll)
 		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
 						$authId = $wrkForm['wrkGroup'];
 					else
-						$authId = $_REQUEST['authId']; 
-						 
+						$authId = $_REQUEST['authId'];
+
 					$url = get_module_url('CLWRK') .'/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . claro_get_current_course_id();
 		            // email content
 		            $emailBody = get_lang('New assignment feedback posted') . "\n\n"
@@ -772,7 +772,7 @@ if( $is_allowedToSubmit )
             	// get teacher(s) mail
             	$sql = "SELECT `U`.`user_id`
 		            	FROM `".$tbl_rel_cours_user."` AS `CU`,`".$tbl_user."` AS `U`
-		            	WHERE `CU`.`user_id` = `U`.`user_id` 
+		            	WHERE `CU`.`user_id` = `U`.`user_id`
                     	AND `CU`.`code_cours` = '".claro_get_current_course_id()."'
 		            	AND `CU`.`isCourseManager` = 1
 		            	AND `U`.`email` IS NOT NULL";
@@ -784,13 +784,13 @@ if( $is_allowedToSubmit )
 		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
 						$authId = $wrkForm['wrkGroup'];
 					else
-						$authId = $_REQUEST['authId']; ; 
+						$authId = $_REQUEST['authId']; ;
 
 					// email subject
                     $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New submission posted in assignment tool.');
 					$url = get_module_url('CLWRK') . '/userWork.php?authId=' . $authId . '&assigId=' . $_REQUEST['assigId']
 					.      '&cidReq=' . claro_get_current_course_id();
-					
+
 		            // email content
 		            $emailBody = get_lang('New submission posted in assignment tool.') . "\n\n"
 		            .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
@@ -801,7 +801,7 @@ if( $is_allowedToSubmit )
 		            claro_mail_user($userIdList, $emailBody, $emailSubject);
 		        }
 			}
-			
+
 			// display flags
 			$dispWrkLst = true;
 		}
@@ -932,7 +932,7 @@ if( $is_allowedToSubmit )
 			echo '<p>' . "\n" . '<small>' . "\n"
 			.    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 			.    $assignment->getTitle() . '<br />'  . "\n"
-            .    get_lang('<b>From</b> %start_date <b>until</b> %end_date', 
+            .    get_lang('<b>From</b> %start_date <b>until</b> %end_date',
                    array ( '%start_date' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()),
                            '%end_date' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
 			.	'<br />'  .  "\n"
@@ -1214,7 +1214,7 @@ if( $dispWrkLst )
 	if( get_conf('show_only_author') && !$is_allowedToEditAll )
 	{
 		// security check to avoid a user to see others submissions if not permitted
-		if( $assignment->getAssignmentType() == 'GROUP' && !isset($userGroupList[$_REQUEST['authId']]) )			
+		if( $assignment->getAssignmentType() == 'GROUP' && !isset($userGroupList[$_REQUEST['authId']]) )
 		{
 			if( ! isset($userGroupIdList) )
 			{
@@ -1224,12 +1224,12 @@ if( $dispWrkLst )
 		    		$userGroupIdList[] = $userGroup['id'];
 		    	}
 		    }
-			$showOnlyAuthorCondition = "AND `".$authField."` IN (".implode(',',$userGroupIdList).")";			
-		}		
+			$showOnlyAuthorCondition = "AND `".$authField."` IN (".implode(',',$userGroupIdList).")";
+		}
 		elseif( $assignment->getAssignmentType() == 'INDIVIDUAL' && claro_get_current_user_id() != $_REQUEST['authId'] )
 		{
 			$showOnlyAuthorCondition = "AND `".$authField."` = ". (int)claro_get_current_user_id();
-		}		
+		}
 	}
 
 
@@ -1294,9 +1294,10 @@ if( $dispWrkLst )
 		                                . '?authId=' . $_REQUEST['authId']
 		                                . '&amp;assigId=' . $_REQUEST['assigId']
 		                                . '&amp;cmd=rqSubWrk'
+		                                . claro_url_relay_context('&amp;')
 		                                , get_lang('Submit a work')
 		                                );
-        
+
         echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
     }
 
@@ -1437,7 +1438,7 @@ if( $dispWrkLst )
                     .    '</a>'
                     ;
                 }
-                
+
                 if( $is_allowedToEditAll )
                 {
                 	echo '<a href="' . $_SERVER['PHP_SELF']
@@ -1448,7 +1449,7 @@ if( $dispWrkLst )
                 	.    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
                 	.    '</a>'
                 	;
-                
+
                 if ($thisWrk['visibility'] == "INVISIBLE")
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF']
