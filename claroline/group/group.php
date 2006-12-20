@@ -377,14 +377,14 @@ if ( $is_allowedToManage )
 
     // Create new groups
     $groupadmin_manager_menu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=rqMkGroup&'. claro_url_relay_context()
+                                                     . '?cmd=rqMkGroup' . claro_url_relay_context('&amp;')
                                                      , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'
     .                            get_lang("Create new group(s)")
                                                      );
     // Delete all groups
     $groupadmin_manager_menu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
                                                      . '?cmd=exDelGroup&id=ALL'
-                                                     . '&amp;' . claro_url_relay_context()
+                                                     . claro_url_relay_context('&amp;')
                                                      , '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
     .                            get_lang("Delete all groups")
                                                      , array('onClick'=>'return confirmationDelete();')
@@ -392,21 +392,21 @@ if ( $is_allowedToManage )
     // Fill groups
     $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
                                                     . '?cmd=exFillGroup'
-                                                    . '&amp;'. claro_url_relay_context()
+                                                    . claro_url_relay_context('&amp;')
                                                     , '<img src="' . get_path('imgRepositoryWeb') . 'fill.gif" alt="" />'
     .                            get_lang("Fill groups (automatically)")
                                                     , array('onClick'=>'return confirmationFill()')
                                                     );
     // Empty all groups
     $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=exEmptyGroup&amp;'
-                                                     . claro_url_relay_context()
+                                                     . '?cmd=exEmptyGroup'
+                                                     . claro_url_relay_context('&amp;')
                                                      , '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="" />'
     .                            get_lang("Empty all groups")
                                                      , array('onClick' => 'return confirmationEmpty();')
                                                      );
     // Main group settings
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( 'group_properties.php?' . claro_url_relay_context()
+    $groupadmin_manager_menu[] =  claro_html_cmd_link( 'group_properties.php' . claro_url_relay_context('?')
                                                       , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
                                                       . get_lang("Main Group Settings"));
 

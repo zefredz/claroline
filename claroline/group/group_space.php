@@ -293,6 +293,7 @@ if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
 {
     echo '<p>' . "\n"
     .    claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?registration=1'
+                            . claro_url_relay_context('&amp;')
                             , '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif"'
                             .     ' alt="' . get_lang("Add me to this group") . '" />'
     .                       get_lang("Add me to this group")
@@ -320,7 +321,7 @@ echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 
 if ($is_allowedToManage)
 {
-    echo claro_html_cmd_link( 'group_edit.php'
+    echo claro_html_cmd_link( 'group_edit.php' . claro_url_relay_context('?')
                             , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif"'
                             .     ' alt="' . get_lang("Edit this group") . '" />'
                             .    get_lang("Edit this group")
