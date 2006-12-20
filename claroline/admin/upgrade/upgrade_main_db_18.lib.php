@@ -231,7 +231,8 @@ function upgrade_main_database_course_class_to_18 ()
             $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" .  $tbl_mdb_names['rel_course_class'] . "` (
                 `courseId` varchar(40) NOT NULL,
                 `classId` int(11) NOT NULL default '0',
-                PRIMARY KEY  (`courseId`,`classId`) ) ";
+                PRIMARY KEY  (`courseId`,`classId`) ) 
+                TYPE=MyISAM ";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -547,8 +548,7 @@ function upgrade_main_database_user_property_to_18 ()
               `propertyValue` varchar(255) NOT NULL default '',
               `scope`         varchar(45) NOT NULL default '',
               PRIMARY KEY  (`scope`(2),`propertyId`,`userId`)
-            )"
-            ;
+            ) TYPE=MyISAM ";
 
             $sqlForUpdate[]= "CREATE TABLE
               `" . $tbl_mdb_names['property_definition'] . "` (
@@ -563,8 +563,7 @@ function upgrade_main_database_user_property_to_18 ()
               `acceptedValue` text NOT NULL,
               PRIMARY KEY  (`contextScope`(2),`propertyId`),
               KEY `rank` (`rank`)
-            )
-            ";
+            ) TYPE=MyISAM ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
