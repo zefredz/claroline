@@ -875,11 +875,10 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         case 'viewforum':
 
             $toolList[] =
-            claro_html_cmd_link( '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;' .  claro_url_relay_context()
+            claro_html_cmd_link( 'newtopic.php?forum=' . $forum_id . '&amp;' .  claro_url_relay_context()
                                , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif"> '
                                . get_lang('New topic')
                                );
-
             break;
 
         case 'viewtopic':
