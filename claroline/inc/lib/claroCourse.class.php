@@ -424,6 +424,7 @@ class ClaroCourse
         $html = '';
 
         $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        .    claro_form_relay_context()
         	. '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
     		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
 
