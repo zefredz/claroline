@@ -855,7 +855,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
     global $forum_name, $topic_title;
 
-    $toolBar = array();
+    $toolList = array();
 
     $html = '';
 
@@ -874,18 +874,27 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'viewforum':
 
-            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . claro_get_current_group_id() . '">'
-                        . '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif"> ' . get_lang('New topic') . '</a>';
+            $toolList[] =
+            claro_html_cmd_link( '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;' .  claro_url_relay_context()
+                               , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif"> '
+                               . get_lang('New topic')
+                               );
 
             break;
 
         case 'viewtopic':
 
-            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . claro_is_in_a_group() . '">'
-                         . '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif"> ' . get_lang('New topic') . '</a>';
+            $toolList[] =
+            claro_html_cmd_link( 'newtopic.php?forum=' . $forum_id . '&amp;' .  claro_url_relay_context()
+                               , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="' . get_lang('New topic') . '" /> '
+                               . get_lang('New topic')
+                               );
 
-            $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.claro_get_current_group_id().'">'
-                         . '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
+            $toolList[] =
+            claro_html_cmd_link( 'reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;' .  claro_url_relay_context('&amp;')
+                               , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" alt="' . get_lang('Reply') . '" /> '
+                               . get_lang('Reply')
+                               );
 
             break;
 
@@ -896,26 +905,26 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             if ( claro_is_allowed_to_edit() )
             {
 
-                $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkCat">'
-                          .  get_lang('Create category')
-                          .  '</a>';
+                $toolList[] =
+                claro_html_cmd_link( $_SERVER['PHP_SELF'].'?cmd=rqMkCat'
+                                   , get_lang('Create category')
+                                   );
 
-                $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
-                          .  '<img src="' . get_path('imgRepositoryWeb') . 'forum.gif" /> '
+                $toolList[] =
+                claro_html_cmd_link( $_SERVER['PHP_SELF'].'?cmd=rqMkForum'
+                                   , '<img src="' . get_path('imgRepositoryWeb') . 'forum.gif" /> '
                           .  get_lang('Create forum')
-                          .  '</a>';
+                                   );
             }
             break;
     }
 
     if ( ! in_array($pagetype, array('newtopic', 'reply','editpost') ) )
-        $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">'
-        .            '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" /> '
+        $toolList[] = claro_html_cmd_link( 'index.php?cmd=rqSearch'
+                                         , '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" />'
         .            get_lang('Search')
-        .            '</a>'
-        ;
-
-    return $toolBar;
+                                         );
+    return $toolList;
 }
 
 function disp_search_box()
@@ -924,6 +933,7 @@ function disp_search_box()
     {
         return claro_html_message_box(
         '<form action="viewsearch.php" method="post">'
+        .    claro_form_relay_context()
         .            get_lang('Search') . ' : <br />'
         .            '<input type="text" name="searchPattern"><br />'
         .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
@@ -1005,25 +1015,27 @@ function forum_group_tool_list($gid, $active = true)
                                        || claro_is_group_member()
                                        ||  claro_is_group_tutor() );
 
-
     // group space links
 
-    $toolList[] = '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" />&nbsp;'
+    $toolList[] =
+    claro_html_cmd_link( '../group/group_space.php?gidReq=' . (int) $gid
+                       , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" />&nbsp;'
         . get_lang('Group area')
-        . '</a>'
-        ;
+                       );
+
 
     foreach ($groupToolList as $groupTool)
     {
         if ('CLFRM' !== $groupTool['label'])
-        $toolList[] = '<a href="' . get_module_url($groupTool['label']) . '/' . $groupTool['url']. '?gidReq=' . (int) $gid  . '" '
-        .             ' class="claroCmd '.($groupTool['visibility'] ? 'visible':'invisible').'">'
-        .             '<img src="' . get_path('imgRepositoryWeb') . $groupTool['icon'] . '" />'
+        $toolList[] =
+        claro_html_cmd_link( get_module_url($groupTool['label'])
+                           . '/' . $groupTool['url']
+                           . '?gidReq=' . (int) $gid
+                           , '<img src="' . get_path('imgRepositoryWeb') . $groupTool['icon'] . '" />'
         .             '&nbsp;'
         .             claro_get_tool_name ($groupTool['label'])
-        .             '</a>'
-        ;
+                           , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
+                           );
     }
 
     return $toolList;
