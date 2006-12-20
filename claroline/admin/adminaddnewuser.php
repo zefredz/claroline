@@ -100,9 +100,8 @@ if ( 'registration' == $cmd && $error == false )
     echo '<p>' . get_lang('The new user has been sucessfully created') . '</p>'
     .    '<ul>'
     .    '<li>'
-    .    '<a class="claroCmd" href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings">'
-    .    get_lang('Register this user to a course')
-    .    '</a>'
+    .    claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings'
+                            , get_lang('Register this user to a course'))
     .    '</li>'
     .    '<li>'
     .    '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category="> '
