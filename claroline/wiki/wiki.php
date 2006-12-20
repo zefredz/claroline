@@ -34,7 +34,7 @@
             claro_die(get_lang("Not allowed"));
         }
     }
-	
+
     // if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
     event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
@@ -322,7 +322,7 @@
 
             $eventNotifier->notifyCourseEvent('wiki_deleted'
                                          , claro_get_current_course_id()
-                                         , claro_get_current_tool_id()                                         
+                                         , claro_get_current_tool_id()
                                          , $wikiId
                                          , $groupId
                                          , '0');
@@ -543,13 +543,12 @@
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
                 . '<p>'
-                . '<a class="claroCmd" href="' . get_path('url') . '/claroline/document/document.php?gidReset=1">'
-                . get_lang("Go to documents tool")
-                .'</a>'
+                . claro_html_cmd_link( get_module_url('CLDOC')
+                                     . '/document.php?gidReset=1'
+                                     , get_lang("Go to documents tool"))
                 . '&nbsp;|&nbsp;'
-                . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '">'
-                . get_lang("Go back to Wiki list")
-                .'</a>'
+                . claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                     , get_lang("Go back to Wiki list"))
                 . '</p>'
                 . "\n"
                 ;
@@ -605,24 +604,22 @@
 
             if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
             {
-                echo '<a href="'
-                    . $_SERVER['PHP_SELF']
-                    . '?action=rqEdit'
-                    . '" class="claroCmd">'
-                    . '<img src="' . get_path('imgRepositoryWeb') . '/wiki.gif" alt="'.get_lang("Create a new Wiki").'" />&nbsp;'
-                    . get_lang("Create a new Wiki")
-                    . '</a>'
+                echo claro_html_cmd_link(
+                    $_SERVER['PHP_SELF'] . '?action=rqEdit'
+                    , '<img src="' . get_path('imgRepositoryWeb') . '/wiki.gif" '
+                    . ' alt="' . get_lang("Create a new Wiki").'" />'
+                    . '&nbsp;'
+                    . get_lang("Create a new Wiki"))
                     . '&nbsp;|&nbsp;'
                     ;
             }
 
-            echo '<a href="'
-                . $_SERVER['PHP_SELF']
-                . '?action=rqSearch'
-                . '" class="claroCmd">'
-                . '<img src="' . get_path('imgRepositoryWeb') . '/search.gif" alt="'.get_lang("Search").'" />&nbsp;'
-                . get_lang("Search")
-                . '</a>'
+            echo claro_html_cmd_link(
+                $_SERVER['PHP_SELF'] . '?action=rqSearch'
+                , '<img src="' . get_path('imgRepositoryWeb') . '/search.gif" '
+                . ' alt="' . get_lang("Search") . '" />'
+                . '&nbsp;'
+                . get_lang("Search"))
                 . '</p>'
                 . "\n"
                 ;
