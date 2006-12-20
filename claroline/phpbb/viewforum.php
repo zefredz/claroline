@@ -22,6 +22,7 @@
  =================================================================*/
 
 $tlabelReq = 'CLFRM';
+$toolList= array();
 
 require '../inc/claro_init_global.inc.php';
 
@@ -146,11 +147,17 @@ else
 
     echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
+
     if ( isset($groupToolList) )
     {
-        echo claro_html_menu_horizontal($groupToolList);
+        echo '<p>' . claro_html_menu_horizontal($groupToolList) .'</p>';
+
     }
-    if ($forum_post_allowed) echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0));
+
+    if ($forum_post_allowed)
+    {
+        echo '<p>' . claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0)) . '</p>';
+    }
 
     $topicLister->disp_pager_tool_bar($pagerUrl);
 
@@ -172,9 +179,12 @@ else
 
     if ( count($topicList) == 0 )
     {
-        echo ' <tr>' . "\n"
-            .'  <td colspan="5" align="center">' . get_lang('There are no topics for this forum. You can post one') . '</td>'. "\n"
-            .' </tr>' . "\n";
+        echo '<tr>' . "\n"
+        .    '<td colspan="5" align="center">'
+        .    get_lang('There are no topics for this forum. You can post one')
+        .    '</td>'. "\n"
+        .    '</tr>' . "\n"
+        ;
     }
     else
     {
@@ -207,7 +217,8 @@ else
             if($thisTopic['topic_status'] == 1) $image = $locked_image;
 
             echo '<td>'
-                .'<img src="' . $image . '" alt="' . $alt . '" />';
+            .    '<img src="' . $image . '" alt="' . $alt . '" />'
+            ;
 
             $topic_title = $thisTopic['topic_title'];
             $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id']
@@ -215,7 +226,7 @@ else
                            '' : '&amp;gidReq ='.$forumSettingList['idGroup']);
 
             echo '&nbsp;'
-                .'<a href="' . $topic_link . '">' . $topic_title . '</a>&nbsp;&nbsp;';
+            .    '<a href="' . $topic_link . '">' . $topic_title . '</a>&nbsp;&nbsp;';
 
             disp_mini_pager($topic_link, 'start', $replys+1, get_conf('posts_per_page') );
 
