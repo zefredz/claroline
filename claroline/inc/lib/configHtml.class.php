@@ -71,9 +71,11 @@ class ConfigHtml extends Config
 
             // display start form
             $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
-            . '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
-            . '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
-            . '<input type="hidden" name="cmd" value="save" />' . "\n";
+            .        claro_form_relay_context()
+            .        '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
+            .        '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
+            .        '<input type="hidden" name="cmd" value="save" />' . "\n"
+            ;
 
             $form .= '<table border="0" cellpadding="5" width="100%">' . "\n";
             if ($section_selected!='viewall') $section_list = array($section_selected);

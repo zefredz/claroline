@@ -529,7 +529,9 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     $form = '';
 
     $form .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-    .  '<input type="hidden" name="cmd" value="exUpdateCourseUserProperties" />' . "\n";
+    .        claro_form_relay_context()
+    .        '<input type="hidden" name="cmd" value="exUpdateCourseUserProperties" />' . "\n"
+    ;
 
     if ( ! is_null($hiddenParam) && is_array($hiddenParam) )
     {
