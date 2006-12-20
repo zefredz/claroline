@@ -191,11 +191,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             else if($object->isLinkable() && !$object->isVisible() )
             {
                 echo "\t".'&nbsp;'
-                .    '<a href="' . $_SERVER['PHP_SELF']
+                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
                 .    '?cmd=add&amp;crl=' . urlencode($object->getCRL())
-                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
-                .    '[' . get_lang("Attach") . ']'
-                .    '</a><br />' . "\n"
+                                        . '&amp;current_crl=' . urlencode($crl)
+                                        , '[' . get_lang("Attach") . ']'
+                                        )
+                .    '<br />' . "\n"
                 ;
             }
             else
@@ -243,12 +244,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                 .    '&nbsp;'
 
-                .    '<a href="' . $_SERVER['PHP_SELF']
+                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
-                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
-                .    '[' . get_lang("Attach") . ']</A><br />' . "\n"
-                ;
+                                        . '&amp;current_crl=' . urlencode($crl)
+                                        , '[' . get_lang("Attach") . ']'
+                                        );
             }
         }
         else
@@ -294,12 +295,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                 .    '&nbsp;'
 
-                .    '<a href="' . $_SERVER['PHP_SELF']
+                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
-                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
-                .    '[' . get_lang("Attach") . ']</A><br />' . "\n"
-                ;
+                                        . '&amp;current_crl=' . urlencode($crl)
+                                        , '[' . get_lang("Attach") . ']'
+                                        );
             }
         }
         else
@@ -320,14 +321,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         if( $isLink && $crlParent)
         {
-            echo '<a href="' . $_SERVER['PHP_SELF']
-            .    '?fct=add'
-            .    '&amp;cmd=browse'
-            .    '&amp;current_crl=' . urlencode ($crlParent) . '" class="claroCmd">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" alt="" />'
-            .    get_lang("Up")
-            .    '</a>'
-            ;
+       echo claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                    .    '?fct=add'
+                                    .    '&amp;cmd=browse'
+                                    . '&amp;current_crl=' . urlencode ($crlParent)
+                                    , '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" alt="" />'
+                                    .    get_lang("Up")
+                                    );
         }
         else
         {
@@ -337,7 +337,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .    '</span>'
             ;
         }
-        echo       '<br /><br />' . "\n";
+        echo '<br /><br />' . "\n";
     }
 
     /**
@@ -351,10 +351,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          {
              if( $isLink )
             {
-                echo '<a href="' . $_SERVER['PHP_SELF']
-                .    '?cmd=browseMyCourses" class="claroCmd">'
-                .    get_lang("My other courses") . '</a>&nbsp;' . "\n"
-                ;
+                echo claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                        . '?cmd=browseMyCourses'
+                                        . claro_url_relay_context('&amp;')
+                                        , get_lang("My other courses")
+                                        );
             }
             else
             {
@@ -379,8 +380,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          {
              if( $isLink )
             {
-                echo '<a href="'.$_SERVER["PHP_SELF"].'?cmd=browsePublicCourses" class="claroCmd">';
-                echo get_lang("Public courses")."</A>&nbsp;\n";
+                echo claro_html_cmd_link($_SERVER["PHP_SELF"] . '?cmd=browsePublicCourses' . claro_url_relay_context('&amp;'), get_lang("Public courses"));
             }
             else
             {
