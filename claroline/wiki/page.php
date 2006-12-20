@@ -744,7 +744,7 @@
         . '&amp;action=show'
         . '&amp;title=__MainPage__'
         . claro_url_relay_context('&amp;')
-        , '<img src="' . $imgRepositoryWeb . 'wiki.gif" border="0" alt="edit" />&nbsp;'
+        , '<img src="' . get_path('imgRepositoryWeb') . 'wiki.gif" border="0" alt="edit" />&nbsp;'
         . get_lang("Main page")
         );
 
@@ -753,7 +753,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=recent'
         . claro_url_relay_context('&amp;')
-        , '<img src="' . $imgRepositoryWeb . 'history.gif" '
+        , '<img src="' . get_path('imgRepositoryWeb') . 'history.gif" '
         . ' border="0" alt="recent changes" />&nbsp;'
         . get_lang("Recent changes")
         );
@@ -772,7 +772,7 @@
     $cmdWikiNavigationBar[] =
         claro_html_cmd_link( 'wiki.php'
         . claro_url_relay_context('?')
-        , '<img src="'.get_path('imgRepositoryWeb').'info.gif" '
+        , '<img src="' . get_path('imgRepositoryWeb') . 'info.gif" '
         . ' border="0" alt="all pages" />'
         . '&nbsp;'
         . get_lang("List of Wiki")
