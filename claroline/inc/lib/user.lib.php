@@ -230,6 +230,7 @@ function user_delete($userId)
 
     $courseList = claro_sql_query_fetch_all_cols($sql);
 
+    $log = array();
     if ( user_remove_from_course($userId, $courseList['code'], true, true, true) == false ) return false;
     else
     {
@@ -694,10 +695,10 @@ function user_validate_form($formMode, $data, $userId = null)
             )
             );
         }
-    
+
         $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
     }
-    
+
     $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
 
     if ( 'registration' == $formMode)
@@ -716,7 +717,7 @@ function user_validate_form($formMode, $data, $userId = null)
         {
             $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
         }
-        
+
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
@@ -884,11 +885,13 @@ function user_html_form($data, $form_type='registration')
     }
 
     // display registration form
-    $html = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
+    $html = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n"
+    .       claro_form_relay_context()
 
     // hidden fields
-    $html .= form_input_hidden('cmd', 'registration')
-    .        form_input_hidden('claroFormId', uniqid('') );
+    .       form_input_hidden('cmd', 'registration')
+    .       form_input_hidden('claroFormId', uniqid('') )
+    ;
 
     if ( array_key_exists('confirmUserCreate', $data) )
     {
@@ -1142,11 +1145,13 @@ function user_html_form($data, $form_type='registration')
                 $html .= form_row( get_lang($label) . '&nbsp:',$userExtraInfoValue);
             }
         }
-        if (0<count($extraInfoDefList))
-        $html .= form_row( '','<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify') . '"></a>' );
 
-
-
+        if ( 0 < count($extraInfoDefList))
+        $html .= form_row( ''
+                         , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo' . claro_url_relay_context('&amp;')
+                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify')
+                                              )
+                         );
     }
 
     $html .= '</table>' . "\n"
