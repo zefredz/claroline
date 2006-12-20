@@ -223,6 +223,7 @@ if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 if( $displayForm )
 {
 	echo '<form method="post" action="./edit_exercise.php?exId='.$exId.'" >' . "\n\n"
+	.    claro_form_relay_context()
 	.	 '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
 	.	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n";
 	
@@ -458,10 +459,10 @@ else
 	
 	//-- claroCmd
 	$cmd_menu = array();
-	$cmd_menu[] = '<a class="claroCmd" href="../exercise.php">'
+	$cmd_menu[] = '<a class="claroCmd" href="../exercise.php' . claro_url_relay_context('?') . '">'
 				. '&lt;&lt; ' . get_lang('Back to the exercise list')
 				. '</a>';
-	$cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit">'
+    $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit'. claro_url_relay_context('&amp;') .'">'
 				. '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="" />'
 				. get_lang('Edit exercise settings')
 				. '</a>';
