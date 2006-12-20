@@ -211,6 +211,7 @@ else
             $lastMsgUrl = 'viewtopic.php?forum=' . $forum_id
             .             '&amp;topic=' . $topic_id
             .             '&amp;start=' . ($totalPosts - get_conf('posts_per_page'))
+            .             claro_url_relay_context('&amp;')
             .             '#post' . $lastPostId;
             $toolList[] = claro_html_cmd_link($lastMsgUrl,get_lang('Last message'));
         }
@@ -281,8 +282,9 @@ else
             . '</p>' . "\n";
         }
 
-        echo    '  </td>' . "\n",
-        ' </tr>' . "\n";
+        echo '</td>' . "\n"
+        .    '</tr>' . "\n"
+        ;
 
     } // end for each
 
@@ -290,8 +292,14 @@ else
 
     if ($forum_post_allowed)
     {
-        $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.claro_get_current_group_id().'">'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
+        $toolBar[] = claro_html_cmd_link( 'reply.php'
+                                        . '?topic=' . $topic_id
+                                        . '&amp;forum=' . $forum_id
+                                        . claro_url_relay_context('&amp;')
+                                        , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" />'
+                                        . ' '
+                                        . get_lang('Reply')
+                                        );
         echo claro_html_menu_horizontal($toolBar);
     }
 
