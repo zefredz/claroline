@@ -104,8 +104,9 @@ if ( isset($_REQUEST['applyChange']) )
     }
 
     // validate forum params
+
     $messageList['warning'] = user_validate_form_profile($user_data, claro_get_current_user_id());
-    
+
     if ( count($messageList['warning']) == 0 )
     {
         // if no error update use setting
@@ -213,7 +214,7 @@ switch ( $display )
         if( get_conf('is_trackingEnabled') )
         {
             // display user tracking link
-            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php">'
+            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php' . claro_url_relay_context('?') . '">'
             .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
             .                 '</a>'
             ;
@@ -222,13 +223,17 @@ switch ( $display )
         // display request course creator status
         if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
         {
-            $profileMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('Request course creation status') . '</a>';
+            $profileMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus' . claro_url_relay_context('&amp;')
+                                                , get_lang('Request course creation status') );
         }
 
         // display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
-            $profileMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
+            $profileMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                                 . '?cmd=reqRevoquation' . claro_url_relay_context('&amp;')
+                                                 , get_lang('Delete my account')
+                                                 ) ;
         }
 
         break;
