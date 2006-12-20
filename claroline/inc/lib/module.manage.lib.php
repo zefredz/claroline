@@ -52,13 +52,15 @@ function get_module_info($moduleId)
                MI.description  AS description,
                MI.license      AS license
 
-        FROM (`" . $tbl['module']      . "` AS M
-           , `" . $tbl['module_info'] . "` AS MI )
+        FROM `" . $tbl['module']      . "` AS M
+
+        LEFT JOIN `" . $tbl['module_info'] . "` AS MI
+              ON M.`id` = MI . `module_id`
+
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
               ON CT.`claro_label`= M.label
 
-        WHERE  M.`id` = MI . `module_id`
-        AND    M.`id` = " . (int) $moduleId;
+        WHERE  M.`id` = " . (int) $moduleId;
 
     return claro_sql_query_get_single_row($sql);
 
