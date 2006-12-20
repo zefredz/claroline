@@ -204,9 +204,9 @@ if ($allowedToEditDef)
             $tbl_group_rel_team_user = $tbl_crs_names['group_rel_team_user'];
 
             $sql = "SELECT COUNT(user)
-                    FROM `".$tbl_group_rel_team_user."` 	 
-                    WHERE user = ".(int) $userIdViewed; 	 
-  	 
+                    FROM `".$tbl_group_rel_team_user."`
+                    WHERE user = ".(int) $userIdViewed;
+
             if ( claro_sql_query_get_single_value($sql) == 0 )
             {
                 $userProperties['tutor' ] = 1;
@@ -306,7 +306,7 @@ echo claro_html_tool_title($nameTools)
 // Back button for each display mode (Top)
 .    '<p>' . "\n"
 .    '<small>' . "\n"
-.    '<a href="user.php">'
+.    '<a href="user.php' . claro_url_relay_context('?') . '">'
 .    '&lt;&lt;&nbsp;'
 .    get_lang('Back to user list')
 .    '</a>' . "\n"
