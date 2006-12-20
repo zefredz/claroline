@@ -347,6 +347,7 @@ if($module['contentType'] != CTLABEL_) //
 
         echo '<center>'."\n"
             .'<form action="./navigation/viewer.php" method="post">'."\n"
+            .claro_form_relay_context()
             .'<input type="submit" value="'.get_lang('Start Module').'" />'."\n"
             .'</form>'."\n"
             .'</center>'."\n\n";
