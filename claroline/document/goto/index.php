@@ -109,7 +109,9 @@ else
     {
         pushClaroMessage('<p>File path : ' . $pathInfo . '</p>','pathInfo');
     }
-
+    
+    $pathInfo = secure_file_path( $pathInfo );
+    
     // Check if path exists in course folder
 
     if ( ! file_exists($pathInfo) || is_dir($pathInfo) )

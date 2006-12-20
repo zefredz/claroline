@@ -172,7 +172,10 @@
      */
     function secure_file_path( $path )
     {
-        return preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
+        $path = preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
+        $path = str_replace( '://', '', $path );
+        
+        return $path; 
     }
     
     /**
