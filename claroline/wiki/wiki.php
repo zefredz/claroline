@@ -545,9 +545,11 @@
                 . '<p>'
                 . claro_html_cmd_link( get_module_url('CLDOC')
                                      . '/document.php?gidReset=1'
+                                     . claro_url_relay_context('&amp;')
                                      , get_lang("Go to documents tool"))
                 . '&nbsp;|&nbsp;'
                 . claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                     . claro_url_relay_context('?')
                                      , get_lang("Go back to Wiki list"))
                 . '</p>'
                 . "\n"
@@ -606,6 +608,7 @@
             {
                 echo claro_html_cmd_link(
                     $_SERVER['PHP_SELF'] . '?action=rqEdit'
+                    . claro_url_relay_context('&amp;')
                     , '<img src="' . get_path('imgRepositoryWeb') . '/wiki.gif" '
                     . ' alt="' . get_lang("Create a new Wiki").'" />'
                     . '&nbsp;'
@@ -616,6 +619,7 @@
 
             echo claro_html_cmd_link(
                 $_SERVER['PHP_SELF'] . '?action=rqSearch'
+                . claro_url_relay_context('&amp;')
                 , '<img src="' . get_path('imgRepositoryWeb') . '/search.gif" '
                 . ' alt="' . get_lang("Search") . '" />'
                 . '&nbsp;'

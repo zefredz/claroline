@@ -172,7 +172,9 @@ echo '<table class="claroTable" width="100%">'."\n"
        .'<tbody>'."\n\n";
 
 // Display available modules
-echo '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n";
+echo '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n"
+.    claro_form_relay_context()
+;
 
 $atleastOne = FALSE;
 

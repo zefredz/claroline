@@ -391,7 +391,7 @@ switch ( $display )
         {
             $backButtonUrl = '';
             unset($_SESSION['claro_csv_userlist']);
-            if (claro_is_in_a_course()) 
+            if (claro_is_in_a_course())
             {
                 $backButtonUrl = get_path('clarolineRepositoryWeb') . 'user/user.php';
             }
@@ -399,7 +399,7 @@ switch ( $display )
             {
                 $backButtonUrl = get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id'];
             }
-            elseif (claro_is_platform_admin()) 
+            elseif (claro_is_platform_admin())
             {
                 $backButtonUrl = get_path('clarolineRepositoryWeb').'admin/';
             }
@@ -430,6 +430,7 @@ switch ( $display )
                                     . '?display=default'
                                     . '&amp;loadDefault=yes'
                                     . '&amp;AddType=' . $AddType
+                                    . claro_url_relay_context('&amp;')
                                     , get_lang('Load default format')
                                     ) . "\n"
             .    ' | '
@@ -437,6 +438,7 @@ switch ( $display )
                                     . '?display=default'
                                     . '&amp;chformat=yes'
                                     . '&amp;AddType=' . $AddType
+                                    . claro_url_relay_context('&amp;')
                                     , get_lang('Edit format to use')
                                     ) . "\n"
             .    '<br /><br />' . "\n"

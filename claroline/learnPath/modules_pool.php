@@ -153,6 +153,7 @@ switch( $cmd )
         $list = mysql_fetch_array($result);
         echo "\n" 
         .	 '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
+        .    claro_form_relay_context()
 		.	 '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
 		.	 '<input type="text" name="newName" id="newName" value="'.htmlspecialchars($list['name']).'" />' . "\n"
 		.	 '<input type="submit" value="'.get_lang('Ok').'" name="submit" />' . "\n"
@@ -210,6 +211,7 @@ switch( $cmd )
             if( isset($comment['comment']) )
             {
                 echo "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n"
+                .    claro_form_relay_context()
                     .claro_html_textarea_editor('comment', $comment['comment'], 15, 55)
                     ."<br />\n"
                     ."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"

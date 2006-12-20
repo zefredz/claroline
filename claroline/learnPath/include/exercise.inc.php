@@ -55,6 +55,7 @@ if( isset($learningPath_module['lock'])
     && isset($learningPath_module['raw_to_pass']) )
 {
     echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">'."\n"
+    .    claro_form_relay_context()
         .'<label for="newRaw">'.get_lang('Change minimum raw mark to pass this module (percentage) :').' </label>'."\n"
         .'<input type="text" value="'.htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
         .'<input type="hidden" name="cmd" value="raw" />'."\n"

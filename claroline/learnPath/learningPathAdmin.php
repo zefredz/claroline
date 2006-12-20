@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -56,15 +56,15 @@ $htmlHeadXtra[] =
 $interbredcrump[]= array ("url"=> get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
-$_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb 
+$_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb
                               // when one need to add a parameter after the filename
-  
+
 // use viewMode
 claro_set_display_mode_available(true);
 
 // permissions
 $is_AllowedToEdit = claro_is_allowed_to_edit();
-  
+
 //lib of document tool
 include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
 
@@ -91,9 +91,9 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0 )
 }
 
 // get user out of here if he is not allowed to edit
-if ( !$is_AllowedToEdit ) 
+if ( !$is_AllowedToEdit )
 {
-    if ( isset($_SESSION['path_id']) ) 
+    if ( isset($_SESSION['path_id']) )
     {
         header("Location: ./learningPath.php?path_id=".$_SESSION['path_id']);
     }
@@ -123,13 +123,13 @@ switch($cmd)
                 AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
                 ORDER BY LPM.`rank` ASC";
         $result = claro_sql_query($sql);
-           
+
         $extendedList = array();
         while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
         {
             $extendedList[] = $list;
         }
-           
+
         //-- delete module cmdid and his children if it is a label
         // get the modules tree ( cmdid module and all its children)
         $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_REQUEST['cmdid'] , 'learnPath_module_id');
@@ -149,7 +149,7 @@ switch($cmd)
                 AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'] ."
                 ORDER BY LPM.`rank` ASC";
         $result = claro_sql_query($sql);
-        
+
         $extendedList = array();
         while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
         {
@@ -161,7 +161,7 @@ switch($cmd)
         $temp[0] = get_module_tree( build_element_list($extendedList, 'parent', 'learnPath_module_id'), $_REQUEST['cmdid'] );
         // change the visibility according to the new father visibility
         set_module_tree_visibility( $temp, $visibility);
-        
+
         break;
 
     // ACCESSIBILITY COMMAND
@@ -176,17 +176,17 @@ switch($cmd)
         break;
 
     // ORDER COMMAND
-    case "changePos" :               
+    case "changePos" :
         // changePos form sent
         if( isset($_POST["newPos"]) && $_POST["newPos"] != "")
         {
-            // get order of parent module            
-            $sql = "SELECT * 
-                    FROM `".$TABLELEARNPATHMODULE."` 
+            // get order of parent module
+            $sql = "SELECT *
+                    FROM `".$TABLELEARNPATHMODULE."`
                     WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
             $temp = claro_sql_query_fetch_all($sql);
             $movedModule = $temp[0];
-               
+
             // if origin and target are the same ... cancel operation
             if ($movedModule['learnPath_module_id'] == $_POST['newPos'])
             {
@@ -195,7 +195,7 @@ switch($cmd)
             else
             {
                 //--
-                // select max order 
+                // select max order
                 // get the max rank of the children of the new parent of this module
                 $sql = "SELECT MAX(`rank`)
                         FROM `".$TABLELEARNPATHMODULE."`
@@ -205,13 +205,13 @@ switch($cmd)
 
                 list($orderMax) = mysql_fetch_row($result);
                 $order = $orderMax + 1;
-                
+
                 // change parent module reference in the moved module and set order (added to the end of target group)
                 $sql = "UPDATE `".$TABLELEARNPATHMODULE."`
                         SET `parent` = ". (int)$_POST['newPos'].",
                             `rank` = " . (int)$order . "
                         WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
-                $query = claro_sql_query($sql);  
+                $query = claro_sql_query($sql);
                 $dialogBox .= get_lang('Module moved');
             }
 
@@ -232,28 +232,28 @@ switch($cmd)
             {
                 // this array will display target for the "move" command
                 // so don't add the module itself build_element_list will ignore all childre so that
-                // children of the moved module won't be shown, a parent cannot be a child of its own children                    
+                // children of the moved module won't be shown, a parent cannot be a child of its own children
                 if ( $list['learnPath_module_id'] != $_REQUEST['cmdid'] ) $extendedList[] = $list;
             }
-            
+
             // build the array that will be used by the claro_build_nested_select_menu function
             $elementList = array();
             $elementList = build_element_list($extendedList, 'parent', 'learnPath_module_id');
-            
+
             $topElement['name'] = get_lang('Root');
             $topElement['value'] = 0;    // value is required by claro_nested_build_select_menu
             if (!is_array($elementList)) $elementList = array();
             array_unshift($elementList,$topElement);
-            
+
             // get infos about the moved module
             $sql = "SELECT M.`name`
-                    FROM `".$TABLELEARNPATHMODULE."` AS LPM, 
+                    FROM `".$TABLELEARNPATHMODULE."` AS LPM,
                          `".$TABLEMODULE."` AS M
                     WHERE LPM.`module_id` = M.`module_id`
                       AND LPM.`learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
             $temp = claro_sql_query_fetch_all($sql);
             $moduleInfos = $temp[0];
-            
+
             $displayChangePosForm = true; // the form code comes after name and comment boxes section
         }
         break;
@@ -321,9 +321,9 @@ if (isset($sortDirection) && $sortDirection)
               AND LPM.`learnPath_id` = LP.`learnPath_id`
               AND LP.`learnPath_id` = ". (int)$_SESSION['path_id']."
             ORDER BY LPM.`rank` $sortDirection";
-                          
+
     $listModules  = claro_sql_query_fetch_all($sql);
-     
+
     // LP = learningPath
     foreach( $listModules as $module)
     {
@@ -412,6 +412,7 @@ else
 if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
 {
     $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
+                 " . claro_form_relay_context() . "
                   <h4><label for=\"newLabel\">".get_lang('Create a new label / title in this learning path')."</label></h4>
                   <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
                   <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
@@ -419,9 +420,10 @@ if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
                   </form>";
 }
 if (isset($displayChangePosForm) && $displayChangePosForm)
-{ 
-    $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
-                  <h4>".get_lang('Move')." ' ".$moduleInfos['name']." ' ".get_lang('To')."</h4>";
+{
+    $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+    .            claro_form_relay_context()
+    .            '<h4>' . get_lang('Move')." ' ".$moduleInfos['name']." ' ".get_lang('To')."</h4>";
     // build select input - $elementList has been declared in the previous big cmd case
     $dialogBox .= claro_build_nested_select_menu("newPos",$elementList);
     $dialogBox .= "<input type=\"hidden\" name=\"cmd\" value=\"changePos\" />
@@ -443,23 +445,24 @@ if (isset($dialogBox) && $dialogBox!="")
 //######################### LEARNING PATH COURSEADMIN LINKS ##########################\\
 //####################################################################################\\
 
-?>
- <p>
- <a class="claroCmd" href="insertMyDoc.php"><?php echo get_lang('Add a document'); ?></a> |
- <a class="claroCmd" href="insertMyExercise.php"><?php echo get_lang('Add an exercise'); ?></a> |
- <a class="claroCmd" href="insertMyModule.php"><?php echo get_lang('Add a module of this course'); ?></a> |
- <a class="claroCmd" href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=createLabel"><?php echo get_lang('Create label'); ?></a>
- </p>
-<?php
+$cmdMenu[] = claro_html_cmd_link('insertMyDoc.php'. claro_url_relay_context('?'), get_lang('Add a document'));
+$cmdMenu[] = claro_html_cmd_link('insertMyExercise.php'. claro_url_relay_context('?'), get_lang('Add an exercise'));
+$cmdMenu[] = claro_html_cmd_link('insertMyModule.php' . claro_url_relay_context('?'), get_lang('Add a module of this course'));
+$cmdMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=createLabel'. claro_url_relay_context('&amp;'), get_lang('Create label'));
+
+echo '<p>'
+.    claro_html_menu_horizontal($cmdMenu)
+.    '</p>'
+;
 
 //####################################################################################\\
 //######################### LEARNING PATH LIST CONTENT ###############################\\
 //####################################################################################\\
 
 //--- BUILD ARBORESCENCE OF MODULES IN LEARNING PATH
-
+// TODO  do not  use *
 $sql = "SELECT M.*, LPM.*, A.`path`
-        FROM (`".$TABLEMODULE."` AS M, 
+        FROM (`".$TABLEMODULE."` AS M,
              `".$TABLELEARNPATHMODULE."` AS LPM)
         LEFT JOIN `".$TABLEASSET."` AS A ON M.`startAsset_id` = A.`asset_id`
         WHERE M.`module_id` = LPM.`module_id`
@@ -474,7 +477,7 @@ while ($list = mysql_fetch_array($result, MYSQL_ASSOC))
     $extendedList[] = $list;
 }
 
-// build the array of modules     
+// build the array of modules
 // build_element_list return a multi-level array, where children is an array with all nested modules
 // build_display_element_list return an 1-level array where children is the deep of the module
 
@@ -533,29 +536,29 @@ foreach ($flatElementList as $module)
     {
         $style="";
     }
-         
+
     $spacingString = "";
-     
+
     for($i = 0; $i < $module['children']; $i++)
            $spacingString .= "<td width='5'>&nbsp;</td>";
-    
+
     $colspan = $maxDeep - $module['children']+1;
-         
+
     echo "<tr align=\"center\"".$style.">\n".$spacingString."<td colspan=\"".$colspan."\" align=\"left\">";
-                      
+
     if ($module['contentType'] == CTLABEL_) // chapter head
     {
         echo "<b>".htmlspecialchars($module['name'])."</b>\n";
     }
     else // module
     {
-        if($module['contentType'] == CTEXERCISE_ ) 
+        if($module['contentType'] == CTEXERCISE_ )
             $moduleImg = "quiz.gif";
         else
             $moduleImg = choose_image(basename($module['path']));
-               
+
         $contentType_alt = selectAlt($module['contentType']);
-        echo "<a href=\"module.php?module_id=".$module['module_id']."\">" 
+        echo "<a href=\"module.php?module_id=".$module['module_id']."\">"
             . "<img src=\"" . get_path('imgRepositoryWeb') . "".$moduleImg."\" alt=\"".$contentType_alt."\" border=\"0\">"
             . htmlspecialchars($module['name'])
             . "</a>";
@@ -576,7 +579,7 @@ foreach ($flatElementList as $module)
           <a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
          "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
 
-    if ($module['contentType'] == CTSCORM_) 
+    if ($module['contentType'] == CTSCORM_)
         echo clean_str_for_javascript(get_lang('SCORM conformant modules are definitively removed from server when deleted in their learning path.')) ;
     elseif ( $module['contentType'] == CTLABEL_ )
         echo clean_str_for_javascript(get_lang('By deleting a label you will delete all modules or label it contains.'));
@@ -635,7 +638,7 @@ foreach ($flatElementList as $module)
     echo "</td>";
 
     // ORDER COMMANDS
-    // DISPLAY CATEGORY MOVE COMMAND 
+    // DISPLAY CATEGORY MOVE COMMAND
     echo "<td>".
          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
          "<img src=\"" . get_path('imgRepositoryWeb') . "move.gif\" alt=\"" . get_lang('Move'). "\" border=0>".

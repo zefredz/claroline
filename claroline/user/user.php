@@ -272,6 +272,7 @@ if ($can_add_user)
     if ($can_add_single_user)
     {
         $userMenu[] = claro_html_cmd_link( './userInfo.php?addDef=1'
+                                         . claro_url_relay_context('&amp;')
 
                                          , get_lang('Add new heading')
                                          );

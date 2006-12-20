@@ -514,16 +514,22 @@ class RightProfile
 
     function displayProfileForm()
     {
-        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >
-            <input type="hidden" name="profile_id" value="' . $this->id . '" />
-            <input type="hidden" name="claroFormId" value="' . uniqid('') . '">
-            <input type="hidden" name="cmd" value="exSave" />
-            <table>';
+        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >'
+        .       claro_form_relay_context()
+        .       '<input type="hidden" name="profile_id" value="' . $this->id . '" />' . "\n"
+        .       '<input type="hidden" name="claroFormId" value="' . uniqid('') . '">' . "\n"
+        .       '<input type="hidden" name="cmd" value="exSave" />' . "\n"
+        .       '<table>'
+        ;
 
         // Display name
-        $form .= '
-            <tr valign="top">
-            <td align="right"><label for="name">' . get_lang('Name') . ' :</label></td>' ;
+        $form .= '<tr valign="top">' . "\n"
+        .       '<td align="right">' . "\n"
+        .       '<label for="name">' . "\n"
+        .       get_lang('Name') . "\n"
+        .       ' :' . "\n"
+        .       '</label>' . "\n"
+        .       '</td>' ;
 
         if ( $this->isRequired() )
         {
@@ -531,17 +537,25 @@ class RightProfile
         }
         else
         {
-            $form .= '<td><input type="text" id="name" name="name" value="' . $this->name . '"/></td>';
+            $form .= '<td>' . "\n"
+            .        '<input type="text" id="name" name="name" value="' . $this->name . '"/>' . "\n"
+            .        '</td>'
+            ;
         }
 
         $form .= '</tr>';
 
         // Display description
-        $form .= '
-            <tr valign="top">
-            <td align="right"><label for="description">' . get_lang('Description') . ' :</label></td>
-            <td ><textarea cols="60" rows="3" id="description" name="description">' . $this->description . '</textarea></td>
-            </tr>';
+        $form .= '<tr valign="top">' . "\n"
+        .        '<td align="right">' . "\n"
+        .        '<label for="description">'
+        .        get_lang('Description') . ' :</label>' . "\n"
+        .        '</td>' . "\n"
+        .        '<td >' . "\n"
+        .        '<textarea cols="60" rows="3" id="description" name="description">' . $this->description . '</textarea>' . "\n"
+        .        '</td>' . "\n"
+        .        '</tr>'
+        ;
 
         // Display type
 
