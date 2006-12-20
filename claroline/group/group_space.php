@@ -127,6 +127,7 @@ if( isset($_REQUEST['registration']) )
         {
             $message = get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
             .          '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            .          claro_form_relay_context()
             .          '<input type="hidden" name="registration" value="1">' . "\n"
             .          '<input type="hidden" name="doReg" value="1">' . "\n"
             .          '<br />' . "\n"
@@ -291,16 +292,16 @@ if ( !empty($message) )
 if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
 {
     echo '<p>' . "\n"
-    .    '<a href="' . $_SERVER['PHP_SELF'] . '?registration=1" class="claroCmd">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang("Add me to this group") . '" />'
-    .    get_lang("Add me to this group")
-    .    '</a>' . "\n"
+    .    claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?registration=1'
+                            , '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif"'
+                            .     ' alt="' . get_lang("Add me to this group") . '" />'
+    .                       get_lang("Add me to this group")
+                            )
     .    '</p>'
     ;
 }
 
-
-echo '<p></p><table cellpadding="5" cellspacing="0" border="0">'  . "\n"
+echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 .    '<tr>'  . "\n"
 .    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
 
@@ -319,11 +320,11 @@ echo '<p></p><table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 
 if ($is_allowedToManage)
 {
-    echo '<a href="group_edit.php" class="claroCmd">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang("Edit this group") . '" />'
-    .    get_lang("Edit this group")
-    .    '</a>'
-    ;
+    echo claro_html_cmd_link( 'group_edit.php'
+                            , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif"'
+                            .     ' alt="' . get_lang("Edit this group") . '" />'
+                            .    get_lang("Edit this group")
+                            );
 }
 
 echo '</td>' . "\n"
