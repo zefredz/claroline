@@ -76,11 +76,11 @@ if( !empty($cmd) )
 {
 	// instanciate assignment object
 	$assignment = new Assignment();
-	
+
 	if( isset($_REQUEST['assigId']) )
     {
         // we handle a particular assignment, no form has been posted (delete, change visibility , ask for edition)
-        // read assignment        
+        // read assignment
         if( ! $assignment->load($_REQUEST['assigId']) )
         {
         	// could not read assignment
@@ -88,13 +88,13 @@ if( !empty($cmd) )
 			$_REQUEST['assigId'] == NULL;
         }
     }
-    
-    
+
+
 	if( isset($_REQUEST['submitAssignment']) && $cmd != '' )
     {
     	// form submitted
         if ( isset($_REQUEST['title']) )        				$assignment->setTitle(strip_tags(trim($_REQUEST['title'])));
-                
+
         if( !isset($_REQUEST['description']) || trim( strip_tags($_REQUEST['description'], $allowedTags ) ) == "" )
         {
             $assignment->setDescription(''); // avoid multiple br tags to be added when editing an empty form
@@ -104,12 +104,12 @@ if( !empty($cmd) )
             $assignment->setDescription(trim( $_REQUEST['description'] ));
 
         }
-        
+
         if ( isset($_REQUEST['def_submission_visibility']) ) 	$assignment->setDefaultSubmissionVisibility($_REQUEST['def_submission_visibility']);
         if ( isset($_REQUEST['assignment_type']) )    			$assignment->setAssignmentType($_REQUEST['assignment_type']);
         if ( isset($_REQUEST['authorized_content']) ) 			$assignment->setSubmissionType($_REQUEST['authorized_content']);
 		if ( isset($_REQUEST['allow_late_upload']) ) 			$assignment->setAllowLateUpload($_REQUEST['allow_late_upload']);
-        
+
 
 		$unixStartDate = mktime( $_REQUEST['startHour'],
 								$_REQUEST['startMinute'],
@@ -118,7 +118,7 @@ if( !empty($cmd) )
 								$_REQUEST['startDay'],
 								$_REQUEST['startYear']);
         $assignment->setStartDate($unixStartDate);
-        
+
        	$unixEndDate = mktime( $_REQUEST['endHour'],
 								$_REQUEST['endMinute'],
 								'00',
@@ -128,7 +128,7 @@ if( !empty($cmd) )
         $assignment->setEndDate($unixEndDate);
 
         $assignment_data['start_date'] = $unixStartDate;
-        												
+
         $assignment_data['end_date'] 	= $unixEndDate;
     }
     else
@@ -153,7 +153,7 @@ if ($is_allowedToEdit)
         if ( isset($_REQUEST['vis']) )
         {
         	$_REQUEST['vis'] == 'v' ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
-        	
+
             Assignment::updateAssignmentVisibility($_REQUEST['assigId'], $visibility);
 
             // notify eventmanager
@@ -315,40 +315,40 @@ else
     if ( claro_is_in_a_group() && claro_is_group_allowed() )
     {
         // select only the group assignments
-        $sql = "SELECT `id`, 
-        				`title`, 
+        $sql = "SELECT `id`,
+        				`title`,
         				`def_submission_visibility`,
-	      				`visibility`, 
+	      				`visibility`,
         				`assignment_type`,
-        				`authorized_content`, 
-        				unix_timestamp(`start_date`) as `start_date_unix`, 
+        				`authorized_content`,
+        				unix_timestamp(`start_date`) as `start_date_unix`,
         				unix_timestamp(`end_date`) as `end_date_unix`
 		        FROM `" . $tbl_wrk_assignment . "`
 		        WHERE `assignment_type` = 'GROUP'";
-	        
+
 	        if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-			
+
 			$sortKeyList['end_date']	= SORT_ASC;
     }
     else
     {
-        $sql = "SELECT `id`, 
-        				`title`, 
-        				`def_submission_visibility`, 
-        				`visibility`, 
+        $sql = "SELECT `id`,
+        				`title`,
+        				`def_submission_visibility`,
+        				`visibility`,
         				`assignment_type`,
-        				unix_timestamp(`start_date`) as `start_date_unix`, 
+        				unix_timestamp(`start_date`) as `start_date_unix`,
         				unix_timestamp(`end_date`) as `end_date_unix`
             	FROM `" . $tbl_wrk_assignment . "`";
 
 		if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-					
+
 		$sortKeyList['end_date']	= SORT_ASC;
     }
-    
+
     $offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
 	$assignmentPager = new claro_sql_pager($sql, $offset, $assignmentsPerPage);
-	
+
 	foreach($sortKeyList as $thisSortKey => $thisSortDir)
 	{
 	    $assignmentPager->add_sort_key( $thisSortKey, $thisSortDir);
@@ -436,7 +436,7 @@ if ($is_allowedToEdit)
             <br />
         </td>
       </tr>
-      
+
       <tr>
         <td valign="top"><?php echo get_lang('Start date'); ?>&nbsp;:</td>
         <td>
@@ -468,7 +468,7 @@ if ($is_allowedToEdit)
           <br />
         </td>
       </tr>
-      
+
       <tr>
         <td valign="top"><?php echo get_lang('Default works visibility'); ?>&nbsp;:</td>
         <td>
@@ -507,12 +507,14 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     if( $is_allowedToEdit )
     {
         // link to create a new assignment
-        $cmdMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqMkAssig'
+        $cmdMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                         . '?cmd=rqMkAssig'
+                                         . claro_url_relay_context('&amp;')
                                          , '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" />'
                                          . get_lang('Create a new assignment')
                                          );
     }
-    
+
     if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
 
 	$headerUrl = $assignmentPager->get_sort_url_list($_SERVER['PHP_SELF']);
@@ -525,15 +527,15 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     .	 '<th><a href="' . $headerUrl['assignment_type'] . '">' . get_lang('Type') . '</a></th>' . "\n"
     .	 '<th><a href="' . $headerUrl['start_date_unix'] . '">' . get_lang('Start date') . '</a></th>' . "\n"
     .	 '<th><a href="' . $headerUrl['end_date_unix'] . '">' . get_lang('End date') . '</a></th>' . "\n";
-    
+
     $colspan = 4;
-    
+
     if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
     {
     	echo '<th>' . get_lang('Publish') . '</th>' . "\n";
-    	$colspan++;	
+    	$colspan++;
     }
-    
+
     if( $is_allowedToEdit )
     {
     	echo '<th>' . get_lang('Edit') . '</th>' . "\n"
@@ -541,11 +543,11 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     	.	 '<th>' . get_lang('Visibility') . '</th>' . "\n";
     	$colspan += 3;
     }
-    
-    
+
+
     echo '</tr>' . "\n"
     .	 '<tbody>' . "\n\n";
-    
+
 
     $atLeastOneAssignmentToShow = false;
 
@@ -585,7 +587,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
         echo '<tr ' . $style . '>'."\n"
         .    '<td>' . "\n"
-        .    '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">'        
+        .    '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" /> '
         .    $anAssignment['title']
         .    '</a>' . "\n"
@@ -593,14 +595,14 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         ;
 
         echo '<td align="center">';
-        
-        if( $anAssignment['assignment_type'] == 'INDIVIDUAL' ) 
+
+        if( $anAssignment['assignment_type'] == 'INDIVIDUAL' )
             echo '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" border="0" alt="' . get_lang('Individual') . '" />' ;
-        elseif( $anAssignment['assignment_type'] == 'GROUP' ) 
+        elseif( $anAssignment['assignment_type'] == 'GROUP' )
             echo '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" border="0" alt="' . get_lang('Groups (from groups tool, only group members can post)') . '" />' ;
-        else 
+        else
         	echo '&nbsp;';
-        	
+
         echo '</td>' . "\n"
         .    '<td><small>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$anAssignment['start_date_unix']) . '</small></td>' . "\n"
         .    '<td><small>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$anAssignment['end_date_unix']) . '</small></td>' . "\n";
@@ -622,7 +624,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 				;
         	}
         }
-        
+
         if ( $is_allowedToEdit )
         {
                         echo '<td align="center">'
@@ -638,7 +640,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
             if ( $anAssignment['visibility'] == "INVISIBLE" )
             {
-                echo '<a href="' . $_SERVER['PHP_SELF'] 
+                echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=exChVis&amp;assigId=' . $anAssignment['id']
                 .    '&amp;vis=v">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" border="0" alt="' . get_lang('Make visible') . '" />'
@@ -656,7 +658,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             .    '</tr>' . "\n\n"
             ;
         }
-        
+
         $atLeastOneAssignmentToShow = true;
     }
 
