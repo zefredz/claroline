@@ -112,25 +112,14 @@ else
 
     // Check if path exists in course folder
 
-    if ( preg_match('|^'.get_path('coursesRepositorySys') . $intermediatePath.'|', $pathInfo) )
+    if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
     {
-        if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
-        {
-            $isDownloadable = false ;
-
-            $message = '<h1>' . get_lang('Not found') . '</h1>' . "\n"
-                . '<p>' . get_lang('The requested file <strong>%file</strong> was not found on the platform.',
-                                    array('%file' => basename($pathInfo) ) ) . '</p>' ;
-        }
-
-    }
-    else
-    {
-        // file outside of the course document folder
         $isDownloadable = false ;
-        $message = get_lang('Not allowed');
-    }
 
+        $message = '<h1>' . get_lang('Not found') . '</h1>' . "\n"
+            . '<p>' . get_lang('The requested file <strong>%file</strong> was not found on the platform.',
+                                array('%file' => basename($pathInfo) ) ) . '</p>' ;
+    }
 }
 
 // Output section
