@@ -61,6 +61,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
 echo '<form method="post" action="group.php">' . "\n"
+.    claro_form_relay_context()
 .    '<table border="0" width="100%" cellspacing="0" cellpadding="4">' . "\n"
 .    '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
