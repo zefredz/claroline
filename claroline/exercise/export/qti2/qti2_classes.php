@@ -305,8 +305,6 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
      */
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
-        global $charset;
-
         $out = '';
         
         $out .= '<prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n"; 

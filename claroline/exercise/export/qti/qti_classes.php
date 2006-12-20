@@ -266,9 +266,7 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
      */
     function imsExportResponses($questionIdent)
     {
-        global $charset;
-    
-        $out = "<flow>\n";
+        $out = '<flow>' . "\n";
 
         $responsePart = explode(']', $this->answer);
         $i = 0; // Used for the reference generation.
@@ -294,7 +292,7 @@ class ImsAnswerFillInBlanks extends answerFillInBlanks
             if ($blank!="")
             {
                 $out.= '  <response_str ident="' . $response_ident . '" rcardinality="Single" rtiming="No">' . "\n"
-                     . '    <render_fib fibtype="String" prompt="Box" encoding="' . $charset . '">' . "\n"
+                     . '    <render_fib fibtype="String" prompt="Box" encoding="' . get_locale('charset') . '">' . "\n"
                      . '      <response_label ident="A"/>' . "\n"
                      . "     </render_fib>\n"
                      . "  </response_str>\n";

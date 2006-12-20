@@ -98,7 +98,7 @@ function import_exercise($file, &$backlog)
     $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 
     // paths
-    $baseWorkDir = get_conf('rootSys') . get_conf('tmpPathSys') . 'upload/';
+    $baseWorkDir = get_path('rootSys') . get_conf('tmpPathSys') . 'upload/';
     // create temp dir for upload
     if( !file_exists($baseWorkDir) ) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS);
 

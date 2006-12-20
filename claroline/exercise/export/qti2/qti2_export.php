@@ -123,12 +123,12 @@ class ImsAssessmentItem
       */
      function export($standalone = False)
      {
-        global $charset;
+
         $head = $foot = "";
         
         if( $standalone )
         {
-            $head = '<?xml version="1.0" encoding="'.$charset.'" standalone="no"?>' . "\n";
+            $head = '<?xml version="1.0" encoding="'.get_locale('charset').'" standalone="no"?>' . "\n";
         }
         
         return $head
@@ -206,11 +206,11 @@ function sendZip($archiveName, $archiveContent, $removedPath)
         return false;
     }
 
-    $downloadPlace = get_conf('rootSys') . get_conf('tmpPathSys');
-    $downloadArchivePath = $downloadPlace.'/'.uniqid('').'.zip';
+    $downloadPlace = get_path('rootSys') . get_conf('tmpPathSys');
+    $downloadArchivePath = $downloadPlace.''.uniqid('').'.zip';
     $downloadArchiveName = empty($archiveName) ? 'archive.zip' : $archiveName . '.zip';
     $downloadArchiveName = str_replace(',', '_', replace_dangerous_char($downloadArchiveName));
-    
+ 
     $downloadArchive     = new PclZip($downloadArchivePath);
 
     $downloadArchive->add($archiveContent, PCLZIP_OPT_REMOVE_PATH, $removedPath);

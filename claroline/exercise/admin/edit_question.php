@@ -16,7 +16,7 @@ $tlabelReq = 'CLQWZ';
  
 require '../../inc/claro_init_global.inc.php';
 
-if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -34,11 +34,11 @@ include_once '../lib/question.class.php';
 include_once '../lib/exercise.lib.php'; 
 
 // claroline libraries
-include_once $includePath . '/lib/form.lib.php';
-include_once $includePath . '/lib/fileDisplay.lib.php';
-include_once $includePath . '/lib/fileUpload.lib.php';
-include_once $includePath . '/lib/fileManage.lib.php';
-include_once $includePath . '/lib/htmlxtra.lib.php';
+include_once get_path('incRepositorySys') . '/lib/form.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 
 /*
  * Execute commands
@@ -190,7 +190,7 @@ elseif( $cmd == 'rqEdit' )	$nameTools = get_lang('Edit question');
 else						$nameTools = get_lang('Question');
 
  
-include($includePath.'/claro_init_header.inc.php');
+include(get_path('incRepositorySys').'/claro_init_header.inc.php');
  
 echo claro_html_tool_title($nameTools);
 
@@ -310,15 +310,12 @@ if( $displayForm )
 else
 {
 	$cmd_menu = array();
-	$cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'">'
-				. '&lt;&lt; ' . get_lang('Back to the question list')
-				. '</a>';
 	$cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit&amp;quId='.$quId.'">'
-				. '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="" />'
+				. '<img src="'.get_path('clarolineRepositoryWeb').'img/edit.gif" border="0" alt="" />'
 				. get_lang('Edit question')
 				. '</a>';
 	$cmd_menu[] = '<a class="claroCmd" href="./edit_answers.php?exId='.$exId.'&amp;cmd=rqEdit&amp;quId='.$quId.'">'
-				. '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="" />'
+				. '<img src="'.get_path('clarolineRepositoryWeb').'img/edit.gif" border="0" alt="" />'
 				. get_lang('Edit answers')
 				. '</a>';
 	
@@ -329,6 +326,6 @@ else
 
 } 
 
-include($includePath.'/claro_init_footer.inc.php');
+include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 
 ?>

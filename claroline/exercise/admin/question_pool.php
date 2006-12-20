@@ -16,7 +16,7 @@ $tlabelReq = 'CLQWZ';
  
 require '../../inc/claro_init_global.inc.php';
 
-if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -33,9 +33,9 @@ include_once '../lib/question.class.php';
 include_once '../lib/exercise.lib.php'; 
 
 // claroline libraries
-include_once $includePath.'/lib/form.lib.php';
-include_once $includePath.'/lib/pager.lib.php';
-include_once $includePath.'/lib/fileManage.lib.php';
+include_once get_path('incRepositorySys').'/lib/form.lib.php';
+include_once get_path('incRepositorySys').'/lib/pager.lib.php';
+include_once get_path('incRepositorySys').'/lib/fileManage.lib.php';
 
 /*
  * DB tables definition for list query
@@ -96,9 +96,9 @@ if( $cmd == 'delQu' && !is_null($quId) )
 if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
 {
     require_once '../export/qti2/qti2_export.php';
-    require_once $includePath . '/lib/fileManage.lib.php';
-    require_once $includePath . '/lib/file.lib.php';
-    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/file.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
     
     $question = new Question();
     $question->load($quId);
@@ -236,7 +236,7 @@ $noQUERY_STRING = true;
 
 $nameTools = get_lang('Question pool');
 
-include($includePath.'/claro_init_header.inc.php');
+include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 
 echo claro_html_tool_title($nameTools);
 
@@ -318,7 +318,7 @@ if( !empty($questionList) )
 			// reuse
 			echo '<td align="center">'
 			.	 '<a href="question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'].'">'
-			.	 '<img src="'.$clarolineRepositoryWeb.'img/enroll.gif" border="0" alt="'.get_lang('Modify').'" />'
+			.	 '<img src="' . get_path('imgRepositoryWeb') . '/enroll.gif" border="0" alt="'.get_lang('Modify').'" />'
 			.	 '</a>'
 			.	 '</td>' . "\n";			
 		}
@@ -327,7 +327,7 @@ if( !empty($questionList) )
 			// edit
 			echo '<td align="center">'
 			.	 '<a href="edit_question.php?quId='.$question['id'].'">'
-			.	 '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+			.	 '<img src="' . get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
 			.	 '</a>'
 			.	 '</td>' . "\n";
 			
@@ -336,7 +336,7 @@ if( !empty($questionList) )
 			
 			echo '<td align="center">'
 			.	 '<a href="question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-			.	 '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+			.	 '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
 			.	 '</a>'
 			.	 '</td>' . "\n";
 			
@@ -345,7 +345,7 @@ if( !empty($questionList) )
 				// export
 				echo '<td align="center">'
 				.	 '<a href="question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'].'">'
-				.	 '<img src="'.$clarolineRepositoryWeb.'img/export.gif" border="0" alt="'.get_lang('Export').'" />'
+				.	 '<img src="' . get_path('imgRepositoryWeb') . '/export.gif" border="0" alt="'.get_lang('Export').'" />'
 				.	 '</a>'
 				.	 '</td>' . "\n";
 			}
@@ -367,5 +367,5 @@ echo '</tbody>' . "\n\n"
 //-- pager
 echo $myPager->disp_pager_tool_bar($pagerUrl);
 
-include($includePath.'/claro_init_footer.inc.php');
+include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 ?>
