@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -25,8 +25,8 @@ $is_AllowedToEdit = claro_is_course_manager();
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
 
 $nameTools = get_lang('Add a module of this course');
 
@@ -87,7 +87,7 @@ function buildRequestModules()
  {
     $sql .=" AND M.`module_id` != ". (int)$list['module_id'];
  }
- 
+
  //$sql .= " AND M.`contentType` != \"".CTSCORM_."\"";
 
  /** To find which module must displayed we can also proceed  with only one query.
@@ -98,7 +98,7 @@ function buildRequestModules()
   $query = "SELECT *
              FROM `".$TABLEMODULE."` AS M
              WHERE NOT EXISTS(SELECT * FROM `".$TABLELEARNPATHMODULE."` AS TLPM
-             WHERE TLPM.`module_id` = M.`module_id`)"; 
+             WHERE TLPM.`module_id` = M.`module_id`)";
  */
 
   return $sql;
@@ -111,7 +111,7 @@ echo claro_html_tool_title($nameTools);
 
 //COMMAND ADD SELECTED MODULE(S):
 
-if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add')) 
+if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
 {
 
     // select all 'addable' modules of this course for this learning path
@@ -122,7 +122,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
     while ($list = mysql_fetch_array($result))
     {
         // see if check box was checked
-        if (isset($_REQUEST['check_'.$list['module_id']]) && $_REQUEST['check_'.$list['module_id']]) 
+        if (isset($_REQUEST['check_'.$list['module_id']]) && $_REQUEST['check_'.$list['module_id']])
         {
             // find the order place where the module has to be put in the learning path
             $sql = "SELECT MAX(`rank`)
@@ -181,13 +181,13 @@ $atleastOne = FALSE;
 while ($list=mysql_fetch_array($result))
 {
     //CHECKBOX, NAME, RENAME, COMMENT
-    if($list['contentType'] == CTEXERCISE_ ) 
+    if($list['contentType'] == CTEXERCISE_ )
         $moduleImg = "quiz.gif";
     else
         $moduleImg = choose_image(basename($list['path']));
-        
+
     $contentType_alt = selectAlt($list['contentType']);
-    
+
     echo '<tr>'."\n"
         .'<td align="center">'."\n"
         .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'">'."\n"
