@@ -170,7 +170,8 @@ foreach ( $categories as $this_category )
         if ( $categoryIterator < $total_categories)
         {
             echo '<a href="' . $_SERVER['PHP_SELF']
-            .    '?cmd=exMvDownCat&amp;catId=' . $this_category['cat_id'] . '">'
+            .    '?cmd=exMvDownCat'
+            .    '&amp;catId=' . $this_category['cat_id'] . '">'
             .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
@@ -184,15 +185,16 @@ foreach ( $categories as $this_category )
 
     if ( $this_category['cat_id'] == GROUP_FORUMS_CATEGORY)
     {
-        echo '&nbsp;<a href="'.get_path('clarolineRepositoryWeb').'group/group.php">'
+        echo '&nbsp;'
+        .    '<a href="' . get_module_url('CLGRP') . '/group.php">'
         .    '<img src="' . get_path('imgRepositoryWeb') . '/group.gif" alt="' . get_lang('Groups') . '">'
-        .    '</a>';
+        .    '</a>'
+        ;
     }
 
     echo '</th>' . "\n"
-    .    '</tr>' . "\n";
-
-
+    .    '</tr>' . "\n"
+    ;
 
     if ($this_category['forum_count'] == 0)
     {
@@ -280,12 +282,14 @@ foreach ( $categories as $this_category )
                     echo '<a href="viewforum.php?gidReq=' . $group_id
                     .    '&amp;forum=' . $forum_id . '">'
                     .    $forum_name
-                    .    '</a>'
-                    ;
+                    .    '</a>' . "\n"
 
-                    echo  '&nbsp;<a href="'.get_path('clarolineRepositoryWeb').'group/group_space.php?gidReq='.$group_id.'">'
-                    . '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '">'
-                    . '</a>';
+                    .    '&nbsp;' . "\n"
+
+                    .    '<a href="' . get_module_url('CLGRP') . '/group_space.php?gidReq=' . $group_id . '">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '">'
+                    .    '</a>' . "\n"
+                    ;
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
                     {

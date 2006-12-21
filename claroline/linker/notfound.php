@@ -7,16 +7,16 @@
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author claro team <info@claroline.net>
  * @author Frederic Minne <zefredz@gmail.com>
  *
  * @package CLLNK
  */
- 
+
 require_once '../inc/claro_init_global.inc.php';
- 
+
 $referer = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '';
 
 $requestedFile = isset( $_REQUEST['requestedFile'] ) ? $_REQUEST['requestedFile'] : 'unknown';
@@ -38,10 +38,11 @@ echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;" class=""
 ;
 
 echo '<p style="padding-left: 2em;">'
-.    'Back to :'
+.    get_lang('Back to :')
 .    '<ul>'
-.    '<li><a href="' . get_path('clarolineRepositoryWeb') . 'document/document.php">' . get_lang("Documents and Links") . '</a></li>'
-.    ( (! empty($referer)) ? '<li><a href="' . $referer . '">Previous page</a></li>' : '' )
+.    '<li>'
+.    '<a href="' . get_module_url('CLDOC') . '/document.php">' . get_lang("Documents and Links") . '</a></li>'
+.    ( (! empty($referer)) ? '<li><a href="' . $referer . '">' .  get_lang('Previous page') . '</a></li>' : '' )
 .    '</ul>'
 .    '</p>'
 ;
