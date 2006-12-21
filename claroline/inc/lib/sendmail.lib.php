@@ -1,5 +1,6 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
@@ -12,9 +13,81 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
-
 require_once dirname(__FILE__) . '/phpmailer/class.phpmailer.php' ;
 include_once dirname(__FILE__) . '/user.lib.php' ;
+
+class ClaroPHPMailer extends PHPMailer
+{
+    function ClaroPHPMailer()
+    {
+        // set charset
+        $this->CharSet = get_locale('charset');
+        
+        if ( get_conf('smtp_host') != '' )
+        {
+            // set smtp mode and smtp host
+            $this->IsSMTP();
+            $this->Host = get_conf('smtp_host');
+
+            if ( get_conf('smtp_username') != '' )
+            {            
+                // SMTP authentification
+                $mail->SMTPAuth = true;     // turn on SMTP
+                $mail->Username = get_conf('smtp_username'); // SMTP username
+                $mail->Password = get_conf('smtp_password'); // SMTP password
+            }
+        }
+        else
+        {
+            // set sendmail mode
+            $this->IsMail();
+        }
+    }
+
+    /**
+     * Returns a message in the appropriate language.
+     * @access private
+     * @return string
+     */
+    function Lang($key) {
+            return "Language string failed to load: " . $key . " ";
+    }
+
+    function getError ()
+    {
+        return $this->ErrorInfo;
+    }
+}
+
+/**
+ * Send e-mail using Main settings
+ */
+
+function claro_mail($subject, $message, $to, $toName, $from, $fromName)
+{
+    $mail = new ClaroPHPMailer();
+
+    if (!empty($from)) $from = get_conf('administrator_email');
+    if (!empty($fromName)) $fromName = get_conf('administrator_name');
+    if (!empty($to)) $to = claro_get_current_user_data;
+    if (!empty($toName)) $toName = claro_get_current_user_data;
+    
+    $mail->Subject  = $subject;
+    $mail->Body     = $message;
+    $mail->From     = $from;
+    $mail->FromName = $fromName;
+    
+    $mail->AddAddress($to,$toName);
+
+    if ( $mail->Send() )
+    {
+        return true;
+    }
+    else
+    {
+        return claro_failure::set_failure($mail->getError()); 
+    }
+}
 
  /**
   * Send e-mail to Claroline users form their ID a user of Claroline
@@ -46,7 +119,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
 
     $emailList = array_filter($emailList, 'is_well_formed_email_address');
 
-    $mail = new PHPMailer();
+    $mail = new ClaroPHPMailer();
 
     if ($specificFrom != '')     $mail->From = $specificFrom;
     else                         $mail->From = get_conf('administrator_email');
@@ -54,8 +127,6 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     if ($specificFromName != '') $mail->FromName = $specificFromName;
     else                         $mail->FromName = get_conf('administrator_name');
 
-    $mail->CharSet = $GLOBALS['charset'];
-    $mail->IsMail();
     if (strlen($subject)> 78)
     {
         $message = $subject . "\n" . $message;
@@ -74,10 +145,20 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
         pushClaroMessage($message,'mail');
     }
 
-    foreach($emailList as $thisEmail)
+    foreach ($emailList as $thisEmail)
     {
         $mail->AddAddress($thisEmail);
-        if ( $mail->Send() ) $emailSentCount ++;
+        if ( $mail->Send() ) 
+        {
+            $emailSentCount ++;
+        }
+        else
+        {
+            if ( get_conf('CLARO_DEBUG_MODE') )
+            {
+                pushClaroMessage($mail->getError(),'error');
+            }
+        } 
         $mail->ClearAddresses();
     }
 

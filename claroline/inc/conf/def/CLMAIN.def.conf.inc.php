@@ -26,18 +26,15 @@ $conf_def['config_class']='platform';
 
 // SECTION
 
-$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Platform & Organisation';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='General';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your platform and your organisation';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] =
 array ( 'siteName'
       , 'institution_name'
       , 'institution_url'
-      
       );
 
-
 $conf_def['section']['LAYOUT']['label']='Layout';
-//$conf_def['section']['LAYOUT']['description']='';
 $conf_def['section']['LAYOUT']['properties'] =
 array ( 'claro_stylesheet'
       , 'siteLogo'
@@ -89,6 +86,14 @@ array ( 'dbHost'
       , 'dbNamePrefix'
       , 'dbGlu'
       , 'courseTablePrefix'
+      );
+
+$conf_def['section']['SMTP']['label']='SMTP';
+$conf_def['section']['SMTP']['description']='Mail server configuration';
+$conf_def['section']['SMTP']['properties'] =
+array ( 'smtp_host'
+      , 'smtp_username'
+      , 'smtp_password'
       );
 
 $conf_def['section']['RIGHT']['label']='Right';
@@ -326,6 +331,32 @@ array ('label'       => 'Mysql Base Path'
       ,'type'        => 'syspath'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
+      );
+
+// SMTP
+
+$conf_def_property_list['smtp_host'] =
+array ('label'       => 'SMTP server(s)'
+      ,'description' => 'Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      );
+
+$conf_def_property_list['smtp_username'] =
+array ('label'       => 'Username'
+      ,'description' => 'Give a username and password to turn on SMTP authentication.'
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
+      );
+
+$conf_def_property_list['smtp_password'] =
+array ('label'       => 'Password'
+      ,'description' => ''
+      ,'default'     => ''
+      ,'type'        => 'string'
+      ,'display'     => TRUE
       );
 
 // Path
