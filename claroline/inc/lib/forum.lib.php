@@ -579,8 +579,8 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = get_lang('A reply to your topic has been posted');
 
-    $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
-    $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
+    $url_topic = get_module_path('CLFRM') . '/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
+    $url_forum = get_module_path('CLFRM') . '/index.php?cidReq=' . claro_get_current_course_id();
 
     // send mail to registered user for notification
 
