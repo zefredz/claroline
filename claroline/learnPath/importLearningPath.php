@@ -24,7 +24,7 @@ $is_AllowedToEdit = claro_is_course_manager();
 if (! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ('url' => get_path('clarolineRepositoryWeb').'learnPath/learningPathList.php', 'name' => get_lang('Learning path list'));
+$interbredcrump[]= array ('url' => get_module_url('CLLNP') . '/learningPathList.php', 'name' => get_lang('Learning path list'));
 $nameTools = get_lang('Import a learning path');
 
 //header
@@ -614,10 +614,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                 $errorFound = true;
                 array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
-                
+
                 if ( get_conf('CLARO_DEBUG_MODE') )
                 {
-                    $debugMessage = strtr( 'Debug : %message (error code %code) on line %line and column %column' , 
+                    $debugMessage = strtr( 'Debug : %message (error code %code) on line %line and column %column' ,
                                  array( '%message' => xml_error_string($xml_parser) ,
                                         '%code' => xml_get_error_code($xml_parser) ,
                                         '%line' => xml_get_current_line_number($xml_parser) ,

@@ -1366,9 +1366,9 @@ function claro_html_breadcrumb()
 
         if ( claro_is_in_a_group() )
         {
-            $breadcrumbUrlList[]  = get_path('clarolineRepositoryWeb') . 'group/index.php?cidReq=' . htmlspecialchars(claro_get_current_course_id());
+            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/index.php?cidReq=' . htmlspecialchars(claro_get_current_course_id());
             $breadcrumbNameList[] = get_lang('Groups');
-            $breadcrumbUrlList[]  = get_path('clarolineRepositoryWeb') . 'group/group_space.php?cidReq=' . htmlspecialchars(claro_get_current_course_id()).'&gidReq=' . (int) claro_get_current_group_id();
+            $breadcrumbUrlList[]  = get_module_url('CLGRP') . '/group_space.php?cidReq=' . htmlspecialchars(claro_get_current_course_id()).'&gidReq=' . (int) claro_get_current_group_id();
             $breadcrumbNameList[] = claro_get_current_group_data('name');
         }
 

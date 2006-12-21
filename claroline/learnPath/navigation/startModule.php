@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -121,12 +121,12 @@ switch ($module['contentType'])
         {
             // slash argument method - only compatible with Apache
             // str_replace("%2F","/",urlencode($startAssetPage)) is used to avoid problems with accents in filename.
-            $moduleStartAssetPage = get_path('clarolineRepositoryWeb').'document/goto/index.php'.str_replace('%2F','/',$startAssetPage);
+            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/index.php'.str_replace('%2F','/',$startAssetPage);
         }
         else
         {
             // question mark argument method, for IIS ...
-            $moduleStartAssetPage = get_path('clarolineRepositoryWeb').'document/goto/?url='.$startAssetPage;
+            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/?url=' . $startAssetPage;
         }
   		$withFrames = true;
 		break;
@@ -138,14 +138,14 @@ switch ($module['contentType'])
 		unset($_SESSION['exeStartTime'	]);
 
 		$_SESSION['inPathMode'] = true;
-		$startAssetpage = get_path('clarolineRepositoryWeb')."exercise/exercise_submit.php";
-		$moduleStartAssetPage = $startAssetpage."?exId=".$assetPath;
+		$startAssetpage = get_module_url('CLQWZ') . '/exercise_submit.php';
+		$moduleStartAssetPage = $startAssetpage . '?exId=' . $assetPath;
 		break;
 	case CTSCORM_ :
 		// real scorm content method
 		$startAssetPage = $assetPath;
-		$modulePath     = "path_".$_SESSION['path_id'];
-		$moduleStartAssetPage = get_path('coursesRepositoryWeb').claro_get_course_path() . '/scormPackages/' . $modulePath.$startAssetPage;
+		$modulePath     = 'path_' . $_SESSION['path_id'];
+		$moduleStartAssetPage = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/scormPackages/' . $modulePath . $startAssetPage;
 		break;
 	case CTCLARODOC_ :
 		break;
@@ -157,22 +157,22 @@ switch ($module['contentType'])
 <html>
 
   <head>
-  
+
 <?php
-   // add the update frame if this is a SCORM module   
+   // add the update frame if this is a SCORM module
    if ( $module['contentType'] == CTSCORM_ )
    {
-      
+
       include("scormAPI.inc.php");
       echo "<frameset border='0' cols='0,20%,80%' frameborder='no'>
             <frame src='updateProgress.php' name='upFrame'>";
-      
+
    }
    else
    {
       echo "<frameset border='0' cols='20%,80%' frameborder='yes'>";
    }
-?>    
+?>
     <frame src="tableOfContent.php" name="tocFrame" />
     <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame">
 

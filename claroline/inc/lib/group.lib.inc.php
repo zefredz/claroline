@@ -91,7 +91,7 @@ function delete_groups($groupIdList = 'ALL')
     $tbl_groups      = $tbl_c_names['group_team'         ];
     $tbl_groupsUsers = $tbl_c_names['group_rel_team_user'];
 
-    require_once get_path('clarolineRepositorySys') . '/wiki/lib/lib.createwiki.php';
+    require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
     require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 
     delete_group_wikis( $groupIdList );
@@ -151,7 +151,7 @@ function delete_groups($groupIdList = 'ALL')
     {
         $eventNotifier->notifyCourseEvent('group_deleted'
         , claro_get_current_course_id()
-        , claro_get_current_tool_id()        
+        , claro_get_current_tool_id()
         , '0'
         , $thisGroupId
         , '0');
@@ -512,7 +512,7 @@ function create_group($prefixGroupName, $maxMember)
     , $createdGroupId
     );
 
-    require_once get_path('clarolineRepositorySys') . '/wiki/lib/lib.createwiki.php';
+    require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
     create_wiki( $createdGroupId, $groupName. ' - Wiki' );
 
     return $createdGroupId;

@@ -1,7 +1,7 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -38,9 +38,9 @@ $TABLEASSET              = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
 $TABLEUSERS              = $tbl_user;
 
-$SCORMServerURL = get_path('clarolineRepositoryWeb')."learnPath/navigation/SCORMserver.php";
-$redirectionURL = get_path('clarolineRepositoryWeb')."learnPath/learningPath.php";
-$TOCurl = get_path('clarolineRepositoryWeb')."learnPath/navigation/tableOfContent.php";
+$SCORMServerURL = get_module_url('CLLNP') . '/navigation/SCORMserver.php';
+$redirectionURL = get_module_url('CLLNP') . '/learningPath.php';
+$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php';
 /*======================================
        CLAROLINE MAIN
   ======================================*/
@@ -184,9 +184,9 @@ $sco['session_time'] = "0000:00:00.00";
                                 return "false";
                         }
                         this.APIError("0");
-                        
+
                         setTimeout("do_commit()",1000);
-                      
+
                         APIInitialized = false; //
                         return "true";
                 } else {
@@ -472,7 +472,7 @@ $sco['session_time'] = "0000:00:00.00";
                                            APIError("405");
                                            return "false";
 									  }
-									  
+
                                       values[i] = val;
                                       APIError("0");
                                       return "true";
@@ -518,7 +518,7 @@ $sco['session_time'] = "0000:00:00.00";
                                 return "false";
                         } else {
                                 this.APIError("0");
-                                
+
                                 do_commit();
 
                                 return "true";
@@ -535,20 +535,20 @@ $sco['session_time'] = "0000:00:00.00";
         //
         function LMSGetLastError() {
                 if(debug_) alert ("LMSGetLastError : " + APILastError);
-                
-                return APILastError;               
+
+                return APILastError;
         }
 
         function LMSGetErrorString(num) {
                 if(debug_) alert ("LMSGetErrorString(" + num +") = " + errCodes[num] );
-                
+
                 return errCodes[num];
 
         }
 
         function LMSGetDiagnostic(num) {
                 if(debug_) alert ("LMSGetDiagnostic("+num+") = " + errDiagn[num] );
-                
+
                 if ( num=="" ) num = APILastError;
                 return errDiagn[num];
         }
@@ -639,7 +639,7 @@ $sco['session_time'] = "0000:00:00.00";
 
 
         // ====================================================
-        // 
+        //
         //
         function do_commit()
         {
@@ -651,7 +651,7 @@ $sco['session_time'] = "0000:00:00.00";
               cmiform.lesson_location.value = values[3];
               cmiform.lesson_status.value = values[4];
               cmiform.credit.value = values[5];
-              cmiform.entry.value = values[6];              
+              cmiform.entry.value = values[6];
               cmiform.raw.value = values[8];
               cmiform.total_time.value = values[9];
               cmiform.session_time.value = values[11];

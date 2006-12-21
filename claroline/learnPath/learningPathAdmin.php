@@ -53,7 +53,7 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$interbredcrump[]= array ("url"=> get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=> get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
 $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb
@@ -66,22 +66,21 @@ claro_set_display_mode_available(true);
 $is_AllowedToEdit = claro_is_allowed_to_edit();
 
 //lib of document tool
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+include get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 
 // tables names
 
+// TODO use claro_sql_get_tbl()
 $TABLELEARNPATH         = claro_get_current_course_data('dbNameGlu') . "lp_learnPath";
 $TABLEMODULE            = claro_get_current_course_data('dbNameGlu') . "lp_module";
 $TABLELEARNPATHMODULE   = claro_get_current_course_data('dbNameGlu') . "lp_rel_learnPath_module";
 $TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset";
 $TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
 
-
-
 if (!isset($dialogBox)) $dialogBox = "";
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+include get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
 
 // $_SESSION
 

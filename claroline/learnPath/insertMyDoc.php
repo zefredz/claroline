@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -20,8 +20,8 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-// if there is an auth information missing redirect to the first page of lp tool 
-// this page will do the necessary to auth the user, 
+// if there is an auth information missing redirect to the first page of lp tool
+// this page will do the necessary to auth the user,
 // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
@@ -29,18 +29,17 @@ $is_AllowedToEdit = claro_is_course_manager();
 
 if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
 
 $nameTools = get_lang('Add a document');
 
-//header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // tables names
-  
+
 $tbl_cdb_names = claro_sql_get_course_tbl();
-  
+
 $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
 $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
 $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
@@ -52,7 +51,7 @@ $TABLELEARNPATHMODULE      = $tbl_lp_rel_learnPath_module;
 $TABLEUSERMODULEPROGRESS   = $tbl_lp_user_module_progress;
 $TABLEMODULE               = $tbl_lp_module;
 $TABLEASSET                = $tbl_lp_asset;
-  
+
 $dbTable = $tbl_cdb_names['document'];
 
 // document browser vars
@@ -116,7 +115,7 @@ function buildRequestModules()
   $query = "SELECT *
              FROM `".$TABLEMODULE."` AS M
              WHERE NOT EXISTS(SELECT * FROM `".$TABLELEARNPATHMODULE."` AS TLPM
-             WHERE TLPM.`module_id` = M.`module_id`)"; 
+             WHERE TLPM.`module_id` = M.`module_id`)";
   */
 
   return $sql;
@@ -143,7 +142,7 @@ if (!isset($dialogBox)) $dialogBox = "";
 
 $iterator = 0;
 
-if (!isset($_REQUEST['maxDocForm'])) $_REQUEST['maxDocForm'] = 0; 
+if (!isset($_REQUEST['maxDocForm'])) $_REQUEST['maxDocForm'] = 0;
 
 while ($iterator <= $_REQUEST['maxDocForm'])
 {
@@ -152,7 +151,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
     if (isset($_REQUEST['submitInsertedDocument']) && isset($_POST['insertDocument_'.$iterator]) )
     {
         $insertDocument = str_replace('..', '',$_POST['insertDocument_'.$iterator]);
-        
+
         $sourceDoc = $baseWorkDir.$insertDocument;
 
         if ( check_name_exist($sourceDoc) ) // source file exists ?
@@ -203,7 +202,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
                         VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
-                
+
                 $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
             }
             else
@@ -234,7 +233,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                             (`learnPath_id`, `module_id`, `specificComment`, `rank`,`lock`)
                             VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.",'OPEN')";
                     $query = claro_sql_query($sql);
-                     
+
                     $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
                 }
                 else
@@ -297,7 +296,7 @@ $sql = "SELECT *
         AND `path` NOT LIKE '". addslashes($curDirPath) ."/%/%'";
 $result = claro_sql_query($sql);
 $attribute = array();
-           
+
 while($row = mysql_fetch_array($result, MYSQL_ASSOC))
 {
     $attribute['path'      ][] = $row['path'      ];
@@ -396,7 +395,7 @@ if (isset($attribute))
      * than the numbers of files attributes previously given
      */
 
-    if ( isset($attribute['path']) && isset($fileList['comment']) 
+    if ( isset($attribute['path']) && isset($fileList['comment'])
          && ( sizeof($attribute['path']) > (sizeof($fileList['comment']) + sizeof($fileList['visibility'])) ) )
     {
         /* SEARCH DB RECORDS WICH HAVE NOT CORRESPONDANCE ON THE DIRECTORY */
@@ -413,11 +412,11 @@ if (isset($attribute))
         /* BUILD THE QUERY TO DELETE DEPRECATED DB RECORDS */
         $nbrRecToDel = sizeof ($recToDel);
         $queryClause = "";
-        
+
         for ($i=0; $i < $nbrRecToDel ;$i++)
         {
             $queryClause .= "path LIKE \"". addslashes($recToDel[$i]) ."%\"";
-            if ($i < $nbrRecToDel-1) 
+            if ($i < $nbrRecToDel-1)
             {
                 $queryClause .=" OR ";
             }

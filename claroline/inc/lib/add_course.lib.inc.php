@@ -227,9 +227,9 @@ function prepare_course_repository($courseRepository, $courseId)
     $folderList = array($courseDirPath ,
                         $courseDirPath . '/exercise',
                         $courseDirPath . '/document',
-                        $courseDirPath . '/work',       
-                        $courseDirPath . '/group',        
-                        $courseDirPath . '/chat',     
+                        $courseDirPath . '/work',
+                        $courseDirPath . '/group',
+                        $courseDirPath . '/chat',
                         $courseDirPath . '/modules',
                         $courseDirPath . '/scormPackages',
                         $courseDirPath . '/modules/module_1' );
@@ -948,8 +948,8 @@ function fill_course_repository($courseRepository)
   // WARNING. Do not forget to adapt queries in fill_Db_course()
   // if something changed here
 
-    return copy(get_path('clarolineRepositorySys').'document/Example_document.pdf',
-                get_path('coursesRepositorySys').$courseRepository.'/document/Example_document.pdf');
+    return copy( get_module_path('CLQWZ') . '/Example_document.pdf',
+                 get_path('coursesRepositorySys').$courseRepository.'/document/Example_document.pdf');
 };
 
 /**

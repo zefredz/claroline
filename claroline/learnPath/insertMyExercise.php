@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
@@ -27,8 +27,8 @@ $is_AllowedToEdit = claro_is_course_manager();
 if (! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>get_path('clarolineRepositoryWeb')."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
 
 $nameTools = get_lang('Add an exercise');
 
@@ -89,7 +89,7 @@ foreach( $exerciseList as $exercise )
 
 
 		$existingModule = claro_sql_query_get_single_row($sql);
-	
+
 		// no module exists using this exercise
         if( !$existingModule )
         {
@@ -97,7 +97,7 @@ foreach( $exerciseList as $exercise )
             $sql = "INSERT INTO `".$TABLEMODULE."`
                     (`name` , `comment`, `contentType`, `launch_data`)
                     VALUES ('".addslashes($exercise['title'])."' , '".addslashes(get_block('blockDefaultModuleComment'))."', '".CTEXERCISE_."', '')";
-                    
+
             $moduleId = claro_sql_query_insert_id($sql);
 
 
@@ -105,24 +105,24 @@ foreach( $exerciseList as $exercise )
             $sql = "INSERT INTO `".$TABLEASSET."`
                     (`path` , `module_id` , `comment`)
                     VALUES ('". (int)$exercise['id']."', ". (int)$moduleId ." , '')";
-                    
+
             $assetId = claro_sql_query_insert_id($sql);
 
 			// update start asset id in module
             $sql = "UPDATE `".$TABLEMODULE."`
                        SET `startAsset_id` = ". (int)$assetId."
                      WHERE `module_id` = ". (int)$moduleId;
-                     
+
             claro_sql_query($sql);
 
             // determine the default order of this Learning path
             $sql = "SELECT MAX(`rank`)
 					FROM `".$TABLELEARNPATHMODULE."`";
-					
+
             $orderMax = claro_sql_query_get_single_value($sql);
-            
+
             $order = $orderMax + 1;
-            
+
             // finally : insert in learning path
             $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                     (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
@@ -150,7 +150,7 @@ foreach( $exerciseList as $exercise )
                 // determine the default order of this Learning path
                 $sql = "SELECT MAX(`rank`)
                         FROM `".$TABLELEARNPATHMODULE."`";
-                        
+
                 $orderMax = claro_sql_query_get_single_value($sql);
 
                 $order = $orderMax + 1;
@@ -160,7 +160,7 @@ foreach( $exerciseList as $exercise )
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
                         VALUES (".(int)$_SESSION['path_id'].", ".(int)$existingModule['module_id'].",'".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
-                
+
                 $msgList['info'][] = get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
             }
             else
