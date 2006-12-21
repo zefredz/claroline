@@ -20,7 +20,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! $_uid ) claro_disp_auth_form();
 if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-require_once $includePath . '/lib/admin.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
 //------------------------
 //  USED SESSION VARIABLES
@@ -65,7 +65,7 @@ $menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
 
 $nameTools = get_lang('Administration');
 
-include_once $includePath . '/lib/debug.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/debug.lib.inc.php';
 $is_allowedToAdmin     = $is_platformAdmin;
 
 // ----- is install visible ----- begin
@@ -120,7 +120,7 @@ echo '<table cellspacing="5" align="center">' . "\n"
 ?>
 </table>
 <?php
-include $includePath . '/claro_init_footer.inc.php';
+include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 function get_menu_item_list($type)
 {
