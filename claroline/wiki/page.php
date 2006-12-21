@@ -1056,11 +1056,12 @@
 
                     if ( claro_is_course_member() )
                     {
-                        $userUrl = '<a href="'. get_path('clarolineRepositoryWeb')
-                            . 'user/userInfo.php?uInfo='
-                            . $recentChange['editor_id'].'">'
-                            .$userStr.'</a>'
-                            ;
+                        $userUrl = '<a href="' . get_module_url('CLUSR')
+                                 . '/userInfo.php'
+                                 . '?uInfo=' . $recentChange['editor_id'] . '">'
+                                 . $userStr
+                                 . '</a>'
+                                 ;
                     }
                     else
                     {
@@ -1180,8 +1181,8 @@
 
                     if ( claro_is_course_member() )
                     {
-                        $editorUrl = '&nbsp;-&nbsp;<a href="'. get_path('clarolineRepositoryWeb')
-                            . 'user/userInfo.php?uInfo='
+                        $editorUrl = '&nbsp;-&nbsp;<a href="'. get_module_url('CLUSR')
+                            . '/userInfo.php?uInfo='
                             . $wikiPage->getEditorId() .'">'
                             . $editorStr.'</a>'
                             ;
@@ -1337,25 +1338,28 @@
 
                     if ( claro_is_course_member() )
                     {
-                        $userUrl = '<a href="'. get_path('clarolineRepositoryWeb')
-                            . 'user/userInfo.php?uInfo='
-                            . $version['editor_id'].'">'
-                            .$userStr.'</a>'
-                            ;
+                        $userUrl = '<a href="' . get_module_url('CLUSR')
+                                 . '/userInfo.php?uInfo='
+                                 . $version['editor_id'].'">'
+                                 . $userStr
+                                 . '</a>'
+                                 ;
                     }
                     else
                     {
                         $userUrl = $userStr;
                     }
 
-                    $versionUrl = '<a href="' . $_SERVER['PHP_SELF'] . '?wikiId='
-                        . $wikiId . '&amp;title=' . rawurlencode( $title )
-                        . '&amp;action=show&amp;versionId=' . $version['id']
-                        . '">'
-                        . claro_disp_localised_date( get_locale('dateTimeFormatLong')
-                            , strtotime($version['mtime']) )
-                        . '</a>'
-                        ;
+                    $versionUrl = '<a href="' . $_SERVER['PHP_SELF']
+                                . '?wikiId=' . $wikiId
+                                . '&amp;title=' . rawurlencode( $title )
+                                . '&amp;action=show'
+                                . '&amp;versionId=' . $version['id']
+                                . '">'
+                                . claro_disp_localised_date( get_locale('dateTimeFormatLong')
+                                                           , strtotime($version['mtime']) )
+                                . '</a>'
+                                ;
 
                     echo '<td>'
                         . sprintf( get_lang("%1\$s by %2\$s"), $versionUrl, $userUrl )

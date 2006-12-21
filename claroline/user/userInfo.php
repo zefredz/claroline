@@ -512,7 +512,7 @@ elseif ($displayMode == "viewContentList") // default display
         }
 
         echo '<td>'
-        .    '<a href="'.get_path('clarolineRepositoryWeb').'phpbb/viewsearch.php?searchUser='.$userIdViewed.'">'
+        .    '<a href="' . get_module_url('CLFRM') . '/viewsearch.php?searchUser='.$userIdViewed.'">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'post.gif" alt="'.get_lang('Forum posts').'">'
         .    '</a>'
         .    '</td>';

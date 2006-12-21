@@ -393,7 +393,7 @@ switch ( $display )
             unset($_SESSION['claro_csv_userlist']);
             if (claro_is_in_a_course())
             {
-                $backButtonUrl = get_path('clarolineRepositoryWeb') . 'user/user.php';
+                $backButtonUrl = get_module_url('CLUSR') . '/user.php';
             }
             elseif (isset($addType) && $addType =='adminClassTool') //tricky fix, the use of addtype should be avoided
             {
