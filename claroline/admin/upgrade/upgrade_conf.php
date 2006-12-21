@@ -39,8 +39,6 @@ require 'upgrade_init_global.inc.php';
 // Security Check
 if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
-// Include library
-include (get_path('incRepositorySys').'/lib/fileManage.lib.php');
 // Define display
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
 DEFINE ('DISPLAY_RESULT_ERROR_PANEL', __LINE__);
