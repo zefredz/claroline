@@ -239,7 +239,7 @@ if ($allowedToEditContent)
 {
     if (isset($_REQUEST['submitContent']))
     {
-        if ($cntId)    // submit a content change
+        if ($_REQUEST['cntId'])    // submit a content change
         {
             claro_user_info_edit_cat_content($_REQUEST['catId'], $userIdViewed, $_REQUEST['content'], $_SERVER['REMOTE_ADDR']);
         }
