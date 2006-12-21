@@ -321,7 +321,8 @@ echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 
 if ($is_allowedToManage)
 {
-    echo claro_html_cmd_link( 'group_edit.php' . claro_url_relay_context('?')
+    echo claro_html_cmd_link( 'group_edit.php' 
+                            . claro_url_relay_context('?')
                             , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif"'
                             .     ' alt="' . get_lang("Edit this group") . '" />'
                             .    get_lang("Edit this group")
