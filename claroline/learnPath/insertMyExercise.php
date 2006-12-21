@@ -34,9 +34,7 @@ $nameTools = get_lang('Add an exercise');
 
 //header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-//lib of document tool
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+include get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 
 // tables names
 $tbl_cdb_names = claro_sql_get_course_tbl();
