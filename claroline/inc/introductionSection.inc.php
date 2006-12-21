@@ -107,7 +107,7 @@ if ($intro_editAllowed)
            {
                  linker_update('CLINTRO_');
                 // notify that a new introsection has been posted
-                $eventNotifier->notifyCourseEvent('introsection_modified', $_cid, $_tid, $moduleId, $_gid, '0');
+                $eventNotifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $moduleId, claro_get_current_group_id(), '0');
            }
            else
            {
