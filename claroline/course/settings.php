@@ -60,6 +60,8 @@ $course = new ClaroCourse();
 
 // Initialise current course id
 
+
+// TODO cidToEdit would  die. cidReq be the  the  only  container to enter in a course context
 if ( $adminContext && claro_is_platform_admin() )
 {
     // from admin
@@ -79,7 +81,7 @@ if ( $adminContext && claro_is_platform_admin() )
     // Back url
     $backUrl = get_path('rootAdminWeb') . 'admincourses.php' ;
 }
-elseif ( !empty($_course['sysCode']) )
+elseif ( claro_is_in_a_course() )
 {
     // from my course
     $current_cid = claro_get_current_course_id();
