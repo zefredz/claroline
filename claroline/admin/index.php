@@ -17,8 +17,8 @@ require '../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
@@ -66,7 +66,10 @@ $menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
 $nameTools = get_lang('Administration');
 
 include_once get_path('incRepositorySys') . '/lib/debug.lib.inc.php';
-$is_allowedToAdmin     = $is_platformAdmin;
+
+//  no sense because not allowed with claro_is_platform_admin()
+// but  claro_is_platform_admin() would be later replaced by get_user_property ('can view admin menu')
+$is_allowedToAdmin     = claro_is_platform_admin();
 
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
@@ -83,7 +86,7 @@ if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 
     $controlMsg['warning'][] = get_lang('<b>Security :</b> We recommend to set register_globals to off in php.ini');
 }
 
-include $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
 .    claro_html_msg_list( $controlMsg,1) . "\n\n"
 ;
@@ -91,27 +94,27 @@ echo claro_html_tool_title($nameTools)
 echo '<table cellspacing="5" align="center">' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />&nbsp;'.get_lang('Users'))
+.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />&nbsp;'.get_lang('Users'))
 .    claro_html_menu_vertical($menu['AdminUser'])
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">'
-.    claro_html_tool_title('<img src="' . $imgRepositoryWeb . 'course.gif" alt="" />&nbsp;'.get_lang('Courses'))
+.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />&nbsp;'.get_lang('Courses'))
 .    claro_html_menu_vertical($menu['AdminCourse']) . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
+.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
 .    claro_html_menu_vertical($menu['AdminPlatform']) . "\n"
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . $imgRepositoryWeb . 'claroline.gif" alt="" />&nbsp;Claroline.net')
+.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'claroline.gif" alt="" />&nbsp;Claroline.net')
 .    claro_html_menu_vertical($menu['AdminClaroline'])
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . $imgRepositoryWeb . 'exe.gif" alt="" />&nbsp;' . get_lang('Tools'))
+.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'exe.gif" alt="" />&nbsp;' . get_lang('Tools'))
 .    claro_html_menu_vertical($menu['AdminTechnical'])
 .    '</td>' . "\n"
 .    '</tr>'
