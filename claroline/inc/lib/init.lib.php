@@ -163,7 +163,7 @@ function claro_get_current_course_data($dataName=null)
     elseif (is_array($c) && array_key_exists($dataName,$c)) return $c[$dataName];
     else
     {
-        pushClaroMessage($dataName . ' dont exist','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for course data','error');
         return null;
     }
 }
@@ -183,7 +183,7 @@ function claro_get_current_group_properties_data($dataName=null)
     elseif (is_array($gp) && array_key_exists($dataName,$gp)) return $gp[$dataName];
     else
     {
-        pushClaroMessage($dataName . ' dont exist','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for group properties data','error');
         return null;
     };
 
@@ -207,7 +207,7 @@ function claro_get_current_user_data($dataName=null)
     elseif (is_array($u) && array_key_exists($dataName,$u)) return $u[$dataName];
     else
     {
-        pushClaroMessage($dataName . ' dont exist','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for user data','error');
         return null;
     };
 
@@ -228,7 +228,7 @@ function claro_get_current_group_data($dataName=null)
     elseif (is_array($g) && array_key_exists($dataName,$g)) return $g[$dataName];
     else
     {
-        pushClaroMessage($dataName . ' dont exist','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for group data','error');
         return null;
     };
 
@@ -250,7 +250,7 @@ function claro_get_current_course_user_data($dataName=null)
     elseif (is_array($cu) && array_key_exists($dataName,$cu)) return $cu[$dataName];
     else
     {
-        pushClaroMessage($dataName . ' dont exist','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for course user relation data','error');
         return null;
     };
 }
@@ -271,7 +271,7 @@ function claro_get_current_course_tool_data($dataName=null)
     elseif (is_array($ct) && array_key_exists($dataName,$ct)) return $ct[$dataName];
     else
     {
-        pushClaroMessage($dataName . ' dont exist','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for course tool relation data','error');
         return null;
     };
 
@@ -293,7 +293,7 @@ function claro_get_current_course_tool_list_data($dataName=null)
     elseif (is_array($ctl) && array_key_exists($dataName,$ctl)) return $ctl[$dataName];
     else
     {
-        pushClaroMessage($dataName . ' dont exist','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for course  tool list data','error');
         return null;
     };
 
