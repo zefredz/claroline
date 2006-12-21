@@ -35,7 +35,7 @@ if ( claro_is_in_a_course() )
 
     if ( empty($currentCourse['email']) )
     {
-        $courseManagerOutput .= '<a href="' . get_path('clarolineRepositoryWeb') . 'user/user.php">'. $currentCourse['titular'].'</a>';
+        $courseManagerOutput .= '<a href="' . get_module_url('CLUSR') . '/user.php">'. $currentCourse['titular'].'</a>';
     }
     else
     {
