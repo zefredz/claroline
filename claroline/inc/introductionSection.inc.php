@@ -240,6 +240,7 @@ if ($intro_dispForm)
     $introEditorCmdValue = $introId ? 'exEd' : 'exAdd';
 
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+    .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'">'
     .    '<input type="hidden" name="introCmd" value="'.$introEditorCmdValue.'">'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
@@ -301,7 +302,7 @@ if ($intro_dispDefault)
                 $cssClass = ($introVisibility == 'HIDE') ? ' invisible' :'';
                 $cssClass = ($intro_editAllowed) ? ' editable' :'';
                 $intro_content = claro_parse_user_text($thisTextIntro['content']);
-                
+
                 $section = '';
 
                 if( trim(strip_tags($intro_content,'<img><embed><object>')) != '' ) // no need to display a div for an empty string
@@ -318,21 +319,20 @@ if ($intro_dispDefault)
 
                 if ($intro_dispCommand)
                 {
-                    $section .= '<div class="toolbar">' . "\n";
-
-                    $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                    .       '?introCmd=rqEd&introId='.$introId.'">'
-                    .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Ok') . '" border="0">'
-                    .    '</a>' . "\n"
-                    .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                    .      '?introCmd=exDel&introId='.$introId.'" '
-                    .      'onclick="javascript:if(!confirm(\''
+                    echo '<div class="toolbar">' . "\n"
+                    .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                            . '?introCmd=rqEd&introId=' . $introId
+                                            . claro_url_relay_context('&amp;')
+                                            , '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Ok') . '" border="0">'
+                                            ) . "\n"
+                    .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                            . '?introCmd=exDel&introId=' . $introId
+                                            . claro_url_relay_context('&amp;')
+                                            , '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0">'
+                                            , array('onclick' => 'javascript:if(!confirm(\''
                     .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
-                    .      'return false;">'
-                    .    '<img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0">'
-                    .    '</a>' . "\n"
-                    ;
-
+                                                                 . 'return false;')
+                                            );
                     if ($thisIntroKey > 0 )
                     {
                         $section .= '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
@@ -376,19 +376,19 @@ if ($intro_dispDefault)
                         $section .= '</a>' . "\n";
 
                     }
-                    
+
                     $section .= '</div>' . "\n\n";
                 }
 
                 if ( !empty( $section ) || $intro_editAllowed )
                 {
-                    $section = '<div class="claroIntroSection' . $cssClass . '">' 
-                        . "\n" . $section
+                    $section = '<div class="claroIntroSection' . $cssClass . '" >' . "\n"
+                             . $section
                         ;
-                    
+
                     $section .= '</div>' . "\n\n";
                 }
-                
+
                 echo $section;
             }
         } // end foreach textIntroList
@@ -398,14 +398,14 @@ if ($intro_dispDefault)
     if ($intro_dispCommand)
     {
         echo '<p>' . "\n"
-        .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
-        .    '<img src="' .  get_path('url') . '/claroline/img/textzone.gif" alt="" border="0">'
+        .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                . '?introCmd=rqAdd'
+                                . claro_url_relay_context('&amp;')
+                                , '<img src="' . get_path('imgRepositoryWeb') . '/textzone.gif" alt="" border="0">'
         .    get_lang('Add Text')
-        .    '</a>' . "\n"
+                                )
         .    '</p>' . "\n\n"
         ;
     }
 } // end if intro_dispDefault
-
-
 ?>
