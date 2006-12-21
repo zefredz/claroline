@@ -65,7 +65,7 @@ function get_path($pathKey)
         case 'imgRepositoryWeb'       : return get_conf('clarolineRepositoryWeb') . get_conf('imgRepositoryAppend');
         case 'url'                    : return get_conf('urlAppend');
 
-        default : pushClaroMessage('get_path, je verrais un message du style : Notice Claroline : Unknow path '.$pathKey.' passed to get_path function');
+        default : pushClaroMessage('Notice Claroline : Unknow path &#171;' . $pathKey . '&#187; passed to get_path function');
 
         return false;
     }
