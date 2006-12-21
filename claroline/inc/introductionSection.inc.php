@@ -32,7 +32,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 
-require_once $clarolineRepositorySys . 'linker/linker.inc.php';
+require_once get_path('clarolineRepositorySys') . 'linker/linker.inc.php';
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TBL_INTRODUCTION = $tbl_cdb_names['tool_intro'];
@@ -241,7 +241,7 @@ if ($intro_dispForm)
 
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
     .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'">'
-    .    '<input type="hidden" name="introCmd" value="'.$introEditorCmdValue.'">'
+    .    '<input type="hidden" name="introCmd" value="' . $introEditorCmdValue . '">'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
     .    claro_html_textarea_editor('intro_content', trim($introContent))
     .	'<br />'."\n"
@@ -261,13 +261,12 @@ if ($intro_dispForm)
         if(isset($_REQUEST['introId'])) linker_set_display($_REQUEST['introId'], 'CLINTRO_', 'introId');
         else                       linker_set_display(false, 'CLINTRO_');
 
-
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">&nbsp;'."\n";
     }
 
     echo claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-    .    '<br />'."\n"
-    .    '</form>'."\n\n"
+    .    '<br />' . "\n"
+    .    '</form>' . "\n\n"
     ;
 
 }
@@ -301,7 +300,7 @@ if ($intro_dispDefault)
                 $cssClass = ($introVisibility == 'HIDE') ? ' invisible' :'';
                 $cssClass = ($intro_editAllowed) ? ' editable' :'';
                 $intro_content = claro_parse_user_text($thisTextIntro['content']);
-                
+
                 $section = '';
 
                 if( trim(strip_tags($intro_content,'<img><embed><object>')) != '' ) // no need to display a div for an empty string
@@ -322,28 +321,28 @@ if ($intro_dispDefault)
 
                     $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .       '?introCmd=rqEd&introId='.$introId.'">'
-                    .    '<img src="' . $urlAppend . '/claroline/img/edit.gif" alt="' . get_lang('Ok') . '" border="0">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Ok') . '" border="0">'
                     .    '</a>' . "\n"
                     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                    .      '?introCmd=exDel&introId='.$introId.'" '
+                    .      '?introCmd=exDel&introId=' . $introId . '" '
                     .      'onclick="javascript:if(!confirm(\''
                     .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
                     .      'return false;">'
-                    .    '<img src="' . $urlAppend . '/claroline/img/delete.gif" alt="' . get_lang('Delete') . '" border="0">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0">'
                     .    '</a>' . "\n"
                     ;
 
                     if ($thisIntroKey > 0 )
                     {
                         $section .= '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
-                        .    '<img src="'.$imgRepositoryWeb.'up.gif" alt="'.get_lang('Move up').'">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'">'
                         .    '</a> ';
                     }
 
                     if ($thisIntroKey + 1 < $introListCount )
                     {
                         $section .= ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
-                        .    '<img src="'.$imgRepositoryWeb.'down.gif" alt="'.get_lang('Move down').'">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'">'
                         .    '</a>';
                     }
 
@@ -356,7 +355,7 @@ if ($intro_dispDefault)
                             . $introId . '" title="'
                             . get_lang( 'Click to make invisible' ).'">'
                             ;
-                        $section .= '<img src="' . $imgRepositoryWeb
+                        $section .= '<img src="' . get_path('imgRepositoryWeb')
                             . 'visible.gif" alt="'
                             . get_lang('Visible').'" />'
                             ;
@@ -369,26 +368,26 @@ if ($intro_dispDefault)
                             . $introId . '" title="'
                             . get_lang( 'Click to make visible' ).'">'
                             ;
-                        $section .= '<img src="' . $imgRepositoryWeb
+                        $section .= '<img src="' . get_path('imgRepositoryWeb')
                             . 'invisible.gif" alt="'
                             . get_lang('Invisible') . '" />'
                             ;
                         $section .= '</a>' . "\n";
 
                     }
-                    
+
                     $section .= '</div>' . "\n\n";
                 }
 
                 if ( !empty( $section ) || $intro_editAllowed )
                 {
-                    $section = '<div class="claroIntroSection' . $cssClass . '">' 
+                    $section = '<div class="claroIntroSection' . $cssClass . '">'
                         . "\n" . $section
                         ;
-                    
+
                     $section .= '</div>' . "\n\n";
                 }
-                
+
                 echo $section;
             }
         } // end foreach textIntroList
@@ -399,7 +398,7 @@ if ($intro_dispDefault)
     {
         echo '<p>' . "\n"
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
-        .    '<img src="' . $urlAppend . '/claroline/img/textzone.gif" alt="" border="0">'
+        .    '<img src="' . get_path('imgRepositoryWeb') . '/textzone.gif" alt="" border="0">'
         .    get_lang('Add Text')
         .    '</a>' . "\n"
         .    '</p>' . "\n\n"
