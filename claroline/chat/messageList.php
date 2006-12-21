@@ -281,7 +281,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
     .'<head>'."\n"
     .'<title>'.get_lang('Chat').'</title>'
     .'<meta http-equiv="refresh" content="' . $refresh_display_rate . ';url=./messageList.php?x='.$x.'#final">'."\n"
-    .'<link rel="stylesheet" type="text/css" href="'.get_path('clarolineRepositoryWeb').'css/'.$claro_stylesheet.'" >'."\n"
+    .'<link rel="stylesheet" type="text/css" href="'.get_path('clarolineRepositoryWeb').'css/' . get_conf('claro_stylesheet') . '" >'."\n"
     .'</head>'."\n"
     .'<body>'."\n"."\n"
     ;

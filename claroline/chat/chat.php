@@ -43,7 +43,7 @@ if(!empty($_course['officialCode']))
 {
   $titlePage .= $_course['officialCode'].' - ';
 }
-$titlePage .= $siteName;
+$titlePage .= get_conf('siteName');
 
 // Redirect previously sent paramaters in the correct subframe (messageList.php)
 $paramList = array();
