@@ -53,7 +53,7 @@ if (      isset( $_REQUEST['introCmd'] )
 {
     $introId = isset ($_REQUEST['introId']) ? $_REQUEST['introId'] : null;
     linker_init_session();
-    if ($jpspanEnabled)
+    if (claro_is_jpspan_enabled())
     {
         linker_set_local_crl( isset ($_REQUEST['introId']), 'CLINTRO_' );
     }

@@ -3,7 +3,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$ 
+ * @version 1.8 $Revision$
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -390,11 +390,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function linker_update( $tLabel = NULL )
     {
-        global $jpspanEnabled;
-
         $crlSource = getSourceCrl( $tLabel );
 
-        if ( $jpspanEnabled )
+        if ( claro_is_jpspan_enabled() )
         {
             if ( isset( $_REQUEST['servAdd'] ) )
             {
@@ -493,7 +491,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
         $baseServUrl = get_path('rootWeb');
-        
+
         $output = '';
 
         if ( is_array($linkList) && count($linkList) > 0 )
@@ -501,7 +499,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             //style=\"margin-top:1em;\"
             $output .=  "<hr />\n";
             $output .= "<div  class=\"linkerResourceList\">\n";
-            
+
             $resourceList = array();
 
             foreach ( $linkList as $link )
@@ -514,13 +512,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     . htmlspecialchars($name) ."</a>"
                     ;
             }
-            
+
             $output .= implode( "<br />\n", $resourceList );
-            
+
             $output .= "</div>\n";
             $output .= "<hr />\n";
         }
-        
+
         return $output;
     }
 

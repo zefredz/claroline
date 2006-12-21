@@ -63,7 +63,7 @@ if ( $is_allowedToEdit )
         linker_init_session();
     }
 
-    if( $jpspanEnabled )
+    if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
     }
@@ -430,7 +430,7 @@ if ($display_form)
     //---------------------
     // linker
 
-    if( $jpspanEnabled )
+    if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
         linker_set_display();
@@ -445,7 +445,7 @@ if ($display_form)
     .    '<tr valign="top"><td>&nbsp;</td><td>' . "\n"
     ;
 
-    if( $jpspanEnabled )
+    if( claro_is_jpspan_enabled() )
     {
         echo '<input type="submit" onClick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
     }

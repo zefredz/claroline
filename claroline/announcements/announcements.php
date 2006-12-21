@@ -118,7 +118,7 @@ if($is_allowedToEdit) // check teacher status
         linker_init_session();
     }
 
-    if( $jpspanEnabled )
+    if( claro_is_jpspan_enabled() )
     {
            linker_set_local_crl( isset ($_REQUEST['id']) );
     }
@@ -533,26 +533,27 @@ if ( $displayForm )
     // TODO :  add else case  wich show disabled version ton show that possible  with a filled email.
     if ($emailNotificationAllowed)
     {
-    	echo '<tr>'
-	    .    '<td>&nbsp;</td>' . "\n"
-    	.    '<td>'
-        .	 '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
+        echo '<tr>'
+        .    '<td>&nbsp;</td>' . "\n"
+        .    '<td>'
+        .    '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
         .    '<label for="emailOption">'
         .    get_lang('Send this announcement by email to registered students')
         .    '</label>' . "\n"
-        .	 '</td>' . "\n"
-        .	 '</tr>' . "\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
         ;
     }
 
-	echo '<tr>'
-	.	 '<td>&nbsp;</td>' . "\n"
-	.	 '<td>' . "\n";
+    echo '<tr>'
+    .    '<td>&nbsp;</td>' . "\n"
+    .    '<td>' . "\n"
+;
 
     //---------------------
     // linker
 
-    if( $jpspanEnabled )
+    if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
         linker_set_display();
@@ -563,13 +564,14 @@ if ( $displayForm )
         else                       linker_set_display();
     }
 
-	echo '</td>' . "\n"
-	.	 '</tr>' . "\n"
-	.	 '<tr>'
-	.	 '<td>&nbsp;</td>' . "\n"
-	.	 '<td>' . "\n";
+    echo '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>'
+    .    '<td>&nbsp;</td>' . "\n"
+    .    '<td>' . "\n"
+    ;
 
-    if( $jpspanEnabled )
+    if( claro_is_jpspan_enabled() )
     {
     	echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
