@@ -10,7 +10,7 @@
 /**
  * require the PhpSecInfo_Test_Session class
  */
-require_once('lib/Test/Test_Session.php');
+require_once dirname(__FILE__) . '/../Test_Session.php';
 
 /**
  * Test class for session use_trans_sid

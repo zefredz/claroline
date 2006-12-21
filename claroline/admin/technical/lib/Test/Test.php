@@ -9,7 +9,7 @@
 /**
  * require the main PhpSecInfo class
  */
-require_once('lib/PhpSecInfo.lib.php');
+require_once dirname(__FILE__).'/../PhpSecInfo.lib.php';
 
 
 

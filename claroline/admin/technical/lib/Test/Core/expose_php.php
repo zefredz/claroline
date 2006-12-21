@@ -10,7 +10,7 @@
 /**
  * require the PhpSecInfo_Test_Core class
  */
-require_once('lib/Test/Test_Core.php');
+require_once dirname(__FILE__) . '/../Test_Core.php';
 
 /**
  * Test class for expose_php

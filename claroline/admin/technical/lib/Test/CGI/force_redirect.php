@@ -9,7 +9,7 @@
 /**
  * require the PhpSecInfo_Test_Cgi class
  */
-require_once('lib/Test/Test_Cgi.php');
+require_once dirname(__FILE__) . '/../Test_Cgi.php';
 
 /**
  * Test class for cgi force_redirect
