@@ -1148,7 +1148,8 @@ function user_html_form($data, $form_type='registration')
 
         if ( 0 < count($extraInfoDefList))
         $html .= form_row( ''
-                         , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo' . claro_url_relay_context('&amp;')
+                         , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo' 
+                                              . claro_url_relay_context('&amp;')
                                               , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify')
                                               )
                          );
