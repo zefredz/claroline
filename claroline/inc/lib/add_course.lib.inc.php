@@ -948,7 +948,7 @@ function fill_course_repository($courseRepository)
   // WARNING. Do not forget to adapt queries in fill_Db_course()
   // if something changed here
 
-    return copy( get_module_path('CLQWZ') . '/Example_document.pdf',
+    return copy( get_module_path('CLDOC') . '/Example_document.pdf',
                  get_path('coursesRepositorySys').$courseRepository.'/document/Example_document.pdf');
 };
 
