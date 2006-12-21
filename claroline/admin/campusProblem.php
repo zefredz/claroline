@@ -44,13 +44,14 @@ $is_allowedToCheckProblems = claro_is_platform_admin();
 
 
 // Cache_lite setting & init
-$cache_options = array(
-'cacheDir' => get_path('rootSys') . 'tmp/cache/campusProblem/',
-'lifeTime' => get_conf('cache_lifeTime', 160000),
-'automaticCleaningFactor' => 50,
+$cache_options = array( 'cacheDir' => get_path('rootSys') . 'tmp/cache/campusProblem/',
+                        'lifeTime' => get_conf('cache_lifeTime', 160000),
+                        'automaticCleaningFactor' => 50,
 );
+
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
-if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 120;
+if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 1;
+
 if (! file_exists($cache_options['cacheDir']) )
 {
     include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
@@ -109,14 +110,14 @@ switch ($display)
             // in $view, a 1 in X posof the $view string means that the 'category' number X
             // will be show, 0 means don't show
             echo '<small>'
-            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=11111111">' . get_lang('Show all') . '</a>]'
+            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=111111111">' . get_lang('Show all') . '</a>]'
             .    '&nbsp;'
-            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=00000000">' . get_lang('Show none') . '</a>]'
+            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=000000000">' . get_lang('Show none') . '</a>]'
             .    '</small>' . "\n\n"
             ;
 
             if( isset($_REQUEST['view'])) $view = $_REQUEST['view'];
-            else                          $view = "00000000";
+            else                          $view = "000000000";
 
             $levelView=-1;
 
@@ -161,7 +162,7 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date($dateTimeFormatLong.':%S', $Cache_Lite->lastModified())
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
@@ -602,6 +603,81 @@ switch ($display)
             .    claro_html_tool_title('Integrity problems') ;
 
 
+
+
+            $tempView = $view;
+            $levelView++;
+            echo '<p>' . "\n";
+            if('1' == $view[$levelView])
+            {
+                $tempView[$levelView] = '0';
+                //-- Courses with unexisting users registered : courses that have users not registered on the platform
+                echo '- '
+                .    '&nbsp;&nbsp;'
+                .    '<b>'
+                .    get_lang('User registred in cours with unexisting (deprecated) status')
+                .    '</b>'
+                .    '&nbsp;&nbsp;&nbsp;'
+                .    '<small>'
+                .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
+                .    get_lang('Close')
+                .    '</a>]'
+                .    '</small>'
+                .    '<br />' . "\n"
+                ;
+
+                if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
+                {
+                    $sql = "
+                SELECT concat('(',cu.code_cours,') <br />', c.fake_code,' : ',c.intitule) course,
+                       cu.user_id AS user_id
+                FROM `" . $tbl_rel_course_user . "` AS cu
+                    INNER JOIN `" . $tbl_course . "` AS c
+                        ON c.code = cu.code_cours
+                    LEFT JOIN `" . $tbl_user . "` AS u
+                        ON u.user_id = cu.user_id
+                    WHERE cu.isCourseManager not in ('0','1')
+                ORDER BY user_id
+                        LIMIT 100";
+
+                    $option['colTitleList'] = array('code','count');
+                    $data = claro_sql_query_fetch_all($sql);
+                    if (!is_array($data) || 0 == sizeof($data))
+                    $dg->set_colTitleList(array(get_lang('Code'), get_lang('Total')));
+                    $dg->set_grid($data);
+                    $datagrid[$levelView] = $dg->render();
+                    $Cache_Lite->save($datagrid[$levelView],$levelView);
+                }
+
+                echo $datagrid[$levelView]
+                .    '<small>'
+                .    get_lang('Last computing')
+                .    ' '
+                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    ', '
+                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    '</small>'
+                .    '<br>'
+                ;
+            }
+            else
+            {
+                $tempView[$levelView] = '1';
+                echo '+'
+                .    '&nbsp;&nbsp;&nbsp;'
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
+                .    get_lang('User registred in cours with unexisting (deprecated) status')
+                .    '</a>'
+                ;
+            }
+            echo '</p>' . "\n\n";
+
+
+
+
+
+
+
             $tempView = $view;
             $levelView++;
             echo '<p>' . "\n";
@@ -668,11 +744,23 @@ switch ($display)
                 ;
             }
             echo '</p>' . "\n\n";
+
+
+
+
+
+
+
+
+
+
+
         }
 
         break;
     default:trigger_error('display (' . $display . ') unknown', E_USER_NOTICE);
 }
+
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 ?>
