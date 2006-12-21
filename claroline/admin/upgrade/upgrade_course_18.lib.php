@@ -676,7 +676,7 @@ function quiz_upgrade_to_18 ($course_code)
                 	// move file
                 	$filename = $row['attached_file'];
                 	
-                	if( !empty($filename) && file_exists($exe_dirname.$filename) )
+                	if( !empty($filename) && file_exists($exe_dirname.'/'.$filename) )
                 	{
                         if ( @rename($exe_dirname.'/'.$filename,$question_dirname.'/'.$filename) === FALSE )
                         {
