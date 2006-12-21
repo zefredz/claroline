@@ -125,14 +125,14 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.claro_g
         {
             case 'CLANN':
                 $itemIcon = 'announcement.gif';
-                $url = 'claroline/announcements/announcements.php?cidReq='
+                $url = get_module_url('CLANN') . '/announcements.php?cidReq='
                 . $courseDigestList['courseSysCode'][$i];
                 $name = get_lang('Latest announcements');
                 break;
 
             case 'CLCAL':
                 $itemIcon = 'agenda.gif';
-                $url = 'claroline/calendar/agenda.php?cidReq='
+                $url = get_module_url('CLCAL') . '/agenda.php?cidReq='
                 . $courseDigestList['courseSysCode'][$i];
                 $name = get_lang('Agenda next events');
                 break;
