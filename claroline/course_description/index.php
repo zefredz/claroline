@@ -263,7 +263,7 @@ if ( $is_allowedToEdit )
         **************************************************************************/
 
         echo "\n\n"
-        .    '<form method="get" action="' . $_SERVER['PHP_SELF'] . '?edIdBloc=add">' . "\n"
+        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?edIdBloc=add">' . "\n"
         .    claro_form_relay_context()
         .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
         .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
