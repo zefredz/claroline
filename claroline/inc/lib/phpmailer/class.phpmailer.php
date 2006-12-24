@@ -603,6 +603,8 @@ class PHPMailer
      * @return bool
      */
     function SetLanguage($lang_type, $lang_path = "language/") {
+        $PHPMAILER_LANG = array();
+        
         if(file_exists($lang_path.'phpmailer.lang-'.$lang_type.'.php'))
             include($lang_path.'phpmailer.lang-'.$lang_type.'.php');
         else if(file_exists($lang_path.'phpmailer.lang-en.php'))
