@@ -527,7 +527,7 @@ class claro_sql_pager extends claro_pager // implements sortable
      * @return array
      */
 
-    function get_sort_url_list($url)
+    function get_sort_url_list($url, $context=null)
     {
         $urlList        = array();
         $sortArgList    = array();
@@ -557,7 +557,9 @@ class claro_sql_pager extends claro_pager // implements sortable
             $urlList[$thisArg] = $url
                        . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
-                       . '&amp;' . $this->sortDirParamName . '=' . $direction;
+                       . '&amp;' . $this->sortDirParamName . '=' . $direction
+                       . claro_url_relay_context('&amp;',$context)
+                       ;
         }
 
         return $urlList;
@@ -715,7 +717,7 @@ class claro_array_pager extends claro_pager
         return false;
     }
 
-    function get_sort_url_list($url, $defaultArrayKeyList = array() )
+    function get_sort_url_list($url, $defaultArrayKeyList = array() , $context=null)
     {
         $urlList        = array();
         $sortArgList    = array();
@@ -745,7 +747,8 @@ class claro_array_pager extends claro_pager
             $urlList[$thisArg] = $url
                        . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
-                       . '&amp;' . $this->sortDirParamName . '=' . $direction;
+                       . '&amp;' . $this->sortDirParamName . '=' . $direction
+                       . claro_url_relay_context('&amp;',$context);
         }
 
         return $urlList;
