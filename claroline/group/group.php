@@ -654,7 +654,10 @@ foreach ($groupList as $thisGroup)
         ;
 
         if     (claro_is_user_authenticated() && (claro_get_current_user_id() == $thisGroup['id_tutor'] )) echo ' (' . get_lang("my supervision") . ')';
-        elseif ($thisGroup['is_member'])                  echo ' (' . get_lang("my group") . ')';
+        elseif ($thisGroup['is_member'])
+        {
+            echo ' (' . get_lang("my group") . ')';
+        }
     }
     else
     {
@@ -687,7 +690,7 @@ foreach ($groupList as $thisGroup)
             else
             {
                 echo '&nbsp;'
-                .    '<a href="group_space.php?registration=1&selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
+                .    '<a href="group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang("register") . '">'
                 .    '</a>'
                 ;
