@@ -251,6 +251,7 @@ if ( count($userListId)> 0 )
     }
 }
 
+
 // PREPARE DISPLAY
 
 $nameTools = get_lang('Users');
@@ -398,21 +399,26 @@ foreach ( $userList as $thisUser )
 
     if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
     {
-        echo '<a href="userInfo.php?uInfo='.$thisUser['user_id'].'">'
-            . ucfirst(strtolower($thisUser['nom']))
-            . '</a>';
+        echo '<a href="userInfo.php?uInfo=' . $thisUser['user_id']
+        .    claro_url_relay_context('&amp;') . '">'
+        .    ucfirst(strtolower($thisUser['nom']))
+        .    '</a>'
+        ;
     }
     else
     {
         echo ucfirst(strtolower($thisUser['nom']));
     }
 
-    echo '</td>';
+    echo '</td>'
+    .    '<td align="left">' . $thisUser['prenom'] . '</td>'
 
-    echo '<td align="left">'.$thisUser['prenom'].'</td>';
 
     // User profile column
-    echo '<td align="left">'. claro_get_profile_name($thisUser['profile_id']) .'</td>'."\n";
+    .    '<td align="left">'
+    .    claro_get_profile_name($thisUser['profile_id'])
+    .    '</td>' . "\n"
+    ;
 
     // User role column
     if ( empty($thisUser['role']) )    // NULL and not '0' because team can be inexistent
@@ -472,19 +478,23 @@ foreach ( $userList as $thisUser )
 
         // Edit user column
         echo '<td>'
-           . '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id'].'">'
-           . '<img border="0" alt="'.get_lang('Edit').'" src="' . get_path('imgRepositoryWeb') . '/edit.gif" />'
-           . '</a>'
-           . '</td>'."\n";
+        .    '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id']
+        .    claro_url_relay_context('&amp;') . '">'
+        .    '<img border="0" alt="'.get_lang('Edit').'" src="' . get_path('imgRepositoryWeb') . '/edit.gif" />'
+        .    '</a>'
+        .    '</td>' . "\n"
 
         // Unregister user column
-        echo '<td>';
+        .    '<td>'
+        ;
 
         if ($thisUser['user_id'] != claro_get_current_user_id())
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=unregister&amp;user_id='.$thisUser['user_id'].'" '
+            echo '<a href="'.$_SERVER['PHP_SELF'] .
+            '    ?cmd=unregister&amp;user_id=' . $thisUser['user_id']
+            .    claro_url_relay_context('&amp;') . '" '
             .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-            .    '<img border="0" alt="'.get_lang('Unregister').'" src="' . get_path('imgRepositoryWeb') . '/unenroll.gif" />'
+            .    '<img border="0" alt="' . get_lang('Unregister') . '" src="' . get_path('imgRepositoryWeb') . '/unenroll.gif" />'
             .    '</a>'
             ;
         }
@@ -507,11 +517,13 @@ echo '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
 
-/*----------------------------------------------------------------------
-   Display pager
-  ----------------------------------------------------------------------*/
+/*
+if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+echo $userDataGrid->render();
+
+if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+*/
 
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
