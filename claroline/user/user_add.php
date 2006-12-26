@@ -109,7 +109,7 @@ if ( $cmd == 'registration' )
                            . '</a>'
                            . '</li>'
                            . '<li>'
-                           . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . get_lang('Cancel the operation') . '</a>'
+                           . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;') . '">' . get_lang('Cancel the operation') . '</a>'
                            . '</li>'
                            . '</ul>';
 
@@ -133,7 +133,8 @@ if ( $cmd == 'registration' )
                  $confirmUserCreateUrl = $_SERVER['PHP_SELF']
                                        . '?cmd=registration&amp;'
                                        . implode('&amp;', $confirmUserCreateUrl)
-                                       . '&amp;confirmUserCreate=1';
+                                       . '&amp;confirmUserCreate=1'
+                                       . claro_url_relay_context('&amp;');
 
 
                  $messageList['warning'][] .= get_lang('Notice') . '. '
@@ -155,7 +156,7 @@ if ( $cmd == 'registration' )
                 . '</small>'
                 . '</li>'
                 . '<li>'
-                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel">' . get_lang('Cancel the operation') . '</a>'
+                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;').'">' . get_lang('Cancel the operation') . '</a>'
                 . '</li>'
                 . '</ul>';
 
@@ -208,7 +209,7 @@ if ($cmd == 'applySearch')
         $userList = user_search( array('lastname'     => $userData['lastname'],
                                        'email'        => $userData['email'],
                                        'officialCode' => $userData['officialCode']),
-                                 claro_get_current_course_id());
+                                       claro_get_current_course_id());
     }
     else
         $userList = array();
@@ -291,19 +292,21 @@ else
 
         foreach ($userList as $thisUser)
         {
-           echo '<tr valign="top">'                      . "\n"
+           echo '<tr valign="top">' . "\n"
            .    '<td>' . $thisUser['lastname'    ] . '</td>' . "\n"
            .    '<td>' . $thisUser['firstname'   ] . '</td>' . "\n"
            .    '<td>' . $thisUser['email'       ] . '</td>' . "\n"
            .    '<td>' . $thisUser['officialCode'] . '</td>' . "\n"
-           .    '<td align="center">'                    . "\n"
+           .    '<td align="center">' . "\n"
            ;
 
             // deal with already registered users found in result
 
             if ( empty($thisUser['registered']) )
             {
-                echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=registration&amp;userId=' . $thisUser['uid'] . $regUrlAddParam . '">'
+                echo '<a href="' . $_SERVER['PHP_SELF']
+                .    '?cmd=registration'
+                .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam . claro_url_relay_context('&amp;'). '">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
                 .    '</a>'
                 ;
