@@ -305,23 +305,23 @@ switch ($AddType)
         {
             $noQUERY_STRING   = true;
             $nameTools        = get_lang('Add a user list');
-            $interbredcrump[] = array ('url'=>get_path('rootAdminWeb'), 'name'=> get_lang('Administration'));
+            $interbredcrump[] = array ('url'=>get_path('rootAdminWeb') . claro_url_relay_context('?') , 'name'=> get_lang('Administration'));
         }   break;
 
     case 'adminClassTool' :
         {
             $noQUERY_STRING      = true;
             $nameTools           = get_lang('Add a user list in class');
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb'), 'name'=> get_lang('Administration'));
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class.php', 'name'=> get_lang('Classes'));
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'], 'name'=> get_lang('Class members'));
+            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb') . claro_url_relay_context('?') , 'name'=> get_lang('Administration'));
+            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class.php' . claro_url_relay_context('?') , 'name'=> get_lang('Classes'));
+            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'] . claro_url_relay_context('&amp;') , 'name'=> get_lang('Class members'));
         }   break;
 
     case 'userTool':
         {
             $noQUERY_STRING   = true;
             $nameTools        = get_lang('Add a user list in course');
-            $interbredcrump[] = array ('url'=>'user.php', 'name'=> get_lang('Users'));
+            $interbredcrump[] = array ('url'=>'user.php' . claro_url_relay_context('?') , 'name'=> get_lang('Users'));
         }   break;
 }
 
@@ -346,6 +346,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
     .            '<br /><br />'
     .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
+    .            claro_form_relay_context()
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
     .            '<br /><br />' . "\n"
@@ -393,15 +394,15 @@ switch ( $display )
             unset($_SESSION['claro_csv_userlist']);
             if (claro_is_in_a_course())
             {
-                $backButtonUrl = get_module_url('CLUSR') . '/user.php';
+                $backButtonUrl = get_module_url('CLUSR') . '/user.php' . claro_url_relay_context('?') ;
             }
             elseif (isset($addType) && $addType =='adminClassTool') //tricky fix, the use of addtype should be avoided
             {
-                $backButtonUrl = get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id'];
+                $backButtonUrl = get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id']  . claro_url_relay_context('&amp;') ;
             }
             elseif (claro_is_platform_admin())
             {
-                $backButtonUrl = get_path('clarolineRepositoryWeb').'admin/';
+                $backButtonUrl = get_path('clarolineRepositoryWeb') . 'admin/'  . claro_url_relay_context('?') ;
             }
 
             $_SESSION['claro_CSV_done'] = FALSE;
@@ -410,6 +411,7 @@ switch ( $display )
             .    ':' . "\n"
             .    '<br /><br />' . "\n"
             .    '<form enctype="multipart/form-data"  method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+            .    claro_form_relay_context()
             .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" />' . "\n"
             .    ' ' . "\n"
             .    '<label for="firstLineFormat_YES">' . "\n"
@@ -554,7 +556,7 @@ switch ( $display )
             case 'adminTool' :
                 {
                     echo '<br />'
-                    .    '<a href="../admin/adminusers.php">&gt;&gt; '
+                    .    '<a href="../admin/adminusers.php' . claro_url_relay_context('?') . '">&gt;&gt; '
                     .    get_lang('See user list')
                     .    '</a>'
                     ;
@@ -563,7 +565,7 @@ switch ( $display )
             case 'adminClassTool' :
                 {
                     echo '<br />'
-                    .    '<a href="../admin/admin_class.php">&gt;&gt; '
+                    .    '<a href="../admin/admin_class.php' . claro_url_relay_context('?') . '">&gt;&gt; '
                     .    get_lang('Back to class list')
                     .    '</a>'
                     ;
@@ -572,7 +574,7 @@ switch ( $display )
             case 'userTool' :
                 {
                     echo '<br />'
-                    .    '<a href="user.php">&lt;&lt; ' . get_lang('Back to user list') . '</a>'
+                    .    '<a href="user.php' . claro_url_relay_context('?') . '">&lt;&lt; ' . get_lang('Back to user list') . '</a>'
                     ;
                 }   break;
         }

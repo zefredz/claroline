@@ -263,7 +263,7 @@ echo claro_html_msg_list($messageList);
 
 if ( $courseRegSucceed )
 {
-    echo '<p><a href="user.php">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
+    echo '<p><a href="user.php' . claro_url_relay_context('?') . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
 }
 else
 {
