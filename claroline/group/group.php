@@ -221,9 +221,9 @@ if ( $is_allowedToManage )
         }
         elseif(0 < (int)$_REQUEST['id'])
         {
-            /*----------------------
-            DELETE ONE GROUP
-            ----------------------*/
+            /* ----------------
+             * DELETE ONE GROUP
+             * ---------------- */
 
             $nbGroupDeleted = delete_groups( (int) $_REQUEST['id']);
 
@@ -647,7 +647,7 @@ foreach ($groupList as $thisGroup)
         }
 
         echo $classItem . '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" /> '
-        .    '<a href="group_space.php?gidReq=' . $thisGroup['id'] . '">'
+        .    '<a href="group_space.php?gidReq=' . $thisGroup['id'] . claro_url_relay_context('&amp;') . '">'
         .    $thisGroup['name']
         .    '</a>'
         .    '</div>'
@@ -690,7 +690,7 @@ foreach ($groupList as $thisGroup)
             else
             {
                 echo '&nbsp;'
-                .    '<a href="group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
+                .    '<a href="group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang("register") . '">'
                 .    '</a>'
                 ;
@@ -715,12 +715,12 @@ foreach ($groupList as $thisGroup)
     if ($is_allowedToManage)
     {
         echo '<td>'
-        .    '<a href="group_edit.php?gidReq=' . $thisGroup['id'] . '">'
+        .    '<a href="group_edit.php?gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang("Edit") . '">'
         .    '</a>'
         .    '</td>' . "\n"
         .    '<td>'
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id'] . '" '
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '" '
         .    ' onClick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang("Delete") . '">'
         .    '</a>'

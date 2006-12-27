@@ -256,7 +256,7 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . $url . '">'
+        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . $url  . claro_url_relay_context('&amp;') . '">'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
@@ -321,7 +321,7 @@ echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 
 if ($is_allowedToManage)
 {
-    echo claro_html_cmd_link( 'group_edit.php' 
+    echo claro_html_cmd_link( 'group_edit.php'
                             . claro_url_relay_context('?')
                             , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif"'
                             .     ' alt="' . get_lang("Edit this group") . '" />'
@@ -399,7 +399,7 @@ if(count($groupMemberList) > 0)
     echo '<br /><br />' . "\n";
     foreach($groupMemberList as $thisGroupMember)
     {
-        echo '<a href="../tracking/userLog.php?uInfo=' . $thisGroupMember['id'] . '" class="item">'
+        echo '<a href="../tracking/userLog.php?uInfo=' . $thisGroupMember['id']  . claro_url_relay_context('&amp;') . '" class="item">'
         .    $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
         .    '</a> - '
         .    '<a href="mailto:' . $thisGroupMember['email'] . '">'
