@@ -607,7 +607,7 @@ ORDER BY tl.rank
             case 'CLDOC' :
                 if($_groupProperties['tools']['CLDOC'] || $isAllowedToEdit)
                 {
-
+                    $tool['url'] .= claro_url_relay_context('?') ;
                     $group_tool_list[] = $tool;
                 }
                 break;
@@ -616,7 +616,7 @@ ORDER BY tl.rank
 
                 if($_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
                 {
-                    $tool['url'] = 'viewforum.php?forum=' . $forumId ;
+                    $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
                     $group_tool_list[] = $tool;
                 }
 
@@ -626,6 +626,7 @@ ORDER BY tl.rank
 
                 if($_groupProperties['tools']['CLWIKI'] || $isAllowedToEdit)
                 {
+                    $tool['url'] .= claro_url_relay_context('?') ;
                     $group_tool_list[] = $tool;
                 }
                 break;
@@ -634,6 +635,7 @@ ORDER BY tl.rank
 
                 if($_groupProperties['tools']['CLCHT'] || $isAllowedToEdit)
                 {
+                    $tool['url'] .= claro_url_relay_context('?') ;
                     $group_tool_list[] = $tool;
                 }
                 break;

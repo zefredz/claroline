@@ -256,7 +256,7 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . $url  . claro_url_relay_context('&amp;') . '">'
+        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . $url . '">'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
