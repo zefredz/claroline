@@ -77,7 +77,7 @@ $footerCenterDock = new Dock('campusFooterCenter');
 $poweredByOutput = '<div id="poweredBy">'
                  . get_lang('Powered by')
                  . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
-                 . '&copy; 2001 - 2006'
+                 . '&copy; 2001 - 2007'
                  . '</div>';
 
 $footerCenterDock->addOutput($poweredByOutput,true);
