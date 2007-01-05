@@ -299,9 +299,8 @@ function event_upload($doc_id)
 */
 function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 {
-    // if tracking is disabled record nothing
-    if( ! get_conf('is_trackingEnabled') ) return false;
-
+    // exercise tracking must always be recorded
+    
     // get table names
     $tbl_cdb_names               = claro_sql_get_course_tbl();
     $tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
