@@ -582,7 +582,7 @@ if($is_allowedToEditAll)
             	if( is_array($userIdList) )
 		        {
 		            // email subject
-		            $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_course_officialCode() . '] ' . get_lang('New assignment feedback posted');
+		            $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New assignment feedback posted');
 		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
 						$authId = $wrkForm['wrkGroup'];
 					else
