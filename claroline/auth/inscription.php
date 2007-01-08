@@ -32,7 +32,6 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
-
 $agreementText  ='';
 if (file_exists('./textzone_inscription.inc.html'))
 {
@@ -84,7 +83,7 @@ if ( get_conf('allowSelfReg',false) )
         {
             // register the new user in the claroline platform
 
-            $_user = user_create($user_data);
+            $_uid = user_create($user_data);
 
             if ( claro_is_user_authenticated() )
             {
