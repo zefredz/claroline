@@ -310,6 +310,8 @@ if ( $displayForm == TRUE )
 
     $singleUserList = claro_sql_query_fetch_all($sql);
 
+    $userList = array();
+
     if ( is_array($singleUserList) && !empty($singleUserList) )
     {
         foreach ( $singleUserList as $singleUser  )
@@ -330,6 +332,8 @@ if ( $displayForm == TRUE )
             GROUP BY `g`.`id`";
 
     $groupSelect = claro_sql_query_fetch_all($sql);
+
+    $groupList = array();
 
     if ( is_array($groupSelect) && !empty($groupSelect) )
     {
@@ -389,9 +393,9 @@ if ( $displayForm == TRUE )
     echo '</select>' . "\n"
     .    '</td>' . "\n"
     .    '<td valign="middle">' . "\n"
-    .    '<input type="button" onClick="move(this.form.elements[0],this.form.elements[3])" value="   >>   " />' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[\'nocorreo[]\'],this.form.elements[\'incorreo[]\'])" value="   >>   " />' . "\n"
     .    '<p>&nbsp;</p>' . "\n"
-    .    '<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[\'incorreo[]\'],this.form.elements[\'nocorreo[]\'])" value="   <<   " />' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
     .    '<p>' . "\n"
