@@ -759,7 +759,7 @@ class Assignment
 
 		$assignmentStarted = (bool) ( $this->startDate <= $now );
 		$assignmentNotFinished = (bool) ( $now < $this->endDate );
-		$canUploadAfterEnd = (bool) $this->allowLateUpload == 'YES';
+		$canUploadAfterEnd = (bool) ( $this->allowLateUpload == 'YES' );
 
 		return (bool) $assignmentStarted && ( $assignmentNotFinished || $canUploadAfterEnd );
 	}
