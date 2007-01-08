@@ -110,15 +110,17 @@ function move(fbox,    tbox)
 
 function valida()
 {
-    var    f =    document.datos;
-    var    dat;
+    var f =    document.datos;
+    var dat;
 
-    if (f.elements[3].length <    1) {
+    var incorreo = f.elements['incorreo[]'];
+
+    if (incorreo.length <    1) {
         alert(\"" . clean_str_for_javascript(get_lang('You must select some users')) . "\");
         return false;
     }
-    for    (var i=0; i<f.elements[3].length; i++)
-        f.elements[3][i].selected = f.elements[3][i].checked = true
+    for    (var i=0; i<incorreo.length; i++)
+        incorreo[i].selected = incorreo[i].checked = true
 
     dat=f.emailContent.value;
     if(dat.length == 0)
@@ -183,6 +185,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
 {
 
     $userIdList = array();
+    $groupIdList = array();
 
     if ( isset($_REQUEST['incorreo']) )
     {
@@ -211,7 +214,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         * Select the students of the different groups
         */
 
-        if ( isset($groupIdList) )
+        if ( !empty($groupIdList) )
         {
             $groupIdList = implode(', ',$groupIdList);
 
@@ -248,8 +251,8 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         .            '(' . get_lang('Message from your lecturer') . ')'
         ;
 
-            $countUnvalid = 0;
-            $messageFailed = '';
+        $countUnvalid = 0;
+        $messageFailed = '';
 
         $sentMailCount = claro_mail_user($userIdList, $emailBody, $emailSubject,
                              $senderMail, $senderFirstName.' '.$senderLastName);
