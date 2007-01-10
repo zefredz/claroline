@@ -214,8 +214,6 @@ else
                 $alt   = 'new post';
             }
 
-            if($thisTopic['topic_status'] == 1) $image = $locked_image;
-
             echo '<td>'
             .    '<img src="' . $image . '" alt="' . $alt . '" />'
             ;
