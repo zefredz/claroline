@@ -1214,6 +1214,7 @@ function claro_die($message)
     global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
            $noPHP_SELF, $noQUERY_STRING;
     global $institution_name, $institution_url, $hide_banner, $hide_footer, $hide_body;
+    global $clarolineRepositoryWeb, $imgRepositoryWeb;
 
     if ( ! headers_sent () )
     {

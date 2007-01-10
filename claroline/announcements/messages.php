@@ -45,7 +45,7 @@ $gidReset = true;
 require '../inc/claro_init_global.inc.php'; //    settings initialisation
 
 if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
+if ( ! claro_is_allowed_to_edit() ) claro_die(get_lang('Not allowed'));
 
 // get shared lib
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
