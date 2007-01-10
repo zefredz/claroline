@@ -208,9 +208,11 @@ else
         $toolList = disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
         if ( count($postList) > 2 ) // if less than 2 las message is visible
         {
+            $start_last_message = ( ceil($totalPosts / get_conf('posts_per_page')) -1 ) * get_conf('posts_per_page') ;
+
             $lastMsgUrl = 'viewtopic.php?forum=' . $forum_id
             .             '&amp;topic=' . $topic_id
-            .             '&amp;start=' . ($totalPosts - get_conf('posts_per_page'))
+            .             '&amp;start=' . $start_last_message
             .             claro_url_relay_context('&amp;')
             .             '#post' . $lastPostId;
             $toolList[] = claro_html_cmd_link($lastMsgUrl,get_lang('Last message'));
