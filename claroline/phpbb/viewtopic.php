@@ -253,7 +253,7 @@ else
 
         echo '<tr>' . "\n"
         .    '<th class="headerX">' . "\n"
-        .    '<a name="post'. $thisPost['post_id'] .'" >' . "\n"
+        .    '<a name="post'. $thisPost['post_id'] .'" ></a>' . "\n"
         .    '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
         .    get_lang('Author')
         .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
