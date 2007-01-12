@@ -329,15 +329,20 @@ else
 
 if( claro_is_user_authenticated() && isset($userAttemptCount) )
 {
-	echo '<li>' . get_lang('Attempt') . ' ' . $userAttemptCount;
-	if( $exercise->getAttempts() > 0 )
+    echo '<li>';
+	if ( $exercise->getAttempts() > 0 )
 	{
-		echo ' ' . get_lang('On') . ' ' . $exercise->getAttempts();
-	}
+        echo get_lang('Attempt %attemptCount on %attempts', array('%attemptCount'=> $userAttemptCount, '%attempts' =>$exercise->getAttempts())) ;
+    }
+    else
+    {
+        echo get_lang('Attempt %attemptCount', array('%attemptCount'=> $userAttemptCount)) ;
+    }
 	echo '</li>' . "\n";
 }
 
-echo '<li>' . get_lang('Available from') . ' ' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$exercise->getStartDate());
+echo '<li>' .    get_lang('Available from %startDate', array('%startDate' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $exercise->getStartDate())));
+
 if( !is_null($exercise->getEndDate()) )
 {
 	echo ' ' . get_lang('Until') . ' ' . claro_disp_localised_date(get_locale('dateTimeFormatLong'),$exercise->getEndDate());	
