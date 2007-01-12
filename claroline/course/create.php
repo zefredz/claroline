@@ -141,7 +141,7 @@ else
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
-echo claro_html_tool_title(get_lang('Create a course Website'));
+echo claro_html_tool_title(get_lang('Create a course website'));
 
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 

@@ -193,7 +193,7 @@ if ( get_conf('showLinkToDeleteThisCourse') )
 
     $links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?cmd=rqDelete' . ( !empty($paramString) ? '&amp;'.$paramString : '') . '">'
     .          '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
-    .          get_lang('Delete the whole course Website')
+    .          get_lang('Delete the whole course website')
     .          '</a>' ;
 }
 
