@@ -358,7 +358,7 @@ else
                 $dialogBox .= get_lang('<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>');
                 break;
             case 'HIDDEN' :
-                $dialogBox .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our Website) if you think this is an error.</p>');
+                $dialogBox .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>');
                 break;
             default :
                 // unknown status ?
