@@ -199,10 +199,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 $extAuthSource = array(); // initialise extAuthSource Array (before include of auth.conf.php) - fix Remote File Inclusion (bug 707)
 
-require_once claro_get_conf_repository() .  'auth.extra.conf.php';
+require claro_get_conf_repository() .  'auth.drivers.conf.php';
+
 require_once claro_get_conf_repository() .  'auth.sso.conf.php';
 require_once claro_get_conf_repository() .  'auth.cas.conf.php';
-require_once claro_get_conf_repository() .  'auth.drivers.conf.php';
+require_once claro_get_conf_repository() .  'auth.extra.conf.php';
 
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the
