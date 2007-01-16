@@ -28,7 +28,7 @@ $interbredcrump[]= array ('url' => '../document.php', 'name' => get_lang('Docume
 
 $isDownloadable = true ;
 
-if ( ! claro_is_in_a_course()) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $_course = claro_get_current_course_data();
 $_group  = claro_get_current_group_data();
