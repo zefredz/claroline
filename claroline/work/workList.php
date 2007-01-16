@@ -132,7 +132,7 @@ $uploadDateIsOk      = $assignment->isUploadDateOk();
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
     // user is authed and allowed
-    $userCanPost = (bool) ( claro_is_user_authenticated() && claro_is_course_allowed() );
+    $userCanPost = (bool) ( claro_is_user_authenticated() && claro_is_course_allowed() && claro_is_course_member() );
 }
 else
 {
