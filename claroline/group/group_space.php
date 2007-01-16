@@ -198,9 +198,12 @@ $toolLinkList = array();
 foreach($toolList as $thisTool)
 {
     // special case when display mode is student and tool invisible doesn't display it
-    if ( ( claro_get_tool_view_mode() == 'STUDENT' ) && ! $thisTool['visibility']  )
+    if ( !claro_is_allowed_to_edit() )
     {
-        continue;
+        if(!array_key_exists($thisTool['label'],$_groupProperties['tools']) || !$_groupProperties['tools'][$thisTool['label']])
+        {
+            continue;
+        }
     }
 
 
