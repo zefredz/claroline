@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -266,10 +266,10 @@ switch ( $display )
             ;
         }
 
-        echo user_html_form_profile($user_data)
-        .    '<p>'
+        echo '<p>'
         .    claro_html_menu_horizontal($profileMenu)
         .    '</p>'
+        .    user_html_form_profile($user_data)
         ;
 
         break;
