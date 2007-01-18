@@ -403,8 +403,9 @@ else
 if ( $uidReset && !empty($_uid) ) // session data refresh requested && uid is given (log in succeeded)
 {
     // Update the current session id with a newly generated one ( PHP >= 4.3.2 )
-    // This function is vital in preventing session fixation attackselle
-    function_exists('session_regenerate_id') && session_regenerate_id();
+    // This function is vital in preventing session fixation attacks
+    // function_exists('session_regenerate_id') && session_regenerate_id();
+
     $cidReset = true;
     $gidReset = true;
 
