@@ -1083,9 +1083,33 @@ if ('exDownload' == $cmd )
 
     require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
 
+    // Build archive in tmp course folder
+    $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp';
+    $downloadArchiveFile = $downloadArchivePath . '/' . uniqid('') . '.zip';
 
-    // TODO use tmp dir instead of course document dir
-    $downloadArchivePath = $requestDownloadPath.'/'.uniqid('').'.zip';
+    // Create the temp dir if it doesn't exist
+    // or do a cleanup before creating the zipfile
+
+    if(!is_dir($downloadArchivePath))
+    {
+        mkdir($downloadArchivePath);
+    }
+    else
+    {
+        // Delete old archive files - fix bug
+        $handle=opendir($downloadArchivePath);
+        while ( false !== ($file = readdir($handle)) )
+        {
+            if ($file != '.' && $file != '..')
+            {
+                $fileCreationTimeInHour = (time() - filemtime($downloadArchivePath . '/' . $file))/60/60;
+                // If file is old of 2 hours delete it
+                if ($fileCreationTimeInHour > 2) unlink($downloadArchivePath . '/' . $file);
+            }
+        }
+        closedir($handle);
+    }
+
     $downloadArchiveName = get_conf('siteName');
 
     if (claro_is_in_a_course())
@@ -1118,21 +1142,20 @@ if ('exDownload' == $cmd )
         $downloadArchiveName = get_lang('Documents and Links') . '.zip';
     }
 
-    $downloadArchive     = new PclZip($downloadArchivePath);
+    $downloadArchive     = new PclZip($downloadArchiveFile);
 
     $downloadArchive->add($filePathList,
                           PCLZIP_OPT_REMOVE_PATH,
                           $requestDownloadPath);
 
-    if ( file_exists($downloadArchivePath) )
+    if ( file_exists($downloadArchiveFile) )
     {
         /*
          * SEND THE ZIP ARCHIVE FOR DOWNLOAD
          */
 
-        claro_send_file( $downloadArchivePath, $downloadArchiveName );
-
-        unlink($downloadArchivePath);
+        claro_send_file( $downloadArchiveFile, $downloadArchiveName );
+        unlink($downloadArchiveFile);
         exit();
     }
     else
