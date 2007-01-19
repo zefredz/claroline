@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang[' Main settings'] = 'Paramètres généraux';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
@@ -903,6 +903,7 @@ $_lang['Module deactivation failed'] = 'La désactivation du module a échoué';
 $_lang['Module deactivation succeeded'] = 'La désactivation du module a réussi';
 $_lang['Module directory not found'] = 'Impossible de trouver le répertoire des modules';
 $_lang['Module installation failed'] = 'L\'installation du module a échouée';
+$_lang['Module unpackaging failed'] = 'L\'extraction du package du module a échouée';
 $_lang['Module installation script called'] = 'Le script d\'installation a été appelé';
 $_lang['Module installation succeeded'] = 'L\'installation du module a réussi';
 $_lang['Module installed in all courses'] = 'Le module est installé dans tous les cours';
@@ -1159,7 +1160,7 @@ $_lang['Progression of users on all learning paths'] = 'Progression des utilisat
 $_lang['Properties'] = 'Propriétés';
 $_lang['Properties for %config_name, (%config_code) are now effective on server.'] = 'Les propriétés "%config_name", (%config_code) sont effectives sur le serveur.';
 $_lang['Public'] = 'Public';
-$_lang['Public access from campus home page even without login'] = 'Accès public (depuis la page d\'accueil de Claroline sans identifiant)';
+$_lang['Public access from campus home page even without login'] = 'Accès public (depuis la page d\'accueil sans identifiant)';
 $_lang['Public course only'] = 'Les cours publics uniquement';
 $_lang['Public courses'] = 'Cours public';
 $_lang['Public feedback'] = 'Correction publique';
