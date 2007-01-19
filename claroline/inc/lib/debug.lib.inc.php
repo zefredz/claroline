@@ -452,4 +452,28 @@ function printConfig()
 }
 
 
+/**
+ * Return an html list of function called until this.
+ *
+ * @return html stream
+ */
+
+function claro_html_debug_backtrace()
+{
+    $bt = debug_backtrace();
+    $cbt = '<pre style="color:gray">' . "\n";
+    $bt = array_reverse($bt);
+    foreach ($bt as $btLevel)
+    {
+        if ($btLevel['function'] == __FUNCTION__) continue;
+
+        $cbt .= 'L'.str_pad($btLevel['line'],5,' ',STR_PAD_LEFT) . ':'  ;
+        $cbt .= '<a href="'.$btLevel['file'].'">#</a> ' ;
+        $cbt .= str_pad(basename($btLevel['file']),30,' ', STR_PAD_BOTH) . '| ';
+        $cbt .= '<b>' . $btLevel['function'] . '()</b>' . "\n";
+
+    }
+    return $cbt . '</pre>';
+}
+
 ?>
