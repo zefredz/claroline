@@ -209,7 +209,7 @@ switch ( $cmd )
             }
             else
             {
-                $summary = get_lang('Module installation failed');
+                $summary = get_lang('Module unpackaging failed');
                 $details = implode( "<br />\n", claro_failure::get_last_failure() );
                 $dialogBox = Backlog_Reporter::report( $summary, $details );
             }
@@ -620,7 +620,7 @@ function get_module_dock_list($moduleId)
         $tbl_name        = claro_sql_get_main_tbl();
         $sql = "SELECT `id`    AS dock_id,
                        `name`  AS dockname
-            FROM `" . $tbl_name['dock'] . "` 
+            FROM `" . $tbl_name['dock'] . "`
             WHERE `module_id`=" . (int) $moduleId;
         $dockListByModule[$moduleId] = claro_sql_query_fetch_all($sql);
 
