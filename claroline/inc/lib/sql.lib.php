@@ -310,14 +310,19 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         pushClaroMessage( '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>', (mysql_errno()?'error':'sqlinfo'));
 
     }
-if ( get_conf('CLARO_DEBUG_MODE',false)  && mysql_errno() )
+    if ( get_conf('CLARO_DEBUG_MODE',false) && mysql_errno() )
     {
-                echo '<hr size="1" noshade>'
-                     .mysql_errno(), " : ", mysql_error(), '<br>'
-                     .'<pre style="color:red">'
-                     .$sqlQuery
-                     .'</pre>'
-                     .'<hr size="1" noshade>';
+        echo '<hr size="1" noshade>'
+        .    mysql_errno() . ' : '. mysql_error() . '<br>'
+        .    '<pre style="color:red">'
+        .    $sqlQuery
+        .    '</pre>'
+        .    ( function_exists('claro_html_debug_backtrace')
+             ? claro_html_debug_backtrace()
+             : ''
+             )
+        .    '<hr size="1" noshade>'
+        ;
     }
 
     return $resultHandler;
