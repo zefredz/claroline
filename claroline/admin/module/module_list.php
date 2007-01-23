@@ -26,6 +26,7 @@ require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/sqlxtra.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+require_once get_path('incRepositorySys') . '/lib/file.lib.php';
 require_once get_path('incRepositorySys') . '/lib/html.lib.php';
 require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/backlog.class.php';
@@ -190,28 +191,46 @@ switch ( $cmd )
     case 'exInstall' :
         {
             //include needed librabries for treatment
-
-            if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
-            {
-                list( $backlog, $module_id ) = install_module($modulePath);
-                $details = $backlog->output();
-                if ( false !== $module_id )
+            if ( array_key_exists( 'uploadedModule', $_FILES ) )
+            {            
+                if ( file_upload_failed( $_FILES['uploadedModule'] ) )
                 {
-                    $summary  = get_lang('Module installation succeeded');
-                    $moduleInfo = get_module_info($module_id);
-                    $typeReq = $moduleInfo['type'];
+                    $summary = get_lang('Module upload failed');
+                    $details = get_file_upload_error_message( $_FILES['uploadedModule'] );
+    
+                    $dialogBox = Backlog_Reporter::report( $summary, $details );
                 }
                 else
                 {
-                    $summary  = get_lang('Module installation failed');
+                    if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
+                    {
+                        list( $backlog, $module_id ) = install_module($modulePath);
+                        $details = $backlog->output();
+                        if ( false !== $module_id )
+                        {
+                            $summary  = get_lang('Module installation succeeded');
+                            $moduleInfo = get_module_info($module_id);
+                            $typeReq = $moduleInfo['type'];
+                        }
+                        else
+                        {
+                            $summary  = get_lang('Module installation failed');
+                        }
+                        $dialogBox = Backlog_Reporter::report( $summary, $details );
+                    }
+                    else
+                    {
+                        $summary = get_lang('Module unpackaging failed');
+                        $details = implode( "<br />\n", claro_failure::get_last_failure() );
+                        $dialogBox = Backlog_Reporter::report( $summary, $details );
+                    }
                 }
-                $dialogBox = Backlog_Reporter::report( $summary, $details );
             }
             else
             {
-                $summary = get_lang('Module unpackaging failed');
-                $details = implode( "<br />\n", claro_failure::get_last_failure() );
-                $dialogBox = Backlog_Reporter::report( $summary, $details );
+                $summary = get_lang('Module upload failed');
+                $details = get_lang('Missing or wrong name (developer was drunk)');
+                claro_die( Backlog_Reporter::report( $summary, $details ) );
             }
 
             break;
@@ -223,6 +242,7 @@ switch ( $cmd )
             .            get_lang('Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.')
             .            '</p>' . "\n\n"
             .            '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
             .            '<input name="cmd" type="hidden" value="exInstall" />' . "\n"
             .            '<input name="uploadedModule" type="file" /><br /><br />' . "\n"
             .            '<input value="' . get_lang('Install module') . '" type="submit" />&nbsp;' . "\n"
