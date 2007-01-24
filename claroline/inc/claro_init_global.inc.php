@@ -105,6 +105,7 @@ session_start();
 
 require_once get_path('incRepositorySys') . '/lib/language.lib.php';
 require_once get_path('incRepositorySys') . '/lib/right/right_profile.lib.php';
+if( CLARO_DEBUG_MODE ) require_once get_path('incRepositorySys') . '/lib/debug.lib.inc.php';
 
 /*----------------------------------------------------------------------
   Include Plugin libraries and create needed buffer
