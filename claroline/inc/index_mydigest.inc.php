@@ -18,12 +18,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
+include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 
 // Cache_lite setting & init
 $cache_options = array(
 'cacheDir' => get_path('rootSys') . 'tmp/cache/CLCALdigest/',
 'lifeTime' => get_conf('cache_lifeTime', 600),
-'automaticCleaningFactor' => 50,
+'automaticCleaningFactor' =>get_conf('cache_automaticCleaningFactor', 50),
 );
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 120;
@@ -40,7 +41,7 @@ $courseDigestList = array('courseSysCode'      => array(),
                           'date'               => array(),
                           'content'            => array());
 
-if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.claro_get_current_user_id()))
+if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro_get_current_user_id()))
 {
     $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
