@@ -5,7 +5,7 @@
  * This tool manage profile of the course
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -50,7 +50,7 @@ if ( !empty($profile_id) )
 
     if ( $profile->load($profile_id) )
     {
-        // load profile tool right    
+        // load profile tool right
         $courseProfileRight = new RightCourseProfileToolRight();
         $courseProfileRight->setCourseId(claro_get_current_course_id());
         $courseProfileRight->load($profile);
@@ -58,7 +58,7 @@ if ( !empty($profile_id) )
         if ( ! $profile->isLocked() )
         {
             if ( $cmd == 'set_right' && !empty($tool_id) )
-            {        
+            {
                 $courseProfileRight->setToolRight($tool_id,$right_value);
                 $courseProfileRight->save();
             }
