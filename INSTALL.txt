@@ -85,9 +85,9 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline182.tar.gz'
+1. Download 'claroline183.tar.gz'
 
-   Windows : download 'claroline182.zip
+   Windows : download 'claroline183.zip
 
 
 2. Open a shell, go to download directory and type
