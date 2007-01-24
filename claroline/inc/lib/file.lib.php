@@ -2,69 +2,6 @@
     
     // vim: expandtab sw=4 ts=4 sts=4:
     
-    function file_upload_failed( $file )
-    {
-        return get_file_upload_errno( $file ) > 0;
-    }
-    
-    function get_file_upload_errno( $file )
-    {
-        return (int) $file['error'];
-    }
-    
-    function get_file_upload_error_message( $file )
-    {
-        return get_file_upload_errstring_from_errno( get_file_upload_errno( $file ) );
-    }
-    
-    function get_file_upload_errstring_from_errno( $errorLevel )
-    {
-        if ( !defined( 'UPLOAD_ERR_CANT_WRITE' ) )
-        {
-            // Introduced in PHP 5.1.0
-            define( 'UPLOAD_ERR_CANT_WRITE', 5 );
-        }
-        
-        switch( $errorLevel )
-        {
-            case UPLOAD_ERR_OK: 
-            {
-                $details = get_lang('No error');
-            }
-            case UPLOAD_ERR_INI_SIZE: 
-            {
-                $details = get_lang('File too large');
-            }   break;
-            case UPLOAD_ERR_FORM_SIZE: 
-            {
-                $details = get_lang('File exceeds the max size defined in the HTML form');
-            }   break;
-            case UPLOAD_ERR_PARTIAL: 
-            {
-                $details = get_lang('File partially uploaded');
-            }   break;
-            case UPLOAD_ERR_NO_FILE: 
-            {
-                $details = get_lang('No file given');
-            }   break;
-            case UPLOAD_ERR_NO_TMP_DIR: 
-            {
-                $details = get_lang('Temporary folder missing');
-            }   break;
-            case UPLOAD_ERR_CANT_WRITE: 
-            {
-                $details = get_lang('Failed to write file to disk');
-            }   break;
-            default: 
-            {
-                $details = get_lang('Unknown error code %errCode%'
-                    , array('%errCode%' => $errorLevel ));
-            }   break;
-        }
-        
-        return $details;
-    }
-    
     /**
      * Get file MIME type from file name based on extension
      * @param string $fileName name of the file

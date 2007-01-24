@@ -97,7 +97,6 @@ function localtest()
 <br />
 </DIV>
 <HR size="1" noshade="noshade">
-<div class="phpInfoContents">
 <?php
 
 if ($cmd == 'ext')
@@ -179,7 +178,6 @@ else
 }
 
 ?>
-</div>
 <HR size="1" noshade="noshade">
 [<a href="http://freshmeat.net/projects/claroline/?topic_id=92%2C72%2C20%2C71"  hreflang="en">FreshMeat</a>]
 [<a href="http://freshmeat.net/rate/20465/"  hreflang="en" >Rate it</a>]<br />
