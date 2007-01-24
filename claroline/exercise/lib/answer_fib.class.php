@@ -411,7 +411,7 @@ class answerFillInBlanks
     				if( isset($this->response[$i]) ) 	$value = $this->response[$i];
     				else								$value = '';
     				
-					$replacementList[] = "\n" . ' <input type="text" name="a_'.$this->questionId.'_'.$i.'" size="10" value="'.$value.'" /> ' . "\n";  					
+					$replacementList[] = ' <input type="text" name="a_'.$this->questionId.'_'.$i.'" size="10" value="'.$value.'" /> ';  					
     			}
     		}
     		
