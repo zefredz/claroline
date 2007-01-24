@@ -3,7 +3,7 @@
  * CLAROLINE
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -40,9 +40,17 @@ $messageList = array();
 // see which user we are working with ...
 
 if ( empty($_REQUEST['uidToEdit']) ) claro_redirect('adminusers.php');
-else                                 $user_id = $_REQUEST['uidToEdit'];
+else                                 $userId = $_REQUEST['uidToEdit'];
 
-$user_data = user_get_properties($user_id);
+$user_data = user_get_properties($userId);
+
+$user_extra_data = user_get_extra_data($userId);
+$dgExtra =null;
+if (count($user_extra_data))
+{
+    $dgExtra = new claro_datagrid(user_get_extra_data($userId));
+}
+
 
 if ( isset($_REQUEST['applyChange']) )  //for formular modification
 {
@@ -62,15 +70,15 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     // validate forum params
 
-    $messageList = user_validate_form_profile($user_data, $user_id);
+    $messageList = user_validate_form_profile($user_data, $userId);
 
     if ( count($messageList) == 0 )
     {
         if ( empty($user_data['password'])) unset($user_data['password']);
 
-        user_set_properties($user_id, $user_data);  // if no error update use setting
+        user_set_properties($userId, $user_data);  // if no error update use setting
 
-        if ( $user_id == claro_get_current_user_id()  )// re-init system to take new settings in account
+        if ( $userId == claro_get_current_user_id()  )// re-init system to take new settings in account
         {
             $uidReset = true;
             include get_path('incRepositorySys') . '/claro_init_local.inc.php';
@@ -80,8 +88,8 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
         $dialogBox = get_lang('Changes have been applied to the user settings');
 
         // set user admin parameter
-        if ( $user_data['is_admin'] ) user_set_platform_admin(true, $user_id);
-        else                          user_set_platform_admin(false, $user_id);
+        if ( $user_data['is_admin'] ) user_set_platform_admin(true, $userId);
+        else                          user_set_platform_admin(false, $userId);
 
         $messageList[] = get_lang('Changes have been applied to the user settings');
     }
@@ -115,12 +123,12 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$user_data['is_admin'] = user_is_admin($user_id);
+$user_data['is_admin'] = user_is_admin($userId);
 
 
 $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '?cmd=rqReg'
-.             '&amp;uidToEdit=' . $user_id
+.             '&amp;uidToEdit=' . $userId
 .             '&amp;fromAdmin=settings'
 .             '&amp;category=" >'
 .             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif">'
@@ -138,7 +146,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 ;
 
 $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
-.             '?uidToEdit=' . $user_id
+.             '?uidToEdit=' . $userId
 .             '&amp;cmd=delete" '
 .             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
 .             '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" /> '
@@ -164,11 +172,37 @@ echo claro_html_tool_title($nameTools)
 .    claro_html_msg_list($messageList)
 
 // Display "form and info" about the user
-.    user_html_form_admin_user_profile($user_data)
 .    '<p>'
 .    claro_html_menu_horizontal($cmd_menu)
 .    '</p>'
+.    user_html_form_admin_user_profile($user_data)
 ;
+if (!is_null($dgExtra)) echo $dgExtra->render();
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+function user_get_extra_data($userId)
+{
+    $extraInfo = array();
+    $extraInfoDefList = get_userInfoExtraDefinitionList();
+    $userInfo = get_user_property_list($userId);
+
+/**
+    $extraInfo['user_id']['label'] = get_lang('User id');
+    $extraInfo['user_id']['value'] = $userId;
+*/
+
+    foreach ($extraInfoDefList as $extraInfoDef)
+    {
+        $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
+            ? $userInfo[$extraInfoDef['propertyId']]
+            : $extraInfoDef['defaultValue'];
+
+            // propertyId, label, type, defaultValue, required
+            $extraInfo[$extraInfoDef['propertyId']]['label'] = $extraInfoDef['label'];
+            $extraInfo[$extraInfoDef['propertyId']]['value'] = $currentValue;
+
+    }
+    return $extraInfo;
+}
 ?>

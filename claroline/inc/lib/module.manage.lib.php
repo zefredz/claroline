@@ -1307,12 +1307,26 @@ function moduleManifestElementData($parser,$data)
             break;
 
         case 'DESCRIPTION' :
-            {
                 $module_info['DESCRIPTION'] = $data;
-            }   break;
+            break;
 
         case 'EMAIL':
-            $module_info['AUTHOR']['EMAIL'] = $data;
+            $parent = prev($element_pile);
+            switch ($parent)
+            {
+
+                case 'MODULE':
+                    $module_info['NAME'] = $data;
+                    break;
+
+                case 'AUTHOR':
+                    $module_info['AUTHOR']['EMAIL'] = $data;
+                    break;
+
+                case 'CREDIT':
+                    $module_info['CREDIT']['EMAIL'][] = $data;
+                    break;
+            }
             break;
 
         case 'LABEL':
@@ -1344,6 +1358,12 @@ function moduleManifestElementData($parser,$data)
                 case 'AUTHOR':
                     {
                         $module_info['AUTHOR']['NAME'] = $data;
+                    }
+                    break;
+
+                case 'CREDIT':
+                    {
+                        $module_info['CREDIT']['NAME'][] = $data;
                     }
                     break;
             }
