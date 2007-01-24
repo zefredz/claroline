@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -299,6 +299,20 @@ function get_agenda_items($userCourseList, $month, $year)
     return $agendaItemList;
 }
 
+
+function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
+{
+
+    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
+             ? claro_html_debug_backtrace()
+             : 'claro_html_debug_backtrace() not defined'
+             )
+             .'claro_html_monthly_calendar is deprecated , use claro_disp_monthly_calendar','error');
+
+    return claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName );
+}
+
+
 /**
  * build a view of items place a monthly view
  *
@@ -309,7 +323,7 @@ function get_agenda_items($userCourseList, $month, $year)
  * @param string $monthName name of the current month
  * @return mixed : whether success html stream or false and error throw claro_failure
  */
-function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
+function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
 {
     $htmlStream = '';
     //Handle leap year
