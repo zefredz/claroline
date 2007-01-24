@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * language library
  * contains function to manage l10n
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/CLUSR
  * @package CLUSR
@@ -185,7 +185,7 @@ class language
 
         // FIXME : force translation mode
 
-        $mode = 'TRANSLATION'; 
+        $mode = 'TRANSLATION';
 
         if ( $mode == 'TRANSLATION' )
         {
@@ -501,7 +501,12 @@ function get_lang_weekday_name_list($size='long')
  * @param timestamp timestamp of date to format
  */
 
-function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
+function claro_disp_localised_date($formatOfDate,$timestamp = -1)
+{
+    return claro_html_localised_date($formatOfDate,$timestamp);
+}
+
+function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
 {
     $langDay_of_weekNames['long'] = get_lang_weekday_name_list('long');
     $langDay_of_weekNames['short'] = get_lang_weekday_name_list('short');
