@@ -48,9 +48,13 @@ function claro_delete_file($filePath)
     }
     elseif( is_dir($filePath) )
     {
-        $dirHandle = opendir($filePath);
+        $dirHandle = @opendir($filePath);
 
-        if ( ! $dirHandle ) return false;
+        if ( ! $dirHandle )
+        {
+            function_exists('claro_html_debug_backtrace') && pushClaroMessage( claro_html_debug_backtrace());
+            return false;
+        }
 
         $removableFileList = array();
 
@@ -73,7 +77,11 @@ function claro_delete_file($filePath)
 
         clearstatcache();
         if (is_writable($filePath)) return @rmdir($filePath);
-        else                        return false;
+        else
+        {
+            function_exists('claro_html_debug_backtrace') && pushClaroMessage( claro_html_debug_backtrace());
+            return false;
+        }
 
     } // end elseif is_dir()
 }
