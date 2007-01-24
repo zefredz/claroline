@@ -490,8 +490,8 @@ foreach ( $userList as $thisUser )
 
         if ($thisUser['user_id'] != claro_get_current_user_id())
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'] .
-            '    ?cmd=unregister&amp;user_id=' . $thisUser['user_id']
+            echo '<a href="'.$_SERVER['PHP_SELF']
+            .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id']
             .    claro_url_relay_context('&amp;') . '" '
             .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
             .    '<img border="0" alt="' . get_lang('Unregister') . '" src="' . get_path('imgRepositoryWeb') . '/unenroll.gif" />'
