@@ -854,7 +854,6 @@ function claro_set_tool_view_mode($viewMode)
     }
 }
 
-
 /**
  * Display options to switch between student view and course manager view
  * This function is mainly used by the claro_init_banner.inc.php file
@@ -863,7 +862,7 @@ function claro_set_tool_view_mode($viewMode)
  * This will affect the return value of claro_is_allowed_to_edit() function.
  * It will ten return false as the user is a simple student.
  *
- * @author roan embrechts
+ * @author Roan Embrechts
  * @author Hugues Peeters
  * @param string - $viewModeRequested.
  *                 For now it can be 'STUDENT' or 'COURSE_ADMIN'
@@ -877,6 +876,10 @@ function claro_set_tool_view_mode($viewMode)
 
 
 function claro_disp_tool_view_option($viewModeRequested = false)
+{
+    return claro_html_tool_view_option($viewModeRequested);
+}
+function claro_html_tool_view_option($viewModeRequested = false)
 {
     if ( ! claro_is_course_manager() || ! claro_is_display_mode_available() ) return false;
 
