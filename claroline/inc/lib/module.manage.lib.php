@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1307,7 +1307,7 @@ function moduleManifestElementData($parser,$data)
             break;
 
         case 'DESCRIPTION' :
-                $module_info['DESCRIPTION'] = $data;
+            $module_info['DESCRIPTION'] = $data;
             break;
 
         case 'EMAIL':
@@ -1380,6 +1380,10 @@ function moduleManifestElementData($parser,$data)
                 case 'MYSQL':
                     $module_info['MYSQL_MIN_VERSION'] = $data;
                     break;
+
+                case 'CLAROLINE' :
+                    $module_info['CLAROLINE_MIN_VERSION'] = $data;
+                    break;
             }
             break;
 
@@ -1394,6 +1398,10 @@ function moduleManifestElementData($parser,$data)
                 case 'MYSQL':
                     $module_info['MYSQL_MAX_VERSION'] = $data;
                     break;
+
+                case 'CLAROLINE' :
+                    $module_info['CLAROLINE_MAX_VERSION'] = $data;
+                    break;
             }
             break;
 
@@ -1407,8 +1415,20 @@ function moduleManifestElementData($parser,$data)
                     break;
 
                 case 'CLAROLINE' :
-                    $module_info['CLAROLINE']['VERSION'] = $data;
+                    $module_info['CLAROLINE_MIN_VERSION'] = $data;
+                    $module_info['CLAROLINE_MAX_VERSION'] = $data;
                     break;
+
+                case 'PHP':
+                    $module_info['PHP_MIN_VERSION'] = $data;
+                    $module_info['PHP_MAX_VERSION'] = $data;
+                    break;
+
+                case 'MYSQL':
+                    $module_info['MYSQL_MIN_VERSION'] = $data;
+                    $module_info['MYSQL_MAX_VERSION'] = $data;
+                    break;
+
             }
             break;
 
@@ -1826,10 +1846,9 @@ function get_before_course_tool($rank)
 
 function get_course_tool_max_rank()
 {
-    $tbl_mdb_names        = claro_sql_get_main_tbl();
-    $tbl_tool_list        = $tbl_mdb_names['tool'];
+    $tbl = claro_sql_get_main_tbl();
 
-    $sql = "SELECT MAX(def_rank) as maxrank FROM `" . $tbl_tool_list . "`";
+    $sql = "SELECT MAX(def_rank) as maxrank FROM `" . $tbl['tool'] . "`";
     return claro_sql_query_get_single_value($sql);
 }
 
@@ -1841,10 +1860,10 @@ function get_course_tool_max_rank()
 
 function get_course_tool_min_rank()
 {
-    $tbl_mdb_names        = claro_sql_get_main_tbl();
-    $tbl_tool_list        = $tbl_mdb_names['tool'];
+    $tbl = claro_sql_get_main_tbl();
 
-    $sql = "SELECT MIN(def_rank) as minrank FROM `" . $tbl_tool_list . "`";
+    $sql = "SELECT MIN(def_rank) as minrank FROM `" . $tbl ['tool'] . "`";
     return claro_sql_query_get_single_value($sql);
 }
+
 ?>
