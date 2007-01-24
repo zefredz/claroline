@@ -1372,6 +1372,7 @@ if( $dispWrkLst )
 					// show file if this is not a TEXT only work
 					echo $txtForFile . '&nbsp;: '
 	                .    '<a href="' . $assignment->getAssigDirWeb().urlencode($thisWrk['submitted_doc_path']) . '" ' . $target . '>' . $thisWrk['submitted_doc_path'] . '</a>'
+                    . ' <small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>' 
 					.    '<br />' . "\n"
 					;
 				}
