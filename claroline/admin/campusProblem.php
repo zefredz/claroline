@@ -31,13 +31,13 @@ define('DISP_NOT_ALLOWED',__LINE__);
 
 require '../inc/claro_init_global.inc.php';
 
-include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
-
-
 // Security check
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+
+include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
+include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 
 // right
 $is_allowedToCheckProblems = claro_is_platform_admin();
@@ -46,7 +46,7 @@ $is_allowedToCheckProblems = claro_is_platform_admin();
 // Cache_lite setting & init
 $cache_options = array( 'cacheDir' => get_path('rootSys') . 'tmp/cache/campusProblem/',
                         'lifeTime' => get_conf('cache_lifeTime', 160000),
-                        'automaticCleaningFactor' => 50,
+                        'automaticCleaningFactor' =>get_conf('cache_automaticCleaningFactor', 50),
 );
 
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
