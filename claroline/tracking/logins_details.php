@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -189,7 +189,7 @@ switch ($display)
                 while( $i < sizeof($loginDates) )
                 {
                     echo '<tr>' . "\n"
-                    .    '<td><small>' . claro_disp_localised_date( get_locale('dateTimeFormatLong'), strtotime($loginDates[$i]['login_date']) ) . '</small></td>' . "\n"
+                    .    '<td><small>' . claro_html_localised_date( get_locale('dateTimeFormatLong'), strtotime($loginDates[$i]['login_date']) ) . '</small></td>' . "\n"
                     .    '</tr>' . "\n"
                     ;
                     // $limit is used to select only results between current login and next one

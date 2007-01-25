@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @author Sebastien Piraux  <piraux_seb@hotmail.com>
  */
@@ -555,7 +555,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     foreach($results as $work)
                     {
                         $timestamp = strtotime($work['last_edit_date']);
-                        $beautifulDate = claro_disp_localised_date(get_locale('dateTimeFormatLong'),$timestamp);
+                        $beautifulDate = claro_html_localised_date(get_locale('dateTimeFormatLong'),$timestamp);
 
                         if( $work['a_title'] == $prevATitle )
                         {

@@ -3,7 +3,7 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.6.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+      | Copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
       +----------------------------------------------------------------------+
       |   Authors : see CREDITS.txt
       +----------------------------------------------------------------------+
@@ -48,7 +48,7 @@ if ( get_conf('is_trackingEnabled') )
 
     $displayTypeList = array ('month','day','hour');
 
-    if ( isset($_REQUEST['displayType']) && in_array($_REQUEST['displayType'],$displayTypeList) ) 
+    if ( isset($_REQUEST['displayType']) && in_array($_REQUEST['displayType'],$displayTypeList) )
     {
         $displayType = $_REQUEST['displayType'];
     }
@@ -68,13 +68,13 @@ if ( get_conf('is_trackingEnabled') )
             echo date(' Y', $reqdate);
             break;
         case 'month' :
-            echo claro_disp_localised_date('%B %Y',$reqdate);
+            echo claro_html_localised_date('%B %Y',$reqdate);
           break;
         // default == day
         default :
             $period = 'day';
         case 'day' :
-            echo claro_disp_localised_date('%A %d %B %Y',$reqdate);
+            echo claro_html_localised_date('%A %d %B %Y',$reqdate);
           break;
     }
 echo '</b></td>'."\n".'</tr>'."\n\n";

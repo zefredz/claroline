@@ -4,7 +4,7 @@
  *
  * @version 1.6 *
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author see CREDITS.txt
  *
@@ -111,7 +111,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
             $i++;
             echo '<tr>' . "\n"
             .    '<td>' . $userName . '</td>' . "\n"
-            .    '<td>' . claro_disp_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']) . '</td>' . "\n"
+            .    '<td>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']) . '</td>' . "\n"
             .    '<td>' . $userAccess['nbr'] . '</td>' . "\n"
             .    '</tr>' . "\n\n"
             ;

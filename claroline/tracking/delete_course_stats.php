@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @author Sebastien Piraux  <piraux_seb@hotmail.com>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -48,7 +48,7 @@ $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 
 if( 'delete' == $cmd && 'BEFORE' == $scope )
 {
-    $msg['info'][] = get_block('Delete all event before %date in statistics',array('%date'=>claro_disp_localised_date(get_locale('dateFormatLong'), $beforeDate)));
+    $msg['info'][] = get_block('Delete all event before %date in statistics',array('%date' => claro_html_localised_date(get_locale('dateFormatLong'), $beforeDate)));
 
     if(!is_null($beforeDate))
     {
@@ -86,7 +86,7 @@ if( 'delete' == $cmd && 'BEFORE' == $scope )
     }
     else
     {
-        $msg['error'][] = get_block('%date not valid',array('%date'=>claro_disp_localised_date(get_locale('dateFormatLong'))));
+        $msg['error'][] = get_block('%date not valid',array('%date'=>claro_html_localised_date(get_locale('dateFormatLong'))));
     }
 
     $display = DISP_FLUSH_RESULT;
