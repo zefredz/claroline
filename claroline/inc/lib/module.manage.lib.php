@@ -374,6 +374,7 @@ function install_module($modulePath, $skipCheckDir = false)
             if ( false === ( $moduleId = register_module_core($module_info) ) )
             {
                 claro_delete_file($modulePath);
+                $backlog->failure(claro_failure::get_last_failure());
                 $backlog->failure( get_lang('Module registration failed') );
             }
             else
@@ -1045,10 +1046,10 @@ function register_module_core($module_info)
     $tbl             = claro_sql_get_tbl(array('module','module_info','tool'));
     $tbl_name        = claro_sql_get_main_tbl();
 
-    $missingElement = array_diff(array('LABEL','NAME','TYPE','CLAROLINE','AUTHOR','DESCRIPTION','LICENSE'),array_keys($module_info));
+    $missingElement = array_diff(array('LABEL','NAME','TYPE'),array_keys($module_info));
     if (count($missingElement)>0)
     {
-        return claro_failure::set_failure($missingElement);
+        return claro_failure::set_failure(get_lang('Missing elements in module Manifest : %MissingElements' , array('%MissingElements' => implode(',',$missingElement))));
     }
 
     if (isset($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH']))
@@ -1078,7 +1079,7 @@ function register_module_core($module_info)
 
     $sql = "INSERT INTO `" . $tbl['module_info'] . "`
             SET module_id    = " . (int) $moduleId . ",
-                version      = '" . addslashes($module_info['CLAROLINE']['VERSION']) . "',
+                version      = '" . addslashes($module_info['VERSION']) . "',
                 author       = '" . addslashes($module_info['AUTHOR']['NAME'  ]) . "',
                 author_email = '" . addslashes($module_info['AUTHOR']['EMAIL' ]) . "',
                 website      = '" . addslashes($module_info['AUTHOR']['WEB'   ]) . "',
