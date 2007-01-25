@@ -609,8 +609,6 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
  */
 class claro_datagrid
 {
-
-
     var $datagrid;
 
     var $idLineType =  'numeric';
@@ -1202,7 +1200,12 @@ function make_clickable($text)
  */
 function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
-    if(get_conf('CLARO_DEBUG_MODE',false) ) trigger_error('function claro_disp_html_area is deprecated, use claro_html_textarea_editor', E_USER_WARNING);
+    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
+             ? claro_html_debug_backtrace()
+             : 'claro_html_debug_backtrace() not defined'
+             )
+             .'claro_disp_textarea_editor() is deprecated , use claro_html_textarea_editor()','error');
+
     // becomes a alias while the function call is not replaced by the new one
     return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
 }
@@ -1215,6 +1218,7 @@ function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttr
 
 function htmlize($phrase)
 {
+    // TODO use textile project here
     return claro_parse_user_text(htmlspecialchars($phrase));
 }
 
@@ -1278,7 +1282,13 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
 
 function claro_disp_duration( $duration  )
 {
-    claro_html_duration( $duration  );
+    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
+             ? claro_html_debug_backtrace()
+             : 'claro_html_debug_backtrace() not defined'
+             )
+             .'claro_ disp _duration() is deprecated , use claro_ html _duration()','error');
+
+    return claro_html_duration( $duration  );
 }
 function claro_html_duration( $duration  )
 {
@@ -1433,11 +1443,11 @@ function claro_html_breadcrumb()
 
             if ( isset($_REQUEST['View mode']) )
             {
-                $htmlBC .= claro_disp_tool_view_option($_REQUEST['View mode']);
+                $htmlBC .= claro_html_tool_view_option($_REQUEST['View mode']);
             }
             else
             {
-                $htmlBC .= claro_disp_tool_view_option();
+                $htmlBC .= claro_html_tool_view_option();
             }
 
             if ( claro_is_platform_admin() && ! claro_is_course_member() )
