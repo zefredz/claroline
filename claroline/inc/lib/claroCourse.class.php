@@ -314,7 +314,7 @@ class ClaroCourse
             $this->backlog->failure(get_lang('Department needed'));
             $success = false ;
         }
-        
+
         // Validate course departmentUrl
         if ( empty($this->departmentUrl) && $fieldRequiredStateList['departmentUrl'])
         {
@@ -720,7 +720,7 @@ class ClaroCourse
         $mailSubject = get_lang('%site_name Course creation %course_name',array('%site_name'=> '['.get_conf('siteName').']' ,
                                                                                     '%course_name'=> $this->title) );
 
-        $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_disp_localised_date(get_locale('dateTimeFormatLong')),
+        $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
                                 '%user_firstname' => $creatorFirstName,
                                 '%user_lastname' => $creatorLastName,

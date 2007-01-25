@@ -495,7 +495,7 @@ function profile_send_request_course_creator_status($explanation)
 
     $requestMessage_Content =
     get_block('blockRequestCourseManagerStatusMail',
-    array( '%time'      => claro_disp_localised_date(get_locale('dateFormatLong')),
+    array( '%time'      => claro_html_localised_date(get_locale('dateFormatLong')),
     '%user_id'   => claro_get_current_user_id(),
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
@@ -534,7 +534,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
 
     $requestMessage_Content =
     get_block('blockRequestUserRevoquationMail',
-    array('%time'      => claro_disp_localised_date(get_locale('dateFormatLong')),
+    array('%time'      => claro_html_localised_date(get_locale('dateFormatLong')),
     '%user_id'   => claro_get_current_user_id(),
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
@@ -1148,7 +1148,7 @@ function user_html_form($data, $form_type='registration')
 
         if ( 0 < count($extraInfoDefList))
         $html .= form_row( ''
-                         , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo' 
+                         , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo'
                                               . claro_url_relay_context('&amp;')
                                               , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify')
                                               )
