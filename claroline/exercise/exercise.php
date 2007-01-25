@@ -71,6 +71,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
         require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
         require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
         require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+        require_once get_path('incRepositorySys') . '/lib/file.lib.php';
 
         require_once './export/exercise_import.inc.php';
         require_once './lib/question.class.php';

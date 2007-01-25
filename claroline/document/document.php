@@ -279,33 +279,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
             else
             {
-                $uploadFailure = claro_failure::get_last_failure();
-                switch ( $uploadFailure )
-                {
-                    case 'not_enough_space':
-                        $dialogBox .= get_lang('The upload has failed. There is not enough space in your directory');
-                        break;
-                    case 'php_file_in_zip_file':
-                        $dialogBox .= get_lang('The zip file can not contain .PHP files');
-                        break;
-                    case 'file_exceeds_php_upload_max_filesize' :
-                        $dialogBox .= 'File size exeeds.'
-                                   .  '<br />'.get_lang('Notice') . ' : ' . get_lang('Max file size')
-                                   . ' ' . get_cfg_var('upload_max_filesize');
-                        break;
-                    case 'file_exceeds_html_max_file_size':
-                        $dialogBox .= 'File size exceeds.' ;
-                        break;
-                    case 'file_partially_uploaded':
-                        $dialogBox .= 'File upload incomplete.';
-                        break;
-                    case 'no_file_uploaded':
-                        $dialogBox .= 'No file uploaded.';
-                        break;
-                    default:
-                        $dialogBox .= 'File upload failed.';
-                }
-
+                $dialogBox .= claro_failure::get_last_failure();
             }
 
             //notify that a new document has been uploaded

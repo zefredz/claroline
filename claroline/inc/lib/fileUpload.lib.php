@@ -311,35 +311,16 @@ function get_mime_type_extension_map()
 
 function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFilledSpace, $uncompress= '', $allowPHP = false)
 {
-    if ($uploadedFile['error'] != UPLOAD_ERR_OK )
-    {
-        // init constant only define un PHP 4.3.1, 5 and 5.1
-        if ( ! defined('UPLOAD_ERR_NO_TMP_DIR') ) define('UPLOAD_ERR_NO_TMP_DIR', 6);
-        if ( ! defined('UPLOAD_ERR_CANT_WRITE') ) define('UPLOAD_ERR_CANT_WRITE', 7);
 
-        switch ( $uploadedFile['error'] )
-        {
-            case UPLOAD_ERR_INI_SIZE   : $failureStr = 'file_exceeds_php_upload_max_filesize';
-                break;
-            case UPLOAD_ERR_FORM_SIZE  : $failureStr = 'file_exceeds_html_max_file_size';
-                break;
-            case UPLOAD_ERR_PARTIAL    : $failureStr = 'file_partially_uploaded';
-                break;
-            case UPLOAD_ERR_NO_FILE    : $failureStr = 'no_file_uploaded';
-                 break;
-            case UPLOAD_ERR_NO_TMP_DIR : $failureStr = 'tmp_dir_missing';
-                 break;
-            case UPLOAD_ERR_CANT_WRITE : $failureStr = 'file_write_failed';
-                 break;
-            default :                    $failureStr = null;
-        }
-
+    if ( file_upload_failed($uploadedFile) )
+  	{
+        $failureStr = get_file_upload_error_message($uploadedFile);
         return claro_failure::set_failure($failureStr);
     }
 
     if ( ! enough_size($uploadedFile['size'], $baseWorkDir, $maxFilledSpace))
     {
-        return claro_failure::set_failure('not_enough_space');
+        return claro_failure::set_failure(get_lang('The upload has failed. There is not enough space in your directory'));
     }
 
     if (   $uncompress == 'unzip'
@@ -368,7 +349,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
             chmod($baseWorkDir.$uploadPath . '/' . $fileName,CLARO_FILE_PERMISSIONS);
             return $fileName;
         }
-        else return false;
+        else return claro_failure::set_failure(get_lang('File upload failed'));
     }
 }
 
@@ -426,7 +407,7 @@ function treat_secure_file_unzip($fileName, $filePath,
         {
             if ( preg_match('~.(php.?|phtml)$~i', $thisContent['filename']))
             {
-                 return claro_failure::set_failure('php_file_in_zip_file');
+                 return claro_failure::set_failure(get_lang('The zip file can not contain .PHP files'));
             }
         }
         if (!isset($realFileSize)) $realFileSize = 0;
@@ -436,7 +417,7 @@ function treat_secure_file_unzip($fileName, $filePath,
 
     if ( ! enough_size($realFileSize, $extractPath, $maxFilledSpace) )
     {
-        return claro_failure::set_failure('not_enough_space');
+        return claro_failure::set_failure(get_lang('The upload has failed. There is not enough space in your directory'));
     }
 
     $extractedFileNameList = $zipFile->extract(PCLZIP_OPT_PATH, $extractPath . $filePath);

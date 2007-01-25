@@ -33,19 +33,19 @@
             }
             case UPLOAD_ERR_INI_SIZE: 
             {
-                $details = get_lang('File too large');
+                $details = get_lang('File too large. Notice : Max file size %size', array ( '%size' => get_cfg_var('upload_max_filesize')) );
             }   break;
             case UPLOAD_ERR_FORM_SIZE: 
             {
-                $details = get_lang('File exceeds the max size defined in the HTML form');
+                $details = get_lang('File size exceeds');
             }   break;
             case UPLOAD_ERR_PARTIAL: 
             {
-                $details = get_lang('File partially uploaded');
+                $details = get_lang('File upload incomplete');
             }   break;
             case UPLOAD_ERR_NO_FILE: 
             {
-                $details = get_lang('No file given');
+                $details = get_lang('No file uploaded');
             }   break;
             case UPLOAD_ERR_NO_TMP_DIR: 
             {
