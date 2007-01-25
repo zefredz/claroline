@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -33,7 +33,7 @@ include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
-$tbl_rel_cours_user	= $tbl_mdb_names['rel_course_user'];
+$tbl_rel_cours_user    = $tbl_mdb_names['rel_course_user'];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_wrk_assignment   = $tbl_cdb_names['wrk_assignment'   ];
@@ -99,21 +99,21 @@ if ( !$assignmentId || !$assignment->load($assignmentId) )
   --------------------------------------------------------------------*/
 if( isset($_REQUEST['authId']) && !empty($_REQUEST['authId']) )
 {
-  	if( $assignment->getAssignmentType() == 'GROUP')
-	{
-		$sql = "SELECT `name`
-				FROM `" . $tbl_group_team . "`
-				WHERE `id` = " . (int) $_REQUEST['authId'];
-		$authField = 'group_id';
-	}
-	else
-	{
-		$sql = "SELECT CONCAT(`nom`,' ',`prenom`) as `authName`
-				FROM `" . $tbl_user . "`
-				WHERE `user_id` = " . (int) $_REQUEST['authId'];
-		$authField = 'user_id';
-	}
-	$authName = claro_sql_query_get_single_value($sql);
+      if( $assignment->getAssignmentType() == 'GROUP')
+    {
+        $sql = "SELECT `name`
+                FROM `" . $tbl_group_team . "`
+                WHERE `id` = " . (int) $_REQUEST['authId'];
+        $authField = 'group_id';
+    }
+    else
+    {
+        $sql = "SELECT CONCAT(`nom`,' ',`prenom`) as `authName`
+                FROM `" . $tbl_user . "`
+                WHERE `user_id` = " . (int) $_REQUEST['authId'];
+        $authField = 'user_id';
+    }
+    $authName = claro_sql_query_get_single_value($sql);
 }
 
 $_user = claro_get_current_user_data();
@@ -125,7 +125,7 @@ $currentUserLastName        = $_user['lastName'];
   --------------------------------------------------------------------*/
 if( empty($authName) )
 {
-	// we also need a user/group
+    // we also need a user/group
     claro_redirect("work.php");
     exit();
 }
@@ -139,10 +139,10 @@ $submission = new Submission();
 // if user request a specific submission
 if( isset($_REQUEST['wrkId']) && !empty($_REQUEST['wrkId']) )
 {
-	if( !$submission->load($_REQUEST['wrkId']) )
-	{
-		unset($cmd);
-	}
+    if( !$submission->load($_REQUEST['wrkId']) )
+    {
+        unset($cmd);
+    }
 }
 
 
@@ -154,18 +154,18 @@ if( $assignment->getSubmissionType() == "TEXTFILE"
       || ( claro_is_course_manager() && ( $cmd == 'rqGradeWrk' || $cmd == 'exGradeWrk') )
   )
 {
-	// IF text file is the default assignment type
-	//    OR this is a teacher modifying a feedback
-	//    OR this is a teacher giving feedback to a work
-	$assignmentContent = "TEXTFILE";
+    // IF text file is the default assignment type
+    //    OR this is a teacher modifying a feedback
+    //    OR this is a teacher giving feedback to a work
+    $assignmentContent = "TEXTFILE";
 }
 elseif( $assignment->getSubmissionType() == "FILE" )
 {
-	$assignmentContent = "FILE";
+    $assignmentContent = "FILE";
 }
 else //if( $assignment->getSubmissionType() == "TEXT" )
 {
-	$assignmentContent = "TEXT";
+    $assignmentContent = "TEXT";
 }
   /*--------------------------------------------------------------------
                         USER GROUP INFORMATIONS
@@ -214,9 +214,9 @@ $is_allowedToEditAll  = (bool) claro_is_allowed_to_edit(); // can submit, edit, 
 
 if( !$assignmentIsVisible && !$is_allowedToEditAll )
 {
-	// if assignment is not visible and user is not course admin or upper
-	claro_redirect("work.php");
-	exit();
+    // if assignment is not visible and user is not course admin or upper
+    claro_redirect("work.php");
+    exit();
 }
 
 // upload or update is allowed between start and end date or after end date if late upload is allowed
@@ -247,9 +247,9 @@ if( claro_is_user_authenticated() && !$autoFeedbackIsDisplayedForAuthId )
     }
     elseif( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     {
-		// a work is set, assignment is individual, user is authed and the work is his work
-		$userCanEdit = (bool) ( $submission->getUserId() == claro_get_current_user_id() );
-	}
+        // a work is set, assignment is individual, user is authed and the work is his work
+        $userCanEdit = (bool) ( $submission->getUserId() == claro_get_current_user_id() );
+    }
 }
 else
 {
@@ -269,7 +269,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 }
 else
 {
-	$userCanPost = (bool) ( !empty($userGroupList) && isset($userGroupList[$_REQUEST['authId']]) );
+    $userCanPost = (bool) ( !empty($userGroupList) && isset($userGroupList[$_REQUEST['authId']]) );
 }
 
 $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $userCanPost ) || $is_allowedToEditAll;
@@ -284,208 +284,208 @@ $is_allowedToSubmit   = (bool) ( $assignmentIsVisible  && $uploadDateIsOk  && $u
 if( isset($_REQUEST['submitWrk']) )
 {
 
-	$formCorrectlySent = true;
+    $formCorrectlySent = true;
 
-	// if authorized_content is TEXT or TEXTFILE, a text is required !
-	if( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
-	{
-	    if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
-	    {
-			$dialogBox .= get_lang('Answer is required')."<br />";
-			$formCorrectlySent = false;
-			$wrkForm['wrkTxt'] = '';
-	    }
-	    else
-	    {
-			$wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
-	    }
-	}
-	elseif( $assignmentContent == "FILE" )
-	{
-	    // if authorized_content is FILE we don't have to check if txt is empty (not required)
-	    // but we have to check that the text is not only useless html tags
-	    if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'], $allowedTags )) == "" )
-	    {
-			$wrkForm['wrkTxt'] = '';
-	    }
-	    else
-	    {
-	    	$wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
-	    }
-	}
+    // if authorized_content is TEXT or TEXTFILE, a text is required !
+    if( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
+    {
+        if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
+        {
+            $dialogBox .= get_lang('Answer is required')."<br />";
+            $formCorrectlySent = false;
+            $wrkForm['wrkTxt'] = '';
+        }
+        else
+        {
+            $wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
+        }
+    }
+    elseif( $assignmentContent == "FILE" )
+    {
+        // if authorized_content is FILE we don't have to check if txt is empty (not required)
+        // but we have to check that the text is not only useless html tags
+        if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'], $allowedTags )) == "" )
+        {
+            $wrkForm['wrkTxt'] = '';
+        }
+        else
+        {
+            $wrkForm['wrkTxt'] = trim($_REQUEST['wrkTxt']);
+        }
+    }
 
 
-	// check if a title has been given
-	if( ! isset($_REQUEST['wrkTitle']) || trim($_REQUEST['wrkTitle']) == "" )
-	{
-		$dialogBox .= get_lang('Work title required')."<br />";
-		$formCorrectlySent = false;
+    // check if a title has been given
+    if( ! isset($_REQUEST['wrkTitle']) || trim($_REQUEST['wrkTitle']) == "" )
+    {
+        $dialogBox .= get_lang('Work title required')."<br />";
+        $formCorrectlySent = false;
         $wrkForm['wrkTitle'] = '';
-	}
-	else
-	{
-		// do not check if a title is already in use, title can be duplicate
-		$wrkForm['wrkTitle'] = $_REQUEST['wrkTitle'];
-	}
+    }
+    else
+    {
+        // do not check if a title is already in use, title can be duplicate
+        $wrkForm['wrkTitle'] = $_REQUEST['wrkTitle'];
+    }
 
 
-	// check if a author name has been given
-	if ( ! isset($_REQUEST['wrkAuthors']) || trim($_REQUEST['wrkAuthors']) == "")
-	{
-	    if( claro_is_user_authenticated() )
-	    {
-			$wrkForm['wrkAuthors'] = $currentUserFirstName." ".$currentUserLastName;
-	    }
-	    else
-	    {
-			$dialogBox .= get_lang('Author(s) is(are) required')."<br />";
-			$formCorrectlySent = false;
-			$wrkForm['wrkAuthors'] = '';
-	    }
-	}
-	else
-	{
-		$wrkForm['wrkAuthors'] = $_REQUEST['wrkAuthors'];
-	}
+    // check if a author name has been given
+    if ( ! isset($_REQUEST['wrkAuthors']) || trim($_REQUEST['wrkAuthors']) == "")
+    {
+        if( claro_is_user_authenticated() )
+        {
+            $wrkForm['wrkAuthors'] = $currentUserFirstName." ".$currentUserLastName;
+        }
+        else
+        {
+            $dialogBox .= get_lang('Author(s) is(are) required')."<br />";
+            $formCorrectlySent = false;
+            $wrkForm['wrkAuthors'] = '';
+        }
+    }
+    else
+    {
+        $wrkForm['wrkAuthors'] = $_REQUEST['wrkAuthors'];
+    }
 
 
-	// check if the score is between 0 and 100
-	if ( isset($_REQUEST['wrkScore']) && is_numeric($_REQUEST['wrkScore']) )
-	{
-	    if( $_REQUEST['wrkScore'] < -1 || $_REQUEST['wrkScore'] > 100 )
-	    {
-			$dialogBox .= get_lang('Score required')."<br />";
-			$formCorrectlySent = false;
-	    }
-	    else
-	    {
-			$wrkForm['wrkScore'] = $_REQUEST['wrkScore'];
-	    }
-	}
-	else
-	{
+    // check if the score is between 0 and 100
+    if ( isset($_REQUEST['wrkScore']) && is_numeric($_REQUEST['wrkScore']) )
+    {
+        if( $_REQUEST['wrkScore'] < -1 || $_REQUEST['wrkScore'] > 100 )
+        {
+            $dialogBox .= get_lang('Score required')."<br />";
+            $formCorrectlySent = false;
+        }
+        else
+        {
+            $wrkForm['wrkScore'] = $_REQUEST['wrkScore'];
+        }
+    }
+    else
+    {
         $wrkForm['wrkScore'] = '';
-	}
+    }
 
 
-	// check if a group id has been set if this is a group work type
-	if( isset($_REQUEST['wrkGroup']) && $assignment->getAssignmentType() == "GROUP" )
-	{
-		// check that the group id is one of the student
-		if( isset($userGroupList[$_REQUEST['wrkGroup']]) )
-		{
-			$wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
-		}
-		else
-		{
-			$dialogBox .= get_lang('You are not a member of this group');
-			$formCorrectlySent = false;
-			$wrkForm['wrkGroup'] = '';
-		}
-	}
-	else
-	{
+    // check if a group id has been set if this is a group work type
+    if( isset($_REQUEST['wrkGroup']) && $assignment->getAssignmentType() == "GROUP" )
+    {
+        // check that the group id is one of the student
+        if( isset($userGroupList[$_REQUEST['wrkGroup']]) )
+        {
+            $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
+        }
+        else
+        {
+            $dialogBox .= get_lang('You are not a member of this group');
+            $formCorrectlySent = false;
+            $wrkForm['wrkGroup'] = '';
+        }
+    }
+    else
+    {
         $wrkForm['wrkGroup'] = '';
-	}
+    }
 
-	// check if a private feedback has been submitted
-	if( isset($_REQUEST['wrkPrivFbk']) && trim(strip_tags($_REQUEST['wrkPrivFbk'], $allowedTags)) != '' )
-	{
-		$wrkForm['wrkPrivFbk'] = $_REQUEST['wrkPrivFbk'];
-	}
-	else
-	{
-		$wrkForm['wrkPrivFbk'] = '';
-	}
+    // check if a private feedback has been submitted
+    if( isset($_REQUEST['wrkPrivFbk']) && trim(strip_tags($_REQUEST['wrkPrivFbk'], $allowedTags)) != '' )
+    {
+        $wrkForm['wrkPrivFbk'] = $_REQUEST['wrkPrivFbk'];
+    }
+    else
+    {
+        $wrkForm['wrkPrivFbk'] = '';
+    }
 
-	// no need to check and/or upload the file if there is already an error
-	if($formCorrectlySent)
-	{
+    // no need to check and/or upload the file if there is already an error
+    if($formCorrectlySent)
+    {
         $wrkForm['filename'] = '';
 
-		if ( isset($_FILES['wrkFile']['tmp_name'])
-				&& is_uploaded_file($_FILES['wrkFile']['tmp_name'])
-				&& $assignmentContent != "TEXT"
-			)
-		{
-			if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
-			{
-			    $dialogBox .= get_lang('You didnt choose any file to send, or it is too big')."<br />";
-			    $formCorrectlySent = false;
-			}
-			else
-			{
-			    $newFilename = $_FILES['wrkFile']['name'] . add_extension_for_uploaded_file($_FILES['wrkFile']);
+        if ( isset($_FILES['wrkFile']['tmp_name'])
+                && is_uploaded_file($_FILES['wrkFile']['tmp_name'])
+                && $assignmentContent != "TEXT"
+            )
+        {
+            if ($_FILES['wrkFile']['size'] > $fileAllowedSize)
+            {
+                $dialogBox .= get_lang('You didnt choose any file to send, or it is too big')."<br />";
+                $formCorrectlySent = false;
+            }
+            else
+            {
+                $newFilename = $_FILES['wrkFile']['name'] . add_extension_for_uploaded_file($_FILES['wrkFile']);
 
-			    $newFilename = replace_dangerous_char($newFilename);
+                $newFilename = replace_dangerous_char($newFilename);
 
-			    $newFilename = get_secure_file_name($newFilename);
+                $newFilename = get_secure_file_name($newFilename);
 
-				$wrkForm['filename'] = $assignment->createUniqueFilename($newFilename);
+                $wrkForm['filename'] = $assignment->createUniqueFilename($newFilename);
 
 
-			    if( !is_dir( $assignment->getAssigDirSys() ) )
-			    {
-			          claro_mkdir( $assignment->getAssigDirSys() , CLARO_FILE_PERMISSIONS );
-			    }
-
-				if( move_uploaded_file($_FILES['wrkFile']['tmp_name'], $assignment->getAssigDirSys().$wrkForm['filename']) )
+                if( !is_dir( $assignment->getAssigDirSys() ) )
                 {
-					chmod($assignment->getAssigDirSys().$wrkForm['filename'],CLARO_FILE_PERMISSIONS);
-				}
-				else
-				{
+                      claro_mkdir( $assignment->getAssigDirSys() , CLARO_FILE_PERMISSIONS );
+                }
+
+                if( move_uploaded_file($_FILES['wrkFile']['tmp_name'], $assignment->getAssigDirSys().$wrkForm['filename']) )
+                {
+                    chmod($assignment->getAssigDirSys().$wrkForm['filename'],CLARO_FILE_PERMISSIONS);
+                }
+                else
+                {
                     $dialogBox .= get_lang('Cannot copy the file') . '<br />';
                     $formCorrectlySent = false;
                 }
 
-			    // remove the previous file if there was one
-			    if( isset($_REQUEST['currentWrkUrl']) )
-			    {
-			          @unlink($assignment->getAssigDirSys().$_REQUEST['currentWrkUrl']);
-			    }
-			}
-		}
-		elseif( $assignmentContent == "FILE" )
-		{
-			if( isset($_REQUEST['currentWrkUrl']) )
-			{
-				// if there was already a file and nothing was provided to replace it, reuse it
-				$wrkForm['filename'] = $_REQUEST['currentWrkUrl'];
-			}
-			elseif( isset($_REQUEST['submitGroupWorkUrl']) )
-			{
-				$wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl']). '.url') ;
+                // remove the previous file if there was one
+                if( isset($_REQUEST['currentWrkUrl']) )
+                {
+                      @unlink($assignment->getAssigDirSys().$_REQUEST['currentWrkUrl']);
+                }
+            }
+        }
+        elseif( $assignmentContent == "FILE" )
+        {
+            if( isset($_REQUEST['currentWrkUrl']) )
+            {
+                // if there was already a file and nothing was provided to replace it, reuse it
+                $wrkForm['filename'] = $_REQUEST['currentWrkUrl'];
+            }
+            elseif( isset($_REQUEST['submitGroupWorkUrl']) )
+            {
+                $wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl']). '.url') ;
                 $targetOfLink = get_path('coursesRepositorySys') . '/' . claro_get_course_path() . '/' . $_REQUEST['submitGroupWorkUrl'];
 
-				create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], $targetOfLink);
-			}
-			else
-			{
-				// if the main thing to provide is a file and that no file was sent
-				$dialogBox .= get_lang('A file is required')."<br />";
-				$formCorrectlySent = false;
-			}
-		}
-		elseif( $assignmentContent == "TEXTFILE" )
-		{
-			// attached file is optionnal if work type is TEXT AND FILE
-			// so the attached file can be deleted only in this mode
-		    if( isset($_REQUEST['submitGroupWorkUrl']) )
-			{
-				$wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl'])) . '.url';
+                create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], $targetOfLink);
+            }
+            else
+            {
+                // if the main thing to provide is a file and that no file was sent
+                $dialogBox .= get_lang('A file is required')."<br />";
+                $formCorrectlySent = false;
+            }
+        }
+        elseif( $assignmentContent == "TEXTFILE" )
+        {
+            // attached file is optionnal if work type is TEXT AND FILE
+            // so the attached file can be deleted only in this mode
+            if( isset($_REQUEST['submitGroupWorkUrl']) )
+            {
+                $wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl'])) . '.url';
 
-				create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], get_path('coursesRepositoryWeb') . claro_get_course_path() . '/' . $_REQUEST['submitGroupWorkUrl']);
-			}
+                create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], get_path('coursesRepositoryWeb') . claro_get_course_path() . '/' . $_REQUEST['submitGroupWorkUrl']);
+            }
 
-			// if delete of the file is required
-			if(isset($_REQUEST['delAttacheDFile']) )
-			{
-				$wrkForm['filename'] = ''; // empty DB field
-				@unlink($assignment->getAssigDirSys().$_REQUEST['currentWrkUrl']); // physically remove the file
-			}
-		}
-	}// if($formCorrectlySent)
+            // if delete of the file is required
+            if(isset($_REQUEST['delAttacheDFile']) )
+            {
+                $wrkForm['filename'] = ''; // empty DB field
+                @unlink($assignment->getAssigDirSys().$_REQUEST['currentWrkUrl']); // physically remove the file
+            }
+        }
+    }// if($formCorrectlySent)
 
 } //end if($_REQUEST['submitWrk'])
 
@@ -495,158 +495,158 @@ if( isset($_REQUEST['submitWrk']) )
   =============================================================================*/
 if($is_allowedToEditAll)
 {
-	/*--------------------------------------------------------------------
-	                    CHANGE VISIBILITY
-	--------------------------------------------------------------------*/
-	// change visibility of a work
-	if( $cmd == 'exChVis' && isset($_REQUEST['wrkId']) )
-	{
-		if( isset($_REQUEST['vis']) )
-		{
-			$_REQUEST['vis'] == 'v' ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
+    /*--------------------------------------------------------------------
+                        CHANGE VISIBILITY
+    --------------------------------------------------------------------*/
+    // change visibility of a work
+    if( $cmd == 'exChVis' && isset($_REQUEST['wrkId']) )
+    {
+        if( isset($_REQUEST['vis']) )
+        {
+            $_REQUEST['vis'] == 'v' ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
 
-			Submission::updateSubmissionVisibility($_REQUEST['wrkId'],$visibility);
-		}
-	}
-	/*--------------------------------------------------------------------
-	                    DELETE A WORK
-	--------------------------------------------------------------------*/
-	if( $cmd == "exRmWrk" && isset($_REQUEST['wrkId']) )
-	{
-		// get name of file to delete AND name of file of the feedback of this work
-		$sql = "SELECT `id`, `submitted_doc_path`
-		          FROM `".$tbl_wrk_submission."`
-		          WHERE `id` = ". (int)$_REQUEST['wrkId']."
-		             OR `parent_id` = ". (int)$_REQUEST['wrkId'];
+            Submission::updateSubmissionVisibility($_REQUEST['wrkId'],$visibility);
+        }
+    }
+    /*--------------------------------------------------------------------
+                        DELETE A WORK
+    --------------------------------------------------------------------*/
+    if( $cmd == "exRmWrk" && isset($_REQUEST['wrkId']) )
+    {
+        // get name of file to delete AND name of file of the feedback of this work
+        $sql = "SELECT `id`, `submitted_doc_path`
+                  FROM `".$tbl_wrk_submission."`
+                  WHERE `id` = ". (int)$_REQUEST['wrkId']."
+                     OR `parent_id` = ". (int)$_REQUEST['wrkId'];
 
-		$filesToDelete = claro_sql_query_fetch_all($sql);
+        $filesToDelete = claro_sql_query_fetch_all($sql);
 
-		foreach($filesToDelete as $fileToDelete)
-		{
-		    // delete the file
-		    @unlink($assignment->getAssigDirSys().$fileToDelete['submitted_doc_path']);
+        foreach($filesToDelete as $fileToDelete)
+        {
+            // delete the file
+            @unlink($assignment->getAssigDirSys().$fileToDelete['submitted_doc_path']);
 
-		    // delete the database data of this work
-		    $sqlDelete = "DELETE FROM `".$tbl_wrk_submission."`
-		                      WHERE `id` = ". (int)$fileToDelete['id'];
-		    claro_sql_query($sqlDelete);
-		}
-	}
-	/*--------------------------------------------------------------------
-	                    CORRECTION OF A WORK
-	--------------------------------------------------------------------*/
-	/*-----------------------------------
-	        STEP 2 : check & query
-	-------------------------------------*/
-	if( $cmd == "exGradeWrk" && isset($_REQUEST['gradedWrkId']) )
-	{
-		if( isset($formCorrectlySent) && $formCorrectlySent )
-		{
-			$submission->setAssignmentId($assignmentId);
-			$submission->setUserId(claro_get_current_user_id());
-			$submission->setTitle($wrkForm['wrkTitle']);
-			$submission->setAuthor($wrkForm['wrkAuthors']);
-			$submission->setVisibility($assignment->getDefaultSubmissionVisibility());
-			$submission->setSubmittedText($wrkForm['wrkTxt']);
-			$submission->setSubmittedFilename($wrkForm['filename']);
+            // delete the database data of this work
+            $sqlDelete = "DELETE FROM `".$tbl_wrk_submission."`
+                              WHERE `id` = ". (int)$fileToDelete['id'];
+            claro_sql_query($sqlDelete);
+        }
+    }
+    /*--------------------------------------------------------------------
+                        CORRECTION OF A WORK
+    --------------------------------------------------------------------*/
+    /*-----------------------------------
+            STEP 2 : check & query
+    -------------------------------------*/
+    if( $cmd == "exGradeWrk" && isset($_REQUEST['gradedWrkId']) )
+    {
+        if( isset($formCorrectlySent) && $formCorrectlySent )
+        {
+            $submission->setAssignmentId($assignmentId);
+            $submission->setUserId(claro_get_current_user_id());
+            $submission->setTitle($wrkForm['wrkTitle']);
+            $submission->setAuthor($wrkForm['wrkAuthors']);
+            $submission->setVisibility($assignment->getDefaultSubmissionVisibility());
+            $submission->setSubmittedText($wrkForm['wrkTxt']);
+            $submission->setSubmittedFilename($wrkForm['filename']);
 
-			$submission->setParentId($_REQUEST['gradedWrkId']);
-			$submission->setPrivateFeedback($wrkForm['wrkPrivFbk']);
-			$submission->setOriginalId($_REQUEST['authId']);
-			$submission->setScore($wrkForm['wrkScore']);
+            $submission->setParentId($_REQUEST['gradedWrkId']);
+            $submission->setPrivateFeedback($wrkForm['wrkPrivFbk']);
+            $submission->setOriginalId($_REQUEST['authId']);
+            $submission->setScore($wrkForm['wrkScore']);
 
-			$submission->save();
+            $submission->save();
 
-			$dialogBox .= get_lang('Feedback added');
+            $dialogBox .= get_lang('Feedback added');
 
             // notify eventmanager that a new correction has been posted
             $eventNotifier->notifyCourseEvent('work_correction_posted',claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['gradedWrkId'], '0', '0');
             // mail notification if required by configuration
             if( get_conf('mail_notification') )
             {
-            	// get owner(s) email
-            	$userIdList = array();
-				if( $assignment->getAssignmentType() == 'GROUP' )
-				{
-					$sql = "SELECT `user`
-							FROM `".$tbl_group_rel_team_user."`
-							WHERE `team` = ".(int)$_REQUEST['authId'];
+                // get owner(s) email
+                $userIdList = array();
+                if( $assignment->getAssignmentType() == 'GROUP' )
+                {
+                    $sql = "SELECT `user`
+                            FROM `".$tbl_group_rel_team_user."`
+                            WHERE `team` = ".(int)$_REQUEST['authId'];
 
-					$userIdList = claro_sql_query_fetch_all($sql);
-				}
-				else
-				{
-					$userIdList[] = $_REQUEST['authId'];
-				}
+                    $userIdList = claro_sql_query_fetch_all($sql);
+                }
+                else
+                {
+                    $userIdList[] = $_REQUEST['authId'];
+                }
 
-            	if( is_array($userIdList) )
-		        {
-		            // email subject
-		            $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New assignment feedback posted');
-		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
-						$authId = $wrkForm['wrkGroup'];
-					else
-						$authId = $_REQUEST['authId'];
+                if( is_array($userIdList) )
+                {
+                    // email subject
+                    $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New assignment feedback posted');
+                    if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
+                        $authId = $wrkForm['wrkGroup'];
+                    else
+                        $authId = $_REQUEST['authId'];
 
-					$url = get_module_url('CLWRK') .'/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . claro_get_current_course_id();
-		            // email content
-		            $emailBody = get_lang('New assignment feedback posted') . "\n\n"
-		            .            $currentUserFirstName.' '.$currentUserLastName . "\n"
-		            .			 $submission->getTitle() . "\n"
-		            .			 $url . "\n"
-		            ;
+                    $url = get_module_url('CLWRK') .'/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . claro_get_current_course_id();
+                    // email content
+                    $emailBody = get_lang('New assignment feedback posted') . "\n\n"
+                    .            $currentUserFirstName.' '.$currentUserLastName . "\n"
+                    .             $submission->getTitle() . "\n"
+                    .             $url . "\n"
+                    ;
 
-		            claro_mail_user($userIdList, $emailBody, $emailSubject);
-		        }
+                    claro_mail_user($userIdList, $emailBody, $emailSubject);
+                }
             }
-			// display flags
-			$dispWrkLst = true;
-		}
-		else
-		{
-			// ask prepare form
-			$cmd = "rqGradeWrk";
-		}
-	}
-	/*-----------------------------------
-	        STEP 1 : prepare form
-	-------------------------------------*/
-	if( $cmd == "rqGradeWrk" && isset($_REQUEST['gradedWrkId']) )
-	{
-		$submissionToGrade = new Submission();
-		$submissionToGrade->load($_REQUEST['gradedWrkId']);
+            // display flags
+            $dispWrkLst = true;
+        }
+        else
+        {
+            // ask prepare form
+            $cmd = "rqGradeWrk";
+        }
+    }
+    /*-----------------------------------
+            STEP 1 : prepare form
+    -------------------------------------*/
+    if( $cmd == "rqGradeWrk" && isset($_REQUEST['gradedWrkId']) )
+    {
+        $submissionToGrade = new Submission();
+        $submissionToGrade->load($_REQUEST['gradedWrkId']);
 
-		// prepare fields
-		if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
-		{
-		    // prefill some fields of the form
-		    $form['wrkTitle'  ] = $submissionToGrade->getTitle()." (".get_lang('Feedback').")";
-		    $form['wrkAuthors'] = $currentUserLastName." ".$currentUserFirstName;
-			$form['wrkTxt'] = '';
-		    $form['wrkScore'  ] = -1;
-			$form['wrkPrivFbk'] = '';
-		}
-		else
-		{
-		    // there was an error in the form so display it with already modified values
-		    $form['wrkTitle'] = $_REQUEST['wrkTitle'];
-		    $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
-		    $form['wrkTxt'] = $_REQUEST['wrkTxt'];
-		    $form['wrkScore'] = $_REQUEST['wrkScore'];
-		    $form['wrkPrivFbk'] = $_REQUEST['wrkPrivFbk'];
-		}
+        // prepare fields
+        if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
+        {
+            // prefill some fields of the form
+            $form['wrkTitle'  ] = $submissionToGrade->getTitle()." (".get_lang('Feedback').")";
+            $form['wrkAuthors'] = $currentUserLastName." ".$currentUserFirstName;
+            $form['wrkTxt'] = '';
+            $form['wrkScore'  ] = -1;
+            $form['wrkPrivFbk'] = '';
+        }
+        else
+        {
+            // there was an error in the form so display it with already modified values
+            $form['wrkTitle'] = $_REQUEST['wrkTitle'];
+            $form['wrkAuthors'] = $_REQUEST['wrkAuthors'];
+            $form['wrkTxt'] = $_REQUEST['wrkTxt'];
+            $form['wrkScore'] = $_REQUEST['wrkScore'];
+            $form['wrkPrivFbk'] = $_REQUEST['wrkPrivFbk'];
+        }
 
-		$cmdToSend = "exGradeWrk";
+        $cmdToSend = "exGradeWrk";
 
-		$txtForFormTitle = get_lang('Add feedback');
-		$isGrade = true;
+        $txtForFormTitle = get_lang('Add feedback');
+        $isGrade = true;
 
-		// display flags
-		$dispWrkLst = false;
-		$dispWrkForm = true;
-		$dispWrkDet   = true;
-		$dispFbkFields = true;
-  	}
+        // display flags
+        $dispWrkLst = false;
+        $dispWrkForm = true;
+        $dispWrkDet   = true;
+        $dispFbkFields = true;
+      }
 } // if($is_allowedToEditAll)
 
 /*============================================================================
@@ -654,164 +654,164 @@ if($is_allowedToEditAll)
   =============================================================================*/
 if ( $is_allowedToEdit )
 {
-	/*--------------------------------------------------------------------
-	                    EDIT A WORK
-	--------------------------------------------------------------------*/
-	/*-----------------------------------
-	        STEP 2 : check & query
-	-------------------------------------*/
-	if ( $cmd == "exEditWrk" && isset($_REQUEST['wrkId']) )
-	{
-		// if there is no error update database
-		if ( isset($formCorrectlySent) && $formCorrectlySent )
-		{
-			$submission->setTitle($wrkForm['wrkTitle']);
-			$submission->setAuthor($wrkForm['wrkAuthors']);
-			$submission->setSubmittedText($wrkForm['wrkTxt']);
-			$submission->setSubmittedFilename($wrkForm['filename']);
+    /*--------------------------------------------------------------------
+                        EDIT A WORK
+    --------------------------------------------------------------------*/
+    /*-----------------------------------
+            STEP 2 : check & query
+    -------------------------------------*/
+    if ( $cmd == "exEditWrk" && isset($_REQUEST['wrkId']) )
+    {
+        // if there is no error update database
+        if ( isset($formCorrectlySent) && $formCorrectlySent )
+        {
+            $submission->setTitle($wrkForm['wrkTitle']);
+            $submission->setAuthor($wrkForm['wrkAuthors']);
+            $submission->setSubmittedText($wrkForm['wrkTxt']);
+            $submission->setSubmittedFilename($wrkForm['filename']);
 
-			if( !empty($wrkForm['wrkPrivFbk']) ) 	$submission->setPrivateFeedback($wrkForm['wrkPrivFbk']);
-			if( !empty($wrkForm['wrkScore']) ) 		$submission->setScore($wrkForm['wrkScore']);
+            if( !empty($wrkForm['wrkPrivFbk']) )     $submission->setPrivateFeedback($wrkForm['wrkPrivFbk']);
+            if( !empty($wrkForm['wrkScore']) )         $submission->setScore($wrkForm['wrkScore']);
 
 
-			if( $assignment->getAssignmentType() == 'GROUP' && isset($wrkForm['wrkGroup']) )
-		    {
-				$submission->setGroupId($wrkForm['wrkGroup']);
-		    }
+            if( $assignment->getAssignmentType() == 'GROUP' && isset($wrkForm['wrkGroup']) )
+            {
+                $submission->setGroupId($wrkForm['wrkGroup']);
+            }
 
-			$submission->save();
+            $submission->save();
 
-		    $dialogBox .= get_lang('Work modified');
+            $dialogBox .= get_lang('Work modified');
 
-		    // display flags
-		    $dispWrkLst = true;
-		}
-		else
-		{
-		    // ask prepare form
-		    $cmd = "rqEditWrk";
-		}
-	}
+            // display flags
+            $dispWrkLst = true;
+        }
+        else
+        {
+            // ask prepare form
+            $cmd = "rqEditWrk";
+        }
+    }
 
-	/*-----------------------------------
-	    STEP 1 : prepare form
-	-------------------------------------*/
-	if( $cmd == "rqEditWrk" && isset($_REQUEST['wrkId']) )
-	{
-		// prepare fields
-		if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
-		{
-		    // prefill some fields of the form
-		    $form['wrkTitle'] = $submission->getTitle();
-		    $form['wrkAuthors'] = $submission->getAuthor();
-		    $form['wrkGroup'] = $submission->getGroupId();
-		    $form['wrkTxt'] = $submission->getSubmittedText();
-		    $form['wrkUrl'] = $submission->getSubmittedFilename();
-			$form['wrkPrivFbk'] = $submission->getPrivateFeedback();
-		    $form['wrkScore'] = $submission->getScore();
-		}
-		else
-		{
-  		    // there was an error in the form so display it with already modified values
-		    $form['wrkTitle'] = $wrkForm['wrkTitle'];
-		    $form['wrkAuthors'] = $wrkForm['wrkAuthors'];
-		    $form['wrkGroup'] = $wrkForm['wrkGroup'];
-		    $form['wrkTxt'] = $wrkForm['wrkTxt'];
-		    $form['wrkUrl'] = (isset($_REQUEST['currentWrkUrl']))?$_REQUEST['currentWrkUrl']:'';
-			$form['wrkPrivFbk'] = $wrkForm['wrkPrivFbk'];
-		    $form['wrkScore'] = $wrkForm['wrkScore'];
-		}
-		$cmdToSend = "exEditWrk";
-		// fill the title of the page
-		$txtForFormTitle = get_lang('Modify a work');
+    /*-----------------------------------
+        STEP 1 : prepare form
+    -------------------------------------*/
+    if( $cmd == "rqEditWrk" && isset($_REQUEST['wrkId']) )
+    {
+        // prepare fields
+        if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
+        {
+            // prefill some fields of the form
+            $form['wrkTitle'] = $submission->getTitle();
+            $form['wrkAuthors'] = $submission->getAuthor();
+            $form['wrkGroup'] = $submission->getGroupId();
+            $form['wrkTxt'] = $submission->getSubmittedText();
+            $form['wrkUrl'] = $submission->getSubmittedFilename();
+            $form['wrkPrivFbk'] = $submission->getPrivateFeedback();
+            $form['wrkScore'] = $submission->getScore();
+        }
+        else
+        {
+              // there was an error in the form so display it with already modified values
+            $form['wrkTitle'] = $wrkForm['wrkTitle'];
+            $form['wrkAuthors'] = $wrkForm['wrkAuthors'];
+            $form['wrkGroup'] = $wrkForm['wrkGroup'];
+            $form['wrkTxt'] = $wrkForm['wrkTxt'];
+            $form['wrkUrl'] = (isset($_REQUEST['currentWrkUrl']))?$_REQUEST['currentWrkUrl']:'';
+            $form['wrkPrivFbk'] = $wrkForm['wrkPrivFbk'];
+            $form['wrkScore'] = $wrkForm['wrkScore'];
+        }
+        $cmdToSend = "exEditWrk";
+        // fill the title of the page
+        $txtForFormTitle = get_lang('Modify a work');
 
-		// display flags
-		$dispWrkLst = false;
-		$dispWrkForm  = true;
-		// only if this is a correction
-		if( !is_null($submission->getOriginalId()) ) $dispFbkFields = true;
-	}
+        // display flags
+        $dispWrkLst = false;
+        $dispWrkForm  = true;
+        // only if this is a correction
+        if( !is_null($submission->getOriginalId()) ) $dispFbkFields = true;
+    }
 }
 /*============================================================================
  COMMANDS FOR : ADMIN, AUTHED USERS
   =============================================================================*/
 if( $is_allowedToSubmit )
 {
-	/*--------------------------------------------------------------------
-  	                    SUBMIT A WORK
-	  --------------------------------------------------------------------*/
-	/*-----------------------------------
+    /*--------------------------------------------------------------------
+                          SUBMIT A WORK
+      --------------------------------------------------------------------*/
+    /*-----------------------------------
             STEP 2 : check & quey
-	  -------------------------------------*/
-	if( $cmd == "exSubWrk" )
-	{
-		if( isset($formCorrectlySent) && $formCorrectlySent )
-		{
-			$submission->setAssignmentId($assignmentId);
-			$submission->setUserId(claro_get_current_user_id());
-			$submission->setTitle($wrkForm['wrkTitle']);
-			$submission->setAuthor($wrkForm['wrkAuthors']);
-			$submission->setVisibility($assignment->getDefaultSubmissionVisibility());
-			$submission->setSubmittedText($wrkForm['wrkTxt']);
-			$submission->setSubmittedFilename($wrkForm['filename']);
+      -------------------------------------*/
+    if( $cmd == "exSubWrk" )
+    {
+        if( isset($formCorrectlySent) && $formCorrectlySent )
+        {
+            $submission->setAssignmentId($assignmentId);
+            $submission->setUserId(claro_get_current_user_id());
+            $submission->setTitle($wrkForm['wrkTitle']);
+            $submission->setAuthor($wrkForm['wrkAuthors']);
+            $submission->setVisibility($assignment->getDefaultSubmissionVisibility());
+            $submission->setSubmittedText($wrkForm['wrkTxt']);
+            $submission->setSubmittedFilename($wrkForm['filename']);
 
-			if( $assignment->getAssignmentType() == 'GROUP' && isset($wrkForm['wrkGroup']) )
-			{
-				$submission->setGroupId($wrkForm['wrkGroup']);
-			}
+            if( $assignment->getAssignmentType() == 'GROUP' && isset($wrkForm['wrkGroup']) )
+            {
+                $submission->setGroupId($wrkForm['wrkGroup']);
+            }
 
-			$submission->save();
+            $submission->save();
 
-			$dialogBox .= get_lang('Work added');
+            $dialogBox .= get_lang('Work added');
 
-			// notify eventmanager that a new submission has been posted
-			$eventNotifier->notifyCourseEvent("work_submission_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], '0', '0');
+            // notify eventmanager that a new submission has been posted
+            $eventNotifier->notifyCourseEvent("work_submission_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], '0', '0');
 
             if( get_conf('mail_notification') )
             {
-            	// get teacher(s) mail
-            	$sql = "SELECT `U`.`user_id`
-		            	FROM `".$tbl_rel_cours_user."` AS `CU`,`".$tbl_user."` AS `U`
-		            	WHERE `CU`.`user_id` = `U`.`user_id`
-                    	AND `CU`.`code_cours` = '".claro_get_current_course_id()."'
-		            	AND `CU`.`isCourseManager` = 1
-		            	AND `U`.`email` IS NOT NULL";
+                // get teacher(s) mail
+                $sql = "SELECT `U`.`user_id`
+                        FROM `".$tbl_rel_cours_user."` AS `CU`,`".$tbl_user."` AS `U`
+                        WHERE `CU`.`user_id` = `U`.`user_id`
+                        AND `CU`.`code_cours` = '".claro_get_current_course_id()."'
+                        AND `CU`.`isCourseManager` = 1
+                        AND `U`.`email` IS NOT NULL";
 
-				$userIdList = claro_sql_query_fetch_all($sql);
+                $userIdList = claro_sql_query_fetch_all($sql);
 
-            	if( is_array($userIdList) )
-		        {
-		            if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
-						$authId = $wrkForm['wrkGroup'];
-					else
-						$authId = $_REQUEST['authId']; ;
+                if( is_array($userIdList) )
+                {
+                    if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
+                        $authId = $wrkForm['wrkGroup'];
+                    else
+                        $authId = $_REQUEST['authId']; ;
 
-					// email subject
+                    // email subject
                     $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New submission posted in assignment tool.');
-					$url = get_module_url('CLWRK') . '/userWork.php?authId=' . $authId . '&assigId=' . $_REQUEST['assigId']
-					.      '&cidReq=' . claro_get_current_course_id();
+                    $url = get_module_url('CLWRK') . '/userWork.php?authId=' . $authId . '&assigId=' . $_REQUEST['assigId']
+                    .      '&cidReq=' . claro_get_current_course_id();
 
-		            // email content
-		            $emailBody = get_lang('New submission posted in assignment tool.') . "\n\n"
-		            .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
-		            .			 $wrkForm['wrkTitle'] . "\n"
-		            .			 $url . "\n"
-		            ;
+                    // email content
+                    $emailBody = get_lang('New submission posted in assignment tool.') . "\n\n"
+                    .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
+                    .             $wrkForm['wrkTitle'] . "\n"
+                    .             $url . "\n"
+                    ;
 
-		            claro_mail_user($userIdList, $emailBody, $emailSubject);
-		        }
-			}
+                    claro_mail_user($userIdList, $emailBody, $emailSubject);
+                }
+            }
 
-			// display flags
-			$dispWrkLst = true;
-		}
-		else
-		{
-			// ask prepare form
-			$cmd = "rqSubWrk";
-		}
+            // display flags
+            $dispWrkLst = true;
+        }
+        else
+        {
+            // ask prepare form
+            $cmd = "rqSubWrk";
+        }
 
-	}
+    }
   /*-----------------------------------
             STEP 1 : prepare form
   -------------------------------------*/
@@ -821,10 +821,10 @@ if( $is_allowedToSubmit )
       if( !isset($_REQUEST['submitWrk']) || !$_REQUEST['submitWrk'] )
       {
             // prefill som fields of the form
-			$form['wrkTitle'] = "";
+            $form['wrkTitle'] = "";
             $form['wrkAuthors'] = $currentUserLastName." ".$currentUserFirstName;
-			$form['wrkGroup'] = "";
-			$form['wrkTxt'] = "";
+            $form['wrkGroup'] = "";
+            $form['wrkTxt'] = "";
       }
       else
       {
@@ -842,7 +842,7 @@ if( $is_allowedToSubmit )
     $txtForFormTitle = get_lang('Submit a work');
 
     // display flags
-	$dispWrkLst = false;
+    $dispWrkLst = false;
     $dispWrkForm  = true;
   }
 } // if is_allowedToSubmit
@@ -864,10 +864,10 @@ $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
 {
-	if (confirm(" '.clean_str_for_javascript(get_lang('Are you sure to delete')).' "+ name + " ?  " ))
-		{return true;}
-	else
-		{return false;}
+    if (confirm(" '.clean_str_for_javascript(get_lang('Are you sure to delete')).' "+ name + " ?  " ))
+        {return true;}
+    else
+        {return false;}
 }
 </script>';
 
@@ -880,8 +880,8 @@ if( $dispWrkDet || $dispWrkForm )
       $interbredcrump[]= array ('url' => "../work/userWork.php?authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'], "name" => $authName);
 
       // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-	  $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
-	  $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
+      $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$_REQUEST['assigId'];
+      $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
       $_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
       $nameTools = get_lang('Submission');
 }
@@ -903,13 +903,13 @@ $pageTitle['mainTitle'] = get_lang('Assignment')." : ".$assignment->getTitle();
 
 if( $assignment->getAssignmentType() == 'GROUP' )
 {
-	$pageTitle['subTitle'] = get_lang('Group') . ' : ' . $authName . "\n";
-	if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../group/group_space.php?gidReq='.$_REQUEST['authId'].'">'.get_lang('View group data').'</a>)</small>'."\n";
+    $pageTitle['subTitle'] = get_lang('Group') . ' : ' . $authName . "\n";
+    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../group/group_space.php?gidReq='.$_REQUEST['authId'].'">'.get_lang('View group data').'</a>)</small>'."\n";
 }
 else
 {
-	$pageTitle['subTitle'] = get_lang('User') . ' : ' . $authName . "\n";
-	if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../user/userInfo.php?uInfo='.$_REQUEST['authId'].'">'.get_lang('View user data').'</a>)</small>'."\n";
+    $pageTitle['subTitle'] = get_lang('User') . ' : ' . $authName . "\n";
+    if( $is_allowedToEditAll ) $pageTitle['subTitle'] .=  '<small>(<a href="../user/userInfo.php?uInfo='.$_REQUEST['authId'].'">'.get_lang('View user data').'</a>)</small>'."\n";
 }
 echo claro_html_tool_title($pageTitle);
 
@@ -918,75 +918,75 @@ echo claro_html_tool_title($pageTitle);
   --------------------------------------------------------------------*/
 if( $is_allowedToSubmit )
 {
-	if ($dialogBox)
-	{
-		echo claro_html_message_box($dialogBox);
-	}
+    if ($dialogBox)
+    {
+        echo claro_html_message_box($dialogBox);
+    }
 
-	if( $dispWrkForm )
-	{
-			/**
-			 * ASSIGNMENT INFOS
-			 */
+    if( $dispWrkForm )
+    {
+            /**
+             * ASSIGNMENT INFOS
+             */
 
-			echo '<p>' . "\n" . '<small>' . "\n"
-			.    '<b>' . get_lang('Title') . '</b> : ' . "\n"
-			.    $assignment->getTitle() . '<br />'  . "\n"
+            echo '<p>' . "\n" . '<small>' . "\n"
+            .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
+            .    $assignment->getTitle() . '<br />'  . "\n"
             .    get_lang('<b>From</b> %start_date <b>until</b> %end_date',
-                   array ( '%start_date' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()),
-                           '%end_date' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
-			.	'<br />'  .  "\n"
-			.    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
+                   array ( '%start_date' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()),
+                           '%end_date' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
+            .    '<br />'  .  "\n"
+            .    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
 
-			if( $assignment->getSubmissionType() == 'TEXT'  )
-				echo get_lang('Text only (text required, no file)');
-			elseif( $assignment->getSubmissionType() == 'TEXTFILE' )
-				echo get_lang('Text with attached file (text required, file optional)');
-			else
-				echo get_lang('File (file required, description text optional)');
+            if( $assignment->getSubmissionType() == 'TEXT'  )
+                echo get_lang('Text only (text required, no file)');
+            elseif( $assignment->getSubmissionType() == 'TEXTFILE' )
+                echo get_lang('Text with attached file (text required, file optional)');
+            else
+                echo get_lang('File (file required, description text optional)');
 
 
-			echo '<br />'  .  "\n"
+            echo '<br />'  .  "\n"
 
-			.    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
-			.    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)'))
+            .    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
+            .    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)'))
 
-			.	'<br />'  .  "\n"
+            .    '<br />'  .  "\n"
 
-			.    '<b>' . get_lang('Assignment type') . '</b> : ' . "\n"
-			.    ($assignment->getAssignmentType() == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') )
+            .    '<b>' . get_lang('Assignment type') . '</b> : ' . "\n"
+            .    ($assignment->getAssignmentType() == 'INDIVIDUAL' ? get_lang('Individual') : get_lang('Groups') )
 
-			.	'<br />'  .  "\n"
+            .    '<br />'  .  "\n"
 
-			.    '<b>' . get_lang('Allow late upload') . '</b> : ' . "\n"
-			.    ($assignment->getAllowLateUpload() == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
+            .    '<b>' . get_lang('Allow late upload') . '</b> : ' . "\n"
+            .    ($assignment->getAllowLateUpload() == 'YES' ? get_lang('Users can submit after end date') : get_lang('Users can not submit after end date') )
 
-			.    '</small>' . "\n" . '</p>' . "\n";
+            .    '</small>' . "\n" . '</p>' . "\n";
 
-			// description of assignment
-			if( trim($assignment->getDescription()) != '' )
-			{
-			    echo '<b><small>' . get_lang('Description') . '</small></b><br />' . "\n"
-			    .    '<blockquote>' . "\n" . '<small>' . "\n"
-			    .    claro_parse_user_text($assignment->getDescription())
-			    .    '</small>' . "\n" . '</blockquote>' . "\n"
-			    .    '<br />' . "\n"
-			    ;
-			}
+            // description of assignment
+            if( trim($assignment->getDescription()) != '' )
+            {
+                echo '<b><small>' . get_lang('Description') . '</small></b><br />' . "\n"
+                .    '<blockquote>' . "\n" . '<small>' . "\n"
+                .    claro_parse_user_text($assignment->getDescription())
+                .    '</small>' . "\n" . '</blockquote>' . "\n"
+                .    '<br />' . "\n"
+                ;
+            }
 
             echo '<h4>'.$txtForFormTitle.'</h4>'."\n"
-				  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small></p>'."\n"
+                  .'<p><small><a href="'.$_SERVER['SCRIPT_NAME'].'?authId='.$_REQUEST['authId'].'&amp;assigId='.$_REQUEST['assigId'].'">&lt;&lt;&nbsp;'.get_lang('Back').'</a></small></p>'."\n"
                   .'<form method="post" action="'.$_SERVER['PHP_SELF'].'?assigId='.$_REQUEST['assigId'].'&amp;authId='.$_REQUEST['authId'].'" enctype="multipart/form-data">'."\n"
                   .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                   .'<input type="hidden" name="cmd" value="'.$cmdToSend.'" />'."\n";
 
             if( isset($_REQUEST['wrkId']) )
             {
-				echo '<input type="hidden" name="wrkId" value="'.$_REQUEST['wrkId'].'" />'."\n";
+                echo '<input type="hidden" name="wrkId" value="'.$_REQUEST['wrkId'].'" />'."\n";
             }
             elseif( isset($_REQUEST['gradedWrkId']) )
             {
-            	echo '<input type="hidden" name="gradedWrkId" value="'.$_REQUEST['gradedWrkId'].'" />'."\n";
+                echo '<input type="hidden" name="gradedWrkId" value="'.$_REQUEST['gradedWrkId'].'" />'."\n";
             }
 
             echo  '<table width="100%">'."\n"
@@ -1001,43 +1001,43 @@ if( $is_allowedToSubmit )
 
             // display the list of groups of the user
             if( $assignment->getAssignmentType() == "GROUP" &&
-					!empty($userGroupList) || (claro_is_course_manager() && claro_is_in_a_group() )
-				)
+                    !empty($userGroupList) || (claro_is_course_manager() && claro_is_in_a_group() )
+                )
             {
-				echo '<tr>'."\n"
-				      .'<td valign="top"><label for="wrkGroup">'.get_lang('Group').'&nbsp;:</label></td>'."\n";
+                echo '<tr>'."\n"
+                      .'<td valign="top"><label for="wrkGroup">'.get_lang('Group').'&nbsp;:</label></td>'."\n";
 
-				if( claro_is_in_a_group() )
-				{
-					echo '<td>'."\n"
-					      .'<input type="hidden" name="wrkGroup" value="' . claro_get_current_group_id() . '" />'
-					      .claro_get_current_group_data('name')
-					      .'</td>'."\n";
-				}
-				elseif(isset($_REQUEST['authId']) )
-				{
-					echo '<td>'."\n"
-					      .'<input type="hidden" name="wrkGroup" value="'.$_REQUEST['authId'].'" />'
-					      .$userGroupList[$_REQUEST['authId']]['name']
-					      .'</td>'."\n";
-				}
-				else
-				{
-					// this part is mainly for courseadmin as he have a link in the workList to submit a work
-					echo '<td>'."\n".'<select name="wrkGroup" id="wrkGroup">'."\n";
-					foreach( $userGroupList as $group )
-					{
-					      echo '<option value="'.$group['id'].'"';
-					      if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] || $_REQUEST['authId'] == $group['id'] )
-					      {
-					            echo 'selected="selected"';
-					      }
-					      echo '>'.$group['name'].'</option>'."\n";
-					}
-					echo '</select>'."\n"
-					      .'</td>'."\n";
-				}
-				echo '</tr>'."\n\n";
+                if( claro_is_in_a_group() )
+                {
+                    echo '<td>'."\n"
+                          .'<input type="hidden" name="wrkGroup" value="' . claro_get_current_group_id() . '" />'
+                          .claro_get_current_group_data('name')
+                          .'</td>'."\n";
+                }
+                elseif(isset($_REQUEST['authId']) )
+                {
+                    echo '<td>'."\n"
+                          .'<input type="hidden" name="wrkGroup" value="'.$_REQUEST['authId'].'" />'
+                          .$userGroupList[$_REQUEST['authId']]['name']
+                          .'</td>'."\n";
+                }
+                else
+                {
+                    // this part is mainly for courseadmin as he have a link in the workList to submit a work
+                    echo '<td>'."\n".'<select name="wrkGroup" id="wrkGroup">'."\n";
+                    foreach( $userGroupList as $group )
+                    {
+                          echo '<option value="'.$group['id'].'"';
+                          if( isset($form['wrkGroup']) && $form['wrkGroup'] == $group['id'] || $_REQUEST['authId'] == $group['id'] )
+                          {
+                                echo 'selected="selected"';
+                          }
+                          echo '>'.$group['name'].'</option>'."\n";
+                    }
+                    echo '</select>'."\n"
+                          .'</td>'."\n";
+                }
+                echo '</tr>'."\n\n";
             }
 
             // display file box
@@ -1061,23 +1061,23 @@ if( $is_allowedToSubmit )
                         }
                         if( !empty($form['wrkUrl']) )
                         {
-                        	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-							// display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
-							$completeWrkUrl = $assignment->getAssigDirWeb().$form['wrkUrl'];
-							echo '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
-							.	 '</td>'."\n"
-							.	 '<td>'
-							.	 '<a href="'.$completeWrkUrl.'" ' . $target . '>'.$form['wrkUrl'].'</a>'
-							.	 '<br />';
+                            $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
+                            // display the name of the file, with a link to it, an explanation of what to to to replace it and a checkbox to delete it
+                            $completeWrkUrl = $assignment->getAssigDirWeb().$form['wrkUrl'];
+                            echo '&nbsp;:<input type="hidden" name="currentWrkUrl" value="'.$form['wrkUrl'].'" />'
+                            .     '</td>'."\n"
+                            .     '<td>'
+                            .     '<a href="'.$completeWrkUrl.'" ' . $target . '>'.$form['wrkUrl'].'</a>'
+                            .     '<br />';
 
-							if( $assignmentContent == "TEXTFILE" )
-							{
-								// we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
-								echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />' . "\n"
-								.	 '<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>' . "\n";
-							}
-							echo get_lang('Upload a new file to replace the file').'</td>'."\n"
-							.	 '</tr>'."\n\n";
+                            if( $assignmentContent == "TEXTFILE" )
+                            {
+                                // we can remove the file only if we are in a TEXTFILE context, in file context the file is required !
+                                echo '<input type="checkBox" name="delAttacheDFile" id="delAttachedFile" />' . "\n"
+                                .     '<label for="delAttachedFile">'.get_lang('Check this box to delete the attached file').'</label>' . "\n";
+                            }
+                            echo get_lang('Upload a new file to replace the file').'</td>'."\n"
+                            .     '</tr>'."\n\n";
                         }
                         else
                         {
@@ -1090,37 +1090,37 @@ if( $is_allowedToSubmit )
                         }
                   }
 
-    			echo '<tr>'."\n"
-					.'<td valign="top"><label for="wrkFile">';
+                echo '<tr>'."\n"
+                    .'<td valign="top"><label for="wrkFile">';
 
-				// display a different text according to the context
-				if( $assignmentContent == "TEXTFILE" )
-				{
-					// if text is required, file is considered as a an attached document
-					echo get_lang('Attach a file');
-				}
-				else
-				{
-					// if the file is required and the text is only a description of the file
-					echo get_lang('Upload document').'&nbsp;*';
-				}
-				echo '&nbsp;:</label></td>'."\n";
-				if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
-				{
-					echo '<td>'
-						.'<input type="hidden" name="submitGroupWorkUrl" value="'.$_REQUEST['submitGroupWorkUrl'].'" />'
-						.'<a href="'.get_path('coursesRepositoryWeb') . claro_get_course_path().'/'.$_REQUEST['submitGroupWorkUrl'].'">'.basename($_REQUEST['submitGroupWorkUrl']).'</a>'
-						.'</td>'."\n";
-				}
-				else
-				{
+                // display a different text according to the context
+                if( $assignmentContent == "TEXTFILE" )
+                {
+                    // if text is required, file is considered as a an attached document
+                    echo get_lang('Attach a file');
+                }
+                else
+                {
+                    // if the file is required and the text is only a description of the file
+                    echo get_lang('Upload document').'&nbsp;*';
+                }
+                echo '&nbsp;:</label></td>'."\n";
+                if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+                {
+                    echo '<td>'
+                        .'<input type="hidden" name="submitGroupWorkUrl" value="'.$_REQUEST['submitGroupWorkUrl'].'" />'
+                        .'<a href="'.get_path('coursesRepositoryWeb') . claro_get_course_path().'/'.$_REQUEST['submitGroupWorkUrl'].'">'.basename($_REQUEST['submitGroupWorkUrl']).'</a>'
+                        .'</td>'."\n";
+                }
+                else
+                {
                   $maxFileSize = min(get_max_upload_size($maxFilledSpace,$assignment->getAssigDirSys()), $fileAllowedSize);
 
                   echo '<td>' . "\n"
                   .    '<input type="file" name="wrkFile" id="wrkFile" size="30" /><br />'
-				  .    '<small>'.get_lang('Max file size : %size', array( '%size' => format_file_size($maxFileSize))).'</small></td>'."\n"
+                  .    '<small>'.get_lang('Max file size : %size', array( '%size' => format_file_size($maxFileSize))).'</small></td>'."\n"
                         .'</tr>'."\n\n";
-				}
+                }
             }
 
             if( $assignmentContent == "FILE" )
@@ -1153,13 +1153,13 @@ if( $is_allowedToSubmit )
 
             if( $dispFbkFields )
             {
-				echo '<tr>'."\n"
+                echo '<tr>'."\n"
                         .'<td valign="top">'
                         .'<label for="wrkPrivFbk">'
                         .get_lang('Private feedback')
                         .'&nbsp;:<br />'
-						.'<small>'.get_lang('Course administrator only').'</small>'
-						.'</label></td>'
+                        .'<small>'.get_lang('Course administrator only').'</small>'
+                        .'</label></td>'
                         .'<td>'."\n"
                         .'<textarea name="wrkPrivFbk" cols="40" rows="10">'.$form['wrkPrivFbk'].'</textarea>'
                         .'</td>'."\n"
@@ -1179,7 +1179,7 @@ if( $is_allowedToSubmit )
                         $wrkScoreField .= '<option value="'.$i.'"';
                         if($i == $form['wrkScore'])
                         {
-                        	$wrkScoreField .= ' selected="selected"';
+                            $wrkScoreField .= ' selected="selected"';
                         }
                         $wrkScoreField .= '>'.$i.'</option>'."\n";
                   }
@@ -1193,14 +1193,14 @@ if( $is_allowedToSubmit )
             }
 
             echo '<tr>'."\n"
-					.'<td>&nbsp;</td>'."\n"
-					.'<td>'
-					.'<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
-					.'</td>'."\n"
-					.'</tr>'."\n\n"
-					.'</table>'."\n\n"
-					.'</form>'
-					.'<small>* : '.get_lang('Required').'</small>';
+                    .'<td>&nbsp;</td>'."\n"
+                    .'<td>'
+                    .'<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
+                    .'</td>'."\n"
+                    .'</tr>'."\n\n"
+                    .'</table>'."\n\n"
+                    .'</form>'
+                    .'<small>* : '.get_lang('Required').'</small>';
       }
 }
 
@@ -1210,225 +1210,225 @@ if( $is_allowedToSubmit )
   --------------------------------------------------------------------*/
 if( $dispWrkLst )
 {
-	$showOnlyAuthorCondition = '';
-	if( get_conf('show_only_author') && !$is_allowedToEditAll )
-	{
-		// security check to avoid a user to see others submissions if not permitted
-		if( $assignment->getAssignmentType() == 'GROUP' && !isset($userGroupList[$_REQUEST['authId']]) )
-		{
-			if( ! isset($userGroupIdList) )
-			{
-			    $userGroupIdList = array();
-		    	foreach( $userGroupList as $userGroup )
-		    	{
-		    		$userGroupIdList[] = $userGroup['id'];
-		    	}
-		    }
-			$showOnlyAuthorCondition = "AND `".$authField."` IN (".implode(',',$userGroupIdList).")";
-		}
-		elseif( $assignment->getAssignmentType() == 'INDIVIDUAL' && claro_get_current_user_id() != $_REQUEST['authId'] )
-		{
-			$showOnlyAuthorCondition = "AND `".$authField."` = ". (int)claro_get_current_user_id();
-		}
-	}
-
-
-	// select all submissions from this user in this assignment (not feedbacks !)
-	// TODO  * would be replace by fieldnames
-	$sql = "SELECT *,
-				UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
-				UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
-			FROM `".$tbl_wrk_submission."`
-			WHERE `".$authField."` = ". (int)$_REQUEST['authId']."
-				AND `original_id` IS NULL
-				AND `assignment_id` = ".(int)$_REQUEST['assigId']."
-				". $showOnlyAuthorCondition . "
-			ORDER BY `last_edit_date` ASC";
-
-	$wrkLst = claro_sql_query_fetch_all($sql);
-
-	// build 'parent_id' condition
-	$parentCondition = ' ';
-	foreach( $wrkLst as $thisWrk )
-	{
-		$parentCondition .= " OR `parent_id` = ". (int) $thisWrk['id'];
-	}
-	// select all feedback relating to the user submission in this assignment
-	// TODO  * would be replace by fieldnames
-	$sql = "SELECT *,
-				UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
-				UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
-			FROM `".$tbl_wrk_submission."`
-			WHERE 0 = 1
-				AND `assignment_id` = ". (int) $_REQUEST['assigId'] . "
-				" . $parentCondition;
-
-	$feedbackLst = claro_sql_query_fetch_all($sql);
-
-	$wrkAndFeedbackLst = array();
-	// create an ordered list with all submission directly followed by the related correction(s)
-	foreach( $wrkLst as $thisWrk )
-	{
-		$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == claro_get_current_user_id() || isset($userGroupList[$thisWrk['group_id']]);
-
-		if( $thisWrk['visibility'] == 'VISIBLE' || $is_allowedToViewThisWrk )
-		{
-			$wrkAndFeedbackLst[] = $thisWrk;
-			foreach( $feedbackLst as $feedback )
-			{
-				if( $feedback['parent_id'] == $thisWrk['id']
-					&& ( $feedback['visibility'] == 'VISIBLE' || $is_allowedToEditAll || $is_allowedToViewThisWrk )
-					)
-				{
-					$wrkAndFeedbackLst[] = $feedback;
-				}
-			}
-		}
-	}
-
-	if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == claro_get_current_user_id() && $is_allowedToSubmit) || $is_allowedToEditAll )
+    $showOnlyAuthorCondition = '';
+    if( get_conf('show_only_author') && !$is_allowedToEditAll )
     {
-		// link to create a new submission
+        // security check to avoid a user to see others submissions if not permitted
+        if( $assignment->getAssignmentType() == 'GROUP' && !isset($userGroupList[$_REQUEST['authId']]) )
+        {
+            if( ! isset($userGroupIdList) )
+            {
+                $userGroupIdList = array();
+                foreach( $userGroupList as $userGroup )
+                {
+                    $userGroupIdList[] = $userGroup['id'];
+                }
+            }
+            $showOnlyAuthorCondition = "AND `".$authField."` IN (".implode(',',$userGroupIdList).")";
+        }
+        elseif( $assignment->getAssignmentType() == 'INDIVIDUAL' && claro_get_current_user_id() != $_REQUEST['authId'] )
+        {
+            $showOnlyAuthorCondition = "AND `".$authField."` = ". (int)claro_get_current_user_id();
+        }
+    }
+
+
+    // select all submissions from this user in this assignment (not feedbacks !)
+    // TODO  * would be replace by fieldnames
+    $sql = "SELECT *,
+                UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
+                UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
+            FROM `".$tbl_wrk_submission."`
+            WHERE `".$authField."` = ". (int)$_REQUEST['authId']."
+                AND `original_id` IS NULL
+                AND `assignment_id` = ".(int)$_REQUEST['assigId']."
+                ". $showOnlyAuthorCondition . "
+            ORDER BY `last_edit_date` ASC";
+
+    $wrkLst = claro_sql_query_fetch_all($sql);
+
+    // build 'parent_id' condition
+    $parentCondition = ' ';
+    foreach( $wrkLst as $thisWrk )
+    {
+        $parentCondition .= " OR `parent_id` = ". (int) $thisWrk['id'];
+    }
+    // select all feedback relating to the user submission in this assignment
+    // TODO  * would be replace by fieldnames
+    $sql = "SELECT *,
+                UNIX_TIMESTAMP(`creation_date`) AS `unix_creation_date`,
+                UNIX_TIMESTAMP(`last_edit_date`) as `unix_last_edit_date`
+            FROM `".$tbl_wrk_submission."`
+            WHERE 0 = 1
+                AND `assignment_id` = ". (int) $_REQUEST['assigId'] . "
+                " . $parentCondition;
+
+    $feedbackLst = claro_sql_query_fetch_all($sql);
+
+    $wrkAndFeedbackLst = array();
+    // create an ordered list with all submission directly followed by the related correction(s)
+    foreach( $wrkLst as $thisWrk )
+    {
+        $is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == claro_get_current_user_id() || isset($userGroupList[$thisWrk['group_id']]);
+
+        if( $thisWrk['visibility'] == 'VISIBLE' || $is_allowedToViewThisWrk )
+        {
+            $wrkAndFeedbackLst[] = $thisWrk;
+            foreach( $feedbackLst as $feedback )
+            {
+                if( $feedback['parent_id'] == $thisWrk['id']
+                    && ( $feedback['visibility'] == 'VISIBLE' || $is_allowedToEditAll || $is_allowedToViewThisWrk )
+                    )
+                {
+                    $wrkAndFeedbackLst[] = $feedback;
+                }
+            }
+        }
+    }
+
+    if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == claro_get_current_user_id() && $is_allowedToSubmit) || $is_allowedToEditAll )
+    {
+        // link to create a new submission
         $cmdMenu = array();
-		$cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-		                                . '?authId=' . $_REQUEST['authId']
-		                                . '&amp;assigId=' . $_REQUEST['assigId']
-		                                . '&amp;cmd=rqSubWrk'
-		                                . claro_url_relay_context('&amp;')
-		                                , get_lang('Submit a work')
-		                                );
+        $cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                        . '?authId=' . $_REQUEST['authId']
+                                        . '&amp;assigId=' . $_REQUEST['assigId']
+                                        . '&amp;cmd=rqSubWrk'
+                                        . claro_url_relay_context('&amp;')
+                                        , get_lang('Submit a work')
+                                        );
 
         echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
     }
 
-	if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
-	{
-		$i = 0;
-		foreach ( $wrkAndFeedbackLst as $thisWrk )
-		{
-			$is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
+    if( is_array($wrkAndFeedbackLst) && count($wrkAndFeedbackLst) > 0  )
+    {
+        $i = 0;
+        foreach ( $wrkAndFeedbackLst as $thisWrk )
+        {
+            $is_feedback = !is_null($thisWrk['original_id']) && !empty($thisWrk['original_id']);
 
-			$has_feedback = 	!$is_feedback
-							&& 	( $autoFeedbackIsDisplayedForAuthId
-								|| 	(isset($wrkAndFeedbackLst[$i+1]) && $wrkAndFeedbackLst[$i+1]['parent_id'] == $thisWrk['id'])
-								);
+            $has_feedback =     !$is_feedback
+                            &&     ( $autoFeedbackIsDisplayedForAuthId
+                                ||     (isset($wrkAndFeedbackLst[$i+1]) && $wrkAndFeedbackLst[$i+1]['parent_id'] == $thisWrk['id'])
+                                );
 
-			$is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == claro_get_current_user_id() || isset($userGroupList[$thisWrk['group_id']]);
+            $is_allowedToViewThisWrk = (bool)$is_allowedToEditAll || $thisWrk['user_id'] == claro_get_current_user_id() || isset($userGroupList[$thisWrk['group_id']]);
 
 
-			$is_allowedToEditThisWrk =
-				(bool) $is_allowedToEditAll
-				|| ( $is_allowedToViewThisWrk
-					&& $uploadDateIsOk
-					&& !$has_feedback
-					)
-				;
+            $is_allowedToEditThisWrk =
+                (bool) $is_allowedToEditAll
+                || ( $is_allowedToViewThisWrk
+                    && $uploadDateIsOk
+                    && !$has_feedback
+                    )
+                ;
 
-			if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )	$visStyle = ' class="invisible"';
-			else                                                                $visStyle = '';
+            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )    $visStyle = ' class="invisible"';
+            else                                                                $visStyle = '';
 
-			if( $is_feedback )  $feedbackStyle = 'style="padding-left: 35px;"';
-			else				$feedbackStyle = '';
+            if( $is_feedback )  $feedbackStyle = 'style="padding-left: 35px;"';
+            else                $feedbackStyle = '';
 
-			// change some displayed text depending on the context
-			if( $assignmentContent == "TEXTFILE" || $is_feedback )
-			{
-				$txtForFile = get_lang('Attached file');
-				if( $is_feedback )	$txtForText = get_lang('Public feedback');
-				else				$txtForText = get_lang('Answer');
-			}
-			elseif( $assignmentContent == "TEXT" )
-			{
-				$txtForText = get_lang('Answer');
-			}
-			elseif( $assignmentContent == "FILE" )
-			{
-				$txtForFile = get_lang('Uploaded file');
-				$txtForText = get_lang('File description');
-			}
+            // change some displayed text depending on the context
+            if( $assignmentContent == "TEXTFILE" || $is_feedback )
+            {
+                $txtForFile = get_lang('Attached file');
+                if( $is_feedback )    $txtForText = get_lang('Public feedback');
+                else                $txtForText = get_lang('Answer');
+            }
+            elseif( $assignmentContent == "TEXT" )
+            {
+                $txtForText = get_lang('Answer');
+            }
+            elseif( $assignmentContent == "FILE" )
+            {
+                $txtForFile = get_lang('Uploaded file');
+                $txtForText = get_lang('File description');
+            }
 
-			if( !$is_feedback ) echo '<hr />';
-			// title (and edit links)
-			echo '<h3' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
-			.    $thisWrk['title'] . "\n"
-			.    '</h3>' . "\n"
-			.    '<div' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
-			;
+            if( !$is_feedback ) echo '<hr />';
+            // title (and edit links)
+            echo '<h3' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
+            .    $thisWrk['title'] . "\n"
+            .    '</h3>' . "\n"
+            .    '<div' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
+            ;
 
-			// author
-			echo get_lang('Author(s)') . '&nbsp;: ' . $thisWrk['authors'] . '<br />' . "\n";
+            // author
+            echo get_lang('Author(s)') . '&nbsp;: ' . $thisWrk['authors'] . '<br />' . "\n";
 
-			if( $assignment->getAssignmentType() == 'GROUP' && claro_is_user_authenticated() && !$is_feedback )
-			{
-				 // display group if this is a group assignment and if this is not a correction
-				 echo get_lang('Group') . '&nbsp;: ' . $allGroupList[$thisWrk['group_id']]['name'].'<br />' . "\n";
-			}
+            if( $assignment->getAssignmentType() == 'GROUP' && claro_is_user_authenticated() && !$is_feedback )
+            {
+                 // display group if this is a group assignment and if this is not a correction
+                 echo get_lang('Group') . '&nbsp;: ' . $allGroupList[$thisWrk['group_id']]['name'].'<br />' . "\n";
+            }
 
-			if( $assignmentContent != 'TEXT' )
-			{
-				if( !empty($thisWrk['submitted_doc_path']) )
-				{
-					$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-					// show file if this is not a TEXT only work
-					echo $txtForFile . '&nbsp;: '
-	                .    '<a href="' . $assignment->getAssigDirWeb().urlencode($thisWrk['submitted_doc_path']) . '" ' . $target . '>' . $thisWrk['submitted_doc_path'] . '</a>'
-                    . ' <small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>' 
-					.    '<br />' . "\n"
-					;
-				}
-				else
-				{
-				     echo $txtForFile . '&nbsp;: '
-				     .     get_lang('- none -')
-				     .    '<br />' . "\n"
-				     ;
-				}
-			}
+            if( $assignmentContent != 'TEXT' )
+            {
+                if( !empty($thisWrk['submitted_doc_path']) )
+                {
+                    $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
+                    // show file if this is not a TEXT only work
+                    echo $txtForFile . '&nbsp;: '
+                    .    '<a href="' . $assignment->getAssigDirWeb().urlencode($thisWrk['submitted_doc_path']) . '" ' . $target . '>' . $thisWrk['submitted_doc_path'] . '</a>'
+                    . ' <small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
+                    .    '<br />' . "\n"
+                    ;
+                }
+                else
+                {
+                     echo $txtForFile . '&nbsp;: '
+                     .     get_lang('- none -')
+                     .    '<br />' . "\n"
+                     ;
+                }
+            }
 
-			echo '<br />' . "\n"
-			.    $txtForText . '&nbsp;: ' . '<br />' . "\n"
-			.    '<blockquote>' . $thisWrk['submitted_text'] . '</blockquote>' . "\n"
-			;
+            echo '<br />' . "\n"
+            .    $txtForText . '&nbsp;: ' . '<br />' . "\n"
+            .    '<blockquote>' . $thisWrk['submitted_text'] . '</blockquote>' . "\n"
+            ;
 
-			if( $is_feedback )
-			{
-				if( $is_allowedToEditAll )
-				{
-					echo '<br />' . "\n"
-					.    '<div>'
-					.    get_lang('Private feedback') . '&nbsp;:<br />'
-					.    '<blockquote>' . $thisWrk['private_feedback'] . '</blockquote>' . "\n"
-					.    '</div>' . "\n"
-					;
-				}
-				echo '<br />' . "\n" . get_lang('Score') . '&nbsp;: '
-				.	 ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
-				.	 '<br />' . "\n";
-			}
-			echo '<p>' . get_lang('First submission date') . '&nbsp;: '
-			.    claro_disp_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_creation_date'])
-			;
+            if( $is_feedback )
+            {
+                if( $is_allowedToEditAll )
+                {
+                    echo '<br />' . "\n"
+                    .    '<div>'
+                    .    get_lang('Private feedback') . '&nbsp;:<br />'
+                    .    '<blockquote>' . $thisWrk['private_feedback'] . '</blockquote>' . "\n"
+                    .    '</div>' . "\n"
+                    ;
+                }
+                echo '<br />' . "\n" . get_lang('Score') . '&nbsp;: '
+                .     ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
+                .     '<br />' . "\n";
+            }
+            echo '<p>' . get_lang('First submission date') . '&nbsp;: '
+            .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_creation_date'])
+            ;
 
-			// display an alert if work was submitted after end date and work is not a correction !
-			if( $assignment->getEndDate() < $thisWrk['unix_creation_date'] && !$is_feedback )
-			{
-			      echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
-			}
-			echo '<br />' . "\n";
+            // display an alert if work was submitted after end date and work is not a correction !
+            if( $assignment->getEndDate() < $thisWrk['unix_creation_date'] && !$is_feedback )
+            {
+                  echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
+            }
+            echo '<br />' . "\n";
 
-			if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
-			{
-				echo get_lang('Last edit date').'&nbsp;: '
-					.claro_disp_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_last_edit_date']);
-				// display an alert if work was submitted after end date and work is not a correction !
-				if( $assignment->getEndDate() < $thisWrk['unix_last_edit_date'] && !$is_feedback )
-				{
-					echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
-				}
-			}
-			echo '</p>'."\n";
-			// if user is allowed to edit, display the link to edit it
-			if( $is_allowedToEditThisWrk )
+            if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
+            {
+                echo get_lang('Last edit date').'&nbsp;: '
+                    .claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_last_edit_date']);
+                // display an alert if work was submitted after end date and work is not a correction !
+                if( $assignment->getEndDate() < $thisWrk['unix_last_edit_date'] && !$is_feedback )
+                {
+                    echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
+                }
+            }
+            echo '</p>'."\n";
+            // if user is allowed to edit, display the link to edit it
+            if( $is_allowedToEditThisWrk )
                 {
                     // the work can be edited
                     echo '<a href="' . $_SERVER['PHP_SELF']
@@ -1442,14 +1442,14 @@ if( $dispWrkLst )
 
                 if( $is_allowedToEditAll )
                 {
-                	echo '<a href="' . $_SERVER['PHP_SELF']
-                	.    '?authId='.$_REQUEST['authId']
-                	.    '&amp;cmd=exRmWrk&amp;assigId=' . $_REQUEST['assigId']
-                	.    '&amp;wrkId=' . $thisWrk['id'] . '" '
-                	.    'onClick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
-                	.    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
-                	.    '</a>'
-                	;
+                    echo '<a href="' . $_SERVER['PHP_SELF']
+                    .    '?authId='.$_REQUEST['authId']
+                    .    '&amp;cmd=exRmWrk&amp;assigId=' . $_REQUEST['assigId']
+                    .    '&amp;wrkId=' . $thisWrk['id'] . '" '
+                    .    'onClick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+                    .    '</a>'
+                    ;
 
                 if ($thisWrk['visibility'] == "INVISIBLE")
                 {
@@ -1491,9 +1491,9 @@ if( $dispWrkLst )
             .    '<br />' . "\n"
             ;
 
-			$i++;
-		}
-	}
+            $i++;
+        }
+    }
     else
     {
         echo claro_html_message_box(get_lang('No visible submission'));

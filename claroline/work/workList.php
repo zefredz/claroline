@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -423,7 +423,7 @@ echo claro_html_tool_title($pageTitle);
 echo '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 .    $assignment->getTitle() . '<br />'  . "\n"
-.    get_lang('<b>From</b> %startDate <b>until</b> %endDate', array('%startDate' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()), '%endDate' => claro_disp_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
+.    get_lang('<b>From</b> %startDate <b>until</b> %endDate', array('%startDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()), '%endDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
 
 .	'<br />'  .  "\n"
 

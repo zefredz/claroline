@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -341,7 +341,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<label for="prefillSubmitEndDate">' . "\n"
     .    '&nbsp;' . "\n"
     .    get_lang('Automatically, after end date')
-    .    ' (' . claro_disp_localised_date(get_locale('dateTimeFormatLong'), $form['unix_end_date']) . ')' . "\n"
+    .    ' (' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $form['unix_end_date']) . ')' . "\n"
     .    '</label>' . "\n"
     .    '<br />' . "\n"
     .    '<input type="radio" name="autoFeedbackSubmitMethod" id="prefillSubmitAfterPost" value="AFTERPOST" '
