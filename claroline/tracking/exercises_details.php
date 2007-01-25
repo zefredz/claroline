@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$ 
+ * @version 1.8 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -58,7 +58,7 @@ else
     $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
     $src = '';
 }
-    
+
 $nameTools = get_lang('Statistics of exercise');
 
 // get the tracking of a question as a csv file
@@ -86,7 +86,7 @@ $titleTab['subTitle'] = $exercise->getTitle();
 
 echo claro_html_tool_title($titleTab);
 
-if ( get_conf('is_trackingEnabled') ) 
+if ( get_conf('is_trackingEnabled') )
 {
     // get global infos about scores in the exercise
     $sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`,
@@ -118,18 +118,18 @@ if ( get_conf('is_trackingEnabled') )
         $displayedWeighting = '/'.$exo_scores_details['weighting'];
     else
         $displayedWeighting = '';
-        
+
       echo '<ul>'."\n"
     .'<li>'.get_lang('Worst score').' : '.$exo_scores_details['minimum'].$displayedWeighting.'</li>'."\n"
     .'<li>'.get_lang('Best score').' : '.$exo_scores_details['maximum'].$displayedWeighting.'</li>'."\n"
     .'<li>'.get_lang('Average score').' : '.$exo_scores_details['average'].$displayedWeighting.'</li>'."\n"
-    .'<li>'.get_lang('Average Time').' : '.claro_disp_duration(floor($exo_scores_details['avgTime'])).'</li>'."\n"
+    .'<li>'.get_lang('Average Time').' : '.claro_html_duration(floor($exo_scores_details['avgTime'])).'</li>'."\n"
     .'</ul>'."\n\n"
     .'<ul>'."\n"
     .'<li>'.get_lang('User attempts').' : '.$exo_scores_details['users'].'</li>'."\n"
     .'<li>'.get_lang('Total attempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
     .'</ul>'."\n\n";
-    
+
     echo '<ul>'."\n"
     .'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exId='.$exId.'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
     .'</ul>'."\n\n";
@@ -154,8 +154,8 @@ if ( get_conf('is_trackingEnabled') )
           )
     GROUP BY `U`.`user_id`
     ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC";
-    
-    
+
+
     $exo_users_details = claro_sql_query_fetch_all($sql);
 
     echo '<p><b>'.get_lang('Statistics by user').'</b></p>'."\n";
@@ -170,7 +170,7 @@ if ( get_conf('is_trackingEnabled') )
         .'<th>'.get_lang('Average Time').'</th>'."\n"
           .'</tr>'."\n\n"
           .'<tbody>'."\n\n";
-          
+
     // display tab content
     foreach( $exo_users_details as $exo_users_detail )
     {
@@ -184,7 +184,7 @@ if ( get_conf('is_trackingEnabled') )
         else
         {
         	$displayedAverage = round($exo_users_detail['average']*100)/100;
-        	$displayedAvgTime = claro_disp_duration(floor($exo_users_detail['avgTime']));	
+        	$displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
         echo      '<tr>'."\n"
                   .'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->getId().'">'."\n"

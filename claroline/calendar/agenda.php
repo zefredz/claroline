@@ -10,7 +10,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLCAL
@@ -524,7 +524,7 @@ foreach ( $eventList as $thisEvent )
 
                 echo '<tr>' . "\n"
                 .    '<th class="superHeader" colspan="2" valign="top">' . "\n"
-                .    ucfirst(claro_disp_localised_date('%B %Y', time()))
+                .    ucfirst(claro_html_localised_date('%B %Y', time()))
                 .    '</th>' . "\n"
                 .    '</tr>' . "\n"
                 ;
@@ -539,7 +539,7 @@ foreach ( $eventList as $thisEvent )
             .    '<span class="highlight">'
             .    '<a name="today">'
             .    '<i>'
-            .    ucfirst(claro_disp_localised_date( get_locale('dateFormatLong'))) . ' '
+            .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'))) . ' '
             .    ucfirst(strftime( get_locale('timeNoSecFormat')))
             .    ' -- '
             .    get_lang('Now')
@@ -564,7 +564,7 @@ foreach ( $eventList as $thisEvent )
 
             echo '<tr>' . "\n"
             .    '<th class="superHeader" valign="top">'
-            .    ucfirst(claro_disp_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
+            .    ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
             .    '</th>' . "\n"
             .    '</tr>' . "\n"
             ;
@@ -579,7 +579,7 @@ foreach ( $eventList as $thisEvent )
         .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
         .    '<a href="#form" name="event' . $thisEvent['id'] . '"></a>' . "\n"
         .    '<img src="' . get_path('imgRepositoryWeb') . 'agenda.gif" alt=" " />&nbsp;'
-        .    ucfirst(claro_disp_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
+        .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
         .    ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour']))) . ' '
         .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] )
         .    '</span>';

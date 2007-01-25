@@ -259,7 +259,7 @@ else
         .    '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
         .    get_lang('Author')
         .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-        .    '<small>' . get_lang('Posted') . ' : ' . claro_disp_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
+        .    '<small>' . get_lang('Posted') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
         .    '  </th>' . "\n"
         .' </tr>'. "\n"
 

@@ -33,7 +33,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
      if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
     {
-            // set the subtitle for the echo claro_disp_tool_title function
+            // set the subtitle for the echo claro_html_tool_title function
             $sql = "SELECT `access_tlabel` AS `label`
                     FROM `" . $TABLETRACK_ACCESS . "`
                     WHERE `access_tid` = ". (int)$_REQUEST['id']."
@@ -59,7 +59,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     }
     elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
     {
-            // set the subtitle for the echo claro_disp_tool_title function
+            // set the subtitle for the echo claro_html_tool_title function
             $toolTitle['subTitle'] = get_lang('Documents and Links')." : ". htmlspecialchars($_REQUEST['path']);
             // prepare SQL query
             $sql = "SELECT `nom` as `lastName`,

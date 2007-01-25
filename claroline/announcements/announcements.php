@@ -33,7 +33,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLANN
@@ -641,7 +641,7 @@ if ($displayList)
             .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
             .    '<img src="' . get_path('imgRepositoryWeb') . $imageFile . '" alt="' . $altImg . '" />' . "\n"
             .    get_lang('Published on')
-            .    ' : ' . claro_disp_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
+            .    ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
             .    '</span>'
             .    '</th>' . "\n"
             .    '</tr>' . "\n"

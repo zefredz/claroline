@@ -190,7 +190,7 @@ if  ( DISP_FLUSH_RESULT == $display)
     .    '<br />'
     .    '<input type="radio" name="scope" id="scope_before" value="BEFORE" checked="checked">'
     .    '<label for="scope_before" >' . get_lang('Before') . '</label> '
-    .    claro_disp_date_form('beforeDate[day]', 'beforeDate[month]', 'beforeDate[year]', $beforeDate, 'short' )
+    .    claro_html_date_form('beforeDate[day]', 'beforeDate[month]', 'beforeDate[year]', $beforeDate, 'short' )
     .    '<input type="hidden" name="cmd" value="delete">'
     .    '<br />'
     .    '<br />'

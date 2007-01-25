@@ -327,7 +327,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                         .    '<td>'.$exo_details['minimum'].'</td>' . "\n"
                         .    '<td>'.$exo_details['maximum'].'</td>' . "\n"
                         .    '<td>'.(round($exo_details['average']*10)/10).'</td>' . "\n"
-                        .    '<td>'.claro_disp_duration(floor($exo_details['avgTime'])).'</td>' . "\n"
+                        .    '<td>'.claro_html_duration(floor($exo_details['avgTime'])).'</td>' . "\n"
                         .    '<td>'.$exo_details['attempts'].'</td>' . "\n"
                         .    '<td>'.$exo_details['lastAttempt'].'</td>' . "\n"
                         .    '</tr>' . "\n"
@@ -360,7 +360,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                                 echo '<tr>' . "\n"
                                 .    '<td><small><a href="user_exercise_details.php?trackedExId='.$exo_attempt['exe_id'].'">'.$exo_attempt['exe_date'].'</a></small></td>' . "\n"
                                 .    '<td><small>'.$exo_attempt['exe_result'].'/'.$exo_attempt['exe_weighting'].'</small></td>' . "\n"
-                                .    '<td><small>'.claro_disp_duration($exo_attempt['exe_time']).'</small></td>' . "\n"
+                                .    '<td><small>'.claro_html_duration($exo_attempt['exe_time']).'</small></td>' . "\n"
                                 .    '</tr>' . "\n"
                                 ;
                             }

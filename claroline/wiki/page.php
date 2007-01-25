@@ -7,7 +7,7 @@
      *
      * @version 1.8 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2007 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -948,14 +948,14 @@
                 $displaytitle = $title;
             }
 
-            $oldTime = claro_disp_localised_date( get_locale('dateTimeFormatLong')
+            $oldTime = claro_html_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($oldTime) )
                         ;
 
             $userInfo = user_get_properties( $oldEditor );
             $oldEditorStr = $userInfo['firstname'] . "&nbsp;" . $userInfo['lastname'];
 
-            $newTime = claro_disp_localised_date( get_locale('dateTimeFormatLong')
+            $newTime = claro_html_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($newTime) )
                         ;
 
@@ -1039,7 +1039,7 @@
                         . '>'.$pgtitle.'</a></strong>'
                         ;
 
-                    $time = claro_disp_localised_date( get_locale('dateTimeFormatLong')
+                    $time = claro_html_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($recentChange['last_mtime']) )
                         ;
 
@@ -1192,7 +1192,7 @@
                         $editorUrl = '&nbsp;-&nbsp;' . $editorStr;
                     }
 
-                    $mtime = claro_disp_localised_date( get_locale('dateTimeFormatLong')
+                    $mtime = claro_html_localised_date( get_locale('dateTimeFormatLong')
                         , strtotime($wikiPage->getCurrentVersionMtime()) )
                         ;
 
@@ -1356,7 +1356,7 @@
                                 . '&amp;action=show'
                                 . '&amp;versionId=' . $version['id']
                                 . '">'
-                                . claro_disp_localised_date( get_locale('dateTimeFormatLong')
+                                . claro_html_localised_date( get_locale('dateTimeFormatLong')
                                                            , strtotime($version['mtime']) )
                                 . '</a>'
                                 ;

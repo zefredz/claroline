@@ -339,7 +339,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     .    '<li>' . get_lang('First name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
     .    '<li>' . get_lang('Date') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'),$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
     .    '<li>' . get_lang('Score') . ' : ' . $thisAttemptDetails['exe_result'] . '/' . $thisAttemptDetails['exe_weighting'] . '</li>' . "\n"
-    .    '<li>' . get_lang('Time') . ' : ' . claro_disp_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
+    .    '<li>' . get_lang('Time') . ' : ' . claro_html_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
     .    '</ul>' . "\n\n"
     ;
 
