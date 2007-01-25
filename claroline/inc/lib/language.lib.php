@@ -503,6 +503,12 @@ function get_lang_weekday_name_list($size='long')
 
 function claro_disp_localised_date($formatOfDate,$timestamp = -1)
 {
+    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
+             ? claro_html_debug_backtrace()
+             : 'claro_html_debug_backtrace() not defined'
+             )
+             .'claro_ disp _localised_date() is deprecated , use claro_ html _localised_date()','error');
+
     return claro_html_localised_date($formatOfDate,$timestamp);
 }
 
