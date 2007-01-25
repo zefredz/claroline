@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1277,6 +1277,10 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
  */
 
 function claro_disp_duration( $duration  )
+{
+    claro_html_duration( $duration  );
+}
+function claro_html_duration( $duration  )
 {
     if( $duration == 0 ) return '0 '.get_lang('SecondShort');
 
