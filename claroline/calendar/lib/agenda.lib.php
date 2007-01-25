@@ -307,7 +307,7 @@ function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
              ? claro_html_debug_backtrace()
              : 'claro_html_debug_backtrace() not defined'
              )
-             .'claro_html_monthly_calendar is deprecated , use claro_disp_monthly_calendar','error');
+             .'claro_disp_monthly_calendar is deprecated , use claro_html_monthly_calendar','error');
 
     return claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName );
 }
