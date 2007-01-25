@@ -877,6 +877,12 @@ function claro_set_tool_view_mode($viewMode)
 
 function claro_disp_tool_view_option($viewModeRequested = false)
 {
+    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
+             ? claro_html_debug_backtrace()
+             : 'claro_html_debug_backtrace() not defined'
+             )
+             .'claro_disp_tool_view_option is deprecated , use claro_html_tool_view_option','error');
+
     return claro_html_tool_view_option($viewModeRequested);
 }
 function claro_html_tool_view_option($viewModeRequested = false)
