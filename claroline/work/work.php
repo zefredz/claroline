@@ -85,7 +85,7 @@ if( !empty($cmd) )
         {
             // could not read assignment
             $cmd = '';
-            $_REQUEST['assigId'] == NULL;
+            $_REQUEST['assigId'] = NULL;
         }
     }
 
