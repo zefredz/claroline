@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -329,7 +329,7 @@ foreach ( $categories as $this_category )
             .    '<small>'
             .    (
             ($last_post > 0) ?
-            claro_disp_localised_date(get_locale('dateTimeFormatShort'), datetime_to_timestamp($last_post)) :
+            claro_html_localised_date(get_locale('dateTimeFormatShort'), datetime_to_timestamp($last_post)) :
             get_lang('No post')
             )
             . '</small>'
