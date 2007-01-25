@@ -72,6 +72,7 @@ function choose_image($fileName)
     }
 
     /* FUNCTION CORE */
+    $extension= null;
 
     if (ereg("\.([[:alnum:]]+)$", $fileName, $extension))
     {
@@ -313,6 +314,15 @@ function query_make_part( $matches )
  */
 
 function claro_disp_document_breadcrumb($curDirPath)
+{
+    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
+                 ? claro_html_debug_backtrace()
+                 : 'claro_html_debug_backtrace() not defined'
+                 )
+                 .'claro_disp_document_breadcrumb is deprecated , use claro_html_document_breadcrumb','error');
+   return claro_html_document_breadcrumb($curDirPath);
+}
+function claro_html_document_breadcrumb($curDirPath)
 {
     $curDirPathList = explode('/', $curDirPath);
 
