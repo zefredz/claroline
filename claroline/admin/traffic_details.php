@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -53,7 +53,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
         }   break;
         case 'month' :
         {
-            echo claro_disp_localised_date('%B %Y',$reqdate);
+            echo claro_html_localised_date('%B %Y',$reqdate);
         }   break;
         default :
         {
@@ -61,7 +61,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
         }
         case 'day' :
         {
-            echo claro_disp_localised_date('%A %d %B %Y',$reqdate);
+            echo claro_html_localised_date('%A %d %B %Y',$reqdate);
         }   break;
     }
 

@@ -1,15 +1,15 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * The script works with the 
+ * The script works with the
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package UPGRADE
  *
@@ -115,7 +115,7 @@ function save_current_version_file ( $clarolineVersion, $databaseVersion )
     $fp_currentVersion = fopen( get_path('rootSys') . 'platform/currentVersion.inc.php','w');
 
     // build content
-    $currentVersionStr = '<?php 
+    $currentVersionStr = '<?php
 $clarolineVersion = "' . $clarolineVersion . '";
 $versionDb = "' . $databaseVersion . '";
 ?>';
@@ -150,7 +150,7 @@ function get_current_version ()
         // before the clarolineVersion was in claro_main.conf.php
         include (get_path('incRepositorySys').'/currentVersion.inc.php');
     }
-    
+
     $current_version['claroline'] = $clarolineVersion;
     $current_version['db'] = $versionDb;
 
@@ -171,7 +171,7 @@ function get_new_version ()
     $new_version_branch  = null;
 
     include ( get_path('incRepositorySys') . '/installedVersion.inc.php' ) ;
-    
+
     $version = array( 'complete' => $new_version,
                       'branch' => $new_version_branch );
 
@@ -209,10 +209,10 @@ function upgrade_sql_query($sql,$verbose=null)
 {
     global $accepted_error_list;
     global $verbose;
-        
+
     // Sql query
     $handler = mysql_query($sql);
-        
+
     // Sql error
     if ( mysql_errno() > 0 )
     {
@@ -234,7 +234,7 @@ function upgrade_sql_query($sql,$verbose=null)
             $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) ;
             $message .= '<code>' . $sql . '</code>' . "\n";
             $message .= mysql_info() . "\n";
-            log_message($message);   
+            log_message($message);
             return false;
         }
     }
@@ -257,7 +257,7 @@ function upgrade_sql_query($sql,$verbose=null)
  * @param string new database version
  * @param string new file version
  *
- * @return array 
+ * @return array
  */
 
 function count_course_upgraded($version)
@@ -265,18 +265,18 @@ function count_course_upgraded($version)
     $tbl_mdb_names = claro_sql_get_main_tbl();
 
     $tbl_course = $tbl_mdb_names['course'];
- 
+
     /**
      * In cours table, versionClaro contain :
      * - 'error' if upgrade already tried but failed
      * - version of last upgrade succeed (so previous or current)
      */
 
-    $count_course = array( 'upgraded'=>0 , 
-                           'error'=>0 , 
+    $count_course = array( 'upgraded'=>0 ,
+                           'error'=>0 ,
                            'total'=>0 );
 
-    $sql = "SELECT versionClaro, count(*) as count_course 
+    $sql = "SELECT versionClaro, count(*) as count_course
             FROM `" . $tbl_course . "`
             GROUP BY versionClaro";
 
@@ -284,13 +284,13 @@ function count_course_upgraded($version)
 
     while ( ( $row = mysql_fetch_array($result) ) )
     {
-        // Count courses upgraded and upgrade failed    
-        if ( preg_match('/^' . $version . '/',$row['versionClaro']) ) 
+        // Count courses upgraded and upgrade failed
+        if ( preg_match('/^' . $version . '/',$row['versionClaro']) )
         {
             // upgrade succeed
             $count_course['upgraded'] += $row['count_course'];
         }
-        elseif ( preg_match('/^error/',$row['versionClaro']) ) 
+        elseif ( preg_match('/^error/',$row['versionClaro']) )
         {
             // upgrade failed
             $count_course['error'] += $row['count_course'];
@@ -316,17 +316,17 @@ function count_course_upgraded($version)
  * @return boolean
  */
 
-function register_tool_in_main_database ( $claro_label, $script_url, $icon, $default_access = 'ALL', 
+function register_tool_in_main_database ( $claro_label, $script_url, $icon, $default_access = 'ALL',
                                           $add_in_course = 'AUTOMATIC', $access_manager = 'COURSE_ADMIN' )
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
 
     $tbl_tool = $tbl_mdb_names['tool'];
-    
+
     $sql = "SELECT `id`
             FROM `" . $tbl_tool . "`
             WHERE `claro_label` = '" . addslashes($claro_label) . "'";
-   
+
     $result = upgrade_sql_query($sql);
 
     if ( mysql_num_rows($result) == 0 )
@@ -336,11 +336,11 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
         // find max default rank
         $sql = "SELECT MAX(def_rank)
                 FROM `" . $tbl_tool . "`";
-    
+
         $default_rank = claro_sql_query_get_single_value($sql);
-        
+
         $default_rank++ ;
-    
+
         // add tool in course_tool table
         $sql = "INSERT INTO `" . $tbl_tool . "`
                (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
@@ -350,13 +350,13 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
                 '" . addslashes($add_in_course) . "','" . addslashes($access_manager) . "')";
 
         return claro_sql_query_insert_id($sql);
-    
+
     }
     else
     {
         return FALSE;
     }
-    
+
 }
 
 /**
@@ -376,15 +376,15 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
 
     $tbl_course_tool = $tbl_mdb_names['tool'];
     $tbl_tool_list = $tbl_cdb_names['tool'];
-    
-    // get rank of tool in course table    
+
+    // get rank of tool in course table
     $sql = "SELECT MAX(`rank`)  as `max_rank`
-            FROM `" . $tbl_tool_list . "`";       
+            FROM `" . $tbl_tool_list . "`";
 
     $rank =  claro_sql_query_get_single_value($sql);
     $rank++;
-    
-    // get id of tool on the platform and default access    
+
+    // get id of tool on the platform and default access
     $sql = "SELECT `id`, `def_access`
             FROM `" . $tbl_course_tool . "`
             WHERE `claro_label` = '" . addslashes($claro_label) . "'";
@@ -393,7 +393,7 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
 
     if ( mysql_num_rows($result) )
     {
-        $row = mysql_fetch_array($result);        
+        $row = mysql_fetch_array($result);
 
         // if $access emtpy get default access
         if ( empty($access) ) $access = $row['access'];
@@ -411,7 +411,7 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
     {
         return FALSE;
     }
-    
+
 }
 
 /**
@@ -488,22 +488,22 @@ function get_upgrade_status($claro_label,$course_code=null)
     // get table name
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
-    
-    // course_code empty 
+
+    // course_code empty
     if ( is_null($course_code) ) $course_code = '';
 
     // query to find status
     $sql = "SELECT `status`
             FROM `" . $tbl_upgrade_status . "`
-            WHERE cid = '" . $course_code . "' 
+            WHERE cid = '" . $course_code . "'
               AND claro_label = '" . $claro_label . "' ";
 
     $result = claro_sql_query($sql);
-    
+
     if ( mysql_num_rows($result) > 0 )
     {
         // get status
-        $row = mysql_fetch_array($result);       
+        $row = mysql_fetch_array($result);
         $status = $row['status'];
     }
     else
@@ -539,13 +539,13 @@ function set_upgrade_status($claro_label,$status,$course_code=null)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
 
-    // course_code empty 
+    // course_code empty
     if ( is_null($course_code) ) $course_code = '';
 
     // update status
     $sql = " UPDATE `" . $tbl_upgrade_status . "`
              SET `status` = '" . $status . "'
-             WHERE cid = '" . $course_code . "' 
+             WHERE cid = '" . $course_code . "'
                AND claro_label = '" . $claro_label . "' ";
 
     claro_sql_query($sql);
@@ -570,7 +570,7 @@ function clean_upgrade_status($course_code=null)
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_upgrade_status = $tbl_mdb_names['upgrade_status'];
 
-    // course_code empty 
+    // course_code empty
     if ( is_null($course_code) ) $course_code = '';
 
     // delete all status for this course
@@ -633,9 +633,9 @@ function open_upgrade_log()
                        . ' * Upgrade to ' . $new_version . "\n"
                        . ' * Current File Version : ' . $currentClarolineVersion . "\n"
                        . ' * Current Database Version : ' . $currentDbVersion . "\n"
-                       . ' * Date :'. claro_disp_localised_date(get_locale('dateTimeFormatLong')) . "\n"
+                       . ' * Date :'. claro_html_localised_date(get_locale('dateTimeFormatLong')) . "\n"
                        . '========================================================'. "\n" ;
-    
+
         // write content in file
         fwrite($fp_upgrade_log, $upgradeHeader);
         return true;

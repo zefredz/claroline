@@ -4,7 +4,7 @@
  * This tool run some check to detect abnormal situation
  *
  * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/index.php/ADMIN
  * @author Sébastien Piraux <pir@claroline.net>
@@ -50,7 +50,7 @@ $cache_options = array( 'cacheDir' => get_path('rootSys') . 'tmp/cache/campusPro
 );
 
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
-if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 1;
+if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 3;
 
 if (! file_exists($cache_options['cacheDir']) )
 {
@@ -162,9 +162,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br />' . "\n"
                 ;
@@ -226,9 +226,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;
@@ -294,9 +294,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;
@@ -360,9 +360,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;
@@ -435,9 +435,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;
@@ -496,9 +496,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;
@@ -579,9 +579,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;
@@ -653,9 +653,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;
@@ -726,9 +726,9 @@ switch ($display)
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
-                .    claro_disp_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong').':%S', $Cache_Lite->lastModified())
                 .    ', '
-                .    get_lang('%delay ago', array('%delay' => claro_disp_duration(time()-$Cache_Lite->lastModified())))
+                .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
                 .    '<br>'
                 ;

@@ -10,7 +10,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -125,8 +125,8 @@ else
 }
 
 
-$dateNow = claro_disp_localised_date(get_locale('dateTimeFormatLong'));
-$timeNow = claro_disp_localised_date('[%d/%m/%y %H:%M]');
+$dateNow = claro_html_localised_date(get_locale('dateTimeFormatLong'));
+$timeNow = claro_html_localised_date('[%d/%m/%y %H:%M]');
 
 if ( ! file_exists($activeChatFile))
 {
