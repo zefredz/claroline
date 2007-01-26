@@ -98,7 +98,8 @@ function confirmation (name)
 
 //CONFIG and DEVMOD vars :
 
-$modulePerPage = get_conf('modulePerPage' , 20);
+//TODO remove pagination
+$modulePerPage = 1000;
 
 $typeLabel['']        = get_lang('No name');
 $typeLabel['tool']    = get_lang('Tools');
@@ -141,7 +142,6 @@ switch ( $cmd )
             break;
         }
     case 'desactiv' :
-        {
             list( $backlog, $success ) = deactivate_module($module_id);
             $details = $backlog->output();
             if ( $success )
@@ -154,17 +154,12 @@ switch ( $cmd )
             }
             $dialogBox = Backlog_Reporter::report( $summary, $details );
             break;
-        }
     case 'mvUp' :
-        {
-            move_module_tool($courseToolId, 'up');
+            if(!is_null($courseToolId)) move_module_tool($courseToolId, 'up');
             break;
-        }
     case 'mvDown' :
-        {
-            move_module_tool($courseToolId, 'down');
+            if(!is_null($courseToolId)) move_module_tool($courseToolId, 'down');
             break;
-        }
     case 'exUninstall' :
         {
             $moduleInfo = get_module_info($module_id);
@@ -192,12 +187,12 @@ switch ( $cmd )
         {
             //include needed librabries for treatment
             if ( array_key_exists( 'uploadedModule', $_FILES ) )
-            {            
+            {
                 if ( file_upload_failed( $_FILES['uploadedModule'] ) )
                 {
                     $summary = get_lang('Module upload failed');
                     $details = get_file_upload_error_message( $_FILES['uploadedModule'] );
-    
+
                     $dialogBox = Backlog_Reporter::report( $summary, $details );
                 }
                 else
