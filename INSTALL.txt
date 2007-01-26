@@ -94,7 +94,7 @@ NEW CLAROLINE INSTALLATION
 
     tar -zxvf claroline183.tar.gz
 
-   Windows : unzip 'claroline182.zip'.
+   Windows : unzip 'claroline183.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory).
@@ -107,7 +107,7 @@ NEW CLAROLINE INSTALLATION
 4. The following directory need to be readable, writeable and executable
    for everyone: 
 
-    chmod ugo+w claroline182/
+    chmod ugo+w claroline183/
 
 4. Open Web Browser and go to
 
