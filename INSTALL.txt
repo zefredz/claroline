@@ -132,9 +132,9 @@ Before upgrading we heavily recommend you do a full backup of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline182.tar.gz'
+1. Download 'claroline183.tar.gz'
 
-   Windows : download 'claroline182.zip'
+   Windows : download 'claroline183.zip'
 
 
 2. Open a shell, go to download directory and type
