@@ -28,7 +28,8 @@ $conf_def['config_class']='course';
 $conf_def['section']['create']['label']='Course main settings';
 $conf_def['section']['create']['description']='';
 $conf_def['section']['create']['properties'] =
-array ( 'defaultVisibilityForANewCourse'
+array ( 'fill_course_example'
+      , 'defaultVisibilityForANewCourse'
       , 'human_code_needed'
       , 'human_label_needed'
       , 'course_email_needed'
@@ -39,6 +40,16 @@ array ( 'defaultVisibilityForANewCourse'
       , 'showLinkToDeleteThisCourse'
       , 'nbCharFinalSuffix'
       , 'forceCodeCase'
+      );
+
+$conf_def_property_list['fill_course_example'] =
+array ('label'       => 'Fill courses tools with material example'
+      ,'description' => ''
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
       );
 
 $conf_def_property_list['forceCodeCase'] =
