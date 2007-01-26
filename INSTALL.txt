@@ -139,7 +139,7 @@ please ask your hosting provider for advice.
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline182.tar.gz
+    tar -zxvf claroline183.tar.gz
 
    Windows : unzip 'claroline182.zip'
 
