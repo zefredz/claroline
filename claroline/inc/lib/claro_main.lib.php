@@ -786,6 +786,8 @@ class claro_failure
 
         $claro_failureList[] = $failureType;
 
+        pushClaroMessage('set failure : ' . var_export($failureType,1),'set_failure');
+
         return false;
     }
 
