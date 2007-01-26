@@ -341,11 +341,11 @@ if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && i
 
         if ( isset($_REQUEST['View mode']) )
         {
-            $clarolineBannerOutput .= claro_disp_tool_view_option($_REQUEST['View mode']);
+            $clarolineBannerOutput .= claro_html_tool_view_option($_REQUEST['View mode']);
         }
         else
         {
-            $clarolineBannerOutput .= claro_disp_tool_view_option();
+            $clarolineBannerOutput .= claro_html_tool_view_option();
         }
 
         if ( claro_is_platform_admin() && ! claro_is_course_member() )
