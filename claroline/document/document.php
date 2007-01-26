@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -308,6 +308,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     $dialogBox .= '<br /><b>' . get_lang("Missing images detected") . '</b><br />' . "\n"
                     .             '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" '
                     .             'enctype="multipart/form-data">' . "\n"
+                    .             claro_form_relay_context()
                     .             '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
                     .             '<input type="hidden" name="cmd" value="submitImage" />' . "\n"
                     .             '<input type="hidden" name="relatedFile" '
@@ -390,6 +391,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
                        .  '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+                       .  claro_form_relay_context()
                        .  '<input type="hidden" name="cmd" value="exUpload">' . "\n"
                        .  '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '">' . "\n"
                        .  '<label for="userFile">' . get_lang("Upload file") . ' : </label>' . "\n"
@@ -627,8 +629,9 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     if ('rqMkUrl' == $cmd )
     {
         $dialogBox .= get_lang('Create hyperlink')."\n"
-                     .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">' . "\n"
-                     .'<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
+                   .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">' . "\n"
+                   .  claro_form_relay_context()
+                   .  '<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
                      .'<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
                      .'<label for="fileName">' . get_lang('Name'). ' : </label><br />' . "\n"
                      .'<input type="text" id="fileName" name="fileName"><br />' . "\n"
@@ -838,12 +841,18 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $fileName = basename($_REQUEST['file']);
 
         $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-                      .'<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-                      .'<input type="hidden" name="file" value="' . $_REQUEST['file'] . '" />' . "\n"
-                      .'<p>'
-                      .'<label for="newName">'. get_lang('Rename %filename in', array ('%filename' => htmlspecialchars($fileName) ) ) .' : </Label>' . "\n"
-                      .'<br /><input type="text" id="newName" name="newName" value="' . htmlspecialchars($fileName) . '" />' . "\n"
-                      .'</p>' . "\n";
+        .             claro_form_relay_context()
+        .             '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+        .             '<input type="hidden" name="file" value="' . $_REQUEST['file'] . '" />' . "\n"
+        .             '<p>'
+        .             '<label for="newName">'
+        .             get_lang('Rename %filename in', array ('%filename' => htmlspecialchars($fileName) ) )
+        .             ' : '
+        .             '</label>' . "\n"
+        .             '<br />' . "\n"
+        .             '<input type="text" id="newName" name="newName" value="' . htmlspecialchars($fileName) . '" />' . "\n"
+        .           '</p>' . "\n"
+        ;
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
         {
@@ -856,9 +865,13 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             	$url = '';
             }
 
-            $dialogBox .= '<p><label for="url">' . get_lang('URL') . ' : </label><br />' . "\n"
-                        . '<input type="text" id="url" name="url" value="' . htmlspecialchars($url) . '">' . "\n"
-                        . '</p>' . "\n";
+            $dialogBox .= '<p>' . "\n"
+            .             '<label for="url">' . get_lang('URL') . ' : ' . "\n"
+            .             '</label>' . "\n"
+            .             '<br />' . "\n"
+            .             '<input type="text" id="url" name="url" value="' . htmlspecialchars($url) . '">' . "\n"
+            .             '</p>' . "\n"
+            ;
         }
 
         if ($courseContext)
@@ -1958,7 +1971,7 @@ echo claro_html_tool_title($titleElement,
 
         echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n";
 
-        echo claro_disp_document_breadcrumb($curDirPath);
+        echo claro_html_document_breadcrumb($curDirPath);
 
         echo '<table class="claroTable emphaseLine" width="100%">' . "\n";
 
