@@ -1150,7 +1150,7 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( ''
                          , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo'
                                               . claro_url_relay_context('&amp;')
-                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify')
+                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify') . '">'
                                               )
                          );
     }
@@ -1158,6 +1158,7 @@ function user_html_form($data, $form_type='registration')
     $html .= '</table>' . "\n"
     .        '</form>' . "\n"
     ;
+
     return $html;
 }
 
