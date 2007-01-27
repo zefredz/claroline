@@ -315,12 +315,12 @@ if( trim($exercise->getDescription()) != '' )
 echo '<ul style="font-size:small">' . "\n";
 if( $exercise->getDisplayType() == 'SEQUENTIAL' )
 {
-	echo '<li>' . get_lang('Current time')." : ". claro_disp_duration($now - $_SESSION['exeStartTime']) . '</li>' . "\n";
+	echo '<li>' . get_lang('Current time')." : ". claro_html_duration($now - $_SESSION['exeStartTime']) . '</li>' . "\n";
 }
 
 if( $exercise->getTimeLimit() > 0 )
 {
-	echo '<li>' . get_lang('Time limit')." : ".claro_disp_duration($exercise->getTimeLimit()) . '</li>' . "\n";
+	echo '<li>' . get_lang('Time limit')." : ".claro_html_duration($exercise->getTimeLimit()) . '</li>' . "\n";
 }
 else
 {
@@ -341,7 +341,7 @@ if( claro_is_user_authenticated() && isset($userAttemptCount) )
 	echo '</li>' . "\n";
 }
 
-echo '<li>' 
+echo '<li>'
 .    get_lang('Available from %startDate', array('%startDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $exercise->getStartDate())));
 
 if( !is_null($exercise->getEndDate()) )
@@ -408,7 +408,7 @@ if( $showResult )
 	// table footer, form footer
 	echo '<tr>' . "\n"
 	.	 '<td align="center">'
-	.	 get_lang('Your time is %time', array('%time' => claro_disp_duration($timeToCompleteExe)) )
+	.	 get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
 	.	 '<br />' . "\n"
 	.	 '<strong>';
 

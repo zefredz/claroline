@@ -298,7 +298,7 @@ if( $displayForm )
 	echo '<tr>' . "\n"
 	.	 '<td valign="top">'.get_lang('Start date').'&nbsp;:</td>' . "\n"
 	.	 '<td>'
-	.	 claro_disp_date_form('startDay', 'startMonth', 'startYear', $form['startDate'], 'long')." - ".claro_disp_time_form("startHour", "startMinute", $form['startDate'])
+	.	 claro_html_date_form('startDay', 'startMonth', 'startYear', $form['startDate'], 'long')." - ".claro_html_time_form("startHour", "startMinute", $form['startDate'])
 	.	 '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
@@ -310,7 +310,7 @@ if( $displayForm )
 	.	 '<input type="checkbox" name="useEndDate" id="useEndDate" '
 	.	 ( $form['useEndDate']?' checked="checked"':' ') . '/>'
 	.	 ' <label for="useEndDate">'.get_lang('Yes').'</label>,' . "\n"
-	.	 claro_disp_date_form('endDay', 'endMonth', 'endYear', $form['endDate'], 'long')." - ".claro_disp_time_form("endHour", "endMinute", $form['endDate'])
+	.	 claro_html_date_form('endDay', 'endMonth', 'endYear', $form['endDate'], 'long')." - ".claro_html_time_form("endHour", "endMinute", $form['endDate'])
 	.	 '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
