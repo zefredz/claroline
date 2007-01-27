@@ -276,7 +276,7 @@ if ( $is_allowedToEdit )
         if ( 'rqEdit' == $cmd  && !empty($id) )
         {
             $editedEvent = agenda_get_item($id) ;
-            // get date as unixtimestamp for claro_dis_date_form and claro_disp_time_form
+            // get date as unixtimestamp for claro_dis_date_form and claro_html_time_form
             $editedEvent['date'] = strtotime($editedEvent['dayAncient'].' '.$editedEvent['hourAncient']);
             $nextCommand = 'exEdit';
         }
@@ -386,8 +386,8 @@ if ($display_form)
     .    '<td align="right">' . get_lang('Date') . ' : '
     .    '</td>' . "\n"
     .    '<td>'
-    .    claro_disp_date_form('fday', 'fmonth', 'fyear', $editedEvent['date'], 'long' ) . ' '
-    .    claro_disp_time_form('fhour','fminute', $editedEvent['date']) . '&nbsp;'
+    .    claro_html_date_form('fday', 'fmonth', 'fyear', $editedEvent['date'], 'long' ) . ' '
+    .    claro_html_time_form('fhour','fminute', $editedEvent['date']) . '&nbsp;'
     .    '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
