@@ -1,14 +1,21 @@
 <?php // $Id$
-/******************************************************************************
+/**
  * CLAROLINE
  ******************************************************************************
  * Campus Home Page
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @package CLINDEX
- ******************************************************************************/
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ */
+
 
 unset($includePath); // prevent hacking
 
@@ -77,6 +84,22 @@ if( claro_is_platform_admin() )
     .    '</p>' . "\n";
 }
 
+if(claro_is_user_authenticated())
+{
+    if ( file_exists('./platform/textzone/textzone_top.authenticated.inc.html') )
+    {
+        include './platform/textzone/textzone_top.authenticated.inc.html';
+    }
+
+}
+else
+{
+    if ( file_exists('./platform/textzone/textzone_top.anonymous.inc.html') )
+    {
+        include './platform/textzone/textzone_top.anonymous.inc.html';
+    }
+
+}
 // Dock - Campus homepage - Top
 
 $campusHomePageTop = new Dock('campusHomePageTop');
