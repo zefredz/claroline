@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,6 +32,8 @@ $controlMsg = array();
 
 //The name of the files
 $filenameList = array( get_path('rootSys') . 'textzone_top.inc.html',
+                       get_path('rootSys') . 'platform/textzone/' . 'textzone_top.anonymous.inc.html',
+                       get_path('rootSys') . 'platform/textzone/' . 'textzone_top.authenticated.inc.html',
                        get_path('rootSys') . 'textzone_right.inc.html',
                        get_path('clarolineRepositorySys') . '/auth/textzone_inscription.inc.html',
                        get_path('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
