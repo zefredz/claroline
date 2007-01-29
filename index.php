@@ -91,6 +91,15 @@ if(claro_is_user_authenticated())
         include './platform/textzone/textzone_top.authenticated.inc.html';
     }
 
+    if( claro_is_platform_admin() )
+    {
+        echo '<p>'
+        .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=2">'
+        .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
+        .    '</a>'
+        .    '</p>' . "\n";
+    }
+
 }
 else
 {
