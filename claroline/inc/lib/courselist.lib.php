@@ -229,13 +229,22 @@ function get_user_course_list($userId, $renew = false)
 
 function get_locked_course_explanation($course_id=null)
 {
-    return claro_text_zone::get_content('course_subscription_locked', array('course'=>$course_id));
+    $explanation = claro_text_zone::get_content('course_subscription_locked', array(CLARO_CONTEXT_COURSE => $course_id));
+    return  (empty($explanation)) ? claro_text_zone::get_content('course_subscription_locked'):$explanation;
 }
 
 
+/**
+ * return the editable textzone for a course where subscript are locked
+ *
+ * @param string $course_id
+ * @return string : html content
+ */
+
 function get_locked_course_by_key_explanation($course_id=null)
 {
-    return claro_text_zone::get_content('course_subscription_locked_by_key', array('course'=>$course_id));
+    $explanation = claro_text_zone::get_content('course_subscription_locked_by_key', array(CLARO_CONTEXT_COURSE => $course_id));
+    return  (empty($explanation)) ? claro_text_zone::get_content('course_subscription_locked_by_key'):$explanation;
 }
 
 
