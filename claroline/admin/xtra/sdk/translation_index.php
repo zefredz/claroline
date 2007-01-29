@@ -15,7 +15,6 @@ $cidReset=true;
 $gidReset=true;
 
 require '../../../inc/claro_init_global.inc.php';
-include get_path('incRepositorySys').'/lib/debug.lib.inc.php';
 include 'lang/language.conf.php';
 
 $nameTools = get_lang('Translation Tools');

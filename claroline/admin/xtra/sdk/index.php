@@ -15,7 +15,6 @@ $cidReset=true;
 $gidReset=true;
 
 require '../../../inc/claro_init_global.inc.php';
-include(get_path('incRepositorySys')."/lib/debug.lib.inc.php");
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
 $nameTools = get_lang('SDK');

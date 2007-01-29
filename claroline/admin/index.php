@@ -65,8 +65,6 @@ $menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
 
 $nameTools = get_lang('Administration');
 
-include_once get_path('incRepositorySys') . '/lib/debug.lib.inc.php';
-
 //  no sense because not allowed with claro_is_platform_admin()
 // but  claro_is_platform_admin() would be later replaced by get_user_property ('can view admin menu')
 $is_allowedToAdmin     = claro_is_platform_admin();

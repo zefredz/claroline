@@ -31,7 +31,6 @@ require '../inc/claro_init_global.inc.php';
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-include_once get_path('incRepositorySys') . '/lib/debug.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php';
 

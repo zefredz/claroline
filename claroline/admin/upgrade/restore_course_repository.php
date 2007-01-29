@@ -24,7 +24,6 @@
 // Include library file
 
 require '../../inc/claro_init_global.inc.php';
-include_once(get_path('incRepositorySys') . '/lib/debug.lib.inc.php');
 include_once(get_path('incRepositorySys') . '/lib/admin.lib.inc.php');
 
 $nameTools = get_lang('Restore course repository');
