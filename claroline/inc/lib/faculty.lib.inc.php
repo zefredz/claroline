@@ -37,16 +37,14 @@ function claro_disp_tree($elem,$father,$space)
     {
         $space.="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         $num=0;
+
         foreach($elem as $one_faculty)
         {
-
             if(!strcmp($one_faculty['code_P'],$father))
             {
                 $num++;
 
                 echo '<tr><td>';
-
-                    $date = claro_date('mjHis');
 
                     echo $space;
 
@@ -54,10 +52,7 @@ function claro_disp_tree($elem,$father,$space)
                     {
 
                         echo '<a href="' . $_SERVER['PHP_SELF']
-                        .    '?id=' . $one_faculty['id']
-                        .    '&amp;date=' . $date
-                        .    '#pm' . $one_faculty['id'] .'" '
-                        .    'name="pm' . $one_faculty['id'] . '"> '
+                        .    '?id=' . $one_faculty['id'] . '"> '
                         .    ( $one_faculty['visible']
                              ?    '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" alt="-" >'
                              :    '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" alt="+" >'
@@ -85,27 +80,23 @@ function claro_disp_tree($elem,$father,$space)
                     .    '<td  align="center">'
                     .    '<a href="./admincourses.php?category=' . $one_faculty['code'] . '">'
                     .    get_node_children_count_course( $one_faculty['code'] )
-                    .    '</a>'
-//                    .    ' / '
-//                    .    get_node_descendance_count_course( $one_faculty['code'] )
-                    ;
-                    ?>
-                    </td>
-                    <td  align="center">
-                        <a href="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id']; ?>&amp;cmd=rqEdit" >
-                        <img src="<?php echo get_path('imgRepositoryWeb') ?>edit.gif" border="0" alt="<?php echo get_lang('Edit') ?>" > </a>
-                    </td>
-                    <td align="center">
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=rqMove"; ?>" >
-                        <img src="<?php echo get_path('imgRepositoryWeb') ?>move.gif" border="0" alt="<?php echo get_lang('Move') ?>" > </a>
-                    </td>
-                    <td align="center">
-                        <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDelete"; ?>"
-                        onclick="javascript:if(!confirm('<?php echo
-                         clean_str_for_javascript(get_lang('Do you really want to delete the category ').' '.$one_faculty['code']." ?") ?>')) return false;" >
-                        <img src="<?php echo get_path('imgRepositoryWeb') ?>delete.gif" border="0" alt="<?php echo get_lang('Delete') ?>"> </a>
-                    </td>
-                    <?php
+                    .    '</a>' ;
+                    
+                    echo '</td>'
+                        . '<td  align="center">'
+                        . '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=rqEdit" >'
+                        . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" /></a>'
+                        . '</td>'
+                    . '<td align="center">'
+                    . '<a href="' . $_SERVER['PHP_SELF'] . '"?id='.$one_faculty['id'].'&amp;cmd=rqMove" >'
+                    . '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" alt="' . get_lang('Move') . '" ></a>'
+                    . '</td>'
+                    . '<td align="center">'
+                    . '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exDelete"'
+                    . 'onclick="javascript:if(!confirm(\''
+                    . clean_str_for_javascript(get_lang('Do you really want to delete the category ').' '.$one_faculty['code'].' ?') . '\')) return false" >'
+                    . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '"> </a>'
+                    . '</td>';
 
                     //Search nbChild of the father
                     $nbChild=0;
@@ -118,45 +109,36 @@ function claro_disp_tree($elem,$father,$space)
                     //If the number of child is >0, display the arrow up and down
                     if($nb > 1)
                     {
-                        ?>
-                        <td align="center">
-                        <?php
+                        echo '<td align="center">' . "\n";
+
                         //If isn't the first child, you can up
                         if ($num>1)
                         {
-                        ?>
-                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exUp&amp;date=".$date."#ud".$one_faculty['id'];
-                            ?>" name ="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo get_path('imgRepositoryWeb') ?>up.gif" border="0" alt="<?php echo get_lang('Up') ?>"></a>
-                        <?php
+                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exUp">'
+                            . '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" border="0" alt="' . get_lang('Up') .'"></a>';
                         }
                         else
                         {
                             echo '&nbsp;';
                         }
-                        ?>
-                         </td>
-                         <td align="center">
-                        <?php
+                        
+                        echo '</td>' . "\n" ;
+                        
+                        echo '<td align="center">' . "\n" ;
 
-                        //If isn't the last child, you can down
+                        // If isn't the last child, you can down
                         if ($num<$nbChild)
                         {
-                        ?>
-                            <a href="<?php echo $_SERVER['PHP_SELF']."?id=".$one_faculty['id']."&amp;cmd=exDown&amp;date=".$date."#ud".$one_faculty['id'];
-                            ?>" name="<?php echo "ud".$one_faculty['id']; ?>">
-                            <img src="<?php echo get_path('imgRepositoryWeb') ?>down.gif" border="0" alt="<?php echo get_lang('Move down') ?>" > </a>
-                    <?php
+                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=exDown">'
+                            . '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" border="0" alt="' . get_lang('Move down') . '" > </a>';
                         }
                         else
                         {
                             echo '&nbsp;';
                         }
-                        ?>
-                        </td>
+                        
+                        echo '</td>' . "\n" ;
 
-
-                        <?php
                     }
                     else
                     {
@@ -165,13 +147,14 @@ function claro_disp_tree($elem,$father,$space)
                         ;
                     }
 
-?>
-                    </tr>
-<?php
+                    echo '</tr>' . "\n";
 
-//display the bom of this category
-if($one_faculty['visible'])
-claro_disp_tree($elem, $one_faculty['code'], $space);
+                    //display the bom of this category
+
+                    if($one_faculty['visible'])
+                    {
+                        claro_disp_tree($elem, $one_faculty['code'], $space);
+                    }
             }
         }
     }
