@@ -13,10 +13,11 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
+define('DISP_REGISTRATION_SUCCEED','DISP_REGISTRATION_SUCCEED');
+define('DISP_REGISTRATION_FORM','DISP_REGISTRATION_FORM');
 $cidReset = TRUE;
 $gidReset = TRUE;
 $tidReset = TRUE;
-
 require '../inc/claro_init_global.inc.php';
 
 // Security Check
@@ -33,6 +34,7 @@ require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 $nameTools = get_lang('Create a new user');
 $error = false;
 $messageList = array();
+$display = DISP_REGISTRATION_FORM;
 
 /*=====================================================================
   Main Section
@@ -51,15 +53,17 @@ if ( $cmd == 'registration' )
     if ( isset($_REQUEST['lastname']) )      $user_data['lastname']      = strip_tags(trim($_REQUEST['lastname'])) ;
     if ( isset($_REQUEST['firstname']) )     $user_data['firstname']     = strip_tags(trim($_REQUEST['firstname'])) ;
     if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
-    if ( isset($_REQUEST['username']) )      $user_data['username']      = strip_tags(trim($_REQUEST['username']));
-    if ( isset($_REQUEST['password']) )      $user_data['password']      = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
+    //if ( isset($_REQUEST['username']) )      $user_data['username']      = strip_tags(trim($_REQUEST['username']));
+    //if ( isset($_REQUEST['password']) )      $user_data['password']      = trim($_REQUEST['password']);
+    //if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
     if ( isset($_REQUEST['email']) )         $user_data['email']         = strip_tags(trim($_REQUEST['email'])) ;
     if ( isset($_REQUEST['language']) )      $user_data['language']   = trim($_REQUEST['language']);
     if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['isCourseCreator']) ) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
 
     $user_data['language'] = null;
+    $user_data['username'] = str_replace(' ', '', $user_data['lastname'].$user_data['firstname']);
+    $user_data['password_conf'] = $user_data['password'] = generate_passwd();
 
     // validate forum params
 
@@ -69,9 +73,34 @@ if ( $cmd == 'registration' )
     {
         // register the new user in the claroline platform
         $inserted_uid = user_create($user_data);
+        if (false===$inserted_uid)
+        {
+            $messageList['error'][] = claro_failure::get_last_failure();
+        }
+        else
+        {
+            $msgList['success'][] = get_lang('The new user has been sucessfully created');
+            $newUserMenu[]= claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings'
+                                               , get_lang('Register this user to a course'));
+            $newUserMenu[]= claro_html_cmd_link( 'adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category='
+                                               , get_lang('User settings'));
+            $newUserMenu[]= claro_html_cmd_link( 'adminaddnewuser.php'
+                                               , get_lang('Create another new user'));
+            $newUserMenu[]= claro_html_cmd_link( 'index.php'
+                                               , get_lang('Back to administration page'));
 
-        // send a mail to the user
-        user_send_registration_mail($inserted_uid,$user_data);
+            $display = DISP_REGISTRATION_SUCCEED;
+            // send a mail to the user
+            if (false !== user_send_registration_mail($inserted_uid,$user_data))
+            {
+                $messageList['success'][] = get_lang('A mail has sent to user');
+            }
+            else
+            {
+                $messageList['error'][] = get_lang('no mail sent to user');
+            };
+
+        }
     }
     else
     {
@@ -93,35 +122,18 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display title
 
-echo claro_html_tool_title( array('mainTitle'=>$nameTools ) );
+echo claro_html_tool_title( array('mainTitle'=>$nameTools ) )
+.    claro_html_msg_list($messageList)
+;
 
-if ( 'registration' == $cmd && $error == false )
+if ( $display == DISP_REGISTRATION_SUCCEED )
 {
-    echo '<p>' . get_lang('The new user has been sucessfully created') . '</p>'
-    .    '<ul>'
-    .    '<li>'
-    .    claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings'
-                            , get_lang('Register this user to a course'))
-    .    '</li>'
-    .    '<li>'
-    .    '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category="> '
-    .    get_lang('User settings')
-    .    '</a>'
-    .    '</li>'
-    .    '<li>'
-    .    '<a class="claroCmd" href="adminaddnewuser.php"> ' . get_lang('Create another new user') . ' </a>'
-    .    '</li>'
-    .    '<li>'
-    .    '<a class="claroCmd" href="index.php"> ' . get_lang('Back to administration page') . ' </a>'
-    .    '</li>'
-    .    '</ul>'
-    ;
+    echo claro_html_menu_vertical($newUserMenu);
 }
-else
+else // $display == DISP_REGISTRATION_FORM;
+
 {
     //  if registration failed display error message
-
-    if ( count($messageList) > 0 ) echo claro_html_message_box( implode('<br />', $messageList) );
 
     echo get_lang('New users will receive an e-mail with their user name and password')
     .    user_html_form_admin_add_new_user($user_data)
