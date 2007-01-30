@@ -11,7 +11,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() && ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
