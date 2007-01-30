@@ -34,7 +34,7 @@ include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
-if(! claro_is_in_a_course()) //stats for the current course
+if( claro_is_in_a_course()) //stats for the current course
 {
     // to see stats of one course user must be courseAdmin of this course
     $is_allowedToTrack = claro_is_course_manager();
