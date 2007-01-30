@@ -1,22 +1,22 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-/*
-  DESCRIPTION
-  -------------------
-  This file display the detailled informations about the use of tool in a course
-  Nothing is displayed if cid is not set and if user is not the courseAdmin
-
-*/
+/**
+ * CLAROLINE
+ *
+ * This file display the detailled informations
+ * about the use of tool in a course
+ * Nothing is displayed if cid is not set and if user is not the courseAdmin
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author see 'credits' file
+ *
+ * @package CLTRACK
+ *
+ */
 
 require '../inc/claro_init_global.inc.php';
 
