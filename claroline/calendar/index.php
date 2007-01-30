@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
  * select the good agenda waiting that two scripts are merged.
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLCAL
  *
@@ -19,7 +19,7 @@ $tlabelReq = 'CLANN';
 
 require '../inc/claro_init_global.inc.php';
 
-if (! claro_is_in_a_course() )
+if ( claro_is_in_a_course() )
 {
     claro_redirect('./agenda.php');
 }
