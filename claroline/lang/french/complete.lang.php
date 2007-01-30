@@ -1377,7 +1377,7 @@ $_lang['This is the main page of the Wiki %wikiTitle. Click on \'\'\'Edit\'\'\' 
 $_lang['This is where tracking and statistics data are stored. This database can be the same as the main database.'] = 'C\'est la base de données où les données de suivi et de statistiques sont sauvées. Celle-ci peut-être la même que la base de données principales.';
 $_lang['This is your account Login-Pass'] = 'Voici vos paramètres de connexion';
 $_lang['This mail appears already in a previous line of the CSV file.'] = 'Cette adresse de courrier électronique apparait déjà dans une ligne précédente du fichier CSV.';
-$_lang['This module cannot be deactivated'] = 'Ce module ne peut pas être désactiver';
+$_lang['This module cannot be deactivated'] = 'Ce module ne peut pas être désactivé';
 $_lang['This official code already appears in a previous line of the CSV file.'] = 'Ce matricule apparait déjà dans une ligne précédente du fichier CSV.';
 $_lang['This official code is already used by another user.'] = 'Ce matricule est déjà utilisé par un autre utilisateur.';
 $_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Cette option ajoute un lien dans le formulaire "Mon compte utilisateur" pour demander un statut "Créateur de cours". Cette requête est envoyée par email à l\'administrateur de la plate-forme.';
