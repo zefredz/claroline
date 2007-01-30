@@ -104,7 +104,7 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
             $message .= '<small>' . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters') . '</small>' . "\n" ;
 
             echo claro_html_message_box($message);
-            
+
         }
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
@@ -153,14 +153,12 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
      * and no course are set.
      */
 
-    $mainTbl                = claro_sql_get_main_tbl();
-    $tbl_courses            = $mainTbl['course'         ];
-    $tbl_rel_user_courses   = $mainTbl['rel_course_user'];
+    $tbl                = claro_sql_get_main_tbl();
 
-    $sql = "SELECT c.code                                  `value`,
-                   CONCAT(c.intitule,' (',c.fake_code,')') `name`
-            FROM `" . $tbl_courses."`          c ,
-                 `" . $tbl_rel_user_courses . "` cu
+    $sql = "SELECT c.code                                  AS `value`,
+                   CONCAT(c.intitule,' (',c.fake_code,')') AS `name`
+            FROM `" . $tbl['course'] . "`          AS c ,
+                 `" . $tbl['rel_course_user'] . "` AS cu
             WHERE c.code= cu.code_cours
               AND cu.user_id = '" . (int) claro_get_current_user_id() . "'" ;
 
