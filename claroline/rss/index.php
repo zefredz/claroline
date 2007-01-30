@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -31,6 +31,7 @@ if ( ! get_conf('enableRssInCourse') )
     exit;
 }
 
+// need to be in a course
 if( ! claro_is_in_a_course() )
 {
     echo '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>';
