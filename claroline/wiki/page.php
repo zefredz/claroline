@@ -24,7 +24,7 @@
     require_once '../inc/claro_init_global.inc.php';
     if ( ! claro_is_tool_allowed() )
     {
-        if ( claro_is_in_a_course() )
+        if ( ! claro_is_in_a_course() )
         {
             claro_die(get_lang("Not allowed"));
         }
