@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -130,7 +130,7 @@ function echo_session_value()
 }
 
 /**
- * Return an  info from systesm   if  function is not dislabed
+ * Return an  info from system if  function is not dislabed
  *
  * @param string $info
  * @param array $paramList
