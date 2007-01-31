@@ -141,7 +141,7 @@ class EventManager
                     . $event->getEventType()
                     . "]}"
                     ;
-                trigger_error( $errmsg, E_USER_WARNING );
+                pushClaroMessage( $errmsg, 'debug' );
             }
         }
     }
