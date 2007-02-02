@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * User lib contains function to manage users on the platform
  * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package CLUSR
  * @author Claro Team <cvs@claroline.net>
@@ -344,7 +344,6 @@ function claro_get_uid_of_system_notification_recipient()
             INNER JOIN `" . $tbl['user_property'] . "` AS up
             ON up.userId = u.user_id
             WHERE up.propertyId = 'adminContactForSystemNotification'
-              #AND u.isPlatformAdmin = 1
               AND up.propertyValue = 1
               AND up.scope = 'contacts'
               ";
@@ -1273,21 +1272,21 @@ function get_user_property_list($userId, $force = false, $getUndefinedProperties
         $tbl = claro_sql_get_tbl(array('user_property','property_definition'));
         if ($getUndefinedProperties)
         {
-        $sql = "SELECT propertyId,
+            $sql = "SELECT
+                       propertyId,
                    propertyValue,
                    scope
             FROM  `" . $tbl['user_property'] . "`
             WHERE userId = " . (int) $userId . "
             ORDER BY propertyId";
-
         }
         else
         {
         $sql = "SELECT up.propertyId,
                    up.propertyValue,
                    up.scope
-            FROM  `" . $tbl['user_property'] . "` up
-            INNER JOIN `" . $tbl['property_definition'] . "` pd
+            FROM  `" . $tbl['user_property'] . "` AS up
+            INNER JOIN `" . $tbl['property_definition'] . "` AS pd
             ON up.propertyId = pd.propertyId
             WHERE up.userId = " . (int) $userId . "
             ORDER BY pd.rank, up.propertyId";
@@ -1302,7 +1301,7 @@ function get_user_property_list($userId, $force = false, $getUndefinedProperties
 }
 
 /**
- * return a property of a user.
+ * Return a property of a user.
  *
  * @param interger $userId
  * @param string $propertyId
