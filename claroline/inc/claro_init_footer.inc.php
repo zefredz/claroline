@@ -88,23 +88,16 @@ echo $footerCenterDock->render();
 
 echo '</div>';
 
-if (CLARO_DEBUG_MODE)
+if (get_conf('CLARO_DEBUG_MODE',true))
 {
-    $claroMsgList = getClaroMessageList();
-
-    if ( count($claroMsgList) > 0)
-    {
-        echo claro_html_tool_title('Debug info');
-        $dbgContent = claro_html_msg_list($claroMsgList);
-
-        require_once dirname( __FILE__ ) . '/lib/backlog.class.php';
-        // report title empty : this is not an error !!!!
-        echo Backlog_Reporter::report( '', $dbgContent, get_lang('expand'), true );
-    }
+    echo  '<div id="debugFooter" class="debugBar">' . "\n"
+    .     get_lang('Debug') .  "\n"
+    .     claro_disp_debug_banner() .  "\n"
+    .     '</div>' . "\n"
+    .     '<!-- end of debugFooter -->' . "\n\n"
+    ;
 }
 
-echo '</body>'
-.    '</html>'
-;
+
 
 ?>

@@ -1458,5 +1458,32 @@ function claro_url_relay_context($prepend='',$context=null)
     else                    return '';
 }
 
+function claro_disp_debug_banner()
+{
+    require_once dirname( __FILE__ ) . '/backlog.class.php';
+
+    $html = '';
+    $claroMsgList = getClaroMessageList();
+
+    if ( is_array($claroMsgList) && count($claroMsgList) > 0)
+    {
+        $claroMsgCount = 0;
+
+        $html .= get_lang('Messages') . ' : ';
+
+        foreach ($claroMsgList as $bloc=>$msgList )
+        {
+            $html .= Backlog_Reporter::report( $bloc . ' :' . count($msgList),
+                                               claro_html_msg_list($msgList),
+                                               '+',
+                                               true );
+            $claroMsgCount += count($msgList);
+            $html .= ' | ';
+        }
+        $html .= get_lang('%nb message(s)',array('%nb'=> $claroMsgCount));
+    }
+
+    return $html;
+}
 
 ?>

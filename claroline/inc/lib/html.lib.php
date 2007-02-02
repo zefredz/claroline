@@ -810,6 +810,7 @@ class claro_datagrid
             if ($this->dispIdCol) $stream .= '<th width="10"></th>' . "\n";
 
             $i=0;
+            if(is_array($this->colTitleList))
             foreach ($this->colTitleList as $colTitle)
             {
                 $stream .= '<th scope="col" id="c' . $i++ . '" >' . $colTitle . '</th>' . "\n";

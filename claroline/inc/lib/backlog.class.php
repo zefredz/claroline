@@ -147,7 +147,7 @@
 
             if ( empty( $details ) )
             {
-                $display = '<p class="backlogSummary">'.$summary.'</p>';
+                $display = '<span class="backlogSummary">'.$summary.'</span>';
             }
             else
             {
@@ -170,9 +170,9 @@ function toggleDetails( id )
 }
 </script>
 <a name="lnk_$id"></a>
-<p class="backlogSummary">$summary
+<span class="backlogSummary">$summary
 [<a href="$linkName" onclick="toggleDetails('$id');return false;">$labeldetails</a>]
-</p>
+</span>
 <div id="$id" style="display: none;" class="backlogDetails">
 $details
 </div>
