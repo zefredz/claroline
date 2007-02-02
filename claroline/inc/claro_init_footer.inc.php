@@ -88,7 +88,7 @@ echo $footerCenterDock->render();
 
 echo '</div>';
 
-if (get_conf('CLARO_DEBUG_MODE',true))
+if (get_conf('CLARO_DEBUG_MODE',false))
 {
     echo  '<div id="debugFooter" class="debugBar">' . "\n"
     .     get_lang('Debug') .  "\n"
