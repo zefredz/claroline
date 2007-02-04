@@ -37,7 +37,8 @@ if (! isset($clarolineVersion) )  $clarolineVersion= 'X';
 $nameTools = get_lang('PHP system information');
 $interbredcrump[]= array ('url' => '..', 'name' => get_lang('Admin'));
 $interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Technical Tools'));
-if (isset($_REQUEST['to']))
+
+if (array_key_exists( 'to', $_REQUEST))
 {
     $interbredcrump[]= array ('url' => basename($_SERVER['PHP_SELF']), 'name' => get_lang('PHP system information'));
     $nameTools = $_REQUEST['to'];
@@ -57,11 +58,14 @@ if ($is_allowedToAdmin)
 ?>
 <img src="http://www.claroline.net/image/logo.gif"  alt="claroline" border="0" align="right">
 <?php
-if (isset($_REQUEST)) while( (list($name, $value) = each($_REQUEST)))  $$name = $value;
-if (!isset($cmd)) $cmd = '';
-if (!isset($ext)) $ext = '';
-if (!isset($ext)) $do = '';
-if (!isset($ext)) $directory = '';
+$cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : '';
+$ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';
+
+if ( ! array_key_exists( 'ext', $_REQUEST ) )
+{
+    $do = '';
+    $directory = '';
+}
 
 
 function localtest()
