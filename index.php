@@ -16,7 +16,6 @@
  *
  */
 
-
 unset($includePath); // prevent hacking
 
 // Flag forcing the 'current course' reset, as we're not anymore inside a course
@@ -54,7 +53,9 @@ require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 <td valign="top">
 
 <?php
+require_once get_path('incRepositorySys') . '/lib/user.lib.php'; // conf file
 
+echo '<div>'.__LINE__.': generate_passwd() = <pre>'. var_export(generate_passwd(25),1).'</PRE></div>';
 // INTRODUCTION MESSAGE
 if ( file_exists('./textzone_top.inc.html') )
 {

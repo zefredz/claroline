@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @author: claro team <cvs@claroline.net>
  *
@@ -16,6 +16,10 @@ $localLangName = "français";
 
 $iso639_1_code = "fr";
 $iso639_2_code = "fre";
+
+$_locale['dictionary'] = "fr-FR";
+$dictionary = "fr-FR";
+
 
 $langNameOfLang['arabic']        = "arabe";
 $langNameOfLang['brazilian']     = "brésilien";
