@@ -46,16 +46,11 @@ if (isset($_REQUEST['logout']))
 // CLAROLINE HEADER AND BANNER
 require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
-?>
+echo '<table width="100%" border="0" cellpadding="4">' . "\n"
+.    '<tr>' . "\n"
+.    '<td valign="top">' . "\n"
+;
 
-<table width="100%" border="0" cellpadding="4">
-<tr>
-<td valign="top">
-
-<?php
-require_once get_path('incRepositorySys') . '/lib/user.lib.php'; // conf file
-
-echo '<div>'.__LINE__.': generate_passwd() = <pre>'. var_export(generate_passwd(25),1).'</PRE></div>';
 // INTRODUCTION MESSAGE
 if ( file_exists('./textzone_top.inc.html') )
 {
@@ -66,7 +61,8 @@ else
     echo '<div style="text-align: center">'
     .    '<img src="./claroline/img/logo.gif" border="0" alt="Claroline logo" />' . "\n"
     .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
-    .    '</div>';
+    .    '</div>'
+    ;
 
     if(claro_is_platform_admin())
     {
@@ -80,9 +76,11 @@ if( claro_is_platform_admin() )
 {
     echo '<p>'
     .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=0">'
-    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
+    .    '<img src="claroline/img/edit.gif" alt="" />'
+    .    get_lang('Edit text zone')
     .    '</a>'
-    .    '</p>' . "\n";
+    .    '</p>' . "\n"
+    ;
 }
 
 if(claro_is_user_authenticated())
@@ -90,7 +88,7 @@ if(claro_is_user_authenticated())
     if ( file_exists('./platform/textzone/textzone_top.authenticated.inc.html') )
     {
         include './platform/textzone/textzone_top.authenticated.inc.html';
-    
+
         if( claro_is_platform_admin() )
         {
             echo '<p>'
