@@ -95,6 +95,7 @@ if ( $cmd == 'registration' )
             else
             {
                 $messageList['error'][] = get_lang('no mail sent to user');
+                // TODO  display in a popup "To Print" with  content to give to user.
             };
 
         }
