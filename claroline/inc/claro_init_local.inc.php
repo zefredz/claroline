@@ -501,7 +501,7 @@ if ( $uidReset && !empty($_uid) ) // session data refresh requested && uid is gi
     }
     else
     {
-        exit('WARNING UNDEFINED UID !! ');
+        exit('WARNING UNDEFINED UID !! The requested user doesn\'t exist ');
     }
 }
 elseif ( !empty($_uid) ) // elseif of if($uidReset) continue with the previous values
@@ -543,13 +543,13 @@ if ( $cidReset ) // course session data refresh requested
     {
         $_course = claro_get_course_data($cidReq, true);
 
-        if ($_course == false) die('WARNING !! INIT FAILED ! '.__LINE__);
+        if ($_course == false) die('WARNING !! claro_get_course_data() in INIT FAILED ! '.__LINE__);
 
         $_cid    = $_course['sysCode'];
 
         $_groupProperties = claro_get_main_group_properties($_cid);
 
-        if ($_groupProperties == false) die('WARNING !! INIT FAILED ! '.__LINE__);
+        if ($_groupProperties == false) die('WARNING !! claro_get_main_group_properties() in INIT FAILED !  '.__LINE__);
     }
     else
     {
@@ -593,7 +593,7 @@ if ( $uidReset || $cidReset ) // session data refresh requested
                 WHERE `user_id`  = '". (int) $_uid."'
                 AND `code_cours` = '". addslashes($cidReq) ."'";
 
-        $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+        $result = claro_sql_query($sql) or die ('WARNING !! Load profile (DB QUERY) FAILED ! '.__LINE__);
 
         if ( mysql_num_rows($result) > 0 ) // this  user have a recorded state for this course
         {
@@ -698,7 +698,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
         }
         else // this tool has no status related to this course
         {
-            exit('WARNING UNDEFINED TLABEL OR TID !!');
+            exit('WARNING UNDEFINED TLABEL OR TID !! Your script declare be a tool wich is not registred');
         }
     }
     else // keys missing => not anymore in the course - tool relation
@@ -759,7 +759,7 @@ if ( $gidReset || $cidReset ) // session data refresh requested
         }
         else
         {
-            exit('WARNING UNDEFINED GID !! ');
+            exit('WARNING UNDEFINED GID !! The requested group doesn\'t exist');
         }
     }
     else  // Keys missing => not anymore in the group - course relation
@@ -791,7 +791,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
                 WHERE `user` = '". (int) $_uid . "'
                 AND `team`   = '". (int) $gidReq . "'";
 
-        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+        $result = claro_sql_query($sql)  or die ('WARNING !! Load user course_group status (DB QUERY) FAILED ! '.__LINE__);
 
         if (mysql_num_rows($result) > 0) // This user has a recorded status related to this course group
         {
