@@ -555,54 +555,13 @@ function profile_send_request_revoquation($explanation,$login,$password)
 }
 
 
-function get_rand_word_from_dict($dicoFile)
-{
-    $lineCounter = 0;
-    if (file_exists($dicoFile) && is_file($dicoFile)  && is_readable($dicoFile))
-    {
-        $fhDico = fopen( $dicoFile ,'r');
-        $nbline = (int) fread($fhDico,10);
-        pushClaroMessage(get_lang('generate password from dict counting %wordcout words',array('%wordcout'=>$nbline)),'info');
-        $lineNum = rand(10,(int) $nbline);
-        while ($line = fscanf($fhDico, "%s\n"))
-        {
-            if ($lineCounter++ > $lineNum)
-            {
-                $line = explode('/',$line[0]);
-                return strtolower(strtoupper(str_replace(' ','',strtr($line[0],'\'\\"-','    '))));
-            }
-        }
-        fclose($fhDico);
-    }
-    return false;
-}
-
-
-/**
- * Generates password
- * @author Damien Seguy
- * @return string : the new password
- */
-function generate_passwd($nb=12)
-{
-
-    $dicoFile = get_path('rootSys') . get_conf('langRepository','lang/') . get_locale('iso639_1_code') . '/' . get_locale('dictionary') . '.dic';
-    if (false === ($word = get_rand_word_from_dict($dicoFile))) return generate_passwd_by_rand_char($nb);
-
-    $word .= '.' . get_rand_word_from_dict($dicoFile);
-
-    return substr(trim($word,'.'),0,$nb);
-
-}
-
-
-
 /**
  * Generates randomly password
  * @author Damien Seguy
  * @return string : the new password
  */
-function generate_passwd_by_rand_char($nb=8)
+
+function generate_passwd($nb=8)
 {
 
     $lettre = array();
@@ -1385,26 +1344,17 @@ function set_user_property($userId,$propertyId,$propertyValue, $scope='')
  */
 function get_userInfoExtraDefinitionList()
 {
-    static $extraInfoDefList = null;
-
-    if(is_null($extraInfoDefList ))
-    {
     $tbl = claro_sql_get_tbl('property_definition');
     $sql =  "SELECT propertyId, label, type, defaultValue, required
              FROM `" . $tbl['property_definition'] . "`
              WHERE contextScope = 'USER'
              ORDER BY rank
              ";
-
-        if (false !== $result = claro_sql_query_fetch_all_rows($sql))
-        {
+    $result = claro_sql_query_fetch_all_rows($sql);
     $extraInfoDefList = array();
     foreach ($result as $userPropertyDefinition)
-            {
     $extraInfoDefList[$userPropertyDefinition['propertyId']] = $userPropertyDefinition;
-            }
-        }
-    }
+
     return $extraInfoDefList;
 }
 
