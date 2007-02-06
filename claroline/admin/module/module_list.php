@@ -224,7 +224,7 @@ switch ( $cmd )
             else
             {
                 $summary = get_lang('Module upload failed');
-                $details = get_lang('Missing or wrong name (developer was drunk)');
+                $details = 'Missing or wrong name (developer was drunk)';
                 claro_die( Backlog_Reporter::report( $summary, $details ) );
             }
 
