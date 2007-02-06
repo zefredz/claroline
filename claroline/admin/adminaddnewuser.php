@@ -90,11 +90,11 @@ if ( $cmd == 'registration' )
             // send a mail to the user
             if (false !== user_send_registration_mail($inserted_uid,$user_data))
             {
-                $messageList['success'][] = get_lang('A mail has sent to user');
+                $messageList['success'][] = get_lang('Mail sent to user');
             }
             else
             {
-                $messageList['error'][] = get_lang('no mail sent to user');
+                $messageList['error'][] = get_lang('No mail sent to user');
                 // TODO  display in a popup "To Print" with  content to give to user.
             };
 
