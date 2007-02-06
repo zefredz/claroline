@@ -17,10 +17,6 @@ $localLangName = "français";
 $iso639_1_code = "fr";
 $iso639_2_code = "fre";
 
-$_locale['dictionary'] = "fr-FR";
-$dictionary = "fr-FR";
-
-
 $langNameOfLang['arabic']        = "arabe";
 $langNameOfLang['brazilian']     = "brésilien";
 $langNameOfLang['bulgarian']     = "bulgare";
