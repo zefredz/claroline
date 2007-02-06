@@ -94,6 +94,11 @@ if ( !empty($class_id) )
             $_SESSION['admin_class_reg_user_order_crit'] = "U`.`user_id";
         }
     }
+    else
+    {
+       $_SESSION['admin_class_reg_user_order_crit'] = 'nom';
+       $_SESSION['admin_class_reg_user_dir'] = 'ASC';
+    }
 
     // first if direction must be changed
 

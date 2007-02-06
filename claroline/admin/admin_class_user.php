@@ -137,12 +137,14 @@ if ( !empty($class_id) )
         }
     }
 
-    if (isset($_SESSION['admin_user_class_order_crit']))
+    if ( ! isset($_SESSION['admin_user_class_order_crit']))
     {
-        $toAdd = " ORDER BY `".$_SESSION['admin_user_class_order_crit'] . "` " . $_SESSION['admin_user_class_dir'];
-        $sql.=$toAdd;
-
+        $_SESSION['admin_user_class_dir'] = 'ASC';
+        $_SESSION['admin_user_class_order_crit'] = 'nom'; 
     }
+
+    $toAdd = " ORDER BY `".$_SESSION['admin_user_class_order_crit'] . "` " . $_SESSION['admin_user_class_dir'];
+    $sql.=$toAdd;
 
     //Build pager with SQL request
     if (!isset($_REQUEST['offset'])) $offset = '0';
