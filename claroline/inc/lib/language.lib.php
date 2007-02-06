@@ -131,7 +131,6 @@ function get_locale($localeInfoName)
                                   'iso639_2_code',
                                   'langNameOfLang',
                                   'charset',
-                                  'dictionary',
                                   'text_dir',
                                   'left_font_family',
                                   'right_font_family',
@@ -149,12 +148,8 @@ function get_locale($localeInfoName)
     if(!in_array($localeInfoName, $initValueList )) trigger_error( htmlentities($localeInfoName) . ' is not a know locale value name ', E_USER_NOTICE);
                                  //TODO create a real auth function to eval this state
 
-                                 if     ( array_key_exists('_locale',$GLOBALS) && array_key_exists($localeInfoName,$GLOBALS['_locale']) )
-                                 {
-                                     return $GLOBALS['_locale'][$localeInfoName];
-                                 }
-                                 elseif ( array_key_exists($localeInfoName,$GLOBALS) )  return $GLOBALS[$localeInfoName];
-                                 elseif ( defined($localeInfoName)         )            return constant($localeInfoName);
+                                 if ( array_key_exists($localeInfoName,$GLOBALS) )  return $GLOBALS[$localeInfoName];
+                                 elseif ( defined($localeInfoName)         )        return constant($localeInfoName);
                                  return null;
 
 }
