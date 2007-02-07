@@ -187,7 +187,7 @@ else
             . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
             . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
 
-        echo '<table border="0">' . "\n"
+        echo '<table border="0" width="100%">' . "\n"
             . '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . get_lang('Message body') . '&nbsp;:</td>'
             . '<td>'

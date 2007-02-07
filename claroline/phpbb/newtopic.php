@@ -209,7 +209,7 @@ else
         .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
 
-        .    '<table border="0">' . "\n"
+        .    '<table border="0" width="100%">' . "\n"
         .    '<tr valign="top">' . "\n"
         .    '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
         .    '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'

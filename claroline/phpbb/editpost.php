@@ -217,7 +217,7 @@ else
 
         .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
         .    '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
-        .    '<table border="0">' . "\n"
+        .    '<table border="0" width="100%" >' . "\n"
         ;
 
         if ( $first_post )
