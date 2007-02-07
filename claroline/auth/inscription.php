@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -32,7 +32,7 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
-$agreementText  ='';
+$agreementText = claro_text_zone::get_content('textzone_inscription');
 if (file_exists('./textzone_inscription.inc.html'))
 {
     $agreementText = file_get_contents('./textzone_inscription.inc.html'); // Introduction message if needed
@@ -202,7 +202,7 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
 elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 {
 
-    $agreementText = claro_text_zone::get_content('textzone_inscription');
+
     if ( trim ($agreementText) != '')
     {
         echo '<div class="info">'
