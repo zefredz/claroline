@@ -248,6 +248,6 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
 {
     include $cacheRepositorySys . $module_cache_filename;
 }
-else trigger_error('module_cache not found',E_USER_WARNING);
+else pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
 
 ?>
