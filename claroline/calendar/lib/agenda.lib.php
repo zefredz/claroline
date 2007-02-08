@@ -33,7 +33,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function agenda_get_item_list($context, $order='DESC')
 {
-    //$tbl = claro_sql_get_tbl('calendar_event',$context);
+
+    /*
+    $c = claro_get_course_data($context[CLARO_CONTEXT_COURSE]);
+    $tbl = claro_sql_get_tbl('course_description',array(CLARO_CONTEXT_TOOLLABEL => 'CLANN'
+                                                       ,CLARO_CONTEXT_COURSE    => $c['sysCode']));
+                                                       */
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
 
     $sql = "SELECT           `id`,
