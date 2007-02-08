@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -30,10 +30,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function course_description_get_item_list($courseId=null)
 {
-    //$tbl = claro_sql_get_tbl('course_description',array('toolId'=>'CLDSC','courseId'=>$courseId));
+    /*
+    $c = claro_get_course_data($courseId);
+    $tbl = claro_sql_get_tbl('course_description',array(CLARO_CONTEXT_TOOLLABEL => 'CLDSC'
+                                                       ,CLARO_CONTEXT_COURSE    => $c['sysCode']));
+                                                       */
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
-
-
 
     $sql = "SELECT `id`, `title`, `content` , `visibility`
             FROM `" . $tbl['course_description'] . "`
