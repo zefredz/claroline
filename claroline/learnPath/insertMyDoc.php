@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -55,7 +55,6 @@ $TABLEASSET                = $tbl_lp_asset;
 $dbTable = $tbl_cdb_names['document'];
 
 // document browser vars
-// TODO ue claro_sql_get_course_tbl
 $TABLEDOCUMENT = claro_get_current_course_data('dbNameGlu') . 'document';
 
 $courseDir   = claro_get_course_path() . '/document';
