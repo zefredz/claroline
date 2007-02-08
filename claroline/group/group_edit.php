@@ -25,7 +25,7 @@ require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-$is_allowedToManage = claro_is_course_manager();
+$is_allowedToManage = claro_is_allowed_to_edit();
 
 if ( ! $is_allowedToManage )
 {

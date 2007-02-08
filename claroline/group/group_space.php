@@ -33,15 +33,18 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 // block if !claro_is_in_a_group()
 // accept  if claro_is_group_allowed()
 
-if ( ! claro_is_in_a_group() )
+if ( ! claro_is_allowed_to_edit() )
 {
-    claro_redirect('group.php');
-    exit();
-}
-elseif ( ! claro_is_group_allowed() && ! ( isset( $_REQUEST['selfReg'] ) || isset($_REQUEST['doReg']) ) )
-{
-    claro_redirect('group.php');
-    exit();
+    if ( ! claro_is_in_a_group() )
+    {
+        claro_redirect('group.php');
+        exit();
+    }
+    elseif ( ! claro_is_group_allowed() && ! ( isset( $_REQUEST['selfReg'] ) || isset($_REQUEST['doReg']) ) )
+    {
+        claro_redirect('group.php');
+        exit();
+    }
 }
 
 // use viewMode
