@@ -180,5 +180,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - December 4 2006
+            Europe, Belgium, Louvain-la-Neuve - February 9 2007
 ================================== END ===================================
