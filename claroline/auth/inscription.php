@@ -33,7 +33,7 @@ include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 $agreementText = claro_text_zone::get_content('textzone_inscription');
-if (file_exists('./textzone_inscription.inc.html'))
+if ( '' == $agreementText && file_exists('./textzone_inscription.inc.html'))
 {
     $agreementText = file_get_contents('./textzone_inscription.inc.html'); // Introduction message if needed
     if ( '' == trim(strip_tags($agreementText,'<img><embed><object>'))) $agreementText = '';
@@ -155,15 +155,14 @@ if ( get_conf('allowSelfReg',false) )
 }
 elseif (! get_conf('show_agreement_panel'))
 {
+    // This  section is not use actually.  
+    // it's only when selfReg =false so  It's need another textZoneContent
     $display = DISP_REGISTRATION_AGREEMENT;
 }
 else
 {
     $display = DISP_REGISTRATION_NOT_ALLOWED;
 }
-
-
-
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 Display Section
