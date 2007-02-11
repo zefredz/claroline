@@ -15,7 +15,7 @@
  * @author Claro Team <cvs@claroline.net>
  */
 
-$tlabelReq = 'CLANN';
+$tlabelReq = 'CLCAL';
 
 require '../inc/claro_init_global.inc.php';
 
