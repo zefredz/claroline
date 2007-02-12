@@ -20,6 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * * icalendar/class.iCal.inc.php
  *
  */
+require_once claro_get_conf_repository() . 'rss.conf.php';
 require_once claro_get_conf_repository() . 'ical.conf.php';
 require_once dirname(__FILE__) . '/icalendar/class.iCal.inc.php';
 
@@ -149,14 +150,14 @@ function ical_get_tool_compatible_list()
     if (is_null($iCalToolList))
     {
         $iCalToolList = array();
-        if(get_conf('icalUseCache',true))
+        if(get_conf('iCalUseCache',true))
         {
             include_once dirname(__FILE__) . '/pear/Lite.php';
 
             // Cache_lite setting & init
             $cache_options = array(
             'cacheDir' => get_path('rootSys') . 'tmp/cache/ical/sources/',
-            'lifeTime' => get_conf('cache_lifeTime', get_conf('iCalCacheLifeTime'), 600000), // 600.000 little less than a week
+            'lifeTime' => get_conf('iCalCacheLifeTime',get_conf('cache_lifeTime',3600*48)),
             'automaticCleaningFactor' => 500,
             );
             if (get_conf('CLARO_DEBUG_MODE',false) )

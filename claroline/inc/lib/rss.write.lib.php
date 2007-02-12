@@ -30,7 +30,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 define('RSS_FILE_EXT', 'xml');
-include claro_get_conf_repository() . 'rss.conf.php';
+
+include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
+include_once claro_get_conf_repository() . 'rss.conf.php';
 
 function build_rss($context)
 {
@@ -177,7 +179,7 @@ function rss_get_tool_compatible_list()
             // Cache_lite setting & init
             $cache_options = array(
             'cacheDir' => get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
-            'lifeTime' => get_conf('cache_lifeTime', get_conf('rssCacheLifeTime'), 600000), // 600.000 little less than a week
+            'lifeTime' => get_conf('rssCacheLifeTime', get_conf('cache_lifeTime', 3600*48)),
             'automaticCleaningFactor' => 500,
             );
             if (get_conf('CLARO_DEBUG_MODE',false) )
