@@ -66,12 +66,12 @@ if (claro_is_user_authenticated() && claro_is_in_a_course())
     $claro_notifier->addListener( 'update', "introsection_modified");
 }
 
-if (claro_is_user_authenticated() && claro_is_in_a_course())
+if (claro_is_user_authenticated() && claro_is_in_a_course() && claro_is_in_a_tool() )
 {
 
     //document tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLDOC")
+    if ( claro_get_current_course_tool_data('label') == "CLDOC")
     {
     $claro_notifier->addListener( 'update',       "document_visible");
     $claro_notifier->addListener( 'update',       "document_file_added");
