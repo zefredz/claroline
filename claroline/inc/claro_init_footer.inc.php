@@ -90,14 +90,7 @@ echo '</div>';
 
 if (get_conf('CLARO_DEBUG_MODE',false))
 {
-    echo  '<div id="debugFooter" class="debugBar">' . "\n"
-    .     get_lang('Debug') .  "\n"
-    .     claro_disp_debug_banner() .  "\n"
-    .     '</div>' . "\n"
-    .     '<!-- end of debugFooter -->' . "\n\n"
-    ;
+    echo  claro_disp_debug_banner() .  "\n" ;
 }
-
-
 
 ?>

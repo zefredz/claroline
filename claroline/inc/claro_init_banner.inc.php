@@ -125,13 +125,7 @@ if(claro_get_current_user_id())
 
 if (get_conf('CLARO_DEBUG_MODE',true))
 {
-    $clarolineBannerOutput .= '<div id="debugBanner" class="debugBar">' . "\n"
-    .                          get_lang('Debug') .  "\n"
-    .                          claro_disp_debug_banner() .  "\n"
-    .                         '<div class="spacer"></div>' . "\n\n"
-    .                         '</div>' . "\n"
-    .                         '<!-- end of debugBanner -->' . "\n\n"
-    ;
+    $clarolineBannerOutput .= claro_disp_debug_banner() ;
 }
 
 /******************************************************************************
