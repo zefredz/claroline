@@ -74,16 +74,13 @@ $userPerPage = get_conf('nbUsersPerPage',50);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$can_add_user     = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_add_user') )
-                     || claro_is_platform_admin();
-$can_add_single_user     = (bool) (claro_is_course_manager()
+$can_add_single_user = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_add_single_user') )
                      || claro_is_platform_admin();
-$can_import_user_list     = (bool) (claro_is_course_manager()
+$can_import_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
                      || claro_is_platform_admin();
-$can_import_user_class     = (bool) (claro_is_course_manager()
+$can_import_user_class = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
                      || claro_is_platform_admin();
 
@@ -256,60 +253,45 @@ if ( count($userListId)> 0 )
 
 $nameTools = get_lang('Users');
 
-if ($can_add_user)
+if ($can_add_single_user)
 {
 
-    if ($can_add_single_user)
-    {
-
-        // Add a user link
-        $userMenu[] = claro_html_cmd_link( 'user_add.php' . claro_url_relay_context('?')
-                                         , '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
-                                         . get_lang('Add a user')
-                                         )
-                                         ;
-    }
-    /*
-    if ($can_add_single_user)
-    {
-        $userMenu[] = claro_html_cmd_link( './userInfo.php?addDef=1'
-                                         . claro_url_relay_context('&amp;')
-
-                                         , get_lang('Add new heading')
-                                         );
-    }
-    */
-    if ($can_import_user_list)
-    {
-        // Add CSV file of user link
-        $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php'
-                                         . '?AddType=userTool'
-                                         . claro_url_relay_context('&amp;')
-                                         , '<img src="' . get_path('imgRepositoryWeb') . 'importlist.gif" alt="" />'
-                                         . get_lang('Add a user list')
-                                         );
-    }
-    if ($can_import_user_class)
-    {
-        // Add a class link
-        $userMenu[] = claro_html_cmd_link( 'class_add.php'
-                                         . claro_url_relay_context('?')
-                                         , '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" alt="" />'
-                                         . get_lang('Enrol class')
-                                         );
-    }
-
-    if ($can_add_single_user)
-    {
-        // Main group settings
-        $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
-                                         . claro_url_relay_context('?')
-                                         , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
-                                         . get_lang("Right Profile")
-                                         );
-    }
+    // Add a user link
+    $userMenu[] = claro_html_cmd_link( 'user_add.php' . claro_url_relay_context('?')
+                                     , '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
+                                     . get_lang('Add a user')
+                                     )
+                                     ;
+}
+if ($can_import_user_list)
+{
+    // Add CSV file of user link
+    $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php'
+                                     . '?AddType=userTool'
+                                     . claro_url_relay_context('&amp;')
+                                     , '<img src="' . get_path('imgRepositoryWeb') . 'importlist.gif" alt="" />'
+                                     . get_lang('Add a user list')
+                                     );
+}
+if ($can_import_user_class)
+{
+    // Add a class link
+    $userMenu[] = claro_html_cmd_link( 'class_add.php'
+                                     . claro_url_relay_context('?')
+                                     , '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" alt="" />'
+                                     . get_lang('Enrol class')
+                                     );
 }
 
+if ($can_add_single_user)
+{
+    // Main group settings
+    $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
+                                     . claro_url_relay_context('?')
+                                     , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
+                                     . get_lang("Right Profile")
+                                     );
+}
 
 $userMenu[] = claro_html_cmd_link( '../group/group.php'
                                  . claro_url_relay_context('?')
