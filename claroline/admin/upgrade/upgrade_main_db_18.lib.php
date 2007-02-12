@@ -352,7 +352,7 @@ function upgrade_main_database_module_to_18 ()
                     $toolInfo['LABEL'] = $tool['claro_label'];
                     $toolInfo['NAME'] = $tool['claro_label'];
                     $toolInfo['TYPE'] = 'tool';
-                    $toolInfo['CLAROLINE']['VERSION'] = '1.8';
+                    $toolInfo['VERSION'] = '1.8';
                     $toolInfo['AUTHOR']['NAME'] = '' ;
                     $toolInfo['AUTHOR']['EMAIL'] = '' ;
                     $toolInfo['AUTHOR']['WEB'] = '' ;
@@ -375,7 +375,7 @@ function upgrade_main_database_module_to_18 ()
 
                 $sql = "INSERT INTO `" . $tbl_mdb_names['module_info'] . "`
                         SET module_id    = " . (int) $moduleId . ",
-                            version      = '" . addslashes($toolInfo['CLAROLINE']['VERSION']) . "',
+                            version      = '" . addslashes($toolInfo['VERSION']) . "',
                             author       = '" . addslashes($toolInfo['AUTHOR']['NAME'  ]) . "',
                             author_email = '" . addslashes($toolInfo['AUTHOR']['EMAIL' ]) . "',
                             website      = '" . addslashes($toolInfo['AUTHOR']['WEB'   ]) . "',
