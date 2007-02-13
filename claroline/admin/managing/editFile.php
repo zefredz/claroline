@@ -30,17 +30,32 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $controlMsg = array();
 
-//The name of the files
-$filenameList = array( get_path('rootSys') . 'textzone_top.inc.html',
-                       get_path('rootSys') . 'platform/textzone/' . 'textzone_top.anonymous.inc.html',
-                       get_path('rootSys') . 'platform/textzone/' . 'textzone_top.authenticated.inc.html',
-                       get_path('rootSys') . 'textzone_right.inc.html',
-                       get_path('rootSys') . 'platform/textzone/textzone_inscription.inc.html',
-                       get_path('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
-                       get_path('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html',
-                       get_path('rootSys') . 'platform/textzone/textzone_inscription_form.inc.html',
-                       get_path('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html'
-                       );
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'textzone_top.inc.html',
+                         'desc' => get_lang('Welcome text displayed on the homepage'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/' . 'textzone_top.anonymous.inc.html',
+                         'desc' => get_lang('Welcome text displayed to anonymous users'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/' . 'textzone_top.authenticated.inc.html',
+                         'desc' => get_lang('Welcome text displayed to authenticated users'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'textzone_right.inc.html',
+                         'desc' => get_lang('Text displayed on the right column'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
+                         'desc' => get_lang('Text displayed if a user tries to enrol in a locked course'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html',
+                         'desc' => get_lang('Text displayed if a user tries to enrol in a course requiring a key'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_inscription.inc.html',
+                         'desc' => get_lang('Agreement text displayed before the "Create user account" page'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_inscription_form.inc.html',
+                         'desc' => get_lang('Text displayed on the "Create user account" page'));
+
+$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html',
+                         'desc' => get_lang('Text displayed on the "My user account" page'));
 
 $display = DISP_FILE_LIST;
 
@@ -51,7 +66,7 @@ $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_R
 
 // input Datas
 $fileId = (int) isset($_REQUEST['file']) ? $_REQUEST['file'] : null;
-if (!in_array($fileId,array_keys($filenameList)))
+if (!in_array($fileId,array_keys($textZoneList)))
 {
     $fileId=null;
     $controlMsg['error'][] = get_lang('Wrong parameters');
@@ -62,22 +77,21 @@ if (!in_array($fileId,array_keys($filenameList)))
 
 if ( !is_null($fileId) )
 {
-
     if ( $cmd == 'exEdit' )
     {
         $text = isset($_REQUEST['textContent']) ? trim($_REQUEST['textContent']) : null;
 
-        if( !file_exists($filenameList[$fileId]) )
+        if( !file_exists($textZoneList[$fileId]['filename']) )
         {
-            claro_mkdir(dirname($filenameList[$fileId]),CLARO_FILE_PERMISSIONS,true);
+            claro_mkdir(dirname($textZoneList[$fileId]['filename']),CLARO_FILE_PERMISSIONS,true);
         }
-        $fp = fopen($filenameList[$fileId], 'w+');
+        $fp = fopen($textZoneList[$fileId]['filename'], 'w+');
         fwrite($fp,$text);
 
         $controlMsg['info'][] = get_lang('The changes have been carried out correctly')
         .                       ' <br />'
         .                       '<strong>'
-        .                       basename($filenameList[$fileId])
+        .                       basename($textZoneList[$fileId]['filename'])
         .                       '</strong>'
         ;
 
@@ -86,11 +100,11 @@ if ( !is_null($fileId) )
 
     if ( $cmd == 'rqEdit' || $cmd = 'exView' )
     {
-        $textContent = (file_exists( $filenameList[$fileId] ) ) ? implode("\n", file($filenameList[$fileId]) ) : null;
+        $textContent = (file_exists( $textZoneList[$fileId]['filename'] ) ) ? implode("\n", file($textZoneList[$fileId]['filename']) ) : null;
 
         if ( $cmd == 'rqEdit' )
         {
-            $subtitle = 'Edit : ' . basename($filenameList[$fileId]);
+            $subtitle = 'Edit : ' . basename($textZoneList[$fileId]['filename']);
             $display = DISP_EDIT_FILE;
         }
         else
@@ -102,7 +116,7 @@ if ( !is_null($fileId) )
             .              '</em> -</font><br />' . "\n"
             .              '</blockquote>' . "\n"
             ;
-            $subtitle = 'Preview : '.basename($filenameList[$fileId]);
+            $subtitle = get_lang('Preview : %textZone', array ('%textZone' => $textZoneList[$fileId]['desc']) );
             $display = DISP_VIEW_FILE;
         }
     }
@@ -127,7 +141,7 @@ echo claro_html_tool_title($titles)
 
 if ( $display == DISP_EDIT_FILE )
 {
-    echo '<h4>' . basename($filenameList[$fileId]) . '</h4>'
+    echo '<h4>' . basename($textZoneList[$fileId]['filename']) . '</h4>'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
     .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
     .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
@@ -141,7 +155,7 @@ if ( $display == DISP_EDIT_FILE )
 elseif( $display == DISP_VIEW_FILE )
 {
     echo '<br />'
-    .    '<h4>' . basename($filenameList[$fileId]) . '</h4>'
+    .    '<h4>' . basename($textZoneList[$fileId]['filename']) . '</h4>'
     .    $textContent
     .    '<br />'
     ;
@@ -157,16 +171,17 @@ if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_
    .    '</p>' . "\n"
    .    '<table cellspacing="2" cellpadding="2" border="0" class="claroTable emphaseLine">' . "\n"
    .    '<tr class="headerX">' . "\n"
-   .    '<th >' . get_lang('Filename') . '</th>' . "\n"
+   .    '<th >' . get_lang('Description') . '</th>' . "\n"
    .    '<th >' . get_lang('Edit') . '</th>' . "\n"
    .    '<th >' . get_lang('Preview') . '</th>' . "\n"
    .    '</tr>' . "\n"
    ;
 
-    foreach($filenameList as $idFile => $filename)
+    foreach($textZoneList as $idFile => $textZone)
     {
         echo '<tr>' . "\n"
-        .    '<td >' . basename($filename) . '</td>' . "\n"
+        .    '<td >' . ( array_key_exists('desc', $textZone)
+                       ? $textZone['desc'] : ''). '</td>' . "\n"
         .    '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;file=' . $idFile . '">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" >' . "\n"
@@ -179,7 +194,6 @@ if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         ;
-
     }
 
     echo '</table>' . "\n"
