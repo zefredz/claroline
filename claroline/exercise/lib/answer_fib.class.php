@@ -421,11 +421,12 @@ class answerFillInBlanks
    			    // filter slashes as they are modifiers in preg expressions
 			    $blank = str_replace('/','\/',$answer);			    
 			    
-				$blankList[] = '/\['.$this->answerDecode($this->addslashesEncodedBrackets($blank)).'\]/';
+				$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($blank))).'\]/';
 			}
 			
     		// apply replacement on answer, require limit parameter to replace only the first occurrence in case we
     		// have several times the same word in a blank.  
+
     		$displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
     		
 	    	$html = 
@@ -487,7 +488,7 @@ class answerFillInBlanks
 		    // filter slashes as they are modifiers in preg expressions
 		    $blank = str_replace('/','\/',$answer);			    
 
-			$blankList[] = '/\['.$this->answerDecode($this->addslashesEncodedBrackets($blank)).'\]/';
+			$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($blank))).'\]/';
 		}
 		$answerCount = count($blankList);
 							
