@@ -5,6 +5,8 @@ $_lang['The path on the server in which the cookie will be available on.  If set
 $_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';
 $_lang['URL trail'] = 'URL trail';
+$_lang['Use it, and build  on change'] = 'Use it, and build  on change';
 $_lang['User registred in cours with unexisting (deprecated) status'] = 'User registred in cours with unexisting (deprecated) status';
+$_lang['rebuild file on each request'] = 'rebuild file on each request';
 $_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'write n-1 times without check if (others) cached files are or not deprecated';
 ?>
