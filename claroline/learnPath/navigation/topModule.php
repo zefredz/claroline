@@ -38,6 +38,10 @@ $interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
 //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
 //header
 $hide_body = true;
+
+// Turn off session lost
+$warnSessionLost = false ;
+
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 // footer
 $hide_footer = true;

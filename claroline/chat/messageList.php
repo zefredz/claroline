@@ -138,24 +138,13 @@ if ( ! file_exists($activeChatFile))
     $dateLastWrite = get_lang('New chat');
 }
 
-
-
-
-
-
-
-
 /*============================================================================
         COMMANDS
 ============================================================================*/
 
-
-
-
 /*----------------------------------------------------------------------------
         RESET COMMAND
 ----------------------------------------------------------------------------*/
-
 
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToReset)
 {
@@ -165,9 +154,6 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToRese
 
     @unlink($onflySaveFile);
 }
-
-
-
 
 /*----------------------------------------------------------------------------
         STORE COMMAND
@@ -208,9 +194,6 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
     }
 }
 
-
-
-
 /*----------------------------------------------------------------------------
     'ADD NEW LINE' COMMAND
 ----------------------------------------------------------------------------*/
@@ -227,13 +210,6 @@ if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
     fclose($fchat);
 }
 
-
-
-
-
-
-
-
 /*============================================================================
 DISPLAY MESSAGE LIST
 ============================================================================*/
@@ -244,10 +220,8 @@ if ( !isset($dateLastWrite) )
     .                strftime( get_locale('dateTimeFormatLong') , filemtime($activeChatFile) );
 }
 
-
 // WE DON'T SHOW THE COMPLETE MESSAGE LIST.
 // WE TAIL THE LAST LINES
-
 
 $activeLineList  = file($activeChatFile);
 $activeLineCount = count($activeLineList);
@@ -256,8 +230,6 @@ $excessLineCount = $activeLineCount - get_conf('max_line_to_display');
 if ($excessLineCount < 0) $excessLineCount = 0;
 $excessLineList = array_splice($activeLineList, 0 , $excessLineCount);
 $curDisplayLineList = $activeLineList;
-
-
 
 // DISPLAY
 

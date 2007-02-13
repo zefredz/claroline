@@ -49,6 +49,10 @@ if ($is_allowedToManage)
 }
 
 $hide_banner = TRUE;
+
+// Turn off session lost
+$warnSessionLost = false ;
+
 include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
 echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">' . "\n"

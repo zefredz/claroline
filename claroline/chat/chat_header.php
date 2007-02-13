@@ -23,6 +23,9 @@ require '../inc/claro_init_global.inc.php';
 $nameTools  = get_lang('Chat');
 $noPHP_SELF = TRUE;
 
+// Turn off session lost
+$warnSessionLost = false ;
+
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 $_group = claro_get_current_group_data();
 

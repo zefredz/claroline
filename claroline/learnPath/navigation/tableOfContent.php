@@ -46,6 +46,8 @@ $lpUid =  claro_get_current_user_id();
 
 // header
 $hide_banner = true;
+$warnSessionLost = false ; // Turn off session lost
+
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if($lpUid)
