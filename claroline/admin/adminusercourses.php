@@ -28,7 +28,7 @@ include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Security check
-if ( ! claro_is_user_authenticated ) claro_disp_auth_form();
+if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // FILER INPUT
