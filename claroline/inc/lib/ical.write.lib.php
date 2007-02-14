@@ -157,7 +157,7 @@ function ical_get_tool_compatible_list()
             // Cache_lite setting & init
             $cache_options = array(
             'cacheDir' => get_path('rootSys') . 'tmp/cache/ical/sources/',
-            'lifeTime' => get_conf('iCalCacheLifeTime',get_conf('cache_lifeTime',3600*48)),
+            'lifeTime' => get_conf('iCalCacheLifeTime',get_conf('cache_lifeTime',10)),
             'automaticCleaningFactor' => 500,
             );
             if (get_conf('CLARO_DEBUG_MODE',false) )

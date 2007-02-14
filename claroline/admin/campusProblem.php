@@ -45,7 +45,7 @@ $is_allowedToCheckProblems = claro_is_platform_admin();
 
 // Cache_lite setting & init
 $cache_options = array( 'cacheDir' => get_path('rootSys') . 'tmp/cache/campusProblem/',
-                        'lifeTime' => get_conf('cache_lifeTime', 160000),
+                        'lifeTime' => get_conf('cache_lifeTime', 10),
                         'automaticCleaningFactor' =>get_conf('cache_automaticCleaningFactor', 50),
 );
 

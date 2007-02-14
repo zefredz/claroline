@@ -23,7 +23,7 @@ include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 // Cache_lite setting & init
 $cache_options = array(
 'cacheDir' => get_path('rootSys') . 'tmp/cache/CLCALdigest/',
-'lifeTime' => get_conf('cache_lifeTime', 600),
+'lifeTime' => get_conf('cache_lifeTime', 10),
 'automaticCleaningFactor' =>get_conf('cache_automaticCleaningFactor', 50),
 );
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;

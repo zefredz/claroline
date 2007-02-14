@@ -179,7 +179,7 @@ function rss_get_tool_compatible_list()
             // Cache_lite setting & init
             $cache_options = array(
             'cacheDir' => get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
-            'lifeTime' => get_conf('rssCacheLifeTime', get_conf('cache_lifeTime', 3600*48)),
+            'lifeTime' => get_conf('rssCacheLifeTime', get_conf('cache_lifeTime', 10)),
             'automaticCleaningFactor' => 500,
             );
             if (get_conf('CLARO_DEBUG_MODE',false) )
