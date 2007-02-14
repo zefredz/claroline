@@ -327,7 +327,7 @@ foreach ( $display_profile_list as $profileId )
         $profileRight->setCourseId(claro_get_current_course_id());
         $profileRight->load($profile);
         $profileRightHtml->addRightProfileToolRight($profileRight);
-        $profileLegend[] = $profileNameList[$profileId]['name'] . ' : <em>' . $profileNameList[$profileId]['description'] . '</em>' ; 
+        $profileLegend[] = get_lang($profileNameList[$profileId]['name']) . ' : <em>' . get_lang($profileNameList[$profileId]['description']) . '</em>' ; 
     }
 }
 

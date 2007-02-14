@@ -74,7 +74,7 @@ switch ($cmd)
         {
             $properties['profileId'] = $_REQUEST['profileId'];
 
-            if ( claro_get_profile_name($properties['profileId']) == 'Manager' )
+            if ( claro_get_profile_label($properties['profileId']) == 'manager' )
             {
                 $dialogBox = get_lang('User is now course manager');
             }

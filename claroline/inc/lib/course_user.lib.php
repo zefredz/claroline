@@ -567,9 +567,9 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
 
         foreach ( $profileList as $id => $info )
         {
-            if ( $info['label'] != 'anonymous' )
+            if ( $info['label'] != 'anonymous' && $info['label'] != 'guest' )
             {
-                $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . $info['name'] . '</option>' . "\n" ;
+                $form .= '<option value="' . $id . '" ' . ($selectedProfileId==$id?'selected="selected"':'') . '>' . get_lang($info['name']) . '</option>' . "\n" ;
             }
         }
 

@@ -89,7 +89,7 @@ function claro_get_profile_name ($profileId)
 
     if ( isset($profileList[$profileId]['name']) )
     {
-        return $profileList[$profileId]['name'];
+        return get_lang($profileList[$profileId]['name']);
     }
     else
     {

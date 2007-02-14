@@ -324,7 +324,7 @@ class RightProfile
 
     function getName()
     {
-        return $this->name;
+        return get_lang($this->name);
     }
 
     /**
@@ -346,7 +346,7 @@ class RightProfile
 
     function getDescription()
     {
-        return $this->description;
+        return get_lang($this->description);
     }
 
     /**
@@ -533,12 +533,12 @@ class RightProfile
 
         if ( $this->isRequired() )
         {
-            $form .= '<td>' . htmlspecialchars($this->name) . '</td>';
+            $form .= '<td>' . htmlspecialchars($this->getName()) . '</td>';
         }
         else
         {
             $form .= '<td>' . "\n"
-            .        '<input type="text" id="name" name="name" value="' . $this->name . '"/>' . "\n"
+            .        '<input type="text" id="name" name="name" value="' . $this->getName() . '"/>' . "\n"
             .        '</td>'
             ;
         }
@@ -552,7 +552,7 @@ class RightProfile
         .        get_lang('Description') . ' :</label>' . "\n"
         .        '</td>' . "\n"
         .        '<td >' . "\n"
-        .        '<textarea cols="60" rows="3" id="description" name="description">' . $this->description . '</textarea>' . "\n"
+        .        '<textarea cols="60" rows="3" id="description" name="description">' . $this->getDescription() . '</textarea>' . "\n"
         .        '</td>' . "\n"
         .        '</tr>'
         ;

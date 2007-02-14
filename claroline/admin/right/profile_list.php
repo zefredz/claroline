@@ -175,8 +175,8 @@ switch ( $display )
         foreach ( $profileList as $thisProfile )
         {
             echo '<tr align="center">' . "\n"
-                . '<td align="left">' . $thisProfile['name'] . '</td>' . "\n"
-                . '<td align="left">' . $thisProfile['description'] . '</td>' . "\n"
+                . '<td align="left">' . get_lang($thisProfile['name']) . '</td>' . "\n"
+                . '<td align="left">' . get_lang($thisProfile['description']) . '</td>' . "\n"
                 . '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n"
                 . '<td><a href="profile.php?display_profile='. $thisProfile['id'].'"><img src="' .  get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n" ;
 
