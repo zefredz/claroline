@@ -316,6 +316,8 @@ $display_profile_list = array_keys($profileNameList);
 $profileRightHtml = new RightProfileToolRightHtml();
 $profileRightHtml->setCourseToolInfo($displayToolList);
 
+$profileLegend = array();
+
 foreach ( $display_profile_list as $profileId )
 {
     $profile = new RightProfile();
@@ -325,12 +327,21 @@ foreach ( $display_profile_list as $profileId )
         $profileRight->setCourseId(claro_get_current_course_id());
         $profileRight->load($profile);
         $profileRightHtml->addRightProfileToolRight($profileRight);
+        $profileLegend[] = $profileNameList[$profileId]['name'] . ' : <em>' . $profileNameList[$profileId]['description'] . '</em>' ; 
     }
 }
 
 echo '<blockquote>' . "\n"
     . $profileRightHtml->displayProfileToolRightList()
     . '</blockquote>' . "\n" ;
+
+echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : ' 
+    . '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('None') . '" /> ' . get_lang('No access') . ' - ' 
+    . '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('User') . '" />' . get_lang('Access allowed') . ' - '
+    . '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Manager') . '" /> ' . get_lang('Edition allowed')
+    . '.</small></p>';
+
+echo '<p><small><span style="text-decoration: underline">' . get_lang('Profile list') . '</span> : ' . implode($profileLegend,' - ') . '.</small></p>' ;
 
 // Display external link list
 

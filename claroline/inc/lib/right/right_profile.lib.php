@@ -39,7 +39,7 @@ function claro_get_all_profile_name_list ()
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_profile = $tbl_mdb_names['right_profile'];
 
-        $sql = "SELECT profile_id, name, label
+        $sql = "SELECT profile_id, name, label, description
                 FROM `" . $tbl_profile . "`
                 ORDER BY profile_id ";
 
@@ -48,10 +48,9 @@ function claro_get_all_profile_name_list ()
         foreach ( $result as $profile)
         {
             $profile_id = $profile['profile_id'];
-            $profile_name = $profile['name'];
-            $profile_label = $profile['label'];
-            $profileList[$profile_id]['name'] = $profile_name;
-            $profileList[$profile_id]['label'] = $profile_label;
+            $profileList[$profile_id]['name'] = $profile['name'];
+            $profileList[$profile_id]['label'] = $profile['label'];
+            $profileList[$profile_id]['description'] = $profile['description'];
         }
 
         $cachedProfileList = $profileList ; // cache for the next time ...
