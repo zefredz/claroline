@@ -883,12 +883,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'viewtopic':
 
-            $toolList[] =
-            claro_html_cmd_link( 'newtopic.php?forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="' . get_lang('New topic') . '" /> '
-                               . get_lang('New topic')
-                               );
-
+     
             $toolList[] =
             claro_html_cmd_link( 'reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . claro_url_relay_context('&amp;')
                                , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" alt="' . get_lang('Reply') . '" /> '
