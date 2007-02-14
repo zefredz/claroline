@@ -306,8 +306,9 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
         //$info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
         $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
-        pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info ,'sqlinfo');
-        pushClaroMessage( '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>', (mysql_errno()?'error':'sqlinfo'));
+        pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
+            . '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>'
+            , (mysql_errno()?'error':'sqlinfo'));
 
     }
     if ( get_conf('CLARO_DEBUG_MODE',false) && mysql_errno() )
