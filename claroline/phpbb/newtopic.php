@@ -101,8 +101,8 @@ elseif ( $forumSettingList )
      */
 
     if ( ! $forum_post_allowed
-        || (    ! is_null($forumSettingList['idGroup'])
-            && ( $forumSettingList['idGroup'] != claro_is_in_a_group() || ! claro_is_group_allowed()) ) )
+        || ( ! is_null($forumSettingList['idGroup'])
+            && ( !claro_is_in_a_group() || ! claro_is_group_allowed() || $forumSettingList['idGroup'] != claro_get_current_group_id() ) ) )
     {
         // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
         // attempt like rewriting the request without $cidReq. If we are in group

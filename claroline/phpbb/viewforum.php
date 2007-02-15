@@ -79,8 +79,8 @@ if ( $forumSettingList )
      * check the user is allowed to see the current group forum.
      */
 
-    if (   ! is_null($forumSettingList['idGroup'])
-        && ( $forumSettingList['idGroup'] != claro_is_in_a_group() || ! claro_is_group_allowed()) )
+    if ( ! is_null($forumSettingList['idGroup'])
+        && ( !claro_is_in_a_group() || !claro_is_group_allowed() || $forumSettingList['idGroup'] != claro_get_current_group_id() ) )
     {
         // user are not allowed to see topics of this group
         $forumAllowed       = false;
