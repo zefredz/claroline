@@ -77,62 +77,73 @@ $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|on
 
 $topicSettingList = get_topic_settings($topic_id);
 
-if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course()) claro_disp_auth_form(true);
+if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course())
+{
+    claro_disp_auth_form(true);
+}
 elseif ( $topicSettingList )
 {
-    // Get forum and topics settings
-    $forum_id         = $topicSettingList['forum_id'];
-    $topic_title      = $topicSettingList['topic_title'];
-
-    $forumSettingList = get_forum_settings($forum_id);
-
-    $forum_name         = $forumSettingList['forum_name'  ];
-    $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
-    $forum_type         = $forumSettingList['forum_type'  ];
-    $forum_groupId      = $forumSettingList['idGroup'     ];
-    $forum_cat_id       = $forumSettingList['cat_id'      ];
-
-    /**
-     * Check if the topic isn't attached to a group,  or -- if it is attached --,
-     * check the user is allowed to see the current group forum.
-     */
-
-    if ( ! $forum_post_allowed
-        || ( ! is_null($forumSettingList['idGroup'])
-            && ( !claro_is_in_a_group() || !claro_is_group_allowed() || $forumSettingList['idGroup'] != claro_get_current_group_id() ) ) )
+    if ( $forum_id != $topicSettingList['forum_id'] )
     {
-        // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
-        // attempt like rewriting the request without $cidReq. If we are in group
-        // forum and the group of the concerned forum isn't the same as the session
-        // one, something weird is happening, indeed ...
         $allowed = FALSE;
         $error_message = get_lang('Not allowed') ;
     }
-
-    if ( isset($_REQUEST['submit']) )
+    else
     {
-        if ( trim(strip_tags($message)) != '' )
+        // Get forum and topics settings
+        $forum_id         = $topicSettingList['forum_id'];
+        $topic_title      = $topicSettingList['topic_title'];
+
+        $forumSettingList = get_forum_settings($forum_id);
+
+        $forum_name         = $forumSettingList['forum_name'  ];
+        $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
+        $forum_type         = $forumSettingList['forum_type'  ];
+        $forum_groupId      = $forumSettingList['idGroup'     ];
+        $forum_cat_id       = $forumSettingList['cat_id'      ];
+
+        /**
+         * Check if the topic isn't attached to a group,  or -- if it is attached --,
+         * check the user is allowed to see the current group forum.
+         */
+
+        if ( ! $forum_post_allowed
+            || ( ! is_null($forumSettingList['idGroup'])
+                && ( !claro_is_in_a_group() || !claro_is_group_allowed() || $forumSettingList['idGroup'] != claro_get_current_group_id() ) ) )
         {
-
-            if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
-
-            $lastName   = claro_get_current_user_data('lastName');
-            $firstName  = claro_get_current_user_data('firstName');
-            $poster_ip  = $_SERVER['REMOTE_ADDR'];
-            $time       = date('Y-m-d H:i');
-
-            create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $lastName, $firstName, $message);
-
-            // notify eventmanager that a new message has been posted
-
-            $eventNotifier->notifyCourseEvent("forum_answer_topic",claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), "0");
-
-            trig_topic_notification($topic_id);
+            // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
+            // attempt like rewriting the request without $cidReq. If we are in group
+            // forum and the group of the concerned forum isn't the same as the session
+            // one, something weird is happening, indeed ...
+            $allowed = FALSE;
+            $error_message = get_lang('Not allowed') ;
         }
-        else
+
+        if ( isset($_REQUEST['submit']) )
         {
-            $error = TRUE;
-            $error_message = get_lang('You cannot post an empty message');
+            if ( trim(strip_tags($message)) != '' )
+            {
+
+                if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
+
+                $lastName   = claro_get_current_user_data('lastName');
+                $firstName  = claro_get_current_user_data('firstName');
+                $poster_ip  = $_SERVER['REMOTE_ADDR'];
+                $time       = date('Y-m-d H:i');
+
+                create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $lastName, $firstName, $message);
+
+                // notify eventmanager that a new message has been posted
+
+                $eventNotifier->notifyCourseEvent("forum_answer_topic",claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), "0");
+
+                trig_topic_notification($topic_id);
+            }
+            else
+            {
+                $error = TRUE;
+                $error_message = get_lang('You cannot post an empty message');
+            }
         }
     }
 }
@@ -140,7 +151,6 @@ else
 {
     // topic doesn't exist
     $error = 1;
-    $allowed = false;
     $error_message = get_lang('Not allowed');
 }
 
