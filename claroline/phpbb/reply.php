@@ -140,6 +140,7 @@ else
 {
     // topic doesn't exist
     $error = 1;
+    $allowed = false;
     $error_message = get_lang('Not allowed');
 }
 
