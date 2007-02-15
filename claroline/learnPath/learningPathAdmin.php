@@ -287,7 +287,7 @@ switch($cmd)
             $query = claro_sql_query($sql);
 
             // request ID of the last inserted row (module_id in $TABLEMODULE) to add it in $TABLELEARNPATHMODULE
-            $thisInsertedModuleId = mysql_insert_id();
+            $thisInsertedModuleId = claro_sql_insert_id();
 
             // create new learning path module
             $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`

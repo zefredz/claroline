@@ -276,7 +276,7 @@ function update_db_course($courseDbName)
     if (!get_conf('singleDbEnabled'))
     {
         claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
-        if (mysql_errno() > 0) return claro_failure::set_failure(get_lang('Unable to create course database'));
+        if (claro_sql_errno() > 0) return claro_failure::set_failure(get_lang('Unable to create course database'));
     }
 
     $courseDbName = get_conf('courseTablePrefix') . $courseDbName . get_conf('dbGlu');
@@ -1009,7 +1009,7 @@ function fill_db_course($courseDbName,$language)
     $firstname = $_user['firstName'];
     $email = $_user['mail'];
 
-    mysql_select_db($courseDbName);
+    claro_sql_select_db($courseDbName);
     
     #################### register tools in course ######################################
 

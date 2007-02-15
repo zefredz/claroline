@@ -456,7 +456,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             VALUES ('". addslashes($lpName) ."','HIDE',".($rankMax+1).", '')";
     claro_sql_query($sql);
 
-    $tempPathId = mysql_insert_id();
+    $tempPathId = claro_sql_insert_id();
     $baseWorkDir .= "path_".$tempPathId;
 
     if (!is_dir($baseWorkDir)) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS );
@@ -781,13 +781,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                     $query = claro_sql_query($sql);
 
-                    if ( mysql_error() )
+                    if ( claro_sql_error() )
                     {
                         $errorFound = true;
                         array_push($errorMsgs, get_lang('Error in SQL statement'));
                         break;
                     }
-                    $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
+                    $insertedModule_id[$i] = claro_sql_insert_id();  // array of all inserted module ids
 
                     // visibility
                     if ( isset($item['isvisible']) && $item['isvisible'] != '' )
@@ -807,10 +807,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     $query = claro_sql_query($sql);
 
                     // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
-                    $insertedLPMid[$item['itemIdentifier']]['LPMid'] = mysql_insert_id();
+                    $insertedLPMid[$item['itemIdentifier']]['LPMid'] = claro_sql_insert_id();
                     $insertedLPMid[$item['itemIdentifier']]['rank'] = 1;
 
-                    if ( mysql_error() )
+                    if ( claro_sql_error() )
                     {
                         $errorFound = true;
                         array_push($errorMsgs, get_lang('Error in SQL statement'));
@@ -866,14 +866,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         VALUES ('".addslashes($moduleName)."' , '".addslashes($description)."', '".CTSCORM_."', '".addslashes($item['datafromlms'])."')";
                 $query = claro_sql_query($sql);
 
-                if ( mysql_error() )
+                if ( claro_sql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
 
-                $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
+                $insertedModule_id[$i] = claro_sql_insert_id();  // array of all inserted module ids
 
                 // build asset path
                 // a $manifestData['scos'][$item['identifierref']] __SHOULD__ not exist if a $manifestData['assets'][$item['identifierref']] exists
@@ -900,14 +900,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         VALUES ('". addslashes($assetPath) ."', ".$insertedModule_id[$i]." , '')";
 
                 $query = claro_sql_query($sql);
-                if ( mysql_error() )
+                if ( claro_sql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
 
-                $insertedAsset_id[$i] = mysql_insert_id(); // array of all inserted asset ids
+                $insertedAsset_id[$i] = claro_sql_insert_id(); // array of all inserted asset ids
 
                 // update of module with correct start asset id
                 $sql = "UPDATE `".$TABLEMODULE."`
@@ -915,7 +915,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         WHERE `module_id` = ". (int)$insertedModule_id[$i];
                 $query = claro_sql_query($sql);
 
-                if ( mysql_error() )
+                if ( claro_sql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));
@@ -939,11 +939,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 $query = claro_sql_query($sql);
 
                 // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
-                $insertedLPMid[$item['itemIdentifier']]['LPMid']  = mysql_insert_id();
+                $insertedLPMid[$item['itemIdentifier']]['LPMid']  = claro_sql_insert_id();
                 $insertedLPMid[$item['itemIdentifier']]['rank']  = 1;
 
 
-                if ( mysql_error() )
+                if ( claro_sql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));

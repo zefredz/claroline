@@ -24,6 +24,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     class ClarolineDatabaseConnection extends DatabaseConnection
     {
+  	
         function ClarolineDatabaseConnection()
         {
             // use only in claroline tools
@@ -38,8 +39,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
             else
             {
-                $this->error = ( @mysql_error() !== false ) ? @mysql_error() : 'Unknown error';
-                $this->errno = ( @mysql_errno() !== false ) ? @mysql_errno() : 0;
+                $this->error = ( claro_sql_error() !== false ) ? claro_sql_error() : 'Unknown error';
+                $this->errno = ( claro_sql_errno() !== false ) ? claro_sql_errno() : 0;
             }
 
             $this->connected = false;
@@ -59,14 +60,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             claro_sql_query( $sql );
 
-            if( @mysql_errno() != 0 )
+            if( claro_sql_errno() != 0 )
             {
                 $this->setError();
 
                 return 0;
             }
 
-            return @mysql_affected_rows( );
+            return claro_sql_affected_rows( );
         }
 
         function getAllObjectsFromQuery( $sql )
@@ -166,7 +167,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $result = claro_sql_query( $sql );
 
-            if ( @mysql_errno() == 0 )
+            if ( claro_sql_errno() == 0 )
             {
 
                 if ( @mysql_num_rows( $result ) > 0 )
@@ -198,7 +199,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
             else
             {
-                return mysql_insert_id();
+                return claro_sql_insert_id();
             }
         }
     }

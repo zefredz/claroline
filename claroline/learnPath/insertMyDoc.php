@@ -173,7 +173,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                         VALUES ('". addslashes($basename) ."' , '". addslashes(get_block('blockDefaultModuleComment')) . "', '".CTDOCUMENT_."', '' )";
                 $query = claro_sql_query($sql);
 
-                $insertedModule_id = mysql_insert_id();
+                $insertedModule_id = claro_sql_insert_id();
 
                 // create new asset
                 $sql = "INSERT INTO `".$TABLEASSET."`
@@ -181,7 +181,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                         VALUES ('". addslashes($insertDocument)."', " . (int)$insertedModule_id . ", '')";
                 $query = claro_sql_query($sql);
 
-                $insertedAsset_id = mysql_insert_id();
+                $insertedAsset_id = claro_sql_insert_id();
 
                 $sql = "UPDATE `".$TABLEMODULE."`
                         SET `startAsset_id` = " . (int)$insertedAsset_id . "

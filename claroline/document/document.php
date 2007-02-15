@@ -881,7 +881,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     FROM `".$dbTable."`
                     WHERE path = \"". addslashes($_REQUEST['file']) ."\"";
 
-            $result = mysql_query ($sql);
+            $result = claro_sql_query ($sql);
 
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 

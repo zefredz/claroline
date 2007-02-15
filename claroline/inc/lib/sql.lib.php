@@ -304,17 +304,19 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         static $queryCounter = 1;
         $duration = microtime()-$start;
         $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
-        //$info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
-        $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
+        // $info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
+        // $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
+        $info .= ': affected rows :' . claro_sql_affected_rows();
+
         pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
             . '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>'
-            , (mysql_errno()?'error':'sqlinfo'));
+            , (claro_sql_errno()?'error':'sqlinfo'));
 
     }
-    if ( get_conf('CLARO_DEBUG_MODE',false) && mysql_errno() )
+    if ( get_conf('CLARO_DEBUG_MODE',false) && claro_sql_errno() )
     {
         echo '<hr size="1" noshade>'
-        .    mysql_errno() . ' : '. mysql_error() . '<br>'
+        .    claro_sql_errno() . ' : '. claro_sql_error() . '<br>'
         .    '<pre style="color:red">'
         .    $sqlQuery
         .    '</pre>'
@@ -327,6 +329,90 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
     }
 
     return $resultHandler;
+}
+
+/**
+ * CLAROLINE mySQL errno wrapper.
+ */
+ 
+function claro_sql_errno($dbHandler = '#')
+{
+	if ( $dbHandler == '#' )
+    {
+    	return mysql_errno();
+    }
+    else
+    {
+	    return mysql_errno($dbHandler);
+    }
+}
+
+/**
+ * CLAROLINE mySQL error wrapper. 
+ *
+ */
+ 
+function claro_sql_error($dbHandler = '#')
+{
+	if ( $dbHandler == '#' )
+    {
+    	return mysql_error();
+    }
+    else
+    {
+	    return mysql_error($dbHandler);
+    }
+} 
+
+/**
+ * CLAROLINE mySQL selectDb wrapper. 
+ *
+ */
+ 
+function claro_sql_select_db($dbHandler = '#')
+{
+	if ( $dbHandler == '#' )
+    {
+    	return mysql_select_db();
+    }
+    else
+    {
+	    return mysql_select_db($dbHandler);
+    }
+} 
+
+/**
+ * CLAROLINE mySQL affected rows wrapper. 
+ *
+ */
+ 
+function claro_sql_affected_rows($dbHandler = '#')
+{
+	if ( $dbHandler == '#' )
+    {
+    	return mysql_affected_rows();
+    }
+    else
+    {
+	    return mysql_affected_rows($dbHandler);
+    }
+}
+
+/**
+ * CLAROLINE mySQL insert id wrapper. 
+ *
+ */
+ 
+function claro_sql_insert_id($dbHandler = '#')
+{
+	if ( $dbHandler == '#' )
+    {
+    	return mysql_insert_id();
+    }
+    else
+    {
+	    return mysql_insert_id($dbHandler);
+    }
 }
 
 /**
