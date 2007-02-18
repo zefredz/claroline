@@ -579,8 +579,8 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = get_lang('A reply to your topic has been posted');
 
-    $url_topic = get_module_path('CLFRM') . '/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
-    $url_forum = get_module_path('CLFRM') . '/index.php?cidReq=' . claro_get_current_course_id();
+    $url_topic = get_module_url('CLFRM') . '/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
+    $url_forum = get_module_url('CLFRM') . '/index.php?cidReq=' . claro_get_current_course_id();
 
     // send mail to registered user for notification
 
@@ -883,7 +883,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'viewtopic':
 
-     
+
             $toolList[] =
             claro_html_cmd_link( 'reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . claro_url_relay_context('&amp;')
                                , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" alt="' . get_lang('Reply') . '" /> '
