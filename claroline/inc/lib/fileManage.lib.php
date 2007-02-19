@@ -784,7 +784,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
                   $result = claro_sql_query($sql);
 
-                  $num = mysql_numrows($result);
+                  $num = mysql_num_rows($result);
                   if ($num != 0)
                   {
                         //find all learning path module concerned by the deletion

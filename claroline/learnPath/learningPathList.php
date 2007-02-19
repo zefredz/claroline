@@ -329,7 +329,7 @@ switch ( $cmd )
                          FROM `".$TABLELEARNPATH."`
                         WHERE `name` = '". addslashes($_POST['newPathName']) ."'";
             $query = claro_sql_query($sql);
-            $num = mysql_numrows($query);
+            $num = mysql_num_rows($query);
             if($num == 0 ) // "name" doesn't already exist
             {
                 // determine the default order of this Learning path

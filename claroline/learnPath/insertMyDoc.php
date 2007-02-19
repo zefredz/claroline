@@ -162,7 +162,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                       AND A.`path` LIKE \"". addslashes($insertDocument)."\"
                       AND M.`contentType` = \"".CTDOCUMENT_."\"";
             $query = claro_sql_query($sql);
-            $num = mysql_numrows($query);
+            $num = mysql_num_rows($query);
             $basename = substr($insertDocument, strrpos($insertDocument, '/') + 1);
 
             if($num == 0)
@@ -216,7 +216,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                           AND A.`path` = '". addslashes($insertDocument)."'
                           AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
                 $query2 = claro_sql_query($sql);
-                $num = mysql_numrows($query2);
+                $num = mysql_num_rows($query2);
                 if ($num == 0)     // used in another LP but not in this one, so reuse the module id reference instead of creating a new one
                 {
                     $thisDocumentModule = mysql_fetch_array($query);

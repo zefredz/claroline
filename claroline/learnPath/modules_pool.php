@@ -174,7 +174,7 @@ switch( $cmd )
                     AND `module_id` != '". (int)$_REQUEST['module_id']."'";
 
             $query = claro_sql_query($sql);
-            $num = mysql_numrows($query);
+            $num = mysql_num_rows($query);
             if($num == 0 ) // "name" doesn't already exist
             {
                 // if no error occurred, update module's name in the database
