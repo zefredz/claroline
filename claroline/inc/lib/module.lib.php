@@ -87,7 +87,7 @@ function get_module_url($toolLabel)
         case 'CLLNK' : return get_path('clarolineRepositoryWeb') . 'linker';
         case 'CLWIKI' : return get_path('clarolineRepositoryWeb') . 'wiki';
         case 'CLGRP' : return get_path('clarolineRepositoryWeb') . 'group';
-        default: return get_path('rootWeb') . 'module/' . $toolLabel;
+        default: return get_path('urlAppend') . 'module/' . $toolLabel;
     }
     return '';
 
