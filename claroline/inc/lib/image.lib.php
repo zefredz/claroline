@@ -201,7 +201,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     function image_search($file, $filePathList)
     {
-        return array_search( $file, $filePathList );
+        // return array_search( $file, $filePathList );
+        for ( $i = 0; $i < count( $filePathList ); $i++ )
+        {
+            if ( $filePathList[$i]['path'] == $file )
+            {
+                return $i;
+            }
+        }
+
+        return 0;
     }
 
     /*-------------------------------------------------------------------------------
@@ -219,8 +228,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function get_current_index($imageList, $fileIndex)
     {
-        $index = array_search($fileIndex, $imageList);
-        return $index;
+        /*$index = array_search($fileIndex, $imageList);
+        return $index;*/
+        
+        for ( $i = 0; $i < count( $imageList ); $i++ )
+        {
+            if ( $imageList[$i] == $fileIndex ) return $i;
+        }
+        
+        return 0;
     }
 
     /**
@@ -302,11 +318,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         // get previous image
         $prevStyle = 'prev';
-
+        
         if (has_previous_image($imageList, $current))
         {
             $prev = get_previous_image_index($imageList, $current);
-
+            
             $prevName = $fileList[$prev]['path'];
 
             if ($fileList[$prev]['visibility'] == 'i')

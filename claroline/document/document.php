@@ -1554,10 +1554,10 @@ echo claro_html_tool_title($titleElement,
         }
 
         // get requested image key in fileList
-        $imgKey = image_search( $file, $filePathList );
+        $imgKey = image_search( $file, $fileList );
 
         $current = get_current_index($imageList, $imgKey);
-
+        
         $offset = "&amp;offset=" . $current;
 
         // compute absolute path to requested image
