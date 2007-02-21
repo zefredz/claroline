@@ -46,7 +46,8 @@
 
     claro_set_display_mode_available(TRUE);
 
-    $is_allowedToAdmin = claro_is_allowed_to_edit();
+    $is_allowedToAdmin = claro_is_allowed_to_edit()
+        || ( claro_is_in_a_group() && claro_is_group_tutor() );
 
     if ( claro_is_in_a_group() && claro_is_group_allowed() )
     {
