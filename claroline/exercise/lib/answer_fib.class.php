@@ -421,7 +421,6 @@ class answerFillInBlanks
    			    // filter slashes as they are modifiers in preg expressions
 				$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($answer)),'/').'\]/';
 			}
-            var_dump($blankList);
 			
     		// apply replacement on answer, require limit parameter to replace only the first occurrence in case we
     		// have several times the same word in a blank.  
