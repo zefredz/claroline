@@ -419,10 +419,9 @@ class answerFillInBlanks
 			foreach( $this->answerList as $answer )
 			{
    			    // filter slashes as they are modifiers in preg expressions
-			    $blank = str_replace('/','\/',$answer);			    
-			    
-				$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($blank))).'\]/';
+				$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($answer)),'/').'\]/';
 			}
+            var_dump($blankList);
 			
     		// apply replacement on answer, require limit parameter to replace only the first occurrence in case we
     		// have several times the same word in a blank.  
@@ -486,9 +485,7 @@ class answerFillInBlanks
 		foreach( $this->answerList as $answer )
 		{
 		    // filter slashes as they are modifiers in preg expressions
-		    $blank = str_replace('/','\/',$answer);			    
-
-			$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($blank))).'\]/';
+			$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($answer)),'/').'\]/';
 		}
 		$answerCount = count($blankList);
 							
