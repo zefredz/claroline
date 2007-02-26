@@ -88,7 +88,7 @@ function claro_disp_tree($elem,$father,$space)
                         . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" /></a>'
                         . '</td>'
                     . '<td align="center">'
-                    . '<a href="' . $_SERVER['PHP_SELF'] . '"?id='.$one_faculty['id'].'&amp;cmd=rqMove" >'
+                    . '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=rqMove" >'
                     . '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" alt="' . get_lang('Move') . '" ></a>'
                     . '</td>'
                     . '<td align="center">'
