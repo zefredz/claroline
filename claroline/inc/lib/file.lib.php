@@ -166,6 +166,7 @@
                 'wmv'   => 'video/x-ms-wmv',
                 'xml'   =>'application/xml',
                 'xls'   => 'application/vnd.ms-excel',
+                'xsl'   => 'text/xml',
                 'zip'   => 'application/zip',
             );
     
