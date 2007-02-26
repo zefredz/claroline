@@ -588,7 +588,7 @@ if($is_allowedToEditAll)
                     else
                         $authId = $_REQUEST['authId'];
 
-                    $url = get_module_url('CLWRK') .'/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . claro_get_current_course_id();
+                    $url = get_path('rootWeb') . 'claroline/work/userWork.php?authId='.$authId.'&assigId='.$_REQUEST['assigId'].'&cidReq=' . claro_get_current_course_id();
                     // email content
                     $emailBody = get_lang('New assignment feedback posted') . "\n\n"
                     .            $currentUserFirstName.' '.$currentUserLastName . "\n"
@@ -788,7 +788,7 @@ if( $is_allowedToSubmit )
 
                     // email subject
                     $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New submission posted in assignment tool.');
-                    $url = get_module_url('CLWRK') . '/userWork.php?authId=' . $authId . '&assigId=' . $_REQUEST['assigId']
+                    $url = get_path('rootWeb') . 'claroline/work/userWork.php?authId=' . $authId . '&assigId=' . $_REQUEST['assigId']
                     .      '&cidReq=' . claro_get_current_course_id();
 
                     // email content
