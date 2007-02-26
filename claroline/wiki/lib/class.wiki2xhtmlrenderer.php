@@ -53,6 +53,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     class Wiki2xhtmlRenderer extends wiki2xhtml
     {
         var /*% Wiki*/ $wiki;
+        var /*% HTML_Sanitizer*/ $san;
 
         /**
          * Constructor
@@ -63,6 +64,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             wiki2xhtml::wiki2xhtml();
 
             $this->wiki =& $wiki;
+            $this->san = new HTML_Sanitizer;
 
             // set wiki rendering options
             // use wikiwords to link wikipages
@@ -112,7 +114,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 // FIXME secure embedded html !!!
                 // - remove dangerous tags and attributes
                 // - protect against XSS
-                $line = HTML_Sanitizer::sanitize($this->T[$i]);
+                $line = $this->san->sanitize($this->T[$i]);
             }
             else
             {
@@ -368,7 +370,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     // - protect against XSS
                     $str = trim( $str, '"' );
                     $str = html_entity_decode( $str );
-                    $str = HTML_Sanitizer::sanitize( $str );
+                    $str = $this->san->sanitize( $str );
                 }
             }
 
