@@ -28,7 +28,7 @@ CREATE TABLE `c_IMSQTI_course_description` (
   `content` text,
   `lastEditDate` DATETIME NOT NULL,
   `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
-  UNIQUE KEY `id` (`id`)
+  PRIMARY KEY `id` (`id`)
 );
 
 
@@ -83,8 +83,7 @@ class CourseDescription
    	    $this->visibility = 'VISIBLE';
 
 	    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-		//$this->tblCourseDescription = $tbl_cdb_names['course_description'];
-		$this->tblCourseDescription = 'c_IMSQTI_course_description2';
+		$this->tblCourseDescription = $tbl_cdb_names['course_description'];
     }
     
     

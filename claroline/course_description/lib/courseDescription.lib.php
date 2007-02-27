@@ -34,8 +34,6 @@ function course_description_get_item_list($courseId = null)
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
     $tblCourseDescription = $tbl['course_description'];
     
-$tblCourseDescription = 'c_IMSQTI_course_description2'; // TODO remove this after tests
-
     $sql = "SELECT `id`,
                 `category`,
                 `title`,
