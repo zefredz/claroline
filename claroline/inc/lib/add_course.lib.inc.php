@@ -617,13 +617,14 @@ function update_db_course($courseDbName)
     // Course description
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLCOURSEDESC."` (
-        `id` TINYINT UNSIGNED DEFAULT '0' NOT NULL,
-        `title` VARCHAR(255),
+        `id` int(11) NOT NULL auto_increment,
+        `category` int(11) NOT NULL default '-1',
+        `title` varchar(255) default NULL,
         `content` TEXT,
-        `upDate` DATETIME NOT NULL,
-        `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
-    UNIQUE (`id`)
-    ) TYPE=MyISAM  COMMENT = 'for course description tool' ";
+        `lastEditDate` DATETIME NOT NULL,
+        `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
+    PRIMARY KEY  (`id`)
+    ) TYPE=MyISAM ";
 
     // Tool List
     $sqlList[] = "
