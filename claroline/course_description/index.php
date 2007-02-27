@@ -205,17 +205,17 @@ if ( $is_allowedToEdit )
     {
         echo '<form  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context() . "\n"
-        .    '<input type="hidden" name="cmd" value="exEdit">' . "\n"
+        .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
         
         if ( !is_null($descId) )
         {
-            echo '<input type="hidden" name="descId" value="' . $descId . '">' . "\n"
-            .    '<input type="hidden" name="descCategory" value="' . $description->getCategory() . '">' . "\n";
+            echo '<input type="hidden" name="descId" value="' . $descId . '" />' . "\n"
+            .    '<input type="hidden" name="descCategory" value="' . $description->getCategory() . '" />' . "\n";
         }
         else
         {
-             echo '<input type="hidden" name="descCategory" value="' . $category . '">' . "\n";
+             echo '<input type="hidden" name="descCategory" value="' . $category . '" />' . "\n";
         }
         
         echo "\n" . '<table border="0">' . "\n"
@@ -232,12 +232,12 @@ if ( $is_allowedToEdit )
 
         if ( $tipIsTitleEditable )
         {
-            echo '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($description->getTitle()) . '">' . "\n";
+            echo '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($description->getTitle()) . '" />' . "\n";
         }
         else
         {
             echo htmlspecialchars($tipPresetTitle) . "\n"
-            .    '<input type="hidden" name="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'">' . "\n";
+            .    '<input type="hidden" name="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
         }
         
         echo '</p>' . "\n\n"
@@ -325,7 +325,7 @@ if ( $is_allowedToEdit )
 
         echo '<option value="-1">' . get_lang("Other") . '</option>' . "\n"
         .    '</select>' . "\n"
-        .    '<input type="submit" name="add" value="' . get_lang('Add') . '">' . "\n"
+        .    '<input type="submit" name="add" value="' . get_lang('Add') . '" />' . "\n"
         .    '</form>' . "\n"
         .    '<br />' . "\n"
         ;
@@ -388,7 +388,7 @@ if ( count($descList) )
                 echo '<p>' . "\n"
                 // edit
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . $thisDesc['id'] . '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '">'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" />'
                 .    '</a>' . "\n"
                 // delete
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . $thisDesc['id'] . '"'
