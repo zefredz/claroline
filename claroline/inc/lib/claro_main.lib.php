@@ -887,6 +887,7 @@ function claro_disp_tool_view_option($viewModeRequested = false)
 
     return claro_html_tool_view_option($viewModeRequested);
 }
+
 function claro_html_tool_view_option($viewModeRequested = false)
 {
     if ( ! claro_is_course_manager() || ! claro_is_display_mode_available() ) return false;
@@ -904,15 +905,27 @@ function claro_html_tool_view_option($viewModeRequested = false)
     * (thus a questionmark)
     */
 
-    if ( strstr($_SERVER['REQUEST_URI' ], '?') ) $url = $_SERVER['REQUEST_URI' ];
-    else                                         $url = $_SERVER['PHP_SELF'] . '?';
+    if ( strstr($_SERVER['REQUEST_URI' ], '?') )
+    {
+        $url = $_SERVER['REQUEST_URI' ];
+    }
+    else
+    {
+        $url = $_SERVER['PHP_SELF'] . '?';
+    }
+    
+    /*
+     * convert & to &amp;
+     */
+     
+    $url = preg_replace( '/(&amp;|&)/', '&amp;', $url );
 
     /*
     * remove previous view mode request from the url
     */
 
-    $url = str_replace('&viewMode=STUDENT'     , '', $url);
-    $url = str_replace('&viewMode=COURSE_ADMIN', '', $url);
+    $url = str_replace('&amp;viewMode=STUDENT'     , '', $url);
+    $url = str_replace('&amp;viewMode=COURSE_ADMIN', '', $url);
 
     /*------------------------------------------------------------------------
     INIT BUTTONS
