@@ -242,6 +242,7 @@ class ConfigHtml extends Config
                         break;
                     case 'integer' :
                     case 'string' :
+                    case 'text' :
                     default :
                         {
                             // probably a string or integer
@@ -391,7 +392,15 @@ class ConfigHtml extends Config
                         . '<span class="propType">'.$html['type'].'</span>';
 
                         break;
-
+                        
+                    case 'text' :
+                        
+                        $form_title = '<label for="label_'.$name.'"  >' . $html['label'] . '</label>' ;
+                        
+                        $form_value = '<textarea cols="40" rows="5" id="label_'.$name.'" name="'.$input_name.'">'. $html['value'] .'</textarea>';
+                        
+                        break;
+                        
                     default:
                         // by default is a string
                         $form_title = '<label for="label_'.$name.'"  >' . $html['label'] . '</label>' ;

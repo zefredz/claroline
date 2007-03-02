@@ -475,6 +475,7 @@ class Config
                 break;
 
             case 'string' :
+            case 'text' :
             default :
                 $valid = true;
         }
