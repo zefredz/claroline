@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1671,7 +1671,12 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
             }
             echo '</ul>';
         }
-        else echo '<br />Unidentified Error on config files creation';
+        else
+        {
+            echo '<br />' . "\n"
+            .    'Unidentified Error on config files creation'
+            ;
+        }
 
     }
 
@@ -1699,9 +1704,11 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
         <b>
             <em>'.$garbageRepositorySys.'</em>
             is Write Protected.
-        </b>
-        Claroline need to have write right to trash courses.<br />
-        change right on this directory and retry.';
+        </b>' . "\n"
+        .    'Claroline need to have write right to trash courses.' . "\n"
+        .    '<br />' . "\n"
+        .    'change right on this directory and retry.'
+        ;
     }
 
     if ($platformConfigRepositorySysMissing)
@@ -1711,14 +1718,14 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
 
     if ($platformConfigRepositorySysWriteProtected)
     {
-        echo '
-        <br />
-        <b>
-            <em>' . claro_get_conf_repository() . '</em>
-            is Write Protected.
-        </b>
-        Claroline need to have write right to trash courses.<br />
-        change right on this directory and retry.';
+        echo '<br />' . "\n"
+        .    '<b>' . "\n"
+        .    '<em>' . claro_get_conf_repository() . '</em>
+            is Write Protected.' . "\n"
+        .    '</b>' . "\n"
+        .    'Claroline need to have write right to trash courses.' . "\n"
+        .    '<br />' . "\n"
+        .    'change right on this directory and retry.';
     }
 
 
@@ -1751,10 +1758,27 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     .    '</form>' . "\n"
     .    '<br />' . "\n"
     .    '<br />' . "\n"
-    .    'Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.' . "\n"
-    .    '<br />' . "\n"
+    .    get_lang('Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
     .    '<br />' . "\n"
     .    '</center>' . "\n"
+    .    '<hr />' . "\n"
+    .    get_lang('Todo List after install:')
+    .    '<ul>'
+    .    '<li>'
+    .    get_lang('Protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
+    .    '</li>'
+    .    '<li>'
+    .    get_lang('Tune your install in config in <tt>%administration | %configuration</tt>', array('%administration' => get_lang('Administration'),'%configuration' => get_lang('Configuration'))) . "\n"
+    .    '</li>'
+    .    '<li>'
+    .    get_lang('Build your course category tree in <tt>%administration | %manage course categories</tt>', array('%administration' => get_lang('Administration'),'%manage course categories' => get_lang('Manage course categories'))) . "\n"
+    .    '</li>'
+    .    '<li>'
+    .    get_lang('Edit or clear text Zones in <tt>%administration | %edit text zones</tt>', array('%administration' => get_lang('Administration'),'%edit text zones' => get_lang('Edit text zones'))) . "\n"
+    .    '</li>'
+    .    '</ul>'
+    .    '<br />' . "\n"
+    .    '<br />' . "\n"
     ;
 }    // STEP RUN_INSTALL_COMPLETE
 
@@ -1765,7 +1789,7 @@ else
     .    '<br />' . "\n"
     .    'Error in script. <br />' . "\n"
     .    '<br />' . "\n"
-    .    'Please inform  <a href=mailto:moosh@claroline.net">Claroline team</a> )'
+    .    'Please inform  <a href=mailto:cvs@claroline.net">Claroline team</a> )'
     ;
 }
 
