@@ -314,7 +314,7 @@ if ( !class_exists('ScormExport') )
                     // copy the attached file
                     if ( !claro_copy_file($this->srcDirExercise . '/' . $attachedFile, $this->destDir . '/Exercises') )
                     {
-                        $this->error[] = get_lang('Unable to copy file : ') . $attachedFile;
+                        $this->error[] = get_lang('Unable to copy file : %filename', array ( '%filename' => $attachedFile  ));
                         return false;
                     }
 
@@ -511,7 +511,7 @@ if ( !class_exists('ScormExport') )
             {
                 if ( !claro_copy_file(get_module_path('CLQWZ') .'/claroPlayer.swf', $this->destDir) )
                 {
-                    $this->error[] = get_lang('Unable to copy file : ') . get_module_path('CLQWZ') . '/claroPlayer.swf';
+                    $this->error[] = get_lang('Unable to copy file : %filename', array ( '%filename' => get_module_path('CLQWZ') . '/claroPlayer.swf') );
 
                     // This is *NOT* a fatal error.
                     // Do *NOT* return false.
