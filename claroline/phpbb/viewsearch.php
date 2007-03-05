@@ -3,7 +3,8 @@
 $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
-require get_path('incRepositorySys') .'/lib/forum.lib.php';
+require get_path('incRepositorySys') . '/lib/forum.lib.php';
+require get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
 $last_visit        = claro_get_current_user_data('lastLogin');
 $is_groupPrivate   = claro_get_current_group_properties_data('private');
@@ -77,6 +78,7 @@ if ( $sqlClauseString )
         $searchResultList = claro_sql_query_fetch_all($sql);
 
         $userGroupList  = get_user_group_list(claro_get_current_user_id());
+        $userGroupList  = array_keys($userGroupList);
         $tutorGroupList = get_tutor_group_list(claro_get_current_user_id());
 }
 else

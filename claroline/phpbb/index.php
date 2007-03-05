@@ -46,6 +46,7 @@ Library
 -----------------------------------------------------------------*/
 
 include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
 /*-----------------------------------------------------------------
 Initialise variables
@@ -77,6 +78,7 @@ $forum_list = get_forum_list();
 if ( claro_is_user_authenticated() )
 {
     $userGroupList  = get_user_group_list(claro_get_current_user_id());
+    $userGroupList  = array_keys($userGroupList);
     $tutorGroupList = get_tutor_group_list(claro_get_current_user_id());
 }
 else
