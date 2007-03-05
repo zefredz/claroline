@@ -218,7 +218,7 @@ if (claro_is_in_a_course())
 
                 if (isset($_courseToolData['icon']))
                 {
-                    $_toolIconUrl = $imgRepositoryWeb.$_courseToolData['icon'];
+                    $_toolIconUrl = get_module_url($_courseToolData['label']).'/'.$_courseToolData['icon'];
                 }
 
                 // select "groups" in group context instead of tool
