@@ -25,7 +25,7 @@ include_once get_module_path('CLQWZ') . '/lib/answer_fib.class.php';
 include_once get_module_path('CLQWZ') . '/lib/answer_matching.class.php';
 
 /**
- * extend Quesiton class to add extract from tracking method to each answer type
+ * extend Question class to add extract from tracking method to each answer type
  */
 class TrackQuestion extends Question
 {
@@ -220,17 +220,11 @@ $sql = "SELECT `E`.`id`, `E`.`title`, `E`.`showAnswers`, `E`.`attempts`,
         AND `TE`.`exe_user_id` = `U`.`user_id`
         AND `TE`.`exe_id` = ". $trackedExId;
 
-$result = claro_sql_query_fetch_all($sql);
-
-if( $result )
-{
-    $thisAttemptDetails = $result[0];
-}
-else
+if( ! $thisAttemptDetails = claro_sql_query_get_single_row($sql) )
 {
     // sql error, let's get out of here !
     claro_redirect("../exercise/exercise.php");
-    die();
+    exit();
 }
 
 //-- permissions
@@ -246,11 +240,11 @@ if( claro_is_user_authenticated() )
     }
     elseif( claro_get_current_user_id() == $thisAttemptDetails['user_id'] )
     {
-        if( $thisAttemptDetails['show_answer'] == 'ALWAYS' )
+        if( $thisAttemptDetails['showAnswers'] == 'ALWAYS' )
         {
             $is_allowedToTrack = true;
         }
-        elseif( $thisAttemptDetails['show_answer'] == 'LASTTRY' )
+        elseif( $thisAttemptDetails['showAnswers'] == 'LASTTRY' )
         {
             // we must check that user has at least "max_attempt" results
             $sql = "SELECT COUNT(`exe_id`)
@@ -259,7 +253,7 @@ if( claro_is_user_authenticated() )
                     AND `exe_exo_id` = ".$thisAttemptDetails['exe_exo_id'];
             $userAttempts = claro_sql_query_get_single_value($sql);
 
-            if( $userAttempts >= $thisAttemptDetails['max_attempt'] )
+            if( $userAttempts >= $thisAttemptDetails['attempts'] )
             {
                 $is_allowedToTrack = true;
             }
