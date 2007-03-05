@@ -112,7 +112,6 @@ if (claro_is_in_a_group() && claro_is_group_allowed())
 
     $maxFilledSpace    = get_conf('maxFilledSpace_for_groups');
     $courseDir         = claro_get_course_path() . '/group/' . claro_get_current_group_data('directory');
-    $groupDir          = urlencode('group/' . claro_get_current_group_data('directory'));
 
     $is_allowedToEdit  = claro_is_group_member() ||  claro_is_group_tutor()|| claro_is_course_manager();
     $is_allowedToUnzip =  FALSE;
@@ -2210,7 +2209,7 @@ echo claro_html_tool_title($titleElement,
                         if ($thisFile['type'] == A_FILE)
                         {
                             echo '<a href="../work/work.php?'
-                                .'submitGroupWorkUrl='.$groupDir.$cmdFileName.'">'
+                                .'submitGroupWorkUrl='.$cmdFileName.'&amp;gidReq=' . claro_get_current_group_id() . '">'
                                 .'<small>'.get_lang('Publish').'</small>'
                                 .'</a>';
                         }
