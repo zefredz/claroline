@@ -26,7 +26,7 @@ require_once './lib/assignment.class.php';
 
 include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-include_once get_path('incRepositorySys') . '/lib/assignment.lib.php';
+include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user                = $tbl_mdb_names['user'];
@@ -136,7 +136,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 }
 else
 {
-	$userGroupList = REL_GROUP_USER::get_user_group_list(claro_get_current_user_id());
+	$userGroupList = get_user_group_list(claro_get_current_user_id());
 	// check if user is member of at least one group
 	$userCanPost = (bool) ( !empty($userGroupList) );
 }

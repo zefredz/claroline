@@ -25,7 +25,6 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 
 require_once './lib/assignment.class.php';
 
-require_once get_path('incRepositorySys') . '/lib/assignment.lib.php';
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php'; // need format_url function
@@ -611,7 +610,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
             {
                 echo '<td align="center">'
-                .     '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '">'
+                .     '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '&amp;gidReq=' . claro_get_current_group_id() . '">'
                 .      '<small>' . get_lang('Publish') . '</small>'
                 .     '</a>'
                 .     '</td>' . "\n";
