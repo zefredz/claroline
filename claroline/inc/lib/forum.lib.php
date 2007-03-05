@@ -1498,50 +1498,6 @@ function move_down_category($cat_id)
 }
 
 /**
- * List of a group for a given user
- *
- * @param integer $uid
- * @return array of integer
- */
-function get_user_group_list($uid)
-{
-    $tbl_cdb_names     = claro_sql_get_course_tbl();
-    $tbl_student_group = $tbl_cdb_names['group_team'         ];
-    $tbl_user_group    = $tbl_cdb_names['group_rel_team_user'];
-
-    $sql = "SELECT `g`.`id` AS `group_id`
-            FROM `" . $tbl_student_group . "` AS `g`,
-                 `" . $tbl_user_group    . "` AS `gu`
-            WHERE `g`.`id`    = `gu`.`team`
-              AND `gu`.`user` = " . (int) $uid ;
-
-    $groupList = claro_sql_query_fetch_all_cols($sql);
-    $groupList = $groupList['group_id'];
-    return $groupList;
-}
-
-/**
- * return list of groups id where a given user (userId) is tutor
- *
- * @param integer $uid uid to find groups where he's tutor
- * @return array of integer : group list
- */
-function get_tutor_group_list($uid)
-{
-    $tbl_cdb_names     = claro_sql_get_course_tbl();
-    $tbl_student_group = $tbl_cdb_names['group_team'];
-
-    $sql = "SELECT `id` `group_id`
-            FROM `" . $tbl_student_group . "`
-            WHERE tutor = " . (int) $uid ;
-
-    $groupList = claro_sql_query_fetch_all_cols($sql);
-    $groupList = $groupList['group_id'];
-    return $groupList;
-}
-
-
-/**
  * Return the full list of forum
  *
  * @return array(forum_id, forum_name, forum_desc, forum_access, forum_moderator,
