@@ -60,6 +60,12 @@ require_once(dirname(__FILE__) . '/textzone.lib.php');
 require_once(dirname(__FILE__) . '/module.lib.php');
 
 /**
+ * SECTION :  Icon functions
+ * depends on module.lib.php
+ */
+require_once(dirname(__FILE__) . '/icon.lib.php');
+
+/**
  * SECTION :  Get kernel
  * SUBSECTION datas for courses
  */
