@@ -135,6 +135,27 @@ function claro_get_current_tool_id()
     return get_init('_tid');
 }
 
+function get_current_module_label()
+{
+    // course module
+    if ( isset( $_courseTool )
+        && is_array( $_courseTool )
+        && array_key_exists( 'label', $_courseTool ) )
+    {
+        return $_courseTool['label'];
+    }
+    // non-course module (hack !!!!)
+    elseif ( isset( $tlabelReq ) && ! empty( $tlabelReq ) )
+    {
+        return $tlabelReq;
+    }
+    // not in a module
+    else
+    {
+        return false;
+    }
+}
+
 /**
  * Return the value of a Claroline configuration parameter
  * @param string $param config parameter
