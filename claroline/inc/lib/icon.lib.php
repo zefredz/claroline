@@ -3,13 +3,23 @@
     // vim: expandtab sw=4 ts=4 sts=4:
     
     /**
-     * @author  Frederic Minne <zefredz@claroline.net>
-     * @copyright Copyright &copy; 2006-2007, Frederic Minne
-     * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License
-     * @version 1.0
-     * @package PlugIt
+     * Icon library
+     *
+     * @version     1.9 $Revision$
+     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @author      Frederic Minne <zefredz@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE
+     * @package     KERNEL
      */
-	
+
+	/**
+     * Returns the url of the given icon
+     *
+     * @param string fileName file name with or without extension
+     * @return string icon url
+     *         mixed null if icon not found
+     */
 	function get_icon( $fileName )
     {
         $fileInfo = pathinfo( $fileName );

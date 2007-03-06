@@ -135,6 +135,13 @@ function claro_get_current_tool_id()
     return get_init('_tid');
 }
 
+/**
+ * Returns the label of the current tool module
+ * WARNING: Works only on tool modules not on applets
+ * FIXME: non-course module hack
+ * @return string module label
+ *         boolean false if no module currently in use or not in a tool module
+ */
 function get_current_module_label()
 {
     // course module
