@@ -60,6 +60,11 @@ class Question
      * @var $answer answer object 
      */
     var $answer;
+	
+    /**
+     * @var $exerciseId parent exercise id of the current question (optional)
+     */
+    var $exerciseId;
     
     /**
      * @var $tmpQuestionDirSys use for attachment upload on question creation 
@@ -89,6 +94,8 @@ class Question
 	    $this->grade = 0;
 	    
 	    $this->answer = null;
+        
+        $this->exerciseId = null;
 	    
 	    $this->questionDirSys = '';
 	    $this->questionDirWeb = '';
@@ -433,6 +440,23 @@ class Question
             return false;
         }
     }
+
+    /*
+    * copy a file as the attachment of the question
+    *
+    * @author Sebastien Piraux <pir@cerdecam.be>
+    */
+    
+    function getAttachmentUrl()
+    {
+        $url = get_conf('urlAppend') . '/claroline/exercise/get_attachment.php?id='
+            . 'download'
+            . '_' . $this->id
+            . '_' . $this->exerciseId
+            . '_' . rand(0,1000) ;
+
+        return $url;
+    }
     
 	/**
      * get html required to display the question
@@ -458,7 +482,7 @@ class Question
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
      */    
-    function getQuestionHtml()
+    function getQuestionHtml($exerciseId = null)
     {
     	$html = '<p>'
         .   '<strong>'.$this->title.'</strong>' . "\n"
@@ -467,7 +491,7 @@ class Question
 		
 		if( !empty($this->attachment) ) 
     	{
-    		$html .= claro_html_media_player($this->questionDirWeb.$this->attachment);
+    		$html .= claro_html_media_player($this->questionDirWeb.$this->attachment,$this->getAttachmentUrl());
     	}
    	
     	return $html;	
@@ -478,7 +502,8 @@ class Question
      *
      * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value   
-     */    
+     */
+ 
     function getQuestionFeedbackHtml()
     {
     	$html = $this->getQuestionHtml();
@@ -665,5 +690,30 @@ class Question
 
 		return true;
 	}
+
+	/**
+     * get exercise parent id of the current question
+     *
+     * @return string   
+     */	 
+	function getExerciseId()
+	{
+		return $this->exerciseId;		
+	}
+
+   
+	/**
+     * set exercise parent id of the current question 
+     *
+     * @author Sebastien Piraux <pir@cerdecam.be>
+     * @param string $value   
+     */	 	
+	function setExerciseId($value)
+	{
+		$this->exerciseId = (int) $value;
+	}
+
+
+
 }
 ?>

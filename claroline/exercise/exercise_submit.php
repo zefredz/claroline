@@ -118,6 +118,7 @@ if( !isset($_SESSION['serializedQuestionList']) || !is_array($_SESSION['serializ
 	foreach( $qList as $question )
 	{
 		$questionObj = new Question();
+        $questionObj->setExerciseId($exId);
 
 		if( $questionObj->load($question['id']) )
 		{

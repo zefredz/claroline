@@ -26,7 +26,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @return string html to include in the page
  */
 
-function claro_html_media_player($filePath)
+function claro_html_media_player($filePath, $fileUrl)
 {
  	//if( !file_exists($filePath) )return false;
 
@@ -50,17 +50,17 @@ function claro_html_media_player($filePath)
 	    case 'gif' :
 	    case 'png' :
 	    case 'bmp' :
-	        $returnedString .= '<img src="'.$filePath.'" border="0" alt="'.$basename.'" />'."\n";
+	        $returnedString .= '<img src="'.$fileUrl.'" border="0" alt="'.$basename.'" />'."\n";
 	        break;
 
 		//-- flash animation
 		case 'swf' :
 			$returnedString .=
-				'<object type="application/x-shockwave-flash" data="'.$filePath.'" width="320" height="240">' . "\n"
-				.'<param name="movie" value="'.$filePath.'">' . "\n"
+				'<object type="application/x-shockwave-flash" data="'.$fileUrl.'" width="320" height="240">' . "\n"
+				.'<param name="movie" value="'.$fileUrl.'">' . "\n"
 				.'<param name="wmode" value="transparent" />'
 				.'<small>' . "\n"
-				.'<a href="'.$filePath.'">'.get_lang('Download file').'</a>' . "\n"
+				.'<a href="'.$fileUrl.'">'.get_lang('Download file').'</a>' . "\n"
 				.'</small>'."\n"
 				.'</object>' . "\n";
 		break;
@@ -70,7 +70,7 @@ function claro_html_media_player($filePath)
 			$playerUrl = get_conf('urlAppend') . '/claroline/inc/swf/player_flv.swf';
 			$skinUrl = get_conf('urlAppend') . '/claroline/inc/swf/player_flv.jpg';
 
-			$params[] = 'flv='.$filePath;
+			$params[] = 'flv='.$fileUrl;
 			$params[] = 'fake='.time();
 			$params[] = 'showstop=1';
 			$params[] = 'skin=' . $skinUrl;
@@ -102,7 +102,7 @@ function claro_html_media_player($filePath)
 			// more infos about mp3 player : http://resources.neolao.com/flash/components/player_mp3
 			$playerUrl = get_conf('urlAppend') . '/claroline/inc/swf/player_mp3.swf';
 
-			$params[] = 'mp3='.$filePath;
+			$params[] = 'mp3='.$fileUrl;
 			$params[] = 'fake='.time();
 			$params[] = 'showstop=1';
 			$params[] = 'showinfo=1';
@@ -124,13 +124,13 @@ function claro_html_media_player($filePath)
 				.'</object>' . "\n"
 				.'<br />' . "\n"
 				.'<small>' . "\n"
-				.'<a href="'.$filePath.'">'.get_lang('Download file').'</a>' . "\n"
+				.'<a href="'.$fileUrl.'" target="_blank">'.get_lang('Download file').'</a>' . "\n"
 				.'</small>'."\n\n";
 		break;
 
 		//-- not implemented media player
 		default :
-			$returnedString .= '<a href="'.$filePath.'" target="_blank">'.get_lang('Download file').'</a>'."\n";
+			$returnedString .= '<a href="'.$fileUrl.'" target="_blank">'.get_lang('Download file').'</a>'."\n";
 		break;
 
 	}
