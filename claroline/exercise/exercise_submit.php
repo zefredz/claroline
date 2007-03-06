@@ -223,48 +223,50 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
 	$showResult = true;
 	$showSubmitForm = false;
 
-	// compute scores
-	$totalResult = 0;
-    $totalGrade = 0;
-
-    for( $i = 0 ; $i < count($questionList); $i++)
+	if( $recordResults )
 	{
-		// required by getGrade and getQuestionFeedbackHtml
-		$questionList[$i]->answer->extractResponseFromRequest();
+		// compute scores
+		$totalResult = 0;
+		$totalGrade = 0;
 
-		$questionResult[$i] = $questionList[$i]->answer->gradeResponse();
-		$questionGrade[$i] = $questionList[$i]->getGrade();
+		for( $i = 0 ; $i < count($questionList); $i++)
+		{
+			// required by getGrade and getQuestionFeedbackHtml
+			$questionList[$i]->answer->extractResponseFromRequest();
 
-		// sum of score
-		$totalResult += $questionResult[$i];
-		$totalGrade += $questionGrade[$i];
-	}
+			$questionResult[$i] = $questionList[$i]->answer->gradeResponse();
+			$questionGrade[$i] = $questionList[$i]->getGrade();
 
-    //-- tracking
-    // if anonymous attempts are authorised : record anonymous user stats, record authentified user stats without uid
-    if ( $exercise->getAnonymousAttempts() == 'ALLOWED' )
-    {
-        $exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe );
-    }
-    elseif( claro_is_in_a_course() ) // anonymous attempts not allowed, record stats with uid only if uid is set
-    {
-        $exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe, claro_get_current_user_id() );
-    }
+			// sum of score
+			$totalResult += $questionResult[$i];
+			$totalGrade += $questionGrade[$i];
+		}
 
-    if( isset($exerciseTrackId) && $exerciseTrackId && !empty($questionList) )
-    {
-        $i = 0;
-        foreach ( $questionList as $question )
-        {
-            event_exercise_details($exerciseTrackId,$question->getId(),$question->answer->getTrackingValues(),$questionResult[$i]);
-            $i++;
-        }
-    }
+		//-- tracking
+		// if anonymous attempts are authorised : record anonymous user stats, record authentified user stats without uid
+		if ( $exercise->getAnonymousAttempts() == 'ALLOWED' )
+		{
+			$exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe );
+		}
+		elseif( claro_is_in_a_course() ) // anonymous attempts not allowed, record stats with uid only if uid is set
+		{
+			$exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe, claro_get_current_user_id() );
+		}
 
-
-	if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
-	{
-		set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,claro_get_current_user_id());
+		if( isset($exerciseTrackId) && $exerciseTrackId && !empty($questionList) )
+		{
+			$i = 0;
+			foreach ( $questionList as $question )
+			{
+				event_exercise_details($exerciseTrackId,$question->getId(),$question->answer->getTrackingValues(),$questionResult[$i]);
+				$i++;
+			}
+		}
+	
+		if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
+		{
+			set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,claro_get_current_user_id());
+		}
 	}
 }
 elseif( ! $exerciseIsAvailable )
