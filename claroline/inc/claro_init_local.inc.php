@@ -518,13 +518,6 @@ else
     $is_allowedCreateCourse  = false;
 }
 
-
-if( $claro_loginRequested && isset($claro_loginSucceeded) && $claro_loginSucceeded )
-{
-    // needs to be AFTER the initialisation of $_user ['lastLogin']
-    event_login();
-}
-
 /*---------------------------------------------------------------------------
   Course initialisation
  ---------------------------------------------------------------------------*/

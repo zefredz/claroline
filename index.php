@@ -40,6 +40,14 @@ if (isset($_REQUEST['logout']))
     {
         $eventNotifier->notifyEvent('user_logout', array('uid' => $logout_uid));
     }
+    /* needed to be able to :
+     	- log with claroline when 'magic login' has previously been clicked
+     	- notify logout event
+     	(logout from CAS has been commented in casProcess.inc.php)*/
+    if( get_conf('claro_CasEnabled', false) && ( get_conf('claro_CasGlobalLogout') && !phpCAS::checkAuthentication() ) )
+    {
+    	phpCAS::logout(get_conf('rootWeb').'index.php');
+    }
     session_destroy();
 }
 

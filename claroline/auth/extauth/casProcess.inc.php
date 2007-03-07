@@ -46,12 +46,11 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     if ($logout)
     {
         $userLoggedOnCas = false;
-        phpCAS::logout(get_path('rootWeb').'index.php');
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
         // set the call back url
-        if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = $_REQUEST['sourceUrl'];
+        if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = base64_decode($_REQUEST['sourceUrl']);
         elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
         else                                           $casCallBackUrl = get_path('rootWeb');
 
@@ -70,7 +69,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
                          .  'gidReq='.urlencode($_SESSION['_gid']);
         }
 
-        phpCAS::setFixedServiceURL($casCallBackUrl);
+		$_SESSION['casCallBackUrl'] = base64_encode($casCallBackUrl); // we record callback url in session
         phpCAS::forceAuthentication();
 
         $userLoggedOnCas                  = true;

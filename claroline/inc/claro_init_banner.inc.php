@@ -326,7 +326,7 @@ if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && i
     {
         $clarolineBannerOutput .= "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="'.$clarolineRepositoryWeb.'auth/login.php'
-            .'?sourceUrl='.urlencode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). '" target="_top">'
+            .'?sourceUrl='.urlencode(base64_encode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ). '" target="_top">'
             .get_lang('Login')
             .'</a>'
             .'</div>'."\n";
