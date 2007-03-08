@@ -52,8 +52,12 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
         // set the call back url
         if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = base64_decode($_REQUEST['sourceUrl']);
         elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
-        else                                           $casCallBackUrl = get_path('rootWeb');
-
+        else
+        {
+            $casCallBackUrl = (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://')
+                    . $_SERVER['HTTP_HOST'] . get_conf('urlAppend').'/';
+        } 
+        
         $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
                         .  'fromCasServer=true';
 
