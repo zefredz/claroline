@@ -81,6 +81,10 @@ function delete_course($code)
     // DELETE course right
     
     RightCourseProfileToolRight::resetAllRightProfile($currentCourseId);
+    
+    // DELETE course module tables
+    // FIXME handle errors
+    list( $success, $log ) = delete_all_modules_from_course( $currentCourseId );
 
     //notify the course deletion event
     $args['cid'] = $this_course['sysCode'];
