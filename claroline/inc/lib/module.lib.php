@@ -185,6 +185,7 @@ function get_module_entry($claroLabel)
 
 }
 
+
 /**
  * return the complete path to the entry of an module.
  *
@@ -286,6 +287,181 @@ function add_module_lang_array($moduleLabel)
 		include $module_uri.'lang/lang_english.php';
 		$_lang = array_merge($_lang,$mod_lang);
 	}
+}
+
+/**
+ * Get the list of all modules on the platform
+ * @param   bool activeModulesOnly selects only active module (default true)
+ * @return  array module label list
+ * @throws  COULD_NOT_GET_MODULE_LABEL_LIST
+ * @author  Frederic Minne <zefredz@claroline.net>
+ */
+function get_module_label_list( $activeModulesOnly = true )
+{
+    $tbl_name_list = claro_sql_get_main_tbl();
+    $tbl_module = $tbl_name_list['module'];
+    
+    $activationSQL = $activeModulesOnly
+        ? "WHERE `activation` = 'activated'"
+        : ''
+        ;
+    
+    $sql = "SELECT `label` \n"
+        . "FROM `" . $tbl_module . "`\n"
+        . $activationSQL
+        ;
+        
+    if ( ! ( $result = claro_sql_query_fetch_all( $sql ) ) )
+    {
+        return claro_failure::set_failure('COULD_NOT_GET_MODULE_LABEL_LIST');
+    }
+    else
+    {
+        $moduleLabelList = array();
+        
+        foreach( $result as $module )
+        {
+            $moduleLabelList[] = $module['label'];
+        }
+        
+        return $moduleLabelList;
+    }
+}
+
+/**
+ * Module (un)installation functions
+ */
+
+require_once dirname(__FILE__) . '/sqlxtra.lib.php';
+
+/**
+ * Install database for the given module in the given course
+ * @param   string moduleLabel
+ * @param   string courseId
+ * @return  boolean
+ * @author  Frederic Minne <zefredz@claroline.net>
+ */
+function install_module_in_course( $moduleLabel, $courseId )
+{
+    $sqlPath = get_module_path( $moduleLabel ) . '/setup/course_install.sql';
+    $phpPath = get_module_path( $moduleLabel ) . '/setup/course_install.php';
+
+    if ( file_exists( $sqlPath ) )
+    {
+        if ( ! execute_sql_file_in_course( $sqlPath, $courseId ) )
+        {
+            return false;
+        }
+    }
+
+    if ( file_exists( $phpPath ) )
+    {
+        require_once $phpPath;
+    }
+}
+
+/**
+ * Remove database for all modules in the given course
+ * @param   string courseId
+ * @return  array(
+ *  boolean success
+ *  Backlog log )
+ * @author  Frederic Minne <zefredz@claroline.net>
+ */
+function delete_all_modules_from_course( $courseId )
+{
+    $backlog = new Backlog;
+    $success = true;
+    
+    if ( ! $moduleLabelList = get_module_label_list(false) )
+    {
+        $success = false;
+        $backlog->failure( claro_failure::get_last_failure() );
+    }
+    else
+    {
+        foreach ( $moduleLabelList as $moduleLabel )
+        {
+            if ( ! delete_module_in_course( $moduleLabel, $courseId ) )
+            {
+                $backlog->failure( get_lang('delete failed for module %module%'
+                    , array( '%module%' => $moduleLabel ) ) );
+                
+                $success = false;
+            }
+            else
+            {
+                $backlog->success( get_lang('delete succeeded for module %module%'
+                    , array( '%module%' => $moduleLabel ) ) );
+            }
+        }
+    }
+    
+    return array( $success, $backlog );
+}
+
+/**
+ * Remove database for the given module in the given course
+ * @param   string moduleLabel
+ * @param   string courseId
+ * @return  boolean
+ * @author  Frederic Minne <zefredz@claroline.net>
+ */
+function delete_module_in_course( $moduleLabel, $courseId )
+{
+    $sqlPath = get_module_path( $moduleLabel ) . '/setup/course_uninstall.sql';
+    $phpPath = get_module_path( $moduleLabel ) . '/setup/course_uninstall.php';
+    
+    if ( file_exists( $phpPath ) )
+    {
+        require_once $phpPath;
+    }
+    
+    if ( file_exists( $sqlPath ) )
+    {
+        if ( ! execute_sql_file_in_course( $sqlPath, $courseId ) )
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+/**
+ * Execute course related SQL files by replacing __CL__COURSE__ place holder
+ * with given course code, then executing the file
+ * @param   string file path to the sql file
+ * @param   string courseId course sys code
+ * @return  boolean
+ * @author  Frederic Minne <zefredz@claroline.net>
+ * @throws  SQL_FILE_NOT_FOUND, SQL_QUERY_FAILED
+ */
+function execute_sql_file_in_course( $file, $courseId )
+{
+    if ( file_exists( $file ) )
+    {
+        $sql = file_get_contents( $file );
+
+        if ( !empty( $courseId ) )
+        {
+            $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseId );
+            $sql = str_replace('__CL_COURSE__', $currentCourseDbNameGlu, $sql );
+        }
+        
+        if ( ! claro_sql_multi_query($sql) )
+        {
+            return claro_failure::set_failure( 'SQL_QUERY_FAILED' );
+        }
+        else
+        {
+            return true;
+        }
+    }
+    else
+    {
+        return claro_failure::set_failure( 'SQL_FILE_NOT_FOUND' );
+    }
 }
 
 ?>
