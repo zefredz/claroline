@@ -20,6 +20,9 @@ define('CLARO_INCLUDE_ALLOWED', true);
 
 
 require_once  dirname(__FILE__) . '/lib/claro_main.lib.php';
+
+$_SERVER['PHP_SELF'] = php_self();
+
 $includePath = get_path('incRepositorySys');
 $mainConfPath = get_path('incRepositorySys') . '/../../platform/conf/' . 'claro_main.conf.php';
 

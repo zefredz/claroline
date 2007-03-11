@@ -1514,4 +1514,16 @@ function claro_disp_debug_banner()
     return $html;
 }
 
+function php_self()
+{
+    // remove html tags
+    $url = strip_tags($_SERVER['PHP_SELF']);
+    // protect against XSS
+    $url = preg_replace( '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~', '', $url );
+    // entify remaining special chars
+    $url = htmlentities( $url );
+
+    return $url;
+}
+
 ?>
