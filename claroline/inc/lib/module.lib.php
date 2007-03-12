@@ -464,4 +464,43 @@ function execute_sql_file_in_course( $file, $courseId )
     }
 }
 
+// ---- Database table list helpers
+
+/**
+ * Get list of module table names 'localized' for the given course
+ * @param array $arrTblName of tableName
+ * @param string $courseCode course code
+ * @return array $tableName => $dbNameGlue . $tableName
+ */
+function get_module_course_tbl( $arrTblName, $courseCode )
+{
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseCode );
+    $arrToReturn = array();
+
+    foreach ( $arrTblName as $name )
+    {
+        $arrToReturn[$name] = $currentCourseDbNameGlu . $name;
+    }
+
+    return $arrToReturn;
+}
+
+/**
+ * Get list of module table names 'localized' for the main db
+ * @param array $arrTblName of tableName
+ * @return array $tableName => mainTblPrefix . $tableName
+ */
+function get_module_main_tbl( $arrTblName )
+{
+    $mainDbNameGlu = get_conf('mainTblPrefix');
+    $arrToReturn = array();
+
+    foreach ( $arrTblName as $name )
+    {
+        $arrToReturn[$name] = $mainDbNameGlu . $name;
+    }
+
+    return $arrToReturn;
+}
+
 ?>
