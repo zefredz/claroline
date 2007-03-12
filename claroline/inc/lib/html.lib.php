@@ -909,7 +909,7 @@ function claro_disp_auth_form($cidRequired = false)
 {
 
     // TODO check if it does not break the CAS mechanism
-    $sourceUrl = $_SERVER['REQUEST_URI'];
+    $sourceUrl = base64_encode($_SERVER['REQUEST_URI']);
 
     if ( ! headers_sent () )
     {
