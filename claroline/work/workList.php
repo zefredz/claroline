@@ -197,7 +197,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
                    `S`.`title`,
                    COUNT(`S`.`id`)                      AS `submissionCount`,
                    COUNT(`FB`.`id`)                     AS `feedbackCount`,
-                   `FB`.`score`
+                   MAX(`FB`.`score`)                   AS `maxScore`
 
             #GET USER LIST
             FROM  `" . $tbl_user . "` AS `U`
@@ -248,7 +248,6 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
                 AND `S`.`original_id` IS NULL
                 AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
             " . $submissionFilterSql . "";
-	// TODO get last score
 }
 else  // $assignment->getAssignmentType() == 'GROUP'
 {
@@ -261,7 +260,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
                    `S`.`title`,
                    COUNT(`S`.`id`)     AS `submissionCount`,
                    COUNT(`FB`.`id`)    AS `feedbackCount`,
-				   `FB`.`score`
+				   max(`FB`.`score`)   AS `maxScore`
 
         FROM `" . $tbl_group_team . "` AS `G`
 
@@ -552,8 +551,8 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 if( $is_allowedToEditAll )
 {
 	echo '<th>'
-	.    '<a href="' . $headerUrl['score'] . '">'
-	.    get_lang('Last score')
+	.    '<a href="' . $headerUrl['maxScore'] . '">'
+	.    get_lang('Score')
 	.    '</a>'
 	.    '</th>' . "\n";
 }
@@ -584,7 +583,7 @@ foreach ( $workList as $thisWrk )
 	if( $is_allowedToEditAll )
 	{
 	    echo '<td>'
-		.    ( !empty($thisWrk['score']) ? $thisWrk['score'] : '&nbsp;' )
+		.    ( ( !empty($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : '&nbsp;' )
 		.    '</td>' . "\n";
 	}
 
