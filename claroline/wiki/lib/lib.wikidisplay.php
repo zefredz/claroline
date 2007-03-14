@@ -124,7 +124,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $title = get_lang("Main page");
         }
 
-        $title = "<h1 class=\"wikiTitle\">" . get_lang("Preview : ") . "$title</h1>\n";
+        $title = "<h1 class=\"wikiTitle\">" . get_lang('Preview :') . "$title</h1>\n";
 
         $out .= $title;
 
