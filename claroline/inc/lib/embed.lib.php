@@ -20,7 +20,7 @@
      *
      * @access public
      */
-    class PopupHelper
+    class PopupWindowHelper
     {
         /**
          * generate window.close() html code
@@ -49,9 +49,9 @@
          */
         function popupEmbed( $content )
         {
-            $out = PopupHelper::windowClose()
+            $out = PopupWindowHelper::windowClose()
                 . $content
-                . PopupHelper::windowClose()
+                . PopupWindowHelper::windowClose()
                 ;
 
             return $out;
@@ -84,7 +84,7 @@
 
         if ( true == $inPopup )
         {
-            $output = PopupHelper::popupEmbed( $output );
+            $output = PopupWindowHelper::popupEmbed( $output );
             $hide_banner = true;
             $hide_footer = true;
         }
@@ -169,7 +169,7 @@
         {
             if ( $this->inPopup )
             {
-                $this->content = PopupHelper::popupEmbed( $this->content );
+                $this->content = PopupWindowHelper::popupEmbed( $this->content );
             }
 
             $this->embed( $this->content
