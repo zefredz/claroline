@@ -24,26 +24,31 @@
     {
         $fileInfo = pathinfo( $fileName );
         
+        $imgPath = array(
+            get_path('imgRepositorySys') => get_path('imgRepositoryWeb'),
+            get_module_path(get_current_module_label()).'/' => get_module_url(get_current_module_label()).'/',
+            './' => './',
+            './img/' => './img/'
+        );
+        
         if ( !empty( $fileInfo['extension'] ) )
         {
-            $imgPath = array(
-                get_path('imgRepositorySys').$fileName => get_path('imgRepositoryWeb').$fileName,
-                $GLOBALS['moduleImageRepositorySys'].'/'.$fileName => $GLOBALS['moduleImageRepositoryWeb'].'/'.$fileName,
-            );
+            $img = array( $fileName );
         }
         else
         {
-            $imgPath = array(
-                get_path('imgRepositorySys').$fileName.'.gif' => get_path('imgRepositoryWeb').$fileName.'.gif',
-                get_path('imgRepositorySys').$fileName.'.png' => get_path('imgRepositoryWeb').$fileName.'.png',
-                $GLOBALS['moduleImageRepositorySys'].'/'.$fileName.'.gif' => $GLOBALS['moduleImageRepositoryWeb'].'/'.$fileName.'.gif',
-                $GLOBALS['moduleImageRepositorySys'].'/'.$fileName.'.png' => $GLOBALS['moduleImageRepositoryWeb'].'/'.$fileName.'.png',
+            $img = array(
+                $fileName . '.gif',
+                $fileName . '.png'
             );
         }
         
         foreach ( $imgPath as $tryPath => $tryUrl )
         {
-            if ( file_exists( $tryPath ) ) return $tryUrl;
+            foreach ( $img as $tryImg )
+            {
+                if ( file_exists( $tryPath.$tryImg ) ) return $tryUrl.$tryImg;
+            }
         }
         
         pushClaroMessage("Icon $fileName not found",'error');
