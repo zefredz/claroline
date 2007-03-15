@@ -26,9 +26,9 @@
         
         $imgPath = array(
             get_path('imgRepositorySys') => get_path('imgRepositoryWeb'),
-            get_module_path(get_current_module_label()).'/' => get_module_url(get_current_module_label()).'/',
+            get_module_path(get_current_module_label()).'/img/' => get_module_url(get_current_module_label()).'/img/',
+            './img/' => './img/',
             './' => './',
-            './img/' => './img/'
         );
         
         if ( !empty( $fileInfo['extension'] ) )
