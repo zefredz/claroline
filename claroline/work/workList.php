@@ -347,7 +347,9 @@ foreach ( $workList as $workId => $thisWrk )
 
     $workList[$workId]['name'] = '<a class="item" href="userWork.php'
     .                            '?authId=' . $thisWrk['authId']
-    .                            '&amp;assigId=' . $req['assignmentId'] . '">'
+    .                            '&amp;assigId=' . $req['assignmentId']
+    .                            claro_url_relay_context('&amp;')
+    .                            '">'
     .                            $workList[$workId]['name']
     .                            '</a>'
     ;
@@ -482,7 +484,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     if( $assignment->getAutoFeedbackFilename() != '' )
     {
     	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-        echo  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . '" ' . $target . '>'
+        echo  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . claro_url_relay_context('&amp;') . '" ' . $target . '>'
         .     $assignment->getAutoFeedbackFilename()
         .     '</a></p>'
         ;
@@ -522,7 +524,7 @@ if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>
 /**
  * Submitter (User or group) listing
  */
-$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId']);
+$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] );
 
 echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId'])
 
