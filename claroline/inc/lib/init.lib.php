@@ -144,6 +144,7 @@ function claro_get_current_tool_id()
  */
 function get_current_module_label()
 {
+
     // course module
     if ( isset( $_courseTool )
         && is_array( $_courseTool )
@@ -152,9 +153,9 @@ function get_current_module_label()
         return $_courseTool['label'];
     }
     // non-course module (hack !!!!)
-    elseif ( isset( $tlabelReq ) && ! empty( $tlabelReq ) )
+    elseif ( isset( $GLOBALS['tlabelReq'] ) && ! empty( $GLOBALS['tlabelReq'] ) )
     {
-        return $tlabelReq;
+        return $GLOBALS['tlabelReq'];
     }
     // not in a module
     else
