@@ -21,11 +21,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * We need the base class
 */
-include_once 'class.iCalBase.inc.php';
+include_once dirname(__FILE__) . '/' . 'class.iCalBase.inc.php';
 /**
 * We need the child class
 */
-include_once 'class.iCalAlarm.inc.php';
+include_once dirname(__FILE__) . '/' . 'class.iCalAlarm.inc.php';
 
 /**
 * Container for a single event

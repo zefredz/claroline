@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * We need the base class
 */
-include_once 'class.iCalBase.inc.php';
+include_once dirname(__FILE__) . '/' . 'class.iCalBase.inc.php';
 /**
 * Container for a single freebusy
 *
