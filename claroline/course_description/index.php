@@ -30,12 +30,12 @@ claro_set_display_mode_available(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-//-- Get $tipList
-include_once './tiplistinit.inc.php';
-        
 //-- Tool libraries
 include_once get_module_path($tlabelReq) . '/lib/courseDescription.class.php';
 include_once get_module_path($tlabelReq) . '/lib/courseDescription.lib.php';
+
+//-- Get $tipList
+$tipList = get_tiplistinit();
 
 
 event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
@@ -51,7 +51,7 @@ if ( isset($_REQUEST['descId']) && is_numeric($_REQUEST['descId']) ) $descId = (
 else															     $descId = null;
 
 if ( isset($_REQUEST['category']) && $_REQUEST['category'] >= 0 )    $category = $_REQUEST['category'];
-else                                                                 $category = -1; 
+else                                                                 $category = -1;
 
 /*
  * init other vars
@@ -62,10 +62,10 @@ if ( $is_allowedToEdit && !is_null($cmd) )
 {
     $description = new CourseDescription();
 
-    if ( !is_null($descId) && !$description->load($descId) ) 	
+    if ( !is_null($descId) && !$description->load($descId) )
     {
     	// description must be load but cannot, cancel any command
-    	$cmd = null;  
+    	$cmd = null;
     	$descId = null;
     }
 
@@ -77,7 +77,7 @@ if ( $is_allowedToEdit && !is_null($cmd) )
         if ( isset($_REQUEST['descTitle']) )     $description->setTitle($_REQUEST['descTitle']);
         if ( isset($_REQUEST['descContent']) )   $description->setContent($_REQUEST['descContent']);
         if ( isset($_REQUEST['descCategory']) )  $description->setCategory($_REQUEST['descCategory']);
-        
+
         if ( $description->validate() )
     	{
             // Update description
@@ -113,16 +113,16 @@ if ( $is_allowedToEdit && !is_null($cmd) )
     if ( $cmd == 'rqEdit' )
     {
         claro_set_display_mode_available(false);
-        
+
         if ( isset($tipList[$category]['isEditable']) )  $tipIsTitleEditable = $tipList[$category]['isEditable'];
         else                                            $tipIsTitleEditable = true;
-        
+
         if ( !empty($tipList[$category]['title']) )      $tipPresetTitle = $tipList[$category]['title'];
         else                                            $tipPresetTitle = '';
-       
+
         if ( !empty($tipList[$category]['question']) )   $tipQuestion = $tipList[$category]['question'];
         else                                            $tipQuestion = '';
-        
+
         if ( !empty($tipList[$category]['information']) )$tipInformation = $tipList[$category]['information'];
         else                                            $tipInformation = '';
 
@@ -153,7 +153,7 @@ if ( $is_allowedToEdit && !is_null($cmd) )
     if ( $cmd == 'mkVis' )
     {
         $description->setVisibility('VISIBLE');
-        
+
         if ( $description->save() )
         {
             $eventNotifier->notifyCourseEvent('course_description_visible',claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
@@ -163,7 +163,7 @@ if ( $is_allowedToEdit && !is_null($cmd) )
     if ( $cmd == 'mkInvis' )
     {
         $description->setVisibility('INVISIBLE');
-        
+
         $description->save();
     }
 
@@ -182,18 +182,17 @@ $descList = course_description_get_item_list();
 /*
  * Output
  */
- 
+
 $nameTools = get_lang('Course description');
 
 $noQUERY_STRING = true; // to remove parameters in the last breadcrumb link
 
-require $includePath . '/claro_init_header.inc.php';
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
 //-- dialogBox
 echo claro_html_msg_list($messageList);
-
 
 if ( $is_allowedToEdit )
 {
@@ -207,7 +206,7 @@ if ( $is_allowedToEdit )
         .    claro_form_relay_context() . "\n"
         .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
-        
+
         if ( !is_null($descId) )
         {
             echo '<input type="hidden" name="descId" value="' . $descId . '" />' . "\n"
@@ -217,17 +216,17 @@ if ( $is_allowedToEdit )
         {
              echo '<input type="hidden" name="descCategory" value="' . $category . '" />' . "\n";
         }
-        
+
         echo "\n" . '<table border="0">' . "\n"
         .    '<tr>' . "\n"
-        .    '<td colspan="2">' . "\n\n"  
-        
+        .    '<td colspan="2">' . "\n\n"
+
         .    '<p>' . "\n"
         .    '<label for="descTitle">' . "\n"
         .    '<b>' . get_lang('Title') . ' : </b>' . "\n"
         .    '</label>' . "\n"
         .    '</p>' . "\n"
-        
+
         .    '<p>' . "\n";
 
         if ( $tipIsTitleEditable )
@@ -239,27 +238,27 @@ if ( $is_allowedToEdit )
             echo htmlspecialchars($tipPresetTitle) . "\n"
             .    '<input type="hidden" name="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
         }
-        
+
         echo '</p>' . "\n\n"
-        
+
         .    '<p>' . "\n"
         .    '<label for="descContent">' . "\n"
         .    '<b>' . get_lang('Content') . ' : </b>' . "\n"
         .    '</label>' . "\n"
         .    '</p>' . "\n\n"
-                
+
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
-        
+
         .    '<tr>' . "\n"
         .    '<td>'."\n"
         .    claro_html_textarea_editor('descContent', $description->getContent(), 20, 80, $optAttrib=' wrap="virtual"')."\n"
-        
+
         .    '<p>' . "\n"
         .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
         .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .    '</p>' . "\n"
-        
+
         .    '</td>'  . "\n"
 
         .    '<td valign="top">' . "\n"
@@ -308,7 +307,7 @@ if ( $is_allowedToEdit )
             {
                 $alreadyUsed = false;
                 foreach ( $descList as $thisDesc )
-                {   
+                {
                     if ( $thisDesc['category'] == $key )
                     {
                         $alreadyUsed = true;
@@ -340,7 +339,7 @@ $hasDisplayedItems = false;
 if ( count($descList) )
 {
     if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
-    
+
     echo '<table class="claroTable" width="100%">' . "\n";
 
     foreach ( $descList as $thisDesc )
@@ -358,7 +357,7 @@ if ( count($descList) )
         if (($thisDesc['visibility'] == 'INVISIBLE' && $is_allowedToEdit) || $thisDesc['visibility'] == 'VISIBLE')
         {
             $cssInvisible = '';
-            if ($thisDesc['visibility'] == 'INVISIBLE') 
+            if ($thisDesc['visibility'] == 'INVISIBLE')
             {
                 $cssInvisible = ' invisible';
             }
@@ -382,7 +381,7 @@ if ( count($descList) )
             .    '</div>';
 
             $hasDisplayedItems = true;
-            
+
             if ( $is_allowedToEdit )
             {
                 echo '<p>' . "\n"
@@ -395,8 +394,8 @@ if ( count($descList) )
                 .    ' onClick="if (!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
                 .    ' : ' . $thisDesc['title'] . ' ?\')){ return false}">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" />'
-                .    '</a>' . "\n";                
-                
+                .    '</a>' . "\n";
+
                 // visibility
                 if ($thisDesc['visibility'] == 'VISIBLE')
                 {
@@ -410,14 +409,14 @@ if ( count($descList) )
                     .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
                     .    '</a>' . "\n";
                 }
-                
+
                 echo '</p>' . "\n";
             }
-            
+
             echo '</td>'
             .    '</tr>' . "\n" . "\n";
         }
-        
+
     }
     echo '</table>'."\n\n";
 }

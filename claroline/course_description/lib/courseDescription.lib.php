@@ -33,7 +33,7 @@ function course_description_get_item_list($courseId = null)
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
     $tblCourseDescription = $tbl['course_description'];
-    
+
     $sql = "SELECT `id`,
                 `category`,
                 `title`,
@@ -42,8 +42,18 @@ function course_description_get_item_list($courseId = null)
                 `visibility`
         FROM `".$tblCourseDescription."`
         ORDER BY `category` ASC";
-        
+
     return  claro_sql_query_fetch_all($sql);
+}
+
+/**
+ * return the tips list
+ */
+
+function get_tiplistinit()
+{
+    include_once './tiplistinit.inc.php';
+    return $tipList;
 }
 
 ?>
