@@ -193,9 +193,14 @@ class language
 
             include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
 
-            if ($language  != 'english') // Avoid useless include as English lang is preloaded
+            if ($language != 'english') // Avoid useless include as English lang is preloaded
             {
-                include(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
+                $language_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
+
+                if ( file_exists($language_file) )
+                {
+                    include($language_file);
+                }
             }
 
         }
@@ -266,7 +271,11 @@ class language
         include(get_path('incRepositorySys').'/../lang/english/locale_settings.php');
         if ( $language != 'english' ) // Avoid useless include as English lang is preloaded
         {
-            include(get_path('incRepositorySys') . '/../lang/' . $language . '/locale_settings.php');
+            $locale_settings_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/locale_settings.php');
+            if ( file_exists($locale_settings_file) )
+            {
+                include($locale_settings_file);
+            }
         }
 
         $GLOBALS['langNameOfLang'] = $langNameOfLang;
