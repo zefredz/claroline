@@ -743,8 +743,7 @@ if ( $is_allowedToEdit )
             $submission->setSubmittedFilename($wrkForm['filename']);
 
             if( !empty($wrkForm['wrkPrivFbk']) )     $submission->setPrivateFeedback($wrkForm['wrkPrivFbk']);
-            if( !empty($wrkForm['wrkScore']) )         $submission->setScore($wrkForm['wrkScore']);
-
+            if( !empty($wrkForm['wrkScore']) || $wrkForm['wrkScore'] == 0 ) $submission->setScore($wrkForm['wrkScore']);
 
             if( $assignment->getAssignmentType() == 'GROUP' && isset($wrkForm['wrkGroup']) )
             {
