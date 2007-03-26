@@ -97,6 +97,7 @@ function dcToolBar(textarea,format,img_path)
 		var i = document.createElement('img');
 		i.src = src;
 		i.title = title;
+		i.alt = title;
 		i.onclick = function() { try { fn() } catch (e) { } return false };
 		i.tabIndex = 400;
 		toolbar.appendChild(i);
