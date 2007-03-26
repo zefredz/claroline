@@ -1482,14 +1482,14 @@ function claro_disp_debug_banner()
     require_once dirname( __FILE__ ) . '/backlog.class.php';
     
     $html = '';
-
+    
     $claroMsgList = getClaroMessageList();
 
     if ( is_array($claroMsgList) && count($claroMsgList) > 0)
     {
         $claroMsgCount = 0;
     
-        $html .= '<div id="debugBanner" class="debugBar">' . "\n"
+        $html .= '<div class="debugBar">' . "\n"
               .                         get_lang('Debug') .  "\n" ;
 
         $html .= get_lang('Messages') . ' : ';
