@@ -620,6 +620,7 @@ class claro_datagrid
     var $dispCounter = false;
     var $colHead =null;
     var $htmlNoRowMessage = null;
+    var $hideColsWithoutTitle = false;
 
     var $dispIdCol = true;
     var $internalKey = 0;
@@ -702,13 +703,27 @@ class claro_datagrid
     }
 
     /**
+     * set the  hideColsWithoutTitle option
+     * if hideColsWithoutTitle is true, only cols present in the colTitleList are shown in the rendered grid
+     * @param boolean $hideColsWithoutTitle set if  the cols of grid
+     * withouth title would be displayed
+     */
+
+    function set_hideColsWithoutTitle( $hideColsWithoutTitle)
+    {
+        if (is_bool($hideColsWithoutTitle)) $this->hideColsWithoutTitle = $hideColsWithoutTitle;
+        else                                trigger_error('boolean attempt',E_USER_NOTICE);
+    }
+
+    /**
      * set the  colTitleList option
      *
      * @param array $colTitleList array('colName'=>'colTitle')
      */
 
-    function set_colTitleList( $colTitleList)
+    function set_colTitleList( $colTitleList, $hideColsWithoutTitle=false)
     {
+        $this->set_hideColsWithoutTitle($hideColsWithoutTitle);
         if (is_array($colTitleList)) $this->colTitleList = $colTitleList;
         else                         trigger_error('array attempt',E_USER_NOTICE);
     }
@@ -784,10 +799,14 @@ class claro_datagrid
              * In  W3C <COL> seems be the good usage but browser don't follow the tag
              * So all attribute would be in each td of column.
              */
-            if (!is_array($this->colTitleList)&&count($this->datagrid))
+            if (!is_array($this->colTitleList) && count($this->datagrid))
             {
                 if (is_array($this->datagrid) && isset($this->datagrid[0]) && is_array($this->datagrid[0]))
                 $this->colTitleList = array_keys($this->datagrid[0]);
+            }
+            elseif (!is_array($this->colTitleList))
+            {
+                $this->colTitleList = array();
             }
 
             if (isset($this->colAttributeList))
@@ -854,7 +873,15 @@ class claro_datagrid
 
                     $i=0;
                     foreach ($dataLine as $colId => $dataCell)
+                    if ( !$this->hideColsWithoutTitle
+                         && ( is_array($this->colTitleList)
+                              && count($this->colTitleList) > 0
+                              && in_array($colId,array_keys($this->colTitleList))
+                            )
+                       )
+
                     {
+
                         if ($this->colHead == $colId)
                         {
                             $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
@@ -875,18 +902,20 @@ class claro_datagrid
             else
             {
                 if (is_null($this->htmlNoRowMessage )) $this->htmlNoRowMessage = get_lang('No result');
-                $stream .= '<tr class="dgnoresult" ><td class="dgnoresult" colspan="' . count(array_keys($this->colTitleList)) . '">' . $this->htmlNoRowMessage  . '</td></tr>';
+                $stream .= '<tr class="dgnoresult" >'
+                .          '<td class="dgnoresult" colspan="' . count(array_keys($this->colTitleList)) . '">'
+                .          $this->htmlNoRowMessage
+                .          '</td>'
+                .          '</tr>'
+                ;
             }
             $stream .= '</tbody>' . "\n"
             .          '</table>' . "\n"
             ;
 
         }
-
         return $stream;
-
     }
-
 }
 
 //////////////////////////////////////////////////////////////////////////////
