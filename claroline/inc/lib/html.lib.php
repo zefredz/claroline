@@ -79,7 +79,7 @@ function claro_html_menu_vertical_br($itemList, $attrBloc=array())
 
     if (! empty($itemList) && is_array($itemList))
     {
-            $htmlStream .= implode('<br />' . "\n",$itemList );
+        $htmlStream .= implode('<br />' . "\n",$itemList );
     }
     $htmlStream .= '</div>' . "\n";
 
@@ -607,6 +607,8 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
  * @package HTML
  *
  */
+DEFINE('DG_ORDER_COLS_BY_GRID','DG_ORDER_COLS_BY_GRID'.__FILE__.__LINE__);
+DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
 class claro_datagrid
 {
     var $datagrid;
@@ -621,6 +623,7 @@ class claro_datagrid
     var $colHead =null;
     var $htmlNoRowMessage = null;
     var $hideColsWithoutTitle = false;
+    var $orderCols=DG_ORDER_COLS_BY_GRID;
 
     var $dispIdCol = true;
     var $internalKey = 0;
@@ -671,6 +674,8 @@ class claro_datagrid
         }
     }
 
+
+
     /**
      * set the  isLineType option
      *
@@ -713,6 +718,25 @@ class claro_datagrid
     {
         if (is_bool($hideColsWithoutTitle)) $this->hideColsWithoutTitle = $hideColsWithoutTitle;
         else                                trigger_error('boolean attempt',E_USER_NOTICE);
+    }
+
+    /**
+     * set the  hideColsWithoutTitle option
+     * if hideColsWithoutTitle is true, only cols present in the colTitleList are shown in the rendered grid
+     * @param boolean $hideColsWithoutTitle set if  the cols of grid
+     * withouth title would be displayed
+     */
+
+    function set_orderColBy( $orderCols)
+    {
+        if (in_array($orderCols,array(DG_ORDER_COLS_BY_GRID,DG_ORDER_COLS_BY_TITLE)))
+        {
+            $this->orderCols = $orderCols;
+        }
+        else
+        {
+            trigger_error('boolean attempt',E_USER_NOTICE);
+        }
     }
 
     /**
@@ -857,7 +881,6 @@ class claro_datagrid
             $stream .= '<tbody>' . "\n";
             if(count($this->datagrid))
             {
-
                 foreach ($this->datagrid as $key => $dataLine )
                 {
                     switch ($this->idLineType)
@@ -872,27 +895,42 @@ class claro_datagrid
                     if ($this->dispIdCol) $stream .= '<td align="right" valign="middle">' . $idLine . '</td>' . "\n";
 
                     $i=0;
-                    foreach ($dataLine as $colId => $dataCell)
-                    if ( !$this->hideColsWithoutTitle
-                         && ( is_array($this->colTitleList)
-                              && count($this->colTitleList) > 0
-                              && in_array($colId,array_keys($this->colTitleList))
-                            )
-                       )
-
+                    if($this->orderCols == DG_ORDER_COLS_BY_TITLE)
                     {
+                        $keyOrder=array_keys(array_merge($this->colTitleList,$dataLine));
+                    }
+                    else
+                    {
+                        $keyOrder=array_keys($dataLine);
+                    }
 
-                        if ($this->colHead == $colId)
+                    foreach ($keyOrder as $colId)
+                    {
+                        // a protection if there is no cell for the current col
+                        if(array_key_exists($colId,$dataLine)) $dataCell= $dataLine[$colId];
+                        else                                   $dataCell = '';
+
+
+                        if ( !$this->hideColsWithoutTitle
+                             || (    is_array($this->colTitleList)
+                                  && count($this->colTitleList) > 0
+                                  && in_array($colId,array_keys($this->colTitleList))
+                             )
+                        )
+
                         {
-                            $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
-                            $stream .= $dataCell;
-                            $stream .= '</td>' . "\n";
-                        }
-                        else
-                        {
-                            $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
-                            $stream .= $dataCell;
-                            $stream .= '</td>' . "\n";
+                            if ($this->colHead == $colId)
+                            {
+                                $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
+                                $stream .= $dataCell;
+                                $stream .= '</td>' . "\n";
+                            }
+                            else
+                            {
+                                $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
+                                $stream .= $dataCell;
+                                $stream .= '</td>' . "\n";
+                            }
                         }
                     }
                     $stream .= '</tr>' . "\n";
@@ -1112,22 +1150,22 @@ function renderTex($text)
     if ( !empty($claro_texRendererUrl) )
     {
         $text = str_replace('[tex]',
-                            '<img src="'.$claro_texRendererUrl.'?',
-                            $text);
+        '<img src="'.$claro_texRendererUrl.'?',
+        $text);
 
         $text = str_replace('[/tex]',
-                            '" border="0" align="absmiddle">',
-                            $text);
+        '" border="0" align="absmiddle">',
+        $text);
     }
     else
     {
         $text = str_replace('[tex]',
-                                '<embed TYPE="application/x-techexplorer" texdata="',
-                                $text);
+        '<embed TYPE="application/x-techexplorer" texdata="',
+        $text);
 
         $text = str_replace('[/tex]',
-                                '" width="100%" pluginspace="http://www.integretechpub.com/">',
-                                $text);
+        '" width="100%" pluginspace="http://www.integretechpub.com/">',
+        $text);
     }
 
     return $text;
@@ -1176,8 +1214,8 @@ function make_clickable($text)
     // yyyy is anything up to the first space, newline, or comma.
 
     $ret = preg_replace("#([\n ])([a-z]+?)://([^, \n\r]+)#i",
-                        "\\1<a href=\"\\2://\\3\" >\\2://\\3</a>",
-                        $ret);
+    "\\1<a href=\"\\2://\\3\" >\\2://\\3</a>",
+    $ret);
 
     // matches a "www.xxxx.yyyy[/zzzz]" kinda lazy URL thing
     // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
@@ -1187,16 +1225,16 @@ function make_clickable($text)
     // This is to keep it from getting annoying and matching stuff that's not meant to be a link.
 
     $ret = preg_replace("#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[^, \n\r]*)?)#i",
-                        "\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>",
-                        $ret);
+    "\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>",
+    $ret);
 
     // matches an email@domain type address at the start of a line, or after a space.
     // Note: before the @ sign, the only valid characters are the alphanums and "-", "_", or ".".
     // After the @ sign, we accept anything up to the first space, linebreak, or comma.
 
     $ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([^, \n\r]+)#i",
-                        "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>",
-                        $ret);
+    "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>",
+    $ret);
 
     // Remove our padding..
     $ret = substr($ret, 1);
@@ -1231,10 +1269,10 @@ function make_clickable($text)
 function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
     pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_textarea_editor() is deprecated , use claro_html_textarea_editor()','error');
+    ? claro_html_debug_backtrace()
+    : 'claro_html_debug_backtrace() not defined'
+    )
+    .'claro_disp_textarea_editor() is deprecated , use claro_html_textarea_editor()','error');
 
     // becomes a alias while the function call is not replaced by the new one
     return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
@@ -1296,8 +1334,8 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
             $string = str_replace('-', '_', $string);
             $string = str_replace("'", '', $string);
             $string = strtr($string,
-                            'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
-                            'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
+            'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+            'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
         }
 
         return $string;
@@ -1313,10 +1351,10 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
 function claro_disp_duration( $duration  )
 {
     pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_ disp _duration() is deprecated , use claro_ html _duration()','error');
+    ? claro_html_debug_backtrace()
+    : 'claro_html_debug_backtrace() not defined'
+    )
+    .'claro_ disp _duration() is deprecated , use claro_ html _duration()','error');
 
     return claro_html_duration( $duration  );
 }
@@ -1868,7 +1906,7 @@ function claro_html_headers()
     if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
     {
         $head .=
-"function claro_session_loss_countdown(sessionLifeTime){
+        "function claro_session_loss_countdown(sessionLifeTime){
     var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
 }
 
