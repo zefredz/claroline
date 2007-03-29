@@ -384,15 +384,15 @@ function delete_all_modules_from_course( $courseId )
         {
             if ( ! delete_module_in_course( $moduleLabel, $courseId ) )
             {
-                $backlog->failure( get_lang('delete failed for module %module%'
-                    , array( '%module%' => $moduleLabel ) ) );
+                $backlog->failure( get_lang('delete failed for module %module'
+                    , array( '%module' => $moduleLabel ) ) );
                 
                 $success = false;
             }
             else
             {
-                $backlog->success( get_lang('delete succeeded for module %module%'
-                    , array( '%module%' => $moduleLabel ) ) );
+                $backlog->success( get_lang('delete succeeded for module %module'
+                    , array( '%module' => $moduleLabel ) ) );
             }
         }
     }
