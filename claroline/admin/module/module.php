@@ -180,7 +180,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // find module icon, if any
 
-if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/' .$module['icon']))
+if (array_key_exists('icon',$module) && !empty($module['icon'])  && file_exists(get_module_path($module['label']) . '/' .$module['icon']))
 {
     $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" />';
 }
