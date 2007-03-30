@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -34,20 +34,24 @@ function course_description_get_item_list($courseId = null)
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($courseId));
     $tblCourseDescription = $tbl['course_description'];
 
-    $sql = "SELECT `id`,
-                `category`,
-                `title`,
-                `content`,
-                UNIX_TIMESTAMP(`lastEditDate`) AS `unix_lastEditDate`,
-                `visibility`
-        FROM `".$tblCourseDescription."`
-        ORDER BY `category` ASC";
+    $sql = "SELECT cd.`id`,
+                   cd.`category`,
+                   cd.`title`,
+                   cd.`content`,
+                UNIX_TIMESTAMP(cd.`lastEditDate`)
+                   AS `unix_lastEditDate`,
+                   cd.`visibility`
+            FROM `" . $tblCourseDescription . "` AS cd
+            ORDER BY cd.`category` ASC";
 
     return  claro_sql_query_fetch_all($sql);
 }
 
 /**
- * return the tips list
+ * Return the tips list
+ *
+ * @return array ('title','isEditable','question','information')
+ *
  */
 
 function get_tiplistinit()
