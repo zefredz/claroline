@@ -4,7 +4,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -578,40 +578,18 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 {
     if ( $_uid && $_cid ) // have keys to search data
     {
-        $sql = "SELECT profile_id as profileId,
-                       isCourseManager,
-                       tutor,
-                       role
-                FROM `".$tbl_rel_course_user."` `cours_user`
-                WHERE `user_id`  = '". (int) $_uid."'
-                AND `code_cours` = '". addslashes($cidReq) ."'";
+          $_course_user_properties = claro_get_course_user_properties($_cid,$_uid,true);
 
-        $result = claro_sql_query($sql) or die ('WARNING !! Load profile (DB QUERY) FAILED ! '.__LINE__);
+          // would probably be less and less used because
+          // claro_get_course_user_data($_cid,$_uid)
+          // and claro_get_current_course_user_data() do the same job
 
-        if ( mysql_num_rows($result) > 0 ) // this  user have a recorded state for this course
-        {
-            $cuData = mysql_fetch_array($result);
+          $_profileId      = $_course_user_properties['privilege']['_profileId'];
+          $is_courseMember = $_course_user_properties['privilege']['is_courseMember'];
+          $is_courseTutor  = $_course_user_properties['privilege']['is_courseTutor'];
+          $is_courseAdmin  = $_course_user_properties['privilege']['is_courseAdmin'];
 
-            $_profileId      = $cuData['profileId'];
-            $is_courseMember = true;
-            $is_courseTutor  = (bool) ($cuData['tutor' ] == 1 );
-            $is_courseAdmin  = (bool) ($cuData['isCourseManager'] == 1 );
-
-            $_courseUser['role'] = $cuData['role'  ]; // not used
-
-        }
-        else // this user has no status related to this course
-        {
-            $_profileId      = claro_get_profile_id('guest');
-            $is_courseMember = false;
-            $is_courseAdmin  = false;
-            $is_courseTutor  = false;
-
-            $_courseUser     = null; // not used
-        }
-
-        $is_courseAdmin = (bool) ($is_courseAdmin || $is_platformAdmin);
-
+          $_courseUser = claro_get_course_user_data($_cid,$_uid);
     }
     else // keys missing => not anymore in the course - user relation
     {
@@ -730,29 +708,17 @@ if ( $gidReset || $cidReset ) // session data refresh requested
 {
     if ( $gidReq && $_cid ) // have keys to search data
     {
-        $sql = "SELECT g.id               AS id          ,
-                       g.name             AS name        ,
-                       g.description      AS description ,
-                       g.tutor            AS tutorId     ,
-                       f.forum_id         AS forumId     ,
-                       g.secretDirectory  AS directory   ,
-                       g.maxStudent       AS maxMember
+        $context = array(CLARO_CONTEXT_COURSE=>$_cid,CLARO_CONTEXT_GROUP=>$gidReq);
+        $course_group_data = claro_get_group_data($context, true );
 
-                FROM `".$_course['dbNameGlu']."group_team`      g
-                LEFT JOIN `".$_course['dbNameGlu']."bb_forums`   f
-
-                   ON    g.id = f.group_id
-                WHERE    `id` = '". (int) $gidReq."'";
-
-        $_group = claro_sql_query_get_single_row($sql);
-
-        if ( is_array($_group) ) // This group has recorded status related to this course
+        $_group = $course_group_data;
+        if ( $_group ) // This group has recorded status related to this course
         {
-            $_gid = $_group ['id'];
+            $_gid = $course_group_data ['id'];
         }
         else
         {
-            exit('WARNING UNDEFINED GID !! The requested group doesn\'t exist');
+            claro_die('WARNING UNDEFINED GID !! The requested group doesn\'t exist');
         }
     }
     else  // Keys missing => not anymore in the group - course relation
