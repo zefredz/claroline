@@ -65,7 +65,7 @@ $dialogBox = '';
 $dispWrkLst = true;     // view list is default
 $dispWrkForm = false;
 $dispWrkDet   = false;
-$dispFbkFields = false;
+$is_feedback = false;
 /*============================================================================
                      CLEAN INFORMATIONS SENT BY USER
   =============================================================================*/
@@ -532,7 +532,7 @@ if( isset($_REQUEST['submitWrk']) )
                     $formCorrectlySent = false;
                 }
             }
-            else
+            elseif( $submission->getParentId() == 0 ) // do not display an error if this a feedback (file not required)
             {
                 // if the main thing to provide is a file and that no file was sent
                 $dialogBox .= get_lang('A file is required')."<br />";
@@ -717,7 +717,7 @@ if($is_allowedToEditAll)
         $dispWrkLst = false;
         $dispWrkForm = true;
         $dispWrkDet   = true;
-        $dispFbkFields = true;
+        $is_feedback = true;
       }
 } // if($is_allowedToEditAll)
 
@@ -743,6 +743,7 @@ if ( $is_allowedToEdit )
             $submission->setSubmittedFilename($wrkForm['filename']);
 
             if( !empty($wrkForm['wrkPrivFbk']) )     $submission->setPrivateFeedback($wrkForm['wrkPrivFbk']);
+
             if( !empty($wrkForm['wrkScore']) || $wrkForm['wrkScore'] == 0 ) $submission->setScore($wrkForm['wrkScore']);
 
             if( $assignment->getAssignmentType() == 'GROUP' && isset($wrkForm['wrkGroup']) )
@@ -800,7 +801,7 @@ if ( $is_allowedToEdit )
         $dispWrkLst = false;
         $dispWrkForm  = true;
         // only if this is a correction
-        if( !is_null($submission->getOriginalId()) ) $dispFbkFields = true;
+        if( $submission->getParentId() > 0 ) $is_feedback = true;
     }
 }
 /*============================================================================
@@ -907,7 +908,6 @@ if( $is_allowedToSubmit )
             $form['wrkTxt'] = (!empty($_REQUEST['wrkTxt']))?$_REQUEST['wrkTxt']:'';
       }
 
-
     // request the form with correct cmd
     $cmdToSend = "exSubWrk";
     // fill the title of the page
@@ -1000,7 +1000,6 @@ if( $is_allowedToSubmit )
             /**
              * ASSIGNMENT INFOS
              */
-
             echo '<p>' . "\n" . '<small>' . "\n"
             .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
             .    $assignment->getTitle() . '<br />'  . "\n"
@@ -1173,7 +1172,7 @@ if( $is_allowedToSubmit )
                     .'<td valign="top"><label for="wrkFile">';
 
                 // display a different text according to the context
-                if( $assignmentContent == "TEXTFILE" )
+                if( $assignmentContent == "TEXTFILE" || $is_feedback )
                 {
                     // if text is required, file is considered as a an attached document
                     echo get_lang('Attach a file');
@@ -1214,7 +1213,7 @@ if( $is_allowedToSubmit )
                 }
             }
 
-            if( $assignmentContent == "FILE" )
+            if( $assignmentContent == "FILE" && !$is_feedback )
             {
                   // display standard html textarea
                   // used for description of an uploaded file
@@ -1228,7 +1227,7 @@ if( $is_allowedToSubmit )
                         .'</td>'."\n"
                         .'</tr>'."\n\n";
             }
-            elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" )
+            elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" || $is_feedback )
             {
                   // display enhanced textarea using claro_html_textarea_editor
                   echo '<tr>'."\n"
@@ -1242,7 +1241,7 @@ if( $is_allowedToSubmit )
                         .'</tr>'."\n\n";
             }
 
-            if( $dispFbkFields )
+            if( $is_feedback )
             {
                 echo '<tr>'."\n"
                         .'<td valign="top">'
@@ -1570,7 +1569,7 @@ if( $dispWrkLst )
                     .    '</a>'
                     ;
                 }
-                if( !$is_feedback )
+                if( ! $is_feedback )
                 {
                     // if there is no correction yet show the link to add a correction if user is course admin
                     echo '&nbsp;'

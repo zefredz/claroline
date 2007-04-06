@@ -585,7 +585,7 @@ foreach ( $workList as $thisWrk )
 	if( $is_allowedToEditAll )
 	{
 	    echo '<td>'
-		.    ( ( !empty($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : '&nbsp;' )
+		.    ( ( !is_null($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : '-' )
 		.    '</td>' . "\n";
 	}
 
