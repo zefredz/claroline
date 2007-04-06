@@ -27,6 +27,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /// 3° Get Values/properties
 /// 4° Get right
 /// 5° get_init : generic function  to prepare 4st previous during  developpement
+/// 6° read data in DB
 
 /// 1° Is in the context
 
@@ -34,8 +35,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function claro_is_user_authenticated()
 {
@@ -46,8 +46,7 @@ function claro_is_user_authenticated()
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 // replace is_null(claro_get_current_course_id())
 function claro_is_in_a_course()
@@ -59,8 +58,7 @@ function claro_is_in_a_course()
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 // replace is_null(claro_get_current_course_id())
 function claro_is_in_a_group()
@@ -72,12 +70,12 @@ function claro_is_in_a_group()
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 // replace is_null(get_current_tool_id()) , isset($_tid) ....
 function claro_is_in_a_tool()
 {
+    if (!isset($GLOBALS['_tid'])) $GLOBALS['_tid']=null;
     return ! is_null($GLOBALS['_tid']);
 }
 
@@ -88,8 +86,7 @@ function claro_is_in_a_tool()
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function claro_get_current_user_id()
 {
@@ -100,8 +97,7 @@ function claro_get_current_user_id()
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 
 function claro_get_current_course_id()
@@ -113,8 +109,7 @@ function claro_get_current_course_id()
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 
 function claro_get_current_group_id()
@@ -126,8 +121,7 @@ function claro_get_current_group_id()
  * Return the init status
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 
 function claro_get_current_tool_id()
@@ -169,8 +163,7 @@ function get_current_module_label()
  * @param mixed $default (optionnal) - set a defaut to return value
  *                                     if no paramater with such a name is found.
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-string param value
+ * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
 */
 
@@ -181,8 +174,7 @@ string param value
  *
  * @param string or null $dataName name of field, or null to keep an array of all fields
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-string or array of string
+ * @return string or array of string
  */
 function claro_get_current_course_data($dataName=null)
 {
@@ -201,8 +193,7 @@ function claro_get_current_course_data($dataName=null)
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-array of all value or value of given property name
+ * @return array of all value or value of given property name
  */
 function claro_get_current_group_properties_data($dataName=null)
 {
@@ -224,8 +215,7 @@ function claro_get_current_group_properties_data($dataName=null)
  *
  * @param string or null $dataName name of field, or null to keep an array of all fields
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-string or array of string
+ * @return string or array of string
  */
 
 function claro_get_current_user_data($dataName=null)
@@ -246,8 +236,7 @@ function claro_get_current_user_data($dataName=null)
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-array of all value or value of given property name
+ * @return array of all value or value of given property name
  */
 function claro_get_current_group_data($dataName=null)
 {
@@ -267,17 +256,22 @@ function claro_get_current_group_data($dataName=null)
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-array of all value or value of given property name
+ * @return array of all value or value of given property name
  */
 
 function claro_get_current_course_user_data($dataName=null)
 {
+    // $cu = claro_get_course_user_data(claro_get_current_course_id(),claro_get_current_user_id());
+    // not very ready because claro_get_course_user_privilege are in another array
+
     $cu = get_init('_courseUser');
+
     if (is_null($dataName)) return $cu;
     elseif (is_array($cu) && array_key_exists($dataName,$cu)) return $cu[$dataName];
     else
     {
+
+
         pushClaroMessage( ' -' . $dataName . '- does not exist for course user relation data','error');
         return null;
     };
@@ -288,8 +282,7 @@ function claro_get_current_course_user_data($dataName=null)
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-array of all value or value of given property name
+ * @return array of all value or value of given property name
  */
 
 function claro_get_current_course_tool_data($dataName=null)
@@ -299,7 +292,8 @@ function claro_get_current_course_tool_data($dataName=null)
     elseif (is_array($ct) && array_key_exists($dataName,$ct)) return $ct[$dataName];
     else
     {
-        pushClaroMessage( ' -' . $dataName . '- does not exist for course tool relation data','error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for course tool relation data' ,'error');
+
         return null;
     };
 
@@ -310,8 +304,7 @@ function claro_get_current_course_tool_data($dataName=null)
  *
  * @param string or null $dataName property name, or null to keep an array of all properties
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-array of all value or value of given property name
+ * @return array of all value or value of given property name
  */
 
 function claro_get_current_course_tool_list_data($dataName=null)
@@ -321,7 +314,8 @@ function claro_get_current_course_tool_list_data($dataName=null)
     elseif (is_array($ctl) && array_key_exists($dataName,$ctl)) return $ctl[$dataName];
     else
     {
-        pushClaroMessage( ' -' . $dataName . '- does not exist for course  tool list data','error');
+        pushClaroMessage(claro_html_debug_backtrace(),'error');
+        pushClaroMessage( ' -' . $dataName . '- does not exist for course tool list data','error');
         return null;
     };
 
@@ -333,8 +327,7 @@ function claro_get_current_course_tool_list_data($dataName=null)
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 
 function claro_is_course_member()
@@ -358,8 +351,7 @@ function claro_is_course_tutor()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function  claro_is_platform_admin()
 {
@@ -384,8 +376,7 @@ function  claro_is_course_admin()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function  claro_is_course_manager()
 {
@@ -407,8 +398,7 @@ function claro_is_course_allowed()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function  claro_is_allowed_to_create_course()
 {
@@ -433,8 +423,7 @@ function  claro_is_group_member()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function  claro_is_group_tutor()
 {
@@ -457,8 +446,7 @@ function  claro_is_group_allowed()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function claro_is_tool_allowed()
 {
@@ -472,8 +460,7 @@ function claro_is_tool_allowed()
  * @param mixed $default (optionnal) - set a defaut to return value
  *                                     if no paramater with such a name is found.
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-string param value
+ * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
 */
 
@@ -513,6 +500,102 @@ function get_init($param)
     if     ( array_key_exists($param,$GLOBALS) )  return $GLOBALS[$param];
     elseif ( defined($param)         )            return constant($param);
     return null;
+}
+
+
+/// 6° read data in DB
+
+/**
+ * Fetch datas of the given user in the given course
+ *
+ * @param string $cid course id
+ * @param integer $uid user id
+ * @param bool $ignoreCache true to for read in database instead of cache
+ * @return array('role')
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+function claro_get_course_user_data($cid,$uid,$ignoreCache=false)
+{
+    $properties = claro_get_course_user_properties($cid,$uid,$ignoreCache);
+    return $properties['data'];
+}
+
+/**
+ * Fetch privileges of the given user in the given course
+ *
+ * @param string $cid course id
+ * @param integer $uid user id
+ * @param bool $ignoreCache true to for read in database instead of cache
+ * @return array('_profileId','is_courseMember','is_courseTutor','is_courseAdmin')
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+
+function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
+{
+    $properties = claro_get_course_user_properties($cid,$uid,$ignoreCache);
+    return $properties['privilege'];
+}
+
+
+/**
+ * Fetch data and privileges of the given user in the given course
+ *
+ * U don't have enough of this function
+ * use claro_get_course_user_data($cid,$uid,$ignoreCache=false)
+ *  or claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
+ *
+ * @param string $cid course id
+ * @param integer $uid user id
+ * @param bool $ignoreCache true to for read in database instead of cache
+ * @return array(data( array('role')), 'privilege'(array('_profileId','is_courseMember','is_courseTutor','is_courseAdmin')))
+ * @see claro_get_course_user_data($cid,$uid,$ignoreCache=false)
+ * @see claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
+ * @author Christophe Gesché <moosh@claroline.net>
+ */
+
+
+function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
+{
+    $tbl = claro_sql_get_tbl('cours_user');
+    static $course_user_cache = null;
+    static $course_user_data = null;
+    static $course_user_privilege = array();
+    if (($course_user_cache != array('uid'=>$uid,'cid'=>$cid)) || $ignoreCache)
+    {
+        $sql = "SELECT profile_id as profileId,
+                       isCourseManager,
+                       tutor,
+                       role
+                FROM `" . $tbl['cours_user'] . "` `cours_user`
+                WHERE `user_id`  = '" . (int) $uid . "'
+                AND `code_cours` = '" . addslashes($cid) . "'";
+        $cuData = claro_sql_query_get_single_row($sql);
+
+        if (count($cuData))
+        {
+
+            $course_user_data['role'] = $cuData['role']; // not used
+
+            $course_user_privilege['_profileId'] = $cuData['profileId'];
+            $course_user_privilege['is_courseMember'] = true;
+            $course_user_privilege['is_courseTutor']  = (bool) ($cuData['tutor' ] == 1 );
+            $course_user_privilege['is_courseAdmin']  = (bool) ($cuData['isCourseManager'] == 1 );
+        }
+        else // this user has no status related to this course
+        {
+            $course_user_privilege['_profileId'] = claro_get_profile_id('guest');
+            $course_user_privilege['is_courseMember'] = false;
+            $course_user_privilege['is_courseAdmin']  = false;
+            $course_user_privilege['is_courseTutor']  = false;
+
+            $course_user_data = null; // not used
+        }
+
+        $course_user_privilege['is_courseAdmin'] = (bool) ($course_user_privilege['is_courseAdmin'] || claro_is_platform_admin());
+        $course_user_cache = array('uid'=>$uid,'cid'=>$cid);
+    }
+    return array('data' =>$course_user_data, 'privilege' => $course_user_privilege);
+
 }
 
 ?>
