@@ -21,8 +21,7 @@
 $tlabelReq = 'CLCAL';
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
-$_user = claro_get_current_user_data()
-;
+$_user = claro_get_current_user_data();
 $_course = claro_get_current_course_data();
 
 //**//
