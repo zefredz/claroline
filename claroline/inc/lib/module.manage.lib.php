@@ -1173,6 +1173,13 @@ function register_module_tool($moduleId,$module_info)
 
 // MANIFEST PARSER
 
+
+/**
+ * Return the content of a manifest for know tags
+ *
+ * @param string $modulePath
+ * @return array
+ */
 function readModuleManifest($modulePath)
 {
     global $module_info;
@@ -1290,6 +1297,39 @@ function moduleManifestEndElement($parser,$name)
     array_pop($element_pile);
 }
 
+
+
+/**
+ * Get content of manifest elements to  fill the array
+ *
+ * known element are
+ * * TYPE
+ * * DEFAULT_DOCK
+ * * DESCRIPTION
+ * * LABEL
+ * * ENTRY
+ * * LICENSE
+ * * ICON
+ *
+ * * WEB, EMAIL & NAME
+ * ** of MODULE
+ * ** of AUTHOR
+ * ** of CREDIT (previous AUTHOR)
+ *
+ * * VERSION, MINVERSION & MAXVERSION
+ * ** for PHP
+ * ** for MYSQL
+ * ** for CLAROLINE
+ * ** for MODULE
+ *
+ * * LINK DATABASE et FILE for context
+ *
+ * @param unknown_type $parser
+ * @param unknown_type $data
+ *
+ * @return void
+ */
+
 function moduleManifestElementData($parser,$data)
 {
     global $element_pile;
@@ -1350,22 +1390,14 @@ function moduleManifestElementData($parser,$data)
             $parent = prev($element_pile);
             switch ($parent)
             {
-
                 case 'MODULE':
-                    {
-                        $module_info['NAME'] = $data;
-                    }break;
-
-                case 'AUTHOR':
-                    {
-                        $module_info['AUTHOR']['NAME'] = $data;
-                    }
+                    $module_info['NAME'] = $data;
                     break;
-
+                case 'AUTHOR':
+                    $module_info['AUTHOR']['NAME'] = $data;
+                    break;
                 case 'CREDIT':
-                    {
-                        $module_info['CREDIT']['NAME'][] = $data;
-                    }
+                    $module_info['CREDIT']['NAME'][] = $data;
                     break;
             }
             break;
