@@ -100,7 +100,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
 
     if ( ! $courseDataList )
     {
-        $tbl_mdb_names =  claro_sql_get_main_tbl();
+        $tbl =  claro_sql_get_tbl(array('cours','faculte',));
 
         $sql =  "SELECT
                 c.code              AS sysCode,
@@ -120,8 +120,8 @@ function claro_get_course_data($courseId = NULL, $force = false )
                 cat.name            AS categoryName,
                 c.diskQuota         AS diskQuota
 
-                FROM      `" . $tbl_mdb_names['course'] . "`   AS c
-                LEFT JOIN `" . $tbl_mdb_names['category'] . "` AS cat
+                FROM      `" . $tbl['cours'] . "`   AS c
+                LEFT JOIN `" . $tbl['faculte'] . "` AS cat
                         ON c.faculte =  cat.code
                 WHERE c.code = '" . addslashes($courseId) . "'";
 
@@ -132,6 +132,28 @@ function claro_get_course_data($courseId = NULL, $force = false )
         $courseDataList['visibility'         ] = (bool) (2 == $courseDataList['visible'] || 3 == $courseDataList['visible'] );
         $courseDataList['registrationAllowed'] = (bool) (1 == $courseDataList['visible'] || 2 == $courseDataList['visible'] );
         $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
+
+
+
+        // Dont work claro_sql_get_tbl need a tool id and is not for a tool
+        // kernel table would be in mainDB.
+        // $tbl =  claro_sql_get_tbl('course_properties', array(CLARO_CONTEXT_COURSE=>$courseDataList['sysCode']));
+        $tbl = claro_sql_get_course_tbl( $courseDataList['dbNameGlu'] );
+        $sql = "SELECT name,
+                   value
+                 FROM `" . $tbl['course_properties'] . "`
+                 WHERE category = 'MAIN'";
+
+        $extraDataList = claro_sql_query_fetch_all($sql);
+
+        if (is_array($extraDataList) )
+        {
+            foreach($extraDataList as $thisData)
+            {
+                $courseDataList[$thisData['name']] = $thisData['value'];
+            }
+        }
+
 
         $cachedDataList = $courseDataList; // cache for the next time ...
     }
@@ -919,11 +941,11 @@ function claro_html_tool_view_option($viewModeRequested = false)
     {
         $url = $_SERVER['PHP_SELF'] . '?';
     }
-    
+
     /*
      * convert & to &amp;
      */
-     
+
     $url = preg_replace( '/(&amp;|&)/', '&amp;', $url );
 
     /*
@@ -1480,15 +1502,15 @@ function claro_url_relay_context($prepend='',$context=null)
 function claro_disp_debug_banner()
 {
     require_once dirname( __FILE__ ) . '/backlog.class.php';
-    
+
     $html = '';
-    
+
     $claroMsgList = getClaroMessageList();
 
     if ( is_array($claroMsgList) && count($claroMsgList) > 0)
     {
         $claroMsgCount = 0;
-    
+
         $html .= '<div class="debugBar">' . "\n"
               .                         get_lang('Debug') .  "\n" ;
 
