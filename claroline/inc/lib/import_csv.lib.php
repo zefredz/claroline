@@ -247,7 +247,7 @@ function claro_disp_CSV_error_backlog()
 
     if (isset($_SESSION['claro_invalid_format_error']) && $_SESSION['claro_invalid_format_error'] == true)
     {
-       echo get_lang('ERROR: The format you gave is not compatible with Claroline').'<br>';
+       echo get_lang('ERROR: The format you gave is not compatible with Claroline').'<br />';
        return;
     }
 
@@ -277,11 +277,11 @@ function claro_disp_CSV_error_backlog()
         }
         if (isset($_SESSION['claro_mail_duplicate_error'][$i]) && $_SESSION['claro_mail_duplicate_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['email']. '" <b>:</b>'  . get_lang('This mail appears already in a previous line of the CSV file.')  . "<br>\n";
+            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['email']. '" <b>:</b>'  . get_lang('This mail appears already in a previous line of the CSV file.')  . "<br />\n";
         }
         if (isset($_SESSION['claro_username_duplicate_error'][$i]) && $_SESSION['claro_username_duplicate_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['username']. '" <b>:</b>'  . get_lang('UsernameAppearAlready') . "<br>\n";
+            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['username']. '" <b>:</b>'  . get_lang('UsernameAppearAlready') . "<br />\n";
         }
         if (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && $_SESSION['claro_officialcode_duplicate_error'][$i])
         {
@@ -413,8 +413,6 @@ function check_officialcode_used_userlist($userlist)
     // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
 
-    //echo $sql."<br>\n";
-
     while ($list = mysql_fetch_array($foundUser))
     {
         $found = array_search($list['officialCode'],$userlist['officialCode']);
@@ -503,8 +501,6 @@ function check_mail_used_userlist($userlist)
             $errors[$found] = TRUE;
         }
     }
-
-    //echo $sql."<br>\n";
 
     return $errors;
 }

@@ -56,7 +56,7 @@ if ($is_allowedToAdmin)
     );
 
 ?>
-<img src="http://www.claroline.net/image/logo.gif"  alt="claroline" border="0" align="right">
+<img src="http://www.claroline.net/image/logo.gif"  alt="claroline" border="0" align="right" />
 <?php
 $cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : '';
 $ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';

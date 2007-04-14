@@ -87,7 +87,7 @@ $addtoAdvanced = $searchInfo['addtoAdvanced'];
 
 if(count($searchInfo['isSearched']) )
 {
-    $isSearchedHTML = implode('<br>', $isSearched);
+    $isSearchedHTML = implode('<br />', $isSearched);
 }
 else
 {
