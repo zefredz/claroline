@@ -215,7 +215,7 @@ switch ( $display )
         {
             // display user tracking link
             $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php' . claro_url_relay_context('?') . '">'
-            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
+            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" alt="" />' . get_lang('View my statistics')
             .                 '</a>'
             ;
         }
