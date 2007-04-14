@@ -6,8 +6,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  ******************************************************************************
  * This module displays the course list of a the current authenticated user
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLINDEX
  ******************************************************************************/
@@ -29,6 +29,8 @@ echo claro_html_tool_title(get_lang('My course list'));
 
 //display list
 
+if (count($personnalCourseList))
+{
 echo '<ul style="list-style-image:url(claroline/img/course.gif);list-style-position:inside">'."\n";
 
 foreach($personnalCourseList as $thisCourse)
@@ -89,7 +91,7 @@ foreach($personnalCourseList as $thisCourse)
 } // end foreach($personnalCourseList as $thisCourse)
 
 echo '</ul>' . "\n";
-
+}
 //display legend if required
 if( !empty($modified_course) )
 {
