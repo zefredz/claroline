@@ -161,12 +161,12 @@ foreach ($toolList as $thisTool)
 }
 
     $courseManageToolLinkList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb')  . 'course/tools.php' . claro_url_relay_context('?') . '">'
-    .                             '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt=""> '
+    .                             '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="" /> '
     .                             get_lang('Edit Tool list')
     .                             '</a>'
     ;
     $courseManageToolLinkList[] = '<a class="claroCmd" href="' . $toolRepository . 'course/settings.php' . claro_url_relay_context('?') . '">'
-    .                             '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt=""> '
+    .                             '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" /> '
     .                             get_lang('Course settings')
     .                             '</a>'
     ;
@@ -174,7 +174,7 @@ foreach ($toolList as $thisTool)
     if( get_conf('is_trackingEnabled') )
     {
         $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
-        .                             '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt=""> '
+        .                             '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt="" /> '
         .                             get_lang('Statistics')
         .                             '</a>'
         ;

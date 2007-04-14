@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 
 /**
- * return the tablename for a tool, en tenant compte du fait que it's (or not)
+ * Return the tablename for a tool, en tenant compte du fait que it's (or not)
  * * in a course,
  * * in a group
  *
@@ -29,7 +29,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @param array $contextData id To discrim table. Do not add context Id  of an context active but managed by tool.
  * @return array
  */
-//function claro_sql_get_tbl($toolId,$tableId,$courseId=null,$groupId=null)
 function claro_sql_get_tbl( $tableList, $contextData=null)
 {
     /**
@@ -50,8 +49,8 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
      * Tool Context capatibility
      *
      * There is many context in claroline,
-     * a new tool can  d'ont provide initially
-     * all field to discrim each context ins  fields.
+     * a new tool can don't provide initially
+     * all field to discrim each context in fields.
      * When a tool can't discrim a context,
      * the table would be duplicated for each instance
      * and the name of table (or db) contain the discriminator
@@ -77,11 +76,9 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
     }
 
     $contextDependance = get_context_db_discriminator($toolId);
-
     // Now place discriminator in db & table name.
     // if a context is needed ($contextData) and $contextDependance is found,
     // add the discriminator in schema name or table prefix
-
     $schemaPrefix = array();
 
     if (is_array($contextDependance) )
@@ -308,7 +305,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         // $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
         $info .= ': affected rows :' . claro_sql_affected_rows();
 
-        pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
+        pushClaroMessage( '<br />Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
             . '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>'
             , (claro_sql_errno()?'error':'sqlinfo'));
 
@@ -334,7 +331,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 /**
  * CLAROLINE mySQL errno wrapper.
  */
- 
+
 function claro_sql_errno($dbHandler = '#')
 {
 	if ( $dbHandler == '#' )
@@ -348,10 +345,10 @@ function claro_sql_errno($dbHandler = '#')
 }
 
 /**
- * CLAROLINE mySQL error wrapper. 
+ * CLAROLINE mySQL error wrapper.
  *
  */
- 
+
 function claro_sql_error($dbHandler = '#')
 {
 	if ( $dbHandler == '#' )
@@ -362,13 +359,13 @@ function claro_sql_error($dbHandler = '#')
     {
 	    return mysql_error($dbHandler);
     }
-} 
+}
 
 /**
- * CLAROLINE mySQL selectDb wrapper. 
+ * CLAROLINE mySQL selectDb wrapper.
  *
  */
- 
+
 function claro_sql_select_db($dbHandler = '#')
 {
 	if ( $dbHandler == '#' )
@@ -379,13 +376,13 @@ function claro_sql_select_db($dbHandler = '#')
     {
 	    return mysql_select_db($dbHandler);
     }
-} 
+}
 
 /**
- * CLAROLINE mySQL affected rows wrapper. 
+ * CLAROLINE mySQL affected rows wrapper.
  *
  */
- 
+
 function claro_sql_affected_rows($dbHandler = '#')
 {
 	if ( $dbHandler == '#' )
@@ -399,10 +396,10 @@ function claro_sql_affected_rows($dbHandler = '#')
 }
 
 /**
- * CLAROLINE mySQL insert id wrapper. 
+ * CLAROLINE mySQL insert id wrapper.
  *
  */
- 
+
 function claro_sql_insert_id($dbHandler = '#')
 {
 	if ( $dbHandler == '#' )

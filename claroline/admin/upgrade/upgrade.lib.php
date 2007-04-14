@@ -662,11 +662,11 @@ function upgrade_disp_auth_form()
         .'<legend>Login</legend>'."\n"
 
         .'<label for="username">User name : </label><br />'."\n"
-        .'<input type="text" name="login" id="username"><br />'."\n"
+        .'<input type="text" name="login" id="username" /><br />'."\n"
 
         .'<label for="password">Password : </label><br />'."\n"
-        .'<input type="password" name="password" id="password"><br />'."\n"
-        .'<input type="submit" >'."\n"
+        .'<input type="password" name="password" id="password" /><br />'."\n"
+        .'<input type="submit"  />'."\n"
 
         .'</fieldset>'."\n"
 

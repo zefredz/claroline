@@ -71,7 +71,7 @@ foreach($personnalCourseList as $thisCourse)
 
     if ($thisCourse['isCourseManager'] == 1)
     {
-        $userStatusImg = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="'.get_lang('Course manager').'">';
+        $userStatusImg = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="'.get_lang('Course manager').'" />';
     }
     else
     {
@@ -90,7 +90,7 @@ foreach($personnalCourseList as $thisCourse)
 
 echo '</ul>' . "\n";
 
-//display legend if required 
+//display legend if required
 if( !empty($modified_course) )
 {
 	echo '<br />'
