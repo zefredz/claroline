@@ -92,24 +92,24 @@ if ( count($courseList) > 0 )
         .    '<br />';
         if (claro_is_user_authenticated())
         {
-        	echo '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
+            echo '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
         }
         else
         {
-        	echo '<small>' . $thisCourse['titular'] . '</small>' . "\n";
+            echo '<small>' . $thisCourse['titular'] . '</small>' . "\n";
         }
 
         echo '</li>' . "\n";
     }
 
-	echo '</ul>' . "\n";
+    echo '</ul>' . "\n";
 
 }
 else
 {
     if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] = 'search')
     {
-	    echo '<blockquote>' . get_lang('Your search did not match any courses') . '</blockquote>' . "\n";
+        echo '<blockquote>' . get_lang('Your search did not match any courses') . '</blockquote>' . "\n";
     }
 }
 

@@ -1634,7 +1634,7 @@ function claro_html_banner_course()
                 if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
                 $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
             }
-            $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" method="POST">' . "\n"
+            $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" method="post">' . "\n"
             . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
 
             $courseToolSelector .= '<option value="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url(' . get_path('imgRepositoryWeb') . '/course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
@@ -1689,7 +1689,7 @@ function claro_html_banner_course()
             $courseToolSelector .= "\n"
             . '</select>' . "\n"
             . '<noscript>' . "\n"
-            . '<input type="submit" name="gotool" value="go">' . "\n"
+            . '<input type="submit" name="gotool" value="go" />' . "\n"
             . '</noscript>' . "\n"
             . '</form>' . "\n\n";
 

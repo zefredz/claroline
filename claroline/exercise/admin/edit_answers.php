@@ -23,8 +23,8 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 // courseadmin reserved page
 if( !$is_allowedToEdit )
 {
-	header("Location: ../exercise.php");
-	exit();	
+    header("Location: ../exercise.php");
+    exit();    
 }
 
 // tool libraries
@@ -42,28 +42,28 @@ include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 /*
  * Execute commands
  */
-if ( isset($_REQUEST['cmd']) )	$cmd = $_REQUEST['cmd'];
-else							$cmd = '';
+if ( isset($_REQUEST['cmd']) )    $cmd = $_REQUEST['cmd'];
+else                            $cmd = '';
 
 if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
-else															$exId = null;
+else                                                            $exId = null;
 
 if( isset($_REQUEST['quId']) && is_numeric($_REQUEST['quId']) ) $quId = (int) $_REQUEST['quId'];
-else															$quId = null;
+else                                                            $quId = null;
 
 $question = new Question();
 
-if( is_null($quId) || !$question->load($quId) ) 	
+if( is_null($quId) || !$question->load($quId) )     
 {
-	header("Location: ../exercise.php");
-	exit();	
+    header("Location: ../exercise.php");
+    exit();    
 }
 
 if( !is_null($exId) )
 {
-	$exercise = new Exercise();
-	// if exercise cannot be load set exId to null , it probably don't exist
-	if( !$exercise->load($exId) ) $exId = null;	
+    $exercise = new Exercise();
+    // if exercise cannot be load set exId to null , it probably don't exist
+    if( !$exercise->load($exId) ) $exId = null;    
 }
 
 $askDuplicate = false;
@@ -72,20 +72,20 @@ $askDuplicate = false;
 // check that question is used in several exercises
 if( count_exercise_using_question($quId) > 1 
     && !is_null($quId) && !is_null($exId)
-    )	
+    )    
 {
     $askDuplicate = true;
 }
-	
+    
 if( $cmd == 'exEdit' )
 {
-	// add or remove answer, change step,...
-	// should return true if form is really submitted	
-	if( $question->answer->handleForm() )
-	{
-		// form has to be saved, check input validity 
-		if( $question->answer->validate() )
-		{
+    // add or remove answer, change step,...
+    // should return true if form is really submitted    
+    if( $question->answer->handleForm() )
+    {
+        // form has to be saved, check input validity 
+        if( $question->answer->validate() )
+        {
             if( count_exercise_using_question($quId) > 1 
                 && !is_null($quId) && !is_null($exId)
                 && isset($_REQUEST['duplicate']) && $_REQUEST['duplicate'] == 'true'
@@ -102,24 +102,24 @@ if( $cmd == 'exEdit' )
                 $question = $duplicated;
             }
             
-			if( $question->answer->save() )
-			{
-				// update grade in question
-				$question->setGrade($question->answer->getGrade());
-				$question->save();
-				
-				header("Location: ./edit_question.php?exId=".$exId."&quId=".$quId);
-				exit();	
-			}
-		}	
-	}
+            if( $question->answer->save() )
+            {
+                // update grade in question
+                $question->setGrade($question->answer->getGrade());
+                $question->save();
+                
+                header("Location: ./edit_question.php?exId=".$exId."&quId=".$quId);
+                exit();    
+            }
+        }    
+    }
 
-	if( $question->answer->getErrorList() )
-	{
-		$dialogBox = implode('<br />' . "\n", $question->answer->getErrorList());
-	}
-	// if we were not redirected it means form must be displayed
-	$cmd =	'rqEdit';
+    if( $question->answer->getErrorList() )
+    {
+        $dialogBox = implode('<br />' . "\n", $question->answer->getErrorList());
+    }
+    // if we were not redirected it means form must be displayed
+    $cmd =    'rqEdit';
 }
 
 /*
@@ -128,11 +128,11 @@ if( $cmd == 'exEdit' )
  
 $interbredcrump[] = array ('url' => '../exercise.php', 'name' => get_lang('Exercises'));
 
-if( !is_null($exId) ) 	$interbredcrump[] = array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle()); 	
-else					$interbredcrump[] = array ('url' => './question_pool.php', 'name' => get_lang('Question pool'));
+if( !is_null($exId) )     $interbredcrump[] = array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());     
+else                    $interbredcrump[] = array ('url' => './question_pool.php', 'name' => get_lang('Question pool'));
 
-if( !is_null($quId) ) 	$_SERVER['QUERY_STRING'] = 'exId='.$exId.'&amp;quId='.$quId;
-else					$_SERVER['QUERY_STRING'] = '';  
+if( !is_null($quId) )     $_SERVER['QUERY_STRING'] = 'exId='.$exId.'&amp;quId='.$quId;
+else                    $_SERVER['QUERY_STRING'] = '';  
 
 $nameTools = get_lang('Edit answers');
  
@@ -145,7 +145,7 @@ echo $question->getQuestionHtml();
 // dialog box if required 
 if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo $question->answer->getFormHtml($exId,$askDuplicate);	
+echo $question->answer->getFormHtml($exId,$askDuplicate);    
 
 
 

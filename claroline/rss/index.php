@@ -34,7 +34,7 @@ if ( ! get_conf('enableRssInCourse') )
 // need to be in a course
 if( ! claro_is_in_a_course() )
 {
-    echo '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>';
+    echo '<form >cidReq = <input name="cidReq" type="text" /><input type="submit" /></form>';
     exit;
 }
 else

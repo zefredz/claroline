@@ -15,18 +15,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 class answerTrueFalse
 {
-	//----- in DB
-	/**
+    //----- in DB
+    /**
      * @var $id id of answer, -1 if answer doesn't exist already
      */
     var $id;
 
-	/**
+    /**
      * @var $id id of question, -1 if answer doesn't exist already
      */
     var $questionId;
 
-	/**
+    /**
      * @var $trueFeedback feedback if user check 'true'
      */
     var $trueFeedback;
@@ -58,7 +58,7 @@ class answerTrueFalse
      * @var $response response sent by user and stored in object for easiest use
      * use extractResponseFromRequest to set it
      */
-	var $response;
+    var $response;
 
     /**
      * @var $errorList is used to store error that comes on form post
@@ -81,21 +81,21 @@ class answerTrueFalse
      */
     function answerTrueFalse($questionId, $course_id = null)
     {
-    	$this->questionId = (int) $questionId;
+        $this->questionId = (int) $questionId;
 
-    	$this->id = -1;
-    	$this->trueFeedback = '';
-    	$this->trueGrade = 0;
-    	$this->falseFeedback = '';
-    	$this->falseGrade = 0;
+        $this->id = -1;
+        $this->trueFeedback = '';
+        $this->trueGrade = 0;
+        $this->falseFeedback = '';
+        $this->falseGrade = 0;
 
-    	$this->correctAnswer = '';
+        $this->correctAnswer = '';
 
-    	$this->response = '';
-    	$this->errorList = array();
+        $this->response = '';
+        $this->errorList = array();
 
-    	$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-		$this->tblAnswer = $tbl_cdb_names['qwz_answer_truefalse'];
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+        $this->tblAnswer = $tbl_cdb_names['qwz_answer_truefalse'];
     }
 
     /**
@@ -106,33 +106,33 @@ class answerTrueFalse
      */
     function load()
     {
-    	$sql = "SELECT
-					`id`,
-	                `trueFeedback`,
-	                `trueGrade`,
-	                `falseFeedback`,
-	                `falseGrade`,
-	                `correctAnswer`
-	        FROM `".$this->tblAnswer."`
-	        WHERE `questionId` = ".(int) $this->questionId;
+        $sql = "SELECT
+                    `id`,
+                    `trueFeedback`,
+                    `trueGrade`,
+                    `falseFeedback`,
+                    `falseGrade`,
+                    `correctAnswer`
+            FROM `".$this->tblAnswer."`
+            WHERE `questionId` = ".(int) $this->questionId;
 
-	    $data = claro_sql_query_get_single_row($sql);
+        $data = claro_sql_query_get_single_row($sql);
 
-	    if( !empty($data) )
-	    {
-	        $this->id = (int) $data['id'];
-	    	$this->trueFeedback = $data['trueFeedback'];
-		    $this->trueGrade = $data['trueGrade'];
-		    $this->falseFeedback = $data['falseFeedback'];
-		    $this->falseGrade = $data['falseGrade'];
-		    $this->correctAnswer = $data['correctAnswer'];
+        if( !empty($data) )
+        {
+            $this->id = (int) $data['id'];
+            $this->trueFeedback = $data['trueFeedback'];
+            $this->trueGrade = $data['trueGrade'];
+            $this->falseFeedback = $data['falseFeedback'];
+            $this->falseGrade = $data['falseGrade'];
+            $this->correctAnswer = $data['correctAnswer'];
 
-			return true;
-	    }
-	    else
-	    {
-	        return false;
-	    }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -143,52 +143,52 @@ class answerTrueFalse
      */
     function save()
     {
-    	if( $this->id == -1 )
-    	{
-    		// insert
-		    $sql = "INSERT INTO `".$this->tblAnswer."`
-		            SET `questionId` = ".(int) $this->questionId.",
-		            	`trueFeedback` = '".addslashes($this->trueFeedback)."',
-		                `trueGrade` = '".addslashes($this->trueGrade)."',
-		                `falseFeedback` = '".addslashes($this->falseFeedback)."',
-		                `falseGrade` = '".addslashes($this->falseGrade)."',
-		                `correctAnswer` = '".addslashes($this->correctAnswer)."'";
+        if( $this->id == -1 )
+        {
+            // insert
+            $sql = "INSERT INTO `".$this->tblAnswer."`
+                    SET `questionId` = ".(int) $this->questionId.",
+                        `trueFeedback` = '".addslashes($this->trueFeedback)."',
+                        `trueGrade` = '".addslashes($this->trueGrade)."',
+                        `falseFeedback` = '".addslashes($this->falseFeedback)."',
+                        `falseGrade` = '".addslashes($this->falseGrade)."',
+                        `correctAnswer` = '".addslashes($this->correctAnswer)."'";
 
-		    // execute the creation query and get id of inserted assignment
-		    $insertedId = claro_sql_query_insert_id($sql);
+            // execute the creation query and get id of inserted assignment
+            $insertedId = claro_sql_query_insert_id($sql);
 
-		    if( $insertedId )
-		    {
-		    	$this->id = (int) $insertedId;
+            if( $insertedId )
+            {
+                $this->id = (int) $insertedId;
 
-		        return $this->id;
-		    }
-		    else
-		    {
-		        return false;
-		    }
-    	}
-    	else
-    	{
-    		// update
-		    $sql = "UPDATE `".$this->tblAnswer."`
-		            SET `trueFeedback` = '".addslashes($this->trueFeedback)."',
-		                `trueGrade` = '".addslashes($this->trueGrade)."',
-		                `falseFeedback` = '".addslashes($this->falseFeedback)."',
-		                `falseGrade` = '".addslashes($this->falseGrade)."',
-		                `correctAnswer` = '".addslashes($this->correctAnswer)."'
-		            WHERE `id` = ".(int) $this->id;
+                return $this->id;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            // update
+            $sql = "UPDATE `".$this->tblAnswer."`
+                    SET `trueFeedback` = '".addslashes($this->trueFeedback)."',
+                        `trueGrade` = '".addslashes($this->trueGrade)."',
+                        `falseFeedback` = '".addslashes($this->falseFeedback)."',
+                        `falseGrade` = '".addslashes($this->falseGrade)."',
+                        `correctAnswer` = '".addslashes($this->correctAnswer)."'
+                    WHERE `id` = ".(int) $this->id;
 
-		    // execute and return main query
-		    if( claro_sql_query($sql) )
-		    {
-		    	return $this->id;
-		    }
-		    else
-		    {
-		    	return false;
-		    }
-    	}
+            // execute and return main query
+            if( claro_sql_query($sql) )
+            {
+                return $this->id;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     /**
@@ -199,18 +199,18 @@ class answerTrueFalse
      */
     function delete()
     {
-    	if( $this->id != -1 )
-    	{
-			// delete question from all exercises
-			$sql = "DELETE FROM `".$this->tblAnswer."`
-					WHERE `id` = ".(int) $this->id;
+        if( $this->id != -1 )
+        {
+            // delete question from all exercises
+            $sql = "DELETE FROM `".$this->tblAnswer."`
+                    WHERE `id` = ".(int) $this->id;
 
-			if( !claro_sql_query($sql) ) return false;
+            if( !claro_sql_query($sql) ) return false;
 
-			$this->id = -1;
-    	}
+            $this->id = -1;
+        }
 
-    	return true;
+        return true;
     }
 
     /**
@@ -242,15 +242,15 @@ class answerTrueFalse
      */
     function validate()
     {
-		$acceptedValues = array('TRUE', 'FALSE');
+        $acceptedValues = array('TRUE', 'FALSE');
 
-		if( !in_array($this->correctAnswer, $acceptedValues) )
-    	{
-    		$this->errorList[] = get_lang('Please choose a good answer');
-    		return false;
-    	}
+        if( !in_array($this->correctAnswer, $acceptedValues) )
+        {
+            $this->errorList[] = get_lang('Please choose a good answer');
+            return false;
+        }
 
-    	return true;
+        return true;
     }
 
     /**
@@ -261,44 +261,44 @@ class answerTrueFalse
      */
     function handleForm()
     {
-		//-- feedbacks
-    	if( isset($_REQUEST['trueFeedback']) ) $this->trueFeedback = $_REQUEST['trueFeedback'];
-    	if( isset($_REQUEST['falseFeedback']) ) $this->falseFeedback = $_REQUEST['falseFeedback'];
+        //-- feedbacks
+        if( isset($_REQUEST['trueFeedback']) ) $this->trueFeedback = $_REQUEST['trueFeedback'];
+        if( isset($_REQUEST['falseFeedback']) ) $this->falseFeedback = $_REQUEST['falseFeedback'];
 
-		//-- correct answer
-		if( isset($_REQUEST['correctAnswer']) )
-		{
-	   		if( $_REQUEST['correctAnswer'] == 'true' )
-			{
-				$this->correctAnswer = 'TRUE';
-			}
-			elseif( $_REQUEST['correctAnswer'] == 'false' )
-			{
-				$this->correctAnswer = 'FALSE';
-			}
-		}
+        //-- correct answer
+        if( isset($_REQUEST['correctAnswer']) )
+        {
+               if( $_REQUEST['correctAnswer'] == 'true' )
+            {
+                $this->correctAnswer = 'TRUE';
+            }
+            elseif( $_REQUEST['correctAnswer'] == 'false' )
+            {
+                $this->correctAnswer = 'FALSE';
+            }
+        }
 
-    	//-- grades
-    	$trueGrade = (isset($_REQUEST['trueGrade']))?castToFloat($_REQUEST['trueGrade']):0;
-    	$falseGrade = (isset($_REQUEST['falseGrade']))?castToFloat($_REQUEST['falseGrade']):0;
+        //-- grades
+        $trueGrade = (isset($_REQUEST['trueGrade']))?castToFloat($_REQUEST['trueGrade']):0;
+        $falseGrade = (isset($_REQUEST['falseGrade']))?castToFloat($_REQUEST['falseGrade']):0;
 
-    	if( $this->correctAnswer == 'TRUE' )
-    	{
-			$this->trueGrade = abs($trueGrade); // good answer cannot have negative score
-			$this->falseGrade = 0 - abs($falseGrade); // bad answer cannot have positive score
-    	}
-    	elseif( $this->correctAnswer == 'FALSE' )
-    	{
-			$this->trueGrade = 0 - abs($trueGrade); // good answer cannot have negative score
-			$this->falseGrade = abs($falseGrade); // bad answer cannot have positive score
-	   	}
-	   	else
-	   	{
-	   		$this->trueGrade = abs($trueGrade);
-	   		$this->falseGrade = abs($falseGrade);
-	   	}
+        if( $this->correctAnswer == 'TRUE' )
+        {
+            $this->trueGrade = abs($trueGrade); // good answer cannot have negative score
+            $this->falseGrade = 0 - abs($falseGrade); // bad answer cannot have positive score
+        }
+        elseif( $this->correctAnswer == 'FALSE' )
+        {
+            $this->trueGrade = 0 - abs($trueGrade); // good answer cannot have negative score
+            $this->falseGrade = abs($falseGrade); // bad answer cannot have positive score
+           }
+           else
+           {
+               $this->trueGrade = abs($trueGrade);
+               $this->falseGrade = abs($falseGrade);
+           }
 
-    	return true;
+        return true;
     }
 
     /**
@@ -309,7 +309,7 @@ class answerTrueFalse
      */
     function getErrorList()
     {
-    	return $this->errorList;
+        return $this->errorList;
     }
 
     /**
@@ -320,42 +320,42 @@ class answerTrueFalse
      */
     function getAnswerHtml()
     {
-		if( $this->id == -1 )
-    	{
-    		$html = "\n" . '<p>' . get_lang('There is no answer for the moment') . '</p>' . "\n\n";
-    	}
-    	else
-    	{
-	    	$html =
-				'<table width="100%">' . "\n\n"
+        if( $this->id == -1 )
+        {
+            $html = "\n" . '<p>' . get_lang('There is no answer for the moment') . '</p>' . "\n\n";
+        }
+        else
+        {
+            $html =
+                '<table width="100%">' . "\n\n"
 
-	    	.	'<tr>' . "\n"
-			.	'<td align="center" width="5%">' . "\n"
-	    	.	'<input name="a_'.$this->questionId.'" id="a_'.$this->questionId.'_true" value="TRUE" type="radio" '
-	    	.		($this->response == 'TRUE'? 'checked="checked"':'')
-			.		'/>' . "\n"
-	    	.	'</td>' . "\n"
-	    	.	'<td width="95%">' . "\n"
-	    	.	'<label for="a_'.$this->questionId.'_true">' . get_lang('True') . '</label>' . "\n"
-	    	.	'</td>' . "\n"
-	    	.	'</tr>' . "\n\n"
+            .    '<tr>' . "\n"
+            .    '<td align="center" width="5%">' . "\n"
+            .    '<input name="a_'.$this->questionId.'" id="a_'.$this->questionId.'_true" value="TRUE" type="radio" '
+            .        ($this->response == 'TRUE'? 'checked="checked"':'')
+            .        '/>' . "\n"
+            .    '</td>' . "\n"
+            .    '<td width="95%">' . "\n"
+            .    '<label for="a_'.$this->questionId.'_true">' . get_lang('True') . '</label>' . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n\n"
 
-    		.	'<tr>' . "\n"
-			.	'<td align="center" width="5%">' . "\n"
-    		.	'<input name="a_'.$this->questionId.'" id="a_'.$this->questionId.'_false" value="FALSE" type="radio" '
-			.		($this->response == 'FALSE'? 'checked="checked"':'')
-			.		'/>' . "\n"
-    		.	'</td>' . "\n"
-    		.	'<td width="95%">' . "\n"
-    		.	'<label for="a_'.$this->questionId.'_false">' . get_lang('False') . '</label>' . "\n"
-    		.	'</td>' . "\n"
-    		.	'</tr>' . "\n\n"
+            .    '<tr>' . "\n"
+            .    '<td align="center" width="5%">' . "\n"
+            .    '<input name="a_'.$this->questionId.'" id="a_'.$this->questionId.'_false" value="FALSE" type="radio" '
+            .        ($this->response == 'FALSE'? 'checked="checked"':'')
+            .        '/>' . "\n"
+            .    '</td>' . "\n"
+            .    '<td width="95%">' . "\n"
+            .    '<label for="a_'.$this->questionId.'_false">' . get_lang('False') . '</label>' . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n\n"
 
-    		.	'</table>' . "\n"
-			.	'<p><small>' . get_lang('True/False') . '</small></p>' . "\n";
-    	}
+            .    '</table>' . "\n"
+            .    '<p><small>' . get_lang('True/False') . '</small></p>' . "\n";
+        }
 
-    	return $html;
+        return $html;
     }
 
     /**
@@ -366,15 +366,15 @@ class answerTrueFalse
      */
     function getHiddenAnswerHtml()
     {
-    	$html = "\n" . '<!-- ' . $this->questionId . ' -->' . "\n";
+        $html = "\n" . '<!-- ' . $this->questionId . ' -->' . "\n";
 
-		if( !empty($this->response) )
-		{
-			$html .= '<input type="hidden" name="a_'.$this->questionId.'" value="'.$this->response.'" />' . "\n";
-		}
+        if( !empty($this->response) )
+        {
+            $html .= '<input type="hidden" name="a_'.$this->questionId.'" value="'.$this->response.'" />' . "\n";
+        }
 
-		$html .= '<!-- ' . $this->questionId . '(end) -->' . "\n";
-    	return $html;
+        $html .= '<!-- ' . $this->questionId . '(end) -->' . "\n";
+        return $html;
     }
 
     /**
@@ -385,55 +385,55 @@ class answerTrueFalse
      */
     function getAnswerFeedbackHtml()
     {
-    	global $imgRepositoryWeb;
+        global $imgRepositoryWeb;
 
-    	$imgOnHtml = '<img src="'.$imgRepositoryWeb.'radio_on.gif" border="0" alt="(X)" />';
-    	$imgOffHtml = '<img src="'.$imgRepositoryWeb.'radio_off.gif" border="0" alt="( )" />';
+        $imgOnHtml = '<img src="'.$imgRepositoryWeb.'radio_on.gif" border="0" alt="(X)" />';
+        $imgOffHtml = '<img src="'.$imgRepositoryWeb.'radio_off.gif" border="0" alt="( )" />';
 
-    	$html =
-			'<table width="100%">' . "\n\n"
+        $html =
+            '<table width="100%">' . "\n\n"
 
-		.	'<tr style="font-style:italic;font-size:small;">' . "\n"
-		.	'<td align="center" valign="top" width="5%">'.get_lang('Your choice').'</td>' . "\n"
-		.	'<td align="center" valign="top" width="5%">'.get_lang('Expected choice').'</td>' . "\n"
-		.	'<td valign="top" width="45%">'.get_lang('Answer').'</td>' . "\n"
-		.	'<td valign="top" width="45%">'.get_lang('Comment').'</td>' . "\n"
-		.	'</tr>' . "\n\n"
+        .    '<tr style="font-style:italic;font-size:small;">' . "\n"
+        .    '<td align="center" valign="top" width="5%">'.get_lang('Your choice').'</td>' . "\n"
+        .    '<td align="center" valign="top" width="5%">'.get_lang('Expected choice').'</td>' . "\n"
+        .    '<td valign="top" width="45%">'.get_lang('Answer').'</td>' . "\n"
+        .    '<td valign="top" width="45%">'.get_lang('Comment').'</td>' . "\n"
+        .    '</tr>' . "\n\n"
 
-    	.	'<tr>' . "\n"
-		.	'<td align="center" width="5%">'
-    	.	( $this->response == 'TRUE' ? $imgOnHtml : $imgOffHtml )
-    	.	'</td>' . "\n"
-    	.	'<td align="center" width="5%">'
-   		.	( $this->correctAnswer == 'TRUE' ? $imgOnHtml : $imgOffHtml )
-    	.	'</td>' . "\n"
-		.	'<td width="45%">'
-    	.	get_lang('True')
-    	.	'</td>' . "\n"
-    	.	'<td width="45%">'
-    	.	$this->trueFeedback
-    	.	'</td>' . "\n"
-    	.	'</tr>' . "\n\n"
+        .    '<tr>' . "\n"
+        .    '<td align="center" width="5%">'
+        .    ( $this->response == 'TRUE' ? $imgOnHtml : $imgOffHtml )
+        .    '</td>' . "\n"
+        .    '<td align="center" width="5%">'
+           .    ( $this->correctAnswer == 'TRUE' ? $imgOnHtml : $imgOffHtml )
+        .    '</td>' . "\n"
+        .    '<td width="45%">'
+        .    get_lang('True')
+        .    '</td>' . "\n"
+        .    '<td width="45%">'
+        .    $this->trueFeedback
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n\n"
 
-    	.	'<tr>' . "\n"
-		.	'<td align="center" width="5%">'
-    	.	( $this->response == 'FALSE' ? $imgOnHtml : $imgOffHtml )
-    	.	'</td>' . "\n"
-    	.	'<td align="center" width="5%">'
-   		.	( $this->correctAnswer == 'FALSE' ? $imgOnHtml : $imgOffHtml )
-    	.	'</td>' . "\n"
-		.	'<td width="45%">'
-    	.	get_lang('False')
-    	.	'</td>' . "\n"
-    	.	'<td width="45%">'
-    	.	$this->falseFeedback
-    	.	'</td>' . "\n"
-    	.	'</tr>' . "\n\n"
+        .    '<tr>' . "\n"
+        .    '<td align="center" width="5%">'
+        .    ( $this->response == 'FALSE' ? $imgOnHtml : $imgOffHtml )
+        .    '</td>' . "\n"
+        .    '<td align="center" width="5%">'
+           .    ( $this->correctAnswer == 'FALSE' ? $imgOnHtml : $imgOffHtml )
+        .    '</td>' . "\n"
+        .    '<td width="45%">'
+        .    get_lang('False')
+        .    '</td>' . "\n"
+        .    '<td width="45%">'
+        .    $this->falseFeedback
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n\n"
 
-		.	'</table>' . "\n"
-		.	'<p><small>' . get_lang('True/False') . '</small></p>' . "\n";
+        .    '</table>' . "\n"
+        .    '<p><small>' . get_lang('True/False') . '</small></p>' . "\n";
 
-    	return $html;
+        return $html;
 
     }
 
@@ -447,11 +447,11 @@ class answerTrueFalse
      */
     function getFormHtml($exId = null, $askDuplicate = false)
     {
-		$html =
-    		'<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
-    		. '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-    		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
-    		. '<table class="claroTable">' . "\n";
+        $html =
+            '<form method="post" action="./edit_answers.php?exId='.$exId.'&amp;quId='.$this->questionId.'">' . "\n"
+            . '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
+            . '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
+            . '<table class="claroTable">' . "\n";
 
         if( !empty($exId) && $askDuplicate )
         {
@@ -460,134 +460,134 @@ class answerTrueFalse
 
         $html .=
             '<tr class="headerX">' . "\n"
-    		. '<th>' . get_lang('Expected choice') . '</th>' . "\n"
-    		. '<th>' . get_lang('Answer') . '</th>' . "\n"
-    		. '<th>' . get_lang('Comment') . '</th>' . "\n"
-    		. '<th>' . get_lang('Weighting') . '</th>' . "\n"
-    		. '</tr>' . "\n\n"
+            . '<th>' . get_lang('Expected choice') . '</th>' . "\n"
+            . '<th>' . get_lang('Answer') . '</th>' . "\n"
+            . '<th>' . get_lang('Comment') . '</th>' . "\n"
+            . '<th>' . get_lang('Weighting') . '</th>' . "\n"
+            . '</tr>' . "\n\n"
 
-    		. '<tr>' . "\n"
-    		. '<td valign="top" align="center">'
-			. '<input name="correctAnswer" id="trueCorrect" '
-				.($this->correctAnswer == "TRUE"? 'checked="checked"':'')
-				.'type="radio" value="true" />'
-			. '</td>' . "\n"
-    		. '<td valign="top"><label for="trueCorrect">' . get_lang('True') . '</label></td>' . "\n"
-    		. '<td><textarea wrap="virtual" rows="7" cols="25" name="trueFeedback">' . htmlspecialchars($this->trueFeedback) . '</textarea></td>' . "\n"
-    		. '<td valign="top"><input name="trueGrade" size="5" value="' . $this->trueGrade . '" type="text" /></td>' . "\n"
-    		. '</tr>' . "\n\n"
+            . '<tr>' . "\n"
+            . '<td valign="top" align="center">'
+            . '<input name="correctAnswer" id="trueCorrect" '
+                .($this->correctAnswer == "TRUE"? 'checked="checked"':'')
+                .'type="radio" value="true" />'
+            . '</td>' . "\n"
+            . '<td valign="top"><label for="trueCorrect">' . get_lang('True') . '</label></td>' . "\n"
+            . '<td><textarea wrap="virtual" rows="7" cols="25" name="trueFeedback">' . htmlspecialchars($this->trueFeedback) . '</textarea></td>' . "\n"
+            . '<td valign="top"><input name="trueGrade" size="5" value="' . $this->trueGrade . '" type="text" /></td>' . "\n"
+            . '</tr>' . "\n\n"
 
-    		. '<tr>' . "\n"
-    		. '<td valign="top" align="center">'
-			. '<input name="correctAnswer" id="falseCorrect" '
-				.($this->correctAnswer == "FALSE"? 'checked="checked"':'')
-				.'type="radio" value="false" />'
-			. '</td>' . "\n"
-    		. '<td valign="top"><label for="falseCorrect">' . get_lang('False') . '</label></td>' . "\n"
-    		. '<td><textarea wrap="virtual" rows="7" cols="25" name="falseFeedback">' . htmlspecialchars($this->falseFeedback) . '</textarea></td>' . "\n"
-    		. '<td valign="top"><input name="falseGrade" size="5" value="' . $this->falseGrade . '" type="text" /></td>' . "\n"
-    		. '</tr>' . "\n\n"
+            . '<tr>' . "\n"
+            . '<td valign="top" align="center">'
+            . '<input name="correctAnswer" id="falseCorrect" '
+                .($this->correctAnswer == "FALSE"? 'checked="checked"':'')
+                .'type="radio" value="false" />'
+            . '</td>' . "\n"
+            . '<td valign="top"><label for="falseCorrect">' . get_lang('False') . '</label></td>' . "\n"
+            . '<td><textarea wrap="virtual" rows="7" cols="25" name="falseFeedback">' . htmlspecialchars($this->falseFeedback) . '</textarea></td>' . "\n"
+            . '<td valign="top"><input name="falseGrade" size="5" value="' . $this->falseGrade . '" type="text" /></td>' . "\n"
+            . '</tr>' . "\n\n"
 
-    		. '<tr>' . "\n"
-    		. '<td colspan="4" align="center">'
-			. '<input type="submit" name="cmdOk" value="' . get_lang('Ok') . '" />&nbsp;&nbsp;'
-			. claro_html_button('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId, get_lang("Cancel") )
-			. '</td>' . "\n"
-    		. '</tr>' . "\n\n"
+            . '<tr>' . "\n"
+            . '<td colspan="4" align="center">'
+            . '<input type="submit" name="cmdOk" value="' . get_lang('Ok') . '" />&nbsp;&nbsp;'
+            . claro_html_button('./edit_question.php?exId='.$exId.'&amp;quId='.$this->questionId, get_lang("Cancel") )
+            . '</td>' . "\n"
+            . '</tr>' . "\n\n"
 
-    		. '</table>' . "\n\n"
-    		. '</form>';
+            . '</table>' . "\n\n"
+            . '</form>';
 
-    	return $html;
+        return $html;
     }
 
-	/**
-	 * compute and return grade obtained from $this->response
-	 *
+    /**
+     * compute and return grade obtained from $this->response
+     *
      * @author Sebastien Piraux <pir@cerdecam.be>
-	 * @return float question grade
-	 * @desc return score of checked answer or 0 if nothing was checked
-	 */
-	function gradeResponse()
-	{
-		if( $this->response == 'TRUE' )
-		{
-			return $this->trueGrade;
-		}
-		elseif( $this->response == 'FALSE' )
-		{
-			return $this->falseGrade;
-		}
-		else
-		{
-			return 0;
-		}
+     * @return float question grade
+     * @desc return score of checked answer or 0 if nothing was checked
+     */
+    function gradeResponse()
+    {
+        if( $this->response == 'TRUE' )
+        {
+            return $this->trueGrade;
+        }
+        elseif( $this->response == 'FALSE' )
+        {
+            return $this->falseGrade;
+        }
+        else
+        {
+            return 0;
+        }
 
-	}
+    }
 
-	/**
-	 * get response of user via $_REQUEST and store it in object
-	 *
+    /**
+     * get response of user via $_REQUEST and store it in object
+     *
      * @author Sebastien Piraux <pir@cerdecam.be>
-	 * @return boolean result of operation
-	 */
-	function extractResponseFromRequest()
-	{
-		$acceptedValues = array('TRUE', 'FALSE');
+     * @return boolean result of operation
+     */
+    function extractResponseFromRequest()
+    {
+        $acceptedValues = array('TRUE', 'FALSE');
 
-		if( isset($_REQUEST['a_'.$this->questionId])
-			&& in_array(strtoupper($_REQUEST['a_'.$this->questionId]), $acceptedValues)
-			)
-		{
-			$this->response = strtoupper($_REQUEST['a_'.$this->questionId]);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+        if( isset($_REQUEST['a_'.$this->questionId])
+            && in_array(strtoupper($_REQUEST['a_'.$this->questionId]), $acceptedValues)
+            )
+        {
+            $this->response = strtoupper($_REQUEST['a_'.$this->questionId]);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
-	}
+    }
 
 
-	/**
-	 * compute grade of question from answer
-	 *
+    /**
+     * compute grade of question from answer
+     *
      * @author Sebastien Piraux <pir@cerdecam.be>
-	 * @return float question grade
-	 */
-	function getGrade()
-	{
-		if( $this->correctAnswer == 'TRUE' )
-    	{
-			return $this->trueGrade;
-    	}
-    	elseif( $this->correctAnswer == 'FALSE' )
-    	{
-			return $this->falseGrade;
-	   	}
+     * @return float question grade
+     */
+    function getGrade()
+    {
+        if( $this->correctAnswer == 'TRUE' )
+        {
+            return $this->trueGrade;
+        }
+        elseif( $this->correctAnswer == 'FALSE' )
+        {
+            return $this->falseGrade;
+           }
 
-	   	return 0;
-	}
+           return 0;
+    }
 
-	/**
-	 * return a array with values needed for tracking
-	 *
-	 * @author Sebastien Piraux <pir@cerdecam.be>
-	 * @return array
-	 */
-	function getTrackingValues()
-	{
-		$values = array();
+    /**
+     * return a array with values needed for tracking
+     *
+     * @author Sebastien Piraux <pir@cerdecam.be>
+     * @return array
+     */
+    function getTrackingValues()
+    {
+        $values = array();
 
-		$acceptedValues = array('TRUE', 'FALSE');
+        $acceptedValues = array('TRUE', 'FALSE');
 
-		if( in_array($this->response,$acceptedValues) )
-		{
-			$values[] = $this->response;
-		}
+        if( in_array($this->response,$acceptedValues) )
+        {
+            $values[] = $this->response;
+        }
 
-		return $values;
-	}
+        return $values;
+    }
 }
 ?>

@@ -210,15 +210,16 @@ switch( $cmd )
 
             if( isset($comment['comment']) )
             {
-                echo "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n"
+                echo '<form method="get" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
                 .    claro_form_relay_context()
-                    .claro_html_textarea_editor('comment', $comment['comment'], 15, 55)
-                    ."<br />\n"
-                    ."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"
-                    ."<input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">\n"
-                    ."<input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
-                    ."<br /><br />\n"
-                    ."</form>\n";
+                .    claro_html_textarea_editor('comment', $comment['comment'], 15, 55) . "\n"
+                .    '<br />' . "\n"
+                .    '<input type="hidden" name="cmd" value="exComment" />' . "\n"
+                .    '<input type="hidden" name="module_id" value="' . $_REQUEST['module_id'] . '" />' . "\n"
+                .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+                .    '<br /><br />' . "\n"
+                .    '</form>' . "\n"
+                ;
             }
         } // else no module_id
         break;
@@ -228,8 +229,8 @@ switch( $cmd )
         if( isset($_REQUEST['module_id']) && isset($_REQUEST['comment']) )
         {
             $sql = "UPDATE `".$TABLEMODULE."`
-                    SET `comment` = \"". addslashes($_REQUEST['comment']) ."\"
-                    WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
+                    SET `comment` = '". addslashes($_REQUEST['comment']) . "'
+                    WHERE `module_id` = " . (int)$_REQUEST['module_id'];
             claro_sql_query($sql);
         }
         break;

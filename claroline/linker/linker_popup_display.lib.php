@@ -450,7 +450,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         echo '<input type="submit" '
         .    'onclick="linker_confirm();return false;" '
-        .    'value="' . get_lang("Close popup") . '" >'
+        .    'value="' . get_lang("Close popup") . '" />'
         ;
     }
 ?>

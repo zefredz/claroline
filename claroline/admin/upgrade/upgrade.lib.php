@@ -655,7 +655,7 @@ function upgrade_disp_auth_form()
     echo '<table align="center">'."\n"
         .'<tr>'
         .'<td>'
-        .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
+        .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
 
         .'<fieldset>'."\n"
 

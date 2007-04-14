@@ -313,7 +313,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 {
 
     if ( file_upload_failed($uploadedFile) )
-  	{
+      {
         $failureStr = get_file_upload_error_message($uploadedFile);
         return claro_failure::set_failure($failureStr);
     }

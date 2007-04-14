@@ -98,7 +98,7 @@ else
         // If the new category have a name, a code and she can have child (categories or courses)
         if( !empty($_REQUEST['nameCat']) && !empty($_REQUEST['codeCat']) )
         {
-        	// If a category with the same code already exists we only display an error message
+            // If a category with the same code already exists we only display an error message
             $cat_data = get_cat_data(get_cat_id_from_code(addslashes($_REQUEST['codeCat'])));
             if (isset($cat_data['code']))
             {
@@ -758,9 +758,9 @@ switch ($display_form)
 {
     case DISP_FORM_CREATE :
     {
-        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exCreate" >' . "\n"
-        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td >' . "\n"
@@ -846,9 +846,9 @@ switch ($display_form)
          * Display information to edit a category and the bom of categories
          */
 
-        $form = '<form action="' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        $form = '<form action="' .  $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
-        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td >' . "\n"
@@ -923,9 +923,9 @@ switch ($display_form)
          * Display information to change root of the category
          */
 
-        $form = '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        $form = '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
-        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"

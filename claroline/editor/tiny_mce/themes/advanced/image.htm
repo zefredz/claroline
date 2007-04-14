@@ -2,17 +2,17 @@
 
 <head>
 
-	<title>{$lang_insert_image_title}</title>
+    <title>{$lang_insert_image_title}</title>
 
-	<script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script language="javascript" type="text/javascript" src="../../tiny_mce_popup.js"></script>
 
-	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
+    <script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
 
-	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
+    <script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
 
-	<script language="javascript" type="text/javascript" src="jscripts/image.js"></script>
+    <script language="javascript" type="text/javascript" src="jscripts/image.js"></script>
 
-	<base target="_self" />
+    <base target="_self" />
 
 </head>
 
@@ -20,21 +20,21 @@
 
 <form onsubmit="insertImage();return false;" action="#">
 
-	<div class="tabs">
+    <div class="tabs">
 
-		<ul>
+        <ul>
 
-			<li id="general_tab" class="current"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">{$lang_insert_image_title}</a></span></li>
+            <li id="general_tab" class="current"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">{$lang_insert_image_title}</a></span></li>
 
-		</ul>
+        </ul>
 
-	</div>
+    </div>
 
 
 
-	<div class="panel_wrapper">
+    <div class="panel_wrapper">
 
-		<div id="general_panel" class="panel current">
+        <div id="general_panel" class="panel current">
 
      <table border="0" cellpadding="4" cellspacing="0">
 
@@ -56,41 +56,41 @@
 
           </tr>
 
-		  <!-- Image list -->
+          <!-- Image list -->
 
-		  <script language="javascript">
+          <script language="javascript">
 
-			if (typeof(tinyMCEImageList) != "undefined" && tinyMCEImageList.length > 0) {
+            if (typeof(tinyMCEImageList) != "undefined" && tinyMCEImageList.length > 0) {
 
-				var html = "";
-
-
-
-				html += '<tr><td><label for="image_list">{$lang_image_list}</label></td>';
-
-				html += '<td><select id="image_list" name="image_list" style="width: 200px" onchange="this.form.src.value=this.options[this.selectedIndex].value;resetImageData();getImageData();">';
-
-				html += '<option value="">---</option>';
+                var html = "";
 
 
 
-				for (var i=0; i<tinyMCEImageList.length; i++)
+                html += '<tr><td><label for="image_list">{$lang_image_list}</label></td>';
 
-					html += '<option value="' + tinyMCEImageList[i][1] + '">' + tinyMCEImageList[i][0] + '</option>';
+                html += '<td><select id="image_list" name="image_list" style="width: 200px" onchange="this.form.src.value=this.options[this.selectedIndex].value;resetImageData();getImageData();">';
 
-
-
-				html += '</select></td></tr>';
+                html += '<option value="">---</option>';
 
 
 
-				document.write(html);
+                for (var i=0; i<tinyMCEImageList.length; i++)
 
-			}
+                    html += '<option value="' + tinyMCEImageList[i][1] + '">' + tinyMCEImageList[i][0] + '</option>';
 
-		  </script>
 
-		  <!-- /Image list -->
+
+                html += '</select></td></tr>';
+
+
+
+                document.write(html);
+
+            }
+
+          </script>
+
+          <!-- /Image list -->
 
           <tr>
 
@@ -168,29 +168,29 @@
 
         </table>
 
-		</div>
+        </div>
 
-	</div>
-
-
-
-	<div class="mceActionPanel">
-
-		<div style="float: left">
-
-			<input type="button" id="insert" name="insert" value="{$lang_insert}" onclick="insertImage();" />
-
-		</div>
+    </div>
 
 
 
-		<div style="float: right">
+    <div class="mceActionPanel">
 
-			<input type="button" id="cancel" name="cancel" value="{$lang_cancel}" onclick="tinyMCEPopup.close();" />
+        <div style="float: left">
 
-		</div>
+            <input type="button" id="insert" name="insert" value="{$lang_insert}" onclick="insertImage();" />
 
-	</div>
+        </div>
+
+
+
+        <div style="float: right">
+
+            <input type="button" id="cancel" name="cancel" value="{$lang_cancel}" onclick="tinyMCEPopup.close();" />
+
+        </div>
+
+    </div>
 
 </form>
 

@@ -410,25 +410,34 @@ else
 
 if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
 {
-    $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
-                 " . claro_form_relay_context() . "
-                  <h4><label for=\"newLabel\">".get_lang('Create a new label / title in this learning path')."</label></h4>
-                  <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
-                  <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
-                  <input type=\"submit\" value=\"".get_lang('Ok')."\" />
-                  </form>";
+    $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+    .            claro_form_relay_context()
+    .            '<h4>'
+    .            '<label for="newLabel">'
+    .            get_lang('Create a new label / title in this learning path')
+    .            '</label>'
+    .            '</h4>' . "\n"
+    .            '<input type="text" name="newLabel" id="newLabel" maxlength="255" />' . "\n"
+    .            '<input type="hidden" name="cmd" value="createLabel" />' . "\n"
+    .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+    .            '</form>'
+    ;
 }
+
 if (isset($displayChangePosForm) && $displayChangePosForm)
 {
     $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
     .            claro_form_relay_context()
-    .            '<h4>' . get_lang('Move')." ' ".$moduleInfos['name']." ' ".get_lang('To')."</h4>";
+    .            '<h4>'
+    .            get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
+    ;
     // build select input - $elementList has been declared in the previous big cmd case
-    $dialogBox .= claro_build_nested_select_menu("newPos",$elementList);
-    $dialogBox .= "<input type=\"hidden\" name=\"cmd\" value=\"changePos\" />
-                   <input type=\"hidden\" name=\"cmdid\" value=\"".$_REQUEST['cmdid']."\" />
-                   <input type=\"submit\" value=\"".get_lang('Ok')."\" />
-                   </form>";
+    $dialogBox .= claro_build_nested_select_menu("newPos",$elementList)
+    .             '<input type="hidden" name="cmd" value="changePos" />' . "\n"
+    .             '<input type="hidden" name="cmdid" value="' . $_REQUEST['cmdid'] . '" />' . "\n"
+    .             '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+    .             '</form>'
+    ;
 }
 
 //####################################################################################\\

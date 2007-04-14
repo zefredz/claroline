@@ -48,7 +48,7 @@ if ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )  
 else                                                                             $cmd = null;
 
 if ( isset($_REQUEST['descId']) && is_numeric($_REQUEST['descId']) ) $descId = (int) $_REQUEST['descId'];
-else															     $descId = null;
+else                                                                 $descId = null;
 
 if ( isset($_REQUEST['category']) && $_REQUEST['category'] >= 0 )    $category = $_REQUEST['category'];
 else                                                                 $category = -1;
@@ -64,9 +64,9 @@ if ( $is_allowedToEdit && !is_null($cmd) )
 
     if ( !is_null($descId) && !$description->load($descId) )
     {
-    	// description must be load but cannot, cancel any command
-    	$cmd = null;
-    	$descId = null;
+        // description must be load but cannot, cancel any command
+        $cmd = null;
+        $descId = null;
     }
 
     /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
@@ -79,7 +79,7 @@ if ( $is_allowedToEdit && !is_null($cmd) )
         if ( isset($_REQUEST['descCategory']) )  $description->setCategory($_REQUEST['descCategory']);
 
         if ( $description->validate() )
-    	{
+        {
             // Update description
             if ( $description->save() )
             {
@@ -295,7 +295,7 @@ if ( $is_allowedToEdit )
 
         echo "\n\n"
         .    '<br />' . "\n"
-        .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context()
         .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
         .    '<select name="category">' . "\n"

@@ -239,10 +239,10 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
             // update enrol count in table rel_course_user
 
             $sql = "UPDATE `".$tbl['rel_course_user']."`
-  	                SET `count_user_enrol` = '" . $count_user_enrol . "',
+                      SET `count_user_enrol` = '" . $count_user_enrol . "',
                         `count_class_enrol` = '" . $count_class_enrol . "'
-  	                WHERE `user_id`   =  " . (int) $userId . "
-  	                AND  `code_cours` = '" . addslashes($thisCourseCode) . "'";
+                      WHERE `user_id`   =  " . (int) $userId . "
+                      AND  `code_cours` = '" . addslashes($thisCourseCode) . "'";
 
             if ( claro_sql_query($sql) ) return true;
             else                         return false;

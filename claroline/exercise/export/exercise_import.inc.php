@@ -117,13 +117,13 @@ function import_exercise($file, &$backlog)
     $element_pile = array();  //pile to known the depth in which we are
     $module_info = array();   //array to store the info we need
 
-	// if file is not a .zip, then we cancel all
+    // if file is not a .zip, then we cancel all
 
-	if ( !preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']))
-	{
-		$backlog->failure(get_lang('You must upload a zip file'));
-		return false;
-	}
+    if ( !preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']))
+    {
+        $backlog->failure(get_lang('You must upload a zip file'));
+        return false;
+    }
 
     //unzip the uploaded file in a tmp directory
 
@@ -156,7 +156,7 @@ function import_exercise($file, &$backlog)
                 {
                     list( $parsingBacklog, $success ) = parse_file($uploadDir, $file, $questionFile);
                     $backlog->append($parsingBacklog);
-					$file_found = true;
+                    $file_found = true;
                 }
             }
         } 
@@ -164,15 +164,15 @@ function import_exercise($file, &$backlog)
         {
             list( $parsingBacklog, $success ) = parse_file($uploadDir, '', $file);
             $backlog->append($parsingBacklog);
-			$file_found = true;
+            $file_found = true;
         } // else ignore file
     }
 
-	if( !$file_found )
-	{
-		$backlog->failure(get_lang('No XML file found in the zip'));
-		return false;
-	}
+    if( !$file_found )
+    {
+        $backlog->failure(get_lang('No XML file found in the zip'));
+        return false;
+    }
 
     //---------------------
     //add exercise in tool
@@ -425,7 +425,7 @@ function startElement($parser, $name, $attributes)
         {
             //retrieve current question
 
-			$current_question_ident = $attributes['IDENTIFIER'];
+            $current_question_ident = $attributes['IDENTIFIER'];
             $exercise_info['question'][$current_question_ident] = array();
             $exercise_info['question'][$current_question_ident]['answer'] = array();
             $exercise_info['question'][$current_question_ident]['correct_answers'] = array();
@@ -436,34 +436,34 @@ function startElement($parser, $name, $attributes)
 
         case 'SECTION' :
         {
-         	//retrieve exercise name
+             //retrieve exercise name
 
-			$exercise_info['name'] = $attributes['TITLE'];
+            $exercise_info['name'] = $attributes['TITLE'];
 
         }
-		break;
+        break;
 
-		case 'RESPONSEDECLARATION' :
+        case 'RESPONSEDECLARATION' :
         {
-         	//retrieve question type
+             //retrieve question type
 
-			if( $attributes['CARDINALITY'] == "multiple" )
-			{
-				$exercise_info['question'][$current_question_ident]['type'] = 'MCMA'; // will be overload if FIB
+            if( $attributes['CARDINALITY'] == "multiple" )
+            {
+                $exercise_info['question'][$current_question_ident]['type'] = 'MCMA'; // will be overload if FIB
                 $cardinality = 'multiple';
-			}
-			
-			if( $attributes['CARDINALITY'] == "single" )
-			{
-				$exercise_info['question'][$current_question_ident]['type'] = 'MCUA'; // will be overload if FIB
+            }
+            
+            if( $attributes['CARDINALITY'] == "single" )
+            {
+                $exercise_info['question'][$current_question_ident]['type'] = 'MCUA'; // will be overload if FIB
                 $cardinality = 'single';
-			}
+            }
 
             //needed for FIB
             $current_answer_id = $attributes['IDENTIFIER'];
 
         }
-		break;
+        break;
 
         case 'INLINECHOICEINTERACTION' :
         {
@@ -489,7 +489,7 @@ function startElement($parser, $name, $attributes)
 
         case 'MATCHINTERACTION' :
         {
-			//retrieve question type
+            //retrieve question type
 
             $exercise_info['question'][$current_question_ident]['type'] = 'MATCHING';
         }
@@ -576,7 +576,7 @@ function endElement($parser,$name)
 {
     global $element_pile;
     global $exercise_info;
-	global $current_question_ident;
+    global $current_question_ident;
     global $record_item_body;
     global $current_question_item_body;
     global $prompt;
@@ -584,7 +584,7 @@ function endElement($parser,$name)
     global $inside_non_HTML_tag_to_avoid;
     global $cardinality;
 
-	$current_element = end($element_pile);
+    $current_element = end($element_pile);
 
     switch ($name)
     {
@@ -625,7 +625,7 @@ function elementData($parser,$data)
 {
     global $element_pile;
     global $exercise_info;
-	global $current_question_ident;
+    global $current_question_ident;
     global $current_answer_id;
     global $current_match_set;
     global $currentAssociableChoice;
@@ -638,9 +638,9 @@ function elementData($parser,$data)
     global $cardinality;
 
     $data = utf8_decode_if_is_utf8($data);
-	
+    
     $current_element = end($element_pile);
-	if (sizeof($element_pile) >= 2) $parent_element = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
+    if (sizeof($element_pile) >= 2) $parent_element = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
 
 
     if( $record_item_body && $inside_non_HTML_tag_to_avoid == 0 ) 

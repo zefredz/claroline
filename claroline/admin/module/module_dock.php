@@ -33,8 +33,8 @@ $tbl_dock        = $tbl_name['dock'];
 
 if ( isset($_REQUEST['dock']) )
 {
-	$dockList = get_dock_list('applet');
-	$dock = $_REQUEST['dock'];
+    $dockList = get_dock_list('applet');
+    $dock = $_REQUEST['dock'];
     $dockName = isset($dockList[$dock]) ? $dockList[$dock] : $dock ;
     $nameTools = get_lang('Dock') . ' : ' . $dockName;
 }
@@ -192,7 +192,7 @@ if ( !empty($dock) )
         }
         else
         {
-        	echo '&nbsp;';
+            echo '&nbsp;';
         }
         echo '</td>' . "\n";
 
@@ -208,7 +208,7 @@ if ( !empty($dock) )
         }        
         else
         {
-        	echo '&nbsp;';
+            echo '&nbsp;';
         }
         echo '</td>' . "\n";
 

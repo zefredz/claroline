@@ -66,7 +66,7 @@ $course = new ClaroCourse($thisUser['firstName'], $thisUser['lastName'], $thisUs
 
 if ( $adminContext && claro_is_platform_admin() )
 {
-	// from admin, add param to form
+    // from admin, add param to form
     $course->addHtmlParam('adminContext','1');
 }
 
@@ -76,51 +76,51 @@ if ( $cmd == 'exEdit' )
 
     if( $course->validate() )
     {
-    	if( $course->save() )
-    	{
+        if( $course->save() )
+        {
             // include the platform language file with all language variables
             language::load_translation();
             language::load_locale_settings();
 
-    		$course->mailAdministratorOnCourseCreation($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
+            $course->mailAdministratorOnCourseCreation($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
 
-    		$dialogBox = get_lang('You have just created the course website')
+            $dialogBox = get_lang('You have just created the course website')
             .            ' : ' . '<strong>' . $course->officialCode . '</strong>' . "\n";
 
-    		$display = DISP_COURSE_CREATION_SUCCEED;
-    	}
-    	else
-    	{
-    	    $dialogBox .= $course->backlog->output();
-    		$display = DISP_COURSE_CREATION_FAILED;
-    	}
+            $display = DISP_COURSE_CREATION_SUCCEED;
+        }
+        else
+        {
+            $dialogBox .= $course->backlog->output();
+            $display = DISP_COURSE_CREATION_FAILED;
+        }
     }
     else
     {
-    	$dialogBox .= $course->backlog->output();
-    	$display = DISP_COURSE_CREATION_FAILED;
+        $dialogBox .= $course->backlog->output();
+        $display = DISP_COURSE_CREATION_FAILED;
     }
 }
 
 if( $cmd == 'rqProgress' )
 {
-	$course->handleForm();
+    $course->handleForm();
 
-	if( $course->validate() )
+    if( $course->validate() )
     {
-		// Trig a waiting screen as course creation may take a while ...
+        // Trig a waiting screen as course creation may take a while ...
 
-	    $progressUrl = $course->buildProgressUrl();
+        $progressUrl = $course->buildProgressUrl();
 
-	    $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $progressUrl . '">';
+        $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $progressUrl . '">';
 
-	    $display = DISP_COURSE_CREATION_PROGRESS;
-	}
-	else
-	{
-	   	$dialogBox .= $course->backlog->output();
-		$display = DISP_COURSE_CREATION_FAILED;
-	}
+        $display = DISP_COURSE_CREATION_PROGRESS;
+    }
+    else
+    {
+           $dialogBox .= $course->backlog->output();
+        $display = DISP_COURSE_CREATION_FAILED;
+    }
 }
 
 // Set navigation url
@@ -132,7 +132,7 @@ if ( $adminContext && claro_is_platform_admin() )
 }
 else
 {
-	$backUrl = get_path('url') . '/index.php' . claro_url_relay_context('?');
+    $backUrl = get_path('url') . '/index.php' . claro_url_relay_context('?');
 }
 
 //=================================
@@ -148,12 +148,12 @@ if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FAILED )
 {
-	// display form
-	echo $course->displayForm($backUrl);
+    // display form
+    echo $course->displayForm($backUrl);
 }
 elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
 {
-	// display "progression" page
+    // display "progression" page
     $msg = get_lang('Creating course (it may take a while) ...') . '<br />' . "\n"
     .      '<p align="center">'
     .      '<img src="' . get_path('imgRepositoryWeb') . '/processing.gif" alt="" />'
@@ -167,12 +167,12 @@ elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
 }
 elseif ( $display == DISP_COURSE_CREATION_SUCCEED )
 {
-	// display confirmation
+    // display confirmation
     echo '<p>'
     .    claro_html_cmd_link( $backUrl
                             , get_lang('Continue')
                             )
-    .	 '</p>' . "\n"
+    .     '</p>' . "\n"
     ;
 }
 

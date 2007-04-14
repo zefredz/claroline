@@ -286,7 +286,7 @@ switch ($item)
     {
         echo claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
 
         echo '<table>' . "\n";
 

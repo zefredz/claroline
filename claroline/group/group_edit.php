@@ -39,44 +39,44 @@ $htmlHeadXtra[]='
 <!-- Begin javascript menu swapper
 function move( inBox, outBox )
 {
-	var arrInBox = new Array();
-	var arrOutBox = new Array();
+    var arrInBox = new Array();
+    var arrOutBox = new Array();
 
-	for ( var i=0; i<outBox.options.length; i++ )
-	{
-		arrOutBox[i] = outBox.options[i];
-	}
+    for ( var i=0; i<outBox.options.length; i++ )
+    {
+        arrOutBox[i] = outBox.options[i];
+    }
 
-	var outLength = arrOutBox.length;
-	var inLength = 0;
+    var outLength = arrOutBox.length;
+    var inLength = 0;
 
-	for ( var i=0; i<inBox.options.length; i++ )
-	{
-		var opt = inBox.options[i];
-		if ( opt.selected )
-		{
-			arrOutBox[outLength] = opt;
-			outLength++;
-		}
-		else
-		{
-			arrInBox[inLength] = opt;
-			inLength++;
-		}
-	}
+    for ( var i=0; i<inBox.options.length; i++ )
+    {
+        var opt = inBox.options[i];
+        if ( opt.selected )
+        {
+            arrOutBox[outLength] = opt;
+            outLength++;
+        }
+        else
+        {
+            arrInBox[inLength] = opt;
+            inLength++;
+        }
+    }
 
-	inBox.length = 0;
-	outBox.length = 0;
+    inBox.length = 0;
+    outBox.length = 0;
 
-	for ( var i = 0; i < arrOutBox.length; i++ )
-	{
-		outBox.options[i] = arrOutBox[i];
-	}
+    for ( var i = 0; i < arrOutBox.length; i++ )
+    {
+        outBox.options[i] = arrOutBox[i];
+    }
 
-	for ( var i = 0; i < arrInBox.length; i++ )
-	{
-		inBox.options[i] = arrInBox[i];
-	}
+    for ( var i = 0; i < arrInBox.length; i++ )
+    {
+        inBox.options[i] = arrInBox[i];
+    }
 }
 //  End -->
 </script>
@@ -259,7 +259,7 @@ echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle'
 
 if ( isset($messageGroupEdited) ) echo claro_html_message_box($messageGroupEdited);
 
-echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() . '">' . "\n"
+echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() . '">' . "\n"
 .    claro_form_relay_context()
 .    '<table border="0" cellspacing="3" cellpadding="5">' . "\n"
 .    '<tr valign="top">' . "\n"

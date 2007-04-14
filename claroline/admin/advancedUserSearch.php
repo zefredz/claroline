@@ -74,7 +74,7 @@ if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $ma
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools . ' : ');
 ?>
-<form action="adminusers.php" method="GET" >
+<form action="adminusers.php" method="get" >
 <table border="0">
     <tr>
         <td align="right">

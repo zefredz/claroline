@@ -1,6 +1,6 @@
 AuthName "Administration Claroline"
 AuthType Basic
-Require valid-user	
+Require valid-user    
 AuthUserFile /var/www/.htpasswd4admin
 ErrorDocument 401 /index.php 
 ErrorDocument 403 /index.php 

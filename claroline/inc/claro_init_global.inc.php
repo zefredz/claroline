@@ -189,7 +189,7 @@ language::load_locale_settings();
 // browser. It will nullify all the variables posted to the server by the
 // form, provided this form complies to 2 points :
 //
-// 1. The form is submitted by POST method (<form method="POST">). GET
+// 1. The form is submitted by POST method (<form method="post">). GET
 // method is not taken into account.
 //
 // 2. A unique ID value is provided at form submission that way

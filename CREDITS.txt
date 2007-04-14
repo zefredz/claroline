@@ -49,7 +49,7 @@ Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
 
 Learning Path Tool :            Sebastien Piraux (Cerdecam)
-								Guillaume Lederer
+                                Guillaume Lederer
 
 Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 

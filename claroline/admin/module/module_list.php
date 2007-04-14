@@ -48,7 +48,7 @@ $old_tool_array = array('CLANN',
                         'CLGRP'
                         );
 
-//UNDEACTIVABLE	TOOLS array
+//UNDEACTIVABLE    TOOLS array
 
 $undeactivable_tool_array = array('CLDOC',
                                   'CLGRP'

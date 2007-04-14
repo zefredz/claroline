@@ -573,11 +573,11 @@ if ( $displayForm )
 
     if( claro_is_jpspan_enabled() )
     {
-    	echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
+        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
     else
     {
-    	echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
+        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
     echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel')

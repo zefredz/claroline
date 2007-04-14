@@ -70,7 +70,7 @@ class ConfigHtml extends Config
             }
 
             // display start form
-            $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
+            $form .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
             .        claro_form_relay_context()
             .        '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
             .        '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
@@ -289,13 +289,13 @@ class ConfigHtml extends Config
 
                         // display true/false radio button
                         $form_value = '<input id="label_'. $name .'_TRUE"  type="radio" name="'. $input_name.'" value="TRUE"  '
-                        . ( $value=='TRUE'?' checked="checked" ':' ') . ' >'
+                        . ( $value=='TRUE'?' checked="checked" ':' ') . '  />'
                         . '<label for="label_'. $name .'_TRUE"  >'
                         . ($property_def['acceptedValue']['TRUE']?get_lang($property_def['acceptedValue']['TRUE' ]):'TRUE')
                         . '</label>'
                         . '<br />'
                         . '<input id="label_'. $name .'_FALSE" type="radio" name="'. $input_name.'" value="FALSE" '
-                        . ($value=='FALSE'?' checked="checked" ': ' ') . ' >'
+                        . ($value=='FALSE'?' checked="checked" ': ' ') . '  />'
                         . '<label for="label_'. $name.'_FALSE" >'
                         . ($property_def['acceptedValue']['FALSE']?get_lang($property_def['acceptedValue']['FALSE']):'FALSE')
                         . '</label>';
@@ -334,7 +334,7 @@ class ConfigHtml extends Config
                             foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                             {
                                 $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
-                                . ($value==$keyVal?' checked="checked" ':' ').' >'
+                                . ($value==$keyVal?' checked="checked" ':' ').'  />'
                                 . '<label for="label_'.$name.'_'.$keyVal.'"  >'.get_lang(($labelVal?$labelVal:$keyVal )).'</label>'
                                 . '<span class="propUnit">'.get_lang($html['unit']).'</span>'
                                 . '<br />'."\n";
@@ -369,12 +369,12 @@ class ConfigHtml extends Config
 
                         $form_title = $html['label'] ;
 
-                        $form_value = '<input type="hidden" name="'.$input_name.'" value="">' . "\n";
+                        $form_value = '<input type="hidden" name="'.$input_name.'" value="" />' . "\n";
 
                         foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                         {
                             $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="checkbox" name="'.$input_name.'[]" value="'.$keyVal.'"  '
-                            . (is_array($value)&&in_array($keyVal,$value)?' checked="checked" ':' ').' >'
+                            . (is_array($value)&&in_array($keyVal,$value)?' checked="checked" ':' ').'  />'
                             . '<label for="label_'.$name.'_'.$keyVal.'"  >'.get_lang(($labelVal?$labelVal:$keyVal )).'</label>'
                             . '<span class="propUnit">'.get_lang($html['unit']).'</span>'
                             . '<br />'."\n";
@@ -387,25 +387,25 @@ class ConfigHtml extends Config
                         $form_title = '<label for="label_'.$name.'"  >'.$html['label'].'</label>';
 
                         $form_value = '<input size="'.$input_size.'" align="right" id="label_'.$name.'" '
-                        . ' type="text" name="'.$input_name.'" value="'. $html['value'] .'"> '."\n"
+                        . ' type="text" name="'.$input_name.'" value="'. $html['value'] .'" /> '."\n"
                         . '<span class="propUnit">'.$html['unit'].'</span>'
                         . '<span class="propType">'.$html['type'].'</span>';
 
                         break;
-                        
+
                     case 'text' :
-                        
+
                         $form_title = '<label for="label_'.$name.'"  >' . $html['label'] . '</label>' ;
-                        
+
                         $form_value = '<textarea cols="40" rows="5" id="label_'.$name.'" name="'.$input_name.'">'. $html['value'] .'</textarea>';
-                        
+
                         break;
-                        
+
                     default:
                         // by default is a string
                         $form_title = '<label for="label_'.$name.'"  >' . $html['label'] . '</label>' ;
 
-                        $form_value = '<input size="'.$input_size.'" id="label_'.$name.'" type="text" name="'.$input_name.'" value="'.$html['value'].'"> '
+                        $form_value = '<input size="'.$input_size.'" id="label_'.$name.'" type="text" name="' . $input_name . '" value="' . $html['value'] . '" /> '
                         . '<span class="propUnit">'.$html['unit'].'</span>'
                         . '<span class="propType">'.$html['type'].'</span>'. "\n" ;
 

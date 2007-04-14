@@ -78,7 +78,7 @@ if (mysql_errno() >0)
         . 'Fix this problem before going further' . "\n"
         . '</font>' . "\n"
         . '<P>' . "\n"
-        . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '">' . "\n"
+        . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '" />' . "\n"
         . '</P>' . "\n"
         . '</P>' . "\n"
         ;
@@ -131,7 +131,7 @@ if($statsDbName != $mainDbName)
                 . 'Fix this problem before going further' . "\n"
                 . '</font>' . "\n"
                 . '<p>' . "\n"
-                . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '">' . "\n"
+                . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '" />' . "\n"
                 . '</p>' . "\n"
                 . '</p>'
                 ;
@@ -307,7 +307,7 @@ if ($runfillMainDb && $runfillStatsDb)
 
         $arr_file_to_undist =
         array (
-        $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf' 
+        $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf'
         );
 
         foreach ($arr_file_to_undist as $undistFile => $undistPath)

@@ -93,9 +93,9 @@ echo '</ul>' . "\n";
 //display legend if required
 if( !empty($modified_course) )
 {
-	echo '<br />'
-	.    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>'
-	.	 '</td>' . "\n";
+    echo '<br />'
+    .    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>'
+    .     '</td>' . "\n";
 }
 
 ?>

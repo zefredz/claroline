@@ -46,12 +46,12 @@ function choose_image($fileName)
         $type['acrobat'   ] = array('pdf');
         $type['powerpoint'] = array('ppt', 'pps');
         $type['link'      ] = array('url');
-        $type['writer'	  ] = array('odt');
-        $type['calc'	  ] = array('ods');
-        $type['base'	  ] = array('odb');
-        $type['draw'	  ] = array('odg');
-        $type['impress'	  ] = array('odp');
-        $type['math'	  ] = array('odf');
+        $type['writer'      ] = array('odt');
+        $type['calc'      ] = array('ods');
+        $type['base'      ] = array('odb');
+        $type['draw'      ] = array('odg');
+        $type['impress'      ] = array('odp');
+        $type['math'      ] = array('odf');
 
         $image['word'      ] = 'doc.gif';
         $image['web'       ] = 'html.gif';
@@ -165,10 +165,10 @@ function format_url($url)
     $urlArray = parse_url( $url );
 
 
-	$urlToRet = isset($urlArray['scheme'])
-		? $urlArray['scheme']
-		: ''
-		;
+    $urlToRet = isset($urlArray['scheme'])
+        ? $urlArray['scheme']
+        : ''
+        ;
 
     if ( isset($urlArray['scheme'])
         && 'mailto' == $urlArray['scheme'] )
@@ -191,9 +191,9 @@ function format_url($url)
     }
 
     $urlToRet .= isset( $urlArray['host']  )
-    	? $urlArray['host']
-    	: ''
-    	;
+        ? $urlArray['host']
+        : ''
+        ;
     $urlToRet .= isset( $urlArray['port']  )
         ? ':' . $urlArray['port']
         : ''

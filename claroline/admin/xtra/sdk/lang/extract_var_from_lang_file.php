@@ -81,29 +81,29 @@ $handle = opendir($path_lang);
 
 while ($element = readdir($handle) )
 {
-	if ( $element == "." || $element == ".." || $element == "CVS" 
+    if ( $element == "." || $element == ".." || $element == "CVS" 
         || strstr($element,"~") || strstr($element,"#") 
        )
-	{
-		continue; // skip current and parent directories
-	}
-	if ( is_dir($element) )
-	{
-		$languageAttribute['path'] = $path_lang . '/' . $element;
+    {
+        continue; // skip current and parent directories
+    }
+    if ( is_dir($element) )
+    {
+        $languageAttribute['path'] = $path_lang . '/' . $element;
         $elements                  = explode (".", $element);
-		$languageAttribute['name'] = reset( $elements );
-		$languageList     []       = $languageAttribute;
-	}
+        $languageAttribute['name'] = reset( $elements );
+        $languageList     []       = $languageAttribute;
+    }
 }
 
 if ( sizeof($languageList) > 0)
 {
-	foreach($languageList as $thisLangList)
-	{
+    foreach($languageList as $thisLangList)
+    {
         echo "<h4>" . $thisLangList['name'] . "</h4>\n";
         glance_through_dir_lang($thisLangList['path'], $thisLangList['name']);
         echo "<hr />\n";
-	}
+    }
 }
 
 // get and display end time

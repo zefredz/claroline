@@ -345,7 +345,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '</label>' . "\n"
     .    '<br />' . "\n"
     .    '<input type="radio" name="autoFeedbackSubmitMethod" id="prefillSubmitAfterPost" value="AFTERPOST" '
-    .    $prefillSubmitAfterPostCheckStatus . '>' . "\n"
+    .    $prefillSubmitAfterPostCheckStatus . ' />' . "\n"
     .    '<label for="prefillSubmitAfterPost">&nbsp;' . "\n"
     .    get_lang('Automatically, after each submission') . "\n"
     .    '</label>' . "\n"
@@ -355,7 +355,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<tr>' . "\n"
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
+    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
     .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"

@@ -579,7 +579,7 @@ function utf8_decode_if_is_utf8($str)
     }
     else
     {
-    	return utf8_decode($str);
+        return utf8_decode($str);
     }
 }
 

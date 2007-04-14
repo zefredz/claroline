@@ -21,11 +21,10 @@ if (!empty($httpHeadXtra) && is_array($httpHeadXtra) )
 /*
  * HTML HEADER
  */
-echo claro_html_doctype();
-?>
-<html>
-<head>
-<?php
+echo claro_html_doctype() . "\n"
+.    '<html>' . "\n"
+.    '<head>' . "\n"
+;
 
 $titlePage = '';
 

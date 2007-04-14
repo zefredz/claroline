@@ -13,14 +13,14 @@
      * @package     KERNEL
      */
 
-	/**
+    /**
      * Returns the url of the given icon
      *
      * @param string fileName file name with or without extension
      * @return string icon url
      *         mixed null if icon not found
      */
-	function get_icon( $fileName )
+    function get_icon( $fileName )
     {
         $fileInfo = pathinfo( $fileName );
         

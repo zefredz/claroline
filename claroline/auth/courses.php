@@ -516,18 +516,18 @@ switch ( $displayMode )
             {
                 echo '<tr>' . "\n"
                 .    '<td>' . $thisCourse['officialCode'] . ' - ' . $thisCourse['title'] . '<br />' . "\n"
-		        .	 '<small>';
+                .     '<small>';
 
-		        if( !empty($thisCourse['email']) )
-		        {
-		            echo '<a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a>';
-		        }
-		        else
-		        {
-		            echo $thisCourse['titular'];
-		        }
+                if( !empty($thisCourse['email']) )
+                {
+                    echo '<a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a>';
+                }
+                else
+                {
+                    echo $thisCourse['titular'];
+                }
 
-				echo '</small>' . "\n" . '</td>' . "\n";
+                echo '</small>' . "\n" . '</td>' . "\n";
 
                 // enroll link
 
@@ -709,7 +709,7 @@ switch ( $displayMode )
         echo  '<blockquote><p>' . get_lang('This course requires a key for enrolment') . '</p>' . "\n"
         .     '<p><small>(' . get_lang('If you do not have the key, please contact the course manager') . ')</small></p>' . "\n"
         .     get_locked_course_by_key_explanation($course)
-        .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .     '<input type="hidden" name="cmd" value="exReg">' . "\n"
         .     get_lang('Enrolment key')
         .     ' : '
@@ -732,7 +732,7 @@ switch ( $displayMode )
 
         $message .= get_locked_course_explanation($course)
         .    '<p>'
-        .	 get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>'))
+        .     get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>'))
         .    '</p>'
         ;
 
@@ -741,7 +741,7 @@ switch ( $displayMode )
         /*
 
         if (false)
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exContactAdmin">' . "\n"
         .    '<input type="hidden" name="course" value="' . $_REQUEST['course'] . '" />'
         .    '<textarea name="content" cols="35" rows="6">'

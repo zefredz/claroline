@@ -4,32 +4,32 @@
 
 body 
 {
-	font-family: arial, helvetica, sans-serif;
-	color:#333333;
-	background-color: #fff;
-	padding: 1px;
-	margin: 1px;
+    font-family: arial, helvetica, sans-serif;
+    color:#333333;
+    background-color: #fff;
+    padding: 1px;
+    margin: 1px;
 }
 
 a:link, a:active, a:visited 
 {
-	color: #006;
+    color: #006;
 }
 
 a img 
 {
-	border:none;
-	text-decoration: none;
+    border:none;
+    text-decoration: none;
 }
 
 .spacer 
 {
-	clear: both;
+    clear: both;
 }
 
 h3
 {
-	font-size: 110%;
+    font-size: 110%;
 }
 
 
@@ -43,11 +43,11 @@ h3
 
 #platformBanner
 {
-	color: #FFF;
-	background-color:#006;
-	padding: 4px;
-	font-size: 120%;
-	font-weight: bold;
+    color: #FFF;
+    background-color:#006;
+    padding: 4px;
+    font-size: 120%;
+    font-weight: bold;
 }
 
 #platformBanner a,
@@ -55,38 +55,38 @@ h3
 #platformBanner a:link,
 #platformBanner a:visited
 {
-	text-decoration: none;
-   	color: #FFF;
+    text-decoration: none;
+       color: #FFF;
 }
 
 #platformBanner a:hover 
 {
-	color: #FFF;
-	text-decoration: underline;
+    color: #FFF;
+    text-decoration: underline;
 }
 
 #platformBanner #siteName
-{	
+{    
 }
 
 #platformBanner #institution
-{	
+{    
 }
 
 #campusBannerRight
 {
     position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
+    float: right;
+    text-align: right;
+    margin: 0;
 }
 
 #campusBannerLeft
 {
     position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
+    float: left;
+    text-align: left;
+    margin: 0;
 }
 
  /*----------------------------------------------------------------------------
@@ -95,19 +95,19 @@ h3
 
 #userBanner
 {
-	background-color: #666;
-	color:white;
-	font-size: 80%;
-	font-weight:bold;
-	padding: 4px;
-	border-top: 1px #FFF solid;
+    background-color: #666;
+    color:white;
+    font-size: 80%;
+    font-weight:bold;
+    padding: 4px;
+    border-top: 1px #FFF solid;
 }
 
 #userBanner #userName
 {
-	 font-size: 110%;
-	 font-weight: normal;
-	 margin: 0;
+     font-size: 110%;
+     font-weight: normal;
+     margin: 0;
 }
 
 #userBanner a,
@@ -115,30 +115,30 @@ h3
 #userBanner a:link,
 #userBanner a:visited
 {
-	text-decoration: none;
+    text-decoration: none;
     color: #FFF;
 }
 
 #userBanner a:hover
 {
-	color: #FFF;
-	text-decoration: underline;
+    color: #FFF;
+    text-decoration: underline;
 }
 
 #userBannerRight
 {
     position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
+    float: right;
+    text-align: right;
+    margin: 0;
 }
 
 #userBannerLeft
 {
     position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
+    float: left;
+    text-align: left;
+    margin: 0;
 }
 
  /*----------------------------------------------------------------------------
@@ -146,37 +146,37 @@ h3
  ----------------------------------------------------------------------------*/
 #courseBanner
 {
-   	color: #036;
-	background-color: #DDDEBC;
-	font-weight: bold;
-	padding: 4px;
-	border-top: 1px #FFF solid;
+       color: #036;
+    background-color: #DDDEBC;
+    font-weight: bold;
+    padding: 4px;
+    border-top: 1px #FFF solid;
 }
 
 #courseBanner #course
 {
-	position: relative;
-	float: left;
-	text-align: left;
+    position: relative;
+    float: left;
+    text-align: left;
 }
 
 #courseBanner #course span
 {
-   	display: block;
+       display: block;
 }
 
 #courseBanner #courseToolList
 {
-	position: relative;
-	float: right;
+    position: relative;
+    float: right;
     text-align: right;
 }
 
 #courseBanner #courseName 
 {
-	font-size: 120%;
-	padding: 0;
-	margin: 0;
+    font-size: 120%;
+    padding: 0;
+    margin: 0;
 }
 
 #courseBanner a,
@@ -184,40 +184,40 @@ h3
 #courseBanner a:link,
 #courseBanner a:visited
 {
-	color: #036;
-	text-decoration: none;
+    color: #036;
+    text-decoration: none;
 }
 
 #courseBanner a:hover
 {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #courseBanner #courseCode 
 {
-	font-size: 80%;
+    font-size: 80%;
 }
 
 #courseBanner form
 {
-	padding-top: 5px;
-	margin: 0;
+    padding-top: 5px;
+    margin: 0;
 }
 
 #courseBannerRight
 {
     position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
+    float: right;
+    text-align: right;
+    margin: 0;
 }
 
 #courseBannerLeft
 {
     position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
+    float: left;
+    text-align: left;
+    margin: 0;
 }
 
  /*----------------------------------------------------------------------------
@@ -226,30 +226,30 @@ h3
 
 #breadcrumbLine
 {
-	border: none;
+    border: none;
 }
 
 #breadcrumbLine hr
 {
-	display: none;
+    display: none;
 }
 
 #breadcrumbLine .breadcrumbTrail
 {
-	float: left;
+    float: left;
 }
 
 #breadcrumbLine #toolViewOption
 {
-	float: right;
-	text-align: right;
-	font-size: 80%;
+    float: right;
+    text-align: right;
+    font-size: 80%;
 }
 
 
 .breadcrumbTrail
 {
-	font-size: 80%;
+    font-size: 80%;
 }
 
 /******************************************************************************
@@ -265,25 +265,25 @@ h3
 
 #campusFooter
 {
-	font-size: 80%;
+    font-size: 80%;
 }
 
 #campusFooter hr
 {
-	background-color: gray;
-	border: 0;
-	height: 1px;
+    background-color: gray;
+    border: 0;
+    height: 1px;
 }
 
 #campusFooterRight
 {
-	float: right;
-	text-align: right;
+    float: right;
+    text-align: right;
 }
 
 #campusFooterLeft
 {
-	float: left;	
+    float: left;    
 }
 
 #campusFooterCenter
@@ -298,39 +298,39 @@ h3
 }
 
 /******************************************************************************
-	CLAROLINE COMMAND LINKS
+    CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
 .claroCmd
 {
-	font-size: smaller;
-	font-weight: bold;
-	text-decoration: underline;
+    font-size: smaller;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .claroCmdDisabled 
 {
-	color: Gray;
-	font-size: smaller;
-	font-weight: bold;
-	text-decoration: none;
+    color: Gray;
+    font-size: smaller;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 /* Added for document view mode toolbar */
 
 th .claroCmd
 {
-	font-size: smaller;
-	font-weight: bold;
-	text-decoration: underline;
+    font-size: smaller;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 th .claroCmdDisabled
 {
     color: white;
     font-size: smaller;
-	font-weight: bold;
-	text-decoration: none;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 
@@ -358,12 +358,12 @@ th .claroCmdDisabled
 
 .item 
 {
-	padding-left: 16px;
+    padding-left: 16px;
 }
 
 .hot
 {
-	background: url(../img/hot.gif) no-repeat;
+    background: url(../img/hot.gif) no-repeat;
 }
 
 /******************************************************************************
@@ -435,71 +435,71 @@ th .claroCmdDisabled
 
 .claroTable td, th 
 {
-	margin:  1px;
-	padding: 4px;
-	border: none;
+    margin:  1px;
+    padding: 4px;
+    border: none;
 }
 
 
 .claroTable .superHeader th, .claroTable th.superHeader 
 {
-	color: white;
-	background-color: #666666;
-	font-weight: bold;
-	text-align: left;
+    color: white;
+    background-color: #666666;
+    font-weight: bold;
+    text-align: left;
 }
 
 .claroTable .superHeader a 
 {
-	color: white;
+    color: white;
 }
 
 
 .claroTable th.headerY, .claroTable .headerY th, 
 .claroTable th.headerX, .claroTable .headerX th 
 {
-	font-weight: normal;
-	text-align: left;
+    font-weight: normal;
+    text-align: left;
 }
 
 .claroTable .headerX th,  .claroTable th.headerX 
 {
-	background-color: #DDDEBC;
+    background-color: #DDDEBC;
 }
 
 /* extension of claroTable class for Image Viewer */
 .claroTable tr th.toolbar 
 {
-	background: white;
-	font-weight: normal;
+    background: white;
+    font-weight: normal;
 }
 
 .claroTable tr.toolbar th.prev
 {
-	text-align:left;
-	font-weight: normal;
+    text-align:left;
+    font-weight: normal;
 }
 
 .claroTable tr.toolbar th.title
 {
-	font-weight:bold;
-	text-align:center;
+    font-weight:bold;
+    text-align:center;
 }
 
 .claroTable tr.toolbar th.next
 {
-	text-align:right;
-	font-weight: normal;
+    text-align:right;
+    font-weight: normal;
 }
 
 .emphaseLine tbody td
 {
-	border-bottom: solid #DDDEBC 1px ;
+    border-bottom: solid #DDDEBC 1px ;
 }
 
 .emphaseLine tbody tr:hover 
 {
-	background-color: #E3E3E3;
+    background-color: #E3E3E3;
 }
 
 
@@ -515,24 +515,24 @@ th .claroCmdDisabled
  
 .claroMessageBox 
 {
-	background-color: #DDDEBC;
-	border: solid 1px #666666;
-	color: #000;
+    background-color: #DDDEBC;
+    border: solid 1px #666666;
+    color: #000;
 }
 
 .claroIntroSection 
 { 
-	border: dashed 1px #D8D8D8;
-	padding: 10px;
-	margin-top : 10px;
-	margin-bottom: 10px;
+    border: dashed 1px #D8D8D8;
+    padding: 10px;
+    margin-top : 10px;
+    margin-bottom: 10px;
 }
 
 .claroIntroSection hr
 {
-	border: 0;
-	height: 1px;
-	background-color: #D8D8D8;
+    border: 0;
+    height: 1px;
+    background-color: #D8D8D8;
 }
 
 
@@ -545,7 +545,7 @@ th .claroCmdDisabled
 
 .invisible
 {
-	color: #999999;
+    color: #999999;
 }
 
 .invisible a, 
@@ -555,41 +555,41 @@ a.invisible,
 a:link.invisible,
 a:visited.invisible
 {
-	color: #999999;
+    color: #999999;
 }
 
 
 /* 'correct' is attached to element that must be highlighted as correct
-	example : a good score in exercices
+    example : a good score in exercices
 */
 .correct 
 {
-	color: #009900;
+    color: #009900;
 }
 
 /* 'error' is attached to element that must be highlighted as correct
-	example : a wrong score in exercices
-	example : an error message
+    example : a wrong score in exercices
+    example : an error message
 */
 .error 
 {
-	color: #990000;
+    color: #990000;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
-	example : 'today' in the agenda
+    example : 'today' in the agenda
 */
 .highlight 
 {
-	color: #FFB848;
-	font-weight: bold;
+    color: #FFB848;
+    font-weight: bold;
 }
 
 /* 'required' is used to set the color of the asterisk displayed before the required form field
 */
 .required 
 {
-	color: red;
+    color: red;
 }
 
 /* 'hotItem' is used when something needs to be notified as new on the platform since the last login
@@ -598,8 +598,8 @@ a:visited.invisible
 .hotItem,
 .hotItem a
 {
-	color: #FF00CC;
-	font-weight: bold;
+    color: #FF00CC;
+    font-weight: bold;
 }
 
 /*
@@ -608,19 +608,19 @@ a:visited.invisible
 
 .claroRightMenu  
 {
-	background-color: #DDDEBC;	
+    background-color: #DDDEBC;    
 }
-	
+    
 .claroRightMenu a, 
 .claroRightMenu a:visited, 
 .claroRightMenu a:active 
 {
-		
+        
 }
-	
+    
 claroRightMenu a:hover 
 {
-				
+                
 }
 
 .HelpText 
@@ -630,7 +630,7 @@ claroRightMenu a:hover
 
 .claroToolTitle 
 {
-	padding-top: 5px;
+    padding-top: 5px;
 }
 
 /*

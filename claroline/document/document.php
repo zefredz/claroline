@@ -859,11 +859,11 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         {
             if( file_exists($baseWorkDir.$_REQUEST['file']) )
             {
-	            $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
+                $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
             }
             else
             {
-            	$url = '';
+                $url = '';
             }
 
             $dialogBox .= '<p>' . "\n"

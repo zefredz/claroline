@@ -54,7 +54,7 @@ if ( $cmd == 'rqMkCat' )
     else                               $catName = '';
 
     $dialogBox .= '<strong>'.get_lang('Add a category').'</strong>'
-               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
+               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exMkCat" />'."\n"
                .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
@@ -124,7 +124,7 @@ if ( $cmd == 'rqMkForum' )
 
 
     $dialogBox .= '<strong>'.get_lang('Add forum').'</strong>'
-               .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
+               .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
@@ -171,7 +171,7 @@ if ( $cmd == 'rqEdCat' )
     if ( $categorySettingList )
     {
         $dialogBox .= '<strong>'.get_lang('Edit category').'</strong>'."\n"
-               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
+               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exEdCat" />'."\n"
@@ -255,7 +255,7 @@ if ( $cmd == 'rqEdForum' )
                                     ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
 
     $dialogBox .= '<strong>'.get_lang('Add forum').'</strong>'."\n"
-               .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
+               .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'" />'."\n"

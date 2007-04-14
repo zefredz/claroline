@@ -586,12 +586,12 @@ function trig_topic_notification($topicId)
 
     while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-    	$message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
-								  '%lastname' => $list['lastname'],
+        $message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
+                                  '%lastname' => $list['lastname'],
                                   '%url_topic' => $url_topic,
                                   '%url_forum' => $url_forum ) );
 
-       	claro_mail_user($list['user_id'], $message, $subject);
+           claro_mail_user($list['user_id'], $message, $subject);
     }
 }
 
@@ -933,7 +933,7 @@ function disp_search_box()
         '<form action="viewsearch.php" method="post">'
         .    claro_form_relay_context()
         .            get_lang('Search') . ' : <br />'
-        .            '<input type="text" name="searchPattern"><br />'
+        .            '<input type="text" name="searchPattern" /><br />'
         .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
         .            claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
@@ -1468,7 +1468,7 @@ function move_category_rank($currCatId, $direction)
     }
     else
     {
-    	return false;
+        return false;
     }
 
     return true;

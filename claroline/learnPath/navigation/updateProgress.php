@@ -116,7 +116,7 @@ if($_POST['ump_id'])
 ?>
 </head>
 <body>
-<form name="cmiForm" method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
+<form name="cmiForm" method="post" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
     <input type="hidden" name="ump_id" />
     <input type="hidden" name="lesson_status" />
     <input type="hidden" name="lesson_location" />

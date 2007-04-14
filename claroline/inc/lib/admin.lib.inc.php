@@ -66,10 +66,10 @@ function delete_course($code)
 
     // Remove any recording in rel_cours_class
 
-  	$sql = "DELETE FROM `" . $tbl_course_class . "`
-  	        WHERE courseId ='" . addslashes($currentCourseId) . "'";
+      $sql = "DELETE FROM `" . $tbl_course_class . "`
+              WHERE courseId ='" . addslashes($currentCourseId) . "'";
 
-  	claro_sql_query($sql);
+      claro_sql_query($sql);
 
     // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
 

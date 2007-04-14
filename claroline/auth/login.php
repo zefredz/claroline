@@ -218,12 +218,12 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
 }
 else // LOGIN SUCCEEDED
 {
-	if(!isset($userLoggedOnCas))
-		$userLoggedOnCas = false;
+    if(!isset($userLoggedOnCas))
+        $userLoggedOnCas = false;
     //notify that a user has just loggued in
     $eventNotifier->notifyEvent('user_login', array('uid' => claro_get_current_user_id()));
-	//record in tracking tables
-	event_login();
+    //record in tracking tables
+    event_login();
 
     if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
     {
@@ -281,13 +281,13 @@ else // LOGIN SUCCEEDED
         require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
     }
-	elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
-	{
-		claro_redirect(base64_decode($_SESSION['casCallBackUrl']));
-	}
+    elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
+    {
+        claro_redirect(base64_decode($_SESSION['casCallBackUrl']));
+    }
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {
-    	$sourceUrl = base64_decode($sourceUrl);
+        $sourceUrl = base64_decode($sourceUrl);
         if (isset($_REQUEST['sourceCid']) )
         {
             $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')

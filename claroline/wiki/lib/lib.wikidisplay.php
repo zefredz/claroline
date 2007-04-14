@@ -53,7 +53,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $out .= '</div>' . "\n";
 
                 // display editor
-        $out .= '<form method="POST" action="'.$script.'"'
+        $out .= '<form method="post" action="'.$script.'"'
             . ' name="editform" id="editform">' . "\n"
             ;
 
@@ -165,7 +165,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
 
-        $out = '<div style="clear:both;"><form method="POST" action="' . $script
+        $out = '<div style="clear:both;"><form method="post" action="' . $script
             . '" name="previewform" id="previewform">' . "\n"
             ;
         $out .= '<input type="hidden" name="content" value="'
@@ -242,7 +242,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
 
-        $form = '<form method="POST" id="wikiProperties" action="'.$script.'">' . "\n"
+        $form = '<form method="post" id="wikiProperties" action="'.$script.'">' . "\n"
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
             . '<legend>'.get_lang("Wiki description").'</legend>' . "\n"
             . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"

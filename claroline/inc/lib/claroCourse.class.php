@@ -132,12 +132,12 @@ class ClaroCourse
             // insert
             $keys = define_course_keys ($this->officialCode,'',get_conf('dbNamePrefix'));
 
-		    $courseSysCode      = $keys['currentCourseId'];
-		    $courseDbName       = $keys['currentCourseDbName'];
-		    $courseDirectory    = $keys['currentCourseRepository'];
-		    $courseExpirationDate = '';
+            $courseSysCode      = $keys['currentCourseId'];
+            $courseDbName       = $keys['currentCourseDbName'];
+            $courseDirectory    = $keys['currentCourseRepository'];
+            $courseExpirationDate = '';
 
-		    if (   prepare_course_repository($courseDirectory, $courseSysCode)
+            if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && fill_course_repository($courseDirectory)
                 && update_db_course($courseDbName)
                 && fill_db_course( $courseDbName, $this->language )
@@ -162,7 +162,7 @@ class ClaroCourse
                 // set course id
                 $this->courseId = $courseSysCode;
 
-            	// notify event manager
+                // notify event manager
                 $args['courseSysCode'  ] = $courseSysCode;
                 $args['courseDbName'   ] = $courseDbName;
                 $args['courseDirectory'] = $courseDirectory;
@@ -170,23 +170,23 @@ class ClaroCourse
 
                 $GLOBALS['eventNotifier']->notifyEvent("course_created",$args);
 
-            	return true;
+                return true;
             }
             else
             {
                 $lastFailure = claro_failure::get_last_failure();
                 $this->backlog->failure( 'Error : '. $lastFailure );
-            	return false;
+                return false;
             }
 
         }
         else
         {
-        	// update
+            // update
             $tbl_mdb_names = claro_sql_get_main_tbl();
-	        $tbl_course = $tbl_mdb_names['course'];
+            $tbl_course = $tbl_mdb_names['course'];
 
-	        $visibility = $this->getVisibility($this->access,$this->enrolment);
+            $visibility = $this->getVisibility($this->access,$this->enrolment);
 
             $sql = "UPDATE `" . $tbl_course . "`
                     SET `intitule`         = '" . addslashes($this->title) . "',
@@ -226,9 +226,9 @@ class ClaroCourse
 
         if ( isset($_REQUEST['course_officialCode' ]) )
         {
-        	$this->officialCode = trim(strip_tags($_REQUEST['course_officialCode']));
-        	$this->officialCode = ereg_replace('[^A-Za-z0-9_]', '', $this->officialCode);
-		    $this->officialCode = strtoupper($this->officialCode);
+            $this->officialCode = trim(strip_tags($_REQUEST['course_officialCode']));
+            $this->officialCode = ereg_replace('[^A-Za-z0-9_]', '', $this->officialCode);
+            $this->officialCode = strtoupper($this->officialCode);
         }
 
         if ( isset($_REQUEST['course_titular'      ]) ) $this->titular = trim(strip_tags($_REQUEST['course_titular']));
@@ -287,11 +287,11 @@ class ClaroCourse
         }
         else
         {
-			if ( ! $this->validateEmailList() )
-			{
-	            $this->backlog->failure(get_lang('The email address is not valid'));
-				$success = false;
-			}
+            if ( ! $this->validateEmailList() )
+            {
+                $this->backlog->failure(get_lang('The email address is not valid'));
+                $success = false;
+            }
         }
 
         // Validate course category
@@ -340,7 +340,7 @@ class ClaroCourse
 
     function validateDepartmentUrl ()
     {
-    	if ( empty($this->departmentUrl) ) return true;
+        if ( empty($this->departmentUrl) ) return true;
 
         $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$";
 
@@ -370,32 +370,32 @@ class ClaroCourse
 
     function validateEmailList ()
     {
-    	// empty email is valide as we already checked if field was required
-    	if( empty($this->email) ) return true;
+        // empty email is valide as we already checked if field was required
+        if( empty($this->email) ) return true;
 
-		$emailControlList = strtr($this->email,', ',';');
+        $emailControlList = strtr($this->email,', ',';');
         $emailControlList = preg_replace( '/;+/', ';', $emailControlList );
 
         $emailControlList = explode(';',$emailControlList);
 
         $emailValidList = array();
 
-   		foreach ( $emailControlList as $emailControl )
+           foreach ( $emailControlList as $emailControl )
         {
-        	$emailControl = trim($emailControl);
+            $emailControl = trim($emailControl);
 
-   		    if ( ! is_well_formed_email_address( $emailControl ) )
-       		{
+               if ( ! is_well_formed_email_address( $emailControl ) )
+               {
                 return false;
-   		    }
+               }
             else
-   		    {
-           		$emailValidList[] = $emailControl;
+               {
+                   $emailValidList[] = $emailControl;
             }
         }
 
-   		$this->email = implode(';',$emailValidList);
-   		return true;
+           $this->email = implode(';',$emailValidList);
+           return true;
     }
 
     /**
@@ -425,12 +425,12 @@ class ClaroCourse
 
         $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context()
-        	. '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
-    		. '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+            . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
+            . '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
 
-    		. $this->getHtmlParamList('POST')
+            . $this->getHtmlParamList('POST')
 
-        	. '<table  cellpadding="3" border="0">' . "\n" ;
+            . '<table  cellpadding="3" border="0">' . "\n" ;
 
         // Course title
 
@@ -525,9 +525,9 @@ class ClaroCourse
             . '<label for="access_false">';
 
         if( empty($this->courseId) )
-			$html .= get_lang('Private access (site accessible only to people on the user list)');
+            $html .= get_lang('Private access (site accessible only to people on the user list)');
         else
-        	$html .= get_lang('Private access (site accessible only to people on the <a href="%url">user list</a>)' , array('%url'=> '../user/user.php'));
+            $html .= get_lang('Private access (site accessible only to people on the <a href="%url">user list</a>)' , array('%url'=> '../user/user.php'));
 
         $html .= '</label>'
             . '</td>'
@@ -589,9 +589,9 @@ class ClaroCourse
 
     function displayDeleteConfirmation ()
     {
-    	$paramString = $this->getHtmlParamList('GET');
+        $paramString = $this->getHtmlParamList('GET');
 
-		$deleteUrl = './settings.php?cmd=exDelete&amp;'.$paramString;
+        $deleteUrl = './settings.php?cmd=exDelete&amp;'.$paramString;
         $cancelUrl = './settings.php?'.$paramString ;
 
         $html = '';
@@ -624,7 +624,7 @@ class ClaroCourse
 
     function addHtmlParam($name, $value)
     {
-	    $this->htmlParamList[$name] = $value;
+        $this->htmlParamList[$name] = $value;
     }
 
     /**
@@ -636,17 +636,17 @@ class ClaroCourse
 
     function getHtmlParamList($method = 'GET')
     {
-    	if ( empty($this->htmlParamList) ) return '';
+        if ( empty($this->htmlParamList) ) return '';
 
-    	$html = '';
+        $html = '';
 
-    	if ( $method == 'POST' )
-    	{
-	    	foreach ( $this->htmlParamList as $name => $value )
-	    	{
-	    		$html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '">' . "\n" ;
-	    	}
-    	}
+        if ( $method == 'POST' )
+        {
+            foreach ( $this->htmlParamList as $name => $value )
+            {
+                $html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />' . "\n" ;
+            }
+        }
         else // GET
         {
             $params = array();
@@ -669,17 +669,17 @@ class ClaroCourse
      * @return integer value of visibility field
      */
 
-	function getVisibility ( $access, $enrolment )
-	{
-	    $visibility = 0 ;
+    function getVisibility ( $access, $enrolment )
+    {
+        $visibility = 0 ;
 
-	    if     ( ! $access && ! $enrolment ) $visibility = 0;
-	    elseif ( ! $access &&   $enrolment ) $visibility = 1;
-	    elseif (   $access && ! $enrolment ) $visibility = 3;
-	    elseif (   $access &&   $enrolment ) $visibility = 2;
+        if     ( ! $access && ! $enrolment ) $visibility = 0;
+        elseif ( ! $access &&   $enrolment ) $visibility = 1;
+        elseif (   $access && ! $enrolment ) $visibility = 3;
+        elseif (   $access &&   $enrolment ) $visibility = 2;
 
-	    return $visibility ;
-	}
+        return $visibility ;
+    }
 
     /**
      * Get access value from visibility field
@@ -769,10 +769,10 @@ class ClaroCourse
 
         $paramList = array_merge($paramList, $this->htmlParamList);
 
-	    foreach ($paramList as $key => $value)
-	    {
-	        $url .= '&amp;' . rawurlencode($key) . '=' . rawurlencode($value);
-	    }
+        foreach ($paramList as $key => $value)
+        {
+            $url .= '&amp;' . rawurlencode($key) . '=' . rawurlencode($value);
+        }
 
         return $url;
     }

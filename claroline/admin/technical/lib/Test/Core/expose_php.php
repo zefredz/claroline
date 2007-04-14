@@ -20,41 +20,41 @@ require_once dirname(__FILE__) . '/../Test_Core.php';
 class PhpSecInfo_Test_Core_Expose_Php extends PhpSecInfo_Test_Core
 {
 
-	/**
-	 * This should be a <b>unique</b>, human-readable identifier for this test
-	 *
-	 * @var string
-	 */
-	var $test_name = "expose_php";
+    /**
+     * This should be a <b>unique</b>, human-readable identifier for this test
+     *
+     * @var string
+     */
+    var $test_name = "expose_php";
 
 
 
-	/**
-	 * Checks to see if expose_php is enabled
-	 *
-	 */
-	function _execTest() {
+    /**
+     * Checks to see if expose_php is enabled
+     *
+     */
+    function _execTest() {
 
-		if (!$this->getBooleanIniValue('expose_php')) {
-			return PHPSECINFO_TEST_RESULT_OK;
-		}
+        if (!$this->getBooleanIniValue('expose_php')) {
+            return PHPSECINFO_TEST_RESULT_OK;
+        }
 
-		return PHPSECINFO_TEST_RESULT_NOTICE;
-	}
+        return PHPSECINFO_TEST_RESULT_NOTICE;
+    }
 
 
-	/**
-	 * Set the messages specific to this test
-	 *
-	 */
-	function _setMessages() {
-		parent::_setMessages();
+    /**
+     * Set the messages specific to this test
+     *
+     */
+    function _setMessages() {
+        parent::_setMessages();
 
-		$this->setMessageForResult(PHPSECINFO_TEST_RESULT_OK, 'en', 'expose_php is disabled, which is the recommended setting');
-		$this->setMessageForResult(PHPSECINFO_TEST_RESULT_NOTICE, 'en', 'expose_php is enabled.  This adds
-				the PHP "signature" to the web server header, including the PHP version number.  This
-				could attract attackers looking for vulnerable versions of PHP');
-	}
+        $this->setMessageForResult(PHPSECINFO_TEST_RESULT_OK, 'en', 'expose_php is disabled, which is the recommended setting');
+        $this->setMessageForResult(PHPSECINFO_TEST_RESULT_NOTICE, 'en', 'expose_php is enabled.  This adds
+                the PHP "signature" to the web server header, including the PHP version number.  This
+                could attract attackers looking for vulnerable versions of PHP');
+    }
 
 
 }

@@ -185,16 +185,16 @@ if  ( DISP_FLUSH_RESULT == $display)
     .    get_lang('Delete all course statistics')
     .    '<br />'
     .    '<br />'
-    .    '<input type="radio" name="scope" id="scope_all" value="ALL">'
+    .    '<input type="radio" name="scope" id="scope_all" value="ALL" />'
     .    '<label for="scope_all">' . get_lang('All') . '</label>'
     .    '<br />'
-    .    '<input type="radio" name="scope" id="scope_before" value="BEFORE" checked="checked">'
+    .    '<input type="radio" name="scope" id="scope_before" value="BEFORE" checked="checked" />'
     .    '<label for="scope_before" >' . get_lang('Before') . '</label> '
     .    claro_html_date_form('beforeDate[day]', 'beforeDate[month]', 'beforeDate[year]', $beforeDate, 'short' )
-    .    '<input type="hidden" name="cmd" value="delete">'
+    .    '<input type="hidden" name="cmd" value="delete" />'
     .    '<br />'
     .    '<br />'
-    .    '<input type="submit" name="action" value="' . get_lang('Ok') . '">&nbsp; '
+    .    '<input type="submit" name="action" value="' . get_lang('Ok') . '" />&nbsp; '
     .    claro_html_button('courseLog.php', get_lang('Cancel') )
     .    '<br />'
     .    '<br />'

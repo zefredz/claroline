@@ -152,7 +152,7 @@ switch ($display)
     case DISPVAL_upgrade_backup_needed :
 
         echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
-              <form action="' . $_SERVER['PHP_SELF'] . '" method="GET">
+              <form action="' . $_SERVER['PHP_SELF'] . '" method="get">
               <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
               installation and set them to be compatible with the new Claroline version. This upgrade
               proceeds in three steps:

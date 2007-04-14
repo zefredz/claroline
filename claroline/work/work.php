@@ -384,20 +384,20 @@ if ($is_allowedToEdit)
     {
 ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
-    <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
+    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
+    <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>" />
 <?php
     if( isset($_REQUEST['assigId']) )
     {
 ?>
-    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>">
+    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>" />
 <?php
     }
 ?>
     <table cellpadding="5" width="100%">
       <tr>
         <td valign="top"><label for="title"><?php echo get_lang('Assignment title'); ?>&nbsp;:</label></td>
-        <td><input type="text" name="title" id="title" size="50" maxlength="200" value="<?php echo htmlspecialchars($assignment->getTitle()); ?>"></td>
+        <td><input type="text" name="title" id="title" size="50" maxlength="200" value="<?php echo htmlspecialchars($assignment->getTitle()); ?>" /></td>
       </tr>
 
       <tr>
@@ -412,13 +412,13 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Submission type'); ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="authorized_content" id="authorizeFile" value="FILE" <?php if( $assignment->getSubmissionType() == "FILE" ) echo 'checked="checked"'; ?>>
+          <input type="radio" name="authorized_content" id="authorizeFile" value="FILE" <?php if( $assignment->getSubmissionType() == "FILE" ) echo 'checked="checked"'; ?> />
             <label for="authorizeFile">&nbsp;<?php echo get_lang('File (file required, description text optional)'); ?></label>
             <br />
-          <input type="radio" name="authorized_content" id="authorizeText" value="TEXT" <?php if( $assignment->getSubmissionType() == "TEXT" ) echo 'checked="checked"'; ?>>
+          <input type="radio" name="authorized_content" id="authorizeText" value="TEXT" <?php if( $assignment->getSubmissionType() == "TEXT" ) echo 'checked="checked"'; ?> />
             <label for="authorizeText">&nbsp;<?php echo get_lang('Text only (text required, no file)'); ?></label>
             <br />
-          <input type="radio" name="authorized_content" id="authorizeTextFile" value="TEXTFILE" <?php if( $assignment->getSubmissionType() == "TEXTFILE" ) echo 'checked="checked"'; ?>>
+          <input type="radio" name="authorized_content" id="authorizeTextFile" value="TEXTFILE" <?php if( $assignment->getSubmissionType() == "TEXTFILE" ) echo 'checked="checked"'; ?> />
             <label for="authorizeTextFile">&nbsp;<?php echo get_lang('Text with attached file (text required, file optional)'); ?></label>
             <br />
         </td>
@@ -427,10 +427,10 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Assignment type'); ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" <?php if($assignment->getAssignmentType() == "INDIVIDUAL") echo 'checked="checked"'; ?>>
+          <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" <?php if($assignment->getAssignmentType() == "INDIVIDUAL") echo 'checked="checked"'; ?> />
             <label for="individual">&nbsp;<?php echo get_lang('Individual'); ?></label>
             <br />
-          <input type="radio" name="assignment_type" id="group" value="GROUP" <?php if($assignment->getAssignmentType() == "GROUP") echo 'checked="checked"'; ?>>
+          <input type="radio" name="assignment_type" id="group" value="GROUP" <?php if($assignment->getAssignmentType() == "GROUP") echo 'checked="checked"'; ?> />
             <label for="group">&nbsp;<?php echo get_lang('Groups (from groups tool, only group members can post)'); ?></label>
             <br />
         </td>
@@ -459,10 +459,10 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Allow late upload'); ?>&nbsp;:</td>
         <td>
-        <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" <?php if($assignment->getAllowLateUpload() == "YES") echo 'checked="checked"'; ?>>
+        <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" <?php if($assignment->getAllowLateUpload() == "YES") echo 'checked="checked"'; ?> />
           <label for="allowUpload">&nbsp;<?php echo get_lang('Yes, allow users to submit works after end date'); ?></label>
           <br />
-        <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" <?php if($assignment->getAllowLateUpload() == "NO") echo 'checked="checked"'; ?>>
+        <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" <?php if($assignment->getAllowLateUpload() == "NO") echo 'checked="checked"'; ?> />
           <label for="preventUpload">&nbsp;<?php echo get_lang('No, prevent users submitting work after the end date'); ?></label>
           <br />
         </td>
@@ -471,10 +471,10 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Default works visibility'); ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "VISIBLE") echo 'checked="checked"'; ?>>
+          <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "VISIBLE") echo 'checked="checked"'; ?> />
             <label for="visible">&nbsp;<?php echo get_lang('Visible for all users'); ?></label>
             <br />
-          <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "INVISIBLE") echo 'checked="checked"'; ?>>
+          <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "INVISIBLE") echo 'checked="checked"'; ?> />
             <label for="invisible">&nbsp;<?php echo get_lang('Only visible for teacher(s) and submitter(s)'); ?></label>
             <br />
         </td>
@@ -483,9 +483,9 @@ if ($is_allowedToEdit)
       <tr>
         <td>&nbsp;</td>
         <td>
-          <input type="submit" name="submitAssignment" value="<?php echo get_lang('Ok'); ?>">&nbsp;
+          <input type="submit" name="submitAssignment" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
           <?php echo claro_html_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')); ?>
-                  </td>
+        </td>
       </tr>
       </table>
     </form>

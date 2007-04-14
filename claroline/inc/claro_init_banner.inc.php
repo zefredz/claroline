@@ -117,9 +117,9 @@ if(claro_get_current_user_id())
 
     $clarolineBannerOutput .= $userBannerRightDock->render();
 
-	$clarolineBannerOutput .= "\n" . '<div class="spacer"></div>' . "\n\n"
-	. '</div>' . "\n"
-	. '<!-- end of userBanner -->' . "\n\n";
+    $clarolineBannerOutput .= "\n" . '<div class="spacer"></div>' . "\n\n"
+    . '</div>' . "\n"
+    . '<!-- end of userBanner -->' . "\n\n";
 
 } // end if _uid
 
@@ -146,7 +146,7 @@ if (claro_is_in_a_course())
     $clarolineBannerOutput .= '<div id="courseBanner">' . "\n";
 
     $courseName = '<div id="course">' . "\n"
-	. '<h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) . '" target="_top">'.$_course['name'] .'</a></h2>' . "\n";
+    . '<h2 id="courseName"><a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) . '" target="_top">'.$_course['name'] .'</a></h2>' . "\n";
     $courseBannerLeftDock->addOutput($courseName);
 
     $courseCodeDisplay = '<span id="courseCode">'. $_course['officialCode'] . ' - ' . $_course['titular'] . '</span>' . "\n"
@@ -188,7 +188,7 @@ if (claro_is_in_a_course())
             if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
                 $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
         }
-        $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" name="redirector" method="POST">' . "\n"
+        $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" name="redirector" method="post">' . "\n"
         . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
 
         $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
@@ -241,11 +241,11 @@ if (claro_is_in_a_course())
             }
         } // end if is_array _courseToolList
         $courseToolSelector .= "\n"
-		. '</select>' . "\n"
-		. '<noscript>' . "\n"
-		. '<input type="submit" name="gotool" value="go">' . "\n"
-		. '</noscript>' . "\n"
-		. '</form>' . "\n\n";
+        . '</select>' . "\n"
+        . '<noscript>' . "\n"
+        . '<input type="submit" name="gotool" value="go">' . "\n"
+        . '</noscript>' . "\n"
+        . '</form>' . "\n\n";
 
         $courseBannerRightDock->addOutput($courseToolSelector);
 
@@ -253,9 +253,9 @@ if (claro_is_in_a_course())
 
     $clarolineBannerOutput .= $courseBannerRightDock->render();
 
-	$clarolineBannerOutput .= "\n".'<div class="spacer"></div>' . "\n\n"
-	. '</div>' . "\n"
-	. '<!-- end of courseBanner -->' . "\n\n";
+    $clarolineBannerOutput .= "\n".'<div class="spacer"></div>' . "\n\n"
+    . '</div>' . "\n"
+    . '<!-- end of courseBanner -->' . "\n\n";
 } // end if _cid
 
 $clarolineBannerOutput .= '</div>' . "\n"

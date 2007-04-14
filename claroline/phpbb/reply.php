@@ -194,7 +194,7 @@ else
 
         echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $topic_title);
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
             . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
 

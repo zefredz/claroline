@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -95,7 +95,7 @@ switch ( $cmd )
     // Display form to create a new class
     case 'rqAdd' :
 
-        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
+        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
         .            '<input type="hidden" name="cmd" value="exAdd" />' . "\n"
         .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
         .            '<table>' . "\n"
@@ -159,7 +159,7 @@ switch ( $cmd )
 
         if ( false !== ($thisClass = class_get_properties($form_data['class_id']) ))
         {
-            $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
+            $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
             .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
             .           '<input type="hidden" name="class_id" value="' . $thisClass['id'] . '" />' . "\n"
             .           '<table>' . "\n"

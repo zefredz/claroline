@@ -155,7 +155,7 @@ if (is_array($courseList))
     #count only lines where statut of user is 1
            FROM  `" . $tbl_mdb_names['rel_course_user'] . "`
            WHERE code_cours  = '". addslashes($course['sysCode']) ."'
-		  GROUP BY code_cours";
+          GROUP BY code_cours";
 
 
     $result = claro_sql_query_get_single_row($sql);

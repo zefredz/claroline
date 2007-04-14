@@ -4,31 +4,31 @@
 
 body 
 {
-	font-family: arial, helvetica, sans-serif;
-	color:#333333;
-	background-color: #fff;
-	padding: 1px;
-	margin: 1px;
+    font-family: arial, helvetica, sans-serif;
+    color:#333333;
+    background-color: #fff;
+    padding: 1px;
+    margin: 1px;
 }
 
 a:link, a:active, a:visited 
 {
-	color: #00008B;
+    color: #00008B;
 }
 
 a img 
 {
-	border:none;
-	text-decoration: none;
+    border:none;
+    text-decoration: none;
 }
 
 .spacer 
 {
-	clear: both;
+    clear: both;
 }
 
 h3{
-	font-size: 110%;
+    font-size: 110%;
 }
 
 
@@ -42,13 +42,13 @@ h3{
 
 #platformBanner
 {
-	color:white;
+    color:white;
     height:30px;
-	background-color:#167F89;
-	background:url(./netscape/campus_banner_bg.png) repeat-x;
-	padding: 4px;
-	font-size: 120%;
-	font-weight: bold;
+    background-color:#167F89;
+    background:url(./netscape/campus_banner_bg.png) repeat-x;
+    padding: 4px;
+    font-size: 120%;
+    font-weight: bold;
 }
 
 #platformBanner a,
@@ -56,14 +56,14 @@ h3{
 #platformBanner a:link,
 #platformBanner a:visited
 {
-	text-decoration: none;
-	color:white;
+    text-decoration: none;
+    color:white;
 }
 
 #platformBanner a:hover 
 {
-	color:white;
-	text-decoration: underline;
+    color:white;
+    text-decoration: underline;
 }
 
 #platformBanner #siteName
@@ -77,17 +77,17 @@ h3{
 #campusBannerRight
 {
     position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
+    float: right;
+    text-align: right;
+    margin: 0;
 }
 
 #campusBannerLeft
 {
     position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
+    float: left;
+    text-align: left;
+    margin: 0;
 }
 
  /*----------------------------------------------------------------------------
@@ -96,21 +96,21 @@ h3{
 
 #userBanner
 {
-	/* background-color: #E2F4F3; */
-	background-color: black;
-	/* background-color: #D2C9AB; */
-	color:white;
-	font-size: 80%;
-	font-weight:bold;
-	border-top: 1px #FFF solid;
-	padding: 4px;
+    /* background-color: #E2F4F3; */
+    background-color: black;
+    /* background-color: #D2C9AB; */
+    color:white;
+    font-size: 80%;
+    font-weight:bold;
+    border-top: 1px #FFF solid;
+    padding: 4px;
 }
 
 #userBanner #userName
 {
-	 font-size: 110%;
-	 font-weight: normal;
-	 margin: 0;
+     font-size: 110%;
+     font-weight: normal;
+     margin: 0;
 }
 
 #userBanner a,
@@ -118,30 +118,30 @@ h3{
 #userBanner a:link,
 #userBanner a:visited
 {
-	text-decoration: none;
-	color: white;
+    text-decoration: none;
+    color: white;
 }
 
 #userBanner a:hover
 {
-	color: white;
-	text-decoration: underline;
+    color: white;
+    text-decoration: underline;
 }
 
 #userBannerRight
 {
     position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
+    float: right;
+    text-align: right;
+    margin: 0;
 }
 
 #userBannerLeft
 {
     position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
+    float: left;
+    text-align: left;
+    margin: 0;
 }
 
 
@@ -150,37 +150,37 @@ h3{
  ----------------------------------------------------------------------------*/
 #courseBanner
 {
-   	padding: 4px;
-	background-color: #EAE5D5;
-	color: black;
-	font-weight: bold;
-	border-top: 1px #FFF solid;
+       padding: 4px;
+    background-color: #EAE5D5;
+    color: black;
+    font-weight: bold;
+    border-top: 1px #FFF solid;
 }
 
 #courseBanner #course
 {
-	position: relative;
-	float: left;
-	text-align: left;
+    position: relative;
+    float: left;
+    text-align: left;
 }
 
 #courseBanner #course span
 {
-   	display: block;
+       display: block;
 }
 
 #courseBanner #courseToolList
 {
-	position: relative;
-	float: right;
+    position: relative;
+    float: right;
    text-align: right;
 }
 
 #courseBanner #courseName
 {
-	font-size: 120%;
-	padding: 0;
-	margin: 0;
+    font-size: 120%;
+    padding: 0;
+    margin: 0;
 }
 
 #courseBanner a,
@@ -188,39 +188,39 @@ h3{
 #courseBanner a:link,
 #courseBanner a:visited
 {
-	color: black;
-	text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 
 #courseBanner a:hover
 {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #courseBanner #courseCode {
-	font-size: 80%;
+    font-size: 80%;
 }
 
 #courseBanner form
 {
-	padding-top: 5px;
-	margin: 0;
+    padding-top: 5px;
+    margin: 0;
 }
 
 #courseBannerRight
 {
     position: relative;
-	float: right;
-	text-align: right;
-	margin: 0;
+    float: right;
+    text-align: right;
+    margin: 0;
 }
 
 #courseBannerLeft
 {
     position: relative;
-	float: left;
-	text-align: left;
-	margin: 0;
+    float: left;
+    text-align: left;
+    margin: 0;
 }
 
  /*----------------------------------------------------------------------------
@@ -229,36 +229,36 @@ h3{
 
 #breadcrumbLine
 {
-	/* background-color:red; */
-	background:url('netscape/grayfadeout.gif') repeat-x;
-	padding-top: 2px;
-	border-bottom: solid 1px white;
-	height:1em;
+    /* background-color:red; */
+    background:url('netscape/grayfadeout.gif') repeat-x;
+    padding-top: 2px;
+    border-bottom: solid 1px white;
+    height:1em;
 }
 
 
 #breadcrumbLine hr
 {
-	display: none;
+    display: none;
 }
 
 
 #breadcrumbLine .breadcrumbTrail
 {
-	float: left;
+    float: left;
 }
 
 #breadcrumbLine #toolViewOption
 {
-	float: right;
-	text-align: right;
-	font-size: 80%;
+    float: right;
+    text-align: right;
+    font-size: 80%;
 }
 
 
 .breadcrumbTrail
 {
-	font-size: 80%;
+    font-size: 80%;
 }
 
 /******************************************************************************
@@ -274,25 +274,25 @@ h3{
 
 #campusFooter
 {
-	font-size: 80%;
+    font-size: 80%;
 }
 
 #campusFooter hr
 {
-	background-color: gray;
-	border: 0;
-	height: 1px;
+    background-color: gray;
+    border: 0;
+    height: 1px;
 }
 
 #campusFooterRight
 {
-	float: right;
-	text-align: right;
+    float: right;
+    text-align: right;
 }
 
 #campusFooterLeft
 {
-	float: left;	
+    float: left;    
 }
 
 #campusFooterCenter
@@ -308,39 +308,39 @@ h3{
 
 
 /******************************************************************************
-	CLAROLINE COMMAND LINKS
+    CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
 .claroCmd
 {
-		font-size: smaller;
-		font-weight: bold;
-		text-decoration: underline;
+        font-size: smaller;
+        font-weight: bold;
+        text-decoration: underline;
 }
 
 .claroCmdDisabled 
 {
-		color: Gray;
-		font-size: smaller;
-		font-weight: bold;
-		text-decoration: none;
+        color: Gray;
+        font-size: smaller;
+        font-weight: bold;
+        text-decoration: none;
 }
 
 /* Added for document view mode toolbar */
 
 th .claroCmd
 {
-	font-size: smaller;
-	font-weight: bold;
-	text-decoration: underline;
+    font-size: smaller;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 th .claroCmdDisabled
 {
    color: white;
    font-size: smaller;
-	font-weight: bold;
-	text-decoration: none;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 
@@ -437,65 +437,65 @@ th .claroCmdDisabled
  */
 
 .claroTable td, th {
-	margin:  0px;
-	padding: 4px;
+    margin:  0px;
+    padding: 4px;
 }
 
 
 .claroTable .superHeader th, .claroTable th.superHeader {
-	color: black;
-	background-color: #D2C9AB;
-	font-weight: bold;
-	text-align: left;
+    color: black;
+    background-color: #D2C9AB;
+    font-weight: bold;
+    text-align: left;
 }
 
 .claroTable .superHeader a {
-	color: black;
+    color: black;
 }
 
 
 .claroTable th.headerY, .claroTable .headerY th, 
 .claroTable th.headerX, .claroTable .headerX th {
-	font-weight: normal;
-	text-align: left;
+    font-weight: normal;
+    text-align: left;
 }
 
 .claroTable .headerX th,  .claroTable th.headerX {
-	background-color: #EAE5D5;
-	color:black;
+    background-color: #EAE5D5;
+    color:black;
 }
 
 /* extension of claroTable class for Image Viewer */
 .claroTable tr th.toolbar {
-	background: white;
-	font-weight: normal;
+    background: white;
+    font-weight: normal;
 }
 
 .claroTable tr.toolbar th.prev{
-	text-align:left;
-	font-weight: normal;
+    text-align:left;
+    font-weight: normal;
 }
 
 .claroTable tr.toolbar th.title{
-	font-weight:bold;
-	text-align:center;
+    font-weight:bold;
+    text-align:center;
 }
 
 .claroTable tr.toolbar th.next{
-	text-align:right;
-	font-weight: normal;
+    text-align:right;
+    font-weight: normal;
 }
 
 .emphaseLine tbody td {
-	border-bottom: solid #EAE5D5 1px ;
+    border-bottom: solid #EAE5D5 1px ;
 }
 
 .emphaseLine tbody tr:hover {
-	background-color: #F7F5EF;
+    background-color: #F7F5EF;
 }
 
 .claroTable .superHeader th.invisible {
-	background-color:#A9B8BB;
+    background-color:#A9B8BB;
 }
 
 /******************************************************************************
@@ -509,24 +509,24 @@ th .claroCmdDisabled
  */ 
  
 .claroMessageBox {
-	margin-left:20px;
-	border:solid 1px #FCC519; 
-	background-color:#FFECB5;
-	color: #000;
+    margin-left:20px;
+    border:solid 1px #FCC519; 
+    background-color:#FFECB5;
+    color: #000;
 }
 
 .claroIntroSection { 
-	border: dashed 1px #D8D8D8;
-	padding: 10px;
-	margin-top : 10px;
-	margin-bottom: 10px;
+    border: dashed 1px #D8D8D8;
+    padding: 10px;
+    margin-top : 10px;
+    margin-bottom: 10px;
 }
 
 .claroIntroSection hr
 {
-	border: 0;
-	height: 1px;
-	background-color: #D8D8D8;
+    border: 0;
+    height: 1px;
+    background-color: #D8D8D8;
 }
 
 /*
@@ -538,7 +538,7 @@ th .claroCmdDisabled
 
 .invisible
 {
-	color: #999999;
+    color: #999999;
 }
 
 .invisible a, 
@@ -548,26 +548,26 @@ a.invisible,
 a:link.invisible,
 a:visited.invisible
 {
-	color: #999999;
+    color: #999999;
 }
 
 /* 'correct' is attached to element that must be highlighted as correct
-	example : a good score in exercices
+    example : a good score in exercices
 */
 .correct {
-	color: #009900;
+    color: #009900;
 }
 
 /* 'error' is attached to element that must be highlighted as correct
-	example : a wrong score in exercices
-	example : an error message
+    example : a wrong score in exercices
+    example : an error message
 */
 .error {
-	color: #990000;
+    color: #990000;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
-	example : 'today' in the agenda
+    example : 'today' in the agenda
 */
 .highlight {
  color: #FFB848;
@@ -595,21 +595,21 @@ a:visited.invisible
  */
 
 .claroRightMenu  {
-	/* background-color: #C3D8EF; */
-	background-color: white;
-	/* border-left:solid 1px #34A2BB; */
-	border-left:solid 1px #EAE5D5;
+    /* background-color: #C3D8EF; */
+    background-color: white;
+    /* border-left:solid 1px #34A2BB; */
+    border-left:solid 1px #EAE5D5;
 
 }
 
 .claroRightMenu a, 
 .claroRightMenu a:visited, 
 .claroRightMenu a:active {
-		
+        
 }
-	
+    
 claroRightMenu a:hover {
-				
+                
 }
 
 .HelpText {
@@ -617,7 +617,7 @@ claroRightMenu a:hover {
 }
 
 .claroToolTitle {
-	padding-top: 5px;
+    padding-top: 5px;
 }
 
 /*
@@ -630,7 +630,7 @@ claroRightMenu a:hover {
 }
 
 fieldset {
-	border:solid 1px #EAE5D5;
+    border:solid 1px #EAE5D5;
 }
 
 /*

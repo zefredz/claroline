@@ -272,12 +272,12 @@
             if ( !isset( $message ) ) $message = '';
 
             $message .= '<form>'."\n"
-                . '<input type="hidden" name="action" value="exSearch">'."\n"
+                . '<input type="hidden" name="action" value="exSearch" />'."\n"
                 . '<label for="searchPattern">'
                 . get_lang("Search")
                 . '</label><br />'."\n"
-                . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
-                . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
+                . '<input type="text" id="searchPattern" name="searchPattern" />'."\n"
+                . '<input type="submit" value="'.get_lang("Ok").'" />'."\n"
                 . claro_html_button($_SERVER['PHP_SELF'], get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
@@ -568,7 +568,7 @@
         // delete form
         case 'rqDelete':
         {
-            echo '<form method="POST" action="'
+            echo '<form method="post" action="'
                 . $_SERVER['PHP_SELF']
                 . '" id="rqDelete">'
                 . "\n"

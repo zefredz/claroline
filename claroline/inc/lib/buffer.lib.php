@@ -62,12 +62,12 @@ function claro_get_docks_module_list($force = false)
         $tbl_name = claro_sql_get_main_tbl();
 
         $sql = "SELECT M.`label` AS `label`,
-	                   D.`name` AS `dock`
-	            FROM `" . $tbl_name['module'] . "` AS M,
-	                 `" . $tbl_name['dock'] . "` AS D
-	             WHERE D.`module_id` = M.`id`
-	               AND M.`activation` = 'activated'
-	               ORDER BY D.`rank` ";
+                       D.`name` AS `dock`
+                FROM `" . $tbl_name['module'] . "` AS M,
+                     `" . $tbl_name['dock'] . "` AS D
+                 WHERE D.`module_id` = M.`id`
+                   AND M.`activation` = 'activated'
+                   ORDER BY D.`rank` ";
         $moduleList = claro_sql_query_fetch_all($sql);
 
         $dockList = array();

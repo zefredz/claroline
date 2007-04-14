@@ -80,7 +80,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools . ' : ');
 
 ?>
-<form action="admincourses.php" method="GET" >
+<form action="admincourses.php" method="get" >
 <table border="0">
 <tr>
   <td align="right">

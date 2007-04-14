@@ -53,7 +53,7 @@ function upgrade_main_database_course_to_18 ()
             return $step;
     
     }
-  	
+      
     return false;
 
 }
@@ -98,7 +98,7 @@ function upgrade_main_database_rel_course_user_to_18 ()
             return $step;
     
     }
-  	
+      
     return false;
 
 }
@@ -130,7 +130,7 @@ function upgrade_main_database_course_category_to_18 ()
             return $step;
     
     }
-  	
+      
     return false;
 }
 
@@ -207,7 +207,7 @@ function upgrade_main_database_user_to_18 ()
             return $step;
     
     }
-  	
+      
     return false;    
 
 }
@@ -243,7 +243,7 @@ function upgrade_main_database_course_class_to_18 ()
             return $step;
     
     }
-  	
+      
     return false;    
 }
 
@@ -398,7 +398,7 @@ function upgrade_main_database_module_to_18 ()
             return $step;
     
     }
-  	
+      
     return false;    
 }
 
@@ -522,7 +522,7 @@ function upgrade_main_database_right_to_18 ()
             return $step;
     
     }
-  	
+      
     return false;
 }
 
@@ -574,7 +574,7 @@ function upgrade_main_database_user_property_to_18 ()
             $step = set_upgrade_status($tool, 0);
             return $step; 
     }
-  	
+      
     return false;
 }
 
@@ -606,7 +606,7 @@ function upgrade_main_database_tracking_to_18 ()
             $step = set_upgrade_status($tool, 0);
             return $step; 
     }
-  	
+      
     return false;
 }
 

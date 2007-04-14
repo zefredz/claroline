@@ -49,7 +49,7 @@ class Qti2Question extends Question
 
         return true;
     }
-	/**
+    /**
      * allow to import the question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
@@ -81,15 +81,15 @@ class Qti2Question extends Question
         $dir = $this->tmpQuestionDirSys;
         $filename = basename($importedFilePath);
         
-		if( !is_dir( $dir ) )
-		{
-			// create it 
-			if( !claro_mkdir($dir, CLARO_FILE_PERMISSIONS) )
-			{
-				claro_failure::set_failure('cannot_create_tmp_dir');
-	        	return false;
-			}
-		}
+        if( !is_dir( $dir ) )
+        {
+            // create it 
+            if( !claro_mkdir($dir, CLARO_FILE_PERMISSIONS) )
+            {
+                claro_failure::set_failure('cannot_create_tmp_dir');
+                return false;
+            }
+        }
 
         if( claro_move_file($importedFilePath, $dir.$filename) )
         {
@@ -102,7 +102,7 @@ class Qti2Question extends Question
         }
     }
 }
-	
+    
 class Qti2AnswerMultipleChoice extends answerMultipleChoice
 {
     /**
@@ -170,8 +170,8 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
 
         return $out;
     }
-	
-	/**
+    
+    /**
      * allow to import the answers, feedbacks, and grades of a question
      * @param questionArray is an array that must contain all the information needed to build the question
 
@@ -219,40 +219,40 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
 
 class Qti2AnswerTrueFalse extends AnswerTrueFalse
 {
-	/**
+    /**
      * Return the XML flow for the possible answers. 
      *
      */
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>'. "\n";
-		$out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+        $out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
 
-		//set true answer
-		
-		$out .= '      <simpleChoice identifier="answer_true" fixed="false"><![CDATA[' . get_lang('True') . ']]>' . "\n";
+        //set true answer
+        
+        $out .= '      <simpleChoice identifier="answer_true" fixed="false"><![CDATA[' . get_lang('True') . ']]>' . "\n";
         if (isset($this->trueFeedback) && $this->trueFeedback != '')
         {
             $out .= '<feedbackInline identifier="answer_true">' . $this->trueFeedback . '</feedbackInline>'. "\n";
         }
         $out .= '</simpleChoice>'. "\n";
-			
-		//set false answer	
-			
-		$out .= '      <simpleChoice identifier="answer_false" fixed="false"><![CDATA[' . get_lang('False') . ']]>' . "\n";
+            
+        //set false answer    
+            
+        $out .= '      <simpleChoice identifier="answer_false" fixed="false"><![CDATA[' . get_lang('False') . ']]>' . "\n";
         if (isset($this->falseFeedback) && $this->falseFeedback != '')
         {
             $out .= '<feedbackInline identifier="answer_false"><![CDATA[' . $this->falseFeedback . ']]></feedbackInline>'. "\n";
         }
-        $out .= '</simpleChoice>'. "\n";	
-		
-		
+        $out .= '</simpleChoice>'. "\n";    
+        
+        
         $out .= '    </choiceInteraction>'. "\n"; 
         return $out;
-	}
-	
-	function qti2ExportResponsesDeclaration($questionIdent)
-    {	
+    }
+    
+    function qti2ExportResponsesDeclaration($questionIdent)
+    {    
         $out = '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="single" baseType="identifier">' . "\n";
 
         //Match the correct answers
@@ -264,10 +264,10 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
         {
             $out .= '      <value>answer_true</value>'. "\n";
         }
-		else
-		{
-			$out .= '      <value>answer_false</value>'. "\n";
-		}
+        else
+        {
+            $out .= '      <value>answer_false</value>'. "\n";
+        }
 
         $out .= '    </correctResponse>'. "\n";
 
@@ -279,19 +279,19 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
         {
             $out .= '      <mapEntry mapKey="answer_true" mappedValue="'.$this->trueGrade.'" />'. "\n";
         }
-		
-		if (isset($this->falseGrade))
+        
+        if (isset($this->falseGrade))
         {
             $out .= '      <mapEntry mapKey="answer_false" mappedValue="'.$this->falseGrade.'" />'. "\n";
-        }	
-		
+        }    
+        
         $out .= '    </mapping>'. "\n";
 
         $out .= '  </responseDeclaration>'. "\n";
 
-        return $out;	
-		
-	}
+        return $out;    
+        
+    }
 }
 
 
@@ -410,8 +410,8 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
        return $out;
     }
-	
-	/**
+    
+    /**
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
@@ -424,10 +424,10 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
         $this->answerText = $questionArray['response_text'];
         
         if ($questionArray['subtype'] == "TEXTFIELD_FILL") 
-		{
-			$this->type = TEXTFIELD_FILL;
+        {
+            $this->type = TEXTFIELD_FILL;
         }
-		if ($questionArray['subtype'] == "LISTBOX_FILL")
+        if ($questionArray['subtype'] == "LISTBOX_FILL")
         {
             $this->wrongAnswerList = $questionArray['wrong_answers'];
             $this->type = LISTBOX_FILL;
@@ -524,8 +524,8 @@ class Qti2AnswerMatching extends answerMatching
 
         return $out;
     }
-	
-	/**
+    
+    /**
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
@@ -557,7 +557,7 @@ class Qti2AnswerMatching extends answerMatching
 
                 if (in_array($matched_pattern, $questionArray['correct_answers']) || in_array($matched_pattern_inverted, $questionArray['correct_answers']))
                 {
-					if (isset($questionArray['weighting'][$matched_pattern]))
+                    if (isset($questionArray['weighting'][$matched_pattern]))
                     {
                         $grade = castToFloat($questionArray['weighting'][$matched_pattern]);
                     }
@@ -569,8 +569,8 @@ class Qti2AnswerMatching extends answerMatching
                 }
             }
         }
-		
-		$this->save();
+        
+        $this->save();
     }
 } 
 ?>

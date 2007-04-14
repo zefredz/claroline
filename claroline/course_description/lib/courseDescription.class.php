@@ -36,7 +36,7 @@ CREATE TABLE `c_IMSQTI_course_description` (
 
 class CourseDescription
 {
-	/**
+    /**
      * @var $id id of description, -1 if description doesn't exist already
      */
     var $id;
@@ -46,7 +46,7 @@ class CourseDescription
      */ 
     var $category;
      
-	/**
+    /**
      * @var $title name of the description
      */
     var $title;
@@ -56,12 +56,12 @@ class CourseDescription
      */
     var $content;
    
-	/**
+    /**
      * @var $lastEditDate last edition date of the description timestamp
      */
     var $lastEditDate;
 
-	/**
+    /**
      * @var $visibility
      */
     var $visibility;    
@@ -77,17 +77,17 @@ class CourseDescription
     {
         $this->id = (int) -1;
         $this->category = -1;
-    	$this->title = '';
-	    $this->content = '';
-	    $this->lastEditDate = time();
-   	    $this->visibility = 'VISIBLE';
+        $this->title = '';
+        $this->content = '';
+        $this->lastEditDate = time();
+           $this->visibility = 'VISIBLE';
 
-	    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
-		$this->tblCourseDescription = $tbl_cdb_names['course_description'];
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+        $this->tblCourseDescription = $tbl_cdb_names['course_description'];
     }
     
     
-	/**
+    /**
      * load a description from DB
      *
      * @param integer $id id of description
@@ -97,32 +97,32 @@ class CourseDescription
       
     function load($id)
     {
-   	    $sql = "SELECT `id`,
-   	                `category`,
-	                `title`,
-	                `content`,
-	                UNIX_TIMESTAMP(`lastEditDate`) AS `unix_lastEditDate`,
-	                `visibility`
-	        FROM `".$this->tblCourseDescription."`
-	        WHERE `id` = ".(int) $id;
+           $sql = "SELECT `id`,
+                       `category`,
+                    `title`,
+                    `content`,
+                    UNIX_TIMESTAMP(`lastEditDate`) AS `unix_lastEditDate`,
+                    `visibility`
+            FROM `".$this->tblCourseDescription."`
+            WHERE `id` = ".(int) $id;
 
-	    $data = claro_sql_query_get_single_row($sql);
+        $data = claro_sql_query_get_single_row($sql);
 
-	    if( !empty($data) )
-	    {
-	        $this->setId($id);
-	        $this->setCategory($data['category']);
-	    	$this->setTitle($data['title']);
-		    $this->setContent($data['content']);
-   		    $this->setLastEditDate($data['unix_lastEditDate']);		    
-		    $this->setVisibility($data['visibility']);
+        if( !empty($data) )
+        {
+            $this->setId($id);
+            $this->setCategory($data['category']);
+            $this->setTitle($data['title']);
+            $this->setContent($data['content']);
+               $this->setLastEditDate($data['unix_lastEditDate']);            
+            $this->setVisibility($data['visibility']);
 
-			return true;
-	    }
-	    else
-	    {
-	        return false;
-	    }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     
@@ -135,14 +135,14 @@ class CourseDescription
      
     function save()
     {
-    	if( $this->id == -1 )
-    	{
+        if( $this->id == -1 )
+        {
             return $this->insert();
-    	}
-    	else
-    	{
-    	    return $this->update();
-    	}
+        }
+        else
+        {
+            return $this->update();
+        }
     }
     
     
@@ -155,27 +155,27 @@ class CourseDescription
      
     function insert()
     {
-   		// insert
-	    $sql = "INSERT INTO `".$this->tblCourseDescription."`
-	            SET `category` = ".$this->getCategory().", 
-	                `title` = '".addslashes($this->getTitle())."',
-	                `content` = '".addslashes($this->getContent())."',
-	                `lastEditDate` = NOW(),
-	                `visibility` = '".addslashes($this->getVisibility())."'";
+           // insert
+        $sql = "INSERT INTO `".$this->tblCourseDescription."`
+                SET `category` = ".$this->getCategory().", 
+                    `title` = '".addslashes($this->getTitle())."',
+                    `content` = '".addslashes($this->getContent())."',
+                    `lastEditDate` = NOW(),
+                    `visibility` = '".addslashes($this->getVisibility())."'";
 
-	    // execute the creation query and get id of inserted assignment
-	    $insertedId = claro_sql_query_insert_id($sql);
+        // execute the creation query and get id of inserted assignment
+        $insertedId = claro_sql_query_insert_id($sql);
 
-	    if( $insertedId )
-	    {
-	    	$this->setId($insertedId);
+        if( $insertedId )
+        {
+            $this->setId($insertedId);
 
-	        return $this->getId();
-	    }
-	    else
-	    {
-	        return false;
-	    }
+            return $this->getId();
+        }
+        else
+        {
+            return false;
+        }
     }
     
     
@@ -188,27 +188,27 @@ class CourseDescription
      
     function update()
     {
-		// update, main query
-	    $sql = "UPDATE `".$this->tblCourseDescription."`
-	            SET `category` = ".$this->getCategory().", 
-	                `title` = '".addslashes($this->getTitle())."',
-	                `content` = '".addslashes($this->getContent())."',
-	                `lastEditDate` = NOW(),
-	                `visibility` = '".addslashes($this->getVisibility())."'
-	            WHERE `id` = ".$this->getId();
+        // update, main query
+        $sql = "UPDATE `".$this->tblCourseDescription."`
+                SET `category` = ".$this->getCategory().", 
+                    `title` = '".addslashes($this->getTitle())."',
+                    `content` = '".addslashes($this->getContent())."',
+                    `lastEditDate` = NOW(),
+                    `visibility` = '".addslashes($this->getVisibility())."'
+                WHERE `id` = ".$this->getId();
 
-	    // execute and return main query
-	    if( claro_sql_query($sql) )
-	    {
-	    	return $this->getId();
-	    }
-	    else
-	    {
-	    	return false;
-	    }    
-	}
-	
-	
+        // execute and return main query
+        if( claro_sql_query($sql) )
+        {
+            return $this->getId();
+        }
+        else
+        {
+            return false;
+        }    
+    }
+    
+    
     /**
      * delete description
      *
@@ -402,15 +402,15 @@ class CourseDescription
      
     function setVisibility($visibility)
     {
-    	$acceptedValues = array('VISIBLE', 'INVISIBLE');
+        $acceptedValues = array('VISIBLE', 'INVISIBLE');
 
-		if( in_array($visibility, $acceptedValues) )
-		{
-			$this->visibility = $visibility;
-			return true;
-		}
-		return false;
-	}
+        if( in_array($visibility, $acceptedValues) )
+        {
+            $this->visibility = $visibility;
+            return true;
+        }
+        return false;
+    }
 }
 
 ?>

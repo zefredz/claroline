@@ -918,7 +918,7 @@
 
             echo claro_html_message_box ( $message ) . '<br />' . "\n";
 
-            echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="POST">';
+            echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="post">';
             echo '<textarea name="conflictContent" id="content"'
                  . ' cols="80" rows="15" wrap="virtual">'
                  ;
@@ -1263,7 +1263,7 @@
                 . '</p>'
                 ;
 
-            echo '<form id="differences" method="GET" action="'
+            echo '<form id="differences" method="get" action="'
                 . $_SERVER['PHP_SELF']
                 . '">'
                 . "\n"
@@ -1411,12 +1411,12 @@
         {
             $searchForm = '<form method="post" action="'
                 . $_SERVER['PHP_SELF'].'?wikiId='.$wikiId.'">'."\n"
-                . '<input type="hidden" name="action" value="exSearch">'."\n"
+                . '<input type="hidden" name="action" value="exSearch" />'."\n"
                 . '<label for="searchPattern">'
                 . get_lang("Search")
                 . '</label><br />'."\n"
-                . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
-                . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
+                . '<input type="text" id="searchPattern" name="searchPattern" />'."\n"
+                . '<input type="submit" value="'.get_lang("Ok").'" />'."\n"
                 . claro_html_button($_SERVER['PHP_SELF'].'?wikiId='.$wikiId, get_lang("Cancel"))
                 . '</form>'."\n"
                 ;

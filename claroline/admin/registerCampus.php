@@ -333,7 +333,7 @@ if( isset($_REQUEST['register']) )
     }
     else
     {
-   		// unknown soap error
+           // unknown soap error
         $dialogBox = get_lang('An error occurred while contacting Claroline.net');
     }
 }

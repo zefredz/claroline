@@ -1,11 +1,11 @@
 .panel_wrapper div.current {
-	height: 100px;
+    height: 100px;
 }
 
 #width, #height {
-	width: 50px;
+    width: 50px;
 }
 
 #file {
-	width: 250px;
+    width: 250px;
 }
