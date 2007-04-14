@@ -151,7 +151,7 @@ switch( $cmd )
                  WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
         $result = claro_sql_query($query);
         $list = mysql_fetch_array($result);
-        echo "\n" 
+        echo "\n"
         .	 '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
         .    claro_form_relay_context()
 		.	 '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
@@ -287,10 +287,14 @@ while ($list = mysql_fetch_array($result))
 	.	 '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Rename').'" /></a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'">'
+	.    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Rename').'" />'
+	.    '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'"><img src="' . get_path('imgRepositoryWeb') . 'comment.gif" border="0" alt="'.get_lang('Comment').'" /></a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'">'
+	.    '<img src="' . get_path('imgRepositoryWeb') . 'comment.gif" border="0" alt="'.get_lang('Comment').'" />'
+	.    '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
 
@@ -308,7 +312,7 @@ while ($list = mysql_fetch_array($result))
 
 } //end while another module to display
 
-if ($atleastOne == false) 
+if ($atleastOne == false)
 {
 	echo '<tr><td align="center" colspan="5">'.get_lang('No module').'</td></tr>' . "\n";
 }

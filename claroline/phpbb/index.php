@@ -289,7 +289,7 @@ foreach ( $categories as $this_category )
                     .    '&nbsp;' . "\n"
 
                     .    '<a href="' . get_module_url('CLGRP') . '/group_space.php?gidReq=' . $group_id . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '" />'
                     .    '</a>' . "\n"
                     ;
 

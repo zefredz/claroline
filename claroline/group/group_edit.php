@@ -267,7 +267,7 @@ echo '<form name="groupedit" method="POST" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<label for="name" >' . get_lang("Group name") . '</label> : ' . "\n"
 .    '</td>' . "\n"
 .    '<td colspan="2">' . "\n"
-.    '<input type="text" name="name" id="name" size="40" value="' . htmlspecialchars($myStudentGroup['name']) . '">' . "\n"
+.    '<input type="text" name="name" id="name" size="40" value="' . htmlspecialchars($myStudentGroup['name']) . '" />' . "\n"
 .    '</td>' . "\n"
 .    '<td>' . "\n"
 .    '<a href="group_space.php?gidReq=' . claro_get_current_group_id() . '">' . "\n"

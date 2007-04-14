@@ -303,7 +303,7 @@ function elementData($parser,$data)
             break;
 
         case "LANGSTRING" :
-            //echo $data."<br>";
+
             switch ( $flagTag['type'] )
             {
                 case "item" :

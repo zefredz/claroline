@@ -132,7 +132,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '&amp;uidToEdit=' . $userId
 .             '&amp;fromAdmin=settings'
 .             '&amp;category=" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif">'
+.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" />'
 .             get_lang('Enrol to a new course')
 .             '</a>'
 

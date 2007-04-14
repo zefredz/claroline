@@ -586,11 +586,11 @@ foreach ($flatElementList as $module)
         echo clean_str_for_javascript(get_lang('The module will still be available in the pool of modules.'));
 
     echo   "');\"
-    ><img src=\"" . get_path('imgRepositoryWeb') . "delete.gif\" border=0 alt=\"".get_lang('Remove')."\"></a>
+    ><img src=\"" . get_path('imgRepositoryWeb') . "delete.gif\" border=0 alt=\"".get_lang('Remove')."\" /></a>
        </td>";
 
     // LOCK
-    echo    "<td>";
+    echo    '<td>';
 
     if ( $module['contentType'] == CTLABEL_)
     {
@@ -599,13 +599,13 @@ foreach ($flatElementList as $module)
     elseif ( $module['lock'] == 'OPEN')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "unblock.gif\" alt=\"" . get_lang('Block') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "unblock.gif\" alt=\"" . get_lang('Block') . "\" border=0 />".
              "</a>";
     }
     elseif( $module['lock'] == 'CLOSE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "block.gif\" alt=\"" . get_lang('Unblock') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "block.gif\" alt=\"" . get_lang('Unblock') . "\" border=0 />".
              "</a>";
     }
     echo "</td>";
@@ -616,7 +616,7 @@ foreach ($flatElementList as $module)
     if ( $module['visibility'] == 'HIDE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\">".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\" />".
              "</a>";
     }
     else
@@ -630,7 +630,7 @@ foreach ($flatElementList as $module)
             $onclick = "";
         }
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "visible.gif\" alt=\"" . get_lang('Make invisible') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "visible.gif\" alt=\"" . get_lang('Make invisible') . "\" border=0 />".
              "</a>";
     }
 
@@ -640,7 +640,7 @@ foreach ($flatElementList as $module)
     // DISPLAY CATEGORY MOVE COMMAND
     echo "<td>".
          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-         "<img src=\"" . get_path('imgRepositoryWeb') . "move.gif\" alt=\"" . get_lang('Move'). "\" border=0>".
+         "<img src=\"" . get_path('imgRepositoryWeb') . "move.gif\" alt=\"" . get_lang('Move'). "\" border=0 />".
          "</a>".
          "</td>";
 
@@ -649,7 +649,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "up.gif\" alt=\"" . get_lang('Move up') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "up.gif\" alt=\"" . get_lang('Move up') . "\" border=0 />".
              "</a>".
              "</td>";
     }
@@ -663,7 +663,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "down.gif\" alt=\"" . get_lang('Move down') . "\" border=0>".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "down.gif\" alt=\"" . get_lang('Move down') . "\" border=0 />".
              "</a>".
              "</td>";
     }

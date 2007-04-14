@@ -176,8 +176,6 @@ switch ( $cmd )
 
             claro_sql_query($delAssetSql);
 
-            //echo $delAssetSql."<br>";
-
             // DELETE the SCORM modules
 
             $delModuleSql = "DELETE
@@ -196,8 +194,6 @@ switch ( $cmd )
                 $delModuleSql .= " OR `module_id`=". (int)$delList['module_id'];
             }
             $delModuleSql .= ")";
-
-            //echo $delModuleSql."<br>";
 
             claro_sql_query($delModuleSql);
 
@@ -469,14 +465,14 @@ GROUP BY LPM.`learnpath_id`
 ";
 
 
-echo $sql."<br>";
+echo $sql."<br />";
 $resultB = claro_sql_query($sql);
 
 echo mysql_error();
 
 while ($listB = mysql_fetch_array($resultB))
 {
-echo "LPMID : ".$listB['LPMID']." rank : ".$listB['M']." LPID : ".$listB['learnpath_id']." credit : ".$listB['UMPC']."<br>";
+echo "LPMID : ".$listB['LPMID']." rank : ".$listB['M']." LPID : ".$listB['learnpath_id']." credit : ".$listB['UMPC']."<br />";
 }
 
 $resultB = claro_sql_query($sql);
@@ -484,10 +480,10 @@ $resultB = claro_sql_query($sql);
 
 if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); // get date for notified "as new" paths
 
-echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
  <thead>
- <tr class=\"headerX\" align=\"center\" valign=\"top\">
-  <th>".get_lang('Learning path')."</th>";
+ <tr class="headerX" align="center" valign="top">
+  <th>' . get_lang('Learning path') . '</th>';
 
 if($is_AllowedToEdit)
 {
@@ -695,7 +691,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         while ($listB = mysql_fetch_array($resultB))
         {
-        echo  "lp_id listB: ".$listB['learnpath_id']." lp_id list: ".$list['learnPath_id']." creditUMP: ".$listB['UMPC']." Lplock: ".$list['lock']."<br>";
+        echo  "lp_id listB: ".$listB['learnpath_id']." lp_id list: ".$list['learnPath_id']." creditUMP: ".$listB['UMPC']." Lplock: ".$list['lock']."<br />";
 
         if (($listB['learnpath_id']==$list['learnPath_id']) && ($listB['UMPC']=="NO-CREDIT") && ($list['lock'] == "CLOSE"))
         {
@@ -801,14 +797,14 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             .    '?cmd=mkBlock'
             .    '&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_path('imgRepositoryWeb') . 'unblock.gif" '
-            .    'alt="' . get_lang('Block') . '" border="0">'. "\n"
+            .    'alt="' . get_lang('Block') . '" border="0" />'. "\n"
             .    '</a>' . "\n"
             ;
         }
         else
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkUnblock&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('Unblock') . '" border="0">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('Unblock') . '" border="0" />' . "\n"
             .    '</a>' . "\n"
             ;
         }
@@ -838,7 +834,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             }
 
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '" ' . $onclick . ' >' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Make invisible') . '" border="0">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Make invisible') . '" border="0" />' . "\n"
             .    '</a>' . "\n"
             ;
         }
@@ -851,7 +847,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveUp&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" border="0">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" border="0" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -866,7 +862,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" border="0">' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" border="0" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -879,7 +875,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // EXPORT links
         echo '<td>' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="' . get_lang('Export') . '" border="0">'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="' . get_lang('Export') . '" border="0" />'
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         ;

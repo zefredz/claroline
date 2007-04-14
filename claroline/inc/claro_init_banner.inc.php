@@ -10,7 +10,7 @@ $clarolineBannerOutput = "\n\n"
 
 $campusBannerLeftDock = new Dock('campusBannerLeft');
 $bannerSiteName =  get_conf('siteLogo') != ''
-                ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" >'
+                ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'"  />'
                 : get_conf('siteName');
 $siteNameOutput   = '<span id="siteName"><a href="'.$urlAppend.'/index.php" target="_top">'.$bannerSiteName.'</a></span>' . "\n";
 $campusBannerLeftDock->addOutput($siteNameOutput);
@@ -23,7 +23,7 @@ $campusBannerRightDock = new Dock('campusBannerRight');
 $institutionNameOutput = '';
 
 $bannerInstitutionName = (get_conf('institutionLogo') != '')
-                       ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'" >'
+                       ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'"  />'
                        : get_conf('institution_name')
                        ;
 
@@ -335,7 +335,7 @@ if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && i
     {
         $clarolineBannerOutput .= '<div id="toolViewOption">'
         .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
-        .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
+        .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="" /> '
         .    '<b>'.get_lang('Enrolment').'</b>'
         .    '</a>'
         .    '</div>' . "\n";
@@ -356,7 +356,7 @@ if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && i
         if ( claro_is_platform_admin() && ! claro_is_course_member() )
         {
             $clarolineBannerOutput .= ' | <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
-            .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt=""> '
+            .     '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="" /> '
             .    '<b>'.get_lang('Enrolment').'</b>'
             .    '</a>'
             ;

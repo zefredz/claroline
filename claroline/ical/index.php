@@ -40,7 +40,7 @@ $calType = (array_key_exists('calFormat',$_REQUEST) && array_key_exists($_REQUES
 // need to be in a course
 if( ! claro_is_in_a_course() )
 {
-    die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
+    die( '<form >cidReq = <input name="cidReq" type="text"  /><input type="submit" /></form>');
 }
 
 if ( !$_course['visibility'] && !claro_is_course_allowed() )

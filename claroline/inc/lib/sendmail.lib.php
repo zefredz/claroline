@@ -22,7 +22,7 @@ class ClaroPHPMailer extends PHPMailer
     {
         // set charset
         $this->CharSet = get_locale('charset');
-        
+
         if ( get_conf('smtp_host') != '' )
         {
             // set smtp mode and smtp host
@@ -30,7 +30,7 @@ class ClaroPHPMailer extends PHPMailer
             $this->Host = get_conf('smtp_host');
 
             if ( get_conf('smtp_username') != '' )
-            {            
+            {
                 // SMTP authentification
                 $mail->SMTPAuth = true;     // turn on SMTP
                 $mail->Username = get_conf('smtp_username'); // SMTP username
@@ -46,6 +46,7 @@ class ClaroPHPMailer extends PHPMailer
 
     /**
      * Returns a message in the appropriate language.
+     *
      * @access private
      * @return string
      */
@@ -71,12 +72,12 @@ function claro_mail($subject, $message, $to, $toName, $from, $fromName)
     if (!empty($fromName)) $fromName = get_conf('administrator_name');
     if (!empty($to)) $to = claro_get_current_user_data;
     if (!empty($toName)) $toName = claro_get_current_user_data;
-    
+
     $mail->Subject  = $subject;
     $mail->Body     = $message;
     $mail->From     = $from;
     $mail->FromName = $fromName;
-    
+
     $mail->AddAddress($to,$toName);
 
     if ( $mail->Send() )
@@ -85,16 +86,19 @@ function claro_mail($subject, $message, $to, $toName, $from, $fromName)
     }
     else
     {
-        return claro_failure::set_failure($mail->getError()); 
+        return claro_failure::set_failure($mail->getError());
     }
 }
 
  /**
   * Send e-mail to Claroline users form their ID a user of Claroline
+  *
+  * Send e-mail to Claroline users form their ID a user of Claroline
   * default from clause in email address will be the platorm admin adress
   * default from name clause in email will be the platform admin name and surname
+  *
   * @author Hugues Peeters <peeters@advalavas.be>
-  * @param  int or array $userIdList - sendee id's
+  * @param  int or array $userIdList - sender id's
   * @param  string $message - mail content
   * @param  string $subject - mail subject
   * @param  string $specificFrom (optional) sender's email address
@@ -139,7 +143,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     if (get_conf('CLARO_DEBUG_MODE',false))
     {
         $message = '<p>Subject : ' . htmlspecialchars($subject) . '</p>' . "\n"
-                 . '<p>Message : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"                 
+                 . '<p>Message : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
                  . '<p>From : ' . htmlspecialchars($mail->FromName) . ' - ' . htmlspecialchars($mail->From) . '</p>' . "\n"
                  . '<p>Dest : ' . implode(', ', $emailList) . '</p>' . "\n";
         pushClaroMessage($message,'mail');
@@ -148,7 +152,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     foreach ($emailList as $thisEmail)
     {
         $mail->AddAddress($thisEmail);
-        if ( $mail->Send() ) 
+        if ( $mail->Send() )
         {
             $emailSentCount ++;
         }
@@ -158,7 +162,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
             {
                 pushClaroMessage($mail->getError(),'error');
             }
-        } 
+        }
         $mail->ClearAddresses();
     }
 

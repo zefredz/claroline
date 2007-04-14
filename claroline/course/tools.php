@@ -241,27 +241,32 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 
     $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
     .       claro_form_relay_context()
-    .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
-    .       '<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'">'."\n";
+    .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+    .       '<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'" />'."\n";
 
     if ($externalToolId)
     {
-        $msg .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '">' . "\n";
+        $msg .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '" />' . "\n";
     }
 
-    $msg .= '<label for="toolName">'.get_lang('Name link').'</label><br />'."\n"
-    .'<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'"><br />'."\n"
-    .'<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
-    .'<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($externalLinkUrl).'"><br /><br />'."\n"
-    .'<input class="claroButton" type="submit" value="'.get_lang('Ok').'">&nbsp; '."\n"
-    .claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
-    .'</form>'."\n" ;
+    $msg .= '<label for="toolName">' . get_lang('Name link') . '</label>'
+    .       '<br />' . "\n"
+    .       '<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'" />'
+    .       '<br />' . "\n"
+    .       '<label for="toolUrl">'.get_lang('URL link').'</label><br />'."\n"
+    .       '<input type="text" name="toolUrl" id="toolUrl" value="'.htmlspecialchars($externalLinkUrl).'" />'
+    .       '<br /><br />' . "\n"
+    .       '<input class="claroButton" type="submit" value="'.get_lang('Ok').'" />'
+    .       '&nbsp; ' . "\n"
+    .       claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
+    .       '</form>' . "\n"
+    ;
 }
 
 $backLink = '<p>'
             .'<small>'
             .'<a href="'. get_path('clarolineRepositoryWeb') . 'course/index.php?cidReset=true&amp;cid=' . htmlspecialchars(claro_get_current_course_id()) . '">'
-            .'&lt;&lt;&nbsp;'.get_lang('Back to Home page').'</a>'
+            .'&lt;&lt;&nbsp;'.get_lang('Back to Home page') . '</a>'
             .'</small>'
             .'</p>'."\n\n" ;
 
@@ -327,7 +332,7 @@ foreach ( $display_profile_list as $profileId )
         $profileRight->setCourseId(claro_get_current_course_id());
         $profileRight->load($profile);
         $profileRightHtml->addRightProfileToolRight($profileRight);
-        $profileLegend[] = get_lang($profileNameList[$profileId]['name']) . ' : <em>' . get_lang($profileNameList[$profileId]['description']) . '</em>' ; 
+        $profileLegend[] = get_lang($profileNameList[$profileId]['name']) . ' : <em>' . get_lang($profileNameList[$profileId]['description']) . '</em>' ;
     }
 }
 
@@ -335,8 +340,8 @@ echo '<blockquote>' . "\n"
     . $profileRightHtml->displayProfileToolRightList()
     . '</blockquote>' . "\n" ;
 
-echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : ' 
-    . '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('None') . '" /> ' . get_lang('No access') . ' - ' 
+echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
+    . '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('None') . '" /> ' . get_lang('No access') . ' - '
     . '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('User') . '" />' . get_lang('Access allowed') . ' - '
     . '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Manager') . '" /> ' . get_lang('Edition allowed')
     . '.</small></p>';
@@ -352,7 +357,7 @@ echo '<blockquote>' . "\n"
 .    '<a class="claroCmd" href="'
 .    $_SERVER['PHP_SELF']
 .    '?cmd=rqAdd' . claro_url_relay_context('&amp;') . '">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'link.gif" alt="">'
+.    '<img src="' . get_path('imgRepositoryWeb') . 'link.gif" alt="" />'
 .    get_lang('Add external link')
 .    '</a>' . "\n"
 .    '</p>' . "\n"

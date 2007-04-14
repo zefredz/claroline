@@ -84,8 +84,8 @@ if ( $cmd == 'registration' )
 {
     /*
      * Two possible ways to enroll a user to a course :
-     * Enrollment of a completly new user from $userData
-     * Enrollment of an existing user form its $userId
+     * Enrolment of a completly new user from $userData
+     * Enrolment of an existing user form its $userId
      */
 
     if ( $userData && ! $userId)

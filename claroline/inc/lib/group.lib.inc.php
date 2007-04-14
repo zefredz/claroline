@@ -244,7 +244,7 @@ function fill_in_groups($nbGroupPerUser, $course_id )
     if( !settype($nbGroupPerUser, 'integer') || $nbGroupPerUser < 0 )
     return FALSE;
     /*
-    * Retrieve all the groups where enrollment is still allowed
+    * Retrieve all the groups where enrolment is still allowed
     * (reverse) ordered by the number of place available
     */
 

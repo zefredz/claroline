@@ -46,7 +46,7 @@ if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm
 
 if ( $sourceUrl )
 {
-    $sourceUrlFormField = '<input type="hidden" name="sourceUrl" value="'.htmlspecialchars($sourceUrl).'">';
+    $sourceUrlFormField = '<input type="hidden" name="sourceUrl" value="'.htmlspecialchars($sourceUrl).'" />';
 }
 else
 {
@@ -55,7 +55,7 @@ else
 
 if (claro_is_in_a_course())
 {
-    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars(claro_get_current_course_id()) . '">';
+    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars(claro_get_current_course_id()) . '" />';
 }
 else
 {
@@ -64,7 +64,7 @@ else
 
 if (claro_is_in_a_group())
 {
-    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars(claro_get_current_group_id()) . '">';
+    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars(claro_get_current_group_id()) . '" />';
 }
 else
 {
@@ -72,7 +72,7 @@ else
 }
 
 $cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false );
-$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true">' : '');
+$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true" />' : '');
 
 $uidRequired = true; // todo : possibility to continue in anonymous
 
@@ -116,12 +116,12 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
         .    '<label for="username">'.get_lang('Username').' : </label><br />'   ."\n"
-        .    '<input type="text" name="login" id="username"><br />'       ."\n"
+        .    '<input type="text" name="login" id="username" /><br />'       ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
-        .    '<input type="password" name="password" id="password"><br />'."\n"
+        .    '<input type="password" name="password" id="password" /><br />'."\n"
         .    '<br />'
-        .    '<input type="submit" value="'.get_lang('Ok').'">&nbsp; '                 ."\n"
+        .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '                 ."\n"
         .    claro_html_button(get_path('clarolineRepositoryWeb'), get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
@@ -195,7 +195,7 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
         .    '<td>'                                                  ."\n"
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
-        .    '<input type="submit" value="' . get_lang('Ok') . '">&nbsp; '."\n"
+        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '."\n"
         .    claro_html_button(get_path('url') . '/index.php', get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"

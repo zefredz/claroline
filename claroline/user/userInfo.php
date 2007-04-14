@@ -406,19 +406,19 @@ elseif ($displayMode == "viewDefList")
 
             .    '<a href="'.$_SERVER['PHP_SELF'] . '?removeDef=' . $thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Edit').'">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Edit').'" />'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/up.gif" border="0" alt="'.get_lang('Move up').'">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . '/up.gif" border="0" alt="'.get_lang('Move up').'" />'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/down.gif" border="0" alt="'.get_lang('Move down').'">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . '/down.gif" border="0" alt="'.get_lang('Move down').'" />'
             .    '</a>' . "\n"
             .    '</div>' . "\n"
             ;
@@ -483,7 +483,7 @@ elseif ($displayMode == "viewContentList") // default display
 
         if ($mainUserInfo['picture'] != '')
         {
-            echo '<img src="' . get_path('imgRepositoryWeb') . 'users/' . $mainUserInfo['picture'] . '" border="1">';
+            echo '<img src="' . get_path('imgRepositoryWeb') . 'users/' . $mainUserInfo['picture'] . '" border="1" />';
         }
 
         echo '<table class="claroTable" width="80%" border="0">' . "\n"
@@ -524,7 +524,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<a href="' . get_module_url('CLFRM')
         .    '/viewsearch.php?searchUser='.$userIdViewed
         .    claro_url_relay_context('&amp;') . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'post.gif" alt="'.get_lang('Forum posts').'">'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'post.gif" alt="'.get_lang('Forum posts').'" />'
         .    '</a>'
         .    '</td>';
 

@@ -296,9 +296,11 @@ switch ( $display )
 
         echo '<tr valign="top">' . "\n"
         .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-        .    '<td><input type="submit" value="' . get_lang('Ok') . '">&nbsp; ' . "\n"
+        .    '<td>'
+        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
         .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-        .    '</td></tr>' . "\n"
+        .    '</td>'
+        .    '</tr>' . "\n"
         .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>')
         .    '</table>' . "\n"
         .    '</form>' . "\n"
@@ -338,7 +340,8 @@ switch ( $display )
             .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
             .    '<tr valign="top">' . "\n"
             .    '<td>' . get_lang('Delete my account') . ': </td>' . "\n"
-            .    '<td><input type="submit" value="' . get_lang('Ok') . '">&nbsp; ' . "\n"
+            .    '<td>'
+            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
             .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
             .    '</td></tr>' . "\n"
             .    '</table>' . "\n"

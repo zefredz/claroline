@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -57,9 +57,9 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
 echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">' . "\n"
 .    claro_form_relay_context()
-.    '<input type="text"    name="msg" size="80">' . "\n"
-.    '<input type="hidden"  name="chatLine">' . "\n"
-.    '<input type="submit" value=" >> ">' . "\n"
+.    '<input type="text"    name="msg" size="80" />' . "\n"
+.    '<input type="hidden"  name="chatLine" />' . "\n"
+.    '<input type="submit" value=" >> " />' . "\n"
 .    '<br />' . "\n"
 .    '' . "\n"
 .    claro_html_menu_horizontal($cmdMenu)

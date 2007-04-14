@@ -72,7 +72,7 @@ echo '<form method="post" action="group.php">' . "\n"
 .    '<td valign="top">' . "\n"
 .    '<span class="item">' . "\n"
 .    '<input type="checkbox" name="self_registration" id="self_registration" value="1" '
-.    (($registrationAllowedInGroup) ?  'checked':'')  . ' >' . "\n"
+.    (($registrationAllowedInGroup) ?  'checked':'')  . '  />' . "\n"
 .    '<label for="self_registration" >'
 .    get_lang("Students are allowed to self-register in groups")
 .    '</label>' . "\n"
@@ -132,12 +132,12 @@ echo '<tr>' . "\n"
 .    '<input type="radio" name="private" id="private_1" value="1" '
 ;
 if($groupPrivate) echo "checked";
-echo ' >' . "\n"
+echo '  />' . "\n"
 .    '<label for="private_1">' . get_lang("Private") . '</label>' . "\n"
 .    '<input type="radio" name="private" id="private_0" value="0" '
 ;
 if(!$groupPrivate) echo 'checked';
-echo ' >' . "\n"
+echo '  />' . "\n"
 .    '<label for="private_0">' . get_lang("Public") . '</label>' . "\n"
 .    '</span>' . "\n"
 .    '</td>' . "\n"
@@ -164,7 +164,7 @@ foreach ($groupToolList as $groupTool)
     ;
 
     if($_groupProperties['tools'] [$groupTool['label']]) echo "checked";
-    echo ' >' . "\n"
+    echo '  />' . "\n"
     .    '<label for="' . $groupTool['label'] . '">' . get_lang($toolName)  . '</label>' . "\n"
     .    '</span>' . "\n"
     .    '</td>' . "\n"
@@ -175,7 +175,7 @@ foreach ($groupToolList as $groupTool)
 
 echo '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
-.    '<input type="submit" name="properties" value="' . get_lang("Ok") . '">' . "\n"
+.    '<input type="submit" name="properties" value="' . get_lang("Ok") . '" />' . "\n"
 .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")) . '' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"

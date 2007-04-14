@@ -628,11 +628,11 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         {
                         echo '<td align="center">'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEditAssig&amp;assigId=' . $anAssignment['id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '"></a>'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" /></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onClick="return confirmation(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '"></a>'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" /></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
             ;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! tamanho do repositÃ³rio do curso (incluindo o claroline e o lixo de sistemas antigos)';
 $_lang['(When an user open the index of the campus)'] = '(Quando um usuário abre o índice do campus)';
 $_lang['(d/m/y hh:mm)'] = '(dia/mês/ano hh:mm)';
@@ -989,7 +989,7 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
 <h4>Rename a document (a directory)</h4>
 <ul>
   <li>click on the <img src=../document/img/renommer.gif width=20 height=20
- align=baseline> button in
+ align=baseline /> button in
   the Rename column</li>
   <li>Type the new name in the field (top left)</li>
   <li>Validate by clicking <input type=submit value=Ok name=submit24>
@@ -998,7 +998,7 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
 	<h4>Delete a document (or a directory)</h4>
 	<ul>
 
-  <li>Click on <img src=../document/img/supprimer.gif width=20 height=20>
+  <li>Click on <img src=../document/img/supprimer.gif width=20 height=20 />
 	in column \'Delete\'.</li>
 	</ul>
 	<h4>Make a document (or directory) invisible to students</h4>

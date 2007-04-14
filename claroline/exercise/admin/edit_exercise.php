@@ -225,7 +225,7 @@ if( $displayForm )
 	echo '<form method="post" action="./edit_exercise.php?exId='.$exId.'" >' . "\n\n"
 	.    claro_form_relay_context()
 	.	 '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-	.	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n";
+	.	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n";
 
 	echo '<table border="0" cellpadding="5">' . "\n";
 
@@ -347,11 +347,11 @@ if( $displayForm )
 	.	 '<td valign="top">'.get_lang('Anonymous attempts').'&nbsp;:</td>' . "\n"
 	.	 '<td>'
 	.	 '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsAllowed" value="ALLOWED"'
-	.	 ( $form['anonymousAttempts'] == 'ALLOWED'?' checked="checked"':' ') . '>'
+	.	 ( $form['anonymousAttempts'] == 'ALLOWED'?' checked="checked"':' ') . ' />'
 	.	 ' <label for="anonymousAttemptsAllowed">'.get_lang('Allowed : do not record usernames in tracking, anonymous users can do the exercise.').'</label>'
 	.	 '<br />'
 	.	 '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsNotAllowed" value="NOTALLOWED"'
-	.	 ( $form['anonymousAttempts'] == 'NOTALLOWED'?' checked="checked"':' ') . '>'
+	.	 ( $form['anonymousAttempts'] == 'NOTALLOWED'?' checked="checked"':' ') . ' />'
 	.	 ' <label for="anonymousAttemptsNotAllowed">'.get_lang('Not allowed : record usernames in tracking, anonymous users cannot do the exercise.').'</label>'
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
@@ -361,15 +361,15 @@ if( $displayForm )
 	.	 '<td valign="top">'.get_lang('Show answers').'&nbsp;:</td>' . "\n"
 	.	 '<td>'
 	.	 '<input type="radio" name="showAnswers" id="showAnswerAlways" value="ALWAYS"'
-	.	 ( $form['showAnswers'] == 'ALWAYS'?' checked="checked"':' ') . '>'
+	.	 ( $form['showAnswers'] == 'ALWAYS'?' checked="checked"':' ') . ' />'
 	.	 ' <label for="showAnswerAlways">'.get_lang('Yes').'</label>'
 	.	 '<br />'
 	.	 '<input type="radio" name="showAnswers" id="showAnswerLastTry" value="LASTTRY"'
-	.	 ( $form['showAnswers'] == 'LASTTRY'?' checked="checked"':' ') . '>'
+	.	 ( $form['showAnswers'] == 'LASTTRY'?' checked="checked"':' ') . ' />'
 	.	 ' <label for="showAnswerLastTry">'.get_lang('After last allowed attempt').'</label>'
 	.	 '<br />'
 	.	 '<input type="radio" name="showAnswers" id="showAnswerNever" value="NEVER"'
-	.	 ( $form['showAnswers'] == 'NEVER'?' checked="checked"':' ') . '>'
+	.	 ( $form['showAnswers'] == 'NEVER'?' checked="checked"':' ') . ' />'
 	.	 ' <label for="showAnswerNever">'.get_lang('No').'</label>'
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";

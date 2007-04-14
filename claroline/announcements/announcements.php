@@ -710,10 +710,8 @@ if ($displayList)
                     .    '</a>' . "\n"
                     ;
                 }
-                echo '</p>'."\n";
-
-
-                echo '</td>' . "\n"
+                echo '</p>'."\n"
+                .    '</td>' . "\n"
                 .    '</tr>' . "\n"
                 ;
 

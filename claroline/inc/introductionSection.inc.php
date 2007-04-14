@@ -250,9 +250,9 @@ if ($intro_dispForm)
     $introEditorCmdValue = $introId ? 'exEd' : 'exAdd';
 
     echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-    .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'">'
-    .    '<input type="hidden" name="introCmd" value="' . $introEditorCmdValue . '">'
-    .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'">' : '')
+    .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'" />'
+    .    '<input type="hidden" name="introCmd" value="' . $introEditorCmdValue . '" />'
+    .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'" />' : '')
     .    claro_html_textarea_editor('intro_content', trim($introContent))
     .	'<br />'."\n"
     ;
@@ -264,14 +264,14 @@ if ($intro_dispForm)
     {
         linker_set_local_crl( isset ($_REQUEST['introId'] ), 'CLINTRO_' );
         linker_set_display();
-        echo '<input type="submit" class="claroButton" name="submitEvent" onClick="linker_confirm();" value="' . get_lang('Ok') . '">&nbsp;'."\n";
+        echo '<input type="submit" class="claroButton" name="submitEvent" onClick="linker_confirm();" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
     }
     else // popup mode
     {
         if(isset($_REQUEST['introId'])) linker_set_display($_REQUEST['introId'], 'CLINTRO_', 'introId');
         else                       linker_set_display(false, 'CLINTRO_');
 
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '">&nbsp;'."\n";
+        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
     }
 
     echo claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
@@ -331,28 +331,28 @@ if ($intro_dispDefault)
 
                     $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .       '?introCmd=rqEd&introId='.$introId.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Ok') . '" border="0">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Ok') . '" border="0" />'
                     .    '</a>' . "\n"
                     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .      '?introCmd=exDel&introId=' . $introId . '" '
                     .      'onclick="javascript:if(!confirm(\''
                     .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
                     .      'return false;">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
                     .    '</a>' . "\n"
                     ;
 
                     if ($thisIntroKey > 0 )
                     {
                         $section .= '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'" />'
                         .    '</a> ';
                     }
 
                     if ($thisIntroKey + 1 < $introListCount )
                     {
                         $section .= ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'" />'
                         .    '</a>';
                     }
 
@@ -367,7 +367,7 @@ if ($intro_dispDefault)
                             ;
                         $section .= '<img src="' . get_path('imgRepositoryWeb')
                             . 'visible.gif" alt="'
-                            . get_lang('Visible').'" />'
+                            . get_lang('Visible') . '" />'
                             ;
                         $section .= '</a>' . "\n";
                     }
@@ -408,7 +408,7 @@ if ($intro_dispDefault)
     {
         echo '<p>' . "\n"
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/textzone.gif" alt="" border="0">'
+        .    '<img src="' . get_path('imgRepositoryWeb') . '/textzone.gif" alt="" border="0" />'
         .    get_lang('Add Text')
         .    '</a>' . "\n"
         .    '</p>' . "\n\n"
