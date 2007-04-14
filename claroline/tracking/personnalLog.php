@@ -25,7 +25,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_courses            = $tbl_mdb_names['course'];
 $tbl_link_user_courses    = $tbl_mdb_names['rel_course_user'];
 
-include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
+include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 ////////////// OUTPUT //////////////////////
 
