@@ -47,7 +47,7 @@ if (isset($_REQUEST['logout']))
     if( get_conf('claro_CasEnabled', false) && ( get_conf('claro_CasGlobalLogout') && !phpCAS::checkAuthentication() ) )
     {
     	phpCAS::logout((isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://')
-                        . $_SERVER['HTTP_HOST'].get_conf('urlAppend').'/index.php'); 
+                        . $_SERVER['HTTP_HOST'].get_conf('urlAppend').'/index.php');
     }
     session_destroy();
 }

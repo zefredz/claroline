@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -57,7 +57,7 @@ function delete_course($code)
     $this_course = claro_get_course_data($code);
     $currentCourseId = $this_course['sysCode'];
 
-    // DELETE USER ENROLLMENT INTO THIS COURSE
+    // DELETE USER ENROLMENT INTO THIS COURSE
 
     $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
             WHERE code_cours="' . $currentCourseId . '"';
@@ -79,9 +79,9 @@ function delete_course($code)
     claro_sql_query($sql);
 
     // DELETE course right
-    
+
     RightCourseProfileToolRight::resetAllRightProfile($currentCourseId);
-    
+
     // DELETE course module tables
     // FIXME handle errors
     list( $success, $log ) = delete_all_modules_from_course( $currentCourseId );
@@ -120,7 +120,7 @@ function delete_course($code)
             // DELETE ALL TABLES OF THE CURRENT COURSE
 
             $tblSurvivor = array();
-            while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
+            while( false !== ($courseTable = mysql_fetch_array($result,MYSQL_NUM ) ))
             {
                 $tblSurvivor[]=$courseTable[0];
                 //$tblSurvivor[$courseTable]='not deleted';

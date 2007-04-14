@@ -230,7 +230,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
             }
             else
@@ -298,7 +298,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
             }
             else
@@ -364,7 +364,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
             }
             else
@@ -439,7 +439,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
 
             }
@@ -500,7 +500,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
 
             }
@@ -583,7 +583,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
 
 
@@ -657,7 +657,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
             }
             else
@@ -730,7 +730,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br>'
+                .    '<br />'
                 ;
             }
             else
