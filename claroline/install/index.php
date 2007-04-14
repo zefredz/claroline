@@ -642,7 +642,6 @@ if (DISP_RUN_INSTALL_COMPLETE != $display )
     foreach ($panelSequence as $stepCount => $thisStep  )
     {
         $stepStyle = ($thisStep == $display) ? 'active' : $cssStepStatus[$stepStatus[$thisStep]];
-        //$stepIcon = '<img src="../img/' . ($thisStep == $display) ? 'edit.gif' : $imgStatus[$stepStatus[$thisStep]] . '" border="0" />';
         $stepIcon = (($stepStatus[$thisStep] == 'V') ? '<img src="../img/' . $imgStatus['V'] . '" border="0" />':'');
         echo '<div class="progress ' . $stepStyle . '"  >'
         .    $stepIcon
