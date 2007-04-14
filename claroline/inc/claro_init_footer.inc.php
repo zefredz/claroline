@@ -93,4 +93,12 @@ if (get_conf('CLARO_DEBUG_MODE',false))
     echo  claro_disp_debug_banner() .  "\n" ;
 }
 
+echo '<p><small><small><small><small>'
+.    '<a href="http://validator.w3.org/check?uri=referer">XHTML</a>'
+.    '</small></small></small></small>'
+.    '</body>'
+.    '</html>'
+;
+
+
 ?>
