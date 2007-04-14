@@ -235,6 +235,21 @@ function claro_html_button($url, $text, $confirmMessage = '')
 
 
 /**
+ * Displays a title inc claroline wich can be relooked by css
+ *
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @param  string $title
+ * @param  string $level 1->7
+ *
+ * @return void
+ */
+
+function claro_html_title($title, $level)
+{
+    return '<h'.$level.' class="claroTitle claroTitle' . $level . '" >' . $title . '</h'.$level.' >';
+}
+
+/**
 * Displays the title of a tool. Optionally, there can be a subtitle below
 * the normal title, and / or a supra title above the normal title.
 *
@@ -380,7 +395,7 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
     .'</strong>';
 
     return  '<div class="breadcrumbTrail">'
-    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
+    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt="" /> ' )
     . implode($separator, $breadCrumbList)
     . '</div>';
 }
@@ -1154,7 +1169,7 @@ function renderTex($text)
         $text);
 
         $text = str_replace('[/tex]',
-        '" border="0" align="absmiddle">',
+        '" border="0" align="absmiddle" />',
         $text);
     }
     else
@@ -1500,14 +1515,17 @@ function claro_html_breadcrumb()
         {
             $htmlBC .= '<div id="toolViewOption">'
             .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt=""> '
-            .    '<b>'.get_lang('Enrolment').'</b>'
+            .     '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> '
+            .    '<b>' . get_lang('Enrolment') . '</b>'
             .    '</a>'
-            .    '</div>' . "\n";
+            .    '</div>' . "\n"
+            ;
         }
         elseif ( claro_is_display_mode_available() )
         {
-            $htmlBC .= "\n".'<div id="toolViewOption">'                    ."\n";
+            $htmlBC .= "\n"
+            .          '<div id="toolViewOption">' . "\n"
+            ;
 
             if ( isset($_REQUEST['View mode']) )
             {
@@ -1521,18 +1539,18 @@ function claro_html_breadcrumb()
             if ( claro_is_platform_admin() && ! claro_is_course_member() )
             {
                 $htmlBC .= ' | <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">';
-                $htmlBC .= '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt=""> ';
-                $htmlBC .= '<b>'.get_lang('Enrolment').'</b>';
+                $htmlBC .= '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> ';
+                $htmlBC .= '<b>' . get_lang('Enrolment') . '</b>';
                 $htmlBC .= '</a>';
             }
 
-            $htmlBC .= "\n".'</div>'                                       ."\n";
+            $htmlBC .= "\n".'</div>' ."\n";
         }
 
 
-        $htmlBC .= '<div class="spacer"></div>'                       ."\n"
-        .    '<hr />'                                           ."\n"
-        .    '</div>' . "\n"
+        $htmlBC .= '<div class="spacer"></div>' ."\n"
+        .          '<hr />' ."\n"
+        .          '</div>' . "\n"
         ;
 
     } // end if claro_is_in_a_course() isset($nameTools) && is_array($interbredcrump)
@@ -1573,7 +1591,7 @@ function claro_html_banner_course()
 
         $courseName = '<div id="course">' . "\n"
         .             '<h2 id="courseName">'
-        .             '<a href="'. get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) . '" target="_top">' . claro_get_current_course_data('name') .'</a>'
+        .             '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) . '" target="_top">' . claro_get_current_course_data('name') . '</a>'
         .             '</h2>' . "\n"
         ;
         $courseBannerLeftDock->addOutput($courseName);
@@ -1758,7 +1776,7 @@ function claro_html_platform_banner()
 
     $campusBannerLeftDock = new Dock('campusBannerLeft');
     $bannerSiteName =  get_conf('siteLogo') != ''
-    ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" >'
+    ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'"  />'
     : get_conf('siteName');
 
     $siteNameOutput   = '<span id="siteName">'
@@ -1777,7 +1795,7 @@ function claro_html_platform_banner()
     $institutionNameOutput = '';
 
     $bannerInstitutionName = (get_conf('institutionLogo') != '')
-    ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'" >'
+    ? '<img src="' . get_conf('institutionLogo') . '" alt="' . get_conf('institution_name') . '" />'
     : get_conf('institution_name')
     ;
 
@@ -1859,7 +1877,8 @@ function claro_send_http_headers()
 
 function claro_html_doctype()
 {
-    return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+    return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+//    return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 }
 
 /**
