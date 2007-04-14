@@ -210,12 +210,17 @@ class RightProfileToolRightHtml
             {
                 // Add visibility and icon from courseToolInfo
                 $html .= '<td ' . ($this->courseToolInfo[$tool_id]['visibility'] == true ?'':'class="invisible"') . '>'
-                   . '<img src="' . $this->courseToolInfo[$tool_id]['icon'] . '" alt="" />' . claro_get_tool_name($tool_id)
-                   . '</td>';
+                      . '<img src="' . $this->courseToolInfo[$tool_id]['icon'] . '" alt="" />'
+                      . claro_get_tool_name($tool_id)
+                      . '</td>'
+                      ;
             }
             else
             {
-                $html .= '<td>' . get_lang(claro_get_tool_name($tool_id)) . '</td>' . "\n" ;
+                $html .= '<td>'
+                      . get_lang(claro_get_tool_name($tool_id))
+                      . '</td>' . "\n"
+                      ;
             }
 
             // visibility column
@@ -227,7 +232,8 @@ class RightProfileToolRightHtml
                     $html .= '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] . '" >'
                     . '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible') . '" />'
-                    . '</a></td>' . "\n";
+                    . '</a>'
+                    . '</td>' . "\n";
                 }
                 else
                 {

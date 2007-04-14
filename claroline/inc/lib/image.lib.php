@@ -190,11 +190,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $img_url = 'goto/?url=' . rawurlencode($fileUrl);
         }
 
-        return "<img src=\"" . $img_url
-            . "\" width=\"" . $thumbWidth
-            . "\" height=\"" . $newHeight
-            . "\" " . $title . " alt=\""
-            . $file . "\" />\n"
+        return '<img src="' . $img_url . '"
+                     width="' . $thumbWidth . '"
+                     height="' . $newHeight . '"
+                     ' . $title . '
+                     alt="' . $file . '" />' . "\n"
             ;
 
     }
@@ -230,12 +230,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         /*$index = array_search($fileIndex, $imageList);
         return $index;*/
-        
+
         for ( $i = 0; $i < count( $imageList ); $i++ )
         {
             if ( $imageList[$i] == $fileIndex ) return $i;
         }
-        
+
         return 0;
     }
 
@@ -318,11 +318,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         // get previous image
         $prevStyle = 'prev';
-        
+
         if (has_previous_image($imageList, $current))
         {
             $prev = get_previous_image_index($imageList, $current);
-            
+
             $prevName = $fileList[$prev]['path'];
 
             if ($fileList[$prev]['visibility'] == 'i')
