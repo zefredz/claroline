@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -426,7 +426,7 @@ class ClaroCourse
         $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context()
             . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
-            . '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+    		. '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
 
             . $this->getHtmlParamList('POST')
 
@@ -439,7 +439,8 @@ class ClaroCourse
             . '<label for="course_title">'
             . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'') . get_lang('Course title')
             .'</label>&nbsp;:</td>'
-            . '<td><input type="text" name="course_title" id="course_title" value="' . htmlspecialchars($this->title) . '" size="60">'
+            . '<td>'
+            . '<input type="text" name="course_title" id="course_title" value="' . htmlspecialchars($this->title) . '" size="60" />'
             . (empty($this->courseId) ? '<br /><small>'.get_lang('e.g. <em>History of Literature</em>').'</small>':'')
             . '</td></tr>' . "\n" ;
 
@@ -450,7 +451,7 @@ class ClaroCourse
             . '<label for="course_officialCode">'
             . (get_conf('human_code_needed') ? '<span class="required">*</span> ' :'') . get_lang('Course code')
             . '</label>&nbsp;:</td>'
-            . '<td><input type="text" id="course_officialCode" name="course_officialCode" value="' . htmlspecialchars($this->officialCode) . '" size="20">'
+            . '<td><input type="text" id="course_officialCode" name="course_officialCode" value="' . htmlspecialchars($this->officialCode) . '" size="20" />'
             . (empty($this->courseId) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
             . '</td></tr>' . "\n" ;
 
@@ -459,7 +460,7 @@ class ClaroCourse
         $html .= '<tr>' . "\n"
             . '<td align="right">'
             . '<label for="course_titular">' . get_lang('Lecturer(s)') . '</label>&nbsp;:</td>'
-            . '<td><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($this->titular) . '" size="60"></td>'
+            . '<td><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($this->titular) . '" size="60" /></td>'
             . '</tr>' . "\n" ;
 
         // Course email
@@ -468,28 +469,39 @@ class ClaroCourse
             . '<td align="right">'
             . '<label for="course_email">'
             . (get_conf('course_email_needed')?'<span class="required">*</span> ':'') . get_lang('Email')
-            . '</label>&nbsp;:</td>'
-            . '<td><input type="text" id="course_email" name="course_email" value="' . htmlspecialchars($this->email) . '" size="60" maxlength="255"></td>'
+            . '</label>'
+            . '&nbsp;:'
+            . '</td>'
+            . '<td>'
+            . '<input type="text" id="course_email" name="course_email" value="' . htmlspecialchars($this->email) . '" size="60" maxlength="255" />'
+            . '</td>'
             . '</tr>' . "\n";
 
         // Course category select box
 
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">'
-            . '<label for="course_category"><span class="required">*</span> ' . get_lang('Category') . '</label> :</td>'
+            . '<label for="course_category">'
+            . '<span class="required">*</span> ' . get_lang('Category') . '</label>'
+            . ' :'
+            . '</td>'
             . '<td>'
             . claro_html_form_select( 'course_category', $categoryList, $this->category, array('id'=>'course_category') )
-            . (empty($this->courseId) ? '<br /><small>'.get_lang('This is the faculty, department or school where the course is delivered').'</small>':'')
+            . (empty($this->courseId) ? '<br />'
+            . '<small>'.get_lang('This is the faculty, department or school where the course is delivered').'</small>':'')
             . '</td>'
             . '</tr>' . "\n" ;
 
         // Course department name
 
         $html .= '<tr valign="top">' . "\n"
-            . '<td align="right"><label for="course_departmentName">'
+            . '<td align="right">'
+            . '<label for="course_departmentName">'
             . (get_conf('extLinkNameNeeded')?'<span class="required">*</span> ':'')
             . get_lang('Department') . '</label>&nbsp;: </td>'
-            . '<td><input type="text" name="course_departmentName" id="course_departmentName" value="' . htmlspecialchars($this->departmentName) . '" size="20" maxlength="30"></td>'
+            . '<td>'
+            . '<input type="text" name="course_departmentName" id="course_departmentName" value="' . htmlspecialchars($this->departmentName) . '" size="20" maxlength="30" />'
+            . '</td>'
             . '</tr>' . "\n" ;
 
         // Course department url
@@ -497,15 +509,22 @@ class ClaroCourse
         $html .= '<tr valign="top" >' . "\n"
             . '<td align="right" nowrap="nowrap">'
             . (get_conf('extLinkUrlNeeded')?'<span class="required">*</span> ':'')
-            . '<label for="course_departmentUrl" >' . get_lang('Department URL') . '</label>&nbsp;:</td>'
-            . '<td><input type="text" name="course_departmentUrl" id="course_departmentUrl" value="' . htmlspecialchars($this->departmentUrl) . '" size="60" maxlength="180"></td>'
+            . '<label for="course_departmentUrl" >' . get_lang('Department URL') . '</label>'
+            . '&nbsp;:'
+            . '</td>'
+            . '<td>'
+            . '<input type="text" name="course_departmentUrl" id="course_departmentUrl" value="' . htmlspecialchars($this->departmentUrl) . '" size="60" maxlength="180" />'
+            . '</td>'
             . '</tr>' . "\n" ;
 
         // Course language select box
 
         $html .= '<tr valign="top" >' . "\n"
             . '<td align="right">'
-            . '<label for="course_language"><span class="required">*</span> ' . get_lang('Language') . '</label>&nbsp;:</td>'
+            . '<label for="course_language">'
+            . '<span class="required">*</span> ' . get_lang('Language') . '</label>'
+            . '&nbsp;:'
+            . '</td>'
             . '<td>'
             . claro_html_form_select('course_language', $languageList, $this->language, array('id'=>'course_language'))
             . '</td>'
@@ -514,14 +533,16 @@ class ClaroCourse
         // Course access
 
         $html .= '<tr valign="top" >' . "\n"
-            . '<td align="right" nowrap>' . get_lang('Course access') . '&nbsp;:</td>'
+            . '<td align="right" nowrap="nowrap">' . get_lang('Course access') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . get_path('imgRepositoryWeb') . '/access_open.gif" />'
-            . '<input type="radio" id="access_true" name="course_access" value="1" ' . ($this->access ? 'checked="checked"':'') . '>&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'access_open.gif" alt="' . get_lang('open') . '" />'
+            . '<input type="radio" id="access_true" name="course_access" value="1" ' . ($this->access ? 'checked="checked"':'') . ' />'
+            . '&nbsp;'
             . '<label for="access_true">' . get_lang('Public access from campus home page even without login') . '</label>'
             . '<br />' . "\n"
-            . '<img src="' . get_path('imgRepositoryWeb') . 'access_locked.gif" />'
-            . '<input type="radio" id="access_false" name="course_access" value="0" ' . ( ! $this->access ? 'checked="checked"':'' ) . '>&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'access_locked.gif"  alt="' . get_lang('locked') . '" />'
+            . '<input type="radio" id="access_false" name="course_access" value="0" ' . ( ! $this->access ? 'checked="checked"':'' ) . ' />'
+            . '&nbsp;'
             . '<label for="access_false">';
 
         if( empty($this->courseId) )
@@ -537,16 +558,18 @@ class ClaroCourse
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . get_path('imgRepositoryWeb') . '/enroll_open.gif" />'
-            . '<input type="radio" id="enrolment_true" name="course_enrolment" value="1" ' . ($this->enrolment?'checked="checked"':'') . '>&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_open.gif"  alt="' . get_lang('open') . '" />'
+            . '<input type="radio" id="enrolment_true" name="course_enrolment" value="1" ' . ($this->enrolment?'checked="checked"':'') . ' />'
+            . '&nbsp;'
             . '<label for="enrolment_true">' . get_lang('Allowed') . '</label>'
             . '<label for="enrolmentKey">'
             . ' - ' . get_lang('Enrolment key') . ' <small>(' . get_lang('Optional') . ')</small> : '
             . '</label>'
             . '<input type="text" id="enrolmentKey" name="course_enrolmentKey" value="' . htmlspecialchars($this->enrolmentKey) . '" />'
             . '<br />' . "\n"
-            . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_locked.gif" />'
-            . '<input type="radio" id="enrolment_false"  name="course_enrolment" value="0"' . ( ! $this->enrolment ?'checked="checked"':'') . '>&nbsp;'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_locked.gif"  alt="' . get_lang('locked') . '" />'
+            . '<input type="radio" id="enrolment_false"  name="course_enrolment" value="0" ' . ( ! $this->enrolment ?'checked="checked"':'') . ' />'
+            . '&nbsp;'
             . '<label for="enrolment_false">' . get_lang('Denied') . '</label>'
             . '</td>'
             . '</tr>' . "\n" ;
@@ -568,7 +591,8 @@ class ClaroCourse
         $html .= '<tr>' . "\n"
             . '<td>&nbsp;</td>'
             . '<td>'
-            . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />&nbsp;'
+            . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />'
+            . '&nbsp;'
             . claro_html_button($cancelUrl, get_lang('Cancel'))
             . '</td>' . "\n"
             . '</tr>' . "\n" ;
@@ -620,6 +644,8 @@ class ClaroCourse
      *
      * @param $name string input name
      * @param $value string input value
+     *
+     *
      */
 
     function addHtmlParam($name, $value)
@@ -644,7 +670,7 @@ class ClaroCourse
         {
             foreach ( $this->htmlParamList as $name => $value )
             {
-                $html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />' . "\n" ;
+	    		$html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />' . "\n" ;
             }
         }
         else // GET
@@ -667,6 +693,8 @@ class ClaroCourse
      * @param $access string
      * @param $enrolment string
      * @return integer value of visibility field
+     *
+     * @deprecated 1.9
      */
 
     function getVisibility ( $access, $enrolment )
