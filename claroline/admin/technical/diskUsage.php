@@ -97,28 +97,18 @@ if ($disp_allcrs)
     .    get_lang('Courses : %disk_usage (perhaps with others directory)',
          array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
 }
-
-if ($disp_garbage )
-    $diskUsage = sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2];
-    echo '<li>'
-    .    get_lang('Garbage : %disk_usage', array('%disk_usage'=>$diskUsage) )
-    .    '</li>'
-    ;
 ?>
 <li>
 <hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
+<input type="checkbox" id="disp_claro" name="disp_claro" value="true"  />
 <label for="disp_claro"><?php echo ' ' . get_lang('size of claroline scripts') ?></label>
 <br />
-<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
+<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true"  />
 <label for="disp_allcrs"><?php echo get_lang('!!!! size of course repository (include claroline and garbage in old systems)') ?></label>
 <br />
-<input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
-<label for="disp_garbage">size of garbage</label>
-<br />
 
-<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true" >
+<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true"  />
 <label for="disp_selCrs"><?php echo get_lang('size of selected courses') ?></label><br />
 
 <?php
@@ -128,7 +118,7 @@ echo claro_html_form_select( 'coursesToCheck[]'
                            , array( 'multiple'=>'multiple'
                                   , 'size'=>'' ))
                            ; ?>
-<input type="submit">
+<input type="submit" />
 </form>
 <hr />
 </li>
@@ -154,10 +144,7 @@ if ($disp_selCrs && $coursesToCheck)
         while (($course = mysql_fetch_array($resCourses,MYSQL_ASSOC)))
         {
             $duFiles = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/','','k');
-            $duBase  = disk_usage(get_path('mysqlRepositorySys') . $course['db'] . '/','','k');
-
-
-//            $duBase  = get_db_size($course["db"],k);
+            $duBase  = get_db_size($course["db"],'k');
 
             $duTotal = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/', get_path('coursesRepositorySys') . $course['db'] . '/' , 'm');
             echo '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
