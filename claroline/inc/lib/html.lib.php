@@ -936,7 +936,7 @@ class claro_datagrid
                         {
                             if ($this->colHead == $colId)
                             {
-                                $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
+                                $stream .= '<td scope="row" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
                                 $stream .= $dataCell;
                                 $stream .= '</td>' . "\n";
                             }
