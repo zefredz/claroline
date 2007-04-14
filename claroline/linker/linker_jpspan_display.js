@@ -304,7 +304,7 @@
                 clear('nav');
                 clear('courseBar');
 
-                print('courseBar','<b>'+lang_my_other_courses+'</b><hr>');
+                print('courseBar','<b>'+lang_my_other_courses+'</b><hr />');
                 for( var i=0; i<result.length; i++ )
                 {
                     var name = result[i]['name'];
@@ -324,7 +324,7 @@
                 clear('nav');
                 clear('courseBar');
 
-                print('courseBar','<b>'+lang_public_courses+'</b><hr>');
+                print('courseBar','<b>'+lang_public_courses+'</b><hr />');
                 for( var i=0; i<result.length; i++ )
                 {
                     var name = result[i]['name'];
@@ -363,7 +363,7 @@
                }
 
                print('toolBar','<br /><b>'+course_title+'</b>')
-               print('courseBar','<hr>');
+               print('courseBar','<hr />');
 
                if( parent_crl )
                {

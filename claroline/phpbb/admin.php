@@ -250,9 +250,9 @@ if ( $cmd == 'rqEdForum' )
                                  $_REQUEST['forumDesc'] : $forumSettingList['forum_desc'];
 
     $formForumPostUnallowedState = $_REQUEST['cmd'] == 'exEdForum' ?
-                                    ( isset($_REQUEST['forumPostUnallowed']) ? ' checked ' : '' )
+                                    ( isset($_REQUEST['forumPostUnallowed']) ? ' checked="checked" ' : '' )
                                    :
-                                    ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
+                                    ( $forumSettingList['forum_access'] == 0 ? '  checked="checked" ' : '' );
 
     $dialogBox .= '<strong>'.get_lang('Add forum').'</strong>'."\n"
                .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"

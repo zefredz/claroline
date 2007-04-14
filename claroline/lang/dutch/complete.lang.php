@@ -1137,7 +1137,7 @@ $_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cur
 <ul>
 <p>Als u een commentaar wenst uit te verwijderen, klik op <img
  src=../document/../document/img/comment.gif width=20 height=20>.</li>
-  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op \'OK\'; <input type=submit value=OK name=submit22>.</hr>
+  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op \'OK\'; <input type=submit value=OK name=submit22>.</hr />
 <p>U kunt ook de inhoud organiseren door de documenten in maps te zetten:</p>
 <h4><b>Maak een map aan:</b></h4>
 <ul>

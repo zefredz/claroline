@@ -476,7 +476,7 @@ switch ( $displayMode )
 
         if ( count($courseList) > 0  && count($categoryList) > 0 )
         {
-            echo '<hr size="1" noshade="noshade">' . "\n";
+            echo '<hr size="1" noshade="noshade" />' . "\n";
         }
 
         // Course List

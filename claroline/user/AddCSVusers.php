@@ -417,7 +417,7 @@ switch ( $display )
             .    '<label for="firstLineFormat_YES">' . "\n"
             .    get_lang('Use format defined in first line of file') . '</label>' . "\n"
             .    '<br /><br />' . "\n"
-            .    '<input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO" />' . "\n"
+            .    '<input type="radio" name="firstLineFormat" value="NO"  checked="checked" id="firstLineFormat_NO" />' . "\n"
             .    '<label for="firstLineFormat_NO">' . "\n"
             .    get_lang('Use the following format') . ' : ' . "\n"
             .    '</label>' . "\n"

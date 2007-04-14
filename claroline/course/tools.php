@@ -416,7 +416,7 @@ foreach ( $courseExtLinkList as $linkId => $link )
 echo '</tbody>'."\n"
 .    '</table>'."\n\n"
 .    '</blockquote>' . "\n"
-.    '<hr size="1" noshade="noshade" >' . "\n\n"
+.    '<hr size="1" noshade="noshade" />' . "\n\n"
 .    $backLink
 ;
 

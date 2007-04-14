@@ -1075,12 +1075,12 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( get_lang('Action') .'&nbsp;: ',
         '<input type="radio" name="isCourseCreator" id="follow"'
         .' value="0" '
-        . (!$data['isCourseCreator']? ' checked' : '') . ' />'
+        . (!$data['isCourseCreator']? ' checked="checked"' : '') . ' />'
         . '<label for="follow">' . get_lang('Follow courses') . '</label>'
         . '<br />'
         . '<input type="radio" name="isCourseCreator" id="create"'
         . ' value="1"   '
-        . ($data['isCourseCreator']? ' checked'  :'') . ' />'
+        . ($data['isCourseCreator']? ' checked="checked"'  :'') . ' />'
         . '<label for="create">' . get_lang('Create course') . '</label>');
     }
 

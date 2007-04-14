@@ -76,7 +76,7 @@ if ( count($courseList) > 0 )
 {
     if ( ( count($categoryList) - 1 )  > 0 )
     {
-        echo '<hr size="1" noshade="noshade">' . "\n";
+        echo '<hr size="1" noshade="noshade" />' . "\n";
     }
 
     echo '<h4>'.get_lang('Course list').'</h4>' . "\n"
