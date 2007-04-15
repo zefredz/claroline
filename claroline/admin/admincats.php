@@ -758,16 +758,16 @@ switch ($display_form)
 {
     case DISP_FORM_CREATE :
     {
-        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .    '<input type="hidden" name="cmd" value="exCreate" >' . "\n"
-        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+        .    '<input type="hidden" name="cmd" value="exCreate"  />' . "\n"
+        .	 '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td >' . "\n"
         .    '<label for="nameCat"> ' .  get_lang('Category name') . ' : </label >' . "\n"
         .    '</td>' . "\n"
         .    '<td>' . "\n"
-        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="20" maxlength="100">' . "\n"
+        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="20" maxlength="100" />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -775,7 +775,7 @@ switch ($display_form)
         .    '<label for="codeCat"> ' . get_lang('Category code') . ' : </label >' . "\n"
         .    '</td>' . "\n"
         .    '<td>' . "\n"
-        .    '<input type="texte" name="codeCat" id="codeCat" value="' . htmlspecialchars($editedCat_Code) . '" size="20" maxlength="40">' . "\n"
+        .    '<input type="texte" name="codeCat" id="codeCat" value="' . htmlspecialchars($editedCat_Code) . '" size="20" maxlength="40" />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
@@ -796,7 +796,7 @@ switch ($display_form)
         if(isset($editedCat_CanHaveCoursesChild))
             $form .= (!strcmp($editedCat_CanHaveCoursesChild,"FALSE")?"checked":"");
 
-        $form .= ' value="0">' . "\n"
+        $form .= ' value="0" />' . "\n"
         .    ' ' . "\n"
         .    '<label for="canHaveCoursesChild_0">' .  get_lang('No') . '</label>' . "\n"
         .    '</td>' . "\n"
@@ -824,7 +824,7 @@ switch ($display_form)
         .    '<td>' . "\n"
         .    '</td>' . "\n"
         .    '<td>' . "\n"
-        .    '<input type="submit" value="Ok">' . "\n"
+        .    '<input type="submit" value="Ok" />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '</table>' . "\n"
@@ -848,7 +848,7 @@ switch ($display_form)
 
         $form = '<form action="' .  $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
-        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+        .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td >' . "\n"
@@ -925,7 +925,7 @@ switch ($display_form)
 
         $form = '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
-        .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' . "\n"
+        .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
@@ -951,8 +951,8 @@ switch ($display_form)
         .    '<td>' . "\n"
         .    '</td>' . "\n"
         .    '<td>' . "\n"
-        .    '<input type="hidden" name="id" value="' .  $editedCat_Id . '">' . "\n"
-        .    '<input type="submit" value="Ok">' . "\n"
+        .    '<input type="hidden" name="id" value="' .  $editedCat_Id . '" />' . "\n"
+        .    '<input type="submit" value="Ok" />' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '</table>' . "\n"
