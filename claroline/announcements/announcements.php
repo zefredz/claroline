@@ -269,11 +269,6 @@ if($is_allowedToEdit) // check teacher status
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                     $autoExportRefresh = TRUE;
                 }
-//                else
-//                {
-//                    //error on UPDATE
-//                    //claro_failure::set_failure('CLANN:announcement can be update '.mysql_error());
-//                }
             }
 
             /* CREATE NEW ANNOUNCEMENT */
@@ -536,7 +531,7 @@ if ( $displayForm )
         echo '<tr>'
         .    '<td>&nbsp;</td>' . "\n"
         .    '<td>'
-        .    '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
+        .    '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
         .    '<label for="emailOption">'
         .    get_lang('Send this announcement by email to registered students')
         .    '</label>' . "\n"
