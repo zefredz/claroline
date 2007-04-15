@@ -218,7 +218,7 @@ if (claro_is_in_a_course())
 
                 if (isset($_courseToolData['icon']))
                 {
-                    $_toolIconUrl = get_module_url($_courseToolData['label']).'/'.$_courseToolData['icon'];
+                    $_toolIconUrl = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['icon'];
                 }
 
                 // select "groups" in group context instead of tool
@@ -236,14 +236,14 @@ if (claro_is_in_a_course())
                 .   $toolSelected
                 .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
                 .    get_lang($_courseToolDataName)
-                .    '</option>'."\n"
+                .    '</option>' . "\n"
                 ;
             }
         } // end if is_array _courseToolList
         $courseToolSelector .= "\n"
         . '</select>' . "\n"
         . '<noscript>' . "\n"
-        . '<input type="submit" name="gotool" value="go">' . "\n"
+        . '<input type="submit" name="gotool" value="go" />' . "\n"
         . '</noscript>' . "\n"
         . '</form>' . "\n\n";
 
@@ -315,7 +315,8 @@ if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && i
             {
                 // set Query string to empty if not exists
                 if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = '';
-                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'] .'?'. htmlentities($_SERVER['QUERY_STRING']);
+
             }
         }
 
