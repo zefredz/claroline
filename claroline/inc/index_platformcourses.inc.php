@@ -45,8 +45,9 @@ echo claro_html_tool_title($pageTitle);
 
 if ( ( count($categoryList) - 1 )  >= 0 )
 {
-    echo '<h4>'.get_lang('Categories').'</h4>' . "\n\n";
-    echo '<ul>'                                . "\n";
+
+    echo claro_html_title(get_lang('Categories'),4)
+    .    '<ul>'                                     . "\n";
 
     foreach($categoryList as $thisCategory)
     {
