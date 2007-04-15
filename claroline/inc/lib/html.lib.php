@@ -371,7 +371,7 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
         && ! is_null($urlList[$thisKey])       )
         {
             $startAnchorTag = '<a href="' . $urlList[$thisKey] . '" target="_top">';
-            $endAnchorTag   = '</a>';
+            $endAnchorTag   = '</a>' . "\n";
         }
         else
         {
@@ -392,12 +392,12 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
 
     $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
     .end($breadCrumbList)
-    .'</strong>';
+    .'</strong>' . "\n";
 
-    return  '<div class="breadcrumbTrail">'
-    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt="" /> ' )
-    . implode($separator, $breadCrumbList)
-    . '</div>';
+    return  '<div class="breadcrumbTrail">' . "\n"
+    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt="" /> ' . "\n" )
+    . implode($separator . "\n", $breadCrumbList)
+    . '</div>' . "\n";
 }
 
 
