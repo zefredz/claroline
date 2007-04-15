@@ -2,11 +2,13 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
- * @author Sebastien Piraux  <piraux_seb@hotmail.com>
+ * @author Sebastien Piraux <piraux_seb@hotmail.com>
+ *
+ * @package CLSTAT
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -152,28 +154,31 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
         if( $is_allowedToTrackEverybodyInCourse || ($_REQUEST['uInfo'] == claro_get_current_user_id() ) )
         {
             // check if user is in this course
-            $sql = "SELECT `u`.`nom` AS `lastname`,`u`.`prenom` AS `firstname`, `u`.`email`
-                        FROM `".$tbl_rel_course_user."` as `cu` , `".$tbl_user."` as `u`
-                        WHERE `cu`.`user_id` = `u`.`user_id`
-                            AND `cu`.`code_cours` = '". addslashes(claro_get_current_course_id()) ."'
-                            AND `u`.`user_id` = '". (int)$_REQUEST['uInfo']."'";
+            $sql = "SELECT `u`.`nom`    AS `lastname`,
+                           `u`.`prenom` AS `firstname`,
+                           `u`.`email`
+                      FROM `" . $tbl_rel_course_user . "` AS `cu`
+                         , `" . $tbl_user . "`            AS `u`
+                     WHERE `cu`.`user_id` = `u`.`user_id`
+                       AND `cu`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+                       AND `u`.`user_id` = " . (int)$_REQUEST['uInfo'];
         }
         else
         {
             // check if user is in the group of this tutor
             $sql = "SELECT `u`.`nom` AS `lastname`,`u`.`prenom` AS `firstname`, `u`.`email`
-                        FROM `".$tbl_group_rel_team_user."` as `gu` , `".$tbl_user."` as `u`
-                        WHERE `gu`.`user` = `u`.`user_id`
-                            AND `gu`.`team` = '". (int)claro_get_current_group_id()."'
-                            AND `u`.`user_id` = '". (int)$_REQUEST['uInfo']."'";
+                      FROM `" . $tbl_group_rel_team_user . "` AS `gu`
+                         , `" . $tbl_user . "`                AS `u`
+                     WHERE `gu`.`user` = `u`.`user_id`
+                       AND `gu`.`team` = " . (int) claro_get_current_group_id() . "
+                       AND `u`.`user_id` = " . (int) $_REQUEST['uInfo'];
         }
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
         {
             $trackedUser = $results[0];
 
-            echo '<p>' . "\n"
-            .    '<ul>' . "\n"
+            echo '<ul>' . "\n"
             .    '<li>' . get_lang('Last name').' : '.$trackedUser['lastname'].'</li>' . "\n"
             .    '<li>' . get_lang('First name').' : '.$trackedUser['firstname'].'</li>' . "\n"
             .    '<li>' . get_lang('Email').' : ';
@@ -182,7 +187,6 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
 
             echo '</li>' . "\n"
             .    '</ul>' . "\n"
-            .    '</p>' . "\n"
             ;
 
             // in $view, a 1 in X posof the $view string means that the 'category' number X
@@ -209,12 +213,13 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>' . get_lang('Access to course and tools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
+                echo '-&nbsp;&nbsp;<b>' . get_lang('Access to course and tools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'] . '&amp;view=' . $tempView.'">' . get_lang('Close').'</a>]</small>'
                 .    '<br />' . "\n"
                 .    '&nbsp;&nbsp;&nbsp;' . get_lang('Click on the month name for more details').'<br />' . "\n"
                 ;
 
-                $sql = "SELECT UNIX_TIMESTAMP(`login_date`) AS `unix_date`, count(`login_date`) AS `nbr_login`
+                $sql = "SELECT UNIX_TIMESTAMP(`login_date`) AS `unix_date`,
+                               count(`login_date`)          AS `nbr_login`
                             FROM `" . $tbl_track_e_login . "`
                             WHERE `login_user_id` = " . (int) $_REQUEST['uInfo'] . "
                             GROUP BY MONTH(`login_date`), YEAR(`login_date`)
@@ -237,8 +242,12 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     foreach( $results as $result )
                     {
                         echo '<tr>' . "\n"
-                        .    '<td><a href="logins_details.php?uInfo='.$_REQUEST['uInfo'].'&reqdate='.$result['unix_date'].'">' . $langLongMonthNames[date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a></td>' . "\n"
-                        .    '<td valign="top" align="right">'.$result['nbr_login'].'</td>' . "\n"
+                        .    '<td>' . "\n"
+                        .    '<a href="logins_details.php?uInfo='.$_REQUEST['uInfo'] . '&amp;reqdate='.$result['unix_date'].'">' . $langLongMonthNames[date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a>' . "\n"
+                        .    '</td>' . "\n"
+                        .    '<td valign="top" align="right">'
+                        .    $result['nbr_login']
+                        .    '</td>' . "\n"
                         .    '</tr>' . "\n"
                         ;
                         $total = $total + $result['nbr_login'];
@@ -246,8 +255,12 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     echo '</tbody>' . "\n"
                     .    '<tfoot>' . "\n"
                     .    '<tr>' . "\n"
-                    .    '<td>' . get_lang('Total').'</td>' . "\n"
-                    .    '<td align="right">'.$total.'</td>' . "\n"
+                    .    '<td>'
+                    .    get_lang('Total')
+                    .    '</td>' . "\n"
+                    .    '<td align="right">'
+                    .    $total
+                    .    '</td>' . "\n"
                     .    '</tr>' . "\n"
                     .    '</tfoot>' . "\n"
                     ;
@@ -256,7 +269,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 {
                     echo '<tfoot>' . "\n"
                     .    '<tr>' . "\n"
-                    .    '<td colspan="2"><center>' . get_lang('No result').'</center></td>' . "\n"
+                    .    '<td colspan="2">' . "\n"
+                    .    '<center>'
+                    .    get_lang('No result')
+                    .    '</center>' . "\n"
+                    .    '</td>' . "\n"
                     .    '</tr>' . "\n"
                     .    '</tfoot>' . "\n"
                     ;
@@ -268,7 +285,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Access to course and tools').'</a>' . "\n"
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=' . $tempView . '">' . get_lang('Access to course and tools').'</a>' . "\n"
                 ;
             }
             echo '<br />' . "\n"
@@ -286,20 +303,22 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>' . get_lang('Results of the exercises done').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Close').'</a>]</small>' . "\n"
+                echo '-&nbsp;&nbsp;<b>' . get_lang('Results of the exercises done').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'] . '&amp;view='.$tempView.'">' . get_lang('Close').'</a>]</small>' . "\n"
                 .    '<br />&nbsp;&nbsp;&nbsp;' . get_lang('Scores of exercises done').'<br />' . "\n"
                 ;
 
-                $sql = "SELECT `E`.`title`, `E`.`id`,
-                        MIN(`TEX`.`exe_result`) AS `minimum`,
-                        MAX(`TEX`.`exe_result`) AS `maximum`,
-                        AVG(`TEX`.`exe_result`) AS `average`,
-                        MAX(`TEX`.`exe_weighting`) AS `weighting`,
-                        COUNT(`TEX`.`exe_user_id`) AS `attempts`,
-                        MAX(`TEX`.`exe_date`) AS `lastAttempt`,
-                        AVG(`TEX`.`exe_time`) AS `avgTime`
-                    FROM `".$tbl_qwz_exercise."` AS `E` , `$tbl_track_e_exercises` AS `TEX`
-                    WHERE `TEX`.`exe_user_id` = '". (int)$_GET['uInfo']."'
+                $sql = "SELECT `E`.`title`,
+                               `E`.`id`,
+                               MIN(`TEX`.`exe_result`)    AS `minimum`,
+                               MAX(`TEX`.`exe_result`)    AS `maximum`,
+                               AVG(`TEX`.`exe_result`)    AS `average`,
+                               MAX(`TEX`.`exe_weighting`) AS `weighting`,
+                               COUNT(`TEX`.`exe_user_id`) AS `attempts`,
+                               MAX(`TEX`.`exe_date`)      AS `lastAttempt`,
+                               AVG(`TEX`.`exe_time`)      AS `avgTime`
+                          FROM `" . $tbl_qwz_exercise . "` AS `E`
+                             , `" . $tbl_track_e_exercises . "` AS `TEX`
+                    WHERE `TEX`.`exe_user_id` = " . (int) $_GET['uInfo'] . "
                         AND `TEX`.`exe_exo_id` = `E`.`id`
                     GROUP BY `TEX`.`exe_exo_id`
                     ORDER BY `E`.`title` ASC";
@@ -323,7 +342,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     foreach( $results as $exo_details )
                     {
                         echo '<tr>' . "\n"
-                        .    '<td><a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_GET['uInfo'].'&view='.$view.'&exoDet='.$exo_details['id'].'">'.$exo_details['title'].'</td>' . "\n"
+                        .    '<td><a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_GET['uInfo'].'&amp;view='.$view.'&exoDet='.$exo_details['id'].'">'.$exo_details['title'].'</td>' . "\n"
                         .    '<td>'.$exo_details['minimum'].'</td>' . "\n"
                         .    '<td>'.$exo_details['maximum'].'</td>' . "\n"
                         .    '<td>'.(round($exo_details['average']*10)/10).'</td>' . "\n"
@@ -337,7 +356,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                         if ( isset($_GET['exoDet']) && $_GET['exoDet'] == $exo_details['id'])
                         {
                             $sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
-                                    FROM `".$tbl_track_e_exercises."`
+                                    FROM `" . $tbl_track_e_exercises . "`
                                     WHERE `exe_exo_id` = ". (int)$exo_details['id']."
                                     AND `exe_user_id` = ". (int)$_GET['uInfo']."
                                     ORDER BY `exe_date` ASC";
@@ -393,7 +412,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Results of the exercises done').'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view=' . $tempView . '">' . get_lang('Results of the exercises done').'</a>';
             }
             echo '<br />' . "\n"
             .    '</p>' . "\n\n"
@@ -410,7 +429,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>' . get_lang('Learning path').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
+                echo '-&nbsp;&nbsp;<b>' . get_lang('Learning path').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
                 .    '<br />' . "\n"
                 .    '&nbsp;&nbsp;&nbsp;' . get_lang('Progress in learning paths').'<br />' . "\n"
                 ;
@@ -418,7 +437,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 // get list of learning paths of this course
                 // list available learning paths
                 $sql = "SELECT LP.`name`, LP.`learnPath_id`
-                         FROM `".$TABLELEARNPATH."` AS LP
+                         FROM `" . $TABLELEARNPATH . "` AS LP
                          ORDER BY LP.`rank`";
 
                 $lpList = claro_sql_query_fetch_all($sql);
@@ -467,7 +486,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             else
             {
                 $tempView[$viewLevel] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Learning path').'</a>';
+                echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">' . get_lang('Learning path').'</a>';
             }
             echo '<br />' . "\n"
             .    '</p>' . "\n\n"
@@ -484,24 +503,27 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>' . get_lang('Work uploads').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
+                echo '-&nbsp;&nbsp;<b>' . get_lang('Work uploads').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
                 .    '<br />' . "\n"
                 .    '&nbsp;&nbsp;&nbsp;' . get_lang('Work uploaded by the student in the name of \'Authors\'').'<br />' . "\n"
                 ;
 
-                $sql = "SELECT `A`.`title` as `a_title`, `A`.`assignment_type`,
-                                `S`.`id`, `S`.`title` as `s_title`,
-                                `S`.`group_id`, `S`.`last_edit_date`, `S`.`authors`,
-                                `S`.`score`, `S`.`parent_id`, `G`.`name` as `g_name`
-                            FROM `".$tbl_wrk_assignment."` as `A` ,
-                                `".$tbl_wrk_submission."` as `S`
-                            LEFT JOIN `".$tbl_group_team."` as `G`
-                                ON `G`.`id` = `S`.`group_id`
-                            WHERE `A`.`id` = `S`.`assignment_id`
-                                AND ( `S`.`user_id` = ". (int)$_REQUEST['uInfo']."
-                                        OR ( `S`.`parent_id` IS NOT NULL AND `S`.`parent_id` ) )
+                $sql = "SELECT `A`.`title` AS `a_title`,
+                               `A`.`assignment_type`,
+                               `S`.`id`, `S`.`title` AS `s_title`,
+                               `S`.`group_id`, `S`.`last_edit_date`, `S`.`authors`,
+                               `S`.`score`,
+                               `S`.`parent_id`,
+                               `G`.`name` AS `g_name`
+                          FROM `" . $tbl_wrk_assignment . "` AS `A` ,
+                               `" . $tbl_wrk_submission . "` AS `S`
+                          LEFT JOIN `" . $tbl_group_team . "` AS `G`
+                                 ON `G`.`id` = `S`.`group_id`
+                         WHERE `A`.`id` = `S`.`assignment_id`
+                           AND ( `S`.`user_id` = ". (int)$_REQUEST['uInfo']."
+                                  OR ( `S`.`parent_id` IS NOT NULL AND `S`.`parent_id` ) )
                                 AND `A`.`visibility` = 'VISIBLE'
-                            ORDER BY `A`.`title` ASC, `S`.`last_edit_date` ASC";
+                         ORDER BY `A`.`title` ASC, `S`.`last_edit_date` ASC";
 
                 $results = claro_sql_query_fetch_all($sql);
 
@@ -630,7 +652,7 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 ;
 
                 $sql = "SELECT `down_doc_path`
-                            FROM `".$tbl_track_e_downloads."`
+                            FROM `" . $tbl_track_e_downloads . "`
                             WHERE `down_user_id` = '". (int)$_REQUEST['uInfo']."'
                             GROUP BY `down_doc_path`";
                 $results = claro_sql_query_fetch_all($sql);
@@ -686,19 +708,19 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
             {
                 $tempView[$viewLevel] = '0';
 
-                echo '-&nbsp;&nbsp;<b>' . get_lang('Forum usage').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
+                echo '-&nbsp;&nbsp;<b>' . get_lang('Forum usage').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?uInfo='.$_REQUEST['uInfo'].'&amp;view='.$tempView.'">' . get_lang('Close').'</a>]</small>'
                 .    '<br />' . "\n"
                 ;
                 // total number of messages posted by user
                 $sql = "SELECT count(`post_id`)
-                            FROM `".$tbl_bb_posts."`
+                            FROM `" . $tbl_bb_posts . "`
                             WHERE `poster_id` = '". (int)$_REQUEST['uInfo']."'
                             ";
                 $totalPosts = claro_sql_query_get_single_value($sql);
 
                 // total number of threads started by user
                 $sql = "SELECT count(`topic_title`)
-                            FROM `".$tbl_bb_topics."`
+                            FROM `" . $tbl_bb_topics . "`
                             WHERE `topic_poster` = '". (int)$_REQUEST['uInfo']."'
                             ";
                 $totalTopics = claro_sql_query_get_single_value($sql);
@@ -711,10 +733,11 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 // last 10 distinct messages posted
                 $sql = "SELECT `bb_t`.`topic_id`,
                                 `bb_t`.`topic_title`,
-                                max(`bb_t`.`topic_time`) as `last_message`
-                            FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
+                                max(`bb_t`.`topic_time`) AS `last_message`
+                            FROM `" . $tbl_bb_posts . "`  AS `bb_p`
+                               , `" . $tbl_bb_topics . "` AS `bb_t`
                             WHERE `bb_p`.`poster_id` = '". (int)$_REQUEST['uInfo']."'
-                            AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
+                              AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
                             GROUP BY `bb_t`.`topic_title`
                             ORDER BY `bb_p`.`post_time` DESC
                             LIMIT 10";
