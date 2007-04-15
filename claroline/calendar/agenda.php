@@ -417,7 +417,7 @@ if ($display_form)
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_html_textarea_editor('content', $editedEvent['content'], 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
+    .    claro_html_textarea_editor('content', $editedEvent['content'], 12, 67 ) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr valign="top">' . "\n"

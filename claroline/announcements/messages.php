@@ -414,7 +414,7 @@ if ( $displayForm == TRUE )
     .    '<b>' . get_lang('Announcement') . '</b>' . "\n"
     .    '<br />' . "\n"
     .    '<center>'
-    .    '<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
+    .    '<textarea rows="7" cols="60" name="emailContent"></textarea>'
     .    '</center>'
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"

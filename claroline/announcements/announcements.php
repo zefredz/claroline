@@ -525,7 +525,7 @@ if ( $displayForm )
     .    '</label>'
     .    '</td>' . "\n"
     .    '<td>'
-    .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67, $optAttrib=' wrap="virtual"')
+    .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67)
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     ;

@@ -252,7 +252,7 @@ if ( $is_allowedToEdit )
 
         .    '<tr>' . "\n"
         .    '<td>'."\n"
-        .    claro_html_textarea_editor('descContent', $description->getContent(), 20, 80, $optAttrib=' wrap="virtual"')."\n"
+        .    claro_html_textarea_editor('descContent', $description->getContent(), 20, 80 )."\n"
 
         .    '<p>' . "\n"
         .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"

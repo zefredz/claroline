@@ -336,7 +336,7 @@ if ($displayMode == "viewDefEdit")
     .    '<label for="comment" >' . get_lang('Comment') . '</label> :' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<textarea name="comment" id="comment" cols="60" rows="3" wrap="virtual">' . $catToEdit['comment'] . '</textarea>' . "\n"
+    .    '<textarea name="comment" id="comment" cols="60" rows="3" >' . $catToEdit['comment'] . '</textarea>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -454,7 +454,7 @@ elseif ($displayMode == 'viewContentEdit' )
     }
     else
     {
-        echo '<textarea  cols="80" rows="' . $catToEdit['nbline'] . '" name="content" id="content" wrap="VIRTUAL">' . $catToEdit['content'] . '</textarea>'
+        echo '<textarea  cols="80" rows="' . $catToEdit['nbline'] . '" name="content" id="content" >' . $catToEdit['content'] . '</textarea>'
         ;
     }
     echo '<input type="submit" name="submitContent" value="' . get_lang('Ok') . '" />' . "\n"

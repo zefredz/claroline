@@ -281,7 +281,7 @@ echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?
 .    get_lang("Description") . ' ' . get_lang("(optional)") . "\n"
 .    '</label> :' . "\n"
 .    '<td colspan="3">' . "\n"
-.    '<textarea name="description" id="description" rows="4 "cols="70" wrap="virtual">' . "\n"
+.    '<textarea name="description" id="description" rows="4 "cols="70" >' . "\n"
 .    htmlspecialchars($myStudentGroup['description']) . "\n"
 .    '</textarea>' . "\n"
 .    '</td>' . "\n"

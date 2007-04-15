@@ -66,7 +66,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $out .= '<label>Texte :</label><br />' . "\n";
             $out .= '<textarea name="content" id="content"'
-                 . ' cols="80" rows="15" wrap="virtual">'
+                 . ' cols="80" rows="15" >'
                  ;
             $out .= $content;
             $out .= '</textarea>' . "\n";

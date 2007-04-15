@@ -908,7 +908,7 @@ elseif(DISP_LICENSE == $display)
     .    'Please read the licence and click &quot;Next &gt;&quot;.'  . "\n"
     .    '<a href="../../LICENCE.txt">Printer-friendly version</a>'  . "\n"
     .    '</p>'  . "\n"
-    .    '<textarea wrap="virtual" cols="65" rows="15">'
+    .    '<textarea  cols="65" rows="15">'
     ;
 
     readfile ('../license/gpl.txt');

@@ -920,7 +920,7 @@
 
             echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="post">';
             echo '<textarea name="conflictContent" id="content"'
-                 . ' cols="80" rows="15" wrap="virtual">'
+                 . ' cols="80" rows="15" >'
                  ;
             echo $content;
             echo '</textarea><br /><br />' . "\n";
