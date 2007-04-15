@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang[' Main settings'] = 'Paramètres généraux';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
@@ -2284,8 +2284,8 @@ $_lang['blockHomepageHelp'] = 'La plupart des rubriques de Claroline contiennent
  possibilité d\'inscription le temps de sa conception.</p>';
 $_lang['blockIntroCourse'] = 'Bienvenue sur la page d\'accueil du cours.<br /><br />Sur cette page, vous pouvez&nbsp;:
 <ul>
-<li>activer ou désactiver des outils (cliquer sur Modifier la liste d\'outils en bas à gauche)&nbsp;
-<li>changer les paramètres ou voir les statistiques du cours (cliquer sur les liens correspondants).
+<li>activer ou désactiver des outils (cliquer sur Modifier la liste d\'outils en bas à gauche)&nbsp;</li>
+<li>changer les paramètres ou voir les statistiques du cours (cliquer sur les liens correspondants).</li>
 </ul>
 Pour présenter votre cours aux étudiants, cliquer sur Ajouter un texte d\'introduction ci-dessous.<br />';
 $_lang['blockIntroLearningPath'] = 'Utilisez cet outil pour fournir à vos apprenants un parcours séquentiel défini par vos soins entre des documents, exercices, pages HTML, liens... ou importez des contenus SCORM existants.<br /><br />Pour ajouter un texte d\'introduction, cliquez sur le lien ci-dessous.<br />';
