@@ -598,125 +598,128 @@ if ($displayList)
         echo '<br /><blockquote>' . get_lang('No announcement') . '</blockquote>' . "\n";
     }
 
-    echo '<table class="claroTable" width="100%">';
-
-    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); //get notification date
-
-    foreach ( $announcementList as $thisAnnouncement)
+    else
     {
-        //modify style if the event is recently added since last login
-        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
-        {
-            $cssItem = 'item hot';
-        }
-        else
-        {
-            $cssItem = 'item';
-        }
+        echo '<table class="claroTable" width="100%">';
 
-        if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
+        if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); //get notification date
+
+        foreach ( $announcementList as $thisAnnouncement)
         {
-            $cssInvisible = '';
-            if ($thisAnnouncement['visibility'] == 'HIDE')
+            //modify style if the event is recently added since last login
+            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
             {
-                $cssInvisible = ' invisible';
+                $cssItem = 'item hot';
+            }
+            else
+            {
+                $cssItem = 'item';
             }
 
-            $title = $thisAnnouncement['title'];
-
-            $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
-            $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
-
-            $imageFile = 'announcement.gif';
-            $altImg    = '';
-
-            echo '<tr class="headerX">'."\n"
-            .    '<th>'."\n"
-            .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-            .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . $imageFile . '" alt="' . $altImg . '" />' . "\n"
-            .    get_lang('Published on')
-            .    ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
-            .    '</span>'
-            .    '</th>' . "\n"
-            .    '</tr>' . "\n"
-            .    '<tr>' . "\n"
-            .    '<td>' . "\n"
-            .    '<div class="content ' . $cssInvisible . '">' . "\n"
-            .    ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
-                 : ''
-                 )
-            .    claro_parse_user_text($content) . "\n"
-            .    '</div>' . "\n"
-            ;
-
-            echo linker_display_resource();
-
-            if ($is_allowedToEdit)
+            if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility'] == 'SHOW')
             {
-                echo '<p>'
-                // EDIT Request LINK
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" />'
-                .    '</a>' . "\n"
-                // DELETE  Request LINK
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
-                .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
-                .    '</a>' . "\n"
-                ;
-
-                // DISPLAY MOVE UP COMMAND only if it is not the top announcement
-
-                if( $iterator != 1 )
+                $cssInvisible = '';
+                if ($thisAnnouncement['visibility'] == 'HIDE')
                 {
-                    // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                    // the anchor dont refreshpage.
-                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" />'
-                    .    '</a>' . "\n"
-                    ;
+                    $cssInvisible = ' invisible';
                 }
 
-                // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
+                $title = $thisAnnouncement['title'];
 
-                if($iterator < $bottomAnnouncement)
-                {
-                    // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                    // the anchor dont refreshpage.
-                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
-                    .    '</a>' . "\n"
-                    ;
-                }
+                $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
+                $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
 
-                //  Visibility
-                if ($thisAnnouncement['visibility']=='SHOW')
-                {
-                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible').'" />'
-                    .    '</a>' . "\n"
-                    ;
-                }
-                else
-                {
-                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
-                    .    '</a>' . "\n"
-                    ;
-                }
-                echo '</p>'."\n"
-                .    '</td>' . "\n"
+                $imageFile = 'announcement.gif';
+                $altImg    = '';
+
+                echo '<tr class="headerX">'."\n"
+                .    '<th>'."\n"
+                .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+                .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
+                .    '<img src="' . get_path('imgRepositoryWeb') . $imageFile . '" alt="' . $altImg . '" />' . "\n"
+                .    get_lang('Published on')
+                .    ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
+                .    '</span>'
+                .    '</th>' . "\n"
                 .    '</tr>' . "\n"
+                .    '<tr>' . "\n"
+                .    '<td>' . "\n"
+                .    '<div class="content ' . $cssInvisible . '">' . "\n"
+                .    ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
+                     : ''
+                     )
+                .    claro_parse_user_text($content) . "\n"
+                .    '</div>' . "\n"
                 ;
 
-            } // end if is_AllowedToEdit
-        }
+                echo linker_display_resource();
 
-        $iterator ++;
-    }    // end foreach ( $announcementList as $thisAnnouncement)
+                if ($is_allowedToEdit)
+                {
+                    echo '<p>'
+                    // EDIT Request LINK
+                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" />'
+                    .    '</a>' . "\n"
+                    // DELETE  Request LINK
+                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
+                    .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
+                    .    '</a>' . "\n"
+                    ;
 
-    echo '</table>';
+                    // DISPLAY MOVE UP COMMAND only if it is not the top announcement
+
+                    if( $iterator != 1 )
+                    {
+                        // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                        // the anchor dont refreshpage.
+                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" />'
+                        .    '</a>' . "\n"
+                        ;
+                    }
+
+                    // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
+
+                    if($iterator < $bottomAnnouncement)
+                    {
+                        // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                        // the anchor dont refreshpage.
+                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
+                        .    '</a>' . "\n"
+                        ;
+                    }
+
+                    //  Visibility
+                    if ($thisAnnouncement['visibility']=='SHOW')
+                    {
+                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible').'" />'
+                        .    '</a>' . "\n"
+                        ;
+                    }
+                    else
+                    {
+                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
+                        .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+                        .    '</a>' . "\n"
+                        ;
+                    }
+                    echo '</p>'."\n"
+                    .    '</td>' . "\n"
+                    .    '</tr>' . "\n"
+                    ;
+
+                } // end if is_AllowedToEdit
+            }
+
+            $iterator ++;
+        }    // end foreach ( $announcementList as $thisAnnouncement)
+
+        echo '</table>';
+    }
 
 } // end if displayList
 
