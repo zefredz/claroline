@@ -3,7 +3,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -302,7 +302,7 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
         .'<img src="' . get_path('imgRepositoryWeb') . '/help.gif" '
         .' alt ="'.get_lang('Help').'"'
         .' align="right"'
-        .' hspace="30">'
+        .' hspace="30" />'
         .'</a>' . "\n"
         ;
     }
@@ -1412,6 +1412,7 @@ function claro_html_banner()
     .       '<div id="topBanner">' . "\n\n"
     .       claro_html_platform_banner() . "\n"
     .       claro_html_user_banner() . "\n"
+    .       (get_conf('CLARO_DEBUG_MODE',true) ? claro_disp_debug_banner() :'')
     .       claro_html_banner_course() . "\n"
     .       '</div>' . "\n"
     .       '<!-- - - - - - - - - - -  End of Banner  - - - - - - - - - -  -->' . "\n\n"
@@ -1506,7 +1507,7 @@ function claro_html_breadcrumb()
         {
             $htmlBC .= "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
-            .'?sourceUrl='.urlencode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). '" target="_top">'
+            .'?sourceUrl='.urlencode(base64_encode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])). '" target="_top">'
             .get_lang('Login')
             .'</a>'
             .'</div>'."\n";
@@ -1664,7 +1665,7 @@ function claro_html_banner_course()
 
                     if (isset($_courseToolData['icon']))
                     {
-                        $_toolIconUrl = get_path('imgRepositoryWeb') . $_courseToolData['icon'];
+                        $_toolIconUrl = get_module_url($_courseToolData['label']).'/'.$_courseToolData['icon'];
                     }
 
                     // select "groups" in group context instead of tool
@@ -1866,7 +1867,6 @@ function claro_send_http_headers()
             header($thisHttpHead);
         }
     }
-
 }
 
 /**
@@ -1907,7 +1907,6 @@ function claro_html_headers()
 
     $titlePage .= get_conf('siteName');
 
-
     $head .= '<title>' . $titlePage . '</title>' . "\n";
     $head .= '<meta http-equiv="Content-Script-Type" content="text/javascript" />' . "\n";
     $head .= '<meta http-equiv="Content-Style-Type" content="text/css" />' . "\n";
@@ -1930,7 +1929,8 @@ function claro_html_headers()
 }
 
 function claro_warn_of_session_loss() {
-    alert('" . clean_str_for_javascript (get_lang('WARNING ! You have just lost your session on the server.') . "\n" . get_lang('Copy any text you are currently writing and paste it outside the browser')) . "');
+    alert('" . clean_str_for_javascript (get_lang('WARNING ! You have just lost your session on the server.') . "\n"
+             . get_lang('Copy any text you are currently writing and paste it outside the browser')) . "');
 }
 ";
         $claroBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
