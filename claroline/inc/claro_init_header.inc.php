@@ -12,8 +12,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 claro_send_http_headers();
 
 /*
- * HTML HEADER
- */
+* HTML HEADER
+*/
 echo claro_html_doctype() . "\n"
 .    '<html>' . "\n"
 .    claro_html_headers() . "\n"
@@ -32,7 +32,18 @@ else
 
 if (!isset($hide_banner) || false == $hide_banner)
 {
-    include dirname(__FILE__) . '/claro_init_banner.inc.php' ;
+    $clarolineBannerOutput .= claro_html_banner();
+
+    if ( get_conf('claro_brailleViewMode',false))
+    {
+        $claro_banner = $clarolineBannerOutput;
+    }
+    else
+    {
+        echo $clarolineBannerOutput;
+        $claro_banner = false;
+    }
+
 }
 
 if (!isset($hide_body) || $hide_body == false)
