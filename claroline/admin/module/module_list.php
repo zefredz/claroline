@@ -563,7 +563,7 @@ foreach($moduleList as $module)
     {
         echo '<td align="center">'
         .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
-        .    ' onClick="return confirmation(\'' . $module['name'].'\');">'
+        .    ' onclick="return confirmation(\'' . $module['name'].'\');">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
