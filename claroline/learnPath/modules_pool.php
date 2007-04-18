@@ -283,7 +283,7 @@ while ($list = mysql_fetch_array($result))
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
 	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
-	.	 ' onClick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
+	.	 ' onclick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
 	.	 '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
 	.	 '</a>' . "\n"
 	.	 '</td>' . "\n"

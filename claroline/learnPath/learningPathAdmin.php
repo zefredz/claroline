@@ -585,7 +585,7 @@ foreach ($flatElementList as $module)
    //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
     echo "<td>
           <a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
-         "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
+         "onclick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
 
     if ($module['contentType'] == CTSCORM_)
         echo clean_str_for_javascript(get_lang('SCORM conformant modules are definitively removed from server when deleted in their learning path.')) ;
@@ -632,7 +632,7 @@ foreach ($flatElementList as $module)
     {
         if( $module['lock'] == 'CLOSE' )
         {
-            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript(get_block('blockConfirmBlockingModuleMadeInvisible'))."');\"";
+            $onclick = "onclick=\"return confirmation('".clean_str_for_javascript(get_block('blockConfirmBlockingModuleMadeInvisible'))."');\"";
         }
         else
         {

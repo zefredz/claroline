@@ -768,7 +768,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
-            .    ' onClick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
+            .    ' onclick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
@@ -779,7 +779,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
-            .    'onClick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
+            .    'onclick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
@@ -826,7 +826,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             if ($list['lock']=='CLOSE')
             {
-                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript(get_block('blockConfirmBlockingPathMadeInvisible')) . "');\"";
+                $onclick = "onclick=\"return confirm('" . clean_str_for_javascript(get_block('blockConfirmBlockingPathMadeInvisible')) . "');\"";
             }
             else
             {
