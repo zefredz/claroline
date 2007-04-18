@@ -880,7 +880,7 @@
 
     if ( 'edit' == $action || 'diff' == $action )
     {
-            $cmdActions[] = '<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
+            $cmdActions[] = '<a class="claroCmd" href="#" onclick="MyWindow=window.open(\''
                 . 'help_wiki.php?help=syntax' . claro_url_relay_context('&amp;')
             . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
             . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'

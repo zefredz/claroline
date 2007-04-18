@@ -1541,7 +1541,7 @@ if( $dispWrkLst )
                     .    '&amp;cmd=exRmWrk'
                     .    '&amp;assigId=' . $assignmentId
                     .    '&amp;wrkId=' . $thisWrk['id'] . '" '
-                    .    'onClick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
+                    .    'onclick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
                     .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
                     .    '</a>'
                     ;

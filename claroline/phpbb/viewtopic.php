@@ -277,7 +277,7 @@ else
             . '</a>' . "\n"
 
             . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
-            . 'onClick="return confirm_delete();" >'
+            . 'onclick="return confirm_delete();" >'
             . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
             . '</a>' . "\n"
 

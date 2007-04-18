@@ -157,7 +157,7 @@ foreach ( $categories as $this_category )
 
         if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
-        .    'onClick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
+        .    'onclick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
         .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt="'.get_lang('Delete').'" />'
         .    '</a>'
         .    '&nbsp;'
@@ -359,7 +359,7 @@ foreach ( $categories as $this_category )
 
                 .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
-                .    'onClick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
+                .    'onclick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="'.get_lang('Empty').'" />'
                 .    '</a>'
                 .    '</td>'
@@ -369,7 +369,7 @@ foreach ( $categories as $this_category )
                 if ( is_null($group_id ) )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
-                    .    'onClick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
+                    .    'onclick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
                     .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
                     .    '</a>';
                 }
