@@ -32,7 +32,7 @@ else
 
 if (!isset($hide_banner) || false == $hide_banner)
 {
-    $clarolineBannerOutput .= claro_html_banner();
+    $clarolineBannerOutput = claro_html_banner();
 
     if ( get_conf('claro_brailleViewMode',false))
     {
