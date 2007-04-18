@@ -387,7 +387,7 @@ if ( $is_allowedToManage )
                                                      . claro_url_relay_context('&amp;')
                                                      , '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
     .                            get_lang("Delete all groups")
-                                                     , array('onClick'=>'return confirmationDelete();')
+                                                     , array('onclick'=>'return confirmationDelete();')
                                                      );
     // Fill groups
     $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
@@ -395,7 +395,7 @@ if ( $is_allowedToManage )
                                                     . claro_url_relay_context('&amp;')
                                                     , '<img src="' . get_path('imgRepositoryWeb') . 'fill.gif" alt="" />'
     .                            get_lang("Fill groups (automatically)")
-                                                    , array('onClick'=>'return confirmationFill()')
+                                                    , array('onclick'=>'return confirmationFill()')
                                                     );
     // Empty all groups
     $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
@@ -403,7 +403,7 @@ if ( $is_allowedToManage )
                                                      . claro_url_relay_context('&amp;')
                                                      , '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="" />'
     .                            get_lang("Empty all groups")
-                                                     , array('onClick' => 'return confirmationEmpty();')
+                                                     , array('onclick' => 'return confirmationEmpty();')
                                                      );
     // Main group settings
     $groupadmin_manager_menu[] =  claro_html_cmd_link( 'group_properties.php' . claro_url_relay_context('?')
@@ -721,7 +721,7 @@ foreach ($groupList as $thisGroup)
         .    '</td>' . "\n"
         .    '<td>'
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '" '
-        .    ' onClick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
+        .    ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang("Delete") . '" />'
         .    '</a>'
         .    '</td>' . "\n"

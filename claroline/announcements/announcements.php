@@ -568,7 +568,7 @@ if ( $displayForm )
 
     if( claro_is_jpspan_enabled() )
     {
-        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
+        echo '<input type="submit" onclick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
     else
     {
