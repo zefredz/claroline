@@ -264,7 +264,7 @@ if ($intro_dispForm)
     {
         linker_set_local_crl( isset ($_REQUEST['introId'] ), 'CLINTRO_' );
         linker_set_display();
-        echo '<input type="submit" class="claroButton" name="submitEvent" onClick="linker_confirm();" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
+        echo '<input type="submit" class="claroButton" name="submitEvent" onclick="linker_confirm();" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
     }
     else // popup mode
     {

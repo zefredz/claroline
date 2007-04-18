@@ -406,7 +406,7 @@ foreach ( $courseExtLinkList as $linkId => $link )
 
     echo '<td align="center">'
     .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'"'
-    .' onClick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
+    .' onclick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
     .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
     .'</a></td>'."\n";
 

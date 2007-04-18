@@ -2189,7 +2189,7 @@ echo claro_html_tool_title($titleElement,
 
                     echo '<td>'
                         .'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName . '" '
-                        .'onClick="return confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
+                        .'onclick="return confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
                         .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
                         .'</a>'
                         .'</td>' . "\n";
