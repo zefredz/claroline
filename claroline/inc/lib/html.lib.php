@@ -3,6 +3,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
+ * This lib provide html stream for various
+ * uniformised output.
+ *
  * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
@@ -11,14 +14,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author see 'credits' file
  *
- *
- */
-
-/**
- * This lib (in a class to simulate namespace) provide html stream for various
- * uniformised output.
- *
  * @package HTML
+ *
  *
  */
 
@@ -112,13 +109,13 @@ function claro_html_menu_horizontal($itemList)
 }
 
 /**
-* Return the claroline sytled url for a link to a tool
-*
-* @param string $url
-* @param string $label
-* @param array $attributeList array of array(attributeName,attributeValue)
-* @return string html stream
-*/
+ * Return the claroline sytled url for a link to a tool
+ *
+ * @param string $url
+ * @param string $label
+ * @param array $attributeList array of array(attributeName,attributeValue)
+ * @return string html stream
+ */
 function claro_html_tool_link($url,$label,$attributeList=array())
 {
     $attributeConcat = 'class="toollink" ';
@@ -296,7 +293,7 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
     if ($helpUrl)
     {
 
-        $string .= "<a href='#' onClick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" .$helpUrl
+        $string .= "<a href='#' onclick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" .$helpUrl
         ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
 
         .'<img src="' . get_path('imgRepositoryWeb') . '/help.gif" '
@@ -601,6 +598,15 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     return $returnString;
 }
 
+
+/**
+ *
+ *
+ */
+DEFINE('DG_ORDER_COLS_BY_GRID','DG_ORDER_COLS_BY_GRID'.__FILE__.__LINE__);
+DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
+
+
 /**
  * datagrid is actually a function but can became an object.
  *
@@ -622,8 +628,6 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
  * @package HTML
  *
  */
-DEFINE('DG_ORDER_COLS_BY_GRID','DG_ORDER_COLS_BY_GRID'.__FILE__.__LINE__);
-DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
 class claro_datagrid
 {
     var $datagrid;
@@ -1426,10 +1430,10 @@ function claro_html_banner()
 /**
  * Return the breadcrumb to display in the header
  *
- * @global $nameTools
- * @global $interbredcrump
- * @global $noPHP_SELF
- * @global $noQUERY_STRING
+ * @global string  $nameTools
+ * @global array   $interbredcrump
+ * @global boolean $noPHP_SELF
+ * @global boolean $noQUERY_STRING
  *
  * @return string html content
  */
@@ -1849,6 +1853,78 @@ function claro_html_platform_banner()
     return $platformBanner;
 
 }
+
+
+
+function claro_html_footer()
+{
+    $currentCourse =  claro_get_current_course_data();
+    // FOOTER LEFT DOCK declaration
+
+    $footerLeftDock = new Dock('campusFooterLeft');
+
+    if ( claro_is_in_a_course() )
+    {
+
+        $courseManagerOutput = '<div id="courseManager">' . "\n"
+        . get_lang('Manager(s) for %course_code', array('%course_code' => $currentCourse['officialCode']) ) . ' : ' ;
+
+        if ( empty($currentCourse['email']) )
+        {
+            $courseManagerOutput .= '<a href="' . get_module_url('CLUSR') . '/user.php">'. $currentCourse['titular'].'</a>';
+        }
+        else
+        {
+            $courseManagerOutput .= '<a href="mailto:' . $currentCourse['email'] . '?body=' . $currentCourse['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $currentCourse['titular'] . '</a>';
+        }
+
+        $courseManagerOutput .= '</div>';
+        $footerLeftDock->addOutput($courseManagerOutput,true);
+    }
+
+
+    // FOOTER RIGHT DOCK declaration
+
+    $footerRightDock = new Dock('campusFooterRight');
+
+    $platformManagerOutput = '<div id="platformManager">'
+    . get_lang('Administrator for %site_name', array('%site_name'=>get_conf('siteName'))). ' : '
+    . '<a href="mailto:' . get_conf('administrator_email')
+    . '?subject=[' . rawurlencode( get_conf('siteName') ) . ']'.'">'
+    . get_conf('administrator_name')
+    . '</a>';
+
+    if ( get_conf('administrator_phone') != '' )
+    {
+        $platformManagerOutput .= '<br />' . "\n" . get_lang('Phone : %phone_number', array('%phone_number' => get_conf('administrator_phone'))) ;
+    }
+
+    $platformManagerOutput .= '</div>' ;
+
+    $footerRightDock->addOutput($platformManagerOutput,true);
+
+    // FOOTER CENTER DOCK declaration
+
+    $footerCenterDock = new Dock('campusFooterCenter');
+
+    $poweredByOutput = '<div id="poweredBy">'
+    . get_lang('Powered by')
+    . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
+    . '&copy; 2001 - 2007'
+    . '</div>';
+
+    $footerCenterDock->addOutput($poweredByOutput,true);
+
+    $ft = "\n";
+    $ft .= '<div id="campusFooter">' . "\n";
+    $ft .= '<hr />';
+    $ft .= $footerLeftDock->render();
+    $ft .= $footerRightDock->render();
+    $ft .= $footerCenterDock->render();
+
+    return $ft;
+}
+
 
 /**
  * Send http headers in each pages of claroline
