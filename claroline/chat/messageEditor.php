@@ -55,7 +55,7 @@ $warnSessionLost = false ;
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
-echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onSubmit="return prepare_message();">' . "\n"
+echo '<form name="chatForm" action="messageList.php#final" method="post" target="messageList" onsubmit="return prepare_message();">' . "\n"
 .    claro_form_relay_context()
 .    '<input type="text"    name="msg" size="80" />' . "\n"
 .    '<input type="hidden"  name="chatLine" />' . "\n"
