@@ -4,9 +4,9 @@
  *
  * this tool manage the
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -251,7 +251,7 @@ if ( !empty($class_id) )
          .    '<td align="center">'  ."\n"
          .    '<a href="'.$_SERVER['PHP_SELF']
          .    '?cmd=unsubscribe&amp;offset='.$offset.'&amp;user_id='.$list['user_id'].'&amp;class_id='.$class_id.'" '
-         .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($list['prenom'] . ' ' . $list['nom']).'\');">' . "\n"
+         .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['prenom'] . ' ' . $list['nom']).'\');">' . "\n"
          .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="" />' . "\n"
          .    '</a>' . "\n"
          .    '</td></tr>' . "\n"

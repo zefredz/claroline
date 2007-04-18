@@ -4,9 +4,9 @@
  *
  * List courses aivailable on the platform and prupose admin link to it
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -293,7 +293,7 @@ foreach($courseList as $numLine => $courseLine)
     // Course Action Delete
     $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                        '?cmd=delete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
-    .                                        ' onClick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
+    .                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
     .                                        '<img src="' . get_conf('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .                                        '</a>' . "\n"
     ;

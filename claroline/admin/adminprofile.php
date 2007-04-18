@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -149,7 +149,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '?uidToEdit=' . $userId
 .             '&amp;cmd=delete" '
-.             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
+.             'onclick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
 .             '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" /> '
 .             get_lang('Delete user')
 .             '</a>'

@@ -197,7 +197,7 @@ else
         .    '<td align="center">'
         .    '<a href="'.$_SERVER['PHP_SELF']
         .    '?cmd=unsubscribe&amp;class_id='.$class_id.'&amp;offset='.$offset.'&amp;course_id='.$list['code'].'" '
-        .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
+        .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="" />'
         .    '</a>'
         .    '</td>'

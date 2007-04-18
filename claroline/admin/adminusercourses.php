@@ -4,9 +4,9 @@
  *
  * This  tools admin courses subscription of one user
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -136,7 +136,7 @@ foreach ($userCourseList as $courseKey => $course)
     .    $addToUrl
     .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
     .    '&amp;offset=' . $offset . '"'
-    .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
+    .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
     .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .    '</a>' . "\n"
     ;

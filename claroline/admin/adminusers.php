@@ -1,9 +1,9 @@
 <?php //$Id$
 /**
  * CLAROLINE
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -174,7 +174,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                               '?cmd=delete&amp;user_id=' . $user['user_id']
     .                               '&amp;offset=' . $offset . $addToURL . '" '
-    .                               ' onClick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
+    .                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
     .                               '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
