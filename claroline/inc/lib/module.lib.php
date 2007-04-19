@@ -142,21 +142,44 @@ function get_module_db_dependance($toolId)
  */
 function claro_get_data_path($contextData=array())
 {
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))    $contextData[CLARO_CONTEXT_TOOLLABEL]    = rtrim($GLOBALS['_courseTool']['label'],'_');
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))       $contextData[CLARO_CONTEXT_COURSE]       = claro_get_current_course_id();
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))        $contextData[CLARO_CONTEXT_GROUP]        = claro_get_current_group_id();
-    if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_USER,$contextData))         $contextData[CLARO_CONTEXT_USER]         = claro_get_current_user_id();
-    //if(is_null($contextData) || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData)) $contextData[CLARO_CONTEXT_TOOLINSTANCE] = claro_get_current_tool_id();
+    if(is_null($contextData)
+        || !array_key_exists(CLARO_CONTEXT_TOOLLABEL,$contextData))
+    {
+        $contextData[CLARO_CONTEXT_TOOLLABEL] = rtrim($GLOBALS['_courseTool']['label'],'_');
+    }
+    if(is_null($contextData)
+        || !array_key_exists(CLARO_CONTEXT_COURSE,$contextData))
+    {
+        $contextData[CLARO_CONTEXT_COURSE] = claro_get_current_course_id();
+    }
+    if(is_null($contextData)
+        || !array_key_exists(CLARO_CONTEXT_GROUP,$contextData))
+    {
+        $contextData[CLARO_CONTEXT_GROUP] = claro_get_current_group_id();
+    }
+    if(is_null($contextData)
+        || !array_key_exists(CLARO_CONTEXT_USER,$contextData))
+    {
+        $contextData[CLARO_CONTEXT_USER] = claro_get_current_user_id();
+    }
+    /*if(is_null($contextData)
+        || !array_key_exists(CLARO_CONTEXT_TOOLINSTANCE,$contextData))
+    {
+        $contextData[CLARO_CONTEXT_TOOLINSTANCE] = claro_get_current_tool_id();
+    }*/
 
     if (isset($contextData[CLARO_CONTEXT_COURSE]))
     {
         if (isset($contextData[CLARO_CONTEXT_GROUP]))
         {
-            $path = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP],$contextData[CLARO_CONTEXT_COURSE]);
+            $path = claro_get_group_data($contextData[CLARO_CONTEXT_GROUP]
+                ,$contextData[CLARO_CONTEXT_COURSE]);
         }
         else
         {
-            $path = get_conf('coursesRepositorySys') . claro_get_course_path($contextData[CLARO_CONTEXT_COURSE]);
+            $path = get_conf('coursesRepositorySys')
+                . claro_get_course_path($contextData[CLARO_CONTEXT_COURSE])
+                ;
         }
     }
 
