@@ -271,8 +271,9 @@
         {
             if ( !isset( $message ) ) $message = '';
 
-            $message .= '<form>'."\n"
+            $message .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
                 . '<input type="hidden" name="action" value="exSearch" />'."\n"
+                . claro_form_relay_context() . "\n"
                 . '<label for="searchPattern">'
                 . get_lang("Search")
                 . '</label><br />'."\n"
