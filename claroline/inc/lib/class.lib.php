@@ -804,7 +804,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;class_id=' . $cur_class['id'] . '"'
-                .    ' onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
+                .    ' onclick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
@@ -985,14 +985,14 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             if ( empty($cur_class['course_id']) )
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exEnrol&amp;class_id=' . $cur_class['id'] . '"'
-                .    ' onClick="return confirmation_enrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
+                .    ' onclick="return confirmation_enrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrol to course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
             else
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnenrol&amp;class_id=' . $cur_class['id'] . '"'
-                .    ' onClick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
+                .    ' onclick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
