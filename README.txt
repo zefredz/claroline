@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9.alpha - README
+        CLAROLINE 1.9 alpha - README
 ******************************************
 
 TABLE OF CONTENT :
