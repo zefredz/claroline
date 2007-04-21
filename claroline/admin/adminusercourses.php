@@ -2,7 +2,7 @@
 /**
  * Claroline
  *
- * This  tools admin courses subscription of one user
+ * This tools admin courses subscription of one user
  *
  * @version 1.9 $Revision$
  *
@@ -126,7 +126,7 @@ foreach ($userCourseList as $courseKey => $course)
     }
 
     $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
-    .                                                 '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '">'
+    .                                                 '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '" />'
     .                                                 '</a>'
     ;
 
@@ -158,7 +158,7 @@ $userCourseDataGrid->set_colTitleList(array (
 ,'delete'   => get_lang('Unregister user')
 ));
 
-$userCourseDataGrid->set_caption('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" >' . get_lang('Student') . ' - <img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0">&nbsp;' . get_lang('Course manager'));
+$userCourseDataGrid->set_caption('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" >' . get_lang('Student') . ' - <img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0" />&nbsp;' . get_lang('Course manager'));
 
 if ( 0 == count($userCourseGrid)  )
 {
@@ -234,22 +234,24 @@ function prepare_sql_get_courses_of_a_user($userId=null)
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
 
-    $sql = "SELECT `C`.`code`              `sysCode`,
-                   `C`.`intitule`          `name`,
-                   `C`.`fake_code`         `officialCode`,
-                   `C`.`directory`         `path`,
-                   `C`.`dbName`            `dbName`,
-                   `C`.`titulaires`        `titular`,
-                   `C`.`email`             `email`,
-                   `C`.`enrollment_key`    `enrollmentKey` ,
-                   `C`.`languageCourse`    `language`,
-                   `C`.`departmentUrl`     `extLinkUrl`,
-                   `C`.`departmentUrlName` `extLinkName`,
-                   `C`.`visible`            `visible`,
-                   `CU`.`profile_id`        `profileId`,
+    $sql = "SELECT `C`.`code`              AS `sysCode`,
+                   `C`.`intitule`          AS `name`,
+                   `C`.`administrativeNumber` AS `officialCode`,
+                   `C`.`directory`            AS `path`,
+                   `C`.`dbName`               AS `dbName`,
+                   `C`.`titulaires`           AS `titular`,
+                   `C`.`email`                AS `email`,
+                   `C`.`language`             AS `language`,
+                   `C`.`extLinkUrl`           AS `extLinkUrl`,
+                   `C`.`departmentUrlName`    AS `extLinkName`,
+                   `C`.`visibility`           AS `visibility`,
+                   `C`.`access`               AS `access`,
+                   `C`.`registration`         AS `registration`,
+                   `C`.`registrationKey`      AS `registrationKey` ,
+                   `CU`.`profile_id`          AS `profileId`,
                    `CU`.`isCourseManager`,
                    `CU`.`tutor`
-            FROM `" . $tbl_course . "` AS C,
+            FROM `" . $tbl_course . "`          AS C,
                  `" . $tbl_rel_course_user . "` AS CU
             WHERE CU.`code_cours` = C.`code`
               AND CU.`user_id` = " . (int) $userId;

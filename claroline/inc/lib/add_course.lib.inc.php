@@ -7,9 +7,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * add is, find keys names aivailable, build the the course database
  * fill the course database, build the content directorys, build the index page
  * build the directory tree, register the course.
- * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1011,7 +1012,7 @@ function fill_db_course($courseDbName,$language)
     $email = $_user['mail'];
 
     claro_sql_select_db($courseDbName);
-    
+
     #################### register tools in course ######################################
 
     $tbl_mdb_names   = claro_sql_get_main_tbl();
@@ -1034,7 +1035,7 @@ function fill_db_course($courseDbName,$language)
     }
 
     ############################## FORUMS  #######################################
-    
+
     // Create an example category
 
     if ( get_conf('fill_course_example',true) )
@@ -1166,13 +1167,18 @@ function fill_db_course($courseDbName,$language)
  * @param string    $uidCreator
  * @param bool      $visibility
  * @param bool      $registrationAllowed
- * @param string    $enrollmentKey
+ * @param string    $registrationKey
  * @author Christophe Gesché <moosh@claroline.net>
  */
 
-function register_course($courseSysCode, $courseScreenCode, $courseRepository, $courseDbName, $titular, $email, $faculte, $intitule, $languageCourse='', $uidCreator, $visibility, $registrationAllowed, $enrollmentKey='', $expirationDate='', $extLinkName='', $extLinkUrl='')
+function register_course( $courseSysCode, $courseScreenCode,
+                          $courseRepository, $courseDbName,
+                          $titular, $email, $faculte, $intitule, $languageCourse='',
+                          $uidCreator,
+                          $access, $registrationAllowed, $registrationKey='', $visibility=true,
+                          $expirationDate='', $extLinkName='', $extLinkUrl='')
 {
-    global $versionDb, $clarolineVersion, $rootSys;
+    global $versionDb, $clarolineVersion;
 
     $tblList         = claro_sql_get_main_tbl();
     $tbl_course      = $tblList['course'         ];
@@ -1184,43 +1190,40 @@ function register_course($courseSysCode, $courseScreenCode, $courseRepository, $
     if ($courseRepository == '') return claro_failure::set_failure('course Repository is missing');
     if ($uidCreator       == '') return claro_failure::set_failure('uidCreator is missing');
 
-    if     ( ! $visibility && ! $registrationAllowed) $visibilityState = 0;
-    elseif ( ! $visibility &&   $registrationAllowed) $visibilityState = 1;
-    elseif (   $visibility && ! $registrationAllowed) $visibilityState = 3;
-    elseif (   $visibility &&   $registrationAllowed) $visibilityState = 2;
-
     // optionnal parameters
     if ($languageCourse == '') $languageCourse = 'english';
     if ($expirationDate == '') $expirationDate = 'NULL';
     else                       $expirationDate = 'FROM_UNIXTIME('.$expirationDate.')';
 
-    $currenVersionFilePath = $rootSys.'platform/currentVersion.inc.php';
-    file_exists($currenVersionFilePath) && require $currenVersionFilePath;
+    $currentVersionFilePath = get_conf('rootSys') . 'platform/currentVersion.inc.php';
+    file_exists($currentVersionFilePath) && require $currentVersionFilePath;
 
     $defaultProfileId = claro_get_profile_id('user');
 
     $sql = "INSERT INTO `" . $tbl_course . "` SET
-            code              = '" . addslashes($courseSysCode)    . "',
-            dbName            = '" . addslashes($courseDbName)     . "',
-            directory         = '" . addslashes($courseRepository) . "',
-            languageCourse    = '" . addslashes($languageCourse)   . "',
-            intitule          = '" . addslashes($intitule)         . "',
-            faculte           = '" . addslashes($faculte)          . "',
-            visible           = '" . (int) $visibilityState        . "',
-            enrollment_key    = '".  addslashes($enrollmentKey)    . "',
-            diskQuota         = NULL,
-            creationDate      = NOW(),
-            expirationDate    = " . addslashes($expirationDate)   . ",
-            versionDb         = '" . addslashes($versionDb)        . "',
-            versionClaro      = '" . addslashes($clarolineVersion) . "',
-            lastEdit          = NOW(),
-            lastVisit         = NULL,
-            titulaires        = '" . addslashes($titular)          . "',
-            email             = '" . addslashes($email)            . "',
-            fake_code         = '" . addslashes($courseScreenCode) . "',
-            departmentUrlName = '".  addslashes($extLinkName)      . "',
-            departmentUrl     = '".  addslashes($extLinkUrl)       . "',
-            defaultProfileId  = " . $defaultProfileId ;
+            code                 = '" . addslashes($courseSysCode)    . "',
+            dbName               = '" . addslashes($courseDbName)     . "',
+            directory            = '" . addslashes($courseRepository) . "',
+            language             = '" . addslashes($languageCourse)   . "',
+            intitule             = '" . addslashes($intitule)         . "',
+            faculte              = '" . addslashes($faculte)          . "',
+            visibility           = '".  ($visibility?'SHOW':'HIDDEN')    . "',
+            access               = '".  ($access?'PUBLIC':'PRIVATE')    . "',
+            registration         = '".  ($registrationAllowed?'OPEN':'CLOSE')    . "',
+            registrationKey      = '".  addslashes($registrationKey)    . "',
+            diskQuota            = NULL,
+            creationDate         = NOW(),
+            expirationDate       = " . addslashes($expirationDate)   . ",
+            versionDb            = '" . addslashes($versionDb)        . "',
+            versionClaro         = '" . addslashes($clarolineVersion) . "',
+            lastEdit             = NOW(),
+            lastVisit            = NULL,
+            titulaires           = '" . addslashes($titular)          . "',
+            email                = '" . addslashes($email)            . "',
+            administrativeNumber = '" . addslashes($courseScreenCode) . "',
+            extLinkName          = '" . addslashes($extLinkName)      . "',
+            extLinkUrl           = '" . addslashes($extLinkUrl)       . "',
+            defaultProfileId     = " . $defaultProfileId ;
 
     if ( claro_sql_query($sql) == false) return false;
 

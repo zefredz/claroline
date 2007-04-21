@@ -13,8 +13,8 @@
  * - update course db
  * - update course repository content
  *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -34,6 +34,8 @@
 
 $cidReset = TRUE;
 $gidReset = TRUE;
+$currentClarolineVersion=null;
+$currentDbVersion=null;
 
 if ( ! file_exists('../../inc/currentVersion.inc.php') )
 {
@@ -49,8 +51,8 @@ if (!claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 
-$patternVarVersion = '/^1.8/';
-$patternSqlVersion = '1.8%';
+$patternVarVersion = '/^1.9/';
+$patternSqlVersion = '1.9%';
 
 // Display definition
 

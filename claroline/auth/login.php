@@ -4,9 +4,9 @@
  *
  * This script allows users to log on platform and back to requested ressource
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -154,13 +154,13 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
      */
 
     $tbl                = claro_sql_get_main_tbl();
-
-    $sql = "SELECT c.code                                  AS `value`,
-                   CONCAT(c.intitule,' (',c.fake_code,')') AS `name`
+    $sql = "
+            SELECT c.code                                             AS `value`,
+                   CONCAT(c.intitule,' (',c.administrativeNumber,')') AS `name`
             FROM `" . $tbl['course'] . "`          AS c ,
                  `" . $tbl['rel_course_user'] . "` AS cu
-            WHERE c.code= cu.code_cours
-              AND cu.user_id = '" . (int) claro_get_current_user_id() . "'" ;
+            WHERE c.code = cu.code_cours
+              AND cu.user_id = " . (int) claro_get_current_user_id();
 
     $courseList = claro_sql_query_fetch_all($sql);
 

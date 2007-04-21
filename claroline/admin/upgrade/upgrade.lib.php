@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * The script works with the
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -221,8 +221,8 @@ function upgrade_sql_query($sql,$verbose=null)
             // error accepted
             if ( $verbose )
             {
-                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) ;
-                $message .= '<code>' . $sql . '</code>' . "\n";
+                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) . "\n" ;
+                $message .= 'statment : ' . $sql . '' . "\n";
                 $message .= mysql_info() . "\n";
                 log_message($message);
             }
@@ -231,8 +231,8 @@ function upgrade_sql_query($sql,$verbose=null)
         else
         {
             // error not accepted
-            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) ;
-            $message .= '<code>' . $sql . '</code>' . "\n";
+            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) . "\n";
+            $message .= 'statment : ' . $sql . '' . "\n";
             $message .= mysql_info() . "\n";
             log_message($message);
             return false;

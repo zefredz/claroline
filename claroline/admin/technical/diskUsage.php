@@ -57,7 +57,10 @@ else                                     $coursesToCheck =  false;
 if ($disp_form)
 {
 
-    $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
+    $sqlListCoursesSel = "SELECT administrativeNumber AS officialCode,
+                                 code                 AS sysCode
+                            FROM `" . $tbl_course . "`
+                           ORDER BY trim(administrativeNumber) ASC";
     $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
 
     if (is_array($course_list))
@@ -129,11 +132,12 @@ echo claro_html_form_select( 'coursesToCheck[]'
 if ($disp_selCrs && $coursesToCheck)
 {
     echo '<li><ol>';
-    $sqlListCourses = "SELECT fake_code code,
-                      directory dir,
-                      dbName db,
-                      diskQuota
-                      FROM `" . $tbl_course . "` ";
+    $sqlListCourses = "
+                       SELECT administrativeNumber AS code,
+                              directory            AS dir,
+                              dbName               AS db,
+                              diskQuota
+                         FROM `" . $tbl_course . "` ";
     if($coursesToCheck[0]==" all ")    $sqlListCourses .= " order by dbName";
     elseif (is_array($coursesToCheck)) $sqlListCourses .= " where code in ('".implode( "','", $coursesToCheck )."') order by dbName";
     else unset($sqlListCourses);

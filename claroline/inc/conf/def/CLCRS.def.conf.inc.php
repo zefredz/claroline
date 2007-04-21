@@ -5,9 +5,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * This file describe the parameter for Course creation tool config file
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -29,17 +29,31 @@ $conf_def['section']['create']['label']='Course main settings';
 $conf_def['section']['create']['description']='';
 $conf_def['section']['create']['properties'] =
 array ( 'fill_course_example'
-      , 'defaultVisibilityForANewCourse'
-      , 'human_code_needed'
-      , 'human_label_needed'
-      , 'course_email_needed'
-      , 'extLinkNameNeeded'
-      , 'extLinkUrlNeeded'
       , 'prefixAntiNumber'
       , 'prefixAntiEmpty'
       , 'showLinkToDeleteThisCourse'
       , 'nbCharFinalSuffix'
       , 'forceCodeCase'
+      );
+
+$conf_def['section']['create']['label']='Course needed settings';
+$conf_def['section']['create']['description'] = 'Witch value are needed ?';
+$conf_def['section']['create']['properties']  =
+array ( 'human_code_needed'
+      , 'human_label_needed'
+      , 'course_email_needed'
+      , 'extLinkNameNeeded'
+      , 'extLinkUrlNeeded'
+      );
+
+$conf_def['section']['create']['label']='Course default settings';
+$conf_def['section']['create']['description']='';
+$conf_def['section']['create']['properties'] =
+array (
+      //, 'defaultVisibilityForANewCourse'
+        'defaultAccessOnCourseCreation'
+      , 'defaultRegistrationOnCourseCreation'
+      , 'defaultVisibilityOnCourseCreation'
       );
 
 $conf_def_property_list['fill_course_example'] =
@@ -64,6 +78,7 @@ array ('label'       => 'Course code case'
                                 ,'nochange'=>'dont change case'
                                 )
       );
+      /*
 $conf_def_property_list['defaultVisibilityForANewCourse'] =
 array ('label'       => 'Default course access'
       ,'description' => ''
@@ -77,6 +92,44 @@ array ('label'       => 'Default course access'
                                 ,'3'=>'Public&nbsp;&nbsp;+ New Registration denied'
                                 )
       );
+*/
+$conf_def_property_list['defaultVisibilityOnCourseCreation'] =
+array ('label'       => 'Default course Visibility'
+      ,'description' => 'This is probably a bad idea to set as hidden'
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE' => 'Show'
+                                ,'FALSE'=> 'Hidden'
+                                )
+      );
+
+$conf_def_property_list['defaultAccessOnCourseCreation'] =
+array ('label'       => 'Default course access'
+      ,'description' => ''
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE' => 'Public'
+                                ,'FALSE'=> 'Private'
+                                )
+      );
+
+
+$conf_def_property_list['defaultRegistrationOnCourseCreation'] =
+array ('label'       => 'Default course enrolment'
+      ,'description' => ''
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array ('TRUE' => 'New Registration allowed'
+                                ,'FALSE'=> 'New registration denied'
+                                )
+      );
+
 
 $conf_def_property_list['human_code_needed'] =
 array ('label'       => 'Course code is'

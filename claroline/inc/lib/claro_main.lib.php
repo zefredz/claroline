@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This lib contain many parts of frequently used function.
  * This is not a thematic lib
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -103,22 +103,24 @@ function claro_get_course_data($courseId = NULL, $force = false )
         $tbl =  claro_sql_get_tbl(array('cours','faculte',));
 
         $sql =  "SELECT
-                c.code              AS sysCode,
-                c.cours_id          AS courseId,
-                c.intitule          AS name,
-                c.fake_code         AS officialCode,
-                c.directory         AS path,
-                c.dbName            AS dbName,
-                c.titulaires        AS titular,
-                c.email             AS email  ,
-                c.enrollment_key    AS enrollmentKey ,
-                c.languageCourse    AS language,
-                c.departmentUrl     AS extLinkUrl,
-                c.departmentUrlName AS extLinkName,
-                c.visible           AS visible,
-                cat.code            AS categoryCode,
-                cat.name            AS categoryName,
-                c.diskQuota         AS diskQuota
+                c.code                 AS sysCode,
+                c.cours_id             AS courseId,
+                c.intitule             AS name,
+                c.administrativeNumber AS officialCode,
+                c.directory            AS path,
+                c.dbName               AS dbName,
+                c.titulaires           AS titular,
+                c.email                AS email  ,
+                c.language             AS language,
+                c.extLinkUrl           AS extLinkUrl,
+                c.extLinkName          AS extLinkName,
+                c.visibility           AS visibility,
+                c.access               AS access,
+                c.registration         AS registration,
+                c.registrationKey      AS registrationKey ,
+                cat.code               AS categoryCode,
+                cat.name               AS categoryName,
+                c.diskQuota            AS diskQuota
 
                 FROM      `" . $tbl['cours'] . "`   AS c
                 LEFT JOIN `" . $tbl['faculte'] . "` AS cat
@@ -129,8 +131,9 @@ function claro_get_course_data($courseId = NULL, $force = false )
 
         if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
 
-        $courseDataList['visibility'         ] = (bool) (2 == $courseDataList['visible'] || 3 == $courseDataList['visible'] );
-        $courseDataList['registrationAllowed'] = (bool) (1 == $courseDataList['visible'] || 2 == $courseDataList['visible'] );
+        $courseDataList['access'             ] = (bool) ('public' == $courseDataList['access']     );
+        $courseDataList['visibility'         ] = (bool) ('show' == $courseDataList['visibility'] );
+        $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
         $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
 
 

@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * Course Class
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -46,19 +46,22 @@ class ClaroCourse
     var $departmentName;
 
     // Department Url
-    var $departmentUrl;
+    var $extLinkUrl;
 
     // Language of the course
     var $language;
 
-    // Course access (true = open, false = private)
+    // Course access (true = public, false = private)
     var $access;
 
-    // Enrolment (true = open, false = close)
-    var $enrolment;
+    // Course visibility (true = shown, false = hidden)
+    var $visibility;
 
-    // Enrolment key
-    var $enrolmentKey;
+    // registration (true = open, false = close)
+    var $registration;
+
+    // registration key
+    var $registrationKey;
 
     // Backlog object
     var $backlog;
@@ -79,11 +82,12 @@ class ClaroCourse
         $this->email = $creatorEmail;
         $this->category = '';
         $this->departmentName = '';
-        $this->departmentUrl = '';
-        $this->language = get_conf('platformLanguage');
-        $this->access = $this->getAccess( get_conf('defaultVisibilityForANewCourse') );
-        $this->enrolment = $this->getEnrolment( get_conf('defaultVisibilityForANewCourse') );
-        $this->enrolmentKey = '';
+        $this->extLinkUrl = '';
+        $this->language     = get_conf('platformLanguage');
+        $this->access       = get_conf('defaultAccessOnCourseCreation');
+        $this->visibility   = get_conf('defaultVisibilityOnCourseCreation');
+        $this->registration = get_conf('defaultRegistrationOnCourseCreation') ;
+        $this->registrationKey = '';
 
         $this->backlog = new Backlog();
     }
@@ -106,11 +110,12 @@ class ClaroCourse
             $this->email = $course_data['email'];
             $this->category = $course_data['categoryCode'];
             $this->departmentName = $course_data['extLinkName'];
-            $this->departmentUrl = $course_data['extLinkUrl'];
+            $this->extLinkUrl = $course_data['extLinkUrl'];
             $this->language = $course_data['language'];
-            $this->access = $course_data['visibility'];
-            $this->enrolment = $course_data['registrationAllowed'];
-            $this->enrolmentKey = $course_data['enrollmentKey'];
+            $this->access = $course_data['access'];
+            $this->visibility = $course_data['visibility'];
+            $this->registration = $course_data['registrationAllowed'];
+            $this->registrationKey = $course_data['registrationKey'];
             return true;
         }
         else
@@ -152,11 +157,12 @@ class ClaroCourse
                    ,               $this->language
                    ,               $GLOBALS['_uid']
                    ,               $this->access
-                   ,               $this->enrolment
-                   ,               $this->enrolmentKey
+                   ,               $this->registration
+                   ,               $this->registrationKey
+                   ,               $this->visibility
                    ,               $courseExpirationDate
                    ,               $this->departmentName
-                   ,               $this->departmentUrl)
+                   ,               $this->extLinkUrl)
                 )
             {
                 // set course id
@@ -185,20 +191,29 @@ class ClaroCourse
             // update
             $tbl_mdb_names = claro_sql_get_main_tbl();
             $tbl_course = $tbl_mdb_names['course'];
+            $tbl_cdb_names = claro_sql_get_course_tbl();
+            $tbl_course_properties = $tbl_cdb_names['course_properties'];
 
-            $visibility = $this->getVisibility($this->access,$this->enrolment);
+            $visibility = $this->getVisibility($this->access,$this->registration);
 
+/*
+            $sql = "REPLACE `" . $tbl_course_properties . "`
+                    SET `value` = " . $sqlReadyPropertyValue . "
+                    WHERE `name` = '" . $propertyName . "'";
+*/
             $sql = "UPDATE `" . $tbl_course . "`
-                    SET `intitule`         = '" . addslashes($this->title) . "',
-                        `faculte`          = '" . addslashes($this->category) . "',
-                        `titulaires`       = '" . addslashes($this->titular) . "',
-                        `fake_code`        = '" . addslashes($this->officialCode) . "',
-                        `languageCourse`   = '" . addslashes($this->language) . "',
-                        `departmentUrlName`= '" . addslashes($this->departmentName) . "',
-                        `departmentUrl`    = '" . addslashes($this->departmentUrl) . "',
-                        `email`            = '" . addslashes($this->email) . "',
-                        `enrollment_key`   = '" . addslashes($this->enrolmentKey) . "',
-                        `visible`          = "  . (int) $visibility . "
+                    SET `intitule`             = '" . addslashes($this->title) . "',
+                        `faculte`              = '" . addslashes($this->category) . "',
+                        `titulaires`           = '" . addslashes($this->titular) . "',
+                        `administrativeNumber` = '" . addslashes($this->officialCode) . "',
+                        `language`             = '" . addslashes($this->language) . "',
+                        `extLinkName`          = '" . addslashes($this->departmentName) . "',
+                        `extLinkUrl`           = '" . addslashes($this->extLinkUrl) . "',
+                        `email`                = '" . addslashes($this->email) . "',
+                        `visibility`           = '" . ($this->visibility ? 'SHOW':'HIDDEN') . "',
+                        `access`               = '" . ($this->access     ? 'PUBLIC':'PRIVATE') . "',
+                        `registration`         = '" . ($this->registration ? 'OPEN':'CLOSE') . "',
+                        `registrationKey`      = '" . addslashes($this->registrationKey) . "'
                     WHERE code='" . addslashes($this->courseId) . "'";
 
             return claro_sql_query($sql);
@@ -235,11 +250,12 @@ class ClaroCourse
         if ( isset($_REQUEST['course_email'        ]) ) $this->email = trim(strip_tags($_REQUEST['course_email']));
         if ( isset($_REQUEST['course_category'     ]) ) $this->category = trim(strip_tags($_REQUEST['course_category']));
         if ( isset($_REQUEST['course_departmentName']) ) $this->departmentName = trim(strip_tags($_REQUEST['course_departmentName']));
-        if ( isset($_REQUEST['course_departmentUrl']) ) $this->departmentUrl = trim(strip_tags($_REQUEST['course_departmentUrl']));
+        if ( isset($_REQUEST['course_extLinkUrl']) ) $this->extLinkUrl = trim(strip_tags($_REQUEST['course_extLinkUrl']));
         if ( isset($_REQUEST['course_language'     ]) ) $this->language = trim(strip_tags($_REQUEST['course_language']));
+        if ( isset($_REQUEST['course_visibility'   ]) ) $this->visibility  = (bool) $_REQUEST['course_visibility'];
         if ( isset($_REQUEST['course_access'       ]) ) $this->access = (bool) $_REQUEST['course_access'];
-        if ( isset($_REQUEST['course_enrolment'    ]) ) $this->enrolment = (bool) $_REQUEST['course_enrolment'];
-        if ( isset($_REQUEST['course_enrolmentKey']) ) $this->enrolmentKey = trim(strip_tags($_REQUEST['course_enrolmentKey']));
+        if ( isset($_REQUEST['course_registration' ]) ) $this->registration = (bool) $_REQUEST['course_registration'];
+        if ( isset($_REQUEST['course_registrationKey' ]) ) $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
     }
 
     /**
@@ -263,7 +279,7 @@ class ClaroCourse
         $fieldRequiredStateList['category'      ] = true;
         $fieldRequiredStateList['language'      ] = true;
         $fieldRequiredStateList['departmentName'] = get_conf('extLinkNameNeeded');
-        $fieldRequiredStateList['departmentUrl' ] = get_conf('extLinkUrlNeeded');
+        $fieldRequiredStateList['extLinkUrl' ] = get_conf('extLinkUrlNeeded');
 
         // Validate course title
         if ( empty($this->title) && $fieldRequiredStateList['title'] )
@@ -315,15 +331,15 @@ class ClaroCourse
             $success = false ;
         }
 
-        // Validate course departmentUrl
-        if ( empty($this->departmentUrl) && $fieldRequiredStateList['departmentUrl'])
+        // Validate course extLinkUrl
+        if ( empty($this->extLinkUrl) && $fieldRequiredStateList['extLinkUrl'])
         {
             $this->backlog->failure(get_lang('Department url needed'));
             $success = false ;
         }
 
         // Validate department url
-        if ( ! $this->validateDepartmentUrl() )
+        if ( ! $this->validateExtLinkUrl() )
         {
             $this->backlog->failure(get_lang('Department URL is not valid'));
             $success = false ;
@@ -338,20 +354,20 @@ class ClaroCourse
      * @return boolean success
      */
 
-    function validateDepartmentUrl ()
+    function validateExtLinkUrl ()
     {
-        if ( empty($this->departmentUrl) ) return true;
+        if ( empty($this->extLinkUrl) ) return true;
 
         $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$";
 
-        if ( ! eregi($regexp,$this->departmentUrl) )
+        if ( ! eregi($regexp,$this->extLinkUrl) )
         {
             // Problem with url. try to repair
             // if  it  only the protocol missing add http
-            if ( eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $this->departmentUrl)
-                && ( eregi($regexp, 'http://' . $this->departmentUrl)))
+            if ( eregi('^[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$', $this->extLinkUrl)
+                && ( eregi($regexp, 'http://' . $this->extLinkUrl)))
             {
-                $this->departmentUrl = 'http://' . $this->departmentUrl;
+                $this->extLinkUrl = 'http://' . $this->extLinkUrl;
             }
             else
             {
@@ -426,11 +442,11 @@ class ClaroCourse
         $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context()
             . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
-    		. '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+            . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
 
             . $this->getHtmlParamList('POST')
 
-            . '<table  cellpadding="3" border="0">' . "\n" ;
+        	. '<table cellpadding="3" border="0">' . "\n" ;
 
         // Course title
 
@@ -509,11 +525,11 @@ class ClaroCourse
         $html .= '<tr valign="top" >' . "\n"
             . '<td align="right" nowrap="nowrap">'
             . (get_conf('extLinkUrlNeeded')?'<span class="required">*</span> ':'')
-            . '<label for="course_departmentUrl" >' . get_lang('Department URL') . '</label>'
+            . '<label for="course_extLinkUrl" >' . get_lang('Department URL') . '</label>'
             . '&nbsp;:'
             . '</td>'
             . '<td>'
-            . '<input type="text" name="course_departmentUrl" id="course_departmentUrl" value="' . htmlspecialchars($this->departmentUrl) . '" size="60" maxlength="180" />'
+            . '<input type="text" name="course_extLinkUrl" id="course_extLinkUrl" value="' . htmlspecialchars($this->extLinkUrl) . '" size="60" maxlength="180" />'
             . '</td>'
             . '</tr>' . "\n" ;
 
@@ -553,24 +569,42 @@ class ClaroCourse
         $html .= '</label>'
             . '</td>'
             . '</tr>' . "\n" ;
-        // Course enrolment + enrolment key
+
+        // Course visibility
+        if (claro_is_platform_admin())
+        $html .= '<tr valign="top" >' . "\n"
+            . '<td align="right" nowrap>' . get_lang('Course visibility') . '&nbsp;:</td>'
+            . '<td>'
+            . '<img src="' . get_path('imgRepositoryWeb') . '/visible.gif" />'
+            . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . '>&nbsp;'
+            . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
+            . '<br />' . "\n"
+            . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" />'
+            . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . '>&nbsp;'
+            . '<label for="visibility_hidden">'
+            . get_lang('Visible only to people on the user list')
+            . '</label>'
+            . '</td>'
+            . '</tr>' . "\n"
+            ;
+        // Course registration + registration key
 
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
             . '<td>'
             . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_open.gif"  alt="' . get_lang('open') . '" />'
-            . '<input type="radio" id="enrolment_true" name="course_enrolment" value="1" ' . ($this->enrolment?'checked="checked"':'') . ' />'
+            . '<input type="radio" id="registration_true" name="course_registration" value="1" ' . ($this->registration?'checked="checked"':'') . ' />'
             . '&nbsp;'
-            . '<label for="enrolment_true">' . get_lang('Allowed') . '</label>'
-            . '<label for="enrolmentKey">'
+            . '<label for="registration_true">' . get_lang('Allowed') . '</label>'
+            . '<label for="registrationKey">'
             . ' - ' . get_lang('Enrolment key') . ' <small>(' . get_lang('Optional') . ')</small> : '
             . '</label>'
-            . '<input type="text" id="enrolmentKey" name="course_enrolmentKey" value="' . htmlspecialchars($this->enrolmentKey) . '" />'
+            . '<input type="text" id="registrationKey" name="course_registrationKey" value="' . htmlspecialchars($this->registrationKey) . '" />'
             . '<br />' . "\n"
             . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_locked.gif"  alt="' . get_lang('locked') . '" />'
-            . '<input type="radio" id="enrolment_false"  name="course_enrolment" value="0" ' . ( ! $this->enrolment ?'checked="checked"':'') . ' />'
+            . '<input type="radio" id="registration_false"  name="course_registration" value="0" ' . ( ! $this->registration ?'checked="checked"':'') . ' />'
             . '&nbsp;'
-            . '<label for="enrolment_false">' . get_lang('Denied') . '</label>'
+            . '<label for="registration_false">' . get_lang('Denied') . '</label>'
             . '</td>'
             . '</tr>' . "\n" ;
 
@@ -691,20 +725,20 @@ class ClaroCourse
      * Get visibility
      *
      * @param $access string
-     * @param $enrolment string
+     * @param $registration string
      * @return integer value of visibility field
      *
      * @deprecated 1.9
      */
 
-    function getVisibility ( $access, $enrolment )
+    function getVisibility ( $access, $registration )
     {
         $visibility = 0 ;
 
-        if     ( ! $access && ! $enrolment ) $visibility = 0;
-        elseif ( ! $access &&   $enrolment ) $visibility = 1;
-        elseif (   $access && ! $enrolment ) $visibility = 3;
-        elseif (   $access &&   $enrolment ) $visibility = 2;
+        if     ( ! $access && ! $registration ) $visibility = 0;
+        elseif ( ! $access &&   $registration ) $visibility = 1;
+        elseif (   $access && ! $registration ) $visibility = 3;
+        elseif (   $access &&   $registration ) $visibility = 2;
 
         return $visibility ;
     }
@@ -723,13 +757,13 @@ class ClaroCourse
     }
 
     /**
-     * Get enrolment value from visibility field
+     * Get registration value from visibility field
      *
      * @param $visbility integer value of field
      * @return boolean open true, close false
      */
 
-    function getEnrolment ( $visibility )
+    function getRegistration ( $visibility )
     {
         if ( $visibility == 1 || $visibility == 2 ) return true ;
         else                                        return false;
@@ -789,11 +823,12 @@ class ClaroCourse
         $paramList['course_email'] = $this->email;
         $paramList['course_category'] = $this->category;
         $paramList['course_departmentName'] = $this->departmentName;
-        $paramList['course_departmentUrl'] = $this->departmentUrl;
+        $paramList['course_extLinkUrl'] = $this->extLinkUrl;
         $paramList['course_language'] = $this->language;
+        $paramList['course_visibility'] = $this->visibility;
         $paramList['course_access'] = $this->access;
-        $paramList['course_enrolment'] = $this->enrolment;
-        $paramList['course_enrolmentKey'] = $this->enrolmentKey;
+        $paramList['course_registration'] = $this->registration;
+        $paramList['course_registrationKey'] = $this->registrationKey;
 
         $paramList = array_merge($paramList, $this->htmlParamList);
 

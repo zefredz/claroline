@@ -4,9 +4,9 @@
  *
  * Try to create main database of claroline without remove existing content
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -28,7 +28,7 @@
 require 'upgrade_init_global.inc.php';
 
 // Security Check
-if (!$is_platformAdmin) upgrade_disp_auth_form();
+if ( ! claro_is_platform_admin()) upgrade_disp_auth_form();
 
 // Define display
 DEFINE('DISPLAY_WELCOME_PANEL', 1);
@@ -81,6 +81,7 @@ if ($cmd == 'run')
     include('./upgrade_main_db_16.lib.php');
     include('./upgrade_main_db_17.lib.php');
     include('./upgrade_main_db_18.lib.php');
+    include('./upgrade_main_db_19.lib.php');
 
     $display = DISPLAY_RESULT_PANEL;
 
@@ -119,7 +120,7 @@ switch ( $display )
         // Display upgrade result
 
         echo '<h2>Step 2 of 3: main platform tables upgrade</h2>
-             <h3>Upgrading main Claroline database (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
+              <h3>Upgrading main Claroline database (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
 
         if ( ! preg_match('/^1.8/',$currentDbVersion) )
         {
@@ -206,6 +207,47 @@ switch ( $display )
                                    'upgrade_main_database_module_to_18',
                                    'upgrade_main_database_user_property_to_18',
                                    'upgrade_main_database_tracking_to_18'
+                                    );
+
+            foreach ( $function_list as $function )
+            {
+                $step = $function();
+                if ( $step > 0 )
+                {
+                    echo 'Error : ' . $function . ' at step . ' . $step . '<br />';
+                    $nbError++;
+                }
+            }
+
+            if ( $nbError == 0 )
+            {
+                // Upgrade 1.7 to 1.8 Succeed
+                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.8</p>' . "\n";
+                clean_upgrade_status();
+
+                // Database version is 1.8
+                $currentDbVersion = $new_version;
+
+                // Update current version file
+                save_current_version_file($currentClarolineVersion, $currentDbVersion);
+            }
+        } // End of upgrade 1.7 to 1.8
+
+        /*---------------------------------------------------------------------
+        Upgrade 1.8 to 1.9
+        ---------------------------------------------------------------------*/
+
+        if ( preg_match('/^1.8/',$currentDbVersion) )
+        {
+            $function_list = array('upgrade_main_database_course_to_19',
+                                   #'upgrade_main_database_rel_course_user_to_19',
+                                   #'upgrade_main_database_course_category_to_19',
+                                   #'upgrade_main_database_user_to_19',
+                                   #'upgrade_main_database_course_class_to_19',
+                                   #'upgrade_main_database_right_to_19',
+                                   #'upgrade_main_database_module_to_19',
+                                   #'upgrade_main_database_user_property_to_19',
+                                   #'upgrade_main_database_tracking_to_19'
                                     );
 
             foreach ( $function_list as $function )

@@ -5,9 +5,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * SQL Statement to create table of central database
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -25,18 +25,20 @@ $creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."cours` (
   `cours_id` int(11) NOT NULL auto_increment,
   `code` varchar(40) default NULL,
-  `fake_code` varchar(40) default NULL,
+  `administrativeNumber` varchar(40) default NULL,
   `directory` varchar(20) default NULL,
   `dbName` varchar(40) default NULL,
-  `languageCourse` varchar(15) default NULL,
+  `language` varchar(15) default NULL,
   `intitule` varchar(250) default NULL,
   `faculte` varchar(12) default NULL,
-  `visible` tinyint(4) default NULL,
-  `enrollment_key` varchar(255) default NULL,
   `titulaires` varchar(255) default NULL,
   `email` varchar(255) default NULL,
-  `departmentUrlName` varchar(30) default NULL,
-  `departmentUrl` varchar(180) default NULL,
+  `extLinkName` varchar(30) default NULL,
+  `extLinkUrl` varchar(180) default NULL,
+  `visibility` ENUM ('show','hidden') DEFAULT 'show' NOT NULL,
+  `access`     ENUM ('public','private') DEFAULT 'public' NOT NULL,
+  `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL,
+  `registrationKey` varchar(255) default NULL,
   `diskQuota` int(10) unsigned default NULL,
   `versionDb` varchar(250) NOT NULL default 'NEVER SET',
   `versionClaro` varchar(250) NOT NULL default 'NEVER SET',
@@ -46,7 +48,7 @@ CREATE TABLE `".$mainTblPrefixForm."cours` (
   `expirationDate` datetime default NULL,
   `defaultProfileId` int(11) NOT NULL,
   PRIMARY KEY  (`cours_id`),
-  KEY `fake_code` (`fake_code`),
+  KEY `administrativeNumber` (`administrativeNumber`),
   KEY `faculte` (`faculte`)
 ) TYPE=MyISAM COMMENT='data of courses'";
 
@@ -78,6 +80,19 @@ $creationStatementList[] ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
   UNIQUE KEY `code` (`code`),
   KEY `code_P` (`code_P`),
   KEY `treePos` (`treePos`)
+
+) TYPE=MyISAM;";
+
+$creationStatementList[] ="CREATE TABLE `" . $mainTblPrefixForm . "tree` (
+  id                    int(11) NOT NULL auto_increment,
+  tree_id               int(11) NOT NULL,
+  parent_id             int(11) NOT NULL,
+  treeLeftIndex         int(11) unsigned default NULL,
+  treeRightIndex        int(11) unsigned default NULL,
+  PRIMARY KEY  (`id`,`tree`),
+  KEY `parent_id` (`parent_id`),
+  KEY `treePos` (`treeLeftIndex`),
+  KEY `treePos` (`treeRightIndex`),
 
 ) TYPE=MyISAM;";
 

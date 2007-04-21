@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * this tool manage the 
+ * this tool manage the
  *
- * @version 1.0 
+ * @version 1.0
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -16,7 +16,7 @@ $userPerPage = 20; // numbers of cours to display on the same page
 
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
-    
+
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/class.lib.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
@@ -78,7 +78,7 @@ if ( !empty($class_id) )
 
     //find this class current content
     // TODO Factorise this statement
-    $sql = "SELECT distinct (CC.`courseId`), C.`code`, C.`languageCourse` ,C.`intitule`,C.`faculte`,C.`titulaires`
+    $sql = "SELECT distinct (CC.`courseId`), C.`code`, C.`language` ,C.`intitule`,C.`faculte`,C.`titulaires`
             FROM `".$tbl_course_class."` CC, `".$tbl_cours."` C
             WHERE C.`code` = CC.`courseId`
             AND CC.`classId` = '". $class_id ."'";
@@ -86,8 +86,8 @@ if ( !empty($class_id) )
     // deal with session variables for search criteria
 
     if (isset($_REQUEST['dir'])) {$_SESSION['admin_user_class_dir']  = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
-                
-    // first see is direction must be changed 
+
+    // first see is direction must be changed
 
     if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
     {
@@ -187,7 +187,7 @@ else
         .    '<td align="center" >' . $list['code']      . '</td>'
         .    '<td align="left" >'   . $list['intitule']          . '</td>'
         .    '<td align="left" >'   . $list['faculte']       . '</td>'
-        .     '<td align="center">' 
+        .     '<td align="center">'
         .    '<a href="../course/settings.php?adminContext=1'
         // TODO cfrom=xxx is probably a hack
         .    '&amp;cidReq=' . $list['code'] . '&amp;cfrom=xxx">'

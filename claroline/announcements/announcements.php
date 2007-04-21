@@ -414,7 +414,8 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 if ( $displayButtonLine )
 {
     $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-    .            '?cmd=rqCreate' . claro_url_relay_context('&amp;') . '">'
+    .            '?cmd=rqCreate' . claro_url_relay_context('&amp;') . '"'
+    .            '  onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('You will loose all your changes')) . ' ?\')){return true;}else{return false;}" >'
     .             '<img src="' . get_path('imgRepositoryWeb') . 'announcement.gif" alt="" />'
     .             get_lang('Add announcement')
     .             '</a>' . "\n"

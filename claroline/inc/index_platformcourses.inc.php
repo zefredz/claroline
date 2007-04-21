@@ -47,7 +47,8 @@ if ( ( count($categoryList) - 1 )  >= 0 )
 {
 
     echo claro_html_title(get_lang('Categories'),4)
-    .    '<ul>'                                     . "\n";
+    .    '<ul>'  . "\n"
+    ;
 
     foreach($categoryList as $thisCategory)
     {
@@ -55,7 +56,7 @@ if ( ( count($categoryList) - 1 )  >= 0 )
 
         if ( $thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0 )
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?category='.$thisCategory['code'].'">'
+            echo '<a href="' . $_SERVER['PHP_SELF'].'?category=' . $thisCategory['code'] . '">'
             .    $thisCategory['name']
             .    '</a>'
             ;
@@ -65,8 +66,8 @@ if ( ( count($categoryList) - 1 )  >= 0 )
             echo $thisCategory['name'];
         }
 
-        echo ' <small>('.$thisCategory['nbCourse'].')</small>'."\n"
-        .    '</li>'                                          . "\n"
+        echo ' <small>(' . $thisCategory['nbCourse'] . ')</small>'."\n"
+        .    '</li>'                                              . "\n"
         ;
     }
 

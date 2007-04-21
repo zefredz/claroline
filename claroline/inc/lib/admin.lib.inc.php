@@ -57,7 +57,7 @@ function delete_course($code)
     $this_course = claro_get_course_data($code);
     $currentCourseId = $this_course['sysCode'];
 
-    // DELETE USER ENROLMENT INTO THIS COURSE
+    // DELETE USER REGISTRATION INTO THIS COURSE
 
     $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
             WHERE code_cours="' . $currentCourseId . '"';

@@ -8,7 +8,7 @@
  *    Based on the master-calendar code of Eric Remy (6 Oct 2003)
  *    adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -41,12 +41,12 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
 // Main
 
-$sql = "SELECT cours.code       AS sysCode,
-               cours.fake_code  AS officialCode,
-               cours.intitule   AS title,
-               cours.titulaires AS t,
-               cours.dbName     AS db,
-               cours.directory  AS dir
+$sql = "SELECT cours.code                 AS sysCode,
+               cours.administrativeNumber AS officialCode,
+               cours.intitule             AS title,
+               cours.titulaires           AS t,
+               cours.dbName               AS db,
+               cours.directory            AS dir
 
         FROM    `" . $tbl_course . "`          AS cours,
                 `" . $tbl_rel_course_user . "` AS cours_user

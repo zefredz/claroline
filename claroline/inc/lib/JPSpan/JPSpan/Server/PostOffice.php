@@ -120,7 +120,7 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
 
             } else {
 
-                trigger_error('Invalid handle for: '.$this->calledClass,E_USER_ERROR);
+                trigger_error('Invalid handle for: ' . $this->calledClass,E_USER_ERROR);
                 return FALSE;
 
             }
