@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * Get and set value of current session.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -228,7 +228,6 @@ function claro_get_current_user_data($dataName=null)
         pushClaroMessage( ' -' . $dataName . '- does not exist for user data','error');
         return null;
     };
-
 }
 
 /**
@@ -270,8 +269,6 @@ function claro_get_current_course_user_data($dataName=null)
     elseif (is_array($cu) && array_key_exists($dataName,$cu)) return $cu[$dataName];
     else
     {
-
-
         pushClaroMessage( ' -' . $dataName . '- does not exist for course user relation data','error');
         return null;
     };
@@ -293,10 +290,8 @@ function claro_get_current_course_tool_data($dataName=null)
     else
     {
         pushClaroMessage( ' -' . $dataName . '- does not exist for course tool relation data' ,'error');
-
         return null;
     };
-
 }
 
 /**
@@ -362,8 +357,7 @@ function  claro_is_platform_admin()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
 function  claro_is_course_admin()
 {
@@ -382,13 +376,14 @@ function  claro_is_course_manager()
 {
     return get_init('is_courseAdmin');
 }
+
 /**
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
+
 function claro_is_course_allowed()
 {
     return get_init('is_courseAllowed');
@@ -400,20 +395,19 @@ function claro_is_course_allowed()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return boolean
  */
+
 function  claro_is_allowed_to_create_course()
 {
     return get_init('is_allowedCreateCourse');
 }
 
-
-
 /**
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
+
 function  claro_is_group_member()
 {
     return get_init('is_groupMember');
@@ -425,6 +419,7 @@ function  claro_is_group_member()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return boolean
  */
+
 function  claro_is_group_tutor()
 {
     return get_init('is_groupTutor');
@@ -434,9 +429,9 @@ function  claro_is_group_tutor()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return
-boolean
+ * @return boolean
  */
+
 function  claro_is_group_allowed()
 {
     return is_null(get_init('is_groupAllowed'))? false : get_init('is_groupAllowed');
@@ -448,6 +443,7 @@ function  claro_is_group_allowed()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return boolean
  */
+
 function claro_is_tool_allowed()
 {
     return get_init('is_toolAllowed');
@@ -462,7 +458,7 @@ function claro_is_tool_allowed()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
-*/
+ */
 
 function get_init($param)
 {
@@ -514,6 +510,7 @@ function get_init($param)
  * @return array('role')
  * @author Christophe Gesché <moosh@claroline.net>
  */
+
 function claro_get_course_user_data($cid,$uid,$ignoreCache=false)
 {
     $properties = claro_get_course_user_properties($cid,$uid,$ignoreCache);
