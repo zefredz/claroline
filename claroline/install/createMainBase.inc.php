@@ -83,21 +83,8 @@ $creationStatementList[] ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
 
 ) TYPE=MyISAM;";
 
-$creationStatementList[] ="CREATE TABLE `" . $mainTblPrefixForm . "tree` (
-  id                    int(11) NOT NULL auto_increment,
-  tree_id               int(11) NOT NULL,
-  parent_id             int(11) NOT NULL,
-  treeLeftIndex         int(11) unsigned default NULL,
-  treeRightIndex        int(11) unsigned default NULL,
-  PRIMARY KEY  (`id`,`tree`),
-  KEY `parent_id` (`parent_id`),
-  KEY `treePos` (`treeLeftIndex`),
-  KEY `treePos` (`treeRightIndex`),
-
-) TYPE=MyISAM;";
-
     $creationStatementList[] ="
-CREATE TABLE `".$mainTblPrefixForm."user` (
+CREATE TABLE `".$mainTblPrefixForm . "user` (
   `user_id` int(11)  unsigned NOT NULL auto_increment,
   `nom` varchar(60) default NULL,
   `prenom` varchar(60) default NULL,
