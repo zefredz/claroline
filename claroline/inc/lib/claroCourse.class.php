@@ -570,23 +570,6 @@ class ClaroCourse
             . '</td>'
             . '</tr>' . "\n" ;
 
-        // Course visibility
-        if (claro_is_platform_admin())
-        $html .= '<tr valign="top" >' . "\n"
-            . '<td align="right" nowrap>' . get_lang('Course visibility') . '&nbsp;:</td>'
-            . '<td>'
-            . '<img src="' . get_path('imgRepositoryWeb') . '/visible.gif" />'
-            . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . '>&nbsp;'
-            . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
-            . '<br />' . "\n"
-            . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" />'
-            . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . '>&nbsp;'
-            . '<label for="visibility_hidden">'
-            . get_lang('Visible only to people on the user list')
-            . '</label>'
-            . '</td>'
-            . '</tr>' . "\n"
-            ;
         // Course registration + registration key
 
         $html .= '<tr valign="top">' . "\n"
@@ -615,7 +598,24 @@ class ClaroCourse
             . '<td><small><font color="gray">' . get_block('blockCourseSettingsTip') . '</font></small></td>'
             . '</tr>' . "\n" ;
 
-        // Required legend
+
+        // Course visibility
+        if (claro_is_platform_admin())
+        $html .= '<tr valign="top" class="admin" >' . "\n"
+        .        '<td align="right" nowrap>' . get_lang('Course visibility') . '&nbsp;:</td>'
+            . '<td>'
+            . '<img src="' . get_path('imgRepositoryWeb') . '/visible.gif" />'
+            . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . '>&nbsp;'
+            . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
+            . '<br />' . "\n"
+            . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" />'
+            . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . '>&nbsp;'
+            . '<label for="visibility_hidden">'
+            . get_lang('Visible only to people on the user list')
+            . '</label>'
+            . '</td>'
+            . '</tr>' . "\n"
+            ;        // Required legend
 
         $html .= '<tr>' . "\n"
             . '<td>&nbsp;</td>'

@@ -1,21 +1,21 @@
 
 /******************************************************************************
                               MAIN HTML TAGS STYLE
- $Id$                          
+ $Id$
  ******************************************************************************/
 
 html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-size: 1em;    
+    font-size: 1em;
 }
 
 body {
     margin: 0;
     padding: 0;
     color: #444;
-    background: #FFF; 
+    background: #FFF;
     text-align: left;
     font-family: Arial, Verdana, Helvetica, Sans-Serif;
     font-size: 1em;
@@ -57,7 +57,7 @@ input, textarea, button, select{
 input[type=submit], input[type=reset], button {
     margin-left: 2px;
     color: #666666;
-} 
+}
 
 input[type], textarea[name], button {
     background: #ffffff;
@@ -349,13 +349,13 @@ label {
     background: url('default/bg_footer.jpg') repeat-x top left #fff;
 }
 
-#campusFooter a:link, 
+#campusFooter a:link,
 #campusFooter a:visited {
     color: #666;
     font-weight: bold;
 }
 
-#campusFooter a:hover, 
+#campusFooter a:hover,
 #campusFooter a:active {
     color: #369;
     font-weight: bold;
@@ -372,7 +372,7 @@ label {
 }
 
 #campusFooterLeft {
-    float: left;    
+    float: left;
     padding: 0;
 }
 
@@ -390,7 +390,7 @@ label {
 /******************************************************************************
     CLAROLINE COMMAND LINKS
  ******************************************************************************/
- 
+
 .claroCmd, .claroCmdDisabled
 {
     font-size: 0.8em;
@@ -471,7 +471,7 @@ a.item:visited{
  *     - superHeader : allowing to define table title above the column header
  *     - headerX : define header in the X axis for each column
  *     - headerY : define header in the Y axis for each rank
- * 
+ *
  * Example of table using a super header and header in X axis
  *
  * <table class="claroTable">
@@ -483,9 +483,9 @@ a.item:visited{
  * <th>Lastname</th>
  * <th>Birthdate</th>
  * </tr>
- * 
+ *
  * <tbody>
- * 
+ *
  * <tr>
  * <td>Hugues</td>
  * <td>Peeters</td>
@@ -494,32 +494,32 @@ a.item:visited{
  * <tr>
  * ...
  * </tr>
- * 
+ *
  * </tbody>
- * 
+ *
  * </table>
- * 
+ *
  * Example of table using header in Y axis
- * 
- * 
+ *
+ *
  * <table class="claroTable">
  *
  * <tr class="superHeader">
  * <th colspan="3">User Birthdate</th>
  * </tr>
- * 
+ *
  * <tr>
  * <th class="headerY">Firstname</th>
  * <td>Hugues</td>
  * <td> ...  </td>
  * </tr>
- * 
+ *
  * <tr>
  * <th class="headerY">Lastname</th>
  * <td>Peeters</td>
  * <td> ...  </td>
  * </tr>
- * 
+ *
  * <tr>
  * <th class="headerY">Birthdate</th>
  * <td>1969-09-27</td>
@@ -533,7 +533,7 @@ a.item:visited{
     text-align: left;
 }
 
-.claroTable td, 
+.claroTable td,
 .claroTable th {
     vertical-align: middle;
     padding: 2px 5px 2px 5px;
@@ -541,7 +541,7 @@ a.item:visited{
     font-size: 0.9em;
 }
 
-.claroTable .superHeader th, 
+.claroTable .superHeader th,
 .claroTable th.superHeader {
     color: #669933;
     background-color: #DEEECE;
@@ -631,13 +631,13 @@ a.item:visited{
  ******************************************************************************/
 
 /*
- * 'claroMessageBox' is used to display all messages from the platform like 
+ * 'claroMessageBox' is used to display all messages from the platform like
  * action confirmation, parameter request, warning mesage...
  * Things that are usually displayed in a dialog box into offline applications
- */ 
- 
+ */
+
 .claroMessageBox {
-    //background: url(default/bg_msgBox.jpg) repeat-x top right #FFF; 
+    //background: url(default/bg_msgBox.jpg) repeat-x top right #FFF;
     background-color : #EDF1E3;
     border: 1px #669933 solid;
     margin-left: 5px;
@@ -645,7 +645,7 @@ a.item:visited{
     color: #666;
 }
 
-.claroIntroSection { 
+.claroIntroSection {
     background-color: #F5F5F5;
     padding: 5px;
     margin-top : 5px;
@@ -678,9 +678,9 @@ div .wiki2xhtml p {
 }
 
 /*
- * 'invisible' is generally attached to element that shouldn't be visible into 
- * common user interface but which are visible in course manager or platform 
- * administrator screen, showing that the element is deactivated or isn't 
+ * 'invisible' is generally attached to element that shouldn't be visible into
+ * common user interface but which are visible in course manager or platform
+ * administrator screen, showing that the element is deactivated or isn't
  * visible fo the other users
  */
 
@@ -688,7 +688,7 @@ div .wiki2xhtml p {
     color: #999999;
 }
 
-.invisible a, 
+.invisible a,
 .invisible a:link,
 .invisible a:visited,
 a.invisible,
@@ -745,12 +745,12 @@ a:visited.invisible {
     padding: 10px;
     font-size: 0.9em;
 }
-    
-.claroRightMenu a:link, 
+
+.claroRightMenu a:link,
 .claroRightMenu a:visited {
     color: #336699;
 }
-    
+
 .claroRightMenu a:hover,
 .claroRightMenu a:active {
     color: #669933;
@@ -796,18 +796,18 @@ small {
 /*
  * Navigation with tabs : configuration, modules, ...
  */
- 
+
 #navlist {
     margin: 10px;
     padding: 0 0 7px 10px;
-    border-bottom: 1px solid #DEDEDE;   
+    border-bottom: 1px solid #DEDEDE;
 }
 
 .tabTitle {
     padding: 3px 0;
     margin-left: 0;
     font-weight: bold;
-    border-bottom: 1px solid #DEDEDE; 
+    border-bottom: 1px solid #DEDEDE;
 }
 
 .tabTitle a {
@@ -834,4 +834,11 @@ small {
 
 #navlist li a.current {
     border-bottom: 4px solid #669933;
+}
+
+form tr.admin td{
+    background-color : #EDF1E3;
+    border: 1px solid #663300;
+    margin: 10px 10px 10px 10px;
+
 }
