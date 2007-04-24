@@ -45,7 +45,7 @@ class category_browser
 
                 LEFT JOIN `" . $tbl_courses . "` AS `cours`
                        ON `cours`.`faculte` = `subCat`.`code`
-                       AND `cours`.visibility = 'show'
+                       AND `cours`.visibility = 'VISIBLE'
                        ";
 
         if ($categoryCode)
@@ -122,7 +122,7 @@ class category_browser
                  : " ")
 
               . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
-                 AND (visibility = 'show' "
+                 AND (visibility = 'VISIBLE' "
                  . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
                  ")
                  ORDER BY UPPER(c.administrativeNumber)";
@@ -174,7 +174,7 @@ function search_course($keyword, $userId = null)
                         AND cu.user_id = " . (int) $userId
                      :  "")
          . " \n "
-         . "WHERE (  visibility = 'show'
+         . "WHERE (  visibility = 'VISIBLE'
                   OR ".(claro_is_platform_admin()?"1":"0") ." "
          .  ($userId ? "OR cu.user_id" : "") . "
 

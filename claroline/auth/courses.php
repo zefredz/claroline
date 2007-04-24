@@ -596,7 +596,7 @@ switch ( $displayMode )
                         ;
                     }
                     // It's not pretty, can be enjoyed to show the protected courses.
-                    if ( $can_see_hidden_course && $thisCourse['visibility']=='hidden') echo '('.get_lang('Invisible').')';
+                    if ( $can_see_hidden_course && $thisCourse['visibility']=='invisible') echo '('.get_lang('Invisible').')';
                     echo '</td>' . "\n";
 
                 }

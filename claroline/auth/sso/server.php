@@ -182,7 +182,7 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
             $res['courseDbName' ] = $course['dbName'      ];
 
             $res['courseRegistrationAllowed'] = (bool) ($course['registration'] == 'OPEN');
-            $res['courseVisibility'         ] = (bool) ($course['visibility'] == 'SHOW');
+            $res['courseVisibility'         ] = (bool) ($course['visibility'] == 'VISIBLE');
             $res['courseAccess'             ] = (bool) ($course['access']     == 'PUBLIC');
 
             $res['is_courseMember' ] = (bool) ( ! is_null($course['userStatus']) );

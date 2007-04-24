@@ -187,7 +187,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $sql = "
                 SELECT `code` , `intitule` , `administrativeNumber`
                   FROM `" . $mainTbl["course"] . "`
-                 WHERE `visibility` = 'show'
+                 WHERE `visibility` = 'VISIBLE'
                    AND `access` = 'public'";
             $publicCoursesInfo = claro_sql_query_fetch_all($sql);
 

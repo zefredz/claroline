@@ -53,12 +53,12 @@ unset($_SESSION['admin_course_order_crit']);
 
 //retrieve needed parameters from URL to prefill search form
 
-if (isset($_REQUEST['access']))        $access        = $_REQUEST['access'];        else $access = "all";
+if (isset($_REQUEST['access']))        $access        = $_REQUEST['access'];        else $access       = "all";
 if (isset($_REQUEST['subscription']))  $subscription  = $_REQUEST['subscription'];  else $subscription = "all";
-if (isset($_REQUEST['visibility']))    $subscription  = $_REQUEST['visibility'];  else $subscription = "all";
-if (isset($_REQUEST['code']))          $code          = $_REQUEST['code'];          else $code = "";
-if (isset($_REQUEST['intitule']))      $intitule      = $_REQUEST['intitule'];      else $intitule = "";
-if (isset($_REQUEST['category']))      $category      = $_REQUEST['category'];      else $category = "";
+if (isset($_REQUEST['visibility']))    $visibility    = $_REQUEST['visibility'];    else $visibility   = "all";
+if (isset($_REQUEST['code']))          $code          = $_REQUEST['code'];          else $code         = "";
+if (isset($_REQUEST['intitule']))      $intitule      = $_REQUEST['intitule'];      else $intitule     = "";
+if (isset($_REQUEST['category']))      $category      = $_REQUEST['category'];      else $category     = "";
 if (isset($_REQUEST['searchLang']))    $searchLang    = $_REQUEST['searchLang'];      else $searchLang = "";
 
 // Search needed info in db to create the right formulaire
@@ -149,7 +149,7 @@ echo claro_html_tool_title($nameTools . ' : ');
   </td>
   <td>
       <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?php if ($subscription=="allowed") echo "checked";?> />
-    <label for="subscription_allowed"><?php echo get_lang('Allowed') ?></label>
+      <label for="subscription_allowed"><?php echo get_lang('Allowed') ?></label>
   </td>
   <td>
       <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?php if ($subscription=="denied") echo "checked";?> />
@@ -166,15 +166,15 @@ echo claro_html_tool_title($nameTools . ' : ');
       <?php echo get_lang('Visibility') ?>    :
   </td>
   <td>
-      <input type="radio" name="visibility" value="show" id="visibility_show" <?php if ($subscription=="show") echo "checked";?> />
-    <label for="visibility_show"><?php echo get_lang('Show') ?></label>
+      <input type="radio" name="visibility" value="visible" id="visibility_show" <?php if ($visibility=="visible") echo "checked";?> />
+      <label for="visibility_show"><?php echo get_lang('Show') ?></label>
   </td>
   <td>
-      <input type="radio" name="visibility" value="hidden"  id="visibility_hidden" <?php if ($subscription=="hidden") echo "checked";?> />
-    <label for="visibility_hidden"><?php echo get_lang('Hidden') ?></label>
+      <input type="radio" name="visibility" value="invisible"  id="visibility_hidden" <?php if ($visibility=="invisible") echo "checked";?> />
+      <label for="visibility_hidden"><?php echo get_lang('Hidden') ?></label>
   </td>
   <td>
-      <input type="radio" name="visibility" value="all"  id="visibility_all" <?php if ($subscription=="all") echo "checked";?> />
+      <input type="radio" name="visibility" value="all"  id="visibility_all" <?php if ($visibility == "all") echo "checked";?> />
     <label for="visibility_all"><?php echo get_lang('All') ?></label>
   </td>
 </tr>

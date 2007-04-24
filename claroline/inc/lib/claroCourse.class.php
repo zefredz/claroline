@@ -210,7 +210,7 @@ class ClaroCourse
                         `extLinkName`          = '" . addslashes($this->departmentName) . "',
                         `extLinkUrl`           = '" . addslashes($this->extLinkUrl) . "',
                         `email`                = '" . addslashes($this->email) . "',
-                        `visibility`           = '" . ($this->visibility ? 'SHOW':'HIDDEN') . "',
+                        `visibility`           = '" . ($this->visibility ? 'VISIBLE':'INVISIBLE') . "',
                         `access`               = '" . ($this->access     ? 'PUBLIC':'PRIVATE') . "',
                         `registration`         = '" . ($this->registration ? 'OPEN':'CLOSE') . "',
                         `registrationKey`      = '" . addslashes($this->registrationKey) . "'

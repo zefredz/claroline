@@ -55,7 +55,7 @@ function upgrade_main_database_course_to_19 ()
             // Add new column
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
-                                 ADD COLUMN `visibility` ENUM ('SHOW','HIDDEN') DEFAULT 'SHOW' NOT NULL  AFTER `visible`,
+                                 ADD COLUMN `visibility` ENUM ('VISIBLE','INVISIBLE') DEFAULT 'INVISIBLE' NOT NULL  AFTER `visible`,
                                  ADD COLUMN `access`     ENUM ('PUBLIC','PRIVATE') DEFAULT 'PUBLIC' NOT NULL  after `visibility`,
                                  ADD COLUMN `registration` ENUM ('OPEN','CLOSE') DEFAULT 'OPEN' NOT NULL  AFTER `access`";
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -71,7 +71,7 @@ function upgrade_main_database_course_to_19 ()
             // $courseDataList['registrationAllowed'] = (bool) (1 == $courseDataList['visible'] || 2 == $courseDataList['visible'] );
 
             $sqlForUpdate[] = "UPDATE TABLE `" . $tbl_mdb_names['course'] . "`
-                                SET `visibility`   = 'SHOW',
+                                SET `visibility`   = 'VISIBLE',
                                     `access`       = IF(visible=2 OR visible=3,'PUBLIC','PRIVATE') ,
                                     `registration` = IF(visible=1 OR visible=2,'OPEN','CLOSE')";
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);

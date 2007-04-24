@@ -82,12 +82,12 @@ if ( $resetFilter )
     unset($_SESSION['admin_course_subscription']);
 }
 
-if (isset($_REQUEST['code'        ])) $_SESSION['admin_course_code'    ] = trim($_REQUEST['code'    ]);
-if (isset($_REQUEST['search'      ])) $_SESSION['admin_course_search'  ] = trim($_REQUEST['search'  ]);
-if (isset($_REQUEST['intitule'    ])) $_SESSION['admin_course_intitule'] = trim($_REQUEST['intitule']);
-if (isset($_REQUEST['category'    ])) $_SESSION['admin_course_category'] = trim($_REQUEST['category']);
-if (isset($_REQUEST['language'    ])) $_SESSION['admin_course_language'] = trim($_REQUEST['language']);
-if (isset($_REQUEST['access'      ])) $_SESSION['admin_course_access'  ] = trim($_REQUEST['access'  ]);
+if (isset($_REQUEST['code'        ])) $_SESSION['admin_course_code'        ] = trim($_REQUEST['code'    ]);
+if (isset($_REQUEST['search'      ])) $_SESSION['admin_course_search'      ] = trim($_REQUEST['search'  ]);
+if (isset($_REQUEST['intitule'    ])) $_SESSION['admin_course_intitule'    ] = trim($_REQUEST['intitule']);
+if (isset($_REQUEST['category'    ])) $_SESSION['admin_course_category'    ] = trim($_REQUEST['category']);
+if (isset($_REQUEST['language'    ])) $_SESSION['admin_course_language'    ] = trim($_REQUEST['language']);
+if (isset($_REQUEST['access'      ])) $_SESSION['admin_course_access'      ] = trim($_REQUEST['access'  ]);
 if (isset($_REQUEST['visibility'  ])) $_SESSION['admin_course_visibility'  ] = trim($_REQUEST['visibility'  ]);
 if (isset($_REQUEST['subscription'])) $_SESSION['admin_course_subscription'] = trim($_REQUEST['subscription']);
 
@@ -250,8 +250,8 @@ if ( count($advanced_search_query_string) > 0 ) $addtoAdvanced = '?' . implode('
 else                                            $addtoAdvanced = '';
 
 
-$imgVisibilityStatus['show'] = 'visible.gif';
-$imgVisibilityStatus['hidden'] = 'invisible.gif';
+$imgVisibilityStatus['visible'] = 'visible.gif';
+$imgVisibilityStatus['invisible'] = 'invisible.gif';
 $imgAccessStatus['private'] = 'access_locked.gif';
 $imgAccessStatus['public'] = 'access_open.gif';
 $imgRegistrationStatus['open'] = 'enroll_open.gif';
@@ -409,13 +409,13 @@ function prepare_get_filtred_course_list()
 
     if (isset($_SESSION['admin_course_visibility']))
     {
-        if ($_SESSION['admin_course_visibility'] == 'hidden')   $sqlFilter[]= "C.`visibility`='HIDDEN'";
-        elseif ($_SESSION['admin_course_visibility'] == 'show') $sqlFilter[]= "C.`visibility`='SHOW'";
+        if     ($_SESSION['admin_course_visibility'] == 'invisible') $sqlFilter[]= "C.`visibility`='INVISIBLE'";
+        elseif ($_SESSION['admin_course_visibility'] == 'visible'  ) $sqlFilter[]= "C.`visibility`='VISIBLE'";
     }
 
     if (isset($_SESSION['admin_course_access']))
     {
-        if ($_SESSION['admin_course_access'] == 'public')   $sqlFilter[]= "C.`access`='PUBLIC'";
+        if     ($_SESSION['admin_course_access'] == 'public' ) $sqlFilter[]= "C.`access`='PUBLIC'";
         elseif ($_SESSION['admin_course_access'] == 'private') $sqlFilter[]= "C.`access`='PRIVATE'";
     }
 
