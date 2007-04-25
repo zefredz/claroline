@@ -243,7 +243,7 @@ function prepare_sql_get_courses_of_a_user($userId=null)
                    `C`.`email`                AS `email`,
                    `C`.`language`             AS `language`,
                    `C`.`extLinkUrl`           AS `extLinkUrl`,
-                   `C`.`departmentUrlName`    AS `extLinkName`,
+                   `C`.`extLinkName`          AS `extLinkName`,
                    `C`.`visibility`           AS `visibility`,
                    `C`.`access`               AS `access`,
                    `C`.`registration`         AS `registration`,
