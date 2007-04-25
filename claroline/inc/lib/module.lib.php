@@ -516,7 +516,7 @@ function get_module_course_tbl( $arrTblName, $courseCode )
  */
 function get_module_main_tbl( $arrTblName )
 {
-    $mainDbNameGlu = get_conf('mainTblPrefix');
+    $mainDbNameGlu = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix');
     $arrToReturn = array();
 
     foreach ( $arrTblName as $name )
