@@ -185,7 +185,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */    
     function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {   
-        echo '<div id="shoppingCart" style="width:100%">' . "\n"
+        $html = '';
+        
+        $html .= '<div id="shoppingCart" style="width:100%">' . "\n"
         .    '</div>' . "\n"
         .    '<div style="margin-top : 1em;margin-bottom : 1em;" id="openCloseAttachment">' . "\n"
         .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . get_lang("Attach an existing resource") . '</a>' . "\n"
@@ -201,6 +203,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         .    '</div>' . "\n"
         .    '<div id="hiddenFields" style="display:none;"></div>'
         ;
+        
+        return $html;
     }    
     
         

@@ -263,13 +263,13 @@ if ($intro_dispForm)
     if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['introId'] ), 'CLINTRO_' );
-        linker_set_display();
+        echo linker_set_display();
         echo '<input type="submit" class="claroButton" name="submitEvent" onclick="linker_confirm();" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
     }
     else // popup mode
     {
-        if(isset($_REQUEST['introId'])) linker_set_display($_REQUEST['introId'], 'CLINTRO_', 'introId');
-        else                       linker_set_display(false, 'CLINTRO_');
+        if(isset($_REQUEST['introId'])) echo linker_set_display($_REQUEST['introId'], 'CLINTRO_', 'introId');
+        else                       echo linker_set_display(false, 'CLINTRO_');
 
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
     }

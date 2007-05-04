@@ -432,12 +432,12 @@ if ($display_form)
     if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
-        linker_set_display();
+        echo linker_set_display();
     }
     else // popup mode
     {
-        if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
-        else                       linker_set_display();
+        if(isset($_REQUEST['id'])) echo linker_set_display($_REQUEST['id']);
+        else                       echo linker_set_display();
     }
 
     echo '</td></tr>' . "\n"

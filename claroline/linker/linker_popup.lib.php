@@ -54,6 +54,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     function linker_set_display( $extraGetVar = false, $tLabel = NULL, $extraName = 'id' )
     {
         $url = "../linker/linker_popup.inc.php";
+        $html = '';
 
         if( $extraGetVar !== false )
         {
@@ -74,21 +75,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         
         if ( claro_is_javascript_enabled() )
         {
-            echo '<p>' . "\n"
-                . '<a href="javascript:popup(\''
-                . $url.'\')">'.get_lang('Attached Resources : Add / Delete attachement')
-                . '</a>' . "\n"
-                . '</p>' . "\n"
-                ;
+             $html .= '<p>' . "\n"
+             .   '<a href="javascript:popup(\''
+             .   $url.'\')">'.get_lang('Attached Resources : Add / Delete attachement')
+             .   '</a>' . "\n"
+             .   '</p>' . "\n"
+             ;
         }
         else
         {
-            echo '<p>' . "\n"
-                . '<a href="'.$url.'" target="_blank">'.get_lang('Attached Resources : Add / Delete attachement')
-                . '</a>' . "\n"
-                . '</p>' . "\n"
-                ;
+            $html .= '<p>' . "\n"
+            .    '<a href="'.$url.'" target="_blank">'.get_lang('Attached Resources : Add / Delete attachement')
+            .    '</a>' . "\n"
+            .    '</p>' . "\n"
+            ;
         }
+        return $html;
     }
 
 //--------------------------------------------------------------------------------------------------------
