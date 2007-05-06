@@ -194,13 +194,6 @@ class ClaroCourse
             $tbl_cdb_names = claro_sql_get_course_tbl();
             $tbl_course_properties = $tbl_cdb_names['course_properties'];
 
-            $visibility = $this->getVisibility($this->access,$this->registration);
-
-/*
-            $sql = "REPLACE `" . $tbl_course_properties . "`
-                    SET `value` = " . $sqlReadyPropertyValue . "
-                    WHERE `name` = '" . $propertyName . "'";
-*/
             $sql = "UPDATE `" . $tbl_course . "`
                     SET `intitule`             = '" . addslashes($this->title) . "',
                         `faculte`              = '" . addslashes($this->category) . "',
@@ -772,7 +765,7 @@ class ClaroCourse
     /**
      * Send course creation information by mail to all platform administrators
      *
-     * @param string creator firstname
+     * @param string creator firstName
      * @param string creator lastname
      * @param string creator email
      */
@@ -784,7 +777,7 @@ class ClaroCourse
 
         $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
-                                '%user_firstname' => $creatorFirstName,
+                                '%user_firstName' => $creatorFirstName,
                                 '%user_lastname' => $creatorLastName,
                                 '%user_email' => $creatorEmail,
                                 '%course_code' => $this->officialCode,
