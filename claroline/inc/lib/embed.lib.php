@@ -231,7 +231,7 @@
         {
             return '<frame src="'.$this->src.'"'
                 . ' name="'.$this->name.'"'
-                . ' scrolling="'.($this->scrolling ? 'yes' : 'no' ).'">'
+                . ' scrolling="'.($this->scrolling ? 'yes' : 'no' ).'" />'
                 . "\n"
                 ;
         }
