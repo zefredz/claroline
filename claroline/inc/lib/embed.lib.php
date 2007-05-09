@@ -214,12 +214,14 @@
     {
         var $src;
         var $name;
+        var $id;
         var $scrolling = false;
         
-        function ClaroFrame( $name, $src )
+        function ClaroFrame( $name, $src, $id = '' )
         {
             $this->name = $name;
             $this->src = $src;
+            $this->id = empty( $id ) ? $name : $id;
         }
         
         function allowScrolling()
@@ -231,6 +233,7 @@
         {
             return '<frame src="'.$this->src.'"'
                 . ' name="'.$this->name.'"'
+                . ' id="'.$this->id.'"'
                 . ' scrolling="'.($this->scrolling ? 'yes' : 'no' ).'" />'
                 . "\n"
                 ;
@@ -242,12 +245,6 @@
         var $frameset = array();
         var $rows = array();
         var $cols = array();
-        var $frameborder = false;
-        
-        function useFrameborder()
-        {
-            $this->frameborder = true;
-        }
         
         function addFrame( $claroFrame )
         {
@@ -273,9 +270,7 @@
                     ? 'rows="'. implode(',', $this->rows). '" ' : '' )
                 . ( ! empty( $this->cols )
                     ? 'cols="'. implode(',', $this->cols). '" ' : '' )
-                . 'marginwidth="0" frameborder="'
-                . ($this->frameborder ? 'yes' : 'no' )
-                . '">' . "\n"
+                . '>' . "\n"
                 ;
                 
             foreach ( $this->frameset as $element )
