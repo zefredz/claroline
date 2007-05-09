@@ -70,7 +70,8 @@
         , $inPopup = false
         , $hide_banner = false
         , $hide_footer = false
-        , $hide_body = false )
+        , $hide_body = false
+        , $no_body = false )
     {
         // global variables needed by header and footer...
         // FIXME make global objects with all these craps !!!
@@ -81,6 +82,7 @@
         global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
                $noPHP_SELF, $noQUERY_STRING;
         global $institution_name, $institution_url;
+        global $no_body;
 
         if ( true == $inPopup )
         {
@@ -102,6 +104,7 @@
     {
         var $inPopup = false;
         var $inFrame = false;
+        var $inFrameset = false;
         var $hide_footer = false;
         var $hide_banner = false;
         var $hide_body = false;
@@ -117,7 +120,7 @@
         {
             $this->hide_footer = true;
         }
-        function hideBody()
+        function hideClaroBody()
         {
             $this->hide_body = true;
         }
@@ -135,6 +138,13 @@
             $this->hideBanner();
             $this->hideFooter();
             $this->inFrame = true;
+        }
+        function framesetMode()
+        {
+            $this->hideBanner();
+            $this->hideFooter();
+            $this->noBody();
+            $this->inFrameset = true;
         }
         function embedInPage()
         {
@@ -197,6 +207,99 @@
             require $includePath . '/claro_init_header.inc.php';
             echo $this->content;
             require $includePath . '/claro_init_footer.inc.php' ;
+        }
+    }
+    
+    class ClaroFrame
+    {
+        var $src;
+        var $name;
+        var $scrolling = false;
+        
+        function ClaroFrame( $name, $src )
+        {
+            $this->name = $name;
+            $this->src = $src;
+        }
+        
+        function allowScrolling()
+        {
+            $this->scrolling = true;
+        }
+        
+        function render()
+        {
+            return '<frame src="'.$this->src.'"'
+                . ' name="'.$this->name.'"'
+                . ' scrolling="'.($this->scrolling ? 'yes' : 'no' ).'">'
+                . "\n"
+                ;
+        }
+    }
+    
+    class ClaroFrameset
+    {
+        var $frameset = array();
+        var $rows = array();
+        var $cols = array();
+        var $frameborder = false;
+        
+        function useFrameborder()
+        {
+            $this->frameborder = true;
+        }
+        
+        function addFrame( $claroFrame )
+        {
+            $this->frameset[] = $claroFrame;
+        }
+        
+        function addRow( $claroFrame, $size )
+        {
+            $this->rows[] = $size;
+            $this->addFrame( $claroFrame );
+        }
+        
+        function addCol( $claroFrame, $size )
+        {
+            $this->cols[] = $size;
+            $this->addFrame( $claroFrame );
+        }
+        
+        function render()
+        {
+            $html = '<frameset '
+                . ( ! empty( $this->rows )
+                    ? 'rows="'. implode(',', $this->rows). '" ' : '' )
+                . ( ! empty( $this->cols )
+                    ? 'cols="'. implode(',', $this->cols). '" ' : '' )
+                . 'marginwidth="0" frameborder="'
+                . ($this->frameborder ? 'yes' : 'no' )
+                . '">' . "\n"
+                ;
+                
+            foreach ( $this->frameset as $element )
+            {
+                $html .= $element->render();
+            }
+            
+            $html .= '</frameset>' . "\n";
+            
+            return $html;
+        }
+        
+        function output()
+        {
+            $output = claro_html_doctype()
+                . "\n". '<html>' . "\n"
+                . claro_html_headers() . "\n"
+                ;
+                
+            $output .= $this->render();
+            
+            $output .= '</html>';
+            
+            echo $output;
         }
     }
 ?>
