@@ -34,7 +34,6 @@ if (!isset($hide_footer) || $hide_footer == false)
     echo claro_html_footer();
 } // if (!isset($hide_footer) || $hide_footer == false)
 
-echo '</div>';
 
 if (get_conf('CLARO_DEBUG_MODE',false))
 {

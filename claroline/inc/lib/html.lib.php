@@ -1866,7 +1866,7 @@ function claro_html_footer()
     if ( claro_is_in_a_course() )
     {
 
-        $courseManagerOutput = '<div id="courseManager">' . "\n"
+        $courseManagerOutput = '<div id="courseManager">'
         . get_lang('Manager(s) for %course_code', array('%course_code' => $currentCourse['officialCode']) ) . ' : ' ;
 
         if ( empty($currentCourse['email']) )
@@ -1899,7 +1899,7 @@ function claro_html_footer()
         $platformManagerOutput .= '<br />' . "\n" . get_lang('Phone : %phone_number', array('%phone_number' => get_conf('administrator_phone'))) ;
     }
 
-    $platformManagerOutput .= '</div>' ;
+    $platformManagerOutput .= '</div>';
 
     $footerRightDock->addOutput($platformManagerOutput,true);
 
@@ -1921,6 +1921,7 @@ function claro_html_footer()
     $ft .= $footerLeftDock->render();
     $ft .= $footerRightDock->render();
     $ft .= $footerCenterDock->render();
+    $ft .= '</div>';
 
     return $ft;
 }
