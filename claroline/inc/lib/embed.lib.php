@@ -6,13 +6,16 @@
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-
+    
     /**
-     * @author  Frederic Minne <zefredz@claroline.net>
-     * @copyright Copyright &copy; 2006-2007, Frederic Minne
-     * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License
-     * @version 1.0
-     * @package PlugIt
+     *
+     *
+     * @version     1.9 $Revision$
+     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @author      Frederic Minne <zefredz@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE
+     * @package     EMBED
      */
 
     /**
@@ -64,7 +67,7 @@
      * @param   bool    $hide_banner hide Claroline banner (opt)
      * @param   bool    $hide_footer hide Claroline banner (opt)
      * @param   bool    $hide_body hide Claroline banner (opt)
-     * @return  void
+     * @todo    TODO return string instead of echoing it
      */
     function claro_embed( $output
         , $inPopup = false
@@ -99,6 +102,8 @@
 
     /**
      * Claroline script embed class
+     *
+     * @access  public
      */
     class ClarolineScriptEmbed
     {
@@ -112,14 +117,31 @@
 
         // claroline diplay options
 
+        /**
+         * Hide Claroline banner in display
+         *
+         * @access  public
+         */
         function hideBanner()
         {
             $this->hide_banner = true;
         }
+        
+        /**
+         * Hide Claroline footer in display
+         *
+         * @access  public
+         */
         function hideFooter()
         {
             $this->hide_footer = true;
         }
+        
+        /**
+         * Hide Claroline claroBody class div in display
+         *
+         * @access  public
+         */
         function hideClaroBody()
         {
             $this->hide_body = true;
@@ -127,32 +149,43 @@
 
         // display mode
 
+        /**
+         * Set options to display in a popup window
+         *
+         * @access  public
+         */
         function popupMode()
         {
             $this->hideBanner();
             $this->hideFooter();
             $this->inPopup = true;
         }
+        
+        /**
+         * Set options to display in a frame
+         *
+         * @access  public
+         */
         function frameMode()
         {
             $this->hideBanner();
             $this->hideFooter();
             $this->inFrame = true;
         }
-        function framesetMode()
-        {
-            $this->hideBanner();
-            $this->hideFooter();
-            $this->noBody();
-            $this->inFrameset = true;
-        }
-        function embedInPage()
+
+        /*function embedInPage()
         {
             $this->hideBanner();
             $this->hideFooter();
             $this->hideBody();
-        }
+        }*/
 
+        /**
+         * Set page content
+         *
+         * @access  public
+         * @param   string content, page content
+         */
         function setContent( $content )
         {
             $this->content = $content;
@@ -160,21 +193,45 @@
 
         // claroline header methods
 
+        /**
+         * Add extra HTML header elements
+         *
+         * @access  public
+         * @param   string content, page content
+         */
         function addHtmlHeader( $header )
         {
             $GLOBALS['htmlHeadXtra'][] = $header;
         }
+        
+        /**
+         * Add extra HTTP header elements
+         *
+         * @access  public
+         * @param   string content, page content
+         */
         function addHttpHeader( $header )
         {
             $GLOBALS['httpHeadXtra'][] = $header;
         }
+        
+        /**
+         * Add extra javascript executed when body is loaded
+         *
+         * @access  public
+         * @param   string content, page content
+         */
         function addBodyOnloadFunction( $function )
         {
             $GLOBALS['claroBodyOnload'][] = $function;
         }
 
         // output methods
-
+        /**
+         * Generate and set output to client
+         *
+         * @access  public
+         */
         function output()
         {
             if ( $this->inPopup )
@@ -188,6 +245,17 @@
                 , $this->hide_body );
         }
 
+        /**
+         * Embed given contents in Claroline page layout
+         *
+         * @access  public
+         * @static
+         * @param   string output, content to display in page
+         * @param   bool hide_banner, set to true hide Claroline banner
+         * @param   bool hide_footer, set to true hide Claroline footer
+         * @param   bool hide_body, set to true remove Claroline claroBody div
+         * @todo    TODO return string instead of echoing it
+         */
         function embed( $output
             , $hide_banner = false
             , $hide_footer = false
@@ -210,13 +278,48 @@
         }
     }
     
-    class ClaroFrame
+    /**
+     * Claroline html frame element class
+     *
+     * @access  public
+     * @interface
+     */
+    class ClaroFramesetElement
+    {
+        /**
+         * Render the frameset element to embed in a HTML frameset
+         *
+         * @access  public
+         * @abstract
+         * @return   string, frame html code
+         */
+        function render()
+        {
+            return null;
+        }
+    }
+    
+    /**
+     * Claroline html frame class
+     *
+     * @access  public
+     */
+    class ClaroFrame extends ClaroFramesetElement
     {
         var $src;
         var $name;
         var $id;
         var $scrolling = false;
         
+        /**
+         * Constructor
+         *
+         * @access  public
+         * @param   string name, frame name
+         * @param   string src, frame content url
+         * @param   string id, frame id, optional, if not given the name will be
+         *  used as the frame id
+         */
         function ClaroFrame( $name, $src, $id = '' )
         {
             $this->name = $name;
@@ -224,11 +327,22 @@
             $this->id = empty( $id ) ? $name : $id;
         }
         
+        /**
+         * Allow scrolling in frame
+         *
+         * @access  public
+         */
         function allowScrolling()
         {
             $this->scrolling = true;
         }
         
+        /**
+         * Render the frame to embed in a HTML frameset
+         *
+         * @access  public
+         * @see     ClaroFramesetElement::render()
+         */
         function render()
         {
             return '<frame src="'.$this->src.'"'
@@ -240,29 +354,66 @@
         }
     }
     
-    class ClaroFrameset
+    /**
+     * Claroline html frameset class
+     *
+     * @access  public
+     */
+    class ClaroFrameset extends ClaroFramesetElement
     {
         var $frameset = array();
         var $rows = array();
         var $cols = array();
         
+        /**
+         * Add a frame or frameset object to the current frameset
+         *
+         * @access  public
+         * @param   ClaroFramesetElement claroFrame, frame to add could be a
+         *  ClaroFrame or a ClaroFrameset or any other convenient Object
+         *  implementing the ClaroFramesetElement API
+         */
         function addFrame( $claroFrame )
         {
             $this->frameset[] = $claroFrame;
         }
         
+        /**
+         * Add a frame or frameset object to the current frameset as a new row
+         *
+         * @access  public
+         * @param   ClaroFramesetElement claroFrame, frame to add could be a
+         *  ClaroFrame or a ClaroFrameset or any other convenient Object
+         *  implementing the ClaroFramesetElement API
+         * @param   mixed size, row size, could be an int or '*'
+         */
         function addRow( $claroFrame, $size )
         {
             $this->rows[] = $size;
             $this->addFrame( $claroFrame );
         }
         
+        /**
+         * Add a frame or frameset object to the current frameset as a new colum
+         *
+         * @access  public
+         * @param   ClaroFramesetElement claroFrame, frame to add could be a
+         *  ClaroFrame or a ClaroFrameset or any other convenient Object
+         *  implementing the ClaroFramesetElement API
+         * @param   mixed size, column size, could be an int or '*'
+         */
         function addCol( $claroFrame, $size )
         {
             $this->cols[] = $size;
             $this->addFrame( $claroFrame );
         }
         
+        /**
+         * Render the current frameset to be embedded in another HTML frameset
+         *
+         * @access  public
+         * @see     ClaroFramesetElement::render()
+         */
         function render()
         {
             $html = '<frameset '
@@ -283,6 +434,12 @@
             return $html;
         }
         
+        /**
+         * Send the frameset to the client
+         *
+         * @access  public
+         * @todo    TODO return string instead of echoing it
+         */
         function output()
         {
             $output = claro_html_doctype()
