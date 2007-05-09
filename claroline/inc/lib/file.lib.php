@@ -236,7 +236,11 @@
      */
     function secure_file_path( $path )
     {
-        $path = preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
+        while ( strpos( $path, '..' ) !== false )
+        {
+            $path = preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
+        }
+        
         $path = str_replace( '://', '', $path );
         
         return $path; 
