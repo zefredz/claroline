@@ -310,6 +310,10 @@
         var $name;
         var $id;
         var $scrolling = false;
+        var $autoscroll = false;
+        var $noresize = false;
+        var $frameborder = true;
+        var $framespacing = null;
         
         /**
          * Constructor
@@ -332,9 +336,41 @@
          *
          * @access  public
          */
-        function allowScrolling()
+        function allowScrolling( $auto = false )
         {
             $this->scrolling = true;
+            $this->autoscroll = true;
+        }
+        
+        /**
+         * Disable frame resizing
+         *
+         * @access  public
+         */
+        function disableResize()
+        {
+            $this->noresize = true;
+        }
+        
+        /**
+         * Disable frame border
+         *
+         * @access  public
+         */
+        function noFrameBorder()
+        {
+            $this->frameborder = false;
+        }
+        
+        /**
+         * Set space between frames
+         *
+         * @access  public
+         * @param   int spacing, frame spacing
+         */
+        function setFrameSpacing( $spacing )
+        {
+            $this->framespacing = $spacing;
         }
         
         /**
@@ -348,7 +384,17 @@
             return '<frame src="'.$this->src.'"'
                 . ' name="'.$this->name.'"'
                 . ' id="'.$this->id.'"'
-                . ' scrolling="'.($this->scrolling ? 'yes' : 'no' ).'" />'
+                . ' scrolling="'.($this->scrolling
+                    ? ( $this->autoscroll ? 'auto' : 'yes' )
+                    : 'no' ) . '"'
+                . ' frameborder="'.($this->frameborder
+                    ? '1'
+                    : '0' ) . '"'
+                . ( $this->noresize ? ' noresize="noresize"' : '' )
+                . ( is_null($this->framespacing)
+                    ? ''
+                    : ' framespacing="'.$this->framespacing.'"' )
+                .' />'
                 . "\n"
                 ;
         }
