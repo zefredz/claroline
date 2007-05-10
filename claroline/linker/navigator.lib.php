@@ -400,7 +400,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     if ( $toolTbl['visibility'] ) $isVisible = true;
                     else                          $isVisible = false;
 
-                    if(  is_NULL($label) || !file_exists($label.'Navigator.php')
+                    if(  is_NULL($label) || !file_exists(dirname(__FILE__).'/'.$label.'Navigator.php')
                         || ( $label == 'CLGRP___' && get_conf('groupAllowed') == FALSE) )
                     {
                         $toolContainer = new ClaroObject($name, $node , TRUE , FALSE , $isVisible);
