@@ -335,11 +335,12 @@
          * Allow scrolling in frame
          *
          * @access  public
+         * @param   bool auto, set to true to allow auto scrolling
          */
         function allowScrolling( $auto = false )
         {
             $this->scrolling = true;
-            $this->autoscroll = true;
+            $this->autoscroll = $auto;
         }
         
         /**
