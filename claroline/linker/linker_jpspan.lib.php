@@ -76,9 +76,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 . "var lang_linker_close = '".addslashes(get_lang("Close"))."';</script>\n"; 
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_close = '".addslashes(get_lang("Close"))."';</script>\n";
-        
-        $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var lang_linker_prompt_for_url = '".addslashes(get_lang("Enter link url"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
