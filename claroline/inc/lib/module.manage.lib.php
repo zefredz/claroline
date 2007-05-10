@@ -1240,6 +1240,43 @@ function readModuleManifest($modulePath)
 
     // liberate parser ressources
     xml_parser_free($xml_parser);
+    
+    // complete module info for missing optional elements
+    
+    if ( ! array_key_exists( 'LICENSE', $module_info ) )
+    {
+        $module_info['LICENSE'] = '';
+    }
+    
+    if ( ! array_key_exists( 'VERSION', $module_info ) )
+    {
+        $module_info['VERSION'] = '';
+    }
+    
+    if ( ! array_key_exists( 'DESCRIPTION', $module_info ) )
+    {
+        $module_info['DESCRIPTION'] = '';
+    }
+    
+    if ( ! array_key_exists( 'AUTHOR', $module_info ) )
+    {
+        $module_info['AUTHOR'] = array();
+    }
+    
+    if ( ! array_key_exists( 'NAME', $module_info['AUTHOR'] ) )
+    {
+        $module_info['AUTHOR']['NAME'] = '';
+    }
+    
+    if ( ! array_key_exists( 'EMAIL', $module_info['AUTHOR'] ) )
+    {
+        $module_info['AUTHOR']['EMAIL'] = '';
+    }
+    
+    if ( ! array_key_exists( 'WEB', $module_info['AUTHOR'] ) )
+    {
+        $module_info['AUTHOR']['WEB'] = '';
+    }
 
     return $module_info;
 
