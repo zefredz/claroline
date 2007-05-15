@@ -210,7 +210,7 @@ function claro_copy_file($sourcePath, $targetPath)
 
         $copiableFileList = array();
 
-        while ($element = readdir($dirHandle) )
+        while ( false !== ( $element = readdir($dirHandle) ) )
         {
             if ( $element == '.' || $element == '..') continue;
 
