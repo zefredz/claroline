@@ -290,8 +290,6 @@ function claro_get_course_path($cid=NULL)
 
 function claro_get_group_data($context, $force = false )
 {
-
-
     if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
     {
         $cid = $context[CLARO_CONTEXT_COURSE];
@@ -301,7 +299,6 @@ function claro_get_group_data($context, $force = false )
     {
         $gid = $context[CLARO_CONTEXT_GROUP];
     }
-
     $groupDataList = null;
 
     static $cachedGroupDataList = null;
@@ -363,7 +360,7 @@ function claro_get_course_group_path($context)
 
     $coursePath = claro_get_course_path($cid);
     $gData = claro_get_group_data($context);
-    if (isset($gData['directory'])) return $coursePath . '/group' . $gData['directory'];
+    if (isset($gData['directory'])) return $coursePath . '/group/' . $gData['directory'];
     else                   return NULL;
 }
 
@@ -417,7 +414,6 @@ function claro_get_module_name_list($active = true)
     }
 
     //add in result the module of type 'tool'
-
     //see if we take only activated modules or all of them
 
     if ($active)
