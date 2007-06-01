@@ -465,6 +465,17 @@
         {
             $GLOBALS['htmlHeadXtra'][] = $header;
         }
+        
+        /**
+         * Add extra HTTP header elements
+         *
+         * @access  public
+         * @param   string content, page content
+         */
+        function addHttpHeader( $header )
+        {
+            $GLOBALS['httpHeadXtra'][] = $header;
+        }
                 
         /**
          * Render the current frameset to be embedded in another HTML frameset
