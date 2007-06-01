@@ -454,7 +454,18 @@
             $this->cols[] = $size;
             $this->addFrame( $claroFrame );
         }
-        
+
+        /**
+         * Add extra HTML header elements
+         *
+         * @access  public
+         * @param   string content, page content
+         */
+        function addHtmlHeader( $header )
+        {
+            $GLOBALS['htmlHeadXtra'][] = $header;
+        }
+                
         /**
          * Render the current frameset to be embedded in another HTML frameset
          *
