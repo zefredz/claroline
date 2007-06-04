@@ -1547,4 +1547,12 @@ function php_self()
     return $url;
 }
 
+/**
+ * @return bool, true if the platform is in debug mode, false else
+ */
+function claro_debug_mode()
+{
+    return ( defined ( 'DEBUG_MODE' ) && DEBUG_MODE );
+}
+
 ?>
