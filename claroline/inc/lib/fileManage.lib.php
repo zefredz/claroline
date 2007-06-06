@@ -461,6 +461,26 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
 }
 
 /**
+ * create a tmp directory
+ *
+ * @param string  $dir
+ * @param string  $prefix 
+ * @param int     $mode  
+ * @return string full pathname
+ */
+function claro_mkdir_tmp($dir, $prefix = 'tmp', $mode = 0777)
+{
+    if (substr($dir, -1) != '/') $dir .= '/';
+
+    do
+    {
+        $path = $dir.$prefix.mt_rand(0, 9999999);
+    } while ( !claro_mkdir($path, $mode) );
+
+    return $path;
+}
+
+/**
  * to extract the extention of the filename
  *
  * @param  string $file
