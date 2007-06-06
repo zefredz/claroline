@@ -213,21 +213,6 @@ function check_module_repositories()
 
 // MODULE INSTALLATION AND ACTIVATION
 
-/**
- * function to create a temporary directory
- */
-function tempdir($dir, $prefix='tmp', $mode=0777)
-{
-    if (substr($dir, -1) != '/') $dir .= '/';
-
-    do
-    {
-        $path = $dir.$prefix.mt_rand(0, 9999999);
-    } while (!claro_mkdir($path, $mode));
-
-    return $path;
-}
-
 function get_and_unzip_uploaded_package()
 {
     $backlog_message = array();
@@ -255,7 +240,7 @@ function get_and_unzip_uploaded_package()
     $moduleRepositorySys = get_path('rootSys') . 'module/';
     //create temp dir for upload
     claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
-    $uploadDirFullPath = tempdir($moduleRepositorySys);
+    $uploadDirFullPath = claro_mkdir_tmp($moduleRepositorySys);
     $uploadDir         = str_replace($moduleRepositorySys,'',$uploadDirFullPath);
     $modulePath        = $moduleRepositorySys.$uploadDir.'/';
 

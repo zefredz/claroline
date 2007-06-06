@@ -15,29 +15,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 /**
- * function to create a temporary directory (SAME AS IN MODULE ADMIN)
- * concat a "unique" directory name to $dir
- *
- * @param string $dir repository for temp path
- * @param string $prefix prefix the name
- * @param integer $mode chmod of path
- * @return string new dir path
- */
-
-function tempdir($dir, $prefix='tmp', $mode=0777)
-{
-    if (substr($dir, -1) != '/') $dir .= '/';
-
-    do
-    {
-        $path = $dir.$prefix.mt_rand(0, 9999999);
-    } while (!claro_mkdir($path, $mode));
-
-    return $path;
-}
-
-
-/**
  * @return the path of the temporary directory where the exercise was uploaded and unzipped
  */
 
@@ -102,7 +79,7 @@ function import_exercise($file, &$backlog)
     // create temp dir for upload
     if( !file_exists($baseWorkDir) ) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS);
 
-    $uploadDir = tempdir($baseWorkDir); // this function should return the dir name and not the full path ...
+    $uploadDir = claro_mkdir_tmp($baseWorkDir);
     $uploadPath = str_replace($baseWorkDir,'',$uploadDir);
     
     // set some default values for the new exercise
