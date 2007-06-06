@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * manage module of the system
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -22,6 +22,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 require_once dirname(__FILE__) . '/fileManage.lib.php';
 require_once dirname(__FILE__) . '/right/profileToolRight.class.php';
 require_once dirname(__FILE__) . '/backlog.class.php';
+// Manifest Parser and functions
+require_once dirname(__FILE__) . '/manifestparser.lib.php';
 
 // INFORMATION AND UTILITY FUNCTIONS
 
@@ -988,17 +990,23 @@ function register_module($modulePath)
     $regLog = array();
     if (file_exists($modulePath))
     {
-        $module_info = readModuleManifest($modulePath);
-
-        if (is_array($module_info) && false !== ($moduleId = register_module_core($module_info)))
+        $parser = new ModuleManifestParser;
+        $module_info = $parser->parse($modulePath.'/manifest.xml');
+        
+        if ( false === $module_info )
         {
-            $regLog['info'][] = get_lang('%claroLabel registered', array('%claroLabel'=>$module_info['LABEL']));
+            $regLog['error'][] = get_lang('Cannot parse module manifest');
+            $moduleId = false;
+        }
+        elseif (is_array($module_info) && false !== ($moduleId = register_module_core($module_info)))
+        {
+            $regLog['info'][] = get_lang('Module %claroLabel registered', array('%claroLabel'=>$module_info['LABEL']));
 
             if('TOOL' == strtoupper($module_info['TYPE']))
             {
                 if (false !== ($toolId   = register_module_tool($moduleId,$module_info)))
                 {
-                    $regLog['info'][] = get_lang('%label registered as tool', array('%claroLabel'=>$module_info['LABEL']));
+                    $regLog['info'][] = get_lang('Module %label registered as tool', array('%claroLabel'=>$module_info['LABEL']));
                 }
                 else
                 {
@@ -1012,7 +1020,8 @@ function register_module($modulePath)
                     foreach($module_info['DEFAULT_DOCK'] as $dock)
                     {
                         add_module_in_dock($moduleId, $dock);
-                        $regLog['info'][] = get_lang('Module added in dock : %dock', array('%dock' => $dock));
+                        $regLog['info'][] = get_lang('Module %label added in dock : %dock'
+                            , array('%label' => $module_info['LABEL'], '%dock' => $dock));
                     }
                 }
             }
@@ -1078,13 +1087,14 @@ function register_module_core($module_info)
     $moduleId = claro_sql_query_insert_id($sql);
 
     $sql = "INSERT INTO `" . $tbl['module_info'] . "`
-            SET module_id    = " . (int) $moduleId . ",
-                version      = '" . addslashes($module_info['VERSION']) . "',
-                author       = '" . addslashes($module_info['AUTHOR']['NAME'  ]) . "',
-                author_email = '" . addslashes($module_info['AUTHOR']['EMAIL' ]) . "',
-                website      = '" . addslashes($module_info['AUTHOR']['WEB'   ]) . "',
-                description  = '" . addslashes($module_info['DESCRIPTION'     ]) . "',
-                license      = '" . addslashes($module_info['LICENSE'         ]) . "'";
+            SET module_id      = " . (int) $moduleId . ",
+                version        = '" . addslashes($module_info['VERSION']) . "',
+                author         = '" . addslashes($module_info['AUTHOR']['NAME']) . "',
+                author_email   = '" . addslashes($module_info['AUTHOR']['EMAIL']) . "',
+                author_website = '" . addslashes($module_info['AUTHOR']['WEB']) . "',
+                website        = '" . addslashes($module_info['WEB']) . "',
+                description    = '" . addslashes($module_info['DESCRIPTION']) . "',
+                license        = '" . addslashes($module_info['LICENSE']) . "'";
 
     claro_sql_query($sql);
 
@@ -1168,371 +1178,6 @@ function register_module_tool($moduleId,$module_info)
     else
     {
         return false ;
-    }
-}
-
-// MANIFEST PARSER
-
-
-/**
- * Return the content of a manifest for know tags
- *
- * @param string $modulePath
- * @return array
- */
-function readModuleManifest($modulePath)
-{
-    global $module_info;
-    global $element_pile;
-    $backlog_message=array();
-    // Find XML manifest and parse it to retrieve module informations
-
-    //check if manifest is present
-    $manifestPath = $modulePath. '/manifest.xml';
-    if (! check_name_exist($manifestPath))
-    {
-        return claro_failure::set_failure(get_lang('Manifest missing : %filename',array('%filename' => $manifestPath)));
-    }
-
-    //create parser and array to retrieve info from manifest
-    $element_pile = array();  //pile to known the depth in which we are
-    $module_info = array();   //array to store the info we need
-    $module_info['DEFAULT_DOCK'] = array();//array off possible default dock in which module can be set
-
-    $xml_parser = xml_parser_create();
-    xml_set_element_handler($xml_parser, 'moduleManifestStartElement', 'moduleManifestEndElement');
-    xml_set_character_data_handler($xml_parser, 'moduleManifestElementData');
-
-    //open manifest
-
-    if (!($fp = @fopen($manifestPath, 'r')))
-    {
-        return claro_failure::set_failure("Error opening module's manifest");
-    }
-    else
-    {
-        array_push ($backlog_message, get_lang('Manifest open : manifest.xml'));
-        $data = html_entity_decode(urldecode(fread($fp, filesize($manifestPath))));
-    }
-
-    //parse manifest
-
-    if (!xml_parse($xml_parser, $data, feof($fp)))
-    {
-        // if reading of the xml file in not successfull :
-        // set errorFound, set error msg, break while statement
-        return claro_failure::set_failure('Error reading manifest');
-    }
-    // close file
-
-    fclose($fp);
-
-    //display debug info
-
-    if (get_conf('CLARO_DEBUG_MODE',false) )
-    {
-        // array_push ($backlog_message, '<PRE>' . htmlentities( implode("", file($file))) . '</pre>');
-        foreach ($module_info as $key => $info)
-        {
-            array_push ($backlog_message, 'The metadata ' . $key . ' as been found : <b>' . var_export($info,true) . '</b>');
-        }
-    }
-
-    // liberate parser ressources
-    xml_parser_free($xml_parser);
-    
-    // complete module info for missing optional elements
-    
-    if ( ! array_key_exists( 'LICENSE', $module_info ) )
-    {
-        $module_info['LICENSE'] = '';
-    }
-    
-    if ( ! array_key_exists( 'VERSION', $module_info ) )
-    {
-        $module_info['VERSION'] = '';
-    }
-    
-    if ( ! array_key_exists( 'DESCRIPTION', $module_info ) )
-    {
-        $module_info['DESCRIPTION'] = '';
-    }
-    
-    if ( ! array_key_exists( 'AUTHOR', $module_info ) )
-    {
-        $module_info['AUTHOR'] = array();
-    }
-    
-    if ( ! array_key_exists( 'NAME', $module_info['AUTHOR'] ) )
-    {
-        $module_info['AUTHOR']['NAME'] = '';
-    }
-    
-    if ( ! array_key_exists( 'EMAIL', $module_info['AUTHOR'] ) )
-    {
-        $module_info['AUTHOR']['EMAIL'] = '';
-    }
-    
-    if ( ! array_key_exists( 'WEB', $module_info['AUTHOR'] ) )
-    {
-        $module_info['AUTHOR']['WEB'] = '';
-    }
-
-    return $module_info;
-
-}
-
-//XML PARSER FUNCTIONS : needed functions for the manifest parser :
-
-/**
- * Function used by the SAX xml parser when the parser meets a opening tag
- *
- * @param handler $parser xml parser created with "xml_parser_create()"
- * @param string $name name of the element
- * @param array  $attributes
- *
- * @global array $module_info array where are add found info
- * @return void
- */
-function moduleManifestStartElement($parser, $name, $attributes)
-{
-    global $element_pile;
-    global $module_info;
-
-    array_push($element_pile,$name);
-    $current_element = end($element_pile);
-
-    switch ($current_element)
-    {
-        case 'LINK' :
-            $parent = prev($element_pile);
-            $module_info['CONTEXT'][$parent]['LINKS'][] = $attributes;
-            break;
-
-        case 'COURSE': case 'GROUP': case 'USER':
-            $parent = prev($element_pile);
-            if ('CONTEXT' == $parent)
-            {
-                $module_info['CONTEXT'][$current_element] = $attributes;
-            }
-
-            break;
-
-    }
-}
-
-/**
- * Function used by the SAX xml parser when the parser meets a closing tag
- *
- * @param $parser xml parser created with "xml_parser_create()"
- * @param $name name of the element
- */
-
-function moduleManifestEndElement($parser,$name)
-{
-    global $element_pile;
-    array_pop($element_pile);
-}
-
-
-
-/**
- * Get content of manifest elements to  fill the array
- *
- * known element are
- * * TYPE
- * * DEFAULT_DOCK
- * * DESCRIPTION
- * * LABEL
- * * ENTRY
- * * LICENSE
- * * ICON
- *
- * * WEB, EMAIL & NAME
- * ** of MODULE
- * ** of AUTHOR
- * ** of CREDIT (previous AUTHOR)
- *
- * * VERSION, MINVERSION & MAXVERSION
- * ** for PHP
- * ** for MYSQL
- * ** for CLAROLINE
- * ** for MODULE
- *
- * * LINK DATABASE et FILE for context
- *
- * @param unknown_type $parser
- * @param unknown_type $data
- *
- * @return void
- */
-
-function moduleManifestElementData($parser,$data)
-{
-    global $element_pile;
-    global $module_info;
-
-    $current_element = end($element_pile);
-
-    switch ($current_element)
-    {
-        case 'TYPE' :
-            $module_info['TYPE'] = $data;
-            break;
-
-        case 'DEFAULT_DOCK' :
-            $module_info['DEFAULT_DOCK'][] = $data;
-            break;
-
-        case 'DESCRIPTION' :
-            $module_info['DESCRIPTION'] = $data;
-            break;
-
-        case 'EMAIL':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-
-                case 'MODULE':
-                    $module_info['NAME'] = $data;
-                    break;
-
-                case 'AUTHOR':
-                    $module_info['AUTHOR']['EMAIL'] = $data;
-                    break;
-
-                case 'CREDIT':
-                    $module_info['CREDIT']['EMAIL'][] = $data;
-                    break;
-            }
-            break;
-
-        case 'LABEL':
-            $module_info['LABEL'] = $data;
-            break;
-
-        case 'ENTRY':
-            $module_info['ENTRY'] = $data;
-            break;
-
-        case 'LICENSE':
-            $module_info['LICENSE'] = $data;
-            break;
-
-        case 'ICON':
-            $module_info['ICON'] =  $data;
-            break;
-
-        case 'NAME':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'MODULE':
-                    $module_info['NAME'] = $data;
-                    break;
-                case 'AUTHOR':
-                    $module_info['AUTHOR']['NAME'] = $data;
-                    break;
-                case 'CREDIT':
-                    $module_info['CREDIT']['NAME'][] = $data;
-                    break;
-            }
-            break;
-
-        case 'MINVERSION':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'PHP':
-                    $module_info['PHP_MIN_VERSION'] = $data;
-                    break;
-
-                case 'MYSQL':
-                    $module_info['MYSQL_MIN_VERSION'] = $data;
-                    break;
-
-                case 'CLAROLINE' :
-                    $module_info['CLAROLINE_MIN_VERSION'] = $data;
-                    break;
-            }
-            break;
-
-        case 'MAXVERSION':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'PHP':
-                    $module_info['PHP_MAX_VERSION'] = $data;
-                    break;
-
-                case 'MYSQL':
-                    $module_info['MYSQL_MAX_VERSION'] = $data;
-                    break;
-
-                case 'CLAROLINE' :
-                    $module_info['CLAROLINE_MAX_VERSION'] = $data;
-                    break;
-            }
-            break;
-
-        case 'VERSION':
-
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'MODULE':
-                    $module_info['VERSION'] = $data;
-                    break;
-
-                case 'CLAROLINE' :
-                    $module_info['CLAROLINE_MIN_VERSION'] = $data;
-                    $module_info['CLAROLINE_MAX_VERSION'] = $data;
-                    break;
-
-                case 'PHP':
-                    $module_info['PHP_MIN_VERSION'] = $data;
-                    $module_info['PHP_MAX_VERSION'] = $data;
-                    break;
-
-                case 'MYSQL':
-                    $module_info['MYSQL_MIN_VERSION'] = $data;
-                    $module_info['MYSQL_MAX_VERSION'] = $data;
-                    break;
-
-            }
-            break;
-
-        case 'WEB':
-            $parent = prev($element_pile);
-            switch ($parent)
-            {
-                case 'MODULE':
-                    $module_info['WEB'] = $data;
-                    break;
-
-                case 'AUTHOR':
-                    $module_info['AUTHOR']['WEB'] = $data;
-                    break;
-            }
-
-            break;
-
-        case 'LINK' :
-
-            $context = prev($element_pile);
-            $parent = prev($element_pile);
-            break;
-
-        case 'DATABASE' : case 'FILE' :
-
-            $context = prev($element_pile);
-            $parent = prev($element_pile);
-            if ('CONTEXT' == $parent)
-            {
-                $module_info['CONTEXT'][$context][$current_element] = $data;
-            }
-
-            break;
     }
 }
 
