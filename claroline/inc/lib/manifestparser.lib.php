@@ -44,6 +44,12 @@
          */
         function parse( $manifestPath )
         {
+            // reset state
+            $this->elementPile = array();
+            $this->moduleInfo = array();
+            
+            $this->backlog->info( 'Parsing manifest file ' . $manifestPath );
+            
             if (! file_exists( $manifestPath ) )
             {
                 $this->backlog->failure(get_lang('Manifest missing : %filename'
