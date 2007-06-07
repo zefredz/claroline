@@ -260,41 +260,43 @@ function claro_dirname($filePath)
  * contented in a given directory
  *
  * @param  - path (string) - directory path of the one to index
+ * @param  - mode (string) - ALL, FILE, DIR : specify what will be listed
  * @return - an array containing the path of all the subdirectories
  */
 
-function index_dir($path)
+function index_dir($dirPath, $mode = 'ALL' )
 {
-    chdir($path);
-    $handle = opendir($path);
-
-    $dirList = array();
-
-    // reads directory content end record subdirectoies names in $dir_array
-    while ($element = readdir($handle) )
+    $files = array();
+    if( is_dir($dirPath) ) 
     {
-        if ( $element == '.' || $element == '..') continue;    // skip the current and parent directories
-        if ( is_dir($element) )     $dirList[] = $path.'/'.$element;
-    }
-
-    closedir($handle) ;
-
-    // recursive operation if subdirectories exist
-    $dirNumber = sizeof($dirList);
-    if ( $dirNumber > 0 )
-    {
-        for ($i = 0 ; $i < $dirNumber ; $i++ )
+        $fh = opendir($dirPath);
+        while( ( $fileName = readdir($fh) ) !== false ) 
         {
-            $subDirList = index_dir( $dirList[$i] ) ;                // function recursivity
-            $dirList  =  array_merge( $dirList , $subDirList ) ;    // data merge
+            // loop through the files, skipping . and .., and recursing if necessary
+            if( $fileName == '.' || $fileName == '..' || $fileName == 'CVS' ) continue;
+            
+            $filePath = $dirPath . '/' . $fileName;
+            
+            if( is_dir($filePath) )
+            {
+                if( $mode != 'FILE' ) array_push($files, $filePath); // mode == DIR or ALL : store dirname
+                $files = array_merge($files, index_dir($filePath, $mode));
+            }
+            elseif( $mode != 'DIR' )
+            {
+                // mode == FILE or ALL : store filename
+                array_push($files, $filePath);
+            }
         }
+        closedir($fh);
+    } 
+    else
+    {
+        // false if the function was called with an invalid non-directory argument
+        $files = false;
     }
-
-    chdir("..") ;
-
-    return $dirList ;
+    return $files;
 }
-
 
 /**
  * Indexes all the directories and subdirectories
@@ -308,7 +310,7 @@ function index_dir($path)
 
 function index_and_sort_dir($path)
 {
-    $dir_list = index_dir($path);
+    $dir_list = index_dir($path, 'DIR');
 
     if ($dir_list)
     {
