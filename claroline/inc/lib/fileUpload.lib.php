@@ -402,7 +402,9 @@ function treat_secure_file_unzip($fileName, $filePath,
     // Check the zip content (real size and file extension)
 
     $zipContentArray = $zipFile->listContent();
-
+    
+    if( ! is_array($zipContentArray) ) return false;
+    
     foreach($zipContentArray as $thisContent)
     {
         if (!$allowPHP)
