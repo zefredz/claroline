@@ -119,6 +119,20 @@ $typeReq      = (isset($_REQUEST['typeReq'])      ? $_REQUEST['typeReq']      : 
 $offset       = (isset($_REQUEST['offset'])       ? $_REQUEST['offset']       : 0 );
 $pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : SORT_ASC);
 
+// var_dump( $_REQUEST['activateOnInstall'] );
+
+$activateOnInstall = ( array_key_exists( 'activateOnInstall', $_REQUEST )
+    && $_REQUEST['activateOnInstall'] == 'on' )
+    ? true
+    : false
+    ;
+    
+$visibleOnInstall = ( array_key_exists( 'visibleOnInstall', $_REQUEST )
+    && $_REQUEST['visibleOnInstall'] == 'on' )
+    ? true
+    : false
+    ;
+
 
 //----------------------------------
 // EXECUTE COMMAND
@@ -201,17 +215,55 @@ switch ( $cmd )
                     {
                         list( $backlog, $module_id ) = install_module($modulePath);
                         $details = $backlog->output();
+                        
                         if ( false !== $module_id )
                         {
                             $summary  = get_lang('Module installation succeeded');
                             $moduleInfo = get_module_info($module_id);
                             $typeReq = $moduleInfo['type'];
+                            
+                            $msgList[][] = Backlog_Reporter::report( $summary, $details );
+                            
+                            if ( $activateOnInstall )
+                            {
+                                list( $backlogActivation, $successActivation ) = activate_module($module_id);
+                                $detailsActivation = $backlogActivation->output();
+                                
+                                if ( $successActivation )
+                                {
+                                    $summaryActivation  = get_lang('Module activation succeeded');
+                                    $msgList[][] = Backlog_Reporter::report( $summaryActivation, $detailsActivation );
+                                    
+                                    if ( $visibleOnInstall && $typeReq == 'tool' )
+                                    {
+                                        list ( $backlogVisibility, $successVisibility ) = set_module_visibility( $module_id, true );
+                                        $detailsVisibility = $backlogVisibility->output();
+
+                                        if ( $successVisibility )
+                                        {
+                                            $summaryVisibility = get_lang('Module visibility updated');
+                                            $msgList[][] = Backlog_Reporter::report( $summaryVisibility, $detailsVisibility );
+                                        }
+                                        else
+                                        {
+                                            $summaryVisibility = get_lang('Failed to update module visibility');
+                                            $msgList['error'][] = Backlog_Reporter::report( $summaryVisibility, $detailsVisibility );
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    $summaryActivation  = get_lang('Module activation failed');
+                                    $msgList['error'][] = Backlog_Reporter::report( $summaryActivation, $detailsActivation );
+                                }
+                                
+
+                            }
                         }
                         else
                         {
                             $summary  = get_lang('Module installation failed');
                         }
-                        $msgList[][] = Backlog_Reporter::report( $summary, $details );
                     }
                     else
                     {
@@ -240,8 +292,10 @@ switch ( $cmd )
             $msgList['form'][] = '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
             .            '<input name="cmd" type="hidden" value="exInstall" />' . "\n"
-            .            '<input name="uploadedModule" type="file" /><br /><br />' . "\n"
-            .            '<input value="' . get_lang('Install module') . '" type="submit" />&nbsp;' . "\n"
+            .            '<input name="uploadedModule" type="file" /><br />' . "\n"
+            .            '<input name="activateOnInstall" type="checkbox" />'.get_lang('Activate module on install').'<br />'
+            .            '<input name="visibleOnInstall" type="checkbox" />'.get_lang('Visible on  each course on install <small>(tool only)</small>').'<br />'
+            .            '<br /><input value="' . get_lang('Install module') . '" type="submit" />&nbsp;' . "\n"
             .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
             .            '</form>' . "\n"
             ;
