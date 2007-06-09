@@ -1383,6 +1383,29 @@ function get_max_rank_in_dock($dockName)
 }
 
 /**
+ * Return list of dock where a module is docked
+ *
+ * @param integer $moduleId
+ * @return array of array ( id, name)
+ */
+function get_module_dock_list($moduleId)
+{
+    static $dockListByModule = array();
+
+    if(!array_key_exists($moduleId,$dockListByModule))
+    {
+        $tbl_name        = claro_sql_get_main_tbl();
+        $sql = "SELECT `id`    AS dock_id,
+                       `name`  AS dockname
+            FROM `" . $tbl_name['dock'] . "`
+            WHERE `module_id`=" . (int) $moduleId;
+        $dockListByModule[$moduleId] = claro_sql_query_fetch_all($sql);
+
+    }
+    return $dockListByModule[$moduleId];
+}
+
+/**
  * Return list of dock aivailable for a given type
  *
  * @param string $moduleType
