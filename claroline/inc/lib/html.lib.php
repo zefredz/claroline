@@ -1868,14 +1868,19 @@ function claro_html_footer()
 
         $courseManagerOutput = '<div id="courseManager">'
         . get_lang('Manager(s) for %course_code', array('%course_code' => $currentCourse['officialCode']) ) . ' : ' ;
+        
+        $currentCourseTitular = empty ( $currentCourse['titular'] )
+            ? get_lang ( 'Course manager' )
+            : $currentCourse['titular']
+            ;
 
         if ( empty($currentCourse['email']) )
         {
-            $courseManagerOutput .= '<a href="' . get_module_url('CLUSR') . '/user.php">'. $currentCourse['titular'].'</a>';
+            $courseManagerOutput .= '<a href="' . get_module_url('CLUSR') . '/user.php">'. $currentCourseTitular.'</a>';
         }
         else
         {
-            $courseManagerOutput .= '<a href="mailto:' . $currentCourse['email'] . '?body=' . $currentCourse['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $currentCourse['titular'] . '</a>';
+            $courseManagerOutput .= '<a href="mailto:' . $currentCourse['email'] . '?body=' . $currentCourse['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $currentCourseTitular . '</a>';
         }
 
         $courseManagerOutput .= '</div>';
