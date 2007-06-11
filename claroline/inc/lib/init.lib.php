@@ -569,29 +569,21 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
                 FROM `" . $tbl['cours_user'] . "` `cours_user`
                 WHERE `user_id`  = '" . (int) $uid . "'
                 AND `code_cours` = '" . addslashes($cid) . "'";
+
         $cuData = claro_sql_query_get_single_row($sql);
 
-        if (count($cuData))
+        if ( !empty($cuData) )
         {
-
             $course_user_data['role'] = $cuData['role']; // not used
 
-            $course_user_privilege['_profileId'] = $cuData['profileId']
-                ? $cuData['profileId']
-                : ( claro_is_platform_admin()
-                    ? claro_get_profile_id('manager')
-                    : claro_get_profile_id('guest') )
-                ;
+            $course_user_privilege['_profileId'] = $cuData['profileId'];
             $course_user_privilege['is_courseMember'] = true;
             $course_user_privilege['is_courseTutor']  = (bool) ($cuData['tutor' ] == 1 );
             $course_user_privilege['is_courseAdmin']  = (bool) ($cuData['isCourseManager'] == 1 );
         }
         else // this user has no status related to this course
         {
-            $course_user_privilege['_profileId'] = claro_is_platform_admin()
-                ? claro_get_profile_id('manager')
-                : claro_get_profile_id('guest')
-                ;
+            $course_user_privilege['_profileId']      = claro_get_profile_id('guest');
             $course_user_privilege['is_courseMember'] = false;
             $course_user_privilege['is_courseAdmin']  = false;
             $course_user_privilege['is_courseTutor']  = false;
