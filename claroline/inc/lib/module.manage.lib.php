@@ -592,7 +592,7 @@ function deactivate_module($moduleId)
  *      boolean true if the uninstall process suceeded, false otherwise
  */
 
-function uninstall_module($moduleId)
+function uninstall_module($moduleId, $deleteModuleData = true)
 {
     $success = true;
     $backlog = new Backlog;
@@ -652,7 +652,8 @@ function uninstall_module($moduleId)
 
         if ( isset( $uninstallSqlScript ) ) unset ( $uninstallSqlScript );
         $uninstallSqlScript = get_module_path($module['label']) . '/setup/uninstall.sql';
-        if (file_exists( $uninstallSqlScript ))
+        
+        if ($deleteModuleData && file_exists( $uninstallSqlScript ))
         {
             $sql = file_get_contents( $uninstallSqlScript );
             if (!empty($sql))
@@ -669,6 +670,10 @@ function uninstall_module($moduleId)
                     $success = false;
                 }
             }
+        }
+        elseif ( ! $deleteModuleData && file_exists( $uninstallSqlScript ) )
+        {
+            $backlog->info(get_lang( 'Database uninstallation skipped' ));
         }
 
         // 2- delete related files and folders

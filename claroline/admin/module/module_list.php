@@ -132,6 +132,12 @@ $visibleOnInstall = ( array_key_exists( 'visibleOnInstall', $_REQUEST )
     ? true
     : false
     ;
+    
+$deleteModuleDatabase = ( array_key_exists( 'deleteModuleDatabase', $_REQUEST )
+    && $_REQUEST['deleteModuleDatabase'] == 'on' )
+    ? true
+    : false
+    ;
 
 
 //----------------------------------
@@ -183,7 +189,7 @@ switch ( $cmd )
             }
             else
             {
-                list( $backlog, $success ) = uninstall_module($module_id);
+                list( $backlog, $success ) = uninstall_module($module_id, $deleteModuleDatabase);
                 $details = $backlog->output();
                 if ( $success )
                 {
@@ -195,6 +201,27 @@ switch ( $cmd )
                 }
                 $msgList[][] = Backlog_Reporter::report( $summary, $details );
             }
+            break;
+        }
+    case 'rqUninstall' :
+        {
+            $moduleInfo = get_module_info($module_id);
+            
+            $msgList['form'][] = '<p>'
+            .            get_lang ( 'Are you sure you want to delete module %module% ?'
+                            , array( '%module%' => $moduleInfo['module_name'] ) )
+            .            '</p>'
+            ;
+            
+            $msgList['form'][] = '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
+            .            '<input type="hidden" name="module_id" value="' . $module_id . '" />'
+            .            '<input name="cmd" type="hidden" value="exUninstall" />' . "\n"
+            .            '<input name="deleteModuleDatabase" type="checkbox" checked="checked" />'.get_lang('Also delete module main database').'<br />'
+            .            '<br /><input value="' . get_lang('Continue') . '" type="submit" onclick="return confirmation(\'' . $moduleInfo['module_name'].'\');" />&nbsp;' . "\n"
+            .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .            '</form>' . "\n"
+            ;
             break;
         }
     case 'exInstall' :
@@ -616,8 +643,9 @@ foreach($moduleList as $module)
     if (!in_array($module['label'],$nonuninstalable_tool_array))
     {
         echo '<td align="center">'
-        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
-        .    ' onclick="return confirmation(\'' . $module['name'].'\');">'
+        // .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
+        // .    ' onclick="return confirmation(\'' . $module['name'].'\');">'
+        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=rqUninstall" />'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
