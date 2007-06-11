@@ -1859,9 +1859,11 @@ function claro_html_platform_banner()
 function claro_html_footer()
 {
     $currentCourse =  claro_get_current_course_data();
-    // FOOTER LEFT DOCK declaration
 
+    // Footer docks
     $footerLeftDock = new Dock('campusFooterLeft');
+    $footerRightDock = new Dock('campusFooterRight');
+    $footerCenterDock = new Dock('campusFooterCenter');
 
     if ( claro_is_in_a_course() )
     {
@@ -1887,11 +1889,6 @@ function claro_html_footer()
         $footerLeftDock->addOutput($courseManagerOutput,true);
     }
 
-
-    // FOOTER RIGHT DOCK declaration
-
-    $footerRightDock = new Dock('campusFooterRight');
-
     $platformManagerOutput = '<div id="platformManager">'
     . get_lang('Administrator for %site_name', array('%site_name'=>get_conf('siteName'))). ' : '
     . '<a href="mailto:' . get_conf('administrator_email')
@@ -1907,10 +1904,6 @@ function claro_html_footer()
     $platformManagerOutput .= '</div>';
 
     $footerRightDock->addOutput($platformManagerOutput,true);
-
-    // FOOTER CENTER DOCK declaration
-
-    $footerCenterDock = new Dock('campusFooterCenter');
 
     $poweredByOutput = '<div id="poweredBy">'
     . get_lang('Powered by')
