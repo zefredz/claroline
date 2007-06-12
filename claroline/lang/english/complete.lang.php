@@ -1208,7 +1208,7 @@ $_lang['Published on'] = 'Published on';
 $_lang['Question'] = 'Question';
 $_lang['Question pool'] = 'Question pool';
 $_lang['Question title'] = 'Question title';
-$_lang['Question to lecturer'] = 'Question to lecturer';
+$_lang['Question to lecturer : '] = 'Question to lecturer';
 $_lang['Quota'] = 'Quota';
 $_lang['Quota for courses'] = 'Quota for courses';
 $_lang['Quota for groups'] = 'Quota for groups';
@@ -1437,7 +1437,7 @@ This option allow only to request it, and don\'t prework the answer
 ';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'This page is empty, click on \'Edit this page\' to add a content';
 $_lang['This page is empty, use the editor to add content.'] = 'This page is empty, use the editor to add content.';
-$_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'This password is too simple. Use a password like this <code>%passProposed</code>';
+$_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>';
 $_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office';
 $_lang['This question is used in several exercises.'] = 'This question is used in several exercises.';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';

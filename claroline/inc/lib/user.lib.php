@@ -684,7 +684,7 @@ function user_validate_form($formMode, $data, $userId = null)
         if ( get_conf('SECURE_PASSWORD_REQUIRED') )
         {
             $validator->addRule('password',
-            get_lang( 'This password is too simple. Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
+            get_lang( 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
             'is_password_secure_enough',
             array(array( $data['username'] ,
             $data['officialCode'] ,

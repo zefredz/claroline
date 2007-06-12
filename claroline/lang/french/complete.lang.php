@@ -1427,7 +1427,7 @@ This option allow only to request it, and don\'t prework the answer
 '] = 'Cette option ajoute un lien dans le formulaire "Mon compte utilisateur" pour demander sa "Révoquation" de la plate-forme. Cette requête est envoyée par email à l\'administrateur de la plate-forme.';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Cette page est vide. Cliquez sur <strong>Éditer cette page</strong> pour ajouter du contenu';
 $_lang['This page is empty, use the editor to add content.'] = 'Cette page est vide, utilisez l\'éditeur pour ajouter du contenu.';
-$_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'Ce mot de passe est trop simple. Choisissez un autre mot de passe, par exemple : <code>%passProposed</code>';
+$_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'Ce mot de passe est trop simple ou trop proche de votre identifiant, nom ou prénom.<BR>Choisissez un autre mot de passe, par exemple : <code>%passProposed</code>';
 $_lang['This question is used in several exercises.'] = 'Cette question est utilisée dans plusieurs exercices.';
 $_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'La mise en page de ce texte devrait être modifiée pour être éditable dans cet éditeur. Annulez pour conserver la mise en page.';
 $_lang['This tool can not be uninstalled.'] = 'Cet outil ne peut être désinstallé.';
