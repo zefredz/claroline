@@ -391,8 +391,7 @@ if ( count($descList) )
                 .    '</a>' . "\n"
                 // delete
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . $thisDesc['id'] . '"'
-                .    ' onclick="if (!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
-                .    ' : ' . $thisDesc['title'] . ' ?\')){ return false}">'
+                .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" />'
                 .    '</a>' . "\n";
 
