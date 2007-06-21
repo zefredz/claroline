@@ -349,7 +349,7 @@ $cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">
 if ( count($eventList) > 0 )
 {
     $cmdList[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-    .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}">'
+    .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;">'
     .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
                                    . get_lang('Clear up event list')
     .    '</a>'
@@ -606,9 +606,7 @@ foreach ( $eventList as $thisEvent )
         .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify') . '" />'
         .    '</a> '
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] . '" '
-        .    'onclick="javascript:if(!confirm(\''
-        .    clean_str_for_javascript(get_lang('Delete') . ' ' . $thisEvent['title'].' ?')
-        .    '\')) {document.location=\'' . $_SERVER['PHP_SELF'] . '\'; return false}" >'
+        .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         ;
