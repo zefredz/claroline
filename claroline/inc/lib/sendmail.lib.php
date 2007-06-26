@@ -68,11 +68,15 @@ function claro_mail($subject, $message, $to, $toName, $from, $fromName)
 {
     $mail = new ClaroPHPMailer();
 
-    if (!empty($from)) $from = get_conf('administrator_email');
-    if (!empty($fromName)) $fromName = get_conf('administrator_name');
-    if (!empty($to)) $to = claro_get_current_user_data;
-    if (!empty($toName)) $toName = claro_get_current_user_data;
-
+    if (empty($from))
+    {
+        $from = get_conf('administrator_email');
+        if (empty($fromName))
+        {
+            $fromName = get_conf('administrator_name');
+        }
+    }
+    
     $mail->Subject  = $subject;
     $mail->Body     = $message;
     $mail->From     = $from;
