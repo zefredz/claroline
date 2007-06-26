@@ -1012,7 +1012,7 @@ function user_html_form($data, $form_type='registration')
         {
             // password
             $html .= form_row('<label for="password">' . $password_label . '&nbsp;:</label>',
-            '<input type="password" size="40" id="password" name="password" />');
+            '<input type="password" size="40" id="password" name="password"  autocomplete="off" />');
 
             // password confirmation
             $html .= form_row('<label for="password_conf">' . $password_label . '&nbsp;:<br/>'
