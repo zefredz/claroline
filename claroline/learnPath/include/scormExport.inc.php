@@ -155,11 +155,11 @@ if ( !class_exists('ScormExport') )
             /* Build various directories' names */
 
             // Replace ',' too, because pclzip doesn't support it.
-            $this->destDir = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . '/temp/'
+            $this->destDir = claro_get_course_path() . '/temp/'
                 . str_replace(',', '_', replace_dangerous_char($this->name));
-            $this->srcDirDocument = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . "/document";
-            $this->srcDirExercise  = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . "/exercise";
-            $this->srcDirScorm    = get_path('coursesRepositorySys') . $_SESSION['_course']['path'] . "/scormPackages/path_".$this->id;
+            $this->srcDirDocument = get_path('coursesRepositorySys') . claro_get_course_path() . '/document';
+            $this->srcDirExercise  = get_path('coursesRepositorySys') . claro_get_course_path() . '/exercise';
+            $this->srcDirScorm    = get_path('coursesRepositorySys') . claro_get_course_path() . '/scormPackages/path_'.$this->id;
 
             /* Now, get the complete list of modules, etc... */
             $sql = 'SELECT  LPM.`learnPath_module_id` ID, LPM.`lock`, LPM.`visibility`, LPM.`rank`,
@@ -498,7 +498,10 @@ if ( !class_exists('ScormExport') )
                     {
                         claro_mkdir($destinationDir);
                     }
+
                     copy($this->srcDirDocument . $module['path'], $destinationDir . $documentName);
+
+                    // TODO : If it's an html document, parse it and add the embed object (img, ...)
                 }
                 elseif ( $module['contentType'] == 'EXERCISE' )
                 {
