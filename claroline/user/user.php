@@ -80,6 +80,9 @@ $can_add_single_user = (bool) (claro_is_course_manager()
 $can_import_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
                      || claro_is_platform_admin();
+// can export if can import                     
+$can_export_user_list = $can_import_user_list;
+                     
 $can_import_user_class = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
                      || claro_is_platform_admin();
@@ -171,8 +174,23 @@ if ( $is_allowedToEdit )
                 }
             }
         }
-    } // end if isset $_REQUEST['cmd']
+    } // end if cmd == unregister
 
+    if( $cmd == 'export' && $can_export_user_list )
+    {
+        include( dirname(__FILE__) . '/lib/export.lib.php');
+
+        // contruction of XML flow
+        $csv = export_user_list(claro_get_current_course_id());
+
+        if( !empty($csv) )
+        {
+            header("Content-type: application/csv");
+            header('Content-Disposition: attachment; filename="'.claro_get_current_course_id().'_userlist.csv"');
+            echo $csv;
+            exit;
+        }
+    }
 }    // end if allowed to edit
 
 /*----------------------------------------------------------------------
@@ -263,6 +281,7 @@ if ($can_add_single_user)
                                      )
                                      ;
 }
+
 if ($can_import_user_list)
 {
     // Add CSV file of user link
@@ -273,6 +292,18 @@ if ($can_import_user_list)
                                      . get_lang('Add a user list')
                                      );
 }
+
+if ($can_export_user_list)
+{
+    // Export CSV file of user link
+    $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
+                                     . '?cmd=export'
+                                     . claro_url_relay_context('&amp;')
+                                     , '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="" />'
+                                     . get_lang('Export user list')
+                                     );
+}
+
 if ($can_import_user_class)
 {
     // Add a class link
