@@ -124,4 +124,44 @@ array('label'         => 'Teacher can import an existing class course'
                               )
      );
 
+$conf_def['section']['export']['label'] = 'Export';
+$conf_def['section']['export']['description'] = '';
+$conf_def['section']['export']['properties'] =
+array ( 'export_user_username'
+      , 'export_user_password'
+      , 'export_user_password_encrypted'
+);
+
+$conf_def_property_list['export_user_username'] =
+array('label'         => 'Export username'
+     ,'default'       => FALSE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+);
+     
+$conf_def_property_list['export_user_password'] =
+array('label'         => 'Export password'
+     ,'default'       => FALSE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+);     
+
+$conf_def_property_list['export_user_password_encrypted'] =
+array('label'         => 'Encrypt exported password using md5 algorithm'
+     ,'default'       => TRUE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+); 
 ?>
