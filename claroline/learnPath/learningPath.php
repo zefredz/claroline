@@ -163,10 +163,11 @@ echo '</tr>'."\n\n"
 if (!isset($globalProg)) $globalProg = 0;
 
 foreach ($flatElementList as $module)
-{
+{ 
     if( $module['scoreMax'] > 0 && $module['raw'] > 0 )
     {
-        $progress = round($module['raw']/$module['scoreMax']*100);
+        $raw = min($module['raw'],$module['scoreMax']); // fix when raw is > than scoreMax (it can be ...) 
+        $progress = round($raw/$module['scoreMax']*100);
     }
     else
     {
