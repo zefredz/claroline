@@ -593,7 +593,8 @@ function get_learnPath_progress($lpid, $lpUid)
             }
             else
             {
-                $modProgress = @round($module['R']/$module['SMax']*100);
+                $raw = min($module['R'],$module['SMax']);
+                $modProgress = @round($raw/$module['SMax']*100);
             }
 
             // in case of scorm module, progression depends on the lesson status value
@@ -618,7 +619,7 @@ function get_learnPath_progress($lpid, $lpUid)
                     ";
         $nbrOfVisibleModules = claro_sql_query_get_single_value($sqlnum);
 
-        if( is_numeric($nbrOfVisibleModules) )
+        if( is_numeric($nbrOfVisibleModules) && $nbrOfVisibleModules > 0)
               $progression = @round($progress/$nbrOfVisibleModules);
         else
             $progression = 0;
