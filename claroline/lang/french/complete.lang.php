@@ -546,7 +546,7 @@ $_lang['Edit text zone'] = 'Éditer la zone de texte';
 $_lang['Edit text zones'] = 'Editer les zones de texte';
 $_lang['Edit this group'] = 'Éditer ce groupe';
 $_lang['Edit this page'] = 'Éditer cette page';
-$_lang['Edition allowed'] = 'Edition autorisé';
+$_lang['Edition allowed'] = 'Edition autorisée';
 $_lang['Editor'] = 'Editeur';
 $_lang['Element list'] = 'Liste des éléments';
 $_lang['Element moved'] = 'élément déplacé';
@@ -1182,7 +1182,7 @@ $_lang['Profile SQL'] = 'Analyse de performance SQL';
 $_lang['Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement '] = 'Analyse de performance en mode debug. Affiche pour chaque requête sql : son temps d\'exécution, la requête sql et son numéro d\'ordre';
 $_lang['Profile form'] = 'Formulaire utilisateur';
-$_lang['Profile list'] = 'Liste des profiles';
+$_lang['Profile list'] = 'Liste des profils';
 $_lang['Profile locked'] = 'Profil verrouillé';
 $_lang['Profile not found'] = 'Profil introuvable';
 $_lang['Progress'] = 'Progression';
