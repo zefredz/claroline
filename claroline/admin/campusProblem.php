@@ -116,7 +116,7 @@ switch ($display)
             .    '</small>' . "\n\n"
             ;
 
-            if( isset($_REQUEST['view'])) $view = $_REQUEST['view'];
+            if( isset($_REQUEST['view'])) $view = strip_tags($_REQUEST['view']);
             else                          $view = "000000000";
 
             $levelView=-1;

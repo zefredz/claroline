@@ -450,7 +450,7 @@ class claro_sql_pager extends claro_pager // implements sortable
                 elseif ( $thisSortDirection == SORT_ASC ) $direction = 'ASC';
                 else                                      $direction = '';
 
-                $orderByList[] = $thisSortKey . ' ' . $direction ;
+                $orderByList[] = addslashes($thisSortKey) . ' ' . $direction ;
             }
 
             $sql .= "\n\t" . 'ORDER BY '. implode(', ', $orderByList) ;
