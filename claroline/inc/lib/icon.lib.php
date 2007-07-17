@@ -34,6 +34,18 @@
          return get_path('imgRepositoryWeb');
     }
     
+    /**
+     * Returns the url of the given icon, replaced by get_icon_url()
+     * @deprecated
+     * @since v1.9
+     * @see get_icon_url()
+     */
+     
+    function get_icon( $fileName )
+    {
+        return get_icon_url( $fileName );
+    }
+    
 
     /**
      * Returns the url of the given icon
@@ -42,7 +54,7 @@
      * @return string icon url
      *         mixed null if icon not found
      */
-    function get_icon( $fileName )
+    function get_icon_url( $fileName )
     {
         $fileInfo = pathinfo( $fileName );
         
@@ -103,7 +115,7 @@
             : ''
             ;
             
-        if ( false !== ( $iconUrl = get_icon( $fileName ) ) )
+        if ( false !== ( $iconUrl = get_icon_url( $fileName ) ) )
         {
             return '<img src="' . $iconUrl .'"'
                 . $alt . $title
