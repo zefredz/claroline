@@ -115,4 +115,26 @@
             return false;
         }
     }
+    
+    /**
+     * Add a claroCmd button with icon to HTML output
+     * @param string targetUrl url of the target page
+     * @param string iconName name of the icon with or without file extension
+     *      (optional, default none)
+     * @param string buttonText text of the button
+     *      (optional, default none)
+     * @param string toolTip tooltip of the button
+     *      (optional, default none)
+     */
+    function claro_html_icon_button( $targetUrl, $iconName = '', $buttonText = '', $toolTip = '' )
+    {
+        return '<a class="claroCmd"' . "\n"
+            . ' href="'.$targetUrl.'"'
+            . ( $toolTip ? "\n" . ' title="'.htmlspecialchars($toolTip).'"' : '' )
+            . '>' . "\n"
+            . ( $iconName ? claro_html_icon( $iconName ) . "\n" : '' )
+            . ( $buttonText ? htmlspecialchars($buttonText) . "\n" : '' )
+            . '</a>'
+            ;
+    }
 ?>
