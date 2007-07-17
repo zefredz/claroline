@@ -2,6 +2,11 @@
     
     // vim: expandtab sw=4 ts=4 sts=4:
     
+    if ( count( get_included_files() ) == 1 )
+    {
+        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+    }
+    
     /**
      * Icon library
      *
@@ -77,5 +82,37 @@
         if ( claro_debug_mode() ) pushClaroMessage("Icon $fileName not found",'error');
         
         return null;
+    }
+    
+    /**
+     * Includes an icon in html code
+     * @param string fileName file name with or without extension
+     * @param string toolTip tooltip for the image (optional, default none)
+     * @param string alternate alt text for the image (optional, default fileName)
+     * @return string html code for the image
+     */
+    function claro_html_icon( $fileName, $toolTip = null, $alternate = null )
+    {
+        $alt = $alternate
+            ? ' alt="' . $alternate . '"'
+            : ' alt="' . htmlspecialchars( $fileName ) . '"'
+            ;
+            
+        $title = $toolTip
+            ? ' title="' . htmlspecialchars( $toolTip ) .'"'
+            : ''
+            ;
+            
+        if ( false !== ( $iconUrl = get_icon( $fileName ) ) )
+        {
+            return '<img src="' . $iconUrl .'"'
+                . $alt . $title
+                . ' />'
+                ;
+        }
+        else
+        {
+            return false;
+        }
     }
 ?>
