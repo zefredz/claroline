@@ -14,6 +14,23 @@
      */
 
     /**
+     * Returns the (system) path to the current iconset
+     */
+    function get_current_iconset_path()
+    {
+        return get_path('imgRepositorySys');
+    }
+    
+    /**
+     * Returns the (web) url to the current iconset
+     */
+    function get_current_iconset_url()
+    {
+         return get_path('imgRepositoryWeb');
+    }
+    
+
+    /**
      * Returns the url of the given icon
      *
      * @param string fileName file name with or without extension
@@ -25,9 +42,15 @@
         $fileInfo = pathinfo( $fileName );
         
         $imgPath = array(
-            get_path('imgRepositorySys') => get_path('imgRepositoryWeb'),
+            // claroline theme iconset
+            get_current_iconset_path() => get_current_iconset_url(),
+            // module img directory
             get_module_path(get_current_module_label()).'/img/' => get_module_url(get_current_module_label()).'/img/',
+            // module root directory
+            get_module_path(get_current_module_label()).'/' => get_module_url(get_current_module_label()).'/',
+            // img directory in working directory
             './img/' => './img/',
+            // working directory
             './' => './',
         );
         
@@ -51,7 +74,7 @@
             }
         }
         
-        pushClaroMessage("Icon $fileName not found",'error');
+        if ( claro_debug_mode() ) pushClaroMessage("Icon $fileName not found",'error');
         
         return null;
     }
