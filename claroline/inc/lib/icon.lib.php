@@ -87,7 +87,14 @@
         {
             foreach ( $img as $tryImg )
             {
-                if ( file_exists( $tryPath.$tryImg ) ) return $tryUrl.$tryImg;
+                if ( claro_debug_mode() ) pushClaroMessage("Try ".$tryPath.$tryImg);
+                
+                if ( file_exists( $tryPath.$tryImg ) )
+                {
+                    if ( claro_debug_mode() ) pushClaroMessage("Using ".$tryPath.$tryImg);
+                    
+                    return $tryUrl.$tryImg;
+                }
             }
         }
         
