@@ -87,11 +87,11 @@
         {
             foreach ( $img as $tryImg )
             {
-                if ( claro_debug_mode() ) pushClaroMessage("Try ".$tryPath.$tryImg);
+                if ( claro_debug_mode() ) pushClaroMessage("Try ".$tryPath.$tryImg, 'debug');
                 
                 if ( file_exists( $tryPath.$tryImg ) )
                 {
-                    if ( claro_debug_mode() ) pushClaroMessage("Using ".$tryPath.$tryImg);
+                    if ( claro_debug_mode() ) pushClaroMessage("Using ".$tryPath.$tryImg, 'debug');
                     
                     return $tryUrl.$tryImg;
                 }
