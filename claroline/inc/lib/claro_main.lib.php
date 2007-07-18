@@ -1552,7 +1552,7 @@ function php_self()
  */
 function claro_debug_mode()
 {
-    return ( defined ( 'DEBUG_MODE' ) && DEBUG_MODE );
+    return ( defined ( 'CLARO_DEBUG_MODE' ) && CLARO_DEBUG_MODE );
 }
 
 ?>
