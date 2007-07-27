@@ -234,7 +234,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 					$line = $this->__inlineWalk( $cap[1] );
                     
-                    $content = explode( '|', $line );
+                    $content = preg_split( '/[^\\\\]\|/', $line );
                     
                     $th = false;
                     $cell = array();
@@ -542,7 +542,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     		# Suppression des echappements
     		$res = str_replace($this->escape_table,$this->all_tags,$res);
             # Unescape table tags
-    		$res = str_replace(array('\\{|', '\\||', '\\|}'),array('{|', '||', '|}'),$res);
+            $res = str_replace(array('\\{|', '\\||', '\\|}'),array('{|', '||', '|}'),$res);
 
     		return $res;
 		}
@@ -554,7 +554,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          */
         function render( $txt )
         {
-            return $this->transform($txt );
+            // bug #937
+            return preg_replace( '/\\\\((\!|\|)+)/', '$1', $this->transform($txt ) );
         }
 
         /**
