@@ -139,7 +139,11 @@ function claro_get_current_tool_id()
 function get_current_module_label()
 {
     // course module
-    if ( isset( $GLOBALS['_courseTool'] )
+    if ( isset( $GLOBALS['currentModuleLabel'] ) && ! empty( $GLOBALS['currentModuleLabel'] ) )
+    {
+        return $GLOBALS['currentModuleLabel'];
+    }
+    elseif ( isset( $GLOBALS['_courseTool'] )
         && is_array( $GLOBALS['_courseTool'] )
         && array_key_exists( 'label', $GLOBALS['_courseTool'] ) )
     {
