@@ -234,38 +234,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 					$line = $this->__inlineWalk( $cap[1] );
                     
-                    $content = preg_split( '/[^\\\\]\|/', $line );
-                    
-                    $th = false;
-                    $cell = array();
-                    
-                    for ( $i = 0; $i < count( $content ); $i++ )
-                    {
-                        $r = trim( $content[$i] );
-                        
-                        if ( strpos( $r, '!' ) === 0 )
-                        {
-                            $th = true;
-                            $cell[] = substr($r,1);
-                        }
-                        else
-                        {
-                            $cell[] = $r;
-                        }
-                    }
-                    
-                    if ( true === $th )
-                    {
-                       $line = '<tr><th>';
-                       $line .= implode( '</th><th>', $cell );
-                       $line .= '</th></tr>';
-                    }
-                    else
-                    {
-					   $line = '<tr><td>';
-					   $line .= implode( '</td><td>', $cell );
-                       $line .= '</td></tr>';
-                    }
+                    $line = $this->_parseTableLine($line);
 				}
                 else
                 {
@@ -281,6 +250,79 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
 
             return $line;
+        }
+        
+        function _parseTableLine($line)
+        {
+            $cell = array();
+            $offset = 0;
+            $th = false;
+            
+            while ( strlen ( $line ) > 0 )
+            {
+                if ( false !== ( $pos = strpos( $line, '|', $offset ) ) )
+                {
+                    if ( ($pos-1 > 0) &&  $line[$pos-1] == '\\' )
+                    {
+                        $offset = $pos+1;
+                        continue;
+                    }
+                    else
+                    {
+                        $r = substr( $line, 0, $pos );
+                        
+                        pushClaroMessage('r:'.$r);
+                        
+                        if ( strpos( $r, '!' ) === 0 )
+                        {
+                            $th = true;
+                            $cell[] = substr($r,1);
+                        }
+                        else
+                        {
+                            $cell[] = $r;
+                        }
+                        
+                        
+                        $line = substr( $line, $pos+1 );
+                        $offset = 0;
+                    }
+                }
+                else
+                {
+                    $r = $line;
+                    
+                    if ( strpos( $r, '!' ) === 0 )
+                    {
+                        $th = true;
+                        $cell[] = substr($r,1);
+                    }
+                    else
+                    {
+                        $cell[] = $r;
+                    }
+
+                    $line = '';
+                    $offset = 0;
+                }
+            }
+            
+            $ret = '';
+            
+            if ( true === $th )
+            {
+                $ret = '<tr><th>';
+                $ret .= implode( '</th><th>', $cell );
+                $ret .= '</th></tr>';
+            }
+            else
+            {
+                $ret = '<tr><td>';
+                $ret .= implode( '</td><td>', $cell );
+                $ret .= '</td></tr>';
+            }
+            
+            return $ret;
         }
 
         /**
