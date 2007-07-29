@@ -237,9 +237,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 					$line = $this->__inlineWalk( $line );
 					
-					pushClaroMessage( $line                );
-					
-                    $line = $this->_parseTableLine($line);
+					$line = $this->_parseTableLine($line);
 				}
                 else
                 {
