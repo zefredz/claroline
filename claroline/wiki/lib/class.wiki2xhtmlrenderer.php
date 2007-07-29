@@ -232,9 +232,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 				elseif( preg_match('/^\s*\|\|(.*)\|\|\s*$/', $line, $cap) )
 				{
 					$type = null;
+					
+                    $line = trim( $cap[1] );
 
-					$line = $this->__inlineWalk( $cap[1] );
-                    
+					$line = $this->__inlineWalk( $line );
+					
+					pushClaroMessage( $line                );
+					
                     $line = $this->_parseTableLine($line);
 				}
                 else
@@ -263,7 +267,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 if ( false !== ( $pos = strpos( $line, '|', $offset ) ) )
                 {
-                    if ( ($pos-1 > 0) &&  $line[$pos-1] == '\\' )
+                    if ( ($pos-1 >= 0) &&  $line[$pos-1] == '\\' )
                     {
                         $offset = $pos+1;
                         continue;
@@ -271,8 +275,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     else
                     {
                         $r = substr( $line, 0, $pos );
-                        
-                        pushClaroMessage('r:'.$r);
                         
                         if ( strpos( $r, '!' ) === 0 )
                         {
@@ -585,7 +587,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     		# Suppression des echappements
     		$res = str_replace($this->escape_table,$this->all_tags,$res);
             # Unescape table tags
-            $res = str_replace(array('\\{|', '\\||', '\\|}'),array('{|', '||', '|}'),$res);
+            
+            $res = str_replace(array('\\{|', '\\|}'),array('{|', '|}'),$res);
 
     		return $res;
 		}
