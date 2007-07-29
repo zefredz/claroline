@@ -210,11 +210,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 			elseif ($this->getOpt('active_tables'))
 			{
                 # table start
-                if ( preg_match('/^\s*{\|(\w+)\s*/', $line, $cap) )
+                if ( preg_match('/^\s*{\|(.+)\s*/', $line, $cap) )
                 {
                     $type = null;
                     $line = '<table>';
-                    $line .= '<caption>'.$cap[1].'</caption>';
+                    $caption = trim($cap[1]);
+                    $line .= '<caption>'.$caption.'</caption>';
                 }
                 elseif ( preg_match('/^\s*{\|\s*/', $line, $cap) )
                 {
