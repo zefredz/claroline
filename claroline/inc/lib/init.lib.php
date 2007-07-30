@@ -131,18 +131,20 @@ function claro_get_current_tool_id()
 
 /**
  * Returns the label of the current tool module
- * WARNING: Works only on tool modules not on applets
  * FIXME: non-course module hack
+ * FIXME: applet module hack
+ * FIXME: switch tlbelReq and _courseTool lookup ?
  * @return string module label
  *         boolean false if no module currently in use or not in a tool module
  */
 function get_current_module_label()
 {
-    // course module
+    // set by module (hack for applets !!!)
     if ( isset( $GLOBALS['currentModuleLabel'] ) && ! empty( $GLOBALS['currentModuleLabel'] ) )
     {
         return $GLOBALS['currentModuleLabel'];
     }
+    // course module
     elseif ( isset( $GLOBALS['_courseTool'] )
         && is_array( $GLOBALS['_courseTool'] )
         && array_key_exists( 'label', $GLOBALS['_courseTool'] ) )
@@ -159,6 +161,33 @@ function get_current_module_label()
     {
         return false;
     }
+}
+
+/**
+ * Set the current module label at run time
+ *  @param string label module label
+ *  @return string old label
+ *          boolean false if no old label defined
+ *  FIXME : use it in docks and kernel
+ */
+function set_current_module_label( $label )
+{
+    $old = get_current_module_label();
+    
+    $GLOBALS['currentModuleLabel'] = $label;
+    
+    return $old;
+}
+
+/**
+ * Unset the current module label at run time
+ *  (Warning : does not alter tlabelReq or _courseTool)
+ *  @param string label module label
+ *  @return string old label or false if no old label defined
+ */
+function clear_current_module_label()
+{
+    return set_current_module_label( null );
 }
 
 /**
