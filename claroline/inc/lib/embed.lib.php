@@ -34,7 +34,7 @@
          */
         function windowClose()
         {
-            return '<p style="text-align:center;"><a href="#" '
+            return '<p class="claroCmd closeWindow" style="text-align:center;"><a href="#" '
                 . 'onclick="window.close()">'
                 . get_lang('Close window')
                 . '</a></p>'
