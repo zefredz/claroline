@@ -34,10 +34,10 @@
          */
         function windowClose()
         {
-            return '<p class="claroCmd closeWindow" style="text-align:center;"><a href="#" '
+            return '<div class="closeWindow"><a class="claroCmd" href="#" '
                 . 'onclick="window.close()">'
                 . get_lang('Close window')
-                . '</a></p>'
+                . '</a></div>'
                 . "\n"
                 ;
         }

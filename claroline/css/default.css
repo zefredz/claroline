@@ -842,3 +842,9 @@ form tr.admin td{
     margin: 10px 10px 10px 10px;
 
 }
+
+.closeWindow {
+    padding: 0;
+    marging: 0;
+    text-align:center;
+}
