@@ -302,7 +302,8 @@ class language
             }
             else
             {
-                if ( isset($_REQUEST['language']) )
+                if ( isset($_REQUEST['language'])
+                    && in_array($_REQUEST['language'], array_keys(get_language_list())) )
                 {
                     // selected language
                     $_SESSION['language'] = $_REQUEST['language'];
@@ -351,7 +352,7 @@ function get_language_list()
             if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
 
             // skip if not a dir
-            if ( ! is_dir($language_dirname.$elt) )
+            if ( is_dir($language_dirname.$elt) )
             {
                 $elt_key = $elt;
                 $elt_value = get_translation_of_language($elt_key);
