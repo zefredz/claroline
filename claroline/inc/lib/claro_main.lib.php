@@ -1119,6 +1119,34 @@ function claro_time()
     $mainTimeShift = (int) get_conf('mainTimeShift',0);
     return time()+(3600 * $mainTimeShift);
 }
+
+/**
+ * Equivalent to mktime but taking the mainTimeShift into account
+ *
+ *  Usage :
+ *      claro_mktime ( [int hour [, int minute [, int second [, int month [
+ *          , int day [, int year [, int is_dst]]]]]]] )
+ *
+ * @see mktime()
+ * @return timestamp corresponding to the given arguments shifted by
+ *  mainTimeShift config value
+ * @author Frédéric Minne <zefredz@claroline.net>
+ */
+function claro_mktime()
+{
+    if ( 0 < func_num_args() )
+    {
+        $args = func_get_args();
+
+        return call_user_func_array( 'mktime', $args );
+    }
+    else
+    {
+        // shift
+        $mainTimeShift = (int) get_conf('mainTimeShift',0);
+        return mktime()+(3600 * $mainTimeShift);
+    }
+}
 //////////////////////////////////////////////////////////////////////////////
 //                              INPUT HANDLING
 //
