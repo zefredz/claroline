@@ -144,8 +144,6 @@ class ClaroCourse
 
             if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && fill_course_repository($courseDirectory)
-                && update_db_course($courseDbName)
-                && fill_db_course( $courseDbName, $this->language )
                 && register_course($courseSysCode
                    ,               $this->officialCode
                    ,               $courseDirectory
@@ -163,6 +161,8 @@ class ClaroCourse
                    ,               $courseExpirationDate
                    ,               $this->departmentName
                    ,               $this->extLinkUrl)
+                && update_db_course($courseDbName)
+                && fill_db_course( $courseDbName, $this->language )
                 )
             {
                 // set course id
