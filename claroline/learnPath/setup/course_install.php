@@ -8,6 +8,33 @@
     }
 
     ############################### LEARNING PATH  ####################################
+    
+    $moduleWorkingDirectory = get_path('coursesRepositorySys') . $courseDirectory . '/modules';
+
+    if ( ! claro_mkdir($moduleWorkingDirectory, CLARO_FILE_PERMISSIONS,true) )
+    {
+        return claro_failure::set_failure(
+                get_lang( 'Unable to create folder %folder'
+                    ,array( '%folder' => $moduleWorkingDirectory ) ) );
+    }
+    
+    $moduleWorkingDirectory = get_path('coursesRepositorySys') . $courseDirectory . '/scormPackages';
+
+    if ( ! claro_mkdir($moduleWorkingDirectory, CLARO_FILE_PERMISSIONS,true) )
+    {
+        return claro_failure::set_failure(
+                get_lang( 'Unable to create folder %folder'
+                    ,array( '%folder' => $moduleWorkingDirectory ) ) );
+    }
+    
+    $moduleWorkingDirectory = get_path('coursesRepositorySys') . $courseDirectory . '/modules/module_1';
+
+    if ( ! claro_mkdir($moduleWorkingDirectory, CLARO_FILE_PERMISSIONS,true) )
+    {
+        return claro_failure::set_failure(
+                get_lang( 'Unable to create folder %folder'
+                    ,array( '%folder' => $moduleWorkingDirectory ) ) );
+    }
 
     if ( get_conf('fill_course_example',true) )
     {

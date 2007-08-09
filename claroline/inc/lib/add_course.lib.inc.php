@@ -236,15 +236,11 @@ function prepare_course_repository($courseRepository, $courseId)
                 , array( '%folder' => get_path('coursesRepositorySys') ) ) );
     }
 
-    $folderList = array($courseDirPath ,
-                        $courseDirPath . '/exercise',
-                        $courseDirPath . '/document',
-                        $courseDirPath . '/work',
-                        $courseDirPath . '/group',
-                        $courseDirPath . '/chat',
-                        $courseDirPath . '/modules',
-                        $courseDirPath . '/scormPackages',
-                        $courseDirPath . '/modules/module_1' );
+    $folderList = array(
+        $courseDirPath ,
+        $courseDirPath . '/document',
+        $courseDirPath . '/group'
+    );
 
     foreach ( $folderList as $folder )
     {
