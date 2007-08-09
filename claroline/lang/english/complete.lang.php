@@ -2448,6 +2448,17 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>||!first column title|!second column title|...||</code>&nbsp;: column header</dd>
 <dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
 <dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
+</dl>
+<h2>Special commands</h2>
+<dl>
+<dt>Raw HTML inclusion</dt>
+<dd><code>"""html code"""</code>&nbsp;: inline HTML inclusion</dd>
+<dd><code>"""start_html"""</code>&nbsp;: start of raw HTML block</dd>
+<dd><code>"""end_html"""</code>&nbsp;: end of raw HTML block</dd>
+<dt>Link to MainPage</dt>
+<dd><code>"""main"""</code> or <code>"""home"""</code></dd>
+<dt>Table of contents</dt>
+<dd><code>"""toc"""</code></dd>
 </dl>';
 $_lang['boolean'] = 'boolean';
 $_lang['click here'] = 'click here';
