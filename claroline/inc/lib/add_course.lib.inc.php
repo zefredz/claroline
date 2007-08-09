@@ -1,5 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
@@ -20,8 +25,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  *
  */
+
+require_once get_path('includePath') . '/lib/course_user.lib.php';
 
 /**
  * with  the WantedCode we can define the 4 keys  to find courses datas
@@ -44,15 +52,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @todo manage an error on brake for too many try
  * @todo $keysCourseCode is always
  */
-
-include_once(get_path('includePath') . '/lib/course_user.lib.php');
 function define_course_keys ($wantedCode,
                              $prefix4all = '',
                              $prefix4baseName = '',
                              $prefix4path = '',
-                             $addUniquePrefix = FALSE,
-                             $useCodeInDepedentKeys = TRUE,
-                             $addUniqueSuffix = FALSE
+                             $addUniquePrefix = false,
+                             $useCodeInDepedentKeys = true,
+                             $addUniqueSuffix = false
 
                              )
 {
@@ -70,8 +76,8 @@ function define_course_keys ($wantedCode,
 
     //$wantedCode = strtoupper($wantedCode);
     $charToReplaceByUnderscore = '- ';
-    $wantedCode = ereg_replace('['.$charToReplaceByUnderscore.']', '_', $wantedCode);
-    $wantedCode = ereg_replace('[^A-Za-z0-9_]', '', $wantedCode);
+    $wantedCode = preg_replace('/['.$charToReplaceByUnderscore.']/', '_', $wantedCode);
+    $wantedCode = preg_replace('/[^A-Za-z0-9_]/', '', $wantedCode);
 
     if ($wantedCode=='') $wantedCode = get_conf('prefixAntiEmpty');
 
@@ -87,12 +93,13 @@ function define_course_keys ($wantedCode,
 
     else                  $uniqueSuffix = '';
 
-    $keysAreUnique = FALSE;
+    $keysAreUnique = false;
 
     $finalSuffix = array('CourseId'=>''
                         ,'CourseDb'=>''
                         ,'CourseDir'=>''
                         );
+                        
     $tryNewFSCId = $tryNewFSCDb = $tryNewFSCDir = 0;
 
     while (!$keysAreUnique)
@@ -121,7 +128,7 @@ function define_course_keys ($wantedCode,
                                  sprintf("_%0" . $nbCharFinalSuffix . "s", $finalSuffix['CourseDir']):'')
          ;
 
-        $keysAreUnique = TRUE;
+        $keysAreUnique = true;
         // Now we go to check if there are unique
 
         $sqlCheckCourseId    = "SELECT COUNT(code) existAllready
@@ -133,7 +140,7 @@ function define_course_keys ($wantedCode,
 
         if ($isCheckCourseIdUsed[0]['existAllready'] > 0)
         {
-            $keysAreUnique = FALSE;
+            $keysAreUnique = false;
             $tryNewFSCId++;
             $finalSuffix['CourseId']++;
         };
@@ -153,14 +160,14 @@ function define_course_keys ($wantedCode,
 
         if ($isCheckCourseDbUsed > 0)
         {
-            $keysAreUnique = FALSE;
+            $keysAreUnique = false;
             $tryNewFSCDb++;
             $finalSuffix['CourseDb']++;
         };
 
         if (file_exists(get_path('coursesRepositorySys') . '/' . $keysCourseRepository))
         {
-            $keysAreUnique = FALSE;
+            $keysAreUnique = false;
             $tryNewFSCDir++;
             $finalSuffix['CourseDir']++;
 
@@ -183,7 +190,7 @@ function define_course_keys ($wantedCode,
             )
         {
             trigger_error('too many try for ' .  $wantedCode ,E_USER_WARNING);
-            return FALSE;
+            return false;
 
         }
     }
@@ -207,11 +214,11 @@ function define_course_keys ($wantedCode,
  *
  * @param  string $courseRepository path from $coursesRepositorySys to root of course
  * @param  string $courseId         sysId of course
- *
+ * @return boolean
  * @author Christophe Gesché <moosh@claroline.net>
  * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
-
 function prepare_course_repository($courseRepository, $courseId)
 {
 
@@ -222,8 +229,12 @@ function prepare_course_repository($courseRepository, $courseId)
 
     $courseDirPath = get_path('coursesRepositorySys') . $courseRepository;
 
-    if ( ! is_writable(get_path('coursesRepositorySys')) ) return claro_failure::set_failure( get_lang('Folder %folder is not writable',
-                                                                                            array('%folder'=>get_path('coursesRepositorySys'))));
+    if ( ! is_writable(get_path('coursesRepositorySys')) )
+    {
+        return claro_failure::set_failure(
+            get_lang( 'Folder %folder is not writable'
+                , array( '%folder' => get_path('coursesRepositorySys') ) ) );
+    }
 
     $folderList = array($courseDirPath ,
                         $courseDirPath . '/exercise',
@@ -238,65 +249,91 @@ function prepare_course_repository($courseRepository, $courseId)
     foreach ( $folderList as $folder )
     {
         if ( ! claro_mkdir($folder, CLARO_FILE_PERMISSIONS,true) )
-            return claro_failure::set_failure(get_lang('Unable to create folder %folder',array('%folder'=>$folder)));
+        {
+            return claro_failure::set_failure(
+                get_lang( 'Unable to create folder %folder'
+                    ,array( '%folder' => $folder ) ) );
+        }
     }
 
     // build index.php of course
-    $fd = fopen($courseDirPath . '/index.php', 'w');
-    if ( ! $fd) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
+    $courseIndex = $courseDirPath . '/index.php';
+    
+    $courseIndexContent = '<?php ' . "\n"
+        . 'header (\'Location: '. get_path('clarolineRepositoryWeb')
+        . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
+        . '?' . '>' . "\n"
+        ;
+    
+    if ( ! file_put_contents( $courseIndex, $courseIndexContent ) )
+    {
+        return claro_failure::set_failure(
+            get_lang('Unable to create file %file'
+                , array('%file' => 'index.php' ) ) );
+    }
 
-    $string = '<?php ' . "\n"
-            . 'header (\'Location: '. get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
-          . '?' . '>' . "\n" ;
+    $groupIndex = get_path('coursesRepositorySys')
+        . $courseRepository . '/group/index.php'
+        ;
 
-    if ( ! fwrite($fd, $string) ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
-    if ( ! fclose($fd) )          return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'index.php')));
+    $groupIndexContent = '<?php session_start(); ?'.'>';
 
-    $fd     = fopen(get_path('coursesRepositorySys').$courseRepository . '/group/index.php', 'w');
-    if ( ! $fd ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'group/index.php')));
-
-    $string = '<?php session_start(); ?'.'>';
-
-    if ( ! fwrite($fd, $string) ) return claro_failure::set_failure(get_lang('Unable to create file %file', array('%file'=>'group/index.php')));
+    if ( ! file_put_contents( $groupIndex, $groupIndexContent ) )
+    {
+        return claro_failure::set_failure(
+            get_lang('Unable to create file %file'
+                , array('%file' => 'group/index.php' ) ) );
+    }
 
     return true;
-};
+}
+
+/**
+ * Add starting files in course
+ *
+ * @param  string courseDbName partial dbName form course table tu build real DbName
+ * @return boolean
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
+ */
+function update_db_course($courseDbName)
+{
+    if ( ! create_course_database( $courseDbName ) )
+    {
+        return claro_failure::set_failure(
+            get_lang( 'Unable to create course database' ) );
+    }
+    
+    if ( ! create_course_tables( $courseDbName ) )
+    {
+        return claro_failure::set_failure(
+            get_lang( 'Unable to create course tables' ) );
+    }
+    
+    if ( ! create_tool_tables( $courseDbName ) )
+    {
+        return claro_failure::set_failure(
+            get_lang( 'Unable to create tool tables' ) );
+    }
+    
+    return true;
+}
 
 /**
  * Add starting files in course
  *
  * @param   string  $courseDbName partial dbName form course table tu build real DbName
- *
+ * @return boolean
  * @author Christophe Gesché <moosh@claroline.net>
- * @version 1.0
+ * @author Frédéric Minne <zefredz@claroline.net>
  */
-
-function update_db_course($courseDbName)
+function create_tool_tables( $courseDbName )
 {
-
-    if (!get_conf('singleDbEnabled'))
-    {
-        claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
-        if (claro_sql_errno() > 0) return claro_failure::set_failure(get_lang('Unable to create course database'));
-    }
-
     $courseDbName = get_conf('courseTablePrefix') . $courseDbName . get_conf('dbGlu');
 
+    // var_dump( $GLOBALS['_course'] );
+
     $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
-
-    // Tool list
-    $TABLECOURSEHOMEPAGE = $tbl_cdb_names['tool'];
-    $TABLEINTROS         = $tbl_cdb_names['tool_intro'];
-
-    // Group
-    $TABLEGROUPS           = $tbl_cdb_names['group_team'];
-    $TABLEGROUPUSER        = $tbl_cdb_names['group_rel_team_user'];
-    $TABLECOURSEPROPERTIES = $tbl_cdb_names['course_properties'];
-
-
-    // User Info
-    $TABLETOOLUSERINFOCONTENT = $tbl_cdb_names['userinfo_content'];
-    $TABLETOOLUSERINFODEF     = $tbl_cdb_names['userinfo_def'];
 
     // Course
     $TABLETOOLCOURSEDESC    = $tbl_cdb_names['course_description'];
@@ -337,10 +374,6 @@ function update_db_course($courseDbName)
     $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];
     $TABLEPHPBBWHOSONLINE   = $tbl_cdb_names['bb_whosonline'];
 
-    // Linker
-    $TABLELINKS               = $tbl_cdb_names['links'];
-    $TABLERESOURCES           = $tbl_cdb_names['resources'];
-
     // Learning Path
     $TABLELEARNPATH          = $tbl_cdb_names['lp_learnPath'];
     $TABLEMODULE             = $tbl_cdb_names['lp_module'];
@@ -348,10 +381,7 @@ function update_db_course($courseDbName)
     $TABLEASSET              = $tbl_cdb_names['lp_asset'];
     $TABLEUSERMODULEPROGRESS = $tbl_cdb_names['lp_user_module_progress'];
 
-    // Tracking
-    $TABLETRACKACCESS     = $tbl_cdb_names['track_e_access'];
-    $TABLETRACKDOWNLOADS  = $tbl_cdb_names['track_e_downloads'];
-    $TABLETRACKUPLOADS    = $tbl_cdb_names['track_e_uploads'];
+    // Exercice tracking
     $TABLETRACKEXERCICES  = $tbl_cdb_names['track_e_exercices'];
     $TABLETRACKEXEDETAILS = $tbl_cdb_names['track_e_exe_details'];
     $TABLETRACKEXEANSWERS = $tbl_cdb_names['track_e_exe_answers'];
@@ -373,29 +403,6 @@ function update_db_course($courseDbName)
       `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
       PRIMARY KEY  (`id`)
     ) TYPE=MyISAM COMMENT='announcements table'";
-
-    // User Info
-    $sqlList[] = "
-    CREATE TABLE `".$TABLETOOLUSERINFOCONTENT."` (
-       `id` int(10) unsigned NOT NULL auto_increment,
-       `user_id` mediumint(8) unsigned NOT NULL default '0',
-       `def_id` int(10) unsigned NOT NULL default '0',
-       `ed_ip` varchar(39) default NULL,
-       `ed_date` datetime default NULL,
-       `content` text,
-       PRIMARY KEY  (`id`),
-       KEY `user_id` (`user_id`)
-    ) TYPE=MyISAM COMMENT='content of users information'";
-
-    $sqlList[] = "
-    CREATE TABLE `".$TABLETOOLUSERINFODEF."` (
-       `id` int(10) unsigned NOT NULL auto_increment,
-       `title` varchar(80) NOT NULL default '',
-       `comment` varchar(160) default NULL,
-       `nbLine` int(10) unsigned NOT NULL default '5',
-       `rank` tinyint(3) unsigned NOT NULL default '0',
-       PRIMARY KEY  (`id`)
-    ) TYPE=MyISAM COMMENT='categories definition for user information of a course'";
 
     // Forum
     $sqlList[] = "
@@ -627,19 +634,6 @@ function update_db_course($courseDbName)
     PRIMARY KEY  (`id`)
     ) TYPE=MyISAM ";
 
-    // Tool List
-    $sqlList[] = "
-    CREATE TABLE `".$TABLECOURSEHOMEPAGE."` (
-        `id` int(11) NOT NULL auto_increment,
-        `tool_id` int(10) unsigned default NULL,
-        `rank` int(10) unsigned NOT NULL,
-        `visibility` tinyint(4) default 0,
-        `script_url` varchar(255) default NULL,
-        `script_name` varchar(255) default NULL,
-        `addedTool` ENUM('YES','NO') DEFAULT 'YES',
-    PRIMARY KEY  (`id`)
-    ) TYPE=MyISAM  ";
-
     // Agenda
     $sqlList[] = "
     CREATE TABLE `".$TABLETOOLAGENDA."` (
@@ -698,50 +692,6 @@ function update_db_course($courseDbName)
         `prefill_text` text NOT NULL,
         `prefill_doc_path` varchar(200) NOT NULL default '',
         `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
-    PRIMARY KEY  (`id`)
-    ) TYPE=MyISAM ";
-
-    // Groups
-    $sqlList[] = "
-    CREATE TABLE `".$TABLEGROUPS."` (
-        id int(11) NOT NULL auto_increment,
-        name varchar(100) default NULL,
-        description text,
-        tutor int(11) default NULL,
-        maxStudent int(11) NULL default '0',
-        secretDirectory varchar(30) NOT NULL default '0',
-    PRIMARY KEY  (id)
-    ) TYPE=MyISAM ";
-
-    $sqlList[] = "
-    CREATE TABLE `".$TABLEGROUPUSER."` (
-        id int(11) NOT NULL auto_increment,
-        user int(11) NOT NULL default '0',
-        team int(11) NOT NULL default '0',
-        status int(11) NOT NULL default '0',
-        role varchar(50) NOT NULL default '',
-    PRIMARY KEY  (id)
-    ) TYPE=MyISAM ";
-
-    $sqlList[] = "
-    CREATE TABLE `".$TABLECOURSEPROPERTIES."` (
-        `id` int(11) NOT NULL auto_increment,
-        `name` varchar(255) NOT NULL default '',
-        `value` varchar(255) default NULL,
-        `category` varchar(255) default NULL,
-        PRIMARY KEY  (`id`)
-) TYPE=MyISAM ";
-
-    // Tool intro
-    $sqlList[] = "
-    CREATE TABLE `".$TABLEINTROS."` (
-        `id` int(11) NOT NULL auto_increment,
-        `tool_id` int(11) NOT NULL default '0',
-        `title` varchar(255) default NULL,
-        `display_date` datetime default NULL,
-        `content` text,
-        `rank` int(11) default '1',
-        `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
     PRIMARY KEY  (`id`)
     ) TYPE=MyISAM ";
 
@@ -812,26 +762,7 @@ function update_db_course($courseDbName)
     PRIMARY KEY  (`user_module_progress_id`)
     ) TYPE=MyISAM  COMMENT='Record the last known status of the user in the course'";
 
-    // Tracking
-    $sqlList[] = "
-    CREATE TABLE `".$TABLETRACKACCESS."` (
-        `access_id` int(11) NOT NULL auto_increment,
-        `access_user_id` int(10) default NULL,
-        `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
-        `access_tid` int(10) default NULL,
-        `access_tlabel` varchar(8) default NULL,
-    PRIMARY KEY  (`access_id`)
-    ) TYPE=MyISAM  COMMENT='Record informations about access to course or tools'";
-
-    $sqlList[] = "
-    CREATE TABLE `".$TABLETRACKDOWNLOADS."` (
-        `down_id` int(11) NOT NULL auto_increment,
-        `down_user_id` int(10) default NULL,
-        `down_date` datetime NOT NULL default '0000-00-00 00:00:00',
-        `down_doc_path` varchar(255) NOT NULL default '0',
-    PRIMARY KEY  (`down_id`)
-    ) TYPE=MyISAM  COMMENT='Record informations about downloads'";
-
+    // Exercise Tracking
     $sqlList[] = "
     CREATE TABLE `".$TABLETRACKEXERCICES."` (
         `exe_id` int(11) NOT NULL auto_increment,
@@ -860,33 +791,6 @@ function update_db_course($courseDbName)
         `answer` text NOT NULL,
     PRIMARY KEY  (`id`)
     ) TYPE=MyISAM  COMMENT=''";
-
-    $sqlList[] = "
-    CREATE TABLE `".$TABLETRACKUPLOADS."` (
-        `upload_id` int(11) NOT NULL auto_increment,
-        `upload_user_id` int(10) default NULL,
-        `upload_date` datetime NOT NULL default '0000-00-00 00:00:00',
-        `upload_work_id` int(11) NOT NULL default '0',
-    PRIMARY KEY  (`upload_id`)
-    ) TYPE=MyISAM  COMMENT='Record some more informations about uploaded works'";
-
-    // Linker
-    $sqlList[] = "
-    CREATE TABLE IF NOT EXISTS `".$TABLELINKS."` (
-        `id` int(11) NOT NULL auto_increment,
-        `src_id` int(11) NOT NULL default '0',
-        `dest_id` int(11) NOT NULL default '0',
-        `creation_time` timestamp(14) NOT NULL,
-    PRIMARY KEY  (`id`)
-    ) TYPE=MyISAM ";
-
-    $sqlList[] = "
-    CREATE TABLE IF NOT EXISTS `".$TABLERESOURCES."` (
-        `id` int(11) NOT NULL auto_increment,
-        `crl` text NOT NULL,
-        `title` text NOT NULL,
-    PRIMARY KEY  (`id`)
-    ) TYPE=MyISAM ";
 
     // Wiki
     $sqlList[] = "
@@ -939,12 +843,10 @@ function update_db_course($courseDbName)
 /**
  * Add starting files in course
  *
- * @param    string    $courseRepository        path from $coursesRepositorySys to root of course
- *
+ * @param string courseRepository path from $coursesRepositorySys to root of course
+ * @return boolean
  * @author Christophe Gesché <moosh@claroline.net>
- * @version 1.0
  */
-
 function fill_course_repository($courseRepository)
 {
     // WARNING. Do not forget to adapt queries in fill_Db_course()
@@ -953,7 +855,8 @@ function fill_course_repository($courseRepository)
     if ( get_conf('fill_course_example',true) )
     {
         return copy( get_module_path('CLDOC') . '/Example_document.pdf',
-                 get_path('coursesRepositorySys').$courseRepository.'/document/Example_document.pdf');
+                 get_path('coursesRepositorySys')
+                    . $courseRepository . '/document/Example_document.pdf' );
     }
     else
     {
@@ -964,15 +867,15 @@ function fill_course_repository($courseRepository)
 /**
  * Insert starting data in db of course.
  *
- * @param  string  $courseDbName        partial DbName. to build as get_conf('courseTablePrefix').$courseDbName.get_conf('dbGlu');
- * @param  string  $language            language request for this course
+ * @param string courseDbName partial DbName. to build as
+ *      get_conf('courseTablePrefix').$courseDbName.get_conf('dbGlu');
+ * @param string language language request for this course
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @version 1.0
+ * @author Frédéric Minne <zefredz@claroline.net>
  *
  * note  $language would be removed soon.
  */
-
 function fill_db_course($courseDbName,$language)
 {
     global $_user;
@@ -1014,25 +917,8 @@ function fill_db_course($courseDbName,$language)
     claro_sql_select_db($courseDbName);
 
     #################### register tools in course ######################################
-
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-
-    $TABLECOURSETOOL = $tbl_mdb_names['tool'  ];
-
-    $sql = "SELECT id, def_access, def_rank, claro_label FROM `". $TABLECOURSETOOL . "` where add_in_course = 'AUTOMATIC'";
-
-    $result = claro_sql_query($sql);
-
-    if (mysql_num_rows($result) > 0)
-    {
-        while ( ($courseTool = mysql_fetch_array($result, MYSQL_ASSOC) ))
-        {
-            $sql_insert = " INSERT INTO `" . $TABLECOURSEHOMEPAGE . "` "
-                        . " (tool_id, rank, visibility) "
-                        . " VALUES ('" . $courseTool['id'] . "','" . $courseTool['def_rank'] . "','" .($courseTool['def_access']=='ALL'?1:0) . "')";
-            claro_sql_query_insert_id($sql_insert);
-        }
-    }
+    
+    update_course_tool_list($courseDbName);
 
     ############################## FORUMS  #######################################
 
@@ -1232,6 +1118,250 @@ function register_course( $courseSysCode, $courseScreenCode,
     if ( user_add_to_course($uidCreator, $courseSysCode, true, true) === false )
     {
         return false;
+    }
+
+    return true;
+}
+
+
+/**
+ * Get the list of all installable course tool modules from kernel
+ * @author Frédéric Minne <zefredz@claroline.net>
+ */
+function get_course_installable_tool_list()
+{
+    $tbl_mdb_names   = claro_sql_get_main_tbl();
+
+    $tbl_courseTool = $tbl_mdb_names['tool'  ];
+
+    $sql = "SELECT id, def_access, def_rank, claro_label "
+        . "FROM `". $tbl_courseTool . "` "
+        . "WHERE add_in_course = 'AUTOMATIC'"
+        ;
+
+    $list = claro_sql_query_fetch_all_rows($sql);
+    
+    return $list;
+}
+
+// TODO: check if tool installed successfuly !!!!
+/**
+ * Register installed course tool in course database
+ * @author Frédéric Minne <zefredz@claroline.net>
+ */
+function update_course_tool_list($courseDbName)
+{
+    $toolList = get_course_installable_tool_list();
+
+    $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
+    $tbl_courseToolList    = $tbl_cdb_names['tool'];
+
+    foreach ( $toolList as $courseTool )
+    {
+        $sql_insert = " INSERT INTO `" . $tbl_courseToolList . "` "
+            . " (tool_id, rank, visibility) "
+            . " VALUES ('" . $courseTool['id'] . "',"
+            . "'" . $courseTool['def_rank'] . "',"
+            . "'" .($courseTool['def_access']=='ALL'?1:0) . "')"
+            ;
+            
+        claro_sql_query_insert_id($sql_insert);
+    }
+}
+
+/**
+ * Create course database :
+ * @param string courseDbName partial dbName form course table tu build real DbName
+ * @return boolean
+ */
+function create_course_database( $courseDbName )
+{
+    // Create course database
+    if ( !get_conf( 'singleDbEnabled' ) )
+    {
+        claro_sql_query('CREATE DATABASE `'.$courseDbName.'`');
+
+        if (claro_sql_errno() > 0)
+        {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+/**
+ * Create course tables in database :
+ * @param string courseDbName partial dbName form course table tu build real DbName
+ * @return boolean
+ */
+function create_course_tables( $courseDbName )
+{
+    $courseDbName = get_conf('courseTablePrefix') . $courseDbName . get_conf('dbGlu');
+
+    // var_dump( $GLOBALS['_course'] );
+
+    $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
+    
+    // Tool list
+    $tbl_toolList           = $tbl_cdb_names['tool'];
+    
+    // Course properties
+    $tbl_courseProperties   = $tbl_cdb_names['course_properties'];
+    
+    // Intro sections
+    $tbl_introSection       = $tbl_cdb_names['tool_intro'];
+
+    // Group
+    $tbl_groups             = $tbl_cdb_names['group_team'];
+    $tbl_groupUser          = $tbl_cdb_names['group_rel_team_user'];
+
+
+    // User Info
+    $tbl_userInfoContent    = $tbl_cdb_names['userinfo_content'];
+    $tbl_userInfoDef        = $tbl_cdb_names['userinfo_def'];
+    
+    // Linker
+    $tbl_links              = $tbl_cdb_names['links'];
+    $tbl_resources          = $tbl_cdb_names['resources'];
+    
+    // Tracking
+    $tbl_trackAccess        = $tbl_cdb_names['track_e_access'];
+    $tbl_trackDownloads     = $tbl_cdb_names['track_e_downloads'];
+    $tbl_trackUploads       = $tbl_cdb_names['track_e_uploads'];
+    
+    // Tool List
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_toolList."` (
+        `id` int(11) NOT NULL auto_increment,
+        `tool_id` int(10) unsigned default NULL,
+        `rank` int(10) unsigned NOT NULL,
+        `visibility` tinyint(4) default 0,
+        `script_url` varchar(255) default NULL,
+        `script_name` varchar(255) default NULL,
+        `addedTool` ENUM('YES','NO') DEFAULT 'YES',
+    PRIMARY KEY  (`id`)
+    ) TYPE=MyISAM  ";
+    
+    // Course properties
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_courseProperties."` (
+        `id` int(11) NOT NULL auto_increment,
+        `name` varchar(255) NOT NULL default '',
+        `value` varchar(255) default NULL,
+        `category` varchar(255) default NULL,
+        PRIMARY KEY  (`id`)
+) TYPE=MyISAM ";
+
+    // Intro sections
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_introSection."` (
+        `id` int(11) NOT NULL auto_increment,
+        `tool_id` int(11) NOT NULL default '0',
+        `title` varchar(255) default NULL,
+        `display_date` datetime default NULL,
+        `content` text,
+        `rank` int(11) default '1',
+        `visibility` enum('SHOW','HIDE') NOT NULL default 'SHOW',
+    PRIMARY KEY  (`id`)
+    ) TYPE=MyISAM ";
+    
+    // User Info
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_userInfoContent."` (
+       `id` int(10) unsigned NOT NULL auto_increment,
+       `user_id` mediumint(8) unsigned NOT NULL default '0',
+       `def_id` int(10) unsigned NOT NULL default '0',
+       `ed_ip` varchar(39) default NULL,
+       `ed_date` datetime default NULL,
+       `content` text,
+       PRIMARY KEY  (`id`),
+       KEY `user_id` (`user_id`)
+    ) TYPE=MyISAM COMMENT='content of users information'";
+
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_userInfoDef."` (
+       `id` int(10) unsigned NOT NULL auto_increment,
+       `title` varchar(80) NOT NULL default '',
+       `comment` varchar(160) default NULL,
+       `nbLine` int(10) unsigned NOT NULL default '5',
+       `rank` tinyint(3) unsigned NOT NULL default '0',
+       PRIMARY KEY  (`id`)
+    ) TYPE=MyISAM COMMENT='categories definition for user information of a course'";
+    
+    // Groups
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_groups."` (
+        id int(11) NOT NULL auto_increment,
+        name varchar(100) default NULL,
+        description text,
+        tutor int(11) default NULL,
+        maxStudent int(11) NULL default '0',
+        secretDirectory varchar(30) NOT NULL default '0',
+    PRIMARY KEY  (id)
+    ) TYPE=MyISAM ";
+
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_groupUser."` (
+        id int(11) NOT NULL auto_increment,
+        user int(11) NOT NULL default '0',
+        team int(11) NOT NULL default '0',
+        status int(11) NOT NULL default '0',
+        role varchar(50) NOT NULL default '',
+    PRIMARY KEY  (id)
+    ) TYPE=MyISAM ";
+    
+    // Tracking
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_trackAccess."` (
+        `access_id` int(11) NOT NULL auto_increment,
+        `access_user_id` int(10) default NULL,
+        `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `access_tid` int(10) default NULL,
+        `access_tlabel` varchar(8) default NULL,
+    PRIMARY KEY  (`access_id`)
+    ) TYPE=MyISAM  COMMENT='Record informations about access to course or tools'";
+
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_trackDownloads."` (
+        `down_id` int(11) NOT NULL auto_increment,
+        `down_user_id` int(10) default NULL,
+        `down_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `down_doc_path` varchar(255) NOT NULL default '0',
+    PRIMARY KEY  (`down_id`)
+    ) TYPE=MyISAM  COMMENT='Record informations about downloads'";
+    
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_trackUploads."` (
+        `upload_id` int(11) NOT NULL auto_increment,
+        `upload_user_id` int(10) default NULL,
+        `upload_date` datetime NOT NULL default '0000-00-00 00:00:00',
+        `upload_work_id` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`upload_id`)
+    ) TYPE=MyISAM  COMMENT='Record some more informations about uploaded works'";
+
+    // Linker
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_links."` (
+        `id` int(11) NOT NULL auto_increment,
+        `src_id` int(11) NOT NULL default '0',
+        `dest_id` int(11) NOT NULL default '0',
+        `creation_time` timestamp(14) NOT NULL,
+    PRIMARY KEY  (`id`)
+    ) TYPE=MyISAM ";
+
+    $sqlList[] = "
+    CREATE TABLE IF NOT EXISTS `".$tbl_resources."` (
+        `id` int(11) NOT NULL auto_increment,
+        `crl` text NOT NULL,
+        `title` text NOT NULL,
+    PRIMARY KEY  (`id`)
+    ) TYPE=MyISAM ";
+    
+    foreach($sqlList as $thisSql)
+    {
+        if ( claro_sql_query($thisSql) == false) return false;
+        else                                     continue;
     }
 
     return true;
