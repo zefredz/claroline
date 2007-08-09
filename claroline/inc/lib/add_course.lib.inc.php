@@ -292,7 +292,6 @@ function prepare_course_repository($courseRepository, $courseId)
  * @author Christophe Gesché <moosh@claroline.net>
  * @author Frédéric Minne <zefredz@claroline.net>
  */
-// function update_db_course($courseDbName, $language, $courseDirectory)
 function install_course_database( $courseDbName )
 {
     if ( ! create_course_database( $courseDbName ) )
@@ -310,6 +309,7 @@ function install_course_database( $courseDbName )
 
 /**
  * Install course tool modules
+ *
  * @param string courseDbName partial dbName form course table tu build real DbName
  * @param string language course language
  * @param string courseDirectory
@@ -317,7 +317,6 @@ function install_course_database( $courseDbName )
  */
 function install_course_tools( $courseDbName, $language, $courseDirectory )
 {
-    // rename !!!!
     if ( ! setup_course_tools( $courseDbName, $language, $courseDirectory ) )
     {
         return false;
