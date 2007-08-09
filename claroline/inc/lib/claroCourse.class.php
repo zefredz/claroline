@@ -160,7 +160,6 @@ class ClaroCourse
                    ,               $courseExpirationDate
                    ,               $this->departmentName
                    ,               $this->extLinkUrl)
-                // && update_db_course($courseDbName, $this->language, $courseDirectory)
                 && install_course_database( $courseDbName )
                 && install_course_tools( $courseDbName, $this->language, $courseDirectory )
                 )
