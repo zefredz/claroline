@@ -54,6 +54,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         var /*% Wiki*/ $wiki;
         var /*% HTML_Sanitizer*/ $san;
+        var $addAtEnd = array();
 
         /**
          * Constructor
@@ -404,6 +405,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         . get_lang( 'Main page' )
                         . "</a>"
                         ;
+                    break;
+                }
+                // toc
+                case 'toc':
+                {
+                    $str = '';
+                    $this->addAtEnd[] = '<script type="text/javascript" src="./lib/javascript/toc.js"></script>';
+                    $this->addAtEnd[] = '<script type="text/javascript">createTOC();</script>';
+                    break;
                 }
                 // embedded html
                 default:
@@ -599,7 +609,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         function render( $txt )
         {
             // bug #937
-            return preg_replace( '/\\\\((\!|\|)+)/', '$1', $this->transform($txt ) );
+            $ret = preg_replace( '/\\\\((\!|\|)+)/', '$1', $this->transform($txt ) );
+            
+            foreach ( $this->addAtEnd as $line )
+            {
+                $ret .= $line . "\n";
+            }
+            
+            return $ret;
         }
 
         /**

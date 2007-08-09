@@ -636,6 +636,13 @@
 
     $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="wiki.css" media="screen, projection, tv" />' . "\n";
 
+    if ( $action == 'show' || $action == 'preview' )
+    {
+        /*$htmlHeadXtra[] = '<script type="text/javascript" src="./lib/javascript/toc.js"></script>' . "\n";
+        $claroBodyOnload[] = 'createTOC();' . "\n";*/
+        $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="toc.css" media="screen, projection, tv" />' . "\n";
+    }
+
     // Breadcrumps
 
     $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
@@ -1207,16 +1214,13 @@
                 {
                     $versionInfo = '';
                 }
-
-                echo '<div class="wikiTitle">' . "\n";
+                
+                echo '<div id="mainContent" class="wiki2xhtml">' . "\n";
                 echo '<h1>'.$displaytitle
                     . $versionInfo
                     . '</h1>'
                     . "\n"
                     ;
-                echo '</div>' . "\n";
-
-                echo '<div class="wiki2xhtml">' . "\n";
                 echo $wikiRenderer->render( $content );
                 echo '</div>' . "\n";
 
