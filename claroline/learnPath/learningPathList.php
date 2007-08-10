@@ -116,7 +116,7 @@ claro_set_display_mode_available(true);
 
 
 // main page
-$is_AllowedToEdit = claro_is_allowed_to_edit();
+$is_allowedToEdit = claro_is_allowed_to_edit();
 $lpUid = claro_get_current_user_id();
 
 // display introduction
@@ -441,7 +441,7 @@ if (isset($dialogBox))
     echo claro_html_message_box($dialogBox);
 }
 
-if($is_AllowedToEdit)
+if($is_allowedToEdit)
 {
     // Display links to create and import a learning path
     echo '<p>'
@@ -485,7 +485,7 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
  <tr class="headerX" align="center" valign="top">
   <th>' . get_lang('Learning path') . '</th>';
 
-if($is_AllowedToEdit)
+if($is_allowedToEdit)
 {
     // Titles for teachers
     echo "<th>".get_lang('Modify')."</th>"
@@ -506,7 +506,7 @@ elseif($lpUid)
 echo "</tr>\n</thead>\n<tbody>";
 
 // display invisible learning paths only if user is courseAdmin
-if ($is_AllowedToEdit)
+if ($is_allowedToEdit)
 {
     $visibility = "";
 }
@@ -560,7 +560,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
     if ( $list['visibility'] == 'HIDE' )
     {
-        if ($is_AllowedToEdit)
+        if ($is_allowedToEdit)
         {
             $style=" class=\"invisible\"";
         }
@@ -589,7 +589,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
         if($lpUid)
         {
-        if ( !$is_AllowedToEdit )
+        if ( !$is_allowedToEdit )
         {
         $is_blocked = true;
         } // never blocked if allowed to edit
@@ -646,7 +646,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
             if($lpUid)
             {
-                if ( !$is_AllowedToEdit )
+                if ( !$is_allowedToEdit )
                 {
                     $is_blocked = true;
                 } // never blocked if allowed to edit
@@ -669,7 +669,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 //must block next path because last module of this path not credited yet!
                 if($lpUid)
                 {
-                    if ( !$is_AllowedToEdit )
+                    if ( !$is_allowedToEdit )
                     {
                         $is_blocked = true;
                     } // never blocked if allowed to edit
@@ -698,7 +698,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         echo "ok";
         if($lpUid)
         {
-        if ( !$is_AllowedToEdit )
+        if ( !$is_allowedToEdit )
         {
         echo "on va bloquer pour LPMID : ".$listB['LPMID'];
         $is_blocked = true;
@@ -719,7 +719,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         echo "ok2";
         if($lpUid)
         {
-        if ( !$is_AllowedToEdit )
+        if ( !$is_allowedToEdit )
         {
         echo "on va bloquer pour LPMID : ".$listB['LPMID'];
         $is_blocked = true;
@@ -747,7 +747,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
     // DISPLAY ADMIN LINK-----------------------------------------------------------
 
-    if($is_AllowedToEdit)
+    if($is_allowedToEdit)
     {
         // 5 administration columns
 

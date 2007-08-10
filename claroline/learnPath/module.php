@@ -39,10 +39,10 @@ if ( isset($_GET['module_id']) && $_GET['module_id'] != '')
 // use viewMode
 claro_set_display_mode_available(true);
 
-$is_AllowedToEdit = claro_is_allowed_to_edit();    // as teacher
+$is_allowedToEdit = claro_is_allowed_to_edit();    // as teacher
 //-- interbredcrump
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-if ( $is_AllowedToEdit )
+if ( $is_allowedToEdit )
 {
     $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path'));
 }
@@ -152,7 +152,7 @@ $sql = "SELECT `contentType`,
 $resultBrowsed = claro_sql_query_get_single_row($sql);
 
 // redirect user to the path browser if needed
-if( !$is_AllowedToEdit
+if( !$is_allowedToEdit
     && ( !is_array($resultBrowsed) || !$resultBrowsed || count($resultBrowsed) <= 0 )
     && $noModuleComment
     && $noModuleSpecificComment
@@ -221,7 +221,7 @@ if($module['contentType'] != CTLABEL_ )
 } //  if($module['contentType'] != CTLABEL_ )
 
 //back button
-if ($is_AllowedToEdit)
+if ($is_allowedToEdit)
 {
     $pathBack = "./learningPathAdmin.php";
 }
@@ -364,7 +364,7 @@ if($module['contentType'] != CTLABEL_) //
 //################################# ADMIN DISPLAY ####################################\\
 //####################################################################################\\
 
-if( $is_AllowedToEdit ) // for teacher only
+if( $is_allowedToEdit ) // for teacher only
 {
     switch ($module['contentType'])
     {
@@ -382,7 +382,7 @@ if( $is_AllowedToEdit ) // for teacher only
         case CTLABEL_ :
             break;
     }
-} // if ($is_AllowedToEdit)
+} // if ($is_allowedToEdit)
 
 // footer
 include(get_path('incRepositorySys').'/claro_init_footer.inc.php');

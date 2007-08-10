@@ -84,7 +84,7 @@ function commentBox($type, $mode)
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     // globals
-    global $is_AllowedToEdit;
+    global $is_allowedToEdit;
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
 
@@ -124,7 +124,7 @@ function commentBox($type, $mode)
     // allow to chose between
     // - update and show the comment and the pencil and the delete cross (UPDATE_)
     // - update and nothing displayed after form sent (UPDATENOTSHOWN_)
-    if ( ( $mode == UPDATE_ || $mode == UPDATENOTSHOWN_ )  && $is_AllowedToEdit )
+    if ( ( $mode == UPDATE_ || $mode == UPDATENOTSHOWN_ )  && $is_allowedToEdit )
     {
         if ( isset($_POST['insertCommentBox']) )
         {
@@ -158,7 +158,7 @@ function commentBox($type, $mode)
     }
 
     // delete mode
-    if ( $mode == DELETE_ && $is_AllowedToEdit)
+    if ( $mode == DELETE_ && $is_allowedToEdit)
     {
         $sql =  "UPDATE `" . $tbl_name . "`
                  SET `" . $col_name . "` = ''
@@ -177,12 +177,12 @@ function commentBox($type, $mode)
         $currentComment = claro_sql_query_get_single_value($sql);
 
         // display nothing if this is default comment and not an admin
-        if ( ($currentComment == $defaultTxt) && !$is_AllowedToEdit ) return 0;
+        if ( ($currentComment == $defaultTxt) && !$is_allowedToEdit ) return 0;
 
         if ( empty($currentComment) )
         {
             // if no comment and user is admin : display link to add a comment
-            if ( $is_AllowedToEdit )
+            if ( $is_allowedToEdit )
             {
                 echo '<p>' . "\n"
                 .    claro_html_cmd_link( $_SERVER['PHP_SELF']
@@ -198,7 +198,7 @@ function commentBox($type, $mode)
             // display comment
             echo "<p>".$currentComment."</p>";
             // display edit and delete links if user as the right to see it
-            if ( $is_AllowedToEdit )
+            if ( $is_allowedToEdit )
             {
 
                 echo '<p>' . "\n"
@@ -236,7 +236,7 @@ function nameBox($type, $mode)
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
 
     // globals
-    global $is_AllowedToEdit;
+    global $is_allowedToEdit;
     global $urlAppend;
 
     // $dsp will be set 'true' if the comment has to be displayed
@@ -258,7 +258,7 @@ function nameBox($type, $mode)
     }
 
     // update mode
-    if ( $mode == UPDATE_ && $is_AllowedToEdit)
+    if ( $mode == UPDATE_ && $is_allowedToEdit)
     {
 
         if ( isset($_POST['newName']) && !empty($_POST['newName']) )
@@ -318,7 +318,7 @@ function nameBox($type, $mode)
         echo '<h4>'
         .    $currentName;
 
-        if ( $is_AllowedToEdit )
+        if ( $is_allowedToEdit )
             echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
             .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />'
             .    '</a>' . "\n";
@@ -754,7 +754,7 @@ function display_my_exercises($dialogBox)
 
 function display_my_documents($dialogBox)
 {
-    global $is_AllowedToEdit;
+    global $is_allowedToEdit;
 
     global $curDirName;
     global $curDirPath;
@@ -836,7 +836,7 @@ function display_my_documents($dialogBox)
 
             if ($fileList['visibility'][$fileKey] == "i")
             {
-                if ($is_AllowedToEdit)
+                if ($is_allowedToEdit)
                 {
                     $style = ' class="invisible"';
                 }

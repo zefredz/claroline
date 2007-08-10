@@ -26,9 +26,9 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-$is_AllowedToEdit = claro_is_course_manager();
+$is_allowedToEdit = claro_is_course_manager();
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
+if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 
 $htmlHeadXtra[] =
         '<script type="text/javascript">

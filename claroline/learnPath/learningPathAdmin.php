@@ -63,7 +63,7 @@ $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb
 claro_set_display_mode_available(true);
 
 // permissions
-$is_AllowedToEdit = claro_is_allowed_to_edit();
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
 //lib of document tool
 include get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
@@ -90,7 +90,7 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0 )
 }
 
 // get user out of here if he is not allowed to edit
-if ( !$is_AllowedToEdit )
+if ( !$is_allowedToEdit )
 {
     if ( isset($_SESSION['path_id']) )
     {
@@ -531,7 +531,7 @@ foreach ($flatElementList as $module)
     //-------------visibility-----------------------------
     if ( $module['visibility'] == 'HIDE' )
     {
-        if ($is_AllowedToEdit)
+        if ($is_allowedToEdit)
         {
             $style=" class=\"invisible\"";
         }
