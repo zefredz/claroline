@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/fileManage.lib.php';
 require_once dirname(__FILE__) . '/right/profileToolRight.class.php';
 require_once dirname(__FILE__) . '/backlog.class.php';
 // Manifest Parser and functions
-require_once dirname(__FILE__) . '/manifestparser.lib.php';
+require_once dirname(__FILE__) . '/module/manifest.lib.php';
 
 // INFORMATION AND UTILITY FUNCTIONS
 

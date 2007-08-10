@@ -18,7 +18,7 @@
      * @package MODULES
      */
     
-    require_once dirname(__FILE__) . '/backlog.class.php';
+    require_once dirname(__FILE__) . '/../backlog.class.php';
 
     /**
      *  Module manifest parser
