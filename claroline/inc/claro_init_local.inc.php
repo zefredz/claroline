@@ -669,7 +669,18 @@ if ( $tidReset || $cidReset ) // session data refresh requested
         }
         else // this tool has no status related to this course
         {
-            exit('WARNING UNDEFINED TLABEL OR TID !! Your script declare be a tool wich is not registred');
+            $activatedModules = get_module_label_list( true );
+            
+            if ( ! in_array( $tlabelReq, $activatedModules ) )
+            {
+                exit('WARNING UNDEFINED TLABEL OR TID !! Your script declare be a tool wich is not registred');
+            }
+            else
+            {
+                $_tid        = null;
+                $_mainToolId = null;
+                $_courseTool = null;
+            }
         }
     }
     else // keys missing => not anymore in the course - tool relation
