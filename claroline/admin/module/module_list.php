@@ -303,7 +303,7 @@ switch ( $cmd )
             else
             {
                 $summary = get_lang('Module upload failed');
-                $details = 'Missing or wrong name (developer was drunk)';
+                $details = 'No file uploaded';
                 claro_die( Backlog_Reporter::report( $summary, $details ) );
             }
 
