@@ -609,7 +609,7 @@ function trig_topic_notification($topicId)
 function disp_confirmation_message ($message, $forumId = false, $topicId = false)
 {
 
-    echo '<table border="0" align="center" ">' . "\n"
+    echo '<table border="0" align="center" >' . "\n"
        . '<tr>' . "\n"
        . '<td>' . "\n"
        . '<center>' . "\n"
