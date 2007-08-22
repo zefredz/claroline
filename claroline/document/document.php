@@ -2131,7 +2131,7 @@ echo claro_html_tool_title($titleElement,
                     else
                     {
                         // question mark argument method, for IIS ...
-                        $urlFileName = 'goto/?url=' . $cmdFileName . '&amp;cidReq=' . urlencode(claro_get_current_course_id());
+                        $urlFileName = 'goto/index.php?url=' . $cmdFileName . '&amp;cidReq=' . urlencode(claro_get_current_course_id());
                     }
 
                     //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
