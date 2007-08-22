@@ -7,11 +7,20 @@ $_course = claro_get_current_course_data();
 
 function is_parent_path($parentPath, $childPath)
 {
-    $realPath = realpath($parentPath . $childPath);
-    $realPath = str_replace('\\', '/', $realPath); // OS harmonize ...
-    return preg_match('|^'.$parentPath.'|', $realPath);
-}
+    // convert the path for operating system harmonize
+    $parentPath = realpath($parentPath) ;
+    $childPath = realpath($parentPath . $childPath ) ;
 
+    if ( $childPath !== false )
+    {
+        // verify if the file exists and if the file is under parent path
+        return preg_match('|^'.preg_quote($parentPath).'|', $childPath);
+    }
+    else
+    {
+        return false;
+    }
+}
 
 if (claro_is_in_a_group() && claro_is_group_allowed())
 {
