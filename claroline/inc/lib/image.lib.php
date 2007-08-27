@@ -177,18 +177,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $newHeight = $height;
         }
 
-        $fileUrl = $file;
-
-        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
-        {
-            // slash argument method - only compatible with Apache
-            $img_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($fileUrl));
-        }
-        else
-        {
-            // question mark argument method, for IIS ...
-            $img_url = 'goto/?url=' . rawurlencode($fileUrl);
-        }
+        $img_url = 'goto/thumbnail.php?img=' . rawurlencode($file);
 
         return '<img src="' . $img_url . '"
                      width="' . $thumbWidth . '"
