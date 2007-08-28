@@ -32,9 +32,9 @@ class ClaroPHPMailer extends PHPMailer
             if ( get_conf('smtp_username') != '' )
             {
                 // SMTP authentification
-                $mail->SMTPAuth = true;     // turn on SMTP
-                $mail->Username = get_conf('smtp_username'); // SMTP username
-                $mail->Password = get_conf('smtp_password'); // SMTP password
+                $this->SMTPAuth = true;     // turn on SMTP
+                $this->Username = get_conf('smtp_username'); // SMTP username
+                $this->Password = get_conf('smtp_password'); // SMTP password
             }
         }
         else
@@ -81,7 +81,8 @@ function claro_mail($subject, $message, $to, $toName, $from, $fromName)
     $mail->Body     = $message;
     $mail->From     = $from;
     $mail->FromName = $fromName;
-
+    $mail->Sender   = $from;
+    
     $mail->AddAddress($to,$toName);
 
     if ( $mail->Send() )
@@ -134,6 +135,8 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
 
     if ($specificFromName != '') $mail->FromName = $specificFromName;
     else                         $mail->FromName = get_conf('administrator_name');
+
+    $mail->Sender = $mail->From;
 
     if (strlen($subject)> 78)
     {
