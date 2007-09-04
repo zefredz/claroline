@@ -17,6 +17,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package KERNEL
  *
  */
+ 
+require_once(dirname(__FILE__) . '/core/core.lib.php');
 
 /**
  * SECTION :  Function to access the sql datas
