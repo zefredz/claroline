@@ -38,11 +38,11 @@
     <div id="courseBannerLeft">
         <div id="course">
             <h2 id="courseName">
-            <a href="%path(clarolineRepositoryWeb)%course/index.php?cid=%html(course.id)%" target="_top">
-            %course.name%
+            <a href="%path(clarolineRepositoryWeb)%course/index.php?cid=%html(course[sysCode])%" target="_top">
+            %course[name]%
             </a>
             </h2>
-            <span id="courseCode">%course.officialCode% - %course.titular%</span>
+            <span id="courseCode">%course[officialCode]% - %course[titular]%</span>
         </div>
         %dock(courseBannerLeft)%
     </div>

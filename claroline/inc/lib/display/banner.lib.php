@@ -37,11 +37,10 @@
             if ( claro_is_in_a_course() )
             {
                 $_courseToolList = claro_get_current_course_tool_list_data();
-                    
-                $this->template->addReplacement( 'course.id', claro_get_current_course_id());
-                $this->template->addReplacement( 'course.name', claro_get_current_course_data('name'));
-                $this->template->addReplacement( 'course.officialCode', claro_get_current_course_data('officialCode'));
-                $this->template->addReplacement( 'course.titular', claro_get_current_course_data('titular'));
+                
+                $course = claro_get_current_course_data();
+                
+                $this->template->addReplacement( 'course', $course );
                 
                 if (is_array($_courseToolList) && claro_is_course_allowed())
                 {

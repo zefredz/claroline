@@ -263,6 +263,53 @@
                 $found = true;
             }
             
+            $matches = array();
+            
+            while ( preg_match( "/\%$placeHolder\[(\w+)\]\%/", $output, $matches ) )
+            {
+                if ( is_array( $value )
+                    && array_key_exists( $matches[1], $value ) )
+                {
+                    $output = preg_replace(
+                        "/\%$placeHolder\[".$matches[1]."\]\%/"
+                        , $value[$matches[1]], $output );
+                        
+                    $found = true;
+                }
+            }
+            
+            $matches = array();
+            
+            while ( preg_match( "/\%(\w+)\(${placeHolder}\[(\w+)\]\)\%/", $output, $matches ) )
+            {
+                if ( is_array( $value )
+                    && array_key_exists( $matches[2], $value ) )
+                {
+                    $func = $matches[1];
+                    $index = $matches[2];
+                    $val = $value[$index];
+                    
+                    if ( $func == 'html' )
+                    {
+                        $val = htmlspecialchars($val);
+                    }
+                    elseif ( $func == 'uu' )
+                    {
+                        $val = rawurlencode( $val );
+                    }
+                    elseif ( $func == 'int' )
+                    {
+                        $val = (int) $val;
+                    }
+                    
+                    $output = preg_replace(
+                        "/\%${func}\(${placeHolder}\[${index}\]\)\%/"
+                        , $val , $output );
+
+                    $found = true;
+                }
+            }
+            
             if ( $this->_allowCallback && array_key_exists( $placeHolder, $this->_callBack ) )
             {
                 $matches = array();
