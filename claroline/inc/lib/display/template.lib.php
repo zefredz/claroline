@@ -46,6 +46,17 @@
             {
                 $this->_replacementList = $replacementList;
             }
+            
+            $this->_initCommonPlaceholders();
+        }
+        
+        private function _initCommonPlaceholders()
+        {
+            $course = claro_get_current_course_data();
+            $this->addReplacement( 'course', $course );
+            
+            $user = claro_get_current_user_data();
+            $this->addReplacement( 'user', $user );
         }
         
         public function setBlockDisplay( $blockName, $display = true )
@@ -276,6 +287,15 @@
                         
                     $found = true;
                 }
+                else
+                {
+                    $index = $matches[1];
+                    DebugBar::debug( "$index not found in $placeHolder" );
+                    
+                    $output = preg_replace(
+                        "/\%$placeHolder\[".$matches[1]."\]\%/"
+                        , '', $output );
+                }
             }
             
             $matches = array();
@@ -308,13 +328,24 @@
 
                     $found = true;
                 }
+                else
+                {
+                    $func = $matches[1];
+                    $index = $matches[2];
+                    
+                    DebugBar::debug( "$index not found in $placeHolder" );
+                    
+                    $output = preg_replace(
+                        "/\%${func}\(${placeHolder}\[${index}\]\)\%/"
+                        , '' , $output );
+                }
             }
             
             if ( $this->_allowCallback && array_key_exists( $placeHolder, $this->_callBack ) )
             {
                 $matches = array();
 
-                if ( preg_match( "/%apply\(\s*([\w_]+)\s*,\s*(".$placeHolder.")\s*\)%/", $output, $matches ) )
+                while ( preg_match( "/%apply\(\s*([\w_]+)\s*,\s*(".$placeHolder.")\s*\)%/", $output, $matches ) )
                 {
                     if ( $this->_callBack[$placeHolder] == $matches[1] )
                     {
