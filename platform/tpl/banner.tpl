@@ -4,11 +4,11 @@
 <!-- Platform Banner -->
 <div id="platformBanner">
     <div id="campusBannerLeft">
-        <span id="siteName"><a href="%path(url)%/index.php" target="_top">%banner.siteName%</a></span>
+        <span id="siteName"><a href="%path(url)%/index.php" target="_top">%campus[siteName]%</a></span>
         %dock(campusBannerLeft)%
     </div>
     <div id="campusBannerRight">
-        <span id="institution">%banner.institution%</span>
+        <span id="institution">%campus[institution]%</span>
         %dock(campusBannerRight)%
     </div>
     <div class="spacer"></div>
@@ -19,7 +19,7 @@
 <!-- User Banner -->
 <div id="userBanner">
     <div id="userBannerLeft">
-        <span id="userName">%user.firstName% %user.lastName% : </span>
+        <span id="userName">%user[firstName]% %user[lastName]% : </span>
         %userToolList%
         %dock(userBannerLeft)%
     </div>
@@ -47,7 +47,7 @@
         %dock(courseBannerLeft)%
     </div>
     <div id="courseBannerRight">
-        %course.toolSelector%
+        %courseToolSelector%
         %dock(courseBannerRight)%
     </div>
 

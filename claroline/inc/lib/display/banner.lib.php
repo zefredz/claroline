@@ -38,10 +38,6 @@
             {
                 $_courseToolList = claro_get_current_course_tool_list_data();
                 
-                $course = claro_get_current_course_data();
-                
-                $this->template->addReplacement( 'course', $course );
-                
                 if (is_array($_courseToolList) && claro_is_course_allowed())
                 {
                     $toolNameList = claro_get_tool_name_list();
@@ -121,7 +117,7 @@
                     . '</noscript>' . "\n"
                     . '</form>' . "\n\n";
                     
-                    $this->template->addReplacement('course.toolSelector', $courseToolSelector );
+                    $this->template->addReplacement('courseToolSelector', $courseToolSelector );
                 }
                 
                 $this->template->setBlockDisplay('courseBanner', true);
@@ -136,12 +132,7 @@
         {
             if( claro_is_user_authenticated() )
             {
-                $_user = claro_get_current_user_data();
-                
                 $userToolUrlList = array();
-                
-                $this->template->addReplacement( 'user.firstName', $_user['firstName'] );
-                $this->template->addReplacement( 'user.lastName', $_user['lastName'] );
                 
                 $userToolUrlList[]= '<a href="'.  get_path('url')
                     . '/index.php" target="_top">'
@@ -190,12 +181,12 @@
         
         private function _prepareCampusBanner()
         {
-            $bannerSiteName =  get_conf('siteLogo') != ''
+            $campus = array();
+            
+            $campus['siteName'] =  get_conf('siteLogo') != ''
                 ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'"  />'
                 : get_conf('siteName')
                 ;
-
-            $this->template->addReplacement( 'banner.siteName', $bannerSiteName );
 
             $institutionNameOutput = '';
 
@@ -242,8 +233,10 @@
                     $institutionNameOutput .= claro_get_current_course_data('extLinkName');
                 }
             }
+            
+            $campus['institution'] = $institutionNameOutput;
 
-            $this->template->addReplacement( 'banner.institution', $institutionNameOutput );
+            $this->template->addReplacement( 'campus', $campus );
         }
     }
 ?>

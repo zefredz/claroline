@@ -21,6 +21,8 @@
         {
             $currentCourse =  claro_get_current_course_data();
             
+            $contact = array();
+            
             if ( claro_is_in_a_course() )
             {
                 $courseManagerOutput = '<div id="courseManager">'
@@ -45,11 +47,11 @@
                 
                 $courseManagerOutput .= '</div>';
                 
-                $this->template->addReplacement( 'contact.courseManager', $courseManagerOutput );
+                $contact['courseManager'] = $courseManagerOutput;
             }
             else
             {
-                $this->template->addReplacement( 'contact.courseManager', '' );
+                $contact['courseManager'] = '';
             }
             
             $platformManagerOutput = '<div id="platformManager">'
@@ -70,7 +72,7 @@
 
             $platformManagerOutput .= '</div>';
             
-            $this->template->addReplacement( 'contact.platformManager', $platformManagerOutput );
+            $contact['platformManager'] = $platformManagerOutput;
             
             $poweredByOutput = '<div id="poweredBy">'
                 . get_lang('Powered by')
@@ -79,7 +81,9 @@
                 . '</div>'
                 ;
                 
-            $this->template->addReplacement( 'contact.poweredBy', $poweredByOutput );
+            $contact['poweredBy'] = $poweredByOutput;
+            
+            $this->template->addReplacement( 'contact', $contact );
             
             return $this->template->render();
         }

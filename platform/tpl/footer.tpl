@@ -2,14 +2,14 @@
     <hr />
     <div id="campusFooterLeft">
         %dock(campusFooterLeft)%
-        %contact.courseManager%
+        %contact[courseManager]%
     </div>
     <div id="campusFooterRight">
         %dock(campusFooterRight)%
-        %contact.platformManager%
+        %contact[platformManager]%
     </div>
     <div id="campusFooterCenter">
         %dock(campusFooterCenter)%
-        %contact.poweredBy%
+        %contact[poweredBy]%
     </div>
 </div>
