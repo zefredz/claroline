@@ -70,107 +70,109 @@ if (claro_is_user_authenticated() && claro_is_in_a_course() && claro_is_in_a_too
 {
 
     //document tool events
+    
+    $currentModuleLabel = claro_get_current_course_tool_data('label');
 
-    if ( claro_get_current_course_tool_data('label') == "CLDOC")
+    if ( $currentModuleLabel == "CLDOC")
     {
-    $claro_notifier->addListener( 'update',       "document_visible");
-    $claro_notifier->addListener( 'update',       "document_file_added");
-    $claro_notifier->addListener( 'update_rid',   "document_file_modified");
-    $claro_notifier->addListener( 'update_rid',   "document_moved");
-    $claro_notifier->addListener( 'update',       "document_htmlfile_created");
-    $claro_notifier->addListener( 'update',       "document_htmlfile_edited");
-    $claro_notifier->addListener( 'delete_notif', "document_file_deleted");
-    $claro_notifier->addListener( 'delete_notif', "document_invisible");
+        $claro_notifier->addListener( 'update',       "document_visible");
+        $claro_notifier->addListener( 'update',       "document_file_added");
+        $claro_notifier->addListener( 'update_rid',   "document_file_modified");
+        $claro_notifier->addListener( 'update_rid',   "document_moved");
+        $claro_notifier->addListener( 'update',       "document_htmlfile_created");
+        $claro_notifier->addListener( 'update',       "document_htmlfile_edited");
+        $claro_notifier->addListener( 'delete_notif', "document_file_deleted");
+        $claro_notifier->addListener( 'delete_notif', "document_invisible");
     }
 
     //agenda events
 
-    if (claro_get_current_course_tool_data('label') == "CLCAL")
+    if ($currentModuleLabel == "CLCAL")
     {
-    $claro_notifier->addListener( 'update',       "agenda_event_visible");
-    $claro_notifier->addListener( 'update',       "agenda_event_added");
-    $claro_notifier->addListener( 'update',       "agenda_event_modified");
-    $claro_notifier->addListener( 'delete_notif', "agenda_event_deleted");
-    $claro_notifier->addListener( 'delete_notif', "agenda_event_invisible");
+        $claro_notifier->addListener( 'update',       "agenda_event_visible");
+        $claro_notifier->addListener( 'update',       "agenda_event_added");
+        $claro_notifier->addListener( 'update',       "agenda_event_modified");
+        $claro_notifier->addListener( 'delete_notif', "agenda_event_deleted");
+        $claro_notifier->addListener( 'delete_notif', "agenda_event_invisible");
     }
 
     //announcement tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLANN")
+    if ($currentModuleLabel == "CLANN")
     {
-    $claro_notifier->addListener( 'update',       "anouncement_visible");
-    $claro_notifier->addListener( 'update',       "anouncement_added");
-    $claro_notifier->addListener( 'update',       "anouncement_modified");
-    $claro_notifier->addListener( 'delete_notif', "anouncement_deleted");
-    $claro_notifier->addListener( 'delete_notif', "anouncement_invisible");
+        $claro_notifier->addListener( 'update',       "anouncement_visible");
+        $claro_notifier->addListener( 'update',       "anouncement_added");
+        $claro_notifier->addListener( 'update',       "anouncement_modified");
+        $claro_notifier->addListener( 'delete_notif', "anouncement_deleted");
+        $claro_notifier->addListener( 'delete_notif', "anouncement_invisible");
     }
 
     //course description tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLDSC")
+    if ($currentModuleLabel == "CLDSC")
     {
-    $claro_notifier->addListener( 'update',       "course_description_added");
-    $claro_notifier->addListener( 'update',       "course_description_modified");
-    $claro_notifier->addListener( 'update',       "course_description_visible");
-    $claro_notifier->addListener( 'delete_notif', "course_description_deleted");
+        $claro_notifier->addListener( 'update',       "course_description_added");
+        $claro_notifier->addListener( 'update',       "course_description_modified");
+        $claro_notifier->addListener( 'update',       "course_description_visible");
+        $claro_notifier->addListener( 'delete_notif', "course_description_deleted");
     }
 
     //exercise tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLQWZ")
+    if ($currentModuleLabel == "CLQWZ")
     {
-    $claro_notifier->addListener( 'update',       "exercise_visible");
-    $claro_notifier->addListener( 'delete_notif', "exercise_invisible");
-    $claro_notifier->addListener( 'delete_notif', "exercise_deleted");
+        $claro_notifier->addListener( 'update',       "exercise_visible");
+        $claro_notifier->addListener( 'delete_notif', "exercise_invisible");
+        $claro_notifier->addListener( 'delete_notif', "exercise_deleted");
     }
 
     //learning path tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLLNP")
+    if ($currentModuleLabel == "CLLNP")
     {
-    $claro_notifier->addListener( 'update',       "learningpath_created");
-    $claro_notifier->addListener( 'update',       "learningpath_visible");
-    $claro_notifier->addListener( 'delete_notif', "learningpath_invisible");
-    $claro_notifier->addListener( 'delete_notif', "learningpath_deleted");
+        $claro_notifier->addListener( 'update',       "learningpath_created");
+        $claro_notifier->addListener( 'update',       "learningpath_visible");
+        $claro_notifier->addListener( 'delete_notif', "learningpath_invisible");
+        $claro_notifier->addListener( 'delete_notif', "learningpath_deleted");
     }
 
     //assignment tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLWRK")
+    if ($currentModuleLabel == "CLWRK")
     {
-    $claro_notifier->addListener( 'update',       "work_added");
-    $claro_notifier->addListener( 'update',       "work_visible");
-    $claro_notifier->addListener( 'delete_notif', "work_invisible");
-    $claro_notifier->addListener( 'delete_notif', "work_deleted");
-    $claro_notifier->addListener( 'update',       "work_submission_posted");
-    $claro_notifier->addListener( 'update',       "work_correction_posted");
-    $claro_notifier->addListener( 'update',       "work_feedback_posted");
+        $claro_notifier->addListener( 'update',       "work_added");
+        $claro_notifier->addListener( 'update',       "work_visible");
+        $claro_notifier->addListener( 'delete_notif', "work_invisible");
+        $claro_notifier->addListener( 'delete_notif', "work_deleted");
+        $claro_notifier->addListener( 'update',       "work_submission_posted");
+        $claro_notifier->addListener( 'update',       "work_correction_posted");
+        $claro_notifier->addListener( 'update',       "work_feedback_posted");
     }
 
     //forum tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLFRM")
+    if ($currentModuleLabel == "CLFRM")
     {
-    $claro_notifier->addListener( 'update', "forum_new_topic");
-    $claro_notifier->addListener( 'update', "forum_answer_topic");
+        $claro_notifier->addListener( 'update', "forum_new_topic");
+        $claro_notifier->addListener( 'update', "forum_answer_topic");
     }
 
     //group tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLGRP")
+    if ($currentModuleLabel == "CLGRP")
     {
-    $claro_notifier->addListener( 'delete_notif', "group_deleted");
+        $claro_notifier->addListener( 'delete_notif', "group_deleted");
     }
 
     //wiki tool events
 
-    if (claro_get_current_course_tool_data('label') == "CLWIKI")
+    if ($currentModuleLabel == "CLWIKI")
     {
-    $claro_notifier->addListener( 'update',       "wiki_added");
-    $claro_notifier->addListener( 'update',       "wiki_modified");
-    $claro_notifier->addListener( 'delete_notif', "wiki_deleted");
-    $claro_notifier->addListener( 'update',       "wiki_page_modified");
-    $claro_notifier->addListener( 'update',       "wiki_page_added");
+        $claro_notifier->addListener( 'update',       "wiki_added");
+        $claro_notifier->addListener( 'update',       "wiki_modified");
+        $claro_notifier->addListener( 'delete_notif', "wiki_deleted");
+        $claro_notifier->addListener( 'update',       "wiki_page_modified");
+        $claro_notifier->addListener( 'update',       "wiki_page_added");
     }
 }
 ?>
