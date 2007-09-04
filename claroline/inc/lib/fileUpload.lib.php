@@ -632,9 +632,16 @@ function create_link_file($filePath, $url)
 function create_file($filePath, $fileContent)
 {
     $fp = fopen ($filePath, 'w') or die ('can not create file');
-    return  fwrite($fp, $fileContent);
-}
+    
+    if ( ( $ret = fwrite($fp, $fileContent) ) !== false )
+    {
+        @chmod($filePath,CLARO_FILE_PERMISSIONS);
+    }
 
+    fclose($fp);
+
+    return $ret;
+}
 
 /**
  * Determine the maximum size allowed to upload. This size is based on
