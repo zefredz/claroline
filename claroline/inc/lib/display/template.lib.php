@@ -278,22 +278,23 @@
             
             while ( preg_match( "/\%$placeHolder\[(\w+)\]\%/", $output, $matches ) )
             {
+                $index = $matches[1];
+                
                 if ( is_array( $value )
-                    && array_key_exists( $matches[1], $value ) )
+                    && array_key_exists( $index, $value ) )
                 {
                     $output = preg_replace(
                         "/\%$placeHolder\[".$matches[1]."\]\%/"
-                        , $value[$matches[1]], $output );
+                        , $value[$index], $output );
                         
                     $found = true;
                 }
                 else
                 {
-                    $index = $matches[1];
                     DebugBar::debug( "$index not found in $placeHolder" );
                     
                     $output = preg_replace(
-                        "/\%$placeHolder\[".$matches[1]."\]\%/"
+                        "/\%$placeHolder\[".$index."\]\%/"
                         , '', $output );
                 }
             }
@@ -302,11 +303,12 @@
             
             while ( preg_match( "/\%(\w+)\(${placeHolder}\[(\w+)\]\)\%/", $output, $matches ) )
             {
+                $func = $matches[1];
+                $index = $matches[2];
+                    
                 if ( is_array( $value )
                     && array_key_exists( $matches[2], $value ) )
                 {
-                    $func = $matches[1];
-                    $index = $matches[2];
                     $val = $value[$index];
                     
                     if ( $func == 'html' )
