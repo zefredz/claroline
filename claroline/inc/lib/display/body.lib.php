@@ -36,28 +36,8 @@
         
         public function popupMode()
         {
-            $this->hideBanner();
-            $this->hideFooter();
-        }
-        
-        public function hideBanner()
-        {
             $this->banner->hide();
-        }
-        
-        public function showBanner()
-        {
-            $this->banner->show();
-        }
-
-        public function hideFooter()
-        {
             $this->footer->hide();
-        }
-        
-        public function showFooter()
-        {
-            $this->footer->show();
         }
         
         public function hideClaroBody()
