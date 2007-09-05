@@ -31,12 +31,14 @@
 
     //  Banner
 
-    if (!isset($hide_banner) || false == $hide_banner)
+    if ( isset($hide_banner) && $hide_banner )
     {
-        if ( ! get_conf('claro_brailleViewMode',false))
-        {
-            echo $claroline->display->banner->render();
-        }
+        $claroline->display->banner->hide();
+    }
+    
+    if ( ! get_conf('claro_brailleViewMode',false))
+    {
+        echo $claroline->display->banner->render();
     }
 
     if (!isset($hide_body) || $hide_body == false)

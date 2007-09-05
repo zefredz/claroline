@@ -314,6 +314,7 @@
         public function render()
         {
             $html = $this->header->render();
+            
             $html .= '<frameset '
                 . ( ! empty( $this->rows )
                     ? 'rows="'. implode(',', $this->rows). '" ' : '' )

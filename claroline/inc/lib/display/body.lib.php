@@ -42,22 +42,22 @@
         
         public function hideBanner()
         {
-            $this->bannerHidden = true;
+            $this->banner->hide();
         }
         
         public function showBanner()
         {
-            $this->bannerHidden = false;
+            $this->banner->show();
         }
 
         public function hideFooter()
         {
-            $this->footerHidden = true;
+            $this->footer->hide();
         }
         
         public function showFooter()
         {
-            $this->footerHidden = false;
+            $this->footer->show();
         }
         
         public function hideClaroBody()
@@ -112,7 +112,7 @@
                 .    '>' . "\n"
                 ;
                 
-            if ( ! $this->bannerHidden &&  ! $this->bannerAtEnd )
+            if ( ! $this->bannerAtEnd )
             {
                 $output .= $this->banner->render() . "\n";
             }
@@ -136,17 +136,14 @@
                     ;
             }
             
-            if ( ! $this->bannerHidden && $this->bannerAtEnd )
+            if ( $this->bannerAtEnd )
             {
                 $output .= $this->banner->render() . "\n";
             }
             
-            if ( ! $this->footerHidden )
-            {
-                $output .= $this->footer->render() . "\n";
-            }
+            $output .= $this->footer->render() . "\n";
             
-            if (get_conf('CLARO_DEBUG_MODE',false))
+            if ( claro_debug_mode() )
             {
                 $output .= claro_disp_debug_banner();
             }

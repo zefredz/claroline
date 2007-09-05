@@ -10,15 +10,31 @@
     class ClaroFooter extends Display
     {
         private $template;
+        private $hidden = false;
 
         public function __construct()
         {
             $file = new ClaroTemplateLoader('footer.tpl');
             $this->template = $file->load();
         }
+        
+        function hide()
+        {
+            $this->hidden = true;
+        }
+
+        function show()
+        {
+            $this->hidden = false;
+        }
 
         public function render()
         {
+            if ( $this->hidden )
+            {
+                return '<!-- footer hidden -->' . "\n";
+            }
+            
             $currentCourse =  claro_get_current_course_data();
             
             $contact = array();

@@ -10,6 +10,7 @@
     class ClaroBanner extends Display
     {
         private $template;
+        private $hidden = false;
 
         public function __construct()
         {
@@ -17,8 +18,23 @@
             $this->template = $file->load();
         }
         
+        function hide()
+        {
+            $this->hidden = true;
+        }
+        
+        function show()
+        {
+            $this->hidden = false;
+        }
+        
         public function render()
         {
+            if ( $this->hidden )
+            {
+                return '<!-- banner hidden -->' . "\n";
+            }
+            
             $this->_prepareCampusBanner();
             $this->_prepareUserBanner();
             $this->_prepareCourseBanner();

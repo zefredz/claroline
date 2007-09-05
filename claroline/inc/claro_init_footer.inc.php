@@ -29,21 +29,20 @@
             ;
     }
 
-    if (!isset($hide_banner) || false == $hide_banner)
+    if ( get_conf('claro_brailleViewMode',false))
     {
-        if ( get_conf('claro_brailleViewMode',false))
-        {
-            echo $claroline->display->banner->render();
-        }
+        echo $claroline->display->banner->render();
     }
 
     // don't display the footer text if requested, only display minimal html closing tags
-    if (!isset($hide_footer) || $hide_footer == false)
+    if ( isset($hide_footer) && $hide_footer )
     {
-        echo $claroline->display->footer->render();
+        $claroline->display->footer->hide();
     } // if (!isset($hide_footer) || $hide_footer == false)
+    
+    echo $claroline->display->footer->render();
 
-    if (get_conf('CLARO_DEBUG_MODE',false))
+    if (claro_debug_mode())
     {
         echo  claro_disp_debug_banner() .  "\n" ;
     }
