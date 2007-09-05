@@ -17,6 +17,7 @@
         private $footerHidden = false;
         private $claroBodyHidden = false;
         private $bannerAtEnd = false;
+        private $inPopup = false;
         
         public function __construct()
         {
@@ -35,6 +36,13 @@
         }
         
         public function popupMode()
+        {
+            $this->inPopup = true;
+            $this->banner->hide();
+            $this->footer->hide();
+        }
+        
+        public function frameMode()
         {
             $this->banner->hide();
             $this->footer->hide();
@@ -106,7 +114,14 @@
                         ;
             }
             
-            $output .= $this->getContent();
+            if ( $this->inPopup )
+            {
+                $output .= PopupWindowHelper::popupEmbed($this->getContent());
+            }
+            else
+            {
+                $output .= $this->getContent();
+            }
             
             if ( ! $this->claroBodyHidden )
             {
