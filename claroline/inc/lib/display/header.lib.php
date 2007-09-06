@@ -112,23 +112,21 @@ function claro_warn_of_session_loss() {
                 $this->_template->addReplacement( 'warnSessionLost', '' );
             }
             
-            $jsloader = JavascriptLoader::getInstance();
-            
-            $this->addHtmlHeader($jsloader->toHtml());
+            $htmlXtraHeaders = '';
             
             $cssloader = CssLoader::getInstance();
-
-            $this->addHtmlHeader($cssloader->toHtml());
+            $htmlXtraHeaders .= $cssloader->toHtml() . "\n";
+            
+            $jsloader = JavascriptLoader::getInstance();
+            $htmlXtraHeaders .= $jsloader->toHtml() . "\n";
             
             if ( !empty( $this->_htmlXtraHeaders ) )
             {
-                $this->_template->addReplacement( 'htmlScriptDefinedHeaders',
-                    implode ( "\n", $this->_htmlXtraHeaders ) );
+                $htmlXtraHeaders .= implode ( "\n", $this->_htmlXtraHeaders );
             }
-            else
-            {
-                $this->_template->addReplacement( 'htmlScriptDefinedHeaders', '' );
-            }
+
+            $this->_template->addReplacement( 'htmlScriptDefinedHeaders',
+                $htmlXtraHeaders );
             
             return $this->_template->render() . "\n";
         }
