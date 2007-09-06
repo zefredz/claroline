@@ -600,7 +600,8 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 
 // COMMON OUTPUT Including top of form  and list of hidden values
 
-echo claro_html_doctype()
+echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
+.    "\t". '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' ."\n"
 .    '<html>' . "\n"
 .    '<head>' . "\n"
 .    '<title>' . "\n"
