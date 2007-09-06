@@ -1,22 +1,19 @@
 <?php // $Id$
 
+
 class Form
 {
 	// vars
-	var $_paramList = array();
-	var $_fieldList = array();
+	private $_paramList = array();
+	private $_elementList = array();
 
-	var $_inputSize;
-	var $_isDatePickerLoaded;
+	private $_isDatePickerLoaded;
 
 	// construct
-	function Form($name)
+	function __construct($name)
 	{
 		$this->setName($name);
 
-		// TODO use get_conf
-		//$this->_inputSize = get_conf('formSize', 40);
-		$this->_inputSize = 40;
 		$this->_isDatePickerLoaded = false;
 	}
 
@@ -59,19 +56,21 @@ class Form
 	}
 
 	// populate form
-	function _addField($field)
+	function addElement($formElement)
 	{
-		$this->_fieldList[] = $field;
+		$this->_elementList[] = $formElement;
 	}
 
-	// display
-	function output()
+	function render()
 	{
 		// header
-		$html = '<form ' . $this->outputParams() . '>' . "\n";
+		$html = '<form ' . renderParams($this->_paramList) . '>' . "\n";
 
 		// fields
-		$html .= $this->outputFields() . "\n";
+		foreach( $this->_elementList as $formElement )
+		{
+			$html .= '<p>' . $formElement->render() . '</p>' . "\n";
+		}
 
 		// buttons
 		$html .= '<input type="submit" value="Ok" />' . "\n";
@@ -81,121 +80,425 @@ class Form
 		return $html;
 	}
 
-	function outputParams()
-	{
-		$out = array();
+}
 
-		foreach( $this->_paramList as $param => $value )
+class FormElement
+{
+	protected $name;
+	protected $id;
+	protected $label;
+	protected $value;
+	protected $required;
+	protected $optionList;
+
+
+	private function __construct($name)
+	{
+		$this->setName($name);
+
+		// by default id is the same as the name
+		$this->setId($name);
+		$this->setLabel('');
+		$this->setValue('');
+		$this->setRequired(false);
+		$this->setOptionList(array());
+	}
+
+	function render()
+	{
+		$html = $this->renderLabel() . '<br />'
+		.	 $this->renderElement();
+
+		return $html;
+	}
+
+	function renderElement()
+	{
+		return '';
+	}
+
+	function renderLabel()
+	{
+		return '';
+	}
+
+	function setName($name)
+	{
+		$this->name = $name;
+	}
+
+	function getName()
+	{
+		return $this->name;
+	}
+
+	function setId($id)
+	{
+		$this->id = $id;
+	}
+
+	function getId()
+	{
+		return $this->id;
+	}
+
+	function setLabel($label)
+	{
+		$this->label = $label;
+	}
+
+	function getLabel()
+	{
+		return $this->label;
+	}
+
+	function setValue($value)
+	{
+		$this->value = $value;
+	}
+
+	function getValue()
+	{
+		return $this->value;
+	}
+
+	function setRequired($required = true)
+	{
+		$this->required = $required;
+	}
+
+	function isRequired()
+	{
+		return (bool) $this->required;
+	}
+
+	function setOptionList($optionList)
+	{
+		$this->optionList = $optionList;
+	}
+
+	function getOptionList()
+	{
+		return $this->optionList;
+	}
+
+}
+
+class Input extends FormElement
+{
+	protected $type;
+
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'text';
+	}
+
+	function renderElement()
+	{
+		$html = '<input type="'.$this->type.'"'
+		.	 ' id="form_'.$this->id.'"'
+		.	 ' name="'.$this->name.'"'
+		.	 ' value="'.htmlspecialchars($this->value).'"'
+		.	 ' ' . renderParams($this->optionList)
+		.	 ' />';
+
+		return $html;
+	}
+
+	function renderLabel()
+	{
+		$html = '<label for="form_'.$this->id.'">'.$this->label.'</label>';
+
+		return $html;
+	}
+}
+
+class InputText extends Input
+{
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'text';
+	}
+
+	public static function Factory($name, $value = '', $label = '', $required = false, $attrList = array())
+	{
+		$element = new InputText($name);
+
+		$element->setValue($value);
+		$element->setLabel($label);
+		$element->setRequired($required);
+		$element->setOptionList($attrList);
+
+		return $element;
+	}
+}
+
+class InputHidden extends Input
+{
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'hidden';
+	}
+
+	function render()
+	{
+		$html = $this->renderElement();
+
+		return $html;
+	}
+
+	function renderLabel()
+	{
+		return '';
+	}
+
+	public static function Factory($name, $value = '', $attrList = array())
+	{
+		$element = new InputHidden($name);
+
+		$element->setValue($value);
+		$element->setOptionList($attrList);
+
+		return $element;
+	}
+
+}
+
+class InputPassword extends Input
+{
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'password';
+	}
+
+	public static function Factory($name, $value = '', $label = '', $required = false, $attrList = array())
+	{
+		$element = new InputPassword($name);
+
+		$element->setValue($value);
+		$element->setLabel($label);
+		$element->setRequired($required);
+		$element->setOptionList($attrList);
+
+		return $element;
+	}
+}
+
+class InputFile extends Input
+{
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'file';
+	}
+
+	public static function Factory($name, $label = '', $required = false, $attrList = array())
+	{
+		$element = new InputFile($name);
+
+		$element->setLabel($label);
+		$element->setRequired($required);
+		$element->setOptionList($attrList);
+
+		return $element;
+	}
+}
+
+class InputCheckbox extends Input
+{
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'checkbox';
+	}
+
+
+	// custom id is there to associate label with a unique id when several checkbox have same name (often...)
+	public static function Factory($name, $value = '', $label = '', $customId = null, $required = false, $attrList = array())
+	{
+		$element = new InputCheckbox($name);
+
+		$element->setValue($value);
+		$element->setLabel($label);
+		$element->setId($customId);
+		$element->setRequired($required);
+		$element->setOptionList($attrList);
+
+		return $element;
+	}
+
+	function render()
+	{
+		$html = $this->renderElement() . '&nbsp;' . $this->renderLabel() . '<br />';
+
+		return $html;
+	}
+}
+
+class InputRadio extends Input
+{
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'radio';
+	}
+
+	// custom id is there to associate label with a unique id when several checkbox have same name (often...)
+	public static function Factory($name, $value = '', $label = '', $customId = null, $required = false, $attrList = array())
+	{
+		$element = new InputRadio($name);
+
+		$element->setValue($value);
+		$element->setLabel($label);
+		$element->setId($customId);
+		$element->setRequired($required);
+		$element->setOptionList($attrList);
+
+		return $element;
+	}
+
+	function render()
+	{
+		$html = $this->renderElement() . '&nbsp;' . $this->renderLabel() . '<br />';
+
+		return $html;
+	}
+}
+
+
+class Button extends Input
+{
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->type = 'button';
+	}
+
+	public static function Factory($name, $label = '', $attrList = array())
+	{
+		$element = new Button($name);
+
+		$element->setLabel($label);
+		$element->setOptionList($attrList);
+
+		return $element;
+	}
+
+	function renderLabel()
+	{
+		return '';
+	}
+
+	function renderElement()
+	{
+		$html = '<input type="'.$this->type.'"'
+		.	 ' id="form_'.$this->id.'"'
+		.	 ' name="'.$this->name.'"'
+		.	 ' value="'.htmlspecialchars($this->label).'"' // use label in value as there is no real value in a button
+		.	 ' ' . renderParams($this->optionList)
+		.	 ' />';
+
+		return $html;
+	}
+}
+
+class FieldSet extends FormElement
+{
+	private $_elementList;
+
+	function __construct($name, $label)
+	{
+		parent::__construct($name);
+
+		$this->setLabel($label);
+	}
+
+	function render()
+	{
+		// header
+		$html = '<fieldset id="'.$this->id.'">' . "\n"
+		.	 '<legend>' . $this->label . '</legend>' . "\n";
+
+		// fields
+		foreach( $this->_elementList as $formElement )
 		{
-			$out[] = $param . '="' . htmlspecialchars($value) . '"';
+			$html .= '<p>' . $formElement->render() . '</p>' . "\n";
 		}
 
-		return implode(' ', $out);
+		// footer
+		$html .= '</fieldset>' . "\n";
+
+		return $html;
 	}
 
-	function outputFields()
+	// populate fieldset
+	function addElement($formElement)
 	{
-		$out = array();
-
-		foreach( $this->_fieldList as $field )
-		{
-			$out[] = $field;
-		}
-
-		return implode(' ' . "\n", $out);
+		$this->_elementList[] = $formElement;
 	}
 
-
-	function requiredField($label)
+	public static function Factory($name, $label)
 	{
-		return '<span class="required">*</span>&nbsp;' . $label;
+		$element = new FieldSet($name, $label);
+
+		return $element;
 	}
 
-	function openFieldset($legend)
-	{
-		$html = '<fieldset>' . "\n"
-		.	 '<legend>' . htmlspecialchars($legend) . '</legend>' . "\n";
+}
 
-		$this->_addField($html);
+class TextArea extends FormElement
+{
+	protected $wysiwyg;
+	protected $rows;
+	protected $cols;
+
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->useWysiwyg(false);
 	}
 
-	function closeFieldset()
+	function useWysiwyg($use)
 	{
-		$html = "\n" . '</fieldset>' . "\n";
-
-		$this->_addField($html);
-	}
-	// create fields
-	/*
-	 * text
-	 * password
-	 * hidden
-	 * textearea
-	 * select box
-	 * radio
-	 * check
-	 * date / time  / date time
-	 * descriptive text
-	 */
-	function addInputHidden($name, $value)
-	{
-		$html = '<input type="hidden" id="'.$name.'" name="'.$name.'" value="'.htmlspecialchars($value).'" />';
-
-		$this->_addField($html);
+		$this->wysiwyg = $use;
 	}
 
-	function addInputText($name, $value, $label = '', $required = false, $size = -1, $maxLength = -1)
+	function setCols($cols)
 	{
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
-
-		if( $size != -1 ) 	$displayedSize = (int) $size;
-		else				$displayedSize = $this->_inputSize;
-
-		if( $maxLength != -1 ) 	$displayedMaxLength = (int) $maxLength;
-		else					$displayedMaxLength = (int) 255;
-
-		$html = '<p>' . "\n"
-		.	 '<label for="'.$name.'">'.$displayedLabel.'</label>' . "\n"
-		.	 '<input type="text" id="'.$name.'" name="'.$name.'" value="'.htmlspecialchars($value).'" size="'.$displayedSize.'" maxlength="'.$displayedMaxLength.'" />' . "\n"
-		.	 '</p>';
-
-		$this->_addField($html);
+		$this->cols = (int) $cols;
 	}
 
-	function addInputPassword($name, $value, $label = '', $required = false,  $size = -1, $maxLength = -1)
+	function getCols()
 	{
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
-
-		if( $size != -1 ) 	$displayedSize = (int) $size;
-		else				$displayedSize = $this->_inputSize;
-
-		if( $maxLength != -1 ) 	$displayedMaxLength = (int) $maxLength;
-		else					$displayedMaxLength = (int) 255;
-
-		$html = '<p>' . "\n"
-		.	 '<label for="'.$name.'">'.$displayedLabel.'</label>' . "\n"
-		.	 '<input type="password" id="'.$name.'" name="'.$name.'" value="'.htmlspecialchars($value).'" size="'.$displayedSize.'" maxlength="'.$displayedMaxLength.'" />' . "\n"
-		.	 '</p>';
-
-		$this->_addField($html);
+		return (int) $this->cols;
 	}
 
-	function addTextarea($name, $value, $label = '', $required = false, $wysiwyg = false, $cols  = -1, $rows = 20,$optAttrib = '')
+	function setRows($rows)
 	{
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
+		$this->rows = (int) $rows;
+	}
 
-		if( $cols != -1 ) 	$displayedCols = (int) $cols;
-		else				$displayedCols = $this->_inputSize;
+	function getRows()
+	{
+		return (int) $this->rows;
+	}
 
-		if( $rows != -1 ) 	$displayedRows = (int) $rows;
-		else				$displayedRows = (int) 20;
-
-		$html = '';
-
-		if( $wysiwyg )
+	function renderElement()
+	{
+		if( $this->wysiwyg )
 		{
 			$claro_editor = get_conf('claro_editor', 'tiny_mce');
 
@@ -210,58 +513,127 @@ class Form
 		        include_once $incPath . '/editor.class.php';
 
 		        // editor instance
-		        $editor = new editor($name,$value,$rows,$cols,$optAttrib,$webPath);
+		        // TODO fix option list
+		        $editor = new editor($this->name, $this->value, $this->rows, $this->cols, renderParams($this->optionList), $webPath);
 
-		        $html .= $editor->getAdvancedEditor();
+		        $html = $editor->getAdvancedEditor();
 		    }
 		    else
 		    {
 		    	// force display of textarea as it will not be possible to display it in wysiwyg mode
-		    	$wysiwyg = false;
+		    	$this->useWysiwyg(false);
 		    }
 
 		}
 
-		if( !$wysiwyg )
+		if( !$this->wysiwyg )
 		{
-			$html = '<p>' . "\n"
-			.	 '<label for="'.$name.'">'.$displayedLabel.'</label>' . "\n"
-			.	 '<textarea id="'.$name.'" name="'.$name.'" cols="'.$cols.'" rows="'.$rows.'" '.$optAttrib.'>'
-			.	 htmlspecialchars($value)
-			.	 "\n" . '</textarea>' . "\n"
-			.	 '</p>';
+			$html = '<textarea'
+			.	 ' id="form_'.$this->id.'"'
+			.	 ' name="'.$this->name.'"'
+			.	 ' ' . renderParams($this->optionList)
+			.	 ' >'
+			.	 htmlspecialchars($this->value)
+			.	 "\n" . '</textarea>' . "\n";
 		}
-
-		$this->_addField($html);
-
+		return $html;
 	}
 
-	function addSelect($name, $optionList, $label = '', $required = false, $selected = null, $size = -1, $attrList = null )
+	function renderLabel()
 	{
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
+		$html = '<label for="form_'.$this->id.'">'.$this->label.'</label>';
 
-		$html = '<p>'  . "\n"
-		.	 '<label for="'.$name.'">'.$displayedLabel.'</label>' . "\n"
-		.	 '<select id="'.$name.'" name="'.$name.'" >' . "\n"
-		.	 $this->_buildOptionList($optionList, $selected) . "\n"
-		.	 '</select>' . "\n"
-		.	 '</p>' . "\n";
-
-		$this->_addField($html);
+		return $html;
 	}
 
-	function _buildOptionList($optionList, $selected)
+	public static function Factory($name, $value, $label = '', $required = false, $wysiwyg = false, $cols  = 80, $rows = 20, $attrList = array())
+	{
+		$element = new TextArea($name);
+
+		$element->setValue($value);
+		$element->setLabel($label);
+		$element->setRequired($required);
+		$element->setOptionList($attrList);
+		$element->useWysiwyg($wysiwyg);
+		$element->setRows($rows);
+		$element->setCols($cols);
+
+		return $element;
+	}
+}
+
+
+class SelectBox extends FormElement
+{
+	// in this class $value is an array
+	protected $selectedValueList;
+
+	function __construct($name)
+	{
+		parent::__construct($name);
+
+		$this->value = array();
+		$this->selectedValueList = array();
+	}
+
+	function setValue($value)
+	{
+		if( is_array($value) )
+		{
+			$this->value = $value;
+		}
+		else
+		{
+			$this->value[] = $value;
+		}
+	}
+
+	function getValue()
+	{
+		return $this->value;
+	}
+
+	function setSelectedValueList($selected)
+	{
+		if( is_array($selected) )
+		{
+			$this->selectedValueList = $selected;
+		}
+		else
+		{
+			$this->selectedValueList[] = $selected;
+		}
+	}
+
+	function getSelectedValueList()
+	{
+		return $his->selectedValueList;
+	}
+
+	function renderElement()
+	{
+		$html = '<select id="form_'.$this->id.'" name="'.$this->name.'" >' . "\n"
+		.	 $this->_buildOptionList() . "\n"
+		.	 '</select>' . "\n";
+
+		return $html;
+	}
+
+	function renderLabel()
+	{
+		$html = '<label for="form_'.$this->id.'">'.$this->label.'</label>';
+
+		return $html;
+	}
+
+	private function _buildOptionList()
 	{
 		$html = '';
 
-		if( !is_array($optionList) ) return $html;
-
-		foreach( $optionList as $optionValue => $optionLabel )
+		foreach( $this->value as $optionValue => $optionLabel )
 		{
 			// check if value must be selected
-			if( ( !is_array($selected) && $optionValue == $selected )
-				|| ( is_array($selected) && in_array($optionValue, $selected) )
+			if( ( in_array($optionValue, $this->selectedValueList) )
 			)
 			{
 				$displaySelected = 'selected="selected"';
@@ -279,195 +651,74 @@ class Form
 		return $html;
 	}
 
-	function addRadioList($name, $radioList, $label, $required = false, $checked = null)
+	public static function Factory($name, $valueList, $label = '', $required = false, $selected = array(), $attrList = array())
 	{
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
+		$element = new SelectBox($name);
 
-		if( !is_array($radioList) || empty($radioList) ) return '';
+		$element->setValue($valueList);
+		$element->setLabel($label);
+		$element->setRequired($required);
+		$element->setOptionList($attrList);
+		$element->setSelectedValueList($selected);
 
-		// cannot make a multiple selection so get the first value if checked is an array
-		if( is_array($checked) && !empty($checked) ) $checked = $checked[0];
+		return $element;
+	}
 
-		$html = '<fieldset class="radio">'  . "\n"
-		.	 '<legend>'.$displayedLabel.'</legend>' . "\n";
+}
 
-		$i = 1;
-		foreach( $radioList as $radioValue => $radioLabel )
+
+class CheckBoxList
+{
+	public static function Factory($name, $checkboxList, $label, $required = false, $checked = null)
+	{
+		$fieldSet = FieldSet::Factory($name.'_list', $label);
+
+		if( is_array($checkboxList) && !empty($checkboxList) )
 		{
-			// check if value must be selected
-			if( $radioValue == $checked )
+			$i = 0;
+			foreach( $checkboxList as $value => $label )
 			{
-				$displayChecked = 'checked="checked"';
+				$id = $name.++$i;
+				$fieldSet->addElement( InputCheckbox::Factory($name, $value, $label, $id));
 			}
-			else
-			{
-				$displayChecked = '';
-			}
-
-			$html .= '<label for="'.$name.$i.'">' . "\n"
-			.	 '<input type="radio" id="'.$name.$i.'" name="'.$name.'" value="'.$radioValue.'" '.$displayChecked.' />'
-			.	 htmlspecialchars($radioLabel).'</label>' . "\n";
-
-			$i++;
 		}
 
-		$html .= '</fieldset>' . "\n";
-
-		$this->_addField($html);
+		return $fieldSet;
 	}
+}
 
-
-	function addCheckboxList($name, $checkboxList, $label, $required = false, $checked = null)
+class RadioList
+{
+	public static function Factory($name, $checkboxList, $label, $required = false, $checked = null)
 	{
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
+		$fieldSet = FieldSet::Factory($name.'_list', $label);
 
-		if( !is_array($checkboxList) || empty($checkboxList) ) return '';
-
-		$html = '<fieldset class="checkbox">'  . "\n"
-		.	 '<legend>'.$displayedLabel.'</legend>' . "\n";
-
-		$i = 1;
-		foreach( $checkboxList as $checkboxValue => $checkboxLabel )
+		if( is_array($checkboxList) && !empty($checkboxList) )
 		{
-			// check if value must be selected
-			if( ( !is_array($checked) && $checkboxValue == $checked )
-				|| ( is_array($checked) && in_array($checkboxValue, $checked) )
-			)
+			$i = 0;
+			foreach( $checkboxList as $value => $label )
 			{
-				$displayChecked = 'checked="checked"';
+				$id = $name.++$i;
+				$fieldSet->addElement( InputRadio::Factory($name, $value, $label, $id));
 			}
-			else
-			{
-				$displayChecked = '';
-			}
-
-			$html .= '<label for="'.$name.$i.'">' . "\n"
-			.	 '<input type="checkbox" id="'.$name.$i.'" name="'.$name.'" value="'.$checkboxValue.'" '.$displayChecked.' />'
-			.	 htmlspecialchars($checkboxLabel).'</label>' . "\n";
-
-			$i++;
 		}
 
-		$html .= '</fieldset>' . "\n";
-
-		$this->_addField($html);
+		return $fieldSet;
 	}
+}
 
-	function addInputFile($name, $label = '', $required = false)
+
+//-----------------------
+function renderParams($paramList)
+{
+	$out = array();
+
+	foreach( $paramList as $param => $value )
 	{
-		// accept,
-
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
-
-		// ensure enctype is correct
-		$this->setEnctype('multipart/form-data');
-
-		$html = '<p>' . "\n"
-		.	 '<label for="'.$name.'">'.$displayedLabel.'</label>' . "\n"
-		.	 '<input type="file" id="'.$name.'" name="'.$name.'" />' . "\n"
-		.	 '</p>';
-
-		$this->_addField($html);
-
+		$out[] = $param . '="' . htmlspecialchars($value) . '"';
 	}
 
-	function loadDatePicker()
-	{
-		if( ! $this->_isDatePickerLoaded )
-		{
-			$GLOBALS['htmlHeadXtra'][] = '<script type="text/javascript" src="./js/jquery.js"></script>';
-			$GLOBALS['htmlHeadXtra'][] = '<style type="text/css">@import url(./js/jquery-calendar.css);</style>';
-			$GLOBALS['htmlHeadXtra'][] = '<script type="text/javascript" src="./js/jquery-calendar.js"></script>';
-
-			// default configuration of date pickers
-			$GLOBALS['htmlHeadXtra'][] = '<script type="text/javascript">' . "\n"
-			.	 '$(document).ready(function(){'
-			.	 ' popUpCal.setDefaults({'
-			.	  	'autoPopUp: "button",'
-			.	  	'buttonImageOnly: true,'
-			.	  	'buttonImage: "./img/calendar.png",'
-			.	  	'buttonText: "'.get_lang('Choose a date').'",'
-			.	  	'firstDay: 1,'
-			.	  	'changeFirstDay: false,'
-			.	  	'changeMonth: false,'
-			.	  	'changeYear: false'
-			.	 ' });'
-			.	 '});</script>';
-
-			// function used to get the date of an input (mainly used for date range methods)
-			$GLOBALS['htmlHeadXtra'][] = '<script type="text/javascript">' . "\n"
-			.	 'function getDate(value) {' . "\n"
-			.	 ' fields = value.split("/");' . "\n"
-			.	 ' return (fields.length < 3 ? null : new Date(parseInt(fields[2], 10), parseInt(fields[1], 10) - 1, parseInt(fields[0], 10)));' . "\n"
-			.	 '}' . "\n"
-			.	 '</script>' . "\n";
-
-       		$this->_isDatePickerLoaded = true;
-		}
-	}
-
-	function addDateSelector($name, $timestamp, $label, $required = false)
-	{
-		$this->loadDatePicker();
-
-		// http://marcgrabanski.com/code/jquery-calendar/
-		$format = '';
-
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
-
-		$html = '<p>' . "\n"
-		.	 '<label for="'.$name.'">'.$displayedLabel.'</label>' . "\n"
-		.	 '<input type="text" size="10" id="'.$name.'" name="'.$name.'" class="'.$name.'_datePicker" />' . "\n"
-		.	 '</p>' . "\n"
-		.    '<script type="text/javascript">$(document).ready(function(){' . "\n"
-       	.	 ' $(".'.$name.'_datePicker").calendar({});' . "\n"
-       	.	 '});</script>' . "\n";
-
-		$this->_addField($html);
-	}
-
-	function addDateRange($name, $startTimestamp, $endTimestamp, $label, $required = false)
-	{
-		$this->loadDatePicker();
-
-		// http://marcgrabanski.com/code/jquery-calendar/
-		$startDate = date('d/m/Y', $startTimestamp);
-		$endDate = date('d/m/Y', $endTimestamp);
-
-		if( $required ) $displayedLabel = $this->requiredField($label);
-		else			$displayedLabel = $label;
-
-		$html = '<p>' . "\n"
-		.	 '<label for="'.$name.'">'.$displayedLabel.'</label>' . "\n"
-		.	 get_lang('From') . '&nbsp; '
-		.	 '<input type="text" size="10" id="'.$name.'_from" name="'.$name.'_from" class="'.$name.'_datePicker" value="'.$startDate.'" />' . "\n"
-		.	 get_lang('to') . '&nbsp; '
-		.	 '<input type="text" size="10" id="'.$name.'_to" name="'.$name.'_to" class="'.$name.'_datePicker" value="'.$endDate.'" />' . "\n"
-		.	 '</p>' . "\n"
-		.    '<script type="text/javascript">$(document).ready(function(){' . "\n"
-       	.	 ' $(".'.$name.'_datePicker").calendar({fieldSettings: dateRange});' . "\n"
-		.	 ' function dateRange(input) {' . "\n"
-		.	 ' return {minDate: (input.id == "'.$name.'_to" ? getDate($("#'.$name.'_from").val()) : null),' . "\n"
-		.	 ' maxDate: (input.id == "'.$name.'_from" ? getDate($("#'.$name.'_to").val()) : null)};' . "\n"
-		.	 ' }' . "\n"
-       	.	 '});</script>' . "\n";
-
-		$this->_addField($html);
-	}
-
-	function addTimeSelector($label, $name, $timestamp)
-	{
-
-	}
-
-	function addDateTimeSelector($label, $name, $timestamp)
-	{
-
-	}
+	return implode(' ', $out);
 }
 
 ?>
