@@ -957,8 +957,6 @@ function claro_html_tool_view_option($viewModeRequested = false)
     $url = str_replace('&amp;viewMode=COURSE_ADMIN', '', $url);
     $url = str_replace('?viewMode=STUDENT'     , '?', $url);
     $url = str_replace('?viewMode=COURSE_ADMIN', '?', $url);
-    $url = str_replace('?viewMode=STUDENT'     , '?', $url);
-    $url = str_replace('?viewMode=COURSE_ADMIN', '?', $url);
     $url = str_replace('?&amp;', '?', $url );
 
     /*------------------------------------------------------------------------
