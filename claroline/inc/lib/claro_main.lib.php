@@ -955,17 +955,31 @@ function claro_html_tool_view_option($viewModeRequested = false)
 
     $url = str_replace('&amp;viewMode=STUDENT'     , '', $url);
     $url = str_replace('&amp;viewMode=COURSE_ADMIN', '', $url);
+    $url = str_replace('?viewMode=STUDENT'     , '?', $url);
+    $url = str_replace('?viewMode=COURSE_ADMIN', '?', $url);
+    $url = str_replace('?viewMode=STUDENT'     , '?', $url);
+    $url = str_replace('?viewMode=COURSE_ADMIN', '?', $url);
+    $url = str_replace('?&amp;', '?', $url );
 
     /*------------------------------------------------------------------------
     INIT BUTTONS
     -------------------------------------------------------------------------*/
+    
+    if ( substr( $url, -1, 1) === '?' )
+    {
+        $sep = '';
+    }
+    else
+    {
+        $sep = '&amp;';
+    }
 
 
     switch ($currentViewMode)
     {
         case 'COURSE_ADMIN' :
 
-            $studentButton = '<a href="' . $url . '&amp;viewMode=STUDENT">'
+            $studentButton = '<a href="' . $url . $sep . 'viewMode=STUDENT">'
             .                get_lang('Student')
             .                '</a>'
             ;
@@ -976,7 +990,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
         case 'STUDENT' :
 
             $studentButton     = '<b>'.get_lang('Student').'</b>';
-            $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
+            $courseAdminButton = '<a href="' . $url . $sep . 'viewMode=COURSE_ADMIN">'
             . get_lang('Course manager')
             . '</a>';
             break;
