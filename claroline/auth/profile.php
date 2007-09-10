@@ -214,7 +214,7 @@ switch ( $display )
         if( get_conf('is_trackingEnabled') )
         {
             // display user tracking link
-            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php' . claro_url_relay_context('?') . '">'
+            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/userLog.php?userId='.claro_get_current_user_id() . claro_url_relay_context('&amp;') . '">'
             .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" alt="" />' . get_lang('View my statistics')
             .                 '</a>'
             ;
