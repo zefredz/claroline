@@ -532,7 +532,7 @@ elseif ($displayMode == "viewContentList") // default display
         {
             echo '<td>'
             .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/userLog.php'
-            .    '?uInfo=' . $userIdViewed
+            .    '?userId=' . $userIdViewed
             .    claro_url_relay_context('&amp;') . '">'
             .    '<img border="0" alt="' . get_lang('Tracking') . '" src="' . get_path('imgRepositoryWeb') . 'statistics.gif" />'
             .    '</a>'
