@@ -96,7 +96,7 @@
             }
             
             $output .= '<body dir="' . get_locale('text_dir') . '"'
-                .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $claroBodyOnload ) . '" ':'')
+                .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $this->jsBodyOnload ) . '" ':'')
                 .    '>' . "\n"
                 ;
                 
