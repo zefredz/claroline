@@ -1,17 +1,41 @@
 <?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
+    
+    /**
+     * Main core library
+     *
+     * @version     1.9 $Revision$
+     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @author      Frederic Minne <zefredz@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE
+     * @package     DISPLAY
+     */
 
     if ( count( get_included_files() ) == 1 )
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
+    /**
+     * Check a value against a list of alowed value
+     * @param   mixed value
+     * @param   array allowedValueList
+     * @return  boolean
+     */
     function is_value_allowed( $value, $allowedValueList )
     {
         return in_array( $value, $allowedValueList );
     }
     
+    /**
+     * Check the type of a value
+     * @param   mixed value
+     * @param   string type (alnum, alpha, digit, lower, upper, space, xdigit,
+     *  float, int, string, array, bool)
+     * @return  boolean
+     */
     function check_value_type( $value, $type )
     {
         $supportedType = array();
@@ -55,6 +79,11 @@
         }
     }
     
+    /**
+     * Protect file path against arbitrary file inclusion
+     * @param   string path, untrusted path
+     * @return  string secured path
+     */
     function protect_against_file_inclusion( $path )
     {
         // protect against remote file inclusion
@@ -72,6 +101,12 @@
         return $path;
     }
 
+    /**
+     * Imports the PHP libraries given in argument with path relative to
+     * includePath or module lib/ directory. .php extension added automaticaly
+     * @param   list of libraries
+     * @return  array of not found libraries + generate an error in debug mode
+     */
     function uses()
     {
         $args = func_get_args();

@@ -2,19 +2,34 @@
 
     // vim: expandtab sw=4 ts=4 sts=4:
     
+    /**
+     * Class used to configure and display the page header
+     *
+     * @version     1.9 $Revision$
+     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @author      Frederic Minne <zefredz@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE
+     * @package     DISPLAY
+     */
+    
     if ( count( get_included_files() ) == 1 )
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
     uses( 'core/loader.lib' );
-
+    
     class ClaroHeader extends Display
     {
         private $_htmlXtraHeaders;
         private $_httpXtraHeaders;
         private $_template;
         
+        /**
+         * Constructor
+         * @param   string pageTitle (optional)
+         */
         public function __construct( $pageTitle = '' )
         {
             $file = new ClaroTemplateLoader('header.tpl');
@@ -45,6 +60,10 @@
             $this->_httpXtraHeaders[] = $header;
         }
         
+        /**
+         * Send HTTP headers to the client
+         * @access  public
+         */
         public function sendHttpHeaders()
         {
             if (! is_null(get_locale('charset')) )
@@ -61,6 +80,11 @@
             }
         }
         
+        /**
+         * Retrieve variables used by the old header script for compatibility
+         * with old scripts
+         * @access  private
+         */
         private function _globalVarsCompat()
         {
             if ( isset( $GLOBALS['htmlHeadXtra'] ) && !empty($GLOBALS['htmlHeadXtra']) )
@@ -74,6 +98,11 @@
             }
         }
         
+        /**
+         * Render the HTML page header
+         * @access  public
+         * @return  string
+         */
         public function render()
         {
             $this->_globalVarsCompat();
