@@ -79,91 +79,94 @@ require_once(dirname(__FILE__) . '/icon.lib.php');
  *         will be taken.
  * @return array list of unique keys (sys, db & path) of a course
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Frédéric Minne <zefredz@claroline.net>
  * @since 1.7
  */
 
 function claro_get_course_data($courseId = NULL, $force = false )
 {
-    $courseDataList = null;
-
-    static $cachedDataList = null;
-
-    if ( ! $force)
+    static $cachedDataList = array();
+    
+    $useCurrentCourseData = false;
+    
+    if ( is_null( $courseId ) && claro_is_in_a_course() )
     {
-        if ( $cachedDataList && $courseId == $cachedDataList['sysCode'] )
-        {
-            $courseDataList = $cachedDataList;
-        }
-        elseif ( ( is_null($courseId) && claro_is_in_a_course()) )
+        $courseId =  claro_get_current_course_id();
+        $useCurrentCourseData = true;
+    }
+    
+    if ( ! array_key_exists( $courseId, $cachedDataList ) )
+    {
+        if ( $useCurrentCourseData )
         {
             $courseDataList = $GLOBALS['_course'];
         }
-    }
-
-    if ( ! $courseDataList )
-    {
-        $tbl =  claro_sql_get_tbl(array('cours','faculte',));
-
-        $sql =  "SELECT
-                c.code                 AS sysCode,
-                c.cours_id             AS courseId,
-                c.intitule             AS name,
-                c.administrativeNumber AS officialCode,
-                c.directory            AS path,
-                c.dbName               AS dbName,
-                c.titulaires           AS titular,
-                c.email                AS email  ,
-                c.language             AS language,
-                c.extLinkUrl           AS extLinkUrl,
-                c.extLinkName          AS extLinkName,
-                c.visibility           AS visibility,
-                c.access               AS access,
-                c.registration         AS registration,
-                c.registrationKey      AS registrationKey ,
-                cat.code               AS categoryCode,
-                cat.name               AS categoryName,
-                c.diskQuota            AS diskQuota
-
-                FROM      `" . $tbl['cours'] . "`   AS c
-                LEFT JOIN `" . $tbl['faculte'] . "` AS cat
-                        ON c.faculte =  cat.code
-                WHERE c.code = '" . addslashes($courseId) . "'";
-
-        $courseDataList = claro_sql_query_get_single_row($sql);
-
-        if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
-
-        $courseDataList['access'             ] = (bool) ('public' == $courseDataList['access']     );
-        $courseDataList['visibility'         ] = (bool) ('visible' == $courseDataList['visibility'] );
-        $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
-        $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
-
-
-
-        // Dont work claro_sql_get_tbl need a tool id and is not for a tool
-        // kernel table would be in mainDB.
-        // $tbl =  claro_sql_get_tbl('course_properties', array(CLARO_CONTEXT_COURSE=>$courseDataList['sysCode']));
-        $tbl = claro_sql_get_course_tbl( $courseDataList['dbNameGlu'] );
-        $sql = "SELECT name,
-                   value
-                 FROM `" . $tbl['course_properties'] . "`
-                 WHERE category = 'MAIN'";
-
-        $extraDataList = claro_sql_query_fetch_all($sql);
-
-        if (is_array($extraDataList) )
+        else
         {
-            foreach($extraDataList as $thisData)
+            $tbl =  claro_sql_get_tbl(array('cours','faculte',));
+
+            $sql =  "SELECT
+                    c.code                 AS sysCode,
+                    c.cours_id             AS courseId,
+                    c.intitule             AS name,
+                    c.administrativeNumber AS officialCode,
+                    c.directory            AS path,
+                    c.dbName               AS dbName,
+                    c.titulaires           AS titular,
+                    c.email                AS email  ,
+                    c.language             AS language,
+                    c.extLinkUrl           AS extLinkUrl,
+                    c.extLinkName          AS extLinkName,
+                    c.visibility           AS visibility,
+                    c.access               AS access,
+                    c.registration         AS registration,
+                    c.registrationKey      AS registrationKey ,
+                    cat.code               AS categoryCode,
+                    cat.name               AS categoryName,
+                    c.diskQuota            AS diskQuota
+
+                    FROM      `" . $tbl['cours'] . "`   AS c
+                    LEFT JOIN `" . $tbl['faculte'] . "` AS cat
+                            ON c.faculte =  cat.code
+                    WHERE c.code = '" . addslashes($courseId) . "'";
+
+            $courseDataList = claro_sql_query_get_single_row($sql);
+
+            if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
+
+            $courseDataList['access'             ] = (bool) ('public' == $courseDataList['access']     );
+            $courseDataList['visibility'         ] = (bool) ('visible' == $courseDataList['visibility'] );
+            $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
+            $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
+
+
+
+            // Dont work claro_sql_get_tbl need a tool id and is not for a tool
+            // kernel table would be in mainDB.
+            // $tbl =  claro_sql_get_tbl('course_properties', array(CLARO_CONTEXT_COURSE=>$courseDataList['sysCode']));
+            $tbl = claro_sql_get_course_tbl( $courseDataList['dbNameGlu'] );
+            $sql = "SELECT name,
+                       value
+                     FROM `" . $tbl['course_properties'] . "`
+                     WHERE category = 'MAIN'";
+
+            $extraDataList = claro_sql_query_fetch_all($sql);
+
+            if (is_array($extraDataList) )
             {
-                $courseDataList[$thisData['name']] = $thisData['value'];
+                foreach($extraDataList as $thisData)
+                {
+                    $courseDataList[$thisData['name']] = $thisData['value'];
+                }
             }
         }
 
-
-        $cachedDataList = $courseDataList; // cache for the next time ...
+        $cachedDataList[$courseId] = $courseDataList; // cache for the next time ...
     }
+    
+    // var_dump( $cachedDataList );
 
-    return $courseDataList;
+    return $cachedDataList[$courseId];
 }
 
 /**
