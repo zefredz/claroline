@@ -1,14 +1,15 @@
 <?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     if ( count( get_included_files() ) == 1 )
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-    
+
     uses( 'display/template.lib', 'display/header.lib', 'display/body.lib'
-        , 'display/footer.lib', 'display/dock.lib', 'display/banner.lib' );
+        , 'display/footer.lib', 'display/dock.lib', 'display/banner.lib'
+        , 'display/dialogBox.lib' );
 
     /**
      * Popup helper
@@ -62,7 +63,7 @@
                 , E_USER_ERROR
                 );
         }
-        
+
         public function output()
         {
             echo $this->render();
@@ -77,7 +78,7 @@
     class ClaroPage extends Display
     {
         public $header, $body, $banner, $footer;
-        
+
         public function __construct()
         {
             $this->header =& new ClaroHeader;
@@ -85,7 +86,7 @@
             $this->banner =& $this->body->banner;
             $this->footer =& $this->body->footer;
         }
-        
+
         /**
          * Set page content
          *
@@ -106,19 +107,19 @@
         public function render()
         {
             $this->header->sendHttpHeaders();
-            
+
             $output = '';
-            
+
             $output .= $this->header->render();
-            
+
             $output .= $this->body->render();
-            
+
             $output .= '</html>' . "\n";
-            
+
             return $output;
         }
     }
-    
+
     /**
      * Claroline html frame element class
      *
@@ -142,7 +143,7 @@
                 );
         }
     }
-    
+
     /**
      * Claroline html frame class
      *
@@ -158,7 +159,7 @@
         private $noresize = false;
         private $frameborder = true;
         private $framespacing = null;
-        
+
         /**
          * Constructor
          *
@@ -174,7 +175,7 @@
             $this->src = $src;
             $this->id = empty( $id ) ? $name : $id;
         }
-        
+
         /**
          * Allow scrolling in frame
          *
@@ -186,7 +187,7 @@
             $this->scrolling = true;
             $this->autoscroll = $auto;
         }
-        
+
         /**
          * Disable frame resizing
          *
@@ -196,7 +197,7 @@
         {
             $this->noresize = true;
         }
-        
+
         /**
          * Disable frame border
          *
@@ -206,7 +207,7 @@
         {
             $this->frameborder = false;
         }
-        
+
         /**
          * Set space between frames
          *
@@ -217,7 +218,7 @@
         {
             $this->framespacing = $spacing;
         }
-        
+
         /**
          * Render the frame to embed in a HTML frameset
          *
@@ -244,7 +245,7 @@
                 ;
         }
     }
-    
+
     /**
      * Claroline html frameset class
      *
@@ -256,12 +257,12 @@
         private $rows = array();
         private $cols = array();
         public $header;
-        
+
         public function __construct()
         {
             $this->header = new ClaroHeader;
         }
-        
+
         /**
          * Add a frame or frameset object to the current frameset
          *
@@ -274,7 +275,7 @@
         {
             $this->frameset[] = $claroFrame;
         }
-        
+
         /**
          * Add a frame or frameset object to the current frameset as a new row
          *
@@ -289,7 +290,7 @@
             $this->rows[] = $size;
             $this->addFrame( $claroFrame );
         }
-        
+
         /**
          * Add a frame or frameset object to the current frameset as a new colum
          *
@@ -304,7 +305,7 @@
             $this->cols[] = $size;
             $this->addFrame( $claroFrame );
         }
-                
+
         /**
          * Render the current frameset to be embedded in another HTML frameset
          *
@@ -322,16 +323,16 @@
                     ? 'cols="'. implode(',', $this->cols). '" ' : '' )
                 . '>' . "\n"
                 ;
-                
+
             foreach ( $this->frameset as $element )
             {
                 $html .= $element->render();
             }
-            
+
             $html .= '</frameset>' . "\n";
-            
+
             $html .= '</html>';
-            
+
             return $html;
         }
     }
