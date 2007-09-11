@@ -637,7 +637,6 @@ a.item:visited{
  */
 
 .claroMessageBox {
-    //background: url(default/bg_msgBox.jpg) repeat-x top right #FFF;
     background-color : #EDF1E3;
     border: 1px #669933 solid;
     margin-left: 5px;
@@ -651,6 +650,14 @@ a.item:visited{
     margin-top : 5px;
     margin-bottom: 5px;
 }
+
+/* specific styling for dialog box messages */
+.dialogInfo { padding: 0px }
+.dialogSuccess { padding: 1px 5px 2px 20px; background: url('default/success.gif') top left no-repeat; }
+.dialogError { padding: 1px 5px 2px 20px; background: url('default/error.png') top left no-repeat; }
+.dialogQuestion { padding: 1px 5px 2px 20px; background: url('default/question.png') top left no-repeat; }
+.dialogForm { padding: 0px; }
+.dialogDebug { padding: 1px 5px 2px 20px; }
 
 .warning b, .waring strong {
     color: #000;
