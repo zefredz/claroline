@@ -114,50 +114,40 @@ class DialogBox
 	            $type = $entry['type'];
 	            $msg = $entry['msg'];
 
-				// depending on content use a span or a div to display message
-				// css style should work in both cases
-				if( preg_match('/<span.*>/', $msg ) || preg_match('/<p.*>/', $msg )
-					|| preg_match('/<div.*>/', $msg ) || preg_match('/<br.*>/', $msg ) )
-				{
-					$mode = 'div';
-				}
-				else
-				{
-					$mode = 'span';
-				}
-
 	            switch ( $type )
 	            {
 	                case DIALOG_INFO:
 	                {
-	                    $out[] = '<'.$mode.' class="dialogInfo">' . $msg . '</'.$mode.'>';
+	                    $class = 'dialogInfo';
 	                } break;
 	                case DIALOG_SUCCESS:
 	                {
-	                    $out[] = '<'.$mode.' class="dialogSuccess">' . $msg . '</'.$mode.'>';
+	                    $class = 'dialogSuccess';
 	                } break;
 	                case DIALOG_ERROR:
 	                {
-	                    $out[] = '<'.$mode.' class="dialogError">' . $msg . '</'.$mode.'>';
+	                    $class = 'dialogError';
 	                } break;
 	                case DIALOG_QUESTION:
 	                {
-	                    $out[] = '<'.$mode.' class="dialogQuestion">' . $msg . '</'.$mode.'>';
+	                    $class = 'dialogQuestion';
 	                } break;
 	                case DIALOG_FORM:
 	                {
 	                	// forms must always be in a div
-	                    $out[] = '<div class="dialogForm">' . $msg . '</span>';
+	                    $class = 'dialogForm';
 	                } break;
 	                case DIALOG_DEBUG:
 	                {
-	                    $out[] = '<'.$mode.' class="dialogDebug">' . $msg . '</'.$mode.'>';
+	                    $class = 'dialogDebug';
 	                } break;
 	                default:
 	                {
-	                    $out[] = '<'.$mode.' class="dialogMessage">' . $msg . '</'.$mode.'>';
+	                    $class = 'dialogMessage';
 	                }
 	            }
+
+	            $out[] = '<div class="' . $class . '">' . $msg . '</div>';
 
 	            unset ($type, $msg );
 	        }
@@ -165,7 +155,7 @@ class DialogBox
 	        return '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">' . "\n"
 			.	 '<tr>' . "\n"
 			.	 '<td>' . "\n"
-	        .	 implode( '<br />' . "\n", $out )
+	        .	 implode( "\n", $out )
 	        .	 '</td>' . "\n"
 	        .	 '</tr>' . "\n"
 	        .	 '</table>' . "\n\n";
