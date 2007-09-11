@@ -652,12 +652,12 @@ a.item:visited{
 }
 
 /* specific styling for dialog box messages */
-.dialogInfo { padding: 0px }
-.dialogSuccess { padding: 1px 5px 2px 20px; background: url('default/success.gif') top left no-repeat; }
-.dialogError { padding: 1px 5px 2px 20px; background: url('default/error.png') top left no-repeat; }
-.dialogQuestion { padding: 1px 5px 2px 20px; background: url('default/question.png') top left no-repeat; }
-.dialogForm { padding: 0px; }
-.dialogDebug { padding: 1px 5px 2px 20px; }
+.dialogInfo { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; }
+.dialogSuccess { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/success.gif') top left no-repeat; }
+.dialogError { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/error.png') top left no-repeat; }
+.dialogQuestion { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/question.png') top left no-repeat; }
+.dialogForm { padding: 3px 20px; }
+.dialogDebug { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; }
 
 .warning b, .waring strong {
     color: #000;
