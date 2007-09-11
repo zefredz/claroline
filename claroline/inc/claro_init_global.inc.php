@@ -253,4 +253,8 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
 }
 else pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
 
+uses('core/claroline.lib');
+
+
+$claroline = Claroline::getInstance();
 ?>

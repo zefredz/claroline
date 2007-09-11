@@ -17,10 +17,6 @@
 
     if ( count( get_included_files() ) == 1 ) die( '---' );
 
-    uses('core/claroline.lib');
-
-    $claroline = Claroline::getInstance();
-
     echo $claroline->display->header->render();
 
     echo '<body dir="' . $text_dir . '" '
@@ -35,7 +31,7 @@
     {
         $claroline->display->banner->hide();
     }
-    
+
     if ( ! get_conf('claro_brailleViewMode',false))
     {
         echo $claroline->display->banner->render();
