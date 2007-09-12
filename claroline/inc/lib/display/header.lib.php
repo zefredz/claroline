@@ -20,7 +20,7 @@
     
     uses( 'core/loader.lib' );
     
-    class ClaroHeader extends Display
+    class ClaroHeader implements Display
     {
         private $_htmlXtraHeaders;
         private $_httpXtraHeaders;

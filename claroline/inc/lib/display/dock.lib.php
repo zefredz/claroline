@@ -122,7 +122,7 @@
         }
     }
 
-    class ClaroDock
+    class ClaroDock implements Display
     {
         private $name;
         private $appletList;

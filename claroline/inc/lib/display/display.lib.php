@@ -54,20 +54,9 @@
         }
     }
 
-    class Display
+    interface Display
     {
-        public function render()
-        {
-            trigger_error( "Call to undefined abstract method in "
-                . __CLASS__ . "->" . __FUNCTION__
-                , E_USER_ERROR
-                );
-        }
-
-        public function output()
-        {
-            echo $this->render();
-        }
+        public function render();
     }
 
     /**
@@ -75,7 +64,7 @@
      *
      * @access  public
      */
-    class ClaroPage extends Display
+    class ClaroPage implements Display
     {
         public $header, $body, $banner, $footer;
         
@@ -187,36 +176,30 @@
         }
     }
 
-    /**
-     * Claroline html frame element class
-     *
-     * @access  public
-     * @interface
-     */
-    class ClaroFramesetElement extends Display
-    {
-        /**
-         * Render the frameset element to embed in a HTML frameset
-         *
-         * @access  public
-         * @abstract
-         * @return   string, frame html code
-         */
-        public function render()
-        {
-            trigger_error( "Call to undefined abstract method in "
-                . __CLASS__ . "->" . __FUNCTION__
-                , E_USER_ERROR
-                );
-        }
-    }
+#    /**
+#     * Claroline html frame element class
+#     *
+#     * @access  public
+#     * @interface
+#     */
+#    interface ClaroFramesetElement extends Display
+#    {
+#        /**
+#         * Render the frameset element to embed in a HTML frameset
+#         *
+#         * @access  public
+#         * @abstract
+#         * @return   string, frame html code
+#         */
+#        public function render();
+#    }
 
     /**
      * Claroline html frame class
      *
      * @access  public
      */
-    class ClaroFrame extends ClaroFramesetElement
+    class ClaroFrame implements Display
     {
         private $src;
         private $name;
@@ -318,7 +301,7 @@
      *
      * @access  public
      */
-    class ClaroFrameset extends ClaroFramesetElement
+    class ClaroFrameset implements Display
     {
         private $frameset = array();
         private $rows = array();

@@ -7,7 +7,7 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    class ClaroFooter extends Display
+    class ClaroFooter implements Display
     {
         private $template;
         private $hidden = false;

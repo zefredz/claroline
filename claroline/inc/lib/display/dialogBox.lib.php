@@ -12,7 +12,7 @@ define ( 'DIALOG_QUESTION', 'DIALOG_QUESTION');
 define ( 'DIALOG_FORM', 'DIALOG_FORM' );
 define ( 'DIALOG_DEBUG',   'DIALOG_DEBUG' );
 
-class DialogBox
+class DialogBox implements Display
 {
     private $_dialogBox = array();
     private $_size = array();
