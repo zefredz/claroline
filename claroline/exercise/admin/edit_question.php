@@ -41,7 +41,7 @@ include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 
 /*
- * Execute commands
+ * Init request vars
  */
 if ( isset($_REQUEST['cmd']) )    $cmd = $_REQUEST['cmd'];
 else                            $cmd = '';
@@ -52,6 +52,9 @@ else                                                            $exId = null;
 if( isset($_REQUEST['quId']) && is_numeric($_REQUEST['quId']) ) $quId = (int) $_REQUEST['quId'];
 else                                                            $quId = null;
 
+/*
+ * Init other vars
+ */
 $question = new Question();
 
 if( !is_null($quId) && !$question->load($quId) )
@@ -100,8 +103,12 @@ if( !is_null($quId) && !is_null($exId) )
     }
 }
 
+$dialogBox = new DialogBox();
 $displayForm = false;
 
+/*
+ * Execute commands
+ */
 if( $cmd == 'exEdit' )
 {
     // if quId is null it means that we create a new question
@@ -156,7 +163,7 @@ if( $cmd == 'exEdit' )
     {
         if( claro_failure::get_last_failure() == 'question_no_title' )
         {
-            $dialogBox = get_lang('Field \'%name\' is required', array('%name' => get_lang('Title')));
+            $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Title'))) );
         }
         $cmd = 'rqEdit';
     }
@@ -195,7 +202,7 @@ include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 echo claro_html_tool_title($nameTools);
 
 // dialog box if required
-if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo $dialogBox->render();
 
 
 $localizedQuestionType = get_localized_question_type();

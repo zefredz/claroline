@@ -61,7 +61,7 @@ else                                                            $exId = null;
 $maxFilledSpace = 100000000;
 $courseDir = get_path('coursesRepositorySys') . claro_get_current_course_data('path');
 
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 if( $is_allowedToEdit && !is_null($cmd) )
 {
@@ -80,7 +80,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
 
         if ( !isset($_FILES['uploadedExercise']['name']) )
         {
-            $dialogBox .= get_lang('Error : no file uploaded');
+            $dialogBox->error( get_lang('Error : no file uploaded') );
         }
         else
         {
@@ -89,14 +89,14 @@ if( $is_allowedToEdit && !is_null($cmd) )
 
             if( $importedExId )
             {
-                $dialogBox .= '<p><strong>' . get_lang('Import done') . '</strong></p>' . "\n";
+                $dialogBox->success( '<strong>' . get_lang('Import done') . '</strong>' );
             }
             else
             {
-                $dialogBox .= '<p><strong>' . get_lang('Import failed') . '</strong></p>' . "\n";
+                $dialogBox->error( '<strong>' . get_lang('Import failed') . '</strong>' );
                 $cmd = 'rqImport';
             }
-            $dialogBox .= '<p>' . $backlog->output() . '</p>' . "\n";
+            $dialogBox->info( $backlog->output() );
         }
     }
 
@@ -105,7 +105,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
         require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
         require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
 
-        $dialogBox .= "\n"
+        $dialogBox->form("\n"
         .            '<strong>' . get_lang('Import exercise') . '</strong><br />' . "\n"
         .            get_lang('Imported exercises must be an ims-qti zip file.') . '<br />' . "\n"
         .            '<form enctype="multipart/form-data" action="./exercise.php" method="post">' . "\n"
@@ -117,7 +117,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
         .            '<input value="' . get_lang('Import exercise') . '" type="submit" /> ' . "\n"
         .            claro_html_button( './exercise.php', get_lang('Cancel'))
         .            '</p>' . "\n"
-        .            '</form>' . "\n\n";
+        .            '</form>' );
     }
 
     //-- export
@@ -187,7 +187,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
             }
             else
             {
-                $dialogBox .= get_lang("Unable to create zip file");
+                $dialogBox->error( get_lang("Unable to create zip file") );
             }
         }
     }
@@ -277,7 +277,7 @@ include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 echo claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
 
 //-- dialogBox
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo $dialogBox->render();
 
 //-- claroCmd
 $cmd_menu = array();

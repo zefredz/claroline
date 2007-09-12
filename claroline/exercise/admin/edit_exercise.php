@@ -36,7 +36,7 @@ include_once '../lib/exercise.lib.php';
 include_once $includePath . '/lib/form.lib.php';
 
 /*
- * Execute commands
+ * Init request vars
  */
 if ( isset($_REQUEST['cmd']) )    $cmd = $_REQUEST['cmd'];
 else                            $cmd = '';
@@ -47,7 +47,9 @@ else                                                            $exId = null;
 if( isset($_REQUEST['quId']) && is_numeric($_REQUEST['quId']) ) $quId = (int) $_REQUEST['quId'];
 else                                                            $quId = null;
 
-
+/*
+ * Init other vars
+ */
 $exercise = new Exercise();
 
 if( !is_null($exId) && !$exercise->load($exId) )
@@ -55,10 +57,13 @@ if( !is_null($exId) && !$exercise->load($exId) )
     $cmd = 'rqEdit';
 }
 
-
+$dialogBox = new DialogBox();
 $displayForm = false;
 $displaySettings = true;
 
+/*
+ * Execute commands
+ */
 if( $cmd == 'rmQu' && !is_null($quId) )
 {
     $exercise->removeQuestion($quId);
@@ -120,12 +125,12 @@ if( $cmd == 'exEdit' )
         {
             if( is_null($exId) )
             {
-                $dialogBox = get_lang('Exercise added');
+                $dialogBox->success( get_lang('Exercise added') );
                 $exId = $insertedId;
             }
             else
             {
-                $dialogBox = get_lang('Exercise modified');
+                $dialogBox->success( get_lang('Exercise modified') );
             }
             $displaySettings = true;
         }
@@ -140,11 +145,11 @@ if( $cmd == 'exEdit' )
     {
         if( claro_failure::get_last_failure() == 'exercise_no_title' )
         {
-            $dialogBox = get_lang('Field \'%name\' is required', array('%name' => get_lang('Title')));
+            $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Title'))) );
         }
         elseif( claro_failure::get_last_failure() == 'exercise_incorrect_dates')
         {
-            $dialogBox = get_lang('Start date must be before end date ...');
+            $dialogBox->error( get_lang('Start date must be before end date ...') );
         }
         $cmd = 'rqEdit';
     }
@@ -217,7 +222,7 @@ include($includePath.'/claro_init_header.inc.php');
 echo claro_html_tool_title($toolTitle);
 
 // dialog box if required
-if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo $dialogBox->render();
 
 
 if( $displayForm )

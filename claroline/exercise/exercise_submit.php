@@ -141,7 +141,8 @@ $questionCount = count($questionList);
 
 
 //-- exercise properties
-$dialogBox = '';
+$dialogBox = new DialogBox();
+
 $now = time();
 
 if( claro_is_user_authenticated() )
@@ -175,12 +176,12 @@ if( !$is_allowedToEdit )
        )
     {
         // not yet available, no more available
-        $dialogBox .= get_lang('Exercise not available') . '<br />' . "\n";
+        $dialogBox->error( get_lang('Exercise not available') );
         $exerciseIsAvailable = false;
     }
     elseif( $exercise->getAttempts() > 0 && $userAttemptCount > $exercise->getAttempts() ) // attempt #
     {
-        $dialogBox .= get_lang('You have reached the maximum number of allowed attempts.') . '<br />' . "\n";
+        $dialogBox->error( get_lang('You have reached the maximum number of allowed attempts.') );
         $exerciseIsAvailable = false;
     }
 }
@@ -262,7 +263,7 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
                 $i++;
             }
         }
-    
+
         if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
         {
             set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,claro_get_current_user_id());
@@ -538,9 +539,9 @@ else // ! $showSubmitForm
 {
     if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] )
     {
-        $dialogBox .= '<br /><a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a><br />' . "\n";
+        $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
     }
-    if( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+    echo $dialogBox->render();
 }
 
 include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
