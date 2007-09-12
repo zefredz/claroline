@@ -139,11 +139,7 @@ function valida()
 //    End    -->
 </script>";
 
-$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => get_lang('Announcement'));
 
-$nameTools = get_lang('Messages');
-
-include('../inc/claro_init_header.inc.php');
 
 /*
 * DB tables definition
@@ -169,13 +165,14 @@ $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-echo claro_html_tool_title(get_lang('Messages'));
+
 
 /*
-* DEFAULT DISPLAY SETTINGS
+* Init other vars
 */
 
-$displayForm = TRUE;
+$dialogBox = new DialogBox();
+$displayForm = true;
 
 /*
 * SUBMIT ANNOUNCEMENT COMMAND
@@ -183,7 +180,6 @@ $displayForm = TRUE;
 
 if ( isset($_REQUEST['submitAnnouncement']) )
 {
-
     $userIdList = array();
     $groupIdList = array();
 
@@ -257,7 +253,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         $sentMailCount = claro_mail_user($userIdList, $emailBody, $emailSubject,
                              $senderMail, $senderFirstName.' '.$senderLastName);
 
-        $message = '<p>' . get_lang('Message sent') . '<p>';
+        $dialogBox->success( get_lang('Message sent') );
 
         $unsentMailCount = count($userIdList) - $sentMailCount;
 
@@ -269,27 +265,29 @@ if ( isset($_REQUEST['submitAnnouncement']) )
                           '%messageFailed'  => $messageFailed
                     ));
 
-            $message .= $messageUnvalid;
+            $dialogBox->error( $messageUnvalid );
         }
+
+        $displayForm = false;
+
+		$dialogBox->info('<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Back') . '</a>');
 
     } // end if - $_REQUEST['incorreo']
 
 } // end if - $_REQUEST['submitAnnouncement']
 
 /*
-* DISPLAY ACTION MESSAGE
+* Output
 */
+$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => get_lang('Announcement'));
 
-if ( !empty($message) )
-{
-    echo claro_html_message_box($message)
-    .    '<br />' . "\n"
-    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Return to the list') . '</a>'
-    .    '<br />' . "\n"
-    ;
+$nameTools = get_lang('Messages');
 
-    $displayForm = FALSE;
-}
+include('../inc/claro_init_header.inc.php');
+
+echo claro_html_tool_title($nameTools);
+
+echo $dialogBox->render();
 
 /*----------------------------------------
 DISPLAY FORM    TO FILL    AN ANNOUNCEMENT
