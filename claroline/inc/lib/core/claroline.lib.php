@@ -24,6 +24,8 @@
     
     define ( 'CL_PAGE',     'CL_PAGE' );
     define ( 'CL_FRAMESET', 'CL_FRAMESET' );
+    define ( 'CL_POPUP',    'CL_POPUP' );
+    define ( 'CL_FRAME',    'CL_FRAME' );
 
     class Claroline
     {
@@ -51,6 +53,14 @@
             {
                 case CL_PAGE:
                     $this->display = new ClaroPage;
+                    break;
+                case CL_POPUP:
+                    $this->display = new ClaroPage;
+                    $this->display->popupMode();
+                    break;
+                case CL_FRAME:
+                    $this->display = new ClaroPage;
+                    $this->display->frameMode();
                     break;
                 case CL_FRAMESET:
                     $this->display = new ClaroFrameSet;

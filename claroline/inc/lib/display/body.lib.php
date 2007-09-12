@@ -11,41 +11,16 @@
     {
         public $banner, $footer;
         
-        private $jsBodyOnload = array();
         private $content = '';
-        private $bannerHidden = false;
-        private $footerHidden = false;
         private $claroBodyHidden = false;
-        private $bannerAtEnd = false;
         private $inPopup = false;
+        
+        private $template;
         
         public function __construct()
         {
-            $this->banner = new ClaroBanner;
-            $this->footer = new ClaroFooter;
-        }
-        
-        public function addBodyOnload( $function )
-        {
-            $this->jsBodyOnload[] = $function;
-        }
-        
-        public function brailleMode()
-        {
-            $this->bannerAtEnd = true;
-        }
-        
-        public function popupMode()
-        {
-            $this->inPopup = true;
-            $this->banner->hide();
-            $this->footer->hide();
-        }
-        
-        public function frameMode()
-        {
-            $this->banner->hide();
-            $this->footer->hide();
+            $file = new ClaroTemplateLoader('body.tpl');
+            $this->template = $file->load();
         }
         
         public function hideClaroBody()
@@ -56,6 +31,11 @@
         public function showClaroBody()
         {
             $this->claroBodyHidden = false;
+        }
+        
+        public function popupMode()
+        {
+            $this->inPopup = true;
         }
         
         public function setContent( $content)
@@ -78,72 +58,27 @@
             return $this->content;
         }
         
-        private function _globalVarsCompat()
-        {
-            if ( isset( $GLOBALS['claroBodyOnload'] ) && !empty($GLOBALS['claroBodyOnload']) )
-            {
-                $this->jsBodyOnload = array_merge( $this->jsBodyOnload, $GLOBALS['claroBodyOnload'] );
-            }
-        }
-        
         public function render()
         {
-            $output = '';
-            
-            if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
-            {
-                $this->jsBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
-            }
-            
-            $output .= '<body dir="' . get_locale('text_dir') . '"'
-                .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $this->jsBodyOnload ) . '" ':'')
-                .    '>' . "\n"
-                ;
-                
-            if ( ! $this->bannerAtEnd )
-            {
-                $output .= $this->banner->render() . "\n";
-            }
-            
             if ( ! $this->claroBodyHidden )
             {
-                // need body div
-                    $output .= "\n"
-                        . '<!-- - - - - - - - - - - Claroline Body - - - - - - - - - -->' . "\n"
-                        . '<div id="claroBody">' . "\n"
-                        ;
-            }
-            
-            if ( $this->inPopup )
-            {
-                $output .= PopupWindowHelper::popupEmbed($this->getContent());
+                $this->template->setBlockDisplay('claroBodyStart', true);
+                $this->template->setBlockDisplay('claroBodyEnd', true);
             }
             else
             {
-                $output .= $this->getContent();
+                $this->template->setBlockDisplay('claroBodyStart', false);
+                $this->template->setBlockDisplay('claroBodyEnd', false);
             }
             
-            if ( ! $this->claroBodyHidden )
+            $this->template->addReplacement('content', $this->getContent() );
+            
+            $output = $this->template->render();
+            
+            if ( $this->inPopup )
             {
-                // need body div
-                $output .= "\n" . '</div>' . "\n"
-                    . '<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->' . "\n"
-                    ;
+                $output = PopupWindowHelper::popupEmbed($output);
             }
-            
-            if ( $this->bannerAtEnd )
-            {
-                $output .= $this->banner->render() . "\n";
-            }
-            
-            $output .= $this->footer->render() . "\n";
-            
-            if ( claro_debug_mode() )
-            {
-                $output .= claro_disp_debug_banner();
-            }
-            
-            $output .= '</body>' . "\n";
                 
             return $output;
         }

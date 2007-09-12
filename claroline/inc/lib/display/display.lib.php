@@ -27,7 +27,7 @@
          */
         public static function windowClose()
         {
-            return '<div class="closeWindow"><a class="claroCmd" href="#" '
+            return '<div class="linkCloseWindow"><a class="claroCmd" href="#" '
                 . 'onclick="window.close()">'
                 . get_lang('Close window')
                 . '</a></div>'
@@ -78,13 +78,17 @@
     class ClaroPage extends Display
     {
         public $header, $body, $banner, $footer;
+        
+        private $jsBodyOnload = array();
+        private $bannerAtEnd = false;
+        private $inPopup = false;
 
         public function __construct()
         {
-            $this->header =& new ClaroHeader;
-            $this->body =& new ClaroBody;
-            $this->banner =& $this->body->banner;
-            $this->footer =& $this->body->footer;
+            $this->header = new ClaroHeader;
+            $this->body = new ClaroBody;
+            $this->banner = new ClaroBanner;
+            $this->footer = new ClaroFooter;
         }
 
         /**
@@ -96,6 +100,38 @@
         public function setContent( $content )
         {
             $this->body->setContent( $content );
+        }
+        
+        public function addBodyOnload( $function )
+        {
+            $this->jsBodyOnload[] = $function;
+        }
+
+        public function brailleMode()
+        {
+            $this->bannerAtEnd = true;
+        }
+
+        public function popupMode()
+        {
+            $this->body->popupMode();
+            $this->banner->hide();
+            $this->footer->hide();
+        }
+
+        public function frameMode()
+        {
+            $this->body->hideClaroBody();
+            $this->banner->hide();
+            $this->footer->hide();
+        }
+        
+        private function _globalVarsCompat()
+        {
+            if ( isset( $GLOBALS['claroBodyOnload'] ) && !empty($GLOBALS['claroBodyOnload']) )
+            {
+                $this->jsBodyOnload = array_merge( $this->jsBodyOnload, $GLOBALS['claroBodyOnload'] );
+            }
         }
 
         // output methods
@@ -111,8 +147,39 @@
             $output = '';
 
             $output .= $this->header->render();
+            
+            if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
+            {
+                $this->jsBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
+            }
+            
+            $this->_globalVarsCompat();
+
+            $output .= '<body dir="' . get_locale('text_dir') . '"'
+                .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $this->jsBodyOnload ) . '" ':'')
+                .    '>' . "\n"
+                ;
+                
+            if ( ! $this->bannerAtEnd )
+            {
+                $output .= $this->banner->render() . "\n";
+            }
 
             $output .= $this->body->render();
+            
+            if ( $this->bannerAtEnd )
+            {
+                $output .= $this->banner->render() . "\n";
+            }
+
+            $output .= $this->footer->render() . "\n";
+
+            if ( claro_debug_mode() )
+            {
+                $output .= claro_disp_debug_banner();
+            }
+
+            $output .= '</body>' . "\n";
 
             $output .= '</html>' . "\n";
 
