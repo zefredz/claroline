@@ -86,7 +86,7 @@ $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
 $cmd = ( isset($_REQUEST['cmd']) ) ?$_REQUEST['cmd']: null;
 
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 if     ( 'rqAdd' == $cmd ) $subTitle = get_lang('Add an event');
 elseif ( 'rqEdit' == $cmd ) $subTitle = get_lang('Edit Event');
@@ -140,8 +140,11 @@ if ( $is_allowedToEdit )
         $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
         if ( $entryId != false )
         {
-            $dialogBox .= '<p>' . get_lang('Event added to the agenda') . '</p>' . "\n";
-            $dialogBox .= linker_update(); //return textual error msg
+            $dialogBox->success( get_lang('Event added to the agenda') );
+
+            // update linker and get error log
+            $linkerUpdateLog = linker_update();
+            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
@@ -156,7 +159,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox .= '<p>' . get_lang('Unable to add the event to the agenda') . '</p>' . "\n";
+            $dialogBox->error( get_lang('Unable to add the event to the agenda') );
         }
     }
 
@@ -174,14 +177,18 @@ if ( $is_allowedToEdit )
         {
             if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting))
             {
-                $dialogBox .= linker_update(); //return textual error msg
+                $dialogBox->success( get_lang('Event updated into the agenda') );
+
+				// update linker and get error log
+	            $linkerUpdateLog = linker_update();
+	            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
                 $autoExportRefresh = TRUE;
-                $dialogBox .= '<p>' . get_lang('Event updated into the agenda') . '</p>' . "\n";
             }
             else
             {
-                $dialogBox .= '<p>' . get_lang('Unable to update the event into the agenda') . '</p>' . "\n";
+                $dialogBox->error( get_lang('Unable to update the event into the agenda') );
             }
         }
     }
@@ -195,7 +202,7 @@ if ( $is_allowedToEdit )
 
         if ( agenda_delete_item($id) )
         {
-            $dialogBox .= '<p>' . get_lang('Event deleted from the agenda') . '</p>' . "\n";
+            $dialogBox->success( get_lang('Event deleted from the agenda') );
 
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
             $autoExportRefresh = TRUE;
@@ -206,7 +213,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox = '<p>' . get_lang('Unable to delete event from the agenda') . '</p>' . "\n";
+            $dialogBox->error( get_lang('Unable to delete event from the agenda') );
         }
 
         linker_delete_resource();
@@ -220,7 +227,7 @@ if ( $is_allowedToEdit )
     {
         if ( agenda_delete_all_items())
         {
-            $dialogBox .= '<p>' . get_lang('Event deleted from the agenda') . '</p>' . "\n";
+            $dialogBox->success( get_lang('All events deleted from the agenda') );
 
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
@@ -229,7 +236,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox = '<p>' . get_lang('Unable to delete event from the agenda') . '</p>' . "\n";
+            $dialogBox->error( get_lang('Unable to delete all events from the agenda') );
         }
 
         linker_delete_all_tool_resources();
@@ -256,7 +263,7 @@ if ( $is_allowedToEdit )
 
         if ( agenda_set_item_visibility($id, $visibility)  )
         {
-            $dialogBox = get_lang('Visibility modified');
+            //$dialogBox->success( get_lang('Visibility modified') );
         }
         //        else
         //        {
@@ -370,7 +377,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo $dialogBox->render();
 
 
 if ($display_form)
