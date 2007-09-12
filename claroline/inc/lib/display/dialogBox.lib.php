@@ -14,13 +14,13 @@ define ( 'DIALOG_DEBUG',   'DIALOG_DEBUG' );
 
 class DialogBox
 {
-    var $_dialogBox = array();
-    var $_size = array();
+    private $_dialogBox = array();
+    private $_size = array();
 
 	/*
 	 * Constructor
 	 */
-    function DialogBox()
+    public function __construct()
     {
         $this->_size[DIALOG_INFO] = 0;
         $this->_size[DIALOG_SUCCESS] = 0;
@@ -34,7 +34,7 @@ class DialogBox
 	 * Add a standard message
 	 * @param $msg string text to show in dialog
 	 */
-    function info( $msg )
+    public function info( $msg )
     {
         $this->message( $msg, DIALOG_INFO );
         $this->_size[DIALOG_INFO]++;
@@ -44,7 +44,7 @@ class DialogBox
 	 * Add a success message
 	 * @param $msg string text to show in dialog
 	 */
-    function success( $msg )
+    public function success( $msg )
     {
         $this->message( $msg, DIALOG_SUCCESS );
         $this->_size[DIALOG_SUCCESS]++;
@@ -54,7 +54,7 @@ class DialogBox
 	 * Add an error message
 	 * @param $msg string text to show in dialog
 	 */
-    function error( $msg )
+    public function error( $msg )
     {
         $this->message( $msg, DIALOG_ERROR );
         $this->_size[DIALOG_ERROR]++;
@@ -64,7 +64,7 @@ class DialogBox
 	 * Add a question
 	 * @param $msg string text to show in dialog
 	 */
-    function question( $msg )
+    public function question( $msg )
     {
         $this->message( $msg, DIALOG_QUESTION );
         $this->_size[DIALOG_QUESTION]++;
@@ -74,7 +74,7 @@ class DialogBox
 	 * Add a form
 	 * @param $msg string text to show in dialog
 	 */
-    function form( $msg )
+    public function form( $msg )
     {
         $this->message( $msg, DIALOG_FORM );
         $this->_size[DIALOG_FORM]++;
@@ -84,7 +84,7 @@ class DialogBox
 	 * Add a debug message
 	 * @param $msg string text to show in dialog
 	 */
-    function debug( $msg )
+    public function debug( $msg )
     {
         $this->message( $msg, DIALOG_DEBUG );
         $this->_size[DIALOG_DEBUG]++;
@@ -103,7 +103,7 @@ class DialogBox
 	/*
 	 * returns html required to display the dialog box
 	 */
-    function render()
+    public function render()
     {
     	if( !empty($this->_dialogBox) )
     	{
