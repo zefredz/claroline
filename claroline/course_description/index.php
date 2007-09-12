@@ -56,7 +56,7 @@ else                                                                 $category =
 /*
  * init other vars
  */
-$messageList = array();
+$dialogBox = new DialogBox();
 
 if ( $is_allowedToEdit && !is_null($cmd) )
 {
@@ -86,22 +86,22 @@ if ( $is_allowedToEdit && !is_null($cmd) )
                 if ( $descId )
                 {
                     $eventNotifier->notifyCourseEvent('course_description_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
-                    $messageList['info'][] = '<p>' . get_lang('Description updated') . '</p>';
+                    $dialogBox->success( get_lang('Description updated') );
                 }
                 else
                 {
                     $eventNotifier->notifyCourseEvent('course_description_added', claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
-                    $messageList['info'][] = '<p>' . get_lang('Description added') . '</p>';
+                    $dialogBox->success( get_lang('Description added') );
                 }
             }
             else
             {
-                $messageList['info'][] = '<p>' . get_lang('Unable to update') . '</p>';
+                $dialogBox->error( get_lang('Unable to update') );
             }
         }
         else
         {
-            $messageList['info'][] = '<p>' . get_lang('Check input') . '</p>';
+            // $dialogBox->error( get_lang('Unkown problem') );
             $cmd = 'rqEdit';
         }
     }
@@ -138,11 +138,11 @@ if ( $is_allowedToEdit && !is_null($cmd) )
         if ( $description->delete() )
         {
             $eventNotifier->notifyCourseEvent('course_description_deleted',claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
-            $messageList['info'][] = '<p>' . get_lang("Description deleted.") . '</p>';
+            $dialogBox->success( get_lang("Description deleted.") );
         }
         else
         {
-            $messageList['info'][] = '<p>' . get_lang("Unable to delete") . '</p>';
+            $dialogBox->error( get_lang("Unable to delete") );
         }
     }
 
@@ -192,7 +192,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 
 //-- dialogBox
-echo claro_html_msg_list($messageList);
+echo $dialogBox->render();
 
 if ( $is_allowedToEdit )
 {
