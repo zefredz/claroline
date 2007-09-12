@@ -98,6 +98,8 @@ $displayList = TRUE;
 
 $subTitle = '';
 
+$dialogBox = new DialogBox();
+
 /**
  *                    COMMANDS SECTION (COURSE MANAGER ONLY)
  */
@@ -155,7 +157,8 @@ if($is_allowedToEdit) // check teacher status
 
             if ( announcement_delete_item($id) )
             {
-                $message = get_lang('Announcement has been deleted');
+                $dialogBox->success( get_lang('Announcement has been deleted') );
+
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
@@ -178,7 +181,8 @@ if($is_allowedToEdit) // check teacher status
             $announcementList = announcement_get_item_list($context);
             if ( announcement_delete_all_items() )
             {
-                $message = get_lang('Announcements list has been cleared up');
+                $dialogBox->success( get_lang('Announcements list has been cleared up') );
+
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $eventNotifier->notifyCourseEvent('all_anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $announcementList , claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
@@ -227,7 +231,7 @@ if($is_allowedToEdit) // check teacher status
             }
             if (announcement_set_item_visibility($id,$visibility))
             {
-                $message = get_lang('Visibility modified');
+                // $dialogBox->success( get_lang('Visibility modified') );
             }
             $autoExportRefresh = TRUE;
         }
@@ -263,8 +267,12 @@ if($is_allowedToEdit) // check teacher status
 
                 if ( announcement_update_item((int) $_REQUEST['id'], $title, $content) )
                 {
-                    $message = get_lang('Announcement has been modified');
-                    $message .= linker_update();
+                    $dialogBox->success( get_lang('Announcement has been modified') );
+
+                    // update linker and get error log
+	            	$linkerUpdateLog = linker_update();
+	            	if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+
                     $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                     $autoExportRefresh = TRUE;
@@ -280,10 +288,13 @@ if($is_allowedToEdit) // check teacher status
                 $insert_id = announcement_add_item($title,$content) ;
                 if ( $insert_id )
                 {
-                    // notify that a new anouncement is present in this course
+                    $dialogBox->success( get_lang('Announcement has been added') );
+
+                    // update linker and get error log
+	            	$linkerUpdateLog = linker_update();
+	            	if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+
                     $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
-                    $message  = get_lang('Announcement has been added');
-                    $message .= linker_update();
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                     $autoExportRefresh = TRUE;
                 }
@@ -353,7 +364,7 @@ if($is_allowedToEdit) // check teacher status
                 $sentMailCount = claro_mail_user($studentIdList, $emailBody,
                                   $emailSubject, claro_get_current_user_data('mail'), $courseSender);
 
-                $message = '<p>' . get_lang('Message sent') . '<p>';
+                $dialogBox->success( get_lang('Message sent') );
 
                 $unsentMailCount = $studentIdCount - $sentMailCount;
 
@@ -365,7 +376,7 @@ if($is_allowedToEdit) // check teacher status
                                 '%messageFailed'  => $messageFailed
                                 ));
 
-                        $message .= $messageUnvalid;
+                        $dialogBox->error( $messageUnvalid );
                 }
             }   // end if $emailOption==1
         }   // end if $submit Announcement
@@ -479,7 +490,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
 echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-if ( !empty($message) ) echo claro_html_message_box($message);
+echo $dialogBox->render();
 
 echo '<p>'
 .    claro_html_menu_horizontal($cmdList)
