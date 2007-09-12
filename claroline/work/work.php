@@ -57,7 +57,7 @@ $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 $allowedTags = '<img>';
 
 // initialise dialog box to an empty string, all dialog will be concat to it
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 // permission
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -180,7 +180,7 @@ if ($is_allowedToEdit)
         //notify eventmanager
         $eventNotifier->notifyCourseEvent('work_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
 
-        $dialogBox .= get_lang('Assignment deleted');
+        $dialogBox->success( get_lang('Assignment deleted') );
     }
 
     /*--------------------------------------------------------------------
@@ -198,16 +198,16 @@ if ($is_allowedToEdit)
         {
             $assignment->save();
 
-            $dialogBox .= get_lang('Assignment modified');
+            $dialogBox->success( get_lang('Assignment modified') );
         }
         else
         {
             if(claro_failure::get_last_failure() == 'assignment_no_title')
-               $dialogBox .= get_lang('Assignment title required').'<br />';
+               $dialogBox->error( get_lang('Assignment title required') );
             if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-                $dialogBox .= get_lang('Assignment title already exists').'<br />';
+               $dialogBox->error( get_lang('Assignment title already exists') );
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-                $dialogBox .= get_lang('Start date must be before end date ...')."<br />";
+               $dialogBox->error( get_lang('Start date must be before end date ...') );
 
             $cmd = 'rqEditAssig';
         }
@@ -240,7 +240,7 @@ if ($is_allowedToEdit)
         {
             $lastAssigId = $assignment->save();
             // confirmation message
-            $dialogBox .= get_lang('New assignment created');
+            $dialogBox->success( get_lang('New assignment created') );
 
             if($lastAssigId)
             {
@@ -251,11 +251,11 @@ if ($is_allowedToEdit)
         else
         {
             if(claro_failure::get_last_failure() == 'assignment_no_title')
-               $dialogBox .= get_lang('Assignment title required').'<br />';
+               $dialogBox->error( get_lang('Assignment title required') );
             if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-                $dialogBox .= get_lang('Assignment title already exists').'<br />';
+               $dialogBox->error( get_lang('Assignment title already exists') );
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-                $dialogBox .= get_lang('Start date must be before end date ...')."<br />";
+               $dialogBox->error( get_lang('Start date must be before end date ...') );
 
             $cmd = 'rqMkAssig';
         }
@@ -372,10 +372,7 @@ if ($is_allowedToEdit)
                             DIALOG BOX SECTION
       --------------------------------------------------------------------*/
 
-    if ( isset($dialogBox) && !empty($dialogBox) )
-    {
-        echo claro_html_message_box($dialogBox);
-    }
+    echo $dialogBox->render();
 
     /*--------------------------------------------------------------------
                           CREATE AND EDIT FORM

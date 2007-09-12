@@ -38,7 +38,7 @@ $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 $allowedTags = '<img>';
 
 // initialise dialog box to an empty string, all dialog will be concat to it
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 // permission
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -99,7 +99,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
     {
         if ($_FILES['autoFeedbackFilename']['size'] > $fileAllowedSize)
         {
-            $dialogBox .= get_lang('You didnt choose any file to send, or it is too big') . '<br />';
+            $dialogBox->error( get_lang('You didnt choose any file to send, or file is too big') );
             $formCorrectlySent = false;
             $autoFeedbackFilename = $assignment->getAutoFeedbackFilename();
         }
@@ -129,7 +129,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
             }
             else
             {
-                $dialogBox .= get_lang('Cannot copy the file') . '<br />';
+                $dialogBox->error( get_lang('Cannot copy the file') );
                 $formCorrectlySent = false;
             }
 
@@ -182,15 +182,13 @@ if($is_allowedToEdit)
         // form data have been handled before this point if the form was sent
         if( $formCorrectlySent && $assignment->save() )
         {
-            $dialogBox .= get_lang('Feedback edited') . '<br /><br />';
-            $dialogBox .= '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">';
-            $dialogBox .= get_lang('Continue');
-            $dialogBox .= '</a>';
+            $dialogBox->success( get_lang('Feedback edited') );
+            $dialogBox->info('<a href="./workList.php?assigId=' . $assignmentId . '">' . get_lang('Continue') . '</a>' );
 
             $displayFeedbackForm = false;
 
             //report event to eventmanager "feedback_posted"
-            $eventNotifier->notifyCourseEvent("work_feedback_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], '0', '0');
+            $eventNotifier->notifyCourseEvent("work_feedback_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $assignmentId, '0', '0');
         }
         else
         {
@@ -213,17 +211,17 @@ if($is_allowedToEdit)
             $form['autoFeedbackText'] 			= $assignment->getAutoFeedbackText();
             $form['autoFeedbackFilename'] 		= $assignment->getAutoFeedbackFilename();
             $form['autoFeedbackSubmitMethod'] 	= $assignment->getAutoFeedbackSubmitMethod();
-
-            // end date (as a reminder for the "after end date" option
-        	$form['unix_end_date']				= $assignment->getEndDate();
         }
         else
         {
             // there was an error in the form
             $form['autoFeedbackText'] 			= $_REQUEST['autoFeedbackText'];
-        	$form['autoFeedbackFilename'] 		= $_REQUEST['autoFeedbackFilename'];
+        	$form['autoFeedbackFilename'] 		= (!empty($_REQUEST['autoFeedbackFilename'])?$_REQUEST['autoFeedbackFilename']:'');
             $form['autoFeedbackSubmitMethod'] 	= $_REQUEST['autoFeedbackSubmitMethod'];
         }
+
+        // end date (as a reminder for the "after end date" option
+		$form['unix_end_date']				= $assignment->getEndDate();
 
         // ask the display of the form
         if($form['autoFeedbackSubmitMethod'] == 'ENDDATE')
@@ -252,14 +250,15 @@ if($is_allowedToEdit)
 
 // bredcrump to return to the list when in a form
 $interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments'));
-$interbredcrump[]= array ('url' => './workList.php?assigId=' . $_REQUEST['assigId'], 'name' => get_lang('Assignment'));
+$interbredcrump[]= array ('url' => './workList.php?assigId=' . $assignmentId, 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
-if ($dialogBox) echo claro_html_message_box($dialogBox);
+echo $dialogBox->render();
+
 /**
  * FEEDBACK FORM
  */
@@ -269,9 +268,9 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<input type="hidden" name="cmd" value="exEditFeedback" />' . "\n"
     ;
 
-    if( isset($_REQUEST['assigId']) )
+    if( isset($assignmentId) )
     {
-        echo '<input type="hidden" name="assigId" value="' . $_REQUEST['assigId'] . '" />' . "\n";
+        echo '<input type="hidden" name="assigId" value="' . $assignmentId . '" />' . "\n";
     }
     echo '<table cellpadding="5" width="100%">' . "\n\n"
     .    '<tr>' . "\n"
@@ -295,7 +294,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '</tr>' . "\n\n"
     ;
 
-    if( isset($form['autoFeedbackFilename']) && $form['autoFeedbackFilename'] != '' )
+    if( !empty($form['autoFeedbackFilename']) )
     {
     	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
         $completeFileUrl = $assignment->getAssigDirWeb() . $form['autoFeedbackFilename'];
@@ -356,7 +355,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
     .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-    .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
+    .    claro_html_button('./workList.php?assigId=' . $assignmentId, get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     .    '</table>' . "\n"

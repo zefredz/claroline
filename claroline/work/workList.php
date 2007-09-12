@@ -55,9 +55,6 @@ claro_set_display_mode_available(true);
 $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes (from config file)
 $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 
-// initialise dialog box to an empty string, all dialog will be concat to it
-$dialogBox = '';
-
 /*============================================================================
 	Clean informations sent by user
   ============================================================================*/
