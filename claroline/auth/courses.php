@@ -360,7 +360,7 @@ if ( $cmd == 'rqReg' ) // show course of a specific category
 
 if ( $cmd == 'rqReg' && ( !empty($category) || !empty($parentCategoryCode) ) )
 {
-    $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&amp;category=' . $parentCategoryCode;
+    $backUrl   = $_SERVER['PHP_SELF'].'?cmd=rqReg&amp;category=' . urlencode($parentCategoryCode);
     $backLabel = get_lang('Back to parent category');
 }
 else
@@ -460,7 +460,7 @@ switch ( $displayMode )
 
                     if ($thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0)
                     {
-                        $url = $_SERVER['PHP_SELF'] . '?cmd=rqReg&amp;category=' . $thisCategory['code'] . $inURL ;
+                        $url = $_SERVER['PHP_SELF'] . '?cmd=rqReg&amp;category=' . urlencode($thisCategory['code']) . $inURL ;
 
                         echo '<a href="' . $url . '">' . $thisCategory['name'] . '</a>' . '&nbsp<small>(' . $thisCategory['nbCourse'] . ')</small>' ;
                     }

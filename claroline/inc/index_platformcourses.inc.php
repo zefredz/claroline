@@ -25,7 +25,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
 {
     $backCommandLine = '<p>'
                       .'<small>'
-                      .'<a href="'.$_SERVER['PHP_SELF']."?category=".$parentCategory['code_P'].'">'
+                      .'<a href="'.$_SERVER['PHP_SELF']."?category=". urlencode($parentCategory['code_P']) .'">'
                       .'&lt;&lt; '.get_lang('previous level')
                       .'</a>'
                       .'</small>'
@@ -56,7 +56,7 @@ if ( ( count($categoryList) - 1 )  >= 0 )
 
         if ( $thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0 )
         {
-            echo '<a href="' . $_SERVER['PHP_SELF'].'?category=' . $thisCategory['code'] . '">'
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?category='. urlencode($thisCategory['code']) .'">'
             .    $thisCategory['name']
             .    '</a>'
             ;

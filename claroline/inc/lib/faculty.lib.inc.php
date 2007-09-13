@@ -78,7 +78,7 @@ function claro_disp_tree($elem,$father,$space)
                     //Display the picture to edit and delete a category
                     echo '</td>'
                     .    '<td  align="center">'
-                    .    '<a href="./admincourses.php?category=' . $one_faculty['code'] . '">'
+                    .    '<a href="./admincourses.php?category=' . urlencode($one_faculty['code']) . '">'
                     .    get_node_children_count_course( $one_faculty['code'] )
                     .    '</a>' ;
 
