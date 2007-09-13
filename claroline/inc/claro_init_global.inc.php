@@ -23,12 +23,11 @@ require_once  dirname(__FILE__) . '/lib/claro_main.lib.php';
 
 $_SERVER['PHP_SELF'] = php_self();
 
-$includePath = get_path('incRepositorySys');
-$mainConfPath = get_path('incRepositorySys') . '/../../platform/conf/' . 'claro_main.conf.php';
+$mainConfigurationFile = dirname(__FILE__) . '/../../platform/conf/claro_main.conf.php';
 
-if ( file_exists($mainConfPath) )
+if ( file_exists($mainConfigurationFile) )
 {
-    include $mainConfPath;
+    include $mainConfigurationFile;
 }
 else
 {
@@ -49,6 +48,16 @@ if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
   Various Path Init
   ----------------------------------------------------------------------*/
 
+$includePath            = get_path('incRepositorySys');
+$clarolineRepositorySys = get_path('clarolineRepositorySys');
+$clarolineRepositoryWeb = get_path('clarolineRepositoryWeb');
+$coursesRepositorySys   = get_path('coursesRepositorySys');
+$coursesRepositoryWeb   = get_path('coursesRepositoryWeb');
+$rootAdminWeb           = get_path('rootAdminWeb');
+$imgRepositoryAppend    = get_path('imgRepositoryAppend');
+$imgRepositorySys       = get_path('imgRepositorySys');
+$imgRepositoryWeb       = get_path('imgRepositoryWeb');
+
 // Path to the PEAR library. PEAR stands for "PHP Extension and Application
 // Repository". It is a framework and distribution system for reusable PHP
 // components. More on http://pear.php.net.
@@ -64,15 +73,6 @@ define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/pear');
 // rely on the php.ini include_path settings
 
 set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
-
-$clarolineRepositorySys = get_path('clarolineRepositorySys');
-$clarolineRepositoryWeb = get_path('clarolineRepositoryWeb');
-$coursesRepositorySys   = get_path('coursesRepositorySys');
-$coursesRepositoryWeb   = get_path('coursesRepositoryWeb');
-$rootAdminWeb           = get_path('rootAdminWeb');
-$imgRepositoryAppend    = get_path('imgRepositoryAppend');
-$imgRepositorySys       = get_path('imgRepositorySys');
-$imgRepositoryWeb       = get_path('imgRepositoryWeb');
 
 // Unix file permission access ...
 
