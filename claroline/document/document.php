@@ -1089,10 +1089,14 @@ if ('exDownload' == $cmd )
         while ( false !== ($file = readdir($handle)) )
         {
             if ($file != '.' && $file != '..')
-            {
-                $fileCreationTimeInHour = (time() - filemtime($downloadArchivePath . '/' . $file))/60/60;
-                // If file is old of 2 hours delete it
-                if ($fileCreationTimeInHour > 2) unlink($downloadArchivePath . '/' . $file);
+            {                
+                $fileCreationTimeInMinute = (time() - filemtime($downloadArchivePath . '/' . $file))/60;
+
+                // If file is old of 60 minutes delete it
+                if ($fileCreationTimeInMinute > 60 )
+                {
+                    unlink($downloadArchivePath . '/' . $file);
+                }
             }
         }
         closedir($handle);
