@@ -51,7 +51,7 @@ include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 $last_visit    = claro_get_current_user_data('lastLogin');
 $error         = false;
 $forumAllowed  = true;
-$error_message = '';
+$dialogBox = new DialogBox();
 
 /*=================================================================
   Main Section
@@ -84,7 +84,7 @@ if ( $forumSettingList )
     {
         // user are not allowed to see topics of this group
         $forumAllowed       = false;
-        $error_message = get_lang('Not allowed');
+        $dialogBox->error( get_lang('Not allowed') );
     }
 
     if ( $forumAllowed )
@@ -102,7 +102,7 @@ else
     $forumAllowed       = false;
     $forum_post_allowed = false;
     $forum_cat_id       = null;
-    $error_message      = get_lang('Not allowed');
+    $dialogBox->error( get_lang('Not allowed') );
 }
 
 /*=================================================================
@@ -125,7 +125,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( ! $forumAllowed )
 {
-    echo claro_html_message_box($error_message);
+    echo $dialogBox->render();
 }
 else
 {

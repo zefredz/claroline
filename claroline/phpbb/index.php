@@ -54,7 +54,7 @@ Initialise variables
 
 $last_visit = claro_get_current_user_data('lastLogin');
 $is_allowedToEdit = claro_is_course_manager() ;
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 /*=================================================================
 Main Section
@@ -114,7 +114,7 @@ $is_allowedToEdit ? 'help_forum.php' : false);
 
 echo disp_search_box();
 
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo $dialogBox->render();
 
 // Forum toolbar
 

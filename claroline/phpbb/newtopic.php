@@ -46,7 +46,7 @@ include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 $allowed = TRUE;
 $error = FALSE;
 
-$error_message = '';
+$dialogBox = new DialogBox();
 $pagetype =  'newtopic';
 
 /*=================================================================
@@ -109,7 +109,7 @@ elseif ( $forumSettingList )
         // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
         $allowed = FALSE;
-        $error_message = get_lang('Not allowed') ;
+        $dialogBox->error( get_lang('Not allowed') );
     }
     else
     {
@@ -139,7 +139,7 @@ elseif ( $forumSettingList )
             // prevent to go further if the fields are actually empty
             if ( strip_tags($message) == '' || $subject == '' )
             {
-                $error_message = get_lang('You cannot post an empty message');
+                $dialogBox->error( get_lang('You cannot post an empty message') );
                 $error = TRUE;
             }
 
@@ -164,7 +164,7 @@ else
 {
     // forum doesn't exists
     $allowed = false;
-    $error_message = get_lang('Not allowed');
+    $dialogBox->error( get_lang('Not allowed') );
 }
 
 /*=================================================================
@@ -181,8 +181,7 @@ echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.p
 
 if ( ! $allowed )
 {
-    // not allowed
-    echo claro_html_message_box($error_message);
+	echo $dialogBox->render();
 }
 else
 {
@@ -199,7 +198,7 @@ else
         if ( $error )
         {
             // display error message
-            echo claro_html_message_box($error_message);
+            echo $dialogBox->render();
         }
 
         echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name)
@@ -216,7 +215,7 @@ else
         .    '<tr  valign="top">' . "\n"
         .    '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
 
-        if ( !empty($message) ) $content = htmlspecialchars($message);
+        if ( !empty($message) ) $content = $message;
         else                    $content = '';
 
         echo '<td>'

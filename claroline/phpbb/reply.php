@@ -46,7 +46,7 @@ include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 $error = FALSE;
-$error_message = '';
+$dialogBox = new DialogBox();
 $allowed = TRUE;
 $pagetype  = 'reply';
 
@@ -86,7 +86,7 @@ elseif ( $topicSettingList )
     if ( $forum_id != $topicSettingList['forum_id'] )
     {
         $allowed = FALSE;
-        $error_message = get_lang('Not allowed') ;
+        $dialogBox->error( get_lang('Not allowed') );
     }
     else
     {
@@ -116,7 +116,7 @@ elseif ( $topicSettingList )
             // forum and the group of the concerned forum isn't the same as the session
             // one, something weird is happening, indeed ...
             $allowed = FALSE;
-            $error_message = get_lang('Not allowed') ;
+            $dialogBox->error( get_lang('Not allowed') );
         }
 
         if ( isset($_REQUEST['submit']) )
@@ -142,7 +142,7 @@ elseif ( $topicSettingList )
             else
             {
                 $error = TRUE;
-                $error_message = get_lang('You cannot post an empty message');
+                $dialogBox->error( get_lang('You cannot post an empty message') );
             }
         }
     }
@@ -151,7 +151,7 @@ else
 {
     // topic doesn't exist
     $error = 1;
-    $error_message = get_lang('Not allowed');
+    $dialogBox->error( get_lang('Not allowed') );
 }
 
 /*=================================================================
@@ -173,7 +173,7 @@ echo claro_html_tool_title(get_lang('Forums'),
 if ( !$allowed )
 {
     // not allowed
-    echo claro_html_message_box($error_message);
+    echo $dialogBox->render();
 }
 else
 {
@@ -187,7 +187,7 @@ else
     {
         if ( $error )
         {
-            echo claro_html_message_box($error_message);
+            echo $dialogBox->render();
         }
 
         echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id));

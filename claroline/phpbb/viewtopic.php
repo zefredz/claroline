@@ -47,7 +47,7 @@ Initialise variables
 $last_visit    = claro_get_current_user_data('lastLogin');
 $error         = FALSE;
 $allowed       = TRUE;
-$error_message = '';
+$dialogBox = new DialogBox();
 
 /*=================================================================
 Main Section
@@ -88,7 +88,7 @@ if ($topicSettingList)
     && ! ( ($forumSettingList['idGroup'] == claro_get_current_group_id()) || claro_is_group_allowed()) )
     {
         $allowed = FALSE;
-        $error_message = get_lang('Not allowed');
+        $dialogBox->error( get_lang('Not allowed') );
     }
     else
     {
@@ -157,7 +157,7 @@ else
 {
     // forum or topic doesn't exist
     $allowed = false;
-    $error_message = get_lang('Not allowed');
+    $dialogBox->error( get_lang('Not allowed') );
 }
 
 if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop
@@ -185,7 +185,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( ! $allowed )
 {
-    echo claro_html_message_box($error_message);
+    echo $dialogBox->render();
 }
 else
 {

@@ -46,7 +46,7 @@ include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
 $last_visit = claro_get_current_user_data('lastLogin');
 $error = FALSE;
 $allowed = TRUE;
-$error_message = '';
+$dialogBox = new DialogBox();
 
 $pagetype  = 'editpost';
 
@@ -88,7 +88,7 @@ if ( $postSettingList && $is_allowedToEdit )
         // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
         $allowed = false;
-        $error_message = get_lang('Not allowed') ;
+        $dialogBox->error( get_lang('Not allowed') );
     }
     else
     {
@@ -169,7 +169,7 @@ else
 {
     // post doesn't exist or not allowed to edit post
     $allowed = FALSE;
-    $error_message = get_lang('Not allowed');
+    $dialogBox->error( get_lang('Not allowed') );
 }
 
 /*=================================================================
@@ -187,7 +187,7 @@ echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.p
 
 if ( !$allowed || !$is_allowedToEdit )
 {
-      echo claro_html_message_box($error_message);
+      echo $dialogBox->render();
 }
 else
 {
@@ -209,7 +209,7 @@ else
 
         if ( $error )
         {
-            echo claro_html_message_box($error_message);
+            echo $dialogBox->render();
         }
 
         echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
