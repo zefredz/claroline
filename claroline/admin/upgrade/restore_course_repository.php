@@ -21,21 +21,42 @@
  *
  */
 
-// Include library file
+/*=====================================================================
+  Init Section
+ =====================================================================*/
 
-require '../../inc/claro_init_global.inc.php';
-include_once(get_path('incRepositorySys') . '/lib/admin.lib.inc.php');
+// Initialise Upgrade
+require 'upgrade_init_global.inc.php';
+
+// Security Check
+if ( !claro_is_platform_admin() ) upgrade_disp_auth_form();
+
+/*=====================================================================
+  Main Section
+ =====================================================================*/
 
 $nameTools = get_lang('Restore course repository');
 
-// Security Check
-
-if ( !claro_is_platform_admin() ) claro_disp_auth_form();
-
 // Execute command
 
-if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
+if ( isset($_REQUEST['cmd']) 
+     && ( $_REQUEST['cmd'] == 'exRestore'
+          || ( $_REQUEST['cmd'] == 'exMove' && get_path('coursesRepositoryAppend') != 'courses/'  ) ) )
 {
+    if ( $_REQUEST['cmd'] == 'exMove' )
+    {
+        $newCourseFolder = get_path('rootSys').'courses/';
+
+        if ( ! is_dir($newCourseFolder) )
+        {
+            if ( mkdir($newCourseFolder) === false )
+            {
+                echo sprintf('Creation of "%s" folder failed',$newCourseFolder);
+            }
+        }
+    }
+
+    // query returns course code and course folder
     $tbl_mdb_names = claro_sql_get_main_tbl();
     
     $tbl_course = $tbl_mdb_names['course'];
@@ -49,40 +70,104 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
     if (mysql_num_rows($res_listCourses))
     {
         $restored_courses =  '<ol>' . "\n";
+        $moved_courses =  '<ol>' . "\n";        
         
         while ( ( $course = mysql_fetch_array($res_listCourses)) )
         {
             $currentcoursePathSys = get_path('coursesRepositorySys') . $course['coursePath'] . '/';
             $currentCourseIDsys = $course['sysCode'];
             
-            if ( restore_course_repository($currentCourseIDsys,$currentcoursePathSys) )
+            if ( $_REQUEST['cmd'] == 'exRestore' )
             {
-                $restored_courses .= '<li>' . sprintf('Course repository "%s" updated', $currentcoursePathSys) . '</li>' . "\n";       
+                if ( restore_course_repository($currentCourseIDsys,$currentcoursePathSys) )
+                {
+                    $restored_courses .= '<li>' . sprintf('Course repository "%s" updated', $currentcoursePathSys) . '</li>' . "\n";       
+                }
             }
-        
+            elseif ( $_REQUEST['cmd'] == 'exMove' )
+            {
+                $currentFolder = get_path('coursesRepositorySys') . $course['coursePath'] . '/';
+                $newFolder = get_path('rootSys') . 'courses/' . $course['coursePath'] . '/';
+
+                if ( move_course_folder($currentFolder,$newFolder) === false )
+                {
+                    $moved_courses .= '<li>' . sprintf('Error: Cannot rename "%s" to "%s"', $currentFolder ,$newFolder) . '</li>' . "\n";
+                }
+                else
+                {
+                    $moved_courses.= '<li>' . sprintf('Course repository "%s" moved to "%s"', $currentFolder,$newFolder) . '</li>' . "\n"; 
+                }
+            }        
         }
         $restored_courses .= '</ol>' . "\n";
+        $moved_courses .= '</ol>' . "\n";
+    }
+
+    // TODO if course move succeed, update the value in configuration
+    if ( $_REQUEST['cmd'] == 'exMove' && $error = false )
+    {
+        $_GLOBALS['coursesRepositoryAppend'] = 'courses/';
+
+        $config = new Config('CLMAIN');
+        $config->load();
+        $config->validate(array('coursesRepositoryAppend'=>'courses/'));
+        $config->save();
     }
 }
 
-// Display
-
-// Deal with interbredcrumps  and title variable
-$interbredcrump[]  = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+// Display Header
+echo upgrade_disp_header();
 
 echo claro_html_tool_title($nameTools);
 
 // display result
 
 if (isset($restored_courses)) echo $restored_courses;
+if (isset($moved_courses)) echo $moved_courses;
 
 // display link to launch the restore
+if ( get_path('coursesRepositoryAppend') != 'courses/' )
+{
+    echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMove">' . sprintf('Move "course repository" to folder "%s"', get_path('rootSys') . 'courses/') . '</a></p>';
+}
 
-echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . get_lang('Launch restore of the course repository') . '</a></p>';
+echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . sprintf('Launch restore of the course repository') . '</a></p>';
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+// Display footer
+echo upgrade_disp_footer();
+
+// move folder to new folder
+// TODO use claro_failure
+
+function move_course_folder ( $currentFolder, $newFolder )
+{
+    if ( ! is_dir($currentFolder) )
+    {
+        // current folder doesn't exist
+        return false ;
+    }
+
+    if ( is_dir($newFolder) )
+    {
+        // folder already exists
+        return false ;
+    }
+
+    if ( $currentFolder == $newFolder )
+    {
+        // the currentFolder is the newFolder
+        return false ;
+    }
+                
+    if ( @rename($currentFolder,$newFolder) === false )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
 
 function restore_course_repository($courseId, $courseRepository)
 {
