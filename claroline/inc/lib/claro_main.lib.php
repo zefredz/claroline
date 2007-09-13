@@ -742,7 +742,7 @@ function claro_get_module_name ( $identifier )
     {
         return $toolNameList[$toolLabel];
     }
-
+/*
     if ( isset($toolNameList[$toolLabel]) )
     {
 
@@ -753,7 +753,7 @@ function claro_get_module_name ( $identifier )
             return  get_lang($moduleName);
         }
     }
-
+*/
     return get_lang('No tool name') ;
 
 }
@@ -1493,8 +1493,9 @@ function claro_redirect($location)
     $location = http_response_splitting_workaround($location);
 
     if ($is_IIS)
-    header("Refresh: 0;url=$location");
-    else
+    {
+        header("Refresh: 0;url=$location");
+    }
     header("Location: $location");
 }
 
