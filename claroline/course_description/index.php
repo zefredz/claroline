@@ -362,7 +362,7 @@ if ( count($descList) )
                 $cssInvisible = ' invisible';
             }
 
-            echo '<tr class="superHeader">'
+            echo '<tr class="headerX">'
             .    '<th>'
             .    '<span class="'. $cssItem . $cssInvisible .'">';
 
