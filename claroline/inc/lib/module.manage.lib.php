@@ -183,18 +183,17 @@ function check_module_repositories()
 {
     $mistake_array           = array();
     $mistake_array['folder'] = array();
+    $mistake_array['DB']     = array();
 
     $registredModuleList = get_installed_module_list();
-    $mistake_array['DB'] = array();
 
-    foreach ($registredModuleList as $registredModuleId)
+    foreach ($registredModuleList as $registredModuleLabel)
     {
-        $moduleData = get_module_info($registredModuleId);
-        $moduleEntry = realpath(get_module_url($moduleData['label']) . $moduleData['script_url']);
+        $modulePath = get_module_path($registredModuleLabel);
 
-        if(!file_exists($moduleEntry))
+        if ( !file_exists($modulePath) )
         {
-            $mistake_array['DB'][] = $registredModuleId;
+            $mistake_array['DB'][] = $registredModuleLabel;
         }
     }
 
