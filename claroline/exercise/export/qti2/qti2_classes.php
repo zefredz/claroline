@@ -12,11 +12,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$path = dirname(__FILE__); 
+$path = dirname(__FILE__);
 include_once $path . '/../../lib/answer_multiplechoice.class.php';
 include_once $path . '/../../lib/answer_truefalse.class.php';
 include_once $path . '/../../lib/answer_fib.class.php';
 include_once $path . '/../../lib/answer_matching.class.php';
+
+include_once get_path('incRepositorySys') . '/lib/xml.lib.php';
 
 class Qti2Question extends Question
 {
@@ -29,18 +31,18 @@ class Qti2Question extends Question
         {
             case 'MCUA' :
                 $this->answer = new Qti2AnswerMultipleChoice($this->id, false);
-                break; 
+                break;
             case 'MCMA' :
-                $this->answer = new Qti2AnswerMultipleChoice($this->id, true);   
+                $this->answer = new Qti2AnswerMultipleChoice($this->id, true);
                 break;
             case 'TF' :
-                $this->answer = new Qti2AnswerTrueFalse($this->id, false); 
+                $this->answer = new Qti2AnswerTrueFalse($this->id, false);
                 break;
             case 'FIB' :
-                $this->answer = new Qti2AnswerFillInBlanks($this->id); 
+                $this->answer = new Qti2AnswerFillInBlanks($this->id);
                 break;
             case 'MATCHING' :
-                $this->answer = new Qti2AnswerMatching($this->id); 
+                $this->answer = new Qti2AnswerMatching($this->id);
                 break;
             default :
                 $this->answer = null;
@@ -49,7 +51,7 @@ class Qti2Question extends Question
 
         return true;
     }
-    /**
+	/**
      * allow to import the question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
@@ -62,7 +64,7 @@ class Qti2Question extends Question
             if( isset($questionInfo['title']) )       $this->setTitle($questionInfo['title']);
             if( isset($questionInfo['statement']) )   $this->setDescription($questionInfo['statement']."\n".'<!-- content: imsqti -->');
             $this->setType($questionInfo['type']);
-            
+
             if( !empty($questionInfo['attached_file_url']) )
             {
                 $this->importAttachment($questionInfo['tempdir'].$questionInfo['attached_file_url']);
@@ -72,24 +74,24 @@ class Qti2Question extends Question
         {
             return false;
         }
-    } 
-    
+    }
+
     function importAttachment($importedFilePath)
     {
         // copy file in a tmp directory known by object,
         // attached file will be copied to its final destination when saving question
         $dir = $this->tmpQuestionDirSys;
         $filename = basename($importedFilePath);
-        
-        if( !is_dir( $dir ) )
-        {
-            // create it 
-            if( !claro_mkdir($dir, CLARO_FILE_PERMISSIONS) )
-            {
-                claro_failure::set_failure('cannot_create_tmp_dir');
-                return false;
-            }
-        }
+
+		if( !is_dir( $dir ) )
+		{
+			// create it
+			if( !claro_mkdir($dir, CLARO_FILE_PERMISSIONS) )
+			{
+				claro_failure::set_failure('cannot_create_tmp_dir');
+	        	return false;
+			}
+		}
 
         if( claro_move_file($importedFilePath, $dir.$filename) )
         {
@@ -102,11 +104,11 @@ class Qti2Question extends Question
         }
     }
 }
-    
+
 class Qti2AnswerMultipleChoice extends answerMultipleChoice
 {
     /**
-     * Return the XML flow for the possible answers. 
+     * Return the XML flow for the possible answers.
      *
      */
     function qti2ExportResponses($questionIdent, $questionStatment)
@@ -124,7 +126,7 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
             $out .= '</simpleChoice>'. "\n";
         }
 
-        $out .= '    </choiceInteraction>'. "\n"; 
+        $out .= '    </choiceInteraction>'. "\n";
 
         return $out;
     }
@@ -170,8 +172,8 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
 
         return $out;
     }
-    
-    /**
+
+	/**
      * allow to import the answers, feedbacks, and grades of a question
      * @param questionArray is an array that must contain all the information needed to build the question
 
@@ -186,7 +188,7 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
         foreach ($answerArray as $key => $answer)
         {
             if (!isset($answer['feedback'])) $answer['feedback'] = "";
-            
+
             if (!isset($questionArray['weighting'][$key]))
             {
                 if (isset($questionArray['default_weighting']))
@@ -202,10 +204,10 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
             {
                 $grade = castToFloat($questionArray['weighting'][$key]);
             }
-            
+
             if (in_array($key,$questionArray['correct_answers'])) $is_correct = 1; else $is_correct = 0;
-            
-            $addedAnswer = array( 
+
+            $addedAnswer = array(
                             'answer' => $answer['value'],
                             'correct' => $is_correct,
                             'grade' => $grade,
@@ -219,40 +221,40 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
 
 class Qti2AnswerTrueFalse extends AnswerTrueFalse
 {
-    /**
-     * Return the XML flow for the possible answers. 
+	/**
+     * Return the XML flow for the possible answers.
      *
      */
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>'. "\n";
-        $out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+		$out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
 
-        //set true answer
-        
-        $out .= '      <simpleChoice identifier="answer_true" fixed="false"><![CDATA[' . get_lang('True') . ']]>' . "\n";
+		//set true answer
+
+		$out .= '      <simpleChoice identifier="answer_true" fixed="false"><![CDATA[' . get_lang('True') . ']]>' . "\n";
         if (isset($this->trueFeedback) && $this->trueFeedback != '')
         {
-            $out .= '<feedbackInline identifier="answer_true">' . $this->trueFeedback . '</feedbackInline>'. "\n";
+            $out .= '<feedbackInline identifier="answer_true"><![CDATA[' . $this->trueFeedback . ']]></feedbackInline>'. "\n";
         }
         $out .= '</simpleChoice>'. "\n";
-            
-        //set false answer    
-            
-        $out .= '      <simpleChoice identifier="answer_false" fixed="false"><![CDATA[' . get_lang('False') . ']]>' . "\n";
+
+		//set false answer
+
+		$out .= '      <simpleChoice identifier="answer_false" fixed="false"><![CDATA[' . get_lang('False') . ']]>' . "\n";
         if (isset($this->falseFeedback) && $this->falseFeedback != '')
         {
             $out .= '<feedbackInline identifier="answer_false"><![CDATA[' . $this->falseFeedback . ']]></feedbackInline>'. "\n";
         }
-        $out .= '</simpleChoice>'. "\n";    
-        
-        
-        $out .= '    </choiceInteraction>'. "\n"; 
+        $out .= '</simpleChoice>'. "\n";
+
+
+        $out .= '    </choiceInteraction>'. "\n";
         return $out;
-    }
-    
-    function qti2ExportResponsesDeclaration($questionIdent)
-    {    
+	}
+
+	function qti2ExportResponsesDeclaration($questionIdent)
+    {
         $out = '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="single" baseType="identifier">' . "\n";
 
         //Match the correct answers
@@ -264,10 +266,10 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
         {
             $out .= '      <value>answer_true</value>'. "\n";
         }
-        else
-        {
-            $out .= '      <value>answer_false</value>'. "\n";
-        }
+		else
+		{
+			$out .= '      <value>answer_false</value>'. "\n";
+		}
 
         $out .= '    </correctResponse>'. "\n";
 
@@ -279,24 +281,24 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
         {
             $out .= '      <mapEntry mapKey="answer_true" mappedValue="'.$this->trueGrade.'" />'. "\n";
         }
-        
-        if (isset($this->falseGrade))
+
+		if (isset($this->falseGrade))
         {
             $out .= '      <mapEntry mapKey="answer_false" mappedValue="'.$this->falseGrade.'" />'. "\n";
-        }    
-        
+        }
+
         $out .= '    </mapping>'. "\n";
 
         $out .= '  </responseDeclaration>'. "\n";
 
-        return $out;    
-        
-    }
+        return $out;
+
+	}
 }
 
 
 
-class Qti2AnswerFillInBlanks extends answerFillInBlanks 
+class Qti2AnswerFillInBlanks extends answerFillInBlanks
 {
     /**
      * Export the text with missing words.
@@ -306,9 +308,9 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
     function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $out = '';
-        
-        $out .= '<prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n"; 
-        
+
+        $out .= '<prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
+
         switch ($this->type)
         {
             case TEXTFIELD_FILL :
@@ -326,14 +328,14 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
             case LISTBOX_FILL :
             {
                 $replacementList = array();
-                
+
                 foreach ($this->answerList as $answerKey => $answer)
                 {
                     //build inlinechoice list
 
                     $inlineChoiceList = '';
 
-                    //1-start interaction tag 
+                    //1-start interaction tag
 
                     $inlineChoiceList .= '<inlineChoiceInteraction responseIdentifier="fill_'.$answerKey.'" >'. "\n";
 
@@ -341,7 +343,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
                     foreach ($this->wrongAnswerList as $choiceKey => $wrongAnswer)
                     {
-                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.trim($wrongAnswer).']]></inlineChoice>'. "\n";
+                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.$wrongAnswer.']]></inlineChoice>'. "\n";
                     }
 
                     //3- add correct answers array
@@ -363,7 +365,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
         }
 
         return $out;
-        
+
     }
 
     /**
@@ -381,12 +383,12 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
             if ($this->type == TEXTFIELD_FILL)
             {
-                $out .= '      <value>'.$answer.'</value>'. "\n";
+                $out .= '      <value><![CDATA['.$answer.']]></value>'. "\n";
             }
             else
             {
                 //find correct answer key to apply in manifest and output it
-               
+
                 foreach ($this->answerList as $choiceKey=>$correctAnswer)
                 {
                     if ($correctAnswer==$answer)
@@ -395,9 +397,9 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
                     }
                 }
             }
-            
+
             $out .= '    </correctResponse>'. "\n";
-    
+
             if (isset($this->gradeList[$answerKey]))
             {
                 $out .= '    <mapping>'. "\n";
@@ -410,8 +412,8 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
        return $out;
     }
-    
-    /**
+
+	/**
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
@@ -422,18 +424,18 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
     {
         // $questionArray['answer'] should be empty for this question type
         $this->answerText = $questionArray['response_text'];
-        
-        if ($questionArray['subtype'] == "TEXTFIELD_FILL") 
-        {
-            $this->type = TEXTFIELD_FILL;
+
+        if ($questionArray['subtype'] == "TEXTFIELD_FILL")
+		{
+			$this->type = TEXTFIELD_FILL;
         }
-        if ($questionArray['subtype'] == "LISTBOX_FILL")
+		if ($questionArray['subtype'] == "LISTBOX_FILL")
         {
             $this->wrongAnswerList = $questionArray['wrong_answers'];
             $this->type = LISTBOX_FILL;
         }
 
-        //build correct_answsers array        
+        //build correct_answsers array
         if( isset($questionArray['weighting']) && is_array($questionArray['weighting']) )
         {
             $this->gradeList = array();
@@ -486,7 +488,7 @@ class Qti2AnswerMatching extends answerMatching
 
         $out .= '</matchInteraction>'. "\n";
 
-        return $out; 
+        return $out;
     }
 
     /**
@@ -524,8 +526,8 @@ class Qti2AnswerMatching extends answerMatching
 
         return $out;
     }
-    
-    /**
+
+	/**
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
@@ -539,7 +541,7 @@ class Qti2AnswerMatching extends answerMatching
         //This tick to remove examples in the answers!!!!
         $this->leftList = array();
         $this->rightList = array();
-        
+
         //find right and left column
         $right_column = array_pop($answerArray);
         $left_column  = array_pop($answerArray);
@@ -557,7 +559,7 @@ class Qti2AnswerMatching extends answerMatching
 
                 if (in_array($matched_pattern, $questionArray['correct_answers']) || in_array($matched_pattern_inverted, $questionArray['correct_answers']))
                 {
-                    if (isset($questionArray['weighting'][$matched_pattern]))
+					if (isset($questionArray['weighting'][$matched_pattern]))
                     {
                         $grade = castToFloat($questionArray['weighting'][$matched_pattern]);
                     }
@@ -569,8 +571,8 @@ class Qti2AnswerMatching extends answerMatching
                 }
             }
         }
-        
-        $this->save();
+
+		$this->save();
     }
-} 
+}
 ?>
