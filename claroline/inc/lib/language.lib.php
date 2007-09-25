@@ -504,7 +504,7 @@ function get_lang_weekday_name_list($size='long')
 
 /**
  * Display a date at localized format
- * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
+ * @author Christophe Geschï¿½ <gesche@ipm.ucl.ac.be>
  * @param formatOfDate
          see http://www.php.net/manual/en/function.strftime.php
          for syntax to use for this string
@@ -533,7 +533,7 @@ function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 
     if ($timestamp == -1) $timestamp = claro_time();
 
-    // avec un ereg on fait nous même le replace des jours et des mois
+    // avec un ereg on fait nous mï¿½me le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
@@ -570,19 +570,35 @@ function seems_utf8($str)
 }
 
 /**
- * decode $str if $str is utf8 encoded
+ * Returns utf-8 encoded $str. No changes are made if it was already utf-8
+ *
  */
-function utf8_decode_if_is_utf8($str)
+function claro_utf8_encode($str)
 {
-    if( $GLOBALS['charset'] == 'utf-8' || !seems_utf8($str) )
+	if( $GLOBALS['charset'] == 'utf-8' || seems_utf8($str) )
     {
         return $str;
     }
     else
     {
-        return utf8_decode($str);
+    	return iconv( $GLOBALS['charset'], "UTF-8", $str );
     }
 }
 
+/**
+ * Returns decoded utf-8 $str. No changes are made if it was not utf-8
+ *
+ */
+function claro_utf8_decode($str)
+{
+	if( $GLOBALS['charset'] == 'utf-8' || !seems_utf8($str) )
+    {
+        return $str;
+    }
+    else
+    {
+    	return iconv( "UTF-8", $GLOBALS['charset'], $str );
+    }
+}
 
 ?>
