@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -227,7 +227,7 @@ function elementData($parser,$data)
     global $errorMsgs,$okMsgs;
     global $pathToManifest;
 
-    $data = trim(utf8_decode_if_is_utf8($data));
+    $data = trim(claro_utf8_decode($data));
 
     if (!isset($data)) $data="";
 
@@ -710,7 +710,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     break;
                 }
             }
-        } // if sizeof (...à
+        } // if sizeof (...ï¿½
         else
         {
             $errorFound = true;
