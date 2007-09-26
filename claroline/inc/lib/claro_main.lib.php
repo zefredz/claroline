@@ -95,7 +95,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
         $useCurrentCourseData = true;
     }
     
-    if ( ! array_key_exists( $courseId, $cachedDataList ) )
+    if ( ! array_key_exists( $courseId, $cachedDataList ) || true === $force )
     {
         if ( $useCurrentCourseData )
         {
