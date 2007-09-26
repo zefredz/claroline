@@ -573,15 +573,19 @@ function seems_utf8($str)
  * Returns utf-8 encoded $str. No changes are made if it was already utf-8
  *
  */
-function claro_utf8_encode($str)
+function claro_utf8_encode($str, $toCharset = '' )
 {
-	if( $GLOBALS['charset'] == 'utf-8' || seems_utf8($str) )
+	if( $toCharset != '' )	$charset = $toCharset;
+	else					$charset = $GLOBALS['charset'];
+
+
+	if( strtoupper($charset) == 'UTF-8' || seems_utf8($str) )
     {
         return $str;
     }
     else
     {
-    	return iconv( $GLOBALS['charset'], "UTF-8", $str );
+    	return iconv( $charset, 'UTF-8//TRANSLIT', $str );
     }
 }
 
@@ -589,15 +593,18 @@ function claro_utf8_encode($str)
  * Returns decoded utf-8 $str. No changes are made if it was not utf-8
  *
  */
-function claro_utf8_decode($str)
+function claro_utf8_decode($str, $fromCharset = '')
 {
-	if( $GLOBALS['charset'] == 'utf-8' || !seems_utf8($str) )
+	if( $fromCharset != '' )$charset = $fromCharset;
+	else					$charset = $GLOBALS['charset'];
+
+	if( strtoupper($charset) == 'UTF-8' || !seems_utf8($str) )
     {
         return $str;
     }
     else
     {
-    	return iconv( "UTF-8", $GLOBALS['charset'], $str );
+    	return iconv( 'UTF-8', $charset.'//TRANSLIT', $str );
     }
 }
 
