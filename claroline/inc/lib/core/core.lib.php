@@ -86,15 +86,12 @@
      */
     function protect_against_file_inclusion( $path )
     {
-        // protect against remote file inclusion
-        while ( false !== strpos( $path, '://' ) )
+        while ( false !== strpos( $path, '://' )
+            || false !== strpos( $path, '..' ) )
         {
+            // protect against remote file inclusion
             $path = str_replace( '://', '', $path );
-        }
-        
-        // protect against arbitrary file inclusion
-        while ( false !== strpos( $path, '..' ) )
-        {
+            // protect against arbitrary file inclusion
             $path = str_replace( '..', '.', $path );
         }
             
