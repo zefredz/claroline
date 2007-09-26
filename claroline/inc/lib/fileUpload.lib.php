@@ -448,18 +448,14 @@ function search_img_from_html($htmlFile)
 {
     $imgPathList = array();
 
-    $fp = fopen($htmlFile, "r") or die('<center>can not open file</center>');
-
-    // search and store occurences of the <IMG> tag in an array
-
-    $buffer = fread( $fp, filesize($htmlFile) ) or die('<center>can not read file</center>');;
+    $buffer = file_get_contents( $htmlFile );
 
     if ( preg_match_all('~<[[:space:]]*img[^>]*>~i', $buffer, $matches) )
     {
         $imgTagList = $matches[0];
     }
 
-    fclose ($fp); unset($buffer);
+    unset($buffer);
 
     // Search the image file path from all the <IMG> tag detected
 
