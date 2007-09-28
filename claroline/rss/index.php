@@ -78,7 +78,7 @@ if ( !$_course['visibility'] && !claro_is_course_allowed() )
 // OK TO SEND FEED
 include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
 
-header('Content-type: text/xml;');
+header('Content-type: text/xml; charset=utf-8');
 readfile (build_rss(array('course' => claro_get_current_course_id())));
 }
 ?>
