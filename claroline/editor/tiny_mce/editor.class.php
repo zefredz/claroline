@@ -92,6 +92,7 @@ class editor extends GenericEditor
             .'    theme_advanced_path_location : "bottom",'."\n"
             .'    apply_source_formatting : true,'."\n"
             .'	  cleanup_on_startup : true,'."\n"
+            .'    entity_encoding : "raw",'."\n"
             .'    convert_fonts_to_spans : true,'."\n"
             .'	  directionality : "'.get_locale("text_dir").'",' . "\n"
             .'    convert_urls : false,'."\n" // prevent forced conversion to relative url
