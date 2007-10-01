@@ -14,8 +14,12 @@
      * @author Claro Team <cvs@claroline.net>
      *
      */
-
+     
     if ( count( get_included_files() ) == 1 ) die( '---' );
+    
+    // this file can be called from within a function so we need to add the
+    // folowwing line !!!
+    $claroline = Claroline::getInstance();
 
     echo $claroline->display->header->render();
 

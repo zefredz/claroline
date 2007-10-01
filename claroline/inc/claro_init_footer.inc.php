@@ -20,7 +20,9 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-
+    // this file can be called from within a function so we need to add the
+    // folowwing line !!!
+    $claroline = Claroline::getInstance();
 
     if (!isset($hide_body) || $hide_body == false)
     {
