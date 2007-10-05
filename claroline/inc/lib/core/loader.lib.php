@@ -56,19 +56,32 @@
          */
         public function load( $lib )
         {
-           $found = false;
-            
             foreach ( $this->pathList as $tryPath => $tryUrl )
             {
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__Class__."::Try ".$tryPath.$lib.'.js', 'debug');
+                }
+                
                 if ( file_exists ( $tryPath . '/' . $lib . '.js' ) )
                 {
+                    if ( claro_debug_mode() )
+                    {
+                        pushClaroMessage(__Class__."::Use ".$tryPath.$lib.'.js', 'debug');
+                    }
+                    
                     $this->libraries[$lib] = $tryUrl . '/' . $lib . '.js';
-                    $found = true;
-                    break;
+                    return true;
+                    // break;
                 }
             }
             
-            return $found;
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__Class__."::NotFound ".$lib.'.js', 'error');
+            }
+            
+            return false;
         }
         
         /**
@@ -140,20 +153,34 @@
             
             foreach ( $this->pathList as $tryPath => $tryUrl )
             {
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__Class__."::Try ".$tryPath.$css.'.css', 'debug');
+                }
+                
                 if ( file_exists ( $tryPath . '/' . $css . '.css' ) )
                 {
+                    if ( claro_debug_mode() )
+                    {
+                        pushClaroMessage(__Class__."::Use ".$tryPath.$css.'.css', 'debug');
+                    }
+                    
                     $this->css[$css] = '<link rel="stylesheet" type="text/css"'
                         . ' href="'.$tryUrl . '/' . $css . '.css'.'"'
                         . ' media="'.$media.'" />'
                         ;
                         
-                    $found = true;
-                    break;
+                    return true;
+                    // break;
                 }
             }
-
-
-            return $found;
+            
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__Class__."::NotFound ".$css.'.css', 'error');
+            }
+            
+            return false;
         }
 
         /**
