@@ -93,7 +93,7 @@
             $ret = array();
             $list = $this->getLibraries();
             
-            foreach ( $list as $lib => $url )
+            foreach ( $list as $url )
             {
                 $ret[] = '<script src="'.$url.'" type="text/javascript"></script>';
             }
@@ -149,7 +149,6 @@
         public function load( $css, $media )
         {
             $css = secure_file_path( $css );
-            $found = false;
             
             foreach ( $this->pathList as $tryPath => $tryUrl )
             {
@@ -165,10 +164,10 @@
                         pushClaroMessage(__Class__."::Use ".$tryPath.$css.'.css', 'debug');
                     }
                     
-                    $this->css[$css] = '<link rel="stylesheet" type="text/css"'
-                        . ' href="'.$tryUrl . '/' . $css . '.css'.'"'
-                        . ' media="'.$media.'" />'
-                        ;
+                    $this->css[$css] = array(
+                        'url' => $tryUrl . '/' . $css . '.css',
+                        'media' => $media
+                    );
                         
                     return true;
                     // break;
@@ -189,7 +188,18 @@
          */
         public function toHtml()
         {
-            $str = implode ( "\n", $this->getCss() );
+            $ret = array();
+            $list = $this->getCss();
+
+            foreach ( $list as $css )
+            {
+                $ret[] = '<link rel="stylesheet" type="text/css"'
+                        . ' href="'. $css['url'].'"'
+                        . ' media="'.$css['media'].'" />'
+                        ;
+            }
+
+            $str = implode ( "\n", $ret );
 
             return $str;
         }
