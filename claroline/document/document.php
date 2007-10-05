@@ -1526,7 +1526,10 @@ echo claro_html_tool_title($titleElement,
                            DIALOG BOX SECTION
       --------------------------------------------------------------------*/
 
-    if (isset($dialogBox) && $dialogBox != '') echo claro_html_message_box($dialogBox);
+    if (isset($dialogBox) && $dialogBox != '')
+    {
+        echo claro_html_message_box($dialogBox);
+    }
 
     $is_allowedToEdit ? $colspan = 7 : $colspan = 3;
 
