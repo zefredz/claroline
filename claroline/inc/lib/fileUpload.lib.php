@@ -424,7 +424,9 @@ function treat_secure_file_unzip($fileName, $filePath,
         return claro_failure::set_failure(get_lang('The upload has failed. There is not enough space in your directory'));
     }
 
-    $extractedFileNameList = $zipFile->extract(PCLZIP_OPT_PATH, $extractPath . $filePath);
+    $extractedFileNameList = $zipFile->extract(
+        PCLZIP_OPT_PATH,        $extractPath . $filePath,
+        PCLZIP_OPT_SET_CHMOD,   CLARO_FILE_PERMISSIONS );
 
     if ( is_array($extractedFileNameList) )
     {
