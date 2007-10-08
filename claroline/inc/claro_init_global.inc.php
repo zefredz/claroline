@@ -255,6 +255,7 @@ else pushClaroMessage('module_cache not generated : check access right in '.$cac
 
 uses('core/claroline.lib');
 
+load_module_language();
 
 $claroline = Claroline::getInstance();
 ?>

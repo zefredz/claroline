@@ -527,4 +527,49 @@ function get_module_main_tbl( $arrTblName )
     return $arrToReturn;
 }
 
+function load_module_language ( $module = null )
+{
+    global $_lang ;
+
+    if ( is_null ( $module ) )
+    {
+        $module = get_current_module_label();
+    }
+
+    if ( ! empty ( $module ) )
+    {
+        $moduleLangPath = get_module_path( $module )
+            . '/lang/lang_'.language::current_language()
+            . '.php'
+            ;
+
+        if ( file_exists ( $moduleLangPath ) )
+        {
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__FUNCTION__."::".$module.'::'
+                    . language::current_language().' loaded', 'debug');
+            }
+
+            include $moduleLangPath;
+            
+            return true;
+        }
+        else
+        {
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__FUNCTION__."::".$module.'::'
+                    . language::current_language().' not found', 'debug');
+            }
+            
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
 ?>
