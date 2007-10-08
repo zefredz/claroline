@@ -542,6 +542,8 @@ function load_module_language ( $module = null )
             . '/lang/lang_'.language::current_language()
             . '.php'
             ;
+            
+        $moduleLangPath = protect_against_file_inclusion( $moduleLangPath );
 
         if ( file_exists ( $moduleLangPath ) )
         {
