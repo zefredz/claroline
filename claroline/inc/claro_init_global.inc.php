@@ -168,6 +168,25 @@ require get_path('incRepositorySys') . '/lib/events.lib.inc.php';
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
 /*----------------------------------------------------------------------
+  Check tool access right an block unautorised users
+  ----------------------------------------------------------------------*/
+
+if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
+{
+    if ( ! claro_is_tool_allowed() )
+    {
+        if ( ! claro_is_user_authenticated() )
+        {
+            claro_disp_auth_form(true);
+        }
+        else
+        {
+            claro_die("Not allowed !");
+        }
+    }
+}
+
+/*----------------------------------------------------------------------
   Include the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
 
