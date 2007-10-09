@@ -33,6 +33,18 @@
         {
         }
         
+        public static function getInstance()
+        {
+            if  ( ! ClaroNotifier::$instance )
+            {
+                ClaroNotifier::$instance = new ClaroNotifier;
+            }
+
+            return ClaroNotifier::$instance;
+        }
+        
+        // generic notification methods
+        
         public function eventDefault ($event)
         {
             // get needed info from event
@@ -178,11 +190,7 @@
 
         }
         
-        // alias TODO rename in all scripts !!!!
-        public function get_notified_courses( $date, $user_id )
-        {
-            return $this->getNotifiedCourses( $date, $user_id );
-        }
+        // get notification from database methods
         
         public function getNotifiedCourses( $date, $user_id )
         {
@@ -234,12 +242,6 @@
             //2- return an array with the courses with recent unknow event until the date '$date' in the course list of the user
 
             return $courses;
-        }
-        
-        // alias TODO rename in all scripts !!!!
-        public function get_notified_tools( $course_id, $date, $user_id,$group_id = '0' )
-        {
-            return $this->getNotifiedTools( $course_id, $date, $user_id, $group_id );
         }
         
         public function getNotifiedTools( $course_id, $date, $user_id,$group_id = '0' )
@@ -313,12 +315,6 @@
             return $tools;
         }
         
-        // alias TODO rename in all scripts !!!!
-        public function get_notified_groups( $course_id, $date )
-        {
-            return $this->getNotifiedGroups( $course_id, $date );
-        }
-        
         public function getNotifiedGroups( $course_id, $date )
         {
             //1 - Find infiormation in Session and DB
@@ -359,11 +355,6 @@
            // 2- return an array with the group id with recent unknow event until the date '$date'
 
              return $groups;
-        }
-        
-        public function is_a_notified_ressource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
-        {
-            return $this->isANotifiedRessource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed);
         }
         
         public function isANotifiedRessource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
@@ -423,11 +414,6 @@
             else return false;
         }
         
-        public function is_a_notified_forum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId )
-        {
-            return $this->isANotifiedForum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId );
-        }
-        
         public function isANotifiedForum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId )
         {
 
@@ -454,11 +440,6 @@
                 }
             }
             return false;
-        }
-        
-        public function get_notified_ressources( $course_id, $date, $user_id, $gid, $tid )
-        {
-            return $this->getNotifiedRessources( $course_id, $date, $user_id, $gid, $tid );
         }
         
         public function getNotifiedRessources( $course_id, $date, $user_id, $gid, $tid )
@@ -489,11 +470,6 @@
             return $ressources;
 
         }
-        
-        public function get_last_login_before_today($user_id)
-        {
-            return $this->getLastLoginBeforeToday($user_id);
-        }
 
         public function getLastLoginBeforeToday($user_id)
         {
@@ -514,17 +490,7 @@
             return $login_date;
         }
         
-        public function get_notification_date($user_id)
-        {
-            return $this->getLastActionBeforeLoginDate($user_id);
-        }
-        
         public function getNotificationDate($user_id)
-        {
-            return $this->getLastActionBeforeLoginDate($user_id);
-        }
-        
-        public function get_last_action_before_login_date($user_id)
         {
             return $this->getLastActionBeforeLoginDate($user_id);
         }
@@ -591,14 +557,51 @@
             }
         }
         
-        public static function getInstance()
+        // aliases TODO rename in all scripts !!!!
+        
+        public function get_notified_courses( $date, $user_id )
         {
-            if  ( ! ClaroNotifier::$instance )
-            {
-                ClaroNotifier::$instance = new ClaroNotifier;
-            }
+            return $this->getNotifiedCourses( $date, $user_id );
+        }
 
-            return ClaroNotifier::$instance;
+        public function get_notified_tools( $course_id, $date, $user_id,$group_id = '0' )
+        {
+            return $this->getNotifiedTools( $course_id, $date, $user_id, $group_id );
+        }
+
+        public function get_notified_groups( $course_id, $date )
+        {
+            return $this->getNotifiedGroups( $course_id, $date );
+        }
+
+        public function is_a_notified_ressource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
+        {
+            return $this->isANotifiedRessource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed);
+        }
+
+        public function is_a_notified_forum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId )
+        {
+            return $this->isANotifiedForum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId );
+        }
+
+        public function get_notified_ressources( $course_id, $date, $user_id, $gid, $tid )
+        {
+            return $this->getNotifiedRessources( $course_id, $date, $user_id, $gid, $tid );
+        }
+
+        public function get_last_login_before_today($user_id)
+        {
+            return $this->getLastLoginBeforeToday($user_id);
+        }
+
+        public function get_notification_date($user_id)
+        {
+            return $this->getLastActionBeforeLoginDate($user_id);
+        }
+
+        public function get_last_action_before_login_date($user_id)
+        {
+            return $this->getLastActionBeforeLoginDate($user_id);
         }
     }
 ?>
