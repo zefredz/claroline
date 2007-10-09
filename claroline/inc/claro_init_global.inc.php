@@ -184,6 +184,11 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
             claro_die( get_lang( 'Not allowed' ) );
         }
     }
+    
+    if ( claro_is_in_a_course() )
+    {
+        install_module_in_course( $tlabelReq, claro_get_current_course_id() ) ;
+    }
 }
 
 /*----------------------------------------------------------------------
