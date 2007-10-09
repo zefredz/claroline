@@ -1,7 +1,7 @@
 <?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * Loader classes for CSS and Javascript
      *
@@ -12,12 +12,12 @@
      *              GNU GENERAL PUBLIC LICENSE
      * @package     CORE
      */
-    
+
     if ( count( get_included_files() ) == 1 )
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-    
+
     uses('file.lib');
 
     /**
@@ -28,7 +28,7 @@
         private static $instance = false;
 
         private $libraries, $pathList;
-        
+
         private function __construct()
         {
             $this->libraries = array();
@@ -37,17 +37,17 @@
                 get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js'
             );
         }
-        
+
         public function getLibraries()
         {
             return $this->libraries;
         }
-        
+
         public function loadedLibraries()
         {
             return array_keys( $this->libraries );
         }
-        
+
         /**
          * Load a javascript source file
          * @param   string lib javascript lib url relative to one of the
@@ -60,30 +60,30 @@
             {
                 if ( claro_debug_mode() )
                 {
-                    pushClaroMessage(__Class__."::Try ".$tryPath.$lib.'.js', 'debug');
+                    pushClaroMessage(__Class__."::Try ".$tryPath.'/' .$lib.'.js', 'debug');
                 }
-                
+
                 if ( file_exists ( $tryPath . '/' . $lib . '.js' ) )
                 {
                     if ( claro_debug_mode() )
                     {
-                        pushClaroMessage(__Class__."::Use ".$tryPath.$lib.'.js', 'debug');
+                        pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
-                    
+
                     $this->libraries[$lib] = $tryUrl . '/' . $lib . '.js';
                     return true;
                     // break;
                 }
             }
-            
+
             if ( claro_debug_mode() )
             {
                 pushClaroMessage(__Class__."::NotFound ".$lib.'.js', 'error');
             }
-            
+
             return false;
         }
-        
+
         /**
          * Get HTML code for included libraries
          * @return  string html code
@@ -92,28 +92,28 @@
         {
             $ret = array();
             $list = $this->getLibraries();
-            
+
             foreach ( $list as $url )
             {
                 $ret[] = '<script src="'.$url.'" type="text/javascript"></script>';
             }
-            
+
             $str = implode ( "\n", $ret );
-            
+
             return $str;
         }
-        
+
         public static function getInstance()
         {
             if ( ! JavascriptLoader::$instance )
             {
                 JavascriptLoader::$instance = new JavascriptLoader;
             }
-            
+
             return JavascriptLoader::$instance;
         }
     }
-    
+
     class CssLoader
     {
         private static $instance = false;
@@ -149,36 +149,36 @@
         public function load( $css, $media )
         {
             $css = secure_file_path( $css );
-            
+
             foreach ( $this->pathList as $tryPath => $tryUrl )
             {
                 if ( claro_debug_mode() )
                 {
-                    pushClaroMessage(__Class__."::Try ".$tryPath.$css.'.css', 'debug');
+                    pushClaroMessage(__Class__."::Try ".$tryPath.'/'.$css.'.css', 'debug');
                 }
-                
+
                 if ( file_exists ( $tryPath . '/' . $css . '.css' ) )
                 {
                     if ( claro_debug_mode() )
                     {
-                        pushClaroMessage(__Class__."::Use ".$tryPath.$css.'.css', 'debug');
+                        pushClaroMessage(__Class__."::Use ".$tryPath.'/'.$css.'.css', 'debug');
                     }
-                    
+
                     $this->css[$css] = array(
                         'url' => $tryUrl . '/' . $css . '.css',
                         'media' => $media
                     );
-                        
+
                     return true;
                     // break;
                 }
             }
-            
+
             if ( claro_debug_mode() )
             {
                 pushClaroMessage(__Class__."::NotFound ".$css.'.css', 'error');
             }
-            
+
             return false;
         }
 
