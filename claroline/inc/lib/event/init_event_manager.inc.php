@@ -20,32 +20,25 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 //Main classes needed for the EventManager pattern
 
-// require_once(get_path('incRepositorySys') . '/lib/event/class.event.php');
-
 uses ( 'core/notify.lib' );
 
 /**
  * Declaration of needed INSTANCES for the EventManager pattern in Claroline
  */
 
-//1.Create Claroline event manager
-
-// $claro_event_manager = new EventManager();
-
-//2.Create Claroline event listener
+// Create Claroline event listener
 
 $eventNotifier = new ClaroEventGenerator;
 
-//3.Create tool listeners needed
+// Create tool listeners needed
 
 $claro_notifier = ClaroNotifier::getInstance(); //listener used for NOTIFICATION system
 
-//$claro_indexer  = new Indexer(& $claro_event_manager);
 
-//4.Register listener in the event manager for the NOTIFICATION system :
+// Register listener in the event manager for the NOTIFICATION system :
 // EXAMPLE :
 //
-//  $notif_listen1 = $claro_notifier->addListener( 'update', 'document_visible');
+//  $notif_listen1 = $claro_notifier->addListener( 'document_visible', 'update' );
 //
 // 'update' is the name of the function called in the listener class when the event happens
 // 'document_visible' is the name of the event that you want to track
