@@ -181,7 +181,7 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         }
         else
         {
-            claro_die("Not allowed !");
+            claro_die( get_lang( 'Not allowed' ) );
         }
     }
 }
