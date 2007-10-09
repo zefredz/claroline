@@ -153,6 +153,13 @@
             
             foreach ( $this->appletList as $applet )
             {
+                // install course applet
+                if ( claro_is_in_a_course() )
+                {
+                    install_module_in_course( $applet['label']
+                        , claro_get_current_course_id() ) ;
+                }
+                
                 if ( $applet['activation'] == 'activated'
                     && file_exists( $applet['path'] ) )
                 {
