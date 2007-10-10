@@ -167,13 +167,17 @@ require get_path('incRepositorySys') . '/lib/events.lib.inc.php';
 
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
+uses('core/claroline.lib');
+
+$claroline = Claroline::getInstance();
+
 /*----------------------------------------------------------------------
   Check tool access right an block unautorised users
   ----------------------------------------------------------------------*/
 
 if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 {
-    if ( ! claro_is_tool_allowed() )
+    if ( ! claro_is_module_allowed() )
     {
         if ( ! claro_is_user_authenticated() )
         {
@@ -203,6 +207,7 @@ require get_path('incRepositorySys') . '/lib/event/init_event_manager.inc.php';
 
 language::load_translation();
 language::load_locale_settings();
+load_module_language();
 
 /*----------------------------------------------------------------------
   Prevent duplicate form submission
@@ -277,9 +282,4 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
 }
 else pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
 
-uses('core/claroline.lib');
-
-load_module_language();
-
-$claroline = Claroline::getInstance();
 ?>
