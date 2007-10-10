@@ -17,12 +17,12 @@
         $firstname = claro_get_current_user_data('firstName');
         $email = claro_get_current_user_data('mail');
 
-        $TABLEPHPBBCATEGORIES   = $tbl_cdb_names['bb_categories'];//  "bb_categories";
-        $TABLEPHPBBFORUMS       = $tbl_cdb_names['bb_forums'];//  "bb_forums";
-        $TABLEPHPBBPOSTS        = $tbl_cdb_names['bb_posts'];//  "bb_posts";
-        $TABLEPHPBBPOSTSTEXT    = $tbl_cdb_names['bb_posts_text'];//  "bb_posts_text";
-        $TABLEPHPBBTOPICS       = $tbl_cdb_names['bb_topics'];//  "bb_topics";
-        $TABLEPHPBBUSERS        = $tbl_cdb_names['bb_users'];//  "bb_users";
+        $TABLEPHPBBCATEGORIES   = $courseTbl['bb_categories'];//  "bb_categories";
+        $TABLEPHPBBFORUMS       = $courseTbl['bb_forums'];//  "bb_forums";
+        $TABLEPHPBBPOSTS        = $courseTbl['bb_posts'];//  "bb_posts";
+        $TABLEPHPBBPOSTSTEXT    = $courseTbl['bb_posts_text'];//  "bb_posts_text";
+        $TABLEPHPBBTOPICS       = $courseTbl['bb_topics'];//  "bb_topics";
+        $TABLEPHPBBUSERS        = $courseTbl['bb_users'];//  "bb_users";
 
         claro_sql_query("INSERT INTO `".$TABLEPHPBBCATEGORIES."` VALUES (2,'"
             .addslashes(get_lang('sampleForumMainCategory'))."',1)");

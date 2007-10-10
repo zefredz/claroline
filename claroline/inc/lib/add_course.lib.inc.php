@@ -546,7 +546,7 @@ function install_module_at_course_creation( $moduleLabel, $courseDbName, $langua
         
         // define tables to use in php install scripts
         $courseDbName = get_conf('courseTablePrefix') . $courseDbName.get_conf('dbGlu');
-        $tbl_cdb_names = claro_sql_get_course_tbl($courseDbName);
+        $courseTbl = claro_sql_get_course_tbl($courseDbName);
         
         claro_sql_select_db($courseDbName);
         

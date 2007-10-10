@@ -41,10 +41,10 @@
         $questionId = 1;
         $exerciseId = 1;
         
-        $TABLELEARNPATH         = $tbl_cdb_names['lp_learnPath'];//  "lp_learnPath";
-        $TABLEMODULE            = $tbl_cdb_names['lp_module'];//  "lp_module";
-        $TABLELEARNPATHMODULE   = $tbl_cdb_names['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
-        $TABLEASSET             = $tbl_cdb_names['lp_asset'];//  "lp_asset";
+        $TABLELEARNPATH         = $courseTbl['lp_learnPath'];//  "lp_learnPath";
+        $TABLEMODULE            = $courseTbl['lp_module'];//  "lp_module";
+        $TABLELEARNPATHMODULE   = $courseTbl['lp_rel_learnPath_module'];//  "lp_rel_learnPath_module";
+        $TABLEASSET             = $courseTbl['lp_asset'];//  "lp_asset";
 
         // HANDMADE module type are not used for first version of claroline 1.5 beta so we don't show any exemple!
 

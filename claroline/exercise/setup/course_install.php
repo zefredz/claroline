@@ -21,10 +21,10 @@
     if ( get_conf('fill_course_example',true) )
     {
         // Exercise
-        $TABLEQWZEXERCISE   = $tbl_cdb_names['qwz_exercise'];
-        $TABLEQWZQUESTION   = $tbl_cdb_names['qwz_question'];
-        $TABLEQWZRELEXERCISEQUESTION = $tbl_cdb_names['qwz_rel_exercise_question'];
-        $TABLEQWZANSWERMULTIPLECHOICE = $tbl_cdb_names['qwz_answer_multiple_choice'];
+        $TABLEQWZEXERCISE   = $courseTbl['qwz_exercise'];
+        $TABLEQWZQUESTION   = $courseTbl['qwz_question'];
+        $TABLEQWZRELEXERCISEQUESTION = $courseTbl['qwz_rel_exercise_question'];
+        $TABLEQWZANSWERMULTIPLECHOICE = $courseTbl['qwz_answer_multiple_choice'];
         
         // create question
         $questionId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZQUESTION."` (`title`, `description`, `attachment`, `type`, `grade`)

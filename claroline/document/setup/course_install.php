@@ -12,11 +12,6 @@
     // WARNING. Do not forget to adapt queries in fill_Db_course()
     // if something changed here
     
-    if ( ! isset ( $courseDirectory) )
-    {
-        $courseDirectory = claro_get_current_course_data( 'path' );
-    }
-
     if ( get_conf('fill_course_example',true) )
     {
         $exampleSrcPath = get_module_path('CLDOC') . '/Example_document.pdf';
