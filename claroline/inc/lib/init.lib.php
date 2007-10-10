@@ -482,6 +482,30 @@ function claro_is_tool_allowed()
     return get_init('is_toolAllowed');
 }
 
+function claro_is_module_allowed()
+{
+    if ( ! array_key_exists( 'tlabelReq', $GLOBALS ) )
+    {
+        return claro_failure::set_failure('MISSING TOOL LABEL');
+    }
+    
+    $moduleLabel = $GLOBALS['tlabelReq'];
+    
+    $moduleData = get_module_data( $moduleLabel );
+
+    if ( $moduleData['type'] == 'tool' )
+    {
+        // if a course tool, use claro_is_tool_allowed
+        return claro_is_tool_allowed();
+    }
+    else
+    {
+        // if an applet "tool", return true if activated
+        // and let module manage it's access by itself
+        return ( $moduleData['activation'] == 'activated' );
+    }
+}
+
 // 5° Generic get_init
 /**
  * Return the value of a Claroline configuration parameter
