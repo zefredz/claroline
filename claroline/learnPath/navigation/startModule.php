@@ -164,17 +164,17 @@ switch ($module['contentType'])
    {
 
       include("scormAPI.inc.php");
-      echo "<frameset border='0' cols='0,20%,80%' frameborder='no'>
-            <frame src='updateProgress.php' name='upFrame'>";
+      echo '<frameset border="0" cols="0,20%,80%" frameborder="no">
+            <frame src="updateProgress.php" name="upFrame">';
 
    }
    else
    {
-      echo "<frameset border='0' cols='20%,80%' frameborder='yes'>";
+      echo '<frameset border="0" cols="20%,80%" frameborder="yes">';
    }
 ?>
     <frame src="tableOfContent.php" name="tocFrame" />
-    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame">
+    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame" />
 
     </frameset>
   <noframes>
