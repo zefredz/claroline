@@ -221,10 +221,16 @@ function get_module_entry_url($claroLabel)
     return get_module_url($claroLabel) . '/' . ltrim($moduleData['entry'],'/');
 }
 
-function get_module_data($claroLabel, $ignoreCache=false)
+function get_module_data( $claroLabel, $ignoreCache = false )
 {
     static $cachedModuleDataList = null;
-    if ($ignoreCache || is_null($cachedModuleDataList) || ! array_key_exists($claroLabel,$cachedModuleDataList))
+    
+    if ( is_null ($cachedModuleDataList) )
+    {
+        $cachedModuleDataList = array();
+    }
+    
+    if ($ignoreCache || ! array_key_exists($claroLabel,$cachedModuleDataList))
     {
         $tbl = claro_sql_get_tbl(array('module', 'course_tool'));
         $sql = "SELECT M.`label`      AS label,
@@ -241,8 +247,10 @@ function get_module_data($claroLabel, $ignoreCache=false)
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
             ON CT.`claro_label`= M.label
         WHERE  M.`label` = '" . addslashes($claroLabel) . "'";
+        
         $cachedModuleDataList[$claroLabel] = claro_sql_query_get_single_row($sql);
     }
+    
     return $cachedModuleDataList[$claroLabel];
 }
 
@@ -573,5 +581,4 @@ function load_module_language ( $module = null )
         return false;
     }
 }
-
 ?>
