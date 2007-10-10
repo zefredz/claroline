@@ -171,12 +171,12 @@ uses('core/claroline.lib');
 
 $claroline = Claroline::getInstance();
 
-/*----------------------------------------------------------------------
-  Check tool access right an block unautorised users
-  ----------------------------------------------------------------------*/
 
 if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 {
+    /*----------------------------------------------------------------------
+        Check tool access right an block unautorised users
+    ----------------------------------------------------------------------*/
     if ( ! claro_is_module_allowed() )
     {
         if ( ! claro_is_user_authenticated() )
@@ -189,9 +189,12 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         }
     }
     
+    /*----------------------------------------------------------------------
+        Install module
+    ----------------------------------------------------------------------*/
     if ( claro_is_in_a_course() )
     {
-        install_module_in_course( $tlabelReq, claro_get_current_course_id() ) ;
+        install_module_database_in_course( $tlabelReq, claro_get_current_course_id() ) ;
     }
 }
 

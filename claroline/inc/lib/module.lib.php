@@ -375,8 +375,14 @@ require_once dirname(__FILE__) . '/backlog.class.php';
  */
 function install_module_in_course( $moduleLabel, $courseId )
 {
+    install_module_database_in_course( $moduleLabel, $courseId );
+
+    install_module_script_in_course( $moduleLabel, $courseId );
+}
+
+function install_module_database_in_course( $moduleLabel, $courseId )
+{
     $sqlPath = get_module_path( $moduleLabel ) . '/setup/course_install.sql';
-    $phpPath = get_module_path( $moduleLabel ) . '/setup/course_install.php';
 
     if ( file_exists( $sqlPath ) )
     {
@@ -385,6 +391,13 @@ function install_module_in_course( $moduleLabel, $courseId )
             return false;
         }
     }
+}
+
+function install_module_script_in_course( $moduleLabel, $courseId )
+{
+    $phpPath = get_module_path( $moduleLabel ) . '/setup/course_install.php';
+    $courseDirectory = claro_get_current_course_data( 'path' );
+    $courseTbl = claro_sql_get_course_tbl();
 
     if ( file_exists( $phpPath ) )
     {
