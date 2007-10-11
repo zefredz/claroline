@@ -177,7 +177,7 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
     /*----------------------------------------------------------------------
         Check tool access right an block unautorised users
     ----------------------------------------------------------------------*/
-    if ( ! claro_is_module_allowed() )
+    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
     {
         if ( ! claro_is_user_authenticated() )
         {
