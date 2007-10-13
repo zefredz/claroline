@@ -140,7 +140,7 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
 {
     //open file
 
-    $openfile = fopen($_FILES['CSVfile']['tmp_name'],'r') or die ('Impossible to open file ' . $_FILES['CSVfile']['name']);
+    fopen($_FILES['CSVfile']['tmp_name'],'r') or die ('Impossible to open file ' . $_FILES['CSVfile']['name']);
 
     //Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 
@@ -361,7 +361,7 @@ function check_username_used_userlist($userlist)
     // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
 
-    while ($list = mysql_fetch_array($foundUser))
+    while (false !== $list = mysql_fetch_array($foundUser))
     {
         $found = array_search($list['username'],$userlist['username']);
         if (!($found===FALSE))
@@ -413,7 +413,7 @@ function check_officialcode_used_userlist($userlist)
     // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
 
-    while ($list = mysql_fetch_array($foundUser))
+    while (false !== $list = mysql_fetch_array($foundUser))
     {
         $found = array_search($list['officialCode'],$userlist['officialCode']);
         if (!($found===FALSE))
@@ -493,7 +493,7 @@ function check_mail_used_userlist($userlist)
     //for each user found, report the potential problem for email
     // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
-    while ($list = mysql_fetch_array($foundUser))
+    while (false !== $list = mysql_fetch_array($foundUser))
     {
         $found = array_search($list['email'],$userlist['email']);
         if (!($found===FALSE))
