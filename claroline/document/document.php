@@ -1569,18 +1569,8 @@ echo claro_html_tool_title($titleElement,
         $offset = "&amp;offset=" . $current;
 
         // compute absolute path to requested image
-
-        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
-        {
-            // slash argument method - only compatible with Apache
-            $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file)) . '?cidReq=' . urlencode(claro_get_current_course_id());
-        }
-        else
-        {
-            // question mark argument method, for IIS ...
-            $doc_url = 'goto/?url=' . rawurlencode($file) . '&amp;cidReq=' . urlencode(claro_get_current_course_id());
-        }
-
+        
+        $doc_url = claro_get_file_download_url( $file );
 
         // Image description table
         echo '<table class="claroTable" width="100%">' . "\n" ;
@@ -2130,16 +2120,7 @@ echo claro_html_tool_title($titleElement,
                     $size        = format_file_size($thisFile['size']);
                     $date        = format_date($thisFile['date']);
 
-                    if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
-                    {
-                        // slash argument method - only compatible with Apache
-                        $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName) . '?cidReq=' . urlencode(claro_get_current_course_id());
-                    }
-                    else
-                    {
-                        // question mark argument method, for IIS ...
-                        $urlFileName = 'goto/index.php?url=' . $cmdFileName . '&amp;cidReq=' . urlencode(claro_get_current_course_id());
-                    }
+                    $urlFileName = claro_get_file_download_url( $cmdFileName );
 
                     //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));

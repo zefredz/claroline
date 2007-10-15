@@ -13,11 +13,7 @@
 
 // This page is used to launch an event when a user click to download a document
 
-die("document/goto is deprecated, use claro_get_file_download_url( $file ) function instead");
-
-$tlabelReq = 'CLDOC';
-
-require '../../inc/claro_init_global.inc.php';
+require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
 require_once get_path('incRepositorySys') . '/lib/url.lib.php';
 require_once get_path('incRepositorySys') . '/lib/file.lib.php';
@@ -26,7 +22,7 @@ $nameTools = get_lang('Display file');
 
 $noPHP_SELF=true;
 
-$interbredcrump[]= array ('url' => '../document.php', 'name' => get_lang('Documents and Links'));
+// $interbredcrump[]= array ('url' => get_module_entry_url('CLDOC'), 'name' => get_lang('Documents and Links'));
 
 $isDownloadable = true ;
 

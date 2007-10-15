@@ -2,8 +2,7 @@
 
     // vim: expandtab sw=4 ts=4 sts=4:
 
-    $tlabelReq = 'CLDOC';
-    require '../../inc/claro_init_global.inc.php';
+    require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
     require_once get_path('includePath') . '/lib/thumbnails.lib.php';
     require_once get_path('includePath') . '/lib/fileManage.lib.php';

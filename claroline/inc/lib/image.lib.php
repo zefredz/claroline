@@ -138,6 +138,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $info = getimagesize($img);
         return $info['bits'];
     }
+    
+    function get_image_thumbnail_url( $file )
+    {
+        return get_path('url') . '/claroline/backends/thumbnail.php?img=' . rawurlencode($file);
+    }
 
     // THE EVIL NASTY ONE !
     /**
@@ -177,7 +182,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $newHeight = $height;
         }
 
-        $img_url = 'goto/thumbnail.php?img=' . rawurlencode($file);
+        $img_url = get_image_thumbnail_url( $file );
 
         return '<img src="' . $img_url . '"
                      width="' . $thumbWidth . '"

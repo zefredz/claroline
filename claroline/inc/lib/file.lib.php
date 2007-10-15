@@ -300,6 +300,22 @@
         }
     }
     
+    function claro_get_file_download_url( $file )
+    {
+        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
+        {
+            // slash argument method - only compatible with Apache
+            $urlFileName = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file) . '?cidReq=' . urlencode(claro_get_current_course_id());
+        }
+        else
+        {
+            // question mark argument method, for IIS ...
+            $urlFileName = get_path('url') . '/claroline/backends/download.php?url=' . $file . '&amp;cidReq=' . urlencode(claro_get_current_course_id());
+        }
+        
+        return $urlFileName;
+    }
+    
 if ( ! function_exists( 'replace_dangerous_char' ) )
 {
     /**

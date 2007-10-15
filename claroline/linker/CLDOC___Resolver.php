@@ -97,17 +97,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         }
                         else if( is_file($path))
                         {
-                            if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
-                            {
-                                // slash argument method - only compatible with Apache
-                                $url .= '/goto/index.php/'
-                                     . $elementCRLArray['resource_id'];
-                            }
-                            else
-                            {
-                                // question mark argument method, for IIS ...
-                                $url .= '/goto/?url=/' . $elementCRLArray['resource_id'];
-                            }
+                            $url = claro_get_file_download_url( $elementCRLArray['resource_id'] );
 
                         }
                         else
