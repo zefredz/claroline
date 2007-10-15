@@ -285,4 +285,13 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
 }
 else pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
 
+// Add feed RSS in header
+if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
+{
+    require claro_get_conf_repository() . 'rss.conf.php';
+    
+    $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
+    .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
+}
+
 ?>

@@ -332,12 +332,6 @@ if ( $is_allowedToEdit )
 
 $noQUERY_STRING = true;
 
-// Add feed RSS in header
-if ( get_conf('enableRssInCourse') )
-{
-    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
-    .' href="' . get_path('rootWeb') . 'claroline/rss/?cidReq=' . claro_get_current_course_id() . '" />';
-}
 $eventList = agenda_get_item_list($currentContext,$orderDirection);
 
 /**

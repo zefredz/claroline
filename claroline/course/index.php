@@ -36,13 +36,6 @@ if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_fo
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(TRUE);
 
-// Add feed RSS in header
-if ( get_conf('enableRssInCourse') )
-{
-    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(claro_get_current_course_data('name') . ' - ' . get_conf('siteName')) . '"'
-            .' href="' . get_path('rootWeb') . 'claroline/rss/?cidReq=' . claro_get_current_course_id() . '" />';
-}
-
 /*
  * Load javascript for management of the linker into the main text zone
  * see 'introductionSection.inc.php' file included later in the script

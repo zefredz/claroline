@@ -478,13 +478,6 @@ event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_dat
 $nameTools = get_lang('Announcement');
 $noQUERY_STRING = true;
 
-// Add feed RSS in header
-if ( get_conf('enableRssInCourse') )
-{
-    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(claro_get_current_course_data('name') . ' - ' . get_conf('siteName')) . '"'
-            .' href="' . get_path('rootWeb') . 'claroline/rss/?cidReq=' . claro_get_current_course_id() . '" />';
-}
-
 // Display header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
