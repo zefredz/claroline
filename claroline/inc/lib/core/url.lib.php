@@ -47,6 +47,27 @@
 
             $this->addParamList( $paramToAdd );
         }
+        
+        /**
+         * Relay Claroline current context in urls
+         * @param   array context
+         */
+        public function relayContext( $context )
+        {
+            $paramToAdd = array();
+
+            if ( array_key_exists( 'cid', $context ) )
+            {
+                $paramToAdd['cidReq'] = $context['cid'];
+            }
+
+            if ( array_key_exists( 'gid', $context ) )
+            {
+                $paramToAdd['gidReq'] = $context['gid'];
+            }
+
+            $this->addParamList( $paramToAdd );
+        }
 
         /**
          * Add a list of parameters to the current url

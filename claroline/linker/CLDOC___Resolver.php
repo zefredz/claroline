@@ -64,9 +64,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 if(CRLTool::isForThisTool($crl,'CLDOC___'))
                 {
                     $elementCRLArray = CRLTool::parseCRL($crl);
+
                     $url = $this->_basePath.'/claroline/document';
 
-                    if( isset($elementCRLArray["tool_name"]) && isset($elementCRLArray['resource_id']) )
+                    if( isset($elementCRLArray["tool_name"])
+                        && isset($elementCRLArray['resource_id']) )
                     {
                         $path = get_path('coursesRepositorySys')
                         ."/".$elementCRLArray['course_sys_code'];
@@ -91,33 +93,39 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                         if( is_dir($path))
                         {
-                            $url .= "/document.php?cmd=exChDir&file=/"
+                            $url =  get_module_entry_url('CLDOC') . "?cmd=exChDir&file=/"
                                 .$elementCRLArray['resource_id']
                                 ;
                         }
-                        else if( is_file($path))
+                        else // if( is_file($path))
                         {
-                            $url = claro_get_file_download_url( '/' . $elementCRLArray['resource_id'] );
+                            $context = array();
+
+                            if ( array_key_exists( 'team', $elementCRLArray ) )
+                            {
+                                $context['gid'] = $elementCRLArray["team"];
+                            }
+
+                            if ( array_key_exists( 'course_sys_code', $elementCRLArray ) )
+                            {
+                                $context['cid'] = $elementCRLArray["course_sys_code"];
+                            }
+
+                            $file = '/' . $elementCRLArray['resource_id'];
+                            
+                            $url = claro_get_file_download_url( $file, $context );
 
                         }
-                        else
+                        /* else
                         {
                             // trigger_error("ERROR: invalid path ($crl)",E_USER_ERROR);
-                            $url = '../linker/notfound.php?requestedFile='
+                            $url = get_module_url('CLDOC') . '/../linker/notfound.php?requestedFile='
                                 .rawurlencode($elementCRLArray['resource_id'])
                                 ;
-                        }
-
-                        $url .= ( (strpos($url, '?')===false) ? '?' : '&')
-                             .  'cidReq=' . $elementCRLArray['course_sys_code'] ;
-
-                        if(isset($elementCRLArray["team"]))
-                        {
-                            // outil + resource + group
-                            $url .= '&gidReq=' . $elementCRLArray["team"] ;
-                        }
-
+                        }*/
                     }
+                    
+
 
                     return $url;
                 }

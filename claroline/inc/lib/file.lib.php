@@ -2,6 +2,13 @@
     
     // vim: expandtab sw=4 ts=4 sts=4:
     
+    if ( count( get_included_files() ) == 1 )
+    {
+        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+    }
+
+    uses ( 'core/url.lib' );
+    
     function file_upload_failed( $file )
     {
         return get_file_upload_errno( $file ) > 0;
@@ -300,20 +307,31 @@
         }
     }
     
-    function claro_get_file_download_url( $file )
+    function claro_get_file_download_url( $file, $context = null )
     {
         if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
         {
             // slash argument method - only compatible with Apache
-            $urlFileName = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file) . '?cidReq=' . urlencode(claro_get_current_course_id());
+            $url = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file);
         }
         else
         {
             // question mark argument method, for IIS ...
-            $urlFileName = get_path('url') . '/claroline/backends/download.php?url=' . $file . '&amp;cidReq=' . urlencode(claro_get_current_course_id());
+            $url = get_path('url') . '/claroline/backends/download.php?url=' . $file;
         }
         
-        return $urlFileName;
+        $urlObj = new Url( $url );
+        
+        if ( !empty ( $context ) )
+        {
+            $urlObj->relayContext( $context );
+        }
+        else
+        {
+            $urlObj->relayCurrentContext();
+        }
+
+        return $urlObj->toUrl();
     }
     
 if ( ! function_exists( 'replace_dangerous_char' ) )

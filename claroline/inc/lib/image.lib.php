@@ -1,20 +1,25 @@
 <?php // $Id$
-// vim: expandtab sw=4 ts=4 sts=4:
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author see 'credits' file
- *
- * @package KERNEL
- *
- */
+
+    // vim: expandtab sw=4 ts=4 sts=4:
+    
+    if ( count( get_included_files() ) == 1 )
+    {
+        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+    }
+
+    /**
+     * Image manipulation library
+     *
+     * @version     1.9 $Revision$
+     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @author      Claroline team <info@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE
+     * @package     KERNEL
+     */
+
+    uses ( 'core/url.lib' );
+
 
     /*============================================================================
                             IMAGE MANIPULATION LIBRARY
@@ -139,9 +144,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         return $info['bits'];
     }
     
-    function get_image_thumbnail_url( $file )
+    function get_image_thumbnail_url( $file, $context = null )
     {
-        return get_path('url') . '/claroline/backends/thumbnail.php?img=' . rawurlencode($file);
+        $url = get_path('url') . '/claroline/backends/thumbnail.php?img=' . rawurlencode($file);
+        
+        $urlObj = new Url( $url );
+
+        if ( !empty ( $context ) )
+        {
+            $urlObj->relayContext( $context );
+        }
+        else
+        {
+            $urlObj->relayCurrentContext();
+        }
+
+        return $urlObj->toUrl();
     }
 
     // THE EVIL NASTY ONE !
