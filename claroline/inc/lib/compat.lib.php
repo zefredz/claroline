@@ -293,4 +293,15 @@ if (!function_exists('scandir')) {
         return php_compat_scandir($directory, $sorting_order = 0);
     }
 }
+
+if ( !function_exists('htmlspecialchars_decode') )
+{
+    // for version previous to PHP 5.1.0RC1
+    function htmlspecialchars_decode($text)
+    {
+        return strtr( $text,
+            array_flip(
+                get_html_translation_table( HTML_SPECIALCHARS ) ) );
+    }
+}
 ?>
