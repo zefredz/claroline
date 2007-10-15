@@ -17,6 +17,8 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  */
+ 
+die("rss/index.php is deprecated, use backends/rss.php instead");
 
 $_course = array();
 $siteName ='';
