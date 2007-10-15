@@ -97,7 +97,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         }
                         else if( is_file($path))
                         {
-                            $url = claro_get_file_download_url( $elementCRLArray['resource_id'] );
+                            $url = claro_get_file_download_url( '/' . $elementCRLArray['resource_id'] );
 
                         }
                         else
