@@ -147,7 +147,7 @@
          *  declared css paths
          * @return  boolean true if the library was found, false else
          */
-        public function load( $css, $media )
+        public function load( $css, $media = 'all' )
         {
             $css = secure_file_path( $css );
 
