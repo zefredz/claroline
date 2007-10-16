@@ -1,17 +1,16 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-Web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
 
-// This page is used to launch an event when a user click to download a document
+/**
+ * Download a file given it's file location within a course or group document
+ * directory
+ *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE
+ * @package     KERNEL
+ */
 
 require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
@@ -125,6 +124,8 @@ else
 
 if ( $isDownloadable )
 {
+    // end session to avoid lock
+    session_write_close();
     if( claro_send_file( $pathInfo )  > 0 )
     {
         event_download( $requestUrl );

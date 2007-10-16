@@ -4,7 +4,7 @@
  *
  * Build the frameset for chat.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -39,46 +39,49 @@ if( ! claro_is_in_a_course() )
 }
 else
 {
-if ( !$_course['visibility'] && !claro_is_course_allowed() )
-{
-    if (!isset($_SERVER['PHP_AUTH_USER']))
+    if ( !$_course['visibility'] && !claro_is_course_allowed() )
     {
-        header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) . '"');
-        header('HTTP/1.0 401 Unauthorized');
-        echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-        .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
-        ;
-        exit;
-    }
-    else
-    {
-        if ( get_magic_quotes_gpc() ) // claro_unquote_gpc don't wash
+        if (!isset($_SERVER['PHP_AUTH_USER']))
         {
-            $_REQUEST['login']    = stripslashes($_SERVER['PHP_AUTH_USER']);
-            $_REQUEST['password'] = stripslashes($_SERVER['PHP_AUTH_PW']);
-        }
-        else
-        {
-            $_REQUEST['login']    = $_SERVER['PHP_AUTH_USER'];
-            $_REQUEST['password'] = $_SERVER['PHP_AUTH_PW'] ;
-        }
-        require '../inc/claro_init_local.inc.php';
-        if (!$_course['visibility'] && !claro_is_course_allowed())
-        {
-            header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) .'"');
+            header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) . '"');
             header('HTTP/1.0 401 Unauthorized');
             echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
             .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
             ;
             exit;
         }
+        else
+        {
+            if ( get_magic_quotes_gpc() ) // claro_unquote_gpc don't wash
+            {
+                $_REQUEST['login']    = stripslashes($_SERVER['PHP_AUTH_USER']);
+                $_REQUEST['password'] = stripslashes($_SERVER['PHP_AUTH_PW']);
+            }
+            else
+            {
+                $_REQUEST['login']    = $_SERVER['PHP_AUTH_USER'];
+                $_REQUEST['password'] = $_SERVER['PHP_AUTH_PW'] ;
+            }
+            require '../inc/claro_init_local.inc.php';
+            if (!$_course['visibility'] && !claro_is_course_allowed())
+            {
+                header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) .'"');
+                header('HTTP/1.0 401 Unauthorized');
+                echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
+                .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
+                ;
+                exit;
+            }
+        }
     }
-}
 
-// OK TO SEND FEED
-include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
+    // end session to avoid lock
+    session_write_close();
 
-header('Content-type: text/xml; charset=utf-8');
-readfile (build_rss(array('course' => claro_get_current_course_id())));
+    // OK TO SEND FEED
+    include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
+
+    header('Content-type: text/xml; charset=utf-8');
+    readfile (build_rss(array('course' => claro_get_current_course_id())));
 }
 ?>

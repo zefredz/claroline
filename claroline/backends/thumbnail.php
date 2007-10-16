@@ -1,6 +1,17 @@
 <?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
+    
+    /**
+     * Thumbnail Generator
+     *
+     * @version     1.9 $Revision$
+     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @author      Frederic Minne <zefredz@claroline.net>
+     * @license     http://www.gnu.org/copyleft/gpl.html
+     *              GNU GENERAL PUBLIC LICENSE
+     * @package     KERNEL
+     */
 
     require dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
 
@@ -53,6 +64,8 @@
             $thumbPath = $imagePath;
         }
     
+        // end session to avoid lock
+        session_write_close();
         claro_send_file( $thumbPath );
         exit;
     }
