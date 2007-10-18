@@ -23,7 +23,7 @@ body {
 }
 
 a:link, a:visited  {
-    color: #336699;
+    color: #369;
     font-weight: normal;
     text-decoration: none;
 }
@@ -51,26 +51,26 @@ ul {
 
 input, textarea, button, select{
     border: 1px solid #aaa;
-    color: #336699;
+    color: #369;
 }
 
 input[type=submit], input[type=reset], button {
     margin-left: 2px;
-    color: #666666;
+    color: #666;
 }
 
 input[type], textarea[name], button {
-    background: #ffffff;
+    background: #fff;
 }
 
 input[type=submit], input[type=reset], button {
-    background: #fffffff;
-    color: #000000;
+    background: #fff;
+    color: #000;
 }
 
 input[type=submit]:hover, button:hover {
-    background-color: #336699;
-    color: #ffffff;
+    background-color: #369;
+    color: #fff;
 }
 
 label {
@@ -141,7 +141,7 @@ label {
  ----------------------------------------------------------------------------*/
 
 #userBanner {
-    color: #336699;
+    color: #369;
     font-weight: bold;
     font-size: 0.8em;
     padding: 1px 5px;
@@ -150,7 +150,7 @@ label {
 }
 
 #userBanner #userName {
-    color: #669933;
+    color: #693;
     font-weight: bold;
     margin: 0;
 }
@@ -159,13 +159,13 @@ label {
 #userBanner a:link,
 #userBanner a:visited {
     text-decoration: none;
-    color: #336699;
+    color: #369;
     font-weight: normal;
 }
 
 #userBanner a:hover,
 #userBanner a:active {
-       color: #336699;
+       color: #369;
     text-decoration: underline;
     font-weight: normal;
 }
@@ -184,8 +184,8 @@ label {
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
 #courseBanner {
-       padding: 4px;
-    color: #336699;
+    padding: 4px;
+    color: #369;
     font-size: 0.8em;
     font-weight: bold;
     border-top: 1px #999 solid;
@@ -217,14 +217,14 @@ label {
 #courseBanner a,
 #courseBanner a:link,
 #courseBanner a:visited {
-    color: #336699;
+    color: #369;
     text-decoration: none;
     font-weight: normal;
 }
 
 #courseBanner a:hover,
 #courseBanner a:active {
-    color: #669933;
+    color: #693;
     text-decoration: underline;
     font-weight: normal;
 }
@@ -270,7 +270,7 @@ label {
 
 #breadcrumbLine {
     font-size: 0.8em;
-    color: #666666;
+    color: #666;
     border: none;
     padding : 2px 5px;
 }
@@ -294,13 +294,13 @@ label {
 
 #breadcrumbLine a:link,
 #breadcrumbLine a:visited {
-    color: #669933;
+    color: #693;
     font-weight: normal;
 }
 
 #breadcrumbLine a:hover,
 #breadcrumbLine a:active {
-    color: #999999;
+    color: #999;
     font-weight: normal;
 }
 
@@ -399,7 +399,7 @@ label {
 #claroBody .claroCmd,
 #claroBody a.claroCmd:link,
 #claroBody a.claroCmd:visited {
-    color: #336699;
+    color: #369;
     font-weight: bold;
     text-decoration: none;
 }
@@ -412,7 +412,7 @@ label {
 }
 
 .claroCmdDisabled {
-    color: #999999;
+    color: #999;
     font-weight: bold;
     text-decoration: none;
 }
@@ -426,8 +426,8 @@ th .claroCmd {
 }
 
 th .claroCmdDisabled {
-       color: #999999;
-       font-size: 0.9em;
+	color: #999;
+	font-size: 0.9em;
     font-weight: bold;
     text-decoration: none;
 }
@@ -459,7 +459,7 @@ th .claroCmdDisabled {
 }
 
 a.item:visited{
-    color: #336699;
+    color: #369;
 }
 
 /******************************************************************************
@@ -543,7 +543,7 @@ a.item:visited{
 
 .claroTable .superHeader th,
 .claroTable th.superHeader {
-    color: #669933;
+    color: #693;
     background-color: #DEEECE;
     border: 1px #87B665 solid;
     padding: 2px 5px 2px 5px;
@@ -551,12 +551,12 @@ a.item:visited{
 }
 
 .claroTable .superHeader a {
-    color: #669933;
+    color: #693;
 }
 
 .claroTable .headerY th,
 .claroTable .headerX th {
-    color: #669933;
+    color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
@@ -566,14 +566,14 @@ a.item:visited{
 .claroTable .headerX th a
 {
     font-weight: bold !important ;
-    color: #669933;
+    color: #693;
     text-decoration : underline;
 }
 
 .claroTable .headerX th a:active,
 .claroTable .headerX th a:hover
 {
-    color: #669933 !important;
+    color: #693 !important;
     text-decoration : underline;
 }
 
@@ -603,7 +603,7 @@ a.item:visited{
 
 .claroTable td.workingWeek {
     vertical-align: top;
-    color: #999999;
+    color: #999;
     padding: 2px 5px 2px 5px;
 }
 
@@ -638,7 +638,7 @@ a.item:visited{
 
 .claroMessageBox {
     background-color : #EDF1E3;
-    border: 1px #669933 solid;
+    border: 1px #693 solid;
     margin-left: 5px;
     font-size: 0.9em;
     color: #666;
@@ -672,7 +672,7 @@ div .wikiTitle h1 {
     padding: 0;
     font-size: 0.9em;
     border-bottom: 1px solid #DEDEDE;
-    color: #666666;
+    color: #666;
     text-indent: 15px;
     background-image: url(default/arrow_blue.gif);
     background-position: left;
@@ -681,7 +681,7 @@ div .wikiTitle h1 {
 
 div .wiki2xhtml p {
     font-size: 0.8em;
-    color: #666666;
+    color: #666;
 }
 
 /*
@@ -692,7 +692,7 @@ div .wiki2xhtml p {
  */
 
 .invisible {
-    color: #999999;
+    color: #999;
 }
 
 .invisible a,
@@ -701,13 +701,13 @@ div .wiki2xhtml p {
 a.invisible,
 a:link.invisible,
 a:visited.invisible {
-    color: #999999;
+    color: #999;
 }
 
 /* menu */
 
 .menu a.invisible:visited {
-    color: #999999;
+    color: #999;
 }
 
 
@@ -715,7 +715,7 @@ a:visited.invisible {
     example : a good score in exercices
 */
 .correct {
-    color: #009900;
+    color: #090;
 }
 
 /* 'error' is attached to element that must be highlighted as correct
@@ -723,7 +723,7 @@ a:visited.invisible {
     example : an error message
 */
 .error {
-    color: #990000;
+    color: #900;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
@@ -745,26 +745,25 @@ a:visited.invisible {
  */
 
 .claroRightMenu {
-    border: 1px solid #669933;
     background : #e7f2c1;
     background-color : #EDF1E3;
-    border: 1px #669933 solid;
+    border: 1px #693 solid;
     padding: 10px;
     font-size: 0.9em;
 }
 
 .claroRightMenu a:link,
 .claroRightMenu a:visited {
-    color: #336699;
+    color: #369;
 }
 
 .claroRightMenu a:hover,
 .claroRightMenu a:active {
-    color: #669933;
+    color: #693;
 }
 
 .claroRightMenu form {
-    color: #336699;
+    color: #369;
 }
 
 
@@ -818,7 +817,7 @@ small {
 }
 
 .tabTitle a {
-    border-bottom: 4px solid #669933;
+    border-bottom: 4px solid #693;
 }
 
 #navlist li, .tabTitle li {
@@ -840,12 +839,12 @@ small {
 }
 
 #navlist li a.current {
-    border-bottom: 4px solid #669933;
+    border-bottom: 4px solid #693;
 }
 
 form tr.admin td{
     background-color : #EDF1E3;
-    border: 1px solid #663300;
+    border: 1px solid #630;
     margin: 10px 10px 10px 10px;
 
 }
