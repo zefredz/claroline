@@ -101,6 +101,9 @@ else
                     . implode ( '/',
                             array_map('rawurldecode', explode('/',$requestUrl)));
     }
+    
+    // use slashes instead of backslashes in file path
+    $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
 
     if (get_conf('CLARO_DEBUG_MODE'))
     {
@@ -126,9 +129,48 @@ if ( $isDownloadable )
 {
     // end session to avoid lock
     session_write_close();
-    if( claro_send_file( $pathInfo )  > 0 )
+
+    $extension = get_file_extension($pathInfo);
+    $mimeType = get_mime_on_ext($pathInfo);
+    
+    // workaround for HTML files and Links
+    if ( $mimeType == 'text/html' && $extension != 'url' )
     {
-        event_download( $requestUrl );
+        event_download($requestUrl);
+        // replace rootSys by urlAppend
+        $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
+        
+        // redirect to document
+        claro_redirect($document_url);
+
+        die();
+    }
+    else
+    {
+        if( get_conf('useSendfile', true) )
+        {
+            if ( claro_send_file( $pathInfo )  !== false )
+            {
+                event_download( $requestUrl );
+            }
+            else
+            {
+                header('HTTP/1.1 404 Not Found');
+                claro_die( get_lang('File download failed : %failureMSg%',
+                    array( '%failureMsg%' => claro_failure::get_last_failure() ) ) );
+                die();
+            }
+        }
+        else
+        {
+            // replace rootSys by urlAppend
+            $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
+
+            // redirect to document
+            claro_redirect($document_url);
+
+            die();
+        }
     }
 }
 else
