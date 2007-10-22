@@ -1,21 +1,15 @@
 <?php // $Id$
+
 /**
- * CLAROLINE
+ * User list tool
  *
- * This tool list user member of the course.
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLUSR
- *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2.0
+ * @package     CLUSR
  */
 
 /*=====================================================================
@@ -80,8 +74,9 @@ $can_add_single_user = (bool) (claro_is_course_manager()
 $can_import_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
                      || claro_is_platform_admin();
-// can export if can import                     
-$can_export_user_list = $can_import_user_list;
+$can_export_user_list = (bool) (claro_is_course_manager()
+                     && get_conf('is_coursemanager_allowed_to_export_user_list', true) )
+                     || claro_is_platform_admin();
                      
 $can_import_user_class = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
