@@ -482,31 +482,6 @@ function claro_mkdir_tmp($dir, $prefix = 'tmp', $mode = 0777)
     return $path;
 }
 
-/**
- * to extract the extention of the filename
- *
- * @param  string $file
- * @return string extension
- *         bool false
- */
-
-function get_file_extension($file)
-{
-    $pieceList = explode('.', $file);
-
-    if ( count($pieceList) > 1) // there is more than one piece
-    {
-        $lastPiece = array_pop($pieceList); // the last cell should be the extansion
-
-        if ( !empty($lastPiece) && !strstr('/', $lastPiece) ) // check the dot is not into
-        {                                // a parent directory name
-            return $lastPiece;
-        }
-    }
-
-    return false;
-}
-
 
 /**
  * to compute the size of the directory

@@ -73,6 +73,19 @@
     }
     
     /**
+     * Extract the extention of the filename
+
+     * @param string $fileName name of the file
+     * @return string extension
+     */
+    function get_file_extension ( $fileName )
+    {
+        $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
+
+        return $fileExtension;
+    }
+    
+    /**
      * Get file MIME type from file name based on extension
      * @param string $fileName name of the file
      * @return string file MIME type
@@ -228,7 +241,7 @@
             header('Content-Disposition: inline; filename="' . $name . '"');
             header('Content-Length: '. filesize( $path ) );
             
-            return ( claro_readfile( $path ) > 0 );
+            return ( claro_readfile( $path ) );
         }
         else
         {
@@ -287,6 +300,11 @@
         {
             $buffer = fread($handle, $chunksize);
             
+            if ( $buffer === false )
+            {
+                return claro_failure::set_failure( 'CANNOT_READ_FILE' );
+            }
+            
             echo $buffer;
             
             if ( $retbytes )
@@ -309,7 +327,7 @@
     
     function claro_get_file_download_url( $file, $context = null )
     {
-        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
+        if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
         {
             // slash argument method - only compatible with Apache
             $url = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file);
