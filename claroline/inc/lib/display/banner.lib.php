@@ -23,13 +23,25 @@
 
     class ClaroBanner implements Display
     {
+        private static $instance = false;
+        
         private $template;
         private $hidden = false;
 
-        public function __construct()
+        private function __construct()
         {
             $file = new ClaroTemplateLoader('banner.tpl');
             $this->template = $file->load();
+        }
+        
+        public static function getInstance()
+        {
+            if ( ! ClaroBanner::$instance )
+            {
+                ClaroBanner::$instance = new ClaroBanner;
+            }
+
+            return ClaroBanner::$instance;
         }
         
         /**

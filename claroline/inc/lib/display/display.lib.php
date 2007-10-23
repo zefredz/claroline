@@ -86,10 +86,10 @@
 
         public function __construct()
         {
-            $this->header = new ClaroHeader;
-            $this->body = new ClaroBody;
-            $this->banner = new ClaroBanner;
-            $this->footer = new ClaroFooter;
+            $this->header = ClaroHeader::getInstance();
+            $this->body = ClaroBody::getInstance();
+            $this->banner = ClaroBanner::getInstance();
+            $this->footer = ClaroFooter::getInstance();
         }
 
         /**
@@ -322,7 +322,7 @@
 
         public function __construct()
         {
-            $this->header = new ClaroHeader;
+            $this->header = ClaroHeader::getInstance();
         }
 
         /**

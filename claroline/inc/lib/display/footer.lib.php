@@ -21,13 +21,25 @@
 
     class ClaroFooter implements Display
     {
+        private static $instance = false;
+        
         private $template;
         private $hidden = false;
 
-        public function __construct()
+        private function __construct()
         {
             $file = new ClaroTemplateLoader('footer.tpl');
             $this->template = $file->load();
+        }
+        
+        public static function getInstance()
+        {
+            if ( ! ClaroFooter::$instance )
+            {
+                ClaroFooter::$instance = new ClaroFooter;
+            }
+
+            return ClaroFooter::$instance;
         }
         
         function hide()

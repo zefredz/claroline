@@ -21,16 +21,28 @@
     
     class ClaroBody implements Display
     {
+        private static $instance = false;
+        
         private $content = '';
         private $claroBodyHidden = false;
         private $inPopup = false;
         
         private $template;
         
-        public function __construct()
+        private function __construct()
         {
             $file = new ClaroTemplateLoader('body.tpl');
             $this->template = $file->load();
+        }
+        
+        public static function getInstance()
+        {
+            if ( ! ClaroBody::$instance )
+            {
+                ClaroBody::$instance = new ClaroBody;
+            }
+
+            return ClaroBody::$instance;
         }
         
         /**

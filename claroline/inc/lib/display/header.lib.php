@@ -23,6 +23,8 @@
     
     class ClaroHeader implements Display
     {
+        private static $instance = false;
+        
         private $_htmlXtraHeaders;
         private $_httpXtraHeaders;
         private $_template;
@@ -31,12 +33,22 @@
          * Constructor
          * @param   string pageTitle (optional)
          */
-        public function __construct( $pageTitle = '' )
+        private function __construct( $pageTitle = '' )
         {
             $file = new ClaroTemplateLoader('header.tpl');
             $this->_template = $file->load();
             $this->_htmlXtraHeaders = array();
             $this->_httpXtraHeaders = array();
+        }
+        
+        public static function getInstance()
+        {
+            if ( ! ClaroHeader::$instance )
+            {
+                ClaroHeader::$instance = new ClaroHeader;
+            }
+
+            return ClaroHeader::$instance;
         }
         
         /**
