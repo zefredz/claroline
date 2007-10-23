@@ -18,6 +18,8 @@
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
+    
+    uses ( 'display/breadcrumps.lib', 'display/viewmode.lib' );
 
     class ClaroBanner implements Display
     {
@@ -33,7 +35,7 @@
         /**
          * Hide the banners
          */
-        function hide()
+        public function hide()
         {
             $this->hidden = true;
         }
@@ -41,7 +43,7 @@
         /**
          * Show the banners
          */
-        function show()
+        public function show()
         {
             $this->hidden = false;
         }
@@ -70,7 +72,10 @@
          */
         private function _prepareBreadCrumps()
         {
-            $this->template->addReplacement('breadcrumps', claro_html_breadcrumb());
+            $bc = ClaroBreadCrumps::getInstance();
+            $this->template->addReplacement( 'breadcrumps', $bc->render() );
+            $vm = ClaroViewMode::getInstance();
+            $this->template->addReplacement( 'viewmode', $vm->render() );
         }
         
         /**
