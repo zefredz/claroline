@@ -947,13 +947,18 @@ function disp_search_box()
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $topic_name='')
 {
-    $breadCrumbNameList   = array ('Forum Index');
-    $breadCrumbUrlList    = array ('index.php');
+    $bc = new BreadCrumbs;
+
+    $bc->appendNode( new BreadCrumbsNode( 'Forum Index'
+        , get_module_entry_url('CLFRM') ) );
 
     if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply', 'newtopic') ) )
     {
-        $breadCrumbNameList[] = $forum_name;
-        $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
+        $bc->appendNode( new BreadCrumbsNode( $forum_name
+            , get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id
+                . (claro_is_in_a_group()
+                    ? '&amp;gidReq=' . claro_get_current_group_id()
+                    : '') ) );
 
         switch ( $pagetype )
         {
@@ -961,37 +966,38 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
                 break;
 
             case 'viewtopic' :
-                $breadCrumbNameList[] = $topic_name;
-                $breadCrumbNameUrl[] = '';
+                $bc->appendNode( new BreadCrumbsNode( $topic_name ) );
                 break;
 
             case 'newtopic' :
-                $breadCrumbNameList[] = get_lang('New topic');
-                $breadCrumbUrlList[]  = null;
+                $bc->appendNode( new BreadCrumbsNode( get_lang('New topic') ) );
                 break ;
 
             case 'editpost' :
-                $breadCrumbNameList[] = $topic_name;
-                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
-                $breadCrumbNameList[] = get_lang('Edit post');
-                $breadCrumbUrlList[]  = null;
+                $bc->appendNode( new BreadCrumbsNode( $topic_name,
+                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
+                        . (claro_is_in_a_group()
+                            ? '&amp;gidReq=' . claro_get_current_group_id()
+                            : '') ) );
+                $bc->appendNode( new BreadCrumbsNode( get_lang('Edit post') ) );
                 break ;
 
             case 'reply' :
-                $breadCrumbNameList[] = $topic_name;
-                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
-                $breadCrumbNameList[] = get_lang('Reply');
-                $breadCrumbUrlList[]  = null;
+                $bc->appendNode( new BreadCrumbsNode( $topic_name,
+                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
+                        . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '') ) );
+
+                $bc->appendNode( new BreadCrumbsNode( get_lang('Reply') ) );
                 break ;
         }
     }
     elseif ($pagetype == 'viewsearch')
     {
-            $breadCrumbNameList[] = get_lang('Search result');
-            $breadCrumbUrlList[]  = null;
+            $bc->appendNode( new BreadCrumbsNode( get_lang('Search result'), null ) );
     }
 
-    return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
+    // return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
+    return '<div class="breadcrumbTrails">' . $bc->render().'</div>' . "\n";
 }
 
 /**
@@ -1620,5 +1626,4 @@ function get_group_forum_list ($groupId)
     return claro_sql_query_fetch_all_rows($sql);
 
 }
-
 ?>
