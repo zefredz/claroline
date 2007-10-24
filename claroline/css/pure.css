@@ -241,7 +241,7 @@ h3{
     display: none;
 }
 
-#breadcrumbLine .breadcrumbTrail
+#breadcrumbLine .breadcrumbTrails
 {
     float: left;
 }
@@ -253,7 +253,7 @@ h3{
     text-align: right;
 }
 
-.breadcrumbTrail
+.breadcrumbTrails
 {
     font-size: 80%;
 }

@@ -290,17 +290,13 @@ input[type=submit]:hover, button:hover {
     display: none;
 }
 
-#breadcrumbLine .breadcrumbTrail {
+#breadcrumbLine .breadcrumbTrails {
     float: left;
 }
 
 #breadcrumbLine #toolViewOption {
     float: right;
     text-align: right;
-}
-
-
-.breadcrumbTrail {
 }
 
 #breadcrumbLine a:link,
