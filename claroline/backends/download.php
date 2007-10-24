@@ -92,7 +92,6 @@ else
     {
         // pretty url
         $pathInfo = realpath(get_path('coursesRepositorySys') . $intermediatePath . '/' . $requestUrl);
-        $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
     }
     else
     {
@@ -103,8 +102,6 @@ else
     }
     
     // use slashes instead of backslashes in file path
-    $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
-
     if (get_conf('CLARO_DEBUG_MODE'))
     {
         pushClaroMessage('<p>File path : ' . $pathInfo . '</p>','pathInfo');
@@ -137,7 +134,13 @@ if ( $isDownloadable )
     if ( $mimeType == 'text/html' && $extension != 'url' )
     {
         event_download($requestUrl);
-        // replace rootSys by urlAppend
+
+        if (substr(PHP_OS, 0, 3) == "WIN")
+        {
+            $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
+            $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
+        }
+        
         $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
         
         // redirect to document
@@ -163,7 +166,12 @@ if ( $isDownloadable )
         }
         else
         {
-            // replace rootSys by urlAppend
+            if (substr(PHP_OS, 0, 3) == "WIN")
+            {
+                $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
+                $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
+            }
+            
             $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
 
             // redirect to document
