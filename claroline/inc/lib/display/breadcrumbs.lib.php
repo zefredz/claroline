@@ -19,10 +19,10 @@
      * @package     CORE
      */
 
-    class ClaroBreadCrumps implements Display
+    class ClaroBreadCrumbs implements Display
     {
         private static $instance = false;
-        private $breadCrumps = array();
+        private $breadCrumbs = array();
         
         private function __construct()
         {
@@ -37,14 +37,16 @@
         
         public function render()
         {
-            $lastNode = count( $this->breadCrumps ) - 1;
+            $this->init();
+            
+            $lastNode = count( $this->breadCrumbs ) - 1;
             $currentNode = 0;
             
             $out = '';
             
             $nodeList = array();
 
-            foreach ( $this->breadCrumps as $node )
+            foreach ( $this->breadCrumbs as $node )
             {
                 $nodeStr = '';
                 
@@ -138,22 +140,22 @@
         
         public function append( $name, $url = null )
         {
-            $this->breadCrumps[] = new BCNode( $name, $url );
+            $this->breadCrumbs[] = new BCNode( $name, $url );
         }
 
         public function prepend( $name, $url = null )
         {
-            array_unshift ( $this->breadCrumps, new BCNode( $name, $url ) );
+            array_unshift ( $this->breadCrumbs, new BCNode( $name, $url ) );
         }
         
         public function appendNode( $node )
         {
-            $this->breadCrumps[] = $node;
+            $this->breadCrumbs[] = $node;
         }
         
         public function prependNode( $node )
         {
-            array_unshift ( $this->breadCrumps, $node );
+            array_unshift ( $this->breadCrumbs, $node );
         }
         
         private function _compatVars()
@@ -171,12 +173,12 @@
         
         public static function getInstance()
         {
-            if ( ! ClaroBreadCrumps::$instance )
+            if ( ! ClaroBreadCrumbs::$instance )
             {
-                ClaroBreadCrumps::$instance = new ClaroBreadCrumps;
+                ClaroBreadCrumbs::$instance = new ClaroBreadCrumbs;
             }
 
-            return ClaroBreadCrumps::$instance;
+            return ClaroBreadCrumbs::$instance;
         }
     }
     

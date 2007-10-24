@@ -56,11 +56,11 @@
 <!-- End of Course Banner -->
 <!-- %end(courseBanner)% -->
 
-<!-- BreadcrumpsLine  -->
+<!-- BreadcrumbLine  -->
 <div id="breadcrumbLine">
 <hr />
-<div class="breadcrumbTrail">
-%breadcrumps%
+<div class="breadcrumbTrails">
+%breadcrumbs%
 </div>
 <div id="toolViewOption">
 %viewmode%
@@ -68,7 +68,7 @@
 <div class="spacer"></div>
 <hr />
 </div>
-<!-- End of BreadcrumpsLine  -->
+<!-- End of BreadcrumbLine  -->
 
 </div>
 <!-- End of Banner -->

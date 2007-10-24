@@ -19,7 +19,7 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    uses ( 'display/breadcrumps.lib', 'display/viewmode.lib' );
+    uses ( 'display/breadcrumbs.lib', 'display/viewmode.lib' );
 
     class ClaroBanner implements Display
     {
@@ -74,7 +74,7 @@
             $this->_prepareCampusBanner();
             $this->_prepareUserBanner();
             $this->_prepareCourseBanner();
-            $this->_prepareBreadCrumps();
+            $this->_prepareBreadCrumbLine();
             
             return $this->template->render();;
         }
@@ -82,11 +82,10 @@
         /**
          * Prepare the bread crumps
          */
-        private function _prepareBreadCrumps()
+        private function _prepareBreadCrumbLine()
         {
-            $bc = ClaroBreadCrumps::getInstance();
-            $bc->init();
-            $this->template->addReplacement( 'breadcrumps', $bc->render() );
+            $bc = ClaroBreadCrumbs::getInstance();
+            $this->template->addReplacement( 'breadcrumbs', $bc->render() );
             $vm = ClaroViewMode::getInstance();
             $this->template->addReplacement( 'viewmode', $vm->render() );
         }
