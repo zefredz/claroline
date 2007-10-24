@@ -327,30 +327,32 @@ function claro_html_document_breadcrumb($curDirPath)
     $curDirPathList = explode('/', $curDirPath);
 
     $urlTrail = '';
-
-    $breadcrumbNameList = array();
-    $breadcrumbUrlList  = array();
+    
+    $bc = new BreadCrumbs;
 
     foreach($curDirPathList as $thisDir)
     {
         if ( empty($thisDir) )
         {
-            $breadcrumbNameList[] = get_lang('Root');
-            $breadcrumbUrlList[]  = '?cmd=exChDir&amp;file=';
+            $bc->appendNode( new BreadCrumbsNode( get_lang('Root'),
+                get_module_entry_url('CLDOC') ) );
         }
         else
         {
-            $breadcrumbNameList[] = $thisDir;
             $urlTrail .= '/'.$thisDir;
-            $breadcrumbUrlList[] = $_SERVER['PHP_SELF']
-                                 . '?cmd=exChDir&amp;file='.rawurlencode($urlTrail);
+            $bc->appendNode( new BreadCrumbsNode( get_lang($thisDir),
+                get_module_entry_url('CLDOC') . '?cmd=exChDir&amp;file='.rawurlencode($urlTrail)  ));
         }
     }
-
-    // remove the url on the last (current) element
-    $breadcrumbUrlList[ count($breadcrumbUrlList) - 1] = null;
-
-    return claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList);
+    
+    if ( $bc->size() < 2 )
+    {
+        return '';
+    }
+    else
+    {
+        return $bc->render();
+    }
 }
 
 ?>

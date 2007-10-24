@@ -18,11 +18,133 @@
      *              GNU GENERAL PUBLIC LICENSE version 2.0
      * @package     CORE
      */
+     
+    class BreadCrumbs implements Display
+    {
+        private $breadCrumbs = array();
+        
+        public function render()
+        {
+            if ( $this->isEmpty() )
+            {
+                return '';
+            }
+            
+            $lastNode = count( $this->breadCrumbs ) - 1;
+            $currentNode = 0;
 
-    class ClaroBreadCrumbs implements Display
+            $out = '';
+
+            $nodeList = array();
+
+            foreach ( $this->breadCrumbs as $node )
+            {
+                $nodeStr = '';
+
+                if ( $currentNode == $lastNode )
+                {
+                    $nodeStr .= '<span class="lastBreadCrumbsNode">';
+                }
+                elseif ( $currentNode == 0 )
+                {
+                    $nodeStr .= '<span class="firstBreadCrumbsNode">';
+                }
+
+                // var_dump( $node );
+
+                $nodeStr .= $node->render();
+
+                if ( $currentNode == $lastNode
+                    || $currentNode == 0 )
+                {
+                    $nodeStr .= '</span>';
+                }
+
+                $nodeList[] = $nodeStr;
+
+                $currentNode++;
+            }
+
+            $out .= implode ( "&nbsp;&gt;&nbsp;", $nodeList );
+
+            $out .= "\n";
+
+            return $out;
+        }
+        
+        public function append( $name, $url = null )
+        {
+            $this->breadCrumbs[] = new BreadCrumbsNode( $name, $url );
+        }
+
+        public function prepend( $name, $url = null )
+        {
+            array_unshift ( $this->breadCrumbs, new BreadCrumbsNode( $name, $url ) );
+        }
+
+        public function appendNode( $node )
+        {
+            $this->breadCrumbs[] = $node;
+        }
+
+        public function prependNode( $node )
+        {
+            array_unshift ( $this->breadCrumbs, $node );
+        }
+        
+        public function size()
+        {
+            return count( $this->breadCrumbs );
+        }
+        
+        public function isEmpty()
+        {
+            return empty( $this->breadCrumbs );
+        }
+    }
+    
+    class BreadCrumbsNode
+    {
+        private $name, $url, $icon;
+
+        public function __construct( $name, $url = null, $icon = null )
+        {
+            $this->icon = $icon;
+            $this->name = $name;
+            $this->url = $url;
+        }
+
+        public function render()
+        {
+            $nodeHtml = '';
+
+            if ( ! empty( $this->url ) )
+            {
+                $nodeHtml .= '<a href="'.$this->url.'"  target="_top">';
+            }
+
+            if ( ! empty( $this->icon ) )
+            {
+                $nodeHtml .= claro_html_icon( 'home', null, null );
+            }
+
+            $nodeHtml .= htmlspecialchars( $this->name );
+
+            // var_dump( $this->name );
+
+            if ( ! empty( $this->url ) )
+            {
+                $nodeHtml .= '</a>';
+            }
+
+            return $nodeHtml;
+        }
+    }
+
+    class ClaroBreadCrumbs extends BreadCrumbs
     {
         private static $instance = false;
-        private $breadCrumbs = array();
+        // private $breadCrumbs = array();
         
         private function __construct()
         {
@@ -39,46 +161,7 @@
         {
             $this->init();
             
-            $lastNode = count( $this->breadCrumbs ) - 1;
-            $currentNode = 0;
-            
-            $out = '';
-            
-            $nodeList = array();
-
-            foreach ( $this->breadCrumbs as $node )
-            {
-                $nodeStr = '';
-                
-                if ( $currentNode == $lastNode )
-                {
-                    $nodeStr .= '<span class="lastBCNode">';
-                }
-                elseif ( $currentNode == 0 )
-                {
-                    $nodeStr .= '<span class="firstBCNode">';
-                }
-                
-                // var_dump( $node );
-
-                $nodeStr .= $node->render();
-                
-                if ( $currentNode == $lastNode
-                    || $currentNode == 0 )
-                {
-                    $nodeStr .= '</span>';
-                }
-                
-                $nodeList[] = $nodeStr;
-                
-                $currentNode++;
-            }
-            
-            $out .= implode ( "&nbsp;&gt;&nbsp;", $nodeList );
-            
-            $out .= "\n";
-            
-            return $out;
+            return parent::render();
         }
         
         private function autoAppend()
@@ -109,7 +192,7 @@
                     }
                 }
                 
-                $this->appendNode( new BCNode( $name, $url ) );
+                $this->appendNode( new BreadCrumbsNode( $name, $url ) );
             }
         }
         
@@ -117,45 +200,25 @@
         {
             if ( claro_is_in_a_group() )
             {
-                $this->prependNode( new BCNode( claro_get_current_group_data('name')
+                $this->prependNode( new BreadCrumbsNode( claro_get_current_group_data('name')
                     , get_module_url('CLGRP') . '/group_space.php?cidReq='
                         . htmlspecialchars(claro_get_current_course_id())
                         .'&gidReq=' . (int) claro_get_current_group_id() ) );
-                $this->prependNode( new BCNode( get_lang('Groups')
+                $this->prependNode( new BreadCrumbsNode( get_lang('Groups')
                     , get_module_url('CLGRP') . '/index.php?cidReq='
                         . htmlspecialchars(claro_get_current_course_id()) ) );
             }
             
             if ( claro_is_in_a_course() )
             {
-                $this->prependNode( new BCNode( claro_get_current_course_data('officialCode')
+                $this->prependNode( new BreadCrumbsNode( claro_get_current_course_data('officialCode')
                     , get_path('clarolineRepositoryWeb') . 'course/index.php?cid='
                         . htmlspecialchars(claro_get_current_course_id()) ) );
             }
                 
-            $this->prependNode( new BCNode( get_conf('siteName')
+            $this->prependNode( new BreadCrumbsNode( get_conf('siteName')
                 , get_path('url') . '/index.php'
                 , 'home.gif' ) );
-        }
-        
-        public function append( $name, $url = null )
-        {
-            $this->breadCrumbs[] = new BCNode( $name, $url );
-        }
-
-        public function prepend( $name, $url = null )
-        {
-            array_unshift ( $this->breadCrumbs, new BCNode( $name, $url ) );
-        }
-        
-        public function appendNode( $node )
-        {
-            $this->breadCrumbs[] = $node;
-        }
-        
-        public function prependNode( $node )
-        {
-            array_unshift ( $this->breadCrumbs, $node );
         }
         
         private function _compatVars()
@@ -179,44 +242,6 @@
             }
 
             return ClaroBreadCrumbs::$instance;
-        }
-    }
-    
-    class BCNode
-    {
-        private $name, $url, $icon;
-        
-        public function __construct( $name, $url = null, $icon = null )
-        {
-            $this->icon = $icon;
-            $this->name = $name;
-            $this->url = $url;
-        }
-        
-        public function render()
-        {
-            $nodeHtml = '';
-            
-            if ( ! empty( $this->url ) )
-            {
-                $nodeHtml .= '<a href="'.$this->url.'"  target="_top">';
-            }
-            
-            if ( ! empty( $this->icon ) )
-            {
-                $nodeHtml .= claro_html_icon( 'home', null, null );
-            }
-            
-            $nodeHtml .= htmlspecialchars( $this->name );
-            
-            // var_dump( $this->name );
-            
-            if ( ! empty( $this->url ) )
-            {
-                $nodeHtml .= '</a>';
-            }
-            
-            return $nodeHtml;
         }
     }
 ?>
