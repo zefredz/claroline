@@ -27,9 +27,14 @@
         
         private $template;
         private $hidden = false;
+        private $bcHidden = false;
+        public $breadcrumbs;
+        public $viewmode;
 
         private function __construct()
         {
+            $this->breadcrumbs = ClaroBreadCrumbs::getInstance();
+            $this->viewmode = ClaroViewMode::getInstance();
             $file = new ClaroTemplateLoader('banner.tpl');
             $this->template = $file->load();
         }
@@ -61,6 +66,14 @@
         }
         
         /**
+         * Hide breadcrump line
+         */
+        public function hideBreadcrumbLine()
+        {
+            $this->bcHidden = true;
+        }
+        
+        /**
          * Render the banners
          * @return  string
          */
@@ -84,10 +97,16 @@
          */
         private function _prepareBreadCrumbLine()
         {
-            $bc = ClaroBreadCrumbs::getInstance();
-            $this->template->addReplacement( 'breadcrumbs', $bc->render() );
-            $vm = ClaroViewMode::getInstance();
-            $this->template->addReplacement( 'viewmode', $vm->render() );
+            if ( $this->bcHidden )
+            {
+                $this->template->setBlockDisplay('breadcrumbLine', false);
+            }
+            else
+            {
+                $this->template->addReplacement( 'breadcrumbs', $this->breadcrumbs->render() );
+                $this->template->addReplacement( 'viewmode', $this->viewmode->render() );
+                $this->template->setBlockDisplay('breadcrumbLine', true);
+            }
         }
         
         /**

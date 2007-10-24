@@ -56,6 +56,7 @@
 <!-- End of Course Banner -->
 <!-- %end(courseBanner)% -->
 
+<!-- %block(breadcrumbLine):% -->
 <!-- BreadcrumbLine  -->
 <div id="breadcrumbLine">
 <hr />
@@ -69,6 +70,7 @@
 <hr />
 </div>
 <!-- End of BreadcrumbLine  -->
+<!-- %end(breadcrumbLine)% -->
 
 </div>
 <!-- End of Banner -->
