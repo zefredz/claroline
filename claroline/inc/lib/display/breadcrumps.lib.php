@@ -50,11 +50,11 @@
                 
                 if ( $currentNode == $lastNode )
                 {
-                    $nodeStr .= '<span style="lastBCNode">';
+                    $nodeStr .= '<span class="lastBCNode">';
                 }
                 elseif ( $currentNode == 0 )
                 {
-                    $nodeStr .= '<span style="firstBCNode">';
+                    $nodeStr .= '<span class="firstBCNode">';
                 }
                 
                 // var_dump( $node );
