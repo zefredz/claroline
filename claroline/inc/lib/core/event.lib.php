@@ -20,13 +20,13 @@
      */
     
     /**
-    * Compute size of arrays containing object reference with possible
-    * recursion
-    *
-    * @param array arry
-    * @return int size of the array, -1 if $arry is not an array
-    * @access global
-    */
+     * Compute size of arrays containing object reference with possible
+     * recursion
+     *
+     * @param array arry
+     * @return int size of the array, -1 if $arry is not an array
+     * @access global
+     */
     function array_size( $arry )
     {
         if ( !is_array( $arry ) )
@@ -91,9 +91,9 @@
     }
     
     /**
-    * Class to manage events and dispatch them to event listeners
-    * @access public
-    */
+     * Class to manage events and dispatch them to event listeners
+     * @access public
+     */
     class EventManager
     {
         // private fields
@@ -214,16 +214,26 @@
         }
 
         /**
-         * notify occurence of an event to the event manager
-         * @access public
-         * @param string event type of occured event
+         * notify occurence of an event to the event manager. Usage :
+         *  - EventManager::notify( $event );
+         *  - EventManager::notify( $eventType, $args );
+         * @access  public
+         * @param   string event type of occured event, or event object
+         * @param   array args optional event arguments (only if event type given
+         *      as first argument)
          * @static
          */
-        public static function notify( $event )
+        public static function notify( $event, $args = null )
         {
             if ( claro_debug_mode() )
             {
                 pushClaroMessage(__Class__."::notify ".$event->getEventType(), 'debug');
+            }
+            
+            if ( is_string ( $event ) )
+            {
+                // $event is an event type
+                $event = new Event( $event, $args );
             }
             
             $mngr = EventManager::getInstance();
@@ -307,29 +317,29 @@
     }
     
     /**
-    * listen to a particular event
-    * @access public
-    */
+     * listen to a particular event
+     * @access public
+     */
     class EventListener
     {
         // protected fields
         private $_callback;
 
         /**
-        * constructor
-        * @access public
-        * @param callback to call when the observed event occurs
-        */
+         * constructor
+         * @access public
+         * @param callback to call when the observed event occurs
+         */
         public function __construct( $callback )
         {
             $this->_callback = $callback;
         }
 
         /**
-        * notification of event occurence
-        * @access package private
-        * @param Event event the event to handle
-        */
+         * notification of event occurence
+         * @access package private
+         * @param Event event the event to handle
+         */
         public function handle( $event )
         {
             call_user_func( $this->_callback, $event );
@@ -337,10 +347,10 @@
     }
     
     /**
-    * generic event driven application
-    * @access public
-    * @abstract
-    */
+     * generic event driven application
+     * @access public
+     * @abstract
+     */
     class EventDriven
     {
         /**
@@ -371,30 +381,30 @@
     }
     
     /**
-    * Generic event generator for test purpose
-    * @access public
-    */
+     * Generic event generator for test purpose
+     * @access public
+     */
     class EventGenerator
     {
         /**
-        * notify the event manager for an event occurence
-        * @access public
-        * @param Event event the event that occurs; an instance of the event class
-        */
+         * notify the event manager for an event occurence
+         * @access public
+         * @param Event event the event that occurs; an instance of the event class
+         */
         public function sendEvent( $event )
         {
             EventManager::notify( $event );
         }
 
         /**
-        * public function to notify manager that an event occured,
-        * using this fucntion instead of sendEvent allow to let the class create
-        * the Event instance for you
-        *
-        * @param string eventType the type of the event
-        * @param array args an array containing any parameters needed
-        *   to describe the event occurence
-        */
+         * public function to notify manager that an event occured,
+         * using this fucntion instead of sendEvent allow to let the class create
+         * the Event instance for you
+         *
+         * @param string eventType the type of the event
+         * @param array args an array containing any parameters needed
+         *   to describe the event occurence
+         */
 
         public function notifyEvent( $eventType, $args )
         {
