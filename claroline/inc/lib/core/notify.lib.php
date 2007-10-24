@@ -41,7 +41,7 @@
         {
             if ( claro_debug_mode() )
             {
-                pushClaroMessage( 'No listeners for : ' . get_current_module_label(), 'debug' );
+                pushClaroMessage( 'No listeners for : ' . get_current_module_label(), 'warning' );
             }
         }
     }
