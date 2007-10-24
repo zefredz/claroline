@@ -9,9 +9,10 @@
      *
      * @version     1.9 $Revision$
      * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
      * @license     http://www.gnu.org/copyleft/gpl.html
-     *              GNU GENERAL PUBLIC LICENSE
+     *              GNU GENERAL PUBLIC LICENSE version 2.0
      * @package     CORE
      */
     
@@ -20,7 +21,8 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    uses( 'core/debug.lib', 'display/debugbar.lib', 'display/display.lib' );
+    uses( 'core/debug.lib', 'display/debugbar.lib', 'display/display.lib'
+        , 'core/event.lib', 'core/notify.lib' );
     
     define ( 'CL_PAGE',     'CL_PAGE' );
     define ( 'CL_FRAMESET', 'CL_FRAMESET' );
@@ -34,11 +36,18 @@
          */
         public $display;
         
+        public $eventManager;
+        public $notification;
+        public $notifier;
+        
         private static $instance = false;
         
         private function __construct()
         {
             $this->setDisplayType();
+            $this->eventManager = EventManager::getInstance();
+            $this->notification = ClaroNotification::getInstance();
+            $this->notifier = ClaroNotifier::getInstance();
         }
         
         /**

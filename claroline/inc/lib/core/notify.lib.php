@@ -21,8 +21,49 @@
     
     uses ( 'core/event.lib' );
     
-    class ClaroEventGenerator extends EventGenerator
+    function load_current_module_listeners()
     {
+        $claroline = Claroline::getInstance();
+        
+        $path = get_module_path( get_current_module_label() )
+            . '/connector/eventlistener.cnr.php';
+            
+        if ( file_exists( $path ) )
+        {
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage( 'Load listeners for : ' . get_current_module_label(), 'debug' );
+            }
+            
+            include $path;
+        }
+        else
+        {
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage( 'No listeners for : ' . get_current_module_label(), 'debug' );
+            }
+        }
+    }
+    
+    class ClaroNotifier extends EventGenerator
+    {
+        private static $instance = false;
+
+        private function __construct()
+        {
+        }
+
+        public static function getInstance()
+        {
+            if  ( ! ClaroNotifier::$instance )
+            {
+                ClaroNotifier::$instance = new ClaroNotifier;
+            }
+
+            return ClaroNotifier::$instance;
+        }
+        
         public function notifyCourseEvent($eventType, $cid, $tid, $rid, $gid, $uid)
         {
             $eventArgs = array();
@@ -35,9 +76,40 @@
 
             $this->notifyEvent($eventType, $eventArgs);
         }
+        
+        public function notifyClaroEvent( $type, $args )
+        {
+            if ( !array_key_exists( 'cid', $args ) && claro_is_in_a_course() )
+            {
+                $args['cid'] = claro_get_current_course_id();
+            }
+            
+            if ( !array_key_exists( 'gid', $args ) &&  claro_is_in_a_group() )
+            {
+                $args['gid'] = claro_get_current_group_id();
+            }
+            
+            if ( !array_key_exists( 'tid', $args ) && claro_is_in_a_tool() )
+            {
+                $args['tid'] = claro_get_current_tool_id();
+                // $args['tlabel'] = get_current_module_label();
+            }
+            
+            if ( !array_key_exists( 'uid', $args ) && claro_user_is_authenticated() )
+            {
+                $args['uid'] = claro_get_current_user_id();
+            }
+            
+            if ( ! array_key_exists( 'date', $args ) )
+            {
+                $args['date'] = date("Y-m-d H:i:00");
+            }
+            
+            $this->notifyEvent( $type, $args );
+        }
     }
 
-    class ClaroNotifier extends EventDriven
+    class ClaroNotification extends EventDriven
     {
         private static $instance = false;
         
@@ -47,12 +119,12 @@
         
         public static function getInstance()
         {
-            if  ( ! ClaroNotifier::$instance )
+            if  ( ! ClaroNotification::$instance )
             {
-                ClaroNotifier::$instance = new ClaroNotifier;
+                ClaroNotification::$instance = new ClaroNotification;
             }
 
-            return ClaroNotifier::$instance;
+            return ClaroNotification::$instance;
         }
         
         // generic notification methods
