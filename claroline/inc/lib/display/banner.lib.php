@@ -85,6 +85,7 @@
         private function _prepareBreadCrumps()
         {
             $bc = ClaroBreadCrumps::getInstance();
+            $bc->init();
             $this->template->addReplacement( 'breadcrumps', $bc->render() );
             $vm = ClaroViewMode::getInstance();
             $this->template->addReplacement( 'viewmode', $vm->render() );

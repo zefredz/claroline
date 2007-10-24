@@ -28,11 +28,15 @@
         {
         }
         
-        public function render()
+        public function init()
         {
+            $this->_compatVars();
             $this->autoPrepend();
             $this->autoAppend();
-            
+        }
+        
+        public function render()
+        {
             $lastNode = count( $this->breadCrumps ) - 1;
             $currentNode = 0;
             
@@ -46,19 +50,26 @@
                 
                 if ( $currentNode == $lastNode )
                 {
-                    $nodeStr .= '<strong>';
+                    $nodeStr .= '<span style="lastBCNode">';
+                }
+                elseif ( $currentNode == 0 )
+                {
+                    $nodeStr .= '<span style="firstBCNode">';
                 }
                 
                 // var_dump( $node );
 
                 $nodeStr .= $node->render();
                 
-                if ( $currentNode == $lastNode )
+                if ( $currentNode == $lastNode
+                    || $currentNode == 0 )
                 {
-                    $nodeStr .= '</strong>';
+                    $nodeStr .= '</span>';
                 }
                 
                 $nodeList[] = $nodeStr;
+                
+                $currentNode++;
             }
             
             $out .= implode ( "&nbsp;&gt;&nbsp;", $nodeList );
@@ -150,9 +161,10 @@
             if ( array_key_exists( 'interbredcrump', $GLOBALS )
                 && is_array( $GLOBALS['interbredcrump'] ) )
             {
-                foreach ( $GLOBALS['interbredcrump'] as $name => $url )
+                // var_dump( $GLOBALS['interbredcrump'] );
+                foreach ( $GLOBALS['interbredcrump'] as $node )
                 {
-                    $this->append( $name, $url );
+                    $this->append( $node['name'], $node['url'] );
                 }
             }
         }
