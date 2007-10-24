@@ -199,10 +199,46 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 }
 
 /*----------------------------------------------------------------------
-  Include the event manager declarations for the notification system
+  Initialize the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
 
-require get_path('incRepositorySys') . '/lib/event/init_event_manager.inc.php';
+// for backward compatibility
+$eventNotifier = $claroline->notifier;
+$claro_notifier = $claroline->notification;
+
+
+// Register listener in the event manager for the NOTIFICATION system :
+// EXAMPLE :
+//
+//  $claroline->notification->addListener( 'document_visible', 'update' );
+//
+// 'update' is the name of the function called in the listener class when the event happens
+// 'document_visible' is the name of the event that you want to track
+
+if ( claro_is_user_authenticated() )
+{
+   //global events (can happen outside of courses too)
+
+   $claroline->notification->addListener( 'course_deleted', 'eventDelete' );
+}
+
+if ( claro_is_user_authenticated() && claro_is_in_a_course() )
+{
+    //global events IN COURSE only
+
+    $claroline->notification->addListener( 'toollist_changed', 'eventDefault' );
+    $claroline->notification->addListener( 'introsection_modified', 'eventDefault' );
+}
+
+if ( claro_is_in_a_group() )
+{
+    $claroline->notification->addListener( 'group_deleted', 'eventDelete' );
+}
+
+if ( claro_is_in_a_tool() )
+{
+    load_current_module_listeners();
+}
 
 /*----------------------------------------------------------------------
   Load language translation and locale settings
