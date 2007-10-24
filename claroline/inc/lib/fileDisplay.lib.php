@@ -351,7 +351,7 @@ function claro_html_document_breadcrumb($curDirPath)
     }
     else
     {
-        return $bc->render();
+        return '<div class="breadcrumbTrails">' . $bc->render().'</div>' . "\n";
     }
 }
 
