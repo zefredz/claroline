@@ -52,6 +52,8 @@ if (isset($_REQUEST['logout']))
     session_destroy();
 }
 
+// Hide breadcrumbs and view mode on platform home page
+$claroline->display->banner->hideBreadcrumbLine();
 // CLAROLINE HEADER AND BANNER
 require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
