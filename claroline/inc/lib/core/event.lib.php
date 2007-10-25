@@ -18,33 +18,6 @@
      *              GNU GENERAL PUBLIC LICENSE version 2.0
      * @package     CORE
      */
-    
-    /**
-     * Compute size of arrays containing object reference with possible
-     * recursion
-     *
-     * @param array arry
-     * @return int size of the array, -1 if $arry is not an array
-     * @access global
-     */
-    function array_size( $arry )
-    {
-        if ( !is_array( $arry ) )
-        {
-            return -1;
-        }
-        else
-        {
-            $size = 0;
-
-            foreach( $arry as $value )
-            {
-                $size++;
-            }
-
-            return $size;
-        }
-    }
 
     /**
      * Event used within event manager architecture
@@ -143,7 +116,8 @@
             {
                 unset( $this->_registry[$eventType][$id] );
 
-                if ( array_size( $this->_registry[$eventType] ) == 0 )
+                if ( is_array( $this->_registry[$eventType] )
+                    && count( $this->_registry[$eventType] ) == 0 )
                 {
                     unset( $this->_registry[$eventType] );
                 }
@@ -166,7 +140,7 @@
         {
             if ( isset( $this->_registry[$event->getEventType()] )
                 && is_array( $this->_registry[$event->getEventType( )] )
-                && array_size( $this->_registry[$event->getEventType( )] ) != 0 )
+                && count( $this->_registry[$event->getEventType( )] ) != 0 )
             {
                 $cnt = 0;
 
@@ -274,20 +248,24 @@
          * list all registered events and the number of listeners for each
          * @access public
          */
-        function listRegiteredEvents( )
+        function listRegisteredEvents( )
         {
+            $out = '';
+            
             if ( is_array( $this->_registry )
-                && array_size( $this->_registry ) != 0 )
+                && count( $this->_registry ) != 0 )
             {
                 foreach ( $this->_registry as $eventType => $listeners )
                 {
-                    echo "$eventType( " . array_size( $listeners ) . " )\n";
+                    $out .=  "$eventType( " . count( $listeners ) . " )\n";
                 }
             }
             else
             {
-                echo "none\n";
+                $out .= "none\n";
             }
+            
+            return $out;
         }
 
         /**
@@ -296,23 +274,27 @@
          */
         function listRegisteredListeners( )
         {
+            $out = '';
+            
             if ( is_array( $this->_registry )
-                && array_size( $this->_registry ) != 0 )
+                && count( $this->_registry ) != 0 )
             {
                 foreach ( $this->_registry as $eventType => $listeners )
                 {
-                    echo "$eventType( " . array_size( $listeners ) . " )\n";
+                    $out .= "$eventType( " . count( $listeners ) . " )\n";
 
                     foreach ( $listeners as $id => $listener )
                     {
-                        echo "\tID: $id\n";
+                        $out .= "\tID: $id\n";
                     }
                 }
             }
             else
             {
-                echo "none\n";
+                $out .= "none\n";
             }
+            
+            return $out;
         }
     }
     
