@@ -179,7 +179,7 @@
                 }
                 else
                 {
-                    DebugBar::error( "Applet not found " . $applet['label'] );
+                    Console::error( "Applet not found " . $applet['label'] );
                 }
             }
 

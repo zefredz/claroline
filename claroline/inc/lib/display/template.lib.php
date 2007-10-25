@@ -94,7 +94,7 @@
         {
             if ( array_key_exists( $placeHolder, $this->_replacementList ) )
             {
-                DebugBar::debug( "Overwriting existing place holder $placeHolder" );
+                Console::debug( "Overwriting existing place holder $placeHolder" );
             }
             
             $this->_replacementList[$placeHolder] = $replacementValue;
@@ -106,7 +106,7 @@
             
             if ( count ( $overwritten ) )
             {
-                DebugBar::debug( "Overwriting existing place holders "
+                Console::debug( "Overwriting existing place holders "
                     . implode( ',', $overwritten ) );
             }
             
@@ -123,7 +123,7 @@
             {
                 if ( false === $this->_replace( $placeHolder, $replacementValue, $output ) )
                 {
-                    DebugBar::debug( "Place holder $placeHolder not found in template" );
+                    Console::debug( "Place holder $placeHolder not found in template" );
                 }
             }
             
@@ -292,7 +292,7 @@
                 }
                 else
                 {
-                    DebugBar::debug( "$index not found in $placeHolder" );
+                    Console::debug( "$index not found in $placeHolder" );
                     
                     $output = preg_replace(
                         "/\%$placeHolder\[".$index."\]\%/"
@@ -336,7 +336,7 @@
                     $func = $matches[1];
                     $index = $matches[2];
                     
-                    DebugBar::debug( "$index not found in $placeHolder" );
+                    Console::debug( "$index not found in $placeHolder" );
                     
                     $output = preg_replace(
                         "/\%${func}\(${placeHolder}\[${index}\]\)\%/"
@@ -360,7 +360,7 @@
                     }
                     else
                     {
-                        DebugBar::debug( "Not allowed callback for $placeHolder" );
+                        Console::debug( "Not allowed callback for $placeHolder" );
                     }
                 }
             }
@@ -411,20 +411,20 @@
                     else
                     {
                         // error
-                        DebugBar::error( "Cannot read file $tplFile" );
+                        Console::error( "Cannot read file $tplFile" );
                         return false;
                     }
                 }
                 else
                 {
-                    DebugBar::error( "Not a template file extension $tplFile" );
+                    Console::error( "Not a template file extension $tplFile" );
                     return false;
                 }
             }
             else
             {
                 // error
-                DebugBar::error( "File not found $tplFile" );
+                Console::error( "File not found $tplFile" );
                 return false;
             }
         }

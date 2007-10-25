@@ -21,7 +21,7 @@
 
     uses ('core/debug.lib');
 
-    class DebugBar
+    class Console
     {
         public static function message( $message )
         {
@@ -48,5 +48,7 @@
             claro_failure::set_failure( $message );
             pushClaroMessage( $message, 'error' );
         }
-    }    
+    }
+
+    // class DebugBar extends Console {}
 ?>

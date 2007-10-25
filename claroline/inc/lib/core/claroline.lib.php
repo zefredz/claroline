@@ -21,8 +21,8 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    uses( 'core/debug.lib', 'display/debugbar.lib', 'display/display.lib'
-        , 'core/event.lib', 'core/notify.lib' );
+    uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
+        , 'core/notify.lib', 'display/display.lib' );
     
     define ( 'CL_PAGE',     'CL_PAGE' );
     define ( 'CL_FRAMESET', 'CL_FRAMESET' );
