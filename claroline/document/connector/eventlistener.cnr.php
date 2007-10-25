@@ -7,12 +7,12 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    $claroline->notification->addListener( 'document_visible', 'update' );
-    $claroline->notification->addListener( 'document_file_added', 'eventDefault');
-    $claroline->notification->addListener( 'document_file_modified', 'updateResource' );
-    $claroline->notification->addListener( 'document_moved', 'updateResource' );
-    $claroline->notification->addListener( 'document_htmlfile_created', 'eventDefault' );
-    $claroline->notification->addListener( 'document_htmlfile_edited', 'eventDefault' );
-    $claroline->notification->addListener( 'document_file_deleted', 'eventDelete' );
-    $claroline->notification->addListener( 'document_invisible', 'eventDelete' );
+    $claroline->notification->addListener( 'document_visible',          'modificationDefault' );
+    $claroline->notification->addListener( 'document_file_added',       'modificationDefault');
+    $claroline->notification->addListener( 'document_file_modified',    'modificationUpdate' );
+    $claroline->notification->addListener( 'document_moved',            'modificationUpdate' );
+    $claroline->notification->addListener( 'document_htmlfile_created', 'modificationDefault' );
+    $claroline->notification->addListener( 'document_htmlfile_edited',  'modificationDefault' );
+    $claroline->notification->addListener( 'document_file_deleted',     'modificationDelete' );
+    $claroline->notification->addListener( 'document_invisible',        'modificationDelete' );
 ?>

@@ -7,11 +7,11 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    $claroline->notification->addListener( 'work_added', 'eventDefault' );
-    $claroline->notification->addListener( 'work_visible', 'eventDefault' );
-    $claroline->notification->addListener( 'work_invisible', 'eventDelete' );
-    $claroline->notification->addListener( 'work_deleted', 'eventDelete' );
-    $claroline->notification->addListener( 'work_submission_posted', 'eventDefault' );
-    $claroline->notification->addListener( 'work_correction_posted', 'eventDefault' );
-    $claroline->notification->addListener( 'work_feedback_posted', 'eventDefault' );
+    $claroline->notification->addListener( 'work_added',                'modificationDefault' );
+    $claroline->notification->addListener( 'work_visible',              'modificationDefault' );
+    $claroline->notification->addListener( 'work_invisible',            'modificationDelete' );
+    $claroline->notification->addListener( 'work_deleted',              'modificationDelete' );
+    $claroline->notification->addListener( 'work_submission_posted',    'modificationDefault' );
+    $claroline->notification->addListener( 'work_correction_posted',    'modificationDefault' );
+    $claroline->notification->addListener( 'work_feedback_posted',      'modificationDefault' );
 ?>

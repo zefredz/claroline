@@ -7,6 +7,6 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    $claroline->notification->addListener( 'forum_new_topic', 'eventDefault' );
-    $claroline->notification->addListener( 'forum_answer_topic', 'eventDefault' );
+    $claroline->notification->addListener( 'forum_new_topic',       'modificationDefault' );
+    $claroline->notification->addListener( 'forum_answer_topic',    'modificationDefault' );
 ?>

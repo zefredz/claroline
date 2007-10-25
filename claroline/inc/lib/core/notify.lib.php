@@ -136,11 +136,11 @@
         {
             $event_args = $event->getArgs();
 
-            $cid		= array_key_exists($event_args, 'cid') ? $event_args['cid'] : '';
-            $tid        = array_key_exists($event_args, 'tid') ? $event_args['tid'] : 0;
-            $rid        = array_key_exists($event_args, 'rid') ? $event_args['rid'] : '';
-            $gid        = array_key_exists($event_args, 'gid') ? $event_args['gid'] : 0;
-            $uid        = array_key_exists($event_args, 'uid') ? $event_args['uid'] : 0;
+            $cid		= array_key_exists( 'cid', $event_args) ? $event_args['cid'] : '';
+            $tid        = array_key_exists( 'tid', $event_args) ? $event_args['tid'] : 0;
+            $rid        = array_key_exists( 'rid', $event_args) ? $event_args['rid'] : '';
+            $gid        = array_key_exists( 'gid', $event_args) ? $event_args['gid'] : 0;
+            $uid        = array_key_exists( 'uid', $event_args) ? $event_args['uid'] : 0;
 
             $eventType  = $event->getEventType();
 
@@ -204,11 +204,11 @@
 
             $event_args = $event->getArgs();
 
-            $cid		= array_key_exists($event_args, 'cid') ? $event_args['cid'] : '';
-            $tid        = array_key_exists($event_args, 'tid') ? $event_args['tid'] : 0;
-            $resource   = array_key_exists($event_args, 'rid') ? $event_args['rid'] : array();
-            $gid        = array_key_exists($event_args, 'gid') ? $event_args['gid'] : 0;
-            $uid        = array_key_exists($event_args, 'uid') ? $event_args['uid'] : 0;
+            $cid		= array_key_exists( 'cid', $event_args) ? $event_args['cid'] : '';
+            $tid        = array_key_exists( 'tid', $event_args) ? $event_args['tid'] : 0;
+            $resource   = array_key_exists( 'rid', $event_args) ? $event_args['rid'] : array();
+            $gid        = array_key_exists( 'gid', $event_args) ? $event_args['gid'] : 0;
+            $uid        = array_key_exists( 'uid', $event_args) ? $event_args['uid'] : 0;
 
             $eventType  = $event->getEventType();
 
@@ -238,11 +238,11 @@
 
             $event_args = $event->getArgs();
 
-            $cid		= array_key_exists($event_args, 'cid') ? $event_args['cid'] : '';
-            $tid        = array_key_exists($event_args, 'tid') ? $event_args['tid'] : 0;
-            $rid        = array_key_exists($event_args, 'rid') ? $event_args['rid'] : '';
-            $gid        = array_key_exists($event_args, 'gid') ? $event_args['gid'] : 0;
-            $uid        = array_key_exists($event_args, 'uid') ? $event_args['uid'] : 0;
+            $cid		= array_key_exists( 'cid', $event_args) ? $event_args['cid'] : '';
+            $tid        = array_key_exists( 'tid', $event_args) ? $event_args['tid'] : 0;
+            $rid        = array_key_exists( 'rid', $event_args) ? $event_args['rid'] : '';
+            $gid        = array_key_exists( 'gid', $event_args) ? $event_args['gid'] : 0;
+            $uid        = array_key_exists( 'uid', $event_args) ? $event_args['uid'] : 0;
 
             $eventType  = $event->getEventType();
 

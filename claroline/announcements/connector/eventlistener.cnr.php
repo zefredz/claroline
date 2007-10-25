@@ -7,9 +7,9 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    $claroline->notification->addListener( 'anouncement_visible', 'eventDefault' );
-    $claroline->notification->addListener( 'anouncement_added', 'eventDefault' );
-    $claroline->notification->addListener( 'anouncement_modified', 'eventDefault' );
-    $claroline->notification->addListener( 'anouncement_deleted', 'eventDelete' );
-    $claroline->notification->addListener( 'anouncement_invisible', 'eventDelete' );
+    $claroline->notification->addListener( 'anouncement_visible',   'modificationDefault' );
+    $claroline->notification->addListener( 'anouncement_added',     'modificationDefault' );
+    $claroline->notification->addListener( 'anouncement_modified',  'modificationDefault' );
+    $claroline->notification->addListener( 'anouncement_deleted',   'modificationDelete' );
+    $claroline->notification->addListener( 'anouncement_invisible', 'modificationDelete' );
 ?>

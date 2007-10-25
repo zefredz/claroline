@@ -7,9 +7,9 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    $claroline->notification->addListener( 'wiki_added', 'eventDefault' );
-    $claroline->notification->addListener( 'wiki_modified', 'eventDefault' );
-    $claroline->notification->addListener( 'wiki_deleted', 'eventDelete' );
-    $claroline->notification->addListener( 'wiki_page_modified', 'eventDefault' );
-    $claroline->notification->addListener( 'wiki_page_added', 'eventDefault' );
+    $claroline->notification->addListener( 'wiki_added',            'modificationDefault' );
+    $claroline->notification->addListener( 'wiki_modified',         'modificationDefault' );
+    $claroline->notification->addListener( 'wiki_deleted',          'modificationDelete' );
+    $claroline->notification->addListener( 'wiki_page_modified',    'modificationDefault' );
+    $claroline->notification->addListener( 'wiki_page_added',       'modificationDefault' );
 ?>
