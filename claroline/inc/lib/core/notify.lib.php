@@ -1,7 +1,7 @@
 <?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
-    
+
     /**
      * Claroline notification system
      *
@@ -18,23 +18,23 @@
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-    
+
     uses ( 'core/event.lib' );
-    
+
     function load_current_module_listeners()
     {
         $claroline = Claroline::getInstance();
-        
+
         $path = get_module_path( get_current_module_label() )
             . '/connector/eventlistener.cnr.php';
-            
+
         if ( file_exists( $path ) )
         {
             if ( claro_debug_mode() )
             {
                 pushClaroMessage( 'Load listeners for : ' . get_current_module_label(), 'debug' );
             }
-            
+
             include $path;
         }
         else
@@ -45,7 +45,7 @@
             }
         }
     }
-    
+
     class ClaroNotifier extends EventGenerator
     {
         private static $instance = false;
@@ -63,7 +63,7 @@
 
             return ClaroNotifier::$instance;
         }
-        
+
         public function notifyCourseEvent($eventType, $cid, $tid, $rid, $gid, $uid)
         {
             $eventArgs = array();
@@ -76,35 +76,35 @@
 
             $this->notifyEvent($eventType, $eventArgs);
         }
-        
+
         public function notifyClaroEvent( $type, $args )
         {
             if ( !array_key_exists( 'cid', $args ) && claro_is_in_a_course() )
             {
                 $args['cid'] = claro_get_current_course_id();
             }
-            
+
             if ( !array_key_exists( 'gid', $args ) &&  claro_is_in_a_group() )
             {
                 $args['gid'] = claro_get_current_group_id();
             }
-            
+
             if ( !array_key_exists( 'tid', $args ) && claro_is_in_a_tool() )
             {
                 $args['tid'] = claro_get_current_tool_id();
                 // $args['tlabel'] = get_current_module_label();
             }
-            
+
             if ( !array_key_exists( 'uid', $args ) && claro_user_is_authenticated() )
             {
                 $args['uid'] = claro_get_current_user_id();
             }
-            
+
             if ( ! array_key_exists( 'date', $args ) )
             {
-                $args['date'] = date("Y-m-d H:i:00");
+                $args['date'] = claro_date("Y-m-d H:i:00");
             }
-            
+
             $this->notifyEvent( $type, $args );
         }
     }
@@ -112,11 +112,11 @@
     class ClaroNotification extends EventDriven
     {
         private static $instance = false;
-        
+
         private function __construct()
         {
         }
-        
+
         public static function getInstance()
         {
             if  ( ! ClaroNotification::$instance )
@@ -126,156 +126,163 @@
 
             return ClaroNotification::$instance;
         }
-        
-        // generic notification methods
-        
-        public function eventDefault ($event)
-        {
-            // get needed info from event
 
+
+
+        /*
+         * About the red ball
+         */
+        public function modificationDefault( $event )
+        {
             $event_args = $event->getArgs();
 
-            $course     = $event_args['cid'];
-            $tool       = $event_args['tid'];
-            $ressource  = $event_args['rid'];
-            $gid        = $event_args['gid'];
-            $uid        = $event_args['uid'];
+            $cid		= array_key_exists($event_args, 'cid') ? $event_args['cid'] : '';
+            $tid        = array_key_exists($event_args, 'tid') ? $event_args['tid'] : 0;
+            $rid        = array_key_exists($event_args, 'rid') ? $event_args['rid'] : '';
+            $gid        = array_key_exists($event_args, 'gid') ? $event_args['gid'] : 0;
+            $uid        = array_key_exists($event_args, 'uid') ? $event_args['uid'] : 0;
+
             $eventType  = $event->getEventType();
 
             // call function to update db info
 
             if ($eventType != 'delete')
             {
-                $this->updateLastEvent($course, $tool, $ressource,$gid, $uid);
-            }
+            	$tbl_mdb_names = claro_sql_get_main_tbl();
+	            $tbl_notify    = $tbl_mdb_names['notify'];
 
+	            // 1- check if row already exists
+
+	            $sql = "SELECT count(`id`) FROM `" . $tbl_notify . "`
+	                         WHERE `course_code`= '".addslashes($cid)."'
+	                           AND `tool_id`= ". (int) $tid . "
+	                           AND `ressource_id`= '". addslashes($rid) . "'
+	                           AND `group_id` = ". (int) $gid . "
+	                           AND `user_id` = ". (int) $uid;
+
+	            $do_update = (bool) claro_sql_query_get_single_value($sql);
+
+	            // 2- update or create for concerned row
+
+	            $now = claro_date("Y-m-d H:i:s");
+
+	            if ($do_update)
+	            {
+	                $sqlDoUpdate = "UPDATE `" . $tbl_notify . "`
+	                     SET `date` = '" . addslashes($now) . "'
+	                     WHERE `course_code` = '" . addslashes($cid) . "'
+	                       AND `tool_id`     =  " . (int) $tid . "
+	                       AND `ressource_id`= '" . addslashes($rid) . "'
+	                       AND `group_id`    =  " . (int) $gid . "
+	                       AND `user_id`     =  " . (int) $uid;
+	            }
+	            else
+	            {
+	            	$sqlDoUpdate = "INSERT INTO `" . $tbl_notify . "`
+	                            SET   `course_code`  = '" . addslashes($cid) . "',
+	                                  `tool_id`      =  " . (int) $tid . ",
+	                                  `date`         = '" . addslashes($now) . "',
+	                                  `ressource_id` = '" . addslashes($rid) . "',
+	                                  `group_id`     =  " . (int) $gid . ",
+	                                  `user_id`      =  " . (int) $uid ;
+
+	            }
+
+	            claro_sql_query($sqlDoUpdate);
+
+	            // 3- save in session of this user that this ressource is already seen.
+	            // --> as he did the modification himself, he shouldn't be notified
+	            $_SESSION['ConsultedRessourceList'][$cid . ':' . $tid . ':' . $gid . ':' . $rid . ':' . $now] = TRUE;
+
+            }
         }
-        
-        public function updateResource( $event )
+
+        public function modificationUpdate( $event )
         {
             $tbl_mdb_names = claro_sql_get_main_tbl();
             $tbl_notify     = $tbl_mdb_names['notify'];
 
-            // get needed info from event
-
             $event_args = $event->getArgs();
 
-            $course     = $event_args['cid'];
-            $tool       = $event_args['tid'];
-            $ressource  = $event_args['rid'];
-            $gid        = $event_args['gid'];
-            $uid        = $event_args['uid'];
+            $cid		= array_key_exists($event_args, 'cid') ? $event_args['cid'] : '';
+            $tid        = array_key_exists($event_args, 'tid') ? $event_args['tid'] : 0;
+            $resource   = array_key_exists($event_args, 'rid') ? $event_args['rid'] : array();
+            $gid        = array_key_exists($event_args, 'gid') ? $event_args['gid'] : 0;
+            $uid        = array_key_exists($event_args, 'uid') ? $event_args['uid'] : 0;
+
             $eventType  = $event->getEventType();
 
-            $oldRessourceId = $ressource['old_uri'];
-            $newRessourceId = $ressource['new_uri'];
+            $oldResourceId = $resource['old_uri'];
+            $newResourceId = $resource['new_uri'];
 
             // update ressource_id
 
             $sql = "UPDATE `" . $tbl_notify . "`
-                    SET `ressource_id`= '" . addslashes($newRessourceId) . "'
-                    WHERE `course_code`='". addslashes($course) ."'
-                      AND `tool_id`= ". (int) $tool."
-                      AND `ressource_id`= '". addslashes($oldRessourceId) ."'
+                    SET `ressource_id`= '" . addslashes($newResourceId) . "'
+                    WHERE `course_code`='". addslashes($cid) ."'
+                      AND `tool_id`= ". (int) $tid."
+                      AND `ressource_id`= '". addslashes($oldResourceId) ."'
                       AND `group_id` = ". (int) $gid;
 
             claro_sql_query($sql);
         }
-        
-        public function eventDelete ( $event )
+
+		/**
+		 *
+		 * TODO split this method in different callbacks
+		 */
+        public function modificationDelete ( $event )
         {
             $tbl_mdb_names = claro_sql_get_main_tbl();
             $tbl_notify     = $tbl_mdb_names['notify'];
 
-            // get needed info from event
-
             $event_args = $event->getArgs();
 
-            $course     = $event_args['cid'];
-            $tool       = $event_args['tid'];
-            $ressource  = $event_args['rid'];
-            $gid        = $event_args['gid'];
-            $uid        = $event_args['uid'];
+            $cid		= array_key_exists($event_args, 'cid') ? $event_args['cid'] : '';
+            $tid        = array_key_exists($event_args, 'tid') ? $event_args['tid'] : 0;
+            $rid        = array_key_exists($event_args, 'rid') ? $event_args['rid'] : '';
+            $gid        = array_key_exists($event_args, 'gid') ? $event_args['gid'] : 0;
+            $uid        = array_key_exists($event_args, 'uid') ? $event_args['uid'] : 0;
+
             $eventType  = $event->getEventType();
 
             // in case of a complete deletion of a COURSE, all event regarding this course must be deleted
             if ($eventType == 'course_deleted')
             {
                 $sql = "DELETE FROM `" . $tbl_notify . "`
-                        WHERE `course_code`='". addslashes($course)."'";
+                        WHERE `course_code`='". addslashes($cid)."'";
             }
 
             // in case of a complete deletion of a GROUP, all event regarding this group must be deleted
             elseif ($eventType == 'group_deleted')
             {
                 $sql = "DELETE FROM `" . $tbl_notify . "`
-                        WHERE `course_code`='" . addslashes($course) . "'
+                        WHERE `course_code`='" . addslashes($cid) . "'
                           AND `group_id` = ". (int) $gid;
             }
             // otherwise, just delete event concerning the tool or the ressource in the course
             else
             {
                 $sql = "DELETE FROM `" . $tbl_notify . "`
-                          WHERE `course_code`='". addslashes($course) ."'
-                            AND `tool_id`= ". (int) $tool."
-                            AND `ressource_id`= '". addslashes($ressource) ."'
+                          WHERE `course_code`='". addslashes($cid) ."'
+                            AND `tool_id`= ". (int) $tid."
+                            AND `ressource_id`= '". addslashes($rid) ."'
                             AND `group_id` = ". (int) $gid;
             }
 
             claro_sql_query($sql);
         }
-        
-        public function updateLastEvent( $course_id, $tool_id, $ressource_id, $gid, $uid )
-        {
-            $tbl_mdb_names = claro_sql_get_main_tbl();
-            $tbl_notify    = $tbl_mdb_names['notify'];
 
-            // 1- check if row already exists
 
-            $sql = "SELECT count(`id`) FROM `" . $tbl_notify . "`
-                         WHERE `course_code`= '".$course_id."'
-                           AND `tool_id`= ". (int)$tool_id . "
-                           AND `ressource_id`= '". addslashes($ressource_id) . "'
-                           AND `group_id` = ". (int) $gid . "
-                           AND `user_id` = ". (int) $uid;
-            $do_update = (bool) claro_sql_query_get_single_value($sql);
 
-            // 2- update or create for concerned row
 
-            $now_date = date("Y-m-d H:i:s");
 
-            if ($do_update)
-            {
-                $sqlDoUpdate = "UPDATE `" . $tbl_notify . "`
-                           SET `date` = '" . $now_date . "'
-                     WHERE `course_code` = '" . addslashes($course_id) . "'
-                       AND `tool_id`     =  " . (int) $tool_id . "
-                       AND `ressource_id`= '" . addslashes($ressource_id) . "'
-                       AND `group_id`    =  " . (int) $gid . "
-                       AND `user_id`     =  " . (int) $uid;
-            }
-            else
-            {
 
-                    $sqlDoUpdate = "INSERT INTO `" . $tbl_notify . "`
-                            SET   `course_code`  = '" . addslashes($course_id) . "',
-                                  `tool_id`      =  " . (int) $tool_id . ",
-                                  `date`         = '" . $now_date . "',
-                                  `ressource_id` = '" . addslashes($ressource_id) . "',
-                                  `group_id`     =  " . (int) $gid . ",
-                                  `user_id`      =  " . (int) $uid ;
 
-            }
-            claro_sql_query($sqlDoUpdate);
-            // 3- save in session of this user that this ressource is already seen.
-            // --> as he did the modification himself, he shouldn't be notified
 
-            $_SESSION['ConsultedRessourceList'][$course_id . ':' . $tool_id . ':' . $gid . ':' . $ressource_id . ':' . $now_date] = TRUE;
 
-        }
-        
         // get notification from database methods
-        
+
         public function getNotifiedCourses( $date, $user_id )
         {
             $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -327,7 +334,7 @@
 
             return $courses;
         }
-        
+
         public function getNotifiedTools( $course_id, $date, $user_id,$group_id = '0' )
         {
 
@@ -398,7 +405,7 @@
 
             return $tools;
         }
-        
+
         public function getNotifiedGroups( $course_id, $date )
         {
             //1 - Find infiormation in Session and DB
@@ -440,7 +447,7 @@
 
              return $groups;
         }
-        
+
         public function isANotifiedRessource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
         {
             // global $fileList, $fileKey; //needed for the document tool
@@ -497,7 +504,7 @@
             }
             else return false;
         }
-        
+
         public function isANotifiedForum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId )
         {
 
@@ -525,7 +532,7 @@
             }
             return false;
         }
-        
+
         public function getNotifiedRessources( $course_id, $date, $user_id, $gid, $tid )
         {
             $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -573,7 +580,7 @@
 
             return $login_date;
         }
-        
+
         public function getNotificationDate($user_id)
         {
             return $this->getLastActionBeforeLoginDate($user_id);
@@ -618,7 +625,6 @@
                            AND CU.`user_id`          = " . (int) $user_id;
                 $maxDate = claro_sql_query_get_single_value($sqlMaxDate);
 
-                // DEBUG : echo "<br>result for : ".$course['code_cours'];var_dump($result);
 
                 if ($maxDate && (strtotime($maxDate) > strtotime($last_action_date)))
                 {
@@ -640,9 +646,9 @@
                 return $last_login_date;
             }
         }
-        
+
         // aliases TODO rename in all scripts !!!!
-        
+
         public function get_notified_courses( $date, $user_id )
         {
             return $this->getNotifiedCourses( $date, $user_id );
