@@ -218,22 +218,19 @@
      *          false if file not found or file empty, 
      *          set a claro_failure if file not found 
      */
-    function claro_send_file( $path, $name = '' )
+    function claro_send_file( $path, $name = '', $charset = null )
     {
         if ( file_exists( $path ) )
         {
             if ( empty( $name ) ) $name = basename( $path );
+            $charset = empty( $charset )
+                ? ''
+                : '; charset=' . $charset
+                ;
             
             $mimeType = get_mime_on_ext( $path );
         
-            if ( ! is_null( $mimeType ) )
-            {
-                header( 'Content-Type: ' . $mimeType );
-            }
-            else
-            {
-                header( 'Content-Type: document/unknown' );
-            }
+            header( 'Content-Type: ' . $mimeType . $charset );
                 
             // IE no-cache bug
             
