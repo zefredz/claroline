@@ -95,8 +95,6 @@
     }
 
     // OK TO SEND FEED
-
-
-    // header('Content-type: ' . get_ical_MimeType( $calType ) . ';');
+    
     claro_send_file ( buildICal( array( CLARO_CONTEXT_COURSE => claro_get_current_course_id() ), $calType) );
 ?>
