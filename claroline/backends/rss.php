@@ -78,7 +78,9 @@
         // OK TO SEND FEED
         include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
 
-        // header('Content-type: text/xml; charset=utf-8');
-        claro_send_file ( build_rss( array('course' => claro_get_current_course_id() ) ) );
+        claro_send_file (
+            build_rss( array('course' => claro_get_current_course_id() ) ),
+            '',
+            'utf-8' );
     }
 ?>
