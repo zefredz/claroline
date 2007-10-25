@@ -574,7 +574,17 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 
     if($result)
     {
-        list($value) = mysql_fetch_row($result);
+        $row = mysql_fetch_row($result);
+        
+        if ( is_array( $row ) )
+        {
+            list($value) = $row;
+        }
+        else
+        {
+            $value = null;
+        }
+        
         mysql_free_result($result);
         return $value;
     }
