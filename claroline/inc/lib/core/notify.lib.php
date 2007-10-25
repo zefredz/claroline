@@ -77,7 +77,7 @@
             $this->notifyEvent($eventType, $eventArgs);
         }
 
-        public function notifyClaroEvent( $type, $args = null)
+        public function event( $type, $args = null)
         {
 			if( !is_array($args) )
 			{
@@ -100,7 +100,7 @@
                 // $args['tlabel'] = get_current_module_label();
             }
 
-            if ( !array_key_exists( 'uid', $args ) && claro_user_is_authenticated() )
+            if ( !array_key_exists( 'uid', $args ) && claro_is_user_authenticated() )
             {
                 $args['uid'] = claro_get_current_user_id();
             }
