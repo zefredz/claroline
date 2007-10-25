@@ -342,7 +342,16 @@
          */
         public function handle( $event )
         {
-            call_user_func( $this->_callback, $event );
+            // @ set to have no warning ?
+            if ( ! @call_user_func( $this->_callback, $event ) )
+            {
+                if ( claro_debug_mode() )
+                {
+                    Console::Error( 'Callback failed for event '
+                        . var_export( $event, true ) . ' : '
+                        . var_export( $this->_callback, true ) );
+                }
+            }
         }
     }
     
