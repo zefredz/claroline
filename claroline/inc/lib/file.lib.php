@@ -184,10 +184,17 @@
                 'url'   => 'text/html',
                 'wav'   => 'audio/x-wav',
                 'wmv'   => 'video/x-ms-wmv',
-                'xml'   =>'application/xml',
+                'xml'   => 'application/xml',
                 'xls'   => 'application/vnd.ms-excel',
                 'xsl'   => 'text/xml',
                 'zip'   => 'application/zip',
+                
+                # Syndication
+                'ics'   => 'text/Calendar',
+                'xcs'   => 'text/Calendar',
+                'rdf'   => 'text/xml',
+                'rss'   => 'application/rss+xml',
+                'opml'  => 'text/x-opml',
             );
     
             $mimeType = array_key_exists( $fileExtension, $mimeTypeList )

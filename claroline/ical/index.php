@@ -18,6 +18,9 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  */
+ 
+// moved to backends
+die( "Moved to backends !" );
 
 $_course = array();
 $siteName ='';
