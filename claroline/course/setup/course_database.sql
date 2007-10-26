@@ -115,3 +115,14 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__lnk_resources` (
     `title` text NOT NULL,
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__tracking_event` (
+  `id` int(11) NOT NULL auto_increment,
+  `tool_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `type` varchar(60) NOT NULL DEFAULT '',
+  `data` text NOT NULL DEFAULT '',
+  PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
