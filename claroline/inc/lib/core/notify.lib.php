@@ -136,10 +136,10 @@
 		{
 			$event_args = $event->getArgs();
 
-            $cid		= array_key_exists('cid', $event_args) ? $event_args['cid'] : '';
-            $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : '';
-            $gid        = array_key_exists('gid', $event_args) ? $event_args['gid'] : '';
-            $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : '';
+            $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : null;
+            $gid        = array_key_exists('gid', $event_args) ? $event_args['gid'] : null;
+            $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : null;
+			$date 		= array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:00");
 
             if( array_key_exists($event_args, 'data') )
             {
@@ -152,18 +152,23 @@
 
             $eventType  = $event->getEventType();
 
+			if ( claro_debug_mode() )
+            {
+                Console::Error( 'Data added in course tracking '
+                        . $eventType . ' : '
+                        . var_export( $event, true ) );
+            }
 
-			if( !empty($cid) )
+			if( claro_is_in_a_course() )
 			{
-				$tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($cid) );
+				$tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued(claro_get_current_course_id()) );
             	$tbl_tracking_event  = $tbl_cdb_names['tracking_event'];
 
 	            $sql = "INSERT INTO `" . $tbl_tracking_event . "`
-	                    SET `course_code` = '" . addslashes($cid) . "',
-	                    	`tool_id` = '" . addslashes($tid) . "',
-	                    	`group_id` = '" . addslashes($gid) . "',
-	                    	`user_id` = '" . addslashes($uid) . "',
-	                    	`date` = '" . claro_mktime() . "',
+	                    SET `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . addslashes($tid) . "'" ). ",
+	                    	`group_id` = ". ( is_null($gid) ? "NULL" : "'" . addslashes($gid) . "'" ). ",
+	                    	`user_id` = ". ( is_null($uid) ? "NULL" : "'" . addslashes($uid) . "'" ). ",
+	                    	`date` = '" . $date . "',
 	                    	`type` = '" . addslashes($eventType) . "',
 	                    	`data` = '" . addslashes($data) . "'";
 
@@ -173,6 +178,7 @@
 			{
 				return false;
 			}
+
 		}
 
 		public function trackInPlatform( $event )
@@ -182,6 +188,7 @@
             $cid		= array_key_exists('cid', $event_args) ? $event_args['cid'] : '';
             $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : '';
             $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : '';
+			$date 		= array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:00");
 
             if( array_key_exists($event_args, 'data') )
             {
@@ -194,6 +201,12 @@
 
             $eventType  = $event->getEventType();
 
+			if ( claro_debug_mode() )
+            {
+                Console::Error( 'Data added in platform tracking '
+                        . $eventType . ' : '
+                        . var_export( $event, true ) );
+            }
 
 			$tbl_mdb_names = claro_sql_get_main_tbl();
         	$tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
@@ -202,12 +215,63 @@
                     SET `course_code` = '" . addslashes($cid) . "',
                     	`tool_id` = '" . addslashes($tid) . "',
                     	`user_id` = '" . addslashes($uid) . "',
-                    	`date` = '" . claro_mktime() . "',
+                    	`date` = '" . $date . "',
                     	`type` = '" . addslashes($eventType) . "',
                     	`data` = '" . addslashes($data) . "'";
 
             return claro_sql_query($sql);
 		}
+
+
+		public function trackToolAccess( $event )
+		{
+		    if( ! get_conf('is_trackingEnabled') ) return false;
+
+			$event_args = $event->getArgs();
+
+            $cid		= array_key_exists('cid', $event_args) ? $event_args['cid'] : '';
+            $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : '';
+
+			if( !empty($cid) && !empty($tid) )
+			{
+			    // count access only if user has not already accessed this tool in this course during this session
+			    if( !isset( $_SESSION['tracking']['usedTools'][$cid][$tid] ) )
+			    {
+			    	$this->trackInCourse( $event );
+					// TODO : also save information in main DB for later use from administration : cid, tid and counter ?
+			        $_SESSION['tracking']['usedTools'][$cid][$tid] = claro_mktime();
+				    return true;
+			    }
+			}
+
+			return false;
+
+		}
+
+		public function trackCourseAccess( $event )
+		{
+			if( ! get_conf('is_trackingEnabled') ) return false;
+
+			$event_args = $event->getArgs();
+
+            $cid		= array_key_exists('cid', $event_args) ? $event_args['cid'] : '';
+
+			if( !empty($cid) )
+			{
+			    // count access only if user has not already accessed this tool in this course during this session
+			    if( !isset( $_SESSION['tracking']['usedCourses'][$cid] ) )
+			    {
+			    	$this->trackInCourse( $event );
+					// TODO : also save information in main DB for later use from administration : cid and counter ?
+			        $_SESSION['tracking']['usedCourses'][$cid] = claro_mktime();
+				    return true;
+			    }
+			}
+
+			return false;
+		}
+
+		// todo replace event_default function with a log method
 
         /*
          * About the red ball
