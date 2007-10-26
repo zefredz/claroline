@@ -170,7 +170,8 @@ function claro_sql_get_main_tbl()
         'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
         'track_e_default'           => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_default',
         'track_e_login'             => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_login',
-        'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open'
+        'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open',
+        'tracking_event'            => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'tracking_event'
         );
 
     }
@@ -248,6 +249,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
               'track_e_exercices'      => $courseDbInCache . 'track_e_exercices',
               'track_e_uploads'        => $courseDbInCache . 'track_e_uploads',
+              'tracking_event' 		   => $courseDbInCache . 'tracking_event',
               'userinfo_content'       => $courseDbInCache . 'userinfo_content',
               'userinfo_def'           => $courseDbInCache . 'userinfo_def',
               'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
@@ -270,7 +272,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
@@ -575,7 +577,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
     if($result)
     {
         $row = mysql_fetch_row($result);
-        
+
         if ( is_array( $row ) )
         {
             list($value) = $row;
@@ -584,7 +586,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
         {
             $value = null;
         }
-        
+
         mysql_free_result($result);
         return $value;
     }
