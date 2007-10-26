@@ -188,7 +188,7 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
             claro_die( get_lang( 'Not allowed' ) );
         }
     }
-    
+
     /*----------------------------------------------------------------------
         Install module
     ----------------------------------------------------------------------*/
@@ -219,25 +219,36 @@ if ( claro_is_user_authenticated() )
 {
    //global events (can happen outside of courses too)
 
-   $claroline->notification->addListener( 'course_deleted', 'eventDelete' );
+   $claroline->notification->addListener( 'course_deleted', 'modificationDelete' );
 }
 
 if ( claro_is_user_authenticated() && claro_is_in_a_course() )
 {
     //global events IN COURSE only
 
-    $claroline->notification->addListener( 'toollist_changed', 'eventDefault' );
-    $claroline->notification->addListener( 'introsection_modified', 'eventDefault' );
+    $claroline->notification->addListener( 'toollist_changed', 'modificationDefault' );
+    $claroline->notification->addListener( 'introsection_modified', 'modificationDefault' );
+
+    $claroline->notification->addListener( 'course_access', 'trackCourseAccess' );
+    // todo : should move this event to initialisation of course context
+    $claroline->notifier->event( 'course_access' );
 }
 
 if ( claro_is_in_a_group() )
 {
-    $claroline->notification->addListener( 'group_deleted', 'eventDelete' );
+    $claroline->notification->addListener( 'group_deleted', 'modificationDelete' );
 }
 
 if ( claro_is_in_a_tool() )
 {
+	// generic tool event
+    $claroline->notification->addListener( 'tool_access', 'trackToolAccess' );
+    // todo : should move this event to initialisation of tool context
+    $claroline->notifier->event( 'tool_access' );
+
+    // others
     load_current_module_listeners();
+
 }
 
 /*----------------------------------------------------------------------
@@ -325,7 +336,7 @@ else pushClaroMessage('module_cache not generated : check access right in '.$cac
 if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
 {
     require claro_get_conf_repository() . 'rss.conf.php';
-    
+
     $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
     .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
 }
