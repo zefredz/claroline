@@ -141,7 +141,7 @@
             $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : null;
 			$date 		= array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:00");
 
-            if( array_key_exists($event_args, 'data') )
+            if( array_key_exists('data', $event_args) )
             {
             	$data = serialize( $event_args['data'] );
             }
@@ -185,12 +185,12 @@
 		{
 			$event_args = $event->getArgs();
 
-            $cid		= array_key_exists('cid', $event_args) ? $event_args['cid'] : '';
-            $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : '';
-            $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : '';
+            $cid		= array_key_exists('cid', $event_args) ? $event_args['cid'] : null;
+            $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : null;
+            $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : null;
 			$date 		= array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:00");
 
-            if( array_key_exists($event_args, 'data') )
+            if( array_key_exists('data', $event_args) )
             {
             	$data = serialize( $event_args['data'] );
             }
@@ -212,9 +212,9 @@
         	$tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
 
             $sql = "INSERT INTO `" . $tbl_tracking_event . "`
-                    SET `course_code` = '" . addslashes($cid) . "',
-                    	`tool_id` = '" . addslashes($tid) . "',
-                    	`user_id` = '" . addslashes($uid) . "',
+                    SET `course_code` = '" . ( is_null($cid) ? "NULL" : "'" . addslashes($cid) . "'" ) . "',
+                    	`tool_id` = ". ( is_null($tid) ? "NULL" : "'" . addslashes($tid) . "'" ) . ",
+	                    `user_id` = ". ( is_null($uid) ? "NULL" : "'" . addslashes($uid) . "'" ) . ",
                     	`date` = '" . $date . "',
                     	`type` = '" . addslashes($eventType) . "',
                     	`data` = '" . addslashes($data) . "'";
@@ -250,6 +250,7 @@
 
 		public function trackCourseAccess( $event )
 		{
+			// tool_id will be recorded too if user enters via a tool directly
 			if( ! get_conf('is_trackingEnabled') ) return false;
 
 			$event_args = $event->getArgs();
