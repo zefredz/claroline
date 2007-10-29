@@ -54,24 +54,8 @@ if (      isset( $_REQUEST['introCmd'] )
 }
 
 /*
-* Tracking - Count only one time by course and by session
-*/
-// following instructions are used to prevent statistics to be recorded more than needed
-// for course access
-// check if the user as already visited this course during this session (
-if ( ! isset($_SESSION['tracking']['coursesAlreadyVisited'][claro_get_current_course_id()]))
-{
-    event_access_course();
-    $_SESSION['tracking']['coursesAlreadyVisited'][claro_get_current_course_id()] = 1;
-}
-// for tool access
-// unset the label of the last visited tool
-unset($_SESSION['tracking']['lastUsedTool']);
-// end of tracking
-
-/*
-* Language initialisation of the tool names
-*/
+ * Language initialisation of the tool names
+ */
 
 $toolNameList = claro_get_tool_name_list();
 
