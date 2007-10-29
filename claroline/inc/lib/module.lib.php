@@ -224,12 +224,12 @@ function get_module_entry_url($claroLabel)
 function get_module_data( $claroLabel, $ignoreCache = false )
 {
     static $cachedModuleDataList = null;
-    
+
     if ( is_null ($cachedModuleDataList) )
     {
         $cachedModuleDataList = array();
     }
-    
+
     if ($ignoreCache || ! array_key_exists($claroLabel,$cachedModuleDataList))
     {
         $tbl = claro_sql_get_tbl(array('module', 'course_tool'));
@@ -247,10 +247,10 @@ function get_module_data( $claroLabel, $ignoreCache = false )
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
             ON CT.`claro_label`= M.label
         WHERE  M.`label` = '" . addslashes($claroLabel) . "'";
-        
+
         $cachedModuleDataList[$claroLabel] = claro_sql_query_get_single_row($sql);
     }
-    
+
     return $cachedModuleDataList[$claroLabel];
 }
 
@@ -331,17 +331,17 @@ function get_module_label_list( $activeModulesOnly = true )
 {
     $tbl_name_list = claro_sql_get_main_tbl();
     $tbl_module = $tbl_name_list['module'];
-    
+
     $activationSQL = $activeModulesOnly
         ? "WHERE `activation` = 'activated'"
         : ''
         ;
-    
-    $sql = "SELECT `label` \n"
+
+    $sql = "SELECT `label`, `id` \n"
         . "FROM `" . $tbl_module . "`\n"
         . $activationSQL
         ;
-        
+
     if ( ! ( $result = claro_sql_query_fetch_all( $sql ) ) )
     {
         return claro_failure::set_failure('COULD_NOT_GET_MODULE_LABEL_LIST');
@@ -349,12 +349,12 @@ function get_module_label_list( $activeModulesOnly = true )
     else
     {
         $moduleLabelList = array();
-        
+
         foreach( $result as $module )
         {
-            $moduleLabelList[] = $module['label'];
+            $moduleLabelList[$module['id']] = $module['label'];
         }
-        
+
         return $moduleLabelList;
     }
 }
@@ -417,7 +417,7 @@ function delete_all_modules_from_course( $courseId )
 {
     $backlog = new Backlog;
     $success = true;
-    
+
     if ( ! $moduleLabelList = get_module_label_list(false) )
     {
         $success = false;
@@ -431,7 +431,7 @@ function delete_all_modules_from_course( $courseId )
             {
                 $backlog->failure( get_lang('delete failed for module %module'
                     , array( '%module' => $moduleLabel ) ) );
-                
+
                 $success = false;
             }
             else
@@ -441,7 +441,7 @@ function delete_all_modules_from_course( $courseId )
             }
         }
     }
-    
+
     return array( $success, $backlog );
 }
 
@@ -456,12 +456,12 @@ function delete_module_in_course( $moduleLabel, $courseId )
 {
     $sqlPath = get_module_path( $moduleLabel ) . '/setup/course_uninstall.sql';
     $phpPath = get_module_path( $moduleLabel ) . '/setup/course_uninstall.php';
-    
+
     if ( file_exists( $phpPath ) )
     {
         require_once $phpPath;
     }
-    
+
     if ( file_exists( $sqlPath ) )
     {
         if ( ! execute_sql_file_in_course( $sqlPath, $courseId ) )
@@ -469,7 +469,7 @@ function delete_module_in_course( $moduleLabel, $courseId )
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -493,7 +493,7 @@ function execute_sql_file_in_course( $file, $courseId )
             $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseId );
             $sql = str_replace('__CL_COURSE__', $currentCourseDbNameGlu, $sql );
         }
-        
+
         if ( ! claro_sql_multi_query($sql) )
         {
             return claro_failure::set_failure( 'SQL_QUERY_FAILED' );
@@ -563,7 +563,7 @@ function load_module_language ( $module = null )
             . '/lang/lang_'.language::current_language()
             . '.php'
             ;
-            
+
         $moduleLangPath = protect_against_file_inclusion( $moduleLangPath );
 
         if ( file_exists ( $moduleLangPath ) )
@@ -575,7 +575,7 @@ function load_module_language ( $module = null )
             }
 
             include $moduleLangPath;
-            
+
             return true;
         }
         else
@@ -585,7 +585,7 @@ function load_module_language ( $module = null )
                 pushClaroMessage(__FUNCTION__."::".$module.'::'
                     . language::current_language().' not found', 'debug');
             }
-            
+
             return false;
         }
     }
