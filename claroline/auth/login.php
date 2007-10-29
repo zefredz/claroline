@@ -220,10 +220,8 @@ else // LOGIN SUCCEEDED
 {
     if(!isset($userLoggedOnCas))
         $userLoggedOnCas = false;
-    //notify that a user has just loggued in
-    $eventNotifier->notifyEvent('user_login', array('uid' => claro_get_current_user_id()));
-    //record in tracking tables
-    event_login();
+
+    $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
 
     if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
     {
