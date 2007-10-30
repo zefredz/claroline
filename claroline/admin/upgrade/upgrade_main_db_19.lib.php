@@ -598,11 +598,12 @@ function upgrade_main_database_right_to_19 ()
     return false;
 }
 */
+
 /**
  * Upgrade user_property to 1.9
  * @return step value, 0 if succeed
  */
-/*
+
 function upgrade_main_database_user_property_to_19 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -614,42 +615,39 @@ function upgrade_main_database_user_property_to_19 ()
 
             // create tables
 
-            $sqlForUpdate[]= "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['user_property'] . "` (
-              `userId`        int(10) unsigned NOT NULL default '0',
-              `propertyId`    varchar(255) NOT NULL default '',
-              `propertyValue` varchar(255) NOT NULL default '',
-              `scope`         varchar(45) NOT NULL default '',
-              PRIMARY KEY  (`scope`(2),`propertyId`,`userId`)
-            ) TYPE=MyISAM ";
-
-            $sqlForUpdate[]= "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['property_definition'] . "` (
-              `propertyId` varchar(50) NOT NULL default '',
-              `contextScope` varchar(10) NOT NULL default '',
-              `label` varchar(50) NOT NULL default '',
-              `type` varchar(10) NOT NULL default '',
-              `defaultValue` varchar(255) NOT NULL default '',
-              `description` text NOT NULL,
-              `required` tinyint(1) NOT NULL default '0',
-              `rank` int(10) unsigned NOT NULL default '0',
-              `acceptedValue` text NOT NULL,
-              PRIMARY KEY  (`contextScope`(2),`propertyId`),
-              KEY `rank` (`rank`)
-            ) TYPE=MyISAM ";
+            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['user_property'] . "` 
+              DROP PRIMARY KEY,
+              ADD PRIMARY KEY  (`scope`,`propertyId`,`userId`)
+             ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
             unset($sqlForUpdate);
 
-        default :
+        case 2 :
+
+            // create tables
+
+            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['property_definition'] . "` 
+              DROP PRIMARY KEY,
+              PRIMARY KEY  (`contextScope`,`propertyId`)
+              ";
+
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+            unset($sqlForUpdate);
+
+            default :
 
             $step = set_upgrade_status($tool, 0);
             return $step;
     }
 
-    return false;
+ 
 }
-*/
+
 /**
  * Upgrade tracking to 1.9
  * @return step value, 0 if succeed
