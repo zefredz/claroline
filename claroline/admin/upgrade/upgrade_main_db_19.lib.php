@@ -664,17 +664,18 @@ function upgrade_main_database_tracking_to_19 ()
 
             // create a new table
             $sqlForUpdate[] = "
-     CREATE TABLE `".$mainTblPrefixForm."tracking_event` (
-	  	   `id` int(11) NOT NULL auto_increment,
-	  	   `course_code` varchar(40) NULL DEFAULT NULL,
-	  	   `tool_id` int(11) NULL DEFAULT NULL,
-	  	   `user_id` int(11) NULL DEFAULT NULL,
-	  	   `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-	  	   `type` varchar(60) NOT NULL DEFAULT '',
-	  	   `data` text NOT NULL DEFAULT '',
-	  	   PRIMARY KEY  (`id`),
-	  	   KEY `course_id` (`course_code`)
-	  	 ) TYPE=MyISAM";
+                CREATE 
+                 TABLE `" . $tbl_mdb_names['tracking_event'] . "`  (
+				  	   `id` int(11) NOT NULL auto_increment,
+				  	   `course_code` varchar(40) NULL DEFAULT NULL,
+				  	   `tool_id` int(11) NULL DEFAULT NULL,
+				  	   `user_id` int(11) NULL DEFAULT NULL,
+				  	   `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+				  	   `type` varchar(60) NOT NULL DEFAULT '',
+				  	   `data` text NOT NULL DEFAULT '',
+				  	   PRIMARY KEY  (`id`),
+				  	   KEY `course_id` (`course_code`)
+				  	 ) TYPE=MyISAM";
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
