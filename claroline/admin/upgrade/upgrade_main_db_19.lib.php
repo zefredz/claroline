@@ -652,7 +652,7 @@ function upgrade_main_database_user_property_to_19 ()
  * Upgrade tracking to 1.9
  * @return step value, 0 if succeed
  */
-/*
+
 function upgrade_main_database_tracking_to_19 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -662,10 +662,19 @@ function upgrade_main_database_tracking_to_19 ()
     {
         case 1 :
 
-            // Add indexes
-            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['track_e_default'] . "` ADD INDEX `default_user_id` ( `default_user_id` )";
-            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['track_e_login'] . "` ADD INDEX `login_user_id` ( `login_user_id` )";
-
+            // create a new table
+            $sqlForUpdate[] = "
+     CREATE TABLE `".$mainTblPrefixForm."tracking_event` (
+	  	   `id` int(11) NOT NULL auto_increment,
+	  	   `course_code` varchar(40) NULL DEFAULT NULL,
+	  	   `tool_id` int(11) NULL DEFAULT NULL,
+	  	   `user_id` int(11) NULL DEFAULT NULL,
+	  	   `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	  	   `type` varchar(60) NOT NULL DEFAULT '',
+	  	   `data` text NOT NULL DEFAULT '',
+	  	   PRIMARY KEY  (`id`),
+	  	   KEY `course_id` (`course_code`)
+	  	 ) TYPE=MyISAM";
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
@@ -679,5 +688,5 @@ function upgrade_main_database_tracking_to_19 ()
 
     return false;
 }
-*/
+
 ?>
