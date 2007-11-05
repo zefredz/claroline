@@ -438,7 +438,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
 
             $dialogBox .= '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. urlencode($cwd), get_lang('Cancel'))
+                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. rawurlencode($cwd), get_lang('Cancel'))
                        .'</form>';
         }
     }
@@ -471,8 +471,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             if ( !empty( $newImgPathList ) )
             {
-                $newImgPathList = array_map('urlencode', $newImgPathList);
-                // urlencode() does too much. We don't need to replace '/' by '%2F'
+                $newImgPathList = array_map('rawurlencode', $newImgPathList);
+                // rawurlencode() does too much. We don't need to replace '/' by '%2F'
                 $newImgPathList = str_replace('%2F', '/', $newImgPathList);
 
                 replace_img_path_in_html_file($_REQUEST['imgFilePath'],
@@ -532,8 +532,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             if (!empty($_REQUEST['htmlContent']))
             {
                 $dialogBox .= '<p>'
-                             . '<a href="rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.urlencode($cwd)
-                             . '&amp;htmlContent='.urlencode($_REQUEST['htmlContent']).'">' . get_lang('Back to the editor'). '</a>'
+                             . '<a href="rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.rawurlencode($cwd)
+                             . '&amp;htmlContent='.rawurlencode($_REQUEST['htmlContent']).'">' . get_lang('Back to the editor'). '</a>'
                              . '</p>' . "\n";
             }
         }
@@ -650,7 +650,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
         $dialogBox .= '<input type="submit" value="'.get_lang('Ok') . '" />&nbsp; '
                    .  claro_html_button($_SERVER['PHP_SELF']
-                   .  '?cmd=exChDir&file='.urlencode($cwd), get_lang('Cancel'))
+                   .  '?cmd=exChDir&file='.rawurlencode($cwd), get_lang('Cancel'))
                    .  '</form>' . "\n"
                    ;
 
@@ -908,7 +908,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                        array('html', 'htm') ) )
         {
 
-            $dialogBox .= '<p><a href="rqmkhtml.php?cmd=rqEditHtml&amp;file='. urlencode($_REQUEST['file']) .'">'
+            $dialogBox .= '<p><a href="rqmkhtml.php?cmd=rqEditHtml&amp;file='. rawurlencode($_REQUEST['file']) .'">'
                           .get_lang('Edit file content') . '</a></p>';
         }
 
@@ -986,7 +986,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
 
         $dialogBox .= '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.urlencode($cwd), get_lang('Cancel'))
+                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.rawurlencode($cwd), get_lang('Cancel'))
                       .'</form>' . "\n";
     }
 
@@ -1024,7 +1024,7 @@ if ('rqSearch' == $cmd )
                     . '<input type="text" id="searchPattern" name="searchPattern" />' . "\n"
                     . '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '" /><br /><br />' . "\n"
                     . '<input type="submit" value="' . get_lang('Ok' ) . '" />&nbsp;'
-                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. urlencode($cwd),
+                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. rawurlencode($cwd),
                                        get_lang("Cancel"))
 
                     .'</form>' . "\n";
@@ -1089,7 +1089,7 @@ if ('exDownload' == $cmd )
         while ( false !== ($file = readdir($handle)) )
         {
             if ($file != '.' && $file != '..')
-            {                
+            {
                 $fileCreationTimeInMinute = (time() - filemtime($downloadArchivePath . '/' . $file))/60;
 
                 // If file is old of 60 minutes delete it
@@ -1388,7 +1388,7 @@ $fileLister = new claro_array_pager($fileList, 0, 1000);
 foreach ($defaultSortkeyList as $thisSortkey) $fileLister->add_sort_key($thisSortkey, SORT_ASC);
 if ( isset($_GET['sort']) ) $fileLister->set_sort_key($_GET['sort'], $_GET['dir']);
 
-$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.urlencode($curDirPath) );
+$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.rawurlencode($curDirPath) );
 
 $fileList = $fileLister->get_result_list();
 
@@ -1558,7 +1558,7 @@ echo claro_html_tool_title($titleElement,
 
         if( isset( $_REQUEST['searchPattern'] ) )
         {
-            $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
+            $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . rawurlencode( $_REQUEST['searchPattern'] );
         }
 
         // get requested image key in fileList
@@ -1569,7 +1569,7 @@ echo claro_html_tool_title($titleElement,
         $offset = "&amp;offset=" . $current;
 
         // compute absolute path to requested image
-        
+
         $doc_url = claro_get_file_download_url( $file );
 
         // Image description table
@@ -1603,7 +1603,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. urlencode($curDirPath) . $searchCmdUrl . '">'
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. rawurlencode($curDirPath) . $searchCmdUrl . '">'
                  . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />'
                  . get_lang('File list')
                  . '</a>';
@@ -1618,7 +1618,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd=' . urlencode($curDirPath) . $searchCmdUrl . '">'
+                 . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath) . $searchCmdUrl . '">'
                  . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />'
                  . get_lang('Thumbnails').'</a>';
         }
@@ -1747,7 +1747,7 @@ echo claro_html_tool_title($titleElement,
 
         if( isset( $_REQUEST['searchPattern'] ) )
         {
-            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . urlencode( $_REQUEST['searchPattern'] );
+            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
         }
 
         // compute column width
@@ -1782,7 +1782,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. urlencode($curDirPath . $searchCmdUrl) . '">'
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. rawurlencode($curDirPath . $searchCmdUrl) . '">'
                  . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />' . "\n"
                  . get_lang('File list') . '</a>';
         }
@@ -1796,7 +1796,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd='. urlencode($curDirPath) . $searchCmdUrl . '">'
+                 . '?docView=thumbnails&amp;cwd='. rawurlencode($curDirPath) . $searchCmdUrl . '">'
                  . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />' . "\n"
                  . get_lang('Thumbnails').'</a>';
         }
@@ -1832,7 +1832,7 @@ echo claro_html_tool_title($titleElement,
             {
                 // link to previous page
                   echo '<a href="'.$_SERVER['PHP_SELF']
-                    . '?docView=thumbnails&amp;cwd=' . urlencode($curDirPath)
+                    . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
                     . '&amp;page=' . ($page - 1) . $searchCmdUrl . '">&lt;&lt;&nbsp;&nbsp;page&nbsp;'
                     . ($page - 1) . '</a>' . "\n"
                     ;
@@ -1856,7 +1856,7 @@ echo claro_html_tool_title($titleElement,
             {
                 // link to next page
                 echo '<a href="'.$_SERVER['PHP_SELF']
-                    . '?docView=thumbnails&amp;cwd=' . urlencode($curDirPath)
+                    . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
                     . '&amp;page=' . ($page + 1) . $searchCmdUrl . '">'. get_lang('Page') .'&nbsp;'
                     . ($page + 1) . '&nbsp;&nbsp;&gt;&gt;</a>' . "\n"
                     ;
@@ -1889,7 +1889,7 @@ echo claro_html_tool_title($titleElement,
 
         if( isset( $_REQUEST['searchPattern'] ) )
         {
-            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . urlencode( $_REQUEST['searchPattern'] );
+            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
         }
 
         /* GO TO PARENT DIRECTORY */
@@ -1921,7 +1921,7 @@ echo claro_html_tool_title($titleElement,
             .      '</a>'
             ;
 
-        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.urlencode($searchPattern);
+        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
         else                             $downloadArgument = 'file='. $cmdCurDirPath;
 
         if ( isset($fileList) && count($fileList) > 0 )
@@ -2122,7 +2122,7 @@ echo claro_html_tool_title($titleElement,
 
                     $urlFileName = claro_get_file_download_url( $cmdFileName );
 
-                    //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
+                    //$urlFileName = "goto/?doc_url=".rawurlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
 
                     $target = ( get_conf('openNewWindowForDoc') ? 'target="_blank"' : '');
@@ -2143,7 +2143,7 @@ echo claro_html_tool_title($titleElement,
                 if( is_image( $thisFile['path'] ) )
                 {
                     echo '<a class="'.$style.' item'.$classItem.'" href="'. $_SERVER['PHP_SELF'] .
-                        '?docView=image&amp;file=' . urlencode($thisFile['path']) . '&amp;cwd='
+                        '?docView=image&amp;file=' . rawurlencode($thisFile['path']) . '&amp;cwd='
                         . $curDirPath . $searchCmdUrl .'">';
                 }
                 else
