@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -117,17 +117,8 @@ switch ($module['contentType'])
 		} // else anonymous : record nothing
 
 		$startAssetPage = urlencode($assetPath);
-        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
-        {
-            // slash argument method - only compatible with Apache
-            // str_replace("%2F","/",urlencode($startAssetPage)) is used to avoid problems with accents in filename.
-            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/index.php'.str_replace('%2F','/',$startAssetPage);
-        }
-        else
-        {
-            // question mark argument method, for IIS ...
-            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/?url=' . $startAssetPage;
-        }
+        $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
+
   		$withFrames = true;
 		break;
 
