@@ -368,15 +368,15 @@ function claro_sql_error($dbHandler = '#')
  *
  */
 
-function claro_sql_select_db($dbHandler = '#')
+function claro_sql_select_db($dbName, $dbHandler = '#')
 {
 	if ( $dbHandler == '#' )
     {
-    	return mysql_select_db();
+    	return mysql_select_db($dbName);
     }
     else
     {
-	    return mysql_select_db($dbHandler);
+	    return mysql_select_db($dbName, $dbHandler);
     }
 }
 
