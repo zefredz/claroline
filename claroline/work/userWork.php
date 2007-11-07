@@ -1462,8 +1462,11 @@ if( $dispWrkLst )
                     .    '&amp;authId=' . $_REQUEST['authId']
                     .    '&amp;assigId=' . $assignmentId
                     .    '&amp;workId=' . $thisWrk['id']
-                    .    '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>' . $thisWrk['submitted_doc_path'] . '</a>'
-                    . ' <small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
+                    .    '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>'
+                    .	 $thisWrk['submitted_doc_path']
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'download.gif" border="0" alt="'.get_lang('Download').'" />'
+                    .	 '</a>'
+                    .	 ' <small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
                     .    '<br />' . "\n"
                     ;
                 }
