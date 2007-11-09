@@ -182,8 +182,6 @@ if ( claro_get_current_user_id() )
 }
 else
 {
-    event_open();
-
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
     {
         // DISPLAY PLATFORM COURSE LIST
