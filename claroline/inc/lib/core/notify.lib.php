@@ -154,7 +154,7 @@
 
 			if ( claro_debug_mode() )
             {
-                Console::Error( 'Data added in course tracking '
+                Console::message( 'Data added in course tracking '
                         . $eventType . ' : '
                         . var_export( $event, true ) );
             }
@@ -203,7 +203,7 @@
 
 			if ( claro_debug_mode() )
             {
-                Console::Error( 'Data added in platform tracking '
+                Console::message( 'Data added in platform tracking '
                         . $eventType . ' : '
                         . var_export( $event, true ) );
             }
@@ -212,7 +212,7 @@
         	$tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
 
             $sql = "INSERT INTO `" . $tbl_tracking_event . "`
-                    SET `course_code` = '" . ( is_null($cid) ? "NULL" : "'" . addslashes($cid) . "'" ) . "',
+                    SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . addslashes($cid) . "'" ) . ",
                     	`tool_id` = ". ( is_null($tid) ? "NULL" : "'" . addslashes($tid) . "'" ) . ",
 	                    `user_id` = ". ( is_null($uid) ? "NULL" : "'" . addslashes($uid) . "'" ) . ",
                     	`date` = '" . $date . "',
@@ -235,11 +235,11 @@
 			if( !empty($cid) && !empty($tid) )
 			{
 			    // count access only if user has not already accessed this tool in this course during this session
-			    if( !isset( $_SESSION['tracking']['usedTools'][$cid][$tid] ) )
+			    if( !isset( $_SESSION['tracking']['visitedTools'][$cid][$tid] ) )
 			    {
 			    	$this->trackInCourse( $event );
 					// TODO : also save information in main DB for later use from administration : cid, tid and counter ?
-			        $_SESSION['tracking']['usedTools'][$cid][$tid] = claro_mktime();
+			        $_SESSION['tracking']['visitedTools'][$cid][$tid] = claro_mktime();
 				    return true;
 			    }
 			}
@@ -260,15 +260,57 @@
 			if( !empty($cid) )
 			{
 			    // count access only if user has not already accessed this tool in this course during this session
-			    if( !isset( $_SESSION['tracking']['usedCourses'][$cid] ) )
+			    if( !isset( $_SESSION['tracking']['visitedCourses'][$cid] ) )
 			    {
 			    	$this->trackInCourse( $event );
 					// TODO : also save information in main DB for later use from administration : cid and counter ?
-			        $_SESSION['tracking']['usedCourses'][$cid] = claro_mktime();
+			        $_SESSION['tracking']['visitedCourses'][$cid] = claro_mktime();
+			        // session destruction on login or logout
 				    return true;
 			    }
 			}
 
+			return false;
+		}
+
+		public function trackPlatformAccess( $event )
+		{
+			// tool_id will be recorded too if user enters via a tool directly
+			if( ! get_conf('is_trackingEnabled') ) return false;
+
+		    // count access only if user was not already on the platform
+		    if( !isset( $_SESSION['tracking']['platformAccessed'] ) )
+		    {
+		    	// we don't have a trace saying that user was already on the platform
+		    	// so check its referer
+		    	if( ! empty($_SERVER['HTTP_REFERER']) )
+				{
+			        if( false === strpos( $_SERVER['HTTP_REFERER'],get_path('rootWeb') ) )
+			        {
+			        	// http referer is different user probably comes from outside
+			        	$externalReferer = true;
+			        }
+			        else
+			        {
+			        	$externalReferer = false;
+			        	$_SESSION['tracking']['platformAccessed'] = claro_mktime();
+			        }
+				}
+			    else
+			    {
+			    	// referer not set so we take the guess that user was not on the platform
+			    	// and access it directly
+			        $externalReferer = true;
+			    }
+
+			    if( $externalReferer )
+			    {
+			    	$this->trackInPlatform( $event );
+			        $_SESSION['tracking']['platformAccessed'] = claro_mktime();
+
+				    return true;
+			    }
+		    }
 			return false;
 		}
 
