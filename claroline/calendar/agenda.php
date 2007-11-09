@@ -78,9 +78,6 @@ if ( $is_allowedToEdit )
     }
 }
 
-//stats
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
 $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];
 

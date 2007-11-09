@@ -43,8 +43,6 @@ $tbl_wrk_submission   = $tbl_cdb_names['wrk_submission'   ];
 $tbl_group_team       = $tbl_cdb_names['group_team'       ];
 $tbl_group_rel_team_user  = $tbl_cdb_names['group_rel_team_user'];
 
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
 // use viewMode
 claro_set_display_mode_available(true);
 

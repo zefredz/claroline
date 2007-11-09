@@ -36,7 +36,6 @@ $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
 
 $currentCoursePath =  claro_get_current_course_data('path');
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 // 'step' of pager
 $assignmentsPerPage = get_conf('assignmentsPerPage', 20);

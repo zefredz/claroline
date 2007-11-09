@@ -35,9 +35,6 @@
         }
     }
 
-    // if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-    event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
     // display mode
 

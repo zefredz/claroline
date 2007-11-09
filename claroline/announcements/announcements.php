@@ -467,9 +467,6 @@ if ( $displayButtonLine )
 
 }
 
-
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
 /**
  *  DISPLAY SECTION
  */

@@ -43,8 +43,6 @@ $currentUserLastName  = claro_get_current_user_data('lastName');
 // 'step' of pager
 $usersPerPage = get_conf('usersPerPage',20);
 
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
 // use viewMode
 claro_set_display_mode_available(true);
 

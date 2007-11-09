@@ -40,9 +40,6 @@ $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
-// tracking
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
 // session cleaning to prevent sessions clashes
 unset($_SESSION['serializedExercise']);
 unset($_SESSION['serializedQuestionList']);

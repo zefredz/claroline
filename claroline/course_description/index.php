@@ -37,9 +37,6 @@ include_once get_module_path($tlabelReq) . '/lib/courseDescription.lib.php';
 //-- Get $tipList
 $tipList = get_tiplistinit();
 
-
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
 /*
  * init request vars
  */

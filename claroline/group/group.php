@@ -44,9 +44,6 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 
-//stats
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
 // use viewMode
 claro_set_display_mode_available(TRUE);
 

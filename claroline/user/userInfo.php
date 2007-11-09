@@ -293,7 +293,6 @@ elseif ($displayMode == 'viewContentList') // default display
 
 
 if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 //////////////////////////////
 // OUTPUT

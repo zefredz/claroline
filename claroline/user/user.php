@@ -38,12 +38,6 @@ require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 /*----------------------------------------------------------------------
-  Stats
-  ----------------------------------------------------------------------*/
-
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
-/*----------------------------------------------------------------------
    JavaScript - Delete Confirmation
   ----------------------------------------------------------------------*/
 
@@ -77,7 +71,7 @@ $can_import_user_list = (bool) (claro_is_course_manager()
 $can_export_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_export_user_list', true) )
                      || claro_is_platform_admin();
-                     
+
 $can_import_user_class = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
                      || claro_is_platform_admin();

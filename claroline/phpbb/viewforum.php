@@ -32,12 +32,6 @@ $currentContext = ( claro_is_in_a_group() ) ? CLARO_CONTEXT_GROUP : CLARO_CONTEX
 claro_set_display_mode_available(true);
 
 /*-----------------------------------------------------------------
-  Stats
- -----------------------------------------------------------------*/
-
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
-
-/*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
 

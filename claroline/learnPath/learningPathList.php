@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
+ * @author Piraux Sï¿½bastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -62,9 +62,6 @@ include_once (get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php');
 
 //lib needed to delete packages
 include_once (get_path('incRepositorySys') . '/lib/fileManage.lib.php');
-
-// statistics
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 $htmlHeadXtra[] =
           '<script type="text/javascript">
