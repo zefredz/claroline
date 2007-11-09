@@ -19,7 +19,7 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    uses('file.lib');
+    uses('file.lib','thirdparty/jsmin.lib');
 
     /**
      * Javascript loader singleton class
@@ -70,8 +70,25 @@
                     {
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
+                    
+                    if ( ! file_exists( $tryPath . '/' . $lib . '.bin.js' ) )
+            		{
+            			$this->_compressFile( $tryPath . '/' . $lib . '.js'
+            				, $tryPath . '/' . $lib . '.bin.js' );
+            		}
+            		else
+            		{
+            			$jsStat = stat( $tryPath . '/' . $lib . '.js' );
+            			$cachedStat = stat( $tryPath . '/' . $lib . '.bin.js' );
+            			
+            			if ( $jsStat['mtime'] > $cachedStat['mtime'] )
+            			{
+            				$this->_compressFile( $tryPath . '/' . $lib . '.js'
+            				, $tryPath . '/' . $lib . '.bin.js' );
+            			}
+            		}
 
-                    $this->libraries[$lib] = $tryUrl . '/' . $lib . '.js';
+                    $this->libraries[$lib] = $tryUrl . '/' . $lib . '.bin.js';
                     return true;
                     // break;
                 }
@@ -83,6 +100,22 @@
             }
 
             return false;
+        }
+        
+        private function _compressFile( $src, $dest )
+        {
+        	try
+        	{
+        		$js = file_get_contents( $src );
+				$jsMin = JSMin::minify( $js );
+				file_put_contents( $dest, $jsMin );
+				pushClaroMessage(__Class__."::GenerateCache ".$src, 'debug');
+        	}
+        	catch (JSMinException $e )
+        	{
+        		pushClaroMessage("Exception in ".__Class__
+        			."::GenerateCache ".$src." : ".$e->getMessage(), 'error');
+        	}
         }
 
         /**
@@ -96,7 +129,7 @@
 
             foreach ( $list as $url )
             {
-                $ret[] = '<script src="'.$url.'" type="text/javascript"></script>';
+            	$ret[] = '<script src="'.$url.'" type="text/javascript"></script>';
             }
 
             $str = implode ( "\n", $ret );
