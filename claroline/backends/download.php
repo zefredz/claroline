@@ -30,6 +30,8 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 $_course = claro_get_current_course_data();
 $_group  = claro_get_current_group_data();
 
+$claroline->notification->addListener( 'download', 'trackInCourse' );
+
 if ( isset($_REQUEST['url']) )
 {
     $requestUrl = $_REQUEST['url'];
@@ -100,7 +102,7 @@ else
                     . implode ( '/',
                             array_map('rawurldecode', explode('/',$requestUrl)));
     }
-    
+
     // use slashes instead of backslashes in file path
     if (get_conf('CLARO_DEBUG_MODE'))
     {
@@ -129,20 +131,20 @@ if ( $isDownloadable )
 
     $extension = get_file_extension($pathInfo);
     $mimeType = get_mime_on_ext($pathInfo);
-    
+
     // workaround for HTML files and Links
     if ( $mimeType == 'text/html' && $extension != 'url' )
     {
-        event_download($requestUrl);
+        $claroline->notifier->event('download', array( 'data' => array('url' => $requestUrl) ) );
 
         if (substr(PHP_OS, 0, 3) == "WIN")
         {
             $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
             $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
         }
-        
+
         $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
-        
+
         // redirect to document
         claro_redirect($document_url);
 
@@ -154,7 +156,7 @@ if ( $isDownloadable )
         {
             if ( claro_send_file( $pathInfo )  !== false )
             {
-                event_download( $requestUrl );
+                $claroline->notifier->event('download', array( 'data' => array('url' => $requestUrl) ) );
             }
             else
             {
@@ -171,7 +173,7 @@ if ( $isDownloadable )
                 $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
                 $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
             }
-            
+
             $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
 
             // redirect to document
