@@ -114,10 +114,12 @@
         
         foreach ( $args as $lib )
         {
+            if ( substr($lib, -4) !== '.php' ) $lib .= '.php';
+            
             $lib = protect_against_file_inclusion( $lib );
             
-            $kernelPath = INCLUDES . '/' . $lib . '.php';
-            $localPath = get_module_path(get_current_module_label()) . '/lib/' . $lib . '.php';
+            $kernelPath = INCLUDES . '/' . $lib;
+            $localPath = get_module_path(get_current_module_label()) . '/lib/' . $lib;
             
             if ( file_exists( $localPath ) )
             {
