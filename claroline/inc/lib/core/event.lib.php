@@ -61,6 +61,11 @@
         {
             return $this->_args;
         }
+        
+        public function send()
+        {
+            EventManager::notify( $this );
+        }
     }
     
     /**
@@ -157,13 +162,11 @@
             }
             else
             {
-                if ( defined( "DEBUG_MODE" ) && DEBUG_MODE )
-                {
-                    $errmsg = __CLASS__ . " : No listener found for EVENT["
-                        . $event->getEventType( ) . "]"
-                        ;
-                    trigger_error( $errmsg, E_USER_NOTICE );
-                }
+                $errmsg = __CLASS__ . " : No listener found for EVENT["
+                    . $event->getEventType( ) . "]"
+                    ;
+                    
+                Console::warning( $errmsg );
 
                 return false;
             }
@@ -201,7 +204,7 @@
         {
             if ( claro_debug_mode() )
             {
-                pushClaroMessage(__Class__."::notify ".$event->getEventType(), 'debug');
+                Console::debug( __Class__."::notify ".$event->getEventType() );
             }
             
             if ( is_string ( $event ) )
@@ -248,7 +251,7 @@
          * list all registered events and the number of listeners for each
          * @access public
          */
-        function listRegisteredEvents( )
+        public function listRegisteredEvents( )
         {
             $out = '';
             
@@ -272,7 +275,7 @@
          * list all registered listeners and their ID
          * @access public
          */
-        function listRegisteredListeners( )
+        public function listRegisteredListeners( )
         {
             $out = '';
             
@@ -304,7 +307,6 @@
      */
     class EventListener
     {
-        // protected fields
         private $_callback;
 
         /**
@@ -323,16 +325,25 @@
          * @param Event event the event to handle
          */
         public function handle( $event )
-        {
-            // @ set to have no warning ?
-            if ( ! @call_user_func( $this->_callback, $event ) )
+        {      
+            try
             {
-                if ( claro_debug_mode() )
+                if ( is_callable( $this->_callback ) )
+                {
+                    call_user_func( $this->_callback, $event );
+                }
+                else
                 {
                     Console::Error( 'Callback failed for event '
-                        . var_export( $event, true ) . ' : '
-                        . var_export( $this->_callback, true ) );
+                        . $event->getEventType( ) . ' : not callable' );
                 }
+            }
+            catch( Exception $e )
+            {
+                Console::Error( '[Exception] in callback for event '
+                    . $event->getEventType( ) . ' : '
+                    // . var_export( $this->_callback, true )
+                    . ' : ' . $e );
             }
         }
     }
