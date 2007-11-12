@@ -32,6 +32,11 @@
         {
             pushClaroMessage( $message, 'debug' );
         }
+        
+        public static function warning( $message )
+        {
+            pushClaroMessage( $message, 'warning' );
+        }
 
         public static function info( $message )
         {
