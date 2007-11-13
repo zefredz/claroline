@@ -192,6 +192,19 @@ $creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."tracking_event` 
   KEY `course_id` (`course_code`)
 ) TYPE=MyISAM";
 
+$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."log` (
+  `id` int(11) NOT NULL auto_increment,
+  `course_code` varchar(40) NULL DEFAULT NULL,
+  `tool_id` int(11) NULL DEFAULT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `ip` varchar(15) NULL DEFAULT NULL,
+  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `type` varchar(60) NOT NULL DEFAULT '',
+  `data` text NOT NULL DEFAULT '',
+  PRIMARY KEY  (`id`),
+  KEY `course_id` (`course_code`)
+) TYPE=MyISAM";
+
 // table used for upgrading tools
 
 $creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."upgrade_status` (
