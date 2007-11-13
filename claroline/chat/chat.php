@@ -15,7 +15,7 @@
  * @package CLCHT
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Geschï¿½ <moosh@claroline.net>
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
@@ -28,9 +28,6 @@ if ( ! claro_is_in_a_course() || ( ! claro_is_course_allowed() && ! claro_is_use
 
 $_course = claro_get_current_course_data();
 $nameTools  = get_lang('Chat');
-
-// STATS & TRACKING
-event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 $titlePage = '';
 
