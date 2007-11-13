@@ -18,7 +18,6 @@ define('CLARO_INCLUDE_ALLOWED', true);
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
 
-
 require_once  dirname(__FILE__) . '/lib/claro_main.lib.php';
 
 $_SERVER['PHP_SELF'] = php_self();
@@ -101,6 +100,7 @@ if ( !isset($_SERVER['REQUEST_URI']) )
 session_name(get_conf('platform_id','claroline'));
 
 session_start();
+
 
 /*----------------------------------------------------------------------
   Include main library
@@ -214,6 +214,14 @@ $claro_notifier = $claroline->notification;
 //
 // 'update' is the name of the function called in the listener class when the event happens
 // 'document_visible' is the name of the event that you want to track
+
+// register listener for access to platform
+$claroline->notification->addListener( 'platform_access', 'trackPlatformAccess');
+// todo move this to a better place ? like end of script ?
+$claroline->notifier->event( 'platform_access' );
+
+// we must register this listener here else it will not be registered when 'inscription login' will occur
+$claroline->notification->addListener( 'user_login', 'trackInPlatform' );
 
 if ( claro_is_user_authenticated() )
 {
