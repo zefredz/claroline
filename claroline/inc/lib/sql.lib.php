@@ -167,9 +167,9 @@ function claro_sql_get_main_tbl()
         'right_rel_profile_action'  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_rel_profile_action',
         'right_action'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_action',
         'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
-        'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainDbName') . 'property_definition',
-        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainDbName') . 'tracking_event',
-        'log'            			=> get_conf('mainDbName') . '`.`' . get_conf('mainDbName') . 'log',
+        'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
+        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
+        'log'            			=> get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log',
         'track_e_default'           => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_default',
         'track_e_login'             => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_login',
         'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open'
