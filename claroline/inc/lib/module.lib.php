@@ -517,8 +517,13 @@ function execute_sql_file_in_course( $file, $courseId )
  * @param string $courseCode course code
  * @return array $tableName => $dbNameGlue . $tableName
  */
-function get_module_course_tbl( $arrTblName, $courseCode )
+function get_module_course_tbl( $arrTblName, $courseCode = null )
 {
+    if ( empty ( $courseCode ) ) 
+    {
+        $courseCode = claro_get_current_course_id();
+    }
+    
     $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseCode );
     $arrToReturn = array();
 
