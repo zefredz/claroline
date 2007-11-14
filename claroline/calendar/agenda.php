@@ -257,16 +257,8 @@ if ( $is_allowedToEdit )
             $eventNotifier->notifyCourseEvent('agenda_event_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
             $autoExportRefresh = TRUE;
         }
-
-        if ( agenda_set_item_visibility($id, $visibility)  )
-        {
-            //$dialogBox->success( get_lang('Visibility modified') );
-        }
-        //        else
-        //        {
-        //            //error on delete
-        //        }
-    }
+        
+        agenda_set_item_visibility($id, $visibility);
 
     /*------------------------------------------------------------------------
     EVENT EDIT
