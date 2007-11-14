@@ -228,17 +228,17 @@ function display_perms( $mode )
 	/* Determine Type */
 	if ($mode & 0x1000)
 		$type = 'p' ; /* FIFO pipe */
-    else if ($mode & 0x2000)
+    elseif ($mode & 0x2000)
 		$type = 'c' ; /* Character special */
-    else if ($mode & 0x4000)
+    elseif ($mode & 0x4000)
 		$type = 'd' ; /* Directory */
-    else if ($mode & 0x6000)
+    elseif ($mode & 0x6000)
 		$type = 'b' ; /* Block special */
-    else if ($mode & 0x8000)
+    elseif ($mode & 0x8000)
 		$type = '-' ; /* Regular */
-    else if ($mode & 0xA000)
+    elseif ($mode & 0xA000)
 		$type = 'l' ; /* Symbolic Link */
-    else if ($mode & 0xC000)
+    elseif ($mode & 0xC000)
 		$type = 's' ; /* Socket */
     else
     $type='u'; /* UNKNOWN */
@@ -480,17 +480,25 @@ function profilePoint()
 {
 	static $start = null ;
 	$bt = debug_backtrace () ;
-	$bt = array_reverse ( $bt ) ;
-	$line = 'L' . str_pad ( $bt [ 0 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':' ;
-	$line .= str_pad ( basename ( $bt [ 0 ] [ 'file' ] ), 30, ' ', STR_PAD_BOTH ) . '| ' ;
+	
+	$line = '<tt>L' . str_pad ( $bt [ 0 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':' ;
+	$line .= '<abbr title="'.$bt [ 0 ] [ 'file' ].'">' . str_pad (  substr(basename ($bt [ 0 ] [ 'file' ]),0,30), 30, ' ', STR_PAD_BOTH ) . '</abbr>:' ;
+	if (isset($bt [ 1 ]))
+	{
+    	$line .= '<abbr title="' . str_pad ( $bt [ 1 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 1 ] [ 'file' ].'">-1</abbr>:' ;
+	}
+	if (isset($bt [ 2 ]))
+	{
+    	$line .= '<abbr title="' . str_pad ( $bt [ 2 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 2 ] [ 'file' ].'">-2</abbr>:' ;
+	}
 	if (is_null ( $start ))
 	{ 
 		$start = microtime();
-		pushClaroMessage ( $line . '@' . date('H:i:s'), 'profile' ) ;
+		pushClaroMessage ( $line . '</tt>@' . date('H:i:s'), 'profile' ) ;
 	} 
 	else
 	{
-		pushClaroMessage ( $line . '@ (+ ' . (sprintf('%01.4f',microtime() -$start )) . 'ms)', 'profile' ) ;
+		pushClaroMessage ( $line . '</tt>@ (+ ' . (sprintf('%01.4f',microtime() -$start )) . 'ms)', 'profile' ) ;
 	}
 }
 ?>
