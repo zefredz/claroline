@@ -72,12 +72,7 @@
                 }
                 
                 // Create main database connection
-            	$this->database = Database::getMainConnection(
-	                get_conf( 'dbHost' ),
-	                get_conf( 'dbLogin' ),
-	                get_conf( 'dbPass' ),
-	                get_conf( 'mainDbName' )
-	            );
+            	$this->database = Database::getMainConnection();
             
                 // initialize the event manager and notification classes
                 $this->eventManager = EventManager::getInstance();

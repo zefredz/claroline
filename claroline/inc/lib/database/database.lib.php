@@ -38,9 +38,8 @@
      * Database driver management class
      * Usage :
      *  1. load driver : Database::loadDriver('mysqli');
-     *  2. get main connection : $conn = Database::getMainConnection( 
-     *      $host, $user, $pass, $mainDbname ); 
-     *  or 3. get Standard database connection : $conn = Database::getConnection( 
+     *  2. get main claroline connection : $conn = Database::getMainConnection(); 
+     *  or 3. get other database connection : $conn = Database::getConnection( 
      *      $host, $user, $pass, $dbname );
      */
     class Database
@@ -82,7 +81,7 @@
         
         private static $_instance = false;
         
-        public static function getMainConnection( $host, $user, $passwd, $dbname )
+        public static function getMainConnection()
         {
             if ( ! self::$_loadedDriver )
             {
@@ -93,7 +92,12 @@
                 if ( ! self::$_instance )
                 {
                     $className = self::$_loadedDriver['main'];
-                    self::$_instance = new $className( $host, $user, $passwd, $dbname  );
+                    self::$_instance = new $className( 
+                        get_conf( 'dbHost' ),
+                        get_conf( 'dbLogin' ),
+                        get_conf( 'dbPass' ),
+                        get_conf( 'mainDbName' )
+                    );
                 }
                 
                 return self::$_instance;
