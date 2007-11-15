@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * Provide also some function making abstracation
  * for transition between structures before and after modularity
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -31,12 +31,24 @@ defined('CLARO_CONTEXT_TOOLINSTANCE') || define('CLARO_CONTEXT_TOOLINSTANCE','to
 defined('CLARO_CONTEXT_TOOLLABEL')    || define('CLARO_CONTEXT_TOOLLABEL','toolLabel');
 
 /**
- * This function return the core repositroy of a module.
+ * This function return the core repository of a package (zipped module).
+ *
+ * @return string
+ * @since 1.9
+ */
+ 
+function get_package_path()
+{
+    return get_path('rootSys') . 'packages/';
+} 
+
+/**
+ * This function return the core repository of a module.
  *
  * @param string $toolLabel
  * @return string
  */
-
+ 
 function get_module_path($toolLabel)
 {
 
