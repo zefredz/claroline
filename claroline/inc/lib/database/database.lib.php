@@ -28,6 +28,7 @@
     
     /**
      * Iterator for database results
+     * @see     Iterator
      */
     interface DatabaseIterator extends Iterator
     {

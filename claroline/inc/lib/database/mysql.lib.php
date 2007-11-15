@@ -27,22 +27,37 @@
         'connection'    => 'MysqlDatabaseConnection'
     );
     
+    /**
+     * MysqlDatabaseException
+     */
     class MysqlDatabaseException extends DatabaseException
     {
         private $sql;
         
+        /**
+         * Constructor
+         * @param   resource $dbLink link to the database connection
+         * @param   string $sql query that generates the exception
+         */
         public function __construct( $dbLink, $sql )
         {
             parent::__construct( mysql_error( $dbLink ), mysql_errno( $dbLink ) );
             $this->sql = $sql;
         }
         
+        /**
+         * Override the generic toString() method
+         */
         public function __toString()
         {
-            return __CLASS__."[{$this->code}] {$this->message} : {$this->sql}";
+            return __CLASS__." : {$this->sql} \n" . parent::__toString();
         }
     }
     
+    /**
+     * Row iterator for Mysql Driver
+     * @see     DatabaseRowIterator
+     */
     class MysqlRowsIterator implements DatabaseIterator
     {
         protected $_result;
@@ -50,6 +65,10 @@
         protected $_key = 0;
         protected $_size = 0;
         
+        /**
+         * Constructor
+         * @param   resource $result
+         */
         public function __construct( $result )
         {
             $this->_result = $result;
@@ -112,6 +131,10 @@
         }
     }
     
+    /**
+     * Object iterator for Mysql Driver
+     * @see     DatabaseRowIterator
+     */
     class MysqlObjectsIterator extends MysqlRowsIterator
     {
         public function next()
@@ -369,6 +392,10 @@
         }
     }
     
+    /**
+     * Claroline main connection for Mysql driver
+     * @see DatabaseConnection
+     */
     class ClaroMysqlDatabaseConnection extends MysqlDatabaseConnection
     {
         const CLIENT_FOUND_ROWS = 2;

@@ -27,10 +27,18 @@
         'connection'    => 'MysqliDatabaseConnection'
     );
     
+    /**
+     * MysqlConnectionException
+     */
     class MysqliConnectException extends DatabaseException
     {
         private $host, $user;
         
+        /**
+         * Constructor
+         * @param   string $host server host
+         * @param   string $user server user name
+         */
         public function __construct( $host, $user )
         {
             parent::__construct( mysqli_connect_error(), mysqli_connect_errno() );
@@ -45,10 +53,18 @@
         }
     }
     
+    /**
+     * MysqlDatabaseException
+     */
     class MysqliDatabaseException extends DatabaseException
     {
         private $sql;
         
+        /**
+         * Constructor
+         * @param   mysqli $db link to the database connection
+         * @param   string $sql query that generates the exception
+         */
         public function __construct( $db, $sql )
         {
             parent::__construct( $db->error, $db->errno );
@@ -61,12 +77,20 @@
         }
     }
     
+    /**
+     * Row iterator for Mysqli Driver
+     * @see     DatabaseRowIterator
+     */
     class MysqliRowsIterator implements DatabaseIterator
     {
         protected $_result;
         protected $_current;
         protected $_key = 0;
         
+        /**
+         * Constructor
+         * @param   mysqli_result $result
+         */
         public function __construct( $result )
         {
             $this->_result = $result;
@@ -128,6 +152,10 @@
         }
     }
     
+    /**
+     * Object iterator for Mysqli Driver
+     * @see     DatabaseRowIterator
+     */
     class MysqliObjectsIterator extends MysqliRowsIterator
     {
         public function next()
@@ -381,6 +409,10 @@
         }
     }
     
+    /**
+     * Claroline main connection for Mysqli driver
+     * @see DatabaseConnection
+     */
     class ClaroMysqliDatabaseConnection extends MysqliDatabaseConnection
     {
         private $queryCounter = 1;
