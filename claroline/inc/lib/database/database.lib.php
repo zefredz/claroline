@@ -36,7 +36,7 @@
     }
     
     /**
-     * Database driver management class
+     * Database driver management and connection factory class
      * Usage :
      *  1. load driver : Database::loadDriver('mysqli');
      *  2. get main claroline connection : $conn = Database::getMainConnection(); 
@@ -45,34 +45,33 @@
      */
     class Database
     {
+        // Driver management 
+        
         private static $_loadedDriver = false;
         
+        /**
+         * Load the database driver
+         * @param   string $name driver name
+         * @throws  Exception if driver not found or already loaded
+         */
         public static function loadDriver( $name )
         {
             if ( ! self::$_loadedDriver )
             {
-                try 
+                if ( file_exists( dirname(__FILE__).'/'.$name.'.lib.php' ) )
                 {
-                    if ( file_exists( dirname(__FILE__).'/'.$name.'.lib.php' ) )
-                    {
-                        $driverInfo = false;
-                        require_once dirname(__FILE__).'/'.$name.'.lib.php';
-                        
-                        // var_dump( $driverInfo );
-                        
-                        self::$_loadedDriver = $driverInfo;
-                        
-                        Console::debug('Load database driver ' . $name);
-                    }
-                    else
-                    {
-                        throw new Exception("Database driver $name not found!");
-                    }                    
+                    $driverInfo = false;
+                    require_once dirname(__FILE__).'/'.$name.'.lib.php';
+                    
+                    self::$_loadedDriver = $driverInfo;
+                    
+                    Console::debug('Load database driver ' . $name);
                 }
-                catch ( Exception $e )
+                else
                 {
-                    throw new Exception("Database driver $name not found : " . $e->getMessage() );
-                }
+                    throw new Exception("Database driver $name not found!");
+                }                    
+                
             }
             else
             {
@@ -80,8 +79,15 @@
             }
         }
         
+        // Main connection
+        
         private static $_mainInstance = false;
         
+        /**
+         * Get the main database connection
+         * @return  DatabaseConnection main connection
+         * @throws  DatabaseException on error
+         */
         public static function getMainConnection()
         {
             if ( ! self::$_loadedDriver )
@@ -105,6 +111,17 @@
             }
         }
         
+        // Standard connection
+        
+        /**
+         * Get a database connection instance
+         * @param   string $host database server host
+         * @param   string $user database user account name
+         * @param   string $passwd database user account password
+         * @param   string $database name of the database to connect to
+         * @return  DatabaseConnection
+         * @throws  DatabaseException
+         */
         public static function getConnection( $host, $user, $passwd, $dbname )
         {
             if ( ! self::$_loadedDriver )
@@ -129,14 +146,16 @@
 
         /**
          * open a connection to the database
-         * @param   boolean forceReconnect
+         * @param   boolean $forceReconnect
          * @return  boolean
+         * @throws  DatabaseException
          */
         abstract public function connect( $forceReconnect = false );
 
         /**
          * reconnect a connection to the database
          * @return  boolean
+         * @throws  DatabaseException
          */
         public function reconnect()
         {
@@ -145,7 +164,8 @@
 
         /**
          * check if the connection is active
-         * @return boolean true if the conection is active, false either
+         * @return  boolean true if the conection is active, false either
+         * @throws  DatabaseException
          */
         public function isConnected()
         {
@@ -154,72 +174,93 @@
 
         /**
          * close the connection
+         * @throws  DatabaseException
          */
         abstract public function close();
 
         /**
          * execute a query to the database and returns the number of
          * rows affected
-         * @param string query database query
-         * @return resource execution result
+         * @param   string $query sql query
+         * @return  resource execution result
+         * @throws  DatabaseException
          */
         abstract public function executeQuery( $query );
 
         /**
          * execute the given query and returns all results as objects in an array
-         * @param string query
-         * @return array of objects
+         * @param   string $query
+         * @return  array of objects
+         * @throws  DatabaseException
          */
         abstract public function getAllObjectsFromQuery( $query );
 
         /**
          * execute the given query and returns one result as an object
-         * @param string query
-         * @return object
+         * @param   string $query
+         * @return  object
+         * @throws  DatabaseException
          */
         abstract public function getObjectFromQuery( $query );
 
         /**
          * execute the given query and returns all returned rows in an array
-         * @param string query
-         * @return array of rows
+         * @param   string $query
+         * @return  array of rows
+         * @throws  DatabaseException
          */
         abstract public function getAllRowsFromQuery( $query );
 
         /**
          * execute the given query and returns one row in an array
-         * @param string query
-         * @return array row
+         * @param   string $query
+         * @return  array row
+         * @throws  DatabaseException
          */
         abstract public function getRowFromQuery( $query );
 
         /**
          * execute a database query and return true if the query returns a
          * result
-         * @param string query
-         * @return boolean true if the query returns a result, false either
+         * @param   string $query
+         * @return  boolean true if the query returns a result, false either
+         * @throws  DatabaseException
          */
         abstract public function queryReturnsResult( $query );
 
         /**
          * get the ID of the last inserted row in the database
-         * return int id of the last inserted row
+         * @return  int id of the last inserted row
+         * @throws  DatabaseException
          */
         abstract public function getLastInsertId();
         
         /**
          * get the number of rows affected by the query
-         * return int number of rows affected by the query
+         * @return  int number of rows affected by the query
+         * @throws  DatabaseException
          */
         abstract public function getAffectedRows();
         
+        /**
+         * Escapes the given string to avoid SQL injections
+         * @param   string $str
+         * @return  escaped string
+         * @throws  DatabaseException
+         */
         public function escapeString( $str )
         {
             return addslashes( $str );
         }
 
         // ----- extended connection -----
-
+        
+        /**
+         * Get a single column from the query
+         * @param   string $sql
+         * @return  array
+         * @throws  DatabaseException
+         */
         public function getColumnFromQuery( $sql )
         {
         	$res = $this->getAllRowsFromQuery( $sql );
@@ -231,7 +272,13 @@
             }
             return $tmp;
         }
-
+        
+        /**
+         * Get a single value from the query
+         * @param   string $sql
+         * @return  mixed
+         * @throws  DatabaseException
+         */
         public function getSingleValueFromQuery( $sql )
         {
             $row = $this->getRowFromQuery( $sql );
@@ -248,6 +295,14 @@
         
         // Multiple queries
         
+        /**
+         * Execute an array of queries
+         * @param   array $arr
+         * @param   boolean $strictMode set to true to stop the execution of
+         *  all queries on error
+         * @return  boolean true on success
+         * @throws  DatabaseException
+         */
         protected function executeQueryArray( $arr, $strictMode = false )
         {
             $exceptionOccurs = false;
@@ -283,6 +338,14 @@
             }
         }
         
+        /**
+         * Execute list of queries given in a single string
+         * @param   string $str
+         * @param   boolean $strictMode set to true to stop the execution of
+         *  all queries on error
+         * @return  boolean true on success
+         * @throws  DatabaseException
+         */
         public function executeMultipleQuery( $sql, $strictMode = false )
         {
             $queries = $this->parseMultipleQuery( $sql );
@@ -290,6 +353,12 @@
             $this->executeQueryArray( $queries, $strictMode );
         }
         
+        /**
+         * Parse a list of queries given in a single string
+         * @param   string $str
+         * @return  array of queries
+         * @author  PhpMyAdmin team
+         */
         protected function parseMultipleQuery( $sql )
         {
             $ret = array();
@@ -424,13 +493,11 @@
         /**
          * Prepare a query by replacing the ? by the value 
          * in the given parameters array in their order of appearance
-         *
-         * @access  public
-         * @since   1.9
-         * @param   string query, the query to prepare
-         * @param   array params, the parameters to insert in the query
-         * @param   string formatString, i for int d for float s for string
+         * @param   string $query, the query to prepare
+         * @param   array $params, the parameters to insert in the query
+         * @param   string $formatString, i for int d for float s for string
          * @return  string the prepared query
+         * @throws  DatabaseException
          */
         public function prepareQuery( $query, $params, $formatString )
         {
@@ -471,6 +538,12 @@
             }
         }
         
+        /**
+         * Prepare the values to be used in prepared queries
+         * @param   mixed $value
+         * @param   string $format 'i', 'd' or 's'
+         * @return  mixed prepared value
+         */
         protected function prepareValue( $value, $format )
         {
             if ( false === strpos( 'ids', $format ) )
@@ -489,7 +562,18 @@
                 }
                 else
                 {
-                    return "'".$this->escapeString( $value )."'";
+                    if ( is_null( $value ) )
+                    {
+                        return 'NULL';
+                    }
+                    elseif ( is_bool( $value ) )
+                    {
+                        return $value ? "'true'" : "'false'";
+                    }
+                    else
+                    {
+                        return "'".$this->escapeString( $value )."'";
+                    }
                 }
             }
         }
