@@ -1,4 +1,4 @@
-<?php // $Id$
+<?php // database.lib.php,v 1.1 2007/11/15 12:24:48 zefredz Exp
 
     // vim: expandtab sw=4 ts=4 sts=4:
 
@@ -10,7 +10,7 @@
     /**
      * Database abstraction layer
      *
-     * @version     1.9 $Revision$
+     * @version     1.9 1.1
      * @copyright   2001-2007 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
@@ -18,16 +18,31 @@
      *              GNU GENERAL PUBLIC LICENSE version 2.0
      * @package     database
      */
-     
+    
+    /**
+     * Database Exception class 
+     */ 
     class DatabaseException extends Exception
     {
     }
     
+    /**
+     * Iterator for database results
+     */
     interface DatabaseIterator extends Iterator
     {
         public function size();
     }
     
+    /**
+     * Database driver management class
+     * Usage :
+     *  1. load driver : Database::loadDriver('mysqli');
+     *  2. get main connection : $conn = Database::getMainConnection( 
+     *      $host, $user, $pass, $mainDbname ); 
+     *  or 3. get Standard database connection : $conn = Database::getConnection( 
+     *      $host, $user, $pass, $dbname );
+     */
     class Database
     {
         private static $_loadedDriver = false;
@@ -67,7 +82,7 @@
         
         private static $_instance = false;
         
-        public static function getClaroDatabaseConnection( $host, $user, $passwd, $dbname )
+        public static function getMainConnection( $host, $user, $passwd, $dbname )
         {
             if ( ! self::$_loadedDriver )
             {
@@ -82,6 +97,20 @@
                 }
                 
                 return self::$_instance;
+            }
+        }
+        
+        public static function getConnection( $host, $user, $passwd, $dbname )
+        {
+            if ( ! self::$_loadedDriver )
+            {
+                throw new Exception('No database driver loaded !');
+            }
+            else
+            {
+                $className = self::$_loadedDriver['connection'];
+                $_instance = new $className( $host, $user, $passwd, $dbname  );
+                return $_instance;
             }
         }
     }

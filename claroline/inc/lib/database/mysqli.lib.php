@@ -1,11 +1,11 @@
-<?php // $Id$
+<?php // mysqli.lib.php,v 1.1 2007/11/15 12:24:48 zefredz Exp
 
     // vim: expandtab sw=4 ts=4 sts=4:
     
     /**
      * Description
      *
-     * @version     1.9 $Revision$
+     * @version     1.9 1.1
      * @copyright   2001-2007 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
@@ -22,8 +22,9 @@
     uses ( 'database/database.lib' );
     
     $driverInfo = array(
-        'driver'    => 'mysqli',
-        'main'      => 'ClaroMysqliDatabaseConnection'
+        'driver'        => 'mysqli',
+        'main'          => 'ClaroMysqliDatabaseConnection',
+        'connection'    => 'MysqliDatabaseConnection'
     );
     
     class MysqliConnectException extends DatabaseException
