@@ -72,7 +72,7 @@
                 }
                 
                 // Create main database connection
-            	$this->database = Database::getClaroDatabaseConnection(
+            	$this->database = Database::getMainConnection(
 	                get_conf( 'dbHost' ),
 	                get_conf( 'dbLogin' ),
 	                get_conf( 'dbPass' ),
