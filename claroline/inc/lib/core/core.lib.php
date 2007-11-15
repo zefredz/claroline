@@ -134,7 +134,7 @@
                 // error not found
                 if ( claro_debug_mode() ) 
                 {
-                    trigger_error( "Lib not found $lib", E_USER_ERROR );
+                    throw new Exception( "Lib not found $lib" );
                 }
                 
                 $notFound[] = $lib;
