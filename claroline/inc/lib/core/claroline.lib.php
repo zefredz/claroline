@@ -22,75 +22,121 @@
     }
     
     uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
-        , 'core/notify.lib', 'display/display.lib' );
+        , 'core/notify.lib', 'display/display.lib', 'database/database.lib' );
     
     define ( 'CL_PAGE',     'CL_PAGE' );
     define ( 'CL_FRAMESET', 'CL_FRAMESET' );
     define ( 'CL_POPUP',    'CL_POPUP' );
     define ( 'CL_FRAME',    'CL_FRAME' );
 
+    /**
+     * Main Claroline class containing references to Claroline kernel objects
+     * This class is a Singleton
+     */
     class Claroline
     {
-        /**
-         * The display object for the current script
-         */
+        // Display type constants
+    	const PAGE = 'CL_PAGE';
+    	const FRAMESET = 'CL_FRAMESET';
+    	const POPUP = 'CL_POPUP';
+    	const FRAME = 'CL_FRAME';
+    	
+        // Singleton instance
+        private static $instance = false; // this class is a singleton
+        
+        // Kernel objects
+        // Database link
+        public $database;
+        // Event manager
+        public $eventManager;
+        // Notification manager
+        public $notification;
+        // Notifier object
+        public $notifier;
+        // Display object
         public $display;
         
-        public $eventManager;
-        public $notification;
-        public $notifier;
-        
-        private static $instance = false;
-        
+        // this class is a singleton, use static method getInstance()
         private function __construct()
         {
-            $this->setDisplayType();
-            $this->eventManager = EventManager::getInstance();
-            $this->notification = ClaroNotification::getInstance();
-            $this->notifier = ClaroNotifier::getInstance();
+            try
+            {
+                // Load database driver
+                if ( function_exists( 'mysqli_connect' ) )
+                {
+                    Database::loadDriver( 'mysqli' );
+                }
+                else
+                {
+                    Database::loadDriver( 'mysql' );
+                }
+                
+                // Create main database connection
+            	$this->database = Database::getClaroDatabaseConnection(
+	                get_conf( 'dbHost' ),
+	                get_conf( 'dbLogin' ),
+	                get_conf( 'dbPass' ),
+	                get_conf( 'mainDbName' )
+	            );
+            
+                // initialize the event manager and notification classes
+                $this->eventManager = EventManager::getInstance();
+                $this->notification = ClaroNotification::getInstance();
+                $this->notifier = ClaroNotifier::getInstance();
+                
+                // initialize set the default display mode
+                $this->setDisplayType();
+            }
+            catch ( Exception $e )
+            {
+                die( $e );
+            }
         }
         
         /**
          * Set the type of display to use
          * @param   string type, display type could be
-         *  CL_PAGE         a standard page with header, banner, body and footer
-         *  CL_FRAMESET     a frameset with header and frames
+         *  Claroline::PAGE 		a standard page with header, banner, body and footer
+         *  Claroline::FRAMESET     a frameset with header and frames
+         *  Claroline::POPUP        a popup-embedded page
+         *  Claroline::FRAME        a frame-embedded page
+         *  default value : Claroline::PAGE
          */
-        public function setDisplayType( $type = CL_PAGE )
+        public function setDisplayType( $type = self::PAGE )
         {
             switch ( $type )
             {
-                case CL_PAGE:
+                case self::PAGE:
                     $this->display = new ClaroPage;
                     break;
-                case CL_POPUP:
+                case self::POPUP:
                     $this->display = new ClaroPage;
                     $this->display->popupMode();
                     break;
-                case CL_FRAME:
+                case self::FRAME:
                     $this->display = new ClaroPage;
                     $this->display->frameMode();
                     break;
-                case CL_FRAMESET:
+                case self::FRAMESET:
                     $this->display = new ClaroFrameSet;
                     break;
                 default:
-                    trigger_error( 'Invalid display type', E_USER_ERROR );
+                    throw new Exception( 'Invalid display type' );
             }
         }
         
         /**
-         * Returns the instance of the Claroline object
-         * @return  Claroline singleton
+         * Returns the singleton instance of the Claroline object
+         * @return  Claroline singleton instance
          */
         public static function getInstance()
         {
-            if ( ! Claroline::$instance )
+            if ( ! self::$instance )
             {
-                Claroline::$instance = new Claroline;
+                self::$instance = new Claroline;
             }
 
-            return Claroline::$instance;
+            return self::$instance;
         }
     }
 ?>
