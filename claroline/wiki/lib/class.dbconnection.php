@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      * @package Wiki
      */
 
-    class DatabaseConnection
+    class Database_Connection
     {
         var $error = '';
         var $errno = 0;
@@ -133,7 +133,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }
     }
 
-    class MyDatabaseConnection extends DatabaseConnection
+    class MyDatabaseConnection extends Database_Connection
     {
         var $db_link;
         var $host;
