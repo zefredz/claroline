@@ -1,4 +1,4 @@
-<?php // database.lib.php,v 1.1 2007/11/15 12:24:48 zefredz Exp
+<?php // $Id$
 
     // vim: expandtab sw=4 ts=4 sts=4:
 
@@ -10,7 +10,7 @@
     /**
      * Database abstraction layer
      *
-     * @version     1.9 1.1
+     * @version     1.9 $Revision$
      * @copyright   2001-2007 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
