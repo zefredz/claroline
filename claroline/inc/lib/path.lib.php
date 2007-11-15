@@ -103,7 +103,7 @@ function get_url_domain()
     )
     */
 
-    $urlPart = parse_url(get_conf($rootWeb));
+    $urlPart = parse_url(get_conf('rootWeb'));
 
     $url  = $urlPart[scheme] . '://';
     if(! empty($urlPart[user]))
