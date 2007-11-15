@@ -95,6 +95,21 @@
         {
             return $this->_size;
         }
+        
+        public function toArray()
+        {
+            $ret= array();
+                
+            if ( mysql_num_rows( $this->_result ) > 0 )
+            {
+                while ( ( $item = mysql_fetch_assoc( $this->_result ) ) != false )
+                {
+                    $ret[] = $item;
+                }
+            }
+            
+            return $ret;
+        }
     }
     
     class MysqlObjectsIterator extends MysqlRowsIterator
@@ -115,6 +130,21 @@
         public function valid()
         {
             return is_object( $this->_current );
+        }
+        
+        public function toArray()
+        {
+            $ret= array();
+                
+            if ( mysql_num_rows( $this->_result ) > 0 )
+            {
+                while ( ( $item = mysql_fetch_object( $this->_result ) ) != false )
+                {
+                    $ret[] = $item;
+                }
+            }
+            
+            return $ret;
         }
     }
     

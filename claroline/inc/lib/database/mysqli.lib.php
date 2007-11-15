@@ -79,7 +79,7 @@
         
         public function rewind()
         {
-            $this->result->data_seek(0);
+            $this->_result->data_seek(0);
             $this->key = -1;
             $this->next();
         }
@@ -111,6 +111,21 @@
         {
             return $this->_result->num_rows;
         }
+        
+        public function toArray()
+        {
+            $ret= array();
+                
+            if ( $this->_result->num_rows > 0 )
+            {
+                while ( ( $item = $this->_result->fetch_assoc() ) != false )
+                {
+                    $ret[] = $item;
+                }
+            }
+            
+            return $ret;
+        }
     }
     
     class MysqliObjectsIterator extends MysqliRowsIterator
@@ -131,6 +146,21 @@
         public function valid()
         {
             return is_object( $this->_current );
+        }
+        
+        public function toArray()
+        {
+            $ret= array();
+                
+            if ( $this->_result->num_rows > 0 )
+            {
+                while ( ( $item = $this->_result->fetch_object() ) != false )
+                {
+                    $ret[] = $item;
+                }
+            }
+            
+            return $ret;
         }
     }
     
@@ -268,7 +298,7 @@
                 $result = $this->executeQuery( $query );
                 
                 $ret= array();
-    
+                
                 if ( $result->num_rows > 0 )
                 {
                     while ( ( $item = $result->fetch_assoc() ) != false )
@@ -278,7 +308,7 @@
                 }
     
                 $result->close();
-    
+                
                 return $ret;
             }
             catch ( DatabaseException $mdbe )

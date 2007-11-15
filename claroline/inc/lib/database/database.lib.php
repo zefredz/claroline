@@ -32,6 +32,7 @@
     interface DatabaseIterator extends Iterator
     {
         public function size();
+        public function toArray();
     }
     
     /**
@@ -79,7 +80,7 @@
             }
         }
         
-        private static $_instance = false;
+        private static $_mainInstance = false;
         
         public static function getMainConnection()
         {
@@ -89,10 +90,10 @@
             }
             else
             {
-                if ( ! self::$_instance )
+                if ( ! self::$_mainInstance )
                 {
                     $className = self::$_loadedDriver['main'];
-                    self::$_instance = new $className( 
+                    self::$_mainInstance = new $className( 
                         get_conf( 'dbHost' ),
                         get_conf( 'dbLogin' ),
                         get_conf( 'dbPass' ),
@@ -100,7 +101,7 @@
                     );
                 }
                 
-                return self::$_instance;
+                return self::$_mainInstance;
             }
         }
         
