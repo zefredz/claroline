@@ -53,6 +53,11 @@
             claro_failure::set_failure( $message );
             pushClaroMessage( $message, 'error' );
         }
+        
+        public static function log( $message, $type )
+        {
+            pushClaroMessage( $message, $type );
+        }
     }
 
     // class DebugBar extends Console {}
