@@ -52,7 +52,7 @@
             $this->startTime = $this->_getCurrentTime();
             $this->status = self::PROFILER_STATUS_STARTED;
             
-            pushClaroMessage(sprintf("&gt;&gt; Profiler (re)started at %f", $this->startTime), 'profile');
+            Console::log(sprintf("&gt;&gt; Profiler (re)started at %f", $this->startTime), 'profile');
         }
 
         public function restart()
@@ -70,8 +70,8 @@
             $this->endTime = $this->_getCurrentTime();
             $this->status = self::PROFILER_STATUS_STOPPED;
             
-            pushClaroMessage(sprintf("&gt;&gt; Profiler stoped at %f", $this->endTime), 'profile');
-            pushClaroMessage(
+            Console::log(sprintf("&gt;&gt; Profiler stoped at %f", $this->endTime), 'profile');
+            Console::log(
                 sprintf("** Elapsed time : %f seconds **", $this->getElapsedTime())
                 , 'profile');
         }
@@ -92,60 +92,12 @@
             $mark = "$timestamp $msg <br />in $file at line $line after $elapsed";
 
             $this->log[] = $mark;
-            pushClaroMessage($mark, 'profile');
+            Console::log($mark, 'profile');
         }
 
-        public function report( $htmlReport = true )
-        {
-            if ( $this->status != self::PROFILER_STATUS_STOPPED )
-            {
-                $this->stop();
-            }
-
-            if ( $htmlReport )
-            {
-                return $this->_htmlReport();
-            }
-            else
-            {
-                return $this->_plainReport();
-            }
-        }
-        
         public function getElapsedTime()
         {
             return $this->endTime - $this->startTime;
-        }
-
-        private function _htmlReport()
-        {
-            $report = '<pre>' . "\n";
-
-            $report .= $this->_plainReport();
-
-            $report .= '</pre>' . "\n";
-
-            return $report;
-        }
-
-        private function _plainReport()
-        {
-            $report = "--- Start of Profiler Report ---\n";
-
-            $report .= "\nProfiler started at " . $this->startTime . "\n";
-
-            $report .= implode( "\n", $this->log );
-
-            $report .= "\nProfiler stoped at " . $this->endTime . "\n";
-
-            $strTime = "Elapsed time : %f seconds\n";
-            $elapsedTime = $this->getElapsedTime();
-
-            $report .= sprintf( $strTime, $elapsedTime );
-
-            $report .= "--- End of Profiler Report ---\n\n";
-
-            return $report;
         }
 
         private function _getCurrentTime()
