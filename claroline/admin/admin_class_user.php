@@ -38,7 +38,7 @@ $htmlHeadXtra[] =
          "<script>
          function confirmationUnReg (name)
          {
-             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))."\"+ name + \"? \"))
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))."\"+ name + \"? \"))
                  {return true;}
              else
                  {return false;}
