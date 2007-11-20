@@ -191,7 +191,12 @@ function claro_move_file($sourcePath, $targetPath)
 function claro_copy_file($sourcePath, $targetPath)
 {
     $fileName = basename($sourcePath);
-
+    
+    $sourcePath = realpath ($sourcePath);
+    $targetPath = realpath ($targetPath);
+    if (! is_readable($sourcePath)) Console::warning($sourcePath . 'not readable');
+    if (! is_writable($targetPath)) Console::warning($targetPath . 'not writable');
+    
     if ( is_file($sourcePath) )
     {
         return copy($sourcePath , $targetPath . '/' . $fileName);
@@ -259,9 +264,9 @@ function claro_dirname($filePath)
  * Indexes all the directories and subdirectories
  * contented in a given directory
  *
- * @param  - path (string) - directory path of the one to index
- * @param  - mode (string) - ALL, FILE, DIR : specify what will be listed
- * @return - an array containing the path of all the subdirectories
+ * @param  dirPath (string) - directory path of the one to index
+ * @param  mode (string) - ALL, FILE, DIR : specify what will be listed
+ * @return an array containing the path of all the subdirectories
  */
 
 function index_dir($dirPath, $mode = 'ALL' )
@@ -293,6 +298,7 @@ function index_dir($dirPath, $mode = 'ALL' )
     else
     {
         // false if the function was called with an invalid non-directory argument
+        Console::warning($dirPath . 'not a dir');
         $files = false;
     }
     return $files;
