@@ -56,7 +56,8 @@ function course_description_get_item_list($courseId = null)
 
 function get_tiplistinit()
 {
-    include_once './tiplistinit.inc.php';
+    $tipList = array();
+    include_once dirname(__FILE__) . '/../tiplistinit.inc.php';
     return $tipList;
 }
 
