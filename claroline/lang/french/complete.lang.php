@@ -1,6 +1,6 @@
 <?php
 $_lang[' Main settings'] = 'Paramètres généraux';
-$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline and garbage des anciennes versions de claroline)';
+$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! taille des dossiers de cours (inclus claroline et le garbage des anciennes versions de claroline)';
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
 $_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename est maintenant dans l\'outil Documents et liens. (<em>Ce fichier est visible</em>)';
@@ -49,7 +49,7 @@ $_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>Disponible du</b>
 $_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Sécurité :</b> Nous recommandons de désactiver \'register_globals\' dans le php.ini';
 $_lang['<b>Warning : </b>'] = '<b>Avertissement : </b>';
 $_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = '<i>%firstname %lastname</i> a été correctement inscrit au cours';
-$_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = 'Echec lors de l\'inscription de <i>%firstname %lastname</i> au cours';
+$_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = 'Échec lors de l\'inscription de <i>%firstname %lastname</i> au cours';
 $_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total'] = '<label1>Oui</label1>, <label2>prendre</label2> %nb questions parmi %total';
 $_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> indique un champs requis';
 $_lang['<span class=\"required\">*</span> denotes required field'] = 'Les champs précédés d\'un astérisque (<span class="required">*</span>) sont obligatoires.';
