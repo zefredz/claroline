@@ -901,7 +901,7 @@ $_lang['Messages to selected users'] = 'Message pour certains utilisateurs.';
 $_lang['Minimum raw to pass has been changed'] = 'Le score minimum pour réussir le module a été changé';
 $_lang['MinuteShort'] = 'min.';
 $_lang['Missing'] = 'manquant';
-$_lang['Missing elements in module Manifest : %MissingElements'] = 'Eléments manquant dans le manifest : %MissingElements';
+$_lang['Missing elements in module Manifest : %MissingElements'] = 'Éléments manquant dans le manifest : %MissingElements';
 $_lang['Missing field(s)'] = 'Information(s) manquante(s)';
 $_lang['Missing images detected'] = 'Images manquantes détectées';
 $_lang['Missing language files'] = 'Fichiers avec les traductions manquantes';
@@ -1039,7 +1039,7 @@ $_lang['No user to display'] = 'Il n\'y a pas d\'utilisateur à afficher';
 $_lang['No visible submission'] = 'Pas de soumission visible';
 $_lang['No way'] = 'Pas d\'accès ';
 $_lang['No, prevent users submitting work after the end date'] = 'Non, ne pas autoriser les utilisateurs à soumettre leur travail après la date de fin';
-$_lang['No, rebuild the file on each request'] = 'Non, regénérer le fichier à chaque requête';
+$_lang['No, rebuild the file on each request'] = 'Non, régénérer le fichier à chaque requête';
 $_lang['Node Moved, relaunch repair process to complete'] = 'Le noeud a été déplacé, relancez la procédure pour terminer la réparation de la structure.';
 $_lang['None'] = 'Aucun';
 $_lang['Not allowed'] = 'Vous n\'êtes pas autorisé à accéder à cette section';
@@ -1256,7 +1256,7 @@ $_lang['Rights'] = 'Droits';
 $_lang['Role'] = 'Rôle';
 $_lang['Root'] = 'Niveau supérieur';
 $_lang['Root folder of CAS (example : \'esup-cas/\')'] = 'Dossier racine du serveur de CAS (exemple : \'esup-cas/\')';
-$_lang['Root of CAS server'] = 'Dossier racine du server de CAS';
+$_lang['Root of CAS server'] = 'Dossier racine du serveur de CAS';
 $_lang['Rss (read and write) tool'] = 'Lecture et écriture RSS';
 $_lang['Rss feed for %course'] = 'Flux RSS du cours %course';
 $_lang['SCORM 1.2 conformable content'] = 'Contenu conforme à SCORM 1.2';
@@ -1335,7 +1335,7 @@ $_lang['Statistics of question'] = 'Statistiques de la question';
 $_lang['Statistics of user'] = 'Statistiques d\'un utilisateur';
 $_lang['Status'] = 'Statut';
 $_lang['Store Chat'] = 'Sauvegarder la discussion';
-$_lang['Store failed'] = 'Echec lors de la sauvegarde de la discussion.';
+$_lang['Store failed'] = 'Échec lors de la sauvegarde de la discussion.';
 $_lang['Strike'] = 'Barré';
 $_lang['Student'] = 'Étudiant';
 $_lang['Students are allowed to self-register in groups'] = 'Étudiants autorisés à s\'inscrire eux-mêmes dans les groupes';
@@ -1351,7 +1351,7 @@ $_lang['Submit feedback'] = 'Soumission du correctif';
 $_lang['Subscription not allowed'] = 'Inscription interdite';
 $_lang['Support forum'] = 'Forum de support';
 $_lang['System Info'] = 'Information système';
-$_lang['System mail : recipients list'] = 'Système d\'envoie de mail : liste des destinataires';
+$_lang['System mail : recipients list'] = 'Système d\'envoi de mail : liste des destinataires';
 $_lang['Take one of these options'] = 'Choisissez parmi ces options';
 $_lang['Teacher can add a user in his course'] = 'Le gestionnaire de cours peut ajouter un utilisateur à son cours';
 $_lang['Teacher can import an existing class course'] = 'Le gestionnaire de cours peut importer une classe d\'utilisateurs dans son cours';
@@ -1475,7 +1475,7 @@ $_lang['Translation Progression'] = 'Statistiques sur les traductions';
 $_lang['Translation Tools'] = 'Outils de traductions';
 $_lang['Translation: use a single language file
 Production: each script use its own language file.'] = 'Traduction: utilise un seul fichier de traduction
-Production: chaque script utilise son propore fichier de traduction';
+Production: chaque script utilise son propre fichier de traduction';
 $_lang['True'] = 'Vrai';
 $_lang['True/False'] = 'Vrai/Faux';
 $_lang['Tutors'] = 'Tuteurs';
@@ -1599,7 +1599,7 @@ $_lang['Users with similar settings exist on the system yet'] = 'Un profil sembl
 $_lang['Users\' Clicks'] = 'Clics des inscrits';
 $_lang['UsersMin'] = 'utilisateurs';
 $_lang['Values'] = 'Valeurs';
-$_lang['Variables with same content and different name'] = 'Variables avec la même traduction mais nommées différement';
+$_lang['Variables with same content and different name'] = 'Variables avec la même traduction mais nommées différemment';
 $_lang['Variables with same name and different content'] = 'Variables avec traductions différentes';
 $_lang['Version'] = 'Version';
 $_lang['View'] = 'Vue';
@@ -1627,9 +1627,9 @@ $_lang['Weighting'] = 'Pondération';
 $_lang['Welcome text displayed on the homepage'] = 'Texte de bienvenue affiché sur la page d\'accueil';
 $_lang['Welcome text displayed to anonymous users'] = 'Texte de bienvenue affiché aux utilisateurs anonymes';
 $_lang['Welcome text displayed to authenticated users'] = 'Texte de bienvenue affiché aux utilisateurs authentifiés';
-$_lang['When iCal File is regenerated, make the RDF version.'] = 'Quand le contenu iCal est regénéré, produire  une version RDF.';
-$_lang['When iCal File is regenerated, make the ics version.'] = 'Quand le contenu iCal est regénéré, produire  une version ics.';
-$_lang['When iCal File is regenerated, make the xml version.'] = 'Quand le contenu iCal est regénéré, produire  une version XML.';
+$_lang['When iCal File is regenerated, make the RDF version.'] = 'Quand le contenu iCal est régénéré, produire  une version RDF.';
+$_lang['When iCal File is regenerated, make the ics version.'] = 'Quand le contenu iCal est régénéré, produire  une version ics.';
+$_lang['When iCal File is regenerated, make the xml version.'] = 'Quand le contenu iCal est régénéré, produire  une version XML.';
 $_lang['When users click on a document, it opens a new window'] = 'Quand un utilisateur clique sur une ressource, elle est affichée dans une nouvelle fenêtre';
 $_lang['When users click on a submitted file, it opens a new window'] = 'Quand un utilisateur clique sur un fichier soumis, il est affiché dans une nouvelle fenêtre';
 $_lang['Which parts of the profile can be changed?'] = 'Quels éléments du profil peuvent être modifiés?';
@@ -1938,7 +1938,7 @@ Le résultat de la recherche sera affiché sous la barre de répertoire.
 </ul>
 <hr />
 <h4>Gérer les documents</h4>
-Cet outil dipose d\'une série de commandes vous permettant de télécharger et d\'ajouter des fichiers, d\'éditer et d\'organiser vos fichiers de ressources.
+Cet outil dispose d\'une série de commandes vous permettant de télécharger et d\'ajouter des fichiers, d\'éditer et d\'organiser vos fichiers de ressources.
 <hr />
 
 <h4>Ajouter un fichier</h4>
@@ -2097,7 +2097,7 @@ L\'outil Exercices permet de créer des exercices en ligne sous la forme d\'une l
 <p>Créer un exercice</p>
 <p>Cliquez sur <strong>Exercices</strong> pour entrer dans la liste des exercices.
 </p><p><br />
-Pour créer un nouvel excercice, cliquez sur <strong>Nouvel exercice</strong>.
+Pour créer un nouvel exercice, cliquez sur <strong>Nouvel exercice</strong>.
 </p><p><br />
 Saisissez l\'intitulé du nouvel l\'exercice et, facultativement, sa description.
 </p><p>Définissez ensuite les options souhaitées pour l\'exercice&nbsp;:
@@ -2312,7 +2312,7 @@ Login : %login
 Password : %password
 Commentaire de l\'utilisateur : %comment
 Lien : %url';
-$_lang['blockTextZoneHelp'] = 'Cette zone de texte est affichée à chaque utilisateur. L\'Administrateur peut modifier le contenu ou le supprimer en éditant le fichier <b>%textZoneFile</b>.';
+$_lang['blockTextZoneHelp'] = 'Cette zone de texte est affichée à chaque utilisateur. L\'administrateur peut modifier le contenu ou le supprimer en éditant le fichier <b>%textZoneFile</b>.';
 $_lang['blockUsedInSeveralPath'] = 'Cet exercice est utilisé dans un ou plusieurs parcours pédagogiques. Si vous le supprimez, il ne sera plus disponible au sein de ce(s) parcours.';
 $_lang['blockUsersHelp'] = '<p>L\'outil Utilisateurs permet d\'afficher un tableau d\'information sur les utilisateurs. Voici un résumé du contenu des colonnes du tableau.
 <ul>
@@ -2324,7 +2324,7 @@ $_lang['blockUsersHelp'] = '<p>L\'outil Utilisateurs permet d\'afficher un table
 Les rôles n\'ont pas de fonction technique particulière et ne sont associés à aucun droit spécifique sur la plate-forme. Ils indiquent simplement aux personnes \'qui est qui\'. Vous pouvez modifier le rôle d\'un utilisateur en cliquant sur l\'icône dans la colonne Éditer et en tapant ensuite le rôle désiré&nbsp;: professeur, assistant, étudiant, visiteur, expert, etc.
 </li>
 <li>
-<b>Tuteur de groupe</b>. Le statut de Tuteur de groupe permet à l\'utilistateur d\'encadrer un groupe plus étroitement. Le tuteur dispose du droit d\'accéder aux espaces de tous les groupes, de voir l\'ensemble des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l\'icône de la colonne Éditer.
+<b>Tuteur de groupe</b>. Le statut de Tuteur de groupe permet à l\'utilisateur d\'encadrer un groupe plus étroitement. Le tuteur dispose du droit d\'accéder aux espaces de tous les groupes, de voir l\'ensemble des messages des forums de groupe. Vous pouvez modifier ce statut en cliquant sur l\'icône de la colonne Éditer.
 </li>
 <li>
 <b>Gestionnaire de cours</b>. Le statut de Gestionnaire est réservé aux personnes qui peuvent superviser et gérer le cours. Vous pouvez modifier ce statut en cliquant sur l\'icône de la colonne Éditer.
@@ -2338,7 +2338,7 @@ Les rôles n\'ont pas de fonction technique particulière et ne sont associés à au
 </ul>
 <h4>Commandes principales</h4>
 <ul>
-<li><b>Ajouter un utilisateur</b>. Cliquez sur cette commande pour ajouter un utilisateur dans le cours. Complétez le formulaire puis validez. La personne recevera un e-mail mentionnant qu\'elle a été inscrite et lui indiquant son nouveau login et mot de passe.</li>
+<li><b>Ajouter un utilisateur</b>. Cliquez sur cette commande pour ajouter un utilisateur dans le cours. Complétez le formulaire puis validez. La personne recevra un e-mail mentionnant qu\'elle a été inscrite et lui indiquant son nouveau login et mot de passe.</li>
 <li><b>Ajouter une liste d\'utilisateurs</b></li> Cliquez sur cette commande pour ajouter une liste d\'utilisateurs à l\'aide d\'un fichier au format CSV.</li>
 <li><b>Inscrire une classe</b>. Cliquez sur cette commande pour ajouter une collection d\'utilisateurs rassemblés dans une classe prédéfinie par l\'administrateur de la plate-forme.</li>
 <li><b>Gestion des groupes</b>. Permet d\'accéder directement à l\'outil de gestion des groupes.</li>
@@ -2379,7 +2379,7 @@ $_lang['blockWikiHelpAdminContent'] = '<h3>Aide à la gestion des wikis</h3>
 <li><b>Membres du cours</b>&nbsp;: utilisateurs inscrits au cours (sauf les gestionnaires de cours)</li>
 <li><b>Membres du groupe</b> (uniquement dans un wiki de groupe)&nbsp;: utilisateurs inscrits dans le groupe (sauf les tuteurs)</li>
 <li><b>Autres utilisateurs</b>&nbsp;: utilisateurs anonymes ou non inscrits au cours</li></ul>
-Pour chaque type d\'utilisateur, vous pouvez activer/désactiver trois types de droits d\'accés(*)&nbsp;:<ul>
+Pour chaque type d\'utilisateur, vous pouvez activer/désactiver trois types de droits d\'accès(*)&nbsp;:<ul>
 <li><b>Lire les pages</b>&nbsp;: les utilisateurs de ce type peuvent lire les pages du wiki</li>
 <li><b>Éditer les pages</b>&nbsp;: les utilisateurs de ce type peuvent modifier le contenu des pages du wiki</li>
 <li><b>Créer des pages</b>&nbsp;: les utilisateurs de ce type peuvent créer de nouvelles pages dans le wiki</li>
@@ -2397,7 +2397,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <h2>Syntaxe de base</h2>
 <dl class="wikiHelp">
 <dt>Création de pages et liens vers des pages du Wiki</dt>
-<dd><strong>Mots Wiki</strong> :les mots Wiki sont des mots du type <em>MotWiki</em>. Wiki2xhtml les reconnait automatiquement comme étant des liens vers de pages du Wiki. Pour créer une page ou créer un lien vers cette page, ajoutez son titre en mot Wiki, par example <em>MaPage</em>, au contenu d\'une page déjà existante et enregistrez vos modifications. Le titre en mot Wiki <em>MaPage</em> sera transformé automatiquement en lien vers la page de Wiki <em>MaPage</em> par wiki2xhtml&nbsp;;</dd>
+<dd><strong>Mots Wiki</strong> :les mots Wiki sont des mots du type <em>MotWiki</em>. Wiki2xhtml les reconnait automatiquement comme étant des liens vers de pages du Wiki. Pour créer une page ou créer un lien vers cette page, ajoutez son titre en mot Wiki, par exemple <em>MaPage</em>, au contenu d\'une page déjà existante et enregistrez vos modifications. Le titre en mot Wiki <em>MaPage</em> sera transformé automatiquement en lien vers la page de Wiki <em>MaPage</em> par wiki2xhtml&nbsp;;</dd>
 <dd><strong>Liens Wiki</strong> : les liens Wiki sont des hyperliens normaux (voir plus loin) mais ne contiennent pas de schéma de protocole web (comme <em>http:://</em> or <em>ftp:://</em>). Pour créer une page ou créer un lien vers cette page avec un lien Wiki, ajoutez <code>[nom de la page]</code> or <code>[titre du lien|nom de la page]</code> au contenu d\'une page déjà existante. Vous pouvez également utiliser cette syntaxe pour changer le texte du lien d\'un mot Wiki : <code>[titre du lien|MotWiki]</code>.</dd>
 <dt>Lien hypertexte</dt>
 <dd><code>[url]</code>, <code>[nom|url]</code>, <code>[nom|url|langue]</code> ou <code>[nom|url|langue|titre]</code>.&nbsp;;</dd>
