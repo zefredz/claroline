@@ -97,7 +97,7 @@ if( get_conf('is_trackingEnabled'))
             AND CU.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
             AND A.`access_user_id` IS NULL
             ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students : ');
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students :');
 
         $results = claro_sql_query_fetch_all($sql);
 
@@ -126,7 +126,7 @@ if( get_conf('is_trackingEnabled'))
             HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY )
             ORDER BY A.`access_date` ASC
             ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Not recently connected students : ');
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Not recently connected students :');
 
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )

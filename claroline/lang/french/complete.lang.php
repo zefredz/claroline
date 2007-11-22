@@ -974,7 +974,7 @@ $_lang['Name of the class has been changed'] = 'Le nom de la classe a été modifi
 $_lang['Name of the new directory'] = 'Nom du nouveau répertoire';
 $_lang['Name of the tool'] = 'Nom de l\'outil';
 $_lang['Never browsed'] = 'Jamais visité';
-$_lang['Never connected students :'] = 'Utilisateurs qui ne se sont jamais connectés&nbsp;: ';
+$_lang['Never connected students :'] = 'Utilisateurs qui ne se sont jamais connectés&nbsp;:';
 $_lang['Never used'] = 'Jamais utilisé';
 $_lang['New Class name'] = 'Nom de la nouvelle classe';
 $_lang['New Wiki'] = 'Nouveau wiki';
@@ -1045,7 +1045,7 @@ $_lang['None'] = 'Aucun';
 $_lang['Not allowed'] = 'Vous n\'êtes pas autorisé à accéder à cette section';
 $_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Interdire (les noms des utilisateurs sont enregistrés dans les statistiques et les utilisateurs anonymes ne peuvent pas faire l\'exercice)';
 $_lang['Not found'] = 'Introuvable';
-$_lang['Not recently connected students :'] = 'Étudiants qui ne se sont pas connectés récemment&nbsp;: ';
+$_lang['Not recently connected students :'] = 'Étudiants qui ne se sont pas connectés récemment&nbsp;:';
 $_lang['Not valid course code'] = 'Code cours invalide';
 $_lang['Not valid user id'] = 'Identifiant utilisateur invalide';
 $_lang['Note :  this repository should be protected with a .htaccess or
@@ -1064,8 +1064,7 @@ $_lang['Number of courses by faculty'] = 'Nombre de cours par faculté';
 $_lang['Number of courses by language'] = 'Nombre de cours par langue';
 $_lang['Number of courses by visibility'] = 'Nombre de cours par visibilité';
 $_lang['Number of exercices per page'] = 'Nombre d\'exercices par page';
-$_lang['Number of learning paths using this module :'] = '
-Nombre de parcours utilisant ce module : ';
+$_lang['Number of learning paths using this module :'] = 'Nombre de parcours utilisant ce module :';
 $_lang['Number of logins'] = 'Nombre de logins';
 $_lang['Number of pages'] = 'Nombre de pages';
 $_lang['Number of posts per page'] = 'Nombre de message par page';
