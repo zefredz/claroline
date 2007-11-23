@@ -359,7 +359,7 @@
                 $new = htmlspecialchars( $new );
 
                 // get differences
-                $diff = '<table style="border: 0;">'.diff( $old, $new, true, 'format_table_line' ).'</table>';
+                $diff = '<table style="border: 0;">'.diff( $new, $old, true, 'format_table_line' ).'</table>';
             }
 
             break;
