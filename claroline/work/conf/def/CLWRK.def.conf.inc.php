@@ -26,7 +26,7 @@ $conf_def['config_class']= 'tool';
 
 $conf_def['section']['main']['label']      = 'Main';
 $conf_def['section']['main']['properties'] =
-array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'assignmentsPerPage', 'usersPerPage' );
+array ( 'confval_def_sub_vis_change_only_new', 'open_submitted_file_in_new_window', 'show_only_author', 'mail_notification', 'allow_download_all_submissions', 'assignmentsPerPage', 'usersPerPage' );
 
 $conf_def['section']['quota']['label']      = 'Quota';
 $conf_def['section']['quota']['description']= 'Disk space allowed for submitted files';
@@ -67,7 +67,7 @@ array ('label'     => 'Show only author submissions'
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'TRUE'=> 'Only his own submissions', 'FALSE'=>'All visible submissions' )
         );
-        
+
 $conf_def_property_list['mail_notification'] =
 array ('label'     => 'Mail notification'
         ,'description' => 'If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.'
@@ -97,7 +97,17 @@ array ('label'         => 'Number of user per page'
       ,'type'          => 'integer'
       ,'unit'          => 'users'
       );
-              
+
+$conf_def_property_list['allow_download_all_submissions'] =
+array ('label'         => 'Allow teacher to download all submissions'
+      ,'description'   => 'Add a "Download all submissions" link in the teacher commands'
+      ,'display'       => TRUE
+      ,'readonly'      => FALSE
+      ,'default'       => FALSE
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ( 'TRUE'=> 'Yes', 'FALSE'=>'No' )
+      );
+
 $conf_def_property_list['max_file_size_per_works'] =
 array ('label'         => 'Maximum size for an assignment'
       ,'description'   => 'Maximum size of a document that a user can upload'
