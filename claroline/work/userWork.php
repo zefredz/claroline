@@ -268,7 +268,7 @@ $is_allowedToEdit = (bool)  (  ( $uploadDateIsOk && $userCanEdit ) || $is_allowe
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
     // user is authed and allowed
-    $userCanPost = (bool) ( claro_is_user_authenticated() && claro_is_course_allowed() );
+    $userCanPost = (bool) ( claro_is_user_authenticated() && claro_is_course_allowed() && $_REQUEST['authId'] == claro_get_current_user_id());
 }
 else
 {
@@ -1376,7 +1376,7 @@ if( $dispWrkLst )
         }
     }
 
-    if( isset($userGroupList[$_REQUEST['authId']]) || ($_REQUEST['authId'] == claro_get_current_user_id() && $is_allowedToSubmit) || $is_allowedToEditAll )
+    if( $is_allowedToSubmit )
     {
         // link to create a new submission
         $cmdMenu = array();
